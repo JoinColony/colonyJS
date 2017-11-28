@@ -1,8 +1,8 @@
 /* eslint-env jest */
 
-import ColonyContract from '../ColonyContract';
+import Contract from '../Contract';
 
-describe('ColonyContract', () => {
+describe('Contract', () => {
   const adapter = {
     getContract() {
       return {
@@ -20,12 +20,12 @@ describe('ColonyContract', () => {
   };
 
   test('Initialization', () => {
-    const colonyContract = new ColonyContract('TestContract', adapter);
+    const colonyContract = new Contract('TestContract', adapter);
     expect(colonyContract._adapter).toBe(adapter);
   });
 
   test('Contract loading', () => {
-    const colonyContract = new ColonyContract('TestContract', adapter);
+    const colonyContract = new Contract('TestContract', adapter);
     return colonyContract.loadContract().then(() => {
       expect(colonyContract.ready).toBeTruthy();
       expect(typeof colonyContract.functions.createColony).toBe('function');
@@ -36,7 +36,7 @@ describe('ColonyContract', () => {
   });
 
   test('Contract loading for versioned contract', () => {
-    const colonyContract = new ColonyContract('TestContract', adapter);
+    const colonyContract = new Contract('TestContract', adapter);
     return colonyContract.loadContract(1).then(() => {
       expect(colonyContract.ready).toBeTruthy();
       expect(typeof colonyContract.functions.createColony).toBe('function');
