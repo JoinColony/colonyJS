@@ -3,6 +3,9 @@
 	"devDependencies": {
 		"lerna": "^2.5.1"
     },
+    "scripts": {
+        "test": "flow check && lerna run test"
+    },
     "workspaces": [
         "packages/*"
     ]

@@ -8,7 +8,7 @@
         "flow": "flow src",
         "lint": "eslint src",
         "test:unit": "jest --coverage --config=jest.conf.json",
-        "test": "yarn run lint && yarn run flow && yarn run test:unit"
+        "test": "yarn run lint && yarn run test:unit"
     },
     "repository": {
         "type": "git",
