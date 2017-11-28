@@ -5,7 +5,7 @@ module.exports = {
   output: {
     filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),
-    library: 'colonyJSAdapterEthers',
+    library: 'colonyJS',
     libraryTarget: 'umd',
   },
   module: {
@@ -18,13 +18,5 @@ module.exports = {
         },
       },
     ],
-  },
-  externals: {
-    ethers: {
-      commonjs: 'ethers',
-      commonjs2: 'ethers',
-      amd: 'ethers',
-      root: 'ethers',
-    },
   },
 };
