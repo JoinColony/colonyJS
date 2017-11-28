@@ -1,0 +1,3 @@
+{
+    "extends": ["@colony/eslint-config-colony"]
+}
