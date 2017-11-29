@@ -2,9 +2,17 @@
     "name": "@colony/colony-js-adapter-ethers",
     "version": "1.0.0",
     "description": "ColonyContract adapter for ethers.js",
-    "main": "src/index.js",
+    "main": "lib/index.js",
+    "files": [
+        "dist",
+        "lib",
+        "Readme.md"
+    ],
     "scripts": {
-        "build": "webpack",
+        "build": "yarn run build:dist && yarn run build:lib && yarn run build:flow",
+        "build:dist": "webpack",
+        "build:lib": "babel src --out-dir lib --ignore __tests__",
+        "build:flow": "flow-copy-source src lib --ignore '__tests__/*.js'",
         "flow": "flow src",
         "lint": "eslint src",
         "test:unit": "jest --coverage --config=jest.conf.json",

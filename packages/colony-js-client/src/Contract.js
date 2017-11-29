@@ -1,5 +1,6 @@
 /* @flow */
 
+// TODO: replace with interfaces
 import { Contract as ContractType } from 'ethers';
 import Adapter from '@colony/colony-js-adapter-ethers';
 
