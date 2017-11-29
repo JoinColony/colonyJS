@@ -2,8 +2,7 @@
 
 // TODO: Consider just copying this function over if we don't use much more of the utils
 import { utf8ToHex } from 'web3-utils';
-// FIXME: is that correct?
-import Adapter from '@colony/colony-js-adapter-ethers';
+import type { IAdapter } from '@colony/colony-js-adapter';
 
 import { ColonyContract, ColonyNetworkContract } from './ContractTypes';
 
@@ -13,17 +12,17 @@ class Colony {
   address: string;
   name: string;
   version: number;
-  static async create(name: string, adapter: Adapter, version: number): Promise<Colony> {
+  static async create(name: string, adapter: IAdapter, version: number): Promise<Colony> {
     const colony = new Colony(name, adapter);
     await colony.createSelf(version);
     return colony;
   }
-  static async fromName(name: string, adapter: Adapter): Promise<Colony> {
+  static async fromName(name: string, adapter: IAdapter): Promise<Colony> {
     const colony = new Colony(name, adapter);
     await colony.loadSelf();
     return colony;
   }
-  constructor(name: string, adapter: Adapter) {
+  constructor(name: string, adapter: IAdapter) {
     this.name = name;
     this._networkContract = new ColonyNetworkContract('ColonyNetwork', adapter);
     this._colonyContract = new ColonyContract('Colony', adapter);

@@ -1,8 +1,6 @@
 /* @flow */
 
-// TODO: replace with interfaces
-import { Contract as ContractType } from 'ethers';
-import Adapter from '@colony/colony-js-adapter-ethers';
+import type { IAdapter, IContract } from '@colony/colony-js-adapter';
 
 type CompiledContract = {
   abi: Object,
@@ -14,13 +12,13 @@ type CompiledContract = {
 };
 
 class Contract {
-  _adapter: Adapter;
-  _contract: ContractType;
+  _adapter: IAdapter;
+  _contract: IContract;
   address: string;
   contractName: string;
   estimate: Object;
   functions: Object;
-  constructor(contractName: string, adapter: Adapter) {
+  constructor(contractName: string, adapter: IAdapter) {
     this.contractName = contractName;
     this._adapter = adapter;
   }

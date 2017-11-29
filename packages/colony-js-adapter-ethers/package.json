@@ -20,7 +20,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/JoinColony/colony-js-adapter-ethers.git"
+        "url": "git+https://github.com/JoinColony/colony-js.git"
     },
     "keywords": [
         "ethers",
@@ -31,9 +31,9 @@
     "author": "Christian Maniewski <chris@colony.io>",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/JoinColony/colony-js-adapter-ethers/issues"
+        "url": "https://github.com/JoinColony/colony-js/issues"
     },
-    "homepage": "https://github.com/JoinColony/colony-js-adapter-ethers#readme",
+    "homepage": "https://github.com/JoinColony/colony-js#readme",
     "devDependencies": {
         "ethers": "^2.1.3"
     },
