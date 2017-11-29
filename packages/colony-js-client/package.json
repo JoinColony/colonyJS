@@ -21,7 +21,8 @@
     "author": "Christian Maniewski <chris@colony.io>",
     "license": "MIT",
     "devDependencies": {
-        "babel-plugin-dynamic-import-node": "^1.2.0"
+        "babel-plugin-dynamic-import-node": "^1.2.0",
+        "babel-plugin-syntax-dynamic-import": "^6.18.0"
     },
     "dependencies": {
         "web3-utils": "^1.0.0-beta.26"

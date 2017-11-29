@@ -1,5 +1,8 @@
 {
     "presets": ["env", "flow"],
+    "plugins": [
+        "syntax-dynamic-import"
+    ],
     "env": {
         "test": {
             "plugins": ["babel-plugin-dynamic-import-node"]
