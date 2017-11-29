@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
   entry: './src/index.js',
   output: {
-    filename: 'index.js',
+    filename: 'colony-js-adapter-ethers.js',
     path: path.resolve(__dirname, 'dist'),
     library: 'colonyJSAdapterEthers',
     libraryTarget: 'umd',

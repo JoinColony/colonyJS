@@ -3,9 +3,9 @@ const path = require('path');
 module.exports = {
   entry: './src/index.js',
   output: {
-    filename: 'index.js',
+    filename: 'colony-js-client.js',
     path: path.resolve(__dirname, 'dist'),
-    library: 'colonyJS',
+    library: 'colonyJSClient',
     libraryTarget: 'umd',
   },
   module: {
