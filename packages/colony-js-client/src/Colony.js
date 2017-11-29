@@ -44,7 +44,7 @@ class Colony {
     // return new Contract(address[0], colonyAbi, signer);
   }
   async loadSelf(): Promise<void> {
-    if (this.ready) return;
+    if (this.ready()) return;
     await this._networkContract.loadContract();
     // TODO: Find out version here
     const VERSION = 0;
