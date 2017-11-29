@@ -1,3 +1,4 @@
+export { default as Colony } from './Colony';
 
 // import { Colony, ColonyClient } from 'colony-js';
 // import Adapter from '@colony/colony-js-adapter-ethers';

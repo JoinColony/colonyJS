@@ -1,6 +1,10 @@
 {
     "presets": ["env", "flow"],
     "plugins": [
+        ["transform-runtime", {
+            "polyfill": false,
+            "regenerator": true
+        }],
         "syntax-dynamic-import"
     ],
     "env": {
