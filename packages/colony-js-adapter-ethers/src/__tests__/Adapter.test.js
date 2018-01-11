@@ -3,11 +3,14 @@
 import { Contract } from 'ethers';
 import Adapter from '../';
 
-jest.mock('ethers', () => ({
-  Contract: jest.fn(() => ({ address: '0xdeadbeef' })),
-  Interface: jest.fn(),
-}), { virtual: true });
-
+jest.mock(
+  'ethers',
+  () => ({
+    Contract: jest.fn(() => ({ address: '0xdeadbeef' })),
+    Interface: jest.fn(),
+  }),
+  { virtual: true }
+);
 
 describe('ethers.js adapter', () => {
   const fakeSigner = {};

@@ -1,4 +1,6 @@
-export { default as Colony } from './Colony';
+import Colony from './Colony';
+
+export default Colony;
 
 // import { Colony, ColonyClient } from 'colony-js';
 // import Adapter from '@colony/colony-js-adapter-ethers';
@@ -6,12 +8,9 @@ export { default as Colony } from './Colony';
 // const adapter = new Adapter(web3);
 // const colony = Colony.create('coolony', adapter, 1);
 
-
 // const Colony = new Colony('coolony', adapter, 1);
 
 // const colonyClient = new ColonyClient(adapter);
-
-
 
 // colonyClient.colony.create('coolony');
 // colonyClient.colony.upgrade('coolony');

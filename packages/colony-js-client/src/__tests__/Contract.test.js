@@ -21,6 +21,7 @@ describe('Contract', () => {
 
   test('Initialization', () => {
     const colonyContract = new Contract('TestContract', adapter);
+    // eslint-disable-next-line no-underscore-dangle
     expect(colonyContract._adapter).toBe(adapter);
   });
 
