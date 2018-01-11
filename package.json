@@ -18,16 +18,20 @@
         "eslint-plugin-import": "^2.8.0",
         "flow-bin": "^0.59.0",
         "flow-copy-source": "^1.2.1",
+        "husky": "^0.14.3",
         "jest": "^21.2.1",
         "jest-sandbox": "^1.1.1",
         "lerna": "^2.5.1",
+        "lint-staged": "^6.0.0",
         "prettier": "1.10.2",
         "webpack": "^3.8.1"
     },
     "scripts": {
+        "precommit": "lint-staged",
         "test": "flow check && lerna run test"
     },
-    "workspaces": [
-        "packages/*"
-    ]
+    "lint-staged": {
+        "*.{js,json,css,md}": ["prettier --write", "git add"]
+    },
+    "workspaces": ["packages/*"]
 }
