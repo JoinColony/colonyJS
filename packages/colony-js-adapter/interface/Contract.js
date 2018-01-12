@@ -1,6 +1,10 @@
 /* @flow */
 
 export interface Contract {
-  estimate: { [string]: Function };
-  functions: { [string]: Function };
+  estimate: {
+    [string]: Function,
+  };
+  functions: {
+    [string]: Function,
+  };
 }

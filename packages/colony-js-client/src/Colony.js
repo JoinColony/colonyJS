@@ -12,21 +12,12 @@ class Colony {
   address: string;
   name: string;
   version: number;
-  static async create(
-    name: string,
-    adapter: IAdapter,
-    bootstrapAddress: ?string,
-    version: ?number
-  ): Promise<Colony> {
+  static async create(name: string, adapter: IAdapter, bootstrapAddress: ?string, version: ?number): Promise<Colony> {
     const colony = new Colony(name, adapter);
     await colony.createSelf(bootstrapAddress, version);
     return colony;
   }
-  static async fromName(
-    name: string,
-    adapter: IAdapter,
-    bootstrapAddress: ?string
-  ): Promise<Colony> {
+  static async fromName(name: string, adapter: IAdapter, bootstrapAddress: ?string): Promise<Colony> {
     const colony = new Colony(name, adapter);
     await colony.loadSelf(bootstrapAddress);
     return colony;
@@ -47,9 +38,7 @@ class Colony {
       gasLimit: 4300000,
     });
     // TODO: Replace with event based schema
-    const result = await this._networkContract.functions.getColony(
-      utf8ToHex(this.name)
-    );
+    const result = await this._networkContract.functions.getColony(utf8ToHex(this.name));
     const [address] = result;
     // TODO: get version here
     await this._colonyContract.loadContract(address, version);
@@ -62,9 +51,7 @@ class Colony {
     await this._networkContract.loadContract(bootstrapAddress);
     // TODO: Find out version here
     const VERSION = 0;
-    const result = await this._networkContract.functions.getColony(
-      utf8ToHex(this.name)
-    );
+    const result = await this._networkContract.functions.getColony(utf8ToHex(this.name));
     const [address] = result;
     await this._colonyContract.loadContract(address, VERSION);
     this.version = VERSION;
