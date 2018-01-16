@@ -41,7 +41,7 @@
         "url": "https://github.com/JoinColony/colony-js/issues"
     },
     "homepage": "https://github.com/JoinColony/colony-js#readme",
-    "peerDependencies": {
+    "dependencies": {
         "ethers": "^2.1.3"
     }
 }
