@@ -16,7 +16,6 @@
         "eslint-import-resolver-jest": "^1.1.0",
         "eslint-plugin-flowtype": "^2.41.0",
         "eslint-plugin-import": "^2.8.0",
-        "eslint-plugin-react": "^7.5.1",
         "flow-bin": "^0.59.0",
         "flow-copy-source": "^1.2.1",
         "husky": "^0.14.3",
@@ -28,14 +27,14 @@
         "webpack": "^3.8.1"
     },
     "scripts": {
-        "prettier": "run(){ ./node_modules/prettier/bin-prettier.js --write ${@:-\"packages/**/src/{,**/}*.js\"}; }; run",
-        "precommit": "lint-staged",
+        "lint": "run(){ ./node_modules/.bin/eslint --ignore-pattern=**/{node_modules,dist,lib}/* --fix ${@:-\"packages/**/src/{,**/}*.js\"}; }; run",
+        "precommit": "lerna run --concurrency 1 --stream precommit",
         "test": "flow check && lerna run test"
-    },
-    "lint-staged": {
-        "*.{js}": ["pretter", "git add"]
     },
     "workspaces": [
         "packages/*"
-    ]
+    ],
+    "dependencies": {
+        "eslint-plugin-prettier": "^2.4.0"
+    }
 }
