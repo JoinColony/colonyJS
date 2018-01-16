@@ -28,7 +28,7 @@
         "webpack": "^3.8.1"
     },
     "scripts": {
-        "lint": "run(){ ./node_modules/.bin/eslint --ignore-pattern=**/{node_modules,dist,lib}/* --fix ${@:-\"packages/**/src/{,**/}*.js\"}; }; run",
+        "lint": "run(){ eslint --ignore-pattern=**/{node_modules,dist,lib}/* --fix ${@:-\"packages/**/src/{,**/}*.js\"}; }; run",
         "precommit": "lerna run --concurrency 1 --stream precommit",
         "test": "flow check && lerna run test"
     },
