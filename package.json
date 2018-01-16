@@ -12,17 +12,24 @@
         "babel-preset-flow": "^6.23.0",
         "eslint": "^4.11.0",
         "eslint-config-airbnb-base": "^12.1.0",
+        "eslint-config-prettier": "^2.9.0",
         "eslint-import-resolver-jest": "^1.1.0",
-        "eslint-plugin-flowtype": "^2.39.1",
+        "eslint-plugin-flowtype": "^2.41.0",
         "eslint-plugin-import": "^2.8.0",
+        "eslint-plugin-prettier": "^2.4.0",
         "flow-bin": "^0.59.0",
         "flow-copy-source": "^1.2.1",
+        "husky": "^0.14.3",
         "jest": "^21.2.1",
         "jest-sandbox": "^1.1.1",
         "lerna": "^2.5.1",
+        "lint-staged": "^6.0.0",
+        "prettier": "^1.10.2",
         "webpack": "^3.8.1"
     },
     "scripts": {
+        "lint": "run(){ eslint --ignore-pattern=**/{node_modules,dist,lib}/* --fix ${@:-\"packages/**/src/{,**/}*.js\"}; }; run",
+        "precommit": "lerna run --concurrency 1 --stream precommit",
         "test": "flow check && lerna run test"
     },
     "workspaces": [

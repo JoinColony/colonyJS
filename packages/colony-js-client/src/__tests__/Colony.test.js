@@ -54,7 +54,9 @@ describe('Colony', () => {
     const colony = new Colony('coolony', adapter);
     sandbox.spyOn(colony, 'ready').mockImplementation(() => false);
     return colony.createSelf().then(() => {
-      expect(colony._networkContract.functions.createColony).toHaveBeenCalledWith('0x636f6f6c6f6e79', { gasLimit: 4300000 });
+      expect(colony._networkContract.functions.createColony).toHaveBeenCalledWith('0x636f6f6c6f6e79', {
+        gasLimit: 4300000,
+      });
       expect(colony._networkContract.functions.getColony).toHaveBeenCalledWith('0x636f6f6c6f6e79');
       expect(colony._colonyContract.loadContract).toHaveBeenCalledWith(undefined, '0xaddress');
       expect(colony.version).toBeUndefined();
@@ -74,19 +76,21 @@ describe('Colony', () => {
     });
   });
 
-  test('Convenient creation', () => Colony.create('coolony3', adapter, 1).then((colony) => {
-    expect(colony).toBeInstanceOf(Colony);
-    expect(colony.name).toEqual('coolony3');
-    expect(colony.version).toEqual(1);
-    expect(colony.address).toEqual('0xaddress');
-  }));
+  test('Convenient creation', () =>
+    Colony.create('coolony3', adapter, 1).then(colony => {
+      expect(colony).toBeInstanceOf(Colony);
+      expect(colony.name).toEqual('coolony3');
+      expect(colony.version).toEqual(1);
+      expect(colony.address).toEqual('0xaddress');
+    }));
 
-  test('Convenient loading', () => Colony.fromName('coolony4', adapter).then((colony) => {
-    expect(colony).toBeInstanceOf(Colony);
-    expect(colony.name).toEqual('coolony4');
-    expect(colony.version).toEqual(0);
-    expect(colony.address).toEqual('0xaddress');
-  }));
+  test('Convenient loading', () =>
+    Colony.fromName('coolony4', adapter).then(colony => {
+      expect(colony).toBeInstanceOf(Colony);
+      expect(colony.name).toEqual('coolony4');
+      expect(colony.version).toEqual(0);
+      expect(colony.address).toEqual('0xaddress');
+    }));
 
   test('Doesnt create if ready', () => {
     const colony = new Colony('coolony5', adapter);

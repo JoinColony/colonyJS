@@ -10,6 +10,6 @@ declare module 'ethers' {
   }
 
   declare module.exports: {
-    Contract: typeof Contract
-  }
+    Contract: typeof Contract,
+  };
 }

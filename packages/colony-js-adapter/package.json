@@ -12,6 +12,16 @@
         "type": "git",
         "url": "git+https://github.com/JoinColony/colony-js.git"
     },
+    "scripts": {
+        "lint": "eslint ./{,interface/}*.js",
+        "precommit": "lint-staged"
+    },
+    "lint-staged": {
+        "./{,interface/}*": [
+            "lint --fix",
+            "git add"
+        ]
+    },
     "author": "Christian Maniewski <chris@colony.io>",
     "license": "MIT",
     "bugs": {

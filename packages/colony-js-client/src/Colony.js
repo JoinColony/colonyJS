@@ -34,7 +34,9 @@ class Colony {
     if (this.ready()) return;
     // TODO: Versioning is tentative here
     await this._networkContract.loadContract(bootstrapAddress);
-    await this._networkContract.functions.createColony(utf8ToHex(this.name), { gasLimit: 4300000 });
+    await this._networkContract.functions.createColony(utf8ToHex(this.name), {
+      gasLimit: 4300000,
+    });
     // TODO: Replace with event based schema
     const result = await this._networkContract.functions.getColony(utf8ToHex(this.name));
     const [address] = result;

@@ -1,9 +1,19 @@
 {
-    "extends": ["@colony/eslint-config-colony"],
-    "env": {
-        "browser": true
-    },
-    "rules": {
-        "import/no-extraneous-dependencies": [0]
-    }
+  "extends": ["@colony/eslint-config-colony", "prettier", "prettier/flowtype"],
+  "env": {
+    "browser": true
+  },
+  "plugins": ["prettier"],
+  "rules": {
+    "import/no-extraneous-dependencies": [0],
+    "prettier/prettier": [
+      "error",
+      {
+        "parser": "flow",
+        "printWidth": 150,
+        "singleQuote": true,
+        "trailingComma": "es5"
+      }
+    ]
+  }
 }
