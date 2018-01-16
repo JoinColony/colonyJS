@@ -46,3 +46,10 @@ lerna publish
 ```
 
 and it will guide you through the [publish process](https://github.com/lerna/lerna#publish).
+
+To run a command for a single package, lerna ought to be used in order
+for the environment to resolve the common devDependencies:
+
+```
+lerna run --scope=@colony/my-package-name test
+```

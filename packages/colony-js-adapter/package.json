@@ -13,18 +13,14 @@
         "url": "git+https://github.com/JoinColony/colony-js.git"
     },
     "scripts": {
-        "lint": "../../node_modules/.bin/eslint ./{,interface/}*.js",
-        "precommit": "../../node_modules/.bin/lint-staged"
+        "lint": "eslint ./{,interface/}*.js",
+        "precommit": "lint-staged"
     },
     "lint-staged": {
         "./{,interface/}*": [
             "lint --fix",
             "git add"
         ]
-    },
-    "devDependencies": {
-        "flow-bin": "^0.59.0",
-        "lint-staged": "^5.0.0"
     },
     "author": "Christian Maniewski <chris@colony.io>",
     "license": "MIT",
