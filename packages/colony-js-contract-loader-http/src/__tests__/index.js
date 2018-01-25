@@ -1,5 +1,3 @@
-/* global beforeEach, jest */
-
 /* eslint-env jest */
 /* eslint no-underscore-dangle: 0 */
 import createSandbox from 'jest-sandbox';
@@ -9,15 +7,13 @@ import MetaCoin from '../__mocks__/MetaCoin.json';
 describe('ContractHttpLoader', () => {
   const sandbox = createSandbox();
   const metaCoinJson = JSON.stringify(MetaCoin);
-  const setupLoader = ({ endpoint = '//endpoint?name=%%NAME%%&version=%%VERSION%%', parser = 'truffle' } = {}) => {
-    const loader = new ContractHttpLoader({ endpoint, parser });
-    sandbox.spyOn(loader, '_load');
-    sandbox.spyOn(loader, 'resolveEndpointResource');
-    sandbox.spyOn(global, 'fetch');
-    return loader;
-  };
+  const setupLoader = ({ endpoint = '//endpoint?name=%%NAME%%&version=%%VERSION%%', parser = 'truffle' } = {}) =>
+    new ContractHttpLoader({ endpoint, parser });
 
-  beforeEach(() => sandbox.clear());
+  beforeEach(() => {
+    fetch.resetMocks();
+    sandbox.clear();
+  });
 
   test('Custom parsers', async () => {
     const parser = jest.fn(jsonObj => ({ address: jsonObj.address, abi: jsonObj.abi }));
@@ -45,7 +41,10 @@ describe('ContractHttpLoader', () => {
 
   test('Making requests', async () => {
     const loader = setupLoader({ parser: jest.fn() });
+    sandbox.spyOn(loader, '_load');
+    sandbox.spyOn(loader, 'resolveEndpointResource');
     fetch.mockResponse('{}');
+
     await loader.load({ name: 'MyContract', version: 1 });
 
     expect(loader._load).toHaveBeenCalledTimes(1);
