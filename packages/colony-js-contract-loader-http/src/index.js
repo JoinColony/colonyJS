@@ -24,7 +24,8 @@ export default class ContractHttpLoader implements IContractLoader {
   }
   resolveEndpointResource({ name, version }: Query): string {
     let resource = this._endpoint.replace('%%NAME%%', name);
-    if (version != null && Number(parseFloat(version)) === version) {
+    // `version` can be a string or an integer
+    if (version != null && (typeof version === 'string' || Number(parseInt(version, 10)) === version)) {
       resource = resource.replace('%%VERSION%%', version.toString());
     }
     return resource;
