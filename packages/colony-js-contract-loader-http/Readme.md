@@ -23,7 +23,7 @@ import ContractLoaderHttp from '@colony/colony-js-contract-loader-http';
 // of a given name/version. In this case, we are using contracts generated
 // by [Truffle](https://github.com/trufflesuite/truffle).
 const loader = new ContractLoaderHttp({
-    endpoint: '//127.0.0.1:3030/contracts/?name=%%CONTRACT_NAME%%&version=%%VERSION%%',
+    endpoint: '//127.0.0.1:3030/contracts/?name=%%NAME%%&version=%%VERSION%%',
     parser: 'truffle'
 });
 
@@ -33,6 +33,14 @@ const colonyContract = await loader.getContract({ name: 'Colony' });
 const someContract = await loader.getContract({ name: 'A name of a contract that does not exist' });
 // throws an error
 ```
+
+
+## Endpoints
+
+The API endpoint is expected to serve JSON responses representing contract
+definitions. The `endpoint` option is a string with `%%INTERPOLATION%%`
+that populates the `%%NAME%%` and optionally %%VERSION%% placeholders,
+so that the requests made have the correct query parameters for the API.
 
 
 ## Parsers
@@ -46,10 +54,40 @@ definition.
 
 ```JavaScript
 const loader = new ContractLoaderHttp({
-    endpoint: '//my-contracts.example.com/api?contractName=%%CONTRACT_NAME%%',
+    endpoint: '//my-contracts.example.com/api?contractName=%%NAME%%',
     parser(jsonObj) {
         // Parse the object to get address/abi
         return { address, abi };
     },
 });
+```
+
+
+## How to use with TrufflePig
+
+[TrufflePig](https://github.com/JoinColony/trufflepig) is a tool that
+watches Truffle contract build artifact files and runs a local webserver
+which provides a simple API to get these files as JSON responses.
+
+On the local development environment, e.g. in a script that starts the app:
+```JavaScript
+import TrufflePig from 'trufflepig';
+
+const trufflePig = new TrufflePig({
+    paths: [process.env.TRUFFLE_ARTIFACTS_PATH],
+    port: process.env.TRUFFLEPIG_PORT,
+});
+```
+
+In the app, in development mode (in this example, with `dotenv` for
+environment variables):
+```JavaScript
+import ContractLoaderHttp from '@colony/colony-js-contract-loader-http';
+
+const loader = new ContractLoaderHttp({
+    endpoint: process.env.TRUFFLEPIG_ENDPOINT,
+    parser: 'truffle',
+});
+
+const colonyContract = await loader.getContract({ name: 'Colony' });
 ```
