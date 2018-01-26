@@ -1,3 +1,3 @@
 /* @flow */
 
-export { default } from './Adapter';
+export { default } from './EthersAdapter';
