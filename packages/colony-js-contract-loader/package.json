@@ -1,0 +1,31 @@
+{
+    "name": "@colony/colony-js-contract-loader",
+    "version": "1.0.0",
+    "description": "Contract loader interfaces",
+    "main": "index.js",
+    "files": [
+        "interface",
+        "index.js",
+        "Readme.md"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/JoinColony/colony-js.git"
+    },
+    "scripts": {
+        "lint": "eslint ./{,interface/}*.js",
+        "precommit": "lint-staged"
+    },
+    "lint-staged": {
+        "./{,interface/}*": [
+            "lint --fix",
+            "git add"
+        ]
+    },
+    "author": "James Lefrère <james@colony.io>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/JoinColony/colony-js/issues"
+    },
+    "homepage": "https://github.com/JoinColony/colony-js#readme"
+}
