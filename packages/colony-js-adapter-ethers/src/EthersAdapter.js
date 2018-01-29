@@ -18,6 +18,8 @@ export default class EthersAdapter implements IAdapter {
     this._provider = provider;
   }
   _createContract(address: string, abi: Object): IContract {
+    // The Contract interface is currently based on the ethers implementation,
+    // so no other transformation is necessary.
     return new ethers.Contract(address, abi, this._provider);
   }
   async getContract(query: Query, options?: Options): Promise<IContract> {
