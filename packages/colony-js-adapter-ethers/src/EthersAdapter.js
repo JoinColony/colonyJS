@@ -24,6 +24,6 @@ export default class EthersAdapter implements IAdapter {
   }
   async getContract(query: Query, options?: Options): Promise<IContract> {
     const { address, abi } = await this._loader.load(query, options);
-    return Promise.resolve(this._createContract(address, abi));
+    return this._createContract(address, abi);
   }
 }
