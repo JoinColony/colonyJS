@@ -1,7 +1,7 @@
 {
     "private": true,
     "devDependencies": {
-        "@colony/eslint-config-colony": "^1.0.3",
+        "@colony/eslint-config-colony": "^2.2.0",
         "babel-cli": "^6.26.0",
         "babel-core": "^6.26.0",
         "babel-eslint": "^8.0.2",
