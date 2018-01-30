@@ -1,4 +1,4 @@
-/* @flow */
+// FIXME later: Use the new adapter interface and re-enable Flow in this file
 
 import type { IAdapter, IContract } from '@colony/colony-js-adapter';
 

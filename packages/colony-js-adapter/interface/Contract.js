@@ -1,10 +1,19 @@
 /* @flow */
 
+import type { Provider } from './Provider';
+
 export interface Contract {
+  address: string;
+  constructor(address: string, abi: {}, provider: Provider): Contract;
   estimate: {
-    [string]: Function,
+    [string]: (*) => Promise<any>,
   };
   functions: {
-    [string]: Function,
+    [string]: (*) => Promise<any>,
   };
+  events: {
+    // e.g. onMyEventName
+    [string]: (Function) => void,
+  };
+  connect: Provider => Contract;
 }

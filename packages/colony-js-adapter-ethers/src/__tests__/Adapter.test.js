@@ -1,7 +1,8 @@
 /* eslint-env jest */
+/* eslint no-underscore-dangle: 0 */
 
 import { Contract } from 'ethers';
-import Adapter from '../';
+import EthersAdapter from '../EthersAdapter';
 
 jest.mock(
   'ethers',
@@ -15,24 +16,26 @@ jest.mock(
 );
 
 describe('ethers.js adapter', () => {
-  const fakeSigner = {};
-  const adapter = new Adapter(fakeSigner);
+  const fakeProvider = {};
 
-  test('Adapter has a signer', () => {
-    // eslint-disable-next-line no-underscore-dangle
-    expect(adapter._signer).toBe(fakeSigner);
+  const address = '0xdeadbeef';
+  const abi = {
+    foo: 'bar',
+  };
+
+  const mockLoader = {
+    load: jest.fn().mockReturnValue(Promise.resolve({ address, abi })),
+  };
+
+  const adapter = new EthersAdapter({ loader: mockLoader, provider: fakeProvider });
+
+  test('Adapter has a provider', () => {
+    expect(adapter._provider).toBe(fakeProvider);
   });
 
-  test('Adapter calls Contract with correct arguments', () => {
-    const address = '0xdeadbeef';
-    const abi = {
-      foo: 'bar',
-    };
-    const contract = adapter.getContract(address, abi);
-    expect(contract).toEqual({
-      address: '0xdeadbeef',
-    });
-    // eslint-disable-next-line no-underscore-dangle
-    expect(Contract).toHaveBeenCalledWith(address, abi, adapter._signer);
+  test('Adapter calls Contract with correct arguments', async () => {
+    const contract = await adapter.getContract({ name: 'myContractName' });
+    expect(contract).toEqual({ address });
+    expect(Contract).toHaveBeenCalledWith(address, abi, adapter._provider);
   });
 });
