@@ -43,7 +43,9 @@
     "homepage": "https://github.com/JoinColony/colony-js#readme",
     "dependencies": {
         "@colony/colony-js-adapter": "^1.0.0",
+        "@colony/colony-js-client": "^1.0.0",
         "@colony/colony-js-contract-loader": "^1.0.0",
+        "@colony/colony-js-contract-loader-http": "^1.0.0",
         "ethers": "^2.1.3"
     }
 }
