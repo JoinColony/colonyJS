@@ -1,7 +1,0 @@
-{
-    "networks": {
-        "test": {
-            "address": "0xdeadbeef"
-        }
-    }
-}
