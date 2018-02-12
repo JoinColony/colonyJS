@@ -1,0 +1,33 @@
+[
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "input",
+        "type": "uint8"
+      }
+    ],
+    "name": "echo",
+    "outputs": [
+      {
+        "name": "input",
+        "type": "uint8"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "name": "input",
+        "type": "uint8"
+      }
+    ],
+    "name": "TestEvent",
+    "type": "event"
+  }
+]
