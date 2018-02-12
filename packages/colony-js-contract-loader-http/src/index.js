@@ -11,7 +11,9 @@ import type {
 
 import PARSERS from './parsers';
 
-export default class ContractHttpLoader implements IContractLoader {
+type Options = {};
+
+export default class ContractHttpLoader implements IContractLoader<Options> {
   _endpoint: string;
   _parser: Parser;
   static selectParser(parser: ParserOption): Parser {
@@ -28,25 +30,41 @@ export default class ContractHttpLoader implements IContractLoader {
     throw new Error('Invalid parser supplied to ContractHttpLoader');
   }
   constructor({ endpoint, parser }: ConstructorArgs) {
-    this._endpoint = endpoint;
+    this._endpoint = endpoint; // TODO should validate endpoint and throw an error
     this._parser = ContractHttpLoader.selectParser(parser);
   }
-  resolveEndpointResource({ name, version }: Query): string {
-    let resource = this._endpoint.replace('%%NAME%%', name);
-    // `version` can be a string or an integer
-    if (
-      version != null &&
-      (typeof version === 'string' || Number(parseInt(version, 10)) === version)
-    ) {
-      resource = resource.replace('%%VERSION%%', version.toString());
+  resolveEndpointResource({ name, version, address }: Query): string {
+    let resource = '';
+    if (address) {
+      resource = this._endpoint.replace('%%ADDRESS%%', address);
+    } else if (name) {
+      resource = this._endpoint.replace('%%NAME%%', name);
+
+      // `version` can be a string or an integer
+      if (
+        version != null &&
+        (typeof version === 'string' ||
+          Number(parseInt(version, 10)) === version)
+      ) {
+        resource = resource.replace('%%VERSION%%', version.toString());
+      }
     }
     return resource;
   }
-  async _load({ name, version }: Query) {
-    return fetch(this.resolveEndpointResource({ name, version }));
+  async _load(query: Query) {
+    return fetch(this.resolveEndpointResource(query));
   }
   async load(query: Query): Promise<ContractDefinition> {
     const response = await this._load(query);
-    return this._parser(await response.json());
+    const json = await response.json();
+    const parsed = this._parser(json);
+
+    if (typeof parsed.address !== 'string')
+      throw new Error('Unable to parse contract address');
+
+    if (!(parsed.abi instanceof Array))
+      throw new Error('Unable to parse contract ABI');
+
+    return parsed;
   }
 }
