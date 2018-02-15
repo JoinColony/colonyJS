@@ -2,7 +2,11 @@
 
 import ethers from 'ethers';
 import type { IContract, IAdapter, IProvider } from '@colony/colony-js-adapter';
-import type { IContractLoader, Query, Options } from '@colony/colony-js-contract-loader';
+import type {
+  IContractLoader,
+  Query,
+  Options,
+} from '@colony/colony-js-contract-loader';
 
 type ConstructorArgs = {
   loader: IContractLoader,

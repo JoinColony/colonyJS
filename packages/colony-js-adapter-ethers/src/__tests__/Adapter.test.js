@@ -12,7 +12,7 @@ jest.mock(
     })),
     Interface: jest.fn(),
   }),
-  { virtual: true }
+  { virtual: true },
 );
 
 describe('ethers.js adapter', () => {
@@ -27,7 +27,10 @@ describe('ethers.js adapter', () => {
     load: jest.fn().mockReturnValue(Promise.resolve({ address, abi })),
   };
 
-  const adapter = new EthersAdapter({ loader: mockLoader, provider: fakeProvider });
+  const adapter = new EthersAdapter({
+    loader: mockLoader,
+    provider: fakeProvider,
+  });
 
   test('Adapter has a provider', () => {
     expect(adapter._provider).toBe(fakeProvider);

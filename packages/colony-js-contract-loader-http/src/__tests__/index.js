@@ -7,8 +7,10 @@ import MetaCoin from '../__mocks__/MetaCoin.json';
 describe('ContractHttpLoader', () => {
   const sandbox = createSandbox();
   const metaCoinJson = JSON.stringify(MetaCoin);
-  const setupLoader = ({ endpoint = '//endpoint?name=%%NAME%%&version=%%VERSION%%', parser = 'truffle' } = {}) =>
-    new ContractHttpLoader({ endpoint, parser });
+  const setupLoader = ({
+    endpoint = '//endpoint?name=%%NAME%%&version=%%VERSION%%',
+    parser = 'truffle',
+  } = {}) => new ContractHttpLoader({ endpoint, parser });
 
   beforeEach(() => {
     fetch.resetMocks();
@@ -16,7 +18,10 @@ describe('ContractHttpLoader', () => {
   });
 
   test('Custom parsers', async () => {
-    const parser = jest.fn(jsonObj => ({ address: jsonObj.address, abi: jsonObj.abi }));
+    const parser = jest.fn(jsonObj => ({
+      address: jsonObj.address,
+      abi: jsonObj.abi,
+    }));
     const loader = setupLoader({ parser });
     expect(loader._parser).toEqual(parser);
 
@@ -26,7 +31,9 @@ describe('ContractHttpLoader', () => {
     const contract = await loader.load({});
     expect(contract).toEqual(contractResponse);
 
-    expect(() => setupLoader({ parser: 'does not exist' })).toThrowError(/was not found/);
+    expect(() => setupLoader({ parser: 'does not exist' })).toThrowError(
+      /was not found/,
+    );
     expect(() => setupLoader({ parser: 123 })).toThrowError(/Invalid parser/);
   });
 
@@ -49,7 +56,10 @@ describe('ContractHttpLoader', () => {
 
     expect(loader._load).toHaveBeenCalledTimes(1);
     expect(loader.resolveEndpointResource).toHaveBeenCalledTimes(1);
-    expect(loader.resolveEndpointResource).toBeCalledWith({ name: 'MyContract', version: 1 });
+    expect(loader.resolveEndpointResource).toBeCalledWith({
+      name: 'MyContract',
+      version: 1,
+    });
     expect(fetch).toHaveBeenCalledTimes(1);
     expect(fetch).toBeCalledWith(`//endpoint?name=MyContract&version=1`);
   });

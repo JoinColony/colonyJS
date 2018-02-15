@@ -1,6 +1,10 @@
 /* @flow */
 
-import type { Query, Options, IContractLoader } from '@colony/colony-js-contract-loader';
+import type {
+  Query,
+  Options,
+  IContractLoader,
+} from '@colony/colony-js-contract-loader';
 import type { Contract } from './Contract';
 import type { Provider } from './Provider';
 
