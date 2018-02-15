@@ -5,7 +5,7 @@ import createSandbox from 'jest-sandbox';
 import Colony from '../Colony';
 import { ColonyContract, ColonyNetworkContract } from '../ContractTypes';
 
-describe('Colony', () => {
+describe.skip('Colony', () => {
   const sandbox = createSandbox();
   const adapter = {
     getContract() {
