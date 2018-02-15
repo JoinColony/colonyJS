@@ -1,5 +1,7 @@
 # colony-js
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/JoinColony/colony-js.svg?token=1fee7a42ece06b33380b3cc2c710775c7ae6e442a086a59dd77cd7e2809fe47c&ts=1518711661590)](https://greenkeeper.io/)
+
 Monorepo for the Colony JavaScript client
 
 ## What's a monorepo?

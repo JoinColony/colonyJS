@@ -2,5 +2,13 @@
   "extends": ["@colony/eslint-config-colony"],
   "env": {
     "browser": true
-  }
+  },
+  "overrides": [
+        {
+            "files": "*.test.js",
+            "rules": {
+                "flowtype/require-valid-file-annotation": "off"
+            }
+        }
+    ]
 }

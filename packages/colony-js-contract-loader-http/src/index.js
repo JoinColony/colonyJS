@@ -1,6 +1,13 @@
 /* @flow */
 
-import type { IContractLoader, ConstructorArgs, Query, ParserOption, Parser, ContractDefinition } from '@colony/colony-js-contract-loader';
+import type {
+  IContractLoader,
+  ConstructorArgs,
+  Query,
+  ParserOption,
+  Parser,
+  ContractDefinition,
+} from '@colony/colony-js-contract-loader';
 
 import PARSERS from './parsers';
 
@@ -12,7 +19,9 @@ export default class ContractHttpLoader implements IContractLoader {
       return parser;
     } else if (typeof parser === 'string') {
       if (!PARSERS[parser]) {
-        throw new Error(`ContractHttpLoader: The contract parser ${parser} was not found`);
+        throw new Error(
+          `ContractHttpLoader: The contract parser ${parser} was not found`,
+        );
       }
       return PARSERS[parser];
     }
@@ -25,7 +34,10 @@ export default class ContractHttpLoader implements IContractLoader {
   resolveEndpointResource({ name, version }: Query): string {
     let resource = this._endpoint.replace('%%NAME%%', name);
     // `version` can be a string or an integer
-    if (version != null && (typeof version === 'string' || Number(parseInt(version, 10)) === version)) {
+    if (
+      version != null &&
+      (typeof version === 'string' || Number(parseInt(version, 10)) === version)
+    ) {
       resource = resource.replace('%%VERSION%%', version.toString());
     }
     return resource;
