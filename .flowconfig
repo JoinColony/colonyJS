@@ -1,8 +1,10 @@
 [ignore]
+.*\.flow$
 
 [include]
 
 [libs]
+./flow-typed
 
 [lints]
 

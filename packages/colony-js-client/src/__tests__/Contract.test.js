@@ -2,7 +2,7 @@
 
 import Contract from '../Contract';
 
-describe('Contract', () => {
+describe.skip('Contract', () => {
   const adapter = {
     getContract() {
       return {
