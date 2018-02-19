@@ -11,6 +11,7 @@ export type TransactionReceipt = {
   log: Array<*>,
   logsBloom: string,
   root: string,
+  status: number, // 0 => failure, 1 => success
   transactionHash: string,
   transactionIndex: number,
 };
