@@ -2,14 +2,10 @@ import ethers from 'ethers';
 
 import type { IContract, IProvider, Event } from '@colony/colony-js-adapter';
 
-type EventListenerCallback = (event: Event) => *;
+type EventListenerCallback = (event: Event) => void;
 
 class EthersContract extends ethers.Contract implements IContract {
   _listeners: Map<string, EventListenerCallback>;
-  // TODO probably not necessary; can't Map use objects or arrays for `===` equality?
-  static listenerKey(eventName: string, transactionHash: string): string {
-    return `${eventName}-${transactionHash}`;
-  }
   constructor(address: string, abi: {}, provider: IProvider) {
     super(address, abi, provider);
     this._listeners = new Map();
@@ -17,35 +13,25 @@ class EthersContract extends ethers.Contract implements IContract {
   }
   _initialiseEvents(): Map<string, [string, Function]> {
     Object.getOwnPropertyNames(this.events).forEach(eventName => {
-      this.events[eventName] = event => {
-        this._dispatchEvent(event);
+      const self = this;
+      this[`on${eventName.toLowerCase()}`] = function eventDispatcher() {
+        self.dispatchEvent(this);
       };
     });
   }
-  _dispatchEvent(event: Event): void {
-    const key = this.constructor.listenerKey(
-      event.event,
-      event.transactionHash,
-    );
+  dispatchEvent(event: Event): void {
+    const key = `${event.event}-${event.transactionHash}`;
     const callback = this._listeners.get(key);
     if (callback) {
       this.removeListener(event.event, event.transactionHash);
       callback(event);
     }
   }
-  addListener(
-    eventName: string,
-    transactionHash: string,
-    callback: EventListenerCallback,
-  ): void {
-    this._listeners.set(
-      this.constructor.listenerKey(eventName, transactionHash),
-      callback,
-    );
+  addListener(eventName, transactionHash, callback) {
+    this._listeners.set(`${eventName}-${transactionHash}`, callback);
   }
-  removeListener(eventName: string, transactionHash: string): void {
-    const key = this.constructor.listenerKey(eventName, transactionHash);
-    this._listeners.delete(key);
+  removeListener(eventName, transactionHash) {
+    this._listeners.delete(`${eventName}-${transactionHash}`);
   }
 }
 
