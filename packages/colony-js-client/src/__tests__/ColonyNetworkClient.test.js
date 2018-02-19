@@ -2,7 +2,7 @@
 /* eslint no-underscore-dangle: 0 */
 import createSandbox from 'jest-sandbox';
 
-import ColonyNetworkClient from '../ColonyNetworkClient';
+import ColonyNetworkClient from '../client/ColonyNetworkClient';
 // import type { Transaction } from '@colony/colony-js-adapter';
 
 describe('ColonyNetworkClient', () => {

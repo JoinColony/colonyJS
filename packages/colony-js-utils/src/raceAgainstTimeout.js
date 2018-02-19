@@ -13,14 +13,9 @@ async function raceAgainstTimeout<T>(
       reject(error);
     }, timeoutMs);
   });
-  const wrappedPromise = new Promise((resolve, reject) => {
-    setTimeout(() => {
-      promise.then((...args) => resolve(...args)).catch(error => reject(error));
-    }, 1000);
-  });
 
   try {
-    return timeoutPromise;
+    return await Promise.race([promise, timeoutPromise]);
   } finally {
     clearTimeout(timeout);
   }

@@ -2,8 +2,8 @@
 /* eslint no-underscore-dangle: 0 */
 import createSandbox from 'jest-sandbox';
 
-import ColonyClient from '../ColonyClient';
-import ColonyNetworkClient from '../ColonyNetworkClient';
+import ColonyClient from '../client/ColonyClient';
+import ColonyNetworkClient from '../client/ColonyNetworkClient';
 
 describe('ColonyClient', () => {
   const sandbox = createSandbox();

@@ -2,7 +2,7 @@
 
 import * as web3 from 'web3-utils';
 import createSandbox from 'jest-sandbox';
-import ContractClient from '../ContractClient';
+import ContractClient from '../client/ContractClient';
 
 describe('ContractClient', () => {
   const sandbox = createSandbox();
