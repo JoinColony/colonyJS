@@ -14,7 +14,7 @@ class EthersContract extends ethers.Contract implements IContract {
   _initialiseEvents(): Map<string, [string, Function]> {
     Object.getOwnPropertyNames(this.events).forEach(eventName => {
       const self = this;
-      this[`on${eventName.toLowerCase()}`] = function eventDispatcher() {
+      this.events[eventName] = function eventDispatcher() {
         self.dispatchEvent(this);
       };
     });

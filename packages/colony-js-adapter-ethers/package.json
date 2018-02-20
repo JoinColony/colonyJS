@@ -47,7 +47,7 @@
         "@colony/colony-js-contract-loader": "^1.0.0",
         "@colony/colony-js-contract-loader-http": "^1.0.0",
         "@colony/colony-js-utils": "^1.0.0",
-        "ethers": "^2.1.3"
+        "ethers": "^2.2.6"
     },
     "devDependencies": {
         "jest": "^22.1.4",
