@@ -14,7 +14,7 @@ type createColony<T> = (name: string) => Promise<T>;
 type upgradeColony<T> = (name: string, newVersion: number) => Promise<T>;
 
 export interface ColonyNetworkContract extends IContract {
-  estimates: {
+  estimate: {
     addColonyVersion: addColonyVersion<BigNumber>,
     addSkill: addSkill<BigNumber>,
     appendReputationUpdateLog: appendReputationUpdateLog<BigNumber>,
