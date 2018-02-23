@@ -1,3 +1,5 @@
+/* @flow */
+
 declare module 'bn.js' {
   declare type $npm$big$number$object = number | string | BigNumber;
   declare type $npm$cmp$result = -1 | 0 | 1;
