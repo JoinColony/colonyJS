@@ -1,7 +1,11 @@
+/* @flow */
+
 export const ROLES = {
   WORKER: 0,
   EVALUATOR: 1,
   MANAGER: 2,
 };
-export const DEFAULT_TIMEOUT = 60 * 1000; // 1 minute
-export const MINING_TIMEOUT = 5 * 60 * 1000; // 5 minutes
+
+export const MIN_RATING = 1;
+
+export const MAX_RATING = 5;
