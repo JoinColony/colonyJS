@@ -18,7 +18,7 @@
         "eslint-plugin-flowtype": "^2.44.0",
         "eslint-plugin-import": "^2.8.0",
         "eslint-plugin-prettier": "^2.6.0",
-        "flow-bin": "^0.65.0",
+        "flow-bin": "^0.66.0",
         "flow-copy-source": "^1.2.1",
         "husky": "^0.14.3",
         "jest": "^22.3.0",
@@ -29,6 +29,7 @@
         "webpack": "^3.8.1"
     },
     "scripts": {
+        "lint": "run(){ eslint --ignore-pattern=**/{node_modules,dist,lib}/* --fix ${@:-\"packages/**/src/{,**/}*.js\"}; }; run",
         "precommit": "lerna run --concurrency 1 --stream precommit",
         "test": "flow check && lerna run test"
     },
