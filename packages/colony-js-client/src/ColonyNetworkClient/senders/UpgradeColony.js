@@ -1,13 +1,15 @@
 /* @flow */
 
-import { utf8ToHex } from 'web3-utils';
+import { toUtf8Bytes } from 'ethers-utils';
 
-import ColonyNetworkClient from '../index';
+import ContractClient from '@colony/colony-js-contract-client';
+
+import type ColonyNetworkClient from '../index';
 
 type Params = { key: string, newVersion: number };
 type EventData = {};
 
-export default class UpgradeColony extends ColonyNetworkClient.Sender<
+export default class UpgradeColony extends ContractClient.Sender<
   Params,
   EventData,
   // eslint-disable-next-line
@@ -26,7 +28,7 @@ export default class UpgradeColony extends ColonyNetworkClient.Sender<
     };
   }
   static parseParams({ key, newVersion }: Params) {
-    return [utf8ToHex(key), newVersion];
+    return [toUtf8Bytes(key), newVersion];
   }
   get _estimate(): (string, number) => * {
     return this.client.contract.estimate.upgradeColony;

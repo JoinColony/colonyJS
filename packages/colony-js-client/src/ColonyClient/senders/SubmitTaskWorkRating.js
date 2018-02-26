@@ -1,15 +1,17 @@
 /* @flow */
 
-import { utf8ToHex } from 'web3-utils';
+import { toUtf8Bytes } from 'ethers-utils';
 
-import ColonyClient from '../index';
+import ContractClient from '@colony/colony-js-contract-client';
+
+import type ColonyClient from '../index';
 import { ROLES } from '../../constants';
 import { TASK_ID, ROLE } from '../../schemaDefinitions';
 
 type Params = { taskId: number, role: string, secret: string };
 type EventData = {};
 
-export default class SubmitTaskWorkRating extends ColonyClient.Sender<
+export default class SubmitTaskWorkRating extends ContractClient.Sender<
   Params,
   EventData,
   ColonyClient,
@@ -24,7 +26,7 @@ export default class SubmitTaskWorkRating extends ColonyClient.Sender<
     };
   }
   static parseParams({ taskId, role, secret }: Params) {
-    return [taskId, ROLES[role], utf8ToHex(secret)];
+    return [taskId, ROLES[role], toUtf8Bytes(secret)];
   }
   get _send(): (number, number, string) => * {
     return this.client.contract.functions.submitTaskWorkRating;

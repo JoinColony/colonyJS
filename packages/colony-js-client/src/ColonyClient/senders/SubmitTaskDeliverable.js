@@ -1,14 +1,16 @@
 /* @flow */
 
-import { utf8ToHex } from 'web3-utils';
+import { toUtf8Bytes } from 'ethers-utils';
 
-import ColonyClient from '../index';
+import ContractClient from '@colony/colony-js-contract-client';
+
+import type ColonyClient from '../index';
 import { TASK_ID } from '../../schemaDefinitions';
 
 type Params = { taskId: number, deliverableHash: string };
 type EventData = {};
 
-export default class SubmitTaskDeliverable extends ColonyClient.Sender<
+export default class SubmitTaskDeliverable extends ContractClient.Sender<
   Params,
   EventData,
   ColonyClient,
@@ -22,7 +24,7 @@ export default class SubmitTaskDeliverable extends ColonyClient.Sender<
     };
   }
   static parseParams({ taskId, deliverableHash }: Params) {
-    return [taskId, utf8ToHex(deliverableHash)];
+    return [taskId, toUtf8Bytes(deliverableHash)];
   }
   get _estimate(): (number, string) => * {
     return this.client.contract.estimate.submitTaskDeliverable;

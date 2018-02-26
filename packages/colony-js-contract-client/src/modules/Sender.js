@@ -41,6 +41,12 @@ export default class Sender<
   +_estimate: *;
   +eventHandlers: EventHandlers;
   client: IContractClient;
+  // eslint-disable-next-line no-unused-vars
+  static parseParams(params: Params): Array<*> {
+    throw new TypeError(
+      'Sender.parseParams should be extended in a derived class',
+    );
+  }
   constructor(client: IContractClient) {
     super();
     this.client = client;
@@ -50,7 +56,7 @@ export default class Sender<
     { timeoutMs }: SendOptions,
   ): Promise<BigNumber> {
     return utils.raceAgainstTimeout(
-      this._estimate(...this.parseParams(params)),
+      this._estimate(...this.constructor.parseParams(params)),
       timeoutMs,
     );
   }
@@ -109,7 +115,7 @@ export default class Sender<
     timeoutMs: number,
   ) {
     return utils.raceAgainstTimeout(
-      this._send(...this.parseParams(params), transactionOptions),
+      this._send(...this.constructor.parseParams(params), transactionOptions),
       timeoutMs,
     );
   }

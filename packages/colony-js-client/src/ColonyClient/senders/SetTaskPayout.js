@@ -3,14 +3,16 @@
 // TODO should probably be using BigBumber
 import type BigNumber from 'bn.js';
 
-import ColonyClient from '../index';
+import ContractClient from '@colony/colony-js-contract-client';
+
+import type ColonyClient from '../index';
 import { ROLES } from '../../constants';
 import { ROLE, TASK_ID, TOKEN, AMOUNT_POSITIVE } from '../../schemaDefinitions';
 
 type Params = { taskId: number, amount: number, role: string, token: string };
 type EventData = {};
 
-export default class SetTaskPayout extends ColonyClient.Sender<
+export default class SetTaskPayout extends ContractClient.Sender<
   Params,
   EventData,
   ColonyClient,

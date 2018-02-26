@@ -1,6 +1,8 @@
 /* @flow */
 
-import ColonyClient from '../index';
+import ContractClient from '@colony/colony-js-contract-client';
+
+import type ColonyClient from '../index';
 
 import { ROLES } from '../../constants';
 import { TASK_ID, ROLE, TOKEN } from '../../schemaDefinitions';
@@ -8,7 +10,7 @@ import { TASK_ID, ROLE, TOKEN } from '../../schemaDefinitions';
 type Params = { taskId: number, role: string, token: string };
 type EventData = {};
 
-export default class ClaimPayout extends ColonyClient.Sender<
+export default class ClaimPayout extends ContractClient.Sender<
   Params,
   EventData,
   ColonyClient,

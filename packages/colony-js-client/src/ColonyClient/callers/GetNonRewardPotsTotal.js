@@ -1,13 +1,15 @@
 /* @flow */
 
-import ColonyClient from '../index';
+import ContractClient from '@colony/colony-js-contract-client';
+
+import type ColonyClient from '../index';
 import { ADDRESS } from '../../schemaDefinitions';
 
 type Params = { address: string };
 type ReturnValue = { total: number };
 type FnReturn = [number];
 
-export default class GetNonRewardPotsTotal extends ColonyClient.Caller<
+export default class GetNonRewardPotsTotal extends ContractClient.Caller<
   Params,
   ReturnValue,
   // eslint-disable-next-line

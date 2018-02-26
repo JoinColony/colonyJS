@@ -1,10 +1,12 @@
 /* @flow */
 
-import { utf8ToHex } from 'web3-utils';
+import { toUtf8Bytes } from 'ethers-utils';
 import type BigNumber from 'bn.js';
 import type { EventHandlers } from '@colony/colony-js-adapter';
 
-import ColonyClient from '../index';
+import ContractClient from '@colony/colony-js-contract-client';
+
+import type ColonyClient from '../index';
 
 type Params = {
   destination: string,
@@ -15,7 +17,7 @@ type EventData = {
   transactionId: number,
 };
 
-export default class SubmitTransaction extends ColonyClient.Sender<
+export default class SubmitTransaction extends ContractClient.Sender<
   Params,
   EventData,
   ColonyClient,
@@ -35,7 +37,7 @@ export default class SubmitTransaction extends ColonyClient.Sender<
     };
   }
   static parseParams({ destination, value, data }: Params) {
-    return [destination, value, utf8ToHex(data)];
+    return [destination, value, toUtf8Bytes(data)];
   }
   static get eventHandlers(): EventHandlers {
     return {

@@ -1,11 +1,13 @@
 /* @flow */
 
-import ColonyClient from '../index';
+import ContractClient from '@colony/colony-js-contract-client';
+
+import type ColonyClient from '../index';
 
 type ReturnValue = { count: number };
 type FnReturn = [number];
 
-export default class GetTransactionCount extends ColonyClient.Caller<
+export default class GetTransactionCount extends ContractClient.Caller<
   null,
   ReturnValue,
   // eslint-disable-next-line

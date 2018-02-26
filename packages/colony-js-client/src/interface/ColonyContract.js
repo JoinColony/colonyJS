@@ -22,7 +22,7 @@ type confirmTransaction<T> = (number: number, uint8: number) => Promise<T>;
 type finalizeTask<T> = (id: number) => Promise<T>;
 type generateSecret<T> = (salt: string, value: number) => Promise<T>;
 type initialiseColony<T> = (network: string) => Promise<T>;
-type makeTask<T> = (specificationHash: string) => Promise<T>;
+type makeTask<T> = (specificationHash: string, domainId: number) => Promise<T>;
 type mintTokens<T> = (wad: number) => Promise<T>;
 type moveFundsBetweenPots<T> = (
   fromPot: number,

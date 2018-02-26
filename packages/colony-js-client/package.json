@@ -39,6 +39,7 @@
         "@colony/colony-js-contract-client": "^1.0.0",
         "bn.js": "^4.11.6",
         "jjv": "^1.0.2",
+        "ethers-utils": "^2.1.11",
         "web3-utils": "^1.0.0-beta.30"
     }
 }

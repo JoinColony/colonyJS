@@ -1,6 +1,8 @@
 /* @flow */
 
-import ColonyClient from '../index';
+import ContractClient from '@colony/colony-js-contract-client';
+
+import type ColonyClient from '../index';
 import { TASK_ID, ROLE } from '../../schemaDefinitions';
 import { ROLES } from '../../constants';
 
@@ -11,7 +13,7 @@ type Params = {
 type ReturnValue = { role: string, rated: boolean, rating: number };
 type FnReturn = [number, boolean, number];
 
-export default class GetTaskRole extends ColonyClient.Caller<
+export default class GetTaskRole extends ContractClient.Caller<
   Params,
   ReturnValue,
   // eslint-disable-next-line

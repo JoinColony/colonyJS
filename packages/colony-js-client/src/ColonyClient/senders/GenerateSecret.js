@@ -1,11 +1,13 @@
 /* @flow */
 
-import ColonyClient from '../index';
+import ContractClient from '@colony/colony-js-contract-client';
+
+import type ColonyClient from '../index';
 
 type Params = { salt: string, value: number };
 type EventData = {};
 
-export default class GenerateSecret extends ColonyClient.Sender<
+export default class GenerateSecret extends ContractClient.Sender<
   Params,
   EventData,
   ColonyClient,

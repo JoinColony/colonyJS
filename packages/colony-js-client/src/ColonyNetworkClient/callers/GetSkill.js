@@ -1,12 +1,14 @@
 /* @flow */
 
-import ColonyNetworkClient from '../index';
+import ContractClient from '@colony/colony-js-contract-client';
+
+import type ColonyNetworkClient from '../index';
 
 type Params = { id: number };
 type ReturnValue = { nParents: number, nChildren: number };
 type FnReturn = [number, number];
 
-export default class GetSkill extends ColonyNetworkClient.Caller<
+export default class GetSkill extends ContractClient.Caller<
   Params,
   ReturnValue,
   // eslint-disable-next-line

@@ -2,28 +2,59 @@
 
 import type { EventHandlers } from '@colony/colony-js-adapter';
 import type BigNumber from 'bn.js';
-import { utf8ToHex } from 'web3-utils';
+import { toUtf8Bytes } from 'ethers-utils';
 
-import ColonyNetworkClient from '../index';
+import ContractClient from '@colony/colony-js-contract-client';
 
-type Params = { key: string };
+import type ColonyNetworkClient from '../index';
+
+type Params = {
+  name: string,
+  tokenName: string,
+  tokenSymbol: string,
+  tokenDecimals: number,
+};
 type EventData = { colonyId: number };
 
-export default class CreateColony extends ColonyNetworkClient.Sender<
+export default class CreateColony extends ContractClient.Sender<
   Params,
   EventData,
   ColonyNetworkClient,
 > {
   static get schema(): {} {
     return {
-      key: {
+      name: {
         type: 'string',
         minLength: 3,
+        maxLength: 100,
+      },
+      tokenName: {
+        type: 'string',
+        maxLength: 32,
+      },
+      tokenSymbol: {
+        type: 'string',
+        maxLength: 3,
+      },
+      tokenDecimals: {
+        type: 'number',
+        min: 0,
+        max: 100,
       },
     };
   }
-  static parseParams({ key }: Params) {
-    return [utf8ToHex(key)];
+  static parseParams({
+    name,
+    tokenName,
+    tokenSymbol,
+    tokenDecimals = 2,
+  }: Params) {
+    return [
+      toUtf8Bytes(name),
+      toUtf8Bytes(tokenName),
+      toUtf8Bytes(tokenSymbol),
+      tokenDecimals,
+    ];
   }
   static get eventHandlers(): EventHandlers {
     return {

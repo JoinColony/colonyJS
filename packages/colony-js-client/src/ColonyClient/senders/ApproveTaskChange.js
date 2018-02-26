@@ -1,13 +1,15 @@
 /* @flow */
 
-import ColonyClient from '../index';
+import ContractClient from '@colony/colony-js-contract-client';
+
+import type ColonyClient from '../index';
 import { ROLE } from '../../schemaDefinitions';
 import { ROLES } from '../../constants';
 
 type Params = { transactionId: number, role: string };
 type EventData = {};
 
-export default class ApproveTaskChange extends ColonyClient.Sender<
+export default class ApproveTaskChange extends ContractClient.Sender<
   Params,
   EventData,
   ColonyClient,

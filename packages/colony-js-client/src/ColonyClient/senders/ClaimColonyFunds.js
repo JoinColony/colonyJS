@@ -1,13 +1,15 @@
 /* @flow */
 
-import ColonyClient from '../index';
+import ContractClient from '@colony/colony-js-contract-client';
+
+import type ColonyClient from '../index';
 
 import { TOKEN } from '../../schemaDefinitions';
 
 type Params = { token: string };
 type EventHandlers = {};
 
-export default class ClaimColonyFunds extends ColonyClient.Sender<
+export default class ClaimColonyFunds extends ContractClient.Sender<
   Params,
   EventHandlers,
   ColonyClient,

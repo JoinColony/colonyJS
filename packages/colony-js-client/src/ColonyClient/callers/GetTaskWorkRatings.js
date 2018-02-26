@@ -1,6 +1,8 @@
 /* @flow */
 
-import ColonyClient from '../index';
+import ContractClient from '@colony/colony-js-contract-client';
+
+import type ColonyClient from '../index';
 import { TASK_ID } from '../../schemaDefinitions';
 
 type Params = {
@@ -9,7 +11,7 @@ type Params = {
 type ReturnValue = { count: number, timestamp: number };
 type FnReturn = [number, number];
 
-export default class GetTaskWorkRatings extends ColonyClient.Caller<
+export default class GetTaskWorkRatings extends ContractClient.Caller<
   Params,
   ReturnValue,
   // eslint-disable-next-line

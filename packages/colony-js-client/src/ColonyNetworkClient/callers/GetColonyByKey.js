@@ -1,14 +1,16 @@
 /* @flow */
 
-import { utf8ToHex } from 'web3-utils';
+import { toUtf8Bytes } from 'ethers-utils';
 
-import ColonyNetworkClient from '../index';
+import ContractClient from '@colony/colony-js-contract-client';
+
+import type ColonyNetworkClient from '../index';
 
 type Params = { key: string };
 type ReturnValue = { address: string };
 type FnReturn = [string];
 
-export default class GetColonyByKey extends ColonyNetworkClient.Caller<
+export default class GetColonyByKey extends ContractClient.Caller<
   Params,
   ReturnValue,
   // eslint-disable-next-line
@@ -22,7 +24,7 @@ export default class GetColonyByKey extends ColonyNetworkClient.Caller<
     };
   }
   static parseParams({ key }: Params) {
-    return [utf8ToHex(key)];
+    return [toUtf8Bytes(key)];
   }
   static parseReturn([address]: FnReturn): ReturnValue {
     return { address };

@@ -2,13 +2,15 @@
 
 // TODO should probably be using BigBumber
 
-import ColonyClient from '../index';
+import ContractClient from '@colony/colony-js-contract-client';
+
+import type ColonyClient from '../index';
 import { AMOUNT_POSITIVE } from '../../schemaDefinitions';
 
 type Params = { amount: number };
 type EventData = {};
 
-export default class MintTokens extends ColonyClient.Sender<
+export default class MintTokens extends ContractClient.Sender<
   Params,
   EventData,
   ColonyClient,

@@ -4,29 +4,31 @@ import validation from './validation';
 
 export default class Validator<Params = {}> {
   parseParams: Params => Array<*>;
-  _schema: {} | null;
-  +schema: {};
-  +name: string;
+  static +schema: {};
+  static +name: string;
   constructor() {
-    if (this.schema && this.name) {
-      this._schema = validation.addSchema(this.name, {
+    const { schema, name } = this.constructor;
+    if (schema && name) {
+      validation.addSchema(name, {
         type: 'object',
-        ...this.schema,
+        ...schema,
       });
     }
   }
   validate(params: Params): boolean {
-    if (!this._schema) return true;
+    const { name } = this.constructor;
+    const schema = validation.schema[name];
+    if (!schema) return true;
 
     if (params == null || typeof params !== 'object')
       throw new Error('Parameters must be supplied as an object');
 
-    const report = validation.validate(this.name, params);
+    const report = validation.validate(name, params);
 
     if (report) {
-      const { validation: { errors: { schema } } } = report;
-      // TODO more meaningful errors
-      throw new Error(`Validation error: ${JSON.stringify(schema)}`);
+      const { validation: errors } = report;
+      // TODO more meaningful errors, or use another library...
+      throw new Error(`Validation error: ${JSON.stringify(errors)}`);
     }
 
     return true;

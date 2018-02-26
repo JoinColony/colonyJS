@@ -1,6 +1,8 @@
 /* @flow */
 
-import ColonyClient from '../index';
+import ContractClient from '@colony/colony-js-contract-client';
+
+import type ColonyClient from '../index';
 import { TASK_ID } from '../../schemaDefinitions';
 
 type Params = {
@@ -9,7 +11,7 @@ type Params = {
 };
 type EventData = {};
 
-export default class SetTaskDueDate extends ColonyClient.Sender<
+export default class SetTaskDueDate extends ContractClient.Sender<
   Params,
   EventData,
   ColonyClient,

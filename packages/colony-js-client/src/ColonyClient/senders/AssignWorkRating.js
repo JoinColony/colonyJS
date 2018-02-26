@@ -1,12 +1,14 @@
 /* @flow */
 
-import ColonyClient from '../index';
+import ContractClient from '@colony/colony-js-contract-client';
+
+import type ColonyClient from '../index';
 import { TASK_ID, RATING } from '../../schemaDefinitions';
 
 type Params = { taskId: number, rating: number };
 type EventData = {};
 
-export default class AssignWorkRating extends ColonyClient.Sender<
+export default class AssignWorkRating extends ContractClient.Sender<
   Params,
   EventData,
   ColonyClient,

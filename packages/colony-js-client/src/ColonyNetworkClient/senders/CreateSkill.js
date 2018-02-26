@@ -3,12 +3,14 @@
 import type { EventHandlers } from '@colony/colony-js-adapter';
 import type BigNumber from 'bn.js';
 
-import ColonyNetworkClient from '../index';
+import ContractClient from '@colony/colony-js-contract-client';
+
+import type ColonyNetworkClient from '../index';
 
 type Params = { parentSkillId: number, skillId: number };
 type EventData = { skillId: number };
 
-export default class CreateSkill extends ColonyNetworkClient.Sender<
+export default class CreateSkill extends ContractClient.Sender<
   Params,
   EventData,
   // eslint-disable-next-line
