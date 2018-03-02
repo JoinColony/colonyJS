@@ -7,9 +7,21 @@ import type { IAdapter, IContract } from '@colony/colony-js-adapter';
 import Caller from './Caller';
 import Sender from './Sender';
 
+import type { SenderDef, CallerDef } from '../types';
+
+type CallerDefs = {
+  [name: string]: CallerDef,
+};
+
+type SenderDefs = {
+  [name: string]: SenderDef,
+};
+
 export default class ContractClient<ContractInterface: IContract> {
   adapter: IAdapter<ContractInterface>;
   contract: ContractInterface;
+  +callerDefs: CallerDefs;
+  +senderDefs: SenderDefs;
   static get Caller(): typeof Caller {
     return Caller;
   }
@@ -37,5 +49,41 @@ export default class ContractClient<ContractInterface: IContract> {
   }) {
     this.adapter = adapter;
     this.contract = contract;
+    this._createCallers();
+    this._createSenders();
+  }
+  // eslint-disable-next-line class-methods-use-this
+  get callerDefs(): CallerDefs {
+    return {};
+  }
+  // eslint-disable-next-line class-methods-use-this
+  get senderDefs(): SenderDefs {
+    return {};
+  }
+  createSender<Params: {}, EventData: {}>(name: string, def: SenderDef): void {
+    const sender: Sender<
+      Params,
+      EventData,
+      ContractClient<*>,
+    > = this.constructor.Sender.create(this, def);
+    Object.assign(this, { [name]: sender });
+  }
+  createCaller<Params: {}, EventData: {}>(name: string, def: CallerDef): void {
+    const caller: Caller<
+      Params,
+      EventData,
+      ContractClient<*>,
+    > = this.constructor.Caller.create(this, def);
+    Object.assign(this, { [name]: caller });
+  }
+  _createCallers(): void {
+    Object.entries(this.callerDefs).forEach(([name, def]) => {
+      this.createCaller(name, def);
+    });
+  }
+  _createSenders(): void {
+    Object.entries(this.senderDefs).forEach(([name, def]) => {
+      this.createSender(name, def);
+    });
   }
 }
