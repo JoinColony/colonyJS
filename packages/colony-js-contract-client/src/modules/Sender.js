@@ -2,8 +2,11 @@
 
 import type BigNumber from 'bn.js';
 import type {
+  EstimateFn,
   EventHandlers,
+  InterfaceFn,
   MinedTransaction,
+  SendFn,
   Transaction,
   TransactionOptions,
   TransactionReceipt,
@@ -14,6 +17,8 @@ import utils from '@colony/colony-js-utils';
 import ContractClient from './ContractClient';
 import { DEFAULT_TIMEOUT, MINING_TIMEOUT } from '../constants';
 import Validator from './Validator';
+
+import type { SenderDef } from '../types';
 
 type SendOptions = {
   events?: EventHandlers,
@@ -32,31 +37,55 @@ type ContractResponse<EventData> = {
 };
 
 export default class Sender<
-  Params,
-  EventData,
+  Params: {},
+  EventData: {},
   // eslint-disable-next-line
   IContractClient: ContractClient<*>
 > extends Validator<Params> {
-  +_send: *;
-  +_estimate: *;
-  +eventHandlers: EventHandlers;
+  static eventHandlers: EventHandlers;
+  _send: SendFn<*>;
+  _estimate: EstimateFn<*>;
+  _proxy: ?InterfaceFn<*>;
   client: IContractClient;
-  // eslint-disable-next-line no-unused-vars
-  static parseParams(params: Params): Array<*> {
-    throw new TypeError(
-      'Sender.parseParams should be extended in a derived class',
-    );
+  static create(
+    client: IContractClient,
+    { params, eventHandlers = {}, send, estimate, proxy }: SenderDef,
+  ): Sender<Params, EventData, IContractClient> {
+    class _Sender extends Sender<Params, EventData, IContractClient> {
+      static params = params;
+      static eventHandlers = eventHandlers;
+    }
+    return new _Sender(client, send, estimate, proxy);
   }
-  constructor(client: IContractClient) {
+  getArgs(params: Params): Array<*> {
+    const args = this.constructor.getArgs(params);
+    if (typeof this._proxy === 'function') {
+      const { data } = this._proxy(...args);
+      return [data];
+    }
+    return args;
+  }
+  constructor(
+    client: IContractClient,
+    send?: SendFn<*>,
+    estimate?: EstimateFn<*>,
+    proxy?: InterfaceFn<*>,
+  ) {
     super();
     this.client = client;
+    if (typeof estimate === 'function') this._estimate = estimate;
+    if (typeof send === 'function') this._send = send;
+    if (typeof proxy === 'function') this._proxy = proxy;
   }
   async estimate(
     params: Params,
     { timeoutMs }: SendOptions,
   ): Promise<BigNumber> {
+    if (typeof this._estimate !== 'function')
+      throw new TypeError('Expected an estimate function for Sender');
+
     return utils.raceAgainstTimeout(
-      this._estimate(...this.constructor.parseParams(params)),
+      this._estimate(...this.getArgs(params)),
       timeoutMs,
     );
   }
@@ -66,7 +95,8 @@ export default class Sender<
     params: Params,
     options: SendOptions,
   ): Promise<ContractResponse<EventData>> {
-    this.validate(params);
+    if (typeof this._send !== 'function')
+      throw new TypeError('Expected a send function for Sender');
 
     const {
       timeoutMs = DEFAULT_TIMEOUT,
@@ -93,7 +123,7 @@ export default class Sender<
       );
       const eventData: EventData = await this.client.adapter.getEventData({
         contract: this.client.contract,
-        events: this.eventHandlers || {},
+        events: this.constructor.eventHandlers,
         timeoutMs: miningTimeoutMs,
         transactionHash: transaction.hash,
       });
@@ -115,7 +145,7 @@ export default class Sender<
     timeoutMs: number,
   ) {
     return utils.raceAgainstTimeout(
-      this._send(...this.constructor.parseParams(params), transactionOptions),
+      this._send(...this.getArgs(params), transactionOptions),
       timeoutMs,
     );
   }
