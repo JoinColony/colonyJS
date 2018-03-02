@@ -26,21 +26,7 @@ export default class GetTask extends ContractClient.Caller<
   // eslint-disable-next-line
   ColonyClient
 > {
-  static get schema(): {} {
-    return {
-      skillId: {
-        type: 'number',
-        min: 1,
-      },
-      childSkillIndex: {
-        type: 'number',
-        min: 1,
-      },
-    };
-  }
-  static parseParams({ taskId }: Params) {
-    return [taskId];
-  }
+  static params = [['taskId', 'int']];
   static parseReturn(
     [
       specificationHash,
@@ -68,7 +54,6 @@ export default class GetTask extends ContractClient.Caller<
       specificationHash,
     };
   }
-  get _call(): (number, number) => Promise<FnReturn> {
-    return this.client.contract.functions.getTask;
-  }
+  // $FlowFixMe https://github.com/facebook/flow/issues/3237
+  _call = this.client.contract.functions.getTask;
 }
