@@ -626,6 +626,10 @@ babel-plugin-syntax-async-functions@^6.8.0:
   version "6.13.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-syntax-async-functions/-/babel-plugin-syntax-async-functions-6.13.0.tgz#cad9cad1191b5ad634bf30ae0872391e0647be95"
 
+babel-plugin-syntax-class-properties@^6.8.0:
+  version "6.13.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-syntax-class-properties/-/babel-plugin-syntax-class-properties-6.13.0.tgz#d7eb23b79a317f8543962c505b827c7d6cac27de"
+
 babel-plugin-syntax-dynamic-import@^6.18.0:
   version "6.18.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-syntax-dynamic-import/-/babel-plugin-syntax-dynamic-import-6.18.0.tgz#8d6a26229c83745a9982a441051572caa179b1da"
@@ -653,6 +657,15 @@ babel-plugin-transform-async-to-generator@^6.22.0:
     babel-helper-remap-async-to-generator "^6.24.1"
     babel-plugin-syntax-async-functions "^6.8.0"
     babel-runtime "^6.22.0"
+
+babel-plugin-transform-class-properties@^6.24.1:
+  version "6.24.1"
+  resolved "https://registry.yarnpkg.com/babel-plugin-transform-class-properties/-/babel-plugin-transform-class-properties-6.24.1.tgz#6a79763ea61d33d36f37b611aa9def81a81b46ac"
+  dependencies:
+    babel-helper-function-name "^6.24.1"
+    babel-plugin-syntax-class-properties "^6.8.0"
+    babel-runtime "^6.22.0"
+    babel-template "^6.24.1"
 
 babel-plugin-transform-es2015-arrow-functions@^6.22.0:
   version "6.22.0"
@@ -1102,6 +1115,10 @@ braces@^2.3.0, braces@^2.3.1:
 brorand@^1.0.1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/brorand/-/brorand-1.1.0.tgz#12c25efe40a45e3c323eb8675a0a0ce57b22371f"
+
+browser-assert@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/browser-assert/-/browser-assert-1.2.1.tgz#9aaa5a2a8c74685c2ae05bfe46efd606f068c200"
 
 browser-process-hrtime@^0.1.2:
   version "0.1.2"
@@ -2397,7 +2414,7 @@ ethers-providers@2.1.19:
     inherits "2.0.1"
     xmlhttprequest "1.8.0"
 
-ethers-utils@2.1.11, ethers-utils@^2.1.0:
+ethers-utils@2.1.11, ethers-utils@^2.1.0, ethers-utils@^2.1.11:
   version "2.1.11"
   resolved "https://registry.yarnpkg.com/ethers-utils/-/ethers-utils-2.1.11.tgz#b27535ca3226118be300211c39c896b1e5e21641"
   dependencies:
@@ -4197,10 +4214,6 @@ jest@^22.1.4, jest@^22.3.0:
   dependencies:
     import-local "^1.0.0"
     jest-cli "^22.4.2"
-
-jjv@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/jjv/-/jjv-1.0.2.tgz#0719f2cbcfd7df34f8d57c1b03b332a0f8f66e7f"
 
 js-sha3@0.5.7:
   version "0.5.7"
