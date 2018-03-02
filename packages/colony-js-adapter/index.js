@@ -10,3 +10,9 @@ export type { MinedTransaction, Transaction } from './interface/Transaction';
 export type { TransactionReceipt } from './interface/TransactionReceipt';
 export type { TransactionOptions } from './interface/TransactionOptions';
 export type { Wallet as IWallet } from './interface/Wallet';
+export type {
+  CallFn,
+  EstimateFn,
+  InterfaceFn,
+  SendFn,
+} from './interface/Functions';
