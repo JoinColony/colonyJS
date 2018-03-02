@@ -1,27 +1,11 @@
 /* @flow */
 
+import type BigNumber from 'bn.js';
 import type { IAdapter } from '@colony/colony-js-adapter';
 import ContractClient from '@colony/colony-js-contract-client';
 
 import type { ColonyNetworkContract } from '../interface/ColonyNetworkContract';
 import ColonyClient from '../ColonyClient/index';
-
-import GetChildSkillId from './callers/GetChildSkillId';
-import GetColonyById from './callers/GetColonyById';
-import GetColonyByKey from './callers/GetColonyByKey';
-import GetColonyCount from './callers/GetColonyCount';
-import GetColonyVersionResolver from './callers/GetColonyVersionResolver';
-import GetCurrentColonyVersion from './callers/GetCurrentColonyVersion';
-import GetParentSkillId from './callers/GetParentSkillId';
-import GetReputationUpdateLogEntry from './callers/GetReputationUpdateLogEntry';
-// eslint-disable-next-line max-len
-import GetReputationUpdateLogLength from './callers/GetReputationUpdateLogLength';
-import GetSkill from './callers/GetSkill';
-import GetSkillCount from './callers/GetSkillCount';
-
-import CreateColony from './senders/CreateColony';
-import CreateSkill from './senders/CreateSkill';
-import UpgradeColony from './senders/UpgradeColony';
 
 type CallOptions = { timeoutMs: number };
 
@@ -29,22 +13,91 @@ export default class ColonyNetworkClient extends ContractClient<
   ColonyNetworkContract,
 > {
   contract: ColonyNetworkContract;
-  // Callers
-  getChildSkillId: GetChildSkillId;
-  getColonyById: GetColonyById;
-  getColonyByKey: GetColonyByKey;
-  getColonyCount: GetColonyCount;
-  getColonyVersionResolver: GetColonyVersionResolver;
-  getCurrentColonyVersion: GetCurrentColonyVersion;
-  getParentSkillId: GetParentSkillId;
-  getReputationUpdateLogEntry: GetReputationUpdateLogEntry;
-  getReputationUpdateLogLength: GetReputationUpdateLogLength;
-  getSkill: GetSkill;
-  getSkillCount: GetSkillCount;
-  // Senders
-  createColony: CreateColony;
-  createSkill: CreateSkill;
-  upgradeColony: UpgradeColony;
+  getColonyById: ColonyNetworkClient.Caller<
+    { id: number },
+    { address: string },
+    ColonyNetworkClient,
+  >;
+  getColonyByKey: ColonyNetworkClient.Caller<
+    { key: string },
+    { address: string },
+    ColonyNetworkClient,
+  >;
+  getColonyCount: ColonyNetworkClient.Caller<
+    null,
+    { count: number },
+    ColonyNetworkClient,
+  >;
+  getColonyVersionResolver: ColonyNetworkClient.Caller<
+    { version: number },
+    { address: string },
+    ColonyNetworkClient,
+  >;
+  getCurrentColonyVersion: ColonyNetworkClient.Caller<
+    null,
+    { version: number },
+    ColonyNetworkClient,
+  >;
+  getParentSkillId: ColonyNetworkClient.Caller<
+    { skillId: number, parentSkillIndex: number },
+    { parentSkillId: number },
+    ColonyNetworkClient,
+  >;
+  getReputationUpdateLogEntry: ColonyNetworkClient.Caller<
+    { id: number },
+    {
+      amount: number,
+      colony: string,
+      nPreviousUpdates: number,
+      nUpdates: number,
+      skillId: number,
+      user: string,
+    },
+    ColonyNetworkClient,
+  >;
+  getReputationUpdateLogLength: ColonyNetworkClient.Caller<
+    null,
+    { count: number },
+    ColonyNetworkClient,
+  >;
+  getSkill: ColonyNetworkClient.Caller<
+    { id: number },
+    { nParents: number, nChildren: number },
+    ColonyNetworkClient,
+  >;
+  getSkillCount: ColonyNetworkClient.Caller<
+    null,
+    { count: number },
+    ColonyNetworkClient,
+  >;
+  createColony: ColonyNetworkClient.Sender<
+    {
+      name: string,
+      tokenName: string,
+      tokenSymbol: string,
+      tokenDecimals: number,
+    },
+    { colonyId: number },
+    ColonyNetworkClient,
+  >;
+  deposit: ColonyNetworkClient.Sender<
+    { amount: number },
+    null,
+    ColonyNetworkClient,
+  >;
+  upgradeColony: ColonyNetworkClient.Sender<
+    {
+      key: string,
+      newVersion: number,
+    },
+    null,
+    ColonyNetworkClient,
+  >;
+  withdraw: ColonyNetworkClient.Sender<
+    { amount: number },
+    null,
+    ColonyNetworkClient,
+  >;
   static async createSelf(
     adapter: IAdapter<ColonyNetworkContract>,
   ): Promise<ColonyNetworkClient> {
@@ -53,30 +106,98 @@ export default class ColonyNetworkClient extends ContractClient<
   static get ColonyClient(): * {
     return ColonyClient;
   }
-  constructor({
-    adapter,
-    contract,
-  }: {
-    adapter: IAdapter<*>,
-    contract: ColonyNetworkContract,
-  }) {
-    super({ adapter, contract });
-    // Callers
-    this.getChildSkillId = new GetChildSkillId(this);
-    this.getColonyById = new GetColonyById(this);
-    this.getColonyByKey = new GetColonyByKey(this);
-    this.getColonyCount = new GetColonyCount(this);
-    this.getColonyVersionResolver = new GetColonyVersionResolver(this);
-    this.getCurrentColonyVersion = new GetCurrentColonyVersion(this);
-    this.getParentSkillId = new GetParentSkillId(this);
-    this.getReputationUpdateLogEntry = new GetReputationUpdateLogEntry(this);
-    this.getReputationUpdateLogLength = new GetReputationUpdateLogLength(this);
-    this.getSkill = new GetSkill(this);
-    this.getSkillCount = new GetSkillCount(this);
-    // Senders
-    this.createColony = new CreateColony(this);
-    this.createSkill = new CreateSkill(this);
-    this.upgradeColony = new UpgradeColony(this);
+  get callerDefs(): * {
+    return {
+      getColonyById: {
+        call: this.contract.functions.getColonyAt,
+        params: [['id', 'int']],
+        returnValues: [['address', 'address']],
+      },
+      getColonyByKey: {
+        call: this.contract.functions.getColony,
+        params: [['key', 'string']],
+        returnValues: [['address', 'address']],
+      },
+      getColonyCount: {
+        call: this.contract.functions.getColonyCount,
+        returnValues: [['address', 'address']],
+      },
+      getColonyVersionResolver: {
+        call: this.contract.functions.getColonyVersionResolver,
+        params: [['version', 'number']],
+        returnValues: [['address', 'address']],
+      },
+      getCurrentColonyVersion: {
+        call: this.contract.functions.getCurrentColonyVersion,
+        returnValues: [['version', 'number']],
+      },
+      getParentSkillId: {
+        call: this.contract.functions.getParentSkillId,
+        params: [['skillId', 'int']],
+        returnValues: [['parentSkillIndex', 'number']],
+      },
+      getReputationUpdateLogEntry: {
+        call: this.contract.functions.getReputationUpdateLogEntry,
+        params: [['id', 'int']],
+        returnValues: [
+          ['user', 'string'],
+          ['amount', 'number'],
+          ['skillId', 'number'],
+          ['colony', 'string'],
+          ['nUpdates', 'number'],
+          ['nPreviousUpdates', 'number'],
+        ],
+      },
+      getReputationUpdateLogLength: {
+        call: this.contract.functions.getReputationUpdateLogLength,
+        returnValues: [['count', 'number']],
+      },
+      getSkill: {
+        call: this.contract.functions.getSkill,
+        params: [['id', 'int']],
+        returnValues: [['nParents', 'number'], ['nChildren', 'number']],
+      },
+      getSkillCount: {
+        call: this.contract.functions.getSkillCount,
+        returnValues: [['count', 'number']],
+      },
+    };
+  }
+  get senderDefs(): * {
+    return {
+      createColony: {
+        send: this.contract.functions.createColony,
+        estimate: this.contract.estimate.createColony,
+        params: [
+          ['name', 'string'],
+          ['tokenName', 'string'],
+          ['tokenSymbol', 'string'],
+          ['tokenDecimals', 'number'],
+        ],
+        eventHandlers: {
+          ColonyAdded({ id }: { id: BigNumber }) {
+            return {
+              colonyId: id.toNumber(),
+            };
+          },
+        },
+      },
+      deposit: {
+        send: this.contract.functions.deposit,
+        estimate: this.contract.estimate.deposit,
+        params: [['amount', 'number']],
+      },
+      upgradeColony: {
+        send: this.contract.functions.upgradeColony,
+        estimate: this.contract.estimate.upgradeColony,
+        params: [['key', 'string'], ['newVersion', 'number']],
+      },
+      withdraw: {
+        send: this.contract.functions.withdraw,
+        estimate: this.contract.estimate.withdraw,
+        params: [['amount', 'number']],
+      },
+    };
   }
   async getColonyClientByAddress(address: string): Promise<*> {
     return this.constructor.ColonyClient.createSelf(this.adapter, this, {
