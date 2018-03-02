@@ -1,4 +1,6 @@
-export type EventHandler = (eventArgs: {}) => {};
+/* @flow */
+
+export type EventHandler = (...*) => {};
 
 export type EventHandlers = {
   [eventName: string]: EventHandler,
