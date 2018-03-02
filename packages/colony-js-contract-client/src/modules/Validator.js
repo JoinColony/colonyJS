@@ -1,36 +1,63 @@
 /* @flow */
 
-import validation from './validation';
+import assert from 'browser-assert';
+import BigNumber from 'bn.js';
+import { utf8ToHex, isAddress } from 'web3-utils';
 
-export default class Validator<Params = {}> {
-  parseParams: Params => Array<*>;
-  static +schema: {};
-  static +name: string;
-  constructor() {
-    const { schema, name } = this.constructor;
-    if (schema && name) {
-      validation.addSchema(name, {
-        type: 'object',
-        ...schema,
-      });
+import type { ParamTypePairs, ParamTypes } from '../types';
+
+export default class Validator<Params: { [name: string]: * }> {
+  static params: ParamTypePairs = [];
+  static validateParam(key: string, type: ParamTypes, value: *): boolean {
+    const message = `Parameter ${key} expected a ${type} value`;
+    switch (type) {
+      case 'address':
+        assert(isAddress(value), message);
+        break;
+      case 'string':
+        assert(typeof value === 'string' && value.length > 0, message);
+        break;
+      case 'int':
+        assert(typeof value === 'number', message);
+        break;
+      case 'number':
+        assert(typeof value === 'number' || BigNumber.isBN(value), message);
+        break;
+      case 'boolean':
+        assert(typeof value === 'boolean', message);
+        break;
+      default:
+        throw new TypeError(`Parameter type ${type} not defined`);
+    }
+    return true;
+  }
+  static validate(params: Params): boolean {
+    return this.params.every(([paramName, paramType]) =>
+      this.validateParam(paramName, paramType, params[paramName]),
+    );
+  }
+  static parseParamsValue(value: *, type: ParamTypes) {
+    switch (type) {
+      case 'string':
+      case 'address':
+        return utf8ToHex(value);
+      default:
+        return value;
     }
   }
-  validate(params: Params): boolean {
-    const { name } = this.constructor;
-    const schema = validation.schema[name];
-    if (!schema) return true;
+  static parseParams(params: Params) {
+    return this.params.map(([paramName, paramType]) =>
+      this.parseParamsValue(params[paramName], paramType),
+    );
+  }
+  static getArgs(params: Params): Array<*> {
+    let args = [];
 
-    if (params == null || typeof params !== 'object')
-      throw new Error('Parameters must be supplied as an object');
-
-    const report = validation.validate(name, params);
-
-    if (report) {
-      const { validation: errors } = report;
-      // TODO more meaningful errors, or use another library...
-      throw new Error(`Validation error: ${JSON.stringify(errors)}`);
+    if (this.params.length) {
+      this.validate(params);
+      args = this.parseParams(params);
     }
 
-    return true;
+    return args;
   }
 }
