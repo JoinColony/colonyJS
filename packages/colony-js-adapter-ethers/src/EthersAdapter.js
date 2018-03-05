@@ -1,6 +1,6 @@
 /* @flow */
 
-import utils from '@colony/colony-js-utils';
+import { raceAgainstTimeout } from '@colony/colony-js-utils';
 import type {
   IContract,
   IAdapter,
@@ -54,7 +54,7 @@ export default class EthersAdapter implements IAdapter<*> {
     transactionHash: string,
   }): Array<Promise<*>> {
     const mapEventToPromise = eventName =>
-      utils.raceAgainstTimeout(
+      raceAgainstTimeout(
         new Promise(resolve =>
           contract.addListener(eventName, transactionHash, ({ args }: Event) =>
             resolve(events[eventName](args)),

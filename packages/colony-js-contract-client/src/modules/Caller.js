@@ -1,7 +1,7 @@
 /* @flow */
 
 import BigNumber from 'bn.js';
-import utils from '@colony/colony-js-utils';
+import { raceAgainstTimeout } from '@colony/colony-js-utils';
 import type { CallFn } from '@colony/colony-js-adapter';
 
 import { DEFAULT_TIMEOUT } from '../constants';
@@ -34,11 +34,8 @@ export default class Caller<
       case 'number':
         return BigNumber.isBN(value) ? value.toNumber() : value;
       case 'address':
-        if (value === '0x0000000000000000000000000000000000000000') {
-          throw new Error(`Undefined address received`);
-        } else {
-          return value;
-        }
+        this.checkValidAddress(value);
+        return value;
       default:
         return value;
     }
@@ -77,10 +74,7 @@ export default class Caller<
 
     const args = this.constructor.getArgs(params);
 
-    const values = await utils.raceAgainstTimeout(
-      this._call(...args),
-      timeoutMs,
-    );
+    const values = await raceAgainstTimeout(this._call(...args), timeoutMs);
 
     return this.constructor.parseReturn(values, params);
   }

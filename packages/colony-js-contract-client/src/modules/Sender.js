@@ -11,7 +11,7 @@ import type {
   TransactionReceipt,
 } from '@colony/colony-js-adapter';
 
-import utils from '@colony/colony-js-utils';
+import { raceAgainstTimeout } from '@colony/colony-js-utils';
 
 import ContractClient from './ContractClient';
 import { DEFAULT_TIMEOUT, MINING_TIMEOUT } from '../constants';
@@ -81,7 +81,7 @@ export default class Sender<
     if (typeof this._estimate !== 'function')
       throw new TypeError('Expected an estimate function for Sender');
 
-    return utils.raceAgainstTimeout(
+    return raceAgainstTimeout(
       this._estimate(...this.getArgs(params)),
       timeoutMs,
     );
@@ -141,7 +141,7 @@ export default class Sender<
     transactionOptions: {},
     timeoutMs: number,
   ) {
-    return utils.raceAgainstTimeout(
+    return raceAgainstTimeout(
       this._send(...this.getArgs(params), transactionOptions),
       timeoutMs,
     );
