@@ -9,7 +9,7 @@ import type { ParamTypePairs, ParamTypes } from '../types';
 export default class Validator<Params: { [name: string]: * }> {
   static params: ParamTypePairs = [];
   static validateParam(key: string, type: ParamTypes, value: *): boolean {
-    const message = `Parameter ${key} expected a ${type} value`;
+    const message = `Parameter ${key} expected a value of type ${type}`;
     switch (type) {
       case 'address':
         assert(isAddress(value), message);
