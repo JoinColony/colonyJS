@@ -1,17 +1,19 @@
+/* @flow */
+
 import ethers from 'ethers';
 
-import type { IContract, IProvider, Event } from '@colony/colony-js-adapter';
+import type { IContract, IWallet, Event } from '@colony/colony-js-adapter';
 
 type EventListenerCallback = (event: Event) => void;
 
 class EthersContract extends ethers.Contract implements IContract {
   _listeners: Map<string, EventListenerCallback>;
-  constructor(address: string, abi: {}, provider: IProvider) {
-    super(address, abi, provider);
+  constructor(address: string, abi: {}, wallet: IWallet) {
+    super(address, abi, wallet);
     this._listeners = new Map();
     this._initialiseEvents();
   }
-  _initialiseEvents(): Map<string, [string, Function]> {
+  _initialiseEvents() {
     Object.getOwnPropertyNames(this.events).forEach(eventName => {
       const self = this;
       this.events[eventName] = function eventDispatcher() {
@@ -19,7 +21,7 @@ class EthersContract extends ethers.Contract implements IContract {
       };
     });
   }
-  dispatchEvent(event: Event): void {
+  dispatchEvent(event: Event) {
     const key = `${event.event}-${event.transactionHash}`;
     const callback = this._listeners.get(key);
     if (callback) {
@@ -27,10 +29,10 @@ class EthersContract extends ethers.Contract implements IContract {
       callback(event);
     }
   }
-  addListener(eventName, transactionHash, callback) {
+  addListener(eventName: string, transactionHash: string, callback: Function) {
     this._listeners.set(`${eventName}-${transactionHash}`, callback);
   }
-  removeListener(eventName, transactionHash) {
+  removeListener(eventName: string, transactionHash: string) {
     this._listeners.delete(`${eventName}-${transactionHash}`);
   }
 }
