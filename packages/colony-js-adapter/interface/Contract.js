@@ -1,18 +1,18 @@
 /* @flow */
 
 import type { Event } from './Event';
-import type { Provider } from './Provider';
+import type { Wallet } from './Wallet';
 
 export interface Contract {
   address: string;
-  constructor(address: string, abi: {}, provider: Provider): Contract;
+  constructor(address: string, abi: {}, wallet: Wallet): void;
   estimate: *;
   functions: *;
   events: {
     // e.g. onMyEventName
     [string]: (Function) => void,
   };
-  connect: Provider => Contract;
+  connect: Wallet => Contract;
   addListener(
     eventName: string,
     transactionHash: string,
