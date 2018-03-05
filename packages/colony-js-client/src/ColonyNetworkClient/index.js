@@ -172,13 +172,15 @@ export default class ColonyNetworkClient extends ContractClient<
           ['name', 'string'],
           ['tokenName', 'string'],
           ['tokenSymbol', 'string'],
-          ['tokenDecimals', 'number'],
+          ['tokenDecimals', 'int'],
         ],
         eventHandlers: {
-          ColonyAdded({ id }: { id: BigNumber }) {
-            return {
-              colonyId: id.toNumber(),
-            };
+          success: {
+            ColonyAdded({ id }: { id: BigNumber }) {
+              return {
+                colonyId: id.toNumber(),
+              };
+            },
           },
         },
       },
@@ -190,7 +192,7 @@ export default class ColonyNetworkClient extends ContractClient<
       upgradeColony: {
         send: this.contract.functions.upgradeColony,
         estimate: this.contract.estimate.upgradeColony,
-        params: [['key', 'string'], ['newVersion', 'number']],
+        params: [['key', 'string'], ['newVersion', 'int']],
       },
       withdraw: {
         send: this.contract.functions.withdraw,
