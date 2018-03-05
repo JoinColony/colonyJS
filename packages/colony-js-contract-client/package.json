@@ -28,8 +28,6 @@
     "author": "James Lefrère <james@colony.io>",
     "license": "MIT",
     "devDependencies": {
-        "@colony/colony-js-adapter-ethers": "^1.0.0",
-        "@colony/colony-js-contract-loader-http": "^1.0.0",
         "babel-plugin-dynamic-import-node": "^1.2.0",
         "babel-plugin-syntax-dynamic-import": "^6.18.0",
         "babel-plugin-transform-class-properties": "^6.24.1",
