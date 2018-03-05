@@ -35,6 +35,11 @@ class EthersContract extends ethers.Contract implements IContract {
   removeListener(eventName: string, transactionHash: string) {
     this._listeners.delete(`${eventName}-${transactionHash}`);
   }
+  removeListeners(eventNames: Array<string>, transactionHash: string) {
+    eventNames.forEach(eventName =>
+      this.removeListener(eventName, transactionHash),
+    );
+  }
 }
 
 export default EthersContract;

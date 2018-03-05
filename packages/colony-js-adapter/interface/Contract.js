@@ -19,4 +19,5 @@ export interface Contract {
     callback: (event: Event) => void,
   ): void;
   removeListener(eventName: string, transactionHash: string): void;
+  removeListeners(eventNames: Array<string>, transactionHash: string): void;
 }
