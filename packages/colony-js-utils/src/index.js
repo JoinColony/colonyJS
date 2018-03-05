@@ -1,9 +1,4 @@
 /* @flow */
 
-import raceAgainstTimeout from './raceAgainstTimeout';
-
-const utils = {
-  raceAgainstTimeout,
-};
-
-export default utils;
+// eslint-disable-next-line import/prefer-default-export
+export { default as raceAgainstTimeout } from './raceAgainstTimeout';
