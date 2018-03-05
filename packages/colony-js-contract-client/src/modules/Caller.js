@@ -33,21 +33,35 @@ export default class Caller<
     switch (type) {
       case 'number':
         return BigNumber.isBN(value) ? value.toNumber() : value;
+      case 'address':
+        if (value === '0x0000000000000000000000000000000000000000') {
+          throw new Error(`Undefined address received`);
+        } else {
+          return value;
+        }
       default:
         return value;
     }
   }
   // eslint-disable-next-line no-unused-vars
   static parseReturn(values: *, params: Params): ReturnValue {
-    return this.returnValues.length
-      ? // $FlowFixMe Object literal incompatible with ReturnValue; perhaps try $ObjMap?
-        Object.assign(
-          {},
-          ...this.returnValues.map(([name, type], index) => ({
+    if (this.returnValues.length) {
+      const parsedValues = this.returnValues.map(([name, type], index) => {
+        try {
+          return {
             [name]: this.parseReturnValue(values[index], type),
-          })),
-        )
-      : values;
+          };
+        } catch (error) {
+          throw new Error(
+            `Invalid return for ${name} of type ${type}:\n${error.message ||
+              error}`,
+          );
+        }
+      });
+      // $FlowFixMe Object literal incompatible with ReturnValue; perhaps try $ObjMap?
+      return Object.assign({}, ...parsedValues);
+    }
+    return values;
   }
   constructor(client: IContractClient, call?: CallFn<*, *>) {
     super();
