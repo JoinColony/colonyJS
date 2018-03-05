@@ -11,7 +11,7 @@ import type { TransactionReceipt } from './TransactionReceipt';
 export interface Wallet {
   address: string;
   privateKey: string;
-  provider?: IProvider;
+  provider: IProvider;
   encrypt(
     password: string,
     options?: Encryption,
