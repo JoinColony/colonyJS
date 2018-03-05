@@ -31,7 +31,11 @@ const TRANSACTION_EVENT_HANDLERS = {
       submitted: true,
     };
   },
-  // TODO ExecutionFailure?
+  ExecutionFailure({ transactionId }: { transactionId: BigNumber }) {
+    throw new Error(
+      `Transaction ${transactionId.toNumber()} failed to be executed`,
+    );
+  },
 };
 
 type TransactionEventData = {
@@ -267,15 +271,15 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
         call: this.contract.functions.getTaskRole,
         params: [['taskId', 'int'], ['role', 'int']],
         returnValues: [
-          ['role', 'string'],
+          ['role', 'address'],
           ['rated', 'boolean'],
           ['rating', 'number'],
         ],
       },
       getTaskWorkRatings: {
         call: this.contract.functions.getTaskWorkRatings,
-        returnValues: [['count', 'number'], ['timestamp', 'number']],
         params: [['taskId', 'int']],
+        returnValues: [['count', 'number'], ['timestamp', 'number']],
       },
       getTaskWorkRatingSecret: {
         call: this.contract.functions.getTaskWorkRatingSecret,
@@ -294,17 +298,27 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
   }
   get senderDefs(): * {
     const proposeTaskChange = ({
-      proxy,
+      getData,
       params,
     }: {
-      proxy: InterfaceFn<*>,
+      getData: InterfaceFn<*>,
       params: *,
     }) => ({
       send: this.contract.functions.proposeTaskChange,
       estimate: this.contract.estimate.proposeTaskChange,
-      proxy,
+      getArgs(parameters: {}): Array<*> {
+        const args = this.constructor.getArgs(parameters);
+        const role = args.pop();
+        const { data } = getData(...args);
+        return [data, 0, role]; // 0 == Transaction value
+      },
       params,
-      eventHandlers: TRANSACTION_EVENT_HANDLERS,
+      eventHandlers: {
+        success: {
+          Submission: TRANSACTION_EVENT_HANDLERS.Submission,
+          Confirmation: TRANSACTION_EVENT_HANDLERS.Confirmation,
+        },
+      },
     });
 
     return {
@@ -323,8 +337,13 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
         estimate: this.contract.estimate.approveTaskChange,
         params: [['transaction', 'int'], ['role', 'int']],
         eventHandlers: {
-          Confirmation: TRANSACTION_EVENT_HANDLERS.Confirmation,
-          Execution: TRANSACTION_EVENT_HANDLERS.Execution,
+          success: {
+            Confirmation: TRANSACTION_EVENT_HANDLERS.Confirmation,
+            Execution: TRANSACTION_EVENT_HANDLERS.Execution,
+          },
+          error: {
+            ExecutionFailure: TRANSACTION_EVENT_HANDLERS.ExecutionFailure,
+          },
         },
       },
       assignWorkRating: {
@@ -350,12 +369,14 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
       createTask: {
         send: this.contract.functions.makeTask,
         estimate: this.contract.estimate.makeTask,
-        params: [['specificationHash', 'string'], ['domainId', 'number']],
+        params: [['specificationHash', 'string'], ['domainId', 'int']],
         eventHandlers: {
-          TaskAdded({ id }: { id: * }) {
-            return {
-              taskId: id.toNumber(),
-            };
+          success: {
+            TaskAdded({ id }: { id: * }) {
+              return {
+                taskId: id.toNumber(),
+              };
+            },
           },
         },
       },
@@ -395,8 +416,12 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
         ],
       },
       setTaskBrief: proposeTaskChange({
-        proxy: this.contract.interface.functions.setTaskBrief,
-        params: [['taskId', 'int'], ['specificationHash', 'address']],
+        getData: this.contract.interface.functions.setTaskBrief,
+        params: [
+          ['taskId', 'int'],
+          ['specificationHash', 'address'],
+          ['role', 'int'],
+        ],
       }),
       setTaskDomain: {
         send: this.contract.functions.setTaskDomain,
@@ -404,8 +429,8 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
         params: [['taskId', 'int'], ['domainId', 'int']],
       },
       setTaskDueDate: proposeTaskChange({
-        proxy: this.contract.interface.functions.setTaskDueDate,
-        params: [['taskId', 'int'], ['dueDate', 'number']],
+        getData: this.contract.interface.functions.setTaskDueDate,
+        params: [['taskId', 'int'], ['dueDate', 'number'], ['role', 'int']],
       }),
       setTaskRoleUser: {
         send: this.contract.functions.setTaskRoleUser,
@@ -418,16 +443,31 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
         params: [['taskId', 'int'], ['skillId', 'int']],
       },
       setTaskEvaluatorPayout: proposeTaskChange({
-        proxy: this.contract.interface.functions.setTaskEvaluatorPayout,
-        params: [['taskId', 'int'], ['token', 'address'], ['amount', 'number']],
+        getData: this.contract.interface.functions.setTaskEvaluatorPayout,
+        params: [
+          ['taskId', 'int'],
+          ['token', 'address'],
+          ['amount', 'number'],
+          ['role', 'int'],
+        ],
       }),
       setTaskManagerPayout: proposeTaskChange({
-        proxy: this.contract.interface.functions.setTaskManagerPayout,
-        params: [['taskId', 'int'], ['token', 'address'], ['amount', 'number']],
+        getData: this.contract.interface.functions.setTaskManagerPayout,
+        params: [
+          ['taskId', 'int'],
+          ['token', 'address'],
+          ['amount', 'number'],
+          ['role', 'int'],
+        ],
       }),
       setTaskWorkerPayout: proposeTaskChange({
-        proxy: this.contract.interface.functions.setTaskWorkerPayout,
-        params: [['taskId', 'int'], ['token', 'address'], ['amount', 'number']],
+        getData: this.contract.interface.functions.setTaskWorkerPayout,
+        params: [
+          ['taskId', 'int'],
+          ['token', 'address'],
+          ['amount', 'number'],
+          ['role', 'int'],
+        ],
       }),
       submitTaskDeliverable: {
         send: this.contract.functions.submitTaskDeliverable,
