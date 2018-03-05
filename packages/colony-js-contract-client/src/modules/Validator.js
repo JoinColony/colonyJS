@@ -5,6 +5,7 @@ import BigNumber from 'bn.js';
 import { utf8ToHex, isAddress } from 'web3-utils';
 
 import type { ParamTypePairs, ParamTypes } from '../types';
+import { NON_EXISTENT_ADDRESS } from '../constants';
 
 export default class Validator<Params: { [name: string]: * }> {
   static params: ParamTypePairs = [];
@@ -35,6 +36,11 @@ export default class Validator<Params: { [name: string]: * }> {
     return this.params.every(([paramName, paramType]) =>
       this.validateParam(paramName, paramType, params[paramName]),
     );
+  }
+  static checkValidAddress(address: string): boolean {
+    if (!isAddress(address)) throw new Error('Invalid address');
+    if (address === NON_EXISTENT_ADDRESS) throw new Error('Undefined address');
+    return true;
   }
   static parseParamsValue(value: *, type: ParamTypes) {
     switch (type) {
