@@ -53,7 +53,7 @@ export default class EthersAdapter implements IAdapter<*> {
     timeoutMs: number,
     transactionHash: string,
   }): Array<Promise<*>> {
-    return Object.getOwnPropertyNames(events).map(eventName =>
+    const mapEventToPromise = eventName =>
       utils.raceAgainstTimeout(
         new Promise(resolve =>
           contract.addListener(eventName, transactionHash, ({ args }: Event) =>
@@ -62,38 +62,48 @@ export default class EthersAdapter implements IAdapter<*> {
         ),
         timeoutMs,
         () => contract.removeListener(eventName, transactionHash),
-      ),
-    );
+      );
+    return Object.getOwnPropertyNames(events).map(mapEventToPromise);
   }
   // XXX this isn't a static method because we can't define it as such
   // in the Interface thanks to Flow
   // eslint-disable-next-line class-methods-use-this
   async getEventData({
-    events: { success, error },
-    ...rest
+    events: { success = {}, error = {} },
+    contract,
+    transactionHash,
+    timeoutMs,
   }: {
     contract: IContract,
     events: EventHandlers,
     timeoutMs: number,
     transactionHash: string,
   }): Promise<{}> {
-    const successPromises = success
-      ? this.constructor.getEventPromises({
-          events: success,
-          ...rest,
-        })
-      : [];
-    const errorPromises = error
-      ? this.constructor.getEventPromises({
-          events: error,
-          ...rest,
-        })
-      : [];
-    // Wait for all success events to resolve, or reject on any error event
-    return Object.assign(
-      {},
-      ...(await Promise.race([Promise.all(successPromises), ...errorPromises])),
-    );
+    const successPromises = this.constructor.getEventPromises({
+      contract,
+      events: success,
+      timeoutMs,
+      transactionHash,
+    });
+    const errorPromises = this.constructor.getEventPromises({
+      contract,
+      events: error,
+      timeoutMs,
+      transactionHash,
+    });
+    try {
+      // Wait for all success events to resolve, or reject on any error event
+      return Object.assign(
+        {},
+        ...(await Promise.race([
+          Promise.all(successPromises),
+          ...errorPromises,
+        ])),
+      );
+    } finally {
+      const eventNames = Object.keys({ ...success, ...error });
+      contract.removeListeners(eventNames, transactionHash);
+    }
   }
   async getTransactionReceipt(transactionHash: string) {
     return this._provider.getTransactionReceipt(transactionHash);
