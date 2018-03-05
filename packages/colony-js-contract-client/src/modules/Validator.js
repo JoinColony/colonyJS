@@ -18,9 +18,6 @@ export default class Validator<Params: { [name: string]: * }> {
       case 'string':
         assert(typeof value === 'string' && value.length > 0, message);
         break;
-      case 'int':
-        assert(typeof value === 'number', message);
-        break;
       case 'number':
         assert(typeof value === 'number' || BigNumber.isBN(value), message);
         break;

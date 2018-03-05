@@ -7,7 +7,7 @@ import type {
   EstimateFn,
 } from '@colony/colony-js-adapter';
 
-export type ParamTypes = 'int' | 'number' | 'string' | 'address' | 'boolean';
+export type ParamTypes = 'number' | 'string' | 'address' | 'boolean';
 
 export type ParamTypePair = [string, ParamTypes];
 
