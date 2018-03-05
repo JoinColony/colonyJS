@@ -7,6 +7,7 @@ import type {
   IProvider,
   IWallet,
   Event,
+  EventHandler,
   EventHandlers,
 } from '@colony/colony-js-adapter';
 import type {
@@ -41,35 +42,55 @@ export default class EthersAdapter implements IAdapter<*> {
     );
     return new EthersContract(address, abi, this._wallet);
   }
-  // eslint-disable-next-line class-methods-use-this
-  async getEventData({
+  static getEventPromises({
     contract,
     events,
     timeoutMs,
     transactionHash,
   }: {
     contract: IContract,
+    events: { [eventName: string]: EventHandler },
+    timeoutMs: number,
+    transactionHash: string,
+  }): Array<Promise<*>> {
+    return Object.getOwnPropertyNames(events).map(eventName =>
+      utils.raceAgainstTimeout(
+        new Promise(resolve =>
+          contract.addListener(eventName, transactionHash, ({ args }: Event) =>
+            resolve(events[eventName](args)),
+          ),
+        ),
+        timeoutMs,
+        () => contract.removeListener(eventName, transactionHash),
+      ),
+    );
+  }
+  // eslint-disable-next-line class-methods-use-this
+  async getEventData({
+    events: { success, error },
+    ...rest
+  }: {
+    contract: IContract,
     events: EventHandlers,
     timeoutMs: number,
     transactionHash: string,
   }): Promise<{}> {
+    const successPromises = success
+      ? this.constructor.getEventPromises({
+          events: success,
+          ...rest,
+        })
+      : [];
+    const errorPromises = error
+      ? this.constructor.getEventPromises({
+          events: error,
+          ...rest,
+        })
+      : [];
+    // Wait for all success events to resolve, or reject on any error event
     return Object.assign(
       {},
-      ...(await Promise.all(
-        Object.getOwnPropertyNames(events).map(eventName =>
-          utils.raceAgainstTimeout(
-            new Promise(resolve =>
-              contract.addListener(
-                eventName,
-                transactionHash,
-                ({ args }: Event) => resolve(events[eventName](args)),
-              ),
-            ),
-            timeoutMs,
-            () => contract.removeListener(eventName, transactionHash),
-          ),
-        ),
-      )),
+      ...(await Promise.race([Promise.all(successPromises), ...errorPromises])),
     );
   }
   async getTransactionReceipt(transactionHash: string) {
