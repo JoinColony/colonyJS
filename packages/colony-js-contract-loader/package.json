@@ -27,11 +27,5 @@
     "bugs": {
         "url": "https://github.com/JoinColony/colony-js/issues"
     },
-    "homepage": "https://github.com/JoinColony/colony-js#readme",
-    "dependencies": {
-        "@colony/colony-js-adapter": "^1.0.0",
-        "@colony/colony-js-adapter-ethers": "^1.0.0",
-        "@colony/colony-js-client": "^1.0.0",
-        "@colony/colony-js-contract-loader-http": "^1.0.0"
-    }
+    "homepage": "https://github.com/JoinColony/colony-js#readme"
 }
