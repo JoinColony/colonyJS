@@ -4,7 +4,6 @@ import type BigNumber from 'bn.js';
 import type {
   EstimateFn,
   EventHandlers,
-  InterfaceFn,
   MinedTransaction,
   SendFn,
   Transaction,
@@ -45,37 +44,35 @@ export default class Sender<
   static eventHandlers: EventHandlers;
   _send: SendFn<*>;
   _estimate: EstimateFn<*>;
-  _proxy: ?InterfaceFn<*>;
   client: IContractClient;
   static create(
     client: IContractClient,
-    { params, eventHandlers = {}, send, estimate, proxy }: SenderDef,
+    { params, eventHandlers = {}, send, estimate, getArgs }: SenderDef,
   ): Sender<Params, EventData, IContractClient> {
     class _Sender extends Sender<Params, EventData, IContractClient> {
       static params = params;
       static eventHandlers = eventHandlers;
+      getArgs(_params: Params): Array<*> {
+        return getArgs
+          ? getArgs.call(this, _params)
+          : this.constructor.getArgs(_params);
+      }
     }
-    return new _Sender(client, send, estimate, proxy);
+    return new _Sender(client, send, estimate);
   }
+  // For overloading
   getArgs(params: Params): Array<*> {
-    const args = this.constructor.getArgs(params);
-    if (typeof this._proxy === 'function') {
-      const { data } = this._proxy(...args);
-      return [data];
-    }
-    return args;
+    return this.constructor.getArgs(params);
   }
   constructor(
     client: IContractClient,
     send?: SendFn<*>,
     estimate?: EstimateFn<*>,
-    proxy?: InterfaceFn<*>,
   ) {
     super();
     this.client = client;
     if (typeof estimate === 'function') this._estimate = estimate;
     if (typeof send === 'function') this._send = send;
-    if (typeof proxy === 'function') this._proxy = proxy;
   }
   async estimate(
     params: Params,

@@ -5,7 +5,6 @@ import type {
   CallFn,
   SendFn,
   EstimateFn,
-  InterfaceFn,
 } from '@colony/colony-js-adapter';
 
 export type ParamTypes = 'int' | 'number' | 'string' | 'address' | 'boolean';
@@ -25,5 +24,5 @@ export type SenderDef = {
   eventHandlers?: EventHandlers,
   params: ParamTypePairs,
   send: SendFn<*>,
-  proxy?: InterfaceFn<*>,
+  getArgs?: (*) => Array<*>,
 };
