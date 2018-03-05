@@ -18,7 +18,7 @@ export interface Event {
     length: number,
   };
   event: string; // 'MyEvent'
-  eventSignature: string; // 'MyEvent(uint8)
+  eventSignature: string; // 'MyEvent(uint8)'
   getBlock(): Promise<Block>;
   getTransaction(): Promise<Transaction>;
   getTransactionReceipt(): Promise<TransactionReceipt>;
