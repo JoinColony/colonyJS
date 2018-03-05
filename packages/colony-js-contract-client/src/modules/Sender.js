@@ -24,15 +24,21 @@ type SendOptions = {
   estimate?: boolean,
   miningTimeoutMs?: number,
   timeoutMs: number,
+  waitForMining?: boolean,
 } & TransactionOptions;
+
+type ContractResponseMeta = {
+  transaction: Transaction,
+  receipt?: TransactionReceipt,
+  receiptPromise?: Promise<TransactionReceipt>,
+  minedTransaction?: MinedTransaction,
+  minedTransactionPromise?: Promise<MinedTransaction>,
+};
 
 type ContractResponse<EventData> = {
   eventData?: EventData,
-  meta: {
-    minedTransaction?: MinedTransaction,
-    receipt: TransactionReceipt,
-    transaction: Transaction,
-  },
+  eventDataPromise?: Promise<EventData>,
+  meta: ContractResponseMeta,
 };
 
 export default class Sender<
@@ -86,18 +92,18 @@ export default class Sender<
       timeoutMs,
     );
   }
-  // TODO provide another function to send without awaiting Promises?
-  // TODO or provide options like `waitForMining`?
   async send(
     params: Params,
     options: SendOptions,
   ): Promise<ContractResponse<EventData>> {
+    let receipt;
     if (typeof this._send !== 'function')
       throw new TypeError('Expected a send function for Sender');
 
     const {
       timeoutMs = DEFAULT_TIMEOUT,
       miningTimeoutMs = MINING_TIMEOUT,
+      waitForMining = true,
       ...transactionOptions
     } =
       options || {};
@@ -106,35 +112,52 @@ export default class Sender<
       transactionOptions,
       timeoutMs,
     );
-    const receipt = await this.client.adapter.getTransactionReceipt(
+    const receiptPromise = await this.client.adapter.getTransactionReceipt(
       transaction.hash,
     );
-    const meta = {
-      receipt,
-      transaction,
-    };
-    if (receipt.status === 1) {
-      const minedTransaction = await this.client.adapter.waitForTransaction(
-        transaction.hash,
-        miningTimeoutMs,
-      );
-      const eventData: EventData = await this.client.adapter.getEventData({
-        contract: this.client.contract,
-        events: this.constructor.eventHandlers,
-        timeoutMs: miningTimeoutMs,
-        transactionHash: transaction.hash,
-      });
-      return {
-        eventData,
-        meta: {
-          ...meta,
-          minedTransaction,
-        },
-      };
+
+    if (waitForMining) {
+      // Await the receipt first if we're waiting for mining; if it wasn't
+      // successful, return immediately rather than waiting for events/mined tx
+      receipt = await receiptPromise;
+      if (receipt.status === 0) {
+        return {
+          meta: {
+            receipt,
+            transaction,
+          },
+        };
+      }
     }
-    return {
-      meta,
-    };
+
+    const minedTransactionPromise = this.client.adapter.waitForTransaction(
+      transaction.hash,
+      miningTimeoutMs,
+    );
+    const eventDataPromise = this.client.adapter.getEventData({
+      contract: this.client.contract,
+      events: this.constructor.eventHandlers,
+      timeoutMs: miningTimeoutMs,
+      transactionHash: transaction.hash,
+    });
+
+    return waitForMining
+      ? {
+          eventData: await eventDataPromise,
+          meta: {
+            minedTransaction: await minedTransactionPromise,
+            receipt,
+            transaction,
+          },
+        }
+      : {
+          eventDataPromise,
+          meta: {
+            minedTransactionPromise,
+            receiptPromise,
+            transaction,
+          },
+        };
   }
   async sendTransaction(
     params: Params,
