@@ -25,7 +25,7 @@ export default class GetTask extends ContractClient.Caller<
   ReturnValue,
   ColonyClient,
 > {
-  static params = [['taskId', 'int']];
+  static params = [['taskId', 'number']];
   static parseReturn(
     [
       specificationHash,

@@ -264,12 +264,12 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
       },
       getTaskPayout: {
         call: this.contract.functions.getPotBalance,
-        params: [['taskId', 'int'], ['role', 'int'], ['token', 'address']],
+        params: [['taskId', 'number'], ['role', 'number'], ['token', 'address']],
         returnValues: [['amount', 'number']],
       },
       getTaskRole: {
         call: this.contract.functions.getTaskRole,
-        params: [['taskId', 'int'], ['role', 'int']],
+        params: [['taskId', 'number'], ['role', 'number']],
         returnValues: [
           ['role', 'address'],
           ['rated', 'boolean'],
@@ -278,12 +278,12 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
       },
       getTaskWorkRatings: {
         call: this.contract.functions.getTaskWorkRatings,
-        params: [['taskId', 'int']],
+        params: [['taskId', 'number']],
         returnValues: [['count', 'number'], ['timestamp', 'number']],
       },
       getTaskWorkRatingSecret: {
         call: this.contract.functions.getTaskWorkRatingSecret,
-        params: [['taskId', 'int'], ['role', 'int']],
+        params: [['taskId', 'number'], ['role', 'number']],
         returnValues: [['secret', 'string']],
       },
       getToken: {
@@ -325,17 +325,17 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
       addDomain: {
         send: this.contract.functions.addDomain,
         estimate: this.contract.estimate.addDomain,
-        params: [['domainId', 'int']],
+        params: [['domainId', 'number']],
       },
       addGlobalSkill: {
         send: this.contract.functions.addGlobalSkill,
         estimate: this.contract.estimate.addGlobalSkill,
-        params: [['parentSkillId', 'int']],
+        params: [['parentSkillId', 'number']],
       },
       approveTaskChange: {
         send: this.contract.functions.approveTaskChange,
         estimate: this.contract.estimate.approveTaskChange,
-        params: [['transaction', 'int'], ['role', 'int']],
+        params: [['transaction', 'number'], ['role', 'number']],
         eventHandlers: {
           success: {
             Confirmation: TRANSACTION_EVENT_HANDLERS.Confirmation,
@@ -349,12 +349,12 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
       assignWorkRating: {
         send: this.contract.functions.assignWorkRating,
         estimate: this.contract.estimate.assignWorkRating,
-        params: [['taskId', 'int']],
+        params: [['taskId', 'number']],
       },
       cancelTask: {
         send: this.contract.functions.cancelTask,
         estimate: this.contract.estimate.cancelTask,
-        params: [['taskId', 'int']],
+        params: [['taskId', 'number']],
       },
       claimColonyFunds: {
         send: this.contract.functions.claimColonyFunds,
@@ -364,12 +364,12 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
       claimPayout: {
         send: this.contract.functions.claimPayout,
         estimate: this.contract.estimate.claimPayout,
-        params: [['token', 'address'], ['role', 'int'], ['token', 'address']],
+        params: [['token', 'address'], ['role', 'number'], ['token', 'address']],
       },
       createTask: {
         send: this.contract.functions.makeTask,
         estimate: this.contract.estimate.makeTask,
-        params: [['specificationHash', 'string'], ['domainId', 'int']],
+        params: [['specificationHash', 'string'], ['domainId', 'number']],
         eventHandlers: {
           success: {
             TaskAdded({ id }: { id: * }) {
@@ -383,7 +383,7 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
       finalizeTask: {
         send: this.contract.functions.finalizeTask,
         estimate: this.contract.estimate.finalizeTask,
-        params: [['taskId', 'int']],
+        params: [['taskId', 'number']],
       },
       mintTokens: {
         send: this.contract.functions.mintTokens,
@@ -399,8 +399,8 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
         send: this.contract.functions.moveFundsBetweenPots,
         estimate: this.contract.estimate.moveFundsBetweenPots,
         params: [
-          ['fromPot', 'int'],
-          ['toPot', 'int'],
+          ['fromPot', 'number'],
+          ['toPot', 'number'],
           ['amount', 'number'],
           ['address', 'address'],
         ],
@@ -409,8 +409,8 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
         send: this.contract.functions.revealTaskWorkRating,
         estimate: this.contract.estimate.revealTaskWorkRating,
         params: [
-          ['taskId', 'int'],
-          ['role', 'int'],
+          ['taskId', 'number'],
+          ['role', 'number'],
           ['rating', 'number'],
           ['salt', 'string'],
         ],
@@ -418,68 +418,68 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
       setTaskBrief: proposeTaskChange({
         getData: this.contract.interface.functions.setTaskBrief,
         params: [
-          ['taskId', 'int'],
+          ['taskId', 'number'],
           ['specificationHash', 'address'],
-          ['role', 'int'],
+          ['role', 'number'],
         ],
       }),
       setTaskDomain: {
         send: this.contract.functions.setTaskDomain,
         estimate: this.contract.estimate.setTaskDomain,
-        params: [['taskId', 'int'], ['domainId', 'int']],
+        params: [['taskId', 'number'], ['domainId', 'number']],
       },
       setTaskDueDate: proposeTaskChange({
         getData: this.contract.interface.functions.setTaskDueDate,
-        params: [['taskId', 'int'], ['dueDate', 'number'], ['role', 'int']],
+        params: [['taskId', 'number'], ['dueDate', 'number'], ['role', 'number']],
       }),
       setTaskRoleUser: {
         send: this.contract.functions.setTaskRoleUser,
         estimate: this.contract.estimate.setTaskRoleUser,
-        params: [['taskId', 'int'], ['role', 'int'], ['user', 'address']],
+        params: [['taskId', 'number'], ['role', 'number'], ['user', 'address']],
       },
       setTaskSkill: {
         send: this.contract.functions.setTaskSkill,
         estimate: this.contract.estimate.setTaskSkill,
-        params: [['taskId', 'int'], ['skillId', 'int']],
+        params: [['taskId', 'number'], ['skillId', 'number']],
       },
       setTaskEvaluatorPayout: proposeTaskChange({
         getData: this.contract.interface.functions.setTaskEvaluatorPayout,
         params: [
-          ['taskId', 'int'],
+          ['taskId', 'number'],
           ['token', 'address'],
           ['amount', 'number'],
-          ['role', 'int'],
+          ['role', 'number'],
         ],
       }),
       setTaskManagerPayout: proposeTaskChange({
         getData: this.contract.interface.functions.setTaskManagerPayout,
         params: [
-          ['taskId', 'int'],
+          ['taskId', 'number'],
           ['token', 'address'],
           ['amount', 'number'],
-          ['role', 'int'],
+          ['role', 'number'],
         ],
       }),
       setTaskWorkerPayout: proposeTaskChange({
         getData: this.contract.interface.functions.setTaskWorkerPayout,
         params: [
-          ['taskId', 'int'],
+          ['taskId', 'number'],
           ['token', 'address'],
           ['amount', 'number'],
-          ['role', 'int'],
+          ['role', 'number'],
         ],
       }),
       submitTaskDeliverable: {
         send: this.contract.functions.submitTaskDeliverable,
         estimate: this.contract.estimate.submitTaskDeliverable,
-        params: [['taskId', 'int'], ['deliverableHash', 'string']],
+        params: [['taskId', 'number'], ['deliverableHash', 'string']],
       },
       submitTaskWorkRating: {
         send: this.contract.functions.submitTaskWorkRating,
         estimate: this.contract.estimate.submitTaskWorkRating,
         params: [
-          ['taskId', 'int'],
-          ['role', 'int'],
+          ['taskId', 'number'],
+          ['role', 'number'],
           ['ratingSecret', 'string'],
         ],
       },
