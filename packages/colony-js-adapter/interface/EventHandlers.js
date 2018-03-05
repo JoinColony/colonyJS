@@ -3,5 +3,10 @@
 export type EventHandler = (...*) => {};
 
 export type EventHandlers = {
-  [eventName: string]: EventHandler,
+  success?: {
+    [eventName: string]: EventHandler,
+  },
+  error?: {
+    [eventName: string]: EventHandler,
+  },
 };
