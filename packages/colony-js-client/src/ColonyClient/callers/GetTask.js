@@ -23,8 +23,7 @@ type FnReturn = [
 export default class GetTask extends ContractClient.Caller<
   Params,
   ReturnValue,
-  // eslint-disable-next-line
-  ColonyClient
+  ColonyClient,
 > {
   static params = [['taskId', 'int']];
   static parseReturn(
