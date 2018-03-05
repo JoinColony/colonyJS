@@ -10,7 +10,7 @@
     ],
     "scripts": {
         "build": "yarn run build:dist && yarn run build:lib && yarn run build:flow",
-        "build:dist": "node_modules/.bin/webpack",
+        "build:dist": "webpack",
         "build:flow": "flow-copy-source src lib --ignore '__tests__/*.js'",
         "build:lib": "babel src --out-dir lib --ignore __tests__",
         "flow": "flow src",
