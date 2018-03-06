@@ -165,10 +165,10 @@ export interface ColonyContract extends IContract {
   };
   functions: {
     // address => uint256
-    getNonRewardPotsTotal: CallFn<[string], [number]>,
+    getNonRewardPotsTotal: CallFn<[string], number>,
 
     // uint256 _potId, address _token => uint256
-    getPotBalance: CallFn<[number, string], [number]>,
+    getPotBalance: CallFn<[number, string], number>,
 
     // uint256 => bytes32, bytes32, bool, bool, uint256, uint256, uint256, uint256
     getTask: CallFn<
@@ -177,10 +177,10 @@ export interface ColonyContract extends IContract {
     >,
 
     // => uint256
-    getTaskCount: CallFn<null, [number]>,
+    getTaskCount: CallFn<null, number>,
 
     // uint256 _id, uint256 _role, address _token => uint256
-    getTaskPayout: CallFn<[number, number, string], [number]>,
+    getTaskPayout: CallFn<[number, number, string], number>,
 
     // uint256 _id, uint8 _idx => address, bool, uint8
     getTaskRole: CallFn<[number, number], [string, boolean, number]>,
@@ -189,13 +189,13 @@ export interface ColonyContract extends IContract {
     getTaskWorkRatings: CallFn<[number], [number, number]>,
 
     // uint256 _id, uint8 _role => bytes32
-    getTaskWorkRatingSecret: CallFn<[number, number], [string]>,
+    getTaskWorkRatingSecret: CallFn<[number, number], string>,
 
     // => address
-    getToken: CallFn<null, [string]>,
+    getToken: CallFn<null, string>,
 
     // => uint256
-    getTransactionCount: CallFn<[string], [number]>,
+    getTransactionCount: CallFn<[string], number>,
 
     addDomain: SendFn<$PropertyType<sendFns, 'addDomain'>>,
     approveTaskChange: SendFn<$PropertyType<sendFns, 'approveTaskChange'>>,
