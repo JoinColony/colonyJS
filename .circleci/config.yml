@@ -15,6 +15,7 @@ jobs:
       - run: |
           yarn global add greenkeeper-lockfile@1
           yarn install
+          yarn run lerna link
 
       - save_cache:
           paths:
