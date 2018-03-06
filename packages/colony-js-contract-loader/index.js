@@ -7,5 +7,4 @@ export type {
   Options,
   Parser,
   ParserOption,
-  Query,
 } from './interface/ContractLoader';

@@ -1,0 +1,10 @@
+{
+    "rootDir": "src",
+    "collectCoverageFrom" : ["*.{js}"],
+    "coverageDirectory": "../coverage",
+    "coverageThreshold": {
+        "global": {
+            "branches": 0
+        }
+    }
+  }

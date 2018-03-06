@@ -7,8 +7,10 @@ type TruffleArtifact = {
   networks: {},
 };
 
-export default function truffle(artifact: TruffleArtifact): ContractDefinition {
-  const { abi = {}, networks = {} } = artifact;
+export default function truffle({
+  abi = {},
+  networks = {},
+}: TruffleArtifact = {}): ContractDefinition {
   const { address } = networks[Object.keys(networks)[0]] || {};
   return {
     abi,

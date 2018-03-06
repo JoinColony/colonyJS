@@ -13,7 +13,7 @@
         "build:dist": "webpack",
         "build:flow": "flow-copy-source src lib --ignore '__tests__/*.js'",
         "build:lib": "babel src --out-dir lib --ignore __tests__",
-        "flow": "flow src",
+        "flow": "flow check",
         "lint": "eslint src/{,**/}*.js",
         "precommit": "lint-staged",
         "test": "yarn run lint && yarn run test:unit",
@@ -30,10 +30,17 @@
     "devDependencies": {
         "babel-plugin-dynamic-import-node": "^1.2.0",
         "babel-plugin-syntax-dynamic-import": "^6.18.0",
-        "jest-sandbox": "^1.1.1"
+        "babel-plugin-transform-class-properties": "^6.24.1",
+        "jest-sandbox": "^1.1.1",
+        "webpack": "^3.10.0"
     },
     "dependencies": {
         "@colony/colony-js-adapter": "^1.0.0",
-        "web3-utils": "^1.0.0-beta.26"
+        "@colony/colony-js-contract-client": "^1.0.0",
+        "@colony/colony-js-contract-loader": "^1.0.0",
+        "bn.js": "^4.11.6",
+        "browser-assert": "^1.2.1",
+        "ethers-utils": "^2.1.11",
+        "web3-utils": "^1.0.0-beta.30"
     }
 }

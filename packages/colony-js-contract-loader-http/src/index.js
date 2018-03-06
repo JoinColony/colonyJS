@@ -3,7 +3,7 @@
 import type {
   IContractLoader,
   ConstructorArgs,
-  Query,
+  Options,
   ParserOption,
   Parser,
   ContractDefinition,
@@ -31,22 +31,57 @@ export default class ContractHttpLoader implements IContractLoader {
     this._endpoint = endpoint;
     this._parser = ContractHttpLoader.selectParser(parser);
   }
-  resolveEndpointResource({ name, version }: Query): string {
-    let resource = this._endpoint.replace('%%NAME%%', name);
-    // `version` can be a string or an integer
-    if (
-      version != null &&
-      (typeof version === 'string' || Number(parseInt(version, 10)) === version)
-    ) {
-      resource = resource.replace('%%VERSION%%', version.toString());
+  resolveEndpointResource(
+    contractName: string,
+    { version }: Options = {},
+  ): string {
+    let resource = '';
+    if (contractName) {
+      resource = this._endpoint.replace('%%NAME%%', contractName);
+
+      // `version` can be a string or an integer
+      if (
+        version != null &&
+        (typeof version === 'string' ||
+          Number(parseInt(version, 10)) === version)
+      ) {
+        resource = resource.replace('%%VERSION%%', version.toString());
+      }
     }
     return resource;
   }
-  async _load({ name, version }: Query) {
-    return fetch(this.resolveEndpointResource({ name, version }));
+  async _load(contractName: string, options: Options = {}) {
+    // TODO add more meaningful error handling for each step.
+    const response = await fetch(
+      this.resolveEndpointResource(contractName, options),
+    );
+    const json = await response.json();
+    return this._parser(json);
   }
-  async load(query: Query): Promise<ContractDefinition> {
-    const response = await this._load(query);
-    return this._parser(await response.json());
+  async load(
+    contractName: string,
+    { address, version, router }: Options = {},
+  ): Promise<ContractDefinition> {
+    const result = await this._load(contractName, { version });
+
+    if (!result)
+      throw new Error(
+        `Did not receive a response for contract "${contractName}"`,
+      );
+
+    if (address) {
+      result.address = address;
+    } else if (router) {
+      const routerContract = await this._load(router);
+      result.address = routerContract.address;
+    }
+
+    if (typeof result.address !== 'string')
+      throw new Error('Unable to parse contract address');
+
+    if (!(result.abi instanceof Array))
+      throw new Error('Unable to parse contract ABI');
+
+    return result;
   }
 }

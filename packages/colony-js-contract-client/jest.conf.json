@@ -1,0 +1,13 @@
+{
+    "rootDir": "src",
+    "collectCoverageFrom" : ["*.{js}"],
+    "moduleNameMapper": {
+        "^contracts/(.*)": "<rootDir>/__mocks__/$1"
+    },
+    "coverageDirectory": "../coverage",
+    "coverageThreshold": {
+        "global": {
+            "branches": 0
+        }
+    }
+  }

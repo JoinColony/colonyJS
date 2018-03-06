@@ -1,8 +1,9 @@
 /* @flow */
 
-export type Query = {
-  name: string,
-  version?: number,
+export type Options = {
+  address?: string,
+  router?: string,
+  version?: string,
 };
 
 export type ContractDefinition = {
@@ -14,10 +15,6 @@ export type Parser = (input: any) => ContractDefinition;
 
 export type ParserOption = string | Parser;
 
-export type Options = {
-  // XXX This type is designed to be overriden in Loaders
-};
-
 export type ConstructorArgs = {
   endpoint: string,
   parser: ParserOption,
@@ -26,5 +23,5 @@ export type ConstructorArgs = {
 export interface ContractLoader {
   _endpoint: string;
   _parser: Parser;
-  load(Query, ?Options): Promise<ContractDefinition>;
+  load(contractName: string, options?: Options): Promise<ContractDefinition>;
 }

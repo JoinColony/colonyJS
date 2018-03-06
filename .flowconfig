@@ -1,5 +1,5 @@
 [ignore]
-.*\.flow$
+<PROJECT_ROOT>/packages/colonyDapp/.*
 
 [include]
 

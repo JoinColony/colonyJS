@@ -1,0 +1,53 @@
+{
+    "name": "@colony/colony-js-utils",
+    "version": "1.0.0",
+    "description": "Utilities for Colony JS packages",
+    "main": "lib/index.js",
+    "files": [
+        "dist",
+        "lib",
+        "Readme.md"
+    ],
+    "scripts": {
+        "build": "yarn run build:dist && yarn run build:lib && yarn run build:flow",
+        "build:dist": "webpack",
+        "build:flow": "flow-copy-source src lib --ignore '__tests__/*.js'",
+        "build:lib": "babel src --out-dir lib --ignore __tests__",
+        "flow": "flow src",
+        "lint": "eslint src/{,**/}*.js",
+        "precommit": "lint-staged",
+        "test": "yarn run lint && yarn run test:unit",
+        "test:unit": "jest --coverage --config=jest.conf.json"
+    },
+    "lint-staged": {
+        "src/{,**/}*.js": [
+            "lint --fix",
+            "git add"
+        ]
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/JoinColony/colony-js.git"
+    },
+    "keywords": [
+        "ethers",
+        "web3",
+        "colony",
+        "api"
+    ],
+    "author": "James Lefrère <james@colony.io>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/JoinColony/colony-js/issues"
+    },
+    "homepage": "https://github.com/JoinColony/colony-js#readme",
+    "devDependencies": {
+        "jest-sandbox": "^1.1.1",
+        "webpack": "^3.10.0"
+    },
+    "dependencies": {
+        "@colony/colony-js-adapter-ethers": "^1.0.0",
+        "@colony/colony-js-client": "^1.0.0",
+        "@colony/colony-js-contract-loader-http": "^1.0.0"
+    }
+}
