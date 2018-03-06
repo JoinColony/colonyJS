@@ -5,25 +5,19 @@ import createSandbox from 'jest-sandbox';
 import raceAgainstTimeout from '../raceAgainstTimeout';
 
 describe('raceAgainstTimeout', () => {
-  // const sandbox = createSandbox();
+  const sandbox = createSandbox();
 
-  // beforeEach(() => sandbox.clear());
-
-  // jest.useFakeTimers();
+  beforeEach(() => sandbox.clear());
 
   test('Promise resolves before timeout', async () => {
-    jest.useRealTimers();
     const promise = new Promise(resolve => {
       setTimeout(() => {
         resolve('result');
       }, 3000);
     });
-    // jest.runAllTimers();
     await expect(raceAgainstTimeout(promise, 1000)).rejects.toEqual(
-      new Error('test'),
+      new Error('Timeout after 1000 ms'),
     );
-    // const result = await raceAgainstTimeout(promise, 0);
-    // expect(result).toBe('result');
   });
 
   test('Timeout ends before promise resolves', async () => {
@@ -32,7 +26,6 @@ describe('raceAgainstTimeout', () => {
         resolve('result');
       }, 1000);
     });
-    jest.runAllTimers();
     const result = await raceAgainstTimeout(promise, 1000);
     expect(result).toBe('result');
   });

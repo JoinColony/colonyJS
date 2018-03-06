@@ -264,7 +264,11 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
       },
       getTaskPayout: {
         call: this.contract.functions.getPotBalance,
-        params: [['taskId', 'number'], ['role', 'number'], ['token', 'address']],
+        params: [
+          ['taskId', 'number'],
+          ['role', 'number'],
+          ['token', 'address'],
+        ],
         returnValues: [['amount', 'number']],
       },
       getTaskRole: {
@@ -364,7 +368,11 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
       claimPayout: {
         send: this.contract.functions.claimPayout,
         estimate: this.contract.estimate.claimPayout,
-        params: [['token', 'address'], ['role', 'number'], ['token', 'address']],
+        params: [
+          ['token', 'address'],
+          ['role', 'number'],
+          ['token', 'address'],
+        ],
       },
       createTask: {
         send: this.contract.functions.makeTask,
@@ -430,7 +438,11 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
       },
       setTaskDueDate: proposeTaskChange({
         getData: this.contract.interface.functions.setTaskDueDate,
-        params: [['taskId', 'number'], ['dueDate', 'number'], ['role', 'number']],
+        params: [
+          ['taskId', 'number'],
+          ['dueDate', 'number'],
+          ['role', 'number'],
+        ],
       }),
       setTaskRoleUser: {
         send: this.contract.functions.setTaskRoleUser,

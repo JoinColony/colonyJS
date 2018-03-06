@@ -42,7 +42,6 @@ export default class Validator<Params: { [name: string]: * }> {
   static parseParamsValue(value: *, type: ParamTypes) {
     switch (type) {
       case 'string':
-      case 'address':
         return utf8ToHex(value);
       default:
         return value;
