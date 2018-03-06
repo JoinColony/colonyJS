@@ -51,7 +51,7 @@
     },
     "devDependencies": {
         "jest": "^22.1.4",
-        "jest-sandbox": "^1.1.1",
+        "jest-sandbox": "^1.1.2",
         "webpack": "^3.10.0"
     }
 }

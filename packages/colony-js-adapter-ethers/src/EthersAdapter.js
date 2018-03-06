@@ -65,6 +65,7 @@ export default class EthersAdapter implements IAdapter<*> {
       );
     return Object.getOwnPropertyNames(events).map(mapEventToPromise);
   }
+
   // XXX this isn't a static method because we can't define it as such
   // in the Interface thanks to Flow
   // eslint-disable-next-line class-methods-use-this
