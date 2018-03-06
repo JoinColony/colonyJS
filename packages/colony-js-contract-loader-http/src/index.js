@@ -64,6 +64,11 @@ export default class ContractHttpLoader implements IContractLoader {
   ): Promise<ContractDefinition> {
     const result = await this._load(contractName, { version });
 
+    if (!result)
+      throw new Error(
+        `Did not receive a response for contract "${contractName}"`,
+      );
+
     if (address) {
       result.address = address;
     } else if (router) {
