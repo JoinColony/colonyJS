@@ -41,7 +41,11 @@ export default class Caller<
     }
   }
   // eslint-disable-next-line no-unused-vars
-  static parseReturn(values: *, params: Params): ReturnValue {
+  static parseReturn(valueOrValues: *, params: Params): ReturnValue {
+    // It may be a single value or an array; treat it as an array
+    const values = Array.isArray(valueOrValues)
+      ? valueOrValues
+      : [valueOrValues];
     if (this.returnValues.length) {
       const parsedValues = this.returnValues.map(([name, type], index) => {
         try {
@@ -58,7 +62,7 @@ export default class Caller<
       // $FlowFixMe Object literal incompatible with ReturnValue; perhaps try $ObjMap?
       return Object.assign({}, ...parsedValues);
     }
-    return values;
+    return valueOrValues;
   }
   constructor(client: IContractClient, call?: CallFn<*, *>) {
     super();
