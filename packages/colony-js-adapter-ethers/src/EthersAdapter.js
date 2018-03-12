@@ -43,26 +43,28 @@ export default class EthersAdapter implements IAdapter<*> {
     return new EthersContract(address, abi, this._wallet);
   }
   static getEventPromises({
-    contract,
     events,
     timeoutMs,
     transactionHash,
   }: {
-    contract: IContract,
     events: { [eventName: string]: EventHandler },
     timeoutMs: number,
     transactionHash: string,
   }): Array<Promise<*>> {
-    const mapEventToPromise = eventName =>
-      raceAgainstTimeout(
-        new Promise(resolve =>
+    const mapEventToPromise = eventName => {
+      let contract;
+      let handler;
+      return raceAgainstTimeout(
+        new Promise(resolve => {
+          ({ contract, handler } = events[eventName]);
           contract.addListener(eventName, transactionHash, ({ args }: Event) =>
-            resolve(events[eventName](args)),
-          ),
-        ),
+            resolve(handler(args)),
+          );
+        }),
         timeoutMs,
         () => contract.removeListener(eventName, transactionHash),
       );
+    };
     return Object.getOwnPropertyNames(events).map(mapEventToPromise);
   }
 
@@ -71,23 +73,19 @@ export default class EthersAdapter implements IAdapter<*> {
   // eslint-disable-next-line class-methods-use-this
   async getEventData({
     events: { success = {}, error = {} },
-    contract,
     transactionHash,
     timeoutMs,
   }: {
-    contract: IContract,
     events: EventHandlers,
     timeoutMs: number,
     transactionHash: string,
   }): Promise<{}> {
     const successPromises = this.constructor.getEventPromises({
-      contract,
       events: success,
       timeoutMs,
       transactionHash,
     });
     const errorPromises = this.constructor.getEventPromises({
-      contract,
       events: error,
       timeoutMs,
       transactionHash,
@@ -102,8 +100,11 @@ export default class EthersAdapter implements IAdapter<*> {
         ])),
       );
     } finally {
-      const eventNames = Object.keys({ ...success, ...error });
-      contract.removeListeners(eventNames, transactionHash);
+      Object.entries({ ...success, ...error }).forEach(
+        ([eventName, { contract }]) => {
+          contract.removeListener(eventName, transactionHash);
+        },
+      );
     }
   }
   async getTransactionReceipt(transactionHash: string) {
