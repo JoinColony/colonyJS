@@ -168,7 +168,7 @@ describe('EthersAdapter', () => {
     expect(eventData).toMatchObject({ one: 101, two: 202 });
   });
 
-  test('Event data is collected properly across multiple contracts', async () => {
+  test('Event data is collected properly with multiple contracts', async () => {
     const contract1 = await adapter.getContract({ name: 'myContractName' });
     const contract2 = await adapter.getContract({
       name: 'myOtherContractName',
