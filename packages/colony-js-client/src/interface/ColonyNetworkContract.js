@@ -2,10 +2,10 @@
 
 import type {
   IContract,
-  CallFn,
+  ViewFunction,
   InterfaceFn,
   EstimateFn,
-  SendFn,
+  TxFunction,
 } from '@colony/colony-js-adapter';
 
 type sendFns = {
@@ -39,23 +39,23 @@ export interface ColonyNetworkContract extends IContract {
     withdraw: EstimateFn<$PropertyType<sendFns, 'withdraw'>>,
   };
   functions: {
-    getChildSkillId: CallFn<[number, number], [number]>,
-    getColony: CallFn<[string], [string]>,
-    getColonyAt: CallFn<[number], [string]>,
-    getColonyCount: CallFn<null, [number]>,
-    getColonyVersionResolver: CallFn<[number], [string]>,
-    getCurrentColonyVersion: CallFn<null, [number]>,
-    getParentSkillId: CallFn<[number, number], [number]>,
-    getReputationUpdateLogEntry: CallFn<
+    getChildSkillId: ViewFunction<[number, number], [number]>,
+    getColony: ViewFunction<[string], [string]>,
+    getColonyAt: ViewFunction<[number], [string]>,
+    getColonyCount: ViewFunction<null, [number]>,
+    getColonyVersionResolver: ViewFunction<[number], [string]>,
+    getCurrentColonyVersion: ViewFunction<null, [number]>,
+    getParentSkillId: ViewFunction<[number, number], [number]>,
+    getReputationUpdateLogEntry: ViewFunction<
       [number],
       [string, number, number, string, number, number],
     >,
-    getReputationUpdateLogLength: CallFn<null, [number]>,
-    getSkill: CallFn<[number], [number, number]>,
-    getSkillCount: CallFn<null, [number]>,
-    createColony: SendFn<$PropertyType<sendFns, 'createColony'>>,
-    deposit: SendFn<$PropertyType<sendFns, 'deposit'>>,
-    upgradeColony: SendFn<$PropertyType<sendFns, 'upgradeColony'>>,
-    withdraw: SendFn<$PropertyType<sendFns, 'withdraw'>>,
+    getReputationUpdateLogLength: ViewFunction<null, [number]>,
+    getSkill: ViewFunction<[number], [number, number]>,
+    getSkillCount: ViewFunction<null, [number]>,
+    createColony: TxFunction<$PropertyType<sendFns, 'createColony'>>,
+    deposit: TxFunction<$PropertyType<sendFns, 'deposit'>>,
+    upgradeColony: TxFunction<$PropertyType<sendFns, 'upgradeColony'>>,
+    withdraw: TxFunction<$PropertyType<sendFns, 'withdraw'>>,
   };
 }

@@ -11,8 +11,8 @@ export type { TransactionReceipt } from './interface/TransactionReceipt';
 export type { TransactionOptions } from './interface/TransactionOptions';
 export type { Wallet as IWallet } from './interface/Wallet';
 export type {
-  CallFn,
   EstimateFn,
   InterfaceFn,
-  SendFn,
+  TxFunction,
+  ViewFunction,
 } from './interface/Functions';

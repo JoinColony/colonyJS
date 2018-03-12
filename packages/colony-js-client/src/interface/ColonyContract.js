@@ -2,10 +2,10 @@
 
 import type {
   IContract,
-  CallFn,
+  ViewFunction,
   InterfaceFn,
   EstimateFn,
-  SendFn,
+  TxFunction,
 } from '@colony/colony-js-adapter';
 
 type sendFns = {
@@ -165,75 +165,83 @@ export interface ColonyContract extends IContract {
   };
   functions: {
     // address => uint256
-    getNonRewardPotsTotal: CallFn<[string], [number]>,
+    getNonRewardPotsTotal: ViewFunction<[string], [number]>,
 
     // uint256 _potId, address _token => uint256
-    getPotBalance: CallFn<[number, string], [number]>,
+    getPotBalance: ViewFunction<[number, string], [number]>,
 
     // uint256 => bytes32, bytes32, bool, bool, uint256, uint256, uint256, uint256
-    getTask: CallFn<
+    getTask: ViewFunction<
       [number],
       [string, string, boolean, boolean, number, number, number, number],
     >,
 
     // => uint256
-    getTaskCount: CallFn<null, [number]>,
+    getTaskCount: ViewFunction<null, [number]>,
+
+    // uint256 taskId, address domainId => uint256
+    getTaskDomain: ViewFunction<[number, number], [number]>,
 
     // uint256 _id, uint256 _role, address _token => uint256
-    getTaskPayout: CallFn<[number, number, string], [number]>,
+    getTaskPayout: ViewFunction<[number, number, string], [number]>,
 
     // uint256 _id, uint8 _idx => address, bool, uint8
-    getTaskRole: CallFn<[number, number], [string, boolean, number]>,
+    getTaskRole: ViewFunction<[number, number], [string, boolean, number]>,
+
+    // uint256 taskId, address skillId => uint256
+    getTaskSkill: ViewFunction<[number, number], [number]>,
 
     // uint256 _id => uint256, uint256
-    getTaskWorkRatings: CallFn<[number], [number, number]>,
+    getTaskWorkRatings: ViewFunction<[number], [number, number]>,
 
     // uint256 _id, uint8 _role => bytes32
-    getTaskWorkRatingSecret: CallFn<[number, number], [string]>,
+    getTaskWorkRatingSecret: ViewFunction<[number, number], [string]>,
 
     // => address
-    getToken: CallFn<null, [string]>,
+    getToken: ViewFunction<null, [string]>,
 
     // => uint256
-    getTransactionCount: CallFn<[string], [number]>,
+    getTransactionCount: ViewFunction<[string], [number]>,
 
-    addDomain: SendFn<$PropertyType<sendFns, 'addDomain'>>,
-    approveTaskChange: SendFn<$PropertyType<sendFns, 'approveTaskChange'>>,
-    assignWorkRating: SendFn<$PropertyType<sendFns, 'assignWorkRating'>>,
-    cancelTask: SendFn<$PropertyType<sendFns, 'cancelTask'>>,
-    claimColonyFunds: SendFn<$PropertyType<sendFns, 'claimColonyFunds'>>,
-    claimPayout: SendFn<$PropertyType<sendFns, 'claimPayout'>>,
-    finalizeTask: SendFn<$PropertyType<sendFns, 'finalizeTask'>>,
-    makeTask: SendFn<$PropertyType<sendFns, 'makeTask'>>,
-    mintTokens: SendFn<$PropertyType<sendFns, 'mintTokens'>>,
-    mintTokensForColonyNetwork: SendFn<
+    addDomain: TxFunction<$PropertyType<sendFns, 'addDomain'>>,
+    approveTaskChange: TxFunction<$PropertyType<sendFns, 'approveTaskChange'>>,
+    assignWorkRating: TxFunction<$PropertyType<sendFns, 'assignWorkRating'>>,
+    cancelTask: TxFunction<$PropertyType<sendFns, 'cancelTask'>>,
+    claimColonyFunds: TxFunction<$PropertyType<sendFns, 'claimColonyFunds'>>,
+    claimPayout: TxFunction<$PropertyType<sendFns, 'claimPayout'>>,
+    finalizeTask: TxFunction<$PropertyType<sendFns, 'finalizeTask'>>,
+    makeTask: TxFunction<$PropertyType<sendFns, 'makeTask'>>,
+    mintTokens: TxFunction<$PropertyType<sendFns, 'mintTokens'>>,
+    mintTokensForColonyNetwork: TxFunction<
       $PropertyType<sendFns, 'mintTokensForColonyNetwork'>,
     >,
-    moveFundsBetweenPots: SendFn<
+    moveFundsBetweenPots: TxFunction<
       $PropertyType<sendFns, 'moveFundsBetweenPots'>,
     >,
-    revealTaskWorkRating: SendFn<
+    revealTaskWorkRating: TxFunction<
       $PropertyType<sendFns, 'revealTaskWorkRating'>,
     >,
-    setTaskBrief: SendFn<$PropertyType<sendFns, 'setTaskBrief'>>,
-    setTaskDomain: SendFn<$PropertyType<sendFns, 'setTaskDomain'>>,
-    setTaskDueDate: SendFn<$PropertyType<sendFns, 'setTaskDueDate'>>,
-    setTaskEvaluatorPayout: SendFn<
+    setTaskBrief: TxFunction<$PropertyType<sendFns, 'setTaskBrief'>>,
+    setTaskDomain: TxFunction<$PropertyType<sendFns, 'setTaskDomain'>>,
+    setTaskDueDate: TxFunction<$PropertyType<sendFns, 'setTaskDueDate'>>,
+    setTaskEvaluatorPayout: TxFunction<
       $PropertyType<sendFns, 'setTaskEvaluatorPayout'>,
     >,
-    setTaskManagerPayout: SendFn<
+    setTaskManagerPayout: TxFunction<
       $PropertyType<sendFns, 'setTaskManagerPayout'>,
     >,
-    setTaskRoleUser: SendFn<$PropertyType<sendFns, 'setTaskRoleUser'>>,
-    setTaskSkill: SendFn<$PropertyType<sendFns, 'setTaskSkill'>>,
-    setTaskWorkerPayout: SendFn<$PropertyType<sendFns, 'setTaskWorkerPayout'>>,
-    submitTaskDeliverable: SendFn<
+    setTaskRoleUser: TxFunction<$PropertyType<sendFns, 'setTaskRoleUser'>>,
+    setTaskSkill: TxFunction<$PropertyType<sendFns, 'setTaskSkill'>>,
+    setTaskWorkerPayout: TxFunction<
+      $PropertyType<sendFns, 'setTaskWorkerPayout'>,
+    >,
+    submitTaskDeliverable: TxFunction<
       $PropertyType<sendFns, 'submitTaskDeliverable'>,
     >,
-    submitTaskWorkRating: SendFn<
+    submitTaskWorkRating: TxFunction<
       $PropertyType<sendFns, 'submitTaskWorkRating'>,
     >,
-    addGlobalSkill: SendFn<$PropertyType<sendFns, 'addGlobalSkill'>>,
-    proposeTaskChange: SendFn<$PropertyType<sendFns, 'proposeTaskChange'>>,
+    addGlobalSkill: TxFunction<$PropertyType<sendFns, 'addGlobalSkill'>>,
+    proposeTaskChange: TxFunction<$PropertyType<sendFns, 'proposeTaskChange'>>,
   };
 }

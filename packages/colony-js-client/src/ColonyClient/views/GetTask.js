@@ -17,10 +17,9 @@ type FnReturn = [
   number,
   number,
   number,
-  number,
 ];
 
-export default class GetTask extends ContractClient.Caller<
+export default class GetTask extends ContractClient.ViewFunction<
   Params,
   ReturnValue,
   ColonyClient,
@@ -36,7 +35,6 @@ export default class GetTask extends ContractClient.Caller<
       payoutsWeCannotMake,
       potId,
       deliverableTimestamp,
-      domainId,
     ]: FnReturn,
     { taskId }: Params,
   ): ReturnValue {
@@ -44,7 +42,6 @@ export default class GetTask extends ContractClient.Caller<
       cancelled,
       deliverableHash,
       deliverableTimestamp,
-      domainId,
       dueDate: new Date(dueDate),
       finalized,
       id: taskId,

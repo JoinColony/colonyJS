@@ -4,29 +4,29 @@
 import type { Options as LoaderOptions } from '@colony/colony-js-contract-loader';
 import type { IAdapter, IContract } from '@colony/colony-js-adapter';
 
-import Caller from './Caller';
-import Sender from './Sender';
+import ViewFunction from './ViewFunction';
+import TxFunction from './TxFunction';
 
-import type { SenderDef, CallerDef } from '../types';
+import type { TxFunctionDef, ViewFunctionDef } from '../types';
 
-type CallerDefs = {
-  [name: string]: CallerDef,
+type ViewFunctionDefs = {
+  [name: string]: ViewFunctionDef,
 };
 
-type SenderDefs = {
-  [name: string]: SenderDef,
+type TxFunctionDefs = {
+  [name: string]: TxFunctionDef,
 };
 
 export default class ContractClient<ContractInterface: IContract> {
   adapter: IAdapter<ContractInterface>;
   contract: ContractInterface;
-  +callerDefs: CallerDefs;
-  +senderDefs: SenderDefs;
-  static get Caller(): typeof Caller {
-    return Caller;
+  +viewFunctionDefs: ViewFunctionDefs;
+  +txFunctionDefs: TxFunctionDefs;
+  static get ViewFunction(): typeof ViewFunction {
+    return ViewFunction;
   }
-  static get Sender(): typeof Sender {
-    return Sender;
+  static get TxFunction(): typeof TxFunction {
+    return TxFunction;
   }
   static async create(
     adapter: IAdapter<ContractInterface>,
@@ -49,41 +49,47 @@ export default class ContractClient<ContractInterface: IContract> {
   }) {
     this.adapter = adapter;
     this.contract = contract;
-    this._createCallers();
-    this._createSenders();
+    this._createViews();
+    this._createFunctions();
   }
   // eslint-disable-next-line class-methods-use-this
-  get callerDefs(): CallerDefs {
+  get viewFunctionDefs(): ViewFunctionDefs {
     return {};
   }
   // eslint-disable-next-line class-methods-use-this
-  get senderDefs(): SenderDefs {
+  get txFunctionDefs(): TxFunctionDefs {
     return {};
   }
-  createSender<Params: {}, EventData: {}>(name: string, def: SenderDef): void {
-    const sender: Sender<
+  createTxFunction<Params: {}, EventData: {}>(
+    name: string,
+    def: TxFunctionDef,
+  ): void {
+    const sender: TxFunction<
       Params,
       EventData,
       ContractClient<*>,
-    > = this.constructor.Sender.create(this, def);
+    > = this.constructor.TxFunction.create(this, def);
     Object.assign(this, { [name]: sender });
   }
-  createCaller<Params: {}, EventData: {}>(name: string, def: CallerDef): void {
-    const caller: Caller<
+  createViewFunction<Params: {}, EventData: {}>(
+    name: string,
+    def: ViewFunctionDef,
+  ): void {
+    const caller: ViewFunction<
       Params,
       EventData,
       ContractClient<*>,
-    > = this.constructor.Caller.create(this, def);
+    > = this.constructor.ViewFunction.create(this, def);
     Object.assign(this, { [name]: caller });
   }
-  _createCallers(): void {
-    Object.entries(this.callerDefs).forEach(([name, def]) => {
-      this.createCaller(name, def);
+  _createViews(): void {
+    Object.entries(this.viewFunctionDefs).forEach(([name, def]) => {
+      this.createViewFunction(name, def);
     });
   }
-  _createSenders(): void {
-    Object.entries(this.senderDefs).forEach(([name, def]) => {
-      this.createSender(name, def);
+  _createFunctions(): void {
+    Object.entries(this.txFunctionDefs).forEach(([name, def]) => {
+      this.createTxFunction(name, def);
     });
   }
 }

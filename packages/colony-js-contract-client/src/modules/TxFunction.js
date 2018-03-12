@@ -5,7 +5,7 @@ import type {
   EstimateFn,
   EventHandlers,
   MinedTransaction,
-  SendFn,
+  TxFunction as ContractTxFunction,
   Transaction,
   TransactionOptions,
   TransactionReceipt,
@@ -17,7 +17,7 @@ import ContractClient from './ContractClient';
 import { DEFAULT_TIMEOUT, MINING_TIMEOUT } from '../constants';
 import Validator from './Validator';
 
-import type { SenderDef } from '../types';
+import type { TxFunctionDef } from '../types';
 
 type SendOptions = {
   events?: EventHandlers,
@@ -41,21 +41,21 @@ type ContractResponse<EventData> = {
   meta: ContractResponseMeta,
 };
 
-export default class Sender<
+export default class TxFunction<
   Params: {},
   EventData: {},
   // eslint-disable-next-line
   IContractClient: ContractClient<*>
 > extends Validator<Params> {
   static eventHandlers: EventHandlers;
-  _send: SendFn<*>;
+  _send: ContractTxFunction<*>;
   _estimate: EstimateFn<*>;
   client: IContractClient;
   static create(
     client: IContractClient,
-    { params, eventHandlers = {}, send, estimate, getArgs }: SenderDef,
-  ): Sender<Params, EventData, IContractClient> {
-    class _Sender extends Sender<Params, EventData, IContractClient> {
+    { estimate, eventHandlers = {}, getArgs, params, send }: TxFunctionDef,
+  ): TxFunction<Params, EventData, IContractClient> {
+    class _TxFunction extends TxFunction<Params, EventData, IContractClient> {
       static params = params;
       static eventHandlers = eventHandlers;
       getArgs(_params: Params): Array<*> {
@@ -64,7 +64,7 @@ export default class Sender<
           : this.constructor.getArgs(_params);
       }
     }
-    return new _Sender(client, send, estimate);
+    return new _TxFunction(client, send, estimate);
   }
   // For overloading
   getArgs(params: Params): Array<*> {
@@ -72,7 +72,7 @@ export default class Sender<
   }
   constructor(
     client: IContractClient,
-    send?: SendFn<*>,
+    send?: ContractTxFunction<*>,
     estimate?: EstimateFn<*>,
   ) {
     super();
@@ -85,7 +85,7 @@ export default class Sender<
     { timeoutMs }: SendOptions,
   ): Promise<BigNumber> {
     if (typeof this._estimate !== 'function')
-      throw new TypeError('Expected an estimate function for Sender');
+      throw new TypeError('Expected an estimate function for TxFunction');
 
     return raceAgainstTimeout(
       this._estimate(...this.getArgs(params)),
@@ -98,7 +98,7 @@ export default class Sender<
   ): Promise<ContractResponse<EventData>> {
     let receipt;
     if (typeof this._send !== 'function')
-      throw new TypeError('Expected a send function for Sender');
+      throw new TypeError('Expected a send function for TxFunction');
 
     const {
       timeoutMs = DEFAULT_TIMEOUT,

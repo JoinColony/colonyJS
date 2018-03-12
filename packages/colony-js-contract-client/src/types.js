@@ -2,8 +2,8 @@
 
 import type {
   EventHandlers,
-  CallFn,
-  SendFn,
+  ViewFunction,
+  TxFunction,
   EstimateFn,
 } from '@colony/colony-js-adapter';
 
@@ -13,16 +13,16 @@ export type ParamTypePair = [string, ParamTypes];
 
 export type ParamTypePairs = Array<ParamTypePair>;
 
-export type CallerDef = {
-  call: CallFn<*, *>,
+export type ViewFunctionDef = {
+  call: ViewFunction<*, *>,
   params?: ParamTypePairs,
   returnValues: ParamTypePairs,
 };
 
-export type SenderDef = {
+export type TxFunctionDef = {
   estimate: EstimateFn<*>,
   eventHandlers?: EventHandlers,
   params: ParamTypePairs,
-  send: SendFn<*>,
+  send: TxFunction<*>,
   getArgs?: (*) => Array<*>,
 };
