@@ -106,7 +106,8 @@ export default class ColonyNetworkClient extends ContractClient<
   static get ColonyClient(): * {
     return ColonyClient;
   }
-  get callerDefs(): * {
+  // eslint-disable-next-line no-unused-vars
+  getCallerDefs(options?: {}): * {
     return {
       getColonyById: {
         call: this.contract.functions.getColonyAt,
@@ -133,8 +134,8 @@ export default class ColonyNetworkClient extends ContractClient<
       },
       getParentSkillId: {
         call: this.contract.functions.getParentSkillId,
-        params: [['skillId', 'number']],
-        returnValues: [['parentSkillIndex', 'number']],
+        params: [['skillId', 'number'], ['parentSkillIndex', 'number']],
+        returnValues: [['parentSkillId', 'number']],
       },
       getReputationUpdateLogEntry: {
         call: this.contract.functions.getReputationUpdateLogEntry,
@@ -163,7 +164,8 @@ export default class ColonyNetworkClient extends ContractClient<
       },
     };
   }
-  get senderDefs(): * {
+  // eslint-disable-next-line no-unused-vars
+  getSenderDefs(options?: {}): * {
     return {
       createColony: {
         send: this.contract.functions.createColony,
@@ -176,10 +178,13 @@ export default class ColonyNetworkClient extends ContractClient<
         ],
         eventHandlers: {
           success: {
-            ColonyAdded({ id }: { id: BigNumber }) {
-              return {
-                colonyId: id.toNumber(),
-              };
+            ColonyAdded: {
+              contract: this.contract,
+              handler({ id }: { id: BigNumber }) {
+                return {
+                  colonyId: id.toNumber(),
+                };
+              },
             },
           },
         },

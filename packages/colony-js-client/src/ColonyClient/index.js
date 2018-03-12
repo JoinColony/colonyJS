@@ -12,32 +12,6 @@ import ColonyNetworkClient from '../ColonyNetworkClient/index';
 
 import GetTask from './callers/GetTask';
 
-const TRANSACTION_EVENT_HANDLERS = {
-  Confirmation({ transactionId }: { transactionId: BigNumber }) {
-    return {
-      transactionId: transactionId.toNumber(),
-      confirmed: true,
-    };
-  },
-  Execution({ transactionId }: { transactionId: BigNumber }) {
-    return {
-      transactionId: transactionId.toNumber(),
-      executed: true,
-    };
-  },
-  Submission({ transactionId }: { transactionId: BigNumber }) {
-    return {
-      transactionId: transactionId.toNumber(),
-      submitted: true,
-    };
-  },
-  ExecutionFailure({ transactionId }: { transactionId: BigNumber }) {
-    throw new Error(
-      `Transaction ${transactionId.toNumber()} failed to be executed`,
-    );
-  },
-};
-
 type TransactionEventData = {
   transactionId: number,
   confirmed?: boolean,
@@ -108,10 +82,17 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
     },
     ColonyClient,
   >;
-  addDomain: ColonyClient.Sender<{ domainId: number }, null, ColonyClient>;
+  addDomain: ColonyClient.Sender<
+    { domainId: number },
+    {
+      skillId: number,
+      parentSkillId: number,
+    },
+    ColonyClient,
+  >;
   addGlobalSkill: ColonyClient.Sender<
     { parentSkillId: number },
-    null,
+    { skillId: number, parentSkillId: number },
     ColonyClient,
   >;
   approveTaskChange: ColonyClient.Sender<
@@ -221,10 +202,8 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
     loaderOptions: LoaderOptions,
     networkClient: ColonyNetworkClient,
   ) {
-    const client = await super.create(adapter, contractName, loaderOptions);
-    client.networkClient = networkClient;
-    client.getTask = new GetTask(client);
-    return client;
+    const contract = await adapter.getContract(contractName, loaderOptions);
+    return new this({ adapter, contract, networkClient });
   }
   static async createSelf(
     adapter: IAdapter<ColonyContract>,
@@ -242,11 +221,11 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
     contract: ColonyContract,
     networkClient: ColonyNetworkClient,
   }) {
-    super({ adapter, contract });
-    this.networkClient = networkClient;
+    super({ adapter, contract, options: { networkClient } });
     this.getTask = new GetTask(this);
   }
-  get callerDefs(): * {
+  // eslint-disable-next-line no-unused-vars
+  getCallerDefs(options?: {}): * {
     return {
       getNonRewardPotsTotal: {
         call: this.contract.functions.getNonRewardPotsTotal,
@@ -300,7 +279,61 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
       },
     };
   }
-  get senderDefs(): * {
+  getSenderDefs({
+    networkClient,
+  }: { networkClient: ColonyNetworkClient } = {}): * {
+    const SkillAdded = {
+      contract: networkClient.contract,
+      handler({
+        parentSkillId,
+        skillId,
+      }: {
+        parentSkillId: BigNumber,
+        skillId: BigNumber,
+      }) {
+        return {
+          parentSkillId: parentSkillId.toNumber(),
+          skillId: skillId.toNumber(),
+        };
+      },
+    };
+
+    const Confirmation = {
+      contract: this.contract,
+      handler({ transactionId }: { transactionId: BigNumber }) {
+        return {
+          transactionId: transactionId.toNumber(),
+          confirmed: true,
+        };
+      },
+    };
+    const Execution = {
+      contract: this.contract,
+      handler({ transactionId }: { transactionId: BigNumber }) {
+        return {
+          transactionId: transactionId.toNumber(),
+          executed: true,
+        };
+      },
+    };
+    const Submission = {
+      contract: this.contract,
+      handler({ transactionId }: { transactionId: BigNumber }) {
+        return {
+          transactionId: transactionId.toNumber(),
+          submitted: true,
+        };
+      },
+    };
+    const ExecutionFailure = {
+      contract: this.contract,
+      handler({ transactionId }: { transactionId: BigNumber }) {
+        throw new Error(
+          `Transaction ${transactionId.toNumber()} failed to be executed`,
+        );
+      },
+    };
+
     const proposeTaskChange = ({
       getData,
       params,
@@ -319,8 +352,8 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
       params,
       eventHandlers: {
         success: {
-          Submission: TRANSACTION_EVENT_HANDLERS.Submission,
-          Confirmation: TRANSACTION_EVENT_HANDLERS.Confirmation,
+          Submission,
+          Confirmation,
         },
       },
     });
@@ -330,11 +363,17 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
         send: this.contract.functions.addDomain,
         estimate: this.contract.estimate.addDomain,
         params: [['domainId', 'number']],
+        eventHandlers: {
+          success: { SkillAdded },
+        },
       },
       addGlobalSkill: {
         send: this.contract.functions.addGlobalSkill,
         estimate: this.contract.estimate.addGlobalSkill,
         params: [['parentSkillId', 'number']],
+        eventHandlers: {
+          success: { SkillAdded },
+        },
       },
       approveTaskChange: {
         send: this.contract.functions.approveTaskChange,
@@ -342,11 +381,11 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
         params: [['transaction', 'number'], ['role', 'number']],
         eventHandlers: {
           success: {
-            Confirmation: TRANSACTION_EVENT_HANDLERS.Confirmation,
-            Execution: TRANSACTION_EVENT_HANDLERS.Execution,
+            Confirmation,
+            Execution,
           },
           error: {
-            ExecutionFailure: TRANSACTION_EVENT_HANDLERS.ExecutionFailure,
+            ExecutionFailure,
           },
         },
       },
@@ -380,10 +419,13 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
         params: [['specificationHash', 'string'], ['domainId', 'number']],
         eventHandlers: {
           success: {
-            TaskAdded({ id }: { id: * }) {
-              return {
-                taskId: id.toNumber(),
-              };
+            TaskAdded: {
+              contract: this.contract,
+              handler({ id }: { id: * }) {
+                return {
+                  taskId: id.toNumber(),
+                };
+              },
             },
           },
         },
