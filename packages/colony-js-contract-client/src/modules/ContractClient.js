@@ -43,21 +43,23 @@ export default class ContractClient<ContractInterface: IContract> {
   constructor({
     adapter,
     contract,
+    options = {},
   }: {
     adapter: IAdapter<ContractInterface>,
     contract: ContractInterface,
+    options?: *,
   }) {
     this.adapter = adapter;
     this.contract = contract;
     this._createCallers();
-    this._createSenders();
+    this._createSenders(options);
   }
   // eslint-disable-next-line class-methods-use-this
-  get callerDefs(): CallerDefs {
+  getCallerDefs(): CallerDefs {
     return {};
   }
-  // eslint-disable-next-line class-methods-use-this
-  get senderDefs(): SenderDefs {
+  // eslint-disable-next-line class-methods-use-this,no-unused-vars
+  getSenderDefs(options?: *): SenderDefs {
     return {};
   }
   createSender<Params: {}, EventData: {}>(name: string, def: SenderDef): void {
@@ -77,12 +79,12 @@ export default class ContractClient<ContractInterface: IContract> {
     Object.assign(this, { [name]: caller });
   }
   _createCallers(): void {
-    Object.entries(this.callerDefs).forEach(([name, def]) => {
+    Object.entries(this.getCallerDefs()).forEach(([name, def]) => {
       this.createCaller(name, def);
     });
   }
-  _createSenders(): void {
-    Object.entries(this.senderDefs).forEach(([name, def]) => {
+  _createSenders(options?: *): void {
+    Object.entries(this.getSenderDefs(options)).forEach(([name, def]) => {
       this.createSender(name, def);
     });
   }

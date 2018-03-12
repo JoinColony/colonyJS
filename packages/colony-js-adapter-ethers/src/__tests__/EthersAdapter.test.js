@@ -91,33 +91,40 @@ describe('EthersAdapter', () => {
     args: { errorOne: 'Value from MyErrorEvent' },
   };
 
-  const events = {
+  const createEvents = (contract1, contract2) => ({
     success: {
-      MySuccessEventOne: sandbox
-        .fn()
-        .mockImplementation(({ one }) => ({ one: one + 100 })),
-      MySuccessEventTwo: sandbox
-        .fn()
-        .mockImplementation(({ two }) => ({ two: two + 200 })),
+      MySuccessEventOne: {
+        contract: contract1,
+        handler: sandbox
+          .fn()
+          .mockImplementation(({ one }) => ({ one: one + 100 })),
+      },
+      MySuccessEventTwo: {
+        contract: contract2,
+        handler: sandbox
+          .fn()
+          .mockImplementation(({ two }) => ({ two: two + 200 })),
+      },
     },
     error: {
-      MyErrorEvent: sandbox.fn().mockImplementation(() => {
-        throw new Error('MyErrorEvent');
-      }),
+      MyErrorEvent: {
+        contract: contract1,
+        handler: sandbox.fn().mockImplementation(() => {
+          throw new Error('MyErrorEvent');
+        }),
+      },
     },
-  };
+  });
 
   test('Event listeners are added and removed', async () => {
     const contract = await adapter.getContract({ name: 'myContractName' });
 
     sandbox.spyOn(contract, 'addListener');
     sandbox.spyOn(contract, 'removeListener');
-    sandbox.spyOn(contract, 'removeListeners');
     sandbox.spyOn(adapter.constructor, 'getEventPromises');
 
     const eventDataPromise = adapter.getEventData({
-      contract,
-      events,
+      events: createEvents(contract, contract),
       transactionHash,
       timeoutMs: 1000,
     });
@@ -125,7 +132,6 @@ describe('EthersAdapter', () => {
     // getEventPromises should be called for error and success events
     expect(adapter.constructor.getEventPromises).toHaveBeenCalledTimes(2);
 
-    expect(contract.removeListeners).toHaveBeenCalledTimes(0);
     expect(contract.removeListener).toHaveBeenCalledTimes(0);
 
     // Events should have been added and removed for each of the events
@@ -143,15 +149,13 @@ describe('EthersAdapter', () => {
     await eventDataPromise;
 
     expect(contract.addListener).toHaveBeenCalledTimes(0);
-    expect(contract.removeListeners).toHaveBeenCalledTimes(1);
     expect(contract.removeListener).toHaveBeenCalledTimes(3);
   });
 
   test('Event data is collected properly', async () => {
     const contract = await adapter.getContract({ name: 'myContractName' });
     const eventDataPromise = adapter.getEventData({
-      contract,
-      events,
+      events: createEvents(contract, contract),
       transactionHash,
       timeoutMs: 1000,
     });
@@ -164,14 +168,32 @@ describe('EthersAdapter', () => {
     expect(eventData).toMatchObject({ one: 101, two: 202 });
   });
 
+  test('Event data is collected properly with multiple contracts', async () => {
+    const contract1 = await adapter.getContract({ name: 'myContractName' });
+    const contract2 = await adapter.getContract({
+      name: 'myOtherContractName',
+    });
+
+    const eventDataPromise = adapter.getEventData({
+      events: createEvents(contract1, contract2),
+      transactionHash,
+      timeoutMs: 1000,
+    });
+
+    contract1.dispatchEvent(successEventOne);
+    contract2.dispatchEvent(successEventTwo);
+
+    const eventData = await eventDataPromise;
+
+    expect(eventData).toMatchObject({ one: 101, two: 202 });
+  });
+
   test('Error events remove event listeners', async () => {
     const contract = await adapter.getContract({ name: 'myContractName' });
     sandbox.spyOn(contract, 'removeListener');
-    sandbox.spyOn(contract, 'removeListeners');
 
     const eventDataPromise = adapter.getEventData({
-      contract,
-      events,
+      events: createEvents(contract, contract),
       transactionHash,
       timeoutMs: 1000,
     });
@@ -193,7 +215,6 @@ describe('EthersAdapter', () => {
 
     await eventDataPromise;
 
-    expect(contract.removeListeners).toHaveBeenCalledTimes(1);
     expect(contract.removeListener).toHaveBeenCalledTimes(3);
   });
 
@@ -201,12 +222,10 @@ describe('EthersAdapter', () => {
     const contract = await adapter.getContract({ name: 'myContractName' });
     sandbox.spyOn(contract, 'dispatchEvent');
     sandbox.spyOn(contract, 'removeListener');
-    sandbox.spyOn(contract, 'removeListeners');
 
     try {
       await adapter.getEventData({
-        contract,
-        events,
+        events: createEvents(contract, contract),
         transactionHash,
         timeoutMs: 1,
       });
@@ -217,10 +236,7 @@ describe('EthersAdapter', () => {
     // no events dispatched
     expect(contract.dispatchEvent).toHaveBeenCalledTimes(0);
 
-    // removeListeners called at the end
-    expect(contract.removeListeners).toHaveBeenCalledTimes(1);
-
-    // those removed by removeListeners + each individually on timeout
+    // those removed by iterating through the listeners + each individually on timeout
     expect(contract.removeListener).toHaveBeenCalledTimes(6);
   });
 
