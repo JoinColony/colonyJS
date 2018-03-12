@@ -106,8 +106,7 @@ export default class ColonyNetworkClient extends ContractClient<
   static get ColonyClient(): * {
     return ColonyClient;
   }
-  // eslint-disable-next-line no-unused-vars
-  getCallerDefs(options?: {}): * {
+  getCallerDefs(): * {
     return {
       getColonyById: {
         call: this.contract.functions.getColonyAt,

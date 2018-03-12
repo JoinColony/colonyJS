@@ -224,8 +224,7 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
     super({ adapter, contract, options: { networkClient } });
     this.getTask = new GetTask(this);
   }
-  // eslint-disable-next-line no-unused-vars
-  getCallerDefs(options?: {}): * {
+  getCallerDefs(): * {
     return {
       getNonRewardPotsTotal: {
         call: this.contract.functions.getNonRewardPotsTotal,

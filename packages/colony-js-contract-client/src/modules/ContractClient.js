@@ -51,11 +51,11 @@ export default class ContractClient<ContractInterface: IContract> {
   }) {
     this.adapter = adapter;
     this.contract = contract;
-    this._createCallers(options);
+    this._createCallers();
     this._createSenders(options);
   }
-  // eslint-disable-next-line class-methods-use-this,no-unused-vars
-  getCallerDefs(options?: *): CallerDefs {
+  // eslint-disable-next-line class-methods-use-this
+  getCallerDefs(): CallerDefs {
     return {};
   }
   // eslint-disable-next-line class-methods-use-this,no-unused-vars
@@ -78,8 +78,8 @@ export default class ContractClient<ContractInterface: IContract> {
     > = this.constructor.Caller.create(this, def);
     Object.assign(this, { [name]: caller });
   }
-  _createCallers(options?: *): void {
-    Object.entries(this.getCallerDefs(options)).forEach(([name, def]) => {
+  _createCallers(): void {
+    Object.entries(this.getCallerDefs()).forEach(([name, def]) => {
       this.createCaller(name, def);
     });
   }
