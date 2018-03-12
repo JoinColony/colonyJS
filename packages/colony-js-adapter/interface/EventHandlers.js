@@ -1,6 +1,13 @@
 /* @flow */
 
-export type EventHandler = (...*) => {};
+import type { Contract } from './Contract';
+
+type Handler = (...*) => {};
+
+export type EventHandler = {
+  contract: Contract,
+  handler: Handler,
+};
 
 export type EventHandlers = {
   success?: {
