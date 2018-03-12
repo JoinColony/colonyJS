@@ -2,32 +2,32 @@
 
 import BigNumber from 'bn.js';
 import { raceAgainstTimeout } from '@colony/colony-js-utils';
-import type { CallFn } from '@colony/colony-js-adapter';
+import type { ViewFunction as ContractViewFn } from '@colony/colony-js-adapter';
 
 import { DEFAULT_TIMEOUT } from '../constants';
 import Validator from './Validator';
 import ContractClient from './ContractClient';
 
-import type { CallerDef, ParamTypePairs, ParamTypes } from '../types';
+import type { ViewFunctionDef, ParamTypePairs, ParamTypes } from '../types';
 
-export default class Caller<
+export default class ViewFunction<
   Params: { [name: string]: * },
   ReturnValue,
   // eslint-disable-next-line
   IContractClient: ContractClient<*>
 > extends Validator<Params> {
-  +_call: CallFn<*, *>;
+  +_call: ContractViewFn<*, *>;
   client: IContractClient;
   static returnValues: ParamTypePairs = [];
   static create(
     client: IContractClient,
-    { params = [], returnValues, call }: CallerDef,
-  ): Caller<Params, ReturnValue, IContractClient> {
-    class _Caller extends Caller<Params, ReturnValue, IContractClient> {
+    { params = [], returnValues, call }: ViewFunctionDef,
+  ): ViewFunction<Params, ReturnValue, IContractClient> {
+    class _View extends ViewFunction<Params, ReturnValue, IContractClient> {
       static params = params;
       static returnValues = returnValues;
     }
-    return new _Caller(client, call);
+    return new _View(client, call);
   }
   static parseReturnValue(value: *, type: ParamTypes) {
     switch (type) {
@@ -60,7 +60,7 @@ export default class Caller<
     }
     return values;
   }
-  constructor(client: IContractClient, call?: CallFn<*, *>) {
+  constructor(client: IContractClient, call?: ContractViewFn<*, *>) {
     super();
     this.client = client;
     if (typeof call === 'function') this._call = call;
@@ -70,7 +70,7 @@ export default class Caller<
     { timeoutMs = DEFAULT_TIMEOUT }: { timeoutMs: number } = {},
   ): Promise<ReturnValue> {
     if (typeof this._call !== 'function')
-      throw new TypeError('Expected a call function for Caller');
+      throw new TypeError('Expected a call function for View');
 
     const args = this.constructor.getArgs(params);
 

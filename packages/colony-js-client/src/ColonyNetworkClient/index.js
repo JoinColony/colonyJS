@@ -13,37 +13,37 @@ export default class ColonyNetworkClient extends ContractClient<
   ColonyNetworkContract,
 > {
   contract: ColonyNetworkContract;
-  getColonyById: ColonyNetworkClient.Caller<
+  getColonyById: ColonyNetworkClient.ViewFunction<
     { id: number },
     { address: string },
     ColonyNetworkClient,
   >;
-  getColonyByKey: ColonyNetworkClient.Caller<
+  getColonyByKey: ColonyNetworkClient.ViewFunction<
     { key: string },
     { address: string },
     ColonyNetworkClient,
   >;
-  getColonyCount: ColonyNetworkClient.Caller<
+  getColonyCount: ColonyNetworkClient.ViewFunction<
     null,
     { count: number },
     ColonyNetworkClient,
   >;
-  getColonyVersionResolver: ColonyNetworkClient.Caller<
+  getColonyVersionResolver: ColonyNetworkClient.ViewFunction<
     { version: number },
     { address: string },
     ColonyNetworkClient,
   >;
-  getCurrentColonyVersion: ColonyNetworkClient.Caller<
+  getCurrentColonyVersion: ColonyNetworkClient.ViewFunction<
     null,
     { version: number },
     ColonyNetworkClient,
   >;
-  getParentSkillId: ColonyNetworkClient.Caller<
+  getParentSkillId: ColonyNetworkClient.ViewFunction<
     { skillId: number, parentSkillIndex: number },
     { parentSkillId: number },
     ColonyNetworkClient,
   >;
-  getReputationUpdateLogEntry: ColonyNetworkClient.Caller<
+  getReputationUpdateLogEntry: ColonyNetworkClient.ViewFunction<
     { id: number },
     {
       amount: number,
@@ -55,22 +55,22 @@ export default class ColonyNetworkClient extends ContractClient<
     },
     ColonyNetworkClient,
   >;
-  getReputationUpdateLogLength: ColonyNetworkClient.Caller<
+  getReputationUpdateLogLength: ColonyNetworkClient.ViewFunction<
     null,
     { count: number },
     ColonyNetworkClient,
   >;
-  getSkill: ColonyNetworkClient.Caller<
+  getSkill: ColonyNetworkClient.ViewFunction<
     { id: number },
     { nParents: number, nChildren: number },
     ColonyNetworkClient,
   >;
-  getSkillCount: ColonyNetworkClient.Caller<
+  getSkillCount: ColonyNetworkClient.ViewFunction<
     null,
     { count: number },
     ColonyNetworkClient,
   >;
-  createColony: ColonyNetworkClient.Sender<
+  createColony: ColonyNetworkClient.TxFunction<
     {
       name: string,
       tokenName: string,
@@ -80,12 +80,12 @@ export default class ColonyNetworkClient extends ContractClient<
     { colonyId: number },
     ColonyNetworkClient,
   >;
-  deposit: ColonyNetworkClient.Sender<
+  deposit: ColonyNetworkClient.TxFunction<
     { amount: number },
     null,
     ColonyNetworkClient,
   >;
-  upgradeColony: ColonyNetworkClient.Sender<
+  upgradeColony: ColonyNetworkClient.TxFunction<
     {
       key: string,
       newVersion: number,
@@ -93,7 +93,7 @@ export default class ColonyNetworkClient extends ContractClient<
     null,
     ColonyNetworkClient,
   >;
-  withdraw: ColonyNetworkClient.Sender<
+  withdraw: ColonyNetworkClient.TxFunction<
     { amount: number },
     null,
     ColonyNetworkClient,
@@ -106,7 +106,7 @@ export default class ColonyNetworkClient extends ContractClient<
   static get ColonyClient(): * {
     return ColonyClient;
   }
-  get callerDefs(): * {
+  get viewDefs(): * {
     return {
       getColonyById: {
         call: this.contract.functions.getColonyAt,
@@ -163,7 +163,7 @@ export default class ColonyNetworkClient extends ContractClient<
       },
     };
   }
-  get senderDefs(): * {
+  get txFunctionDefs(): * {
     return {
       createColony: {
         send: this.contract.functions.createColony,

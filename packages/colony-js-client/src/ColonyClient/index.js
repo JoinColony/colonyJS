@@ -10,7 +10,7 @@ import ContractClient from '@colony/colony-js-contract-client';
 import type { ColonyContract } from '../interface/ColonyContract';
 import ColonyNetworkClient from '../ColonyNetworkClient/index';
 
-import GetTask from './callers/GetTask';
+import GetTask from './views/GetTask';
 
 const TRANSACTION_EVENT_HANDLERS = {
   Confirmation({ transactionId }: { transactionId: BigNumber }) {
@@ -48,19 +48,23 @@ type TransactionEventData = {
 export default class ColonyClient extends ContractClient<ColonyContract> {
   contract: ColonyContract;
   networkClient: ColonyNetworkClient;
-  getNonRewardPotsTotal: ColonyClient.Caller<
+  getNonRewardPotsTotal: ColonyClient.ViewFunction<
     { address: string },
     { total: number },
     ColonyClient,
   >;
-  getPotBalance: ColonyClient.Caller<
+  getPotBalance: ColonyClient.ViewFunction<
     { potId: number, token: string },
     { balance: number },
     ColonyClient,
   >;
   getTask: GetTask;
-  getTaskCount: ColonyClient.Caller<null, { count: number }, ColonyClient>;
-  getTaskPayout: ColonyClient.Caller<
+  getTaskCount: ColonyClient.ViewFunction<
+    null,
+    { count: number },
+    ColonyClient,
+  >;
+  getTaskPayout: ColonyClient.ViewFunction<
     {
       taskId: number,
       role: number,
@@ -69,12 +73,12 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
     { amount: number },
     ColonyClient,
   >;
-  getTaskRole: ColonyClient.Caller<
+  getTaskRole: ColonyClient.ViewFunction<
     { taskId: number, role: number },
     { role: number, rated: boolean, rating: number },
     ColonyClient,
   >;
-  getTaskWorkRatings: ColonyClient.Caller<
+  getTaskWorkRatings: ColonyClient.ViewFunction<
     {
       taskId: number,
     },
@@ -84,7 +88,7 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
     },
     ColonyClient,
   >;
-  getTaskWorkRatingSecret: ColonyClient.Caller<
+  getTaskWorkRatingSecret: ColonyClient.ViewFunction<
     {
       taskId: number,
       role: number,
@@ -94,56 +98,60 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
     },
     ColonyClient,
   >;
-  getToken: ColonyClient.Caller<
+  getToken: ColonyClient.ViewFunction<
     null,
     {
       address: string,
     },
     ColonyClient,
   >;
-  getTransactionCount: ColonyClient.Caller<
+  getTransactionCount: ColonyClient.ViewFunction<
     null,
     {
       count: number,
     },
     ColonyClient,
   >;
-  addDomain: ColonyClient.Sender<{ domainId: number }, null, ColonyClient>;
-  addGlobalSkill: ColonyClient.Sender<
+  addDomain: ColonyClient.TxFunction<{ domainId: number }, null, ColonyClient>;
+  addGlobalSkill: ColonyClient.TxFunction<
     { parentSkillId: number },
     null,
     ColonyClient,
   >;
-  approveTaskChange: ColonyClient.Sender<
+  approveTaskChange: ColonyClient.TxFunction<
     { transactionId: number, role: number },
     TransactionEventData,
     ColonyClient,
   >;
-  assignWorkRating: ColonyClient.Sender<
+  assignWorkRating: ColonyClient.TxFunction<
     { taskId: number, rating: number },
     null,
     ColonyClient,
   >;
-  cancelTask: ColonyClient.Sender<{ taskId: number }, null, ColonyClient>;
-  claimColonyFunds: ColonyClient.Sender<{ token: string }, null, ColonyClient>;
-  claimPayout: ColonyClient.Sender<
+  cancelTask: ColonyClient.TxFunction<{ taskId: number }, null, ColonyClient>;
+  claimColonyFunds: ColonyClient.TxFunction<
+    { token: string },
+    null,
+    ColonyClient,
+  >;
+  claimPayout: ColonyClient.TxFunction<
     { taskId: number, role: number, token: string },
     null,
     ColonyClient,
   >;
-  createTask: ColonyClient.Sender<
+  createTask: ColonyClient.TxFunction<
     { specificationHash: string, domainId: number },
     { taskId: number },
     ColonyClient,
   >;
-  finalizeTask: ColonyClient.Sender<{ taskId: number }, null, ColonyClient>;
-  mintTokens: ColonyClient.Sender<{ amount: number }, null, ColonyClient>;
-  mintTokensForColonyNetwork: ColonyClient.Sender<
+  finalizeTask: ColonyClient.TxFunction<{ taskId: number }, null, ColonyClient>;
+  mintTokens: ColonyClient.TxFunction<{ amount: number }, null, ColonyClient>;
+  mintTokensForColonyNetwork: ColonyClient.TxFunction<
     { amount: number },
     null,
     ColonyClient,
   >;
-  moveFundsBetweenPots: ColonyClient.Sender<
+  moveFundsBetweenPots: ColonyClient.TxFunction<
     {
       fromPot: number,
       toPot: number,
@@ -153,7 +161,7 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
     null,
     ColonyClient,
   >;
-  revealTaskWorkRating: ColonyClient.Sender<
+  revealTaskWorkRating: ColonyClient.TxFunction<
     {
       taskId: number,
       role: number,
@@ -163,52 +171,52 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
     null,
     ColonyClient,
   >;
-  setTaskBrief: ColonyClient.Sender<
+  setTaskBrief: ColonyClient.TxFunction<
     { taskId: number, specificationHash: string },
     TransactionEventData,
     ColonyClient,
   >;
-  setTaskDomain: ColonyClient.Sender<
+  setTaskDomain: ColonyClient.TxFunction<
     { taskId: number, domainId: number },
     null,
     ColonyClient,
   >;
-  setTaskDueDate: ColonyClient.Sender<
+  setTaskDueDate: ColonyClient.TxFunction<
     { taskId: number, dueDate: number },
     TransactionEventData,
     ColonyClient,
   >;
-  setTaskRoleUser: ColonyClient.Sender<
+  setTaskRoleUser: ColonyClient.TxFunction<
     { taskId: number, role: number, user: string },
     null,
     ColonyClient,
   >;
-  setTaskSkill: ColonyClient.Sender<
+  setTaskSkill: ColonyClient.TxFunction<
     { taskId: number, skillId: number },
     null,
     ColonyClient,
   >;
-  setTaskEvaluatorPayout: ColonyClient.Sender<
+  setTaskEvaluatorPayout: ColonyClient.TxFunction<
     { taskId: number, token: string, amount: number },
     TransactionEventData,
     ColonyClient,
   >;
-  setTaskManagerPayout: ColonyClient.Sender<
+  setTaskManagerPayout: ColonyClient.TxFunction<
     { taskId: number, token: string, amount: number },
     TransactionEventData,
     ColonyClient,
   >;
-  setTaskWorkerPayout: ColonyClient.Sender<
+  setTaskWorkerPayout: ColonyClient.TxFunction<
     { taskId: number, token: string, amount: number },
     TransactionEventData,
     ColonyClient,
   >;
-  submitTaskDeliverable: ColonyClient.Sender<
+  submitTaskDeliverable: ColonyClient.TxFunction<
     { taskId: number, deliverableHash: string },
     null,
     ColonyClient,
   >;
-  submitTaskWorkRating: ColonyClient.Sender<
+  submitTaskWorkRating: ColonyClient.TxFunction<
     { taskId: number, role: number, ratingSecret: string },
     null,
     ColonyClient,
@@ -246,7 +254,7 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
     this.networkClient = networkClient;
     this.getTask = new GetTask(this);
   }
-  get callerDefs(): * {
+  get viewDefs(): * {
     return {
       getNonRewardPotsTotal: {
         call: this.contract.functions.getNonRewardPotsTotal,
@@ -300,7 +308,7 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
       },
     };
   }
-  get senderDefs(): * {
+  get txFunctionDefs(): * {
     const proposeTaskChange = ({
       getData,
       params,
