@@ -4,14 +4,15 @@ export type Options = {
   address?: string,
   router?: string,
   version?: string,
+  networkId?: number,
 };
 
 export type ContractDefinition = {
-  abi: {},
+  abi: any,
   address: string,
 };
 
-export type Parser = (input: any) => ContractDefinition;
+export type Parser = (input: any, options?: {}) => ContractDefinition;
 
 export type ParserOption = string | Parser;
 
