@@ -50,19 +50,22 @@ export default class ContractHttpLoader implements IContractLoader {
     }
     return resource;
   }
-  async _load(contractName: string, options: Options = {}) {
+  async _load(
+    contractName: string,
+    { networkId, version }: { networkId?: number, version?: string } = {},
+  ) {
     // TODO add more meaningful error handling for each step.
     const response = await fetch(
-      this.resolveEndpointResource(contractName, options),
+      this.resolveEndpointResource(contractName, { version }),
     );
     const json = await response.json();
-    return this._parser(json);
+    return this._parser(json, { networkId });
   }
   async load(
     contractName: string,
-    { address, version, router }: Options = {},
+    { address, router, ...options }: Options = {},
   ): Promise<ContractDefinition> {
-    const result = await this._load(contractName, { version });
+    const result = await this._load(contractName, options);
 
     if (!result)
       throw new Error(
