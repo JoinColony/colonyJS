@@ -50,10 +50,7 @@ export default class ContractHttpLoader implements IContractLoader {
     }
     return resource;
   }
-  async _load(
-    contractName: string,
-    { networkId, version }: { networkId?: number, version?: string } = {},
-  ) {
+  async _load(contractName: string, { networkId, version }: Options = {}) {
     // TODO add more meaningful error handling for each step.
     const response = await fetch(
       this.resolveEndpointResource(contractName, { version }),
@@ -63,7 +60,7 @@ export default class ContractHttpLoader implements IContractLoader {
   }
   async load(
     contractName: string,
-    { address, router, ...options }: Options = {},
+    options: Options = {},
   ): Promise<ContractDefinition> {
     const result = await this._load(contractName, options);
 
@@ -72,6 +69,7 @@ export default class ContractHttpLoader implements IContractLoader {
         `Did not receive a response for contract "${contractName}"`,
       );
 
+    const { address, router } = options;
     if (address) {
       result.address = address;
     } else if (router) {
