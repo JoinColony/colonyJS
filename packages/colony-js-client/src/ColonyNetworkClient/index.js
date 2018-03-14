@@ -3,6 +3,8 @@
 import type BigNumber from 'bn.js';
 import type { IAdapter } from '@colony/colony-js-adapter';
 import ContractClient from '@colony/colony-js-contract-client';
+// eslint-disable-next-line max-len
+import type { Options as LoaderOptions } from '@colony/colony-js-contract-loader';
 
 import type { ColonyNetworkContract } from '../interface/ColonyNetworkContract';
 import ColonyClient from '../ColonyClient/index';
@@ -100,8 +102,12 @@ export default class ColonyNetworkClient extends ContractClient<
   >;
   static async createSelf(
     adapter: IAdapter<ColonyNetworkContract>,
+    loaderOptions: LoaderOptions = {},
   ): Promise<ColonyNetworkClient> {
-    return this.create(adapter, 'IColonyNetwork', { router: 'EtherRouter' });
+    return this.create(adapter, 'IColonyNetwork', {
+      router: 'EtherRouter',
+      ...loaderOptions,
+    });
   }
   static get ColonyClient(): * {
     return ColonyClient;
