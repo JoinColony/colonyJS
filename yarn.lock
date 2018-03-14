@@ -3404,7 +3404,7 @@ ethers-providers@2.1.19:
     inherits "2.0.1"
     xmlhttprequest "1.8.0"
 
-ethers-utils@2.1.11, ethers-utils@^2.1.0, ethers-utils@^2.1.11:
+ethers-utils@2.1.11, ethers-utils@^2.1.0:
   version "2.1.11"
   resolved "https://registry.yarnpkg.com/ethers-utils/-/ethers-utils-2.1.11.tgz#b27535ca3226118be300211c39c896b1e5e21641"
   dependencies:
@@ -3424,7 +3424,7 @@ ethers-wallet@2.1.8:
     setimmediate "1.0.4"
     uuid "2.0.1"
 
-ethers@2.2.6, ethers@^2.2.6:
+ethers@2.2.6:
   version "2.2.6"
   resolved "https://registry.yarnpkg.com/ethers/-/ethers-2.2.6.tgz#d1081c3e132930686fa7a3b508ae4d0ef8bd986a"
   dependencies:
@@ -3432,6 +3432,21 @@ ethers@2.2.6, ethers@^2.2.6:
     ethers-providers "2.1.19"
     ethers-utils "2.1.11"
     ethers-wallet "2.1.8"
+
+ethers@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/ethers/-/ethers-3.0.3.tgz#6d7a12df9a1e2dfd32742bb0202a7ec1ad1b157c"
+  dependencies:
+    aes-js "3.0.0"
+    bn.js "^4.4.0"
+    elliptic "6.3.3"
+    hash.js "^1.0.0"
+    inherits "2.0.1"
+    js-sha3 "0.5.7"
+    scrypt-js "2.0.3"
+    setimmediate "1.0.4"
+    uuid "2.0.1"
+    xmlhttprequest "1.8.0"
 
 ethjs-unit@0.1.6:
   version "0.1.6"
