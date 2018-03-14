@@ -9,10 +9,11 @@
         "Readme.md"
     ],
     "scripts": {
-        "build": "yarn run build:dist && yarn run build:lib && yarn run build:flow",
+        "build": "yarn run clean && yarn run build:dist && yarn run build:lib && yarn run build:flow",
         "build:dist": "webpack",
         "build:flow": "flow-copy-source src lib --ignore '__tests__/*.js'",
         "build:lib": "babel src --out-dir lib --ignore __tests__",
+        "clean": "shx rm -rf lib",
         "flow": "flow src",
         "lint": "eslint src/{,**/}*.js",
         "precommit": "lint-staged",
