@@ -12,12 +12,8 @@ import ColonyNetworkClient from '../ColonyNetworkClient/index';
 
 import GetTask from './callers/GetTask';
 
-type TransactionEventData = {
-  transactionId: number,
-  confirmed?: boolean,
-  executed?: boolean,
-  submitted?: boolean,
-};
+type Signatures = [string, string];
+type Multisig = { sigR: Signatures, sigV: Signatures, sigS: Signatures };
 
 export default class ColonyClient extends ContractClient<ColonyContract> {
   contract: ColonyContract;
@@ -95,11 +91,6 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
     { skillId: number, parentSkillId: number },
     ColonyClient,
   >;
-  approveTaskChange: ColonyClient.Sender<
-    { transactionId: number, role: number },
-    TransactionEventData,
-    ColonyClient,
-  >;
   assignWorkRating: ColonyClient.Sender<
     { taskId: number, rating: number },
     null,
@@ -145,8 +136,8 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
     ColonyClient,
   >;
   setTaskBrief: ColonyClient.Sender<
-    { taskId: number, specificationHash: string },
-    TransactionEventData,
+    { signatures: Multisig, taskId: number, specificationHash: string },
+    null,
     ColonyClient,
   >;
   setTaskDomain: ColonyClient.Sender<
@@ -155,8 +146,8 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
     ColonyClient,
   >;
   setTaskDueDate: ColonyClient.Sender<
-    { taskId: number, dueDate: number },
-    TransactionEventData,
+    { signatures: Multisig, taskId: number, dueDate: number },
+    null,
     ColonyClient,
   >;
   setTaskRoleUser: ColonyClient.Sender<
@@ -170,18 +161,18 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
     ColonyClient,
   >;
   setTaskEvaluatorPayout: ColonyClient.Sender<
-    { taskId: number, token: string, amount: number },
-    TransactionEventData,
+    { signatures: Multisig, taskId: number, token: string, amount: number },
+    null,
     ColonyClient,
   >;
   setTaskManagerPayout: ColonyClient.Sender<
-    { taskId: number, token: string, amount: number },
-    TransactionEventData,
+    { signatures: Multisig, taskId: number, token: string, amount: number },
+    null,
     ColonyClient,
   >;
   setTaskWorkerPayout: ColonyClient.Sender<
-    { taskId: number, token: string, amount: number },
-    TransactionEventData,
+    { signatures: Multisig, taskId: number, token: string, amount: number },
+    null,
     ColonyClient,
   >;
   submitTaskDeliverable: ColonyClient.Sender<
@@ -297,64 +288,38 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
       },
     };
 
-    const Confirmation = {
-      contract: this.contract,
-      handler({ transactionId }: { transactionId: BigNumber }) {
-        return {
-          transactionId: transactionId.toNumber(),
-          confirmed: true,
-        };
-      },
-    };
-    const Execution = {
-      contract: this.contract,
-      handler({ transactionId }: { transactionId: BigNumber }) {
-        return {
-          transactionId: transactionId.toNumber(),
-          executed: true,
-        };
-      },
-    };
-    const Submission = {
-      contract: this.contract,
-      handler({ transactionId }: { transactionId: BigNumber }) {
-        return {
-          transactionId: transactionId.toNumber(),
-          submitted: true,
-        };
-      },
-    };
-    const ExecutionFailure = {
-      contract: this.contract,
-      handler({ transactionId }: { transactionId: BigNumber }) {
-        throw new Error(
-          `Transaction ${transactionId.toNumber()} failed to be executed`,
-        );
-      },
-    };
-
-    const proposeTaskChange = ({
+    /**
+     * Creates sender definitions based on `executeTaskChange`
+     *
+     * @param getData
+     * Interface function (e.g. `setTaskBrief`) that we will use
+     * to generate the task data
+     *
+     * @param params
+     * Parameters for the interface function plus a multisig
+     * parameter, which should be signed by all parties
+     *
+     * @returns SenderDef
+     */
+    const executeTaskChangeFactory = ({
       getData,
       params,
     }: {
       getData: InterfaceFn<*>,
       params: *,
     }) => ({
-      send: this.contract.functions.proposeTaskChange,
-      estimate: this.contract.estimate.proposeTaskChange,
-      getArgs(parameters: {}): Array<*> {
-        const args = this.constructor.getArgs(parameters);
-        const role = args.pop();
+      send: this.contract.functions.executeTaskChange,
+      estimate: this.contract.estimate.executeTaskChange,
+      getArgs(parameters) {
+        // Expecting multisig as the first parameter
+        const [sigV, sigR, sigS, ...args] = this.constructor.getArgs(
+          parameters,
+        );
         const { data } = getData(...args);
-        return [data, 0, role]; // 0 == Transaction value
+        // sigV, sigR, sigS, tx value (currently unused), tx data
+        return [sigV, sigR, sigS, 0, data];
       },
       params,
-      eventHandlers: {
-        success: {
-          Submission,
-          Confirmation,
-        },
-      },
     });
 
     return {
@@ -372,20 +337,6 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
         params: [['parentSkillId', 'number']],
         eventHandlers: {
           success: { SkillAdded },
-        },
-      },
-      approveTaskChange: {
-        send: this.contract.functions.approveTaskChange,
-        estimate: this.contract.estimate.approveTaskChange,
-        params: [['transaction', 'number'], ['role', 'number']],
-        eventHandlers: {
-          success: {
-            Confirmation,
-            Execution,
-          },
-          error: {
-            ExecutionFailure,
-          },
         },
       },
       assignWorkRating: {
@@ -429,6 +380,15 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
           },
         },
       },
+      executeTaskChange: {
+        send: this.contract.functions.executeTaskChange,
+        estimate: this.contract.estimate.executeTaskChange,
+        params: [
+          ['signatures', 'multisig'],
+          ['value', 'number'],
+          ['data', 'string'],
+        ],
+      },
       finalizeTask: {
         send: this.contract.functions.finalizeTask,
         estimate: this.contract.estimate.finalizeTask,
@@ -464,12 +424,12 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
           ['salt', 'string'],
         ],
       },
-      setTaskBrief: proposeTaskChange({
+      setTaskBrief: executeTaskChangeFactory({
         getData: this.contract.interface.functions.setTaskBrief,
         params: [
+          ['signatures', 'multisig'],
           ['taskId', 'number'],
           ['specificationHash', 'address'],
-          ['role', 'number'],
         ],
       }),
       setTaskDomain: {
@@ -477,12 +437,12 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
         estimate: this.contract.estimate.setTaskDomain,
         params: [['taskId', 'number'], ['domainId', 'number']],
       },
-      setTaskDueDate: proposeTaskChange({
+      setTaskDueDate: executeTaskChangeFactory({
         getData: this.contract.interface.functions.setTaskDueDate,
         params: [
+          ['signatures', 'multisig'],
           ['taskId', 'number'],
           ['dueDate', 'number'],
-          ['role', 'number'],
         ],
       }),
       setTaskRoleUser: {
@@ -495,31 +455,31 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
         estimate: this.contract.estimate.setTaskSkill,
         params: [['taskId', 'number'], ['skillId', 'number']],
       },
-      setTaskEvaluatorPayout: proposeTaskChange({
+      setTaskEvaluatorPayout: executeTaskChangeFactory({
         getData: this.contract.interface.functions.setTaskEvaluatorPayout,
         params: [
+          ['signatures', 'multisig'],
           ['taskId', 'number'],
           ['token', 'address'],
           ['amount', 'number'],
-          ['role', 'number'],
         ],
       }),
-      setTaskManagerPayout: proposeTaskChange({
+      setTaskManagerPayout: executeTaskChangeFactory({
         getData: this.contract.interface.functions.setTaskManagerPayout,
         params: [
+          ['signatures', 'multisig'],
           ['taskId', 'number'],
           ['token', 'address'],
           ['amount', 'number'],
-          ['role', 'number'],
         ],
       }),
-      setTaskWorkerPayout: proposeTaskChange({
+      setTaskWorkerPayout: executeTaskChangeFactory({
         getData: this.contract.interface.functions.setTaskWorkerPayout,
         params: [
+          ['signatures', 'multisig'],
           ['taskId', 'number'],
           ['token', 'address'],
           ['amount', 'number'],
-          ['role', 'number'],
         ],
       }),
       submitTaskDeliverable: {
