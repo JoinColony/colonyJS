@@ -22,16 +22,27 @@ type TransactionEventData = {
 export default class ColonyClient extends ContractClient<ColonyContract> {
   contract: ColonyContract;
   networkClient: ColonyNetworkClient;
+  /*
+    Description of whatever this does
+  */
   getNonRewardPotsTotal: ColonyClient.Caller<
-    { address: string },
-    { total: number },
+    {
+      address: string, // Address is needed to succeed!
+    },
+    {
+      total: number, // Total thing of whatever
+    },
     ColonyClient,
   >;
   getPotBalance: ColonyClient.Caller<
-    { potId: number, token: string },
+    {
+      potId: number, // Everybody loves themselves a good potId
+      token: string, // Token token lalalala, how long can this be, nobody knows, let's find out, man this is long
+    },
     { balance: number },
     ColonyClient,
   >;
+  // TODO: Please type explicitly!
   getTask: GetTask;
   getTaskCount: ColonyClient.Caller<null, { count: number }, ColonyClient>;
   getTaskPayout: ColonyClient.Caller<
