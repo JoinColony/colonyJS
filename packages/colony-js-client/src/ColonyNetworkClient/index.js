@@ -75,12 +75,9 @@ export default class ColonyNetworkClient extends ContractClient<
   createColony: ColonyNetworkClient.Sender<
     {
       name: string,
-      tokenName: string,
-      tokenSymbol: string,
-      tokenDecimals: number,
+      tokenAddress: string,
     },
     { colonyId: number },
-    ColonyNetworkClient,
   >;
   deposit: ColonyNetworkClient.Sender<
     { amount: number },
@@ -175,12 +172,7 @@ export default class ColonyNetworkClient extends ContractClient<
       createColony: {
         send: this.contract.functions.createColony,
         estimate: this.contract.estimate.createColony,
-        params: [
-          ['name', 'string'],
-          ['tokenName', 'string'],
-          ['tokenSymbol', 'string'],
-          ['tokenDecimals', 'number'],
-        ],
+        params: [['name', 'string'], ['tokenAddress', 'string']],
         eventHandlers: {
           success: {
             ColonyAdded: {

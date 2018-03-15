@@ -22,6 +22,64 @@ describe('Validator', () => {
     expect(Validator.checkValidAddress(VALID_ADDRESS)).toBe(true);
   });
 
+  test('checkValidAddress', () => {
+    expect(() => Validator.checkValidAddress('not an address')).toThrowError(
+      'Invalid address',
+    );
+    expect(() =>
+      Validator.checkValidAddress(NON_EXISTENT_ADDRESS),
+    ).toThrowError('Undefined address');
+    expect(Validator.checkValidAddress(VALID_ADDRESS)).toBe(true);
+  });
+
+  test('validateMultisig', () => {
+    expect(Validator.validateMultisig('not an object')).toBe(false);
+
+    // Too few entries
+    expect(
+      Validator.validateMultisig({
+        sigR: ['0x123'],
+        sigS: ['0x123', '0x234'],
+        sigV: ['0x123', '0x234'],
+      }),
+    ).toBe(false);
+
+    // Too many entries
+    expect(
+      Validator.validateMultisig({
+        sigR: ['0x123', '0x234', '0x456'],
+        sigS: ['0x123', '0x234', '0x456'],
+        sigV: ['0x123', '0x234', '0x456'],
+      }),
+    ).toBe(false);
+
+    // Empty sigV
+    expect(
+      Validator.validateMultisig({
+        sigR: ['0x123', '0x234'],
+        sigS: ['0x123', '0x234'],
+        sigV: [],
+      }),
+    ).toBe(false);
+
+    // Missing sigV
+    expect(
+      Validator.validateMultisig({
+        sigR: ['0x123', '0x234'],
+        sigS: ['0x123', '0x234'],
+      }),
+    ).toBe(false);
+
+    // Correct
+    expect(
+      Validator.validateMultisig({
+        sigR: ['0x123', '0x234'],
+        sigS: ['0x123', '0x234'],
+        sigV: ['0x123', '0x234'],
+      }),
+    ).toBe(true);
+  });
+
   test('getArgs', () => {
     class MyValidator extends Validator {
       static params = [['myAddress', 'address']];

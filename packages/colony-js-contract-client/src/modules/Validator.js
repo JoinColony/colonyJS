@@ -2,13 +2,24 @@
 
 import assert from 'browser-assert';
 import BigNumber from 'bn.js';
-import { utf8ToHex, isAddress } from 'web3-utils';
+import { utf8ToHex, isAddress, isHex } from 'web3-utils';
 
 import type { ParamTypePairs, ParamTypes } from '../types';
 import { NON_EXISTENT_ADDRESS } from '../constants';
 
 export default class Validator<Params: { [name: string]: * }> {
   static params: ParamTypePairs = [];
+  static validateMultisig(value: any): boolean {
+    return (
+      typeof value === 'object' &&
+      ['sigV', 'sigR', 'sigS'].every(
+        propName =>
+          Array.isArray(value[propName]) &&
+          value[propName].length === 2 &&
+          value[propName].every(sig => isHex(sig)),
+      )
+    );
+  }
   static validateParam(key: string, type: ParamTypes, value: *): boolean {
     const message = `Parameter ${key} expected a value of type ${type}`;
     switch (type) {
@@ -23,6 +34,9 @@ export default class Validator<Params: { [name: string]: * }> {
         break;
       case 'boolean':
         assert(typeof value === 'boolean', message);
+        break;
+      case 'multisig':
+        assert(this.constructor.validateMultisig(value), message);
         break;
       default:
         throw new TypeError(`Parameter type ${type} not defined`);
