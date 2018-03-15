@@ -6,8 +6,11 @@ const parser = require('flow-parser');
 const types = require('ast-types');
 
 const TYPES = {
+  BooleanTypeAnnotation: 'boolean',
   StringTypeAnnotation: 'string',
   NumberTypeAnnotation: 'number',
+  Date: 'Date',
+  Address: 'address',
 };
 
 const ast = parser.parse(
