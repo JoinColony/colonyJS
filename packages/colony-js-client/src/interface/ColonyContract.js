@@ -87,8 +87,14 @@ type sendFns = {
   // uint256 _parentSkillId
   addGlobalSkill: [number],
 
-  // bytes _data, uint256 _value, uint8 _role
-  proposeTaskChange: [string, number, number],
+  // uint8[] _sigV, bytes32[] _sigR, bytes32[] _sigS, uint256 _value, bytes _data
+  executeTaskChange: [
+    [string, string],
+    [string, string],
+    [string, string],
+    number,
+    string,
+  ],
 };
 
 export interface ColonyContract extends IContract {
@@ -97,17 +103,16 @@ export interface ColonyContract extends IContract {
       // XXX until https://github.com/facebook/flow/issues/3237 is fixed, we can't type these more
       addDomain: InterfaceFn<*>,
       addGlobalSkill: InterfaceFn<*>,
-      approveTaskChange: InterfaceFn<*>,
       assignWorkRating: InterfaceFn<*>,
       cancelTask: InterfaceFn<*>,
       claimColonyFunds: InterfaceFn<*>,
       claimPayout: InterfaceFn<*>,
+      executeTaskChange: InterfaceFn<*>,
       finalizeTask: InterfaceFn<*>,
       makeTask: InterfaceFn<*>,
       mintTokens: InterfaceFn<*>,
       mintTokensForColonyNetwork: InterfaceFn<*>,
       moveFundsBetweenPots: InterfaceFn<*>,
-      proposeTaskChange: InterfaceFn<*>,
       revealTaskWorkRating: InterfaceFn<*>,
       setTaskBrief: InterfaceFn<*>,
       setTaskDomain: InterfaceFn<*>,
@@ -123,11 +128,12 @@ export interface ColonyContract extends IContract {
   };
   estimate: {
     addDomain: EstimateFn<$PropertyType<sendFns, 'addDomain'>>,
-    approveTaskChange: EstimateFn<$PropertyType<sendFns, 'approveTaskChange'>>,
+    addGlobalSkill: EstimateFn<$PropertyType<sendFns, 'addGlobalSkill'>>,
     assignWorkRating: EstimateFn<$PropertyType<sendFns, 'assignWorkRating'>>,
     cancelTask: EstimateFn<$PropertyType<sendFns, 'cancelTask'>>,
     claimColonyFunds: EstimateFn<$PropertyType<sendFns, 'claimColonyFunds'>>,
     claimPayout: EstimateFn<$PropertyType<sendFns, 'claimPayout'>>,
+    executeTaskChange: EstimateFn<$PropertyType<sendFns, 'executeTaskChange'>>,
     finalizeTask: EstimateFn<$PropertyType<sendFns, 'finalizeTask'>>,
     makeTask: EstimateFn<$PropertyType<sendFns, 'makeTask'>>,
     mintTokens: EstimateFn<$PropertyType<sendFns, 'mintTokens'>>,
@@ -160,8 +166,6 @@ export interface ColonyContract extends IContract {
     submitTaskWorkRating: EstimateFn<
       $PropertyType<sendFns, 'submitTaskWorkRating'>,
     >,
-    addGlobalSkill: EstimateFn<$PropertyType<sendFns, 'addGlobalSkill'>>,
-    proposeTaskChange: EstimateFn<$PropertyType<sendFns, 'proposeTaskChange'>>,
   };
   functions: {
     // address => uint256
@@ -177,10 +181,19 @@ export interface ColonyContract extends IContract {
     >,
 
     // => uint256
+    getTaskChangeNonce: CallFn<null, number>,
+
+    // => uint256
     getTaskCount: CallFn<null, number>,
+
+    // uint256 _id, uint256 _idx => uint256
+    getTaskDomain: CallFn<[number, number], number>,
 
     // uint256 _id, uint256 _role, address _token => uint256
     getTaskPayout: CallFn<[number, number, string], number>,
+
+    // uint256 _id, uint256 _idx => uint256
+    getTaskSkill: CallFn<[number, number], number>,
 
     // uint256 _id, uint8 _idx => address, bool, uint8
     getTaskRole: CallFn<[number, number], [string, boolean, number]>,
@@ -198,11 +211,12 @@ export interface ColonyContract extends IContract {
     getTransactionCount: CallFn<[string], number>,
 
     addDomain: SendFn<$PropertyType<sendFns, 'addDomain'>>,
-    approveTaskChange: SendFn<$PropertyType<sendFns, 'approveTaskChange'>>,
+    addGlobalSkill: SendFn<$PropertyType<sendFns, 'addGlobalSkill'>>,
     assignWorkRating: SendFn<$PropertyType<sendFns, 'assignWorkRating'>>,
     cancelTask: SendFn<$PropertyType<sendFns, 'cancelTask'>>,
     claimColonyFunds: SendFn<$PropertyType<sendFns, 'claimColonyFunds'>>,
     claimPayout: SendFn<$PropertyType<sendFns, 'claimPayout'>>,
+    executeTaskChange: SendFn<$PropertyType<sendFns, 'executeTaskChange'>>,
     finalizeTask: SendFn<$PropertyType<sendFns, 'finalizeTask'>>,
     makeTask: SendFn<$PropertyType<sendFns, 'makeTask'>>,
     mintTokens: SendFn<$PropertyType<sendFns, 'mintTokens'>>,
@@ -233,7 +247,5 @@ export interface ColonyContract extends IContract {
     submitTaskWorkRating: SendFn<
       $PropertyType<sendFns, 'submitTaskWorkRating'>,
     >,
-    addGlobalSkill: SendFn<$PropertyType<sendFns, 'addGlobalSkill'>>,
-    proposeTaskChange: SendFn<$PropertyType<sendFns, 'proposeTaskChange'>>,
   };
 }
