@@ -2,6 +2,7 @@
     "private": true,
     "devDependencies": {
         "@colony/eslint-config-colony": "^4.0.0",
+        "ast-types": "^0.11.3",
         "babel-cli": "^6.26.0",
         "babel-core": "^6.26.0",
         "babel-eslint": "^8.0.2",
@@ -20,6 +21,7 @@
         "eslint-plugin-prettier": "^2.6.0",
         "flow-bin": "^0.66.0",
         "flow-copy-source": "^1.2.1",
+        "flow-parser": "^0.67.1",
         "husky": "^0.14.3",
         "jest": "^22.3.0",
         "jest-sandbox": "^1.1.1",
