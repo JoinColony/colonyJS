@@ -39,6 +39,7 @@
         "@colony/colony-js-adapter": "^1.0.0",
         "@colony/colony-js-contract-client": "^1.0.0",
         "@colony/colony-js-contract-loader": "^1.0.0",
+        "@colony/colony-js-utils": "^1.0.0",
         "bn.js": "^4.11.6",
         "browser-assert": "^1.2.1",
         "web3-utils": "^1.0.0-beta.30"
