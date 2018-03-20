@@ -1,0 +1,14 @@
+{
+  "docs": {
+    "Getting started": ["docs-index", "docs-quickstart"],
+    "Modules": ["docs-adapters", "docs-loaders"],
+    "API Reference": [
+      "api-index",
+      "api-adapters",
+      "api-loaders",
+      "api-contract-client",
+      "api-colony-network-client",
+      "api-colony-client"
+    ]
+  }
+}
