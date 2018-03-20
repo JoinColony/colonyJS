@@ -62,7 +62,8 @@ function printCallers () {
 ### \`${caller.name}.call(${printArgs(caller.args)})\`
 
 ${caller.description}
-${printProps('Param', caller.args)}${printProps('Return value', caller.returns)}
+${printProps('Param', caller.args)}
+${printProps('Return value', caller.returns)}
 `;
   }).join('');
 }
@@ -73,7 +74,8 @@ function printSenders () {
 ### \`${sender.name}.send(${printArgs(sender.args)})\`
 
 ${sender.description}
-${printProps('Param', sender.args)}${printProps('Event data', sender.events)}
+${printProps('Param', sender.args)}
+${printProps('Event data', sender.events)}
 `;
   }).join('');
 }
