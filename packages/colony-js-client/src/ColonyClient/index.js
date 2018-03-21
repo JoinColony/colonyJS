@@ -25,42 +25,6 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
   contract: ColonyContract;
   networkClient: ColonyNetworkClient;
   /*
-    (TODO: this has to be explained better, what are the implications and why is this even important?)
-    Pots can be tied to tasks or to (in the future) domains, so giving them their own mapping.
-    Pot 1  can be thought of as the pot belonging to the colony itself that hasn't been assigned
-    to anything yet, but has had some siphoned off in to the reward pot.
-    Pot 0 is the pot containing funds that can be paid to holders of colony tokens in the future.
-    This keeps track of how much of the colony's funds that it owns have been moved into pots other than pot 0,
-    which (by definition) have also had the reward amount siphoned off and put in to pot 0
-  */
-  getNonRewardPotsTotal: ColonyClient.Caller<
-    {
-      address: Address, // Adress of the token's ERC20 contract (token in question)
-    },
-    {
-      total: number, // All tokens that are not reserved for network fees (TODO: this is most likely wrong)
-    },
-    ColonyClient,
-  >;
-  /*
-    Gets a balance for a certain token in a specific pot
-  */
-  getPotBalance: ColonyClient.Caller<
-    {
-      potId: number, // Integer potId
-      token: Address, // Adress of the token's ERC20 contract
-    },
-    {
-      balance: number, // Balance for token `token` in pot `potId`
-    },
-    ColonyClient,
-  >;
-  // TODO: Please type explicitly!
-  /*
-    Gets a certain task defined by its integer taskId
-  */
-  getTask: GetTask;
-  /*
     Gets the total number of tasks in a Colony
   */
   getTaskCount: ColonyClient.Caller<
@@ -70,6 +34,11 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
     },
     ColonyClient,
   >;
+  // TODO: Please type explicitly!
+  /*
+    Gets a certain task defined by its integer taskId
+  */
+  getTask: GetTask;
   /*
     Get's the amount of payout for a specific task, a defined role (0 = MANAGER, 1 = EVALUATOR, 2 = WORKER) and a specific
     token defined by it's address
@@ -125,6 +94,34 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
     ColonyClient,
   >;
   /*
+    Gets a balance for a certain token in a specific pot
+  */
+  getPotBalance: ColonyClient.Caller<
+    {
+      potId: number, // Integer potId
+      token: Address, // Adress of the token's ERC20 contract
+    },
+    {
+      balance: number, // Balance for token `token` in pot `potId`
+    },
+    ColonyClient,
+  >;
+  /*
+    (TODO: this has to be explained better, what are the implications and why is this even important?)
+    This keeps track of how much of the colony's funds that it owns have been moved into pots other than pot 0,
+    which (by definition) have also had the reward amount siphoned off and put in to pot 0
+    (see also [pots](glossary#pots))
+  */
+  getNonRewardPotsTotal: ColonyClient.Caller<
+    {
+      address: Address, // Adress of the token's ERC20 contract (token in question)
+    },
+    {
+      total: number, // All tokens that are not reserved for network fees (TODO: this is most likely wrong)
+    },
+    ColonyClient,
+  >;
+  /*
     Gets the address of the Colony's official ERC20 token contract
   */
   getToken: ColonyClient.Caller<
@@ -144,85 +141,9 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
     },
     ColonyClient,
   >;
-  /*
-    TODO: Adds a domain to this Colony. Please verify all input and output values. We should probably explain why this requires skill ids
-  */
-  addDomain: ColonyClient.Sender<
-    {
-      parentSkillId: number, // TODO: Why do I have to define a skill for a domain? No idea
-    },
-    {
-      skillId: number, // A skillId for this domain
-      parentSkillId: number, // The parent skill id
-    },
-    ColonyClient,
-  >;
-  /*
-    TODO: Adds a global skill. Whatever that means.
-  */
-  addGlobalSkill: ColonyClient.Sender<
-    {
-      parentSkillId: number, // Integer id of the parent skill
-    },
-    {
-      skillId: number, // Integer id of the newly created skill
-      parentSkillId: number, // Integer id of the parent skill
-    },
-    ColonyClient,
-  >;
-  /*
-    Approves a task change. TODO: Please elaborate.
-  */
-  approveTaskChange: ColonyClient.Sender<
-    {
-      transactionId: number, // TODO: transactionId of what?
-      role: number, // TODO: Why is this necessary? Can we find out?
-    },
-    TransactionEventData,
-    ColonyClient,
-  >;
-  assignWorkRating: ColonyClient.Sender<
-    { taskId: number, rating: number },
-    null,
-    ColonyClient,
-  >;
-  cancelTask: ColonyClient.Sender<{ taskId: number }, null, ColonyClient>;
-  claimColonyFunds: ColonyClient.Sender<{ token: string }, null, ColonyClient>;
-  claimPayout: ColonyClient.Sender<
-    { taskId: number, role: number, token: string },
-    null,
-    ColonyClient,
-  >;
   createTask: ColonyClient.Sender<
     { specificationHash: string, domainId: number },
     { taskId: number },
-    ColonyClient,
-  >;
-  finalizeTask: ColonyClient.Sender<{ taskId: number }, null, ColonyClient>;
-  mintTokens: ColonyClient.Sender<{ amount: number }, null, ColonyClient>;
-  mintTokensForColonyNetwork: ColonyClient.Sender<
-    { amount: number },
-    null,
-    ColonyClient,
-  >;
-  moveFundsBetweenPots: ColonyClient.Sender<
-    {
-      fromPot: number,
-      toPot: number,
-      amount: number,
-      address: string,
-    },
-    null,
-    ColonyClient,
-  >;
-  revealTaskWorkRating: ColonyClient.Sender<
-    {
-      taskId: number,
-      role: number,
-      rating: number,
-      salt: string,
-    },
-    null,
     ColonyClient,
   >;
   setTaskBrief: ColonyClient.Sender<
@@ -272,6 +193,82 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
   >;
   submitTaskWorkRating: ColonyClient.Sender<
     { taskId: number, role: number, ratingSecret: string },
+    null,
+    ColonyClient,
+  >;
+  revealTaskWorkRating: ColonyClient.Sender<
+    {
+      taskId: number,
+      role: number,
+      rating: number,
+      salt: string,
+    },
+    null,
+    ColonyClient,
+  >;
+  /*
+    Approves a task change. TODO: Please elaborate.
+  */
+  approveTaskChange: ColonyClient.Sender<
+    {
+      transactionId: number, // TODO: transactionId of what?
+      role: number, // TODO: Why is this necessary? Can we find out?
+    },
+    TransactionEventData,
+    ColonyClient,
+  >;
+  assignWorkRating: ColonyClient.Sender<
+    { taskId: number, rating: number },
+    null,
+    ColonyClient,
+  >;
+  cancelTask: ColonyClient.Sender<{ taskId: number }, null, ColonyClient>;
+  finalizeTask: ColonyClient.Sender<{ taskId: number }, null, ColonyClient>;
+  claimPayout: ColonyClient.Sender<
+    { taskId: number, role: number, token: string },
+    null,
+    ColonyClient,
+  >;
+  /*
+    TODO: Adds a domain to this Colony. Please verify all input and output values. We should probably explain why this requires skill ids
+  */
+  addDomain: ColonyClient.Sender<
+    {
+      parentSkillId: number, // TODO: Why do I have to define a skill for a domain? No idea
+    },
+    {
+      skillId: number, // A skillId for this domain
+      parentSkillId: number, // The parent skill id
+    },
+    ColonyClient,
+  >;
+  /*
+    TODO: Adds a global skill. Whatever that means.
+  */
+  addGlobalSkill: ColonyClient.Sender<
+    {
+      parentSkillId: number, // Integer id of the parent skill
+    },
+    {
+      skillId: number, // Integer id of the newly created skill
+      parentSkillId: number, // Integer id of the parent skill
+    },
+    ColonyClient,
+  >;
+  claimColonyFunds: ColonyClient.Sender<{ token: string }, null, ColonyClient>;
+  moveFundsBetweenPots: ColonyClient.Sender<
+    {
+      fromPot: number,
+      toPot: number,
+      amount: number,
+      address: string,
+    },
+    null,
+    ColonyClient,
+  >;
+  mintTokens: ColonyClient.Sender<{ amount: number }, null, ColonyClient>;
+  mintTokensForColonyNetwork: ColonyClient.Sender<
+    { amount: number },
     null,
     ColonyClient,
   >;
