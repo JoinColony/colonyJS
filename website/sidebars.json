@@ -1,6 +1,6 @@
 {
   "docs": {
-    "Getting started": ["docs-index", "docs-quickstart"],
+    "Overview": ["docs-index", "docs-quickstart", "glossary"],
     "Modules": ["docs-adapters", "docs-loaders"],
     "API Reference": [
       "api-index",

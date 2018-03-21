@@ -14,9 +14,7 @@ const TYPES = {
 };
 
 const ast = parser.parse(
-  fs
-    .readFileSync(path.resolve(process.cwd(), process.argv[2]))
-    .toString(),
+  fs.readFileSync(path.resolve(process.cwd(), process.argv[2])).toString(),
 );
 
 const callers = [];
@@ -56,43 +54,48 @@ ${printSenders()}`.trim();
 
 console.log(md);
 
-function printCallers () {
-  return callers.map(caller => {
-    return `
+function printCallers() {
+  return callers
+    .map(
+      caller => `
 ### \`${caller.name}.call(${printArgs(caller.args)})\`
 
 ${caller.description}
 ${printProps('Param', caller.args)}
 ${printProps('Return value', caller.returns)}
-`;
-  }).join('');
+`,
+    )
+    .join('');
 }
 
-function printSenders () {
-  return senders.map(sender => {
-    return `
+function printSenders() {
+  return senders
+    .map(
+      sender => `
 ### \`${sender.name}.send(${printArgs(sender.args)})\`
 
 ${sender.description}
 ${printProps('Param', sender.args)}
 ${printProps('Event data', sender.events)}
-`;
-  }).join('');
+`,
+    )
+    .join('');
 }
-
 
 function printProps(title, props) {
   if (props && props.length) {
     return `\n|${title}|Type|Description|
 |---|---|---|
-${props.map(param => `|${param.name}|${param.type}|${param.description}|`).join('\n')}`
+${props
+      .map(param => `|${param.name}|${param.type}|${param.description}|`)
+      .join('\n')}`;
   }
   return ``;
 }
 
 function printArgs(args) {
   if (args && args.length) {
-    return `{ ${args.map(arg => arg.name).join(', ')} }, options`
+    return `{ ${args.map(arg => arg.name).join(', ')} }, options`;
   }
   return 'options';
 }
@@ -106,7 +109,7 @@ function mapObjectProps(param) {
       return {
         name: prop.key.name,
         type: mapType(prop.value),
-        description: comment && comment.value.trim(),
+        description: formatDescription(comment && comment.value),
       };
     });
   }
@@ -118,10 +121,21 @@ function getName(path) {
 
 function getDescription(path) {
   const commentLine = path.parent.parent.parent.value.loc.start.line - 1;
-  const comment = ast.comments.find(
-    c => c.loc.end.line === commentLine
-  );
-  return comment && comment.value.trim();
+  const comment = ast.comments.find(c => c.loc.end.line === commentLine);
+  return formatDescription(comment && comment.value);
+}
+
+function formatDescription(str) {
+  if (str) {
+    const description = str
+      .trim()
+      .replace(
+        /\[(.+)\]\((.+?)#(.+)\)/g,
+        (_, $1, $2, $3) => `[${$1}](${$2}.html#${$3})`,
+      );
+    return description;
+  }
+  return '';
 }
 
 function mapType(type) {

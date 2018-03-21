@@ -19,53 +19,98 @@ type TransactionEventData = {
   submitted?: boolean,
 };
 
+type Address = string;
+
 export default class ColonyClient extends ContractClient<ColonyContract> {
   contract: ColonyContract;
   networkClient: ColonyNetworkClient;
   /*
-    Description of whatever this does
+    (TODO: this has to be explained better, what are the implications and why is this even important?)
+    Pots can be tied to tasks or to (in the future) domains, so giving them their own mapping.
+    Pot 1  can be thought of as the pot belonging to the colony itself that hasn't been assigned
+    to anything yet, but has had some siphoned off in to the reward pot.
+    Pot 0 is the pot containing funds that can be paid to holders of colony tokens in the future.
+    This keeps track of how much of the colony's funds that it owns have been moved into pots other than pot 0,
+    which (by definition) have also had the reward amount siphoned off and put in to pot 0
   */
   getNonRewardPotsTotal: ColonyClient.Caller<
     {
-      address: string, // Address is needed to succeed!
+      address: Address, // Adress of the token's ERC20 contract (token in question)
     },
     {
-      total: number, // Total thing of whatever
+      total: number, // All tokens that are not reserved for network fees (TODO: this is most likely wrong)
     },
     ColonyClient,
   >;
+  /*
+    Gets a balance for a certain token in a specific pot
+  */
   getPotBalance: ColonyClient.Caller<
     {
-      potId: number, // Everybody loves themselves a good potId
-      token: string, // Token token lalalala, how long can this be, nobody knows, let's find out, man this is long
+      potId: number, // Integer potId
+      token: Address, // Adress of the token's ERC20 contract
     },
-    { balance: number },
+    {
+      balance: number, // Balance for token `token` in pot `potId`
+    },
     ColonyClient,
   >;
   // TODO: Please type explicitly!
+  /*
+    Gets a certain task defined by its integer taskId
+  */
   getTask: GetTask;
-  getTaskCount: ColonyClient.Caller<null, { count: number }, ColonyClient>;
+  /*
+    Gets the total number of tasks in a Colony
+  */
+  getTaskCount: ColonyClient.Caller<
+    null,
+    {
+      count: number, // Total number of tasks in this Colony
+    },
+    ColonyClient,
+  >;
+  /*
+    Get's the amount of payout for a specific task, a defined role (0 = MANAGER, 1 = EVALUATOR, 2 = WORKER) and a specific
+    token defined by it's address
+  */
   getTaskPayout: ColonyClient.Caller<
     {
-      taskId: number,
-      role: number,
-      token: string,
+      taskId: number, // Integer taskId
+      role: number, // Role the payout is specified for
+      token: Address, // Adress of the token's ERC20 contract
     },
-    { amount: number },
+    {
+      amount: number, // Amount of specified tokens to payout for that task and a role
+    },
     ColonyClient,
   >;
+  /*
+    (TODO: find out what this is all about)
+    Get information about a certain role of a task
+  */
   getTaskRole: ColonyClient.Caller<
-    { taskId: number, role: number },
-    { role: number, rated: boolean, rating: number },
+    {
+      taskId: number, // Integer taskId
+      role: number, // Role (see [roles](glossary#roles))
+    },
+    {
+      address: Address, // Address of the user for the given role
+      rated: boolean, // Has the user work been rated
+      rating: number, // Rating the user received
+    },
     ColonyClient,
   >;
+  /*
+    TODO: I'm not entirely sure what this does
+  */
   getTaskWorkRatings: ColonyClient.Caller<
     {
-      taskId: number,
+      taskId: number, // Integer taskId
     },
     {
-      count: number,
-      timestamp: number,
+      count: number, // TODO: no idea
+      timestamp: number, // TODO: A time of some sort
     },
     ColonyClient,
   >;
@@ -79,35 +124,60 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
     },
     ColonyClient,
   >;
+  /*
+    Gets the address of the Colony's official ERC20 token contract
+  */
   getToken: ColonyClient.Caller<
     null,
     {
-      address: string,
+      address: string, // The address of the Colony's official deployed ERC20 token contract
     },
     ColonyClient,
   >;
+  /*
+    Returns the number of all transactions in this Colony
+  */
   getTransactionCount: ColonyClient.Caller<
     null,
     {
-      count: number,
+      count: number, // Number of all transactions in this Colony
     },
     ColonyClient,
   >;
+  /*
+    TODO: Adds a domain to this Colony. Please verify all input and output values. We should probably explain why this requires skill ids
+  */
   addDomain: ColonyClient.Sender<
-    { domainId: number },
     {
-      skillId: number,
-      parentSkillId: number,
+      parentSkillId: number, // TODO: Why do I have to define a skill for a domain? No idea
+    },
+    {
+      skillId: number, // A skillId for this domain
+      parentSkillId: number, // The parent skill id
     },
     ColonyClient,
   >;
+  /*
+    TODO: Adds a global skill. Whatever that means.
+  */
   addGlobalSkill: ColonyClient.Sender<
-    { parentSkillId: number },
-    { skillId: number, parentSkillId: number },
+    {
+      parentSkillId: number, // Integer id of the parent skill
+    },
+    {
+      skillId: number, // Integer id of the newly created skill
+      parentSkillId: number, // Integer id of the parent skill
+    },
     ColonyClient,
   >;
+  /*
+    Approves a task change. TODO: Please elaborate.
+  */
   approveTaskChange: ColonyClient.Sender<
-    { transactionId: number, role: number },
+    {
+      transactionId: number, // TODO: transactionId of what?
+      role: number, // TODO: Why is this necessary? Can we find out?
+    },
     TransactionEventData,
     ColonyClient,
   >;
@@ -264,7 +334,7 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
         call: this.contract.functions.getTaskRole,
         params: [['taskId', 'number'], ['role', 'number']],
         returnValues: [
-          ['role', 'address'],
+          ['address', 'address'],
           ['rated', 'boolean'],
           ['rating', 'number'],
         ],
