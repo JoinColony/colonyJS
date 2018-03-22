@@ -1,7 +1,6 @@
 /* eslint-env jest */
 /* eslint no-underscore-dangle: 0 */
 
-// eslint-disable-next-line
 import ethers from 'ethers';
 
 import createSandbox from 'jest-sandbox';
@@ -11,7 +10,28 @@ import TestContractAbi from '../__mocks__/TestContract.json';
 import EthersAdapter from '../EthersAdapter';
 import EthersContract from '../EthersContract';
 
-jest.mock('ethers');
+// XXX It seems to be necessary to define this mock (inline) in this
+// file, since we are making `expect` calls based on its mock functions.
+jest.mock('ethers', () => {
+  class MockContract {
+    constructor(address, abi, wallet) {
+      Object.assign(this, {
+        address,
+        events: {},
+        interface: { abi },
+        provider: {},
+        wallet,
+      });
+    }
+  }
+  MockContract.getDeployTransaction = jest
+    .fn()
+    .mockReturnValue({ data: '0x123' });
+  return {
+    Contract: MockContract,
+    Interface: jest.fn(),
+  };
+});
 
 describe('EthersAdapter', () => {
   const sandbox = createSandbox();
@@ -20,19 +40,9 @@ describe('EthersAdapter', () => {
   const abi = TestContractAbi;
   // eslint-disable-next-line
   const bytecode = '0x6060604052341561000f57600080fd5b60405160208061018983398101604052808051906020019091905050806000806101000a81548160ff021916908360ff16021790555050610134806100556000396000f30060606040526004361061004c576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680632e52d60614610051578063d827d5f814610080575b600080fd5b341561005c57600080fd5b6100646100a6565b604051808260ff1660ff16815260200191505060405180910390f35b341561008b57600080fd5b6100a4600480803560ff169060200190919050506100b8565b005b6000809054906101000a900460ff1681565b7f45ddcca376bc018846f8e9607c6c8fa2e2329327c47e486649b66d6e7b05c27c6000809054906101000a900460ff168201604051808260ff1660ff16815260200191505060405180910390a1505600a165627a7a7230582001436bd672cf6498a294218f793011502174ad58cf6987cd2ed9a8a9a54c85740029';
+  const contractArgs = [3];
 
   beforeEach(() => sandbox.clear());
-
-  jest.mock(
-    'ethers',
-    () => ({
-      Contract: jest.fn(() => ({
-        address: '0x123',
-      })),
-      Interface: jest.fn(),
-    }),
-    { virtual: true },
-  );
 
   const mockLoader = {
     load: jest
@@ -271,22 +281,14 @@ describe('EthersAdapter', () => {
   test('getContractDeployData', async () => {
     sandbox.spyOn(adapter.loader, 'load');
 
-    const contractArgs = [2];
-    // eslint-disable-next-line max-len
-    const deployData = `${bytecode}000000000000000000000000000000000000000000000000000000000000000${
-      contractArgs[0]
-    }`;
-
-    ethers.Contract.getDeployTransaction = sandbox
-      .fn()
-      .mockReturnValue({ data: deployData });
-
     const data = await adapter.getContractDeployData(
       'TestContract',
       contractArgs,
     );
 
-    expect(data).toBe(deployData);
+    // The contract data should contain the contract args at the end
+    expect(data.slice(-1)).toBe(`${contractArgs[0]}`);
+
     expect(adapter.loader.load).toHaveBeenCalledTimes(1);
     expect(adapter.loader.load).toHaveBeenCalledWith('TestContract', undefined);
     expect(ethers.Contract.getDeployTransaction).toHaveBeenCalledTimes(1);
