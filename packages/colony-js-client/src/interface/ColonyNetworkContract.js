@@ -9,8 +9,8 @@ import type {
 } from '@colony/colony-js-adapter';
 
 type sendFns = {
-  // bytes32 _name, bytes32 _tokenName, bytes32 _tokenSymbol, uint256 _tokenDecimals
-  createColony: [string, string, string, number],
+  // bytes32 _name, address _tokenAddress
+  createColony: [string, string],
 
   // bytes32 _name, uint256 _newVersion
   upgradeColony: [string, number],
