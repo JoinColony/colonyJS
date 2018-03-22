@@ -4,6 +4,7 @@ import type { ContractDefinition } from '@colony/colony-js-contract-loader';
 
 type TruffleArtifact = {
   abi: Array<{}>,
+  bytecode: string,
   networks: {
     [networkId: number]: {
       address: string,
@@ -12,7 +13,7 @@ type TruffleArtifact = {
 };
 
 export default function truffle(
-  { abi = [], networks = {} }: TruffleArtifact = {},
+  { abi = [], bytecode, networks = {} }: TruffleArtifact = {},
   { networkId }: { networkId: number } = {},
 ): ContractDefinition {
   let address;
@@ -32,5 +33,6 @@ export default function truffle(
   return {
     abi,
     address,
+    bytecode,
   };
 }
