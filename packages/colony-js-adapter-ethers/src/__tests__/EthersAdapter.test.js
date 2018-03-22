@@ -11,11 +11,15 @@ import TestContractAbi from '../__mocks__/TestContract.json';
 import EthersAdapter from '../EthersAdapter';
 import EthersContract from '../EthersContract';
 
+jest.mock('ethers');
+
 describe('EthersAdapter', () => {
   const sandbox = createSandbox();
   const address = '0x123';
   const transactionHash = '0x1337';
   const abi = TestContractAbi;
+  // eslint-disable-next-line
+  const bytecode = '0x6060604052341561000f57600080fd5b60405160208061018983398101604052808051906020019091905050806000806101000a81548160ff021916908360ff16021790555050610134806100556000396000f30060606040526004361061004c576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680632e52d60614610051578063d827d5f814610080575b600080fd5b341561005c57600080fd5b6100646100a6565b604051808260ff1660ff16815260200191505060405180910390f35b341561008b57600080fd5b6100a4600480803560ff169060200190919050506100b8565b005b6000809054906101000a900460ff1681565b7f45ddcca376bc018846f8e9607c6c8fa2e2329327c47e486649b66d6e7b05c27c6000809054906101000a900460ff168201604051808260ff1660ff16815260200191505060405180910390a1505600a165627a7a7230582001436bd672cf6498a294218f793011502174ad58cf6987cd2ed9a8a9a54c85740029';
 
   beforeEach(() => sandbox.clear());
 
@@ -31,7 +35,9 @@ describe('EthersAdapter', () => {
   );
 
   const mockLoader = {
-    load: jest.fn().mockReturnValue(Promise.resolve({ address, abi })),
+    load: jest
+      .fn()
+      .mockReturnValue(Promise.resolve({ address, abi, bytecode })),
   };
   const mockProvider = {
     on: jest.fn(),
@@ -58,16 +64,16 @@ describe('EthersAdapter', () => {
   });
 
   test('Adapter has a provider', () => {
-    expect(adapter._provider).toBe(mockProvider);
+    expect(adapter.provider).toBe(mockProvider);
   });
 
   test('Adapter calls Contract with correct arguments', async () => {
-    sandbox.spyOn(adapter._loader, 'load');
+    sandbox.spyOn(adapter.loader, 'load');
     const contract = await adapter.getContract({ name: 'myContractName' });
-    // expect(adapter._loader.load).toHaveBeenCalledTimes(1);
+    expect(adapter.loader.load).toHaveBeenCalledTimes(1);
     expect(contract).toBeInstanceOf(EthersContract);
     expect(JSON.stringify(contract.provider)).toBe(
-      JSON.stringify(adapter._provider),
+      JSON.stringify(adapter.provider),
     );
     expect(contract).toMatchObject({
       address,
@@ -259,6 +265,35 @@ describe('EthersAdapter', () => {
     expect(mockProvider.waitForTransaction).toHaveBeenCalledWith(
       transactionHash,
       1000,
+    );
+  });
+
+  test('getContractDeployData', async () => {
+    sandbox.spyOn(adapter.loader, 'load');
+
+    const contractArgs = [2];
+    // eslint-disable-next-line max-len
+    const deployData = `${bytecode}000000000000000000000000000000000000000000000000000000000000000${
+      contractArgs[0]
+    }`;
+
+    ethers.Contract.getDeployTransaction = sandbox
+      .fn()
+      .mockReturnValue({ data: deployData });
+
+    const data = await adapter.getContractDeployData(
+      'TestContract',
+      contractArgs,
+    );
+
+    expect(data).toBe(deployData);
+    expect(adapter.loader.load).toHaveBeenCalledTimes(1);
+    expect(adapter.loader.load).toHaveBeenCalledWith('TestContract', undefined);
+    expect(ethers.Contract.getDeployTransaction).toHaveBeenCalledTimes(1);
+    expect(ethers.Contract.getDeployTransaction).toHaveBeenCalledWith(
+      bytecode,
+      abi,
+      ...contractArgs,
     );
   });
 });

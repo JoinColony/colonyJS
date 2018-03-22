@@ -1,5 +1,17 @@
 [
   {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "name": "result",
+        "type": "uint8"
+      }
+    ],
+    "name": "Added",
+    "type": "event"
+  },
+  {
     "constant": false,
     "inputs": [
       {
@@ -7,27 +19,35 @@
         "type": "uint8"
       }
     ],
-    "name": "echo",
-    "outputs": [
-      {
-        "name": "input",
-        "type": "uint8"
-      }
-    ],
+    "name": "addN",
+    "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "anonymous": false,
     "inputs": [
       {
-        "indexed": false,
-        "name": "input",
+        "name": "_n",
         "type": "uint8"
       }
     ],
-    "name": "TestEvent",
-    "type": "event"
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "n",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint8"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
   }
 ]
