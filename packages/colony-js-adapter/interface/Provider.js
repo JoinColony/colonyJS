@@ -14,6 +14,11 @@ export interface Provider {
   getBlock(blockHashOrBlockNumber: string | number): Promise<Block>;
   getBlockNumber(): Promise<number>;
   getGasPrice(): Promise<BigNumber>;
+  getDeployTransaction(
+    bytecode: string,
+    abi: Array<{}>,
+    ...params: any
+  ): Transaction;
   getTransaction(transactionHash: string): Promise<Transaction>;
   getTransactionCount(
     addressOrName: string,

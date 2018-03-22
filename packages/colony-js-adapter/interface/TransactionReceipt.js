@@ -8,6 +8,7 @@ export type TransactionReceipt = {
   contractAddress: string | null,
   cumulativeGasUsed: BigNumber,
   gasUsed: BigNumber,
+  hash: string,
   log: Array<*>,
   logsBloom: string,
   root: string,
