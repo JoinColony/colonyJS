@@ -30,9 +30,3 @@ export type Transaction = {
   // The raw transaction
   raw: string,
 };
-
-export type MinedTransaction = Transaction & {
-  blockHash: string,
-  blockNumber: number,
-  transactionIndex: number,
-};

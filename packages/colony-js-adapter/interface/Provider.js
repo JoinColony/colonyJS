@@ -3,7 +3,7 @@
 import type BigNumber from 'bn.js';
 
 import type { Block } from './Block';
-import type { MinedTransaction, Transaction } from './Transaction';
+import type { Transaction } from './Transaction';
 import type { TransactionReceipt } from './TransactionReceipt';
 
 export interface Provider {
@@ -27,8 +27,4 @@ export interface Provider {
   getTransactionReceipt(transactionHash: string): Promise<TransactionReceipt>;
   lookupAddress(address: string): Promise<string | null>;
   resolveName(ensName: string): Promise<string | null>;
-  waitForTransaction(
-    transactionHash: string,
-    timeoutMs?: number,
-  ): Promise<MinedTransaction>;
 }
