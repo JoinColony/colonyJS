@@ -14,15 +14,15 @@ export type ParamTypePair = [string, ParamTypes];
 export type ParamTypePairs = Array<ParamTypePair>;
 
 export type CallerDef = {
-  call: CallFn<*, *>,
+  callFn: CallFn<*, *>,
   params?: ParamTypePairs,
   returnValues: ParamTypePairs,
 };
 
 export type SenderDef = {
-  estimate: EstimateFn<*>,
+  estimateFn: EstimateFn<*>,
   eventHandlers?: EventHandlers,
   params: ParamTypePairs,
-  send: SendFn<*>,
+  sendFn: SendFn<*>,
   getArgs?: (*) => Array<*>,
 };

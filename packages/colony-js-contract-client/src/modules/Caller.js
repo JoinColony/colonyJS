@@ -16,18 +16,18 @@ export default class Caller<
   // eslint-disable-next-line
   IContractClient: ContractClient<*>
 > extends Validator<Params> {
-  +_call: CallFn<*, *>;
+  +callFn: CallFn<*, *>;
   client: IContractClient;
   static returnValues: ParamTypePairs = [];
   static create(
     client: IContractClient,
-    { params = [], returnValues, call }: CallerDef,
+    { params = [], returnValues, callFn }: CallerDef,
   ): Caller<Params, ReturnValue, IContractClient> {
     class _Caller extends Caller<Params, ReturnValue, IContractClient> {
       static params = params;
       static returnValues = returnValues;
     }
-    return new _Caller(client, call);
+    return new _Caller(client, callFn);
   }
   static parseReturnValue(value: *, type: ParamTypes) {
     switch (type) {
@@ -64,21 +64,21 @@ export default class Caller<
     }
     return valueOrValues;
   }
-  constructor(client: IContractClient, call?: CallFn<*, *>) {
+  constructor(client: IContractClient, callFn?: CallFn<*, *>) {
     super();
     this.client = client;
-    if (typeof call === 'function') this._call = call;
+    if (typeof callFn === 'function') this.callFn = callFn;
   }
   async call(
     params: Params,
     { timeoutMs = DEFAULT_TIMEOUT }: { timeoutMs: number } = {},
   ): Promise<ReturnValue> {
-    if (typeof this._call !== 'function')
+    if (typeof this.callFn !== 'function')
       throw new TypeError('Expected a call function for Caller');
 
     const args = this.constructor.getArgs(params);
 
-    const values = await raceAgainstTimeout(this._call(...args), timeoutMs);
+    const values = await raceAgainstTimeout(this.callFn(...args), timeoutMs);
 
     return this.constructor.parseReturn(values, params);
   }

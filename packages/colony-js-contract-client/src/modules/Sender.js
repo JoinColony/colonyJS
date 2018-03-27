@@ -45,12 +45,12 @@ export default class Sender<
   IContractClient: ContractClient<*>
 > extends Validator<Params> {
   static eventHandlers: EventHandlers;
-  _send: SendFn<*>;
-  _estimate: EstimateFn<*>;
+  sendFn: SendFn<*>;
+  estimateFn: EstimateFn<*>;
   client: IContractClient;
   static create(
     client: IContractClient,
-    { params, eventHandlers = {}, send, estimate, getArgs }: SenderDef,
+    { params, eventHandlers = {}, sendFn, estimateFn, getArgs }: SenderDef,
   ): Sender<Params, EventData, IContractClient> {
     class _Sender extends Sender<Params, EventData, IContractClient> {
       static params = params;
@@ -61,7 +61,7 @@ export default class Sender<
           : this.constructor.getArgs(_params);
       }
     }
-    return new _Sender(client, send, estimate);
+    return new _Sender(client, sendFn, estimateFn);
   }
   // For overloading
   getArgs(params: Params): Array<*> {
@@ -69,23 +69,23 @@ export default class Sender<
   }
   constructor(
     client: IContractClient,
-    send?: SendFn<*>,
-    estimate?: EstimateFn<*>,
+    sendFn?: SendFn<*>,
+    estimateFn?: EstimateFn<*>,
   ) {
     super();
     this.client = client;
-    if (typeof estimate === 'function') this._estimate = estimate;
-    if (typeof send === 'function') this._send = send;
+    if (typeof estimateFn === 'function') this.estimateFn = estimateFn;
+    if (typeof sendFn === 'function') this.sendFn = sendFn;
   }
   async estimate(
     params: Params,
     { timeoutMs }: SendOptions,
   ): Promise<BigNumber> {
-    if (typeof this._estimate !== 'function')
+    if (typeof this.estimateFn !== 'function')
       throw new TypeError('Expected an estimate function for Sender');
 
     return raceAgainstTimeout(
-      this._estimate(...this.getArgs(params)),
+      this.estimateFn(...this.getArgs(params)),
       timeoutMs,
     );
   }
@@ -94,7 +94,7 @@ export default class Sender<
     options: SendOptions,
   ): Promise<ContractResponse<EventData>> {
     let receipt;
-    if (typeof this._send !== 'function')
+    if (typeof this.sendFn !== 'function')
       throw new TypeError('Expected a send function for Sender');
 
     const {
@@ -156,7 +156,7 @@ export default class Sender<
     timeoutMs: number,
   ) {
     return raceAgainstTimeout(
-      this._send(...this.getArgs(params), transactionOptions),
+      this.sendFn(...this.getArgs(params), transactionOptions),
       timeoutMs,
     );
   }

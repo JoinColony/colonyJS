@@ -54,5 +54,5 @@ export default class GetTask extends ContractClient.Caller<
     };
   }
   // $FlowFixMe https://github.com/facebook/flow/issues/3237
-  _call = this.client.contract.functions.getTask;
+  callFn = this.client.contract.functions.getTask;
 }

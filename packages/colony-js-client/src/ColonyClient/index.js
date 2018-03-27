@@ -436,21 +436,21 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
   getCallerDefs(): * {
     return {
       getNonRewardPotsTotal: {
-        call: this.contract.functions.getNonRewardPotsTotal,
+        callFn: this.contract.functions.getNonRewardPotsTotal,
         params: [['address', 'address']],
         returnValues: [['total', 'number']],
       },
       getPotBalance: {
-        call: this.contract.functions.getPotBalance,
+        callFn: this.contract.functions.getPotBalance,
         params: [['potId', 'number'], ['token', 'address']],
         returnValues: [['balance', 'number']],
       },
       getTaskCount: {
-        call: this.contract.functions.getTaskCount,
+        callFn: this.contract.functions.getTaskCount,
         returnValues: [['count', 'number']],
       },
       getTaskPayout: {
-        call: this.contract.functions.getPotBalance,
+        callFn: this.contract.functions.getPotBalance,
         params: [
           ['taskId', 'number'],
           ['role', 'number'],
@@ -459,7 +459,7 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
         returnValues: [['amount', 'number']],
       },
       getTaskRole: {
-        call: this.contract.functions.getTaskRole,
+        callFn: this.contract.functions.getTaskRole,
         params: [['taskId', 'number'], ['role', 'number']],
         returnValues: [
           ['address', 'address'],
@@ -468,21 +468,21 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
         ],
       },
       getTaskWorkRatings: {
-        call: this.contract.functions.getTaskWorkRatings,
+        callFn: this.contract.functions.getTaskWorkRatings,
         params: [['taskId', 'number']],
         returnValues: [['count', 'number'], ['timestamp', 'number']],
       },
       getTaskWorkRatingSecret: {
-        call: this.contract.functions.getTaskWorkRatingSecret,
+        callFn: this.contract.functions.getTaskWorkRatingSecret,
         params: [['taskId', 'number'], ['role', 'number']],
         returnValues: [['secret', 'string']],
       },
       getToken: {
-        call: this.contract.functions.getToken,
+        callFn: this.contract.functions.getToken,
         returnValues: [['address', 'address']],
       },
       getTransactionCount: {
-        call: this.contract.functions.getTransactionCount,
+        callFn: this.contract.functions.getTransactionCount,
         returnValues: [['count', 'number']],
       },
     };
@@ -549,8 +549,8 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
       getData: InterfaceFn<*>,
       params: *,
     }) => ({
-      send: this.contract.functions.proposeTaskChange,
-      estimate: this.contract.estimate.proposeTaskChange,
+      sendFn: this.contract.functions.proposeTaskChange,
+      estimateFn: this.contract.estimate.proposeTaskChange,
       getArgs(parameters: {}): Array<*> {
         const args = this.constructor.getArgs(parameters);
         const role = args.pop();
@@ -568,24 +568,24 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
 
     return {
       addDomain: {
-        send: this.contract.functions.addDomain,
-        estimate: this.contract.estimate.addDomain,
+        sendFn: this.contract.functions.addDomain,
+        estimateFn: this.contract.estimate.addDomain,
         params: [['domainId', 'number']],
         eventHandlers: {
           success: { SkillAdded },
         },
       },
       addGlobalSkill: {
-        send: this.contract.functions.addGlobalSkill,
-        estimate: this.contract.estimate.addGlobalSkill,
+        sendFn: this.contract.functions.addGlobalSkill,
+        estimateFn: this.contract.estimate.addGlobalSkill,
         params: [['parentSkillId', 'number']],
         eventHandlers: {
           success: { SkillAdded },
         },
       },
       approveTaskChange: {
-        send: this.contract.functions.approveTaskChange,
-        estimate: this.contract.estimate.approveTaskChange,
+        sendFn: this.contract.functions.approveTaskChange,
+        estimateFn: this.contract.estimate.approveTaskChange,
         params: [['transaction', 'number'], ['role', 'number']],
         eventHandlers: {
           success: {
@@ -598,23 +598,23 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
         },
       },
       assignWorkRating: {
-        send: this.contract.functions.assignWorkRating,
-        estimate: this.contract.estimate.assignWorkRating,
+        sendFn: this.contract.functions.assignWorkRating,
+        estimateFn: this.contract.estimate.assignWorkRating,
         params: [['taskId', 'number']],
       },
       cancelTask: {
-        send: this.contract.functions.cancelTask,
-        estimate: this.contract.estimate.cancelTask,
+        sendFn: this.contract.functions.cancelTask,
+        estimateFn: this.contract.estimate.cancelTask,
         params: [['taskId', 'number']],
       },
       claimColonyFunds: {
-        send: this.contract.functions.claimColonyFunds,
-        estimate: this.contract.estimate.claimColonyFunds,
+        sendFn: this.contract.functions.claimColonyFunds,
+        estimateFn: this.contract.estimate.claimColonyFunds,
         params: [['token', 'address']],
       },
       claimPayout: {
-        send: this.contract.functions.claimPayout,
-        estimate: this.contract.estimate.claimPayout,
+        sendFn: this.contract.functions.claimPayout,
+        estimateFn: this.contract.estimate.claimPayout,
         params: [
           ['token', 'address'],
           ['role', 'number'],
@@ -622,8 +622,8 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
         ],
       },
       createTask: {
-        send: this.contract.functions.makeTask,
-        estimate: this.contract.estimate.makeTask,
+        sendFn: this.contract.functions.makeTask,
+        estimateFn: this.contract.estimate.makeTask,
         params: [['specificationHash', 'string'], ['domainId', 'number']],
         eventHandlers: {
           success: {
@@ -639,23 +639,23 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
         },
       },
       finalizeTask: {
-        send: this.contract.functions.finalizeTask,
-        estimate: this.contract.estimate.finalizeTask,
+        sendFn: this.contract.functions.finalizeTask,
+        estimateFn: this.contract.estimate.finalizeTask,
         params: [['taskId', 'number']],
       },
       mintTokens: {
-        send: this.contract.functions.mintTokens,
-        estimate: this.contract.estimate.mintTokens,
+        sendFn: this.contract.functions.mintTokens,
+        estimateFn: this.contract.estimate.mintTokens,
         params: [['amount', 'number']],
       },
       mintTokensForColonyNetwork: {
-        send: this.contract.functions.mintTokensForColonyNetwork,
-        estimate: this.contract.estimate.mintTokensForColonyNetwork,
+        sendFn: this.contract.functions.mintTokensForColonyNetwork,
+        estimateFn: this.contract.estimate.mintTokensForColonyNetwork,
         params: [['amount', 'number']],
       },
       moveFundsBetweenPots: {
-        send: this.contract.functions.moveFundsBetweenPots,
-        estimate: this.contract.estimate.moveFundsBetweenPots,
+        sendFn: this.contract.functions.moveFundsBetweenPots,
+        estimateFn: this.contract.estimate.moveFundsBetweenPots,
         params: [
           ['fromPot', 'number'],
           ['toPot', 'number'],
@@ -664,8 +664,8 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
         ],
       },
       revealTaskWorkRating: {
-        send: this.contract.functions.revealTaskWorkRating,
-        estimate: this.contract.estimate.revealTaskWorkRating,
+        sendFn: this.contract.functions.revealTaskWorkRating,
+        estimateFn: this.contract.estimate.revealTaskWorkRating,
         params: [
           ['taskId', 'number'],
           ['role', 'number'],
@@ -682,8 +682,8 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
         ],
       }),
       setTaskDomain: {
-        send: this.contract.functions.setTaskDomain,
-        estimate: this.contract.estimate.setTaskDomain,
+        sendFn: this.contract.functions.setTaskDomain,
+        estimateFn: this.contract.estimate.setTaskDomain,
         params: [['taskId', 'number'], ['domainId', 'number']],
       },
       setTaskDueDate: proposeTaskChange({
@@ -695,13 +695,13 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
         ],
       }),
       setTaskRoleUser: {
-        send: this.contract.functions.setTaskRoleUser,
-        estimate: this.contract.estimate.setTaskRoleUser,
+        sendFn: this.contract.functions.setTaskRoleUser,
+        estimateFn: this.contract.estimate.setTaskRoleUser,
         params: [['taskId', 'number'], ['role', 'number'], ['user', 'address']],
       },
       setTaskSkill: {
-        send: this.contract.functions.setTaskSkill,
-        estimate: this.contract.estimate.setTaskSkill,
+        sendFn: this.contract.functions.setTaskSkill,
+        estimateFn: this.contract.estimate.setTaskSkill,
         params: [['taskId', 'number'], ['skillId', 'number']],
       },
       setTaskEvaluatorPayout: proposeTaskChange({
@@ -732,13 +732,13 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
         ],
       }),
       submitTaskDeliverable: {
-        send: this.contract.functions.submitTaskDeliverable,
-        estimate: this.contract.estimate.submitTaskDeliverable,
+        sendFn: this.contract.functions.submitTaskDeliverable,
+        estimateFn: this.contract.estimate.submitTaskDeliverable,
         params: [['taskId', 'number'], ['deliverableHash', 'string']],
       },
       submitTaskWorkRating: {
-        send: this.contract.functions.submitTaskWorkRating,
-        estimate: this.contract.estimate.submitTaskWorkRating,
+        sendFn: this.contract.functions.submitTaskWorkRating,
+        estimateFn: this.contract.estimate.submitTaskWorkRating,
         params: [
           ['taskId', 'number'],
           ['role', 'number'],
