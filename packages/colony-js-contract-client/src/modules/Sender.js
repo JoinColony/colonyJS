@@ -4,7 +4,6 @@ import type BigNumber from 'bn.js';
 import type {
   EstimateFn,
   EventHandlers,
-  MinedTransaction,
   SendFn,
   Transaction,
   TransactionOptions,
@@ -31,8 +30,6 @@ type ContractResponseMeta = {
   transaction: Transaction,
   receipt?: TransactionReceipt,
   receiptPromise?: Promise<TransactionReceipt>,
-  minedTransaction?: MinedTransaction,
-  minedTransactionPromise?: Promise<MinedTransaction>,
 };
 
 type ContractResponse<EventData> = {
@@ -130,10 +127,6 @@ export default class Sender<
       }
     }
 
-    const minedTransactionPromise = this.client.adapter.waitForTransaction(
-      transaction.hash,
-      miningTimeoutMs,
-    );
     const eventDataPromise = this.client.adapter.getEventData({
       contract: this.client.contract,
       events: this.constructor.eventHandlers,
@@ -145,7 +138,6 @@ export default class Sender<
       ? {
           eventData: await eventDataPromise,
           meta: {
-            minedTransaction: await minedTransactionPromise,
             receipt,
             transaction,
           },
@@ -153,7 +145,6 @@ export default class Sender<
       : {
           eventDataPromise,
           meta: {
-            minedTransactionPromise,
             receiptPromise,
             transaction,
           },
