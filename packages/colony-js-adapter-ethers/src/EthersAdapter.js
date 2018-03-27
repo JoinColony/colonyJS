@@ -131,7 +131,4 @@ export default class EthersAdapter implements IAdapter<*> {
   async getTransactionReceipt(transactionHash: string) {
     return this.provider.getTransactionReceipt(transactionHash);
   }
-  async waitForTransaction(transactionHash: string, timeoutMs?: number) {
-    return this.provider.waitForTransaction(transactionHash, timeoutMs);
-  }
 }

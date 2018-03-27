@@ -56,10 +56,6 @@ describe('EthersAdapter', () => {
       transactionHash: txHash,
       dummyReceipt: true,
     })),
-    waitForTransaction: jest.fn().mockImplementation(txHash => ({
-      transactionHash: txHash,
-      dummyTransaction: true,
-    })),
   };
 
   const mockWallet = {
@@ -262,19 +258,6 @@ describe('EthersAdapter', () => {
     expect(mockProvider.getTransactionReceipt).toHaveBeenCalledTimes(1);
     expect(mockProvider.getTransactionReceipt).toHaveBeenCalledWith(
       transactionHash,
-    );
-  });
-
-  test('waitForTransaction', async () => {
-    const transaction = await adapter.waitForTransaction(transactionHash, 1000);
-    expect(transaction).toMatchObject({
-      transactionHash,
-      dummyTransaction: true,
-    });
-    expect(mockProvider.waitForTransaction).toHaveBeenCalledTimes(1);
-    expect(mockProvider.waitForTransaction).toHaveBeenCalledWith(
-      transactionHash,
-      1000,
     );
   });
 
