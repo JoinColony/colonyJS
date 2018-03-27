@@ -179,6 +179,12 @@ export interface ColonyContract extends IContract {
     // => uint256
     getTaskCount: CallFn<null, number>,
 
+    // uint256 _id, uint256 _idx => uint256
+    getTaskDomain: CallFn<[number, number], number>,
+
+    // uint256 _id, uint256 _idx => uint256
+    getTaskSkill: CallFn<[number, number], number>,
+
     // uint256 _id, uint256 _role, address _token => uint256
     getTaskPayout: CallFn<[number, number, string], number>,
 
