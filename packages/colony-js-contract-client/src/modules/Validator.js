@@ -30,8 +30,8 @@ export default class Validator<Params: { [name: string]: * }> {
     }
     return true;
   }
-  constructor(def: { params: ParamTypePairs }) {
-    if (def && def.params) this.params = def.params;
+  constructor({ params = [] }: { params: ParamTypePairs } = {}) {
+    this.params = params;
   }
   validate(params: Params): boolean {
     return this.params.every(([paramName, paramType]) =>

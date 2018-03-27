@@ -54,12 +54,15 @@ export default class Caller<
     }
     return valueOrValues;
   }
-  constructor(client: IContractClient, def: CallerDef) {
-    super(def);
+  constructor(client: IContractClient, def?: CallerDef) {
+    const params = def && def.params ? def.params : [];
+    super({ params });
     this.client = client;
-    const { callFn, returnValues } = def;
-    this.callFn = callFn;
-    this.returnValues = returnValues;
+    if (def) {
+      const { callFn, returnValues } = def;
+      this.callFn = callFn;
+      this.returnValues = returnValues;
+    }
   }
   async call(
     params: Params,
