@@ -8,8 +8,8 @@ import type { IAdapter, InterfaceFn } from '@colony/colony-js-adapter';
 import ContractClient from '@colony/colony-js-contract-client';
 
 import type { ColonyContract } from '../interface/ColonyContract';
+import type { Task } from '../interface/Task';
 import ColonyNetworkClient from '../ColonyNetworkClient/index';
-
 import GetTask from './callers/GetTask';
 
 type TransactionEventData = {
@@ -38,7 +38,7 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
   /*
     Gets a certain task defined by its integer taskId
   */
-  getTask: GetTask;
+  getTask: ColonyClient.Caller<{ taskId: number }, Task, ColonyClient>;
   /*
     Given a specific [task](glossary#task) a defined role for the task, (see [roles](glossary#roles)) and an ERC20 Token address (see [tokens](glossary#tokens)), `getTaskPayout` will return any payout attached to the task in the token specified.
   */
