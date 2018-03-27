@@ -13,12 +13,12 @@ import type {
 import { raceAgainstTimeout } from '@colony/colony-js-utils';
 
 import ContractClient from './ContractClient';
-import { DEFAULT_TIMEOUT, MINING_TIMEOUT } from '../constants';
+import { DEFAULT_SEND_OPTIONS } from '../constants';
 import Validator from './Validator';
 
 import type { SenderDef } from '../types';
 
-type SendOptions = {
+export type SendOptions = {
   events?: EventHandlers,
   estimate?: boolean,
   miningTimeoutMs?: number,
@@ -44,42 +44,22 @@ export default class Sender<
   // eslint-disable-next-line
   IContractClient: ContractClient<*>
 > extends Validator<Params> {
-  static eventHandlers: EventHandlers;
-  sendFn: SendFn<*>;
-  estimateFn: EstimateFn<*>;
   client: IContractClient;
-  static create(
-    client: IContractClient,
-    { params, eventHandlers = {}, sendFn, estimateFn, getArgs }: SenderDef,
-  ): Sender<Params, EventData, IContractClient> {
-    class _Sender extends Sender<Params, EventData, IContractClient> {
-      static params = params;
-      static eventHandlers = eventHandlers;
-      getArgs(_params: Params): Array<*> {
-        return getArgs
-          ? getArgs.call(this, _params)
-          : this.constructor.getArgs(_params);
-      }
-    }
-    return new _Sender(client, sendFn, estimateFn);
-  }
-  // For overloading
-  getArgs(params: Params): Array<*> {
-    return this.constructor.getArgs(params);
-  }
-  constructor(
-    client: IContractClient,
-    sendFn?: SendFn<*>,
-    estimateFn?: EstimateFn<*>,
-  ) {
-    super();
+  estimateFn: EstimateFn<*>;
+  eventHandlers: EventHandlers;
+  sendFn: SendFn<*>;
+  constructor(client: IContractClient, def: SenderDef) {
+    super(def);
     this.client = client;
-    if (typeof estimateFn === 'function') this.estimateFn = estimateFn;
-    if (typeof sendFn === 'function') this.sendFn = sendFn;
+    const { estimateFn, eventHandlers, getArgs, sendFn } = def || {};
+    this.estimateFn = estimateFn;
+    this.getArgsFn = getArgs;
+    this.sendFn = sendFn;
+    if (eventHandlers) this.eventHandlers = eventHandlers;
   }
   async estimate(
     params: Params,
-    { timeoutMs }: SendOptions,
+    { timeoutMs }: SendOptions = DEFAULT_SEND_OPTIONS,
   ): Promise<BigNumber> {
     if (typeof this.estimateFn !== 'function')
       throw new TypeError('Expected an estimate function for Sender');
@@ -98,12 +78,11 @@ export default class Sender<
       throw new TypeError('Expected a send function for Sender');
 
     const {
-      timeoutMs = DEFAULT_TIMEOUT,
-      miningTimeoutMs = MINING_TIMEOUT,
-      waitForMining = true,
+      miningTimeoutMs,
+      timeoutMs,
+      waitForMining,
       ...transactionOptions
-    } =
-      options || {};
+    } = { ...DEFAULT_SEND_OPTIONS, ...options };
     const transaction = await this.sendTransaction(
       params,
       transactionOptions,
@@ -129,7 +108,7 @@ export default class Sender<
 
     const eventDataPromise = this.client.adapter.getEventData({
       contract: this.client.contract,
-      events: this.constructor.eventHandlers,
+      events: this.eventHandlers,
       timeoutMs: miningTimeoutMs,
       transactionHash: transaction.hash,
     });

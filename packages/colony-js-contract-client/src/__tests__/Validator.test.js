@@ -23,32 +23,30 @@ describe('Validator', () => {
   });
 
   test('getArgs', () => {
-    class MyValidator extends Validator {
-      static params = [['myAddress', 'address']];
-    }
-    sandbox.spyOn(MyValidator, 'parseParams');
-    sandbox.spyOn(MyValidator, 'validate');
+    const myValidator = new Validator({ params: [['myAddress', 'address']] });
+    sandbox.spyOn(myValidator, 'parseParams');
+    sandbox.spyOn(myValidator, 'validate');
     const validParams = { myAddress: VALID_ADDRESS };
 
-    const args = MyValidator.getArgs(validParams);
+    const args = myValidator.getArgs(validParams);
 
-    expect(MyValidator.validate).toHaveBeenCalledWith(validParams);
-    expect(MyValidator.parseParams).toHaveBeenCalledWith(validParams);
+    expect(myValidator.validate).toHaveBeenCalledWith(validParams);
+    expect(myValidator.parseParams).toHaveBeenCalledWith(validParams);
     expect(args[0]).toBe(VALID_ADDRESS);
     expect(args.length).toBe(1);
   });
 
   test('parseParams', () => {
-    class MyValidator extends Validator {
-      static params = [['myAddress', 'address'], ['myString', 'string']];
-    }
-    sandbox.spyOn(MyValidator, 'parseParamsValue');
+    const myValidator = new Validator({
+      params: [['myAddress', 'address'], ['myString', 'string']],
+    });
+    sandbox.spyOn(myValidator.constructor, 'parseParamsValue');
 
     const validParams = { myAddress: VALID_ADDRESS, myString: 'abc' };
 
-    const args = MyValidator.parseParams(validParams);
+    const args = myValidator.parseParams(validParams);
 
-    expect(MyValidator.parseParamsValue).toHaveBeenCalledTimes(2);
+    expect(myValidator.constructor.parseParamsValue).toHaveBeenCalledTimes(2);
     expect(args[0]).toBe(VALID_ADDRESS);
     expect(args[1]).toBe('0x616263'); // hex for utf8 'abc'
     expect(args.length).toBe(2);

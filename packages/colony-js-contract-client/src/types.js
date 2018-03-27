@@ -15,7 +15,7 @@ export type ParamTypePairs = Array<ParamTypePair>;
 
 export type CallerDef = {
   callFn: CallFn<*, *>,
-  params?: ParamTypePairs,
+  params: ParamTypePairs,
   returnValues: ParamTypePairs,
 };
 

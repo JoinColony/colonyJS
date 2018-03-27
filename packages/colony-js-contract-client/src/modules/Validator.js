@@ -8,8 +8,9 @@ import type { ParamTypePairs, ParamTypes } from '../types';
 import { NON_EXISTENT_ADDRESS } from '../constants';
 
 export default class Validator<Params: { [name: string]: * }> {
-  static params: ParamTypePairs = [];
-  static validateParam(key: string, type: ParamTypes, value: *): boolean {
+  getArgsFn: ?(params: Params) => Array<any>;
+  params: ParamTypePairs = [];
+  static validateParam(key: string, type: ParamTypes, value: any): boolean {
     const message = `Parameter ${key} expected a value of type ${type}`;
     switch (type) {
       case 'address':
@@ -29,9 +30,12 @@ export default class Validator<Params: { [name: string]: * }> {
     }
     return true;
   }
-  static validate(params: Params): boolean {
+  constructor(def: { params: ParamTypePairs }) {
+    if (def && def.params) this.params = def.params;
+  }
+  validate(params: Params): boolean {
     return this.params.every(([paramName, paramType]) =>
-      this.validateParam(paramName, paramType, params[paramName]),
+      this.constructor.validateParam(paramName, paramType, params[paramName]),
     );
   }
   static checkValidAddress(address: string): boolean {
@@ -39,7 +43,7 @@ export default class Validator<Params: { [name: string]: * }> {
     if (address === NON_EXISTENT_ADDRESS) throw new Error('Undefined address');
     return true;
   }
-  static parseParamsValue(value: *, type: ParamTypes) {
+  static parseParamsValue(value: any, type: ParamTypes) {
     switch (type) {
       case 'string':
         return utf8ToHex(value);
@@ -47,12 +51,12 @@ export default class Validator<Params: { [name: string]: * }> {
         return value;
     }
   }
-  static parseParams(params: Params) {
+  parseParams(params: Params) {
     return this.params.map(([paramName, paramType]) =>
-      this.parseParamsValue(params[paramName], paramType),
+      this.constructor.parseParamsValue(params[paramName], paramType),
     );
   }
-  static getArgs(params: Params): Array<*> {
+  defaultGetArgs(params: Params) {
     let args = [];
 
     if (this.params.length) {
@@ -61,5 +65,10 @@ export default class Validator<Params: { [name: string]: * }> {
     }
 
     return args;
+  }
+  getArgs(params: Params): Array<any> {
+    return this.getArgsFn
+      ? this.getArgsFn(params)
+      : this.defaultGetArgs(params);
   }
 }

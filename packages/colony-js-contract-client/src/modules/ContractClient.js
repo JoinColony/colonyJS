@@ -67,7 +67,7 @@ export default class ContractClient<ContractInterface: IContract> {
       Params,
       EventData,
       ContractClient<*>,
-    > = this.constructor.Sender.create(this, def);
+    > = new this.constructor.Sender(this, def);
     Object.assign(this, { [name]: sender });
   }
   createCaller<Params: {}, EventData: {}>(name: string, def: CallerDef): void {
@@ -75,7 +75,7 @@ export default class ContractClient<ContractInterface: IContract> {
       Params,
       EventData,
       ContractClient<*>,
-    > = this.constructor.Caller.create(this, def);
+    > = new this.constructor.Caller(this, def);
     Object.assign(this, { [name]: caller });
   }
   _createCallers(): void {
