@@ -18,7 +18,7 @@
         "lint": "eslint src/{,**/}*.js",
         "precommit": "lint-staged",
         "test": "yarn run lint && yarn run test:unit",
-        "test:unit": "jest --coverage --config=jest.conf.json"
+        "test:unit": "jest --coverage --config=jest.conf.json --env=node"
     },
     "lint-staged": {
         "src/{,**/}*.js": [
