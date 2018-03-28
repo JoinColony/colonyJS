@@ -9,7 +9,11 @@
   },
   "overrides": [
         {
-            "files": "*.test.js",
+            "files": [
+              "**/__tests__/*.js",
+              "*.test.js",
+              "*.config.js"
+            ],
             "rules": {
                 "flowtype/require-valid-file-annotation": "off"
             }
