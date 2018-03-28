@@ -1,5 +1,6 @@
 /* @flow */
 
+import ethers from 'ethers';
 import { raceAgainstTimeout } from '@colony/colony-js-utils';
 import type {
   IContract,
@@ -24,24 +25,9 @@ type ConstructorArgs = {
 };
 
 export default class EthersAdapter implements IAdapter<*> {
-  _loader: IContractLoader;
-  _provider: IProvider;
-  _wallet: IWallet;
-  constructor({ loader, provider, wallet }: ConstructorArgs) {
-    this._loader = loader;
-    this._provider = provider;
-    this._wallet = wallet;
-  }
-  async getContract(
-    contractName: string,
-    loaderOptions?: LoaderOptions,
-  ): Promise<IContract> {
-    const { address, abi } = await this._loader.load(
-      contractName,
-      loaderOptions,
-    );
-    return new EthersContract(address, abi, this._wallet);
-  }
+  loader: IContractLoader;
+  provider: IProvider;
+  wallet: IWallet;
   static getEventPromises({
     events,
     timeoutMs,
@@ -66,6 +52,41 @@ export default class EthersAdapter implements IAdapter<*> {
       );
     };
     return Object.getOwnPropertyNames(events).map(mapEventToPromise);
+  }
+  constructor({ loader, provider, wallet }: ConstructorArgs) {
+    this.loader = loader;
+    this.provider = provider;
+    this.wallet = wallet;
+  }
+  async getContract(
+    contractName: string,
+    loaderOptions?: LoaderOptions,
+  ): Promise<IContract> {
+    const { address, abi } = await this.loader.load(
+      contractName,
+      loaderOptions,
+    );
+
+    if (typeof address !== 'string')
+      throw new Error('Unable to parse contract address');
+
+    return new EthersContract(address, abi, this.wallet);
+  }
+  async getContractDeployData(
+    contractName: string,
+    contractParams: Array<any>,
+    loaderOptions?: LoaderOptions,
+  ): Promise<string> {
+    const { abi, bytecode } = await this.loader.load(
+      contractName,
+      loaderOptions,
+    );
+    const { data } = ethers.Contract.getDeployTransaction(
+      bytecode,
+      abi,
+      ...contractParams,
+    );
+    return data;
   }
 
   // XXX this isn't a static method because we can't define it as such
@@ -108,9 +129,9 @@ export default class EthersAdapter implements IAdapter<*> {
     }
   }
   async getTransactionReceipt(transactionHash: string) {
-    return this._provider.getTransactionReceipt(transactionHash);
+    return this.provider.getTransactionReceipt(transactionHash);
   }
   async waitForTransaction(transactionHash: string, timeoutMs?: number) {
-    return this._provider.waitForTransaction(transactionHash, timeoutMs);
+    return this.provider.waitForTransaction(transactionHash, timeoutMs);
   }
 }

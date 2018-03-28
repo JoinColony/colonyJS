@@ -10,6 +10,7 @@ export type Options = {
 export type ContractDefinition = {
   abi: any,
   address: string,
+  bytecode: string,
 };
 
 export type Parser = (input: any, options?: {}) => ContractDefinition;

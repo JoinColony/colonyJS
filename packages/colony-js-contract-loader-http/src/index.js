@@ -77,9 +77,6 @@ export default class ContractHttpLoader implements IContractLoader {
       result.address = routerContract.address;
     }
 
-    if (typeof result.address !== 'string')
-      throw new Error('Unable to parse contract address');
-
     if (!(result.abi instanceof Array))
       throw new Error('Unable to parse contract ABI');
 

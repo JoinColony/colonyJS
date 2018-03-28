@@ -1,5 +1,6 @@
 /* @flow */
 
+import { utf8ToHex } from 'web3-utils';
 import type BigNumber from 'bn.js';
 import type { IAdapter } from '@colony/colony-js-adapter';
 import ContractClient from '@colony/colony-js-contract-client';
@@ -75,9 +76,7 @@ export default class ColonyNetworkClient extends ContractClient<
   createColony: ColonyNetworkClient.Sender<
     {
       name: string,
-      tokenName: string,
-      tokenSymbol: string,
-      tokenDecimals: number,
+      tokenAddress: string,
     },
     { colonyId: number },
     ColonyNetworkClient,
@@ -111,6 +110,24 @@ export default class ColonyNetworkClient extends ContractClient<
   }
   static get ColonyClient(): * {
     return ColonyClient;
+  }
+  async createToken({
+    name,
+    symbol,
+    decimals = 18,
+  }: {
+    name: string,
+    symbol: string,
+    decimals: number,
+  }) {
+    const data = await this.adapter.getContractDeployData('Token', [
+      utf8ToHex(name),
+      utf8ToHex(symbol),
+      decimals,
+    ]);
+    const { hash } = await this.adapter.wallet.sendTransaction(data);
+    const { contractAddress } = await this.adapter.getTransactionReceipt(hash);
+    return contractAddress;
   }
   getCallerDefs(): * {
     return {
@@ -175,12 +192,7 @@ export default class ColonyNetworkClient extends ContractClient<
       createColony: {
         send: this.contract.functions.createColony,
         estimate: this.contract.estimate.createColony,
-        params: [
-          ['name', 'string'],
-          ['tokenName', 'string'],
-          ['tokenSymbol', 'string'],
-          ['tokenDecimals', 'number'],
-        ],
+        params: [['name', 'string'], ['tokenAddress', 'address']],
         eventHandlers: {
           success: {
             ColonyAdded: {

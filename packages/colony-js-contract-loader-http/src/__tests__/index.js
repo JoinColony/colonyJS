@@ -48,8 +48,12 @@ describe('ContractHttpLoader', () => {
     fetch.mockResponse(metaCoinJson);
     const contract = await loader.load('MetaCoin', { version: 1 });
 
-    const { abi, networks: { '1492719647054': { address } } } = MetaCoin;
-    expect(contract).toEqual({ address, abi });
+    const {
+      abi,
+      bytecode,
+      networks: { '1492719647054': { address } },
+    } = MetaCoin;
+    expect(contract).toEqual({ address, abi, bytecode });
   });
 
   test('Making requests', async () => {
