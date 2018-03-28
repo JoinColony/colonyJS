@@ -21,23 +21,23 @@ const callers = [];
 const senders = [];
 
 types.visit(ast, {
-  visitQualifiedTypeIdentifier(path) {
-    if (path.value.id.name === 'Caller') {
-      const { params } = path.parent.value.typeParameters;
+  visitQualifiedTypeIdentifier(p) {
+    if (p.value.id.name === 'Caller') {
+      const { params } = p.parent.value.typeParameters;
 
       callers.push({
-        name: getName(path),
-        description: getDescription(path),
+        name: getName(p),
+        description: getDescription(p),
         args: mapObjectProps(params[0]),
         returns: mapObjectProps(params[1]),
       });
     }
-    if (path.value.id.name === 'Sender') {
-      const { params } = path.parent.value.typeParameters;
+    if (p.value.id.name === 'Sender') {
+      const { params } = p.parent.value.typeParameters;
 
       senders.push({
-        name: getName(path),
-        description: getDescription(path),
+        name: getName(p),
+        description: getDescription(p),
         args: mapObjectProps(params[0]),
         events: mapObjectProps(params[1]),
       });
@@ -115,12 +115,12 @@ function mapObjectProps(param) {
   }
 }
 
-function getName(path) {
-  return path.parent.parent.parent.value.key.name;
+function getName(p) {
+  return p.parent.parent.parent.value.key.name;
 }
 
-function getDescription(path) {
-  const commentLine = path.parent.parent.parent.value.loc.start.line - 1;
+function getDescription(p) {
+  const commentLine = p.parent.parent.parent.value.loc.start.line - 1;
   const comment = ast.comments.find(c => c.loc.end.line === commentLine);
   return formatDescription(comment && comment.value);
 }

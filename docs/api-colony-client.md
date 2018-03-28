@@ -30,40 +30,9 @@ options = {
 
 ## Callers
 
-### `getNonRewardPotsTotal.call({ address }, options)`
-
-(TODO: this has to be explained better, what are the implications and why is this even important?)
-    Pots can be tied to tasks or to (in the future) domains, so giving them their own mapping.
-    Pot 1  can be thought of as the pot belonging to the colony itself that hasn't been assigned
-    to anything yet, but has had some siphoned off in to the reward pot.
-    Pot 0 is the pot containing funds that can be paid to holders of colony tokens in the future.
-    This keeps track of how much of the colony's funds that it owns have been moved into pots other than pot 0,
-    which (by definition) have also had the reward amount siphoned off and put in to pot 0
-
-|Param|Type|Description|
-|---|---|---|
-|address|address|Adress of the token's ERC20 contract (token in question)|
-
-|Return value|Type|Description|
-|---|---|---|
-|total|number|All tokens that are not reserved for network fees (TODO: this is most likely wrong)|
-
-### `getPotBalance.call({ potId, token }, options)`
-
-Gets a balance for a certain token in a specific pot
-
-|Param|Type|Description|
-|---|---|---|
-|potId|number|Integer potId|
-|token|address|Adress of the token's ERC20 contract|
-
-|Return value|Type|Description|
-|---|---|---|
-|balance|number|Balance for token `token` in pot `potId`|
-
 ### `getTaskCount.call(options)`
 
-Gets the total number of tasks in a Colony
+Gets the total number of tasks in a Colony. This number equals the last `taskId` created.
 
 
 |Return value|Type|Description|
@@ -72,8 +41,8 @@ Gets the total number of tasks in a Colony
 
 ### `getTaskPayout.call({ taskId, role, token }, options)`
 
-Get's the amount of payout for a specific task, a defined role (0 = MANAGER, 1 = EVALUATOR, 2 = WORKER) and a specific
-    token defined by it's address
+Get's the amount of payout for for a specific (task)[glossary#task], a defined role (see (roles)[glossary#roles]) and a specific
+    token defined by it's address (see (tokens)[glossary#tokens])
 
 |Param|Type|Description|
 |---|---|---|
@@ -103,7 +72,7 @@ Get's the amount of payout for a specific task, a defined role (0 = MANAGER, 1 =
 
 ### `getTaskWorkRatings.call({ taskId }, options)`
 
-TODO: I'm not entirely sure what this does
+TODO: I'm not entirely sure what this does (see)
 
 |Param|Type|Description|
 |---|---|---|
@@ -111,8 +80,8 @@ TODO: I'm not entirely sure what this does
 
 |Return value|Type|Description|
 |---|---|---|
-|count|number|TODO: no idea|
-|timestamp|number|TODO: A time of some sort|
+|count|number|Total number of secrets|
+|timestamp|number|Timestamp of the last submitted rating secret|
 
 ### `getTaskWorkRatingSecret.call({ taskId, role }, options)`
 
@@ -126,6 +95,34 @@ TODO: I'm not entirely sure what this does
 |Return value|Type|Description|
 |---|---|---|
 |secret|string||
+
+### `getPotBalance.call({ potId, token }, options)`
+
+Gets a balance for a certain token in a specific pot
+
+|Param|Type|Description|
+|---|---|---|
+|potId|number|Integer potId|
+|token|address|Adress of the token's ERC20 contract|
+
+|Return value|Type|Description|
+|---|---|---|
+|balance|number|Balance for token `token` in pot `potId`|
+
+### `getNonRewardPotsTotal.call({ address }, options)`
+
+(TODO: this has to be explained better, what are the implications and why is this even important?)
+    This keeps track of how much of the colony's funds that it owns have been moved into pots other than pot 0,
+    which (by definition) have also had the reward amount siphoned off and put in to pot 0
+    (see also [pots](glossary.html#pots))
+
+|Param|Type|Description|
+|---|---|---|
+|address|address|Adress of the token's ERC20 contract (token in question)|
+
+|Return value|Type|Description|
+|---|---|---|
+|total|number|All tokens that are not reserved for network fees (TODO: this is most likely wrong)|
 
 ### `getToken.call(options)`
 
@@ -147,81 +144,6 @@ Returns the number of all transactions in this Colony
 
 ## Senders
 
-### `addDomain.send({ parentSkillId }, options)`
-
-TODO: Adds a domain to this Colony. Please verify all input and output values. We should probably explain why this requires skill ids
-
-|Param|Type|Description|
-|---|---|---|
-|parentSkillId|number|TODO: Why do I have to define a skill for a domain? No idea|
-
-|Event data|Type|Description|
-|---|---|---|
-|skillId|number|A skillId for this domain|
-|parentSkillId|number|The parent skill id|
-
-### `addGlobalSkill.send({ parentSkillId }, options)`
-
-TODO: Adds a global skill. Whatever that means.
-
-|Param|Type|Description|
-|---|---|---|
-|parentSkillId|number|Integer id of the parent skill|
-
-|Event data|Type|Description|
-|---|---|---|
-|skillId|number|Integer id of the newly created skill|
-|parentSkillId|number|Integer id of the parent skill|
-
-### `approveTaskChange.send({ transactionId, role }, options)`
-
-Approves a task change. TODO: Please elaborate.
-
-|Param|Type|Description|
-|---|---|---|
-|transactionId|number|TODO: transactionId of what?|
-|role|number|TODO: Why is this necessary? Can we find out?|
-
-
-### `assignWorkRating.send({ taskId, rating }, options)`
-
-
-
-|Param|Type|Description|
-|---|---|---|
-|taskId|number||
-|rating|number||
-
-
-### `cancelTask.send({ taskId }, options)`
-
-
-
-|Param|Type|Description|
-|---|---|---|
-|taskId|number||
-
-
-### `claimColonyFunds.send({ token }, options)`
-
-
-
-|Param|Type|Description|
-|---|---|---|
-|token|string||
-
-
-### `claimPayout.send({ taskId, role, token }, options)`
-
-
-
-|Param|Type|Description|
-|---|---|---|
-|taskId|number||
-|role|number||
-|token|string||
-
-
 ### `createTask.send({ specificationHash, domainId }, options)`
 
 
@@ -234,57 +156,6 @@ Approves a task change. TODO: Please elaborate.
 |Event data|Type|Description|
 |---|---|---|
 |taskId|number||
-
-### `finalizeTask.send({ taskId }, options)`
-
-
-
-|Param|Type|Description|
-|---|---|---|
-|taskId|number||
-
-
-### `mintTokens.send({ amount }, options)`
-
-
-
-|Param|Type|Description|
-|---|---|---|
-|amount|number||
-
-
-### `mintTokensForColonyNetwork.send({ amount }, options)`
-
-
-
-|Param|Type|Description|
-|---|---|---|
-|amount|number||
-
-
-### `moveFundsBetweenPots.send({ fromPot, toPot, amount, address }, options)`
-
-
-
-|Param|Type|Description|
-|---|---|---|
-|fromPot|number||
-|toPot|number||
-|amount|number||
-|address|string||
-
-
-### `revealTaskWorkRating.send({ taskId, role, rating, salt }, options)`
-
-
-
-|Param|Type|Description|
-|---|---|---|
-|taskId|number||
-|role|number||
-|rating|number||
-|salt|string||
-
 
 ### `setTaskBrief.send({ taskId, specificationHash }, options)`
 
@@ -389,3 +260,129 @@ Approves a task change. TODO: Please elaborate.
 |taskId|number||
 |role|number||
 |ratingSecret|string||
+
+
+### `revealTaskWorkRating.send({ taskId, role, rating, salt }, options)`
+
+
+
+|Param|Type|Description|
+|---|---|---|
+|taskId|number||
+|role|number||
+|rating|number||
+|salt|string||
+
+
+### `approveTaskChange.send({ transactionId, role }, options)`
+
+Approves a task change. TODO: Please elaborate.
+
+|Param|Type|Description|
+|---|---|---|
+|transactionId|number|TODO: transactionId of what?|
+|role|number|TODO: Why is this necessary? Can we find out?|
+
+
+### `assignWorkRating.send({ taskId, rating }, options)`
+
+
+
+|Param|Type|Description|
+|---|---|---|
+|taskId|number||
+|rating|number||
+
+
+### `cancelTask.send({ taskId }, options)`
+
+
+
+|Param|Type|Description|
+|---|---|---|
+|taskId|number||
+
+
+### `finalizeTask.send({ taskId }, options)`
+
+
+
+|Param|Type|Description|
+|---|---|---|
+|taskId|number||
+
+
+### `claimPayout.send({ taskId, role, token }, options)`
+
+
+
+|Param|Type|Description|
+|---|---|---|
+|taskId|number||
+|role|number||
+|token|string||
+
+
+### `addDomain.send({ parentSkillId }, options)`
+
+TODO: Adds a domain to this Colony. Please verify all input and output values. We should probably explain why this requires skill ids
+
+|Param|Type|Description|
+|---|---|---|
+|parentSkillId|number|TODO: Why do I have to define a skill for a domain? No idea|
+
+|Event data|Type|Description|
+|---|---|---|
+|skillId|number|A skillId for this domain|
+|parentSkillId|number|The parent skill id|
+
+### `addGlobalSkill.send({ parentSkillId }, options)`
+
+TODO: Adds a global skill. Whatever that means.
+
+|Param|Type|Description|
+|---|---|---|
+|parentSkillId|number|Integer id of the parent skill|
+
+|Event data|Type|Description|
+|---|---|---|
+|skillId|number|Integer id of the newly created skill|
+|parentSkillId|number|Integer id of the parent skill|
+
+### `claimColonyFunds.send({ token }, options)`
+
+
+
+|Param|Type|Description|
+|---|---|---|
+|token|string||
+
+
+### `moveFundsBetweenPots.send({ fromPot, toPot, amount, address }, options)`
+
+
+
+|Param|Type|Description|
+|---|---|---|
+|fromPot|number||
+|toPot|number||
+|amount|number||
+|address|string||
+
+
+### `mintTokens.send({ amount }, options)`
+
+
+
+|Param|Type|Description|
+|---|---|---|
+|amount|number||
+
+
+### `mintTokensForColonyNetwork.send({ amount }, options)`
+
+
+
+|Param|Type|Description|
+|---|---|---|
+|amount|number||

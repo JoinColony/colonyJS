@@ -1,12 +1,11 @@
 {
   "docs": {
     "Overview": ["docs-index", "docs-quickstart", "glossary"],
-    "Modules": ["docs-adapters", "docs-loaders"],
+    "Modules": ["docs-adapters", "docs-loaders", "docs-contract-client"],
     "API Reference": [
       "api-index",
       "api-adapters",
       "api-loaders",
-      "api-contract-client",
       "api-colony-network-client",
       "api-colony-client"
     ]

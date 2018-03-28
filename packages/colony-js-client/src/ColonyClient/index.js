@@ -25,7 +25,7 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
   contract: ColonyContract;
   networkClient: ColonyNetworkClient;
   /*
-    Gets the total number of tasks in a Colony
+    Gets the total number of tasks in a Colony. This number equals the last `taskId` created.
   */
   getTaskCount: ColonyClient.Caller<
     null,
@@ -40,8 +40,8 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
   */
   getTask: GetTask;
   /*
-    Get's the amount of payout for a specific task, a defined role (0 = MANAGER, 1 = EVALUATOR, 2 = WORKER) and a specific
-    token defined by it's address
+    Get's the amount of payout for for a specific (task)[glossary#task], a defined role (see (roles)[glossary#roles]) and a specific
+    token defined by it's address (see (tokens)[glossary#tokens])
   */
   getTaskPayout: ColonyClient.Caller<
     {
@@ -71,15 +71,15 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
     ColonyClient,
   >;
   /*
-    TODO: I'm not entirely sure what this does
+    TODO: I'm not entirely sure what this does (see (rating[glossary#rating-of-work]))
   */
   getTaskWorkRatings: ColonyClient.Caller<
     {
       taskId: number, // Integer taskId
     },
     {
-      count: number, // TODO: no idea
-      timestamp: number, // TODO: A time of some sort
+      count: number, // Total number of rating (?) secrets
+      timestamp: number, // Timestamp of the last submitted rating secret
     },
     ColonyClient,
   >;

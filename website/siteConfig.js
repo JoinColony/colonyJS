@@ -22,10 +22,10 @@ const siteConfig = {
   baseUrl: '/colony-js/' /* base url for your project */,
   projectName: 'colony-js',
   headerLinks: [
-    {doc: 'docs-index', label: 'Docs'},
-    {doc: 'api-index', label: 'API'},
-    {page: 'help', label: 'Help'},
-    {blog: true, label: 'Blog'},
+    { doc: 'docs-index', label: 'Docs' },
+    { doc: 'api-index', label: 'API' },
+    { page: 'help', label: 'Help' },
+    { blog: true, label: 'Blog' },
   ],
   users,
   /* path to images for header/footer */
@@ -38,7 +38,7 @@ const siteConfig = {
     secondaryColor: '#205C3B',
   },
   /* custom fonts for website */
-  /*fonts: {
+  /* fonts: {
     myFont: [
       "Times New Roman",
       "Serif"
@@ -47,12 +47,9 @@ const siteConfig = {
       "-apple-system",
       "system-ui"
     ]
-  },*/
+  }, */
   // This copyright info is used in /core/Footer.js and blog rss/atom feeds.
-  copyright:
-    'Copyright © ' +
-    new Date().getFullYear() +
-    ' Your Name or Your Company Name',
+  copyright: `Copyright © ${new Date().getFullYear()} Your Name or Your Company Name`,
   // organizationName: 'deltice', // or set an env variable ORGANIZATION_NAME
   // projectName: 'test-site', // or set an env variable PROJECT_NAME
   highlight: {
