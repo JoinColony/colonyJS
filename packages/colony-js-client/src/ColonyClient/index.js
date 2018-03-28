@@ -105,32 +105,29 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
     ColonyClient,
   >;
   /*
-    (TODO: this has to be explained better, what are the implications and why is this even important?)
-    This keeps track of how much of the colony's funds that it owns have been moved into pots other than pot 0,
-    which (by definition) have also had the reward amount siphoned off and put in to pot 0
-    (see also [pots](glossary#pots))
+    The `nonRewardPotsTotal` is a value that keeps track of the total assets a colony has to work with, which may be split among several distinct pots associated with various domains and tasks.
   */
   getNonRewardPotsTotal: ColonyClient.Caller<
     {
       address: Address, // Adress of the token's ERC20 contract (token in question)
     },
     {
-      total: number, // All tokens that are not reserved for network fees (TODO: this is most likely wrong)
+      total: number, // All tokens that are not within the colony's `rewards` pot.
     },
     ColonyClient,
   >;
   /*
-    Gets the address of the Colony's official ERC20 token contract
+    Gets the address of the colony's official ERC20 token contract
   */
   getToken: ColonyClient.Caller<
     null,
     {
-      address: string, // The address of the Colony's official deployed ERC20 token contract
+      address: string, // The address of the colony's official deployed ERC20 token contract
     },
     ColonyClient,
   >;
   /*
-    Returns the number of all transactions in this Colony
+    Returns the number of all transactions in this colony
   */
   getTransactionCount: ColonyClient.Caller<
     null,

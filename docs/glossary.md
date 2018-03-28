@@ -37,10 +37,11 @@ Tasks are identified by a unique `{ taskId }`, and contain:
 
 TODO: Improve this
 
-Pots can be tied to tasks or to (in the future) domains, so giving them their own mapping.
-Pot 1  can be thought of as the pot belonging to the colony itself that hasn't been assigned
-to anything yet, but has had some siphoned off in to the reward pot.
-Pot 0 is the pot containing funds that can be paid to holders of colony tokens in the future.
+All funding within a colony resides in pots. Pots can be thought of as 'earmarked' funds for a specific purpose, and depending on context, might be called a bounty, a budget, working capital, or rewards.  A colony will have many pots, but at a minimum will have one pot for rewards ( `pots[0]` ) and one for working capital ( `pots[1]` ).
+
+When domains (and tasks within those domains) are created, they each are assigned a newly created pot, which can then be funded with the `moveFundsBetweenPots` function. This action will eventually be mediated by a user's reputation score, but for now is merely permissioned based on the roles defined in `Authority.sol` (meaning only colony owners and admins may move funds between pots).
+
+Every colony has a special pot, `pots[0]`, which accrues funds by taking a small percentage of colony revenue. Members of the colony may claim rewards from this pot based on the number of colony tokens they have.
 
 
 ### `Rating of work`
