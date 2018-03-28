@@ -45,7 +45,8 @@
     "devDependencies": {
         "flow-bin": "^0.69.0",
         "jest-sandbox": "^1.1.1",
-        "webpack": "^3.10.0"
+        "webpack": "^4.3.0",
+        "webpack-cli": "^2.0.13"
     },
     "dependencies": {
         "@colony/colony-js-adapter-ethers": "^1.0.0",

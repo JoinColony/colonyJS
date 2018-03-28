@@ -54,6 +54,7 @@
         "flow-bin": "^0.69.0",
         "jest": "^22.1.4",
         "jest-sandbox": "^1.1.2",
-        "webpack": "^3.10.0"
+        "webpack": "^4.3.0",
+        "webpack-cli": "^2.0.13"
     }
 }

@@ -34,7 +34,8 @@
         "babel-plugin-transform-class-properties": "^6.24.1",
         "flow-bin": "^0.69.0",
         "jest-sandbox": "^1.1.1",
-        "webpack": "^3.10.0"
+        "webpack": "^4.3.0",
+        "webpack-cli": "^2.0.13"
     },
     "dependencies": {
         "@colony/colony-js-adapter": "^1.0.0",

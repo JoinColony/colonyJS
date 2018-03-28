@@ -51,6 +51,7 @@
         "jest-fetch-mock": "^1.4.1",
         "jest-sandbox": "^1.1.1",
         "lint-staged": "^6.0.0",
-        "webpack": "^3.8.1"
+        "webpack": "^4.3.0",
+        "webpack-cli": "^2.0.13"
     }
 }
