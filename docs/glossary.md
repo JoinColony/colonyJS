@@ -15,9 +15,23 @@ Tokens are always identified and passed by their ERC20 compatible contract addre
 ### `Tasks`
 
 TODO: We really need some good explanation on tasks.
-Tasks have auto-incrementing integer `taskId`s counting from 1 (TODO: make sure that's correct), so the total count of tasks in a Colony will equal the last `taskId` created.
-- Tasks can have different payouts for each role
-- Tasks can have different tokens for payout
+
+Tasks are one of the basic building blocks of a Colony.
+
+Tasks are identified by a unique `{ taskId }`, and contain:
+
+| type | description |
+|------------|---------|
+|`string`|What work should be done for the task to be considered complete (the task specification)|
+|`string` |What work was done to fulfill the task (task deliverable)|
+|`boolean`|Whether or not the task has been finalized|
+|`boolean`|Whether or not the task has been cancelled|
+|`number` |A due date for completion|
+|`number` |A payout for the task upon successful completion|
+|`number` |A pot from which the payout should be disbursed (read more about (pots)[glossary#pots])|
+|`number` |A timestamp for the work that was done|
+|`number` |That task's associated domain(s)  |
+|`number` |Any skills associated with the task|
 
 ### `Pots`
 
@@ -42,10 +56,14 @@ TOOD: I think here we should explain how the whole task rating process works.
 
 ### `Roles`
 
-Three roles:
- - Manager (0)
- - Evaluator (1)
- - Worker (2)
+Every task has three roles associated with it which determine permissions for editing the task, submitting work, and ratings for performance. In the `colonyNetwork` contracts, the roles are represented as 8 bit numbers to keep permission logic simple.
+
+| role Id | Description |
+|------|------|
+|`0`| A task's MANAGER role is by default the creator of the task, and usually expected to be the person to accept the task as complete when the work is done.
+|`1`| A task's EVALUATOR role is a person who will independently establish the quality of the work done by the WORKER.  
+|`2`| A task's WORKER role is the person who will fulfill the requirements of the task as specified in the task brief.
+
 
 A `Role` object looks like this (for a specific task):
 

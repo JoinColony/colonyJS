@@ -40,8 +40,7 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
   */
   getTask: GetTask;
   /*
-    Get's the amount of payout for for a specific (task)[glossary#task], a defined role (see (roles)[glossary#roles]) and a specific
-    token defined by it's address (see (tokens)[glossary#tokens])
+    Given a specific (task)[glossary#task] a defined role for the task, (see (roles)[glossary#roles]) and an ERC20 Token address (see (tokens)[glossary#tokens]), `GetTaskPayout` will return any payout attached to the task in the token specified.
   */
   getTaskPayout: ColonyClient.Caller<
     {
@@ -55,8 +54,7 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
     ColonyClient,
   >;
   /*
-    (TODO: find out what this is all about)
-    Get information about a certain role of a task
+    Every task has three roles associated with it which determine permissions for editing the task, submitting work, and ratings for performance.
   */
   getTaskRole: ColonyClient.Caller<
     {
