@@ -11,7 +11,7 @@
     "api-colony-network-client": "ColonyNetworkClient (colony-js-network-client)",
     "ColonyNetworkClient": "ColonyNetworkClient",
     "api-index": "Overview",
-    "api-loaders": "Loaders (colony-js-loader)",
+    "api-loaders": "Loaders",
     "Loaders": "Loaders",
     "docs-adapters": "Adapters",
     "docs-contract-client": "Contract Client",
