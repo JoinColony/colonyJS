@@ -12,6 +12,16 @@ sidebar_label: Glossary
 
 Tokens are always identified and passed by their ERC20 compatible contract address. TODO: elaborate and explain how tokens work in functions
 
+// This might need to wait until the BYOT scheme has been decided
+
+### `Pots`
+
+All funding within a colony resides in pots. Pots can be thought of as 'earmarked' funds for a specific purpose, and depending on context, might be called a bounty, a budget, working capital, or rewards.  A colony will have many pots, but at a minimum will have one pot for rewards ( `pots[0]` ) and one for working capital ( `pots[1]` ).
+
+When domains (and tasks within those domains) are created, they each are assigned a newly created pot, which can then be funded with the `moveFundsBetweenPots` function. This action will eventually be mediated by a user's reputation score, but for now is merely permissioned based on the roles defined in `Authority.sol` (meaning only colony owners and admins may create new pots and move funds between pots).
+
+Every colony has a special pot, `pots[0]`, which accrues funds by taking a small percentage of colony revenue. Members of the colony may claim rewards from this pot based on the number of colony tokens they have.
+
 ### `Tasks`
 
 TODO: We really need some good explanation on tasks.
@@ -33,27 +43,7 @@ Tasks are identified by a unique `{ taskId }`, and contain:
 |`number` |That task's associated domain(s)  |
 |`number` |Any skills associated with the task|
 
-### `Pots`
-
-TODO: Improve this
-
-All funding within a colony resides in pots. Pots can be thought of as 'earmarked' funds for a specific purpose, and depending on context, might be called a bounty, a budget, working capital, or rewards.  A colony will have many pots, but at a minimum will have one pot for rewards ( `pots[0]` ) and one for working capital ( `pots[1]` ).
-
-When domains (and tasks within those domains) are created, they each are assigned a newly created pot, which can then be funded with the `moveFundsBetweenPots` function. This action will eventually be mediated by a user's reputation score, but for now is merely permissioned based on the roles defined in `Authority.sol` (meaning only colony owners and admins may move funds between pots).
-
-Every colony has a special pot, `pots[0]`, which accrues funds by taking a small percentage of colony revenue. Members of the colony may claim rewards from this pot based on the number of colony tokens they have.
-
-
-### `Rating of work`
-
-TOOD: I think here we should explain how the whole task rating process works.
-
-- submitTaskWorkRating
-- revealTaskWorkRating
-- assignWorkRating
-- generateSecret
-- getTaskWorkRatings
-- getTaskWorkRatingSecret
+Tasks can be created by the `createTask` function, and cancelled by the `cancelTask` function.
 
 ### `Roles`
 
@@ -65,7 +55,6 @@ Every task has three roles associated with it which determine permissions for ed
 |`1`| A task's EVALUATOR role is a person who will independently establish the quality of the work done by the WORKER.  
 |`2`| A task's WORKER role is the person who will fulfill the requirements of the task as specified in the task brief.
 
-
 A `Role` object looks like this (for a specific task):
 
 ```solidity
@@ -74,4 +63,44 @@ A `Role` object looks like this (for a specific task):
   uint8 rating; // Rating the user received
 ```
 
-TODO: Expand on this more. What scale does the rating have? When can someone be rated and which roles can be rated by whom?
+Once created, the task may be modified directly by its MANAGER, or by anyone else through the `proposeTaskChange` workflow.
+
+### `Changing a task`
+
+Changes to a task before it has been finalized are permitted with approval from the MANAGER role through the `proposeTaskChange` method.
+
+| Function | Description |
+|----------|-------------|
+|`proposeTaskChange` | When invoked by a role other than the MANAGER of a task, the transaction is stored on-chain to await approval by the MANAGER of the task.|
+|`approveTaskChange`| Approves a proposed change to a task and allows the transaction to be executed. |
+|`setTaskDueDate`| Assigns the due date of the task. |
+|`setTaskBrief` | sets a new `specificationHash` for a revised task brief. |
+|`setTaskSkill` | Tags the task with a specific skill or skills|
+|`setTaskDomain`| Assigns one or more domains to a task. |
+|`setTaskRoleUser` | will take an address and assign it to the role of MANAGER, WORKER, or EVALUATOR. |
+| `setTaskManagerPayout`, `setTaskWorkerPayout`, and `setTaskEvaluatorPayout` | Sets the payout to the role specified for upon task finalization.|
+
+### `Work Ratings`
+
+Work ratings are an essential part of completing the lifecycle of a task. In order for a task to be complete, the MANAGER role must approve of the work submitted.
+
+| Function | Description |
+|----------|-------------|
+| `submitTaskDeliverable` |
+| `submitTaskWorkRating` |
+| `assignWorkRating` |
+| `generateSecret` |
+| `revealTaskWorkRating` |
+| `claimPayout` |
+
+### `Rating of work`
+
+Before a task can be finalized, the work must be rated to determine the correct payouts. For every task, the WORKER rates the MANAGER, and the EVALUATOR rates the WORKER.
+
+Because it's undesirable for these ratings to influence each other, rating submissions follow a commit and reveal pattern:
+
+Ratings are submitted by the WORKER and EVALUATOR during the commit period, which begins either when the worker submits their work to the task (by sending `submitTaskDeliverable`), or when the task reaches its due date, whichever comes first. The commit period lasts for approximately 5 days.
+
+After both (secret) ratings have been submitted or the commit period has expired, whichever comes first, the reveal period begins and lasts for another 5 days. During the reveal period, both WORKER and EVALUATOR reveal their ratings by re-submitting them together with the same `_salt` used previously. These values are then checked on-chain to show that they are the same as what was submitted during the commit period.
+
+In the event that any party fails to commit or reveal their ratings, their counterpart is assumed to be the highest possible rating, and their own rating is decreased by 5.
