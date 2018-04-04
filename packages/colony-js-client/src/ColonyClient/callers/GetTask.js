@@ -1,11 +1,8 @@
 /* @flow */
 
 import ContractClient from '@colony/colony-js-contract-client';
-import { raceAgainstTimeout } from '@colony/colony-js-utils';
 
 import type ColonyClient from '../index';
-
-import type { Task } from '../../interface/Task';
 
 type Params = { taskId: number };
 type FnReturn = [
@@ -17,11 +14,9 @@ type FnReturn = [
   number,
   number,
   number,
+  number,
+  [number], // Currently just one item
 ];
-
-type Options = { timeoutMs: number };
-
-const DEFAULT_TIMEOUT = 60 * 1000;
 
 export default class GetTask extends ContractClient.Caller<
   Params,
@@ -40,53 +35,26 @@ export default class GetTask extends ContractClient.Caller<
       payoutsWeCannotMake,
       potId,
       deliverableTimestamp,
+      domainId,
+      skillIds,
     ]: FnReturn,
     { taskId }: Params,
   ) {
     return {
-      cancelled,
-      deliverableHash,
-      deliverableDate: new Date(deliverableTimestamp),
-      dueDate: new Date(dueDate),
-      finalized,
+      cancelled: !!cancelled,
+      domainId,
+      finalized: !!finalized,
       id: taskId,
-      payoutsWeCannotMake,
-      potId,
+      skillId: skillIds[0], // Return only the first skillId since only one is used
       specificationHash,
+      // The following fields are optional; make sure we don't e.g. coerce null to Date
+      ...(deliverableHash != null ? { deliverableHash } : {}),
+      ...(deliverableTimestamp > 0
+        ? { deliverableDate: new Date(deliverableTimestamp) }
+        : {}),
+      ...(dueDate > 0 ? { dueDate: new Date(dueDate) } : {}), // dueDate is a timestamp
+      ...(payoutsWeCannotMake != null ? { payoutsWeCannotMake } : {}),
+      ...(potId != null ? { potId } : {}),
     };
-  }
-  async getSkill(taskId: number, index: number, timeoutMs: number) {
-    return raceAgainstTimeout(
-      this.client.contract.functions.getTaskSkill(taskId, index),
-      timeoutMs,
-    );
-  }
-  async getDomain(taskId: number, index: number, timeoutMs: number) {
-    return raceAgainstTimeout(
-      this.client.contract.functions.getTaskDomain(taskId, index),
-      timeoutMs,
-    );
-  }
-  async getTask(taskId: number, params: Params, timeoutMs: number) {
-    const values = await raceAgainstTimeout(
-      this.client.contract.functions.getTask(taskId),
-      timeoutMs,
-    );
-    return this.parseReturn(values, params);
-  }
-  async call(
-    params: Params,
-    { timeoutMs = DEFAULT_TIMEOUT }: Options = {},
-  ): Promise<Task> {
-    const [taskId] = this.getArgs(params);
-
-    // XXX Only one domain/skill per task is supported as of writing,
-    // so always fetch the first one.
-    const domains = [await this.getDomain(taskId, 0, timeoutMs)];
-    const skills = [await this.getSkill(taskId, 0, timeoutMs)];
-
-    const task = await this.getTask(taskId, params, timeoutMs);
-
-    return { ...task, domains, skills };
   }
 }

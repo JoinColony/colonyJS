@@ -8,7 +8,6 @@ import type { IAdapter, InterfaceFn } from '@colony/colony-js-adapter';
 import ContractClient from '@colony/colony-js-contract-client';
 
 import type { ColonyContract } from '../interface/ColonyContract';
-import type { Task } from '../interface/Task';
 import ColonyNetworkClient from '../ColonyNetworkClient/index';
 import GetTask from './callers/GetTask';
 
@@ -34,11 +33,25 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
     },
     ColonyClient,
   >;
-  // TODO: Please type explicitly!
   /*
     Gets a certain task defined by its integer taskId
   */
-  getTask: ColonyClient.Caller<{ taskId: number }, Task, ColonyClient>;
+  getTask: ColonyClient.Caller<
+    { taskId: number },
+    {
+      cancelled: boolean, // Boolean flag denoting whether the task is cancelled
+      deliverableHash?: string, // Unique hash of the deliverable content
+      domainId: number, // Integer Domain ID the task belongs to
+      dueDate?: typeof Date, // When the task is due
+      finalized: boolean, // Boolean flag denoting whether the task is finalized
+      id: number, // Integer task ID
+      payoutsWeCannotMake?: number, // Number of payouts that cannot be completed with the current task funding
+      potId?: number, // Integer ID of funding pot for the task
+      skillId: number, // Integer Skill ID the task is assigned to
+      specificationHash: string, // Unique hash of the specification content
+    },
+    ColonyClient,
+  >;
   /*
     Given a specific [task](glossary#task) a defined role for the task, (see [roles](glossary#roles)) and an ERC20 Token address (see [tokens](glossary#tokens)), `getTaskPayout` will return any payout attached to the task in the token specified.
   */
@@ -46,7 +59,7 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
     {
       taskId: number, // Integer taskId
       role: number, // Role the payout is specified for
-      token: Address, // Adress of the token's ERC20 contract
+      token: Address, // Address of the token's ERC20 contract
     },
     {
       amount: number, // Amount of specified tokens to payout for that task and a role
@@ -112,7 +125,7 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
   */
   getNonRewardPotsTotal: ColonyClient.Caller<
     {
-      address: Address, // Adress of the token's ERC20 contract (token in question)
+      address: Address, // Address of the token's ERC20 contract (token in question)
     },
     {
       total: number, // All tokens that are not within the colony's `rewards` pot.
