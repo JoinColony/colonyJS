@@ -18,9 +18,23 @@ type FnReturn = [
   [number], // Currently just one item
 ];
 
+type ReturnValue = {
+  cancelled: boolean,
+  deliverableDate?: Date,
+  deliverableHash?: string,
+  domainId: number,
+  dueDate?: Date,
+  finalized: boolean,
+  id: number,
+  payoutsWeCannotMake?: number,
+  potId?: number,
+  skillId: number,
+  specificationHash: string,
+};
+
 export default class GetTask extends ContractClient.Caller<
   Params,
-  {},
+  ReturnValue,
   ColonyClient,
 > {
   params = [['taskId', 'number']];
@@ -40,21 +54,31 @@ export default class GetTask extends ContractClient.Caller<
     ]: FnReturn,
     { taskId }: Params,
   ) {
-    return {
+    const task: ReturnValue = {
       cancelled: !!cancelled,
       domainId,
       finalized: !!finalized,
       id: taskId,
       skillId: skillIds[0], // Return only the first skillId since only one is used
       specificationHash,
-      // The following fields are optional; make sure we don't e.g. coerce null to Date
-      ...(deliverableHash != null ? { deliverableHash } : {}),
-      ...(deliverableTimestamp > 0
-        ? { deliverableDate: new Date(deliverableTimestamp) }
-        : {}),
-      ...(dueDate > 0 ? { dueDate: new Date(dueDate) } : {}), // dueDate is a timestamp
-      ...(payoutsWeCannotMake != null ? { payoutsWeCannotMake } : {}),
-      ...(potId != null ? { potId } : {}),
     };
+
+    // The following fields are optional; make sure we don't e.g. coerce null to Date
+
+    if (deliverableTimestamp > 0)
+      task.deliverableDate = new Date(deliverableTimestamp);
+
+    // dueDate is a timestamp
+    if (dueDate > 0) task.dueDate = new Date(dueDate);
+
+    if (typeof deliverableHash !== 'undefined')
+      task.deliverableHash = deliverableHash;
+
+    if (typeof payoutsWeCannotMake !== 'undefined')
+      task.payoutsWeCannotMake = payoutsWeCannotMake;
+
+    if (typeof potId !== 'undefined') task.potId = potId;
+
+    return task;
   }
 }
