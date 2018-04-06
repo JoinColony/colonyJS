@@ -1,6 +1,6 @@
 /* @flow */
 
-import BigNumber from 'bn.js';
+import type BigNumber from 'bn.js';
 // eslint-disable-next-line max-len
 import type { Options as LoaderOptions } from '@colony/colony-js-contract-loader';
 
