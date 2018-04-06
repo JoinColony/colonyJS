@@ -1,7 +1,7 @@
 /* @flow */
 
 // eslint-disable-next-line no-unused-vars
-import type BigNumber from './bn';
+import type BigNumber from 'bn.js';
 
 // Very simple type definitions for web3-utils (just the things that we use)
 
