@@ -2,8 +2,9 @@
 
 // XXX Fix Object.entries/values https://github.com/facebook/flow/pull/5663
 
+// eslint-disable-next-line no-unused-vars
 declare class Object {
-  static (o: ?void): {[key: any]: any};
+  static (o: ?void): { [key: any]: any };
   static (o: boolean): Boolean;
   static (o: number): Number;
   static (o: string): String;
@@ -33,5 +34,5 @@ declare class Object {
   toLocaleString(): string;
   toString(): string;
   valueOf(): Object;
-  [key:any]: any;
+  [key: any]: any;
 }
