@@ -40,9 +40,10 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
     { taskId: number },
     {
       cancelled: boolean, // Boolean flag denoting whether the task is cancelled
+      deliverableDate?: Date, // Date when the deliverable is due
       deliverableHash?: string, // Unique hash of the deliverable content
       domainId: number, // Integer Domain ID the task belongs to
-      dueDate?: typeof Date, // When the task is due
+      dueDate?: Date, // When the task is due
       finalized: boolean, // Boolean flag denoting whether the task is finalized
       id: number, // Integer task ID
       payoutsWeCannotMake?: number, // Number of payouts that cannot be completed with the current task funding
