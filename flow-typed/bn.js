@@ -44,6 +44,7 @@ declare module 'bn.js' {
     toExponential(dp: ?number): string;
     toFixed(dp: ?number): string;
     toPrecision(sd: ?number): string;
+    toNumber(sd: ?number): number;
     toString(): string;
     valueOf(): string;
     toJSON(): string;
