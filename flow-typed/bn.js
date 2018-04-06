@@ -50,5 +50,5 @@ declare module 'bn.js' {
     toJSON(): string;
   }
 
-  declare module.exports: typeof BigNumber;
+  declare module.exports: BigNumber;
 }
