@@ -132,35 +132,35 @@ export default class ColonyNetworkClient extends ContractClient<
   getCallerDefs(): * {
     return {
       getColonyById: {
-        call: this.contract.functions.getColonyAt,
+        callFn: this.contract.functions.getColonyAt,
         params: [['id', 'number']],
         returnValues: [['address', 'address']],
       },
       getColonyByKey: {
-        call: this.contract.functions.getColony,
+        callFn: this.contract.functions.getColony,
         params: [['key', 'string']],
         returnValues: [['address', 'address']],
       },
       getColonyCount: {
-        call: this.contract.functions.getColonyCount,
+        callFn: this.contract.functions.getColonyCount,
         returnValues: [['address', 'address']],
       },
       getColonyVersionResolver: {
-        call: this.contract.functions.getColonyVersionResolver,
+        callFn: this.contract.functions.getColonyVersionResolver,
         params: [['version', 'number']],
         returnValues: [['address', 'address']],
       },
       getCurrentColonyVersion: {
-        call: this.contract.functions.getCurrentColonyVersion,
+        callFn: this.contract.functions.getCurrentColonyVersion,
         returnValues: [['version', 'number']],
       },
       getParentSkillId: {
-        call: this.contract.functions.getParentSkillId,
+        callFn: this.contract.functions.getParentSkillId,
         params: [['skillId', 'number'], ['parentSkillIndex', 'number']],
         returnValues: [['parentSkillId', 'number']],
       },
       getReputationUpdateLogEntry: {
-        call: this.contract.functions.getReputationUpdateLogEntry,
+        callFn: this.contract.functions.getReputationUpdateLogEntry,
         params: [['id', 'number']],
         returnValues: [
           ['user', 'string'],
@@ -172,16 +172,16 @@ export default class ColonyNetworkClient extends ContractClient<
         ],
       },
       getReputationUpdateLogLength: {
-        call: this.contract.functions.getReputationUpdateLogLength,
+        callFn: this.contract.functions.getReputationUpdateLogLength,
         returnValues: [['count', 'number']],
       },
       getSkill: {
-        call: this.contract.functions.getSkill,
+        callFn: this.contract.functions.getSkill,
         params: [['id', 'number']],
         returnValues: [['nParents', 'number'], ['nChildren', 'number']],
       },
       getSkillCount: {
-        call: this.contract.functions.getSkillCount,
+        callFn: this.contract.functions.getSkillCount,
         returnValues: [['count', 'number']],
       },
     };
@@ -190,8 +190,8 @@ export default class ColonyNetworkClient extends ContractClient<
   getSenderDefs(options?: {}): * {
     return {
       createColony: {
-        send: this.contract.functions.createColony,
-        estimate: this.contract.estimate.createColony,
+        sendFn: this.contract.functions.createColony,
+        estimateFn: this.contract.estimate.createColony,
         params: [['name', 'string'], ['tokenAddress', 'address']],
         eventHandlers: {
           success: {
@@ -207,18 +207,18 @@ export default class ColonyNetworkClient extends ContractClient<
         },
       },
       deposit: {
-        send: this.contract.functions.deposit,
-        estimate: this.contract.estimate.deposit,
+        sendFn: this.contract.functions.deposit,
+        estimateFn: this.contract.estimate.deposit,
         params: [['amount', 'number']],
       },
       upgradeColony: {
-        send: this.contract.functions.upgradeColony,
-        estimate: this.contract.estimate.upgradeColony,
+        sendFn: this.contract.functions.upgradeColony,
+        estimateFn: this.contract.estimate.upgradeColony,
         params: [['key', 'string'], ['newVersion', 'number']],
       },
       withdraw: {
-        send: this.contract.functions.withdraw,
-        estimate: this.contract.estimate.withdraw,
+        sendFn: this.contract.functions.withdraw,
+        estimateFn: this.contract.estimate.withdraw,
         params: [['amount', 'number']],
       },
     };

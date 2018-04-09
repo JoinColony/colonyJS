@@ -170,14 +170,31 @@ export interface ColonyContract extends IContract {
     // uint256 _potId, address _token => uint256
     getPotBalance: CallFn<[number, string], number>,
 
-    // uint256 => bytes32, bytes32, bool, bool, uint256, uint256, uint256, uint256
+    // uint256 => bytes32, bytes32, bool, bool, uint256, uint256, uint256, uint256, uint256, uint256[]
     getTask: CallFn<
       [number],
-      [string, string, boolean, boolean, number, number, number, number],
+      [
+        string,
+        string,
+        boolean,
+        boolean,
+        number,
+        number,
+        number,
+        number,
+        number,
+        [number], // Currently just one item for skills
+      ],
     >,
 
     // => uint256
     getTaskCount: CallFn<null, number>,
+
+    // uint256 _id, uint256 _idx => uint256
+    getTaskDomain: CallFn<[number, number], number>,
+
+    // uint256 _id, uint256 _idx => uint256
+    getTaskSkill: CallFn<[number, number], number>,
 
     // uint256 _id, uint256 _role, address _token => uint256
     getTaskPayout: CallFn<[number, number, string], number>,

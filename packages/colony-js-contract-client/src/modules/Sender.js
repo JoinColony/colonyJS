@@ -4,7 +4,6 @@ import type BigNumber from 'bn.js';
 import type {
   EstimateFn,
   EventHandlers,
-  MinedTransaction,
   SendFn,
   Transaction,
   TransactionOptions,
@@ -14,12 +13,12 @@ import type {
 import { raceAgainstTimeout } from '@colony/colony-js-utils';
 
 import ContractClient from './ContractClient';
-import { DEFAULT_TIMEOUT, MINING_TIMEOUT } from '../constants';
+import { DEFAULT_SEND_OPTIONS } from '../constants';
 import Validator from './Validator';
 
 import type { SenderDef } from '../types';
 
-type SendOptions = {
+export type SendOptions = {
   events?: EventHandlers,
   estimate?: boolean,
   miningTimeoutMs?: number,
@@ -31,8 +30,6 @@ type ContractResponseMeta = {
   transaction: Transaction,
   receipt?: TransactionReceipt,
   receiptPromise?: Promise<TransactionReceipt>,
-  minedTransaction?: MinedTransaction,
-  minedTransactionPromise?: Promise<MinedTransaction>,
 };
 
 type ContractResponse<EventData> = {
@@ -47,48 +44,28 @@ export default class Sender<
   // eslint-disable-next-line
   IContractClient: ContractClient<*>
 > extends Validator<Params> {
-  static eventHandlers: EventHandlers;
-  _send: SendFn<*>;
-  _estimate: EstimateFn<*>;
   client: IContractClient;
-  static create(
-    client: IContractClient,
-    { params, eventHandlers = {}, send, estimate, getArgs }: SenderDef,
-  ): Sender<Params, EventData, IContractClient> {
-    class _Sender extends Sender<Params, EventData, IContractClient> {
-      static params = params;
-      static eventHandlers = eventHandlers;
-      getArgs(_params: Params): Array<*> {
-        return getArgs
-          ? getArgs.call(this, _params)
-          : this.constructor.getArgs(_params);
-      }
-    }
-    return new _Sender(client, send, estimate);
-  }
-  // For overloading
-  getArgs(params: Params): Array<*> {
-    return this.constructor.getArgs(params);
-  }
-  constructor(
-    client: IContractClient,
-    send?: SendFn<*>,
-    estimate?: EstimateFn<*>,
-  ) {
-    super();
+  estimateFn: EstimateFn<*>;
+  eventHandlers: EventHandlers;
+  sendFn: SendFn<*>;
+  constructor(client: IContractClient, def: SenderDef) {
+    super(def);
     this.client = client;
-    if (typeof estimate === 'function') this._estimate = estimate;
-    if (typeof send === 'function') this._send = send;
+    const { estimateFn, eventHandlers, getArgs, sendFn } = def || {};
+    this.estimateFn = estimateFn;
+    this.getArgsFn = getArgs;
+    this.sendFn = sendFn;
+    if (eventHandlers) this.eventHandlers = eventHandlers;
   }
   async estimate(
     params: Params,
-    { timeoutMs }: SendOptions,
+    { timeoutMs }: SendOptions = DEFAULT_SEND_OPTIONS,
   ): Promise<BigNumber> {
-    if (typeof this._estimate !== 'function')
+    if (typeof this.estimateFn !== 'function')
       throw new TypeError('Expected an estimate function for Sender');
 
     return raceAgainstTimeout(
-      this._estimate(...this.getArgs(params)),
+      this.estimateFn(...this.getArgs(params)),
       timeoutMs,
     );
   }
@@ -97,16 +74,15 @@ export default class Sender<
     options: SendOptions,
   ): Promise<ContractResponse<EventData>> {
     let receipt;
-    if (typeof this._send !== 'function')
+    if (typeof this.sendFn !== 'function')
       throw new TypeError('Expected a send function for Sender');
 
     const {
-      timeoutMs = DEFAULT_TIMEOUT,
-      miningTimeoutMs = MINING_TIMEOUT,
-      waitForMining = true,
+      miningTimeoutMs,
+      timeoutMs,
+      waitForMining,
       ...transactionOptions
-    } =
-      options || {};
+    } = { ...DEFAULT_SEND_OPTIONS, ...options };
     const transaction = await this.sendTransaction(
       params,
       transactionOptions,
@@ -130,13 +106,9 @@ export default class Sender<
       }
     }
 
-    const minedTransactionPromise = this.client.adapter.waitForTransaction(
-      transaction.hash,
-      miningTimeoutMs,
-    );
     const eventDataPromise = this.client.adapter.getEventData({
       contract: this.client.contract,
-      events: this.constructor.eventHandlers,
+      events: this.eventHandlers,
       timeoutMs: miningTimeoutMs,
       transactionHash: transaction.hash,
     });
@@ -145,7 +117,6 @@ export default class Sender<
       ? {
           eventData: await eventDataPromise,
           meta: {
-            minedTransaction: await minedTransactionPromise,
             receipt,
             transaction,
           },
@@ -153,7 +124,6 @@ export default class Sender<
       : {
           eventDataPromise,
           meta: {
-            minedTransactionPromise,
             receiptPromise,
             transaction,
           },
@@ -165,7 +135,7 @@ export default class Sender<
     timeoutMs: number,
   ) {
     return raceAgainstTimeout(
-      this._send(...this.getArgs(params), transactionOptions),
+      this.sendFn(...this.getArgs(params), transactionOptions),
       timeoutMs,
     );
   }
