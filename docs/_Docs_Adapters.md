@@ -1,54 +1,17 @@
 ---
 title: Adapters
 section: Docs
-order: 6
 ---
 
-## What are Adapters?
-Adapters are the ColonyJS solution for there being many different ways to access the Ethereum blockchain, through various JavaScript libraries. Adapters provide a wrapper for such libraries that enforce a standard and predictable API for use with Colony's contracts.
+Adapters are our solution to dealing with different ways to access the ethereum blockchain. Different libraries like web3 or ethers.js come in different versions and also there's MetaMask and co. Some explanation why we did this (young communutiy, constantly changing, revaling concepts, maintain compatibility to different versions)
 
+## Adapters quickstart
 
-## How to use an Adapter
+Some pretty example
 
-First, make sure you understand how to use [Loaders](../docs-loaders/ "Docs")
+## How to use adapters
 
-Once a contract has a loader defined, an adapter constructor function can be defined.
-
-### Interface with Ethers.JS
-
-```js
-import EthersAdapter from '@colony/colony-js-adapter-ethers';
-import ContractLoaderHttp from '@colony/colony-js-contract-loader-http';
-import { providers } from 'ethers';
-
-/* create your provider or signer with ethers first: https://docs.ethers.io/ethers.js/html/api-contract.html#connecting-to-a-contract */
-const provider = providers.getDefaultProvider();
-
-// In this example, we're pulling contracts from Etherscan
-const loader = new EtherscanLoader();
-
-const adapter = new EthersAdapter({
-    loader,
-    provider,
-});
-```
-
-Loading a contract:
-
-```js
-const contract = await adapter.getContract({ name: 'ColonyNetwork' });
-```
-
-Interacting with a contract:
-
-```js
-const colonyCount = await contract.functions.getColonyCount();
-console.log(colonyCount); // 1337
-```
-
-### Interface with web3.js
-
-
+Here's a text
 
 ## Officially supported adapters
 

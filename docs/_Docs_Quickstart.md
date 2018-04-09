@@ -1,7 +1,6 @@
 ---
 title: Quickstart
 section: Docs
-order: 3
 ---
 
 ## Quickstart
@@ -25,7 +24,7 @@ const provider = new providers.Web3Provider(web3.currentProvider);
 const signer = provider.getSigner();
 const adapter = new EthersAdapter({ loader, provider, signer });
 
-(async () => {
+(async run() {
   // Connect to ColonyNetwork!
   const networkClient = await ColonyNetworkClient.createSelf(adapter);
 
