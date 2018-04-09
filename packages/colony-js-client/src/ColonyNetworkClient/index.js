@@ -120,12 +120,11 @@ export default class ColonyNetworkClient extends ContractClient<
     symbol: string,
     decimals: number,
   }) {
-    const data = await this.adapter.getContractDeployData('Token', [
-      utf8ToHex(name),
-      utf8ToHex(symbol),
-      decimals,
-    ]);
-    const { hash } = await this.adapter.wallet.sendTransaction(data);
+    const transaction = await this.adapter.getContractDeployTransaction(
+      'Token',
+      [utf8ToHex(name), utf8ToHex(symbol), decimals],
+    );
+    const { hash } = await this.adapter.wallet.sendTransaction(transaction);
     const { contractAddress } = await this.adapter.getTransactionReceipt(hash);
     return contractAddress;
   }
