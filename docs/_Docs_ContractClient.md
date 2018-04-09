@@ -1,6 +1,6 @@
 ---
-id: docs-contract-client
 title: Contract Client
+section: Docs
 ---
 
 The Contract Client is a superclass for all client implementations that access a Colony smart contract. It contains abstractions for callers and senders as well as certain tools for listening to events, providing information about the mining state, we should go on here.

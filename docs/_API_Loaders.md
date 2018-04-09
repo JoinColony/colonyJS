@@ -1,7 +1,6 @@
 ---
-id: api-loaders
 title: Loaders
-sidebar_label: Loaders
+section: API
 ---
 
 This document describes the high level contract loader interface as well as various officially supported implementations. For a better explanation what loaders are, see [here](docs-loaders.html).

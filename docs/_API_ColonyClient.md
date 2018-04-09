@@ -1,7 +1,6 @@
 ---
-id: api-colony-client
-title: ColonyClient (colony-js-client)
-sidebar_label: ColonyClient
+title: ColonyClient
+section: API
 ---
 
 Some introductory stuff regarding the ColonyClient class.

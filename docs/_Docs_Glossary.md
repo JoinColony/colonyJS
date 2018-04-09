@@ -1,7 +1,6 @@
 ---
-id: glossary
 title: Glossary
-sidebar_label: Glossary
+section: Docs
 ---
 
 ### Contents
@@ -52,7 +51,7 @@ Every task has three roles associated with it which determine permissions for ed
 | role Id | Description |
 |------|------|
 |`0`| A task's MANAGER role is by default the creator of the task, and usually expected to be the person to accept the task as complete when the work is done.
-|`1`| A task's EVALUATOR role is a person who will independently establish the quality of the work done by the WORKER.  
+|`1`| A task's EVALUATOR role is a person who will independently establish the quality of the work done by the WORKER.
 |`2`| A task's WORKER role is the person who will fulfill the requirements of the task as specified in the task brief.
 
 A `Role` object looks like this (for a specific task):

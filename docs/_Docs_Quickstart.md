@@ -1,6 +1,6 @@
 ---
-id: docs-quickstart
 title: Quickstart
+section: Docs
 ---
 
 ## Quickstart

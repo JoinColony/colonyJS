@@ -1,7 +1,6 @@
 ---
-id: api-adapters
 title: Adapters
-sidebar_label: Adapters
+section: API
 ---
 
 This document only describes the high level adapter interface. For a better explanation what loaders are, see [here](docs-adapters.html).
