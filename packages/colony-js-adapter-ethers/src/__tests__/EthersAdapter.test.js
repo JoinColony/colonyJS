@@ -261,16 +261,16 @@ describe('EthersAdapter', () => {
     );
   });
 
-  test('getContractDeployData', async () => {
+  test('getContractDeployTransaction', async () => {
     sandbox.spyOn(adapter.loader, 'load');
 
-    const data = await adapter.getContractDeployData(
+    const transaction = await adapter.getContractDeployTransaction(
       'TestContract',
       contractArgs,
     );
 
     // The contract data should contain the contract args at the end
-    expect(data.slice(-1)).toBe(`${contractArgs[0]}`);
+    expect(transaction.data.slice(-1)).toBe(`${contractArgs[0]}`);
 
     expect(adapter.loader.load).toHaveBeenCalledTimes(1);
     expect(adapter.loader.load).toHaveBeenCalledWith('TestContract', undefined);
