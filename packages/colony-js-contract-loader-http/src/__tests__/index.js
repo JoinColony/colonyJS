@@ -80,4 +80,37 @@ describe('ContractHttpLoader', () => {
     const resource = loader.resolveEndpointResource('MetaCoin', { version: 1 });
     expect(resource).toBe(`//endpoint?name=MetaCoin&version=1`);
   });
+
+  test('Error handling for `load`', async () => {
+    const loader = setupLoader({ parser: 'truffle' });
+
+    fetch.mockRejectOnce('some fetch error');
+    try {
+      await loader.load('MetaCoin', { version: 1 });
+    } catch (error) {
+      expect(error.toString()).toContain(
+        'Unable to fetch resource for contract MetaCoin: some fetch error',
+      );
+    }
+
+    fetch.mockResponseOnce('not a json response');
+    try {
+      await loader.load('MetaCoin', { version: 1 });
+    } catch (error) {
+      expect(error.toString()).toContain(
+        'Unable to get JSON for contract MetaCoin',
+      );
+    }
+
+    // Missing `bytecode`
+    fetch.mockResponseOnce(JSON.stringify({ address: '0x123', abi: [{}] }));
+    try {
+      await loader.load('MetaCoin', { version: 1 });
+    } catch (error) {
+      expect(error.toString()).toContain(
+        // eslint-disable-next-line max-len
+        'Unable to parse contract definition for contract MetaCoin: Invalid contract definition: bytecode is missing or invalid',
+      );
+    }
+  });
 });
