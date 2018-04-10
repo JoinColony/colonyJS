@@ -88,24 +88,57 @@ export default class ContractHttpLoader implements IContractLoader {
     }
     return resource;
   }
-  async _load(contractName: string, { networkId, version }: Options = {}) {
-    // TODO add more meaningful error handling for each step.
-    const response = await fetch(
-      this.resolveEndpointResource(contractName, { version }),
-    );
-    const json = await response.json();
-    return this._parser(json, { networkId });
+  parseContractDefinition(jsonObj: *, options: Options): ContractDefinition {
+    // If a parser is not defined, just return the JSON-derived object
+    const contractDef = this._parser ? this._parser(jsonObj, options) : jsonObj;
+
+    // The returned object could contain anything, so we need to ensure that
+    // it's a valid contract definition.
+    this.constructor.validateContractDefinition(contractDef);
+
+    return contractDef;
+  }
+  async _load(
+    contractName: string,
+    { networkId, version }: Options = {},
+  ): Promise<ContractDefinition> {
+    // Provide some context for errors thrown by lower-level functions
+    const throwError = (activity: string, error: any) => {
+      throw new Error(
+        `Error while ${activity} for contract ${contractName}:
+        ${error.message || error}`,
+      );
+    };
+
+    let response;
+    try {
+      response = await fetch(
+        this.resolveEndpointResource(contractName, { version }),
+      );
+    } catch (error) {
+      throwError('fetching resource', error);
+    }
+
+    let json;
+    try {
+      json = response && response.json && (await response.json());
+    } catch (error) {
+      throwError('getting JSON', error);
+    }
+
+    let contractDef = { abi: [], bytecode: '' };
+    try {
+      contractDef = this.parseContractDefinition(json, { networkId });
+    } catch (error) {
+      throwError('parsing contract definition', error);
+    }
+    return contractDef;
   }
   async load(
     contractName: string,
     options: Options = {},
   ): Promise<ContractDefinition> {
     const result = await this._load(contractName, options);
-
-    if (!result)
-      throw new Error(
-        `Did not receive a response for contract "${contractName}"`,
-      );
 
     const { address, router } = options;
     if (address) {
@@ -114,9 +147,6 @@ export default class ContractHttpLoader implements IContractLoader {
       const routerContract = await this._load(router);
       result.address = routerContract.address;
     }
-
-    if (!(result.abi instanceof Array))
-      throw new Error('Unable to parse contract ABI');
 
     return result;
   }
