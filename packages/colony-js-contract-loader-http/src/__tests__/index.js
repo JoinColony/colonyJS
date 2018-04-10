@@ -22,6 +22,7 @@ describe('ContractHttpLoader', () => {
     const parser = sandbox.fn(jsonObj => ({
       address: jsonObj.address,
       abi: jsonObj.abi,
+      bytecode: jsonObj.bytecode,
       contractName: jsonObj.contractName,
     }));
     const loader = setupLoader({ parser });
@@ -30,6 +31,7 @@ describe('ContractHttpLoader', () => {
     const contractResponse = {
       contractName: 'MyContract',
       address: '0x123',
+      bytecode: '0x1234567890',
       abi: [{ myData: 123 }],
     };
     fetch.mockResponse(JSON.stringify(contractResponse));
