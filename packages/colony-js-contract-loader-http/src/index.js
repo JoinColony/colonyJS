@@ -106,7 +106,8 @@ export default class ContractHttpLoader implements IContractLoader {
     const throwError = (action: string, error: any) => {
       throw new Error(
         // eslint-disable-next-line max-len
-        `Unable to ${action} for contract ${contractName}: ${error.message || error}`,
+        `Unable to ${action} for contract ${contractName}: ${error.message ||
+          error}`,
       );
     };
 
