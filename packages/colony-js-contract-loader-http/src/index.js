@@ -103,10 +103,10 @@ export default class ContractHttpLoader implements IContractLoader {
     { networkId, version }: Options = {},
   ): Promise<ContractDefinition> {
     // Provide some context for errors thrown by lower-level functions
-    const throwError = (activity: string, error: any) => {
+    const throwError = (action: string, error: any) => {
       throw new Error(
-        `Error while ${activity} for contract ${contractName}:
-        ${error.message || error}`,
+        // eslint-disable-next-line max-len
+        `Unable to ${action} for contract ${contractName}: ${error.message || error}`,
       );
     };
 
@@ -116,21 +116,21 @@ export default class ContractHttpLoader implements IContractLoader {
         this.resolveEndpointResource(contractName, { version }),
       );
     } catch (error) {
-      throwError('fetching resource', error);
+      throwError('fetch resource', error);
     }
 
     let json;
     try {
       json = response && response.json && (await response.json());
     } catch (error) {
-      throwError('getting JSON', error);
+      throwError('get JSON', error);
     }
 
     let contractDef = { abi: [], bytecode: '' };
     try {
       contractDef = this.parseContractDefinition(json, { networkId });
     } catch (error) {
-      throwError('parsing contract definition', error);
+      throwError('parse contract definition', error);
     }
     return contractDef;
   }
