@@ -9,7 +9,7 @@ export type Options = {
 
 export type ContractDefinition = {
   abi: any,
-  address: string,
+  address?: string,
   bytecode: string,
 };
 
