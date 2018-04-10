@@ -4,7 +4,6 @@ import assert from 'browser-assert';
 
 import type {
   IContractLoader,
-  ConstructorArgs,
   Options,
   ParserOption,
   Parser,
@@ -29,9 +28,19 @@ export default class ContractHttpLoader implements IContractLoader {
     }
     throw new Error('Invalid parser supplied to ContractHttpLoader');
   }
-  constructor({ endpoint, parser }: ConstructorArgs) {
+  constructor({
+    endpoint,
+    parser,
+  }: {
+    endpoint: string,
+    parser?: ParserOption,
+  } = {}) {
+    assert(
+      typeof endpoint === 'string',
+      'An `endpoint` option must be provided',
+    );
     this._endpoint = endpoint;
-    this._parser = ContractHttpLoader.selectParser(parser);
+    if (parser) this._parser = ContractHttpLoader.selectParser(parser);
   }
   resolveEndpointResource(
     contractName: string,
