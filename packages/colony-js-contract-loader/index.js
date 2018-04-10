@@ -1,7 +1,6 @@
 /* @flow */
 
 export type {
-  ConstructorArgs,
   ContractDefinition,
   ContractLoader as IContractLoader,
   Options,
