@@ -1,5 +1,7 @@
 /* @flow */
 
+import assert from 'browser-assert';
+
 import type {
   IContractLoader,
   ConstructorArgs,
