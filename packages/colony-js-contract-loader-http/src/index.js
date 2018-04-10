@@ -28,6 +28,33 @@ export default class ContractHttpLoader implements IContractLoader {
     }
     throw new Error('Invalid parser supplied to ContractHttpLoader');
   }
+  static validateContractDefinition({
+    address,
+    abi,
+    bytecode,
+  }: {
+    address?: any,
+    abi: any,
+    bytecode: any,
+  }): boolean {
+    const message = field =>
+      `Invalid contract definition: ${field} is missing or invalid`;
+
+    // `address` is an optional property
+    if (address != null) {
+      assert(
+        typeof address === 'string' && address.length > 0,
+        message('address'),
+      );
+    }
+
+    assert(
+      typeof bytecode === 'string' && bytecode.length > 0,
+      message('bytecode'),
+    );
+    assert(Array.isArray(abi) && abi.length > 0, message('abi'));
+    return true;
+  }
   constructor({
     endpoint,
     parser,
