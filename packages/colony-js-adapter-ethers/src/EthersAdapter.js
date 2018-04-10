@@ -10,6 +10,7 @@ import type {
   Event,
   EventHandler,
   EventHandlers,
+  Transaction,
 } from '@colony/colony-js-adapter';
 import type {
   IContractLoader,
@@ -72,21 +73,20 @@ export default class EthersAdapter implements IAdapter<*> {
 
     return new EthersContract(address, abi, this.wallet);
   }
-  async getContractDeployData(
+  async getContractDeployTransaction(
     contractName: string,
     contractParams: Array<any>,
     loaderOptions?: LoaderOptions,
-  ): Promise<string> {
+  ): Promise<Transaction> {
     const { abi, bytecode } = await this.loader.load(
       contractName,
       loaderOptions,
     );
-    const { data } = ethers.Contract.getDeployTransaction(
+    return ethers.Contract.getDeployTransaction(
       bytecode,
       abi,
       ...contractParams,
     );
-    return data;
   }
 
   // XXX this isn't a static method because we can't define it as such

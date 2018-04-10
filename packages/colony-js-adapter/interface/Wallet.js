@@ -28,7 +28,7 @@ export interface Wallet {
     options?: TransactionOptions,
   ): Promise<TransactionReceipt>;
   sendTransaction(
-    transaction: Transaction | string, // Transaction or transaction data
+    transaction: Transaction,
     options?: TransactionOptions,
   ): Promise<TransactionReceipt>;
   sign(transaction: Transaction): string;
