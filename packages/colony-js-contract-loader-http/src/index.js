@@ -71,20 +71,22 @@ export default class ContractHttpLoader implements IContractLoader {
   }
   resolveEndpointResource(
     contractName: string,
-    { version }: Options = {},
+    { address, version }: Options = {},
   ): string {
     let resource = '';
     if (contractName) {
-      resource = this._endpoint.replace('%%NAME%%', contractName);
-
-      // `version` can be a string or an integer
-      if (
-        version != null &&
-        (typeof version === 'string' ||
-          Number(parseInt(version, 10)) === version)
-      ) {
-        resource = resource.replace('%%VERSION%%', version.toString());
-      }
+      resource = this._endpoint
+        .replace('%%NAME%%', contractName)
+        .replace('%%ADDRESS%%', address || '')
+        // `version` can be a string or an integer
+        .replace(
+          '%%VERSION%%',
+          version != null &&
+          (typeof version === 'string' ||
+            Number(parseInt(version, 10)) === version)
+            ? version.toString()
+            : '',
+        );
     }
     return resource;
   }

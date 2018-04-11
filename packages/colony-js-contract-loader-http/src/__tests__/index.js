@@ -9,7 +9,8 @@ describe('ContractHttpLoader', () => {
   const sandbox = createSandbox();
   const metaCoinJson = JSON.stringify(MetaCoin);
   const setupLoader = ({
-    endpoint = '//endpoint?name=%%NAME%%&version=%%VERSION%%',
+    // eslint-disable-next-line max-len
+    endpoint = '//endpoint?name=%%NAME%%&version=%%VERSION%%&address=%%ADDRESS%%',
     parser = 'truffle',
   } = {}) => new ContractHttpLoader({ endpoint, parser });
 
@@ -74,13 +75,23 @@ describe('ContractHttpLoader', () => {
       version: 1,
     });
     expect(fetch).toHaveBeenCalledTimes(1);
-    expect(fetch).toHaveBeenCalledWith(`//endpoint?name=MetaCoin&version=1`);
+    expect(fetch).toHaveBeenCalledWith(
+      `//endpoint?name=MetaCoin&version=1&address=`,
+    );
   });
 
   test('Resolving the endpoint resource', () => {
+    const contractName = 'MetaCoin';
+    const address = '0x123';
+    const version = 1;
     const loader = setupLoader({ parser: 'truffle' });
-    const resource = loader.resolveEndpointResource('MetaCoin', { version: 1 });
-    expect(resource).toBe(`//endpoint?name=MetaCoin&version=1`);
+    const resource = loader.resolveEndpointResource(contractName, {
+      address,
+      version,
+    });
+    expect(resource).toBe(
+      `//endpoint?name=${contractName}&version=${version}&address=${address}`,
+    );
   });
 
   test('Error handling for `load`', async () => {
