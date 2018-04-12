@@ -1,3 +1,5 @@
+/* @flow */
+
 import truffle from './truffle';
 
 const PARSERS = {

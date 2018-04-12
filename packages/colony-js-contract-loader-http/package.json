@@ -37,7 +37,8 @@
     },
     "homepage": "https://github.com/JoinColony/colony-js#readme",
     "dependencies": {
-        "@colony/colony-js-contract-loader": "^1.0.0"
+        "@colony/colony-js-contract-loader": "^1.0.0",
+        "browser-assert": "^1.2.1"
     },
     "devDependencies": {
         "babel-cli": "^6.26.0",

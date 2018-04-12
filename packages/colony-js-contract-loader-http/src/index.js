@@ -1,8 +1,9 @@
 /* @flow */
 
+import assert from 'browser-assert';
+
 import type {
   IContractLoader,
-  ConstructorArgs,
   Options,
   ParserOption,
   Parser,
@@ -27,9 +28,46 @@ export default class ContractHttpLoader implements IContractLoader {
     }
     throw new Error('Invalid parser supplied to ContractHttpLoader');
   }
-  constructor({ endpoint, parser }: ConstructorArgs) {
+  static validateContractDefinition({
+    address,
+    abi,
+    bytecode,
+  }: {
+    address?: any,
+    abi: any,
+    bytecode: any,
+  }): boolean {
+    const message = field =>
+      `Invalid contract definition: ${field} is missing or invalid`;
+
+    // `address` is an optional property
+    if (address != null) {
+      assert(
+        typeof address === 'string' && address.length > 0,
+        message('address'),
+      );
+    }
+
+    assert(
+      typeof bytecode === 'string' && bytecode.length > 0,
+      message('bytecode'),
+    );
+    assert(Array.isArray(abi) && abi.length > 0, message('abi'));
+    return true;
+  }
+  constructor({
+    endpoint,
+    parser,
+  }: {
+    endpoint: string,
+    parser?: ParserOption,
+  } = {}) {
+    assert(
+      typeof endpoint === 'string',
+      'An `endpoint` option must be provided',
+    );
     this._endpoint = endpoint;
-    this._parser = ContractHttpLoader.selectParser(parser);
+    if (parser) this._parser = ContractHttpLoader.selectParser(parser);
   }
   resolveEndpointResource(
     contractName: string,
@@ -50,24 +88,58 @@ export default class ContractHttpLoader implements IContractLoader {
     }
     return resource;
   }
-  async _load(contractName: string, { networkId, version }: Options = {}) {
-    // TODO add more meaningful error handling for each step.
-    const response = await fetch(
-      this.resolveEndpointResource(contractName, { version }),
-    );
-    const json = await response.json();
-    return this._parser(json, { networkId });
+  parseContractDefinition(jsonObj: *, options: Options): ContractDefinition {
+    // If a parser is not defined, just return the JSON-derived object
+    const contractDef = this._parser ? this._parser(jsonObj, options) : jsonObj;
+
+    // The returned object could contain anything, so we need to ensure that
+    // it's a valid contract definition.
+    this.constructor.validateContractDefinition(contractDef);
+
+    return contractDef;
+  }
+  async _load(
+    contractName: string,
+    { networkId, version }: Options = {},
+  ): Promise<ContractDefinition> {
+    // Provide some context for errors thrown by lower-level functions
+    const throwError = (action: string, error: any) => {
+      throw new Error(
+        // eslint-disable-next-line max-len
+        `Unable to ${action} for contract ${contractName}: ${error.message ||
+          error}`,
+      );
+    };
+
+    let response;
+    try {
+      response = await fetch(
+        this.resolveEndpointResource(contractName, { version }),
+      );
+    } catch (error) {
+      throwError('fetch resource', error);
+    }
+
+    let json;
+    try {
+      json = response && response.json && (await response.json());
+    } catch (error) {
+      throwError('get JSON', error);
+    }
+
+    let contractDef = { abi: [], bytecode: '' };
+    try {
+      contractDef = this.parseContractDefinition(json, { networkId });
+    } catch (error) {
+      throwError('parse contract definition', error);
+    }
+    return contractDef;
   }
   async load(
     contractName: string,
     options: Options = {},
   ): Promise<ContractDefinition> {
     const result = await this._load(contractName, options);
-
-    if (!result)
-      throw new Error(
-        `Did not receive a response for contract "${contractName}"`,
-      );
 
     const { address, router } = options;
     if (address) {
@@ -76,9 +148,6 @@ export default class ContractHttpLoader implements IContractLoader {
       const routerContract = await this._load(router);
       result.address = routerContract.address;
     }
-
-    if (!(result.abi instanceof Array))
-      throw new Error('Unable to parse contract ABI');
 
     return result;
   }
