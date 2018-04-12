@@ -1,7 +1,6 @@
 /* @flow */
 
-// eslint-disable-next-line max-len
-import type { Options as LoaderOptions } from '@colony/colony-js-contract-loader';
+import type { Query } from '@colony/colony-js-contract-loader';
 import type { IAdapter, IContract } from '@colony/colony-js-adapter';
 
 import Caller from './Caller';
@@ -30,14 +29,13 @@ export default class ContractClient<ContractInterface: IContract> {
   }
   static async create(
     adapter: IAdapter<ContractInterface>,
-    contractName: string,
-    loaderOptions: LoaderOptions,
+    query: Query,
     // eslint-disable-next-line no-unused-vars
     lastArg: *,
   ): Promise<*> {
     // XXX Derived classes inherit static methods from their parent, so we need to loosely type the return
     // (see https://github.com/facebook/flow/issues/1393)
-    const contract = await adapter.getContract(contractName, loaderOptions);
+    const contract = await adapter.getContract(query);
     return new this({ adapter, contract });
   }
   constructor({
