@@ -1,8 +1,7 @@
 /* @flow */
 
 import type BigNumber from 'bn.js';
-// eslint-disable-next-line max-len
-import type { Options as LoaderOptions } from '@colony/colony-js-contract-loader';
+import type { Query } from '@colony/colony-js-contract-loader';
 
 import type { IAdapter, InterfaceFn } from '@colony/colony-js-adapter';
 import ContractClient from '@colony/colony-js-contract-client';
@@ -421,19 +420,22 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
   // EtherRouter contract (we think).
   static async create(
     adapter: IAdapter<ColonyContract>,
-    contractName: string,
-    loaderOptions: LoaderOptions,
+    query: Query,
     networkClient: ColonyNetworkClient,
   ) {
-    const contract = await adapter.getContract(contractName, loaderOptions);
+    const contract = await adapter.getContract(query);
     return new this({ adapter, contract, networkClient });
   }
   static async createSelf(
     adapter: IAdapter<ColonyContract>,
     networkClient: ColonyNetworkClient,
-    loaderOptions: LoaderOptions,
+    query: Query,
   ) {
-    return this.create(adapter, 'IColony', loaderOptions, networkClient);
+    return this.create(
+      adapter,
+      { contractName: 'IColony', ...query },
+      networkClient,
+    );
   }
   constructor({
     adapter,
