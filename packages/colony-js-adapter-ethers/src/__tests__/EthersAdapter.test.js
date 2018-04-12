@@ -264,8 +264,11 @@ describe('EthersAdapter', () => {
   test('getContractDeployTransaction', async () => {
     sandbox.spyOn(adapter.loader, 'load');
 
+    const query = {
+      contractName: 'TestContract',
+    };
     const transaction = await adapter.getContractDeployTransaction(
-      'TestContract',
+      query,
       contractArgs,
     );
 
@@ -273,7 +276,7 @@ describe('EthersAdapter', () => {
     expect(transaction.data.slice(-1)).toBe(`${contractArgs[0]}`);
 
     expect(adapter.loader.load).toHaveBeenCalledTimes(1);
-    expect(adapter.loader.load).toHaveBeenCalledWith('TestContract', undefined);
+    expect(adapter.loader.load).toHaveBeenCalledWith(query);
     expect(ethers.Contract.getDeployTransaction).toHaveBeenCalledTimes(1);
     expect(ethers.Contract.getDeployTransaction).toHaveBeenCalledWith(
       bytecode,
