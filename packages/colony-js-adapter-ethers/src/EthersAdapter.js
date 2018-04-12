@@ -12,10 +12,7 @@ import type {
   EventHandlers,
   Transaction,
 } from '@colony/colony-js-adapter';
-import type {
-  IContractLoader,
-  Options as LoaderOptions,
-} from '@colony/colony-js-contract-loader';
+import type { IContractLoader, Query } from '@colony/colony-js-contract-loader';
 
 import EthersContract from './EthersContract';
 
@@ -59,14 +56,8 @@ export default class EthersAdapter implements IAdapter<*> {
     this.provider = provider;
     this.wallet = wallet;
   }
-  async getContract(
-    contractName: string,
-    loaderOptions?: LoaderOptions,
-  ): Promise<IContract> {
-    const { address, abi } = await this.loader.load(
-      contractName,
-      loaderOptions,
-    );
+  async getContract(query: Query): Promise<IContract> {
+    const { address, abi } = await this.loader.load(query);
 
     if (typeof address !== 'string')
       throw new Error('Unable to parse contract address');
@@ -74,14 +65,10 @@ export default class EthersAdapter implements IAdapter<*> {
     return new EthersContract(address, abi, this.wallet);
   }
   async getContractDeployTransaction(
-    contractName: string,
+    query: Query,
     contractParams: Array<any>,
-    loaderOptions?: LoaderOptions,
   ): Promise<Transaction> {
-    const { abi, bytecode } = await this.loader.load(
-      contractName,
-      loaderOptions,
-    );
+    const { abi, bytecode } = await this.loader.load(query);
     return ethers.Contract.getDeployTransaction(
       bytecode,
       abi,
