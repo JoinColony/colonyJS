@@ -1,9 +1,6 @@
 /* @flow */
 
-import type {
-  Options as LoaderOptions,
-  IContractLoader,
-} from '@colony/colony-js-contract-loader';
+import type { IContractLoader, Query } from '@colony/colony-js-contract-loader';
 
 import type { Contract } from './Contract';
 import type { EventHandlers } from './EventHandlers';
@@ -16,12 +13,9 @@ export interface Adapter<ContractInterface: Contract> {
   loader: IContractLoader;
   provider: Provider;
   wallet: Wallet;
-  getContract(
-    contractName: string,
-    loaderOptions?: LoaderOptions,
-  ): Promise<ContractInterface>;
+  getContract(query: Query): Promise<ContractInterface>;
   getContractDeployTransaction(
-    contractName: string,
+    query: Query,
     contractParams: Array<any>,
   ): Promise<Transaction>;
   getEventData({
