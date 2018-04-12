@@ -53,7 +53,9 @@ describe('ContractHttpLoader', () => {
     const {
       abi,
       bytecode,
-      networks: { '1492719647054': { address } },
+      networks: {
+        '1492719647054': { address },
+      },
     } = MetaCoin;
     expect(contract).toEqual({ address, abi, bytecode });
   });
