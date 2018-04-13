@@ -36,10 +36,14 @@ export default class ContractHttpLoader implements IContractLoader {
       );
     }
 
-    assert(
-      typeof bytecode === 'string' && bytecode.length > 0,
-      message('bytecode'),
-    );
+    // `bytecode` is an optional property
+    if (bytecode != null) {
+      assert(
+        typeof bytecode === 'string' && bytecode.length > 0,
+        message('bytecode'),
+      );
+    }
+
     assert(Array.isArray(abi) && abi.length > 0, message('abi'));
     return true;
   }
