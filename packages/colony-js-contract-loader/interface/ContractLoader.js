@@ -12,7 +12,7 @@ export type Query = {
 export type ContractDefinition = {
   abi: any,
   address?: string,
-  bytecode: string,
+  bytecode?: string,
 };
 
 export type Parser = (input: any, options?: {}) => ContractDefinition;
