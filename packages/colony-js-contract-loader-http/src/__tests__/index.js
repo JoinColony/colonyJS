@@ -2,7 +2,9 @@
 /* eslint no-underscore-dangle: 0 */
 
 import createSandbox from 'jest-sandbox';
-import ContractHttpLoader from '../index';
+import ContractHttpLoader from '../../loaders/ContractHttpLoader';
+import TrufflepigLoader from '../../loaders/TrufflepigLoader';
+import EtherscanLoader from '../../loaders/EtherscanLoader';
 import MetaCoin from '../__mocks__/MetaCoin.json';
 
 describe('ContractHttpLoader', () => {
@@ -11,8 +13,7 @@ describe('ContractHttpLoader', () => {
   const setupLoader = ({
     // eslint-disable-next-line max-len
     endpoint = '//endpoint?name=%%NAME%%&version=%%VERSION%%&address=%%ADDRESS%%',
-    parser = 'truffle',
-  } = {}) => new ContractHttpLoader({ endpoint, parser });
+  } = {}) => new ContractHttpLoader({ endpoint });
 
   const abi = [{ myData: 123 }];
   const bytecode = '0x1234567890';
@@ -30,16 +31,11 @@ describe('ContractHttpLoader', () => {
     sandbox.clear();
   });
 
-  test('Custom parsers', async () => {
-    const parser = sandbox.fn(jsonObj => ({
-      address: jsonObj.address,
-      abi: jsonObj.abi,
-      bytecode: jsonObj.bytecode,
-      contractName: jsonObj.contractName,
-    }));
-    const loader = setupLoader({ parser });
-    expect(loader._parser).toEqual(parser);
+  test('Default implementation', async () => {
+    const loader = setupLoader();
+    sandbox.spyOn(loader.constructor, 'parse');
 
+    const query = { contractName };
     const contractResponse = {
       contractName,
       address: contractAddress,
@@ -48,17 +44,16 @@ describe('ContractHttpLoader', () => {
     };
     fetch.once(JSON.stringify(contractResponse));
 
-    const contract = await loader.load({ contractName });
+    const contract = await loader.load(query);
     expect(contract).toEqual(contractResponse);
-
-    expect(() => setupLoader({ parser: 'does not exist' })).toThrowError(
-      /was not found/,
+    expect(loader.constructor.parse).toHaveBeenCalledWith(
+      contractResponse,
+      query,
     );
-    expect(() => setupLoader({ parser: 123 })).toThrowError(/Invalid parser/);
   });
 
-  test('Truffle parser', async () => {
-    const loader = setupLoader();
+  test('TrufflepigLoader', async () => {
+    const loader = new TrufflepigLoader();
     fetch.once(metaCoinJson);
     const contract = await loader.load({
       contractName,
@@ -69,16 +64,68 @@ describe('ContractHttpLoader', () => {
     const {
       abi,
       bytecode,
-      networks: {
-        '1492719647054': { address },
-      },
+      networks: { '1492719647054': { address } },
     } = MetaCoin;
     expect(contract).toEqual({ address, abi, bytecode });
     /* eslint-enable no-shadow */
   });
 
+  test('EtherscanLoader', async () => {
+    const loader = new EtherscanLoader();
+    sandbox.spyOn(loader.constructor, 'parse');
+
+    const query = { contractAddress };
+    const successfulResponse = {
+      status: '1',
+      result: abi,
+    };
+    const malformedResponse = 'abc';
+    const erroneousResponse = {
+      status: '0',
+      result: 'Something went wrong',
+    };
+    fetch
+      .once(JSON.stringify(successfulResponse))
+      .once(JSON.stringify(malformedResponse))
+      .once(JSON.stringify(erroneousResponse));
+
+    // Successful response
+    const contract = await loader.load(query);
+    expect(contract).toEqual({ address: contractAddress, abi });
+    expect(loader.constructor.parse).toHaveBeenCalledWith(
+      successfulResponse,
+      query,
+    );
+
+    // Malformed response
+    try {
+      await loader.load(query);
+    } catch (error) {
+      expect(error.toString()).toContain('Malformed response from Etherscan');
+      expect(loader.constructor.parse).toHaveBeenCalledWith(
+        malformedResponse,
+        query,
+      );
+    }
+
+    // Bad response
+    try {
+      await loader.load(query);
+    } catch (error) {
+      expect(error.toString()).toContain(
+        `Erroneous response from Etherscan (status: ${
+          erroneousResponse.status
+        })`,
+      );
+      expect(loader.constructor.parse).toHaveBeenCalledWith(
+        erroneousResponse,
+        query,
+      );
+    }
+  });
+
   test('Making requests', async () => {
-    const loader = setupLoader({ parser: 'truffle' });
+    const loader = setupLoader();
     fetch.once(metaCoinJson);
     sandbox.spyOn(loader, '_load');
     sandbox.spyOn(loader, 'resolveEndpointResource');
