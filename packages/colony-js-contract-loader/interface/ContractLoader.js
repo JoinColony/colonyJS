@@ -15,7 +15,7 @@ export type ContractDefinition = {
   bytecode?: string,
 };
 
-export type Parser = (input: any, options?: {}) => ContractDefinition;
+export type Parser = (input: any, query?: Query) => ContractDefinition;
 
 export type ParserOption = string | Parser;
 
