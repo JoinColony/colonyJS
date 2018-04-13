@@ -5,28 +5,16 @@ import assert from 'browser-assert';
 import type {
   ContractDefinition,
   IContractLoader,
-  Parser,
-  ParserOption,
   Query,
 } from '@colony/colony-js-contract-loader';
 
-import PARSERS from './parsers';
-
 export default class ContractHttpLoader implements IContractLoader {
   _endpoint: string;
-  _parser: Parser;
-  static selectParser(parser: ParserOption): Parser {
-    if (typeof parser === 'function') {
-      return parser;
-    } else if (typeof parser === 'string') {
-      if (!PARSERS[parser]) {
-        throw new Error(
-          `ContractHttpLoader: The contract parser ${parser} was not found`,
-        );
-      }
-      return PARSERS[parser];
-    }
-    throw new Error('Invalid parser supplied to ContractHttpLoader');
+  // The `parse` function is designed to be extended in a derived class;
+  // it simply returns the JSON object as the default behaviour.
+  // eslint-disable-next-line no-unused-vars
+  static parse(jsonObj: any, query: Query): ContractDefinition {
+    return jsonObj;
   }
   static validateContractDefinition(contractDef: {
     address?: any,
@@ -55,19 +43,12 @@ export default class ContractHttpLoader implements IContractLoader {
     assert(Array.isArray(abi) && abi.length > 0, message('abi'));
     return true;
   }
-  constructor({
-    endpoint,
-    parser,
-  }: {
-    endpoint: string,
-    parser?: ParserOption,
-  } = {}) {
+  constructor({ endpoint }: { endpoint: string } = {}) {
     assert(
       typeof endpoint === 'string',
       'An `endpoint` option must be provided',
     );
     this._endpoint = endpoint;
-    if (parser) this._parser = ContractHttpLoader.selectParser(parser);
   }
   resolveEndpointResource({
     contractName,
@@ -90,8 +71,7 @@ export default class ContractHttpLoader implements IContractLoader {
     );
   }
   parseContractDefinition(jsonObj: *, query: Query): ContractDefinition {
-    // If a parser is not defined, just return the JSON-derived object
-    const contractDef = this._parser ? this._parser(jsonObj, query) : jsonObj;
+    const contractDef = this.constructor.parse(jsonObj, query);
 
     // The returned object could contain anything, so we need to ensure that
     // it's a valid contract definition.
