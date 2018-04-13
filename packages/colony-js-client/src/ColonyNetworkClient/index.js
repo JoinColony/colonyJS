@@ -4,8 +4,7 @@ import { utf8ToHex } from 'web3-utils';
 import type BigNumber from 'bn.js';
 import type { IAdapter } from '@colony/colony-js-adapter';
 import ContractClient from '@colony/colony-js-contract-client';
-// eslint-disable-next-line max-len
-import type { Options as LoaderOptions } from '@colony/colony-js-contract-loader';
+import type { Query } from '@colony/colony-js-contract-loader';
 
 import type { ColonyNetworkContract } from '../interface/ColonyNetworkContract';
 import ColonyClient from '../ColonyClient/index';
@@ -101,11 +100,12 @@ export default class ColonyNetworkClient extends ContractClient<
   >;
   static async createSelf(
     adapter: IAdapter<ColonyNetworkContract>,
-    loaderOptions: LoaderOptions = {},
+    query: Query = {},
   ): Promise<ColonyNetworkClient> {
-    return this.create(adapter, 'IColonyNetwork', {
-      router: 'EtherRouter',
-      ...loaderOptions,
+    return this.create(adapter, {
+      contractName: 'IColonyNetwork',
+      routerName: 'EtherRouter',
+      ...query,
     });
   }
   static get ColonyClient(): * {
@@ -121,7 +121,9 @@ export default class ColonyNetworkClient extends ContractClient<
     decimals: number,
   }) {
     const transaction = await this.adapter.getContractDeployTransaction(
-      'Token',
+      {
+        contractName: 'Token',
+      },
       [utf8ToHex(name), utf8ToHex(symbol), decimals],
     );
     const { hash } = await this.adapter.wallet.sendTransaction(transaction);

@@ -1,10 +1,12 @@
 /* @flow */
 
-export type Options = {
-  address?: string,
-  router?: string,
-  version?: string,
+export type Query = {
+  contractAddress?: string,
+  contractName?: string,
   networkId?: number,
+  routerAddress?: string,
+  routerName?: string,
+  version?: string,
 };
 
 export type ContractDefinition = {
@@ -18,5 +20,5 @@ export type Parser = (input: any, options?: {}) => ContractDefinition;
 export type ParserOption = string | Parser;
 
 export interface ContractLoader {
-  load(contractName: string, options?: Options): Promise<ContractDefinition>;
+  load(query: Query): Promise<ContractDefinition>;
 }
