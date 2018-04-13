@@ -2,9 +2,9 @@
 /* eslint no-underscore-dangle: 0 */
 
 import createSandbox from 'jest-sandbox';
-import ContractHttpLoader from '../../loaders/ContractHttpLoader';
-import TrufflepigLoader from '../../loaders/TrufflepigLoader';
-import EtherscanLoader from '../../loaders/EtherscanLoader';
+import ContractHttpLoader from '../loaders/ContractHttpLoader';
+import TrufflepigLoader from '../loaders/TrufflepigLoader';
+import EtherscanLoader from '../loaders/EtherscanLoader';
 import MetaCoin from '../__mocks__/MetaCoin.json';
 
 describe('ContractHttpLoader', () => {
@@ -64,7 +64,9 @@ describe('ContractHttpLoader', () => {
     const {
       abi,
       bytecode,
-      networks: { '1492719647054': { address } },
+      networks: {
+        '1492719647054': { address },
+      },
     } = MetaCoin;
     expect(contract).toEqual({ address, abi, bytecode });
     /* eslint-enable no-shadow */
