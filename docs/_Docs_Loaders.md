@@ -1,6 +1,7 @@
 ---
 title: Loaders
 section: Docs
+order: 2
 ---
 
 Loaders make it possible to easily access and load Ethereum smart contracts. They provide a simple way to get the ABI and address of a certain deployed contract in a certain version in a particular location (testnet, mainnet, local). This information needs to be fed into the [adapters](docs-adapters.html). These use it to initialise the contracts using the web3 library they adapt to. The loader abstracts the implicit knowledge of how to get ahold of the contract's ABI and address.
