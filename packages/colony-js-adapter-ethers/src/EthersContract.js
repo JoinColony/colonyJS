@@ -2,38 +2,121 @@
 
 import ethers from 'ethers';
 
-import type { IContract, IWallet, Event } from '@colony/colony-js-adapter';
+import type {
+  Event,
+  IContract,
+  IWallet,
+  TransactionOptions,
+} from '@colony/colony-js-adapter';
 
-type EventListenerCallback = (event: Event) => void;
+import type { EventListenerCallback } from './flowtypes';
 
 class EthersContract extends ethers.Contract implements IContract {
+  // A map of contract event names to callbacks
   _listeners: Map<string, EventListenerCallback>;
-  constructor(address: string, abi: {}, wallet: IWallet) {
+
+  /**
+   * EthersContract constructor
+   * Extends `ethers.Contract` with event handling that allows us to
+   * wait for event data and return it as the adapter interface specifies
+   *
+   * @param address - The contract address
+   * @param abi - The contract ABI
+   * @param wallet - The user's wallet
+   */
+  constructor(address: string, abi: Array<any>, wallet: IWallet) {
     super(address, abi, wallet);
     this._listeners = new Map();
     this._initialiseEvents();
+  }
+
+  /**
+   * Given a function name and an array of arguments, apply the arguments and
+   * return the resulting value/s.
+   * @param functionName
+   * @param args
+   * @returns {Promise<*>}
+   */
+  async callConstant(functionName: string, args: Array<any>) {
+    const fn = this.functions[functionName];
+    if (typeof fn !== 'function')
+      throw new TypeError(`Function ${functionName} not found on contract`);
+    return fn(...args);
+  }
+
+  /**
+   * Given a function name and an array of arguments, apply the arguments and
+   * return the resulting gas cost estimate as a BigNumber
+   * @param functionName
+   * @param args
+   * @returns {Promise<BigNumber>}
+   */
+  async callEstimate(functionName: string, args: Array<any>) {
+    const fn = this.estimate[functionName];
+    if (typeof fn !== 'function')
+      throw new TypeError(
+        `Estimation function ${functionName} not found on contract`,
+      );
+    return fn(...args);
+  }
+
+  /**
+   * Given a function name, an array of arguments and optional transaction
+   * options, apply the arguments and return the sent transaction
+   * @param functionName
+   * @param args
+   * @param options
+   * @returns {Promise<Transaction>}
+   */
+  async callTransaction(
+    functionName: string,
+    args: Array<any>,
+    options: TransactionOptions,
+  ) {
+    const fn = this.functions[functionName];
+    if (typeof fn !== 'function')
+      throw new TypeError(
+        `Estimation function ${functionName} not found on contract`,
+      );
+    return fn(...args, options);
+  }
+
+  /**
+   * Given the name of an interface function, and an array of arguments
+   * that will be accepted byt that function, get the data from the interface
+   * by applying the arguments to it.
+   * @param name
+   * @param args
+   */
+  createTransactionData(name: string, args: Array<any>): string {
+    const interfaceFn = this.interface[name];
+    if (typeof interfaceFn !== 'function')
+      throw new TypeError(`Function ${name} not found on contract interface`);
+    const { data } = interfaceFn(...args);
+    return data;
+  }
+
+  addListener(eventName: string, transactionHash: string, callback: Function) {
+    this._listeners.set(`${eventName}-${transactionHash}`, callback);
+  }
+  removeListener(eventName: string, transactionHash: string) {
+    this._listeners.delete(`${eventName}-${transactionHash}`);
   }
   _initialiseEvents() {
     Object.getOwnPropertyNames(this.events).forEach(eventName => {
       const self = this;
       this.events[eventName] = function eventDispatcher() {
-        self.dispatchEvent(this);
+        self._dispatchEvent(this); // eslint-disable-line no-underscore-dangle
       };
     });
   }
-  dispatchEvent(event: Event) {
+  _dispatchEvent(event: Event) {
     const key = `${event.event}-${event.transactionHash}`;
     const callback = this._listeners.get(key);
     if (callback) {
       this.removeListener(event.event, event.transactionHash);
       callback(event);
     }
-  }
-  addListener(eventName: string, transactionHash: string, callback: Function) {
-    this._listeners.set(`${eventName}-${transactionHash}`, callback);
-  }
-  removeListener(eventName: string, transactionHash: string) {
-    this._listeners.delete(`${eventName}-${transactionHash}`);
   }
 }
 
