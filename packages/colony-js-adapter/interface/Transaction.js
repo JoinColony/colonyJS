@@ -4,8 +4,8 @@ import type BigNumber from 'bn.js';
 
 export type Transaction = {
   // Exactly one of these will be present (send vs. deploy contract)
-  creates: string | null,
-  to: string | null,
+  creates?: string | null,
+  to?: string | null,
 
   // The transaction hash
   hash: string,
@@ -22,11 +22,12 @@ export type Transaction = {
   // (eg. 1 = Homestead mainnet, 3 = Ropsten testnet)
   networkId: number,
 
-  // The signature of the transaction
+  // The raw transaction
+  raw: string,
+};
+
+export type SignedTransaction = Transaction & {
   r: string,
   s: string,
   v: number,
-
-  // The raw transaction
-  raw: string,
 };

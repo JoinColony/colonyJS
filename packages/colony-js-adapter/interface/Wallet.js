@@ -3,7 +3,7 @@
 import type BigNumber from 'bn.js';
 
 import type { Encryption } from './Encryption';
-import type { Transaction } from './Transaction';
+import type { Transaction, SignedTransaction } from './Transaction';
 import type { Provider as IProvider } from './Provider';
 import type { TransactionOptions } from './TransactionOptions';
 import type { TransactionReceipt } from './TransactionReceipt';
@@ -31,6 +31,6 @@ export interface Wallet {
     transaction: Transaction,
     options?: TransactionOptions,
   ): Promise<TransactionReceipt>;
-  sign(transaction: Transaction): string;
+  sign(transaction: Transaction): SignedTransaction;
   verifyMessage(message: string, signature: string): string;
 }

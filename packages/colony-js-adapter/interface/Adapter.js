@@ -19,10 +19,9 @@ export interface Adapter<ContractInterface: Contract> {
     contractParams: Array<any>,
   ): Promise<Transaction>;
   getEventData({
-    contract: ContractInterface,
     events: EventHandlers,
     timeoutMs: number,
     transactionHash: string,
-  }): Promise<*>;
+  }): Promise<any>;
   getTransactionReceipt(transactionHash: string): Promise<TransactionReceipt>;
 }
