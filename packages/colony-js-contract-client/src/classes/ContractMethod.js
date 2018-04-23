@@ -1,0 +1,69 @@
+/* @flow */
+
+import ContractClient from './ContractClient';
+import getMethodArgs from '../modules/getMethodArgs';
+import getMethodReturnValue from '../modules/getMethodReturnValue';
+import validate from '../modules/validate';
+
+import type { ContractMethodArgs, ParamTypePairs } from '../flowtypes';
+
+export default class ContractMethod<
+  InputValues: { [inputValueName: string]: any } | any,
+  OutputValues: { [outputValueName: string]: any },
+  IContractClient: ContractClient<*>,
+> {
+  client: IContractClient;
+  functionName: string;
+  input: ParamTypePairs;
+  output: ParamTypePairs;
+  constructor({
+    client,
+    functionName,
+    input,
+    output,
+  }: ContractMethodArgs<IContractClient> = {}) {
+    this.client = client;
+    this.input = input;
+    this.functionName = functionName;
+    if (output) this.output = output;
+  }
+  /**
+   * Given named input values, validate them against the expected parameters
+   * for this method, throwing errors if validation fails.
+   * @param inputValues
+   * @returns {boolean}
+   */
+  validate(inputValues: InputValues) {
+    return validate(inputValues, this.input);
+  }
+  /**
+   * Given named input values, transform these with the expected parameters
+   * in order to get an array of arguments expected by the contract function.
+   * @param inputValues
+   * @returns {Array<any>}
+   */
+  getMethodArgs(inputValues: InputValues) {
+    return getMethodArgs(inputValues, this.input);
+  }
+  /**
+   * Given the result of a contract method call, and the input values used to
+   * make the call, transform these with the expected output parameters in
+   * order to get named output values as the method's `ReturnValues`
+   * @param callResult
+   * @param inputValues (provided for function overloading)
+   * @returns {OutputValues}
+   */
+  // eslint-disable-next-line no-unused-vars
+  getOutputValues(callResult: any, inputValues: InputValues): OutputValues {
+    return getMethodReturnValue(callResult, this.output);
+  }
+  /**
+   * Given arguments to call the contract method with, return
+   * transaction data as a hex string.
+   * @param callArgs
+   * @returns {string}
+   */
+  createTransactionData(callArgs: Array<any>) {
+    return this.client.createTransactionData(this.functionName, callArgs);
+  }
+}
