@@ -1,14 +1,28 @@
 /* @flow */
 
 import BigNumber from 'bn.js';
+import assert from 'browser-assert';
 
 import type { ParamTypes, ParamTypePairs } from '../flowtypes';
 import checkValidAddress from './checkValidAddress';
 
+const unexpectedValue = value => {
+  // XXX It's possible that the value isn't stringify-able
+  let stringified = '';
+  try {
+    stringified = JSON.stringify(value);
+  } catch (error) {
+    stringified = '(unable to stringify)';
+  }
+  return `Unexpected value "${stringified}"`;
+};
+
 const parseReturnValue = (value: any, type: ParamTypes) => {
   switch (type) {
     case 'number':
-      return BigNumber.isBN(value) ? value.toNumber() : value;
+      if (BigNumber.isBN(value)) return value.toNumber();
+      assert(Number(value) === value, unexpectedValue(value));
+      return value;
     case 'address':
       checkValidAddress(value);
       return value;
@@ -35,21 +49,21 @@ export default function getMethodReturnValue<ReturnValue: {}>(
     ? rawContractReturnValue
     : [rawContractReturnValue];
 
-  if (returnValues.length) {
-    const parsedValues = returnValues.map(([name, type], index) => {
+  if (returnValues && returnValues.length) {
+    const returnValue = {};
+    returnValues.forEach(([name, type], index) => {
       try {
-        return {
-          [name]: parseReturnValue(values[index], type),
-        };
+        returnValue[name] = parseReturnValue(values[index], type);
       } catch (error) {
         throw new Error(
-          `Invalid return for ${name} of type ${type}:\n${error.message ||
-            error}`,
+          `Invalid return for value "${name}" of type "${type}": ${
+            error.message
+          }` || error,
         );
       }
     });
     // $FlowFixMe Object literal incompatible with ReturnValue; perhaps try $ObjMap?
-    return Object.assign({}, ...parsedValues);
+    return returnValue;
   }
   return rawContractReturnValue;
 }
