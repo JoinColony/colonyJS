@@ -80,19 +80,21 @@ export default class ContractClient<ContractInterface: IContract> {
     // Wrap this class with a Proxy to memoize new ContractMethods from their
     // definitions, so we don't need to construct so many and keep them in
     // memory from the start.
-    const propNames = Object.getOwnPropertyNames.call(this);
     return new Proxy(this, {
       get(target: ContractClient<ContractInterface>, name) {
         // Simplest case first
         // $FlowFixMe https://github.com/facebook/flow/issues/3435
-        if (name in propNames) return target[name];
+        if (Reflect.has(target, name)) return target[name];
 
         // Return a method (with memoization), or fall back to the target again;
-        // the latter will probably be undefined, but it makes sense to try to
-        // get the properly anyway (rather than return null), because we don't
-        // know how else the class has been modified.
-        // $FlowFixMe https://github.com/facebook/flow/issues/3435
-        return this._memoizeMethod(name) || target[name];
+        // the latter will probably be undefined, but it's more expected to
+        // return that rather than explicitly returning undefined here.
+        return (
+          // eslint-disable-next-line no-underscore-dangle
+          target._memoizeMethod(name) ||
+          // $FlowFixMe https://github.com/facebook/flow/issues/3435
+          target[name]
+        );
       },
     });
   }
