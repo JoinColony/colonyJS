@@ -12,11 +12,11 @@ export default class EtherscanLoader extends ContractHttpLoader {
     super({ endpoint });
   }
   static parse(response: any, query: Query) {
+    // TODO later: consider building some generalized response validators for
+    // common services like etherscan, infura, jsonrpc, etc.
     if (
-      !(
-        typeof response === 'object' &&
-        Object.hasOwnProperty.call(response, 'status')
-      )
+      typeof response !== 'object' ||
+      !Object.hasOwnProperty.call(response, 'status')
     ) {
       throw new Error('Malformed response from Etherscan');
     }
