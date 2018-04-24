@@ -6,8 +6,10 @@ import { isAddress } from 'web3-utils';
 
 import type { ParamTypes, ParamTypePairs } from '../flowtypes';
 
+const ERR = `Validation error`;
+
 const validateParam = (key: string, type: ParamTypes, value: any): boolean => {
-  const message = `Parameter ${key} expected a value of type ${type}`;
+  const message = `${ERR}: Parameter ${key} expected a value of type ${type}`;
   switch (type) {
     case 'address':
       assert(isAddress(value), message);
@@ -43,8 +45,10 @@ export default function validate<MethodParams: ParamTypePairs>(
   params: any,
   methodParams: MethodParams,
 ): boolean {
-  if (typeof params !== 'object')
-    throw new Error('Validation error: Expected parameters as an object');
+  assert(
+    params != null && typeof params === 'object',
+    `${ERR}: Expected parameters as an object`,
+  );
 
   return methodParams.every(([paramName, paramType]) =>
     validateParam(paramName, paramType, params[paramName]),
