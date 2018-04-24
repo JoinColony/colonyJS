@@ -34,16 +34,20 @@ const parseParams = <Params: {}, MethodParams: ParamTypePairs>(
  * should accept
  * @returns {Array<any>} - The parsed arguments for the contract method call
  */
-export default function getMethodArgs<Params: {}, MethodParams: ParamTypePairs>(
-  params: Params,
-  methodParams: MethodParams,
-): Array<any> {
+export default function getMethodArgs<
+  Params: any,
+  MethodParams: ParamTypePairs,
+>(params: any | Params, methodParams: any | MethodParams): Array<any> {
   let args = [];
 
-  if (methodParams.length) {
+  if (methodParams && methodParams.length) {
     validate(params, methodParams);
     args = parseParams(params, methodParams);
-  } else if (Object.getOwnPropertyNames.call(params).length) {
+  } else if (
+    params != null &&
+    typeof params === 'object' &&
+    Object.getOwnPropertyNames(params).length
+  ) {
     // eslint-disable-next-line no-console
     console.warn(
       'Warning: getMethodArgs called with parameters for a method that does ' +
