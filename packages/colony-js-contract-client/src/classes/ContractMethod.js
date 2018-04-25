@@ -7,6 +7,9 @@ import validate from '../modules/validate';
 
 import type { ContractMethodArgs, ParamTypePairs } from '../flowtypes';
 
+/**
+ * Abstract class for interacting with contract methods.
+ */
 export default class ContractMethod<
   InputValues: { [inputValueName: string]: any } | any,
   OutputValues: { [outputValueName: string]: any },
@@ -16,6 +19,9 @@ export default class ContractMethod<
   functionName: string;
   input: ParamTypePairs;
   output: ParamTypePairs;
+  _validate = validate;
+  _getMethodArgs = getMethodArgs;
+  _getMethodReturnValue = getMethodReturnValue;
   constructor({
     client,
     functionName,
@@ -34,7 +40,7 @@ export default class ContractMethod<
    * @returns {boolean}
    */
   validate(inputValues: InputValues) {
-    return validate(inputValues, this.input);
+    return this._validate(inputValues, this.input);
   }
   /**
    * Given named input values, transform these with the expected parameters
@@ -43,7 +49,7 @@ export default class ContractMethod<
    * @returns {Array<any>}
    */
   getMethodArgs(inputValues: InputValues) {
-    return getMethodArgs(inputValues, this.input);
+    return this._getMethodArgs(inputValues, this.input);
   }
   /**
    * Given the result of a contract method call, and the input values used to
@@ -55,7 +61,7 @@ export default class ContractMethod<
    */
   // eslint-disable-next-line no-unused-vars
   getOutputValues(callResult: any, inputValues: InputValues): OutputValues {
-    return getMethodReturnValue(callResult, this.output);
+    return this._getMethodReturnValue(callResult, this.output);
   }
   /**
    * Given arguments to call the contract method with, return
