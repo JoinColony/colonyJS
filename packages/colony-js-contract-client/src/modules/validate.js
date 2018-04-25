@@ -2,32 +2,46 @@
 
 import assert from 'browser-assert';
 import BigNumber from 'bn.js';
-import { isAddress } from 'web3-utils';
+import isPlainObject from 'lodash.isplainobject';
 
+import checkValidAddress from './checkValidAddress';
 import type { ParamTypes, ParamTypePairs } from '../flowtypes';
 
 const ERR = `Validation error`;
 
-const validateParam = (key: string, type: ParamTypes, value: any): boolean => {
-  const message = `${ERR}: Parameter ${key} expected a value of type ${type}`;
-  switch (type) {
-    case 'address':
-      assert(isAddress(value), message);
-      break;
-    case 'string':
-      assert(typeof value === 'string' && value.length > 0, message);
-      break;
-    case 'number':
-      assert(typeof value === 'number' || BigNumber.isBN(value), message);
-      break;
-    case 'boolean':
-      assert(typeof value === 'boolean', message);
-      break;
-    default:
-      throw new TypeError(`Parameter type ${type} not defined`);
+const TYPE_MAP = new Map([
+  ['address', checkValidAddress],
+  ['string', value => typeof value === 'string'], // empty strings are allowed
+  ['number', value => typeof value === 'number' || BigNumber.isBN(value)],
+  ['boolean', value => typeof value === 'boolean'],
+]);
+
+export const validateParam = (
+  key: string,
+  type: ParamTypes,
+  value: any,
+): boolean => {
+  // eslint-disable-next-line max-len
+  const message = `${ERR}: Parameter "${key}" expected a value of type "${type}"`;
+  const check = TYPE_MAP.get(type);
+  if (check) {
+    assert(check(value), message);
+    return true;
   }
-  return true;
+  throw new TypeError(`${ERR}: Parameter type "${type}" not defined`);
 };
+
+const isValidMethodParams = (methodParams: any): boolean =>
+  Array.isArray(methodParams) &&
+  methodParams.every(
+    param =>
+      Array.isArray(param) &&
+      param.length === 2 &&
+      typeof param[0] === 'string',
+  );
+
+const areParamsOfEqualSize = (params: Object, methodParams: ParamTypePairs) =>
+  Object.getOwnPropertyNames(params).length === methodParams.length;
 
 /**
  * Pure function
@@ -42,12 +56,17 @@ const validateParam = (key: string, type: ParamTypes, value: any): boolean => {
  * @returns {boolean} True if the parameters are all valid
  */
 export default function validate<MethodParams: ParamTypePairs>(
-  params: any,
-  methodParams: MethodParams,
+  params: any | Object,
+  methodParams: any | MethodParams,
 ): boolean {
+  assert(isPlainObject(params), `${ERR}: Expected parameters as an object`);
   assert(
-    params != null && typeof params === 'object',
-    `${ERR}: Expected parameters as an object`,
+    isValidMethodParams(methodParams),
+    `${ERR}: Expected method parameters as an array of name/type tuples`,
+  );
+  assert(
+    areParamsOfEqualSize(params, methodParams),
+    `${ERR}: Mismatching parameters/method parameters sizes`,
   );
 
   return methodParams.every(([paramName, paramType]) =>
