@@ -6,6 +6,9 @@ import validate, { validateParam } from '../modules/validate';
 
 describe('validate', () => {
   test('validate', () => {
+    // No params at all
+    expect(validate()).toBe(true);
+
     // Invalid params type
     [undefined, null, [], 'abc', 1].forEach(input => {
       expect(() => {

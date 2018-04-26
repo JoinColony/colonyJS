@@ -59,6 +59,7 @@ export default function validate<MethodParams: ParamTypePairs>(
   params: any | Object,
   methodParams: any | MethodParams,
 ): boolean {
+  if (params === undefined && methodParams === undefined) return true;
   assert(isPlainObject(params), `${ERR}: Expected parameters as an object`);
   assert(
     isValidMethodParams(methodParams),

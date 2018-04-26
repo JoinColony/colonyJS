@@ -13,6 +13,11 @@ describe('ContractMethod', () => {
 
   beforeEach(() => sandbox.clear());
 
+  test('Method with no input params', () => {
+    const method = new ContractMethod({ client, functionName: 'myFunction' });
+    expect(method.validate()).toBe(true);
+  });
+
   test('validate', () => {
     const input = [['id', 'number']];
     const inputValues = { id: 1 };
