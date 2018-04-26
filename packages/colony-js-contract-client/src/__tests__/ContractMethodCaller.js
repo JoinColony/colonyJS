@@ -5,6 +5,7 @@ import createSandbox from 'jest-sandbox';
 
 import ContractClient from '../classes/ContractClient';
 import ContractMethodCaller from '../classes/ContractMethodCaller';
+import { DEFAULT_TIMEOUT } from '../defaults';
 
 describe('ContractMethodCaller', () => {
   const sandbox = createSandbox();
@@ -37,7 +38,9 @@ describe('ContractMethodCaller', () => {
       callArgs,
     );
     expect(method.getMethodArgs).toHaveBeenCalledWith(inputValues);
-    expect(method._call).toHaveBeenCalledWith(callArgs, { timeoutMs: 60000 });
+    expect(method._call).toHaveBeenCalledWith(callArgs, {
+      timeoutMs: DEFAULT_TIMEOUT,
+    });
     expect(method.getOutputValues).toHaveBeenCalledWith(result, inputValues);
   });
 });
