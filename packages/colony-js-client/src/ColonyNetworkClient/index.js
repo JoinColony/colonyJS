@@ -163,18 +163,24 @@ export default class ColonyNetworkClient extends ContractClient<
     },
     callOptions?: CallOptions,
   ) {
-    let address;
-    if (key) {
-      ({ address } = await this.getColonyByKey.call({ key }, callOptions));
-    } else if (id) {
-      ({ address } = await this.getColonyById.call({ id }, callOptions));
-    }
-    if (!address)
+    const notFoundError = () => {
       throw new Error(
         `Colony with ${
           key ? `key ${key}` : `id ${id || 'unknown'}`
         } could not be found`,
       );
+    };
+    let address = '';
+    try {
+      if (key) {
+        ({ address } = await this.getColonyByKey.call({ key }, callOptions));
+      } else if (id) {
+        ({ address } = await this.getColonyById.call({ id }, callOptions));
+      }
+    } catch (error) {
+      if (error.toString().includes('Undefined address')) notFoundError();
+    }
+    if (!address) notFoundError();
     return address;
   }
   // eslint-disable-next-line no-unused-vars
