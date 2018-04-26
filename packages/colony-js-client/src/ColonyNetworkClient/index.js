@@ -135,9 +135,9 @@ export default class ColonyNetworkClient extends ContractClient<
     const { contractAddress } = await this.adapter.getTransactionReceipt(hash);
     return contractAddress;
   }
-  async getColonyClientByAddress(address: string) {
+  async getColonyClientByAddress(contractAddress: string) {
     return this.constructor.ColonyClient.createSelf(this.adapter, this, {
-      address,
+      contractAddress,
     });
   }
   async getColonyClient(
