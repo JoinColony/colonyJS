@@ -37,12 +37,12 @@ export default class ContractMethodSender<
    * Given named input values, call the method's contract function in
    * order to get a gas estimate for calling it with those values.
    * @param inputValues
-   * @param timeoutMs
+   * @param options
    * @returns {Promise<BigNumber>}
    */
-  async estimate(inputValues: InputValues, timeoutMs: number) {
+  async estimate(inputValues: InputValues, options: SendOptions) {
     const args = this.getMethodArgs(inputValues);
-    return this._estimate(args, timeoutMs);
+    return this._estimate(args, options);
   }
   /**
    * Given named input values and options for sending a transaction, create a
@@ -123,7 +123,11 @@ export default class ContractMethodSender<
       timeoutMs,
     );
   }
-  async _estimate(callArgs: Array<any>, timeoutMs: number): Promise<BigNumber> {
+  async _estimate(
+    callArgs: Array<any>,
+    options: SendOptions,
+  ): Promise<BigNumber> {
+    const { timeoutMs } = this.constructor.addSendOptionsDefaults(options);
     return raceAgainstTimeout(
       this.client.estimate(this.functionName, callArgs),
       timeoutMs,
