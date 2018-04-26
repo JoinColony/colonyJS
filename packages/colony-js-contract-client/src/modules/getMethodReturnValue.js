@@ -20,7 +20,9 @@ const unexpectedValue = value => {
 const parseReturnValue = (value: any, type: ParamTypes) => {
   switch (type) {
     case 'number':
-      if (BigNumber.isBN(value)) return value.toNumber();
+      // eslint-disable-next-line no-underscore-dangle
+      if (typeof value === 'object' && BigNumber.isBN(value._bn))
+        return value.toNumber();
       assert(Number(value) === value, unexpectedValue(value));
       return value;
     case 'address':
