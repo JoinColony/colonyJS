@@ -15,7 +15,7 @@ type TruffleArtifact = {
 };
 
 const DEFAULT_ENDPOINT =
-  'https://127.0.0.1:3030/contracts?name=%%NAME%%&address=%%ADDRESS%%&version=%%VERSION%%'; // eslint-disable-line max-len
+  '//127.0.0.1:3030/contracts?name=%%NAME%%&address=%%ADDRESS%%&version=%%VERSION%%'; // eslint-disable-line max-len
 
 export default class TrufflepigLoader extends ContractHttpLoader {
   constructor({ endpoint = DEFAULT_ENDPOINT }: { endpoint: string } = {}) {
