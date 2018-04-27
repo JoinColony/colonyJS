@@ -81,7 +81,7 @@ describe('validate', () => {
       }).toThrowError('Validation error');
     });
 
-    // Number (valid)
+    // Number/BigBumber (valid)
     [1, 1.1, new BigNumber(1)].forEach(input => {
       expect(validateParam('id', 'number', input)).toBe(true);
     });
