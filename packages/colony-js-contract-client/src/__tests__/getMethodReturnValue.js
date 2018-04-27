@@ -1,5 +1,6 @@
 /* eslint-env jest */
 
+import BigNumber from 'bn.js';
 import createSandbox from 'jest-sandbox';
 
 import getMethodReturnValue from '../modules/getMethodReturnValue';
@@ -38,6 +39,11 @@ describe('getMethodReturnValues', () => {
     expect(getMethodReturnValue([100, address], returnValues)).toEqual({
       id: 100,
       address,
+    });
+
+    // With a BigBumber
+    expect(getMethodReturnValue(new BigNumber(1), [['id', 'number']])).toEqual({
+      id: 1,
     });
   });
 });

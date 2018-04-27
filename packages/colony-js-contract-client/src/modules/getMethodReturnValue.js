@@ -21,8 +21,7 @@ const parseReturnValue = (value: any, type: ParamTypes) => {
   switch (type) {
     case 'number':
       // eslint-disable-next-line no-underscore-dangle
-      if (typeof value === 'object' && BigNumber.isBN(value._bn))
-        return value.toNumber();
+      if (BigNumber.isBN(value)) return value.toNumber();
       assert(Number(value) === value, unexpectedValue(value));
       return value;
     case 'address':
@@ -47,9 +46,7 @@ export default function getMethodReturnValue<ReturnValue: {}>(
   returnValues: ParamTypePairs,
 ): ReturnValue {
   // It may be a single value or an array; treat it as an array
-  const values = Array.isArray(rawContractReturnValue)
-    ? rawContractReturnValue
-    : [rawContractReturnValue];
+  const values = [].concat(rawContractReturnValue);
 
   if (returnValues && returnValues.length) {
     const returnValue = {};
