@@ -134,29 +134,11 @@ export default class ColonyNetworkClient extends ContractClient {
       contractAddress,
     });
   }
-  async getColonyClient(
-    {
-      key,
-      id,
-    }: {
-      key?: string,
-      id?: number,
-    },
-    callOptions: CallOptions,
-  ) {
-    const address = await this.getColonyAddress({ key, id }, callOptions);
+  async getColonyClient({ key, id }: { key?: string, id?: number }) {
+    const address = await this.getColonyAddress({ key, id });
     return this.getColonyClientByAddress(address);
   }
-  async getColonyAddress(
-    {
-      key,
-      id,
-    }: {
-      key?: string,
-      id?: number,
-    },
-    callOptions?: CallOptions,
-  ) {
+  async getColonyAddress({ key, id }: { key?: string, id?: number }) {
     const notFoundError = () => {
       throw new Error(
         `Colony with ${
@@ -167,9 +149,9 @@ export default class ColonyNetworkClient extends ContractClient {
     let address = '';
     try {
       if (key) {
-        ({ address } = await this.getColonyByKey.call({ key }, callOptions));
+        ({ address } = await this.getColonyByKey.call({ key }));
       } else if (id) {
-        ({ address } = await this.getColonyById.call({ id }, callOptions));
+        ({ address } = await this.getColonyById.call({ id }));
       }
     } catch (error) {
       if (error.toString().includes('Undefined address')) notFoundError();
@@ -180,31 +162,31 @@ export default class ColonyNetworkClient extends ContractClient {
   // eslint-disable-next-line no-unused-vars
   initializeContractMethods(options?: Object) {
     // Callers
-    this._makeCaller('getColonyById', {
+    this.createCaller('getColonyById', {
       functionName: 'getColonyAt',
       input: [['id', 'number']],
       output: [['address', 'address']],
     });
-    this._makeCaller('getColonyByKey', {
+    this.createCaller('getColonyByKey', {
       functionName: 'getColony',
       input: [['key', 'string']],
       output: [['address', 'address']],
     });
-    this._makeCaller('getColonyCount', {
+    this.createCaller('getColonyCount', {
       output: [['address', 'address']],
     });
-    this._makeCaller('getColonyVersionResolver', {
+    this.createCaller('getColonyVersionResolver', {
       input: [['version', 'number']],
       output: [['address', 'address']],
     });
-    this._makeCaller('getCurrentColonyVersion', {
+    this.createCaller('getCurrentColonyVersion', {
       output: [['version', 'number']],
     });
-    this._makeCaller('getParentSkillId', {
+    this.createCaller('getParentSkillId', {
       input: [['skillId', 'number'], ['parentSkillIndex', 'number']],
       output: [['parentSkillId', 'number']],
     });
-    this._makeCaller('getReputationUpdateLogEntry', {
+    this.createCaller('getReputationUpdateLogEntry', {
       input: [['id', 'number']],
       output: [
         ['user', 'string'],
@@ -215,19 +197,19 @@ export default class ColonyNetworkClient extends ContractClient {
         ['nPreviousUpdates', 'number'],
       ],
     });
-    this._makeCaller('getReputationUpdateLogLength', {
+    this.createCaller('getReputationUpdateLogLength', {
       output: [['count', 'number']],
     });
-    this._makeCaller('getSkill', {
+    this.createCaller('getSkill', {
       input: [['id', 'number']],
       output: [['nParents', 'number'], ['nChildren', 'number']],
     });
-    this._makeCaller('getSkillCount', {
+    this.createCaller('getSkillCount', {
       output: [['count', 'number']],
     });
 
     // Senders
-    this._makeSender('createColony', {
+    this.createSender('createColony', {
       input: [['name', 'string'], ['tokenAddress', 'address']],
       eventHandlers: {
         success: {
@@ -242,13 +224,13 @@ export default class ColonyNetworkClient extends ContractClient {
         },
       },
     });
-    this._makeSender('deposit', {
+    this.createSender('deposit', {
       input: [['amount', 'number']],
     });
-    this._makeSender('upgradeColony', {
+    this.createSender('upgradeColony', {
       input: [['key', 'string'], ['newVersion', 'number']],
     });
-    this._makeSender('withdraw', {
+    this.createSender('withdraw', {
       input: [['amount', 'number']],
     });
   }

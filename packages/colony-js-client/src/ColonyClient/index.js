@@ -343,22 +343,22 @@ export default class ColonyClient extends ContractClient {
     this.getTask = new GetTask({ client: this });
 
     // Callers
-    this._makeCaller('getNonRewardPotsTotal', {
+    this.createCaller('getNonRewardPotsTotal', {
       input: [['address', 'address']],
       output: [['total', 'number']],
     });
-    this._makeCaller('getPotBalance', {
+    this.createCaller('getPotBalance', {
       input: [['potId', 'number'], ['token', 'address']],
       output: [['balance', 'number']],
     });
-    this._makeCaller('getTaskCount', {
+    this.createCaller('getTaskCount', {
       output: [['count', 'number']],
     });
-    this._makeCaller('getTaskPayout', {
+    this.createCaller('getTaskPayout', {
       input: [['taskId', 'number'], ['role', 'number'], ['token', 'address']],
       output: [['amount', 'number']],
     });
-    this._makeCaller('getTaskRole', {
+    this.createCaller('getTaskRole', {
       input: [['taskId', 'number'], ['role', 'number']],
       output: [
         ['address', 'address'],
@@ -366,18 +366,18 @@ export default class ColonyClient extends ContractClient {
         ['rating', 'number'],
       ],
     });
-    this._makeCaller('getTaskWorkRatings', {
+    this.createCaller('getTaskWorkRatings', {
       input: [['taskId', 'number']],
       output: [['count', 'number'], ['timestamp', 'number']],
     });
-    this._makeCaller('getTaskWorkRatingSecret', {
+    this.createCaller('getTaskWorkRatingSecret', {
       input: [['taskId', 'number'], ['role', 'number']],
       output: [['secret', 'string']],
     });
-    this._makeCaller('getToken', {
+    this.createCaller('getToken', {
       output: [['address', 'address']],
     });
-    this._makeCaller('getTransactionCount', {
+    this.createCaller('getTransactionCount', {
       output: [['count', 'number']],
     });
 
@@ -397,31 +397,31 @@ export default class ColonyClient extends ContractClient {
         };
       },
     };
-    this._makeSender('addDomain', {
+    this.createSender('addDomain', {
       input: [['domainId', 'number']],
       eventHandlers: {
         success: { SkillAdded },
       },
     });
-    this._makeSender('addGlobalSkill', {
+    this.createSender('addGlobalSkill', {
       input: [['parentSkillId', 'number']],
       eventHandlers: {
         success: { SkillAdded },
       },
     });
-    this._makeSender('assignWorkRating', {
+    this.createSender('assignWorkRating', {
       input: [['taskId', 'number']],
     });
-    this._makeSender('cancelTask', {
+    this.createSender('cancelTask', {
       input: [['taskId', 'number']],
     });
-    this._makeSender('claimColonyFunds', {
+    this.createSender('claimColonyFunds', {
       input: [['token', 'address']],
     });
-    this._makeSender('claimPayout', {
+    this.createSender('claimPayout', {
       input: [['token', 'address'], ['role', 'number'], ['token', 'address']],
     });
-    this._makeSender('createTask', {
+    this.createSender('createTask', {
       functionName: 'makeTask',
       input: [['specificationHash', 'string'], ['domainId', 'number']],
       eventHandlers: {
@@ -437,16 +437,16 @@ export default class ColonyClient extends ContractClient {
         },
       },
     });
-    this._makeSender('finalizeTask', {
+    this.createSender('finalizeTask', {
       input: [['taskId', 'number']],
     });
-    this._makeSender('mintTokens', {
+    this.createSender('mintTokens', {
       input: [['amount', 'number']],
     });
-    this._makeSender('mintTokensForColonyNetwork', {
+    this.createSender('mintTokensForColonyNetwork', {
       input: [['amount', 'number']],
     });
-    this._makeSender('moveFundsBetweenPots', {
+    this.createSender('moveFundsBetweenPots', {
       input: [
         ['fromPot', 'number'],
         ['toPot', 'number'],
@@ -454,7 +454,7 @@ export default class ColonyClient extends ContractClient {
         ['address', 'address'],
       ],
     });
-    this._makeSender('revealTaskWorkRating', {
+    this.createSender('revealTaskWorkRating', {
       input: [
         ['taskId', 'number'],
         ['role', 'number'],
@@ -462,10 +462,10 @@ export default class ColonyClient extends ContractClient {
         ['salt', 'string'],
       ],
     });
-    this._makeSender('submitTaskDeliverable', {
+    this.createSender('submitTaskDeliverable', {
       input: [['taskId', 'number'], ['deliverableHash', 'string']],
     });
-    this._makeSender('submitTaskWorkRating', {
+    this.createSender('submitTaskWorkRating', {
       input: [
         ['taskId', 'number'],
         ['role', 'number'],
