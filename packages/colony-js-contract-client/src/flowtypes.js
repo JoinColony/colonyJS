@@ -15,8 +15,6 @@ export type ParamTypePair = [string, ParamTypes];
 
 export type ParamTypePairs = Array<ParamTypePair>;
 
-export type CallOptions = { timeoutMs: number };
-
 export type SendOptions = {
   events?: EventHandlers,
   estimate: boolean,
