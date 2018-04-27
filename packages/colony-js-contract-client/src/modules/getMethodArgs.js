@@ -4,16 +4,8 @@ import { utf8ToHex } from 'web3-utils';
 
 import type { ParamTypePairs, ParamTypes } from '../flowtypes';
 
-import validate from './validate';
-
-const parseParamsValue = (value: any, type: ParamTypes) => {
-  switch (type) {
-    case 'string':
-      return utf8ToHex(value);
-    default:
-      return value;
-  }
-};
+const parseParamsValue = (value: any, type: ParamTypes) =>
+  type === 'string' ? utf8ToHex(value) : value;
 
 const parseParams = <Params: {}, MethodParams: ParamTypePairs>(
   params: Params,
@@ -35,13 +27,12 @@ const parseParams = <Params: {}, MethodParams: ParamTypePairs>(
  * @returns {Array<any>} - The parsed arguments for the contract method call
  */
 export default function getMethodArgs<
-  Params: any,
+  Params: Object,
   MethodParams: ParamTypePairs,
->(params: any | Params, methodParams: any | MethodParams): Array<any> {
+>(params: Params, methodParams: MethodParams): Array<any> {
   let args = [];
 
   if (methodParams && methodParams.length) {
-    validate(params, methodParams);
     args = parseParams(params, methodParams);
   } else if (
     params != null &&
