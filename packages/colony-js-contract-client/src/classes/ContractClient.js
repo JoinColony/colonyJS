@@ -66,29 +66,7 @@ export default class ContractClient {
   }) {
     this.adapter = adapter;
     this.contract = contract;
-    this._methods = new Map();
     this.initializeContractMethods(options);
-
-    // Wrap this class with a Proxy to memoize new ContractMethods from their
-    // definitions, so we don't need to construct so many and keep them in
-    // memory from the start.
-    return new Proxy(this, {
-      get(target: ContractClient<ContractInterface>, name) {
-        // Simplest case first
-        // $FlowFixMe https://github.com/facebook/flow/issues/3435
-        if (Reflect.has(target, name)) return target[name];
-
-        // Return a method (with memoization), or fall back to the target again;
-        // the latter will probably be undefined, but it's more expected to
-        // return that rather than explicitly returning undefined here.
-        return (
-          // eslint-disable-next-line no-underscore-dangle
-          target._memoizeMethod(name) ||
-          // $FlowFixMe https://github.com/facebook/flow/issues/3435
-          target[name]
-        );
-      },
-    });
   }
 
   /**
@@ -153,38 +131,24 @@ export default class ContractClient {
     return this.contract.createTransactionData(functionName, args);
   }
 
-  _makeMethod(
+  createMethod(
     Method: typeof ContractMethod,
     name: string,
     def: ContractMethodDef<*>,
   ): void {
-    if (this._methods.get(name))
-      throw new TypeError(`A ContractMethod named "${name}" already exists`);
+    if (Reflect.has(this, name))
+      throw new Error(`A ContractMethod named "${name}" already exists`);
 
-    this._methods.set(
-      name,
-      () =>
-        new Method({
-          client: this,
-          functionName: name,
-          ...def,
-        }),
-    );
+    Object.assign(this, {
+      [name]: new Method({ functionName: name, client: this, ...def }),
+    });
   }
-  _makeCaller(name: string, def: Object): void {
-    this._makeMethod(this.constructor.Caller, name, def);
+
+  createCaller(name: string, def: Object): void {
+    this.createMethod(this.constructor.Caller, name, def);
   }
-  _makeSender(name: string, def: Object): void {
-    this._makeMethod(this.constructor.Sender, name, def);
-  }
-  _memoizeMethod(name: string) {
-    const methodOrDef = this._methods.get(name);
-    // Create the method and overwrite the definition
-    if (typeof methodOrDef === 'function') {
-      const method = methodOrDef();
-      this._methods.set(name, method);
-      return method;
-    }
-    return methodOrDef;
+
+  createSender(name: string, def: Object): void {
+    this.createMethod(this.constructor.Sender, name, def);
   }
 }

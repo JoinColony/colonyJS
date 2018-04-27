@@ -42,13 +42,6 @@ describe('ContractClient', () => {
     input: [['address', 'address']],
   };
 
-  class MyContractClient extends ContractClient {
-    initializeContractMethods() {
-      this._makeCaller('myCallerOne');
-      this._makeCaller('myCallerTwo');
-    }
-  }
-
   beforeEach(() => sandbox.clear());
 
   test('Static methods', async () => {
@@ -80,124 +73,67 @@ describe('ContractClient', () => {
     expect(client.initializeContractMethods).toHaveBeenCalledWith(options);
   });
 
-  test('initializeContractMethods', () => {
-    const myClient = new MyContractClient({ adapter, contract, options });
-
-    // Two methods were defined
-    expect(myClient._methods.size).toBe(2);
-
-    // The methods are accessible
-    expect(myClient.myCallerOne).toBeInstanceOf(MyContractClient.Caller);
-    expect(myClient.myCallerTwo).toBeInstanceOf(MyContractClient.Caller);
-
-    // Non-existent properties are undefined
-    expect(myClient.doesNotExist).toBeUndefined();
-  });
-
-  test('_makeMethod', () => {
+  test('createMethod', () => {
     const client = new ContractClient({ adapter, contract, options });
+    const input = [['id', 'number']];
+    const functionName = 'myMethodOne';
 
-    // No methods should be defined yet
-    expect(client._methods.size).toBe(0);
+    const Caller = jest.fn((...args) => new client.constructor.Caller(...args));
 
     // Define a method on the client
-    client._makeMethod(ContractClient.Caller, 'myMethodOne', {
-      input: [['id', 'number']],
-    });
-    expect(client._methods.size).toBe(1);
+    client.createMethod(Caller, functionName, { input });
 
-    // Accessing the method directly should return a function that will
-    // generate the method
-    expect(typeof client._methods.get('myMethodOne')).toBe('function');
+    // The method should exist on the client
+    expect(client.myMethodOne).toBeInstanceOf(client.constructor.Caller);
+
+    // The method should have been created with the client and functionName
+    expect(Caller).toHaveBeenCalledWith({
+      client,
+      functionName,
+      input,
+    });
+
+    // It should also be possible to override the functionName
+    Caller.mockClear();
+    client.createMethod(Caller, 'innocentlyClaimFunds', {
+      input,
+      functionName: 'stealAllTheTokens',
+    });
+    expect(Caller).toHaveBeenCalledWith({
+      client,
+      functionName: 'stealAllTheTokens',
+      input,
+    });
 
     // Attempting to redefine the same method name should not work
     expect(() => {
-      client._makeMethod(ContractClient.Caller, 'myMethodOne', {
-        input: [['address', 'address']],
-      });
+      client.createMethod(Caller, functionName, { input });
     }).toThrowError('A ContractMethod named "myMethodOne" already exists');
 
-    // Initializing the method generator directly should yield a method
-    expect(client._methods.get('myMethodOne')()).toBeInstanceOf(
-      ContractClient.Caller,
-    );
-
-    // TODO test that it adds client/functionNAme
-
     // However, the method should not have been redefined
-    expect(typeof client._methods.get('myMethodOne')).toBe('function');
+    expect(client.myMethodOne).toBeInstanceOf(client.constructor.Caller);
   });
 
-  test('_makeCaller/_makeSender', () => {
+  test('createCaller/createSender', () => {
     const client = new ContractClient({ adapter, contract, options });
-    sandbox.spyOn(client, '_makeMethod');
+    sandbox.spyOn(client, 'createMethod');
 
-    client._makeCaller('myMethodOne', methodOneDef);
-    expect(client._makeMethod).toHaveBeenCalledTimes(1);
-    expect(client._makeMethod).toHaveBeenCalledWith(
+    client.createCaller('myMethodOne', methodOneDef);
+    expect(client.createMethod).toHaveBeenCalledTimes(1);
+    expect(client.createMethod).toHaveBeenCalledWith(
       ContractClient.Caller,
       'myMethodOne',
       methodOneDef,
     );
 
-    client._makeSender('myMethodTwo', methodTwoDef);
+    client.createSender('myMethodTwo', methodTwoDef);
 
-    expect(client._makeMethod).toHaveBeenCalledTimes(2);
-    expect(client._makeMethod).toHaveBeenCalledWith(
+    expect(client.createMethod).toHaveBeenCalledTimes(2);
+    expect(client.createMethod).toHaveBeenCalledWith(
       ContractClient.Sender,
       'myMethodTwo',
       methodTwoDef,
     );
-
-    expect(client._methods.size).toBe(2);
-  });
-
-  test('_memoizeMethod', () => {
-    const myClient = new MyContractClient({ adapter, contract, options });
-    sandbox.spyOn(myClient, '_memoizeMethod');
-
-    expect(myClient._memoizeMethod).toHaveBeenCalledTimes(0);
-
-    // Making a call to a property that doesn't exist should attempt to find a
-    // memoized method of that name
-    expect(myClient.doesNotExist).toBeUndefined();
-    expect(myClient._memoizeMethod).toHaveBeenCalledTimes(1);
-    expect(myClient._memoizeMethod).toHaveBeenCalledWith('doesNotExist');
-
-    // Add a method
-    myClient._makeCaller('myMethodOne', methodOneDef);
-
-    // The stored method should be the generator function
-    expect(typeof myClient._methods.get('myMethodOne')).toBe('function');
-
-    // Getting the property should return a method and memoize it
-    expect(myClient.myMethodOne).toBeInstanceOf(MyContractClient.Caller);
-    expect(myClient._memoizeMethod).toHaveBeenCalledTimes(2);
-    expect(myClient._memoizeMethod).toHaveBeenCalledWith('myMethodOne');
-
-    // The stored method is now a method, rather than the generator
-    expect(myClient._methods.get('myMethodOne')).toBeInstanceOf(
-      MyContractClient.Caller,
-    );
-
-    // Add another method
-    myClient._makeSender('myMethodTwo', methodTwoDef);
-
-    // The stored method should be the generator function
-    expect(typeof myClient._methods.get('myMethodTwo')).toBe('function');
-
-    // Let's override it so we can spy on it
-    const mockMethodGenerator = sandbox.fn().mockReturnValue('Just testing');
-    myClient._methods.set('myMethodTwo', mockMethodGenerator);
-
-    // Getting it should return the mocked value
-    expect(myClient.myMethodTwo).toBe('Just testing');
-    expect(mockMethodGenerator).toHaveBeenCalledTimes(1);
-
-    // Getting it again should not re-run the generator (i.e. it is memoized)
-    expect(myClient.myMethodTwo).toBe('Just testing');
-    expect(myClient.myMethodTwo).toBe('Just testing');
-    expect(mockMethodGenerator).toHaveBeenCalledTimes(1);
   });
 
   test('call', async () => {
