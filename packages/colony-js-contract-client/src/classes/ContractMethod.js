@@ -11,7 +11,7 @@ import type { ContractMethodArgs, ParamTypePairs } from '../flowtypes';
  * Abstract class for interacting with contract methods.
  */
 export default class ContractMethod<
-  InputValues: { [inputValueName: string]: any } | any,
+  InputValues: { [inputValueName: string]: any },
   OutputValues: { [outputValueName: string]: any },
   IContractClient: ContractClient,
 > {
@@ -19,9 +19,12 @@ export default class ContractMethod<
   functionName: string;
   input: ParamTypePairs;
   output: ParamTypePairs;
+
+  // Imported functions
   _validate = validate;
   _getMethodArgs = getMethodArgs;
   _getMethodReturnValue = getMethodReturnValue;
+
   constructor({
     client,
     functionName,
