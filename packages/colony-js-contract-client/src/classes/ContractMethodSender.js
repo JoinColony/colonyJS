@@ -23,9 +23,6 @@ export default class ContractMethodSender<
   IContractClient: ContractClient,
 > extends ContractMethod<InputValues, OutputValues, IContractClient> {
   eventHandlers: EventHandlers;
-  static addSendOptionsDefaults(options?: Object): SendOptions {
-    return Object.assign({}, DEFAULT_SEND_OPTIONS, options);
-  }
   constructor({
     eventHandlers,
     ...rest
@@ -37,12 +34,12 @@ export default class ContractMethodSender<
    * Given named input values, call the method's contract function in
    * order to get a gas estimate for calling it with those values.
    * @param inputValues
-   * @param options
    * @returns {Promise<BigNumber>}
    */
-  async estimate(inputValues: InputValues, options: SendOptions) {
+  async estimate(inputValues: InputValues): Promise<BigNumber> {
+    this.validate(inputValues);
     const args = this.getMethodArgs(inputValues);
-    return this._estimate(args, options);
+    return this.client.estimate(this.functionName, args);
   }
   /**
    * Given named input values and options for sending a transaction, create a
@@ -54,6 +51,7 @@ export default class ContractMethodSender<
    * @returns {Promise<ContractResponse<OutputValues>>}
    */
   async send(inputValues: InputValues, options: SendOptions) {
+    this.validate(inputValues);
     const args = this.getMethodArgs(inputValues);
     return this._send(args, options);
   }
@@ -67,20 +65,19 @@ export default class ContractMethodSender<
       timeoutMs,
       waitForMining,
       ...transactionOptions
-    } = this.constructor.addSendOptionsDefaults(options);
+    } = Object.assign({}, DEFAULT_SEND_OPTIONS, options);
     const transaction = await this._sendTransaction(
       callArgs,
       transactionOptions,
-      timeoutMs,
     );
-    const receiptPromise = await this.client.adapter.getTransactionReceipt(
+    const receiptPromise = this.client.adapter.getTransactionReceipt(
       transaction.hash,
     );
 
     if (waitForMining) {
       // Await the receipt first if we're waiting for mining; if it wasn't
       // successful, return immediately rather than waiting for events/mined tx
-      receipt = await receiptPromise;
+      receipt = await raceAgainstTimeout(receiptPromise, timeoutMs);
       if (receipt.status === 0) {
         return {
           meta: {
@@ -116,21 +113,7 @@ export default class ContractMethodSender<
   async _sendTransaction(
     callArgs: Array<any>,
     transactionOptions: TransactionOptions,
-    timeoutMs: number,
   ) {
-    return raceAgainstTimeout(
-      this.client.send(this.functionName, callArgs, transactionOptions),
-      timeoutMs,
-    );
-  }
-  async _estimate(
-    callArgs: Array<any>,
-    options: SendOptions,
-  ): Promise<BigNumber> {
-    const { timeoutMs } = this.constructor.addSendOptionsDefaults(options);
-    return raceAgainstTimeout(
-      this.client.estimate(this.functionName, callArgs),
-      timeoutMs,
-    );
+    return this.client.send(this.functionName, callArgs, transactionOptions);
   }
 }
