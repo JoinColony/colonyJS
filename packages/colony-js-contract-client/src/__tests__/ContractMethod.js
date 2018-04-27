@@ -9,7 +9,9 @@ import ContractMethod from '../classes/ContractMethod';
 describe('ContractMethod', () => {
   const sandbox = createSandbox();
   const client = new ContractClient({});
-  client.createTransactionData = sandbox.fn(() => 'the tx data');
+  sandbox
+    .spyOn(client, 'createTransactionData')
+    .mockImplementation(() => 'the tx data');
 
   beforeEach(() => sandbox.clear());
 
