@@ -37,18 +37,18 @@ export type ContractResponse<EventData> = {
   meta: ContractResponseMeta,
 };
 
-export type ContractMethodArgs<IContractClient: ContractClient<any>> = {
+export type ContractMethodArgs<IContractClient: ContractClient> = {
   client: IContractClient,
   functionName: string,
   input: ParamTypePairs,
   output?: ParamTypePairs,
 };
 
-export type ContractMethodSenderArgs<IContractClient: ContractClient<any>> = {
+export type ContractMethodSenderArgs<IContractClient: ContractClient> = {
   eventHandlers?: EventHandlers,
 } & ContractMethodArgs<IContractClient>;
 
-export type ContractMethodDef<IContractClient: ContractClient<any>> = {
+export type ContractMethodDef<IContractClient: ContractClient> = {
   client: IContractClient,
   functionName?: string,
   input: ParamTypePairs,

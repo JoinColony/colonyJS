@@ -9,11 +9,11 @@ import type { Transaction } from './Transaction';
 import type { TransactionReceipt } from './TransactionReceipt';
 import type { Wallet } from './Wallet';
 
-export interface Adapter<ContractInterface: Contract> {
+export interface Adapter {
   loader: IContractLoader;
   provider: Provider;
   wallet: Wallet;
-  getContract(query: Query): Promise<ContractInterface>;
+  getContract(query: Query): Promise<Contract>;
   getContractDeployTransaction(
     query: Query,
     contractParams: Array<any>,

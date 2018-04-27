@@ -13,7 +13,7 @@ import type { ContractMethodArgs, ParamTypePairs } from '../flowtypes';
 export default class ContractMethod<
   InputValues: { [inputValueName: string]: any } | any,
   OutputValues: { [outputValueName: string]: any },
-  IContractClient: ContractClient<*>,
+  IContractClient: ContractClient,
 > {
   client: IContractClient;
   functionName: string;

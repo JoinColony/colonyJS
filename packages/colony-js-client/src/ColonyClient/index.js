@@ -3,17 +3,15 @@
 import type BigNumber from 'bn.js';
 import type { Query } from '@colony/colony-js-contract-loader';
 
-import type { IAdapter } from '@colony/colony-js-adapter';
+import type { IAdapter, IContract } from '@colony/colony-js-adapter';
 import ContractClient from '@colony/colony-js-contract-client';
 
-import type { ColonyContract } from '../interface/ColonyContract';
 import ColonyNetworkClient from '../ColonyNetworkClient/index';
 import GetTask from './callers/GetTask';
 
 type Address = string;
 
-export default class ColonyClient extends ContractClient<ColonyContract> {
-  contract: ColonyContract;
+export default class ColonyClient extends ContractClient {
   networkClient: ColonyNetworkClient;
   /*
     Gets the total number of tasks in a Colony. This number equals the last `taskId` created.
@@ -309,7 +307,7 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
   // When we create a Colony, we get back the address of a newly-deployed
   // EtherRouter contract (we think).
   static async create(
-    adapter: IAdapter<ColonyContract>,
+    adapter: IAdapter,
     query: Query,
     networkClient: ColonyNetworkClient,
   ) {
@@ -317,7 +315,7 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
     return new this({ adapter, contract, options: { networkClient } });
   }
   static async createSelf(
-    adapter: IAdapter<ColonyContract>,
+    adapter: IAdapter,
     networkClient: ColonyNetworkClient,
     query: Query,
   ) {
@@ -332,8 +330,8 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
     contract,
     options,
   }: {
-    adapter: IAdapter<ColonyContract>,
-    contract: ColonyContract,
+    adapter: IAdapter,
+    contract: IContract,
     options: { networkClient: ColonyNetworkClient },
   }) {
     super({ adapter, contract, options });

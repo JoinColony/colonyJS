@@ -7,15 +7,9 @@ import type { Query } from '@colony/colony-js-contract-loader';
 
 import ContractClient from '@colony/colony-js-contract-client';
 
-import type { ColonyNetworkContract } from '../interface/ColonyNetworkContract';
 import ColonyClient from '../ColonyClient/index';
 
-type CallOptions = { timeoutMs: number };
-
-export default class ColonyNetworkClient extends ContractClient<
-  ColonyNetworkContract,
-> {
-  contract: ColonyNetworkContract;
+export default class ColonyNetworkClient extends ContractClient {
   getColonyById: ColonyNetworkClient.Caller<
     { id: number },
     { address: string },
@@ -100,7 +94,7 @@ export default class ColonyNetworkClient extends ContractClient<
     ColonyNetworkClient,
   >;
   static async createSelf(
-    adapter: IAdapter<ColonyNetworkContract>,
+    adapter: IAdapter,
     query: Query = {},
   ): Promise<ColonyNetworkClient> {
     return this.create(

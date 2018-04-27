@@ -19,8 +19,8 @@ import { DEFAULT_SEND_OPTIONS } from '../defaults';
 
 export default class ContractMethodSender<
   InputValues: { [inputValueName: string]: any },
-  OutputValues: { [outputValueName: string]: any }, // eslint-disable-line no-unused-vars
-  IContractClient: ContractClient<*>, // eslint-disable-line no-unused-vars
+  OutputValues: { [outputValueName: string]: any },
+  IContractClient: ContractClient,
 > extends ContractMethod<InputValues, OutputValues, IContractClient> {
   eventHandlers: EventHandlers;
   static addSendOptionsDefaults(options?: Object): SendOptions {

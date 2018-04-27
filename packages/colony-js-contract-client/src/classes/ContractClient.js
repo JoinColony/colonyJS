@@ -14,16 +14,12 @@ import ContractMethodSender from './ContractMethodSender';
 
 import type { ContractMethodDef } from '../flowtypes';
 
-export default class ContractClient<ContractInterface: IContract> {
+export default class ContractClient {
   // The adapter used to communicate with the blockchain
-  adapter: IAdapter<ContractInterface>;
+  adapter: IAdapter;
 
   // The contract interface (as provided by the adapter)
-  contract: ContractInterface;
-
-  // A map of the method name to either the method class instance or a function
-  // that yields the method.
-  _methods: Map<string, *>;
+  contract: IContract;
 
   // Static getters used in lieu of named exports; this package only has
   // one export.
@@ -42,11 +38,7 @@ export default class ContractClient<ContractInterface: IContract> {
    * @param options - Optional options for the constructor
    * @returns {Promise<ContractClient>}
    */
-  static async create(
-    adapter: IAdapter<ContractInterface>,
-    query: Query,
-    options: Object,
-  ) {
+  static async create(adapter: IAdapter, query: Query, options: Object) {
     const contract = await adapter.getContract(query);
     return new this({ adapter, contract, options });
   }
@@ -68,8 +60,8 @@ export default class ContractClient<ContractInterface: IContract> {
     contract,
     options = {},
   }: {
-    adapter: IAdapter<ContractInterface>,
-    contract: ContractInterface,
+    adapter: IAdapter,
+    contract: IContract,
     options: Object,
   }) {
     this.adapter = adapter;

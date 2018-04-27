@@ -17,7 +17,7 @@ import type { IContractLoader, Query } from '@colony/colony-js-contract-loader';
 import EthersContract from './EthersContract';
 import type { EthersAdapterConstructorArgs } from './flowtypes';
 
-export default class EthersAdapter implements IAdapter<*> {
+export default class EthersAdapter implements IAdapter {
   loader: IContractLoader;
   provider: IProvider;
   wallet: IWallet;

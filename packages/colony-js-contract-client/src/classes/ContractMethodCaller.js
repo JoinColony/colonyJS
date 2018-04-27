@@ -10,8 +10,8 @@ import { DEFAULT_CALL_OPTIONS } from '../defaults';
 
 export default class ContractMethodCaller<
   InputValues: { [inputValueName: string]: any },
-  OutputValues: { [outputValueName: string]: any }, // eslint-disable-line no-unused-vars
-  IContractClient: ContractClient<*>, // eslint-disable-line no-unused-vars
+  OutputValues: { [outputValueName: string]: any },
+  IContractClient: ContractClient,
 > extends ContractMethod<InputValues, OutputValues, IContractClient> {
   /**
    * Given named input values, perform a call on the method's
