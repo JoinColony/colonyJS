@@ -6,23 +6,11 @@ import assert from 'browser-assert';
 import type { ParamTypes, ParamTypePairs } from '../flowtypes';
 import checkValidAddress from './checkValidAddress';
 
-const unexpectedValue = value => {
-  // XXX It's possible that the value isn't stringify-able
-  let stringified = '';
-  try {
-    stringified = JSON.stringify(value);
-  } catch (error) {
-    stringified = '(unable to stringify)';
-  }
-  return `Unexpected value "${stringified}"`;
-};
-
 const parseReturnValue = (value: any, type: ParamTypes) => {
   switch (type) {
     case 'number':
-      // eslint-disable-next-line no-underscore-dangle
       if (BigNumber.isBN(value)) return value.toNumber();
-      assert(Number(value) === value, unexpectedValue(value));
+      assert(Number(value) === value, `Unexpected value "${value}"`);
       return value;
     case 'address':
       checkValidAddress(value);
