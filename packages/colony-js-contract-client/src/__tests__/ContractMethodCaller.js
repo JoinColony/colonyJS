@@ -5,7 +5,6 @@ import createSandbox from 'jest-sandbox';
 
 import ContractClient from '../classes/ContractClient';
 import ContractMethodCaller from '../classes/ContractMethodCaller';
-import { DEFAULT_TIMEOUT } from '../defaults';
 
 describe('ContractMethodCaller', () => {
   const sandbox = createSandbox();
