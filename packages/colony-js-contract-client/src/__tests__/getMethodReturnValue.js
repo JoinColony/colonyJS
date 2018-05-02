@@ -11,13 +11,14 @@ describe('getMethodReturnValues', () => {
 
   beforeEach(() => sandbox.clear());
 
-  test('getMethodReturnValues', () => {
-    // Raw values (with no returnValues mapping) are passed through
+  test('Raw values (with no returnValues mapping) are passed through', () => {
     expect(getMethodReturnValue()).toBeUndefined();
     expect(getMethodReturnValue(null)).toBe(null);
     expect(getMethodReturnValue(123)).toBe(123);
     expect(getMethodReturnValue([123, 'abc'])).toEqual([123, 'abc']);
+  });
 
+  test('Validates against returnValues mapping', () => {
     // With mapping
     const returnValues = [['id', 'number'], ['address', 'address']];
 

@@ -73,7 +73,7 @@ describe('ContractClient', () => {
     expect(client.initializeContractMethods).toHaveBeenCalledWith(options);
   });
 
-  test('createMethod', () => {
+  test('Methods can be defined', () => {
     const client = new ContractClient({ adapter, contract, options });
     const input = [['id', 'number']];
     const functionName = 'myMethodOne';
@@ -114,7 +114,7 @@ describe('ContractClient', () => {
     expect(client.myMethodOne).toBeInstanceOf(client.constructor.Caller);
   });
 
-  test('createCaller/createSender', () => {
+  test('Caller/Sender methods can be defined', () => {
     const client = new ContractClient({ adapter, contract, options });
     sandbox.spyOn(client, 'createMethod');
 
@@ -136,7 +136,7 @@ describe('ContractClient', () => {
     );
   });
 
-  test('call', async () => {
+  test('Contract functions can be called directly', async () => {
     const client = new ContractClient({ adapter, contract, options });
     const fnName = 'myFunctionName';
     const args = [1, 2, 3];
@@ -147,7 +147,7 @@ describe('ContractClient', () => {
     expect(client.contract.callConstant).toHaveBeenCalledWith(fnName, args);
   });
 
-  test('estimate', async () => {
+  test('Gas cost can be estimated', async () => {
     const client = new ContractClient({ adapter, contract, options });
     const fnName = 'myFunctionName';
     const args = [1, 2, 3];
@@ -158,7 +158,7 @@ describe('ContractClient', () => {
     expect(client.contract.callEstimate).toHaveBeenCalledWith(fnName, args);
   });
 
-  test('send', async () => {
+  test('Transactions can be sent', async () => {
     const client = new ContractClient({ adapter, contract, options });
     const fnName = 'myFunctionName';
     const args = [1, 2, 3];
@@ -174,7 +174,7 @@ describe('ContractClient', () => {
     );
   });
 
-  test('createTransactionData', async () => {
+  test('Transaction data can be created', async () => {
     const client = new ContractClient({ adapter, contract, options });
     const fnName = 'myFunctionName';
     const args = [1, 2, 3];
@@ -188,7 +188,7 @@ describe('ContractClient', () => {
     );
   });
 
-  test('getEventData', async () => {
+  test('Contract event data is parsed correctly', async () => {
     const client = new ContractClient({ adapter, contract, options });
 
     const params = {

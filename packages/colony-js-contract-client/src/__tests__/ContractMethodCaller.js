@@ -15,7 +15,7 @@ describe('ContractMethodCaller', () => {
 
   beforeEach(() => sandbox.clear());
 
-  test('call', async () => {
+  test('Constant functions can be called', async () => {
     const method = new ContractMethodCaller({
       client,
       input,

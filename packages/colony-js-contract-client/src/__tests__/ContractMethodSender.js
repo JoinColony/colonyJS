@@ -64,7 +64,7 @@ describe('ContractMethodSender', () => {
 
   beforeEach(() => sandbox.clear());
 
-  test('estimate', async () => {
+  test('Gas cost can be estimated', async () => {
     const method = new ContractMethodSender({
       client,
       input,
@@ -86,7 +86,7 @@ describe('ContractMethodSender', () => {
     );
   });
 
-  test('send', async () => {
+  test('Transactions can be sent', async () => {
     const method = new ContractMethodSender({
       client,
       input,
@@ -105,7 +105,7 @@ describe('ContractMethodSender', () => {
     expect(method._send).toHaveBeenCalledWith(callArgs, options);
   });
 
-  test('_send', async () => {
+  test('Event data and transaction receipts are collected', async () => {
     const method = new ContractMethodSender({
       client,
       input,

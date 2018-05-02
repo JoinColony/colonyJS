@@ -5,17 +5,21 @@ import BigNumber from 'bn.js';
 import validate, { validateParam } from '../modules/validate';
 
 describe('validate', () => {
-  test('validate', () => {
+  test('Validates with no parameters', () => {
     // No params at all
     expect(validate()).toBe(true);
+  });
 
+  test('Does not validate with incorrectly-defined input parameters', () => {
     // Invalid params type
     [undefined, null, [], 'abc', 1].forEach(input => {
       expect(() => {
         validate(input, [['id', 'number']]);
       }).toThrowError('Expected parameters as an object');
     });
+  });
 
+  test('Does not validate with incorrectly-defined method parameters', () => {
     // Invalid methodParams type
     [
       undefined,
@@ -35,7 +39,9 @@ describe('validate', () => {
         'Expected method parameters as an array of name/type tuples',
       );
     });
+  });
 
+  test('Does not validate with mismatching sizes', () => {
     // Different length params/method params
     [[{}, [['id', 'number']]], [{ id: 1 }, []]].forEach(
       ([params, methodParams]) => {
@@ -44,7 +50,9 @@ describe('validate', () => {
         }).toThrowError('Mismatching parameters/method parameters sizes');
       },
     );
+  });
 
+  test('Does not validate with mismatching types', () => {
     // Wrong param types
     expect(() => {
       validate({ id: 'abc', name: 'Vitalik' }, [
@@ -63,7 +71,9 @@ describe('validate', () => {
         ['location', 'geolocation'],
       ]);
     }).toThrowError('Parameter type "geolocation" not defined');
+  });
 
+  test('Validates with valid input and method parameters', () => {
     // Valid!
     expect(
       validate({ id: 1, name: 'Vitalik' }, [
@@ -73,7 +83,7 @@ describe('validate', () => {
     ).toBe(true);
   });
 
-  test('validateParam', () => {
+  test('Performs validations correctly for each type', () => {
     // Number (invalid)
     [undefined, null, {}, [], [1], '1'].forEach(input => {
       expect(() => {

@@ -10,14 +10,15 @@ describe('getMethodArgs', () => {
 
   beforeEach(() => sandbox.clear());
 
-  test('getMethodArgs', () => {
+  test('Validates with no arguments', () => {
+    expect(getMethodArgs()).toEqual([]);
+    expect(getMethodArgs(null, [])).toEqual([]);
+  });
+
+  test('Warning when no method parameters are given', () => {
     /* eslint-disable no-console */
     const originalConsoleWarn = console.warn;
     console.warn = sandbox.fn();
-
-    // No args
-    expect(getMethodArgs()).toEqual([]);
-    expect(getMethodArgs(null, [])).toEqual([]);
 
     // Params given, but no method params to map to
     expect(getMethodArgs({ myParam: 123 })).toEqual([]);
@@ -27,6 +28,11 @@ describe('getMethodArgs', () => {
       'Warning: getMethodArgs called with parameters for a method that does not accept parameters',
     );
 
+    console.warn = originalConsoleWarn;
+    /* eslint-enable no-console */
+  });
+
+  test('Valid arguments are mapped correctly', () => {
     // Params and method params
     expect(getMethodArgs({ id: 23 }, [['id', 'number']])).toEqual([23]);
 
@@ -38,8 +44,5 @@ describe('getMethodArgs', () => {
         ['id', 'number'],
       ]),
     ).toEqual(['0x426974616c696b205675746572696e', address, 1]);
-
-    console.warn = originalConsoleWarn;
-    /* eslint-enable no-console */
   });
 });

@@ -20,7 +20,7 @@ describe('ContractMethod', () => {
     expect(method.validate()).toBe(true);
   });
 
-  test('validate', () => {
+  test('Arguments are validated correctly', () => {
     const input = [['id', 'number']];
     const inputValues = { id: 1 };
 
@@ -36,7 +36,7 @@ describe('ContractMethod', () => {
     expect(method._validate).toHaveBeenCalledWith(inputValues, input);
   });
 
-  test('getMethodArgs', () => {
+  test('Method arguments are processed from input parameters', () => {
     const input = [['id', 'number']];
     const inputValues = { id: 1 };
 
@@ -52,7 +52,7 @@ describe('ContractMethod', () => {
     expect(method._getMethodArgs).toHaveBeenCalledWith(inputValues, input);
   });
 
-  test('getOutputValues', () => {
+  test('Contract return values are mapped to expected output', () => {
     const input = [['id', 'number']];
     const output = [['name', 'string']];
     const callResult = 'Vitalik';
@@ -73,7 +73,7 @@ describe('ContractMethod', () => {
     );
   });
 
-  test('createTransactionData', () => {
+  test('Transaction data can be created from input parameters', () => {
     const input = [['id', 'number']];
     const callArgs = [1];
 
