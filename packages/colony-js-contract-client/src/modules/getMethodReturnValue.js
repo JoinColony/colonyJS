@@ -9,7 +9,14 @@ import checkValidAddress from './checkValidAddress';
 const parseReturnValue = (value: any, type: ParamTypes) => {
   switch (type) {
     case 'number':
-      if (BigNumber.isBN(value)) return value.toNumber();
+      if (
+        BigNumber.isBN(value) ||
+        // XXX Some libraries (cough *ethers* cough) wrap BigNumbers in a way
+        // that breaks `isBN`; this is a workaround for that issue:
+        // eslint-disable-next-line no-underscore-dangle
+        (typeof value === 'object' && value._bn && BigNumber.isBN(value._bn))
+      )
+        return value.toNumber();
       assert(Number(value) === value, `Unexpected value "${value}"`);
       return value;
     case 'address':
