@@ -132,7 +132,7 @@ export default class ContractClient {
   }
 
   createMethod(
-    Method: typeof ContractMethod,
+    Method: typeof ContractMethod.constructor,
     name: string,
     def: ContractMethodDef<*>,
   ): void {
