@@ -20,23 +20,22 @@ TODO:
 
 This will create a new loader instance with the given configuration. The config object varies across implementations and might not be needed at all.
 
-### Arguments
+**Arguments**
 
-`config` (`?object`): A config object specific to the loader implementation.
+**`config`** (`?object`): A config object specific to the loader implementation.
 
-#### Returns
+**Returns**
 
-`Loader` instance.
+**`Loader`** instance.
 
 ### `loader.load(contractName, [opts])`
 
-Loaders just implement one function: `load`. It returns a Promise that resolves to an object which contains the contract's ABI (as a JS object, TODO: verify) and the address.
+**This function will be called by the adapter; in most of the cases you would not want to do this.** Loaders just implement one function: `load`. It returns a Promise that resolves to an object which contains the contract's ABI (as a JS object, TODO: verify) and the address.
 
-#### Arguments
+**Arguments**
 
-`contractName` (`string`): Name of the Contract (most likely the contents of the `contractName` field)
-
-`opts` (`?object`): Can contain the following properties (all are optional):
+* **`contractName`** (`string`): Name of the Contract (most likely the contents of the `contractName` field)
+* **`opts`** (`?object`): Can contain the following properties (all are optional):
 
 |Option|Type|Description|
 |---|---|---|
@@ -45,9 +44,9 @@ Loaders just implement one function: `load`. It returns a Promise that resolves 
 |version|string|Version number of the contracts (when using upgradable contracts)|
 |networkId|number|Manually define the networkId (if multiple contracts were deployed)|
 
-#### Returns
+**Returns**
 
-`Promise<ContractDefinition>`: Resolves to a `ContractDefinition` object like shown below.
+**`Promise<ContractDefinition>`**: Resolves to a `ContractDefinition` object like shown below.
 
 ```
 type ContractDefinition = {
@@ -71,9 +70,9 @@ The `HTTPContractLoader` uses the browser's `fetch` API to get contract definiti
 
 Instantiates a new `HTTPContractLoader`.
 
-#### Arguments
+**Arguments**
 
-`endpoint` (`string`): Defines the http endpoint for the contract (full URL, e.g. `https://api.etherscan.io/api?module=contract&action=getabi&address=%%ADDRESS%%`).
+**`endpoint`** (`string`): Defines the http endpoint for the contract (full URL, e.g. `https://api.etherscan.io/api?module=contract&action=getabi&address=%%ADDRESS%%`).
 
 The following values can be interpolated (i.e. will be replaced in the URL with the corresponding values):
 
@@ -83,7 +82,7 @@ The following values can be interpolated (i.e. will be replaced in the URL with 
 |`%%NAME%%`|Name of the Contract (most likely the contents of the `contractName` field)|
 |`%%VERSION%%`|Contract version (if applicable)|
 
-`parser` (`string|function`) : The parser to use to parse the raw JSON format of the contract.
+**`parser`** (`string|function`) : The parser to use to parse the raw JSON format of the contract.
 
 Available pre-defined parsers are:
 
@@ -98,8 +97,8 @@ Alternatively one can pass in a function with the following parameters:
 
 Where input is the raw JSON input supplied by the http response and opts are the loader options (TODO: https://github.com/JoinColony/colony-js/issues/49). It needs to return an object containing at least the `abi` object and the `address` like you can see in the type definition above.
 
-*The `HTTPContractLoader` also implements the `loader.load` function and works like described [above](#loaderload-contractname-opts)
+The `HTTPContractLoader` also implements the `loader.load` function and works like described [above](#loaderloadcontractname-opts)
 
-#### Returns
+**Returns**
 
-`HTTPContractloader` instance.
+**`HTTPContractloader`** instance.
