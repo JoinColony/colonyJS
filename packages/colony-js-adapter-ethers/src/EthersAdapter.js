@@ -15,7 +15,7 @@ import type {
 import type { IContractLoader, Query } from '@colony/colony-js-contract-loader';
 
 import EthersContract from './EthersContract';
-import type { EthersAdapterConstructorArgs } from './flowtypes';
+import type { ConstructorArgs } from './flowtypes';
 
 export default class EthersAdapter implements IAdapter {
   loader: IContractLoader;
@@ -46,7 +46,7 @@ export default class EthersAdapter implements IAdapter {
     };
     return Object.getOwnPropertyNames(events).map(mapEventToPromise);
   }
-  constructor({ loader, provider, wallet }: EthersAdapterConstructorArgs) {
+  constructor({ loader, provider, wallet }: ConstructorArgs) {
     this.loader = loader;
     this.provider = provider;
     this.wallet = wallet;
