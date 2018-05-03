@@ -18,7 +18,6 @@ export type ParamTypePairs = Array<ParamTypePair>;
 export type SendOptions = {
   events?: EventHandlers,
   estimate: boolean,
-  miningTimeoutMs: number,
   timeoutMs: number,
   waitForMining: boolean,
 } & TransactionOptions;

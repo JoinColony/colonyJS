@@ -32,7 +32,6 @@ describe('ContractMethodSender', () => {
   const inputValues = { id: 1 };
   const options = {
     timeoutMs: 5000,
-    miningTimeoutMs: 10000,
     gasLimit: 1000,
     gasPrice: 2000,
     nonce: 1,
@@ -128,7 +127,7 @@ describe('ContractMethodSender', () => {
     );
     expect(method.client.getEventData).toHaveBeenCalledWith({
       events: method.eventHandlers,
-      timeoutMs: options.miningTimeoutMs,
+      timeoutMs: options.timeoutMs,
       transactionHash: transaction.hash,
     });
   });

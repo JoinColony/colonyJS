@@ -55,12 +55,11 @@ export default class ContractMethodSender<
     options: SendOptions,
   ): Promise<ContractResponse<OutputValues>> {
     let receipt;
-    const {
-      miningTimeoutMs,
-      timeoutMs,
-      waitForMining,
-      ...transactionOptions
-    } = Object.assign({}, DEFAULT_SEND_OPTIONS, options);
+    const { timeoutMs, waitForMining, ...transactionOptions } = Object.assign(
+      {},
+      DEFAULT_SEND_OPTIONS,
+      options,
+    );
     const transaction = await this._sendTransaction(
       callArgs,
       transactionOptions,
@@ -85,7 +84,7 @@ export default class ContractMethodSender<
 
     const eventDataPromise = this.client.getEventData({
       events: this.eventHandlers,
-      timeoutMs: miningTimeoutMs,
+      timeoutMs,
       transactionHash: transaction.hash,
     });
 
