@@ -33,7 +33,7 @@ describe('ContractHttpLoader', () => {
 
   test('Default implementation', async () => {
     const loader = setupLoader();
-    sandbox.spyOn(loader.constructor, 'parse');
+    sandbox.spyOn(loader, '_parse');
 
     const query = { contractName };
     const contractResponse = {
@@ -46,10 +46,7 @@ describe('ContractHttpLoader', () => {
 
     const contract = await loader.load(query);
     expect(contract).toEqual(contractResponse);
-    expect(loader.constructor.parse).toHaveBeenCalledWith(
-      contractResponse,
-      query,
-    );
+    expect(loader._parse).toHaveBeenCalledWith(contractResponse, query);
   });
 
   test('TrufflepigLoader', async () => {
@@ -74,7 +71,7 @@ describe('ContractHttpLoader', () => {
 
   test('EtherscanLoader', async () => {
     const loader = new EtherscanLoader();
-    sandbox.spyOn(loader.constructor, 'parse');
+    sandbox.spyOn(loader, '_parse');
 
     const query = { contractAddress };
     const successfulResponse = {
@@ -94,20 +91,17 @@ describe('ContractHttpLoader', () => {
     // Successful response
     const contract = await loader.load(query);
     expect(contract).toEqual({ address: contractAddress, abi });
-    expect(loader.constructor.parse).toHaveBeenCalledWith(
-      successfulResponse,
-      query,
+    expect(() => contract.bytecode).toThrowError(
+      'Etherscan does not currently provide contract bytecode',
     );
+    expect(loader._parse).toHaveBeenCalledWith(successfulResponse, query);
 
     // Malformed response
     try {
       await loader.load(query);
     } catch (error) {
       expect(error.toString()).toContain('Malformed response from Etherscan');
-      expect(loader.constructor.parse).toHaveBeenCalledWith(
-        malformedResponse,
-        query,
-      );
+      expect(loader._parse).toHaveBeenCalledWith(malformedResponse, query);
     }
 
     // Bad response
@@ -119,10 +113,7 @@ describe('ContractHttpLoader', () => {
           erroneousResponse.status
         })`,
       );
-      expect(loader.constructor.parse).toHaveBeenCalledWith(
-        erroneousResponse,
-        query,
-      );
+      expect(loader._parse).toHaveBeenCalledWith(erroneousResponse, query);
     }
   });
 
