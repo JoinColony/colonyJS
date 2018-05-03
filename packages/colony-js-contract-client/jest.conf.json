@@ -1,6 +1,6 @@
 {
     "rootDir": "src",
-    "collectCoverageFrom" : ["*.{js}"],
+    "collectCoverageFrom" : ["*.{js}", "**/*.{js}"],
     "moduleNameMapper": {
         "^contracts/(.*)": "<rootDir>/__mocks__/$1"
     },
