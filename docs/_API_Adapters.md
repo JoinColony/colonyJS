@@ -24,7 +24,7 @@ This will create a new loader instance with the given configuration. The config 
 
 #### Arguments
 
-`loader` (`ContractLoader`): A [ContractLoader](docs-loaders.html) instance.
+`loader` (`ContractLoader`): A [ContractLoader](/colony-js/docs-loaders/) instance.
 `provider` (`Provider`): A provider instance of the corresponding provider (see below).
 `wallet` (`Wallet`): Todo: this is very much unsure. It might be a `ColonyWallet` instance.
 
@@ -32,4 +32,6 @@ This will create a new loader instance with the given configuration. The config 
 
 `Adapter` instance.
 
-### `adapter.getContract()
+### `adapter.getContract()`
+
+Changes!

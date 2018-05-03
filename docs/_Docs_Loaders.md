@@ -23,7 +23,7 @@ As you can see in the example, loaders may implement a `parser` property. This c
 
 ## Officially supported loaders
 
-- [http](api-loaders.html#http-loader)
+- [http](/colony-js/api-loaders/#httpcontractloader)
 
 ## Imaginable loaders
 
