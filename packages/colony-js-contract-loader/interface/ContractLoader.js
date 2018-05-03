@@ -15,9 +15,7 @@ export type ContractDefinition = {
   bytecode?: string,
 };
 
-export type Parser = (input: any, query?: Query) => ContractDefinition;
-
-export type ParserOption = string | Parser;
+export type Parser = (input: any, query: Query) => ContractDefinition;
 
 export interface ContractLoader {
   load(query: Query): Promise<ContractDefinition>;
