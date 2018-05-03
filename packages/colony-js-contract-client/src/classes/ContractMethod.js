@@ -39,8 +39,6 @@ export default class ContractMethod<
   /**
    * Given named input values, validate them against the expected parameters
    * for this method, throwing errors if validation fails.
-   * @param inputValues
-   * @returns {boolean}
    */
   validate(inputValues: InputValues) {
     return this._validate(inputValues, this.input);
@@ -48,8 +46,6 @@ export default class ContractMethod<
   /**
    * Given named input values, transform these with the expected parameters
    * in order to get an array of arguments expected by the contract function.
-   * @param inputValues
-   * @returns {Array<any>}
    */
   getMethodArgs(inputValues: InputValues) {
     return this._getMethodArgs(inputValues, this.input);
@@ -58,9 +54,6 @@ export default class ContractMethod<
    * Given the result of a contract method call, and the input values used to
    * make the call, transform these with the expected output parameters in
    * order to get named output values as the method's `ReturnValues`
-   * @param callResult
-   * @param inputValues (provided for function overloading)
-   * @returns {OutputValues}
    */
   // eslint-disable-next-line no-unused-vars
   getOutputValues(callResult: any, inputValues: InputValues): OutputValues {
@@ -69,8 +62,6 @@ export default class ContractMethod<
   /**
    * Given arguments to call the contract method with, return
    * transaction data as a hex string.
-   * @param callArgs
-   * @returns {string}
    */
   createTransactionData(callArgs: Array<any>) {
     return this.client.createTransactionData(this.functionName, callArgs);

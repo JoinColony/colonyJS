@@ -33,8 +33,6 @@ export default class ContractMethodSender<
   /**
    * Given named input values, call the method's contract function in
    * order to get a gas estimate for calling it with those values.
-   * @param inputValues
-   * @returns {Promise<BigNumber>}
    */
   async estimate(inputValues: InputValues): Promise<BigNumber> {
     this.validate(inputValues);
@@ -46,9 +44,6 @@ export default class ContractMethodSender<
    * transaction which calls the method's contract function with those
    * values as transformed parameters, and collect the transaction receipt
    * and (optionally) event data.
-   * @param inputValues
-   * @param options
-   * @returns {Promise<ContractResponse<OutputValues>>}
    */
   async send(inputValues: InputValues, options: SendOptions) {
     this.validate(inputValues);

@@ -19,12 +19,6 @@ const parseParams = <Params: {}, MethodParams: ParamTypePairs>(
  * Pure function
  * Given named parameters and contract method parameters, validate the
  * parameters and parse the arguments for the contract method.
- *
- * @param params - The params to call the contract method with, as an object
- * with named properties
- * @param methodParams - Name/parameter type pairs that the contract method
- * should accept
- * @returns {Array<any>} - The parsed arguments for the contract method call
  */
 export default function getMethodArgs<
   Params: Object,

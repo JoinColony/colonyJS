@@ -11,8 +11,6 @@ export default class ContractMethodCaller<
   /**
    * Given named input values, perform a call on the method's
    * contract function, and get named output values from the result.
-   * @param inputValues
-   * @returns {Promise<OutputValues>}
    */
   async call(inputValues: InputValues) {
     this.validate(inputValues);

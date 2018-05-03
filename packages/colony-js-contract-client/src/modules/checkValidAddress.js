@@ -7,9 +7,6 @@ import { NON_EXISTENT_ADDRESS } from '../constants';
  * Pure function
  * Given an input, throw an error if it is not a valid address, or return
  * true if it is a valid address.
- *
- * @param address
- * @returns {boolean}
  */
 export default function checkValidAddress(address: any): boolean {
   if (typeof address !== 'string' || !isAddress(address))

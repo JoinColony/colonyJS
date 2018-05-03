@@ -19,10 +19,6 @@ class EthersContract extends ethers.Contract implements IContract {
    * EthersContract constructor
    * Extends `ethers.Contract` with event handling that allows us to
    * wait for event data and return it as the adapter interface specifies
-   *
-   * @param address - The contract address
-   * @param abi - The contract ABI
-   * @param wallet - The user's wallet
    */
   constructor(address: string, abi: Array<any>, wallet: IWallet) {
     super(address, abi, wallet);
@@ -33,9 +29,6 @@ class EthersContract extends ethers.Contract implements IContract {
   /**
    * Given a function name and an array of arguments, apply the arguments and
    * return the resulting value/s.
-   * @param functionName
-   * @param args
-   * @returns {Promise<*>}
    */
   async callConstant(functionName: string, args: Array<any>) {
     const fn = this.functions[functionName];
@@ -47,9 +40,6 @@ class EthersContract extends ethers.Contract implements IContract {
   /**
    * Given a function name and an array of arguments, apply the arguments and
    * return the resulting gas cost estimate as a BigNumber
-   * @param functionName
-   * @param args
-   * @returns {Promise<BigNumber>}
    */
   async callEstimate(functionName: string, args: Array<any>) {
     const fn = this.estimate[functionName];
@@ -63,10 +53,6 @@ class EthersContract extends ethers.Contract implements IContract {
   /**
    * Given a function name, an array of arguments and optional transaction
    * options, apply the arguments and return the sent transaction
-   * @param functionName
-   * @param args
-   * @param options
-   * @returns {Promise<Transaction>}
    */
   async callTransaction(
     functionName: string,
@@ -85,8 +71,6 @@ class EthersContract extends ethers.Contract implements IContract {
    * Given the name of an interface function, and an array of arguments
    * that will be accepted byt that function, get the data from the interface
    * by applying the arguments to it.
-   * @param name
-   * @param args
    */
   createTransactionData(name: string, args: Array<any>): string {
     const interfaceFn = this.interface[name];

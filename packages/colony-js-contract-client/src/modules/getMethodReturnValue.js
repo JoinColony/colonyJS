@@ -32,9 +32,6 @@ const parseReturnValue = (value: any, type: ParamTypes) => {
  * Given the return value from a contract function (without any additional
  * processing) and a mapping of return values and how they should be parsed,
  * process the contract value and return the parsed values as an object.
- * @param rawContractReturnValue
- * @param returnValues
- * @returns {Object}
  */
 export default function getMethodReturnValue<ReturnValue: {}>(
   rawContractReturnValue: any,

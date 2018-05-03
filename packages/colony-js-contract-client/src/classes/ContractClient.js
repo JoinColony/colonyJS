@@ -33,10 +33,6 @@ export default class ContractClient {
   /**
    * Create a new ContractClient based on an adapter and a contract loading
    * query; waits for the adapter to return the contract.
-   * @param adapter - Blockchain adapter
-   * @param query - Contract loading query
-   * @param options - Optional options for the constructor
-   * @returns {Promise<ContractClient>}
    */
   static async create(adapter: IAdapter, query: Query, options: Object) {
     const contract = await adapter.getContract(query);
@@ -49,11 +45,6 @@ export default class ContractClient {
    * initialized as classes (as a performance optmisation).
    * The class is wrapped with a getter that memoizes the contract methods;
    * each one is seamlessly generated and saved the first time it is accessed.
-   *
-   * @param adapter - Blockchain adapter
-   * @param contract - Loaded contract provided by the adapter
-   * @param options - optional options for initializing contract methods
-   * @returns {ContractClient}
    */
   constructor({
     adapter,
@@ -71,8 +62,6 @@ export default class ContractClient {
 
   /**
    * Designed to be overridden in a derived class; called in the constructor.
-   * @param options
-   * @returns {Map<any, any>}
    */
   // eslint-disable-next-line class-methods-use-this
   initializeContractMethods(
@@ -82,9 +71,6 @@ export default class ContractClient {
   /**
    * Low-level method to call a named contract function with an array of
    * arguments that have been properly validated for that function.
-   * @param functionName - Name of the "constant" function on the contract
-   * @param args - Array of arguments validated for the contract function
-   * @returns {Promise<{}>} - The formatted response as an object
    */
   async call(functionName: string, args: Array<any>) {
     return this.contract.callConstant(functionName, args);
@@ -94,9 +80,6 @@ export default class ContractClient {
    * Low-level method to estimate the gas cost of sending a transaction to
    * call a contract function with an array of arguments that have been
    * properly validated for that function.
-   * @param functionName - Name of the function on the contract
-   * @param args - Array of arguments validated for the contract function
-   * @returns {Promise<BigNumber>} - The gas cost estimate as a BigNumber
    */
   async estimate(functionName: string, args: Array<any>) {
     return this.contract.callEstimate(functionName, args);
@@ -106,10 +89,6 @@ export default class ContractClient {
    * Low-level method to send a transaction to a named contract function
    * with an array of arguments that have been properly validated for that
    * function, and optional transaction options.
-   * @param functionName - Name of the function on the contract with an array
-   * @param args - Array of arguments validated for the contract function
-   * @param options - Transaction options
-   * @returns {Promise<Transaction>} - The sent transaction
    */
   async send(
     functionName: string,

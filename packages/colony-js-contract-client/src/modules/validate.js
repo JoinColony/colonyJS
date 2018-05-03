@@ -54,12 +54,6 @@ const isInputEmpty = input =>
  * Given parameters (as an object with named parameters, but potentially any
  * kind of invalid input) and contract method parameters, validate each
  * parameter against the expected type, throwing errors or returning true.
- *
- * @param input - The input to call the contract method with, as an object with
- * named properties
- * @param paramPairs - Name/parameter type pairs that the contract method
- * should accept
- * @returns {boolean} True if the parameters are all valid
  */
 export default function validate(input: any, paramPairs: any): boolean {
   if (isParamsEmpty(paramPairs) && isInputEmpty(input)) return true;
