@@ -17,8 +17,7 @@ describe('getMethodArgs', () => {
 
   test('Warning when no method parameters are given', () => {
     /* eslint-disable no-console */
-    const originalConsoleWarn = console.warn;
-    console.warn = sandbox.fn();
+    sandbox.spyOn(console, 'warn').mockImplementation(() => {});
 
     // Params given, but no method params to map to
     expect(getMethodArgs({ myParam: 123 })).toEqual([]);
@@ -27,8 +26,6 @@ describe('getMethodArgs', () => {
       // eslint-disable-next-line max-len
       'Warning: getMethodArgs called with parameters for a method that does not accept parameters',
     );
-
-    console.warn = originalConsoleWarn;
     /* eslint-enable no-console */
   });
 
