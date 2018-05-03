@@ -1,5 +1,5 @@
 /* @flow */
 
-import ContractClient from './modules/ContractClient';
+import ContractClient from './classes/ContractClient';
 
 export default ContractClient;

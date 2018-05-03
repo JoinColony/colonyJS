@@ -149,8 +149,8 @@ describe('EthersAdapter', () => {
     // Events should have been added and removed for each of the events
     expect(contract.addListener).toHaveBeenCalledTimes(3);
 
-    contract.dispatchEvent(successEventOne);
-    contract.dispatchEvent(successEventTwo);
+    contract._dispatchEvent(successEventOne);
+    contract._dispatchEvent(successEventTwo);
 
     // removeListener should be fired on each event callback
     expect(contract.removeListener).toHaveBeenCalledTimes(2);
@@ -172,8 +172,8 @@ describe('EthersAdapter', () => {
       timeoutMs: 1000,
     });
 
-    contract.dispatchEvent(successEventOne);
-    contract.dispatchEvent(successEventTwo);
+    contract._dispatchEvent(successEventOne);
+    contract._dispatchEvent(successEventTwo);
 
     const eventData = await eventDataPromise;
 
@@ -192,8 +192,8 @@ describe('EthersAdapter', () => {
       timeoutMs: 1000,
     });
 
-    contract1.dispatchEvent(successEventOne);
-    contract2.dispatchEvent(successEventTwo);
+    contract1._dispatchEvent(successEventOne);
+    contract2._dispatchEvent(successEventTwo);
 
     const eventData = await eventDataPromise;
 
@@ -210,15 +210,15 @@ describe('EthersAdapter', () => {
       timeoutMs: 1000,
     });
 
-    // Ordinarily, dispatchEvent would not be called from the top-level
+    // Ordinarily, _dispatchEvent would not be called from the top-level
     // such as this example, so we need to use a try/catch for it
     try {
-      contract.dispatchEvent(successEventOne);
-      contract.dispatchEvent(errorEvent); // will throw here
+      contract._dispatchEvent(successEventOne);
+      contract._dispatchEvent(errorEvent); // will throw here
     } catch (error) {
       expect(error.message).toMatch('MyErrorEvent');
     }
-    contract.dispatchEvent(successEventTwo);
+    contract._dispatchEvent(successEventTwo);
 
     // removeListener should be called on each event callback
     expect(contract.removeListener).toHaveBeenCalledTimes(3);
@@ -232,7 +232,7 @@ describe('EthersAdapter', () => {
 
   test('Timeouts remove event listeners', async () => {
     const contract = await adapter.getContract({ name: 'myContractName' });
-    sandbox.spyOn(contract, 'dispatchEvent');
+    sandbox.spyOn(contract, '_dispatchEvent');
     sandbox.spyOn(contract, 'removeListener');
 
     try {
@@ -246,7 +246,7 @@ describe('EthersAdapter', () => {
     }
 
     // no events dispatched
-    expect(contract.dispatchEvent).toHaveBeenCalledTimes(0);
+    expect(contract._dispatchEvent).toHaveBeenCalledTimes(0);
 
     // those removed by iterating through the listeners + each individually on timeout
     expect(contract.removeListener).toHaveBeenCalledTimes(6);

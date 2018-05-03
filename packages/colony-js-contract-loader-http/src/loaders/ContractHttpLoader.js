@@ -5,54 +5,83 @@ import assert from 'browser-assert';
 import type {
   ContractDefinition,
   IContractLoader,
+  Parser,
   Query,
 } from '@colony/colony-js-contract-loader';
 
+import type { ConstructorArgs } from '../flowtypes';
+
+const validateField = (assertion, field) =>
+  assert(
+    assertion,
+    `Invalid contract definition: ${field} is missing or invalid`,
+  );
+
 export default class ContractHttpLoader implements IContractLoader {
   _endpoint: string;
-  // The `parse` function is designed to be extended in a derived class;
-  // it simply returns the JSON object as the default behaviour.
-  // eslint-disable-next-line no-unused-vars
-  static parse(jsonObj: any, query: Query): ContractDefinition {
-    return jsonObj;
+  _parse: Parser;
+
+  /**
+   * The default `parse` function is simply returns the JSON object as the
+   * default behaviour.
+   */
+  static defaultParser(): Parser {
+    // eslint-disable-next-line no-unused-vars
+    return (jsonObj: any, query?: Query) => jsonObj;
   }
-  static validateContractDefinition(contractDef: {
-    address?: any,
-    abi: any,
-    bytecode: any,
-  }): boolean {
-    if (Object.getOwnPropertyNames(contractDef).length === 0)
-      throw new Error('Missing contract definition');
 
-    const { address, abi, bytecode } = contractDef;
-    const message = field =>
-      `Invalid contract definition: ${field} is missing or invalid`;
-
-    // `address` is an optional property
-    if (address != null) {
-      assert(
-        typeof address === 'string' && address.length > 0,
-        message('address'),
-      );
+  static validateBytecode(contractDef: ContractDefinition): boolean {
+    // XXX EtherscanLoader does not support bytecode, and uses a custom
+    // getter that throws an error
+    let getterError;
+    let bytecode;
+    try {
+      if (contractDef.bytecode != null) ({ bytecode } = contractDef);
+    } catch (error) {
+      getterError = true;
     }
 
     // `bytecode` is an optional property
-    if (bytecode != null) {
-      assert(
+    if (!getterError && bytecode)
+      validateField(
         typeof bytecode === 'string' && bytecode.length > 0,
-        message('bytecode'),
+        'bytecode',
       );
-    }
 
-    assert(Array.isArray(abi) && abi.length > 0, message('abi'));
     return true;
   }
-  constructor({ endpoint }: { endpoint: string } = {}) {
+  static validateContractDefinition(contractDef: ContractDefinition): boolean {
+    assert(
+      Object.getOwnPropertyNames(contractDef).length > 0,
+      'Missing contract definition',
+    );
+
+    const { address, abi } = contractDef;
+
+    // `address` is an optional property
+    if (address != null)
+      validateField(
+        typeof address === 'string' && address.length > 0,
+        'address',
+      );
+
+    this.validateBytecode(contractDef);
+
+    validateField(Array.isArray(abi) && abi.length > 0, 'abi');
+
+    return true;
+  }
+  constructor({
+    endpoint,
+    parse = this.constructor.defaultParser(),
+  }: ConstructorArgs = {}) {
     assert(
       typeof endpoint === 'string',
       'An `endpoint` option must be provided',
     );
+    assert(typeof parse === 'function', 'A `parse` function must be provided');
     this._endpoint = endpoint;
+    this._parse = parse;
   }
   resolveEndpointResource({
     contractName,
@@ -75,7 +104,7 @@ export default class ContractHttpLoader implements IContractLoader {
     );
   }
   parseContractDefinition(jsonObj: *, query: Query): ContractDefinition {
-    const contractDef = this.constructor.parse(jsonObj, query);
+    const contractDef = this._parse(jsonObj, query);
 
     // The returned object could contain anything, so we need to ensure that
     // it's a valid contract definition.
@@ -87,7 +116,6 @@ export default class ContractHttpLoader implements IContractLoader {
     // Provide some context for errors thrown by lower-level functions
     const throwError = (action: string, error: any) => {
       throw new Error(
-        // eslint-disable-next-line max-len
         `Unable to ${action} for contract ${query.contractName ||
           query.contractAddress ||
           ''}: ${error.message || error}`,

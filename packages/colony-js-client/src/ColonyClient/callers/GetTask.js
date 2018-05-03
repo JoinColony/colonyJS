@@ -4,8 +4,8 @@ import ContractClient from '@colony/colony-js-contract-client';
 
 import type ColonyClient from '../index';
 
-type Params = { taskId: number };
-type FnReturn = [
+type InputValues = { taskId: number };
+type CallResult = [
   string,
   string,
   boolean,
@@ -18,7 +18,7 @@ type FnReturn = [
   [number], // Currently just one item
 ];
 
-type ReturnValue = {
+type OutputValues = {
   cancelled: boolean,
   deliverableDate?: Date,
   deliverableHash?: string,
@@ -33,13 +33,19 @@ type ReturnValue = {
 };
 
 export default class GetTask extends ContractClient.Caller<
-  Params,
-  ReturnValue,
+  InputValues,
+  OutputValues,
   ColonyClient,
 > {
-  params = [['taskId', 'number']];
+  constructor(params: *) {
+    super({
+      functionName: 'getTask',
+      input: [['taskId', 'number']],
+      ...params,
+    });
+  }
   // eslint-disable-next-line class-methods-use-this
-  parseReturn(
+  getOutputValues(
     [
       specificationHash,
       deliverableHash,
@@ -51,10 +57,10 @@ export default class GetTask extends ContractClient.Caller<
       deliverableTimestamp,
       domainId,
       skillIds,
-    ]: FnReturn,
-    { taskId }: Params,
+    ]: CallResult,
+    { taskId }: InputValues,
   ) {
-    const task: ReturnValue = {
+    const task: OutputValues = {
       cancelled: !!cancelled,
       domainId,
       finalized: !!finalized,

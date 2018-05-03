@@ -3,18 +3,13 @@
 import { utf8ToHex } from 'web3-utils';
 import type BigNumber from 'bn.js';
 import type { IAdapter } from '@colony/colony-js-adapter';
-import ContractClient from '@colony/colony-js-contract-client';
 import type { Query } from '@colony/colony-js-contract-loader';
 
-import type { ColonyNetworkContract } from '../interface/ColonyNetworkContract';
+import ContractClient from '@colony/colony-js-contract-client';
+
 import ColonyClient from '../ColonyClient/index';
 
-type CallOptions = { timeoutMs: number };
-
-export default class ColonyNetworkClient extends ContractClient<
-  ColonyNetworkContract,
-> {
-  contract: ColonyNetworkContract;
+export default class ColonyNetworkClient extends ContractClient {
   getColonyById: ColonyNetworkClient.Caller<
     { id: number },
     { address: string },
@@ -99,14 +94,18 @@ export default class ColonyNetworkClient extends ContractClient<
     ColonyNetworkClient,
   >;
   static async createSelf(
-    adapter: IAdapter<ColonyNetworkContract>,
+    adapter: IAdapter,
     query: Query = {},
   ): Promise<ColonyNetworkClient> {
-    return this.create(adapter, {
-      contractName: 'IColonyNetwork',
-      routerName: 'EtherRouter',
-      ...query,
-    });
+    return this.create(
+      adapter,
+      {
+        contractName: 'IColonyNetwork',
+        routerName: 'EtherRouter',
+        ...query,
+      },
+      {},
+    );
   }
   static get ColonyClient(): * {
     return ColonyClient;
@@ -130,140 +129,109 @@ export default class ColonyNetworkClient extends ContractClient<
     const { contractAddress } = await this.adapter.getTransactionReceipt(hash);
     return contractAddress;
   }
-  getCallerDefs(): * {
-    return {
-      getColonyById: {
-        callFn: this.contract.functions.getColonyAt,
-        params: [['id', 'number']],
-        returnValues: [['address', 'address']],
-      },
-      getColonyByKey: {
-        callFn: this.contract.functions.getColony,
-        params: [['key', 'string']],
-        returnValues: [['address', 'address']],
-      },
-      getColonyCount: {
-        callFn: this.contract.functions.getColonyCount,
-        returnValues: [['address', 'address']],
-      },
-      getColonyVersionResolver: {
-        callFn: this.contract.functions.getColonyVersionResolver,
-        params: [['version', 'number']],
-        returnValues: [['address', 'address']],
-      },
-      getCurrentColonyVersion: {
-        callFn: this.contract.functions.getCurrentColonyVersion,
-        returnValues: [['version', 'number']],
-      },
-      getParentSkillId: {
-        callFn: this.contract.functions.getParentSkillId,
-        params: [['skillId', 'number'], ['parentSkillIndex', 'number']],
-        returnValues: [['parentSkillId', 'number']],
-      },
-      getReputationUpdateLogEntry: {
-        callFn: this.contract.functions.getReputationUpdateLogEntry,
-        params: [['id', 'number']],
-        returnValues: [
-          ['user', 'string'],
-          ['amount', 'number'],
-          ['skillId', 'number'],
-          ['colony', 'string'],
-          ['nUpdates', 'number'],
-          ['nPreviousUpdates', 'number'],
-        ],
-      },
-      getReputationUpdateLogLength: {
-        callFn: this.contract.functions.getReputationUpdateLogLength,
-        returnValues: [['count', 'number']],
-      },
-      getSkill: {
-        callFn: this.contract.functions.getSkill,
-        params: [['id', 'number']],
-        returnValues: [['nParents', 'number'], ['nChildren', 'number']],
-      },
-      getSkillCount: {
-        callFn: this.contract.functions.getSkillCount,
-        returnValues: [['count', 'number']],
-      },
-    };
-  }
-  // eslint-disable-next-line no-unused-vars
-  getSenderDefs(options?: {}): * {
-    return {
-      createColony: {
-        sendFn: this.contract.functions.createColony,
-        estimateFn: this.contract.estimate.createColony,
-        params: [['name', 'string'], ['tokenAddress', 'address']],
-        eventHandlers: {
-          success: {
-            ColonyAdded: {
-              contract: this.contract,
-              handler({ id }: { id: BigNumber }) {
-                return {
-                  colonyId: id.toNumber(),
-                };
-              },
-            },
-          },
-        },
-      },
-      deposit: {
-        sendFn: this.contract.functions.deposit,
-        estimateFn: this.contract.estimate.deposit,
-        params: [['amount', 'number']],
-      },
-      upgradeColony: {
-        sendFn: this.contract.functions.upgradeColony,
-        estimateFn: this.contract.estimate.upgradeColony,
-        params: [['key', 'string'], ['newVersion', 'number']],
-      },
-      withdraw: {
-        sendFn: this.contract.functions.withdraw,
-        estimateFn: this.contract.estimate.withdraw,
-        params: [['amount', 'number']],
-      },
-    };
-  }
-  async getColonyClientByAddress(address: string): Promise<*> {
+  async getColonyClientByAddress(contractAddress: string) {
     return this.constructor.ColonyClient.createSelf(this.adapter, this, {
-      address,
+      contractAddress,
     });
   }
-  async getColonyClient(
-    {
-      key,
-      id,
-    }: {
-      key?: string,
-      id?: number,
-    },
-    callOptions: CallOptions,
-  ): Promise<*> {
-    const address = await this.getColonyAddress({ key, id }, callOptions);
+  async getColonyClient({ key, id }: { key?: string, id?: number }) {
+    const address = await this.getColonyAddress({ key, id });
     return this.getColonyClientByAddress(address);
   }
-  async getColonyAddress(
-    {
-      key,
-      id,
-    }: {
-      key?: string,
-      id?: number,
-    },
-    callOptions?: CallOptions,
-  ): Promise<string> {
-    let address;
-    if (key) {
-      ({ address } = await this.getColonyByKey.call({ key }, callOptions));
-    } else if (id) {
-      ({ address } = await this.getColonyById.call({ id }, callOptions));
-    }
-    if (!address)
+  async getColonyAddress({ key, id }: { key?: string, id?: number }) {
+    const notFoundError = () => {
       throw new Error(
         `Colony with ${
           key ? `key ${key}` : `id ${id || 'unknown'}`
         } could not be found`,
       );
+    };
+    let address = '';
+    try {
+      if (key) {
+        ({ address } = await this.getColonyByKey.call({ key }));
+      } else if (id) {
+        ({ address } = await this.getColonyById.call({ id }));
+      }
+    } catch (error) {
+      if (error.toString().includes('Undefined address')) notFoundError();
+    }
+    if (!address) notFoundError();
     return address;
+  }
+  // eslint-disable-next-line no-unused-vars
+  initializeContractMethods(options?: Object) {
+    // Callers
+    this.createCaller('getColonyById', {
+      functionName: 'getColonyAt',
+      input: [['id', 'number']],
+      output: [['address', 'address']],
+    });
+    this.createCaller('getColonyByKey', {
+      functionName: 'getColony',
+      input: [['key', 'string']],
+      output: [['address', 'address']],
+    });
+    this.createCaller('getColonyCount', {
+      output: [['address', 'address']],
+    });
+    this.createCaller('getColonyVersionResolver', {
+      input: [['version', 'number']],
+      output: [['address', 'address']],
+    });
+    this.createCaller('getCurrentColonyVersion', {
+      output: [['version', 'number']],
+    });
+    this.createCaller('getParentSkillId', {
+      input: [['skillId', 'number'], ['parentSkillIndex', 'number']],
+      output: [['parentSkillId', 'number']],
+    });
+    this.createCaller('getReputationUpdateLogEntry', {
+      input: [['id', 'number']],
+      output: [
+        ['user', 'string'],
+        ['amount', 'number'],
+        ['skillId', 'number'],
+        ['colony', 'string'],
+        ['nUpdates', 'number'],
+        ['nPreviousUpdates', 'number'],
+      ],
+    });
+    this.createCaller('getReputationUpdateLogLength', {
+      output: [['count', 'number']],
+    });
+    this.createCaller('getSkill', {
+      input: [['id', 'number']],
+      output: [['nParents', 'number'], ['nChildren', 'number']],
+    });
+    this.createCaller('getSkillCount', {
+      output: [['count', 'number']],
+    });
+
+    // Senders
+    this.createSender('createColony', {
+      input: [['name', 'string'], ['tokenAddress', 'address']],
+      eventHandlers: {
+        success: {
+          ColonyAdded: {
+            contract: this.contract,
+            handler({ id }: { id: BigNumber }) {
+              return {
+                colonyId: id.toNumber(),
+              };
+            },
+          },
+        },
+      },
+    });
+    this.createSender('deposit', {
+      input: [['amount', 'number']],
+    });
+    this.createSender('upgradeColony', {
+      input: [['key', 'string'], ['newVersion', 'number']],
+    });
+    this.createSender('withdraw', {
+      input: [['amount', 'number']],
+    });
   }
 }

@@ -3,24 +3,15 @@
 import type BigNumber from 'bn.js';
 import type { Query } from '@colony/colony-js-contract-loader';
 
-import type { IAdapter, InterfaceFn } from '@colony/colony-js-adapter';
+import type { IAdapter, IContract } from '@colony/colony-js-adapter';
 import ContractClient from '@colony/colony-js-contract-client';
 
-import type { ColonyContract } from '../interface/ColonyContract';
 import ColonyNetworkClient from '../ColonyNetworkClient/index';
 import GetTask from './callers/GetTask';
 
-type TransactionEventData = {
-  transactionId: number,
-  confirmed?: boolean,
-  executed?: boolean,
-  submitted?: boolean,
-};
-
 type Address = string;
 
-export default class ColonyClient extends ContractClient<ColonyContract> {
-  contract: ColonyContract;
+export default class ColonyClient extends ContractClient {
   networkClient: ColonyNetworkClient;
   /*
     Gets the total number of tasks in a Colony. This number equals the last `taskId` created.
@@ -166,98 +157,6 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
     ColonyClient,
   >;
   /*
-    The task brief, or specification, is a description of the tasks work specification. The description is hashed and stored with the task for future reference in ratings or in the event of a dispute.
-  */
-  setTaskBrief: ColonyClient.Sender<
-    {
-      taskId: number, // Integer taskId
-      specificationHash: string, // digest of the task's hashed specification.
-    },
-    TransactionEventData,
-    ColonyClient,
-  >;
-  /*
-    Every task must belong to a single existing Domain.
-  */
-  setTaskDomain: ColonyClient.Sender<
-    {
-      taskId: number, // Integer taskId
-      domainId: number, // Integer domainId
-    },
-    null,
-    ColonyClient,
-  >;
-  /*
-    The task's due date determines when a worker may submit the task's deliverable(s)
-  */
-  setTaskDueDate: ColonyClient.Sender<
-    {
-      taskId: number, // Integer taskId
-      dueDate: number, // Integer due date
-    },
-    TransactionEventData,
-    ColonyClient,
-  >;
-  /*
-    Set the user for role `_role` in task `_id`. Only allowed before the task is `finalized`, meaning that the value cannot be changed after the task is complete.
-  */
-  setTaskRoleUser: ColonyClient.Sender<
-    {
-      taskId: number, // Integer taskId
-      role: number, // MANAGER (`0`), EVALUATOR (`1`), or WORKER (`2`)
-      user: string, // address of the user
-    },
-    null,
-    ColonyClient,
-  >;
-  /*
-  Sets the skill tag associated with the task. Currently there is only one skill tag available per task, but additional skills for tasks are planned in future implementations.
-  */
-  setTaskSkill: ColonyClient.Sender<
-    {
-      taskId: number, // Integer taskId
-      skillId: number, // Integer skillId
-    },
-    null,
-    ColonyClient,
-  >;
-  /*
-    Sets the payout given to the EVALUATOR role when the task is finalized.
-  */
-  setTaskEvaluatorPayout: ColonyClient.Sender<
-    {
-      taskId: number, // Integer taskId
-      token: string, // Address of the token's ERC20 contract.
-      amount: number, // Amount to be paid.
-    },
-    TransactionEventData,
-    ColonyClient,
-  >;
-  /*
-    Sets the payout given to the MANAGER role when the task is finalized.
-  */
-  setTaskManagerPayout: ColonyClient.Sender<
-    {
-      taskId: number, // Integer taskId
-      token: string, // Address of the token's ERC20 contract.
-      amount: number, // Amount to be paid.
-    },
-    TransactionEventData,
-    ColonyClient,
-  >;
-  /*
-    Sets the payout given to the WORKER role when the task is finalized.
-  */
-  setTaskManagerPayout: ColonyClient.Sender<
-    {
-      taskId: number, // Integer taskId
-      token: string, // Address of the token's ERC20 contract.
-      amount: number, // Amount to be paid.
-    },
-    TransactionEventData,
-    ColonyClient,
-  >;
-  /*
     Submit the task deliverable, i.e. the output of the work performed for task `_id` Submission is allowed only to the assigned worker before the task due date. Submissions cannot be overwritten
   */
   submitTaskDeliverable: ColonyClient.Sender<
@@ -291,17 +190,6 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
       salt: string, // `_salt` value to be used in `generateSecret`. A correct value will result in the same `ratingSecret` submitted during the work rating submission period.
     },
     null,
-    ColonyClient,
-  >;
-  /*
-    Approves a task change for execution. See TODO: Gnosis multi-sig wallet explanation -- also this function doesn't appear to be in the /develop branch anymore...
-  */
-  approveTaskChange: ColonyClient.Sender<
-    {
-      transactionId: number, // transactionId of the task change to be approved.
-      role: number, // TODO: Why is this necessary? Can we find out?
-    },
-    TransactionEventData,
     ColonyClient,
   >;
   /*
@@ -419,15 +307,15 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
   // When we create a Colony, we get back the address of a newly-deployed
   // EtherRouter contract (we think).
   static async create(
-    adapter: IAdapter<ColonyContract>,
+    adapter: IAdapter,
     query: Query,
     networkClient: ColonyNetworkClient,
   ) {
     const contract = await adapter.getContract(query);
-    return new this({ adapter, contract, networkClient });
+    return new this({ adapter, contract, options: { networkClient } });
   }
   static async createSelf(
-    adapter: IAdapter<ColonyContract>,
+    adapter: IAdapter,
     networkClient: ColonyNetworkClient,
     query: Query,
   ) {
@@ -440,72 +328,60 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
   constructor({
     adapter,
     contract,
-    networkClient,
+    options,
   }: {
-    adapter: IAdapter<ColonyContract>,
-    contract: ColonyContract,
-    networkClient: ColonyNetworkClient,
+    adapter: IAdapter,
+    contract: IContract,
+    options: { networkClient: ColonyNetworkClient },
   }) {
-    super({ adapter, contract, options: { networkClient } });
-    this.getTask = new GetTask(this);
+    super({ adapter, contract, options });
+    this.networkClient = options.networkClient;
   }
-  getCallerDefs(): * {
-    return {
-      getNonRewardPotsTotal: {
-        callFn: this.contract.functions.getNonRewardPotsTotal,
-        params: [['address', 'address']],
-        returnValues: [['total', 'number']],
-      },
-      getPotBalance: {
-        callFn: this.contract.functions.getPotBalance,
-        params: [['potId', 'number'], ['token', 'address']],
-        returnValues: [['balance', 'number']],
-      },
-      getTaskCount: {
-        callFn: this.contract.functions.getTaskCount,
-        returnValues: [['count', 'number']],
-      },
-      getTaskPayout: {
-        callFn: this.contract.functions.getPotBalance,
-        params: [
-          ['taskId', 'number'],
-          ['role', 'number'],
-          ['token', 'address'],
-        ],
-        returnValues: [['amount', 'number']],
-      },
-      getTaskRole: {
-        callFn: this.contract.functions.getTaskRole,
-        params: [['taskId', 'number'], ['role', 'number']],
-        returnValues: [
-          ['address', 'address'],
-          ['rated', 'boolean'],
-          ['rating', 'number'],
-        ],
-      },
-      getTaskWorkRatings: {
-        callFn: this.contract.functions.getTaskWorkRatings,
-        params: [['taskId', 'number']],
-        returnValues: [['count', 'number'], ['timestamp', 'number']],
-      },
-      getTaskWorkRatingSecret: {
-        callFn: this.contract.functions.getTaskWorkRatingSecret,
-        params: [['taskId', 'number'], ['role', 'number']],
-        returnValues: [['secret', 'string']],
-      },
-      getToken: {
-        callFn: this.contract.functions.getToken,
-        returnValues: [['address', 'address']],
-      },
-      getTransactionCount: {
-        callFn: this.contract.functions.getTransactionCount,
-        returnValues: [['count', 'number']],
-      },
-    };
-  }
-  getSenderDefs({
+  initializeContractMethods({
     networkClient,
-  }: { networkClient: ColonyNetworkClient } = {}): * {
+  }: { networkClient: ColonyNetworkClient } = {}) {
+    this.getTask = new GetTask({ client: this });
+
+    // Callers
+    this.createCaller('getNonRewardPotsTotal', {
+      input: [['address', 'address']],
+      output: [['total', 'number']],
+    });
+    this.createCaller('getPotBalance', {
+      input: [['potId', 'number'], ['token', 'address']],
+      output: [['balance', 'number']],
+    });
+    this.createCaller('getTaskCount', {
+      output: [['count', 'number']],
+    });
+    this.createCaller('getTaskPayout', {
+      input: [['taskId', 'number'], ['role', 'number'], ['token', 'address']],
+      output: [['amount', 'number']],
+    });
+    this.createCaller('getTaskRole', {
+      input: [['taskId', 'number'], ['role', 'number']],
+      output: [
+        ['address', 'address'],
+        ['rated', 'boolean'],
+        ['rating', 'number'],
+      ],
+    });
+    this.createCaller('getTaskWorkRatings', {
+      input: [['taskId', 'number']],
+      output: [['count', 'number'], ['timestamp', 'number']],
+    });
+    this.createCaller('getTaskWorkRatingSecret', {
+      input: [['taskId', 'number'], ['role', 'number']],
+      output: [['secret', 'string']],
+    });
+    this.createCaller('getToken', {
+      output: [['address', 'address']],
+    });
+    this.createCaller('getTransactionCount', {
+      output: [['count', 'number']],
+    });
+
+    // Senders
     const SkillAdded = {
       contract: networkClient.contract,
       handler({
@@ -521,246 +397,80 @@ export default class ColonyClient extends ContractClient<ColonyContract> {
         };
       },
     };
-
-    const Confirmation = {
-      contract: this.contract,
-      handler({ transactionId }: { transactionId: BigNumber }) {
-        return {
-          transactionId: transactionId.toNumber(),
-          confirmed: true,
-        };
-      },
-    };
-    const Execution = {
-      contract: this.contract,
-      handler({ transactionId }: { transactionId: BigNumber }) {
-        return {
-          transactionId: transactionId.toNumber(),
-          executed: true,
-        };
-      },
-    };
-    const Submission = {
-      contract: this.contract,
-      handler({ transactionId }: { transactionId: BigNumber }) {
-        return {
-          transactionId: transactionId.toNumber(),
-          submitted: true,
-        };
-      },
-    };
-    const ExecutionFailure = {
-      contract: this.contract,
-      handler({ transactionId }: { transactionId: BigNumber }) {
-        throw new Error(
-          `Transaction ${transactionId.toNumber()} failed to be executed`,
-        );
-      },
-    };
-
-    const proposeTaskChange = ({
-      getData,
-      params,
-    }: {
-      getData: InterfaceFn<*>,
-      params: *,
-    }) => ({
-      sendFn: this.contract.functions.proposeTaskChange,
-      estimateFn: this.contract.estimate.proposeTaskChange,
-      getArgs(parameters: {}): Array<*> {
-        const args = this.constructor.getArgs(parameters);
-        const role = args.pop();
-        const { data } = getData(...args);
-        return [data, 0, role]; // 0 == Transaction value
-      },
-      params,
+    this.createSender('addDomain', {
+      input: [['domainId', 'number']],
       eventHandlers: {
-        success: {
-          Submission,
-          Confirmation,
-        },
+        success: { SkillAdded },
       },
     });
-
-    return {
-      addDomain: {
-        sendFn: this.contract.functions.addDomain,
-        estimateFn: this.contract.estimate.addDomain,
-        params: [['domainId', 'number']],
-        eventHandlers: {
-          success: { SkillAdded },
-        },
+    this.createSender('addGlobalSkill', {
+      input: [['parentSkillId', 'number']],
+      eventHandlers: {
+        success: { SkillAdded },
       },
-      addGlobalSkill: {
-        sendFn: this.contract.functions.addGlobalSkill,
-        estimateFn: this.contract.estimate.addGlobalSkill,
-        params: [['parentSkillId', 'number']],
-        eventHandlers: {
-          success: { SkillAdded },
-        },
-      },
-      approveTaskChange: {
-        sendFn: this.contract.functions.approveTaskChange,
-        estimateFn: this.contract.estimate.approveTaskChange,
-        params: [['transaction', 'number'], ['role', 'number']],
-        eventHandlers: {
-          success: {
-            Confirmation,
-            Execution,
-          },
-          error: {
-            ExecutionFailure,
-          },
-        },
-      },
-      assignWorkRating: {
-        sendFn: this.contract.functions.assignWorkRating,
-        estimateFn: this.contract.estimate.assignWorkRating,
-        params: [['taskId', 'number']],
-      },
-      cancelTask: {
-        sendFn: this.contract.functions.cancelTask,
-        estimateFn: this.contract.estimate.cancelTask,
-        params: [['taskId', 'number']],
-      },
-      claimColonyFunds: {
-        sendFn: this.contract.functions.claimColonyFunds,
-        estimateFn: this.contract.estimate.claimColonyFunds,
-        params: [['token', 'address']],
-      },
-      claimPayout: {
-        sendFn: this.contract.functions.claimPayout,
-        estimateFn: this.contract.estimate.claimPayout,
-        params: [
-          ['token', 'address'],
-          ['role', 'number'],
-          ['token', 'address'],
-        ],
-      },
-      createTask: {
-        sendFn: this.contract.functions.makeTask,
-        estimateFn: this.contract.estimate.makeTask,
-        params: [['specificationHash', 'string'], ['domainId', 'number']],
-        eventHandlers: {
-          success: {
-            TaskAdded: {
-              contract: this.contract,
-              handler({ id }: { id: * }) {
-                return {
-                  taskId: id.toNumber(),
-                };
-              },
+    });
+    this.createSender('assignWorkRating', {
+      input: [['taskId', 'number']],
+    });
+    this.createSender('cancelTask', {
+      input: [['taskId', 'number']],
+    });
+    this.createSender('claimColonyFunds', {
+      input: [['token', 'address']],
+    });
+    this.createSender('claimPayout', {
+      input: [['token', 'address'], ['role', 'number'], ['token', 'address']],
+    });
+    this.createSender('createTask', {
+      functionName: 'makeTask',
+      input: [['specificationHash', 'string'], ['domainId', 'number']],
+      eventHandlers: {
+        success: {
+          TaskAdded: {
+            contract: this.contract,
+            handler({ id }: { id: BigNumber }) {
+              return {
+                taskId: id.toNumber(),
+              };
             },
           },
         },
       },
-      finalizeTask: {
-        sendFn: this.contract.functions.finalizeTask,
-        estimateFn: this.contract.estimate.finalizeTask,
-        params: [['taskId', 'number']],
-      },
-      mintTokens: {
-        sendFn: this.contract.functions.mintTokens,
-        estimateFn: this.contract.estimate.mintTokens,
-        params: [['amount', 'number']],
-      },
-      mintTokensForColonyNetwork: {
-        sendFn: this.contract.functions.mintTokensForColonyNetwork,
-        estimateFn: this.contract.estimate.mintTokensForColonyNetwork,
-        params: [['amount', 'number']],
-      },
-      moveFundsBetweenPots: {
-        sendFn: this.contract.functions.moveFundsBetweenPots,
-        estimateFn: this.contract.estimate.moveFundsBetweenPots,
-        params: [
-          ['fromPot', 'number'],
-          ['toPot', 'number'],
-          ['amount', 'number'],
-          ['address', 'address'],
-        ],
-      },
-      revealTaskWorkRating: {
-        sendFn: this.contract.functions.revealTaskWorkRating,
-        estimateFn: this.contract.estimate.revealTaskWorkRating,
-        params: [
-          ['taskId', 'number'],
-          ['role', 'number'],
-          ['rating', 'number'],
-          ['salt', 'string'],
-        ],
-      },
-      setTaskBrief: proposeTaskChange({
-        getData: this.contract.interface.functions.setTaskBrief,
-        params: [
-          ['taskId', 'number'],
-          ['specificationHash', 'address'],
-          ['role', 'number'],
-        ],
-      }),
-      setTaskDomain: {
-        sendFn: this.contract.functions.setTaskDomain,
-        estimateFn: this.contract.estimate.setTaskDomain,
-        params: [['taskId', 'number'], ['domainId', 'number']],
-      },
-      setTaskDueDate: proposeTaskChange({
-        getData: this.contract.interface.functions.setTaskDueDate,
-        params: [
-          ['taskId', 'number'],
-          ['dueDate', 'number'],
-          ['role', 'number'],
-        ],
-      }),
-      setTaskRoleUser: {
-        sendFn: this.contract.functions.setTaskRoleUser,
-        estimateFn: this.contract.estimate.setTaskRoleUser,
-        params: [['taskId', 'number'], ['role', 'number'], ['user', 'address']],
-      },
-      setTaskSkill: {
-        sendFn: this.contract.functions.setTaskSkill,
-        estimateFn: this.contract.estimate.setTaskSkill,
-        params: [['taskId', 'number'], ['skillId', 'number']],
-      },
-      setTaskEvaluatorPayout: proposeTaskChange({
-        getData: this.contract.interface.functions.setTaskEvaluatorPayout,
-        params: [
-          ['taskId', 'number'],
-          ['token', 'address'],
-          ['amount', 'number'],
-          ['role', 'number'],
-        ],
-      }),
-      setTaskManagerPayout: proposeTaskChange({
-        getData: this.contract.interface.functions.setTaskManagerPayout,
-        params: [
-          ['taskId', 'number'],
-          ['token', 'address'],
-          ['amount', 'number'],
-          ['role', 'number'],
-        ],
-      }),
-      setTaskWorkerPayout: proposeTaskChange({
-        getData: this.contract.interface.functions.setTaskWorkerPayout,
-        params: [
-          ['taskId', 'number'],
-          ['token', 'address'],
-          ['amount', 'number'],
-          ['role', 'number'],
-        ],
-      }),
-      submitTaskDeliverable: {
-        sendFn: this.contract.functions.submitTaskDeliverable,
-        estimateFn: this.contract.estimate.submitTaskDeliverable,
-        params: [['taskId', 'number'], ['deliverableHash', 'string']],
-      },
-      submitTaskWorkRating: {
-        sendFn: this.contract.functions.submitTaskWorkRating,
-        estimateFn: this.contract.estimate.submitTaskWorkRating,
-        params: [
-          ['taskId', 'number'],
-          ['role', 'number'],
-          ['ratingSecret', 'string'],
-        ],
-      },
-    };
+    });
+    this.createSender('finalizeTask', {
+      input: [['taskId', 'number']],
+    });
+    this.createSender('mintTokens', {
+      input: [['amount', 'number']],
+    });
+    this.createSender('mintTokensForColonyNetwork', {
+      input: [['amount', 'number']],
+    });
+    this.createSender('moveFundsBetweenPots', {
+      input: [
+        ['fromPot', 'number'],
+        ['toPot', 'number'],
+        ['amount', 'number'],
+        ['address', 'address'],
+      ],
+    });
+    this.createSender('revealTaskWorkRating', {
+      input: [
+        ['taskId', 'number'],
+        ['role', 'number'],
+        ['rating', 'number'],
+        ['salt', 'string'],
+      ],
+    });
+    this.createSender('submitTaskDeliverable', {
+      input: [['taskId', 'number'], ['deliverableHash', 'string']],
+    });
+    this.createSender('submitTaskWorkRating', {
+      input: [
+        ['taskId', 'number'],
+        ['role', 'number'],
+        ['ratingSecret', 'string'],
+      ],
+    });
   }
 }

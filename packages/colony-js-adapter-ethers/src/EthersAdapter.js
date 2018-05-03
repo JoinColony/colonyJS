@@ -15,14 +15,9 @@ import type {
 import type { IContractLoader, Query } from '@colony/colony-js-contract-loader';
 
 import EthersContract from './EthersContract';
+import type { ConstructorArgs } from './flowtypes';
 
-type ConstructorArgs = {
-  loader: IContractLoader,
-  provider: IProvider,
-  wallet: IWallet,
-};
-
-export default class EthersAdapter implements IAdapter<*> {
+export default class EthersAdapter implements IAdapter {
   loader: IContractLoader;
   provider: IProvider;
   wallet: IWallet;
@@ -34,7 +29,7 @@ export default class EthersAdapter implements IAdapter<*> {
     events: { [eventName: string]: EventHandler },
     timeoutMs: number,
     transactionHash: string,
-  }): Array<Promise<*>> {
+  }): Array<Promise<any>> {
     const mapEventToPromise = eventName => {
       let contract;
       let handler;
@@ -75,10 +70,8 @@ export default class EthersAdapter implements IAdapter<*> {
       ...contractParams,
     );
   }
-
   // XXX this isn't a static method because we can't define it as such
   // in the Interface thanks to Flow
-  // eslint-disable-next-line class-methods-use-this
   async getEventData({
     events: { success = {}, error = {} },
     transactionHash,
