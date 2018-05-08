@@ -1,10 +1,5 @@
 ---
-github: https://github.com/JoinColony/colony-js
-logo: colonyJS.svg
 section: index
-sectionOrder:
-  - Docs
-  - API
 ---
 
 ![logo](/img/colony-js.png)
