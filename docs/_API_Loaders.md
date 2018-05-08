@@ -6,13 +6,30 @@ order: 0
 
 This document describes the high level contract loader interface as well as various officially supported implementations. For a better explanation what loaders are, see [here](docs-loaders.html).
 
+==TOC==
 ## Installation and usage
 
-TODO:
+```
+yarn add @colony/colony-js-contract-loader
+```
+or
+```
+yarn add @colony/colony-js-contract-loader-http
+```
+
+```javascript
+import { EtherscanLoader } from '@colony/colony-js-contract-loader-http';
+
+// EtherscanLoader has a default endpoint:
+// https://api.etherscan.io/api?module=contract&action=getabi&address=%%ADDRESS%%
+const loader = new EtherscanLoader();
+
+// The object may then be called by the adapter:
+const { abi, address } = await loader.load({ contractAddress: '0xf000000000000000000000000000000000000000'});
+ ```
 
 ## Methods
 
-==TOC==
 
 ## `ContractLoader` interface
 

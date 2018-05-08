@@ -48,21 +48,21 @@ It's possible that a custom data source will deliver your data in a format diffe
 ```javascript
 import { ContractHttpLoader } from '@colony/colony-js-contract-loader-http';
 
-function parseMyData(response, query) {
+function transform(response, query) {
     return {
-      address: response.contractAddress,
-      abi: query.contractABI,
-      bytecode: query.bytecode
+      address: query.contractAddress,
+      abi: response.data.contractABI,
+      bytecode: response.data.bytecode
     }
 }
 
 const loader = new ContractHttpLoader({
-  endpoint: 'https://myDataSource.io:3030/contracts?name=%%NAME%%&address=%%ADDRESS%%&version=%%VERSION%%',
-  parser: 'parseMyData'
+  endpoint: 'https://myDataSource.io/contracts?address=%%ADDRESS%%',
+  parser: transform
 });
 
 // The object may then be called by the adapter:
-const { ContractHttpLoader } = await loader.load('contractName');
+const { abi, address, bytecode } = await loader.load({ contractAddress: '0xdeadbeef' });
 ```
 
 ## Future/Imaginable loaders
