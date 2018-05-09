@@ -126,7 +126,7 @@ export default class ColonyNetworkClient extends ContractClient {
   getSkillCount: ColonyNetworkClient.Caller<
     null,
     {
-      count: number, // Skill count
+      count: number, // The number of skills on the network
     },
     ColonyNetworkClient,
   >;
