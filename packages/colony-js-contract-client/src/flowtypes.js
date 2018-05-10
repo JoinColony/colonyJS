@@ -53,9 +53,47 @@ export type ContractMethodSenderArgs<IContractClient: ContractClient> = {
   eventHandlers?: EventHandlers,
 } & ContractMethodArgs<IContractClient>;
 
+export type GetRequiredSigners = (input: any) => Promise<Array<string>>;
+
+export type ContractMethodMultisigSenderArgs<
+  IContractClient: ContractClient,
+> = {
+  nonceFunctionName: string,
+  multisigFunctionName: string,
+  getRequiredSigners: GetRequiredSigners,
+} & ContractMethodSenderArgs<IContractClient>;
+
 export type ContractMethodDef<IContractClient: ContractClient> = {
   client: IContractClient,
   functionName?: string,
   input: ParamTypePairs,
   output?: ParamTypePairs,
+};
+
+export type Signature = {
+  sigR: string,
+  sigS: string,
+  sigV: number,
+};
+
+export type Signers = Map<string, Signature>;
+
+export type CombinedSignatures = {
+  sigR: Array<string>,
+  sigS: Array<string>,
+  sigV: Array<number>,
+};
+
+export type MultisigOperationPayload<InputValues> = {
+  data: string,
+  destinationAddress: string,
+  inputValues: InputValues,
+  sourceAddress: string,
+  nonce: number,
+  value: number,
+};
+
+export type MultisigOperationState<InputValues> = {
+  signers: Signers,
+  payload: MultisigOperationPayload<InputValues>,
 };
