@@ -179,7 +179,7 @@ export default class ColonyNetworkClient extends ContractClient {
       output: [['address', 'address']],
     });
     this.createCaller('getColonyCount', {
-      output: [['address', 'address']],
+      output: [['count', 'number']],
     });
     this.createCaller('getColonyVersionResolver', {
       input: [['version', 'number']],
