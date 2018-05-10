@@ -27,10 +27,19 @@ declare module 'web3-utils' {
   declare export function toHex(input: any): string;
   declare export function hexToBytes(hex: string): string;
   declare export function bytesToHex(bytes: string): string;
-  declare export function leftPad(input: string | number): string;
-  declare export function rightPad(input: string | number): string;
+  declare export function padLeft(
+    input: string | number,
+    characterAmount: number,
+    sign?: string,
+  ): string;
+  declare export function padRight(
+    input: string | number,
+    characterAmount: number,
+    sign?: string,
+  ): string;
   declare export function toTwosComplement(
     n: number | string | BigNumber,
   ): string;
   declare export function sha3(): string;
+  declare export function toDecimal(input: any): number;
 }
