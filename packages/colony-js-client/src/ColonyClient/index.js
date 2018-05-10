@@ -696,11 +696,21 @@ export default class ColonyClient extends ContractClient {
         ['salt', 'string'],
       ],
     });
-    this.createSender('setTaskManagerPayout', {
-      input: [['taskId', 'number'], ['token', 'address'], ['amount', 'number']],
+    this.createSender('setTaskDomain', {
+      input: [['taskId', 'number'], ['domainId', 'number']],
     });
     this.createSender('setTaskEvaluatorPayout', {
       input: [['taskId', 'number'], ['token', 'address'], ['amount', 'number']],
+    });
+    this.createSender('setTaskManagerPayout', {
+      input: [['taskId', 'number'], ['token', 'address'], ['amount', 'number']],
+    });
+    this.createSender('setTaskRoleUser', {
+      // TODO consider making this sender more convenient
+      input: [['taskId', 'number'], ['role', 'number'], ['user', 'address']],
+    });
+    this.createSender('setTaskSkill', {
+      input: [['taskId', 'number'], ['skillId', 'number']],
     });
     this.createSender('setTaskWorkerPayout', {
       input: [['taskId', 'number'], ['token', 'address'], ['amount', 'number']],
