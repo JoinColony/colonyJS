@@ -1,5 +1,8 @@
 ---
 section: index
+sectionOrder:
+  - Docs
+  - API
 ---
 
 ![logo](/img/colony-js.png)
