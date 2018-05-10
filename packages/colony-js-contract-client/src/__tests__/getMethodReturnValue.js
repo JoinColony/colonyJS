@@ -29,12 +29,13 @@ describe('getMethodReturnValues', () => {
       // eslint-disable-next-line max-len
       'Invalid return for value "id" of type "number": Unexpected value "undefined"',
     );
-    expect(() => {
-      getMethodReturnValue([100, 'not an address'], returnValues);
-    }).toThrowError(
-      // eslint-disable-next-line max-len
-      'Invalid return for value "address" of type "address": Invalid address',
-    );
+
+    expect(
+      getMethodReturnValue([100, 'not an address'], returnValues),
+    ).toMatchObject({
+      address: null,
+      id: 100,
+    });
 
     // Valid return values
     expect(getMethodReturnValue([100, address], returnValues)).toEqual({
