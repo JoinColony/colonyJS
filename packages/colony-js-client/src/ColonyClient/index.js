@@ -3,11 +3,13 @@
 import type BigNumber from 'bn.js';
 
 import ContractClient from '@colony/colony-js-contract-client';
+import { isValidAddress } from '@colony/colony-js-utils';
 // eslint-disable-next-line max-len
 import type { ContractClientConstructorArgs } from '@colony/colony-js-contract-client';
 
 import ColonyNetworkClient from '../ColonyNetworkClient/index';
 import GetTask from './callers/GetTask';
+import { ROLES } from '../constants';
 
 type Address = string;
 
@@ -731,5 +733,23 @@ export default class ColonyClient extends ContractClient {
         ['ratingSecret', 'string'],
       ],
     });
+
+    // Multisig Senders
+    const makeExecuteTaskChange = (name: string, input: Array<any>) =>
+      this.createMultisigSender(name, {
+        input: [['taskId', 'number'], ...input],
+        getRequiredSigners: async ({ taskId }: { taskId: number }) => {
+          const taskRoles = await Promise.all(
+            [ROLES.MANAGER, ROLES.EVALUATOR, ROLES.WORKER].map(role =>
+              this.getTaskRole.call({ taskId, role }),
+            ),
+          );
+          return taskRoles.map(({ address }) => address).filter(isValidAddress);
+        },
+        multisigFunctionName: 'executeTaskChange',
+        nonceFunctionName: 'getTaskChangeNonce',
+      });
+    makeExecuteTaskChange('setTaskBrief', [['specificationHash', 'string']]);
+    makeExecuteTaskChange('setTaskDueDate', [['dueDate', 'number']]);
   }
 }
