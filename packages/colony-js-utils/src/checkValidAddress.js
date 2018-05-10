@@ -1,7 +1,8 @@
 /* @flow */
 
+import assert from 'browser-assert';
 import { isAddress } from 'web3-utils';
-import { NON_EXISTENT_ADDRESS } from '../constants';
+import { NON_EXISTENT_ADDRESS } from './constants';
 
 /**
  * Pure function
@@ -9,8 +10,7 @@ import { NON_EXISTENT_ADDRESS } from '../constants';
  * true if it is a valid address.
  */
 export default function checkValidAddress(address: any): boolean {
-  if (typeof address !== 'string' || !isAddress(address))
-    throw new Error('Invalid address');
-  if (address === NON_EXISTENT_ADDRESS) throw new Error('Undefined address');
+  assert(typeof address === 'string' && isAddress(address), 'Invalid address');
+  assert(address !== NON_EXISTENT_ADDRESS, 'Undefined address');
   return true;
 }
