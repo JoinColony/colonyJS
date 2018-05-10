@@ -151,8 +151,8 @@ describe('ContractMethodMultisigSender', () => {
 
     method.client.call = sandbox
       .fn()
-      .mockReturnValueOnce(Promise.resolve({ nonce: 1 }))
-      .mockReturnValueOnce(Promise.resolve({ nonce: 2 }));
+      .mockReturnValueOnce(Promise.resolve(1))
+      .mockReturnValueOnce(Promise.resolve(2));
 
     const firstNonce = await method.getNonce();
     const secondNonce = await method.getNonce();
@@ -199,17 +199,17 @@ describe('ContractMethodMultisigSender', () => {
       input,
     });
 
-    sandbox.spyOn(method, 'validate').mockReturnValue(true);
-    sandbox.spyOn(method, 'validateSigners').mockReturnValue(true);
-
-    const response = await method.send(inputValues, options);
-
-    expect(method.validate).toHaveBeenCalledWith(inputValues);
-    expect(method.validateSigners).toHaveBeenCalledWith(inputValues, new Map());
-    expect(response).toBe(contractResponse);
+    try {
+      await method.send(inputValues, options);
+    } catch (error) {
+      expect(error.toString()).toContain(
+        'This Sender uses multi-signature transactions',
+      );
+    }
   });
 
-  test('Sending without multisig (signatures needed)', async () => {
+  // TODO move this test to MultisigOperation
+  test.skip('Sending without multisig (signatures needed)', async () => {
     const getRequiredSigners = sandbox
       .fn()
       .mockReturnValueOnce(Promise.resolve(addresses))
@@ -269,7 +269,7 @@ describe('ContractMethodMultisigSender', () => {
     expect(response).toBe(contractResponse);
   });
 
-  test('Starting a MultisigOperation', () => {
+  test('Starting a MultisigOperation', async () => {
     const method = new MultisigSender({
       client,
       functionName,
@@ -279,15 +279,17 @@ describe('ContractMethodMultisigSender', () => {
       nonceFunctionName,
     });
 
+    const nonce = 5;
     sandbox.spyOn(method, 'validate').mockReturnValue(true);
     sandbox.spyOn(method, 'getMethodArgs').mockReturnValue(callArgs);
+    sandbox.spyOn(method, 'getNonce').mockReturnValue(Promise.resolve(nonce));
 
     const txData = '0xtxDataGoesHere';
     sandbox
       .spyOn(method.client, 'createTransactionData')
       .mockReturnValue(txData);
 
-    const op = method.startOperation(inputValues);
+    const op = await method.startOperation(inputValues);
 
     expect(method.validate).toHaveBeenCalledWith(inputValues);
     expect(method.getMethodArgs).toHaveBeenCalledWith(inputValues);
@@ -305,8 +307,9 @@ describe('ContractMethodMultisigSender', () => {
           inputValues,
           sourceAddress: method.client.contract.address,
           value: 0,
+          nonce,
         },
-        signers: {},
+        signers: new Map(),
       }),
     );
   });
