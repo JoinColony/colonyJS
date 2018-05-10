@@ -220,6 +220,98 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
+    The task brief, or specification, is a description of the tasks work specification. The description is hashed and stored with the task for future reference in ratings or in the event of a dispute.
+  */
+  setTaskBrief: ColonyClient.MultisigSender<
+    {
+      taskId: number, // Integer taskId
+      specificationHash: string, // digest of the task's hashed specification.
+    },
+    null,
+    ColonyClient,
+  >;
+  /*
+    Every task must belong to a single existing Domain.
+  */
+  setTaskDomain: ColonyClient.Sender<
+    {
+      taskId: number, // Integer taskId
+      domainId: number, // Integer domainId
+    },
+    null,
+    ColonyClient,
+  >;
+  /*
+    The task's due date determines when a worker may submit the task's deliverable(s)
+  */
+  setTaskDueDate: ColonyClient.MultisigSender<
+    {
+      taskId: number, // Integer taskId
+      dueDate: number, // Integer due date
+    },
+    null,
+    ColonyClient,
+  >;
+  /*
+    Set the user for role `_role` in task `_id`. Only allowed before the task is `finalized`, meaning that the value cannot be changed after the task is complete.
+  */
+  setTaskRoleUser: ColonyClient.Sender<
+    {
+      taskId: number, // Integer taskId
+      role: number, // MANAGER (`0`), EVALUATOR (`1`), or WORKER (`2`)
+      user: string, // address of the user
+    },
+    null,
+    ColonyClient,
+  >;
+  /*
+  Sets the skill tag associated with the task. Currently there is only one skill tag available per task, but additional skills for tasks are planned in future implementations.
+  */
+  setTaskSkill: ColonyClient.Sender<
+    {
+      taskId: number, // Integer taskId
+      skillId: number, // Integer skillId
+    },
+    null,
+    ColonyClient,
+  >;
+  /*
+    Sets the payout given to the EVALUATOR role when the task is finalized.
+  */
+  setTaskEvaluatorPayout: ColonyClient.Sender<
+    {
+      taskId: number, // Integer taskId
+      token: string, // Address of the token's ERC20 contract.
+      amount: number, // Amount to be paid.
+    },
+    null,
+    ColonyClient,
+  >;
+  /*
+    Sets the payout given to the MANAGER role when the task is finalized.
+  */
+  setTaskManagerPayout: ColonyClient.Sender<
+    {
+      taskId: number, // Integer taskId
+      token: string, // Address of the token's ERC20 contract.
+      amount: number, // Amount to be paid.
+    },
+    null,
+    ColonyClient,
+  >;
+  /*
+    Sets the payout given to the WORKER role when the task is finalized.
+  */
+  setTaskManagerPayout: ColonyClient.Sender<
+    {
+      taskId: number, // Integer taskId
+      token: string, // Address of the token's ERC20 contract.
+      amount: number, // Amount to be paid.
+    },
+    null,
+    ColonyClient,
+  >;
+  /*
     Submit the task deliverable, i.e. the output of the work performed for task `_id` Submission is allowed only to the assigned worker before the task due date. Submissions cannot be overwritten
   */
   submitTaskDeliverable: ColonyClient.Sender<
