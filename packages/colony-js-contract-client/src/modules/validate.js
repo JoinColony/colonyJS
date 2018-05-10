@@ -1,16 +1,15 @@
 /* @flow */
 
-import assert from 'browser-assert';
 import BigNumber from 'bn.js';
 import isPlainObject from 'lodash.isplainobject';
+import { isValidAddress, makeAssert } from '@colony/colony-js-utils';
 
-import checkValidAddress from './checkValidAddress';
 import type { ParamTypes, ParamTypePairs } from '../flowtypes';
 
-const ERR = 'Validation error';
+const assert = makeAssert('Validation failed');
 
 const TYPE_MAP = new Map([
-  ['address', checkValidAddress],
+  ['address', isValidAddress],
   ['string', value => typeof value === 'string'], // empty strings are allowed
   ['number', value => typeof value === 'number' || BigNumber.isBN(value)],
   ['boolean', value => typeof value === 'boolean'],
@@ -21,14 +20,13 @@ export const validateParam = (
   type: ParamTypes,
   value: any,
 ): boolean => {
-  // eslint-disable-next-line max-len
-  const message = `${ERR}: Parameter "${key}" expected a value of type "${type}"`;
+  assert(TYPE_MAP.has(type), `Parameter type "${type}" not defined`);
+
   const check = TYPE_MAP.get(type);
-  if (check) {
-    assert(check(value), message);
-    return true;
-  }
-  throw new Error(`${ERR}: Parameter type "${type}" not defined`);
+  return assert(
+    check != null && check(value),
+    `Parameter "${key}" expected a value of type "${type}"`,
+  );
 };
 
 const isValidMethodParams = (paramPairs: any): boolean =>
@@ -58,14 +56,14 @@ const isInputEmpty = input =>
 export default function validate(input: any, paramPairs: any): boolean {
   if (isParamsEmpty(paramPairs) && isInputEmpty(input)) return true;
 
-  assert(isPlainObject(input), `${ERR}: Expected parameters as an object`);
+  assert(isPlainObject(input), 'Expected parameters as an object');
   assert(
     isValidMethodParams(paramPairs),
-    `${ERR}: Expected method parameters as an array of name/type tuples`,
+    'Expected method parameters as an array of name/type tuples',
   );
   assert(
     isSameSize(input, paramPairs),
-    `${ERR}: Mismatching parameters/method parameters sizes`,
+    'Mismatching parameters/method parameters sizes',
   );
 
   return paramPairs.every(([paramName, paramType]) =>
