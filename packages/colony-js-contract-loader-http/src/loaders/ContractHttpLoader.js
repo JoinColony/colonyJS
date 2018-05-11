@@ -5,11 +5,13 @@ import assert from 'browser-assert';
 import type {
   ContractDefinition,
   IContractLoader,
-  Parser,
+  Transform,
+  RequiredContractProps,
   Query,
 } from '@colony/colony-js-contract-loader';
 
 import type { ConstructorArgs } from '../flowtypes';
+import { DEFAULT_REQUIRED_CONTRACT_PROPS } from '../defaults';
 
 const validateField = (assertion, field) =>
   assert(
@@ -19,38 +21,26 @@ const validateField = (assertion, field) =>
 
 export default class ContractHttpLoader implements IContractLoader {
   _endpoint: string;
-  _parse: Parser;
+  _transform: Transform;
 
   /**
-   * The default `parse` function is simply returns the JSON object as the
+   * The default `transform` function is simply returns the JSON object as the
    * default behaviour.
    */
-  static defaultParser(): Parser {
-    // eslint-disable-next-line no-unused-vars
-    return (jsonObj: any, query?: Query) => jsonObj;
+  static defaultTransform(): Transform {
+    /* eslint-disable no-unused-vars */
+    return (
+      jsonObj: any,
+      query?: Query,
+      requiredProps?: RequiredContractProps,
+    ) => jsonObj;
+    /* eslint-enable no-unused-vars */
   }
 
-  static validateBytecode(contractDef: ContractDefinition): boolean {
-    // XXX EtherscanLoader does not support bytecode, and uses a custom
-    // getter that throws an error
-    let getterError;
-    let bytecode;
-    try {
-      if (contractDef.bytecode != null) ({ bytecode } = contractDef);
-    } catch (error) {
-      getterError = true;
-    }
-
-    // `bytecode` is an optional property
-    if (!getterError && bytecode)
-      validateField(
-        typeof bytecode === 'string' && bytecode.length > 0,
-        'bytecode',
-      );
-
-    return true;
-  }
-  static validateContractDefinition(contractDef: ContractDefinition): boolean {
+  static validateContractDefinition(
+    contractDef: ContractDefinition,
+    requiredProps: RequiredContractProps,
+  ): boolean {
     assert(
       Object.getOwnPropertyNames(contractDef).length > 0,
       'Missing contract definition',
@@ -58,30 +48,38 @@ export default class ContractHttpLoader implements IContractLoader {
 
     const { address, abi } = contractDef;
 
-    // `address` is an optional property
-    if (address != null)
+    if (requiredProps.address)
       validateField(
         typeof address === 'string' && address.length > 0,
         'address',
       );
 
-    this.validateBytecode(contractDef);
+    if (requiredProps.bytecode)
+      validateField(
+        typeof contractDef.bytecode === 'string' &&
+          contractDef.bytecode.length > 0,
+        'bytecode',
+      );
 
-    validateField(Array.isArray(abi) && abi.length > 0, 'abi');
+    if (requiredProps.abi)
+      validateField(Array.isArray(abi) && abi.length > 0, 'abi');
 
     return true;
   }
   constructor({
     endpoint,
-    parse = this.constructor.defaultParser(),
+    transform = this.constructor.defaultTransform(),
   }: ConstructorArgs = {}) {
     assert(
       typeof endpoint === 'string',
       'An `endpoint` option must be provided',
     );
-    assert(typeof parse === 'function', 'A `parse` function must be provided');
+    assert(
+      typeof transform === 'function',
+      'A `transform` function must be provided',
+    );
     this._endpoint = endpoint;
-    this._parse = parse;
+    this._transform = transform;
   }
   resolveEndpointResource({
     contractName,
@@ -103,16 +101,10 @@ export default class ContractHttpLoader implements IContractLoader {
         )
     );
   }
-  parseContractDefinition(jsonObj: *, query: Query): ContractDefinition {
-    const contractDef = this._parse(jsonObj, query);
-
-    // The returned object could contain anything, so we need to ensure that
-    // it's a valid contract definition.
-    this.constructor.validateContractDefinition(contractDef);
-
-    return contractDef;
-  }
-  async _load(query: Query = {}): Promise<ContractDefinition> {
+  async _load(
+    query: Query = {},
+    requiredProps: RequiredContractProps,
+  ): Promise<ContractDefinition> {
     // Provide some context for errors thrown by lower-level functions
     const throwError = (action: string, error: any) => {
       throw new Error(
@@ -138,13 +130,16 @@ export default class ContractHttpLoader implements IContractLoader {
 
     let contractDef = { abi: [], bytecode: '' };
     try {
-      contractDef = this.parseContractDefinition(json, query);
+      contractDef = this._transform(json, query, requiredProps);
     } catch (error) {
-      throwError('parse contract definition', error);
+      throwError('transform contract definition', error);
     }
     return contractDef;
   }
-  async load(query: Query): Promise<ContractDefinition> {
+  async load(
+    query: Query,
+    requiredProps?: RequiredContractProps = DEFAULT_REQUIRED_CONTRACT_PROPS,
+  ): Promise<ContractDefinition> {
     const {
       contractName,
       contractAddress,
@@ -159,10 +154,13 @@ export default class ContractHttpLoader implements IContractLoader {
       );
 
     // Load the contract definition by either the contract name or address
-    const result = await this._load({
-      ...(contractName ? { contractName } : { contractAddress }),
-      ...otherQuery,
-    });
+    const result = await this._load(
+      {
+        ...(contractName ? { contractName } : { contractAddress }),
+        ...otherQuery,
+      },
+      requiredProps,
+    );
 
     if (contractAddress) {
       // If we have a specific contractAddress, set it directly.
@@ -172,12 +170,17 @@ export default class ContractHttpLoader implements IContractLoader {
       result.address = routerAddress;
     } else if (routerName) {
       // If we have the router name, look it up for the router address.
-      const routerContract = await this._load({
-        ...otherQuery,
-        contractName: routerName,
-      });
+      const routerContract = await this._load(
+        {
+          ...otherQuery,
+          contractName: routerName,
+        },
+        requiredProps,
+      );
       result.address = routerContract.address;
     }
+
+    this.constructor.validateContractDefinition(result, requiredProps);
 
     return result;
   }

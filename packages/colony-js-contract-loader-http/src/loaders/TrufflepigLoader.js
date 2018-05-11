@@ -9,7 +9,7 @@ import type { TruffleArtifact, ConstructorArgs } from '../flowtypes';
 const DEFAULT_ENDPOINT =
   'http://127.0.0.1:3030/contracts?name=%%NAME%%&address=%%ADDRESS%%&version=%%VERSION%%'; // eslint-disable-line max-len
 
-function trufflepigParse(
+function trufflepigTransform(
   { abi = [], bytecode, networks = {} }: TruffleArtifact = {},
   { networkId }: Query = {},
 ) {
@@ -36,10 +36,10 @@ function trufflepigParse(
 
 export default class TrufflepigLoader extends ContractHttpLoader {
   constructor({
-    parse = trufflepigParse,
+    transform = trufflepigTransform,
     endpoint = DEFAULT_ENDPOINT,
     ...rest
   }: ConstructorArgs = {}) {
-    super({ parse, endpoint, ...rest });
+    super({ transform, endpoint, ...rest });
   }
 }
