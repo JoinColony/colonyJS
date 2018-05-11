@@ -15,8 +15,21 @@ export type ContractDefinition = {
   bytecode?: string,
 };
 
-export type Parser = (input: any, query: Query) => ContractDefinition;
+export type RequiredContractProps = {
+  address?: boolean,
+  abi?: boolean,
+  bytecode?: boolean,
+};
+
+export type Transform = (
+  input: any,
+  query?: Query,
+  requiredProps?: RequiredContractProps,
+) => ContractDefinition;
 
 export interface ContractLoader {
-  load(query: Query): Promise<ContractDefinition>;
+  load(
+    query: Query,
+    requiredProps?: RequiredContractProps,
+  ): Promise<ContractDefinition>;
 }
