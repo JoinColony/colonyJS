@@ -2,7 +2,6 @@
 /* eslint-disable no-underscore-dangle */
 
 import createSandbox from 'jest-sandbox';
-import { soliditySha3 } from 'web3-utils';
 
 import MultisigOperation from '../classes/MultisigOperation';
 
@@ -19,12 +18,11 @@ describe('ContractMethodMultisigSender', () => {
 
   beforeEach(() => sandbox.clear());
 
-  // const splitSig = {
-  //   r: '0x3810976581519370936455002930541734832270292486195672859026812854',
-  //   s: '0x2717400036569076491467357688191371198012187172992592815125647808',
-  //   v: 28,
-  // };
-  const signature = '0x98712398791234987123945876123987421987356982715';
+  const signature = {
+    sigR: '0x3810976581519370936455002930541734832270292486195672859026812854',
+    sigS: '0x2717400036569076491467357688191371198012187172992592815125647808',
+    sigV: 28,
+  };
   const firstNonce = 5;
   const secondNonce = 6;
   const sender = {
@@ -35,9 +33,9 @@ describe('ContractMethodMultisigSender', () => {
       .mockReturnValueOnce(Promise.resolve(secondNonce)),
     client: {
       adapter: {
+        signMessage: sandbox.fn().mockReturnValue(Promise.resolve(signature)),
         wallet: {
           address: '0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B',
-          signMessage: sandbox.fn().mockReturnValue(Promise.resolve(signature)),
         },
       },
     },
@@ -85,8 +83,19 @@ describe('ContractMethodMultisigSender', () => {
     expect(op.validateState).toHaveBeenCalledWith(state);
   });
 
-  // TODO fix/reinstate this test when we know how signing should really work
-  test.skip('Operation can be signed with wallet', async () => {
+  test('ERC191 Message hash is created properly', async () => {
+    const op = new MultisigOperation(sender, state);
+
+    // The string to be hashed should contain:
+    // the initial 0x19 byte and version byte (`0x1900`)
+    // source address (with initial 0x removed - `source`)
+    // destination address (with initial 0x removed - `destination`)
+    // transaction data (with initial 0x removed - `data`)
+    // transaction value (`5`)
+    expect(op.messageHash).toMatch(/^0x1900sourcedestination.+data5$/);
+  });
+
+  test('Operation can be signed with wallet', async () => {
     const hash = 'hash';
     sandbox
       .spyOn(MultisigOperation.prototype, 'getERC191MessageHash')
@@ -98,16 +107,10 @@ describe('ContractMethodMultisigSender', () => {
     const walletAddress = op.sender.client.adapter.wallet.address;
 
     expect(MultisigOperation.prototype.getERC191MessageHash).toHaveBeenCalled();
-    expect(op.sender.client.adapter.wallet.signMessage).toHaveBeenCalledWith(
-      hash,
-    );
+    expect(op.sender.client.adapter.signMessage).toHaveBeenCalledWith(hash);
     expect(op.state.signers).toEqual(newSigners);
     expect(op.state.signers.has(walletAddress)).toBe(true);
-    expect(op.state.signers.get(walletAddress)).toEqual({
-      sigR: signature.r,
-      sigS: signature.s,
-      sigV: signature.v,
-    });
+    expect(op.state.signers.get(walletAddress)).toEqual(signature);
 
     // It should not be possible to sign with the same wallet twice
     try {
@@ -117,21 +120,6 @@ describe('ContractMethodMultisigSender', () => {
         'A signature has already been added for address',
       );
     }
-  });
-
-  test('ERC191 Message hash is created properly', async () => {
-    const op = new MultisigOperation(sender, state);
-
-    // The string to be hashed should contain:
-    // the initial 0x19 byte and version byte (`0x1900`)
-    // source address (with initial 0x removed - `source`)
-    // destination address (with initial 0x removed - `destination`)
-    // transaction data (with initial 0x removed - `data`)
-    // transaction value (`5`)
-    expect(soliditySha3).toHaveBeenCalledWith(
-      expect.stringMatching(/^0x1900sourcedestination.+data5$/),
-    );
-    expect(typeof op.messageHash).toBe('string');
   });
 
   test('Operation can be sent with Sender', async () => {

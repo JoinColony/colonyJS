@@ -1,7 +1,7 @@
 /* @flow */
 
 import assert from 'browser-assert';
-import { soliditySha3, toDecimal, padLeft } from 'web3-utils';
+import { padLeft } from 'web3-utils';
 import isPlainObject from 'lodash.isplainobject';
 
 import ContractMethodMultisigSender from './ContractMethodMultisigSender';
@@ -28,15 +28,6 @@ export default class MultisigOperation<
   _validateSigners = validateSigners;
   _validatePayload = validatePayload;
 
-  static splitSignature(signature: string) {
-    const hash = signature.slice(2); // Remove '0x'
-    return {
-      sigR: `0x${hash.slice(0, 64)}`,
-      sigS: `0x${hash.slice(64, 128)}`,
-      sigV: toDecimal(`0x${hash.slice(128, 130)}`), // Should be 27 or 28
-    };
-  }
-
   constructor(sender: Sender, state: MultisigOperationState<InputValues>) {
     // Will throw validation errors for an invalid state
     this.validateState(state);
@@ -55,26 +46,16 @@ export default class MultisigOperation<
     return this._validatePayload(payload) && this._validateSigners(signers);
   }
 
-  async getSignature() {
-    // TODO this isn't working as desired at the moment, because signMessage
-    // is using the 'Ethereum Signed Message' prefix.
-    // Needs further investigation.
-    // TODO should we create a mock transaction, sign it, then
-    // extract R/S/V from the signed transaction?
-    const response = await this.sender.client.adapter.wallet.signMessage(
-      this.messageHash,
-    );
-
-    return this.constructor.splitSignature(response);
-  }
-
   /**
    * Given the current state, sign the message data with the current wallet
    * and add the signature to the signers state.
    */
   async sign() {
-    const { address } = this.sender.client.adapter.wallet;
-    const signature = await this.getSignature();
+    const { adapter } = this.sender.client;
+    const {
+      wallet: { address },
+    } = adapter;
+    const signature = await adapter.signMessage(this.messageHash);
 
     if (this.state.signers.has(address))
       throw new Error(
@@ -111,6 +92,6 @@ export default class MultisigOperation<
       data.slice(2),
       padLeft(nonce.toString(16), 64, '0'),
     ];
-    return soliditySha3(parts.join(''));
+    return parts.join('');
   }
 }
