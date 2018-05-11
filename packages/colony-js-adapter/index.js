@@ -6,6 +6,7 @@ export type { Event } from './interface/Event';
 export type { EventHandler, EventHandlers } from './interface/EventHandlers';
 export type { Contract as IContract } from './interface/Contract';
 export type { Provider as IProvider } from './interface/Provider';
+export type { Signature } from './interface/Signature';
 export type { Transaction } from './interface/Transaction';
 export type { TransactionReceipt } from './interface/TransactionReceipt';
 export type { TransactionOptions } from './interface/TransactionOptions';
