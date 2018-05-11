@@ -75,8 +75,16 @@ describe('EthersAdapter', () => {
 
   test('Adapter calls Contract with correct arguments', async () => {
     sandbox.spyOn(adapter.loader, 'load');
-    const contract = await adapter.getContract({ name: 'myContractName' });
+    const query = { name: 'myContractName' };
+
+    const contract = await adapter.getContract(query);
+
     expect(adapter.loader.load).toHaveBeenCalledTimes(1);
+    expect(adapter.loader.load).toHaveBeenCalledWith(query, {
+      abi: true,
+      address: true,
+      bytecode: false,
+    });
     expect(contract).toBeInstanceOf(EthersContract);
     expect(JSON.stringify(contract.provider)).toBe(
       JSON.stringify(adapter.provider),
@@ -276,7 +284,11 @@ describe('EthersAdapter', () => {
     expect(transaction.data.slice(-1)).toBe(`${contractArgs[0]}`);
 
     expect(adapter.loader.load).toHaveBeenCalledTimes(1);
-    expect(adapter.loader.load).toHaveBeenCalledWith(query);
+    expect(adapter.loader.load).toHaveBeenCalledWith(query, {
+      abi: true,
+      address: false,
+      bytecode: true,
+    });
     expect(ethers.Contract.getDeployTransaction).toHaveBeenCalledTimes(1);
     expect(ethers.Contract.getDeployTransaction).toHaveBeenCalledWith(
       bytecode,

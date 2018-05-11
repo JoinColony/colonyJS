@@ -52,7 +52,11 @@ export default class EthersAdapter implements IAdapter {
     this.wallet = wallet;
   }
   async getContract(query: Query): Promise<IContract> {
-    const { address, abi } = await this.loader.load(query);
+    const { address, abi } = await this.loader.load(query, {
+      abi: true,
+      address: true,
+      bytecode: false,
+    });
 
     if (typeof address !== 'string')
       throw new Error('Unable to parse contract address');
@@ -63,7 +67,11 @@ export default class EthersAdapter implements IAdapter {
     query: Query,
     contractParams: Array<any>,
   ): Promise<Transaction> {
-    const { abi, bytecode } = await this.loader.load(query);
+    const { abi, bytecode } = await this.loader.load(query, {
+      abi: true,
+      address: false,
+      bytecode: true,
+    });
     return ethers.Contract.getDeployTransaction(
       bytecode,
       abi,
