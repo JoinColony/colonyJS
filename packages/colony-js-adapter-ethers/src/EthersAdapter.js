@@ -119,4 +119,18 @@ export default class EthersAdapter implements IAdapter {
   async getTransactionReceipt(transactionHash: string) {
     return this.provider.getTransactionReceipt(transactionHash);
   }
+  /**
+   * Sign a message hash (as binary) and return a split signature.
+   */
+  async signMessage(messageHash: string) {
+    const uint8Array = ethers.utils.arrayify(messageHash);
+    const signature = await this.wallet.signMessage(uint8Array);
+
+    const sigHash = signature.slice(2); // Remove '0x'
+    return {
+      sigR: `0x${sigHash.slice(0, 64)}`,
+      sigS: `0x${sigHash.slice(64, 128)}`,
+      sigV: parseInt(sigHash.slice(128, 130), 16),
+    };
+  }
 }
