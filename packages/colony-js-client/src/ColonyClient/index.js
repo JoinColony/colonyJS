@@ -14,6 +14,16 @@ type Address = string;
 export default class ColonyClient extends ContractClient {
   networkClient: ColonyNetworkClient;
   /*
+    Gets the total number of domains in a Colony. This number equals the last `domainId` created.
+  */
+  getDomainCount: ColonyClient.Caller<
+    null,
+    {
+      count: number, // Number of all domain in this Colony; == the last added domainId
+    },
+    ColonyClient,
+  >;
+  /*
     Gets the total number of tasks in a Colony. This number equals the last `taskId` created.
   */
   getTaskCount: ColonyClient.Caller<
@@ -174,7 +184,7 @@ export default class ColonyClient extends ContractClient {
     {
       taskId: number, // Integer taskId
       role: number, // The role submitting their rating, either EVALUATOR (`1`) or WORKER (`2`)
-      ratingSecret: string, // hidden work rating, generated as the output of generateSecret(_salt, _rating)
+      ratingSecret: string, // hidden work rating, generated as the output of `generateSecret(_salt, _rating)`, where `_rating` is a score from 0-50 (in increments of 10).
     },
     null,
     ColonyClient,
@@ -343,6 +353,21 @@ export default class ColonyClient extends ContractClient {
     this.getTask = new GetTask({ client: this });
 
     // Callers
+    // TODO add typing
+    this.createCaller('generateSecret', {
+      input: [['salt', 'string'], ['value', 'number']],
+      output: [['secret', 'string']],
+    });
+    this.createCaller('getDomainCount', {
+      output: [['count', 'number']],
+    });
+    this.createCaller('getGlobalRewardPayoutCount', {
+      output: [['count', 'number']],
+    });
+    this.createCaller('getUserRewardPayoutCount', {
+      input: [['user', 'address']],
+      output: [['count', 'number']],
+    });
     this.createCaller('getNonRewardPotsTotal', {
       input: [['address', 'address']],
       output: [['total', 'number']],
@@ -350,6 +375,18 @@ export default class ColonyClient extends ContractClient {
     this.createCaller('getPotBalance', {
       input: [['potId', 'number'], ['token', 'address']],
       output: [['balance', 'number']],
+    });
+    // TODO add typing
+    this.createCaller('getRewardPayoutInfo', {
+      input: [['payoutId'], 'number'],
+      output: [
+        ['reputationRootHash', 'string'],
+        ['totalTokens', 'number'],
+        ['totalTokenAmountForRewardPayout', 'number'],
+        ['remainingTokenAmount', 'number'],
+        ['tokenAddress', 'address'],
+        ['blockNumber', 'number'],
+      ],
     });
     this.createCaller('getTaskCount', {
       output: [['count', 'number']],
@@ -376,9 +413,6 @@ export default class ColonyClient extends ContractClient {
     });
     this.createCaller('getToken', {
       output: [['address', 'address']],
-    });
-    this.createCaller('getTransactionCount', {
-      output: [['count', 'number']],
     });
 
     // Senders
@@ -440,6 +474,10 @@ export default class ColonyClient extends ContractClient {
     this.createSender('finalizeTask', {
       input: [['taskId', 'number']],
     });
+    // TODO add typing
+    this.createSender('finalizeRewardPayout', {
+      input: [['payoutId', 'number']],
+    });
     this.createSender('mintTokens', {
       input: [['amount', 'number']],
     });
@@ -462,8 +500,24 @@ export default class ColonyClient extends ContractClient {
         ['salt', 'string'],
       ],
     });
+    // TODO add typings for these
+    this.createSender('setTaskManagerPayout', {
+      input: [['taskId', 'number'], ['token', 'address'], ['amount', 'number']],
+    });
+    this.createSender('setTaskEvaluatorPayout', {
+      input: [['taskId', 'number'], ['token', 'address'], ['amount', 'number']],
+    });
+    this.createSender('setTaskWorkerPayout', {
+      input: [['taskId', 'number'], ['token', 'address'], ['amount', 'number']],
+    });
     this.createSender('submitTaskDeliverable', {
       input: [['taskId', 'number'], ['deliverableHash', 'string']],
+    });
+    this.createSender('startNextRewardPayout', {
+      input: [['token', 'address']],
+    });
+    this.createSender('waiveRewardPayouts', {
+      input: [['numPayouts', 'number']],
     });
     this.createSender('submitTaskWorkRating', {
       input: [
