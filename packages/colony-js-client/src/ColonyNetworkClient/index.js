@@ -67,6 +67,11 @@ export default class ColonyNetworkClient extends ContractClient {
     { count: number },
     ColonyNetworkClient,
   >;
+  getStakedBalance: ColonyNetworkClient.Caller<
+    { user: string },
+    { balance: number },
+    ColonyNetworkClient,
+  >;
   createColony: ColonyNetworkClient.Sender<
     {
       name: string,
@@ -78,6 +83,15 @@ export default class ColonyNetworkClient extends ContractClient {
   deposit: ColonyNetworkClient.Sender<
     { amount: number },
     null,
+    ColonyNetworkClient,
+  >;
+  startTokenAuction: ColonyNetworkClient.Sender<
+    { tokenAddress: string },
+    {
+      auction: string,
+      token: string,
+      quantity: number,
+    },
     ColonyNetworkClient,
   >;
   upgradeColony: ColonyNetworkClient.Sender<
@@ -182,6 +196,10 @@ export default class ColonyNetworkClient extends ContractClient {
     this.createCaller('getCurrentColonyVersion', {
       output: [['version', 'number']],
     });
+    this.createCaller('getStakedBalance', {
+      input: [['user', 'address']],
+      output: [['balance', 'number']],
+    });
     this.createCaller('getParentSkillId', {
       input: [['skillId', 'number'], ['parentSkillIndex', 'number']],
       output: [['parentSkillId', 'number']],
@@ -226,6 +244,31 @@ export default class ColonyNetworkClient extends ContractClient {
     });
     this.createSender('deposit', {
       input: [['amount', 'number']],
+    });
+    this.createSender('startTokenAuction', {
+      input: [['tokenAddress', 'address']],
+      eventHandlers: {
+        success: {
+          AuctionCreated: {
+            contract: this.contract,
+            handler({
+              auction,
+              token,
+              quantity,
+            }: {
+              auction: string,
+              token: string,
+              quantity: BigNumber,
+            }) {
+              return {
+                auction,
+                token,
+                quantity: quantity.toNumber(),
+              };
+            },
+          },
+        },
+      },
     });
     this.createSender('upgradeColony', {
       input: [['key', 'string'], ['newVersion', 'number']],
