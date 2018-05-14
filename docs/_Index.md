@@ -1,5 +1,6 @@
 ---
-logo: img/colonyJS.svg
+github: https://github.com/JoinColony/colonyNetwork
+logo: /img/colonyJS.svg
 section: index
 sectionOrder:
   - Docs
