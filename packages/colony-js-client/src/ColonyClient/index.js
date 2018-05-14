@@ -13,6 +13,16 @@ type Address = string;
 
 export default class ColonyClient extends ContractClient {
   networkClient: ColonyNetworkClient;
+  generateSecret: ColonyClient.Caller<
+    {
+      salt: string,
+      value: number,
+    },
+    {
+      secret: string,
+    },
+    ColonyClient,
+  >;
   /*
     Gets the total number of domains in a Colony. This number equals the last `domainId` created.
   */
@@ -20,6 +30,22 @@ export default class ColonyClient extends ContractClient {
     null,
     {
       count: number, // Number of all domain in this Colony; == the last added domainId
+    },
+    ColonyClient,
+  >;
+  getGlobalRewardPayoutCount: ColonyClient.Caller<
+    null,
+    {
+      count: number,
+    },
+    ColonyClient,
+  >;
+  getUserRewardPayoutCount: ColonyClient.Caller<
+    {
+      user: Address,
+    },
+    {
+      count: number,
     },
     ColonyClient,
   >;
@@ -133,6 +159,20 @@ export default class ColonyClient extends ContractClient {
     },
     ColonyClient,
   >;
+  getRewardPayoutInfo: ColonyClient.Caller<
+    {
+      payoutId: number,
+    },
+    {
+      blockNumber: number,
+      remainingTokenAmount: number,
+      reputationRootHash: string,
+      tokenAddress: Address,
+      totalTokenAmountForRewardPayout: number,
+      totalTokens: number,
+    },
+    ColonyClient,
+  >;
   /*
     Gets the address of the colony's official ERC20 token contract
   */
@@ -208,7 +248,6 @@ export default class ColonyClient extends ContractClient {
   assignWorkRating: ColonyClient.Sender<
     {
       taskId: number, // Integer taskId
-      rating: number, // TODO: is this really a parameter? doesn't seem like it should be as the function in `ColonyTask.sol` only has one arg...
     },
     null,
     ColonyClient,
@@ -281,6 +320,13 @@ export default class ColonyClient extends ContractClient {
     null,
     ColonyClient,
   >;
+  finalizedRewardPayout: ColonyClient.Sender<
+    {
+      payoutId: number,
+    },
+    null,
+    ColonyClient,
+  >;
   /*
       Moves funds between pots in a Colony. See [pots](glossary#pots) for more info.
     */
@@ -310,6 +356,47 @@ export default class ColonyClient extends ContractClient {
   mintTokensForColonyNetwork: ColonyClient.Sender<
     {
       amount: number, // Tokens to be minted
+    },
+    null,
+    ColonyClient,
+  >;
+  setTaskManagerPayout: ColonyClient.Sender<
+    {
+      taskId: number,
+      token: Address,
+      amount: number,
+    },
+    null,
+    ColonyClient,
+  >;
+  setTaskEvaluatorPayout: ColonyClient.Sender<
+    {
+      taskId: number,
+      token: Address,
+      amount: number,
+    },
+    null,
+    ColonyClient,
+  >;
+  setTaskWorkerPayout: ColonyClient.Sender<
+    {
+      taskId: number,
+      token: Address,
+      amount: number,
+    },
+    null,
+    ColonyClient,
+  >;
+  startNextRewardPayout: ColonyClient.Sender<
+    {
+      token: Address,
+    },
+    null,
+    ColonyClient,
+  >;
+  waiveRewardPayouts: ColonyClient.Sender<
+    {
+      numPayouts: number,
     },
     null,
     ColonyClient,
@@ -353,7 +440,6 @@ export default class ColonyClient extends ContractClient {
     this.getTask = new GetTask({ client: this });
 
     // Callers
-    // TODO add typing
     this.createCaller('generateSecret', {
       input: [['salt', 'string'], ['value', 'number']],
       output: [['secret', 'string']],
@@ -376,7 +462,6 @@ export default class ColonyClient extends ContractClient {
       input: [['potId', 'number'], ['token', 'address']],
       output: [['balance', 'number']],
     });
-    // TODO add typing
     this.createCaller('getRewardPayoutInfo', {
       input: [['payoutId'], 'number'],
       output: [
@@ -474,7 +559,6 @@ export default class ColonyClient extends ContractClient {
     this.createSender('finalizeTask', {
       input: [['taskId', 'number']],
     });
-    // TODO add typing
     this.createSender('finalizeRewardPayout', {
       input: [['payoutId', 'number']],
     });
@@ -500,7 +584,6 @@ export default class ColonyClient extends ContractClient {
         ['salt', 'string'],
       ],
     });
-    // TODO add typings for these
     this.createSender('setTaskManagerPayout', {
       input: [['taskId', 'number'], ['token', 'address'], ['amount', 'number']],
     });
