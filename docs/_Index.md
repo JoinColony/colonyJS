@@ -1,4 +1,5 @@
 ---
+logo: img/colonyJS.svg
 section: index
 sectionOrder:
   - Docs
