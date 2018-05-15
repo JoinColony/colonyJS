@@ -2,8 +2,6 @@
 
 import { utf8ToHex } from 'web3-utils';
 import type BigNumber from 'bn.js';
-import type { IAdapter } from '@colony/colony-js-adapter';
-import type { Query } from '@colony/colony-js-contract-loader';
 
 import ContractClient from '@colony/colony-js-contract-client';
 
@@ -107,23 +105,18 @@ export default class ColonyNetworkClient extends ContractClient {
     null,
     ColonyNetworkClient,
   >;
-  static async createSelf(
-    adapter: IAdapter,
-    query: Query = {},
-  ): Promise<ColonyNetworkClient> {
-    return this.create(
-      adapter,
-      {
-        contractName: 'IColonyNetwork',
-        routerName: 'EtherRouter',
-        ...query,
-      },
-      {},
-    );
+
+  static get defaultQuery() {
+    return {
+      contractName: 'IColonyNetwork',
+      routerName: 'EtherRouter',
+    };
   }
+
   static get ColonyClient(): * {
     return ColonyClient;
   }
+
   async createToken({
     name,
     symbol,
@@ -173,8 +166,7 @@ export default class ColonyNetworkClient extends ContractClient {
     if (!address) notFoundError();
     return address;
   }
-  // eslint-disable-next-line no-unused-vars
-  initializeContractMethods(options?: Object) {
+  initializeContractMethods() {
     // Callers
     this.createCaller('getColonyById', {
       functionName: 'getColonyAt',

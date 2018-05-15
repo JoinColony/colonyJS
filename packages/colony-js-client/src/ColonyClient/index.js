@@ -1,10 +1,10 @@
 /* @flow */
 
 import type BigNumber from 'bn.js';
-import type { Query } from '@colony/colony-js-contract-loader';
 
-import type { IAdapter, IContract } from '@colony/colony-js-adapter';
 import ContractClient from '@colony/colony-js-contract-client';
+// eslint-disable-next-line max-len
+import type { ContractClientConstructorArgs } from '@colony/colony-js-contract-client';
 
 import ColonyNetworkClient from '../ColonyNetworkClient/index';
 import GetTask from './callers/GetTask';
@@ -13,6 +13,7 @@ type Address = string;
 
 export default class ColonyClient extends ContractClient {
   networkClient: ColonyNetworkClient;
+
   /*
     Helper function used to generate the rating secret used in task ratings. Accepts a salt value and a value to hide, and returns the keccak256 hash of both.
   */
@@ -431,42 +432,31 @@ export default class ColonyClient extends ContractClient {
     null,
     ColonyClient,
   >;
-  // When we create a Colony, we get back the address of a newly-deployed
-  // EtherRouter contract (we think).
-  static async create(
-    adapter: IAdapter,
-    query: Query,
-    networkClient: ColonyNetworkClient,
-  ) {
-    const contract = await adapter.getContract(query);
-    return new this({ adapter, contract, options: { networkClient } });
+
+  static get defaultQuery() {
+    return {
+      contractName: 'IColony',
+    };
   }
-  static async createSelf(
-    adapter: IAdapter,
-    networkClient: ColonyNetworkClient,
-    query: Query,
-  ) {
-    return this.create(
-      adapter,
-      { contractName: 'IColony', ...query },
-      networkClient,
-    );
-  }
+
   constructor({
-    adapter,
-    contract,
-    options,
-  }: {
-    adapter: IAdapter,
-    contract: IContract,
-    options: { networkClient: ColonyNetworkClient },
-  }) {
-    super({ adapter, contract, options });
-    this.networkClient = options.networkClient;
-  }
-  initializeContractMethods({
     networkClient,
-  }: { networkClient: ColonyNetworkClient } = {}) {
+    adapter,
+    query,
+  }: { networkClient?: ColonyNetworkClient } & ContractClientConstructorArgs) {
+    super({ adapter, query });
+
+    if (!(networkClient instanceof ColonyNetworkClient))
+      throw new Error(
+        'A `networkClient` property must be supplied ' +
+          '(an instance of `ColonyNetworkClient`',
+      );
+    this.networkClient = networkClient;
+
+    return this;
+  }
+
+  initializeContractMethods() {
     this.getTask = new GetTask({ client: this });
 
     // Callers
@@ -532,7 +522,7 @@ export default class ColonyClient extends ContractClient {
 
     // Senders
     const SkillAdded = {
-      contract: networkClient.contract,
+      contract: this.networkClient.contract,
       handler({
         parentSkillId,
         skillId,
