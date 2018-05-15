@@ -42,7 +42,14 @@ describe('ContractClient', () => {
     input: [['address', 'address']],
   };
 
-  beforeEach(() => sandbox.clear());
+  beforeEach(() => {
+    sandbox.clear();
+    sandbox.spyOn(console, 'warn').mockImplementation(() => {});
+  });
+
+  afterAll(() => {
+    sandbox.clear();
+  });
 
   test('Static methods', async () => {
     // Creating methods
@@ -52,25 +59,40 @@ describe('ContractClient', () => {
     expect(new ContractClient.Sender({})).toBeInstanceOf(
       ContractClientMethodSender,
     );
-
-    // `create` method
-    const client = await ContractClient.create(adapter, query);
-    expect(client).toBeInstanceOf(ContractClient);
-    expect(client.contract).toBe(contract);
-    expect(client.adapter).toBe(adapter);
-    expect(adapter.getContract).toHaveBeenCalledTimes(1);
-    expect(adapter.getContract).toHaveBeenCalledWith(query);
   });
 
   test('Constructor', () => {
-    sandbox.spyOn(ContractClient.prototype, 'initializeContractMethods');
+    const defaultQuerySpy = sandbox.spyOn(
+      ContractClient,
+      'defaultQuery',
+      'get',
+    );
 
-    const client = new ContractClient({ adapter, contract, options });
-    expect(client).toBeInstanceOf(ContractClient);
-    expect(client.contract).toBe(contract);
+    const client = new ContractClient({ adapter, query });
+
+    expect(defaultQuerySpy).toHaveBeenCalled();
+    expect(console.warn).toHaveBeenCalled(); // eslint-disable-line no-console
     expect(client.adapter).toBe(adapter);
-    expect(client.initializeContractMethods).toHaveBeenCalledTimes(1);
-    expect(client.initializeContractMethods).toHaveBeenCalledWith(options);
+    expect(client._query).toEqual(query);
+    expect(client._contract).toBeUndefined();
+    expect(client).toBeInstanceOf(ContractClient);
+  });
+
+  test('Initialization', async () => {
+    const client = new ContractClient({ adapter, query });
+    sandbox.spyOn(client, 'initializeContractMethods');
+
+    // It should throw an error if the contract is accessed before the client
+    // is initialized
+    expect(() => {
+      client.contract; // eslint-disable-line no-unused-expressions
+    }).toThrowError('Contract not loaded');
+
+    await client.init();
+
+    expect(client.contract).toBe(contract);
+    expect(adapter.getContract).toHaveBeenCalledWith(query);
+    expect(client.initializeContractMethods).toHaveBeenCalled();
   });
 
   test('Methods can be defined', () => {
@@ -138,6 +160,7 @@ describe('ContractClient', () => {
 
   test('Contract functions can be called directly', async () => {
     const client = new ContractClient({ adapter, contract, options });
+    await client.init();
     const fnName = 'myFunctionName';
     const args = [1, 2, 3];
     const result = await client.call(fnName, args);
@@ -149,6 +172,7 @@ describe('ContractClient', () => {
 
   test('Gas cost can be estimated', async () => {
     const client = new ContractClient({ adapter, contract, options });
+    await client.init();
     const fnName = 'myFunctionName';
     const args = [1, 2, 3];
     const result = await client.estimate(fnName, args);
@@ -160,6 +184,7 @@ describe('ContractClient', () => {
 
   test('Transactions can be sent', async () => {
     const client = new ContractClient({ adapter, contract, options });
+    await client.init();
     const fnName = 'myFunctionName';
     const args = [1, 2, 3];
     const txOpts = { gasPrice: new BigNumber(1000) };
@@ -176,6 +201,7 @@ describe('ContractClient', () => {
 
   test('Transaction data can be created', async () => {
     const client = new ContractClient({ adapter, contract, options });
+    await client.init();
     const fnName = 'myFunctionName';
     const args = [1, 2, 3];
     const result = await client.createTransactionData(fnName, args);
@@ -190,6 +216,7 @@ describe('ContractClient', () => {
 
   test('Contract event data is parsed correctly', async () => {
     const client = new ContractClient({ adapter, contract, options });
+    await client.init();
 
     const params = {
       events: {

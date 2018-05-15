@@ -12,14 +12,20 @@ import ContractMethod from './ContractMethod';
 import ContractMethodCaller from './ContractMethodCaller';
 import ContractMethodSender from './ContractMethodSender';
 
-import type { ContractMethodDef } from '../flowtypes';
+import type {
+  ContractMethodDef,
+  ContractClientConstructorArgs,
+} from '../flowtypes';
 
 export default class ContractClient {
   // The adapter used to communicate with the blockchain
   adapter: IAdapter;
 
   // The contract interface (as provided by the adapter)
-  contract: IContract;
+  _contract: IContract;
+
+  // The contract loading query the class was constructed with
+  _query: Query;
 
   // Static getters used in lieu of named exports; this package only has
   // one export.
@@ -30,43 +36,39 @@ export default class ContractClient {
     return ContractMethodSender;
   }
 
-  /**
-   * Create a new ContractClient based on an adapter and a contract loading
-   * query; waits for the adapter to return the contract.
-   */
-  static async create(adapter: IAdapter, query: Query, options: Object) {
-    const contract = await adapter.getContract(query);
-    return new this({ adapter, contract, options });
+  static get defaultQuery(): Query {
+    // eslint-disable-next-line no-console
+    console.warn(
+      'No query defined; defaultQuery is designed to be ' +
+        'defined in a derived class',
+    );
+    return {};
   }
 
-  /**
-   * ContractClient constructor
-   * Creates a private map of contract methods which are not necessarily
-   * initialized as classes (as a performance optmisation).
-   * The class is wrapped with a getter that memoizes the contract methods;
-   * each one is seamlessly generated and saved the first time it is accessed.
-   */
-  constructor({
-    adapter,
-    contract,
-    options = {},
-  }: {
-    adapter: IAdapter,
-    contract: IContract,
-    options: Object,
-  }) {
+  constructor({ adapter, query }: ContractClientConstructorArgs) {
     this.adapter = adapter;
-    this.contract = contract;
-    this.initializeContractMethods(options);
+    this._query = Object.assign({}, this.constructor.defaultQuery, query);
+  }
+
+  get contract() {
+    if (!this._contract)
+      throw new Error('Contract not loaded; did you forget to call `.init()`?');
+    return this._contract;
+  }
+
+  async init() {
+    if (this._contract) throw new Error('ContractClient already initialized');
+
+    this._contract = await this.adapter.getContract(this._query);
+    this.initializeContractMethods();
+    return this;
   }
 
   /**
    * Designed to be overridden in a derived class; called in the constructor.
    */
   // eslint-disable-next-line class-methods-use-this
-  initializeContractMethods(
-    options?: Object, // eslint-disable-line no-unused-vars
-  ): void {}
+  initializeContractMethods(): void {}
 
   /**
    * Low-level method to call a named contract function with an array of
