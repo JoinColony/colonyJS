@@ -10,13 +10,13 @@ Adapters are the ColonyJS solution for there being many different ways to access
 
 ## How to use an Adapter
 
-First, make sure you understand how to use [Loaders](./_API_Loaders.md)
+First, make sure you understand how to use [Loaders](../docs-loaders/ "Docs")
 
 Once a contract has a loader defined, an adapter constructor function can be defined.
 
 ### Interface with Ethers.JS
 
-```JavaScript
+```js
 import EthersAdapter from '@colony/colony-js-adapter-ethers';
 import ContractLoaderHttp from '@colony/colony-js-contract-loader-http';
 import { providers } from 'ethers';
@@ -35,13 +35,13 @@ const adapter = new EthersAdapter({
 
 Loading a contract:
 
-```JavaScript
+```js
 const contract = await adapter.getContract({ name: 'ColonyNetwork' });
 ```
 
 Interacting with a contract:
 
-```JavaScript
+```js
 const colonyCount = await contract.functions.getColonyCount();
 console.log(colonyCount); // 1337
 ```
