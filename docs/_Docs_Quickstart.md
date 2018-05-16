@@ -25,7 +25,7 @@ const provider = new providers.Web3Provider(web3.currentProvider);
 const signer = provider.getSigner();
 const adapter = new EthersAdapter({ loader, provider, signer });
 
-(async run() {
+(async () => {
   // Connect to ColonyNetwork!
   const networkClient = await ColonyNetworkClient.createSelf(adapter);
 
