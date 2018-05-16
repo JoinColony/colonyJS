@@ -15,7 +15,8 @@
     "scripts": {
         "flow": "flow check",
         "lint": "eslint ./{,interface/}*.js",
-        "precommit": "lint-staged"
+        "precommit": "lint-staged",
+        "prepublish": "yarn run precommit"
     },
     "lint-staged": {
         "./{,interface/}*": [
