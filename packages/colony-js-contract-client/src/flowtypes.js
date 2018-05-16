@@ -11,6 +11,7 @@ import type {
 import type { Query } from '@colony/colony-js-contract-loader';
 
 import ContractClient from './classes/ContractClient';
+import { SIGNING_MODES } from './constants';
 
 export type ParamTypes = 'number' | 'string' | 'address' | 'boolean';
 
@@ -53,14 +54,14 @@ export type ContractMethodSenderArgs<IContractClient: ContractClient> = {
   eventHandlers?: EventHandlers,
 } & ContractMethodArgs<IContractClient>;
 
-export type GetRequiredSigners = (input: any) => Promise<Array<string>>;
+export type GetRequiredSignees = (input: any) => Promise<Array<string>>;
 
 export type ContractMethodMultisigSenderArgs<
   IContractClient: ContractClient,
 > = {
   nonceFunctionName: string,
   multisigFunctionName: string,
-  getRequiredSigners: GetRequiredSigners,
+  getRequiredSignees: GetRequiredSignees,
 } & ContractMethodSenderArgs<IContractClient>;
 
 export type ContractMethodDef<IContractClient: ContractClient> = {
@@ -70,18 +71,23 @@ export type ContractMethodDef<IContractClient: ContractClient> = {
   output?: ParamTypePairs,
 };
 
+export type SigningMode = $Values<typeof SIGNING_MODES>;
+
 export type Signature = {
   sigR: string,
   sigS: string,
   sigV: number,
 };
 
-export type Signers = Map<string, Signature>;
+export type Signers = {
+  [signeeAddress: string]: Signature & { mode: SigningMode },
+};
 
 export type CombinedSignatures = {
   sigR: Array<string>,
   sigS: Array<string>,
   sigV: Array<number>,
+  mode: Array<SigningMode>,
 };
 
 export type MultisigOperationPayload<InputValues> = {
@@ -91,9 +97,4 @@ export type MultisigOperationPayload<InputValues> = {
   sourceAddress: string,
   nonce: number,
   value: number,
-};
-
-export type MultisigOperationState<InputValues> = {
-  signers: Signers,
-  payload: MultisigOperationPayload<InputValues>,
 };
