@@ -80,25 +80,10 @@ export default class ContractMethodMultisigSender<
   }
 
   /**
-   * Given the state of a MultisigOperation, validate the input values and
-   * signers, then send a transaction with the correct arguments.
+   * Given arguments and options for a multisig function, send a transaction.
    */
-  async sendMultisig(
-    multisigOperationState: MultisigOperationState<InputValues>,
-    options: SendOptions,
-  ) {
-    const {
-      signers,
-      payload: { inputValues },
-    } = multisigOperationState;
-
-    this.validate(inputValues);
-    await this.validateSigners(inputValues, signers);
-
-    return this._send(
-      this.constructor.getMultisigArgs(multisigOperationState),
-      options,
-    );
+  async sendMultisig(args: Array<any>, options: SendOptions) {
+    return this._send(args, options);
   }
 
   /**
