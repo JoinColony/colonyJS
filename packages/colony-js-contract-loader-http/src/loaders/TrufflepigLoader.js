@@ -7,7 +7,7 @@ import ContractHttpLoader from './ContractHttpLoader';
 import type { TruffleArtifact, ConstructorArgs } from '../flowtypes';
 
 const DEFAULT_ENDPOINT =
-  '//127.0.0.1:3030/contracts?name=%%NAME%%&address=%%ADDRESS%%&version=%%VERSION%%'; // eslint-disable-line max-len
+  'http://127.0.0.1:3030/contracts?name=%%NAME%%&address=%%ADDRESS%%&version=%%VERSION%%'; // eslint-disable-line max-len
 
 function trufflepigParse(
   { abi = [], bytecode, networks = {} }: TruffleArtifact = {},
