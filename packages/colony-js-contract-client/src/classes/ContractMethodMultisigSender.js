@@ -88,7 +88,7 @@ export default class ContractMethodMultisigSender<
 
   /**
    * Given input values for the target contract method, create transaction data,
-   * pass the data into a new MultisigOperation.
+   * pass the payload into a new MultisigOperation.
    */
   async startOperation(inputValues: InputValues) {
     this.validate(inputValues);
@@ -99,18 +99,14 @@ export default class ContractMethodMultisigSender<
     // fixed, the inputValues should be passed to the `getNonce` method.
     const nonce = await this.getNonce();
 
-    const operationState = {
-      payload: {
-        data,
-        inputValues,
-        nonce,
-        destinationAddress: this.client.contract.address,
-        sourceAddress: this.client.contract.address,
-        value: 0,
-      },
-      signers: new Map(),
-    };
-    return new MultisigOperation(this, operationState);
+    return new MultisigOperation(this, {
+      data,
+      inputValues,
+      nonce,
+      destinationAddress: this.client.contract.address,
+      sourceAddress: this.client.contract.address,
+      value: 0,
+    });
   }
 
   /**
