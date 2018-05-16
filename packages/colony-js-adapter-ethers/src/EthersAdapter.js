@@ -10,6 +10,7 @@ import type {
   Event,
   EventHandler,
   EventHandlers,
+  Signature,
   Transaction,
 } from '@colony/colony-js-adapter';
 import type { IContractLoader, Query } from '@colony/colony-js-contract-loader';
@@ -123,14 +124,16 @@ export default class EthersAdapter implements IAdapter {
    * Sign a message hash (as binary) and return a split signature.
    */
   async signMessage(messageHash: string) {
-    const uint8Array = ethers.utils.arrayify(messageHash);
-    const signature = await this.wallet.signMessage(uint8Array);
+    const messageBytes = ethers.utils.arrayify(messageHash);
+    const signature = await this.wallet.signMessage(messageBytes);
 
-    const sigHash = signature.slice(2); // Remove '0x'
+    const { r: sigR, s: sigS, v: sigV } = ethers.utils.splitSignature(
+      signature,
+    );
     return {
-      sigR: `0x${sigHash.slice(0, 64)}`,
-      sigS: `0x${sigHash.slice(64, 128)}`,
-      sigV: parseInt(sigHash.slice(128, 130), 16),
+      sigR,
+      sigS,
+      sigV,
     };
   }
 }
