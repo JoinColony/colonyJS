@@ -280,7 +280,7 @@ export default class ColonyClient extends ContractClient {
   /*
     Sets the payout given to the EVALUATOR role when the task is finalized.
   */
-  setTaskEvaluatorPayout: ColonyClient.Sender<
+  setTaskEvaluatorPayout: ColonyClient.MultisigSender<
     {
       taskId: number, // Integer taskId
       token: string, // Address of the token's ERC20 contract.
@@ -292,7 +292,7 @@ export default class ColonyClient extends ContractClient {
   /*
     Sets the payout given to the MANAGER role when the task is finalized.
   */
-  setTaskManagerPayout: ColonyClient.Sender<
+  setTaskManagerPayout: ColonyClient.MultisigSender<
     {
       taskId: number, // Integer taskId
       token: string, // Address of the token's ERC20 contract.
@@ -304,7 +304,7 @@ export default class ColonyClient extends ContractClient {
   /*
     Sets the payout given to the WORKER role when the task is finalized.
   */
-  setTaskManagerPayout: ColonyClient.Sender<
+  setTaskWorkerPayout: ColonyClient.MultisigSender<
     {
       taskId: number, // Integer taskId
       token: string, // Address of the token's ERC20 contract.
@@ -466,42 +466,6 @@ export default class ColonyClient extends ContractClient {
   mintTokensForColonyNetwork: ColonyClient.Sender<
     {
       amount: number, // Amount of new tokens to be minted
-    },
-    null,
-    ColonyClient,
-  >;
-  /*
-    Sets the token payout for the MANAGER role in a given task.
-  */
-  setTaskManagerPayout: ColonyClient.Sender<
-    {
-      taskId: number, // Integer taskId
-      token: Address, // Address of the token, `0x0` value indicates Ether
-      amount: number, // Payout amount
-    },
-    null,
-    ColonyClient,
-  >;
-  /*
-    Sets the token payout for the EVALUATOR role in a given task.
-  */
-  setTaskEvaluatorPayout: ColonyClient.Sender<
-    {
-      taskId: number, // Integer taskId
-      token: Address, // Address of the token, `0x0` value indicates Ether
-      amount: number, // Payout amount
-    },
-    null,
-    ColonyClient,
-  >;
-  /*
-    Sets the token payout for the WORKER role in a given task.
-  */
-  setTaskWorkerPayout: ColonyClient.Sender<
-    {
-      taskId: number, // Integer taskId
-      token: Address, // Address of the token, `0x0` value indicates Ether
-      amount: number, // Payout amount
     },
     null,
     ColonyClient,
@@ -701,21 +665,12 @@ export default class ColonyClient extends ContractClient {
     this.createSender('setTaskDomain', {
       input: [['taskId', 'number'], ['domainId', 'number']],
     });
-    this.createSender('setTaskEvaluatorPayout', {
-      input: [['taskId', 'number'], ['token', 'address'], ['amount', 'number']],
-    });
-    this.createSender('setTaskManagerPayout', {
-      input: [['taskId', 'number'], ['token', 'address'], ['amount', 'number']],
-    });
     this.createSender('setTaskRoleUser', {
       // TODO consider making this sender more convenient
       input: [['taskId', 'number'], ['role', 'number'], ['user', 'address']],
     });
     this.createSender('setTaskSkill', {
       input: [['taskId', 'number'], ['skillId', 'number']],
-    });
-    this.createSender('setTaskWorkerPayout', {
-      input: [['taskId', 'number'], ['token', 'address'], ['amount', 'number']],
     });
     this.createSender('submitTaskDeliverable', {
       input: [['taskId', 'number'], ['deliverableHash', 'string']],
@@ -738,7 +693,7 @@ export default class ColonyClient extends ContractClient {
     const makeExecuteTaskChange = (name: string, input: Array<any>) =>
       this.createMultisigSender(name, {
         input: [['taskId', 'number'], ...input],
-        getRequiredSigners: async ({ taskId }: { taskId: number }) => {
+        getRequiredSignees: async ({ taskId }: { taskId: number }) => {
           const taskRoles = await Promise.all(
             [ROLES.MANAGER, ROLES.EVALUATOR, ROLES.WORKER].map(role =>
               this.getTaskRole.call({ taskId, role }),
@@ -751,5 +706,17 @@ export default class ColonyClient extends ContractClient {
       });
     makeExecuteTaskChange('setTaskBrief', [['specificationHash', 'string']]);
     makeExecuteTaskChange('setTaskDueDate', [['dueDate', 'number']]);
+    makeExecuteTaskChange('setTaskWorkerPayout', [
+      ['token', 'address'],
+      ['amount', 'number'],
+    ]);
+    makeExecuteTaskChange('setTaskManagerPayout', [
+      ['token', 'address'],
+      ['amount', 'number'],
+    ]);
+    makeExecuteTaskChange('setTaskEvaluatorPayout', [
+      ['token', 'address'],
+      ['amount', 'number'],
+    ]);
   }
 }

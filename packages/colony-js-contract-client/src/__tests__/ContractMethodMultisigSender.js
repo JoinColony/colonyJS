@@ -210,7 +210,7 @@ describe('ContractMethodMultisigSender', () => {
 
   // TODO move this test to MultisigOperation
   test.skip('Sending without multisig (signatures needed)', async () => {
-    const getRequiredSigners = sandbox
+    const getRequiredSignees = sandbox
       .fn()
       .mockReturnValueOnce(Promise.resolve(addresses))
       .mockReturnValueOnce(Promise.resolve(addresses[0]));
@@ -218,7 +218,7 @@ describe('ContractMethodMultisigSender', () => {
     const method = new MultisigSender({
       client,
       functionName,
-      getRequiredSigners,
+      getRequiredSignees,
       input,
     });
 
@@ -273,7 +273,7 @@ describe('ContractMethodMultisigSender', () => {
     const method = new MultisigSender({
       client,
       functionName,
-      getRequiredSigners: sandbox.fn(),
+      getRequiredSignees: sandbox.fn(),
       input,
       multisigFunctionName,
       nonceFunctionName,
@@ -318,7 +318,7 @@ describe('ContractMethodMultisigSender', () => {
     const method = new MultisigSender({
       client,
       functionName,
-      getRequiredSigners: sandbox.fn(),
+      getRequiredSignees: sandbox.fn(),
       input,
       multisigFunctionName,
       nonceFunctionName,
