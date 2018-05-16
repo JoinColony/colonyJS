@@ -1,6 +1,6 @@
 /* @flow */
 
-export type SplitSignature = {
+export type Signature = {
   sigR: string,
   sigS: string,
   sigV: number,
