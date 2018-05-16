@@ -110,12 +110,12 @@ export default class ContractMethodMultisigSender<
   }
 
   /**
-   * Given an in-progress operation state, restore a MultisigOperation.
+   * Given the state of an operation as JSON, restore a MultisigOperation.
    */
-  restoreOperation(operationState: MultisigOperationState<InputValues>) {
-    // TODO should this method parse a JSON string?
+  restoreOperation(json: string) {
+    const { payload, signers } = JSON.parse(json);
     // This will throw an error if the state is deemed invalid.
-    return new MultisigOperation(this, operationState);
+    return new MultisigOperation(this, payload, signers);
   }
 
   /**
