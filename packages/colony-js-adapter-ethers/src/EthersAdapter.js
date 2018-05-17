@@ -142,10 +142,9 @@ export default class EthersAdapter implements IAdapter {
    * sign the message.
    */
   // eslint-disable-next-line class-methods-use-this
-  ecRecover(digest: Array<number>, signature: Signature): string {
+  ecRecover(digest: Array<number>, { sigR, sigS, sigV }: Signature): string {
     // This method doesn't need to be static, but flow Interfaces don't
     // support static methods.
-    const { sigR, sigS, sigV } = signature;
     const recoveryParam = sigV - 27;
     return ethers.SigningKey.recover(digest, sigR, sigS, recoveryParam);
   }
