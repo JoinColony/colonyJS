@@ -52,7 +52,7 @@ describe('ContractMethodMultisigSender', () => {
     getContract: sandbox.fn().mockReturnValue(contract),
     get contract() {
       return contract;
-    }
+    },
   };
   const client = new ContractClient({ contract, adapter });
 
