@@ -113,9 +113,14 @@ export default class ContractMethodMultisigSender<
    * Given the state of an operation as JSON, restore a MultisigOperation.
    */
   restoreOperation(json: string) {
-    const { payload, signers } = JSON.parse(json);
+    let parsed = {};
+    try {
+      parsed = JSON.parse(json);
+    } catch (error) {
+      throw new Error('Unable to restore operation: could not parse JSON');
+    }
     // This will throw an error if the state is deemed invalid.
-    return new MultisigOperation(this, payload, signers);
+    return new MultisigOperation(this, parsed.payload, parsed.signers);
   }
 
   /**

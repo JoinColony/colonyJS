@@ -12,11 +12,6 @@ jest.mock('../classes/MultisigOperation');
 
 describe('ContractMethodMultisigSender', () => {
   const sandbox = createSandbox();
-  const addresses = [
-    '0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B',
-    '0x281055afc982d96fab65b3a49cac8b878184cb16',
-    '0x6f46cf5569aefa1acc1009290c8e043747172d89',
-  ];
   const contract = {
     address: '0xMyContractAddress',
   };
