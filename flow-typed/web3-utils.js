@@ -10,7 +10,7 @@ declare module 'web3-utils' {
   declare export function isBN(input: any): boolean;
   declare export function isBigNumber(input: any): boolean;
   declare export function sha3(str: string): string;
-  declare export function soliditySha3(input: any): string;
+  declare export function soliditySha3(...input: any): string;
   declare export function isHex(input: any): boolean;
   declare export function isHexStrict(input: any): boolean;
   declare export function isAddress(input: any): boolean;
