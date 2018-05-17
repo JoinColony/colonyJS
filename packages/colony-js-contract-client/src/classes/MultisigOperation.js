@@ -111,7 +111,7 @@ export default class MultisigOperation<
    * Given the state of an operation as JSON, validate the parsed state and
    * add in the signers.
    */
-  addStateJSON(json: string): void {
+  addSignersFromJSON(json: string): void {
     const { payload, signers } = JSON.parse(json);
     defaultAssert(
       JSON.stringify(this.payload) === JSON.stringify(payload),

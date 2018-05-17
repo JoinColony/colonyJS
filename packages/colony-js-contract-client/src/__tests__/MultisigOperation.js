@@ -270,7 +270,7 @@ describe('MultisigOperation', () => {
 
     sandbox.spyOn(JSON, 'stringify');
     sandbox.spyOn(op.constructor, 'validateSigners');
-    op.addStateJSON(json);
+    op.addSignersFromJSON(json);
 
     // The payload should be validated by JSON-equality
     expect(JSON.stringify).toHaveBeenCalledWith(op.payload);
