@@ -14,6 +14,51 @@ type Address = string;
 export default class ColonyClient extends ContractClient {
   networkClient: ColonyNetworkClient;
   /*
+    Helper function used to generate the rating secret used in task ratings. Accepts a salt value and a value to hide, and returns the keccak256 hash of both.
+  */
+  generateSecret: ColonyClient.Caller<
+    {
+      salt: string, // Salt value
+      value: number, // Value to hide
+    },
+    {
+      secret: string, // keccak256 hash of joint Salt and Value
+    },
+    ColonyClient,
+  >;
+  /*
+    Gets the total number of domains in a Colony. This number equals the last `domainId` created.
+  */
+  getDomainCount: ColonyClient.Caller<
+    null,
+    {
+      count: number, // Number of all domain in this Colony; == the last added domainId
+    },
+    ColonyClient,
+  >;
+  /*
+    Gets the total number of reward payout cycles.
+  */
+  getGlobalRewardPayoutCount: ColonyClient.Caller<
+    null,
+    {
+      count: number, // Number of reward payout cycles
+    },
+    ColonyClient,
+  >;
+  /*
+    Gets the number of claimed and waived reward payouts for a given user.
+  */
+  getUserRewardPayoutCount: ColonyClient.Caller<
+    {
+      user: Address, // Address of user
+    },
+    {
+      count: number, // Number of claimed and waived reward payouts
+    },
+    ColonyClient,
+  >;
+  /*
     Gets the total number of tasks in a Colony. This number equals the last `taskId` created.
   */
   getTaskCount: ColonyClient.Caller<
@@ -44,13 +89,13 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Given a specific [task](glossary#task) a defined role for the task, (see [roles](glossary#roles)) and an ERC20 Token address (see [tokens](glossary#tokens)), `getTaskPayout` will return any payout attached to the task in the token specified.
+    Given a specific task, a defined role for the task, and a token address, will return any payout attached to the task in the token specified.
   */
   getTaskPayout: ColonyClient.Caller<
     {
       taskId: number, // Integer taskId
       role: number, // Role the payout is specified for
-      token: Address, // Address of the token's ERC20 contract
+      token: Address, // Address of the token's contract
     },
     {
       amount: number, // Amount of specified tokens to payout for that task and a role
@@ -63,7 +108,7 @@ export default class ColonyClient extends ContractClient {
   getTaskRole: ColonyClient.Caller<
     {
       taskId: number, // Integer taskId
-      role: number, // Role (see [roles](glossary#roles))
+      role: number, // Role
     },
     {
       address: Address, // Address of the user for the given role
@@ -73,7 +118,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    For a given task, will return the number of submitted ratings and the timestamp of their submission (see (rating[glossary#work-ratings]))
+    For a given task, will return the number of submitted ratings and the timestamp of their submission
   */
   getTaskWorkRatings: ColonyClient.Caller<
     {
@@ -104,7 +149,7 @@ export default class ColonyClient extends ContractClient {
   getPotBalance: ColonyClient.Caller<
     {
       potId: number, // Integer potId
-      token: Address, // Address of the token's ERC20 contract
+      token: Address, // Address of the token's contract
     },
     {
       balance: number, // Balance for token `token` in pot `potId`
@@ -112,11 +157,11 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    The `nonRewardPotsTotal` is a value that keeps track of the total assets a colony has to work with, which may be split among several distinct pots associated with various domains and tasks. See [pots](glossary#pots))
+    The `nonRewardPotsTotal` is a value that keeps track of the total assets a colony has to work with, which may be split among several distinct pots associated with various domains and tasks.
   */
   getNonRewardPotsTotal: ColonyClient.Caller<
     {
-      address: Address, // Address of the token's ERC20 contract (token in question)
+      address: Address, // Address of the token's contract (token in question)
     },
     {
       total: number, // All tokens that are not within the colony's `rewards` pot.
@@ -124,17 +169,34 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Gets the address of the colony's official ERC20 token contract
+    Given a specific payout, returns useful information about the payout.
   */
-  getToken: ColonyClient.Caller<
-    null,
+  getRewardPayoutInfo: ColonyClient.Caller<
     {
-      address: string, // The address of the colony's official deployed ERC20 token contract
+      payoutId: number, // Id of the reward payout
+    },
+    {
+      blockNumber: number, // Block number at the time of creation
+      remainingTokenAmount: number, // Remaining (unclaimed) amount of tokens
+      reputationRootHash: string, // Reputation root hash at the time of creation
+      tokenAddress: Address, // Token address
+      totalTokenAmountForRewardPayout: number, // Total amount of tokens taken aside for reward payout
+      totalTokens: number, // Total colony tokens at the time of creation
     },
     ColonyClient,
   >;
   /*
-    TODO: this needs more clarity. On the face of it, this function returns the number of all transactions in this colony, but what this really entails is that it will be returning the `transactionId` of the last added transaction to the Colony.
+    Gets the address of the colony's official token contract
+  */
+  getToken: ColonyClient.Caller<
+    null,
+    {
+      address: string, // The address of the colony's official deployed token contract
+    },
+    ColonyClient,
+  >;
+  /*
+    Returns the total number of transactions the colony has made, == the `transactionId` of the last added transaction to the Colony.
   */
   getTransactionCount: ColonyClient.Caller<
     null,
@@ -144,7 +206,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Creates a new task by invoking `makeTask` on-chain. This is the first step in the Task lifecycle; see [tasks](glossary#tasks) for a complete description.
+    Creates a new task by invoking `makeTask` on-chain.
   */
   createTask: ColonyClient.Sender<
     {
@@ -174,31 +236,30 @@ export default class ColonyClient extends ContractClient {
     {
       taskId: number, // Integer taskId
       role: number, // The role submitting their rating, either EVALUATOR (`1`) or WORKER (`2`)
-      ratingSecret: string, // hidden work rating, generated as the output of generateSecret(_salt, _rating)
+      ratingSecret: string, // hidden work rating, generated as the output of `generateSecret(_salt, _rating)`, where `_rating` is a score from 0-50 (in increments of 10).
     },
     null,
     ColonyClient,
   >;
   /*
-    Reveals a previously submitted work rating, by proving that the `_rating` and `_salt` values result in the same `ratingSecret` submitted during the rating submission period. This is checked on-chain using the `generateSecret` function. See [Work Ratings](glossary#work-ratings) for more info.
+    Reveals a previously submitted work rating, by proving that the `_rating` and `_salt` values result in the same `ratingSecret` submitted during the rating submission period. This is checked on-chain using the `generateSecret` function.
   */
   revealTaskWorkRating: ColonyClient.Sender<
     {
       taskId: number, // Integer taskId
       role: number, // Role revealing their rating submission, either EVALUATOR (`1`) or WORKER (`2`)
-      rating: number, // TODO: is the rating going to change to between 0 and 3 or remain 5 stars?
+      rating: number, // Rating scored 0-50 in increments of 10 (e.g. 10, 20, 30, 40 or 50).
       salt: string, // `_salt` value to be used in `generateSecret`. A correct value will result in the same `ratingSecret` submitted during the work rating submission period.
     },
     null,
     ColonyClient,
   >;
   /*
-  In the event of a user not committing or revealing within the 10 day rating window, their rating of their counterpart is assumed to be the highest possible and their own rating is decreased by 5 (e.g. 0.5 points). This function may be called by anyone after the taskWorkRatings period has ended.
+    In the event of a user not committing or revealing within the 10 day rating window, their rating of their counterpart is assumed to be the highest possible and their own rating is decreased by 5 (e.g. 0.5 points). This function may be called by anyone after the taskWorkRatings period has ended.
   */
   assignWorkRating: ColonyClient.Sender<
     {
       taskId: number, // Integer taskId
-      rating: number, // TODO: is this really a parameter? doesn't seem like it should be as the function in `ColonyTask.sol` only has one arg...
     },
     null,
     ColonyClient,
@@ -230,17 +291,17 @@ export default class ColonyClient extends ContractClient {
     {
       taskId: number, // Integer taskId
       role: number, // Role of the contributor claiming the payout.
-      token: string, // Address of the ERC20 token contract
+      token: string, // Address of the token contract
     },
     null,
     ColonyClient,
   >;
   /*
-    TODO: Adds a domain to this Colony. Please verify all input and output values. We should probably explain why this requires skill ids
+    Adds a domain to the Colony along with the new domain's respective local skill.
   */
   addDomain: ColonyClient.Sender<
     {
-      parentSkillId: number, // TODO: Why do I have to define a skill for a domain? No idea
+      parentSkillId: number, // Id of the local skill under which the new skill will be added.
     },
     {
       skillId: number, // A skillId for this domain
@@ -249,7 +310,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    TODO: Adds a global skill. Whatever that means.
+    Adds a global skill under a given parent SkillId. Can only be called from the Common Colony
   */
   addGlobalSkill: ColonyClient.Sender<
     {
@@ -262,24 +323,34 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Claims funds that are in the Colony's rewards pot. See [pots](glossary#pots) for mor info.
+    Move any funds received by the colony in `token` denomination to the top-levl domain pot, siphoning off a small amount to the rewards pot. No fee is taken if called against a colony's own token.
   */
   claimColonyFunds: ColonyClient.Sender<
     {
-      token: string, // Address of the ERC20 token contract
+      token: string, // Address of the token contract. `0x0` value indicates Ether.
     },
     null,
     ColonyClient,
   >;
   /*
-      Moves funds between pots in a Colony. See [pots](glossary#pots) for more info.
-    */
+    Finalises the reward payout and allows creation of next reward payout for token that has been used in `payoutId`. Can only be called when reward payout cycle is finished, i.e. 60 days from its creation.
+  */
+  finalizeRewardPayout: ColonyClient.Sender<
+    {
+      payoutId: number, // Id of the reward payout.
+    },
+    null,
+    ColonyClient,
+  >;
+  /*
+    Move a given amount of `token` funds from one pot to another
+  */
   moveFundsBetweenPots: ColonyClient.Sender<
     {
-      fromPot: number, // Origin pot
-      toPot: number, // Destination pot
+      fromPot: number, // Origin pot Id
+      toPot: number, // Destination pot Id
       amount: number, // Amount of funds to move
-      address: string, // Address of the ERC20 token contract
+      address: string, // Address of the token contract
     },
     null,
     ColonyClient,
@@ -289,7 +360,7 @@ export default class ColonyClient extends ContractClient {
   */
   mintTokens: ColonyClient.Sender<
     {
-      amount: number, // amount to be minted
+      amount: number, // Amount of new tokens to be minted
     },
     null,
     ColonyClient,
@@ -299,7 +370,63 @@ export default class ColonyClient extends ContractClient {
   */
   mintTokensForColonyNetwork: ColonyClient.Sender<
     {
-      amount: number, // Tokens to be minted
+      amount: number, // Amount of new tokens to be minted
+    },
+    null,
+    ColonyClient,
+  >;
+  /*
+    Sets the token payout for the MANAGER role in a given task.
+  */
+  setTaskManagerPayout: ColonyClient.Sender<
+    {
+      taskId: number, // Integer taskId
+      token: Address, // Address of the token, `0x0` value indicates Ether
+      amount: number, // Payout amount
+    },
+    null,
+    ColonyClient,
+  >;
+  /*
+    Sets the token payout for the EVALUATOR role in a given task.
+  */
+  setTaskEvaluatorPayout: ColonyClient.Sender<
+    {
+      taskId: number, // Integer taskId
+      token: Address, // Address of the token, `0x0` value indicates Ether
+      amount: number, // Payout amount
+    },
+    null,
+    ColonyClient,
+  >;
+  /*
+    Sets the token payout for the WORKER role in a given task.
+  */
+  setTaskWorkerPayout: ColonyClient.Sender<
+    {
+      taskId: number, // Integer taskId
+      token: Address, // Address of the token, `0x0` value indicates Ether
+      amount: number, // Payout amount
+    },
+    null,
+    ColonyClient,
+  >;
+  /*
+    Start the next reward payout for `token`. All funds in the reward pot for `token` will become unavailable. All tokens will be locked, and can be unlocked by calling `waiveRewardPayout` or `claimRewardPayout`.
+  */
+  startNextRewardPayout: ColonyClient.Sender<
+    {
+      token: Address, // Address of token used for reward payout.
+    },
+    null,
+    ColonyClient,
+  >;
+  /*
+    Waive reward payout. This unlocks the sender's tokens and increments the users reward payout counter, allowing them to claim the next reward payout.
+  */
+  waiveRewardPayouts: ColonyClient.Sender<
+    {
+      numPayouts: number, // Number of payouts to waive
     },
     null,
     ColonyClient,
@@ -343,6 +470,20 @@ export default class ColonyClient extends ContractClient {
     this.getTask = new GetTask({ client: this });
 
     // Callers
+    this.createCaller('generateSecret', {
+      input: [['salt', 'string'], ['value', 'number']],
+      output: [['secret', 'string']],
+    });
+    this.createCaller('getDomainCount', {
+      output: [['count', 'number']],
+    });
+    this.createCaller('getGlobalRewardPayoutCount', {
+      output: [['count', 'number']],
+    });
+    this.createCaller('getUserRewardPayoutCount', {
+      input: [['user', 'address']],
+      output: [['count', 'number']],
+    });
     this.createCaller('getNonRewardPotsTotal', {
       input: [['address', 'address']],
       output: [['total', 'number']],
@@ -350,6 +491,17 @@ export default class ColonyClient extends ContractClient {
     this.createCaller('getPotBalance', {
       input: [['potId', 'number'], ['token', 'address']],
       output: [['balance', 'number']],
+    });
+    this.createCaller('getRewardPayoutInfo', {
+      input: [['payoutId'], 'number'],
+      output: [
+        ['reputationRootHash', 'string'],
+        ['totalTokens', 'number'],
+        ['totalTokenAmountForRewardPayout', 'number'],
+        ['remainingTokenAmount', 'number'],
+        ['tokenAddress', 'address'],
+        ['blockNumber', 'number'],
+      ],
     });
     this.createCaller('getTaskCount', {
       output: [['count', 'number']],
@@ -376,9 +528,6 @@ export default class ColonyClient extends ContractClient {
     });
     this.createCaller('getToken', {
       output: [['address', 'address']],
-    });
-    this.createCaller('getTransactionCount', {
-      output: [['count', 'number']],
     });
 
     // Senders
@@ -440,6 +589,9 @@ export default class ColonyClient extends ContractClient {
     this.createSender('finalizeTask', {
       input: [['taskId', 'number']],
     });
+    this.createSender('finalizeRewardPayout', {
+      input: [['payoutId', 'number']],
+    });
     this.createSender('mintTokens', {
       input: [['amount', 'number']],
     });
@@ -462,8 +614,23 @@ export default class ColonyClient extends ContractClient {
         ['salt', 'string'],
       ],
     });
+    this.createSender('setTaskManagerPayout', {
+      input: [['taskId', 'number'], ['token', 'address'], ['amount', 'number']],
+    });
+    this.createSender('setTaskEvaluatorPayout', {
+      input: [['taskId', 'number'], ['token', 'address'], ['amount', 'number']],
+    });
+    this.createSender('setTaskWorkerPayout', {
+      input: [['taskId', 'number'], ['token', 'address'], ['amount', 'number']],
+    });
     this.createSender('submitTaskDeliverable', {
       input: [['taskId', 'number'], ['deliverableHash', 'string']],
+    });
+    this.createSender('startNextRewardPayout', {
+      input: [['token', 'address']],
+    });
+    this.createSender('waiveRewardPayouts', {
+      input: [['numPayouts', 'number']],
     });
     this.createSender('submitTaskWorkRating', {
       input: [
