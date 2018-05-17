@@ -8,100 +8,192 @@ import ContractClient from '@colony/colony-js-contract-client';
 import ColonyClient from '../ColonyClient/index';
 
 export default class ColonyNetworkClient extends ContractClient {
+  /*
+  Returns the address of a colony when given the colonyId
+  */
   getColonyById: ColonyNetworkClient.Caller<
-    { id: number },
-    { address: string },
+    {
+      id: number, // Integer colonyId
+    },
+    {
+      address: string, // Address of the colony contract
+    },
     ColonyNetworkClient,
   >;
+  /*
+  Returns the address of a colony when given the colony's name (a.k.a its unique "key")
+  */
   getColonyByKey: ColonyNetworkClient.Caller<
-    { key: string },
-    { address: string },
+    {
+      key: string, // The colony's unique key
+    },
+    {
+      address: string, // Address of the colony contract
+    },
     ColonyNetworkClient,
   >;
+  /*
+  Returns the number of colonies created on the Colony Network, i.e. the colonyId of the most recently created colony.
+  */
   getColonyCount: ColonyNetworkClient.Caller<
     null,
-    { count: number },
+    {
+      count: number, // colonyId of the most recently created colony
+    },
     ColonyNetworkClient,
   >;
+  /*
+  Given a version of the colony contract, returns the address of the corresponding `Resolver` contract
+  */
   getColonyVersionResolver: ColonyNetworkClient.Caller<
-    { version: number },
-    { address: string },
+    {
+      version: number, // The Colony contract version
+    },
+    {
+      address: string, // Address of the `Resolver` contract
+    },
     ColonyNetworkClient,
   >;
+  /*
+  Returns the latest Colony contract version. This is the version used to create all new colonies.
+  */
   getCurrentColonyVersion: ColonyNetworkClient.Caller<
     null,
-    { version: number },
-    ColonyNetworkClient,
-  >;
-  getParentSkillId: ColonyNetworkClient.Caller<
-    { skillId: number, parentSkillIndex: number },
-    { parentSkillId: number },
-    ColonyNetworkClient,
-  >;
-  getReputationUpdateLogEntry: ColonyNetworkClient.Caller<
-    { id: number },
     {
-      amount: number,
-      colony: string,
-      nPreviousUpdates: number,
-      nUpdates: number,
-      skillId: number,
-      user: string,
+      version: number, // The current / latest Colony contract version
     },
     ColonyNetworkClient,
   >;
+  /*
+  Given the id of a particular skill, returns the skill's parent skill id
+  */
+  getParentSkillId: ColonyNetworkClient.Caller<
+    {
+      skillId: number, // Id of the skill
+      parentSkillIndex: number, // Index of the `skill.parents` array to get
+    },
+    {
+      parentSkillId: number, // Id of the parent skill
+    },
+    ColonyNetworkClient,
+  >;
+  /*
+  Gets the `ReputationLogEntry` at a specified index for either ther currently active or inactive reputation update log
+  */
+  getReputationUpdateLogEntry: ColonyNetworkClient.Caller<
+    {
+      id: number, // The reputation log members array index of the entry to get
+    },
+    {
+      amount: number, // amount
+      colony: string, // Address of the colony
+      nPreviousUpdates: number, // number of previous updates
+      nUpdates: number, // number of updates
+      skillId: number, // skill Id
+      user: string, // user address
+    },
+    ColonyNetworkClient,
+  >;
+  /*
+  Gets the length of the reputation update log for either the current active or inactive log
+  */
   getReputationUpdateLogLength: ColonyNetworkClient.Caller<
     null,
-    { count: number },
+    {
+      count: number, // Length of Reputation update log array
+    },
     ColonyNetworkClient,
   >;
+  /*
+  Returns the number of parent and child skills associated with the provided skill
+  */
   getSkill: ColonyNetworkClient.Caller<
-    { id: number },
-    { nParents: number, nChildren: number },
+    {
+      id: number, // skillId to be checked
+    },
+    {
+      nParents: number, // Number of parent skills
+      nChildren: number, // Number of child skills
+    },
     ColonyNetworkClient,
   >;
+  /*
+  Get the total number of skills in the network (both global and local skills)
+  */
   getSkillCount: ColonyNetworkClient.Caller<
     null,
-    { count: number },
+    {
+      count: number, // Skill count
+    },
     ColonyNetworkClient,
   >;
+  /*
+    Get the amount of staked CLNY tokens for a given user address
+  */
   getStakedBalance: ColonyNetworkClient.Caller<
-    { user: string },
-    { balance: number },
+    {
+      user: string, // Address of the user
+    },
+    {
+      balance: number, // Amount of staked CLNY
+    },
     ColonyNetworkClient,
   >;
+  /*
+  Creates a new colony on the network. TODO: check whether it returns a colonyId
+  */
   createColony: ColonyNetworkClient.Sender<
     {
-      name: string,
-      tokenAddress: string,
+      name: string, // Unique name for the colony. Will return an error if there already exists a colony with the specified name
+      tokenAddress: string, // Token to import. Note: the ownership of the token contract must be transferred to the newly created colony.
     },
-    { colonyId: number },
+    {
+      colonyId: number, // Id of the newly created colony
+    },
     ColonyNetworkClient,
   >;
+  /*
+    Allow a reputation miner to stake an amount of CLNY tokens, which is required before they can submit a new reputation root hash via `ReputationMiningCycle.submitNewHash`
+  */
   deposit: ColonyNetworkClient.Sender<
-    { amount: number },
+    {
+      amount: number, // Amount of CLNY to stake
+    },
     null,
     ColonyNetworkClient,
   >;
+  /*
+    Create and start a new Dutch Auction for the entire amount of a specified token owned by the Colony Network
+  */
   startTokenAuction: ColonyNetworkClient.Sender<
-    { tokenAddress: string },
     {
-      auction: string,
-      token: string,
-      quantity: number,
+      tokenAddress: string, // Address of the token held by the network to be auctioned
+    },
+    {
+      auction: string, // The address of the auction contract
+      token: string, // The address of the token being auctioned
+      quantity: number, // The amount of available tokens for auction
     },
     ColonyNetworkClient,
   >;
+  /*
+  Upgrades a colony to a new Colony contract version.
+  */
   upgradeColony: ColonyNetworkClient.Sender<
     {
-      key: string,
-      newVersion: number,
+      key: string, // Unique colony 'key' to be upgraded
+      newVersion: number, // The target version for the upgrade
     },
     null,
     ColonyNetworkClient,
   >;
+  /*
+  Allow a user who has staked CLNY to withdraw their stake
+  */
   withdraw: ColonyNetworkClient.Sender<
-    { amount: number },
+    {
+      amount: number, // Amount of CLNY to withdraw from stake
+    },
     null,
     ColonyNetworkClient,
   >;
