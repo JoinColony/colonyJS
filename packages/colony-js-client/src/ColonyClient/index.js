@@ -249,7 +249,7 @@ export default class ColonyClient extends ContractClient {
   setTaskDueDate: ColonyClient.MultisigSender<
     {
       taskId: number, // Integer taskId
-      dueDate: number, // Integer due date
+      dueDate: Date, // Due date
     },
     null,
     ColonyClient,

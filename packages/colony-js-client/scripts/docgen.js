@@ -10,7 +10,7 @@ const TYPES = {
   StringTypeAnnotation: 'string',
   NumberTypeAnnotation: 'number',
   Date: 'Date',
-  Address: 'address',
+  Address: 'Address',
 };
 
 const ast = parser.parse(
@@ -19,6 +19,7 @@ const ast = parser.parse(
 
 const callers = [];
 const senders = [];
+const multisig = [];
 
 types.visit(ast, {
   visitQualifiedTypeIdentifier(p) {
@@ -42,20 +43,31 @@ types.visit(ast, {
         events: mapObjectProps(params[1]),
       });
     }
+    if (p.value.id.name === 'MultisigSender') {
+      const { params } = p.parent.value.typeParameters;
+
+      multisig.push({
+        name: getName(p),
+        description: getDescription(p),
+        args: mapObjectProps(params[0]),
+        events: mapObjectProps(params[1]),
+      });
+    }
     return false;
   },
 });
 
 const md = `
-## Callers
 ${printCallers()}
-## Senders
-${printSenders()}`.trim();
+${printSenders()}
+${printMultiSig()}
+`.trim();
 
 console.log(md);
 
 function printCallers() {
-  return callers
+  if (!callers.length) return '';
+  return '## Callers\n' + callers
     .map(
       caller => `
 ### \`${caller.name}.call(${printArgs(caller.args)})\`
@@ -69,7 +81,8 @@ ${printProps('Return value', caller.returns)}
 }
 
 function printSenders() {
-  return senders
+  if (!senders.length) return '';
+  return '## Senders\n' + senders
     .map(
       sender => `
 ### \`${sender.name}.send(${printArgs(sender.args)})\`
@@ -77,6 +90,21 @@ function printSenders() {
 ${sender.description}
 ${printProps('Param', sender.args)}
 ${printProps('Event data', sender.events)}
+`,
+    )
+    .join('');
+}
+
+function printMultiSig() {
+  if (!multisig.length) return '';
+  return '## Task MultiSig\n' + multisig
+    .map(
+      ms => `
+### \`${ms.name}.send(${printArgs(ms.args)})\`
+
+${ms.description}
+${printProps('Param', ms.args)}
+${printProps('Event data', ms.events)}
 `,
     )
     .join('');
