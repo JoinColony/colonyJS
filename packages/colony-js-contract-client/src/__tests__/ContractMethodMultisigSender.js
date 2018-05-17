@@ -26,17 +26,6 @@ describe('ContractMethodMultisigSender', () => {
   const callArgs = [1];
   const input = [['id', 'number']];
   const inputValues = { id: 1 };
-  const sig1 = { sigR: '0x123', sigS: '0x234', sigV: 123 };
-  const sig2 = {
-    sigR: '0x3810976581519370936455002930541734832270292486195672859026812854',
-    sigS: '0x2717400036569076491467357688191371198012187172992592815125647808',
-    sigV: 28,
-  };
-  const sig3 = {
-    sigR: '0x09ebb6ca057a0535d6186462bc0b465b561c94a295bdb0621fc19208ab149a9c',
-    sigS: '0x440ffd775ce91a833ab410777204d5341a6f9fa91216a6f3ee2c051fea6a0428',
-    sigV: 25,
-  };
   const options = {
     timeoutMs: 5000,
     miningTimeoutMs: 10000,
@@ -60,6 +49,10 @@ describe('ContractMethodMultisigSender', () => {
   };
   const adapter = {
     getTransactionReceipt: sandbox.fn(() => receipt),
+    getContract: sandbox.fn().mockReturnValue(contract),
+    get contract() {
+      return contract;
+    }
   };
   const client = new ContractClient({ contract, adapter });
 
@@ -69,79 +62,8 @@ describe('ContractMethodMultisigSender', () => {
     sandbox.spyOn(Sender.prototype, 'send').mockReturnValue(contractResponse);
   });
 
-  test('Combining signatures', () => {
-    const signers = new Map([[addresses[0], sig1], [addresses[1], sig2]]);
-    const combined = MultisigSender.combineSignatures(signers);
-    expect(combined).toEqual({
-      sigR: [sig1.sigR, sig2.sigR],
-      sigS: [sig1.sigS, sig2.sigS],
-      sigV: [sig1.sigV, sig2.sigV],
-    });
-  });
-
-  test('Getting Multisig arguments', () => {
-    const sigR = ['0x123', '0x234'];
-    const sigS = ['0x345', '0x456'];
-    const sigV = [123, 234];
-    const state = {
-      signers: 'signers',
-      payload: {
-        data: '0x999',
-        value: 5,
-      },
-    };
-
-    sandbox
-      .spyOn(MultisigSender, 'combineSignatures')
-      .mockReturnValue({ sigV, sigR, sigS });
-
-    const args = MultisigSender.getMultisigArgs(state);
-
-    expect(MultisigSender.combineSignatures).toHaveBeenCalledWith(
-      state.signers,
-    );
-    expect(args).toEqual([
-      sigV,
-      sigR,
-      sigS,
-      state.payload.value,
-      state.payload.data,
-    ]);
-  });
-
-  test('Validating required signatures (valid)', () => {
-    const signers = new Map([
-      [addresses[0], sig1],
-      [addresses[1], sig2],
-      [addresses[2], sig3],
-    ]);
-    const valid = MultisigSender.validateRequiredSigners(addresses, signers);
-    expect(valid).toBe(true);
-  });
-
-  test('Validating required signatures (invalid)', () => {
-    [
-      // no signatures
-      new Map(),
-      // one signature
-      new Map([[addresses[0], sig1]]),
-      // two signatures
-      new Map([[addresses[0], sig1], [addresses[1], sig2]]),
-      // three signatures, one of which is wrong
-      new Map([
-        [addresses[0], sig1],
-        [addresses[1], sig2],
-        ['the wrong address', sig2],
-      ]),
-    ].forEach(signers => {
-      // We need three matching signatures
-      expect(() => {
-        MultisigSender.validateRequiredSigners(addresses, signers);
-      }).toThrowError('Missing signatures');
-    });
-  });
-
   test('Getting nonce value (valid response)', async () => {
+    await client.init();
     const method = new MultisigSender({
       client,
       functionName,
@@ -237,38 +159,6 @@ describe('ContractMethodMultisigSender', () => {
     }
   });
 
-  test('Sending with multisig', async () => {
-    const method = new MultisigSender({
-      client,
-      functionName,
-      input,
-    });
-
-    sandbox.spyOn(method, 'validate').mockReturnValue(true);
-    sandbox.spyOn(method, 'validateSigners').mockReturnValue(true);
-    sandbox.spyOn(method, '_send').mockReturnValue(contractResponse);
-    sandbox.spyOn(method.constructor, 'getMultisigArgs').mockReturnValue([]);
-
-    const state = {
-      signers: new Map(),
-      payload: {
-        inputValues,
-        data: '0x999',
-        value: 5,
-      },
-    };
-
-    const response = await method.sendMultisig(state, options);
-
-    expect(method.constructor.getMultisigArgs).toHaveBeenCalledWith(state);
-    expect(method.validate).toHaveBeenCalledWith(inputValues);
-    expect(method.validateSigners).toHaveBeenCalledWith(
-      inputValues,
-      state.signers,
-    );
-    expect(response).toBe(contractResponse);
-  });
-
   test('Starting a MultisigOperation', async () => {
     const method = new MultisigSender({
       client,
@@ -301,15 +191,12 @@ describe('ContractMethodMultisigSender', () => {
     expect(MultisigOperation).toHaveBeenCalledWith(
       method,
       expect.objectContaining({
-        payload: {
-          data: txData,
-          destinationAddress: method.client.contract.address,
-          inputValues,
-          sourceAddress: method.client.contract.address,
-          value: 0,
-          nonce,
-        },
-        signers: new Map(),
+        data: txData,
+        destinationAddress: method.client.contract.address,
+        inputValues,
+        sourceAddress: method.client.contract.address,
+        value: 0,
+        nonce,
       }),
     );
   });
@@ -332,7 +219,7 @@ describe('ContractMethodMultisigSender', () => {
         sourceAddress: method.client.contract.address,
         value: 0,
       },
-      signatures: {
+      signers: {
         '0x176253765182736581': {
           sigR: '0x234',
           sigS: '0x345',
@@ -341,8 +228,14 @@ describe('ContractMethodMultisigSender', () => {
       },
     };
 
-    const op = method.restoreOperation(state);
-    expect(MultisigOperation).toHaveBeenCalledWith(method, state);
+    const json = JSON.stringify(state);
+
+    const op = method.restoreOperation(json);
+    expect(MultisigOperation).toHaveBeenCalledWith(
+      method,
+      state.payload,
+      state.signers,
+    );
     expect(op).toBeInstanceOf(MultisigOperation);
   });
 });
