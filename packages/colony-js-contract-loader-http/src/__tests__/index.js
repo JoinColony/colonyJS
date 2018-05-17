@@ -25,6 +25,15 @@ describe('ContractHttpLoader', () => {
   const routerBytecode = '0x0987654321';
   const routerName = 'EtherRouter';
   const version = 1;
+  const requiredProps = {
+    address: true,
+    abi: true,
+    bytecode: false,
+    myCustomRequiredProp: true,
+  };
+  const requiredPropsWithByteCode = Object.assign({}, requiredProps, {
+    bytecode: true,
+  });
 
   beforeEach(() => {
     fetch.resetMocks();
@@ -33,7 +42,7 @@ describe('ContractHttpLoader', () => {
 
   test('Default implementation', async () => {
     const loader = setupLoader();
-    sandbox.spyOn(loader, '_parse');
+    sandbox.spyOn(loader, '_transform');
 
     const query = { contractName };
     const contractResponse = {
@@ -44,9 +53,13 @@ describe('ContractHttpLoader', () => {
     };
     fetch.once(JSON.stringify(contractResponse));
 
-    const contract = await loader.load(query);
+    const contract = await loader.load(query, requiredProps);
     expect(contract).toEqual(contractResponse);
-    expect(loader._parse).toHaveBeenCalledWith(contractResponse, query);
+    expect(loader._transform).toHaveBeenCalledWith(
+      contractResponse,
+      query,
+      requiredProps,
+    );
   });
 
   test('TrufflepigLoader', async () => {
@@ -71,7 +84,7 @@ describe('ContractHttpLoader', () => {
 
   test('EtherscanLoader', async () => {
     const loader = new EtherscanLoader();
-    sandbox.spyOn(loader, '_parse');
+    sandbox.spyOn(loader, '_transform');
 
     const query = { contractAddress };
     const successfulResponse = {
@@ -89,31 +102,43 @@ describe('ContractHttpLoader', () => {
       .once(JSON.stringify(erroneousResponse));
 
     // Successful response
-    const contract = await loader.load(query);
+    const contract = await loader.load(query, requiredProps);
     expect(contract).toEqual({ address: contractAddress, abi });
     expect(() => contract.bytecode).toThrowError(
       'Etherscan does not currently provide contract bytecode',
     );
-    expect(loader._parse).toHaveBeenCalledWith(successfulResponse, query);
+    expect(loader._transform).toHaveBeenCalledWith(
+      successfulResponse,
+      query,
+      requiredProps,
+    );
 
     // Malformed response
     try {
-      await loader.load(query);
+      await loader.load(query, requiredProps);
     } catch (error) {
       expect(error.toString()).toContain('Malformed response from Etherscan');
-      expect(loader._parse).toHaveBeenCalledWith(malformedResponse, query);
+      expect(loader._transform).toHaveBeenCalledWith(
+        malformedResponse,
+        query,
+        requiredProps,
+      );
     }
 
     // Bad response
     try {
-      await loader.load(query);
+      await loader.load(query, requiredProps);
     } catch (error) {
       expect(error.toString()).toContain(
         `Erroneous response from Etherscan (status: ${
           erroneousResponse.status
         })`,
       );
-      expect(loader._parse).toHaveBeenCalledWith(erroneousResponse, query);
+      expect(loader._transform).toHaveBeenCalledWith(
+        erroneousResponse,
+        query,
+        requiredProps,
+      );
     }
   });
 
@@ -124,7 +149,7 @@ describe('ContractHttpLoader', () => {
     sandbox.spyOn(loader, 'resolveEndpointResource');
 
     const query = { contractName, version };
-    await loader.load(query);
+    await loader.load(query, { abi: true, address: false, bytecode: false });
 
     expect(loader._load).toHaveBeenCalledTimes(1);
     expect(loader.resolveEndpointResource).toHaveBeenCalledTimes(1);
@@ -153,24 +178,33 @@ describe('ContractHttpLoader', () => {
         bytecode: routerBytecode,
       });
 
-    const contractDef = await loader.load({
-      contractName,
-      routerName,
-      version,
-      networkId,
-    });
+    const contractDef = await loader.load(
+      {
+        contractName,
+        routerName,
+        version,
+        networkId,
+      },
+      requiredProps,
+    );
 
     expect(loader._load).toHaveBeenCalledTimes(2);
-    expect(loader._load).toHaveBeenCalledWith({
-      contractName,
-      networkId,
-      version,
-    });
-    expect(loader._load).toHaveBeenCalledWith({
-      contractName: routerName,
-      networkId,
-      version,
-    });
+    expect(loader._load).toHaveBeenCalledWith(
+      {
+        contractName,
+        networkId,
+        version,
+      },
+      requiredProps,
+    );
+    expect(loader._load).toHaveBeenCalledWith(
+      {
+        contractName: routerName,
+        networkId,
+        version,
+      },
+      requiredProps,
+    );
 
     // The contract definition should have the router contract's address, but
     // with the main contract's ABI/bytecode.
@@ -190,19 +224,25 @@ describe('ContractHttpLoader', () => {
       bytecode,
     });
 
-    const contractDef = await loader.load({
-      contractName,
-      routerAddress,
-      version,
-      networkId,
-    });
+    const contractDef = await loader.load(
+      {
+        contractName,
+        routerAddress,
+        version,
+        networkId,
+      },
+      requiredPropsWithByteCode,
+    );
 
     expect(loader._load).toHaveBeenCalledTimes(1);
-    expect(loader._load).toHaveBeenCalledWith({
-      contractName,
-      networkId,
-      version,
-    });
+    expect(loader._load).toHaveBeenCalledWith(
+      {
+        contractName,
+        networkId,
+        version,
+      },
+      requiredPropsWithByteCode,
+    );
 
     // The contract definition should have the router contract's address, but
     // with the main contract's ABI/bytecode.
@@ -230,7 +270,7 @@ describe('ContractHttpLoader', () => {
 
     fetch.mockRejectOnce('some fetch error');
     try {
-      await loader.load({ contractName, version });
+      await loader.load({ contractName, version }, requiredProps);
     } catch (error) {
       expect(error.toString()).toContain(
         'Unable to fetch resource for contract MetaCoin: some fetch error',
@@ -249,17 +289,16 @@ describe('ContractHttpLoader', () => {
     // Missing `bytecode`
     fetch.once(JSON.stringify({ address: contractAddress, abi }));
     try {
-      await loader.load({ contractName, version });
+      await loader.load({ contractName, version }, requiredPropsWithByteCode);
     } catch (error) {
       expect(error.toString()).toContain(
-        // eslint-disable-next-line max-len
-        'Unable to parse contract definition for contract MetaCoin: Invalid contract definition: bytecode is missing or invalid',
+        'Invalid contract definition: bytecode is missing or invalid',
       );
     }
 
     // Bad parameters
     try {
-      await loader.load({});
+      await loader.load({}, requiredProps);
     } catch (error) {
       expect(error.toString()).toContain(
         'The field `contractName` or `contractAddress` must be supplied',

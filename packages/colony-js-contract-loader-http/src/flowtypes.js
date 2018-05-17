@@ -1,10 +1,10 @@
 /* @flow */
 
-import type { Parser } from '@colony/colony-js-contract-loader';
+import type { Transform } from '@colony/colony-js-contract-loader';
 
 export type ConstructorArgs = {
   endpoint: string,
-  parse: Parser,
+  transform: Transform,
 };
 
 export type TruffleArtifact = {

@@ -3,6 +3,7 @@
 export type {
   ContractDefinition,
   ContractLoader as IContractLoader,
-  Parser,
+  Transform,
+  RequiredContractProps,
   Query,
 } from './interface/ContractLoader';

@@ -9,7 +9,7 @@ import type { ConstructorArgs } from '../flowtypes';
 const DEFAULT_ENDPOINT =
   'https://api.etherscan.io/api?module=contract&action=getabi&address=%%ADDRESS%%'; // eslint-disable-line max-len
 
-function etherscanParse(response: any, query: Query) {
+function etherscanTransform(response: any, query?: Query = {}) {
   // TODO later: consider building some generalized response validators for
   // common services like etherscan, infura, jsonrpc, etc.
   if (
@@ -46,10 +46,10 @@ function etherscanParse(response: any, query: Query) {
 
 export default class EtherscanLoader extends ContractHttpLoader {
   constructor({
-    parse = etherscanParse,
+    transform = etherscanTransform,
     endpoint = DEFAULT_ENDPOINT,
     ...rest
   }: ConstructorArgs = {}) {
-    super({ endpoint, parse, ...rest });
+    super({ endpoint, transform, ...rest });
   }
 }
