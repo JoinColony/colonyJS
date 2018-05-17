@@ -518,29 +518,29 @@ export default class ColonyClient extends ContractClient {
     this.getTask = new GetTask({ client: this });
 
     // Callers
-    this.createCaller('generateSecret', {
+    this.addCaller('generateSecret', {
       input: [['salt', 'string'], ['value', 'number']],
       output: [['secret', 'string']],
     });
-    this.createCaller('getDomainCount', {
+    this.addCaller('getDomainCount', {
       output: [['count', 'number']],
     });
-    this.createCaller('getGlobalRewardPayoutCount', {
+    this.addCaller('getGlobalRewardPayoutCount', {
       output: [['count', 'number']],
     });
-    this.createCaller('getUserRewardPayoutCount', {
+    this.addCaller('getUserRewardPayoutCount', {
       input: [['user', 'address']],
       output: [['count', 'number']],
     });
-    this.createCaller('getNonRewardPotsTotal', {
+    this.addCaller('getNonRewardPotsTotal', {
       input: [['address', 'address']],
       output: [['total', 'number']],
     });
-    this.createCaller('getPotBalance', {
+    this.addCaller('getPotBalance', {
       input: [['potId', 'number'], ['token', 'address']],
       output: [['balance', 'number']],
     });
-    this.createCaller('getRewardPayoutInfo', {
+    this.addCaller('getRewardPayoutInfo', {
       input: [['payoutId'], 'number'],
       output: [
         ['reputationRootHash', 'string'],
@@ -551,14 +551,14 @@ export default class ColonyClient extends ContractClient {
         ['blockNumber', 'number'],
       ],
     });
-    this.createCaller('getTaskCount', {
+    this.addCaller('getTaskCount', {
       output: [['count', 'number']],
     });
-    this.createCaller('getTaskPayout', {
+    this.addCaller('getTaskPayout', {
       input: [['taskId', 'number'], ['role', 'number'], ['token', 'address']],
       output: [['amount', 'number']],
     });
-    this.createCaller('getTaskRole', {
+    this.addCaller('getTaskRole', {
       input: [['taskId', 'number'], ['role', 'number']],
       output: [
         ['address', 'address'],
@@ -566,15 +566,15 @@ export default class ColonyClient extends ContractClient {
         ['rating', 'number'],
       ],
     });
-    this.createCaller('getTaskWorkRatings', {
+    this.addCaller('getTaskWorkRatings', {
       input: [['taskId', 'number']],
       output: [['count', 'number'], ['timestamp', 'number']],
     });
-    this.createCaller('getTaskWorkRatingSecret', {
+    this.addCaller('getTaskWorkRatingSecret', {
       input: [['taskId', 'number'], ['role', 'number']],
       output: [['secret', 'string']],
     });
-    this.createCaller('getToken', {
+    this.addCaller('getToken', {
       output: [['address', 'address']],
     });
 
@@ -594,31 +594,31 @@ export default class ColonyClient extends ContractClient {
         };
       },
     };
-    this.createSender('addDomain', {
+    this.addSender('addDomain', {
       input: [['domainId', 'number']],
       eventHandlers: {
         success: { SkillAdded },
       },
     });
-    this.createSender('addGlobalSkill', {
+    this.addSender('addGlobalSkill', {
       input: [['parentSkillId', 'number']],
       eventHandlers: {
         success: { SkillAdded },
       },
     });
-    this.createSender('assignWorkRating', {
+    this.addSender('assignWorkRating', {
       input: [['taskId', 'number']],
     });
-    this.createSender('cancelTask', {
+    this.addSender('cancelTask', {
       input: [['taskId', 'number']],
     });
-    this.createSender('claimColonyFunds', {
+    this.addSender('claimColonyFunds', {
       input: [['token', 'address']],
     });
-    this.createSender('claimPayout', {
+    this.addSender('claimPayout', {
       input: [['token', 'address'], ['role', 'number'], ['token', 'address']],
     });
-    this.createSender('createTask', {
+    this.addSender('createTask', {
       functionName: 'makeTask',
       input: [['specificationHash', 'string'], ['domainId', 'number']],
       eventHandlers: {
@@ -634,19 +634,19 @@ export default class ColonyClient extends ContractClient {
         },
       },
     });
-    this.createSender('finalizeTask', {
+    this.addSender('finalizeTask', {
       input: [['taskId', 'number']],
     });
-    this.createSender('finalizeRewardPayout', {
+    this.addSender('finalizeRewardPayout', {
       input: [['payoutId', 'number']],
     });
-    this.createSender('mintTokens', {
+    this.addSender('mintTokens', {
       input: [['amount', 'number']],
     });
-    this.createSender('mintTokensForColonyNetwork', {
+    this.addSender('mintTokensForColonyNetwork', {
       input: [['amount', 'number']],
     });
-    this.createSender('moveFundsBetweenPots', {
+    this.addSender('moveFundsBetweenPots', {
       input: [
         ['fromPot', 'number'],
         ['toPot', 'number'],
@@ -654,7 +654,7 @@ export default class ColonyClient extends ContractClient {
         ['address', 'address'],
       ],
     });
-    this.createSender('revealTaskWorkRating', {
+    this.addSender('revealTaskWorkRating', {
       input: [
         ['taskId', 'number'],
         ['role', 'number'],
@@ -662,26 +662,26 @@ export default class ColonyClient extends ContractClient {
         ['salt', 'string'],
       ],
     });
-    this.createSender('setTaskDomain', {
+    this.addSender('setTaskDomain', {
       input: [['taskId', 'number'], ['domainId', 'number']],
     });
-    this.createSender('setTaskRoleUser', {
+    this.addSender('setTaskRoleUser', {
       // TODO consider making this sender more convenient
       input: [['taskId', 'number'], ['role', 'number'], ['user', 'address']],
     });
-    this.createSender('setTaskSkill', {
+    this.addSender('setTaskSkill', {
       input: [['taskId', 'number'], ['skillId', 'number']],
     });
-    this.createSender('submitTaskDeliverable', {
+    this.addSender('submitTaskDeliverable', {
       input: [['taskId', 'number'], ['deliverableHash', 'string']],
     });
-    this.createSender('startNextRewardPayout', {
+    this.addSender('startNextRewardPayout', {
       input: [['token', 'address']],
     });
-    this.createSender('waiveRewardPayouts', {
+    this.addSender('waiveRewardPayouts', {
       input: [['numPayouts', 'number']],
     });
-    this.createSender('submitTaskWorkRating', {
+    this.addSender('submitTaskWorkRating', {
       input: [
         ['taskId', 'number'],
         ['role', 'number'],
@@ -691,7 +691,7 @@ export default class ColonyClient extends ContractClient {
 
     // Multisig Senders
     const makeExecuteTaskChange = (name: string, input: Array<any>) =>
-      this.createMultisigSender(name, {
+      this.addMultisigSender(name, {
         input: [['taskId', 'number'], ...input],
         getRequiredSignees: async ({ taskId }: { taskId: number }) => {
           const taskRoles = await Promise.all(

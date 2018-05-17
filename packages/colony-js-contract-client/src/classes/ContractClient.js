@@ -116,7 +116,7 @@ export default class ContractClient {
     return this.contract.createTransactionData(functionName, args);
   }
 
-  createMethod(
+  addMethod(
     Method: typeof ContractMethod.constructor,
     name: string,
     def: ContractMethodDef<*>,
@@ -129,15 +129,15 @@ export default class ContractClient {
     });
   }
 
-  createCaller(name: string, def: Object): void {
-    this.createMethod(this.constructor.Caller, name, def);
+  addCaller(name: string, def: Object): void {
+    this.addMethod(this.constructor.Caller, name, def);
   }
 
-  createSender(name: string, def: Object): void {
-    this.createMethod(this.constructor.Sender, name, def);
+  addSender(name: string, def: Object): void {
+    this.addMethod(this.constructor.Sender, name, def);
   }
 
-  createMultisigSender(name: string, def: Object): void {
-    this.createMethod(this.constructor.MultisigSender, name, def);
+  addMultisigSender(name: string, def: Object): void {
+    this.addMethod(this.constructor.MultisigSender, name, def);
   }
 }
