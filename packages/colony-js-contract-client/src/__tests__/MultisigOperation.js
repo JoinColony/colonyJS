@@ -272,10 +272,9 @@ describe('MultisigOperation', () => {
     sandbox.spyOn(op.constructor, 'validateSigners');
     op.addSignersFromJSON(json);
 
-    // The payload should be validated by JSON-equality
-    expect(JSON.stringify).toHaveBeenCalledWith(op.payload);
-    expect(JSON.stringify).toHaveBeenCalledWith(payload);
-    expect(JSON.stringify).toHaveBeenCalledTimes(2);
+    // The payload should be validated by JSON-equality for each property of
+    // both payloads
+    expect(JSON.stringify).toHaveBeenCalledTimes(12);
     expect(assert).toHaveBeenCalledWith(
       true,
       'Unable to add state; incompatible payloads',

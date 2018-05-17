@@ -119,8 +119,12 @@ export default class MultisigOperation<
       throw new Error('Unable to add signers: could not parse JSON');
     }
     const { payload, signers } = parsed;
+
     defaultAssert(
-      JSON.stringify(this.payload) === JSON.stringify(payload),
+      Object.entries(this.payload).every(
+        ([key, value]) =>
+          JSON.stringify(payload[key]) === JSON.stringify(value),
+      ),
       'Unable to add state; incompatible payloads',
     );
     this.constructor.validateSigners(signers);
