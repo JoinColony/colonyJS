@@ -65,7 +65,7 @@ export default class MultisigOperation<
     const { sigV, sigR, sigS, mode } = signature;
 
     return (
-      assert(Number(sigV) === sigV, 'v must be an integer') &&
+      assert([27, 28].includes(sigV), 'v must be 27 or 28') &&
       assert(isHexStrict(sigR), 'r must be a hex string') &&
       assert(isHexStrict(sigS), 's must be a hex string') &&
       assert(
