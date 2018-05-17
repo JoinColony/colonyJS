@@ -194,7 +194,7 @@ export default class ColonyClient extends ContractClient {
   getToken: ColonyClient.Caller<
     null,
     {
-      address: string, // The address of the colony's official deployed token contract
+      address: Address, // The address of the colony's official deployed token contract
     },
     ColonyClient,
   >;
@@ -261,7 +261,7 @@ export default class ColonyClient extends ContractClient {
     {
       taskId: number, // Integer taskId
       role: number, // MANAGER (`0`), EVALUATOR (`1`), or WORKER (`2`)
-      user: string, // address of the user
+      user: Address, // address of the user
     },
     null,
     ColonyClient,
@@ -283,7 +283,7 @@ export default class ColonyClient extends ContractClient {
   setTaskEvaluatorPayout: ColonyClient.MultisigSender<
     {
       taskId: number, // Integer taskId
-      token: string, // Address of the token's ERC20 contract.
+      token: Address, // Address of the token's ERC20 contract.
       amount: number, // Amount to be paid.
     },
     null,
@@ -295,7 +295,7 @@ export default class ColonyClient extends ContractClient {
   setTaskManagerPayout: ColonyClient.MultisigSender<
     {
       taskId: number, // Integer taskId
-      token: string, // Address of the token's ERC20 contract.
+      token: Address, // Address of the token's ERC20 contract.
       amount: number, // Amount to be paid.
     },
     null,
@@ -307,7 +307,7 @@ export default class ColonyClient extends ContractClient {
   setTaskWorkerPayout: ColonyClient.MultisigSender<
     {
       taskId: number, // Integer taskId
-      token: string, // Address of the token's ERC20 contract.
+      token: Address, // Address of the token's ERC20 contract.
       amount: number, // Amount to be paid.
     },
     null,
@@ -386,7 +386,7 @@ export default class ColonyClient extends ContractClient {
     {
       taskId: number, // Integer taskId
       role: number, // Role of the contributor claiming the payout.
-      token: string, // Address of the token contract
+      token: Address, // Address of the token contract
     },
     null,
     ColonyClient,
@@ -422,7 +422,7 @@ export default class ColonyClient extends ContractClient {
   */
   claimColonyFunds: ColonyClient.Sender<
     {
-      token: string, // Address of the token contract. `0x0` value indicates Ether.
+      token: Address, // Address of the token contract. `0x0` value indicates Ether.
     },
     null,
     ColonyClient,
@@ -445,7 +445,7 @@ export default class ColonyClient extends ContractClient {
       fromPot: number, // Origin pot Id
       toPot: number, // Destination pot Id
       amount: number, // Amount of funds to move
-      address: string, // Address of the token contract
+      address: Address, // Address of the token contract
     },
     null,
     ColonyClient,
