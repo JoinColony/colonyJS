@@ -61,9 +61,7 @@ class EthersContract extends ethers.Contract implements IContract {
   ) {
     const fn = this.functions[functionName];
     if (typeof fn !== 'function')
-      throw new TypeError(
-        `Estimation function ${functionName} not found on contract`,
-      );
+      throw new TypeError(`Function ${functionName} not found on contract`);
     return fn(...args, options);
   }
 
@@ -73,7 +71,7 @@ class EthersContract extends ethers.Contract implements IContract {
    * by applying the arguments to it.
    */
   createTransactionData(name: string, args: Array<any>): string {
-    const interfaceFn = this.interface[name];
+    const interfaceFn = this.interface.functions[name];
     if (typeof interfaceFn !== 'function')
       throw new TypeError(`Function ${name} not found on contract interface`);
     const { data } = interfaceFn(...args);

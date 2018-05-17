@@ -10,7 +10,7 @@ declare module 'web3-utils' {
   declare export function isBN(input: any): boolean;
   declare export function isBigNumber(input: any): boolean;
   declare export function sha3(str: string): string;
-  declare export function soliditySha3(input: any): string;
+  declare export function soliditySha3(...input: any): string;
   declare export function isHex(input: any): boolean;
   declare export function isHexStrict(input: any): boolean;
   declare export function isAddress(input: any): boolean;
@@ -25,12 +25,22 @@ declare module 'web3-utils' {
   declare export function hexToNumberString(hex: string): string;
   declare export function numberToHex(n: number): string;
   declare export function toHex(input: any): string;
-  declare export function hexToBytes(hex: string): string;
+  declare export function hexToBytes(hex: string): Array<number>;
   declare export function bytesToHex(bytes: string): string;
-  declare export function leftPad(input: string | number): string;
-  declare export function rightPad(input: string | number): string;
+  declare export function keccak256(input: string): string;
+  declare export function padLeft(
+    input: string | number,
+    characterAmount: number,
+    sign?: string,
+  ): string;
+  declare export function padRight(
+    input: string | number,
+    characterAmount: number,
+    sign?: string,
+  ): string;
   declare export function toTwosComplement(
     n: number | string | BigNumber,
   ): string;
   declare export function sha3(): string;
+  declare export function toDecimal(input: any): number;
 }

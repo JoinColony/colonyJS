@@ -88,7 +88,7 @@ describe('validate', () => {
     [undefined, null, {}, [], [1], '1'].forEach(input => {
       expect(() => {
         validateParam('id', 'number', input);
-      }).toThrowError('Validation error');
+      }).toThrowError('expected a value of type "number"');
     });
 
     // Number/BigBumber (valid)
@@ -106,18 +106,12 @@ describe('validate', () => {
       '',
       '0x06012c8c', // too short
       0x06012c8cf97bead5deae237070f9587f8e7a266d, // not string
+      '0x0000000000000000000000000000000000000000', // undefined
     ].forEach(input => {
       expect(() => {
         validateParam('address', 'address', input);
-      }).toThrowError('Invalid address');
+      }).toThrowError('expected a value of type "address"');
     });
-    expect(() => {
-      validateParam(
-        'address',
-        'address',
-        '0x0000000000000000000000000000000000000000',
-      );
-    }).toThrowError('Undefined address');
 
     // Address (valid)
     expect(
@@ -132,7 +126,7 @@ describe('validate', () => {
     [undefined, null, {}, [], 1, [true], '1'].forEach(input => {
       expect(() => {
         validateParam('isThisThingOn', 'boolean', input);
-      }).toThrowError('Validation error');
+      }).toThrowError('expected a value of type "boolean"');
     });
 
     // Boolean (valid)
@@ -144,7 +138,7 @@ describe('validate', () => {
     [undefined, null, {}, [], 1, ['a']].forEach(input => {
       expect(() => {
         validateParam('name', 'string', input);
-      }).toThrowError('Validation error');
+      }).toThrowError('expected a value of type "string"');
     });
 
     // String (valid)

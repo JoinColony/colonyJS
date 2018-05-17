@@ -5,7 +5,8 @@
   },
   "globals": {
      // XXX waiting on https://github.com/gajus/eslint-plugin-flowtype/pull/308
-    "$PropertyType": false
+    "$PropertyType": false,
+    "$Values": false
   },
   "overrides": [
         {

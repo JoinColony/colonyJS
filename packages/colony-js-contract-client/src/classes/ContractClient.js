@@ -11,6 +11,7 @@ import type {
 import ContractMethod from './ContractMethod';
 import ContractMethodCaller from './ContractMethodCaller';
 import ContractMethodSender from './ContractMethodSender';
+import ContractMethodMultisigSender from './ContractMethodMultisigSender';
 
 import type {
   ContractMethodDef,
@@ -34,6 +35,9 @@ export default class ContractClient {
   }
   static get Sender(): typeof ContractMethodSender {
     return ContractMethodSender;
+  }
+  static get MultisigSender(): typeof ContractMethodMultisigSender {
+    return ContractMethodMultisigSender;
   }
 
   static get defaultQuery(): Query {
@@ -112,7 +116,7 @@ export default class ContractClient {
     return this.contract.createTransactionData(functionName, args);
   }
 
-  createMethod(
+  addMethod(
     Method: typeof ContractMethod.constructor,
     name: string,
     def: ContractMethodDef<*>,
@@ -125,11 +129,15 @@ export default class ContractClient {
     });
   }
 
-  createCaller(name: string, def: Object): void {
-    this.createMethod(this.constructor.Caller, name, def);
+  addCaller(name: string, def: Object): void {
+    this.addMethod(this.constructor.Caller, name, def);
   }
 
-  createSender(name: string, def: Object): void {
-    this.createMethod(this.constructor.Sender, name, def);
+  addSender(name: string, def: Object): void {
+    this.addMethod(this.constructor.Sender, name, def);
+  }
+
+  addMultisigSender(name: string, def: Object): void {
+    this.addMethod(this.constructor.MultisigSender, name, def);
   }
 }

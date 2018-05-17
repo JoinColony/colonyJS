@@ -1,6 +1,6 @@
 /* eslint-env jest */
 
-import checkValidAddress from '../modules/checkValidAddress';
+import checkValidAddress from '../checkValidAddress';
 import { NON_EXISTENT_ADDRESS } from '../constants';
 
 describe('checkValidAddress', () => {

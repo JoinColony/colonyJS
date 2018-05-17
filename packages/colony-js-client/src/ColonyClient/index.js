@@ -3,11 +3,13 @@
 import type BigNumber from 'bn.js';
 
 import ContractClient from '@colony/colony-js-contract-client';
+import { isValidAddress } from '@colony/colony-js-utils';
 // eslint-disable-next-line max-len
 import type { ContractClientConstructorArgs } from '@colony/colony-js-contract-client';
 
 import ColonyNetworkClient from '../ColonyNetworkClient/index';
 import GetTask from './callers/GetTask';
+import { ROLES } from '../constants';
 
 type Address = string;
 
@@ -220,6 +222,98 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
+    The task brief, or specification, is a description of the tasks work specification. The description is hashed and stored with the task for future reference in ratings or in the event of a dispute.
+  */
+  setTaskBrief: ColonyClient.MultisigSender<
+    {
+      taskId: number, // Integer taskId
+      specificationHash: string, // digest of the task's hashed specification.
+    },
+    null,
+    ColonyClient,
+  >;
+  /*
+    Every task must belong to a single existing Domain.
+  */
+  setTaskDomain: ColonyClient.Sender<
+    {
+      taskId: number, // Integer taskId
+      domainId: number, // Integer domainId
+    },
+    null,
+    ColonyClient,
+  >;
+  /*
+    The task's due date determines when a worker may submit the task's deliverable(s)
+  */
+  setTaskDueDate: ColonyClient.MultisigSender<
+    {
+      taskId: number, // Integer taskId
+      dueDate: number, // Integer due date
+    },
+    null,
+    ColonyClient,
+  >;
+  /*
+    Set the user for role `_role` in task `_id`. Only allowed before the task is `finalized`, meaning that the value cannot be changed after the task is complete.
+  */
+  setTaskRoleUser: ColonyClient.Sender<
+    {
+      taskId: number, // Integer taskId
+      role: number, // MANAGER (`0`), EVALUATOR (`1`), or WORKER (`2`)
+      user: string, // address of the user
+    },
+    null,
+    ColonyClient,
+  >;
+  /*
+  Sets the skill tag associated with the task. Currently there is only one skill tag available per task, but additional skills for tasks are planned in future implementations.
+  */
+  setTaskSkill: ColonyClient.Sender<
+    {
+      taskId: number, // Integer taskId
+      skillId: number, // Integer skillId
+    },
+    null,
+    ColonyClient,
+  >;
+  /*
+    Sets the payout given to the EVALUATOR role when the task is finalized.
+  */
+  setTaskEvaluatorPayout: ColonyClient.MultisigSender<
+    {
+      taskId: number, // Integer taskId
+      token: string, // Address of the token's ERC20 contract.
+      amount: number, // Amount to be paid.
+    },
+    null,
+    ColonyClient,
+  >;
+  /*
+    Sets the payout given to the MANAGER role when the task is finalized.
+  */
+  setTaskManagerPayout: ColonyClient.MultisigSender<
+    {
+      taskId: number, // Integer taskId
+      token: string, // Address of the token's ERC20 contract.
+      amount: number, // Amount to be paid.
+    },
+    null,
+    ColonyClient,
+  >;
+  /*
+    Sets the payout given to the WORKER role when the task is finalized.
+  */
+  setTaskWorkerPayout: ColonyClient.MultisigSender<
+    {
+      taskId: number, // Integer taskId
+      token: string, // Address of the token's ERC20 contract.
+      amount: number, // Amount to be paid.
+    },
+    null,
+    ColonyClient,
+  >;
+  /*
     Submit the task deliverable, i.e. the output of the work performed for task `_id` Submission is allowed only to the assigned worker before the task due date. Submissions cannot be overwritten
   */
   submitTaskDeliverable: ColonyClient.Sender<
@@ -377,42 +471,6 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Sets the token payout for the MANAGER role in a given task.
-  */
-  setTaskManagerPayout: ColonyClient.Sender<
-    {
-      taskId: number, // Integer taskId
-      token: Address, // Address of the token, `0x0` value indicates Ether
-      amount: number, // Payout amount
-    },
-    null,
-    ColonyClient,
-  >;
-  /*
-    Sets the token payout for the EVALUATOR role in a given task.
-  */
-  setTaskEvaluatorPayout: ColonyClient.Sender<
-    {
-      taskId: number, // Integer taskId
-      token: Address, // Address of the token, `0x0` value indicates Ether
-      amount: number, // Payout amount
-    },
-    null,
-    ColonyClient,
-  >;
-  /*
-    Sets the token payout for the WORKER role in a given task.
-  */
-  setTaskWorkerPayout: ColonyClient.Sender<
-    {
-      taskId: number, // Integer taskId
-      token: Address, // Address of the token, `0x0` value indicates Ether
-      amount: number, // Payout amount
-    },
-    null,
-    ColonyClient,
-  >;
-  /*
     Start the next reward payout for `token`. All funds in the reward pot for `token` will become unavailable. All tokens will be locked, and can be unlocked by calling `waiveRewardPayout` or `claimRewardPayout`.
   */
   startNextRewardPayout: ColonyClient.Sender<
@@ -460,29 +518,29 @@ export default class ColonyClient extends ContractClient {
     this.getTask = new GetTask({ client: this });
 
     // Callers
-    this.createCaller('generateSecret', {
+    this.addCaller('generateSecret', {
       input: [['salt', 'string'], ['value', 'number']],
       output: [['secret', 'string']],
     });
-    this.createCaller('getDomainCount', {
+    this.addCaller('getDomainCount', {
       output: [['count', 'number']],
     });
-    this.createCaller('getGlobalRewardPayoutCount', {
+    this.addCaller('getGlobalRewardPayoutCount', {
       output: [['count', 'number']],
     });
-    this.createCaller('getUserRewardPayoutCount', {
+    this.addCaller('getUserRewardPayoutCount', {
       input: [['user', 'address']],
       output: [['count', 'number']],
     });
-    this.createCaller('getNonRewardPotsTotal', {
+    this.addCaller('getNonRewardPotsTotal', {
       input: [['address', 'address']],
       output: [['total', 'number']],
     });
-    this.createCaller('getPotBalance', {
+    this.addCaller('getPotBalance', {
       input: [['potId', 'number'], ['token', 'address']],
       output: [['balance', 'number']],
     });
-    this.createCaller('getRewardPayoutInfo', {
+    this.addCaller('getRewardPayoutInfo', {
       input: [['payoutId'], 'number'],
       output: [
         ['reputationRootHash', 'string'],
@@ -493,14 +551,14 @@ export default class ColonyClient extends ContractClient {
         ['blockNumber', 'number'],
       ],
     });
-    this.createCaller('getTaskCount', {
+    this.addCaller('getTaskCount', {
       output: [['count', 'number']],
     });
-    this.createCaller('getTaskPayout', {
+    this.addCaller('getTaskPayout', {
       input: [['taskId', 'number'], ['role', 'number'], ['token', 'address']],
       output: [['amount', 'number']],
     });
-    this.createCaller('getTaskRole', {
+    this.addCaller('getTaskRole', {
       input: [['taskId', 'number'], ['role', 'number']],
       output: [
         ['address', 'address'],
@@ -508,15 +566,15 @@ export default class ColonyClient extends ContractClient {
         ['rating', 'number'],
       ],
     });
-    this.createCaller('getTaskWorkRatings', {
+    this.addCaller('getTaskWorkRatings', {
       input: [['taskId', 'number']],
       output: [['count', 'number'], ['timestamp', 'number']],
     });
-    this.createCaller('getTaskWorkRatingSecret', {
+    this.addCaller('getTaskWorkRatingSecret', {
       input: [['taskId', 'number'], ['role', 'number']],
       output: [['secret', 'string']],
     });
-    this.createCaller('getToken', {
+    this.addCaller('getToken', {
       output: [['address', 'address']],
     });
 
@@ -536,31 +594,31 @@ export default class ColonyClient extends ContractClient {
         };
       },
     };
-    this.createSender('addDomain', {
+    this.addSender('addDomain', {
       input: [['domainId', 'number']],
       eventHandlers: {
         success: { SkillAdded },
       },
     });
-    this.createSender('addGlobalSkill', {
+    this.addSender('addGlobalSkill', {
       input: [['parentSkillId', 'number']],
       eventHandlers: {
         success: { SkillAdded },
       },
     });
-    this.createSender('assignWorkRating', {
+    this.addSender('assignWorkRating', {
       input: [['taskId', 'number']],
     });
-    this.createSender('cancelTask', {
+    this.addSender('cancelTask', {
       input: [['taskId', 'number']],
     });
-    this.createSender('claimColonyFunds', {
+    this.addSender('claimColonyFunds', {
       input: [['token', 'address']],
     });
-    this.createSender('claimPayout', {
+    this.addSender('claimPayout', {
       input: [['token', 'address'], ['role', 'number'], ['token', 'address']],
     });
-    this.createSender('createTask', {
+    this.addSender('createTask', {
       functionName: 'makeTask',
       input: [['specificationHash', 'string'], ['domainId', 'number']],
       eventHandlers: {
@@ -576,19 +634,19 @@ export default class ColonyClient extends ContractClient {
         },
       },
     });
-    this.createSender('finalizeTask', {
+    this.addSender('finalizeTask', {
       input: [['taskId', 'number']],
     });
-    this.createSender('finalizeRewardPayout', {
+    this.addSender('finalizeRewardPayout', {
       input: [['payoutId', 'number']],
     });
-    this.createSender('mintTokens', {
+    this.addSender('mintTokens', {
       input: [['amount', 'number']],
     });
-    this.createSender('mintTokensForColonyNetwork', {
+    this.addSender('mintTokensForColonyNetwork', {
       input: [['amount', 'number']],
     });
-    this.createSender('moveFundsBetweenPots', {
+    this.addSender('moveFundsBetweenPots', {
       input: [
         ['fromPot', 'number'],
         ['toPot', 'number'],
@@ -596,7 +654,7 @@ export default class ColonyClient extends ContractClient {
         ['address', 'address'],
       ],
     });
-    this.createSender('revealTaskWorkRating', {
+    this.addSender('revealTaskWorkRating', {
       input: [
         ['taskId', 'number'],
         ['role', 'number'],
@@ -604,30 +662,61 @@ export default class ColonyClient extends ContractClient {
         ['salt', 'string'],
       ],
     });
-    this.createSender('setTaskManagerPayout', {
-      input: [['taskId', 'number'], ['token', 'address'], ['amount', 'number']],
+    this.addSender('setTaskDomain', {
+      input: [['taskId', 'number'], ['domainId', 'number']],
     });
-    this.createSender('setTaskEvaluatorPayout', {
-      input: [['taskId', 'number'], ['token', 'address'], ['amount', 'number']],
+    this.addSender('setTaskRoleUser', {
+      // TODO consider making this sender more convenient
+      input: [['taskId', 'number'], ['role', 'number'], ['user', 'address']],
     });
-    this.createSender('setTaskWorkerPayout', {
-      input: [['taskId', 'number'], ['token', 'address'], ['amount', 'number']],
+    this.addSender('setTaskSkill', {
+      input: [['taskId', 'number'], ['skillId', 'number']],
     });
-    this.createSender('submitTaskDeliverable', {
+    this.addSender('submitTaskDeliverable', {
       input: [['taskId', 'number'], ['deliverableHash', 'string']],
     });
-    this.createSender('startNextRewardPayout', {
+    this.addSender('startNextRewardPayout', {
       input: [['token', 'address']],
     });
-    this.createSender('waiveRewardPayouts', {
+    this.addSender('waiveRewardPayouts', {
       input: [['numPayouts', 'number']],
     });
-    this.createSender('submitTaskWorkRating', {
+    this.addSender('submitTaskWorkRating', {
       input: [
         ['taskId', 'number'],
         ['role', 'number'],
         ['ratingSecret', 'string'],
       ],
     });
+
+    // Multisig Senders
+    const makeExecuteTaskChange = (name: string, input: Array<any>) =>
+      this.addMultisigSender(name, {
+        input: [['taskId', 'number'], ...input],
+        getRequiredSignees: async ({ taskId }: { taskId: number }) => {
+          const taskRoles = await Promise.all(
+            [ROLES.MANAGER, ROLES.EVALUATOR, ROLES.WORKER].map(role =>
+              this.getTaskRole.call({ taskId, role }),
+            ),
+          );
+          return taskRoles.map(({ address }) => address).filter(isValidAddress);
+        },
+        multisigFunctionName: 'executeTaskChange',
+        nonceFunctionName: 'getTaskChangeNonce',
+      });
+    makeExecuteTaskChange('setTaskBrief', [['specificationHash', 'string']]);
+    makeExecuteTaskChange('setTaskDueDate', [['dueDate', 'number']]);
+    makeExecuteTaskChange('setTaskWorkerPayout', [
+      ['token', 'address'],
+      ['amount', 'number'],
+    ]);
+    makeExecuteTaskChange('setTaskManagerPayout', [
+      ['token', 'address'],
+      ['amount', 'number'],
+    ]);
+    makeExecuteTaskChange('setTaskEvaluatorPayout', [
+      ['token', 'address'],
+      ['amount', 'number'],
+    ]);
   }
 }

@@ -1,27 +1,19 @@
 /* @flow */
 
-import BigNumber from 'bn.js';
 import assert from 'browser-assert';
+import { isBigNumber, isValidAddress } from '@colony/colony-js-utils';
 
 import type { ParamTypes, ParamTypePairs } from '../flowtypes';
-import checkValidAddress from './checkValidAddress';
 
 const parseReturnValue = (value: any, type: ParamTypes) => {
   switch (type) {
     case 'number':
-      if (
-        BigNumber.isBN(value) ||
-        // XXX Some libraries (cough *ethers* cough) wrap BigNumbers in a way
-        // that breaks `isBN`; this is a workaround for that issue:
-        // eslint-disable-next-line no-underscore-dangle
-        (typeof value === 'object' && value._bn && BigNumber.isBN(value._bn))
-      )
-        return value.toNumber();
+      if (isBigNumber(value)) return value.toNumber();
       assert(Number(value) === value, `Unexpected value "${value}"`);
       return value;
     case 'address':
-      checkValidAddress(value);
-      return value;
+      // Filter out empty addresses
+      return isValidAddress(value) ? value : null;
     default:
       return value;
   }

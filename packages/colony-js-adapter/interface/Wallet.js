@@ -32,5 +32,6 @@ export interface Wallet {
     options?: TransactionOptions,
   ): Promise<TransactionReceipt>;
   sign(transaction: Transaction): SignedTransaction;
+  signMessage(message: string): string;
   verifyMessage(message: string, signature: string): string;
 }

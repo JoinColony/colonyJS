@@ -45,6 +45,7 @@
         "bn.js": "^4.11.6",
         "browser-assert": "^1.2.1",
         "lodash.isplainobject": "^4.0.6",
-        "web3-utils": "^1.0.0-beta.30"
+        "lodash.isequal": "^4.5.0",
+        "web3-utils": "^1.0.0-beta.34"
     }
 }

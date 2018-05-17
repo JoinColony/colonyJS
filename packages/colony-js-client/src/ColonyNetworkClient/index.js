@@ -168,35 +168,35 @@ export default class ColonyNetworkClient extends ContractClient {
   }
   initializeContractMethods() {
     // Callers
-    this.createCaller('getColonyById', {
+    this.addCaller('getColonyById', {
       functionName: 'getColonyAt',
       input: [['id', 'number']],
       output: [['address', 'address']],
     });
-    this.createCaller('getColonyByKey', {
+    this.addCaller('getColonyByKey', {
       functionName: 'getColony',
       input: [['key', 'string']],
       output: [['address', 'address']],
     });
-    this.createCaller('getColonyCount', {
-      output: [['address', 'address']],
+    this.addCaller('getColonyCount', {
+      output: [['count', 'number']],
     });
-    this.createCaller('getColonyVersionResolver', {
+    this.addCaller('getColonyVersionResolver', {
       input: [['version', 'number']],
       output: [['address', 'address']],
     });
-    this.createCaller('getCurrentColonyVersion', {
+    this.addCaller('getCurrentColonyVersion', {
       output: [['version', 'number']],
     });
-    this.createCaller('getStakedBalance', {
+    this.addCaller('getStakedBalance', {
       input: [['user', 'address']],
       output: [['balance', 'number']],
     });
-    this.createCaller('getParentSkillId', {
+    this.addCaller('getParentSkillId', {
       input: [['skillId', 'number'], ['parentSkillIndex', 'number']],
       output: [['parentSkillId', 'number']],
     });
-    this.createCaller('getReputationUpdateLogEntry', {
+    this.addCaller('getReputationUpdateLogEntry', {
       input: [['id', 'number']],
       output: [
         ['user', 'string'],
@@ -207,19 +207,19 @@ export default class ColonyNetworkClient extends ContractClient {
         ['nPreviousUpdates', 'number'],
       ],
     });
-    this.createCaller('getReputationUpdateLogLength', {
+    this.addCaller('getReputationUpdateLogLength', {
       output: [['count', 'number']],
     });
-    this.createCaller('getSkill', {
+    this.addCaller('getSkill', {
       input: [['id', 'number']],
       output: [['nParents', 'number'], ['nChildren', 'number']],
     });
-    this.createCaller('getSkillCount', {
+    this.addCaller('getSkillCount', {
       output: [['count', 'number']],
     });
 
     // Senders
-    this.createSender('createColony', {
+    this.addSender('createColony', {
       input: [['name', 'string'], ['tokenAddress', 'address']],
       eventHandlers: {
         success: {
@@ -234,10 +234,10 @@ export default class ColonyNetworkClient extends ContractClient {
         },
       },
     });
-    this.createSender('deposit', {
+    this.addSender('deposit', {
       input: [['amount', 'number']],
     });
-    this.createSender('startTokenAuction', {
+    this.addSender('startTokenAuction', {
       input: [['tokenAddress', 'address']],
       eventHandlers: {
         success: {
@@ -262,10 +262,10 @@ export default class ColonyNetworkClient extends ContractClient {
         },
       },
     });
-    this.createSender('upgradeColony', {
+    this.addSender('upgradeColony', {
       input: [['key', 'string'], ['newVersion', 'number']],
     });
-    this.createSender('withdraw', {
+    this.addSender('withdraw', {
       input: [['amount', 'number']],
     });
   }

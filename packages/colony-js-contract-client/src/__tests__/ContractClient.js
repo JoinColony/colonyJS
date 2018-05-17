@@ -103,7 +103,7 @@ describe('ContractClient', () => {
     const Caller = jest.fn((...args) => new client.constructor.Caller(...args));
 
     // Define a method on the client
-    client.createMethod(Caller, functionName, { input });
+    client.addMethod(Caller, functionName, { input });
 
     // The method should exist on the client
     expect(client.myMethodOne).toBeInstanceOf(client.constructor.Caller);
@@ -117,7 +117,7 @@ describe('ContractClient', () => {
 
     // It should also be possible to override the functionName
     Caller.mockClear();
-    client.createMethod(Caller, 'innocentlyClaimFunds', {
+    client.addMethod(Caller, 'innocentlyClaimFunds', {
       input,
       functionName: 'stealAllTheTokens',
     });
@@ -129,7 +129,7 @@ describe('ContractClient', () => {
 
     // Attempting to redefine the same method name should not work
     expect(() => {
-      client.createMethod(Caller, functionName, { input });
+      client.addMethod(Caller, functionName, { input });
     }).toThrowError('A ContractMethod named "myMethodOne" already exists');
 
     // However, the method should not have been redefined
@@ -138,20 +138,20 @@ describe('ContractClient', () => {
 
   test('Caller/Sender methods can be defined', () => {
     const client = new ContractClient({ adapter, contract, options });
-    sandbox.spyOn(client, 'createMethod');
+    sandbox.spyOn(client, 'addMethod');
 
-    client.createCaller('myMethodOne', methodOneDef);
-    expect(client.createMethod).toHaveBeenCalledTimes(1);
-    expect(client.createMethod).toHaveBeenCalledWith(
+    client.addCaller('myMethodOne', methodOneDef);
+    expect(client.addMethod).toHaveBeenCalledTimes(1);
+    expect(client.addMethod).toHaveBeenCalledWith(
       ContractClient.Caller,
       'myMethodOne',
       methodOneDef,
     );
 
-    client.createSender('myMethodTwo', methodTwoDef);
+    client.addSender('myMethodTwo', methodTwoDef);
 
-    expect(client.createMethod).toHaveBeenCalledTimes(2);
-    expect(client.createMethod).toHaveBeenCalledWith(
+    expect(client.addMethod).toHaveBeenCalledTimes(2);
+    expect(client.addMethod).toHaveBeenCalledWith(
       ContractClient.Sender,
       'myMethodTwo',
       methodTwoDef,

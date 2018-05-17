@@ -1,3 +1,5 @@
+/* @flow */
+
 export type Encryption = {
   client?: string,
   entropy?: string,
