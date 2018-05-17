@@ -12,12 +12,15 @@ import {
   soliditySha3,
 } from 'web3-utils';
 import isPlainObject from 'lodash.isplainobject';
+import isEqual from 'lodash.isequal';
 
 import MultisigOperation from '../classes/MultisigOperation';
 
 jest.mock('browser-assert', () => jest.fn().mockReturnValue(true));
 
 jest.mock('lodash.isplainobject', () => jest.fn().mockReturnValue(true));
+
+jest.mock('lodash.isequal', () => jest.fn().mockReturnValue(true));
 
 jest.mock('web3-utils', () => ({
   soliditySha3: jest.fn().mockImplementation(input => input),
@@ -41,6 +44,7 @@ describe('MultisigOperation', () => {
     isHex.mockClear();
     padLeft.mockClear();
     isPlainObject.mockClear();
+    isEqual.mockClear();
   });
 
   const signature = {
@@ -274,7 +278,7 @@ describe('MultisigOperation', () => {
 
     // The payload should be validated by JSON-equality for each property of
     // both payloads
-    expect(JSON.stringify).toHaveBeenCalledTimes(12);
+    expect(isEqual).toHaveBeenCalledWith(op.payload, payload);
     expect(assert).toHaveBeenCalledWith(
       true,
       'Unable to add state; incompatible payloads',

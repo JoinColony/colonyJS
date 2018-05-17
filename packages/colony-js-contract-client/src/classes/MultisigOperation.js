@@ -4,6 +4,7 @@ import { padLeft, soliditySha3, isHexStrict, hexToBytes } from 'web3-utils';
 import defaultAssert from 'browser-assert';
 import { isValidAddress, makeAssert } from '@colony/colony-js-utils';
 import isPlainObject from 'lodash.isplainobject';
+import isEqual from 'lodash.isequal';
 
 import ContractMethodMultisigSender from './ContractMethodMultisigSender';
 import ContractClient from './ContractClient';
@@ -121,10 +122,7 @@ export default class MultisigOperation<
     const { payload, signers } = parsed;
 
     defaultAssert(
-      Object.entries(this.payload).every(
-        ([key, value]) =>
-          JSON.stringify(payload[key]) === JSON.stringify(value),
-      ),
+      isEqual(this.payload, payload),
       'Unable to add state; incompatible payloads',
     );
     this.constructor.validateSigners(signers);
