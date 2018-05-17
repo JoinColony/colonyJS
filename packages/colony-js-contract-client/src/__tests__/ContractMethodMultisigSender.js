@@ -130,35 +130,6 @@ describe('ContractMethodMultisigSender', () => {
     }
   });
 
-  // TODO move this test to MultisigOperation
-  test.skip('Sending without multisig (signatures needed)', async () => {
-    const getRequiredSignees = sandbox
-      .fn()
-      .mockReturnValueOnce(Promise.resolve(addresses))
-      .mockReturnValueOnce(Promise.resolve(addresses[0]));
-
-    const method = new MultisigSender({
-      client,
-      functionName,
-      getRequiredSignees,
-      input,
-    });
-
-    sandbox.spyOn(method, 'validate').mockReturnValue(true);
-
-    try {
-      await method.send(inputValues, options);
-    } catch (error) {
-      expect(error.toString()).toMatch('Missing signatures');
-    }
-
-    try {
-      await method.send(inputValues, options);
-    } catch (error) {
-      expect(error.toString()).toMatch('Expected an array of signer addresses');
-    }
-  });
-
   test('Starting a MultisigOperation', async () => {
     const method = new MultisigSender({
       client,
