@@ -2,10 +2,13 @@
 
 import type {
   EventHandlers,
+  IAdapter,
   Transaction,
   TransactionOptions,
   TransactionReceipt,
 } from '@colony/colony-js-adapter';
+
+import type { Query } from '@colony/colony-js-contract-loader';
 
 import ContractClient from './classes/ContractClient';
 
@@ -32,6 +35,11 @@ export type ContractResponse<EventData> = {
   eventData?: EventData,
   eventDataPromise?: Promise<EventData>,
   meta: ContractResponseMeta,
+};
+
+export type ContractClientConstructorArgs = {
+  adapter: IAdapter,
+  query: Query,
 };
 
 export type ContractMethodArgs<IContractClient: ContractClient> = {
