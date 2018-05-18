@@ -1,11 +1,14 @@
 /* @flow */
 
+import assert from 'browser-assert';
 import { utf8ToHex } from 'web3-utils';
 import type BigNumber from 'bn.js';
 
 import ContractClient from '@colony/colony-js-contract-client';
 
 import ColonyClient from '../ColonyClient/index';
+
+const MISSING_ID_OR_KEY = 'Either `key` or `id` must be provided';
 
 export default class ColonyNetworkClient extends ContractClient {
   /*
@@ -229,33 +232,34 @@ export default class ColonyNetworkClient extends ContractClient {
     return contractAddress;
   }
   async getColonyClientByAddress(contractAddress: string) {
-    return this.constructor.ColonyClient.createSelf(this.adapter, this, {
-      contractAddress,
-    });
+    const colonyClient = new this.constructor.ColonyClient(
+      { adapter: this.adapter, networkClient: this },
+      { contractAddress },
+    );
+    return colonyClient.init();
   }
-  async getColonyClient({ key, id }: { key?: string, id?: number }) {
+  async getColonyClient({ key, id }: { key?: string, id?: number } = {}) {
+    assert(id || key, MISSING_ID_OR_KEY);
     const address = await this.getColonyAddress({ key, id });
     return this.getColonyClientByAddress(address);
   }
-  async getColonyAddress({ key, id }: { key?: string, id?: number }) {
-    const notFoundError = () => {
+  async getColonyAddress({ key, id }: { key?: string, id?: number } = {}) {
+    assert(id || key, MISSING_ID_OR_KEY);
+
+    let address;
+    if (key) {
+      ({ address } = await this.getColonyByKey.call({ key }));
+    } else if (id) {
+      ({ address } = await this.getColonyById.call({ id }));
+    }
+
+    if (!address)
       throw new Error(
         `Colony with ${
           key ? `key ${key}` : `id ${id || 'unknown'}`
         } could not be found`,
       );
-    };
-    let address = '';
-    try {
-      if (key) {
-        ({ address } = await this.getColonyByKey.call({ key }));
-      } else if (id) {
-        ({ address } = await this.getColonyById.call({ id }));
-      }
-    } catch (error) {
-      if (error.toString().includes('Undefined address')) notFoundError();
-    }
-    if (!address) notFoundError();
+
     return address;
   }
   initializeContractMethods() {
