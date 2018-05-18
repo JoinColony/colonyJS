@@ -135,10 +135,8 @@ describe('ContractMethodMultisigSender', () => {
       nonceFunctionName,
     });
 
-    const nonce = 5;
     sandbox.spyOn(method, 'validate').mockReturnValue(true);
     sandbox.spyOn(method, 'getMethodArgs').mockReturnValue(callArgs);
-    sandbox.spyOn(method, 'getNonce').mockReturnValue(Promise.resolve(nonce));
 
     const txData = '0xtxDataGoesHere';
     sandbox
@@ -162,7 +160,6 @@ describe('ContractMethodMultisigSender', () => {
         inputValues,
         sourceAddress: method.client.contract.address,
         value: 0,
-        nonce,
       }),
     );
   });

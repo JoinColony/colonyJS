@@ -1,4 +1,5 @@
 /* @flow */
+/* eslint-disable no-underscore-dangle */
 
 import { padLeft, soliditySha3, isHexStrict, hexToBytes } from 'web3-utils';
 import defaultAssert from 'browser-assert';
@@ -33,9 +34,11 @@ export default class MultisigOperation<
   sender: Sender;
   signers: Signers;
   payload: MultisigOperationPayload<InputValues>; // Immutable
-  _messageHash: ?string;
+  nonce: number;
+  _requiredSignees: Array<string>;
+  _messageHash: string;
 
-  static validatePayload(payload: any) {
+  static _validatePayload(payload: any) {
     const assert = makeAssert('Invalid payload');
 
     assert(isPlainObject(payload), 'Payload must be an object');
@@ -60,7 +63,7 @@ export default class MultisigOperation<
     );
   }
 
-  static validateSignature(signature: any, assert: Function = defaultAssert) {
+  static _validateSignature(signature: any, assert: Function = defaultAssert) {
     assert(isPlainObject(signature), 'Signature must be an object');
 
     const { sigV, sigR, sigS, mode } = signature;
@@ -76,7 +79,7 @@ export default class MultisigOperation<
     );
   }
 
-  static validateSigners(signers: any) {
+  static _validateSigners(signers: any) {
     const assert = makeAssert('Invalid signers');
 
     assert(isPlainObject(signers), 'Signers must be an object');
@@ -86,7 +89,7 @@ export default class MultisigOperation<
         assert(
           isValidAddress(address),
           `"${address}" is not a valid address`,
-        ) && this.validateSignature(signature, assert),
+        ) && this._validateSignature(signature, assert),
     );
   }
 
@@ -95,8 +98,8 @@ export default class MultisigOperation<
     payload: MultisigOperationPayload<InputValues>,
     signers?: Signers = {},
   ) {
-    this.constructor.validatePayload(payload);
-    this.constructor.validateSigners(signers);
+    this.constructor._validatePayload(payload);
+    this.constructor._validateSigners(signers);
 
     this.sender = sender;
     this.payload = Object.freeze(Object.assign({}, payload));
@@ -112,7 +115,7 @@ export default class MultisigOperation<
    * Given the state of an operation as JSON, validate the parsed state and
    * add in the signers.
    */
-  addSignersFromJSON(json: string): void {
+  addSignersFromJSON(json: string) {
     let parsed = {};
     try {
       parsed = JSON.parse(json);
@@ -125,52 +128,41 @@ export default class MultisigOperation<
       isEqual(this.payload, payload),
       'Unable to add state; incompatible payloads',
     );
-    this.constructor.validateSigners(signers);
+    this.constructor._validateSigners(signers);
     this.signers = Object.assign({}, this.signers, signers);
+    return this;
   }
 
-  /**
-   * Given the current payload, use this input to create an ERC191-compatible
-   * message hash
-   */
-  get messageHash() {
-    if (this._messageHash) return this._messageHash;
-
-    const {
-      data,
-      destinationAddress,
-      nonce,
-      sourceAddress,
-      value,
-    } = this.payload;
-
-    // Follows ERC191 signature scheme: https://github.com/ethereum/EIPs/issues/191
-    const addresses = `${sourceAddress.slice(2)}${destinationAddress.slice(2)}`;
-    const paddedValue = padLeft(value.toString(16), 64, '0');
-    const paddedNonce = padLeft(nonce.toString(16), 64, '0');
-    this._messageHash = soliditySha3(
-      `0x${addresses}${paddedValue}${data.slice(2)}${paddedNonce}`,
+  get requiredSignees() {
+    defaultAssert(
+      Array.isArray(this._requiredSignees),
+      'Required signees not defined; call `.refresh` to refresh signees',
     );
 
-    return this._messageHash;
+    return this._requiredSignees;
   }
 
-  get signedMessageDigest() {
+  get missingSignees() {
+    // $FlowFixMe https://github.com/facebook/flow/issues/6151
+    return this.requiredSignees.filter(address => !this.signers[address]);
+  }
+
+  get _signedMessageDigest() {
     return hexToBytes(
-      soliditySha3('\x19Ethereum Signed Message:\n32', this.messageHash),
+      soliditySha3('\x19Ethereum Signed Message:\n32', this._messageHash),
     );
   }
 
-  get signedTrezorMessageDigest() {
+  get _signedTrezorMessageDigest() {
     return hexToBytes(
-      soliditySha3('\x19Ethereum Signed Message:\n\x20', this.messageHash),
+      soliditySha3('\x19Ethereum Signed Message:\n\x20', this._messageHash),
     );
   }
 
-  getMessageDigest(mode: SigningMode) {
+  _getMessageDigest(mode: SigningMode) {
     return mode === SIGNING_MODES.TREZOR
-      ? this.signedTrezorMessageDigest
-      : this.signedMessageDigest;
+      ? this._signedTrezorMessageDigest
+      : this._signedMessageDigest;
   }
 
   /**
@@ -178,13 +170,13 @@ export default class MultisigOperation<
    * signing mode by trying different digests with `ecRecover` until the
    * wallet address matches the recovered address.
    */
-  findSignatureMode(signature: Signature): SigningMode {
+  _findSignatureMode(signature: Signature): SigningMode {
     let foundMode;
     const { adapter } = this.sender.client;
     const { address } = adapter.wallet;
 
     Object.values(SIGNING_MODES).forEach(mode => {
-      const digest = this.getMessageDigest(mode);
+      const digest = this._getMessageDigest(mode);
       const recovered = adapter.ecRecover(digest, signature);
       if (address.toLowerCase() === recovered.toLowerCase()) foundMode = mode;
     });
@@ -197,7 +189,7 @@ export default class MultisigOperation<
   /**
    * Given multiple signers, combine each part of the signatures together.
    */
-  combineSignatures(): CombinedSignatures {
+  _combineSignatures(): CombinedSignatures {
     const combined = { sigV: [], sigR: [], sigS: [], mode: [] };
 
     // Sort by address so that the order is always the same
@@ -218,11 +210,11 @@ export default class MultisigOperation<
    * Given the payload and signatures for this operation, combine the signatures
    * and return the arguments in the order the contract expects.
    */
-  getArgs() {
+  _getArgs() {
     const {
       payload: { value, data },
     } = this;
-    const { sigV, sigR, sigS, mode } = this.combineSignatures();
+    const { sigV, sigR, sigS, mode } = this._combineSignatures();
     return [sigV, sigR, sigS, mode, value, data];
   }
 
@@ -230,18 +222,12 @@ export default class MultisigOperation<
    * Ensure that there are no missing signees (based on the input values for
    * this operation).
    */
-  async validateRequiredSignees() {
-    const requiredSignees = await this.sender.getRequiredSignees(
-      this.payload.inputValues,
-    );
-
-    const missingSigners = requiredSignees.filter(
-      address => !this.signers[address],
-    );
+  async _validateRequiredSignees() {
+    await this._refreshRequiredSignees();
 
     defaultAssert(
-      missingSigners.length === 0,
-      `Missing signatures (from addresses ${missingSigners.join(', ')})`,
+      this.missingSignees.length === 0,
+      `Missing signatures (from addresses ${this.missingSignees.join(', ')})`,
     );
     return true;
   }
@@ -251,16 +237,17 @@ export default class MultisigOperation<
    * operation, then get the arguments and send the transaction.
    */
   async send(options: SendOptions) {
-    await this.validateRequiredSignees();
-    return this.sender.sendMultisig(this.getArgs(), options);
+    await this.refresh();
+    await this._validateRequiredSignees();
+    return this.sender.sendMultisig(this._getArgs(), options);
   }
 
   /**
    * Given a signature and an address, find the signature mode and
    * add the address/signature to the signers.
    */
-  addSignature(signature: Signature, address: string) {
-    const mode = this.findSignatureMode(signature);
+  _addSignature(signature: Signature, address: string) {
+    const mode = this._findSignatureMode(signature);
 
     this.signers = Object.assign({}, this.signers, {
       [address]: {
@@ -268,15 +255,65 @@ export default class MultisigOperation<
         ...signature,
       },
     });
-    return this.signers[address];
+    return this;
   }
 
   /**
    * Sign the message hash with the current wallet and add the signature.
    */
   async sign() {
+    await this.refresh();
     const { adapter } = this.sender.client;
-    const signature = await adapter.signMessage(this.messageHash);
-    return this.addSignature(signature, adapter.wallet.address);
+    const signature = await adapter.signMessage(this._messageHash);
+    this._addSignature(signature, adapter.wallet.address);
+    return this;
+  }
+
+  /**
+   * Refresh the required signees, nonce value and message hash.
+   * If the nonce value has changed, `signers` will be reset.
+   */
+  async refresh() {
+    await this._refreshRequiredSignees();
+    await this._refreshNonce();
+    this._refreshMessageHash();
+    return this;
+  }
+
+  async _refreshNonce() {
+    const oldNonce = Number(this.nonce);
+    const newNonce = await this.sender.getNonce();
+    if (oldNonce !== newNonce) {
+      this.nonce = newNonce;
+      // If the nonce changed, the signers are no longer valid
+      this.signers = {};
+      // eslint-disable-next-line no-console
+      console.warn('Nonce value changed; signers have been reset');
+    }
+  }
+
+  async _refreshRequiredSignees() {
+    this._requiredSignees = await this.sender.getRequiredSignees(
+      this.payload.inputValues,
+    );
+  }
+
+  /**
+   * Given the payload and nonce, use this input to create an ERC191-compatible
+   * message hash
+   */
+  _refreshMessageHash() {
+    const {
+      payload: { data, destinationAddress, sourceAddress, value },
+      nonce,
+    } = this;
+
+    // Follows ERC191 signature scheme: https://github.com/ethereum/EIPs/issues/191
+    const addresses = `${sourceAddress.slice(2)}${destinationAddress.slice(2)}`;
+    const paddedValue = padLeft(value.toString(16), 64, '0');
+    const paddedNonce = padLeft(nonce.toString(16), 64, '0');
+    this._messageHash = soliditySha3(
+      `0x${addresses}${paddedValue}${data.slice(2)}${paddedNonce}`,
+    );
   }
 }
