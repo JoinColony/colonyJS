@@ -17,7 +17,6 @@ import type {
   SendOptions,
 } from '../flowtypes';
 import { DEFAULT_SEND_OPTIONS } from '../defaults';
-import { TRANSACTION_STATUS } from '../constants';
 
 export default class ContractMethodSender<
   InputValues: { [inputValueName: string]: any },
@@ -25,12 +24,6 @@ export default class ContractMethodSender<
   IContractClient: ContractClient,
 > extends ContractMethod<InputValues, OutputValues, IContractClient> {
   eventHandlers: EventHandlers;
-
-  static getTransactionStatus(status: number) {
-    return status === 1
-      ? TRANSACTION_STATUS.SUCCESS
-      : TRANSACTION_STATUS.FAILURE;
-  }
 
   constructor({
     eventHandlers,
@@ -73,13 +66,13 @@ export default class ContractMethodSender<
       transaction,
       receipt,
     };
-    const status = this.constructor.getTransactionStatus(receipt.status);
+    const successful = receipt.status === 1;
 
     // If the receipt wasn't successful, return immediately rather than waiting
     // for events/mined tx
-    if (receipt.status === 0) {
+    if (!successful) {
       return {
-        status,
+        successful,
         meta,
         eventData: {},
       };
@@ -92,7 +85,7 @@ export default class ContractMethodSender<
     });
 
     return {
-      status,
+      successful,
       meta,
       eventData,
     };
@@ -106,17 +99,17 @@ export default class ContractMethodSender<
       this.client.adapter.getTransactionReceipt(transaction.hash),
       timeoutMs,
     );
-    const statusPromise = new Promise(async (resolve, reject) => {
+    const successfulPromise = new Promise(async (resolve, reject) => {
       try {
         const { status } = await receiptPromise;
-        resolve(this.constructor.getTransactionStatus(status));
+        resolve(status === 1);
       } catch (error) {
         reject(error.toString());
       }
     });
 
     return {
-      statusPromise,
+      successfulPromise,
       meta: {
         receiptPromise,
         transaction,

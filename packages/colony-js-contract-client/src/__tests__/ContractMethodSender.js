@@ -50,7 +50,7 @@ describe('ContractMethodSender', () => {
   };
   const contractResponse = {
     eventData,
-    status: 'SUCCESS',
+    successful: true,
     meta: {
       receipt,
       transaction,
@@ -148,8 +148,6 @@ describe('ContractMethodSender', () => {
       eventHandlers,
     });
 
-    sandbox.spyOn(method.constructor, 'getTransactionStatus');
-
     const response = await method._sendWithWaitingForMining(
       transaction,
       options.timeoutMs,
@@ -157,14 +155,14 @@ describe('ContractMethodSender', () => {
 
     expect(response).toEqual({
       eventData,
-      status: 'SUCCESS',
+      successful: true,
       meta: {
         receipt,
         transaction,
       },
     });
 
-    // Event data, transaction receipts and status are collected
+    // Event data, transaction receipts and success are collected
     expect(method.client.adapter.getTransactionReceipt).toHaveBeenCalledWith(
       transaction.hash,
     );
@@ -173,9 +171,6 @@ describe('ContractMethodSender', () => {
       timeoutMs: options.timeoutMs,
       transactionHash: transaction.hash,
     });
-    expect(method.constructor.getTransactionStatus).toHaveBeenCalledWith(
-      receipt.status,
-    );
 
     expect(method.client.getEventData).toHaveBeenCalledWith({
       events: eventHandlers,
@@ -184,9 +179,6 @@ describe('ContractMethodSender', () => {
     });
     expect(method.client.adapter.getTransactionReceipt).toHaveBeenCalledWith(
       transaction.hash,
-    );
-    expect(method.constructor.getTransactionStatus).toHaveBeenCalledWith(
-      receipt.status,
     );
   });
 
@@ -198,8 +190,6 @@ describe('ContractMethodSender', () => {
       eventHandlers,
     });
 
-    sandbox.spyOn(method.constructor, 'getTransactionStatus');
-
     const response = method._sendWithoutWaitingForMining(
       transaction,
       options.timeoutMs,
@@ -207,13 +197,13 @@ describe('ContractMethodSender', () => {
 
     // The response should contain promises and the sent transaction
     expect(response.eventDataPromise).toBeInstanceOf(Promise);
-    expect(response.statusPromise).toBeInstanceOf(Promise);
+    expect(response.successfulPromise).toBeInstanceOf(Promise);
     expect(response.meta.receiptPromise).toBeInstanceOf(Promise);
     expect(response.meta.transaction).toEqual(transaction);
 
-    // Event data, transaction receipts and status are collected
+    // Event data, transaction receipts and success are collected
     expect(await response.eventDataPromise).toEqual(eventData);
-    expect(await response.statusPromise).toBe('SUCCESS');
+    expect(await response.successfulPromise).toBe(true);
     expect(await response.meta.receiptPromise).toEqual(receipt);
 
     expect(method.client.getEventData).toHaveBeenCalledWith({
@@ -224,13 +214,5 @@ describe('ContractMethodSender', () => {
     expect(method.client.adapter.getTransactionReceipt).toHaveBeenCalledWith(
       transaction.hash,
     );
-    expect(method.constructor.getTransactionStatus).toHaveBeenCalledWith(
-      receipt.status,
-    );
-  });
-
-  test('Getting transaction status', () => {
-    expect(ContractMethodSender.getTransactionStatus(0)).toBe('FAILURE');
-    expect(ContractMethodSender.getTransactionStatus(1)).toBe('SUCCESS');
   });
 });
