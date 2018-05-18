@@ -11,7 +11,7 @@ import type {
 import type { Query } from '@colony/colony-js-contract-loader';
 
 import ContractClient from './classes/ContractClient';
-import { SIGNING_MODES } from './constants';
+import { TRANSACTION_STATUS, SIGNING_MODES } from './constants';
 
 export type ParamTypes = 'number' | 'string' | 'address' | 'boolean';
 
@@ -33,8 +33,10 @@ export type ContractResponseMeta = {
 };
 
 export type ContractResponse<EventData> = {
-  eventData?: EventData,
-  eventDataPromise?: Promise<EventData>,
+  status?: $Values<typeof TRANSACTION_STATUS>,
+  statusPromise?: Promise<$Values<typeof TRANSACTION_STATUS>>,
+  eventData?: EventData | {},
+  eventDataPromise?: Promise<EventData | {}>,
   meta: ContractResponseMeta,
 };
 
