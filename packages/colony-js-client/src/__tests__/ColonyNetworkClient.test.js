@@ -2,11 +2,13 @@
 
 import { utf8ToHex } from 'web3-utils';
 import createSandbox from 'jest-sandbox';
+import BigNumber from 'bn.js';
 import ColonyNetworkClient from '../ColonyNetworkClient';
 import ColonyClient from '../ColonyClient';
 
 jest.mock('web3-utils', () => ({
   utf8ToHex: jest.fn().mockImplementation(input => input),
+  isAddress: jest.fn().mockReturnValue(true),
 }));
 
 describe('ColonyNetworkClient', () => {
@@ -65,6 +67,51 @@ describe('ColonyNetworkClient', () => {
     expect(adapter.getTransactionReceipt).toHaveBeenCalledWith(
       transaction.hash,
     );
+  });
+
+  test('Creating a Colony', async () => {
+    const networkClient = new ColonyNetworkClient({ adapter });
+    await networkClient.init();
+
+    // The createColony Sender should be configured correctly
+    expect(networkClient.createColony).toBeInstanceOf(
+      networkClient.constructor.Sender,
+    );
+    expect(networkClient.createColony.eventHandlers).toEqual({
+      success: {
+        ColonyAdded: {
+          contract: {},
+          handler: expect.any(Function),
+        },
+      },
+    });
+    expect(networkClient.createColony.input).toEqual([
+      ['name', 'string'],
+      ['tokenAddress', 'address'],
+    ]);
+    expect(
+      networkClient.createColony.eventHandlers.success.ColonyAdded.handler({
+        id: new BigNumber(100),
+      }),
+    ).toEqual({ colonyId: 100 });
+
+    const response = {
+      eventData: {
+        colonyId: 23,
+      },
+    };
+    sandbox
+      .spyOn(networkClient.createColony, '_send')
+      .mockImplementation(async () => response);
+
+    const name = 'My Colony';
+    const tokenAddress = '0xa2dd9cec9eab6c2bb5aef2f758cff78bffd8e958';
+
+    // Send should work as per usual
+    const {
+      eventData: { colonyId },
+    } = await networkClient.createColony.send({ name, tokenAddress });
+    expect(colonyId).toBe(response.eventData.colonyId);
   });
 
   test('Getting a ColonyClient', async () => {
