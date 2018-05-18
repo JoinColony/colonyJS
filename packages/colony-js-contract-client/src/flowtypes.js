@@ -33,7 +33,7 @@ export type ContractResponseMeta = {
 };
 
 export type ContractResponse<EventData> = {
-  successful?: boolean
+  successful?: boolean,
   successfulPromise?: Promise<boolean>,
   eventData?: EventData | {},
   eventDataPromise?: Promise<EventData | {}>,
