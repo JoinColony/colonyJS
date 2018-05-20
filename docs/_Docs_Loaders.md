@@ -1,7 +1,7 @@
 ---
 title: Loaders
 section: Docs
-order: 2
+order: 5
 ---
 
 ## What are Loaders?
