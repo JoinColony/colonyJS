@@ -8,7 +8,7 @@ The ColonyClient class is a standard interface for interactions with the on-chai
 
 These interactions are generally concerned with functions and events internal to a colony, such as creating a task, assigning a work rating, or moving funds between pots.
 
-For functions and events that concern the colonyNetwork as a whole, refer to the [ColonyNetworkClient API](./_API_ColonyNetworkClient.md)
+For functions and events that concern the colonyNetwork as a whole, refer to the [ColonyNetworkClient API](../_API_ColonyNetworkClient.md)
 
 ==TOC==
 
