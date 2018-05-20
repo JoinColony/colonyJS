@@ -14,9 +14,22 @@ For interactions within a particular colony, see [the ColonyClient docs](../_API
 
 ==TOC==
 
+## Creating a new instance
+
+Assuming you're inside an `async` function:
+
+```javascript
+const networkClient = new ColonyNetworkClient({ adapter });
+await networkClient.init();
+```
+
+## Instance methods
+
+Every `send()` method takes an `options` object as the second argument. For a reference please check [here](/colonyjs/docs-contract-client/#senders).
+
 ## Callers
 
-### `getColonyById.call({ id }, options)`
+### `getColonyById.call({ id })`
 
 Returns the address of a colony when given the colonyId
 
@@ -28,7 +41,7 @@ Returns the address of a colony when given the colonyId
 |---|---|---|
 |address|Address|Address of the colony contract|
 
-### `getColonyByKey.call({ key }, options)`
+### `getColonyByKey.call({ key })`
 
 Returns the address of a colony when given the colony's name (a.k.a its unique "key")
 
@@ -40,7 +53,7 @@ Returns the address of a colony when given the colony's name (a.k.a its unique "
 |---|---|---|
 |address|Address|Address of the colony contract|
 
-### `getColonyCount.call(options)`
+### `getColonyCount.call()`
 
 Returns the number of colonies created on the Colony Network, i.e. the colonyId of the most recently created colony.
 
@@ -49,7 +62,7 @@ Returns the number of colonies created on the Colony Network, i.e. the colonyId 
 |---|---|---|
 |count|number|colonyId of the most recently created colony|
 
-### `getColonyVersionResolver.call({ version }, options)`
+### `getColonyVersionResolver.call({ version })`
 
 Given a version of the colony contract, returns the address of the corresponding `Resolver` contract
 
@@ -61,7 +74,7 @@ Given a version of the colony contract, returns the address of the corresponding
 |---|---|---|
 |address|Address|Address of the `Resolver` contract|
 
-### `getCurrentColonyVersion.call(options)`
+### `getCurrentColonyVersion.call()`
 
 Returns the latest Colony contract version. This is the version used to create all new colonies.
 
@@ -70,7 +83,7 @@ Returns the latest Colony contract version. This is the version used to create a
 |---|---|---|
 |version|number|The current / latest Colony contract version|
 
-### `getParentSkillId.call({ skillId, parentSkillIndex }, options)`
+### `getParentSkillId.call({ skillId, parentSkillIndex })`
 
 Given the id of a particular skill, returns the skill's parent skill id
 
@@ -83,7 +96,7 @@ Given the id of a particular skill, returns the skill's parent skill id
 |---|---|---|
 |parentSkillId|number|Id of the parent skill|
 
-### `getReputationUpdateLogEntry.call({ id }, options)`
+### `getReputationUpdateLogEntry.call({ id })`
 
 Gets the `ReputationLogEntry` at a specified index for either ther currently active or inactive reputation update log
 
@@ -100,7 +113,7 @@ Gets the `ReputationLogEntry` at a specified index for either ther currently act
 |skillId|number|skill Id|
 |user|Address|user address|
 
-### `getReputationUpdateLogLength.call(options)`
+### `getReputationUpdateLogLength.call()`
 
 Gets the length of the reputation update log for either the current active or inactive log
 
@@ -109,7 +122,7 @@ Gets the length of the reputation update log for either the current active or in
 |---|---|---|
 |count|number|Length of Reputation update log array|
 
-### `getSkill.call({ id }, options)`
+### `getSkill.call({ id })`
 
 Returns the number of parent and child skills associated with the provided skill
 
@@ -122,7 +135,7 @@ Returns the number of parent and child skills associated with the provided skill
 |nParents|number|Number of parent skills|
 |nChildren|number|Number of child skills|
 
-### `getSkillCount.call(options)`
+### `getSkillCount.call()`
 
 Get the total number of skills in the network (both global and local skills)
 
@@ -131,7 +144,7 @@ Get the total number of skills in the network (both global and local skills)
 |---|---|---|
 |count|number|The number of skills on the network|
 
-### `getStakedBalance.call({ user }, options)`
+### `getStakedBalance.call({ user })`
 
 Get the amount of staked CLNY tokens for a given user address
 
