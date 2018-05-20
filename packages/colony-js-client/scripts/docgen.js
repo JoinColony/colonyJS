@@ -70,7 +70,7 @@ function printCallers() {
   return '## Callers\n' + callers
     .map(
       caller => `
-### \`${caller.name}.call(${printArgs(caller.args)})\`
+### \`${caller.name}.call(${printArgs(caller.args, false)})\`
 
 ${caller.description}
 ${printProps('Param', caller.args)}
@@ -85,7 +85,7 @@ function printSenders() {
   return '## Senders\n' + senders
     .map(
       sender => `
-### \`${sender.name}.send(${printArgs(sender.args)})\`
+### \`${sender.name}.send(${printArgs(sender.args, true)})\`
 
 ${sender.description}
 ${printProps('Param', sender.args)}
@@ -100,7 +100,7 @@ function printMultiSig() {
   return '## Task MultiSig\n' + multisig
     .map(
       ms => `
-### \`${ms.name}.send(${printArgs(ms.args)})\`
+### \`${ms.name}.startOperation(${printArgs(ms.args, false)})\`
 
 ${ms.description}
 ${printProps('Param', ms.args)}
@@ -121,11 +121,11 @@ ${props
   return ``;
 }
 
-function printArgs(args) {
+function printArgs(args, withOpts) {
   if (args && args.length) {
-    return `{ ${args.map(arg => arg.name).join(', ')} }, options`;
+    return `{ ${args.map(arg => arg.name).join(', ')} }${withOpts ? ', options' : ''}`;
   }
-  return 'options';
+  return withOpts ? 'options' : '';
 }
 
 function mapObjectProps(param) {

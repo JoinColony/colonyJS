@@ -12,25 +12,21 @@ For functions and events that concern the colonyNetwork as a whole, refer to the
 
 ==TOC==
 
-## Class methods
+## Creating a new instance
 
-### `ColonyClient.create(adapter, contractName, loaderOptions, networkClient)`
+You _could_ create a ColonyClient by using an adapter and a query: `new ColonyClient({ adapter, query })` and then `.init()` it but it is advised to ask the network client for a new instance:
 
-returns `Promise<ColonyClient>`
+```javascript
+const colonyClient = await networkClient.getColonyClient({ key: 'My Colony' }); // This is already initialised
+```
 
 ## Instance methods
 
-Every instance method takes an `options` object as the second argument which looks like this:
-
-```javascript
-options = {
-  timeoutMs: int // sets the timeout for the rpc call. defaults to 60000ms
-}
-```
+Every `send()` method takes an `options` object as the second argument. For a reference please check [here](/colonyjs/docs-contract-client/#senders).
 
 ## Callers
 
-### `generateSecret.call({ salt, value }, options)`
+### `generateSecret.call({ salt, value })`
 
 Helper function used to generate the rating secret used in task ratings. Accepts a salt value and a value to hide, and returns the keccak256 hash of both.
 
@@ -43,7 +39,7 @@ Helper function used to generate the rating secret used in task ratings. Accepts
 |---|---|---|
 |secret|string|keccak256 hash of joint Salt and Value|
 
-### `getDomainCount.call(options)`
+### `getDomainCount.call()`
 
 Gets the total number of domains in a Colony. This number equals the last `domainId` created.
 
@@ -52,7 +48,7 @@ Gets the total number of domains in a Colony. This number equals the last `domai
 |---|---|---|
 |count|number|Number of all domain in this Colony; == the last added domainId|
 
-### `getGlobalRewardPayoutCount.call(options)`
+### `getGlobalRewardPayoutCount.call()`
 
 Gets the total number of reward payout cycles.
 
@@ -61,7 +57,7 @@ Gets the total number of reward payout cycles.
 |---|---|---|
 |count|number|Number of reward payout cycles|
 
-### `getUserRewardPayoutCount.call({ user }, options)`
+### `getUserRewardPayoutCount.call({ user })`
 
 Gets the number of claimed and waived reward payouts for a given user.
 
@@ -73,7 +69,7 @@ Gets the number of claimed and waived reward payouts for a given user.
 |---|---|---|
 |count|number|Number of claimed and waived reward payouts|
 
-### `getTaskCount.call(options)`
+### `getTaskCount.call()`
 
 Gets the total number of tasks in a Colony. This number equals the last `taskId` created.
 
@@ -82,7 +78,7 @@ Gets the total number of tasks in a Colony. This number equals the last `taskId`
 |---|---|---|
 |count|number|Total number of tasks in this Colony|
 
-### `getTask.call({ taskId }, options)`
+### `getTask.call({ taskId })`
 
 Gets a certain task defined by its integer taskId
 
@@ -104,7 +100,7 @@ Gets a certain task defined by its integer taskId
 |skillId|number|Integer Skill ID the task is assigned to|
 |specificationHash|string|Unique hash of the specification content|
 
-### `getTaskPayout.call({ taskId, role, token }, options)`
+### `getTaskPayout.call({ taskId, role, token })`
 
 Given a specific task, a defined role for the task, and a token address, will return any payout attached to the task in the token specified.
 
@@ -118,7 +114,7 @@ Given a specific task, a defined role for the task, and a token address, will re
 |---|---|---|
 |amount|number|Amount of specified tokens to payout for that task and a role|
 
-### `getTaskRole.call({ taskId, role }, options)`
+### `getTaskRole.call({ taskId, role })`
 
 Every task has three roles associated with it which determine permissions for editing the task, submitting work, and ratings for performance.
 
@@ -133,7 +129,7 @@ Every task has three roles associated with it which determine permissions for ed
 |rated|boolean|Has the user work been rated|
 |rating|number|Rating the user received|
 
-### `getTaskWorkRatings.call({ taskId }, options)`
+### `getTaskWorkRatings.call({ taskId })`
 
 For a given task, will return the number of submitted ratings and the timestamp of their submission
 
@@ -146,7 +142,7 @@ For a given task, will return the number of submitted ratings and the timestamp 
 |count|number|Total number of submitted ratings for a task.|
 |timestamp|number|Timestamp of the last submitted rating.|
 
-### `getTaskWorkRatingSecret.call({ taskId, role }, options)`
+### `getTaskWorkRatingSecret.call({ taskId, role })`
 
 If ratings for a task are still in the commit period, their ratings will still be hidden, but the hashed value can still be returned.
 
@@ -159,7 +155,7 @@ If ratings for a task are still in the commit period, their ratings will still b
 |---|---|---|
 |secret|string|the hashed rating (equivalent to the output of `keccak256(_salt, _rating)`).|
 
-### `getPotBalance.call({ potId, token }, options)`
+### `getPotBalance.call({ potId, token })`
 
 Gets a balance for a certain token in a specific pot
 
@@ -172,7 +168,7 @@ Gets a balance for a certain token in a specific pot
 |---|---|---|
 |balance|number|Balance for token `token` in pot `potId`|
 
-### `getNonRewardPotsTotal.call({ address }, options)`
+### `getNonRewardPotsTotal.call({ address })`
 
 The `nonRewardPotsTotal` is a value that keeps track of the total assets a colony has to work with, which may be split among several distinct pots associated with various domains and tasks.
 
@@ -184,7 +180,7 @@ The `nonRewardPotsTotal` is a value that keeps track of the total assets a colon
 |---|---|---|
 |total|number|All tokens that are not within the colony's `rewards` pot.|
 
-### `getRewardPayoutInfo.call({ payoutId }, options)`
+### `getRewardPayoutInfo.call({ payoutId })`
 
 Given a specific payout, returns useful information about the payout.
 
@@ -201,7 +197,7 @@ Given a specific payout, returns useful information about the payout.
 |totalTokenAmountForRewardPayout|number|Total amount of tokens taken aside for reward payout|
 |totalTokens|number|Total colony tokens at the time of creation|
 
-### `getToken.call(options)`
+### `getToken.call()`
 
 Gets the address of the colony's official token contract
 
@@ -210,7 +206,7 @@ Gets the address of the colony's official token contract
 |---|---|---|
 |address|Address|The address of the colony's official deployed token contract|
 
-### `getTransactionCount.call(options)`
+### `getTransactionCount.call()`
 
 Returns the total number of transactions the colony has made, == the `transactionId` of the last added transaction to the Colony.
 
@@ -430,7 +426,7 @@ Waive reward payout. This unlocks the sender's tokens and increments the users r
 
 ## Task MultiSig
 
-### `setTaskBrief.send({ taskId, specificationHash }, options)`
+### `setTaskBrief.startOperation({ taskId, specificationHash })`
 
 The task brief, or specification, is a description of the tasks work specification. The description is hashed and stored with the task for future reference in ratings or in the event of a dispute.
 
@@ -440,7 +436,7 @@ The task brief, or specification, is a description of the tasks work specificati
 |specificationHash|string|digest of the task's hashed specification.|
 
 
-### `setTaskDueDate.send({ taskId, dueDate }, options)`
+### `setTaskDueDate.startOperation({ taskId, dueDate })`
 
 The task's due date determines when a worker may submit the task's deliverable(s)
 
@@ -450,7 +446,7 @@ The task's due date determines when a worker may submit the task's deliverable(s
 |dueDate|Date|Due date|
 
 
-### `setTaskEvaluatorPayout.send({ taskId, token, amount }, options)`
+### `setTaskEvaluatorPayout.startOperation({ taskId, token, amount })`
 
 Sets the payout given to the EVALUATOR role when the task is finalized.
 
@@ -461,7 +457,7 @@ Sets the payout given to the EVALUATOR role when the task is finalized.
 |amount|number|Amount to be paid.|
 
 
-### `setTaskManagerPayout.send({ taskId, token, amount }, options)`
+### `setTaskManagerPayout.startOperation({ taskId, token, amount })`
 
 Sets the payout given to the MANAGER role when the task is finalized.
 
@@ -472,7 +468,7 @@ Sets the payout given to the MANAGER role when the task is finalized.
 |amount|number|Amount to be paid.|
 
 
-### `setTaskWorkerPayout.send({ taskId, token, amount }, options)`
+### `setTaskWorkerPayout.startOperation({ taskId, token, amount })`
 
 Sets the payout given to the WORKER role when the task is finalized.
 
