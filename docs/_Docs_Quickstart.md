@@ -1,7 +1,7 @@
 ---
 title: Quickstart
 section: Docs
-order: 0
+order: 3
 ---
 
 ## Quickstart
