@@ -4,7 +4,7 @@ section: API
 order: 0
 ---
 
-This document describes the high level contract loader interface as well as various officially supported implementations. For a better explanation what loaders are, see [here](docs-loaders.html).
+This document describes the high level contract loader interface as well as various officially supported implementations. For a better explanation what loaders are, see [Loaders](../docs-loaders)
 
 ==TOC==
 ## Installation and usage

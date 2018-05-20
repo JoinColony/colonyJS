@@ -4,7 +4,7 @@ section: API
 order: 1
 ---
 
-This document only describes the high level adapter interface. For a better explanation what loaders are, see [here](docs-adapters.html).
+This document only describes the high level adapter interface. For a better explanation what loaders are, see [Adapters](../docs-adapters/).
 
 ## Installation and usage
 

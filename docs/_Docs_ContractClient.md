@@ -8,7 +8,7 @@ The Contract Client is a superclass for all client implementations that access a
 
 The contract Client is split into two sub-classes, each of which interacts with a corresponding interface on-chain.
 
-The on-chain interfaces are `IColonyNetwork.sol` and `IColony.sol`. For more information about these, please refer to the [colonyNetwork docs](link to those docs)
+The on-chain interfaces are `IColonyNetwork.sol` and `IColony.sol`. For more information about these, please refer to the [Colony Network Documentation](../../colonynetwork/api-the-colony-network/)
 
 
 ## ColonyNetworkClient
