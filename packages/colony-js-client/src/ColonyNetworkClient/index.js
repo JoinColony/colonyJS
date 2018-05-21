@@ -232,10 +232,11 @@ export default class ColonyNetworkClient extends ContractClient {
     return contractAddress;
   }
   async getColonyClientByAddress(contractAddress: string) {
-    const colonyClient = new this.constructor.ColonyClient(
-      { adapter: this.adapter, networkClient: this },
-      { contractAddress },
-    );
+    const colonyClient = new this.constructor.ColonyClient({
+      adapter: this.adapter,
+      networkClient: this,
+      query: { contractAddress },
+    });
     return colonyClient.init();
   }
   async getColonyClient({ key, id }: { key?: string, id?: number } = {}) {
