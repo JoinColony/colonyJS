@@ -82,6 +82,33 @@ describe('ContractHttpLoader', () => {
     /* eslint-enable no-shadow */
   });
 
+  test('Getting accounts with TrufflepigLoader', async () => {
+    const loader = new TrufflepigLoader();
+
+    const accounts = {
+      'address 0': 'private key 0',
+      'address 1': 'private key 1',
+    };
+    fetch.mockResponse(JSON.stringify(accounts));
+
+    expect(await loader.getAccount(0)).toEqual({
+      address: 'address 0',
+      privateKey: accounts['address 0'],
+    });
+
+    expect(await loader.getAccount(1)).toEqual({
+      address: 'address 1',
+      privateKey: accounts['address 1'],
+    });
+
+    try {
+      await loader.getAccount(2);
+      expect(false).toBe(true); // should be unreachable
+    } catch (error) {
+      expect(error.toString()).toMatch('Account for index 2 not found');
+    }
+  });
+
   test('EtherscanLoader', async () => {
     const loader = new EtherscanLoader();
     sandbox.spyOn(loader, '_transform');
