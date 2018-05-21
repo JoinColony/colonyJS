@@ -7,9 +7,9 @@ title: Quickstart
 
 ```javascript
 import ethers from 'ethers';
-import ContractHttpLoader from '@colony/colony-js-contract-loader-http';
-import EthersAdapter from '@colony/colony-js-adapter-ethers';
-import ColonyNetworkClient from '@colony/colony-js-client';
+import ContractHttpLoader from '@colony/colonyJS-contract-loader-http';
+import EthersAdapter from '@colony/colonyJS-adapter-ethers';
+import ColonyNetworkClient from '@colony/colonyJS-client';
 
 const { providers, Wallet } = ethers;
 

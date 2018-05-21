@@ -1,6 +1,6 @@
 ---
 id: api-colony-network-client
-title: ColonyNetworkClient (colony-js-network-client)
+title: ColonyNetworkClient (colonyJS-network-client)
 sidebar_label: ColonyNetworkClient
 ---
 

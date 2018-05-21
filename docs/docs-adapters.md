@@ -15,5 +15,5 @@ Here's a text
 
 ## Officially supported adapters
 
-- [ethers](https://github.com/JoinColony/colony-js/tree/master/packages/colony-js-adapter-ethers)
-- [web3](https://github.com/JoinColony/colony-js/tree/master/packages/colony-js-adapter-web3)
+- [ethers](https://github.com/JoinColony/colonyJS/tree/master/packages/colonyJS-adapter-ethers)
+- [web3](https://github.com/JoinColony/colonyJS/tree/master/packages/colonyJS-adapter-web3)

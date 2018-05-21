@@ -88,7 +88,7 @@ The following values can be interpolated (i.e. will be replaced in the URL with 
 Available pre-defined parsers are:
 
 - `truffle`: Parse a truffle JSON contract file
-- TODO: add etherscan https://github.com/JoinColony/colony-js/issues/49
+- TODO: add etherscan https://github.com/JoinColony/colonyJS/issues/49
 
 Alternatively one can pass in a function with the following parameters:
 
@@ -96,7 +96,7 @@ Alternatively one can pass in a function with the following parameters:
   (input: any, opts: Object) => ContractDefinition
 ```
 
-Where input is the raw JSON input supplied by the http response and opts are the loader options (TODO: https://github.com/JoinColony/colony-js/issues/49). It needs to return an object containing at least the `abi` object and the `address` like you can see in the type definition above.
+Where input is the raw JSON input supplied by the http response and opts are the loader options (TODO: https://github.com/JoinColony/colonyJS/issues/49). It needs to return an object containing at least the `abi` object and the `address` like you can see in the type definition above.
 
 *The `HTTPContractLoader` also implements the `loader.load` function and works like described [above](#loaderload-contractname-opts)
 

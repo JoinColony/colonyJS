@@ -1,0 +1,41 @@
+{
+    "name": "@colony/colonyJS-adapter",
+    "version": "1.0.0",
+    "description": "ColonyContract adapter interfaces",
+    "main": "index.js",
+    "files": [
+        "interface",
+        "index.js",
+        "Readme.md"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/JoinColony/colonyJS.git"
+    },
+    "scripts": {
+        "flow": "flow check",
+        "lint": "eslint ./{,interface/}*.js",
+        "precommit": "lint-staged",
+        "prepublish": "yarn run precommit"
+    },
+    "lint-staged": {
+        "./{,interface/}*": [
+            "lint --fix",
+            "git add"
+        ]
+    },
+    "author": "Christian Maniewski <chris@colony.io>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/JoinColony/colonyJS/issues"
+    },
+    "dependencies": {
+        "@colony/colonyJS-client": "^1.0.0",
+        "@colony/colonyJS-contract-loader": "^1.0.0",
+        "bn.js": "^4.11.6"
+    },
+    "devDependencies": {
+        "flow-bin": "^0.70.0"
+    },
+    "homepage": "https://github.com/JoinColony/colonyJS#readme"
+}
