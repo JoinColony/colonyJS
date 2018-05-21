@@ -33,24 +33,8 @@ const adapter = new EthersAdapter({
 });
 ```
 
-Loading a contract:
-
-```js
-const contract = await adapter.getContract({ name: 'ColonyNetwork' });
-```
-
-Interacting with a contract:
-
-```js
-const colonyCount = await contract.functions.getColonyCount();
-console.log(colonyCount); // 1337
-```
-
-### Interface with web3.js
-
 
 
 ## Officially supported adapters
 
 - [ethers](https://github.com/JoinColony/colony-js/tree/master/packages/colony-js-adapter-ethers)
-- [web3](https://github.com/JoinColony/colony-js/tree/master/packages/colony-js-adapter-web3)

@@ -8,11 +8,6 @@ This document describes the high level contract loader interface as well as vari
 
 ==TOC==
 ## Installation and usage
-
-```
-yarn add @colony/colony-js-contract-loader
-```
-or
 ```
 yarn add @colony/colony-js-contract-loader-http
 ```
