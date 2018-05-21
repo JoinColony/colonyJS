@@ -118,6 +118,7 @@ describe('ContractMethodSender', () => {
     sandbox.spyOn(method, '_sendTransaction').mockReturnValue(transaction);
     sandbox.spyOn(method, '_sendWithWaitingForMining');
     sandbox.spyOn(method, '_sendWithoutWaitingForMining');
+    sandbox.spyOn(method, '_getDefaultSendOptions');
 
     await method._send(callArgs, options);
 
@@ -128,6 +129,7 @@ describe('ContractMethodSender', () => {
       value: options.value,
     });
 
+    expect(method._getDefaultSendOptions).toHaveBeenCalledWith(options);
     expect(method._sendWithWaitingForMining).toHaveBeenCalled();
     expect(method._sendWithoutWaitingForMining).not.toHaveBeenCalled();
 
@@ -214,5 +216,35 @@ describe('ContractMethodSender', () => {
     expect(method.client.adapter.getTransactionReceipt).toHaveBeenCalledWith(
       transaction.hash,
     );
+  });
+
+  test('Default send options', () => {
+    const A = new BigNumber(1);
+    const B = new BigNumber(100000);
+
+    const methodWithoutDefault = new ContractMethodSender({
+      client,
+      input,
+      functionName,
+    });
+
+    const methodWithDefault = new ContractMethodSender({
+      client,
+      input,
+      functionName,
+      defaultGasLimit: B,
+    });
+
+    expect(methodWithoutDefault._getDefaultSendOptions()).not.toHaveProperty(
+      'gasLimit',
+    );
+    expect(
+      methodWithoutDefault._getDefaultSendOptions({ gasLimit: A }).gasLimit,
+    ).toEqual(A);
+
+    expect(methodWithDefault._getDefaultSendOptions().gasLimit).toEqual(B);
+    expect(
+      methodWithDefault._getDefaultSendOptions({ gasLimit: A }).gasLimit,
+    ).toEqual(A);
   });
 });

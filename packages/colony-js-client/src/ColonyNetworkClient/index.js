@@ -2,7 +2,7 @@
 
 import assert from 'browser-assert';
 import { utf8ToHex } from 'web3-utils';
-import type BigNumber from 'bn.js';
+import BigNumber from 'bn.js';
 
 import ContractClient from '@colony/colony-js-contract-client';
 
@@ -318,6 +318,7 @@ export default class ColonyNetworkClient extends ContractClient {
     // Senders
     this.addSender('createColony', {
       input: [['name', 'string'], ['tokenAddress', 'address']],
+      defaultGasLimit: new BigNumber(2500000),
       eventHandlers: {
         success: {
           ColonyAdded: {
