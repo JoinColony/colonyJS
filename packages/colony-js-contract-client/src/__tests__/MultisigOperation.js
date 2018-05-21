@@ -151,9 +151,9 @@ describe('MultisigOperation', () => {
     const op = new MultisigOperation(sender, payload, signers);
 
     // Test helper to get a certain prop from the signatures in order
-    const sortedSigs = Object.keys(op.signers).sort();
+    const sortedSigs = Object.keys(op._signers).sort();
     const getSigValues = propName =>
-      sortedSigs.map(addr => op.signers[addr][propName]);
+      sortedSigs.map(addr => op._signers[addr][propName]);
 
     const combined = op._combineSignatures();
     expect(combined).toEqual({
@@ -280,8 +280,10 @@ describe('MultisigOperation', () => {
 
     expect(op.constructor._validateSigners).toHaveBeenCalledWith(addedSigners);
 
-    // The signers should have been added together
-    expect(op.signers).toEqual(Object.assign({}, initialSigners, addedSigners));
+    // The _signers should have been added together
+    expect(op._signers).toEqual(
+      Object.assign({}, initialSigners, addedSigners),
+    );
   });
 
   test('Adding state as JSON (invalid json)', () => {
@@ -294,7 +296,7 @@ describe('MultisigOperation', () => {
 
   test('ERC191 Message hash is created properly', async () => {
     const op = new MultisigOperation(sender, payload);
-    op.nonce = 5;
+    op._nonce = 5;
 
     // It should be undefined until operation is refreshed
     expect(op._messageHash).toBeUndefined();
@@ -318,7 +320,7 @@ describe('MultisigOperation', () => {
 
   test('Signed message digests', () => {
     const op = new MultisigOperation(sender, payload);
-    op.nonce = 5;
+    op._nonce = 5;
 
     // Initialise the hash
     op._refreshMessageHash();
@@ -415,7 +417,7 @@ describe('MultisigOperation', () => {
 
     op._addSignature(signature, address);
 
-    expect(op.signers).toEqual({ [address]: { ...signature, ...mode } });
+    expect(op._signers).toEqual({ [address]: { ...signature, ...mode } });
     expect(op._findSignatureMode).toHaveBeenCalled();
   });
 
@@ -474,25 +476,28 @@ describe('MultisigOperation', () => {
   });
 
   test('Refreshing the nonce', async () => {
-    const op = new MultisigOperation(sender, payload, signers);
+    const onReset = sandbox.fn();
+    const op = new MultisigOperation(sender, payload, signers, onReset);
 
     const oldNonce = 20;
     const newNonce = 21;
-    op.nonce = oldNonce;
+    op._nonce = oldNonce;
 
     // Refresh with the old nonce
     op.sender.getNonce.mockImplementation(async () => oldNonce);
     await op._refreshNonce();
     expect(op.sender.getNonce).toHaveBeenCalled();
-    expect(op.nonce).toBe(oldNonce);
-    expect(op.signers).toEqual(signers);
+    expect(op._nonce).toBe(oldNonce);
+    expect(op._signers).toEqual(signers);
+    expect(onReset).not.toHaveBeenCalled();
 
     // Refresh with the new nonce
     op.sender.getNonce.mockImplementation(async () => newNonce);
     await op._refreshNonce();
     expect(op.sender.getNonce).toHaveBeenCalled();
-    expect(op.nonce).toBe(newNonce);
-    expect(op.signers).toEqual({});
+    expect(op._nonce).toBe(newNonce);
+    expect(op._signers).toEqual({});
+    expect(onReset).toHaveBeenCalled();
   });
 
   test('Refreshing required signees', async () => {

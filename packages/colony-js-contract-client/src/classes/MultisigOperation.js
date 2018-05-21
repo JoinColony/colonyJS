@@ -32,11 +32,12 @@ export default class MultisigOperation<
   >,
 > {
   sender: Sender;
-  signers: Signers;
   payload: MultisigOperationPayload<InputValues>; // Immutable
-  nonce: number;
-  _requiredSignees: Array<string>;
   _messageHash: string;
+  _nonce: number;
+  _onReset: ?Function;
+  _requiredSignees: Array<string>;
+  _signers: Signers;
 
   static _validatePayload(payload: any) {
     const assert = makeAssert('Invalid payload');
@@ -80,7 +81,7 @@ export default class MultisigOperation<
   }
 
   static _validateSigners(signers: any) {
-    const assert = makeAssert('Invalid signers');
+    const assert = makeAssert('Invalid _signers');
 
     assert(isPlainObject(signers), 'Signers must be an object');
 
@@ -97,17 +98,19 @@ export default class MultisigOperation<
     sender: Sender,
     payload: MultisigOperationPayload<InputValues>,
     signers?: Signers = {},
+    onReset?: Function,
   ) {
     this.constructor._validatePayload(payload);
     this.constructor._validateSigners(signers);
 
     this.sender = sender;
     this.payload = Object.freeze(Object.assign({}, payload));
-    this.signers = signers;
+    this._signers = signers;
+    if (onReset) this._onReset = onReset;
   }
 
   toJSON() {
-    const { payload, signers } = this;
+    const { payload, _signers: signers } = this;
     return JSON.stringify({ payload, signers });
   }
 
@@ -129,7 +132,7 @@ export default class MultisigOperation<
       'Unable to add state; incompatible payloads',
     );
     this.constructor._validateSigners(signers);
-    this.signers = Object.assign({}, this.signers, signers);
+    this._signers = Object.assign({}, this._signers, signers);
     return this;
   }
 
@@ -144,7 +147,7 @@ export default class MultisigOperation<
 
   get missingSignees() {
     // $FlowFixMe https://github.com/facebook/flow/issues/6151
-    return this.requiredSignees.filter(address => !this.signers[address]);
+    return this.requiredSignees.filter(address => !this._signers[address]);
   }
 
   get _signedMessageDigest() {
@@ -193,10 +196,10 @@ export default class MultisigOperation<
     const combined = { sigV: [], sigR: [], sigS: [], mode: [] };
 
     // Sort by address so that the order is always the same
-    Object.keys(this.signers)
+    Object.keys(this._signers)
       .sort()
       .forEach(address => {
-        const { sigV, sigR, sigS, mode } = this.signers[address];
+        const { sigV, sigR, sigS, mode } = this._signers[address];
         combined.sigV.push(sigV);
         combined.sigR.push(sigR);
         combined.sigS.push(sigS);
@@ -249,7 +252,7 @@ export default class MultisigOperation<
   _addSignature(signature: Signature, address: string) {
     const mode = this._findSignatureMode(signature);
 
-    this.signers = Object.assign({}, this.signers, {
+    this._signers = Object.assign({}, this._signers, {
       [address]: {
         mode,
         ...signature,
@@ -271,7 +274,7 @@ export default class MultisigOperation<
 
   /**
    * Refresh the required signees, nonce value and message hash.
-   * If the nonce value has changed, `signers` will be reset.
+   * If the nonce value has changed, `_signers` will be reset.
    */
   async refresh() {
     await this._refreshRequiredSignees();
@@ -281,14 +284,14 @@ export default class MultisigOperation<
   }
 
   async _refreshNonce() {
-    const oldNonce = Number(this.nonce);
+    const oldNonce = Number(this._nonce);
     const newNonce = await this.sender.getNonce();
     if (oldNonce !== newNonce) {
-      this.nonce = newNonce;
+      this._nonce = newNonce;
       // If the nonce changed, the signers are no longer valid
-      this.signers = {};
-      // eslint-disable-next-line no-console
-      console.warn('Nonce value changed; signers have been reset');
+      this._signers = {};
+      // We will also trigger onReset, if it exists
+      if (this._onReset) this._onReset();
     }
   }
 
@@ -305,13 +308,13 @@ export default class MultisigOperation<
   _refreshMessageHash() {
     const {
       payload: { data, destinationAddress, sourceAddress, value },
-      nonce,
+      _nonce,
     } = this;
 
     // Follows ERC191 signature scheme: https://github.com/ethereum/EIPs/issues/191
     const addresses = `${sourceAddress.slice(2)}${destinationAddress.slice(2)}`;
     const paddedValue = padLeft(value.toString(16), 64, '0');
-    const paddedNonce = padLeft(nonce.toString(16), 64, '0');
+    const paddedNonce = padLeft(_nonce.toString(16), 64, '0');
     this._messageHash = soliditySha3(
       `0x${addresses}${paddedValue}${data.slice(2)}${paddedNonce}`,
     );
