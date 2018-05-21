@@ -1,4 +1,4 @@
-## colony-js-adapter
+# colonyJS Adapter interface
 
 This package exports an interface which is designed to be used for
 wrapping JavaScript-Ethereum libraries (e.g.
@@ -22,3 +22,10 @@ yarn add colony-js-adapter
 
 import type { IContract, IAdapter, IProvider } from '@colony/colony-js-adapter';
 ```
+
+
+## Contributing
+
+This package is part of the [colonyJS monorepo](https://github.com/JoinColony/colonyJS).
+
+Please read our [contributing guidelines](https://github.com/JoinColony/colonyJS/blob/master/CONTRIBUTING.md).

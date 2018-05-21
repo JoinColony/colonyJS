@@ -6,11 +6,11 @@
     "files": [
         "interface",
         "index.js",
-        "Readme.md"
+        "README.md"
     ],
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/JoinColony/colony-js.git"
+        "url": "git+https://github.com/JoinColony/colonyJS.git"
     },
     "scripts": {
         "flow": "flow check",
@@ -27,7 +27,7 @@
     "author": "Christian Maniewski <chris@colony.io>",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/JoinColony/colony-js/issues"
+        "url": "https://github.com/JoinColony/colonyJS/issues"
     },
     "dependencies": {
         "@colony/colony-js-client": "^1.0.0",
@@ -37,5 +37,5 @@
     "devDependencies": {
         "flow-bin": "^0.70.0"
     },
-    "homepage": "https://github.com/JoinColony/colony-js#readme"
+    "homepage": "https://github.com/JoinColony/colonyJS#readme"
 }

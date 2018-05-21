@@ -1,11 +1,11 @@
-## colony-js-utils
+## colonyJS Utilities
 
-Utilities for Colony JS packages.
+Utilities for colonyJS packages.
 
 ## Installation
 
 ```
-yarn add ethers @colony/colony-js-utils
+yarn add @colony/colony-js-utils
 ```
 
 
@@ -32,3 +32,9 @@ class MyClass {
     }
 }
 ```
+
+## Contributing
+
+This package is part of the [colonyJS monorepo](https://github.com/JoinColony/colonyJS).
+
+Please read our [contributing guidelines](https://github.com/JoinColony/colonyJS/blob/master/CONTRIBUTING.md).

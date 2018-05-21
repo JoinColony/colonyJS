@@ -6,7 +6,7 @@
     "files": [
         "dist",
         "lib",
-        "Readme.md"
+        "README.md"
     ],
     "scripts": {
         "build": "yarn run clean && yarn run build:dist && yarn run build:lib && yarn run build:flow",
@@ -29,14 +29,14 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/JoinColony/colony-js.git"
+        "url": "git+https://github.com/JoinColony/colonyJS.git"
     },
     "author": "James Lefrère <james@colony.io>",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/JoinColony/colony-js/issues"
+        "url": "https://github.com/JoinColony/colonyJS/issues"
     },
-    "homepage": "https://github.com/JoinColony/colony-js#readme",
+    "homepage": "https://github.com/JoinColony/colonyJS#readme",
     "dependencies": {
         "@colony/colony-js-contract-loader": "^1.0.0",
         "browser-assert": "^1.2.1"
