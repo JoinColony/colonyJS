@@ -46,5 +46,9 @@
     },
     "workspaces": [
         "packages/*"
-    ]
+    ],
+    "engines": {
+        "node": "9.5.0",
+        "yarn": "1.3.2"
+    }
 }
