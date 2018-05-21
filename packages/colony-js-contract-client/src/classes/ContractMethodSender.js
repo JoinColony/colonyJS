@@ -24,12 +24,18 @@ export default class ContractMethodSender<
   IContractClient: ContractClient,
 > extends ContractMethod<InputValues, OutputValues, IContractClient> {
   eventHandlers: EventHandlers;
+  _defaultGasLimit: ?BigNumber;
 
   constructor({
+    defaultGasLimit,
     eventHandlers,
     ...rest
-  }: ContractMethodArgs<IContractClient> & { eventHandlers?: EventHandlers }) {
+  }: ContractMethodArgs<IContractClient> & {
+    eventHandlers?: EventHandlers,
+    defaultGasLimit?: BigNumber,
+  }) {
     super(rest);
+    if (defaultGasLimit) this._defaultGasLimit = defaultGasLimit;
     if (eventHandlers) this.eventHandlers = eventHandlers;
   }
   /**
@@ -126,11 +132,11 @@ export default class ContractMethodSender<
     callArgs: Array<any>,
     options: SendOptions,
   ): Promise<ContractResponse<OutputValues>> {
-    const { timeoutMs, waitForMining, ...transactionOptions } = Object.assign(
-      {},
-      DEFAULT_SEND_OPTIONS,
-      options,
-    );
+    const {
+      timeoutMs,
+      waitForMining,
+      ...transactionOptions
+    } = this._getDefaultSendOptions(options);
 
     const transaction = await this._sendTransaction(
       callArgs,
@@ -147,5 +153,17 @@ export default class ContractMethodSender<
     transactionOptions: TransactionOptions,
   ) {
     return this.client.send(this.functionName, callArgs, transactionOptions);
+  }
+
+  /**
+   * Given send options, set default values for this Sender.
+   */
+  _getDefaultSendOptions(options: SendOptions) {
+    return Object.assign(
+      {},
+      DEFAULT_SEND_OPTIONS,
+      this._defaultGasLimit ? { gasLimit: this._defaultGasLimit } : {},
+      options,
+    );
   }
 }
