@@ -16,12 +16,18 @@ We'll assume you've already installed ColonyJS in your project. If you haven't, 
 ## Getting Started
 First of all, we will need to set up some prerequisites (clients for the Colony Network and for a specific Colony).
 
+If you haven't done so already, add the required libraries to your project with `yarn`:
+
+```bash
+yarn add @colony/colony-js-client @colony/colony-js-adapter-ethers @colony/colony-js-contract-loader-http @colony/colony-wallet
+```
+
 For your application to be able to communicate with colony, you'll need to configure a [Loader](../docs-loaders/) to read contracts, an [Adapter](../docs-adapters/) to communicate with the blockchain, and a wallet to be able to send transactions that require a signature.
 
 ```js
-import ColonyNetworkClient, { ROLES } from '@colony-js/colony-js-client';
+import ColonyNetworkClient, { ROLES } from '@colony/colony-js-client';
 
-import EthersAdapter from '@colony-js/colony-js-adapter-ethers';
+import EthersAdapter from '@colony/colony-js-adapter-ethers';
 
 import { TrufflepigLoader } from '@colony/colony-js-contract-loader-http';
 
@@ -37,10 +43,36 @@ const adapter = new EthersAdapter({ loader, provider, wallet });
 const networkClient = new ColonyNetworkClient({ adapter });
 await networkClient.init();
 
-const colonyClient = await networkClient.getColonyClient({ key: 'My Colony' });
+
 ```
 
-### Creation
+You'll need to either create a new colony or talk to an existing one.
+
+```js
+// To create a new cool colony:
+const colonyData = {
+    name: 'MyCoolColony', // Unique name for the colony
+    tokenAddress: '0xf000000000000000000000000000000000000000', // Address of the colony's native token
+  };
+
+  // Create a cool Colony!
+  const { eventData: { colonyId }} = await networkClient.createColony.send(colonyData);
+
+  // Congrats, you've created a Colony!
+  console.log(colonyId);
+
+```
+
+```js
+// For a colony that exists already, you just need its name
+const colonyClient = await networkClient.getColonyClient({ key: 'MyCoolColony' });
+```
+
+
+## Task Life-cycle
+Once the colony is configured and everything has been initialized, you can start the task workflow.
+
+### Create
 A newly created task must be assigned to a domain and must reference a `specificationHash` for the task's completion. Also known as a "Task Brief", the task specification is a description of the work to be done and how that work will be evaluated.
 
 ```js
@@ -63,7 +95,7 @@ At any time before a task is finalized, the task can be canceled, which allows a
 await colonyClient.cancelTask.send({ taskId: 1 });
 ```
 
-### Modification
+### Modify
 After the task has been created, the task may be modified to include additional data. This could be setting the task's worker or manager, or skill tag(s).
 
 ```js
@@ -101,18 +133,13 @@ Important changes to a task must be approved by multiple people. Task changes re
 * Changing or setting the Worker's payout (Manager and Worker)
 * Changing or setting the Evaluator's payout (Manager and Evaluator)
 
+Attempting to use these methods without a MultisigOperation will throw an error.
+
+Let's say that you want to change the task's specification. This operation requires signatures from both Manager and Worker.
+
 
 ```js
-// Attempting to use these methods without a MultisigOperation will throw an error:
-await colonyClient.setTaskBrief.send({
-  taskId: 1,
-  specificationHash: 'the new specification hash',
-});
-// -> Error(This Sender uses multi-signature transactions; call `.startOperation()` to start a new `MultisigOperation`)
-```
-
-```js
-// Instead, create a new MultisigOperation with the parameters we want:
+// Create a new MultisigOperation with the parameters we want:
 const op = await colonyClient.setTaskBrief.startOperation({
   taskId: 1,
   specificationHash: 'the new specification hash',
@@ -126,18 +153,19 @@ const signature = await op.sign();
 console.log(signature.missingSignees);
 // -> ['0x...'] (e.g. the wallet address of the Worker)
 
+// It's likely that one (or both) of the signatures will happen elsewhere
 // We can export our operation to JSON so the Worker can sign it:
 const json = op.toJSON();
 
-// Then, with the Worker's wallet:
-const otherOp = colonyClient.setTaskBrief.restoreOperation(json);
+// With the Worker's wallet:
+const workerOp = colonyClient.setTaskBrief.restoreOperation(json);
 
-await otherOp.sign();
+await workerOp.sign();
 // -> { sigR: '0x...', sigS: '0x...', sigV: 27, mode: 0 }
 
 // Now we should be able to send it:
 = await op.send();
-// -> { status: 'SUCCESS' }
+// -> { successful: true }
 
 // We can also see that our change took effect:
 const task = await colonyClient.getTask.call({ taskId: 1 });
@@ -148,8 +176,8 @@ It is also possible to refresh an operation to reflect the current state of the 
 
 ```js
 // Example: two operations with the same nonce:
-console.log(firstOp.nonce); // 1
-console.log(secondOp.nonce); // 1
+console.log(firstOp._nonce); // 1
+console.log(secondOp._nonce); // 1
 
 // And no missing signees:
 console.log(firstOp.missingSignees); // []
@@ -157,22 +185,35 @@ console.log(secondOp.missingSignees); // []
 
 // We can send the first operation successfully:
 await firstOp.send();
-// -> { status: SUCCESS }
+// -> { successful: true }
 
 // The second operation can be refreshed:
 await secondOp.refresh();
 
 // The nonce should have been incremented:
-console.log(secondOp.nonce); // 2
+console.log(secondOp._nonce); // 2
 
 // And the signers should have been reset:
 console.log(firstOp.missingSignees); // ['0x...', '0x...']
 
 // It's worth noting that sending an operation will always trigger
 // a refresh first, so this can reset the (now invalid) signers.
+
+// If desired, we can make the resetting of signers more
+// explicit by attaching a callback:
+const op = await colonyClient.setTaskBrief.startOperation(
+  {
+    taskId: 1,
+    specificationHash: 'the new specification hash',
+  },
+  {}, // The signers, empty in this case
+  () => {
+    console.log('The signers were reset!');
+  },
+);
 ```
 
-### Ratings
+### Rate
 After the work has been submitted (or the due date has passed), the work rating period begins.
 
 Task payouts are determined by work rating, which is currently implemented as "5-star" system, but which will change to a "3-star" system in the future.
@@ -216,7 +257,7 @@ const { count, timestamp } = await colonyClient.getTaskWorkRatings.call({
 });
 ```
 
-### Finalized
+### Finalize
 
 After the rating period has finished, the task may be finalized, which prevents any further task modifications and allows each role to claim their payout.
 
