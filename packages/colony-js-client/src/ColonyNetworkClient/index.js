@@ -145,7 +145,7 @@ export default class ColonyNetworkClient extends ContractClient {
     ColonyNetworkClient,
   >;
   /*
-  Creates a new colony on the network. TODO: check whether it returns a colonyId
+  Creates a new colony on the network. 
   */
   createColony: ColonyNetworkClient.Sender<
     {
