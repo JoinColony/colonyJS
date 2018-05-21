@@ -37,7 +37,7 @@
         "colony",
         "api"
     ],
-    "author": "Christian Maniewski <chris@colony.io>",
+    "contributors": ["Christian Maniewski <chris@colony.io>", "James Lefrère <james@colony.io>"],
     "license": "MIT",
     "bugs": {
         "url": "https://github.com/JoinColony/colonyJS/issues"

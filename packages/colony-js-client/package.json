@@ -27,7 +27,7 @@
             "git add"
         ]
     },
-    "author": "Christian Maniewski <chris@colony.io>",
+    "contributors": ["Christian Maniewski <chris@colony.io>", "James Lefrère <james@colony.io>"],
     "license": "MIT",
     "devDependencies": {
         "babel-plugin-dynamic-import-node": "^1.2.0",
