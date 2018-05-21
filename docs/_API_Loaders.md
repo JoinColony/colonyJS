@@ -28,8 +28,6 @@ const loader = new EtherscanLoader();
 const { abi, address } = await loader.load({ contractAddress: '0xf000000000000000000000000000000000000000'});
  ```
 
-## Methods
-
 
 ## `ContractLoader` interface
 
