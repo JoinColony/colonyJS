@@ -161,15 +161,13 @@ describe('ColonyNetworkClient', () => {
 
     expect(colonyClientSpy).toHaveBeenCalled();
     expect(colonyClient).toBeInstanceOf(ColonyClient);
-    expect(Mock).toHaveBeenCalledWith(
-      {
-        adapter: networkClient.adapter,
-        networkClient,
-      },
-      {
+    expect(Mock).toHaveBeenCalledWith({
+      adapter: networkClient.adapter,
+      networkClient,
+      query: {
         contractAddress: colonyAddress,
       },
-    );
+    });
     expect(colonyClient.init).toHaveBeenCalled();
   });
 
