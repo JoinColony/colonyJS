@@ -16,14 +16,14 @@ The ColonyNetworkClient is the standard interface for functions and events that 
 
 These interactions are generally concerned with the colony network as a whole, rather than at the colony level. This includes operations like getting a count of all colonies on the network, querying for information about skills, and interactions with the CLNY token and reputation system.
 
-[ColonyNetworkClient API documentation](./_API_ColonyNetworkClient)
+[ColonyNetworkClient API documentation](../_API_ColonyNetworkClient)
 
 ## ColonyClient
 The ColonyClient class is a standard interface for interactions with the on-chain functions and events described in `IColony.sol`
 
 These interactions are generally concerned with functions and events internal to a colony, such as creating a task, assigning a work rating, or moving funds between pots.
 
-[ColonyClient API documentation](./_API_ColonyClient.md)
+[ColonyClient API documentation](../_API_ColonyClient.md)
 
 ## Callers
 

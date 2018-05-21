@@ -10,7 +10,7 @@ These interactions are generally concerned with the colony network as a whole, r
 
 You can learn more about the solidity implementation from the [Colony Network Docs](../../colonynetwork/docs-colony).
 
-For interactions within a particular colony, see [the ColonyClient docs](../_API_ColonyClient.md).
+For interactions within a particular colony, see [the ColonyClient docs](../_API_ColonyClient).
 
 ==TOC==
 
