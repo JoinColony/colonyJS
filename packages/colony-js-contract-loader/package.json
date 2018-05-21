@@ -6,11 +6,11 @@
     "files": [
         "interface",
         "index.js",
-        "Readme.md"
+        "README.md"
     ],
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/JoinColony/colony-js.git"
+        "url": "git+https://github.com/JoinColony/colonyJS.git"
     },
     "scripts": {
         "lint": "eslint ./{,interface/}*.js",
@@ -23,12 +23,12 @@
             "git add"
         ]
     },
-    "author": "James Lefrère <james@colony.io>",
+    "contributors": ["Christian Maniewski <chris@colony.io>", "James Lefrère <james@colony.io>"],
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/JoinColony/colony-js/issues"
+        "url": "https://github.com/JoinColony/colonyJS/issues"
     },
-    "homepage": "https://github.com/JoinColony/colony-js#readme",
+    "homepage": "https://github.com/JoinColony/colonyJS#readme",
     "devDependencies": {
         "flow-bin": "^0.70.0"
     }

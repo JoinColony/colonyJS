@@ -32,6 +32,7 @@
         "webpack": "^4.5.0",
         "webpack-cli": "^2.0.14"
     },
+    "contributors": ["Christian Maniewski <chris@colony.io>", "James Lefrère <james@colony.io>"],
     "scripts": {
         "lint": "run(){ eslint --ignore-pattern=**/{node_modules,dist,lib}/* --fix ${@:-\"packages/**/src/{,**/}*.js\"}; }; run",
         "precommit": "lerna run --concurrency 1 --stream precommit",
