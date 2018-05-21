@@ -77,6 +77,7 @@ describe('ColonyNetworkClient', () => {
     expect(networkClient.createColony).toBeInstanceOf(
       networkClient.constructor.Sender,
     );
+    expect(networkClient.createColony).toHaveProperty('_defaultGasLimit');
     expect(networkClient.createColony.eventHandlers).toEqual({
       success: {
         ColonyAdded: {
