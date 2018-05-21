@@ -10,8 +10,8 @@ This guide will help you set up various prerequisites for using colonyJS, get co
 
 ## Environment prerequisites
 
-* For local development, you will need some means of running the [Colony Network contracts](https://github.com/JoinColony/colonyNetwork) locally. See our guide to [running the Colony Network contracts](../docs-getting-started#colonynetwork).
-* Next, you will need some means of loading the contract definitions into your app. This is easy to do with [Trufflepig](https://github.com/JoinColony/trufflepig). See our guide to [starting Trufflepig](../docs-getting-started#trufflepig).
+* For local development, you will need some means of running the [Colony Network contracts](https://github.com/JoinColony/colonyNetwork) locally. See our guide to [running the Colony Network contracts](/colonyjs/docs-getting-started#colonynetwork).
+* Next, you will need some means of loading the contract definitions into your app. This is easy to do with [Trufflepig](https://github.com/JoinColony/trufflepig). See our guide to [starting Trufflepig](/colonyjs/docs-getting-started#trufflepig).
 * It's also beneficial to have a JavaScript environment that supports `async`/`await`, since colonyJS uses Promises extensively. Recent versions of Node and Chrome support Promises out of the box, but you may want to consider using [webpack](https://webpack.js.org/) and [Babel](https://babeljs.io/) for better support.
 
 ## Installing prerequisites for your app
@@ -19,8 +19,8 @@ This guide will help you set up various prerequisites for using colonyJS, get co
 This command will add a number of packages to help get you started with colonyJS.
 
 * `@colony/colony-js-client` – The Colony Network client itself
-* `@colony/colony-js-adapter-ethers` – An Ethereum client [adapter](../docs-adapters/)
-* `@colony/colony-js-contract-loader-http` – An Ethereum contract definition [loader](../docs-loaders/)
+* `@colony/colony-js-adapter-ethers` – An Ethereum client [adapter](/colonyjs/docs-adapters/)
+* `@colony/colony-js-contract-loader-http` – An Ethereum contract definition [loader](/colonyjs/docs-loaders/)
 * `ethers` – [Complete Ethereum wallet implementation and library](https://github.com/ethers-io/ethers.js/)
 
 To install these with `yarn`, run:

@@ -9,7 +9,7 @@ Adapters represent the colonyJS solution for the many different ways to access t
 
 ## Initialising an adapter
 
-First, make sure you understand how to use [Loaders](../docs-loaders/ "Docs")
+First, make sure you understand how to use [Loaders](/colonyjs/docs-loaders/)
 
 Adapters require the following parameters:
 

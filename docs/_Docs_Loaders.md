@@ -9,7 +9,7 @@ Loaders make it possible to easily access and load Ethereum smart contracts.
 
 To interact with a contract, whether it's on mainnet, a testnet, or your local machine, one needs to have the contract's deployed address, together with its Application Binary Interface (ABI).
 
-Loaders provide a simple way to get the address and ABI of a deployed contract, in a certain version, at a particular location (testnet, mainnet, local). This information is then passed as an object to the [adapters](../docs-adapters/ "Docs"), which initialize the contract for use with whichever web3 library they adapt to (such as ethers).
+Loaders provide a simple way to get the address and ABI of a deployed contract, in a certain version, at a particular location (testnet, mainnet, local). This information is then passed as an object to the [adapters](/colonyjs/docs-adapters/), which initialize the contract for use with whichever web3 library they adapt to (such as ethers).
 
 In a nutshell, the loader is an abstraction that takes an argument (e.g. the name of a contract) and returns a definition (most likely the contract's ABI and address) from a specific source (e.g. an http host).
 

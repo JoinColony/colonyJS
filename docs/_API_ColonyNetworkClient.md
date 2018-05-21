@@ -8,9 +8,9 @@ The ColonyNetworkClient is a standard interface for interactions with functions 
 
 These interactions are generally concerned with the colony network as a whole, rather than at the colony level. This includes operations like getting a count of all colonies on the network, querying for information about a parent skillId, or deposits/withdrawals of staked CLNY for use in the reputation system.
 
-You can learn more about the solidity implementation from the [Colony Network Docs](../../colonynetwork/docs-colony).
+You can learn more about the solidity implementation from the [Colony Network Docs](/colonynetwork/docs-colony).
 
-For interactions within a particular colony, see [the ColonyClient docs](../_API_ColonyClient).
+For interactions within a particular colony, see [the ColonyClient docs](/colonyjs/api-colonyclient/).
 
 ==TOC==
 

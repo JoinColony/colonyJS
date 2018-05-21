@@ -1,14 +1,14 @@
 ---
-title: Contract Client
+title: ContractClient
 section: Docs
 order: 4
 ---
 
-The Contract Client is a superclass for all client implementations that access a Colony smart contract. It contains abstractions for callers and senders as well as certain tools for listening to events, providing information about the network state, and interacting with the reputation mining system.
+The `ContractClient` is a superclass for all client implementations that access a Colony smart contract. It contains abstractions for callers and senders as well as certain tools for listening to events, providing information about the network state, and interacting with the reputation mining system.
 
 The contract Client is split into two sub-classes, each of which interacts with a corresponding interface on-chain.
 
-The on-chain interfaces are `IColonyNetwork.sol` and `IColony.sol`. For more information about these, please refer to the [Colony Network Documentation](../../colonynetwork/api-the-colony-network/)
+The on-chain interfaces are `IColonyNetwork.sol` and `IColony.sol`. For more information about these, please refer to the [Colony Network Documentation](/colonynetwork/api-the-colony-network/)
 
 
 ## ColonyNetworkClient
@@ -16,14 +16,14 @@ The `ColonyNetworkClient` class is the standard interface for functions and even
 
 These interactions are generally concerned with the colony network as a whole, rather than at the colony level. This includes operations like getting a count of all colonies on the network, querying for information about skills, and interactions with the CLNY token and reputation system.
 
-[ColonyNetworkClient API documentation](../_API_ColonyNetworkClient)
+[ColonyNetworkClient API documentation](/colonyjs/api-colonynetworkclient/)
 
 ## ColonyClient
 The `ColonyClient` class is a standard interface for interactions with the on-chain functions and events described in `IColony.sol`
 
 These interactions are generally concerned with functions and events internal to a colony, such as creating a task, assigning a work rating, or moving funds between pots.
 
-[ColonyClient API documentation](../_API_ColonyClient.md)
+[ColonyClient API documentation](/colonyjs/api-colonyclient/)
 
 ## Callers
 
@@ -74,14 +74,13 @@ one single transaction.
 
 Wow, that's convoluted!
 
-Thankfully, the Contract Client makes this much simpler for us by providing the
+Thankfully, the `ContractClient` makes this much simpler for us by providing the
 `MultisigSender` and `MultisigOperation`, so we can turn this:
 
-![Sad Vitalik Parrot](/img/sad_vitalik_parrot.gif)
+![Sad Vitalik Parrot](https://raw.githubusercontent.com/JoinColony/colonyJS/master/docs/img/sad_vitalik_parrot.gif)
 
 into this:
-
-![Cool Vitalik Parrot](/img/cool_vitalik_parrot.gif)
+![Cool Vitalik Parrot](https://raw.githubusercontent.com/JoinColony/colonyJS/master/docs/img/cool_vitalik_parrot.gif)
 
 ### MultisigSender
 

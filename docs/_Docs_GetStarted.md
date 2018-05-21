@@ -4,14 +4,11 @@ section: Docs
 order: 2
 ---
 
+The task lifecycle is a great way to get a complete picture of how colonyJS works with the Colony Network. If you're a seasoned developer, or more of an "I'll just figure it out myself" type, you might want to jump to the [Quickstart](/colonyjs/docs-quickstart/).
 
-The task lifecycle is a great way to get a complete picture of how colonyJS works with the Colony Network. If you're a seasoned developer, or more of an "I'll just figure it out myself" type, you might want to jump to the [Quickstart](../docs-quickstart/).
-
-The most useful tool within a colony is the `task` method. Tasks are used to coordinate work, track reputation, and ultimately the only way to get paid through a colony. See [tasks](../../colonynetwork/docs-tasks/) for a complete description of what tasks are within a colony.
+The most useful tool within a colony is the `task` method. Tasks are used to coordinate work, track reputation, and ultimately the only way to get paid through a colony. See [tasks](/colonynetwork/docs-tasks/) for a complete description of what tasks are within a colony.
 
 Using colonyJS, you can query the blockchain for information about tasks, create new tasks and modify them, commit and reveal ratings, finalize and trigger task payouts -- all from within your application.
-
-We'll assume you've already installed colonyJS in your project. If you haven't, see [Installation](../docs-install).
 
 ## Getting Started
 First of all, we will need to set up some prerequisites (clients for the Colony Network and for a specific Colony).
@@ -22,7 +19,7 @@ If you haven't done so already, add the required libraries to your project with 
 yarn add @colony/colony-js-client @colony/colony-js-adapter-ethers @colony/colony-js-contract-loader-http @colony/colony-wallet
 ```
 
-For your application to be able to communicate with colony, you'll need to configure a [Loader](../docs-loaders/) to read contracts, an [Adapter](../docs-adapters/) to communicate with the blockchain, and a wallet to be able to send transactions that require a signature.
+For your application to be able to communicate with colony, you'll need to configure a [Loader](/colonyjs/docs-loaders/) to read contracts, an [Adapter](/colonyjs/docs-adapters/) to communicate with the blockchain, and a wallet to be able to send transactions that require a signature.
 
 ```js
 import ColonyNetworkClient, { ROLES } from '@colony/colony-js-client';
