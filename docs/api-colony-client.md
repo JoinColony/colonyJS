@@ -1,6 +1,6 @@
 ---
 id: api-colony-client
-title: ColonyClient (colony-js-client)
+title: ColonyClient (colonyJS-client)
 sidebar_label: ColonyClient
 ---
 
