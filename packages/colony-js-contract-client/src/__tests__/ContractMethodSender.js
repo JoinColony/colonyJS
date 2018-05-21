@@ -50,16 +50,19 @@ describe('ContractMethodSender', () => {
   };
   const contractResponse = {
     eventData,
+    successful: true,
     meta: {
       receipt,
       transaction,
     },
   };
   const adapter = {
-    getTransactionReceipt: sandbox.fn(() => receipt),
+    getTransactionReceipt: sandbox.fn(async () => Promise.resolve(receipt)),
   };
   const client = new ContractClient({ contract, adapter });
-  client.getEventData = sandbox.fn(() => eventData);
+  sandbox
+    .spyOn(client, 'getEventData')
+    .mockImplementation(async () => Promise.resolve(eventData));
 
   beforeEach(() => sandbox.clear());
 
@@ -104,7 +107,7 @@ describe('ContractMethodSender', () => {
     expect(method._send).toHaveBeenCalledWith(callArgs, options);
   });
 
-  test('Event data and transaction receipts are collected', async () => {
+  test('Sending transactions', async () => {
     const method = new ContractMethodSender({
       client,
       input,
@@ -112,16 +115,54 @@ describe('ContractMethodSender', () => {
       eventHandlers,
     });
 
-    method.getMethodArgs = sandbox.fn(() => callArgs);
-    method._sendTransaction = sandbox.fn(() => transaction);
+    sandbox.spyOn(method, '_sendTransaction').mockReturnValue(transaction);
+    sandbox.spyOn(method, '_sendWithWaitingForMining');
+    sandbox.spyOn(method, '_sendWithoutWaitingForMining');
 
-    expect(await method._send(callArgs, options)).toEqual(contractResponse);
+    await method._send(callArgs, options);
+
     expect(method._sendTransaction).toHaveBeenCalledWith(callArgs, {
       gasPrice: options.gasPrice,
       gasLimit: options.gasLimit,
       nonce: options.nonce,
       value: options.value,
     });
+
+    expect(method._sendWithWaitingForMining).toHaveBeenCalled();
+    expect(method._sendWithoutWaitingForMining).not.toHaveBeenCalled();
+
+    expect(
+      method._send(
+        callArgs,
+        Object.assign({}, options, { waitForMining: false }),
+      ),
+    ).toBeInstanceOf(Promise);
+    expect(method._sendWithWaitingForMining).toHaveBeenCalled();
+  });
+
+  test('Sending transactions (waiting for mining)', async () => {
+    const method = new ContractMethodSender({
+      client,
+      input,
+      functionName,
+      eventHandlers,
+    });
+
+    const response = await method._sendWithWaitingForMining(
+      transaction,
+      options.timeoutMs,
+    );
+
+    expect(response).toEqual({
+      eventData,
+      successful: true,
+      meta: {
+        receipt,
+        transaction,
+      },
+    });
+
+    // Event data, transaction receipts and success are collected
     expect(method.client.adapter.getTransactionReceipt).toHaveBeenCalledWith(
       transaction.hash,
     );
@@ -130,5 +171,48 @@ describe('ContractMethodSender', () => {
       timeoutMs: options.timeoutMs,
       transactionHash: transaction.hash,
     });
+
+    expect(method.client.getEventData).toHaveBeenCalledWith({
+      events: eventHandlers,
+      timeoutMs: options.timeoutMs,
+      transactionHash: transaction.hash,
+    });
+    expect(method.client.adapter.getTransactionReceipt).toHaveBeenCalledWith(
+      transaction.hash,
+    );
+  });
+
+  test('Sending transactions (without waiting for mining)', async () => {
+    const method = new ContractMethodSender({
+      client,
+      input,
+      functionName,
+      eventHandlers,
+    });
+
+    const response = method._sendWithoutWaitingForMining(
+      transaction,
+      options.timeoutMs,
+    );
+
+    // The response should contain promises and the sent transaction
+    expect(response.eventDataPromise).toBeInstanceOf(Promise);
+    expect(response.successfulPromise).toBeInstanceOf(Promise);
+    expect(response.meta.receiptPromise).toBeInstanceOf(Promise);
+    expect(response.meta.transaction).toEqual(transaction);
+
+    // Event data, transaction receipts and success are collected
+    expect(await response.eventDataPromise).toEqual(eventData);
+    expect(await response.successfulPromise).toBe(true);
+    expect(await response.meta.receiptPromise).toEqual(receipt);
+
+    expect(method.client.getEventData).toHaveBeenCalledWith({
+      events: eventHandlers,
+      timeoutMs: options.timeoutMs,
+      transactionHash: transaction.hash,
+    });
+    expect(method.client.adapter.getTransactionReceipt).toHaveBeenCalledWith(
+      transaction.hash,
+    );
   });
 });

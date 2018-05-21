@@ -5,6 +5,7 @@ import { raceAgainstTimeout } from '@colony/colony-js-utils';
 
 import type {
   EventHandlers,
+  Transaction,
   TransactionOptions,
 } from '@colony/colony-js-adapter';
 
@@ -23,6 +24,7 @@ export default class ContractMethodSender<
   IContractClient: ContractClient,
 > extends ContractMethod<InputValues, OutputValues, IContractClient> {
   eventHandlers: EventHandlers;
+
   constructor({
     eventHandlers,
     ...rest
@@ -50,60 +52,96 @@ export default class ContractMethodSender<
     const args = this.getMethodArgs(inputValues);
     return this._send(args, options);
   }
-  async _send(
-    callArgs: Array<any>,
-    options: SendOptions,
+
+  async _sendWithWaitingForMining(
+    transaction: Transaction,
+    timeoutMs: number,
   ): Promise<ContractResponse<OutputValues>> {
-    let receipt;
-    const { timeoutMs, waitForMining, ...transactionOptions } = Object.assign(
-      {},
-      DEFAULT_SEND_OPTIONS,
-      options,
-    );
-    const transaction = await this._sendTransaction(
-      callArgs,
-      transactionOptions,
-    );
-    const receiptPromise = this.client.adapter.getTransactionReceipt(
-      transaction.hash,
+    const receipt = await raceAgainstTimeout(
+      this.client.adapter.getTransactionReceipt(transaction.hash),
+      timeoutMs,
     );
 
-    if (waitForMining) {
-      // Await the receipt first if we're waiting for mining; if it wasn't
-      // successful, return immediately rather than waiting for events/mined tx
-      receipt = await raceAgainstTimeout(receiptPromise, timeoutMs);
-      if (receipt.status === 0) {
-        return {
-          meta: {
-            receipt,
-            transaction,
-          },
-        };
-      }
+    const meta = {
+      transaction,
+      receipt,
+    };
+    const successful = receipt.status === 1;
+
+    // If the receipt wasn't successful, return immediately rather than waiting
+    // for events/mined tx
+    if (!successful) {
+      return {
+        successful,
+        meta,
+        eventData: {},
+      };
     }
 
-    const eventDataPromise = this.client.getEventData({
+    const eventData = await this.client.getEventData({
       events: this.eventHandlers,
       timeoutMs,
       transactionHash: transaction.hash,
     });
 
-    return waitForMining
-      ? {
-          eventData: await eventDataPromise,
-          meta: {
-            receipt,
-            transaction,
-          },
-        }
-      : {
-          eventDataPromise,
-          meta: {
-            receiptPromise,
-            transaction,
-          },
-        };
+    return {
+      successful,
+      meta,
+      eventData,
+    };
   }
+
+  _sendWithoutWaitingForMining(
+    transaction: Transaction,
+    timeoutMs: number,
+  ): ContractResponse<OutputValues> {
+    const receiptPromise = raceAgainstTimeout(
+      this.client.adapter.getTransactionReceipt(transaction.hash),
+      timeoutMs,
+    );
+    const successfulPromise = new Promise(async (resolve, reject) => {
+      try {
+        const { status } = await receiptPromise;
+        resolve(status === 1);
+      } catch (error) {
+        reject(error.toString());
+      }
+    });
+
+    return {
+      successfulPromise,
+      meta: {
+        receiptPromise,
+        transaction,
+      },
+      eventDataPromise: this.client.getEventData({
+        events: this.eventHandlers,
+        timeoutMs,
+        transactionHash: transaction.hash,
+      }),
+    };
+  }
+
+  async _send(
+    callArgs: Array<any>,
+    options: SendOptions,
+  ): Promise<ContractResponse<OutputValues>> {
+    const { timeoutMs, waitForMining, ...transactionOptions } = Object.assign(
+      {},
+      DEFAULT_SEND_OPTIONS,
+      options,
+    );
+
+    const transaction = await this._sendTransaction(
+      callArgs,
+      transactionOptions,
+    );
+
+    return waitForMining
+      ? this._sendWithWaitingForMining(transaction, timeoutMs)
+      : this._sendWithoutWaitingForMining(transaction, timeoutMs);
+  }
+
   async _sendTransaction(
     callArgs: Array<any>,
     transactionOptions: TransactionOptions,
