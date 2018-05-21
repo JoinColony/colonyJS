@@ -95,14 +95,9 @@ export default class ContractMethodMultisigSender<
     const args = this.getMethodArgs(inputValues);
     const data = this.client.createTransactionData(this.functionName, args);
 
-    // XXX After https://github.com/JoinColony/colonyNetwork/issues/192 is
-    // fixed, the inputValues should be passed to the `getNonce` method.
-    const nonce = await this.getNonce();
-
     return new MultisigOperation(this, {
       data,
       inputValues,
-      nonce,
       destinationAddress: this.client.contract.address,
       sourceAddress: this.client.contract.address,
       value: 0,

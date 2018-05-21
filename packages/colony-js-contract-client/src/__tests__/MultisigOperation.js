@@ -82,33 +82,27 @@ describe('MultisigOperation', () => {
     inputValues: { id: 1 },
     sourceAddress: '0xsource',
     value: 1,
-    nonce: 5,
   };
 
-  const firstNonce = 5;
-  const secondNonce = 6;
   const sender = {
     sendMultisig: sandbox.fn(),
     getRequiredSignees: sandbox
       .fn()
-      .mockReturnValue(Promise.resolve(Object.keys(signers))),
-    getNonce: sandbox
-      .fn()
-      .mockReturnValueOnce(Promise.resolve(firstNonce))
-      .mockReturnValueOnce(Promise.resolve(secondNonce)),
+      .mockImplementation(async () => Object.keys(signers)),
+    getNonce: sandbox.fn(),
     client: {
       adapter: {
-        signMessage: sandbox.fn().mockReturnValue(Promise.resolve(signature)),
+        signMessage: sandbox.fn().mockImplementation(async () => signature),
         wallet: {
           address,
         },
-        ecRecover: sandbox.fn().mockReturnValue(address),
+        ecRecover: sandbox.fn().mockImplementation(() => address),
       },
     },
   };
 
   test('Validating payload: Input type is validated', () => {
-    MultisigOperation.validatePayload(payload);
+    MultisigOperation._validatePayload(payload);
     expect(isPlainObject).toHaveBeenCalledWith(payload);
     expect(assert).toHaveBeenCalledWith(
       true,
@@ -117,7 +111,7 @@ describe('MultisigOperation', () => {
   });
 
   test('Validating payload: Input contents are validated', () => {
-    expect(MultisigOperation.validatePayload(payload)).toBe(true);
+    expect(MultisigOperation._validatePayload(payload)).toBe(true);
 
     expect(isHexStrict).toHaveBeenCalledWith(payload.data);
     expect(assert).toHaveBeenCalledWith(
@@ -142,7 +136,7 @@ describe('MultisigOperation', () => {
       expect.stringContaining('value must be a positive number'),
     );
 
-    MultisigOperation.validatePayload(
+    MultisigOperation._validatePayload(
       Object.assign({}, payload, {
         value: -1,
       }),
@@ -157,11 +151,11 @@ describe('MultisigOperation', () => {
     const op = new MultisigOperation(sender, payload, signers);
 
     // Test helper to get a certain prop from the signatures in order
-    const sortedSigs = Object.keys(op.signers).sort();
+    const sortedSigs = Object.keys(op._signers).sort();
     const getSigValues = propName =>
-      sortedSigs.map(addr => op.signers[addr][propName]);
+      sortedSigs.map(addr => op._signers[addr][propName]);
 
-    const combined = op.combineSignatures();
+    const combined = op._combineSignatures();
     expect(combined).toEqual({
       sigR: getSigValues('sigR'),
       sigS: getSigValues('sigS'),
@@ -178,11 +172,11 @@ describe('MultisigOperation', () => {
       sigS: 'sigS',
       mode: 'mode',
     };
-    sandbox.spyOn(op, 'combineSignatures').mockReturnValue(combined);
+    sandbox.spyOn(op, '_combineSignatures').mockReturnValue(combined);
 
-    const args = op.getArgs();
+    const args = op._getArgs();
 
-    expect(op.combineSignatures).toHaveBeenCalled();
+    expect(op._combineSignatures).toHaveBeenCalled();
     expect(args).toEqual([
       combined.sigV,
       combined.sigR,
@@ -196,7 +190,7 @@ describe('MultisigOperation', () => {
   test('Validating required signees (all signees present)', async () => {
     const op = new MultisigOperation(sender, payload, signers);
 
-    const valid = await op.validateRequiredSignees();
+    const valid = await op._validateRequiredSignees();
 
     expect(op.sender.getRequiredSignees).toHaveBeenCalledWith(
       op.payload.inputValues,
@@ -219,7 +213,7 @@ describe('MultisigOperation', () => {
 
     const op = new MultisigOperation(sender, payload, twoSigners);
 
-    await op.validateRequiredSignees();
+    await op._validateRequiredSignees();
 
     expect(assert).toHaveBeenCalledWith(
       false,
@@ -228,16 +222,16 @@ describe('MultisigOperation', () => {
   });
 
   test('Constructor validates payload/signers', () => {
-    sandbox.spyOn(MultisigOperation, 'validatePayload').mockReturnValue(true);
-    sandbox.spyOn(MultisigOperation, 'validateSigners').mockReturnValue(true);
+    sandbox.spyOn(MultisigOperation, '_validatePayload').mockReturnValue(true);
+    sandbox.spyOn(MultisigOperation, '_validateSigners').mockReturnValue(true);
 
     const op = new MultisigOperation(sender, payload, signers);
 
     expect(op).toBeInstanceOf(MultisigOperation);
     expect(op.sender).toBe(sender);
     expect(op.payload).toEqual(payload);
-    expect(op.constructor.validatePayload).toHaveBeenCalledWith(payload);
-    expect(op.constructor.validateSigners).toHaveBeenCalledWith(signers);
+    expect(op.constructor._validatePayload).toHaveBeenCalledWith(payload);
+    expect(op.constructor._validateSigners).toHaveBeenCalledWith(signers);
   });
 
   test('Payload is immutable', () => {
@@ -273,7 +267,7 @@ describe('MultisigOperation', () => {
     const json = JSON.stringify({ payload, signers: addedSigners });
 
     sandbox.spyOn(JSON, 'stringify');
-    sandbox.spyOn(op.constructor, 'validateSigners');
+    sandbox.spyOn(op.constructor, '_validateSigners');
     op.addSignersFromJSON(json);
 
     // The payload should be validated by JSON-equality for each property of
@@ -284,16 +278,27 @@ describe('MultisigOperation', () => {
       'Unable to add state; incompatible payloads',
     );
 
-    expect(op.constructor.validateSigners).toHaveBeenCalledWith(addedSigners);
+    expect(op.constructor._validateSigners).toHaveBeenCalledWith(addedSigners);
 
-    // The signers should have been added together
-    expect(op.signers).toEqual(Object.assign({}, initialSigners, addedSigners));
+    // The _signers should have been added together
+    expect(op._signers).toEqual(
+      Object.assign({}, initialSigners, addedSigners),
+    );
+  });
+
+  test('Adding state as JSON (invalid json)', () => {
+    const op = new MultisigOperation(sender, payload);
+
+    expect(() => {
+      op.addSignersFromJSON('aksjdhkjasdhkj');
+    }).toThrowError('Unable to add signers: could not parse JSON');
   });
 
   test('ERC191 Message hash is created properly', async () => {
     const op = new MultisigOperation(sender, payload);
+    op._nonce = 5;
 
-    // It should be undefined until the getter is called
+    // It should be undefined until operation is refreshed
     expect(op._messageHash).toBeUndefined();
 
     // The string to be hashed should contain:
@@ -305,7 +310,8 @@ describe('MultisigOperation', () => {
     // nonce (5 - `nonce`)
     const expectedHash = '0xsourcedestination1data5';
 
-    const hash = op.messageHash;
+    op._refreshMessageHash();
+    const hash = op._messageHash;
     expect(hash).toBe(expectedHash);
     expect(padLeft).toHaveBeenCalledTimes(2);
     expect(soliditySha3).toHaveBeenCalledWith(expectedHash);
@@ -313,62 +319,54 @@ describe('MultisigOperation', () => {
   });
 
   test('Signed message digests', () => {
-    const hashSpy = sandbox.spyOn(
-      MultisigOperation.prototype,
-      'messageHash',
-      'get',
-    );
     const op = new MultisigOperation(sender, payload);
+    op._nonce = 5;
 
     // Initialise the hash
-    op.messageHash; // eslint-disable-line no-unused-expressions
-    hashSpy.mockClear();
+    op._refreshMessageHash();
 
     // Default signed message digest
-    op.signedMessageDigest; // eslint-disable-line no-unused-expressions
-    expect(hashSpy).toHaveBeenCalledTimes(1);
+    op._signedMessageDigest; // eslint-disable-line no-unused-expressions
     expect(soliditySha3).toHaveBeenCalledWith(
       '\x19Ethereum Signed Message:\n32',
       op._messageHash,
     );
     expect(hexToBytes).toHaveBeenCalledTimes(1);
 
-    hashSpy.mockClear();
     hexToBytes.mockClear();
     soliditySha3.mockClear();
 
     // Trezor signed message digest
-    op.signedTrezorMessageDigest; // eslint-disable-line no-unused-expressions
+    op._signedTrezorMessageDigest; // eslint-disable-line no-unused-expressions
     expect(soliditySha3).toHaveBeenCalledWith(
       '\x19Ethereum Signed Message:\n\x20',
       op._messageHash,
     );
-    expect(hashSpy).toHaveBeenCalledTimes(1);
     expect(hexToBytes).toHaveBeenCalledTimes(1);
   });
 
   test('Getting the message digest for different signing modes', () => {
     const digestSpy = sandbox.spyOn(
       MultisigOperation.prototype,
-      'signedMessageDigest',
+      '_signedMessageDigest',
       'get',
     );
     const trezorDigestSpy = sandbox.spyOn(
       MultisigOperation.prototype,
-      'signedTrezorMessageDigest',
+      '_signedTrezorMessageDigest',
       'get',
     );
 
     const op = new MultisigOperation(sender, payload);
 
-    op.getMessageDigest(0);
+    op._getMessageDigest(0);
     expect(digestSpy).toHaveBeenCalled();
     expect(trezorDigestSpy).not.toHaveBeenCalled();
 
     digestSpy.mockClear();
     trezorDigestSpy.mockClear();
 
-    op.getMessageDigest(1);
+    op._getMessageDigest(1);
     expect(digestSpy).not.toHaveBeenCalled();
     expect(trezorDigestSpy).toHaveBeenCalled();
   });
@@ -377,24 +375,24 @@ describe('MultisigOperation', () => {
     const digest = 'digest';
     const trezorDigest = 'trezor digest';
     sandbox
-      .spyOn(MultisigOperation.prototype, 'signedMessageDigest', 'get')
+      .spyOn(MultisigOperation.prototype, '_signedMessageDigest', 'get')
       .mockReturnValue(digest);
     sandbox
-      .spyOn(MultisigOperation.prototype, 'signedTrezorMessageDigest', 'get')
+      .spyOn(MultisigOperation.prototype, '_signedTrezorMessageDigest', 'get')
       .mockReturnValue(trezorDigest);
 
     const op = new MultisigOperation(sender, payload);
 
-    sandbox.spyOn(op, 'getMessageDigest');
+    sandbox.spyOn(op, '_getMessageDigest');
     op.sender.client.adapter.ecRecover
       .mockReturnValueOnce(address)
       .mockReturnValueOnce('not the right address');
 
-    const mode = op.findSignatureMode(signature);
+    const mode = op._findSignatureMode(signature);
 
     expect(mode).toBe(0); // A match was found for the first mode
-    expect(op.getMessageDigest).toHaveBeenCalledWith(0);
-    expect(op.getMessageDigest).toHaveBeenCalledWith(1);
+    expect(op._getMessageDigest).toHaveBeenCalledWith(0);
+    expect(op._getMessageDigest).toHaveBeenCalledWith(1);
     expect(op.sender.client.adapter.ecRecover).toHaveBeenCalledWith(
       digest,
       signature,
@@ -407,7 +405,7 @@ describe('MultisigOperation', () => {
     // It should fail when the address does not match in either case
     op.sender.client.adapter.ecRecover.mockReturnValue('not the right address');
     expect(() => {
-      op.findSignatureMode(signature);
+      op._findSignatureMode(signature);
     }).toThrowError('Unable to confirm signature mode');
   });
 
@@ -415,49 +413,103 @@ describe('MultisigOperation', () => {
     const op = new MultisigOperation(sender, payload);
     const mode = 1;
 
-    sandbox.spyOn(op, 'findSignatureMode').mockReturnValue(mode);
+    sandbox.spyOn(op, '_findSignatureMode').mockReturnValue(mode);
 
-    const addedSig = op.addSignature(signature, address);
+    op._addSignature(signature, address);
 
-    expect(addedSig).toEqual(Object.assign({}, { mode }, signature));
-    expect(op.findSignatureMode).toHaveBeenCalled();
-    expect(op.signers).toEqual({
-      [address]: addedSig,
-    });
+    expect(op._signers).toEqual({ [address]: { ...signature, ...mode } });
+    expect(op._findSignatureMode).toHaveBeenCalled();
   });
 
   test('Signing', async () => {
     const messageHash = 'messageHash';
 
-    const hashSpy = sandbox
-      .spyOn(MultisigOperation.prototype, 'messageHash', 'get')
-      .mockReturnValue(messageHash);
-    sandbox
-      .spyOn(MultisigOperation.prototype, 'addSignature')
-      .mockReturnValue(signature);
-
     const op = new MultisigOperation(sender, payload);
+    op._messageHash = messageHash;
 
-    const addedSig = await op.sign();
+    sandbox.spyOn(op, '_addSignature').mockReturnValue(signature);
+    sandbox.spyOn(op, 'refresh').mockImplementation(async () => {});
 
-    expect(hashSpy).toHaveBeenCalled();
+    await op.sign();
+
+    // Ideally, we would assert that this function was called before the others,
+    // but it's not well-supported in jest (or other modules like jest-extended)
+    expect(op.refresh).toHaveBeenCalled();
+
     expect(op.sender.client.adapter.signMessage).toHaveBeenCalledWith(
       messageHash,
     );
-    expect(addedSig).toEqual(signature);
+    expect(op._addSignature).toHaveBeenCalledWith(signature, address);
   });
 
   test('Operation can be sent with Sender', async () => {
     const args = [123, 'abc'];
     const op = new MultisigOperation(sender, payload, signers);
-    sandbox.spyOn(op, 'validateRequiredSignees').mockImplementation(() => true);
-    sandbox.spyOn(op, 'getArgs').mockReturnValue(args);
+    sandbox
+      .spyOn(op, '_validateRequiredSignees')
+      .mockImplementation(() => true);
+    sandbox.spyOn(op, '_getArgs').mockReturnValue(args);
+    op.sender.getNonce.mockReturnValue(Promise.resolve(5));
 
     const options = { gasPrice: 1 };
     await op.send(options);
 
-    expect(op.validateRequiredSignees).toHaveBeenCalled();
-    expect(op.getArgs).toHaveBeenCalled();
+    expect(op._validateRequiredSignees).toHaveBeenCalled();
+    expect(op._getArgs).toHaveBeenCalled();
     expect(op.sender.sendMultisig).toHaveBeenCalledWith(args, options);
+  });
+
+  test('Refreshing', async () => {
+    const op = new MultisigOperation(sender, payload, signers);
+
+    sandbox
+      .spyOn(op, '_refreshRequiredSignees')
+      .mockImplementation(async () => {});
+    sandbox.spyOn(op, '_refreshNonce').mockImplementation(async () => {});
+    sandbox.spyOn(op, '_refreshMessageHash').mockImplementation(() => {});
+
+    await op.refresh();
+
+    expect(op._refreshRequiredSignees).toHaveBeenCalled();
+    expect(op._refreshNonce).toHaveBeenCalled();
+    expect(op._refreshMessageHash).toHaveBeenCalled();
+  });
+
+  test('Refreshing the nonce', async () => {
+    const onReset = sandbox.fn();
+    const op = new MultisigOperation(sender, payload, signers, onReset);
+
+    const oldNonce = 20;
+    const newNonce = 21;
+    op._nonce = oldNonce;
+
+    // Refresh with the old nonce
+    op.sender.getNonce.mockImplementation(async () => oldNonce);
+    await op._refreshNonce();
+    expect(op.sender.getNonce).toHaveBeenCalled();
+    expect(op._nonce).toBe(oldNonce);
+    expect(op._signers).toEqual(signers);
+    expect(onReset).not.toHaveBeenCalled();
+
+    // Refresh with the new nonce
+    op.sender.getNonce.mockImplementation(async () => newNonce);
+    await op._refreshNonce();
+    expect(op.sender.getNonce).toHaveBeenCalled();
+    expect(op._nonce).toBe(newNonce);
+    expect(op._signers).toEqual({});
+    expect(onReset).toHaveBeenCalled();
+  });
+
+  test('Refreshing required signees', async () => {
+    const op = new MultisigOperation(sender, payload, signers);
+
+    const newSigners = ['signer one', 'signer two'];
+    op.sender.getRequiredSignees.mockImplementationOnce(async () => newSigners);
+
+    await op._refreshRequiredSignees();
+    expect(op.sender.getRequiredSignees).toHaveBeenCalledWith(
+      op.payload.inputValues,
+    );
+    expect(op._requiredSignees).toEqual(newSigners);
   });
 });

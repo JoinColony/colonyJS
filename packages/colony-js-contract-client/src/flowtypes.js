@@ -97,6 +97,5 @@ export type MultisigOperationPayload<InputValues> = {
   destinationAddress: string,
   inputValues: InputValues,
   sourceAddress: string,
-  nonce: number,
   value: number,
 };
