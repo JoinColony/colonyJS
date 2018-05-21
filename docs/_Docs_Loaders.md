@@ -25,7 +25,7 @@ import { EtherscanLoader } from '@colony/colony-js-contract-loader-http';
 const loader = new EtherscanLoader();
 
 // The object may then be called by the adapter:
-const { abi, address } = await loader.load({ contractAddress: '0xf000000000000000000000000000000000000000'});
+const { abi, address } = await loader.load({ contractAddress: '0xf000000000000000000000000000000000000000' });
  ```
 
 ### Loading contractAddress and ABI from TrufflePig using a name
@@ -39,26 +39,24 @@ import { TrufflepigLoader } from '@colony/colony-js-contract-loader-http';
 const loader = new TrufflepigLoader();
 
 // The object may then be called by the adapter:
-const { abi, address, bytecode } = await loader.load('ColonyNetwork');
+const { abi, address, bytecode } = await loader.load({ contractName: 'ColonyNetwork' });
 ```
 
-### Loading from a custom data source (using the `parser`)
-It's possible that a custom data source will deliver your data in a format different than etherscan or TrufflePig. For this, it's necessary to utilize the `parser` property, which can transform the raw output of the source. The default behavior of `parser` is to return the JSON object that is passed to it.
+### Loading from a custom data source (using the `transform`)
+It's possible that a custom data source will deliver your data in a format different than etherscan or TrufflePig. For this, it's necessary to utilize the `transform` property, which can transform the raw output of the source. The default behavior of `transform` is to return the JSON object that is passed to it.
 
 ```javascript
 import { ContractHttpLoader } from '@colony/colony-js-contract-loader-http';
 
-function transform(response, query) {
+const loader = new ContractHttpLoader({
+  endpoint: 'https://myDataSource.io/contracts?address=%%ADDRESS%%',
+  transform(response, query) {
     return {
       address: query.contractAddress,
       abi: response.data.contractABI,
       bytecode: response.data.bytecode
-    }
-}
-
-const loader = new ContractHttpLoader({
-  endpoint: 'https://myDataSource.io/contracts?address=%%ADDRESS%%',
-  parser: transform
+    };
+  },
 });
 
 // The object may then be called by the adapter:
