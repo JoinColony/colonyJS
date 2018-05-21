@@ -5,8 +5,7 @@ order: 6
 ---
 
 ## What are Adapters?
-Adapters are the ColonyJS solution for there being many different ways to access the Ethereum blockchain, through various JavaScript libraries. Adapters provide a wrapper for such libraries that enforce a standard and predictable API for use with Colony's contracts.
-
+Adapters are the colonyJS solution for there being many different ways to access the Ethereum blockchain, through various JavaScript libraries. Adapters provide a wrapper for such libraries that enforce a standard and predictable API for use with Colony's contracts.
 
 ## How to use an Adapter
 
