@@ -67,13 +67,23 @@ console.log(md);
 
 function printCallers() {
   if (!callers.length) return '';
-  return '## Callers\n' + callers
-    .map(
-      caller => `
+  // TODO: use templates to properly place this text into the file
+  return `## Callers
+
+**All callers return promises which resolve to an object containing the given return values.** For a reference please check [here](/colonyjs/docs-contract-client/#callers).
+` +
+    callers
+      .map(
+        caller => `
 ### \`${caller.name}.call(${printArgs(caller.args, false)})\`
 
 ${caller.description}
-${printProps('Param', caller.args)}
+${caller.args && caller.args.length ? '\n**Arguments**\n\n' : ''}${printProps('Argument', caller.args)}
+
+**Returns**
+
+A promise which resolves to an object containing the following properties:
+
 ${printProps('Return value', caller.returns)}
 `,
     )
@@ -82,13 +92,22 @@ ${printProps('Return value', caller.returns)}
 
 function printSenders() {
   if (!senders.length) return '';
-  return '## Senders\n' + senders
-    .map(
-      sender => `
+  // TODO: use templates to properly place this text into the file
+  return `## Senders
+
+**All senders return an instance of a \`ContractResponse\`.** Every \`send()\` method takes an \`options\` object as the second argument. For a reference please check [here](/colonyjs/docs-contract-client/#senders).` +
+    senders
+      .map(
+        sender => `
 ### \`${sender.name}.send(${printArgs(sender.args, true)})\`
 
 ${sender.description}
-${printProps('Param', sender.args)}
+${sender.args && sender.args.length ? '\n**Arguments**\n\n' : ''}${printProps('Argument', sender.args)}
+
+**Returns**
+
+An instance of a \`ContractResponse\` ${sender.events && sender.events.length ? 'which will eventually receive the following event data:' : ''}
+
 ${printProps('Event data', sender.events)}
 `,
     )
@@ -97,13 +116,22 @@ ${printProps('Event data', sender.events)}
 
 function printMultiSig() {
   if (!multisig.length) return '';
-  return '## Task MultiSig\n' + multisig
-    .map(
-      ms => `
+  // TODO: use templates to properly place this text into the file
+  return `'## Task MultiSig
+
+**All MultiSig functions return an instance of a \`MultiSigOperation\`.** For a reference please check [here](/colonyjs/docs-contract-client/#task-multisig).` +
+    multisig
+      .map(
+        ms => `
 ### \`${ms.name}.startOperation(${printArgs(ms.args, false)})\`
 
 ${ms.description}
-${printProps('Param', ms.args)}
+${ms.args && ms.args.length ? '\n**Arguments**\n\n' : ''}${printProps('Argument', ms.args)}
+
+**Returns**
+
+An instance of a \`MultiSigOperation\` ${ms.events && ms.events.length ? 'whose sender will eventually receive the following event data:' : ''}
+
 ${printProps('Event data', ms.events)}
 `,
     )
@@ -112,7 +140,7 @@ ${printProps('Event data', ms.events)}
 
 function printProps(title, props) {
   if (props && props.length) {
-    return `\n|${title}|Type|Description|
+    return `|${title}|Type|Description|
 |---|---|---|
 ${props
       .map(param => `|${param.name}|${param.type}|${param.description}|`)

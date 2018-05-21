@@ -145,7 +145,7 @@ export default class ColonyNetworkClient extends ContractClient {
     ColonyNetworkClient,
   >;
   /*
-  Creates a new colony on the network. 
+  Creates a new colony on the network.
   */
   createColony: ColonyNetworkClient.Sender<
     {
@@ -214,14 +214,17 @@ export default class ColonyNetworkClient extends ContractClient {
     return ColonyClient;
   }
 
+  /*
+  Deploys a new ERC20 compatible token contract for you to use with your Colony. You can also use your own token when creating a Colony.
+  */
   async createToken({
     name,
     symbol,
     decimals = 18,
   }: {
-    name: string,
-    symbol: string,
-    decimals: number,
+    name: string, // Name of the token to create
+    symbol: string, // Symbol of the token (e.g. CLNY)
+    decimals: number, // Decimals to use for your token
   }) {
     const transaction = await this.adapter.getContractDeployTransaction(
       {
@@ -233,7 +236,10 @@ export default class ColonyNetworkClient extends ContractClient {
     const { contractAddress } = await this.adapter.getTransactionReceipt(hash);
     return contractAddress;
   }
-  async getColonyClientByAddress(contractAddress: string) {
+  /*
+  Returns an initialized ColonyClient for the contract at address `contractAddress`
+  */
+  async getColonyClientByAddress(contractAddress: Address) {
     const colonyClient = new this.constructor.ColonyClient({
       adapter: this.adapter,
       networkClient: this,
@@ -241,11 +247,17 @@ export default class ColonyNetworkClient extends ContractClient {
     });
     return colonyClient.init();
   }
+  /*
+  Returns an initialized ColonyClient for the specified key (the name) or id of a deployed colony contract
+  */
   async getColonyClient({ key, id }: { key?: string, id?: number } = {}) {
     assert(id || key, MISSING_ID_OR_KEY);
     const address = await this.getColonyAddress({ key, id });
     return this.getColonyClientByAddress(address);
   }
+  /*
+  Gets the address of a deployed colony contract for the specified key (the name) or the id of a deployed colony contract
+  */
   async getColonyAddress({ key, id }: { key?: string, id?: number } = {}) {
     assert(id || key, MISSING_ID_OR_KEY);
 
