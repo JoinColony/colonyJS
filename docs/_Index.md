@@ -1,5 +1,5 @@
 ---
-github: https://github.com/JoinColony/colony-js
+github: https://github.com/JoinColony/colonyJS
 logo: colonyJS.svg
 section: index
 sectionOrder:
