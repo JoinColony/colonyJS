@@ -4,22 +4,23 @@ section: Docs
 order: 5
 ---
 
-The `ContractClient` is a superclass for all client implementations that access a Colony smart contract. It contains abstractions for callers and senders as well as certain tools for listening to events, providing information about the network state, and interacting with the reputation mining system.
+The `ContractClient` is a superclass for all client implementations that access a Colony smart contract. It contains abstractions for Callers and Senders as well as certain tools for listening to events, providing information about the network state, and interacting with the reputation mining system.
 
-The contract Client is split into two sub-classes, each of which interacts with a corresponding interface on-chain.
+The `ContractClient` is split into two sub-classes, each of which interacts with a corresponding interface on-chain.
 
-The on-chain interfaces are `IColonyNetwork.sol` and `IColony.sol`. For more information about these, please refer to the [Colony Network Documentation](/colonynetwork/api-the-colony-network/)
+The on-chain interfaces are `IColonyNetwork.sol` and `IColony.sol`. For more information about these, please refer to the [Colony Network Documentation](/colonynetwork/api-the-colony-network/).
 
 
 ## ColonyNetworkClient
 The `ColonyNetworkClient` class is the standard interface for functions and events that interact described in `IColonyNetwork.sol`.
 
-These interactions are generally concerned with the colony network as a whole, rather than at the colony level. This includes operations like getting a count of all colonies on the network, querying for information about skills, and interactions with the CLNY token and reputation system.
+These interactions are generally concerned with the colony network as a whole, rather than at the Colony level. This includes operations like getting a count of all Colonies on the network, querying for information about skills, and interactions with the CLNY token and reputation system.
 
 [ColonyNetworkClient API documentation](/colonyjs/api-colonynetworkclient/)
 
 ## ColonyClient
-The `ColonyClient` class is a standard interface for interactions with the on-chain functions and events described in `IColony.sol`
+
+The `ColonyClient` class is a standard interface for interactions with the on-chain functions and events described in `IColony.sol`.
 
 These interactions are generally concerned with functions and events internal to a colony, such as creating a task, assigning a work rating, or moving funds between pots.
 
@@ -27,9 +28,10 @@ These interactions are generally concerned with functions and events internal to
 
 ## Callers
 
-**Callers** are functions that passively interact with objects on the blockchain and do not need to produce transactions. Usually these will expect certain parameters and will return an object or objects. They always accept an object of named parameters (e.g. `taskId`) and always return an object with named values (e.g. `dueDate`).
+**Callers** are functions that passively interact with objects on the blockchain and do not need to produce transactions. Usually these will expect certain parameters and will return an object or objects. They usually accept an object of named parameters (e.g. `taskId`) and always return an object with named values (e.g. `dueDate`).
 
 ```js
+// With parameters:
 const task = await colonyClient.getTask.call({ taskId: 1 });
 // -> {
 //      cancelled: false,
@@ -42,15 +44,39 @@ const task = await colonyClient.getTask.call({ taskId: 1 });
 //      skillId: 4,
 //      specificationHash: '0x...',
 //    }
+
+// Without parameters:
+const tasks = await colonyClient.getTaskCount.call();
+// -> { count: 201 }
 ```
 
 ## Senders
 
 **Senders** are functions that will eventually generate a transaction on the blockchain. A sender can either be used to call `send()`, which will parse a transaction and execute it on the underlying contract, or `estimate()`, which will simply return an estimate of the transaction gas cost.
 
-```javascript
-import ColonyClient from '@colony/colony-js-client';
+### Getting an estimate
 
-// some clear example needed for *both* a transaction to be passed and for an estimate()
+```js
+const estimate = await networkClient.createColony.estimate({
+  name: 'My Little Colony',
+  tokenAddress: '0x...',
+});
+// -> BigNumber(2501852)
+```
 
+### Sending a transaction
+
+```js
+const response = await networkClient.createColony.send({
+  name: 'My Little Colony',
+  tokenAddress: '0x...',
+});
+// -> {
+//      successful: true,
+//      eventData: { colonyId: 21 },
+//      meta: {
+//        receipt: { /* ...receipt properties  */ },
+//        transaction: { /* ...transaction properties  */ },
+//      },
+//    }
 ```
