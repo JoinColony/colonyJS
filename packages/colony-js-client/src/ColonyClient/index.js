@@ -595,7 +595,7 @@ export default class ColonyClient extends ContractClient {
       },
     };
     this.addSender('addDomain', {
-      input: [['domainId', 'number']],
+      input: [['parentSkillId', 'number']],
       eventHandlers: {
         success: { SkillAdded },
       },
