@@ -39,3 +39,23 @@ Given named input values, signs and sends off the transaction using by calling t
 |timeoutMs|number|Milliseconds to wait until this transaction will time out|
 |waitForMining|boolean|If true, it will wait for the transaction to be mined before resolving the resulting promise (default: true)|
 
+**Returns**
+
+`Promise<ContractResponse>` - With `ContractResponse` being an object with the following properties (see also [Senders](/colonyjs/docs-contractclient/#senders):
+
+with `waitForMining: true`:
+
+|Property|Type|Description|
+|---|---|---|
+|successful|boolean|Indicates whether the transaction was executed successfully|
+|eventData|Object|Contains eventData emitted by the smart contract (see docs of the particular contract client)|
+|meta|Object|Contains the `transaction` and a `receipt` object passed on by the used ethereum adapter|
+
+with `waitForMining: false`:
+
+|Property|Type|Description|
+|---|---|---|
+|successfulPromise|Promise<boolean>|Just like above but will only be resolved when mined|
+|eventDataPromise|Object|Just like above but will only be resolved when event data is emitted|
+|meta|Object|Just like above execpt the `receipt` is `receiptPromise` and will be resolved when mined|
+

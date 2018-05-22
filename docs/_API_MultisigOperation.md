@@ -57,3 +57,17 @@ Serializes this operation.
 **Returns**
 
 `string` - The serialized `MultisigOperation`
+
+### `send(inputValues, options)`
+
+Given named input values it sends off the MultisigOperation to the contract. Has the same API and return values as [`ContractMethodSender.send()`](/colonyjs/api-contractmethodsender/#sendinputvalues-options).
+
+**Arguments**
+
+**`inputValues`** `{ [string]: any }` - Any key value pair of contract input parameters
+
+**`options`** `SenderOptions` - Custom options to use for this transaction. See [`ContractMethodSender.send()`](/colonyjs/api-contractmethodsender/#sendinputvalues-options)
+
+**Returns**
+
+`Promise<ContractResponse>` - See [`ContractMethodSender.send()`](/colonyjs/api-contractmethodsender/#sendinputvalues-options)
