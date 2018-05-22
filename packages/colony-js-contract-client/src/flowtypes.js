@@ -22,7 +22,6 @@ export type ParamTypePair = [string, ParamTypes];
 export type ParamTypePairs = Array<ParamTypePair>;
 
 export type SendOptions = {
-  events?: EventHandlers,
   estimate: boolean,
   timeoutMs: number,
   waitForMining: boolean,
