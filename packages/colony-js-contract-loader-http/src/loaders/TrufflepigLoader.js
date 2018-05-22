@@ -1,5 +1,6 @@
 /* @flow */
 
+import 'isomorphic-fetch';
 import type { Query } from '@colony/colony-js-contract-loader';
 
 import ContractHttpLoader from './ContractHttpLoader';

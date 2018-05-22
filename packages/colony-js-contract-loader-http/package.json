@@ -31,7 +31,10 @@
         "type": "git",
         "url": "git+https://github.com/JoinColony/colonyJS.git"
     },
-    "contributors": ["Christian Maniewski <chris@colony.io>", "James Lefrère <james@colony.io>"],
+    "contributors": [
+        "Christian Maniewski <chris@colony.io>",
+        "James Lefrère <james@colony.io>"
+    ],
     "license": "MIT",
     "bugs": {
         "url": "https://github.com/JoinColony/colonyJS/issues"
@@ -39,7 +42,8 @@
     "homepage": "https://github.com/JoinColony/colonyJS#readme",
     "dependencies": {
         "@colony/colony-js-contract-loader": "^1.0.0",
-        "browser-assert": "^1.2.1"
+        "browser-assert": "^1.2.1",
+        "isomorphic-fetch": "^2.2.1"
     },
     "devDependencies": {
         "babel-cli": "^6.26.0",
