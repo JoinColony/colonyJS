@@ -32,12 +32,16 @@ Given named input values, signs and sends off the transaction using by calling t
 
 **`inputValues`** `{ [string]: any }` - Any key value pair of contract input parameters
 
-**`options`** `SenderOptions` - Custom options to use for this transaction. `SenderOptions` being an object with the following possible properties:
+**`options`** `SendOptions` - Custom options to use for this transaction. `SendOptions` being an object with the following possible properties:
 
 |Option|Type|Description|
 |---|---|---|
 |timeoutMs|number|Milliseconds to wait until this transaction will time out|
 |waitForMining|boolean|If true, it will wait for the transaction to be mined before resolving the resulting promise (default: true)|
+|gasLimit|BigNumber|Sets the maximum gas limit for the transaction
+|gasPrice|BigNumber|The price in wei per gas unit
+|nonce|number|The transaction nonce
+|value|BigNumber|The amount in wei that the transaction will send
 
 **Returns**
 

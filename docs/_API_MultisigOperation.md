@@ -66,7 +66,7 @@ Given named input values it sends off the MultisigOperation to the contract. Has
 
 **`inputValues`** `{ [string]: any }` - Any key value pair of contract input parameters
 
-**`options`** `SenderOptions` - Custom options to use for this transaction. See [`ContractMethodSender.send()`](/colonyjs/api-contractmethodsender/#sendinputvalues-options)
+**`options`** `SendOptions` - Custom options to use for this transaction. See [`ContractMethodSender.send()`](/colonyjs/api-contractmethodsender/#sendinputvalues-options)
 
 **Returns**
 
