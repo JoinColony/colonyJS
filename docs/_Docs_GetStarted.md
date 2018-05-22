@@ -8,7 +8,7 @@ The task lifecycle is a great way to get a complete picture of how colonyJS work
 
 The most useful tool within a colony is the `task` method. Tasks are used to coordinate work, track reputation, and ultimately the only way to get paid through a colony. See [tasks](/colonynetwork/docs-tasks/) for a complete description of what tasks are within a colony.
 
-Using colonyJS, you can query the blockchain for information about tasks, create new tasks and modify them, commit and reveal ratings, finalize and trigger task payouts -- all from within your application.
+Using colonyJS, you can query the blockchain for information about tasks, create new tasks, modify them, commit and reveal ratings, and finalize them to trigger payouts -- all from within your application.
 
 ## Getting Started
 First of all, we will need to set up some prerequisites (clients for the Colony Network and for a specific Colony).

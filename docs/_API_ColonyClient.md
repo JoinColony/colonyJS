@@ -640,7 +640,7 @@ An instance of a `ContractResponse`
 
 
 
-'## Task MultiSig
+## Task MultiSig
 
 **All MultiSig functions return an instance of a `MultiSigOperation`.** For a reference please check [here](/colonyjs/docs-contract-client/#task-multisig).
 ### `setTaskBrief.startOperation({ taskId, specificationHash })`

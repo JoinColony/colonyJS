@@ -4,7 +4,7 @@ section: API
 order: 0
 ---
 
-This document describes the high level contract loader interface as well as various officially supported implementations. For a better explanation what loaders are, see [Loaders](/colonyjs/docs-loaders/)
+This document describes the high level contract loader interface as well as various officially supported implementations. For a better explanation what loaders are, see [Loaders](/colonyjs/docs-loaders/).
 
 ==TOC==
 ## Installation and usage
@@ -107,7 +107,7 @@ Alternatively one can pass in a function with the following parameters:
 
 Where input is the raw JSON input supplied by the http response and opts are the loader options (TODO: https://github.com/JoinColony/colony-js/issues/49). It needs to return an object containing at least the `abi` object and the `address` like you can see in the type definition above.
 
-The `HTTPContractLoader` also implements the `loader.load` function and works like described [above](#loaderloadcontractname-opts)
+The `HTTPContractLoader` also implements the `loader.load` function and works like described [above](#loaderloadcontractname-opts).
 
 **Returns**
 
