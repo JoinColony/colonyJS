@@ -13,4 +13,4 @@ sectionOrder:
 
 The colonyJS library is a tool to help developers use Colony to power their projects. colonyJS provides a simple and predictable interface to interact with the colony network directly. It fits neatly into your project and works with the rest of your stack.
 
-[Read the docs](/colonyjs/docs-overview/ "Docs")
+[Read colonyJS docs](/colonyjs/docs-overview/ "Docs")
