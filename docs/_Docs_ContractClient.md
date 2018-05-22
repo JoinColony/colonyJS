@@ -1,7 +1,7 @@
 ---
 title: ContractClient
 section: Docs
-order: 4
+order: 5
 ---
 
 The `ContractClient` is a superclass for all client implementations that access a Colony smart contract. It contains abstractions for callers and senders as well as certain tools for listening to events, providing information about the network state, and interacting with the reputation mining system.

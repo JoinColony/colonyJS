@@ -1,13 +1,13 @@
 ---
 title: Adapters
 section: Docs
-order: 6
+order: 4
 ---
 
 ## What are Adapters?
 Adapters represent the colonyJS solution for the many different ways to access the Ethereum blockchain provided by various JavaScript libraries. Adapters provide a wrapper for such libraries that enforces a standard and predictable API for use with Colony's contracts.
 
-## Initialising an adapter
+## Initializing an adapter
 
 First, make sure you understand how to use [Loaders](/colonyjs/docs-loaders/).
 
@@ -21,7 +21,7 @@ Adapters require the following parameters:
 }
 ```
 
-An example of initialising an adapter might look like this:
+An example of initializing an adapter might look like this:
 
 ```js
 import EthersAdapter from '@colony/colony-js-adapter-ethers';
