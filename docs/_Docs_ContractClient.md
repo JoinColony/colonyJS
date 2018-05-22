@@ -77,7 +77,7 @@ Wow, that's convoluted!
 Thankfully, the `ContractClient` makes this much simpler for us by providing the
 `MultisigSender` and `MultisigOperation`, so we can turn this:
 
-![Sad Vitalik Parrot](https://raw.githubusercontent.com/JoinColony/colonyJS/master/docs/img/sad_vitalik_parrot.gif)
+![Sad Vitalik](https://raw.githubusercontent.com/JoinColony/colonyJS/master/docs/img/sad_vitalik.gif)
 
 into this:
 ![Cool Vitalik Parrot](https://raw.githubusercontent.com/JoinColony/colonyJS/master/docs/img/cool_vitalik_parrot.gif)
@@ -105,6 +105,7 @@ const op = await colonyClient.setTaskBrief.startOperation({
 
 Let's break that down:
 
+```js
 // const op = await colonyClient.setTaskBrief
 //                               ^ The MultisigSender
 //
@@ -115,6 +116,27 @@ Let's break that down:
 // ^ The parameters we're calling the Sender with
 //
 // );
+```
+
+### Signing a MultisigOperation
+
+We can determine which wallets need to sign the operation by checking the `requiredSignees` and `missingSignees` properties.
+
+```js
+console.log(op.requiredSignees);
+// -> ['0x123...', '0x987...'];
+//    ^ Both of these addresses need to sign it...
+
+console.log(op.missingSignees);
+// -> ['0x987...'];
+//    ^ This address hasn't signed it yet!
+```
+
+It's very simple to sign it:
+
+```
+// This will sign the operation with the current wallet.
+await op.sign();
 ```
 
 ### Restoring a MultisigOperation
@@ -143,7 +165,16 @@ await op.sign();
 
 console.log(op.missingSignees);
 // -> []
+//    ^ We have all the signatures we need
+```
 
+### Sending a MultisigOperation
+
+```js
+// This works just like a regular Sender:
 const { successful } = await op.send();
 // -> true
+
+// We can also add options to send the transaction with as a parameter, e.g.:
+// await op.send({ gasLimit: new BigNumber(2500000) });
 ```
