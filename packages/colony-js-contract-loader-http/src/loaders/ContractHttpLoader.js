@@ -1,6 +1,7 @@
 /* @flow */
 
 import assert from 'browser-assert';
+import 'isomorphic-fetch';
 
 import type {
   ContractDefinition,
