@@ -53,7 +53,10 @@ export default class ContractMethodSender<
    * values as transformed parameters, and collect the transaction receipt
    * and (optionally) event data.
    */
-  async send(inputValues: InputValues, options: SendOptions) {
+  async send(
+    inputValues: InputValues,
+    options: SendOptions,
+  ): Promise<ContractResponse<OutputValues>> {
     this.validate(inputValues);
     const args = this.getMethodArgs(inputValues);
     return this._send(args, options);

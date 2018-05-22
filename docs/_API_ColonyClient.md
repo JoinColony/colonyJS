@@ -4,7 +4,7 @@ section: API
 order: 3
 ---
 
-The ColonyClient class is a standard interface for interactions with the on-chain functions and events described in `IColony.sol`
+The `ColonyClient` class is a standard interface for interactions with the on-chain functions and events described in `IColony.sol`
 
 These interactions are generally concerned with functions and events internal to a colony, such as creating a task, assigning a work rating, or moving funds between pots.
 

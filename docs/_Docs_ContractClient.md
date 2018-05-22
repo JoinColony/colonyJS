@@ -27,11 +27,7 @@ These interactions are generally concerned with functions and events internal to
 
 ## Callers
 
-**Callers** are functions that passively interact with objects on the
-blockchain and do not need to produce transactions. Usually these will
-expect certain parameters and will return an object or objects. They
-always accept an object of named parameters (e.g. `taskId`) and always
-return an object with named values (e.g. `dueDate`).
+**Callers** are functions that passively interact with objects on the blockchain and do not need to produce transactions. Usually these will expect certain parameters and will return an object or objects. They always accept an object of named parameters (e.g. `taskId`) and always return an object with named values (e.g. `dueDate`).
 
 ```js
 const task = await colonyClient.getTask.call({ taskId: 1 });
