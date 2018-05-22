@@ -10,7 +10,7 @@ const TYPES = {
   StringTypeAnnotation: 'string',
   NumberTypeAnnotation: 'number',
   Date: 'Date',
-  Address: 'address',
+  Address: 'Address',
 };
 
 const ast = parser.parse(
@@ -19,6 +19,7 @@ const ast = parser.parse(
 
 const callers = [];
 const senders = [];
+const multisig = [];
 
 types.visit(ast, {
   visitQualifiedTypeIdentifier(p) {
@@ -42,26 +43,47 @@ types.visit(ast, {
         events: mapObjectProps(params[1]),
       });
     }
+    if (p.value.id.name === 'MultisigSender') {
+      const { params } = p.parent.value.typeParameters;
+
+      multisig.push({
+        name: getName(p),
+        description: getDescription(p),
+        args: mapObjectProps(params[0]),
+        events: mapObjectProps(params[1]),
+      });
+    }
     return false;
   },
 });
 
 const md = `
-## Callers
 ${printCallers()}
-## Senders
-${printSenders()}`.trim();
+${printSenders()}
+${printMultiSig()}
+`.trim();
 
 console.log(md);
 
 function printCallers() {
-  return callers
-    .map(
-      caller => `
-### \`${caller.name}.call(${printArgs(caller.args)})\`
+  if (!callers.length) return '';
+  // TODO: use templates to properly place this text into the file
+  return `## Callers
+
+**All callers return promises which resolve to an object containing the given return values.** For a reference please check [here](/colonyjs/docs-contract-client/#callers).
+` +
+    callers
+      .map(
+        caller => `
+### \`${caller.name}.call(${printArgs(caller.args, false)})\`
 
 ${caller.description}
-${printProps('Param', caller.args)}
+${caller.args && caller.args.length ? '\n**Arguments**\n\n' : ''}${printProps('Argument', caller.args)}
+
+**Returns**
+
+A promise which resolves to an object containing the following properties:
+
 ${printProps('Return value', caller.returns)}
 `,
     )
@@ -69,14 +91,48 @@ ${printProps('Return value', caller.returns)}
 }
 
 function printSenders() {
-  return senders
-    .map(
-      sender => `
-### \`${sender.name}.send(${printArgs(sender.args)})\`
+  if (!senders.length) return '';
+  // TODO: use templates to properly place this text into the file
+  return `## Senders
+
+**All senders return an instance of a \`ContractResponse\`.** Every \`send()\` method takes an \`options\` object as the second argument. For a reference please check [here](/colonyjs/docs-contract-client/#senders).` +
+    senders
+      .map(
+        sender => `
+### \`${sender.name}.send(${printArgs(sender.args, true)})\`
 
 ${sender.description}
-${printProps('Param', sender.args)}
+${sender.args && sender.args.length ? '\n**Arguments**\n\n' : ''}${printProps('Argument', sender.args)}
+
+**Returns**
+
+An instance of a \`ContractResponse\` ${sender.events && sender.events.length ? 'which will eventually receive the following event data:' : ''}
+
 ${printProps('Event data', sender.events)}
+`,
+    )
+    .join('');
+}
+
+function printMultiSig() {
+  if (!multisig.length) return '';
+  // TODO: use templates to properly place this text into the file
+  return `'## Task MultiSig
+
+**All MultiSig functions return an instance of a \`MultiSigOperation\`.** For a reference please check [here](/colonyjs/docs-contract-client/#task-multisig).` +
+    multisig
+      .map(
+        ms => `
+### \`${ms.name}.startOperation(${printArgs(ms.args, false)})\`
+
+${ms.description}
+${ms.args && ms.args.length ? '\n**Arguments**\n\n' : ''}${printProps('Argument', ms.args)}
+
+**Returns**
+
+An instance of a \`MultiSigOperation\` ${ms.events && ms.events.length ? 'whose sender will eventually receive the following event data:' : ''}
+
+${printProps('Event data', ms.events)}
 `,
     )
     .join('');
@@ -84,7 +140,7 @@ ${printProps('Event data', sender.events)}
 
 function printProps(title, props) {
   if (props && props.length) {
-    return `\n|${title}|Type|Description|
+    return `|${title}|Type|Description|
 |---|---|---|
 ${props
       .map(param => `|${param.name}|${param.type}|${param.description}|`)
@@ -93,11 +149,11 @@ ${props
   return ``;
 }
 
-function printArgs(args) {
+function printArgs(args, withOpts) {
   if (args && args.length) {
-    return `{ ${args.map(arg => arg.name).join(', ')} }, options`;
+    return `{ ${args.map(arg => arg.name).join(', ')} }${withOpts ? ', options' : ''}`;
   }
-  return 'options';
+  return withOpts ? 'options' : '';
 }
 
 function mapObjectProps(param) {

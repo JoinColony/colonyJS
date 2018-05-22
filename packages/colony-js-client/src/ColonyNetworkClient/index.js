@@ -10,6 +10,8 @@ import ColonyClient from '../ColonyClient/index';
 
 const MISSING_ID_OR_KEY = 'Either `key` or `id` must be provided';
 
+type Address = string;
+
 export default class ColonyNetworkClient extends ContractClient {
   /*
   Returns the address of a colony when given the colonyId
@@ -19,7 +21,7 @@ export default class ColonyNetworkClient extends ContractClient {
       id: number, // Integer colonyId
     },
     {
-      address: string, // Address of the colony contract
+      address: Address, // Address of the colony contract
     },
     ColonyNetworkClient,
   >;
@@ -31,7 +33,7 @@ export default class ColonyNetworkClient extends ContractClient {
       key: string, // The colony's unique key
     },
     {
-      address: string, // Address of the colony contract
+      address: Address, // Address of the colony contract
     },
     ColonyNetworkClient,
   >;
@@ -53,7 +55,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: number, // The Colony contract version
     },
     {
-      address: string, // Address of the `Resolver` contract
+      address: Address, // Address of the `Resolver` contract
     },
     ColonyNetworkClient,
   >;
@@ -89,11 +91,11 @@ export default class ColonyNetworkClient extends ContractClient {
     },
     {
       amount: number, // amount
-      colony: string, // Address of the colony
+      colony: Address, // Address of the colony
       nPreviousUpdates: number, // number of previous updates
       nUpdates: number, // number of updates
       skillId: number, // skill Id
-      user: string, // user address
+      user: Address, // user address
     },
     ColonyNetworkClient,
   >;
@@ -126,7 +128,7 @@ export default class ColonyNetworkClient extends ContractClient {
   getSkillCount: ColonyNetworkClient.Caller<
     null,
     {
-      count: number, // Skill count
+      count: number, // The number of skills on the network
     },
     ColonyNetworkClient,
   >;
@@ -135,7 +137,7 @@ export default class ColonyNetworkClient extends ContractClient {
   */
   getStakedBalance: ColonyNetworkClient.Caller<
     {
-      user: string, // Address of the user
+      user: Address, // Address of the user
     },
     {
       balance: number, // Amount of staked CLNY
@@ -143,12 +145,12 @@ export default class ColonyNetworkClient extends ContractClient {
     ColonyNetworkClient,
   >;
   /*
-  Creates a new colony on the network. TODO: check whether it returns a colonyId
+  Creates a new colony on the network.
   */
   createColony: ColonyNetworkClient.Sender<
     {
       name: string, // Unique name for the colony. Will return an error if there already exists a colony with the specified name
-      tokenAddress: string, // Token to import. Note: the ownership of the token contract must be transferred to the newly created colony.
+      tokenAddress: Address, // Token to import. Note: the ownership of the token contract must be transferred to the newly created colony.
     },
     {
       colonyId: number, // Id of the newly created colony
@@ -170,11 +172,11 @@ export default class ColonyNetworkClient extends ContractClient {
   */
   startTokenAuction: ColonyNetworkClient.Sender<
     {
-      tokenAddress: string, // Address of the token held by the network to be auctioned
+      tokenAddress: Address, // Address of the token held by the network to be auctioned
     },
     {
       auction: string, // The address of the auction contract
-      token: string, // The address of the token being auctioned
+      token: Address, // The address of the token being auctioned
       quantity: number, // The amount of available tokens for auction
     },
     ColonyNetworkClient,
@@ -212,14 +214,17 @@ export default class ColonyNetworkClient extends ContractClient {
     return ColonyClient;
   }
 
+  /*
+  Deploys a new ERC20 compatible token contract for you to use with your Colony. You can also use your own token when creating a Colony.
+  */
   async createToken({
     name,
     symbol,
     decimals = 18,
   }: {
-    name: string,
-    symbol: string,
-    decimals: number,
+    name: string, // Name of the token to create
+    symbol: string, // Symbol of the token (e.g. CLNY)
+    decimals: number, // Decimals to use for your token
   }) {
     const transaction = await this.adapter.getContractDeployTransaction(
       {
@@ -231,7 +236,10 @@ export default class ColonyNetworkClient extends ContractClient {
     const { contractAddress } = await this.adapter.getTransactionReceipt(hash);
     return contractAddress;
   }
-  async getColonyClientByAddress(contractAddress: string) {
+  /*
+  Returns an initialized ColonyClient for the contract at address `contractAddress`
+  */
+  async getColonyClientByAddress(contractAddress: Address) {
     const colonyClient = new this.constructor.ColonyClient({
       adapter: this.adapter,
       networkClient: this,
@@ -239,11 +247,17 @@ export default class ColonyNetworkClient extends ContractClient {
     });
     return colonyClient.init();
   }
+  /*
+  Returns an initialized ColonyClient for the specified key (the name) or id of a deployed colony contract
+  */
   async getColonyClient({ key, id }: { key?: string, id?: number } = {}) {
     assert(id || key, MISSING_ID_OR_KEY);
     const address = await this.getColonyAddress({ key, id });
     return this.getColonyClientByAddress(address);
   }
+  /*
+  Gets the address of a deployed colony contract for the specified key (the name) or the id of a deployed colony contract
+  */
   async getColonyAddress({ key, id }: { key?: string, id?: number } = {}) {
     assert(id || key, MISSING_ID_OR_KEY);
 
