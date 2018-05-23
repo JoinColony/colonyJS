@@ -1,0 +1,16 @@
+{
+  "groups": {
+    "default": {
+      "packages": [
+        "package.json",
+        "packages/colony-js-adapter-ethers/package.json",
+        "packages/colony-js-adapter/package.json",
+        "packages/colony-js-client/package.json",
+        "packages/colony-js-contract-client/package.json",
+        "packages/colony-js-contract-loader-http/package.json",
+        "packages/colony-js-contract-loader/package.json",
+        "packages/colony-js-utils/package.json"
+      ]
+    }
+  }
+}
