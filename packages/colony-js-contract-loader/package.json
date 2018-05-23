@@ -30,6 +30,6 @@
     },
     "homepage": "https://github.com/JoinColony/colonyJS#readme",
     "devDependencies": {
-        "flow-bin": "^0.70.0"
+        "flow-bin": "^0.72.0"
     }
 }
