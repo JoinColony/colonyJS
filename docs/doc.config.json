@@ -1,0 +1,5 @@
+{
+    "logo": "img/colonyJS.svg",
+    "sectionOrder": ["Docs", "API"],
+    "description": "Here's a cool description about this project (which is colonyJS btw)"
+}

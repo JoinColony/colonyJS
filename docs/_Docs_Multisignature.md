@@ -12,7 +12,7 @@ In order to use these functions, we need to create contract data to call our tar
 
 Wow, that's convoluted!
 
-![Sad Vitalik](https://raw.githubusercontent.com/JoinColony/colonyJS/master/docs/img/sad_vitalik.gif)
+![Sad Vitalik](img/sad_vitalik.gif)
 
 ## Multisignature support in colonyJS
 
@@ -24,7 +24,7 @@ The basic idea is that we'll start an operation based on a particular function, 
 
 That's more like it!
 
-![Cool Vitalik Parrot](https://raw.githubusercontent.com/JoinColony/colonyJS/master/docs/img/cool_vitalik_parrot.gif)
+![Cool Vitalik Parrot](img/cool_vitalik_parrot.gif)
 
 ## Example: setting the task brief
 
