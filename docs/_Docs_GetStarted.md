@@ -48,16 +48,15 @@ You'll need to either create a new colony or talk to an existing one.
 ```js
 // To create a new cool colony:
 const colonyData = {
-    name: 'MyCoolColony', // Unique name for the colony
-    tokenAddress: '0xf000000000000000000000000000000000000000', // Address of the colony's native token
-  };
+  name: 'MyCoolColony', // Unique name for the colony
+  tokenAddress: '0xf000000000000000000000000000000000000000', // Address of the colony's native token
+};
 
-  // Create a cool Colony!
-  const { eventData: { colonyId }} = await networkClient.createColony.send(colonyData);
+// Create a cool Colony!
+const { eventData: { colonyId }} = await networkClient.createColony.send(colonyData);
 
-  // Congrats, you've created a Colony!
-  console.log(colonyId);
-
+// Congrats, you've created a Colony!
+console.log(colonyId);
 ```
 
 ```js
