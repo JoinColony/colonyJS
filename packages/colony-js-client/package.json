@@ -53,5 +53,9 @@
         "bn.js": "^4.11.6",
         "browser-assert": "^1.2.1",
         "web3-utils": "^1.0.0-beta.34"
+    },
+    "engines": {
+        "node": "9.5.0",
+        "yarn": "1.3.2"
     }
 }
