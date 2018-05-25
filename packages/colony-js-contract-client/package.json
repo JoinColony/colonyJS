@@ -27,7 +27,13 @@
             "git add"
         ]
     },
-    "contributors": ["Christian Maniewski <chris@colony.io>", "James Lefrère <james@colony.io>"],
+    "contributors": [
+        "Christian Maniewski <chris@colony.io>",
+        "Griffin Hotchkiss <griffin@colony.io>",
+        "James Lefrère <james@colony.io>",
+        "Jan Kaßel <jan@colony.io>",
+        "Raul Glogovetan <raul@colony.io>"
+    ],
     "license": "MIT",
     "devDependencies": {
         "babel-plugin-dynamic-import-node": "^1.2.0",
