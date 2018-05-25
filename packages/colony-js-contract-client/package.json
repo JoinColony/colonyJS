@@ -27,7 +27,13 @@
             "git add"
         ]
     },
-    "contributors": ["Christian Maniewski <chris@colony.io>", "James Lefrère <james@colony.io>"],
+    "contributors": [
+        "Christian Maniewski <chris@colony.io>",
+        "Griffin Hotchkiss <griffin@colony.io>",
+        "James Lefrère <james@colony.io>",
+        "Jan Kaßel <jan@colony.io>",
+        "Raul Glogovetan <raul@colony.io>"
+    ],
     "license": "MIT",
     "devDependencies": {
         "babel-plugin-dynamic-import-node": "^1.2.0",
@@ -42,10 +48,11 @@
         "@colony/colony-js-adapter": "^1.0.0",
         "@colony/colony-js-contract-loader": "^1.0.0",
         "@colony/colony-js-utils": "^1.0.0",
+        "babel-runtime": "^6.26.0",
         "bn.js": "^4.11.6",
         "browser-assert": "^1.2.1",
-        "lodash.isplainobject": "^4.0.6",
         "lodash.isequal": "^4.5.0",
+        "lodash.isplainobject": "^4.0.6",
         "web3-utils": "^1.0.0-beta.34"
     }
 }

@@ -33,7 +33,10 @@
     },
     "contributors": [
         "Christian Maniewski <chris@colony.io>",
-        "James Lefrère <james@colony.io>"
+        "Griffin Hotchkiss <griffin@colony.io>",
+        "James Lefrère <james@colony.io>",
+        "Jan Kaßel <jan@colony.io>",
+        "Raul Glogovetan <raul@colony.io>"
     ],
     "license": "MIT",
     "bugs": {
@@ -42,6 +45,7 @@
     "homepage": "https://github.com/JoinColony/colonyJS#readme",
     "dependencies": {
         "@colony/colony-js-contract-loader": "^1.0.0",
+        "babel-runtime": "^6.26.0",
         "browser-assert": "^1.2.1",
         "isomorphic-fetch": "^2.2.1"
     },

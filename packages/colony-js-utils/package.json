@@ -37,7 +37,13 @@
         "colony",
         "api"
     ],
-    "author": "James Lefrère <james@colony.io>",
+    "contributors": [
+        "Christian Maniewski <chris@colony.io>",
+        "Griffin Hotchkiss <griffin@colony.io>",
+        "James Lefrère <james@colony.io>",
+        "Jan Kaßel <jan@colony.io>",
+        "Raul Glogovetan <raul@colony.io>"
+    ],
     "license": "MIT",
     "bugs": {
         "url": "https://github.com/JoinColony/colonyJS/issues"
@@ -53,8 +59,9 @@
         "@colony/colony-js-adapter-ethers": "^1.0.0",
         "@colony/colony-js-client": "^1.0.0",
         "@colony/colony-js-contract-loader-http": "^1.0.0",
-        "browser-assert": "^1.2.1",
+        "babel-runtime": "^6.26.0",
         "bn.js": "^4.11.6",
+        "browser-assert": "^1.2.1",
         "web3-utils": "^1.0.0-beta.34"
     }
 }
