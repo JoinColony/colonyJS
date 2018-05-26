@@ -35,11 +35,10 @@ const PARAM_TYPE_MAP: {
       return Boolean(Number.isFinite(value));
     },
     convertOutput(value: any) {
-      return Number.isFinite(value) ? value : null;
+      const converted = isBigNumber(value) ? value.toNumber() : value;
+      return Number.isFinite(converted) ? converted : null;
     },
-    convertInput(value: any) {
-      return isBigNumber(value) ? value.toNumber() : value;
-    },
+    convertInput: passThrough,
   },
   string: {
     validate(value: any) {
