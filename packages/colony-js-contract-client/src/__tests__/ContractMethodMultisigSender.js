@@ -136,7 +136,7 @@ describe('ContractMethodMultisigSender', () => {
     });
 
     sandbox.spyOn(method, 'validate').mockReturnValue(true);
-    sandbox.spyOn(method, 'getMethodArgs').mockReturnValue(callArgs);
+    sandbox.spyOn(method, '_getMethodArgs').mockReturnValue(callArgs);
 
     const txData = '0xtxDataGoesHere';
     sandbox
@@ -146,7 +146,7 @@ describe('ContractMethodMultisigSender', () => {
     const op = await method.startOperation(inputValues);
 
     expect(method.validate).toHaveBeenCalledWith(inputValues);
-    expect(method.getMethodArgs).toHaveBeenCalledWith(inputValues);
+    expect(method._getMethodArgs).toHaveBeenCalledWith(inputValues);
     expect(method.client.createTransactionData).toHaveBeenCalledWith(
       method.functionName,
       callArgs,

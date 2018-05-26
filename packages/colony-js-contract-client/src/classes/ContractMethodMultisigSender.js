@@ -91,8 +91,7 @@ export default class ContractMethodMultisigSender<
    * pass the payload into a new MultisigOperation.
    */
   async startOperation(inputValues: InputValues) {
-    this.validate(inputValues);
-    const args = this.getMethodArgs(inputValues);
+    const args = this.getValidatedArgs(inputValues);
     const data = this.client.createTransactionData(this.functionName, args);
 
     return new MultisigOperation(this, {
