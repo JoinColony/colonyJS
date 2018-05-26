@@ -29,7 +29,7 @@ export default class ColonyNetworkClient extends ContractClient {
   Returns the address of the Meta Colony
   */
   getMetaColonyAddress: ColonyNetworkClient.Caller<
-    null,
+    {},
     {
       address: Address, // Address of the Meta Colony contract
     },
@@ -39,7 +39,7 @@ export default class ColonyNetworkClient extends ContractClient {
   Returns the number of colonies created on the Colony Network, i.e. the colonyId of the most recently created colony.
   */
   getColonyCount: ColonyNetworkClient.Caller<
-    null,
+    {},
     {
       count: number, // colonyId of the most recently created colony
     },
@@ -61,7 +61,7 @@ export default class ColonyNetworkClient extends ContractClient {
   Returns the latest Colony contract version. This is the version used to create all new colonies.
   */
   getCurrentColonyVersion: ColonyNetworkClient.Caller<
-    null,
+    {},
     {
       version: number, // The current / latest Colony contract version
     },
@@ -101,7 +101,7 @@ export default class ColonyNetworkClient extends ContractClient {
   Gets the length of the reputation update log for either the current active or inactive log
   */
   getReputationUpdateLogLength: ColonyNetworkClient.Caller<
-    null,
+    {},
     {
       count: number, // Length of Reputation update log array
     },
@@ -124,7 +124,7 @@ export default class ColonyNetworkClient extends ContractClient {
   Get the total number of skills in the network (both global and local skills)
   */
   getSkillCount: ColonyNetworkClient.Caller<
-    null,
+    {},
     {
       count: number, // The number of skills on the network
     },
@@ -162,7 +162,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       amount: number, // Amount of CLNY to stake
     },
-    null,
+    {},
     ColonyNetworkClient,
   >;
   /*
@@ -187,7 +187,7 @@ export default class ColonyNetworkClient extends ContractClient {
       id: number, // Colony ID to be upgraded
       newVersion: number, // The target version for the upgrade
     },
-    null,
+    {},
     ColonyNetworkClient,
   >;
   /*
@@ -197,7 +197,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       amount: number, // Amount of CLNY to withdraw from stake
     },
-    null,
+    {},
     ColonyNetworkClient,
   >;
 
