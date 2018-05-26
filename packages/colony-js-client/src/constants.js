@@ -1,11 +1,11 @@
 /* @flow */
 
+export const WORKER_ROLE = 'WORKER';
+export const EVALUATOR_ROLE = 'EVALUATOR';
+export const MANAGER_ROLE = 'MANAGER';
+
 export const ROLES = {
-  WORKER: 0,
-  EVALUATOR: 1,
-  MANAGER: 2,
+  [WORKER_ROLE]: 0,
+  [EVALUATOR_ROLE]: 1,
+  [MANAGER_ROLE]: 2,
 };
-
-export const MIN_RATING = 1;
-
-export const MAX_RATING = 5;
