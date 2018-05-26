@@ -1,4 +1,5 @@
 /* @flow */
+/* eslint-disable no-underscore-dangle */
 
 import isPlainObject from 'lodash.isplainobject';
 import { makeAssert } from '@colony/colony-js-utils';
@@ -26,6 +27,22 @@ export default class ContractMethod<
   functionName: string;
   input: ParamTypePairs;
   output: ParamTypePairs;
+
+  static _validateValue(value: any, paramType: *, paramName: string) {
+    let reason;
+    let isValid = false;
+    try {
+      isValid = validateValue(value, paramType);
+    } catch (error) {
+      reason = error.message || error.toString();
+    }
+    return assertValid(
+      Boolean(isValid),
+      `Parameter "${paramName}" expected a value of type "${paramType}"${
+        reason ? ` (${reason})` : ''
+      }`,
+    );
+  }
 
   constructor({
     client,
@@ -120,11 +137,12 @@ export default class ContractMethod<
    * kind of invalid input), validate each parameter against the expected type
    * for this method, throwing vaidation errors or returning true.
    */
-  validate(inputValues?: any = {}): boolean {
-    if (areParamPairsEmpty(this.input) && isInputEmpty(inputValues))
-      return true;
+  validate(input?: any): boolean {
+    if (areParamPairsEmpty(this.input) && isInputEmpty(input)) return true;
 
-    assertValid(isPlainObject(inputValues), 'Expected parameters as an object');
+    assertValid(isPlainObject(input), 'Expected parameters as an object');
+
+    const inputValues = Object.assign({}, input);
 
     assertValid(
       Object.getOwnPropertyNames(inputValues).length === this.input.length,
@@ -132,9 +150,10 @@ export default class ContractMethod<
     );
 
     return this.input.every(([paramName, paramType]) =>
-      assertValid(
-        Boolean(validateValue(inputValues[paramName], paramType)),
-        `Parameter "${paramName}" expected a value of type "${paramType}"`,
+      this.constructor._validateValue(
+        inputValues[paramName],
+        paramType,
+        paramName,
       ),
     );
   }

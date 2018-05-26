@@ -13,7 +13,7 @@ import {
 } from '../modules/paramTypes';
 
 jest.mock('../modules/paramTypes', () => ({
-  validateValue: jest.fn().mockReturnValue(true),
+  validateValue: jest.fn().mockImplementation(() => true),
   convertOutputValue: jest
     .fn()
     .mockImplementation(value => `converted output: ${value}`),
@@ -50,9 +50,14 @@ describe('ContractMethod', () => {
       input,
       functionName: 'myFunction',
     });
+    sandbox.spyOn(method.constructor, '_validateValue');
 
     expect(method.validate(inputValues)).toBe(true);
-    expect(validateValue).toHaveBeenCalledWith(1, 'number');
+    expect(method.constructor._validateValue).toHaveBeenCalledWith(
+      1,
+      'number',
+      'id',
+    );
 
     // Missing parameters/wrong type
     [undefined, null, [], 'a', 1].forEach(wrongType => {
@@ -67,10 +72,38 @@ describe('ContractMethod', () => {
     }).toThrowError('Mismatching parameters/method parameters sizes');
 
     // Wrong type
-    validateValue.mockReturnValueOnce(false);
+    validateValue.mockImplementationOnce(() => false);
     expect(() => {
       method.validate({ id: 'one' });
     }).toThrowError('Parameter "id" expected a value of type "number"');
+  });
+
+  test('Valid values are reported as valid', () => {
+    validateValue.mockImplementationOnce(() => true);
+    expect(ContractMethod._validateValue(1, 'number', 'id'));
+    expect(validateValue).toHaveBeenCalledWith(1, 'number');
+  });
+
+  test('Invalid values are reported as invalid, with reasons', () => {
+    // Invalid value
+    validateValue.mockImplementationOnce(() => false);
+    expect(() => {
+      expect(ContractMethod._validateValue('abc', 'number', 'id'));
+    }).toThrowError(
+      'Validation failed: Parameter "id" expected a value of type "number"',
+    );
+    expect(validateValue).toHaveBeenCalledWith('abc', 'number');
+
+    // Invalid value with reasons (caught validation errors)
+    validateValue.mockImplementationOnce(() => {
+      throw new Error('The reason this validation failed');
+    });
+    expect(() => {
+      expect(ContractMethod._validateValue('abc', 'number', 'id'));
+    }).toThrowError(
+      'Validation failed: Parameter "id" expected a value of type ' +
+        '"number" (The reason this validation failed)',
+    );
   });
 
   test('Method arguments are processed from input parameters', () => {
@@ -126,9 +159,6 @@ describe('ContractMethod', () => {
     expect(method.validate).toHaveBeenCalledWith(inputValues);
     expect(method._getMethodArgs).toHaveBeenCalledWith(inputValues);
   });
-
-  // TODO test getValidatedArgs
-  // TODO test _parseInputValues
 
   test('Contract return values are mapped to expected output', () => {
     const input = [['id', 'number']];
