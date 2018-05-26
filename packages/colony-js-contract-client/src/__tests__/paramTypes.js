@@ -40,14 +40,14 @@ describe('Parameter types', () => {
     expect(isValidAddress).toHaveBeenCalledWith('0x123');
     isValidAddress.mockClear();
 
-    // Cleaning
+    // Converting output values
     expect(convertOutputValue('0x123', 'address')).toBe('0x123');
     expect(isValidAddress).toHaveBeenCalledWith('0x123');
 
     isValidAddress.mockReturnValueOnce(false);
     expect(convertOutputValue(null, 'address')).toBe(null);
 
-    // Conversion
+    // Converting input values
     expect(convertInputValue('0x123', 'address')).toBe('0x123');
   });
 
@@ -58,13 +58,13 @@ describe('Parameter types', () => {
     expect(validateValue(null, 'boolean')).toBe(false);
     expect(validateValue(1, 'boolean')).toBe(false);
 
-    // Cleaning
+    // Converting output values
     expect(convertOutputValue(true, 'boolean')).toBe(true);
     expect(convertOutputValue(false, 'boolean')).toBe(false);
     expect(convertOutputValue(1, 'boolean')).toBe(null);
     expect(convertOutputValue(null, 'boolean')).toBe(null);
 
-    // Conversion
+    // Converting input values
     expect(convertInputValue(true, 'boolean')).toBe(true);
     expect(convertInputValue(false, 'boolean')).toBe(false);
   });
@@ -75,21 +75,23 @@ describe('Parameter types', () => {
     expect(validateValue(0, 'number')).toBe(true);
     expect(validateValue(null, 'number')).toBe(false);
 
-    // Cleaning
-    expect(convertOutputValue(1, 'number')).toBe(1);
-    expect(convertOutputValue(0, 'number')).toBe(0);
-    expect(convertOutputValue(null, 'number')).toBe(null);
-
-    // Conversion
+    // Converting output values
     isBigNumber.mockReturnValueOnce(false);
-    expect(convertInputValue(1, 'number')).toBe(1);
+    expect(convertOutputValue(1, 'number')).toBe(1);
     expect(isBigNumber).toHaveBeenCalledWith(1);
     isBigNumber.mockClear();
 
     const bn = new BigNumber(1);
     isBigNumber.mockReturnValueOnce(true);
-    expect(convertInputValue(bn, 'number')).toBe(1);
+    expect(convertOutputValue(bn, 'number')).toBe(1);
     expect(isBigNumber).toHaveBeenCalledWith(bn);
+
+    isBigNumber.mockReturnValueOnce(false);
+    expect(convertOutputValue(null, 'number')).toBe(null);
+
+    // Converting input values
+    expect(convertInputValue(1, 'number')).toBe(1);
+    expect(convertInputValue(0, 'number')).toBe(0);
   });
 
   test('Strings are handled properly', () => {
@@ -99,7 +101,7 @@ describe('Parameter types', () => {
     expect(validateValue(null, 'string')).toBe(false);
     expect(validateValue(1, 'string')).toBe(false);
 
-    // Cleaning
+    // Converting output values
     expect(convertOutputValue('a', 'string')).toBe('a');
 
     // empty strings are cleaned:
@@ -108,7 +110,7 @@ describe('Parameter types', () => {
     expect(convertOutputValue(1, 'string')).toBe(null);
     expect(convertOutputValue(null, 'string')).toBe(null);
 
-    // Conversion
+    // Converting input values
     isHex.mockReturnValueOnce(true);
     expect(convertInputValue('a', 'string')).toBe('a');
     expect(isHex).toHaveBeenCalledWith('a');
