@@ -28,7 +28,7 @@ export default class ColonyNetworkClient extends ContractClient {
   /*
   Returns the address of the Meta Colony
   */
-  getMetaColony: ColonyNetworkClient.Caller<
+  getMetaColonyAddress: ColonyNetworkClient.Caller<
     null,
     {
       address: Address, // Address of the Meta Colony contract
@@ -265,13 +265,21 @@ export default class ColonyNetworkClient extends ContractClient {
 
     return address;
   }
+  /*
+  Gets the Meta Colony as an initialized ColonyClient
+   */
+  async getMetaColonyClient() {
+    const { address } = await this.getMetaColonyAddress.call();
+    return this.getColonyClientByAddress(address);
+  }
   initializeContractMethods() {
     // Callers
     this.addCaller('getColony', {
       input: [['id', 'number']],
       output: [['address', 'address']],
     });
-    this.addCaller('getMetaColony', {
+    this.addCaller('getMetaColonyAddress', {
+      functionName: 'getMetaColony',
       output: [['address', 'address']],
     });
     this.addCaller('getColonyCount', {

@@ -194,4 +194,26 @@ describe('ColonyNetworkClient', () => {
     expect(await networkClient.getColonyAddress(id)).toBe(colonyAddress);
     expect(getColonySpy).toHaveBeenCalledWith({ id });
   });
+
+  test('Getting the Meta Colony as a ColonyClient', async () => {
+    const networkClient = new ColonyNetworkClient({ adapter });
+    await networkClient.init();
+
+    const metaColonyAddress = 'The Meta Colony lives here';
+    const metaColonyClient = {
+      contract: {
+        address: metaColonyAddress,
+      },
+    };
+
+    sandbox
+      .spyOn(networkClient.getMetaColonyAddress, 'call')
+      .mockImplementation(async () => ({ address: metaColonyAddress }));
+    sandbox
+      .spyOn(networkClient, 'getColonyClientByAddress')
+      .mockImplementation(async () => metaColonyClient);
+
+    expect(await networkClient.getMetaColonyClient()).toBe(metaColonyClient);
+    expect(networkClient.getMetaColonyAddress.call).toHaveBeenCalled();
+  });
 });
