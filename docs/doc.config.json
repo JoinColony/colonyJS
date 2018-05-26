@@ -1,5 +1,6 @@
 {
-    "logo": "img/colonyJS.svg",
+    "logo": "img/colonyJS_combomark.svg",
+    "logoSmall": "img/colonyJS_wordmark.svg",
     "sectionOrder": ["Docs", "API"],
-    "description": "Here's a cool description about this project (which is colonyJS btw)"
+    "description": "The colonyJS library is a tool to help developers use Colony to power their projects. colonyJS provides a simple and predictable interface to interact with the colony network directly. It fits neatly into your project and works with the rest of your stack."
 }
