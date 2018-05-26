@@ -7,6 +7,7 @@ import ColonyNetworkClient from '../ColonyNetworkClient';
 import ColonyClient from '../ColonyClient';
 
 jest.mock('web3-utils', () => ({
+  isHex: jest.fn().mockReturnValue(true),
   utf8ToHex: jest.fn().mockImplementation(input => input),
   isAddress: jest.fn().mockReturnValue(true),
 }));
