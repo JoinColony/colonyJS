@@ -15,7 +15,12 @@ import type { Query } from '@colony/colony-js-contract-loader';
 import ContractClient from './classes/ContractClient';
 import { SIGNING_MODES } from './constants';
 
-export type ParamTypes = 'number' | 'string' | 'address' | 'boolean';
+export type ParamTypes =
+  | 'address'
+  | 'bignumber'
+  | 'boolean'
+  | 'number'
+  | 'string';
 
 export type ParamTypePair = [string, ParamTypes];
 

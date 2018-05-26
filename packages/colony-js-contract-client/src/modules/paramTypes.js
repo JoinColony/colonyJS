@@ -1,5 +1,6 @@
 /* @flow */
 
+import BigNumber from 'bn.js';
 import { isHex, utf8ToHex } from 'web3-utils';
 import { isValidAddress, isBigNumber } from '@colony/colony-js-utils';
 
@@ -20,6 +21,18 @@ const PARAM_TYPE_MAP: {
     validate: isValidAddress,
     convertOutput(value) {
       return isValidAddress(value) ? value : null;
+    },
+    convertInput: passThrough,
+  },
+  bignumber: {
+    validate: isBigNumber,
+    convertOutput(value: any) {
+      if (isBigNumber(value)) {
+        return value;
+      } else if (Number.isFinite(value)) {
+        return new BigNumber(value);
+      }
+      return null;
     },
     convertInput: passThrough,
   },
