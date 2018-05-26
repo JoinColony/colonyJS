@@ -13,9 +13,8 @@ export default class ContractMethodCaller<
    * contract function, and get named output values from the result.
    */
   async call(inputValues?: InputValues) {
-    this.validate(inputValues);
-    const args = this.getMethodArgs(inputValues);
+    const args = this.getValidatedArgs(inputValues);
     const result = await this.client.call(this.functionName, args);
-    return this.getOutputValues(result, inputValues);
+    return this._getOutputValues(result, inputValues);
   }
 }
