@@ -91,9 +91,10 @@ describe('ColonyNetworkClient', () => {
     ]);
     expect(
       networkClient.createColony.eventHandlers.success.ColonyAdded.handler({
-        id: new BigNumber(100),
+        colonyId: new BigNumber(100),
+        colonyAddress: 'colony address',
       }),
-    ).toEqual({ colonyId: 100 });
+    ).toEqual({ colonyId: 100, colonyAddress: 'colony address' });
 
     const response = {
       eventData: {
