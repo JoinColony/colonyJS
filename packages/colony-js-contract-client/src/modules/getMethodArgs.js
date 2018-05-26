@@ -7,12 +7,12 @@ import type { ParamTypePairs, ParamTypes } from '../flowtypes';
 const parseParamsValue = (value: any, type: ParamTypes) =>
   type === 'string' ? utf8ToHex(value) : value;
 
-const parseParams = <Params: {}, MethodParams: ParamTypePairs>(
-  params: Params,
+const parseParams = <Params: Object, MethodParams: ParamTypePairs>(
+  params?: Params,
   methodParams: MethodParams,
 ) =>
   methodParams.map(([paramName, paramType]) =>
-    parseParamsValue(params[paramName], paramType),
+    parseParamsValue(params && params[paramName], paramType),
   );
 
 /**
@@ -23,7 +23,7 @@ const parseParams = <Params: {}, MethodParams: ParamTypePairs>(
 export default function getMethodArgs<
   Params: Object,
   MethodParams: ParamTypePairs,
->(params: Params, methodParams: MethodParams): Array<any> {
+>(params?: Params, methodParams: MethodParams): Array<any> {
   let args = [];
 
   if (methodParams && methodParams.length) {
