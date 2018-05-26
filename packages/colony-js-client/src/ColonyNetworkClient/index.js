@@ -323,14 +323,14 @@ export default class ColonyNetworkClient extends ContractClient {
           ColonyAdded: {
             contract: this.contract,
             handler({
-              id,
+              colonyId,
               colonyAddress,
             }: {
-              id: BigNumber,
+              colonyId: BigNumber,
               colonyAddress: Address,
             }) {
               return {
-                colonyId: id.toNumber(),
+                colonyId: colonyId.toNumber(),
                 colonyAddress,
               };
             },
