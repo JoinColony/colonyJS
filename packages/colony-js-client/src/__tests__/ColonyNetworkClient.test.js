@@ -87,7 +87,6 @@ describe('ColonyNetworkClient', () => {
       },
     });
     expect(networkClient.createColony.input).toEqual([
-      ['name', 'string'],
       ['tokenAddress', 'address'],
     ]);
     expect(
@@ -99,20 +98,21 @@ describe('ColonyNetworkClient', () => {
     const response = {
       eventData: {
         colonyId: 23,
+        colonyAddress: 'colony address',
       },
     };
     sandbox
       .spyOn(networkClient.createColony, '_send')
       .mockImplementation(async () => response);
 
-    const name = 'My Colony';
     const tokenAddress = '0xa2dd9cec9eab6c2bb5aef2f758cff78bffd8e958';
 
     // Send should work as per usual
     const {
-      eventData: { colonyId },
-    } = await networkClient.createColony.send({ name, tokenAddress });
+      eventData: { colonyId, colonyAddress: address },
+    } = await networkClient.createColony.send({ tokenAddress });
     expect(colonyId).toBe(response.eventData.colonyId);
+    expect(address).toBe(response.eventData.colonyAddress);
   });
 
   test('Getting a ColonyClient', async () => {
@@ -135,12 +135,12 @@ describe('ColonyNetworkClient', () => {
     try {
       await networkClient.getColonyClient();
     } catch (error) {
-      expect(error.toString()).toMatch('Either `key` or `id` must be provided');
+      expect(error.toString()).toMatch('An ID parameter must be provided');
     }
 
     const id = 23;
-    expect(await networkClient.getColonyClient({ id })).toEqual(colonyClient);
-    expect(networkClient.getColonyAddress).toHaveBeenCalledWith({ id });
+    expect(await networkClient.getColonyClient(id)).toEqual(colonyClient);
+    expect(networkClient.getColonyAddress).toHaveBeenCalledWith(id);
     expect(networkClient.getColonyClientByAddress).toHaveBeenCalledWith(
       colonyAddress,
     );
@@ -176,14 +176,10 @@ describe('ColonyNetworkClient', () => {
     const networkClient = new ColonyNetworkClient({ adapter });
     await networkClient.init();
 
-    const getColonyByKeySpy = sandbox
-      .spyOn(networkClient.getColonyByKey, 'call')
-      .mockImplementation(async () => ({ address: colonyAddress }));
-    const getColonyByIdSpy = sandbox
-      .spyOn(networkClient.getColonyById, 'call')
+    const getColonySpy = sandbox
+      .spyOn(networkClient.getColony, 'call')
       .mockImplementation(async () => ({ address: colonyAddress }));
 
-    const key = 'My Colony';
     const id = 24;
 
     // Ensure that the input is validated
@@ -191,34 +187,11 @@ describe('ColonyNetworkClient', () => {
       await networkClient.getColonyAddress();
       expect(true).toBe(false); // should be unreachable
     } catch (error) {
-      expect(error.toString()).toMatch('Either `key` or `id` must be provided');
+      expect(error.toString()).toMatch('An ID parameter must be provided');
     }
 
     // Getting the the address by id
-    expect(await networkClient.getColonyAddress({ id })).toBe(colonyAddress);
-    expect(getColonyByIdSpy).toHaveBeenCalledWith({ id });
-    expect(getColonyByKeySpy).not.toHaveBeenCalled();
-    getColonyByIdSpy.mockReset();
-    getColonyByKeySpy
-      .mockReset()
-      .mockImplementation(async () => ({ address: colonyAddress }));
-
-    // Getting the the address by key
-    expect(await networkClient.getColonyAddress({ key })).toBe(colonyAddress);
-    expect(getColonyByIdSpy).not.toHaveBeenCalled();
-    expect(getColonyByKeySpy).toHaveBeenCalledWith({ key });
-    getColonyByIdSpy.mockReset();
-    getColonyByKeySpy.mockReset();
-
-    // No address found
-    getColonyByKeySpy.mockImplementation(async () => ({ address: null }));
-    try {
-      await networkClient.getColonyAddress({ key });
-      expect(true).toBe(false); // should be unreachable
-    } catch (error) {
-      expect(error.toString()).toMatch(
-        `Colony with key ${key} could not be found`,
-      );
-    }
+    expect(await networkClient.getColonyAddress(id)).toBe(colonyAddress);
+    expect(getColonySpy).toHaveBeenCalledWith({ id });
   });
 });

@@ -8,17 +8,17 @@ import ContractClient from '@colony/colony-js-contract-client';
 
 import ColonyClient from '../ColonyClient/index';
 
-const MISSING_ID_OR_KEY = 'Either `key` or `id` must be provided';
+const MISSING_ID = 'An ID parameter must be provided';
 
 type Address = string;
 
 export default class ColonyNetworkClient extends ContractClient {
   /*
-  Returns the address of a colony when given the colonyId
+  Returns the address of a colony when given the ID
   */
-  getColonyById: ColonyNetworkClient.Caller<
+  getColony: ColonyNetworkClient.Caller<
     {
-      id: number, // Integer colonyId
+      id: number, // Integer colony ID
     },
     {
       address: Address, // Address of the colony contract
@@ -26,14 +26,12 @@ export default class ColonyNetworkClient extends ContractClient {
     ColonyNetworkClient,
   >;
   /*
-  Returns the address of a colony when given the colony's name (a.k.a its unique "key")
+  Returns the address of the Meta Colony
   */
-  getColonyByKey: ColonyNetworkClient.Caller<
+  getMetaColony: ColonyNetworkClient.Caller<
+    null,
     {
-      key: string, // The colony's unique key
-    },
-    {
-      address: Address, // Address of the colony contract
+      address: Address, // Address of the Meta Colony contract
     },
     ColonyNetworkClient,
   >;
@@ -149,11 +147,11 @@ export default class ColonyNetworkClient extends ContractClient {
   */
   createColony: ColonyNetworkClient.Sender<
     {
-      name: string, // Unique name for the colony. Will return an error if there already exists a colony with the specified name
-      tokenAddress: Address, // Token to import. Note: the ownership of the token contract must be transferred to the newly created colony.
+      tokenAddress: Address, // Token to import. Note: the ownership of the token contract must be transferred to the newly-created Colony.
     },
     {
-      colonyId: number, // Id of the newly created colony
+      colonyId: number, // ID of the newly-created Colony
+      colonyAddress: Address, // Address of the newly-created Colony
     },
     ColonyNetworkClient,
   >;
@@ -186,7 +184,7 @@ export default class ColonyNetworkClient extends ContractClient {
   */
   upgradeColony: ColonyNetworkClient.Sender<
     {
-      key: string, // Unique colony 'key' to be upgraded
+      id: number, // Colony ID to be upgraded
       newVersion: number, // The target version for the upgrade
     },
     null,
@@ -248,45 +246,32 @@ export default class ColonyNetworkClient extends ContractClient {
     return colonyClient.init();
   }
   /*
-  Returns an initialized ColonyClient for the specified key (the name) or id of a deployed colony contract
+  Returns an initialized ColonyClient for the specified ID of a deployed colony contract
   */
-  async getColonyClient({ key, id }: { key?: string, id?: number } = {}) {
-    assert(id || key, MISSING_ID_OR_KEY);
-    const address = await this.getColonyAddress({ key, id });
+  async getColonyClient(id: number) {
+    assert(Number.isFinite(id), MISSING_ID);
+    const address = await this.getColonyAddress(id);
     return this.getColonyClientByAddress(address);
   }
   /*
-  Gets the address of a deployed colony contract for the specified key (the name) or the id of a deployed colony contract
+  Gets the address of a deployed colony contract for the specified ID of a deployed colony contract
   */
-  async getColonyAddress({ key, id }: { key?: string, id?: number } = {}) {
-    assert(id || key, MISSING_ID_OR_KEY);
+  async getColonyAddress(id: number) {
+    assert(Number.isFinite(id), MISSING_ID);
 
-    let address;
-    if (key) {
-      ({ address } = await this.getColonyByKey.call({ key }));
-    } else if (id) {
-      ({ address } = await this.getColonyById.call({ id }));
-    }
+    const { address } = await this.getColony.call({ id });
 
-    if (!address)
-      throw new Error(
-        `Colony with ${
-          key ? `key ${key}` : `id ${id || 'unknown'}`
-        } could not be found`,
-      );
+    if (!address) throw new Error(`Colony with ID ${id} could not be found`);
 
     return address;
   }
   initializeContractMethods() {
     // Callers
-    this.addCaller('getColonyById', {
-      functionName: 'getColonyAt',
+    this.addCaller('getColony', {
       input: [['id', 'number']],
       output: [['address', 'address']],
     });
-    this.addCaller('getColonyByKey', {
-      functionName: 'getColony',
-      input: [['key', 'string']],
+    this.addCaller('getMetaColony', {
       output: [['address', 'address']],
     });
     this.addCaller('getColonyCount', {
@@ -331,15 +316,22 @@ export default class ColonyNetworkClient extends ContractClient {
 
     // Senders
     this.addSender('createColony', {
-      input: [['name', 'string'], ['tokenAddress', 'address']],
+      input: [['tokenAddress', 'address']],
       defaultGasLimit: new BigNumber(2500000),
       eventHandlers: {
         success: {
           ColonyAdded: {
             contract: this.contract,
-            handler({ id }: { id: BigNumber }) {
+            handler({
+              id,
+              colonyAddress,
+            }: {
+              id: BigNumber,
+              colonyAddress: Address,
+            }) {
               return {
                 colonyId: id.toNumber(),
+                colonyAddress,
               };
             },
           },
