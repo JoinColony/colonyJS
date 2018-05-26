@@ -101,7 +101,7 @@ export default class ColonyClient extends ContractClient {
       token: Address, // Address of the token's contract
     },
     {
-      amount: number, // Amount of specified tokens to payout for that task and a role
+      amount: BigNumber, // Amount of specified tokens to payout for that task and a role
     },
     ColonyClient,
   >;
@@ -155,7 +155,7 @@ export default class ColonyClient extends ContractClient {
       token: Address, // Address of the token's contract
     },
     {
-      balance: number, // Balance for token `token` in pot `potId`
+      balance: BigNumber, // Balance for token `token` in pot `potId`
     },
     ColonyClient,
   >;
@@ -167,7 +167,7 @@ export default class ColonyClient extends ContractClient {
       address: Address, // Address of the token's contract (token in question)
     },
     {
-      total: number, // All tokens that are not within the colony's `rewards` pot.
+      total: BigNumber, // All tokens that are not within the colony's `rewards` pot.
     },
     ColonyClient,
   >;
@@ -180,11 +180,11 @@ export default class ColonyClient extends ContractClient {
     },
     {
       blockNumber: number, // Block number at the time of creation
-      remainingTokenAmount: number, // Remaining (unclaimed) amount of tokens
+      remainingTokenAmount: BigNumber, // Remaining (unclaimed) amount of tokens
       reputationRootHash: string, // Reputation root hash at the time of creation
       tokenAddress: Address, // Token address
-      totalTokenAmountForRewardPayout: number, // Total amount of tokens taken aside for reward payout
-      totalTokens: number, // Total colony tokens at the time of creation
+      totalTokenAmountForRewardPayout: BigNumber, // Total amount of tokens taken aside for reward payout
+      totalTokens: BigNumber, // Total colony tokens at the time of creation
     },
     ColonyClient,
   >;
@@ -284,7 +284,7 @@ export default class ColonyClient extends ContractClient {
     {
       taskId: number, // Integer taskId
       token: Address, // Address of the token's ERC20 contract.
-      amount: number, // Amount to be paid.
+      amount: BigNumber, // Amount to be paid.
     },
     {},
     ColonyClient,
@@ -296,7 +296,7 @@ export default class ColonyClient extends ContractClient {
     {
       taskId: number, // Integer taskId
       token: Address, // Address of the token's ERC20 contract.
-      amount: number, // Amount to be paid.
+      amount: BigNumber, // Amount to be paid.
     },
     {},
     ColonyClient,
@@ -308,7 +308,7 @@ export default class ColonyClient extends ContractClient {
     {
       taskId: number, // Integer taskId
       token: Address, // Address of the token's ERC20 contract.
-      amount: number, // Amount to be paid.
+      amount: BigNumber, // Amount to be paid.
     },
     {},
     ColonyClient,
@@ -444,7 +444,7 @@ export default class ColonyClient extends ContractClient {
     {
       fromPot: number, // Origin pot Id
       toPot: number, // Destination pot Id
-      amount: number, // Amount of funds to move
+      amount: BigNumber, // Amount of funds to move
       address: Address, // Address of the token contract
     },
     {},
@@ -519,7 +519,7 @@ export default class ColonyClient extends ContractClient {
 
     // Callers
     this.addCaller('generateSecret', {
-      input: [['salt', 'string'], ['value', 'number']],
+      input: [['salt', 'string'], ['value', 'bignumber']],
       output: [['secret', 'string']],
     });
     this.addCaller('getDomainCount', {
@@ -534,19 +534,19 @@ export default class ColonyClient extends ContractClient {
     });
     this.addCaller('getNonRewardPotsTotal', {
       input: [['address', 'address']],
-      output: [['total', 'number']],
+      output: [['total', 'bignumber']],
     });
     this.addCaller('getPotBalance', {
       input: [['potId', 'number'], ['token', 'address']],
-      output: [['balance', 'number']],
+      output: [['balance', 'bignumber']],
     });
     this.addCaller('getRewardPayoutInfo', {
       input: [['payoutId'], 'number'],
       output: [
         ['reputationRootHash', 'string'],
-        ['totalTokens', 'number'],
-        ['totalTokenAmountForRewardPayout', 'number'],
-        ['remainingTokenAmount', 'number'],
+        ['totalTokens', 'bignumber'],
+        ['totalTokenAmountForRewardPayout', 'bignumber'],
+        ['remainingTokenAmount', 'bignumber'],
         ['tokenAddress', 'address'],
         ['blockNumber', 'number'],
       ],
@@ -556,7 +556,7 @@ export default class ColonyClient extends ContractClient {
     });
     this.addCaller('getTaskPayout', {
       input: [['taskId', 'number'], ['role', 'number'], ['token', 'address']],
-      output: [['amount', 'number']],
+      output: [['amount', 'bignumber']],
     });
     this.addCaller('getTaskRole', {
       input: [['taskId', 'number'], ['role', 'number']],
@@ -641,16 +641,16 @@ export default class ColonyClient extends ContractClient {
       input: [['payoutId', 'number']],
     });
     this.addSender('mintTokens', {
-      input: [['amount', 'number']],
+      input: [['amount', 'bignumber']],
     });
     this.addSender('mintTokensForColonyNetwork', {
-      input: [['amount', 'number']],
+      input: [['amount', 'bignumber']],
     });
     this.addSender('moveFundsBetweenPots', {
       input: [
         ['fromPot', 'number'],
         ['toPot', 'number'],
-        ['amount', 'number'],
+        ['amount', 'bignumber'],
         ['address', 'address'],
       ],
     });
@@ -708,15 +708,15 @@ export default class ColonyClient extends ContractClient {
     makeExecuteTaskChange('setTaskDueDate', [['dueDate', 'number']]);
     makeExecuteTaskChange('setTaskWorkerPayout', [
       ['token', 'address'],
-      ['amount', 'number'],
+      ['amount', 'bignumber'],
     ]);
     makeExecuteTaskChange('setTaskManagerPayout', [
       ['token', 'address'],
-      ['amount', 'number'],
+      ['amount', 'nubignumbermber'],
     ]);
     makeExecuteTaskChange('setTaskEvaluatorPayout', [
       ['token', 'address'],
-      ['amount', 'number'],
+      ['amount', 'bignumber'],
     ]);
   }
 }
