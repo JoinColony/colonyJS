@@ -21,6 +21,12 @@ export type ParamTypePair = [string, ParamTypes];
 
 export type ParamTypePairs = Array<ParamTypePair>;
 
+export type ParamTypeDef = {
+  validate: (value: any) => boolean,
+  convertOutput: (value: any) => *,
+  convertInput: (value: any) => *,
+};
+
 export type SendOptions = {
   estimate: boolean,
   timeoutMs: number,
