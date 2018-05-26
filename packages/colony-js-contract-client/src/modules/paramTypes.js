@@ -66,6 +66,10 @@ function typeMapFn(fnName: $Keys<ParamTypeDef>, value: any, type: ParamTypes) {
   return fn(value);
 }
 
+export function addParamType(type: string, def: ParamTypeDef): void {
+  Object.assign(PARAM_TYPE_MAP, { [type]: def });
+}
+
 /**
  * Given a value and a ParamType, validate the value according to that type's
  * `validate` function

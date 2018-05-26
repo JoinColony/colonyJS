@@ -7,6 +7,7 @@ import { isValidAddress, isBigNumber } from '@colony/colony-js-utils';
 import { isHex, utf8ToHex } from 'web3-utils';
 
 import {
+  addParamType,
   validateValue,
   convertOutputValue,
   convertInputValue,
@@ -119,5 +120,29 @@ describe('Parameter types', () => {
     expect(convertInputValue('a', 'string')).toBe('a');
     expect(isHex).toHaveBeenCalledWith('a');
     expect(utf8ToHex).not.toHaveBeenCalled();
+  });
+
+  test('Adding param types', () => {
+    const customType = 'custom type';
+
+    // Without the type defined, expect an error
+    expect(() => {
+      validateValue(1, customType);
+    }).toThrow();
+
+    const def = {
+      validate: sandbox.fn(),
+      convertInput: sandbox.fn(),
+      convertOutput: sandbox.fn(),
+    };
+    addParamType(customType, def);
+
+    // With the type defined, validate/convert should be called
+    validateValue(1, customType);
+    convertInputValue(1, customType);
+    convertOutputValue(1, customType);
+    expect(def.validate).toHaveBeenCalledWith(1);
+    expect(def.convertInput).toHaveBeenCalledWith(1);
+    expect(def.convertOutput).toHaveBeenCalledWith(1);
   });
 });
