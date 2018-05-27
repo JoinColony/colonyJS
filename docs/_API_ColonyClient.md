@@ -642,7 +642,7 @@ An instance of a `ContractResponse`
 
 ## Task MultiSig
 
-**All MultiSig functions return an instance of a `MultiSigOperation`.** For a reference please check [here](/colonyjs/docs-multisignature).
+**All MultiSig functions return an instance of a `MultiSigOperation`.** For a reference please check [here](/colonyjs/docs-multisignature-transactions/).
 ### `setTaskBrief.startOperation({ taskId, specificationHash })`
 
 The task brief, or specification, is a description of the tasks work specification. The description is hashed and stored with the task for future reference in ratings or in the event of a dispute.

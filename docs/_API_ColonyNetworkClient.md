@@ -57,9 +57,9 @@ Returns an initialized ColonyClient for the contract at address `contractAddress
 
 `Promise<ColonyClient>`. An instance of a `ColonyClient` associated with the given Colony contract
 
-### `getColonyClient({ key?, id? })`
+### `getColonyClient(id)`
 
-Returns an initialized ColonyClient for the specified key (the name) or id of a deployed colony contract. It is crucial that you define exactly one of the arguments.
+Returns an initialized ColonyClient for the specified id of a deployed colony contract.
 
 **Arguments**
 
@@ -72,9 +72,9 @@ Returns an initialized ColonyClient for the specified key (the name) or id of a 
 
 `Promise<ColonyClient>`. An instance of a `ColonyClient` associated with the given Colony contract
 
-### `getColonyAddress({ key?, id? })`
+### `getColonyAddress(id)`
 
-Get the address of a Colony for the specified key (the name) or id of a deployed colony contract. It is crucial that you define exactly one of the arguments.
+Get the address of a Colony for the specified id of a deployed colony contract.
 
 **Arguments**
 
@@ -87,19 +87,27 @@ Get the address of a Colony for the specified key (the name) or id of a deployed
 
 `Promise<Address>`. The address of the given Colony contract
 
+### `getMetaColonyClient()`
+
+Gets the Meta Colony as an initialized ColonyClient
+
+**Returns**
+
+`Promise<ColonyClient>`. An instance of a `ColonyClient` associated with the MetaColony contract
+
 ## Callers
 
 **All callers return promises which resolve to an object containing the given return values.** For a reference please check [here](/colonyjs/docs-contract-client/#callers).
 
-### `getColonyById.call({ id })`
+### `getColony.call({ id })`
 
-Returns the address of a colony when given the colonyId
+Returns the address of a colony when given the ID
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|id|number|Integer colonyId|
+|id|number|Integer colony ID|
 
 **Returns**
 
@@ -109,15 +117,10 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |address|Address|Address of the colony contract|
 
-### `getColonyByKey.call({ key })`
+### `getMetaColonyAddress.call()`
 
-Returns the address of a colony when given the colony's name (a.k.a its unique "key")
+Returns the address of the Meta Colony
 
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|key|string|The colony's unique key|
 
 **Returns**
 
@@ -125,7 +128,7 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|address|Address|Address of the colony contract|
+|address|Address|Address of the Meta Colony contract|
 
 ### `getColonyCount.call()`
 
@@ -279,7 +282,7 @@ A promise which resolves to an object containing the following properties:
 ## Senders
 
 **All senders return an instance of a `ContractResponse`.** Every `send()` method takes an `options` object as the second argument. For a reference please check [here](/colonyjs/docs-contract-client/#senders).
-### `createColony.send({ name, tokenAddress }, options)`
+### `createColony.send({ tokenAddress }, options)`
 
 Creates a new colony on the network.
 
@@ -287,8 +290,7 @@ Creates a new colony on the network.
 
 |Argument|Type|Description|
 |---|---|---|
-|name|string|Unique name for the colony. Will return an error if there already exists a colony with the specified name|
-|tokenAddress|Address|Token to import. Note: the ownership of the token contract must be transferred to the newly created colony.|
+|tokenAddress|Address|Token to import. Note: the ownership of the token contract must be transferred to the newly-created Colony.|
 
 **Returns**
 
@@ -296,7 +298,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|colonyId|number|Id of the newly created colony|
+|colonyId|number|ID of the newly-created Colony|
+|colonyAddress|Address|Address of the newly-created Colony|
 
 ### `deposit.send({ amount }, options)`
 
@@ -334,7 +337,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |token|Address|The address of the token being auctioned|
 |quantity|number|The amount of available tokens for auction|
 
-### `upgradeColony.send({ key, newVersion }, options)`
+### `upgradeColony.send({ id, newVersion }, options)`
 
 Upgrades a colony to a new Colony contract version.
 
@@ -342,7 +345,7 @@ Upgrades a colony to a new Colony contract version.
 
 |Argument|Type|Description|
 |---|---|---|
-|key|string|Unique colony 'key' to be upgraded|
+|id|number|Colony ID to be upgraded|
 |newVersion|number|The target version for the upgrade|
 
 **Returns**

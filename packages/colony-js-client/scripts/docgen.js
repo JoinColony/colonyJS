@@ -117,9 +117,9 @@ ${printProps('Event data', sender.events)}
 function printMultiSig() {
   if (!multisig.length) return '';
   // TODO: use templates to properly place this text into the file
-  return `'## Task MultiSig
+  return `## Task MultiSig
 
-**All MultiSig functions return an instance of a \`MultiSigOperation\`.** For a reference please check [here](/colonyjs/docs-contract-client/#task-multisig).` +
+**All MultiSig functions return an instance of a \`MultiSigOperation\`.** For a reference please check [here](/colonyjs/docs-multisignature-transactions/).` +
     multisig
       .map(
         ms => `
