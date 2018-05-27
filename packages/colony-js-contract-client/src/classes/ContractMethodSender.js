@@ -38,15 +38,16 @@ export default class ContractMethodSender<
     if (defaultGasLimit) this._defaultGasLimit = defaultGasLimit;
     if (eventHandlers) this.eventHandlers = eventHandlers;
   }
+
   /**
    * Given named input values, call the method's contract function in
    * order to get a gas estimate for calling it with those values.
    */
   async estimate(inputValues: InputValues): Promise<BigNumber> {
-    this.validate(inputValues);
-    const args = this.getMethodArgs(inputValues);
+    const args = this.getValidatedArgs(inputValues);
     return this.client.estimate(this.functionName, args);
   }
+
   /**
    * Given named input values and options for sending a transaction, create a
    * transaction which calls the method's contract function with those
@@ -57,8 +58,7 @@ export default class ContractMethodSender<
     inputValues: InputValues,
     options: SendOptions,
   ): Promise<ContractResponse<OutputValues>> {
-    this.validate(inputValues);
-    const args = this.getMethodArgs(inputValues);
+    const args = this.getValidatedArgs(inputValues);
     return this._send(args, options);
   }
 

@@ -1,10 +1,26 @@
 /* eslint-env jest */
-/* eslint-disable no-underscore-dangle */
+/* eslint-disable no-underscore-dangle,no-console */
 
 import createSandbox from 'jest-sandbox';
 
 import ContractClient from '../classes/ContractClient';
 import ContractMethod from '../classes/ContractMethod';
+
+import {
+  validateValue,
+  convertInputValue,
+  convertOutputValue,
+} from '../modules/paramTypes';
+
+jest.mock('../modules/paramTypes', () => ({
+  validateValue: jest.fn().mockImplementation(() => true),
+  convertOutputValue: jest
+    .fn()
+    .mockImplementation(value => `converted output: ${value}`),
+  convertInputValue: jest
+    .fn()
+    .mockImplementation(value => `converted input: ${value}`),
+}));
 
 describe('ContractMethod', () => {
   const sandbox = createSandbox();
@@ -13,14 +29,19 @@ describe('ContractMethod', () => {
     .spyOn(client, 'createTransactionData')
     .mockImplementation(() => 'the tx data');
 
-  beforeEach(() => sandbox.clear());
+  beforeEach(() => {
+    sandbox.clear();
+    convertInputValue.mockClear();
+    convertOutputValue.mockClear();
+    validateValue.mockClear();
+  });
 
-  test('Method with no input params', () => {
+  test('Method with no input params validates correctly', () => {
     const method = new ContractMethod({ client, functionName: 'myFunction' });
     expect(method.validate()).toBe(true);
   });
 
-  test('Arguments are validated correctly', () => {
+  test('Method with input params validates correctly', () => {
     const input = [['id', 'number']];
     const inputValues = { id: 1 };
 
@@ -29,11 +50,60 @@ describe('ContractMethod', () => {
       input,
       functionName: 'myFunction',
     });
-    method._validate = sandbox.fn();
+    sandbox.spyOn(method.constructor, '_validateValue');
 
-    method.validate(inputValues);
+    expect(method.validate(inputValues)).toBe(true);
+    expect(method.constructor._validateValue).toHaveBeenCalledWith(
+      1,
+      'number',
+      'id',
+    );
 
-    expect(method._validate).toHaveBeenCalledWith(inputValues, input);
+    // Missing parameters/wrong type
+    [undefined, null, [], 'a', 1].forEach(wrongType => {
+      expect(() => {
+        method.validate(wrongType);
+      }).toThrowError('Expected parameters as an object');
+    });
+
+    // Extra parameter
+    expect(() => {
+      method.validate({ id: 1, somethingElse: 2 });
+    }).toThrowError('Mismatching parameters/method parameters sizes');
+
+    // Wrong type
+    validateValue.mockImplementationOnce(() => false);
+    expect(() => {
+      method.validate({ id: 'one' });
+    }).toThrowError('Parameter "id" expected a value of type "number"');
+  });
+
+  test('Valid values are reported as valid', () => {
+    validateValue.mockImplementationOnce(() => true);
+    expect(ContractMethod._validateValue(1, 'number', 'id'));
+    expect(validateValue).toHaveBeenCalledWith(1, 'number');
+  });
+
+  test('Invalid values are reported as invalid, with reasons', () => {
+    // Invalid value
+    validateValue.mockImplementationOnce(() => false);
+    expect(() => {
+      expect(ContractMethod._validateValue('abc', 'number', 'id'));
+    }).toThrowError(
+      'Validation failed: Parameter "id" expected a value of type "number"',
+    );
+    expect(validateValue).toHaveBeenCalledWith('abc', 'number');
+
+    // Invalid value with reasons (caught validation errors)
+    validateValue.mockImplementationOnce(() => {
+      throw new Error('The reason this validation failed');
+    });
+    expect(() => {
+      expect(ContractMethod._validateValue('abc', 'number', 'id'));
+    }).toThrowError(
+      'Validation failed: Parameter "id" expected a value of type ' +
+        '"number" (The reason this validation failed)',
+    );
   });
 
   test('Method arguments are processed from input parameters', () => {
@@ -45,17 +115,55 @@ describe('ContractMethod', () => {
       input,
       functionName: 'myFunction',
     });
-    method._getMethodArgs = sandbox.fn();
+    sandbox.spyOn(method, '_parseInputValues').mockImplementation(() => [1]);
 
-    method.getMethodArgs(inputValues);
+    expect(method._getMethodArgs(inputValues)).toEqual([1]);
 
-    expect(method._getMethodArgs).toHaveBeenCalledWith(inputValues, input);
+    expect(method._parseInputValues).toHaveBeenCalledWith(inputValues);
+  });
+
+  test('Method without input defined gets empty arguments', () => {
+    const method = new ContractMethod({
+      client,
+      functionName: 'myFunction',
+    });
+
+    sandbox.spyOn(console, 'warn').mockImplementation(() => {});
+
+    expect(method._getMethodArgs()).toEqual([]);
+
+    // There should be a warning if input values are supplied
+    expect(method._getMethodArgs({ id: 1 })).toEqual([]);
+    expect(console.warn).toHaveBeenCalledTimes(1);
+    expect(console.warn).toHaveBeenCalledWith(
+      // eslint-disable-next-line max-len
+      'Warning: _getMethodArgs called with parameters for a method that does not accept parameters',
+    );
+  });
+
+  test('Getting validated arguments', () => {
+    const input = [['id', 'number']];
+    const inputValues = { id: 1 };
+
+    const method = new ContractMethod({
+      client,
+      input,
+      functionName: 'myFunction',
+    });
+    sandbox.spyOn(method, 'validate');
+    sandbox.spyOn(method, '_getMethodArgs');
+
+    expect(method.getValidatedArgs(inputValues)).toEqual([
+      'converted input: 1',
+    ]);
+    expect(method.validate).toHaveBeenCalledWith(inputValues);
+    expect(method._getMethodArgs).toHaveBeenCalledWith(inputValues);
   });
 
   test('Contract return values are mapped to expected output', () => {
     const input = [['id', 'number']];
-    const output = [['name', 'string']];
-    const callResult = 'Vitalik';
+    const output = [['name', 'string'], ['address', 'address']];
+    const callResult = ['Vitalik', '0xVITALIK'];
 
     const method = new ContractMethod({
       client,
@@ -63,14 +171,16 @@ describe('ContractMethod', () => {
       output,
       functionName: 'myFunction',
     });
-    method._getMethodReturnValue = sandbox.fn();
 
-    method.getOutputValues(callResult);
+    const returnValues = method._getOutputValues(callResult);
 
-    expect(method._getMethodReturnValue).toHaveBeenCalledWith(
-      callResult,
-      output,
-    );
+    expect(convertOutputValue).toHaveBeenCalledWith(callResult[0], 'string');
+    expect(convertOutputValue).toHaveBeenCalledWith(callResult[1], 'address');
+
+    expect(returnValues).toEqual({
+      name: 'converted output: Vitalik',
+      address: 'converted output: 0xVITALIK',
+    });
   });
 
   test('Transaction data can be created from input parameters', () => {
