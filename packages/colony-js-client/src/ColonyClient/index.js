@@ -598,13 +598,13 @@ export default class ColonyClient extends ContractClient {
     this.addSender('addDomain', {
       input: [['parentSkillId', 'number']],
       eventHandlers: {
-        success: { SkillAdded },
+        SkillAdded,
       },
     });
     this.addSender('addGlobalSkill', {
       input: [['parentSkillId', 'number']],
       eventHandlers: {
-        success: { SkillAdded },
+        SkillAdded,
       },
     });
     this.addSender('assignWorkRating', {
@@ -623,14 +623,12 @@ export default class ColonyClient extends ContractClient {
       functionName: 'makeTask',
       input: [['specificationHash', 'string'], ['domainId', 'number']],
       eventHandlers: {
-        success: {
-          TaskAdded: {
-            contract: this.contract,
-            handler({ id }: { id: BigNumber }) {
-              return {
-                taskId: id.toNumber(),
-              };
-            },
+        TaskAdded: {
+          contract: this.contract,
+          handler({ id }: { id: BigNumber }) {
+            return {
+              taskId: id.toNumber(),
+            };
           },
         },
       },

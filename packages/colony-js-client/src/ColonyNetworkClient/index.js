@@ -327,21 +327,19 @@ export default class ColonyNetworkClient extends ContractClient {
       input: [['tokenAddress', 'address']],
       defaultGasLimit: new BigNumber(2500000),
       eventHandlers: {
-        success: {
-          ColonyAdded: {
-            contract: this.contract,
-            handler({
-              colonyId,
+        ColonyAdded: {
+          contract: this.contract,
+          handler({
+            colonyId,
+            colonyAddress,
+          }: {
+            colonyId: BigNumber,
+            colonyAddress: Address,
+          }) {
+            return {
+              colonyId: colonyId.toNumber(),
               colonyAddress,
-            }: {
-              colonyId: BigNumber,
-              colonyAddress: Address,
-            }) {
-              return {
-                colonyId: colonyId.toNumber(),
-                colonyAddress,
-              };
-            },
+            };
           },
         },
       },
@@ -352,24 +350,22 @@ export default class ColonyNetworkClient extends ContractClient {
     this.addSender('startTokenAuction', {
       input: [['tokenAddress', 'address']],
       eventHandlers: {
-        success: {
-          AuctionCreated: {
-            contract: this.contract,
-            handler({
+        AuctionCreated: {
+          contract: this.contract,
+          handler({
+            auction,
+            token,
+            quantity,
+          }: {
+            auction: string,
+            token: string,
+            quantity: BigNumber,
+          }) {
+            return {
               auction,
               token,
-              quantity,
-            }: {
-              auction: string,
-              token: string,
-              quantity: BigNumber,
-            }) {
-              return {
-                auction,
-                token,
-                quantity: quantity.toNumber(),
-              };
-            },
+              quantity: quantity.toNumber(),
+            };
           },
         },
       },

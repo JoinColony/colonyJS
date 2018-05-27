@@ -97,17 +97,11 @@ export default class EthersAdapter implements IAdapter {
     });
     try {
       // Wait for all success events to resolve, or reject on any error event
-      return Object.assign(
-        {},
-        ...(await Promise.all(eventPromises)
-        ),
-      );
+      return Object.assign({}, ...(await Promise.all(eventPromises)));
     } finally {
-      Object.entries(events).forEach(
-        ([eventName, { contract }]) => {
-          contract.removeListener(eventName, transactionHash);
-        },
-      );
+      Object.entries(events).forEach(([eventName, { contract }]) => {
+        contract.removeListener(eventName, transactionHash);
+      });
     }
   }
   async getTransactionReceipt(transactionHash: string) {
