@@ -8,7 +8,7 @@ colonyJS is a library to help developers build with Colony.
 
 Using the colonyJS library, you can build applications that query and interact with the Colony Network smart contracts through a simple and standard JavaScript interface.
 
-![overview diagram](https://raw.githubusercontent.com/JoinColony/colony-js/docs/gatsby-docs/docs/img/colonyJS_overview_r1.svg?sanitize=true)
+![overview diagram](img/colonyJS_overview_r1.svg)
 
 colonyJS itself is split into a few components to allow for flexibility in development:
 
