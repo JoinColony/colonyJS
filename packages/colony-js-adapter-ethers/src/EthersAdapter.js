@@ -82,7 +82,7 @@ export default class EthersAdapter implements IAdapter {
   // XXX this isn't a static method because we can't define it as such
   // in the Interface thanks to Flow
   async getEventData({
-    events: { success = {}, error = {} } = {},
+    events = {},
     transactionHash,
     timeoutMs,
   }: {
@@ -90,13 +90,8 @@ export default class EthersAdapter implements IAdapter {
     timeoutMs: number,
     transactionHash: string,
   }): Promise<{}> {
-    const successPromises = this.constructor.getEventPromises({
-      events: success,
-      timeoutMs,
-      transactionHash,
-    });
-    const errorPromises = this.constructor.getEventPromises({
-      events: error,
+    const eventPromises = this.constructor.getEventPromises({
+      events,
       timeoutMs,
       transactionHash,
     });
@@ -104,13 +99,11 @@ export default class EthersAdapter implements IAdapter {
       // Wait for all success events to resolve, or reject on any error event
       return Object.assign(
         {},
-        ...(await Promise.race([
-          Promise.all(successPromises),
-          ...errorPromises,
-        ])),
+        ...(await Promise.all(eventPromises)
+        ),
       );
     } finally {
-      Object.entries({ ...success, ...error }).forEach(
+      Object.entries(events).forEach(
         ([eventName, { contract }]) => {
           contract.removeListener(eventName, transactionHash);
         },

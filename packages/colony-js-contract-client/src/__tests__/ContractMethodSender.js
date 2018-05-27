@@ -11,19 +11,17 @@ describe('ContractMethodSender', () => {
   const sandbox = createSandbox();
   const contract = {};
   const eventHandlers = {
-    success: {
-      myEventOne: {
-        handler({ eventOneResult }) {
-          return eventOneResult;
-        },
-        contract,
+    myEventOne: {
+      handler({ eventOneResult }) {
+        return eventOneResult;
       },
-      myEventTwo: {
-        handler({ eventTwoResult }) {
-          return eventTwoResult;
-        },
-        contract,
+      contract,
+    },
+    myEventTwo: {
+      handler({ eventTwoResult }) {
+        return eventTwoResult;
       },
+      contract,
     },
   };
   const functionName = 'myFunction';
