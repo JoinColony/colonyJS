@@ -58,7 +58,7 @@ export default class GetTask extends ContractClient.Caller<
       domainId,
       skillIds,
     ]: CallResult,
-    { taskId }: InputValues,
+    { taskId }: *,
   ) {
     const task: OutputValues = {
       cancelled: !!cancelled,

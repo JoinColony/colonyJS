@@ -33,7 +33,7 @@ export default class ColonyClient extends ContractClient {
     Gets the total number of domains in a Colony. This number equals the last `domainId` created.
   */
   getDomainCount: ColonyClient.Caller<
-    null,
+    {},
     {
       count: number, // Number of all domain in this Colony; == the last added domainId
     },
@@ -43,7 +43,7 @@ export default class ColonyClient extends ContractClient {
     Gets the total number of reward payout cycles.
   */
   getGlobalRewardPayoutCount: ColonyClient.Caller<
-    null,
+    {},
     {
       count: number, // Number of reward payout cycles
     },
@@ -65,7 +65,7 @@ export default class ColonyClient extends ContractClient {
     Gets the total number of tasks in a Colony. This number equals the last `taskId` created.
   */
   getTaskCount: ColonyClient.Caller<
-    null,
+    {},
     {
       count: number, // Total number of tasks in this Colony
     },
@@ -192,7 +192,7 @@ export default class ColonyClient extends ContractClient {
     Gets the address of the colony's official token contract
   */
   getToken: ColonyClient.Caller<
-    null,
+    {},
     {
       address: Address, // The address of the colony's official deployed token contract
     },
@@ -202,7 +202,7 @@ export default class ColonyClient extends ContractClient {
     Returns the total number of transactions the colony has made, == the `transactionId` of the last added transaction to the Colony.
   */
   getTransactionCount: ColonyClient.Caller<
-    null,
+    {},
     {
       count: number, // Number of all transactions in this Colony; == the last added transactionId
     },
@@ -229,7 +229,7 @@ export default class ColonyClient extends ContractClient {
       taskId: number, // Integer taskId
       specificationHash: string, // digest of the task's hashed specification.
     },
-    null,
+    {},
     ColonyClient,
   >;
   /*
@@ -240,7 +240,7 @@ export default class ColonyClient extends ContractClient {
       taskId: number, // Integer taskId
       domainId: number, // Integer domainId
     },
-    null,
+    {},
     ColonyClient,
   >;
   /*
@@ -251,7 +251,7 @@ export default class ColonyClient extends ContractClient {
       taskId: number, // Integer taskId
       dueDate: Date, // Due date
     },
-    null,
+    {},
     ColonyClient,
   >;
   /*
@@ -263,7 +263,7 @@ export default class ColonyClient extends ContractClient {
       role: number, // MANAGER (`0`), EVALUATOR (`1`), or WORKER (`2`)
       user: Address, // address of the user
     },
-    null,
+    {},
     ColonyClient,
   >;
   /*
@@ -274,7 +274,7 @@ export default class ColonyClient extends ContractClient {
       taskId: number, // Integer taskId
       skillId: number, // Integer skillId
     },
-    null,
+    {},
     ColonyClient,
   >;
   /*
@@ -286,7 +286,7 @@ export default class ColonyClient extends ContractClient {
       token: Address, // Address of the token's ERC20 contract.
       amount: number, // Amount to be paid.
     },
-    null,
+    {},
     ColonyClient,
   >;
   /*
@@ -298,7 +298,7 @@ export default class ColonyClient extends ContractClient {
       token: Address, // Address of the token's ERC20 contract.
       amount: number, // Amount to be paid.
     },
-    null,
+    {},
     ColonyClient,
   >;
   /*
@@ -310,7 +310,7 @@ export default class ColonyClient extends ContractClient {
       token: Address, // Address of the token's ERC20 contract.
       amount: number, // Amount to be paid.
     },
-    null,
+    {},
     ColonyClient,
   >;
   /*
@@ -321,7 +321,7 @@ export default class ColonyClient extends ContractClient {
       taskId: number, // Integer taskId
       deliverableHash: string, // Hash of the work performed
     },
-    null,
+    {},
     ColonyClient,
   >;
   /*
@@ -333,7 +333,7 @@ export default class ColonyClient extends ContractClient {
       role: number, // The role submitting their rating, either EVALUATOR (`1`) or WORKER (`2`)
       ratingSecret: string, // hidden work rating, generated as the output of `generateSecret(_salt, _rating)`, where `_rating` is a score from 0-50 (in increments of 10).
     },
-    null,
+    {},
     ColonyClient,
   >;
   /*
@@ -346,7 +346,7 @@ export default class ColonyClient extends ContractClient {
       rating: number, // Rating scored 0-50 in increments of 10 (e.g. 10, 20, 30, 40 or 50).
       salt: string, // `_salt` value to be used in `generateSecret`. A correct value will result in the same `ratingSecret` submitted during the work rating submission period.
     },
-    null,
+    {},
     ColonyClient,
   >;
   /*
@@ -356,7 +356,7 @@ export default class ColonyClient extends ContractClient {
     {
       taskId: number, // Integer taskId
     },
-    null,
+    {},
     ColonyClient,
   >;
   /*
@@ -366,7 +366,7 @@ export default class ColonyClient extends ContractClient {
     {
       taskId: number, // Integer taskId
     },
-    null,
+    {},
     ColonyClient,
   >;
   /*
@@ -376,7 +376,7 @@ export default class ColonyClient extends ContractClient {
     {
       taskId: number, // Integer taskId
     },
-    null,
+    {},
     ColonyClient,
   >;
   /*
@@ -388,7 +388,7 @@ export default class ColonyClient extends ContractClient {
       role: number, // Role of the contributor claiming the payout.
       token: Address, // Address of the token contract
     },
-    null,
+    {},
     ColonyClient,
   >;
   /*
@@ -424,7 +424,7 @@ export default class ColonyClient extends ContractClient {
     {
       token: Address, // Address of the token contract. `0x0` value indicates Ether.
     },
-    null,
+    {},
     ColonyClient,
   >;
   /*
@@ -434,7 +434,7 @@ export default class ColonyClient extends ContractClient {
     {
       payoutId: number, // Id of the reward payout.
     },
-    null,
+    {},
     ColonyClient,
   >;
   /*
@@ -447,7 +447,7 @@ export default class ColonyClient extends ContractClient {
       amount: number, // Amount of funds to move
       address: Address, // Address of the token contract
     },
-    null,
+    {},
     ColonyClient,
   >;
   /*
@@ -457,7 +457,7 @@ export default class ColonyClient extends ContractClient {
     {
       amount: number, // Amount of new tokens to be minted
     },
-    null,
+    {},
     ColonyClient,
   >;
   /*
@@ -467,7 +467,7 @@ export default class ColonyClient extends ContractClient {
     {
       amount: number, // Amount of new tokens to be minted
     },
-    null,
+    {},
     ColonyClient,
   >;
   /*
@@ -477,7 +477,7 @@ export default class ColonyClient extends ContractClient {
     {
       token: Address, // Address of token used for reward payout.
     },
-    null,
+    {},
     ColonyClient,
   >;
   /*
@@ -487,7 +487,7 @@ export default class ColonyClient extends ContractClient {
     {
       numPayouts: number, // Number of payouts to waive
     },
-    null,
+    {},
     ColonyClient,
   >;
 

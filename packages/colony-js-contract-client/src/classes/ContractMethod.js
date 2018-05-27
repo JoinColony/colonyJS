@@ -40,14 +40,14 @@ export default class ContractMethod<
    * Given named input values, validate them against the expected parameters
    * for this method, throwing errors if validation fails.
    */
-  validate(inputValues: InputValues) {
+  validate(inputValues?: InputValues) {
     return this._validate(inputValues, this.input);
   }
   /**
    * Given named input values, transform these with the expected parameters
    * in order to get an array of arguments expected by the contract function.
    */
-  getMethodArgs(inputValues: InputValues) {
+  getMethodArgs(inputValues?: InputValues) {
     return this._getMethodArgs(inputValues, this.input);
   }
   /**
@@ -56,7 +56,7 @@ export default class ContractMethod<
    * order to get named output values as the method's `ReturnValues`
    */
   // eslint-disable-next-line no-unused-vars
-  getOutputValues(callResult: any, inputValues: InputValues): OutputValues {
+  getOutputValues(callResult: any, inputValues?: InputValues): OutputValues {
     return this._getMethodReturnValue(callResult, this.output);
   }
   /**
