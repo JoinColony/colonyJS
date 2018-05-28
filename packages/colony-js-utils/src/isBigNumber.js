@@ -8,7 +8,7 @@ export default function isBigNumber(value: any) {
     // XXX Some libraries (cough *ethers* cough) wrap BigNumbers in a way
     // that breaks `isBN`; this is a workaround for that issue:
     (value != null &&
-      Object.hasOwnProperty.call(value, 'bn') &&
+      Object.hasOwnProperty.call(value, '_bn') &&
       // eslint-disable-next-line no-underscore-dangle
       BigNumber.isBN(value._bn))
   );
