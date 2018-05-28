@@ -323,6 +323,11 @@ export default class ColonyNetworkClient extends ContractClient {
     this.addCaller('getSkill', {
       input: [['skillId', 'number']],
       output: [['nParents', 'number'], ['nChildren', 'number']],
+      validateEmpty: async ({ skillId }: { skillId: number }) => {
+        const { count } = await this.getSkillCount.call();
+        if (skillId > count) throw new Error(`Skill ID ${skillId} not found`);
+        return true;
+      },
     });
     this.addCaller('getSkillCount', {
       output: [['count', 'number']],
