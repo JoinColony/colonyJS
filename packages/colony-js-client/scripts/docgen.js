@@ -12,6 +12,7 @@ const TYPES = {
   Date: 'Date',
   Address: 'Address',
   BigNumber: 'BigNumber',
+  Role: 'Role',
 };
 
 const ast = parser.parse(
