@@ -13,11 +13,19 @@ Using colonyJS, you can query the blockchain for information about tasks, create
 ## Getting Started
 First of all, we will need to set up some prerequisites (clients for the Colony Network and for a specific Colony).
 
+### Colony Network
+
+You can learn about how to install the Colony Network contracts [here](/colonynetwork/docs-get-started/). It's important to note that the recommended commit to clone is currently [`ce9811a`](https://github.com/JoinColony/colonyNetwork/commit/ce9811a9f0fca53d9ab417d5fc24bbcf29c351c8).
+
+### Libraries
+
 If you haven't done so already, add the required libraries to your project with `yarn`:
 
 ```bash
 yarn add @colony/colony-js-client @colony/colony-js-adapter-ethers @colony/colony-js-contract-loader-http @colony/colony-wallet
 ```
+
+### Example
 
 For your application to be able to communicate with colony, you'll need to configure a [Loader](/colonyjs/docs-loaders/) to read contracts, an [Adapter](/colonyjs/docs-adapters/) to communicate with the blockchain, and a wallet to be able to send transactions that require a signature.
 

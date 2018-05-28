@@ -10,8 +10,8 @@ This guide will help you set up various prerequisites for using colonyJS, get co
 
 ## Environment prerequisites
 
-* For local development, you will need some means of running the [Colony Network contracts](https://github.com/JoinColony/colonyNetwork) locally. The recommended commit to clone is currently `ce9811a`.  See our guide to [running the Colony Network contracts](/colonyjs/docs-getting-started#colonynetwork).
-* Next, you will need some means of loading the contract definitions into your app. This is easy to do with [TrufflePig](https://github.com/JoinColony/trufflepig). See our guide to [starting TrufflePig](/colonyjs/docs-getting-started#trufflepig).
+* For local development, you will need some means of running the [Colony Network contracts](https://github.com/JoinColony/colonyNetwork) locally. The recommended commit to clone is currently [`ce9811a`](https://github.com/JoinColony/colonyNetwork/commit/ce9811a9f0fca53d9ab417d5fc24bbcf29c351c8). See our guide to [running the Colony Network contracts](/colonynetwork/docs-get-started/).
+* Next, you will need some means of loading the contract definitions into your app. This is easy to do with [TrufflePig](https://github.com/JoinColony/trufflepig). See our guide to [starting TrufflePig](/colonynetwork/docs-get-started/#install-and-configure-a-contract-loader-like-trufflepig).
 * It's also beneficial to have a JavaScript environment that supports `async`/`await`, since colonyJS uses Promises extensively. Recent versions of Node and Chrome support Promises out of the box, but you may want to consider using [webpack](https://webpack.js.org/) and [Babel](https://babeljs.io/) for better support.
 
 ## Installing prerequisites for your app
