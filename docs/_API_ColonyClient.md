@@ -20,6 +20,7 @@ You _could_ create a ColonyClient by using an adapter and a query: `new ColonyCl
 const colonyClient = await networkClient.getColonyClient({ key: 'My Colony' }); // This is already initialised
 ```
 
+  
 ## Callers
 
 **All callers return promises which resolve to an object containing the given return values.** For a reference please check [here](/colonyjs/docs-contract-client/#callers).
@@ -293,6 +294,7 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |count|number|Number of all transactions in this Colony; == the last added transactionId|
 
+  
 ## Senders
 
 **All senders return an instance of a `ContractResponse`.** Every `send()` method takes an `options` object as the second argument. For a reference please check [here](/colonyjs/docs-contract-client/#senders).
@@ -640,6 +642,7 @@ An instance of a `ContractResponse`
 
 
 
+  
 ## Task MultiSig
 
 **All MultiSig functions return an instance of a `MultiSigOperation`.** For a reference please check [here](/colonyjs/docs-multisignature-transactions/).
