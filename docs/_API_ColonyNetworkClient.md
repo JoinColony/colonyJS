@@ -95,6 +95,7 @@ Gets the Meta Colony as an initialized ColonyClient
 
 `Promise<ColonyClient>`. An instance of a `ColonyClient` associated with the MetaColony contract
 
+  
 ## Callers
 
 **All callers return promises which resolve to an object containing the given return values.** For a reference please check [here](/colonyjs/docs-contract-client/#callers).
@@ -279,6 +280,7 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |balance|BigNumber|Amount of staked CLNY|
 
+  
 ## Senders
 
 **All senders return an instance of a `ContractResponse`.** Every `send()` method takes an `options` object as the second argument. For a reference please check [here](/colonyjs/docs-contract-client/#senders).

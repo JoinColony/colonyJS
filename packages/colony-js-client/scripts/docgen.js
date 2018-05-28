@@ -5,6 +5,19 @@ const path = require('path');
 const parser = require('flow-parser');
 const types = require('ast-types');
 
+const CONTRACT_CLIENTS = [
+  {
+    file: path.resolve(__dirname, '..', 'src', 'ColonyClient', 'index.js'),
+    templateFile: path.resolve(__dirname, '..', 'docs', '_API_ColonyClient.template.md'),
+    output: path.resolve(__dirname, '..', '..', '..', 'docs', '_API_ColonyClient.md'),
+  },
+  {
+    file: path.resolve(__dirname, '..', 'src', 'ColonyNetworkClient', 'index.js'),
+    templateFile: path.resolve(__dirname, '..', 'docs', '_API_ColonyNetworkClient.template.md'),
+    output: path.resolve(__dirname, '..', '..', '..', 'docs', '_API_ColonyNetworkClient.md'),
+  },
+];
+
 const TYPES = {
   BooleanTypeAnnotation: 'boolean',
   StringTypeAnnotation: 'string',
@@ -15,62 +28,68 @@ const TYPES = {
   Role: 'Role',
 };
 
-const ast = parser.parse(
-  fs.readFileSync(path.resolve(process.cwd(), process.argv[2])).toString(),
-);
+const generateMarkdown = ({ file, templateFile, output }) => {
+  const ast = parser.parse(fs.readFileSync(file).toString());
 
-const callers = [];
-const senders = [];
-const multisig = [];
+  const callers = [];
+  const senders = [];
+  const multisig = [];
 
-types.visit(ast, {
-  visitQualifiedTypeIdentifier(p) {
-    if (p.value.id.name === 'Caller') {
-      const { params } = p.parent.value.typeParameters;
+  types.visit(ast, {
+    visitQualifiedTypeIdentifier(p) {
+      if (p.value.id.name === 'Caller') {
+        const { params } = p.parent.value.typeParameters;
 
-      callers.push({
-        name: getName(p),
-        description: getDescription(p),
-        args: mapObjectProps(params[0]),
-        returns: mapObjectProps(params[1]),
-      });
-    }
-    if (p.value.id.name === 'Sender') {
-      const { params } = p.parent.value.typeParameters;
+        callers.push({
+          name: getName(p),
+          description: getDescription(ast, p),
+          args: mapObjectProps(ast, params[0]),
+          returns: mapObjectProps(ast, params[1]),
+        });
+      }
+      if (p.value.id.name === 'Sender') {
+        const { params } = p.parent.value.typeParameters;
 
-      senders.push({
-        name: getName(p),
-        description: getDescription(p),
-        args: mapObjectProps(params[0]),
-        events: mapObjectProps(params[1]),
-      });
-    }
-    if (p.value.id.name === 'MultisigSender') {
-      const { params } = p.parent.value.typeParameters;
+        senders.push({
+          name: getName(p),
+          description: getDescription(ast, p),
+          args: mapObjectProps(ast, params[0]),
+          events: mapObjectProps(ast, params[1]),
+        });
+      }
+      if (p.value.id.name === 'MultisigSender') {
+        const { params } = p.parent.value.typeParameters;
 
-      multisig.push({
-        name: getName(p),
-        description: getDescription(p),
-        args: mapObjectProps(params[0]),
-        events: mapObjectProps(params[1]),
-      });
-    }
-    return false;
-  },
-});
+        multisig.push({
+          name: getName(p),
+          description: getDescription(ast, p),
+          args: mapObjectProps(ast, params[0]),
+          events: mapObjectProps(ast, params[1]),
+        });
+      }
+      return false;
+    },
+  });
 
-const md = `
-${printCallers()}
-${printSenders()}
-${printMultiSig()}
-`.trim();
+  const template = fs.readFileSync(templateFile).toString();
 
-console.log(md);
+  const md = `
+  ${template}
+  ${printCallers(callers)}
+  ${printSenders(senders)}
+  ${printMultiSig(multisig)}
+  `.trim();
 
-function printCallers() {
+  fs.writeFileSync(output, md);
+};
+
+CONTRACT_CLIENTS.forEach(generateMarkdown);
+
+function printCallers(callers) {
   if (!callers.length) return '';
   // TODO: use templates to properly place this text into the file
-  return `## Callers
+  return `
+## Callers
 
 **All callers return promises which resolve to an object containing the given return values.** For a reference please check [here](/colonyjs/docs-contract-client/#callers).
 ` +
@@ -92,10 +111,11 @@ ${printProps('Return value', caller.returns)}
     .join('');
 }
 
-function printSenders() {
+function printSenders(senders) {
   if (!senders.length) return '';
   // TODO: use templates to properly place this text into the file
-  return `## Senders
+  return `
+## Senders
 
 **All senders return an instance of a \`ContractResponse\`.** Every \`send()\` method takes an \`options\` object as the second argument. For a reference please check [here](/colonyjs/docs-contract-client/#senders).` +
     senders
@@ -108,7 +128,7 @@ ${sender.args && sender.args.length ? '\n**Arguments**\n\n' : ''}${printProps('A
 
 **Returns**
 
-An instance of a \`ContractResponse\` ${sender.events && sender.events.length ? 'which will eventually receive the following event data:' : ''}
+An instance of a \`ContractResponse\`${sender.events && sender.events.length ? ' which will eventually receive the following event data:' : ''}
 
 ${printProps('Event data', sender.events)}
 `,
@@ -116,10 +136,11 @@ ${printProps('Event data', sender.events)}
     .join('');
 }
 
-function printMultiSig() {
+function printMultiSig(multisig) {
   if (!multisig.length) return '';
   // TODO: use templates to properly place this text into the file
-  return `## Task MultiSig
+  return `
+## Task MultiSig
 
 **All MultiSig functions return an instance of a \`MultiSigOperation\`.** For a reference please check [here](/colonyjs/docs-multisignature-transactions/).` +
     multisig
@@ -132,7 +153,7 @@ ${ms.args && ms.args.length ? '\n**Arguments**\n\n' : ''}${printProps('Argument'
 
 **Returns**
 
-An instance of a \`MultiSigOperation\` ${ms.events && ms.events.length ? 'whose sender will eventually receive the following event data:' : ''}
+An instance of a \`MultiSigOperation\`${ms.events && ms.events.length ? ' whose sender will eventually receive the following event data:' : ''}
 
 ${printProps('Event data', ms.events)}
 `,
@@ -158,7 +179,7 @@ function printArgs(args, withOpts) {
   return withOpts ? 'options' : '';
 }
 
-function mapObjectProps(param) {
+function mapObjectProps(ast, param) {
   if (param.type === 'ObjectTypeAnnotation') {
     return param.properties.map(prop => {
       const comment = ast.comments.find(
@@ -177,7 +198,7 @@ function getName(p) {
   return p.parent.parent.parent.value.key.name;
 }
 
-function getDescription(p) {
+function getDescription(ast, p) {
   const commentLine = p.parent.parent.parent.value.loc.start.line - 1;
   const comment = ast.comments.find(c => c.loc.end.line === commentLine);
   return formatDescription(comment && comment.value);
