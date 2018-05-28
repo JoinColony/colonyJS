@@ -10,7 +10,7 @@ This guide will help you set up various prerequisites for using colonyJS, get co
 
 ## Environment prerequisites
 
-* For local development, you will need some means of running the [Colony Network contracts](https://github.com/JoinColony/colonyNetwork) locally. See our guide to [running the Colony Network contracts](/colonyjs/docs-getting-started#colonynetwork).
+* For local development, you will need some means of running the [Colony Network contracts](https://github.com/JoinColony/colonyNetwork) locally. The recommended commit to clone is currently `ce9811a`.  See our guide to [running the Colony Network contracts](/colonyjs/docs-getting-started#colonynetwork).
 * Next, you will need some means of loading the contract definitions into your app. This is easy to do with [TrufflePig](https://github.com/JoinColony/trufflepig). See our guide to [starting TrufflePig](/colonyjs/docs-getting-started#trufflepig).
 * It's also beneficial to have a JavaScript environment that supports `async`/`await`, since colonyJS uses Promises extensively. Recent versions of Node and Chrome support Promises out of the box, but you may want to consider using [webpack](https://webpack.js.org/) and [Babel](https://babeljs.io/) for better support.
 
@@ -62,6 +62,12 @@ npm install --save @colony/colony-js-client @colony/colony-js-adapter-ethers @co
   // Log networkClient in the console so we can poke around
   console.log(networkClient);
 
+  // Get an instance of the Meta Colony!
+  const metaColonyClient = await networkClient.getMetaColonyClient();
+
+  // Log metaColonyClient in the console so we can poke around
+  console.log(metaColonyClient);
+
   // Create a new Token contract
   const tokenAddress = await networkClient.createToken({
     name: 'CoolonyToken',
@@ -70,16 +76,16 @@ npm install --save @colony/colony-js-client @colony/colony-js-adapter-ethers @co
   console.log(`CoolonyToken contract address: ${tokenAddress}`);
 
   // Create a cool Colony! (with a unique name)
-  const { eventData: { colonyId } } = await networkClient.createColony.send({
+  const { eventData: { colonyId, colonyAddress } } = await networkClient.createColony.send({
     name: `Coolony-${Date.now()}`,
     tokenAddress,
   });
 
   // Congrats, you've created a Colony!
-  console.log(`Colony created with ID: ${colonyId}`);
+  console.log(`Colony created with ID: ${colonyId} at address: ${colonyAddress}`);
 
   // We can now connect to our Colony
-  const colonyClient = await networkClient.getColonyClient({ id: colonyId });
+  const colonyClient = await networkClient.getColonyClient(colonyId);
 
   // Log colonyClient in the console so we can poke around
   console.log(colonyClient);
