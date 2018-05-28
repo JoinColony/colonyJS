@@ -11,6 +11,7 @@ const TYPES = {
   NumberTypeAnnotation: 'number',
   Date: 'Date',
   Address: 'Address',
+  BigNumber: 'BigNumber',
 };
 
 const ast = parser.parse(

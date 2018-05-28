@@ -51,6 +51,25 @@ describe('Parameter types', () => {
     expect(convertInputValue('0x123', 'address')).toBe('0x123');
   });
 
+  test('BigNumbers are handled properly', () => {
+    const bn = new BigNumber(1);
+
+    // Validation
+    expect(validateValue(bn, 'bignumber')).toBe(true);
+    expect(isBigNumber).toHaveBeenCalledWith(bn);
+    isBigNumber.mockClear();
+
+    // Cleaning
+    expect(convertOutputValue(bn, 'bignumber')).toBe(bn);
+    expect(isBigNumber).toHaveBeenCalledWith(bn);
+
+    isBigNumber.mockReturnValueOnce(false);
+    expect(convertOutputValue(null, 'bignumber')).toBe(null);
+
+    // Conversion
+    expect(convertInputValue(bn, 'bignumber')).toBe(bn);
+  });
+
   test('Booleans are handled properly', () => {
     // Validation
     expect(validateValue(false, 'boolean')).toBe(true);

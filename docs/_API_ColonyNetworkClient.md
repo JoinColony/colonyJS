@@ -209,7 +209,7 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|amount|number|amount|
+|amount|BigNumber|amount|
 |colony|Address|Address of the colony|
 |nPreviousUpdates|number|number of previous updates|
 |nUpdates|number|number of updates|
@@ -277,7 +277,7 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|balance|number|Amount of staked CLNY|
+|balance|BigNumber|Amount of staked CLNY|
 
 ## Senders
 
@@ -309,7 +309,7 @@ Allow a reputation miner to stake an amount of CLNY tokens, which is required be
 
 |Argument|Type|Description|
 |---|---|---|
-|amount|number|Amount of CLNY to stake|
+|amount|BigNumber|Amount of CLNY to stake|
 
 **Returns**
 
@@ -362,7 +362,7 @@ Allow a user who has staked CLNY to withdraw their stake
 
 |Argument|Type|Description|
 |---|---|---|
-|amount|number|Amount of CLNY to withdraw from stake|
+|amount|BigNumber|Amount of CLNY to withdraw from stake|
 
 **Returns**
 

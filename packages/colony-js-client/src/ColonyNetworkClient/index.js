@@ -88,7 +88,7 @@ export default class ColonyNetworkClient extends ContractClient {
       id: number, // The reputation log members array index of the entry to get
     },
     {
-      amount: number, // amount
+      amount: BigNumber, // amount
       colony: Address, // Address of the colony
       nPreviousUpdates: number, // number of previous updates
       nUpdates: number, // number of updates
@@ -138,7 +138,7 @@ export default class ColonyNetworkClient extends ContractClient {
       user: Address, // Address of the user
     },
     {
-      balance: number, // Amount of staked CLNY
+      balance: BigNumber, // Amount of staked CLNY
     },
     ColonyNetworkClient,
   >;
@@ -160,7 +160,7 @@ export default class ColonyNetworkClient extends ContractClient {
   */
   deposit: ColonyNetworkClient.Sender<
     {
-      amount: number, // Amount of CLNY to stake
+      amount: BigNumber, // Amount of CLNY to stake
     },
     {},
     ColonyNetworkClient,
@@ -195,7 +195,7 @@ export default class ColonyNetworkClient extends ContractClient {
   */
   withdraw: ColonyNetworkClient.Sender<
     {
-      amount: number, // Amount of CLNY to withdraw from stake
+      amount: BigNumber, // Amount of CLNY to withdraw from stake
     },
     {},
     ColonyNetworkClient,
@@ -294,7 +294,7 @@ export default class ColonyNetworkClient extends ContractClient {
     });
     this.addCaller('getStakedBalance', {
       input: [['user', 'address']],
-      output: [['balance', 'number']],
+      output: [['balance', 'bignumber']],
     });
     this.addCaller('getParentSkillId', {
       input: [['skillId', 'number'], ['parentSkillIndex', 'number']],
@@ -304,7 +304,7 @@ export default class ColonyNetworkClient extends ContractClient {
       input: [['id', 'number']],
       output: [
         ['user', 'string'],
-        ['amount', 'number'],
+        ['amount', 'bignumber'],
         ['skillId', 'number'],
         ['colony', 'string'],
         ['nUpdates', 'number'],
@@ -347,7 +347,7 @@ export default class ColonyNetworkClient extends ContractClient {
       },
     });
     this.addSender('deposit', {
-      input: [['amount', 'number']],
+      input: [['amount', 'bignumber']],
     });
     this.addSender('startTokenAuction', {
       input: [['tokenAddress', 'address']],
@@ -378,7 +378,7 @@ export default class ColonyNetworkClient extends ContractClient {
       input: [['key', 'string'], ['newVersion', 'number']],
     });
     this.addSender('withdraw', {
-      input: [['amount', 'number']],
+      input: [['amount', 'bignumber']],
     });
   }
 }
