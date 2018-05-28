@@ -230,7 +230,7 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |count|number|Length of Reputation update log array|
 
-### `getSkill.call({ id })`
+### `getSkill.call({ skillId })`
 
 Returns the number of parent and child skills associated with the provided skill
 
@@ -238,7 +238,7 @@ Returns the number of parent and child skills associated with the provided skill
 
 |Argument|Type|Description|
 |---|---|---|
-|id|number|skillId to be checked|
+|skillId|number|skillId to be checked|
 
 **Returns**
 

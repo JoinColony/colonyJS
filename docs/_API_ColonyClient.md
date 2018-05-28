@@ -44,6 +44,25 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |secret|string|keccak256 hash of joint Salt and Value|
 
+### `getDomain.call({ domainId })`
+
+Gets the selected domain's local skill ID and funding pot ID
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|domainId|number|ID of the domain|
+
+**Returns**
+
+A promise which resolves to an object containing the following properties:
+
+|Return value|Type|Description|
+|---|---|---|
+|localSkillId|number|The domain's local skill ID|
+|potId|number|The domain's funding pot ID|
+
 ### `getDomainCount.call()`
 
 Gets the total number of domains in a Colony. This number equals the last `domainId` created.

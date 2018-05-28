@@ -1,5 +1,7 @@
 /* @flow */
 
+import assert from 'browser-assert';
+
 import type BigNumber from 'bn.js';
 
 import ContractClient from '@colony/colony-js-contract-client';
@@ -27,6 +29,19 @@ export default class ColonyClient extends ContractClient {
     },
     {
       secret: string, // keccak256 hash of joint Salt and Value
+    },
+    ColonyClient,
+  >;
+  /*
+    Gets the selected domain's local skill ID and funding pot ID
+  */
+  getDomain: ColonyClient.Caller<
+    {
+      domainId: number, // ID of the domain
+    },
+    {
+      localSkillId: number, // The domain's local skill ID
+      potId: number, // The domain's funding pot ID
     },
     ColonyClient,
   >;
@@ -518,10 +533,56 @@ export default class ColonyClient extends ContractClient {
   initializeContractMethods() {
     this.getTask = new GetTask({ client: this });
 
+    const makeTaskCaller = (
+      name: string,
+      input: Array<any>,
+      output: Array<any>,
+    ) =>
+      this.addCaller(name, {
+        input: [['taskId', 'number'], ...input],
+        output,
+        validateEmpty: async ({ taskId }: { taskId: number }) => {
+          const { count } = await this.getTaskCount.call();
+          assert(taskId <= count, `Task with ID ${taskId} not found`);
+          return true;
+        },
+      });
+
+    makeTaskCaller(
+      'getTaskPayout',
+      [['role', 'role'], ['token', 'address']],
+      [['amount', 'bignumber']],
+    );
+    makeTaskCaller(
+      'getTaskRole',
+      [['role', 'role']],
+      [['address', 'address'], ['rated', 'boolean'], ['rating', 'number']],
+    );
+    makeTaskCaller(
+      'getTaskWorkRatings',
+      [],
+      [['count', 'number'], ['timestamp', 'number']],
+    );
+    makeTaskCaller(
+      'getTaskWorkRatingSecret',
+      [['role', 'role']],
+      [['secret', 'string']],
+    );
+
     // Callers
     this.addCaller('generateSecret', {
       input: [['salt', 'string'], ['value', 'bignumber']],
       output: [['secret', 'string']],
+    });
+    this.addCaller('getDomain', {
+      input: [['domainId', 'number']],
+      output: [['localSkillId', 'number'], ['potId', 'number']],
+      validateEmpty: async ({ domainId }: { domainId: number }) => {
+        const { count } = await this.getDomainCount.call();
+        if (domainId > count)
+          throw new Error(`Domain ID ${domainId} not found`);
+        return true;
+      },
     });
     this.addCaller('getDomainCount', {
       output: [['count', 'number']],
@@ -554,26 +615,6 @@ export default class ColonyClient extends ContractClient {
     });
     this.addCaller('getTaskCount', {
       output: [['count', 'number']],
-    });
-    this.addCaller('getTaskPayout', {
-      input: [['taskId', 'number'], ['role', 'role'], ['token', 'address']],
-      output: [['amount', 'bignumber']],
-    });
-    this.addCaller('getTaskRole', {
-      input: [['taskId', 'number'], ['role', 'role']],
-      output: [
-        ['address', 'address'],
-        ['rated', 'boolean'],
-        ['rating', 'number'],
-      ],
-    });
-    this.addCaller('getTaskWorkRatings', {
-      input: [['taskId', 'number']],
-      output: [['count', 'number'], ['timestamp', 'number']],
-    });
-    this.addCaller('getTaskWorkRatingSecret', {
-      input: [['taskId', 'number'], ['role', 'role']],
-      output: [['secret', 'string']],
     });
     this.addCaller('getToken', {
       output: [['address', 'address']],
