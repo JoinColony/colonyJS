@@ -11,7 +11,9 @@ import MultisigOperation from './MultisigOperation';
 import type {
   ContractMethodMultisigSenderArgs,
   GetRequiredSignees,
+  MultisigOperationPayload,
   SendOptions,
+  Signers,
 } from '../flowtypes';
 
 export default class ContractMethodMultisigSender<
@@ -47,6 +49,21 @@ export default class ContractMethodMultisigSender<
     this._getRequiredSignees = getRequiredSignees;
     this.multisigFunctionName = multisigFunctionName;
     this.nonceFunctionName = nonceFunctionName;
+  }
+
+  /**
+   * Given a payload and optional signers, start a new MultisigOperation and
+   * refresh it (in order to set the required signees/nonce/etc).
+   */
+  async _startOperation(
+    payload: MultisigOperationPayload<InputValues>,
+    signers?: Signers,
+  ) {
+    // This will throw an error if the payload or signers are deemed invalid.
+    const op = new MultisigOperation(this, payload, signers);
+
+    await op.refresh();
+    return op;
   }
 
   async getRequiredSignees(inputValues: InputValues): Promise<Array<string>> {
@@ -88,13 +105,13 @@ export default class ContractMethodMultisigSender<
 
   /**
    * Given input values for the target contract method, create transaction data,
-   * pass the payload into a new MultisigOperation.
+   * and pass the payload into a new MultisigOperation.
    */
   async startOperation(inputValues: InputValues) {
     const args = this.getValidatedArgs(inputValues);
     const data = this.client.createTransactionData(this.functionName, args);
 
-    return new MultisigOperation(this, {
+    return this._startOperation({
       data,
       inputValues,
       destinationAddress: this.client.contract.address,
@@ -106,15 +123,14 @@ export default class ContractMethodMultisigSender<
   /**
    * Given the state of an operation as JSON, restore a MultisigOperation.
    */
-  restoreOperation(json: string) {
+  async restoreOperation(json: string) {
     let parsed = {};
     try {
       parsed = JSON.parse(json);
     } catch (error) {
       throw new Error('Unable to restore operation: could not parse JSON');
     }
-    // This will throw an error if the state is deemed invalid.
-    return new MultisigOperation(this, parsed.payload, parsed.signers);
+    return this._startOperation(parsed.payload, parsed.signers);
   }
 
   /**

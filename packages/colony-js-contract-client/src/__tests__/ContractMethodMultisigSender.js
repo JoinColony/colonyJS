@@ -10,6 +10,10 @@ import Sender from '../classes/ContractMethodSender';
 
 jest.mock('../classes/MultisigOperation');
 
+MultisigOperation.prototype.refresh.mockImplementation(
+  async () => new MultisigOperation(),
+);
+
 describe('ContractMethodMultisigSender', () => {
   const sandbox = createSandbox();
   const contract = {
@@ -125,7 +129,39 @@ describe('ContractMethodMultisigSender', () => {
     }
   });
 
-  test('Starting a MultisigOperation', async () => {
+  test('Starting a new MultisigOperation with payload/signers', async () => {
+    const method = new MultisigSender({
+      client,
+      functionName,
+      getRequiredSignees: sandbox.fn(),
+      input,
+      multisigFunctionName,
+      nonceFunctionName,
+    });
+
+    const payload = {
+      data: '0x123',
+      destinationAddress: method.client.contract.address,
+      inputValues,
+      sourceAddress: method.client.contract.address,
+      value: 0,
+    };
+    const signers = {
+      '0x176253765182736581': {
+        sigR: '0x234',
+        sigS: '0x345',
+        sigV: 123,
+      },
+    };
+
+    const op = await method._startOperation(payload, signers);
+
+    expect(op).toBeInstanceOf(MultisigOperation);
+    expect(MultisigOperation).toHaveBeenCalledWith(method, payload, signers);
+    expect(op.refresh).toHaveBeenCalled();
+  });
+
+  test('Starting a MultisigOperation from input values', async () => {
     const method = new MultisigSender({
       client,
       functionName,
@@ -140,6 +176,9 @@ describe('ContractMethodMultisigSender', () => {
 
     const txData = '0xtxDataGoesHere';
     sandbox
+      .spyOn(method, '_startOperation')
+      .mockImplementation(async () => new MultisigOperation());
+    sandbox
       .spyOn(method.client, 'createTransactionData')
       .mockReturnValue(txData);
 
@@ -152,8 +191,7 @@ describe('ContractMethodMultisigSender', () => {
       callArgs,
     );
     expect(op).toBeInstanceOf(MultisigOperation);
-    expect(MultisigOperation).toHaveBeenCalledWith(
-      method,
+    expect(method._startOperation).toHaveBeenCalledWith(
       expect.objectContaining({
         data: txData,
         destinationAddress: method.client.contract.address,
@@ -164,7 +202,7 @@ describe('ContractMethodMultisigSender', () => {
     );
   });
 
-  test('Restoring a MultisigOperation', () => {
+  test('Restoring a MultisigOperation', async () => {
     const method = new MultisigSender({
       client,
       functionName,
@@ -193,12 +231,16 @@ describe('ContractMethodMultisigSender', () => {
 
     const json = JSON.stringify(state);
 
-    const op = method.restoreOperation(json);
-    expect(MultisigOperation).toHaveBeenCalledWith(
-      method,
+    sandbox
+      .spyOn(method, '_startOperation')
+      .mockImplementation(async () => new MultisigOperation());
+
+    const op = await method.restoreOperation(json);
+
+    expect(op).toBeInstanceOf(MultisigOperation);
+    expect(method._startOperation).toHaveBeenCalledWith(
       state.payload,
       state.signers,
     );
-    expect(op).toBeInstanceOf(MultisigOperation);
   });
 });
