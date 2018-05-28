@@ -1,5 +1,6 @@
 /* @flow */
 
+import assert from 'browser-assert';
 import ContractClient from '@colony/colony-js-contract-client';
 
 import type ColonyClient from '../index';
@@ -43,9 +44,17 @@ export default class GetTask extends ContractClient.Caller<
       input: [['taskId', 'number']],
       ...params,
     });
+    this._validateEmpty = async (inputValues?: *) => {
+      const taskId = inputValues && inputValues.taskId;
+      if (taskId) {
+        const { count } = await this.client.getTaskCount.call();
+        assert(taskId <= count, `Task with ID ${taskId} not found`);
+      }
+      return true;
+    };
   }
   // eslint-disable-next-line class-methods-use-this
-  getOutputValues(
+  _getOutputValues(
     [
       specificationHash,
       deliverableHash,
