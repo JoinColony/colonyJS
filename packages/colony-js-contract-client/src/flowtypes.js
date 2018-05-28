@@ -57,11 +57,17 @@ export type ContractClientConstructorArgs = {
   query: Query,
 };
 
+export type ValidateEmpty = (
+  outputValues: Object | null,
+  inputValues: Object | null,
+) => Promise<boolean>;
+
 export type ContractMethodArgs<IContractClient: ContractClient> = {
   client: IContractClient,
   functionName: string,
   input: ParamTypePairs,
   output?: ParamTypePairs,
+  validateEmpty?: ValidateEmpty,
 };
 
 export type ContractMethodSenderArgs<IContractClient: ContractClient> = {
