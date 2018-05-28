@@ -96,7 +96,7 @@ const json = op.toJSON();
 We can restore this elsewhere with the appropriate `MultisigSender`:
 
 ```js
-const op = colonyClient.setTaskBrief.restoreOperation(json);
+const op = await colonyClient.setTaskBrief.restoreOperation(json);
 // -> MultisigOperation (with the same parameters and the first signature already in place)
 ```
 
@@ -165,7 +165,7 @@ console.log(secondOp._nonce); // 2
 console.log(firstOp.missingSignees); // ['0x...', '0x...']
 ```
 
-It's worth noting that sending an operation will always trigger a refresh first, so this can reset the (now invalid) signers.
+It's worth noting that starting a new operation or sending an existing operation will always trigger a refresh first, so this can reset the (now invalid) signers.
 
 If desired, we can make the resetting of signers more explicit by attaching a callback:
 
