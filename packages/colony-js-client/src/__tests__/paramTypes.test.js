@@ -1,0 +1,73 @@
+/* eslint-env jest */
+/* eslint-disable no-underscore-dangle */
+
+import BigNumber from 'bn.js';
+import ContractClient from '@colony/colony-js-contract-client';
+import createSandbox from 'jest-sandbox';
+
+import '../paramTypes';
+import { ROLES, WORKER_ROLE, EVALUATOR_ROLE, MANAGER_ROLE } from '../constants';
+
+describe('Custom param types', () => {
+  const sandbox = createSandbox();
+
+  const contract = {};
+  const adapter = {};
+
+  beforeEach(() => {
+    sandbox.clear();
+  });
+
+  const client = new ContractClient({ contract, adapter });
+
+  client.addCaller('getRole', {
+    input: [['role', 'role']],
+    output: [['role', 'role']],
+  });
+
+  test('Custom type "role" validates correctly', () => {
+    expect(client.getRole.validate({ role: WORKER_ROLE })).toBe(true);
+    expect(client.getRole.validate({ role: EVALUATOR_ROLE })).toBe(true);
+    expect(client.getRole.validate({ role: MANAGER_ROLE })).toBe(true);
+
+    expect(() => {
+      client.getRole.validate({ role: 'QUEEN_ANT 🐜👑' }); // "Thants"
+    }).toThrowError('expected a value of type "role"');
+  });
+  test('Custom type "role" converts input correctly', () => {
+    expect(client.getRole._parseInputValues({ role: WORKER_ROLE })).toEqual([
+      ROLES.WORKER,
+    ]);
+    expect(client.getRole._parseInputValues({ role: EVALUATOR_ROLE })).toEqual([
+      ROLES.EVALUATOR,
+    ]);
+    expect(client.getRole._parseInputValues({ role: MANAGER_ROLE })).toEqual([
+      ROLES.MANAGER,
+    ]);
+  });
+  test('Custom type "role" converts output correctly', () => {
+    expect(
+      client.getRole._getOutputValues(new BigNumber(ROLES.WORKER)),
+    ).toEqual({
+      role: WORKER_ROLE,
+    });
+    expect(
+      client.getRole._getOutputValues(new BigNumber(ROLES.EVALUATOR)),
+    ).toEqual({
+      role: EVALUATOR_ROLE,
+    });
+    expect(
+      client.getRole._getOutputValues(new BigNumber(ROLES.MANAGER)),
+    ).toEqual({
+      role: MANAGER_ROLE,
+    });
+    // Bad/missing output values should be null
+    expect(client.getRole._getOutputValues(new BigNumber(4))).toEqual({
+      role: null,
+    });
+    expect(client.getRole._getOutputValues('WORKER_ANT 🐜👑')).toEqual({
+      role: null, // "Blants"
+    });
+    expect(client.getRole._getOutputValues()).toEqual({ role: null });
+  });
+});

@@ -9,9 +9,10 @@ import type { ContractClientConstructorArgs } from '@colony/colony-js-contract-c
 
 import ColonyNetworkClient from '../ColonyNetworkClient/index';
 import GetTask from './callers/GetTask';
-import { ROLES } from '../constants';
+import { ROLES, WORKER_ROLE, EVALUATOR_ROLE, MANAGER_ROLE } from '../constants';
 
 type Address = string;
+type Role = $Keys<typeof ROLES>;
 
 export default class ColonyClient extends ContractClient {
   networkClient: ColonyNetworkClient;
@@ -97,7 +98,7 @@ export default class ColonyClient extends ContractClient {
   getTaskPayout: ColonyClient.Caller<
     {
       taskId: number, // Integer taskId
-      role: number, // Role the payout is specified for
+      role: Role, // Role the payout is specified for: MANAGER, EVALUATOR, or WORKER
       token: Address, // Address of the token's contract
     },
     {
@@ -111,7 +112,7 @@ export default class ColonyClient extends ContractClient {
   getTaskRole: ColonyClient.Caller<
     {
       taskId: number, // Integer taskId
-      role: number, // Role
+      role: Role, // MANAGER, EVALUATOR, or WORKER
     },
     {
       address: Address, // Address of the user for the given role
@@ -139,7 +140,7 @@ export default class ColonyClient extends ContractClient {
   getTaskWorkRatingSecret: ColonyClient.Caller<
     {
       taskId: number, // Integer taskId
-      role: number, // Role that submitted the rating
+      role: Role, // Role that submitted the rating: MANAGER, EVALUATOR, or WORKER
     },
     {
       secret: string, // the hashed rating (equivalent to the output of `keccak256(_salt, _rating)`).
@@ -260,7 +261,7 @@ export default class ColonyClient extends ContractClient {
   setTaskRoleUser: ColonyClient.Sender<
     {
       taskId: number, // Integer taskId
-      role: number, // MANAGER (`0`), EVALUATOR (`1`), or WORKER (`2`)
+      role: Role, // MANAGER, EVALUATOR, or WORKER
       user: Address, // address of the user
     },
     {},
@@ -330,7 +331,7 @@ export default class ColonyClient extends ContractClient {
   submitTaskWorkRating: ColonyClient.Sender<
     {
       taskId: number, // Integer taskId
-      role: number, // The role submitting their rating, either EVALUATOR (`1`) or WORKER (`2`)
+      role: Role, // The role submitting their rating, either EVALUATOR or WORKER
       ratingSecret: string, // hidden work rating, generated as the output of `generateSecret(_salt, _rating)`, where `_rating` is a score from 0-50 (in increments of 10).
     },
     {},
@@ -342,7 +343,7 @@ export default class ColonyClient extends ContractClient {
   revealTaskWorkRating: ColonyClient.Sender<
     {
       taskId: number, // Integer taskId
-      role: number, // Role revealing their rating submission, either EVALUATOR (`1`) or WORKER (`2`)
+      role: Role, // Role revealing their rating submission, either EVALUATOR or WORKER
       rating: number, // Rating scored 0-50 in increments of 10 (e.g. 10, 20, 30, 40 or 50).
       salt: string, // `_salt` value to be used in `generateSecret`. A correct value will result in the same `ratingSecret` submitted during the work rating submission period.
     },
@@ -385,7 +386,7 @@ export default class ColonyClient extends ContractClient {
   claimPayout: ColonyClient.Sender<
     {
       taskId: number, // Integer taskId
-      role: number, // Role of the contributor claiming the payout.
+      role: Role, // Role of the contributor claiming the payout: MANAGER, EVALUATOR, or WORKER
       token: Address, // Address of the token contract
     },
     {},
@@ -555,11 +556,11 @@ export default class ColonyClient extends ContractClient {
       output: [['count', 'number']],
     });
     this.addCaller('getTaskPayout', {
-      input: [['taskId', 'number'], ['role', 'number'], ['token', 'address']],
+      input: [['taskId', 'number'], ['role', 'role'], ['token', 'address']],
       output: [['amount', 'bignumber']],
     });
     this.addCaller('getTaskRole', {
-      input: [['taskId', 'number'], ['role', 'number']],
+      input: [['taskId', 'number'], ['role', 'role']],
       output: [
         ['address', 'address'],
         ['rated', 'boolean'],
@@ -571,7 +572,7 @@ export default class ColonyClient extends ContractClient {
       output: [['count', 'number'], ['timestamp', 'number']],
     });
     this.addCaller('getTaskWorkRatingSecret', {
-      input: [['taskId', 'number'], ['role', 'number']],
+      input: [['taskId', 'number'], ['role', 'role']],
       output: [['secret', 'string']],
     });
     this.addCaller('getToken', {
@@ -616,7 +617,7 @@ export default class ColonyClient extends ContractClient {
       input: [['token', 'address']],
     });
     this.addSender('claimPayout', {
-      input: [['token', 'address'], ['role', 'number'], ['token', 'address']],
+      input: [['token', 'address'], ['role', 'role'], ['token', 'address']],
     });
     this.addSender('createTask', {
       functionName: 'makeTask',
@@ -657,7 +658,7 @@ export default class ColonyClient extends ContractClient {
     this.addSender('revealTaskWorkRating', {
       input: [
         ['taskId', 'number'],
-        ['role', 'number'],
+        ['role', 'role'],
         ['rating', 'number'],
         ['salt', 'string'],
       ],
@@ -666,8 +667,7 @@ export default class ColonyClient extends ContractClient {
       input: [['taskId', 'number'], ['domainId', 'number']],
     });
     this.addSender('setTaskRoleUser', {
-      // TODO consider making this sender more convenient
-      input: [['taskId', 'number'], ['role', 'number'], ['user', 'address']],
+      input: [['taskId', 'number'], ['role', 'role'], ['user', 'address']],
     });
     this.addSender('setTaskSkill', {
       input: [['taskId', 'number'], ['skillId', 'number']],
@@ -684,7 +684,7 @@ export default class ColonyClient extends ContractClient {
     this.addSender('submitTaskWorkRating', {
       input: [
         ['taskId', 'number'],
-        ['role', 'number'],
+        ['role', 'role'],
         ['ratingSecret', 'string'],
       ],
     });
@@ -695,7 +695,7 @@ export default class ColonyClient extends ContractClient {
         input: [['taskId', 'number'], ...input],
         getRequiredSignees: async ({ taskId }: { taskId: number }) => {
           const taskRoles = await Promise.all(
-            [ROLES.MANAGER, ROLES.EVALUATOR, ROLES.WORKER].map(role =>
+            [WORKER_ROLE, EVALUATOR_ROLE, MANAGER_ROLE].map(role =>
               this.getTaskRole.call({ taskId, role }),
             ),
           );
