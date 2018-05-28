@@ -112,7 +112,7 @@ export default class ColonyNetworkClient extends ContractClient {
   */
   getSkill: ColonyNetworkClient.Caller<
     {
-      id: number, // skillId to be checked
+      skillId: number, // skillId to be checked
     },
     {
       nParents: number, // Number of parent skills
@@ -315,7 +315,7 @@ export default class ColonyNetworkClient extends ContractClient {
       output: [['count', 'number']],
     });
     this.addCaller('getSkill', {
-      input: [['id', 'number']],
+      input: [['skillId', 'number']],
       output: [['nParents', 'number'], ['nChildren', 'number']],
     });
     this.addCaller('getSkillCount', {
