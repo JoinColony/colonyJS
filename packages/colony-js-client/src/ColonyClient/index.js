@@ -33,6 +33,19 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
+    Gets the selected domain's local skill ID and funding pot ID
+  */
+  getDomain: ColonyClient.Caller<
+    {
+      domainId: number, // ID of the domain
+    },
+    {
+      localSkillId: number, // The domain's local skill ID
+      potId: number, // The domain's funding pot ID
+    },
+    ColonyClient,
+  >;
+  /*
     Gets the total number of domains in a Colony. This number equals the last `domainId` created.
   */
   getDomainCount: ColonyClient.Caller<
@@ -560,6 +573,16 @@ export default class ColonyClient extends ContractClient {
     this.addCaller('generateSecret', {
       input: [['salt', 'string'], ['value', 'bignumber']],
       output: [['secret', 'string']],
+    });
+    this.addCaller('getDomain', {
+      input: [['domainId', 'number']],
+      output: [['localSkillId', 'number'], ['potId', 'number']],
+      validateEmpty: async ({ domainId }: { domainId: number }) => {
+        const { count } = await this.getDomainCount.call();
+        if (domainId > count)
+          throw new Error(`Domain ID ${domainId} not found`);
+        return true;
+      },
     });
     this.addCaller('getDomainCount', {
       output: [['count', 'number']],
