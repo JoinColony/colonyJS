@@ -73,7 +73,7 @@ const response = await networkClient.createColony.send({
 });
 // -> {
 //      successful: true,
-//      eventData: { colonyId: 21 },
+//      eventData: { colonyId: 21, colonyAddress: '0x...' },
 //      meta: {
 //        receipt: { /* ...receipt properties  */ },
 //        transaction: { /* ...transaction properties  */ },
@@ -112,6 +112,7 @@ With `waitForMining: true` (the default behaviour):
   // was executed.
   eventData: {
     colonyId: 2,
+    colonyAddress: '0xe2D17cA03387f6DaFbA77FaA3De5F6cf41E371Fe',
   },
 
   // Metadata for the transaction

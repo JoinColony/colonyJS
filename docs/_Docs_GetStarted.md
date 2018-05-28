@@ -13,11 +13,19 @@ Using colonyJS, you can query the blockchain for information about tasks, create
 ## Getting Started
 First of all, we will need to set up some prerequisites (clients for the Colony Network and for a specific Colony).
 
+### Colony Network
+
+You can learn about how to install the Colony Network contracts [here](/colonynetwork/docs-get-started/). It's important to note that the recommended commit to clone is currently [`ce9811a`](https://github.com/JoinColony/colonyNetwork/commit/ce9811a9f0fca53d9ab417d5fc24bbcf29c351c8).
+
+### Libraries
+
 If you haven't done so already, add the required libraries to your project with `yarn`:
 
 ```bash
 yarn add @colony/colony-js-client @colony/colony-js-adapter-ethers @colony/colony-js-contract-loader-http @colony/colony-wallet
 ```
+
+### Example
 
 For your application to be able to communicate with colony, you'll need to configure a [Loader](/colonyjs/docs-loaders/) to read contracts, an [Adapter](/colonyjs/docs-adapters/) to communicate with the blockchain, and a wallet to be able to send transactions that require a signature.
 
@@ -40,7 +48,6 @@ const adapter = new EthersAdapter({ loader, provider, wallet });
 const networkClient = new ColonyNetworkClient({ adapter });
 await networkClient.init();
 
-
 ```
 
 You'll need to either create a new colony or talk to an existing one.
@@ -53,15 +60,23 @@ const colonyData = {
 };
 
 // Create a cool Colony!
-const { eventData: { colonyId }} = await networkClient.createColony.send(colonyData);
+const { eventData: { colonyId, colonyAddress }} = await networkClient.createColony.send(colonyData);
 
 // Congrats, you've created a Colony!
-console.log(colonyId);
+console.log(colonyId, colonyAddress);
 ```
 
 ```js
-// For a colony that exists already, you just need its name
-const colonyClient = await networkClient.getColonyClient({ key: 'MyCoolColony' });
+// For a colony that exists already, you just need its ID:
+const colonyClient = await networkClient.getColonyClient(colonyId);
+
+// Or alternatively, just its address:
+const colonyClient = await networkClient.getColonyClientByAddress(colonyAddress);
+```
+
+```js
+// You can also get the Meta Colony:
+const metaColonyClient = await networkClient.getMetaColonyClient();
 ```
 
 
@@ -98,14 +113,14 @@ After the task has been created, the task may be modified to include additional 
 // Set the manager
 await colonyClient.setTaskRoleUser.send({
   taskId: 1,
-  role: ROLES.MANAGER,
+  role: 'MANAGER',
   user: 'wallet address of manager',
 });
 
 // Set the worker
 await colonyClient.setTaskRoleUser.send({
   taskId: 1,
-  role: ROLES.WORKER,
+  role: 'WORKER',
   user: 'wallet address of worker',
 });
 
@@ -149,7 +164,7 @@ const ratingSecret = await colonyClient.generateSecret.call({ salt, rating });
 
 await colonyClient.submitTaskWorkRating.send({
   taskId: 1
-  role: ROLES.WORKER,
+  role: 'WORKER',
   ratingSecret,
 });
 ```
@@ -159,7 +174,7 @@ await colonyClient.submitTaskWorkRating.send({
 ```js
 await colonyClient.revealTaskWorkRating.send({
   taskId: 1,
-  role: ROLES.WORKER,
+  role: 'WORKER',
   rating,
   salt,
 });
@@ -186,7 +201,7 @@ await colonyClient.finalizeTask.send({
 
 await colonyClient.claimPayout.send({
   taskId: 1,
-  role: ROLES.WORKER,
+  role: 'WORKER',
   token: 'token contract address',
 });
 ```
