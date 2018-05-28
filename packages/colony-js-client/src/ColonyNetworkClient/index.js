@@ -2,6 +2,7 @@
 
 import assert from 'browser-assert';
 import { utf8ToHex } from 'web3-utils';
+import { isValidAddress } from '@colony/colony-js-utils';
 import BigNumber from 'bn.js';
 
 import ContractClient from '@colony/colony-js-contract-client';
@@ -261,7 +262,8 @@ export default class ColonyNetworkClient extends ContractClient {
 
     const { address } = await this.getColony.call({ id });
 
-    if (!address) throw new Error(`Colony with ID ${id} could not be found`);
+    if (!isValidAddress(address))
+      throw new Error(`Colony with ID ${id} could not be found`);
 
     return address;
   }
@@ -270,6 +272,10 @@ export default class ColonyNetworkClient extends ContractClient {
    */
   async getMetaColonyClient() {
     const { address } = await this.getMetaColonyAddress.call();
+
+    if (!isValidAddress(address))
+      throw new Error(`Meta Colony could not be found`);
+
     return this.getColonyClientByAddress(address);
   }
   initializeContractMethods() {
