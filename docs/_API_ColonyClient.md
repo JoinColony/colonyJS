@@ -146,7 +146,7 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|amount|number|Amount of specified tokens to payout for that task and a role|
+|amount|BigNumber|Amount of specified tokens to payout for that task and a role|
 
 ### `getTaskRole.call({ taskId, role })`
 
@@ -224,7 +224,7 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|balance|number|Balance for token `token` in pot `potId`|
+|balance|BigNumber|Balance for token `token` in pot `potId`|
 
 ### `getNonRewardPotsTotal.call({ address })`
 
@@ -242,7 +242,7 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|total|number|All tokens that are not within the colony's `rewards` pot.|
+|total|BigNumber|All tokens that are not within the colony's `rewards` pot.|
 
 ### `getRewardPayoutInfo.call({ payoutId })`
 
@@ -261,11 +261,11 @@ A promise which resolves to an object containing the following properties:
 |Return value|Type|Description|
 |---|---|---|
 |blockNumber|number|Block number at the time of creation|
-|remainingTokenAmount|number|Remaining (unclaimed) amount of tokens|
+|remainingTokenAmount|BigNumber|Remaining (unclaimed) amount of tokens|
 |reputationRootHash|string|Reputation root hash at the time of creation|
 |tokenAddress|Address|Token address|
-|totalTokenAmountForRewardPayout|number|Total amount of tokens taken aside for reward payout|
-|totalTokens|number|Total colony tokens at the time of creation|
+|totalTokenAmountForRewardPayout|BigNumber|Total amount of tokens taken aside for reward payout|
+|totalTokens|BigNumber|Total colony tokens at the time of creation|
 
 ### `getToken.call()`
 
@@ -567,7 +567,7 @@ Move a given amount of `token` funds from one pot to another
 |---|---|---|
 |fromPot|number|Origin pot Id|
 |toPot|number|Destination pot Id|
-|amount|number|Amount of funds to move|
+|amount|BigNumber|Amount of funds to move|
 |address|Address|Address of the token contract|
 
 **Returns**
@@ -687,7 +687,7 @@ Sets the payout given to the EVALUATOR role when the task is finalized.
 |---|---|---|
 |taskId|number|Integer taskId|
 |token|Address|Address of the token's ERC20 contract.|
-|amount|number|Amount to be paid.|
+|amount|BigNumber|Amount to be paid.|
 
 **Returns**
 
@@ -705,7 +705,7 @@ Sets the payout given to the MANAGER role when the task is finalized.
 |---|---|---|
 |taskId|number|Integer taskId|
 |token|Address|Address of the token's ERC20 contract.|
-|amount|number|Amount to be paid.|
+|amount|BigNumber|Amount to be paid.|
 
 **Returns**
 
@@ -723,7 +723,7 @@ Sets the payout given to the WORKER role when the task is finalized.
 |---|---|---|
 |taskId|number|Integer taskId|
 |token|Address|Address of the token's ERC20 contract.|
-|amount|number|Amount to be paid.|
+|amount|BigNumber|Amount to be paid.|
 
 **Returns**
 
