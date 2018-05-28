@@ -95,44 +95,29 @@ describe('EthersAdapter', () => {
     });
   });
 
-  const successEventOne = {
-    event: 'MySuccessEventOne',
+  const eventOne = {
+    event: 'MyEventOne',
     transactionHash,
     args: { one: 1 },
   };
-  const successEventTwo = {
-    event: 'MySuccessEventTwo',
+  const eventTwo = {
+    event: 'MyEventTwo',
     transactionHash,
     args: { two: 2 },
   };
-  const errorEvent = {
-    event: 'MyErrorEvent',
-    transactionHash,
-    args: { errorOne: 'Value from MyErrorEvent' },
-  };
 
   const createEvents = (contract1, contract2) => ({
-    success: {
-      MySuccessEventOne: {
-        contract: contract1,
-        handler: sandbox
-          .fn()
-          .mockImplementation(({ one }) => ({ one: one + 100 })),
-      },
-      MySuccessEventTwo: {
-        contract: contract2,
-        handler: sandbox
-          .fn()
-          .mockImplementation(({ two }) => ({ two: two + 200 })),
-      },
+    MyEventOne: {
+      contract: contract1,
+      handler: sandbox
+        .fn()
+        .mockImplementation(({ one }) => ({ one: one + 100 })),
     },
-    error: {
-      MyErrorEvent: {
-        contract: contract1,
-        handler: sandbox.fn().mockImplementation(() => {
-          throw new Error('MyErrorEvent');
-        }),
-      },
+    MyEventTwo: {
+      contract: contract2,
+      handler: sandbox
+        .fn()
+        .mockImplementation(({ two }) => ({ two: two + 200 })),
     },
   });
 
@@ -149,16 +134,16 @@ describe('EthersAdapter', () => {
       timeoutMs: 1000,
     });
 
-    // getEventPromises should be called for error and success events
-    expect(adapter.constructor.getEventPromises).toHaveBeenCalledTimes(2);
+    // getEventPromises should be called for events
+    expect(adapter.constructor.getEventPromises).toHaveBeenCalledTimes(1);
 
     expect(contract.removeListener).toHaveBeenCalledTimes(0);
 
     // Events should have been added and removed for each of the events
-    expect(contract.addListener).toHaveBeenCalledTimes(3);
+    expect(contract.addListener).toHaveBeenCalledTimes(2);
 
-    contract._dispatchEvent(successEventOne);
-    contract._dispatchEvent(successEventTwo);
+    contract._dispatchEvent(eventOne);
+    contract._dispatchEvent(eventTwo);
 
     // removeListener should be fired on each event callback
     expect(contract.removeListener).toHaveBeenCalledTimes(2);
@@ -169,7 +154,7 @@ describe('EthersAdapter', () => {
     await eventDataPromise;
 
     expect(contract.addListener).toHaveBeenCalledTimes(0);
-    expect(contract.removeListener).toHaveBeenCalledTimes(3);
+    expect(contract.removeListener).toHaveBeenCalledTimes(2);
   });
 
   test('Event data is collected properly', async () => {
@@ -180,8 +165,8 @@ describe('EthersAdapter', () => {
       timeoutMs: 1000,
     });
 
-    contract._dispatchEvent(successEventOne);
-    contract._dispatchEvent(successEventTwo);
+    contract._dispatchEvent(eventOne);
+    contract._dispatchEvent(eventTwo);
 
     const eventData = await eventDataPromise;
 
@@ -200,42 +185,12 @@ describe('EthersAdapter', () => {
       timeoutMs: 1000,
     });
 
-    contract1._dispatchEvent(successEventOne);
-    contract2._dispatchEvent(successEventTwo);
+    contract1._dispatchEvent(eventOne);
+    contract2._dispatchEvent(eventTwo);
 
     const eventData = await eventDataPromise;
 
     expect(eventData).toMatchObject({ one: 101, two: 202 });
-  });
-
-  test('Error events remove event listeners', async () => {
-    const contract = await adapter.getContract({ name: 'myContractName' });
-    sandbox.spyOn(contract, 'removeListener');
-
-    const eventDataPromise = adapter.getEventData({
-      events: createEvents(contract, contract),
-      transactionHash,
-      timeoutMs: 1000,
-    });
-
-    // Ordinarily, _dispatchEvent would not be called from the top-level
-    // such as this example, so we need to use a try/catch for it
-    try {
-      contract._dispatchEvent(successEventOne);
-      contract._dispatchEvent(errorEvent); // will throw here
-    } catch (error) {
-      expect(error.message).toMatch('MyErrorEvent');
-    }
-    contract._dispatchEvent(successEventTwo);
-
-    // removeListener should be called on each event callback
-    expect(contract.removeListener).toHaveBeenCalledTimes(3);
-
-    contract.removeListener.mockReset();
-
-    await eventDataPromise;
-
-    expect(contract.removeListener).toHaveBeenCalledTimes(3);
   });
 
   test('Timeouts remove event listeners', async () => {
@@ -257,7 +212,7 @@ describe('EthersAdapter', () => {
     expect(contract._dispatchEvent).toHaveBeenCalledTimes(0);
 
     // those removed by iterating through the listeners + each individually on timeout
-    expect(contract.removeListener).toHaveBeenCalledTimes(6);
+    expect(contract.removeListener).toHaveBeenCalledTimes(4);
   });
 
   test('getTransactionReceipt', async () => {

@@ -220,10 +220,8 @@ describe('ContractClient', () => {
 
     const params = {
       events: {
-        success: {
-          myEvent({ myEventValue }) {
-            return { myEventValue };
-          },
+        myEvent({ myEventValue }) {
+          return { myEventValue };
         },
       },
     };
