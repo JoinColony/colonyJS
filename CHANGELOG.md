@@ -2,6 +2,9 @@
 
 ## v.NEXT
 
+
+## v1.1.1
+
 **Bug fixes**
 
 * Fixed the documentation site link in the `README`
