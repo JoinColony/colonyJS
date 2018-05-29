@@ -2,6 +2,10 @@
 
 ## v.NEXT
 
+**Maintenance**
+
+* Update `ethers` to `3.0.17` (`@colony/colony-js-adapter-ethers)`
+
 **Bug fixes**
 
 * Fix `ROLES` values to reflect contracts (`@colony/colony-js-client`)
