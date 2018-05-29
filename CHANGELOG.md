@@ -3,6 +3,10 @@
 ## v.NEXT
 
 
+## v1.1.2
+
+* Bumped versions of packages/interdependencies
+
 ## v1.1.1
 
 **Bug fixes**
