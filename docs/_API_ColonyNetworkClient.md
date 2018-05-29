@@ -98,7 +98,7 @@ Gets the Meta Colony as an initialized ColonyClient
   
 ## Callers
 
-**All callers return promises which resolve to an object containing the given return values.** For a reference please check [here](/colonyjs/docs-contract-client/#callers).
+**All callers return promises which resolve to an object containing the given return values.** For a reference please check [here](/colonyjs/docs-contractclient/#callers).
 
 ### `getColony.call({ id })`
 
@@ -283,7 +283,7 @@ A promise which resolves to an object containing the following properties:
   
 ## Senders
 
-**All senders return an instance of a `ContractResponse`.** Every `send()` method takes an `options` object as the second argument. For a reference please check [here](/colonyjs/docs-contract-client/#senders).
+**All senders return an instance of a `ContractResponse`.** Every `send()` method takes an `options` object as the second argument. For a reference please check [here](/colonyjs/docs-contractclient/#senders).
 ### `createColony.send({ tokenAddress }, options)`
 
 Creates a new colony on the network.
