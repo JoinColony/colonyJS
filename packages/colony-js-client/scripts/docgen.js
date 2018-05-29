@@ -91,7 +91,7 @@ function printCallers(callers) {
   return `
 ## Callers
 
-**All callers return promises which resolve to an object containing the given return values.** For a reference please check [here](/colonyjs/docs-contract-client/#callers).
+**All callers return promises which resolve to an object containing the given return values.** For a reference please check [here](/colonyjs/docs-contractclient/#callers).
 ` +
     callers
       .map(
@@ -117,7 +117,7 @@ function printSenders(senders) {
   return `
 ## Senders
 
-**All senders return an instance of a \`ContractResponse\`.** Every \`send()\` method takes an \`options\` object as the second argument. For a reference please check [here](/colonyjs/docs-contract-client/#senders).` +
+**All senders return an instance of a \`ContractResponse\`.** Every \`send()\` method takes an \`options\` object as the second argument. For a reference please check [here](/colonyjs/docs-contractclient/#senders).` +
     senders
       .map(
         sender => `

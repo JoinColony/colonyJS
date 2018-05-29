@@ -23,7 +23,7 @@ const colonyClient = await networkClient.getColonyClient({ key: 'My Colony' }); 
   
 ## Callers
 
-**All callers return promises which resolve to an object containing the given return values.** For a reference please check [here](/colonyjs/docs-contract-client/#callers).
+**All callers return promises which resolve to an object containing the given return values.** For a reference please check [here](/colonyjs/docs-contractclient/#callers).
 
 ### `generateSecret.call({ salt, value })`
 
@@ -316,7 +316,7 @@ A promise which resolves to an object containing the following properties:
   
 ## Senders
 
-**All senders return an instance of a `ContractResponse`.** Every `send()` method takes an `options` object as the second argument. For a reference please check [here](/colonyjs/docs-contract-client/#senders).
+**All senders return an instance of a `ContractResponse`.** Every `send()` method takes an `options` object as the second argument. For a reference please check [here](/colonyjs/docs-contractclient/#senders).
 ### `createTask.send({ specificationHash, domainId }, options)`
 
 Creates a new task by invoking `makeTask` on-chain.
