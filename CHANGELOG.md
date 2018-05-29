@@ -2,6 +2,9 @@
 
 ## v.NEXT
 
+**Bug fixes**
+
+* Fix `ROLES` values to reflect contracts (`@colony/colony-js-client`)
 
 ## v1.1.2
 

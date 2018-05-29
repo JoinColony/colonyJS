@@ -5,7 +5,7 @@ export const EVALUATOR_ROLE = 'EVALUATOR';
 export const MANAGER_ROLE = 'MANAGER';
 
 export const ROLES = {
-  [WORKER_ROLE]: 0,
+  [MANAGER_ROLE]: 0,
   [EVALUATOR_ROLE]: 1,
-  [MANAGER_ROLE]: 2,
+  [WORKER_ROLE]: 2,
 };
