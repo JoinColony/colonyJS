@@ -61,7 +61,8 @@ const PARAM_TYPE_MAP: {
       return typeof value === 'string' && value.length ? value : null;
     },
     convertInput(value: string) {
-      return isHex(value) ? utf8ToHex(value) : value;
+      // String values are converted to hex (if they aren't hex already)
+      return isHex(value) ? value : utf8ToHex(value);
     },
   },
 };

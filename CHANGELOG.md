@@ -2,6 +2,10 @@
 
 ## v.NEXT
 
+**Bug fixes**
+
+* Fixed the documentation site link in the `README`
+* Fixed a bug where string input values were not converted properly (`@colony/colony-js-contract-client`)
 
 ## v1.1.0
 

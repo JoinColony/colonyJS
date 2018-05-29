@@ -131,16 +131,17 @@ describe('Parameter types', () => {
 
     // Converting input values
     isHex.mockReturnValueOnce(true);
-    expect(convertInputValue('a', 'string')).toBe('a');
-    expect(isHex).toHaveBeenCalledWith('a');
-    expect(utf8ToHex).toHaveBeenCalledWith('a');
+    expect(convertInputValue('0x123', 'string')).toBe('0x123');
+    expect(isHex).toHaveBeenCalledWith('0x123');
+    expect(utf8ToHex).not.toHaveBeenCalledWith();
     isHex.mockClear();
     utf8ToHex.mockClear();
 
     isHex.mockReturnValueOnce(false);
-    expect(convertInputValue('a', 'string')).toBe('a');
-    expect(isHex).toHaveBeenCalledWith('a');
-    expect(utf8ToHex).not.toHaveBeenCalled();
+    utf8ToHex.mockReturnValueOnce('0x123');
+    expect(convertInputValue('not a hex value', 'string')).toBe('0x123');
+    expect(isHex).toHaveBeenCalledWith('not a hex value');
+    expect(utf8ToHex).toHaveBeenCalledWith('not a hex value');
   });
 
   test('Adding param types', () => {
