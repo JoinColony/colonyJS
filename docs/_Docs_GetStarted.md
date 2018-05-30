@@ -22,7 +22,7 @@ You can learn about how to install the Colony Network contracts [here](/colonyne
 If you haven't done so already, add the required libraries to your project with `yarn`:
 
 ```bash
-yarn add @colony/colony-js-client @colony/colony-js-adapter-ethers @colony/colony-js-contract-loader-http @colony/colony-wallet
+yarn add @colony/colony-js-client @colony/colony-js-adapter-ethers @colony/colony-js-contract-loader-http ethers
 ```
 
 ### Example
@@ -36,11 +36,16 @@ import EthersAdapter from '@colony/colony-js-adapter-ethers';
 
 import { TrufflepigLoader } from '@colony/colony-js-contract-loader-http';
 
-import { software as wallet } from 'colony-wallet/wallets';
-import { localhost } from 'colony-wallet/providers';
+import { providers, Wallet } from 'ethers';
 
 const loader = new TrufflepigLoader();
-const provider = localhost('http://localhost:8545/');
+const provider = new providers.JsonRpcProvider(
+  'http://localhost:8545/',
+  'homestead',
+);
+
+const wallet = new Wallet.createRandom();
+wallet.provider = provider;
 
 const adapter = new EthersAdapter({ loader, provider, wallet });
 
