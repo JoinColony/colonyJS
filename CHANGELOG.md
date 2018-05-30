@@ -2,6 +2,9 @@
 
 ## v.NEXT
 
+
+## v.1.1.3
+
 **Enhancements**
 
 * The nonce value is now carried through when serializing and restoring MultisigOperations (`@colony/colony-js-contract-client)`
