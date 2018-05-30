@@ -56,7 +56,7 @@
         "@colony/colony-js-contract-loader-http": "^1.1.2",
         "@colony/colony-js-utils": "^1.1.2",
         "babel-runtime": "^6.26.0",
-        "ethers": "^3.0.3"
+        "ethers": "^3.0.17"
     },
     "devDependencies": {
         "flow-bin": "^0.72.0",
