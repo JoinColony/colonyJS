@@ -9,6 +9,7 @@
 **Maintenance**
 
 * Update `ethers` to `3.0.17` (`@colony/colony-js-adapter-ethers)`
+* Use `fixed` mode in `lerna.json` (see [here](https://github.com/lerna/lerna#fixedlocked-mode-default))
 
 **Bug fixes**
 
