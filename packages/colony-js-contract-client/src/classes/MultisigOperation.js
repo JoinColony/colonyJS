@@ -12,6 +12,7 @@ import ContractClient from './ContractClient';
 
 import type {
   CombinedSignatures,
+  MultisigOperationConstructorArgs,
   MultisigOperationPayload,
   SendOptions,
   Signature,
@@ -96,22 +97,26 @@ export default class MultisigOperation<
 
   constructor(
     sender: Sender,
-    payload: MultisigOperationPayload<InputValues>,
-    signers?: Signers = {},
-    onReset?: Function,
+    args: MultisigOperationConstructorArgs<InputValues>,
   ) {
+    const { payload, signers = {}, nonce, onReset } = args;
     this.constructor._validatePayload(payload);
     this.constructor._validateSigners(signers);
+    defaultAssert(
+      nonce == null || Number.isInteger(nonce),
+      'The optional `nonce` parameter should be an integer',
+    );
 
     this.sender = sender;
     this.payload = Object.freeze(Object.assign({}, payload));
     this._signers = signers;
     if (onReset) this._onReset = onReset;
+    if (nonce !== undefined && Number(nonce) === nonce) this._nonce = nonce;
   }
 
   toJSON() {
-    const { payload, _signers: signers } = this;
-    return JSON.stringify({ payload, signers });
+    const { _nonce: nonce, payload, _signers: signers } = this;
+    return JSON.stringify({ nonce, payload, signers });
   }
 
   /**
@@ -225,9 +230,7 @@ export default class MultisigOperation<
    * Ensure that there are no missing signees (based on the input values for
    * this operation).
    */
-  async _validateRequiredSignees() {
-    await this._refreshRequiredSignees();
-
+  _validateRequiredSignees() {
     defaultAssert(
       this.missingSignees.length === 0,
       `Missing signatures (from addresses ${this.missingSignees.join(', ')})`,
@@ -241,7 +244,7 @@ export default class MultisigOperation<
    */
   async send(options: SendOptions) {
     await this.refresh();
-    await this._validateRequiredSignees();
+    this._validateRequiredSignees();
     return this.sender.sendMultisig(this._getArgs(), options);
   }
 
@@ -277,13 +280,21 @@ export default class MultisigOperation<
    * If the nonce value has changed, `_signers` will be reset.
    */
   async refresh() {
-    await this._refreshRequiredSignees();
     await this._refreshNonce();
+    await this._refreshRequiredSignees();
     this._refreshMessageHash();
     return this;
   }
 
   async _refreshNonce() {
+    // If the nonce has not yet been set, simply set it; Don't reset signers,
+    // because we don't have a way of knowing whether they're valid or nor;
+    // assume they are still valid.
+    if (!Object.hasOwnProperty.call(this, '_nonce')) {
+      this._nonce = await this.sender.getNonce();
+      return;
+    }
+
     const oldNonce = Number(this._nonce);
     const newNonce = await this.sender.getNonce();
     if (oldNonce !== newNonce) {

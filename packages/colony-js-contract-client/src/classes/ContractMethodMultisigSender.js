@@ -11,9 +11,8 @@ import MultisigOperation from './MultisigOperation';
 import type {
   ContractMethodMultisigSenderArgs,
   GetRequiredSignees,
-  MultisigOperationPayload,
+  MultisigOperationConstructorArgs,
   SendOptions,
-  Signers,
 } from '../flowtypes';
 
 export default class ContractMethodMultisigSender<
@@ -55,12 +54,9 @@ export default class ContractMethodMultisigSender<
    * Given a payload and optional signers, start a new MultisigOperation and
    * refresh it (in order to set the required signees/nonce/etc).
    */
-  async _startOperation(
-    payload: MultisigOperationPayload<InputValues>,
-    signers?: Signers,
-  ) {
-    // This will throw an error if the payload or signers are deemed invalid.
-    const op = new MultisigOperation(this, payload, signers);
+  async _startOperation(args: MultisigOperationConstructorArgs<InputValues>) {
+    // Will throw an error if the payload, signers or nonce are deemed invalid.
+    const op = new MultisigOperation(this, args);
 
     await op.refresh();
     return op;
@@ -112,11 +108,13 @@ export default class ContractMethodMultisigSender<
     const data = this.client.createTransactionData(this.functionName, args);
 
     return this._startOperation({
-      data,
-      inputValues,
-      destinationAddress: this.client.contract.address,
-      sourceAddress: this.client.contract.address,
-      value: 0,
+      payload: {
+        data,
+        inputValues,
+        destinationAddress: this.client.contract.address,
+        sourceAddress: this.client.contract.address,
+        value: 0,
+      },
     });
   }
 
@@ -130,7 +128,7 @@ export default class ContractMethodMultisigSender<
     } catch (error) {
       throw new Error('Unable to restore operation: could not parse JSON');
     }
-    return this._startOperation(parsed.payload, parsed.signers);
+    return this._startOperation(parsed);
   }
 
   /**

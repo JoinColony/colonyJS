@@ -154,10 +154,13 @@ describe('ContractMethodMultisigSender', () => {
       },
     };
 
-    const op = await method._startOperation(payload, signers);
+    const op = await method._startOperation({ payload, signers });
 
     expect(op).toBeInstanceOf(MultisigOperation);
-    expect(MultisigOperation).toHaveBeenCalledWith(method, payload, signers);
+    expect(MultisigOperation).toHaveBeenCalledWith(
+      method,
+      expect.objectContaining({ payload, signers }),
+    );
     expect(op.refresh).toHaveBeenCalled();
   });
 
@@ -193,11 +196,13 @@ describe('ContractMethodMultisigSender', () => {
     expect(op).toBeInstanceOf(MultisigOperation);
     expect(method._startOperation).toHaveBeenCalledWith(
       expect.objectContaining({
-        data: txData,
-        destinationAddress: method.client.contract.address,
-        inputValues,
-        sourceAddress: method.client.contract.address,
-        value: 0,
+        payload: {
+          data: txData,
+          destinationAddress: method.client.contract.address,
+          inputValues,
+          sourceAddress: method.client.contract.address,
+          value: 0,
+        },
       }),
     );
   });
@@ -213,6 +218,7 @@ describe('ContractMethodMultisigSender', () => {
     });
 
     const state = {
+      nonce: 5,
       payload: {
         data: '0x123',
         destinationAddress: method.client.contract.address,
@@ -239,8 +245,7 @@ describe('ContractMethodMultisigSender', () => {
 
     expect(op).toBeInstanceOf(MultisigOperation);
     expect(method._startOperation).toHaveBeenCalledWith(
-      state.payload,
-      state.signers,
+      expect.objectContaining(state),
     );
   });
 });

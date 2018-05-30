@@ -90,7 +90,7 @@ Firstly, we'll need to export some JSON from the `MultisigOperation` we want to 
 
 ```js
 const json = op.toJSON();
-// -> "{ "payload": {...}, "signers": {...} }"
+// -> "{ "nonce": 0, "payload": {...}, "signers": {...} }"
 ```
 
 We can restore this elsewhere with the appropriate `MultisigSender`:

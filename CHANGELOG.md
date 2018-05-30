@@ -2,6 +2,10 @@
 
 ## v.NEXT
 
+**Enhancements**
+
+* The nonce value is now carried through when serializing and restoring MultisigOperations (`@colony/colony-js-contract-client)`
+
 **Maintenance**
 
 * Update `ethers` to `3.0.17` (`@colony/colony-js-adapter-ethers)`
@@ -9,6 +13,7 @@
 **Bug fixes**
 
 * Fix `ROLES` values to reflect contracts (`@colony/colony-js-client`)
+* Fixed a bug where `MultisigOperation`s erroneously had required signees reset upon restoring an operation (`@colony/colony-js-contract-client)`
 
 ## v1.1.2
 

@@ -32,7 +32,9 @@ The `MultisigOperation` instance.
 
 ### `refresh()`
 
-Refresh the required signees, nonce value and message hash. If the nonce value has changed, `_signers` will be reset.
+Refresh the nonce value, required signees, and message hash.
+
+If there was no nonce value, a new one will be set; otherwise, if the nonce value changed, the it will be updated, and the `_signers` will be reset. This is done because when the nonce values changes, the signatures that were collected will not work, and the operation will need to be re-signed by all parties.
 
 **Returns**
 

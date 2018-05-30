@@ -118,3 +118,10 @@ export type MultisigOperationPayload<InputValues> = {
   sourceAddress: string,
   value: number,
 };
+
+export type MultisigOperationConstructorArgs<InputValues> = {
+  payload: MultisigOperationPayload<InputValues>,
+  signers?: Signers,
+  nonce?: number,
+  onReset?: Function,
+};
