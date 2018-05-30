@@ -189,14 +189,11 @@ describe('MultisigOperation', () => {
     ]);
   });
 
-  test('Validating required signees (all signees present)', async () => {
+  test('Validating required signees (all signees present)', () => {
     const op = new MultisigOperation(sender, { payload, signers });
+    op._requiredSignees = Object.keys(signers);
 
-    const valid = await op._validateRequiredSignees();
-
-    expect(op.sender.getRequiredSignees).toHaveBeenCalledWith(
-      op.payload.inputValues,
-    );
+    const valid = op._validateRequiredSignees();
 
     expect(assert).toHaveBeenCalledWith(
       true,
@@ -206,7 +203,7 @@ describe('MultisigOperation', () => {
     expect(valid).toBe(true);
   });
 
-  test('Validating required signees (missing a required signee)', async () => {
+  test('Validating required signees (missing a required signee)', () => {
     const [addressOne, addressTwo, addressThree] = Object.keys(signers);
     const twoSigners = {
       [addressOne]: signers[addressOne],
@@ -214,8 +211,9 @@ describe('MultisigOperation', () => {
     };
 
     const op = new MultisigOperation(sender, { payload, signers: twoSigners });
+    op._requiredSignees = [addressOne, addressTwo, addressThree];
 
-    await op._validateRequiredSignees();
+    expect(op._validateRequiredSignees()).toBe(true);
 
     expect(assert).toHaveBeenCalledWith(
       false,

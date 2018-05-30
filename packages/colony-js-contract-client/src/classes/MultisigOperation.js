@@ -230,9 +230,7 @@ export default class MultisigOperation<
    * Ensure that there are no missing signees (based on the input values for
    * this operation).
    */
-  async _validateRequiredSignees() {
-    await this._refreshRequiredSignees();
-
+  _validateRequiredSignees() {
     defaultAssert(
       this.missingSignees.length === 0,
       `Missing signatures (from addresses ${this.missingSignees.join(', ')})`,
@@ -246,7 +244,7 @@ export default class MultisigOperation<
    */
   async send(options: SendOptions) {
     await this.refresh();
-    await this._validateRequiredSignees();
+    this._validateRequiredSignees();
     return this.sender.sendMultisig(this._getArgs(), options);
   }
 
