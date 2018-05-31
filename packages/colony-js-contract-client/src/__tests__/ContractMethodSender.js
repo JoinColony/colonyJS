@@ -219,8 +219,8 @@ describe('ContractMethodSender', () => {
   });
 
   test('Default send options', () => {
-    const A = new BigNumber(1);
-    const B = new BigNumber(100000);
+    const A = 1;
+    const B = 100000;
 
     const methodWithoutDefault = new ContractMethodSender({
       client,

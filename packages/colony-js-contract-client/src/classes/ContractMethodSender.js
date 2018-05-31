@@ -24,7 +24,7 @@ export default class ContractMethodSender<
   IContractClient: ContractClient,
 > extends ContractMethod<InputValues, OutputValues, IContractClient> {
   eventHandlers: EventHandlers;
-  _defaultGasLimit: ?BigNumber;
+  _defaultGasLimit: ?number;
 
   constructor({
     defaultGasLimit,
@@ -32,7 +32,7 @@ export default class ContractMethodSender<
     ...rest
   }: ContractMethodArgs<IContractClient> & {
     eventHandlers?: EventHandlers,
-    defaultGasLimit?: BigNumber,
+    defaultGasLimit?: number,
   }) {
     super(rest);
     if (defaultGasLimit) this._defaultGasLimit = defaultGasLimit;
