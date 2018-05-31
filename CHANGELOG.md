@@ -2,6 +2,9 @@
 
 ## v.NEXT
 
+**Documentation**
+
+* Updated the Quickstart and Get Started documentation; these guides now show how to use an `ethers` wallet, use `require` statements over `import`, and provide some additional information about prerequisites.
 
 ## v.1.1.3
 
