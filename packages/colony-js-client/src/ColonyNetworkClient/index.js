@@ -336,7 +336,7 @@ export default class ColonyNetworkClient extends ContractClient {
     // Senders
     this.addSender('createColony', {
       input: [['tokenAddress', 'address']],
-      defaultGasLimit: new BigNumber(2500000),
+      defaultGasLimit: 2500000,
       eventHandlers: {
         ColonyAdded: {
           contract: this.contract,
