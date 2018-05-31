@@ -2,11 +2,17 @@
 
 ## v.NEXT
 
+## v1.1.4
+
 **Documentation**
 
 * Updated the Quickstart and Get Started documentation; these guides now show how to use an `ethers` wallet, use `require` statements over `import`, and provide some additional information about prerequisites.
 
-## v.1.1.3
+**Bug fixes**
+
+* Define the `defaultGasLimit` property of Senders as a number as opposed to a `BigNumber` (`@colony/colony-js-contract-client`)
+
+## v1.1.3
 
 **Enhancements**
 
