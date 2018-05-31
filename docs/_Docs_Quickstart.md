@@ -38,14 +38,25 @@ npm install --save @colony/colony-js-client @colony/colony-js-adapter-ethers @co
 ## Example code
 
 ```js
-(async () => {
-  const DEFAULT_GANACHE_HOST = 'http://localhost:8545/';
+// Import the prerequisites
+const { providers, Wallet } = require('ethers');
+const { default: EthersAdapter } = require('@colony/colony-js-adapter-ethers');
+const { TrufflepigLoader } = require('@colony/colony-js-contract-loader-http');
 
-  // Get the first account's private key from Trufflepig
+// Import the ColonyNetworkClient
+const { default: ColonyNetworkClient } = require('@colony/colony-js-client');
+
+// Create an instance of the Trufflepig contract loader
+const loader = new TrufflepigLoader();
+
+// Create a provider for local TestRPC (Ganache)
+const provider = new providers.JsonRpcProvider('http://localhost:8545/');
+
+(async () => {
+  // Get the private key from the first account from the Truffle config
   const { privateKey } = await loader.getAccount(0);
 
-  // Create a provider and wallet with ethers
-  const provider = new providers.JsonRpcProvider(DEFAULT_GANACHE_HOST);
+  // Create a wallet with the private key (so we have a balance we can use)
   const wallet = new Wallet(privateKey, provider);
 
   // Create an adapter (powered by ethers)
@@ -55,18 +66,9 @@ npm install --save @colony/colony-js-client @colony/colony-js-adapter-ethers @co
     wallet,
   });
 
-  // Connect to ColonyNetwork!
+  // Connect to ColonyNetwork with the adapter!
   const networkClient = new ColonyNetworkClient({ adapter });
   await networkClient.init();
-
-  // Log networkClient in the console so we can poke around
-  console.log(networkClient);
-
-  // Get an instance of the Meta Colony!
-  const metaColonyClient = await networkClient.getMetaColonyClient();
-
-  // Log metaColonyClient in the console so we can poke around
-  console.log(metaColonyClient);
 
   // Create a new Token contract
   const tokenAddress = await networkClient.createToken({
@@ -75,9 +77,8 @@ npm install --save @colony/colony-js-client @colony/colony-js-adapter-ethers @co
   });
   console.log(`CoolonyToken contract address: ${tokenAddress}`);
 
-  // Create a cool Colony! (with a unique name)
+  // Create a cool Colony!
   const { eventData: { colonyId, colonyAddress } } = await networkClient.createColony.send({
-    name: `Coolony-${Date.now()}`,
     tokenAddress,
   });
 
@@ -87,7 +88,7 @@ npm install --save @colony/colony-js-client @colony/colony-js-adapter-ethers @co
   // We can now connect to our Colony
   const colonyClient = await networkClient.getColonyClient(colonyId);
 
-  // Log colonyClient in the console so we can poke around
-  console.log(colonyClient);
+  // We can also get an instance of the Meta Colony
+  const metaColonyClient = await networkClient.getMetaColonyClient();
 })();
 ```

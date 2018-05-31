@@ -15,68 +15,83 @@ First of all, we will need to set up some prerequisites (clients for the Colony 
 
 ### Colony Network
 
-You can learn about how to install the Colony Network contracts [here](/colonynetwork/docs-get-started/). It's important to note that the recommended commit to clone is currently [`ce9811a`](https://github.com/JoinColony/colonyNetwork/commit/ce9811a9f0fca53d9ab417d5fc24bbcf29c351c8).
+You can learn about how to install the Colony Network contracts [here](/colonynetwork/docs-get-started/). It's important to note that the recommended commit to clone is currently [`ce9811a`](https://github.com/JoinColony/colonyNetwork/commit/ce9811a9f0fca53d9ab417d5fc24bbcf29c351c8). Once the contracts are compiled and running with e.g. Ganache, you should be good to go for this guide.
 
 ### Libraries
 
 If you haven't done so already, add the required libraries to your project with `yarn`:
 
 ```bash
-yarn add @colony/colony-js-client @colony/colony-js-adapter-ethers @colony/colony-js-contract-loader-http @colony/colony-wallet
+yarn add @colony/colony-js-client @colony/colony-js-adapter-ethers @colony/colony-js-contract-loader-http ethers
 ```
+
+### Tooling
+
+You will need some means of loading the contract definitions into your app. This is easy to do with [TrufflePig](https://github.com/JoinColony/trufflepig). See our guide to [starting TrufflePig](/colonynetwork/docs-get-started/#install-and-configure-a-contract-loader-like-trufflepig).
+
+It's also beneficial to have a JavaScript environment that supports `async`/`await`, since colonyJS uses Promises extensively. Recent versions of Node and Chrome support Promises out of the box, but you may want to consider using [webpack](https://webpack.js.org/) and [Babel](https://babeljs.io/) for better support.
 
 ### Example
 
 For your application to be able to communicate with colony, you'll need to configure a [Loader](/colonyjs/docs-loaders/) to read contracts, an [Adapter](/colonyjs/docs-adapters/) to communicate with the blockchain, and a wallet to be able to send transactions that require a signature.
 
 ```js
-import ColonyNetworkClient, { ROLES } from '@colony/colony-js-client';
+// Import the prerequisites
+const { providers, Wallet } = require('ethers');
+const { default: EthersAdapter } = require('@colony/colony-js-adapter-ethers');
+const { TrufflepigLoader } = require('@colony/colony-js-contract-loader-http');
 
-import EthersAdapter from '@colony/colony-js-adapter-ethers';
+// Import the ColonyNetworkClient
+const { default: ColonyNetworkClient } = require('@colony/colony-js-client');
 
-import { TrufflepigLoader } from '@colony/colony-js-contract-loader-http';
-
-import { software as wallet } from 'colony-wallet/wallets';
-import { localhost } from 'colony-wallet/providers';
-
+// Create an instance of the Trufflepig contract loader
 const loader = new TrufflepigLoader();
-const provider = localhost('http://localhost:8545/');
 
-const adapter = new EthersAdapter({ loader, provider, wallet });
+// Create a provider for local TestRPC (Ganache)
+const provider = new providers.JsonRpcProvider('http://localhost:8545/');
 
-// Create a ColonyNetworkClient instance
-const networkClient = new ColonyNetworkClient({ adapter });
-await networkClient.init();
+// The following methods use Promises
+(async () => {
+  // Get the private key from the first account from the Truffle config
+  const { privateKey } = await loader.getAccount(0);
 
-```
+  // Create a wallet with the private key (so we have a balance we can use)
+  const wallet = new Wallet(privateKey, provider);
 
-You'll need to either create a new colony or talk to an existing one.
+  // Create an adapter (powered by ethers)
+  const adapter = new EthersAdapter({
+    loader,
+    provider,
+    wallet,
+  });
 
-```js
-// To create a new cool colony:
-const colonyData = {
-  name: 'MyCoolColony', // Unique name for the colony
-  tokenAddress: '0xf000000000000000000000000000000000000000', // Address of the colony's native token
-};
+  // Connect to ColonyNetwork with the adapter!
+  const networkClient = new ColonyNetworkClient({ adapter });
+  await networkClient.init();
 
-// Create a cool Colony!
-const { eventData: { colonyId, colonyAddress }} = await networkClient.createColony.send(colonyData);
+  // You'll need to either create a new colony or talk to an existing one.
 
-// Congrats, you've created a Colony!
-console.log(colonyId, colonyAddress);
-```
+  // To create a new cool colony:
+  const colonyData = {
+    tokenAddress: '0xf000000000000000000000000000000000000000', // Address of the colony's native token
+  };
 
-```js
-// For a colony that exists already, you just need its ID:
-const colonyClient = await networkClient.getColonyClient(colonyId);
+  // Create a cool Colony!
+  const { eventData: { colonyId, colonyAddress }} = await networkClient.createColony.send(colonyData);
 
-// Or alternatively, just its address:
-const colonyClient = await networkClient.getColonyClientByAddress(colonyAddress);
-```
+  // Congrats, you've created a Colony!
+  console.log(colonyId, colonyAddress);
 
-```js
-// You can also get the Meta Colony:
-const metaColonyClient = await networkClient.getMetaColonyClient();
+  // For a colony that exists already, you just need its ID:
+  const colonyClient = await networkClient.getColonyClient(colonyId);
+
+  // Or alternatively, just its address:
+  // const colonyClient = await networkClient.getColonyClientByAddress(colonyAddress);
+
+  // You can also get the Meta Colony:
+  const metaColonyClient = await networkClient.getMetaColonyClient();
+
+})();
 ```
 
 
