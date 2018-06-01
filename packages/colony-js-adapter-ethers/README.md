@@ -10,7 +10,7 @@ yarn add ethers @colony/colony-js-adapter-ethers
 
 ## Usage
 
-Please see [the full documentation](https://joincolony.github.io/colonyjs/api-adapters/).
+Please see [the full documentation](https://joincolony.github.io/colonyjs/docs-adapters/).
 
 
 ## Contributing
