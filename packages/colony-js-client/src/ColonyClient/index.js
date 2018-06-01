@@ -376,6 +376,17 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
+    Bootstrap the Colony by assigning the given users the given reputation/tokens (in corresponding order). This reputation is assigned in the Colony-wide domain. This can only be called by the Colony owner, and only when no tasks have been created.
+  */
+  bootstrapColony: ColonyClient.Sender<
+    {
+      users: Array<Address>, // An array of user addresses which will receive the corresponding amounts
+      amounts: Array<BigNumber>, // An array of amounts which will be given to the corresponding users
+    },
+    {},
+    ColonyClient,
+  >;
+  /*
     Cancels a task.
   */
   cancelTask: ColonyClient.Sender<
@@ -650,6 +661,16 @@ export default class ColonyClient extends ContractClient {
     });
     this.addSender('assignWorkRating', {
       input: [['taskId', 'number']],
+    });
+    this.addSender('bootstrapColony', {
+      input: [['users', 'addressArray'], ['amounts', 'bignumberArray']],
+      validate: (input: [Array<Address>, Array<BigNumber>]) => {
+        assert(
+          input[0].length === input[1].length,
+          'Validation failed: addresses and amounts must be the same size',
+        );
+        return true;
+      },
     });
     this.addSender('cancelTask', {
       input: [['taskId', 'number']],
