@@ -67,6 +67,7 @@ export type ContractMethodArgs<IContractClient: ContractClient> = {
   functionName: string,
   input: ParamTypePairs,
   output?: ParamTypePairs,
+  validate?: (input: *) => boolean,
   validateEmpty?: ValidateEmpty,
 };
 

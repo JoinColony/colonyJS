@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint-disable */
 
 const fs = require('fs');
 const path = require('path');
@@ -219,7 +220,15 @@ function formatDescription(str) {
 
 function mapType(type) {
   if (type.type === 'GenericTypeAnnotation') {
-    return TYPES[type.id.name];
+    const mappedName = TYPES[type.id.name];
+    if (mappedName) return mappedName;
+    // Parse nested parameters, e.g. `Array<Address, number>`
+    const {
+      typeParameters: {
+        params = [],
+      } = {},
+    } = type;
+    return `${type.id.name}<${params.map(mapType).join(', ')}>`;
   }
   return TYPES[type.type];
 }

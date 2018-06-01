@@ -2,6 +2,15 @@
 
 ## v.NEXT
 
+**Features**
+
+* Added `ColonyClient.bootstrapColony` Sender (`@colony/colony-js-client`)
+* Added support for custom validation functions when defining contract methods (`@colony/colony-js-contract-client`)
+
+**Documentation**
+
+* Parse the parameters of flow generics to generate documentation (`@colony/colony-js-client`)
+
 ## v1.1.4
 
 **Documentation**

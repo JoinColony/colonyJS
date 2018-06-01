@@ -78,6 +78,35 @@ describe('ContractMethod', () => {
     }).toThrowError('Parameter "id" expected a value of type "number"');
   });
 
+  test('Custom validation functions are validated against', () => {
+    const input = [['id', 'number'], ['name', 'string']];
+    const inputValues = { id: 1, name: 'Vitalik' };
+
+    const validate = sandbox.fn().mockImplementation(() => true);
+
+    const method = new ContractMethod({
+      client,
+      input,
+      functionName: 'myFunction',
+      validate,
+    });
+
+    expect(method.validate(inputValues)).toBe(true);
+    expect(validate).toHaveBeenCalledWith(expect.objectContaining(inputValues));
+
+    // Validation should fail if the custom validation fails
+    validate.mockImplementationOnce(() => {
+      throw new Error('Custom validation failed');
+    });
+    expect(() => {
+      method.validate(inputValues);
+    }).toThrowError('Custom validation failed');
+
+    // Validation should return false if the custom validation returned false
+    validate.mockImplementationOnce(() => false);
+    expect(method.validate(inputValues)).toBe(false);
+  });
+
   test('Valid values are reported as valid', () => {
     validateValue.mockImplementationOnce(() => true);
     expect(ContractMethod._validateValue(1, 'number', 'id'));

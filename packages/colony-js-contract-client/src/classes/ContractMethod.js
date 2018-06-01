@@ -27,6 +27,7 @@ export default class ContractMethod<
   functionName: string;
   input: ParamTypePairs;
   output: ParamTypePairs;
+  _validate: ?(input: any) => boolean;
 
   static _validateValue(value: any, paramType: *, paramName: string) {
     let reason;
@@ -49,10 +50,12 @@ export default class ContractMethod<
     functionName,
     input,
     output,
+    validate,
   }: ContractMethodArgs<IContractClient> = {}) {
     this.client = client;
     this.input = input;
     this.functionName = functionName;
+    this._validate = validate;
     if (output) this.output = output;
   }
 
@@ -149,12 +152,17 @@ export default class ContractMethod<
       'Mismatching parameters/method parameters sizes',
     );
 
-    return this.input.every(([paramName, paramType]) =>
+    const inputsValid = this.input.every(([paramName, paramType]) =>
       this.constructor._validateValue(
         inputValues[paramName],
         paramType,
         paramName,
       ),
     );
+
+    // Run custom validation if it is defined
+    return this._validate
+      ? inputsValid && this._validate(inputValues)
+      : inputsValid;
   }
 }

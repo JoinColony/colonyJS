@@ -458,6 +458,23 @@ An instance of a `ContractResponse`
 
 
 
+### `bootstrapColony.send({ users, amounts }, options)`
+
+Bootstrap the Colony by assigning the given users the given reputation/tokens (in corresponding order). This reputation is assigned in the Colony-wide domain. This can only be called by the Colony owner, and only when no tasks have been created.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|users|Array<Address>|An array of user addresses which will receive the corresponding amounts|
+|amounts|Array<BigNumber>|An array of amounts which will be given to the corresponding users|
+
+**Returns**
+
+An instance of a `ContractResponse`
+
+
+
 ### `cancelTask.send({ taskId }, options)`
 
 Cancels a task.
