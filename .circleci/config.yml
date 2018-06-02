@@ -11,6 +11,9 @@ jobs:
           keys:
             - v1-dependencies-{{ checksum "yarn.lock" }}
             - v1-dependencies-
+
+      - restore_cache:
+          keys:
             - v1-colonyNetwork-{{ checksum "src/lib/colonyNetwork/yarn.lock" }}
             - v1-colonyNetwork-
 
