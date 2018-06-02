@@ -14,7 +14,7 @@ jobs:
 
       - restore_cache:
           keys:
-            - v1-colonyNetwork-{{ checksum "src/lib/colonyNetwork" }}
+            - v1-colonyNetwork-{{ checksum ".git/modules/src/lib/colonyNetwork/HEAD" }}
             - v1-colonyNetwork-
 
       - run: |
@@ -36,7 +36,6 @@ jobs:
           command: |
             cd src/lib/colonyNetwork
             ../../../node_modules/.bin/trufflepig --ganacheKeyFile ganache-accounts.json -v
-          background: true
 
       - run:
           name: "Compile contracts"
