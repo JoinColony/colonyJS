@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "postinstall": "scripts/postinstall.sh",
+    "compile-contracts": "scripts/compile-contracts.sh",
     "start-ganache": "scripts/start-ganache.sh",
     "start-trufflepig": "cd src/lib/colonyNetwork && trufflepig --ganacheKeyFile ganache-accounts.json -v"
   },
