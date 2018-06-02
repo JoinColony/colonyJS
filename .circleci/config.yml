@@ -14,7 +14,7 @@ jobs:
 
       - restore_cache:
           keys:
-            - v1-colonyNetwork-{{ checksum "src/lib/colonyNetwork/yarn.lock" }}
+            - v1-colonyNetwork-{{ checksum "src/lib/colonyNetwork" }}
             - v1-colonyNetwork-
 
       - run: |
@@ -33,7 +33,9 @@ jobs:
 
       - run:
           name: "Start Trufflepig"
-          command: yarn run start-trufflepig
+          command: |
+            cd src/lib/colonyNetwork
+            ../../../node_modules/.bin/trufflepig --ganacheKeyFile ganache-accounts.json -v
           background: true
 
       - run:
