@@ -1,0 +1,48 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:9.5.0
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "yarn.lock" }}
+            - v1-dependencies-
+            - v1-colonyNetwork-{{ checksum "src/lib/colonyNetwork/yarn.lock" }}
+            - v1-colonyNetwork-
+
+      - run: |
+          yarn global add greenkeeper-lockfile@1
+          yarn install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "yarn.lock" }}
+
+      - run:
+          name: "Start Ganache"
+          command: yarn run start-ganache
+          background: true
+
+      - run:
+          name: "Start Trufflepig"
+          command: yarn run start-trufflepig
+          background: true
+
+      - run:
+          name: "Compile contracts"
+          command: yarn run compile-contracts
+
+      - save_cache:
+          paths:
+            - src/lib/colonyNetwork
+          key: v1-dependencies-{{ checksum "src/lib/colonyNetwork/yarn.lock" }}
+
+      - run: |
+          $HOME/.config/yarn/global/node_modules/.bin/greenkeeper-lockfile-update
+          yarn test
+          $HOME/.config/yarn/global/node_modules/.bin/greenkeeper-lockfile-upload
