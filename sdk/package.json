@@ -6,7 +6,7 @@
   "scripts": {
     "postinstall": "scripts/postinstall.sh",
     "start-ganache": "scripts/start-ganache.sh",
-    "start-trufflepig": "scripts/start-trufflepig.sh"
+    "start-trufflepig": "cd src/lib/colonyNetwork && trufflepig --ganacheKeyFile ganache-accounts.json -v"
   },
   "contributors": [
     "Christian Maniewski <chris@colony.io>",
