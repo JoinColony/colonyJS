@@ -7,7 +7,8 @@
     "postinstall": "scripts/postinstall.sh",
     "compile-contracts": "scripts/compile-contracts.sh",
     "start-ganache": "scripts/start-ganache.sh",
-    "start-trufflepig": "cd src/lib/colonyNetwork && trufflepig --ganacheKeyFile ganache-accounts.json -v"
+    "start-trufflepig": "cd src/lib/colonyNetwork && trufflepig --ganacheKeyFile ganache-accounts.json -v",
+    "test": "jest"
   },
   "contributors": [
     "Christian Maniewski <chris@colony.io>",
@@ -25,6 +26,7 @@
   },
   "devDependencies": {
     "ganache-cli": "^6.1.0",
+    "jest": "^23.1.0",
     "trufflepig": "^1.0.4"
   }
 }
