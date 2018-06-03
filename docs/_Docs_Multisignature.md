@@ -1,7 +1,7 @@
 ---
 title: Multisignature transactions
 section: Docs
-order: 6
+order: 5
 ---
 
 ## Multisignature transactions
