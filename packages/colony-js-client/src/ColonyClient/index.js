@@ -751,7 +751,7 @@ export default class ColonyClient extends ContractClient {
     ]);
     makeExecuteTaskChange('setTaskManagerPayout', [
       ['token', 'address'],
-      ['amount', 'nubignumbermber'],
+      ['amount', 'bignumber'],
     ]);
     makeExecuteTaskChange('setTaskEvaluatorPayout', [
       ['token', 'address'],
