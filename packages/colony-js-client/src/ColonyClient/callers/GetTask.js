@@ -1,7 +1,10 @@
 /* @flow */
+/* eslint-disable no-underscore-dangle */
 
 import assert from 'browser-assert';
+import BigNumber from 'bn.js';
 import ContractClient from '@colony/colony-js-contract-client';
+import { isBigNumber } from '@colony/colony-js-utils';
 
 import type ColonyClient from '../index';
 
@@ -19,29 +22,29 @@ type CallResult = [
   [number], // Currently just one item
 ];
 
-type OutputValues = {
-  cancelled: boolean,
-  deliverableDate?: Date,
-  deliverableHash?: string,
-  domainId: number,
-  dueDate?: Date,
-  finalized: boolean,
-  id: number,
-  payoutsWeCannotMake?: number,
-  potId?: number,
-  skillId: number,
-  specificationHash: string,
-};
-
 export default class GetTask extends ContractClient.Caller<
   InputValues,
-  OutputValues,
+  // Flow is confused by the call to `super._getOutputValues`, so let the
+  // OutputValues generic pass through for now; it's overspecified
+  *,
   ColonyClient,
 > {
   constructor(params: *) {
     super({
       functionName: 'getTask',
       input: [['taskId', 'number']],
+      output: [
+        // TODO colonyJS#157 - add a 'date' type for deliverableDate/dueDate
+        ['specificationHash', 'ipfsHash'],
+        ['deliverableHash', 'ipfsHash'],
+        ['finalized', 'boolean'],
+        ['cancelled', 'boolean'],
+        ['dueDate', 'number'],
+        ['payoutsWeCannotMake', 'number'],
+        ['potId', 'number'],
+        ['deliverableDate', 'number'],
+        ['domainId', 'number'],
+      ],
       ...params,
     });
     this._validateEmpty = async (inputValues?: *) => {
@@ -54,46 +57,17 @@ export default class GetTask extends ContractClient.Caller<
     };
   }
   // eslint-disable-next-line class-methods-use-this
-  _getOutputValues(
-    [
-      specificationHash,
-      deliverableHash,
-      finalized,
-      cancelled,
-      dueDate,
-      payoutsWeCannotMake,
-      potId,
-      deliverableTimestamp,
-      domainId,
-      skillIds,
-    ]: CallResult,
-    { taskId }: *,
-  ) {
-    const task: OutputValues = {
-      cancelled: !!cancelled,
-      domainId,
-      finalized: !!finalized,
+  _getOutputValues(result: CallResult, { taskId }: *) {
+    const task = super._getOutputValues(result);
+
+    // Until arrays of bignumbers are supported as a parameter type,
+    // take the last item of the call result (skillIds) and use the first one
+    const skillId: BigNumber = [].concat(result[result.length - 1])[0];
+
+    return Object.assign({}, task, {
+      // Include the task ID
       id: taskId,
-      skillId: skillIds[0], // Return only the first skillId since only one is used
-      specificationHash,
-    };
-
-    // The following fields are optional; make sure we don't e.g. coerce null to Date
-
-    if (deliverableTimestamp > 0)
-      task.deliverableDate = new Date(deliverableTimestamp);
-
-    // dueDate is a timestamp
-    if (dueDate > 0) task.dueDate = new Date(dueDate);
-
-    if (typeof deliverableHash !== 'undefined')
-      task.deliverableHash = deliverableHash;
-
-    if (typeof payoutsWeCannotMake !== 'undefined')
-      task.payoutsWeCannotMake = payoutsWeCannotMake;
-
-    if (typeof potId !== 'undefined') task.potId = potId;
-
-    return task;
+      skillId: isBigNumber(skillId) ? skillId.toNumber() : null,
+    });
   }
 }
