@@ -3,8 +3,9 @@
 import createSandbox from 'jest-sandbox';
 import BigNumber from 'bn.js';
 
+import bs58 from 'bs58';
 import { isValidAddress, isBigNumber } from '@colony/colony-js-utils';
-import { isHex, utf8ToHex } from 'web3-utils';
+import { isHex, utf8ToHex, hexToBytes } from 'web3-utils';
 
 import {
   addParamType,
@@ -18,9 +19,15 @@ jest.mock('@colony/colony-js-utils', () => ({
   isValidAddress: jest.fn().mockReturnValue(true),
 }));
 
+jest.mock('bs58', () => ({
+  encode: jest.fn().mockImplementation(value => value),
+  decode: jest.fn().mockImplementation(value => value),
+}));
+
 jest.mock('web3-utils', () => ({
   isHex: jest.fn().mockReturnValue(true),
   utf8ToHex: jest.fn().mockImplementation(value => value),
+  hexToBytes: jest.fn().mockImplementation(() => [101]),
 }));
 
 describe('Parameter types', () => {
@@ -32,6 +39,9 @@ describe('Parameter types', () => {
     isValidAddress.mockClear();
     isHex.mockClear();
     utf8ToHex.mockClear();
+    hexToBytes.mockClear();
+    bs58.encode.mockClear();
+    bs58.decode.mockClear();
   });
 
   test('Addresses are handled properly', () => {
@@ -142,6 +152,44 @@ describe('Parameter types', () => {
     expect(convertInputValue('not a hex value', 'string')).toBe('0x123');
     expect(isHex).toHaveBeenCalledWith('not a hex value');
     expect(utf8ToHex).toHaveBeenCalledWith('not a hex value');
+  });
+
+  test('IPFS hashes are handled properly', () => {
+    const hash = 'QmcNbGg6EVfFn2Z1QxWauR9XY9KhnEcyb5DUXCXHi8pwMJ';
+    const bytes32Hash =
+      '0xd082e403efc3a9b0d92f5a325274a2aaf823fefce13abae890cc140e2b84cb99';
+    const bytes = [18, 32, 208]; // not a real example
+
+    // Validation
+    expect(validateValue(hash, 'ipfsHash')).toBe(true);
+    expect(validateValue(hash.toLowerCase(), 'ipfsHash')).toBe(false);
+    expect(validateValue(hash.slice(0, 32), 'ipfsHash')).toBe(false);
+    expect(validateValue(`${hash}${hash}`, 'ipfsHash')).toBe(false);
+    expect(validateValue(null, 'ipfsHash')).toBe(false);
+    expect(validateValue(1, 'ipfsHash')).toBe(false);
+
+    // Converting output values
+    bs58.encode.mockReturnValueOnce(bytes32Hash);
+    isHex.mockReturnValueOnce(true);
+    hexToBytes.mockReturnValueOnce(bytes);
+    expect(convertOutputValue(hash, 'ipfsHash')).toBe(bytes32Hash);
+    expect(isHex).toHaveBeenCalledWith(hash);
+    expect(hexToBytes).toHaveBeenCalledWith(`0x1220${hash.slice(2)}`);
+    expect(bs58.encode).toHaveBeenCalledWith(bytes);
+
+    // Empty hashes are cleaned:
+    isHex.mockReturnValueOnce(false);
+    expect(convertOutputValue('', 'ipfsHash')).toBe(null);
+
+    isHex.mockClear();
+    hexToBytes.mockClear();
+    bs58.encode.mockClear();
+
+    // Converting input values
+    isHex.mockReturnValueOnce(true);
+    bs58.decode.mockReturnValueOnce(bytes32Hash);
+    expect(convertInputValue(hash, 'ipfsHash')).toBe(bytes32Hash);
+    expect(bs58.decode).toHaveBeenCalledWith(hash);
   });
 
   test('Adding param types', () => {

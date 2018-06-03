@@ -1,10 +1,12 @@
 /* @flow */
 
+import bs58 from 'bs58';
 import BigNumber from 'bn.js';
-import { isHex, utf8ToHex } from 'web3-utils';
+import { isHex, utf8ToHex, hexToBytes } from 'web3-utils';
 import { isValidAddress, isBigNumber } from '@colony/colony-js-utils';
 
 import type { ParamTypes, ParamTypeDef } from '../flowtypes';
+import { IPFS_HASH_LENGTH } from '../constants';
 import { isBoolean } from './inputValidation';
 
 const passThrough = value => value;
@@ -63,6 +65,29 @@ const PARAM_TYPE_MAP: {
     convertInput(value: string) {
       // String values are converted to hex (if they aren't hex already)
       return isHex(value) ? value : utf8ToHex(value);
+    },
+  },
+  ipfsHash: {
+    validate(value: any) {
+      return (
+        typeof value === 'string' &&
+        value.slice(0, 2) === 'Qm' &&
+        value.length === 46
+      );
+    },
+    convertOutput(value: any) {
+      if (isHex(value)) {
+        const hex = `0x1220${value.slice(2)}`;
+        const bytes = hexToBytes(hex);
+        return bs58.encode(bytes);
+      }
+      return null;
+    },
+    convertInput(value: string) {
+      return `0x${bs58
+        .decode(value)
+        .slice(2)
+        .toString('hex')}`;
     },
   },
 };
