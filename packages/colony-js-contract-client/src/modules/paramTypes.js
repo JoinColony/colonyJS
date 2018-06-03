@@ -6,7 +6,6 @@ import { isHex, utf8ToHex, hexToBytes } from 'web3-utils';
 import { isValidAddress, isBigNumber } from '@colony/colony-js-utils';
 
 import type { ParamTypes, ParamTypeDef } from '../flowtypes';
-import { IPFS_HASH_LENGTH } from '../constants';
 import { isBoolean } from './inputValidation';
 
 const passThrough = value => value;
