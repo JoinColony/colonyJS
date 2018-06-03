@@ -662,7 +662,7 @@ export default class ColonyClient extends ContractClient {
     });
     this.addSender('createTask', {
       functionName: 'makeTask',
-      input: [['specificationHash', 'string'], ['domainId', 'number']],
+      input: [['specificationHash', 'ipfsHash'], ['domainId', 'number']],
       eventHandlers: {
         TaskAdded: {
           contract: this.contract,
@@ -712,7 +712,7 @@ export default class ColonyClient extends ContractClient {
       input: [['taskId', 'number'], ['skillId', 'number']],
     });
     this.addSender('submitTaskDeliverable', {
-      input: [['taskId', 'number'], ['deliverableHash', 'string']],
+      input: [['taskId', 'number'], ['deliverableHash', 'ipfsHash']],
     });
     this.addSender('startNextRewardPayout', {
       input: [['token', 'address']],
@@ -743,7 +743,7 @@ export default class ColonyClient extends ContractClient {
         multisigFunctionName: 'executeTaskChange',
         nonceFunctionName: 'getTaskChangeNonce',
       });
-    makeExecuteTaskChange('setTaskBrief', [['specificationHash', 'string']]);
+    makeExecuteTaskChange('setTaskBrief', [['specificationHash', 'ipfsHash']]);
     makeExecuteTaskChange('setTaskDueDate', [['dueDate', 'number']]);
     makeExecuteTaskChange('setTaskWorkerPayout', [
       ['token', 'address'],
