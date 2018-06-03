@@ -170,6 +170,8 @@ Once the colony is configured and everything has been initialized, you can start
 ### Create
 A newly created task must be assigned to a domain and must reference a `specificationHash` for the task's completion. Also known as a "Task Brief", the task specification is a description of the work to be done and how that work will be evaluated.
 
+The "root domain" of any colony is `1`, and is the default value for `domainId` if unspecified. 
+
 ```js
 const { eventData: { taskId } } = await colonyClient.createTask.send({
   specificationHash: 'specification hash goes here',
