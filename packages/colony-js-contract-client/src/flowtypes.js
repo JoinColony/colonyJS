@@ -17,8 +17,9 @@ import { SIGNING_MODES } from './constants';
 
 export type ParamTypes =
   | 'address'
-  | 'bignumber'
+  | 'bigNumber'
   | 'boolean'
+  | 'ipfsHash'
   | 'number'
   | 'string';
 

@@ -2,6 +2,15 @@
 
 ## v.NEXT
 
+**Enhancements**
+
+* New `ipfsHash` parameter type, to more easily store/retrieve IPFS hashes from the contracts (`@colony/colony-js-contract-client`)
+* Implement the `ipfsHash` type in `ColonyClient`: `getTask`, `createTask`, `submitTaskDeliverable`, `setTaskBrief` (`@colony/colony-js-client`)
+
+**Bug fixes**
+
+* Ensure that the returned values in `ColonyClient.getTask` were handled properly (`@colony/colony-js-client`)
+
 ## v1.1.4
 
 **Documentation**

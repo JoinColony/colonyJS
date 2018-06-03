@@ -15,6 +15,7 @@ import { ROLES, WORKER_ROLE, EVALUATOR_ROLE, MANAGER_ROLE } from '../constants';
 
 type Address = string;
 type Role = $Keys<typeof ROLES>;
+type IPFSHash = string;
 
 export default class ColonyClient extends ContractClient {
   networkClient: ColonyNetworkClient;
@@ -94,16 +95,16 @@ export default class ColonyClient extends ContractClient {
     { taskId: number },
     {
       cancelled: boolean, // Boolean flag denoting whether the task is cancelled
-      deliverableDate?: Date, // Date when the deliverable is due
-      deliverableHash?: string, // Unique hash of the deliverable content
+      deliverableDate: ?Date, // Date when the deliverable is due
+      deliverableHash: ?IPFSHash, // Unique hash of the deliverable content
       domainId: number, // Integer Domain ID the task belongs to
-      dueDate?: Date, // When the task is due
+      dueDate: ?Date, // When the task is due
       finalized: boolean, // Boolean flag denoting whether the task is finalized
       id: number, // Integer task ID
-      payoutsWeCannotMake?: number, // Number of payouts that cannot be completed with the current task funding
-      potId?: number, // Integer ID of funding pot for the task
+      payoutsWeCannotMake: ?number, // Number of payouts that cannot be completed with the current task funding
+      potId: ?number, // Integer ID of funding pot for the task
       skillId: number, // Integer Skill ID the task is assigned to
-      specificationHash: string, // Unique hash of the specification content
+      specificationHash: IPFSHash, // Unique hash of the specification content
     },
     ColonyClient,
   >;
@@ -229,7 +230,7 @@ export default class ColonyClient extends ContractClient {
   */
   createTask: ColonyClient.Sender<
     {
-      specificationHash: string, // Hashed output of the task's work specification, stored so that it can later be referenced for task ratings or in the event of a dispute.
+      specificationHash: IPFSHash, // Hashed output of the task's work specification, stored so that it can later be referenced for task ratings or in the event of a dispute.
       domainId: number, // Domain in which the task has been created.
     },
     {
@@ -243,7 +244,7 @@ export default class ColonyClient extends ContractClient {
   setTaskBrief: ColonyClient.MultisigSender<
     {
       taskId: number, // Integer taskId
-      specificationHash: string, // digest of the task's hashed specification.
+      specificationHash: IPFSHash, // digest of the task's hashed specification.
     },
     {},
     ColonyClient,
@@ -335,7 +336,7 @@ export default class ColonyClient extends ContractClient {
   submitTaskDeliverable: ColonyClient.Sender<
     {
       taskId: number, // Integer taskId
-      deliverableHash: string, // Hash of the work performed
+      deliverableHash: IPFSHash, // Hash of the work performed
     },
     {},
     ColonyClient,
@@ -551,7 +552,7 @@ export default class ColonyClient extends ContractClient {
     makeTaskCaller(
       'getTaskPayout',
       [['role', 'role'], ['token', 'address']],
-      [['amount', 'bignumber']],
+      [['amount', 'bigNumber']],
     );
     makeTaskCaller(
       'getTaskRole',
@@ -571,7 +572,7 @@ export default class ColonyClient extends ContractClient {
 
     // Callers
     this.addCaller('generateSecret', {
-      input: [['salt', 'string'], ['value', 'bignumber']],
+      input: [['salt', 'string'], ['value', 'bigNumber']],
       output: [['secret', 'string']],
     });
     this.addCaller('getDomain', {
@@ -596,19 +597,19 @@ export default class ColonyClient extends ContractClient {
     });
     this.addCaller('getNonRewardPotsTotal', {
       input: [['address', 'address']],
-      output: [['total', 'bignumber']],
+      output: [['total', 'bigNumber']],
     });
     this.addCaller('getPotBalance', {
       input: [['potId', 'number'], ['token', 'address']],
-      output: [['balance', 'bignumber']],
+      output: [['balance', 'bigNumber']],
     });
     this.addCaller('getRewardPayoutInfo', {
       input: [['payoutId'], 'number'],
       output: [
         ['reputationRootHash', 'string'],
-        ['totalTokens', 'bignumber'],
-        ['totalTokenAmountForRewardPayout', 'bignumber'],
-        ['remainingTokenAmount', 'bignumber'],
+        ['totalTokens', 'bigNumber'],
+        ['totalTokenAmountForRewardPayout', 'bigNumber'],
+        ['remainingTokenAmount', 'bigNumber'],
         ['tokenAddress', 'address'],
         ['blockNumber', 'number'],
       ],
@@ -662,7 +663,7 @@ export default class ColonyClient extends ContractClient {
     });
     this.addSender('createTask', {
       functionName: 'makeTask',
-      input: [['specificationHash', 'string'], ['domainId', 'number']],
+      input: [['specificationHash', 'ipfsHash'], ['domainId', 'number']],
       eventHandlers: {
         TaskAdded: {
           contract: this.contract,
@@ -681,16 +682,16 @@ export default class ColonyClient extends ContractClient {
       input: [['payoutId', 'number']],
     });
     this.addSender('mintTokens', {
-      input: [['amount', 'bignumber']],
+      input: [['amount', 'bigNumber']],
     });
     this.addSender('mintTokensForColonyNetwork', {
-      input: [['amount', 'bignumber']],
+      input: [['amount', 'bigNumber']],
     });
     this.addSender('moveFundsBetweenPots', {
       input: [
         ['fromPot', 'number'],
         ['toPot', 'number'],
-        ['amount', 'bignumber'],
+        ['amount', 'bigNumber'],
         ['address', 'address'],
       ],
     });
@@ -712,7 +713,7 @@ export default class ColonyClient extends ContractClient {
       input: [['taskId', 'number'], ['skillId', 'number']],
     });
     this.addSender('submitTaskDeliverable', {
-      input: [['taskId', 'number'], ['deliverableHash', 'string']],
+      input: [['taskId', 'number'], ['deliverableHash', 'ipfsHash']],
     });
     this.addSender('startNextRewardPayout', {
       input: [['token', 'address']],
@@ -743,19 +744,19 @@ export default class ColonyClient extends ContractClient {
         multisigFunctionName: 'executeTaskChange',
         nonceFunctionName: 'getTaskChangeNonce',
       });
-    makeExecuteTaskChange('setTaskBrief', [['specificationHash', 'string']]);
+    makeExecuteTaskChange('setTaskBrief', [['specificationHash', 'ipfsHash']]);
     makeExecuteTaskChange('setTaskDueDate', [['dueDate', 'number']]);
     makeExecuteTaskChange('setTaskWorkerPayout', [
       ['token', 'address'],
-      ['amount', 'bignumber'],
+      ['amount', 'bigNumber'],
     ]);
     makeExecuteTaskChange('setTaskManagerPayout', [
       ['token', 'address'],
-      ['amount', 'nubignumbermber'],
+      ['amount', 'bigNumber'],
     ]);
     makeExecuteTaskChange('setTaskEvaluatorPayout', [
       ['token', 'address'],
-      ['amount', 'bignumber'],
+      ['amount', 'bigNumber'],
     ]);
   }
 }

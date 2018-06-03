@@ -300,7 +300,7 @@ export default class ColonyNetworkClient extends ContractClient {
     });
     this.addCaller('getStakedBalance', {
       input: [['user', 'address']],
-      output: [['balance', 'bignumber']],
+      output: [['balance', 'bigNumber']],
     });
     this.addCaller('getParentSkillId', {
       input: [['skillId', 'number'], ['parentSkillIndex', 'number']],
@@ -310,7 +310,7 @@ export default class ColonyNetworkClient extends ContractClient {
       input: [['id', 'number']],
       output: [
         ['user', 'string'],
-        ['amount', 'bignumber'],
+        ['amount', 'bigNumber'],
         ['skillId', 'number'],
         ['colony', 'string'],
         ['nUpdates', 'number'],
@@ -356,7 +356,7 @@ export default class ColonyNetworkClient extends ContractClient {
       },
     });
     this.addSender('deposit', {
-      input: [['amount', 'bignumber']],
+      input: [['amount', 'bigNumber']],
     });
     this.addSender('startTokenAuction', {
       input: [['tokenAddress', 'address']],
@@ -385,7 +385,7 @@ export default class ColonyNetworkClient extends ContractClient {
       input: [['key', 'string'], ['newVersion', 'number']],
     });
     this.addSender('withdraw', {
-      input: [['amount', 'bignumber']],
+      input: [['amount', 'bigNumber']],
     });
   }
 }

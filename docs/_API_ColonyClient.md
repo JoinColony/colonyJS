@@ -137,16 +137,16 @@ A promise which resolves to an object containing the following properties:
 |Return value|Type|Description|
 |---|---|---|
 |cancelled|boolean|Boolean flag denoting whether the task is cancelled|
-|deliverableDate|Date|Date when the deliverable is due|
-|deliverableHash|string|Unique hash of the deliverable content|
+|deliverableDate|Date (optional)|Date when the deliverable is due|
+|deliverableHash|IPFS hash (optional)|Unique hash of the deliverable content|
 |domainId|number|Integer Domain ID the task belongs to|
-|dueDate|Date|When the task is due|
+|dueDate|Date (optional)|When the task is due|
 |finalized|boolean|Boolean flag denoting whether the task is finalized|
 |id|number|Integer task ID|
-|payoutsWeCannotMake|number|Number of payouts that cannot be completed with the current task funding|
-|potId|number|Integer ID of funding pot for the task|
+|payoutsWeCannotMake|number (optional)|Number of payouts that cannot be completed with the current task funding|
+|potId|number (optional)|Integer ID of funding pot for the task|
 |skillId|number|Integer Skill ID the task is assigned to|
-|specificationHash|string|Unique hash of the specification content|
+|specificationHash|IPFS hash|Unique hash of the specification content|
 
 ### `getTaskPayout.call({ taskId, role, token })`
 
@@ -325,7 +325,7 @@ Creates a new task by invoking `makeTask` on-chain.
 
 |Argument|Type|Description|
 |---|---|---|
-|specificationHash|string|Hashed output of the task's work specification, stored so that it can later be referenced for task ratings or in the event of a dispute.|
+|specificationHash|IPFS hash|Hashed output of the task's work specification, stored so that it can later be referenced for task ratings or in the event of a dispute.|
 |domainId|number|Domain in which the task has been created.|
 
 **Returns**
@@ -397,7 +397,7 @@ Submit the task deliverable, i.e. the output of the work performed for task `_id
 |Argument|Type|Description|
 |---|---|---|
 |taskId|number|Integer taskId|
-|deliverableHash|string|Hash of the work performed|
+|deliverableHash|IPFS hash|Hash of the work performed|
 
 **Returns**
 
@@ -674,7 +674,7 @@ The task brief, or specification, is a description of the tasks work specificati
 |Argument|Type|Description|
 |---|---|---|
 |taskId|number|Integer taskId|
-|specificationHash|string|digest of the task's hashed specification.|
+|specificationHash|IPFS hash|digest of the task's hashed specification.|
 
 **Returns**
 
