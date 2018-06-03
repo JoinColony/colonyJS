@@ -26,6 +26,7 @@ const TYPES = {
   Address: 'Address',
   BigNumber: 'BigNumber',
   Role: 'Role',
+  IPFSHash: 'IPFS hash',
 };
 
 const generateMarkdown = ({ file, templateFile, output }) => {
@@ -217,9 +218,14 @@ function formatDescription(str) {
   return '';
 }
 
-function mapType(type) {
-  if (type.type === 'GenericTypeAnnotation') {
-    return TYPES[type.id.name];
-  }
-  return TYPES[type.type];
+function mapType(type, optional = false) {
+  if (type.type === 'NullableTypeAnnotation')
+    return mapType(type.typeAnnotation, true);
+
+  const name =
+    type.type === 'GenericTypeAnnotation'
+      ? TYPES[type.id.name]
+      : TYPES[type.type];
+
+  return optional ? `${name} (optional)` : name;
 }

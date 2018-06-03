@@ -15,6 +15,7 @@ import { ROLES, WORKER_ROLE, EVALUATOR_ROLE, MANAGER_ROLE } from '../constants';
 
 type Address = string;
 type Role = $Keys<typeof ROLES>;
+type IPFSHash = string;
 
 export default class ColonyClient extends ContractClient {
   networkClient: ColonyNetworkClient;
@@ -95,7 +96,7 @@ export default class ColonyClient extends ContractClient {
     {
       cancelled: boolean, // Boolean flag denoting whether the task is cancelled
       deliverableDate: ?Date, // Date when the deliverable is due
-      deliverableHash: ?string, // Unique hash of the deliverable content
+      deliverableHash: ?IPFSHash, // Unique hash of the deliverable content
       domainId: number, // Integer Domain ID the task belongs to
       dueDate: ?Date, // When the task is due
       finalized: boolean, // Boolean flag denoting whether the task is finalized
@@ -103,7 +104,7 @@ export default class ColonyClient extends ContractClient {
       payoutsWeCannotMake: ?number, // Number of payouts that cannot be completed with the current task funding
       potId: ?number, // Integer ID of funding pot for the task
       skillId: number, // Integer Skill ID the task is assigned to
-      specificationHash: string, // Unique hash of the specification content
+      specificationHash: IPFSHash, // Unique hash of the specification content
     },
     ColonyClient,
   >;
@@ -229,7 +230,7 @@ export default class ColonyClient extends ContractClient {
   */
   createTask: ColonyClient.Sender<
     {
-      specificationHash: string, // Hashed output of the task's work specification, stored so that it can later be referenced for task ratings or in the event of a dispute.
+      specificationHash: IPFSHash, // Hashed output of the task's work specification, stored so that it can later be referenced for task ratings or in the event of a dispute.
       domainId: number, // Domain in which the task has been created.
     },
     {
@@ -243,7 +244,7 @@ export default class ColonyClient extends ContractClient {
   setTaskBrief: ColonyClient.MultisigSender<
     {
       taskId: number, // Integer taskId
-      specificationHash: string, // digest of the task's hashed specification.
+      specificationHash: IPFSHash, // digest of the task's hashed specification.
     },
     {},
     ColonyClient,
@@ -335,7 +336,7 @@ export default class ColonyClient extends ContractClient {
   submitTaskDeliverable: ColonyClient.Sender<
     {
       taskId: number, // Integer taskId
-      deliverableHash: string, // Hash of the work performed
+      deliverableHash: IPFSHash, // Hash of the work performed
     },
     {},
     ColonyClient,
