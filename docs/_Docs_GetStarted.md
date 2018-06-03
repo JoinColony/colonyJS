@@ -3,12 +3,9 @@ title: Get Started
 section: Docs
 order: 1
 ---
-
-The task lifecycle is a great way to get a complete picture of how colonyJS works with the Colony Network. If you're a seasoned developer, or more of an "I'll just figure it out myself" type, you might want to jump to the [Quickstart](/colonyjs/docs-quickstart/).
-
-The most useful tool within a colony is the `task` method. Tasks are used to coordinate work, track reputation, and ultimately the only way to get paid through a colony. See [tasks](/colonynetwork/docs-tasks/) for a complete description of what tasks are within a colony.
-
 Using colonyJS, you can query the blockchain for information about tasks, create new tasks, modify them, commit and reveal ratings, and finalize them to trigger payouts -- all from within your application.
+
+This page details all the necessary steps to set up colonyJS in your local environment, deploy a local set of colonyNetwork contracts for testing, create a new colony with its own token, and go through the whole task workflow from your colonyJS application.
 
 ==TOC==
 
@@ -169,12 +166,11 @@ const example = async () => {
 };
 ```
 
-Save the file, and run with `$ node example.js` - You should see your new cool colony and token appear on your privat blockchain!
+Save the file, and run with `$ node example.js` - You should see your new cool colony and token appear on your private blockchain!
 
 
 ## The Task Life-cycle
-Once the colony is configured and everything has been initialized, you can begin the task workflow.
-
+The most useful tool within a colony is the `task` method. Tasks are used to coordinate work, track reputation, and ultimately the only way to get paid through a colony. See [tasks](/colonynetwork/docs-tasks/) for a complete description of what tasks are within a colony.
 
 ### Create
 A newly created task must be assigned to a domain and must reference a `specificationHash` for the task's completion. Also known as a "Task Brief", the task specification is a description of the work to be done and how that work will be evaluated.
