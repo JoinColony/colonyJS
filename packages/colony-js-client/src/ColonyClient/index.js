@@ -552,7 +552,7 @@ export default class ColonyClient extends ContractClient {
     makeTaskCaller(
       'getTaskPayout',
       [['role', 'role'], ['token', 'address']],
-      [['amount', 'bignumber']],
+      [['amount', 'bigNumber']],
     );
     makeTaskCaller(
       'getTaskRole',
@@ -572,7 +572,7 @@ export default class ColonyClient extends ContractClient {
 
     // Callers
     this.addCaller('generateSecret', {
-      input: [['salt', 'string'], ['value', 'bignumber']],
+      input: [['salt', 'string'], ['value', 'bigNumber']],
       output: [['secret', 'string']],
     });
     this.addCaller('getDomain', {
@@ -597,19 +597,19 @@ export default class ColonyClient extends ContractClient {
     });
     this.addCaller('getNonRewardPotsTotal', {
       input: [['address', 'address']],
-      output: [['total', 'bignumber']],
+      output: [['total', 'bigNumber']],
     });
     this.addCaller('getPotBalance', {
       input: [['potId', 'number'], ['token', 'address']],
-      output: [['balance', 'bignumber']],
+      output: [['balance', 'bigNumber']],
     });
     this.addCaller('getRewardPayoutInfo', {
       input: [['payoutId'], 'number'],
       output: [
         ['reputationRootHash', 'string'],
-        ['totalTokens', 'bignumber'],
-        ['totalTokenAmountForRewardPayout', 'bignumber'],
-        ['remainingTokenAmount', 'bignumber'],
+        ['totalTokens', 'bigNumber'],
+        ['totalTokenAmountForRewardPayout', 'bigNumber'],
+        ['remainingTokenAmount', 'bigNumber'],
         ['tokenAddress', 'address'],
         ['blockNumber', 'number'],
       ],
@@ -682,16 +682,16 @@ export default class ColonyClient extends ContractClient {
       input: [['payoutId', 'number']],
     });
     this.addSender('mintTokens', {
-      input: [['amount', 'bignumber']],
+      input: [['amount', 'bigNumber']],
     });
     this.addSender('mintTokensForColonyNetwork', {
-      input: [['amount', 'bignumber']],
+      input: [['amount', 'bigNumber']],
     });
     this.addSender('moveFundsBetweenPots', {
       input: [
         ['fromPot', 'number'],
         ['toPot', 'number'],
-        ['amount', 'bignumber'],
+        ['amount', 'bigNumber'],
         ['address', 'address'],
       ],
     });
@@ -748,15 +748,15 @@ export default class ColonyClient extends ContractClient {
     makeExecuteTaskChange('setTaskDueDate', [['dueDate', 'number']]);
     makeExecuteTaskChange('setTaskWorkerPayout', [
       ['token', 'address'],
-      ['amount', 'bignumber'],
+      ['amount', 'bigNumber'],
     ]);
     makeExecuteTaskChange('setTaskManagerPayout', [
       ['token', 'address'],
-      ['amount', 'bignumber'],
+      ['amount', 'bigNumber'],
     ]);
     makeExecuteTaskChange('setTaskEvaluatorPayout', [
       ['token', 'address'],
-      ['amount', 'bignumber'],
+      ['amount', 'bigNumber'],
     ]);
   }
 }

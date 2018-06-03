@@ -25,7 +25,7 @@ const PARAM_TYPE_MAP: {
     },
     convertInput: passThrough,
   },
-  bignumber: {
+  bigNumber: {
     validate: isBigNumber,
     convertOutput(value: any) {
       if (isBigNumber(value)) {

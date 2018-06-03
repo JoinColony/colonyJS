@@ -65,19 +65,19 @@ describe('Parameter types', () => {
     const bn = new BigNumber(1);
 
     // Validation
-    expect(validateValue(bn, 'bignumber')).toBe(true);
+    expect(validateValue(bn, 'bigNumber')).toBe(true);
     expect(isBigNumber).toHaveBeenCalledWith(bn);
     isBigNumber.mockClear();
 
     // Cleaning
-    expect(convertOutputValue(bn, 'bignumber')).toBe(bn);
+    expect(convertOutputValue(bn, 'bigNumber')).toBe(bn);
     expect(isBigNumber).toHaveBeenCalledWith(bn);
 
     isBigNumber.mockReturnValueOnce(false);
-    expect(convertOutputValue(null, 'bignumber')).toBe(null);
+    expect(convertOutputValue(null, 'bigNumber')).toBe(null);
 
     // Conversion
-    expect(convertInputValue(bn, 'bignumber')).toBe(bn);
+    expect(convertInputValue(bn, 'bigNumber')).toBe(bn);
   });
 
   test('Booleans are handled properly', () => {
