@@ -12,7 +12,7 @@
         "build": "yarn run clean && yarn run build:dist && yarn run build:lib && yarn run build:flow",
         "build:dist": "webpack",
         "build:flow": "flow-copy-source src lib --ignore '__tests__/*.js'",
-        "build:lib": "babel src --out-dir lib --ignore __tests__",
+        "build:lib": "babel src --out-dir lib --ignore __tests__ --source-maps",
         "build:docs": "scripts/docgen.js",
         "clean": "shx rm -rf lib",
         "flow": "flow check",
