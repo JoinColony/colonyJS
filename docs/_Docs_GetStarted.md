@@ -1,7 +1,7 @@
 ---
 title: Get Started
 section: Docs
-order: 2
+order: 1
 ---
 
 The task lifecycle is a great way to get a complete picture of how colonyJS works with the Colony Network. If you're a seasoned developer, or more of an "I'll just figure it out myself" type, you might want to jump to the [Quickstart](/colonyjs/docs-quickstart/).
@@ -9,6 +9,8 @@ The task lifecycle is a great way to get a complete picture of how colonyJS work
 The most useful tool within a colony is the `task` method. Tasks are used to coordinate work, track reputation, and ultimately the only way to get paid through a colony. See [tasks](/colonynetwork/docs-tasks/) for a complete description of what tasks are within a colony.
 
 Using colonyJS, you can query the blockchain for information about tasks, create new tasks, modify them, commit and reveal ratings, and finalize them to trigger payouts -- all from within your application.
+
+==TOC==
 
 ## Prerequisites
 First of all, we will need to set up some prerequisites:
@@ -98,7 +100,7 @@ yarn add @colony/colony-js-client @colony/colony-js-adapter-ethers @colony/colon
 
 It's also beneficial to have a JavaScript environment that supports `async`/`await`, since colonyJS uses Promises extensively. Recent versions of Node and Chrome support Promises out of the box, but you may want to consider using [webpack](https://webpack.js.org/) and [Babel](https://babeljs.io/) for better support.
 
-### Example.js
+## Create a new colony with `example.js`
 
 Inside your new project directory, you can then start to work with colonyJS to communicate with your colony. Create a new file `example.js`, and add the following code:
 
@@ -118,8 +120,10 @@ const loader = new TrufflepigLoader();
 const provider = new providers.JsonRpcProvider('http://localhost:8545/');
 
 // The following methods use Promises
-(async () => {
-  // Get the private key from the first account from the Truffle config
+const example = async () => {
+
+  // Get the private key from the first account from the ganache-accounts
+  // through trufflepig
   const { privateKey } = await loader.getAccount(0);
 
   // Create a wallet with the private key (so we have a balance we can use)
@@ -136,18 +140,22 @@ const provider = new providers.JsonRpcProvider('http://localhost:8545/');
   const networkClient = new ColonyNetworkClient({ adapter });
   await networkClient.init();
 
-  // You'll need to either create a new colony or talk to an existing one.
-
-  // To create a new cool colony:
-  const colonyData = {
-    tokenAddress: '0xf000000000000000000000000000000000000000', // Address of the colony's native token
-  };
+  // Let's deploy a new ERC20 token for our Colony.
+  // You could also skip this step and use a pre-existing/deployed contract.
+  const tokenAddress = await networkClient.createToken({
+    name: 'Cool Colony Token',
+    symbol: 'COLNY',
+  });
+  console.log('Token address: ' + tokenAddress);
 
   // Create a cool Colony!
-  const { eventData: { colonyId, colonyAddress }} = await networkClient.createColony.send(colonyData);
+  const {
+    eventData: { colonyId, colonyAddress },
+  } = await networkClient.createColony.send({ tokenAddress });
 
   // Congrats, you've created a Colony!
-  console.log(colonyId, colonyAddress);
+  console.log('Colony ID: ' + colonyId);
+  console.log('Colony address: ' + colonyAddress);
 
   // For a colony that exists already, you just need its ID:
   const colonyClient = await networkClient.getColonyClient(colonyId);
@@ -157,20 +165,21 @@ const provider = new providers.JsonRpcProvider('http://localhost:8545/');
 
   // You can also get the Meta Colony:
   const metaColonyClient = await networkClient.getMetaColonyClient();
-
-})();
+  console.log('Meta Colony address: ' + metaColonyClient.contract.address);
+};
 ```
 
 Save the file, and run with `$ node example.js` - You should see your new cool colony and token appear on your privat blockchain!
 
 
-## Task Life-cycle
-Once the colony is configured and everything has been initialized, you can start the task workflow.
+## The Task Life-cycle
+Once the colony is configured and everything has been initialized, you can begin the task workflow.
+
 
 ### Create
 A newly created task must be assigned to a domain and must reference a `specificationHash` for the task's completion. Also known as a "Task Brief", the task specification is a description of the work to be done and how that work will be evaluated.
 
-The "root domain" of any colony is `1`, and is the default value for `domainId` if unspecified. 
+The "root domain" of any colony is `1`, and is the default value for `domainId` if unspecified.
 
 ```js
 const { eventData: { taskId } } = await colonyClient.createTask.send({
