@@ -1,4 +1,5 @@
 // Import the prerequisites
+
 const { providers, Wallet } = require('ethers');
 const { default: EthersAdapter } = require('@colony/colony-js-adapter-ethers');
 const { TrufflepigLoader } = require('@colony/colony-js-contract-loader-http');
@@ -12,8 +13,13 @@ const loader = new TrufflepigLoader();
 // Create a provider for local TestRPC (Ganache)
 const provider = new providers.JsonRpcProvider('http://localhost:8545/');
 
+const ecp = require('./ecp');
+
 // The following methods use Promises
 const example = async () => {
+
+  // Initialise the Extended Colony Protocol
+  await ecp.init();
 
   // Get the private key from the first account from the ganache-accounts
   // through trufflepig
@@ -56,9 +62,24 @@ const example = async () => {
   // Or alternatively, just its address:
   // const colonyClient = await networkClient.getColonyClientByAddress(colonyAddress);
 
+  // Create a task!
+  const specificationHash = await ecp.saveTaskSpecification({ title: 'Cool task', description: 'Create this cool thing.' });
+
+  // Unique, immutable hash on IPFS
+  console.log('Specification hash', specificationHash);
+
+  const { eventData: { taskId }} = await colonyClient.createTask.send({ specificationHash: 'foo', domainId: 1 });
+
+  // Let's take a look at the newly created task
+  const task = await colonyClient.getTask.call({ taskId })
+  console.log(task);
+
   // You can also get the Meta Colony:
   const metaColonyClient = await networkClient.getMetaColonyClient();
   console.log('Meta Colony address: ' + metaColonyClient.contract.address);
+
+  // Do some cleanup
+  ecp.stop();
 };
 
 module.exports = example;

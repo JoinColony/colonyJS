@@ -22,7 +22,9 @@
     "@colony/colony-js-adapter-ethers": "^1.1.4",
     "@colony/colony-js-client": "^1.1.4",
     "@colony/colony-js-contract-loader-http": "^1.1.2",
-    "ethers": "^3.0.17"
+    "buffer": "^5.1.0",
+    "ethers": "^3.0.17",
+    "ipfs": "^0.29.2"
   },
   "devDependencies": {
     "ganache-cli": "^6.1.0",
