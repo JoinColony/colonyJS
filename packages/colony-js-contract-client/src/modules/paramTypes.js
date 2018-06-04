@@ -3,7 +3,11 @@
 import bs58 from 'bs58';
 import BigNumber from 'bn.js';
 import { isHex, utf8ToHex, hexToBytes } from 'web3-utils';
-import { isValidAddress, isBigNumber } from '@colony/colony-js-utils';
+import {
+  isValidAddress,
+  isBigNumber,
+  isEmptyHexString,
+} from '@colony/colony-js-utils';
 
 import type { ParamTypes, ParamTypeDef } from '../flowtypes';
 import { isBoolean } from './inputValidation';
@@ -75,7 +79,7 @@ const PARAM_TYPE_MAP: {
       );
     },
     convertOutput(value: any) {
-      if (isHex(value)) {
+      if (isHex(value) && !isEmptyHexString(value)) {
         const hex = `0x1220${value.slice(2)}`;
         const bytes = hexToBytes(hex);
         return bs58.encode(bytes);
