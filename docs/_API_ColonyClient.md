@@ -191,7 +191,7 @@ A promise which resolves to an object containing the following properties:
 
 ### `getTaskWorkRatings.call({ taskId })`
 
-For a given task, will return the number of submitted ratings and the timestamp of their submission
+For a given task, will return the number of submitted ratings and the date of their submission
 
 **Arguments**
 
@@ -206,7 +206,7 @@ A promise which resolves to an object containing the following properties:
 |Return value|Type|Description|
 |---|---|---|
 |count|number|Total number of submitted ratings for a task.|
-|timestamp|number|Timestamp of the last submitted rating.|
+|date|Date|Date of the last submitted rating.|
 
 ### `getTaskWorkRatingSecret.call({ taskId, role })`
 
