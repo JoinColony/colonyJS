@@ -18,7 +18,6 @@
         "flow": "flow check",
         "lint": "eslint src/{,**/}*.js",
         "precommit": "lint-staged && yarn run build:docs",
-        "prepublish": "yarn run precommit && yarn run build",
         "test": "yarn run lint && yarn run test:unit",
         "test:unit": "jest --coverage --config=jest.conf.json"
     },
