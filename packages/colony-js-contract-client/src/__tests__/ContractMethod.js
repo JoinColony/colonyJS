@@ -49,15 +49,12 @@ describe('ContractMethod', () => {
       client,
       input,
       functionName: 'myFunction',
+      name: 'myMethodName',
     });
-    sandbox.spyOn(method.constructor, '_validateValue');
+    sandbox.spyOn(method, '_validateValue');
 
     expect(method.validate(inputValues)).toBe(true);
-    expect(method.constructor._validateValue).toHaveBeenCalledWith(
-      1,
-      'number',
-      'id',
-    );
+    expect(method._validateValue).toHaveBeenCalledWith(1, 'number', 'id');
 
     // Missing parameters/wrong type
     [undefined, null, [], 'a', 1].forEach(wrongType => {
@@ -79,19 +76,32 @@ describe('ContractMethod', () => {
   });
 
   test('Valid values are reported as valid', () => {
+    const input = [['id', 'number']];
+    const method = new ContractMethod({
+      client,
+      input,
+      functionName: 'myFunction',
+      name: 'myMethodName',
+    });
     validateValue.mockImplementationOnce(() => true);
-    expect(ContractMethod._validateValue(1, 'number', 'id'));
+    expect(method._validateValue(1, 'number', 'id')).toBe(true);
     expect(validateValue).toHaveBeenCalledWith(1, 'number');
   });
 
   test('Invalid values are reported as invalid, with reasons', () => {
+    const input = [['id', 'number']];
+    const method = new ContractMethod({
+      client,
+      input,
+      functionName: 'myFunction',
+      name: 'myMethodName',
+    });
+
     // Invalid value
     validateValue.mockImplementationOnce(() => false);
     expect(() => {
-      expect(ContractMethod._validateValue('abc', 'number', 'id'));
-    }).toThrowError(
-      'Validation failed: Parameter "id" expected a value of type "number"',
-    );
+      expect(method._validateValue('abc', 'number', 'id'));
+    }).toThrowError('Parameter "id" expected a value of type "number"');
     expect(validateValue).toHaveBeenCalledWith('abc', 'number');
 
     // Invalid value with reasons (caught validation errors)
@@ -99,11 +109,17 @@ describe('ContractMethod', () => {
       throw new Error('The reason this validation failed');
     });
     expect(() => {
-      expect(ContractMethod._validateValue('abc', 'number', 'id'));
+      expect(method._validateValue('abc', 'number', 'id'));
     }).toThrowError(
-      'Validation failed: Parameter "id" expected a value of type ' +
+      'Parameter "id" expected a value of type ' +
         '"number" (The reason this validation failed)',
     );
+
+    // Validation error messages contain the method name
+    validateValue.mockImplementationOnce(() => false);
+    expect(() => {
+      expect(method._validateValue('abc', 'number', 'id'));
+    }).toThrowError('Validation failed for myMethod');
   });
 
   test('Method arguments are processed from input parameters', () => {

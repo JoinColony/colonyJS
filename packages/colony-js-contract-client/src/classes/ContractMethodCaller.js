@@ -25,11 +25,12 @@ export default class ContractMethodCaller<
     functionName,
     input,
     output,
+    name,
     validateEmpty,
   }: ContractMethodArgs<IContractClient> & {
     validateEmpty?: ValidateEmpty,
   } = {}) {
-    super({ client, functionName, input, output });
+    super({ client, name, functionName, input, output });
     if (validateEmpty) this._validateEmpty = validateEmpty;
   }
 

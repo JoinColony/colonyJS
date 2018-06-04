@@ -39,12 +39,13 @@ export default class ContractMethodMultisigSender<
     eventHandlers,
     functionName,
     input,
+    name,
     getRequiredSignees,
     multisigFunctionName,
     nonceFunctionName,
     output,
   }: ContractMethodMultisigSenderArgs<IContractClient>) {
-    super({ client, output, input, eventHandlers, functionName });
+    super({ client, name, output, input, eventHandlers, functionName });
     this._getRequiredSignees = getRequiredSignees;
     this.multisigFunctionName = multisigFunctionName;
     this.nonceFunctionName = nonceFunctionName;
