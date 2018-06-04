@@ -10,6 +10,7 @@
 **Bug fixes**
 
 * Ensure that the returned values in `ColonyClient.getTask` were handled properly (`@colony/colony-js-client`)
+* Clean 'empty' hex strings for IPFS hash output validation (`@colony/colony-js-contract-client`)
 
 ## v1.1.4
 

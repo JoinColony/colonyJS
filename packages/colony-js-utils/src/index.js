@@ -6,6 +6,7 @@ import checkValidAddress from './checkValidAddress';
 import isValidAddress from './isValidAddress';
 import makeAssert from './makeAssert';
 import isBigNumber from './isBigNumber';
+import isEmptyHexString from './isEmptyHexString';
 
 export {
   raceAgainstTimeout,
@@ -13,4 +14,5 @@ export {
   isValidAddress,
   makeAssert,
   isBigNumber,
+  isEmptyHexString,
 };

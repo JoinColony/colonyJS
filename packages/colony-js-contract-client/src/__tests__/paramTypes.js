@@ -4,7 +4,11 @@ import createSandbox from 'jest-sandbox';
 import BigNumber from 'bn.js';
 
 import bs58 from 'bs58';
-import { isValidAddress, isBigNumber } from '@colony/colony-js-utils';
+import {
+  isValidAddress,
+  isBigNumber,
+  isEmptyHexString,
+} from '@colony/colony-js-utils';
 import { isHex, utf8ToHex, hexToBytes } from 'web3-utils';
 
 import {
@@ -17,6 +21,7 @@ import {
 jest.mock('@colony/colony-js-utils', () => ({
   isBigNumber: jest.fn().mockReturnValue(true),
   isValidAddress: jest.fn().mockReturnValue(true),
+  isEmptyHexString: jest.fn().mockReturnValue(true),
 }));
 
 jest.mock('bs58', () => ({
@@ -37,6 +42,7 @@ describe('Parameter types', () => {
     sandbox.clear();
     isBigNumber.mockClear();
     isValidAddress.mockClear();
+    isEmptyHexString.mockClear();
     isHex.mockClear();
     utf8ToHex.mockClear();
     hexToBytes.mockClear();
@@ -172,16 +178,20 @@ describe('Parameter types', () => {
     bs58.encode.mockReturnValueOnce(bytes32Hash);
     isHex.mockReturnValueOnce(true);
     hexToBytes.mockReturnValueOnce(bytes);
+    isEmptyHexString.mockReturnValueOnce(false);
     expect(convertOutputValue(hash, 'ipfsHash')).toBe(bytes32Hash);
     expect(isHex).toHaveBeenCalledWith(hash);
+    expect(isEmptyHexString).toHaveBeenCalledWith(hash);
     expect(hexToBytes).toHaveBeenCalledWith(`0x1220${hash.slice(2)}`);
     expect(bs58.encode).toHaveBeenCalledWith(bytes);
 
     // Empty hashes are cleaned:
-    isHex.mockReturnValueOnce(false);
+    isHex.mockReturnValueOnce(true);
+    isEmptyHexString.mockReturnValueOnce(true);
     expect(convertOutputValue('', 'ipfsHash')).toBe(null);
 
     isHex.mockClear();
+    isEmptyHexString.mockClear();
     hexToBytes.mockClear();
     bs58.encode.mockClear();
 

@@ -2,7 +2,7 @@
 
 import assert from 'browser-assert';
 import { isAddress } from 'web3-utils';
-import { NON_EXISTENT_ADDRESS } from './constants';
+import isEmptyHexString from './isEmptyHexString';
 
 /**
  * Pure function
@@ -11,6 +11,6 @@ import { NON_EXISTENT_ADDRESS } from './constants';
  */
 export default function checkValidAddress(address: any): boolean {
   assert(typeof address === 'string' && isAddress(address), 'Invalid address');
-  assert(address !== NON_EXISTENT_ADDRESS, 'Undefined address');
+  assert(!isEmptyHexString(address), 'Undefined address');
   return true;
 }
