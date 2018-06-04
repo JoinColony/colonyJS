@@ -34,15 +34,14 @@ export default class GetTask extends ContractClient.Caller<
       functionName: 'getTask',
       input: [['taskId', 'number']],
       output: [
-        // TODO colonyJS#157 - add a 'date' type for deliverableDate/dueDate
         ['specificationHash', 'ipfsHash'],
         ['deliverableHash', 'ipfsHash'],
         ['finalized', 'boolean'],
         ['cancelled', 'boolean'],
-        ['dueDate', 'number'],
+        ['dueDate', 'date'],
         ['payoutsWeCannotMake', 'number'],
         ['potId', 'number'],
-        ['deliverableDate', 'number'],
+        ['deliverableDate', 'date'],
         ['domainId', 'number'],
       ],
       ...params,

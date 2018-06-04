@@ -144,7 +144,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    For a given task, will return the number of submitted ratings and the timestamp of their submission
+    For a given task, will return the number of submitted ratings and the date of their submission
   */
   getTaskWorkRatings: ColonyClient.Caller<
     {
@@ -152,7 +152,7 @@ export default class ColonyClient extends ContractClient {
     },
     {
       count: number, // Total number of submitted ratings for a task.
-      timestamp: number, // Timestamp of the last submitted rating.
+      date: Date, // Date of the last submitted rating.
     },
     ColonyClient,
   >;
@@ -568,7 +568,7 @@ export default class ColonyClient extends ContractClient {
     makeTaskCaller(
       'getTaskWorkRatings',
       [],
-      [['count', 'number'], ['timestamp', 'number']],
+      [['count', 'number'], ['date', 'date']],
     );
     makeTaskCaller(
       'getTaskWorkRatingSecret',
@@ -754,7 +754,7 @@ export default class ColonyClient extends ContractClient {
         nonceFunctionName: 'getTaskChangeNonce',
       });
     makeExecuteTaskChange('setTaskBrief', [['specificationHash', 'ipfsHash']]);
-    makeExecuteTaskChange('setTaskDueDate', [['dueDate', 'number']]);
+    makeExecuteTaskChange('setTaskDueDate', [['dueDate', 'date']]);
     makeExecuteTaskChange('setTaskWorkerPayout', [
       ['token', 'address'],
       ['amount', 'bigNumber'],
