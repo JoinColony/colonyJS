@@ -68,6 +68,7 @@ export type ValidateEmpty = (
 export type ContractMethodArgs<IContractClient: ContractClient> = {
   client: IContractClient,
   functionName: string,
+  name: string,
   input: Params,
   output?: Params,
   validateEmpty?: ValidateEmpty,

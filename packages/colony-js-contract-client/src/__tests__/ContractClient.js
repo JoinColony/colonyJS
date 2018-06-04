@@ -98,12 +98,12 @@ describe('ContractClient', () => {
   test('Methods can be defined', () => {
     const client = new ContractClient({ adapter, contract, options });
     const input = [['id', 'number']];
-    const functionName = 'myMethodOne';
+    const name = 'myMethodOne';
 
     const Caller = jest.fn((...args) => new client.constructor.Caller(...args));
 
     // Define a method on the client
-    client.addMethod(Caller, functionName, { input });
+    client.addMethod(Caller, name, { input, name });
 
     // The method should exist on the client
     expect(client.myMethodOne).toBeInstanceOf(client.constructor.Caller);
@@ -111,7 +111,8 @@ describe('ContractClient', () => {
     // The method should have been created with the client and functionName
     expect(Caller).toHaveBeenCalledWith({
       client,
-      functionName,
+      name,
+      functionName: name,
       input,
     });
 
@@ -123,13 +124,14 @@ describe('ContractClient', () => {
     });
     expect(Caller).toHaveBeenCalledWith({
       client,
+      name: 'innocentlyClaimFunds',
       functionName: 'stealAllTheTokens',
       input,
     });
 
     // Attempting to redefine the same method name should not work
     expect(() => {
-      client.addMethod(Caller, functionName, { input });
+      client.addMethod(Caller, name, { input, name });
     }).toThrowError('A ContractMethod named "myMethodOne" already exists');
 
     // However, the method should not have been redefined

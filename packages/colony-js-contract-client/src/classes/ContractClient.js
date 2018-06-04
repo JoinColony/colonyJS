@@ -125,7 +125,7 @@ export default class ContractClient {
       throw new Error(`A ContractMethod named "${name}" already exists`);
 
     Object.assign(this, {
-      [name]: new Method({ functionName: name, client: this, ...def }),
+      [name]: new Method({ name, functionName: name, client: this, ...def }),
     });
   }
 

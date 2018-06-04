@@ -2,6 +2,10 @@
 
 ## v.NEXT
 
+**Enhancements**
+
+* Validation errors in contract methods now contain the method name (`@colony/colony-js-contract-client`)
+
 ## v1.2.0
 
 **Enhancements**

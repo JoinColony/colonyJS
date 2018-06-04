@@ -13,8 +13,6 @@ import {
 } from '../modules/paramTypes';
 import { areParamPairsEmpty, isInputEmpty } from '../modules/inputValidation';
 
-const assertValid = makeAssert('Validation failed');
-
 /**
  * Abstract class for interacting with contract methods.
  */
@@ -23,36 +21,25 @@ export default class ContractMethod<
   OutputValues: { [outputValueName: string]: any },
   IContractClient: ContractClient,
 > {
+  assertValid: Function;
   client: IContractClient;
   functionName: string;
   input: Params;
+  name: string;
   output: Params;
-
-  static _validateValue(value: any, paramType: *, paramName: string) {
-    let reason;
-    let isValid = false;
-    try {
-      isValid = validateValue(value, paramType);
-    } catch (error) {
-      reason = error.message || error.toString();
-    }
-    return assertValid(
-      Boolean(isValid),
-      `Parameter "${paramName}" expected a value of type "${paramType}"${
-        reason ? ` (${reason})` : ''
-      }`,
-    );
-  }
 
   constructor({
     client,
     functionName,
+    name,
     input,
     output,
   }: ContractMethodArgs<IContractClient> = {}) {
+    this.name = name;
     this.client = client;
     this.input = input;
     this.functionName = functionName;
+    this.assertValid = makeAssert(`Validation failed for ${name}`);
     if (output) this.output = output;
   }
 
@@ -146,21 +133,33 @@ export default class ContractMethod<
   validate(input?: any): boolean {
     if (areParamPairsEmpty(this.input) && isInputEmpty(input)) return true;
 
-    assertValid(isPlainObject(input), 'Expected parameters as an object');
+    this.assertValid(isPlainObject(input), 'Expected parameters as an object');
 
     const inputValues = Object.assign({}, input);
 
-    assertValid(
+    this.assertValid(
       Object.getOwnPropertyNames(inputValues).length === this.input.length,
       'Mismatching parameters/method parameters sizes',
     );
 
     return this.input.every(([paramName, paramType]) =>
-      this.constructor._validateValue(
-        inputValues[paramName],
-        paramType,
-        paramName,
-      ),
+      this._validateValue(inputValues[paramName], paramType, paramName),
+    );
+  }
+
+  _validateValue(value: any, paramType: *, paramName: string) {
+    let reason;
+    let isValid = false;
+    try {
+      isValid = validateValue(value, paramType);
+    } catch (error) {
+      reason = error.message || error.toString();
+    }
+    return this.assertValid(
+      Boolean(isValid),
+      `Parameter "${paramName}" expected a value of type "${paramType}"${
+        reason ? ` (${reason})` : ''
+      }`,
     );
   }
 }
