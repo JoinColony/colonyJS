@@ -1,7 +1,6 @@
 /* eslint-env jest */
 
 import checkValidAddress from '../checkValidAddress';
-import { NON_EXISTENT_ADDRESS } from '../constants';
 
 describe('checkValidAddress', () => {
   const realAddress = '0x06012c8cf97BEaD5deAe237070F9587f8E7A266d';
@@ -12,7 +11,7 @@ describe('checkValidAddress', () => {
 
   test('Non existent address', () => {
     expect(() => {
-      checkValidAddress(NON_EXISTENT_ADDRESS);
+      checkValidAddress('0x0000000000000000000000000000000000000000');
     }).toThrowError('Undefined address');
   });
 
