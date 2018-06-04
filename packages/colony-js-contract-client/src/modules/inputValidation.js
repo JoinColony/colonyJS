@@ -2,11 +2,11 @@
 
 import isPlainObject from 'lodash.isplainobject';
 
-import type { ParamTypePairs } from '../flowtypes';
+import type { Params } from '../flowtypes';
 
 export const isBoolean = (value: any) => typeof value === 'boolean';
 
-export const areParamPairsEmpty = (paramPairs: ParamTypePairs) =>
+export const areParamPairsEmpty = (paramPairs: Params) =>
   paramPairs == null || (Array.isArray(paramPairs) && paramPairs.length === 0);
 
 export const isInputEmpty = (input: any) =>

@@ -200,4 +200,32 @@ describe('ContractMethod', () => {
       callArgs,
     );
   });
+
+  test('Input values fall back to default values if not provided', () => {
+    convertInputValue.mockImplementation(value => value);
+
+    const specificationHash = 'QmcNbGg6EVfFn2Z1QxWauR9XY9KhnEcyb5DUXCXHi8pwMJ';
+    const domainId = 1;
+    const input = [
+      ['specificationHash', 'ipfsHash'],
+      ['domainId', 'number', domainId],
+    ];
+    const inputValues = { specificationHash };
+
+    const method = new ContractMethod({
+      client,
+      input,
+      functionName: 'myFunction',
+    });
+
+    expect(method._parseInputValues(inputValues)).toEqual([
+      specificationHash,
+      domainId,
+    ]);
+    expect(convertInputValue).toHaveBeenCalledWith(
+      specificationHash,
+      'ipfsHash',
+    );
+    expect(convertInputValue).toHaveBeenCalledWith(domainId, 'number');
+  });
 });
