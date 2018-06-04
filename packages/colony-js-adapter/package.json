@@ -33,7 +33,6 @@
         "url": "https://github.com/JoinColony/colonyJS/issues"
     },
     "dependencies": {
-        "@colony/colony-js-client": "^1.2.0",
         "@colony/colony-js-contract-loader": "^1.2.0",
         "bn.js": "^4.11.6"
     },

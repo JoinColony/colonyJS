@@ -37,9 +37,8 @@
     ],
     "license": "MIT",
     "devDependencies": {
-        "babel-plugin-dynamic-import-node": "^1.2.0",
-        "babel-plugin-syntax-dynamic-import": "^6.18.0",
         "babel-plugin-transform-class-properties": "^6.24.1",
+        "babel-plugin-transform-object-rest-spread": "^6.26.0",
         "flow-bin": "^0.72.0",
         "jest-sandbox": "^1.1.2",
         "webpack": "^4.5.0",
@@ -50,7 +49,6 @@
         "@colony/colony-js-contract-client": "^1.2.0",
         "@colony/colony-js-contract-loader": "^1.2.0",
         "@colony/colony-js-utils": "^1.2.0",
-        "babel-runtime": "^6.26.0",
         "bn.js": "^4.11.6",
         "browser-assert": "^1.2.1",
         "web3-utils": "^1.0.0-beta.34"
