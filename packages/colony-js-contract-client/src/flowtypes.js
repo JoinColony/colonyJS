@@ -23,9 +23,10 @@ export type ParamTypes =
   | 'number'
   | 'string';
 
-export type ParamTypePair = [string, ParamTypes];
+// [param name, param type, default value (optional)]
+export type Param = [string, ParamTypes, *];
 
-export type ParamTypePairs = Array<ParamTypePair>;
+export type Params = Array<Param>;
 
 export type ParamTypeDef = {
   validate: (value: any) => boolean,
@@ -66,8 +67,8 @@ export type ValidateEmpty = (
 export type ContractMethodArgs<IContractClient: ContractClient> = {
   client: IContractClient,
   functionName: string,
-  input: ParamTypePairs,
-  output?: ParamTypePairs,
+  input: Params,
+  output?: Params,
   validateEmpty?: ValidateEmpty,
 };
 
@@ -89,8 +90,8 @@ export type ContractMethodMultisigSenderArgs<
 export type ContractMethodDef<IContractClient: ContractClient> = {
   client: IContractClient,
   functionName?: string,
-  input: ParamTypePairs,
-  output?: ParamTypePairs,
+  input: Params,
+  output?: Params,
 };
 
 export type SigningMode = $Values<typeof SIGNING_MODES>;

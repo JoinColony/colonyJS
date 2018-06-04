@@ -4,7 +4,7 @@
 import isPlainObject from 'lodash.isplainobject';
 import { makeAssert } from '@colony/colony-js-utils';
 
-import type { ContractMethodArgs, ParamTypePairs } from '../flowtypes';
+import type { ContractMethodArgs, Params } from '../flowtypes';
 import ContractClient from './ContractClient';
 import {
   validateValue,
@@ -25,8 +25,8 @@ export default class ContractMethod<
 > {
   client: IContractClient;
   functionName: string;
-  input: ParamTypePairs;
-  output: ParamTypePairs;
+  input: Params;
+  output: Params;
 
   static _validateValue(value: any, paramType: *, paramName: string) {
     let reason;
@@ -85,10 +85,16 @@ export default class ContractMethod<
   /**
    * Given input values, map them against the method's expected parameters,
    * with the appropriate conversion for each type.
+   * Fall back to default values for each parameter.
    */
   _parseInputValues(inputValues: InputValues) {
-    return this.input.map(([paramName, paramType]) =>
-      convertInputValue(inputValues[paramName], paramType),
+    return this.input.map(([paramName, paramType, defaultValue]) =>
+      convertInputValue(
+        Object.hasOwnProperty.call(inputValues, paramName)
+          ? inputValues[paramName]
+          : defaultValue,
+        paramType,
+      ),
     );
   }
 
