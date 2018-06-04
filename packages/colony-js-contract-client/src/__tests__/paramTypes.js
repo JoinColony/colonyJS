@@ -129,6 +129,36 @@ describe('Parameter types', () => {
     expect(convertInputValue(0, 'number')).toBe(0);
   });
 
+  test('Dates are handled properly', () => {
+    const date = new Date(1985, 10, 13, 6, 30, 2);
+    const time = date.getTime() / 1000;
+
+    // Validation
+    expect(validateValue(date, 'date')).toBe(true);
+    expect(validateValue(0, 'date')).toBe(false);
+    expect(validateValue(null, 'date')).toBe(false);
+
+    // Converting output values
+    const bnDate = new BigNumber(time);
+    isBigNumber.mockReturnValueOnce(true);
+    expect(convertOutputValue(bnDate, 'date')).toEqual(date);
+    expect(isBigNumber).toHaveBeenCalledWith(bnDate);
+    isBigNumber.mockClear();
+
+    isBigNumber.mockReturnValueOnce(false);
+    expect(convertOutputValue(time, 'date')).toEqual(date);
+    expect(isBigNumber).toHaveBeenCalledWith(time);
+    isBigNumber.mockClear();
+
+    isBigNumber.mockReturnValueOnce(false);
+    expect(convertOutputValue(0, 'date')).toEqual(null);
+    expect(isBigNumber).toHaveBeenCalledWith(0);
+    isBigNumber.mockClear();
+
+    // Converting input values
+    expect(convertInputValue(date, 'date')).toBe(time);
+  });
+
   test('Strings are handled properly', () => {
     // Validation
     expect(validateValue('a', 'string')).toBe(true);

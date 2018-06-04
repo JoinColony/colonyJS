@@ -19,6 +19,7 @@ export type ParamTypes =
   | 'address'
   | 'bigNumber'
   | 'boolean'
+  | 'date'
   | 'ipfsHash'
   | 'number'
   | 'string';

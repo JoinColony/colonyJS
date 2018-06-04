@@ -48,6 +48,18 @@ const PARAM_TYPE_MAP: {
     },
     convertInput: passThrough,
   },
+  date: {
+    validate(value: any) {
+      return value instanceof Date;
+    },
+    convertOutput(value: any) {
+      const converted = Number(isBigNumber(value) ? value.toNumber() : value);
+      return converted > 0 ? new Date(converted * 1000) : null;
+    },
+    convertInput(value: Date) {
+      return value.getTime() / 1000;
+    },
+  },
   number: {
     validate(value: any) {
       return Boolean(Number.isFinite(value));
