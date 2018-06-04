@@ -135,6 +135,7 @@ describe('Parameter types', () => {
 
     // Validation
     expect(validateValue(date, 'date')).toBe(true);
+    expect(validateValue(new Date('not a valid date'), 'date')).toBe(false);
     expect(validateValue(0, 'date')).toBe(false);
     expect(validateValue(null, 'date')).toBe(false);
 

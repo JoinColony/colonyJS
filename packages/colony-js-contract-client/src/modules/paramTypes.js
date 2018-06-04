@@ -50,7 +50,7 @@ const PARAM_TYPE_MAP: {
   },
   date: {
     validate(value: any) {
-      return value instanceof Date;
+      return value instanceof Date && !!value.valueOf();
     },
     convertOutput(value: any) {
       const converted = Number(isBigNumber(value) ? value.toNumber() : value);
