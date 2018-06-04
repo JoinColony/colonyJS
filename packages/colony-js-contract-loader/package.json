@@ -1,6 +1,6 @@
 {
     "name": "@colony/colony-js-contract-loader",
-    "version": "1.1.2",
+    "version": "1.2.0",
     "description": "Contract loader interfaces",
     "main": "index.js",
     "files": [
@@ -23,7 +23,10 @@
             "git add"
         ]
     },
-    "contributors": ["Christian Maniewski <chris@colony.io>", "James Lefrère <james@colony.io>"],
+    "contributors": [
+        "Christian Maniewski <chris@colony.io>",
+        "James Lefrère <james@colony.io>"
+    ],
     "license": "MIT",
     "bugs": {
         "url": "https://github.com/JoinColony/colonyJS/issues"

@@ -1,6 +1,6 @@
 {
     "name": "@colony/colony-js-adapter-ethers",
-    "version": "1.1.4",
+    "version": "1.2.0",
     "description": "ColonyContract adapter for ethers.js",
     "main": "lib/index.js",
     "files": [
@@ -50,11 +50,11 @@
     },
     "homepage": "https://github.com/JoinColony/colonyJS#readme",
     "dependencies": {
-        "@colony/colony-js-adapter": "^1.1.4",
-        "@colony/colony-js-client": "^1.1.4",
-        "@colony/colony-js-contract-loader": "^1.1.2",
-        "@colony/colony-js-contract-loader-http": "^1.1.2",
-        "@colony/colony-js-utils": "^1.1.4",
+        "@colony/colony-js-adapter": "^1.2.0",
+        "@colony/colony-js-client": "^1.2.0",
+        "@colony/colony-js-contract-loader": "^1.2.0",
+        "@colony/colony-js-contract-loader-http": "^1.2.0",
+        "@colony/colony-js-utils": "^1.2.0",
         "babel-runtime": "^6.26.0",
         "ethers": "^3.0.17"
     },

@@ -2,6 +2,8 @@
 
 ## v.NEXT
 
+## v1.2.0
+
 **Enhancements**
 
 * New `ipfsHash` parameter type, to more easily store/retrieve IPFS hashes from the contracts (`@colony/colony-js-contract-client`)
