@@ -9,9 +9,10 @@
 const IPFS = require('ipfs');
 const { Buffer } = require('buffer');
 
-const node = new IPFS({ start: false });
+let node;
 
 const waitForIPFS = () => {
+  node = new IPFS({ start: false });
   return new Promise((resolve, reject) => {
     node.on('ready', () => resolve(true));
     node.on('error', err => reject(err));
