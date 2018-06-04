@@ -326,7 +326,7 @@ Creates a new task by invoking `makeTask` on-chain.
 |Argument|Type|Description|
 |---|---|---|
 |specificationHash|IPFS hash|Hashed output of the task's work specification, stored so that it can later be referenced for task ratings or in the event of a dispute.|
-|domainId|number|Domain in which the task has been created.|
+|domainId|number|Domain in which the task has been created (default value: `1`).|
 
 **Returns**
 

@@ -11,7 +11,13 @@ import type { ContractClientConstructorArgs } from '@colony/colony-js-contract-c
 
 import ColonyNetworkClient from '../ColonyNetworkClient/index';
 import GetTask from './callers/GetTask';
-import { ROLES, WORKER_ROLE, EVALUATOR_ROLE, MANAGER_ROLE } from '../constants';
+import {
+  ROLES,
+  WORKER_ROLE,
+  EVALUATOR_ROLE,
+  MANAGER_ROLE,
+  DEFAULT_DOMAIN_ID,
+} from '../constants';
 
 type Address = string;
 type Role = $Keys<typeof ROLES>;
@@ -231,7 +237,7 @@ export default class ColonyClient extends ContractClient {
   createTask: ColonyClient.Sender<
     {
       specificationHash: IPFSHash, // Hashed output of the task's work specification, stored so that it can later be referenced for task ratings or in the event of a dispute.
-      domainId: number, // Domain in which the task has been created.
+      domainId: number, // Domain in which the task has been created (default value: `1`).
     },
     {
       taskId: number, // Will return an integer taskId, from the `TaskAdded` event.
@@ -663,7 +669,10 @@ export default class ColonyClient extends ContractClient {
     });
     this.addSender('createTask', {
       functionName: 'makeTask',
-      input: [['specificationHash', 'ipfsHash'], ['domainId', 'number']],
+      input: [
+        ['specificationHash', 'ipfsHash'],
+        ['domainId', 'number', DEFAULT_DOMAIN_ID],
+      ],
       eventHandlers: {
         TaskAdded: {
           contract: this.contract,

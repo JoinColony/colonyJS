@@ -9,3 +9,5 @@ export const ROLES = {
   [EVALUATOR_ROLE]: 1,
   [WORKER_ROLE]: 2,
 };
+
+export const DEFAULT_DOMAIN_ID = 1;
