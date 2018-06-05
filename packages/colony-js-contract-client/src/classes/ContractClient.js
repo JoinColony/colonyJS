@@ -13,9 +13,13 @@ import ContractMethodCaller from './ContractMethodCaller';
 import ContractMethodSender from './ContractMethodSender';
 import ContractMethodMultisigSender from './ContractMethodMultisigSender';
 
+import ContractEvent from './ContractEvent';
+import type { ContractEventProcessor } from './ContractEvent';
+
 import type {
   ContractMethodDef,
   ContractClientConstructorArgs,
+  EventArgumentsDef,
 } from '../flowtypes';
 
 export default class ContractClient {
@@ -27,6 +31,14 @@ export default class ContractClient {
 
   // The contract loading query the class was constructed with
   _query: Query;
+
+  // The contract event subscription methods
+  events: {
+    [string]: {
+      addListener: ContractEventProcessor,
+      removeListener: ContractEventProcessor,
+    },
+  } = {};
 
   // Static getters used in lieu of named exports; this package only has
   // one export.
@@ -139,5 +151,20 @@ export default class ContractClient {
 
   addMultisigSender(name: string, def: Object): void {
     this.addMethod(this.constructor.MultisigSender, name, def);
+  }
+
+  addEvent(eventName: string, argsDef: EventArgumentsDef): void {
+    // eslint-disable-next-line
+    if (Reflect.has(this.events, eventName)) {
+      throw new Error(`An event named "${eventName}" already exists`);
+    }
+
+    Object.assign(this.events, {
+      [eventName]: new ContractEvent({
+        eventName,
+        client: this,
+        argsDef,
+      }),
+    });
   }
 }

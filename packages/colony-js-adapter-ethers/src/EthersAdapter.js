@@ -34,17 +34,16 @@ export default class EthersAdapter implements IAdapter {
     transactionHash: string,
   }): Array<Promise<any>> {
     const mapEventToPromise = eventName => {
-      let contract;
-      let handler;
-      return raceAgainstTimeout(
-        new Promise(resolve => {
-          ({ contract, handler } = events[eventName]);
-          contract.addListener(eventName, transactionHash, ({ args }: Event) =>
-            resolve(handler(args)),
-          );
-        }),
-        timeoutMs,
-        () => contract.removeListener(eventName, transactionHash),
+      const { contract, handler } = events[eventName];
+      let wrappedHandler;
+
+      const subscriptionPromise = new Promise(resolve => {
+        wrappedHandler = ({ args }: Event) => resolve(handler(args));
+        contract.addListener(eventName, wrappedHandler, transactionHash);
+      });
+
+      return raceAgainstTimeout(subscriptionPromise, timeoutMs, () =>
+        contract.removeListener(eventName, wrappedHandler, transactionHash),
       );
     };
     return Object.getOwnPropertyNames(events).map(mapEventToPromise);
@@ -101,8 +100,8 @@ export default class EthersAdapter implements IAdapter {
       // Wait for all success events to resolve, or reject on any error event
       return Object.assign({}, ...(await Promise.all(eventPromises)));
     } finally {
-      Object.entries(events).forEach(([eventName, { contract }]) => {
-        contract.removeListener(eventName, transactionHash);
+      Object.entries(events).forEach(([eventName, { contract, handler }]) => {
+        contract.removeListener(eventName, handler, transactionHash);
       });
     }
   }

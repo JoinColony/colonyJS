@@ -3,6 +3,7 @@
 import type BigNumber from 'bn.js';
 
 import type { Event } from './Event';
+import type { EventCallback } from './EventHandlers';
 import type { Transaction } from './Transaction';
 import type { TransactionOptions } from './TransactionOptions';
 import type { Wallet } from './Wallet';
@@ -17,8 +18,8 @@ export interface Contract {
   connect: Wallet => Contract;
   addListener(
     eventName: string,
-    transactionHash: string,
-    callback: (event: Event) => void,
+    callback: EventCallback,
+    transactionHash?: string,
   ): void;
   callConstant(functionName: string, args: Array<any>): Promise<any>;
   callEstimate(functionName: string, args: Array<any>): Promise<BigNumber>;
@@ -28,5 +29,9 @@ export interface Contract {
     options: TransactionOptions,
   ): Promise<Transaction>;
   createTransactionData(functionName: string, args: Array<any>): string;
-  removeListener(eventName: string, transactionHash: string): void;
+  removeListener(
+    eventName: string,
+    callback: EventCallback,
+    transactionHash?: string,
+  ): void;
 }

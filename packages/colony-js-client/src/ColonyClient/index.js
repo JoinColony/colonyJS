@@ -767,5 +767,7 @@ export default class ColonyClient extends ContractClient {
       ['token', 'address'],
       ['amount', 'bigNumber'],
     ]);
+
+    this.addEvent('TaskAdded', [['id', 'number']]);
   }
 }

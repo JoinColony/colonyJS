@@ -96,6 +96,8 @@ export type ContractMethodDef<IContractClient: ContractClient> = {
   output?: Params,
 };
 
+export type EventArgumentsDef = Array<[string, ParamTypes]>;
+
 export type SigningMode = $Values<typeof SIGNING_MODES>;
 
 export type Signature = {
