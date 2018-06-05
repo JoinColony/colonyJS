@@ -27,6 +27,11 @@ In a new terminal window:
 ~/hackathonStarter$ yarn start-ganache
 ```
 
+### Deploy the colonyNetwork to ganache
+```
+~/hackathonStarter$ yarn deploy-contracts
+```
+
 ### Start TrufflePig
 In a new terminal window, `cd` to the hackathonStarter and start TrufflePig with
 ```
