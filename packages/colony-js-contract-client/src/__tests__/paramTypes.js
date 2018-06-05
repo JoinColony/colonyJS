@@ -130,8 +130,13 @@ describe('Parameter types', () => {
   });
 
   test('Dates are handled properly', () => {
-    const date = new Date(1985, 10, 13, 6, 30, 2);
-    const time = date.getTime() / 1000;
+    const date = new Date(2018, 10, 13, 6, 30, 2, 137);
+    const timeWithMs = new Date(2018, 10, 13, 6, 30, 2, 137).setMilliseconds(0);
+    const timeWithoutMs = parseInt(timeWithMs / 1000, 10);
+
+    // Sanity check
+    expect(String(timeWithMs).length).toBe(13);
+    expect(String(timeWithoutMs).length).toBe(10);
 
     // Validation
     expect(validateValue(date, 'date')).toBe(true);
@@ -140,15 +145,19 @@ describe('Parameter types', () => {
     expect(validateValue(null, 'date')).toBe(false);
 
     // Converting output values
-    const bnDate = new BigNumber(time);
+    const bnDate = new BigNumber(timeWithoutMs);
     isBigNumber.mockReturnValueOnce(true);
-    expect(convertOutputValue(bnDate, 'date')).toEqual(date);
+    const outputFromBn = convertOutputValue(bnDate, 'date');
+    expect(outputFromBn).toBeInstanceOf(Date);
+    expect(outputFromBn.getTime()).toEqual(timeWithMs);
     expect(isBigNumber).toHaveBeenCalledWith(bnDate);
     isBigNumber.mockClear();
 
     isBigNumber.mockReturnValueOnce(false);
-    expect(convertOutputValue(time, 'date')).toEqual(date);
-    expect(isBigNumber).toHaveBeenCalledWith(time);
+    const outputFromNumber = convertOutputValue(timeWithoutMs, 'date');
+    expect(outputFromNumber).toBeInstanceOf(Date);
+    expect(outputFromNumber.getTime()).toEqual(timeWithMs);
+    expect(isBigNumber).toHaveBeenCalledWith(timeWithoutMs);
     isBigNumber.mockClear();
 
     isBigNumber.mockReturnValueOnce(false);
@@ -157,7 +166,7 @@ describe('Parameter types', () => {
     isBigNumber.mockClear();
 
     // Converting input values
-    expect(convertInputValue(date, 'date')).toBe(time);
+    expect(convertInputValue(date, 'date')).toBe(timeWithoutMs);
   });
 
   test('Strings are handled properly', () => {
