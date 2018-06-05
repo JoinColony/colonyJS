@@ -15,8 +15,7 @@
     "scripts": {
         "flow": "flow check",
         "lint": "eslint ./{,interface/}*.js",
-        "precommit": "lint-staged",
-        "prepublish": "yarn run precommit"
+        "precommit": "lint-staged"
     },
     "lint-staged": {
         "./{,interface/}*": [
@@ -33,7 +32,6 @@
         "url": "https://github.com/JoinColony/colonyJS/issues"
     },
     "dependencies": {
-        "@colony/colony-js-client": "^1.2.0",
         "@colony/colony-js-contract-loader": "^1.2.0",
         "bn.js": "^4.11.6"
     },

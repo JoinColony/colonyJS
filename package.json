@@ -8,6 +8,7 @@
         "babel-eslint": "^8.0.2",
         "babel-jest": "^23.0.0",
         "babel-loader": "^7.1.2",
+        "babel-plugin-transform-class-properties": "^6.24.1",
         "babel-plugin-transform-object-rest-spread": "^6.26.0",
         "babel-plugin-transform-runtime": "^6.23.0",
         "babel-preset-env": "^1.6.1",
@@ -23,14 +24,10 @@
         "flow-copy-source": "^1.2.1",
         "flow-parser": "^0.73.0",
         "husky": "^0.14.3",
-        "jest": "^22.3.0",
-        "jest-sandbox": "^1.1.2",
         "lerna": "^2.5.1",
         "lint-staged": "^6.1.1",
         "prettier": "^1.10.2",
-        "shx": "^0.2.2",
-        "webpack": "^4.5.0",
-        "webpack-cli": "^2.0.14"
+        "shx": "^0.2.2"
     },
     "contributors": [
         "Christian Maniewski <chris@colony.io>",
@@ -42,13 +39,14 @@
     "scripts": {
         "lint": "run(){ eslint --ignore-pattern=**/{node_modules,dist,lib}/* --fix ${@:-\"packages/**/src/{,**/}*.js\"}; }; run",
         "precommit": "lerna run --concurrency 1 --stream precommit",
+        "release": "lerna run test && lerna run build && lerna publish",
         "test": "flow check && lerna run test"
     },
     "workspaces": [
         "packages/*"
     ],
     "engines": {
-        "node": ">=8.6.0",
+        "node": ">=8.2.1",
         "yarn": ">=1.3.2"
     }
 }
