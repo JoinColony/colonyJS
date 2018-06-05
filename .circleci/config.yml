@@ -27,15 +27,14 @@ jobs:
           background: true
 
       - run:
-          name: "Start Trufflepig"
-          command: |
-            cd src/lib/colonyNetwork
-            ../../../node_modules/.bin/trufflepig --ganacheKeyFile ganache-accounts.json -v
-          background: true
+          name: "Deploy contracts"
+          command: yarn run deploy-contracts
 
       - run:
-          name: "Compile contracts"
-          command: yarn run deploy-contracts
+          name: "Start Trufflepig"
+          command: |
+            scripts/ci_trufflepig.js
+          background: true
 
       - run: |
           $HOME/.config/yarn/global/node_modules/.bin/greenkeeper-lockfile-update
