@@ -58,14 +58,8 @@ describe('ContractMethod', () => {
     sandbox.spyOn(method, '_validateValue');
 
     expect(method.validate(inputValues)).toBe(true);
-    expect(method._validateValue).toHaveBeenCalledWith(
-      6,
-      input[0],
-    );
-    expect(method.constructor._validateValue).toHaveBeenCalledWith(
-      420,
-      input[1],
-    );
+    expect(method._validateValue).toHaveBeenCalledWith(6, input[0]);
+    expect(method._validateValue).toHaveBeenCalledWith(420, input[1]);
 
     // Missing parameters/wrong type
     [undefined, null, [], 'a', 6].forEach(wrongType => {
@@ -124,7 +118,7 @@ describe('ContractMethod', () => {
       name: 'myMethodName',
     });
     validateValue.mockImplementationOnce(() => true);
-    expect(method._validateValue(1, 'number', 'id')).toBe(true);
+    expect(method._validateValue(1, ['id', 'number'])).toBe(true);
     expect(validateValue).toHaveBeenCalledWith(1, 'number');
   });
 
@@ -140,7 +134,7 @@ describe('ContractMethod', () => {
     // Invalid value
     validateValue.mockImplementationOnce(() => false);
     expect(() => {
-      expect(method._validateValue('abc', 'number', 'id'));
+      expect(method._validateValue('abc', ['id', 'number']));
     }).toThrowError('Parameter "id" expected a value of type "number"');
     expect(validateValue).toHaveBeenCalledWith('abc', 'number');
 
@@ -149,7 +143,7 @@ describe('ContractMethod', () => {
       throw new Error('The reason this validation failed');
     });
     expect(() => {
-      expect(method._validateValue('abc', 'number', 'id'));
+      expect(method._validateValue('abc', ['id', 'number']));
     }).toThrowError(
       'Parameter "id" expected a value of type ' +
         '"number" (The reason this validation failed)',
@@ -160,6 +154,41 @@ describe('ContractMethod', () => {
     expect(() => {
       expect(method._validateValue('abc', 'number', 'id'));
     }).toThrowError('Validation failed for myMethod');
+  });
+
+  test('Valid default values are reported as valid', () => {
+    validateValue.mockImplementationOnce(() => true);
+    const input = [['id', 'number']];
+    const method = new ContractMethod({
+      client,
+      input,
+      name: 'myMethodName',
+    });
+    expect(method._validateValue(undefined, ['id', 'number', 1])).toBe(true);
+    expect(validateValue).toHaveBeenCalledWith(1, 'number');
+  });
+
+  test('Invalid default values are reported as invalid', () => {
+    const input = [['id', 'number']];
+    const method = new ContractMethod({
+      client,
+      input,
+      name: 'myMethodName',
+    });
+    validateValue.mockImplementationOnce(() => false);
+    expect(() => {
+      expect(
+        method._validateValue(undefined, [
+          'id',
+          'number',
+          'a bad default value',
+        ]),
+      );
+    }).toThrowError(
+      'Validation failed for myMethodName: Parameter "id" expected a ' +
+        'value of type "number"',
+    );
+    expect(validateValue).toHaveBeenCalledWith('a bad default value', 'number');
   });
 
   test('Method arguments are processed from input parameters', () => {
