@@ -176,10 +176,10 @@ Save the file, and run with `$ node example.js` - You should see your new cool c
 
 
 ## The Task Life-cycle
-The most useful tool within a colony is the `task` method. Tasks are used to coordinate work, track reputation, and ultimately the only way to get paid through a colony. See [tasks](/colonynetwork/docs-tasks/) for a complete description of what tasks are within a colony.
+The most useful tool within a colony is the `task`. Tasks are used to coordinate work, track reputation, and ultimately the only way to get paid through a colony. See [tasks](/colonynetwork/docs-tasks/) for a complete description of what tasks are within a colony.
 
 ### Create
-A newly created task must be assigned to a domain and must reference a `specificationHash` for the task's completion. Also known as a "Task Brief", the task specification is a description of the work to be done and how that work will be evaluated. A specificationHash is likely to be the reference hash for a document of some type hosted on IPFS,  but this is not a strict requirement. 
+A newly created task must be assigned to a domain and must reference a `specificationHash` for the task's completion. Also known as a "Task Brief", the task specification is a description of the work to be done and how that work will be evaluated. A specificationHash is likely to be the reference hash for a document of some type hosted on IPFS,  but this is not a strict requirement.
 
 The "root domain" of any colony is `1`, and is the default value for `domainId` if unspecified.
 
