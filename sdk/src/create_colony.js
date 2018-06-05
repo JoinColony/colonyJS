@@ -1,4 +1,5 @@
 // Import the prerequisites
+
 const { providers, Wallet } = require('ethers');
 const { default: EthersAdapter } = require('@colony/colony-js-adapter-ethers');
 const { TrufflepigLoader } = require('@colony/colony-js-contract-loader-http');
@@ -59,6 +60,8 @@ const example = async () => {
   // You can also get the Meta Colony:
   const metaColonyClient = await networkClient.getMetaColonyClient();
   console.log('Meta Colony address: ' + metaColonyClient.contract.address);
+
+  return colonyClient;
 };
 
 module.exports = example;

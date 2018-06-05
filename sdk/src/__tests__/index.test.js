@@ -1,23 +1,26 @@
-const example = require('../example');
+const createColony = require('../create_colony');
+const createTask = require('../create_task');
 
 describe('Starter project', () => {
   test('Example logs successful results', async () => {
     jest.spyOn(console, 'log');
 
-    await example();
+    const colonyClient = await createColony();
+    await createTask(colonyClient);
 
-    expect(console.log).toHaveBeenCalledTimes(4);
-    expect(console.log).toHaveBeenCalledWith(
+    const logs = console.log.mock.calls.map(args => args[0]);
+
+    const expected = [
       expect.stringContaining('Token address'),
-    );
-    expect(console.log).toHaveBeenCalledWith(
       expect.stringContaining('Colony ID'),
-    );
-    expect(console.log).toHaveBeenCalledWith(
       expect.stringContaining('Colony address'),
-    );
-    expect(console.log).toHaveBeenCalledWith(
       expect.stringContaining('Meta Colony address'),
-    );
-  });
+      expect.stringContaining('Specification hash'),
+      expect.objectContaining({
+        cancelled: false
+      }),
+    ];
+
+    expect(logs).toEqual(expect.arrayContaining(expected));
+  }, 20000);
 });

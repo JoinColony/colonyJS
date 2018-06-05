@@ -5,9 +5,10 @@
   "main": "src/index.js",
   "scripts": {
     "postinstall": "git submodule update --init --recursive && cd src/lib/colonyNetwork && yarn",
-    "compile-contracts": "cd src/lib/colonyNetwork && truffle migrate --compile-all --reset",
+    "deploy-contracts": "cd src/lib/colonyNetwork && ./node_modules/.bin/truffle migrate --compile-all --reset",
     "start-ganache": "cd src/lib/colonyNetwork && ganache-cli -d --gasLimit 7000000 --acctKeys ganache-accounts.json",
     "start-trufflepig": "cd src/lib/colonyNetwork && trufflepig --ganacheKeyFile ganache-accounts.json",
+    "start": "node src/index",
     "test": "jest"
   },
   "contributors": [
@@ -19,10 +20,12 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@colony/colony-js-adapter-ethers": "^1.1.4",
-    "@colony/colony-js-client": "^1.1.4",
-    "@colony/colony-js-contract-loader-http": "^1.1.2",
-    "ethers": "^3.0.17"
+    "@colony/colony-js-adapter-ethers": "^1.2.0",
+    "@colony/colony-js-client": "^1.2.0",
+    "@colony/colony-js-contract-loader-http": "^1.2.0",
+    "buffer": "^5.1.0",
+    "ethers": "^3.0.17",
+    "ipfs": "^0.29.2"
   },
   "devDependencies": {
     "ganache-cli": "^6.1.0",
