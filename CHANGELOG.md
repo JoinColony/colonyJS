@@ -11,6 +11,10 @@
 * Validation errors in contract methods now contain the method name (`@colony/colony-js-contract-client`)
 * Add a `release` command for the project, streamlined prepublish hooks, simplified and improved babel config
 
+**Bug fixes**
+
+* Fixed a bug where methods with default values were not validated properly (`@colony/colony-js-contract-client`)
+
 ## v1.2.0
 
 **Enhancements**

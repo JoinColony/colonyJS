@@ -4,7 +4,7 @@
 import isPlainObject from 'lodash.isplainobject';
 import { makeAssert } from '@colony/colony-js-utils';
 
-import type { ContractMethodArgs, Params } from '../flowtypes';
+import type { ContractMethodArgs, Params, Param } from '../flowtypes';
 import ContractClient from './ContractClient';
 import {
   validateValue,
@@ -137,27 +137,48 @@ export default class ContractMethod<
 
     const inputValues = Object.assign({}, input);
 
+    const paramNames = this.input.map(([name]) => name);
+    const extraParams = Object.keys(inputValues).filter(
+      name => !paramNames.includes(name),
+    );
     this.assertValid(
-      Object.getOwnPropertyNames(inputValues).length === this.input.length,
-      'Mismatching parameters/method parameters sizes',
+      extraParams.length === 0,
+      `Unexpected parameters: "${extraParams.join(', ')}"`,
     );
 
-    return this.input.every(([paramName, paramType]) =>
-      this._validateValue(inputValues[paramName], paramType, paramName),
+    // Either the parameter name should exist in the inputValues,
+    // or the parameter should have a default value.
+    const missingParams = this.input.filter(
+      param =>
+        !(
+          Object.hasOwnProperty.call(inputValues, param[0]) ||
+          param.length === 3
+        ),
+    );
+    this.assertValid(
+      missingParams.length === 0,
+      `Missing parameters: "${missingParams.map(([name]) => name).join(', ')}"`,
+    );
+
+    return this.input.every(param =>
+      this._validateValue(inputValues[param[0]], param),
     );
   }
 
-  _validateValue(value: any, paramType: *, paramName: string) {
+  _validateValue(value: any, [name, type, defaultValue]: Param) {
     let reason;
     let isValid = false;
     try {
-      isValid = validateValue(value, paramType);
+      isValid = validateValue(
+        typeof value !== 'undefined' ? value : defaultValue,
+        type,
+      );
     } catch (error) {
       reason = error.message || error.toString();
     }
     return this.assertValid(
       Boolean(isValid),
-      `Parameter "${paramName}" expected a value of type "${paramType}"${
+      `Parameter "${name}" expected a value of type "${type}"${
         reason ? ` (${reason})` : ''
       }`,
     );
