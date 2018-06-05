@@ -3,7 +3,7 @@
 import 'isomorphic-fetch';
 import type { Query } from '@colony/colony-js-contract-loader';
 
-import ContractHttpLoader from './ContractHttpLoader';
+import HttpLoader from './HttpLoader';
 
 import type { TruffleArtifact, ConstructorArgs } from '../flowtypes';
 
@@ -36,15 +36,11 @@ function trufflepigTransform(
   };
 }
 
-export default class TrufflepigLoader extends ContractHttpLoader {
+export default class TrufflepigLoader extends HttpLoader {
   _host: string;
 
-  constructor({
-    transform = trufflepigTransform,
-    endpoint = DEFAULT_ENDPOINT,
-    ...rest
-  }: ConstructorArgs = {}) {
-    super({ transform, endpoint, ...rest });
+  constructor({ endpoint = DEFAULT_ENDPOINT }: ConstructorArgs = {}) {
+    super({ transform: trufflepigTransform, endpoint });
     const [host] = this._endpoint.split('/contracts');
     this._host = host;
   }

@@ -28,8 +28,8 @@ export type Transform = (
 ) => ContractDefinition;
 
 export interface ContractLoader {
-  load(
+  _load(
     query: Query,
     requiredProps?: RequiredContractProps,
-  ): Promise<ContractDefinition>;
+  ): Promise<?ContractDefinition>;
 }

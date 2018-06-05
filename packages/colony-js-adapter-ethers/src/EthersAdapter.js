@@ -13,13 +13,15 @@ import type {
   Signature,
   Transaction,
 } from '@colony/colony-js-adapter';
-import type { IContractLoader, Query } from '@colony/colony-js-contract-loader';
+import type { Query } from '@colony/colony-js-contract-loader';
 
-import EthersContract from './EthersContract';
+import ContractLoader from '@colony/colony-js-contract-loader';
+
 import type { ConstructorArgs } from './flowtypes';
+import EthersContract from './EthersContract';
 
 export default class EthersAdapter implements IAdapter {
-  loader: IContractLoader;
+  loader: ContractLoader;
   provider: IProvider;
   wallet: IWallet;
   static getEventPromises({

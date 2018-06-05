@@ -7,3 +7,5 @@ export type {
   RequiredContractProps,
   Query,
 } from './interface/ContractLoader';
+
+export { default } from './ContractLoader';

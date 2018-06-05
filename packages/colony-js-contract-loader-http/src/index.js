@@ -1,8 +1,5 @@
 /* @flow */
 
-import ContractHttpLoader from './loaders/ContractHttpLoader';
-import EtherscanLoader from './loaders/EtherscanLoader';
-import TrufflepigLoader from './loaders/TrufflepigLoader';
-
-export default ContractHttpLoader;
-export { ContractHttpLoader, EtherscanLoader, TrufflepigLoader };
+export { default } from './loaders/HttpLoader';
+export { default as EtherscanLoader } from './loaders/EtherscanLoader';
+export { default as TrufflepigLoader } from './loaders/TrufflepigLoader';

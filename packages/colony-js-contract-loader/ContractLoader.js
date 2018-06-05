@@ -1,7 +1,4 @@
-/* @flow */
-
-import assert from 'browser-assert';
-import 'isomorphic-fetch';
+const assert = require('assert');
 
 import type {
   ContractDefinition,
@@ -9,10 +6,9 @@ import type {
   Transform,
   RequiredContractProps,
   Query,
-} from '@colony/colony-js-contract-loader';
+} from '..interface/ContractLoader';
 
-import type { ConstructorArgs } from '../flowtypes';
-import { DEFAULT_REQUIRED_CONTRACT_PROPS } from '../defaults';
+import { DEFAULT_REQUIRED_CONTRACT_PROPS } from './defaults';
 
 const validateField = (assertion, field) =>
   assert(
@@ -20,21 +16,20 @@ const validateField = (assertion, field) =>
     `Invalid contract definition: ${field} is missing or invalid`,
   );
 
-export default class ContractHttpLoader implements IContractLoader {
-  _endpoint: string;
+export default class ContractLoader {
   _transform: Transform;
 
   /**
-   * The default `transform` function is simply returns the JSON object as the
+   * The default `transform` function is simply returns the input object as the
    * default behaviour.
    */
   static defaultTransform(): Transform {
     /* eslint-disable no-unused-vars */
     return (
-      jsonObj: any,
+      inputObj: any,
       query?: Query,
       requiredProps?: RequiredContractProps,
-    ) => jsonObj;
+    ) => inputObj;
     /* eslint-enable no-unused-vars */
   }
 
@@ -68,74 +63,13 @@ export default class ContractHttpLoader implements IContractLoader {
     return true;
   }
   constructor({
-    endpoint,
     transform = this.constructor.defaultTransform(),
   }: ConstructorArgs = {}) {
-    assert(
-      typeof endpoint === 'string',
-      'An `endpoint` option must be provided',
-    );
     assert(
       typeof transform === 'function',
       'A `transform` function must be provided',
     );
-    this._endpoint = endpoint;
     this._transform = transform;
-  }
-  resolveEndpointResource({
-    contractName,
-    contractAddress,
-    version,
-  }: Query): string {
-    return (
-      this._endpoint
-        .replace('%%NAME%%', contractName || '')
-        .replace('%%ADDRESS%%', contractAddress || '')
-        // `version` can be a string or an integer
-        .replace(
-          '%%VERSION%%',
-          version != null &&
-          (typeof version === 'string' ||
-            Number(parseInt(version, 10)) === version)
-            ? version.toString()
-            : '',
-        )
-    );
-  }
-  async _load(
-    query: Query = {},
-    requiredProps: RequiredContractProps,
-  ): Promise<ContractDefinition> {
-    // Provide some context for errors thrown by lower-level functions
-    const throwError = (action: string, error: any) => {
-      throw new Error(
-        `Unable to ${action} for contract ${query.contractName ||
-          query.contractAddress ||
-          ''}: ${error.message || error}`,
-      );
-    };
-
-    let response;
-    try {
-      response = await fetch(this.resolveEndpointResource(query));
-    } catch (error) {
-      throwError('fetch resource', error);
-    }
-
-    let json;
-    try {
-      json = response && response.json && (await response.json());
-    } catch (error) {
-      throwError('get JSON', error);
-    }
-
-    let contractDef = { abi: [], bytecode: '' };
-    try {
-      contractDef = this._transform(json, query, requiredProps);
-    } catch (error) {
-      throwError('transform contract definition', error);
-    }
-    return contractDef;
   }
   async load(
     query: Query,
@@ -161,7 +95,7 @@ export default class ContractHttpLoader implements IContractLoader {
         ...otherQuery,
       },
       requiredProps,
-    );
+    ) || {};
 
     if (contractAddress) {
       // If we have a specific contractAddress, set it directly.
@@ -177,7 +111,7 @@ export default class ContractHttpLoader implements IContractLoader {
           contractName: routerName,
         },
         requiredProps,
-      );
+      ) || {};
       result.address = routerContract.address;
     }
 
