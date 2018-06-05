@@ -12,11 +12,6 @@ jobs:
             - v1-dependencies-{{ checksum "yarn.lock" }}
             - v1-dependencies-
 
-      - restore_cache:
-          keys:
-            - v1-colonyNetwork-{{ checksum ".git/modules/src/lib/colonyNetwork/HEAD" }}
-            - v1-colonyNetwork-
-
       - run: |
           yarn global add greenkeeper-lockfile@1
           yarn install
@@ -40,11 +35,6 @@ jobs:
       - run:
           name: "Compile contracts"
           command: yarn run compile-contracts
-
-      - save_cache:
-          paths:
-            - src/lib/colonyNetwork
-          key: v1-dependencies-{{ checksum "src/lib/colonyNetwork/yarn.lock" }}
 
       - run: |
           $HOME/.config/yarn/global/node_modules/.bin/greenkeeper-lockfile-update
