@@ -31,10 +31,11 @@ jobs:
           command: |
             cd src/lib/colonyNetwork
             ../../../node_modules/.bin/trufflepig --ganacheKeyFile ganache-accounts.json -v
+          background: true
 
       - run:
           name: "Compile contracts"
-          command: yarn run compile-contracts
+          command: yarn run deploy-contracts
 
       - run: |
           $HOME/.config/yarn/global/node_modules/.bin/greenkeeper-lockfile-update
