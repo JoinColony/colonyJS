@@ -53,11 +53,16 @@ const PARAM_TYPE_MAP: {
       return value instanceof Date && !!value.valueOf();
     },
     convertOutput(value: any) {
-      const converted = Number(isBigNumber(value) ? value.toNumber() : value);
+      const converted = parseInt(
+        isBigNumber(value) ? value.toNumber() : value,
+        10,
+      );
+      // Recreate the date by adding milliseconds to the timestamp
       return converted > 0 ? new Date(converted * 1000) : null;
     },
     convertInput(value: Date) {
-      return value.getTime() / 1000;
+      // Dates are stored as timestamps without milliseconds
+      return parseInt(value.setMilliseconds(0) / 1000, 10);
     },
   },
   number: {

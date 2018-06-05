@@ -14,6 +14,7 @@
 **Bug fixes**
 
 * Fixed a bug where methods with default values were not validated properly (`@colony/colony-js-contract-client`)
+* Fixed a bug where timestamps were not converted correctly (`@colony/colony-js-contract-client`)
 
 ## v1.2.0
 
