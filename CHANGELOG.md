@@ -2,6 +2,9 @@
 
 ## v.NEXT
 
+
+## v1.2.1
+
 **Documentation**
 
 * Updated 'Getting Started', removed 'Quickstart' and reordered sections
