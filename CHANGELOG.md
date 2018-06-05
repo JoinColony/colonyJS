@@ -2,6 +2,10 @@
 
 ## v.NEXT
 
+**Documentation**
+
+* Updated 'Getting Started', removed 'Quickstart' and reordered sections
+
 **Enhancements**
 
 * Validation errors in contract methods now contain the method name (`@colony/colony-js-contract-client`)
