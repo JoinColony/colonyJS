@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "postinstall": "git submodule update --init --recursive && cd src/lib/colonyNetwork && yarn",
-    "compile-contracts": "cd src/lib/colonyNetwork && truffle migrate --compile-all --reset",
+    "deploy-contracts": "cd src/lib/colonyNetwork && truffle migrate --compile-all --reset",
     "start-ganache": "cd src/lib/colonyNetwork && ganache-cli -d --gasLimit 7000000 --acctKeys ganache-accounts.json",
     "start-trufflepig": "cd src/lib/colonyNetwork && trufflepig --ganacheKeyFile ganache-accounts.json",
     "start": "node src/index",
