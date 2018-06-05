@@ -42,8 +42,12 @@ describe('ContractMethod', () => {
   });
 
   test('Method with input params validates correctly', () => {
-    const input = [['id', 'number']];
-    const inputValues = { id: 1 };
+    const input = [
+      ['taskId', 'number'],
+      ['potId', 'number'],
+      ['domainId', 'number', 1],
+    ];
+    const inputValues = { taskId: 6, potId: 420 };
 
     const method = new ContractMethod({
       client,
@@ -54,25 +58,61 @@ describe('ContractMethod', () => {
     sandbox.spyOn(method, '_validateValue');
 
     expect(method.validate(inputValues)).toBe(true);
-    expect(method._validateValue).toHaveBeenCalledWith(1, 'number', 'id');
+    expect(method._validateValue).toHaveBeenCalledWith(
+      6,
+      input[0],
+    );
+    expect(method.constructor._validateValue).toHaveBeenCalledWith(
+      420,
+      input[1],
+    );
 
     // Missing parameters/wrong type
-    [undefined, null, [], 'a', 1].forEach(wrongType => {
+    [undefined, null, [], 'a', 6].forEach(wrongType => {
       expect(() => {
         method.validate(wrongType);
       }).toThrowError('Expected parameters as an object');
     });
 
+    // No parameters
+    expect(() => {
+      method.validate({});
+    }).toThrowError('Missing parameters');
+
+    // Missing parameter
+    expect(() => {
+      method.validate({ taskId: 6 });
+    }).toThrowError('Missing parameters: "potId"');
+
+    // Wine parameters
+    expect(() => {
+      method.validate({
+        caskId: 6,
+        côteId: 420,
+        domaineId: 'Domaine de la Romanee-Conti',
+      });
+    }).toThrowError('Unexpected parameters');
+
     // Extra parameter
     expect(() => {
-      method.validate({ id: 1, somethingElse: 2 });
-    }).toThrowError('Mismatching parameters/method parameters sizes');
+      method.validate({
+        taskId: 6,
+        domainId: 1,
+        potId: 420,
+        somethingElse: 2,
+      });
+    }).toThrowError('Unexpected parameters: "somethingElse"');
+
+    // Extra parameter, without the parameter that has a default value
+    expect(() => {
+      method.validate({ taskId: 6, potId: 420, somethingElse: 1 });
+    }).toThrowError('Unexpected parameters: "somethingElse"');
 
     // Wrong type
     validateValue.mockImplementationOnce(() => false);
     expect(() => {
-      method.validate({ id: 'one' });
-    }).toThrowError('Parameter "id" expected a value of type "number"');
+      method.validate({ taskId: 'six', potId: 420 });
+    }).toThrowError('Parameter "taskId" expected a value of type "number"');
   });
 
   test('Valid values are reported as valid', () => {

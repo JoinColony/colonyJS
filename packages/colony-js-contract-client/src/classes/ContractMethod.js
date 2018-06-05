@@ -137,9 +137,27 @@ export default class ContractMethod<
 
     const inputValues = Object.assign({}, input);
 
+    const paramNames = this.input.map(([name]) => name);
+    const extraParams = Object.keys(inputValues).filter(
+      name => !paramNames.includes(name),
+    );
     this.assertValid(
-      Object.getOwnPropertyNames(inputValues).length === this.input.length,
-      'Mismatching parameters/method parameters sizes',
+      extraParams.length === 0,
+      `Unexpected parameters: "${extraParams.join(', ')}"`,
+    );
+
+    // Either the parameter name should exist in the inputValues,
+    // or the parameter should have a default value.
+    const missingParams = this.input.filter(
+      param =>
+        !(
+          Object.hasOwnProperty.call(inputValues, param[0]) ||
+          param.length === 3
+        ),
+    );
+    this.assertValid(
+      missingParams.length === 0,
+      `Missing parameters: "${missingParams.map(([name]) => name).join(', ')}"`,
     );
 
     return this.input.every(([paramName, paramType]) =>
