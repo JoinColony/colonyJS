@@ -41,5 +41,5 @@ In a new terminal window, `cd` to the hackathonStarter and start TrufflePig with
 ### Run example code
 The code example included in this starter will use colonyJS to create a new token, a new colony, and return the address of the Meta Colony on your running test blockchain.
 ```
-~/hackathonStarter$ node src/index.js
+~/hackathonStarter$ yarn start
 ```
