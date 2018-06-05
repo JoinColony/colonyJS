@@ -257,6 +257,7 @@ Because work ratings are on-chain, they follow a _*Commit* and *Reveal*_ pattern
 * During the *Commit* period, hidden ratings are submitted to the blockchain. The commit period lasts 5 days.
 
 ```js
+// As the Evaluator, submit a rating for the worker.
 const ratingSecret = await colonyClient.generateSecret.call({ salt, rating });
 
 await colonyClient.submitTaskWorkRating.send({
@@ -295,7 +296,10 @@ After the rating period has finished, the task may be finalized, which prevents 
 await colonyClient.finalizeTask.send({
   taskId: 1,
 });
+```
 
+```js
+// As a worker, claim the payout after a task has been finalized.
 await colonyClient.claimPayout.send({
   taskId: 1,
   role: 'WORKER',
