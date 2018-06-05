@@ -21,7 +21,7 @@ colonyJS requires the colonyNetwork contracts to interact with. In the working d
 $ git clone --recursive https://github.com/JoinColony/colonyNetwork.git
 ```
 
-Because colonyNetwork is under continuous development, it's possible that the version you get is ahead of this documentation. Make sure you're on the same page as this guide by checking out a specific version of the contracts:
+*Because colonyNetwork is under continuous development, it's possible that the version you get is ahead of this documentation. Make sure you're on the same page as this guide by checking out a specific version of the contracts:*
 ```
 $ cd colonyNetwork/
 
@@ -70,9 +70,9 @@ Open up a new terminal window, and `cd` to the colonyNetwork directory again.
 
 Deploy your contracts with truffle:
 ```
-$ ./node_modules/.bin/truffle migrate
+$ ./node_modules/.bin/truffle migrate --reset --compile-all
 ```
-*Note: this step requires that you use a specific version of `truffle` that was included when you set up the colonyNetwork directory with `yarn`. If you have truffle installed globally, using the global version might cause an error*
+*Note: this step requires that you use a specific version of `truffle` that was included when you set up the colonyNetwork directory with `yarn`. If you have truffle installed globally, using the global version might cause an error. The flags '--reset' and '--compile-all' are needed if you're re-deploying the contracts*
 
 Wait a little bit for the contracts to complile and deploy on your ganache instance.
 
@@ -176,7 +176,7 @@ Save the file, and run with `$ node example.js` - You should see your new cool c
 
 
 ## The Task Life-cycle
-The most useful tool within a colony is the `task`. Tasks are used to coordinate work, track reputation, and ultimately the only way to get paid through a colony. See [tasks](/colonynetwork/docs-tasks/) for a complete description of what tasks are within a colony.
+The most useful abstraction within a colony is the `task`. Tasks are used to coordinate work, track reputation, and ultimately the only way to get paid through a colony. See [tasks](/colonynetwork/docs-tasks/) for a complete description of what tasks are within a colony.
 
 ### Create
 A newly created task must be assigned to a domain and must reference a `specificationHash` for the task's completion. Also known as a "Task Brief", the task specification is a description of the work to be done and how that work will be evaluated. A specificationHash is likely to be the reference hash for a document of some type hosted on IPFS,  but this is not a strict requirement.
