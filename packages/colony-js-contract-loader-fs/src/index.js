@@ -1,4 +1,7 @@
 /* @flow */
 
-export { default as TruffleLoader } from './loaders/TruffleLoader';
-export { default } from './loaders/FSLoader';
+const TruffleLoader = require('./loaders/TruffleLoader');
+const FSLoader = require('./loaders/FSLoader');
+
+exports.TruffleLoader = TruffleLoader;
+exports.FSLoader = FSLoader;

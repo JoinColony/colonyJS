@@ -15,8 +15,7 @@ const jsonfile = require('jsonfile');
 
 const ContractLoader = require('@colony/colony-js-contract-loader').default;
 
-export default class FSLoader extends ContractLoader
-  implements IContractLoader {
+class FSLoader extends ContractLoader implements IContractLoader {
   _contractDir: string;
 
   constructor({ contractDir, transform }: ConstructorArgs = {}) {
@@ -50,3 +49,5 @@ export default class FSLoader extends ContractLoader
     });
   }
 }
+
+module.exports = FSLoader;

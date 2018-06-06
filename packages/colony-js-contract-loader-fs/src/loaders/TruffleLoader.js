@@ -2,12 +2,14 @@
 
 import type { ConstructorArgs } from '../flowtypes';
 
-import FSLoader from './FSLoader';
+const FSLoader = require('./FSLoader');
 
 const { truffleTransform } = require('@colony/colony-js-contract-loader');
 
-export default class TruffleLoader extends FSLoader {
+class TruffleLoader extends FSLoader {
   constructor({ contractDir }: ConstructorArgs = {}) {
     super({ transform: truffleTransform, contractDir });
   }
 }
+
+module.exports = TruffleLoader;
