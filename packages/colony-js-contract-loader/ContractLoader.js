@@ -1,14 +1,16 @@
-const assert = require('assert');
+/* @flow */
 
 import type {
   ContractDefinition,
-  IContractLoader,
+  ConstructorArgs,
   Transform,
   RequiredContractProps,
   Query,
-} from '..interface/ContractLoader';
+} from './interface/ContractLoader';
 
 import { DEFAULT_REQUIRED_CONTRACT_PROPS } from './defaults';
+
+const assert = require('assert');
 
 const validateField = (assertion, field) =>
   assert(
@@ -71,6 +73,15 @@ export default class ContractLoader {
     );
     this._transform = transform;
   }
+  // eslint-disable-next-line class-methods-use-this
+  async _load(
+    query: Query,
+    requiredProps?: RequiredContractProps, // eslint-disable-line no-unused-vars
+  ): Promise<?ContractDefinition> {
+    throw new Error(
+      'ContractLoader._load() is expected to be defined in a derived class',
+    );
+  }
   async load(
     query: Query,
     requiredProps?: RequiredContractProps = DEFAULT_REQUIRED_CONTRACT_PROPS,
@@ -89,13 +100,16 @@ export default class ContractLoader {
       );
 
     // Load the contract definition by either the contract name or address
-    const result = await this._load(
-      {
-        ...(contractName ? { contractName } : { contractAddress }),
-        ...otherQuery,
-      },
-      requiredProps,
-    ) || {};
+    const result = Object.assign(
+      {},
+      await this._load(
+        {
+          ...(contractName ? { contractName } : { contractAddress }),
+          ...otherQuery,
+        },
+        requiredProps,
+      ),
+    );
 
     if (contractAddress) {
       // If we have a specific contractAddress, set it directly.
@@ -105,13 +119,16 @@ export default class ContractLoader {
       result.address = routerAddress;
     } else if (routerName) {
       // If we have the router name, look it up for the router address.
-      const routerContract = await this._load(
-        {
-          ...otherQuery,
-          contractName: routerName,
-        },
-        requiredProps,
-      ) || {};
+      const routerContract = Object.assign(
+        {},
+        await this._load(
+          {
+            ...otherQuery,
+            contractName: routerName,
+          },
+          requiredProps,
+        ),
+      );
       result.address = routerContract.address;
     }
 

@@ -1,7 +1,6 @@
 /* @flow */
 
-import type { IContractLoader, Query } from '@colony/colony-js-contract-loader';
-
+import type { Query } from '@colony/colony-js-contract-loader';
 import type { Contract } from './Contract';
 import type { EventHandlers } from './EventHandlers';
 import type { Provider } from './Provider';
@@ -10,8 +9,10 @@ import type { Transaction } from './Transaction';
 import type { TransactionReceipt } from './TransactionReceipt';
 import type { Wallet } from './Wallet';
 
+import ContractLoader from '@colony/colony-js-contract-loader';
+
 export interface Adapter {
-  loader: IContractLoader;
+  loader: ContractLoader;
   provider: Provider;
   wallet: Wallet;
   ecRecover(digest: Array<number>, signature: Signature): string;

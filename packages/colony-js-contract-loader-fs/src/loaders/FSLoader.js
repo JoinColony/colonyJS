@@ -37,9 +37,14 @@ export default class FSLoader extends ContractLoader
 
     const file = path.resolve(this._contractDir, `${contractName}.json`);
     return new Promise((resolve, reject) => {
-      jsonfile.readFile(file, (err, contents) => {
-        if (err) return reject(err);
-        const transformed = this._transform(contents, query, requiredProps);
+      jsonfile.readFile(file, (error, contents) => {
+        let transformed;
+        if (error) return reject(error);
+        try {
+          transformed = this._transform(contents, query, requiredProps);
+        } catch (transformError) {
+          return reject(transformError);
+        }
         return resolve(transformed);
       });
     });

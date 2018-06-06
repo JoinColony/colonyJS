@@ -27,6 +27,10 @@ export type Transform = (
   requiredProps?: RequiredContractProps,
 ) => ContractDefinition;
 
+export type ConstructorArgs = {
+  transform: Transform,
+};
+
 export interface ContractLoader {
   _load(
     query: Query,
