@@ -100,16 +100,16 @@ export default class ContractLoader {
       );
 
     // Load the contract definition by either the contract name or address
-    const result = Object.assign(
-      {},
-      await this._load(
-        {
-          ...(contractName ? { contractName } : { contractAddress }),
-          ...otherQuery,
-        },
-        requiredProps,
-      ),
-    );
+    const firstQuery = {
+      ...(contractName ? { contractName } : { contractAddress }),
+      ...otherQuery,
+    };
+    const result = await this._load(firstQuery, requiredProps);
+
+    if (result == null)
+      throw new Error(
+        `Unable to load contract definition (${JSON.stringify(firstQuery)})`,
+      );
 
     if (contractAddress) {
       // If we have a specific contractAddress, set it directly.
@@ -119,17 +119,14 @@ export default class ContractLoader {
       result.address = routerAddress;
     } else if (routerName) {
       // If we have the router name, look it up for the router address.
-      const routerContract = Object.assign(
-        {},
-        await this._load(
-          {
-            ...otherQuery,
-            contractName: routerName,
-          },
-          requiredProps,
-        ),
+      const routerContract = await this._load(
+        {
+          ...otherQuery,
+          contractName: routerName,
+        },
+        requiredProps,
       );
-      result.address = routerContract.address;
+      if (routerContract != null) result.address = routerContract.address;
     }
 
     this.constructor.validateContractDefinition(result, requiredProps);
