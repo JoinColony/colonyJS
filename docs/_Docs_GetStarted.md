@@ -173,3 +173,5 @@ const example = async () => {
 ```
 
 Save the file, and run with `$ node example.js` - You should see your new cool colony and token appear on your private blockchain!
+
+What's next? Continue on to the [Task Lifecycle](/colonyjs/docs-task-lifecycle) to learn how to interact with colony tasks.
