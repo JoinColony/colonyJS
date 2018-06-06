@@ -72,7 +72,7 @@ Important changes to a task must be approved by multiple people. Task changes re
 * Changing or setting the Worker's payout (Manager and Worker)
 * Changing or setting the Evaluator's payout (Manager and Evaluator)
 
-Attempting to use these methods without a MultisigOperation will throw an error. You can learn more about Multisignature transactions in colonyJS [here](/colonyjs/docs-multisignature).
+Attempting to use these methods without a MultisigOperation will throw an error. You can learn more about Multisignature transactions in colonyJS [here](/colonyjs/docs-multisignature-transactions/).
 
 ## Rate
 After the work has been submitted (or the due date has passed), the work rating period begins.
@@ -154,7 +154,7 @@ const IPFS = require('ipfs');
 const ipfs = new IPFS();
 ```
 
-This will run a full IPFS node in node.js or your browser. Heads up! Running your IPFS node in browser will require you to install the [`Buffer` package](https://www.npmjs.com/package/buffer).
+This will run a full IPFS node in node.js or your browser. Heads up! Running your IPFS node in browser will require you to install the [`Buffer` package](https://www.npmjs.com/package/buffer) seperately (while it's included in node.js by default).
 
 
 #### Alternative IPFS setup
@@ -175,24 +175,33 @@ ipfs version 0.4.15
 ```
 
 ## Set the `specificationHash`
-The IPFS hash is returned after adding the file to IPFS. Use that return to pass the specificationHash value on to the `createTask` method. This example uses a specification in JSON format:
+The IPFS hash is returned after adding the file to IPFS. Use that return to pass the specificationHash value on to the `createTask` method.
+
+IPFS requires that files be uploaded as a `Buffer`, which is a binary representation of the data to host.
+
+To create that buffer, the specification must first be 'converted' to a JSON string.
 
 ```
+// Prepare our data by passing our spec object as a JSON string to `Buffer`
 const data = Buffer.from(JSON.stringify(spec));
+// upload your file to IPFS
 const files = await ipfs.files.add(data)
+// set the hash when it's returned after upload
 const { hash } = files[0];
 
+// Create a new task with your IPFS hash set as the specificationHash
 colonyClient.createTask.send({ specificationHash: hash });
 ```
 
+You can also update the specificationHash by calling the `setTaskBrief` multisignature operation. See [multisignature transactions](/colonyjs/docs-multisignature-transactions/) for more details.
+
 ## Retrieve the task specification from IPFS
-To retrieve the specification from IPFS for a task that's already been created, use the `getTask` method:
+To retrieve the specification from IPFS for a task that's already been created, use the `getTask` method.
 
 ```
 const task = await colonyClient.getTask.call({ taskId })
+// IPFS will provide a binary representation ('buffer') of our spec given the hash from our task
 const buffer = await node.files.cat(`/ipfs/${task.specificationHash}`);
-// If you used json you probably want to parse it back
-const contents = JSON.parse(buf.toString());
+// You likely will want to parse the buffer back into a regular JS object:
+const contents = JSON.parse(buffer.toString());
 ```
-
-You can always update the specificationHash by calling the `setTaskBrief` multisignature operation. See [multisignature transactions](/colonyjs/docs-multisignature-transactions/) for more details.
