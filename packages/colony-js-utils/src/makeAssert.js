@@ -1,6 +1,6 @@
 /* @flow */
 
-import assert from 'browser-assert';
+import assert from 'assert';
 
 /**
  * Given a message string (e.g. 'Validation failed'), return an assert function

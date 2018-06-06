@@ -44,8 +44,8 @@
     "homepage": "https://github.com/JoinColony/colonyJS#readme",
     "dependencies": {
         "@colony/colony-js-contract-loader": "^1.2.1",
+        "assert": "^1.4.1",
         "babel-runtime": "^6.26.0",
-        "browser-assert": "^1.2.1",
         "isomorphic-fetch": "^2.2.1"
     },
     "devDependencies": {

@@ -1,6 +1,6 @@
 /* @flow */
 
-import assert from 'browser-assert';
+import assert from 'assert';
 import 'isomorphic-fetch';
 import ContractLoader from '@colony/colony-js-contract-loader';
 

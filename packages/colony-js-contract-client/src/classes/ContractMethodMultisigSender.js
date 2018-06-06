@@ -1,6 +1,6 @@
 /* @flow */
 
-import assert from 'browser-assert';
+import assert from 'assert';
 import { isBigNumber, isValidAddress } from '@colony/colony-js-utils';
 import type { TransactionOptions } from '@colony/colony-js-adapter';
 
