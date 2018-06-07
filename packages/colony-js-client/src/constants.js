@@ -11,3 +11,11 @@ export const ROLES = {
 };
 
 export const DEFAULT_DOMAIN_ID = 1;
+
+export const OWNER_ROLE = 'OWNER';
+export const ADMIN_ROLE = 'ADMIN';
+
+export const AUTHORITY_ROLES = {
+  [OWNER_ROLE]: 0,
+  [ADMIN_ROLE]: 1,
+};
