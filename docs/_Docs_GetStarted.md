@@ -174,4 +174,24 @@ const example = async () => {
 
 Save the file, and run with `$ node example.js` - You should see your new cool colony and token appear on your private blockchain!
 
+
+## Funding your Colony
+
+TODO write me, explaining why funding a Colony is necessary and how it should be done
+
+```js
+// Make the colony contract the owner of the token
+await colonyClient.tokenClient.setOwner.send({ owner: colonyClient.contract.address });
+
+// Add yourself as an admin
+await colonyClient.authorityClient.setUserRole.send({ user: wallet.address, role: 'ADMIN' });
+
+// Mint some tokens
+await colonyClient.mintTokens.send({ amount: 1000 });
+
+// Get the total supply
+const { amount } = await colonyClient.tokenClient.getTotalSupply.call();
+// 1000
+```
+
 What's next? Continue on to the [Task Lifecycle](/colonyjs/docs-task-lifecycle) to learn how to interact with colony tasks.
