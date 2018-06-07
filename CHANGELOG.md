@@ -7,6 +7,12 @@
 * Added new `ContractEvent` events subscription to `ContractClient`, allow for simple events subscription (`@colony/colony-js-contract-client`)
 * Added new task lifecycle events to `ColonyClient`, using new event subscriptions (`@colony/colony-js-contract-client`)
 
+**New features**
+
+* Added `TokenClient`, a means of interacting with a colony's token contract (`@colony/colony-js-client`)
+* Added `AuthorityClient`, a means of interacting with a colony's authority contract (`@colony/colony-js-client`)
+* Get `tokenClient` and `authorityClient` when initializing a `ColonyClient` (`@colony/colony-js-client`)
+
 ## v1.3.0
 
 **New features**
