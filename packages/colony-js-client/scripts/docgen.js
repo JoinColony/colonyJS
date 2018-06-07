@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint-disable */
 
 const fs = require('fs');
 const path = require('path');
@@ -16,6 +17,16 @@ const CONTRACT_CLIENTS = [
     templateFile: path.resolve(__dirname, '..', 'docs', '_API_ColonyNetworkClient.template.md'),
     output: path.resolve(__dirname, '..', '..', '..', 'docs', '_API_ColonyNetworkClient.md'),
   },
+  {
+    file: path.resolve(__dirname, '..', 'src', 'TokenClient', 'index.js'),
+    templateFile: path.resolve(__dirname, '..', 'docs', '_API_TokenClient.template.md'),
+    output: path.resolve(__dirname, '..', '..', '..', 'docs', '_API_TokenClient.md'),
+  },
+  {
+    file: path.resolve(__dirname, '..', 'src', 'AuthorityClient', 'index.js'),
+    templateFile: path.resolve(__dirname, '..', 'docs', '_API_AuthorityClient.template.md'),
+    output: path.resolve(__dirname, '..', '..', '..', 'docs', '_API_AuthorityClient.md'),
+  },
 ];
 
 const TYPES = {
@@ -26,6 +37,7 @@ const TYPES = {
   Address: 'Address',
   BigNumber: 'BigNumber',
   Role: 'Role',
+  AuthorityRole: 'Authority Role',
   IPFSHash: 'IPFS hash',
 };
 
