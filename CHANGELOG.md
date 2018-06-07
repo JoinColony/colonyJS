@@ -2,6 +2,11 @@
 
 ## v.NEXT
 
+## v1.3.0
+
+**New features**
+
+Added `colony-js-contract-loader-fs`: load contracts from the local file-system in node.
 
 ## v1.2.1
 
