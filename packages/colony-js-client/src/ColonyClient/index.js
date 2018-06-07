@@ -10,6 +10,7 @@ import { isValidAddress } from '@colony/colony-js-utils';
 import type { ContractClientConstructorArgs } from '@colony/colony-js-contract-client';
 
 import ColonyNetworkClient from '../ColonyNetworkClient/index';
+import AuthorityClient from '../AuthorityClient/index';
 import GetTask from './callers/GetTask';
 import {
   ROLES,
@@ -25,7 +26,18 @@ type IPFSHash = string;
 
 export default class ColonyClient extends ContractClient {
   networkClient: ColonyNetworkClient;
+  authorityClient: AuthorityClient;
 
+  /*
+    Gets the colony's Authority contract address
+  */
+  getAuthority: ColonyClient.Caller<
+    {},
+    {
+      address: Address, // The colony's Authority contract address
+    },
+    ColonyClient,
+  >;
   /*
     Helper function used to generate the rating secret used in task ratings. Accepts a salt value and a value to hide, and returns the keccak256 hash of both.
   */
@@ -557,18 +569,39 @@ export default class ColonyClient extends ContractClient {
   }
 
   constructor({
-    networkClient,
     adapter,
+    authorityClient,
+    networkClient,
     query,
-  }: { networkClient?: ColonyNetworkClient } & ContractClientConstructorArgs) {
+  }: {
+    authorityClient?: AuthorityClient,
+    networkClient?: ColonyNetworkClient,
+  } & ContractClientConstructorArgs) {
     super({ adapter, query });
 
     if (!(networkClient instanceof ColonyNetworkClient))
       throw new Error(
         'A `networkClient` property must be supplied ' +
-          '(an instance of `ColonyNetworkClient`',
+          '(an instance of `ColonyNetworkClient`)',
       );
+
     this.networkClient = networkClient;
+    if (authorityClient) this.authorityClient = authorityClient;
+
+    return this;
+  }
+
+  async init() {
+    await super.init();
+
+    const { address: authorityAddress } = await this.getAuthority.call();
+    if (!(this.authorityClient instanceof AuthorityClient)) {
+      this.authorityClient = new AuthorityClient({
+        adapter: this.adapter,
+        query: { contractAddress: authorityAddress },
+      });
+      await this.authorityClient.init();
+    }
 
     return this;
   }
@@ -613,6 +646,10 @@ export default class ColonyClient extends ContractClient {
     );
 
     // Callers
+    this.addCaller('getAuthority', {
+      functionName: 'authority',
+      output: [['address', 'address']],
+    });
     this.addCaller('generateSecret', {
       input: [['salt', 'string'], ['value', 'bigNumber']],
       output: [['secret', 'string']],

@@ -25,6 +25,19 @@ const colonyClient = await networkClient.getColonyClient({ key: 'My Colony' }); 
 
 **All callers return promises which resolve to an object containing the given return values.** For a reference please check [here](/colonyjs/docs-contractclient/#callers).
 
+### `getAuthority.call()`
+
+Gets the colony's Authority contract address
+
+
+**Returns**
+
+A promise which resolves to an object containing the following properties:
+
+|Return value|Type|Description|
+|---|---|---|
+|address|Address|The colony's Authority contract address|
+
 ### `generateSecret.call({ salt, value })`
 
 Helper function used to generate the rating secret used in task ratings. Accepts a salt value and a value to hide, and returns the keccak256 hash of both.
