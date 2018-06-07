@@ -1,10 +1,10 @@
 /* @flow */
 
 import type { Event, IProvider, IWallet } from '@colony/colony-js-adapter';
-import type { IContractLoader } from '@colony/colony-js-contract-loader';
+import ContractLoader from '@colony/colony-js-contract-loader';
 
 export type ConstructorArgs = {
-  loader: IContractLoader,
+  loader: ContractLoader,
   provider: IProvider,
   wallet: IWallet,
 };

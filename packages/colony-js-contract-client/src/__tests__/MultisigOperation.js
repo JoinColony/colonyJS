@@ -2,7 +2,7 @@
 /* eslint-disable no-underscore-dangle */
 
 import createSandbox from 'jest-sandbox';
-import assert from 'browser-assert';
+import assert from 'assert';
 import {
   hexToBytes,
   isAddress,
@@ -16,7 +16,7 @@ import isEqual from 'lodash.isequal';
 
 import MultisigOperation from '../classes/MultisigOperation';
 
-jest.mock('browser-assert', () => jest.fn().mockReturnValue(true));
+jest.mock('assert', () => jest.fn().mockReturnValue(true));
 
 jest.mock('lodash.isplainobject', () => jest.fn().mockReturnValue(true));
 

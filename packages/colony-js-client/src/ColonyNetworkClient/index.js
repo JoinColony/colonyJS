@@ -1,6 +1,6 @@
 /* @flow */
 
-import assert from 'browser-assert';
+import assert from 'assert';
 import { utf8ToHex } from 'web3-utils';
 import { isValidAddress } from '@colony/colony-js-utils';
 import BigNumber from 'bn.js';

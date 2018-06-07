@@ -1,6 +1,6 @@
 /* @flow */
 
-import assert from 'browser-assert';
+import assert from 'assert';
 
 import type BigNumber from 'bn.js';
 

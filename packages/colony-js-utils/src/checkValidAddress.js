@@ -1,6 +1,6 @@
 /* @flow */
 
-import assert from 'browser-assert';
+import assert from 'assert';
 import { isAddress } from 'web3-utils';
 import isEmptyHexString from './isEmptyHexString';
 

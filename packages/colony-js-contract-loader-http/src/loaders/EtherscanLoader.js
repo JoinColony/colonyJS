@@ -2,7 +2,7 @@
 
 import type { Query } from '@colony/colony-js-contract-loader';
 
-import ContractHttpLoader from './ContractHttpLoader';
+import HttpLoader from './HttpLoader';
 
 import type { ConstructorArgs } from '../flowtypes';
 
@@ -44,7 +44,7 @@ function etherscanTransform(response: any, query?: Query = {}) {
   return parsed;
 }
 
-export default class EtherscanLoader extends ContractHttpLoader {
+export default class EtherscanLoader extends HttpLoader {
   constructor({
     transform = etherscanTransform,
     endpoint = DEFAULT_ENDPOINT,

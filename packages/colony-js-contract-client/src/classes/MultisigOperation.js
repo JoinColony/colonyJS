@@ -2,7 +2,7 @@
 /* eslint-disable no-underscore-dangle */
 
 import { padLeft, soliditySha3, isHexStrict, hexToBytes } from 'web3-utils';
-import defaultAssert from 'browser-assert';
+import defaultAssert from 'assert';
 import { isValidAddress, makeAssert } from '@colony/colony-js-utils';
 import isPlainObject from 'lodash.isplainobject';
 import isEqual from 'lodash.isequal';

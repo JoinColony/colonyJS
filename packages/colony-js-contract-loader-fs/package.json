@@ -1,23 +1,21 @@
 {
-    "name": "@colony/colony-js-contract-loader-http",
-    "version": "1.2.1",
-    "description": "Load Ethereum smart contract definitions/metadata over HTTP",
+    "name": "@colony/colony-js-contract-loader-fs",
+    "version": "1.0.0",
+    "description": "Load Ethereum smart contract definitions/metadata from the filesystem (in node.js)",
     "main": "lib/index.js",
     "files": [
-        "dist",
         "lib",
         "README.md"
     ],
     "scripts": {
-        "build": "yarn run clean && yarn run build:dist && yarn run build:lib && yarn run build:flow",
-        "build:dist": "webpack",
+        "build": "yarn run build:flow && yarn run build:lib",
         "build:flow": "flow-copy-source src lib --ignore '__tests__/*.js'",
-        "build:lib": "babel src --out-dir lib --ignore __tests__ --source-maps",
-        "clean": "shx rm -rf lib",
+        "build:lib": "flow-remove-types --out-dir lib/ src/",
+        "dev": "nodemon",
         "flow": "flow check",
-        "lint": "eslint src/{,**/}*.js",
+        "lint": "eslint src",
         "precommit": "lint-staged",
-        "test": "yarn run lint && yarn run test:unit",
+        "test": "yarn run flow && yarn run lint && yarn run test:unit",
         "test:unit": "jest --coverage --config=jest.conf.json"
     },
     "lint-staged": {
@@ -43,19 +41,16 @@
     },
     "homepage": "https://github.com/JoinColony/colonyJS#readme",
     "dependencies": {
-        "@colony/colony-js-contract-loader": "^1.2.1",
-        "assert": "^1.4.1",
-        "babel-runtime": "^6.26.0",
-        "isomorphic-fetch": "^2.2.1"
+        "@colony/colony-js-contract-loader": "^1.2.0",
+        "jsonfile": "^4.0.0"
     },
     "devDependencies": {
         "flow-bin": "^0.72.0",
-        "flow-copy-source": "^1.2.1",
+        "flow-copy-source": "^2.0.0",
+        "flow-remove-types": "^1.2.3",
         "jest": "^22.4.0",
-        "jest-fetch-mock": "^1.4.1",
         "jest-sandbox": "^1.1.2",
-        "webpack": "^4.5.0",
-        "webpack-cli": "^2.0.14"
+        "nodemon": "^1.17.5"
     },
     "engines": {
         "node": ">=8.2.1",

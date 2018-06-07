@@ -2,7 +2,7 @@
 /* eslint no-underscore-dangle: 0 */
 
 import createSandbox from 'jest-sandbox';
-import ContractHttpLoader from '../loaders/ContractHttpLoader';
+import ContractHttpLoader from '../loaders/HttpLoader';
 import TrufflepigLoader from '../loaders/TrufflepigLoader';
 import EtherscanLoader from '../loaders/EtherscanLoader';
 import MetaCoin from '../__mocks__/MetaCoin.json';
