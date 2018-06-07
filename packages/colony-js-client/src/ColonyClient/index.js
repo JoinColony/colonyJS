@@ -10,6 +10,7 @@ import { isValidAddress } from '@colony/colony-js-utils';
 import type { ContractClientConstructorArgs } from '@colony/colony-js-contract-client';
 
 import ColonyNetworkClient from '../ColonyNetworkClient/index';
+import TokenClient from '../TokenClient/index';
 import AuthorityClient from '../AuthorityClient/index';
 import GetTask from './callers/GetTask';
 import {
@@ -26,6 +27,7 @@ type IPFSHash = string;
 
 export default class ColonyClient extends ContractClient {
   networkClient: ColonyNetworkClient;
+  tokenClient: TokenClient;
   authorityClient: AuthorityClient;
 
   /*
@@ -573,9 +575,11 @@ export default class ColonyClient extends ContractClient {
     authorityClient,
     networkClient,
     query,
+    tokenClient,
   }: {
     authorityClient?: AuthorityClient,
     networkClient?: ColonyNetworkClient,
+    tokenClient?: TokenClient,
   } & ContractClientConstructorArgs) {
     super({ adapter, query });
 
@@ -586,6 +590,7 @@ export default class ColonyClient extends ContractClient {
       );
 
     this.networkClient = networkClient;
+    if (tokenClient) this.tokenClient = tokenClient;
     if (authorityClient) this.authorityClient = authorityClient;
 
     return this;
@@ -593,6 +598,15 @@ export default class ColonyClient extends ContractClient {
 
   async init() {
     await super.init();
+
+    const { address: tokenAddress } = await this.getToken.call();
+    if (!(this.tokenClient instanceof TokenClient)) {
+      this.tokenClient = new TokenClient({
+        adapter: this.adapter,
+        query: { contractAddress: tokenAddress },
+      });
+      await this.tokenClient.init();
+    }
 
     const { address: authorityAddress } = await this.getAuthority.call();
     if (!(this.authorityClient instanceof AuthorityClient)) {
