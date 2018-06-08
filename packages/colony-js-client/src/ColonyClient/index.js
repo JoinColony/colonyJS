@@ -841,7 +841,8 @@ export default class ColonyClient extends ContractClient {
     const makeExecuteTaskChange = (name: string, input: Array<any>) =>
       this.addMultisigSender(name, {
         input: [['taskId', 'number'], ...input],
-        getRequiredSignees: async ({ taskId }: { taskId: number }) => {
+        getRequiredSignees: () => 2,
+        getAcceptedSignees: async ({ taskId }: { taskId: number }) => {
           const taskRoles = await Promise.all(
             [WORKER_ROLE, EVALUATOR_ROLE, MANAGER_ROLE].map(role =>
               this.getTaskRole.call({ taskId, role }),

@@ -57,12 +57,12 @@ Let's break that down:
 // );
 ```
 
-### 2. Identify required signees
+### 2. Identify accepted signees
 
-We can determine which wallets need to sign the operation by checking the `requiredSignees` and `missingSignees` properties.
+We can determine which wallets can to sign the operation by checking the `acceptedSignees` and `missingSignees` properties.
 
 ```js
-console.log(op.requiredSignees);
+console.log(op.acceptedSignees);
 // -> ['0x123...', '0x987...'];
 //    ^ Both of these addresses need to sign it...
 

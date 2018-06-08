@@ -133,7 +133,7 @@ describe('ContractMethodMultisigSender', () => {
     const method = new MultisigSender({
       client,
       functionName,
-      getRequiredSignees: sandbox.fn(),
+      getAcceptedSignees: sandbox.fn(),
       input,
       multisigFunctionName,
       nonceFunctionName,
@@ -168,7 +168,7 @@ describe('ContractMethodMultisigSender', () => {
     const method = new MultisigSender({
       client,
       functionName,
-      getRequiredSignees: sandbox.fn(),
+      getAcceptedSignees: sandbox.fn(),
       input,
       multisigFunctionName,
       nonceFunctionName,
@@ -211,7 +211,7 @@ describe('ContractMethodMultisigSender', () => {
     const method = new MultisigSender({
       client,
       functionName,
-      getRequiredSignees: sandbox.fn(),
+      getAcceptedSignees: sandbox.fn(),
       input,
       multisigFunctionName,
       nonceFunctionName,
