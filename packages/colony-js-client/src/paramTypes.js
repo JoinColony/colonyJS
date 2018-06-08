@@ -1,36 +1,41 @@
 /* @flow */
 
-import { isBigNumber } from '@colony/colony-js-utils';
+import {
+  isBigNumber,
+  isValidAddress,
+  isEmptyHexString,
+} from '@colony/colony-js-utils';
 import { addParamType } from '@colony/colony-js-contract-client';
 
-import { ROLES, AUTHORITY_ROLES } from './constants';
+import { ROLES, AUTHORITY_ROLES, EMPTY_ADDRESS } from './constants';
 
-addParamType('role', {
+const roleType = (roles: { [roleName: string]: number }) => ({
   validate(value: any) {
-    return Object.hasOwnProperty.call(ROLES, value);
+    return Object.hasOwnProperty.call(roles, value);
   },
-  convertInput(value: $Keys<typeof ROLES>) {
-    return ROLES[value];
+  convertInput(value: $Keys<typeof roles>) {
+    return roles[value];
   },
   convertOutput(value: any) {
     const roleNumber = isBigNumber(value) ? value.toNumber() : value;
-    return Object.keys(ROLES).find(name => ROLES[name] === roleNumber) || null;
+    return Object.keys(roles).find(name => roles[name] === roleNumber) || null;
   },
 });
 
-addParamType('authorityRole', {
+addParamType('role', roleType(ROLES));
+
+addParamType('authorityRole', roleType(AUTHORITY_ROLES));
+
+// Either a valid address, or an empty address to indicate ether
+// (0x0 or 0x0000000000000000000000000000000000000000)
+addParamType('payableAddress', {
   validate(value: any) {
-    return Object.hasOwnProperty.call(AUTHORITY_ROLES, value);
+    return isValidAddress(value) || isEmptyHexString(value);
   },
-  convertInput(value: $Keys<typeof AUTHORITY_ROLES>) {
-    return AUTHORITY_ROLES[value];
+  convertInput(value: any) {
+    return isValidAddress(value) ? value : EMPTY_ADDRESS;
   },
   convertOutput(value: any) {
-    const roleNumber = isBigNumber(value) ? value.toNumber() : value;
-    return (
-      Object.keys(AUTHORITY_ROLES).find(
-        name => AUTHORITY_ROLES[name] === roleNumber,
-      ) || null
-    );
+    return value;
   },
 });

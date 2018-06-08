@@ -22,6 +22,7 @@ import {
 } from '../constants';
 
 type Address = string;
+type PayableAddress = string;
 type Role = $Keys<typeof ROLES>;
 type IPFSHash = string;
 
@@ -184,12 +185,12 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Gets a balance for a certain token in a specific pot
+    Gets a balance for a certain source in a specific pot
   */
   getPotBalance: ColonyClient.Caller<
     {
       potId: number, // Integer potId
-      token: Address, // Address of the token's contract
+      source: PayableAddress, // Address to get funds from; empty address (`0x0000...`) for ether
     },
     {
       balance: BigNumber, // Balance for token `token` in pot `potId`
@@ -320,19 +321,19 @@ export default class ColonyClient extends ContractClient {
   setTaskEvaluatorPayout: ColonyClient.MultisigSender<
     {
       taskId: number, // Integer taskId
-      token: Address, // Address of the token's ERC20 contract.
+      source: PayableAddress, // Address to send funds from; empty address (`0x0000...`) for ether
       amount: BigNumber, // Amount to be paid.
     },
     {},
     ColonyClient,
   >;
   /*
-    Sets the payout given to the MANAGER role when the task is finalized.
+    Sets the payout given to the MANAGER role when the task is finalized. This Sender can only be called by the manager for the task in question.
   */
-  setTaskManagerPayout: ColonyClient.MultisigSender<
+  setTaskManagerPayout: ColonyClient.Sender<
     {
       taskId: number, // Integer taskId
-      token: Address, // Address of the token's ERC20 contract.
+      source: PayableAddress, // Address to send funds from; empty address (`0x0000...`) for ether
       amount: BigNumber, // Amount to be paid.
     },
     {},
@@ -344,7 +345,7 @@ export default class ColonyClient extends ContractClient {
   setTaskWorkerPayout: ColonyClient.MultisigSender<
     {
       taskId: number, // Integer taskId
-      token: Address, // Address of the token's ERC20 contract.
+      source: PayableAddress, // Address to send funds from; empty address (`0x0000...`) for ether
       amount: BigNumber, // Amount to be paid.
     },
     {},
@@ -417,13 +418,13 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Claims the payout in `_token` denomination for work completed in task `_id` by contributor with role `_role`. Allowed only by the contributors themselves after task is finalized. Here the network receives its fee from each payout. Ether fees go straight to the Common Colony whereas Token fees go to the Network to be auctioned off.
+    Claims the payout in `source` denomination for work completed in task `taskId` by contributor with role `role`. Allowed only by the contributors themselves after task is finalized. Here the network receives its fee from each payout. Ether fees go straight to the Common Colony whereas Token fees go to the Network to be auctioned off.
   */
   claimPayout: ColonyClient.Sender<
     {
       taskId: number, // Integer taskId
       role: Role, // Role of the contributor claiming the payout: MANAGER, EVALUATOR, or WORKER
-      token: Address, // Address of the token contract
+      source: PayableAddress, // Address to claim funds from; empty address (`0x0000...`) for ether
     },
     {},
     ColonyClient,
@@ -455,11 +456,11 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Move any funds received by the colony in `token` denomination to the top-levl domain pot, siphoning off a small amount to the rewards pot. No fee is taken if called against a colony's own token.
+    Move any funds received by the colony in `source` denomination to the top-levl domain pot, siphoning off a small amount to the rewards pot. No fee is taken if called against a colony's own token.
   */
   claimColonyFunds: ColonyClient.Sender<
     {
-      token: Address, // Address of the token contract. `0x0` value indicates Ether.
+      source: PayableAddress, // Address to claim funds from; empty address (`0x0000...`) for ether
     },
     {},
     ColonyClient,
@@ -693,7 +694,7 @@ export default class ColonyClient extends ContractClient {
       output: [['total', 'bigNumber']],
     });
     this.addCaller('getPotBalance', {
-      input: [['potId', 'number'], ['token', 'address']],
+      input: [['potId', 'number'], ['source', 'payableAddress']],
       output: [['balance', 'bigNumber']],
     });
     this.addCaller('getRewardPayoutInfo', {
@@ -749,10 +750,14 @@ export default class ColonyClient extends ContractClient {
       input: [['taskId', 'number']],
     });
     this.addSender('claimColonyFunds', {
-      input: [['token', 'address']],
+      input: [['source', 'payableAddress']],
     });
     this.addSender('claimPayout', {
-      input: [['token', 'address'], ['role', 'role'], ['token', 'address']],
+      input: [
+        ['taskId', 'number'],
+        ['role', 'role'],
+        ['source', 'payableAddress'],
+      ],
     });
     this.addSender('createTask', {
       functionName: 'makeTask',
@@ -805,6 +810,13 @@ export default class ColonyClient extends ContractClient {
     this.addSender('setTaskRoleUser', {
       input: [['taskId', 'number'], ['role', 'role'], ['user', 'address']],
     });
+    this.addSender('setTaskManagerPayout', {
+      input: [
+        ['taskId', 'number'],
+        ['source', 'payableAddress'],
+        ['amount', 'bigNumber'],
+      ],
+    });
     this.addSender('setTaskSkill', {
       input: [['taskId', 'number'], ['skillId', 'number']],
     });
@@ -843,15 +855,11 @@ export default class ColonyClient extends ContractClient {
     makeExecuteTaskChange('setTaskBrief', [['specificationHash', 'ipfsHash']]);
     makeExecuteTaskChange('setTaskDueDate', [['dueDate', 'date']]);
     makeExecuteTaskChange('setTaskWorkerPayout', [
-      ['token', 'address'],
-      ['amount', 'bigNumber'],
-    ]);
-    makeExecuteTaskChange('setTaskManagerPayout', [
-      ['token', 'address'],
+      ['source', 'payableAddress'],
       ['amount', 'bigNumber'],
     ]);
     makeExecuteTaskChange('setTaskEvaluatorPayout', [
-      ['token', 'address'],
+      ['source', 'payableAddress'],
       ['amount', 'bigNumber'],
     ]);
 
