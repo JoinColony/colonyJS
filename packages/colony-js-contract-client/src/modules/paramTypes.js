@@ -10,7 +10,7 @@ import {
 } from '@colony/colony-js-utils';
 
 import type { ParamTypes, ParamTypeDef } from '../flowtypes';
-import { isBoolean } from './inputValidation';
+import { isBoolean } from './paramValidation';
 
 const passThrough = value => value;
 
@@ -132,7 +132,7 @@ export function addParamType(type: string, def: ParamTypeDef): void {
  * Given a value and a ParamType, validate the value according to that type's
  * `validate` function
  */
-export const validateValue = typeMapFn.bind(this, 'validate');
+export const validateValueType = typeMapFn.bind(this, 'validate');
 
 /**
  * Given a value and a ParamType, convert the value according to that type's

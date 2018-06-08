@@ -4,14 +4,10 @@
 import isPlainObject from 'lodash.isplainobject';
 import { makeAssert } from '@colony/colony-js-utils';
 
-import type { ContractMethodArgs, Params, Param } from '../flowtypes';
 import ContractClient from './ContractClient';
-import {
-  validateValue,
-  convertInputValue,
-  convertOutputValue,
-} from '../modules/paramTypes';
-import { areParamPairsEmpty, isInputEmpty } from '../modules/inputValidation';
+import { convertInputValue, convertOutputValue } from '../modules/paramTypes';
+import { validateParams } from '../modules/paramValidation';
+import type { ContractMethodArgs, Params } from '../flowtypes';
 
 /**
  * Abstract class for interacting with contract methods.
@@ -118,69 +114,18 @@ export default class ContractMethod<
   }
 
   /**
+   * Given input values, validate them
+   */
+  validate(inputValues?: any) {
+    return validateParams(inputValues, this.input, this.assertValid);
+  }
+
+  /**
    * Given input values, validate them and return parsed method args.
    */
   getValidatedArgs(inputValues?: any) {
     this.validate(inputValues);
+
     return this._getMethodArgs(inputValues);
-  }
-
-  /**
-   * Given parameters (as an object with named parameters, but potentially any
-   * kind of invalid input), validate each parameter against the expected type
-   * for this method, throwing vaidation errors or returning true.
-   */
-  validate(input?: any): boolean {
-    if (areParamPairsEmpty(this.input) && isInputEmpty(input)) return true;
-
-    this.assertValid(isPlainObject(input), 'Expected parameters as an object');
-
-    const inputValues = Object.assign({}, input);
-
-    const paramNames = this.input.map(([name]) => name);
-    const extraParams = Object.keys(inputValues).filter(
-      name => !paramNames.includes(name),
-    );
-    this.assertValid(
-      extraParams.length === 0,
-      `Unexpected parameters: "${extraParams.join(', ')}"`,
-    );
-
-    // Either the parameter name should exist in the inputValues,
-    // or the parameter should have a default value.
-    const missingParams = this.input.filter(
-      param =>
-        !(
-          Object.hasOwnProperty.call(inputValues, param[0]) ||
-          param.length === 3
-        ),
-    );
-    this.assertValid(
-      missingParams.length === 0,
-      `Missing parameters: "${missingParams.map(([name]) => name).join(', ')}"`,
-    );
-
-    return this.input.every(param =>
-      this._validateValue(inputValues[param[0]], param),
-    );
-  }
-
-  _validateValue(value: any, [name, type, defaultValue]: Param) {
-    let reason;
-    let isValid = false;
-    try {
-      isValid = validateValue(
-        typeof value !== 'undefined' ? value : defaultValue,
-        type,
-      );
-    } catch (error) {
-      reason = error.message || error.toString();
-    }
-    return this.assertValid(
-      Boolean(isValid),
-      `Parameter "${name}" expected a value of type "${type}"${
-        reason ? ` (${reason})` : ''
-      }`,
-    );
   }
 }
