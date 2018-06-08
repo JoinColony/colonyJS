@@ -120,7 +120,7 @@ const { successful } = await op.send();
 // -> true
 
 // We can also add transaction options as a parameter, e.g.:
-// await op.send({ gasLimit: new BigNumber(2500000) });
+// await op.send({ gasLimit: 2500000 });
 
 // We can also see that our change took effect:
 const task = await colonyClient.getTask.call({ taskId: 1 });

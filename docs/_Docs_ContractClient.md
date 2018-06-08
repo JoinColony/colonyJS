@@ -91,7 +91,7 @@ await networkClient.createColony.send({
   name: 'My Little Colony',
   tokenAddress: '0x...',
 }, {
-  gasLimit: new BigNumber(400000),
+  gasLimit: 400000,
   timeoutMs: 1000 * 60 * 2, // two minutes
   waitForMining: true,
 );
