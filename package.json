@@ -25,7 +25,7 @@
         "flow-parser": "^0.73.0",
         "husky": "^0.14.3",
         "lerna": "^2.5.1",
-        "lint-staged": "^6.1.1",
+        "lint-staged": "^7.2.0",
         "prettier": "^1.10.2",
         "shx": "^0.2.2"
     },
