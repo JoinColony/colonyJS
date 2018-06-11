@@ -418,7 +418,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Claims the payout in `source` denomination for work completed in task `taskId` by contributor with role `role`. Allowed only by the contributors themselves after task is finalized. Here the network receives its fee from each payout. Ether fees go straight to the Common Colony whereas Token fees go to the Network to be auctioned off.
+    Claims the payout in `source` denomination for work completed in task `taskId` by contributor with role `role`. Allowed only by the contributors themselves after task is finalized. Here the network receives its fee from each payout. Ether fees go straight to the Meta Colony whereas Token fees go to the Network to be auctioned off.
   */
   claimPayout: ColonyClient.Sender<
     {
@@ -499,7 +499,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    In the case of the Colony Network, only the Common Colony may mint new tokens
+    In the case of the Colony Network, only the Meta Colony may mint new tokens
   */
   mintTokensForColonyNetwork: ColonyClient.Sender<
     {
