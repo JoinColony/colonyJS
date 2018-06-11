@@ -17,7 +17,7 @@ Move to your new starter directory and install dependencies:
 ```
 $ cd hackathonStarter/
 
-~/hackathonStarter$ npm install
+~/hackathonStarter$ yarn 
 ```
 
 ## Get Started
