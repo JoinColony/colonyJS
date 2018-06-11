@@ -25,7 +25,7 @@ $ git clone --recursive https://github.com/JoinColony/colonyNetwork.git
 ```
 $ cd colonyNetwork/
 
-$ git checkout 9485a8ed6cae9574675ab5e48a736ac2c9d7ecd5
+$ git checkout b96b30603397b0a2cbcfa42e3fa6ab8d0c175142 
 
 $ yarn
 ```
