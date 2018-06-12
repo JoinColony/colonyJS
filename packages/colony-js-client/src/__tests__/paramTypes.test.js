@@ -35,39 +35,39 @@ describe('Custom param types', () => {
     }).toThrowError('expected a value of type "role"');
   });
   test('Custom type "role" converts input correctly', () => {
-    expect(client.getRole._parseInputValues({ role: WORKER_ROLE })).toEqual([
+    expect(client.getRole.convertInputValues({ role: WORKER_ROLE })).toEqual([
       ROLES.WORKER,
     ]);
-    expect(client.getRole._parseInputValues({ role: EVALUATOR_ROLE })).toEqual([
-      ROLES.EVALUATOR,
-    ]);
-    expect(client.getRole._parseInputValues({ role: MANAGER_ROLE })).toEqual([
+    expect(client.getRole.convertInputValues({ role: EVALUATOR_ROLE })).toEqual(
+      [ROLES.EVALUATOR],
+    );
+    expect(client.getRole.convertInputValues({ role: MANAGER_ROLE })).toEqual([
       ROLES.MANAGER,
     ]);
   });
   test('Custom type "role" converts output correctly', () => {
     expect(
-      client.getRole._getOutputValues(new BigNumber(ROLES.WORKER)),
+      client.getRole.convertOutputValues(new BigNumber(ROLES.WORKER)),
     ).toEqual({
       role: WORKER_ROLE,
     });
     expect(
-      client.getRole._getOutputValues(new BigNumber(ROLES.EVALUATOR)),
+      client.getRole.convertOutputValues(new BigNumber(ROLES.EVALUATOR)),
     ).toEqual({
       role: EVALUATOR_ROLE,
     });
     expect(
-      client.getRole._getOutputValues(new BigNumber(ROLES.MANAGER)),
+      client.getRole.convertOutputValues(new BigNumber(ROLES.MANAGER)),
     ).toEqual({
       role: MANAGER_ROLE,
     });
     // Bad/missing output values should be null
-    expect(client.getRole._getOutputValues(new BigNumber(4))).toEqual({
+    expect(client.getRole.convertOutputValues(new BigNumber(4))).toEqual({
       role: null,
     });
-    expect(client.getRole._getOutputValues('WORKER_ANT 🐜👑')).toEqual({
+    expect(client.getRole.convertOutputValues('WORKER_ANT 🐜👑')).toEqual({
       role: null, // "Blants"
     });
-    expect(client.getRole._getOutputValues()).toEqual({ role: null });
+    expect(client.getRole.convertOutputValues()).toEqual({ role: null });
   });
 });

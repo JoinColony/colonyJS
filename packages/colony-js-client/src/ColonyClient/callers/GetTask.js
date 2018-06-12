@@ -56,8 +56,8 @@ export default class GetTask extends ContractClient.Caller<
     };
   }
   // eslint-disable-next-line class-methods-use-this
-  _getOutputValues(result: CallResult, { taskId }: *) {
-    const task = super._getOutputValues(result);
+  convertOutputValues(result: CallResult, { taskId }: *) {
+    const task = super.convertOutputValues(result);
 
     // Until arrays of bignumbers are supported as a parameter type,
     // take the last item of the call result (skillIds) and use the first one

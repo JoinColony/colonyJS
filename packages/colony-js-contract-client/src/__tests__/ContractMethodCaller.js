@@ -57,7 +57,7 @@ describe('ContractMethodCaller', () => {
       .spyOn(method, 'getValidatedArgs')
       .mockImplementation(() => callArgs);
     sandbox
-      .spyOn(method, '_getOutputValues')
+      .spyOn(method, 'convertOutputValues')
       .mockImplementation(() => returnValue);
 
     expect(await method.call(inputValues)).toBe(returnValue);
@@ -69,7 +69,10 @@ describe('ContractMethodCaller', () => {
     expect(method.constructor.containsNullValues).toHaveBeenCalledWith(
       returnValue,
     );
-    expect(method._getOutputValues).toHaveBeenCalledWith(result, inputValues);
+    expect(method.convertOutputValues).toHaveBeenCalledWith(
+      result,
+      inputValues,
+    );
   });
 
   test('Empty results are checked', async () => {
@@ -88,7 +91,7 @@ describe('ContractMethodCaller', () => {
     sandbox.spyOn(method, 'getValidatedArgs').mockImplementation(() => {});
     sandbox.spyOn(client, 'call').mockImplementation(() => {});
     sandbox
-      .spyOn(method, '_getOutputValues')
+      .spyOn(method, 'convertOutputValues')
       .mockImplementation(() => returnValue);
 
     expect(await method.call(inputValues)).toEqual(returnValue);

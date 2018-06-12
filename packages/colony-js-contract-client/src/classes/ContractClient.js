@@ -19,7 +19,7 @@ import type { ContractEventProcessor } from './ContractEvent';
 import type {
   ContractMethodDef,
   ContractClientConstructorArgs,
-  EventArgumentsDef,
+  EventParams,
 } from '../flowtypes';
 
 export default class ContractClient {
@@ -153,7 +153,7 @@ export default class ContractClient {
     this.addMethod(this.constructor.MultisigSender, name, def);
   }
 
-  addEvent(eventName: string, argsDef: EventArgumentsDef): void {
+  addEvent(eventName: string, argsDef: EventParams): void {
     // eslint-disable-next-line
     if (Reflect.has(this.events, eventName)) {
       throw new Error(`An event named "${eventName}" already exists`);

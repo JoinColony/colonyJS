@@ -8,6 +8,7 @@ import ContractClient from '../classes/ContractClient';
 import ContractClientMethodCaller from '../classes/ContractMethodCaller';
 import ContractClientMethodSender from '../classes/ContractMethodSender';
 import ContractEvent from '../classes/ContractEvent';
+import MockEmittingContract from '../utils/MockEmittingContract';
 
 describe('ContractClient', () => {
   const sandbox = createSandbox();
@@ -20,31 +21,14 @@ describe('ContractClient', () => {
   const constantData = { constantValue: 123 };
   const gasEstimate = new BigNumber(123);
   const eventData = { myEvent: { myEventValue: 123 } };
-  let _listeners = [];
-  const contract = {
-    address: '0x123',
-    events: {},
-    callConstant: sandbox.fn(async () => constantData),
-    callEstimate: sandbox.fn(async () => gasEstimate),
-    callTransaction: sandbox.fn(async () => transaction),
-    createTransactionData: sandbox.fn(async () => txData),
-    addListener: (name, callback) => {
-      _listeners.push({ name, callback });
-    },
-    removeListener: (name, callback) => {
-      _listeners = _listeners.filter(
-        listener => listener.name !== name || listener.callback !== callback,
-      );
-    },
-    _dispatchEvent: (name, data) => {
-      _listeners.filter(listener => listener.name === name).forEach(listener =>
-        listener.callback({
-          event: name,
-          args: data,
-        }),
-      );
-    },
-  };
+  const contract = new class extends MockEmittingContract {
+    address = '0x123';
+    events = {};
+    callConstant = sandbox.fn(async () => constantData);
+    callEstimate = sandbox.fn(async () => gasEstimate);
+    callTransaction = sandbox.fn(async () => transaction);
+    createTransactionData = sandbox.fn(async () => txData);
+  }();
   const query = { contractName: 'MyContract' };
   const adapter = {
     getContract: sandbox.fn(() => contract),

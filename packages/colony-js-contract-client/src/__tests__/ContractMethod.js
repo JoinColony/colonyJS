@@ -5,30 +5,26 @@ import createSandbox from 'jest-sandbox';
 
 import ContractClient from '../classes/ContractClient';
 import ContractMethod from '../classes/ContractMethod';
-
-import { convertInputValue, convertOutputValue } from '../modules/paramTypes';
-
-jest.mock('../modules/paramTypes', () => ({
-  convertOutputValue: jest
-    .fn()
-    .mockImplementation(value => `converted output: ${value}`),
-  convertInputValue: jest
-    .fn()
-    .mockImplementation(value => `converted input: ${value}`),
-  validateValueType: jest.fn().mockImplementation(() => true),
-}));
+import * as types from '../modules/paramTypes';
 
 describe('ContractMethod', () => {
   const sandbox = createSandbox();
   const client = new ContractClient({});
+
   sandbox
     .spyOn(client, 'createTransactionData')
     .mockImplementation(() => 'the tx data');
 
   beforeEach(() => {
     sandbox.clear();
-    convertInputValue.mockClear();
-    convertOutputValue.mockClear();
+
+    sandbox
+      .spyOn(types, 'convertInputValue')
+      .mockImplementation(value => `converted input: ${value}`);
+    sandbox
+      .spyOn(types, 'convertOutputValue')
+      .mockImplementation(value => `converted output: ${value}`);
+    sandbox.spyOn(types, 'validateValueType').mockImplementation(() => true);
   });
 
   test('Method arguments are processed from input parameters', () => {
@@ -41,10 +37,10 @@ describe('ContractMethod', () => {
       functionName: 'myFunction',
     });
 
-    sandbox.spyOn(method, '_parseInputValues').mockImplementation(() => [1]);
+    sandbox.spyOn(method, 'convertInputValues').mockImplementation(() => [1]);
 
     expect(method._getMethodArgs(inputValues)).toEqual([1]);
-    expect(method._parseInputValues).toHaveBeenCalledWith(inputValues);
+    expect(method.convertInputValues).toHaveBeenCalledWith(inputValues);
   });
 
   test('Method without input defined gets empty arguments', () => {
@@ -98,10 +94,16 @@ describe('ContractMethod', () => {
       functionName: 'myFunction',
     });
 
-    const returnValues = method._getOutputValues(callResult);
+    const returnValues = method.convertOutputValues(callResult);
 
-    expect(convertOutputValue).toHaveBeenCalledWith(callResult[0], 'string');
-    expect(convertOutputValue).toHaveBeenCalledWith(callResult[1], 'address');
+    expect(types.convertOutputValue).toHaveBeenCalledWith(
+      callResult[0],
+      'string',
+    );
+    expect(types.convertOutputValue).toHaveBeenCalledWith(
+      callResult[1],
+      'address',
+    );
 
     expect(returnValues).toEqual({
       name: 'converted output: Vitalik',
@@ -128,7 +130,7 @@ describe('ContractMethod', () => {
   });
 
   test('Input values fall back to default values if not provided', () => {
-    convertInputValue.mockImplementation(value => value);
+    types.convertInputValue.mockImplementation(value => value);
 
     const specificationHash = 'QmcNbGg6EVfFn2Z1QxWauR9XY9KhnEcyb5DUXCXHi8pwMJ';
     const domainId = 1;
@@ -144,14 +146,14 @@ describe('ContractMethod', () => {
       functionName: 'myFunction',
     });
 
-    expect(method._parseInputValues(inputValues)).toEqual([
+    expect(method.convertInputValues(inputValues)).toEqual([
       specificationHash,
       domainId,
     ]);
-    expect(convertInputValue).toHaveBeenCalledWith(
+    expect(types.convertInputValue).toHaveBeenCalledWith(
       specificationHash,
       'ipfsHash',
     );
-    expect(convertInputValue).toHaveBeenCalledWith(domainId, 'number');
+    expect(types.convertInputValue).toHaveBeenCalledWith(domainId, 'number');
   });
 });
