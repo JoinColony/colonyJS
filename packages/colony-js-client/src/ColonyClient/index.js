@@ -190,7 +190,7 @@ export default class ColonyClient extends ContractClient {
   getPotBalance: ColonyClient.Caller<
     {
       potId: number, // Integer potId
-      source: PayableAddress, // Address to get funds from; empty address (`0x0000...`) for ether
+      source: PayableAddress, // Address to get funds from; empty address (`0x0` for Ether)
     },
     {
       balance: BigNumber, // Balance for token `token` in pot `potId`
@@ -321,7 +321,7 @@ export default class ColonyClient extends ContractClient {
   setTaskEvaluatorPayout: ColonyClient.MultisigSender<
     {
       taskId: number, // Integer taskId
-      source: PayableAddress, // Address to send funds from; empty address (`0x0000...`) for ether
+      source: PayableAddress, // Address to send funds from; empty address (`0x0` for Ether)
       amount: BigNumber, // Amount to be paid.
     },
     {},
@@ -333,7 +333,7 @@ export default class ColonyClient extends ContractClient {
   setTaskManagerPayout: ColonyClient.Sender<
     {
       taskId: number, // Integer taskId
-      source: PayableAddress, // Address to send funds from; empty address (`0x0000...`) for ether
+      source: PayableAddress, // Address to send funds from; empty address (`0x0` for Ether)
       amount: BigNumber, // Amount to be paid.
     },
     {},
@@ -345,7 +345,7 @@ export default class ColonyClient extends ContractClient {
   setTaskWorkerPayout: ColonyClient.MultisigSender<
     {
       taskId: number, // Integer taskId
-      source: PayableAddress, // Address to send funds from; empty address (`0x0000...`) for ether
+      source: PayableAddress, // Address to send funds from; empty address (`0x0` for Ether)
       amount: BigNumber, // Amount to be paid.
     },
     {},
@@ -424,7 +424,7 @@ export default class ColonyClient extends ContractClient {
     {
       taskId: number, // Integer taskId
       role: Role, // Role of the contributor claiming the payout: MANAGER, EVALUATOR, or WORKER
-      source: PayableAddress, // Address to claim funds from; empty address (`0x0000...`) for ether
+      source: PayableAddress, // Address to claim funds from; empty address (`0x0` for Ether)
     },
     {},
     ColonyClient,
@@ -460,7 +460,7 @@ export default class ColonyClient extends ContractClient {
   */
   claimColonyFunds: ColonyClient.Sender<
     {
-      source: PayableAddress, // Address to claim funds from; empty address (`0x0000...`) for ether
+      source: PayableAddress, // Address to claim funds from; empty address (`0x0` for Ether)
     },
     {},
     ColonyClient,
