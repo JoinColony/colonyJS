@@ -715,6 +715,37 @@ export default class ColonyClient extends ContractClient {
       output: [['address', 'address']],
     });
 
+    // Events
+    this.addEvent('TaskAdded', [['id', 'number']]);
+    this.addEvent('TaskBriefChanged', [
+      ['id', 'number'],
+      ['specificationHash', 'ipfsHash'],
+    ]);
+    this.addEvent('TaskDueDateChanged', [
+      ['id', 'number'],
+      ['dueDate', 'number'],
+    ]);
+    this.addEvent('TaskDomainChanged', [
+      ['id', 'number'],
+      ['domainId', 'number'],
+    ]);
+    this.addEvent('TaskSkillChanged', [
+      ['id', 'number'],
+      ['skillId', 'number'],
+    ]);
+    this.addEvent('TaskRoleUserChanged', [
+      ['id', 'number'],
+      ['role', 'number'],
+      ['user', 'address'],
+    ]);
+    this.addEvent('TaskWorkerPayoutChanged', [
+      ['id', 'number'],
+      ['token', 'address'],
+      ['amount', 'number'],
+    ]);
+    this.addEvent('TaskFinalized', [['id', 'number']]);
+    this.addEvent('TaskCanceled', [['id', 'number']]);
+
     // Senders
     const SkillAdded = {
       contract: this.networkClient.contract,
@@ -838,60 +869,42 @@ export default class ColonyClient extends ContractClient {
     });
 
     // Multisig Senders
-    const makeExecuteTaskChange = (name: string, input: Array<any>) =>
+    const makeExecuteTaskChange = (
+      name: string,
+      input: Array<*>,
+      roles: Array<Role> = [],
+    ) =>
       this.addMultisigSender(name, {
         input: [['taskId', 'number'], ...input],
-        getRequiredSignees: () => 2,
-        getAcceptedSignees: async ({ taskId }: { taskId: number }) => {
+        getRequiredSignees: async ({ taskId }: { taskId: number }) => {
           const taskRoles = await Promise.all(
-            [WORKER_ROLE, EVALUATOR_ROLE, MANAGER_ROLE].map(role =>
-              this.getTaskRole.call({ taskId, role }),
-            ),
+            roles.map(role => this.getTaskRole.call({ taskId, role })),
           );
           return taskRoles.map(({ address }) => address).filter(isValidAddress);
         },
         multisigFunctionName: 'executeTaskChange',
         nonceFunctionName: 'getTaskChangeNonce',
+        nonceInput: [['taskId', 'number']],
       });
-    makeExecuteTaskChange('setTaskBrief', [['specificationHash', 'ipfsHash']]);
-    makeExecuteTaskChange('setTaskDueDate', [['dueDate', 'date']]);
-    makeExecuteTaskChange('setTaskWorkerPayout', [
-      ['source', 'payableAddress'],
-      ['amount', 'bigNumber'],
-    ]);
-    makeExecuteTaskChange('setTaskEvaluatorPayout', [
-      ['source', 'payableAddress'],
-      ['amount', 'bigNumber'],
-    ]);
-
-    this.addEvent('TaskAdded', [['id', 'number']]);
-    this.addEvent('TaskBriefChanged', [
-      ['id', 'number'],
-      ['specificationHash', 'ipfsHash'],
-    ]);
-    this.addEvent('TaskDueDateChanged', [
-      ['id', 'number'],
-      ['dueDate', 'number'],
-    ]);
-    this.addEvent('TaskDomainChanged', [
-      ['id', 'number'],
-      ['domainId', 'number'],
-    ]);
-    this.addEvent('TaskSkillChanged', [
-      ['id', 'number'],
-      ['skillId', 'number'],
-    ]);
-    this.addEvent('TaskRoleUserChanged', [
-      ['id', 'number'],
-      ['role', 'number'],
-      ['user', 'address'],
-    ]);
-    this.addEvent('TaskWorkerPayoutChanged', [
-      ['id', 'number'],
-      ['token', 'address'],
-      ['amount', 'number'],
-    ]);
-    this.addEvent('TaskFinalized', [['id', 'number']]);
-    this.addEvent('TaskCanceled', [['id', 'number']]);
+    makeExecuteTaskChange(
+      'setTaskBrief',
+      [['specificationHash', 'ipfsHash']],
+      [MANAGER_ROLE, WORKER_ROLE],
+    );
+    makeExecuteTaskChange(
+      'setTaskDueDate',
+      [['dueDate', 'date']],
+      [MANAGER_ROLE, WORKER_ROLE],
+    );
+    makeExecuteTaskChange(
+      'setTaskWorkerPayout',
+      [['source', 'payableAddress'], ['amount', 'bigNumber']],
+      [MANAGER_ROLE, WORKER_ROLE],
+    );
+    makeExecuteTaskChange(
+      'setTaskEvaluatorPayout',
+      [['source', 'payableAddress'], ['amount', 'bigNumber']],
+      [MANAGER_ROLE, EVALUATOR_ROLE],
+    );
   }
 }

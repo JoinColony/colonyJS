@@ -9,6 +9,8 @@
 
 **New features**
 
+* Support sending multisig operations for tasks with one signature alone (when no other signatures are required) (`@colony/colony-js-client`)
+* Support per-task nonce values for multisig operations; multisig operations can now be run in parallel (for different tasks) (`@colony/colony-js-client`)
 * Added `TokenClient`, a means of interacting with a colony's token contract (`@colony/colony-js-client`)
 * Added `AuthorityClient`, a means of interacting with a colony's authority contract (`@colony/colony-js-client`)
 * Get `tokenClient` and `authorityClient` when initializing a `ColonyClient` (`@colony/colony-js-client`)
