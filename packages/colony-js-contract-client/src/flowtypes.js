@@ -81,9 +81,7 @@ export type ContractMethodSenderArgs<IContractClient: ContractClient> = {
   eventHandlers?: EventHandlers,
 } & ContractMethodArgs<IContractClient>;
 
-export type GetRequiredSignees = (input: any) => Promise<number>;
-
-export type GetAcceptedSignees = (input: any) => Promise<Array<string>>;
+export type GetRequiredSignees = (input: any) => Promise<Array<string>>;
 
 export type ContractMethodMultisigSenderArgs<
   IContractClient: ContractClient,
@@ -92,7 +90,6 @@ export type ContractMethodMultisigSenderArgs<
   nonceInput: Params,
   multisigFunctionName: string,
   getRequiredSignees: GetRequiredSignees,
-  getAcceptedSignees: GetAcceptedSignees,
 } & ContractMethodSenderArgs<IContractClient>;
 
 export type ContractMethodDef<IContractClient: ContractClient> = {

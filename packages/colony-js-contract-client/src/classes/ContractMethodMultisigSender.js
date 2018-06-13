@@ -10,7 +10,6 @@ import MultisigOperation from './MultisigOperation';
 
 import type {
   ContractMethodMultisigSenderArgs,
-  GetAcceptedSignees,
   GetRequiredSignees,
   MultisigOperationConstructorArgs,
   Params,
@@ -26,17 +25,15 @@ export default class ContractMethodMultisigSender<
   nonceInput: Params;
   multisigFunctionName: string;
   _getRequiredSignees: GetRequiredSignees;
-  _getAcceptedSignees: GetAcceptedSignees;
 
   /**
    * {string} functionName - The contract function name to use for
    * creating the transaction data
    * nonceFunctionName - The contract function name to use for
    * getting the transaction nonce value
-   * getRequiredSignees - Async function that returns number of signees
    * required in order to send the transaction
-   * getAcceptedSignees - Async function that returns the addresses of
-   * the signers which will be accepted in order to send the transaction
+   * getRequiredSignees - Async function that returns the addresses of
+   * the signers which will be required in order to send the transaction
    * multisigFunctionName - The contract function name to use for
    * sending the finalized transaction (with multisig support)
    */
@@ -46,7 +43,6 @@ export default class ContractMethodMultisigSender<
     functionName,
     input,
     name,
-    getAcceptedSignees,
     getRequiredSignees,
     multisigFunctionName,
     nonceFunctionName,
@@ -55,7 +51,6 @@ export default class ContractMethodMultisigSender<
   }: ContractMethodMultisigSenderArgs<IContractClient>) {
     super({ client, name, output, input, eventHandlers, functionName });
     this._getRequiredSignees = getRequiredSignees;
-    this._getAcceptedSignees = getAcceptedSignees;
     this.multisigFunctionName = multisigFunctionName;
     this.nonceFunctionName = nonceFunctionName;
     this.nonceInput = nonceInput;
@@ -73,19 +68,13 @@ export default class ContractMethodMultisigSender<
     return op;
   }
 
-  async getAcceptedSignees(inputValues: InputValues): Promise<Array<string>> {
-    const signees = await this._getAcceptedSignees(inputValues);
+  async getRequiredSignees(inputValues: InputValues): Promise<Array<string>> {
+    const signees = await this._getRequiredSignees(inputValues);
     assert(
       Array.isArray(signees) && signees.every(isValidAddress),
       'Expected an array of signee addresses',
     );
     return signees;
-  }
-
-  async getRequiredSignees(inputValues: InputValues): Promise<number> {
-    const nSignees = await this._getRequiredSignees(inputValues);
-    assert(Number.isFinite(nSignees), 'Expected a number of required signees');
-    return nSignees;
   }
 
   async getNonce(inputValues: InputValues): Promise<number> {

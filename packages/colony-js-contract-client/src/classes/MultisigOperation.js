@@ -37,8 +37,7 @@ export default class MultisigOperation<
   _messageHash: string;
   _nonce: number;
   _onReset: ?Function;
-  _acceptedSignees: Array<string>;
-  _requiredSignees: number;
+  _requiredSignees: Array<string>;
   _signers: Signers;
 
   static _validatePayload(payload: any) {
@@ -142,31 +141,17 @@ export default class MultisigOperation<
     return this;
   }
 
-  get acceptedSignees() {
+  get requiredSignees(): Array<string> {
     defaultAssert(
-      Array.isArray(this._acceptedSignees),
-      'Required signees not defined; call `.refresh` to refresh signees',
-    );
-
-    return this._acceptedSignees;
-  }
-
-  get requiredSignees() {
-    defaultAssert(
-      Number.isFinite(this._requiredSignees),
+      Array.isArray(this._requiredSignees),
       'Required signees not defined; call `.refresh` to refresh signees',
     );
 
     return this._requiredSignees;
   }
 
-  get missingSignees() {
-    const presentSignees = [];
-    const missingSignees = [];
-    this.acceptedSignees.forEach(address => {
-      (this._signers[address] ? presentSignees : missingSignees).push(address);
-    });
-    return presentSignees.length >= this.requiredSignees ? [] : missingSignees;
+  get missingSignees(): Array<string> {
+    return this.requiredSignees.filter(address => !this._signers[address]);
   }
 
   get _signedMessageDigest() {
@@ -321,9 +306,6 @@ export default class MultisigOperation<
   }
 
   async _refreshRequiredSignees() {
-    this._acceptedSignees = await this.sender.getAcceptedSignees(
-      this.payload.inputValues,
-    );
     this._requiredSignees = await this.sender.getRequiredSignees(
       this.payload.inputValues,
     );
