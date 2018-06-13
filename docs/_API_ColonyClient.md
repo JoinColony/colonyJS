@@ -351,7 +351,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 ### `setTaskDomain.send({ taskId, domainId }, options)`
 
-Every task must belong to a single existing Domain.
+Every task must belong to a single existing Domain. This can only be called by the manager of the task.
 
 **Arguments**
 
@@ -368,7 +368,7 @@ An instance of a `ContractResponse`
 
 ### `setTaskRoleUser.send({ taskId, role, user }, options)`
 
-Set the user for role `_role` in task `_id`. Only allowed before the task is `finalized`, meaning that the value cannot be changed after the task is complete.
+Set the user for role `_role` in task `_id`. Only allowed before the task is `finalized`, meaning that the value cannot be changed after the task is complete. This can only be called by the manager of the task.
 
 **Arguments**
 
@@ -386,7 +386,7 @@ An instance of a `ContractResponse`
 
 ### `setTaskSkill.send({ taskId, skillId }, options)`
 
-Sets the skill tag associated with the task. Currently there is only one skill tag available per task, but additional skills for tasks are planned in future implementations.
+Sets the skill tag associated with the task. Currently there is only one skill tag available per task, but additional skills for tasks are planned in future implementations. This can only be called by the manager of the task.
 
 **Arguments**
 
@@ -541,7 +541,7 @@ An instance of a `ContractResponse`
 
 ### `addDomain.send({ parentSkillId }, options)`
 
-Adds a domain to the Colony along with the new domain's respective local skill.
+Adds a domain to the Colony along with the new domain's respective local skill. This can only be called by owners of the colony.
 
 **Arguments**
 
@@ -560,7 +560,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 ### `addGlobalSkill.send({ parentSkillId }, options)`
 
-Adds a global skill under a given parent SkillId. Can only be called from the Common Colony
+Adds a global skill under a given parent SkillId. This can only be called from the Meta Colony, and only by the Meta Colony owners.
 
 **Arguments**
 
