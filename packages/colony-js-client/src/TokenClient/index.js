@@ -90,7 +90,7 @@ export default class TokenClient extends ContractClient {
       amount: BigNumber, // The amount of new tokens to mint.
     },
     {
-      address: Address, //
+      address: Address, // The address that initiated the mint event.
       amount: BigNumber, // Event data indicating the amount of tokens minted.
     },
     TokenClient,
@@ -103,7 +103,7 @@ export default class TokenClient extends ContractClient {
       amount: BigNumber, // The amount of unspent tokens to burn.
     },
     {
-      address: Address,
+      address: Address, // The address that initiated the burn event.
       amount: BigNumber, // Event data indicating the amount burned.
     },
     TokenClient,
