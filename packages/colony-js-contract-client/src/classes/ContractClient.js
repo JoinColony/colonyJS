@@ -153,8 +153,11 @@ export default class ContractClient {
     this.addMethod(this.constructor.MultisigSender, name, def);
   }
 
+  /**
+   * Add event subscription functionality for a particular event of this
+   * contract to the given ContractClient instance.
+   */
   addEvent(eventName: string, argsDef: EventParams): void {
-    // eslint-disable-next-line
     if (Reflect.has(this.events, eventName)) {
       throw new Error(`An event named "${eventName}" already exists`);
     }

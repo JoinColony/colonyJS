@@ -47,6 +47,7 @@ describe('ContractMethod', () => {
 
     // Add Handlers
     event.addListener(handlerA);
+    event.addListener(handlerA);
     event.addListener(handlerB);
 
     contract._dispatchEvent(eventName, argsA);
