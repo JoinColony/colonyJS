@@ -89,6 +89,7 @@ export type ContractMethodMultisigSenderArgs<
   IContractClient: ContractClient,
 > = {
   nonceFunctionName: string,
+  nonceInput: Params,
   multisigFunctionName: string,
   getRequiredSignees: GetRequiredSignees,
   getAcceptedSignees: GetAcceptedSignees,

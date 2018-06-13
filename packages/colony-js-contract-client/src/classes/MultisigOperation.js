@@ -305,12 +305,12 @@ export default class MultisigOperation<
     // because we don't have a way of knowing whether they're valid or nor;
     // assume they are still valid.
     if (!Object.hasOwnProperty.call(this, '_nonce')) {
-      this._nonce = await this.sender.getNonce();
+      this._nonce = await this.sender.getNonce(this.payload.inputValues);
       return;
     }
 
     const oldNonce = Number(this._nonce);
-    const newNonce = await this.sender.getNonce();
+    const newNonce = await this.sender.getNonce(this.payload.inputValues);
     if (oldNonce !== newNonce) {
       this._nonce = newNonce;
       // If the nonce changed, the signers are no longer valid

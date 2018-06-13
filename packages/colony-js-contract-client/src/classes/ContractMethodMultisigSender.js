@@ -13,6 +13,7 @@ import type {
   GetAcceptedSignees,
   GetRequiredSignees,
   MultisigOperationConstructorArgs,
+  Params,
   SendOptions,
 } from '../flowtypes';
 
@@ -22,6 +23,7 @@ export default class ContractMethodMultisigSender<
   IContractClient: ContractClient,
 > extends ContractMethodSender<InputValues, OutputValues, IContractClient> {
   nonceFunctionName: string;
+  nonceInput: Params;
   multisigFunctionName: string;
   _getRequiredSignees: GetRequiredSignees;
   _getAcceptedSignees: GetAcceptedSignees;
@@ -48,6 +50,7 @@ export default class ContractMethodMultisigSender<
     getRequiredSignees,
     multisigFunctionName,
     nonceFunctionName,
+    nonceInput,
     output,
   }: ContractMethodMultisigSenderArgs<IContractClient>) {
     super({ client, name, output, input, eventHandlers, functionName });
@@ -55,6 +58,7 @@ export default class ContractMethodMultisigSender<
     this._getAcceptedSignees = getAcceptedSignees;
     this.multisigFunctionName = multisigFunctionName;
     this.nonceFunctionName = nonceFunctionName;
+    this.nonceInput = nonceInput;
   }
 
   /**
@@ -84,10 +88,9 @@ export default class ContractMethodMultisigSender<
     return nSignees;
   }
 
-  // XXX After https://github.com/JoinColony/colonyNetwork/issues/192 is
-  // fixed, the inputValues should be accepted by this method.
-  async getNonce(): Promise<number> {
-    const response = await this.client.call(this.nonceFunctionName, []);
+  async getNonce(inputValues: InputValues): Promise<number> {
+    const args = this.getValidatedArgs(inputValues, this.nonceInput);
+    const response = await this.client.call(this.nonceFunctionName, args);
 
     const nonce = isBigNumber(response) ? response.toNumber() : response;
     assert(
