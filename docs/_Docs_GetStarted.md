@@ -176,8 +176,9 @@ Save the file, and run with `$ node example.js` - You should see your new cool c
 
 
 ## Funding your Colony
+Whether you've brought your ERC20 token from an existing token contract or created a new one at the same time as the colony (as shown in the above example), you can use the tokenClient to call and sent transactions relating to your colony's funding.
 
-TODO write me, explaining why funding a Colony is necessary and how it should be done
+Your colony's token is an important component in the [reputation system](/colonyNetwork/docs-reputation/). Any task payouts in the native token of the colony grant the recipient reputation (proportional to the task rating). Any member of the colony's combined reputation and token holdings determine the amount they can claim from the [rewards pot](/colonyNetwork/docs-pots-and-funding/).
 
 ```js
 // Make the colony contract the owner of the token
