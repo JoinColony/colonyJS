@@ -12,123 +12,123 @@ export default class TokenClient extends ContractClient {
   getTotalSupply: TokenClient.Caller<
     {},
     {
-      amount: BigNumber,
+      amount: BigNumber, // The total token supply.
     },
     TokenClient,
   >;
   /*
-  TODO write me
+  Returns the token balance of a given address.
   */
   getBalanceOf: TokenClient.Caller<
     {
-      sourceAddress: Address,
+      sourceAddress: Address, // The address in question.
     },
     {
-      amount: BigNumber,
+      amount: BigNumber, // The balance of tokens associated with the address.
     },
     TokenClient,
   >;
   /*
-  TODO write me
+  Given a token owner address and a spender, will return the amount of tokens approved by the owner that can be transferred to the spender's account.
   */
   getAllowance: TokenClient.Caller<
     {
-      sourceAddress: Address,
-      user: Address,
+      sourceAddress: Address, // Address of the token owner.
+      user: Address, // Address of the approved spender.
     },
     {
-      amount: BigNumber,
+      amount: BigNumber, // The approved amount of tokens the spender may transfer.
     },
     TokenClient,
   >;
   /*
-  TODO write me
+  Transfer an amount of tokens from a token owner's account to a specified destination address.
   */
   transfer: TokenClient.Sender<
     {
-      destinationAddress: Address,
-      amount: BigNumber,
+      destinationAddress: Address, // The account to recieve the tokens.
+      amount: BigNumber, // The amount to transfer.
     },
     {},
     TokenClient,
   >;
   /*
-  TODO write me
+  Transfer tokens from a specified account to a destination account. Token transfer must have a sufficient balance and `allowance` set by the source account for the destination address.
   */
   transferFrom: TokenClient.Sender<
     {
-      sourceAddress: Address,
-      destinationAddress: Address,
-      amount: BigNumber,
+      sourceAddress: Address, // 'from' address, or the token owner account.
+      destinationAddress: Address, // 'to' address, or the destination with sufficient ``allowance` for transfer.
+      amount: BigNumber, // Amount to transfer.
     },
     {
-      to: Address,
-      value: BigNumber,
+      to: Address, // Event data indicating the 'to' address.
+      value: BigNumber, // Event data indicating the amount transferred.
     },
     TokenClient,
   >;
   /*
-  TODO write me
+  The owner of a token can approve an `allowance` that a spender is authorized to transfer using the `transferFrom` function.
   */
   approve: TokenClient.Sender<
     {
-      user: Address,
-      amount: BigNumber,
+      user: Address, // The spending account allowed to transfer tokens with `transferFrom`.
+      amount: BigNumber, // The maximum `allowance` that the spending account may transfer from the owner to the spender.
     },
     {
-      owner: Address,
-      spender: Address,
-      value: BigNumber,
+      owner: Address, // Event data indicating the token owner ('from' address).
+      spender: Address, // Event data indicating the spender (who is given the `allowance`).
+      value: BigNumber, // Event data indicating the new value of allowed transfer.
     },
     TokenClient,
   >;
   /*
-  TODO write me
+  ERC20Extended functionality to `mint` new tokens and add to the total supply. In colony these functions are subject to authority restrictions.
   */
   mint: TokenClient.Sender<
     {
-      amount: BigNumber,
+      amount: BigNumber, // The amount of new tokens to mint.
     },
     {
-      address: Address,
-      amount: BigNumber,
+      address: Address, //
+      amount: BigNumber, // Event data indicating the amount of tokens minted.
     },
     TokenClient,
   >;
   /*
-  TODO write me
+  ERC20Extended functionality to `burn` un-owned tokens and subtract from the total token supply. In colony these functions are subject to authority restrictions.
   */
   burn: TokenClient.Sender<
     {
-      amount: BigNumber,
+      amount: BigNumber, // The amount of unspent tokens to burn.
     },
     {
       address: Address,
-      amount: BigNumber,
+      amount: BigNumber, // Event data indicating the amount burned.
     },
     TokenClient,
   >;
   /*
-  TODO write me
+  Sets the owner of a given token contract. In most situations this should be the colony's own address.
   */
   setOwner: TokenClient.Sender<
     {
-      owner: Address,
+      owner: Address, // The address of the new owner.
     },
     {
-      owner: Address,
+      owner: Address, // Event data indicating the new owner.
     },
     TokenClient,
   >;
   /*
-  TODO write me
+  Give a particular account special authority (admin) within a colony.
   */
   setAuthority: TokenClient.Sender<
     {
-      authority: Address,
+      authority: Address, // The address to be given admin authority.
     },
     {
-      authority: Address,
+      authority: Address, // Event data indicating the address given authority.
     },
     TokenClient,
   >;
