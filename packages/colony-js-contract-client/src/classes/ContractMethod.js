@@ -46,13 +46,13 @@ export default class ContractMethod<
    * Given named input values, transform these with the expected parameters
    * in order to get an array of arguments expected by the contract function.
    */
-  _getMethodArgs(inputValues?: InputValues): Array<any> {
+  _getMethodArgs(inputValues?: InputValues, params?: Params): Array<any> {
     let args = [];
 
     if (inputValues == null) return args;
 
-    if (this.input && this.input.length) {
-      args = this.convertInputValues(inputValues);
+    if (params && params.length) {
+      args = this.convertInputValues(inputValues, params);
     } else if (
       isPlainObject(inputValues) &&
       Object.getOwnPropertyNames(inputValues).length
@@ -75,19 +75,22 @@ export default class ContractMethod<
   }
 
   /**
-   * Given input values, validate them
+   * Given input values, validate them against the expected params
    */
-  validate(inputValues?: any) {
-    return validateParams(inputValues, this.input, this.assertValid);
+  validate(inputValues?: any, params: Params = this.input) {
+    return validateParams(inputValues, params, this.assertValid);
   }
 
   /**
-   * Given input values, map them against the method's expected parameters,
+   * Given input values, map them against the expected parameters,
    * with the appropriate conversion for each type.
    * Fall back to default values for each parameter.
    */
-  convertInputValues(inputValues: InputValues): Array<any> {
-    return convertInputValues(inputValues, this.input);
+  convertInputValues(
+    inputValues: InputValues,
+    params: Params = this.input,
+  ): Array<any> {
+    return convertInputValues(inputValues, params);
   }
 
   /**
@@ -113,9 +116,8 @@ export default class ContractMethod<
   /**
    * Given input values, validate them and return parsed method args.
    */
-  getValidatedArgs(inputValues?: any) {
-    this.validate(inputValues);
-
-    return this._getMethodArgs(inputValues);
+  getValidatedArgs(inputValues?: any, params: Params = this.input) {
+    this.validate(inputValues, params);
+    return this._getMethodArgs(inputValues, params);
   }
 }

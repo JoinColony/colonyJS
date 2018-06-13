@@ -39,8 +39,11 @@ describe('ContractMethod', () => {
 
     sandbox.spyOn(method, 'convertInputValues').mockImplementation(() => [1]);
 
-    expect(method._getMethodArgs(inputValues)).toEqual([1]);
-    expect(method.convertInputValues).toHaveBeenCalledWith(inputValues);
+    expect(method._getMethodArgs(inputValues, method.input)).toEqual([1]);
+    expect(method.convertInputValues).toHaveBeenCalledWith(
+      inputValues,
+      method.input,
+    );
   });
 
   test('Method without input defined gets empty arguments', () => {
@@ -78,8 +81,11 @@ describe('ContractMethod', () => {
     expect(method.getValidatedArgs(inputValues)).toEqual([
       'converted input: 1',
     ]);
-    expect(method.validate).toHaveBeenCalledWith(inputValues);
-    expect(method._getMethodArgs).toHaveBeenCalledWith(inputValues);
+    expect(method.validate).toHaveBeenCalledWith(inputValues, method.input);
+    expect(method._getMethodArgs).toHaveBeenCalledWith(
+      inputValues,
+      method.input,
+    );
   });
 
   test('Contract return values are mapped to expected output', () => {
@@ -146,7 +152,7 @@ describe('ContractMethod', () => {
       functionName: 'myFunction',
     });
 
-    expect(method.convertInputValues(inputValues)).toEqual([
+    expect(method.convertInputValues(inputValues, input)).toEqual([
       specificationHash,
       domainId,
     ]);

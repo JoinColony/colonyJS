@@ -80,8 +80,11 @@ describe('ContractMethodSender', () => {
       .mockImplementation(async () => gasEstimate);
 
     expect(await method.estimate(inputValues, options)).toBe(gasEstimate);
-    expect(method.validate).toHaveBeenCalledWith(inputValues);
-    expect(method._getMethodArgs).toHaveBeenCalledWith(inputValues);
+    expect(method.validate).toHaveBeenCalledWith(inputValues, method.input);
+    expect(method._getMethodArgs).toHaveBeenCalledWith(
+      inputValues,
+      method.input,
+    );
     expect(method.client.estimate).toHaveBeenCalledWith(
       method.functionName,
       callArgs,
@@ -102,8 +105,11 @@ describe('ContractMethodSender', () => {
     method._send = sandbox.fn(() => contractResponse);
 
     expect(await method.send(inputValues, options)).toEqual(contractResponse);
-    expect(method.validate).toHaveBeenCalledWith(inputValues);
-    expect(method._getMethodArgs).toHaveBeenCalledWith(inputValues);
+    expect(method.validate).toHaveBeenCalledWith(inputValues, method.input);
+    expect(method._getMethodArgs).toHaveBeenCalledWith(
+      inputValues,
+      method.input,
+    );
     expect(method._send).toHaveBeenCalledWith(callArgs, options);
   });
 
