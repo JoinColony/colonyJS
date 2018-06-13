@@ -15,6 +15,9 @@
 * Added `AuthorityClient`, a means of interacting with a colony's authority contract (`@colony/colony-js-client`)
 * Get `tokenClient` and `authorityClient` when initializing a `ColonyClient` (`@colony/colony-js-client`)
 
+**Documentation**
+* Specify which users can call `addGlobalSkill`, `addDomain`, `setTaskRoleUser`, `setTaskDomain` and `setTaskSkill` (`@colony/colony-js-client`)
+
 ## v1.3.0
 
 **New features**
