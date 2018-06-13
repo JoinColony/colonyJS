@@ -24,7 +24,7 @@ type CallResult = [
 
 export default class GetTask extends ContractClient.Caller<
   InputValues,
-  // Flow is confused by the call to `super._getOutputValues`, so let the
+  // Flow is confused by the call to `super.convertOutputValues`, so let the
   // OutputValues generic pass through for now; it's overspecified
   *,
   ColonyClient,

@@ -514,6 +514,42 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
 
+  events: {
+    TaskAdded: ContractClient.Event<{ id: number }>,
+    TaskBriefChanged: ContractClient.Event<{
+      id: number,
+      specificationHash: string,
+    }>,
+    TaskDueDateChanged: ContractClient.Event<{
+      id: number,
+      dueDate: Date,
+    }>,
+    TaskDomainChanged: ContractClient.Event<{
+      id: number,
+      domainId: number,
+    }>,
+    TaskSkillChanged: ContractClient.Event<{
+      id: number,
+      skillId: number,
+    }>,
+    TaskRoleUserChanged: ContractClient.Event<{
+      id: number,
+      role: number,
+      user: Address,
+    }>,
+    TaskWorkerPayoutChanged: ContractClient.Event<{
+      id: number,
+      token: Address,
+      amount: number,
+    }>,
+    TaskFinalized: ContractClient.Event<{
+      id: number,
+    }>,
+    TaskCanceled: ContractClient.Event<{
+      id: number,
+    }>,
+  };
+
   static get defaultQuery() {
     return {
       contractName: 'IColony',
@@ -769,5 +805,33 @@ export default class ColonyClient extends ContractClient {
     ]);
 
     this.addEvent('TaskAdded', [['id', 'number']]);
+    this.addEvent('TaskBriefChanged', [
+      ['id', 'number'],
+      ['specificationHash', 'ipfsHash'],
+    ]);
+    this.addEvent('TaskDueDateChanged', [
+      ['id', 'number'],
+      ['dueDate', 'number'],
+    ]);
+    this.addEvent('TaskDomainChanged', [
+      ['id', 'number'],
+      ['domainId', 'number'],
+    ]);
+    this.addEvent('TaskSkillChanged', [
+      ['id', 'number'],
+      ['skillId', 'number'],
+    ]);
+    this.addEvent('TaskRoleUserChanged', [
+      ['id', 'number'],
+      ['role', 'number'],
+      ['user', 'address'],
+    ]);
+    this.addEvent('TaskWorkerPayoutChanged', [
+      ['id', 'number'],
+      ['token', 'address'],
+      ['amount', 'number'],
+    ]);
+    this.addEvent('TaskFinalized', [['id', 'number']]);
+    this.addEvent('TaskCanceled', [['id', 'number']]);
   }
 }

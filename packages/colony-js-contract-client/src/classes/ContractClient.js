@@ -8,13 +8,11 @@ import type {
   TransactionOptions,
 } from '@colony/colony-js-adapter';
 
+import ContractEvent from './ContractEvent';
 import ContractMethod from './ContractMethod';
 import ContractMethodCaller from './ContractMethodCaller';
 import ContractMethodSender from './ContractMethodSender';
 import ContractMethodMultisigSender from './ContractMethodMultisigSender';
-
-import ContractEvent from './ContractEvent';
-import type { ContractEventProcessor } from './ContractEvent';
 
 import type {
   ContractMethodDef,
@@ -33,12 +31,7 @@ export default class ContractClient {
   _query: Query;
 
   // The contract event subscription methods
-  events: {
-    [string]: {
-      addListener: ContractEventProcessor,
-      removeListener: ContractEventProcessor,
-    },
-  } = {};
+  events = {};
 
   // Static getters used in lieu of named exports; this package only has
   // one export.
@@ -50,6 +43,9 @@ export default class ContractClient {
   }
   static get MultisigSender(): typeof ContractMethodMultisigSender {
     return ContractMethodMultisigSender;
+  }
+  static get Event(): typeof ContractEvent {
+    return ContractEvent;
   }
 
   static get defaultQuery(): Query {

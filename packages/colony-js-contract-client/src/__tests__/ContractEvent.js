@@ -12,7 +12,7 @@ import {
   valuesSpec,
 } from '../utils/mockValues';
 
-describe('ContractMethod', () => {
+describe('ContractEvent', () => {
   const sandbox = createSandbox();
   let contract;
   let adapter;

@@ -7,8 +7,6 @@ import { validateParams } from '../modules/paramValidation';
 
 import type { Params, EventParams } from '../flowtypes';
 
-export type ContractEventProcessor = (handlerFunction: EventCallback) => void;
-
 const normalizeEventParams = (spec: EventParams): Params =>
   spec.map(([parameterName, parameterType]) => [
     parameterName,
@@ -16,7 +14,7 @@ const normalizeEventParams = (spec: EventParams): Params =>
     undefined,
   ]);
 
-export default class ContractEvent {
+export default class ContractEvent<ParamTypes: Object> {
   // The event's name as defined in the contract.
   eventName: string;
 
@@ -53,7 +51,9 @@ export default class ContractEvent {
    * In order to be able to parse and validate event parameters as expected,
    * we use this static method to wrap event handlers before executing them.
    */
-  wrapHandlerFunction(handlerFunction: EventCallback): EventCallback {
+  wrapHandlerFunction(
+    handlerFunction: (args: ParamTypes) => void,
+  ): EventCallback {
     return ({ args }: Event) => {
       const parsedArgs = convertOutputValues(args, this.argsDef);
       validateParams(parsedArgs, this.argsDef, this.assertValid);
@@ -67,7 +67,7 @@ export default class ContractEvent {
    * adds a new event handler to the respective event that gets called once the
    * event has been emitted by the contract.
    */
-  addListener(handlerFunction: EventCallback) {
+  addListener(handlerFunction: (args: ParamTypes) => void) {
     if (this._wrappedHandlers.get(handlerFunction)) {
       return;
     }
@@ -82,7 +82,7 @@ export default class ContractEvent {
    * If an event handler has been added for this event previously,
    * `removeListener` removes it.
    */
-  removeListener(handlerFunction: Function) {
+  removeListener(handlerFunction: (args: ParamTypes) => void) {
     const wrappedHandlerFunction = this._wrappedHandlers.get(handlerFunction);
 
     if (wrappedHandlerFunction) {
