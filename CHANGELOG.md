@@ -13,7 +13,7 @@
 * Support per-task nonce values for multisig operations; multisig operations can now be run in parallel (for different tasks) (`@colony/colony-js-client`)
 * Added `TokenClient`, a means of interacting with a colony's token contract (`@colony/colony-js-client`)
 * Added `AuthorityClient`, a means of interacting with a colony's authority contract (`@colony/colony-js-client`)
-* Get `tokenClient` and `authorityClient` when initializing a `ColonyClient` (`@colony/colony-js-client`)
+* Get `token` and `authority` when initializing a `ColonyClient` (`@colony/colony-js-client`)
 
 **Documentation**
 * Specify which users can call `addGlobalSkill`, `addDomain`, `setTaskRoleUser`, `setTaskDomain` and `setTaskSkill` (`@colony/colony-js-client`)

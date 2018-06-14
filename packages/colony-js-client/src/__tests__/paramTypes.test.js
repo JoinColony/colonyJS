@@ -35,15 +35,24 @@ describe('Custom param types', () => {
     }).toThrowError('expected a value of type "role"');
   });
   test('Custom type "role" converts input correctly', () => {
-    expect(client.getRole.convertInputValues({ role: WORKER_ROLE })).toEqual([
-      ROLES.WORKER,
-    ]);
-    expect(client.getRole.convertInputValues({ role: EVALUATOR_ROLE })).toEqual(
-      [ROLES.EVALUATOR],
-    );
-    expect(client.getRole.convertInputValues({ role: MANAGER_ROLE })).toEqual([
-      ROLES.MANAGER,
-    ]);
+    expect(
+      client.getRole.convertInputValues(
+        { role: WORKER_ROLE },
+        client.getRole.input,
+      ),
+    ).toEqual([ROLES.WORKER]);
+    expect(
+      client.getRole.convertInputValues(
+        { role: EVALUATOR_ROLE },
+        client.getRole.input,
+      ),
+    ).toEqual([ROLES.EVALUATOR]);
+    expect(
+      client.getRole.convertInputValues(
+        { role: MANAGER_ROLE },
+        client.getRole.input,
+      ),
+    ).toEqual([ROLES.MANAGER]);
   });
   test('Custom type "role" converts output correctly', () => {
     expect(

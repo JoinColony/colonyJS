@@ -195,13 +195,13 @@ describe('ColonyNetworkClient', () => {
     expect(colonyClient.init).toHaveBeenCalled();
     expect(colonyClient.getToken.call).toHaveBeenCalled();
     expect(colonyClient.getAuthority.call).toHaveBeenCalled();
-    expect(colonyClient).toHaveProperty('tokenClient', expect.any(TokenClient));
+    expect(colonyClient).toHaveProperty('token', expect.any(TokenClient));
     expect(colonyClient).toHaveProperty(
-      'authorityClient',
+      'authority',
       expect.any(AuthorityClient),
     );
-    expect(colonyClient.tokenClient.init).toHaveBeenCalled();
-    expect(colonyClient.authorityClient.init).toHaveBeenCalled();
+    expect(colonyClient.token.init).toHaveBeenCalled();
+    expect(colonyClient.authority.init).toHaveBeenCalled();
     expect(TokenClient).toHaveBeenCalledWith(
       expect.objectContaining({
         adapter: colonyClient.adapter,

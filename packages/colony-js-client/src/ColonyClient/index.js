@@ -28,8 +28,8 @@ type IPFSHash = string;
 
 export default class ColonyClient extends ContractClient {
   networkClient: ColonyNetworkClient;
-  tokenClient: TokenClient;
-  authorityClient: AuthorityClient;
+  token: TokenClient;
+  authority: AuthorityClient;
 
   /*
     Gets the colony's Authority contract address
@@ -573,14 +573,14 @@ export default class ColonyClient extends ContractClient {
 
   constructor({
     adapter,
-    authorityClient,
+    authority,
     networkClient,
     query,
-    tokenClient,
+    token,
   }: {
-    authorityClient?: AuthorityClient,
+    authority?: AuthorityClient,
     networkClient?: ColonyNetworkClient,
-    tokenClient?: TokenClient,
+    token?: TokenClient,
   } & ContractClientConstructorArgs) {
     super({ adapter, query });
 
@@ -591,8 +591,8 @@ export default class ColonyClient extends ContractClient {
       );
 
     this.networkClient = networkClient;
-    if (tokenClient) this.tokenClient = tokenClient;
-    if (authorityClient) this.authorityClient = authorityClient;
+    if (token) this.token = token;
+    if (authority) this.authority = authority;
 
     return this;
   }
@@ -601,21 +601,21 @@ export default class ColonyClient extends ContractClient {
     await super.init();
 
     const { address: tokenAddress } = await this.getToken.call();
-    if (!(this.tokenClient instanceof TokenClient)) {
-      this.tokenClient = new TokenClient({
+    if (!(this.token instanceof TokenClient)) {
+      this.token = new TokenClient({
         adapter: this.adapter,
         query: { contractAddress: tokenAddress },
       });
-      await this.tokenClient.init();
+      await this.token.init();
     }
 
     const { address: authorityAddress } = await this.getAuthority.call();
-    if (!(this.authorityClient instanceof AuthorityClient)) {
-      this.authorityClient = new AuthorityClient({
+    if (!(this.authority instanceof AuthorityClient)) {
+      this.authority = new AuthorityClient({
         adapter: this.adapter,
         query: { contractAddress: authorityAddress },
       });
-      await this.authorityClient.init();
+      await this.authority.init();
     }
 
     return this;

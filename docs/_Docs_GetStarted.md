@@ -182,16 +182,16 @@ Your colony's token is an important component in the [reputation system](/colony
 
 ```js
 // Make the colony contract the owner of the token
-await colonyClient.tokenClient.setOwner.send({ owner: colonyClient.contract.address });
+await colonyClient.token.setOwner.send({ owner: colonyClient.contract.address });
 
 // Add yourself as an admin
-await colonyClient.authorityClient.setUserRole.send({ user: wallet.address, role: 'ADMIN' });
+await colonyClient.authority.setUserRole.send({ user: wallet.address, role: 'ADMIN' });
 
 // Mint some tokens
 await colonyClient.mintTokens.send({ amount: 1000 });
 
 // Get the total supply
-const { amount } = await colonyClient.tokenClient.getTotalSupply.call();
+const { amount } = await colonyClient.token.getTotalSupply.call();
 // 1000
 ```
 
