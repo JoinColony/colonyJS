@@ -15,6 +15,7 @@
 **Enhancements**
 * Refactored contract parameter validation and conversion to allow for events subscriptions (`@colony/colony-js-contract-client`)
 * Refactored the contracts interface and `EthersContract` to allow for events subscription with optional transaction hashes (`@colony/colony-js-adapter`, `@colony/colony-js-adapter-ethers`)
+* Ignore parameters that aren't in the spec when validating parameters (`@colony/colony-js-contract-client`)
 
 **Documentation**
 * Specify which users can call `addGlobalSkill`, `addDomain`, `setTaskRoleUser`, `setTaskDomain` and `setTaskSkill` (`@colony/colony-js-client`)

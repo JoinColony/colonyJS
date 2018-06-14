@@ -60,16 +60,6 @@ export function validateParams(
 
   const inputValues = Object.assign({}, params);
 
-  const paramNames = spec.map(([name]) => name);
-  const extraParams = Object.keys(inputValues).filter(
-    name => !paramNames.includes(name),
-  );
-
-  assertValid(
-    extraParams.length === 0,
-    `Unexpected parameters: "${extraParams.join(', ')}"`,
-  );
-
   // Either the parameter name should exist in the inputValues,
   // or the parameter should have a default value.
   const missingParams = spec.filter(
