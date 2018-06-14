@@ -65,7 +65,7 @@ describe('validateParams', () => {
         },
         spec,
       );
-    }).toThrowError('Unexpected parameters');
+    }).toThrowError('Missing parameters');
 
     // Extra parameter
     expect(() => {
@@ -78,7 +78,7 @@ describe('validateParams', () => {
         },
         spec,
       );
-    }).toThrowError('Unexpected parameters: "somethingElse"');
+    }).not.toThrow();
 
     // Extra parameter, without the parameter that has a default value
     expect(() => {
@@ -86,7 +86,7 @@ describe('validateParams', () => {
         { taskId: 6, potId: 420, somethingElse: 1 },
         spec,
       );
-    }).toThrowError('Unexpected parameters: "somethingElse"');
+    }).not.toThrow();
 
     // Wrong type
     // validateValue.mockImplementationOnce(() => false);
