@@ -8,7 +8,7 @@ import ContractClient from '../classes/ContractClient';
 import ContractClientMethodCaller from '../classes/ContractMethodCaller';
 import ContractClientMethodSender from '../classes/ContractMethodSender';
 import ContractEvent from '../classes/ContractEvent';
-import MockEmittingContract from '../utils/MockEmittingContract';
+import MockEmittingContract from '../mocks/MockEmittingContract';
 
 describe('ContractClient', () => {
   const sandbox = createSandbox();

@@ -11,7 +11,7 @@ import {
   parsedInputValues,
   parsedOutputValues,
   valuesSpec,
-} from '../utils/mockValues';
+} from '../mocks/mockValues';
 
 describe('Parameter Conversion', () => {
   test('convertInputValues converts the respective values', () => {

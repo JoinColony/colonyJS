@@ -4,13 +4,13 @@
 import createSandbox from 'jest-sandbox';
 import ContractClient from '../classes/ContractClient';
 import ContractEvent from '../classes/ContractEvent';
-import MockEmittingContract from '../utils/MockEmittingContract';
+import MockEmittingContract from '../mocks/MockEmittingContract';
 
 import {
   outputValues,
   parsedOutputValues,
   valuesSpec,
-} from '../utils/mockValues';
+} from '../mocks/mockValues';
 
 describe('ContractEvent', () => {
   const sandbox = createSandbox();
