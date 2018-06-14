@@ -34,7 +34,7 @@ This will create a new loader instance with the given configuration. The config 
 
 **`config`** (`?object`): A config object specific to the loader implementation.
 
-Can _always_ contain a **`transform`** property which is a function whose default implementation is the identity function
+Can contain a **`transform`** property, which is a function whose default implementation is the identity function
 ```
 (input, query, requiredProps) => input
 ```
