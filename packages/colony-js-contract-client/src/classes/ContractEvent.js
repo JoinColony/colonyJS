@@ -7,6 +7,8 @@ import { validateParams } from '../modules/paramValidation';
 
 import type { Params, EventParams } from '../flowtypes';
 
+type TypedEventCallback<ParamTypes> = (args: ParamTypes) => void;
+
 const normalizeEventParams = (spec: EventParams): Params =>
   spec.map(([parameterName, parameterType]) => [
     parameterName,
@@ -52,7 +54,7 @@ export default class ContractEvent<ParamTypes: Object> {
    * we use this static method to wrap event handlers before executing them.
    */
   wrapHandlerFunction(
-    handlerFunction: (args: ParamTypes) => void,
+    handlerFunction: TypedEventCallback<ParamTypes>,
   ): EventCallback {
     return ({ args }: Event) => {
       const parsedArgs = convertOutputValues(args, this.argsDef);
@@ -67,7 +69,7 @@ export default class ContractEvent<ParamTypes: Object> {
    * adds a new event handler to the respective event that gets called once the
    * event has been emitted by the contract.
    */
-  addListener(handlerFunction: (args: ParamTypes) => void) {
+  addListener(handlerFunction: TypedEventCallback<ParamTypes>) {
     if (this._wrappedHandlers.get(handlerFunction)) {
       return;
     }
@@ -82,7 +84,7 @@ export default class ContractEvent<ParamTypes: Object> {
    * If an event handler has been added for this event previously,
    * `removeListener` removes it.
    */
-  removeListener(handlerFunction: (args: ParamTypes) => void) {
+  removeListener(handlerFunction: TypedEventCallback<ParamTypes>) {
     const wrappedHandlerFunction = this._wrappedHandlers.get(handlerFunction);
 
     if (wrappedHandlerFunction) {

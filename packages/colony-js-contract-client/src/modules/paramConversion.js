@@ -7,8 +7,8 @@ import type { Params } from '../flowtypes';
  * specifications, generate a list of parameters that contains the encoded
  * parameters.
  */
-export function convertInputValues<T: Object>(
-  inputValues: T,
+export function convertInputValues<InputTypes: Object>(
+  inputValues: InputTypes,
   valuesSpec: Params,
 ) {
   return valuesSpec.map(([paramName, paramType, defaultValue]) =>
@@ -26,10 +26,10 @@ export function convertInputValues<T: Object>(
  * their type specifications, generate an object that consists of the converted
  * values with their respective types.
  */
-export function convertOutputValues<T: Object>(
+export function convertOutputValues<OutputTypes: Object>(
   outputValues: { [string | number]: any },
   valuesSpec: Params,
-): T {
+): OutputTypes {
   return valuesSpec && valuesSpec.length
     ? // $FlowFixMe
       valuesSpec
