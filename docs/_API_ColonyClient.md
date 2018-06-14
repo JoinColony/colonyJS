@@ -161,7 +161,7 @@ A promise which resolves to an object containing the following properties:
 |skillId|number|Integer Skill ID the task is assigned to.|
 |specificationHash|IPFS hash|Unique hash of the specification content.|
 
-### `getTaskPayout.call({ taskId, role, token })`
+### `getTaskPayout.call({ taskId, role, source })`
 
 Given a specific task, a defined role for the task, and a token address, will return any payout attached to the task in the token specified.
 
@@ -171,7 +171,7 @@ Given a specific task, a defined role for the task, and a token address, will re
 |---|---|---|
 |taskId|number|Integer taskId.|
 |role|Role|Role the payout is specified for: MANAGER, EVALUATOR, or WORKER.|
-|token|Address|Address of the token's contract `0x0` value indicates Ether.|
+|source|Payable address|Address of the token's contract `0x0` value indicates Ether.|
 
 **Returns**
 
@@ -259,7 +259,7 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |balance|BigNumber|Balance for token `token` in pot `potId`.|
 
-### `getNonRewardPotsTotal.call({ address })`
+### `getNonRewardPotsTotal.call({ source })`
 
 The `nonRewardPotsTotal` is a value that keeps track of the total assets a colony has to work with, which may be split among several distinct pots associated with various domains and tasks.
 
@@ -267,7 +267,7 @@ The `nonRewardPotsTotal` is a value that keeps track of the total assets a colon
 
 |Argument|Type|Description|
 |---|---|---|
-|address|Address|Address of the token's contract `0x0` value indicates Ether.|
+|source|Payable address|Address of the token's contract `0x0` value indicates Ether.|
 
 **Returns**
 
@@ -296,7 +296,7 @@ A promise which resolves to an object containing the following properties:
 |blockNumber|number|Block number at the time of creation.|
 |remainingTokenAmount|BigNumber|Remaining (unclaimed) amount of tokens.|
 |reputationRootHash|string|Reputation root hash at the time of creation.|
-|tokenAddress|Address|Token address `0x0` value indicates Ether.|
+|source|Payable address|Token address (`0x0` value indicates Ether).|
 |totalTokenAmountForRewardPayout|BigNumber|Total amount of tokens taken aside for reward payout.|
 |totalTokens|BigNumber|Total colony tokens at the time of creation.|
 
@@ -311,7 +311,7 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|address|Address|The address of the colony's official deployed token contract `0x0` value indicates Ether.|
+|address|Address|The address of the colony's official deployed token contract|
 
 ### `getTransactionCount.call()`
 
@@ -620,7 +620,7 @@ Move a given amount of `token` funds from one pot to another.
 |fromPot|number|Origin pot Id.|
 |toPot|number|Destination pot Id.|
 |amount|BigNumber|Amount of funds to move.|
-|address|Address|Address of the token contract `0x0` value indicates Ether.|
+|address|Payable address|Address of the token contract (`0x0` value indicates Ether).|
 
 **Returns**
 
@@ -668,7 +668,7 @@ Start the next reward payout for `token`. All funds in the reward pot for `token
 
 |Argument|Type|Description|
 |---|---|---|
-|token|Address|Address of token used for reward payout. `0x0` value indicates Ether.|
+|token|Address|Address of token used for reward payout (`0x0` value indicates Ether).|
 
 **Returns**
 

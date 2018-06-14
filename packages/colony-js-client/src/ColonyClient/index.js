@@ -136,7 +136,7 @@ export default class ColonyClient extends ContractClient {
     {
       taskId: number, // Integer taskId.
       role: Role, // Role the payout is specified for: MANAGER, EVALUATOR, or WORKER.
-      token: Address, // Address of the token's contract `0x0` value indicates Ether.
+      source: PayableAddress, // Address of the token's contract `0x0` value indicates Ether.
     },
     {
       amount: BigNumber, // Amount of specified tokens to payout for that task and a role.
@@ -202,7 +202,7 @@ export default class ColonyClient extends ContractClient {
   */
   getNonRewardPotsTotal: ColonyClient.Caller<
     {
-      address: Address, // Address of the token's contract `0x0` value indicates Ether.
+      source: PayableAddress, // Address of the token's contract `0x0` value indicates Ether.
     },
     {
       total: BigNumber, // All tokens that are not within the colony's `rewards` pot.
@@ -220,7 +220,7 @@ export default class ColonyClient extends ContractClient {
       blockNumber: number, // Block number at the time of creation.
       remainingTokenAmount: BigNumber, // Remaining (unclaimed) amount of tokens.
       reputationRootHash: string, // Reputation root hash at the time of creation.
-      tokenAddress: Address, // Token address `0x0` value indicates Ether.
+      source: PayableAddress, // Token address (`0x0` value indicates Ether).
       totalTokenAmountForRewardPayout: BigNumber, // Total amount of tokens taken aside for reward payout.
       totalTokens: BigNumber, // Total colony tokens at the time of creation.
     },
@@ -483,7 +483,7 @@ export default class ColonyClient extends ContractClient {
       fromPot: number, // Origin pot Id.
       toPot: number, // Destination pot Id.
       amount: BigNumber, // Amount of funds to move.
-      address: Address, // Address of the token contract `0x0` value indicates Ether.
+      address: PayableAddress, // Address of the token contract (`0x0` value indicates Ether).
     },
     {},
     ColonyClient,
@@ -513,7 +513,7 @@ export default class ColonyClient extends ContractClient {
   */
   startNextRewardPayout: ColonyClient.Sender<
     {
-      token: Address, // Address of token used for reward payout. `0x0` value indicates Ether.
+      token: Address, // Address of token used for reward payout (`0x0` value indicates Ether).
     },
     {},
     ColonyClient,
@@ -641,7 +641,7 @@ export default class ColonyClient extends ContractClient {
 
     makeTaskCaller(
       'getTaskPayout',
-      [['role', 'role'], ['token', 'address']],
+      [['role', 'role'], ['source', 'payableAddress']],
       [['amount', 'bigNumber']],
     );
     makeTaskCaller(
@@ -690,7 +690,7 @@ export default class ColonyClient extends ContractClient {
       output: [['count', 'number']],
     });
     this.addCaller('getNonRewardPotsTotal', {
-      input: [['address', 'address']],
+      input: [['source', 'payableAddress']],
       output: [['total', 'bigNumber']],
     });
     this.addCaller('getPotBalance', {
@@ -704,7 +704,7 @@ export default class ColonyClient extends ContractClient {
         ['totalTokens', 'bigNumber'],
         ['totalTokenAmountForRewardPayout', 'bigNumber'],
         ['remainingTokenAmount', 'bigNumber'],
-        ['tokenAddress', 'address'],
+        ['source', 'payableAddress'],
         ['blockNumber', 'number'],
       ],
     });
