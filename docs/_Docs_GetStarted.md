@@ -174,4 +174,25 @@ const example = async () => {
 
 Save the file, and run with `$ node example.js` - You should see your new cool colony and token appear on your private blockchain!
 
+
+## Funding your Colony
+Whether you've brought your ERC20 token from an existing token contract or created a new one at the same time as the colony (as shown in the above example), you can use the [tokenClient](/colonyJS/api-tokenclient/) to call and sent transactions relating to your colony's funding. This client handles all the functions in the ERC20 standard interface, as well as `mint` and `burn`. Functions that would ordinarily be performed by the contract owner may be performed by anyone in the colony with ADMIN authority. You can learn more about authority roles in the [authorityClient API](/docs-authorityclient/).
+
+Your colony's token is an important component in the [reputation system](/colonyNetwork/docs-reputation/). Any task payouts in the native token of the colony grant the recipient reputation (proportional to the task rating). Any member of the colony's combined reputation and token holdings determine the amount they can claim from the [rewards pot](/colonyNetwork/docs-pots-and-funding/).
+
+```js
+// Make the colony contract the owner of the token
+await colonyClient.token.setOwner.send({ owner: colonyClient.contract.address });
+
+// Add yourself as an admin
+await colonyClient.authority.setUserRole.send({ user: wallet.address, role: 'ADMIN' });
+
+// Mint some tokens
+await colonyClient.mintTokens.send({ amount: 1000 });
+
+// Get the total supply
+const { amount } = await colonyClient.token.getTotalSupply.call();
+// 1000
+```
+
 What's next? Continue on to the [Task Lifecycle](/colonyjs/docs-task-lifecycle) to learn how to interact with colony tasks.

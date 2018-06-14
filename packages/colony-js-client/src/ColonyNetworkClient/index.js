@@ -8,6 +8,8 @@ import BigNumber from 'bn.js';
 import ContractClient from '@colony/colony-js-contract-client';
 
 import ColonyClient from '../ColonyClient/index';
+import TokenClient from '../TokenClient/index';
+import AuthorityClient from '../AuthorityClient/index';
 
 const MISSING_ID = 'An ID parameter must be provided';
 
@@ -211,6 +213,14 @@ export default class ColonyNetworkClient extends ContractClient {
 
   static get ColonyClient(): * {
     return ColonyClient;
+  }
+
+  static get TokenClient(): * {
+    return TokenClient;
+  }
+
+  static get AuthorityClient(): * {
+    return AuthorityClient;
   }
 
   /*

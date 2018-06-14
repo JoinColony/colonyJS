@@ -75,14 +75,13 @@ describe('ContractMethodMultisigSender', () => {
       .mockReturnValueOnce(Promise.resolve(1))
       .mockReturnValueOnce(Promise.resolve(2));
 
-    const firstNonce = await method.getNonce();
-    const secondNonce = await method.getNonce();
+    const firstNonce = await method.getNonce(inputValues);
+    const secondNonce = await method.getNonce(inputValues);
 
     expect(method.client.call).toHaveBeenCalledTimes(2);
-    expect(method.client.call).toHaveBeenCalledWith(
-      method.nonceFunctionName,
-      [],
-    );
+    expect(method.client.call).toHaveBeenCalledWith(method.nonceFunctionName, [
+      inputValues.id,
+    ]);
     expect(firstNonce).toEqual(1);
     expect(secondNonce).toEqual(2);
   });
@@ -101,15 +100,31 @@ describe('ContractMethodMultisigSender', () => {
       .mockReturnValueOnce(Promise.resolve({ nonce: 1.5 }));
 
     try {
-      await method.getNonce();
+      await method.getNonce(inputValues);
     } catch (error) {
       expect(error.toString()).toMatch('Expected a "nonce" property');
     }
 
     try {
-      await method.getNonce();
+      await method.getNonce(inputValues);
     } catch (error) {
       expect(error.toString()).toMatch('Nonce must be an integer');
+    }
+  });
+
+  test('Getting nonce value (invalid input)', async () => {
+    const method = new MultisigSender({
+      client,
+      functionName,
+      input,
+      nonceFunctionName,
+    });
+
+    try {
+      await method.getNonce({ something: 'wrong' });
+      expect(false).toBe(true); // should be unreachable
+    } catch (error) {
+      expect(error.toString()).toMatch('Validation failed');
     }
   });
 
@@ -133,7 +148,7 @@ describe('ContractMethodMultisigSender', () => {
     const method = new MultisigSender({
       client,
       functionName,
-      getRequiredSignees: sandbox.fn(),
+      getAcceptedSignees: sandbox.fn(),
       input,
       multisigFunctionName,
       nonceFunctionName,
@@ -168,7 +183,7 @@ describe('ContractMethodMultisigSender', () => {
     const method = new MultisigSender({
       client,
       functionName,
-      getRequiredSignees: sandbox.fn(),
+      getAcceptedSignees: sandbox.fn(),
       input,
       multisigFunctionName,
       nonceFunctionName,
@@ -187,8 +202,11 @@ describe('ContractMethodMultisigSender', () => {
 
     const op = await method.startOperation(inputValues);
 
-    expect(method.validate).toHaveBeenCalledWith(inputValues);
-    expect(method._getMethodArgs).toHaveBeenCalledWith(inputValues);
+    expect(method.validate).toHaveBeenCalledWith(inputValues, method.input);
+    expect(method._getMethodArgs).toHaveBeenCalledWith(
+      inputValues,
+      method.input,
+    );
     expect(method.client.createTransactionData).toHaveBeenCalledWith(
       method.functionName,
       callArgs,
@@ -211,7 +229,7 @@ describe('ContractMethodMultisigSender', () => {
     const method = new MultisigSender({
       client,
       functionName,
-      getRequiredSignees: sandbox.fn(),
+      getAcceptedSignees: sandbox.fn(),
       input,
       multisigFunctionName,
       nonceFunctionName,

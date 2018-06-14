@@ -141,7 +141,7 @@ export default class MultisigOperation<
     return this;
   }
 
-  get requiredSignees() {
+  get requiredSignees(): Array<string> {
     defaultAssert(
       Array.isArray(this._requiredSignees),
       'Required signees not defined; call `.refresh` to refresh signees',
@@ -150,8 +150,7 @@ export default class MultisigOperation<
     return this._requiredSignees;
   }
 
-  get missingSignees() {
-    // $FlowFixMe https://github.com/facebook/flow/issues/6151
+  get missingSignees(): Array<string> {
     return this.requiredSignees.filter(address => !this._signers[address]);
   }
 
@@ -291,12 +290,12 @@ export default class MultisigOperation<
     // because we don't have a way of knowing whether they're valid or nor;
     // assume they are still valid.
     if (!Object.hasOwnProperty.call(this, '_nonce')) {
-      this._nonce = await this.sender.getNonce();
+      this._nonce = await this.sender.getNonce(this.payload.inputValues);
       return;
     }
 
     const oldNonce = Number(this._nonce);
-    const newNonce = await this.sender.getNonce();
+    const newNonce = await this.sender.getNonce(this.payload.inputValues);
     if (oldNonce !== newNonce) {
       this._nonce = newNonce;
       // If the nonce changed, the signers are no longer valid

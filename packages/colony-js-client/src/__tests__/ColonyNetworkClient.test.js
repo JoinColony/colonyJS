@@ -5,12 +5,17 @@ import createSandbox from 'jest-sandbox';
 import BigNumber from 'bn.js';
 import ColonyNetworkClient from '../ColonyNetworkClient';
 import ColonyClient from '../ColonyClient';
+import TokenClient from '../TokenClient';
+import AuthorityClient from '../AuthorityClient';
 
 jest.mock('web3-utils', () => ({
   isHex: jest.fn().mockReturnValue(true),
   utf8ToHex: jest.fn().mockImplementation(input => input),
   isAddress: jest.fn().mockReturnValue(true),
 }));
+
+jest.mock('../TokenClient');
+jest.mock('../AuthorityClient');
 
 describe('ColonyNetworkClient', () => {
   const sandbox = createSandbox();
@@ -150,11 +155,29 @@ describe('ColonyNetworkClient', () => {
     const networkClient = new ColonyNetworkClient({ adapter });
     await networkClient.init();
 
-    const Mock = sandbox.fn((...args) => new ColonyClient(...args));
+    let client;
+    const MockColonyClient = sandbox.fn((...args) => {
+      client = new ColonyClient(...args);
+      return client;
+    });
     const colonyClientSpy = sandbox
       .spyOn(ColonyNetworkClient, 'ColonyClient', 'get')
-      .mockReturnValue(Mock);
+      .mockReturnValue(MockColonyClient);
     sandbox.spyOn(ColonyClient.prototype, 'init');
+    sandbox
+      .spyOn(ColonyClient.prototype, 'initializeContractMethods')
+      .mockImplementation(() => {
+        client.getToken = {
+          call: sandbox.fn().mockImplementation(async () => ({
+            address: 'token address',
+          })),
+        };
+        client.getAuthority = {
+          call: sandbox.fn().mockImplementation(async () => ({
+            address: 'authority address',
+          })),
+        };
+      });
 
     const colonyClient = await networkClient.getColonyClientByAddress(
       colonyAddress,
@@ -162,7 +185,7 @@ describe('ColonyNetworkClient', () => {
 
     expect(colonyClientSpy).toHaveBeenCalled();
     expect(colonyClient).toBeInstanceOf(ColonyClient);
-    expect(Mock).toHaveBeenCalledWith({
+    expect(MockColonyClient).toHaveBeenCalledWith({
       adapter: networkClient.adapter,
       networkClient,
       query: {
@@ -170,6 +193,27 @@ describe('ColonyNetworkClient', () => {
       },
     });
     expect(colonyClient.init).toHaveBeenCalled();
+    expect(colonyClient.getToken.call).toHaveBeenCalled();
+    expect(colonyClient.getAuthority.call).toHaveBeenCalled();
+    expect(colonyClient).toHaveProperty('token', expect.any(TokenClient));
+    expect(colonyClient).toHaveProperty(
+      'authority',
+      expect.any(AuthorityClient),
+    );
+    expect(colonyClient.token.init).toHaveBeenCalled();
+    expect(colonyClient.authority.init).toHaveBeenCalled();
+    expect(TokenClient).toHaveBeenCalledWith(
+      expect.objectContaining({
+        adapter: colonyClient.adapter,
+        query: { contractAddress: 'token address' },
+      }),
+    );
+    expect(AuthorityClient).toHaveBeenCalledWith(
+      expect.objectContaining({
+        adapter: colonyClient.adapter,
+        query: { contractAddress: 'authority address' },
+      }),
+    );
   });
 
   test('Getting a Colony address', async () => {

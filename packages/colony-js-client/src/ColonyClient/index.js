@@ -10,6 +10,8 @@ import { isValidAddress } from '@colony/colony-js-utils';
 import type { ContractClientConstructorArgs } from '@colony/colony-js-contract-client';
 
 import ColonyNetworkClient from '../ColonyNetworkClient/index';
+import TokenClient from '../TokenClient/index';
+import AuthorityClient from '../AuthorityClient/index';
 import GetTask from './callers/GetTask';
 import {
   ROLES,
@@ -20,12 +22,25 @@ import {
 } from '../constants';
 
 type Address = string;
+type PayableAddress = string;
 type Role = $Keys<typeof ROLES>;
 type IPFSHash = string;
 
 export default class ColonyClient extends ContractClient {
   networkClient: ColonyNetworkClient;
+  token: TokenClient;
+  authority: AuthorityClient;
 
+  /*
+    Gets the colony's Authority contract address
+  */
+  getAuthority: ColonyClient.Caller<
+    {},
+    {
+      address: Address, // The colony's Authority contract address
+    },
+    ColonyClient,
+  >;
   /*
     Helper function used to generate the rating secret used in task ratings. Accepts a salt value and a value to hide, and returns the keccak256 hash of both.
   */
@@ -170,12 +185,12 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Gets a balance for a certain token in a specific pot
+    Gets a balance for a certain source in a specific pot
   */
   getPotBalance: ColonyClient.Caller<
     {
       potId: number, // Integer potId
-      token: Address, // Address of the token's contract
+      source: PayableAddress, // Address to get funds from; empty address (`0x0000...`) for ether
     },
     {
       balance: BigNumber, // Balance for token `token` in pot `potId`
@@ -256,7 +271,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Every task must belong to a single existing Domain.
+    Every task must belong to a single existing Domain. This can only be called by the manager of the task.
   */
   setTaskDomain: ColonyClient.Sender<
     {
@@ -278,7 +293,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Set the user for role `_role` in task `_id`. Only allowed before the task is `finalized`, meaning that the value cannot be changed after the task is complete.
+    Set the user for role `_role` in task `_id`. Only allowed before the task is `finalized`, meaning that the value cannot be changed after the task is complete. This can only be called by the manager of the task.
   */
   setTaskRoleUser: ColonyClient.Sender<
     {
@@ -290,7 +305,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-  Sets the skill tag associated with the task. Currently there is only one skill tag available per task, but additional skills for tasks are planned in future implementations.
+  Sets the skill tag associated with the task. Currently there is only one skill tag available per task, but additional skills for tasks are planned in future implementations. This can only be called by the manager of the task.
   */
   setTaskSkill: ColonyClient.Sender<
     {
@@ -306,19 +321,19 @@ export default class ColonyClient extends ContractClient {
   setTaskEvaluatorPayout: ColonyClient.MultisigSender<
     {
       taskId: number, // Integer taskId
-      token: Address, // Address of the token's ERC20 contract.
+      source: PayableAddress, // Address to send funds from; empty address (`0x0000...`) for ether
       amount: BigNumber, // Amount to be paid.
     },
     {},
     ColonyClient,
   >;
   /*
-    Sets the payout given to the MANAGER role when the task is finalized.
+    Sets the payout given to the MANAGER role when the task is finalized. This Sender can only be called by the manager for the task in question.
   */
-  setTaskManagerPayout: ColonyClient.MultisigSender<
+  setTaskManagerPayout: ColonyClient.Sender<
     {
       taskId: number, // Integer taskId
-      token: Address, // Address of the token's ERC20 contract.
+      source: PayableAddress, // Address to send funds from; empty address (`0x0000...`) for ether
       amount: BigNumber, // Amount to be paid.
     },
     {},
@@ -330,7 +345,7 @@ export default class ColonyClient extends ContractClient {
   setTaskWorkerPayout: ColonyClient.MultisigSender<
     {
       taskId: number, // Integer taskId
-      token: Address, // Address of the token's ERC20 contract.
+      source: PayableAddress, // Address to send funds from; empty address (`0x0000...`) for ether
       amount: BigNumber, // Amount to be paid.
     },
     {},
@@ -403,19 +418,19 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Claims the payout in `_token` denomination for work completed in task `_id` by contributor with role `_role`. Allowed only by the contributors themselves after task is finalized. Here the network receives its fee from each payout. Ether fees go straight to the Common Colony whereas Token fees go to the Network to be auctioned off.
+    Claims the payout in `source` denomination for work completed in task `taskId` by contributor with role `role`. Allowed only by the contributors themselves after task is finalized. Here the network receives its fee from each payout. Ether fees go straight to the Common Colony whereas Token fees go to the Network to be auctioned off.
   */
   claimPayout: ColonyClient.Sender<
     {
       taskId: number, // Integer taskId
       role: Role, // Role of the contributor claiming the payout: MANAGER, EVALUATOR, or WORKER
-      token: Address, // Address of the token contract
+      source: PayableAddress, // Address to claim funds from; empty address (`0x0000...`) for ether
     },
     {},
     ColonyClient,
   >;
   /*
-    Adds a domain to the Colony along with the new domain's respective local skill.
+    Adds a domain to the Colony along with the new domain's respective local skill. This can only be called by owners of the colony.
   */
   addDomain: ColonyClient.Sender<
     {
@@ -428,7 +443,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Adds a global skill under a given parent SkillId. Can only be called from the Common Colony
+    Adds a global skill under a given parent SkillId. This can only be called from the Meta Colony, and only by the Meta Colony owners.
   */
   addGlobalSkill: ColonyClient.Sender<
     {
@@ -441,11 +456,11 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Move any funds received by the colony in `token` denomination to the top-levl domain pot, siphoning off a small amount to the rewards pot. No fee is taken if called against a colony's own token.
+    Move any funds received by the colony in `source` denomination to the top-levl domain pot, siphoning off a small amount to the rewards pot. No fee is taken if called against a colony's own token.
   */
   claimColonyFunds: ColonyClient.Sender<
     {
-      token: Address, // Address of the token contract. `0x0` value indicates Ether.
+      source: PayableAddress, // Address to claim funds from; empty address (`0x0000...`) for ether
     },
     {},
     ColonyClient,
@@ -557,18 +572,51 @@ export default class ColonyClient extends ContractClient {
   }
 
   constructor({
-    networkClient,
     adapter,
+    authority,
+    networkClient,
     query,
-  }: { networkClient?: ColonyNetworkClient } & ContractClientConstructorArgs) {
+    token,
+  }: {
+    authority?: AuthorityClient,
+    networkClient?: ColonyNetworkClient,
+    token?: TokenClient,
+  } & ContractClientConstructorArgs) {
     super({ adapter, query });
 
     if (!(networkClient instanceof ColonyNetworkClient))
       throw new Error(
         'A `networkClient` property must be supplied ' +
-          '(an instance of `ColonyNetworkClient`',
+          '(an instance of `ColonyNetworkClient`)',
       );
+
     this.networkClient = networkClient;
+    if (token) this.token = token;
+    if (authority) this.authority = authority;
+
+    return this;
+  }
+
+  async init() {
+    await super.init();
+
+    const { address: tokenAddress } = await this.getToken.call();
+    if (!(this.token instanceof TokenClient)) {
+      this.token = new TokenClient({
+        adapter: this.adapter,
+        query: { contractAddress: tokenAddress },
+      });
+      await this.token.init();
+    }
+
+    const { address: authorityAddress } = await this.getAuthority.call();
+    if (!(this.authority instanceof AuthorityClient)) {
+      this.authority = new AuthorityClient({
+        adapter: this.adapter,
+        query: { contractAddress: authorityAddress },
+      });
+      await this.authority.init();
+    }
 
     return this;
   }
@@ -613,6 +661,10 @@ export default class ColonyClient extends ContractClient {
     );
 
     // Callers
+    this.addCaller('getAuthority', {
+      functionName: 'authority',
+      output: [['address', 'address']],
+    });
     this.addCaller('generateSecret', {
       input: [['salt', 'string'], ['value', 'bigNumber']],
       output: [['secret', 'string']],
@@ -642,7 +694,7 @@ export default class ColonyClient extends ContractClient {
       output: [['total', 'bigNumber']],
     });
     this.addCaller('getPotBalance', {
-      input: [['potId', 'number'], ['token', 'address']],
+      input: [['potId', 'number'], ['source', 'payableAddress']],
       output: [['balance', 'bigNumber']],
     });
     this.addCaller('getRewardPayoutInfo', {
@@ -662,6 +714,37 @@ export default class ColonyClient extends ContractClient {
     this.addCaller('getToken', {
       output: [['address', 'address']],
     });
+
+    // Events
+    this.addEvent('TaskAdded', [['id', 'number']]);
+    this.addEvent('TaskBriefChanged', [
+      ['id', 'number'],
+      ['specificationHash', 'ipfsHash'],
+    ]);
+    this.addEvent('TaskDueDateChanged', [
+      ['id', 'number'],
+      ['dueDate', 'number'],
+    ]);
+    this.addEvent('TaskDomainChanged', [
+      ['id', 'number'],
+      ['domainId', 'number'],
+    ]);
+    this.addEvent('TaskSkillChanged', [
+      ['id', 'number'],
+      ['skillId', 'number'],
+    ]);
+    this.addEvent('TaskRoleUserChanged', [
+      ['id', 'number'],
+      ['role', 'number'],
+      ['user', 'address'],
+    ]);
+    this.addEvent('TaskWorkerPayoutChanged', [
+      ['id', 'number'],
+      ['token', 'address'],
+      ['amount', 'number'],
+    ]);
+    this.addEvent('TaskFinalized', [['id', 'number']]);
+    this.addEvent('TaskCanceled', [['id', 'number']]);
 
     // Senders
     const SkillAdded = {
@@ -698,10 +781,14 @@ export default class ColonyClient extends ContractClient {
       input: [['taskId', 'number']],
     });
     this.addSender('claimColonyFunds', {
-      input: [['token', 'address']],
+      input: [['source', 'payableAddress']],
     });
     this.addSender('claimPayout', {
-      input: [['token', 'address'], ['role', 'role'], ['token', 'address']],
+      input: [
+        ['taskId', 'number'],
+        ['role', 'role'],
+        ['source', 'payableAddress'],
+      ],
     });
     this.addSender('createTask', {
       functionName: 'makeTask',
@@ -754,6 +841,13 @@ export default class ColonyClient extends ContractClient {
     this.addSender('setTaskRoleUser', {
       input: [['taskId', 'number'], ['role', 'role'], ['user', 'address']],
     });
+    this.addSender('setTaskManagerPayout', {
+      input: [
+        ['taskId', 'number'],
+        ['source', 'payableAddress'],
+        ['amount', 'bigNumber'],
+      ],
+    });
     this.addSender('setTaskSkill', {
       input: [['taskId', 'number'], ['skillId', 'number']],
     });
@@ -775,63 +869,42 @@ export default class ColonyClient extends ContractClient {
     });
 
     // Multisig Senders
-    const makeExecuteTaskChange = (name: string, input: Array<any>) =>
+    const makeExecuteTaskChange = (
+      name: string,
+      input: Array<*>,
+      roles: Array<Role> = [],
+    ) =>
       this.addMultisigSender(name, {
         input: [['taskId', 'number'], ...input],
         getRequiredSignees: async ({ taskId }: { taskId: number }) => {
           const taskRoles = await Promise.all(
-            [WORKER_ROLE, EVALUATOR_ROLE, MANAGER_ROLE].map(role =>
-              this.getTaskRole.call({ taskId, role }),
-            ),
+            roles.map(role => this.getTaskRole.call({ taskId, role })),
           );
           return taskRoles.map(({ address }) => address).filter(isValidAddress);
         },
         multisigFunctionName: 'executeTaskChange',
         nonceFunctionName: 'getTaskChangeNonce',
+        nonceInput: [['taskId', 'number']],
       });
-    makeExecuteTaskChange('setTaskBrief', [['specificationHash', 'ipfsHash']]);
-    makeExecuteTaskChange('setTaskDueDate', [['dueDate', 'date']]);
-    makeExecuteTaskChange('setTaskWorkerPayout', [
-      ['token', 'address'],
-      ['amount', 'bigNumber'],
-    ]);
-    makeExecuteTaskChange('setTaskManagerPayout', [
-      ['token', 'address'],
-      ['amount', 'bigNumber'],
-    ]);
-    makeExecuteTaskChange('setTaskEvaluatorPayout', [
-      ['token', 'address'],
-      ['amount', 'bigNumber'],
-    ]);
-
-    this.addEvent('TaskAdded', [['id', 'number']]);
-    this.addEvent('TaskBriefChanged', [
-      ['id', 'number'],
-      ['specificationHash', 'ipfsHash'],
-    ]);
-    this.addEvent('TaskDueDateChanged', [
-      ['id', 'number'],
-      ['dueDate', 'number'],
-    ]);
-    this.addEvent('TaskDomainChanged', [
-      ['id', 'number'],
-      ['domainId', 'number'],
-    ]);
-    this.addEvent('TaskSkillChanged', [
-      ['id', 'number'],
-      ['skillId', 'number'],
-    ]);
-    this.addEvent('TaskRoleUserChanged', [
-      ['id', 'number'],
-      ['role', 'number'],
-      ['user', 'address'],
-    ]);
-    this.addEvent('TaskWorkerPayoutChanged', [
-      ['id', 'number'],
-      ['token', 'address'],
-      ['amount', 'number'],
-    ]);
-    this.addEvent('TaskFinalized', [['id', 'number']]);
-    this.addEvent('TaskCanceled', [['id', 'number']]);
+    makeExecuteTaskChange(
+      'setTaskBrief',
+      [['specificationHash', 'ipfsHash']],
+      [MANAGER_ROLE, WORKER_ROLE],
+    );
+    makeExecuteTaskChange(
+      'setTaskDueDate',
+      [['dueDate', 'date']],
+      [MANAGER_ROLE, WORKER_ROLE],
+    );
+    makeExecuteTaskChange(
+      'setTaskWorkerPayout',
+      [['source', 'payableAddress'], ['amount', 'bigNumber']],
+      [MANAGER_ROLE, WORKER_ROLE],
+    );
+    makeExecuteTaskChange(
+      'setTaskEvaluatorPayout',
+      [['source', 'payableAddress'], ['amount', 'bigNumber']],
+      [MANAGER_ROLE, EVALUATOR_ROLE],
+    );
   }
 }

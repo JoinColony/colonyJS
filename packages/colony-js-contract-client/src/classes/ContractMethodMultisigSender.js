@@ -12,6 +12,7 @@ import type {
   ContractMethodMultisigSenderArgs,
   GetRequiredSignees,
   MultisigOperationConstructorArgs,
+  Params,
   SendOptions,
 } from '../flowtypes';
 
@@ -21,6 +22,7 @@ export default class ContractMethodMultisigSender<
   IContractClient: ContractClient,
 > extends ContractMethodSender<InputValues, OutputValues, IContractClient> {
   nonceFunctionName: string;
+  nonceInput: Params;
   multisigFunctionName: string;
   _getRequiredSignees: GetRequiredSignees;
 
@@ -29,8 +31,9 @@ export default class ContractMethodMultisigSender<
    * creating the transaction data
    * nonceFunctionName - The contract function name to use for
    * getting the transaction nonce value
+   * required in order to send the transaction
    * getRequiredSignees - Async function that returns the addresses of
-   * the signers (needed to send the transaction)
+   * the signers which will be required in order to send the transaction
    * multisigFunctionName - The contract function name to use for
    * sending the finalized transaction (with multisig support)
    */
@@ -43,12 +46,14 @@ export default class ContractMethodMultisigSender<
     getRequiredSignees,
     multisigFunctionName,
     nonceFunctionName,
+    nonceInput,
     output,
   }: ContractMethodMultisigSenderArgs<IContractClient>) {
     super({ client, name, output, input, eventHandlers, functionName });
     this._getRequiredSignees = getRequiredSignees;
     this.multisigFunctionName = multisigFunctionName;
     this.nonceFunctionName = nonceFunctionName;
+    this.nonceInput = nonceInput;
   }
 
   /**
@@ -72,10 +77,9 @@ export default class ContractMethodMultisigSender<
     return signees;
   }
 
-  // XXX After https://github.com/JoinColony/colonyNetwork/issues/192 is
-  // fixed, the inputValues should be accepted by this method.
-  async getNonce(): Promise<number> {
-    const response = await this.client.call(this.nonceFunctionName, []);
+  async getNonce(inputValues: InputValues): Promise<number> {
+    const args = this.getValidatedArgs(inputValues, this.nonceInput);
+    const response = await this.client.call(this.nonceFunctionName, args);
 
     const nonce = isBigNumber(response) ? response.toNumber() : response;
     assert(

@@ -59,7 +59,7 @@ Let's break that down:
 
 ### 2. Identify required signees
 
-We can determine which wallets need to sign the operation by checking the `requiredSignees` and `missingSignees` properties.
+We can determine which wallets can to sign the operation by checking the `requiredSignees` and `missingSignees` properties.
 
 ```js
 console.log(op.requiredSignees);
@@ -120,7 +120,7 @@ const { successful } = await op.send();
 // -> true
 
 // We can also add transaction options as a parameter, e.g.:
-// await op.send({ gasLimit: new BigNumber(2500000) });
+// await op.send({ gasLimit: 2500000 });
 
 // We can also see that our change took effect:
 const task = await colonyClient.getTask.call({ taskId: 1 });

@@ -25,6 +25,19 @@ const colonyClient = await networkClient.getColonyClient({ key: 'My Colony' }); 
 
 **All callers return promises which resolve to an object containing the given return values.** For a reference please check [here](/colonyjs/docs-contractclient/#callers).
 
+### `getAuthority.call()`
+
+Gets the colony's Authority contract address
+
+
+**Returns**
+
+A promise which resolves to an object containing the following properties:
+
+|Return value|Type|Description|
+|---|---|---|
+|address|Address|The colony's Authority contract address|
+
 ### `generateSecret.call({ salt, value })`
 
 Helper function used to generate the rating secret used in task ratings. Accepts a salt value and a value to hide, and returns the keccak256 hash of both.
@@ -227,16 +240,16 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |secret|string|the hashed rating (equivalent to the output of `keccak256(_salt, _rating)`).|
 
-### `getPotBalance.call({ potId, token })`
+### `getPotBalance.call({ potId, source })`
 
-Gets a balance for a certain token in a specific pot
+Gets a balance for a certain source in a specific pot
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
 |potId|number|Integer potId|
-|token|Address|Address of the token's contract|
+|source|Payable address|Address to get funds from; empty address (`0x0000...`) for ether|
 
 **Returns**
 
@@ -338,7 +351,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 ### `setTaskDomain.send({ taskId, domainId }, options)`
 
-Every task must belong to a single existing Domain.
+Every task must belong to a single existing Domain. This can only be called by the manager of the task.
 
 **Arguments**
 
@@ -355,7 +368,7 @@ An instance of a `ContractResponse`
 
 ### `setTaskRoleUser.send({ taskId, role, user }, options)`
 
-Set the user for role `_role` in task `_id`. Only allowed before the task is `finalized`, meaning that the value cannot be changed after the task is complete.
+Set the user for role `_role` in task `_id`. Only allowed before the task is `finalized`, meaning that the value cannot be changed after the task is complete. This can only be called by the manager of the task.
 
 **Arguments**
 
@@ -373,7 +386,7 @@ An instance of a `ContractResponse`
 
 ### `setTaskSkill.send({ taskId, skillId }, options)`
 
-Sets the skill tag associated with the task. Currently there is only one skill tag available per task, but additional skills for tasks are planned in future implementations.
+Sets the skill tag associated with the task. Currently there is only one skill tag available per task, but additional skills for tasks are planned in future implementations. This can only be called by the manager of the task.
 
 **Arguments**
 
@@ -381,6 +394,24 @@ Sets the skill tag associated with the task. Currently there is only one skill t
 |---|---|---|
 |taskId|number|Integer taskId|
 |skillId|number|Integer skillId|
+
+**Returns**
+
+An instance of a `ContractResponse`
+
+
+
+### `setTaskManagerPayout.send({ taskId, source, amount }, options)`
+
+Sets the payout given to the MANAGER role when the task is finalized. This Sender can only be called by the manager for the task in question.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|taskId|number|Integer taskId|
+|source|Payable address|Address to send funds from; empty address (`0x0000...`) for ether|
+|amount|BigNumber|Amount to be paid.|
 
 **Returns**
 
@@ -490,9 +521,9 @@ An instance of a `ContractResponse`
 
 
 
-### `claimPayout.send({ taskId, role, token }, options)`
+### `claimPayout.send({ taskId, role, source }, options)`
 
-Claims the payout in `_token` denomination for work completed in task `_id` by contributor with role `_role`. Allowed only by the contributors themselves after task is finalized. Here the network receives its fee from each payout. Ether fees go straight to the Common Colony whereas Token fees go to the Network to be auctioned off.
+Claims the payout in `source` denomination for work completed in task `taskId` by contributor with role `role`. Allowed only by the contributors themselves after task is finalized. Here the network receives its fee from each payout. Ether fees go straight to the Common Colony whereas Token fees go to the Network to be auctioned off.
 
 **Arguments**
 
@@ -500,7 +531,7 @@ Claims the payout in `_token` denomination for work completed in task `_id` by c
 |---|---|---|
 |taskId|number|Integer taskId|
 |role|Role|Role of the contributor claiming the payout: MANAGER, EVALUATOR, or WORKER|
-|token|Address|Address of the token contract|
+|source|Payable address|Address to claim funds from; empty address (`0x0000...`) for ether|
 
 **Returns**
 
@@ -510,7 +541,7 @@ An instance of a `ContractResponse`
 
 ### `addDomain.send({ parentSkillId }, options)`
 
-Adds a domain to the Colony along with the new domain's respective local skill.
+Adds a domain to the Colony along with the new domain's respective local skill. This can only be called by owners of the colony.
 
 **Arguments**
 
@@ -529,7 +560,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 ### `addGlobalSkill.send({ parentSkillId }, options)`
 
-Adds a global skill under a given parent SkillId. Can only be called from the Common Colony
+Adds a global skill under a given parent SkillId. This can only be called from the Meta Colony, and only by the Meta Colony owners.
 
 **Arguments**
 
@@ -546,15 +577,15 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |skillId|number|Integer id of the newly created skill|
 |parentSkillId|number|Integer id of the parent skill|
 
-### `claimColonyFunds.send({ token }, options)`
+### `claimColonyFunds.send({ source }, options)`
 
-Move any funds received by the colony in `token` denomination to the top-levl domain pot, siphoning off a small amount to the rewards pot. No fee is taken if called against a colony's own token.
+Move any funds received by the colony in `source` denomination to the top-levl domain pot, siphoning off a small amount to the rewards pot. No fee is taken if called against a colony's own token.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|token|Address|Address of the token contract. `0x0` value indicates Ether.|
+|source|Payable address|Address to claim funds from; empty address (`0x0000...`) for ether|
 
 **Returns**
 
@@ -699,7 +730,7 @@ An instance of a `MultiSigOperation`
 
 
 
-### `setTaskEvaluatorPayout.startOperation({ taskId, token, amount })`
+### `setTaskEvaluatorPayout.startOperation({ taskId, source, amount })`
 
 Sets the payout given to the EVALUATOR role when the task is finalized.
 
@@ -708,7 +739,7 @@ Sets the payout given to the EVALUATOR role when the task is finalized.
 |Argument|Type|Description|
 |---|---|---|
 |taskId|number|Integer taskId|
-|token|Address|Address of the token's ERC20 contract.|
+|source|Payable address|Address to send funds from; empty address (`0x0000...`) for ether|
 |amount|BigNumber|Amount to be paid.|
 
 **Returns**
@@ -717,25 +748,7 @@ An instance of a `MultiSigOperation`
 
 
 
-### `setTaskManagerPayout.startOperation({ taskId, token, amount })`
-
-Sets the payout given to the MANAGER role when the task is finalized.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|taskId|number|Integer taskId|
-|token|Address|Address of the token's ERC20 contract.|
-|amount|BigNumber|Amount to be paid.|
-
-**Returns**
-
-An instance of a `MultiSigOperation`
-
-
-
-### `setTaskWorkerPayout.startOperation({ taskId, token, amount })`
+### `setTaskWorkerPayout.startOperation({ taskId, source, amount })`
 
 Sets the payout given to the WORKER role when the task is finalized.
 
@@ -744,7 +757,7 @@ Sets the payout given to the WORKER role when the task is finalized.
 |Argument|Type|Description|
 |---|---|---|
 |taskId|number|Integer taskId|
-|token|Address|Address of the token's ERC20 contract.|
+|source|Payable address|Address to send funds from; empty address (`0x0000...`) for ether|
 |amount|BigNumber|Amount to be paid.|
 
 **Returns**

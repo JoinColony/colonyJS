@@ -2,10 +2,22 @@
 
 ## v.NEXT
 
-* Refactored contract parameter validation and conversion (`@colony/colony-js-contract-client`)
-* Refactored the contracts interface and `EthersContract` to allow for events subscription with optional transaction hashes (`@colony/colony-js-adapter`, `@colony/colony-js-adapter-ethers`)
-* Added new `ContractEvent` events subscription to `ContractClient`, allow for simple events subscription (`@colony/colony-js-contract-client`)
+**New features**
+
+* Added new `ContractEvent` events subscription to `ContractClient`, allowing for simple events subscription (`@colony/colony-js-contract-client`)
 * Added new task lifecycle events to `ColonyClient`, using new event subscriptions (`@colony/colony-js-contract-client`)
+* Added support for sending multisig operations for tasks with one signature alone (when no other signatures are required) (`@colony/colony-js-client`)
+* Added support for per-task nonce values for multisig operations; multisig operations can now be run in parallel (for different tasks) (`@colony/colony-js-client`)
+* Added `TokenClient`, a means of interacting with a colony's token contract (`@colony/colony-js-client`)
+* Added `AuthorityClient`, a means of interacting with a colony's authority contract (`@colony/colony-js-client`)
+* Get `token` and `authority` when initializing a `ColonyClient` (`@colony/colony-js-client`)
+
+**Enhancements**
+* Refactored contract parameter validation and conversion to allow for events subscriptions (`@colony/colony-js-contract-client`)
+* Refactored the contracts interface and `EthersContract` to allow for events subscription with optional transaction hashes (`@colony/colony-js-adapter`, `@colony/colony-js-adapter-ethers`)
+
+**Documentation**
+* Specify which users can call `addGlobalSkill`, `addDomain`, `setTaskRoleUser`, `setTaskDomain` and `setTaskSkill` (`@colony/colony-js-client`)
 
 ## v1.3.0
 

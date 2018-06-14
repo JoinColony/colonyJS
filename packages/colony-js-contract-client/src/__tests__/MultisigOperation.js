@@ -525,26 +525,51 @@ describe('MultisigOperation', () => {
   test('Getting missing signees', async () => {
     const signer1 = 'signer1';
     const signer2 = 'signer2';
-    const requiredSignees = [signer1, signer2];
+    const signer3 = 'signer3';
+    const requiredSignees = [signer1, signer2, signer3];
     const op = new MultisigOperation(sender, {
       payload,
       signers: {
         signer1,
+        signer2,
       },
     });
     op._requiredSignees = requiredSignees;
 
     expect(op.requiredSignees).toEqual(requiredSignees);
-    expect(op.missingSignees).toEqual([signer2]);
+    expect(op.missingSignees).toEqual([signer3]);
 
     // with refreshing
     sandbox
       .spyOn(op.sender, 'getRequiredSignees')
-      .mockImplementation(async () => requiredSignees);
+      .mockImplementation(async () => [signer1, signer2]);
     await op._refreshRequiredSignees();
 
-    expect(op.requiredSignees).toEqual(requiredSignees);
-    expect(op.missingSignees).toEqual([signer2]);
+    expect(op.requiredSignees).toEqual([signer1, signer2]);
+    expect(op.missingSignees).toEqual([]); // all should be satisfied
+  });
+
+  test('Only one required signee', async () => {
+    const signer1 = 'signer1';
+    const op = new MultisigOperation(sender, {
+      payload,
+      signers: {},
+    });
+    op._requiredSignees = [signer1];
+
+    expect(op.requiredSignees).toEqual([signer1]);
+    expect(op.missingSignees).toEqual([signer1]);
+
+    op._signers[signer1] = signature;
+
+    // with refreshing
+    sandbox
+      .spyOn(op.sender, 'getRequiredSignees')
+      .mockImplementation(async () => [signer1]);
+    await op._refreshRequiredSignees();
+
+    expect(op.requiredSignees).toEqual([signer1]);
+    expect(op.missingSignees).toEqual([]); // all should be satisfied
   });
 
   test('Validating nonce', () => {
