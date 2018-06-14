@@ -144,12 +144,12 @@ A natural way to use the `specificationHash` field is to point to a file hosted 
 For development with colonyJS, IPFS must be aded to your project
 
 The easiest way to add ipfs is via npm:
-```
+```bash
 yarn add ipfs
 ```
 
 Then include it in your project's code:
-```
+```bash
 const IPFS = require('ipfs');
 const ipfs = new IPFS();
 ```
@@ -181,7 +181,7 @@ IPFS requires that files be uploaded as a `Buffer`, which is a binary representa
 
 To create that buffer, the specification must first be 'converted' to a JSON string.
 
-```
+```javascript
 // Prepare our data by passing our spec object as a JSON string to `Buffer`
 const data = Buffer.from(JSON.stringify(spec));
 // upload your file to IPFS
@@ -198,7 +198,7 @@ You can also update the specificationHash by calling the `setTaskBrief` multisig
 ## Retrieve the task specification from IPFS
 To retrieve the specification from IPFS for a task that's already been created, use the `getTask` method.
 
-```
+```javascript
 const task = await colonyClient.getTask.call({ taskId })
 // IPFS will provide a binary representation ('buffer') of our spec given the hash from our task
 const buffer = await node.files.cat(`/ipfs/${task.specificationHash}`);
