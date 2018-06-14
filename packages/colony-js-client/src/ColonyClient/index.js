@@ -333,7 +333,7 @@ export default class ColonyClient extends ContractClient {
   setTaskManagerPayout: ColonyClient.Sender<
     {
       taskId: number, // Integer taskId.
-      source: PayableAddress, // ddress to send funds from, e.g. the token's contract address, or empty address (`0x0` for Ether)
+      source: PayableAddress, // Address to send funds from, e.g. the token's contract address, or empty address (`0x0` for Ether)
       amount: BigNumber, // Amount to be paid.
     },
     {},
