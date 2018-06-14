@@ -232,7 +232,7 @@ export default class ColonyClient extends ContractClient {
   getToken: ColonyClient.Caller<
     {},
     {
-      address: Address, // The address of the colony's official deployed token contract `0x0` value indicates Ether.
+      address: Address, // The address of the colony's official deployed token contract
     },
     ColonyClient,
   >;
