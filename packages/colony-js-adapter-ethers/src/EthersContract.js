@@ -4,16 +4,19 @@ import ethers from 'ethers';
 
 import type {
   Event,
+  EventCallback,
   IContract,
   IWallet,
   TransactionOptions,
 } from '@colony/colony-js-adapter';
 
-import type { EventListenerCallback } from './flowtypes';
-
 class EthersContract extends ethers.Contract implements IContract {
   // A map of contract event names to callbacks
-  _listeners: Map<string, EventListenerCallback>;
+  _listeners: Array<{
+    eventName: string,
+    callback: EventCallback,
+    transactionHash?: string,
+  }>;
 
   /**
    * EthersContract constructor
@@ -22,7 +25,7 @@ class EthersContract extends ethers.Contract implements IContract {
    */
   constructor(address: string, abi: Array<any>, wallet: IWallet) {
     super(address, abi, wallet);
-    this._listeners = new Map();
+    this._listeners = [];
     this._initialiseEvents();
   }
 
@@ -78,11 +81,32 @@ class EthersContract extends ethers.Contract implements IContract {
     return data;
   }
 
-  addListener(eventName: string, transactionHash: string, callback: Function) {
-    this._listeners.set(`${eventName}-${transactionHash}`, callback);
+  addListener(
+    eventName: string,
+    callback: EventCallback,
+    transactionHash?: string,
+  ) {
+    this._listeners.push({
+      eventName,
+      callback,
+      transactionHash,
+    });
   }
-  removeListener(eventName: string, transactionHash: string) {
-    this._listeners.delete(`${eventName}-${transactionHash}`);
+  removeListener(
+    eventName: string,
+    callback: Function,
+    transactionHash?: string,
+  ) {
+    const handlerIndex = this._listeners.findIndex(
+      eventHandler =>
+        eventName === eventHandler.eventName &&
+        callback === eventHandler.callback &&
+        (!transactionHash || transactionHash === eventHandler.transactionHash),
+    );
+
+    if (handlerIndex > -1) {
+      this._listeners.splice(handlerIndex, 1);
+    }
   }
   _initialiseEvents() {
     Object.getOwnPropertyNames(this.events).forEach(eventName => {
@@ -93,12 +117,23 @@ class EthersContract extends ethers.Contract implements IContract {
     });
   }
   _dispatchEvent(event: Event) {
-    const key = `${event.event}-${event.transactionHash}`;
-    const callback = this._listeners.get(key);
-    if (callback) {
-      this.removeListener(event.event, event.transactionHash);
-      callback(event);
-    }
+    const eventHandlers = this._listeners.filter(
+      ({ eventName, transactionHash }) =>
+        eventName === event.event &&
+        (!transactionHash || transactionHash === event.transactionHash),
+    );
+
+    eventHandlers.forEach(eventHandler => {
+      if (eventHandler.transactionHash) {
+        this.removeListener(
+          event.event,
+          eventHandler.callback,
+          event.transactionHash,
+        );
+      }
+
+      eventHandler.callback(event);
+    });
   }
 }
 

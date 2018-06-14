@@ -2,6 +2,11 @@
 
 ## v.NEXT
 
+* Refactored contract parameter validation and conversion (`@colony/colony-js-contract-client`)
+* Refactored the contracts interface and `EthersContract` to allow for events subscription with optional transaction hashes (`@colony/colony-js-adapter`, `@colony/colony-js-adapter-ethers`)
+* Added new `ContractEvent` events subscription to `ContractClient`, allow for simple events subscription (`@colony/colony-js-contract-client`)
+* Added new task lifecycle events to `ColonyClient`, using new event subscriptions (`@colony/colony-js-contract-client`)
+
 ## v1.3.0
 
 **New features**

@@ -24,7 +24,7 @@ type CallResult = [
 
 export default class GetTask extends ContractClient.Caller<
   InputValues,
-  // Flow is confused by the call to `super._getOutputValues`, so let the
+  // Flow is confused by the call to `super.convertOutputValues`, so let the
   // OutputValues generic pass through for now; it's overspecified
   *,
   ColonyClient,
@@ -56,8 +56,8 @@ export default class GetTask extends ContractClient.Caller<
     };
   }
   // eslint-disable-next-line class-methods-use-this
-  _getOutputValues(result: CallResult, { taskId }: *) {
-    const task = super._getOutputValues(result);
+  convertOutputValues(result: CallResult, { taskId }: *) {
+    const task = super.convertOutputValues(result);
 
     // Until arrays of bignumbers are supported as a parameter type,
     // take the last item of the call result (skillIds) and use the first one

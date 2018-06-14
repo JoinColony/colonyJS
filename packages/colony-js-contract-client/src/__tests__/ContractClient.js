@@ -7,6 +7,8 @@ import BigNumber from 'bn.js';
 import ContractClient from '../classes/ContractClient';
 import ContractClientMethodCaller from '../classes/ContractMethodCaller';
 import ContractClientMethodSender from '../classes/ContractMethodSender';
+import ContractEvent from '../classes/ContractEvent';
+import MockEmittingContract from '../mocks/MockEmittingContract';
 
 describe('ContractClient', () => {
   const sandbox = createSandbox();
@@ -19,14 +21,14 @@ describe('ContractClient', () => {
   const constantData = { constantValue: 123 };
   const gasEstimate = new BigNumber(123);
   const eventData = { myEvent: { myEventValue: 123 } };
-  const contract = {
-    address: '0x123',
-    events: {},
-    callConstant: sandbox.fn(async () => constantData),
-    callEstimate: sandbox.fn(async () => gasEstimate),
-    callTransaction: sandbox.fn(async () => transaction),
-    createTransactionData: sandbox.fn(async () => txData),
-  };
+  const contract = new class extends MockEmittingContract {
+    address = '0x123';
+    events = {};
+    callConstant = sandbox.fn(async () => constantData);
+    callEstimate = sandbox.fn(async () => gasEstimate);
+    callTransaction = sandbox.fn(async () => transaction);
+    createTransactionData = sandbox.fn(async () => txData);
+  }();
   const query = { contractName: 'MyContract' };
   const adapter = {
     getContract: sandbox.fn(() => contract),
@@ -160,6 +162,16 @@ describe('ContractClient', () => {
     );
   });
 
+  test('Events can be defined', () => {
+    const client = new ContractClient({ adapter, contract, options });
+
+    // Define an event on the client
+    client.addEvent('myEvent', [['myEventValue', 'number']]);
+
+    // The method should exist on the client
+    expect(client.events.myEvent).toBeInstanceOf(ContractEvent);
+  });
+
   test('Contract functions can be called directly', async () => {
     const client = new ContractClient({ adapter, contract, options });
     await client.init();
@@ -232,5 +244,43 @@ describe('ContractClient', () => {
     expect(result).toEqual(eventData);
     expect(client.adapter.getEventData).toHaveBeenCalledTimes(1);
     expect(client.adapter.getEventData).toHaveBeenCalledWith(params);
+  });
+
+  test('Contract event callbacks can be (un)subscribed', async () => {
+    const client = new ContractClient({ adapter, contract, options });
+    await client.init();
+
+    const eventArgs = [0, 1, 2].map(myEventValue => ({ myEventValue }));
+
+    const callbackA = jest.fn();
+    const callbackB = jest.fn();
+
+    // Define an event on the client
+    client.addEvent('myEvent', [['myEventValue', 'number']]);
+
+    // Subscribe to the event with our callback
+    client.events.myEvent.addListener(callbackA);
+    client.events.myEvent.addListener(callbackB);
+
+    // Emit an event
+    contract._dispatchEvent('myEvent', eventArgs[0]);
+    expect(callbackA).toHaveBeenCalledWith(eventArgs[0]);
+    expect(callbackB).toHaveBeenCalledWith(eventArgs[0]);
+
+    // Unsubscribe callback A from the event
+    client.events.myEvent.removeListener(callbackA);
+
+    // Emit the event again, with different parameters
+    contract._dispatchEvent('myEvent', eventArgs[1]);
+    expect(callbackB).toHaveBeenCalledWith(eventArgs[1]);
+
+    // Unsubscribe callback B from the event
+    client.events.myEvent.removeListener(callbackB);
+
+    // Emit the event again, with different parameters
+    contract._dispatchEvent('myEvent', eventArgs[2]);
+
+    expect(callbackA).toHaveBeenCalledTimes(1);
+    expect(callbackB).toHaveBeenCalledTimes(2);
   });
 });

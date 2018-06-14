@@ -55,9 +55,8 @@ export default class ContractMethodCaller<
    */
   async call(inputValues?: InputValues) {
     const args = this.getValidatedArgs(inputValues);
-    const response = await this.client.call(this.functionName, args);
-
-    const outputValues = this._getOutputValues(response, inputValues);
+    const callResult = await this.client.call(this.functionName, args);
+    const outputValues = this.convertOutputValues(callResult, inputValues);
 
     if (this.constructor.containsNullValues(outputValues))
       await this.validateEmpty(inputValues, outputValues);

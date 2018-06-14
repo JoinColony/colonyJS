@@ -8,6 +8,7 @@ import type {
   TransactionOptions,
 } from '@colony/colony-js-adapter';
 
+import ContractEvent from './ContractEvent';
 import ContractMethod from './ContractMethod';
 import ContractMethodCaller from './ContractMethodCaller';
 import ContractMethodSender from './ContractMethodSender';
@@ -16,6 +17,7 @@ import ContractMethodMultisigSender from './ContractMethodMultisigSender';
 import type {
   ContractMethodDef,
   ContractClientConstructorArgs,
+  EventParams,
 } from '../flowtypes';
 
 export default class ContractClient {
@@ -28,6 +30,9 @@ export default class ContractClient {
   // The contract loading query the class was constructed with
   _query: Query;
 
+  // The contract event subscription methods
+  events = {};
+
   // Static getters used in lieu of named exports; this package only has
   // one export.
   static get Caller(): typeof ContractMethodCaller {
@@ -38,6 +43,9 @@ export default class ContractClient {
   }
   static get MultisigSender(): typeof ContractMethodMultisigSender {
     return ContractMethodMultisigSender;
+  }
+  static get Event(): typeof ContractEvent {
+    return ContractEvent;
   }
 
   static get defaultQuery(): Query {
@@ -139,5 +147,23 @@ export default class ContractClient {
 
   addMultisigSender(name: string, def: Object): void {
     this.addMethod(this.constructor.MultisigSender, name, def);
+  }
+
+  /**
+   * Add event subscription functionality for a particular event of this
+   * contract to the given ContractClient instance.
+   */
+  addEvent(eventName: string, argsDef: EventParams): void {
+    if (Reflect.has(this.events, eventName)) {
+      throw new Error(`An event named "${eventName}" already exists`);
+    }
+
+    Object.assign(this.events, {
+      [eventName]: new ContractEvent({
+        eventName,
+        client: this,
+        argsDef,
+      }),
+    });
   }
 }

@@ -13,7 +13,7 @@ import { isHex, utf8ToHex, hexToBytes } from 'web3-utils';
 
 import {
   addParamType,
-  validateValue,
+  validateValueType,
   convertOutputValue,
   convertInputValue,
 } from '../modules/paramTypes';
@@ -22,6 +22,7 @@ jest.mock('@colony/colony-js-utils', () => ({
   isBigNumber: jest.fn().mockReturnValue(true),
   isValidAddress: jest.fn().mockReturnValue(true),
   isEmptyHexString: jest.fn().mockReturnValue(true),
+  makeAssert: jest.fn(),
 }));
 
 jest.mock('bs58', () => ({
@@ -52,7 +53,7 @@ describe('Parameter types', () => {
 
   test('Addresses are handled properly', () => {
     // Validation
-    expect(validateValue('0x123', 'address')).toBe(true);
+    expect(validateValueType('0x123', 'address')).toBe(true);
     expect(isValidAddress).toHaveBeenCalledWith('0x123');
     isValidAddress.mockClear();
 
@@ -71,7 +72,7 @@ describe('Parameter types', () => {
     const bn = new BigNumber(1);
 
     // Validation
-    expect(validateValue(bn, 'bigNumber')).toBe(true);
+    expect(validateValueType(bn, 'bigNumber')).toBe(true);
     expect(isBigNumber).toHaveBeenCalledWith(bn);
     isBigNumber.mockClear();
 
@@ -88,10 +89,10 @@ describe('Parameter types', () => {
 
   test('Booleans are handled properly', () => {
     // Validation
-    expect(validateValue(false, 'boolean')).toBe(true);
-    expect(validateValue(true, 'boolean')).toBe(true);
-    expect(validateValue(null, 'boolean')).toBe(false);
-    expect(validateValue(1, 'boolean')).toBe(false);
+    expect(validateValueType(false, 'boolean')).toBe(true);
+    expect(validateValueType(true, 'boolean')).toBe(true);
+    expect(validateValueType(null, 'boolean')).toBe(false);
+    expect(validateValueType(1, 'boolean')).toBe(false);
 
     // Converting output values
     expect(convertOutputValue(true, 'boolean')).toBe(true);
@@ -106,9 +107,9 @@ describe('Parameter types', () => {
 
   test('Numbers are handled properly', () => {
     // Validation
-    expect(validateValue(1, 'number')).toBe(true);
-    expect(validateValue(0, 'number')).toBe(true);
-    expect(validateValue(null, 'number')).toBe(false);
+    expect(validateValueType(1, 'number')).toBe(true);
+    expect(validateValueType(0, 'number')).toBe(true);
+    expect(validateValueType(null, 'number')).toBe(false);
 
     // Converting output values
     isBigNumber.mockReturnValueOnce(false);
@@ -139,10 +140,10 @@ describe('Parameter types', () => {
     expect(String(timeWithoutMs).length).toBe(10);
 
     // Validation
-    expect(validateValue(date, 'date')).toBe(true);
-    expect(validateValue(new Date('not a valid date'), 'date')).toBe(false);
-    expect(validateValue(0, 'date')).toBe(false);
-    expect(validateValue(null, 'date')).toBe(false);
+    expect(validateValueType(date, 'date')).toBe(true);
+    expect(validateValueType(new Date('not a valid date'), 'date')).toBe(false);
+    expect(validateValueType(0, 'date')).toBe(false);
+    expect(validateValueType(null, 'date')).toBe(false);
 
     // Converting output values
     const bnDate = new BigNumber(timeWithoutMs);
@@ -171,10 +172,10 @@ describe('Parameter types', () => {
 
   test('Strings are handled properly', () => {
     // Validation
-    expect(validateValue('a', 'string')).toBe(true);
-    expect(validateValue('', 'string')).toBe(true);
-    expect(validateValue(null, 'string')).toBe(false);
-    expect(validateValue(1, 'string')).toBe(false);
+    expect(validateValueType('a', 'string')).toBe(true);
+    expect(validateValueType('', 'string')).toBe(true);
+    expect(validateValueType(null, 'string')).toBe(false);
+    expect(validateValueType(1, 'string')).toBe(false);
 
     // Converting output values
     expect(convertOutputValue('a', 'string')).toBe('a');
@@ -207,12 +208,12 @@ describe('Parameter types', () => {
     const bytes = [18, 32, 208]; // not a real example
 
     // Validation
-    expect(validateValue(hash, 'ipfsHash')).toBe(true);
-    expect(validateValue(hash.toLowerCase(), 'ipfsHash')).toBe(false);
-    expect(validateValue(hash.slice(0, 32), 'ipfsHash')).toBe(false);
-    expect(validateValue(`${hash}${hash}`, 'ipfsHash')).toBe(false);
-    expect(validateValue(null, 'ipfsHash')).toBe(false);
-    expect(validateValue(1, 'ipfsHash')).toBe(false);
+    expect(validateValueType(hash, 'ipfsHash')).toBe(true);
+    expect(validateValueType(hash.toLowerCase(), 'ipfsHash')).toBe(false);
+    expect(validateValueType(hash.slice(0, 32), 'ipfsHash')).toBe(false);
+    expect(validateValueType(`${hash}${hash}`, 'ipfsHash')).toBe(false);
+    expect(validateValueType(null, 'ipfsHash')).toBe(false);
+    expect(validateValueType(1, 'ipfsHash')).toBe(false);
 
     // Converting output values
     bs58.encode.mockReturnValueOnce(bytes32Hash);
@@ -247,7 +248,7 @@ describe('Parameter types', () => {
 
     // Without the type defined, expect an error
     expect(() => {
-      validateValue(1, customType);
+      validateValueType(1, customType);
     }).toThrow();
 
     const def = {
@@ -258,7 +259,7 @@ describe('Parameter types', () => {
     addParamType(customType, def);
 
     // With the type defined, validate/convert should be called
-    validateValue(1, customType);
+    validateValueType(1, customType);
     convertInputValue(1, customType);
     convertOutputValue(1, customType);
     expect(def.validate).toHaveBeenCalledWith(1);

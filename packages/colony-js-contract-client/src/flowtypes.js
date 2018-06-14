@@ -26,8 +26,10 @@ export type ParamTypes =
 
 // [param name, param type, default value (optional)]
 export type Param = [string, ParamTypes, *];
+export type EventParam = [string, ParamTypes];
 
 export type Params = Array<Param>;
+export type EventParams = Array<EventParam>;
 
 export type ParamTypeDef = {
   validate: (value: any) => boolean,

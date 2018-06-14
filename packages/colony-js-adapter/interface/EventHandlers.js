@@ -2,11 +2,11 @@
 
 import type { Contract } from './Contract';
 
-type Handler = (...*) => {};
+export type EventCallback = (...*) => void;
 
 export type EventHandler = {
   contract: Contract,
-  handler: Handler,
+  handler: EventCallback,
 };
 
 export type EventHandlers = {
