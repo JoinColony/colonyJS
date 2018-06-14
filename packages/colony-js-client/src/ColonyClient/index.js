@@ -46,24 +46,24 @@ export default class ColonyClient extends ContractClient {
   */
   generateSecret: ColonyClient.Caller<
     {
-      salt: string, // Salt value
-      value: number, // Value to hide
+      salt: string, // Salt value.
+      value: number, // Value to hide.
     },
     {
-      secret: string, // keccak256 hash of joint Salt and Value
+      secret: string, // keccak256 hash of joint Salt and Value.
     },
     ColonyClient,
   >;
   /*
-    Gets the selected domain's local skill ID and funding pot ID
+    Gets the selected domain's local skill ID and funding pot ID.
   */
   getDomain: ColonyClient.Caller<
     {
-      domainId: number, // ID of the domain
+      domainId: number, // ID of the domain.
     },
     {
-      localSkillId: number, // The domain's local skill ID
-      potId: number, // The domain's funding pot ID
+      localSkillId: number, // The domain's local skill ID.
+      potId: number, // The domain's funding pot ID.
     },
     ColonyClient,
   >;
@@ -73,7 +73,7 @@ export default class ColonyClient extends ContractClient {
   getDomainCount: ColonyClient.Caller<
     {},
     {
-      count: number, // Number of all domain in this Colony; == the last added domainId
+      count: number, // Number of all domain in this Colony; == the last added domainId.
     },
     ColonyClient,
   >;
@@ -83,7 +83,7 @@ export default class ColonyClient extends ContractClient {
   getGlobalRewardPayoutCount: ColonyClient.Caller<
     {},
     {
-      count: number, // Number of reward payout cycles
+      count: number, // Number of reward payout cycles.
     },
     ColonyClient,
   >;
@@ -92,10 +92,10 @@ export default class ColonyClient extends ContractClient {
   */
   getUserRewardPayoutCount: ColonyClient.Caller<
     {
-      user: Address, // Address of user
+      user: Address, // Address of user.
     },
     {
-      count: number, // Number of claimed and waived reward payouts
+      count: number, // Number of claimed and waived reward payouts.
     },
     ColonyClient,
   >;
@@ -105,27 +105,27 @@ export default class ColonyClient extends ContractClient {
   getTaskCount: ColonyClient.Caller<
     {},
     {
-      count: number, // Total number of tasks in this Colony
+      count: number, // Total number of tasks in this Colony.
     },
     ColonyClient,
   >;
   /*
-    Gets a certain task defined by its integer taskId
+    Gets a certain task defined by its integer taskId.
   */
   getTask: ColonyClient.Caller<
     { taskId: number },
     {
-      cancelled: boolean, // Boolean flag denoting whether the task is cancelled
-      deliverableDate: ?Date, // Date when the deliverable is due
-      deliverableHash: ?IPFSHash, // Unique hash of the deliverable content
-      domainId: number, // Integer Domain ID the task belongs to
-      dueDate: ?Date, // When the task is due
-      finalized: boolean, // Boolean flag denoting whether the task is finalized
-      id: number, // Integer task ID
-      payoutsWeCannotMake: ?number, // Number of payouts that cannot be completed with the current task funding
-      potId: ?number, // Integer ID of funding pot for the task
-      skillId: number, // Integer Skill ID the task is assigned to
-      specificationHash: IPFSHash, // Unique hash of the specification content
+      cancelled: boolean, // Boolean flag denoting whether the task is cancelled.
+      deliverableDate: ?Date, // Date when the deliverable is due.
+      deliverableHash: ?IPFSHash, // Unique hash of the deliverable content.
+      domainId: number, // Integer Domain ID the task belongs to.
+      dueDate: ?Date, // When the task is due.
+      finalized: boolean, // Boolean flag denoting whether the task is finalized.
+      id: number, // Integer task ID.
+      payoutsWeCannotMake: ?number, // Number of payouts that cannot be completed with the current task funding.
+      potId: ?number, // Integer ID of funding pot for the task.
+      skillId: number, // Integer Skill ID the task is assigned to.
+      specificationHash: IPFSHash, // Unique hash of the specification content.
     },
     ColonyClient,
   >;
@@ -134,12 +134,12 @@ export default class ColonyClient extends ContractClient {
   */
   getTaskPayout: ColonyClient.Caller<
     {
-      taskId: number, // Integer taskId
-      role: Role, // Role the payout is specified for: MANAGER, EVALUATOR, or WORKER
-      token: Address, // Address of the token's contract
+      taskId: number, // Integer taskId.
+      role: Role, // Role the payout is specified for: MANAGER, EVALUATOR, or WORKER.
+      source: PayableAddress, // Address of the token's contract `0x0` value indicates Ether.
     },
     {
-      amount: BigNumber, // Amount of specified tokens to payout for that task and a role
+      amount: BigNumber, // Amount of specified tokens to payout for that task and a role.
     },
     ColonyClient,
   >;
@@ -148,22 +148,22 @@ export default class ColonyClient extends ContractClient {
   */
   getTaskRole: ColonyClient.Caller<
     {
-      taskId: number, // Integer taskId
-      role: Role, // MANAGER, EVALUATOR, or WORKER
+      taskId: number, // Integer taskId.
+      role: Role, // MANAGER, EVALUATOR, or WORKER.
     },
     {
-      address: Address, // Address of the user for the given role
-      rated: boolean, // Has the user work been rated
-      rating: number, // Rating the user received
+      address: Address, // Address of the user for the given role.
+      rated: boolean, // Has the user work been rated.
+      rating: number, // Rating the user received.
     },
     ColonyClient,
   >;
   /*
-    For a given task, will return the number of submitted ratings and the date of their submission
+    For a given task, will return the number of submitted ratings and the date of their submission.
   */
   getTaskWorkRatings: ColonyClient.Caller<
     {
-      taskId: number, // Integer taskId
+      taskId: number, // Integer taskId.
     },
     {
       count: number, // Total number of submitted ratings for a task.
@@ -176,8 +176,8 @@ export default class ColonyClient extends ContractClient {
   */
   getTaskWorkRatingSecret: ColonyClient.Caller<
     {
-      taskId: number, // Integer taskId
-      role: Role, // Role that submitted the rating: MANAGER, EVALUATOR, or WORKER
+      taskId: number, // Integer taskId.
+      role: Role, // Role that submitted the rating: MANAGER, EVALUATOR, or WORKER.
     },
     {
       secret: string, // the hashed rating (equivalent to the output of `keccak256(_salt, _rating)`).
@@ -185,15 +185,15 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Gets a balance for a certain source in a specific pot
+    Gets a balance for a certain source in a specific pot.
   */
   getPotBalance: ColonyClient.Caller<
     {
-      potId: number, // Integer potId
-      source: PayableAddress, // Address to get funds from; empty address (`0x0000...`) for ether
+      potId: number, // Integer potId.
+      source: PayableAddress, // Address to get funds from, such as the token contract address, or empty address (`0x0` for Ether)
     },
     {
-      balance: BigNumber, // Balance for token `token` in pot `potId`
+      balance: BigNumber, // Balance for token `token` in pot `potId`.
     },
     ColonyClient,
   >;
@@ -202,7 +202,7 @@ export default class ColonyClient extends ContractClient {
   */
   getNonRewardPotsTotal: ColonyClient.Caller<
     {
-      address: Address, // Address of the token's contract (token in question)
+      source: PayableAddress, // Address of the token's contract `0x0` value indicates Ether.
     },
     {
       total: BigNumber, // All tokens that are not within the colony's `rewards` pot.
@@ -214,20 +214,20 @@ export default class ColonyClient extends ContractClient {
   */
   getRewardPayoutInfo: ColonyClient.Caller<
     {
-      payoutId: number, // Id of the reward payout
+      payoutId: number, // Id of the reward payout.
     },
     {
-      blockNumber: number, // Block number at the time of creation
-      remainingTokenAmount: BigNumber, // Remaining (unclaimed) amount of tokens
-      reputationRootHash: string, // Reputation root hash at the time of creation
-      tokenAddress: Address, // Token address
-      totalTokenAmountForRewardPayout: BigNumber, // Total amount of tokens taken aside for reward payout
-      totalTokens: BigNumber, // Total colony tokens at the time of creation
+      blockNumber: number, // Block number at the time of creation.
+      remainingTokenAmount: BigNumber, // Remaining (unclaimed) amount of tokens.
+      reputationRootHash: string, // Reputation root hash at the time of creation.
+      source: PayableAddress, // Token address (`0x0` value indicates Ether).
+      totalTokenAmountForRewardPayout: BigNumber, // Total amount of tokens taken aside for reward payout.
+      totalTokens: BigNumber, // Total colony tokens at the time of creation.
     },
     ColonyClient,
   >;
   /*
-    Gets the address of the colony's official token contract
+    Gets the address of the colony's official token contract.
   */
   getToken: ColonyClient.Caller<
     {},
@@ -242,7 +242,7 @@ export default class ColonyClient extends ContractClient {
   getTransactionCount: ColonyClient.Caller<
     {},
     {
-      count: number, // Number of all transactions in this Colony; == the last added transactionId
+      count: number, // Number of all transactions in this Colony; == the last added transactionId.
     },
     ColonyClient,
   >;
@@ -264,7 +264,7 @@ export default class ColonyClient extends ContractClient {
   */
   setTaskBrief: ColonyClient.MultisigSender<
     {
-      taskId: number, // Integer taskId
+      taskId: number, // Integer taskId.
       specificationHash: IPFSHash, // digest of the task's hashed specification.
     },
     {},
@@ -275,19 +275,19 @@ export default class ColonyClient extends ContractClient {
   */
   setTaskDomain: ColonyClient.Sender<
     {
-      taskId: number, // Integer taskId
-      domainId: number, // Integer domainId
+      taskId: number, // Integer taskId.
+      domainId: number, // Integer domainId.
     },
     {},
     ColonyClient,
   >;
   /*
-    The task's due date determines when a worker may submit the task's deliverable(s)
+    The task's due date determines when a worker may submit the task's deliverable(s).
   */
   setTaskDueDate: ColonyClient.MultisigSender<
     {
-      taskId: number, // Integer taskId
-      dueDate: Date, // Due date
+      taskId: number, // Integer taskId.
+      dueDate: Date, // Due date.
     },
     {},
     ColonyClient,
@@ -297,9 +297,9 @@ export default class ColonyClient extends ContractClient {
   */
   setTaskRoleUser: ColonyClient.Sender<
     {
-      taskId: number, // Integer taskId
-      role: Role, // MANAGER, EVALUATOR, or WORKER
-      user: Address, // address of the user
+      taskId: number, // Integer taskId.
+      role: Role, // MANAGER, EVALUATOR, or WORKER.
+      user: Address, // address of the user.
     },
     {},
     ColonyClient,
@@ -309,8 +309,8 @@ export default class ColonyClient extends ContractClient {
   */
   setTaskSkill: ColonyClient.Sender<
     {
-      taskId: number, // Integer taskId
-      skillId: number, // Integer skillId
+      taskId: number, // Integer taskId.
+      skillId: number, // Integer skillId.
     },
     {},
     ColonyClient,
@@ -320,8 +320,8 @@ export default class ColonyClient extends ContractClient {
   */
   setTaskEvaluatorPayout: ColonyClient.MultisigSender<
     {
-      taskId: number, // Integer taskId
-      source: PayableAddress, // Address to send funds from; empty address (`0x0000...`) for ether
+      taskId: number, // Integer taskId.
+      source: PayableAddress, // Address to send funds from, e.g. the token's contract address, or empty address (`0x0` for Ether)
       amount: BigNumber, // Amount to be paid.
     },
     {},
@@ -332,8 +332,8 @@ export default class ColonyClient extends ContractClient {
   */
   setTaskManagerPayout: ColonyClient.Sender<
     {
-      taskId: number, // Integer taskId
-      source: PayableAddress, // Address to send funds from; empty address (`0x0000...`) for ether
+      taskId: number, // Integer taskId.
+      source: PayableAddress, // Address to send funds from, e.g. the token's contract address, or empty address (`0x0` for Ether)
       amount: BigNumber, // Amount to be paid.
     },
     {},
@@ -344,20 +344,20 @@ export default class ColonyClient extends ContractClient {
   */
   setTaskWorkerPayout: ColonyClient.MultisigSender<
     {
-      taskId: number, // Integer taskId
-      source: PayableAddress, // Address to send funds from; empty address (`0x0000...`) for ether
+      taskId: number, // Integer taskId.
+      source: PayableAddress, // Address to send funds from, e.g. the token's contract address, or empty address (`0x0` for Ether)
       amount: BigNumber, // Amount to be paid.
     },
     {},
     ColonyClient,
   >;
   /*
-    Submit the task deliverable, i.e. the output of the work performed for task `_id` Submission is allowed only to the assigned worker before the task due date. Submissions cannot be overwritten
+    Submit the task deliverable, i.e. the output of the work performed for task `_id` Submission is allowed only to the assigned worker before the task due date. Submissions cannot be overwritten.
   */
   submitTaskDeliverable: ColonyClient.Sender<
     {
-      taskId: number, // Integer taskId
-      deliverableHash: IPFSHash, // Hash of the work performed
+      taskId: number, // Integer taskId.
+      deliverableHash: IPFSHash, // Hash of the work performed.
     },
     {},
     ColonyClient,
@@ -367,8 +367,8 @@ export default class ColonyClient extends ContractClient {
   */
   submitTaskWorkRating: ColonyClient.Sender<
     {
-      taskId: number, // Integer taskId
-      role: Role, // The role submitting their rating, either EVALUATOR or WORKER
+      taskId: number, // Integer taskId.
+      role: Role, // The role submitting their rating, either EVALUATOR or WORKER.
       ratingSecret: string, // hidden work rating, generated as the output of `generateSecret(_salt, _rating)`, where `_rating` is a score from 0-50 (in increments of 10).
     },
     {},
@@ -379,8 +379,8 @@ export default class ColonyClient extends ContractClient {
   */
   revealTaskWorkRating: ColonyClient.Sender<
     {
-      taskId: number, // Integer taskId
-      role: Role, // Role revealing their rating submission, either EVALUATOR or WORKER
+      taskId: number, // Integer taskId.
+      role: Role, // Role revealing their rating submission, either EVALUATOR or WORKER.
       rating: number, // Rating scored 0-50 in increments of 10 (e.g. 10, 20, 30, 40 or 50).
       salt: string, // `_salt` value to be used in `generateSecret`. A correct value will result in the same `ratingSecret` submitted during the work rating submission period.
     },
@@ -392,7 +392,7 @@ export default class ColonyClient extends ContractClient {
   */
   assignWorkRating: ColonyClient.Sender<
     {
-      taskId: number, // Integer taskId
+      taskId: number, // Integer taskId.
     },
     {},
     ColonyClient,
@@ -402,7 +402,7 @@ export default class ColonyClient extends ContractClient {
   */
   cancelTask: ColonyClient.Sender<
     {
-      taskId: number, // Integer taskId
+      taskId: number, // Integer taskId.
     },
     {},
     ColonyClient,
@@ -412,19 +412,19 @@ export default class ColonyClient extends ContractClient {
   */
   finalizeTask: ColonyClient.Sender<
     {
-      taskId: number, // Integer taskId
+      taskId: number, // Integer taskId.
     },
     {},
     ColonyClient,
   >;
   /*
-    Claims the payout in `source` denomination for work completed in task `taskId` by contributor with role `role`. Allowed only by the contributors themselves after task is finalized. Here the network receives its fee from each payout. Ether fees go straight to the Common Colony whereas Token fees go to the Network to be auctioned off.
+    Claims the payout in `source` denomination for work completed in task `taskId` by contributor with role `role`. Allowed only by the contributors themselves after task is finalized. Here the network receives its fee from each payout. Ether fees go straight to the Meta Colony whereas Token fees go to the Network to be auctioned off.
   */
   claimPayout: ColonyClient.Sender<
     {
-      taskId: number, // Integer taskId
+      taskId: number, // Integer taskId.
       role: Role, // Role of the contributor claiming the payout: MANAGER, EVALUATOR, or WORKER
-      source: PayableAddress, // Address to claim funds from; empty address (`0x0000...`) for ether
+      source: PayableAddress, // Address to claim funds from, e.g. the token's contract address, or empty address (`0x0` for Ether)
     },
     {},
     ColonyClient,
@@ -437,8 +437,8 @@ export default class ColonyClient extends ContractClient {
       parentSkillId: number, // Id of the local skill under which the new skill will be added.
     },
     {
-      skillId: number, // A skillId for this domain
-      parentSkillId: number, // The parent skill id
+      skillId: number, // A skillId for this domain.
+      parentSkillId: number, // The parent skill id.
     },
     ColonyClient,
   >;
@@ -447,11 +447,11 @@ export default class ColonyClient extends ContractClient {
   */
   addGlobalSkill: ColonyClient.Sender<
     {
-      parentSkillId: number, // Integer id of the parent skill
+      parentSkillId: number, // Integer id of the parent skill.
     },
     {
-      skillId: number, // Integer id of the newly created skill
-      parentSkillId: number, // Integer id of the parent skill
+      skillId: number, // Integer id of the newly created skill.
+      parentSkillId: number, // Integer id of the parent skill.
     },
     ColonyClient,
   >;
@@ -460,7 +460,7 @@ export default class ColonyClient extends ContractClient {
   */
   claimColonyFunds: ColonyClient.Sender<
     {
-      source: PayableAddress, // Address to claim funds from; empty address (`0x0000...`) for ether
+      source: PayableAddress, // Address to claim funds from; empty address (`0x0` for Ether)
     },
     {},
     ColonyClient,
@@ -476,14 +476,14 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Move a given amount of `token` funds from one pot to another
+    Move a given amount of `token` funds from one pot to another.
   */
   moveFundsBetweenPots: ColonyClient.Sender<
     {
-      fromPot: number, // Origin pot Id
-      toPot: number, // Destination pot Id
-      amount: BigNumber, // Amount of funds to move
-      address: Address, // Address of the token contract
+      fromPot: number, // Origin pot Id.
+      toPot: number, // Destination pot Id.
+      amount: BigNumber, // Amount of funds to move.
+      address: PayableAddress, // Address of the token contract (`0x0` value indicates Ether).
     },
     {},
     ColonyClient,
@@ -493,17 +493,17 @@ export default class ColonyClient extends ContractClient {
   */
   mintTokens: ColonyClient.Sender<
     {
-      amount: number, // Amount of new tokens to be minted
+      amount: number, // Amount of new tokens to be minted.
     },
     {},
     ColonyClient,
   >;
   /*
-    In the case of the Colony Network, only the Common Colony may mint new tokens
+    In the case of the Colony Network, only the Meta Colony may mint new tokens.
   */
   mintTokensForColonyNetwork: ColonyClient.Sender<
     {
-      amount: number, // Amount of new tokens to be minted
+      amount: number, // Amount of new tokens to be minted.
     },
     {},
     ColonyClient,
@@ -513,7 +513,7 @@ export default class ColonyClient extends ContractClient {
   */
   startNextRewardPayout: ColonyClient.Sender<
     {
-      token: Address, // Address of token used for reward payout.
+      token: Address, // Address of token used for reward payout (`0x0` value indicates Ether).
     },
     {},
     ColonyClient,
@@ -523,7 +523,7 @@ export default class ColonyClient extends ContractClient {
   */
   waiveRewardPayouts: ColonyClient.Sender<
     {
-      numPayouts: number, // Number of payouts to waive
+      numPayouts: number, // Number of payouts to waive.
     },
     {},
     ColonyClient,
@@ -641,7 +641,7 @@ export default class ColonyClient extends ContractClient {
 
     makeTaskCaller(
       'getTaskPayout',
-      [['role', 'role'], ['token', 'address']],
+      [['role', 'role'], ['source', 'payableAddress']],
       [['amount', 'bigNumber']],
     );
     makeTaskCaller(
@@ -690,7 +690,7 @@ export default class ColonyClient extends ContractClient {
       output: [['count', 'number']],
     });
     this.addCaller('getNonRewardPotsTotal', {
-      input: [['address', 'address']],
+      input: [['source', 'payableAddress']],
       output: [['total', 'bigNumber']],
     });
     this.addCaller('getPotBalance', {
@@ -704,7 +704,7 @@ export default class ColonyClient extends ContractClient {
         ['totalTokens', 'bigNumber'],
         ['totalTokenAmountForRewardPayout', 'bigNumber'],
         ['remainingTokenAmount', 'bigNumber'],
-        ['tokenAddress', 'address'],
+        ['source', 'payableAddress'],
         ['blockNumber', 'number'],
       ],
     });

@@ -17,7 +17,7 @@ For functions and events that concern the colonyNetwork as a whole, refer to the
 You _could_ create a ColonyClient by using an adapter and a query: `new ColonyClient({ adapter, query })` and then `.init()` it but it is advised to ask the network client for a new instance:
 
 ```javascript
-const colonyClient = await networkClient.getColonyClient({ key: 'My Colony' }); // This is already initialised
+const colonyClient = await networkClient.getColonyClient(colonyId); // This is already initialised
 ```
 
   
@@ -46,8 +46,8 @@ Helper function used to generate the rating secret used in task ratings. Accepts
 
 |Argument|Type|Description|
 |---|---|---|
-|salt|string|Salt value|
-|value|number|Value to hide|
+|salt|string|Salt value.|
+|value|number|Value to hide.|
 
 **Returns**
 
@@ -55,17 +55,17 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|secret|string|keccak256 hash of joint Salt and Value|
+|secret|string|keccak256 hash of joint Salt and Value.|
 
 ### `getDomain.call({ domainId })`
 
-Gets the selected domain's local skill ID and funding pot ID
+Gets the selected domain's local skill ID and funding pot ID.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|domainId|number|ID of the domain|
+|domainId|number|ID of the domain.|
 
 **Returns**
 
@@ -73,8 +73,8 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|localSkillId|number|The domain's local skill ID|
-|potId|number|The domain's funding pot ID|
+|localSkillId|number|The domain's local skill ID.|
+|potId|number|The domain's funding pot ID.|
 
 ### `getDomainCount.call()`
 
@@ -87,7 +87,7 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|count|number|Number of all domain in this Colony; == the last added domainId|
+|count|number|Number of all domain in this Colony; == the last added domainId.|
 
 ### `getGlobalRewardPayoutCount.call()`
 
@@ -100,7 +100,7 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|count|number|Number of reward payout cycles|
+|count|number|Number of reward payout cycles.|
 
 ### `getUserRewardPayoutCount.call({ user })`
 
@@ -110,7 +110,7 @@ Gets the number of claimed and waived reward payouts for a given user.
 
 |Argument|Type|Description|
 |---|---|---|
-|user|Address|Address of user|
+|user|Address|Address of user.|
 
 **Returns**
 
@@ -118,7 +118,7 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|count|number|Number of claimed and waived reward payouts|
+|count|number|Number of claimed and waived reward payouts.|
 
 ### `getTaskCount.call()`
 
@@ -131,11 +131,11 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|count|number|Total number of tasks in this Colony|
+|count|number|Total number of tasks in this Colony.|
 
 ### `getTask.call({ taskId })`
 
-Gets a certain task defined by its integer taskId
+Gets a certain task defined by its integer taskId.
 
 **Arguments**
 
@@ -149,19 +149,19 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|cancelled|boolean|Boolean flag denoting whether the task is cancelled|
-|deliverableDate|Date (optional)|Date when the deliverable is due|
-|deliverableHash|IPFS hash (optional)|Unique hash of the deliverable content|
-|domainId|number|Integer Domain ID the task belongs to|
-|dueDate|Date (optional)|When the task is due|
-|finalized|boolean|Boolean flag denoting whether the task is finalized|
-|id|number|Integer task ID|
-|payoutsWeCannotMake|number (optional)|Number of payouts that cannot be completed with the current task funding|
-|potId|number (optional)|Integer ID of funding pot for the task|
-|skillId|number|Integer Skill ID the task is assigned to|
-|specificationHash|IPFS hash|Unique hash of the specification content|
+|cancelled|boolean|Boolean flag denoting whether the task is cancelled.|
+|deliverableDate|Date (optional)|Date when the deliverable is due.|
+|deliverableHash|IPFS hash (optional)|Unique hash of the deliverable content.|
+|domainId|number|Integer Domain ID the task belongs to.|
+|dueDate|Date (optional)|When the task is due.|
+|finalized|boolean|Boolean flag denoting whether the task is finalized.|
+|id|number|Integer task ID.|
+|payoutsWeCannotMake|number (optional)|Number of payouts that cannot be completed with the current task funding.|
+|potId|number (optional)|Integer ID of funding pot for the task.|
+|skillId|number|Integer Skill ID the task is assigned to.|
+|specificationHash|IPFS hash|Unique hash of the specification content.|
 
-### `getTaskPayout.call({ taskId, role, token })`
+### `getTaskPayout.call({ taskId, role, source })`
 
 Given a specific task, a defined role for the task, and a token address, will return any payout attached to the task in the token specified.
 
@@ -169,9 +169,9 @@ Given a specific task, a defined role for the task, and a token address, will re
 
 |Argument|Type|Description|
 |---|---|---|
-|taskId|number|Integer taskId|
-|role|Role|Role the payout is specified for: MANAGER, EVALUATOR, or WORKER|
-|token|Address|Address of the token's contract|
+|taskId|number|Integer taskId.|
+|role|Role|Role the payout is specified for: MANAGER, EVALUATOR, or WORKER.|
+|source|Payable address|Address of the token's contract `0x0` value indicates Ether.|
 
 **Returns**
 
@@ -179,7 +179,7 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|amount|BigNumber|Amount of specified tokens to payout for that task and a role|
+|amount|BigNumber|Amount of specified tokens to payout for that task and a role.|
 
 ### `getTaskRole.call({ taskId, role })`
 
@@ -189,8 +189,8 @@ Every task has three roles associated with it which determine permissions for ed
 
 |Argument|Type|Description|
 |---|---|---|
-|taskId|number|Integer taskId|
-|role|Role|MANAGER, EVALUATOR, or WORKER|
+|taskId|number|Integer taskId.|
+|role|Role|MANAGER, EVALUATOR, or WORKER.|
 
 **Returns**
 
@@ -198,19 +198,19 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|address|Address|Address of the user for the given role|
-|rated|boolean|Has the user work been rated|
-|rating|number|Rating the user received|
+|address|Address|Address of the user for the given role.|
+|rated|boolean|Has the user work been rated.|
+|rating|number|Rating the user received.|
 
 ### `getTaskWorkRatings.call({ taskId })`
 
-For a given task, will return the number of submitted ratings and the date of their submission
+For a given task, will return the number of submitted ratings and the date of their submission.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|taskId|number|Integer taskId|
+|taskId|number|Integer taskId.|
 
 **Returns**
 
@@ -229,8 +229,8 @@ If ratings for a task are still in the commit period, their ratings will still b
 
 |Argument|Type|Description|
 |---|---|---|
-|taskId|number|Integer taskId|
-|role|Role|Role that submitted the rating: MANAGER, EVALUATOR, or WORKER|
+|taskId|number|Integer taskId.|
+|role|Role|Role that submitted the rating: MANAGER, EVALUATOR, or WORKER.|
 
 **Returns**
 
@@ -242,14 +242,14 @@ A promise which resolves to an object containing the following properties:
 
 ### `getPotBalance.call({ potId, source })`
 
-Gets a balance for a certain source in a specific pot
+Gets a balance for a certain source in a specific pot.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|potId|number|Integer potId|
-|source|Payable address|Address to get funds from; empty address (`0x0000...`) for ether|
+|potId|number|Integer potId.|
+|source|Payable address|Address to get funds from, such as the token contract address, or empty address (`0x0` for Ether)|
 
 **Returns**
 
@@ -257,9 +257,9 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|balance|BigNumber|Balance for token `token` in pot `potId`|
+|balance|BigNumber|Balance for token `token` in pot `potId`.|
 
-### `getNonRewardPotsTotal.call({ address })`
+### `getNonRewardPotsTotal.call({ source })`
 
 The `nonRewardPotsTotal` is a value that keeps track of the total assets a colony has to work with, which may be split among several distinct pots associated with various domains and tasks.
 
@@ -267,7 +267,7 @@ The `nonRewardPotsTotal` is a value that keeps track of the total assets a colon
 
 |Argument|Type|Description|
 |---|---|---|
-|address|Address|Address of the token's contract (token in question)|
+|source|Payable address|Address of the token's contract `0x0` value indicates Ether.|
 
 **Returns**
 
@@ -285,7 +285,7 @@ Given a specific payout, returns useful information about the payout.
 
 |Argument|Type|Description|
 |---|---|---|
-|payoutId|number|Id of the reward payout|
+|payoutId|number|Id of the reward payout.|
 
 **Returns**
 
@@ -293,16 +293,16 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|blockNumber|number|Block number at the time of creation|
-|remainingTokenAmount|BigNumber|Remaining (unclaimed) amount of tokens|
-|reputationRootHash|string|Reputation root hash at the time of creation|
-|tokenAddress|Address|Token address|
-|totalTokenAmountForRewardPayout|BigNumber|Total amount of tokens taken aside for reward payout|
-|totalTokens|BigNumber|Total colony tokens at the time of creation|
+|blockNumber|number|Block number at the time of creation.|
+|remainingTokenAmount|BigNumber|Remaining (unclaimed) amount of tokens.|
+|reputationRootHash|string|Reputation root hash at the time of creation.|
+|source|Payable address|Token address (`0x0` value indicates Ether).|
+|totalTokenAmountForRewardPayout|BigNumber|Total amount of tokens taken aside for reward payout.|
+|totalTokens|BigNumber|Total colony tokens at the time of creation.|
 
 ### `getToken.call()`
 
-Gets the address of the colony's official token contract
+Gets the address of the colony's official token contract.
 
 
 **Returns**
@@ -324,7 +324,7 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|count|number|Number of all transactions in this Colony; == the last added transactionId|
+|count|number|Number of all transactions in this Colony; == the last added transactionId.|
 
   
 ## Senders
@@ -357,8 +357,8 @@ Every task must belong to a single existing Domain. This can only be called by t
 
 |Argument|Type|Description|
 |---|---|---|
-|taskId|number|Integer taskId|
-|domainId|number|Integer domainId|
+|taskId|number|Integer taskId.|
+|domainId|number|Integer domainId.|
 
 **Returns**
 
@@ -374,9 +374,9 @@ Set the user for role `_role` in task `_id`. Only allowed before the task is `fi
 
 |Argument|Type|Description|
 |---|---|---|
-|taskId|number|Integer taskId|
-|role|Role|MANAGER, EVALUATOR, or WORKER|
-|user|Address|address of the user|
+|taskId|number|Integer taskId.|
+|role|Role|MANAGER, EVALUATOR, or WORKER.|
+|user|Address|address of the user.|
 
 **Returns**
 
@@ -392,8 +392,8 @@ Sets the skill tag associated with the task. Currently there is only one skill t
 
 |Argument|Type|Description|
 |---|---|---|
-|taskId|number|Integer taskId|
-|skillId|number|Integer skillId|
+|taskId|number|Integer taskId.|
+|skillId|number|Integer skillId.|
 
 **Returns**
 
@@ -409,8 +409,8 @@ Sets the payout given to the MANAGER role when the task is finalized. This Sende
 
 |Argument|Type|Description|
 |---|---|---|
-|taskId|number|Integer taskId|
-|source|Payable address|Address to send funds from; empty address (`0x0000...`) for ether|
+|taskId|number|Integer taskId.|
+|source|Payable address|ddress to send funds from, e.g. the token's contract address, or empty address (`0x0` for Ether)|
 |amount|BigNumber|Amount to be paid.|
 
 **Returns**
@@ -421,14 +421,14 @@ An instance of a `ContractResponse`
 
 ### `submitTaskDeliverable.send({ taskId, deliverableHash }, options)`
 
-Submit the task deliverable, i.e. the output of the work performed for task `_id` Submission is allowed only to the assigned worker before the task due date. Submissions cannot be overwritten
+Submit the task deliverable, i.e. the output of the work performed for task `_id` Submission is allowed only to the assigned worker before the task due date. Submissions cannot be overwritten.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|taskId|number|Integer taskId|
-|deliverableHash|IPFS hash|Hash of the work performed|
+|taskId|number|Integer taskId.|
+|deliverableHash|IPFS hash|Hash of the work performed.|
 
 **Returns**
 
@@ -444,8 +444,8 @@ Submits a hidden work rating for a task. This is generated by generateSecret(_sa
 
 |Argument|Type|Description|
 |---|---|---|
-|taskId|number|Integer taskId|
-|role|Role|The role submitting their rating, either EVALUATOR or WORKER|
+|taskId|number|Integer taskId.|
+|role|Role|The role submitting their rating, either EVALUATOR or WORKER.|
 |ratingSecret|string|hidden work rating, generated as the output of `generateSecret(_salt, _rating)`, where `_rating` is a score from 0-50 (in increments of 10).|
 
 **Returns**
@@ -462,8 +462,8 @@ Reveals a previously submitted work rating, by proving that the `_rating` and `_
 
 |Argument|Type|Description|
 |---|---|---|
-|taskId|number|Integer taskId|
-|role|Role|Role revealing their rating submission, either EVALUATOR or WORKER|
+|taskId|number|Integer taskId.|
+|role|Role|Role revealing their rating submission, either EVALUATOR or WORKER.|
 |rating|number|Rating scored 0-50 in increments of 10 (e.g. 10, 20, 30, 40 or 50).|
 |salt|string|`_salt` value to be used in `generateSecret`. A correct value will result in the same `ratingSecret` submitted during the work rating submission period.|
 
@@ -481,7 +481,7 @@ In the event of a user not committing or revealing within the 10 day rating wind
 
 |Argument|Type|Description|
 |---|---|---|
-|taskId|number|Integer taskId|
+|taskId|number|Integer taskId.|
 
 **Returns**
 
@@ -497,7 +497,7 @@ Cancels a task.
 
 |Argument|Type|Description|
 |---|---|---|
-|taskId|number|Integer taskId|
+|taskId|number|Integer taskId.|
 
 **Returns**
 
@@ -513,7 +513,7 @@ Finalizes a task, allowing roles to claim payouts and prohibiting all further ch
 
 |Argument|Type|Description|
 |---|---|---|
-|taskId|number|Integer taskId|
+|taskId|number|Integer taskId.|
 
 **Returns**
 
@@ -523,15 +523,15 @@ An instance of a `ContractResponse`
 
 ### `claimPayout.send({ taskId, role, source }, options)`
 
-Claims the payout in `source` denomination for work completed in task `taskId` by contributor with role `role`. Allowed only by the contributors themselves after task is finalized. Here the network receives its fee from each payout. Ether fees go straight to the Common Colony whereas Token fees go to the Network to be auctioned off.
+Claims the payout in `source` denomination for work completed in task `taskId` by contributor with role `role`. Allowed only by the contributors themselves after task is finalized. Here the network receives its fee from each payout. Ether fees go straight to the Meta Colony whereas Token fees go to the Network to be auctioned off.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|taskId|number|Integer taskId|
+|taskId|number|Integer taskId.|
 |role|Role|Role of the contributor claiming the payout: MANAGER, EVALUATOR, or WORKER|
-|source|Payable address|Address to claim funds from; empty address (`0x0000...`) for ether|
+|source|Payable address|Address to claim funds from, e.g. the token's contract address, or empty address (`0x0` for Ether)|
 
 **Returns**
 
@@ -555,8 +555,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|skillId|number|A skillId for this domain|
-|parentSkillId|number|The parent skill id|
+|skillId|number|A skillId for this domain.|
+|parentSkillId|number|The parent skill id.|
 
 ### `addGlobalSkill.send({ parentSkillId }, options)`
 
@@ -566,7 +566,7 @@ Adds a global skill under a given parent SkillId. This can only be called from t
 
 |Argument|Type|Description|
 |---|---|---|
-|parentSkillId|number|Integer id of the parent skill|
+|parentSkillId|number|Integer id of the parent skill.|
 
 **Returns**
 
@@ -574,8 +574,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|skillId|number|Integer id of the newly created skill|
-|parentSkillId|number|Integer id of the parent skill|
+|skillId|number|Integer id of the newly created skill.|
+|parentSkillId|number|Integer id of the parent skill.|
 
 ### `claimColonyFunds.send({ source }, options)`
 
@@ -585,7 +585,7 @@ Move any funds received by the colony in `source` denomination to the top-levl d
 
 |Argument|Type|Description|
 |---|---|---|
-|source|Payable address|Address to claim funds from; empty address (`0x0000...`) for ether|
+|source|Payable address|Address to claim funds from; empty address (`0x0` for Ether)|
 
 **Returns**
 
@@ -611,16 +611,16 @@ An instance of a `ContractResponse`
 
 ### `moveFundsBetweenPots.send({ fromPot, toPot, amount, address }, options)`
 
-Move a given amount of `token` funds from one pot to another
+Move a given amount of `token` funds from one pot to another.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|fromPot|number|Origin pot Id|
-|toPot|number|Destination pot Id|
-|amount|BigNumber|Amount of funds to move|
-|address|Address|Address of the token contract|
+|fromPot|number|Origin pot Id.|
+|toPot|number|Destination pot Id.|
+|amount|BigNumber|Amount of funds to move.|
+|address|Payable address|Address of the token contract (`0x0` value indicates Ether).|
 
 **Returns**
 
@@ -636,7 +636,7 @@ The owner of a Colony may mint new tokens.
 
 |Argument|Type|Description|
 |---|---|---|
-|amount|number|Amount of new tokens to be minted|
+|amount|number|Amount of new tokens to be minted.|
 
 **Returns**
 
@@ -646,13 +646,13 @@ An instance of a `ContractResponse`
 
 ### `mintTokensForColonyNetwork.send({ amount }, options)`
 
-In the case of the Colony Network, only the Common Colony may mint new tokens
+In the case of the Colony Network, only the Meta Colony may mint new tokens.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|amount|number|Amount of new tokens to be minted|
+|amount|number|Amount of new tokens to be minted.|
 
 **Returns**
 
@@ -668,7 +668,7 @@ Start the next reward payout for `token`. All funds in the reward pot for `token
 
 |Argument|Type|Description|
 |---|---|---|
-|token|Address|Address of token used for reward payout.|
+|token|Address|Address of token used for reward payout (`0x0` value indicates Ether).|
 
 **Returns**
 
@@ -684,7 +684,7 @@ Waive reward payout. This unlocks the sender's tokens and increments the users r
 
 |Argument|Type|Description|
 |---|---|---|
-|numPayouts|number|Number of payouts to waive|
+|numPayouts|number|Number of payouts to waive.|
 
 **Returns**
 
@@ -704,7 +704,7 @@ The task brief, or specification, is a description of the tasks work specificati
 
 |Argument|Type|Description|
 |---|---|---|
-|taskId|number|Integer taskId|
+|taskId|number|Integer taskId.|
 |specificationHash|IPFS hash|digest of the task's hashed specification.|
 
 **Returns**
@@ -715,14 +715,14 @@ An instance of a `MultiSigOperation`
 
 ### `setTaskDueDate.startOperation({ taskId, dueDate })`
 
-The task's due date determines when a worker may submit the task's deliverable(s)
+The task's due date determines when a worker may submit the task's deliverable(s).
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|taskId|number|Integer taskId|
-|dueDate|Date|Due date|
+|taskId|number|Integer taskId.|
+|dueDate|Date|Due date.|
 
 **Returns**
 
@@ -738,8 +738,8 @@ Sets the payout given to the EVALUATOR role when the task is finalized.
 
 |Argument|Type|Description|
 |---|---|---|
-|taskId|number|Integer taskId|
-|source|Payable address|Address to send funds from; empty address (`0x0000...`) for ether|
+|taskId|number|Integer taskId.|
+|source|Payable address|Address to send funds from, e.g. the token's contract address, or empty address (`0x0` for Ether)|
 |amount|BigNumber|Amount to be paid.|
 
 **Returns**
@@ -756,8 +756,8 @@ Sets the payout given to the WORKER role when the task is finalized.
 
 |Argument|Type|Description|
 |---|---|---|
-|taskId|number|Integer taskId|
-|source|Payable address|Address to send funds from; empty address (`0x0000...`) for ether|
+|taskId|number|Integer taskId.|
+|source|Payable address|Address to send funds from, e.g. the token's contract address, or empty address (`0x0` for Ether)|
 |amount|BigNumber|Amount to be paid.|
 
 **Returns**

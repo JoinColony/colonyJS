@@ -17,5 +17,5 @@ For functions and events that concern the colonyNetwork as a whole, refer to the
 You _could_ create a ColonyClient by using an adapter and a query: `new ColonyClient({ adapter, query })` and then `.init()` it but it is advised to ask the network client for a new instance:
 
 ```javascript
-const colonyClient = await networkClient.getColonyClient({ key: 'My Colony' }); // This is already initialised
+const colonyClient = await networkClient.getColonyClient(colonyId); // This is already initialised
 ```
