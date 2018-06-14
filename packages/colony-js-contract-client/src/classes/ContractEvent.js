@@ -7,6 +7,7 @@ import { validateParams } from '../modules/paramValidation';
 
 import type { Params, EventParams } from '../flowtypes';
 
+type AssertionMethod = (assertion: boolean, reason: string) => any;
 type TypedEventCallback<ParamTypes> = (args: ParamTypes) => void;
 
 const normalizeEventParams = (spec: EventParams): Params =>
@@ -30,7 +31,7 @@ export default class ContractEvent<ParamTypes: Object> {
   _wrappedHandlers: Map<EventCallback, EventCallback>;
 
   // Throwing custom assertion messages.
-  assertValid: (...*) => any;
+  assertValid: AssertionMethod;
 
   constructor({
     eventName,
@@ -53,12 +54,14 @@ export default class ContractEvent<ParamTypes: Object> {
    * In order to be able to parse and validate event parameters as expected,
    * we use this static method to wrap event handlers before executing them.
    */
-  wrapHandlerFunction(
+  static wrapHandlerFunction(
     handlerFunction: TypedEventCallback<ParamTypes>,
+    argsDef: Params,
+    assertValid: AssertionMethod,
   ): EventCallback {
     return ({ args }: Event) => {
-      const parsedArgs = convertOutputValues(args, this.argsDef);
-      validateParams(parsedArgs, this.argsDef, this.assertValid);
+      const parsedArgs = convertOutputValues(args, argsDef);
+      validateParams(parsedArgs, argsDef, assertValid);
 
       handlerFunction(parsedArgs);
     };
@@ -74,7 +77,11 @@ export default class ContractEvent<ParamTypes: Object> {
       return;
     }
 
-    const wrappedHandlerFunction = this.wrapHandlerFunction(handlerFunction);
+    const wrappedHandlerFunction = this.constructor.wrapHandlerFunction(
+      handlerFunction,
+      this.argsDef,
+      this.assertValid,
+    );
 
     this.client.contract.addListener(this.eventName, wrappedHandlerFunction);
     this._wrappedHandlers.set(handlerFunction, wrappedHandlerFunction);
