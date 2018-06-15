@@ -96,7 +96,7 @@ Consider the `NetworkLoader` the official Loader to load deployed Colony contrac
 #### Installation and usage
 
 ```
-yarn add @colony/colony-js-contract-loader-network
+yarn add @colony/colony-contract-loader-network
 ```
 
 ```
