@@ -6,7 +6,7 @@ type TruffleArtifact = {
   abi: Array<{}>,
   bytecode: string,
   networks: {
-    [networkId: string | number]: {
+    [network: string | number]: {
       address: string,
     },
   },
@@ -14,20 +14,20 @@ type TruffleArtifact = {
 
 export default function truffleTransform(
   { abi = [], bytecode, networks = {} }: TruffleArtifact = {},
-  { networkId }: Query = {},
+  { network }: Query = {},
 ) {
   let address;
 
   // Some clients (like Ganache) create IDs as integers; normalise them
-  const networkIds = Object.keys(networks).map(id => `${id}`);
+  const networkKeys = Object.keys(networks).map(id => `${id}`);
 
-  if (networkId && networkIds.length) {
-    if (!networks[networkId])
-      throw new Error(`Network ID ${networkId} not found in contract`);
-    ({ address } = networks[networkId]);
+  if (network && networkKeys.length) {
+    if (!networks[network])
+      throw new Error(`Network ID ${network} not found in contract`);
+    ({ address } = networks[network]);
   } else {
     // Pick the last network (assumed to be the most recent)
-    ({ address } = networks[networkIds[networkIds.length - 1]] || {});
+    ({ address } = networks[networkKeys[networkKeys.length - 1]] || {});
   }
 
   return {

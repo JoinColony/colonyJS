@@ -19,7 +19,7 @@ describe('ContractHttpLoader', () => {
   const bytecode = '0x1234567890';
   const contractAddress = '0x123';
   const contractName = 'MetaCoin';
-  const networkId = '123456';
+  const network = '123456';
   const routerAbi = [{ myRouterData: 987 }];
   const routerAddress = '0x987';
   const routerBytecode = '0x0987654321';
@@ -210,7 +210,7 @@ describe('ContractHttpLoader', () => {
         contractName,
         routerName,
         version,
-        networkId,
+        network,
       },
       requiredProps,
     );
@@ -219,7 +219,7 @@ describe('ContractHttpLoader', () => {
     expect(loader._load).toHaveBeenCalledWith(
       {
         contractName,
-        networkId,
+        network,
         version,
       },
       requiredProps,
@@ -227,7 +227,7 @@ describe('ContractHttpLoader', () => {
     expect(loader._load).toHaveBeenCalledWith(
       {
         contractName: routerName,
-        networkId,
+        network,
         version,
       },
       requiredProps,
@@ -256,7 +256,7 @@ describe('ContractHttpLoader', () => {
         contractName,
         routerAddress,
         version,
-        networkId,
+        network,
       },
       requiredPropsWithByteCode,
     );
@@ -265,7 +265,7 @@ describe('ContractHttpLoader', () => {
     expect(loader._load).toHaveBeenCalledWith(
       {
         contractName,
-        networkId,
+        network,
         version,
       },
       requiredPropsWithByteCode,

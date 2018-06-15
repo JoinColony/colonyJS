@@ -6,7 +6,7 @@ export type Query = {
   routerAddress?: string,
   routerName?: string,
   version?: string,
-  networkId?: string,
+  network?: string,
 };
 
 export type ContractDefinition = {
