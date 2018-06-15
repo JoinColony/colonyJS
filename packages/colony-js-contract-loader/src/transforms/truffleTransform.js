@@ -18,7 +18,8 @@ export default function truffleTransform(
 ) {
   let address;
 
-  const networkIds = Object.keys(networks);
+  // Some clients (like Ganache) create IDs as integers; normalise them
+  const networkIds = Object.keys(networks).map(id => `${id}`);
 
   if (networkId && networkIds.length) {
     if (!networks[networkId])
