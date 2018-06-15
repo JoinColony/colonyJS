@@ -2,6 +2,9 @@
 
 ## v.NEXT
 
+
+## v1.4.1
+
 **Bug fixes**
 
 * Enabled the `networkId` to be passed from the contract loading query through to the loader transform function; reintroduced support for specifying the `networkId` in `truffleTransform` (`@colony/colony-js-contract-loader`)
