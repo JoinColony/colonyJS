@@ -195,4 +195,7 @@ const { amount } = await colonyClient.token.getTotalSupply.call();
 // 1000
 ```
 
-What's next? Continue on to the [Task Lifecycle](/colonyjs/docs-task-lifecycle) to learn how to interact with colony tasks.
+What's next?
+Continue on to the [Task Lifecycle](/colonyjs/docs-task-lifecycle) to learn how to interact with colony tasks.
+
+Re-configure your code for public testnet by [switching to the `NetworkLoader`](/colonyjs/api-loaders/#networkloader).
