@@ -3,7 +3,6 @@
 export type Query = {
   contractAddress?: string,
   contractName?: string,
-  networkId?: number,
   routerAddress?: string,
   routerName?: string,
   version?: string,

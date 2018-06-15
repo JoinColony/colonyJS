@@ -410,7 +410,7 @@ Sets the payout given to the MANAGER role when the task is finalized. This Sende
 |Argument|Type|Description|
 |---|---|---|
 |taskId|number|Integer taskId.|
-|source|Payable address|ddress to send funds from, e.g. the token's contract address, or empty address (`0x0` for Ether)|
+|source|Payable address|Address to send funds from, e.g. the token's contract address, or empty address (`0x0` for Ether)|
 |amount|BigNumber|Amount to be paid.|
 
 **Returns**
