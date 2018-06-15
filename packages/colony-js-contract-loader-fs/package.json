@@ -1,6 +1,6 @@
 {
     "name": "@colony/colony-js-contract-loader-fs",
-    "version": "1.4.0",
+    "version": "1.4.1",
     "description": "Load Ethereum smart contract definitions/metadata from the filesystem (in node.js)",
     "main": "lib/index.js",
     "files": [
@@ -41,7 +41,7 @@
     },
     "homepage": "https://github.com/JoinColony/colonyJS#readme",
     "dependencies": {
-        "@colony/colony-js-contract-loader": "^1.4.0",
+        "@colony/colony-js-contract-loader": "^1.4.1",
         "jsonfile": "^4.0.0"
     },
     "devDependencies": {
