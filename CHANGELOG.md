@@ -2,6 +2,9 @@
 
 ## v.NEXT
 
+
+## v1.4.0
+
 **New features**
 
 * Added new `ContractEvent` events subscription to `ContractClient`, allowing for simple events subscription (`@colony/colony-js-contract-client`)
