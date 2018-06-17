@@ -5,6 +5,7 @@
 **Enhancements**
 
 * Wait for in-progress transactions when getting the transaction receipt (`@colony/colony-js-contract-client`, `@colony/colony-js-adapter-ethers`)
+* Made the default timeout for sending transactions dependent on the network: 1 hour for mainnet, 5 minutes otherwise (`@colony/colony-js-contract-client`)
 
 ## v1.4.1
 

@@ -16,7 +16,6 @@ import type {
   ContractMethodArgs,
   SendOptions,
 } from '../flowtypes';
-import { DEFAULT_SEND_OPTIONS } from '../defaults';
 
 export default class ContractMethodSender<
   InputValues: { [inputValueName: string]: any },
@@ -153,10 +152,17 @@ export default class ContractMethodSender<
    * Given send options, set default values for this Sender.
    */
   _getDefaultSendOptions(options: SendOptions) {
+    const { name: networkName } = this.client.adapter.provider;
+    // Allow a much longer timeout for mainnet transactions.
+    const minutes = networkName === 'mainnet' ? 60 : 5;
+
     return Object.assign(
       {},
-      DEFAULT_SEND_OPTIONS,
-      this._defaultGasLimit ? { gasLimit: this._defaultGasLimit } : {},
+      {
+        timeoutMs: 1000 * 60 * minutes,
+        waitForMining: true,
+        ...(this._defaultGasLimit ? { gasLimit: this._defaultGasLimit } : null),
+      },
       options,
     );
   }

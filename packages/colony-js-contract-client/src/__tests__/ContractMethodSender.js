@@ -57,6 +57,9 @@ describe('ContractMethodSender', () => {
   const adapter = {
     getTransactionReceipt: sandbox.fn(async () => Promise.resolve(receipt)),
     waitForTransaction: sandbox.fn(async () => Promise.resolve(transaction)),
+    provider: {
+      name: 'mainnet',
+    },
   };
   const client = new ContractClient({ contract, adapter });
   sandbox
@@ -273,5 +276,22 @@ describe('ContractMethodSender', () => {
     expect(
       methodWithDefault._getDefaultSendOptions({ gasLimit: A }).gasLimit,
     ).toEqual(A);
+
+    const mainnetMethod = new ContractMethodSender({
+      client,
+      input,
+      functionName,
+    });
+    // Should have a 1 hour timeout
+    expect(mainnetMethod._getDefaultSendOptions().timeoutMs).toEqual(3600000);
+
+    const testnetMethod = new ContractMethodSender({
+      client,
+      input,
+      functionName,
+    });
+    testnetMethod.client.adapter.provider = { name: 'testnet' };
+    // Should have a 5 minute timeout
+    expect(testnetMethod._getDefaultSendOptions().timeoutMs).toEqual(300000);
   });
 });
