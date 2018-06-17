@@ -108,6 +108,9 @@ export default class EthersAdapter implements IAdapter {
   async getTransactionReceipt(transactionHash: string) {
     return this.provider.getTransactionReceipt(transactionHash);
   }
+  async waitForTransaction(transactionHash: string) {
+    return this.provider.waitForTransaction(transactionHash);
+  }
   /**
    * Sign a message hash (as binary) and return a split signature.
    */

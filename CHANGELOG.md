@@ -2,6 +2,9 @@
 
 ## v.NEXT
 
+**Enhancements**
+
+* Wait for in-progress transactions when getting the transaction receipt (`@colony/colony-js-contract-client`, `@colony/colony-js-adapter-ethers`)
 
 ## v1.4.1
 
