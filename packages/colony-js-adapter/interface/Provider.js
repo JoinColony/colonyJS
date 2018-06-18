@@ -25,6 +25,7 @@ export interface Provider {
     blockTag?: string,
   ): Promise<number>;
   getTransactionReceipt(transactionHash: string): Promise<TransactionReceipt>;
+  waitForTransaction(transactionHash: string): Promise<Transaction>;
   lookupAddress(address: string): Promise<string | null>;
   resolveName(ensName: string): Promise<string | null>;
 }

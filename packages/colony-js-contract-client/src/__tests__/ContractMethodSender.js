@@ -56,6 +56,10 @@ describe('ContractMethodSender', () => {
   };
   const adapter = {
     getTransactionReceipt: sandbox.fn(async () => Promise.resolve(receipt)),
+    waitForTransaction: sandbox.fn(async () => Promise.resolve(transaction)),
+    provider: {
+      name: 'mainnet',
+    },
   };
   const client = new ContractClient({ contract, adapter });
   sandbox
@@ -155,6 +159,9 @@ describe('ContractMethodSender', () => {
       functionName,
       eventHandlers,
     });
+    sandbox
+      .spyOn(method, '_waitForTransactionReceipt')
+      .mockImplementation(async () => receipt);
 
     const response = await method._sendWithWaitingForMining(
       transaction,
@@ -171,9 +178,6 @@ describe('ContractMethodSender', () => {
     });
 
     // Event data, transaction receipts and success are collected
-    expect(method.client.adapter.getTransactionReceipt).toHaveBeenCalledWith(
-      transaction.hash,
-    );
     expect(method.client.getEventData).toHaveBeenCalledWith({
       events: method.eventHandlers,
       timeoutMs: options.timeoutMs,
@@ -185,7 +189,7 @@ describe('ContractMethodSender', () => {
       timeoutMs: options.timeoutMs,
       transactionHash: transaction.hash,
     });
-    expect(method.client.adapter.getTransactionReceipt).toHaveBeenCalledWith(
+    expect(method._waitForTransactionReceipt).toHaveBeenCalledWith(
       transaction.hash,
     );
   });
@@ -197,6 +201,9 @@ describe('ContractMethodSender', () => {
       functionName,
       eventHandlers,
     });
+    sandbox
+      .spyOn(method, '_waitForTransactionReceipt')
+      .mockImplementation(async () => receipt);
 
     const response = method._sendWithoutWaitingForMining(
       transaction,
@@ -219,9 +226,26 @@ describe('ContractMethodSender', () => {
       timeoutMs: options.timeoutMs,
       transactionHash: transaction.hash,
     });
-    expect(method.client.adapter.getTransactionReceipt).toHaveBeenCalledWith(
+    expect(method._waitForTransactionReceipt).toHaveBeenCalledWith(
       transaction.hash,
     );
+  });
+
+  test('Waiting for transaction receipt', async () => {
+    const method = new ContractMethodSender({
+      client,
+      input,
+      functionName,
+      eventHandlers,
+    });
+    const hash = 'the tx hash';
+    const txReceipt = await method._waitForTransactionReceipt(hash);
+
+    expect(txReceipt).toEqual(receipt);
+    expect(method.client.adapter.getTransactionReceipt).toHaveBeenCalledWith(
+      hash,
+    );
+    expect(method.client.adapter.waitForTransaction).toHaveBeenCalledWith(hash);
   });
 
   test('Default send options', () => {
@@ -252,5 +276,22 @@ describe('ContractMethodSender', () => {
     expect(
       methodWithDefault._getDefaultSendOptions({ gasLimit: A }).gasLimit,
     ).toEqual(A);
+
+    const mainnetMethod = new ContractMethodSender({
+      client,
+      input,
+      functionName,
+    });
+    // Should have a 1 hour timeout
+    expect(mainnetMethod._getDefaultSendOptions().timeoutMs).toEqual(3600000);
+
+    const testnetMethod = new ContractMethodSender({
+      client,
+      input,
+      functionName,
+    });
+    testnetMethod.client.adapter.provider = { name: 'testnet' };
+    // Should have a 5 minute timeout
+    expect(testnetMethod._getDefaultSendOptions().timeoutMs).toEqual(300000);
   });
 });

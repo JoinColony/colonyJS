@@ -16,7 +16,6 @@ import type {
   ContractMethodArgs,
   SendOptions,
 } from '../flowtypes';
-import { DEFAULT_SEND_OPTIONS } from '../defaults';
 
 export default class ContractMethodSender<
   InputValues: { [inputValueName: string]: any },
@@ -66,36 +65,22 @@ export default class ContractMethodSender<
     transaction: Transaction,
     timeoutMs: number,
   ): Promise<ContractResponse<OutputValues>> {
-    const receipt = await raceAgainstTimeout(
-      this.client.adapter.getTransactionReceipt(transaction.hash),
-      timeoutMs,
-    );
-
-    const meta = {
-      transaction,
-      receipt,
-    };
-    const successful = receipt.status === 1;
-
-    // If the receipt wasn't successful, return immediately rather than waiting
-    // for events/mined tx
-    if (!successful) {
-      return {
-        successful,
-        meta,
-        eventData: {},
-      };
-    }
-
     const eventData = await this.client.getEventData({
       events: this.eventHandlers,
       timeoutMs,
       transactionHash: transaction.hash,
     });
+    const receipt = await raceAgainstTimeout(
+      this._waitForTransactionReceipt(transaction.hash),
+      timeoutMs,
+    );
 
     return {
-      successful,
-      meta,
+      successful: receipt && receipt.status === 1,
+      meta: {
+        transaction,
+        receipt,
+      },
       eventData,
     };
   }
@@ -104,30 +89,30 @@ export default class ContractMethodSender<
     transaction: Transaction,
     timeoutMs: number,
   ): ContractResponse<OutputValues> {
+    const eventDataPromise = this.client.getEventData({
+      events: this.eventHandlers,
+      timeoutMs,
+      transactionHash: transaction.hash,
+    });
     const receiptPromise = raceAgainstTimeout(
-      this.client.adapter.getTransactionReceipt(transaction.hash),
+      this._waitForTransactionReceipt(transaction.hash),
       timeoutMs,
     );
     const successfulPromise = new Promise(async (resolve, reject) => {
       try {
-        const { status } = await receiptPromise;
-        resolve(status === 1);
+        const receipt = await receiptPromise;
+        resolve(receipt && receipt.status === 1);
       } catch (error) {
         reject(error.toString());
       }
     });
-
     return {
       successfulPromise,
       meta: {
         receiptPromise,
         transaction,
       },
-      eventDataPromise: this.client.getEventData({
-        events: this.eventHandlers,
-        timeoutMs,
-        transactionHash: transaction.hash,
-      }),
+      eventDataPromise,
     };
   }
 
@@ -158,14 +143,26 @@ export default class ContractMethodSender<
     return this.client.send(this.functionName, callArgs, transactionOptions);
   }
 
+  async _waitForTransactionReceipt(transactionHash: string) {
+    await this.client.adapter.waitForTransaction(transactionHash);
+    return this.client.adapter.getTransactionReceipt(transactionHash);
+  }
+
   /**
    * Given send options, set default values for this Sender.
    */
   _getDefaultSendOptions(options: SendOptions) {
+    const { name: networkName } = this.client.adapter.provider;
+    // Allow a much longer timeout for mainnet transactions.
+    const minutes = networkName === 'mainnet' ? 60 : 5;
+
     return Object.assign(
       {},
-      DEFAULT_SEND_OPTIONS,
-      this._defaultGasLimit ? { gasLimit: this._defaultGasLimit } : {},
+      {
+        timeoutMs: 1000 * 60 * minutes,
+        waitForMining: true,
+        ...(this._defaultGasLimit ? { gasLimit: this._defaultGasLimit } : null),
+      },
       options,
     );
   }
