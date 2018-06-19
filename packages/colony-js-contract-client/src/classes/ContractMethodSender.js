@@ -144,6 +144,14 @@ export default class ContractMethodSender<
   }
 
   async _waitForTransactionReceipt(transactionHash: string) {
+    // Firstly attempt to get the receipt immediately; the transaction
+    // may be running on TestRPC with no mining time.
+    const receipt = await this.client.adapter.getTransactionReceipt(
+      transactionHash,
+    );
+    if (receipt != null) return receipt;
+
+    // Failing that, wait until the transaction has been mined.
     await this.client.adapter.waitForTransaction(transactionHash);
     return this.client.adapter.getTransactionReceipt(transactionHash);
   }
