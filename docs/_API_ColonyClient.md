@@ -181,7 +181,7 @@ Given a specific task, a defined role for the task, and a token address, will re
 |---|---|---|
 |taskId|number|Integer taskId.|
 |role|Role|Role the payout is specified for: MANAGER, EVALUATOR, or WORKER.|
-|token|Address|Address of the token's contract. `0x0` value indicates Ether.|
+|token|Token address|Address of the token's contract. `0x0` value indicates Ether.|
 
 **Returns**
 
@@ -259,7 +259,7 @@ Gets a balance for a certain token in a specific pot.
 |Argument|Type|Description|
 |---|---|---|
 |potId|number|Integer potId.|
-|token|Address|Address to get funds from, such as the token contract address, or empty address (`0x0` for Ether)|
+|token|Token address|Address to get funds from, such as the token contract address, or empty address (`0x0` for Ether)|
 
 **Returns**
 
@@ -277,7 +277,7 @@ The `nonRewardPotsTotal` is a value that keeps track of the total assets a colon
 
 |Argument|Type|Description|
 |---|---|---|
-|token|Address|Address of the token's contract. `0x0` value indicates Ether.|
+|token|Token address|Address of the token's contract. `0x0` value indicates Ether.|
 
 **Returns**
 
@@ -306,7 +306,7 @@ A promise which resolves to an object containing the following properties:
 |blockNumber|number|Block number at the time of creation.|
 |remainingTokenAmount|BigNumber|Remaining (unclaimed) amount of tokens.|
 |reputationRootHash|string|Reputation root hash at the time of creation.|
-|token|Address|Token address (`0x0` value indicates Ether).|
+|token|Token address|Token address (`0x0` value indicates Ether).|
 |totalTokenAmountForRewardPayout|BigNumber|Total amount of tokens taken aside for reward payout.|
 |totalTokens|BigNumber|Total colony tokens at the time of creation.|
 
@@ -420,7 +420,7 @@ Sets the payout given to the MANAGER role when the task is finalized. This Sende
 |Argument|Type|Description|
 |---|---|---|
 |taskId|number|Integer taskId.|
-|token|Address|Address to send funds from, e.g. the token's contract address, or empty address (`0x0` for Ether)|
+|token|Token address|Address to send funds from, e.g. the token's contract address, or empty address (`0x0` for Ether)|
 |amount|BigNumber|Amount to be paid.|
 
 **Returns**
@@ -541,7 +541,7 @@ Claims the payout for `token` denomination for work completed in task `taskId` b
 |---|---|---|
 |taskId|number|Integer taskId.|
 |role|Role|Role of the contributor claiming the payout: MANAGER, EVALUATOR, or WORKER|
-|token|Address|Address to claim funds from, e.g. the token's contract address, or empty address (`0x0` for Ether)|
+|token|Token address|Address to claim funds from, e.g. the token's contract address, or empty address (`0x0` for Ether)|
 
 **Returns**
 
@@ -595,7 +595,7 @@ Move any funds received by the colony for `token` denomination to the top-levl d
 
 |Argument|Type|Description|
 |---|---|---|
-|token|Address|Address to claim funds from; empty address (`0x0` for Ether)|
+|token|Token address|Address to claim funds from; empty address (`0x0` for Ether)|
 
 **Returns**
 
@@ -630,7 +630,7 @@ Move a given amount of `token` funds from one pot to another.
 |fromPot|number|Origin pot Id.|
 |toPot|number|Destination pot Id.|
 |amount|BigNumber|Amount of funds to move.|
-|token|Address|Address of the token contract (`0x0` value indicates Ether).|
+|token|Token address|Address of the token contract (`0x0` value indicates Ether).|
 
 **Returns**
 
@@ -678,7 +678,7 @@ Start the next reward payout for `token`. All funds in the reward pot for `token
 
 |Argument|Type|Description|
 |---|---|---|
-|token|Address|Address of token used for reward payout (`0x0` value indicates Ether).|
+|token|Token address|Address of token used for reward payout (`0x0` value indicates Ether).|
 
 **Returns**
 
@@ -749,7 +749,7 @@ Sets the payout given to the EVALUATOR role when the task is finalized.
 |Argument|Type|Description|
 |---|---|---|
 |taskId|number|Integer taskId.|
-|token|Address|Address to send funds from, e.g. the token's contract address, or empty address (`0x0` for Ether)|
+|token|Token address|Address to send funds from, e.g. the token's contract address, or empty address (`0x0` for Ether)|
 |amount|BigNumber|Amount to be paid.|
 
 **Returns**
@@ -767,7 +767,7 @@ Sets the payout given to the WORKER role when the task is finalized.
 |Argument|Type|Description|
 |---|---|---|
 |taskId|number|Integer taskId.|
-|token|Address|Address to send funds from, e.g. the token's contract address, or empty address (`0x0` for Ether)|
+|token|Token address|Address to send funds from, e.g. the token's contract address, or empty address (`0x0` for Ether)|
 |amount|BigNumber|Amount to be paid.|
 
 **Returns**

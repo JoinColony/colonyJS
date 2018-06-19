@@ -22,6 +22,7 @@ export type ParamTypes =
   | 'date'
   | 'ipfsHash'
   | 'number'
+  | 'tokenAddress'
   | 'string';
 
 // [param name, param type, default value (optional)]
