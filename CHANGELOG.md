@@ -2,6 +2,11 @@
 
 ## v.NEXT
 
+
+## v1.5.0
+
+*Released Tue, 19 June 2018 12:01:38 GMT*
+
 **New features**
 
 * Add `getTokenInfo` caller to `TokenClient` to get the token's `name`, `symbol` and `decimals` (`@colony/colony-js-contract-client`, `@colony/colony-js-client`)
