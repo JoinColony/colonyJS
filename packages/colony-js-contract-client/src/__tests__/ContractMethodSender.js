@@ -55,8 +55,8 @@ describe('ContractMethodSender', () => {
     },
   };
   const adapter = {
-    getTransactionReceipt: sandbox.fn(async () => Promise.resolve(receipt)),
-    waitForTransaction: sandbox.fn(async () => Promise.resolve(transaction)),
+    getTransactionReceipt: sandbox.fn(),
+    waitForTransaction: sandbox.fn(),
     provider: {
       name: 'mainnet',
     },
@@ -161,7 +161,7 @@ describe('ContractMethodSender', () => {
     });
     sandbox
       .spyOn(method, '_waitForTransactionReceipt')
-      .mockImplementation(async () => receipt);
+      .mockResolvedValue(receipt);
 
     const response = await method._sendWithWaitingForMining(
       transaction,
@@ -239,13 +239,25 @@ describe('ContractMethodSender', () => {
       eventHandlers,
     });
     const hash = 'the tx hash';
+
+    // For this test, simulate that we couldn't get the receipt on the first
+    // try (i.e. it has not yet been mined).
+    method.client.adapter.getTransactionReceipt
+      .mockResolvedValueOnce(null)
+      .mockResolvedValueOnce(receipt);
+
+    method.client.adapter.waitForTransaction.mockResolvedValue(transaction);
+
     const txReceipt = await method._waitForTransactionReceipt(hash);
 
-    expect(txReceipt).toEqual(receipt);
+    expect(method.client.adapter.getTransactionReceipt).toHaveBeenCalledTimes(
+      2,
+    );
     expect(method.client.adapter.getTransactionReceipt).toHaveBeenCalledWith(
       hash,
     );
     expect(method.client.adapter.waitForTransaction).toHaveBeenCalledWith(hash);
+    expect(txReceipt).toEqual(receipt);
   });
 
   test('Default send options', () => {
