@@ -9,7 +9,13 @@ import {
   isBigNumber,
   isEmptyHexString,
 } from '@colony/colony-js-utils';
-import { isHex, utf8ToHex, hexToBytes } from 'web3-utils';
+import {
+  isHex,
+  isHexStrict,
+  utf8ToHex,
+  hexToBytes,
+  hexToUtf8,
+} from 'web3-utils';
 
 import {
   addParamType,
@@ -32,8 +38,10 @@ jest.mock('bs58', () => ({
 
 jest.mock('web3-utils', () => ({
   isHex: jest.fn().mockReturnValue(true),
+  isHexStrict: jest.fn().mockReturnValue(true),
   utf8ToHex: jest.fn().mockImplementation(value => value),
   hexToBytes: jest.fn().mockImplementation(() => [101]),
+  hexToUtf8: jest.fn().mockImplementation(value => value),
 }));
 
 describe('Parameter types', () => {
@@ -44,6 +52,7 @@ describe('Parameter types', () => {
     isBigNumber.mockClear();
     isValidAddress.mockClear();
     isEmptyHexString.mockClear();
+    isHexStrict.mockClear();
     isHex.mockClear();
     utf8ToHex.mockClear();
     hexToBytes.mockClear();
@@ -178,7 +187,12 @@ describe('Parameter types', () => {
     expect(validateValueType(1, 'string')).toBe(false);
 
     // Converting output values
+    isHexStrict.mockReturnValueOnce(false);
     expect(convertOutputValue('a', 'string')).toBe('a');
+    isEmptyHexString.mockReturnValueOnce(false);
+    hexToUtf8.mockReturnValueOnce('COLNY');
+    expect(convertOutputValue('0x434f4c4e59', 'string')).toBe('COLNY');
+    expect(convertOutputValue('0x00', 'string')).toBe(null);
 
     // empty strings are cleaned:
     expect(convertOutputValue('', 'string')).toBe(null);
