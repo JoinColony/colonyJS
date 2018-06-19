@@ -161,7 +161,7 @@ A promise which resolves to an object containing the following properties:
 |skillId|number|Integer Skill ID the task is assigned to.|
 |specificationHash|IPFS hash|Unique hash of the specification content.|
 
-### `getTaskPayout.call({ taskId, role, source })`
+### `getTaskPayout.call({ taskId, role, token })`
 
 Given a specific task, a defined role for the task, and a token address, will return any payout attached to the task in the token specified.
 
@@ -171,7 +171,7 @@ Given a specific task, a defined role for the task, and a token address, will re
 |---|---|---|
 |taskId|number|Integer taskId.|
 |role|Role|Role the payout is specified for: MANAGER, EVALUATOR, or WORKER.|
-|source|Payable address|Address of the token's contract `0x0` value indicates Ether.|
+|token|Address|Address of the token's contract. `0x0` value indicates Ether.|
 
 **Returns**
 
@@ -240,16 +240,16 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |secret|string|the hashed rating (equivalent to the output of `keccak256(_salt, _rating)`).|
 
-### `getPotBalance.call({ potId, source })`
+### `getPotBalance.call({ potId, token })`
 
-Gets a balance for a certain source in a specific pot.
+Gets a balance for a certain token in a specific pot.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
 |potId|number|Integer potId.|
-|source|Payable address|Address to get funds from, such as the token contract address, or empty address (`0x0` for Ether)|
+|token|Address|Address to get funds from, such as the token contract address, or empty address (`0x0` for Ether)|
 
 **Returns**
 
@@ -259,7 +259,7 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |balance|BigNumber|Balance for token `token` in pot `potId`.|
 
-### `getNonRewardPotsTotal.call({ source })`
+### `getNonRewardPotsTotal.call({ token })`
 
 The `nonRewardPotsTotal` is a value that keeps track of the total assets a colony has to work with, which may be split among several distinct pots associated with various domains and tasks.
 
@@ -267,7 +267,7 @@ The `nonRewardPotsTotal` is a value that keeps track of the total assets a colon
 
 |Argument|Type|Description|
 |---|---|---|
-|source|Payable address|Address of the token's contract `0x0` value indicates Ether.|
+|token|Address|Address of the token's contract. `0x0` value indicates Ether.|
 
 **Returns**
 
@@ -296,7 +296,7 @@ A promise which resolves to an object containing the following properties:
 |blockNumber|number|Block number at the time of creation.|
 |remainingTokenAmount|BigNumber|Remaining (unclaimed) amount of tokens.|
 |reputationRootHash|string|Reputation root hash at the time of creation.|
-|source|Payable address|Token address (`0x0` value indicates Ether).|
+|token|Address|Token address (`0x0` value indicates Ether).|
 |totalTokenAmountForRewardPayout|BigNumber|Total amount of tokens taken aside for reward payout.|
 |totalTokens|BigNumber|Total colony tokens at the time of creation.|
 
@@ -401,7 +401,7 @@ An instance of a `ContractResponse`
 
 
 
-### `setTaskManagerPayout.send({ taskId, source, amount }, options)`
+### `setTaskManagerPayout.send({ taskId, token, amount }, options)`
 
 Sets the payout given to the MANAGER role when the task is finalized. This Sender can only be called by the manager for the task in question.
 
@@ -410,7 +410,7 @@ Sets the payout given to the MANAGER role when the task is finalized. This Sende
 |Argument|Type|Description|
 |---|---|---|
 |taskId|number|Integer taskId.|
-|source|Payable address|Address to send funds from, e.g. the token's contract address, or empty address (`0x0` for Ether)|
+|token|Address|Address to send funds from, e.g. the token's contract address, or empty address (`0x0` for Ether)|
 |amount|BigNumber|Amount to be paid.|
 
 **Returns**
@@ -521,9 +521,9 @@ An instance of a `ContractResponse`
 
 
 
-### `claimPayout.send({ taskId, role, source }, options)`
+### `claimPayout.send({ taskId, role, token }, options)`
 
-Claims the payout in `source` denomination for work completed in task `taskId` by contributor with role `role`. Allowed only by the contributors themselves after task is finalized. Here the network receives its fee from each payout. Ether fees go straight to the Meta Colony whereas Token fees go to the Network to be auctioned off.
+Claims the payout for `token` denomination for work completed in task `taskId` by contributor with role `role`. Allowed only by the contributors themselves after task is finalized. Here the network receives its fee from each payout. Ether fees go straight to the Meta Colony whereas Token fees go to the Network to be auctioned off.
 
 **Arguments**
 
@@ -531,7 +531,7 @@ Claims the payout in `source` denomination for work completed in task `taskId` b
 |---|---|---|
 |taskId|number|Integer taskId.|
 |role|Role|Role of the contributor claiming the payout: MANAGER, EVALUATOR, or WORKER|
-|source|Payable address|Address to claim funds from, e.g. the token's contract address, or empty address (`0x0` for Ether)|
+|token|Address|Address to claim funds from, e.g. the token's contract address, or empty address (`0x0` for Ether)|
 
 **Returns**
 
@@ -577,15 +577,15 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |skillId|number|Integer id of the newly created skill.|
 |parentSkillId|number|Integer id of the parent skill.|
 
-### `claimColonyFunds.send({ source }, options)`
+### `claimColonyFunds.send({ token }, options)`
 
-Move any funds received by the colony in `source` denomination to the top-levl domain pot, siphoning off a small amount to the rewards pot. No fee is taken if called against a colony's own token.
+Move any funds received by the colony for `token` denomination to the top-levl domain pot, siphoning off a small amount to the rewards pot. No fee is taken if called against a colony's own token.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|source|Payable address|Address to claim funds from; empty address (`0x0` for Ether)|
+|token|Address|Address to claim funds from; empty address (`0x0` for Ether)|
 
 **Returns**
 
@@ -609,7 +609,7 @@ An instance of a `ContractResponse`
 
 
 
-### `moveFundsBetweenPots.send({ fromPot, toPot, amount, address }, options)`
+### `moveFundsBetweenPots.send({ fromPot, toPot, amount, token }, options)`
 
 Move a given amount of `token` funds from one pot to another.
 
@@ -620,7 +620,7 @@ Move a given amount of `token` funds from one pot to another.
 |fromPot|number|Origin pot Id.|
 |toPot|number|Destination pot Id.|
 |amount|BigNumber|Amount of funds to move.|
-|address|Payable address|Address of the token contract (`0x0` value indicates Ether).|
+|token|Address|Address of the token contract (`0x0` value indicates Ether).|
 
 **Returns**
 
@@ -730,7 +730,7 @@ An instance of a `MultiSigOperation`
 
 
 
-### `setTaskEvaluatorPayout.startOperation({ taskId, source, amount })`
+### `setTaskEvaluatorPayout.startOperation({ taskId, token, amount })`
 
 Sets the payout given to the EVALUATOR role when the task is finalized.
 
@@ -739,7 +739,7 @@ Sets the payout given to the EVALUATOR role when the task is finalized.
 |Argument|Type|Description|
 |---|---|---|
 |taskId|number|Integer taskId.|
-|source|Payable address|Address to send funds from, e.g. the token's contract address, or empty address (`0x0` for Ether)|
+|token|Address|Address to send funds from, e.g. the token's contract address, or empty address (`0x0` for Ether)|
 |amount|BigNumber|Amount to be paid.|
 
 **Returns**
@@ -748,7 +748,7 @@ An instance of a `MultiSigOperation`
 
 
 
-### `setTaskWorkerPayout.startOperation({ taskId, source, amount })`
+### `setTaskWorkerPayout.startOperation({ taskId, token, amount })`
 
 Sets the payout given to the WORKER role when the task is finalized.
 
@@ -757,7 +757,7 @@ Sets the payout given to the WORKER role when the task is finalized.
 |Argument|Type|Description|
 |---|---|---|
 |taskId|number|Integer taskId.|
-|source|Payable address|Address to send funds from, e.g. the token's contract address, or empty address (`0x0` for Ether)|
+|token|Address|Address to send funds from, e.g. the token's contract address, or empty address (`0x0` for Ether)|
 |amount|BigNumber|Amount to be paid.|
 
 **Returns**
