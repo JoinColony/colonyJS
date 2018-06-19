@@ -170,7 +170,7 @@ This is just a `HTTPLoader` with a specific endpoint (`http://127.0.0.1/contract
 
 This is just a `HTTPLoader` with a specific endpoint (`https://api.etherscan.io/api?module=contract&action=getabi&address=%%ADDRESS%%`) and a transform function specialised for Etherscan. It can take the `contractAddress` and `routerAddress` properties.
 
-## `FSLoader`
+### `FSLoader`
 
 **`FSLoader` is only available in node.js environments.**
 This loader loads files by name from a specific directory in a file system.

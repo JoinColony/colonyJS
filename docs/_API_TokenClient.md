@@ -17,6 +17,21 @@ Most functions are fairly self-explanatory and mirror their on-chain counterpart
 
 **All callers return promises which resolve to an object containing the given return values.** For a reference please check [here](/colonyjs/docs-contractclient/#callers).
 
+### `getTokenInfo.call()`
+
+Get information about the ERC20 token itself
+
+
+**Returns**
+
+A promise which resolves to an object containing the following properties:
+
+|Return value|Type|Description|
+|---|---|---|
+|name|string|The token's name (e.g. Cool Colony Token)|
+|symbol|string|The token's symbol (e.g. CCT)|
+|decimals|number|The token's decimals|
+
 ### `getTotalSupply.call()`
 
 Get the total token supply.
