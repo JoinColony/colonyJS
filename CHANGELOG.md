@@ -2,6 +2,10 @@
 
 ## v.NEXT
 
+**New features**
+
+* Add `getTokenInfo` caller to `TokenClient` to get the token's `name`, `symbol` and `decimals` (`@colony/colony-js-contract-client`, `@colony/colony-js-client`)
+
 **Enhancements**
 
 * Wait for in-progress transactions when getting the transaction receipt (`@colony/colony-js-contract-client`, `@colony/colony-js-adapter-ethers`)
