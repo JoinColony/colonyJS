@@ -2,6 +2,9 @@
 
 ## v.NEXT
 
+
+## v1.5.1
+
 **Bug fixes**
 
 * Actually wait for transaction receipt in Token contract deployment. This fixes issues with real-life environments like testnets or mainnet (`@colony/colony-js-client`)
