@@ -2,7 +2,7 @@
 
 import bs58 from 'bs58';
 import BigNumber from 'bn.js';
-import { isHex, utf8ToHex, hexToBytes } from 'web3-utils';
+import { isHex, utf8ToHex, hexToBytes, hexToUtf8 } from 'web3-utils';
 import {
   isValidAddress,
   isBigNumber,
@@ -80,6 +80,9 @@ const PARAM_TYPE_MAP: {
       return typeof value === 'string';
     },
     convertOutput(value: any) {
+      if (isHex(value)) {
+        return isEmptyHexString(value) ? null : hexToUtf8(value);
+      }
       return typeof value === 'string' && value.length ? value : null;
     },
     convertInput(value: string) {

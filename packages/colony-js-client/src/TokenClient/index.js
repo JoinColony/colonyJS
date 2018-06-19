@@ -2,10 +2,23 @@
 
 import BigNumber from 'bn.js';
 import ContractClient from '@colony/colony-js-contract-client';
+import GetTokenInfo from './callers/GetTokenInfo';
 
 type Address = string;
 
 export default class TokenClient extends ContractClient {
+  /*
+    Get information about the ERC20 token itself
+  */
+  getTokenInfo: TokenClient.Caller<
+    {},
+    {
+      name: string, // The token's name (e.g. Cool Colony Token)
+      symbol: string, // The token's symbol (e.g. CCT)
+      decimals: number, // The token's decimals
+    },
+    TokenClient,
+  >;
   /*
   Get the total token supply.
   */
@@ -198,6 +211,8 @@ export default class TokenClient extends ContractClient {
         };
       },
     };
+
+    this.getTokenInfo = new GetTokenInfo({ client: this });
 
     this.addCaller('getTotalSupply', {
       functionName: 'totalSupply',
