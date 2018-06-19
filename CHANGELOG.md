@@ -2,6 +2,10 @@
 
 ## v.NEXT
 
+**Features**
+
+* `Adapter.getTransactionReceipt` now waits for an in-progress transaction to be mined before attempting to get the receipt (`@colony/colony-js-adapter-ethers`, `@colony/colony-js-client`)
+
 **Bug fixes**
 
 * Partial empty hex strings (e.g. `0x0`) are now padded to full-length, which resolves an issue with `EthersAdapter` (`@colony/colony-js-contract-client`)

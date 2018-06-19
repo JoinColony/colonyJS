@@ -250,7 +250,7 @@ describe('EthersAdapter', () => {
 
     try {
       mockProvider.getTransactionReceipt.mockResolvedValueOnce(null);
-      await adapter.getTransactionReceipt(transactionHash);
+      await adapter._getTransactionReceipt(transactionHash);
       expect(false).toBe(true); // Should be unreachable
     } catch (error) {
       expect(error.toString()).toMatch('Transaction receipt not found');
@@ -261,7 +261,7 @@ describe('EthersAdapter', () => {
     }
 
     mockProvider.getTransactionReceipt.mockResolvedValueOnce(receipt);
-    const receivedValue = await adapter.getTransactionReceipt(transactionHash);
+    const receivedValue = await adapter._getTransactionReceipt(transactionHash);
     expect(receivedValue).toEqual(receipt);
     expect(mockProvider.getTransactionReceipt).toHaveBeenCalledWith(
       transactionHash,
@@ -308,9 +308,7 @@ describe('EthersAdapter', () => {
 
     mockProvider.waitForTransaction.mockResolvedValue(transaction);
 
-    const receivedValue = await adapter.waitForTransactionReceipt(
-      transactionHash,
-    );
+    const receivedValue = await adapter.getTransactionReceipt(transactionHash);
 
     expect(mockProvider.getTransactionReceipt).toHaveBeenCalledTimes(2);
     expect(mockProvider.getTransactionReceipt).toHaveBeenCalledWith(
@@ -329,7 +327,7 @@ describe('EthersAdapter', () => {
         throw new Error('Kaboom!');
       });
     try {
-      await adapter.waitForTransactionReceipt(transactionHash);
+      await adapter.getTransactionReceipt(transactionHash);
       expect(false).toBe(true); // Should be unreachable
     } catch (error) {
       expect(error.toString()).toMatch('Kaboom!');
