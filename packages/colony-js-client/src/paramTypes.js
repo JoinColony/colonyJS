@@ -1,6 +1,7 @@
 /* @flow */
 
 import { isBigNumber } from '@colony/colony-js-utils';
+import { isHexStrict, hexToNumber } from 'web3-utils';
 import { addParamType } from '@colony/colony-js-contract-client';
 
 import { ROLES, AUTHORITY_ROLES } from './constants';
@@ -13,8 +14,15 @@ const roleType = (roles: { [roleName: string]: number }) => ({
     return roles[value];
   },
   convertOutput(value: any) {
-    const roleNumber = isBigNumber(value) ? value.toNumber() : value;
-    return Object.keys(roles).find(name => roles[name] === roleNumber) || null;
+    let converted;
+    if (isHexStrict(value)) {
+      converted = hexToNumber(value);
+    } else if (isBigNumber(value)) {
+      converted = value.toNumber();
+    } else {
+      converted = value;
+    }
+    return Object.keys(roles).find(name => roles[name] === converted) || null;
   },
 });
 

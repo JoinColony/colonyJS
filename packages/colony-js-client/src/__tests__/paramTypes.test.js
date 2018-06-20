@@ -4,6 +4,7 @@
 import BigNumber from 'bn.js';
 import ContractClient from '@colony/colony-js-contract-client';
 import createSandbox from 'jest-sandbox';
+import { padLeft } from 'web3-utils';
 
 import '../paramTypes';
 import { ROLES, WORKER_ROLE, EVALUATOR_ROLE, MANAGER_ROLE } from '../constants';
@@ -69,6 +70,11 @@ describe('Custom param types', () => {
       client.getRole.convertOutputValues(new BigNumber(ROLES.MANAGER)),
     ).toEqual({
       role: MANAGER_ROLE,
+    });
+    expect(
+      client.getRole.convertOutputValues(padLeft(`0x${ROLES.WORKER}`, 64)),
+    ).toEqual({
+      role: WORKER_ROLE,
     });
     // Bad/missing output values should be null
     expect(client.getRole.convertOutputValues(new BigNumber(4))).toEqual({

@@ -4,6 +4,7 @@
 
 **Bug fixes**
 * `getTokenInfo` won't throw anymore if one of the properties `symbol`, `name` or `decimals` is not implemented on the token contract. Instead it will just report `null` for the values which are not defined (`@colony/colony-js-client`)
+* Fixed a bug where `authority.getUserRole` would only report `null` for every role by converting the output values from hex numbers first (`@colony/colony-js-client`)
 
 **Documentation**
 
