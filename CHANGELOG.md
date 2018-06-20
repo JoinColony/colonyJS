@@ -2,6 +2,9 @@
 
 ## v.NEXT
 
+**Bug fixes**
+* `getTokenInfo` won't throw anymore if one of the properties `symbol`, `name` or `decimals` is not implemented on the token contract. Instead it will just report `null` for the values which are not defined (`@colony/colony-js-client`)
+
 **Documentation**
 
 * Clarified the naming of parameters involving token addresses (`@colony/colony-js-contract-client`, `@colony/colony-js-client`)
