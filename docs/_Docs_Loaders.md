@@ -66,8 +66,6 @@ const { abi, address, bytecode } = await loader.load({ contractAddress: '0xdeadb
 ## Future/Imaginable loaders
 Both the `etherscanLoader` and `TrufflepigLoader` are modified versions of the more general `ContractHttpLoader`. We hope to extend functionality to load from more data sources, such as:
 
-
-- File system (node)
 - Databases (indexeddb on the browser, other dbs in node)
 - IPFS (which might be a very specific http loader)
 - Swarm

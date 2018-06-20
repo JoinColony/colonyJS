@@ -2,6 +2,9 @@
 
 ## v.NEXT
 
+**Documentation**
+
+* Clarified the naming of parameters involving token addresses (`@colony/colony-js-contract-client`, `@colony/colony-js-client`)
 
 ## v1.5.1
 

@@ -19,3 +19,13 @@ You _could_ create a ColonyClient by using an adapter and a query: `new ColonyCl
 ```javascript
 const colonyClient = await networkClient.getColonyClient(colonyId); // This is already initialised
 ```
+
+## Instance properties
+
+### `authority`
+
+The Colony's [AuthorityClient](/colonyjs/api-authorityclient/) instance.
+
+### `token`
+
+The Colony's [TokenClient](/colonyjs/api-tokenclient/) instance.

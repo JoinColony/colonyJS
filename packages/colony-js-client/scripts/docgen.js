@@ -39,7 +39,7 @@ const TYPES = {
   Role: 'Role',
   AuthorityRole: 'Authority Role',
   IPFSHash: 'IPFS hash',
-  PayableAddress: 'Payable address',
+  TokenAddress: 'Token address',
 };
 
 const generateMarkdown = ({ file, templateFile, output }) => {

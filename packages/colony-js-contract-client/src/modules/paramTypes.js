@@ -119,6 +119,19 @@ const PARAM_TYPE_MAP: {
         .toString('hex')}`;
     },
   },
+  // Either a valid address, or an empty address to indicate ether
+  // (0x0 or 0x0000000000000000000000000000000000000000)
+  tokenAddress: {
+    validate(value: any) {
+      return isValidAddress(value) || isEmptyHexString(value);
+    },
+    convertInput(value: string) {
+      return value;
+    },
+    convertOutput(value: string) {
+      return value;
+    },
+  },
 };
 
 /**
