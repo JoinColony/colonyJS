@@ -21,6 +21,6 @@ In the current implementation of the Colony Network, some events on-chain are no
 | `setAdmin`                          | X     | X     |
 | `removeAdmin`                       | X     |       |
 
-Note: these authority roles are distinct from the 'roles' assigned in a task (manager, worker, and evaluator); because 'authority' roles are intended to be replaced by reputation-mediated authority in subsequent versions of the colonyNetwork, the overlapping terminology will be temporary.
+Note: these authority roles are distinct from the 'roles' assigned in a task (manager, worker, and evaluator). See the [task lifecycle](/colonyjs/docs-task-lifecycle/) for a summary of task roles.
 
 ==TOC==
