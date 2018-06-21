@@ -81,7 +81,7 @@ const response = await networkClient.createColony.send({
 //    }
 ```
 
-The response in this example is a [ContractResponse](/colonyjs/docs-contract-client/#contractresponse).
+The response in this example is a [ContractResponse](#contractresponse).
 
 The `send` function also accepts `SendOptions` as an optional second parameter; see more on these options [here](/colonyjs/api-contractmethodsender/#sendinputvalues-options).
 
