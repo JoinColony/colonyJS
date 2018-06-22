@@ -105,7 +105,7 @@ const PARAM_TYPE_MAP: {
       );
     },
     convertOutput(value: any) {
-      if (isHex(value) && !isEmptyHexString(value)) {
+      if (isHexStrict(value) && !isEmptyHexString(value)) {
         const hex = `0x1220${value.slice(2)}`;
         const bytes = hexToBytes(hex);
         return bs58.encode(bytes);
