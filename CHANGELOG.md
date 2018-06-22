@@ -7,6 +7,7 @@
 * Remove the `address` property of the `Wallet` interface, because it is not universal (`@colony/colony-js-adapter`)
 * Clarify that the `getAddress` method of the `Wallet` interface is asynchronous
 * Use the `getAddress` method to get the current address when signing multisig operations (`@colony/colony-js-contract-client`)
+* Add a `hexString` type to fix the type conversion of the secret created by `generateSecret` (`@colony/colony-js-contract-client`, `@colony/colony-js-client`)
 
 ## v1.5.2
 
@@ -14,7 +15,7 @@
 
 **Bug fixes**
 * `getTokenInfo` won't throw anymore if one of the properties `symbol`, `name` or `decimals` is not implemented on the token contract. Instead it will just report `null` for the values which are not defined (`@colony/colony-js-client`)
-* Fixed a bug where `authority.getUserRole` would only report `null` for every role by converting the output values from hex numbers first (`@colony/colony-js-client`)
+* Fix a bug where `authority.getUserRole` would only report `null` for every role by converting the output values from hex numbers first (`@colony/colony-js-client`)
 
 **Documentation**
 

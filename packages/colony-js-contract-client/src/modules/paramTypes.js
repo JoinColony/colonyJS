@@ -8,6 +8,7 @@ import {
   utf8ToHex,
   hexToBytes,
   hexToUtf8,
+  toHex,
 } from 'web3-utils';
 import {
   isValidAddress,
@@ -70,6 +71,15 @@ const PARAM_TYPE_MAP: {
       // Dates are stored as timestamps without milliseconds
       return parseInt(value.setMilliseconds(0) / 1000, 10);
     },
+  },
+  hexString: {
+    validate(value: any) {
+      return isHexStrict(value);
+    },
+    convertOutput(value: any) {
+      return toHex(value);
+    },
+    convertInput: passThrough,
   },
   number: {
     validate(value: any) {

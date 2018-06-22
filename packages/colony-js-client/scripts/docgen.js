@@ -40,6 +40,7 @@ const TYPES = {
   AuthorityRole: 'Authority Role',
   IPFSHash: 'IPFS hash',
   TokenAddress: 'Token address',
+  HexString: 'Hex string',
 };
 
 const generateMarkdown = ({ file, templateFile, output }) => {

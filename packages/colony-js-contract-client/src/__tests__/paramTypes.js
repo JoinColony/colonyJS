@@ -140,6 +140,23 @@ describe('Parameter types', () => {
     );
   });
 
+  test('Hex strings are handled properly', () => {
+    // Validation
+    expect(validateValueType('0x1', 'hexString')).toBe(true);
+    expect(validateValueType('a', 'hexString')).toBe(false);
+    expect(validateValueType(1, 'hexString')).toBe(false);
+
+    // Converting output values
+    expect(convertOutputValue(5, 'hexString')).toBe('0x5');
+    expect(convertOutputValue('foo', 'hexString')).toBe('0x666f6f');
+    expect(convertOutputValue('0xdeadbeef', 'hexString')).toBe('0xdeadbeef');
+
+    expect(convertOutputValue(null, 'hexString')).toBe(null);
+
+    // Converting input values
+    expect(convertInputValue('0xdeadbeef', 'hexString')).toBe('0xdeadbeef');
+  });
+
   test('IPFS hashes are handled properly', () => {
     const hash = 'QmcNbGg6EVfFn2Z1QxWauR9XY9KhnEcyb5DUXCXHi8pwMJ';
     const bytes32Hash =

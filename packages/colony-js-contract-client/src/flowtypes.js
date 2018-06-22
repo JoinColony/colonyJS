@@ -20,6 +20,7 @@ export type ParamTypes =
   | 'bigNumber'
   | 'boolean'
   | 'date'
+  | 'hexString'
   | 'ipfsHash'
   | 'number'
   | 'tokenAddress'
