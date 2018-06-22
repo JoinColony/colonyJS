@@ -2,6 +2,9 @@
 
 ## v.NEXT
 
+
+## v1.5.3
+
 **Bug fixes**
 
 * Remove the `address` property of the `Wallet` interface, because it is not universal (`@colony/colony-js-adapter`)
