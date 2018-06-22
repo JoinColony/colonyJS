@@ -23,6 +23,7 @@ import {
 
 type Address = string;
 type TokenAddress = string;
+type HexString = string;
 type Role = $Keys<typeof ROLES>;
 type IPFSHash = string;
 
@@ -47,10 +48,10 @@ export default class ColonyClient extends ContractClient {
   generateSecret: ColonyClient.Caller<
     {
       salt: string, // Salt value.
-      value: number, // Value to hide.
+      value: number, // Value to hide (typically a rating of 1-3).
     },
     {
-      secret: string, // keccak256 hash of joint Salt and Value.
+      secret: HexString, // keccak256 hash of joint Salt and Value.
     },
     ColonyClient,
   >;
@@ -154,7 +155,7 @@ export default class ColonyClient extends ContractClient {
     {
       address: Address, // Address of the user for the given role.
       rated: boolean, // Has the user work been rated.
-      rating: number, // Rating the user received.
+      rating: number, // Rating the user received (1-3).
     },
     ColonyClient,
   >;
@@ -180,7 +181,7 @@ export default class ColonyClient extends ContractClient {
       role: Role, // Role that submitted the rating: MANAGER, EVALUATOR, or WORKER.
     },
     {
-      secret: string, // the hashed rating (equivalent to the output of `keccak256(_salt, _rating)`).
+      secret: HexString, // the hashed rating (equivalent to the output of `keccak256(_salt, _rating)`).
     },
     ColonyClient,
   >;
@@ -369,26 +370,26 @@ export default class ColonyClient extends ContractClient {
     {
       taskId: number, // Integer taskId.
       role: Role, // The role submitting their rating, either EVALUATOR or WORKER.
-      ratingSecret: string, // hidden work rating, generated as the output of `generateSecret(_salt, _rating)`, where `_rating` is a score from 0-50 (in increments of 10).
+      secret: HexString, // hidden work rating, generated as the output of `generateSecret(_salt, _rating)`, where `_rating` is a score from 1-3.
     },
     {},
     ColonyClient,
   >;
   /*
-    Reveals a previously submitted work rating, by proving that the `_rating` and `_salt` values result in the same `ratingSecret` submitted during the rating submission period. This is checked on-chain using the `generateSecret` function.
+    Reveals a previously submitted work rating, by proving that the `_rating` and `_salt` values result in the same `secret` submitted during the rating submission period. This is checked on-chain using the `generateSecret` function.
   */
   revealTaskWorkRating: ColonyClient.Sender<
     {
       taskId: number, // Integer taskId.
       role: Role, // Role revealing their rating submission, either EVALUATOR or WORKER.
-      rating: number, // Rating scored 0-50 in increments of 10 (e.g. 10, 20, 30, 40 or 50).
-      salt: string, // `_salt` value to be used in `generateSecret`. A correct value will result in the same `ratingSecret` submitted during the work rating submission period.
+      rating: number, // Rating scored (1-3).
+      salt: string, // `_salt` value to be used in `generateSecret`. A correct value will result in the same `secret` submitted during the work rating submission period.
     },
     {},
     ColonyClient,
   >;
   /*
-    In the event of a user not committing or revealing within the 10 day rating window, their rating of their counterpart is assumed to be the highest possible and their own rating is decreased by 5 (e.g. 0.5 points). This function may be called by anyone after the taskWorkRatings period has ended.
+    In the event of a user not committing or revealing within the 10 day rating window, their rating of their counterpart is assumed to be the highest possible and they will receive a reputation penalty.
   */
   assignWorkRating: ColonyClient.Sender<
     {
@@ -657,7 +658,7 @@ export default class ColonyClient extends ContractClient {
     makeTaskCaller(
       'getTaskWorkRatingSecret',
       [['role', 'role']],
-      [['secret', 'string']],
+      [['secret', 'hexString']],
     );
 
     // Callers
@@ -666,8 +667,8 @@ export default class ColonyClient extends ContractClient {
       output: [['address', 'address']],
     });
     this.addCaller('generateSecret', {
-      input: [['salt', 'string'], ['value', 'bigNumber']],
-      output: [['secret', 'string']],
+      input: [['salt', 'string'], ['value', 'number']],
+      output: [['secret', 'hexString']],
     });
     this.addCaller('getDomain', {
       input: [['domainId', 'number']],
@@ -861,11 +862,7 @@ export default class ColonyClient extends ContractClient {
       input: [['numPayouts', 'number']],
     });
     this.addSender('submitTaskWorkRating', {
-      input: [
-        ['taskId', 'number'],
-        ['role', 'role'],
-        ['ratingSecret', 'string'],
-      ],
+      input: [['taskId', 'number'], ['role', 'role'], ['secret', 'hexString']],
     });
 
     // Multisig Senders
