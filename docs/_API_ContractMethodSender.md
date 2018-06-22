@@ -6,7 +6,7 @@ order: 5
 
 The `ContractMethodSender` (short `Sender`) class is a part of the `ContractClient` to eventually create blockchain transactions. They are usually created for a `ContractClient` class on its initialization (e.g. the [`ColonyClient`](/colonyjs/api-colonyclient)) and are associated with one single method on the smart contract.
 
-For more info see the [`ContractClient` docs](/colonyjs/docs-contract-client/).
+For more info see the [`ContractClient` docs](/colonyjs/docs-contractclient/).
 
 ==TOC==
 
@@ -26,7 +26,7 @@ Given named input values, it will estimate the Gas cost of the transaction gener
 
 ### `send(inputValues, options)`
 
-Given named input values, signs and sends off the transaction using by calling the associated smart contract method with the input values using the provider attached to the `ContractClient`. It returns a `ContractResponse` object which may contain the transaction metadata as well as event data (if applicable). For more information see the [`ContractClient` docs](/colonyjs/docs-contract-client/#contractresponse).
+Given named input values, signs and sends off the transaction using by calling the associated smart contract method with the input values using the provider attached to the `ContractClient`. It returns a `ContractResponse` object which may contain the transaction metadata as well as event data (if applicable). For more information see the [`ContractClient` docs](/colonyjs/docs-contractclient/#contractresponse).
 
 **Arguments**
 

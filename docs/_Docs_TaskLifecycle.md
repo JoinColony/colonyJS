@@ -6,6 +6,21 @@ order: 2
 
 The most useful abstraction within a colony is the `task`. Tasks are used to coordinate work, track reputation, and ultimately the only way to get paid through a colony. See [tasks](/colonynetwork/docs-tasks/) for a complete description of what tasks are within a colony.
 
+Tasks have 3 'roles' that may be assigned to addresses: Manager, evaluator, and worker. Each role and its permissions are outlined in the table below:
+
+|                        | Manager | Evaluator | Worker |
+|------------------------|---------|-----------|--------|
+| setTaskDomain          | X       |           |        |
+| setTaskSkill           | X       |           | *      |
+| setTaskBrief           | X       |           | *      |
+| setTaskDueDate         | X       |           | *      |
+| finalizeTask           | X       |           |        |
+| setTaskEvaluatorPayout | X       | *         |        |
+| setTaskWorkerPayout    | X       |           | *      |
+| setTaskManagerPayout   | X       |           |        |
+( * ) - If the task has been assigned to a role already, the operation requires this role's signature.
+
+
 ==TOC==
 
 
