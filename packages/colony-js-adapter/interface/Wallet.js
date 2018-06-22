@@ -9,7 +9,6 @@ import type { TransactionOptions } from './TransactionOptions';
 import type { TransactionReceipt } from './TransactionReceipt';
 
 export interface Wallet {
-  address: string;
   privateKey: string;
   provider: IProvider;
   encrypt(
@@ -18,7 +17,7 @@ export interface Wallet {
     progressCallback?: (progress: number) => *,
   ): string;
   estimateGas(transaction: Transaction): Promise<BigNumber>;
-  getAddress(): string;
+  getAddress(): Promise<string>;
   getBalance(blockTag?: string): Promise<BigNumber>;
   getTransactionCount(blockTag?: string): Promise<number>;
   parseTransaction(hexStringOrArrayish: string): Transaction;
