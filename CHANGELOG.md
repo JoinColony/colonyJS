@@ -2,6 +2,11 @@
 
 ## v.NEXT
 
+**Bug fixes**
+
+* Remove the `address` property of the `Wallet` interface, because it is not universal (`@colony/colony-js-adapter`)
+* Clarify that the `getAddress` method of the `Wallet` interface is asynchronous
+* Use the `getAddress` method to get the current address when signing multisig operations (`@colony/colony-js-contract-client`)
 
 ## v1.5.2
 
