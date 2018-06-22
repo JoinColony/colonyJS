@@ -96,7 +96,7 @@ describe('MultisigOperation', () => {
       adapter: {
         signMessage: sandbox.fn().mockImplementation(async () => signature),
         wallet: {
-          address,
+          getAddress: sandbox.fn().mockImplementation(async () => address),
         },
         ecRecover: sandbox.fn().mockImplementation(() => address),
       },
@@ -394,7 +394,7 @@ describe('MultisigOperation', () => {
       .mockReturnValueOnce(address)
       .mockReturnValueOnce('not the right address');
 
-    const mode = op._findSignatureMode(signature);
+    const mode = op._findSignatureMode(signature, address);
 
     expect(mode).toBe(0); // A match was found for the first mode
     expect(op._getMessageDigest).toHaveBeenCalledWith(0);
@@ -411,7 +411,7 @@ describe('MultisigOperation', () => {
     // It should fail when the address does not match in either case
     op.sender.client.adapter.ecRecover.mockReturnValue('not the right address');
     expect(() => {
-      op._findSignatureMode(signature);
+      op._findSignatureMode(signature, address);
     }).toThrowError('Unable to confirm signature mode');
   });
 

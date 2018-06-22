@@ -173,14 +173,13 @@ export default class MultisigOperation<
   }
 
   /**
-   * Given a signature and the address of the current wallet, determine the
-   * signing mode by trying different digests with `ecRecover` until the
-   * wallet address matches the recovered address.
+   * Given a signature and a wallet address, determine the signing mode by
+   * trying different digests with `ecRecover` until the wallet address matches
+   * the recovered address.
    */
-  _findSignatureMode(signature: Signature): SigningMode {
+  _findSignatureMode(signature: Signature, address: string): SigningMode {
     let foundMode;
     const { adapter } = this.sender.client;
-    const { address } = adapter.wallet;
 
     Object.values(SIGNING_MODES).forEach(mode => {
       const digest = this._getMessageDigest(mode);
@@ -252,7 +251,7 @@ export default class MultisigOperation<
    * add the address/signature to the signers.
    */
   _addSignature(signature: Signature, address: string) {
-    const mode = this._findSignatureMode(signature);
+    const mode = this._findSignatureMode(signature, address);
 
     this._signers = Object.assign({}, this._signers, {
       [address]: {
@@ -270,7 +269,8 @@ export default class MultisigOperation<
     await this.refresh();
     const { adapter } = this.sender.client;
     const signature = await adapter.signMessage(this._messageHash);
-    this._addSignature(signature, adapter.wallet.address);
+    const address = await adapter.wallet.getAddress();
+    this._addSignature(signature, address);
     return this;
   }
 
