@@ -20,9 +20,10 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@colony/colony-js-adapter-ethers": "^1.4.1",
-    "@colony/colony-js-client": "^1.4.1",
+    "@colony/colony-js-adapter-ethers": "^1.5.0",
+    "@colony/colony-js-client": "^1.5.3",
     "@colony/colony-js-contract-loader-http": "^1.4.1",
+    "@colony/colony-js-contract-loader-network": "^1.0.3",
     "buffer": "^5.1.0",
     "ethers": "^3.0.17",
     "ipfs": "^0.29.2"
