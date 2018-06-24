@@ -724,7 +724,7 @@ export default class ColonyClient extends ContractClient {
     ]);
     this.addEvent('TaskDueDateChanged', [
       ['id', 'number'],
-      ['dueDate', 'number'],
+      ['dueDate', 'date'],
     ]);
     this.addEvent('TaskDomainChanged', [
       ['id', 'number'],
