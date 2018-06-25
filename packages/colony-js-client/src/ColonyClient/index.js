@@ -494,7 +494,7 @@ export default class ColonyClient extends ContractClient {
   */
   mintTokens: ColonyClient.Sender<
     {
-      amount: number, // Amount of new tokens to be minted.
+      amount: BigNumber, // Amount of new tokens to be minted.
     },
     {},
     ColonyClient,
@@ -504,7 +504,7 @@ export default class ColonyClient extends ContractClient {
   */
   mintTokensForColonyNetwork: ColonyClient.Sender<
     {
-      amount: number, // Amount of new tokens to be minted.
+      amount: BigNumber, // Amount of new tokens to be minted.
     },
     {},
     ColonyClient,

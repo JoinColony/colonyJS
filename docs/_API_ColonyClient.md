@@ -646,7 +646,7 @@ The owner of a Colony may mint new tokens.
 
 |Argument|Type|Description|
 |---|---|---|
-|amount|number|Amount of new tokens to be minted.|
+|amount|BigNumber|Amount of new tokens to be minted.|
 
 **Returns**
 
@@ -662,7 +662,7 @@ In the case of the Colony Network, only the Meta Colony may mint new tokens.
 
 |Argument|Type|Description|
 |---|---|---|
-|amount|number|Amount of new tokens to be minted.|
+|amount|BigNumber|Amount of new tokens to be minted.|
 
 **Returns**
 

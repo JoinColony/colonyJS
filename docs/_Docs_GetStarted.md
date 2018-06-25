@@ -188,7 +188,7 @@ await colonyClient.token.setOwner.send({ owner: colonyClient.contract.address })
 await colonyClient.authority.setUserRole.send({ user: wallet.address, role: 'ADMIN' });
 
 // Mint some tokens
-await colonyClient.mintTokens.send({ amount: 1000 });
+await colonyClient.mintTokens.send({ amount: new BigNumber(1000) });
 
 // Get the total supply
 const { amount } = await colonyClient.token.getTotalSupply.call();
