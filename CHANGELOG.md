@@ -2,6 +2,10 @@
 
 ## v.NEXT
 
+**Maintenance**
+
+* Add a `DomainAdded` event, which is emitted when calling `ColonyClient.addDomain` (`@colony/colony-js-client`)
+* Add a `PotAdded` event, which is emitted when calling `ColonyClient.addDomain` and `ColonyClient.createTask` (`@colony/colony-js-client`)
 
 ## v1.5.3
 
