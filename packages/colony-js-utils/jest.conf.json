@@ -1,6 +1,6 @@
 {
     "rootDir": "src",
-    "collectCoverageFrom" : ["*.{js}", "**/*.{js}"],
+    "collectCoverageFrom" : ["*.{js}", "**/*.{js}", "!index.js"],
     "coverageDirectory": "../coverage",
     "coverageThreshold": {
         "global": {

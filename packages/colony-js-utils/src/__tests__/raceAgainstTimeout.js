@@ -1,5 +1,4 @@
 /* eslint-env jest */
-/* eslint no-underscore-dangle: 0 */
 import createSandbox from 'jest-sandbox';
 
 import raceAgainstTimeout from '../raceAgainstTimeout';
@@ -9,18 +8,20 @@ describe('raceAgainstTimeout', () => {
 
   beforeEach(() => sandbox.clear());
 
-  test('Promise resolves before timeout', async () => {
+  test('Timeout ends before promise resolves', async () => {
     const promise = new Promise(resolve => {
       setTimeout(() => {
         resolve('result');
       }, 3000);
     });
-    await expect(raceAgainstTimeout(promise, 1000)).rejects.toEqual(
-      new Error('Timeout after 1000 ms'),
-    );
+    const timeoutCallback = sandbox.fn();
+    await expect(
+      raceAgainstTimeout(promise, 1000, timeoutCallback),
+    ).rejects.toEqual(new Error('Timeout after 1000 ms'));
+    expect(timeoutCallback).toHaveBeenCalled();
   });
 
-  test('Timeout ends before promise resolves', async () => {
+  test('Promise resolves before timeout', async () => {
     const promise = new Promise(resolve => {
       setTimeout(() => {
         resolve('result');
