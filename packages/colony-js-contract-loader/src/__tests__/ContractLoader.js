@@ -44,7 +44,7 @@ describe('ContractLoader', () => {
     );
   });
 
-  test('Constructor', async () => {
+  test('Constructor should throw for invalid transform function', async () => {
     assert.mockImplementation(() => {
       throw new Error();
     });
@@ -55,19 +55,19 @@ describe('ContractLoader', () => {
     expect(assert).toHaveBeenCalledWith(false, expect.any(String));
   });
 
-  test('_load', async () => {
+  test('Placeholder _load should throw', async () => {
     const loader = new ContractLoader();
     // eslint-disable-next-line no-underscore-dangle
     expect(loader._load()).rejects.toThrow();
   });
 
-  test('Load with no query', async () => {
+  test('Load should throw if required query params not provided', async () => {
     const loader = new ContractLoader();
 
     await expect(loader.load()).rejects.toThrow(TypeError);
   });
 
-  test('Load with no result', async () => {
+  test('Load should throw if _load returns null', async () => {
     const loader = new ContractLoader();
 
     const query = {
