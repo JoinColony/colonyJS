@@ -531,6 +531,8 @@ export default class ColonyClient extends ContractClient {
   >;
 
   events: {
+    DomainAdded: ContractClient.Event<{ id: number }>,
+    PotAdded: ContractClient.Event<{ id: number }>,
     TaskAdded: ContractClient.Event<{ id: number }>,
     TaskBriefChanged: ContractClient.Event<{
       id: number,
@@ -717,6 +719,8 @@ export default class ColonyClient extends ContractClient {
     });
 
     // Events
+    this.addEvent('DomainAdded', [['id', 'number']]);
+    this.addEvent('PotAdded', [['id', 'number']]);
     this.addEvent('TaskAdded', [['id', 'number']]);
     this.addEvent('TaskBriefChanged', [
       ['id', 'number'],
@@ -763,9 +767,28 @@ export default class ColonyClient extends ContractClient {
         };
       },
     };
+    const DomainAdded = {
+      contract: this.contract,
+      handler({ id }: { id: BigNumber }) {
+        return {
+          domainId: id.toNumber(),
+        };
+      },
+    };
+    const PotAdded = {
+      contract: this.contract,
+      handler({ id }: { id: BigNumber }) {
+        return {
+          potId: id.toNumber(),
+        };
+      },
+    };
+
     this.addSender('addDomain', {
       input: [['parentSkillId', 'number']],
       eventHandlers: {
+        DomainAdded,
+        PotAdded,
         SkillAdded,
       },
     });
@@ -806,6 +829,7 @@ export default class ColonyClient extends ContractClient {
             };
           },
         },
+        PotAdded,
       },
     });
     this.addSender('finalizeTask', {
