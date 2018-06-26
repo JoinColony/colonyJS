@@ -11,6 +11,7 @@ describe('isBigNumber', () => {
     BigNumber.isBN.mockReturnValueOnce(false);
 
     expect(isBigNumber(null)).toBe(false);
+    expect(BigNumber.isBN).toHaveBeenCalledWith(null);
   });
 
   test('Ethers wrapped', () => {
@@ -22,6 +23,7 @@ describe('isBigNumber', () => {
     };
 
     expect(isBigNumber(wrappedBN)).toBe(true);
+    expect(BigNumber.isBN).toHaveBeenCalledWith(wrappedBN);
     expect(BigNumber.isBN).toHaveBeenCalledWith(bn);
   });
 });
