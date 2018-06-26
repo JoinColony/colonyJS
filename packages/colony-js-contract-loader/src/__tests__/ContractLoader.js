@@ -16,9 +16,7 @@ describe('ContractLoader', () => {
   });
 
   test('Default transform', async () => {
-    expect(
-      ContractLoader.defaultTransform()('input', 'query', 'required props'),
-    ).toBe('input');
+    expect(ContractLoader.defaultTransform()('input')).toBe('input');
   });
 
   test('Validate contract definition', async () => {
