@@ -203,10 +203,10 @@ describe('EthersAdapter', () => {
       await adapter.getEventData({
         events: createEvents(contract, contract),
         transactionHash,
-        timeoutMs: 1,
+        timeoutMs: 1000,
       });
     } catch (error) {
-      expect(error.message).toMatch('Timeout after 1 ms');
+      expect(error.message).toMatch('Timeout after 1000 ms');
     }
     jest.useFakeTimers();
 
