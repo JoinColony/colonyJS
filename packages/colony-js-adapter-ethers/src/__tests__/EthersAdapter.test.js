@@ -198,17 +198,16 @@ describe('EthersAdapter', () => {
     sandbox.spyOn(contract, '_dispatchEvent');
     sandbox.spyOn(contract, 'removeListener');
 
-    jest.useRealTimers();
     try {
       await adapter.getEventData({
         events: createEvents(contract, contract),
         transactionHash,
         timeoutMs: 1000,
       });
+      jest.runAllTimers();
     } catch (error) {
       expect(error.message).toMatch('Timeout after 1000 ms');
     }
-    jest.useFakeTimers();
 
     // no events dispatched
     expect(contract._dispatchEvent).toHaveBeenCalledTimes(0);
