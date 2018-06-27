@@ -136,10 +136,14 @@ const PARAM_TYPE_MAP: {
       return isValidAddress(value) || isEmptyHexString(value);
     },
     convertInput(value: string) {
-      return value;
+      // Expand `0x0` to a full-length address
+      return value.padEnd(42, '0');
     },
-    convertOutput(value: string) {
-      return value;
+    convertOutput(value: any) {
+      // Expand `0x0` to a full-length address (for a valid address)
+      return isValidAddress(value) || isEmptyHexString(value)
+        ? value.padEnd(42, '0')
+        : null;
     },
   },
 };

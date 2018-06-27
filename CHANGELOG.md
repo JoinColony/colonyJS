@@ -2,6 +2,11 @@
 
 ## v.NEXT
 
+**Bug fixes**
+
+* Partial empty hex strings (e.g. `0x0`) are now padded to full-length, which resolves an issue with `EthersAdapter` (`@colony/colony-js-contract-client`)
+* The `isEmptyHexString` utility function now evaluates the input type (`@colony/colony-js-utils`)
+
 **Maintenance**
 
 * Add a `DomainAdded` event, which is emitted when calling `ColonyClient.addDomain` (`@colony/colony-js-client`)

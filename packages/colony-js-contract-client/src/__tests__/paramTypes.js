@@ -32,6 +32,28 @@ describe('Parameter types', () => {
     expect(convertInputValue(validAddress, 'address')).toBe(validAddress);
   });
 
+  test('Token addresses are handled properly', () => {
+    const etherShort = '0x0';
+    const etherFull = '0x0000000000000000000000000000000000000000';
+
+    // Validation
+    expect(validateValueType(validAddress, 'tokenAddress')).toBe(true);
+    expect(validateValueType(etherShort, 'tokenAddress')).toBe(true);
+    expect(validateValueType(etherFull, 'tokenAddress')).toBe(true);
+
+    // Converting output values
+    expect(convertOutputValue(validAddress, 'tokenAddress')).toBe(validAddress);
+    expect(convertOutputValue(etherShort, 'tokenAddress')).toBe(etherFull);
+    expect(convertOutputValue(etherFull, 'tokenAddress')).toBe(etherFull);
+
+    expect(convertOutputValue(null, 'tokenAddress')).toBe(null);
+
+    // Converting input values
+    expect(convertInputValue(validAddress, 'tokenAddress')).toBe(validAddress);
+    expect(convertInputValue(etherShort, 'tokenAddress')).toBe(etherFull);
+    expect(convertInputValue(etherFull, 'tokenAddress')).toBe(etherFull);
+  });
+
   test('BigNumbers are handled properly', () => {
     const bn = new BigNumber(1);
 
