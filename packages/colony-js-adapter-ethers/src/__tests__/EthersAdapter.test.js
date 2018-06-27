@@ -199,12 +199,13 @@ describe('EthersAdapter', () => {
     sandbox.spyOn(contract, 'removeListener');
 
     try {
-      await adapter.getEventData({
+      const promise = adapter.getEventData({
         events: createEvents(contract, contract),
         transactionHash,
         timeoutMs: 1000,
       });
       jest.runAllTimers();
+      await promise;
     } catch (error) {
       expect(error.message).toMatch('Timeout after 1000 ms');
     }
