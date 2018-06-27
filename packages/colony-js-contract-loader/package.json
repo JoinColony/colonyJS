@@ -18,7 +18,9 @@
         "clean": "shx rm -rf lib",
         "flow": "flow check",
         "lint": "eslint src/{,**/}*.js",
-        "precommit": "lint-staged"
+        "precommit": "lint-staged",
+        "test": "yarn run flow && yarn run lint && yarn run test:unit",
+        "test:unit": "jest --coverage --config=jest.conf.json"
     },
     "lint-staged": {
         "./{,interface/}*": [
@@ -37,7 +39,8 @@
     "homepage": "https://github.com/JoinColony/colonyJS#readme",
     "devDependencies": {
         "flow-bin": "^0.73.0",
-        "flow-copy-source": "^2.0.0"
+        "flow-copy-source": "^2.0.0",
+        "jest-sandbox": "^1.1.2"
     },
     "engines": {
         "node": ">=8.2.1",
