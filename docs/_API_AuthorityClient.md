@@ -25,14 +25,14 @@ Note: these authority roles are distinct from the 'roles' assigned in a task (ma
 
 ==TOC==
 
-  
+
 ## Callers
 
 **All callers return promises which resolve to an object containing the given return values.** For a reference please check [here](/colonyjs/docs-contractclient/#callers).
 
-### `getUserRole.call({ user })`
+### `getUserRoles.call({ user })`
 
-Get the given user's role.
+Get the given user's authority roles.
 
 **Arguments**
 
@@ -46,7 +46,7 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|role|Authority Role|That user's authority role.|
+|roles|Authority Roles|An array of the user's authority roles.|
 
 ### `hasUserRole.call({ user, role })`
 
@@ -67,7 +67,7 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |hasRole|boolean|Whether or not the user has the role provided.|
 
-  
+
 ## Senders
 
 **All senders return an instance of a `ContractResponse`.** Every `send()` method takes an `options` object as the second argument. For a reference please check [here](/colonyjs/docs-contractclient/#senders).

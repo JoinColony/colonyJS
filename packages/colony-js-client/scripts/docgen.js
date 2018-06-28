@@ -38,6 +38,7 @@ const TYPES = {
   BigNumber: 'BigNumber',
   Role: 'Role',
   AuthorityRole: 'Authority Role',
+  AuthorityRoles: 'Authority Roles',
   IPFSHash: 'IPFS hash',
   TokenAddress: 'Token address',
   HexString: 'Hex string',

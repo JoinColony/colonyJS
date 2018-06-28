@@ -1,21 +1,22 @@
 /* @flow */
 
 import ContractClient from '@colony/colony-js-contract-client';
-import { AUTHORITY_ROLES } from '../constants';
+import { AUTHORITY_ROLES, COMBINED_AUTHORITY_ROLES } from '../constants';
 
 type Address = string;
 type AuthorityRole = $Keys<typeof AUTHORITY_ROLES>;
+type AuthorityRoles = $Keys<typeof COMBINED_AUTHORITY_ROLES>;
 
 export default class AuthorityClient extends ContractClient {
   /*
-  Get the given user's role.
+  Get the given user's authority roles.
   */
-  getUserRole: AuthorityClient.Caller<
+  getUserRoles: AuthorityClient.Caller<
     {
       user: Address, // The user in question.
     },
     {
-      role: AuthorityRole, // That user's authority role.
+      roles: AuthorityRoles, // An array of the user's authority roles.
     },
     AuthorityClient,
   >;
@@ -54,11 +55,10 @@ export default class AuthorityClient extends ContractClient {
   initializeContractMethods() {
     const user = ['user', 'address'];
     const role = ['role', 'authorityRole'];
-
-    this.addCaller('getUserRole', {
+    const roles = ['roles', 'authorityRoles'];
+    this.addCaller('getUserRoles', {
       input: [user],
-      output: [role],
-      functionName: 'getUserRoles',
+      output: [roles],
     });
     this.addCaller('hasUserRole', {
       input: [user, role],

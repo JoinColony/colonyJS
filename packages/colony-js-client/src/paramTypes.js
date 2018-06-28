@@ -4,7 +4,7 @@ import { isBigNumber } from '@colony/colony-js-utils';
 import { isHexStrict, hexToNumber } from 'web3-utils';
 import { addParamType } from '@colony/colony-js-contract-client';
 
-import { ROLES, AUTHORITY_ROLES } from './constants';
+import { ROLES, AUTHORITY_ROLES, COMBINED_AUTHORITY_ROLES } from './constants';
 
 const roleType = (roles: { [roleName: string]: number }) => ({
   validate(value: any) {
@@ -15,9 +15,7 @@ const roleType = (roles: { [roleName: string]: number }) => ({
   },
   convertOutput(value: any) {
     let converted;
-    if (isHexStrict(value)) {
-      converted = hexToNumber(value);
-    } else if (isBigNumber(value)) {
+    if (isBigNumber(value)) {
       converted = value.toNumber();
     } else {
       converted = value;
@@ -26,6 +24,27 @@ const roleType = (roles: { [roleName: string]: number }) => ({
   },
 });
 
+const roleTypeArray = (roles: { [roleName: string]: number }) => ({
+  validate(value: any) {
+    return Object.hasOwnProperty.call(roles, value);
+  },
+  convertOutput(value: any) {
+    let converted;
+    if (isHexStrict(value)) {
+      converted = hexToNumber(value);
+    } else {
+      converted = value;
+    }
+    return converted
+      ? Object.keys(roles)
+          .find(name => roles[name] === converted)
+          .split(',')
+      : [];
+  },
+});
+
 addParamType('role', roleType(ROLES));
 
 addParamType('authorityRole', roleType(AUTHORITY_ROLES));
+
+addParamType('authorityRoles', roleTypeArray(COMBINED_AUTHORITY_ROLES));
