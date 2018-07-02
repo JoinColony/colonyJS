@@ -28,8 +28,15 @@ jest.mock('ethers', () => {
     .fn()
     .mockReturnValue({ data: '0x123' });
   return {
+    utils: {
+      arrayify: jest.fn().mockReturnValue('bytes'),
+      splitSignature: jest.fn().mockReturnValue({ r: 'r', s: 's', v: 'v' }),
+    },
     Contract: MockContract,
     Interface: jest.fn(),
+    SigningKey: {
+      recover: jest.fn().mockReturnValue('recovered address'),
+    },
   };
 });
 
@@ -44,23 +51,22 @@ describe('EthersAdapter', () => {
 
   beforeEach(() => sandbox.clear());
 
+  jest.useFakeTimers();
+
   const mockLoader = {
-    load: jest
-      .fn()
-      .mockReturnValue(Promise.resolve({ address, abi, bytecode })),
+    load: sandbox.fn().mockResolvedValue({ address, abi, bytecode }),
   };
   const mockProvider = {
-    on: jest.fn(),
-    resolveName: jest.fn(),
-    getTransactionReceipt: jest.fn().mockImplementation(txHash => ({
-      transactionHash: txHash,
-      dummyReceipt: true,
-    })),
+    on: sandbox.fn(),
+    resolveName: sandbox.fn(),
+    getTransactionReceipt: sandbox.fn(),
+    waitForTransaction: sandbox.fn(),
   };
 
   const mockWallet = {
-    on: jest.fn(),
-    resolveName: jest.fn(),
+    on: sandbox.fn(),
+    resolveName: sandbox.fn(),
+    signMessage: sandbox.fn(),
   };
 
   const adapter = new EthersAdapter({
@@ -74,17 +80,39 @@ describe('EthersAdapter', () => {
   });
 
   test('Adapter calls Contract with correct arguments', async () => {
-    sandbox.spyOn(adapter.loader, 'load');
-    const query = { name: 'myContractName' };
-
-    const contract = await adapter.getContract(query);
-
-    expect(adapter.loader.load).toHaveBeenCalledTimes(1);
-    expect(adapter.loader.load).toHaveBeenCalledWith(query, {
+    const query = {
+      contractName: 'MyContract',
+    };
+    const defaults = {
       abi: true,
       address: true,
       bytecode: false,
+    };
+
+    // If the address is missing
+    adapter.loader.load.mockResolvedValueOnce({
+      address: null,
+      abi,
+      bytecode,
     });
+    try {
+      await adapter.getContract(query);
+      expect(false).toBe(true); // Should be unreachable
+    } catch (error) {
+      expect(error.toString()).toMatch('Unable to parse contract address');
+      expect(adapter.loader.load).toHaveBeenCalledWith(query, defaults);
+    }
+    adapter.loader.load.mockReset();
+
+    // If the address is found
+    adapter.loader.load.mockResolvedValue({
+      address,
+      abi,
+      bytecode,
+    });
+    const contract = await adapter.getContract(query);
+    expect(adapter.loader.load).toHaveBeenCalledTimes(1);
+    expect(adapter.loader.load).toHaveBeenCalledWith(query, defaults);
     expect(contract).toBeInstanceOf(EthersContract);
     expect(JSON.stringify(contract.provider)).toBe(
       JSON.stringify(adapter.provider),
@@ -217,16 +245,30 @@ describe('EthersAdapter', () => {
     expect(contract.removeListener).toHaveBeenCalledTimes(4);
   });
 
-  test('getTransactionReceipt', async () => {
-    const receipt = await adapter.getTransactionReceipt(transactionHash);
-    expect(receipt).toMatchObject({ transactionHash, dummyReceipt: true });
-    expect(mockProvider.getTransactionReceipt).toHaveBeenCalledTimes(1);
+  test('Getting a transaction receipt', async () => {
+    const receipt = { hash: transactionHash };
+
+    try {
+      mockProvider.getTransactionReceipt.mockResolvedValueOnce(null);
+      await adapter.getTransactionReceipt(transactionHash);
+      expect(false).toBe(true); // Should be unreachable
+    } catch (error) {
+      expect(error.toString()).toMatch('Transaction receipt not found');
+      expect(mockProvider.getTransactionReceipt).toHaveBeenCalledWith(
+        transactionHash,
+      );
+      mockProvider.getTransactionReceipt.mockReset();
+    }
+
+    mockProvider.getTransactionReceipt.mockResolvedValueOnce(receipt);
+    const receivedValue = await adapter.getTransactionReceipt(transactionHash);
+    expect(receivedValue).toEqual(receipt);
     expect(mockProvider.getTransactionReceipt).toHaveBeenCalledWith(
       transactionHash,
     );
   });
 
-  test('getContractDeployTransaction', async () => {
+  test('Getting a contract deployment transaction', async () => {
     sandbox.spyOn(adapter.loader, 'load');
 
     const query = {
@@ -252,5 +294,67 @@ describe('EthersAdapter', () => {
       abi,
       ...contractArgs,
     );
+  });
+
+  test('Waiting for a transaction receipt', async () => {
+    const transaction = { hash: transactionHash };
+    const receipt = { hash: transactionHash };
+
+    // For this test, simulate that we couldn't get the receipt on the first
+    // try (i.e. it has not yet been mined).
+    mockProvider.getTransactionReceipt
+      .mockResolvedValueOnce(null)
+      .mockResolvedValueOnce(receipt);
+
+    mockProvider.waitForTransaction.mockResolvedValue(transaction);
+
+    const receivedValue = await adapter.waitForTransactionReceipt(
+      transactionHash,
+    );
+
+    expect(mockProvider.getTransactionReceipt).toHaveBeenCalledTimes(2);
+    expect(mockProvider.getTransactionReceipt).toHaveBeenCalledWith(
+      transactionHash,
+    );
+    expect(mockProvider.waitForTransaction).toHaveBeenCalledWith(
+      transactionHash,
+    );
+    expect(receivedValue).toEqual(receipt);
+
+    // For this try, let's make getTransactionReceipt fail in a cool
+    // and interesting way
+    sandbox
+      .spyOn(adapter, 'getTransactionReceipt')
+      .mockImplementationOnce(async () => {
+        throw new Error('Kaboom!');
+      });
+    try {
+      await adapter.waitForTransactionReceipt(transactionHash);
+      expect(false).toBe(true); // Should be unreachable
+    } catch (error) {
+      expect(error.toString()).toMatch('Kaboom!');
+    }
+    sandbox.restore(adapter, 'getTransactionReceipt');
+  });
+
+  test('Signing a message', async () => {
+    const signature = 'signature';
+    const messageHash = '0x123';
+
+    adapter.wallet.signMessage.mockResolvedValue(signature);
+    const splitSignature = await adapter.signMessage(messageHash);
+
+    expect(splitSignature).toEqual({ sigR: 'r', sigS: 's', sigV: 'v' });
+    expect(ethers.utils.arrayify).toHaveBeenCalledWith(messageHash);
+    expect(ethers.utils.splitSignature).toHaveBeenCalledWith(signature);
+    expect(adapter.wallet.signMessage).toHaveBeenCalledWith('bytes');
+  });
+
+  test('Recovering an address from a digest/signature', () => {
+    const digest = [0, 1, 2, 3];
+    const signature = { sigR: 'r', sigS: 's', sigV: 28 };
+    const recoveredAddress = adapter.ecRecover(digest, signature);
+    expect(recoveredAddress).toBe('recovered address');
+    expect(ethers.SigningKey.recover).toHaveBeenCalledWith(digest, 'r', 's', 1);
   });
 });
