@@ -11,13 +11,8 @@ export function convertInputValues<InputTypes: Object>(
   inputValues: InputTypes,
   valuesSpec: Params,
 ) {
-  return valuesSpec.map(([paramName, paramType, defaultValue]) =>
-    convertInputValue(
-      Object.hasOwnProperty.call(inputValues, paramName)
-        ? inputValues[paramName]
-        : defaultValue,
-      paramType,
-    ),
+  return valuesSpec.map(([paramName, paramType]) =>
+    convertInputValue(inputValues[paramName], paramType),
   );
 }
 
