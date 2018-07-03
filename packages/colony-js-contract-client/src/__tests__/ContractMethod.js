@@ -75,13 +75,13 @@ describe('ContractMethod', () => {
       functionName: 'myFunction',
     });
 
-    sandbox.spyOn(method, 'validate');
+    sandbox.spyOn(method, '_validate');
     sandbox.spyOn(method, '_getMethodArgs');
 
     expect(method.getValidatedArgs(inputValues)).toEqual([
       'converted input: 1',
     ]);
-    expect(method.validate).toHaveBeenCalledWith(inputValues, method.input);
+    expect(method._validate).toHaveBeenCalledWith(inputValues, method.input);
     expect(method._getMethodArgs).toHaveBeenCalledWith(
       inputValues,
       method.input,
@@ -140,26 +140,37 @@ describe('ContractMethod', () => {
 
     const specificationHash = 'QmcNbGg6EVfFn2Z1QxWauR9XY9KhnEcyb5DUXCXHi8pwMJ';
     const domainId = 1;
-    const input = [
-      ['specificationHash', 'ipfsHash'],
-      ['domainId', 'number', domainId],
-    ];
+    const input = [['specificationHash', 'ipfsHash'], ['domainId', 'number']];
+    const defaultValues = { domainId };
     const inputValues = { specificationHash };
+    const withDefaults = { specificationHash, domainId };
 
     const method = new ContractMethod({
       client,
       input,
       functionName: 'myFunction',
+      defaultValues,
     });
 
-    expect(method.convertInputValues(inputValues, input)).toEqual([
-      specificationHash,
-      domainId,
-    ]);
-    expect(types.convertInputValue).toHaveBeenCalledWith(
-      specificationHash,
-      'ipfsHash',
+    sandbox.spyOn(method.constructor, '_getDefaultValues');
+    sandbox.spyOn(method, '_validate');
+    sandbox.spyOn(method, '_getMethodArgs');
+
+    const args = method.getValidatedArgs(inputValues);
+
+    expect(args).toEqual([specificationHash, domainId]);
+    expect(method.constructor._getDefaultValues).toHaveBeenCalledWith(
+      inputValues,
+      input,
+      defaultValues,
     );
-    expect(types.convertInputValue).toHaveBeenCalledWith(domainId, 'number');
+    expect(method._validate).toHaveBeenCalledWith(
+      expect.objectContaining(withDefaults),
+      input,
+    );
+    expect(method._getMethodArgs).toHaveBeenCalledWith(
+      expect.objectContaining(withDefaults),
+      input,
+    );
   });
 });
