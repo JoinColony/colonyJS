@@ -75,6 +75,6 @@ export function validateParams(
   );
 
   return spec.every(paramSpec =>
-    validateValue(inputValues[paramSpec[0]], paramSpec),
+    validateValue(inputValues[paramSpec[0]], paramSpec, assertValid),
   );
 }
