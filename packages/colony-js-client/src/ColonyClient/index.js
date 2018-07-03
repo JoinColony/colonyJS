@@ -829,12 +829,10 @@ export default class ColonyClient extends ContractClient {
       client: this,
       name: 'createTask',
       functionName: 'makeTask',
-      input: [
-        // Flow hates you for using an optional last parameter in a tuple
-        // $FlowFixMe
-        ['specificationHash', 'ipfsHash'],
-        ['domainId', 'number', DEFAULT_DOMAIN_ID],
-      ],
+      input: [['specificationHash', 'ipfsHash'], ['domainId', 'number']],
+      defaultValues: {
+        domainId: DEFAULT_DOMAIN_ID,
+      },
       eventHandlers: {
         TaskAdded: {
           contract: this.contract,
