@@ -19,17 +19,14 @@ export const isInputEmpty = (input: any) =>
 
 export function validateValue(
   value: any,
-  [name, type, defaultValue]: Param,
+  [name, type]: Param,
   assertValid?: AssertionMethod = defaultAssert,
 ) {
   let reason;
   let isValid = false;
 
   try {
-    isValid = validateValueType(
-      typeof value !== 'undefined' ? value : defaultValue,
-      type,
-    );
+    isValid = validateValueType(value, type);
   } catch (error) {
     reason = error.message || error.toString();
   }

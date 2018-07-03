@@ -12,7 +12,7 @@ export type ParamTypes =
   | 'string';
 
 // [param name, param type, default value (optional)]
-export type Param = [string, ParamTypes, *];
+export type Param = [string, ParamTypes];
 export type Params = Array<Param>;
 
 export type ParamTypeDef = {
