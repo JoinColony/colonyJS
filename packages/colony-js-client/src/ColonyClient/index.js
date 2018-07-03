@@ -13,6 +13,7 @@ import ColonyNetworkClient from '../ColonyNetworkClient/index';
 import TokenClient from '../TokenClient/index';
 import AuthorityClient from '../AuthorityClient/index';
 import GetTask from './callers/GetTask';
+import CreateTask from './senders/CreateTask';
 import {
   ROLES,
   WORKER_ROLE,
@@ -824,9 +825,13 @@ export default class ColonyClient extends ContractClient {
         ['token', 'tokenAddress'],
       ],
     });
-    this.addSender('createTask', {
+    this.createTask = new CreateTask({
+      client: this,
+      name: 'createTask',
       functionName: 'makeTask',
       input: [
+        // Flow hates you for using an optional last parameter in a tuple
+        // $FlowFixMe
         ['specificationHash', 'ipfsHash'],
         ['domainId', 'number', DEFAULT_DOMAIN_ID],
       ],
