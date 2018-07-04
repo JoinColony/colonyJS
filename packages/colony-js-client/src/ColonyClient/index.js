@@ -748,6 +748,16 @@ export default class ColonyClient extends ContractClient {
       ['token', 'tokenAddress'],
       ['amount', 'number'],
     ]);
+    this.addEvent('TaskDeliverableSubmitted', [
+      ['id', 'number'],
+      ['deliverableHash', 'ipfsHash'],
+    ]);
+    this.addEvent('TaskWorkRatingRevealed', [
+      ['id', 'number'],
+      // $FlowFixMe
+      ['role', 'role'],
+      ['rating', 'number'],
+    ]);
     this.addEvent('TaskFinalized', [['id', 'number']]);
     this.addEvent('TaskCanceled', [['id', 'number']]);
 
