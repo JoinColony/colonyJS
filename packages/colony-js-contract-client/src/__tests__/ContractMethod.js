@@ -67,12 +67,12 @@ describe('ContractMethod', () => {
       functionName: 'myFunction',
     });
 
-    sandbox.spyOn(method, '_validate');
+    sandbox.spyOn(method, 'validate');
 
     expect(method.getValidatedArgs(inputValues)).toEqual([
       'converted input: 1',
     ]);
-    expect(method._validate).toHaveBeenCalledWith(inputValues, method.input);
+    expect(method.validate).toHaveBeenCalledWith(inputValues, method.input);
   });
 
   test('Contract return values are mapped to expected output', () => {
@@ -140,7 +140,7 @@ describe('ContractMethod', () => {
     });
 
     sandbox.spyOn(method.constructor, '_applyDefaultValues');
-    sandbox.spyOn(method, '_validate');
+    sandbox.spyOn(method, 'validate');
 
     const args = method.getValidatedArgs(inputValues);
 
@@ -150,7 +150,7 @@ describe('ContractMethod', () => {
       input,
       defaultValues,
     );
-    expect(method._validate).toHaveBeenCalledWith(
+    expect(method.validate).toHaveBeenCalledWith(
       expect.objectContaining(withDefaults),
       input,
     );

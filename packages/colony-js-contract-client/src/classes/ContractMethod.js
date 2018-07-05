@@ -92,11 +92,7 @@ export default class ContractMethod<
       params,
       defaultValues,
     );
-    return this._validate(values);
-  }
-
-  _validate(inputValues?: any, params: Params = this.input) {
-    return validateParams(inputValues, params, this.assertValid);
+    return validateParams(values, params, this.assertValid);
   }
 
   /**
@@ -144,7 +140,7 @@ export default class ContractMethod<
       params,
       defaultValues,
     );
-    this._validate(values, params);
+    this.validate(values, params);
 
     return params && params.length
       ? this.convertInputValues(values, params)
