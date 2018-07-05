@@ -39,7 +39,7 @@ describe('ContractMethod', () => {
 
     sandbox.spyOn(method, 'convertInputValues').mockImplementation(() => [1]);
 
-    expect(method._getMethodArgs(inputValues, method.input)).toEqual([1]);
+    expect(method.getValidatedArgs(inputValues, method.input)).toEqual([1]);
     expect(method.convertInputValues).toHaveBeenCalledWith(
       inputValues,
       method.input,
@@ -54,15 +54,7 @@ describe('ContractMethod', () => {
 
     sandbox.spyOn(console, 'warn').mockImplementation(() => {});
 
-    expect(method._getMethodArgs()).toEqual([]);
-
-    // There should be a warning if input values are supplied
-    expect(method._getMethodArgs({ id: 1 })).toEqual([]);
-    expect(console.warn).toHaveBeenCalledTimes(1);
-    expect(console.warn).toHaveBeenCalledWith(
-      // eslint-disable-next-line max-len
-      'Warning: _getMethodArgs called with parameters for a method that does not accept parameters',
-    );
+    expect(method.getValidatedArgs()).toEqual([]);
   });
 
   test('Getting validated arguments', () => {
@@ -76,16 +68,11 @@ describe('ContractMethod', () => {
     });
 
     sandbox.spyOn(method, '_validate');
-    sandbox.spyOn(method, '_getMethodArgs');
 
     expect(method.getValidatedArgs(inputValues)).toEqual([
       'converted input: 1',
     ]);
     expect(method._validate).toHaveBeenCalledWith(inputValues, method.input);
-    expect(method._getMethodArgs).toHaveBeenCalledWith(
-      inputValues,
-      method.input,
-    );
   });
 
   test('Contract return values are mapped to expected output', () => {
@@ -152,23 +139,18 @@ describe('ContractMethod', () => {
       defaultValues,
     });
 
-    sandbox.spyOn(method.constructor, '_getDefaultValues');
+    sandbox.spyOn(method.constructor, '_applyDefaultValues');
     sandbox.spyOn(method, '_validate');
-    sandbox.spyOn(method, '_getMethodArgs');
 
     const args = method.getValidatedArgs(inputValues);
 
     expect(args).toEqual([specificationHash, domainId]);
-    expect(method.constructor._getDefaultValues).toHaveBeenCalledWith(
+    expect(method.constructor._applyDefaultValues).toHaveBeenCalledWith(
       inputValues,
       input,
       defaultValues,
     );
     expect(method._validate).toHaveBeenCalledWith(
-      expect.objectContaining(withDefaults),
-      input,
-    );
-    expect(method._getMethodArgs).toHaveBeenCalledWith(
       expect.objectContaining(withDefaults),
       input,
     );

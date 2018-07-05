@@ -1,7 +1,6 @@
 /* @flow */
 /* eslint-disable no-underscore-dangle */
 
-import isPlainObject from 'lodash.isplainobject';
 import { makeAssert } from '@colony/colony-js-utils';
 
 import ContractClient from './ContractClient';
@@ -33,20 +32,20 @@ export default class ContractMethod<
    * the parameters and construct and object with the properties from the
    * input values (if they are defined) or default values.
    */
-  static _getDefaultValues(
-    inputValues: * = {},
-    params: Params,
+  static _applyDefaultValues(
+    inputValues: InputValues,
+    params: Params = [],
     defaultValues: DefaultValues = {},
-  ) {
-    return params.reduce(
-      (acc, [name]) =>
-        Object.assign(acc, {
-          [name]: Object.hasOwnProperty.call(inputValues, name)
-            ? inputValues[name]
-            : defaultValues[name],
-        }),
-      {},
-    );
+  ): InputValues {
+    // XXX it's possible to do this in a more succinct way, but adding
+    // properties in this way preserves type safety
+    const values = Object.assign({}, inputValues);
+    params.forEach(([name]) => {
+      values[name] = Object.hasOwnProperty.call(values, name)
+        ? values[name]
+        : defaultValues[name];
+    });
+    return values;
   }
 
   constructor({
@@ -70,25 +69,6 @@ export default class ContractMethod<
    * Given named input values, transform these with the expected parameters
    * in order to get an array of arguments expected by the contract function.
    */
-  _getMethodArgs(inputValues?: *, params?: Params): Array<any> {
-    let args = [];
-
-    if (inputValues == null) return args;
-
-    if (params && params.length) {
-      args = this.convertInputValues(inputValues, params);
-    } else if (
-      isPlainObject(inputValues) &&
-      Object.getOwnPropertyNames(inputValues).length
-    ) {
-      // eslint-disable-next-line no-console
-      console.warn(
-        'Warning: _getMethodArgs called with parameters for a method that ' +
-          'does not accept parameters',
-      );
-    }
-    return args;
-  }
 
   /**
    * Given arguments to call the contract method with, return
@@ -103,14 +83,15 @@ export default class ContractMethod<
    * expected params
    */
   validate(
-    inputValues?: any,
+    inputValues: any,
     params: Params = this.input,
     defaultValues: DefaultValues = this.defaultValues,
   ) {
-    const values =
-      params && params.length
-        ? this.constructor._getDefaultValues(inputValues, params, defaultValues)
-        : inputValues;
+    const values = this.constructor._applyDefaultValues(
+      inputValues,
+      params,
+      defaultValues,
+    );
     return this._validate(values);
   }
 
@@ -150,19 +131,23 @@ export default class ContractMethod<
   }
 
   /**
-   * Given input values, get default values (if params are given), then
-   * validate them and return parsed method args.
+   * Given input values, get default values, then validate them and return
+   * parsed method args.
    */
   getValidatedArgs(
     inputValues: any,
     params: Params = this.input,
     defaultValues: DefaultValues = this.defaultValues,
   ) {
-    const values =
-      params && params.length
-        ? this.constructor._getDefaultValues(inputValues, params, defaultValues)
-        : inputValues;
+    const values = this.constructor._applyDefaultValues(
+      inputValues,
+      params,
+      defaultValues,
+    );
     this._validate(values, params);
-    return this._getMethodArgs(values, params);
+
+    return params && params.length
+      ? this.convertInputValues(values, params)
+      : [];
   }
 }

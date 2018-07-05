@@ -76,18 +76,15 @@ describe('ContractMethodSender', () => {
 
     const gasEstimate = new BigNumber(1000);
 
-    sandbox.spyOn(method, '_validate').mockImplementation(() => true);
-    sandbox.spyOn(method, '_getMethodArgs').mockImplementation(() => callArgs);
+    sandbox
+      .spyOn(method, 'getValidatedArgs')
+      .mockImplementation(() => callArgs);
     sandbox
       .spyOn(client, 'estimate')
       .mockImplementation(async () => gasEstimate);
 
     expect(await method.estimate(inputValues, options)).toBe(gasEstimate);
-    expect(method._validate).toHaveBeenCalledWith(inputValues, method.input);
-    expect(method._getMethodArgs).toHaveBeenCalledWith(
-      inputValues,
-      method.input,
-    );
+    expect(method.getValidatedArgs).toHaveBeenCalledWith(inputValues);
     expect(method.client.estimate).toHaveBeenCalledWith(
       method.functionName,
       callArgs,
@@ -102,17 +99,14 @@ describe('ContractMethodSender', () => {
       eventHandlers,
     });
 
-    sandbox.spyOn(method, '_validate').mockImplementation(() => true);
-    sandbox.spyOn(method, '_getMethodArgs').mockImplementation(() => callArgs);
+    sandbox
+      .spyOn(method, 'getValidatedArgs')
+      .mockImplementation(() => callArgs);
     sandbox.spyOn(client, 'send').mockImplementation(async () => transaction);
     method._send = sandbox.fn(() => contractResponse);
 
     expect(await method.send(inputValues, options)).toEqual(contractResponse);
-    expect(method._validate).toHaveBeenCalledWith(inputValues, method.input);
-    expect(method._getMethodArgs).toHaveBeenCalledWith(
-      inputValues,
-      method.input,
-    );
+    expect(method.getValidatedArgs).toHaveBeenCalledWith(inputValues);
     expect(method._send).toHaveBeenCalledWith(callArgs, options);
   });
 
