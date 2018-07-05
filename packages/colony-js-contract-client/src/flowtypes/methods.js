@@ -1,7 +1,6 @@
 /* @flow */
 
 import type BigNumber from 'bn.js';
-
 import type {
   EventHandlers,
   IAdapter,
@@ -9,34 +8,14 @@ import type {
   TransactionOptions,
   TransactionReceipt,
 } from '@colony/colony-js-adapter';
-
 import type { Query } from '@colony/colony-js-contract-loader';
 
-import ContractClient from './classes/ContractClient';
-import { SIGNING_MODES } from './constants';
+import ContractClient from '../classes/ContractClient';
+import type { Params } from './params';
+import type { Signers } from './signatures';
 
-export type ParamTypes =
-  | 'address'
-  | 'bigNumber'
-  | 'boolean'
-  | 'date'
-  | 'hexString'
-  | 'ipfsHash'
-  | 'number'
-  | 'tokenAddress'
-  | 'string';
-
-// [param name, param type, default value (optional)]
-export type Param = [string, ParamTypes, *];
-export type EventParam = [string, ParamTypes];
-
-export type Params = Array<Param>;
-export type EventParams = Array<EventParam>;
-
-export type ParamTypeDef = {
-  validate: (value: any) => boolean,
-  convertOutput: (value: any) => *,
-  convertInput: (value: any) => *,
+export type DefaultValues = {
+  [inputName: string]: *,
 };
 
 export type SendOptions = {
@@ -76,6 +55,7 @@ export type ContractMethodArgs<IContractClient: ContractClient> = {
   input: Params,
   output?: Params,
   validateEmpty?: ValidateEmpty,
+  defaultValues?: DefaultValues,
 };
 
 export type ContractMethodSenderArgs<IContractClient: ContractClient> = {
@@ -99,25 +79,6 @@ export type ContractMethodDef<IContractClient: ContractClient> = {
   functionName?: string,
   input: Params,
   output?: Params,
-};
-
-export type SigningMode = $Values<typeof SIGNING_MODES>;
-
-export type Signature = {
-  sigR: string,
-  sigS: string,
-  sigV: number,
-};
-
-export type Signers = {
-  [signeeAddress: string]: Signature & { mode: SigningMode },
-};
-
-export type CombinedSignatures = {
-  sigR: Array<string>,
-  sigS: Array<string>,
-  sigV: Array<number>,
-  mode: Array<SigningMode>,
 };
 
 export type MultisigOperationPayload<InputValues> = {

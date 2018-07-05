@@ -17,7 +17,7 @@ import ContractMethodMultisigSender from './ContractMethodMultisigSender';
 import type {
   ContractMethodDef,
   ContractClientConstructorArgs,
-  EventParams,
+  Params,
 } from '../flowtypes';
 
 export default class ContractClient {
@@ -153,7 +153,7 @@ export default class ContractClient {
    * Add event subscription functionality for a particular event of this
    * contract to the given ContractClient instance.
    */
-  addEvent(eventName: string, argsDef: EventParams): void {
+  addEvent(eventName: string, argsDef: Params): void {
     if (Reflect.has(this.events, eventName)) {
       throw new Error(`An event named "${eventName}" already exists`);
     }

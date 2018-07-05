@@ -1,7 +1,6 @@
 /* @flow */
 /* eslint-disable no-underscore-dangle */
 
-import isPlainObject from 'lodash.isplainobject';
 import { makeAssert } from '@colony/colony-js-utils';
 
 import ContractClient from './ContractClient';
@@ -10,7 +9,7 @@ import {
   convertOutputValues,
 } from '../modules/paramConversion';
 import { validateParams } from '../modules/paramValidation';
-import type { ContractMethodArgs, Params } from '../flowtypes';
+import type { ContractMethodArgs, DefaultValues, Params } from '../flowtypes';
 
 /**
  * Abstract class for interacting with contract methods.
@@ -22,13 +21,36 @@ export default class ContractMethod<
 > {
   assertValid: Function;
   client: IContractClient;
+  defaultValues: DefaultValues;
   functionName: string;
   input: Params;
   name: string;
   output: Params;
 
+  /**
+   * Given input values, method parameters and default values, iterate through
+   * the parameters and construct and object with the properties from the
+   * input values (if they are defined) or default values.
+   */
+  static _applyDefaultValues(
+    inputValues: InputValues,
+    params: Params = [],
+    defaultValues: DefaultValues = {},
+  ): InputValues {
+    // XXX it's possible to do this in a more succinct way, but adding
+    // properties in this way preserves type safety
+    const values = Object.assign({}, inputValues);
+    params.forEach(([name]) => {
+      values[name] = Object.hasOwnProperty.call(values, name)
+        ? values[name]
+        : defaultValues[name];
+    });
+    return values;
+  }
+
   constructor({
     client,
+    defaultValues,
     functionName,
     name,
     input,
@@ -39,6 +61,7 @@ export default class ContractMethod<
     this.input = input;
     this.functionName = functionName;
     this.assertValid = makeAssert(`Validation failed for ${name}`);
+    if (defaultValues) this.defaultValues = defaultValues;
     if (output) this.output = output;
   }
 
@@ -46,25 +69,6 @@ export default class ContractMethod<
    * Given named input values, transform these with the expected parameters
    * in order to get an array of arguments expected by the contract function.
    */
-  _getMethodArgs(inputValues?: InputValues, params?: Params): Array<any> {
-    let args = [];
-
-    if (inputValues == null) return args;
-
-    if (params && params.length) {
-      args = this.convertInputValues(inputValues, params);
-    } else if (
-      isPlainObject(inputValues) &&
-      Object.getOwnPropertyNames(inputValues).length
-    ) {
-      // eslint-disable-next-line no-console
-      console.warn(
-        'Warning: _getMethodArgs called with parameters for a method that ' +
-          'does not accept parameters',
-      );
-    }
-    return args;
-  }
 
   /**
    * Given arguments to call the contract method with, return
@@ -75,16 +79,25 @@ export default class ContractMethod<
   }
 
   /**
-   * Given input values, validate them against the expected params
+   * Given input values, apply default values and validate them against the
+   * expected params
    */
-  validate(inputValues?: any, params: Params = this.input) {
-    return validateParams(inputValues, params, this.assertValid);
+  validate(
+    inputValues: any,
+    params: Params = this.input,
+    defaultValues: DefaultValues = this.defaultValues,
+  ) {
+    const values = this.constructor._applyDefaultValues(
+      inputValues,
+      params,
+      defaultValues,
+    );
+    return validateParams(values, params, this.assertValid);
   }
 
   /**
    * Given input values, map them against the expected parameters,
    * with the appropriate conversion for each type.
-   * Fall back to default values for each parameter.
    */
   convertInputValues(
     inputValues: InputValues,
@@ -114,10 +127,23 @@ export default class ContractMethod<
   }
 
   /**
-   * Given input values, validate them and return parsed method args.
+   * Given input values, get default values, then validate them and return
+   * parsed method args.
    */
-  getValidatedArgs(inputValues?: any, params: Params = this.input) {
-    this.validate(inputValues, params);
-    return this._getMethodArgs(inputValues, params);
+  getValidatedArgs(
+    inputValues: any,
+    params: Params = this.input,
+    defaultValues: DefaultValues = this.defaultValues,
+  ) {
+    const values = this.constructor._applyDefaultValues(
+      inputValues,
+      params,
+      defaultValues,
+    );
+    this.validate(values, params);
+
+    return params && params.length
+      ? this.convertInputValues(values, params)
+      : [];
   }
 }

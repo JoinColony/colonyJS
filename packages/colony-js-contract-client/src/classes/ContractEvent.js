@@ -5,17 +5,10 @@ import ContractClient from '../classes/ContractClient';
 import { convertOutputValues } from '../modules/paramConversion';
 import { validateParams } from '../modules/paramValidation';
 
-import type { Params, EventParams } from '../flowtypes';
+import type { Params } from '../flowtypes';
 
 type AssertionMethod = (assertion: boolean, reason: string) => any;
 type TypedEventCallback<ParamTypes> = (args: ParamTypes) => void;
-
-const normalizeEventParams = (spec: EventParams): Params =>
-  spec.map(([parameterName, parameterType]) => [
-    parameterName,
-    parameterType,
-    undefined,
-  ]);
 
 export default class ContractEvent<ParamTypes: Object> {
   // The event's name as defined in the contract.
@@ -40,11 +33,11 @@ export default class ContractEvent<ParamTypes: Object> {
   }: {
     eventName: string,
     client: ContractClient,
-    argsDef: EventParams,
+    argsDef: Params,
   }) {
     this.eventName = eventName;
     this.client = client;
-    this.argsDef = normalizeEventParams(argsDef);
+    this.argsDef = argsDef;
 
     this._wrappedHandlers = new Map();
     this.assertValid = makeAssert(`Validation failed for event ${eventName}`);

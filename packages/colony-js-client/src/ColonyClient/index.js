@@ -13,6 +13,7 @@ import ColonyNetworkClient from '../ColonyNetworkClient/index';
 import TokenClient from '../TokenClient/index';
 import AuthorityClient from '../AuthorityClient/index';
 import GetTask from './callers/GetTask';
+import CreateTask from './senders/CreateTask';
 import {
   ROLES,
   WORKER_ROLE,
@@ -824,12 +825,14 @@ export default class ColonyClient extends ContractClient {
         ['token', 'tokenAddress'],
       ],
     });
-    this.addSender('createTask', {
+    this.createTask = new CreateTask({
+      client: this,
+      name: 'createTask',
       functionName: 'makeTask',
-      input: [
-        ['specificationHash', 'ipfsHash'],
-        ['domainId', 'number', DEFAULT_DOMAIN_ID],
-      ],
+      input: [['specificationHash', 'ipfsHash'], ['domainId', 'number']],
+      defaultValues: {
+        domainId: DEFAULT_DOMAIN_ID,
+      },
       eventHandlers: {
         TaskAdded: {
           contract: this.contract,

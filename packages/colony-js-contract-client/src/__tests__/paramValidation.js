@@ -24,12 +24,13 @@ describe('validateParams', () => {
     const spec = [
       ['taskId', 'number'],
       ['potId', 'number'],
-      ['domainId', 'number', 1],
+      ['domainId', 'number'],
     ];
 
     const params = {
       taskId: 6,
       potId: 420,
+      domainId: 1,
     };
 
     sandbox.spyOn(types, 'validateValueType');
@@ -52,7 +53,7 @@ describe('validateParams', () => {
 
     // Missing parameter
     expect(() => {
-      validation.validateParams({ taskId: 6 }, spec);
+      validation.validateParams({ taskId: 6, domainId: 1 }, spec);
     }).toThrowError('Missing parameters: "potId"');
 
     // Wine parameters
@@ -80,18 +81,13 @@ describe('validateParams', () => {
       );
     }).not.toThrow();
 
-    // Extra parameter, without the parameter that has a default value
-    expect(() => {
-      validation.validateParams(
-        { taskId: 6, potId: 420, somethingElse: 1 },
-        spec,
-      );
-    }).not.toThrow();
-
     // Wrong type
     // validateValue.mockImplementationOnce(() => false);
     expect(() => {
-      validation.validateParams({ taskId: 'six', potId: 420 }, spec);
+      validation.validateParams(
+        { taskId: 'six', domainId: 1, potId: 420 },
+        spec,
+      );
     }).toThrowError('Parameter "taskId" expected a value of type "number"');
   });
 });
@@ -135,33 +131,6 @@ describe('validateValue', () => {
     expect(() => {
       expect(validation.validateValue('abc', ['id', 'number'], assertValid));
     }).toThrowError(failureMessage);
-  });
-
-  test('Valid default values are reported as valid', () => {
-    sandbox.spyOn(types, 'validateValueType');
-
-    expect(validation.validateValue(undefined, ['id', 'number', 1])).toBe(true);
-    expect(types.validateValueType).toHaveBeenCalledWith(1, 'number');
-  });
-
-  test('Invalid default values are reported as invalid', () => {
-    sandbox.spyOn(types, 'validateValueType');
-
-    expect(() => {
-      expect(
-        validation.validateValue(
-          undefined,
-          ['id', 'number', 'a bad default value'],
-          assertValid,
-        ),
-      );
-    }).toThrowError(
-      `${failureMessage}: Parameter "id" expected a value of type "number"`,
-    );
-    expect(types.validateValueType).toHaveBeenCalledWith(
-      'a bad default value',
-      'number',
-    );
   });
 });
 
