@@ -2,6 +2,9 @@
 
 ## v.NEXT
 
+
+## v1.5.4
+
 **Features**
 
 * `Adapter.getTransactionReceipt` now waits for an in-progress transaction to be mined before attempting to get the receipt (`@colony/colony-js-adapter-ethers`, `@colony/colony-js-client`)
