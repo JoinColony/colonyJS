@@ -242,10 +242,6 @@ export default class ColonyNetworkClient extends ContractClient {
       [utf8ToHex(name), utf8ToHex(symbol), decimals],
     );
     const { hash } = await this.adapter.wallet.sendTransaction(transaction);
-    const receipt = await this.adapter.getTransactionReceipt(hash);
-    if (receipt != null) return receipt.contractAddress;
-
-    await this.adapter.waitForTransaction(hash);
     const { contractAddress } = await this.adapter.getTransactionReceipt(hash);
     return contractAddress;
   }

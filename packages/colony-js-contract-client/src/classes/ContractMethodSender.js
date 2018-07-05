@@ -71,7 +71,7 @@ export default class ContractMethodSender<
       transactionHash: transaction.hash,
     });
     const receipt = await raceAgainstTimeout(
-      this._waitForTransactionReceipt(transaction.hash),
+      this.client.adapter.getTransactionReceipt(transaction.hash),
       timeoutMs,
     );
 
@@ -95,7 +95,7 @@ export default class ContractMethodSender<
       transactionHash: transaction.hash,
     });
     const receiptPromise = raceAgainstTimeout(
-      this._waitForTransactionReceipt(transaction.hash),
+      this.client.adapter.getTransactionReceipt(transaction.hash),
       timeoutMs,
     );
     const successfulPromise = new Promise(async (resolve, reject) => {
@@ -141,19 +141,6 @@ export default class ContractMethodSender<
     transactionOptions: TransactionOptions,
   ) {
     return this.client.send(this.functionName, callArgs, transactionOptions);
-  }
-
-  async _waitForTransactionReceipt(transactionHash: string) {
-    // Firstly attempt to get the receipt immediately; the transaction
-    // may be running on TestRPC with no mining time.
-    const receipt = await this.client.adapter.getTransactionReceipt(
-      transactionHash,
-    );
-    if (receipt != null) return receipt;
-
-    // Failing that, wait until the transaction has been mined.
-    await this.client.adapter.waitForTransaction(transactionHash);
-    return this.client.adapter.getTransactionReceipt(transactionHash);
   }
 
   /**

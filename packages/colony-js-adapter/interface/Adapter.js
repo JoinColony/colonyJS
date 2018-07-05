@@ -25,7 +25,13 @@ export interface Adapter {
     timeoutMs: number,
     transactionHash: string,
   }): Promise<any>;
-  waitForTransaction(transactionHash: string): Promise<Transaction>;
-  getTransactionReceipt(transactionHash: string): Promise<TransactionReceipt>;
+  waitForTransaction(
+    transactionHash: string,
+    timeoutMs?: number,
+  ): Promise<Transaction>;
+  getTransactionReceipt(
+    transactionHash: string,
+    timeoutMs?: number,
+  ): Promise<TransactionReceipt>;
   signMessage(messageHash: string): Promise<Signature>;
 }
