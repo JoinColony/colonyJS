@@ -20,6 +20,8 @@ import ContractLoader from '@colony/colony-js-contract-loader';
 import type { ConstructorArgs } from './flowtypes';
 import EthersContract from './EthersContract';
 
+import { DEFAULT_TRANSACTION_WAIT_TIMEOUT } from './defaults';
+
 export default class EthersAdapter implements IAdapter {
   loader: ContractLoader;
   provider: IProvider;
@@ -114,10 +116,16 @@ export default class EthersAdapter implements IAdapter {
       );
     return receipt;
   }
-  async waitForTransaction(transactionHash: string) {
-    return this.provider.waitForTransaction(transactionHash);
+  async waitForTransaction(
+    transactionHash: string,
+    timeoutMs: number = DEFAULT_TRANSACTION_WAIT_TIMEOUT,
+  ) {
+    return raceAgainstTimeout(
+      this.provider.waitForTransaction(transactionHash),
+      timeoutMs,
+    );
   }
-  async getTransactionReceipt(transactionHash: string) {
+  async getTransactionReceipt(transactionHash: string, timeoutMs?: number) {
     let receipt;
     try {
       // Attempt to get the receipt immediately; the transaction may have
@@ -130,7 +138,7 @@ export default class EthersAdapter implements IAdapter {
     }
 
     // Wait until the transaction has been mined, then get the receipt.
-    await this.waitForTransaction(transactionHash);
+    await this.waitForTransaction(transactionHash, timeoutMs);
     receipt = this._getTransactionReceipt(transactionHash);
     return receipt;
   }

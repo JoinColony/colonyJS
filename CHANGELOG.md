@@ -5,6 +5,7 @@
 **Features**
 
 * `Adapter.getTransactionReceipt` now waits for an in-progress transaction to be mined before attempting to get the receipt (`@colony/colony-js-adapter-ethers`, `@colony/colony-js-client`)
+* `Adapter.getTransactionReceipt` and `Adapter.waitForTransaction` now accept a timeout argument (default: 5 minutes) (`@colony/colony-js-adapter-ethers`)
 
 **Bug fixes**
 
