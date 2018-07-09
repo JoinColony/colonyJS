@@ -370,7 +370,7 @@ export default class ColonyClient extends ContractClient {
   submitTaskWorkRating: ColonyClient.Sender<
     {
       taskId: number, // Integer taskId.
-      role: Role, // The role submitting their rating, either EVALUATOR or WORKER.
+      role: Role, // Role that receives rating, either MANAGER or WORKER.
       secret: HexString, // hidden work rating, generated as the output of `generateSecret(_salt, _rating)`, where `_rating` is a score from 1-3.
     },
     {},
@@ -382,7 +382,7 @@ export default class ColonyClient extends ContractClient {
   revealTaskWorkRating: ColonyClient.Sender<
     {
       taskId: number, // Integer taskId.
-      role: Role, // Role revealing their rating submission, either EVALUATOR or WORKER.
+      role: Role, // Role whose rating submission gets revealed, either MANAGER or WORKER.
       rating: number, // Rating scored (1-3).
       salt: string, // `_salt` value to be used in `generateSecret`. A correct value will result in the same `secret` submitted during the work rating submission period.
     },
