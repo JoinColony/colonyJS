@@ -10,7 +10,6 @@ In the current implementation of the Colony Network, some events on-chain are no
 
 The roles of `OWNER` and `ADMIN` are able to call certain specific functions on the Colony Network, which are not permitted by addresses without an authorityRole defined.
 
-
 |                                     | Role: `OWNER` | Role: `ADMIN` |
 |-------------------------------------|---------------|---------------|
 | `setToken`                          | X             |               |
