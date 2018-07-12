@@ -15,7 +15,7 @@ export default class AuthorityClient extends ContractClient {
       user: Address, // The user in question.
     },
     {
-      role: AuthorityRole, // That user's authority role.
+      role: AuthorityRole, // That user's authority role (`OWNER` or `ADMIN`).
     },
     AuthorityClient,
   >;
@@ -25,7 +25,7 @@ export default class AuthorityClient extends ContractClient {
   hasUserRole: AuthorityClient.Caller<
     {
       user: Address, // The user in question
-      role: AuthorityRole, // The role to be checked.
+      role: AuthorityRole, // The role to be checked (`OWNER` or `ADMIN`).
     },
     {
       hasRole: boolean, // Whether or not the user has the role provided.
@@ -38,7 +38,7 @@ export default class AuthorityClient extends ContractClient {
   setUserRole: AuthorityClient.Sender<
     {
       user: Address, // The user address to be granted (or stripped of) authority.
-      role: AuthorityRole, // The authority role.
+      role: AuthorityRole, // The authority role (`OWNER` or `ADMIN`).
       enabled?: boolean, // Whether or not that role has been enabled.
     },
     {},
