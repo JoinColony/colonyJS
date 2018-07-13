@@ -248,6 +248,7 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |nParents|number|Number of parent skills|
 |nChildren|number|Number of child skills|
+|isGlobalSkill|boolean|Whether or not the skill is global|
 
 ### `getSkillCount.call()`
 
