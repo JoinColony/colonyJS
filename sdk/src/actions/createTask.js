@@ -1,11 +1,12 @@
 const ecp = require('../helpers/ecp');
 
+// The following methods use Promises
 const createTask = async (colonyClient, title, description, domainId) => {
 
   // Initialise the Extended Colony Protocol
   await ecp.init();
 
-  // Create a task!
+  // Create a specification hash for the task
   const specificationHash = await ecp.saveTaskSpecification({
     title,
     description,
@@ -14,7 +15,7 @@ const createTask = async (colonyClient, title, description, domainId) => {
   // Do some cleanup
   await ecp.stop();
 
-  // Unique, immutable hash on IPFS
+  // Take a look at the logs to see the specification hash
   console.log('Specification Hash: ' + specificationHash);
 
   // Create a task in the root domain
@@ -22,9 +23,10 @@ const createTask = async (colonyClient, title, description, domainId) => {
     eventData: { taskId }
   } = await colonyClient.createTask.send({ specificationHash, domainId });
 
-  // Let's take a look at the newly created task
+  // Get the task we created
   const task = await colonyClient.getTask.call({ taskId })
 
+  // Take a look at the logs to see the task
   console.log('Task:', task);
 
   // Return task

@@ -4,6 +4,7 @@ const createDomain = require('../actions/createDomain');
 const createSkill = require('../actions/createSkill');
 const createTask = require('../actions/createTask');
 const createToken = require('../actions/createToken');
+const updateTask = require('../actions/updateTask');
 
 describe('hackathonStarter', () => {
 
@@ -78,6 +79,18 @@ describe('hackathonStarter', () => {
       1,                  // parentSkillId
     );
     expect(skillId).toBeGreaterThan(1);
+  }, 5000);
+
+  test('updateTask() works when updating the skillId', async () => {
+    const taskId = task.id;
+    task = await updateTask(
+      colonyClient,       // colonyClient
+      taskId,             // taskId
+      {
+        skillId,          // skillId
+      },
+    );
+    expect(task.skillId).toEqual(skillId);
   }, 5000);
 
 });

@@ -5,6 +5,7 @@ const createDomain = require('./actions/createDomain');
 const createSkill = require('./actions/createSkill');
 const createTask = require('./actions/createTask');
 const createToken = require('./actions/createToken');
+const updateTask = require('./actions/updateTask');
 
 // Define hackathonStarter example
 const hackathonStarter = async () => {
@@ -60,6 +61,19 @@ const hackathonStarter = async () => {
   state.skillId = await createSkill(
     state.networkClient,          // networkClient
     1,                            // parentSkillId
+  );
+
+  // Update the task we created for our colony using the example "updateTask"
+  // action and then store the updated "task" in the state object. The example
+  // "updateTask" action only updates the properties we provide to the "task"
+  // parameter. In this case, we are going to update the "skillId" of our task
+  // with the new global skill we created in the previous step.
+  state.task = await updateTask(
+    state.colonyClient,           // colonyClient
+    state.task.id,                // taskId
+    {
+      skillId: state.skillId,     // skillId
+    },
   );
 
 }
