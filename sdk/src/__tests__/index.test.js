@@ -1,26 +1,63 @@
-const createColony = require('../create_colony');
-const createTask = require('../create_task');
+const connectNetwork = require('../actions/connectNetwork');
+const createColony = require('../actions/createColony');
+const createTask = require('../actions/createTask');
+const createToken = require('../actions/createToken');
 
-describe('Starter project', () => {
-  test('Example logs successful results', async () => {
-    jest.spyOn(console, 'log');
+describe('hackathonStarter', () => {
 
-    const colonyClient = await createColony();
-    await createTask(colonyClient);
+  let colonyClient,
+      networkClient,
+      task,
+      tokenAddress
 
-    const logs = console.log.mock.calls.map(args => args[0]);
+  test('connectNetwork() works', async () => {
+    networkClient = await connectNetwork();
+    expect(networkClient).toEqual(expect.objectContaining({
+      _contract: expect.objectContaining({
+        address: expect.stringContaining('0x')
+      })
+    }));
+  }, 5000);
 
-    const expected = [
-      expect.stringContaining('Token address'),
-      expect.stringContaining('Colony ID'),
-      expect.stringContaining('Colony address'),
-      expect.stringContaining('Meta Colony address'),
-      expect.stringContaining('Specification hash'),
-      expect.objectContaining({
-        cancelled: false
-      }),
-    ];
+  test('createToken() works', async () => {
+    tokenAddress = await createToken(
+      networkClient,      // networkClient
+      'token',            // name
+      'TKN',              // symbol
+    );
+    expect(tokenAddress).toEqual(expect.stringContaining('0x'));
+  }, 5000);
 
-    expect(logs).toEqual(expect.arrayContaining(expected));
-  }, 20000);
+  test('createColony() works', async () => {
+    colonyClient = await createColony(
+      networkClient,      // networkClient
+      tokenAddress,       // tokenAddress
+    );
+    expect(colonyClient).toEqual(expect.objectContaining({
+      _contract: expect.objectContaining({
+        address: expect.stringContaining('0x')
+      })
+    }));
+  }, 5000);
+
+  test('createTask() works', async () => {
+    task = await createTask(
+      colonyClient,       // colonyClient
+      'title',            // title
+      'description',      // description
+      1,                  // domainId
+    );
+    expect(task).toHaveProperty('specificationHash');
+    expect(task).toHaveProperty('deliverableHash');
+    expect(task).toHaveProperty('finalized');
+    expect(task).toHaveProperty('cancelled');
+    expect(task).toHaveProperty('dueDate');
+    expect(task).toHaveProperty('payoutsWeCannotMake');
+    expect(task).toHaveProperty('potId');
+    expect(task).toHaveProperty('deliverableDate');
+    expect(task).toHaveProperty('domainId');
+    expect(task).toHaveProperty('id');
+    expect(task).toHaveProperty('skillId');
+  }, 5000);
+
 });
