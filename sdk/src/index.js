@@ -2,6 +2,7 @@
 const connectNetwork = require('./actions/connectNetwork');
 const createColony = require('./actions/createColony');
 const createDomain = require('./actions/createDomain');
+const createSkill = require('./actions/createSkill');
 const createTask = require('./actions/createTask');
 const createToken = require('./actions/createToken');
 
@@ -52,16 +53,13 @@ const hackathonStarter = async () => {
     state.domainId,               // domainId
   );
 
-  // Create a new skill for our new colony within our new domain using the
-  // example "createTask" action and then store the returned "task" in the
-  // state object. We could also create a new task within the root domain,
-  // using "1" for "domainId" but here we will use the "domainId" returned
-  // from the previous step, which has a value of "2".
-  state.task = await createTask(
-    state.colonyClient,           // colonyClient
-    'Cool task',                  // title
-    'Create this cool thing.',    // description
-    state.domainId,               // domainId
+  // Create a new global skill using the example "createSkill" action and then
+  // store the returned "skillId" in the state object. There is only one global
+  // skill so far because we are using our own test deployment of colonyNetwork,
+  // so we will use "1" for "parentSkillId", which is the root global skill id.
+  state.skillId = await createSkill(
+    state.networkClient,          // networkClient
+    1,                            // parentSkillId
   );
 
 }

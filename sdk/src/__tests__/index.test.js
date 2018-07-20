@@ -1,6 +1,7 @@
 const connectNetwork = require('../actions/connectNetwork');
 const createColony = require('../actions/createColony');
 const createDomain = require('../actions/createDomain');
+const createSkill = require('../actions/createSkill');
 const createTask = require('../actions/createTask');
 const createToken = require('../actions/createToken');
 
@@ -10,7 +11,8 @@ describe('hackathonStarter', () => {
       tokenAddress,
       colonyClient,
       domainId,
-      task
+      task,
+      skillId
 
   test('connectNetwork() works', async () => {
     networkClient = await connectNetwork();
@@ -50,7 +52,6 @@ describe('hackathonStarter', () => {
     expect(domainId).toBeGreaterThan(1);
   }, 5000);
 
-
   test('createTask() works', async () => {
     task = await createTask(
       colonyClient,       // colonyClient
@@ -69,6 +70,14 @@ describe('hackathonStarter', () => {
     expect(task).toHaveProperty('domainId');
     expect(task).toHaveProperty('id');
     expect(task).toHaveProperty('skillId');
+  }, 5000);
+
+  test('createSkill() works', async () => {
+    skillId = await createSkill(
+      networkClient,      // networkClient
+      1,                  // parentSkillId
+    );
+    expect(skillId).toBeGreaterThan(1);
   }, 5000);
 
 });
