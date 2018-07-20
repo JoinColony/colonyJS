@@ -1,6 +1,7 @@
-// Import actions
+// Import example actions
 const connectNetwork = require('./actions/connectNetwork');
 const createColony = require('./actions/createColony');
+const createDomain = require('./actions/createDomain');
 const createTask = require('./actions/createTask');
 const createToken = require('./actions/createToken');
 
@@ -29,13 +30,38 @@ const hackathonStarter = async () => {
     state.tokenAddress,           // tokenAddress
   );
 
-  // Create a task for our new colony using the example "createTask" action
-  // and then store the returned "task" in the state object.
+  // Create a new domain for our new colony using the example "createDomain"
+  // action and then store the returned "domainId" in the state object. When
+  // we created a new colony, a root domain was created for our colony. The
+  // root domain represents the colony as a domain, which we want to be the
+  // parent of our new domain, so we will use "1" for "parentDomainId".
+  state.domainId = await createDomain(
+    state.colonyClient,           // colonyClient
+    1,                            // parentDomainId
+  );
+
+  // Create a new task for our new colony within our new domain using the
+  // example "createTask" action and then store the returned "task" in the
+  // state object. We could also create a new task within the root domain,
+  // using "1" for "domainId" but here we will use the "domainId" returned
+  // from the previous step, which has a value of "2".
   state.task = await createTask(
     state.colonyClient,           // colonyClient
     'Cool task',                  // title
     'Create this cool thing.',    // description
-    1,                            // domainId
+    state.domainId,               // domainId
+  );
+
+  // Create a new skill for our new colony within our new domain using the
+  // example "createTask" action and then store the returned "task" in the
+  // state object. We could also create a new task within the root domain,
+  // using "1" for "domainId" but here we will use the "domainId" returned
+  // from the previous step, which has a value of "2".
+  state.task = await createTask(
+    state.colonyClient,           // colonyClient
+    'Cool task',                  // title
+    'Create this cool thing.',    // description
+    state.domainId,               // domainId
   );
 
 }

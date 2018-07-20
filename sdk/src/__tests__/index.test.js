@@ -1,14 +1,16 @@
 const connectNetwork = require('../actions/connectNetwork');
 const createColony = require('../actions/createColony');
+const createDomain = require('../actions/createDomain');
 const createTask = require('../actions/createTask');
 const createToken = require('../actions/createToken');
 
 describe('hackathonStarter', () => {
 
-  let colonyClient,
-      networkClient,
-      task,
-      tokenAddress
+  let networkClient,
+      tokenAddress,
+      colonyClient,
+      domainId,
+      task
 
   test('connectNetwork() works', async () => {
     networkClient = await connectNetwork();
@@ -40,12 +42,21 @@ describe('hackathonStarter', () => {
     }));
   }, 5000);
 
+  test('createDomain() works', async () => {
+    domainId = await createDomain(
+      colonyClient,       // colonyClient
+      1,                  // parentDomainId
+    );
+    expect(domainId).toBeGreaterThan(1);
+  }, 5000);
+
+
   test('createTask() works', async () => {
     task = await createTask(
       colonyClient,       // colonyClient
       'title',            // title
       'description',      // description
-      1,                  // domainId
+      domainId,           // domainId
     );
     expect(task).toHaveProperty('specificationHash');
     expect(task).toHaveProperty('deliverableHash');
