@@ -6,6 +6,14 @@ const createSkill = require('./actions/createSkill');
 const createTask = require('./actions/createTask');
 const createToken = require('./actions/createToken');
 const updateTask = require('./actions/updateTask');
+const updateTaskRoles = require('./actions/updateTaskRoles');
+
+// Define accounts
+const accounts = [
+  '0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1',
+  '0xFFcf8FDEE72ac11b5c542428B35EEF5769C409f0',
+  '0x22d491Bde2303f2f43325b2108D26f1eAbA1e32b'
+]
 
 // Define hackathonStarter example
 const hackathonStarter = async () => {
@@ -63,16 +71,30 @@ const hackathonStarter = async () => {
     1,                            // parentSkillId
   );
 
-  // Update the task we created for our colony using the example "updateTask"
-  // action and then store the updated "task" in the state object. The example
-  // "updateTask" action only updates the properties we provide to the "task"
-  // parameter. In this case, we are going to update the "skillId" of our task
-  // with the new global skill we created in the previous step.
+  // Update the skill of the task we created for our colony using the example
+  // "updateTask" action and then store the updated "task" in the state object.
+  // The example "updateTask" action only updates the properties we provide to
+  // the "task" parameter. In this case, we are going to update the "skillId"
+  // of our task with the new global skill we created in the previous step.
   state.task = await updateTask(
     state.colonyClient,           // colonyClient
     state.task.id,                // taskId
     {
       skillId: state.skillId,     // skillId
+    },
+  );
+
+  // Update the roles of the task we created for our colony using the example
+  // "updateTaskRoles" action and then append the returned "roles" to the "task"
+  // object currently stored in the state object. The example "updateTaskRoles"
+  // action only updates the roles we provide to the "roles" parameter. In this
+  // case, we are going to update the "evaluator" role and the "worker" role.
+  state.task.roles = await updateTaskRoles(
+    state.colonyClient,           // colonyClient
+    state.task.id,                // taskId
+    {
+      evaluator: accounts[1],     // evaluator
+      worker: accounts[2]         // worker
     },
   );
 
