@@ -13,11 +13,11 @@ const loader = new TrufflepigLoader();
 const provider = new providers.JsonRpcProvider('http://localhost:8545/');
 
 // The following methods use Promises
-const connectNetwork = async () => {
+const connectNetwork = async (accountIndex) => {
 
   // Get the private key from the first account from the ganache-accounts
   // through trufflepig
-  const { privateKey } = await loader.getAccount(0);
+  const { privateKey } = await loader.getAccount(accountIndex);
 
   // Create a wallet with the private key (so we have a balance we can use)
   const wallet = new Wallet(privateKey, provider);

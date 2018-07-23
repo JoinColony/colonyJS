@@ -37,38 +37,6 @@ const updateTaskRoles = async (colonyClient, taskId, roles) => {
 
   }
 
-  // Get the evaluator role of the task
-  const evaluator = await colonyClient.getTaskRole.call({
-    taskId,
-    role: 'EVALUATOR',
-  })
-
-  // Get the manager role of the task
-  const manager = await colonyClient.getTaskRole.call({
-    taskId,
-    role: 'MANAGER',
-  })
-
-  // Get the worker role of the task
-  const worker = await colonyClient.getTaskRole.call({
-    taskId,
-    role: 'WORKER',
-  })
-
-  // Take a look at the logs to see the task roles we updated
-  console.log('Updated Task Roles:', {
-    evaluator,
-    manager,
-    worker
-  });
-
-  // Return updated task roles
-  return {
-    evaluator,
-    manager,
-    worker
-  };
-
 }
 
 module.exports = updateTaskRoles;

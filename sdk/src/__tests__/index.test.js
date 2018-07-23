@@ -1,11 +1,17 @@
+// Import hackathonStarter example actions
 const connectNetwork = require('../actions/connectNetwork');
 const createColony = require('../actions/createColony');
 const createDomain = require('../actions/createDomain');
 const createSkill = require('../actions/createSkill');
 const createTask = require('../actions/createTask');
 const createToken = require('../actions/createToken');
+const getColonyClient = require('../actions/getColonyClient');
+const signTaskDueDate = require('../actions/signTaskDueDate');
+const signTaskSpecification = require('../actions/signTaskSpecification');
 const updateTask = require('../actions/updateTask');
-const updateTaskRoles = require('../actions/updateTaskRoles');
+
+// Set stored operations
+STORED_OPERATIONS = {}
 
 // Define accounts
 const accounts = [
@@ -14,18 +20,21 @@ const accounts = [
   '0x22d491Bde2303f2f43325b2108D26f1eAbA1e32b'
 ]
 
+// Define validDueDate
+const validDueDate = new Date(Date.now() + 2678400000);
+
 describe('hackathonStarter', () => {
 
-  let networkClient,
-      tokenAddress,
-      colonyClient,
-      domainId,
-      task,
-      skillId
+  // Set state per account
+  const state = [
+    {},     // account 1
+    {},     // account 2
+    {},     // account 3
+  ];
 
   test('connectNetwork() works', async () => {
-    networkClient = await connectNetwork();
-    expect(networkClient).toEqual(expect.objectContaining({
+    state[0].networkClient = await connectNetwork(0);
+    expect(state[0].networkClient).toEqual(expect.objectContaining({
       _contract: expect.objectContaining({
         address: expect.stringContaining('0x')
       })
@@ -33,20 +42,20 @@ describe('hackathonStarter', () => {
   }, 5000);
 
   test('createToken() works', async () => {
-    tokenAddress = await createToken(
-      networkClient,        // networkClient
-      'token',              // name
-      'TKN',                // symbol
+    state[0].tokenAddress = await createToken(
+      state[0].networkClient,         // networkClient
+      'token',                        // name
+      'TKN',                          // symbol
     );
-    expect(tokenAddress).toEqual(expect.stringContaining('0x'));
+    expect(state[0].tokenAddress).toEqual(expect.stringContaining('0x'));
   }, 5000);
 
   test('createColony() works', async () => {
-    colonyClient = await createColony(
-      networkClient,        // networkClient
-      tokenAddress,         // tokenAddress
+    state[0].colonyClient = await createColony(
+      state[0].networkClient,         // networkClient
+      state[0].tokenAddress,          // tokenAddress
     );
-    expect(colonyClient).toEqual(expect.objectContaining({
+    expect(state[0].colonyClient).toEqual(expect.objectContaining({
       _contract: expect.objectContaining({
         address: expect.stringContaining('0x')
       })
@@ -54,81 +63,86 @@ describe('hackathonStarter', () => {
   }, 5000);
 
   test('createDomain() works', async () => {
-    domainId = await createDomain(
-      colonyClient,         // colonyClient
-      1,                    // parentDomainId
+    state[0].domainId = await createDomain(
+      state[0].colonyClient,          // colonyClient
+      1,                              // parentDomainId
     );
-    expect(domainId).toBeGreaterThan(1);
+    expect(state[0].domainId).toBeGreaterThan(1);
   }, 5000);
 
   test('createTask() works', async () => {
-    task = await createTask(
-      colonyClient,         // colonyClient
-      'title',              // title
-      'description',        // description
-      domainId,             // domainId
+    state[0].task = await createTask(
+      state[0].colonyClient,          // colonyClient
+      'title',                        // title
+      'description',                  // description
+      state[0].domainId,              // domainId
     );
-    expect(task).toHaveProperty('specificationHash');
-    expect(task).toHaveProperty('deliverableHash');
-    expect(task).toHaveProperty('finalized');
-    expect(task).toHaveProperty('cancelled');
-    expect(task).toHaveProperty('dueDate');
-    expect(task).toHaveProperty('payoutsWeCannotMake');
-    expect(task).toHaveProperty('potId');
-    expect(task).toHaveProperty('deliverableDate');
-    expect(task).toHaveProperty('domainId');
-    expect(task).toHaveProperty('id');
-    expect(task).toHaveProperty('skillId');
+    expect(state[0].task).toEqual(expect.objectContaining({
+      id: 1,
+      domainId: state[0].domainId,
+      specificationHash: 'QmbVbBGzBFgwjaRVoHJiP7JA5au8Dj7Kur99aK3mpRjtXb',
+    }));
   }, 10000);
 
   test('createSkill() works', async () => {
-    skillId = await createSkill(
-      networkClient,        // networkClient
-      1,                    // parentSkillId
+    state[0].skillId = await createSkill(
+      state[0].networkClient,         // networkClient
+      1,                              // parentSkillId
     );
-    expect(skillId).toBeGreaterThan(1);
+    expect(state[0].skillId).toBeGreaterThan(1);
   }, 5000);
 
-  test('updateTask() works when updating the domainId', async () => {
-    const taskId = task.id;
-    task = await updateTask(
-      colonyClient,         // colonyClient
-      taskId,               // taskId
+  test('updateTaskDomain() works', async () => {
+    state[0].task = await updateTask(
+      state[0].colonyClient,          // colonyClient
+      state[0].task.id,               // taskId
       {
-        domainId: 1,        // domainId
+        domainId: 1,                  // domainId
       },
     );
-    expect(task.domainId).toEqual(1);
+    expect(state[0].task.domainId).toEqual(1);
   }, 5000);
 
-  test('updateTask() works when updating the skillId', async () => {
-    const taskId = task.id;
-    task = await updateTask(
-      colonyClient,         // colonyClient
-      taskId,               // taskId
+  test('updateTaskSkill() works', async () => {
+    state[0].task = await updateTask(
+      state[0].colonyClient,          // colonyClient
+      state[0].task.id,               // taskId
       {
-        skillId,            // skillId
+        skillId: state[0].skillId,    // skillId
       },
     );
-    expect(task.skillId).toEqual(skillId);
+    expect(state[0].task.skillId).toEqual(state[0].skillId);
+  }, 5000);
+
+  test('updateTaskDueDate() works', async () => {
+    let dueDate = Date.now();
+    state[0].task = await updateTask(
+      state[0].colonyClient,          // colonyClient
+      state[0].task.id,               // taskId
+      {
+        dueDate: validDueDate,        // domainId
+      },
+    );
+    expect(state[0].task.dueDate).toEqual(validDueDate);
   }, 5000);
 
   test('updateTaskRoles() works', async () => {
-    const taskId = task.id;
-    task.roles = await updateTaskRoles(
-      colonyClient,         // colonyClient
-      taskId,               // taskId
+    state[0].task = await updateTask(
+      state[0].colonyClient,          // colonyClient
+      state[0].task.id,               // taskId
       {
-        evaluator: accounts[1],   // evaluator
-        worker: accounts[2]       // worker
+        roles: {
+          evaluator: accounts[1],     // evaluator
+          worker: accounts[2]         // worker
+        }
       },
     );
-    expect(task.roles).toEqual(expect.objectContaining({
-      evaluator: expect.objectContaining({
-        address: expect.stringMatching(accounts[1])
-      }),
+    expect(state[0].task.roles).toEqual(expect.objectContaining({
       manager: expect.objectContaining({
         address: expect.stringMatching(accounts[0])
+      }),
+      evaluator: expect.objectContaining({
+        address: expect.stringMatching(accounts[1])
       }),
       worker: expect.objectContaining({
         address: expect.stringMatching(accounts[2])
