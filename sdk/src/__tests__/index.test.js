@@ -10,8 +10,8 @@ const setTaskDomain = require('../examples/setTaskDomain');
 const setTaskDueDate = require('../examples/setTaskDueDate');
 const setTaskRoles = require('../examples/setTaskRoles');
 const setTaskSkill = require('../examples/setTaskSkill');
-const setTaskSpecification = require('../examples/setTaskSpecification');
-const signTaskSpecification = require('../examples/signTaskSpecification');
+const setTaskBrief = require('../examples/setTaskBrief');
+const signTaskBrief = require('../examples/signTaskBrief');
 
 // Stored operations
 STORED_OPERATIONS = {};
@@ -26,7 +26,7 @@ const accounts = [
 // A unix timestamp representing 31 days from now
 const futureDate = new Date(Date.now() + 2678400000);
 
-describe('hackathonStarterExample', () => {
+describe('hackathonStarter', () => {
 
   // State per account
   const state = [
@@ -35,6 +35,7 @@ describe('hackathonStarterExample', () => {
     {},     // account 3
   ];
 
+  // Test the connectNetwork() example
   test('connectNetwork() works', async () => {
     state[0].networkClient = await connectNetwork(0);
     expect(state[0].networkClient).toEqual(expect.objectContaining({
@@ -44,6 +45,7 @@ describe('hackathonStarterExample', () => {
     }));
   }, 5000);
 
+  // Test the createToken() example
   test('createToken() works', async () => {
     state[0].tokenAddress = await createToken(
       state[0].networkClient,         // networkClient
@@ -53,6 +55,7 @@ describe('hackathonStarterExample', () => {
     expect(state[0].tokenAddress).toEqual(expect.stringContaining('0x'));
   }, 5000);
 
+  // Test the createColony() example
   test('createColony() works', async () => {
     state[0].colonyClient = await createColony(
       state[0].networkClient,         // networkClient
@@ -65,6 +68,7 @@ describe('hackathonStarterExample', () => {
     }));
   }, 5000);
 
+  // Test the addDomain() example
   test('addDomain() works', async () => {
     state[0].domainId = await addDomain(
       state[0].colonyClient,          // colonyClient
@@ -73,20 +77,22 @@ describe('hackathonStarterExample', () => {
     expect(state[0].domainId).toBeGreaterThan(1);
   }, 5000);
 
+  // Test the createTask() example
   test('createTask() works', async () => {
     state[0].task = await createTask(
       state[0].colonyClient,          // colonyClient
-      'title',                        // title
-      'description',                  // description
+      'New Task Title',               // title
+      'New Task Description',         // description
       state[0].domainId,              // domainId
     );
     expect(state[0].task).toEqual(expect.objectContaining({
       id: 1,
       domainId: state[0].domainId,
-      specificationHash: 'QmbVbBGzBFgwjaRVoHJiP7JA5au8Dj7Kur99aK3mpRjtXb',
+      specificationHash: 'QmWvM3isCmEY8bsixThuFeUJmE5MN2he1UxaPzMngLZ7Wq',
     }));
   }, 10000);
 
+  // Test the addGlobalSkill() example
   test('addGlobalSkill() works', async () => {
     state[0].skillId = await addGlobalSkill(
       state[0].networkClient,         // networkClient
@@ -95,6 +101,7 @@ describe('hackathonStarterExample', () => {
     expect(state[0].skillId).toBeGreaterThan(1);
   }, 5000);
 
+  // Test the setTaskDomain() example
   test('setTaskDomain() works', async () => {
     state[0].task = await setTaskDomain(
       state[0].colonyClient,          // colonyClient
@@ -104,6 +111,7 @@ describe('hackathonStarterExample', () => {
     expect(state[0].task.domainId).toEqual(1);
   }, 5000);
 
+  // Test the setTaskSkill() example
   test('setTaskSkill() works', async () => {
     state[0].task = await setTaskSkill(
       state[0].colonyClient,          // colonyClient
@@ -113,6 +121,7 @@ describe('hackathonStarterExample', () => {
     expect(state[0].task.skillId).toEqual(state[0].skillId);
   }, 5000);
 
+  // Test the setTaskDueDate() example
   test('setTaskDueDate() works', async () => {
     let dueDate = Date.now();
     state[0].task = await setTaskDueDate(
@@ -123,6 +132,7 @@ describe('hackathonStarterExample', () => {
     expect(state[0].task.dueDate).toEqual(futureDate);
   }, 5000);
 
+  // Test the setTaskRoles() example
   test('setTaskRoles() works', async () => {
     state[0].taskRoles = await setTaskRoles(
       state[0].colonyClient,          // colonyClient

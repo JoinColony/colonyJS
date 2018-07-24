@@ -12,12 +12,12 @@ const loader = new TrufflepigLoader();
 // Create a provider for local TestRPC (Ganache)
 const provider = new providers.JsonRpcProvider('http://localhost:8545/');
 
-// The following methods use Promises
+// An example method for connecting to the local network
 const connectNetwork = async (accountIndex) => {
 
   // Get the private key from the first account from the ganache-accounts
   // through trufflepig
-  const { privateKey } = await loader.getAccount(accountIndex);
+  const { privateKey } = await loader.getAccount(accountIndex || 0);
 
   // Create a wallet with the private key (so we have a balance we can use)
   const wallet = new Wallet(privateKey, provider);
@@ -35,9 +35,13 @@ const connectNetwork = async (accountIndex) => {
   // Initialize networkClient
   await networkClient.init();
 
+  // Check out the logs to see the address of the deployed network
+  console.log('Network Address: ' + networkClient._contract.address);
+
   // Return networkClient
   return networkClient;
 
 };
 
+// Export connectNetwork example
 module.exports = connectNetwork;

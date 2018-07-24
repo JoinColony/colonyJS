@@ -1,14 +1,14 @@
-// An example using the setTaskDueDate operation
-const signTaskDueDate = async (colonyClient, taskId) => {
+// An example using the setTaskBrief operation
+const signTaskBrief = async (colonyClient, taskId) => {
 
   // Get operation
-  const operationJSON = STORED_OPERATIONS.setTaskDueDateOperationJSON;
+  const operationJSON = STORED_OPERATIONS.setTaskBriefOperationJSON;
 
   // Check operation
   if (operationJSON) {
 
     // Restore operation
-    const operation = await colonyClient.setTaskDueDate.restoreOperation(operationJSON);
+    const operation = await colonyClient.setTaskBrief.restoreOperation(operationJSON);
 
     // Check the colony and task of the operation
     if (
@@ -34,7 +34,7 @@ const signTaskDueDate = async (colonyClient, taskId) => {
         await operation.send();
 
         // Reset the stored operation
-        STORED_OPERATIONS.setTaskDueDateOperationJSON = null;
+        STORED_OPERATIONS.setTaskBriefOperationJSON = null;
 
         // Successfully completed operation
         console.log('Successfully Completed Operation');
@@ -45,7 +45,7 @@ const signTaskDueDate = async (colonyClient, taskId) => {
         const operationJSON = operation.toJSON();
 
         // Store the operation to access it again from another account
-        STORED_OPERATIONS.setTaskDueDateOperationJSON = operationJSON;
+        STORED_OPERATIONS.setTaskBriefOperationJSON = operationJSON;
 
         // Successfully updated operation
         console.log('Successfully Updated Operation');
@@ -67,5 +67,5 @@ const signTaskDueDate = async (colonyClient, taskId) => {
 
 }
 
-// Export signTaskDueDate example
-module.exports = signTaskDueDate;
+// Export signTaskBrief example
+module.exports = signTaskBrief;

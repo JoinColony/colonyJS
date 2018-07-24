@@ -1,35 +1,36 @@
-// The following methods use Promises
+// An example using the addDomain method
 const addDomain = async (colonyClient, parentDomainId) => {
 
-  // In order to create a new domain for our colony, we will need the local
-  // skill id of the parent domain. Domains are registered as local skills,
-  // so we will use the parent domain id to get the local skill id for the
-  // parent domain, which we will then use to create our new domain.
+  // In order to add a domain to our colony, we will need the local skill id of
+  // the parent domain. Domains are registered as local skills, so we will use
+  // the parent domain id to get the local skill id of the parent domain, which
+  // we will then use as the parent skill id when we add our new domain.
   const { localSkillId: parentSkillId } = await colonyClient.getDomain.call({
     domainId: parentDomainId,
-  })
+  });
 
-  // Take a look at the logs to see the local skill id of the parent domain
-  console.log('Domain Skill ID (Parent): ' + parentSkillId);
+  // Check out the logs to see the local skill id of the parent domain
+  console.log('Local Skill ID (Parent Domain): ' + parentSkillId);
 
   // Create a new domain using the local skill id of the parent domain
-  const {
-    eventData: { skillId }
-  } = await colonyClient.addDomain.send({ parentSkillId })
+  const { eventData: { skillId } } = await colonyClient.addDomain.send({
+    parentSkillId,
+  });
 
-  // Take a look at the logs to see the local skill id of our new domain
-  console.log('Domain Skill ID (Child): ' + skillId);
+  // Check out the logs to see the local skill id of the new domain
+  console.log('Local Skill ID (New Domain): ' + skillId);
 
-  // Let's get the total number of domains we have now and return that total
-  // number, which also represents the id for the domain we just created.
-  const { count: domainId } = await colonyClient.getDomainCount.call()
+  // Get the total number of domains in the colony, which also represents the
+  // id for the domain we just created.
+  const { count: domainId } = await colonyClient.getDomainCount.call();
 
-  // Take a look at the logs to see the domain id of our new domain
-  console.log('Domain ID: ' + domainId);
+  // Check out the logs to see the domain id of our new domain
+  console.log('Domain ID / Total Domains: ' + domainId);
 
   // Return domainId
   return domainId;
 
 };
 
+// Export addDomain example
 module.exports = addDomain;

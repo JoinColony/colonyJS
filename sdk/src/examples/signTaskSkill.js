@@ -1,50 +1,54 @@
-// The following methods use Promises
+// An example using the setTaskSkill operation
 const signTaskSkill = async (colonyClient, taskId) => {
 
-  // get operation
-  const operationJSON = STORED_OPERATIONS.setTaskSkillOperationJSON
+  // Get operation
+  const operationJSON = STORED_OPERATIONS.setTaskSkillOperationJSON;
 
+  // Check operation
   if (operationJSON) {
 
-    // restore operation
-    const operation = await colonyClient.setTaskSkill.restoreOperation(operationJSON)
+    // Restore operation
+    const operation = await colonyClient.setTaskSkill.restoreOperation(operationJSON);
 
-    // check if operation exists for contract and task
+    // Check the colony and task of the operation
     if (
       operation.payload.sourceAddress === colonyClient._contract.address &&
       operation.payload.inputValues.taskId === taskId
     ) {
 
-      // check if required signees includes current user address
+      // Check if the required signees for the operation includes the current user
       if (operation.requiredSignees.includes(colonyClient.adapter.wallet.address)) {
 
-        // sign set operation
-        await operation.sign()
+        // Sign the operation
+        await operation.sign();
 
-        console.log('Signed setTaskSkillOperation')
+        // Successfully signed operation
+        console.log('Successfully Signed Operation');
 
       }
 
-      // check for missing signees
+      // Check for missing signees
       if (operation.missingSignees.length === 0) {
 
-        // send set operation
-        await operation.send()
+        // Send the operation
+        await operation.send();
 
-        // remove local storage item
-        STORED_OPERATIONS.setTaskSkillOperationJSON = null
+        // Reset the stored operation
+        STORED_OPERATIONS.setTaskSkillOperationJSON = null;
 
-        console.log('Reset setTaskSkillOperation')
+        // Successfully completed operation
+        console.log('Successfully Completed Operation');
 
       } else {
 
-        // serialize operation into JSON format
-        const operationJSON = operation.toJSON()
+        // Serialize operation into JSON format
+        const operationJSON = operation.toJSON();
 
-        // save operation to local storage
-        STORED_OPERATIONS.setTaskSkillOperationJSON = operationJSON
+        // Store the operation to access it again from another account
+        STORED_OPERATIONS.setTaskSkillOperationJSON = operationJSON;
 
-        console.log('Updated setTaskSkillOperation')
+        // Successfully updated operation
+        console.log('Successfully Updated Operation');
 
       }
 
@@ -55,12 +59,13 @@ const signTaskSkill = async (colonyClient, taskId) => {
   // Get the updated task
   const updatedTask = await colonyClient.getTask.call({ taskId });
 
-  // Take a look at the logs to see the task we updated
+  // Check out the logs to see the task we updated
   console.log('Updated Task:', updatedTask);
 
-  // Return updated task
+  // Return the updated task
   return updatedTask;
 
 }
 
+// Export signTaskSkill example
 module.exports = signTaskSkill;

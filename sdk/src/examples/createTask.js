@@ -1,6 +1,7 @@
+// Import the Extended Colony Protocol
 const ecp = require('../helpers/ecp');
 
-// The following methods use Promises
+// An example using the createColony method
 const createTask = async (colonyClient, title, description, domainId) => {
 
   // Initialise the Extended Colony Protocol
@@ -12,21 +13,22 @@ const createTask = async (colonyClient, title, description, domainId) => {
     description,
   });
 
-  // Do some cleanup
-  await ecp.stop();
-
-  // Take a look at the logs to see the specification hash
+  // Check out the logs to see the specification hash
   console.log('Specification Hash: ' + specificationHash);
 
-  // Create a task in the root domain
-  const {
-    eventData: { taskId }
-  } = await colonyClient.createTask.send({ specificationHash, domainId });
+  // Stop the Extended Colony Protocol
+  await ecp.stop();
 
-  // Get the task we created
-  const task = await colonyClient.getTask.call({ taskId })
+  // Create a task and get the taskId from the event data
+  const { eventData: { taskId } } = await colonyClient.createTask.send({
+    specificationHash,
+    domainId,
+  });
 
-  // Take a look at the logs to see the task
+  // Get the task using the taskId
+  const task = await colonyClient.getTask.call({ taskId });
+
+  // Check out the logs to see the task we created
   console.log('Task:', task);
 
   // Return task
@@ -34,4 +36,5 @@ const createTask = async (colonyClient, title, description, domainId) => {
 
 }
 
+// Export createTask example
 module.exports = createTask;

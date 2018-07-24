@@ -1,14 +1,16 @@
-// The following methods use Promises
+// An example using the createToken method
 const createToken = async (networkClient, name, symbol) => {
 
-  // Let's deploy a new ERC20 token for our Colony.
-  // You could also skip this step and use a pre-existing/deployed contract.
+  // Create a new ERC20 token
   const tokenAddress = await networkClient.createToken({ name, symbol });
 
+  // Check out the logs to see the tokenAddress
   console.log('Token Address: ' + tokenAddress);
 
+  // Return tokenAddress
   return tokenAddress;
 
 };
 
+// Export createToken example
 module.exports = createToken;

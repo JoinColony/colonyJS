@@ -1,10 +1,28 @@
-// An example using the setTaskDueDate operation
-const setTaskDueDate = async (colonyClient, taskId, dueDate) => {
+// Import the Extended Colony Protocol
+const ecp = require('../helpers/ecp');
 
-  // Start the operation to set the dueDate for the given task
-  const operation = await colonyClient.setTaskDueDate.startOperation({
+// An example using the setTaskBrief operation
+const setTaskBrief = async (colonyClient, taskId, specification) => {
+
+  // Initialise the Extended Colony Protocol
+  await ecp.init();
+
+  // Create a specification hash for the task
+  const specificationHash = await ecp.saveTaskSpecification({
+    title: specification.title,
+    description: specification.description,
+  });
+
+  // Check out the logs to see the specification hash
+  console.log('Specification Hash: ' + specificationHash);
+
+  // Stop the Extended Colony Protocol
+  await ecp.stop();
+
+  // Update the specification for the given task
+  const operation = await colonyClient.setTaskBrief.startOperation({
     taskId,
-    dueDate,
+    specificationHash,
   });
 
   // Check if the required signees for the operation includes the current user
@@ -27,14 +45,13 @@ const setTaskDueDate = async (colonyClient, taskId, dueDate) => {
     // Successfully completed operation
     console.log('Successfully Completed Operation');
 
-
   } else {
 
     // Serialize the operation into JSON format
     const operationJSON = operation.toJSON();
 
     // Store the operation to access it again from another account
-    STORED_OPERATIONS.setTaskDueDateOperationJSON = operationJSON;
+    STORED_OPERATIONS.setTaskBriefOperationJSON = operationJSON;
 
     // Successfully Stored Operation
     console.log('Successfully Stored Operation');
@@ -52,5 +69,5 @@ const setTaskDueDate = async (colonyClient, taskId, dueDate) => {
 
 }
 
-// Export setTaskDueDate example
-module.exports = setTaskDueDate;
+// Export setTaskBrief example
+module.exports = setTaskBrief;
