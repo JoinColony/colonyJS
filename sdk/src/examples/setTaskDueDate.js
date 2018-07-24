@@ -1,5 +1,5 @@
 // The following methods use Promises
-const updateTaskDueDate = async (colonyClient, taskId, dueDate) => {
+const setTaskDueDate = async (colonyClient, taskId, dueDate) => {
 
   // start set task due date operation
   const setTaskDueDateOperation = await colonyClient.setTaskDueDate.startOperation({
@@ -31,6 +31,12 @@ const updateTaskDueDate = async (colonyClient, taskId, dueDate) => {
 
   }
 
+  // Get the updated task
+  const updatedTask = await colonyClient.getTask.call({ taskId });
+
+  // Return updated task
+  return updatedTask;
+
 }
 
-module.exports = updateTaskDueDate;
+module.exports = setTaskDueDate;

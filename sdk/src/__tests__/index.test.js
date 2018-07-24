@@ -1,31 +1,34 @@
-// Import hackathonStarter example actions
-const connectNetwork = require('../actions/connectNetwork');
-const createColony = require('../actions/createColony');
-const createDomain = require('../actions/createDomain');
-const createSkill = require('../actions/createSkill');
-const createTask = require('../actions/createTask');
-const createToken = require('../actions/createToken');
-const getColonyClient = require('../actions/getColonyClient');
-const signTaskDueDate = require('../actions/signTaskDueDate');
-const signTaskSpecification = require('../actions/signTaskSpecification');
-const updateTask = require('../actions/updateTask');
+// Import examples
+const addDomain = require('../examples/addDomain');
+const addGlobalSkill = require('../examples/addGlobalSkill');
+const connectNetwork = require('../examples/connectNetwork');
+const createColony = require('../examples/createColony');
+const createTask = require('../examples/createTask');
+const createToken = require('../examples/createToken');
+const getColonyClient = require('../examples/getColonyClient');
+const setTaskDomain = require('../examples/setTaskDomain');
+const setTaskDueDate = require('../examples/setTaskDueDate');
+const setTaskRoles = require('../examples/setTaskRoles');
+const setTaskSkill = require('../examples/setTaskSkill');
+const setTaskSpecification = require('../examples/setTaskSpecification');
+const signTaskSpecification = require('../examples/signTaskSpecification');
 
-// Set stored operations
-STORED_OPERATIONS = {}
+// Stored operations
+STORED_OPERATIONS = {};
 
-// Define accounts
+// Test accounts
 const accounts = [
   '0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1',
   '0xFFcf8FDEE72ac11b5c542428B35EEF5769C409f0',
   '0x22d491Bde2303f2f43325b2108D26f1eAbA1e32b'
-]
+];
 
-// Define validDueDate
-const validDueDate = new Date(Date.now() + 2678400000);
+// A unix timestamp representing 31 days from now
+const futureDate = new Date(Date.now() + 2678400000);
 
-describe('hackathonStarter', () => {
+describe('hackathonStarterExample', () => {
 
-  // Set state per account
+  // State per account
   const state = [
     {},     // account 1
     {},     // account 2
@@ -62,8 +65,8 @@ describe('hackathonStarter', () => {
     }));
   }, 5000);
 
-  test('createDomain() works', async () => {
-    state[0].domainId = await createDomain(
+  test('addDomain() works', async () => {
+    state[0].domainId = await addDomain(
       state[0].colonyClient,          // colonyClient
       1,                              // parentDomainId
     );
@@ -84,60 +87,52 @@ describe('hackathonStarter', () => {
     }));
   }, 10000);
 
-  test('createSkill() works', async () => {
-    state[0].skillId = await createSkill(
+  test('addGlobalSkill() works', async () => {
+    state[0].skillId = await addGlobalSkill(
       state[0].networkClient,         // networkClient
       1,                              // parentSkillId
     );
     expect(state[0].skillId).toBeGreaterThan(1);
   }, 5000);
 
-  test('updateTaskDomain() works', async () => {
-    state[0].task = await updateTask(
+  test('setTaskDomain() works', async () => {
+    state[0].task = await setTaskDomain(
       state[0].colonyClient,          // colonyClient
       state[0].task.id,               // taskId
-      {
-        domainId: 1,                  // domainId
-      },
+      1,                              // domainId
     );
     expect(state[0].task.domainId).toEqual(1);
   }, 5000);
 
-  test('updateTaskSkill() works', async () => {
-    state[0].task = await updateTask(
+  test('setTaskSkill() works', async () => {
+    state[0].task = await setTaskSkill(
       state[0].colonyClient,          // colonyClient
       state[0].task.id,               // taskId
-      {
-        skillId: state[0].skillId,    // skillId
-      },
+      state[0].skillId,               // skillId
     );
     expect(state[0].task.skillId).toEqual(state[0].skillId);
   }, 5000);
 
-  test('updateTaskDueDate() works', async () => {
+  test('setTaskDueDate() works', async () => {
     let dueDate = Date.now();
-    state[0].task = await updateTask(
+    state[0].task = await setTaskDueDate(
       state[0].colonyClient,          // colonyClient
       state[0].task.id,               // taskId
-      {
-        dueDate: validDueDate,        // domainId
-      },
+      futureDate,                     // domainId
     );
-    expect(state[0].task.dueDate).toEqual(validDueDate);
+    expect(state[0].task.dueDate).toEqual(futureDate);
   }, 5000);
 
-  test('updateTaskRoles() works', async () => {
-    state[0].task = await updateTask(
+  test('setTaskRoles() works', async () => {
+    state[0].taskRoles = await setTaskRoles(
       state[0].colonyClient,          // colonyClient
       state[0].task.id,               // taskId
       {
-        roles: {
-          evaluator: accounts[1],     // evaluator
-          worker: accounts[2]         // worker
-        }
+        evaluator: accounts[1],       // evaluator
+        worker: accounts[2]           // worker
       },
     );
-    expect(state[0].task.roles).toEqual(expect.objectContaining({
+    expect(state[0].taskRoles).toEqual(expect.objectContaining({
       manager: expect.objectContaining({
         address: expect.stringMatching(accounts[0])
       }),

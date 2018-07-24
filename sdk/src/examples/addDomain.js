@@ -1,5 +1,5 @@
 // The following methods use Promises
-const createDomain = async (colonyClient, parentDomainId) => {
+const addDomain = async (colonyClient, parentDomainId) => {
 
   // In order to create a new domain for our colony, we will need the local
   // skill id of the parent domain. Domains are registered as local skills,
@@ -32,4 +32,4 @@ const createDomain = async (colonyClient, parentDomainId) => {
 
 };
 
-module.exports = createDomain;
+module.exports = addDomain;

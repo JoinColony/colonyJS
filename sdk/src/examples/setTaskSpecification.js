@@ -1,7 +1,7 @@
 const ecp = require('../helpers/ecp');
 
 // The following methods use Promises
-const updateTaskSpecification = async (colonyClient, taskId, specification) => {
+const setTaskSpecification = async (colonyClient, taskId, specification) => {
 
   // Initialise the Extended Colony Protocol
   await ecp.init();
@@ -48,6 +48,12 @@ const updateTaskSpecification = async (colonyClient, taskId, specification) => {
 
   }
 
+  // Get the updated task
+  const updatedTask = await colonyClient.getTask.call({ taskId });
+
+  // Return updated task
+  return updatedTask;
+
 }
 
-module.exports = updateTaskSpecification;
+module.exports = setTaskSpecification;

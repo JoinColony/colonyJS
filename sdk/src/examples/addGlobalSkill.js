@@ -1,5 +1,5 @@
 // The following methods use Promises
-const createSkill = async (networkClient, parentSkillId) => {
+const addGlobalSkill = async (networkClient, parentSkillId) => {
 
   // In order to create a new global skill, we will need the metaColonyClient.
   const metaColonyClient = await networkClient.getMetaColonyClient();
@@ -21,4 +21,4 @@ const createSkill = async (networkClient, parentSkillId) => {
 
 };
 
-module.exports = createSkill;
+module.exports = addGlobalSkill;
