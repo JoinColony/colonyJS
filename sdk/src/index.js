@@ -6,6 +6,7 @@ const createColony = require('./examples/createColony');
 const createTask = require('./examples/createTask');
 const createToken = require('./examples/createToken');
 const getColonyClient = require('./examples/getColonyClient');
+const revealTaskWorkRating = require('./examples/revealTaskWorkRating');
 const setTaskDueDate = require('./examples/setTaskDueDate');
 const setTaskRoleUser = require('./examples/setTaskRoleUser');
 const setTaskSkill = require('./examples/setTaskSkill');
@@ -38,9 +39,9 @@ const hackathonStarter = async () => {
   // object in the array below as a separate instance of the application being
   // accessed by a separate account.
   const state = [
-    {},     // account 1
-    {},     // account 2
-    {},     // account 3
+    {},     // account[0]
+    {},     // account[1]
+    {},     // account[2]
   ];
 
   console.log('\n\x1b[32m' + 'account[0] connectNetwork:' + '\x1b[0m\n');
@@ -262,7 +263,7 @@ const hackathonStarter = async () => {
     state[0].colonyClient._query.contractAddress,     // colonyAddress
   );
 
-  console.log('\n\x1b[32m' + 'account[2] submitTaskWorkRating:' + '\x1b[0m\n');
+  console.log('\n\x1b[32m' + 'account[1] submitTaskWorkRating:' + '\x1b[0m\n');
 
   // Submit a rating for the worker of our task from the evaluator of our task
   // using the "submitTaskWorkRating" example and then store the updated task
@@ -271,6 +272,30 @@ const hackathonStarter = async () => {
     state[1].colonyClient,        // colonyClient
     state[0].task.id,             // taskId
     'WORKER',                     // role
+    3,                            // rating
+  );
+
+  console.log('\n\x1b[32m' + 'account[1] revealTaskWorkRating:' + '\x1b[0m\n');
+
+  // Reaveal the rating for the worker of our task from the evaluator of our task
+  // using the "revealTaskWorkRating" example and then store the updated task
+  // in the state object.
+  state[1].taskWorkRatings = await revealTaskWorkRating(
+    state[1].colonyClient,        // colonyClient
+    state[0].task.id,             // taskId
+    'WORKER',                     // role
+    3,                            // rating
+  );
+
+  console.log('\n\x1b[32m' + 'account[2] revealTaskWorkRating:' + '\x1b[0m\n');
+
+  // Reaveal the rating for the manager of our task from the worker of our task
+  // using the "revealTaskWorkRating" example and then store the updated task
+  // in the state object.
+  await revealTaskWorkRating(
+    state[2].colonyClient,        // colonyClient
+    state[0].task.id,             // taskId
+    'MANAGER',                    // role
     3,                            // rating
   );
 

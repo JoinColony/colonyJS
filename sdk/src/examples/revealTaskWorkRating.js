@@ -1,5 +1,5 @@
-// An example using the submitTaskDeliverable method
-const submitTaskWorkRating = async (colonyClient, taskId, role, rating) => {
+// An example using the revealTaskWorkRating method
+const revealTaskWorkRating = async (colonyClient, taskId, role, rating) => {
 
   // Set salt value
   const salt = 'secret';
@@ -13,11 +13,12 @@ const submitTaskWorkRating = async (colonyClient, taskId, role, rating) => {
     value,
   });
 
-  // Submit task work rating for the given task and role
-  const submitTaskWorkRating = await colonyClient.submitTaskWorkRating.send({
+  // reveal task work rating
+  await colonyClient.revealTaskWorkRating.send({
     taskId,
     role,
-    secret,
+    rating,
+    salt,
   });
 
   // Get the task work rating secret
@@ -42,4 +43,4 @@ const submitTaskWorkRating = async (colonyClient, taskId, role, rating) => {
 
 }
 
-module.exports = submitTaskWorkRating;
+module.exports = revealTaskWorkRating;
