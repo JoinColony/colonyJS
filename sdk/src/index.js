@@ -5,6 +5,7 @@ const connectNetwork = require('./examples/connectNetwork');
 const createColony = require('./examples/createColony');
 const createTask = require('./examples/createTask');
 const createToken = require('./examples/createToken');
+const finalizeTask = require('./examples/finalizeTask');
 const getColonyClient = require('./examples/getColonyClient');
 const revealTaskWorkRating = require('./examples/revealTaskWorkRating');
 const setTaskDueDate = require('./examples/setTaskDueDate');
@@ -297,6 +298,15 @@ const hackathonStarter = async () => {
     state[0].task.id,             // taskId
     'MANAGER',                    // role
     3,                            // rating
+  );
+
+  console.log('\n\x1b[32m' + 'account[0] finalizeTask:' + '\x1b[0m\n');
+
+  // Finalize our task using the "finalizeTask" example and then store the
+  // updated task in the state object.
+  await finalizeTask(
+    state[0].colonyClient,        // colonyClient
+    state[0].task.id,             // taskId
   );
 
 }

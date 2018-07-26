@@ -5,6 +5,7 @@ const connectNetwork = require('../examples/connectNetwork');
 const createColony = require('../examples/createColony');
 const createTask = require('../examples/createTask');
 const createToken = require('../examples/createToken');
+const finalizeTask = require('../examples/finalizeTask');
 const getColonyClient = require('../examples/getColonyClient');
 const revealTaskWorkRating = require('../examples/revealTaskWorkRating');
 const setTaskDueDate = require('../examples/setTaskDueDate');
@@ -309,13 +310,22 @@ describe('hackathonStarter', () => {
 
   // Test the revealTaskWorkRating() example from account[2]
   test('account[2] revealTaskWorkRating() works', async () => {
-    state[1].taskWorkRatings = await revealTaskWorkRating(
-      state[1].colonyClient,          // colonyClient
+    state[2].taskWorkRatings = await revealTaskWorkRating(
+      state[2].colonyClient,          // colonyClient
       state[0].task.id,               // taskId
       'MANAGER',                      // role
       3,                              // rating
     );
     expect(state[1].taskWorkRatings.count).toEqual(2);
+  }, 5000);
+
+  // Test the finalizeTask() example from account[0]
+  test('account[0] finalizeTask() works', async () => {
+    state[0].task = await finalizeTask(
+      state[0].colonyClient,          // colonyClient
+      state[0].task.id,               // taskId
+    );
+    expect(state[0].task.finalized).toEqual(true);
   }, 5000);
 
 });
