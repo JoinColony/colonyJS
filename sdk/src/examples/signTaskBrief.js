@@ -1,31 +1,30 @@
 // An example using the setTaskBrief operation
 const signTaskBrief = async (colonyClient, taskId) => {
 
-  // Get operation
-  const operationJSON = STORED_OPERATIONS.setTaskBriefOperationJSON;
+  // Get JSON formatted operation from the mock database
+  const operationJSON = DATABASE.setTaskBriefOperationJSON;
 
-  // Check operation
+  // Check the operation
   if (operationJSON) {
 
     // Restore operation
-    const operation = await colonyClient.setTaskBrief.restoreOperation(operationJSON);
+    const operation = await colonyClient.setTaskBrief.restoreOperation(
+      operationJSON,
+    );
 
-    // Check the colony and task of the operation
+    // Check if the operation matches the colony contract and task id and if
+    // the current account is one of the required signees for the operation.
     if (
       operation.payload.sourceAddress === colonyClient._contract.address &&
-      operation.payload.inputValues.taskId === taskId
+      operation.payload.inputValues.taskId === taskId &&
+      operation.requiredSignees.includes(colonyClient.adapter.wallet.address)
     ) {
 
-      // Check if the required signees for the operation includes the current user
-      if (operation.requiredSignees.includes(colonyClient.adapter.wallet.address)) {
+      // Sign the operation
+      await operation.sign();
 
-        // Sign the operation
-        await operation.sign();
-
-        // Successfully signed operation
-        console.log('Successfully Signed Operation');
-
-      }
+      // Successfully signed operation
+      console.log('Successfully Signed Operation');
 
       // Check for missing signees
       if (operation.missingSignees.length === 0) {
@@ -33,8 +32,8 @@ const signTaskBrief = async (colonyClient, taskId) => {
         // Send the operation
         await operation.send();
 
-        // Reset the stored operation
-        STORED_OPERATIONS.setTaskBriefOperationJSON = null;
+        // Update the operation in the mock database
+        DATABASE.setTaskBriefOperationJSON = null;
 
         // Successfully completed operation
         console.log('Successfully Completed Operation');
@@ -44,8 +43,8 @@ const signTaskBrief = async (colonyClient, taskId) => {
         // Serialize operation into JSON format
         const operationJSON = operation.toJSON();
 
-        // Store the operation to access it again from another account
-        STORED_OPERATIONS.setTaskBriefOperationJSON = operationJSON;
+        // Store the operation in the mock database
+        DATABASE.setTaskBriefOperationJSON = operationJSON;
 
         // Successfully updated operation
         console.log('Successfully Updated Operation');

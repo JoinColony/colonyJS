@@ -6,15 +6,15 @@ const createColony = require('../examples/createColony');
 const createTask = require('../examples/createTask');
 const createToken = require('../examples/createToken');
 const getColonyClient = require('../examples/getColonyClient');
-const setTaskDomain = require('../examples/setTaskDomain');
 const setTaskDueDate = require('../examples/setTaskDueDate');
-const setTaskRoles = require('../examples/setTaskRoles');
+const setTaskRoleUser = require('../examples/setTaskRoleUser');
 const setTaskSkill = require('../examples/setTaskSkill');
 const setTaskBrief = require('../examples/setTaskBrief');
 const signTaskBrief = require('../examples/signTaskBrief');
+const signTaskDueDate = require('../examples/signTaskDueDate');
 
-// Stored operations
-STORED_OPERATIONS = {};
+// Mock database
+DATABASE = {};
 
 // Test accounts
 const accounts = [
@@ -24,16 +24,17 @@ const accounts = [
 ];
 
 // A unix timestamp representing 31 days from now
-const futureDate = new Date(Date.now() + 2678400000);
+const futureDueDate = new Date(Date.now() + 2678400000);
 
+// State per account
+const state = [
+  {},     // account 1
+  {},     // account 2
+  {},     // account 3
+];
+
+// Testing hackathonStarter examples
 describe('hackathonStarter', () => {
-
-  // State per account
-  const state = [
-    {},     // account 1
-    {},     // account 2
-    {},     // account 3
-  ];
 
   // Test the connectNetwork() example
   test('connectNetwork() works', async () => {
@@ -86,11 +87,10 @@ describe('hackathonStarter', () => {
       state[0].domainId,              // domainId
     );
     expect(state[0].task).toEqual(expect.objectContaining({
-      id: 1,
       domainId: state[0].domainId,
       specificationHash: 'QmWvM3isCmEY8bsixThuFeUJmE5MN2he1UxaPzMngLZ7Wq',
     }));
-  }, 10000);
+  }, 15000);
 
   // Test the addGlobalSkill() example
   test('addGlobalSkill() works', async () => {
@@ -99,16 +99,6 @@ describe('hackathonStarter', () => {
       1,                              // parentSkillId
     );
     expect(state[0].skillId).toBeGreaterThan(1);
-  }, 5000);
-
-  // Test the setTaskDomain() example
-  test('setTaskDomain() works', async () => {
-    state[0].task = await setTaskDomain(
-      state[0].colonyClient,          // colonyClient
-      state[0].task.id,               // taskId
-      1,                              // domainId
-    );
-    expect(state[0].task.domainId).toEqual(1);
   }, 5000);
 
   // Test the setTaskSkill() example
@@ -123,35 +113,122 @@ describe('hackathonStarter', () => {
 
   // Test the setTaskDueDate() example
   test('setTaskDueDate() works', async () => {
-    let dueDate = Date.now();
-    state[0].task = await setTaskDueDate(
+    await setTaskDueDate(
       state[0].colonyClient,          // colonyClient
       state[0].task.id,               // taskId
-      futureDate,                     // domainId
+      futureDueDate,                  // domainId
     );
-    expect(state[0].task.dueDate).toEqual(futureDate);
+    let operation = JSON.parse(DATABASE.setTaskDueDateOperationJSON);
+    expect(operation).toEqual(expect.objectContaining({
+      payload: expect.objectContaining({
+        inputValues: expect.objectContaining({
+          taskId: state[0].task.id,
+          dueDate: futureDueDate.toISOString(),
+        }),
+      }),
+    }));
   }, 5000);
 
-  // Test the setTaskRoles() example
-  test('setTaskRoles() works', async () => {
-    state[0].taskRoles = await setTaskRoles(
+  // Test the signTaskDueDate() example
+  test('signTaskDueDate() works', async () => {
+    state[0].task = await signTaskDueDate(
       state[0].colonyClient,          // colonyClient
       state[0].task.id,               // taskId
-      {
-        evaluator: accounts[1],       // evaluator
-        worker: accounts[2]           // worker
-      },
+    );
+    expect(state[0].task.dueDate).toEqual(futureDueDate);
+  }, 5000);
+
+  // Test the setTaskRoleUser() example
+  test('setTaskRoleUser() works', async () => {
+    state[0].taskRoles = await setTaskRoleUser(
+      state[0].colonyClient,          // colonyClient
+      state[0].task.id,               // taskId
+      'EVALUATOR',                    // role
+      accounts[1],                    // user
     );
     expect(state[0].taskRoles).toEqual(expect.objectContaining({
-      manager: expect.objectContaining({
-        address: expect.stringMatching(accounts[0])
-      }),
       evaluator: expect.objectContaining({
         address: expect.stringMatching(accounts[1])
       }),
+    }));
+  }, 5000);
+
+  // Test the setTaskRoleUser() example
+  test('setTaskRoleUser() works', async () => {
+    state[0].taskRoles = await setTaskRoleUser(
+      state[0].colonyClient,          // colonyClient
+      state[0].task.id,               // taskId
+      'WORKER',                       // role
+      accounts[2],                    // user
+    );
+    expect(state[0].taskRoles).toEqual(expect.objectContaining({
       worker: expect.objectContaining({
         address: expect.stringMatching(accounts[2])
       }),
+    }));
+  }, 5000);
+
+  // Test the setTaskBrief() example
+  test('setTaskBrief() works', async () => {
+    await setTaskBrief(
+      state[0].colonyClient,          // colonyClient
+      state[0].task.id,               // taskId
+      'Updated Task Title',           // title
+      'Updated Task Description',     // description
+    );
+    let operation = JSON.parse(DATABASE.setTaskBriefOperationJSON);
+    expect(operation).toEqual(expect.objectContaining({
+      payload: expect.objectContaining({
+        inputValues: expect.objectContaining({
+          taskId: state[0].task.id,
+          specificationHash: 'QmTS7jaoGwtxftSaXRDJn4A27pQ5YtCkWKHuf98CsuJ1qH',
+        }),
+      }),
+    }));
+  }, 5000);
+
+  // Test the signTaskBrief() example
+  test('signTaskBrief() works', async () => {
+    state[0].task = await signTaskBrief(
+      state[0].colonyClient,          // colonyClient
+      state[0].task.id,               // taskId
+    );
+    expect(state[0].task).toEqual(expect.objectContaining({
+      specificationHash: 'QmWvM3isCmEY8bsixThuFeUJmE5MN2he1UxaPzMngLZ7Wq',
+    }));
+  }, 5000);
+
+  // Test the connectNetwork() example
+  test('connectNetwork() works', async () => {
+    state[1].networkClient = await connectNetwork(1);
+    expect(state[1].networkClient).toEqual(expect.objectContaining({
+      _contract: expect.objectContaining({
+        address: expect.stringContaining('0x')
+      })
+    }));
+  }, 5000);
+
+  // Test the getColonyClient() example
+  test('getColonyClient() works', async () => {
+    state[1].colonyClient = await getColonyClient(
+      state[1].networkClient,                           // networkClient
+      state[0].colonyClient._query.contractAddress,     // colonyAddress
+    );
+    expect(state[1].colonyClient).toEqual(expect.objectContaining({
+      _contract: expect.objectContaining({
+        address: expect.stringContaining('0x')
+      })
+    }));
+  }, 5000);
+
+  // Test the signTaskBrief() example
+  test('signTaskBrief() works', async () => {
+    state[1].task = await signTaskBrief(
+      state[1].colonyClient,          // colonyClient
+      state[0].task.id,               // taskId
+    );
+    expect(state[1].task).toEqual(expect.objectContaining({
+      specificationHash: 'QmWvM3isCmEY8bsixThuFeUJmE5MN2he1UxaPzMngLZ7Wq',
     }));
   }, 5000);
 

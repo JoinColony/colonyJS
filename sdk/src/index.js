@@ -7,15 +7,16 @@ const createTask = require('./examples/createTask');
 const createToken = require('./examples/createToken');
 const getColonyClient = require('./examples/getColonyClient');
 const setTaskDueDate = require('./examples/setTaskDueDate');
-const setTaskRoles = require('./examples/setTaskRoles');
+const setTaskRoleUser = require('./examples/setTaskRoleUser');
 const setTaskSkill = require('./examples/setTaskSkill');
 const setTaskBrief = require('./examples/setTaskBrief');
 const signTaskBrief = require('./examples/signTaskBrief');
+const signTaskDueDate = require('./examples/signTaskDueDate');
 
-// The stored operations object will act as our database where we will store
-// pending multisig operations serialized in JSON format so that we can restore
-// the operations when we need to access them from another account.
-STORED_OPERATIONS = {};
+// The global database object will act as a mock database where we will store
+// our pending multisig operations so that we can restore the operations when
+// we need to sign them from another account.
+DATABASE = {};
 
 // Test accounts
 const accounts = [
@@ -25,7 +26,7 @@ const accounts = [
 ];
 
 // A unix timestamp representing 31 days from now
-const futureDate = new Date(Date.now() + 2678400000);
+const futureDueDate = new Date(Date.now() + 2678400000);
 
 // hackathonStarter example
 const hackathonStarter = async () => {
@@ -40,7 +41,7 @@ const hackathonStarter = async () => {
     {},     // account 3
   ];
 
-  console.log('\x1b[32m\n' + 'connectNetwork:' + '\n\x1b[0m');
+  console.log('\n\x1b[32m' + 'connectNetwork:' + '\x1b[0m\n');
 
   // Connect to the test network using the "connectNetwork" example and then
   // store the returned "networkClient" in the state object.
@@ -48,7 +49,7 @@ const hackathonStarter = async () => {
     0,                            // accountIndex
   );
 
-  console.log('\x1b[32m\n' + 'createToken:' + '\n\x1b[0m');
+  console.log('\n\x1b[32m' + 'createToken:' + '\x1b[0m\n');
 
   // Create a new ERC20 token using the "createToken" example and then store
   // the returned "tokenAddress" in the state object.
@@ -58,7 +59,7 @@ const hackathonStarter = async () => {
     'TKN',                        // symbol
   );
 
-  console.log('\x1b[32m\n' + 'createColony:' + '\n\x1b[0m');
+  console.log('\n\x1b[32m' + 'createColony:' + '\x1b[0m\n');
 
   // Create a new colony with our new token using the "createColony" example
   // and then store the returned "colonyClient" in the state object.
@@ -67,23 +68,23 @@ const hackathonStarter = async () => {
     state[0].tokenAddress,        // tokenAddress
   );
 
-  console.log('\x1b[32m\n' + 'addDomain:' + '\n\x1b[0m');
+  console.log('\n\x1b[32m' + 'addDomain:' + '\x1b[0m\n');
 
   // Add a new domain to our new colony using the "addDomain" example and then
-  // store the returned "domainId" in the state object. Each new colony comes
-  // with a root domain. In this case, we want the root domain to be the parent
-  // of our new domain, so we will use "1" for "parentDomainId".
+  // store the returned "domainId" in the state object. Each colony has a root
+  // domain. In this case, we want the root domain to be the parent of our new
+  // domain, so we will use "1" for "parentDomainId".
   state[0].domainId = await addDomain(
     state[0].colonyClient,        // colonyClient
     1,                            // parentDomainId
   );
 
-  console.log('\x1b[32m\n' + 'createTask:' + '\n\x1b[0m');
+  console.log('\n\x1b[32m' + 'createTask:' + '\x1b[0m\n');
 
   // Create a new task within our new domain using the "createTask" example and
   // then store the returned "task" in the state object. We could also create a
-  // new task within the root domain, using "1" for "domainId" but here we will
-  // use the "domainId" of our new domain, which has a value of "2".
+  // new task within the root domain, using "1" for the "domainId", but here we
+  // will use the "domainId" of our new domain, which has a value of "2".
   state[0].task = await createTask(
     state[0].colonyClient,        // colonyClient
     'New Task Title',             // title
@@ -91,7 +92,7 @@ const hackathonStarter = async () => {
     state[0].domainId,            // domainId
   );
 
-  console.log('\x1b[32m\n' + 'addGlobalSkill:' + '\n\x1b[0m');
+  console.log('\n\x1b[32m' + 'addGlobalSkill:' + '\x1b[0m\n');
 
   // Add a new global skill using the "addGlobalSkill" example and then store
   // the returned "skillId" in the state object. Each colonyNetwork comes with
@@ -102,65 +103,90 @@ const hackathonStarter = async () => {
     1,                            // parentSkillId
   );
 
-  console.log('\x1b[32m\n' + 'setTaskSkill:' + '\n\x1b[0m');
+  console.log('\n\x1b[32m' + 'setTaskSkill:' + '\x1b[0m\n');
 
   // Set the skill of our new task using the "setTaskSkill" example and then
   // store the updated "task" in the state object. In this case, we are going
-  // to update the "skillId" of our new task using the global skill we created
-  // in the previous step.
+  // to update the "skillId" of our new task using our new global skill.
   state[0].task = await setTaskSkill(
     state[0].colonyClient,        // colonyClient
     state[0].task.id,             // taskId
     state[0].skillId,             // skillId
   );
 
-  console.log('\x1b[32m\n' + 'setTaskDueDate:' + '\n\x1b[0m');
+  console.log('\n\x1b[32m' + 'setTaskDueDate:' + '\x1b[0m\n');
 
-  // Set the due date of our new task using the "setTaskDueDate" example and
-  // then store the updated "task" in the state object.
-  state[0].task = await setTaskDueDate(
+  // Set the due date of our new task using the "setTaskDueDate" example. The
+  // "setTaskDueDate" example starts a multisig operation and then stores the
+  // operation in our mock database. The operation will need to be signed by
+  // all "requiredSignees" before the changes will take affect.
+  await setTaskDueDate(
     state[0].colonyClient,        // colonyClient
     state[0].task.id,             // taskId
-    futureDate,                   // dueDate
+    futureDueDate,                // dueDate
   );
 
-  console.log('\x1b[32m\n' + 'setTaskRoles:' + '\n\x1b[0m');
+  console.log('\n\x1b[32m' + 'signTaskDueDate:' + '\x1b[0m\n');
 
-  // Set the user roles of our task using the "setTaskRoles" example and then
-  // store the updated "task" in the state object. The "setTaskRoles" example
-  // only updates the properties we provide to the "roles" parameter. In this
-  // case, we are going to update the "evaluator" and "worker" of our task.
-  state[0].taskRoles = await setTaskRoles(
+  // Sign the operation associated with our changes to the task due date using
+  // the "signTaskDueDate" example and then store the updated task in the state
+  // object. The requested changes to the due date of the task was made before
+  // we assigned a worker to our task, so the changes only need to be approved
+  // by the manager of the task, which is the account that created the task.
+  state[0].task = await signTaskDueDate(
+    state[0].colonyClient,                // colonyClient
+    state[0].task.id,                     // taskId
+  );
+
+  console.log('\n\x1b[32m' + 'setTaskRoleUser:' + '\x1b[0m\n');
+
+  // Set the evaluator of our task using the "setTaskRoleUser" example and then
+  // store the returned "taskRoles" in the state object.
+  state[0].taskRoles = await setTaskRoleUser(
     state[0].colonyClient,        // colonyClient
     state[0].task.id,             // taskId
-    {
-      evaluator: accounts[1],         // evaluator
-      worker: accounts[2],            // worker
-    },
+    'EVALUATOR',                  // role
+    accounts[1],                  // user
   );
 
-  console.log('\x1b[32m\n' + 'setTaskBrief:' + '\n\x1b[0m');
+  console.log('\n\x1b[32m' + 'setTaskRoleUser:' + '\x1b[0m\n');
 
-  // Update the specification of our task using the "setTaskBrief"
-  // example and then store the updated "task" in the state object.
-  state[0].task = await setTaskBrief(
+  // Set the worker of our task using the "setTaskRoleUser" example and then
+  // store the returned "taskRoles" in the state object.
+  state[0].taskRoles = await setTaskRoleUser(
     state[0].colonyClient,        // colonyClient
     state[0].task.id,             // taskId
-    {
-      title: 'Updated Task Title',                  // title
-      description: 'Updated Task Description',      // description
-    },
+    'WORKER',                     // role
+    accounts[2],                  // user
   );
 
-  // If the task we want to update already has an assigned "worker", changing
-  // the "specification" will need approval from the assigned manager and the
-  // assigned worker. We set up the example "setTaskBrief" action to
-  // automatically approve the updates as the manager when updating the task,
-  // so now we will need to approve the updates as the worker. We can do this
-  // by connecting to the test network using the account associated with the
-  // worker and then signing the task to approve the update.
+  console.log('\n\x1b[32m' + 'setTaskBrief:' + '\x1b[0m\n');
 
-  console.log('\x1b[32m\n' + 'connectNetwork:' + '\n\x1b[0m');
+  // Update the specification of our task using the "setTaskBrief" example. The
+  // "setTaskBrief" example starts a multisig operation and then stores the
+  // operation in our mock database. The operation will need to be signed by
+  // all "requiredSignees" before the changes will take affect.
+  await setTaskBrief(
+    state[0].colonyClient,        // colonyClient
+    state[0].task.id,             // taskId
+    'Updated Task Title',         // title
+    'Updated Task Description',   // description
+  );
+
+  console.log('\n\x1b[32m' + 'signTaskBrief:' + '\x1b[0m\n');
+
+  // Sign the operation associated with our changes to the task specification
+  // using the "signTaskBrief" example and then store the updated task in the
+  // state object. The requested changes to the due date of the task was made
+  // after we assigned a worker to our task, so the changes will need to be
+  // approved by both the manager and worker of the task. After we sign the
+  // operation as the manager, we will switch to the worker account.
+  state[0].task = await signTaskBrief(
+    state[0].colonyClient,        // colonyClient
+    state[0].task.id,             // taskId
+  );
+
+  console.log('\n\x1b[32m' + 'connectNetwork:' + '\x1b[0m\n');
 
   // Connect to the test network using the example "connectNetwork" action and
   // then store the returned "networkClient" in the state object.
@@ -168,7 +194,7 @@ const hackathonStarter = async () => {
     2,                            // accountIndex
   );
 
-  console.log('\x1b[32m\n' + 'getColonyClient:' + '\n\x1b[0m');
+  console.log('\n\x1b[32m' + 'getColonyClient:' + '\x1b[0m\n');
 
   // Get the client for the colony that we created as "account[0]" using the
   // "getColonyClient" example and then store the returned "colonyClient" in
@@ -178,7 +204,7 @@ const hackathonStarter = async () => {
     state[0].colonyClient._query.contractAddress,     // colonyAddress
   );
 
-  console.log('\x1b[32m\n' + 'signTaskBrief:' + '\n\x1b[0m');
+  console.log('\n\x1b[32m' + 'signTaskBrief:' + '\x1b[0m\n');
 
   // Approve the updates to the "specification" of the task using the account
   // associated with the "worker" of our task and then store the updated task
