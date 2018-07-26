@@ -13,6 +13,7 @@ const setTaskBrief = require('../examples/setTaskBrief');
 const signTaskBrief = require('../examples/signTaskBrief');
 const signTaskDueDate = require('../examples/signTaskDueDate');
 const submitTaskDeliverable = require('../examples/submitTaskDeliverable');
+const submitTaskWorkRating = require('../examples/submitTaskWorkRating');
 
 // Mock database
 DATABASE = {};
@@ -38,17 +39,17 @@ const state = [
 describe('hackathonStarter', () => {
 
   // Test the connectNetwork() example
-  test('[ACCOUNT 0]: connectNetwork() works', async () => {
+  test('account[0] connectNetwork() works', async () => {
     state[0].networkClient = await connectNetwork(0);
     expect(state[0].networkClient).toEqual(expect.objectContaining({
       _contract: expect.objectContaining({
-        address: expect.stringContaining('0x')
+        address: expect.stringContaining('0x'),
       })
     }));
   }, 5000);
 
   // Test the createToken() example
-  test('[ACCOUNT 0]: createToken() works', async () => {
+  test('account[0] createToken() works', async () => {
     state[0].tokenAddress = await createToken(
       state[0].networkClient,         // networkClient
       'token',                        // name
@@ -58,20 +59,20 @@ describe('hackathonStarter', () => {
   }, 5000);
 
   // Test the createColony() example
-  test('[ACCOUNT 0]: createColony() works', async () => {
+  test('account[0] createColony() works', async () => {
     state[0].colonyClient = await createColony(
       state[0].networkClient,         // networkClient
       state[0].tokenAddress,          // tokenAddress
     );
     expect(state[0].colonyClient).toEqual(expect.objectContaining({
       _contract: expect.objectContaining({
-        address: expect.stringContaining('0x')
+        address: expect.stringContaining('0x'),
       })
     }));
   }, 5000);
 
   // Test the addDomain() example
-  test('[ACCOUNT 0]: addDomain() works', async () => {
+  test('account[0] addDomain() works', async () => {
     state[0].domainId = await addDomain(
       state[0].colonyClient,          // colonyClient
       1,                              // parentDomainId
@@ -80,7 +81,7 @@ describe('hackathonStarter', () => {
   }, 5000);
 
   // Test the createTask() example
-  test('[ACCOUNT 0]: createTask() works', async () => {
+  test('account[0] createTask() works', async () => {
     state[0].task = await createTask(
       state[0].colonyClient,          // colonyClient
       state[0].domainId,              // domainId
@@ -96,7 +97,7 @@ describe('hackathonStarter', () => {
   }, 15000);
 
   // Test the addGlobalSkill() example
-  test('[ACCOUNT 0]: addGlobalSkill() works', async () => {
+  test('account[0] addGlobalSkill() works', async () => {
     state[0].skillId = await addGlobalSkill(
       state[0].networkClient,         // networkClient
       1,                              // parentSkillId
@@ -105,7 +106,7 @@ describe('hackathonStarter', () => {
   }, 5000);
 
   // Test the setTaskSkill() example
-  test('[ACCOUNT 0]: setTaskSkill() works', async () => {
+  test('account[0] setTaskSkill() works', async () => {
     state[0].task = await setTaskSkill(
       state[0].colonyClient,          // colonyClient
       state[0].task.id,               // taskId
@@ -115,7 +116,7 @@ describe('hackathonStarter', () => {
   }, 5000);
 
   // Test the setTaskDueDate() example
-  test('[ACCOUNT 0]: setTaskDueDate() works', async () => {
+  test('account[0] setTaskDueDate() works', async () => {
     await setTaskDueDate(
       state[0].colonyClient,          // colonyClient
       state[0].task.id,               // taskId
@@ -132,7 +133,7 @@ describe('hackathonStarter', () => {
   }, 5000);
 
   // Test the signTaskDueDate() example
-  test('[ACCOUNT 0]: signTaskDueDate() works', async () => {
+  test('account[0] signTaskDueDate() works', async () => {
     state[0].task = await signTaskDueDate(
       state[0].colonyClient,          // colonyClient
       state[0].task.id,               // taskId
@@ -141,7 +142,7 @@ describe('hackathonStarter', () => {
   }, 5000);
 
   // Test the setTaskRoleUser() example
-  test('[ACCOUNT 0]: setTaskRoleUser() works with evaluator', async () => {
+  test('account[0] setTaskRoleUser() works with evaluator', async () => {
     state[0].taskRoles = await setTaskRoleUser(
       state[0].colonyClient,          // colonyClient
       state[0].task.id,               // taskId
@@ -150,13 +151,13 @@ describe('hackathonStarter', () => {
     );
     expect(state[0].taskRoles).toEqual(expect.objectContaining({
       evaluator: expect.objectContaining({
-        address: expect.stringMatching(accounts[1])
+        address: expect.stringMatching(accounts[1]),
       }),
     }));
   }, 5000);
 
   // Test the setTaskRoleUser() example
-  test('[ACCOUNT 0]: setTaskRoleUser() works with worker', async () => {
+  test('account[0] setTaskRoleUser() works with worker', async () => {
     state[0].taskRoles = await setTaskRoleUser(
       state[0].colonyClient,          // colonyClient
       state[0].task.id,               // taskId
@@ -165,13 +166,13 @@ describe('hackathonStarter', () => {
     );
     expect(state[0].taskRoles).toEqual(expect.objectContaining({
       worker: expect.objectContaining({
-        address: expect.stringMatching(accounts[2])
+        address: expect.stringMatching(accounts[2]),
       }),
     }));
   }, 5000);
 
   // Test the setTaskBrief() example
-  test('[ACCOUNT 0]: setTaskBrief() works', async () => {
+  test('account[0] setTaskBrief() works', async () => {
     await setTaskBrief(
       state[0].colonyClient,          // colonyClient
       state[0].task.id,               // taskId
@@ -191,7 +192,7 @@ describe('hackathonStarter', () => {
   }, 5000);
 
   // Test the signTaskBrief() example
-  test('[ACCOUNT 0]: signTaskBrief() works', async () => {
+  test('account[0] signTaskBrief() works', async () => {
     state[0].task = await signTaskBrief(
       state[0].colonyClient,          // colonyClient
       state[0].task.id,               // taskId
@@ -202,30 +203,30 @@ describe('hackathonStarter', () => {
   }, 5000);
 
   // Test the connectNetwork() example
-  test('[ACCOUNT 2]: connectNetwork() works', async () => {
+  test('account[2] connectNetwork() works', async () => {
     state[2].networkClient = await connectNetwork(2);
     expect(state[2].networkClient).toEqual(expect.objectContaining({
       _contract: expect.objectContaining({
-        address: expect.stringContaining('0x')
+        address: expect.stringContaining('0x'),
       })
     }));
   }, 5000);
 
   // Test the getColonyClient() example
-  test('[ACCOUNT 2]: getColonyClient() works', async () => {
+  test('account[2] getColonyClient() works', async () => {
     state[2].colonyClient = await getColonyClient(
       state[2].networkClient,                           // networkClient
       state[0].colonyClient._query.contractAddress,     // colonyAddress
     );
     expect(state[2].colonyClient).toEqual(expect.objectContaining({
       _contract: expect.objectContaining({
-        address: expect.stringContaining('0x')
+        address: expect.stringContaining('0x'),
       })
     }));
   }, 5000);
 
   // Test the signTaskBrief() example
-  test('[ACCOUNT 2]: signTaskBrief() works', async () => {
+  test('account[2] signTaskBrief() works', async () => {
     state[2].task = await signTaskBrief(
       state[2].colonyClient,          // colonyClient
       state[0].task.id,               // taskId
@@ -236,7 +237,7 @@ describe('hackathonStarter', () => {
   }, 5000);
 
   // Test the submitTaskDeliverable() example
-  test('[ACCOUNT 2]: submitTaskDeliverable() works', async () => {
+  test('account[2] submitTaskDeliverable() works', async () => {
     state[2].task = await submitTaskDeliverable(
       state[2].colonyClient,          // colonyClient
       state[2].task.id,               // taskId
@@ -247,6 +248,51 @@ describe('hackathonStarter', () => {
     expect(state[2].task).toEqual(expect.objectContaining({
       deliverableHash: 'QmWzXkBNJ1aKB2PRNrFu7ih9LPb34H5SQ76jEUdniS4JdJ',
     }));
+  }, 5000);
+
+  // Test the submitTaskWorkRating() example
+  test('account[2] submitTaskWorkRating() works', async () => {
+    state[2].taskWorkRatings = await submitTaskWorkRating(
+      state[2].colonyClient,          // colonyClient
+      state[2].task.id,               // taskId
+      'MANAGER',                      // role
+      3,                              // rating
+    );
+    expect(state[2].taskWorkRatings.count).toEqual(1);
+  }, 5000);
+
+  // Test the connectNetwork() example
+  test('account[1] connectNetwork() works', async () => {
+    state[1].networkClient = await connectNetwork(1);
+    expect(state[1].networkClient).toEqual(expect.objectContaining({
+      _contract: expect.objectContaining({
+        address: expect.stringContaining('0x'),
+      })
+    }));
+  }, 5000);
+
+  // Test the getColonyClient() example
+  test('account[1] getColonyClient() works', async () => {
+    state[1].colonyClient = await getColonyClient(
+      state[1].networkClient,                           // networkClient
+      state[0].colonyClient._query.contractAddress,     // colonyAddress
+    );
+    expect(state[1].colonyClient).toEqual(expect.objectContaining({
+      _contract: expect.objectContaining({
+        address: expect.stringContaining('0x'),
+      })
+    }));
+  }, 5000);
+
+  // Test the submitTaskWorkRating() example
+  test('account[1] submitTaskWorkRating() works', async () => {
+    state[1].taskWorkRatings = await submitTaskWorkRating(
+      state[1].colonyClient,          // colonyClient
+      state[0].task.id,               // taskId
+      'WORKER',                       // role
+      3,                              // rating
+    );
+    expect(state[2].taskWorkRatings.count).toEqual(1);
   }, 5000);
 
 });
