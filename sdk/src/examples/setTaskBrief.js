@@ -2,16 +2,13 @@
 const ecp = require('../helpers/ecp');
 
 // An example using the setTaskBrief operation
-const setTaskBrief = async (colonyClient, taskId, title, description) => {
+const setTaskBrief = async (colonyClient, taskId, specification) => {
 
   // Initialise the Extended Colony Protocol
   await ecp.init();
 
   // Create a specification hash for the task
-  const specificationHash = await ecp.saveTaskSpecification({
-    title,
-    description,
-  });
+  const specificationHash = await ecp.saveHash(specification);
 
   // Check out the logs to see the specification hash
   console.log('Specification Hash: ' + specificationHash);

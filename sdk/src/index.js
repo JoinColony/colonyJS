@@ -12,6 +12,7 @@ const setTaskSkill = require('./examples/setTaskSkill');
 const setTaskBrief = require('./examples/setTaskBrief');
 const signTaskBrief = require('./examples/signTaskBrief');
 const signTaskDueDate = require('./examples/signTaskDueDate');
+const submitTaskDeliverable = require('./examples/submitTaskDeliverable');
 
 // The global database object will act as a mock database where we will store
 // our pending multisig operations so that we can restore the operations when
@@ -87,9 +88,11 @@ const hackathonStarter = async () => {
   // will use the "domainId" of our new domain, which has a value of "2".
   state[0].task = await createTask(
     state[0].colonyClient,        // colonyClient
-    'New Task Title',             // title
-    'New Task Description',       // description
     state[0].domainId,            // domainId
+    {
+      title: 'New Task Title',                // title
+      description: 'New Task Description',    // description
+    },
   );
 
   console.log('\n\x1b[32m' + 'addGlobalSkill:' + '\x1b[0m\n');
@@ -169,8 +172,10 @@ const hackathonStarter = async () => {
   await setTaskBrief(
     state[0].colonyClient,        // colonyClient
     state[0].task.id,             // taskId
-    'Updated Task Title',         // title
-    'Updated Task Description',   // description
+    {
+      title: 'Updated Task Title',                // title
+      description: 'Updated Task Description',    // description
+    },
   );
 
   console.log('\n\x1b[32m' + 'signTaskBrief:' + '\x1b[0m\n');
@@ -212,6 +217,19 @@ const hackathonStarter = async () => {
   state[2].task = await signTaskBrief(
     state[2].colonyClient,        // colonyClient
     state[0].task.id,             // taskId
+  );
+
+  console.log('\n\x1b[32m' + 'submitTaskDeliverable:' + '\x1b[0m\n');
+
+  // Approve the updates to the "specification" of the task using the account
+  // associated with the "worker" of our task and then store the updated task
+  // in the state object.
+  state[2].task = await submitTaskDeliverable(
+    state[2].colonyClient,        // colonyClient
+    state[2].task.id,             // taskId
+    {
+      message: 'Work Complete',   // message
+    },
   );
 
 }
