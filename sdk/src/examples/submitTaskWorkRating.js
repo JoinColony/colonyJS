@@ -1,4 +1,4 @@
-// An example using the submitTaskDeliverable method
+// An example using the submitTaskWorkRating method
 const submitTaskWorkRating = async (colonyClient, taskId, role, rating) => {
 
   // Set salt value

@@ -1,6 +1,7 @@
 // Import examples
 const addDomain = require('./examples/addDomain');
 const addGlobalSkill = require('./examples/addGlobalSkill');
+const claimPayout = require('./examples/claimPayout');
 const connectNetwork = require('./examples/connectNetwork');
 const createColony = require('./examples/createColony');
 const createTask = require('./examples/createTask');
@@ -217,7 +218,7 @@ const hackathonStarter = async () => {
   // Approve the updates to the "specification" of the task using the account
   // associated with the "worker" of our task and then store the updated task
   // in the state object.
-  state[2].task = await signTaskBrief(
+  state[0].task = await signTaskBrief(
     state[2].colonyClient,        // colonyClient
     state[0].task.id,             // taskId
   );
@@ -226,9 +227,9 @@ const hackathonStarter = async () => {
 
   // Submit the task deliverable for our task using the "submitTaskDeliverable"
   // example and then store the updated task in the state object.
-  state[2].task = await submitTaskDeliverable(
+  state[0].task = await submitTaskDeliverable(
     state[2].colonyClient,        // colonyClient
-    state[2].task.id,             // taskId
+    state[0].task.id,             // taskId
     {
       message: 'Work Complete',   // message
     },
@@ -238,10 +239,10 @@ const hackathonStarter = async () => {
 
   // Submit a rating for the manager of our task from the worker of our task
   // using the "submitTaskWorkRating" example and then store the updated task
-  // in the state object.
-  state[2].taskWorkRatings = await submitTaskWorkRating(
+  // work ratings in the state object.
+  state[0].taskWorkRatings = await submitTaskWorkRating(
     state[2].colonyClient,        // colonyClient
-    state[2].task.id,             // taskId
+    state[0].task.id,             // taskId
     'MANAGER',                    // role
     3,                            // rating
   );
@@ -268,8 +269,8 @@ const hackathonStarter = async () => {
 
   // Submit a rating for the worker of our task from the evaluator of our task
   // using the "submitTaskWorkRating" example and then store the updated task
-  // in the state object.
-  state[1].taskWorkRatings = await submitTaskWorkRating(
+  // work ratings in the state object.
+  state[0].taskWorkRatings = await submitTaskWorkRating(
     state[1].colonyClient,        // colonyClient
     state[0].task.id,             // taskId
     'WORKER',                     // role
@@ -280,8 +281,8 @@ const hackathonStarter = async () => {
 
   // Reaveal the rating for the worker of our task from the evaluator of our task
   // using the "revealTaskWorkRating" example and then store the updated task
-  // in the state object.
-  state[1].taskWorkRatings = await revealTaskWorkRating(
+  // work ratings in the state object.
+  state[0].taskWorkRatings = await revealTaskWorkRating(
     state[1].colonyClient,        // colonyClient
     state[0].task.id,             // taskId
     'WORKER',                     // role
@@ -292,8 +293,8 @@ const hackathonStarter = async () => {
 
   // Reaveal the rating for the manager of our task from the worker of our task
   // using the "revealTaskWorkRating" example and then store the updated task
-  // in the state object.
-  await revealTaskWorkRating(
+  // work ratings in the state object.
+  state[0].taskWorkRatings = await revealTaskWorkRating(
     state[2].colonyClient,        // colonyClient
     state[0].task.id,             // taskId
     'MANAGER',                    // role
@@ -304,9 +305,39 @@ const hackathonStarter = async () => {
 
   // Finalize our task using the "finalizeTask" example and then store the
   // updated task in the state object.
-  await finalizeTask(
+  state[0].task = await finalizeTask(
     state[0].colonyClient,        // colonyClient
     state[0].task.id,             // taskId
+  );
+
+  console.log('\n\x1b[32m' + 'account[0] claimPayout:' + '\x1b[0m\n');
+
+  // Claim the manager payout for the task using the "claimPayout" example.
+  state[0].taskPayout = await claimPayout(
+    state[0].colonyClient,        // colonyClient
+    state[0].task.id,             // taskId
+    'MANAGER',                    // role
+    state[0].tokenAddress,        // token
+  );
+
+  console.log('\n\x1b[32m' + 'account[1] claimPayout:' + '\x1b[0m\n');
+
+  // Claim the evaluator payout for the task using the "claimPayout" example.
+  state[1].taskPayout = await claimPayout(
+    state[1].colonyClient,        // colonyClient
+    state[0].task.id,             // taskId
+    'EVALUATOR',                  // role
+    state[0].tokenAddress,        // token
+  );
+
+  console.log('\n\x1b[32m' + 'account[2] claimPayout:' + '\x1b[0m\n');
+
+  // Claim the worker payout for the task using the "claimPayout" example.
+  state[2].taskPayout = await claimPayout(
+    state[2].colonyClient,        // colonyClient
+    state[0].task.id,             // taskId
+    'WORKER',                     // role
+    state[0].tokenAddress,        // token
   );
 
 }

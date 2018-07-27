@@ -1,6 +1,7 @@
 // Import examples
 const addDomain = require('../examples/addDomain');
 const addGlobalSkill = require('../examples/addGlobalSkill');
+const claimPayout = require('../examples/claimPayout');
 const connectNetwork = require('../examples/connectNetwork');
 const createColony = require('../examples/createColony');
 const createTask = require('../examples/createTask');
@@ -326,6 +327,39 @@ describe('hackathonStarter', () => {
       state[0].task.id,               // taskId
     );
     expect(state[0].task.finalized).toEqual(true);
+  }, 5000);
+
+  // Test the claimPayout() example from account[0]
+  test('account[0] claimPayout() works', async () => {
+    state[0].taskPayout = await claimPayout(
+      state[0].colonyClient,          // colonyClient
+      state[0].task.id,               // taskId
+      'MANAGER',                      // role
+      state[0].tokenAddress,          // token
+    );
+    expect(state[0].taskPayout.amount.toNumber()).toEqual(0);
+  }, 5000);
+
+  // Test the claimPayout() example from account[1]
+  test('account[1] claimPayout() works', async () => {
+    state[1].taskPayout = await claimPayout(
+      state[1].colonyClient,          // colonyClient
+      state[0].task.id,               // taskId
+      'EVALUATOR',                    // role
+      state[0].tokenAddress,          // token
+    );
+    expect(state[1].taskPayout.amount.toNumber()).toEqual(0);
+  }, 5000);
+
+  // Test the claimPayout() example from account[2]
+  test('account[2] claimPayout() works', async () => {
+    state[2].taskPayout = await claimPayout(
+      state[2].colonyClient,          // colonyClient
+      state[0].task.id,               // taskId
+      'WORKER',                       // role
+      state[0].tokenAddress,          // token
+    );
+    expect(state[2].taskPayout.amount.toNumber()).toEqual(0);
   }, 5000);
 
 });
