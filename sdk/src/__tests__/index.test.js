@@ -9,11 +9,16 @@ const createToken = require('../examples/createToken');
 const finalizeTask = require('../examples/finalizeTask');
 const getColonyClient = require('../examples/getColonyClient');
 const revealTaskWorkRating = require('../examples/revealTaskWorkRating');
+const setTaskBrief = require('../examples/setTaskBrief');
 const setTaskDueDate = require('../examples/setTaskDueDate');
+const setTaskEvaluatorPayout = require('../examples/setTaskEvaluatorPayout');
+const setTaskManagerPayout = require('../examples/setTaskManagerPayout');
 const setTaskRoleUser = require('../examples/setTaskRoleUser');
 const setTaskSkill = require('../examples/setTaskSkill');
-const setTaskBrief = require('../examples/setTaskBrief');
+const setTaskWorkerPayout = require('../examples/setTaskWorkerPayout');
 const signTaskBrief = require('../examples/signTaskBrief');
+const signTaskEvaluatorPayout = require('../examples/signTaskEvaluatorPayout');
+const signTaskWorkerPayout = require('../examples/signTaskWorkerPayout');
 const signTaskDueDate = require('../examples/signTaskDueDate');
 const submitTaskDeliverable = require('../examples/submitTaskDeliverable');
 const submitTaskWorkRating = require('../examples/submitTaskWorkRating');
@@ -142,6 +147,57 @@ describe('hackathonStarter', () => {
       state[0].task.id,               // taskId
     );
     expect(state[0].task.dueDate).toEqual(futureDueDate);
+  }, 5000);
+
+  // Test the setTaskManagerPayout() example from account[0]
+  test('account[0] setTaskManagerPayout() works', async () => {
+    state[0].taskManagerPayout = await setTaskManagerPayout(
+      state[0].colonyClient,        // colonyClient
+      state[0].task.id,             // taskId
+      10,                           // amount
+      state[0].tokenAddress,        // token
+    );
+    expect(state[0].taskManagerPayout.amount.toNumber()).toEqual(10);
+  }, 5000);
+
+  // Test the setTaskEvaluatorPayout() example from account[0]
+  test('account[0] setTaskEvaluatorPayout() works', async () => {
+    state[0].taskEvaluatorPayout = await setTaskEvaluatorPayout(
+      state[0].colonyClient,        // colonyClient
+      state[0].task.id,             // taskId
+      10,                           // amount
+      state[0].tokenAddress,        // token
+    );
+    expect(state[0].taskEvaluatorPayout.amount.toNumber()).toEqual(0);
+  }, 5000);
+
+  // Test the signTaskEvaluatorPayout() example from account[0]
+  test('account[0] signTaskEvaluatorPayout() works', async () => {
+    state[0].taskEvaluatorPayout = await signTaskEvaluatorPayout(
+      state[0].colonyClient,        // colonyClient
+      state[0].task.id,             // taskId
+    );
+    expect(state[0].taskEvaluatorPayout.amount.toNumber()).toEqual(10);
+  }, 5000);
+
+  // Test the setTaskWorkerPayout() example from account[0]
+  test('account[0] setTaskWorkerPayout() works', async () => {
+    state[0].taskWorkerPayout = await setTaskWorkerPayout(
+      state[0].colonyClient,        // colonyClient
+      state[0].task.id,             // taskId
+      10,                           // amount
+      state[0].tokenAddress,        // token
+    );
+    expect(state[0].taskWorkerPayout.amount.toNumber()).toEqual(0);
+  }, 5000);
+
+  // Test the signTaskWorkerPayout() example from account[0]
+  test('account[0] signTaskWorkerPayout() works', async () => {
+    state[0].taskWorkerPayout = await signTaskWorkerPayout(
+      state[0].colonyClient,        // colonyClient
+      state[0].task.id,             // taskId
+    );
+    expect(state[0].taskWorkerPayout.amount.toNumber()).toEqual(10);
   }, 5000);
 
   // Test the setTaskRoleUser() example from account[0]
@@ -337,7 +393,7 @@ describe('hackathonStarter', () => {
       'MANAGER',                      // role
       state[0].tokenAddress,          // token
     );
-    expect(state[0].taskPayout.amount.toNumber()).toEqual(0);
+    expect(state[0].taskPayout.amount.toNumber()).toEqual(10);
   }, 5000);
 
   // Test the claimPayout() example from account[1]
@@ -348,7 +404,7 @@ describe('hackathonStarter', () => {
       'EVALUATOR',                    // role
       state[0].tokenAddress,          // token
     );
-    expect(state[1].taskPayout.amount.toNumber()).toEqual(0);
+    expect(state[1].taskPayout.amount.toNumber()).toEqual(10);
   }, 5000);
 
   // Test the claimPayout() example from account[2]
@@ -359,7 +415,7 @@ describe('hackathonStarter', () => {
       'WORKER',                       // role
       state[0].tokenAddress,          // token
     );
-    expect(state[2].taskPayout.amount.toNumber()).toEqual(0);
+    expect(state[2].taskPayout.amount.toNumber()).toEqual(10);
   }, 5000);
 
 });

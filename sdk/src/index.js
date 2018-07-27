@@ -9,11 +9,16 @@ const createToken = require('./examples/createToken');
 const finalizeTask = require('./examples/finalizeTask');
 const getColonyClient = require('./examples/getColonyClient');
 const revealTaskWorkRating = require('./examples/revealTaskWorkRating');
+const setTaskBrief = require('./examples/setTaskBrief');
 const setTaskDueDate = require('./examples/setTaskDueDate');
+const setTaskEvaluatorPayout = require('./examples/setTaskEvaluatorPayout');
+const setTaskManagerPayout = require('./examples/setTaskManagerPayout');
 const setTaskRoleUser = require('./examples/setTaskRoleUser');
 const setTaskSkill = require('./examples/setTaskSkill');
-const setTaskBrief = require('./examples/setTaskBrief');
+const setTaskWorkerPayout = require('./examples/setTaskWorkerPayout');
 const signTaskBrief = require('./examples/signTaskBrief');
+const signTaskEvaluatorPayout = require('./examples/signTaskEvaluatorPayout');
+const signTaskWorkerPayout = require('./examples/signTaskWorkerPayout');
 const signTaskDueDate = require('./examples/signTaskDueDate');
 const submitTaskDeliverable = require('./examples/submitTaskDeliverable');
 const submitTaskWorkRating = require('./examples/submitTaskWorkRating');
@@ -141,6 +146,67 @@ const hackathonStarter = async () => {
   // we assigned a worker to our task, so the changes only need to be approved
   // by the manager of the task, which is the account that created the task.
   state[0].task = await signTaskDueDate(
+    state[0].colonyClient,                // colonyClient
+    state[0].task.id,                     // taskId
+  );
+
+  console.log('\n\x1b[32m' + 'account[0] setTaskManagerPayout:' + '\x1b[0m\n');
+
+  // Set the payout for the manager of our new task using the "setTaskManagerPayout"
+  // example.
+  state[0].taskManagerPayout = await setTaskManagerPayout(
+    state[0].colonyClient,        // colonyClient
+    state[0].task.id,             // taskId
+    10,                           // amount
+    state[0].tokenAddress,        // token
+  );
+
+  console.log('\n\x1b[32m' + 'account[0] setTaskEvaluatorPayout:' + '\x1b[0m\n');
+
+  // Set the payout for the evaluator of our new task using the "setTaskEvaluatorPayout"
+  // example. The "setTaskEvaluatorPayout" example starts a multisig operation and then
+  // stores the operation in our mock database. The operation will need to be
+  // signed by all "requiredSignees" before the changes will take affect.
+  state[0].taskEvaluatorPayout = await setTaskEvaluatorPayout(
+    state[0].colonyClient,        // colonyClient
+    state[0].task.id,             // taskId
+    10,                           // amount
+    state[0].tokenAddress,        // token
+  );
+
+  console.log('\n\x1b[32m' + 'account[0] signTaskEvaluatorPayout:' + '\x1b[0m\n');
+
+  // Sign the operation associated with our changes to the task due date using
+  // the "signTaskEvaluatorPayout" example and then store the updated task in the state
+  // object. The requested changes to the due date of the task was made before
+  // we assigned a worker to our task, so the changes only need to be approved
+  // by the manager of the task, which is the account that created the task.
+  state[0].taskEvaluatorPayout = await signTaskEvaluatorPayout(
+    state[0].colonyClient,                // colonyClient
+    state[0].task.id,                     // taskId
+  );
+
+  console.log('\n\x1b[32m' + 'account[0] setTaskWorkerPayout:' + '\x1b[0m\n');
+
+  // Set the payout for the evaluator of our new task using the "setTaskWorkerPayout"
+  // example. The "setTaskWorkerPayout" example starts a multisig operation and then
+  // stores the operation in our mock database. The operation will need to be
+  // signed by all "requiredSignees" before the changes will take affect.
+  state[0].taskWorkerPayout = await setTaskWorkerPayout(
+    state[0].colonyClient,        // colonyClient
+    state[0].task.id,             // taskId
+    10,                           // amount
+    state[0].tokenAddress,        // token
+  );
+
+  console.log('\n\x1b[32m' + 'account[0] signTaskWorkerPayout:' + '\x1b[0m\n');
+
+  // Sign the operation associated with our changes to the task due date using
+  // the "signTaskWorkerPayout" example and then store the updated task in the state
+  // object. The requested changes to the due date of the task was made before
+  // we assigned a worker to our task, so the changes only need to be approved
+  // by the manager of the task, which is the account that created the task.
+  state[0].taskWorkerPayout = await signTaskWorkerPayout(
     state[0].colonyClient,                // colonyClient
     state[0].task.id,                     // taskId
   );
