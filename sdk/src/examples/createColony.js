@@ -1,7 +1,7 @@
 // An example using the createColony method
 const createColony = async (networkClient, tokenAddress) => {
 
-  // Create a Colony
+  // Create a colony with the given token
   const {
     eventData: { colonyAddress, colonyId }
   } = await networkClient.createColony.send({ tokenAddress });
@@ -15,10 +15,10 @@ const createColony = async (networkClient, tokenAddress) => {
   // Get the colonyClient using the colonyId
   const colonyClient = await networkClient.getColonyClient(colonyId);
 
-  // Alternatively, we can get the colonyClient using the colonyAddress
-  // const colonyClient = await networkClient.getColonyClientByAddress(
-  //   colonyAddress,
-  // );
+  // Set the token owner to be the colony contract. This will allow us to mint
+  // and claim tokens using the colonyClient, which will then allow us to fund
+  // domains and tasks within our colony.
+  await colonyClient.token.setOwner.send({ owner: colonyAddress });
 
   // Return colonyClient
   return colonyClient;

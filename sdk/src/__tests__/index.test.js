@@ -1,6 +1,7 @@
 // Import examples
 const addDomain = require('../examples/addDomain');
 const addGlobalSkill = require('../examples/addGlobalSkill');
+const claimColonyFunds = require('../examples/claimColonyFunds');
 const claimPayout = require('../examples/claimPayout');
 const connectNetwork = require('../examples/connectNetwork');
 const createColony = require('../examples/createColony');
@@ -8,6 +9,8 @@ const createTask = require('../examples/createTask');
 const createToken = require('../examples/createToken');
 const finalizeTask = require('../examples/finalizeTask');
 const getColonyClient = require('../examples/getColonyClient');
+const mintTokens = require('../examples/mintTokens');
+const moveFundsBetweenPots = require('../examples/moveFundsBetweenPots');
 const revealTaskWorkRating = require('../examples/revealTaskWorkRating');
 const setTaskBrief = require('../examples/setTaskBrief');
 const setTaskDueDate = require('../examples/setTaskDueDate');
@@ -56,6 +59,15 @@ describe('hackathonStarter', () => {
     }));
   }, 5000);
 
+  // Test the addGlobalSkill() example from account[0]
+  test('account[0] addGlobalSkill() works', async () => {
+    state[0].skillId = await addGlobalSkill(
+      state[0].networkClient,         // networkClient
+      1,                              // parentSkillId
+    );
+    expect(state[0].skillId).toBeGreaterThan(1);
+  }, 5000);
+
   // Test the createToken() example from account[0]
   test('account[0] createToken() works', async () => {
     state[0].tokenAddress = await createToken(
@@ -77,40 +89,73 @@ describe('hackathonStarter', () => {
         address: expect.stringContaining('0x'),
       })
     }));
+  }, 10000);
+
+  // Test the mintTokens() example from account[0]
+  test('account[0] mintTokens() works', async () => {
+    state[0].tokenSupply = await mintTokens(
+      state[0].colonyClient,          // colonyClient
+      30,                             // amount
+    );
+    expect(state[0].tokenSupply.amount.toNumber()).toEqual(30);
+  }, 5000);
+
+  // Test the claimColonyFunds() example from account[0]
+  test('account[0] claimColonyFunds() works', async () => {
+    state[0].colonyPotBalance = await claimColonyFunds(
+      state[0].colonyClient,          // colonyClient
+      state[0].tokenAddress,          // tokenAddress
+    );
+    expect(state[0].colonyPotBalance.balance.toNumber()).toEqual(30);
   }, 5000);
 
   // Test the addDomain() example from account[0]
   test('account[0] addDomain() works', async () => {
-    state[0].domainId = await addDomain(
+    state[0].domain = await addDomain(
       state[0].colonyClient,          // colonyClient
       1,                              // parentDomainId
     );
-    expect(state[0].domainId).toBeGreaterThan(1);
+    expect(state[0].domain.id).toBeGreaterThan(1);
+  }, 5000);
+
+  // Test the moveFundsBetweenPots() example from account[0]
+  test('account[0] moveFundsBetweenPots() works', async () => {
+    let potBalance = await moveFundsBetweenPots(
+      state[0].colonyClient,        // colonyClient
+      1,                            // fromPot
+      state[0].domain.potId,        // toPot
+      30,                           // amount
+      state[0].tokenAddress,        // token
+    );
+    expect(potBalance.balance.toNumber()).toEqual(30);
   }, 5000);
 
   // Test the createTask() example from account[0]
   test('account[0] createTask() works', async () => {
     state[0].task = await createTask(
       state[0].colonyClient,          // colonyClient
-      state[0].domainId,              // domainId
+      state[0].domain.id,             // domainId
       {
         title: 'New Task Title',                  // title
         description: 'New Task Description',      // description
       },
     );
     expect(state[0].task).toEqual(expect.objectContaining({
-      domainId: state[0].domainId,
+      domainId: state[0].domain.id,
       specificationHash: 'QmWvM3isCmEY8bsixThuFeUJmE5MN2he1UxaPzMngLZ7Wq',
     }));
   }, 15000);
 
-  // Test the addGlobalSkill() example from account[0]
-  test('account[0] addGlobalSkill() works', async () => {
-    state[0].skillId = await addGlobalSkill(
-      state[0].networkClient,         // networkClient
-      1,                              // parentSkillId
+  // Test the moveFundsBetweenPots() example from account[0]
+  test('account[0] moveFundsBetweenPots() works', async () => {
+    let potBalance = await moveFundsBetweenPots(
+      state[0].colonyClient,        // colonyClient
+      state[0].domain.potId,        // fromPot
+      state[0].task.potId,          // toPot
+      30,                           // amount
+      state[0].tokenAddress,        // token
     );
-    expect(state[0].skillId).toBeGreaterThan(1);
+    expect(potBalance.balance.toNumber()).toEqual(30);
   }, 5000);
 
   // Test the setTaskSkill() example from account[0]
@@ -309,17 +354,6 @@ describe('hackathonStarter', () => {
     }));
   }, 5000);
 
-  // Test the submitTaskWorkRating() example from account[2]
-  test('account[2] submitTaskWorkRating() works', async () => {
-    state[2].taskWorkRatings = await submitTaskWorkRating(
-      state[2].colonyClient,          // colonyClient
-      state[2].task.id,               // taskId
-      'MANAGER',                      // role
-      3,                              // rating
-    );
-    expect(state[2].taskWorkRatings.count).toEqual(1);
-  }, 5000);
-
   // Test the connectNetwork() example from account[1]
   test('account[1] connectNetwork() works', async () => {
     state[1].networkClient = await connectNetwork(1);
@@ -351,7 +385,18 @@ describe('hackathonStarter', () => {
       'WORKER',                       // role
       3,                              // rating
     );
-    expect(state[1].taskWorkRatings.count).toEqual(2);
+    expect(state[1].taskWorkRatings.count).toEqual(1);
+  }, 5000);
+
+  // Test the submitTaskWorkRating() example from account[2]
+  test('account[2] submitTaskWorkRating() works', async () => {
+    state[2].taskWorkRatings = await submitTaskWorkRating(
+      state[2].colonyClient,          // colonyClient
+      state[2].task.id,               // taskId
+      'MANAGER',                      // role
+      3,                              // rating
+    );
+    expect(state[2].taskWorkRatings.count).toEqual(2);
   }, 5000);
 
   // Test the revealTaskWorkRating() example from account[1]
@@ -393,7 +438,7 @@ describe('hackathonStarter', () => {
       'MANAGER',                      // role
       state[0].tokenAddress,          // token
     );
-    expect(state[0].taskPayout.amount.toNumber()).toEqual(10);
+    expect(state[0].taskPayout.amount.toNumber()).toEqual(0);
   }, 5000);
 
   // Test the claimPayout() example from account[1]
@@ -404,7 +449,7 @@ describe('hackathonStarter', () => {
       'EVALUATOR',                    // role
       state[0].tokenAddress,          // token
     );
-    expect(state[1].taskPayout.amount.toNumber()).toEqual(10);
+    expect(state[1].taskPayout.amount.toNumber()).toEqual(0);
   }, 5000);
 
   // Test the claimPayout() example from account[2]
@@ -415,7 +460,7 @@ describe('hackathonStarter', () => {
       'WORKER',                       // role
       state[0].tokenAddress,          // token
     );
-    expect(state[2].taskPayout.amount.toNumber()).toEqual(10);
+    expect(state[2].taskPayout.amount.toNumber()).toEqual(0);
   }, 5000);
 
 });

@@ -9,26 +9,33 @@ const addDomain = async (colonyClient, parentDomainId) => {
     domainId: parentDomainId,
   });
 
-  // Check out the logs to see the local skill id of the parent domain
-  console.log('Local Skill ID (Parent Domain): ' + parentSkillId);
-
   // Create a new domain using the local skill id of the parent domain
   const { eventData: { skillId } } = await colonyClient.addDomain.send({
     parentSkillId,
   });
 
-  // Check out the logs to see the local skill id of the new domain
-  console.log('Local Skill ID (New Domain): ' + skillId);
-
-  // Get the total number of domains in the colony, which also represents the
-  // id for the domain we just created.
+  // Get the the id for the domain we just created by getting the total number
+  // of domains in the colony.
   const { count: domainId } = await colonyClient.getDomainCount.call();
 
-  // Check out the logs to see the domain id of our new domain
-  console.log('Domain ID / Total Domains: ' + domainId);
+  // Get domain pot id
+  const { potId } = await colonyClient.getDomain.call({ domainId });
 
-  // Return domainId
-  return domainId;
+  // Check out the logs to see the domain
+  console.log('Domain:', {
+    id: domainId,
+    parentSkillId,
+    skillId,
+    potId,
+  });
+
+  // Return domain
+  return {
+    id: domainId,
+    parentSkillId,
+    skillId,
+    potId,
+  };
 
 };
 

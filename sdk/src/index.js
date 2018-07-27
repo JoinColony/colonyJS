@@ -1,6 +1,7 @@
 // Import examples
 const addDomain = require('./examples/addDomain');
 const addGlobalSkill = require('./examples/addGlobalSkill');
+const claimColonyFunds = require('./examples/claimColonyFunds');
 const claimPayout = require('./examples/claimPayout');
 const connectNetwork = require('./examples/connectNetwork');
 const createColony = require('./examples/createColony');
@@ -8,6 +9,8 @@ const createTask = require('./examples/createTask');
 const createToken = require('./examples/createToken');
 const finalizeTask = require('./examples/finalizeTask');
 const getColonyClient = require('./examples/getColonyClient');
+const mintTokens = require('./examples/mintTokens');
+const moveFundsBetweenPots = require('./examples/moveFundsBetweenPots');
 const revealTaskWorkRating = require('./examples/revealTaskWorkRating');
 const setTaskBrief = require('./examples/setTaskBrief');
 const setTaskDueDate = require('./examples/setTaskDueDate');
@@ -59,6 +62,17 @@ const hackathonStarter = async () => {
     0,                            // accountIndex
   );
 
+  console.log('\n\x1b[32m' + 'account[0] addGlobalSkill:' + '\x1b[0m\n');
+
+  // Add a new global skill using the "addGlobalSkill" example and then store
+  // the returned "skillId" in the state object. Each colonyNetwork comes with
+  // a root global skill. In this case, we want the root global skill to be the
+  // parent of our new global skill, so we will use "1" for "parentSkillId".
+  state[0].skillId = await addGlobalSkill(
+    state[0].networkClient,       // networkClient
+    1,                            // parentSkillId
+  );
+
   console.log('\n\x1b[32m' + 'account[0] createToken:' + '\x1b[0m\n');
 
   // Create a new ERC20 token using the "createToken" example and then store
@@ -78,15 +92,45 @@ const hackathonStarter = async () => {
     state[0].tokenAddress,        // tokenAddress
   );
 
+  console.log('\n\x1b[32m' + 'account[0] mintTokens:' + '\x1b[0m\n');
+
+  // Transfer funds to our task using the "mintTokens" example and
+  // then store the updated task in the state object.
+  state[0].task = await mintTokens(
+    state[0].colonyClient,        // colonyClient
+    30,                           // amount
+  );
+
+  console.log('\n\x1b[32m' + 'account[0] claimColonyFunds:' + '\x1b[0m\n');
+
+  // Transfer funds to our task using the "claimColonyFunds" example and
+  // then store the updated task in the state object.
+  state[0].colonyPotBalance = await claimColonyFunds(
+    state[0].colonyClient,        // colonyClient
+    state[0].tokenAddress,        // tokenAddress
+  );
+
   console.log('\n\x1b[32m' + 'account[0] addDomain:' + '\x1b[0m\n');
 
   // Add a new domain to our new colony using the "addDomain" example and then
   // store the returned "domainId" in the state object. Each colony has a root
   // domain. In this case, we want the root domain to be the parent of our new
   // domain, so we will use "1" for "parentDomainId".
-  state[0].domainId = await addDomain(
+  state[0].domain = await addDomain(
     state[0].colonyClient,        // colonyClient
     1,                            // parentDomainId
+  );
+
+  console.log('\n\x1b[32m' + 'account[0] moveFundsBetweenPots:' + '\x1b[0m\n');
+
+  // Transfer funds to our task using the "moveFundsBetweenPots" example and
+  // then store the updated task in the state object.
+  await moveFundsBetweenPots(
+    state[0].colonyClient,        // colonyClient
+    1,                            // fromPot
+    state[0].domain.potId,        // toPot
+    30,                           // amount
+    state[0].tokenAddress,        // token
   );
 
   console.log('\n\x1b[32m' + 'account[0] createTask:' + '\x1b[0m\n');
@@ -97,22 +141,23 @@ const hackathonStarter = async () => {
   // will use the "domainId" of our new domain, which has a value of "2".
   state[0].task = await createTask(
     state[0].colonyClient,        // colonyClient
-    state[0].domainId,            // domainId
+    state[0].domain.id,           // domainId
     {
       title: 'New Task Title',                // title
       description: 'New Task Description',    // description
     },
   );
 
-  console.log('\n\x1b[32m' + 'account[0] addGlobalSkill:' + '\x1b[0m\n');
+  console.log('\n\x1b[32m' + 'account[0] moveFundsBetweenPots:' + '\x1b[0m\n');
 
-  // Add a new global skill using the "addGlobalSkill" example and then store
-  // the returned "skillId" in the state object. Each colonyNetwork comes with
-  // a root global skill. In this case, we want the root global skill to be the
-  // parent of our new global skill, so we will use "1" for "parentSkillId".
-  state[0].skillId = await addGlobalSkill(
-    state[0].networkClient,       // networkClient
-    1,                            // parentSkillId
+  // Transfer funds to our task using the "moveFundsBetweenPots" example and
+  // then store the updated task in the state object.
+  await moveFundsBetweenPots(
+    state[0].colonyClient,        // colonyClient
+    state[0].domain.potId,        // fromPot
+    state[0].task.potId,          // toPot
+    30,                           // amount
+    state[0].tokenAddress,        // token
   );
 
   console.log('\n\x1b[32m' + 'account[0] setTaskSkill:' + '\x1b[0m\n');
@@ -301,18 +346,6 @@ const hackathonStarter = async () => {
     },
   );
 
-  console.log('\n\x1b[32m' + 'account[2] submitTaskWorkRating:' + '\x1b[0m\n');
-
-  // Submit a rating for the manager of our task from the worker of our task
-  // using the "submitTaskWorkRating" example and then store the updated task
-  // work ratings in the state object.
-  state[0].taskWorkRatings = await submitTaskWorkRating(
-    state[2].colonyClient,        // colonyClient
-    state[0].task.id,             // taskId
-    'MANAGER',                    // role
-    3,                            // rating
-  );
-
   console.log('\n\x1b[32m' + 'account[1] connectNetwork:' + '\x1b[0m\n');
 
   // Connect to the test network using the example "connectNetwork" action and
@@ -340,6 +373,18 @@ const hackathonStarter = async () => {
     state[1].colonyClient,        // colonyClient
     state[0].task.id,             // taskId
     'WORKER',                     // role
+    3,                            // rating
+  );
+
+  console.log('\n\x1b[32m' + 'account[2] submitTaskWorkRating:' + '\x1b[0m\n');
+
+  // Submit a rating for the manager of our task from the worker of our task
+  // using the "submitTaskWorkRating" example and then store the updated task
+  // work ratings in the state object.
+  state[0].taskWorkRatings = await submitTaskWorkRating(
+    state[2].colonyClient,        // colonyClient
+    state[0].task.id,             // taskId
+    'MANAGER',                    // role
     3,                            // rating
   );
 
