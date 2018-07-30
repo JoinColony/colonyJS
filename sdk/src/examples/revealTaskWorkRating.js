@@ -7,13 +7,13 @@ const revealTaskWorkRating = async (colonyClient, taskId, role, rating) => {
   // Set rating value
   const value = rating;
 
-  // Generate a secret for the work rating
+  // Generate a secret for the task work rating
   const { secret } = await colonyClient.generateSecret.call({
     salt,
     value,
   });
 
-  // reveal task work rating
+  // Reveal the task work rating
   await colonyClient.revealTaskWorkRating.send({
     taskId,
     role,
@@ -21,24 +21,15 @@ const revealTaskWorkRating = async (colonyClient, taskId, role, rating) => {
     salt,
   });
 
-  // Get the task work rating secret
-  const taskWorRatingSecret = await colonyClient.getTaskWorkRatingSecret.call({
-    taskId,
-    role,
-  });
-
-  // Check out the logs to see the updated task work rating secret
-  console.log('Task Work Rating Secret:', taskWorRatingSecret);
-
   // Get the task work ratings
   const taskWorkRatings = await colonyClient.getTaskWorkRatings.call({
     taskId,
   });
 
-  // Check out the logs to see the updated task work ratings
+  // Check out the logs to see the task work ratings
   console.log('Task Work Ratings:', taskWorkRatings);
 
-  // Return the updated task work ratings
+  // Return the task work ratings
   return taskWorkRatings;
 
 }

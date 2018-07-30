@@ -10,9 +10,6 @@ const createTask = async (colonyClient, domainId, specification) => {
   // Create a specification hash for the task
   const specificationHash = await ecp.saveHash(specification);
 
-  // Check out the logs to see the specification hash
-  console.log('Specification Hash: ' + specificationHash);
-
   // Stop the Extended Colony Protocol
   await ecp.stop();
 
@@ -22,13 +19,13 @@ const createTask = async (colonyClient, domainId, specification) => {
     domainId,
   });
 
-  // Get the task using the taskId
+  // Get our new task using the taskId
   const task = await colonyClient.getTask.call({ taskId });
 
-  // Check out the logs to see the task we created
+  // Check out the logs to see our new task
   console.log('Task:', task);
 
-  // Return task
+  // Return our new task
   return task;
 
 }

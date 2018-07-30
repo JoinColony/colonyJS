@@ -23,9 +23,6 @@ const signTaskEvaluatorPayout = async (colonyClient, taskId) => {
       // Sign the operation
       await operation.sign();
 
-      // Successfully signed operation
-      console.log('Successfully Signed Operation');
-
       // Check for missing signees
       if (operation.missingSignees.length === 0) {
 
@@ -35,9 +32,6 @@ const signTaskEvaluatorPayout = async (colonyClient, taskId) => {
         // Update the operation in the mock database
         DATABASE.setTaskEvaluatorPayoutOperationJSON = null;
 
-        // Successfully completed operation
-        console.log('Successfully Completed Operation');
-
       } else {
 
         // Serialize operation into JSON format
@@ -45,9 +39,6 @@ const signTaskEvaluatorPayout = async (colonyClient, taskId) => {
 
         // Store the operation in the mock database
         DATABASE.setTaskEvaluatorPayoutOperationJSON = operationJSON;
-
-        // Successfully updated operation
-        console.log('Successfully Updated Operation');
 
       }
 

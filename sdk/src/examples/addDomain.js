@@ -14,14 +14,13 @@ const addDomain = async (colonyClient, parentDomainId) => {
     parentSkillId,
   });
 
-  // Get the the id for the domain we just created by getting the total number
-  // of domains in the colony.
+  // Get the total number of domains in the colony (our new domain id)
   const { count: domainId } = await colonyClient.getDomainCount.call();
 
-  // Get domain pot id
+  // Get the pot id of our new domain
   const { potId } = await colonyClient.getDomain.call({ domainId });
 
-  // Check out the logs to see the domain
+  // Check out the logs to see our new domain
   console.log('Domain:', {
     id: domainId,
     parentSkillId,
@@ -29,7 +28,7 @@ const addDomain = async (colonyClient, parentDomainId) => {
     potId,
   });
 
-  // Return domain
+  // Return our new domain
   return {
     id: domainId,
     parentSkillId,

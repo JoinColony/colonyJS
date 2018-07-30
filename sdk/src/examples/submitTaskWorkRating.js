@@ -20,15 +20,6 @@ const submitTaskWorkRating = async (colonyClient, taskId, role, rating) => {
     secret,
   });
 
-  // Get the task work rating secret
-  const taskWorRatingSecret = await colonyClient.getTaskWorkRatingSecret.call({
-    taskId,
-    role,
-  });
-
-  // Check out the logs to see the updated task work rating secret
-  console.log('Task Work Rating Secret:', taskWorRatingSecret);
-
   // Get the task work ratings
   const taskWorkRatings = await colonyClient.getTaskWorkRatings.call({
     taskId,

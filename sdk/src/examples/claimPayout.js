@@ -1,53 +1,25 @@
 // An example using the claimPayout method
 const claimPayout = async (colonyClient, taskId, role, token) => {
 
-  // Get the task payout before the claim
-  const taskPayoutBefore = await colonyClient.getTaskPayout.call({
-    taskId,
-    role,
-    token,
-  });
-
-  // Check out the logs to see the task payout before the claim
-  console.log('Task Amount Payout Before:', taskPayoutBefore.amount.toNumber());
-
-  // // Get pot balance of task before the claim
-  // const taskPotBalanceBefore = await colonyClient.getPotBalance.call({
-  //   potId: 3,
-  //   token,
-  // });
-  //
-  // // Check out the logs to see the task payout before the claim
-  // console.log('Task Pot Balance Before:', taskPotBalanceBefore.balance.toNumber());
-
-  // Submit task work rating for the given task and role
+  // Claim the task the payout for the given task and role
   const claimPayout = await colonyClient.claimPayout.send({
     taskId,
     role,
     token,
   });
 
-  // Get the task payout after the claim
-  const taskPayoutAfter = await colonyClient.getTaskPayout.call({
+  // Get the task payout for the given task and role
+  const taskPayout = await colonyClient.getTaskPayout.call({
     taskId,
     role,
     token,
   });
 
-  // Check out the logs to see the task payout after the claim
-  console.log('Task Amount Payout After:', taskPayoutAfter.amount.toNumber());
+  // Check out the logs to see the task payout amount
+  console.log('Task Payout Amount: ' + taskPayout.amount);
 
-  // // Get pot balance of task after the claim
-  // const taskPotBalanceAfter = await colonyClient.getPotBalance.call({
-  //   potId: 3,
-  //   token,
-  // })
-  //
-  // // Check out the logs to see the task payout after the claim
-  // console.log('Task Pot Balance After:', taskPotBalanceAfter.balance.toNumber());
-
-  // Return the task payout after the claim
-  return taskPayoutAfter;
+  // Return the task payout
+  return taskPayout;
 }
 
 module.exports = claimPayout;

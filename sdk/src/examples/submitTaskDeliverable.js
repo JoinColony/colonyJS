@@ -10,9 +10,6 @@ const submitTaskDeliverable = async (colonyClient, taskId, deliverable) => {
   // Create a deliverable hash for the task
   const deliverableHash = await ecp.saveHash(deliverable)
 
-  // Check out the logs to see the deliverable hash
-  console.log('Deliverable Hash: ' + deliverableHash);
-
   // Stop the Extended Colony Protocol
   await ecp.stop()
 
