@@ -1,47 +1,74 @@
-# colonyJS Hackathon Starter Project
+# Hackathon Starter
 
-This is a simple starter project for [colonyJS](https://github.com/JoinColony/colonyJS) that demonstrates how to get connected to the an instance of the Colony Network with colonyJS and how to create a Colony.
+This is a simple starter project that demonstrates how to use [colonyJS](https://github.com/JoinColony/colonyJS) (a JavaScript client for [colonyNetwork](https://github.com/JoinColony/colonyNetwork)). This project is set up to start a local test network using [Ganache](https://github.com/trufflesuite/ganache-cli) and then deploy the [colonyNetwork](https://github.com/JoinColony/colonyNetwork) contracts to the local test network using [Truffle](https://github.com/trufflesuite/truffle). This project also uses [TrufflePig](https://github.com/JoinColony/trufflepig) to find and read the deployed contracts during local development.
+
+This project includes example scripts also found in the [Get Started](https://joincolony.github.io/colonyjs/docs-get-started/) and [Task Lifecycle](https://docs.colony.io/colonyjs/docs-task-lifecycle/) pages of the [colonyJS Docs](https://docs.colony.io/colonyjs/docs-overview). In order to help you hit the ground running with your new project, this starter project includes all of the examples from the docs plus some, and it gives you the opportunity to execute and test those examples with a few simple commands.
 
 ## Prerequisites
-You must have `yarn`, `nodejs`, and `npm` installed to use this starter.
 
-This starter needs to run with node version >= 8.2.1 - you may find it helpful to use `nvm` to manage node versions. We recommend using node 9.5. 
+- Yarn 1.7
+- Node 9.5
+
+_You may find it helpful to use Node Version Manager (`nvm`) to manage node versions._
 
 ## Install
-Clone to your working directory of choice with:
+
+Move to your working directory and clone the repository:
+
 ```
-~$ git clone https://github.com/JoinColony/hackathonStarter.git
+git clone https://github.com/JoinColony/hackathonStarter.git
 ```
 
-Move to your new starter directory and install dependencies:
-```
-$ cd hackathonStarter/
+Move to your new project directory:
 
-~/hackathonStarter$ yarn 
 ```
-
-## Get Started
-Note: This project contains pre-written scripts that perform the same steps shown in the [Get Started](https://joincolony.github.io/colonyjs/docs-get-started/) page of the colonyJS docs. Have a look at the full documentation to see what's happening under-the-hood!
-
-### Start a test blockchain
-In a new terminal window:
-```
-~/hackathonStarter$ yarn start-ganache
+cd hackathonStarter
 ```
 
-### Deploy the colonyNetwork to ganache
+Install the project dependencies:
+
 ```
-~/hackathonStarter$ yarn deploy-contracts
+yarn
+```
+
+## Development
+
+### Start Network
+
+Open a new terminal window and start a local test network:
+
+```
+yarn start-ganache
+```
+
+### Deploy Contracts
+
+Open a new terminal window and deploy the colonyNetwork contracts:
+
+```
+yarn deploy-contracts
 ```
 
 ### Start TrufflePig
-In a new terminal window, `cd` to the hackathonStarter and start TrufflePig with
+
+Open a new terminal window and start TrufflePig:
+
 ```
-~/hackathonStarter$ yarn start-trufflepig
+yarn start-trufflepig
 ```
 
-### Run example code
-The code example included in this starter will use colonyJS to create a new token, a new colony, and return the address of the Meta Colony on your running test blockchain.
+### Run Examples
+
+Open a new terminal window and run the examples:
+
 ```
-~/hackathonStarter$ yarn start
+yarn start
+```
+
+### Run Tests
+
+Open a new terminal window and run the tests:
+
+```
+yarn test
 ```
