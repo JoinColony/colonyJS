@@ -1,7 +1,7 @@
 {
-  "name": "@colony/colony-js-hackathon-starter",
+  "name": "@colony/hackathon-starter",
   "version": "1.0.0",
-  "description": "Simple starter project for the colonyJS Hackathon",
+  "description": "A simple starter project for building with Colony",
   "main": "src/index.js",
   "scripts": {
     "postinstall": "git submodule update --init --recursive && cd src/lib/colonyNetwork && yarn",
@@ -17,7 +17,7 @@
     "James Lefrère <james@colony.io>",
     "Jan Kaßel <jan@colony.io>",
     "Raul Glogovetan <raul@colony.io>",
-    "Ryan Christoffersen <raul@colony.io>"
+    "Ryan Christoffersen <ryan@colony.io>"
   ],
   "license": "MIT",
   "dependencies": {
