@@ -42,6 +42,17 @@ const signTaskDueDate = async (colonyClient, taskId) => {
 
       }
 
+    } else {
+
+      // Check out the logs to see the source of the pending operation
+      console.log('Operation Source:', operation.payload.sourceAddress);
+
+      // Check out the logs to see the task id of the pending operation
+      console.log('Operation Task ID:', operation.payload.inputValues.taskId);
+
+      // Check out the logs to see the required signees of the operation
+      console.log('Required Signees:', operation.requiredSignees);
+
     }
 
   }
