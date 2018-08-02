@@ -24,21 +24,21 @@ exports.init = async () => {
   return node.start();
 }
 
-exports.saveTaskSpecification = async (spec) => {
-  const data = Buffer.from(JSON.stringify(spec));
+exports.saveHash = async (obj) => {
+  const data = Buffer.from(JSON.stringify(obj));
   const result = await node.files.add(data);
   return result[0].hash;
 }
 
-exports.getTaskSpecification = async (hash) => {
+exports.getHash = async (hash) => {
   const buf = await node.files.cat(`/ipfs/${hash}`);
-  let spec;
+  let obj;
   try {
-    spec = JSON.parse(buf.toString());
-  } catch (e) {
-    throw new Error(`Could not get task specification for hash ${hash}`);
+    obj = JSON.parse(buf.toString());
+  } catch (err) {
+    throw new Error(`Could not get hash ${hash}`);
   }
-  return spec;
+  return obj;
 }
 
 exports.stop = () => node.stop();
