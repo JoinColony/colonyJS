@@ -1,5 +1,18 @@
 {
-	"devDependencies": {
+  "name": "@colony/colony-starter",
+  "version": "1.0.0",
+  "description": "A monorepo of starter projects for building with Colony",
+  "license": "MIT",
+  "engines": {
+    "node": "9.5"
+  },
+  "bin": {
+    "colony-starter": "./scripts/create_starter.sh"
+  },
+  "scripts": {
+    "test": "lerna run test"
+  },
+  "devDependencies": {
 		"lerna": "^2.11.0"
-	}
+  }
 }
