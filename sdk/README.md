@@ -25,22 +25,42 @@ Check out the [colony-starter-basic](/packages/colony-starter-basic) package
 
 ### Development
 
-Clone experimental branch:
+### Start Network
+
+Open a new terminal window and start a local test network:
 
 ```
-git clone -b experiment/monorepo-packages https://github.com/JoinColony/hackathonStarter
+yarn start-ganache
 ```
 
-Install package globally:
+### Deploy Contracts
+
+Open a new terminal window and deploy the colonyNetwork contracts:
 
 ```
-npm install -g /path/to/project
+yarn deploy-contracts
 ```
 
-Move to working directory and unpack colony starter project:
+### Start TrufflePig
+
+In the same window used to deploy the contracts, start TrufflePig:
 
 ```
-colony-starter colony-starter-basic
+yarn start-trufflepig
 ```
 
-Check out the [colony-starter-basic](/packages/colony-starter-basic) package
+### Bootstrap Monorepo
+
+Open a new terminal window and bootstrap the monorepo:
+
+```
+yarn start
+```
+
+### Run Tests
+
+Open a new terminal window and run tests:
+
+```
+yarn test
+```

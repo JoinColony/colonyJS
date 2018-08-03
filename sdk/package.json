@@ -10,9 +10,16 @@
     "colony-starter": "./scripts/create_starter.sh"
   },
   "scripts": {
+    "postinstall": "sh scripts/provision_submodules.sh",
+    "deploy-contracts": "cd lib/colonyNetwork && ./node_modules/.bin/truffle migrate --compile-all --reset",
+    "start-ganache": "cd lib/colonyNetwork && ganache-cli -d --gasLimit 7000000 --acctKeys ganache-accounts.json --noVMErrorsOnRPCResponse",
+    "start-trufflepig": "cd lib/colonyNetwork && trufflepig --ganacheKeyFile ganache-accounts.json",
+    "start": "lerna bootstrap",
     "test": "lerna run test"
   },
   "devDependencies": {
-		"lerna": "^2.11.0"
+    "ganache-cli": "^6.1.0",
+    "lerna": "^3.0.0-rc.0",
+    "trufflepig": "^1.0.4"
   }
 }
