@@ -12,9 +12,13 @@ jobs:
             - v1-dependencies-{{ checksum "yarn.lock" }}
             - v1-dependencies-
 
-      - run: |
-          yarn global add greenkeeper-lockfile@1
-          yarn install
+      - run:
+          name: "Add Greenkeeper"
+          command: yarn global add greenkeeper-lockfile@1
+
+      - run:
+          name: "Install Dependencies"
+          command: yarn install
 
       - save_cache:
           paths:
@@ -22,10 +26,26 @@ jobs:
           key: v1-dependencies-{{ checksum "yarn.lock" }}
 
       - run:
-          name: "Lerna"
-          command: lerna run test
+          name: "Bootstrap Packages"
+          command: yarn run lerna bootstrap
 
-      - run: |
-          $HOME/.config/yarn/global/node_modules/.bin/greenkeeper-lockfile-update
-          yarn test
-          $HOME/.config/yarn/global/node_modules/.bin/greenkeeper-lockfile-upload
+      - run:
+          name: "Start Ganache"
+          command: yarn run start-ganache
+          background: true
+
+      - run:
+          name: "Deploy Contracts"
+          command: yarn run deploy-contracts
+
+      - run:
+          name: "Start Trufflepig"
+          command: scripts/ci_trufflepig.js
+          background: true
+
+      - run:
+          name: "Test Packages"
+          command: |
+            $HOME/.config/yarn/global/node_modules/.bin/greenkeeper-lockfile-update
+            yarn run lerna run test
+            $HOME/.config/yarn/global/node_modules/.bin/greenkeeper-lockfile-upload
