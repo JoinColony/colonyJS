@@ -1,0 +1,12 @@
+{
+  "name": "@colony/colony-starter",
+  "version": "1.0.0",
+  "description": "A global command for creating starter projects",
+  "license": "MIT",
+  "engines": {
+    "node": "9.5"
+  },
+  "bin": {
+    "colony-starter": "./index.js"
+  }
+}
