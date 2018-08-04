@@ -2,7 +2,7 @@
 
 _Learn to build with Colony! Get a head start on your next project!_
 
-Colony Starter (formerly known as "Hackathon Starter") includes a variety of starter packages that demonstrate how to use and integrate different tools with Colony. We want to make it as easy as possible for you to start building with Colony so we upgraded to a monorepo that includes installable starter packages with a just few simple commands.
+Colony Starter (formerly known as "Hackathon Starter") includes a variety of starter packages that demonstrate how to use and integrate different tools with Colony. We want to make it as easy as possible for you to start building with Colony so we upgraded to a monorepo that includes a variety of starter packages that you can install with a just few simple commands.
 
 ## Get Started
 
@@ -16,33 +16,33 @@ yarn global add @colony/colony-starter
 
 ### Step 2
 
-Move to your working directory and unpack the [basic-starter](/packages/basic-starter) package:
+Move to your working directory and unpack the [colony-starter-basic](/packages/colony-starter-basic) package:
 
 ```
-colony-starter basic-starter
+colony-starter colony-starter-basic
 ```
 
 ### Step 3
 
-Move to your new starter directory and checkout the [basic-starter](/packages/basic-starter) readme:
+Move to your new starter directory and checkout the [colony-starter-basic](/packages/colony-starter-basic) readme:
 
 ```
-cd basic-starter
+cd colony-starter-basic
 ```
 
 ## Starter Packages
 
-Now that you have a basic understanding of how Colony works, check out some of the other starter packages by repeating steps 2 and 3 and substituting `basic-starter` with the package of your choice!
+Now that you have a basic understanding of how Colony works, check out some of the other starter packages by repeating steps 2 and 3 and substituting `colony-starter-basic` with the package of your choice!
 
 ### General
 
-- [basic-starter](/packages/basic-starter)
-- [react-starter](/packages/react-starter)
+- [colony-starter-basic](/packages/colony-starter-basic)
+- [colony-starter-react](/packages/colony-starter-react)
 
 ### Specific
 
-- [dao-starter](/packages/dao-starter)
-- [daico-starter](/packages/daico-starter)
+- [colony-starter-dao](/packages/colony-starter-dao)
+- [colony-starter-daico](/packages/colony-starter-daico)
 
 ## Development
 
@@ -114,13 +114,13 @@ yarn global add $(pwd)
 Move to your working directory and unpack a starter package:
 
 ```
-colony-starter [name-of-starter-package]
+colony-starter [colony-starter-package]
 ```
 
-### Start Building
+### Test Starter Project
 
-Move to your new project and check out the starter readme:
+Move to the new project and run through the starter readme instructions:
 
 ```
-cd [name-of-starter-package]
+cd [colony-starter-package]
 ```

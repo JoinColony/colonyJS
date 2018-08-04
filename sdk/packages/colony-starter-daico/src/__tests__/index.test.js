@@ -1,8 +1,8 @@
 // Import examples
 const connectNetwork = require('../examples/connectNetwork');
 
-// Testing DAICO Starter examples
-describe('DAICO Starter', () => {
+// Testing Colony Starter DAICO examples
+describe('Colony Starter DAICO', () => {
 
   // Test the connectNetwork() example
   test('connectNetwork() works', async () => {

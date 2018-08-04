@@ -1,8 +1,8 @@
 // Import examples
 const connectNetwork = require('../examples/connectNetwork');
 
-// Testing DAO Starter examples
-describe('DAO Starter', () => {
+// Testing Colony Starter React examples
+describe('Colony Starter React', () => {
 
   // Test the connectNetwork() example
   test('connectNetwork() works', async () => {

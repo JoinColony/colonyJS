@@ -49,8 +49,8 @@ const state = {
   colonyClient: [],     // colonyClient (per account)
 };
 
-// Testing Basic Starter examples
-describe('Basic Starter', () => {
+// Testing Colony Starter Basic examples
+describe('Colony Starter Basic', () => {
 
   // Test the connectNetwork() example from account[0]
   test('account[0] connectNetwork() works', async () => {
