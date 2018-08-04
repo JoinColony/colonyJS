@@ -1,4 +1,4 @@
-# Hackathon Starter
+# Basic Starter
 
 This is a simple starter project that demonstrates how to use [colonyJS](https://github.com/JoinColony/colonyJS) (a JavaScript client for [colonyNetwork](https://github.com/JoinColony/colonyNetwork)). This project is set up to start a local test network using [Ganache](https://github.com/trufflesuite/ganache-cli) and then deploy the [colonyNetwork](https://github.com/JoinColony/colonyNetwork) contracts to the local test network using [Truffle](https://github.com/trufflesuite/truffle). This project also uses [TrufflePig](https://github.com/JoinColony/trufflepig) to find and read the deployed contracts during local development.
 
@@ -11,27 +11,15 @@ This project includes example scripts also found in the [Get Started](https://jo
 
 _You may find it helpful to use Node Version Manager (`nvm`) to manage node versions._
 
-## Install
+## Development
 
-Move to your working directory and clone the repository:
-
-```
-git clone https://github.com/JoinColony/hackathonStarter.git
-```
-
-Move to your new project directory:
-
-```
-cd hackathonStarter
-```
+### Install Dependencies
 
 Install the project dependencies:
 
 ```
 yarn
 ```
-
-## Development
 
 ### Start Network
 

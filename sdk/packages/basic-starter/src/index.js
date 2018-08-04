@@ -42,8 +42,8 @@ const accounts = [
 // A unix timestamp representing 31 days from now
 const futureDueDate = new Date(Date.now() + 2678400000);
 
-// hackathonStarter example
-const hackathonStarter = async () => {
+// Basic Starter example
+const basicStarter = async () => {
 
   // In order to demonstrate the complete task lifecycle, we will need to call
   // some of the examples using different accounts. The state object below will
@@ -458,6 +458,6 @@ const hackathonStarter = async () => {
 }
 
 // Execute example
-hackathonStarter()
+basicStarter()
   .then(() => process.exit())
   .catch(err => console.error(err));
