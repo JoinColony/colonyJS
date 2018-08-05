@@ -1,14 +1,8 @@
 {
-  "name": "@colony/colony-starter",
-  "version": "1.0.0",
-  "description": "A monorepo of starter projects for building with Colony",
-  "license": "MIT",
-  "engines": {
-    "node": "9.5"
-  },
-  "bin": {
-    "colony-starter": "./scripts/colony_starter.sh"
-  },
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "postinstall": "sh scripts/provision_submodules.sh",
     "deploy-contracts": "cd lib/colonyNetwork && ./node_modules/.bin/truffle migrate --compile-all --reset",
