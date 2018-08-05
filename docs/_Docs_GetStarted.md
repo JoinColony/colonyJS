@@ -23,7 +23,7 @@ $ git clone --recursive https://github.com/JoinColony/colonyNetwork.git
 
 *Because colonyNetwork is under continuous development, it's possible that the version you get is ahead of this documentation. Make sure you're on the same page as this guide by checking out a specific version of the contracts:*
 ```
-$ cd colonyNetwork/
+$ cd colonyNetwork
 
 $ git checkout e82710813605a929e55236879fbb44585d1761ae
 
@@ -87,15 +87,15 @@ Create a new directory for your project, and initialize it with `npm init`:
 ```
 $ mkdir exampleProject
 
-$ cd exampleProject/
+$ cd exampleProject
 
-$ npm init
+$ yarn init
 ```
 
 Add the required libraries to your project with `yarn`:
 
 ```bash
-yarn add @colony/colony-js-client @colony/colony-js-adapter-ethers @colony/colony-js-contract-loader-http ethers
+yarn add @colony/colony-js-client@1.5.3 @colony/colony-js-adapter-ethers@1.5.3 @colony/colony-js-contract-loader-http@1.4.1 ethers
 ```
 
 
@@ -169,7 +169,13 @@ const example = async () => {
   // You can also get the Meta Colony:
   const metaColonyClient = await networkClient.getMetaColonyClient();
   console.log('Meta Colony address: ' + metaColonyClient.contract.address);
+
 };
+
+// Execute the example
+example()
+  .then(() => process.exit())
+  .catch(err => console.error(err));
 ```
 
 Save the file, and run with `$ node example.js` - You should see your new cool colony and token appear on your private blockchain!
