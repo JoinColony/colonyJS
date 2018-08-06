@@ -49,8 +49,17 @@ const starterFileName = cp
   .toString()
   .trim();
 
+// Ensure build directory
+fs.ensureDirSync(path.join(rootDir, 'build'));
+
 // Define packed starter path
-const starterPath = path.join(packagesDir, packageName, starterFileName);
+const starterPath = path.join(rootDir, 'build', starterFileName);
+
+// Move packed starter file to build directory
+fs.rename(
+  path.join(packagesDir, packageName, starterFileName),
+  starterPath
+);
 
 // Clean yarn global cache
 cp.execSync('yarn cache clean');
@@ -62,13 +71,10 @@ const starterScriptPath = path.join(packagesDir, 'colony-starter', 'index.js');
 cp.execSync(
   `node ${starterScriptPath} --source ${starterPath} ${packageName}`,
   {
-    cwd: rootDir,
+    cwd: path.join(rootDir, 'build'),
     stdio: 'inherit',
   }
 );
-
-// Delete pack file
-fs.unlink(starterPath);
 
 // Exit script
 handleExit();
