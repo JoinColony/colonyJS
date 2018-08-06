@@ -93,10 +93,10 @@ Open a new terminal window and run tests:
 yarn test
 ```
 
-### Install Package
+### Test Install Package
 
-Open a new terminal window and test install a package using the global command:
+Open a new terminal window and test install a package:
 
 ```
-yarn colony-starter colony-starter-dao
+yarn colony-starter [colony-starter-package]
 ```

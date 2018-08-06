@@ -17,7 +17,7 @@ git submodule update --init --recursive
 
 # Build network
 log "Building colonyNetwork submodule"
-cd "lib/colonyNetwork"
+cd "modules/colonyNetwork"
 git submodule update --init
 yarn
 cd ${ROOT_PATH}
