@@ -120,6 +120,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       nParents: number, // Number of parent skills
       nChildren: number, // Number of child skills
+      isGlobalSkill: boolean, // Whether or not the skill is global
     },
     ColonyNetworkClient,
   >;
@@ -332,7 +333,7 @@ export default class ColonyNetworkClient extends ContractClient {
     });
     this.addCaller('getSkill', {
       input: [['skillId', 'number']],
-      output: [['nParents', 'number'], ['nChildren', 'number']],
+      output: [['nParents', 'number'], ['nChildren', 'number'], ['isGlobalSkill', 'boolean']],
       validateEmpty: async ({ skillId }: { skillId: number }) => {
         const { count } = await this.getSkillCount.call();
         if (skillId > count) throw new Error(`Skill ID ${skillId} not found`);
