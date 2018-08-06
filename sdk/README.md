@@ -61,14 +61,6 @@ Install development dependencies:
 yarn
 ```
 
-### Install Local Packages
-
-Install dependencies for local packages:
-
-```
-yarn bootstrap
-```
-
 ### Start Network
 
 Start a local test network with [Ganache](https://github.com/trufflesuite/ganache-cli):
@@ -101,26 +93,10 @@ Open a new terminal window and run tests:
 yarn test
 ```
 
-### Globally Install
+### Install Package
 
-Globally install the package:
-
-```
-yarn global add $(pwd)
-```
-
-### Unpack Starter Package
-
-Move to your working directory and unpack a starter package:
+Open a new terminal window and test install a package using the global command:
 
 ```
-colony-starter [colony-starter-package]
-```
-
-### Test Starter Project
-
-Move to the new project and run through the starter readme instructions:
-
-```
-cd [colony-starter-package]
+yarn colony-starter colony-starter-dao
 ```

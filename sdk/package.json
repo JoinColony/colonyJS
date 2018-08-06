@@ -8,7 +8,7 @@
     "deploy-contracts": "cd lib/colonyNetwork && ./node_modules/.bin/truffle migrate --compile-all --reset",
     "start-ganache": "cd lib/colonyNetwork && ganache-cli -d --gasLimit 7000000 --acctKeys ganache-accounts.json --noVMErrorsOnRPCResponse",
     "start-trufflepig": "cd lib/colonyNetwork && trufflepig --ganacheKeyFile ganache-accounts.json",
-    "bootstrap": "lerna bootstrap",
+    "colony-starter": "node scripts/colony_starter.js",
     "test": "lerna run test"
   },
   "devDependencies": {

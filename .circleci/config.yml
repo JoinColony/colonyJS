@@ -26,10 +26,6 @@ jobs:
           key: v1-dependencies-{{ checksum "yarn.lock" }}
 
       - run:
-          name: "Bootstrap Packages"
-          command: yarn bootstrap
-
-      - run:
           name: "Start Ganache"
           command: yarn start-ganache
           background: true
