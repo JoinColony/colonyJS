@@ -1,4 +1,4 @@
-# Colony Starter: Basic
+# Colony Starter: Basic Package
 
 This is a simple starter project that demonstrates how to use [colonyJS](https://github.com/JoinColony/colonyJS) (a JavaScript client for [colonyNetwork](https://github.com/JoinColony/colonyNetwork)). This project is set up to start a local test network using [Ganache](https://github.com/trufflesuite/ganache-cli) and then deploy the [colonyNetwork](https://github.com/JoinColony/colonyNetwork) contracts to the local test network using [Truffle](https://github.com/trufflesuite/truffle). This project also uses [TrufflePig](https://github.com/JoinColony/trufflepig) to find and read the deployed contracts during local development.
 
@@ -23,7 +23,7 @@ yarn
 
 ### Start Network
 
-Open a new terminal window and start a local test network:
+Open a new terminal window and start [Ganache](https://github.com/trufflesuite/ganache-cli):
 
 ```
 yarn start-ganache
@@ -31,7 +31,7 @@ yarn start-ganache
 
 ### Deploy Contracts
 
-Open a new terminal window and deploy the colonyNetwork contracts:
+Open a new terminal window and deploy the [colonyNetwork](https://github.com/JoinColony/colonyNetwork) contracts:
 
 ```
 yarn deploy-contracts
@@ -39,23 +39,23 @@ yarn deploy-contracts
 
 ### Start TrufflePig
 
-Open a new terminal window and start TrufflePig:
+Open a new terminal window and start [TrufflePig](https://github.com/JoinColony/trufflepig):
 
 ```
 yarn start-trufflepig
 ```
 
-### Run Examples
+### Run Example Script
 
-Open a new terminal window and run the examples:
+Open a new terminal window and run the example script:
 
 ```
 yarn start
 ```
 
-### Run Tests
+### Run Example Tests
 
-Open a new terminal window and run the tests:
+Open a new terminal window and run the example tests:
 
 ```
 yarn test

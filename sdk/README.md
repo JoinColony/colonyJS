@@ -2,7 +2,7 @@
 
 _Learn to build with Colony! Get a head start on your next project!_
 
-Colony Starter (formerly known as "Hackathon Starter") includes a variety of starter packages that demonstrate how to use and integrate different tools with Colony. We want to make it as easy as possible for you to start building with Colony so we upgraded to a monorepo that includes a variety of starter packages that you can install with a just few simple commands.
+Colony Starter (formerly known as "Hackathon Starter") includes a variety of starter packages that demonstrate how to use and integrate different tools with Colony.
 
 ## Get Started
 
@@ -35,7 +35,7 @@ cd colony-starter-basic
 Now that you have a basic understanding of how Colony works, check out some of the other starter packages by repeating steps 2 and 3 and substituting `colony-starter-basic` with the package of your choice!
 
 - [colony-starter-basic](/packages/colony-starter-basic)
-- [colony-starter-react](/packages/colony-starter-react)
+- [colony-starter-react](/packages/colony-starter-react) (_coming soon..._)
 
 ## Development
 

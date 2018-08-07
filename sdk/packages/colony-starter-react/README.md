@@ -1,4 +1,4 @@
-# React Starter
+# Colony Starter: React Package
 
 _Learn to build with Colony using React!_
 
@@ -11,7 +11,7 @@ _You may find it helpful to use Node Version Manager (`nvm`) to manage node vers
 
 ## Development
 
-## Install Dependencies
+### Install Dependencies
 
 Install the project dependencies:
 
@@ -21,7 +21,7 @@ yarn
 
 ### Start Network
 
-Open a new terminal window and start a local test network:
+Open a new terminal window and start [Ganache](https://github.com/trufflesuite/ganache-cli):
 
 ```
 yarn start-ganache
@@ -29,7 +29,7 @@ yarn start-ganache
 
 ### Deploy Contracts
 
-Open a new terminal window and deploy the colonyNetwork contracts:
+Open a new terminal window and deploy the [colonyNetwork](https://github.com/JoinColony/colonyNetwork) contracts:
 
 ```
 yarn deploy-contracts
@@ -37,23 +37,29 @@ yarn deploy-contracts
 
 ### Start TrufflePig
 
-Open a new terminal window and start TrufflePig:
+Open a new terminal window and start [TrufflePig](https://github.com/JoinColony/trufflepig):
 
 ```
 yarn start-trufflepig
 ```
 
-### Run Examples
+### Start Webpack Dev Server
 
-Open a new terminal window and run the examples:
+Open a new terminal window and start [webpack-dev-server](https://github.com/webpack/webpack-dev-server):
 
 ```
 yarn start
 ```
 
-### Run Tests
+### Open Your Browser
 
-Open a new terminal window and run the tests:
+Open your browser and checkout the example react app::
+
+[localhost:8080](http://localhost:8080)
+
+### Run Example Tests
+
+Open a new terminal window and run the example tests:
 
 ```
 yarn test
