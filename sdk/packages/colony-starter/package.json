@@ -10,8 +10,6 @@
     "colony-starter": "./index.js"
   },
   "dependencies": {
-    "find-pkg": "^2.0.0",
-    "hyperquest": "^2.1.3",
     "tar-pack": "^3.4.1"
   }
 }

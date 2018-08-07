@@ -1,61 +1,57 @@
+#!/usr/bin/env node
+
 const chalk = require('chalk');
 const commander = require('commander');
 const fs = require('fs-extra');
 const path = require('path');
-const execSync = require('child_process').execSync;
+const cp = require('child_process');
 const spawn = require('cross-spawn');
 const semver = require('semver');
 const dns = require('dns');
 const tmp = require('tmp');
-const unpack = require('tar-pack').unpack;
+const tarPack = require('tar-pack');
 const url = require('url');
-const hyperquest = require('hyperquest');
 const os = require('os');
 
 let packageName;
 
-// Define command program
+// Define program command
 const program = new commander
   .Command('colony-starter')
   .arguments('<starter-package>')
-  .usage(`${chalk.green('<starter-package>')} [options]`)
   .action(name => { packageName = name })
-  .option('--source <package-path>', 'use a package from another source')
+  .option('--specific <version-or-source>', 'use a specific version or source')
   .option('--verbose', 'print additional logs')
   .allowUnknownOption()
   .parse(process.argv);
 
-// Create starter project
-const createStarter = (name, version, verbose) => {
+// Create starter project from program command
+const createStarter = (name, specific, verbose) => {
 
-  // Define root and template
-  const root = path.resolve(name);
-  const template = 'packages/' + name;
+  console.log();
+  console.log(`  Verifying ${chalk.cyan('yarn')} is installed...`);
 
-  // Create new directory
-  fs.ensureDirSync(name);
-
-  // Make sure directory is empty
-  if (fs.readdirSync(root).length > 0) {
+  // Make sure yarn is installed
+  if (!isYarnInstalled()) {
     console.log();
-    console.log(`The directory ${chalk.green(name)} must be empty!`);
+    console.log(chalk.red('  Yarn must be installed!'));
     console.log();
     process.exit(1);
   }
 
-  // Log the location where the starter project is being created
-  console.log(`Creating starter project in ${chalk.green(root)}.`);
+  console.log();
+  console.log(`  Creating ${chalk.cyan(name)} folder...`);
 
-  // Create initial package.json file
-  fs.writeFileSync(
-    path.join(root, 'package.json'),
-    JSON.stringify({ license: 'MIT' }, null, 2) + os.EOL
-  );
+  // Create new directory
+  fs.ensureDirSync(name);
 
-  // Make sure yarn is available
-  if (!isYarnAvailable()) {
+  // Define root directory
+  const root = path.resolve(name);
+
+  // Make sure root directory is empty
+  if (fs.readdirSync(root).length > 0) {
     console.log();
-    console.log('Yarn must be installed!');
+    console.log(chalk.red(`  The ${name} folder must be empty!`));
     console.log();
     process.exit(1);
   }
@@ -66,36 +62,14 @@ const createStarter = (name, version, verbose) => {
   // Move to root directory
   process.chdir(root);
 
-  // Install starter package
-  installStarter(root, name, version, verbose, origin, template);
+  // Determine specific package version or source
+  const packageToInstall = getSpecificPackage(specific);
 
-}
-
-// Check if yarn is available
-const isYarnAvailable = () => {
-  try {
-    execSync('yarnpkg --version', { stdio: 'ignore' });
-    return true;
-  } catch (e) {
-    return false;
-  }
-}
-
-// Install starter package
-const installStarter = (
-  root,
-  name,
-  version,
-  verbose,
-  origin,
-  template
-) => {
-
-  // Get starter package that will be installed
-  const packageToInstall = getInstallPackage(version, origin);
+  console.log();
+  console.log(`  Preparing to install ${chalk.cyan(packageToInstall)}...`);
 
   // Get package name from url or path
-  getPackageName(packageToInstall)
+  prepareInstall(packageToInstall, root)
     .then(packageName =>
 
       // Check if online and return online status and package name
@@ -106,8 +80,9 @@ const installStarter = (
       const isOnline = info.isOnline;
       const packageName = info.packageName;
 
-      // Log the start of the installation process
-      console.log(`Installing ${chalk.cyan(packageName)}`);
+      console.log();
+      console.log(`  Installing ${chalk.cyan(packageName)}...`);
+      console.log();
 
       // Install the package
       return installPackage(
@@ -120,13 +95,13 @@ const installStarter = (
     }).then(() => {
 
       console.log();
-      console.log(`Success! Created ${name} at ${root}`);
+      console.log(`  Success! Created ${chalk.cyan(name)} at ${chalk.cyan(root)}`);
       console.log();
 
     }).catch(reason => {
 
       console.log();
-      console.log('Aborting installation.');
+      console.log(chalk.red('  Aborting installation. Please report an issue.'));
       console.log();
 
       if (reason.command) {
@@ -149,74 +124,80 @@ const installStarter = (
 
 }
 
-const getInstallPackage = (version, origin) => {
-  let packageToInstall = packageName;
-  const validSemver = semver.valid(version);
+// Make sure yarn is installed
+const isYarnInstalled = () => {
+  try {
+    cp.execSync('yarnpkg --version', { stdio: 'ignore' });
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
+// Format specific package if specific
+const getSpecificPackage = (specific) => {
+  let specificPackage = packageName;
+  const validSemver = semver.valid(specific);
   if (validSemver) {
-    packageToInstall += `@${validSemver}`;
-  } else if (version) {
-    if (version[0] === '@' && version.indexOf('/') === -1) {
-      packageToInstall += version;
-    } else if (version.match(/^file:/)) {
-      packageToInstall = `file:${path.resolve(
-        origin,
-        version.match(/^file:(.*)?$/)[1]
-      )}`;
-    } else {
-      packageToInstall = version;
-    }
+    specificPackage += `@${validSemver}`;
+  } else if (specific) {
+    specificPackage = specific;
   }
-  return packageToInstall;
+  return specificPackage;
 }
 
-const getPackageName = (packageSource) => {
-  if (packageSource.match(/^.+\.(tgz|tar\.gz)$/)) {
-    return getTemporaryDirectory()
-      .then(obj => {
-        let stream;
-        if (/^http/.test(packageSource)) {
-          stream = hyperquest(packageSource);
-        } else {
-          stream = fs.createReadStream(packageSource);
-        }
-        return extractStream(stream, obj.tmpdir).then(() => obj);
-      })
-      .then(obj => {
-        const packageName = require(path.join(obj.tmpdir, 'package.json')).name;
-        obj.cleanup();
+// Get package tarball and/or unpack package tarball
+const prepareInstall = (packageToInstall, root) => {
+
+  // Get pacakge tarball if package is not already one
+  if (!packageToInstall.match(/^.+\.(tgz|tar\.gz)$/)) {
+
+    // Get package tarball
+    const tarballName = cp.execSync(`npm pack ${packageToInstall}`)
+      .toString()
+      .trim();
+
+    // Set tarball path
+    tarballPath = path.join(root, tarballName);
+
+  } else {
+
+    // Set tarball path
+    tarballPath = packageToInstall;
+
+  }
+
+  // Get temporary directory
+  return getTemporaryDirectory()
+    .then(obj => {
+
+      // Create read stream from temporary directory
+      const stream = fs.createReadStream(tarballPath);
+      return extractStream(stream, obj.tmpdir).then(() => obj);
+
+    })
+    .then(obj => {
+
+      // Copy temporary directory files to root directory
+      return fs.copy(obj.tmpdir, root).then(() => {
+
+        // Get package name
+        const packageName = require(path.join(root, 'package.json')).name;
+
+        // Cleanup
+        obj.cleanup()
+
+        // Return package name
         return packageName;
-      })
-      .catch(err => {
-        console.log(
-          `Could not extract the package name from the archive: ${err.message}`
-        );
-        const assumedProjectName = packageSource.match(
-          /^.+\/(.+?)(?:-\d+.+)?\.(tgz|tar\.gz)$/
-        )[1];
-        console.log(
-          `Based on the filename, assuming it is "${chalk.cyan(
-            assumedProjectName
-          )}"`
-        );
-        return Promise.resolve(assumedProjectName);
+
       });
-  } else if (packageSource.indexOf('git+') === 0) {
-    return Promise.resolve(packageSource.match(/([^/]+)\.git(#.*)?$/)[1]);
-  } else if (packageSource.match(/.+@/)) {
-    return Promise.resolve(
-      packageSource.charAt(0) + packageSource.substr(1).split('@')[0]
-    );
-  } else if (packageSource.match(/^file:/)) {
-    const packageSourcePath = packageSource.match(/^file:(.*)?$/)[1];
-    const packageSourceJson = require(path.join(
-      packageSourcePath,
-      'package.json'
-    ));
-    return Promise.resolve(packageSourceJson.name);
-  }
-  return Promise.resolve(packageSource);
+
+    // Catch any errors
+    }).catch(err => err);
+
 }
 
+// Get temporary directory
 const getTemporaryDirectory = () => {
   return new Promise((resolve, reject) => {
     tmp.dir({ unsafeCleanup: true }, (err, tmpdir, callback) => {
@@ -237,10 +218,11 @@ const getTemporaryDirectory = () => {
   });
 }
 
+// Extract read stream for temporary directory
 const extractStream = (stream, dest) => {
   return new Promise((resolve, reject) => {
     stream.pipe(
-      unpack(dest, err => {
+      tarPack.unpack(dest, err => {
         if (err) {
           reject(err);
         } else {
@@ -251,6 +233,7 @@ const extractStream = (stream, dest) => {
   });
 }
 
+// Check yarn registry
 const checkIfOnline = () => {
   return new Promise(resolve => {
     dns.lookup('registry.yarnpkg.com', err => {
@@ -266,12 +249,13 @@ const checkIfOnline = () => {
   });
 }
 
+// Get proxy to check yarn registry
 const getProxy = () => {
   if (process.env.https_proxy) {
     return process.env.https_proxy;
   } else {
     try {
-      let httpsProxy = execSync('npm config get https-proxy')
+      let httpsProxy = cp.execSync('npm config get https-proxy')
         .toString()
         .trim();
       return httpsProxy !== 'null' ? httpsProxy : undefined;
@@ -281,6 +265,7 @@ const getProxy = () => {
   }
 }
 
+// Install packages in root directory
 const installPackage = (root, pack, verbose, isOnline) => {
   return new Promise((resolve, reject) => {
     const args = [];
@@ -304,21 +289,23 @@ const installPackage = (root, pack, verbose, isOnline) => {
   });
 }
 
+// Make sure package is not undefined
 if (typeof packageName === 'undefined') {
   console.log();
   console.error('Please specify a starter package:');
   console.log();
-  console.log(`  ${chalk.cyan(program.name())} ${chalk.green('<starter-package>')}`);
+  console.log(`  ${chalk.cyan(program.name())} ${chalk.cyan('<starter-package>')}`);
   console.log();
   console.log('For example:');
   console.log();
-  console.log(`  ${chalk.cyan(program.name())} ${chalk.green('colony-starter-basic')}`);
+  console.log(`  ${chalk.cyan(program.name())} ${chalk.cyan('colony-starter-basic')}`);
   console.log();
   process.exit(1);
 }
 
+// Execute
 createStarter(
   packageName,
-  program.source,
+  program.specific,
   program.verbose
 );
