@@ -34,15 +34,8 @@ cd colony-starter-basic
 
 Now that you have a basic understanding of how Colony works, check out some of the other starter packages by repeating steps 2 and 3 and substituting `colony-starter-basic` with the package of your choice!
 
-### General
-
 - [colony-starter-basic](/packages/colony-starter-basic)
 - [colony-starter-react](/packages/colony-starter-react)
-
-### Specific
-
-- [colony-starter-dao](/packages/colony-starter-dao)
-- [colony-starter-daico](/packages/colony-starter-daico)
 
 ## Development
 
