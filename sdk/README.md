@@ -1,3 +1,5 @@
+<img align="center" src="./assets/img/colonyStarter_combomark.svg" />
+
 # Colony Starter
 
 _Learn to build with Colony! Get a head start on your next project!_
