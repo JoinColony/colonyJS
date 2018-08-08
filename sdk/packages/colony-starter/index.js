@@ -149,21 +149,30 @@ const getSpecificPackage = (specific) => {
 // Get package tarball and/or unpack package tarball
 const prepareInstall = (packageToInstall, root) => {
 
-  // Get pacakge tarball if package is not already one
-  if (!packageToInstall.match(/^.+\.(tgz|tar\.gz)$/)) {
+  // Get pacakge tarball if package to install is not a tarball
+  if (!packageToInstall.match(/^.+\.(tgz|tar\.gz)$/) || packageToInstall[0] === '/') {
 
-    // Get package tarball
-    const tarballName = cp.execSync(`npm pack ${packageToInstall}`)
-      .toString()
-      .trim();
+    try {
 
-    // Set tarball path
-    tarballPath = path.join(root, tarballName);
+      // Get package tarball
+      const tarballName = cp
+        .execSync(`npm pack ${packageToInstall} --silent`)
+        .toString()
+        .trim();
 
-  } else {
+      // Set tarball path
+      tarballPath = path.join(root, tarballName);
 
-    // Set tarball path
-    tarballPath = packageToInstall;
+    } catch (exec) {
+
+      console.log();
+      console.log(chalk.red(`  Unable to locate ${packageToInstall} on npm`));
+      console.log();
+
+      process.exit(1);
+
+    }
+
 
   }
 
