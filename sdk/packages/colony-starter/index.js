@@ -87,7 +87,6 @@ const createStarter = (name, specific, verbose) => {
       // Install the package
       return installPackage(
         root,
-        packageToInstall,
         verbose,
         isOnline
       );
@@ -106,14 +105,12 @@ const createStarter = (name, specific, verbose) => {
 
       if (reason.command) {
 
-        console.log();
-        console.log(`  ${chalk.cyan(reason.command)} failed.`);
+        console.log(chalk.red(`  Failed to execute ${reason.command}`));
         console.log();
 
       } else {
 
-        console.log();
-        console.log(reason);
+        console.log(chalk.red(`  ${reason}`));
         console.log();
 
       }
@@ -149,30 +146,23 @@ const getSpecificPackage = (specific) => {
 // Get package tarball and/or unpack package tarball
 const prepareInstall = (packageToInstall, root) => {
 
-  // Get pacakge tarball if package to install is not a tarball
+  const tarball = {};
+
+  // Get tarball if not already tarball and/or set declared tarball properties
   if (!packageToInstall.match(/^.+\.(tgz|tar\.gz)$/) || packageToInstall[0] === '/') {
 
-    try {
+    // Get package tarball using npm
+    const result = getPackageTarball(packageToInstall, root);
 
-      // Get package tarball
-      const tarballName = cp
-        .execSync(`npm pack ${packageToInstall} --silent`)
-        .toString()
-        .trim();
+    // Set tarball properties
+    tarball.name = result.name;
+    tarball.path = result.path;
 
-      // Set tarball path
-      tarballPath = path.join(root, tarballName);
+  } else {
 
-    } catch (exec) {
-
-      console.log();
-      console.log(chalk.red(`  Unable to locate ${packageToInstall} on npm`));
-      console.log();
-
-      process.exit(1);
-
-    }
-
+    // Set tarball properties
+    tarball.name = packageToInstall;
+    tarball.path = path.join(root, tarball.name);
 
   }
 
@@ -180,21 +170,29 @@ const prepareInstall = (packageToInstall, root) => {
   return getTemporaryDirectory()
     .then(obj => {
 
-      // Create read stream from temporary directory
-      const stream = fs.createReadStream(tarballPath);
+      // Create read stream for temporary directory
+      const stream = fs.createReadStream(tarball.path);
       return extractStream(stream, obj.tmpdir).then(() => obj);
 
     })
     .then(obj => {
 
-      // Copy temporary directory files to root directory
+      // Copy temporary directory to root directory
       return fs.copy(obj.tmpdir, root).then(() => {
+
+        // Cleanup
+        obj.cleanup();
+
+        // Check if tarball file is in root directory
+        if (fs.existsSync(path.join(root, tarball.name))) {
+
+          // Remove tarball file
+          fs.unlink(tarball.path);
+
+        }
 
         // Get package name
         const packageName = require(path.join(root, 'package.json')).name;
-
-        // Cleanup
-        obj.cleanup()
 
         // Return package name
         return packageName;
@@ -274,15 +272,42 @@ const getProxy = () => {
   }
 }
 
+// Get package tarball using npm
+const getPackageTarball = (packageToInstall, root) => {
+
+  try {
+
+    // Download tarball
+    const tarballName = cp
+      .execSync(`npm pack ${packageToInstall} --silent`)
+      .toString()
+      .trim();
+
+    // Set tarball path to current/root directory
+    const tarballPath = path.join(root, tarballName);
+
+    // Return tarball info
+    return {
+      name: tarballName,
+      path: tarballPath,
+    };
+
+  } catch (exec) {
+
+    console.log();
+    console.log(chalk.red(`  Unable to locate ${packageToInstall} on npm`));
+    console.log();
+
+    process.exit(1);
+
+  }
+
+}
+
 // Install packages in root directory
-const installPackage = (root, pack, verbose, isOnline) => {
+const installPackage = (root, verbose, isOnline) => {
   return new Promise((resolve, reject) => {
     const args = [];
-    args.push('add');
-    args.push('--exact');
-    args.push(pack);
-    args.push('--cwd');
-    args.push(root);
     if (verbose) args.push('--verbose');
     if (!isOnline) args.push('--offline');
     const child = spawn('yarnpkg', args, { stdio: 'inherit' });

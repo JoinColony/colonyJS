@@ -59,9 +59,6 @@ const packPath = path.join(packsDir, packName);
 // Move packed starter file to packs directory
 fs.rename(path.join(packageDir, packName), packPath);
 
-// Clean yarn global cache
-cp.execSync('yarn cache clean');
-
 // Define starter command path
 const starterScriptPath = path.join(packagesDir, 'colony-starter', 'index.js');
 
