@@ -1,4 +1,4 @@
-<img align="center" src="./assets/img/colonyStarter_combomark.svg" />
+<img align="center" src="./docs/img/colonyStarter_combomark.svg" />
 
 # Colony Starter
 
