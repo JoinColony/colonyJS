@@ -18,11 +18,12 @@ git init
 log "Adding colonyNetwork submodule..."
 git submodule add https://github.com/JoinColony/colonyNetwork src/lib/colonyNetwork
 
+# Move to colonyNetwork directory
+cd src/lib/colonyNetwork
+
 # Set colonyNework version
 log "Checking out colonyNetwork version..."
-cd src/lib/colonyNetwork
 git -c advice.detachedHead=false checkout e82710813605a929e55236879fbb44585d1761ae
-cd ${ROOT_PATH}
 
 # Initialize colonyNetwork submodule
 log "Initializing colonyNetwork submodule..."

@@ -8,9 +8,9 @@
   },
   "scripts": {
     "initialize": "sh scripts/initialize_project.sh",
-    "start-ganache": "cd src/lib/colonyNetwork && ganache-cli -d --gasLimit 7000000 --acctKeys ganache-accounts.json --noVMErrorsOnRPCResponse",
-    "deploy-contracts": "cd src/lib/colonyNetwork && ./node_modules/.bin/truffle migrate --compile-all --reset",
-    "start-trufflepig": "cd src/lib/colonyNetwork && trufflepig --ganacheKeyFile ganache-accounts.json",
+    "start-ganache": "sh scripts/start_ganache.sh",
+    "deploy-contracts": "sh scripts/deploy_contracts.sh",
+    "start-trufflepig": "sh scripts/start_trufflepig.sh",
     "start": "node src/index",
     "test": "jest"
   },

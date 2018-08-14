@@ -7,10 +7,10 @@
     "node": "9.5"
   },
   "scripts": {
-    "postinstall": "sh scripts/provision_submodules.sh",
-    "deploy-contracts": "cd modules/colonyNetwork && ./node_modules/.bin/truffle migrate --compile-all --reset",
-    "start-ganache": "cd modules/colonyNetwork && ganache-cli -d --gasLimit 7000000 --acctKeys ganache-accounts.json --noVMErrorsOnRPCResponse",
-    "start-trufflepig": "cd modules/colonyNetwork && trufflepig --ganacheKeyFile ganache-accounts.json",
+    "postinstall": "sh scripts/postinstall.sh",
+    "start-ganache": "sh scripts/start_ganache.sh",
+    "deploy-contracts": "sh scripts/deploy_contracts.sh",
+    "start-trufflepig": "sh scripts/start_trufflepig.sh",
     "colony-starter": "node scripts/colony_starter.js",
     "test": "lerna run test"
   },
