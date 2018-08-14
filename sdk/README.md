@@ -8,6 +8,13 @@ Colony Starter (formerly known as "Hackathon Starter") includes a variety of sta
 
 ## Get Started
 
+### Prerequisites
+
+- Yarn 1.7
+- Node 9.5
+
+_You may find it helpful to use Node Version Manager (`nvm`) to manage node versions._
+
 ### Step 1
 
 Globally install the [@colony/colony-starter](https://www.npmjs.com/package/@colony/colony-starter) package with yarn:
@@ -39,59 +46,9 @@ Now that you have a basic understanding of how Colony works, check out some of t
 - [colony-starter-basic](/packages/colony-starter-basic)
 - [colony-starter-react](/packages/colony-starter-react) (_coming soon..._)
 
-## Development
+## Contributing
 
-### Prerequisites
+Check out the following documents for more information:
 
-- Yarn 1.7
-- Node 9.5
-
-_You may find it helpful to use Node Version Manager (`nvm`) to manage node versions._
-
-### Install Dependencies
-
-Install development dependencies:
-
-```
-yarn
-```
-
-### Start Network
-
-Start a local test network with [Ganache](https://github.com/trufflesuite/ganache-cli):
-
-```
-yarn start-ganache
-```
-
-### Deploy Contracts
-
-Open a new terminal window and deploy contracts with [Truffle](https://github.com/trufflesuite/truffle):
-
-```
-yarn deploy-contracts
-```
-
-### Start TrufflePig
-
-Open a new terminal window and connect to the deployed contracts with [TrufflePig](https://github.com/JoinColony/trufflepig):
-
-```
-yarn start-trufflepig
-```
-
-### Run Tests
-
-Open a new terminal window and run tests:
-
-```
-yarn test
-```
-
-### Test Install Package
-
-Open a new terminal window and test install a package:
-
-```
-yarn colony-starter [colony-starter-package]
-```
+- [Contributing](/docs/CONTRIBUTING.md)
+- [Development](/docs/DEVELOPMENT.md)
