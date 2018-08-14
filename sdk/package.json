@@ -3,6 +3,9 @@
   "workspaces": [
     "packages/*"
   ],
+  "engines": {
+    "node": "9.5"
+  },
   "scripts": {
     "postinstall": "sh scripts/provision_submodules.sh",
     "deploy-contracts": "cd modules/colonyNetwork && ./node_modules/.bin/truffle migrate --compile-all --reset",

@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "A simple starter project for building with Colony",
   "license": "MIT",
+  "engines": {
+    "node": "9.5"
+  },
   "scripts": {
     "provision": "git submodule update --init --recursive && cd src/lib/colonyNetwork && yarn",
     "deploy-contracts": "cd src/lib/colonyNetwork && ./node_modules/.bin/truffle migrate --compile-all --reset",
