@@ -7,9 +7,9 @@
     "node": "9.5"
   },
   "scripts": {
-    "provision": "git submodule update --init --recursive && cd src/lib/colonyNetwork && yarn",
-    "deploy-contracts": "cd src/lib/colonyNetwork && ./node_modules/.bin/truffle migrate --compile-all --reset",
+    "initialize": "sh scripts/initialize_project.sh",
     "start-ganache": "cd src/lib/colonyNetwork && ganache-cli -d --gasLimit 7000000 --acctKeys ganache-accounts.json --noVMErrorsOnRPCResponse",
+    "deploy-contracts": "cd src/lib/colonyNetwork && ./node_modules/.bin/truffle migrate --compile-all --reset",
     "start-trufflepig": "cd src/lib/colonyNetwork && trufflepig --ganacheKeyFile ganache-accounts.json",
     "start": "node src/index",
     "test": "jest"

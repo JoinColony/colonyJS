@@ -94,6 +94,15 @@ const createStarter = (name, specific, verbose) => {
     }).then(() => {
 
       console.log();
+      console.log(`  Initializing ${chalk.cyan(packageName)}...`);
+      console.log();
+
+      // Execute initialize project script and log output
+      cp.execSync('yarn initialize', { stdio: [0, 1, 2] });
+
+    }).then(() => {
+
+      console.log();
       console.log(`  Success! Created ${chalk.cyan(name)} at ${chalk.cyan(root)}`);
       console.log();
 
