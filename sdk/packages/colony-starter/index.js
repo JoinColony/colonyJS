@@ -140,16 +140,16 @@ const isYarnInstalled = () => {
   }
 }
 
-// Format specific package if specific
+// Format package name based on specific
 const getSpecificPackage = (specific) => {
-  let specificPackage = packageName;
   const validSemver = semver.valid(specific);
   if (validSemver) {
-    specificPackage += `@${validSemver}`;
-  } else if (specific) {
-    specificPackage = specific;
+    return `@colony/${packageName}@${validSemver}`;
   }
-  return specificPackage;
+  if (specific) {
+    return specific;
+  }
+  return `@colony/${packageName}`;
 }
 
 // Get package tarball and/or unpack package tarball
