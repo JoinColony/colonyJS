@@ -6,6 +6,9 @@
   "engines": {
     "node": "9.5"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "initialize": "sh scripts/initialize_project.sh",
     "start-ganache": "sh scripts/start_ganache.sh",

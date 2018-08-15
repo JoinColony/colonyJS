@@ -6,6 +6,9 @@
   "engines": {
     "node": "9.5"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "bin": {
     "colony-starter": "./index.js"
   },
