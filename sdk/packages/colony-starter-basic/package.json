@@ -15,6 +15,7 @@
     "deploy-contracts": "sh scripts/deploy_contracts.sh",
     "start-trufflepig": "sh scripts/start_trufflepig.sh",
     "start": "node src/index",
+    "metamask": "node src/metamask",
     "rinkeby": "node src/rinkeby",
     "test": "jest"
   },
