@@ -2,7 +2,7 @@
 
 ### Prerequisites
 
-- Yarn 1.7
+- Yarn
 - Node 9.5
 
 _You may find it helpful to use Node Version Manager (`nvm`) to manage node versions._

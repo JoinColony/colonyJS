@@ -15,8 +15,7 @@ const provider = new providers.JsonRpcProvider('http://localhost:8545/');
 // An example method for connecting to the local network
 const connectNetwork = async (accountIndex) => {
 
-  // Get the private key from the first account from the ganache-accounts
-  // through trufflepig
+  // Get the private key from the first Ganache test account
   const { privateKey } = await loader.getAccount(accountIndex || 0);
 
   // Create a wallet with the private key (so we have a balance we can use)
@@ -34,6 +33,9 @@ const connectNetwork = async (accountIndex) => {
 
   // Initialize networkClient
   await networkClient.init();
+
+  // Check out the logs to see the address of the contract signer
+  console.log('Account Address: ' + networkClient._contract.signer.address);
 
   // Check out the logs to see the address of the deployed network
   console.log('Network Address: ' + networkClient._contract.address);

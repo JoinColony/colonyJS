@@ -58,6 +58,9 @@ describe('Colony Starter Basic', () => {
     expect(state.networkClient[0]).toEqual(expect.objectContaining({
       _contract: expect.objectContaining({
         address: expect.stringContaining('0x'),
+        signer: expect.objectContaining({
+          address: expect.stringContaining('0x'),
+        }),
       })
     }));
   }, 5000);

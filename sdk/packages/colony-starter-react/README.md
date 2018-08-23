@@ -11,14 +11,6 @@ _You may find it helpful to use Node Version Manager (`nvm`) to manage node vers
 
 ## Development
 
-### Install Dependencies
-
-Install the project dependencies:
-
-```
-yarn
-```
-
 ### Start Network
 
 Open a new terminal window and start [Ganache](https://github.com/trufflesuite/ganache-cli):
