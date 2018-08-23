@@ -3,17 +3,21 @@
 const fs = require('fs-extra');
 const path = require('path');
 const cp = require('child_process');
+const chalk = require('chalk');
 
 // Exit without error
 const handleExit = () => {
-  console.log('Exiting without error.');
+  console.log(chalk.cyan('  Exiting without error...'));
+  console.log();
   process.exit();
 };
 
 // Exit with error
-const handleError = e => {
-  console.error(e);
-  console.log('Exiting with error.');
+const handleError = error => {
+  console.error(error);
+  console.log();
+  console.log(chalk.red('  Exiting with error...'));
+  console.log();
   process.exit(1);
 };
 
@@ -21,11 +25,9 @@ const handleError = e => {
 process.on('SIGINT', handleExit);
 process.on('uncaughtException', handleError);
 
-// Check to make sure there are no uncommitted changes
-if (cp.execSync(`git status --porcelain`).toString().trim() !== '') {
-  console.log('Please commit your changes before running this script!');
-  process.exit(1);
-}
+// Log start
+console.log();
+console.log(chalk.cyan('  Starting test install...'));
 
 // Get package name from argument
 const packageName = process.argv[2];
@@ -40,7 +42,9 @@ const packageJson = path.join(packageDir, 'package.json');
 
 // Check if the package exists
 if (!fs.existsSync(packageJson)) {
-  console.log('Unable to locate package!');
+  console.log();
+  console.log(chalk.red('  Unable to locate the requested package!'));
+  console.log();
   process.exit(1);
 }
 
