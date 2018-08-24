@@ -1,5 +1,5 @@
 // Import examples
-const connectNetwork = require('../examples/connectNetwork');
+const connectNetwork = require('../helpers/actions/connectNetwork');
 
 // Testing Colony Starter React examples
 describe('Colony Starter React', () => {
