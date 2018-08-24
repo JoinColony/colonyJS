@@ -14,11 +14,12 @@
     "start-ganache": "sh scripts/start_ganache.sh",
     "deploy-contracts": "sh scripts/deploy_contracts.sh",
     "start-trufflepig": "sh scripts/start_trufflepig.sh",
-    "start": "webpack-dev-server",
+    "build": "webpack -p --config webpack/production.config.js",
+    "start": "webpack-dev-server --config webpack/development.config.js",
     "test": "jest"
   },
   "jest": {
-    "rootDir": "src",
+    "rootDir": "client",
     "testURL": "http://localhost"
   },
   "dependencies": {
