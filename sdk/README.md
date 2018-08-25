@@ -1,4 +1,21 @@
-<img align="center" src="./docs/img/colonyStarter_combomark.svg" />
+<img align="center" src="/docs/img/colonyStarter_combomark.svg" />
+<div align="center">
+  <a href="https://circleci.com/gh/JoinColony/colonyStarter">
+    <img src="https://img.shields.io/circleci/project/github/JoinColony/colonyStarter/node-csgo-parser.svg" />
+  </a>
+  <a href="https://build.colony.io/">
+    <img src="https://img.shields.io/discourse/https/build.colony.io/status.svg" />
+  </a>
+  <a href="https://build.colony.io/">
+    <img src="https://img.shields.io/discourse/https/build.colony.io/users.svg" />
+  </a>
+  <a href="https://build.colony.io/">
+    <img src="https://img.shields.io/discourse/https/build.colony.io/topics.svg" />
+  </a>
+  <a href="https://build.colony.io/">
+    <img src="https://img.shields.io/discourse/https/build.colony.io/posts.svg" />
+  </a>
+</div>
 
 # Colony Starter
 
@@ -48,5 +65,5 @@ Now that you have a basic understanding of how Colony works, check out some of t
 
 _Are you interested in contributing?_ Check out the following documents for more information:
 
-- [Contributing](/docs/CONTRIBUTING.md)
-- [Development](/docs/DEVELOPMENT.md)
+- [Contributing](/.github/CONTRIBUTING.md)
+- [Development](/.github/DEVELOPMENT.md)
