@@ -35,9 +35,6 @@ const connectNetwork = async (accountIndex) => {
   // Initialize networkClient
   await networkClient.init();
 
-  // Check out the logs to see the address of the deployed network
-  console.log('Network Address: ' + networkClient._contract.address);
-
   // Return networkClient
   return networkClient;
 

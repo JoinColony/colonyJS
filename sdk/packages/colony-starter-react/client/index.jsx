@@ -1,12 +1,9 @@
 import React from 'react'
 import { render } from 'react-dom'
+import App from './containers/App'
 import './index.scss'
 
 render(
-  <div>
-    <h1>
-      {'colony-starter-react'}
-    </h1>
-  </div>,
+  <App />,
   document.getElementById('app'),
 )
