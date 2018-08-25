@@ -1,4 +1,4 @@
-<img align="center" src="./docs/img/colonyStarter_combomark.svg" />
+<img align="center" src="/docs/img/colonyStarter_combomark.svg" />
 
 # Colony Starter
 
@@ -48,5 +48,5 @@ Now that you have a basic understanding of how Colony works, check out some of t
 
 _Are you interested in contributing?_ Check out the following documents for more information:
 
-- [Contributing](/github/CONTRIBUTING.md)
-- [Development](/github/DEVELOPMENT.md)
+- [Contributing](/.github/CONTRIBUTING.md)
+- [Development](/.github/DEVELOPMENT.md)
