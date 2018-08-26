@@ -94,7 +94,7 @@ await networkClient.createColony.send({
   gasLimit: 400000,
   timeoutMs: 1000 * 60 * 2, // two minutes
   waitForMining: true,
-);
+});
 ```
 
 ### ContractResponse
