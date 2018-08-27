@@ -9,10 +9,6 @@ class AppContainer extends Component {
     super(props)
   }
 
-  componentDidMount() {
-    this.props.connectNetwork(0)
-  }
-
   componentDidUpdate(prevProps) {
     if (this.props.location !== prevProps.location) {
       scroll(0,0)
@@ -22,6 +18,7 @@ class AppContainer extends Component {
   render() {
     return (
       <App
+        connectNetwork={this.props.connectNetwork}
         connectNetworkError={this.props.connectNetworkError}
         connectNetworkLoading={this.props.connectNetworkLoading}
         connectNetworkSuccess={this.props.connectNetworkSuccess}
@@ -34,10 +31,7 @@ class AppContainer extends Component {
 
 const mapStateToProps = state => ({
   connectNetworkError: state.network.connectNetworkError,
-  connectNetworkLoading: (
-    state.network.connectNetworkLoading ||
-    state.network.networkClient === null
-  ),
+  connectNetworkLoading: state.network.connectNetworkLoading,
   connectNetworkSuccess: state.network.connectNetworkSuccess,
   networkClient: state.network.networkClient,
 })

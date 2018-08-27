@@ -1,3 +1,11 @@
+// accountActions
+
+export const GET_ACCOUNTS = 'GET_ACCOUNTS'
+export const GET_ACCOUNTS_ERROR = 'GET_ACCOUNTS_ERROR'
+export const GET_ACCOUNTS_SUCCESS = 'GET_ACCOUNTS_SUCCESS'
+
+export const SET_STATE_ACCOUNTS = 'SET_STATE_ACCOUNTS'
+
 // networkActions
 
 export const CONNECT_NETWORK = 'CONNECT_NETWORK'
