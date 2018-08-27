@@ -1,1 +1,4 @@
 node_modules
+client/__snapshots__
+public/index.min.css
+public/index.min.js

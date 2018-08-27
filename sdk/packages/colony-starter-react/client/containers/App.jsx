@@ -1,47 +1,51 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { connectNetwork } from '../actions/networkActions'
 import App from '../components/App'
-import connectNetwork from '../actions/connectNetwork'
 
 class AppContainer extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {
-      connectNetworkError: null,
-      connectNetworkLoading: true,
-      networkClient: null,
-    }
   }
 
   componentDidMount() {
-    const testAccountIndex = prompt('test account index:', '0')
-    connectNetwork(testAccountIndex)
-    .then(networkClient => {
-      this.setState({
-        connectNetworkLoading: false,
-        networkClient,
-      })
-    })
-    .catch(error => {
-      this.setState({
-        connectNetwork: {
-          connectNetworkError: error,
-          connectNetworkLoading: false,
-        },
-      })
-    })
+    this.props.connectNetwork(0)
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.location !== prevProps.location) {
+      scroll(0,0)
+    }
   }
 
   render() {
     return (
       <App
-        connectNetworkError={this.state.connectNetworkError}
-        connectNetworkLoading={this.state.connectNetworkLoading}
-        networkClient={this.state.networkClient}
+        connectNetworkError={this.props.connectNetworkError}
+        connectNetworkLoading={this.props.connectNetworkLoading}
+        connectNetworkSuccess={this.props.connectNetworkSuccess}
+        networkClient={this.props.networkClient}
       />
     )
   }
 
 }
 
-export default AppContainer
+const mapStateToProps = state => ({
+  connectNetworkError: state.network.connectNetworkError,
+  connectNetworkLoading: (
+    state.network.connectNetworkLoading ||
+    state.network.networkClient === null
+  ),
+  connectNetworkSuccess: state.network.connectNetworkSuccess,
+  networkClient: state.network.networkClient,
+})
+
+const mapDispatchToProps = dispatch => ({
+  connectNetwork(accountIndex) {
+    dispatch(connectNetwork(accountIndex))
+  },
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppContainer)
