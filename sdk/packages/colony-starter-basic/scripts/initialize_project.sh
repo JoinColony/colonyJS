@@ -14,6 +14,10 @@ log() {
 log "Initializing git repository..."
 git init
 
+# Add gitignore file
+log "Adding gitignore file..."
+echo "node_modules" >> .gitignore
+
 # Add colonyNetwork submodule
 log "Adding colonyNetwork submodule..."
 git submodule add https://github.com/JoinColony/colonyNetwork src/lib/colonyNetwork
