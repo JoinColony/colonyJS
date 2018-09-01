@@ -15,6 +15,7 @@
     "test": "lerna run test"
   },
   "devDependencies": {
+    "chalk": "^2.4.1",
     "ganache-cli": "^6.1.0",
     "lerna": "^3.0.0-rc.0",
     "trufflepig": "^1.0.4"
