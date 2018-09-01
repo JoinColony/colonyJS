@@ -13,6 +13,7 @@
     "colony-starter": "./index.js"
   },
   "dependencies": {
+    "chalk": "^2.4.1",
     "tar-pack": "^3.4.1"
   }
 }
