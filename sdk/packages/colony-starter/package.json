@@ -1,6 +1,6 @@
 {
   "name": "@colony/colony-starter",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "description": "A global command for creating starter projects",
   "license": "MIT",
   "engines": {
