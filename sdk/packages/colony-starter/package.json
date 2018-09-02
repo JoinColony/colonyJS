@@ -14,6 +14,10 @@
   },
   "dependencies": {
     "chalk": "^2.4.1",
-    "tar-pack": "^3.4.1"
+    "commander": "^2.17.1",
+    "cross-spawn": "^6.0.5",
+    "fs-extra": "^7.0.0",
+    "tar-pack": "^3.4.1",
+    "tmp": "^0.0.33"
   }
 }
