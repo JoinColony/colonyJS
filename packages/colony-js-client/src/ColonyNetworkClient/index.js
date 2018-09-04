@@ -16,6 +16,21 @@ const MISSING_ID = 'An ID parameter must be provided';
 type Address = string;
 
 export default class ColonyNetworkClient extends ContractClient {
+  events: {
+    ColonyAdded: ColonyNetworkClient.Event<{
+      colonyId: number,
+      colonyAddress: Address,
+    }>,
+    SkillAdded: ColonyNetworkClient.Event<{
+      skillId: number,
+      parentSkillId: number,
+    }>,
+    AuctionCreated: ColonyNetworkClient.Event<{
+      auction: Address,
+      token: Address,
+      quantity: BigNumber,
+    }>,
+  };
   /*
   Returns the address of a colony when given the ID
   */
@@ -331,6 +346,21 @@ export default class ColonyNetworkClient extends ContractClient {
     return this.getColonyClientByAddress(address);
   }
   initializeContractMethods() {
+    // Events
+    this.addEvent('ColonyAdded', [
+      ['colonyId', 'number'],
+      ['colonyAddress', 'address'],
+    ]);
+    this.addEvent('SkillAdded', [
+      ['skillId', 'number'],
+      ['parentSkillId', 'number'],
+    ]);
+    this.addEvent('AuctionCreated', [
+      ['auction', 'address'],
+      ['token', 'tokenAddress'],
+      ['quantity', 'bigNumber'],
+    ]);
+
     // Callers
     this.addCaller('getColony', {
       input: [['id', 'number']],
