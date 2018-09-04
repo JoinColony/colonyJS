@@ -84,21 +84,9 @@ describe('ColonyNetworkClient', () => {
       networkClient.constructor.Sender,
     );
     expect(networkClient.createColony).toHaveProperty('_defaultGasLimit');
-    expect(networkClient.createColony.eventHandlers).toEqual({
-      ColonyAdded: {
-        contract: {},
-        handler: expect.any(Function),
-      },
-    });
     expect(networkClient.createColony.input).toEqual([
       ['tokenAddress', 'address'],
     ]);
-    expect(
-      networkClient.createColony.eventHandlers.ColonyAdded.handler({
-        colonyId: new BigNumber(100),
-        colonyAddress: 'colony address',
-      }),
-    ).toEqual({ colonyId: 100, colonyAddress: 'colony address' });
 
     const response = {
       eventData: {

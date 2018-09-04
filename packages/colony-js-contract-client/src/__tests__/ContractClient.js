@@ -20,7 +20,6 @@ describe('ContractClient', () => {
   const txData = "0x123 oh look at me, I'm some data";
   const constantData = { constantValue: 123 };
   const gasEstimate = new BigNumber(123);
-  const eventData = { myEvent: { myEventValue: 123 } };
   const contract = new class extends MockEmittingContract {
     address = '0x123';
     events = {};
@@ -32,7 +31,6 @@ describe('ContractClient', () => {
   const query = { contractName: 'MyContract' };
   const adapter = {
     getContract: sandbox.fn(() => contract),
-    getEventData: sandbox.fn(async () => eventData),
   };
   const options = {
     myOption: 123,
@@ -226,24 +224,6 @@ describe('ContractClient', () => {
       fnName,
       args,
     );
-  });
-
-  test('Contract event data is parsed correctly', async () => {
-    const client = new ContractClient({ adapter, contract, options });
-    await client.init();
-
-    const params = {
-      events: {
-        myEvent({ myEventValue }) {
-          return { myEventValue };
-        },
-      },
-    };
-    const result = await client.getEventData(params);
-
-    expect(result).toEqual(eventData);
-    expect(client.adapter.getEventData).toHaveBeenCalledTimes(1);
-    expect(client.adapter.getEventData).toHaveBeenCalledWith(params);
   });
 
   test('Contract event callbacks can be (un)subscribed', async () => {
