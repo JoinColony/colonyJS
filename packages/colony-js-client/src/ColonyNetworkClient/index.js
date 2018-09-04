@@ -49,6 +49,18 @@ export default class ColonyNetworkClient extends ContractClient {
     ColonyNetworkClient,
   >;
   /*
+  Check if specific address is a Colony created on the Colony Network
+  */
+  isColony: ColonyNetworkClient.Caller<
+    {
+      colony: Address, // Address of the colony
+    },
+    {
+      isColony: boolean, // Whether specified address is a colony
+    },
+    ColonyNetworkClient,
+  >;
+  /*
   Given a version of the colony contract, returns the address of the corresponding `Resolver` contract
   */
   getColonyVersionResolver: ColonyNetworkClient.Caller<
@@ -84,29 +96,15 @@ export default class ColonyNetworkClient extends ContractClient {
     ColonyNetworkClient,
   >;
   /*
-  Gets the `ReputationLogEntry` at a specified index for either ther currently active or inactive reputation update log
+  Given the id of a particular skill, returns the child skill at the given index
   */
-  getReputationUpdateLogEntry: ColonyNetworkClient.Caller<
+  getChildSkillId: ColonyNetworkClient.Caller<
     {
-      id: number, // The reputation log members array index of the entry to get
+      skillId: number, // Id of the skill
+      childSkillIndex: number, // Index of the `skill.children` array to get
     },
     {
-      amount: BigNumber, // amount
-      colony: Address, // Address of the colony
-      nPreviousUpdates: number, // number of previous updates
-      nUpdates: number, // number of updates
-      skillId: number, // skill Id
-      user: Address, // user address
-    },
-    ColonyNetworkClient,
-  >;
-  /*
-  Gets the length of the reputation update log for either the current active or inactive log
-  */
-  getReputationUpdateLogLength: ColonyNetworkClient.Caller<
-    {},
-    {
-      count: number, // Length of Reputation update log array
+      childSkillId: number, // Id of the child skill
     },
     ColonyNetworkClient,
   >;
@@ -120,6 +118,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       nParents: number, // Number of parent skills
       nChildren: number, // Number of child skills
+      isGlobalSkill: boolean, // Whether the specified skill is a global skill
     },
     ColonyNetworkClient,
   >;
@@ -134,15 +133,57 @@ export default class ColonyNetworkClient extends ContractClient {
     ColonyNetworkClient,
   >;
   /*
-    Get the amount of staked CLNY tokens for a given user address
+  Get the ID of the root global skill.
   */
-  getStakedBalance: ColonyNetworkClient.Caller<
+  getRootGlobalSkillId: ColonyNetworkClient.Caller<
+    {},
     {
-      user: Address, // Address of the user
+      skillId: number, // The root global skill id
+    },
+    ColonyNetworkClient,
+  >;
+  /*
+  Get the token locking contract address.
+  */
+  getTokenLocking: ColonyNetworkClient.Caller<
+    {},
+    {
+      lockingAddress: Address, // Token locking contract address
+    },
+    ColonyNetworkClient,
+  >;
+  /*
+  Adds a new skill to the global or local skills tree.
+  */
+  addSkill: ColonyNetworkClient.Sender<
+    {
+      parentSkillId: number, // The skill under which the new skill will be added
+      globalSkill: boolean, // Whether the new skill is global
     },
     {
-      balance: BigNumber, // Amount of staked CLNY
+      skillId: number, // Id of the added skill
+      parentSkillId: number, // Id of the parent skill under which the new skill is added
     },
+    ColonyNetworkClient,
+  >;
+  /*
+  Sets the token locking address.
+  */
+  setTokenLocking: ColonyNetworkClient.Sender<
+    {
+      tokenLockingAddress: Address, // Address of the locking contract
+    },
+    {},
+    ColonyNetworkClient,
+  >;
+  /*
+  Create the Meta Colony, same as a normal Colony plus the root skill.
+  */
+  createMetaColony: ColonyNetworkClient.Sender<
+    {
+      tokenAddress: Address, // Token to import. Note: the ownership of the token contract must be transferred to the newly-created Meta Colony.
+    },
+    {},
     ColonyNetworkClient,
   >;
   /*
@@ -159,11 +200,12 @@ export default class ColonyNetworkClient extends ContractClient {
     ColonyNetworkClient,
   >;
   /*
-    Allow a reputation miner to stake an amount of CLNY tokens, which is required before they can submit a new reputation root hash via `ReputationMiningCycle.submitNewHash`
+  Adds a new Colony contract version and the address of associated Resolver contract.
   */
-  deposit: ColonyNetworkClient.Sender<
+  addColonyVersion: ColonyNetworkClient.Sender<
     {
-      amount: BigNumber, // Amount of CLNY to stake
+      version: number, // The new Colony contract version
+      resolver: Address, // Address of the Resolver contract
     },
     {},
     ColonyNetworkClient,
@@ -183,22 +225,22 @@ export default class ColonyNetworkClient extends ContractClient {
     ColonyNetworkClient,
   >;
   /*
-  Upgrades a colony to a new Colony contract version.
+  Setup registrar with ENS and root node.
   */
-  upgradeColony: ColonyNetworkClient.Sender<
+  setupRegistrar: ColonyNetworkClient.Sender<
     {
-      id: number, // Colony ID to be upgraded
-      newVersion: number, // The target version for the upgrade
+      ens: Address, // Address of ENS registrar
+      rootNode: string, // Namehash of the root node for the domain
     },
     {},
     ColonyNetworkClient,
   >;
   /*
-  Allow a user who has staked CLNY to withdraw their stake
+  Register a "user.joincolony.eth" label.
   */
-  withdraw: ColonyNetworkClient.Sender<
+  registerUserLabel: ColonyNetworkClient.Sender<
     {
-      amount: BigNumber, // Amount of CLNY to withdraw from stake
+      subnode: string, // The keccak256 hash of the label to register
     },
     {},
     ColonyNetworkClient,
@@ -301,6 +343,10 @@ export default class ColonyNetworkClient extends ContractClient {
     this.addCaller('getColonyCount', {
       output: [['count', 'number']],
     });
+    this.addCaller('isColony', {
+      input: [['colony', 'address']],
+      output: [['isColony', 'boolean']],
+    });
     this.addCaller('getColonyVersionResolver', {
       input: [['version', 'number']],
       output: [['address', 'address']],
@@ -308,31 +354,21 @@ export default class ColonyNetworkClient extends ContractClient {
     this.addCaller('getCurrentColonyVersion', {
       output: [['version', 'number']],
     });
-    this.addCaller('getStakedBalance', {
-      input: [['user', 'address']],
-      output: [['balance', 'bigNumber']],
-    });
     this.addCaller('getParentSkillId', {
       input: [['skillId', 'number'], ['parentSkillIndex', 'number']],
       output: [['parentSkillId', 'number']],
     });
-    this.addCaller('getReputationUpdateLogEntry', {
-      input: [['id', 'number']],
-      output: [
-        ['user', 'string'],
-        ['amount', 'bigNumber'],
-        ['skillId', 'number'],
-        ['colony', 'string'],
-        ['nUpdates', 'number'],
-        ['nPreviousUpdates', 'number'],
-      ],
-    });
-    this.addCaller('getReputationUpdateLogLength', {
-      output: [['count', 'number']],
+    this.addCaller('getChildSkillId', {
+      input: [['skillId', 'number'], ['childSkillIndex', 'number']],
+      output: [['childSkillId', 'number']],
     });
     this.addCaller('getSkill', {
       input: [['skillId', 'number']],
-      output: [['nParents', 'number'], ['nChildren', 'number']],
+      output: [
+        ['nParents', 'number'],
+        ['nChildren', 'number'],
+        ['isGlobalSkill', 'boolean'],
+      ],
       validateEmpty: async ({ skillId }: { skillId: number }) => {
         const { count } = await this.getSkillCount.call();
         if (skillId > count) throw new Error(`Skill ID ${skillId} not found`);
@@ -342,8 +378,41 @@ export default class ColonyNetworkClient extends ContractClient {
     this.addCaller('getSkillCount', {
       output: [['count', 'number']],
     });
+    this.addCaller('getRootGlobalSkillId', {
+      output: [['skillId', 'number']],
+    });
+    this.addCaller('getTokenLocking', {
+      output: [['lockingAddress', 'address']],
+    });
 
     // Senders
+    this.addSender('addSkill', {
+      input: [['parentSkillId', 'number'], ['globalSkill', 'boolean']],
+      eventHandlers: {
+        SkillAdded: {
+          contract: this.contract,
+          handler({
+            skillId,
+            parentSkillId,
+          }: {
+            skillId: BigNumber,
+            parentSkillId: BigNumber,
+          }) {
+            return {
+              skillId: skillId.toNumber(),
+              parentSkillId: parentSkillId.toNumber(),
+            };
+          },
+        },
+      },
+    });
+    this.addSender('setTokenLocking', {
+      input: [['tokenLockingAddress', 'address']],
+    });
+    this.addSender('createMetaColony', {
+      input: [['tokenAddress', 'address']],
+      defaultGasLimit: 2500000,
+    });
     this.addSender('createColony', {
       input: [['tokenAddress', 'address']],
       defaultGasLimit: 2500000,
@@ -365,8 +434,8 @@ export default class ColonyNetworkClient extends ContractClient {
         },
       },
     });
-    this.addSender('deposit', {
-      input: [['amount', 'bigNumber']],
+    this.addSender('addColonyVersion', {
+      input: [['version', 'number'], ['resolver', 'address']],
     });
     this.addSender('startTokenAuction', {
       input: [['tokenAddress', 'address']],
@@ -391,11 +460,11 @@ export default class ColonyNetworkClient extends ContractClient {
         },
       },
     });
-    this.addSender('upgradeColony', {
-      input: [['key', 'string'], ['newVersion', 'number']],
+    this.addSender('setupRegistrar', {
+      input: [['ens', 'address'], ['rootNode', 'string']],
     });
-    this.addSender('withdraw', {
-      input: [['amount', 'bigNumber']],
+    this.addSender('registerUserLabel', {
+      input: [['subnode', 'string']],
     });
   }
 }

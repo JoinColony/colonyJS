@@ -144,6 +144,24 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |count|number|colonyId of the most recently created colony|
 
+### `isColony.call({ colony })`
+
+Check if specific address is a Colony created on the Colony Network
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|colony|Address|Address of the colony|
+
+**Returns**
+
+A promise which resolves to an object containing the following properties:
+
+|Return value|Type|Description|
+|---|---|---|
+|isColony|boolean|Whether specified address is a colony|
+
 ### `getColonyVersionResolver.call({ version })`
 
 Given a version of the colony contract, returns the address of the corresponding `Resolver` contract
@@ -194,15 +212,16 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |parentSkillId|number|Id of the parent skill|
 
-### `getReputationUpdateLogEntry.call({ id })`
+### `getChildSkillId.call({ skillId, childSkillIndex })`
 
-Gets the `ReputationLogEntry` at a specified index for either ther currently active or inactive reputation update log
+Given the id of a particular skill, returns the child skill at the given index
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|id|number|The reputation log members array index of the entry to get|
+|skillId|number|Id of the skill|
+|childSkillIndex|number|Index of the `skill.children` array to get|
 
 **Returns**
 
@@ -210,25 +229,7 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|amount|BigNumber|amount|
-|colony|Address|Address of the colony|
-|nPreviousUpdates|number|number of previous updates|
-|nUpdates|number|number of updates|
-|skillId|number|skill Id|
-|user|Address|user address|
-
-### `getReputationUpdateLogLength.call()`
-
-Gets the length of the reputation update log for either the current active or inactive log
-
-
-**Returns**
-
-A promise which resolves to an object containing the following properties:
-
-|Return value|Type|Description|
-|---|---|---|
-|count|number|Length of Reputation update log array|
+|childSkillId|number|Id of the child skill|
 
 ### `getSkill.call({ skillId })`
 
@@ -248,6 +249,7 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |nParents|number|Number of parent skills|
 |nChildren|number|Number of child skills|
+|isGlobalSkill|boolean|Whether the specified skill is a global skill|
 
 ### `getSkillCount.call()`
 
@@ -262,15 +264,10 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |count|number|The number of skills on the network|
 
-### `getStakedBalance.call({ user })`
+### `getRootGlobalSkillId.call()`
 
-Get the amount of staked CLNY tokens for a given user address
+Get the ID of the root global skill.
 
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|user|Address|Address of the user|
 
 **Returns**
 
@@ -278,12 +275,77 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|balance|BigNumber|Amount of staked CLNY|
+|skillId|number|The root global skill id|
+
+### `getTokenLocking.call()`
+
+Get the token locking contract address.
+
+
+**Returns**
+
+A promise which resolves to an object containing the following properties:
+
+|Return value|Type|Description|
+|---|---|---|
+|lockingAddress|Address|Token locking contract address|
 
   
 ## Senders
 
 **All senders return an instance of a `ContractResponse`.** Every `send()` method takes an `options` object as the second argument. For a reference please check [here](/colonyjs/docs-contractclient/#senders).
+### `addSkill.send({ parentSkillId, globalSkill }, options)`
+
+Adds a new skill to the global or local skills tree.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|parentSkillId|number|The skill under which the new skill will be added|
+|globalSkill|boolean|Whether the new skill is global|
+
+**Returns**
+
+An instance of a `ContractResponse` which will eventually receive the following event data:
+
+|Event data|Type|Description|
+|---|---|---|
+|skillId|number|Id of the added skill|
+|parentSkillId|number|Id of the parent skill under which the new skill is added|
+
+### `setTokenLocking.send({ tokenLockingAddress }, options)`
+
+Sets the token locking address.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|tokenLockingAddress|Address|Address of the locking contract|
+
+**Returns**
+
+An instance of a `ContractResponse`
+
+
+
+### `createMetaColony.send({ tokenAddress }, options)`
+
+Create the Meta Colony, same as a normal Colony plus the root skill.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|tokenAddress|Address|Token to import. Note: the ownership of the token contract must be transferred to the newly-created Meta Colony.|
+
+**Returns**
+
+An instance of a `ContractResponse`
+
+
+
 ### `createColony.send({ tokenAddress }, options)`
 
 Creates a new colony on the network.
@@ -303,15 +365,16 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |colonyId|number|ID of the newly-created Colony|
 |colonyAddress|Address|Address of the newly-created Colony|
 
-### `deposit.send({ amount }, options)`
+### `addColonyVersion.send({ version, resolver }, options)`
 
-Allow a reputation miner to stake an amount of CLNY tokens, which is required before they can submit a new reputation root hash via `ReputationMiningCycle.submitNewHash`
+Adds a new Colony contract version and the address of associated Resolver contract.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|amount|BigNumber|Amount of CLNY to stake|
+|version|number|The new Colony contract version|
+|resolver|Address|Address of the Resolver contract|
 
 **Returns**
 
@@ -339,16 +402,16 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |token|Address|The address of the token being auctioned|
 |quantity|number|The amount of available tokens for auction|
 
-### `upgradeColony.send({ id, newVersion }, options)`
+### `setupRegistrar.send({ ens, rootNode }, options)`
 
-Upgrades a colony to a new Colony contract version.
+Setup registrar with ENS and root node.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|id|number|Colony ID to be upgraded|
-|newVersion|number|The target version for the upgrade|
+|ens|Address|Address of ENS registrar|
+|rootNode|string|Namehash of the root node for the domain|
 
 **Returns**
 
@@ -356,15 +419,15 @@ An instance of a `ContractResponse`
 
 
 
-### `withdraw.send({ amount }, options)`
+### `registerUserLabel.send({ subnode }, options)`
 
-Allow a user who has staked CLNY to withdraw their stake
+Register a "user.joincolony.eth" label.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|amount|BigNumber|Amount of CLNY to withdraw from stake|
+|subnode|string|The keccak256 hash of the label to register|
 
 **Returns**
 
