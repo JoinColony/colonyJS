@@ -7,9 +7,6 @@ import type {
   IAdapter,
   IProvider,
   IWallet,
-  Event,
-  EventHandler,
-  EventHandlers,
   Signature,
   Transaction,
 } from '@colony/colony-js-adapter';
@@ -26,30 +23,6 @@ export default class EthersAdapter implements IAdapter {
   loader: ContractLoader;
   provider: IProvider;
   wallet: IWallet;
-  static getEventPromises({
-    events,
-    timeoutMs,
-    transactionHash,
-  }: {
-    events: { [eventName: string]: EventHandler },
-    timeoutMs: number,
-    transactionHash: string,
-  }): Array<Promise<any>> {
-    const mapEventToPromise = eventName => {
-      const { contract, handler } = events[eventName];
-      let wrappedHandler;
-
-      const subscriptionPromise = new Promise(resolve => {
-        wrappedHandler = ({ args }: Event) => resolve(handler(args));
-        contract.addListener(eventName, wrappedHandler, transactionHash);
-      });
-
-      return raceAgainstTimeout(subscriptionPromise, timeoutMs, () =>
-        contract.removeListener(eventName, wrappedHandler, transactionHash),
-      );
-    };
-    return Object.getOwnPropertyNames(events).map(mapEventToPromise);
-  }
   constructor({ loader, provider, wallet }: ConstructorArgs) {
     this.loader = loader;
     this.provider = provider;
@@ -82,31 +55,6 @@ export default class EthersAdapter implements IAdapter {
       abi,
       ...contractParams,
     );
-  }
-  // XXX this isn't a static method because we can't define it as such
-  // in the Interface thanks to Flow
-  async getEventData({
-    events = {},
-    transactionHash,
-    timeoutMs,
-  }: {
-    events: EventHandlers,
-    timeoutMs: number,
-    transactionHash: string,
-  }): Promise<{}> {
-    const eventPromises = this.constructor.getEventPromises({
-      events,
-      timeoutMs,
-      transactionHash,
-    });
-    try {
-      // Wait for all success events to resolve, or reject on any error event
-      return Object.assign({}, ...(await Promise.all(eventPromises)));
-    } finally {
-      Object.entries(events).forEach(([eventName, { contract, handler }]) => {
-        contract.removeListener(eventName, handler, transactionHash);
-      });
-    }
   }
   async _getTransactionReceipt(transactionHash: string) {
     const receipt = await this.provider.getTransactionReceipt(transactionHash);

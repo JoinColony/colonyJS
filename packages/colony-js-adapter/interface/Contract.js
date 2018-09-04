@@ -16,6 +16,14 @@ export interface Contract {
     [string]: (Function) => void,
   };
   connect: Wallet => Contract;
+  interface: {
+    events: {
+      [eventName: string]: {
+        parse(topics: Array<string>, data: Object): Object,
+        topics: Array<string>,
+      },
+    },
+  };
   addListener(
     eventName: string,
     callback: EventCallback,

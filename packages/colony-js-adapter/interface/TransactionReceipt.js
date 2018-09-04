@@ -9,7 +9,7 @@ export type TransactionReceipt = {
   cumulativeGasUsed: BigNumber,
   gasUsed: BigNumber,
   hash: string,
-  log: Array<*>,
+  logs: Array<*>,
   logsBloom: string,
   root: string,
   status: number, // 0 => failure, 1 => success

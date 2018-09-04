@@ -2,7 +2,7 @@
 
 export type { Adapter as IAdapter } from './interface/Adapter';
 export type { Block } from './interface/Block';
-export type { Event } from './interface/Event';
+export type { Event, EventArgs } from './interface/Event';
 export type {
   EventHandler,
   EventHandlers,
