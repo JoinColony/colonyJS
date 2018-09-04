@@ -763,51 +763,11 @@ export default class ColonyClient extends ContractClient {
     this.addEvent('TaskCanceled', [['taskId', 'number']]);
 
     // Senders
-    const SkillAdded = {
-      contract: this.networkClient.contract,
-      handler({
-        parentSkillId,
-        skillId,
-      }: {
-        parentSkillId: BigNumber,
-        skillId: BigNumber,
-      }) {
-        return {
-          parentSkillId: parentSkillId.toNumber(),
-          skillId: skillId.toNumber(),
-        };
-      },
-    };
-    const DomainAdded = {
-      contract: this.contract,
-      handler({ id }: { id: BigNumber }) {
-        return {
-          domainId: id.toNumber(),
-        };
-      },
-    };
-    const PotAdded = {
-      contract: this.contract,
-      handler({ id }: { id: BigNumber }) {
-        return {
-          potId: id.toNumber(),
-        };
-      },
-    };
-
     this.addSender('addDomain', {
       input: [['parentSkillId', 'number']],
-      eventHandlers: {
-        DomainAdded,
-        PotAdded,
-        SkillAdded,
-      },
     });
     this.addSender('addGlobalSkill', {
       input: [['parentSkillId', 'number']],
-      eventHandlers: {
-        SkillAdded,
-      },
     });
     this.addSender('assignWorkRating', {
       input: [['taskId', 'number']],
@@ -832,17 +792,6 @@ export default class ColonyClient extends ContractClient {
       input: [['specificationHash', 'ipfsHash'], ['domainId', 'number']],
       defaultValues: {
         domainId: DEFAULT_DOMAIN_ID,
-      },
-      eventHandlers: {
-        TaskAdded: {
-          contract: this.contract,
-          handler({ id }: { id: BigNumber }) {
-            return {
-              taskId: id.toNumber(),
-            };
-          },
-        },
-        PotAdded,
       },
     });
     this.addSender('finalizeTask', {

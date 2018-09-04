@@ -4,7 +4,6 @@ import BigNumber from 'bn.js';
 import { raceAgainstTimeout } from '@colony/colony-js-utils';
 
 import type {
-  EventHandlers,
   Transaction,
   TransactionOptions,
 } from '@colony/colony-js-adapter';
@@ -22,20 +21,16 @@ export default class ContractMethodSender<
   OutputValues: { [outputValueName: string]: any },
   IContractClient: ContractClient,
 > extends ContractMethod<InputValues, OutputValues, IContractClient> {
-  eventHandlers: EventHandlers;
   _defaultGasLimit: ?number;
 
   constructor({
     defaultGasLimit,
-    eventHandlers,
     ...rest
   }: ContractMethodArgs<IContractClient> & {
-    eventHandlers?: EventHandlers,
     defaultGasLimit?: number,
   }) {
     super(rest);
     if (defaultGasLimit) this._defaultGasLimit = defaultGasLimit;
-    if (eventHandlers) this.eventHandlers = eventHandlers;
   }
 
   /**

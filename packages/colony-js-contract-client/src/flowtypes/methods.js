@@ -2,7 +2,6 @@
 
 import type BigNumber from 'bn.js';
 import type {
-  EventHandlers,
   IAdapter,
   Transaction,
   TransactionOptions,
@@ -60,7 +59,6 @@ export type ContractMethodArgs<IContractClient: ContractClient> = {
 
 export type ContractMethodSenderArgs<IContractClient: ContractClient> = {
   defaultGasLimit?: BigNumber,
-  eventHandlers?: EventHandlers,
 } & ContractMethodArgs<IContractClient>;
 
 export type GetRequiredSignees = (input: any) => Promise<Array<string>>;

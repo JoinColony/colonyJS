@@ -416,49 +416,12 @@ export default class ColonyNetworkClient extends ContractClient {
     this.addSender('createColony', {
       input: [['tokenAddress', 'address']],
       defaultGasLimit: 2500000,
-      eventHandlers: {
-        ColonyAdded: {
-          contract: this.contract,
-          handler({
-            colonyId,
-            colonyAddress,
-          }: {
-            colonyId: BigNumber,
-            colonyAddress: Address,
-          }) {
-            return {
-              colonyId: colonyId.toNumber(),
-              colonyAddress,
-            };
-          },
-        },
-      },
     });
     this.addSender('addColonyVersion', {
       input: [['version', 'number'], ['resolver', 'address']],
     });
     this.addSender('startTokenAuction', {
       input: [['tokenAddress', 'address']],
-      eventHandlers: {
-        AuctionCreated: {
-          contract: this.contract,
-          handler({
-            auction,
-            token,
-            quantity,
-          }: {
-            auction: string,
-            token: string,
-            quantity: BigNumber,
-          }) {
-            return {
-              auction,
-              token,
-              quantity: quantity.toNumber(),
-            };
-          },
-        },
-      },
     });
     this.addSender('setupRegistrar', {
       input: [['ens', 'address'], ['rootNode', 'string']],

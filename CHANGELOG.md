@@ -2,6 +2,11 @@
 
 ## v.NEXT
 
+**Enhancements**
+
+* All events logged during method calls are now parsed according to their specifications on the `ContractClient`, without specifying event handlers (`@colony/colony-js-adapter-ethers`, `@colony/colony-js-contract-client`, `@colony/colony-js-client`)
+* Event data in method responses is now provided in a flat format (where property names might collide) and in a format nested under the event name; e.g. `{ taskId: 1, potId: 2 }` becomes `{ taskId: 1, potId: 2, TaskAdded: { taskId: 1 }, PotAdded: { potId: 2 } }`.
+* Event property names are now more specific (e.g. `taskId` rather than `id`) (`@colony/colony-js-client`)
 
 ## v1.5.4
 
