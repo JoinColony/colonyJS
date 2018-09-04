@@ -65,15 +65,11 @@ export default class ContractMethodSender<
     transaction: Transaction,
     timeoutMs: number,
   ): Promise<ContractResponse<OutputValues>> {
-    const eventData = await this.client.getEventData({
-      events: this.eventHandlers,
-      timeoutMs,
-      transactionHash: transaction.hash,
-    });
     const receipt = await raceAgainstTimeout(
       this.client.adapter.getTransactionReceipt(transaction.hash),
       timeoutMs,
     );
+    const eventData = await this.client.getReceiptEventData(receipt);
 
     return {
       successful: receipt && receipt.status === 1,
@@ -89,15 +85,12 @@ export default class ContractMethodSender<
     transaction: Transaction,
     timeoutMs: number,
   ): ContractResponse<OutputValues> {
-    const eventDataPromise = this.client.getEventData({
-      events: this.eventHandlers,
-      timeoutMs,
-      transactionHash: transaction.hash,
-    });
     const receiptPromise = raceAgainstTimeout(
       this.client.adapter.getTransactionReceipt(transaction.hash),
       timeoutMs,
     );
+
+    // Wait for the receipt before determining whether it was successful
     const successfulPromise = new Promise(async (resolve, reject) => {
       try {
         const receipt = await receiptPromise;
@@ -106,6 +99,21 @@ export default class ContractMethodSender<
         reject(error.toString());
       }
     });
+
+    // Wait for the receipt before attempting to decode event logs
+    const eventDataPromise = new Promise(async (resolve, reject) => {
+      try {
+        const receipt = await receiptPromise;
+        try {
+          resolve(await this.client.getReceiptEventData(receipt));
+        } catch (decodeError) {
+          reject(decodeError.toString());
+        }
+      } catch (receiptError) {
+        reject(receiptError.toString());
+      }
+    });
+
     return {
       successfulPromise,
       meta: {

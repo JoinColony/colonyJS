@@ -1,5 +1,9 @@
 // @flow
-import type { Event, EventCallback } from '@colony/colony-js-adapter';
+import type {
+  Event,
+  EventArgs,
+  EventCallback,
+} from '@colony/colony-js-adapter';
 import { makeAssert } from '@colony/colony-js-utils';
 import ContractClient from '../classes/ContractClient';
 import { convertOutputValues } from '../modules/paramConversion';
@@ -53,11 +57,19 @@ export default class ContractEvent<ParamTypes: Object> {
     assertValid: AssertionMethod,
   ): EventCallback {
     return ({ args }: Event) => {
-      const parsedArgs = convertOutputValues(args, argsDef);
-      validateParams(parsedArgs, argsDef, assertValid);
-
+      const parsedArgs = this.parse(args, argsDef, assertValid);
       handlerFunction(parsedArgs);
     };
+  }
+
+  static parse(args: EventArgs, argsDef: Params, assertValid: AssertionMethod) {
+    const parsedArgs = convertOutputValues(args, argsDef);
+    validateParams(parsedArgs, argsDef, assertValid);
+    return parsedArgs;
+  }
+
+  parse(args: EventArgs) {
+    return this.constructor.parse(args, this.argsDef, this.assertValid);
   }
 
   /**
