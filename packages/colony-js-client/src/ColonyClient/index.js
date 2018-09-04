@@ -28,6 +28,52 @@ type HexString = string;
 type Role = $Keys<typeof ROLES>;
 type IPFSHash = string;
 
+type DomainAdded = ContractClient.Event<{
+  domainId: number, // The ID of the domain that was added.
+}>;
+type PotAdded = ContractClient.Event<{
+  potId: number, // The ID of the funding pot that was added.
+}>;
+type SkillAdded = ContractClient.Event<{
+  skillId: number, // A skillId for this domain.
+  parentSkillId: number, // The parent skill id.
+}>;
+type TaskAdded = ContractClient.Event<{
+  taskId: number, // The task ID.
+}>;
+type TaskBriefChanged = ContractClient.Event<{
+  taskId: number, // The task ID.
+  specificationHash: string, // The IPFS hash of the task's new specification.
+}>;
+type TaskDueDateChanged = ContractClient.Event<{
+  taskId: number, // The task ID.
+  dueDate: Date, // The task's new due date.
+}>;
+type TaskDomainChanged = ContractClient.Event<{
+  taskId: number, // The task ID.
+  domainId: number, // The task's new domain ID.
+}>;
+type TaskSkillChanged = ContractClient.Event<{
+  taskId: number, // The task ID.
+  skillId: number, // The task's new skill ID.
+}>;
+type TaskRoleUserChanged = ContractClient.Event<{
+  taskId: number, // The task ID.
+  role: number, // The role that changed for the task.
+  user: Address, // The user with the role that changed for the task.
+}>;
+type TaskWorkerPayoutChanged = ContractClient.Event<{
+  taskId: number, // The task ID.
+  token: TokenAddress, // The token address (0x indicates ether).
+  amount: number, // The token amount.
+}>;
+type TaskFinalized = ContractClient.Event<{
+  taskId: number, // The task ID of the task that was finalized.
+}>;
+type TaskCanceled = ContractClient.Event<{
+  taskId: number, // The task ID of the task that was canceled.
+}>;
+
 export default class ColonyClient extends ContractClient {
   networkClient: ColonyNetworkClient;
   token: TokenClient;
@@ -256,9 +302,7 @@ export default class ColonyClient extends ContractClient {
       specificationHash: IPFSHash, // Hashed output of the task's work specification, stored so that it can later be referenced for task ratings or in the event of a dispute.
       domainId: number, // Domain in which the task has been created (default value: `1`).
     },
-    {
-      taskId: number, // Will return an integer taskId, from the `TaskAdded` event.
-    },
+    { TaskAdded: TaskAdded, PotAdded: PotAdded, DomainAdded: DomainAdded },
     ColonyClient,
   >;
   /*
@@ -269,7 +313,7 @@ export default class ColonyClient extends ContractClient {
       taskId: number, // Integer taskId.
       specificationHash: IPFSHash, // digest of the task's hashed specification.
     },
-    {},
+    { TaskBriefChanged: TaskBriefChanged },
     ColonyClient,
   >;
   /*
@@ -280,7 +324,7 @@ export default class ColonyClient extends ContractClient {
       taskId: number, // Integer taskId.
       domainId: number, // Integer domainId.
     },
-    {},
+    { TaskDomainChanged: TaskDomainChanged },
     ColonyClient,
   >;
   /*
@@ -291,7 +335,7 @@ export default class ColonyClient extends ContractClient {
       taskId: number, // Integer taskId.
       dueDate: Date, // Due date.
     },
-    {},
+    { TaskDueDateChanged: TaskDueDateChanged },
     ColonyClient,
   >;
   /*
@@ -303,7 +347,7 @@ export default class ColonyClient extends ContractClient {
       role: Role, // MANAGER, EVALUATOR, or WORKER.
       user: Address, // address of the user.
     },
-    {},
+    { TaskRoleUserChanged: TaskRoleUserChanged },
     ColonyClient,
   >;
   /*
@@ -314,7 +358,7 @@ export default class ColonyClient extends ContractClient {
       taskId: number, // Integer taskId.
       skillId: number, // Integer skillId.
     },
-    {},
+    { TaskSkillChanged: TaskSkillChanged },
     ColonyClient,
   >;
   /*
@@ -326,7 +370,7 @@ export default class ColonyClient extends ContractClient {
       token: TokenAddress, // Address to send funds from, e.g. the token's contract address, or empty address (`0x0` for Ether)
       amount: BigNumber, // Amount to be paid.
     },
-    {},
+    { TaskWorkerPayoutChanged: TaskWorkerPayoutChanged },
     ColonyClient,
   >;
   /*
@@ -338,7 +382,7 @@ export default class ColonyClient extends ContractClient {
       token: TokenAddress, // Address to send funds from, e.g. the token's contract address, or empty address (`0x0` for Ether)
       amount: BigNumber, // Amount to be paid.
     },
-    {},
+    { TaskWorkerPayoutChanged: TaskWorkerPayoutChanged },
     ColonyClient,
   >;
   /*
@@ -350,7 +394,7 @@ export default class ColonyClient extends ContractClient {
       token: TokenAddress, // Address to send funds from, e.g. the token's contract address, or empty address (`0x0` for Ether)
       amount: BigNumber, // Amount to be paid.
     },
-    {},
+    { TaskWorkerPayoutChanged: TaskWorkerPayoutChanged },
     ColonyClient,
   >;
   /*
@@ -406,7 +450,7 @@ export default class ColonyClient extends ContractClient {
     {
       taskId: number, // Integer taskId.
     },
-    {},
+    { TaskCanceled: TaskCanceled },
     ColonyClient,
   >;
   /*
@@ -416,7 +460,7 @@ export default class ColonyClient extends ContractClient {
     {
       taskId: number, // Integer taskId.
     },
-    {},
+    { TaskFinalized: TaskFinalized },
     ColonyClient,
   >;
   /*
@@ -438,10 +482,7 @@ export default class ColonyClient extends ContractClient {
     {
       parentSkillId: number, // Id of the local skill under which the new skill will be added.
     },
-    {
-      skillId: number, // A skillId for this domain.
-      parentSkillId: number, // The parent skill id.
-    },
+    { SkillAdded: SkillAdded },
     ColonyClient,
   >;
   /*
@@ -451,10 +492,7 @@ export default class ColonyClient extends ContractClient {
     {
       parentSkillId: number, // Integer id of the parent skill.
     },
-    {
-      skillId: number, // Integer id of the newly created skill.
-      parentSkillId: number, // Integer id of the parent skill.
-    },
+    { SkillAdded: SkillAdded },
     ColonyClient,
   >;
   /*
@@ -531,43 +569,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
 
-  events: {
-    DomainAdded: ContractClient.Event<{ domainId: number }>,
-    PotAdded: ContractClient.Event<{ potId: number }>,
-    TaskAdded: ContractClient.Event<{ taskId: number }>,
-    TaskBriefChanged: ContractClient.Event<{
-      taskId: number,
-      specificationHash: string,
-    }>,
-    TaskDueDateChanged: ContractClient.Event<{
-      taskId: number,
-      dueDate: Date,
-    }>,
-    TaskDomainChanged: ContractClient.Event<{
-      taskId: number,
-      domainId: number,
-    }>,
-    TaskSkillChanged: ContractClient.Event<{
-      taskId: number,
-      skillId: number,
-    }>,
-    TaskRoleUserChanged: ContractClient.Event<{
-      taskId: number,
-      role: number,
-      user: Address,
-    }>,
-    TaskWorkerPayoutChanged: ContractClient.Event<{
-      taskId: number,
-      token: TokenAddress,
-      amount: number,
-    }>,
-    TaskFinalized: ContractClient.Event<{
-      taskId: number,
-    }>,
-    TaskCanceled: ContractClient.Event<{
-      taskId: number,
-    }>,
-  };
+  events: {};
 
   static get defaultQuery() {
     return {

@@ -15,21 +15,25 @@ const MISSING_ID = 'An ID parameter must be provided';
 
 type Address = string;
 
+type ColonyAdded = ContractClient.Event<{
+  colonyId: number, // ID of the newly-created Colony
+  colonyAddress: Address, // Address of the newly-created Colony
+}>;
+type SkillAdded = ContractClient.Event<{
+  skillId: number,
+  parentSkillId: number,
+}>;
+type AuctionCreated = ContractClient.Event<{
+  auction: string, // The address of the auction contract
+  token: Address, // The address of the token being auctioned
+  quantity: BigNumber, // The amount of available tokens for auction
+}>;
+
 export default class ColonyNetworkClient extends ContractClient {
   events: {
-    ColonyAdded: ColonyNetworkClient.Event<{
-      colonyId: number,
-      colonyAddress: Address,
-    }>,
-    SkillAdded: ColonyNetworkClient.Event<{
-      skillId: number,
-      parentSkillId: number,
-    }>,
-    AuctionCreated: ColonyNetworkClient.Event<{
-      auction: Address,
-      token: Address,
-      quantity: BigNumber,
-    }>,
+    ColonyAdded: ColonyAdded,
+    SkillAdded: SkillAdded,
+    AuctionCreated: AuctionCreated,
   };
   /*
   Returns the address of a colony when given the ID
@@ -208,10 +212,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       tokenAddress: Address, // Token to import. Note: the ownership of the token contract must be transferred to the newly-created Colony.
     },
-    {
-      colonyId: number, // ID of the newly-created Colony
-      colonyAddress: Address, // Address of the newly-created Colony
-    },
+    { ColonyAdded: ColonyAdded },
     ColonyNetworkClient,
   >;
   /*
@@ -232,11 +233,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       tokenAddress: Address, // Address of the token held by the network to be auctioned
     },
-    {
-      auction: string, // The address of the auction contract
-      token: Address, // The address of the token being auctioned
-      quantity: number, // The amount of available tokens for auction
-    },
+    { AuctionCreated: AuctionCreated },
     ColonyNetworkClient,
   >;
   /*

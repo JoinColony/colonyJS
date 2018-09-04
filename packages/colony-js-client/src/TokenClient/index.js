@@ -6,18 +6,38 @@ import GetTokenInfo from './callers/GetTokenInfo';
 
 type Address = string;
 
+type Transfer = ContractClient.Event<{
+  to: Address, // Event data indicating the 'to' address.
+  value: BigNumber, // Event data indicating the amount transferred.
+}>;
+type Approval = ContractClient.Event<{
+  owner: Address, // Event data indicating the token owner ('from' address).
+  spender: Address, // Event data indicating the spender (who is given the `allowance`).
+  value: BigNumber, // Event data indicating the new value of allowed transfer.
+}>;
+type Burn = ContractClient.Event<{
+  address: Address, // The address that initiated the burn event.
+  amount: BigNumber, // Event data indicating the amount burned.
+}>;
+type LogSetAuthority = ContractClient.Event<{
+  authority: Address, // Event data indicating the address given authority.
+}>;
+type LogSetOwner = ContractClient.Event<{
+  owner: Address, // Event data indicating the new owner.
+}>;
+type Mint = ContractClient.Event<{
+  address: Address, // The address that initiated the mint event.
+  amount: BigNumber, // Event data indicating the amount of tokens minted.
+}>;
+
 export default class TokenClient extends ContractClient {
   events: {
-    Approval: TokenClient.Event<{
-      owner: Address,
-      spender: Address,
-      value: BigNumber,
-    }>,
-    Burn: TokenClient.Event<{ address: Address, amount: BigNumber }>,
-    LogSetAuthority: TokenClient.Event<{ authority: Address }>,
-    LogSetOwner: TokenClient.Event<{ owner: Address }>,
-    Mint: TokenClient.Event<{ address: Address, amount: BigNumber }>,
-    Transfer: TokenClient.Event<{ to: Address, value: BigNumber }>,
+    Approval: Approval,
+    Burn: Burn,
+    LogSetAuthority: LogSetAuthority,
+    LogSetOwner: LogSetOwner,
+    Mint: Mint,
+    Transfer: Transfer,
   };
 
   /*
@@ -87,10 +107,7 @@ export default class TokenClient extends ContractClient {
       destinationAddress: Address, // 'to' address, or the destination with sufficient ``allowance` for transfer.
       amount: BigNumber, // Amount to transfer.
     },
-    {
-      to: Address, // Event data indicating the 'to' address.
-      value: BigNumber, // Event data indicating the amount transferred.
-    },
+    { Transfer: Transfer },
     TokenClient,
   >;
   /*
@@ -101,11 +118,7 @@ export default class TokenClient extends ContractClient {
       user: Address, // The spending account allowed to transfer tokens with `transferFrom`.
       amount: BigNumber, // The maximum `allowance` that the spending account may transfer from the owner to the spender.
     },
-    {
-      owner: Address, // Event data indicating the token owner ('from' address).
-      spender: Address, // Event data indicating the spender (who is given the `allowance`).
-      value: BigNumber, // Event data indicating the new value of allowed transfer.
-    },
+    { Approval: Approval },
     TokenClient,
   >;
   /*
@@ -115,10 +128,7 @@ export default class TokenClient extends ContractClient {
     {
       amount: BigNumber, // The amount of new tokens to mint.
     },
-    {
-      address: Address, // The address that initiated the mint event.
-      amount: BigNumber, // Event data indicating the amount of tokens minted.
-    },
+    { Mint: Mint },
     TokenClient,
   >;
   /*
@@ -128,10 +138,7 @@ export default class TokenClient extends ContractClient {
     {
       amount: BigNumber, // The amount of unspent tokens to burn.
     },
-    {
-      address: Address, // The address that initiated the burn event.
-      amount: BigNumber, // Event data indicating the amount burned.
-    },
+    { Burn: Burn },
     TokenClient,
   >;
   /*
@@ -141,9 +148,7 @@ export default class TokenClient extends ContractClient {
     {
       owner: Address, // The address of the new owner.
     },
-    {
-      owner: Address, // Event data indicating the new owner.
-    },
+    { LogSetOwner: LogSetOwner },
     TokenClient,
   >;
   /*
@@ -153,9 +158,7 @@ export default class TokenClient extends ContractClient {
     {
       authority: Address, // The address to be given admin authority.
     },
-    {
-      authority: Address, // Event data indicating the address given authority.
-    },
+    { LogSetAuthority: LogSetAuthority },
     TokenClient,
   >;
 
