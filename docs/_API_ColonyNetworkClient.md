@@ -364,6 +364,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |colonyId|number|ID of the newly-created Colony|
 |colonyAddress|Address|Address of the newly-created Colony|
+|ColonyAdded|object|Contains the data defined in [ColonyAdded](#events-ColonyAdded)|
 
 ### `addColonyVersion.send({ version, resolver }, options)`
 
@@ -400,7 +401,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |auction|string|The address of the auction contract|
 |token|Address|The address of the token being auctioned|
-|quantity|number|The amount of available tokens for auction|
+|quantity|BigNumber|The amount of available tokens for auction|
+|AuctionCreated|object|Contains the data defined in [AuctionCreated](#events-AuctionCreated)|
 
 ### `setupRegistrar.send({ ens, rootNode }, options)`
 
@@ -432,3 +434,48 @@ Register a "user.joincolony.eth" label.
 **Returns**
 
 An instance of a `ContractResponse`
+
+
+
+  
+  
+## Events
+
+Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events) to interact with these events.
+
+
+### [events.ColonyAdded.addListener(({ colonyId, colonyAddress }) => { /* ... */ })](#events-ColonyAdded)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|colonyId|number|ID of the newly-created Colony|
+|colonyAddress|Address|Address of the newly-created Colony|
+
+
+### [events.SkillAdded.addListener(({ skillId, parentSkillId }) => { /* ... */ })](#events-SkillAdded)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|skillId|number||
+|parentSkillId|number||
+
+
+### [events.AuctionCreated.addListener(({ auction, token, quantity }) => { /* ... */ })](#events-AuctionCreated)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|auction|string|The address of the auction contract|
+|token|Address|The address of the token being auctioned|
+|quantity|BigNumber|The amount of available tokens for auction|

@@ -8,6 +8,9 @@
 * Event data in method responses is now provided in a flat format (where property names might collide) and in a format nested under the event name; e.g. `{ taskId: 1, potId: 2 }` becomes `{ taskId: 1, potId: 2, TaskAdded: { taskId: 1 }, PotAdded: { potId: 2 } }`.
 * Event property names are now more specific (e.g. `taskId` rather than `id`) (`@colony/colony-js-client`)
 
+**Documentation**
+* The documentation has been updated to include more information about contract events, and the event data available in method calls.
+
 ## v1.5.4
 
 *Released Thu, 05 Jul 2018 13:07:42 GMT*

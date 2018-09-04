@@ -113,6 +113,10 @@ With `waitForMining: true` (the default behaviour):
   eventData: {
     colonyId: 2,
     colonyAddress: '0xe2D17cA03387f6DaFbA77FaA3De5F6cf41E371Fe',
+    ColonyAdded: {
+        colonyId: 2,
+        colonyAddress: '0xe2D17cA03387f6DaFbA77FaA3De5F6cf41E371Fe',
+    },
   },
 
   // Metadata for the transaction
@@ -189,4 +193,21 @@ And with `waitForMining: false`:
     },
   },
 }
+```
+
+## Events
+
+**Events** are provided on each `ContractClient`, and can be used to attach event listeners that provide formatted event data whenever that event is triggered.
+
+```js
+const handler = ({ taskId }) => { console.log(`TaskAdded event: ${taskId}`); }
+colonyClient.events.TaskAdded.addListener(handler);
+
+await colonyClient.createTask.send({ specificationHash });
+// TaskAdded event: 1
+
+await colonyClient.createTask.send({ specificationHash });
+// TaskAdded event: 2
+
+colonyClient.events.TaskAdded.removeListener(handler);
 ```
