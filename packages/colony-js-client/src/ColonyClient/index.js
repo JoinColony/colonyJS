@@ -532,40 +532,40 @@ export default class ColonyClient extends ContractClient {
   >;
 
   events: {
-    DomainAdded: ContractClient.Event<{ id: number }>,
-    PotAdded: ContractClient.Event<{ id: number }>,
-    TaskAdded: ContractClient.Event<{ id: number }>,
+    DomainAdded: ContractClient.Event<{ domainId: number }>,
+    PotAdded: ContractClient.Event<{ potId: number }>,
+    TaskAdded: ContractClient.Event<{ taskId: number }>,
     TaskBriefChanged: ContractClient.Event<{
-      id: number,
+      taskId: number,
       specificationHash: string,
     }>,
     TaskDueDateChanged: ContractClient.Event<{
-      id: number,
+      taskId: number,
       dueDate: Date,
     }>,
     TaskDomainChanged: ContractClient.Event<{
-      id: number,
+      taskId: number,
       domainId: number,
     }>,
     TaskSkillChanged: ContractClient.Event<{
-      id: number,
+      taskId: number,
       skillId: number,
     }>,
     TaskRoleUserChanged: ContractClient.Event<{
-      id: number,
+      taskId: number,
       role: number,
       user: Address,
     }>,
     TaskWorkerPayoutChanged: ContractClient.Event<{
-      id: number,
+      taskId: number,
       token: TokenAddress,
       amount: number,
     }>,
     TaskFinalized: ContractClient.Event<{
-      id: number,
+      taskId: number,
     }>,
     TaskCanceled: ContractClient.Event<{
-      id: number,
+      taskId: number,
     }>,
   };
 
@@ -720,47 +720,47 @@ export default class ColonyClient extends ContractClient {
     });
 
     // Events
-    this.addEvent('DomainAdded', [['id', 'number']]);
-    this.addEvent('PotAdded', [['id', 'number']]);
-    this.addEvent('TaskAdded', [['id', 'number']]);
+    this.addEvent('DomainAdded', [['domainId', 'number']]);
+    this.addEvent('PotAdded', [['potId', 'number']]);
+    this.addEvent('TaskAdded', [['taskId', 'number']]);
     this.addEvent('TaskBriefChanged', [
-      ['id', 'number'],
+      ['taskId', 'number'],
       ['specificationHash', 'ipfsHash'],
     ]);
     this.addEvent('TaskDueDateChanged', [
-      ['id', 'number'],
+      ['taskId', 'number'],
       ['dueDate', 'date'],
     ]);
     this.addEvent('TaskDomainChanged', [
-      ['id', 'number'],
+      ['taskId', 'number'],
       ['domainId', 'number'],
     ]);
     this.addEvent('TaskSkillChanged', [
-      ['id', 'number'],
+      ['taskId', 'number'],
       ['skillId', 'number'],
     ]);
     this.addEvent('TaskRoleUserChanged', [
-      ['id', 'number'],
+      ['taskId', 'number'],
       ['role', 'number'],
       ['user', 'address'],
     ]);
     this.addEvent('TaskWorkerPayoutChanged', [
-      ['id', 'number'],
+      ['taskId', 'number'],
       ['token', 'tokenAddress'],
       ['amount', 'number'],
     ]);
     this.addEvent('TaskDeliverableSubmitted', [
-      ['id', 'number'],
+      ['taskId', 'number'],
       ['deliverableHash', 'ipfsHash'],
     ]);
     this.addEvent('TaskWorkRatingRevealed', [
-      ['id', 'number'],
+      ['taskId', 'number'],
       // $FlowFixMe
       ['role', 'role'],
       ['rating', 'number'],
     ]);
-    this.addEvent('TaskFinalized', [['id', 'number']]);
-    this.addEvent('TaskCanceled', [['id', 'number']]);
+    this.addEvent('TaskFinalized', [['taskId', 'number']]);
+    this.addEvent('TaskCanceled', [['taskId', 'number']]);
 
     // Senders
     const SkillAdded = {
