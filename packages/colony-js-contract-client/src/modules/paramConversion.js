@@ -22,7 +22,7 @@ export function convertInputValues<InputTypes: Object>(
  * values with their respective types.
  */
 export function convertOutputValues<OutputTypes: Object>(
-  outputValues: { [string | number]: any, length: number },
+  outputValues: { [string | number]: any },
   valuesSpec: Params,
 ): OutputTypes {
   // If a length was provided (e.g. for event args), use that to find the value;
