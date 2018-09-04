@@ -2,7 +2,6 @@
 
 import { utf8ToHex } from 'web3-utils';
 import createSandbox from 'jest-sandbox';
-import BigNumber from 'bn.js';
 import ColonyNetworkClient from '../ColonyNetworkClient';
 import ColonyClient from '../ColonyClient';
 import TokenClient from '../TokenClient';

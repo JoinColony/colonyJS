@@ -2,7 +2,6 @@
 
 import type BigNumber from 'bn.js';
 
-import type { Event } from './Event';
 import type { EventCallback } from './EventHandlers';
 import type { Transaction } from './Transaction';
 import type { TransactionOptions } from './TransactionOptions';
