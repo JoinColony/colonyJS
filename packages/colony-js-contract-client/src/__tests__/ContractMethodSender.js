@@ -9,19 +9,24 @@ import ContractMethodSender from '../classes/ContractMethodSender';
 
 describe('ContractMethodSender', () => {
   const sandbox = createSandbox();
-  const contract = {};
-  const eventHandlers = {
-    myEventOne: {
-      handler({ eventOneResult }) {
-        return eventOneResult;
+  const contract = {
+    interface: {
+      events: {
+        TaskAdded: {
+          anonymous: false,
+          name: 'TaskAdded',
+          signature: 'TaskAdded(uint256)',
+          type: 'event',
+          topics: [
+            '0x2f304925f4f66741b976d6f4f9a127315b8ef823c6e2a3b08895e5b11579bc78', // eslint-disable-line max-len
+          ],
+          inputs: {
+            names: ['id'],
+            types: ['uint256'],
+          },
+          parse: sandbox.fn().mockReturnValue({ id: 1, '0': 1, length: 1 }),
+        },
       },
-      contract,
-    },
-    myEventTwo: {
-      handler({ eventTwoResult }) {
-        return eventTwoResult;
-      },
-      contract,
     },
   };
   const functionName = 'myFunction';
@@ -36,15 +41,36 @@ describe('ContractMethodSender', () => {
     value: 0,
     waitForMining: true,
   };
-  const transaction = { hash: '0x123' };
+  const transaction = {
+    hash: '0x435abc55cdc19c822f1f8488af616adb0357f3ad5f82c5da0a4de10e53f6a0cd',
+  };
   const eventData = {
-    myEventOne: 1,
-    myEventTwo: 2,
+    taskId: 1,
+    TaskAdded: { taskId: 1 },
   };
   const receipt = {
-    hash: '0x123',
-    blockHash: '0x234',
+    hash: '0x435abc55cdc19c822f1f8488af616adb0357f3ad5f82c5da0a4de10e53f6a0cd',
+    blockHash:
+      '0xcb2ddd4c53efbc50dbb62292b38f3f315a89118d81233c6c016ca8a8ebd9baba',
     status: 1,
+    logs: [
+      {
+        transactionIndex: 0,
+        blockNumber: 104,
+        transactionHash:
+          '0x435abc55cdc19c822f1f8488af616adb0357f3ad5f82c5da0a4de10e53f6a0cd',
+        address: '0x95e5029E064DD6c0E22B4D172893026e72428cE9',
+        topics: [
+          '0x2f304925f4f66741b976d6f4f9a127315b8ef823c6e2a3b08895e5b11579bc78',
+          '0x0000000000000000000000000000000000000000000000000000000000000001',
+        ],
+        data: '0x00',
+        logIndex: 0,
+        blockHash:
+          '0xcb2ddd4c53efbc50dbb62292b38f3f315a89118d81233c6c016ca8a8ebd9baba',
+        transactionLogIndex: 0,
+      },
+    ],
   };
   const contractResponse = {
     eventData,
@@ -61,9 +87,8 @@ describe('ContractMethodSender', () => {
     },
   };
   const client = new ContractClient({ contract, adapter });
-  sandbox
-    .spyOn(client, 'getEventData')
-    .mockImplementation(async () => Promise.resolve(eventData));
+  client.addEvent('TaskAdded', [['taskId', 'number']]);
+  client._contract = contract;
 
   beforeEach(() => sandbox.clear());
 
@@ -96,7 +121,6 @@ describe('ContractMethodSender', () => {
       client,
       input,
       functionName,
-      eventHandlers,
     });
 
     sandbox
@@ -115,8 +139,11 @@ describe('ContractMethodSender', () => {
       client,
       input,
       functionName,
-      eventHandlers,
     });
+
+    sandbox
+      .spyOn(method.client.adapter, 'getTransactionReceipt')
+      .mockResolvedValue(receipt);
 
     sandbox.spyOn(method, '_sendTransaction').mockReturnValue(transaction);
     sandbox.spyOn(method, '_sendWithWaitingForMining');
@@ -150,8 +177,8 @@ describe('ContractMethodSender', () => {
       client,
       input,
       functionName,
-      eventHandlers,
     });
+    sandbox.spyOn(method.client, 'getReceiptEventData');
     sandbox
       .spyOn(method.client.adapter, 'getTransactionReceipt')
       .mockResolvedValue(receipt);
@@ -171,17 +198,8 @@ describe('ContractMethodSender', () => {
     });
 
     // Event data, transaction receipts and success are collected
-    expect(method.client.getEventData).toHaveBeenCalledWith({
-      events: method.eventHandlers,
-      timeoutMs: options.timeoutMs,
-      transactionHash: transaction.hash,
-    });
+    expect(method.client.getReceiptEventData).toHaveBeenCalledWith(receipt);
 
-    expect(method.client.getEventData).toHaveBeenCalledWith({
-      events: eventHandlers,
-      timeoutMs: options.timeoutMs,
-      transactionHash: transaction.hash,
-    });
     expect(method.client.adapter.getTransactionReceipt).toHaveBeenCalledWith(
       transaction.hash,
     );
@@ -192,8 +210,8 @@ describe('ContractMethodSender', () => {
       client,
       input,
       functionName,
-      eventHandlers,
     });
+    sandbox.spyOn(method.client, 'getReceiptEventData');
     sandbox
       .spyOn(method.client.adapter, 'getTransactionReceipt')
       .mockImplementation(async () => receipt);
@@ -214,11 +232,7 @@ describe('ContractMethodSender', () => {
     expect(await response.successfulPromise).toBe(true);
     expect(await response.meta.receiptPromise).toEqual(receipt);
 
-    expect(method.client.getEventData).toHaveBeenCalledWith({
-      events: eventHandlers,
-      timeoutMs: options.timeoutMs,
-      transactionHash: transaction.hash,
-    });
+    expect(method.client.getReceiptEventData).toHaveBeenCalledWith(receipt);
     expect(method.client.adapter.getTransactionReceipt).toHaveBeenCalledWith(
       transaction.hash,
     );
