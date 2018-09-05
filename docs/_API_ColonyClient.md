@@ -48,6 +48,19 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |address|Address|The colony's Authority contract address|
 
+### `getRecoveryRolesCount.call()`
+
+Returns the number of recovery roles.
+
+
+**Returns**
+
+A promise which resolves to an object containing the following properties:
+
+|Return value|Type|Description|
+|---|---|---|
+|count|number|Number of users with the recovery role (excluding owner)|
+
 ### `generateSecret.call({ salt, value })`
 
 Helper function used to generate the rating secret used in task ratings. Accepts a salt value and a value to hide, and returns the keccak256 hash of both.
@@ -190,6 +203,25 @@ A promise which resolves to an object containing the following properties:
 |Return value|Type|Description|
 |---|---|---|
 |amount|BigNumber|Amount of specified tokens to payout for that task and a role.|
+
+### `getTotalTaskPayout.call({ taskId, token })`
+
+Given a specific task, and a token address, will return any payout attached to the task in the token specified (for all roles).
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|taskId|number|Integer taskId.|
+|token|Token address|Address of the token's contract. `0x0` value indicates Ether.|
+
+**Returns**
+
+A promise which resolves to an object containing the following properties:
+
+|Return value|Type|Description|
+|---|---|---|
+|amount|BigNumber|Amount of specified tokens to payout for that task.|
 
 ### `getTaskRole.call({ taskId, role })`
 
@@ -340,7 +372,7 @@ A promise which resolves to an object containing the following properties:
 ## Senders
 
 **All senders return an instance of a `ContractResponse`.** Every `send()` method takes an `options` object as the second argument. For a reference please check [here](/colonyjs/docs-contractclient/#senders).
-### `createTask.send({ specificationHash, domainId }, options)`
+### `createTask.send({ specificationHash, domainId, skillId, dueDate }, options)`
 
 Creates a new task by invoking `makeTask` on-chain.
 
@@ -350,6 +382,8 @@ Creates a new task by invoking `makeTask` on-chain.
 |---|---|---|
 |specificationHash|IPFS hash|Hashed output of the task's work specification, stored so that it can later be referenced for task ratings or in the event of a dispute.|
 |domainId|number|Domain in which the task has been created (default value: `1`).|
+|skillId|number|The skill associated with the task (optional)|
+|dueDate|Date|The due date of the task (optional)|
 
 **Returns**
 
@@ -363,6 +397,129 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |TaskAdded|object|Contains the data defined in [TaskAdded](#events-TaskAdded)|
 |PotAdded|object|Contains the data defined in [PotAdded](#events-PotAdded)|
 |DomainAdded|object|Contains the data defined in [DomainAdded](#events-DomainAdded)|
+
+### `enterRecoveryMode.send(options)`
+
+Put the colony into recovery mode. Can only be called by user with a recovery role.
+
+
+**Returns**
+
+An instance of a `ContractResponse`
+
+
+
+### `exitRecoveryMode.send({ newVersion }, options)`
+
+Exit recovery mode. Can be called by anyone if enough whitelist approvals are given.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|newVersion|number|Resolver version to upgrade to (>= current version)|
+
+**Returns**
+
+An instance of a `ContractResponse`
+
+
+
+### `registerColonyLabel.send({ subnode }, options)`
+
+Register the colony's ENS label.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|subnode|string|The keccak256 hash of the label to register|
+
+**Returns**
+
+An instance of a `ContractResponse`
+
+
+
+### `setOwnerRole.send({ user }, options)`
+
+Set a new colony owner role. There can only be one address assigned to owner role at a time. Whoever calls this function will lose their owner role. Can be called by owner role.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|user|Address|User we want to give an owner role to|
+
+**Returns**
+
+An instance of a `ContractResponse`
+
+
+
+### `setAdminRole.send({ user }, options)`
+
+Set a new colony admin role. Can be called by an owner or admin role.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|user|Address|User we want to give an admin role to|
+
+**Returns**
+
+An instance of a `ContractResponse`
+
+
+
+### `setRecoveryRole.send({ user }, options)`
+
+Set a new colony recovery role. Can be called by an owner role.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|user|Address|User we want to give a recovery role to|
+
+**Returns**
+
+An instance of a `ContractResponse`
+
+
+
+### `removeAdminRole.send({ user }, options)`
+
+Remove a colony admin role. Can only be called by an owner role.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|user|Address|User we want to remove an admin role from|
+
+**Returns**
+
+An instance of a `ContractResponse`
+
+
+
+### `removeRecoveryRole.send({ user }, options)`
+
+Remove a colony recovery role. Can only be called by an owner role.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|user|Address|User we want to remove a recovery role from|
+
+**Returns**
+
+An instance of a `ContractResponse`
+
+
 
 ### `setTaskDomain.send({ taskId, domainId }, options)`
 
@@ -384,29 +541,6 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |taskId|number|The task ID.|
 |domainId|number|The task's new domain ID.|
 |TaskDomainChanged|object|Contains the data defined in [TaskDomainChanged](#events-TaskDomainChanged)|
-
-### `setTaskRoleUser.send({ taskId, role, user }, options)`
-
-Set the user for role `_role` in task `_id`. Only allowed before the task is `finalized`, meaning that the value cannot be changed after the task is complete. This can only be called by the manager of the task.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|taskId|number|Integer taskId.|
-|role|Role|MANAGER, EVALUATOR, or WORKER.|
-|user|Address|address of the user.|
-
-**Returns**
-
-An instance of a `ContractResponse` which will eventually receive the following event data:
-
-|Event data|Type|Description|
-|---|---|---|
-|taskId|number|The task ID.|
-|role|number|The role that changed for the task.|
-|user|Address|The user with the role that changed for the task.|
-|TaskRoleUserChanged|object|Contains the data defined in [TaskRoleUserChanged](#events-TaskRoleUserChanged)|
 
 ### `setTaskSkill.send({ taskId, skillId }, options)`
 
@@ -580,7 +714,7 @@ An instance of a `ContractResponse`
 
 ### `addDomain.send({ parentSkillId }, options)`
 
-Adds a domain to the Colony along with the new domain's respective local skill. This can only be called by owners of the colony.
+Adds a domain to the Colony along with the new domain's respective local skill (with id `parentSkillId`). This can only be called by owners of the colony. Adding new domains is currently retricted to one level only, i.e. `parentSkillId` has to be the root domain (id: 1).
 
 **Arguments**
 
@@ -778,6 +912,28 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |taskId|number|The task ID.|
 |dueDate|Date|The task's new due date.|
 |TaskDueDateChanged|object|Contains the data defined in [TaskDueDateChanged](#events-TaskDueDateChanged)|
+
+### `setTaskManagerRole.startOperation({ taskId, user })`
+
+Set the manager role for the address `user` in task `taskId`. Only allowed before the task is `finalized`, meaning that the value cannot be changed after the task is complete. The current manager and the user we want to assign role to both need to sign this transaction.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|taskId|number|Integer taskId.|
+|user|Address|address of the user.|
+
+**Returns**
+
+An instance of a `MultiSigOperation` whose sender will eventually receive the following event data:
+
+|Event Data|Type|Description|
+|---|---|---|
+|taskId|number|The task ID.|
+|role|number|The role that changed for the task.|
+|user|Address|The user with the role that changed for the task.|
+|TaskRoleUserChanged|object|Contains the data defined in [TaskRoleUserChanged](#events-TaskRoleUserChanged)|
 
 ### `setTaskEvaluatorPayout.startOperation({ taskId, token, amount })`
 
