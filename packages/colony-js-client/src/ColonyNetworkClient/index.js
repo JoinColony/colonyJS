@@ -179,10 +179,7 @@ export default class ColonyNetworkClient extends ContractClient {
       parentSkillId: number, // The skill under which the new skill will be added
       globalSkill: boolean, // Whether the new skill is global
     },
-    {
-      skillId: number, // Id of the added skill
-      parentSkillId: number, // Id of the parent skill under which the new skill is added
-    },
+    { SkillAdded: SkillAdded },
     ColonyNetworkClient,
   >;
   /*

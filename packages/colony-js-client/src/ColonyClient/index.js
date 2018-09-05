@@ -16,6 +16,7 @@ import GetTask from './callers/GetTask';
 import CreateTask from './senders/CreateTask';
 import {
   ROLES,
+  ADMIN_ROLE,
   WORKER_ROLE,
   EVALUATOR_ROLE,
   MANAGER_ROLE,
@@ -86,6 +87,16 @@ export default class ColonyClient extends ContractClient {
     {},
     {
       address: Address, // The colony's Authority contract address
+    },
+    ColonyClient,
+  >;
+  /*
+    Returns the number of recovery roles.
+  */
+  getRecoveryRolesCount: ColonyClient.Caller<
+    {},
+    {
+      count: number, // Number of users with the recovery role (excluding owner)
     },
     ColonyClient,
   >;
@@ -188,6 +199,19 @@ export default class ColonyClient extends ContractClient {
     },
     {
       amount: BigNumber, // Amount of specified tokens to payout for that task and a role.
+    },
+    ColonyClient,
+  >;
+  /*
+    Given a specific task, and a token address, will return any payout attached to the task in the token specified (for all roles).
+  */
+  getTotalTaskPayout: ColonyClient.Caller<
+    {
+      taskId: number, // Integer taskId.
+      token: TokenAddress, // Address of the token's contract. `0x0` value indicates Ether.
+    },
+    {
+      amount: BigNumber, // Amount of specified tokens to payout for that task.
     },
     ColonyClient,
   >;
@@ -300,7 +324,9 @@ export default class ColonyClient extends ContractClient {
   createTask: ColonyClient.Sender<
     {
       specificationHash: IPFSHash, // Hashed output of the task's work specification, stored so that it can later be referenced for task ratings or in the event of a dispute.
-      domainId: number, // Domain in which the task has been created (default value: `1`).
+      domainId?: number, // Domain in which the task has been created (default value: `1`).
+      skillId?: number, // The skill associated with the task (optional)
+      dueDate?: Date, // The due date of the task (optional)
     },
     { TaskAdded: TaskAdded, PotAdded: PotAdded, DomainAdded: DomainAdded },
     ColonyClient,
@@ -314,6 +340,80 @@ export default class ColonyClient extends ContractClient {
       specificationHash: IPFSHash, // digest of the task's hashed specification.
     },
     { TaskBriefChanged: TaskBriefChanged },
+    ColonyClient,
+  >;
+  /*
+    Put the colony into recovery mode. Can only be called by user with a recovery role.
+   */
+  enterRecoveryMode: ColonyClient.Sender<{}, {}, ColonyClient>;
+  /*
+    Exit recovery mode. Can be called by anyone if enough whitelist approvals are given.
+   */
+  exitRecoveryMode: ColonyClient.Sender<
+    {
+      newVersion: number, // Resolver version to upgrade to (>= current version)
+    },
+    {},
+    ColonyClient,
+  >;
+  /*
+    Register the colony's ENS label.
+  */
+  registerColonyLabel: ColonyClient.Sender<
+    {
+      subnode: string, // The keccak256 hash of the label to register
+    },
+    {},
+    ColonyClient,
+  >;
+  /*
+    Set a new colony owner role. There can only be one address assigned to owner role at a time. Whoever calls this function will lose their owner role. Can be called by owner role.
+  */
+  setOwnerRole: ColonyClient.Sender<
+    {
+      user: Address, // User we want to give an owner role to
+    },
+    {},
+    ColonyClient,
+  >;
+  /*
+    Set a new colony admin role. Can be called by an owner or admin role.
+  */
+  setAdminRole: ColonyClient.Sender<
+    {
+      user: Address, // User we want to give an admin role to
+    },
+    {},
+    ColonyClient,
+  >;
+  /*
+    Set a new colony recovery role. Can be called by an owner role.
+  */
+  setRecoveryRole: ColonyClient.Sender<
+    {
+      user: Address, // User we want to give a recovery role to
+    },
+    {},
+    ColonyClient,
+  >;
+  /*
+    Remove a colony admin role. Can only be called by an owner role.
+  */
+  removeAdminRole: ColonyClient.Sender<
+    {
+      user: Address, // User we want to remove an admin role from
+    },
+    {},
+    ColonyClient,
+  >;
+  /*
+    Remove a colony recovery role. Can only be called by an owner role.
+  */
+  removeRecoveryRole: ColonyClient.Sender<
+    {
+      user: Address, // User we want to remove a recovery role from
+    },
+    {},
     ColonyClient,
   >;
   /*
@@ -339,12 +439,11 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Set the user for role `_role` in task `_id`. Only allowed before the task is `finalized`, meaning that the value cannot be changed after the task is complete. This can only be called by the manager of the task.
+    Set the manager role for the address `user` in task `taskId`. Only allowed before the task is `finalized`, meaning that the value cannot be changed after the task is complete. The current manager and the user we want to assign role to both need to sign this transaction.
   */
-  setTaskRoleUser: ColonyClient.Sender<
+  setTaskManagerRole: ColonyClient.MultisigSender<
     {
       taskId: number, // Integer taskId.
-      role: Role, // MANAGER, EVALUATOR, or WORKER.
       user: Address, // address of the user.
     },
     { TaskRoleUserChanged: TaskRoleUserChanged },
@@ -476,7 +575,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Adds a domain to the Colony along with the new domain's respective local skill. This can only be called by owners of the colony.
+    Adds a domain to the Colony along with the new domain's respective local skill (with id `parentSkillId`). This can only be called by owners of the colony. Adding new domains is currently retricted to one level only, i.e. `parentSkillId` has to be the root domain (id: 1).
   */
   addDomain: ColonyClient.Sender<
     {
@@ -651,6 +750,11 @@ export default class ColonyClient extends ContractClient {
       [['amount', 'bigNumber']],
     );
     makeTaskCaller(
+      'getTotalTaskPayout',
+      [['token', 'tokenAddress']],
+      [['amount', 'bigNumber']],
+    );
+    makeTaskCaller(
       'getTaskRole',
       [['role', 'role']],
       [['address', 'address'], ['rated', 'boolean'], ['rating', 'number']],
@@ -670,6 +774,10 @@ export default class ColonyClient extends ContractClient {
     this.addCaller('getAuthority', {
       functionName: 'authority',
       output: [['address', 'address']],
+    });
+    this.addCaller('getRecoveryRolesCount', {
+      functionName: 'numRecoveryRoles',
+      output: [['count', 'number']],
     });
     this.addCaller('generateSecret', {
       input: [['salt', 'string'], ['value', 'number']],
@@ -852,8 +960,35 @@ export default class ColonyClient extends ContractClient {
     this.addSender('submitTaskWorkRating', {
       input: [['taskId', 'number'], ['role', 'role'], ['secret', 'hexString']],
     });
+    this.addSender('registerColonyLabel', {
+      input: [['subnode', 'string']],
+    });
+    this.addSender('exitRecoveryMode', {
+      input: [[]],
+    });
+    this.addSender('approveExitRecovery', {});
+    this.addSender('enterRecoveryMode', {});
+    this.addSender('setOwnerRole', {
+      input: [['user', 'address']],
+    });
+    this.addSender('setAdminRole', {
+      input: [['user', 'address']],
+    });
+    this.addSender('setRecoveryRole', {
+      input: [['user', 'address']],
+    });
+    this.addSender('removeAdminRole', {
+      input: [['user', 'address']],
+    });
+    this.addSender('removeRecoveryRole', {
+      input: [['user', 'address']],
+    });
 
-    // Multisig Senders
+    // Remove duplicate/invalid signees
+    const filterRequiredSignees = (signees: Array<Address>) =>
+      [...new Set(signees)].filter(isValidAddress);
+
+    // Task change MultisigSenders
     const makeExecuteTaskChange = (
       name: string,
       input: Array<*>,
@@ -865,7 +1000,7 @@ export default class ColonyClient extends ContractClient {
           const taskRoles = await Promise.all(
             roles.map(role => this.getTaskRole.call({ taskId, role })),
           );
-          return taskRoles.map(({ address }) => address).filter(isValidAddress);
+          return filterRequiredSignees(taskRoles.map(({ address }) => address));
         },
         multisigFunctionName: 'executeTaskChange',
         nonceFunctionName: 'getTaskChangeNonce',
@@ -891,5 +1026,71 @@ export default class ColonyClient extends ContractClient {
       [['token', 'tokenAddress'], ['amount', 'bigNumber']],
       [MANAGER_ROLE, EVALUATOR_ROLE],
     );
+
+    // Task role change MultisigSenders
+    const makeExecuteTaskRoleChange = <InputArgs: Object>(
+      name: string,
+      getRequiredSignees: (args: InputArgs) => Promise<any>,
+    ) =>
+      this.addMultisigSender(name, {
+        input: [['taskId', 'number'], ['user', 'address']],
+        getRequiredSignees: async (args: InputArgs) => {
+          const { taskId, user } = args;
+
+          // The manager's sig is required for all role change operations
+          const { address: manager } = await this.getTaskRole.call({
+            taskId,
+            role: MANAGER_ROLE,
+          });
+
+          const signees = [manager, user, ...(await getRequiredSignees(args))];
+
+          return filterRequiredSignees(signees);
+        },
+        multisigFunctionName: 'executeTaskRoleChange',
+        nonceFunctionName: 'getTaskChangeNonce',
+        nonceInput: [['taskId', 'number']],
+      });
+    makeExecuteTaskRoleChange('setTaskManagerRole', async ({ user }) => {
+      const isAdmin = await this.authority.hasUserRole.call({
+        user,
+        role: ADMIN_ROLE,
+      });
+      if (!isAdmin)
+        throw new Error('Unable to set task role; user must be an admin');
+      return null;
+    });
+    makeExecuteTaskRoleChange('setTaskEvaluatorRole', async ({ taskId }) => {
+      const { address } = await this.getTaskRole.call({
+        taskId,
+        role: EVALUATOR_ROLE,
+      });
+      if (isValidAddress(address))
+        throw new Error('Unable to set task role; evaluator is already set');
+      return null;
+    });
+    makeExecuteTaskRoleChange('setTaskWorkerRole', async ({ taskId }) => {
+      const { address } = await this.getTaskRole.call({
+        taskId,
+        role: WORKER_ROLE,
+      });
+      if (isValidAddress(address))
+        throw new Error('Unable to set task role; worker is already set');
+      return null;
+    });
+    makeExecuteTaskRoleChange('removeTaskWorkerRole', async ({ taskId }) => {
+      const { address } = await this.getTaskRole.call({
+        taskId,
+        role: WORKER_ROLE,
+      });
+      return address;
+    });
+    makeExecuteTaskRoleChange('removeTaskEvaluatorRole', async ({ taskId }) => {
+      const { address } = await this.getTaskRole.call({
+        taskId,
+        role: EVALUATOR_ROLE,
+      });
+      return address;
+    });
   }
 }
