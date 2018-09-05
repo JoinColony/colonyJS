@@ -415,23 +415,6 @@ export default class ColonyNetworkClient extends ContractClient {
     // Senders
     this.addSender('addSkill', {
       input: [['parentSkillId', 'number'], ['globalSkill', 'boolean']],
-      eventHandlers: {
-        SkillAdded: {
-          contract: this.contract,
-          handler({
-            skillId,
-            parentSkillId,
-          }: {
-            skillId: BigNumber,
-            parentSkillId: BigNumber,
-          }) {
-            return {
-              skillId: skillId.toNumber(),
-              parentSkillId: parentSkillId.toNumber(),
-            };
-          },
-        },
-      },
     });
     this.addSender('setTokenLocking', {
       input: [['tokenLockingAddress', 'address']],
