@@ -357,7 +357,12 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|taskId|number|Will return an integer taskId, from the `TaskAdded` event.|
+|taskId|number|The task ID.|
+|potId|number|The ID of the funding pot that was added.|
+|domainId|number|The ID of the domain that was added.|
+|TaskAdded|object|Contains the data defined in [TaskAdded](#events-TaskAdded)|
+|PotAdded|object|Contains the data defined in [PotAdded](#events-PotAdded)|
+|DomainAdded|object|Contains the data defined in [DomainAdded](#events-DomainAdded)|
 
 ### `setTaskDomain.send({ taskId, domainId }, options)`
 
@@ -372,9 +377,13 @@ Every task must belong to a single existing Domain. This can only be called by t
 
 **Returns**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse` which will eventually receive the following event data:
 
-
+|Event data|Type|Description|
+|---|---|---|
+|taskId|number|The task ID.|
+|domainId|number|The task's new domain ID.|
+|TaskDomainChanged|object|Contains the data defined in [TaskDomainChanged](#events-TaskDomainChanged)|
 
 ### `setTaskRoleUser.send({ taskId, role, user }, options)`
 
@@ -390,9 +399,14 @@ Set the user for role `_role` in task `_id`. Only allowed before the task is `fi
 
 **Returns**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse` which will eventually receive the following event data:
 
-
+|Event data|Type|Description|
+|---|---|---|
+|taskId|number|The task ID.|
+|role|number|The role that changed for the task.|
+|user|Address|The user with the role that changed for the task.|
+|TaskRoleUserChanged|object|Contains the data defined in [TaskRoleUserChanged](#events-TaskRoleUserChanged)|
 
 ### `setTaskSkill.send({ taskId, skillId }, options)`
 
@@ -407,9 +421,13 @@ Sets the skill tag associated with the task. Currently there is only one skill t
 
 **Returns**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse` which will eventually receive the following event data:
 
-
+|Event data|Type|Description|
+|---|---|---|
+|taskId|number|The task ID.|
+|skillId|number|The task's new skill ID.|
+|TaskSkillChanged|object|Contains the data defined in [TaskSkillChanged](#events-TaskSkillChanged)|
 
 ### `setTaskManagerPayout.send({ taskId, token, amount }, options)`
 
@@ -425,9 +443,14 @@ Sets the payout given to the MANAGER role when the task is finalized. This Sende
 
 **Returns**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse` which will eventually receive the following event data:
 
-
+|Event data|Type|Description|
+|---|---|---|
+|taskId|number|The task ID.|
+|token|Token address|The token address (0x indicates ether).|
+|amount|number|The token amount.|
+|TaskWorkerPayoutChanged|object|Contains the data defined in [TaskWorkerPayoutChanged](#events-TaskWorkerPayoutChanged)|
 
 ### `submitTaskDeliverable.send({ taskId, deliverableHash }, options)`
 
@@ -511,9 +534,12 @@ Cancels a task.
 
 **Returns**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse` which will eventually receive the following event data:
 
-
+|Event data|Type|Description|
+|---|---|---|
+|taskId|number|The task ID of the task that was canceled.|
+|TaskCanceled|object|Contains the data defined in [TaskCanceled](#events-TaskCanceled)|
 
 ### `finalizeTask.send({ taskId }, options)`
 
@@ -527,9 +553,12 @@ Finalizes a task, allowing roles to claim payouts and prohibiting all further ch
 
 **Returns**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse` which will eventually receive the following event data:
 
-
+|Event data|Type|Description|
+|---|---|---|
+|taskId|number|The task ID of the task that was finalized.|
+|TaskFinalized|object|Contains the data defined in [TaskFinalized](#events-TaskFinalized)|
 
 ### `claimPayout.send({ taskId, role, token }, options)`
 
@@ -567,6 +596,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |skillId|number|A skillId for this domain.|
 |parentSkillId|number|The parent skill id.|
+|SkillAdded|object|Contains the data defined in [SkillAdded](#events-SkillAdded)|
 
 ### `addGlobalSkill.send({ parentSkillId }, options)`
 
@@ -584,8 +614,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|skillId|number|Integer id of the newly created skill.|
-|parentSkillId|number|Integer id of the parent skill.|
+|skillId|number|A skillId for this domain.|
+|parentSkillId|number|The parent skill id.|
+|SkillAdded|object|Contains the data defined in [SkillAdded](#events-SkillAdded)|
 
 ### `claimColonyFunds.send({ token }, options)`
 
@@ -719,9 +750,13 @@ The task brief, or specification, is a description of the tasks work specificati
 
 **Returns**
 
-An instance of a `MultiSigOperation`
+An instance of a `MultiSigOperation` whose sender will eventually receive the following event data:
 
-
+|Event Data|Type|Description|
+|---|---|---|
+|taskId|number|The task ID.|
+|specificationHash|string|The IPFS hash of the task's new specification.|
+|TaskBriefChanged|object|Contains the data defined in [TaskBriefChanged](#events-TaskBriefChanged)|
 
 ### `setTaskDueDate.startOperation({ taskId, dueDate })`
 
@@ -736,9 +771,13 @@ The task's due date determines when a worker may submit the task's deliverable(s
 
 **Returns**
 
-An instance of a `MultiSigOperation`
+An instance of a `MultiSigOperation` whose sender will eventually receive the following event data:
 
-
+|Event Data|Type|Description|
+|---|---|---|
+|taskId|number|The task ID.|
+|dueDate|Date|The task's new due date.|
+|TaskDueDateChanged|object|Contains the data defined in [TaskDueDateChanged](#events-TaskDueDateChanged)|
 
 ### `setTaskEvaluatorPayout.startOperation({ taskId, token, amount })`
 
@@ -754,9 +793,14 @@ Sets the payout given to the EVALUATOR role when the task is finalized.
 
 **Returns**
 
-An instance of a `MultiSigOperation`
+An instance of a `MultiSigOperation` whose sender will eventually receive the following event data:
 
-
+|Event Data|Type|Description|
+|---|---|---|
+|taskId|number|The task ID.|
+|token|Token address|The token address (0x indicates ether).|
+|amount|number|The token amount.|
+|TaskWorkerPayoutChanged|object|Contains the data defined in [TaskWorkerPayoutChanged](#events-TaskWorkerPayoutChanged)|
 
 ### `setTaskWorkerPayout.startOperation({ taskId, token, amount })`
 
@@ -772,4 +816,157 @@ Sets the payout given to the WORKER role when the task is finalized.
 
 **Returns**
 
-An instance of a `MultiSigOperation`
+An instance of a `MultiSigOperation` whose sender will eventually receive the following event data:
+
+|Event Data|Type|Description|
+|---|---|---|
+|taskId|number|The task ID.|
+|token|Token address|The token address (0x indicates ether).|
+|amount|number|The token amount.|
+|TaskWorkerPayoutChanged|object|Contains the data defined in [TaskWorkerPayoutChanged](#events-TaskWorkerPayoutChanged)|
+
+  
+## Events
+
+Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events) to interact with these events.
+
+
+### [events.DomainAdded.addListener(({ domainId }) => { /* ... */ })](#events-DomainAdded)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|domainId|number|The ID of the domain that was added.|
+
+
+### [events.PotAdded.addListener(({ potId }) => { /* ... */ })](#events-PotAdded)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|potId|number|The ID of the funding pot that was added.|
+
+
+### [events.SkillAdded.addListener(({ skillId, parentSkillId }) => { /* ... */ })](#events-SkillAdded)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|skillId|number|A skillId for this domain.|
+|parentSkillId|number|The parent skill id.|
+
+
+### [events.TaskAdded.addListener(({ taskId }) => { /* ... */ })](#events-TaskAdded)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|taskId|number|The task ID.|
+
+
+### [events.TaskBriefChanged.addListener(({ taskId, specificationHash }) => { /* ... */ })](#events-TaskBriefChanged)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|taskId|number|The task ID.|
+|specificationHash|string|The IPFS hash of the task's new specification.|
+
+
+### [events.TaskDueDateChanged.addListener(({ taskId, dueDate }) => { /* ... */ })](#events-TaskDueDateChanged)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|taskId|number|The task ID.|
+|dueDate|Date|The task's new due date.|
+
+
+### [events.TaskDomainChanged.addListener(({ taskId, domainId }) => { /* ... */ })](#events-TaskDomainChanged)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|taskId|number|The task ID.|
+|domainId|number|The task's new domain ID.|
+
+
+### [events.TaskSkillChanged.addListener(({ taskId, skillId }) => { /* ... */ })](#events-TaskSkillChanged)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|taskId|number|The task ID.|
+|skillId|number|The task's new skill ID.|
+
+
+### [events.TaskRoleUserChanged.addListener(({ taskId, role, user }) => { /* ... */ })](#events-TaskRoleUserChanged)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|taskId|number|The task ID.|
+|role|number|The role that changed for the task.|
+|user|Address|The user with the role that changed for the task.|
+
+
+### [events.TaskWorkerPayoutChanged.addListener(({ taskId, token, amount }) => { /* ... */ })](#events-TaskWorkerPayoutChanged)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|taskId|number|The task ID.|
+|token|Token address|The token address (0x indicates ether).|
+|amount|number|The token amount.|
+
+
+### [events.TaskFinalized.addListener(({ taskId }) => { /* ... */ })](#events-TaskFinalized)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|taskId|number|The task ID of the task that was finalized.|
+
+
+### [events.TaskCanceled.addListener(({ taskId }) => { /* ... */ })](#events-TaskCanceled)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|taskId|number|The task ID of the task that was canceled.|

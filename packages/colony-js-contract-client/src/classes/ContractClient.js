@@ -4,8 +4,8 @@ import type { Query } from '@colony/colony-js-contract-loader';
 import type {
   IAdapter,
   IContract,
-  EventHandlers,
   TransactionOptions,
+  TransactionReceipt,
 } from '@colony/colony-js-adapter';
 
 import ContractEvent from './ContractEvent';
@@ -112,12 +112,40 @@ export default class ContractClient {
     return this.contract.callTransaction(functionName, args, options);
   }
 
-  async getEventData(params: {
-    events: EventHandlers,
-    timeoutMs: number,
-    transactionHash: string,
-  }) {
-    return this.adapter.getEventData(params);
+  /**
+   * Given a transaction receipt, decode the event logs with the contract
+   * interface, then use the corresponding ContractEvents to collect event data.
+   */
+  getReceiptEventData({ logs = [] }: TransactionReceipt) {
+    const { events } = this.contract.interface;
+    const eventNames = Object.keys(events);
+    return (
+      logs
+        // Find matching event info by the topic
+        .map(log => {
+          const eventName = eventNames.find(name =>
+            // The first topic should be the hashed event signature
+            log.topics.includes(events[name].topics[0]),
+          );
+          return eventName ? { ...log, eventInfo: events[eventName] } : null;
+        })
+        // Filter out logs we couldn't find on the interface as events
+        .filter(Boolean)
+        // Parse the event data and add it to a resulting object
+        .reduce((acc, { eventInfo, topics, data }) => {
+          const args = eventInfo.parse(topics, data);
+
+          const event = this.events[eventInfo.name];
+          if (!event) throw new Error(`Event ${eventInfo.name} not found`);
+
+          // Add the event data both at the top level and under the event name
+          const eventData = event.parse(args);
+          return Object.assign(acc, {
+            ...eventData,
+            [eventInfo.name]: eventData,
+          });
+        }, {})
+    );
   }
 
   createTransactionData(functionName: string, args: Array<any>): string {

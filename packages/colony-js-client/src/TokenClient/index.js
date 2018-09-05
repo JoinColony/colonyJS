@@ -6,7 +6,40 @@ import GetTokenInfo from './callers/GetTokenInfo';
 
 type Address = string;
 
+type Transfer = ContractClient.Event<{
+  to: Address, // Event data indicating the 'to' address.
+  value: BigNumber, // Event data indicating the amount transferred.
+}>;
+type Approval = ContractClient.Event<{
+  owner: Address, // Event data indicating the token owner ('from' address).
+  spender: Address, // Event data indicating the spender (who is given the `allowance`).
+  value: BigNumber, // Event data indicating the new value of allowed transfer.
+}>;
+type Burn = ContractClient.Event<{
+  address: Address, // The address that initiated the burn event.
+  amount: BigNumber, // Event data indicating the amount burned.
+}>;
+type LogSetAuthority = ContractClient.Event<{
+  authority: Address, // Event data indicating the address given authority.
+}>;
+type LogSetOwner = ContractClient.Event<{
+  owner: Address, // Event data indicating the new owner.
+}>;
+type Mint = ContractClient.Event<{
+  address: Address, // The address that initiated the mint event.
+  amount: BigNumber, // Event data indicating the amount of tokens minted.
+}>;
+
 export default class TokenClient extends ContractClient {
+  events: {
+    Approval: Approval,
+    Burn: Burn,
+    LogSetAuthority: LogSetAuthority,
+    LogSetOwner: LogSetOwner,
+    Mint: Mint,
+    Transfer: Transfer,
+  };
+
   /*
     Get information about the ERC20 token itself
   */
@@ -74,10 +107,7 @@ export default class TokenClient extends ContractClient {
       destinationAddress: Address, // 'to' address, or the destination with sufficient ``allowance` for transfer.
       amount: BigNumber, // Amount to transfer.
     },
-    {
-      to: Address, // Event data indicating the 'to' address.
-      value: BigNumber, // Event data indicating the amount transferred.
-    },
+    { Transfer: Transfer },
     TokenClient,
   >;
   /*
@@ -88,11 +118,7 @@ export default class TokenClient extends ContractClient {
       user: Address, // The spending account allowed to transfer tokens with `transferFrom`.
       amount: BigNumber, // The maximum `allowance` that the spending account may transfer from the owner to the spender.
     },
-    {
-      owner: Address, // Event data indicating the token owner ('from' address).
-      spender: Address, // Event data indicating the spender (who is given the `allowance`).
-      value: BigNumber, // Event data indicating the new value of allowed transfer.
-    },
+    { Approval: Approval },
     TokenClient,
   >;
   /*
@@ -102,10 +128,7 @@ export default class TokenClient extends ContractClient {
     {
       amount: BigNumber, // The amount of new tokens to mint.
     },
-    {
-      address: Address, // The address that initiated the mint event.
-      amount: BigNumber, // Event data indicating the amount of tokens minted.
-    },
+    { Mint: Mint },
     TokenClient,
   >;
   /*
@@ -115,10 +138,7 @@ export default class TokenClient extends ContractClient {
     {
       amount: BigNumber, // The amount of unspent tokens to burn.
     },
-    {
-      address: Address, // The address that initiated the burn event.
-      amount: BigNumber, // Event data indicating the amount burned.
-    },
+    { Burn: Burn },
     TokenClient,
   >;
   /*
@@ -128,9 +148,7 @@ export default class TokenClient extends ContractClient {
     {
       owner: Address, // The address of the new owner.
     },
-    {
-      owner: Address, // Event data indicating the new owner.
-    },
+    { LogSetOwner: LogSetOwner },
     TokenClient,
   >;
   /*
@@ -140,9 +158,7 @@ export default class TokenClient extends ContractClient {
     {
       authority: Address, // The address to be given admin authority.
     },
-    {
-      authority: Address, // Event data indicating the address given authority.
-    },
+    { LogSetAuthority: LogSetAuthority },
     TokenClient,
   >;
 
@@ -158,59 +174,16 @@ export default class TokenClient extends ContractClient {
     const destinationAddress = ['destinationAddress', 'address'];
     const user = ['user', 'address'];
 
-    const Transfer = {
-      contract: this.contract,
-      handler({ to, value }: { to: Address, value: BigNumber }) {
-        return {
-          to,
-          value,
-        };
-      },
-    };
-    const Approval = {
-      contract: this.contract,
-      handler({
-        owner,
-        spender,
-        value,
-      }: {
-        owner: Address,
-        spender: Address,
-        value: BigNumber,
-      }) {
-        return {
-          owner,
-          spender,
-          value,
-        };
-      },
-    };
-    const Mint = {
-      contract: this.contract,
-      handler({ guy, wad }: { guy: Address, wad: BigNumber }) {
-        return {
-          address: guy,
-          amount: wad,
-        };
-      },
-    };
-    const Burn = Object.assign({}, Mint);
-    const LogSetOwner = {
-      contract: this.contract,
-      handler({ owner }: { owner: Address }) {
-        return {
-          owner,
-        };
-      },
-    };
-    const LogSetAuthority = {
-      contract: this.contract,
-      handler({ authority }: { authority: Address }) {
-        return {
-          authority,
-        };
-      },
-    };
+    this.addEvent('Transfer', [['to', 'address'], ['value', 'bigNumber']]);
+    this.addEvent('Approval', [
+      ['owner', 'address'],
+      ['spender', 'address'],
+      ['value', 'bigNumber'],
+    ]);
+    this.addEvent('Mint', [['address', 'address'], ['amount', 'bigNumber']]);
+    this.addEvent('Burn', [['address', 'address'], ['amount', 'bigNumber']]);
+    this.addEvent('LogSetOwner', [['owner', 'address']]);
+    this.addEvent('LogSetAuthority', [['authority', 'address']]);
 
     this.getTokenInfo = new GetTokenInfo({ client: this });
 
@@ -233,37 +206,30 @@ export default class TokenClient extends ContractClient {
 
     this.addSender('transfer', {
       input: [destinationAddress, amount],
-      eventHandlers: { Transfer },
     });
 
     this.addSender('transferFrom', {
       input: [sourceAddress, destinationAddress, amount],
-      eventHandlers: { Transfer },
     });
 
     this.addSender('approve', {
       input: [user, amount],
-      eventHandlers: { Approval },
     });
 
     this.addSender('mint', {
       input: [amount],
-      eventHandlers: { Mint },
     });
 
     this.addSender('burn', {
       input: [amount],
-      eventHandlers: { Burn },
     });
 
     this.addSender('setOwner', {
       input: [['owner', 'address']],
-      eventHandlers: { LogSetOwner },
     });
 
     this.addSender('setAuthority', {
       input: [['authority', 'address']],
-      eventHandlers: { LogSetAuthority },
     });
   }
 }

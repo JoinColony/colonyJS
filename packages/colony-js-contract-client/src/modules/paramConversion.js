@@ -25,12 +25,17 @@ export function convertOutputValues<OutputTypes: Object>(
   outputValues: { [string | number]: any },
   valuesSpec: Params,
 ): OutputTypes {
+  // If a length was provided (e.g. for event args), use that to find the value;
+  // otherwise, use the supplied name
+  const getValue = (name, index) =>
+    outputValues.length ? outputValues[index] : outputValues[name];
+
   return valuesSpec && valuesSpec.length
     ? // $FlowFixMe
       valuesSpec
-        .map(([name, type]) => [
+        .map(([name, type], index) => [
           name,
-          convertOutputValue(outputValues[name], type),
+          convertOutputValue(getValue(name, index), type),
         ])
         .reduce(
           (acc, [name, value]) => Object.assign(acc, { [name]: value }),

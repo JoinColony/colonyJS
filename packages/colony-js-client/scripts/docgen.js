@@ -49,6 +49,7 @@ const generateMarkdown = ({ file, templateFile, output }) => {
   const callers = [];
   const senders = [];
   const multisig = [];
+  const events = [];
 
   types.visit(ast, {
     visitQualifiedTypeIdentifier(p) {
@@ -62,7 +63,7 @@ const generateMarkdown = ({ file, templateFile, output }) => {
           returns: mapObjectProps(ast, params[1]),
         });
       }
-      if (p.value.id.name === 'Sender') {
+      else if (p.value.id.name === 'Sender') {
         const { params } = p.parent.value.typeParameters;
 
         senders.push({
@@ -72,7 +73,7 @@ const generateMarkdown = ({ file, templateFile, output }) => {
           events: mapObjectProps(ast, params[1]),
         });
       }
-      if (p.value.id.name === 'MultisigSender') {
+      else if (p.value.id.name === 'MultisigSender') {
         const { params } = p.parent.value.typeParameters;
 
         multisig.push({
@@ -80,6 +81,15 @@ const generateMarkdown = ({ file, templateFile, output }) => {
           description: getDescription(ast, p),
           args: mapObjectProps(ast, params[0]),
           events: mapObjectProps(ast, params[1]),
+        });
+      }
+      else if (p.value.id.name === 'Event') {
+        const { params } = p.parent.value.typeParameters;
+
+        events.push({
+          name: getEventName(p),
+          description: getDescription(ast, p),
+          args: mapObjectProps(ast, params[0]),
         });
       }
       return false;
@@ -91,8 +101,9 @@ const generateMarkdown = ({ file, templateFile, output }) => {
   const md = `
   ${template}
   ${printCallers(callers)}
-  ${printSenders(senders)}
-  ${printMultiSig(multisig)}
+  ${printSenders(senders, events)}
+  ${printMultiSig(multisig, events)}
+  ${printEvents(events)}
   `.trim();
 
   fs.writeFileSync(output, md);
@@ -126,7 +137,7 @@ ${printProps('Return value', caller.returns)}
     .join('');
 }
 
-function printSenders(senders) {
+function printSenders(senders, events) {
   if (!senders.length) return '';
   // TODO: use templates to properly place this text into the file
   return `
@@ -145,13 +156,30 @@ ${sender.args && sender.args.length ? '\n**Arguments**\n\n' : ''}${printProps('A
 
 An instance of a \`ContractResponse\`${sender.events && sender.events.length ? ' which will eventually receive the following event data:' : ''}
 
-${printProps('Event data', sender.events)}
+${printProps('Event data', getEventProps(events, sender.events))}
 `,
     )
     .join('');
 }
 
-function printMultiSig(multisig) {
+
+function printEvents(events) {
+  if (!events.length) return '';
+  return `
+## Events
+
+Refer to the \`ContractEvent\` class [here](/colonyjs/docs-contractclient/#events) to interact with these events.
+
+` + events.map(event => `
+### [events.${event.name}.addListener((${printArgs(event.args)}) => { /* ... */ })](#events-${event.name})
+
+${event.description}
+${event.args && event.args.length ? '\n**Arguments**\n\n' : ''}${printProps('Argument', event.args)}
+
+`).join('');
+}
+
+function printMultiSig(multisig, events) {
   if (!multisig.length) return '';
   // TODO: use templates to properly place this text into the file
   return `
@@ -170,7 +198,7 @@ ${ms.args && ms.args.length ? '\n**Arguments**\n\n' : ''}${printProps('Argument'
 
 An instance of a \`MultiSigOperation\`${ms.events && ms.events.length ? ' whose sender will eventually receive the following event data:' : ''}
 
-${printProps('Event data', ms.events)}
+${printProps('Event Data', getEventProps(events, ms.events))}
 `,
     )
     .join('');
@@ -185,6 +213,27 @@ ${props
       .join('\n')}`;
   }
   return ``;
+}
+
+function getEventProps(contractEvents, methodEvents) {
+  // List event props with the 'flat' args first (e.g. `taskId`), followed
+  // by the 'nested' props (e.g. `TaskAdded`).
+  return [].concat(...methodEvents.reduce((acc, methodEvent) => {
+    const event = contractEvents.find(({ name }) => name === methodEvent.name);
+
+    // Individual 'flat' args, which shouldn't be duplicated
+    event.args
+      .filter(arg => !acc[0].includes(({ name }) => name === arg.name))
+      .forEach(arg => acc[0].push(arg));
+
+    // The nested event object
+    acc[1].push({
+      name: event.name,
+      type: 'object',
+      description: getNestedEventDescription(event),
+    });
+    return acc;
+  }, [[], []]));
 }
 
 function printArgs(args, withOpts) {
@@ -217,6 +266,16 @@ function getDescription(ast, p) {
   const commentLine = p.parent.parent.parent.value.loc.start.line - 1;
   const comment = ast.comments.find(c => c.loc.end.line === commentLine);
   return formatDescription(comment && comment.value);
+}
+
+function getEventName(p) {
+  return p.parentPath.parentPath.value.id
+    ? p.parentPath.parentPath.value.id.name
+    : p.parentPath.parentPath.value.key.name;
+}
+
+function getNestedEventDescription(event) {
+  return `Contains the data defined in [${event.name}](#events-${event.name})`;
 }
 
 function formatDescription(str) {

@@ -123,6 +123,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |to|Address|Event data indicating the 'to' address.|
 |value|BigNumber|Event data indicating the amount transferred.|
+|Transfer|object|Contains the data defined in [Transfer](#events-Transfer)|
 
 ### `approve.send({ user, amount }, options)`
 
@@ -144,6 +145,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |owner|Address|Event data indicating the token owner ('from' address).|
 |spender|Address|Event data indicating the spender (who is given the `allowance`).|
 |value|BigNumber|Event data indicating the new value of allowed transfer.|
+|Approval|object|Contains the data defined in [Approval](#events-Approval)|
 
 ### `mint.send({ amount }, options)`
 
@@ -163,6 +165,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |address|Address|The address that initiated the mint event.|
 |amount|BigNumber|Event data indicating the amount of tokens minted.|
+|Mint|object|Contains the data defined in [Mint](#events-Mint)|
 
 ### `burn.send({ amount }, options)`
 
@@ -182,6 +185,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |address|Address|The address that initiated the burn event.|
 |amount|BigNumber|Event data indicating the amount burned.|
+|Burn|object|Contains the data defined in [Burn](#events-Burn)|
 
 ### `setOwner.send({ owner }, options)`
 
@@ -200,6 +204,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |Event data|Type|Description|
 |---|---|---|
 |owner|Address|Event data indicating the new owner.|
+|LogSetOwner|object|Contains the data defined in [LogSetOwner](#events-LogSetOwner)|
 
 ### `setAuthority.send({ authority }, options)`
 
@@ -218,3 +223,81 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |Event data|Type|Description|
 |---|---|---|
 |authority|Address|Event data indicating the address given authority.|
+|LogSetAuthority|object|Contains the data defined in [LogSetAuthority](#events-LogSetAuthority)|
+
+  
+  
+## Events
+
+Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events) to interact with these events.
+
+
+### [events.Transfer.addListener(({ to, value }) => { /* ... */ })](#events-Transfer)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|to|Address|Event data indicating the 'to' address.|
+|value|BigNumber|Event data indicating the amount transferred.|
+
+
+### [events.Approval.addListener(({ owner, spender, value }) => { /* ... */ })](#events-Approval)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|owner|Address|Event data indicating the token owner ('from' address).|
+|spender|Address|Event data indicating the spender (who is given the `allowance`).|
+|value|BigNumber|Event data indicating the new value of allowed transfer.|
+
+
+### [events.Burn.addListener(({ address, amount }) => { /* ... */ })](#events-Burn)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|address|Address|The address that initiated the burn event.|
+|amount|BigNumber|Event data indicating the amount burned.|
+
+
+### [events.LogSetAuthority.addListener(({ authority }) => { /* ... */ })](#events-LogSetAuthority)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|authority|Address|Event data indicating the address given authority.|
+
+
+### [events.LogSetOwner.addListener(({ owner }) => { /* ... */ })](#events-LogSetOwner)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|owner|Address|Event data indicating the new owner.|
+
+
+### [events.Mint.addListener(({ address, amount }) => { /* ... */ })](#events-Mint)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|address|Address|The address that initiated the mint event.|
+|amount|BigNumber|Event data indicating the amount of tokens minted.|

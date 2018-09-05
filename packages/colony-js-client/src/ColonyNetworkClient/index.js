@@ -15,7 +15,26 @@ const MISSING_ID = 'An ID parameter must be provided';
 
 type Address = string;
 
+type ColonyAdded = ContractClient.Event<{
+  colonyId: number, // ID of the newly-created Colony
+  colonyAddress: Address, // Address of the newly-created Colony
+}>;
+type SkillAdded = ContractClient.Event<{
+  skillId: number,
+  parentSkillId: number,
+}>;
+type AuctionCreated = ContractClient.Event<{
+  auction: string, // The address of the auction contract
+  token: Address, // The address of the token being auctioned
+  quantity: BigNumber, // The amount of available tokens for auction
+}>;
+
 export default class ColonyNetworkClient extends ContractClient {
+  events: {
+    ColonyAdded: ColonyAdded,
+    SkillAdded: SkillAdded,
+    AuctionCreated: AuctionCreated,
+  };
   /*
   Returns the address of a colony when given the ID
   */
@@ -193,10 +212,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       tokenAddress: Address, // Token to import. Note: the ownership of the token contract must be transferred to the newly-created Colony.
     },
-    {
-      colonyId: number, // ID of the newly-created Colony
-      colonyAddress: Address, // Address of the newly-created Colony
-    },
+    { ColonyAdded: ColonyAdded },
     ColonyNetworkClient,
   >;
   /*
@@ -217,11 +233,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       tokenAddress: Address, // Address of the token held by the network to be auctioned
     },
-    {
-      auction: string, // The address of the auction contract
-      token: Address, // The address of the token being auctioned
-      quantity: number, // The amount of available tokens for auction
-    },
+    { AuctionCreated: AuctionCreated },
     ColonyNetworkClient,
   >;
   /*
@@ -331,6 +343,21 @@ export default class ColonyNetworkClient extends ContractClient {
     return this.getColonyClientByAddress(address);
   }
   initializeContractMethods() {
+    // Events
+    this.addEvent('ColonyAdded', [
+      ['colonyId', 'number'],
+      ['colonyAddress', 'address'],
+    ]);
+    this.addEvent('SkillAdded', [
+      ['skillId', 'number'],
+      ['parentSkillId', 'number'],
+    ]);
+    this.addEvent('AuctionCreated', [
+      ['auction', 'address'],
+      ['token', 'tokenAddress'],
+      ['quantity', 'bigNumber'],
+    ]);
+
     // Callers
     this.addCaller('getColony', {
       input: [['id', 'number']],
@@ -388,23 +415,6 @@ export default class ColonyNetworkClient extends ContractClient {
     // Senders
     this.addSender('addSkill', {
       input: [['parentSkillId', 'number'], ['globalSkill', 'boolean']],
-      eventHandlers: {
-        SkillAdded: {
-          contract: this.contract,
-          handler({
-            skillId,
-            parentSkillId,
-          }: {
-            skillId: BigNumber,
-            parentSkillId: BigNumber,
-          }) {
-            return {
-              skillId: skillId.toNumber(),
-              parentSkillId: parentSkillId.toNumber(),
-            };
-          },
-        },
-      },
     });
     this.addSender('setTokenLocking', {
       input: [['tokenLockingAddress', 'address']],
@@ -416,49 +426,12 @@ export default class ColonyNetworkClient extends ContractClient {
     this.addSender('createColony', {
       input: [['tokenAddress', 'address']],
       defaultGasLimit: 2500000,
-      eventHandlers: {
-        ColonyAdded: {
-          contract: this.contract,
-          handler({
-            colonyId,
-            colonyAddress,
-          }: {
-            colonyId: BigNumber,
-            colonyAddress: Address,
-          }) {
-            return {
-              colonyId: colonyId.toNumber(),
-              colonyAddress,
-            };
-          },
-        },
-      },
     });
     this.addSender('addColonyVersion', {
       input: [['version', 'number'], ['resolver', 'address']],
     });
     this.addSender('startTokenAuction', {
       input: [['tokenAddress', 'address']],
-      eventHandlers: {
-        AuctionCreated: {
-          contract: this.contract,
-          handler({
-            auction,
-            token,
-            quantity,
-          }: {
-            auction: string,
-            token: string,
-            quantity: BigNumber,
-          }) {
-            return {
-              auction,
-              token,
-              quantity: quantity.toNumber(),
-            };
-          },
-        },
-      },
     });
     this.addSender('setupRegistrar', {
       input: [['ens', 'address'], ['rootNode', 'string']],
