@@ -1,4 +1,4 @@
-<img align="center" src="/docs/img/colonyStarter_combomark.svg" />
+<img align="center" src="/docs/img/colonyStarter_color.svg" />
 <div align="center">
   <a href="https://circleci.com/gh/JoinColony/colonyStarter">
     <img src="https://img.shields.io/circleci/project/github/JoinColony/colonyStarter/node-csgo-parser.svg" />
