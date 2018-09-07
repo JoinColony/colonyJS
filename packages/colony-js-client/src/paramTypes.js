@@ -4,14 +4,14 @@ import { isBigNumber } from '@colony/colony-js-utils';
 import { isHexStrict, hexToNumber } from 'web3-utils';
 import { addParamType } from '@colony/colony-js-contract-client';
 
-import { ROLES, AUTHORITY_ROLES } from './constants';
+import { ROLES, AUTHORITY_ROLES, TASK_STATUSES } from './constants';
 
-const roleType = (roles: { [roleName: string]: number }) => ({
+const dictType = (dict: { [key: string]: number }) => ({
   validate(value: any) {
-    return Object.hasOwnProperty.call(roles, value);
+    return Object.hasOwnProperty.call(dict, value);
   },
-  convertInput(value: $Keys<typeof roles>) {
-    return roles[value];
+  convertInput(value: $Keys<typeof dict>) {
+    return dict[value];
   },
   convertOutput(value: any) {
     let converted;
@@ -22,10 +22,12 @@ const roleType = (roles: { [roleName: string]: number }) => ({
     } else {
       converted = value;
     }
-    return Object.keys(roles).find(name => roles[name] === converted) || null;
+    return Object.keys(dict).find(name => dict[name] === converted) || null;
   },
 });
 
-addParamType('role', roleType(ROLES));
+addParamType('taskStatus', dictType(TASK_STATUSES));
 
-addParamType('authorityRole', roleType(AUTHORITY_ROLES));
+addParamType('role', dictType(ROLES));
+
+addParamType('authorityRole', dictType(AUTHORITY_ROLES));
