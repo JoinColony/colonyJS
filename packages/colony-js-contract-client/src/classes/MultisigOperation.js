@@ -229,9 +229,12 @@ export default class MultisigOperation<
    * this operation).
    */
   _validateRequiredSignees() {
+    const missing = this.missingSignees;
     defaultAssert(
-      this.missingSignees.length === 0,
-      `Missing signatures (from addresses ${this.missingSignees.join(', ')})`,
+      missing.length === 0,
+      `Missing signatures (from address${
+        missing.length > 1 ? 'es' : ''
+      } ${missing.join(', ')})`,
     );
     return true;
   }
