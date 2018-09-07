@@ -254,10 +254,11 @@ export default class MultisigOperation<
    * add the address/signature to the signers.
    */
   _addSignature(signature: Signature, address: string) {
-    const mode = this._findSignatureMode(signature, address);
+    const normalisedAddress = address.toLowerCase();
+    const mode = this._findSignatureMode(signature, normalisedAddress);
 
     this._signers = Object.assign({}, this._signers, {
-      [address]: {
+      [normalisedAddress]: {
         mode,
         ...signature,
       },
