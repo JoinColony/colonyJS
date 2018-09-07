@@ -48,6 +48,19 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |address|Address|The colony's Authority contract address|
 
+### `getVersion.call()`
+
+Gets the Colony contract version. This starts from 1 and is incremented with every deployed contract change.
+
+
+**Returns**
+
+A promise which resolves to an object containing the following properties:
+
+|Return value|Type|Description|
+|---|---|---|
+|version|number|The version number.|
+
 ### `getRecoveryRolesCount.call()`
 
 Returns the number of recovery roles.
@@ -172,17 +185,16 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|cancelled|boolean|Boolean flag denoting whether the task is cancelled.|
-|deliverableDate|Date (optional)|Date when the deliverable is due.|
+|completionDate|Date (optional)|Date when the task was completed.|
 |deliverableHash|IPFS hash (optional)|Unique hash of the deliverable content.|
 |domainId|number|Integer Domain ID the task belongs to.|
 |dueDate|Date (optional)|When the task is due.|
-|finalized|boolean|Boolean flag denoting whether the task is finalized.|
 |id|number|Integer task ID.|
 |payoutsWeCannotMake|number (optional)|Number of payouts that cannot be completed with the current task funding.|
 |potId|number (optional)|Integer ID of funding pot for the task.|
 |skillId|number|Integer Skill ID the task is assigned to.|
 |specificationHash|IPFS hash|Unique hash of the specification content.|
+|status|undefined|The task status (ACTIVE, CANCELLED or FINALIZED).|
 
 ### `getTaskPayout.call({ taskId, role, token })`
 
@@ -398,6 +410,25 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |PotAdded|object|Contains the data defined in [PotAdded](#events-PotAdded)|
 |DomainAdded|object|Contains the data defined in [DomainAdded](#events-DomainAdded)|
 
+### `completeTask.send({ taskId }, options)`
+
+Mark a task as complete after the due date has passed. This allows the task to be rated and finalized (and funds recovered) even in the presence of a worker who has disappeared. Note that if the due date was not set, then this function will throw.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|taskId|number|The task ID.|
+
+**Returns**
+
+An instance of a `ContractResponse` which will eventually receive the following event data:
+
+|Event data|Type|Description|
+|---|---|---|
+|taskId|number|The task ID.|
+|TaskCompleted|object|Contains the data defined in [TaskCompleted](#events-TaskCompleted)|
+
 ### `enterRecoveryMode.send(options)`
 
 Put the colony into recovery mode. Can only be called by user with a recovery role.
@@ -563,6 +594,31 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |skillId|number|The task's new skill ID.|
 |TaskSkillChanged|object|Contains the data defined in [TaskSkillChanged](#events-TaskSkillChanged)|
 
+### `setAllTaskPayouts.send({ taskId, token, managerAmount, evaluatorAmount, workerAmount }, options)`
+
+Set the payouts for the task manager, evaluator and worker in one transaction, for a specific token address. This can only be called by the task manager, and only if the evaluator and worker roles are either unassigned or the same as the manager.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|taskId|number|The task ID.|
+|token|Address|Address of the token, `0x0` value indicates Ether.|
+|managerAmount|BigNumber|Payout amount for the manager.|
+|evaluatorAmount|BigNumber|Payout amount for the evaluator.|
+|workerAmount|BigNumber|Payout amount for the worker.|
+
+**Returns**
+
+An instance of a `ContractResponse` which will eventually receive the following event data:
+
+|Event data|Type|Description|
+|---|---|---|
+|taskId|number|The task ID.|
+|token|Token address|The token address (0x indicates ether).|
+|amount|number|The token amount.|
+|TaskWorkerPayoutChanged|object|Contains the data defined in [TaskWorkerPayoutChanged](#events-TaskWorkerPayoutChanged)|
+
 ### `setTaskManagerPayout.send({ taskId, token, amount }, options)`
 
 Sets the payout given to the MANAGER role when the task is finalized. This Sender can only be called by the manager for the task in question.
@@ -595,13 +651,19 @@ Submit the task deliverable, i.e. the output of the work performed for task `_id
 |Argument|Type|Description|
 |---|---|---|
 |taskId|number|Integer taskId.|
-|deliverableHash|IPFS hash|Hash of the work performed.|
+|deliverableHash|IPFS hash|IPFS hash of the work performed.|
 
 **Returns**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse` which will eventually receive the following event data:
 
-
+|Event data|Type|Description|
+|---|---|---|
+|taskId|number|The task ID.|
+|taskId|number|The task ID.|
+|deliverableHash|IPFS hash|The IPFS hash of the deliverable.|
+|TaskCompleted|object|Contains the data defined in [TaskCompleted](#events-TaskCompleted)|
+|TaskDeliverableSubmitted|object|Contains the data defined in [TaskDeliverableSubmitted](#events-TaskDeliverableSubmitted)|
 
 ### `submitTaskWorkRating.send({ taskId, role, secret }, options)`
 
@@ -621,6 +683,30 @@ An instance of a `ContractResponse`
 
 
 
+### `submitTaskDeliverableAndRating.send({ taskId, deliverableHash, secret }, options)`
+
+Submit the task deliverable for the worker and the rating for the manager.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|taskId|number|The task ID.|
+|deliverableHash|IPFS hash|IPFS hash of the work performed.|
+|secret|Hex string|hidden work rating, generated as the output of `generateSecret(_salt, _rating)`, where `_rating` is a score from 1-3.|
+
+**Returns**
+
+An instance of a `ContractResponse` which will eventually receive the following event data:
+
+|Event data|Type|Description|
+|---|---|---|
+|taskId|number|The task ID.|
+|taskId|number|The task ID.|
+|deliverableHash|IPFS hash|The IPFS hash of the deliverable.|
+|TaskCompleted|object|Contains the data defined in [TaskCompleted](#events-TaskCompleted)|
+|TaskDeliverableSubmitted|object|Contains the data defined in [TaskDeliverableSubmitted](#events-TaskDeliverableSubmitted)|
+
 ### `revealTaskWorkRating.send({ taskId, role, rating, salt }, options)`
 
 Reveals a previously submitted work rating, by proving that the `_rating` and `_salt` values result in the same `secret` submitted during the rating submission period. This is checked on-chain using the `generateSecret` function.
@@ -636,9 +722,14 @@ Reveals a previously submitted work rating, by proving that the `_rating` and `_
 
 **Returns**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse` which will eventually receive the following event data:
 
-
+|Event data|Type|Description|
+|---|---|---|
+|taskId|number|The task ID.|
+|role|Role|The role of the work rating.|
+|rating|number|The rating value.|
+|TaskWorkRatingRevealed|object|Contains the data defined in [TaskWorkRatingRevealed](#events-TaskWorkRatingRevealed)|
 
 ### `assignWorkRating.send({ taskId }, options)`
 
@@ -847,9 +938,12 @@ Start the next reward payout for `token`. All funds in the reward pot for `token
 
 **Returns**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse` which will eventually receive the following event data:
 
-
+|Event data|Type|Description|
+|---|---|---|
+|payoutId|number|The payout ID logged when a new reward payout cycle has started.|
+|RewardPayoutCycleStarted|object|Contains the data defined in [RewardPayoutCycleStarted](#events-RewardPayoutCycleStarted)|
 
 ### `waiveRewardPayouts.send({ numPayouts }, options)`
 
@@ -860,6 +954,55 @@ Waive reward payout. This unlocks the sender's tokens and increments the users r
 |Argument|Type|Description|
 |---|---|---|
 |numPayouts|number|Number of payouts to waive.|
+
+**Returns**
+
+An instance of a `ContractResponse`
+
+
+
+### `setStorageSlotRecovery.send({ slot, value }, options)`
+
+Update the value of an arbitrary storage variable. This can only be called by a user with the recovery role. Certain critical variables are protected from editing in this function.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|slot|number|Address of storage slot to be updated.|
+|value|Hex string|Word of data to be set.|
+
+**Returns**
+
+An instance of a `ContractResponse`
+
+
+
+### `setToken.send({ token }, options)`
+
+Set the colony token. Secured function to authorised members. Note that if the `mint` functionality is to be controlled through the colony, control has to be transferred to the colony after this call.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|token|Address|Address of the token contract to use.|
+
+**Returns**
+
+An instance of a `ContractResponse`
+
+
+
+### `upgrade.send({ newVersion }, options)`
+
+Upgrades the colony to a new Colony contract version. Downgrades are not allowed (i.e. `newVersion` should be higher than the currect colony version).
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|newVersion|number||
 
 **Returns**
 
@@ -1044,6 +1187,17 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |specificationHash|string|The IPFS hash of the task's new specification.|
 
 
+### [events.TaskCompleted.addListener(({ taskId }) => { /* ... */ })](#events-TaskCompleted)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|taskId|number|The task ID.|
+
+
 ### [events.TaskDueDateChanged.addListener(({ taskId, dueDate }) => { /* ... */ })](#events-TaskDueDateChanged)
 
 
@@ -1106,6 +1260,31 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |amount|number|The token amount.|
 
 
+### [events.TaskDeliverableSubmitted.addListener(({ taskId, deliverableHash }) => { /* ... */ })](#events-TaskDeliverableSubmitted)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|taskId|number|The task ID.|
+|deliverableHash|IPFS hash|The IPFS hash of the deliverable.|
+
+
+### [events.TaskWorkRatingRevealed.addListener(({ taskId, role, rating }) => { /* ... */ })](#events-TaskWorkRatingRevealed)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|taskId|number|The task ID.|
+|role|Role|The role of the work rating.|
+|rating|number|The rating value.|
+
+
 ### [events.TaskFinalized.addListener(({ taskId }) => { /* ... */ })](#events-TaskFinalized)
 
 
@@ -1126,3 +1305,14 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |Argument|Type|Description|
 |---|---|---|
 |taskId|number|The task ID of the task that was canceled.|
+
+
+### [events.RewardPayoutCycleStarted.addListener(({ payoutId }) => { /* ... */ })](#events-RewardPayoutCycleStarted)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|payoutId|number|The payout ID logged when a new reward payout cycle has started.|
