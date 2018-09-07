@@ -11,7 +11,7 @@ export type ParamTypes =
   | 'tokenAddress'
   | 'string';
 
-// [param name, param type, default value (optional)]
+// [param name, param type]
 export type Param = [string, ParamTypes];
 export type Params = Array<Param>;
 
