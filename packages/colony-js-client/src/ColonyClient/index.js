@@ -486,9 +486,9 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-  Sets the skill tag associated with the task. Currently there is only one skill tag available per task, but additional skills for tasks are planned in future implementations. This can only be called by the manager of the task.
+  Sets the skill tag associated with the task. Currently there is only one skill tag available per task, but additional skills for tasks are planned in future implementations. This can only be called by the manager and worker of the task.
   */
-  setTaskSkill: ColonyClient.Sender<
+  setTaskSkill: ColonyClient.MultisigSender<
     {
       taskId: number, // Integer taskId.
       skillId: number, // Integer skillId.
@@ -525,9 +525,9 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Sets the payout given to the MANAGER role when the task is finalized. This Sender can only be called by the manager for the task in question.
+    Sets the payout given to the MANAGER role when the task is finalized. This MultisigSender only requires one signature (from the manager).
   */
-  setTaskManagerPayout: ColonyClient.Sender<
+  setTaskManagerPayout: ColonyClient.MultisigSender<
     {
       taskId: number, // Integer taskId.
       token: TokenAddress, // Address to send funds from, e.g. the token's contract address, or empty address (`0x0` for Ether)
@@ -1070,13 +1070,6 @@ export default class ColonyClient extends ContractClient {
     this.addSender('setTaskDomain', {
       input: [['taskId', 'number'], ['domainId', 'number']],
     });
-    this.addSender('setTaskManagerPayout', {
-      input: [
-        ['taskId', 'number'],
-        ['token', 'tokenAddress'],
-        ['amount', 'bigNumber'],
-      ],
-    });
     this.addSender('setAllTaskPayouts', {
       input: [
         ['taskId', 'number'],
@@ -1091,9 +1084,6 @@ export default class ColonyClient extends ContractClient {
     });
     this.addSender('setToken', {
       input: [['token', 'tokenAddress']],
-    });
-    this.addSender('setTaskSkill', {
-      input: [['taskId', 'number'], ['skillId', 'number']],
     });
     this.addSender('submitTaskDeliverable', {
       input: [['taskId', 'number'], ['deliverableHash', 'ipfsHash']],
@@ -1165,6 +1155,16 @@ export default class ColonyClient extends ContractClient {
         nonceFunctionName: 'getTaskChangeNonce',
         nonceInput: [['taskId', 'number']],
       });
+    makeExecuteTaskChange(
+      'setTaskSkill',
+      [['skillId', 'number']],
+      [MANAGER_ROLE, WORKER_ROLE],
+    );
+    makeExecuteTaskChange(
+      'setTaskManagerPayout',
+      [['token', 'tokenAddress'], ['amount', 'bigNumber']],
+      [MANAGER_ROLE, WORKER_ROLE],
+    );
     makeExecuteTaskChange(
       'setTaskBrief',
       [['specificationHash', 'ipfsHash']],
