@@ -4,7 +4,7 @@ const createColony = async (networkClient, tokenAddress) => {
   // Create a colony with the given token
   const {
     eventData: { colonyAddress, colonyId }
-  } = await networkClient.createColony.send({ tokenAddress });
+  } = await networkClient.createColony.send({ tokenAddress }, { gasLimit: 4432466 });
 
   // Check out the logs to see our new colony address
   console.log('Colony Address:', colonyAddress);
