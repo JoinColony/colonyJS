@@ -185,7 +185,7 @@ Your colony's token is an important component in the [reputation system](/colony
 await colonyClient.token.setOwner.send({ owner: colonyClient.contract.address });
 
 // Add yourself as an admin
-await colonyClient.authority.setUserRole.send({ user: wallet.address, role: 'ADMIN' });
+await colonyClient.authority.setAdminRole.send({ user: wallet.address });
 
 // Mint some tokens
 await colonyClient.mintTokens.send({ amount: new BigNumber(1000) });
