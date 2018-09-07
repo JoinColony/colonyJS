@@ -1,6 +1,6 @@
 {
-    "logo": "img/colonyStarter_combomark.svg",
-    "logoSmall": "img/colonyStarter_wordmark.svg",
+    "logo": "img/colonyStarter_color.svg",
+    "logoSmall": "img/colonyStarter_color.svg",
     "sectionOrder": ["Docs", "Packages"],
     "description": "colonyStarter includes a variety of starter projects that demonstrate how to use and integrate different tools with Colony."
 }
