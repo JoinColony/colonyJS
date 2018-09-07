@@ -57,7 +57,8 @@ const PARAM_TYPE_MAP: {
   },
   date: {
     validate(value: any) {
-      return value instanceof Date && !!value.valueOf();
+      // XXX This allows dates initialised without a value (or with `0` value)
+      return value instanceof Date;
     },
     convertOutput(value: any) {
       const converted = parseInt(
