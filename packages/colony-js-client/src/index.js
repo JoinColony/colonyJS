@@ -13,6 +13,10 @@ export {
   OWNER_ROLE,
   ROLES,
   WORKER_ROLE,
+  ACTIVE_TASK_STATUS,
+  CANCELLED_TASK_STATUS,
+  FINALIZED_TASK_STATUS,
+  TASK_STATUSES,
 } from './constants';
 
 export default ColonyNetworkClient;
