@@ -2,6 +2,9 @@
 
 ## v.NEXT
 
+
+## v1.6.0
+
 **Maintenance**
 
 * General updates for interacting with ColonyNetwork contracts.
