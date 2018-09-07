@@ -7,7 +7,8 @@ This project includes example scripts also found in the [Get Started](https://jo
 ## Prerequisites
 
 - Yarn
-- Node 9.5
+- Docker
+- Node 9.10
 
 _You may find it helpful to use Node Version Manager (`nvm`) to manage node versions._
 

@@ -4,7 +4,7 @@
   "description": "A simple starter project for building with Colony",
   "license": "MIT",
   "engines": {
-    "node": "9.5"
+    "node": "9.10"
   },
   "publishConfig": {
     "access": "public"

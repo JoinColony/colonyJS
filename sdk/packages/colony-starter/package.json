@@ -4,7 +4,7 @@
   "description": "A global command for creating starter projects",
   "license": "MIT",
   "engines": {
-    "node": "9.5"
+    "node": "9.10"
   },
   "publishConfig": {
     "access": "public"
