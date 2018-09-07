@@ -17,7 +17,7 @@ const signTaskWorkerPayout = async (colonyClient, taskId) => {
     if (
       operation.payload.sourceAddress === colonyClient._contract.address &&
       operation.payload.inputValues.taskId === taskId &&
-      operation.requiredSignees.includes(colonyClient.adapter.wallet.address)
+      operation.requiredSignees.includes(colonyClient.adapter.wallet.address.toLowerCase())
     ) {
 
       // Sign the operation

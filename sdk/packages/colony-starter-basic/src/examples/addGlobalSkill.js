@@ -6,9 +6,10 @@ const addGlobalSkill = async (networkClient, parentSkillId) => {
   const metaColonyClient = await networkClient.getMetaColonyClient();
 
   // Add a new global skill with the given parentSkillId
-  const {
-    eventData: { skillId }
-  } = await metaColonyClient.addGlobalSkill.send({ parentSkillId });
+  await metaColonyClient.addGlobalSkill.send({ parentSkillId });
+
+  // Get the id of the skill we just created
+  const { count: skillId } = await networkClient.getSkillCount.call();
 
   // Get our new global skill
   const skill = await networkClient.getSkill.call({ skillId });

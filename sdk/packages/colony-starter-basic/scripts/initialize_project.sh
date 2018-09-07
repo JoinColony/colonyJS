@@ -27,7 +27,7 @@ cd src/lib/colonyNetwork
 
 # Set colonyNework version
 log "Checking out colonyNetwork version..."
-git -c advice.detachedHead=false checkout e82710813605a929e55236879fbb44585d1761ae
+git -c advice.detachedHead=false checkout 8b474df37d6d7e577e49c7bbf3bb2c3280437984
 
 # Initialize colonyNetwork submodule
 log "Initializing colonyNetwork submodule..."

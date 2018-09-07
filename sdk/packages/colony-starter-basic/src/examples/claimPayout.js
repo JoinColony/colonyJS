@@ -1,15 +1,15 @@
 // An example using the claimPayout method
 const claimPayout = async (colonyClient, taskId, role, token) => {
 
-  // Claim the task the payout for the given task and role
-  const claimPayout = await colonyClient.claimPayout.send({
+  // Get the task payout for the given task and role
+  const taskPayout = await colonyClient.getTaskPayout.call({
     taskId,
     role,
     token,
   });
 
-  // Get the task payout for the given task and role
-  const taskPayout = await colonyClient.getTaskPayout.call({
+  // Claim the task the payout for the given task and role
+  const claimPayout = await colonyClient.claimPayout.send({
     taskId,
     role,
     token,
