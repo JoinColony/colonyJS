@@ -1,6 +1,6 @@
 {
     "name": "@colony/colony-js-adapter",
-    "version": "1.5.4",
+    "version": "1.6.0",
     "description": "ColonyContract adapter interfaces",
     "main": "index.js",
     "files": [
