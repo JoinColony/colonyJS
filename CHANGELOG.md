@@ -5,6 +5,11 @@
 **Bug fixes**
 
 * Increase the default gas limit for colony creation.
+* Define `ColonyClient.setTaskSkill` as a `MultisigSender` (`@colony/colony-js-client`)
+
+**Documentation**
+
+* Improve documentation for `ColonyClient.setTaskManagerPayout` (`@colony/colony-js-client`)
 
 ## v1.6.0
 
