@@ -26,7 +26,8 @@ _Learn to build with Colony! Get a head start on your next project!_ Colony Star
 ### Prerequisites
 
 - Yarn
-- Node 9.5
+- Docker
+- Node 9.10
 
 _Note: You may find it helpful to use Node Version Manager (`nvm`) to manage node versions._
 

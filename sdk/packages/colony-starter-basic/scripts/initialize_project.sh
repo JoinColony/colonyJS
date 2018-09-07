@@ -18,6 +18,9 @@ git init
 log "Adding gitignore file..."
 echo "node_modules" >> .gitignore
 
+log "Pulling docker image..."
+docker pull ethereum/solc:0.4.23
+
 # Add colonyNetwork submodule
 log "Adding colonyNetwork submodule..."
 git submodule add https://github.com/JoinColony/colonyNetwork src/lib/colonyNetwork

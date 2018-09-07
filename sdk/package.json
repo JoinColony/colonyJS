@@ -4,7 +4,7 @@
     "packages/*"
   ],
   "engines": {
-    "node": "9.5"
+    "node": "9.10"
   },
   "scripts": {
     "postinstall": "sh scripts/postinstall.sh",
