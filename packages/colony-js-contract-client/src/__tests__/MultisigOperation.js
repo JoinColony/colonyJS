@@ -197,7 +197,7 @@ describe('MultisigOperation', () => {
 
     expect(assert).toHaveBeenCalledWith(
       true,
-      expect.stringContaining('Missing signatures (from addresses'),
+      expect.stringContaining('Missing signatures (from address'),
     );
 
     expect(valid).toBe(true);
@@ -217,7 +217,7 @@ describe('MultisigOperation', () => {
 
     expect(assert).toHaveBeenCalledWith(
       false,
-      `Missing signatures (from addresses ${addressThree})`,
+      `Missing signatures (from address ${addressThree})`,
     );
   });
 
@@ -423,7 +423,10 @@ describe('MultisigOperation', () => {
 
     op._addSignature(signature, address);
 
-    expect(op._signers).toEqual({ [address]: { ...signature, ...mode } });
+    expect(op._signers).toEqual({
+      // The address should have been converted to lowercase
+      [address.toLowerCase()]: { ...signature, ...mode },
+    });
     expect(op._findSignatureMode).toHaveBeenCalled();
   });
 

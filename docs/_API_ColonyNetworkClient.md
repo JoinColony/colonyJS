@@ -311,8 +311,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|skillId|number|Id of the added skill|
-|parentSkillId|number|Id of the parent skill under which the new skill is added|
+|skillId|number||
+|parentSkillId|number||
+|SkillAdded|object|Contains the data defined in [SkillAdded](#events-SkillAdded)|
 
 ### `setTokenLocking.send({ tokenLockingAddress }, options)`
 

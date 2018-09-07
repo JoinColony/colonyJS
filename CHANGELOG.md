@@ -2,6 +2,10 @@
 
 ## v.NEXT
 
+**Maintenance**
+
+* General updates for interacting with ColonyNetwork contracts.
+
 **Enhancements**
 
 * All events logged during method calls are now parsed according to their specifications on the `ContractClient`, without specifying event handlers (`@colony/colony-js-adapter-ethers`, `@colony/colony-js-contract-client`, `@colony/colony-js-client`)

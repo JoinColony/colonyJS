@@ -229,9 +229,12 @@ export default class MultisigOperation<
    * this operation).
    */
   _validateRequiredSignees() {
+    const missing = this.missingSignees;
     defaultAssert(
-      this.missingSignees.length === 0,
-      `Missing signatures (from addresses ${this.missingSignees.join(', ')})`,
+      missing.length === 0,
+      `Missing signatures (from address${
+        missing.length > 1 ? 'es' : ''
+      } ${missing.join(', ')})`,
     );
     return true;
   }
@@ -251,10 +254,11 @@ export default class MultisigOperation<
    * add the address/signature to the signers.
    */
   _addSignature(signature: Signature, address: string) {
-    const mode = this._findSignatureMode(signature, address);
+    const normalisedAddress = address.toLowerCase();
+    const mode = this._findSignatureMode(signature, normalisedAddress);
 
     this._signers = Object.assign({}, this._signers, {
-      [address]: {
+      [normalisedAddress]: {
         mode,
         ...signature,
       },

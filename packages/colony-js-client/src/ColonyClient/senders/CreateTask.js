@@ -7,6 +7,8 @@ import type ColonyClient from '../index';
 type InputValues = {
   specificationHash: string,
   domainId: number,
+  skillId: number,
+  dueDate: Date,
 };
 
 type OutputValues = {

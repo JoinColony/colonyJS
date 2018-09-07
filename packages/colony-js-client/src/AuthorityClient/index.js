@@ -65,7 +65,10 @@ export default class AuthorityClient extends ContractClient {
       output: [['hasRole', 'boolean']],
     });
     this.addSender('setUserRole', {
-      input: [user, role, ['enabled', 'boolean', true]],
+      input: [user, role, ['enabled', 'boolean']],
+      defaultValues: {
+        enabled: true,
+      },
     });
   }
 }
