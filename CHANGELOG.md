@@ -2,6 +2,9 @@
 
 ## v.NEXT
 
+**Bug fixes**
+
+* Increase the default gas limit for colony creation.
 
 ## v1.6.0
 

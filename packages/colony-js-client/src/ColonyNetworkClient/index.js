@@ -418,11 +418,11 @@ export default class ColonyNetworkClient extends ContractClient {
     });
     this.addSender('createMetaColony', {
       input: [['tokenAddress', 'address']],
-      defaultGasLimit: 2500000,
+      defaultGasLimit: 4000000,
     });
     this.addSender('createColony', {
       input: [['tokenAddress', 'address']],
-      defaultGasLimit: 2500000,
+      defaultGasLimit: 4000000,
     });
     this.addSender('addColonyVersion', {
       input: [['version', 'number'], ['resolver', 'address']],
