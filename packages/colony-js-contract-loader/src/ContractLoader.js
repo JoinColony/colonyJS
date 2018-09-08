@@ -19,6 +19,7 @@ const validateField = (assertion, field) =>
   );
 
 export default class ContractLoader {
+  _network: ?string;
   _transform: Transform;
 
   /**

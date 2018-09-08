@@ -32,6 +32,7 @@ export type ConstructorArgs = {
 };
 
 export interface ContractLoader {
+  _network: ?string;
   _load(
     query: Query,
     requiredProps?: RequiredContractProps,
