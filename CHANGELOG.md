@@ -2,6 +2,10 @@
 
 ## v.NEXT
 
+**New features**
+
+* Add `getReputation` methods to `ColonyClient` and `ColonyNetworkClient` (currently only availble for Rinkeby) (`@colony/colony-js-client`)
+
 ## v1.6.1
 
 **Bug fixes**
