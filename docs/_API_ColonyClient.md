@@ -573,27 +573,6 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |domainId|number|The task's new domain ID.|
 |TaskDomainChanged|object|Contains the data defined in [TaskDomainChanged](#events-TaskDomainChanged)|
 
-### `setTaskSkill.send({ taskId, skillId }, options)`
-
-Sets the skill tag associated with the task. Currently there is only one skill tag available per task, but additional skills for tasks are planned in future implementations. This can only be called by the manager of the task.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|taskId|number|Integer taskId.|
-|skillId|number|Integer skillId.|
-
-**Returns**
-
-An instance of a `ContractResponse` which will eventually receive the following event data:
-
-|Event data|Type|Description|
-|---|---|---|
-|taskId|number|The task ID.|
-|skillId|number|The task's new skill ID.|
-|TaskSkillChanged|object|Contains the data defined in [TaskSkillChanged](#events-TaskSkillChanged)|
-
 ### `setAllTaskPayouts.send({ taskId, token, managerAmount, evaluatorAmount, workerAmount }, options)`
 
 Set the payouts for the task manager, evaluator and worker in one transaction, for a specific token address. This can only be called by the task manager, and only if the evaluator and worker roles are either unassigned or the same as the manager.
@@ -607,29 +586,6 @@ Set the payouts for the task manager, evaluator and worker in one transaction, f
 |managerAmount|BigNumber|Payout amount for the manager.|
 |evaluatorAmount|BigNumber|Payout amount for the evaluator.|
 |workerAmount|BigNumber|Payout amount for the worker.|
-
-**Returns**
-
-An instance of a `ContractResponse` which will eventually receive the following event data:
-
-|Event data|Type|Description|
-|---|---|---|
-|taskId|number|The task ID.|
-|token|Token address|The token address (0x indicates ether).|
-|amount|number|The token amount.|
-|TaskWorkerPayoutChanged|object|Contains the data defined in [TaskWorkerPayoutChanged](#events-TaskWorkerPayoutChanged)|
-
-### `setTaskManagerPayout.send({ taskId, token, amount }, options)`
-
-Sets the payout given to the MANAGER role when the task is finalized. This Sender can only be called by the manager for the task in question.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|taskId|number|Integer taskId.|
-|token|Token address|Address to send funds from, e.g. the token's contract address, or empty address (`0x0` for Ether)|
-|amount|BigNumber|Amount to be paid.|
 
 **Returns**
 
@@ -1078,9 +1034,53 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |user|Address|The user with the role that changed for the task.|
 |TaskRoleUserChanged|object|Contains the data defined in [TaskRoleUserChanged](#events-TaskRoleUserChanged)|
 
+### `setTaskSkill.startOperation({ taskId, skillId })`
+
+Sets the skill tag associated with the task. Currently there is only one skill tag available per task, but additional skills for tasks are planned in future implementations. This can only be called by the manager and worker of the task.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|taskId|number|Integer taskId.|
+|skillId|number|Integer skillId.|
+
+**Returns**
+
+An instance of a `MultiSigOperation` whose sender will eventually receive the following event data:
+
+|Event Data|Type|Description|
+|---|---|---|
+|taskId|number|The task ID.|
+|skillId|number|The task's new skill ID.|
+|TaskSkillChanged|object|Contains the data defined in [TaskSkillChanged](#events-TaskSkillChanged)|
+
 ### `setTaskEvaluatorPayout.startOperation({ taskId, token, amount })`
 
 Sets the payout given to the EVALUATOR role when the task is finalized.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|taskId|number|Integer taskId.|
+|token|Token address|Address to send funds from, e.g. the token's contract address, or empty address (`0x0` for Ether)|
+|amount|BigNumber|Amount to be paid.|
+
+**Returns**
+
+An instance of a `MultiSigOperation` whose sender will eventually receive the following event data:
+
+|Event Data|Type|Description|
+|---|---|---|
+|taskId|number|The task ID.|
+|token|Token address|The token address (0x indicates ether).|
+|amount|number|The token amount.|
+|TaskWorkerPayoutChanged|object|Contains the data defined in [TaskWorkerPayoutChanged](#events-TaskWorkerPayoutChanged)|
+
+### `setTaskManagerPayout.startOperation({ taskId, token, amount })`
+
+Sets the payout given to the MANAGER role when the task is finalized. This MultisigSender only requires one signature (from the manager).
 
 **Arguments**
 
