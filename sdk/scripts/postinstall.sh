@@ -10,6 +10,10 @@ log() {
   echo "${CYAN}$1${NONE}"
 }
 
+# Pull docker image
+log "Pulling docker image..."
+docker pull ethereum/solc:0.4.23
+
 # Initialize colonyNetwork submodule
 log "Initializing colonyNetwork submodule..."
 git submodule update --init --recursive
