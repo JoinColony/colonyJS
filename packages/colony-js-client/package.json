@@ -49,6 +49,7 @@
         "assert": "^1.4.1",
         "babel-runtime": "^6.26.0",
         "bn.js": "^4.11.6",
+        "isomorphic-fetch": "^2.2.1",
         "web3-utils": "^1.0.0-beta.34"
     },
     "engines": {

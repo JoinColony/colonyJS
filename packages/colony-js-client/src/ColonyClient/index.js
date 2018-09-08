@@ -1249,4 +1249,27 @@ export default class ColonyClient extends ContractClient {
       return null;
     });
   }
+
+  async getReputation({
+    skillId = 1,
+    user,
+  }: {
+    skillId: number,
+    user: Address,
+  } = {}) {
+    assert(Number.isFinite(skillId), 'skillId must be a number');
+    assert(isValidAddress(user), 'user must be an address');
+
+    if (this.network !== 'rinkeby')
+      throw new Error(
+        'Reputation is currently only supported for contracts on Rinkeby',
+      );
+
+    const response = await fetch(
+      `https://colony.io/reputation/${this.network}/${
+        this.contract.address
+      }]/${skillId}/${user}`,
+    );
+    return response.json();
+  }
 }
