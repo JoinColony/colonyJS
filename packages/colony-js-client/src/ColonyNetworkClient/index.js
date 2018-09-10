@@ -4,6 +4,7 @@ import assert from 'assert';
 import { utf8ToHex } from 'web3-utils';
 import { isValidAddress } from '@colony/colony-js-utils';
 import BigNumber from 'bn.js';
+import 'isomorphic-fetch';
 
 import ContractClient from '@colony/colony-js-contract-client';
 
@@ -436,5 +437,31 @@ export default class ColonyNetworkClient extends ContractClient {
     this.addSender('registerUserLabel', {
       input: [['subnode', 'string']],
     });
+  }
+
+  async getReputation({
+    colonyAddress,
+    skillId = 1,
+    user,
+  }: {
+    skillId: number,
+    colonyAddress: Address,
+    user: Address,
+  }) {
+    assert(Number.isFinite(skillId), 'skillId must be a number');
+    assert(isValidAddress(user), 'user must be an address');
+    assert(isValidAddress(colonyAddress), 'colonyAddress must be an address');
+
+    if (this.network !== 'rinkeby')
+      throw new Error(
+        'Reputation is currently only supported for contracts on Rinkeby',
+      );
+
+    const response = await fetch(
+      `https://colony.io/reputation/${
+        this.network
+      }/${colonyAddress}]/${skillId}/${user}`,
+    );
+    return response.json();
   }
 }

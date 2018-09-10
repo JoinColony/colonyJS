@@ -15,6 +15,7 @@ import type { ConstructorArgs } from '../flowtypes';
 
 export default class HttpLoader extends ContractLoader
   implements IContractLoader {
+  _network: ?string;
   _endpoint: string;
 
   constructor({ endpoint, transform }: ConstructorArgs = {}) {

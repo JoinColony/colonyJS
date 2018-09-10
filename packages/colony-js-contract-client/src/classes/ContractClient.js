@@ -68,6 +68,11 @@ export default class ContractClient {
     return this._contract;
   }
 
+  get network() {
+    // eslint-disable-next-line no-underscore-dangle
+    return this.adapter.loader._network || this._query.network;
+  }
+
   async init() {
     if (this._contract) throw new Error('ContractClient already initialized');
 
