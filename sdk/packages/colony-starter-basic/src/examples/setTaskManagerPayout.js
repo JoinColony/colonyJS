@@ -1,28 +1,24 @@
 // Import big number library
 const BN = require('bn.js');
 
-// An example using the setTaskManagerPayout method
+// An example using the setTaskManagerPayout operation
 const setTaskManagerPayout = async (colonyClient, taskId, amount, token) => {
 
-  // Set task manager payout
-  await colonyClient.setTaskManagerPayout.send({
+  // Start set task manager payout operation
+  const operation = await colonyClient.setTaskManagerPayout.startOperation({
     taskId,
     token,
     amount: new BN(amount),
   })
 
-  // Get the task manager payout
-  const payout = await colonyClient.getTaskPayout.call({
-    taskId,
-    role: 'MANAGER',
-    token,
-  });
+  // Check out the logs to see the operation required signees
+  console.log('Required Signees:', operation.requiredSignees);
 
-  // Check out the logs to see the task manager payout
-  console.log('Task Payout Amount:', payout.amount.toNumber());
+  // Serialize operation into JSON format
+  const operationJSON = operation.toJSON()
 
-  // Return the task manager payout
-  return payout;
+  // Store task manager payout operation in mock database
+  DATABASE.setTaskManagerPayoutOperationJSON = operationJSON;
 
 }
 

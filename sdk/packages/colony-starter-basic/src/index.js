@@ -22,6 +22,7 @@ const setTaskWorkerRole = require('./examples/setTaskWorkerRole');
 const setTokenOwner = require('./examples/setTokenOwner');
 const signTaskBrief = require('./examples/signTaskBrief');
 const signTaskEvaluatorPayout = require('./examples/signTaskEvaluatorPayout');
+const signTaskManagerPayout = require('./examples/signTaskManagerPayout');
 const signTaskWorkerPayout = require('./examples/signTaskWorkerPayout');
 const signTaskWorkerRole = require('./examples/signTaskWorkerRole');
 const signTaskDueDate = require('./examples/signTaskDueDate');
@@ -145,7 +146,7 @@ const colonyStarterBasic = async () => {
   // new task within the root domain, using "1" for the "domainId", but here we
   // will use the "domainId" of our new domain, which has a value of "2".
   state.task = await createTask(
-    state.colonyClient[0],          // colonyClient 
+    state.colonyClient[0],          // colonyClient
     state.domain.id,                // domainId
     {
       title: 'New Task Title',                  // title
@@ -229,16 +230,27 @@ const colonyStarterBasic = async () => {
   );
 
   // TODO: re-implement when colonyJS is updated
-  // console.log('\n\x1b[32m' + 'account[0] setTaskManagerPayout:' + '\x1b[0m\n');
+  console.log('\n\x1b[32m' + 'account[0] setTaskManagerPayout:' + '\x1b[0m\n');
 
-  // // Set the amount of tokens we want to payout the manager of our task using
-  // // the "setTaskManagerPayout" example.
-  // await setTaskManagerPayout(
-  //   state.colonyClient[0],          // colonyClient
-  //   state.task.id,                  // taskId
-  //   10,                             // amount
-  //   state.tokenAddress,             // token
-  // );
+  // Set the amount of tokens we want to payout the manager of our task using
+  // the "setTaskManagerPayout" example.
+  await setTaskManagerPayout(
+    state.colonyClient[0],          // colonyClient
+    state.task.id,                  // taskId
+    10,                             // amount
+    state.tokenAddress,             // token
+  );
+
+  console.log('\n\x1b[32m' + 'account[0] signTaskManagerPayout:' + '\x1b[0m\n');
+
+  // Sign the multisig operation associated with our changes to the manager
+  // payout using the "signTaskManagerPayout" example. The requested changes
+  // were made before we assigned a manager to our task, so the changes will
+  // only need to be approved by the current manager of the task.
+  await signTaskManagerPayout(
+    state.colonyClient[0],          // colonyClient
+    state.task.id,                  // taskId
+  );
 
   console.log('\n\x1b[32m' + 'account[0] setTaskEvaluatorPayout:' + '\x1b[0m\n');
 
