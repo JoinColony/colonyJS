@@ -1,19 +1,19 @@
-// An example using the setTaskWorkerPayout operation
-const signTaskWorkerPayout = async (colonyClient, taskId) => {
+// An example using the setTaskEvaluatorRole operation
+const signSetTaskEvaluatorRole = async (colonyClient, taskId) => {
 
   // Get JSON formatted operation from the mock database
-  const operationJSON = DATABASE.operations.setTaskWorkerPayout;
+  const operationJSON = DATABASE.operations.setTaskEvaluatorRole;
 
   // Check the operation
   if (operationJSON) {
 
     // Restore operation
-    const operation = await colonyClient.setTaskWorkerPayout.restoreOperation(
+    const operation = await colonyClient.setTaskEvaluatorRole.restoreOperation(
       operationJSON,
     );
 
-    // Check if the operation matches the colony contract and the task id and
-    // check if current account is required to sign the operation.
+    // Check if the operation matches the colony contract and task id and if
+    // the current account is one of the required signees for the operation.
     if (
       operation.payload.sourceAddress === colonyClient._contract.address &&
       operation.payload.inputValues.taskId === taskId &&
@@ -30,7 +30,7 @@ const signTaskWorkerPayout = async (colonyClient, taskId) => {
         await operation.send();
 
         // Update the operation in the mock database
-        DATABASE.operations.setTaskWorkerPayout = null;
+        DATABASE.operations.setTaskEvaluatorRole = null;
 
       } else {
 
@@ -41,7 +41,7 @@ const signTaskWorkerPayout = async (colonyClient, taskId) => {
         const operationJSON = operation.toJSON();
 
         // Store the operation in the mock database
-        DATABASE.operations.setTaskWorkerPayout = operationJSON;
+        DATABASE.operations.setTaskEvaluatorRole = operationJSON;
 
       }
 
@@ -60,20 +60,19 @@ const signTaskWorkerPayout = async (colonyClient, taskId) => {
 
   }
 
-  // Get the task worker payout
-  const payout = await colonyClient.getTaskPayout.call({
+  // Get the task evaluator role
+  const taskRole = await colonyClient.getTaskRole.call({
     taskId,
-    role: 'WORKER',
-    token: colonyClient.token._contract.address,
+    role: 'EVALUATOR',
   });
 
-  // Check out the logs to see the task worker payout
-  console.log('Task Payout Amount:', payout.amount.toNumber());
+  // Check out the logs to see the task evaluator role
+  console.log('Task Role:', taskRole);
 
-  // Return the task worker payout
-  return payout;
+  // Return the task evaluator role
+  return taskRole;
 
 }
 
-// Export signTaskWorkerPayout example
-module.exports = signTaskWorkerPayout;
+// Export signSetTaskEvaluatorRole example
+module.exports = signSetTaskEvaluatorRole;

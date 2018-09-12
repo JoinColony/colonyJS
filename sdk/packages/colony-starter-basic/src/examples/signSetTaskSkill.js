@@ -1,14 +1,14 @@
-// An example using the setTaskBrief operation
-const signTaskBrief = async (colonyClient, taskId) => {
+// An example using the setTaskSkill operation
+const signSetTaskSkill = async (colonyClient, taskId) => {
 
   // Get JSON formatted operation from the mock database
-  const operationJSON = DATABASE.operations.setTaskBrief;
+  const operationJSON = DATABASE.operations.setTaskSkill;
 
   // Check the operation
   if (operationJSON) {
 
     // Restore operation
-    const operation = await colonyClient.setTaskBrief.restoreOperation(
+    const operation = await colonyClient.setTaskSkill.restoreOperation(
       operationJSON,
     );
 
@@ -30,7 +30,7 @@ const signTaskBrief = async (colonyClient, taskId) => {
         await operation.send();
 
         // Update the operation in the mock database
-        DATABASE.operations.setTaskBrief = null;
+        DATABASE.operations.setTaskSkill = null;
 
       } else {
 
@@ -41,7 +41,7 @@ const signTaskBrief = async (colonyClient, taskId) => {
         const operationJSON = operation.toJSON();
 
         // Store the operation in the mock database
-        DATABASE.operations.setTaskBrief = operationJSON;
+        DATABASE.operations.setTaskSkill = operationJSON;
 
       }
 
@@ -71,5 +71,5 @@ const signTaskBrief = async (colonyClient, taskId) => {
 
 }
 
-// Export signTaskBrief example
-module.exports = signTaskBrief;
+// Export signSetTaskSkill example
+module.exports = signSetTaskSkill;

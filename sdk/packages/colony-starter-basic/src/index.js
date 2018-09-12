@@ -23,14 +23,14 @@ const setTaskWorkerPayout = require('./examples/setTaskWorkerPayout');
 const setTaskWorkerRole = require('./examples/setTaskWorkerRole');
 const setTokenOwner = require('./examples/setTokenOwner');
 const signRemoveTaskEvaluatorRole = require('./examples/signRemoveTaskEvaluatorRole');
-const signTaskBrief = require('./examples/signTaskBrief');
-const signTaskEvaluatorPayout = require('./examples/signTaskEvaluatorPayout');
-const signTaskEvaluatorRole = require('./examples/signTaskEvaluatorRole');
-const signTaskManagerPayout = require('./examples/signTaskManagerPayout');
-const signTaskSkill = require('./examples/signTaskSkill');
-const signTaskWorkerPayout = require('./examples/signTaskWorkerPayout');
-const signTaskWorkerRole = require('./examples/signTaskWorkerRole');
-const signTaskDueDate = require('./examples/signTaskDueDate');
+const signSetTaskBrief = require('./examples/signSetTaskBrief');
+const signSetTaskEvaluatorPayout = require('./examples/signSetTaskEvaluatorPayout');
+const signSetTaskEvaluatorRole = require('./examples/signSetTaskEvaluatorRole');
+const signSetTaskManagerPayout = require('./examples/signSetTaskManagerPayout');
+const signSetTaskSkill = require('./examples/signSetTaskSkill');
+const signSetTaskWorkerPayout = require('./examples/signSetTaskWorkerPayout');
+const signSetTaskWorkerRole = require('./examples/signSetTaskWorkerRole');
+const signSetTaskDueDate = require('./examples/signSetTaskDueDate');
 const submitTaskDeliverable = require('./examples/submitTaskDeliverable');
 const submitTaskWorkRating = require('./examples/submitTaskWorkRating');
 
@@ -195,13 +195,13 @@ const colonyStarterBasic = async () => {
     state.skill.id,                 // skillId
   );
 
-  console.log('\n\x1b[32m' + 'account[0] signTaskSkill:' + '\x1b[0m\n');
+  console.log('\n\x1b[32m' + 'account[0] signSetTaskSkill:' + '\x1b[0m\n');
 
   // Sign the operation associated with our changes to the task skill using
-  // the "signTaskSkill" example. The requested changes were made before we
+  // the "signSetTaskSkill" example. The requested changes were made before we
   // assigned a worker to our task, so the changes only need to be approved
   // by the manager of the task, which is the account that created the task.
-  await signTaskSkill(
+  await signSetTaskSkill(
     state.colonyClient[0],          // colonyClient
     state.task.id,                  // taskId
   );
@@ -218,13 +218,13 @@ const colonyStarterBasic = async () => {
     futureDueDate,                  // dueDate
   );
 
-  console.log('\n\x1b[32m' + 'account[0] signTaskDueDate:' + '\x1b[0m\n');
+  console.log('\n\x1b[32m' + 'account[0] signSetTaskDueDate:' + '\x1b[0m\n');
 
   // Sign the operation associated with our changes to the task due date using
-  // the "signTaskDueDate" example and then store the updated task in the state
+  // the "signSetTaskDueDate" example and then store the updated task in the state
   // object. The requested changes were made before we assigned a worker to our
   // task, so the changes only need to be approved by the manager of the task.
-  await signTaskDueDate(
+  await signSetTaskDueDate(
     state.colonyClient[0],          // colonyClient
     state.task.id,                  // taskId
   );
@@ -240,13 +240,13 @@ const colonyStarterBasic = async () => {
     state.tokenAddress,             // token
   );
 
-  console.log('\n\x1b[32m' + 'account[0] signTaskManagerPayout:' + '\x1b[0m\n');
+  console.log('\n\x1b[32m' + 'account[0] signSetTaskManagerPayout:' + '\x1b[0m\n');
 
   // Sign the multisig operation associated with our changes to the manager
-  // payout using the "signTaskManagerPayout" example. The requested changes
+  // payout using the "signSetTaskManagerPayout" example. The requested changes
   // were made before we assigned a manager to our task, so the changes will
   // only need to be approved by the current manager of the task.
-  await signTaskManagerPayout(
+  await signSetTaskManagerPayout(
     state.colonyClient[0],          // colonyClient
     state.task.id,                  // taskId
   );
@@ -265,13 +265,13 @@ const colonyStarterBasic = async () => {
     state.tokenAddress,             // token
   );
 
-  console.log('\n\x1b[32m' + 'account[0] signTaskEvaluatorPayout:' + '\x1b[0m\n');
+  console.log('\n\x1b[32m' + 'account[0] signSetTaskEvaluatorPayout:' + '\x1b[0m\n');
 
   // Sign the multisig operation associated with our changes to the evaluator
-  // payout using the "signTaskEvaluatorPayout" example. The requested changes
+  // payout using the "signSetTaskEvaluatorPayout" example. The requested changes
   // were made before we assigned an evaluator to our task, so the changes will
   // only need to be approved by the manager of the task.
-  await signTaskEvaluatorPayout(
+  await signSetTaskEvaluatorPayout(
     state.colonyClient[0],          // colonyClient
     state.task.id,                  // taskId
   );
@@ -290,13 +290,13 @@ const colonyStarterBasic = async () => {
     state.tokenAddress,             // token
   );
 
-  console.log('\n\x1b[32m' + 'account[0] signTaskWorkerPayout:' + '\x1b[0m\n');
+  console.log('\n\x1b[32m' + 'account[0] signSetTaskWorkerPayout:' + '\x1b[0m\n');
 
   // Sign the multisig operation associated with our changes to the worker
-  // payout using the "signTaskWorkerPayout" example. The requested changes
+  // payout using the "signSetTaskWorkerPayout" example. The requested changes
   // were made before we assigned a worker to our task, so the changes will
   // only need to be approved by the manager of the task.
-  await signTaskWorkerPayout(
+  await signSetTaskWorkerPayout(
     state.colonyClient[0],          // colonyClient
     state.task.id,                  // taskId
   );
@@ -325,9 +325,9 @@ const colonyStarterBasic = async () => {
     accounts[1],                    // user
   );
 
-  console.log('\n\x1b[32m' + 'account[0] signTaskEvaluatorRole:' + '\x1b[0m\n');
+  console.log('\n\x1b[32m' + 'account[0] signSetTaskEvaluatorRole:' + '\x1b[0m\n');
 
-  await signTaskEvaluatorRole(
+  await signSetTaskEvaluatorRole(
     state.colonyClient[0],          // colonyClient
     state.task.id,                  // taskId
   );
@@ -341,9 +341,9 @@ const colonyStarterBasic = async () => {
     accounts[2],                    // user
   );
 
-  console.log('\n\x1b[32m' + 'account[0] signTaskWorkerRole:' + '\x1b[0m\n');
+  console.log('\n\x1b[32m' + 'account[0] signSetTaskWorkerRole:' + '\x1b[0m\n');
 
-  await signTaskWorkerRole(
+  await signSetTaskWorkerRole(
     state.colonyClient[0],          // colonyClient
     state.task.id,                  // taskId
   );
@@ -365,9 +365,9 @@ const colonyStarterBasic = async () => {
     state.colony.id,                // colonyId
   );
 
-  console.log('\n\x1b[32m' + 'account[1] signTaskWorkerRole:' + '\x1b[0m\n');
+  console.log('\n\x1b[32m' + 'account[1] signSetTaskWorkerRole:' + '\x1b[0m\n');
 
-  await signTaskWorkerRole(
+  await signSetTaskWorkerRole(
     state.colonyClient[1],          // colonyClient
     state.task.id,                  // taskId
   );
@@ -387,24 +387,24 @@ const colonyStarterBasic = async () => {
     },
   );
 
-  console.log('\n\x1b[32m' + 'account[0] signTaskBrief:' + '\x1b[0m\n');
+  console.log('\n\x1b[32m' + 'account[0] signSetTaskBrief:' + '\x1b[0m\n');
 
   // Sign the operation associated with our changes to the task specification
-  // using the "signTaskBrief" example. The requested changes were made after
+  // using the "signSetTaskBrief" example. The requested changes were made after
   // we assigned a worker to our task, so the changes will need to be singed
   // by both the manager and the worker of the task.
-  await signTaskBrief(
+  await signSetTaskBrief(
     state.colonyClient[0],          // colonyClient
     state.task.id,                  // taskId
   );
 
-  console.log('\n\x1b[32m' + 'account[1] signTaskBrief:' + '\x1b[0m\n');
+  console.log('\n\x1b[32m' + 'account[1] signSetTaskBrief:' + '\x1b[0m\n');
 
   // Sign the operation associated with our changes to the task specification
-  // using the "signTaskBrief" example. The requested changes were made after
+  // using the "signSetTaskBrief" example. The requested changes were made after
   // we assigned a worker to our task, so the changes will need to be singed
   // by both the manager and the worker of the task.
-  await signTaskBrief(
+  await signSetTaskBrief(
     state.colonyClient[1],          // colonyClient
     state.task.id,                  // taskId
   );

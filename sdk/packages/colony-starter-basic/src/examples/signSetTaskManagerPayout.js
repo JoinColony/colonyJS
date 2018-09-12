@@ -1,5 +1,5 @@
 // An example using the setTaskManagerPayout operation
-const signTaskManagerPayout = async (colonyClient, taskId) => {
+const signSetTaskManagerPayout = async (colonyClient, taskId) => {
 
   // Get JSON formatted operation from the mock database
   const operationJSON = DATABASE.operations.setTaskManagerPayout;
@@ -75,5 +75,5 @@ const signTaskManagerPayout = async (colonyClient, taskId) => {
 
 }
 
-// Export signTaskManagerPayout example
-module.exports = signTaskManagerPayout;
+// Export signSetTaskManagerPayout example
+module.exports = signSetTaskManagerPayout;

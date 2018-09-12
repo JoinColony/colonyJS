@@ -1,19 +1,19 @@
-// An example using the setTaskEvaluatorRole operation
-const signTaskEvaluatorRole = async (colonyClient, taskId) => {
+// An example using the setTaskDueDate operation
+const signSetTaskDueDate = async (colonyClient, taskId) => {
 
   // Get JSON formatted operation from the mock database
-  const operationJSON = DATABASE.operations.setTaskEvaluatorRole;
+  const operationJSON = DATABASE.operations.setTaskDueDate;
 
   // Check the operation
   if (operationJSON) {
 
     // Restore operation
-    const operation = await colonyClient.setTaskEvaluatorRole.restoreOperation(
+    const operation = await colonyClient.setTaskDueDate.restoreOperation(
       operationJSON,
     );
 
-    // Check if the operation matches the colony contract and task id and if
-    // the current account is one of the required signees for the operation.
+    // Check if the operation matches the colony contract and the task id and
+    // check if current account is required to sign the operation.
     if (
       operation.payload.sourceAddress === colonyClient._contract.address &&
       operation.payload.inputValues.taskId === taskId &&
@@ -30,7 +30,7 @@ const signTaskEvaluatorRole = async (colonyClient, taskId) => {
         await operation.send();
 
         // Update the operation in the mock database
-        DATABASE.operations.setTaskEvaluatorRole = null;
+        DATABASE.operations.setTaskDueDate = null;
 
       } else {
 
@@ -41,7 +41,7 @@ const signTaskEvaluatorRole = async (colonyClient, taskId) => {
         const operationJSON = operation.toJSON();
 
         // Store the operation in the mock database
-        DATABASE.operations.setTaskEvaluatorRole = operationJSON;
+        DATABASE.operations.setTaskDueDate = operationJSON;
 
       }
 
@@ -60,19 +60,16 @@ const signTaskEvaluatorRole = async (colonyClient, taskId) => {
 
   }
 
-  // Get the task evaluator role
-  const taskRole = await colonyClient.getTaskRole.call({
-    taskId,
-    role: 'EVALUATOR',
-  });
+  // Get the updated task
+  const updatedTask = await colonyClient.getTask.call({ taskId });
 
-  // Check out the logs to see the task evaluator role
-  console.log('Task Role:', taskRole);
+  // Check out the logs to see the task we updated
+  console.log('Task:', updatedTask);
 
-  // Return the task evaluator role
-  return taskRole;
+  // Return the updated task
+  return updatedTask;
 
 }
 
-// Export signTaskEvaluatorRole example
-module.exports = signTaskEvaluatorRole;
+// Export signSetTaskDueDate example
+module.exports = signSetTaskDueDate;

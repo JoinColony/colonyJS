@@ -1,19 +1,19 @@
-// An example using the setTaskDueDate operation
-const signTaskDueDate = async (colonyClient, taskId) => {
+// An example using the setTaskWorkerRole operation
+const signSetTaskWorkerRole = async (colonyClient, taskId) => {
 
   // Get JSON formatted operation from the mock database
-  const operationJSON = DATABASE.operations.setTaskDueDate;
+  const operationJSON = DATABASE.operations.setTaskWorkerRole;
 
   // Check the operation
   if (operationJSON) {
 
     // Restore operation
-    const operation = await colonyClient.setTaskDueDate.restoreOperation(
+    const operation = await colonyClient.setTaskWorkerRole.restoreOperation(
       operationJSON,
     );
 
-    // Check if the operation matches the colony contract and the task id and
-    // check if current account is required to sign the operation.
+    // Check if the operation matches the colony contract and task id and if
+    // the current account is one of the required signees for the operation.
     if (
       operation.payload.sourceAddress === colonyClient._contract.address &&
       operation.payload.inputValues.taskId === taskId &&
@@ -30,7 +30,7 @@ const signTaskDueDate = async (colonyClient, taskId) => {
         await operation.send();
 
         // Update the operation in the mock database
-        DATABASE.operations.setTaskDueDate = null;
+        DATABASE.operations.setTaskWorkerRole = null;
 
       } else {
 
@@ -41,7 +41,7 @@ const signTaskDueDate = async (colonyClient, taskId) => {
         const operationJSON = operation.toJSON();
 
         // Store the operation in the mock database
-        DATABASE.operations.setTaskDueDate = operationJSON;
+        DATABASE.operations.setTaskWorkerRole = operationJSON;
 
       }
 
@@ -60,16 +60,19 @@ const signTaskDueDate = async (colonyClient, taskId) => {
 
   }
 
-  // Get the updated task
-  const updatedTask = await colonyClient.getTask.call({ taskId });
+  // Get the task worker role
+  const taskRole = await colonyClient.getTaskRole.call({
+    taskId,
+    role: 'WORKER',
+  });
 
-  // Check out the logs to see the task we updated
-  console.log('Task:', updatedTask);
+  // Check out the logs to see the task worker role
+  console.log('Task Role:', taskRole);
 
-  // Return the updated task
-  return updatedTask;
+  // Return the task worker role
+  return taskRole;
 
 }
 
-// Export signTaskDueDate example
-module.exports = signTaskDueDate;
+// Export signSetTaskWorkerRole example
+module.exports = signSetTaskWorkerRole;
