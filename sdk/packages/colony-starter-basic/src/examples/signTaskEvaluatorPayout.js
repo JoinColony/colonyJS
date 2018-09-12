@@ -2,7 +2,7 @@
 const signTaskEvaluatorPayout = async (colonyClient, taskId) => {
 
   // Get JSON formatted operation from the mock database
-  const operationJSON = DATABASE.setTaskEvaluatorPayoutOperationJSON;
+  const operationJSON = DATABASE.operations.setTaskEvaluatorPayout;
 
   // Check the operation
   if (operationJSON) {
@@ -30,7 +30,7 @@ const signTaskEvaluatorPayout = async (colonyClient, taskId) => {
         await operation.send();
 
         // Update the operation in the mock database
-        DATABASE.setTaskEvaluatorPayoutOperationJSON = null;
+        DATABASE.operations.setTaskEvaluatorPayout = null;
 
       } else {
 
@@ -41,7 +41,7 @@ const signTaskEvaluatorPayout = async (colonyClient, taskId) => {
         const operationJSON = operation.toJSON();
 
         // Store the operation in the mock database
-        DATABASE.setTaskEvaluatorPayoutOperationJSON = operationJSON;
+        DATABASE.operations.setTaskEvaluatorPayout = operationJSON;
 
       }
 

@@ -2,7 +2,7 @@
 const signTaskDueDate = async (colonyClient, taskId) => {
 
   // Get JSON formatted operation from the mock database
-  const operationJSON = DATABASE.setTaskDueDateOperationJSON;
+  const operationJSON = DATABASE.operations.setTaskDueDate;
 
   // Check the operation
   if (operationJSON) {
@@ -30,7 +30,7 @@ const signTaskDueDate = async (colonyClient, taskId) => {
         await operation.send();
 
         // Update the operation in the mock database
-        DATABASE.setTaskDueDateOperationJSON = null;
+        DATABASE.operations.setTaskDueDate = null;
 
       } else {
 
@@ -41,7 +41,7 @@ const signTaskDueDate = async (colonyClient, taskId) => {
         const operationJSON = operation.toJSON();
 
         // Store the operation in the mock database
-        DATABASE.setTaskDueDateOperationJSON = operationJSON;
+        DATABASE.operations.setTaskDueDate = operationJSON;
 
       }
 

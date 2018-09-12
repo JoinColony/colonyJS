@@ -1,7 +1,7 @@
 // An example using the setTaskWorkerRole method
 const setTaskWorkerRole = async (colonyClient, taskId, user) => {
 
-  // Update the evaluator role of the task
+  // Update the worker role of the task
   const operation = await colonyClient.setTaskWorkerRole.startOperation({
     taskId,
     user,
@@ -14,7 +14,7 @@ const setTaskWorkerRole = async (colonyClient, taskId, user) => {
   const operationJSON = operation.toJSON();
 
   // Save the operation to our mock database
-  DATABASE.setTaskWorkerRoleOperationJSON = operationJSON;
+  DATABASE.operations.setTaskWorkerRole = operationJSON;
 }
 
 // Export setTaskWorkerRole example

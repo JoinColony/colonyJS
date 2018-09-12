@@ -2,7 +2,7 @@
 const signTaskSkill = async (colonyClient, taskId) => {
 
   // Get JSON formatted operation from the mock database
-  const operationJSON = DATABASE.setTaskSkillOperationJSON;
+  const operationJSON = DATABASE.operations.setTaskSkill;
 
   // Check the operation
   if (operationJSON) {
@@ -30,7 +30,7 @@ const signTaskSkill = async (colonyClient, taskId) => {
         await operation.send();
 
         // Update the operation in the mock database
-        DATABASE.setTaskSkillOperationJSON = null;
+        DATABASE.operations.setTaskSkill = null;
 
       } else {
 
@@ -41,7 +41,7 @@ const signTaskSkill = async (colonyClient, taskId) => {
         const operationJSON = operation.toJSON();
 
         // Store the operation in the mock database
-        DATABASE.setTaskSkillOperationJSON = operationJSON;
+        DATABASE.operations.setTaskSkill = operationJSON;
 
       }
 

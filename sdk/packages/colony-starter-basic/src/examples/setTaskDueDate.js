@@ -14,7 +14,7 @@ const setTaskDueDate = async (colonyClient, taskId, dueDate) => {
   const operationJSON = operation.toJSON();
 
   // Save the operation to our mock database
-  DATABASE.setTaskDueDateOperationJSON = operationJSON;
+  DATABASE.operations.setTaskDueDate = operationJSON;
 
 }
 

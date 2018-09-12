@@ -18,7 +18,7 @@ const setTaskManagerPayout = async (colonyClient, taskId, amount, token) => {
   const operationJSON = operation.toJSON()
 
   // Store task manager payout operation in mock database
-  DATABASE.setTaskManagerPayoutOperationJSON = operationJSON;
+  DATABASE.operations.setTaskManagerPayout = operationJSON;
 
 }
 

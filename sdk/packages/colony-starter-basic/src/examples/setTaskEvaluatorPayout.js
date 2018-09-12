@@ -18,7 +18,7 @@ const setTaskEvaluatorPayout = async (colonyClient, taskId, amount, token) => {
   const operationJSON = operation.toJSON()
 
   // Store task evaluator payout operation in mock database
-  DATABASE.setTaskEvaluatorPayoutOperationJSON = operationJSON;
+  DATABASE.operations.setTaskEvaluatorPayout = operationJSON;
 
 }
 

@@ -33,7 +33,9 @@ const submitTaskWorkRating = require('./examples/submitTaskWorkRating');
 // The global database object will act as a mock database where we will store
 // our pending multisig operations so that we can restore the operations when
 // we need to sign them from another account.
-DATABASE = {};
+DATABASE = {
+  operations: {},
+};
 
 // Test accounts
 const accounts = [
@@ -216,14 +218,12 @@ const colonyStarterBasic = async () => {
   // Sign the operation associated with our changes to the task due date using
   // the "signTaskDueDate" example and then store the updated task in the state
   // object. The requested changes were made before we assigned a worker to our
-  // task, so the changes only need to be approved by the manager of the task,
-  // which is the account that created the task.
+  // task, so the changes only need to be approved by the manager of the task.
   await signTaskDueDate(
     state.colonyClient[0],          // colonyClient
     state.task.id,                  // taskId
   );
 
-  // TODO: re-implement when colonyJS is updated
   console.log('\n\x1b[32m' + 'account[0] setTaskManagerPayout:' + '\x1b[0m\n');
 
   // Set the amount of tokens we want to payout the manager of our task using

@@ -18,7 +18,7 @@ const setTaskWorkerPayout = async (colonyClient, taskId, amount, token) => {
   const operationJSON = operation.toJSON()
 
   // Store task worker payout operation in mock database
-  DATABASE.setTaskWorkerPayoutOperationJSON = operationJSON;
+  DATABASE.operations.setTaskWorkerPayout = operationJSON;
 
 }
 

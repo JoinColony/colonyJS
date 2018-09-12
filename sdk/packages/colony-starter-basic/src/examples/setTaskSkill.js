@@ -14,7 +14,7 @@ const setTaskSkill = async (colonyClient, taskId, skillId) => {
   const operationJSON = operation.toJSON();
 
   // Save the operation to our mock database
-  DATABASE.setTaskSkillOperationJSON = operationJSON;
+  DATABASE.operations.setTaskSkill = operationJSON;
 
 }
 
