@@ -332,22 +332,6 @@ const colonyStarterBasic = async () => {
     state.task.id,                  // taskId
   );
 
-  console.log('\n\x1b[32m' + 'account[0] setTaskWorkerRole:' + '\x1b[0m\n');
-
-  // Set the worker of our task using the "setTaskWorkerRole" example.
-  await setTaskWorkerRole(
-    state.colonyClient[0],          // colonyClient
-    state.task.id,                  // taskId
-    accounts[2],                    // user
-  );
-
-  console.log('\n\x1b[32m' + 'account[0] signSetTaskWorkerRole:' + '\x1b[0m\n');
-
-  await signSetTaskWorkerRole(
-    state.colonyClient[0],          // colonyClient
-    state.task.id,                  // taskId
-  );
-
   console.log('\n\x1b[32m' + 'account[1] connectNetwork:' + '\x1b[0m\n');
 
   // Connect to the network using the "connectNetwork" example and then store
@@ -365,10 +349,50 @@ const colonyStarterBasic = async () => {
     state.colony.id,                // colonyId
   );
 
-  console.log('\n\x1b[32m' + 'account[1] signSetTaskWorkerRole:' + '\x1b[0m\n');
+  console.log('\n\x1b[32m' + 'account[1] signSetTaskEvaluatorRole:' + '\x1b[0m\n');
+
+  await signSetTaskEvaluatorRole(
+    state.colonyClient[1],          // colonyClient
+    state.task.id,                  // taskId
+  );
+
+  console.log('\n\x1b[32m' + 'account[0] setTaskWorkerRole:' + '\x1b[0m\n');
+
+  // Set the worker of our task using the "setTaskWorkerRole" example.
+  await setTaskWorkerRole(
+    state.colonyClient[0],          // colonyClient
+    state.task.id,                  // taskId
+    accounts[2],                    // user
+  );
+
+  console.log('\n\x1b[32m' + 'account[0] signSetTaskWorkerRole:' + '\x1b[0m\n');
 
   await signSetTaskWorkerRole(
-    state.colonyClient[1],          // colonyClient
+    state.colonyClient[0],          // colonyClient
+    state.task.id,                  // taskId
+  );
+
+  console.log('\n\x1b[32m' + 'account[2] connectNetwork:' + '\x1b[0m\n');
+
+  // Connect to the network using the "connectNetwork" example and then store
+  // the returned "networkClient" in the state object.
+  state.networkClient[2] = await connectNetwork(
+    2,                              // accountIndex
+  );
+
+  console.log('\n\x1b[32m' + 'account[2] getColonyClient:' + '\x1b[0m\n');
+
+  // Get the client for our new colony using the "getColonyClient" example and
+  // then store the returned "colonyClient" in the state object.
+  state.colonyClient[2] = await getColonyClient(
+    state.networkClient[2],         // networkClient
+    state.colony.id,                // colonyId
+  );
+
+  console.log('\n\x1b[32m' + 'account[2] signSetTaskWorkerRole:' + '\x1b[0m\n');
+
+  await signSetTaskWorkerRole(
+    state.colonyClient[2],          // colonyClient
     state.task.id,                  // taskId
   );
 
@@ -398,68 +422,68 @@ const colonyStarterBasic = async () => {
     state.task.id,                  // taskId
   );
 
-  console.log('\n\x1b[32m' + 'account[1] signSetTaskBrief:' + '\x1b[0m\n');
+  console.log('\n\x1b[32m' + 'account[2] signSetTaskBrief:' + '\x1b[0m\n');
 
   // Sign the operation associated with our changes to the task specification
   // using the "signSetTaskBrief" example. The requested changes were made after
   // we assigned a worker to our task, so the changes will need to be singed
   // by both the manager and the worker of the task.
   await signSetTaskBrief(
-    state.colonyClient[1],          // colonyClient
+    state.colonyClient[2],          // colonyClient
     state.task.id,                  // taskId
   );
 
-  console.log('\n\x1b[32m' + 'account[1] submitTaskDeliverable:' + '\x1b[0m\n');
+  console.log('\n\x1b[32m' + 'account[2] submitTaskDeliverable:' + '\x1b[0m\n');
 
   // Submit the task deliverable for our task using the "submitTaskDeliverable"
   // example. The delivarable can only be submitted by the worker of the task.
   await submitTaskDeliverable(
-    state.colonyClient[1],          // colonyClient
+    state.colonyClient[2],          // colonyClient
     state.task.id,                  // taskId
     {
       message: 'Work Complete',     // message
     },
   );
 
-  console.log('\n\x1b[32m' + 'account[0] submitTaskWorkRating:' + '\x1b[0m\n');
+  console.log('\n\x1b[32m' + 'account[1] submitTaskWorkRating:' + '\x1b[0m\n');
 
   // Submit a rating for the worker of our task from the evaluator of our task
   // using the "submitTaskWorkRating" example.
   await submitTaskWorkRating(
-    state.colonyClient[0],          // colonyClient
+    state.colonyClient[1],          // colonyClient
     state.task.id,                  // taskId
     'WORKER',                       // role
     3,                              // rating
   );
 
-  console.log('\n\x1b[32m' + 'account[1] submitTaskWorkRating:' + '\x1b[0m\n');
+  console.log('\n\x1b[32m' + 'account[2] submitTaskWorkRating:' + '\x1b[0m\n');
 
   // Submit a rating for the manager of our task from the worker of our task
   // using the "submitTaskWorkRating" example.
   await submitTaskWorkRating(
-    state.colonyClient[1],          // colonyClient
+    state.colonyClient[2],          // colonyClient
     state.task.id,                  // taskId
     'MANAGER',                      // role
     3,                              // rating
   );
 
-  console.log('\n\x1b[32m' + 'account[0] revealTaskWorkRating:' + '\x1b[0m\n');
+  console.log('\n\x1b[32m' + 'account[1] revealTaskWorkRating:' + '\x1b[0m\n');
 
   // Reaveal the rating for the worker of our task from the evaluator of our
   // task using the "revealTaskWorkRating" example.
   await revealTaskWorkRating(
-    state.colonyClient[0],          // colonyClient
+    state.colonyClient[1],          // colonyClient
     state.task.id,                  // taskId
     'WORKER',                       // role
     3,                              // rating
   );
 
-  console.log('\n\x1b[32m' + 'account[1] revealTaskWorkRating:' + '\x1b[0m\n');
+  console.log('\n\x1b[32m' + 'account[2] revealTaskWorkRating:' + '\x1b[0m\n');
 
   // Reaveal the rating for the manager of our task from the worker of our task
   // using the "revealTaskWorkRating" example.
   await revealTaskWorkRating(
-    state.colonyClient[1],          // colonyClient
+    state.colonyClient[2],          // colonyClient
     state.task.id,                  // taskId
     'MANAGER',                      // role
     3,                              // rating
@@ -473,7 +497,7 @@ const colonyStarterBasic = async () => {
     state.task.id,                  // taskId
   );
 
-  console.log('\n\x1b[32m' + 'account[0] manager claimPayout:' + '\x1b[0m\n');
+  console.log('\n\x1b[32m' + 'account[0] claimPayout:' + '\x1b[0m\n');
 
   // Claim the manager payout for the task using the "claimPayout" example.
   await claimPayout(
@@ -483,21 +507,21 @@ const colonyStarterBasic = async () => {
     state.tokenAddress,             // token
   );
 
-  console.log('\n\x1b[32m' + 'account[0] evaluator claimPayout:' + '\x1b[0m\n');
+  console.log('\n\x1b[32m' + 'account[1] claimPayout:' + '\x1b[0m\n');
 
   // Claim the evaluator payout for the task using the "claimPayout" example.
   await claimPayout(
-    state.colonyClient[0],          // colonyClient
+    state.colonyClient[1],          // colonyClient
     state.task.id,                  // taskId
     'EVALUATOR',                    // role
     state.tokenAddress,             // token
   );
 
-  console.log('\n\x1b[32m' + 'account[1] worker claimPayout:' + '\x1b[0m\n');
+  console.log('\n\x1b[32m' + 'account[2] claimPayout:' + '\x1b[0m\n');
 
   // Claim the worker payout for the task using the "claimPayout" example.
   await claimPayout(
-    state.colonyClient[1],          // colonyClient
+    state.colonyClient[2],          // colonyClient
     state.task.id,                  // taskId
     'WORKER',                       // role
     state.tokenAddress,             // token
