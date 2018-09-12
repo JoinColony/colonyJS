@@ -34,6 +34,9 @@ const signTaskWorkerRole = async (colonyClient, taskId) => {
 
       } else {
 
+        // Check out the logs to see the operation missing signees
+        console.log('Missing Signees:', operation.missingSignees);
+
         // Serialize operation into JSON format
         const operationJSON = operation.toJSON();
 

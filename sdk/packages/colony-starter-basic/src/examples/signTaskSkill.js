@@ -34,6 +34,9 @@ const signTaskSkill = async (colonyClient, taskId) => {
 
       } else {
 
+        // Check out the logs to see the operation missing signees
+        console.log('Missing Signees:', operation.missingSignees);
+
         // Serialize operation into JSON format
         const operationJSON = operation.toJSON();
 
@@ -61,7 +64,7 @@ const signTaskSkill = async (colonyClient, taskId) => {
   const updatedTask = await colonyClient.getTask.call({ taskId });
 
   // Check out the logs to see the task we updated
-  console.log('Updated Task:', updatedTask);
+  console.log('Task:', updatedTask);
 
   // Return the updated task
   return updatedTask;
