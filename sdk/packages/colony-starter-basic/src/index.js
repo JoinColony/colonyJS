@@ -132,7 +132,6 @@ const colonyStarterBasic = async () => {
   // new domain, so we will use "1" for "parentDomainId".
   state.domain = await addDomain(
     state.colonyClient[0],          // colonyClient
-    state.networkClient[0],         // networkClient
     1,                              // parentDomainId
   );
 

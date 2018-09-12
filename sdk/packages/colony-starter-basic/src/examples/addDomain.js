@@ -1,5 +1,5 @@
 // An example using the addDomain method
-const addDomain = async (colonyClient, networkClient, parentDomainId) => {
+const addDomain = async (colonyClient, parentDomainId) => {
 
   // In order to add a domain to our colony, we will need the local skill id of
   // the parent domain. Domains are registered as local skills, so we will use
@@ -14,9 +14,6 @@ const addDomain = async (colonyClient, networkClient, parentDomainId) => {
     parentSkillId: parentDomainId,
   });
 
-  // Get the id of the skill we just created
-  const { count: skillId } = await networkClient.getSkillCount.call();
-
   // Get the total number of domains in the colony (our new domain id)
   const { count: domainId } = await colonyClient.getDomainCount.call();
 
@@ -27,7 +24,6 @@ const addDomain = async (colonyClient, networkClient, parentDomainId) => {
   console.log('Domain:', {
     id: domainId,
     parentSkillId,
-    skillId,
     potId,
   });
 
@@ -35,7 +31,6 @@ const addDomain = async (colonyClient, networkClient, parentDomainId) => {
   return {
     id: domainId,
     parentSkillId,
-    skillId,
     potId,
   };
 
