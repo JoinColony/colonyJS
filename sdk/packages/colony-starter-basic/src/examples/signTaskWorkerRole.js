@@ -57,14 +57,17 @@ const signTaskWorkerRole = async (colonyClient, taskId) => {
 
   }
 
-  // Get the updated task
-  const updatedTask = await colonyClient.getTask.call({ taskId });
+  // Get the task worker role
+  const taskRole = await colonyClient.getTaskRole.call({
+    taskId,
+    role: 'WORKER',
+  });
 
-  // Check out the logs to see the task we updated
-  console.log('Updated Task:', updatedTask);
+  // Check out the logs to see the task worker role
+  console.log('Task Role:', taskRole);
 
-  // Return the updated task
-  return updatedTask;
+  // Return the task worker role
+  return taskRole;
 
 }
 

@@ -177,23 +177,6 @@ const colonyStarterBasic = async () => {
     1,                              // parentSkillId
   );
 
-  console.log('\n\x1b[32m' + 'account[1] connectNetwork:' + '\x1b[0m\n');
-
-  // Connect to the network using the "connectNetwork" example and then store
-  // the returned "networkClient" in the state object.
-  state.networkClient[1] = await connectNetwork(
-    1,                              // accountIndex
-  );
-
-  console.log('\n\x1b[32m' + 'account[1] getColonyClient:' + '\x1b[0m\n');
-
-  // Get the client for our new colony using the "getColonyClient" example and
-  // then store the returned "colonyClient" in the state object.
-  state.colonyClient[1] = await getColonyClient(
-    state.networkClient[1],         // networkClient
-    state.colony.id,                // colonyId
-  );
-
   console.log('\n\x1b[32m' + 'account[0] setTaskSkill:' + '\x1b[0m\n');
 
   // Set the skill of our new task using the "setTaskSkill" example and then
@@ -327,6 +310,23 @@ const colonyStarterBasic = async () => {
   await signTaskWorkerRole(
     state.colonyClient[0],          // colonyClient
     state.task.id,                  // taskId
+  );
+
+  console.log('\n\x1b[32m' + 'account[1] connectNetwork:' + '\x1b[0m\n');
+
+  // Connect to the network using the "connectNetwork" example and then store
+  // the returned "networkClient" in the state object.
+  state.networkClient[1] = await connectNetwork(
+    1,                              // accountIndex
+  );
+
+  console.log('\n\x1b[32m' + 'account[1] getColonyClient:' + '\x1b[0m\n');
+
+  // Get the client for our new colony using the "getColonyClient" example and
+  // then store the returned "colonyClient" in the state object.
+  state.colonyClient[1] = await getColonyClient(
+    state.networkClient[1],         // networkClient
+    state.colony.id,                // colonyId
   );
 
   console.log('\n\x1b[32m' + 'account[1] signTaskWorkerRole:' + '\x1b[0m\n');

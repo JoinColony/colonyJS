@@ -28,8 +28,17 @@ const submitTaskWorkRating = async (colonyClient, taskId, role, rating) => {
   // Check out the logs to see the updated task work ratings
   console.log('Task Work Ratings:', taskWorkRatings);
 
-  // Return the updated task work ratings
-  return taskWorkRatings;
+  // Get the task role
+  const taskRole = await colonyClient.getTaskRole.call({
+    taskId,
+    role,
+  });
+
+  // Check out the logs to see the task role
+  console.log('Task Role:', taskRole);
+
+  // Return the task role
+  return taskRole;
 
 }
 
