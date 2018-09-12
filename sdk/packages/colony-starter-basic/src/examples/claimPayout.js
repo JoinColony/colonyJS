@@ -9,7 +9,7 @@ const claimPayout = async (colonyClient, taskId, role, token) => {
   });
 
   // Claim the task the payout for the given task and role
-  const claimPayout = await colonyClient.claimPayout.send({
+  await colonyClient.claimPayout.send({
     taskId,
     role,
     token,
