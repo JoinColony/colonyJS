@@ -11,8 +11,8 @@ const setTaskWorkerPayout = async (colonyClient, taskId, amount, token) => {
     amount: new BN(amount),
   })
 
-  // Check out the logs to see the operation required signees
-  console.log('Required Signees:', operation.requiredSignees);
+  // Check out the logs to see the operation missing signees
+  console.log('Missing Signees:', operation.missingSignees);
 
   // Serialize operation into JSON format
   const operationJSON = operation.toJSON()

@@ -17,7 +17,7 @@ const signSetTaskWorkerPayout = async (colonyClient, taskId) => {
     if (
       operation.payload.sourceAddress === colonyClient._contract.address &&
       operation.payload.inputValues.taskId === taskId &&
-      operation.requiredSignees.includes(colonyClient.adapter.wallet.address.toLowerCase())
+      operation.missingSignees.includes(colonyClient.adapter.wallet.address.toLowerCase())
     ) {
 
       // Sign the operation
@@ -54,7 +54,7 @@ const signSetTaskWorkerPayout = async (colonyClient, taskId) => {
       console.log('Operation Task ID:', operation.payload.inputValues.taskId);
 
       // Check out the logs to see the required signees of the operation
-      console.log('Required Signees:', operation.requiredSignees);
+      console.log('Missing Signees:', operation.missingSignees);
 
     }
 

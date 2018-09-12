@@ -22,8 +22,8 @@ const setTaskBrief = async (colonyClient, taskId, specification) => {
     specificationHash,
   });
 
-  // Check out the logs to see the operation required signees
-  console.log('Required Signees:', operation.requiredSignees);
+  // Check out the logs to see the operation missing signees
+  console.log('Missing Signees:', operation.missingSignees);
 
   // Serialize the operation into JSON format
   const operationJSON = operation.toJSON();
