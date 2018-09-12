@@ -68,7 +68,7 @@ const signSetTaskManagerPayout = async (colonyClient, taskId) => {
   });
 
   // Check out the logs to see the task manager payout
-  console.log('Task Manager Payout Amount:', payout.amount.toNumber());
+  console.log('Task Payout Amount:', payout.amount.toNumber());
 
   // Return the task manager payout
   return payout;

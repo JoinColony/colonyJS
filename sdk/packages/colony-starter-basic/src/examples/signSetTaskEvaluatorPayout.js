@@ -68,7 +68,7 @@ const signSetTaskEvaluatorPayout = async (colonyClient, taskId) => {
   });
 
   // Check out the logs to see the task evaluator payout
-  console.log('Task Evaluator Payout Amount:', payout.amount.toNumber());
+  console.log('Task Payout Amount:', payout.amount.toNumber());
 
   // Return the task evaluator payout
   return payout;

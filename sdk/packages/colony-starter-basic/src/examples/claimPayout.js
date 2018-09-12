@@ -2,7 +2,7 @@
 const claimPayout = async (colonyClient, taskId, role, token) => {
 
   // Get the task payout for the given task and role
-  const taskPayout = await colonyClient.getTaskPayout.call({
+  const taskPayoutBefore = await colonyClient.getTaskPayout.call({
     taskId,
     role,
     token,
@@ -15,11 +15,22 @@ const claimPayout = async (colonyClient, taskId, role, token) => {
     token,
   });
 
-  // Check out the logs to see the task payout amount
-  console.log('Task Payout Amount: ' + taskPayout.amount);
+  // Get the task payout for the given task and role
+  const taskPayoutAfter = await colonyClient.getTaskPayout.call({
+    taskId,
+    role,
+    token,
+  });
 
-  // Return the task payout
-  return taskPayout;
+  // Check out the logs to see the task payout amount before claim
+  console.log('Task Payout Amount (Before): ' + taskPayoutBefore.amount);
+
+  // Check out the logs to see the task payout amount after claim
+  console.log('Task Payout Amount (After): ' + taskPayoutAfter.amount);
+
+  // Return the task payout after claim
+  return taskPayoutAfter;
+
 }
 
 module.exports = claimPayout;

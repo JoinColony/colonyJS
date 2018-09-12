@@ -594,7 +594,7 @@ describe('Colony Starter Basic', () => {
       'MANAGER',                      // role
       state.tokenAddress,             // token
     );
-    expect(taskPayout.amount.toNumber()).toEqual(10);
+    expect(taskPayout.amount.toNumber()).toEqual(0);
   }, 5000);
 
   // Test the claimPayout() example from account[1]
@@ -605,7 +605,7 @@ describe('Colony Starter Basic', () => {
       'EVALUATOR',                    // role
       state.tokenAddress,             // token
     );
-    expect(taskPayout.amount.toNumber()).toEqual(10);
+    expect(taskPayout.amount.toNumber()).toEqual(0);
   }, 5000);
 
   // Test the claimPayout() example from account[2]
@@ -616,7 +616,7 @@ describe('Colony Starter Basic', () => {
       'WORKER',                       // role
       state.tokenAddress,             // token
     );
-    expect(taskPayout.amount.toNumber()).toEqual(10);
+    expect(taskPayout.amount.toNumber()).toEqual(0);
   }, 5000);
 
 });

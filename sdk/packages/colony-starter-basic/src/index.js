@@ -526,6 +526,8 @@ const colonyStarterBasic = async () => {
     state.tokenAddress,             // token
   );
 
+  console.log('\n');
+
 }
 
 // Execute example
