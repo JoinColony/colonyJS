@@ -11,17 +11,21 @@ const finalizeTask = require('./examples/finalizeTask');
 const getColonyClient = require('./examples/getColonyClient');
 const mintTokens = require('./examples/mintTokens');
 const moveFundsBetweenPots = require('./examples/moveFundsBetweenPots');
+const removeTaskEvaluatorRole = require('./examples/removeTaskEvaluatorRole');
 const revealTaskWorkRating = require('./examples/revealTaskWorkRating');
 const setTaskBrief = require('./examples/setTaskBrief');
 const setTaskDueDate = require('./examples/setTaskDueDate');
 const setTaskEvaluatorPayout = require('./examples/setTaskEvaluatorPayout');
+const setTaskEvaluatorRole = require('./examples/setTaskEvaluatorRole');
 const setTaskManagerPayout = require('./examples/setTaskManagerPayout');
 const setTaskSkill = require('./examples/setTaskSkill');
 const setTaskWorkerPayout = require('./examples/setTaskWorkerPayout');
 const setTaskWorkerRole = require('./examples/setTaskWorkerRole');
 const setTokenOwner = require('./examples/setTokenOwner');
+const signRemoveTaskEvaluatorRole = require('./examples/signRemoveTaskEvaluatorRole');
 const signTaskBrief = require('./examples/signTaskBrief');
 const signTaskEvaluatorPayout = require('./examples/signTaskEvaluatorPayout');
+const signTaskEvaluatorRole = require('./examples/signTaskEvaluatorRole');
 const signTaskManagerPayout = require('./examples/signTaskManagerPayout');
 const signTaskSkill = require('./examples/signTaskSkill');
 const signTaskWorkerPayout = require('./examples/signTaskWorkerPayout');
@@ -40,7 +44,8 @@ DATABASE = {
 // Test accounts
 const accounts = [
   '0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1',
-  '0xFFcf8FDEE72ac11b5c542428B35EEF5769C409f0'
+  '0xFFcf8FDEE72ac11b5c542428B35EEF5769C409f0',
+  '0x22d491Bde2303f2f43325b2108D26f1eAbA1e32b'
 ];
 
 // A unix timestamp representing 31 days from now
@@ -296,13 +301,44 @@ const colonyStarterBasic = async () => {
     state.task.id,                  // taskId
   );
 
+  console.log('\n\x1b[32m' + 'account[0] removeTaskEvaluatorRole:' + '\x1b[0m\n');
+
+  // Remove the evaluator of our task using the "removeTaskEvaluatorRole" example.
+  await removeTaskEvaluatorRole(
+    state.colonyClient[0],          // colonyClient
+    state.task.id,                  // taskId
+  );
+
+  console.log('\n\x1b[32m' + 'account[0] signRemoveTaskEvaluatorRole:' + '\x1b[0m\n');
+
+  await signRemoveTaskEvaluatorRole(
+    state.colonyClient[0],          // colonyClient
+    state.task.id,                  // taskId
+  );
+
+  console.log('\n\x1b[32m' + 'account[0] setTaskEvaluatorRole:' + '\x1b[0m\n');
+
+  // Set the worker of our task using the "setTaskEvaluatorRole" example.
+  await setTaskEvaluatorRole(
+    state.colonyClient[0],          // colonyClient
+    state.task.id,                  // taskId
+    accounts[1],                    // user
+  );
+
+  console.log('\n\x1b[32m' + 'account[0] signTaskEvaluatorRole:' + '\x1b[0m\n');
+
+  await signTaskEvaluatorRole(
+    state.colonyClient[0],          // colonyClient
+    state.task.id,                  // taskId
+  );
+
   console.log('\n\x1b[32m' + 'account[0] setTaskWorkerRole:' + '\x1b[0m\n');
 
   // Set the worker of our task using the "setTaskWorkerRole" example.
   await setTaskWorkerRole(
     state.colonyClient[0],          // colonyClient
     state.task.id,                  // taskId
-    accounts[1],                    // user
+    accounts[2],                    // user
   );
 
   console.log('\n\x1b[32m' + 'account[0] signTaskWorkerRole:' + '\x1b[0m\n');
