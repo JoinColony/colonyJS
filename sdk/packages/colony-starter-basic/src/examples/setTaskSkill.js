@@ -1,20 +1,20 @@
 // An example using the setTaskSkill method
 const setTaskSkill = async (colonyClient, taskId, skillId) => {
 
-  // Set the skillId for the given task
-  await colonyClient.setTaskSkill.send({
+  // Start set task skill operation
+  const operation = await colonyClient.setTaskSkill.startOperation({
     taskId,
     skillId,
   });
 
-  // Get the updated task
-  const updatedTask = await colonyClient.getTask.call({ taskId });
+  // Check out the logs to see the operation required signees
+  console.log('Required Signees:', operation.requiredSignees);
 
-  // Check out the logs to see the updated task
-  console.log('Updated Task:', updatedTask);
+  // Serialize the operation into JSON format
+  const operationJSON = operation.toJSON();
 
-  // Return the updated task
-  return updatedTask;
+  // Save the operation to our mock database
+  DATABASE.setTaskSkillOperationJSON = operationJSON;
 
 }
 

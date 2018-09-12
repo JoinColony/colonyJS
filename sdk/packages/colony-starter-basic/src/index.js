@@ -23,6 +23,7 @@ const setTokenOwner = require('./examples/setTokenOwner');
 const signTaskBrief = require('./examples/signTaskBrief');
 const signTaskEvaluatorPayout = require('./examples/signTaskEvaluatorPayout');
 const signTaskManagerPayout = require('./examples/signTaskManagerPayout');
+const signTaskSkill = require('./examples/signTaskSkill');
 const signTaskWorkerPayout = require('./examples/signTaskWorkerPayout');
 const signTaskWorkerRole = require('./examples/signTaskWorkerRole');
 const signTaskDueDate = require('./examples/signTaskDueDate');
@@ -193,17 +194,27 @@ const colonyStarterBasic = async () => {
     state.colony.id,                // colonyId
   );
 
-  // TODO: re-implement when colonyJS is updated
-  // console.log('\n\x1b[32m' + 'account[0] setTaskSkill:' + '\x1b[0m\n');
+  console.log('\n\x1b[32m' + 'account[0] setTaskSkill:' + '\x1b[0m\n');
 
-  // // Set the skill of our new task using the "setTaskSkill" example and then
-  // // store the updated "task" in the state object. In this case, we are going
-  // // to update the "skillId" of our new task using our new global skill.
-  // await setTaskSkill(
-  //   state.colonyClient[0],          // colonyClient
-  //   state.task.id,                  // taskId
-  //   state.skill.id,                 // skillId
-  // );
+  // Set the skill of our new task using the "setTaskSkill" example and then
+  // store the updated "task" in the state object. In this case, we are going
+  // to update the "skillId" of our new task using our new global skill.
+  await setTaskSkill(
+    state.colonyClient[0],          // colonyClient
+    state.task.id,                  // taskId
+    state.skill.id,                 // skillId
+  );
+
+  console.log('\n\x1b[32m' + 'account[0] signTaskSkill:' + '\x1b[0m\n');
+
+  // Sign the operation associated with our changes to the task skill using
+  // the "signTaskSkill" example. The requested changes were made before we
+  // assigned a worker to our task, so the changes only need to be approved
+  // by the manager of the task, which is the account that created the task.
+  await signTaskSkill(
+    state.colonyClient[0],          // colonyClient
+    state.task.id,                  // taskId
+  );
 
   console.log('\n\x1b[32m' + 'account[0] setTaskDueDate:' + '\x1b[0m\n');
 
