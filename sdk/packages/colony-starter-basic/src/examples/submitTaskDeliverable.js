@@ -23,7 +23,7 @@ const submitTaskDeliverable = async (colonyClient, taskId, deliverable) => {
   const updatedTask = await colonyClient.getTask.call({ taskId });
 
   // Check out the logs to see the updated task
-  console.log('Updated Task:', updatedTask);
+  console.log('Task:', updatedTask);
 
   // Return the updated task
   return updatedTask;

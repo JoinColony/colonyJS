@@ -1,18 +1,21 @@
-// Import example
+// Import helpers
+const log = require('./helpers/log');
+
+// Import examples
 const connectMetamask = require('./examples/connectMetamask');
 
-// Define connectMetamaskExample
-const connectMetamaskExample = async () => {
+// Colony Starter Basic example
+const colonyStarterBasic = async () => {
 
-  console.log('\n\x1b[32m' + 'connectMetamask:' + '\x1b[0m\n');
+  log('connectMetamask:');
 
   await connectMetamask();
 
-  console.log();
+  log('Complete!');
 
 }
 
 // Execute example
-connectMetamaskExample()
+colonyStarterBasic()
   .then(() => process.exit())
   .catch(err => console.error(err));

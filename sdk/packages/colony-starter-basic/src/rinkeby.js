@@ -1,18 +1,21 @@
+// Import helpers
+const log = require('./helpers/log');
+
 // Import example
 const connectRinkeby = require('./examples/connectRinkeby');
 
-// Define connectRinkebyExample
-const connectRinkebyExample = async () => {
+// Colony Starter Basic example
+const colonyStarterBasic = async () => {
 
-  console.log('\n\x1b[32m' + 'connectRinkeby:' + '\x1b[0m\n');
+  log('connectRinkeby:');
 
   await connectRinkeby();
 
-  console.log();
+  log('Complete!');
 
 }
 
 // Execute example
-connectRinkebyExample()
+colonyStarterBasic()
   .then(() => process.exit())
   .catch(err => console.error(err));
