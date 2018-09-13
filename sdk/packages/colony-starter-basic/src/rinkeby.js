@@ -1,18 +1,24 @@
+// Import prerequisites
+const chalk = require('chalk');
+
 // Import example
 const connectRinkeby = require('./examples/connectRinkeby');
 
-// Define connectRinkebyExample
-const connectRinkebyExample = async () => {
+// Logging to help keep track of where we are in the script
+const log = (msg) => console.log(chalk.cyan('\n' + msg + '\n'));
 
-  console.log('\n\x1b[32m' + 'connectRinkeby:' + '\x1b[0m\n');
+// Colony Starter Basic example
+const colonyStarterBasic = async () => {
+
+  log('connectRinkeby:');
 
   await connectRinkeby();
 
-  console.log();
+  log('complete');
 
 }
 
 // Execute example
-connectRinkebyExample()
+colonyStarterBasic()
   .then(() => process.exit())
   .catch(err => console.error(err));

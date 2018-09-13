@@ -1,3 +1,6 @@
+// Import prerequisites
+const chalk = require('chalk');
+
 // Import examples
 const addDomain = require('./examples/addDomain');
 const addGlobalSkill = require('./examples/addGlobalSkill');
@@ -34,6 +37,9 @@ const signSetTaskDueDate = require('./examples/signSetTaskDueDate');
 const submitTaskDeliverable = require('./examples/submitTaskDeliverable');
 const submitTaskWorkRating = require('./examples/submitTaskWorkRating');
 
+// Logging to help keep track of where we are in the script
+const log = (msg) => console.log(chalk.cyan('\n' + msg + '\n'));
+
 // The global database object will act as a mock database where we will store
 // our pending multisig operations so that we can restore the operations when
 // we need to sign them from another account.
@@ -63,7 +69,7 @@ const colonyStarterBasic = async () => {
     colonyClient: [],               // colonyClient (per account)
   };
 
-  console.log('\n\x1b[32m' + 'account[0] connectNetwork:' + '\x1b[0m\n');
+  log('account[0] connectNetwork:');
 
   // Connect to the network using the "connectNetwork" example and then store
   // the returned "networkClient" in the state object.
@@ -71,7 +77,7 @@ const colonyStarterBasic = async () => {
     0,                              // accountIndex
   );
 
-  console.log('\n\x1b[32m' + 'account[0] createToken:' + '\x1b[0m\n');
+  log('account[0] createToken:');
 
   // Create a new ERC20 token using the "createToken" example and then store
   // the returned "tokenAddress" in the state object.
@@ -81,7 +87,7 @@ const colonyStarterBasic = async () => {
     'TKN',                          // symbol
   );
 
-  console.log('\n\x1b[32m' + 'account[0] createColony:' + '\x1b[0m\n');
+  log('account[0] createColony:');
 
   // Create a new colony with our new token using the "createColony" example
   // and then store the returned "colony" in the state object.
@@ -90,7 +96,7 @@ const colonyStarterBasic = async () => {
     state.tokenAddress,             // tokenAddress
   );
 
-  console.log('\n\x1b[32m' + 'account[0] getColonyClient:' + '\x1b[0m\n');
+  log('account[0] getColonyClient:');
 
   // Get the client for our new colony using the "getColonyClient" example and
   // then store the returned "colonyClient" in the state object.
@@ -99,7 +105,7 @@ const colonyStarterBasic = async () => {
     state.colony.id,                // colonyId
   );
 
-  console.log('\n\x1b[32m' + 'account[0] setTokenOwner:' + '\x1b[0m\n');
+  log('account[0] setTokenOwner:');
 
   // Set our new colony as the owner of our new token using the "setTokenOwner"
   // example. This will allow our colony to mint and claim tokens.
@@ -108,7 +114,7 @@ const colonyStarterBasic = async () => {
     state.colony.address,           // colonyAddress
   );
 
-  console.log('\n\x1b[32m' + 'account[0] mintTokens:' + '\x1b[0m\n');
+  log('account[0] mintTokens:');
 
   // Mint tokens for our new token using the "mintTokens" example.
   await mintTokens(
@@ -116,7 +122,7 @@ const colonyStarterBasic = async () => {
     30,                             // amount
   );
 
-  console.log('\n\x1b[32m' + 'account[0] claimColonyFunds:' + '\x1b[0m\n');
+  log('account[0] claimColonyFunds:');
 
   // Claim funds for our new colony using the "claimColonyFunds" example.
   await claimColonyFunds(
@@ -124,7 +130,7 @@ const colonyStarterBasic = async () => {
     state.tokenAddress,             // tokenAddress
   );
 
-  console.log('\n\x1b[32m' + 'account[0] addDomain:' + '\x1b[0m\n');
+  log('account[0] addDomain:');
 
   // Add a new domain to our new colony using the "addDomain" example and then
   // store the returned "domain" in the state object. Each colony comes with a
@@ -135,7 +141,7 @@ const colonyStarterBasic = async () => {
     1,                              // parentDomainId
   );
 
-  console.log('\n\x1b[32m' + 'account[0] moveFundsBetweenPots:' + '\x1b[0m\n');
+  log('account[0] moveFundsBetweenPots:');
 
   // Move funds to our task using the "moveFundsBetweenPots" example.
   await moveFundsBetweenPots(
@@ -146,7 +152,7 @@ const colonyStarterBasic = async () => {
     state.tokenAddress,             // token
   );
 
-  console.log('\n\x1b[32m' + 'account[0] createTask:' + '\x1b[0m\n');
+  log('account[0] createTask:');
 
   // Create a new task within our new domain using the "createTask" example and
   // then store the returned "task" in the state object. We could also create a
@@ -161,7 +167,7 @@ const colonyStarterBasic = async () => {
     },
   );
 
-  console.log('\n\x1b[32m' + 'account[0] moveFundsBetweenPots:' + '\x1b[0m\n');
+  log('account[0] moveFundsBetweenPots:');
 
   // Move funds to our task using the "moveFundsBetweenPots" example.
   await moveFundsBetweenPots(
@@ -172,7 +178,7 @@ const colonyStarterBasic = async () => {
     state.tokenAddress,             // token
   );
 
-  console.log('\n\x1b[32m' + 'account[0] addGlobalSkill:' + '\x1b[0m\n');
+  log('account[0] addGlobalSkill:');
 
   // Add a new global skill using the "addGlobalSkill" example and then store
   // the returned "skill" in the state object. Each Colony Network comes with
@@ -183,7 +189,7 @@ const colonyStarterBasic = async () => {
     1,                              // parentSkillId
   );
 
-  console.log('\n\x1b[32m' + 'account[0] setTaskSkill:' + '\x1b[0m\n');
+  log('account[0] setTaskSkill:');
 
   // Set the skill of our new task using the "setTaskSkill" example and then
   // store the updated "task" in the state object. In this case, we are going
@@ -194,7 +200,7 @@ const colonyStarterBasic = async () => {
     state.skill.id,                 // skillId
   );
 
-  console.log('\n\x1b[32m' + 'account[0] signSetTaskSkill:' + '\x1b[0m\n');
+  log('account[0] signSetTaskSkill:');
 
   // Sign the operation associated with our changes to the task skill using
   // the "signSetTaskSkill" example. The requested changes were made before we
@@ -205,7 +211,7 @@ const colonyStarterBasic = async () => {
     state.task.id,                  // taskId
   );
 
-  console.log('\n\x1b[32m' + 'account[0] setTaskDueDate:' + '\x1b[0m\n');
+  log('account[0] setTaskDueDate:');
 
   // Set the due date of our new task using the "setTaskDueDate" example. The
   // "setTaskDueDate" example starts a multisig operation and then stores the
@@ -217,7 +223,7 @@ const colonyStarterBasic = async () => {
     futureDueDate,                  // dueDate
   );
 
-  console.log('\n\x1b[32m' + 'account[0] signSetTaskDueDate:' + '\x1b[0m\n');
+  log('account[0] signSetTaskDueDate:');
 
   // Sign the operation associated with our changes to the task due date using
   // the "signSetTaskDueDate" example and then store the updated task in the state
@@ -228,7 +234,7 @@ const colonyStarterBasic = async () => {
     state.task.id,                  // taskId
   );
 
-  console.log('\n\x1b[32m' + 'account[0] setTaskManagerPayout:' + '\x1b[0m\n');
+  log('account[0] setTaskManagerPayout:');
 
   // Set the amount of tokens we want to payout the manager of our task using
   // the "setTaskManagerPayout" example.
@@ -239,7 +245,7 @@ const colonyStarterBasic = async () => {
     state.tokenAddress,             // token
   );
 
-  console.log('\n\x1b[32m' + 'account[0] signSetTaskManagerPayout:' + '\x1b[0m\n');
+  log('account[0] signSetTaskManagerPayout:');
 
   // Sign the multisig operation associated with our changes to the manager
   // payout using the "signSetTaskManagerPayout" example. The requested changes
@@ -250,7 +256,7 @@ const colonyStarterBasic = async () => {
     state.task.id,                  // taskId
   );
 
-  console.log('\n\x1b[32m' + 'account[0] setTaskEvaluatorPayout:' + '\x1b[0m\n');
+  log('account[0] setTaskEvaluatorPayout:');
 
   // Set the amount of tokens we want to payout the evaluator of our task using
   // the "setTaskEvaluatorPayout" example. The "setTaskEvaluatorPayout" example
@@ -264,7 +270,7 @@ const colonyStarterBasic = async () => {
     state.tokenAddress,             // token
   );
 
-  console.log('\n\x1b[32m' + 'account[0] signSetTaskEvaluatorPayout:' + '\x1b[0m\n');
+  log('account[0] signSetTaskEvaluatorPayout:');
 
   // Sign the multisig operation associated with our changes to the evaluator
   // payout using the "signSetTaskEvaluatorPayout" example. The requested changes
@@ -275,7 +281,7 @@ const colonyStarterBasic = async () => {
     state.task.id,                  // taskId
   );
 
-  console.log('\n\x1b[32m' + 'account[0] setTaskWorkerPayout:' + '\x1b[0m\n');
+  log('account[0] setTaskWorkerPayout:');
 
   // Set the amount of tokens we want to payout the worker of our task using
   // the "setTaskWorkerPayout" example. The "setTaskWorkerPayout" example
@@ -289,7 +295,7 @@ const colonyStarterBasic = async () => {
     state.tokenAddress,             // token
   );
 
-  console.log('\n\x1b[32m' + 'account[0] signSetTaskWorkerPayout:' + '\x1b[0m\n');
+  log('account[0] signSetTaskWorkerPayout:');
 
   // Sign the multisig operation associated with our changes to the worker
   // payout using the "signSetTaskWorkerPayout" example. The requested changes
@@ -300,7 +306,7 @@ const colonyStarterBasic = async () => {
     state.task.id,                  // taskId
   );
 
-  console.log('\n\x1b[32m' + 'account[0] removeTaskEvaluatorRole:' + '\x1b[0m\n');
+  log('account[0] removeTaskEvaluatorRole:');
 
   // Remove the evaluator of our task using the "removeTaskEvaluatorRole" example.
   await removeTaskEvaluatorRole(
@@ -308,14 +314,14 @@ const colonyStarterBasic = async () => {
     state.task.id,                  // taskId
   );
 
-  console.log('\n\x1b[32m' + 'account[0] signRemoveTaskEvaluatorRole:' + '\x1b[0m\n');
+  log('account[0] signRemoveTaskEvaluatorRole:');
 
   await signRemoveTaskEvaluatorRole(
     state.colonyClient[0],          // colonyClient
     state.task.id,                  // taskId
   );
 
-  console.log('\n\x1b[32m' + 'account[0] setTaskEvaluatorRole:' + '\x1b[0m\n');
+  log('account[0] setTaskEvaluatorRole:');
 
   // Set the worker of our task using the "setTaskEvaluatorRole" example.
   await setTaskEvaluatorRole(
@@ -324,14 +330,14 @@ const colonyStarterBasic = async () => {
     accounts[1],                    // user
   );
 
-  console.log('\n\x1b[32m' + 'account[0] signSetTaskEvaluatorRole:' + '\x1b[0m\n');
+  log('account[0] signSetTaskEvaluatorRole:');
 
   await signSetTaskEvaluatorRole(
     state.colonyClient[0],          // colonyClient
     state.task.id,                  // taskId
   );
 
-  console.log('\n\x1b[32m' + 'account[1] connectNetwork:' + '\x1b[0m\n');
+  log('account[1] connectNetwork:');
 
   // Connect to the network using the "connectNetwork" example and then store
   // the returned "networkClient" in the state object.
@@ -339,7 +345,7 @@ const colonyStarterBasic = async () => {
     1,                              // accountIndex
   );
 
-  console.log('\n\x1b[32m' + 'account[1] getColonyClient:' + '\x1b[0m\n');
+  log('account[1] getColonyClient:');
 
   // Get the client for our new colony using the "getColonyClient" example and
   // then store the returned "colonyClient" in the state object.
@@ -348,14 +354,14 @@ const colonyStarterBasic = async () => {
     state.colony.id,                // colonyId
   );
 
-  console.log('\n\x1b[32m' + 'account[1] signSetTaskEvaluatorRole:' + '\x1b[0m\n');
+  log('account[1] signSetTaskEvaluatorRole:');
 
   await signSetTaskEvaluatorRole(
     state.colonyClient[1],          // colonyClient
     state.task.id,                  // taskId
   );
 
-  console.log('\n\x1b[32m' + 'account[0] setTaskWorkerRole:' + '\x1b[0m\n');
+  log('account[0] setTaskWorkerRole:');
 
   // Set the worker of our task using the "setTaskWorkerRole" example.
   await setTaskWorkerRole(
@@ -364,14 +370,14 @@ const colonyStarterBasic = async () => {
     accounts[2],                    // user
   );
 
-  console.log('\n\x1b[32m' + 'account[0] signSetTaskWorkerRole:' + '\x1b[0m\n');
+  log('account[0] signSetTaskWorkerRole:');
 
   await signSetTaskWorkerRole(
     state.colonyClient[0],          // colonyClient
     state.task.id,                  // taskId
   );
 
-  console.log('\n\x1b[32m' + 'account[2] connectNetwork:' + '\x1b[0m\n');
+  log('account[2] connectNetwork:');
 
   // Connect to the network using the "connectNetwork" example and then store
   // the returned "networkClient" in the state object.
@@ -379,7 +385,7 @@ const colonyStarterBasic = async () => {
     2,                              // accountIndex
   );
 
-  console.log('\n\x1b[32m' + 'account[2] getColonyClient:' + '\x1b[0m\n');
+  log('account[2] getColonyClient:');
 
   // Get the client for our new colony using the "getColonyClient" example and
   // then store the returned "colonyClient" in the state object.
@@ -388,14 +394,14 @@ const colonyStarterBasic = async () => {
     state.colony.id,                // colonyId
   );
 
-  console.log('\n\x1b[32m' + 'account[2] signSetTaskWorkerRole:' + '\x1b[0m\n');
+  log('account[2] signSetTaskWorkerRole:');
 
   await signSetTaskWorkerRole(
     state.colonyClient[2],          // colonyClient
     state.task.id,                  // taskId
   );
 
-  console.log('\n\x1b[32m' + 'account[0] setTaskBrief:' + '\x1b[0m\n');
+  log('account[0] setTaskBrief:');
 
   // Update the specification of our task using the "setTaskBrief" example.
   // The "setTaskBrief" example starts a multisig operation and then stores
@@ -410,7 +416,7 @@ const colonyStarterBasic = async () => {
     },
   );
 
-  console.log('\n\x1b[32m' + 'account[0] signSetTaskBrief:' + '\x1b[0m\n');
+  log('account[0] signSetTaskBrief:');
 
   // Sign the operation associated with our changes to the task specification
   // using the "signSetTaskBrief" example. The requested changes were made after
@@ -421,7 +427,7 @@ const colonyStarterBasic = async () => {
     state.task.id,                  // taskId
   );
 
-  console.log('\n\x1b[32m' + 'account[2] signSetTaskBrief:' + '\x1b[0m\n');
+  log('account[2] signSetTaskBrief:');
 
   // Sign the operation associated with our changes to the task specification
   // using the "signSetTaskBrief" example. The requested changes were made after
@@ -432,7 +438,7 @@ const colonyStarterBasic = async () => {
     state.task.id,                  // taskId
   );
 
-  console.log('\n\x1b[32m' + 'account[2] submitTaskDeliverable:' + '\x1b[0m\n');
+  log('account[2] submitTaskDeliverable:');
 
   // Submit the task deliverable for our task using the "submitTaskDeliverable"
   // example. The delivarable can only be submitted by the worker of the task.
@@ -444,7 +450,7 @@ const colonyStarterBasic = async () => {
     },
   );
 
-  console.log('\n\x1b[32m' + 'account[1] submitTaskWorkRating:' + '\x1b[0m\n');
+  log('account[1] submitTaskWorkRating:');
 
   // Submit a rating for the worker of our task from the evaluator of our task
   // using the "submitTaskWorkRating" example.
@@ -455,7 +461,7 @@ const colonyStarterBasic = async () => {
     3,                              // rating
   );
 
-  console.log('\n\x1b[32m' + 'account[2] submitTaskWorkRating:' + '\x1b[0m\n');
+  log('account[2] submitTaskWorkRating:');
 
   // Submit a rating for the manager of our task from the worker of our task
   // using the "submitTaskWorkRating" example.
@@ -466,7 +472,7 @@ const colonyStarterBasic = async () => {
     3,                              // rating
   );
 
-  console.log('\n\x1b[32m' + 'account[1] revealTaskWorkRating:' + '\x1b[0m\n');
+  log('account[1] revealTaskWorkRating:');
 
   // Reaveal the rating for the worker of our task from the evaluator of our
   // task using the "revealTaskWorkRating" example.
@@ -477,7 +483,7 @@ const colonyStarterBasic = async () => {
     3,                              // rating
   );
 
-  console.log('\n\x1b[32m' + 'account[2] revealTaskWorkRating:' + '\x1b[0m\n');
+  log('account[2] revealTaskWorkRating:');
 
   // Reaveal the rating for the manager of our task from the worker of our task
   // using the "revealTaskWorkRating" example.
@@ -488,7 +494,7 @@ const colonyStarterBasic = async () => {
     3,                              // rating
   );
 
-  console.log('\n\x1b[32m' + 'account[0] finalizeTask:' + '\x1b[0m\n');
+  log('account[0] finalizeTask:');
 
   // Finalize our task using the "finalizeTask" example.
   await finalizeTask(
@@ -496,7 +502,7 @@ const colonyStarterBasic = async () => {
     state.task.id,                  // taskId
   );
 
-  console.log('\n\x1b[32m' + 'account[0] claimPayout:' + '\x1b[0m\n');
+  log('account[0] claimPayout:');
 
   // Claim the manager payout for the task using the "claimPayout" example.
   await claimPayout(
@@ -506,7 +512,7 @@ const colonyStarterBasic = async () => {
     state.tokenAddress,             // token
   );
 
-  console.log('\n\x1b[32m' + 'account[1] claimPayout:' + '\x1b[0m\n');
+  log('account[1] claimPayout:');
 
   // Claim the evaluator payout for the task using the "claimPayout" example.
   await claimPayout(
@@ -516,7 +522,7 @@ const colonyStarterBasic = async () => {
     state.tokenAddress,             // token
   );
 
-  console.log('\n\x1b[32m' + 'account[2] claimPayout:' + '\x1b[0m\n');
+  log('account[2] claimPayout:');
 
   // Claim the worker payout for the task using the "claimPayout" example.
   await claimPayout(
@@ -526,7 +532,7 @@ const colonyStarterBasic = async () => {
     state.tokenAddress,             // token
   );
 
-  console.log('\n');
+  log('complete');
 
 }
 

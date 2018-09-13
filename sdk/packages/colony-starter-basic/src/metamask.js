@@ -1,18 +1,24 @@
-// Import example
+// Import prerequisites
+const chalk = require('chalk');
+
+// Import examples
 const connectMetamask = require('./examples/connectMetamask');
 
-// Define connectMetamaskExample
-const connectMetamaskExample = async () => {
+// Logging to help keep track of where we are in the script
+const log = (msg) => console.log(chalk.cyan('\n' + msg + '\n'));
 
-  console.log('\n\x1b[32m' + 'connectMetamask:' + '\x1b[0m\n');
+// Colony Starter Basic example
+const colonyStarterBasic = async () => {
+
+  log('connectMetamask:');
 
   await connectMetamask();
 
-  console.log();
+  log('complete');
 
 }
 
 // Execute example
-connectMetamaskExample()
+colonyStarterBasic()
   .then(() => process.exit())
   .catch(err => console.error(err));
