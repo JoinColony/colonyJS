@@ -1,11 +1,8 @@
-// Import prerequisites
-const chalk = require('chalk');
+// Import helpers
+const log = require('./helpers/log');
 
 // Import examples
 const connectMetamask = require('./examples/connectMetamask');
-
-// Logging to help keep track of where we are in the script
-const log = (msg) => console.log(chalk.cyan('\n' + msg + '\n'));
 
 // Colony Starter Basic example
 const colonyStarterBasic = async () => {
@@ -14,7 +11,7 @@ const colonyStarterBasic = async () => {
 
   await connectMetamask();
 
-  log('complete');
+  log('Complete!');
 
 }
 

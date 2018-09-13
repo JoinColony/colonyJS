@@ -1,5 +1,5 @@
-// Import prerequisites
-const chalk = require('chalk');
+// Import helpers
+const log = require('./helpers/log');
 
 // Import examples
 const addDomain = require('./examples/addDomain');
@@ -36,9 +36,6 @@ const signSetTaskWorkerRole = require('./examples/signSetTaskWorkerRole');
 const signSetTaskDueDate = require('./examples/signSetTaskDueDate');
 const submitTaskDeliverable = require('./examples/submitTaskDeliverable');
 const submitTaskWorkRating = require('./examples/submitTaskWorkRating');
-
-// Logging to help keep track of where we are in the script
-const log = (msg) => console.log(chalk.cyan('\n' + msg + '\n'));
 
 // The global database object will act as a mock database where we will store
 // our pending multisig operations so that we can restore the operations when
@@ -532,7 +529,7 @@ const colonyStarterBasic = async () => {
     state.tokenAddress,             // token
   );
 
-  log('complete');
+  log('Complete!');
 
 }
 
