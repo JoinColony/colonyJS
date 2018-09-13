@@ -15,7 +15,7 @@ const signSetTaskWorkerPayout = async (colonyClient, taskId) => {
     // Check if the operation matches the colony contract and the task id and
     // check if current account is required to sign the operation.
     if (
-      operation.payload.sourceAddress === colonyClient._contract.address &&
+      operation.payload.sourceAddress === colonyClient.contract.address &&
       operation.payload.inputValues.taskId === taskId &&
       operation.missingSignees.includes(colonyClient.adapter.wallet.address.toLowerCase())
     ) {

@@ -15,7 +15,7 @@ const signSetTaskWorkerRole = async (colonyClient, taskId) => {
     // Check if the operation matches the colony contract and task id and if
     // the current account is one of the required signees for the operation.
     if (
-      operation.payload.sourceAddress === colonyClient._contract.address &&
+      operation.payload.sourceAddress === colonyClient.contract.address &&
       operation.payload.inputValues.taskId === taskId &&
       operation.missingSignees.includes(colonyClient.adapter.wallet.address.toLowerCase())
     ) {
