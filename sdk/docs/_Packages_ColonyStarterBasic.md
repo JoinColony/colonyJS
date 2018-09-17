@@ -18,6 +18,8 @@ This project includes example scripts also found in the [Get Started](https://jo
 
 _You may find it helpful to use Node Version Manager (`nvm`) to manage node versions._
 
+_For linux users, see the [linux install notes](https://github.com/JoinColony/colonyStarter/blob/master/.github/DEVELOPMENT.md#prerequisites) for extra steps needed to get things running smoothly._
+
 ## Installation
 
 Globally install the `colony-starter` package.
@@ -49,6 +51,8 @@ Open a new terminal window and deploy the [colonyNetwork](https://github.com/Joi
 ```
 yarn deploy-contracts
 ```
+_Until another workaround is found, this command needs to be run as `sudo` for linux users_
+
 
 ### Start TrufflePig
 
