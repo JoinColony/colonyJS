@@ -19,10 +19,17 @@ function etherscanTransform(response: any, query?: Query = {}) {
     throw new Error('Malformed response from Etherscan');
   }
 
-  const { result: abi, status } = response;
+  const { result, status } = response;
 
   if (status !== '1')
     throw new Error(`Erroneous response from Etherscan (status: ${status})`);
+
+  let abi;
+  try {
+    abi = JSON.parse(result);
+  } catch (error) {
+    throw new Error(`Error parsing result from Etherscan: ${error.toString()}`);
+  }
 
   const parsed = {
     abi,
