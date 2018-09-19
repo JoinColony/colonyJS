@@ -4,6 +4,7 @@
 
 **Bug fixes**
 
+* EtherscanLoader now removes anything other than `contractAddress` passed as a query to `.load()`  (`@colony/colony-js-contract-loader-http`)
 * Parse the result (ABI) of Etherscan responses as JSON, as the Etherscan API has changed (`@colony/colony-js-contract-loader-http`)
 
 
