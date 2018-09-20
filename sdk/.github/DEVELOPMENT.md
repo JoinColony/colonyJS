@@ -6,21 +6,9 @@
 - Docker
 - Node 9.10
 
-_You may find it helpful to use Node Version Manager (`nvm`) to manage node versions._
+_You may find it helpful to use Node Version Manager (`nvm`) to manage Node versions._
 
-_Linux users need to perform a few extra steps to get the colony-starter-basic scripts running in a project:_
-
-Install the Solidity compiler manually with docker:
-```
-sudo docker pull ethereum/solc:0.4.23
-```
-
-To get globally installed `yarn` commands to your shell, add the following line to your`~/.bashrc` or `~/.bash_profile`:
-```
-export PATH="$PATH:$HOME/.config/yarn/global/node_modules/.bin"
-```
-(then start a new terminal instance, or `source ~/.bashrc`)
-
+_If you are a Linux user, check out the [Linux Setup](/.github/LINUX_SETUP.md) page to ensure Yarn and Docker are set up accordingly._
 
 ### Install Dependencies
 
@@ -45,7 +33,6 @@ Open a new terminal window and deploy contracts with [Truffle](https://github.co
 ```
 yarn deploy-contracts
 ```
-_Until another workaround is found, this command needs to be run as `sudo` for linux users_
 
 ### Start TrufflePig
 
