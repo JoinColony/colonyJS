@@ -2,6 +2,9 @@
 
 ## v.NEXT
 
+
+## v1.6.2
+
 **Bug fixes**
 
 * EtherscanLoader now removes anything other than `contractAddress` passed as a query to `.load()`  (`@colony/colony-js-contract-loader-http`)
