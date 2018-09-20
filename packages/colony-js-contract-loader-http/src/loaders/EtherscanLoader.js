@@ -59,4 +59,10 @@ export default class EtherscanLoader extends HttpLoader {
   }: ConstructorArgs = {}) {
     super({ endpoint, transform, ...rest });
   }
+
+  // Remove everything except `contractAddress` from the load method, because
+  // Etherscan only supports that field.
+  load({ contractAddress }: *, requiredProps?: *) {
+    return super.load({ contractAddress }, requiredProps);
+  }
 }

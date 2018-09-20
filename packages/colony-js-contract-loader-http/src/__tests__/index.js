@@ -111,6 +111,7 @@ describe('ContractHttpLoader', () => {
 
   test('EtherscanLoader', async () => {
     const loader = new EtherscanLoader();
+    sandbox.spyOn(loader, '_load');
     sandbox.spyOn(loader, '_transform');
 
     const query = { contractAddress };
@@ -134,7 +135,10 @@ describe('ContractHttpLoader', () => {
       .once(JSON.stringify(badJSONResponse));
 
     // Successful response
-    const contract = await loader.load(query, requiredProps);
+    const contract = await loader.load(
+      { contractAddress, contractName: 'Token' },
+      requiredProps,
+    );
     expect(contract).toEqual({ address: contractAddress, abi });
     expect(() => contract.bytecode).toThrowError(
       'Etherscan does not currently provide contract bytecode',
@@ -143,6 +147,22 @@ describe('ContractHttpLoader', () => {
       successfulResponse,
       query,
       requiredProps,
+    );
+    // We added `contractName` property to the query, but it should have been
+    // removed from the object used for `_load`. Ideally we would test
+    // `super.load`, but seeing as the super class is from a different package,
+    // jest certainly doesn't make that easy.
+    expect(loader._load).toHaveBeenCalledTimes(1);
+    expect(loader._load).toHaveBeenCalledWith(
+      {
+        contractAddress: query.contractAddress,
+      },
+      expect.anything(),
+    );
+    expect(loader._load).not.toHaveBeenCalledWith(
+      expect.objectContaining({
+        contractName: expect.anything(),
+      }),
     );
 
     // Malformed response
