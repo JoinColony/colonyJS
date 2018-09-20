@@ -16,7 +16,7 @@ _Learn to build with Colony! Get a head start on your next project!_ colonyStart
 - Docker
 - Node 9.10
 
-_You may find it helpful to use Node Version Manager (`nvm`) to manage node versions._
+_You may find it helpful to use Node Version Manager (`nvm`) to manage Node versions._
 
 ### Step 1
 

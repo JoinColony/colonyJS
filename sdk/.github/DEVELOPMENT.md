@@ -6,7 +6,9 @@
 - Docker
 - Node 9.10
 
-_You may find it helpful to use Node Version Manager (`nvm`) to manage node versions._
+_You may find it helpful to use Node Version Manager (`nvm`) to manage Node versions._
+
+_If you are a Linux user, check out the [Linux Setup](/.github/LINUX_SETUP.md) page to ensure Yarn and Docker are set up accordingly._
 
 ### Install Dependencies
 

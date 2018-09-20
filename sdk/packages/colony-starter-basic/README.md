@@ -10,7 +10,7 @@ This project includes example scripts also found in the [Get Started](https://jo
 - Docker
 - Node 9.10
 
-_You may find it helpful to use Node Version Manager (`nvm`) to manage node versions._
+_You may find it helpful to use Node Version Manager (`nvm`) to manage Node versions._
 
 ## Development
 
