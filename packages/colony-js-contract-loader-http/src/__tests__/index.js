@@ -116,17 +116,22 @@ describe('ContractHttpLoader', () => {
     const query = { contractAddress };
     const successfulResponse = {
       status: '1',
-      result: abi,
+      result: JSON.stringify(abi),
     };
     const malformedResponse = 'abc';
     const erroneousResponse = {
       status: '0',
       result: 'Something went wrong',
     };
+    const badJSONResponse = {
+      status: '1',
+      result: '',
+    };
     fetch
       .once(JSON.stringify(successfulResponse))
       .once(JSON.stringify(malformedResponse))
-      .once(JSON.stringify(erroneousResponse));
+      .once(JSON.stringify(erroneousResponse))
+      .once(JSON.stringify(badJSONResponse));
 
     // Successful response
     const contract = await loader.load(query, requiredProps);
@@ -163,6 +168,18 @@ describe('ContractHttpLoader', () => {
       );
       expect(loader._transform).toHaveBeenCalledWith(
         erroneousResponse,
+        query,
+        requiredProps,
+      );
+    }
+
+    // Bad JSON result
+    try {
+      await loader.load(query, requiredProps);
+    } catch (error) {
+      expect(error.toString()).toContain('Error parsing result from Etherscan');
+      expect(loader._transform).toHaveBeenCalledWith(
+        badJSONResponse,
         query,
         requiredProps,
       );

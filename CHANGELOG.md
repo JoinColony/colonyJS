@@ -2,6 +2,11 @@
 
 ## v.NEXT
 
+**Bug fixes**
+
+* Parse the result (ABI) of Etherscan responses as JSON, as the Etherscan API has changed (`@colony/colony-js-contract-loader-http`)
+
+
 **New features**
 
 * Add `getReputation` methods to `ColonyClient` and `ColonyNetworkClient` (currently only availble for Rinkeby) (`@colony/colony-js-client`)
