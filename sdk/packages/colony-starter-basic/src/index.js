@@ -140,7 +140,7 @@ const colonyStarterBasic = async () => {
 
   log('account[0] moveFundsBetweenPots:');
 
-  // Move funds to our task using the "moveFundsBetweenPots" example.
+  // Move funds to our domain using the "moveFundsBetweenPots" example.
   await moveFundsBetweenPots(
     state.colonyClient[0],          // colonyClient
     1,                              // fromPot
