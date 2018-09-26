@@ -2,6 +2,8 @@
 
 ## v.NEXT
 
+## v1.6.3
+
 **Maintenance**
 
 * Fixes to Flow types, handling of types (`@colony/colony-js-contract-client`)
