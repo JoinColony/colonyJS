@@ -181,11 +181,13 @@ export default class MultisigOperation<
     let foundMode;
     const { adapter } = this.sender.client;
 
-    Object.values(SIGNING_MODES).forEach(mode => {
-      const digest = this._getMessageDigest(mode);
-      const recovered = adapter.ecRecover(digest, signature);
-      if (address.toLowerCase() === recovered.toLowerCase()) foundMode = mode;
-    });
+    Object.keys(SIGNING_MODES)
+      .map(key => SIGNING_MODES[key])
+      .forEach(mode => {
+        const digest = this._getMessageDigest(mode);
+        const recovered = adapter.ecRecover(digest, signature);
+        if (address.toLowerCase() === recovered.toLowerCase()) foundMode = mode;
+      });
 
     if (foundMode !== undefined) return foundMode;
 
