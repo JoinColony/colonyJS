@@ -64,7 +64,7 @@ export default class ContractMethodSender<
       this.client.adapter.getTransactionReceipt(transaction.hash),
       timeoutMs,
     );
-    const eventData = await this.client.getReceiptEventData(receipt);
+    const eventData = this.client.getReceiptEventData(receipt);
 
     return {
       successful: receipt && receipt.status === 1,
@@ -100,7 +100,7 @@ export default class ContractMethodSender<
       try {
         const receipt = await receiptPromise;
         try {
-          resolve(await this.client.getReceiptEventData(receipt));
+          resolve(this.client.getReceiptEventData(receipt));
         } catch (decodeError) {
           reject(decodeError.toString());
         }

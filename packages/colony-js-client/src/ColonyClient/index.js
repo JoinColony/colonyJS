@@ -997,6 +997,14 @@ export default class ColonyClient extends ContractClient {
     this.addEvent('TaskFinalized', [['taskId', 'number']]);
     this.addEvent('TaskCanceled', [['taskId', 'number']]);
 
+    // XXX The SkillAdded event (and its underlying interface) is defined on
+    // the network client, but methods like `ColonyClient.addGlobalSkill`
+    // will cause this event to be logged; this workaround copies the event
+    // definition here so that it can be parsed correctly.
+    this.events.SkillAdded = this.networkClient.events.SkillAdded;
+    // eslint-disable-next-line max-len
+    this.contract.interface.events.SkillAdded = this.networkClient.contract.interface.events.SkillAdded;
+
     // Senders
     this.addSender('addDomain', {
       input: [['parentSkillId', 'number']],
