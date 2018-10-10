@@ -6,6 +6,11 @@
 
 * Ensure that the `SkillAdded` event is parsed correctly when logged in transactions from `ColonyClient` (`@colony/colony-js-client` / `@colony/colony-js-contract-client`)
 
+**Maintenance**
+
+* Export additional flow types: `{ ContractClientConstructorArgs, ContractResponse, MultisigOperationConstructorArgs, SendOptions } (`@colony/colony-js-client` / `@colony/colony-js-contract-client`)
+`
+
 
 ## v1.6.3
 
