@@ -1,8 +1,23 @@
 /* @flow */
 
+import type {
+  ContractClientConstructorArgs,
+  ContractResponse,
+  MultisigOperationConstructorArgs,
+  SendOptions,
+} from '@colony/colony-js-contract-client';
+
 import './paramTypes';
 
 import ColonyNetworkClient from './ColonyNetworkClient/index';
+
+export type {
+  ColonyNetworkClient,
+  ContractClientConstructorArgs,
+  ContractResponse,
+  MultisigOperationConstructorArgs,
+  SendOptions,
+};
 
 export {
   ADMIN_ROLE,
