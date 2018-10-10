@@ -456,7 +456,7 @@ An instance of a `ContractResponse`
 
 
 
-### `registerColonyLabel.send({ subnode }, options)`
+### `registerColonyLabel.send({ colonyName }, options)`
 
 Register the colony's ENS label.
 
@@ -464,13 +464,17 @@ Register the colony's ENS label.
 
 |Argument|Type|Description|
 |---|---|---|
-|subnode|string|The keccak256 hash of the label to register|
+|colonyName|string|The keccak256 hash of the label to register|
 
 **Returns**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse` which will eventually receive the following event data:
 
-
+|Event data|Type|Description|
+|---|---|---|
+|colony|Address|Address of the colony that registered a label|
+|label|string|The label registered|
+|ColonyLabelRegistered|object|Contains the data defined in [ColonyLabelRegistered](#events-ColonyLabelRegistered)|
 
 ### `setOwnerRole.send({ user }, options)`
 
@@ -1316,3 +1320,15 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |Argument|Type|Description|
 |---|---|---|
 |payoutId|number|The payout ID logged when a new reward payout cycle has started.|
+
+
+### [events.ColonyLabelRegistered.addListener(({ colony, label }) => { /* ... */ })](#events-ColonyLabelRegistered)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|colony|Address|Address of the colony that registered a label|
+|label|string|The label registered|
