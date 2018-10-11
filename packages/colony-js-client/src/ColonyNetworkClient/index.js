@@ -184,7 +184,7 @@ export default class ColonyNetworkClient extends ContractClient {
     ColonyNetworkClient,
   >;
   /*
-      Returns the address of a colony when given the hashed ENS username
+      Returns the database address of a user when given the hashed ENS username
     */
   getProfileDBAddress: ColonyNetworkClient.Caller<
     {
