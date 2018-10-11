@@ -292,7 +292,7 @@ A promise which resolves to an object containing the following properties:
 
 ### `getProfileDBAddress.call({ nameHash })`
 
-Returns the address of a colony when given the hashed ENS username
+Returns the database address of a user when given the hashed ENS username
 
 **Arguments**
 
@@ -306,7 +306,7 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|orbitDBAddress|Address|Address of the UserProfile DDB|
+|orbitDBAddress|string|Address of the UserProfile DDB|
 
 ### `lookupRegisteredENSDomain.call({ ensAddress })`
 
