@@ -464,7 +464,7 @@ Register the colony's ENS label.
 
 |Argument|Type|Description|
 |---|---|---|
-|colonyName|string|The keccak256 hash of the label to register|
+|colonyName|string|The label to register|
 
 **Returns**
 

@@ -191,7 +191,7 @@ export default class ColonyNetworkClient extends ContractClient {
       nameHash: HexString, // The hashed human-readable ENS name
     },
     {
-      orbitDBAddress: Address, // Address of the UserProfile DDB
+      orbitDBAddress: string, // Address of the UserProfile DDB
     },
     ColonyNetworkClient,
   >;
@@ -479,7 +479,7 @@ export default class ColonyNetworkClient extends ContractClient {
     });
     this.addCaller('getProfileDBAddress', {
       input: [['nameHash', 'hexString']],
-      output: [['orbitDBAddress', 'address']],
+      output: [['orbitDBAddress', 'string']],
     });
     this.addCaller('lookupRegisteredENSDomain', {
       functionName: 'lookupUsername',
