@@ -2,6 +2,9 @@
 
 ## v.NEXT
 
+
+## v1.6.4
+
 **Bug fixes**
 
 * Ensure that the `SkillAdded` event is parsed correctly when logged in transactions from `ColonyClient` (`@colony/colony-js-client` / `@colony/colony-js-contract-client`)
