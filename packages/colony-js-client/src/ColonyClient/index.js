@@ -91,6 +91,10 @@ type TaskCanceled = ContractClient.Event<{
 type RewardPayoutCycleStarted = ContractClient.Event<{
   payoutId: number, // The payout ID logged when a new reward payout cycle has started.
 }>;
+type ColonyLabelRegistered = ContractClient.Event<{
+  colony: Address, // Address of the colony that registered a label
+  label: string, // The label registered
+}>;
 
 export default class ColonyClient extends ContractClient {
   networkClient: ColonyNetworkClient;
@@ -397,9 +401,9 @@ export default class ColonyClient extends ContractClient {
   */
   registerColonyLabel: ColonyClient.Sender<
     {
-      subnode: string, // The keccak256 hash of the label to register
+      colonyName: string, // The label to register
     },
-    {},
+    { ColonyLabelRegistered: ColonyLabelRegistered },
     ColonyClient,
   >;
   /*
@@ -771,6 +775,7 @@ export default class ColonyClient extends ContractClient {
   >;
 
   events: {
+    ColonyLabelRegistered: ColonyLabelRegistered,
     DomainAdded: DomainAdded,
     PotAdded: PotAdded,
     RewardPayoutCycleStarted: RewardPayoutCycleStarted,
@@ -997,13 +1002,17 @@ export default class ColonyClient extends ContractClient {
     this.addEvent('TaskFinalized', [['taskId', 'number']]);
     this.addEvent('TaskCanceled', [['taskId', 'number']]);
 
-    // XXX The SkillAdded event (and its underlying interface) is defined on
-    // the network client, but methods like `ColonyClient.addGlobalSkill`
-    // will cause this event to be logged; this workaround copies the event
-    // definition here so that it can be parsed correctly.
+    // XXX The SkillAdded/ColonyLabelRegistered events (and their underlying
+    // interfaces) are defined on the network client, but methods like
+    // `ColonyClient.addGlobalSkill` will cause these events to be logged;
+    // this workaround copies the event definition here so that it can be
+    // parsed correctly.
+    /* eslint-disable max-len */
     this.events.SkillAdded = this.networkClient.events.SkillAdded;
-    // eslint-disable-next-line max-len
+    this.events.ColonyLabelRegistered = this.networkClient.events.ColonyLabelRegistered;
     this.contract.interface.events.SkillAdded = this.networkClient.contract.interface.events.SkillAdded;
+    this.contract.interface.events.ColonyLabelRegistered = this.networkClient.contract.interface.events.ColonyLabelRegistered;
+    /* eslint-enable max-len */
 
     // Senders
     this.addSender('addDomain', {

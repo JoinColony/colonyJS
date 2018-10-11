@@ -290,6 +290,78 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |lockingAddress|Address|Token locking contract address|
 
+### `getProfileDBAddress.call({ nameHash })`
+
+Returns the address of a colony when given the hashed ENS username
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|nameHash|Hex string|The hashed human-readable ENS name|
+
+**Returns**
+
+A promise which resolves to an object containing the following properties:
+
+|Return value|Type|Description|
+|---|---|---|
+|orbitDBAddress|Address|Address of the UserProfile DDB|
+
+### `lookupRegisteredENSDomain.call({ ensAddress })`
+
+Given an Ethereum address, returns a user's or colony's human-readable name, or an empty string if the address has no Colony-based ENS name
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|ensAddress|Address|The address we wish to find the corresponding ENS domain for (if any)|
+
+**Returns**
+
+A promise which resolves to an object containing the following properties:
+
+|Return value|Type|Description|
+|---|---|---|
+|domain|string|A string containing the colony-based ENS name corresponding to `ensAddress`|
+
+### `getAddressForENSHash.call({ nameHash })`
+
+Given a hash of the ENS name, returns the Ethereum address registered with it
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|nameHash|Hex string|The hashed human-readable ENS name|
+
+**Returns**
+
+A promise which resolves to an object containing the following properties:
+
+|Return value|Type|Description|
+|---|---|---|
+|ensAddress|Address|The registered ENS username for a colony or a user|
+
+### `ensSupportsInterface.call({ interfaceId })`
+
+Given an ENS interface, returns a boolean indicating whether the interface is supported
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|interfaceId|Hex string|The interface identifier, as specified in ERC-165|
+
+**Returns**
+
+A promise which resolves to an object containing the following properties:
+
+|Return value|Type|Description|
+|---|---|---|
+|isSupported|boolean|Returns `true` if the contract implements `interfaceId`|
+
   
 ## Senders
 
@@ -422,7 +494,7 @@ An instance of a `ContractResponse`
 
 
 
-### `registerUserLabel.send({ subnode }, options)`
+### `registerUserLabel.send({ username, orbitDBPath }, options)`
 
 Register a "user.joincolony.eth" label.
 
@@ -430,13 +502,18 @@ Register a "user.joincolony.eth" label.
 
 |Argument|Type|Description|
 |---|---|---|
-|subnode|string|The keccak256 hash of the label to register|
+|username|string|The label to register|
+|orbitDBPath|string|The path of the OrbitDB database associated with the user profile|
 
 **Returns**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse` which will eventually receive the following event data:
 
-
+|Event data|Type|Description|
+|---|---|---|
+|user|Address|Address of the user that registered a label|
+|label|string|The label registered|
+|UserLabelRegistered|object|Contains the data defined in [UserLabelRegistered](#events-UserLabelRegistered)|
 
   
   
@@ -480,3 +557,27 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |auction|string|The address of the auction contract|
 |token|Address|The address of the token being auctioned|
 |quantity|BigNumber|The amount of available tokens for auction|
+
+
+### [events.UserLabelRegistered.addListener(({ user, label }) => { /* ... */ })](#events-UserLabelRegistered)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|user|Address|Address of the user that registered a label|
+|label|string|The label registered|
+
+
+### [events.ColonyLabelRegistered.addListener(({ colony, label }) => { /* ... */ })](#events-ColonyLabelRegistered)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|colony|Address|Address of the colony that registered a label|
+|label|string|The label registered|

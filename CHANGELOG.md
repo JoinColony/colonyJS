@@ -10,7 +10,7 @@
 
 * Export additional flow types: `{ ContractClientConstructorArgs, ContractResponse, MultisigOperationConstructorArgs, SendOptions } (`@colony/colony-js-client` / `@colony/colony-js-contract-client`)
 `
-
+* Add support for [`ColonyNetworkENS`](https://github.com/JoinColony/colonyNetwork/blob/102ec5ec9b36645a2d6893fe6b775c155a226a6f/contracts/ColonyNetworkENS.sol)-based functionality in `ColonyNetworkClient` (`@colony/colony-js-client`)
 
 ## v1.6.3
 

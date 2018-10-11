@@ -15,6 +15,7 @@ import AuthorityClient from '../AuthorityClient/index';
 const MISSING_ID = 'An ID parameter must be provided';
 
 type Address = string;
+type HexString = string;
 
 type ColonyAdded = ContractClient.Event<{
   colonyId: number, // ID of the newly-created Colony
@@ -29,12 +30,22 @@ type AuctionCreated = ContractClient.Event<{
   token: Address, // The address of the token being auctioned
   quantity: BigNumber, // The amount of available tokens for auction
 }>;
+type UserLabelRegistered = ContractClient.Event<{
+  user: Address, // Address of the user that registered a label
+  label: string, // The label registered
+}>;
+type ColonyLabelRegistered = ContractClient.Event<{
+  colony: Address, // Address of the colony that registered a label
+  label: string, // The label registered
+}>;
 
 export default class ColonyNetworkClient extends ContractClient {
   events: {
     ColonyAdded: ColonyAdded,
     SkillAdded: SkillAdded,
     AuctionCreated: AuctionCreated,
+    ColonyLabelRegistered: ColonyLabelRegistered,
+    UserLabelRegistered: UserLabelRegistered,
   };
   /*
   Returns the address of a colony when given the ID
@@ -173,6 +184,54 @@ export default class ColonyNetworkClient extends ContractClient {
     ColonyNetworkClient,
   >;
   /*
+      Returns the database address of a user when given the hashed ENS username
+    */
+  getProfileDBAddress: ColonyNetworkClient.Caller<
+    {
+      nameHash: HexString, // The hashed human-readable ENS name
+    },
+    {
+      orbitDBAddress: string, // Address of the UserProfile DDB
+    },
+    ColonyNetworkClient,
+  >;
+  /*
+      Given an Ethereum address, returns a user's or colony's human-readable name, or an empty string if the address has no Colony-based ENS name
+    */
+  lookupRegisteredENSDomain: ColonyNetworkClient.Caller<
+    {
+      ensAddress: Address, // The address we wish to find the corresponding ENS domain for (if any)
+    },
+    {
+      domain: string, // A string containing the colony-based ENS name corresponding to `ensAddress`
+    },
+    ColonyNetworkClient,
+  >;
+  /*
+      Given a hash of the ENS name, returns the Ethereum address registered with it
+    */
+  getAddressForENSHash: ColonyNetworkClient.Caller<
+    {
+      nameHash: HexString, // The hashed human-readable ENS name
+    },
+    {
+      ensAddress: Address, // The registered ENS username for a colony or a user
+    },
+    ColonyNetworkClient,
+  >;
+  /*
+      Given an ENS interface, returns a boolean indicating whether the interface is supported
+    */
+  ensSupportsInterface: ColonyNetworkClient.Caller<
+    {
+      interfaceId: HexString, // The interface identifier, as specified in ERC-165
+    },
+    {
+      isSupported: boolean, // Returns `true` if the contract implements `interfaceId`
+    },
+    ColonyNetworkClient,
+  >;
+  /*
   Adds a new skill to the global or local skills tree.
   */
   addSkill: ColonyNetworkClient.Sender<
@@ -250,9 +309,10 @@ export default class ColonyNetworkClient extends ContractClient {
   */
   registerUserLabel: ColonyNetworkClient.Sender<
     {
-      subnode: string, // The keccak256 hash of the label to register
+      username: string, // The label to register
+      orbitDBPath: string, // The path of the OrbitDB database associated with the user profile
     },
-    {},
+    { UserLabelRegistered: UserLabelRegistered },
     ColonyNetworkClient,
   >;
 
@@ -355,6 +415,14 @@ export default class ColonyNetworkClient extends ContractClient {
       ['token', 'tokenAddress'],
       ['quantity', 'bigNumber'],
     ]);
+    this.addEvent('UserLabelRegistered', [
+      ['user', 'address'],
+      ['label', 'string'],
+    ]);
+    this.addEvent('ColonyLabelRegistered', [
+      ['colony', 'address'],
+      ['label', 'string'],
+    ]);
 
     // Callers
     this.addCaller('getColony', {
@@ -409,6 +477,25 @@ export default class ColonyNetworkClient extends ContractClient {
     this.addCaller('getTokenLocking', {
       output: [['lockingAddress', 'address']],
     });
+    this.addCaller('getProfileDBAddress', {
+      input: [['nameHash', 'hexString']],
+      output: [['orbitDBAddress', 'string']],
+    });
+    this.addCaller('lookupRegisteredENSDomain', {
+      functionName: 'lookupUsername',
+      input: [['ensAddress', 'address']],
+      output: [['domain', 'string']],
+    });
+    this.addCaller('ensSupportsInterface', {
+      functionName: 'supportsInterface',
+      input: [['interfaceId', 'hexString']],
+      output: [['isSupported', 'boolean']],
+    });
+    this.addCaller('getAddressForENSHash', {
+      functionName: 'addr',
+      input: [['nameHash', 'hexString']],
+      output: [['ensAddress', 'address']],
+    });
 
     // Senders
     this.addSender('addSkill', {
@@ -435,7 +522,7 @@ export default class ColonyNetworkClient extends ContractClient {
       input: [['ens', 'address'], ['rootNode', 'string']],
     });
     this.addSender('registerUserLabel', {
-      input: [['subnode', 'string']],
+      input: [['username', 'string'], ['orbitDBPath', 'string']],
     });
   }
 
