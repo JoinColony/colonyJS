@@ -17,7 +17,7 @@
         "eslint-config-airbnb-base": "^12.1.0",
         "eslint-config-prettier": "^2.9.0",
         "eslint-import-resolver-jest": "^2.1.1",
-        "eslint-plugin-flowtype": "^2.44.0",
+        "eslint-plugin-flowtype": "^3.0.0",
         "eslint-plugin-import": "^2.8.0",
         "eslint-plugin-prettier": "^2.6.0",
         "flow-bin": "^0.75.0",
