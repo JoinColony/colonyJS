@@ -1,19 +1,15 @@
-<img align="center" src="/docs/img/colonyStarter_color.svg" />
+<div align="center">
+  <img src="/docs/img/colonyStarter_color.svg" width="600" />
+</div>
 <div align="center">
   <a href="https://circleci.com/gh/JoinColony/colonyStarter">
-    <img src="https://img.shields.io/circleci/project/github/JoinColony/colonyStarter/node-csgo-parser.svg" />
+    <img src="https://circleci.com/gh/JoinColony/colonyStarter.svg?style=shield" />
+  </a>
+  <a href="https://gitter.im/JoinColony/colonyStarter">
+    <img src="https://img.shields.io/gitter/room/TechnologyAdvice/Stardust.svg" />
   </a>
   <a href="https://build.colony.io/">
     <img src="https://img.shields.io/discourse/https/build.colony.io/status.svg" />
-  </a>
-  <a href="https://build.colony.io/">
-    <img src="https://img.shields.io/discourse/https/build.colony.io/users.svg" />
-  </a>
-  <a href="https://build.colony.io/">
-    <img src="https://img.shields.io/discourse/https/build.colony.io/topics.svg" />
-  </a>
-  <a href="https://build.colony.io/">
-    <img src="https://img.shields.io/discourse/https/build.colony.io/posts.svg" />
   </a>
 </div>
 
