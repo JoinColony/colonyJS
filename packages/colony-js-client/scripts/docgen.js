@@ -154,7 +154,16 @@ ${sender.args && sender.args.length ? '\n**Arguments**\n\n' : ''}${printProps('A
 
 **Returns**
 
-An instance of a \`ContractResponse\`${sender.events && sender.events.length ? ' which will eventually receive the following event data:' : ''}
+An instance of a \`ContractResponse\`${
+  // XXX If this gets even more complicated, find another way!
+  sender.name === 'createToken'
+    ? ' which will receive a receipt with a \`contractAddress\` property (the address of the newly-deployed contract)'
+    : (
+        sender.events && sender.events.length
+          ? ' which will eventually receive the following event data:'
+          : ''
+      )
+}
 
 ${printProps('Event data', getEventProps(events, sender.events))}
 `,
