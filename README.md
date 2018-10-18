@@ -1,8 +1,22 @@
-<img align="center" src="/docs/img/colonyJS_color.svg" />
+<div align="center">
+  <img src="/docs/img/colonyJS_color.svg" width="600" />
+</div>
+<div align="center">
+  <a href="https://circleci.com/gh/JoinColony/colonyJS">
+    <img src="https://circleci.com/gh/JoinColony/colonyJS.svg?style=shield" />
+  </a>
+  <a href="https://greenkeeper.io/">
+    <img src="https://badges.greenkeeper.io/JoinColony/colonyJS.svg" />
+  </a>
+  <a href="https://gitter.im/JoinColony/colonyJS">
+    <img src="https://img.shields.io/gitter/room/TechnologyAdvice/Stardust.svg" />
+  </a>
+  <a href="https://build.colony.io/">
+    <img src="https://img.shields.io/discourse/https/build.colony.io/status.svg" />
+  </a>
+</div>
 
 # colonyJS
-
-[![Greenkeeper badge](https://badges.greenkeeper.io/JoinColony/colonyJS.svg?token=1fee7a42ece06b33380b3cc2c710775c7ae6e442a086a59dd77cd7e2809fe47c&ts=1518711661590)](https://greenkeeper.io/)
 
 colonyJS is a JavaScript client for the [Colony Network](https://github.com/JoinColony/colonyNetwork). It provides a high-level API for interacting with the Colony Network smart contracts.
 
