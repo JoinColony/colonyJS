@@ -27,22 +27,6 @@ await networkClient.init();
 
 **All instance methods return promises.**
 
-### `createToken({ name, symbol, decimals })`
-
-Deploys a new ERC20 compatible token contract for you to use with your Colony. You can also use your own token when creating a Colony.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|name|string|Name of the token to create (e.g. Cool Colony Token)|
-|symbol|string|Symbol of the token to create (e.g. CCT)|
-|decimals|string|Decimals of your token (default: 18).|
-
-**Returns**
-
-`Promise<Address>` The address of the newly deployed token contract
-
 ### `getColonyClientByAddress(contractAddress)`
 
 Returns an initialized ColonyClient for the contract at address `contractAddress`
