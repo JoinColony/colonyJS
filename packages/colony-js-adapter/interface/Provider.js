@@ -9,6 +9,7 @@ import type { TransactionReceipt } from './TransactionReceipt';
 export interface Provider {
   name: string;
   chainId: string;
+  estimateGas(transaction: Transaction): Promise<number>;
   getAddress(): string | Promise<string>;
   getBalance(addressOrName: string, blockTag?: string): Promise<BigNumber>;
   getBlock(blockHashOrBlockNumber: string | number): Promise<Block>;
