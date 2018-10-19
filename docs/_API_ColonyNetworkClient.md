@@ -27,22 +27,6 @@ await networkClient.init();
 
 **All instance methods return promises.**
 
-### `createToken({ name, symbol, decimals })`
-
-Deploys a new ERC20 compatible token contract for you to use with your Colony. You can also use your own token when creating a Colony.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|name|string|Name of the token to create (e.g. Cool Colony Token)|
-|symbol|string|Symbol of the token to create (e.g. CCT)|
-|decimals|string|Decimals of your token (default: 18).|
-
-**Returns**
-
-`Promise<Address>` The address of the newly deployed token contract
-
 ### `getColonyClientByAddress(contractAddress)`
 
 Returns an initialized ColonyClient for the contract at address `contractAddress`
@@ -366,6 +350,24 @@ A promise which resolves to an object containing the following properties:
 ## Senders
 
 **All senders return an instance of a `ContractResponse`.** Every `send()` method takes an `options` object as the second argument. For a reference please check [here](/colonyjs/docs-contractclient/#senders).
+### `createToken.send({ name, symbol, decimals }, options)`
+
+Deploys a new ERC20 compatible token contract for you to use with your Colony. You can also use your own token when creating a Colony.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|name|string|Name of the token to create|
+|symbol|string|Symbol of the token (e.g. CLNY)|
+|decimals|number|Decimals to use for your token|
+
+**Returns**
+
+An instance of a `ContractResponse` which will receive a receipt with a `contractAddress` property (the address of the newly-deployed contract)
+
+
+
 ### `addSkill.send({ parentSkillId, globalSkill }, options)`
 
 Adds a new skill to the global or local skills tree.

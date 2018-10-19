@@ -1,7 +1,6 @@
 /* @flow */
 
 import assert from 'assert';
-import { utf8ToHex } from 'web3-utils';
 import { isValidAddress } from '@colony/colony-js-utils';
 import BigNumber from 'bn.js';
 import 'isomorphic-fetch';
@@ -11,6 +10,7 @@ import ContractClient from '@colony/colony-js-contract-client';
 import ColonyClient from '../ColonyClient/index';
 import TokenClient from '../TokenClient/index';
 import AuthorityClient from '../AuthorityClient/index';
+import CreateToken from './senders/CreateToken';
 
 const MISSING_ID = 'An ID parameter must be provided';
 
@@ -220,6 +220,18 @@ export default class ColonyNetworkClient extends ContractClient {
     ColonyNetworkClient,
   >;
   /*
+  Deploys a new ERC20 compatible token contract for you to use with your Colony. You can also use your own token when creating a Colony.
+  */
+  createToken: ColonyNetworkClient.Sender<
+    {
+      name: string, // Name of the token to create
+      symbol: string, // Symbol of the token (e.g. CLNY)
+      decimals: number, // Decimals to use for your token
+    },
+    {},
+    ColonyNetworkClient,
+  >;
+  /*
       Given an ENS interface, returns a boolean indicating whether the interface is supported
     */
   ensSupportsInterface: ColonyNetworkClient.Caller<
@@ -335,28 +347,6 @@ export default class ColonyNetworkClient extends ContractClient {
     return AuthorityClient;
   }
 
-  /*
-  Deploys a new ERC20 compatible token contract for you to use with your Colony. You can also use your own token when creating a Colony.
-  */
-  async createToken({
-    name,
-    symbol,
-    decimals = 18,
-  }: {
-    name: string, // Name of the token to create
-    symbol: string, // Symbol of the token (e.g. CLNY)
-    decimals: number, // Decimals to use for your token
-  }) {
-    const transaction = await this.adapter.getContractDeployTransaction(
-      {
-        contractName: 'Token',
-      },
-      [utf8ToHex(name), utf8ToHex(symbol), decimals],
-    );
-    const { hash } = await this.adapter.wallet.sendTransaction(transaction);
-    const { contractAddress } = await this.adapter.getTransactionReceipt(hash);
-    return contractAddress;
-  }
   /*
   Returns an initialized ColonyClient for the contract at address `contractAddress`
   */
@@ -498,6 +488,7 @@ export default class ColonyNetworkClient extends ContractClient {
     });
 
     // Senders
+    this.createToken = new CreateToken({ client: this });
     this.addSender('addSkill', {
       input: [['parentSkillId', 'number'], ['globalSkill', 'boolean']],
     });

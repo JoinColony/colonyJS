@@ -157,18 +157,18 @@ const example = async () => {
 
   // Let's deploy a new ERC20 token for our Colony.
   // You could also skip this step and use a pre-existing/deployed contract.
-  const tokenAddress = await networkClient.createToken({
+  const { meta: { receipt: { contractAddress } } } = await networkClient.createToken.send({
     name: 'Cool Colony Token',
     symbol: 'COLNY',
   });
 
   // Congrats, you've created a Token!
-  console.log('Token address: ' + tokenAddress);
+  console.log('Token address: ' + contractAddress);
 
   // Create a cool Colony!
   const {
     eventData: { colonyId, colonyAddress },
-  } = await networkClient.createColony.send({ tokenAddress });
+  } = await networkClient.createColony.send({ tokenAddress: contractAddress });
 
   // Congrats, you've created a Colony!
   console.log('Colony ID: ' + colonyId);

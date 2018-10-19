@@ -1,6 +1,6 @@
 /* eslint-env jest */
+/* eslint-disable no-underscore-dangle */
 
-import { utf8ToHex } from 'web3-utils';
 import createSandbox from 'jest-sandbox';
 import ColonyNetworkClient from '../ColonyNetworkClient';
 import ColonyClient from '../ColonyClient';
@@ -9,7 +9,6 @@ import AuthorityClient from '../AuthorityClient';
 
 jest.mock('web3-utils', () => ({
   isHex: jest.fn().mockReturnValue(true),
-  utf8ToHex: jest.fn().mockImplementation(input => input),
   isAddress: jest.fn().mockReturnValue(true),
 }));
 
@@ -20,7 +19,11 @@ describe('ColonyNetworkClient', () => {
   const sandbox = createSandbox();
 
   const colonyAddress = '0x123 Colony Lane';
-  const contract = {};
+  const contract = {
+    interface: {
+      events: {},
+    },
+  };
   const deployTransaction = {
     hash: 'the deploy transaction hash',
   };
@@ -28,7 +31,7 @@ describe('ColonyNetworkClient', () => {
     hash: 'the transaction hash',
   };
   const receipt = {
-    contractAddress: 'the contract receipt',
+    contractAddress: 'the contract address',
   };
   const wallet = {
     sendTransaction: sandbox.fn().mockImplementation(async () => transaction),
@@ -40,35 +43,49 @@ describe('ColonyNetworkClient', () => {
       .mockImplementation(async () => deployTransaction),
     getTransactionReceipt: sandbox.fn().mockImplementation(async () => receipt),
     wallet,
+    provider: {
+      name: 'rinkeby',
+    },
   };
 
   beforeEach(() => {
     sandbox.clear();
-    utf8ToHex.mockClear();
   });
 
   test('Creating a token', async () => {
     const networkClient = new ColonyNetworkClient({ adapter });
     await networkClient.init();
 
+    sandbox.spyOn(networkClient.createToken, '_send');
+
     const name = 'TestCoin';
     const symbol = 'TST';
     const decimals = 20;
 
-    const tokenAddress = await networkClient.createToken({
-      name,
-      symbol,
-      decimals,
-    });
+    const options = { gasLimit: 400000 };
 
-    expect(tokenAddress).toBe(receipt.contractAddress);
-    expect(utf8ToHex).toHaveBeenCalledWith(name);
-    expect(utf8ToHex).toHaveBeenCalledWith(symbol);
+    const {
+      meta: {
+        receipt: { contractAddress },
+      },
+    } = await networkClient.createToken.send(
+      {
+        name,
+        symbol,
+        decimals,
+      },
+      options,
+    );
+
+    expect(contractAddress).toBe(receipt.contractAddress);
     expect(adapter.getContractDeployTransaction).toHaveBeenCalledWith(
       expect.objectContaining({ contractName: 'Token' }),
       [name, symbol, decimals],
     );
-    expect(wallet.sendTransaction).toHaveBeenCalledWith(deployTransaction);
+    expect(wallet.sendTransaction).toHaveBeenCalledWith(
+      deployTransaction,
+      options,
+    );
     expect(adapter.getTransactionReceipt).toHaveBeenCalledWith(
       transaction.hash,
     );
