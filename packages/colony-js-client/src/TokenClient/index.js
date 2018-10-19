@@ -7,6 +7,7 @@ import GetTokenInfo from './callers/GetTokenInfo';
 type Address = string;
 
 type Transfer = ContractClient.Event<{
+  from: Address, // Event data indicating the 'from' address.
   to: Address, // Event data indicating the 'to' address.
   value: BigNumber, // Event data indicating the amount transferred.
 }>;
@@ -174,7 +175,11 @@ export default class TokenClient extends ContractClient {
     const destinationAddress = ['destinationAddress', 'address'];
     const user = ['user', 'address'];
 
-    this.addEvent('Transfer', [['to', 'address'], ['value', 'bigNumber']]);
+    this.addEvent('Transfer', [
+      ['from', 'address'],
+      ['to', 'address'],
+      ['value', 'bigNumber'],
+    ]);
     this.addEvent('Approval', [
       ['owner', 'address'],
       ['spender', 'address'],
