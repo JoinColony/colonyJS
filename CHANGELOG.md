@@ -6,6 +6,10 @@
 
 * The `createToken` method now works as a regular `Sender`, i.e. `networkClient.createToken({ name, symbol })` is now `networkClient.createToken.send({ name, symbol }, options)`.
 
+**Bug fixes**
+
+* The return value of `ColonyClient.getTaskRole` has been changed from `rated` to `rateFail`, properly reflecting the contract.
+
 ## v1.6.4
 
 **Bug fixes**

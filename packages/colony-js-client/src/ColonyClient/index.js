@@ -255,7 +255,7 @@ export default class ColonyClient extends ContractClient {
     },
     {
       address: Address, // Address of the user for the given role.
-      rated: boolean, // Has the user work been rated.
+      rateFail: boolean, // Whether the user failed to rate their counterpart.
       rating: number, // Rating the user received (1-3).
     },
     ColonyClient,
@@ -881,7 +881,7 @@ export default class ColonyClient extends ContractClient {
     makeTaskCaller(
       'getTaskRole',
       [['role', 'role']],
-      [['address', 'address'], ['rated', 'boolean'], ['rating', 'number']],
+      [['address', 'address'], ['rateFail', 'boolean'], ['rating', 'number']],
     );
     makeTaskCaller(
       'getTaskWorkRatings',
