@@ -10,6 +10,7 @@
 
 * The return value of `ColonyClient.getTaskRole` has been changed from `rated` to `rateFail`, properly reflecting the contract.
 * The parameters of the `Transfer` event in `TokenClient` now reflect the contract properly.
+* Added support for `Mint` and `Transfer` events in `ColonyClient`.
 
 ## v1.6.4
 

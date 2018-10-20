@@ -253,7 +253,7 @@ A promise which resolves to an object containing the following properties:
 |Return value|Type|Description|
 |---|---|---|
 |address|Address|Address of the user for the given role.|
-|rated|boolean|Has the user work been rated.|
+|rateFail|boolean|Whether the user failed to rate their counterpart.|
 |rating|number|Rating the user received (1-3).|
 
 ### `getTaskWorkRatings.call({ taskId })`
@@ -759,9 +759,13 @@ Claims the payout for `token` denomination for work completed in task `taskId` b
 
 **Returns**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse` which will eventually receive the following event data:
 
-
+|Event data|Type|Description|
+|---|---|---|
+|to|Address|Event data indicating the 'to' address.|
+|value|BigNumber|Event data indicating the amount transferred.|
+|Transfer|object|Contains the data defined in [Transfer](#events-Transfer)|
 
 ### `addDomain.send({ parentSkillId }, options)`
 
@@ -866,9 +870,13 @@ The owner of a Colony may mint new tokens.
 
 **Returns**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse` which will eventually receive the following event data:
 
-
+|Event data|Type|Description|
+|---|---|---|
+|address|Address|The address that initiated the mint event.|
+|amount|BigNumber|Event data indicating the amount of tokens minted.|
+|Mint|object|Contains the data defined in [Mint](#events-Mint)|
 
 ### `mintTokensForColonyNetwork.send({ amount }, options)`
 
@@ -882,9 +890,13 @@ In the case of the Colony Network, only the Meta Colony may mint new tokens.
 
 **Returns**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse` which will eventually receive the following event data:
 
-
+|Event data|Type|Description|
+|---|---|---|
+|address|Address|The address that initiated the mint event.|
+|amount|BigNumber|Event data indicating the amount of tokens minted.|
+|Mint|object|Contains the data defined in [Mint](#events-Mint)|
 
 ### `startNextRewardPayout.send({ token }, options)`
 
@@ -1332,3 +1344,27 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |---|---|---|
 |colony|Address|Address of the colony that registered a label|
 |label|string|The label registered|
+
+
+### [events.Transfer.addListener(({ to, value }) => { /* ... */ })](#events-Transfer)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|to|Address|Event data indicating the 'to' address.|
+|value|BigNumber|Event data indicating the amount transferred.|
+
+
+### [events.Mint.addListener(({ address, amount }) => { /* ... */ })](#events-Mint)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|address|Address|The address that initiated the mint event.|
+|amount|BigNumber|Event data indicating the amount of tokens minted.|
