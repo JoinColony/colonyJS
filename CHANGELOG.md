@@ -2,6 +2,9 @@
 
 ## v.NEXT
 
+
+## v1.7.1
+
 **Bug fixes**
 
 * Events from the colony token are now not supported if the `ColonyClient` was instantiated without a `TokenClient`.
