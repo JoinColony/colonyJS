@@ -96,6 +96,7 @@ type ColonyLabelRegistered = ContractClient.Event<{
   label: string, // The label registered
 }>;
 type Transfer = ContractClient.Event<{
+  from: Address, // Event data indicating the 'from' address.
   to: Address, // Event data indicating the 'to' address.
   value: BigNumber, // Event data indicating the amount transferred.
 }>;
@@ -1022,6 +1023,8 @@ export default class ColonyClient extends ContractClient {
     /* eslint-disable max-len */
     this.events.SkillAdded = this.networkClient.events.SkillAdded;
     this.events.ColonyLabelRegistered = this.networkClient.events.ColonyLabelRegistered;
+    this.events.Transfer = this.token.events.Transfer;
+    this.events.Mint = this.token.events.Mint;
     this.contract.interface.events.SkillAdded = this.networkClient.contract.interface.events.SkillAdded;
     this.contract.interface.events.ColonyLabelRegistered = this.networkClient.contract.interface.events.ColonyLabelRegistered;
     this.contract.interface.events.Transfer = this.token.contract.interface.events.Transfer;
