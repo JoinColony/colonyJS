@@ -1,6 +1,6 @@
 {
     "name": "@colony/colony-js-contract-client",
-    "version": "1.6.4",
+    "version": "1.7.0",
     "description": "Method-like interface for Smart Contracts",
     "main": "lib/index.js",
     "files": [
@@ -41,7 +41,7 @@
         "webpack-cli": "^2.0.14"
     },
     "dependencies": {
-        "@colony/colony-js-adapter": "^1.6.2",
+        "@colony/colony-js-adapter": "^1.7.0",
         "@colony/colony-js-contract-loader": "^1.6.2",
         "@colony/colony-js-utils": "^1.5.4",
         "assert": "^1.4.1",
