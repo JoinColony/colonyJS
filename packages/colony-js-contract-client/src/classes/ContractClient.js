@@ -128,10 +128,13 @@ export default class ContractClient {
       logs
         // Find matching event info by the topic
         .map(log => {
-          const eventName = eventNames.find(name =>
-            // The first topic should be the hashed event signature
-            log.topics.includes(events[name].topics[0]),
-          );
+          const eventName = eventNames
+            // Filter out events not supported by the interface (e.g. from BYOT)
+            .filter(name => !!events[name])
+            .find(name =>
+              // The first topic should be the hashed event signature
+              log.topics.includes(events[name].topics[0]),
+            );
           return eventName ? { ...log, eventInfo: events[eventName] } : null;
         })
         // Filter out logs we couldn't find on the interface as events
