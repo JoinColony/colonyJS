@@ -95,6 +95,15 @@ type ColonyLabelRegistered = ContractClient.Event<{
   colony: Address, // Address of the colony that registered a label
   label: string, // The label registered
 }>;
+type Transfer = ContractClient.Event<{
+  from: Address, // Event data indicating the 'from' address.
+  to: Address, // Event data indicating the 'to' address.
+  value: BigNumber, // Event data indicating the amount transferred.
+}>;
+type Mint = ContractClient.Event<{
+  address: Address, // The address that initiated the mint event.
+  amount: BigNumber, // Event data indicating the amount of tokens minted.
+}>;
 
 export default class ColonyClient extends ContractClient {
   networkClient: ColonyNetworkClient;
@@ -645,7 +654,7 @@ export default class ColonyClient extends ContractClient {
       role: Role, // Role of the contributor claiming the payout: MANAGER, EVALUATOR, or WORKER
       token: TokenAddress, // Address to claim funds from, e.g. the token's contract address, or empty address (`0x0` for Ether)
     },
-    {},
+    { Transfer: Transfer },
     ColonyClient,
   >;
   /*
@@ -708,7 +717,7 @@ export default class ColonyClient extends ContractClient {
     {
       amount: BigNumber, // Amount of new tokens to be minted.
     },
-    {},
+    { Mint: Mint },
     ColonyClient,
   >;
   /*
@@ -718,7 +727,7 @@ export default class ColonyClient extends ContractClient {
     {
       amount: BigNumber, // Amount of new tokens to be minted.
     },
-    {},
+    { Mint: Mint },
     ColonyClient,
   >;
   /*
@@ -777,6 +786,7 @@ export default class ColonyClient extends ContractClient {
   events: {
     ColonyLabelRegistered: ColonyLabelRegistered,
     DomainAdded: DomainAdded,
+    Mint: Mint,
     PotAdded: PotAdded,
     RewardPayoutCycleStarted: RewardPayoutCycleStarted,
     SkillAdded: SkillAdded,
@@ -792,6 +802,7 @@ export default class ColonyClient extends ContractClient {
     TaskSkillChanged: TaskSkillChanged,
     TaskWorkerPayoutChanged: TaskWorkerPayoutChanged,
     TaskWorkRatingRevealed: TaskWorkRatingRevealed,
+    Transfer: Transfer,
   };
 
   static get defaultQuery() {
@@ -1007,11 +1018,17 @@ export default class ColonyClient extends ContractClient {
     // `ColonyClient.addGlobalSkill` will cause these events to be logged;
     // this workaround copies the event definition here so that it can be
     // parsed correctly.
+    // Similarly, the `Transfer` and `Mint` events from the token contract also
+    // need to be defined here, since they are emitted from various methods.
     /* eslint-disable max-len */
     this.events.SkillAdded = this.networkClient.events.SkillAdded;
     this.events.ColonyLabelRegistered = this.networkClient.events.ColonyLabelRegistered;
+    this.events.Transfer = this.token.events.Transfer;
+    this.events.Mint = this.token.events.Mint;
     this.contract.interface.events.SkillAdded = this.networkClient.contract.interface.events.SkillAdded;
     this.contract.interface.events.ColonyLabelRegistered = this.networkClient.contract.interface.events.ColonyLabelRegistered;
+    this.contract.interface.events.Transfer = this.token.contract.interface.events.Transfer;
+    this.contract.interface.events.Mint = this.token.contract.interface.events.Mint;
     /* eslint-enable max-len */
 
     // Senders
