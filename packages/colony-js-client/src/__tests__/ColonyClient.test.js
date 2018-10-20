@@ -1,7 +1,113 @@
 /* eslint-env jest */
+/* eslint-disable no-underscore-dangle */
+
+import createSandbox from 'jest-sandbox';
+
+import ColonyClient from '../ColonyClient';
+import TokenClient from '../TokenClient';
+import ColonyNetworkClient from '../ColonyNetworkClient';
+
+const contract = {
+  interface: {
+    events: {
+      TaskAdded: 'TaskAdded interface',
+    },
+  },
+};
 
 describe('ColonyClient', () => {
-  test('Mandatory test', () => {
-    expect(1).toEqual(1);
+  const sandbox = createSandbox();
+
+  const adapter = {
+    getContract: sandbox.fn().mockImplementation(async () => contract),
+  };
+
+  test('It supports events from connected contract clients', () => {
+    const networkClient = new ColonyNetworkClient({ adapter });
+    networkClient._contract = {
+      interface: {
+        events: {
+          SkillAdded: 'SkillAdded interface',
+        },
+      },
+    };
+    networkClient.events = {
+      SkillAdded: 'SkillAdded ContractEvent',
+    };
+
+    const tokenClient = new TokenClient({ adapter });
+    tokenClient._contract = {
+      interface: {
+        events: {
+          Transfer: 'Transfer interface',
+        },
+      },
+    };
+    tokenClient.events = {
+      Transfer: 'Transfer ContractEvent',
+    };
+
+    // Create a ColonyClient without a TokenClient
+    const withoutToken = new ColonyClient({ adapter, networkClient });
+    withoutToken._contract = contract;
+
+    // The networkClient should have been set
+    expect(withoutToken).toHaveProperty('networkClient', networkClient);
+
+    // Since the ColonyClient hasn't been initialized, we should not expect
+    // events from the ColonyNetworkClient to have been set.
+    expect(withoutToken.events).not.toHaveProperty('SkillAdded');
+    expect(withoutToken.contract.interface.events).not.toHaveProperty(
+      'SkillAdded',
+    );
+
+    // Initialize the ColonyClient
+    withoutToken.initializeContractMethods();
+
+    // Events from the ColonyNetworkClient should have been set on
+    // the ColonyClient
+    expect(withoutToken).toHaveProperty(
+      'events',
+      expect.objectContaining({ SkillAdded: networkClient.events.SkillAdded }),
+    );
+    expect(withoutToken.contract.interface).toHaveProperty(
+      'events',
+      expect.objectContaining({
+        SkillAdded: networkClient.contract.interface.events.SkillAdded,
+        TaskAdded: contract.interface.events.TaskAdded,
+      }),
+    );
+
+    // Create a ColonyClient with a TokenClient
+    const withToken = new ColonyClient({
+      adapter,
+      networkClient,
+      token: tokenClient,
+    });
+    withToken._contract = contract;
+
+    // The token client should be set
+    expect(withToken).toHaveProperty('token', tokenClient);
+
+    // Since it hasn't been initialized yet, we should not expect events from
+    // the TokenClient to have been set on the ColonyClient
+    expect(withToken.events).not.toHaveProperty('Transfer');
+    expect(withToken.contract.interface.events).not.toHaveProperty('Transfer');
+
+    // Initialize the ColonyClient
+    withToken.initializeContractMethods();
+
+    // Events from the TokenClient should have been set on the ColonyClient
+    expect(withToken).toHaveProperty(
+      'events',
+      expect.objectContaining({ Transfer: tokenClient.events.Transfer }),
+    );
+    expect(withToken.contract.interface).toHaveProperty(
+      'events',
+      expect.objectContaining({
+        Transfer: tokenClient.contract.interface.events.Transfer,
+        TaskAdded: contract.interface.events.TaskAdded,
+      }),
+    );
   });
 });

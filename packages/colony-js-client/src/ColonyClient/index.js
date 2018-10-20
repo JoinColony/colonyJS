@@ -1018,17 +1018,20 @@ export default class ColonyClient extends ContractClient {
     // `ColonyClient.addGlobalSkill` will cause these events to be logged;
     // this workaround copies the event definition here so that it can be
     // parsed correctly.
-    // Similarly, the `Transfer` and `Mint` events from the token contract also
-    // need to be defined here, since they are emitted from various methods.
     /* eslint-disable max-len */
     this.events.SkillAdded = this.networkClient.events.SkillAdded;
     this.events.ColonyLabelRegistered = this.networkClient.events.ColonyLabelRegistered;
-    this.events.Transfer = this.token.events.Transfer;
-    this.events.Mint = this.token.events.Mint;
     this.contract.interface.events.SkillAdded = this.networkClient.contract.interface.events.SkillAdded;
     this.contract.interface.events.ColonyLabelRegistered = this.networkClient.contract.interface.events.ColonyLabelRegistered;
-    this.contract.interface.events.Transfer = this.token.contract.interface.events.Transfer;
-    this.contract.interface.events.Mint = this.token.contract.interface.events.Mint;
+
+    // XXX Similarly, the `Transfer` and `Mint` events from the token contract
+    // need to be defined here, since they are emitted from various methods.
+    if (this.token) {
+      this.events.Transfer = this.token.events.Transfer;
+      this.events.Mint = this.token.events.Mint;
+      this.contract.interface.events.Transfer = this.token.contract.interface.events.Transfer;
+      this.contract.interface.events.Mint = this.token.contract.interface.events.Mint;
+    }
     /* eslint-enable max-len */
 
     // Senders
