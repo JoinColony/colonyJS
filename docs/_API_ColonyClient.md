@@ -763,6 +763,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
+|from|Address|Event data indicating the 'from' address.|
 |to|Address|Event data indicating the 'to' address.|
 |value|BigNumber|Event data indicating the amount transferred.|
 |Transfer|object|Contains the data defined in [Transfer](#events-Transfer)|
@@ -1346,7 +1347,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |label|string|The label registered|
 
 
-### [events.Transfer.addListener(({ to, value }) => { /* ... */ })](#events-Transfer)
+### [events.Transfer.addListener(({ from, to, value }) => { /* ... */ })](#events-Transfer)
 
 
 
@@ -1354,6 +1355,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
+|from|Address|Event data indicating the 'from' address.|
 |to|Address|Event data indicating the 'to' address.|
 |value|BigNumber|Event data indicating the amount transferred.|
 

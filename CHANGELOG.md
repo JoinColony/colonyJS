@@ -2,6 +2,8 @@
 
 ## v.NEXT
 
+## v1.7.0
+
 **Breaking changes**
 
 * The `createToken` method now works as a regular `Sender`, i.e. `networkClient.createToken({ name, symbol })` is now `networkClient.createToken.send({ name, symbol }, options)`.
