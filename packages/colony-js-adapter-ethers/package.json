@@ -56,7 +56,7 @@
         "ethers": "^3.0.27"
     },
     "devDependencies": {
-        "flow-bin": "^0.72.0",
+        "flow-bin": "^0.84.0",
         "jest": "^22.3.0",
         "jest-sandbox": "^1.1.2",
         "webpack": "^4.5.0",
