@@ -472,7 +472,6 @@ export default class ColonyNetworkClient extends ContractClient {
       output: [['orbitDBAddress', 'string']],
     });
     this.addCaller('lookupRegisteredENSDomain', {
-      functionName: 'lookupUsername',
       input: [['ensAddress', 'address']],
       output: [['domain', 'string']],
     });

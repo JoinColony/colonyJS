@@ -2,6 +2,9 @@
 
 ## v.NEXT
 
+**Bug fixes**
+
+* Fix the function called by `ColonyNetworkClient.lookupRegisteredENSDomain` (`@colony/colony-js-client`)
 
 ## v1.7.1
 
