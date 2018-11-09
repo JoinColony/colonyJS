@@ -1,6 +1,6 @@
 {
     "name": "@colony/colony-js-client",
-    "version": "1.7.2",
+    "version": "1.7.3",
     "description": "Reference implementation of the Colony API",
     "main": "lib/index.js",
     "files": [
@@ -43,7 +43,7 @@
     },
     "dependencies": {
         "@colony/colony-js-adapter": "^1.7.0",
-        "@colony/colony-js-contract-client": "^1.7.0",
+        "@colony/colony-js-contract-client": "^1.7.3",
         "@colony/colony-js-contract-loader": "^1.6.2",
         "@colony/colony-js-utils": "^1.5.4",
         "assert": "^1.4.1",
