@@ -4,6 +4,14 @@
 
 **Bug fixes**
 
+* Set a default gas limit for `ColonyNetworkClient.registerUserLabel` (`@colony/colony-js-client`)
+* Make the `SendOptions` flow type properties all optional (e.g. `gasLimit`) (`@colony/colony-js-client`, `@colony/colony-js-contract-client`)
+* Do not convert basic string inputs to hex (`@colony/colony-js-client`)
+
+## v1.7.2
+
+**Bug fixes**
+
 * Fix the function called by `ColonyNetworkClient.lookupRegisteredENSDomain` (`@colony/colony-js-client`)
 
 ## v1.7.1
