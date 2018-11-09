@@ -2,6 +2,9 @@
 
 ## v.NEXT
 
+
+## v1.7.3
+
 **Bug fixes**
 
 * Set a default gas limit for `ColonyNetworkClient.registerUserLabel` (`@colony/colony-js-client`)
