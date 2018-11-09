@@ -18,9 +18,9 @@ export type DefaultValues = {
 };
 
 export type SendOptions = {
-  estimate: boolean,
-  timeoutMs: number,
-  waitForMining: boolean,
+  estimate?: boolean,
+  timeoutMs?: number,
+  waitForMining?: boolean,
 } & TransactionOptions;
 
 export type ContractResponseMeta = {
