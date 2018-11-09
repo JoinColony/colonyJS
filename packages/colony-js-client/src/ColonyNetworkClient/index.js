@@ -513,6 +513,7 @@ export default class ColonyNetworkClient extends ContractClient {
     });
     this.addSender('registerUserLabel', {
       input: [['username', 'string'], ['orbitDBPath', 'string']],
+      defaultGasLimit: 260000,
     });
   }
 
