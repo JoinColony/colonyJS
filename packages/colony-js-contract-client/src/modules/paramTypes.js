@@ -2,14 +2,7 @@
 
 import bs58 from 'bs58';
 import BigNumber from 'bn.js';
-import {
-  isHex,
-  isHexStrict,
-  utf8ToHex,
-  hexToBytes,
-  hexToUtf8,
-  toHex,
-} from 'web3-utils';
+import { isHexStrict, hexToBytes, hexToUtf8, toHex } from 'web3-utils';
 import {
   isValidAddress,
   isBigNumber,
@@ -102,10 +95,7 @@ const PARAM_TYPE_MAP: {
       }
       return typeof value === 'string' && value.length ? value : null;
     },
-    convertInput(value: string) {
-      // String values are converted to hex (if they aren't hex already)
-      return isHex(value) ? value : utf8ToHex(value);
-    },
+    convertInput: passThrough,
   },
   ipfsHash: {
     validate(value: any) {

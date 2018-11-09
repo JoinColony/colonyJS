@@ -15,7 +15,7 @@ export const inputValues = {
 
 export const parsedInputValues = [
   1,
-  '0x666f6f',
+  'foo',
   2,
   '0xc1912fee45d61c87cc5ea59dae31190fffff232d',
   true,
@@ -25,7 +25,7 @@ export const parsedInputValues = [
 
 export const outputValues = {
   a: 1,
-  b: 'foo',
+  b: '0x666f6f',
   c: 2,
   d: '0xc1912fee45d61c87cc5ea59dae31190fffff232d',
   e: true,

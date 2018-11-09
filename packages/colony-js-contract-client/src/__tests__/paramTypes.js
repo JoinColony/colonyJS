@@ -158,7 +158,7 @@ describe('Parameter types', () => {
     // Converting input values
     expect(convertInputValue(validAddress, 'string')).toBe(validAddress);
     expect(convertInputValue('not a hex value', 'string')).toBe(
-      '0x6e6f742061206865782076616c7565',
+      'not a hex value',
     );
   });
 
