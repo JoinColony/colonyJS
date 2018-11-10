@@ -53,6 +53,14 @@ Move to your new project directory and checkout the [colony-starter-basic](/pack
 cd colony-starter-basic
 ```
 
+### 1-step install
+
+Alternatively, you can kickstart the [colony-starter-basic](/packages/colony-starter-basic) in one line without having to add the colony-starter global package by using [npx](https://www.npmjs.com/package/npx):
+
+```
+npx -p @colony/colony-starter colony-starter colony-starter-basic
+```
+
 ## Starter Projects
 
 Now that you have a basic understanding of how Colony works, check out some of the other starter projects by repeating steps 2 and 3 and substituting `colony-starter-basic` with the project of your choice!
