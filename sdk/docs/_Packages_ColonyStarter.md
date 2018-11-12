@@ -16,7 +16,7 @@ The `colony-starter` package includes the global command script to install colon
 
 _You may find it helpful to use Node Version Manager (`nvm`) to manage Node versions._
 
-_If you are using Linux, check out the [Linux Setup](https://github.com/JoinColony/colonyStarter/blob/master/.github/LINUX_SETUP.md) page to ensure Yarn and Docker are set up accordingly._
+_If you are using Linux, check out the [Linux Setup](/colonystarter/docs-linux-setup/) page to ensure Yarn and Docker are set up accordingly._
 
 ## Installation
 
@@ -32,4 +32,10 @@ Install the colonyStarter project of your choice.
 
 ```
 colony-starter [colony-starter-package]
+```
+
+Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and kickstart a package in one line without having to globally add the `colony-starter` package:
+
+```
+npx -p @colony/colony-starter colony-starter [colony-starter-package]
 ```

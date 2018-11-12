@@ -45,20 +45,18 @@ Move to your working directory and unpack the [colony-starter-basic](/packages/c
 colony-starter colony-starter-basic
 ```
 
+Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and kickstart the [colony-starter-basic](/packages/colony-starter-basic) package in one line without having to globally install the [colony-starter](/packages/colony-starter) package:
+
+```
+npx -p @colony/colony-starter colony-starter colony-starter-basic
+```
+
 ### Step 3
 
 Move to your new project directory and checkout the [colony-starter-basic](/packages/colony-starter-basic) readme:
 
 ```
 cd colony-starter-basic
-```
-
-### 1-step install
-
-Alternatively, you can kickstart the [colony-starter-basic](/packages/colony-starter-basic) in one line without having to add the colony-starter global package by using [npx](https://www.npmjs.com/package/npx):
-
-```
-npx -p @colony/colony-starter colony-starter colony-starter-basic
 ```
 
 ## Starter Projects
