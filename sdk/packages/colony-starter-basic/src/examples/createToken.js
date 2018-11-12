@@ -2,7 +2,9 @@
 const createToken = async (networkClient, name, symbol) => {
 
   // Create a new ERC20 token
-  const tokenAddress = await networkClient.createToken({ name, symbol });
+  const {
+    meta: { receipt: { contractAddress: tokenAddress } }
+  } = await networkClient.createToken.send({ name, symbol });
 
   // Check out the logs to see the token address
   console.log('Token Address: ' + tokenAddress);
