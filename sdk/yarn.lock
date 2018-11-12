@@ -25,17 +25,6 @@
   dependencies:
     regenerator-runtime "^0.12.0"
 
-"@colony/colony-js-adapter-ethers@1.6.0":
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/@colony/colony-js-adapter-ethers/-/colony-js-adapter-ethers-1.6.0.tgz#d758869a27265a181103705710d7d1d281774fe3"
-  integrity sha512-c+q/nlGTKfiM+tihqOITrq8V7x/+qwVYroSnv01X7FspmMJZGThcN6Cpy98hyRvjvXuqVYnyo3LHAhUbb8YXOw==
-  dependencies:
-    "@colony/colony-js-adapter" "^1.6.0"
-    "@colony/colony-js-contract-loader" "^1.5.4"
-    "@colony/colony-js-utils" "^1.5.4"
-    babel-runtime "^6.26.0"
-    ethers "^3.0.27"
-
 "@colony/colony-js-adapter-ethers@1.7.0":
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/@colony/colony-js-adapter-ethers/-/colony-js-adapter-ethers-1.7.0.tgz#5b34f61710ba8cb67e9a35780e7e3828594beecb"
@@ -47,7 +36,7 @@
     babel-runtime "^6.26.0"
     ethers "^3.0.27"
 
-"@colony/colony-js-adapter@^1.6.0", "@colony/colony-js-adapter@^1.7.0":
+"@colony/colony-js-adapter@^1.7.0":
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/@colony/colony-js-adapter/-/colony-js-adapter-1.7.0.tgz#3f41781f4369dcec79b58df28c702542eeaa25a4"
   integrity sha512-7Q5mE3iS95BsmSlr4homPU7pU9l/YciVwwn8BMmoN1zSB7SEFTe3T2Nv2yOByZy8r8QOqFfbFvJtGOrctUZKmw==
@@ -55,18 +44,19 @@
     "@colony/colony-js-contract-loader" "^1.6.2"
     bn.js "^4.11.6"
 
-"@colony/colony-js-client@1.6.1":
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/@colony/colony-js-client/-/colony-js-client-1.6.1.tgz#206bcd3cf8ff51fe54d0a6956694872d92c2b418"
-  integrity sha512-OvHSl2e9PDwnD9Xi5Sv+KQUvG8VxYZex1G4qc7gsY/T839ZmQM/wUt83DIt3kMVf/JOOm5XvRzq29pkowfxDyQ==
+"@colony/colony-js-client@1.7.3":
+  version "1.7.3"
+  resolved "https://registry.yarnpkg.com/@colony/colony-js-client/-/colony-js-client-1.7.3.tgz#0d63e771c099c135257dbd6361c8d620e28b2e16"
+  integrity sha512-sPkiieZilYUIDFtje8RWmsOnSgcbP0o4ww2IG82t+DS8MFnUCx+3GH0EwuXLO5hlwVw1PYMlhOvMvsVJ0auteQ==
   dependencies:
-    "@colony/colony-js-adapter" "^1.6.0"
-    "@colony/colony-js-contract-client" "^1.6.0"
-    "@colony/colony-js-contract-loader" "^1.5.4"
+    "@colony/colony-js-adapter" "^1.7.0"
+    "@colony/colony-js-contract-client" "^1.7.3"
+    "@colony/colony-js-contract-loader" "^1.6.2"
     "@colony/colony-js-utils" "^1.5.4"
     assert "^1.4.1"
     babel-runtime "^6.26.0"
     bn.js "^4.11.6"
+    isomorphic-fetch "^2.2.1"
     web3-utils "^1.0.0-beta.34"
 
 "@colony/colony-js-client@1.7.5":
@@ -84,7 +74,7 @@
     isomorphic-fetch "^2.2.1"
     web3-utils "^1.0.0-beta.34"
 
-"@colony/colony-js-contract-client@^1.6.0", "@colony/colony-js-contract-client@^1.7.5":
+"@colony/colony-js-contract-client@^1.7.3", "@colony/colony-js-contract-client@^1.7.5":
   version "1.7.5"
   resolved "https://registry.yarnpkg.com/@colony/colony-js-contract-client/-/colony-js-contract-client-1.7.5.tgz#3e6a5b5fcfa958078cfc937172f0846b8e7de064"
   integrity sha512-ZL3G5mmxQ/J7a3B2gq2vl1WmwLB7pHkC3QeWM14PNTSUpIbfov8XGZht4kjy97sqFAAZaKH00DHSK80mkQjaNA==
@@ -99,16 +89,6 @@
     lodash.isequal "^4.5.0"
     lodash.isplainobject "^4.0.6"
     web3-utils "^1.0.0-beta.34"
-
-"@colony/colony-js-contract-loader-http@1.5.4":
-  version "1.5.4"
-  resolved "https://registry.yarnpkg.com/@colony/colony-js-contract-loader-http/-/colony-js-contract-loader-http-1.5.4.tgz#07d3c9c57296d1cdd91716818222612886865ebf"
-  integrity sha1-B9PJxXKW0c3ZFxaBgiJhKIaGXr8=
-  dependencies:
-    "@colony/colony-js-contract-loader" "^1.5.4"
-    assert "^1.4.1"
-    babel-runtime "^6.26.0"
-    isomorphic-fetch "^2.2.1"
 
 "@colony/colony-js-contract-loader-http@1.6.2":
   version "1.6.2"
@@ -137,7 +117,7 @@
     assert "^1.4.1"
     babel-runtime "^6.26.0"
 
-"@colony/colony-js-contract-loader@^1.5.4", "@colony/colony-js-contract-loader@^1.6.2":
+"@colony/colony-js-contract-loader@^1.6.2":
   version "1.6.2"
   resolved "https://registry.yarnpkg.com/@colony/colony-js-contract-loader/-/colony-js-contract-loader-1.6.2.tgz#56de7572169c68d95ef561955ca7be55c1626137"
   integrity sha512-f9fxFuHJBKGExbP9an7gQU7OSMwpCYmqd3p4Z2WHmJvwhuDsOyFGUPF/Ub0AyY+Q7f14xwVZd22rCRwCL83UPQ==
@@ -4919,7 +4899,7 @@ ethers@4.0.0-beta.1:
     uuid "2.0.1"
     xmlhttprequest "1.8.0"
 
-ethers@^3.0.17, ethers@^3.0.27:
+ethers@^3.0.27:
   version "3.0.29"
   resolved "https://registry.yarnpkg.com/ethers/-/ethers-3.0.29.tgz#ce8139955b4ed44456eb6764b089bb117c86775d"
   integrity sha512-OGyA5pW5xFC5o/ZV5MfIoVp/EdA1QMg2bMJFf7Kznsz8m7IzzbgsPHTCjzSfKQDs/XDphGyRcA7A6bkIeJL4gw==
@@ -11925,7 +11905,7 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-dom@^16.4.1:
+react-dom@^16.6.1:
   version "16.6.3"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.6.3.tgz#8fa7ba6883c85211b8da2d0efeffc9d3825cccc0"
   integrity sha512-8ugJWRCWLGXy+7PmNh8WJz3g1TaTUt1XyoIcFN+x0Zbkoz+KKdUyx1AQLYJdbFXjuF41Nmjn5+j//rxvhFjgSQ==
@@ -11945,7 +11925,7 @@ react-lifecycles-compat@^3.0.0:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
-react-redux@^5.0.7:
+react-redux@^5.1.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-5.1.1.tgz#88e368682c7fa80e34e055cd7ac56f5936b0f52f"
   integrity sha512-LE7Ned+cv5qe7tMV5BPYkGQ5Lpg8gzgItK07c67yHvJ8t0iaD9kPFPAli/mYkiyJYrs2pJgExR2ZgsGqlrOApg==
@@ -11983,7 +11963,7 @@ react-router@^4.3.1:
     prop-types "^15.6.1"
     warning "^4.0.1"
 
-react-test-renderer@^16.4.2:
+react-test-renderer@^16.6.1:
   version "16.6.3"
   resolved "https://registry.yarnpkg.com/react-test-renderer/-/react-test-renderer-16.6.3.tgz#5f3a1a7d5c3379d46f7052b848b4b72e47c89f38"
   integrity sha512-B5bCer+qymrQz/wN03lT0LppbZUDRq6AMfzMKrovzkGzfO81a9T+PWQW6MzkWknbwODQH/qpJno/yFQLX5IWrQ==
@@ -11993,7 +11973,7 @@ react-test-renderer@^16.4.2:
     react-is "^16.6.3"
     scheduler "^0.11.2"
 
-react@^16.4.1:
+react@^16.6.1:
   version "16.6.3"
   resolved "https://registry.yarnpkg.com/react/-/react-16.6.3.tgz#25d77c91911d6bbdd23db41e70fb094cc1e0871c"
   integrity sha512-zCvmH2vbEolgKxtqXL2wmGCUxUyNheYn/C+PD1YAjfxHC54+MhdruyhO7QieQrYsYeTxrn93PM2y0jRH1zEExw==
@@ -12172,7 +12152,7 @@ redux-logger@^3.0.6:
   dependencies:
     deep-diff "^0.3.5"
 
-redux@^4.0.0:
+redux@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/redux/-/redux-4.0.1.tgz#436cae6cc40fbe4727689d7c8fae44808f1bfef5"
   integrity sha512-R7bAtSkk7nY6O/OYMVR9RiBI+XghjF9rlbl5806HJbQph0LJVHZrU5oaO4q70eUKiqMRqm4y07KLTlMZ2BlVmg==
