@@ -34,6 +34,12 @@ Move to your working directory and unpack the [colony-starter-basic](http://docs
 colony-starter colony-starter-basic
 ```
 
+Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and kickstart the [colony-starter-basic](http://docs.colony.io/colonystarter/packages-colony-starter-basic/) package in one line without having to globally add the `colony-starter` package:
+
+```
+npx -p @colony/colony-starter colony-starter colony-starter-basic
+```
+
 ### Step 3
 
 Move to your new project directory and checkout the [colony-starter-basic](http://docs.colony.io/colonystarter/packages-colony-starter-basic/) instructions:

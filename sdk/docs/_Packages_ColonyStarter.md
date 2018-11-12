@@ -33,3 +33,9 @@ Install the colonyStarter project of your choice.
 ```
 colony-starter [colony-starter-package]
 ```
+
+Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and kickstart a package in one line without having to globally add the `colony-starter` package:
+
+```
+npx -p @colony/colony-starter colony-starter [colony-starter-package]
+```
