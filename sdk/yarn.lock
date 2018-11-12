@@ -26,11 +26,28 @@
     babel-runtime "^6.26.0"
     ethers "^3.0.27"
 
+"@colony/colony-js-adapter-ethers@1.7.0":
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/@colony/colony-js-adapter-ethers/-/colony-js-adapter-ethers-1.7.0.tgz#5b34f61710ba8cb67e9a35780e7e3828594beecb"
+  dependencies:
+    "@colony/colony-js-adapter" "^1.7.0"
+    "@colony/colony-js-contract-loader" "^1.6.2"
+    "@colony/colony-js-utils" "^1.5.4"
+    babel-runtime "^6.26.0"
+    ethers "^3.0.27"
+
 "@colony/colony-js-adapter@^1.6.0":
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/@colony/colony-js-adapter/-/colony-js-adapter-1.6.0.tgz#b129d7e5179b2e02aefa8c3877bde9f7aff4ab87"
   dependencies:
     "@colony/colony-js-contract-loader" "^1.5.4"
+    bn.js "^4.11.6"
+
+"@colony/colony-js-adapter@^1.7.0":
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/@colony/colony-js-adapter/-/colony-js-adapter-1.7.0.tgz#3f41781f4369dcec79b58df28c702542eeaa25a4"
+  dependencies:
+    "@colony/colony-js-contract-loader" "^1.6.2"
     bn.js "^4.11.6"
 
 "@colony/colony-js-client@1.6.1":
@@ -46,12 +63,41 @@
     bn.js "^4.11.6"
     web3-utils "^1.0.0-beta.34"
 
+"@colony/colony-js-client@1.7.3":
+  version "1.7.3"
+  resolved "https://registry.yarnpkg.com/@colony/colony-js-client/-/colony-js-client-1.7.3.tgz#0d63e771c099c135257dbd6361c8d620e28b2e16"
+  dependencies:
+    "@colony/colony-js-adapter" "^1.7.0"
+    "@colony/colony-js-contract-client" "^1.7.3"
+    "@colony/colony-js-contract-loader" "^1.6.2"
+    "@colony/colony-js-utils" "^1.5.4"
+    assert "^1.4.1"
+    babel-runtime "^6.26.0"
+    bn.js "^4.11.6"
+    isomorphic-fetch "^2.2.1"
+    web3-utils "^1.0.0-beta.34"
+
 "@colony/colony-js-contract-client@^1.6.0":
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/@colony/colony-js-contract-client/-/colony-js-contract-client-1.6.0.tgz#3675e857ebcbebecb6152c084a61e3b353745a0e"
   dependencies:
     "@colony/colony-js-adapter" "^1.6.0"
     "@colony/colony-js-contract-loader" "^1.5.4"
+    "@colony/colony-js-utils" "^1.5.4"
+    assert "^1.4.1"
+    babel-runtime "^6.26.0"
+    bn.js "^4.11.6"
+    bs58 "^4.0.1"
+    lodash.isequal "^4.5.0"
+    lodash.isplainobject "^4.0.6"
+    web3-utils "^1.0.0-beta.34"
+
+"@colony/colony-js-contract-client@^1.7.3":
+  version "1.7.3"
+  resolved "https://registry.yarnpkg.com/@colony/colony-js-contract-client/-/colony-js-contract-client-1.7.3.tgz#921671c3fa56b54c417552c03767f654a3f7b7d0"
+  dependencies:
+    "@colony/colony-js-adapter" "^1.7.0"
+    "@colony/colony-js-contract-loader" "^1.6.2"
     "@colony/colony-js-utils" "^1.5.4"
     assert "^1.4.1"
     babel-runtime "^6.26.0"
@@ -70,6 +116,15 @@
     babel-runtime "^6.26.0"
     isomorphic-fetch "^2.2.1"
 
+"@colony/colony-js-contract-loader-http@1.6.2":
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/@colony/colony-js-contract-loader-http/-/colony-js-contract-loader-http-1.6.2.tgz#bb861e1d1af3e7ed2dd4b0d367cfa267efd3dd1c"
+  dependencies:
+    "@colony/colony-js-contract-loader" "^1.6.2"
+    assert "^1.4.1"
+    babel-runtime "^6.26.0"
+    isomorphic-fetch "^2.2.1"
+
 "@colony/colony-js-contract-loader-network@1.6.2":
   version "1.6.2"
   resolved "https://registry.yarnpkg.com/@colony/colony-js-contract-loader-network/-/colony-js-contract-loader-network-1.6.2.tgz#12b88484b1fa40e065d1f4295f14590483928e51"
@@ -81,6 +136,13 @@
 "@colony/colony-js-contract-loader@1.5.4", "@colony/colony-js-contract-loader@^1.5.4":
   version "1.5.4"
   resolved "https://registry.yarnpkg.com/@colony/colony-js-contract-loader/-/colony-js-contract-loader-1.5.4.tgz#4b43cf66671f2ea419490cc676b08619b28002f8"
+  dependencies:
+    assert "^1.4.1"
+    babel-runtime "^6.26.0"
+
+"@colony/colony-js-contract-loader@^1.6.2":
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/@colony/colony-js-contract-loader/-/colony-js-contract-loader-1.6.2.tgz#56de7572169c68d95ef561955ca7be55c1626137"
   dependencies:
     assert "^1.4.1"
     babel-runtime "^6.26.0"

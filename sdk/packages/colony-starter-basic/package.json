@@ -24,9 +24,9 @@
     "testURL": "http://localhost"
   },
   "dependencies": {
-    "@colony/colony-js-adapter-ethers": "1.6.0",
-    "@colony/colony-js-client": "1.6.1",
-    "@colony/colony-js-contract-loader-http": "1.5.4",
+    "@colony/colony-js-adapter-ethers": "1.7.0",
+    "@colony/colony-js-client": "1.7.3",
+    "@colony/colony-js-contract-loader-http": "1.6.2",
     "@colony/colony-js-contract-loader-network": "1.6.2",
     "bn.js": "^4.11.8",
     "buffer": "^5.1.0",
