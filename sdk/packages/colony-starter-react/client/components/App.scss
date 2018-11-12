@@ -1,17 +1,11 @@
-.title {
-  font-weight: 300;
-  padding: 1rem;
-  text-align: center;
+.container {
+  font-family: sans-serif;
 }
 
 .message {
   align-items: center;
   display: flex;
+  height: 100vh;
   justify-content: center;
-  width: 100vw;
-}
-
-.info {
-  text-align: center;
   width: 100vw;
 }

@@ -1,0 +1,17 @@
+.container {
+  padding: 0.5rem;
+}
+
+.buttons, .message {
+  padding: 0.5rem 0;
+
+  button {
+    margin: 0.25rem;
+    padding: 0.5rem;
+  }
+
+}
+
+.error {
+  color: red;
+}

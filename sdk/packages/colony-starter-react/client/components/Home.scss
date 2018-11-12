@@ -1,0 +1,15 @@
+.container {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  min-height: calc(100vh - 20rem);
+}
+
+.info {
+  text-align: center;
+  width: 100vw;
+}
+
+.info p {
+  padding: 0.5rem;
+}

@@ -1,0 +1,31 @@
+.container {
+  padding: 2rem;
+
+  h2 {
+    font-weight: 400;
+    padding-bottom: 1rem;
+  }
+
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
+  margin: 1rem auto;
+  padding: 1rem;
+
+  .title {
+    font-size: 1.2rem;
+    font-weight: 400;
+  }
+
+  p {
+    padding: 0.5rem;
+  }
+
+}

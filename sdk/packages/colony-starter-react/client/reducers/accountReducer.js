@@ -12,7 +12,7 @@ const initialState = {
 
 }
 
-const networkReducer = (state = initialState, action) => {
+const accountReducer = (state = initialState, action) => {
 
   switch (action.type) {
 
@@ -57,4 +57,4 @@ const networkReducer = (state = initialState, action) => {
 
 }
 
-export default networkReducer
+export default accountReducer

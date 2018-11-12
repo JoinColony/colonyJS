@@ -1,5 +1,11 @@
 import React from 'react'
+import { Route, Switch } from 'react-router-dom'
 import Accounts from '../containers/Accounts'
+import Create from './Create'
+import Manage from '../containers/Manage'
+import Footer from './Footer'
+import Header from './Header'
+import Home from '../containers/Home'
 import styles from './App.scss'
 
 const App = ({
@@ -9,10 +15,7 @@ const App = ({
   connectNetworkSuccess,
   networkClient,
 }) => (
-  <div>
-    <h1 className={styles.title}>
-      {'colony-starter-react'}
-    </h1>
+  <div className={styles.container}>
     {connectNetworkLoading &&
       <div className={styles.message}>
         {'connecting to colonyNetwork...'}
@@ -24,9 +27,14 @@ const App = ({
       </div>
     }
     {networkClient && !connectNetworkLoading && !connectNetworkError &&
-      <div className={styles.info}>
-        <p>{`Account Address: ${networkClient._contract.signer.address}`}</p>
-        <p>{`Network Address: ${networkClient._contract.address}`}</p>
+      <div>
+        <Header />
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/create" component={Create} />
+          <Route path="/manage" component={Manage} />
+        </Switch>
+        <Footer />
       </div>
     }
     {!networkClient &&  !connectNetworkLoading && !connectNetworkError &&
