@@ -1031,7 +1031,51 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 
 ### `setTaskManagerRole.startOperation({ taskId, user })`
 
-Set the manager role for the address `user` in task `taskId`. Only allowed before the task is `finalized`, meaning that the value cannot be changed after the task is complete. The current manager and the user we want to assign role to both need to sign this transaction.
+Set the manager role for the address `user` in task `taskId`. Only allowed before the task is `finalized`, meaning that the value cannot be changed after the task is complete. The current manager and the user we want to assign this role to both need to sign this transaction.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|taskId|number|Integer taskId.|
+|user|Address|address of the user.|
+
+**Returns**
+
+An instance of a `MultiSigOperation` whose sender will eventually receive the following event data:
+
+|Event Data|Type|Description|
+|---|---|---|
+|taskId|number|The task ID.|
+|role|number|The role that changed for the task.|
+|user|Address|The user with the role that changed for the task.|
+|TaskRoleUserChanged|object|Contains the data defined in [TaskRoleUserChanged](#events-TaskRoleUserChanged)|
+
+### `setTaskWorkerRole.startOperation({ taskId, user })`
+
+Set the worker role for the address `user` in task `taskId`. Only allowed before the task is `finalized`, meaning that the value cannot be changed after the task is complete. The current worker and the user we want to assign this role to both need to sign this transaction.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|taskId|number|Integer taskId.|
+|user|Address|address of the user.|
+
+**Returns**
+
+An instance of a `MultiSigOperation` whose sender will eventually receive the following event data:
+
+|Event Data|Type|Description|
+|---|---|---|
+|taskId|number|The task ID.|
+|role|number|The role that changed for the task.|
+|user|Address|The user with the role that changed for the task.|
+|TaskRoleUserChanged|object|Contains the data defined in [TaskRoleUserChanged](#events-TaskRoleUserChanged)|
+
+### `setTaskEvaluatorRole.startOperation({ taskId, user })`
+
+Set the evaluator role for the address `user` in task `taskId`. Only allowed before the task is `finalized`, meaning that the value cannot be changed after the task is complete. The current evaluator and the user we want to assign this role to both need to sign this transaction.
 
 **Arguments**
 
@@ -1140,6 +1184,48 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |token|Token address|The token address (0x indicates ether).|
 |amount|number|The token amount.|
 |TaskWorkerPayoutChanged|object|Contains the data defined in [TaskWorkerPayoutChanged](#events-TaskWorkerPayoutChanged)|
+
+### `removeTaskWorkerRole.startOperation({ taskId })`
+
+Removes the worker role for the given task. Only allowed before the task is complete. Must be signed by the current worker and the manager.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|taskId|number|Integer taskId.|
+
+**Returns**
+
+An instance of a `MultiSigOperation` whose sender will eventually receive the following event data:
+
+|Event Data|Type|Description|
+|---|---|---|
+|taskId|number|The task ID.|
+|role|number|The role that changed for the task.|
+|user|Address|The user with the role that changed for the task.|
+|TaskRoleUserChanged|object|Contains the data defined in [TaskRoleUserChanged](#events-TaskRoleUserChanged)|
+
+### `removeTaskEvaluatorRole.startOperation({ taskId })`
+
+Removes the worker role for the given task. Only allowed before the task is complete. Must be signed by the current evaluator and the manager.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|taskId|number|Integer taskId.|
+
+**Returns**
+
+An instance of a `MultiSigOperation` whose sender will eventually receive the following event data:
+
+|Event Data|Type|Description|
+|---|---|---|
+|taskId|number|The task ID.|
+|role|number|The role that changed for the task.|
+|user|Address|The user with the role that changed for the task.|
+|TaskRoleUserChanged|object|Contains the data defined in [TaskRoleUserChanged](#events-TaskRoleUserChanged)|
 
   
 ## Events
