@@ -2,6 +2,9 @@
 
 ## v.NEXT
 
+**Bug fixes**
+
+* Add `colonyName` and `orbitDBPath` parameters to `ColonyClient.registerColonyLabel` (`@colony/colony-js-client`)
 
 ## v1.7.3
 

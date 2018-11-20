@@ -456,7 +456,7 @@ An instance of a `ContractResponse`
 
 
 
-### `registerColonyLabel.send({ colonyName }, options)`
+### `registerColonyLabel.send({ colonyName, orbitDBPath }, options)`
 
 Register the colony's ENS label.
 
@@ -465,6 +465,7 @@ Register the colony's ENS label.
 |Argument|Type|Description|
 |---|---|---|
 |colonyName|string|The label to register|
+|orbitDBPath|string|The path of the orbitDB database associated with the colony name|
 
 **Returns**
 

@@ -411,6 +411,7 @@ export default class ColonyClient extends ContractClient {
   registerColonyLabel: ColonyClient.Sender<
     {
       colonyName: string, // The label to register
+      orbitDBPath: string, // The path of the orbitDB database associated with the colony name
     },
     { ColonyLabelRegistered: ColonyLabelRegistered },
     ColonyClient,
@@ -1184,7 +1185,7 @@ export default class ColonyClient extends ContractClient {
       input: [['taskId', 'number'], ['role', 'role'], ['secret', 'hexString']],
     });
     this.addSender('registerColonyLabel', {
-      input: [['subnode', 'string']],
+      input: [['colonyName', 'string'], ['orbitDBPath', 'string']],
     });
     this.addSender('exitRecoveryMode', {
       input: [[]],
