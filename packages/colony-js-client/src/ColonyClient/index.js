@@ -488,9 +488,31 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Set the manager role for the address `user` in task `taskId`. Only allowed before the task is `finalized`, meaning that the value cannot be changed after the task is complete. The current manager and the user we want to assign role to both need to sign this transaction.
+    Set the manager role for the address `user` in task `taskId`. Only allowed before the task is `finalized`, meaning that the value cannot be changed after the task is complete. The current manager and the user we want to assign this role to both need to sign this transaction.
   */
   setTaskManagerRole: ColonyClient.MultisigSender<
+    {
+      taskId: number, // Integer taskId.
+      user: Address, // address of the user.
+    },
+    { TaskRoleUserChanged: TaskRoleUserChanged },
+    ColonyClient,
+  >;
+  /*
+    Set the worker role for the address `user` in task `taskId`. Only allowed before the task is `finalized`, meaning that the value cannot be changed after the task is complete. The current worker and the user we want to assign this role to both need to sign this transaction.
+  */
+  setTaskWorkerRole: ColonyClient.MultisigSender<
+    {
+      taskId: number, // Integer taskId.
+      user: Address, // address of the user.
+    },
+    { TaskRoleUserChanged: TaskRoleUserChanged },
+    ColonyClient,
+  >;
+  /*
+    Set the evaluator role for the address `user` in task `taskId`. Only allowed before the task is `finalized`, meaning that the value cannot be changed after the task is complete. The current evaluator and the user we want to assign this role to both need to sign this transaction.
+  */
+  setTaskEvaluatorRole: ColonyClient.MultisigSender<
     {
       taskId: number, // Integer taskId.
       user: Address, // address of the user.
@@ -559,6 +581,26 @@ export default class ColonyClient extends ContractClient {
       amount: BigNumber, // Amount to be paid.
     },
     { TaskWorkerPayoutChanged: TaskWorkerPayoutChanged },
+    ColonyClient,
+  >;
+  /*
+    Removes the worker role for the given task. Only allowed before the task is complete. Must be signed by the current worker and the manager.
+  */
+  removeTaskWorkerRole: ColonyClient.MultisigSender<
+    {
+      taskId: number, // Integer taskId.
+    },
+    { TaskRoleUserChanged: TaskRoleUserChanged },
+    ColonyClient,
+  >;
+  /*
+    Removes the worker role for the given task. Only allowed before the task is complete. Must be signed by the current evaluator and the manager.
+  */
+  removeTaskEvaluatorRole: ColonyClient.MultisigSender<
+    {
+      taskId: number, // Integer taskId.
+    },
+    { TaskRoleUserChanged: TaskRoleUserChanged },
     ColonyClient,
   >;
   /*
