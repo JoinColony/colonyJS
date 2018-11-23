@@ -8,6 +8,7 @@ import 'isomorphic-fetch';
 import ContractClient from '@colony/colony-js-contract-client';
 
 import ColonyClient from '../ColonyClient/index';
+import MetaColonyClient from '../MetaColonyClient/index';
 import TokenClient from '../TokenClient/index';
 import AuthorityClient from '../AuthorityClient/index';
 import CreateToken from './senders/CreateToken';
@@ -339,6 +340,10 @@ export default class ColonyNetworkClient extends ContractClient {
     return ColonyClient;
   }
 
+  static get MetaColonyClient(): * {
+    return MetaColonyClient;
+  }
+
   static get TokenClient(): * {
     return TokenClient;
   }
@@ -380,6 +385,17 @@ export default class ColonyNetworkClient extends ContractClient {
     return address;
   }
   /*
+  Returns an initialized ColonyClient for the contract at address `contractAddress`
+  */
+  async getMetaColonyClientByAddress(contractAddress: Address) {
+    const metaColonyClient = new this.constructor.MetaColonyClient({
+      adapter: this.adapter,
+      networkClient: this,
+      query: { contractAddress },
+    });
+    return metaColonyClient.init();
+  }
+  /*
   Gets the Meta Colony as an initialized ColonyClient
    */
   async getMetaColonyClient() {
@@ -388,7 +404,7 @@ export default class ColonyNetworkClient extends ContractClient {
     if (!isValidAddress(address))
       throw new Error(`Meta Colony could not be found`);
 
-    return this.getColonyClientByAddress(address);
+    return this.getMetaColonyClientByAddress(address);
   }
   initializeContractMethods() {
     // Events

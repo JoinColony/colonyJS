@@ -711,16 +711,6 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Adds a global skill under a given parent SkillId. This can only be called from the Meta Colony, and only by the Meta Colony owners.
-  */
-  addGlobalSkill: ColonyClient.Sender<
-    {
-      parentSkillId: number, // Integer id of the parent skill.
-    },
-    { SkillAdded: SkillAdded },
-    ColonyClient,
-  >;
-  /*
     Move any funds received by the colony for `token` denomination to the top-levl domain pot, siphoning off a small amount to the rewards pot. No fee is taken if called against a colony's own token.
   */
   claimColonyFunds: ColonyClient.Sender<
@@ -757,16 +747,6 @@ export default class ColonyClient extends ContractClient {
     The owner of a Colony may mint new tokens.
   */
   mintTokens: ColonyClient.Sender<
-    {
-      amount: BigNumber, // Amount of new tokens to be minted.
-    },
-    { Mint: Mint },
-    ColonyClient,
-  >;
-  /*
-    In the case of the Colony Network, only the Meta Colony may mint new tokens.
-  */
-  mintTokensForColonyNetwork: ColonyClient.Sender<
     {
       amount: BigNumber, // Amount of new tokens to be minted.
     },
@@ -1081,9 +1061,6 @@ export default class ColonyClient extends ContractClient {
     this.addSender('addDomain', {
       input: [['parentSkillId', 'number']],
     });
-    this.addSender('addGlobalSkill', {
-      input: [['parentSkillId', 'number']],
-    });
     this.addSender('assignWorkRating', {
       input: [['taskId', 'number']],
     });
@@ -1126,9 +1103,6 @@ export default class ColonyClient extends ContractClient {
       input: [['payoutId', 'number']],
     });
     this.addSender('mintTokens', {
-      input: [['amount', 'bigNumber']],
-    });
-    this.addSender('mintTokensForColonyNetwork', {
       input: [['amount', 'bigNumber']],
     });
     this.addSender('moveFundsBetweenPots', {
