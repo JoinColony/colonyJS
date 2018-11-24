@@ -1,7 +1,7 @@
 ---
 title: AuthorityClient
 section: API
-order: 4
+order: 7
 ---
 
 The `AuthorityClient` is a standard interface for interactions with functions and events described in `Authority.sol`.

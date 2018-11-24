@@ -22,6 +22,10 @@ const colonyClient = await networkClient.getColonyClient(colonyId); // This is a
 
 ## Instance properties
 
+### `networkClient`
+
+The Colony's [ColonyNetworkClient](/colonyjs/api-colonynetworkclient/) instance.
+
 ### `authority`
 
 The Colony's [AuthorityClient](/colonyjs/api-authorityclient/) instance.
@@ -789,26 +793,6 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |parentSkillId|number|The parent skill id.|
 |SkillAdded|object|Contains the data defined in [SkillAdded](#events-SkillAdded)|
 
-### `addGlobalSkill.send({ parentSkillId }, options)`
-
-Adds a global skill under a given parent SkillId. This can only be called from the Meta Colony, and only by the Meta Colony owners.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|parentSkillId|number|Integer id of the parent skill.|
-
-**Returns**
-
-An instance of a `ContractResponse` which will eventually receive the following event data:
-
-|Event data|Type|Description|
-|---|---|---|
-|skillId|number|A skillId for this domain.|
-|parentSkillId|number|The parent skill id.|
-|SkillAdded|object|Contains the data defined in [SkillAdded](#events-SkillAdded)|
-
 ### `claimColonyFunds.send({ token }, options)`
 
 Move any funds received by the colony for `token` denomination to the top-levl domain pot, siphoning off a small amount to the rewards pot. No fee is taken if called against a colony's own token.
@@ -863,26 +847,6 @@ An instance of a `ContractResponse`
 ### `mintTokens.send({ amount }, options)`
 
 The owner of a Colony may mint new tokens.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|amount|BigNumber|Amount of new tokens to be minted.|
-
-**Returns**
-
-An instance of a `ContractResponse` which will eventually receive the following event data:
-
-|Event data|Type|Description|
-|---|---|---|
-|address|Address|The address that initiated the mint event.|
-|amount|BigNumber|Event data indicating the amount of tokens minted.|
-|Mint|object|Contains the data defined in [Mint](#events-Mint)|
-
-### `mintTokensForColonyNetwork.send({ amount }, options)`
-
-In the case of the Colony Network, only the Meta Colony may mint new tokens.
 
 **Arguments**
 

@@ -4,6 +4,7 @@
 import createSandbox from 'jest-sandbox';
 import ColonyNetworkClient from '../ColonyNetworkClient';
 import ColonyClient from '../ColonyClient';
+import MetaColonyClient from '../MetaColonyClient';
 import TokenClient from '../TokenClient';
 import AuthorityClient from '../AuthorityClient';
 
@@ -243,25 +244,74 @@ describe('ColonyNetworkClient', () => {
     expect(getColonySpy).toHaveBeenCalledWith({ id });
   });
 
-  test('Getting the Meta Colony as a ColonyClient', async () => {
+  test('Getting the Meta Colony as a MetaColonyClient', async () => {
     const networkClient = new ColonyNetworkClient({ adapter });
     await networkClient.init();
 
+    let client;
+    const MockMetaColonyClient = sandbox.fn((...args) => {
+      client = new MetaColonyClient(...args);
+      return client;
+    });
+    const metaColonyClientSpy = sandbox
+      .spyOn(ColonyNetworkClient, 'MetaColonyClient', 'get')
+      .mockReturnValue(MockMetaColonyClient);
+    sandbox.spyOn(MetaColonyClient.prototype, 'init');
+
     const metaColonyAddress = 'The Meta Colony lives here';
-    const metaColonyClient = {
-      contract: {
-        address: metaColonyAddress,
-      },
-    };
 
     sandbox
       .spyOn(networkClient.getMetaColonyAddress, 'call')
       .mockImplementation(async () => ({ address: metaColonyAddress }));
     sandbox
-      .spyOn(networkClient, 'getColonyClientByAddress')
-      .mockImplementation(async () => metaColonyClient);
+      .spyOn(MetaColonyClient.prototype, 'initializeContractMethods')
+      .mockImplementation(() => {
+        client.getToken = {
+          call: sandbox.fn().mockImplementation(async () => ({
+            address: 'token address',
+          })),
+        };
+        client.getAuthority = {
+          call: sandbox.fn().mockImplementation(async () => ({
+            address: 'authority address',
+          })),
+        };
+      });
 
-    expect(await networkClient.getMetaColonyClient()).toBe(metaColonyClient);
-    expect(networkClient.getMetaColonyAddress.call).toHaveBeenCalled();
+    const metaColonyClient = await networkClient.getMetaColonyClientByAddress(
+      metaColonyAddress,
+    );
+
+    expect(metaColonyClientSpy).toHaveBeenCalled();
+    expect(metaColonyClient).toBeInstanceOf(MetaColonyClient);
+    expect(MockMetaColonyClient).toHaveBeenCalledWith({
+      adapter: networkClient.adapter,
+      networkClient,
+      query: {
+        contractAddress: metaColonyAddress,
+      },
+    });
+    expect(metaColonyClient.init).toHaveBeenCalled();
+    expect(metaColonyClient.getToken.call).toHaveBeenCalled();
+    expect(metaColonyClient.getAuthority.call).toHaveBeenCalled();
+    expect(metaColonyClient).toHaveProperty('token', expect.any(TokenClient));
+    expect(metaColonyClient).toHaveProperty(
+      'authority',
+      expect.any(AuthorityClient),
+    );
+    expect(metaColonyClient.token.init).toHaveBeenCalled();
+    expect(metaColonyClient.authority.init).toHaveBeenCalled();
+    expect(TokenClient).toHaveBeenCalledWith(
+      expect.objectContaining({
+        adapter: metaColonyClient.adapter,
+        query: { contractAddress: 'token address' },
+      }),
+    );
+    expect(AuthorityClient).toHaveBeenCalledWith(
+      expect.objectContaining({
+        adapter: metaColonyClient.adapter,
+        query: { contractAddress: 'authority address' },
+      }),
+    );
   });
 });
