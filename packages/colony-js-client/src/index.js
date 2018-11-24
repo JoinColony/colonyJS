@@ -10,13 +10,21 @@ import type {
 import './paramTypes';
 
 import ColonyNetworkClient from './ColonyNetworkClient/index';
+import AuthorityClient from './AuthorityClient/index';
+import ColonyClient from './ColonyClient/index';
+import MetaColonyClient from './MetaColonyClient/index';
+import TokenClient from './TokenClient/index';
 
 export type {
+  AuthorityClient,
+  ColonyClient,
   ColonyNetworkClient,
   ContractClientConstructorArgs,
   ContractResponse,
+  MetaColonyClient,
   MultisigOperationConstructorArgs,
   SendOptions,
+  TokenClient,
 };
 
 export {
