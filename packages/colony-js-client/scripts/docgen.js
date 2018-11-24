@@ -18,6 +18,11 @@ const CONTRACT_CLIENTS = [
     output: path.resolve(__dirname, '..', '..', '..', 'docs', '_API_ColonyNetworkClient.md'),
   },
   {
+    file: path.resolve(__dirname, '..', 'src', 'MetaColonyClient', 'index.js'),
+    templateFile: path.resolve(__dirname, '..', 'docs', '_API_MetaColonyClient.template.md'),
+    output: path.resolve(__dirname, '..', '..', '..', 'docs', '_API_MetaColonyClient.md'),
+  },
+  {
     file: path.resolve(__dirname, '..', 'src', 'TokenClient', 'index.js'),
     templateFile: path.resolve(__dirname, '..', 'docs', '_API_TokenClient.template.md'),
     output: path.resolve(__dirname, '..', '..', '..', 'docs', '_API_TokenClient.md'),
