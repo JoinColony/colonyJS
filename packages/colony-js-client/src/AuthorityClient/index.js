@@ -47,7 +47,7 @@ export default class AuthorityClient extends ContractClient {
 
   static get defaultQuery() {
     return {
-      contractName: 'Authority',
+      contractName: 'ColonyAuthority',
     };
   }
 
