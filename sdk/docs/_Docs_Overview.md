@@ -14,7 +14,7 @@ _Learn to build with Colony! Get a head start on your next project!_ colonyStart
 
 - Yarn
 - Docker
-- Node 9.10
+- Node 10.12.0
 
 _You may find it helpful to use Node Version Manager (`nvm`) to manage Node versions._
 

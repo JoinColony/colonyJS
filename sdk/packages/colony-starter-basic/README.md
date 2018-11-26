@@ -8,7 +8,7 @@ This project includes example scripts also found in the [Get Started](https://jo
 
 - Yarn
 - Docker
-- Node 9.10
+- Node 10.12.0
 
 _You may find it helpful to use Node Version Manager (`nvm`) to manage Node versions._
 
