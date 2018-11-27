@@ -85,6 +85,12 @@ type TaskWorkRatingRevealed = ContractClient.Event<{
 type TaskFinalized = ContractClient.Event<{
   taskId: number, // The task ID of the task that was finalized.
 }>;
+type TaskPayoutClaimed = ContractClient.Event<{
+  taskId: number, // The task ID of the task that was finalized.
+  role: Role, // The role of the work rating.
+  token: TokenAddress, // The token address (0x indicates ether).
+  amount: number, // The token amount.
+}>;
 type TaskCanceled = ContractClient.Event<{
   taskId: number, // The task ID of the task that was canceled.
 }>;
@@ -697,7 +703,10 @@ export default class ColonyClient extends ContractClient {
       role: Role, // Role of the contributor claiming the payout: MANAGER, EVALUATOR, or WORKER
       token: TokenAddress, // Address to claim funds from, e.g. the token's contract address, or empty address (`0x0` for Ether)
     },
-    { Transfer: Transfer },
+    {
+      TaskPayoutClaimed: TaskPayoutClaimed,
+      Transfer: Transfer,
+    },
     ColonyClient,
   >;
   /*
@@ -750,7 +759,10 @@ export default class ColonyClient extends ContractClient {
     {
       amount: BigNumber, // Amount of new tokens to be minted.
     },
-    { Mint: Mint },
+    {
+      Mint: Mint,
+      Transfer: Transfer,
+    },
     ColonyClient,
   >;
   /*
@@ -821,6 +833,7 @@ export default class ColonyClient extends ContractClient {
     TaskDomainChanged: TaskDomainChanged,
     TaskDueDateChanged: TaskDueDateChanged,
     TaskFinalized: TaskFinalized,
+    TaskPayoutClaimed: TaskPayoutClaimed,
     TaskRoleUserChanged: TaskRoleUserChanged,
     TaskSkillChanged: TaskSkillChanged,
     TaskWorkerPayoutChanged: TaskWorkerPayoutChanged,
@@ -1032,6 +1045,13 @@ export default class ColonyClient extends ContractClient {
       // $FlowFixMe
       ['role', 'role'],
       ['rating', 'number'],
+    ]);
+    this.addEvent('TaskPayoutClaimed', [
+      ['taskId', 'number'],
+      // $FlowFixMe
+      ['role', 'role'],
+      ['token', 'tokenAddress'],
+      ['amount', 'number'],
     ]);
     this.addEvent('TaskFinalized', [['taskId', 'number']]);
     this.addEvent('TaskCanceled', [['taskId', 'number']]);
