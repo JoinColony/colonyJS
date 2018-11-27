@@ -4,11 +4,11 @@
 
 **Bug fixes**
 
-* Update `contractName` for `AuthoriyClient` from `Authority` to `ColonyAuthority`
-* Add `MetaColonyClient` and move corresponding methods over from `ColonyClient`
-* Fix expected `Buffer` type when converting the output for param type `ipfsHash`
-* Update the event for `claimPayout` from `Transfer` to `TaskPayoutClaimed`
-* Add missing `Transfer` event to the `mintTokens` sender method
+* Update `contractName` for `AuthorityClient` from `Authority` to `ColonyAuthority` (`@colony/colony-js-client`)
+* Add `MetaColonyClient` and move corresponding methods over from `ColonyClient` (`@colony/colony-js-client`)
+* Fix expected `Buffer` type when converting the output for param type `ipfsHash` (`@colony/colony-js-client`)
+* Add the event `TaskPayoutClaimed` to the `claimPayout` method (`@colony/colony-js-client`)
+* Add missing `Transfer` event to the `mintTokens` method (`@colony/colony-js-client`)
 
 ## v1.7.4
 
