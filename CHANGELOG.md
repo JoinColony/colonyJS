@@ -2,6 +2,13 @@
 
 ## v.NEXT
 
+**Bug fixes**
+
+* Update `contractName` for `AuthoriyClient` from `Authority` to `ColonyAuthority`
+* Add `MetaColonyClient` and move corresponding methods over from `ColonyClient`
+* Fix expected `Buffer` type when converting the output for param type `ipfsHash`
+* Update the event for `claimPayout` from `Transfer` to `TaskPayoutClaimed`
+* Add missing `Transfer` event to the `mintTokens` sender method
 
 ## v1.7.4
 
