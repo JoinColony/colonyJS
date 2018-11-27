@@ -1,6 +1,6 @@
 {
     "name": "@colony/colony-js-contract-client",
-    "version": "1.7.3",
+    "version": "1.7.5",
     "description": "Method-like interface for Smart Contracts",
     "main": "lib/index.js",
     "files": [
