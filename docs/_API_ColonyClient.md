@@ -768,9 +768,14 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
+|taskId|number|The task ID of the task that was finalized.|
+|role|Role|The role of the work rating.|
+|token|Token address|The token address (0x indicates ether).|
+|amount|number|The token amount.|
 |from|Address|Event data indicating the 'from' address.|
 |to|Address|Event data indicating the 'to' address.|
 |value|BigNumber|Event data indicating the amount transferred.|
+|TaskPayoutClaimed|object|Contains the data defined in [TaskPayoutClaimed](#events-TaskPayoutClaimed)|
 |Transfer|object|Contains the data defined in [Transfer](#events-Transfer)|
 
 ### `addDomain.send({ parentSkillId }, options)`
@@ -862,7 +867,11 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |address|Address|The address that initiated the mint event.|
 |amount|BigNumber|Event data indicating the amount of tokens minted.|
+|from|Address|Event data indicating the 'from' address.|
+|to|Address|Event data indicating the 'to' address.|
+|value|BigNumber|Event data indicating the amount transferred.|
 |Mint|object|Contains the data defined in [Mint](#events-Mint)|
+|Transfer|object|Contains the data defined in [Transfer](#events-Transfer)|
 
 ### `startNextRewardPayout.send({ token }, options)`
 
@@ -1362,6 +1371,20 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |Argument|Type|Description|
 |---|---|---|
 |taskId|number|The task ID of the task that was finalized.|
+
+
+### [events.TaskPayoutClaimed.addListener(({ taskId, role, token, amount }) => { /* ... */ })](#events-TaskPayoutClaimed)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|taskId|number|The task ID of the task that was finalized.|
+|role|Role|The role of the work rating.|
+|token|Token address|The token address (0x indicates ether).|
+|amount|number|The token amount.|
 
 
 ### [events.TaskCanceled.addListener(({ taskId }) => { /* ... */ })](#events-TaskCanceled)
