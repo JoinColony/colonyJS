@@ -2,6 +2,9 @@
 
 ## v.NEXT
 
+
+## v1.7.5
+
 **Bug fixes**
 
 * Update `contractName` for `AuthorityClient` from `Authority` to `ColonyAuthority` (`@colony/colony-js-client`)
