@@ -39,6 +39,32 @@ The Colony's [TokenClient](/colonyjs/api-tokenclient/) instance.
 
 **All callers return promises which resolve to an object containing the given return values.** For a reference please check [here](/colonyjs/docs-contractclient/#callers).
 
+### `getRecoveryRolesCount.call()`
+
+Returns the number of recovery roles.
+
+
+**Returns**
+
+A promise which resolves to an object containing the following properties:
+
+|Return value|Type|Description|
+|---|---|---|
+|count|number|Number of users with the recovery role (excluding owner)|
+
+### `isInRecoveryMode.call()`
+
+Is the colony in recovery mode?
+
+
+**Returns**
+
+A promise which resolves to an object containing the following properties:
+
+|Return value|Type|Description|
+|---|---|---|
+|inRecoveryMode|boolean|Return true if recovery mode is active, false otherwise|
+
 ### `getAuthority.call()`
 
 Gets the colony's Authority contract address
@@ -64,19 +90,6 @@ A promise which resolves to an object containing the following properties:
 |Return value|Type|Description|
 |---|---|---|
 |version|number|The version number.|
-
-### `getRecoveryRolesCount.call()`
-
-Returns the number of recovery roles.
-
-
-**Returns**
-
-A promise which resolves to an object containing the following properties:
-
-|Return value|Type|Description|
-|---|---|---|
-|count|number|Number of users with the recovery role (excluding owner)|
 
 ### `generateSecret.call({ salt, value })`
 
@@ -358,6 +371,19 @@ A promise which resolves to an object containing the following properties:
 |totalTokenAmountForRewardPayout|BigNumber|Total amount of tokens taken aside for reward payout.|
 |totalTokens|BigNumber|Total colony tokens at the time of creation.|
 
+### `getRewardInverse.call()`
+
+Return 1 / the reward to pay out from revenue. e.g. if the fee is 1% (or 0.01), return 100
+
+
+**Returns**
+
+A promise which resolves to an object containing the following properties:
+
+|Return value|Type|Description|
+|---|---|---|
+|rewardInverse|BigNumber|The inverse of the reward|
+
 ### `getToken.call()`
 
 Gets the address of the colony's official token contract.
@@ -388,6 +414,112 @@ A promise which resolves to an object containing the following properties:
 ## Senders
 
 **All senders return an instance of a `ContractResponse`.** Every `send()` method takes an `options` object as the second argument. For a reference please check [here](/colonyjs/docs-contractclient/#senders).
+### `approveExitRecovery.send(options)`
+
+Indicate approval to exit recovery mode. Can only be called by user with recovery role.
+
+
+**Returns**
+
+An instance of a `ContractResponse`
+
+
+
+### `enterRecoveryMode.send(options)`
+
+Put the colony into recovery mode. Can only be called by user with a recovery role.
+
+
+**Returns**
+
+An instance of a `ContractResponse`
+
+
+
+### `exitRecoveryMode.send({ newVersion }, options)`
+
+Exit recovery mode. Can be called by anyone if enough whitelist approvals are given.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|newVersion|number|Resolver version to upgrade to (>= current version)|
+
+**Returns**
+
+An instance of a `ContractResponse`
+
+
+
+### `setRecoveryRole.send({ user }, options)`
+
+Set new colony recovery role. Can only be called by the founder role.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|user|Address|The user we want to give a recovery role to.|
+
+**Returns**
+
+An instance of a `ContractResponse`
+
+
+
+### `setRewardInverse.send({ rewardInverse }, options)`
+
+Set new colony recovery role. Can only be called by the founder role.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|rewardInverse|BigNumber|The inverse of the reward|
+
+**Returns**
+
+An instance of a `ContractResponse` which will eventually receive the following event data:
+
+|Event data|Type|Description|
+|---|---|---|
+|rewardInverse|BigNumber|The reward inverse value|
+|ColonyRewardInverseSet|object|Contains the data defined in [ColonyRewardInverseSet](#events-ColonyRewardInverseSet)|
+
+### `removeRecoveryRole.send({ user }, options)`
+
+Remove colony recovery role. Can only be called by the founder role.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|user|Address|The user we want to remove the recovery role from.|
+
+**Returns**
+
+An instance of a `ContractResponse`
+
+
+
+### `setStorageSlotRecovery.send({ slot, value }, options)`
+
+Update the value of an arbitrary storage variable. This can only be called by a user with the recovery role. Certain critical variables are protected from editing in this function.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|slot|number|Address of storage slot to be updated.|
+|value|Hex string|Word of data to be set.|
+
+**Returns**
+
+An instance of a `ContractResponse`
+
+
+
 ### `createTask.send({ specificationHash, domainId, skillId, dueDate }, options)`
 
 Creates a new task by invoking `makeTask` on-chain.
@@ -433,33 +565,6 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |taskId|number|The task ID.|
 |TaskCompleted|object|Contains the data defined in [TaskCompleted](#events-TaskCompleted)|
 
-### `enterRecoveryMode.send(options)`
-
-Put the colony into recovery mode. Can only be called by user with a recovery role.
-
-
-**Returns**
-
-An instance of a `ContractResponse`
-
-
-
-### `exitRecoveryMode.send({ newVersion }, options)`
-
-Exit recovery mode. Can be called by anyone if enough whitelist approvals are given.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|newVersion|number|Resolver version to upgrade to (>= current version)|
-
-**Returns**
-
-An instance of a `ContractResponse`
-
-
-
 ### `registerColonyLabel.send({ colonyName, orbitDBPath }, options)`
 
 Register the colony's ENS label.
@@ -481,21 +586,25 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |label|string|The label registered|
 |ColonyLabelRegistered|object|Contains the data defined in [ColonyLabelRegistered](#events-ColonyLabelRegistered)|
 
-### `setOwnerRole.send({ user }, options)`
+### `setFounderRole.send({ user }, options)`
 
-Set a new colony owner role. There can only be one address assigned to owner role at a time. Whoever calls this function will lose their owner role. Can be called by owner role.
+Set a new colony founder role. There can only be one address assigned to the founder role at a time. Whoever calls this function will lose their founder role. Can be called by founder role.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|user|Address|User we want to give an owner role to|
+|user|Address|User we want to give a founder role to|
 
 **Returns**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse` which will eventually receive the following event data:
 
-
+|Event data|Type|Description|
+|---|---|---|
+|oldFounder|Address|The current founder delegating the role away|
+|newFounder|Address|The user receiving the colony founder role|
+|ColonyFounderRoleSet|object|Contains the data defined in [ColonyFounderRoleSet](#events-ColonyFounderRoleSet)|
 
 ### `setAdminRole.send({ user }, options)`
 
@@ -509,13 +618,16 @@ Set a new colony admin role. Can be called by an owner or admin role.
 
 **Returns**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse` which will eventually receive the following event data:
 
-
+|Event data|Type|Description|
+|---|---|---|
+|user|Address|The newly-added colony admin user|
+|ColonyAdminRoleSet|object|Contains the data defined in [ColonyAdminRoleSet](#events-ColonyAdminRoleSet)|
 
 ### `setRecoveryRole.send({ user }, options)`
 
-Set a new colony recovery role. Can be called by an owner role.
+Set a new colony recovery role. Can be called by the founder role.
 
 **Arguments**
 
@@ -531,7 +643,7 @@ An instance of a `ContractResponse`
 
 ### `removeAdminRole.send({ user }, options)`
 
-Remove a colony admin role. Can only be called by an owner role.
+Remove a colony admin role. Can only be called by the founder role.
 
 **Arguments**
 
@@ -541,25 +653,12 @@ Remove a colony admin role. Can only be called by an owner role.
 
 **Returns**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse` which will eventually receive the following event data:
 
-
-
-### `removeRecoveryRole.send({ user }, options)`
-
-Remove a colony recovery role. Can only be called by an owner role.
-
-**Arguments**
-
-|Argument|Type|Description|
+|Event data|Type|Description|
 |---|---|---|
-|user|Address|User we want to remove a recovery role from|
-
-**Returns**
-
-An instance of a `ContractResponse`
-
-
+|user|Address|The removed colony admin user|
+|ColonyAdminRoleRemoved|object|Contains the data defined in [ColonyAdminRoleRemoved](#events-ColonyAdminRoleRemoved)|
 
 ### `setTaskDomain.send({ taskId, domainId }, options)`
 
@@ -580,7 +679,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |taskId|number|The task ID.|
 |domainId|number|The task's new domain ID.|
-|TaskDomainChanged|object|Contains the data defined in [TaskDomainChanged](#events-TaskDomainChanged)|
+|TaskDomainSet|object|Contains the data defined in [TaskDomainSet](#events-TaskDomainSet)|
 
 ### `setAllTaskPayouts.send({ taskId, token, managerAmount, evaluatorAmount, workerAmount }, options)`
 
@@ -603,9 +702,10 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |Event data|Type|Description|
 |---|---|---|
 |taskId|number|The task ID.|
+|role|Role|The role the payout is for|
 |token|Token address|The token address (0x indicates ether).|
 |amount|number|The token amount.|
-|TaskWorkerPayoutChanged|object|Contains the data defined in [TaskWorkerPayoutChanged](#events-TaskWorkerPayoutChanged)|
+|TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#events-TaskPayoutSet)|
 
 ### `submitTaskDeliverable.send({ taskId, deliverableHash }, options)`
 
@@ -810,9 +910,14 @@ Move any funds received by the colony for `token` denomination to the top-levl d
 
 **Returns**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse` which will eventually receive the following event data:
 
-
+|Event data|Type|Description|
+|---|---|---|
+|token|Address|The token address being claimed|
+|fee|BigNumber|The fee deducted for rewards|
+|payoutRemainder|BigNumber|The remaining funds moved to the top-level domain pot|
+|ColonyFundsClaimed|object|Contains the data defined in [ColonyFundsClaimed](#events-ColonyFundsClaimed)|
 
 ### `finalizeRewardPayout.send({ payoutId }, options)`
 
@@ -845,9 +950,15 @@ Move a given amount of `token` funds from one pot to another.
 
 **Returns**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse` which will eventually receive the following event data:
 
-
+|Event data|Type|Description|
+|---|---|---|
+|fromPot|number|The source funding pot|
+|toPot|number|The target funding pot|
+|amount|BigNumber|The amount that was transferred|
+|token|Address|The token address being transferred|
+|ColonyFundsMovedBetweenFundingPots|object|Contains the data defined in [ColonyFundsMovedBetweenFundingPots](#events-ColonyFundsMovedBetweenFundingPots)|
 
 ### `mintTokens.send({ amount }, options)`
 
@@ -889,7 +1000,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|payoutId|number|The payout ID logged when a new reward payout cycle has started.|
+|payoutId|number|The reward payout cycle ID logged when a new reward payout cycle has started.|
 |RewardPayoutCycleStarted|object|Contains the data defined in [RewardPayoutCycleStarted](#events-RewardPayoutCycleStarted)|
 
 ### `waiveRewardPayouts.send({ numPayouts }, options)`
@@ -901,23 +1012,6 @@ Waive reward payout. This unlocks the sender's tokens and increments the users r
 |Argument|Type|Description|
 |---|---|---|
 |numPayouts|number|Number of payouts to waive.|
-
-**Returns**
-
-An instance of a `ContractResponse`
-
-
-
-### `setStorageSlotRecovery.send({ slot, value }, options)`
-
-Update the value of an arbitrary storage variable. This can only be called by a user with the recovery role. Certain critical variables are protected from editing in this function.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|slot|number|Address of storage slot to be updated.|
-|value|Hex string|Word of data to be set.|
 
 **Returns**
 
@@ -953,9 +1047,13 @@ Upgrades the colony to a new Colony contract version. Downgrades are not allowed
 
 **Returns**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse` which will eventually receive the following event data:
 
-
+|Event data|Type|Description|
+|---|---|---|
+|oldVersion|number|The previous colony version|
+|newVersion|number|The new colony version|
+|ColonyUpgraded|object|Contains the data defined in [ColonyUpgraded](#events-ColonyUpgraded)|
 
   
 ## Task MultiSig
@@ -980,7 +1078,7 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |---|---|---|
 |taskId|number|The task ID.|
 |specificationHash|string|The IPFS hash of the task's new specification.|
-|TaskBriefChanged|object|Contains the data defined in [TaskBriefChanged](#events-TaskBriefChanged)|
+|TaskBriefSet|object|Contains the data defined in [TaskBriefSet](#events-TaskBriefSet)|
 
 ### `setTaskDueDate.startOperation({ taskId, dueDate })`
 
@@ -1001,7 +1099,7 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |---|---|---|
 |taskId|number|The task ID.|
 |dueDate|Date|The task's new due date.|
-|TaskDueDateChanged|object|Contains the data defined in [TaskDueDateChanged](#events-TaskDueDateChanged)|
+|TaskDueDateSet|object|Contains the data defined in [TaskDueDateSet](#events-TaskDueDateSet)|
 
 ### `setTaskManagerRole.startOperation({ taskId, user })`
 
@@ -1023,7 +1121,7 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |taskId|number|The task ID.|
 |role|number|The role that changed for the task.|
 |user|Address|The user with the role that changed for the task.|
-|TaskRoleUserChanged|object|Contains the data defined in [TaskRoleUserChanged](#events-TaskRoleUserChanged)|
+|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#events-TaskRoleUserSet)|
 
 ### `setTaskWorkerRole.startOperation({ taskId, user })`
 
@@ -1045,7 +1143,7 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |taskId|number|The task ID.|
 |role|number|The role that changed for the task.|
 |user|Address|The user with the role that changed for the task.|
-|TaskRoleUserChanged|object|Contains the data defined in [TaskRoleUserChanged](#events-TaskRoleUserChanged)|
+|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#events-TaskRoleUserSet)|
 
 ### `setTaskEvaluatorRole.startOperation({ taskId, user })`
 
@@ -1067,7 +1165,7 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |taskId|number|The task ID.|
 |role|number|The role that changed for the task.|
 |user|Address|The user with the role that changed for the task.|
-|TaskRoleUserChanged|object|Contains the data defined in [TaskRoleUserChanged](#events-TaskRoleUserChanged)|
+|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#events-TaskRoleUserSet)|
 
 ### `setTaskSkill.startOperation({ taskId, skillId })`
 
@@ -1088,7 +1186,7 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |---|---|---|
 |taskId|number|The task ID.|
 |skillId|number|The task's new skill ID.|
-|TaskSkillChanged|object|Contains the data defined in [TaskSkillChanged](#events-TaskSkillChanged)|
+|TaskSkillSet|object|Contains the data defined in [TaskSkillSet](#events-TaskSkillSet)|
 
 ### `setTaskEvaluatorPayout.startOperation({ taskId, token, amount })`
 
@@ -1109,9 +1207,10 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |Event Data|Type|Description|
 |---|---|---|
 |taskId|number|The task ID.|
+|role|Role|The role the payout is for|
 |token|Token address|The token address (0x indicates ether).|
 |amount|number|The token amount.|
-|TaskWorkerPayoutChanged|object|Contains the data defined in [TaskWorkerPayoutChanged](#events-TaskWorkerPayoutChanged)|
+|TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#events-TaskPayoutSet)|
 
 ### `setTaskManagerPayout.startOperation({ taskId, token, amount })`
 
@@ -1132,9 +1231,10 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |Event Data|Type|Description|
 |---|---|---|
 |taskId|number|The task ID.|
+|role|Role|The role the payout is for|
 |token|Token address|The token address (0x indicates ether).|
 |amount|number|The token amount.|
-|TaskWorkerPayoutChanged|object|Contains the data defined in [TaskWorkerPayoutChanged](#events-TaskWorkerPayoutChanged)|
+|TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#events-TaskPayoutSet)|
 
 ### `setTaskWorkerPayout.startOperation({ taskId, token, amount })`
 
@@ -1155,9 +1255,10 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |Event Data|Type|Description|
 |---|---|---|
 |taskId|number|The task ID.|
+|role|Role|The role the payout is for|
 |token|Token address|The token address (0x indicates ether).|
 |amount|number|The token amount.|
-|TaskWorkerPayoutChanged|object|Contains the data defined in [TaskWorkerPayoutChanged](#events-TaskWorkerPayoutChanged)|
+|TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#events-TaskPayoutSet)|
 
 ### `removeTaskWorkerRole.startOperation({ taskId })`
 
@@ -1178,7 +1279,7 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |taskId|number|The task ID.|
 |role|number|The role that changed for the task.|
 |user|Address|The user with the role that changed for the task.|
-|TaskRoleUserChanged|object|Contains the data defined in [TaskRoleUserChanged](#events-TaskRoleUserChanged)|
+|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#events-TaskRoleUserSet)|
 
 ### `removeTaskEvaluatorRole.startOperation({ taskId })`
 
@@ -1199,7 +1300,7 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |taskId|number|The task ID.|
 |role|number|The role that changed for the task.|
 |user|Address|The user with the role that changed for the task.|
-|TaskRoleUserChanged|object|Contains the data defined in [TaskRoleUserChanged](#events-TaskRoleUserChanged)|
+|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#events-TaskRoleUserSet)|
 
   
 ## Events
@@ -1252,7 +1353,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |taskId|number|The task ID.|
 
 
-### [events.TaskBriefChanged.addListener(({ taskId, specificationHash }) => { /* ... */ })](#events-TaskBriefChanged)
+### [events.TaskBriefSet.addListener(({ taskId, specificationHash }) => { /* ... */ })](#events-TaskBriefSet)
 
 
 
@@ -1275,7 +1376,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |taskId|number|The task ID.|
 
 
-### [events.TaskDueDateChanged.addListener(({ taskId, dueDate }) => { /* ... */ })](#events-TaskDueDateChanged)
+### [events.TaskDueDateSet.addListener(({ taskId, dueDate }) => { /* ... */ })](#events-TaskDueDateSet)
 
 
 
@@ -1287,7 +1388,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |dueDate|Date|The task's new due date.|
 
 
-### [events.TaskDomainChanged.addListener(({ taskId, domainId }) => { /* ... */ })](#events-TaskDomainChanged)
+### [events.TaskDomainSet.addListener(({ taskId, domainId }) => { /* ... */ })](#events-TaskDomainSet)
 
 
 
@@ -1299,7 +1400,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |domainId|number|The task's new domain ID.|
 
 
-### [events.TaskSkillChanged.addListener(({ taskId, skillId }) => { /* ... */ })](#events-TaskSkillChanged)
+### [events.TaskSkillSet.addListener(({ taskId, skillId }) => { /* ... */ })](#events-TaskSkillSet)
 
 
 
@@ -1311,7 +1412,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |skillId|number|The task's new skill ID.|
 
 
-### [events.TaskRoleUserChanged.addListener(({ taskId, role, user }) => { /* ... */ })](#events-TaskRoleUserChanged)
+### [events.TaskRoleUserSet.addListener(({ taskId, role, user }) => { /* ... */ })](#events-TaskRoleUserSet)
 
 
 
@@ -1324,7 +1425,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |user|Address|The user with the role that changed for the task.|
 
 
-### [events.TaskWorkerPayoutChanged.addListener(({ taskId, token, amount }) => { /* ... */ })](#events-TaskWorkerPayoutChanged)
+### [events.TaskPayoutSet.addListener(({ taskId, role, token, amount }) => { /* ... */ })](#events-TaskPayoutSet)
 
 
 
@@ -1333,6 +1434,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |Argument|Type|Description|
 |---|---|---|
 |taskId|number|The task ID.|
+|role|Role|The role the payout is for|
 |token|Token address|The token address (0x indicates ether).|
 |amount|number|The token amount.|
 
@@ -1406,7 +1508,18 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|payoutId|number|The payout ID logged when a new reward payout cycle has started.|
+|payoutId|number|The reward payout cycle ID logged when a new reward payout cycle has started.|
+
+
+### [events.RewardPayoutCycleEnded.addListener(({ payoutId }) => { /* ... */ })](#events-RewardPayoutCycleEnded)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|payoutId|number|The reward payout cycle ID logged when a reward payout cycle has ended.|
 
 
 ### [events.ColonyLabelRegistered.addListener(({ colony, label }) => { /* ... */ })](#events-ColonyLabelRegistered)
@@ -1444,3 +1557,112 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |---|---|---|
 |address|Address|The address that initiated the mint event.|
 |amount|BigNumber|Event data indicating the amount of tokens minted.|
+
+
+### [events.ColonyFounderRoleSet.addListener(({ oldFounder, newFounder }) => { /* ... */ })](#events-ColonyFounderRoleSet)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|oldFounder|Address|The current founder delegating the role away|
+|newFounder|Address|The user receiving the colony founder role|
+
+
+### [events.ColonyAdminRoleSet.addListener(({ user }) => { /* ... */ })](#events-ColonyAdminRoleSet)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|user|Address|The newly-added colony admin user|
+
+
+### [events.ColonyAdminRoleRemoved.addListener(({ user }) => { /* ... */ })](#events-ColonyAdminRoleRemoved)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|user|Address|The removed colony admin user|
+
+
+### [events.ColonyFundsMovedBetweenFundingPots.addListener(({ fromPot, toPot, amount, token }) => { /* ... */ })](#events-ColonyFundsMovedBetweenFundingPots)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|fromPot|number|The source funding pot|
+|toPot|number|The target funding pot|
+|amount|BigNumber|The amount that was transferred|
+|token|Address|The token address being transferred|
+
+
+### [events.ColonyFundsClaimed.addListener(({ token, fee, payoutRemainder }) => { /* ... */ })](#events-ColonyFundsClaimed)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|token|Address|The token address being claimed|
+|fee|BigNumber|The fee deducted for rewards|
+|payoutRemainder|BigNumber|The remaining funds moved to the top-level domain pot|
+
+
+### [events.RewardPayoutClaimed.addListener(({ rewardPayoutId, user, fee, payoutRemainder }) => { /* ... */ })](#events-RewardPayoutClaimed)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|rewardPayoutId|number|The reward payout cycle ID|
+|user|Address|The user who received the reward payout|
+|fee|BigNumber|The fee deducted from the payout|
+|payoutRemainder|BigNumber|The remaining reward amount paid out to the user|
+
+
+### [events.ColonyRewardInverseSet.addListener(({ rewardInverse }) => { /* ... */ })](#events-ColonyRewardInverseSet)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|rewardInverse|BigNumber|The reward inverse value|
+
+
+### [events.ColonyInitialised.addListener(({ colonyNetwork }) => { /* ... */ })](#events-ColonyInitialised)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|colonyNetwork|Address|The Colony Network address|
+
+
+### [events.ColonyUpgraded.addListener(({ oldVersion, newVersion }) => { /* ... */ })](#events-ColonyUpgraded)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|oldVersion|number|The previous colony version|
+|newVersion|number|The new colony version|

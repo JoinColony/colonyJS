@@ -84,6 +84,32 @@ Gets the Meta Colony as an initialized ColonyClient
 
 **All callers return promises which resolve to an object containing the given return values.** For a reference please check [here](/colonyjs/docs-contractclient/#callers).
 
+### `getRecoveryRolesCount.call()`
+
+Returns the number of recovery roles.
+
+
+**Returns**
+
+A promise which resolves to an object containing the following properties:
+
+|Return value|Type|Description|
+|---|---|---|
+|count|number|Number of users with the recovery role (excluding owner)|
+
+### `isInRecoveryMode.call()`
+
+Is the colony in recovery mode?
+
+
+**Returns**
+
+A promise which resolves to an object containing the following properties:
+
+|Return value|Type|Description|
+|---|---|---|
+|inRecoveryMode|boolean|Return true if recovery mode is active, false otherwise|
+
 ### `getColony.call({ id })`
 
 Returns the address of a colony when given the ID
@@ -350,6 +376,93 @@ A promise which resolves to an object containing the following properties:
 ## Senders
 
 **All senders return an instance of a `ContractResponse`.** Every `send()` method takes an `options` object as the second argument. For a reference please check [here](/colonyjs/docs-contractclient/#senders).
+### `approveExitRecovery.send(options)`
+
+Indicate approval to exit recovery mode. Can only be called by user with recovery role.
+
+
+**Returns**
+
+An instance of a `ContractResponse`
+
+
+
+### `enterRecoveryMode.send(options)`
+
+Put the colony into recovery mode. Can only be called by user with a recovery role.
+
+
+**Returns**
+
+An instance of a `ContractResponse`
+
+
+
+### `exitRecoveryMode.send({ newVersion }, options)`
+
+Exit recovery mode. Can be called by anyone if enough whitelist approvals are given.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|newVersion|number|Resolver version to upgrade to (>= current version)|
+
+**Returns**
+
+An instance of a `ContractResponse`
+
+
+
+### `setRecoveryRole.send({ user }, options)`
+
+Set new colony recovery role. Can only be called by the founder role.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|user|Address|The user we want to give a recovery role to.|
+
+**Returns**
+
+An instance of a `ContractResponse`
+
+
+
+### `removeRecoveryRole.send({ user }, options)`
+
+Remove colony recovery role. Can only be called by the founder role.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|user|Address|The user we want to remove the recovery role from.|
+
+**Returns**
+
+An instance of a `ContractResponse`
+
+
+
+### `setStorageSlotRecovery.send({ slot, value }, options)`
+
+Update the value of an arbitrary storage variable. This can only be called by a user with the recovery role. Certain critical variables are protected from editing in this function.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|slot|number|Address of storage slot to be updated.|
+|value|Hex string|Word of data to be set.|
+
+**Returns**
+
+An instance of a `ContractResponse`
+
+
+
 ### `createToken.send({ name, symbol, decimals }, options)`
 
 Deploys a new ERC20 compatible token contract for you to use with your Colony. You can also use your own token when creating a Colony.
@@ -401,9 +514,12 @@ Sets the token locking address.
 
 **Returns**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse` which will eventually receive the following event data:
 
-
+|Event data|Type|Description|
+|---|---|---|
+|tokenLocking|Address|Address of the TokenLocking contract|
+|TokenLockingAddressSet|object|Contains the data defined in [TokenLockingAddressSet](#events-TokenLockingAddressSet)|
 
 ### `createMetaColony.send({ tokenAddress }, options)`
 
@@ -417,9 +533,14 @@ Create the Meta Colony, same as a normal Colony plus the root skill.
 
 **Returns**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse` which will eventually receive the following event data:
 
-
+|Event data|Type|Description|
+|---|---|---|
+|colonyAddress|number|Address of the Meta Colony|
+|tokenAddress|Address|Address of the associated CLNY token|
+|rootSkillId|number|ID of the root skill of the global skills tree (normally, this is 2)|
+|MetaColonyCreated|object|Contains the data defined in [MetaColonyCreated](#events-MetaColonyCreated)|
 
 ### `createColony.send({ tokenAddress }, options)`
 
@@ -437,8 +558,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|colonyId|number|ID of the newly-created Colony|
-|colonyAddress|Address|Address of the newly-created Colony|
+|colonyId|number|ID of the newly-created colony|
+|colonyAddress|Address|Address of the newly-created colony|
+|tokenAddress|Address|Address of the associated colony token|
 |ColonyAdded|object|Contains the data defined in [ColonyAdded](#events-ColonyAdded)|
 
 ### `addColonyVersion.send({ version, resolver }, options)`
@@ -454,9 +576,13 @@ Adds a new Colony contract version and the address of associated Resolver contra
 
 **Returns**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse` which will eventually receive the following event data:
 
-
+|Event data|Type|Description|
+|---|---|---|
+|version|number|The new int colony version, e.g. 2, 3, 4, etc|
+|resolver|Address|The new colony contract resolver contract instance|
+|ColonyVersionAdded|object|Contains the data defined in [ColonyVersionAdded](#events-ColonyVersionAdded)|
 
 ### `startTokenAuction.send({ tokenAddress }, options)`
 
@@ -524,7 +650,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events) to interact with these events.
 
 
-### [events.ColonyAdded.addListener(({ colonyId, colonyAddress }) => { /* ... */ })](#events-ColonyAdded)
+### [events.ColonyAdded.addListener(({ colonyId, colonyAddress, tokenAddress }) => { /* ... */ })](#events-ColonyAdded)
 
 
 
@@ -532,8 +658,9 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|colonyId|number|ID of the newly-created Colony|
-|colonyAddress|Address|Address of the newly-created Colony|
+|colonyId|number|ID of the newly-created colony|
+|colonyAddress|Address|Address of the newly-created colony|
+|tokenAddress|Address|Address of the associated colony token|
 
 
 ### [events.SkillAdded.addListener(({ skillId, parentSkillId }) => { /* ... */ })](#events-SkillAdded)
@@ -583,3 +710,109 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |---|---|---|
 |colony|Address|Address of the colony that registered a label|
 |label|string|The label registered|
+
+
+### [events.ReputationMiningInitialised.addListener(({ inactiveReputationMiningCycle }) => { /* ... */ })](#events-ReputationMiningInitialised)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|inactiveReputationMiningCycle|Address|Address of the newly created ReputationMiningCycle used in logging reputation changes|
+
+
+### [events.ReputationMiningCycleComplete.addListener(({ hash, nNodes }) => { /* ... */ })](#events-ReputationMiningCycleComplete)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|hash|Hex string|The root hash of the newly accepted reputation state|
+|nNodes|number|The number of nodes in the reputation state|
+
+
+### [events.ReputationRootHashSet.addListener(({ newHash, newNNodes, stakers, reward }) => { /* ... */ })](#events-ReputationRootHashSet)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|newHash|Hex string|The reputation root hash|
+|newNNodes|number|The updated nodes count value|
+|stakers|undefined|Array of users who submitted or backed the hash accepted|
+|reward|undefined|Amount of CLNY distributed as reward to miners|
+
+
+### [events.TokenLockingAddressSet.addListener(({ tokenLocking }) => { /* ... */ })](#events-TokenLockingAddressSet)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|tokenLocking|Address|Address of the TokenLocking contract|
+
+
+### [events.ColonyNetworkInitialised.addListener(({ resolver }) => { /* ... */ })](#events-ColonyNetworkInitialised)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|resolver|Address|The Resolver contract address used by the Colony version 1|
+
+
+### [events.MiningCycleResolverSet.addListener(({ miningCycleResolver }) => { /* ... */ })](#events-MiningCycleResolverSet)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|miningCycleResolver|Address|Resolver address for the ReputationMiningCycle contract|
+
+
+### [events.NetworkFeeInverseSet.addListener(({ feeInverse }) => { /* ... */ })](#events-NetworkFeeInverseSet)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|feeInverse|BigNumber|The network fee inverse value|
+
+
+### [events.ColonyVersionAdded.addListener(({ version, resolver }) => { /* ... */ })](#events-ColonyVersionAdded)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|version|number|The new int colony version, e.g. 2, 3, 4, etc|
+|resolver|Address|The new colony contract resolver contract instance|
+
+
+### [events.MetaColonyCreated.addListener(({ colonyAddress, tokenAddress, rootSkillId }) => { /* ... */ })](#events-MetaColonyCreated)
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|colonyAddress|number|Address of the Meta Colony|
+|tokenAddress|Address|Address of the associated CLNY token|
+|rootSkillId|number|ID of the root skill of the global skills tree (normally, this is 2)|
