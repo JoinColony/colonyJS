@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import * as colonyActions from '../../actions/colonyActions'
 import * as domainsActions from '../../actions/domainsActions'
-import * as fundsActions from '../../actions/fundsActions'
+import * as fundingActions from '../../actions/fundingActions'
 import * as tasksActions from '../../actions/tasksActions'
 import * as tokenActions from '../../actions/tokenActions'
 import Menu from '../../components/Manage/Menu'
@@ -37,13 +37,13 @@ const mapDispatchToProps = dispatch => ({
     dispatch(colonyActions.setStateColonyClient(colonyClient))
   },
   setStateClaimableFunds(claimableFunds) {
-    dispatch(fundsActions.setStateClaimableFunds(claimableFunds))
+    dispatch(fundingActions.setStateClaimableFunds(claimableFunds))
   },
   setStateDomains(domains) {
     dispatch(domainsActions.setStateDomains(domains))
   },
   setStatePots(pots) {
-    dispatch(fundsActions.setStatePots(pots))
+    dispatch(fundingActions.setStatePots(pots))
   },
   setStateTask(task) {
     dispatch(tasksActions.setStateTask(task))

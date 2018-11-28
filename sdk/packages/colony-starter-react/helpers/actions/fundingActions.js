@@ -110,7 +110,7 @@ export const getPots = async (colonyClient) => {
     let pot = {}
 
     // get domain
-    const { potId, title } = await getDomain(colonyClient, domainId)
+    const { potId } = await getDomain(colonyClient, domainId)
 
     // get pot balance for domain
     const potBalance = await getPotBalance(colonyClient, potId)
@@ -118,7 +118,6 @@ export const getPots = async (colonyClient) => {
     // set pot properties
     pot.id = potId
     pot.type = 'domain'
-    pot.title = title
     pot.balance = potBalance
 
     // add pot to pots
@@ -153,7 +152,6 @@ export const getPots = async (colonyClient) => {
     // set properties
     pot.id = potId
     pot.type = 'task'
-    pot.title = title
     pot.balance = potBalance
 
     // add pot to pots

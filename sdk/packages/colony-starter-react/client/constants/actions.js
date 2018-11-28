@@ -50,7 +50,7 @@ export const CONNECT_NETWORK_SUCCESS = 'CONNECT_NETWORK_SUCCESS'
 
 export const SET_STATE_NETWORK_CLIENT = 'SET_STATE_NETWORK_CLIENT'
 
-// fundsActions
+// fundingActions
 
 export const CLAIM_FUNDS = 'CLAIM_FUNDS'
 export const CLAIM_FUNDS_ERROR = 'CLAIM_FUNDS_ERROR'

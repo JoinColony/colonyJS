@@ -1,12 +1,12 @@
 import { store } from '../index'
 import * as actions from '../constants/actions'
-import * as fundsActions from '../../helpers/actions/fundsActions'
+import * as fundingActions from '../../helpers/actions/fundingActions'
 
 // claimFunds
 
 export const claimFunds = (colonyClient) => ({
   type: actions.CLAIM_FUNDS,
-  payload: fundsActions.claimFunds(colonyClient)
+  payload: fundingActions.claimFunds(colonyClient)
     .then(pots => {
       store.dispatch(setStatePots(pots))
       store.dispatch(claimFundsSuccess())
@@ -30,7 +30,7 @@ export const claimFundsSuccess = (message) => ({
 
 export const fundDomain = (colonyClient, domainId, amount) => ({
   type: actions.FUND_DOMAIN,
-  payload: fundsActions.fundDomain(colonyClient, domainId, amount)
+  payload: fundingActions.fundDomain(colonyClient, domainId, amount)
     .then(pots => {
       store.dispatch(setStatePots(pots))
       store.dispatch(fundDomainSuccess())
@@ -54,7 +54,7 @@ export const fundDomainSuccess = (message) => ({
 
 export const getClaimableFunds = (colonyClient) => ({
   type: actions.GET_CLAIMABLE_FUNDS,
-  payload: fundsActions.getClaimableFunds(colonyClient)
+  payload: fundingActions.getClaimableFunds(colonyClient)
     .then(claimableFunds => {
       store.dispatch(setStateClaimableFunds(claimableFunds))
       store.dispatch(getClaimableFundsSuccess())
@@ -78,7 +78,7 @@ export const getClaimableFundsSuccess = (message) => ({
 
 export const getPots = (colonyClient) => ({
   type: actions.GET_POTS,
-  payload: fundsActions.getPots(colonyClient)
+  payload: fundingActions.getPots(colonyClient)
     .then(pots => {
       store.dispatch(setStatePots(pots))
       store.dispatch(getPotsSuccess())

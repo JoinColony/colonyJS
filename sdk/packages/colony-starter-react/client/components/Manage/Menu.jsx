@@ -16,8 +16,8 @@ const Menu = ({ logout }) => (
         </NavLink>
       </li>
       <li className={styles.item}>
-        <NavLink to="/manage/funds">
-          {'Funds'}
+        <NavLink to="/manage/funding">
+          {'Funding'}
         </NavLink>
       </li>
       <li className={styles.item}>

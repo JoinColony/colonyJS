@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
-import Funds from './Manage/Funds'
+import Funds from './Manage/Funding'
 import Login from '../containers/Manage/Login'
 import Menu from '../containers/Manage/Menu'
 import Home from './Manage/Home'
@@ -18,7 +18,7 @@ const Manage = ({ colonyClient }) => (
         <Menu />
         <div className={styles.content}>
           <Switch>
-            <Route path="/manage/funds" component={Funds} />
+            <Route path="/manage/funding" component={Funds} />
             <Route path="/manage/tasks" component={Tasks} />
             <Route path="/manage/token" component={Token} />
             <Route path="/manage/admins" component={Admins} />

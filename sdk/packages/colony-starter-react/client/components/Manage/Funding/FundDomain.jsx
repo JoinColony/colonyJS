@@ -1,7 +1,9 @@
 import React from 'react'
+import DomainSelector from '../../../containers/Manage/Funding/DomainSelector'
 import styles from './FundDomain.scss'
 
 const FundDomain = ({
+  domainId,
   funding,
   fundDomainError,
   fundDomainLoading,
@@ -11,25 +13,10 @@ const FundDomain = ({
 }) => (
   <div className={styles.container}>
     <h2>{'Fund Domain'}</h2>
-    <div className={styles.field}>
-      <label htmlFor="domainId">
-        {'Domain:'}
-      </label>
-      <select id="domainId" onChange={handleChange} value={funding.domainId}>
-        <option value={0}>
-          {'select domain...'}
-        </option>
-        <option value={2}>
-          {'Business'}
-        </option>
-        <option value={3}>
-          {'Education'}
-        </option>
-        <option value={4}>
-          {'Service'}
-        </option>
-      </select>
-    </div>
+    <DomainSelector
+      handleChange={handleChange}
+      domainId={domainId}
+    />
     <div className={styles.field}>
       <label htmlFor="amount">
         {'Amount:'}

@@ -30,7 +30,7 @@ const initialState = {
 
 }
 
-const fundsReducer = (state = initialState, action) => {
+const fundingReducer = (state = initialState, action) => {
 
   switch (action.type) {
 
@@ -155,4 +155,4 @@ const fundsReducer = (state = initialState, action) => {
 
 }
 
-export default fundsReducer
+export default fundingReducer

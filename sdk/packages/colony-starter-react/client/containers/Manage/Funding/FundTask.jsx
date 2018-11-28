@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { fundTask } from '../../../actions/tasksActions'
-import FundTask from '../../../components/Manage/Funds/FundTask'
+import FundTask from '../../../components/Manage/Funding/FundTask'
 import formatDate from '../../../helpers/formatDate'
 
 class FundTaskContainer extends Component {

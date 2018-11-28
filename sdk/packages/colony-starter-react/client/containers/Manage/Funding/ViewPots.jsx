@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getPots } from '../../../actions/fundsActions'
-import ViewFunds from '../../../components/Manage/Funds/ViewFunds'
+import { getPots } from '../../../actions/fundingActions'
+import ViewPots from '../../../components/Manage/Funding/ViewPots'
 
-class ViewFundsContainer extends Component {
+class ViewPotsContainer extends Component {
 
   constructor(props) {
     super(props)
@@ -23,7 +23,7 @@ class ViewFundsContainer extends Component {
 
   render() {
     return (
-      <ViewFunds
+      <ViewPots
         getPotsError={this.props.getPotsError}
         getPotsLoading={this.props.getPotsLoading}
         getPotsSuccess={this.props.getPotsSuccess}
@@ -48,4 +48,4 @@ const mapDispatchToProps = dispatch => ({
   },
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(ViewFundsContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(ViewPotsContainer)

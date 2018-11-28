@@ -1,5 +1,5 @@
 import React from 'react'
-import TaskSelector from '../../../containers/Manage/Funds/TaskSelector'
+import TaskSelector from '../../../containers/Manage/Funding/TaskSelector'
 import styles from './FundTask.scss'
 
 const FundTask = ({

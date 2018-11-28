@@ -1,7 +1,7 @@
 import { store } from '../index'
 import * as actions from '../constants/actions'
 import * as tokenActions from '../../helpers/actions/tokenActions'
-import { setStateClaimableFunds } from './fundsActions'
+import { setStateClaimableFunds } from './fundingActions'
 
 // createToken
 
