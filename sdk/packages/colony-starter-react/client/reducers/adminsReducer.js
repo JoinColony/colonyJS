@@ -7,13 +7,13 @@ const initialState = {
   addAdminLoading: false,
   addAdminSuccess: false,
 
-  // admins
-  admins: null,
+  // admin
+  admin: null,
 
-  // getAdmins
-  getAdminsError: null,
-  getAdminsLoading: false,
-  getAdminsSuccess: false,
+  // checkAdmin
+  checkAdminError: null,
+  checkAdminLoading: false,
+  checkAdminSuccess: false,
 
   // removeAdmin
   removeAdminError: null,
@@ -50,28 +50,28 @@ const adminsReducer = (state = initialState, action) => {
         addAdminSuccess: true,
       }
 
-    // getAdmins
+    // checkAdmin
 
-    case actions.GET_ADMINS:
+    case actions.CHECK_ADMIN:
       return {
         ...state,
-        getAdminsError: null,
-        getAdminsLoading: true,
-        getAdminsSuccess: false,
+        checkAdminError: null,
+        checkAdminLoading: true,
+        checkAdminSuccess: false,
       }
 
-    case actions.GET_ADMINS_ERROR:
+    case actions.CHECK_ADMIN_ERROR:
       return {
         ...state,
-        getAdminsError: action.payload,
-        getAdminsLoading: false,
+        checkAdminError: action.payload,
+        checkAdminLoading: false,
       }
 
-    case actions.GET_ADMINS_SUCCESS:
+    case actions.CHECK_ADMIN_SUCCESS:
       return {
         ...state,
-        getAdminsLoading: false,
-        getAdminsSuccess: true,
+        checkAdminLoading: false,
+        checkAdminSuccess: true,
       }
 
     // removeAdmin
@@ -98,12 +98,12 @@ const adminsReducer = (state = initialState, action) => {
         removeAdminSuccess: true,
       }
 
-    // setStateAdmins
+    // setStateAdmin
 
-    case actions.SET_STATE_ADMINS:
+    case actions.SET_STATE_ADMIN:
       return {
         ...state,
-        admins: action.payload,
+        admin: action.payload,
       }
 
     // default

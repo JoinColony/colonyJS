@@ -7,8 +7,7 @@ import * as adminsActions from '../../helpers/actions/adminsActions'
 export const addAdmin = (colonyClient, userAddress) => ({
   type: actions.ADD_ADMIN,
   payload: adminsActions.addAdmin(colonyClient, userAddress)
-    .then(admins => {
-      store.dispatch(setStateAdmins(admins))
+    .then(success => {
       store.dispatch(addAdminSuccess())
     })
     .catch(error => {
@@ -26,27 +25,27 @@ export const addAdminSuccess = (message) => ({
   payload: message,
 })
 
-// getAdmins
+// checkAdmin
 
-export const getAdmins = (colonyClient) => ({
-  type: actions.GET_ADMINS,
-  payload: adminsActions.getAdmins(colonyClient)
-    .then(admins => {
-      store.dispatch(setStateAdmins(admins))
-      store.dispatch(getAdminsSuccess())
+export const checkAdmin = (colonyClient, userAddress) => ({
+  type: actions.CHECK_ADMIN,
+  payload: adminsActions.checkAdmin(colonyClient, userAddress)
+    .then(admin => {
+      store.dispatch(setStateAdmin(admin))
+      store.dispatch(checkAdminSuccess())
     })
     .catch(error => {
-      store.dispatch(getAdminsError(error.message))
+      store.dispatch(checkAdminError(error.message))
     }),
 })
 
-export const getAdminsError = (message) => ({
-  type: actions.GET_ADMINS_ERROR,
+export const checkAdminError = (message) => ({
+  type: actions.CHECK_ADMIN_ERROR,
   payload: message,
 })
 
-export const getAdminsSuccess = (message) => ({
-  type: actions.GET_ADMINS_SUCCESS,
+export const checkAdminSuccess = (message) => ({
+  type: actions.CHECK_ADMIN_SUCCESS,
   payload: message,
 })
 
@@ -55,8 +54,7 @@ export const getAdminsSuccess = (message) => ({
 export const removeAdmin = (colonyClient, userAddress) => ({
   type: actions.REMOVE_ADMIN,
   payload: adminsActions.removeAdmin(colonyClient, userAddress)
-    .then(admins => {
-      store.dispatch(setStateAdmins(admins))
+    .then(success => {
       store.dispatch(removeAdminSuccess())
     })
     .catch(error => {
@@ -74,9 +72,9 @@ export const removeAdminSuccess = (message) => ({
   payload: message,
 })
 
-// setStateAdmins
+// setStateAdmin
 
-export const setStateAdmins = (admins) => ({
-  type: actions.SET_STATE_ADMINS,
-  payload: admins,
+export const setStateAdmin = (admin) => ({
+  type: actions.SET_STATE_ADMIN,
+  payload: admin,
 })
