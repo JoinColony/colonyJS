@@ -2,6 +2,37 @@
 
 ## v.NEXT
 
+**Maintenance**
+
+* Add `ColonyClient` events:
+  * `ColonyAdminRoleRemoved`
+  * `ColonyAdminRoleSet`
+  * `ColonyFounderRoleSet`
+  * `ColonyFundsClaimed`
+  * `ColonyFundsMovedBetweenFundingPots`
+  * `ColonyInitialised`
+  * `ColonyRewardInverseSet`
+  * `ColonyUpgraded`
+  * `RewardPayoutClaimed`
+* Add `ColonyNetworkClient` events:
+  * `ColonyNetworkInitialised`
+  * `ColonyVersionAdded`
+  * `MetaColonyCreated`
+  * `MiningCycleResolverSet`
+  * `NetworkFeeInverseSet`
+  * `ReputationMiningCycleComplete`
+  * `ReputationMiningInitialised`
+  * `ReputationRootHashSet`
+  * `TokenLockingAddressSet`
+* Add recovery methods to `ColonyNetworkClient`/`ColonyClient`:
+  * `approveExitRecovery`
+  * `enterRecoveryMode`
+  * `exitRecoveryMode`
+  * `getRecoveryRolesCount`
+  * `isInRecoveryMode`
+  * `removeRecoveryRole`
+  * `setRecoveryRole`
+  * `setStorageSlotRecovery`
 
 ## v1.7.5
 

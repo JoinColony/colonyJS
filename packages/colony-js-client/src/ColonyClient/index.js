@@ -14,6 +14,7 @@ import TokenClient from '../TokenClient/index';
 import AuthorityClient from '../AuthorityClient/index';
 import GetTask from './callers/GetTask';
 import CreateTask from './senders/CreateTask';
+import addRecoveryMethods from '../addRecoveryMethods';
 import {
   ROLES,
   ADMIN_ROLE,
@@ -44,32 +45,33 @@ type SkillAdded = ContractClient.Event<{
 type TaskAdded = ContractClient.Event<{
   taskId: number, // The task ID.
 }>;
-type TaskBriefChanged = ContractClient.Event<{
+type TaskBriefSet = ContractClient.Event<{
   taskId: number, // The task ID.
   specificationHash: string, // The IPFS hash of the task's new specification.
 }>;
 type TaskCompleted = ContractClient.Event<{
   taskId: number, // The task ID.
 }>;
-type TaskDueDateChanged = ContractClient.Event<{
+type TaskDueDateSet = ContractClient.Event<{
   taskId: number, // The task ID.
   dueDate: Date, // The task's new due date.
 }>;
-type TaskDomainChanged = ContractClient.Event<{
+type TaskDomainSet = ContractClient.Event<{
   taskId: number, // The task ID.
   domainId: number, // The task's new domain ID.
 }>;
-type TaskSkillChanged = ContractClient.Event<{
+type TaskSkillSet = ContractClient.Event<{
   taskId: number, // The task ID.
   skillId: number, // The task's new skill ID.
 }>;
-type TaskRoleUserChanged = ContractClient.Event<{
+type TaskRoleUserSet = ContractClient.Event<{
   taskId: number, // The task ID.
   role: number, // The role that changed for the task.
   user: Address, // The user with the role that changed for the task.
 }>;
-type TaskWorkerPayoutChanged = ContractClient.Event<{
+type TaskPayoutSet = ContractClient.Event<{
   taskId: number, // The task ID.
+  role: Role, // The role the payout is for
   token: TokenAddress, // The token address (0x indicates ether).
   amount: number, // The token amount.
 }>;
@@ -95,7 +97,10 @@ type TaskCanceled = ContractClient.Event<{
   taskId: number, // The task ID of the task that was canceled.
 }>;
 type RewardPayoutCycleStarted = ContractClient.Event<{
-  payoutId: number, // The payout ID logged when a new reward payout cycle has started.
+  payoutId: number, // The reward payout cycle ID logged when a new reward payout cycle has started.
+}>;
+type RewardPayoutCycleEnded = ContractClient.Event<{
+  payoutId: number, // The reward payout cycle ID logged when a reward payout cycle has ended.
 }>;
 type ColonyLabelRegistered = ContractClient.Event<{
   colony: Address, // Address of the colony that registered a label
@@ -110,11 +115,128 @@ type Mint = ContractClient.Event<{
   address: Address, // The address that initiated the mint event.
   amount: BigNumber, // Event data indicating the amount of tokens minted.
 }>;
+type ColonyFounderRoleSet = ContractClient.Event<{
+  oldFounder: Address, // The current founder delegating the role away
+  newFounder: Address, // The user receiving the colony founder role
+}>;
+type ColonyAdminRoleSet = ContractClient.Event<{
+  user: Address, // The newly-added colony admin user
+}>;
+type ColonyAdminRoleRemoved = ContractClient.Event<{
+  user: Address, // The removed colony admin user
+}>;
+type ColonyFundsMovedBetweenFundingPots = ContractClient.Event<{
+  fromPot: number, // The source funding pot
+  toPot: number, // The target funding pot
+  amount: BigNumber, // The amount that was transferred
+  token: Address, // The token address being transferred
+}>;
+type ColonyFundsClaimed = ContractClient.Event<{
+  token: Address, // The token address being claimed
+  fee: BigNumber, // The fee deducted for rewards
+  payoutRemainder: BigNumber, // The remaining funds moved to the top-level domain pot
+}>;
+type RewardPayoutClaimed = ContractClient.Event<{
+  rewardPayoutId: number, // The reward payout cycle ID
+  user: Address, // The user who received the reward payout
+  fee: BigNumber, // The fee deducted from the payout
+  payoutRemainder: BigNumber, // The remaining reward amount paid out to the user
+}>;
+type ColonyRewardInverseSet = ContractClient.Event<{
+  rewardInverse: BigNumber, // The reward inverse value
+}>;
+type ColonyInitialised = ContractClient.Event<{
+  colonyNetwork: Address, // The Colony Network address
+}>;
+type ColonyUpgraded = ContractClient.Event<{
+  oldVersion: number, // The previous colony version
+  newVersion: number, // The new colony version
+}>;
 
 export default class ColonyClient extends ContractClient {
   networkClient: ColonyNetworkClient;
   token: TokenClient;
   authority: AuthorityClient;
+
+  /*
+    Indicate approval to exit recovery mode. Can only be called by user with recovery role.
+   */
+  approveExitRecovery: ColonyClient.Sender<{}, {}, ColonyClient>;
+  /*
+    Put the colony into recovery mode. Can only be called by user with a recovery role.
+   */
+  enterRecoveryMode: ColonyClient.Sender<{}, {}, ColonyClient>;
+  /*
+    Exit recovery mode. Can be called by anyone if enough whitelist approvals are given.
+   */
+  exitRecoveryMode: ColonyClient.Sender<
+    {
+      newVersion: number, // Resolver version to upgrade to (>= current version)
+    },
+    {},
+    ColonyClient,
+  >;
+  /*
+    Set new colony recovery role. Can only be called by the founder role.
+   */
+  setRecoveryRole: ColonyClient.Sender<
+    {
+      user: Address, // The user we want to give a recovery role to.
+    },
+    {},
+    ColonyClient,
+  >;
+  /*
+    Set the reward inverse to pay out from revenue. e.g. if the fee is 1% (or 0.01), set 100
+   */
+  setRewardInverse: ColonyClient.Sender<
+    {
+      rewardInverse: BigNumber, // The inverse of the reward
+    },
+    { ColonyRewardInverseSet: ColonyRewardInverseSet },
+    ColonyClient,
+  >;
+  /*
+    Remove colony recovery role. Can only be called by the founder role.
+   */
+  removeRecoveryRole: ColonyClient.Sender<
+    {
+      user: Address, // The user we want to remove the recovery role from.
+    },
+    {},
+    ColonyClient,
+  >;
+  /*
+    Returns the number of recovery roles.
+  */
+  getRecoveryRolesCount: ColonyClient.Caller<
+    {},
+    {
+      count: number, // Number of users with the recovery role (excluding owner)
+    },
+    ColonyClient,
+  >;
+  /*
+    Is the colony in recovery mode?
+  */
+  isInRecoveryMode: ColonyClient.Caller<
+    {},
+    {
+      inRecoveryMode: boolean, // Return true if recovery mode is active, false otherwise
+    },
+    ColonyClient,
+  >;
+  /*
+    Update the value of an arbitrary storage variable. This can only be called by a user with the recovery role. Certain critical variables are protected from editing in this function.
+  */
+  setStorageSlotRecovery: ColonyClient.Sender<
+    {
+      slot: number, // Address of storage slot to be updated.
+      value: HexString, // Word of data to be set.
+    },
+    {},
+    ColonyClient,
+  >;
 
   /*
     Gets the colony's Authority contract address
@@ -133,16 +255,6 @@ export default class ColonyClient extends ContractClient {
     {},
     {
       version: number, // The version number.
-    },
-    ColonyClient,
-  >;
-  /*
-    Returns the number of recovery roles.
-  */
-  getRecoveryRolesCount: ColonyClient.Caller<
-    {},
-    {
-      count: number, // Number of users with the recovery role (excluding owner)
     },
     ColonyClient,
   >;
@@ -344,6 +456,16 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
+    Return 1 / the reward to pay out from revenue. e.g. if the fee is 1% (or 0.01), return 100
+  */
+  getRewardInverse: ColonyClient.Caller<
+    {},
+    {
+      rewardInverse: BigNumber, // The inverse of the reward
+    },
+    ColonyClient,
+  >;
+  /*
     Gets the address of the colony's official token contract.
   */
   getToken: ColonyClient.Caller<
@@ -394,21 +516,7 @@ export default class ColonyClient extends ContractClient {
       taskId: number, // Integer taskId.
       specificationHash: IPFSHash, // digest of the task's hashed specification.
     },
-    { TaskBriefChanged: TaskBriefChanged },
-    ColonyClient,
-  >;
-  /*
-    Put the colony into recovery mode. Can only be called by user with a recovery role.
-   */
-  enterRecoveryMode: ColonyClient.Sender<{}, {}, ColonyClient>;
-  /*
-    Exit recovery mode. Can be called by anyone if enough whitelist approvals are given.
-   */
-  exitRecoveryMode: ColonyClient.Sender<
-    {
-      newVersion: number, // Resolver version to upgrade to (>= current version)
-    },
-    {},
+    { TaskBriefSet: TaskBriefSet },
     ColonyClient,
   >;
   /*
@@ -423,13 +531,13 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Set a new colony owner role. There can only be one address assigned to owner role at a time. Whoever calls this function will lose their owner role. Can be called by owner role.
+    Set a new colony founder role. There can only be one address assigned to the founder role at a time. Whoever calls this function will lose their founder role. Can be called by founder role.
   */
-  setOwnerRole: ColonyClient.Sender<
+  setFounderRole: ColonyClient.Sender<
     {
-      user: Address, // User we want to give an owner role to
+      user: Address, // User we want to give a founder role to
     },
-    {},
+    { ColonyFounderRoleSet: ColonyFounderRoleSet },
     ColonyClient,
   >;
   /*
@@ -439,11 +547,11 @@ export default class ColonyClient extends ContractClient {
     {
       user: Address, // User we want to give an admin role to
     },
-    {},
+    { ColonyAdminRoleSet: ColonyAdminRoleSet },
     ColonyClient,
   >;
   /*
-    Set a new colony recovery role. Can be called by an owner role.
+    Set a new colony recovery role. Can be called by the founder role.
   */
   setRecoveryRole: ColonyClient.Sender<
     {
@@ -453,23 +561,13 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Remove a colony admin role. Can only be called by an owner role.
+    Remove a colony admin role. Can only be called by the founder role.
   */
   removeAdminRole: ColonyClient.Sender<
     {
       user: Address, // User we want to remove an admin role from
     },
-    {},
-    ColonyClient,
-  >;
-  /*
-    Remove a colony recovery role. Can only be called by an owner role.
-  */
-  removeRecoveryRole: ColonyClient.Sender<
-    {
-      user: Address, // User we want to remove a recovery role from
-    },
-    {},
+    { ColonyAdminRoleRemoved: ColonyAdminRoleRemoved },
     ColonyClient,
   >;
   /*
@@ -480,7 +578,7 @@ export default class ColonyClient extends ContractClient {
       taskId: number, // Integer taskId.
       domainId: number, // Integer domainId.
     },
-    { TaskDomainChanged: TaskDomainChanged },
+    { TaskDomainSet: TaskDomainSet },
     ColonyClient,
   >;
   /*
@@ -491,7 +589,7 @@ export default class ColonyClient extends ContractClient {
       taskId: number, // Integer taskId.
       dueDate: Date, // Due date.
     },
-    { TaskDueDateChanged: TaskDueDateChanged },
+    { TaskDueDateSet: TaskDueDateSet },
     ColonyClient,
   >;
   /*
@@ -502,7 +600,7 @@ export default class ColonyClient extends ContractClient {
       taskId: number, // Integer taskId.
       user: Address, // address of the user.
     },
-    { TaskRoleUserChanged: TaskRoleUserChanged },
+    { TaskRoleUserSet: TaskRoleUserSet },
     ColonyClient,
   >;
   /*
@@ -513,7 +611,7 @@ export default class ColonyClient extends ContractClient {
       taskId: number, // Integer taskId.
       user: Address, // address of the user.
     },
-    { TaskRoleUserChanged: TaskRoleUserChanged },
+    { TaskRoleUserSet: TaskRoleUserSet },
     ColonyClient,
   >;
   /*
@@ -524,7 +622,7 @@ export default class ColonyClient extends ContractClient {
       taskId: number, // Integer taskId.
       user: Address, // address of the user.
     },
-    { TaskRoleUserChanged: TaskRoleUserChanged },
+    { TaskRoleUserSet: TaskRoleUserSet },
     ColonyClient,
   >;
   /*
@@ -535,7 +633,7 @@ export default class ColonyClient extends ContractClient {
       taskId: number, // Integer taskId.
       skillId: number, // Integer skillId.
     },
-    { TaskSkillChanged: TaskSkillChanged },
+    { TaskSkillSet: TaskSkillSet },
     ColonyClient,
   >;
   /*
@@ -550,7 +648,7 @@ export default class ColonyClient extends ContractClient {
       workerAmount: BigNumber, // Payout amount for the worker.
     },
     {
-      TaskWorkerPayoutChanged: TaskWorkerPayoutChanged,
+      TaskPayoutSet: TaskPayoutSet,
     },
     ColonyClient,
   >;
@@ -563,7 +661,7 @@ export default class ColonyClient extends ContractClient {
       token: TokenAddress, // Address to send funds from, e.g. the token's contract address, or empty address (`0x0` for Ether)
       amount: BigNumber, // Amount to be paid.
     },
-    { TaskWorkerPayoutChanged: TaskWorkerPayoutChanged },
+    { TaskPayoutSet: TaskPayoutSet },
     ColonyClient,
   >;
   /*
@@ -575,7 +673,7 @@ export default class ColonyClient extends ContractClient {
       token: TokenAddress, // Address to send funds from, e.g. the token's contract address, or empty address (`0x0` for Ether)
       amount: BigNumber, // Amount to be paid.
     },
-    { TaskWorkerPayoutChanged: TaskWorkerPayoutChanged },
+    { TaskPayoutSet: TaskPayoutSet },
     ColonyClient,
   >;
   /*
@@ -587,7 +685,7 @@ export default class ColonyClient extends ContractClient {
       token: TokenAddress, // Address to send funds from, e.g. the token's contract address, or empty address (`0x0` for Ether)
       amount: BigNumber, // Amount to be paid.
     },
-    { TaskWorkerPayoutChanged: TaskWorkerPayoutChanged },
+    { TaskPayoutSet: TaskPayoutSet },
     ColonyClient,
   >;
   /*
@@ -597,7 +695,7 @@ export default class ColonyClient extends ContractClient {
     {
       taskId: number, // Integer taskId.
     },
-    { TaskRoleUserChanged: TaskRoleUserChanged },
+    { TaskRoleUserSet: TaskRoleUserSet },
     ColonyClient,
   >;
   /*
@@ -607,7 +705,7 @@ export default class ColonyClient extends ContractClient {
     {
       taskId: number, // Integer taskId.
     },
-    { TaskRoleUserChanged: TaskRoleUserChanged },
+    { TaskRoleUserSet: TaskRoleUserSet },
     ColonyClient,
   >;
   /*
@@ -726,7 +824,7 @@ export default class ColonyClient extends ContractClient {
     {
       token: TokenAddress, // Address to claim funds from; empty address (`0x0` for Ether)
     },
-    {},
+    { ColonyFundsClaimed: ColonyFundsClaimed },
     ColonyClient,
   >;
   /*
@@ -749,7 +847,7 @@ export default class ColonyClient extends ContractClient {
       amount: BigNumber, // Amount of funds to move.
       token: TokenAddress, // Address of the token contract (`0x0` value indicates Ether).
     },
-    {},
+    { ColonyFundsMovedBetweenFundingPots: ColonyFundsMovedBetweenFundingPots },
     ColonyClient,
   >;
   /*
@@ -785,18 +883,6 @@ export default class ColonyClient extends ContractClient {
     {},
     ColonyClient,
   >;
-
-  /*
-    Update the value of an arbitrary storage variable. This can only be called by a user with the recovery role. Certain critical variables are protected from editing in this function.
-  */
-  setStorageSlotRecovery: ColonyClient.Sender<
-    {
-      slot: number, // Address of storage slot to be updated.
-      value: HexString, // Word of data to be set.
-    },
-    {},
-    ColonyClient,
-  >;
   /*
     Set the colony token. Secured function to authorised members. Note that if the `mint` functionality is to be controlled through the colony, control has to be transferred to the colony after this call.
   */
@@ -814,29 +900,37 @@ export default class ColonyClient extends ContractClient {
     {
       newVersion: number,
     },
-    {},
+    { ColonyUpgraded: ColonyUpgraded },
     ColonyClient,
   >;
 
   events: {
+    ColonyAdminRoleRemoved: ColonyAdminRoleRemoved,
+    ColonyFundsClaimed: ColonyFundsClaimed,
+    ColonyFundsMovedBetweenFundingPots: ColonyFundsMovedBetweenFundingPots,
+    ColonyInitialised: ColonyInitialised,
     ColonyLabelRegistered: ColonyLabelRegistered,
+    ColonyRewardInverseSet: ColonyRewardInverseSet,
+    ColonyUpgraded: ColonyUpgraded,
     DomainAdded: DomainAdded,
     Mint: Mint,
     PotAdded: PotAdded,
+    RewardPayoutClaimed: RewardPayoutClaimed,
+    RewardPayoutCycleEnded: RewardPayoutCycleEnded,
     RewardPayoutCycleStarted: RewardPayoutCycleStarted,
     SkillAdded: SkillAdded,
     TaskAdded: TaskAdded,
-    TaskBriefChanged: TaskBriefChanged,
+    TaskBriefSet: TaskBriefSet,
     TaskCanceled: TaskCanceled,
     TaskCompleted: TaskCompleted,
     TaskDeliverableSubmitted: TaskDeliverableSubmitted,
-    TaskDomainChanged: TaskDomainChanged,
-    TaskDueDateChanged: TaskDueDateChanged,
+    TaskDomainSet: TaskDomainSet,
+    TaskDueDateSet: TaskDueDateSet,
     TaskFinalized: TaskFinalized,
     TaskPayoutClaimed: TaskPayoutClaimed,
-    TaskRoleUserChanged: TaskRoleUserChanged,
-    TaskSkillChanged: TaskSkillChanged,
-    TaskWorkerPayoutChanged: TaskWorkerPayoutChanged,
+    TaskPayoutSet: TaskPayoutSet,
+    TaskRoleUserSet: TaskRoleUserSet,
+    TaskSkillSet: TaskSkillSet,
     TaskWorkRatingRevealed: TaskWorkRatingRevealed,
     Transfer: Transfer,
   };
@@ -898,6 +992,8 @@ export default class ColonyClient extends ContractClient {
   }
 
   initializeContractMethods() {
+    addRecoveryMethods(this);
+
     this.getTask = new GetTask({ client: this });
 
     const makeTaskCaller = (
@@ -950,10 +1046,6 @@ export default class ColonyClient extends ContractClient {
       functionName: 'version',
       output: [['version', 'number']],
     });
-    this.addCaller('getRecoveryRolesCount', {
-      functionName: 'numRecoveryRoles',
-      output: [['count', 'number']],
-    });
     this.addCaller('generateSecret', {
       input: [['salt', 'string'], ['value', 'number']],
       output: [['secret', 'hexString']],
@@ -997,6 +1089,9 @@ export default class ColonyClient extends ContractClient {
         ['blockNumber', 'number'],
       ],
     });
+    this.addCaller('getRewardInverse', {
+      output: [['rewardInverse', 'bigNumber']],
+    });
     this.addCaller('getTaskCount', {
       output: [['count', 'number']],
     });
@@ -1010,29 +1105,32 @@ export default class ColonyClient extends ContractClient {
     this.addEvent('TaskAdded', [['taskId', 'number']]);
     this.addEvent('TaskCompleted', [['taskId', 'number']]);
     this.addEvent('RewardPayoutCycleStarted', [['payoutId', 'number']]);
-    this.addEvent('TaskBriefChanged', [
+    this.addEvent('RewardPayoutCycleEnded', [['payoutId', 'number']]);
+    this.addEvent('TaskBriefSet', [
       ['taskId', 'number'],
       ['specificationHash', 'ipfsHash'],
     ]);
-    this.addEvent('TaskDueDateChanged', [
+    this.addEvent('TaskDueDateSet', [
       ['taskId', 'number'],
       ['dueDate', 'date'],
     ]);
-    this.addEvent('TaskDomainChanged', [
+    this.addEvent('TaskDomainSet', [
       ['taskId', 'number'],
       ['domainId', 'number'],
     ]);
-    this.addEvent('TaskSkillChanged', [
+    this.addEvent('TaskSkillSet', [
       ['taskId', 'number'],
       ['skillId', 'number'],
     ]);
-    this.addEvent('TaskRoleUserChanged', [
+    this.addEvent('TaskRoleUserSet', [
       ['taskId', 'number'],
       ['role', 'number'],
       ['user', 'tokenAddress'], // XXX because 0x0 is valid
     ]);
-    this.addEvent('TaskWorkerPayoutChanged', [
+    this.addEvent('TaskPayoutSet', [
       ['taskId', 'number'],
+      // $FlowFixMe
+      ['role', 'role'],
       ['token', 'tokenAddress'],
       ['amount', 'number'],
     ]);
@@ -1055,6 +1153,30 @@ export default class ColonyClient extends ContractClient {
     ]);
     this.addEvent('TaskFinalized', [['taskId', 'number']]);
     this.addEvent('TaskCanceled', [['taskId', 'number']]);
+    this.addEvent('ColonyTokenSet', [['token', 'tokenAddress']]);
+    this.addEvent('ColonyInitialised', [['colonyNetwork', 'address']]);
+    this.addEvent('ColonyUpgraded', [
+      ['oldVersion', 'number'],
+      ['newVersion', 'number'],
+    ]);
+    this.addEvent('ColonyFounderSet', [
+      ['oldFounder', 'address'],
+      ['newFounder', 'address'],
+    ]);
+    this.addEvent('ColonyAdminRoleSet', [['user', 'address']]);
+    this.addEvent('ColonyAdminRoleRemoved', [['user', 'address']]);
+    this.addEvent('ColonyFundsMovedBetweenFundingPots', [
+      ['fromPot', 'number'],
+      ['toPot', 'number'],
+      ['amount', 'bigNumber'],
+      ['token', 'tokenAddress'],
+    ]);
+    this.addEvent('ColonyFundsClaimed', [
+      ['token', 'tokenAddress'],
+      ['fee', 'bigNumber'],
+      ['payoutRemainder', 'bigNumber'],
+    ]);
+    this.addEvent('ColonyRewardInverseSet', [['rewardInverse', 'bigNumber']]);
 
     // XXX The SkillAdded/ColonyLabelRegistered events (and their underlying
     // interfaces) are defined on the network client, but methods like
@@ -1153,9 +1275,6 @@ export default class ColonyClient extends ContractClient {
         ['workerAmount', 'bigNumber'],
       ],
     });
-    this.addSender('setStorageSlotRecovery', {
-      input: [['slot', 'number'], ['value', 'hexString']],
-    });
     this.addSender('setToken', {
       input: [['token', 'tokenAddress']],
     });
@@ -1181,28 +1300,21 @@ export default class ColonyClient extends ContractClient {
     this.addSender('registerColonyLabel', {
       input: [['colonyName', 'string'], ['orbitDBPath', 'string']],
     });
-    this.addSender('exitRecoveryMode', {
-      input: [[]],
-    });
-    this.addSender('approveExitRecovery', {});
-    this.addSender('enterRecoveryMode', {});
-    this.addSender('setOwnerRole', {
+    this.addSender('setFounderRole', {
       input: [['user', 'address']],
     });
     this.addSender('setAdminRole', {
       input: [['user', 'address']],
     });
-    this.addSender('setRecoveryRole', {
-      input: [['user', 'address']],
-    });
     this.addSender('removeAdminRole', {
-      input: [['user', 'address']],
-    });
-    this.addSender('removeRecoveryRole', {
       input: [['user', 'address']],
     });
     this.addSender('upgrade', {
       input: [['newVersion', 'number']],
+    });
+    this.addSender('initialise', {
+      functionName: 'initialiseColony',
+      input: [['colonyNetwork', 'address']],
     });
 
     // Remove duplicate/invalid signees and normalise lowercase

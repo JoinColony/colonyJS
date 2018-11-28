@@ -12,6 +12,7 @@ import MetaColonyClient from '../MetaColonyClient/index';
 import TokenClient from '../TokenClient/index';
 import AuthorityClient from '../AuthorityClient/index';
 import CreateToken from './senders/CreateToken';
+import addRecoveryMethods from '../addRecoveryMethods';
 
 const MISSING_ID = 'An ID parameter must be provided';
 
@@ -19,8 +20,9 @@ type Address = string;
 type HexString = string;
 
 type ColonyAdded = ContractClient.Event<{
-  colonyId: number, // ID of the newly-created Colony
-  colonyAddress: Address, // Address of the newly-created Colony
+  colonyId: number, // ID of the newly-created colony
+  colonyAddress: Address, // Address of the newly-created colony
+  tokenAddress: Address, // Address of the associated colony token
 }>;
 type SkillAdded = ContractClient.Event<{
   skillId: number,
@@ -39,15 +41,129 @@ type ColonyLabelRegistered = ContractClient.Event<{
   colony: Address, // Address of the colony that registered a label
   label: string, // The label registered
 }>;
+type ReputationMiningInitialised = ContractClient.Event<{
+  inactiveReputationMiningCycle: Address, // Address of the newly created ReputationMiningCycle used in logging reputation changes
+}>;
+type ReputationMiningCycleComplete = ContractClient.Event<{
+  hash: HexString, // The root hash of the newly accepted reputation state
+  nNodes: number, // The number of nodes in the reputation state
+}>;
+type ReputationRootHashSet = ContractClient.Event<{
+  newHash: HexString, // The reputation root hash
+  newNNodes: number, // The updated nodes count value
+  stakers: Address[], // Array of users who submitted or backed the hash accepted
+  reward: BigNumber[], // Amount of CLNY distributed as reward to miners
+}>;
+type TokenLockingAddressSet = ContractClient.Event<{
+  tokenLocking: Address, // Address of the TokenLocking contract
+}>;
+type ColonyNetworkInitialised = ContractClient.Event<{
+  resolver: Address, // The Resolver contract address used by the Colony version 1
+}>;
+type MiningCycleResolverSet = ContractClient.Event<{
+  miningCycleResolver: Address, // Resolver address for the ReputationMiningCycle contract
+}>;
+type NetworkFeeInverseSet = ContractClient.Event<{
+  feeInverse: BigNumber, // The network fee inverse value
+}>;
+type ColonyVersionAdded = ContractClient.Event<{
+  version: number, // The new int colony version, e.g. 2, 3, 4, etc
+  resolver: Address, // The new colony contract resolver contract instance
+}>;
+type MetaColonyCreated = ContractClient.Event<{
+  colonyAddress: number, // Address of the Meta Colony
+  tokenAddress: Address, // Address of the associated CLNY token
+  rootSkillId: number, // ID of the root skill of the global skills tree (normally, this is 2)
+}>;
 
 export default class ColonyNetworkClient extends ContractClient {
   events: {
-    ColonyAdded: ColonyAdded,
-    SkillAdded: SkillAdded,
     AuctionCreated: AuctionCreated,
+    ColonyAdded: ColonyAdded,
     ColonyLabelRegistered: ColonyLabelRegistered,
+    ColonyNetworkInitialised: ColonyNetworkInitialised,
+    ColonyVersionAdded: ColonyVersionAdded,
+    MetaColonyCreated: MetaColonyCreated,
+    MiningCycleResolverSet: MiningCycleResolverSet,
+    NetworkFeeInverseSet: NetworkFeeInverseSet,
+    ReputationMiningCycleComplete: ReputationMiningCycleComplete,
+    ReputationMiningInitialised: ReputationMiningInitialised,
+    ReputationRootHashSet: ReputationRootHashSet,
+    SkillAdded: SkillAdded,
+    TokenLockingAddressSet: TokenLockingAddressSet,
     UserLabelRegistered: UserLabelRegistered,
   };
+
+  /*
+    Indicate approval to exit recovery mode. Can only be called by user with recovery role.
+   */
+  approveExitRecovery: ColonyNetworkClient.Sender<{}, {}, ColonyNetworkClient>;
+  /*
+    Put the colony into recovery mode. Can only be called by user with a recovery role.
+   */
+  enterRecoveryMode: ColonyNetworkClient.Sender<{}, {}, ColonyNetworkClient>;
+  /*
+    Exit recovery mode. Can be called by anyone if enough whitelist approvals are given.
+   */
+  exitRecoveryMode: ColonyNetworkClient.Sender<
+    {
+      newVersion: number, // Resolver version to upgrade to (>= current version)
+    },
+    {},
+    ColonyNetworkClient,
+  >;
+  /*
+    Set new colony recovery role. Can only be called by the founder role.
+   */
+  setRecoveryRole: ColonyNetworkClient.Sender<
+    {
+      user: Address, // The user we want to give a recovery role to.
+    },
+    {},
+    ColonyNetworkClient,
+  >;
+  /*
+    Remove colony recovery role. Can only be called by the founder role.
+   */
+  removeRecoveryRole: ColonyNetworkClient.Sender<
+    {
+      user: Address, // The user we want to remove the recovery role from.
+    },
+    {},
+    ColonyNetworkClient,
+  >;
+  /*
+    Returns the number of recovery roles.
+  */
+  getRecoveryRolesCount: ColonyNetworkClient.Caller<
+    {},
+    {
+      count: number, // Number of users with the recovery role (excluding owner)
+    },
+    ColonyNetworkClient,
+  >;
+  /*
+    Is the colony in recovery mode?
+  */
+  isInRecoveryMode: ColonyNetworkClient.Caller<
+    {},
+    {
+      inRecoveryMode: boolean, // Return true if recovery mode is active, false otherwise
+    },
+    ColonyNetworkClient,
+  >;
+  /*
+    Update the value of an arbitrary storage variable. This can only be called by a user with the recovery role. Certain critical variables are protected from editing in this function.
+  */
+  setStorageSlotRecovery: ColonyNetworkClient.Sender<
+    {
+      slot: number, // Address of storage slot to be updated.
+      value: HexString, // Word of data to be set.
+    },
+    {},
+    ColonyNetworkClient,
+  >;
+
   /*
   Returns the address of a colony when given the ID
   */
@@ -262,7 +378,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       tokenLockingAddress: Address, // Address of the locking contract
     },
-    {},
+    { TokenLockingAddressSet: TokenLockingAddressSet },
     ColonyNetworkClient,
   >;
   /*
@@ -272,7 +388,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       tokenAddress: Address, // Token to import. Note: the ownership of the token contract must be transferred to the newly-created Meta Colony.
     },
-    {},
+    { MetaColonyCreated: MetaColonyCreated },
     ColonyNetworkClient,
   >;
   /*
@@ -293,7 +409,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: number, // The new Colony contract version
       resolver: Address, // Address of the Resolver contract
     },
-    {},
+    { ColonyVersionAdded: ColonyVersionAdded },
     ColonyNetworkClient,
   >;
   /*
@@ -407,10 +523,13 @@ export default class ColonyNetworkClient extends ContractClient {
     return this.getMetaColonyClientByAddress(address);
   }
   initializeContractMethods() {
+    addRecoveryMethods(this);
+
     // Events
     this.addEvent('ColonyAdded', [
       ['colonyId', 'number'],
       ['colonyAddress', 'address'],
+      ['tokenAddress', 'tokenAddress'],
     ]);
     this.addEvent('SkillAdded', [
       ['skillId', 'number'],
@@ -428,6 +547,34 @@ export default class ColonyNetworkClient extends ContractClient {
     this.addEvent('ColonyLabelRegistered', [
       ['colony', 'address'],
       ['label', 'string'],
+    ]);
+    this.addEvent('ColonyNetworkInitialised', [['resolver', 'address']]);
+    this.addEvent('TokenLockingAddressSet', [['tokenLocking', 'address']]);
+    this.addEvent('MiningCycleResolverSet', [
+      ['miningCycleResolver', 'address'],
+    ]);
+    this.addEvent('NetworkFeeInverseSet', [['feeInverse', 'number']]);
+    this.addEvent('ColonyVersionAdded', [
+      ['version', 'number'],
+      ['resolver', 'address'],
+    ]);
+    this.addEvent('MetaColonyCreated', [
+      ['metaColony', 'address'],
+      ['token', 'tokenAddress'],
+      ['rootSkillId', 'number'],
+    ]);
+    this.addEvent('ReputationMiningInitialised', [
+      ['inactiveReputationMiningCycle', 'address'],
+    ]);
+    this.addEvent('ReputationMiningCycleComplete', [
+      ['hash', 'hexString'],
+      ['nNodes', 'number'],
+    ]);
+    this.addEvent('ReputationRootHashSet', [
+      ['newHash', 'hexString'],
+      ['newNNodes', 'number'],
+      ['stakers', 'address'],
+      ['reward', 'bigNumber'],
     ]);
 
     // Callers
