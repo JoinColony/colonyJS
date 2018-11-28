@@ -1,6 +1,18 @@
+.container {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+}
+
+.selector {
+  margin-bottom: 10%;
+  width: 500px;
+}
+
 .title {
-  font-weight: 300;
-  padding: 1rem;
+  font-size: 2rem;
+  padding: 1rem 0;
   text-align: center;
 }
 
@@ -20,7 +32,7 @@
   li {
     padding: 0.5rem;
     text-align: center;
-    transition: 0.5s;
+    transition: 0.25s;
   }
 
   li:hover {
