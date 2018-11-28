@@ -44,21 +44,6 @@
     "@colony/colony-js-contract-loader" "^1.6.2"
     bn.js "^4.11.6"
 
-"@colony/colony-js-client@1.7.3":
-  version "1.7.3"
-  resolved "https://registry.yarnpkg.com/@colony/colony-js-client/-/colony-js-client-1.7.3.tgz#0d63e771c099c135257dbd6361c8d620e28b2e16"
-  integrity sha512-sPkiieZilYUIDFtje8RWmsOnSgcbP0o4ww2IG82t+DS8MFnUCx+3GH0EwuXLO5hlwVw1PYMlhOvMvsVJ0auteQ==
-  dependencies:
-    "@colony/colony-js-adapter" "^1.7.0"
-    "@colony/colony-js-contract-client" "^1.7.3"
-    "@colony/colony-js-contract-loader" "^1.6.2"
-    "@colony/colony-js-utils" "^1.5.4"
-    assert "^1.4.1"
-    babel-runtime "^6.26.0"
-    bn.js "^4.11.6"
-    isomorphic-fetch "^2.2.1"
-    web3-utils "^1.0.0-beta.34"
-
 "@colony/colony-js-client@1.7.5":
   version "1.7.5"
   resolved "https://registry.yarnpkg.com/@colony/colony-js-client/-/colony-js-client-1.7.5.tgz#60a8fa75c12c2ac849c3cd708e7ab9195d7ade02"
@@ -74,7 +59,7 @@
     isomorphic-fetch "^2.2.1"
     web3-utils "^1.0.0-beta.34"
 
-"@colony/colony-js-contract-client@^1.7.3", "@colony/colony-js-contract-client@^1.7.5":
+"@colony/colony-js-contract-client@^1.7.5":
   version "1.7.5"
   resolved "https://registry.yarnpkg.com/@colony/colony-js-contract-client/-/colony-js-contract-client-1.7.5.tgz#3e6a5b5fcfa958078cfc937172f0846b8e7de064"
   integrity sha512-ZL3G5mmxQ/J7a3B2gq2vl1WmwLB7pHkC3QeWM14PNTSUpIbfov8XGZht4kjy97sqFAAZaKH00DHSK80mkQjaNA==
@@ -5614,7 +5599,7 @@ functional-red-black-tree@^1.0.1, functional-red-black-tree@~1.0.1:
   resolved "https://registry.yarnpkg.com/functional-red-black-tree/-/functional-red-black-tree-1.0.1.tgz#1b0ab3bd553b2a0d6399d29c0e3ea0b252078327"
   integrity sha1-GwqzvVU7Kg1jmdKcDj6gslIHgyc=
 
-ganache-cli@^6.1.0, ganache-cli@^6.2.3:
+ganache-cli@^6.2.3:
   version "6.2.3"
   resolved "https://registry.yarnpkg.com/ganache-cli/-/ganache-cli-6.2.3.tgz#8648224e7c54aa86c52125f8fa10fba2f549b149"
   integrity sha512-+FYzINouw+yHHG6bT8m6O5xCw5NP6rpSL2keChKlcwgRRFz8SrZS6Q26iJ7ixBp6bk+UMMua8IPZgNFizbdZlQ==
@@ -13912,7 +13897,7 @@ trim@0.0.1:
   dependencies:
     glob "^7.1.2"
 
-trufflepig@^1.0.4, trufflepig@^1.1.1:
+trufflepig@^1.1.1:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/trufflepig/-/trufflepig-1.1.2.tgz#081847f06dc775db905edcf02907a58040cd7e44"
   integrity sha512-PUNLHK2OumiDte7VfzfqGiAQqpxRap/whz7ydaI3ievdGfi9A/OXTYA2xltK4N7wDoE+K3T/RkZwxmzxKMUEBA==
