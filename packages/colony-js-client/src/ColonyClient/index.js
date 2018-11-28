@@ -187,7 +187,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Set new colony recovery role. Can only be called by the founder role.
+    Set the reward inverse to pay out from revenue. e.g. if the fee is 1% (or 0.01), set 100
    */
   setRewardInverse: ColonyClient.Sender<
     {
