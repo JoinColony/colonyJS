@@ -4,10 +4,8 @@ import { getNetworkClient } from './utils/network-client-helpers';
 
 const tokensToMint = 1000;
 
-jest.setTimeout(30000);
-
 describe('`ColonyNetworkClient` is able to', () => {
-  test('Create and deploy a new Token', async () => {
+  test('Create and deploy a new Token', async t => {
     const networkClient = await getNetworkClient();
     /*
      * Create a new token
@@ -19,9 +17,9 @@ describe('`ColonyNetworkClient` is able to', () => {
     /*
      * Check if it's a valid address
      */
-    expect(isAddress(token)).toBeTruthy();
+    t.truthy(isAddress(token));
   });
-  test('Make the Colony owner of the Token', async () => {
+  test('Make the Colony owner of the Token', async t => {
     /*
      * Get the network client
      */
@@ -49,14 +47,14 @@ describe('`ColonyNetworkClient` is able to', () => {
       const tokenAuthorityTransaction = await colonyClient.token.setOwner.send({
         owner: colonyClient.contract.address,
       });
-      expect(tokenAuthorityTransaction).toHaveProperty('successful', true);
-      expect(tokenAuthorityTransaction.eventData).toHaveProperty(
-        'owner',
+      t.true(tokenAuthorityTransaction.successful);
+      t.is(
+        tokenAuthorityTransaction.eventData.owner,
         colonyClient.contract.address,
       );
     }
   });
-  test('Mint new tokens', async () => {
+  test('Mint new tokens', async t => {
     /*
      * Get the network client
      */
@@ -87,11 +85,11 @@ describe('`ColonyNetworkClient` is able to', () => {
       const mintTokensTransaction = await colonyClient.mintTokens.send({
         amount: bigNumberify(tokensToMint),
       });
-      expect(mintTokensTransaction).toHaveProperty('successful', true);
+      t.true(mintTokensTransaction.successful);
       const {
         amount: currentTokenAmount,
       } = await colonyClient.token.getTotalSupply.call();
-      expect(currentTokenAmount.toNumber()).toEqual(tokensToMint);
+      t.is(currentTokenAmount.toNumber(), tokensToMint);
       /*
        * Get the total number of tokens in the main pot so that we can check againts
        */
@@ -101,14 +99,14 @@ describe('`ColonyNetworkClient` is able to', () => {
         potId: 1,
         token: colonyTokenAddress,
       });
-      expect(initialMainPotTokens.toNumber()).toEqual(0);
+      t.is(initialMainPotTokens.toNumber(), 0);
       /*
        * Claim the Colony's Funds into the Main pot
        */
       const claimFundsTransaction = await colonyClient.claimColonyFunds.send({
         token: colonyTokenAddress,
       });
-      expect(claimFundsTransaction).toHaveProperty('successful', true);
+      t.true(claimFundsTransaction.successful);
       /*
        * Check that the number of tokens in the pot equals the tokens with just mintend and claimed
        */
@@ -118,7 +116,7 @@ describe('`ColonyNetworkClient` is able to', () => {
         potId: 1,
         token: colonyTokenAddress,
       });
-      expect(currentMainPotTokens.toNumber()).toEqual(tokensToMint);
+      t.is(currentMainPotTokens.toNumber(), tokensToMint);
     }
   });
 });

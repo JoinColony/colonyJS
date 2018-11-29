@@ -1,12 +1,9 @@
 import { getNetworkClient } from './utils/network-client-helpers';
 
-/*
- * Increase the async timeout
- */
-jest.setTimeout(10000);
+
 
 describe('`ColonyClient` is able to', () => {
-  test('Add a global skill (using the Meta Colony)', async () => {
+  test('Add a global skill (using the Meta Colony)', async t => {
     /*
      * Get the network client
      */
@@ -28,7 +25,7 @@ describe('`ColonyClient` is able to', () => {
     const newSkillTransaction = await colonyClient.addGlobalSkill.send({
       parentSkillId: 1,
     });
-    expect(newSkillTransaction).toHaveProperty('successful', true);
+    t.true(newSkillTransaction.successful);
     /*
      * Check that we have added the skill. We should have one more
      */
@@ -37,9 +34,9 @@ describe('`ColonyClient` is able to', () => {
      * We have to test it this way since we can't predict which test suite
      * will run first: this or the domain tests.
      */
-    expect(skillCountAfter).toHaveProperty('count', skillCountInitial + 1);
+    t.is(skillCountAfter.count, skillCountInitial + 1);
   });
-  test('Get a skill that exists', async () => {
+  test('Get a skill that exists', async t => {
     /*
      * Get the network client
      */
@@ -58,10 +55,10 @@ describe('`ColonyClient` is able to', () => {
      * It should have one parent since we just added it as a child to the
      * global skill with id `1`
      */
-    expect(getSkillTransaction).toHaveProperty('nParents', 1);
+    t.is(getSkillTransaction.nParents, 1);
     /*
      * But is should not have any children since we didn't add anything to it.
      */
-    expect(getSkillTransaction).toHaveProperty('nChildren', 0);
+    t.is(getSkillTransaction.nChildren, 0);
   });
 });

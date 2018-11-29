@@ -1,9 +1,8 @@
 import { getNetworkClient } from './utils/network-client-helpers';
 
-jest.setTimeout(30000);
 
 describe('`ColonyClient` is able to', () => {
-  test('Create a new Domain within the Colony', async () => {
+  test('Create a new Domain within the Colony', async t => {
     /*
      * Get the network client
      */
@@ -34,14 +33,14 @@ describe('`ColonyClient` is able to', () => {
     const newDomainTransaction = await colonyClient.addDomain.send({
       parentSkillId: domainCountBefore,
     });
-    expect(newDomainTransaction).toHaveProperty('successful', true);
+    t.true(newDomainTransaction.successful);
     const domainCountAfter = await colonyClient.getDomainCount.call();
     /*
      * If all goes to plan we should have another domain
      */
-    expect(domainCountAfter).toHaveProperty('count', domainCountBefore + 1);
+    t.is(domainCountAfter.count, domainCountBefore + 1);
   });
-  test("Can't create a new domain under the Meta Colony's parent skill", async () => {
+  test("Can't create a new domain under the Meta Colony's parent skill", async t => {
     /*
      * Get the network client
      */
@@ -77,7 +76,7 @@ describe('`ColonyClient` is able to', () => {
        * Count should still be 2 since we shouldn't have been able to add
        * a new domain
        */
-      expect(domainCountAfter).toHaveProperty('count', domainCountBefore);
+      t.is(domainCountAfter.count, domainCountBefore);
     }
   });
 });

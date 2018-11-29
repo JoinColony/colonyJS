@@ -5,7 +5,6 @@ const ganache = require('ganache-cli');
 const chalk = require('chalk');
 const childProcess = require('child_process');
 const path = require('path');
-const net = require('net');
 const extfs = require('extfs');
 const git = require('simple-git/promise');
 const rimraf = require('rimraf');
@@ -46,47 +45,12 @@ const remove = util.promisify(rimraf);
 const write = util.promisify(writeFile);
 const exec = util.promisify(withLogging(childProcess.exec));
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-const isPortAvailable = port =>
-  new Promise((resolve, reject) => {
-    const tester = net
-      .createServer()
-      .once(
-        'error',
-        err => (err.code === 'EADDRINUSE' ? resolve(false) : reject(err)),
-      )
-      .once('listening', () =>
-        tester.once('close', () => resolve(true)).close(),
-      )
-      .listen(port);
-  });
-
-const waitUntilPortIsTaken = async port => {
-  let count = 0;
-  // eslint-disable-next-line no-await-in-loop
-  while (await isPortAvailable(port)) {
-    // await in loop to block until the port is taken.
-    // eslint-disable-next-line no-await-in-loop
-    await sleep(500);
-    count += 1;
-
-    if (count > 100) {
-      throw Error(`port ${port} is still not taken after 100 attempts.`);
-    }
-  }
-};
-
 /*
  * Paths
  */
 const libPath = path.resolve('src', 'lib');
 const clientPath = path.resolve(libPath, 'colonyJS');
-const walletPath = path.resolve(libPath, 'colony-wallet');
 const networkPath = path.resolve(libPath, 'colonyNetwork');
-const pinningServicePath = path.resolve(libPath, 'pinningService');
 const ganacheAccountsFile = path.resolve('.', 'ganache-accounts.json');
 const contractsFolder = path.resolve(networkPath, 'build', 'contracts');
 
@@ -104,7 +68,7 @@ const cleanupArtifacts = message => {
 module.exports = async () => {
   /*
    * Leave an empty line.
-   * Since first line of `jest`s output doesn't end with a new line
+   * Since first line of `ava`s output doesn't end with a new line
    */
   console.log();
 
@@ -179,12 +143,7 @@ module.exports = async () => {
    * Maybe we also need to check here if we're in watch mode. Although it's very
    * unlikely that submodules are going to change during running of the tests.
    */
-  if (
-    isEmptySync(clientPath) ||
-    isEmptySync(walletPath) ||
-    isEmptySync(networkPath) ||
-    isEmptySync(pinningServicePath)
-  ) {
+  if (isEmptySync(clientPath) || isEmptySync(networkPath)) {
     console.log(chalk.yellow.bold('Provisioning submodules'));
     await exec('yarn provision');
   }
@@ -265,47 +224,7 @@ module.exports = async () => {
   }
 
   /*
-   * Then start the pinning service if it's not already live.
-   */
-  const pinningServicePort = '9090';
-  const portAvailable = await isPortAvailable(pinningServicePort);
-  if (portAvailable) {
-    console.log(
-      chalk.green.bold('Pinning Service:'),
-      chalk.bold('starting...'),
-    );
-
-    // Note: we use the regular exec, since we need access to the runner object.
-    // Note: we start in detached mode so we can start and kill the processes as a group:
-    //    When we spawn the pinning service through yarn it starts a tree of processes.
-    //    SIGKILL'ing the root process (yarn) leaves zombie processes. Including the server.
-    //    Detailed solution: https://azimi.me/2014/12/31/kill-child_process-node-js.html
-    global.pinningService = withLogging(childProcess.spawn)(
-      'yarn',
-      ['test:integration:start-pinning'],
-      { detached: true },
-    );
-    await waitUntilPortIsTaken(pinningServicePort);
-
-    console.log(
-      chalk.green.bold('Pinning Service:'),
-      chalk.bold('started'),
-      'on port:',
-      chalk.bold(pinningServicePort),
-    );
-  } else {
-    console.log(
-      chalk.green.bold('Pinning Service:'),
-      chalk.bold('skipped'),
-      'port:',
-      chalk.bold(pinningServicePort),
-      'is busy',
-    );
-    global.pinningService = null;
-  }
-
-  /*
-   * Start running Jest unit tests
+   * Start running ava tests
    */
   console.log(chalk.green.bold('Starting integration test suites'));
 
@@ -321,7 +240,7 @@ module.exports = async () => {
    * @TODO In WATCH mode run teardown
    *
    * Currently we don't run the teardown step in WATCH mode. This is because we
-   * can't run it with the current config options `jest` provides us.
+   * can't run it with the current config options `ava` provides us.
    *
    * If they will ever implement a `globalCleanup` config option, then we could
    * do teardown there.

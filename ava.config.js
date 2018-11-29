@@ -4,5 +4,6 @@ export default function factory() {
   return {
     files: ['integration-testing/**/*.test.js'],
     require: ['@babel/register'],
+    timeout: '2m',
   };
 }

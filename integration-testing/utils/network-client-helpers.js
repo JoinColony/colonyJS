@@ -1,20 +1,8 @@
-/*
- * Importing the `colonyJS` packages directly since I couldn't make `jest` play nicely
- * with importing them from submodules.
- *
- * @TODO Write custom `jest` submodules resolver
- *
- * I think this can be resolved by using a custom `jest` resolver that will tell
- * it where to search.
- * I've put if off for now since it involves a bit of a time investment to
- * get it right.
- */
-/* eslint-disable import/no-unresolved */
-import { TrufflepigLoader } from '../../src/lib/colonyJS/packages/colony-js-contract-loader-http';
-import { localhost } from '../../src/lib/colony-wallet/lib/es/providers';
-import { software as wallet } from '../../src/lib/colony-wallet/lib/es/wallets';
-import EthersAdapter from '../../src/lib/colonyJS/packages/colony-js-adapter-ethers';
-import NetworkClient from '../../src/lib/colonyJS/packages/colony-js-client';
+import { Wallet, providers } from 'ethers';
+
+import { TrufflepigLoader } from '../../packages/colony-js-contract-loader-http';
+import EthersAdapter from '../../packages/colony-js-adapter-ethers';
+import NetworkClient from '../../packages/colony-js-client';
 
 const JSON_RPC = 'http://localhost:8545/';
 const TRUFFLEPIG_URL = 'http://localhost:3030';
@@ -23,6 +11,8 @@ export const getTrufflepigLoader = () =>
   new TrufflepigLoader({
     endpoint: `${TRUFFLEPIG_URL}/contracts?name=%%NAME%%`,
   });
+
+const provider = new providers.JsonRpcProvider(JSON_RPC);
 
 /*
  * Optional address to use when instantiating the wallet.
@@ -35,16 +25,12 @@ export const getTrufflepigLoader = () =>
  */
 export const getWallet = (
   address = Object.keys(global.ganacheAccounts.private_keys)[0],
-) =>
-  wallet.open({
-    privateKey: `0x${global.ganacheAccounts.private_keys[address]}`,
-    provider: localhost(JSON_RPC),
-  });
+) => new Wallet(`0x${global.ganacheAccounts.private_keys[address]}`, provider);
 
 export const getEthersAdapter = async address =>
   new EthersAdapter({
     loader: getTrufflepigLoader(),
-    provider: localhost(JSON_RPC),
+    provider,
     wallet: await getWallet(address),
   });
 

@@ -24,14 +24,6 @@ module.exports = async () => {
   }
 
   /*
-   * Then stop the pinning service if we started it.
-   */
-  if (global.pinningService !== null) {
-    console.log(chalk.green.bold('Pinning Service:'), chalk.bold('killing'));
-    process.kill(-global.pinningService.pid); // use `-` to target the process group.
-  }
-
-  /*
    * Debug log file
    */
   if (global.DEBUG) {

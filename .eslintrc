@@ -23,6 +23,9 @@
         {
             "files": "integration-testing/**/*.js",
             "plugins": ["ava"],
+            "globals": {
+                "test": false
+            },
             "rules": {
                 "no-param-reassign": "off",
                 "no-underscore-dangle": "off",
