@@ -33,6 +33,7 @@
   * `removeRecoveryRole`
   * `setRecoveryRole`
   * `setStorageSlotRecovery`
+* Remove `AuthorityClient` method: `setUserRole`
 
 ## v1.7.5
 

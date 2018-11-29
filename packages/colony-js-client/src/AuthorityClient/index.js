@@ -32,18 +32,6 @@ export default class AuthorityClient extends ContractClient {
     },
     AuthorityClient,
   >;
-  /*
-  Enable or disable a particular role for a user's address (default behaviour: enable the role).
-  */
-  setUserRole: AuthorityClient.Sender<
-    {
-      user: Address, // The user address to be granted (or stripped of) authority.
-      role: AuthorityRole, // The authority role (`OWNER` or `ADMIN`).
-      enabled?: boolean, // Whether or not that role has been enabled.
-    },
-    {},
-    AuthorityClient,
-  >;
 
   static get defaultQuery() {
     return {
@@ -63,12 +51,6 @@ export default class AuthorityClient extends ContractClient {
     this.addCaller('hasUserRole', {
       input: [user, role],
       output: [['hasRole', 'boolean']],
-    });
-    this.addSender('setUserRole', {
-      input: [user, role, ['enabled', 'boolean']],
-      defaultValues: {
-        enabled: true,
-      },
     });
   }
 }

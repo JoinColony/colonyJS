@@ -68,23 +68,3 @@ A promise which resolves to an object containing the following properties:
 |Return value|Type|Description|
 |---|---|---|
 |hasRole|boolean|Whether or not the user has the role provided.|
-
-  
-## Senders
-
-**All senders return an instance of a `ContractResponse`.** Every `send()` method takes an `options` object as the second argument. For a reference please check [here](/colonyjs/docs-contractclient/#senders).
-### `setUserRole.send({ user, role, enabled }, options)`
-
-Enable or disable a particular role for a user's address (default behaviour: enable the role).
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|user|Address|The user address to be granted (or stripped of) authority.|
-|role|Authority Role|The authority role (`OWNER` or `ADMIN`).|
-|enabled|boolean|Whether or not that role has been enabled.|
-
-**Returns**
-
-An instance of a `ContractResponse`
