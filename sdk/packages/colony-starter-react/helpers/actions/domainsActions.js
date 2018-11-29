@@ -1,3 +1,23 @@
+// addDomain
+
+export const addDomain = async (colonyClient) => {
+
+  // add domain
+  const addDomainResponse = await colonyClient.addDomain.send({
+    parentSkillId: 1,
+  })
+
+  // get domain id
+  const { count: domainId } = await colonyClient.getDomainCount.call()
+
+  // get domain
+  const domain = getDomain(colonyClient, domainId)
+
+  // return domain
+  return domain
+
+}
+
 // fundDomain
 
 export const fundDomain = async (colonyClient, domainId, amount) => {

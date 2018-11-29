@@ -2,11 +2,35 @@ import { store } from '../index'
 import * as actions from '../constants/actions'
 import * as domainsActions from '../../helpers/actions/domainsActions'
 
+// addDomain
+
+export const addDomain = (colonyClient) => ({
+  type: actions.ADD_DOMAIN,
+  payload: domainsActions.addDomain(colonyClient)
+    .then(domain => {
+      store.dispatch(getDomains(colonyClient))
+      store.dispatch(addDomainSuccess())
+    })
+    .catch(error => {
+      store.dispatch(addDomainError(error.message))
+    }),
+})
+
+export const addDomainError = (message) => ({
+  type: actions.ADD_DOMAIN_ERROR,
+  payload: message,
+})
+
+export const addDomainSuccess = (message) => ({
+  type: actions.ADD_DOMAIN_SUCCESS,
+  payload: message,
+})
+
 // fundDomain
 
 export const fundDomain = (colonyClient, domainId, amount) => ({
   type: actions.FUND_DOMAIN,
-  payload: fundingActions.fundDomain(colonyClient, domainId, amount)
+  payload: domainsActions.fundDomain(colonyClient, domainId, amount)
     .then(pots => {
       store.dispatch(setStatePots(pots))
       store.dispatch(fundDomainSuccess())

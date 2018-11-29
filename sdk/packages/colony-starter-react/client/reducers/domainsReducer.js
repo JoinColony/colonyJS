@@ -2,6 +2,11 @@ import * as actions from '../constants/actions'
 
 const initialState = {
 
+  // addDomain
+  addDomainError: null,
+  addDomainLoading: false,
+  addDomainSuccess: false,
+
   // domains
   domains: null,
 
@@ -20,6 +25,30 @@ const initialState = {
 const domainsReducer = (state = initialState, action) => {
 
   switch (action.type) {
+
+    // addDomain
+
+    case actions.ADD_DOMAIN:
+      return {
+        ...state,
+        addDomainError: null,
+        addDomainLoading: true,
+        addDomainSuccess: false,
+      }
+
+    case actions.ADD_DOMAIN_ERROR:
+      return {
+        ...state,
+        addDomainError: action.payload,
+        addDomainLoading: false,
+      }
+
+    case actions.ADD_DOMAIN_SUCCESS:
+      return {
+        ...state,
+        addDomainLoading: false,
+        addDomainSuccess: true,
+      }
 
     // fundDomain
 
