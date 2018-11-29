@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getTasks } from '../../../actions/tasksActions'
-import TaskSelector from '../../../components/Manage/Funding/TaskSelector'
+import { getTasks } from '../../actions/tasksActions'
+import TaskSelector from '../../components/Manage/TaskSelector'
 
 class TaskSelectorContainer extends Component {
 

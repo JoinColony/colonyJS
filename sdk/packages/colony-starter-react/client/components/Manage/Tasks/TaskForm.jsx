@@ -1,28 +1,15 @@
 import React from 'react'
-import SkillSelector from '../../../containers/Manage/Tasks/SkillSelector'
+import DomainSelector from '../../../containers/Manage/DomainSelector'
+import SkillSelector from '../../../containers/Manage/SkillSelector'
 import styles from './TaskForm.scss'
 
 const TaskForm = ({ handleChange, task }) => (
   <div className={styles.container}>
-    <div className={styles.field}>
-      <label htmlFor="domainId">
-        {'Domain:'}
-      </label>
-      <select id="domainId" onChange={handleChange} value={task.domainId}>
-        <option value={0}>
-          {'select domain...'}
-        </option>
-        <option value={2}>
-          {'Business'}
-        </option>
-        <option value={3}>
-          {'Education'}
-        </option>
-        <option value={4}>
-          {'Service'}
-        </option>
-      </select>
-    </div>
+    <DomainSelector
+      handleChange={handleChange}
+      domainId={task.domainId}
+      slice={0}
+    />
     <SkillSelector
       handleChange={handleChange}
       skillId={task.skillId}

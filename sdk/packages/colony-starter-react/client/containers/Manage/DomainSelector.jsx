@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getDomains } from '../../../actions/domainsActions'
-import DomainSelector from '../../../components/Manage/Domains/DomainSelector'
+import { getDomains } from '../../actions/domainsActions'
+import DomainSelector from '../../components/Manage/DomainSelector'
 
 class DomainSelectorContainer extends Component {
 
@@ -24,6 +24,7 @@ class DomainSelectorContainer extends Component {
         getDomainsLoading={this.props.getDomainsLoading}
         getDomainsSuccess={this.props.getDomainsSuccess}
         handleChange={this.props.handleChange}
+        slice={this.props.slice}
       />
     )
   }

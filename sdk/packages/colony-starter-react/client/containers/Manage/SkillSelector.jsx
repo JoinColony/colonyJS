@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getSkills } from '../../../actions/skillsActions'
-import SkillSelector from '../../../components/Manage/Tasks/SkillSelector'
+import { getSkills } from '../../actions/skillsActions'
+import SkillSelector from '../../components/Manage/SkillSelector'
 
 class SkillSelectorContainer extends Component {
 

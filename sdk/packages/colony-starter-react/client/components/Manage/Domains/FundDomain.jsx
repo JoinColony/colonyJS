@@ -1,5 +1,5 @@
 import React from 'react'
-import DomainSelector from '../../../containers/Manage/Domains/DomainSelector'
+import DomainSelector from '../../../containers/Manage/DomainSelector'
 import styles from './FundDomain.scss'
 
 const FundDomain = ({
@@ -16,6 +16,7 @@ const FundDomain = ({
     <DomainSelector
       handleChange={handleChange}
       domainId={domainId}
+      slice={1}
     />
     <div className={styles.field}>
       <label htmlFor="amount">
