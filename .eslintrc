@@ -19,6 +19,17 @@
             "rules": {
                 "flowtype/require-valid-file-annotation": "off"
             }
+        },
+        {
+            "files": "integration-testing/**/*.js",
+            "plugins": ["ava"],
+            "rules": {
+                "no-param-reassign": "off",
+                "no-underscore-dangle": "off",
+                "flowtype/require-valid-file-annotation": "off",
+                "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
+                "max-len": "off"
+            }
         }
     ]
 }

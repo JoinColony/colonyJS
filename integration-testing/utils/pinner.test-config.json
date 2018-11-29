@@ -1,0 +1,16 @@
+{
+  "port": 9090,
+  "exposedAddress": "/ip4/127.0.0.1/tcp/4321",
+  "name": "node-1",
+  "prefix": "cli-",
+  "ipfs": {
+    "repo": "/tmp/ipfs/main",
+    "bootstrap": [],
+    "swarm": [
+      "/ip4/127.0.0.1/tcp/4321"
+    ]
+  },
+  "orbit": {
+    "repo": "/tmp/orbit/main"
+  }
+}
