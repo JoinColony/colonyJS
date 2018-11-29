@@ -11,13 +11,13 @@ const Menu = ({ exit }) => (
         </NavLink>
       </li>
       <li className={styles.item}>
-        <NavLink to="/manage/admins">
-          {'Admins'}
+        <NavLink to="/manage/token">
+          {'Token'}
         </NavLink>
       </li>
       <li className={styles.item}>
-        <NavLink to="/manage/domains">
-          {'Domains'}
+        <NavLink to="/manage/admins">
+          {'Admins'}
         </NavLink>
       </li>
       <li className={styles.item}>
@@ -26,13 +26,13 @@ const Menu = ({ exit }) => (
         </NavLink>
       </li>
       <li className={styles.item}>
-        <NavLink to="/manage/tasks">
-          {'Tasks'}
+        <NavLink to="/manage/domains">
+          {'Domains'}
         </NavLink>
       </li>
       <li className={styles.item}>
-        <NavLink to="/manage/token">
-          {'Token'}
+        <NavLink to="/manage/tasks">
+          {'Tasks'}
         </NavLink>
       </li>
       <li className={styles.item}>
