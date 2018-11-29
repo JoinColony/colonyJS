@@ -10,10 +10,10 @@ const initialState = {
   claimFundsLoading: false,
   claimFundsSuccess: false,
 
-  // fundDomain
-  fundDomainError: null,
-  fundDomainLoading: false,
-  fundDomainSuccess: false,
+  // moveFunds
+  moveFundsError: null,
+  moveFundsLoading: false,
+  moveFundsSuccess: false,
 
   // getClaimableFunds
   getClaimableFundsError: null,
@@ -58,28 +58,28 @@ const fundingReducer = (state = initialState, action) => {
         claimFundsSuccess: true,
       }
 
-    // fundDomain
+    // moveFunds
 
-    case actions.FUND_DOMAIN:
+    case actions.MOVE_FUNDS:
       return {
         ...state,
-        fundDomainError: null,
-        fundDomainLoading: true,
-        fundDomainSuccess: false,
+        moveFundsError: null,
+        moveFundsLoading: true,
+        moveFundsSuccess: false,
       }
 
-    case actions.FUND_DOMAIN_ERROR:
+    case actions.MOVE_FUNDS_ERROR:
       return {
         ...state,
-        fundDomainError: action.payload,
-        fundDomainLoading: false,
+        moveFundsError: action.payload,
+        moveFundsLoading: false,
       }
 
-    case actions.FUND_DOMAIN_SUCCESS:
+    case actions.MOVE_FUNDS_SUCCESS:
       return {
         ...state,
-        fundDomainLoading: false,
-        fundDomainSuccess: true,
+        moveFundsLoading: false,
+        moveFundsSuccess: true,
       }
 
     // getClaimableFunds

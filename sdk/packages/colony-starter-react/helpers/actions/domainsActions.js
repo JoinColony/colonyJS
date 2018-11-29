@@ -1,3 +1,29 @@
+// fundDomain
+
+export const fundDomain = async (colonyClient, domainId, amount) => {
+
+  // set token
+  const token = colonyClient.token._contract.address
+
+  // get domain
+  const { potId } = await colonyClient.getDomain.call({ domainId })
+
+  // move funds between pots
+  await colonyClient.moveFundsBetweenPots.send({
+    fromPot: 1,
+    toPot: potId,
+    amount: new BN(amount),
+    token,
+  })
+
+  // get updated pots
+  const pots = await getPots(colonyClient)
+
+  // return updated pots
+  return pots
+
+}
+
 // getDomain
 
 export const getDomain = async (colonyClient, domainId) => {

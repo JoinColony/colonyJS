@@ -26,30 +26,6 @@ export const claimFundsSuccess = (message) => ({
   payload: message,
 })
 
-// fundDomain
-
-export const fundDomain = (colonyClient, domainId, amount) => ({
-  type: actions.FUND_DOMAIN,
-  payload: fundingActions.fundDomain(colonyClient, domainId, amount)
-    .then(pots => {
-      store.dispatch(setStatePots(pots))
-      store.dispatch(fundDomainSuccess())
-    })
-    .catch(error => {
-      store.dispatch(fundDomainError(error.message))
-    }),
-})
-
-export const fundDomainError = (message) => ({
-  type: actions.FUND_DOMAIN_ERROR,
-  payload: message,
-})
-
-export const fundDomainSuccess = (message) => ({
-  type: actions.FUND_DOMAIN_SUCCESS,
-  payload: message,
-})
-
 // getClaimableFunds
 
 export const getClaimableFunds = (colonyClient) => ({
@@ -95,6 +71,30 @@ export const getPotsError = (message) => ({
 
 export const getPotsSuccess = (message) => ({
   type: actions.GET_POTS_SUCCESS,
+  payload: message,
+})
+
+// moveFunds
+
+export const moveFunds = (colonyClient, fromPot, toPot, amount) => ({
+  type: actions.MOVE_FUNDS,
+  payload: fundingActions.moveFunds(colonyClient, fromPot, toPot, amount)
+    .then(pots => {
+      store.dispatch(setStatePots(pots))
+      store.dispatch(moveFundsSuccess())
+    })
+    .catch(error => {
+      store.dispatch(moveFundsError(error.message))
+    }),
+})
+
+export const moveFundsError = (message) => ({
+  type: actions.MOVE_FUNDS_ERROR,
+  payload: message,
+})
+
+export const moveFundsSuccess = (message) => ({
+  type: actions.MOVE_FUNDS_SUCCESS,
   payload: message,
 })
 

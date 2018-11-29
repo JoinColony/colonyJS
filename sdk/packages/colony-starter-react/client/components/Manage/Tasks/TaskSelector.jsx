@@ -12,7 +12,7 @@ const TaskSelector = ({ handleChange, taskId, tasks }) => (
       </option>
       {tasks ? tasks.map(task => (
         <option key={task.id} value={task.id}>
-          {task.specification.title}
+          {task.id}
         </option>
       )) : (
         <option value={null}>
