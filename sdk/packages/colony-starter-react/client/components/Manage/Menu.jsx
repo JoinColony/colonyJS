@@ -2,7 +2,7 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import styles from './Menu.scss'
 
-const Menu = ({ logout }) => (
+const Menu = ({ exit }) => (
   <div className={styles.menu}>
     <ul className={styles.list}>
       <li className={styles.item}>
@@ -36,8 +36,8 @@ const Menu = ({ logout }) => (
         </NavLink>
       </li>
       <li className={styles.item}>
-        <a onClick={logout}>
-          {'Logout'}
+        <a onClick={exit}>
+          {'Exit'}
         </a>
       </li>
     </ul>

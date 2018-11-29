@@ -12,10 +12,10 @@ class MenuContainer extends Component {
 
   constructor(props) {
     super(props)
-    this.logout = this.logout.bind(this)
+    this.exit = this.exit.bind(this)
   }
 
-  logout() {
+  exit() {
     this.props.history.push('/manage')
     this.props.setStateColonyClient(null)
     this.props.setStateClaimableFunds(null)
@@ -27,7 +27,7 @@ class MenuContainer extends Component {
   }
 
   render() {
-    return <Menu logout={this.logout} />
+    return <Menu exit={this.exit} />
   }
 
 }

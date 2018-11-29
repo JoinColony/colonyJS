@@ -2,7 +2,7 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import styles from './Header.scss'
 
-const Header = ({ logout }) => (
+const Header = () => (
   <header className={styles.header}>
     <NavLink className={styles.title} to="/">
       {'colony-starter-react'}
