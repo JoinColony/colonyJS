@@ -10,7 +10,7 @@ const DomainSelector = ({ handleChange, domainId, domains }) => (
       <option value={0}>
         {'select domain...'}
       </option>
-      {domains ? domains.map(domain => (
+      {domains ? domains.slice(1).map(domain => (
         <option key={domain.id} value={domain.id}>
           {domain.id}
         </option>

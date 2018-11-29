@@ -1,6 +1,7 @@
 import React from 'react'
 import { NavLink, Route, Switch } from 'react-router-dom'
 import AddDomain from '../../containers/Manage/Domains/AddDomain'
+import FundDomain from '../../containers/Manage/Domains/FundDomain'
 import ViewDomains from '../../containers/Manage/Domains/ViewDomains'
 import styles from './Domains.scss'
 
@@ -13,9 +14,13 @@ const Domains = () => (
       <NavLink to="/manage/domains/add">
         {'Add Domain'}
       </NavLink>
+      <NavLink to="/manage/domains/fund">
+        {'Fund Domain'}
+      </NavLink>
     </div>
     <Switch>
       <Route exact path="/manage/domains/add" component={AddDomain} />
+      <Route exact path="/manage/domains/fund" component={FundDomain} />
       <Route exact path="/manage/domains" component={ViewDomains} />
     </Switch>
   </div>

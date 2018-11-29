@@ -1,6 +1,7 @@
 import { store } from '../index'
 import * as actions from '../constants/actions'
 import * as domainsActions from '../../helpers/actions/domainsActions'
+import { getPots } from './fundingActions'
 
 // addDomain
 
@@ -32,7 +33,7 @@ export const fundDomain = (colonyClient, domainId, amount) => ({
   type: actions.FUND_DOMAIN,
   payload: domainsActions.fundDomain(colonyClient, domainId, amount)
     .then(pots => {
-      store.dispatch(setStatePots(pots))
+      store.dispatch(getPots(colonyClient))
       store.dispatch(fundDomainSuccess())
     })
     .catch(error => {

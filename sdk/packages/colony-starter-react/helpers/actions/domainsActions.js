@@ -1,3 +1,6 @@
+// import big number
+import BN from 'bn.js'
+
 // addDomain
 
 export const addDomain = async (colonyClient) => {
@@ -36,11 +39,8 @@ export const fundDomain = async (colonyClient, domainId, amount) => {
     token,
   })
 
-  // get updated pots
-  const pots = await getPots(colonyClient)
-
-  // return updated pots
-  return pots
+  // return true
+  return true
 
 }
 

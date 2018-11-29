@@ -1,5 +1,5 @@
 import React from 'react'
-import DomainSelector from '../../../containers/Manage/Funding/DomainSelector'
+import DomainSelector from '../../../containers/Manage/Domains/DomainSelector'
 import styles from './FundDomain.scss'
 
 const FundDomain = ({

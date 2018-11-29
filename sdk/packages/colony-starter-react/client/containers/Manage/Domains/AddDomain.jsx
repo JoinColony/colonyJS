@@ -28,10 +28,10 @@ class AddDomainContainer extends Component {
 }
 
 const mapStateToProps = state => ({
+  addDomainError: state.domains.addDomainError,
+  addDomainLoading: state.domains.addDomainLoading,
+  addDomainSuccess: state.domains.addDomainSuccess,
   colonyClient: state.colony.colonyClient,
-  addDomainError: state.tasks.addDomainError,
-  addDomainLoading: state.tasks.addDomainLoading,
-  addDomainSuccess: state.tasks.addDomainSuccess,
 })
 
 const mapDispatchToProps = dispatch => ({

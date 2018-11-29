@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getDomains } from '../../../actions/domainsActions'
-import DomainSelector from '../../../components/Manage/Funding/DomainSelector'
+import DomainSelector from '../../../components/Manage/Domains/DomainSelector'
 
 class DomainSelectorContainer extends Component {
 
