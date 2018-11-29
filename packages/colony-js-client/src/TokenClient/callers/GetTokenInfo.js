@@ -18,8 +18,8 @@ export default class GetTokenInfo extends ContractClient.Caller<
       functionName: 'getTokenInfo',
       input: [],
       output: [
-        ['name', 'string'],
-        ['symbol', 'string'],
+        ['name', 'hexString'],
+        ['symbol', 'hexString'],
         ['decimals', 'number'],
       ],
       ...params,
