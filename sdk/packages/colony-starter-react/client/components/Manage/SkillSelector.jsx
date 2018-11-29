@@ -12,7 +12,7 @@ const SkillSelector = ({ handleChange, skillId, skills }) => (
       </option>
       {skills ? skills.map(skill => (
         <option key={skill.id} value={skill.id}>
-          {skill.title}
+          {skill.id}
         </option>
       )) : (
         <option value={null}>

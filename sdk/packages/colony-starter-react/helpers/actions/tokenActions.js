@@ -1,6 +1,8 @@
 // import big number
 import BN from 'bn.js'
-import web3 from 'web3'
+
+// import web3 utilities
+import { utils } from 'web3'
 
 // createToken
 
@@ -10,8 +12,8 @@ export const createToken = async (networkClient, name, symbol) => {
   const {
     meta: { receipt: { contractAddress: tokenAddress } }
   } = await networkClient.createToken.send({
-    name: web3.utils.sha3(name),
-    symbol: web3.utils.sha3(symbol),
+    name: utils.sha3(name),
+    symbol: utils.sha3(symbol),
   })
 
   // return token address
