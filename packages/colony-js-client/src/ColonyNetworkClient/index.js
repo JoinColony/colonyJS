@@ -9,7 +9,6 @@ import ContractClient from '@colony/colony-js-contract-client';
 
 import ColonyClient from '../ColonyClient/index';
 import MetaColonyClient from '../MetaColonyClient/index';
-import TokenClient from '../TokenClient/index';
 import CreateToken from './senders/CreateToken';
 import addRecoveryMethods from '../addRecoveryMethods';
 
@@ -459,10 +458,6 @@ export default class ColonyNetworkClient extends ContractClient {
     return MetaColonyClient;
   }
 
-  static get TokenClient(): * {
-    return TokenClient;
-  }
-
   /*
   Returns an initialized ColonyClient for the contract at address `contractAddress`
   */
@@ -504,7 +499,8 @@ export default class ColonyNetworkClient extends ContractClient {
       networkClient: this,
       query: { contractAddress },
     });
-    return metaColonyClient.init();
+    metaColonyClient.init();
+    return metaColonyClient;
   }
   /*
   Gets the Meta Colony as an initialized ColonyClient
