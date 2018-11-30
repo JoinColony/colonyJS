@@ -236,8 +236,15 @@ describe('ColonyNetworkClient', () => {
     });
     const metaColonyClientSpy = sandbox
       .spyOn(ColonyNetworkClient, 'MetaColonyClient', 'get')
-      .mockReturnValue(MockMetaColonyClient);
+      .mockImplementation(() => MockMetaColonyClient);
     sandbox.spyOn(MetaColonyClient.prototype, 'init');
+
+    // Test the mocked getter
+    expect(
+      new ColonyNetworkClient.MetaColonyClient({ networkClient }),
+    ).toBeInstanceOf(MetaColonyClient);
+    expect(MockMetaColonyClient).toHaveBeenCalledWith({ networkClient });
+    MockMetaColonyClient.mockClear();
 
     const metaColonyAddress = 'The Meta Colony lives here';
 
@@ -259,6 +266,7 @@ describe('ColonyNetworkClient', () => {
     );
 
     expect(metaColonyClientSpy).toHaveBeenCalled();
+    expect(metaColonyClient).toBeInstanceOf(MetaColonyClient);
     expect(MockMetaColonyClient).toHaveBeenCalledWith({
       adapter: networkClient.adapter,
       networkClient,
@@ -267,14 +275,5 @@ describe('ColonyNetworkClient', () => {
       },
     });
     expect(metaColonyClient.init).toHaveBeenCalled();
-    expect(metaColonyClient.getToken.call).toHaveBeenCalled();
-    expect(metaColonyClient).toHaveProperty('token', expect.any(TokenClient));
-    expect(metaColonyClient.token.init).toHaveBeenCalled();
-    expect(TokenClient).toHaveBeenCalledWith(
-      expect.objectContaining({
-        adapter: metaColonyClient.adapter,
-        query: { contractAddress: 'token address' },
-      }),
-    );
   });
 });
