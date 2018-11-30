@@ -175,11 +175,6 @@ describe('ColonyNetworkClient', () => {
             address: 'token address',
           })),
         };
-        client.getAuthority = {
-          call: sandbox.fn().mockImplementation(async () => ({
-            address: 'authority address',
-          })),
-        };
       });
 
     const colonyClient = await networkClient.getColonyClientByAddress(
@@ -197,10 +192,8 @@ describe('ColonyNetworkClient', () => {
     });
     expect(colonyClient.init).toHaveBeenCalled();
     expect(colonyClient.getToken.call).toHaveBeenCalled();
-    expect(colonyClient.getAuthority.call).toHaveBeenCalled();
     expect(colonyClient).toHaveProperty('token', expect.any(TokenClient));
     expect(colonyClient.token.init).toHaveBeenCalled();
-    expect(colonyClient.authority.init).toHaveBeenCalled();
     expect(TokenClient).toHaveBeenCalledWith(
       expect.objectContaining({
         adapter: colonyClient.adapter,
@@ -259,11 +252,6 @@ describe('ColonyNetworkClient', () => {
             address: 'token address',
           })),
         };
-        client.getAuthority = {
-          call: sandbox.fn().mockImplementation(async () => ({
-            address: 'authority address',
-          })),
-        };
       });
 
     const metaColonyClient = await networkClient.getMetaColonyClientByAddress(
@@ -271,7 +259,6 @@ describe('ColonyNetworkClient', () => {
     );
 
     expect(metaColonyClientSpy).toHaveBeenCalled();
-    expect(metaColonyClient).toBeInstanceOf(MetaColonyClient);
     expect(MockMetaColonyClient).toHaveBeenCalledWith({
       adapter: networkClient.adapter,
       networkClient,
@@ -281,10 +268,8 @@ describe('ColonyNetworkClient', () => {
     });
     expect(metaColonyClient.init).toHaveBeenCalled();
     expect(metaColonyClient.getToken.call).toHaveBeenCalled();
-    expect(metaColonyClient.getAuthority.call).toHaveBeenCalled();
     expect(metaColonyClient).toHaveProperty('token', expect.any(TokenClient));
     expect(metaColonyClient.token.init).toHaveBeenCalled();
-    expect(metaColonyClient.authority.init).toHaveBeenCalled();
     expect(TokenClient).toHaveBeenCalledWith(
       expect.objectContaining({
         adapter: metaColonyClient.adapter,
