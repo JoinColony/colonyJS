@@ -34,6 +34,10 @@
   * `setRecoveryRole`
   * `setStorageSlotRecovery`
 
+**Bug fixes**
+
+* Improved handling of invalid UTF8 hex strings
+
 ## v1.7.5
 
 **Bug fixes**

@@ -148,6 +148,8 @@ describe('Parameter types', () => {
     expect(convertOutputValue('a', 'string')).toBe('a');
     expect(convertOutputValue('0x434f4c4e59', 'string')).toBe('COLNY');
     expect(convertOutputValue('0x00', 'string')).toBe(null);
+    const invalidUtf8 = '0x712387612873682176387216312';
+    expect(convertOutputValue(invalidUtf8, 'string')).toBe(invalidUtf8);
 
     // empty strings are cleaned:
     expect(convertOutputValue('', 'string')).toBe(null);

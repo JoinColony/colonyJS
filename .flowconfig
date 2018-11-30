@@ -1,5 +1,6 @@
 [ignore]
 <PROJECT_ROOT>/packages/colonyDapp/.*
+<PROJECT_ROOT>/node_modules/oboe/test/json/incomplete.json
 
 [include]
 

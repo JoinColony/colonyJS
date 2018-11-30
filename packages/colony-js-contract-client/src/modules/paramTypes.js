@@ -91,7 +91,12 @@ const PARAM_TYPE_MAP: {
     },
     convertOutput(value: any) {
       if (isHexStrict(value)) {
-        return isEmptyHexString(value) ? null : hexToUtf8(value);
+        if (isEmptyHexString(value)) return null;
+        try {
+          return hexToUtf8(value);
+        } catch (error) {
+          // ignore error: not a UTF8-encoded value
+        }
       }
       return typeof value === 'string' && value.length ? value : null;
     },

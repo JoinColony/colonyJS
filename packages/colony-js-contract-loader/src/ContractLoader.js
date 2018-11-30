@@ -74,7 +74,7 @@ export default class ContractLoader {
     );
     this._transform = transform;
   }
-  // eslint-disable-next-line class-methods-use-this
+  /* eslint-disable class-methods-use-this,no-unused-vars */
   async _load(
     query: Query,
     requiredProps?: RequiredContractProps, // eslint-disable-line no-unused-vars
@@ -83,6 +83,7 @@ export default class ContractLoader {
       'ContractLoader._load() is expected to be defined in a derived class',
     );
   }
+  /* eslint-enable class-methods-use-this,no-unused-vars */
   async load(
     query: Query,
     requiredProps?: RequiredContractProps = DEFAULT_REQUIRED_CONTRACT_PROPS,
