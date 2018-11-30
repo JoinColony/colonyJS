@@ -255,9 +255,10 @@ export default class ColonyClient extends ContractClient {
   hasUserRole: ColonyClient.Caller<
     {
       user: Address, // The user in question.
+      role: AuthorityRole, // That user's role (`FOUNDER` or `ADMIN`).
     },
     {
-      role: AuthorityRole, // That user's role (`FOUNDER` or `ADMIN`).
+      hasRole: boolean, // Whether the user has the given role
     },
     ColonyClient,
   >;
@@ -554,7 +555,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Set a new colony admin role. Can be called by an founder or admin role.
+    Set a new colony admin role. Can be called by a founder or admin role.
   */
   setAdminRole: ColonyClient.Sender<
     {

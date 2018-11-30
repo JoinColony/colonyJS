@@ -74,7 +74,7 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |address|Address|The colony's Authority contract address|
 
-### `hasUserRole.call({ user })`
+### `hasUserRole.call({ user, role })`
 
 For the given user's address and role, return true if the user has that role.
 
@@ -83,6 +83,7 @@ For the given user's address and role, return true if the user has that role.
 |Argument|Type|Description|
 |---|---|---|
 |user|Address|The user in question.|
+|role|Authority Role|That user's role (`FOUNDER` or `ADMIN`).|
 
 **Returns**
 
@@ -90,7 +91,7 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|role|Authority Role|That user's role (`FOUNDER` or `ADMIN`).|
+|hasRole|boolean|Whether the user has the given role|
 
 ### `getVersion.call()`
 
@@ -622,7 +623,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 ### `setAdminRole.send({ user }, options)`
 
-Set a new colony admin role. Can be called by an founder or admin role.
+Set a new colony admin role. Can be called by a founder or admin role.
 
 **Arguments**
 
