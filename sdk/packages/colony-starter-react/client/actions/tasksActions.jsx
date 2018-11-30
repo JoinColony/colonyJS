@@ -1,6 +1,7 @@
 import { store } from '../index'
 import * as actions from '../constants/actions'
 import * as tasksActions from '../../helpers/actions/tasksActions'
+import { getPots } from './fundingActions'
 
 // cancelTask
 
@@ -81,6 +82,7 @@ export const fundTask = (colonyClient, taskId, amount) => ({
   payload: tasksActions.fundTask(colonyClient, taskId, amount)
     .then(task => {
       store.dispatch(setStateTask(task))
+      store.dispatch(getPots(colonyClient))
       store.dispatch(fundTaskSuccess())
     })
     .catch(error => {

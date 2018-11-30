@@ -19,9 +19,9 @@ const Domains = () => (
       </NavLink>
     </div>
     <Switch>
+      <Route exact path="/manage/domains" component={ViewDomains} />
       <Route exact path="/manage/domains/add" component={AddDomain} />
       <Route exact path="/manage/domains/fund" component={FundDomain} />
-      <Route exact path="/manage/domains" component={ViewDomains} />
     </Switch>
   </div>
 )

@@ -11,7 +11,6 @@ class TaskActionsContainer extends Component {
     this.cancelTask = this.cancelTask.bind(this)
     this.editTask = this.editTask.bind(this)
     this.finalizeTask = this.finalizeTask.bind(this)
-    this.fundTask = this.fundTask.bind(this)
     this.revealRating = this.revealRating.bind(this)
     this.signTask = this.signTask.bind(this)
     this.submitRating = this.submitRating.bind(this)
@@ -29,10 +28,6 @@ class TaskActionsContainer extends Component {
 
   finalizeTask() {
     this.props.finalizeTask(this.props.colonyClient, this.props.task.id)
-  }
-
-  fundTask() {
-    this.props.history.push(`/manage/tasks/fund/${this.props.task.id}`)
   }
 
   revealRating() {
@@ -66,7 +61,6 @@ class TaskActionsContainer extends Component {
           this.props.signTaskError
         }
         finalizeTask={this.finalizeTask}
-        fundTask={this.fundTask}
         loading={
           this.props.cancelTaskLoading ||
           this.props.finalizeTaskLoading ||
@@ -97,9 +91,6 @@ const mapStateToProps = state => ({
   finalizeTaskError: state.tasks.finalizeTaskError,
   finalizeTaskLoading: state.tasks.finalizeTaskLoading,
   finalizeTaskSuccess: state.tasks.finalizeTaskSuccess,
-  fundTaskError: state.tasks.fundTaskError,
-  fundTaskLoading: state.tasks.fundTaskLoading,
-  fundTaskSuccess: state.tasks.fundTaskSuccess,
   signTaskError: state.tasks.signTaskError,
   signTaskLoading: state.tasks.signTaskLoading,
   signTaskSuccess: state.tasks.signTaskSuccess,

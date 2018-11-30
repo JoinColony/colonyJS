@@ -3,7 +3,6 @@ import DomainSelector from '../../../containers/Manage/DomainSelector'
 import styles from './FundDomain.scss'
 
 const FundDomain = ({
-  domainId,
   funding,
   fundDomainError,
   fundDomainLoading,
@@ -15,7 +14,7 @@ const FundDomain = ({
     <h2>{'Fund Domain'}</h2>
     <DomainSelector
       handleChange={handleChange}
-      domainId={domainId}
+      domainId={funding.domainId}
       slice={1}
     />
     <div className={styles.field}>

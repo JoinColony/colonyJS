@@ -9,35 +9,35 @@ class FundTaskContainer extends Component {
 
   constructor(props) {
     super(props)
-    this.state = { amount: 0 }
+    this.state = { funding: { amount: 0, taskId: 0 } }
     this.handleChange = this.handleChange.bind(this)
     this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.fundTaskSuccess && prevProps.fundTaskSuccess !== this.props.fundTaskSuccess) {
-      this.setState({ amount: 0 })
+      this.setState({ funding: { amount: 0, taskId: 0 } })
     }
   }
 
   handleChange(event) {
-    let state = this.state
-    state[event.target.id] = event.target.value
-    this.setState({ ...state })
+    let funding = this.state.funding
+    funding[event.target.id] = event.target.value
+    this.setState({ funding })
   }
 
   handleClick() {
     this.props.fundTask(
       this.props.colonyClient,
-      Number(this.props.match.params.id),
-      this.state.amount,
+      Number(this.state.funding.taskId),
+      this.state.funding.amount,
     )
   }
 
   render() {
     return (
       <FundTask
-        amount={this.state.amount}
+        funding={this.state.funding}
         fundTaskError={this.props.fundTaskError}
         fundTaskLoading={this.props.fundTaskLoading}
         fundTaskSuccess={this.props.fundTaskSuccess}

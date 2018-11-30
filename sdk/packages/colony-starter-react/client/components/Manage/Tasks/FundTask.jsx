@@ -1,8 +1,9 @@
 import React from 'react'
+import TaskSelector from '../../../containers/Manage/TaskSelector'
 import styles from './FundTask.scss'
 
 const FundTask = ({
-  amount,
+  funding,
   fundTaskError,
   fundTaskLoading,
   fundTaskSuccess,
@@ -11,6 +12,10 @@ const FundTask = ({
 }) => (
   <div className={styles.container}>
     <h2>{'Fund Task'}</h2>
+    <TaskSelector
+      handleChange={handleChange}
+      taskId={funding.taskId}
+    />
     <div className={styles.field}>
       <label htmlFor="amount">
         {'amount:'}
@@ -19,7 +24,7 @@ const FundTask = ({
         id="amount"
         onChange={handleChange}
         type="number"
-        value={amount}
+        value={funding.amount}
       />
     </div>
     <div className={styles.buttons}>
