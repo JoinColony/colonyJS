@@ -2,6 +2,9 @@
 
 ## v.NEXT
 
+
+## v1.8.0
+
 **Maintenance**
 
 * Add `ColonyClient` events:
