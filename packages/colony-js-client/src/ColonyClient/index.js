@@ -11,13 +11,13 @@ import type { ContractClientConstructorArgs } from '@colony/colony-js-contract-c
 
 import ColonyNetworkClient from '../ColonyNetworkClient/index';
 import TokenClient from '../TokenClient/index';
-import AuthorityClient from '../AuthorityClient/index';
 import GetTask from './callers/GetTask';
 import CreateTask from './senders/CreateTask';
 import addRecoveryMethods from '../addRecoveryMethods';
 import {
   ROLES,
   ADMIN_ROLE,
+  AUTHORITY_ROLES,
   WORKER_ROLE,
   EVALUATOR_ROLE,
   MANAGER_ROLE,
@@ -29,6 +29,7 @@ type Address = string;
 type TokenAddress = string;
 type HexString = string;
 type Role = $Keys<typeof ROLES>;
+type AuthorityRole = $Keys<typeof AUTHORITY_ROLES>;
 type IPFSHash = string;
 type TaskStatus = $Keys<typeof TASK_STATUSES>;
 
@@ -156,7 +157,6 @@ type ColonyUpgraded = ContractClient.Event<{
 export default class ColonyClient extends ContractClient {
   networkClient: ColonyNetworkClient;
   token: TokenClient;
-  authority: AuthorityClient;
 
   /*
     Indicate approval to exit recovery mode. Can only be called by user with recovery role.
@@ -212,7 +212,7 @@ export default class ColonyClient extends ContractClient {
   getRecoveryRolesCount: ColonyClient.Caller<
     {},
     {
-      count: number, // Number of users with the recovery role (excluding owner)
+      count: number, // Number of users with the recovery role (excluding founder)
     },
     ColonyClient,
   >;
@@ -245,6 +245,20 @@ export default class ColonyClient extends ContractClient {
     {},
     {
       address: Address, // The colony's Authority contract address
+    },
+    ColonyClient,
+  >;
+
+  /*
+    For the given user's address and role, return true if the user has that role.
+  */
+  hasUserRole: ColonyClient.Caller<
+    {
+      user: Address, // The user in question.
+      role: AuthorityRole, // That user's role (`FOUNDER` or `ADMIN`).
+    },
+    {
+      hasRole: boolean, // Whether the user has the given role
     },
     ColonyClient,
   >;
@@ -541,7 +555,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Set a new colony admin role. Can be called by an owner or admin role.
+    Set a new colony admin role. Can be called by a founder or admin role.
   */
   setAdminRole: ColonyClient.Sender<
     {
@@ -808,7 +822,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Adds a domain to the Colony along with the new domain's respective local skill (with id `parentSkillId`). This can only be called by owners of the colony. Adding new domains is currently retricted to one level only, i.e. `parentSkillId` has to be the root domain (id: 1).
+    Adds a domain to the Colony along with the new domain's respective local skill (with id `parentSkillId`). This can only be called by founders of the colony. Adding new domains is currently retricted to one level only, i.e. `parentSkillId` has to be the root domain (id: 1).
   */
   addDomain: ColonyClient.Sender<
     {
@@ -851,7 +865,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    The owner of a Colony may mint new tokens.
+    The founder of a Colony may mint new tokens.
   */
   mintTokens: ColonyClient.Sender<
     {
@@ -943,12 +957,10 @@ export default class ColonyClient extends ContractClient {
 
   constructor({
     adapter,
-    authority,
     networkClient,
     query,
     token,
   }: {
-    authority?: AuthorityClient,
     networkClient?: ColonyNetworkClient,
     token?: TokenClient,
   } & ContractClientConstructorArgs) {
@@ -962,7 +974,6 @@ export default class ColonyClient extends ContractClient {
 
     this.networkClient = networkClient;
     if (token) this.token = token;
-    if (authority) this.authority = authority;
 
     return this;
   }
@@ -977,15 +988,6 @@ export default class ColonyClient extends ContractClient {
         query: { contractAddress: tokenAddress },
       });
       await this.token.init();
-    }
-
-    const { address: authorityAddress } = await this.getAuthority.call();
-    if (!(this.authority instanceof AuthorityClient)) {
-      this.authority = new AuthorityClient({
-        adapter: this.adapter,
-        query: { contractAddress: authorityAddress },
-      });
-      await this.authority.init();
     }
 
     return this;
@@ -1038,6 +1040,10 @@ export default class ColonyClient extends ContractClient {
     );
 
     // Callers
+    this.addCaller('hasUserRole', {
+      input: [['user', 'address'], ['role', 'authorityRole']],
+      output: [['hasRole', 'boolean']],
+    });
     this.addCaller('getAuthority', {
       functionName: 'authority',
       output: [['address', 'address']],
@@ -1408,7 +1414,7 @@ export default class ColonyClient extends ContractClient {
         nonceInput: [['taskId', 'number']],
       });
     makeExecuteTaskRoleChange('setTaskManagerRole', async ({ user }) => {
-      const isAdmin = await this.authority.hasUserRole.call({
+      const isAdmin = await this.hasUserRole.call({
         user,
         role: ADMIN_ROLE,
       });

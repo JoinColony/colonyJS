@@ -26,10 +26,6 @@ const colonyClient = await networkClient.getColonyClient(colonyId); // This is a
 
 The Colony's [ColonyNetworkClient](/colonyjs/api-colonynetworkclient/) instance.
 
-### `authority`
-
-The Colony's [AuthorityClient](/colonyjs/api-authorityclient/) instance.
-
 ### `token`
 
 The Colony's [TokenClient](/colonyjs/api-tokenclient/) instance.

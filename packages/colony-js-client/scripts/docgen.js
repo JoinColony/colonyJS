@@ -27,11 +27,6 @@ const CONTRACT_CLIENTS = [
     templateFile: path.resolve(__dirname, '..', 'docs', '_API_TokenClient.template.md'),
     output: path.resolve(__dirname, '..', '..', '..', 'docs', '_API_TokenClient.md'),
   },
-  {
-    file: path.resolve(__dirname, '..', 'src', 'AuthorityClient', 'index.js'),
-    templateFile: path.resolve(__dirname, '..', 'docs', '_API_AuthorityClient.template.md'),
-    output: path.resolve(__dirname, '..', '..', '..', 'docs', '_API_AuthorityClient.md'),
-  },
 ];
 
 const TYPES = {

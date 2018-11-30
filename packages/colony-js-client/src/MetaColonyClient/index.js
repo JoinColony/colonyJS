@@ -11,7 +11,6 @@ import type { ContractClientConstructorArgs } from '@colony/colony-js-contract-c
 
 import ColonyNetworkClient from '../ColonyNetworkClient/index';
 import TokenClient from '../TokenClient/index';
-import AuthorityClient from '../AuthorityClient/index';
 
 type Address = string;
 
@@ -27,7 +26,6 @@ type Mint = ContractClient.Event<{
 export default class MetaColonyClient extends ContractClient {
   networkClient: ColonyNetworkClient;
   token: TokenClient;
-  authority: AuthorityClient;
 
   /*
     Gets the colony's Authority contract address
@@ -93,12 +91,10 @@ export default class MetaColonyClient extends ContractClient {
 
   constructor({
     adapter,
-    authority,
     networkClient,
     query,
     token,
   }: {
-    authority?: AuthorityClient,
     networkClient?: ColonyNetworkClient,
     token?: TokenClient,
   } & ContractClientConstructorArgs) {
@@ -112,7 +108,6 @@ export default class MetaColonyClient extends ContractClient {
 
     this.networkClient = networkClient;
     if (token) this.token = token;
-    if (authority) this.authority = authority;
 
     return this;
   }
@@ -128,17 +123,6 @@ export default class MetaColonyClient extends ContractClient {
       });
       await this.token.init();
     }
-
-    const { address: authorityAddress } = await this.getAuthority.call();
-    if (!(this.authority instanceof AuthorityClient)) {
-      this.authority = new AuthorityClient({
-        adapter: this.adapter,
-        query: { contractAddress: authorityAddress },
-      });
-      await this.authority.init();
-    }
-
-    return this;
   }
 
   initializeContractMethods() {
