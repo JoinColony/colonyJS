@@ -6,7 +6,7 @@ This project includes example scripts also found in the [Get Started](https://jo
 
 ## Prerequisites
 
-- Yarn
+- Yarn 1.12.3
 - Docker
 - Node 10.12.0
 

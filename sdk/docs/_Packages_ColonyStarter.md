@@ -10,7 +10,7 @@ The `colony-starter` package includes the global command script to install colon
 
 ## Prerequisites
 
-- Yarn
+- Yarn 1.12.3
 - Docker
 - Node 10.12.0
 
