@@ -26,10 +26,6 @@ const colonyClient = await networkClient.getColonyClient(colonyId); // This is a
 
 The Colony's [ColonyNetworkClient](/colonyjs/api-colonynetworkclient/) instance.
 
-### `authority`
-
-The Colony's [AuthorityClient](/colonyjs/api-authorityclient/) instance.
-
 ### `token`
 
 The Colony's [TokenClient](/colonyjs/api-tokenclient/) instance.
@@ -50,7 +46,7 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|count|number|Number of users with the recovery role (excluding owner)|
+|count|number|Number of users with the recovery role (excluding founder)|
 
 ### `isInRecoveryMode.call()`
 
@@ -77,6 +73,24 @@ A promise which resolves to an object containing the following properties:
 |Return value|Type|Description|
 |---|---|---|
 |address|Address|The colony's Authority contract address|
+
+### `hasUserRole.call({ user })`
+
+For the given user's address and role, return true if the user has that role.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|user|Address|The user in question.|
+
+**Returns**
+
+A promise which resolves to an object containing the following properties:
+
+|Return value|Type|Description|
+|---|---|---|
+|role|Authority Role|That user's role (`FOUNDER` or `ADMIN`).|
 
 ### `getVersion.call()`
 
@@ -608,7 +622,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 ### `setAdminRole.send({ user }, options)`
 
-Set a new colony admin role. Can be called by an owner or admin role.
+Set a new colony admin role. Can be called by an founder or admin role.
 
 **Arguments**
 
@@ -880,7 +894,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 ### `addDomain.send({ parentSkillId }, options)`
 
-Adds a domain to the Colony along with the new domain's respective local skill (with id `parentSkillId`). This can only be called by owners of the colony. Adding new domains is currently retricted to one level only, i.e. `parentSkillId` has to be the root domain (id: 1).
+Adds a domain to the Colony along with the new domain's respective local skill (with id `parentSkillId`). This can only be called by founders of the colony. Adding new domains is currently retricted to one level only, i.e. `parentSkillId` has to be the root domain (id: 1).
 
 **Arguments**
 
@@ -962,7 +976,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 ### `mintTokens.send({ amount }, options)`
 
-The owner of a Colony may mint new tokens.
+The founder of a Colony may mint new tokens.
 
 **Arguments**
 

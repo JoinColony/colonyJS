@@ -10,13 +10,11 @@ import type {
 import './paramTypes';
 
 import ColonyNetworkClient from './ColonyNetworkClient/index';
-import AuthorityClient from './AuthorityClient/index';
 import ColonyClient from './ColonyClient/index';
 import MetaColonyClient from './MetaColonyClient/index';
 import TokenClient from './TokenClient/index';
 
 export type {
-  AuthorityClient,
   ColonyClient,
   ColonyNetworkClient,
   ContractClientConstructorArgs,
@@ -33,7 +31,7 @@ export {
   EMPTY_ADDRESS,
   EVALUATOR_ROLE,
   MANAGER_ROLE,
-  OWNER_ROLE,
+  FOUNDER_ROLE,
   ROLES,
   WORKER_ROLE,
   ACTIVE_TASK_STATUS,

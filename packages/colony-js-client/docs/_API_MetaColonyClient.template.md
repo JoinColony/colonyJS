@@ -26,10 +26,6 @@ const metaColonyClient = await networkClient.getMetaColonyClient(colonyId); // T
 
 The Meta Colony's [ColonyNetworkClient](/colonyjs/api-colonynetworkclient/) instance.
 
-### `authority`
-
-The Meta Colony's [AuthorityClient](/colonyjs/api-authorityclient/) instance.
-
 ### `token`
 
 The Meta Colony's [TokenClient](/colonyjs/api-tokenclient/) instance.

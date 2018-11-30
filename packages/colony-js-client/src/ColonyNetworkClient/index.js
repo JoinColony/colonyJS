@@ -10,7 +10,6 @@ import ContractClient from '@colony/colony-js-contract-client';
 import ColonyClient from '../ColonyClient/index';
 import MetaColonyClient from '../MetaColonyClient/index';
 import TokenClient from '../TokenClient/index';
-import AuthorityClient from '../AuthorityClient/index';
 import CreateToken from './senders/CreateToken';
 import addRecoveryMethods from '../addRecoveryMethods';
 
@@ -462,10 +461,6 @@ export default class ColonyNetworkClient extends ContractClient {
 
   static get TokenClient(): * {
     return TokenClient;
-  }
-
-  static get AuthorityClient(): * {
-    return AuthorityClient;
   }
 
   /*

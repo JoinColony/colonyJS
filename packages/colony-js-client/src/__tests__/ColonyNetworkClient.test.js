@@ -6,7 +6,6 @@ import ColonyNetworkClient from '../ColonyNetworkClient';
 import ColonyClient from '../ColonyClient';
 import MetaColonyClient from '../MetaColonyClient';
 import TokenClient from '../TokenClient';
-import AuthorityClient from '../AuthorityClient';
 
 jest.mock('web3-utils', () => ({
   isHex: jest.fn().mockReturnValue(true),
@@ -14,7 +13,6 @@ jest.mock('web3-utils', () => ({
 }));
 
 jest.mock('../TokenClient');
-jest.mock('../AuthorityClient');
 
 describe('ColonyNetworkClient', () => {
   const sandbox = createSandbox();
@@ -201,22 +199,12 @@ describe('ColonyNetworkClient', () => {
     expect(colonyClient.getToken.call).toHaveBeenCalled();
     expect(colonyClient.getAuthority.call).toHaveBeenCalled();
     expect(colonyClient).toHaveProperty('token', expect.any(TokenClient));
-    expect(colonyClient).toHaveProperty(
-      'authority',
-      expect.any(AuthorityClient),
-    );
     expect(colonyClient.token.init).toHaveBeenCalled();
     expect(colonyClient.authority.init).toHaveBeenCalled();
     expect(TokenClient).toHaveBeenCalledWith(
       expect.objectContaining({
         adapter: colonyClient.adapter,
         query: { contractAddress: 'token address' },
-      }),
-    );
-    expect(AuthorityClient).toHaveBeenCalledWith(
-      expect.objectContaining({
-        adapter: colonyClient.adapter,
-        query: { contractAddress: 'authority address' },
       }),
     );
   });
@@ -295,22 +283,12 @@ describe('ColonyNetworkClient', () => {
     expect(metaColonyClient.getToken.call).toHaveBeenCalled();
     expect(metaColonyClient.getAuthority.call).toHaveBeenCalled();
     expect(metaColonyClient).toHaveProperty('token', expect.any(TokenClient));
-    expect(metaColonyClient).toHaveProperty(
-      'authority',
-      expect.any(AuthorityClient),
-    );
     expect(metaColonyClient.token.init).toHaveBeenCalled();
     expect(metaColonyClient.authority.init).toHaveBeenCalled();
     expect(TokenClient).toHaveBeenCalledWith(
       expect.objectContaining({
         adapter: metaColonyClient.adapter,
         query: { contractAddress: 'token address' },
-      }),
-    );
-    expect(AuthorityClient).toHaveBeenCalledWith(
-      expect.objectContaining({
-        adapter: metaColonyClient.adapter,
-        query: { contractAddress: 'authority address' },
       }),
     );
   });

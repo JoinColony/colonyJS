@@ -33,6 +33,9 @@
   * `removeRecoveryRole`
   * `setRecoveryRole`
   * `setStorageSlotRecovery`
+* Add `hasUserRole` caller to `ColonyClient`
+* Remove `AuthorityClient` as it is no longer needed.
+* Rename `OWNER` role to `FOUNDER`.
 
 **Bug fixes**
 
