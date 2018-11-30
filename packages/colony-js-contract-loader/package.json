@@ -1,6 +1,6 @@
 {
     "name": "@colony/colony-js-contract-loader",
-    "version": "1.6.2",
+    "version": "1.8.0",
     "description": "Contract loader interfaces",
     "main": "lib/index.js",
     "files": [
