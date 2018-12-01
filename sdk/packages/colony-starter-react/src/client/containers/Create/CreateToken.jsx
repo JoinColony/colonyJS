@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { createToken, createTokenSuccess } from '../../actions/tokenActions'
+import * as tokenActions from '../../actions/tokenActions'
 import CreateToken from '../../components/Create/CreateToken'
 
 class CreateTokenContainer extends Component {
@@ -19,7 +19,7 @@ class CreateTokenContainer extends Component {
   }
 
   componentWillUnmount() {
-    this.props.resetSuccess()
+    this.props.resetActions()
   }
 
   handleChange(event) {
@@ -58,10 +58,11 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   createToken(networkClient, name, symbol) {
-    dispatch(createToken(networkClient, name, symbol))
+    dispatch(tokenActions.createToken(networkClient, name, symbol))
   },
-  resetSuccess() {
-    dispatch(createTokenSuccess(false))
+  resetActions() {
+    dispatch(tokenActions.createTokenError(null))
+    dispatch(tokenActions.createTokenSuccess(false))
   },
 })
 

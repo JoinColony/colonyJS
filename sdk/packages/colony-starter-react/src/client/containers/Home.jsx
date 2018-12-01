@@ -9,11 +9,7 @@ class HomeContainer extends Component {
   }
 
   render() {
-    return (
-      <Home
-        networkClient={this.props.networkClient}
-      />
-    )
+    return <Home networkClient={this.props.networkClient} />
   }
 
 }

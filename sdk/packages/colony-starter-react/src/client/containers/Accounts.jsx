@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getAccounts, getAccountsSuccess } from '../actions/accountActions'
+import * as accountActions from '../actions/accountActions'
 import Accounts from '../components/Accounts'
 
 class AccountsContainer extends Component {
@@ -15,7 +15,7 @@ class AccountsContainer extends Component {
   }
 
   componentWillUnmount() {
-    this.props.resetSuccess()
+    this.props.resetActions()
   }
 
   selectAccount(accountIndex) {
@@ -45,10 +45,11 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getAccounts() {
-    dispatch(getAccounts())
+    dispatch(accountActions.getAccounts())
   },
-  resetSuccess() {
-    dispatch(getAccountsSuccess(false))
+  resetActions() {
+    dispatch(accountActions.getAccountsError(null))
+    dispatch(accountActions.getAccountsSuccess(false))
   },
 })
 

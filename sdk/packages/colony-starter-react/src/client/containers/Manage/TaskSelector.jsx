@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getTasks, getTasksSuccess } from '../../actions/tasksActions'
+import * as tasksActions from '../../actions/tasksActions'
 import TaskSelector from '../../components/Manage/TaskSelector'
 
 class TaskSelectorContainer extends Component {
@@ -16,7 +16,7 @@ class TaskSelectorContainer extends Component {
   }
 
   componentWillUnmount() {
-    this.props.resetSuccess()
+    this.props.resetActions()
   }
 
   render() {
@@ -44,10 +44,11 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getTasks(colonyClient) {
-    dispatch(getTasks(colonyClient))
+    dispatch(tasksActions.getTasks(colonyClient))
   },
-  resetSuccess() {
-    dispatch(getTasksSuccess(false))
+  resetActions() {
+    dispatch(tasksActions.getTasksError(null))
+    dispatch(tasksActions.getTasksSuccess(false))
   },
 })
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { revealRating, revealRatingSuccess } from '../../../actions/tasksActions'
+import * as tasksActions from '../../../actions/tasksActions'
 import RevealRating from '../../../components/Manage/Tasks/RevealRating'
 
 class RevealRatingContainer extends Component {
@@ -25,7 +25,7 @@ class RevealRatingContainer extends Component {
   }
 
   componentWillUnmount() {
-    this.props.resetSuccess()
+    this.props.resetActions()
   }
 
   handleChange(event) {
@@ -68,10 +68,11 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   revealRating(colonyClient, taskId, role, rating) {
-    dispatch(revealRating(colonyClient, taskId, role, rating))
+    dispatch(tasksActions.revealRating(colonyClient, taskId, role, rating))
   },
-  resetSuccess() {
-    dispatch(revealRatingSuccess(false))
+  resetActions() {
+    dispatch(tasksActions.revealRatingError(null))
+    dispatch(tasksActions.revealRatingSuccess(false))
   },
 })
 

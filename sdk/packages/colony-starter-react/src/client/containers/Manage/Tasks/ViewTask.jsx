@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getTask, getTaskSuccess } from '../../../actions/tasksActions'
+import * as tasksActions from '../../../actions/tasksActions'
 import ViewTask from '../../../components/Manage/Tasks/ViewTask'
 
 class ViewTaskContainer extends Component {
@@ -16,7 +16,7 @@ class ViewTaskContainer extends Component {
   }
 
   componentWillUnmount() {
-    this.props.resetSuccess()
+    this.props.resetActions()
   }
 
   render() {
@@ -43,10 +43,11 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getTask(colonyClient, task) {
-    dispatch(getTask(colonyClient, task))
+    dispatch(tasksActions.getTask(colonyClient, task))
   },
-  resetSuccess() {
-    dispatch(getTaskSuccess(false))
+  resetActions() {
+    dispatch(tasksActions.getTaskError(null))
+    dispatch(tasksActions.getTaskSuccess(false))
   },
 })
 

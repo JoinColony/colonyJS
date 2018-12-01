@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fundDomain, fundDomainSuccess } from '../../../actions/domainsActions'
+import * as domainsActions from '../../../actions/domainsActions'
 import FundDomain from '../../../components/Manage/Domains/FundDomain'
 
 class FundDomainContainer extends Component {
@@ -19,7 +19,7 @@ class FundDomainContainer extends Component {
   }
 
   componentWillUnmount() {
-    this.props.resetSuccess()
+    this.props.resetActions()
   }
 
   handleChange(event) {
@@ -60,10 +60,11 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fundDomain(colonyClient, domainId, amount) {
-    dispatch(fundDomain(colonyClient, domainId, amount))
+    dispatch(domainsActions.fundDomain(colonyClient, domainId, amount))
   },
-  resetSuccess() {
-    dispatch(fundDomainSuccess(false))
+  resetActions() {
+    dispatch(domainsActions.fundDomainError(null))
+    dispatch(domainsActions.fundDomainSuccess(false))
   },
 })
 

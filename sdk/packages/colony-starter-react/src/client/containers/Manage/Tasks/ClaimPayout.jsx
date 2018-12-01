@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { claimPayout, claimPayoutSuccess } from '../../../actions/tasksActions'
+import * as tasksActions from '../../../actions/tasksActions'
 import ClaimPayout from '../../../components/Manage/Tasks/ClaimPayout'
 
 class ClaimPayoutContainer extends Component {
@@ -19,7 +19,7 @@ class ClaimPayoutContainer extends Component {
   }
 
   componentWillUnmount() {
-    this.props.resetSuccess()
+    this.props.resetActions()
   }
 
   handleChange(event) {
@@ -60,10 +60,11 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   claimPayout(colonyClient, taskId, role) {
-    dispatch(claimPayout(colonyClient, taskId, role))
+    dispatch(tasksActions.claimPayout(colonyClient, taskId, role))
   },
-  resetSuccess() {
-    dispatch(claimPayoutSuccess(false))
+  resetActions() {
+    dispatch(tasksActions.claimPayoutError(null))
+    dispatch(tasksActions.claimPayoutSuccess(false))
   },
 })
 

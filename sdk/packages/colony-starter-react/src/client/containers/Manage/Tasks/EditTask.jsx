@@ -49,7 +49,7 @@ class EditTaskContainer extends Component {
   }
 
   componentWillUnmount() {
-    this.props.resetSuccess()
+    this.props.resetActions()
   }
 
   handleChange(event) {
@@ -214,9 +214,11 @@ const mapDispatchToProps = dispatch => ({
   updateTask(colonyClient, task) {
     dispatch(tasksActions.updateTask(colonyClient, task))
   },
-  resetSuccess() {
+  resetActions() {
+    dispatch(tasksActions.getTaskError(null))
     dispatch(tasksActions.getTaskSuccess(false))
-    dispatch(tasksActions.updateTask(false))
+    dispatch(tasksActions.updateTaskError(null))
+    dispatch(tasksActions.updateTaskSuccess(false))
   },
 })
 

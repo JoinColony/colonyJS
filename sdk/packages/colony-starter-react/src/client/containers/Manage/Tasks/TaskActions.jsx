@@ -56,7 +56,7 @@ class TaskActionsContainer extends Component {
   }
 
   componentWillUnmount() {
-    this.props.resetSuccess()
+    this.props.resetActions()
   }
 
   render() {
@@ -116,9 +116,12 @@ const mapDispatchToProps = dispatch => ({
   signTask(colonyClient, taskId) {
     dispatch(tasksActions.signTask(colonyClient, taskId))
   },
-  resetSuccess() {
+  resetActions() {
+    dispatch(tasksActions.cancelTaskError(null))
     dispatch(tasksActions.cancelTaskSuccess(false))
+    dispatch(tasksActions.finalizeTaskError(null))
     dispatch(tasksActions.finalizeTaskSuccess(false))
+    dispatch(tasksActions.signTaskError(null))
     dispatch(tasksActions.signTaskSuccess(false))
   },
 })

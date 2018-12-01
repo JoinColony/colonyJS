@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getPots, getPotsSuccess } from '../../../actions/fundingActions'
+import * as fundingActions from '../../../actions/fundingActions'
 import ViewPots from '../../../components/Manage/Funding/ViewPots'
 
 class ViewPotsContainer extends Component {
@@ -22,7 +22,7 @@ class ViewPotsContainer extends Component {
   }
 
   componentWillUnmount() {
-    this.props.resetSuccess()
+    this.props.resetActions()
   }
 
   render() {
@@ -48,10 +48,11 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getPots(colonyClient) {
-    dispatch(getPots(colonyClient))
+    dispatch(fundingActions.getPots(colonyClient))
   },
-  resetSuccess() {
-    dispatch(getPotsSuccess(false))
+  resetActions() {
+    dispatch(fundingActions.getPotsError(null))
+    dispatch(fundingActions.getPotsSuccess(false))
   },
 })
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { removeAdmin, removeAdminSuccess } from '../../../actions/adminsActions'
+import * as adminsActions from '../../../actions/adminsActions'
 import RemoveAdmin from '../../../components/Manage/Admins/RemoveAdmin'
 
 class RemoveAdminContainer extends Component {
@@ -19,7 +19,7 @@ class RemoveAdminContainer extends Component {
   }
 
   componentWillUnmount() {
-    this.props.resetSuccess()
+    this.props.resetActions()
   }
 
   handleChange(event) {
@@ -56,10 +56,11 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   removeAdmin(colonyClient, userAddress) {
-    dispatch(removeAdmin(colonyClient, userAddress))
+    dispatch(adminsActions.removeAdmin(colonyClient, userAddress))
   },
-  resetSuccess() {
-    dispatch(removeAdminSuccess(false))
+  resetActions() {
+    dispatch(adminsActions.removeAdminError(null))
+    dispatch(adminsActions.removeAdminSuccess(false))
   },
 })
 

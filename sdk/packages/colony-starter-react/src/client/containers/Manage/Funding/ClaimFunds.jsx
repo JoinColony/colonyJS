@@ -31,7 +31,7 @@ class ClaimFundsContainer extends Component {
   }
 
   componentWillUnmount() {
-    this.props.resetSuccess()
+    this.props.resetActions()
   }
 
   handleClick() {
@@ -73,8 +73,10 @@ const mapDispatchToProps = dispatch => ({
   getClaimableFunds(colonyClient) {
     dispatch(fundingActions.getClaimableFunds(colonyClient))
   },
-  resetSuccess() {
+  resetActions() {
+    dispatch(fundingActions.claimFundsError(null))
     dispatch(fundingActions.claimFundsSuccess(false))
+    dispatch(fundingActions.getClaimableFundsError(null))
     dispatch(fundingActions.getClaimableFundsSuccess(false))
   },
 })

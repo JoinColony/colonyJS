@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { createTask, createTaskSuccess } from '../../../actions/tasksActions'
+import * as tasksActions from '../../../actions/tasksActions'
 import CreateTask from '../../../components/Manage/Tasks/CreateTask'
 
 class CreateTaskContainer extends Component {
@@ -40,7 +40,7 @@ class CreateTaskContainer extends Component {
   }
 
   componentWillUnmount() {
-    this.props.resetSuccess()
+    this.props.resetActions()
   }
 
   handleChange(event) {
@@ -122,10 +122,11 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   createTask(colonyClient, task) {
-    dispatch(createTask(colonyClient, task))
+    dispatch(tasksActions.createTask(colonyClient, task))
   },
-  resetSuccess() {
-    dispatch(createTaskSuccess(false))
+  resetActions() {
+    dispatch(tasksActions.createTaskError(null))
+    dispatch(tasksActions.createTaskSuccess(false))
   },
 })
 

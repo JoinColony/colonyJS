@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { submitRating, submitRatingSuccess } from '../../../actions/tasksActions'
+import * as tasksActions from '../../../actions/tasksActions'
 import SubmitRating from '../../../components/Manage/Tasks/SubmitRating'
 
 class SubmitRatingContainer extends Component {
@@ -25,7 +25,7 @@ class SubmitRatingContainer extends Component {
   }
 
   componentWillUnmount() {
-    this.props.resetSuccess()
+    this.props.resetActions()
   }
 
   handleChange(event) {
@@ -68,10 +68,11 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   submitRating(colonyClient, taskId, role, rating) {
-    dispatch(submitRating(colonyClient, taskId, role, rating))
+    dispatch(tasksActions.submitRating(colonyClient, taskId, role, rating))
   },
-  resetSuccess() {
-    dispatch(submitRatingSuccess(false))
+  resetActions() {
+    dispatch(tasksActions.submitRatingError(null))
+    dispatch(tasksActions.submitRatingSuccess(false))
   },
 })
 

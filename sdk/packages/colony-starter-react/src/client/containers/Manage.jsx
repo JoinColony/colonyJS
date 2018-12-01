@@ -16,11 +16,7 @@ class ManageContainer extends Component {
   }
 
   render() {
-    return (
-      <Manage
-        colonyClient={this.props.colonyClient}
-      />
-    )
+    return <Manage colonyClient={this.props.colonyClient} />
   }
 
 }
