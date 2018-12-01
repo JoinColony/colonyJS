@@ -13,13 +13,9 @@ const TaskActions = ({
   submitRating,
   submitWork,
   success,
-  viewTask,
 }) => (
   <div className={styles.container}>
     <div className={styles.buttons}>
-      <button onClick={viewTask}>
-        {'View Task'}
-      </button>
       <button onClick={editTask}>
         {'Edit Task'}
       </button>

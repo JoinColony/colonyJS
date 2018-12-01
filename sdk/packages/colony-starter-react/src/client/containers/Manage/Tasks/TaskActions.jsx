@@ -16,7 +16,6 @@ class TaskActionsContainer extends Component {
     this.signTask = this.signTask.bind(this)
     this.submitRating = this.submitRating.bind(this)
     this.submitWork = this.submitWork.bind(this)
-    this.viewTask = this.viewTask.bind(this)
   }
 
   cancelTask() {
@@ -51,10 +50,6 @@ class TaskActionsContainer extends Component {
     this.props.history.push(`/manage/tasks/submit/${this.props.task.id}`)
   }
 
-  viewTask() {
-    this.props.history.push(`/manage/tasks/${this.props.task.id}`)
-  }
-
   componentWillUnmount() {
     this.props.resetActions()
   }
@@ -86,7 +81,6 @@ class TaskActionsContainer extends Component {
           this.props.signTaskSuccess
         }
         task={this.props.task}
-        viewTask={this.viewTask}
       />
     )
   }

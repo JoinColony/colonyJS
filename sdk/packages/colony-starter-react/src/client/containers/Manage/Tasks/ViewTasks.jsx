@@ -7,6 +7,7 @@ class ViewTasksContainer extends Component {
 
   constructor(props) {
     super(props)
+    this.viewTask = this.viewTask.bind(this)
   }
 
   componentDidMount() {
@@ -19,6 +20,10 @@ class ViewTasksContainer extends Component {
     this.props.resetActions()
   }
 
+  viewTask(taskId) {
+    this.props.history.push(`/manage/tasks/${taskId}`)
+  }
+
   render() {
     return (
       <ViewTasks
@@ -26,6 +31,7 @@ class ViewTasksContainer extends Component {
         getTasksLoading={this.props.getTasksLoading}
         getTasksSuccess={this.props.getTasksSuccess}
         tasks={this.props.tasks}
+        viewTask={this.viewTask}
       />
     )
   }

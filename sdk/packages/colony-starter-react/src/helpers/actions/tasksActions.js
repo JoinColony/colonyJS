@@ -105,7 +105,7 @@ export const createTask = async (colonyClient, task) => {
     const skillId = Number(task.skillId)
 
     // set task skill
-    await setTaskSkill(colonyClient, taskId, skillId)
+    await setTaskSkill(colonyClient, tx.eventData.taskId, skillId)
 
   }
 
@@ -113,7 +113,7 @@ export const createTask = async (colonyClient, task) => {
   if (task.payouts.evaluator) {
 
     // set task evaluator payout
-    await setTaskEvaluatorPayout(colonyClient, taskId, task.payouts.evaluator)
+    await setTaskEvaluatorPayout(colonyClient, tx.eventData.taskId, task.payouts.evaluator)
 
   }
 
@@ -121,7 +121,7 @@ export const createTask = async (colonyClient, task) => {
   if (task.payouts.manager) {
 
     // set task manager payout
-    await setTaskManagerPayout(colonyClient, taskId, task.payouts.manager)
+    await setTaskManagerPayout(colonyClient, tx.eventData.taskId, task.payouts.manager)
 
   }
 
@@ -129,7 +129,7 @@ export const createTask = async (colonyClient, task) => {
   if (task.payouts.worker) {
 
     // set task worker payout
-    await setTaskWorkerPayout(colonyClient, taskId, task.payouts.worker)
+    await setTaskWorkerPayout(colonyClient, tx.eventData.taskId, task.payouts.worker)
 
   }
 
@@ -137,7 +137,7 @@ export const createTask = async (colonyClient, task) => {
   if (task.roles.evaluator) {
 
     // set task role
-    await setTaskRole(colonyClient, taskId, 'EVALUATOR', task.roles.evaluator)
+    await setTaskRole(colonyClient, tx.eventData.taskId, 'EVALUATOR', task.roles.evaluator)
 
   }
 
@@ -145,7 +145,7 @@ export const createTask = async (colonyClient, task) => {
   if (task.roles.manager) {
 
     // set task role
-    await setTaskRole(colonyClient, taskId, 'MANAGER', task.roles.manager)
+    await setTaskRole(colonyClient, tx.eventData.taskId, 'MANAGER', task.roles.manager)
 
   }
 
@@ -153,12 +153,12 @@ export const createTask = async (colonyClient, task) => {
   if (task.roles.worker) {
 
     // set task role
-    await setTaskRole(colonyClient, taskId, 'WORKER', task.roles.worker)
+    await setTaskRole(colonyClient, tx.eventData.taskId, 'WORKER', task.roles.worker)
 
   }
 
   // get new task
-  const newTask = await getTask(colonyClient, taskId)
+  const newTask = await getTask(colonyClient, tx.eventData.taskId)
 
   // get new task extended
   const newTaskExtended = await getTaskExtended(colonyClient, newTask)
