@@ -2,7 +2,7 @@ import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 import Domains from './Manage/Domains'
 import Funding from './Manage/Funding'
-import Login from '../containers/Manage/Login'
+import GetColony from '../containers/Manage/GetColony'
 import Menu from '../containers/Manage/Menu'
 import Home from './Manage/Home'
 import Tasks from './Manage/Tasks'
@@ -13,7 +13,7 @@ import styles from './Manage.scss'
 const Manage = ({ colonyClient }) => (
   <div className={styles.container}>
     {!colonyClient ?
-      <Login />
+      <GetColony />
     :
       <div>
         <Menu />

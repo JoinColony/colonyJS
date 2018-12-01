@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { getColonyClient } from '../../actions/colonyActions'
-import Login from '../../components/Manage/Login'
+import GetColony from '../../components/Manage/GetColony'
 
-class LoginContainer extends Component {
+class GetColonyContainer extends Component {
 
   constructor(props) {
     super(props)
@@ -31,7 +31,7 @@ class LoginContainer extends Component {
 
   render() {
     return (
-      <Login
+      <GetColony
         colonyAddress={this.state.colonyAddress}
         getColonyClientError={this.props.getColonyClientError}
         getColonyClientLoading={this.props.getColonyClientLoading}
@@ -57,4 +57,4 @@ const mapDispatchToProps = dispatch => ({
   },
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(LoginContainer))
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(GetColonyContainer))

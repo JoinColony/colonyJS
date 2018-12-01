@@ -1,7 +1,7 @@
 import React from 'react'
-import styles from './Login.scss'
+import styles from './GetColony.scss'
 
-const Login = ({
+const GetColony = ({
   colonyAddress,
   getColonyClientError,
   getColonyClientLoading,
@@ -45,4 +45,4 @@ const Login = ({
   </div>
 )
 
-export default Login
+export default GetColony
