@@ -429,7 +429,7 @@ export const setTaskDueDate = async (colonyClient, taskId, dueDate) => {
   const setTaskDueDateOperation = await colonyClient.setTaskDueDate.startOperation({ taskId, dueDate })
 
   // check if required signees includes current user address
-  if (setTaskDueDateOperation.requiredSignees.includes(colonyClient.adapter.wallet.address)) {
+  if (setTaskDueDateOperation.requiredSignees.includes(colonyClient.adapter.wallet.address.toLowerCase())) {
 
     // sign task due date operation
     await setTaskDueDateOperation.sign()
@@ -511,8 +511,14 @@ export const setTaskRole = async (colonyClient, taskId, role, user) => {
 
 export const setTaskSkill = async (colonyClient, taskId, skillId) => {
 
-  // set task role
-  await colonyClient.setTaskSkill.send({ taskId, skillId })
+  // set task skill
+  const setTaskSkillOperation = await colonyClient.setTaskSkill.startOperation({ taskId, skillId })
+
+  // serialize operation into JSON format
+  const setTaskSkillOperationJSON = setTaskSkillOperation.toJSON()
+
+  // sign task skill
+  await signTaskSkill(colonyClient, setTaskSkillOperationJSON)
 
   // return id
   return taskId
@@ -551,6 +557,9 @@ export const signTask = async (colonyClient, taskId) => {
   // get JSON formatted task brief operation from local storage
   const setTaskBriefOperationJSON = localStorage.getItem('setTaskBriefOperationJSON')
 
+  // get JSON formatted task skill operation from local storage
+  const setTaskSkillOperationJSON = localStorage.getItem('setTaskSkillOperationJSON')
+
   // get JSON formatted task due date operation from local storage
   const setTaskDueDateOperationJSON = localStorage.getItem('setTaskDueDateOperationJSON')
 
@@ -562,6 +571,9 @@ export const signTask = async (colonyClient, taskId) => {
 
   // set setTaskBriefOperation
   const setTaskBriefOperation = JSON.parse(setTaskBriefOperationJSON)
+
+  // set setTaskSkillOperation
+  const setTaskSkillOperation = JSON.parse(setTaskSkillOperationJSON)
 
   // set setTaskDueDateOperation
   const setTaskDueDateOperation = JSON.parse(setTaskDueDateOperationJSON)
@@ -581,6 +593,18 @@ export const signTask = async (colonyClient, taskId) => {
 
     // sign task brief
     await signTaskBrief(colonyClient, setTaskBriefOperationJSON)
+
+  }
+
+  // check if task skill operation exists for contract and task
+  if (
+    setTaskSkillOperationJSON &&
+    setTaskSkillOperation.payload.sourceAddress === address &&
+    setTaskSkillOperation.payload.inputValues.taskId === taskId
+  ) {
+
+    // sign task skill
+    await signTaskSkill(colonyClient, setTaskSkillOperationJSON)
 
   }
 
@@ -639,7 +663,7 @@ export const signTaskBrief = async (colonyClient, operationJSON) => {
   const setTaskBriefOperation = await colonyClient.setTaskBrief.restoreOperation(operationJSON)
 
   // check if required signees includes current user address
-  if (setTaskBriefOperation.requiredSignees.includes(colonyClient.adapter.wallet.address)) {
+  if (setTaskBriefOperation.requiredSignees.includes(colonyClient.adapter.wallet.address.toLowerCase())) {
 
     // sign set task brief operation
     await setTaskBriefOperation.sign()
@@ -670,6 +694,45 @@ export const signTaskBrief = async (colonyClient, operationJSON) => {
 
 }
 
+// signTaskSkill
+
+export const signTaskSkill = async (colonyClient, operationJSON) => {
+
+  // restore operation
+  const setTaskSkillOperation = await colonyClient.setTaskSkill.restoreOperation(operationJSON)
+
+  // check if required signees includes current user address
+  if (setTaskSkillOperation.requiredSignees.includes(colonyClient.adapter.wallet.address.toLowerCase())) {
+
+    // sign set task skill operation
+    await setTaskSkillOperation.sign()
+
+  }
+
+  // check for missing signees
+  if (setTaskSkillOperation.missingSignees.length === 0) {
+
+    // send set task skill operation
+    await setTaskSkillOperation.send()
+
+    // remove local storage item
+    localStorage.removeItem('setTaskSkillOperationJSON')
+
+  } else {
+
+    // serialize operation into JSON format
+    const setTaskSkillOperationJSON = setTaskSkillOperation.toJSON()
+
+    // save operation to local storage
+    localStorage.setItem('setTaskSkillOperationJSON', setTaskSkillOperationJSON)
+
+  }
+
+  // return operation
+  return setTaskSkillOperation
+
+}
+
 // signTaskDueDate
 
 export const signTaskDueDate = async (colonyClient, operationJSON) => {
@@ -678,7 +741,7 @@ export const signTaskDueDate = async (colonyClient, operationJSON) => {
   const setTaskDueDateOperation = await colonyClient.setTaskDueDate.restoreOperation(operationJSON)
 
   // check if required signees includes current user address
-  if (setTaskDueDateOperation.requiredSignees.includes(colonyClient.adapter.wallet.address)) {
+  if (setTaskDueDateOperation.requiredSignees.includes(colonyClient.adapter.wallet.address.toLowerCase())) {
 
     // sign set task due date operation
     await setTaskDueDateOperation.sign()
@@ -717,7 +780,7 @@ export const signTaskEvaluatorPayout = async (colonyClient, operationJSON) => {
   const setTaskEvaluatorPayoutOperation = await colonyClient.setTaskEvaluatorPayout.restoreOperation(operationJSON)
 
   // check if required signees includes current user address
-  if (setTaskEvaluatorPayoutOperation.requiredSignees.includes(colonyClient.adapter.wallet.address)) {
+  if (setTaskEvaluatorPayoutOperation.requiredSignees.includes(colonyClient.adapter.wallet.address.toLowerCase())) {
 
     // sign set task evaluator payout operation
     await setTaskEvaluatorPayoutOperation.sign()
@@ -756,7 +819,7 @@ export const signTaskWorkerPayout = async (colonyClient, operationJSON) => {
   const setTaskWorkerPayoutOperation = await colonyClient.setTaskWorkerPayout.restoreOperation(operationJSON)
 
   // check if required signees includes current user address
-  if (setTaskWorkerPayoutOperation.requiredSignees.includes(colonyClient.adapter.wallet.address)) {
+  if (setTaskWorkerPayoutOperation.requiredSignees.includes(colonyClient.adapter.wallet.address.toLowerCase())) {
 
     // sign set task worker payout operation
     await setTaskWorkerPayoutOperation.sign()
