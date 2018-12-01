@@ -42,7 +42,7 @@ const colonyReducer = (state = initialState, action) => {
       return {
         ...state,
         createColonyLoading: false,
-        createColonySuccess: true,
+        createColonySuccess: action.payload,
       }
 
     // getColonyClient
@@ -66,7 +66,7 @@ const colonyReducer = (state = initialState, action) => {
       return {
         ...state,
         getColonyClientLoading: false,
-        getColonyClientSuccess: true,
+        getColonyClientSuccess: action.payload,
       }
 
     // setStateColonyClient

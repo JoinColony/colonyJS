@@ -9,21 +9,21 @@ export const claimFunds = (colonyClient) => ({
   payload: fundingActions.claimFunds(colonyClient)
     .then(pots => {
       store.dispatch(setStatePots(pots))
-      store.dispatch(claimFundsSuccess())
+      store.dispatch(claimFundsSuccess(true))
     })
     .catch(error => {
       store.dispatch(claimFundsError(error.message))
     }),
 })
 
-export const claimFundsError = (message) => ({
+export const claimFundsError = (error) => ({
   type: actions.CLAIM_FUNDS_ERROR,
-  payload: message,
+  payload: error,
 })
 
-export const claimFundsSuccess = (message) => ({
+export const claimFundsSuccess = (success) => ({
   type: actions.CLAIM_FUNDS_SUCCESS,
-  payload: message,
+  payload: success,
 })
 
 // getClaimableFunds
@@ -33,21 +33,21 @@ export const getClaimableFunds = (colonyClient) => ({
   payload: fundingActions.getClaimableFunds(colonyClient)
     .then(claimableFunds => {
       store.dispatch(setStateClaimableFunds(claimableFunds))
-      store.dispatch(getClaimableFundsSuccess())
+      store.dispatch(getClaimableFundsSuccess(true))
     })
     .catch(error => {
       store.dispatch(getClaimableFundsError(error.message))
     }),
 })
 
-export const getClaimableFundsError = (message) => ({
+export const getClaimableFundsError = (error) => ({
   type: actions.GET_CLAIMABLE_FUNDS_ERROR,
-  payload: message,
+  payload: error,
 })
 
-export const getClaimableFundsSuccess = (message) => ({
+export const getClaimableFundsSuccess = (success) => ({
   type: actions.GET_CLAIMABLE_FUNDS_SUCCESS,
-  payload: message,
+  payload: success,
 })
 
 // getPots
@@ -57,21 +57,21 @@ export const getPots = (colonyClient) => ({
   payload: fundingActions.getPots(colonyClient)
     .then(pots => {
       store.dispatch(setStatePots(pots))
-      store.dispatch(getPotsSuccess())
+      store.dispatch(getPotsSuccess(true))
     })
     .catch(error => {
       store.dispatch(getPotsError(error.message))
     }),
 })
 
-export const getPotsError = (message) => ({
+export const getPotsError = (error) => ({
   type: actions.GET_POTS_ERROR,
-  payload: message,
+  payload: error,
 })
 
-export const getPotsSuccess = (message) => ({
+export const getPotsSuccess = (success) => ({
   type: actions.GET_POTS_SUCCESS,
-  payload: message,
+  payload: success,
 })
 
 // moveFunds
@@ -81,21 +81,21 @@ export const moveFunds = (colonyClient, fromPot, toPot, amount) => ({
   payload: fundingActions.moveFunds(colonyClient, fromPot, toPot, amount)
     .then(pots => {
       store.dispatch(setStatePots(pots))
-      store.dispatch(moveFundsSuccess())
+      store.dispatch(moveFundsSuccess(true))
     })
     .catch(error => {
       store.dispatch(moveFundsError(error.message))
     }),
 })
 
-export const moveFundsError = (message) => ({
+export const moveFundsError = (error) => ({
   type: actions.MOVE_FUNDS_ERROR,
-  payload: message,
+  payload: error,
 })
 
-export const moveFundsSuccess = (message) => ({
+export const moveFundsSuccess = (success) => ({
   type: actions.MOVE_FUNDS_SUCCESS,
-  payload: message,
+  payload: success,
 })
 
 // setStateClaimableFunds

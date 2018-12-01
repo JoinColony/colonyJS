@@ -95,7 +95,7 @@ const tasksReducer = (state = initialState, action) => {
       return {
         ...state,
         cancelTaskLoading: false,
-        cancelTaskSuccess: true,
+        cancelTaskSuccess: action.payload,
       }
 
     // claimPayout
@@ -119,7 +119,7 @@ const tasksReducer = (state = initialState, action) => {
       return {
         ...state,
         claimPayoutLoading: false,
-        claimPayoutSuccess: true,
+        claimPayoutSuccess: action.payload,
       }
 
     // createTask
@@ -143,7 +143,7 @@ const tasksReducer = (state = initialState, action) => {
       return {
         ...state,
         createTaskLoading: false,
-        createTaskSuccess: true,
+        createTaskSuccess: action.payload,
       }
 
     // finalizeTask
@@ -167,7 +167,7 @@ const tasksReducer = (state = initialState, action) => {
       return {
         ...state,
         finalizeTaskLoading: false,
-        finalizeTaskSuccess: true,
+        finalizeTaskSuccess: action.payload,
       }
 
     // fundTask
@@ -191,7 +191,7 @@ const tasksReducer = (state = initialState, action) => {
       return {
         ...state,
         fundTaskLoading: false,
-        fundTaskSuccess: true,
+        fundTaskSuccess: action.payload,
       }
 
     // getTask
@@ -215,7 +215,7 @@ const tasksReducer = (state = initialState, action) => {
       return {
         ...state,
         getTaskLoading: false,
-        getTaskSuccess: true,
+        getTaskSuccess: action.payload,
       }
 
     // getTasks
@@ -239,7 +239,7 @@ const tasksReducer = (state = initialState, action) => {
       return {
         ...state,
         getTasksLoading: false,
-        getTasksSuccess: true,
+        getTasksSuccess: action.payload,
       }
 
     // revealRating
@@ -263,7 +263,7 @@ const tasksReducer = (state = initialState, action) => {
       return {
         ...state,
         revealRatingLoading: false,
-        revealRatingSuccess: true,
+        revealRatingSuccess: action.payload,
       }
 
     // setStateTask
@@ -316,7 +316,7 @@ const tasksReducer = (state = initialState, action) => {
       return {
         ...state,
         signTaskLoading: false,
-        signTaskSuccess: true,
+        signTaskSuccess: action.payload,
       }
 
     // submitRating
@@ -340,7 +340,7 @@ const tasksReducer = (state = initialState, action) => {
       return {
         ...state,
         submitRatingLoading: false,
-        submitRatingSuccess: true,
+        submitRatingSuccess: action.payload,
       }
 
     // submitWork
@@ -364,7 +364,7 @@ const tasksReducer = (state = initialState, action) => {
       return {
         ...state,
         submitWorkLoading: false,
-        submitWorkSuccess: true,
+        submitWorkSuccess: action.payload,
       }
 
     // updateTask
@@ -388,7 +388,7 @@ const tasksReducer = (state = initialState, action) => {
       return {
         ...state,
         updateTaskLoading: false,
-        updateTaskSuccess: true,
+        updateTaskSuccess: action.payload,
       }
 
     // default

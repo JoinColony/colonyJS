@@ -37,7 +37,7 @@ const networkReducer = (state = initialState, action) => {
       return {
         ...state,
         connectNetworkLoading: false,
-        connectNetworkSuccess: true,
+        connectNetworkSuccess: action.payload,
       }
 
     // setStateNetworkClient

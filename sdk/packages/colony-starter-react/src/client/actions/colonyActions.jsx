@@ -10,21 +10,21 @@ export const createColony = (networkClient, tokenAddress) => ({
   payload: colonyActions.createColony(networkClient, tokenAddress)
     .then(colonyClient => {
       store.dispatch(setStateColonyClient(colonyClient))
-      store.dispatch(createColonySuccess())
+      store.dispatch(createColonySuccess(true))
     })
     .catch(error => {
       store.dispatch(createColonyError(error.message))
     }),
 })
 
-export const createColonyError = (message) => ({
+export const createColonyError = (error) => ({
   type: actions.CREATE_COLONY_ERROR,
-  payload: message,
+  payload: error,
 })
 
-export const createColonySuccess = (message) => ({
+export const createColonySuccess = (success) => ({
   type: actions.CREATE_COLONY_SUCCESS,
-  payload: message,
+  payload: success,
 })
 
 // getColonyClient
@@ -34,21 +34,21 @@ export const getColonyClient = (networkClient, colonyAddress) => ({
   payload: colonyActions.getColonyClient(networkClient, colonyAddress)
     .then(colonyClient => {
       store.dispatch(setStateColonyClient(colonyClient))
-      store.dispatch(getColonyClientSuccess())
+      store.dispatch(getColonyClientSuccess(true))
     })
     .catch(error => {
       store.dispatch(getColonyClientError(error.message))
     }),
 })
 
-export const getColonyClientError = (message) => ({
+export const getColonyClientError = (error) => ({
   type: actions.GET_COLONY_CLIENT_ERROR,
-  payload: message,
+  payload: error,
 })
 
-export const getColonyClientSuccess = (message) => ({
+export const getColonyClientSuccess = (success) => ({
   type: actions.GET_COLONY_CLIENT_SUCCESS,
-  payload: message,
+  payload: success,
 })
 
 // setStateColonyClient

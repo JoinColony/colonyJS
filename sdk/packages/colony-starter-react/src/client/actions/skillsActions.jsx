@@ -9,21 +9,21 @@ export const getSkills = (networkClient) => ({
   payload: skillsActions.getSkills(networkClient)
     .then(skills => {
       store.dispatch(setStateSkills(skills))
-      store.dispatch(getSkillsSuccess())
+      store.dispatch(getSkillsSuccess(true))
     })
     .catch(error => {
       store.dispatch(getSkillsError(error.message))
     }),
 })
 
-export const getSkillsError = (message) => ({
+export const getSkillsError = (error) => ({
   type: actions.GET_SKILLS_ERROR,
-  payload: message,
+  payload: error,
 })
 
-export const getSkillsSuccess = (message) => ({
+export const getSkillsSuccess = (success) => ({
   type: actions.GET_SKILLS_SUCCESS,
-  payload: message,
+  payload: success,
 })
 
 // setStateSkills

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { claimPayout } from '../../../actions/tasksActions'
+import { claimPayout, claimPayoutSuccess } from '../../../actions/tasksActions'
 import ClaimPayout from '../../../components/Manage/Tasks/ClaimPayout'
 
 class ClaimPayoutContainer extends Component {
@@ -16,6 +16,10 @@ class ClaimPayoutContainer extends Component {
     if (this.props.claimPayoutSuccess && prevProps.claimPayoutSuccess !== this.props.claimPayoutSuccess) {
       this.setState({ role: 'MANAGER' })
     }
+  }
+
+  componentWillUnmount() {
+    this.props.resetSuccess()
   }
 
   handleChange(event) {
@@ -57,6 +61,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   claimPayout(colonyClient, taskId, role) {
     dispatch(claimPayout(colonyClient, taskId, role))
+  },
+  resetSuccess() {
+    dispatch(claimPayoutSuccess(false))
   },
 })
 

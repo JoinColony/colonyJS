@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getToken } from '../../../actions/tokenActions'
+import { getToken, getTokenSuccess } from '../../../actions/tokenActions'
 import ViewToken from '../../../components/Manage/Token/ViewToken'
 
 class ViewTokenContainer extends Component {
@@ -13,6 +13,10 @@ class ViewTokenContainer extends Component {
     if (this.props.token === null) {
       this.props.getToken(this.props.colonyClient)
     }
+  }
+
+  componentWillUnmount() {
+    this.props.resetSuccess()
   }
 
   render() {
@@ -39,6 +43,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getToken(colonyClient) {
     dispatch(getToken(colonyClient))
+  },
+  resetSuccess() {
+    dispatch(getTokenSuccess(false))
   },
 })
 

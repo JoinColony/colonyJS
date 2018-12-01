@@ -9,21 +9,21 @@ export const getAccounts = (accountIndex) => ({
   payload: accountActions.getAccounts(accountIndex)
     .then(accounts => {
       store.dispatch(setStateAccounts(accounts))
-      store.dispatch(getAccountsSuccess())
+      store.dispatch(getAccountsSuccess(true))
     })
     .catch(error => {
       store.dispatch(getAccountsError(error.message))
     }),
 })
 
-export const getAccountsError = (message) => ({
+export const getAccountsError = (error) => ({
   type: actions.GET_ACCOUNTS_ERROR,
-  payload: message,
+  payload: error,
 })
 
-export const getAccountsSuccess = (message) => ({
+export const getAccountsSuccess = (success) => ({
   type: actions.GET_ACCOUNTS_SUCCESS,
-  payload: message,
+  payload: success,
 })
 
 // setStateAccounts

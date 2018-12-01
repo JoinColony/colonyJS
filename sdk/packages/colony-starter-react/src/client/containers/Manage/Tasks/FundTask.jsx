@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { fundTask } from '../../../actions/tasksActions'
+import { fundTask, fundTaskSuccess } from '../../../actions/tasksActions'
 import FundTask from '../../../components/Manage/Tasks/FundTask'
 import formatDate from '../../../helpers/formatDate'
 
@@ -18,6 +18,10 @@ class FundTaskContainer extends Component {
     if (this.props.fundTaskSuccess && prevProps.fundTaskSuccess !== this.props.fundTaskSuccess) {
       this.setState({ funding: { amount: 0, taskId: 0 } })
     }
+  }
+
+  componentWillUnmount() {
+    this.props.resetSuccess()
   }
 
   handleChange(event) {
@@ -59,6 +63,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   fundTask(colonyClient, taskId, amount) {
     dispatch(fundTask(colonyClient, taskId, amount))
+  },
+  resetSuccess() {
+    dispatch(fundTaskSuccess(false))
   },
 })
 

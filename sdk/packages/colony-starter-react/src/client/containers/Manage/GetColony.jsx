@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { getColonyClient } from '../../actions/colonyActions'
+import { getColonyClient, getColonyClientSuccess } from '../../actions/colonyActions'
 import GetColony from '../../components/Manage/GetColony'
 
 class GetColonyContainer extends Component {
@@ -17,6 +17,10 @@ class GetColonyContainer extends Component {
     if (this.props.getColonyClientSuccess && prevProps.getColonyClientSuccess !== this.props.getColonyClientSuccess) {
       this.props.history.push('/manage')
     }
+  }
+
+  componentWillUnmount() {
+    this.props.resetSuccess()
   }
 
   handleChange(event) {
@@ -54,6 +58,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getColonyClient(networkClient, colonyAddress) {
     dispatch(getColonyClient(networkClient, colonyAddress))
+  },
+  resetSuccess() {
+    dispatch(getColonyClientSuccess(false))
   },
 })
 

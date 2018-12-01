@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { connectNetwork } from '../actions/networkActions'
+import { connectNetwork, connectNetworkSuccess } from '../actions/networkActions'
 import App from '../components/App'
 
 class AppContainer extends Component {
@@ -13,6 +13,10 @@ class AppContainer extends Component {
     if (this.props.location !== prevProps.location) {
       scroll(0,0)
     }
+  }
+
+  componentWillUnmount() {
+    this.props.resetSuccess()
   }
 
   render() {
@@ -39,6 +43,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   connectNetwork(accountIndex) {
     dispatch(connectNetwork(accountIndex))
+  },
+  resetSuccess() {
+    dispatch(connectNetworkSuccess(false))
   },
 })
 

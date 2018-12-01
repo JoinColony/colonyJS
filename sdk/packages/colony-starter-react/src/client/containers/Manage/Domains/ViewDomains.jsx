@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getDomains } from '../../../actions/domainsActions'
+import { getDomains, getDomainsSuccess } from '../../../actions/domainsActions'
 import ViewDomains from '../../../components/Manage/Domains/ViewDomains'
 
 class ViewDomainsContainer extends Component {
@@ -19,6 +19,10 @@ class ViewDomainsContainer extends Component {
     if (this.props.domains === null && !this.props.getDomainsLoading) {
       this.props.getDomains(this.props.colonyClient)
     }
+  }
+
+  componentWillUnmount() {
+    this.props.resetSuccess()
   }
 
   render() {
@@ -45,6 +49,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getDomains(colonyClient) {
     dispatch(getDomains(colonyClient))
+  },
+  resetSuccess() {
+    dispatch(getDomainsSuccess(false))
   },
 })
 

@@ -9,21 +9,21 @@ export const connectNetwork = (accountIndex) => ({
   payload: networkActions.connectNetwork(accountIndex)
     .then(networkClient => {
       store.dispatch(setStateNetworkClient(networkClient))
-      store.dispatch(connectNetworkSuccess())
+      store.dispatch(connectNetworkSuccess(true))
     })
     .catch(error => {
       store.dispatch(connectNetworkError(error.message))
     }),
 })
 
-export const connectNetworkError = (message) => ({
+export const connectNetworkError = (error) => ({
   type: actions.CONNECT_NETWORK_ERROR,
-  payload: message,
+  payload: error,
 })
 
-export const connectNetworkSuccess = (message) => ({
+export const connectNetworkSuccess = (success) => ({
   type: actions.CONNECT_NETWORK_SUCCESS,
-  payload: message,
+  payload: success,
 })
 
 // setStateNetworkClient

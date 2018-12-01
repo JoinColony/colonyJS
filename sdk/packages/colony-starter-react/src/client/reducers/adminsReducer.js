@@ -47,7 +47,7 @@ const adminsReducer = (state = initialState, action) => {
       return {
         ...state,
         addAdminLoading: false,
-        addAdminSuccess: true,
+        addAdminSuccess: action.payload,
       }
 
     // checkAdmin
@@ -71,7 +71,7 @@ const adminsReducer = (state = initialState, action) => {
       return {
         ...state,
         checkAdminLoading: false,
-        checkAdminSuccess: true,
+        checkAdminSuccess: action.payload,
       }
 
     // removeAdmin
@@ -95,7 +95,7 @@ const adminsReducer = (state = initialState, action) => {
       return {
         ...state,
         removeAdminLoading: false,
-        removeAdminSuccess: true,
+        removeAdminSuccess: action.payload,
       }
 
     // setStateAdmin

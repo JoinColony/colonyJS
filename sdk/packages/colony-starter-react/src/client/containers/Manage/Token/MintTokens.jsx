@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { mintTokens } from '../../../actions/tokenActions'
+import { mintTokens, mintTokensSuccess } from '../../../actions/tokenActions'
 import MintTokens from '../../../components/Manage/Token/MintTokens'
 
 class MintTokensContainer extends Component {
@@ -16,6 +16,10 @@ class MintTokensContainer extends Component {
     if (this.props.mintTokensSuccess && prevProps.mintTokensSuccess !== this.props.mintTokensSuccess) {
       this.setState({ amount: 0 })
     }
+  }
+
+  componentWillUnmount() {
+    this.props.resetSuccess()
   }
 
   handleChange(event) {
@@ -53,6 +57,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   mintTokens(colonyClient, amount) {
     dispatch(mintTokens(colonyClient, amount))
+  },
+  resetSuccess() {
+    dispatch(mintTokensSuccess(false))
   },
 })
 

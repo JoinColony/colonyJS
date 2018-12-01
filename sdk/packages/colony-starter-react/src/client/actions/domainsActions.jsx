@@ -10,21 +10,21 @@ export const addDomain = (colonyClient) => ({
   payload: domainsActions.addDomain(colonyClient)
     .then(domain => {
       store.dispatch(getDomains(colonyClient))
-      store.dispatch(addDomainSuccess())
+      store.dispatch(addDomainSuccess(true))
     })
     .catch(error => {
       store.dispatch(addDomainError(error.message))
     }),
 })
 
-export const addDomainError = (message) => ({
+export const addDomainError = (error) => ({
   type: actions.ADD_DOMAIN_ERROR,
-  payload: message,
+  payload: error,
 })
 
-export const addDomainSuccess = (message) => ({
+export const addDomainSuccess = (success) => ({
   type: actions.ADD_DOMAIN_SUCCESS,
-  payload: message,
+  payload: success,
 })
 
 // fundDomain
@@ -32,23 +32,23 @@ export const addDomainSuccess = (message) => ({
 export const fundDomain = (colonyClient, domainId, amount) => ({
   type: actions.FUND_DOMAIN,
   payload: domainsActions.fundDomain(colonyClient, domainId, amount)
-    .then(pots => {
+    .then(success => {
       store.dispatch(getPots(colonyClient))
-      store.dispatch(fundDomainSuccess())
+      store.dispatch(fundDomainSuccess(true))
     })
     .catch(error => {
       store.dispatch(fundDomainError(error.message))
     }),
 })
 
-export const fundDomainError = (message) => ({
+export const fundDomainError = (error) => ({
   type: actions.FUND_DOMAIN_ERROR,
-  payload: message,
+  payload: error,
 })
 
-export const fundDomainSuccess = (message) => ({
+export const fundDomainSuccess = (success) => ({
   type: actions.FUND_DOMAIN_SUCCESS,
-  payload: message,
+  payload: success,
 })
 
 // getDomains
@@ -58,21 +58,21 @@ export const getDomains = (colonyClient) => ({
   payload: domainsActions.getDomains(colonyClient)
     .then(domains => {
       store.dispatch(setStateDomains(domains))
-      store.dispatch(getDomainsSuccess())
+      store.dispatch(getDomainsSuccess(true))
     })
     .catch(error => {
       store.dispatch(getDomainsError(error.message))
     }),
 })
 
-export const getDomainsError = (message) => ({
+export const getDomainsError = (error) => ({
   type: actions.GET_DOMAINS_ERROR,
-  payload: message,
+  payload: error,
 })
 
-export const getDomainsSuccess = (message) => ({
+export const getDomainsSuccess = (success) => ({
   type: actions.GET_DOMAINS_SUCCESS,
-  payload: message,
+  payload: success,
 })
 
 // setStateDomains

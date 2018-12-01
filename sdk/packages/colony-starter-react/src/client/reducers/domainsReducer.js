@@ -47,7 +47,7 @@ const domainsReducer = (state = initialState, action) => {
       return {
         ...state,
         addDomainLoading: false,
-        addDomainSuccess: true,
+        addDomainSuccess: action.payload,
       }
 
     // fundDomain
@@ -71,7 +71,7 @@ const domainsReducer = (state = initialState, action) => {
       return {
         ...state,
         fundDomainLoading: false,
-        fundDomainSuccess: true,
+        fundDomainSuccess: action.payload,
       }
 
     // getDomains
@@ -95,7 +95,7 @@ const domainsReducer = (state = initialState, action) => {
       return {
         ...state,
         getDomainsLoading: false,
-        getDomainsSuccess: true,
+        getDomainsSuccess: action.payload,
       }
 
     // setStateDomains

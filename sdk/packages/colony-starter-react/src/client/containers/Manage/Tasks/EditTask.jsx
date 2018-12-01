@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import formatDate from '../../../helpers/formatDate'
-import { getTask, updateTask } from '../../../actions/tasksActions'
+import * as tasksActions from '../../../actions/tasksActions'
 import EditTask from '../../../components/Manage/Tasks/EditTask'
 
 class EditTaskContainer extends Component {
@@ -46,6 +46,10 @@ class EditTaskContainer extends Component {
     if (this.state.submitted && this.props.updateTaskSuccess) {
       this.props.history.push(`/manage/tasks/${this.props.task.id}`)
     }
+  }
+
+  componentWillUnmount() {
+    this.props.resetSuccess()
   }
 
   handleChange(event) {
@@ -205,10 +209,14 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getTask(colonyClient, task) {
-    dispatch(getTask(colonyClient, task))
+    dispatch(tasksActions.getTask(colonyClient, task))
   },
   updateTask(colonyClient, task) {
-    dispatch(updateTask(colonyClient, task))
+    dispatch(tasksActions.updateTask(colonyClient, task))
+  },
+  resetSuccess() {
+    dispatch(tasksActions.getTaskSuccess(false))
+    dispatch(tasksActions.updateTask(false))
   },
 })
 

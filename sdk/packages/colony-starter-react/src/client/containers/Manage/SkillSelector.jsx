@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getSkills } from '../../actions/skillsActions'
+import { getSkills, getSkillsSuccess } from '../../actions/skillsActions'
 import SkillSelector from '../../components/Manage/SkillSelector'
 
 class SkillSelectorContainer extends Component {
@@ -13,6 +13,10 @@ class SkillSelectorContainer extends Component {
     if (this.props.skills === null) {
       this.props.getSkills(this.props.networkClient)
     }
+  }
+
+  componentWillUnmount() {
+    this.props.resetSuccess()
   }
 
   render() {
@@ -41,6 +45,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getSkills(networkClient) {
     dispatch(getSkills(networkClient))
+  },
+  resetSuccess() {
+    dispatch(getSkillsSuccess(false))
   },
 })
 

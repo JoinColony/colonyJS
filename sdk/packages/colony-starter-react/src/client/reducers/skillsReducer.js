@@ -37,7 +37,7 @@ const skillsReducer = (state = initialState, action) => {
       return {
         ...state,
         getSkillsLoading: false,
-        getSkillsSuccess: true,
+        getSkillsSuccess: action.payload,
       }
 
     // setStateSkills

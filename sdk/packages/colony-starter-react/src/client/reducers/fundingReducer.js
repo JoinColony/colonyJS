@@ -55,7 +55,7 @@ const fundingReducer = (state = initialState, action) => {
       return {
         ...state,
         claimFundsLoading: false,
-        claimFundsSuccess: true,
+        claimFundsSuccess: action.payload,
       }
 
     // moveFunds
@@ -79,7 +79,7 @@ const fundingReducer = (state = initialState, action) => {
       return {
         ...state,
         moveFundsLoading: false,
-        moveFundsSuccess: true,
+        moveFundsSuccess: action.payload,
       }
 
     // getClaimableFunds
@@ -103,7 +103,7 @@ const fundingReducer = (state = initialState, action) => {
       return {
         ...state,
         getClaimableFundsLoading: false,
-        getClaimableFundsSuccess: true,
+        getClaimableFundsSuccess: action.payload,
       }
 
     // getPots
@@ -127,7 +127,7 @@ const fundingReducer = (state = initialState, action) => {
       return {
         ...state,
         getPotsLoading: false,
-        getPotsSuccess: true,
+        getPotsSuccess: action.payload,
       }
 
     // setStateClaimableFunds

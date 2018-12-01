@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { addAdmin } from '../../../actions/adminsActions'
+import { addAdmin, addAdminSuccess } from '../../../actions/adminsActions'
 import AddAdmin from '../../../components/Manage/Admins/AddAdmin'
 
 class AddAdminContainer extends Component {
@@ -16,6 +16,10 @@ class AddAdminContainer extends Component {
     if (this.props.addAdminSuccess && prevProps.addAdminSuccess !== this.props.addAdminSuccess) {
       this.setState({ userAddress: '' })
     }
+  }
+
+  componentWillUnmount() {
+    this.props.resetSuccess()
   }
 
   handleChange(event) {
@@ -53,6 +57,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   addAdmin(colonyClient, userAddress) {
     dispatch(addAdmin(colonyClient, userAddress))
+  },
+  resetSuccess() {
+    dispatch(addAdminSuccess(false))
   },
 })
 

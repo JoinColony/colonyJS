@@ -10,21 +10,21 @@ export const cancelTask = (colonyClient, taskId) => ({
   payload: tasksActions.cancelTask(colonyClient, taskId)
     .then(task => {
       store.dispatch(setStateTask(task))
-      store.dispatch(cancelTaskSuccess())
+      store.dispatch(cancelTaskSuccess(true))
     })
     .catch(error => {
       store.dispatch(cancelTaskError(error.message))
     }),
 })
 
-export const cancelTaskError = (message) => ({
+export const cancelTaskError = (error) => ({
   type: actions.CANCEL_TASK_ERROR,
-  payload: message,
+  payload: error,
 })
 
-export const cancelTaskSuccess = (message) => ({
+export const cancelTaskSuccess = (success) => ({
   type: actions.CANCEL_TASK_SUCCESS,
-  payload: message,
+  payload: success,
 })
 
 // claimPayout
@@ -33,21 +33,21 @@ export const claimPayout = (colonyClient, taskId, role) => ({
   type: actions.CLAIM_PAYOUT,
   payload: tasksActions.claimPayout(colonyClient, taskId, role)
     .then(success => {
-      store.dispatch(claimPayoutSuccess())
+      store.dispatch(claimPayoutSuccess(true))
     })
     .catch(error => {
       store.dispatch(claimPayoutError(error.message))
     }),
 })
 
-export const claimPayoutError = (message) => ({
+export const claimPayoutError = (error) => ({
   type: actions.CLAIM_PAYOUT_ERROR,
-  payload: message,
+  payload: error,
 })
 
-export const claimPayoutSuccess = (message) => ({
+export const claimPayoutSuccess = (success) => ({
   type: actions.CLAIM_PAYOUT_SUCCESS,
-  payload: message,
+  payload: success,
 })
 
 // createTask
@@ -57,21 +57,21 @@ export const createTask = (colonyClient, task) => ({
   payload: tasksActions.createTask(colonyClient, task)
     .then(task => {
       store.dispatch(setStateTask(task))
-      store.dispatch(createTaskSuccess())
+      store.dispatch(createTaskSuccess(true))
     })
     .catch(error => {
       store.dispatch(createTaskError(error.message))
     }),
 })
 
-export const createTaskError = (message) => ({
+export const createTaskError = (error) => ({
   type: actions.CREATE_TASK_ERROR,
-  payload: message,
+  payload: error,
 })
 
-export const createTaskSuccess = (message) => ({
+export const createTaskSuccess = (success) => ({
   type: actions.CREATE_TASK_SUCCESS,
-  payload: message,
+  payload: success,
 })
 
 // finalizeTask
@@ -81,21 +81,21 @@ export const finalizeTask = (colonyClient, taskId) => ({
   payload: tasksActions.finalizeTask(colonyClient, taskId)
     .then(task => {
       store.dispatch(setStateTask(task))
-      store.dispatch(finalizeTaskSuccess())
+      store.dispatch(finalizeTaskSuccess(true))
     })
     .catch(error => {
       store.dispatch(finalizeTaskError(error.message))
     }),
 })
 
-export const finalizeTaskError = (message) => ({
+export const finalizeTaskError = (error) => ({
   type: actions.FINALIZE_TASK_ERROR,
-  payload: message,
+  payload: error,
 })
 
-export const finalizeTaskSuccess = (message) => ({
+export const finalizeTaskSuccess = (success) => ({
   type: actions.FINALIZE_TASK_SUCCESS,
-  payload: message,
+  payload: success,
 })
 
 // fundTask
@@ -106,21 +106,21 @@ export const fundTask = (colonyClient, taskId, amount) => ({
     .then(task => {
       store.dispatch(setStateTask(task))
       store.dispatch(getPots(colonyClient))
-      store.dispatch(fundTaskSuccess())
+      store.dispatch(fundTaskSuccess(true))
     })
     .catch(error => {
       store.dispatch(fundTaskError(error.message))
     }),
 })
 
-export const fundTaskError = (message) => ({
+export const fundTaskError = (error) => ({
   type: actions.FUND_TASK_ERROR,
-  payload: message,
+  payload: error,
 })
 
-export const fundTaskSuccess = (message) => ({
+export const fundTaskSuccess = (success) => ({
   type: actions.FUND_TASK_SUCCESS,
-  payload: message,
+  payload: success,
 })
 
 // getTask
@@ -130,21 +130,21 @@ export const getTask = (colonyClient, task) => ({
   payload: tasksActions.getTaskExtended(colonyClient, task)
     .then(task => {
       store.dispatch(setStateTask(task))
-      store.dispatch(getTaskSuccess())
+      store.dispatch(getTaskSuccess(true))
     })
     .catch(error => {
       store.dispatch(getTaskError(error.message))
     }),
 })
 
-export const getTaskError = (message) => ({
+export const getTaskError = (error) => ({
   type: actions.GET_TASK_ERROR,
-  payload: message,
+  payload: error,
 })
 
-export const getTaskSuccess = (message) => ({
+export const getTaskSuccess = (success) => ({
   type: actions.GET_TASK_SUCCESS,
-  payload: message,
+  payload: success,
 })
 
 // getTasks
@@ -154,21 +154,21 @@ export const getTasks = (colonyClient) => ({
   payload: tasksActions.getTasks(colonyClient)
     .then(task => {
       store.dispatch(setStateTasks(task))
-      store.dispatch(getTasksSuccess())
+      store.dispatch(getTasksSuccess(true))
     })
     .catch(error => {
       store.dispatch(getTasksError(error.message))
     }),
 })
 
-export const getTasksError = (message) => ({
+export const getTasksError = (error) => ({
   type: actions.GET_TASKS_ERROR,
-  payload: message,
+  payload: error,
 })
 
-export const getTasksSuccess = (message) => ({
+export const getTasksSuccess = (success) => ({
   type: actions.GET_TASKS_SUCCESS,
-  payload: message,
+  payload: success,
 })
 
 // revealRating
@@ -178,21 +178,21 @@ export const revealRating = (colonyClient, taskId, role, rating) => ({
   payload: tasksActions.revealRating(colonyClient, taskId, role, rating)
     .then(task => {
       store.dispatch(setStateTask(task))
-      store.dispatch(revealRatingSuccess())
+      store.dispatch(revealRatingSuccess(true))
     })
     .catch(error => {
       store.dispatch(revealRatingError(error.message))
     }),
 })
 
-export const revealRatingError = (message) => ({
+export const revealRatingError = (error) => ({
   type: actions.REVEAL_RATING_ERROR,
-  payload: message,
+  payload: error,
 })
 
-export const revealRatingSuccess = (message) => ({
+export const revealRatingSuccess = (success) => ({
   type: actions.REVEAL_RATING_SUCCESS,
-  payload: message,
+  payload: success,
 })
 
 // setStateTask
@@ -216,21 +216,21 @@ export const signTask = (colonyClient, taskId) => ({
   payload: tasksActions.signTask(colonyClient, taskId)
     .then(task => {
       store.dispatch(setStateTask(task))
-      store.dispatch(signTaskSuccess())
+      store.dispatch(signTaskSuccess(true))
     })
     .catch(error => {
       store.dispatch(signTaskError(error.message))
     }),
 })
 
-export const signTaskError = (message) => ({
+export const signTaskError = (error) => ({
   type: actions.SIGN_TASK_ERROR,
-  payload: message,
+  payload: error,
 })
 
-export const signTaskSuccess = (message) => ({
+export const signTaskSuccess = (success) => ({
   type: actions.SIGN_TASK_SUCCESS,
-  payload: message,
+  payload: success,
 })
 
 // submitRating
@@ -240,21 +240,21 @@ export const submitRating = (colonyClient, taskId, role, rating) => ({
   payload: tasksActions.submitRating(colonyClient, taskId, role, rating)
     .then(task => {
       store.dispatch(setStateTask(task))
-      store.dispatch(submitRatingSuccess())
+      store.dispatch(submitRatingSuccess(true))
     })
     .catch(error => {
       store.dispatch(submitRatingError(error.message))
     }),
 })
 
-export const submitRatingError = (message) => ({
+export const submitRatingError = (error) => ({
   type: actions.SUBMIT_RATING_ERROR,
-  payload: message,
+  payload: error,
 })
 
-export const submitRatingSuccess = (message) => ({
+export const submitRatingSuccess = (success) => ({
   type: actions.SUBMIT_RATING_SUCCESS,
-  payload: message,
+  payload: success,
 })
 
 // submitWork
@@ -264,21 +264,21 @@ export const submitWork = (colonyClient, taskId, deliverable) => ({
   payload: tasksActions.submitWork(colonyClient, taskId, deliverable)
     .then(task => {
       store.dispatch(setStateTask(task))
-      store.dispatch(submitWorkSuccess())
+      store.dispatch(submitWorkSuccess(true))
     })
     .catch(error => {
       store.dispatch(submitWorkError(error.message))
     }),
 })
 
-export const submitWorkError = (message) => ({
+export const submitWorkError = (error) => ({
   type: actions.SUBMIT_WORK_ERROR,
-  payload: message,
+  payload: error,
 })
 
-export const submitWorkSuccess = (message) => ({
+export const submitWorkSuccess = (success) => ({
   type: actions.SUBMIT_WORK_SUCCESS,
-  payload: message,
+  payload: success,
 })
 
 // updateTask
@@ -288,19 +288,19 @@ export const updateTask = (colonyClient, task) => ({
   payload: tasksActions.updateTask(colonyClient, task)
     .then(task => {
       store.dispatch(setStateTask(task))
-      store.dispatch(updateTaskSuccess())
+      store.dispatch(updateTaskSuccess(true))
     })
     .catch(error => {
       store.dispatch(updateTaskError(error.message))
     }),
 })
 
-export const updateTaskError = (message) => ({
+export const updateTaskError = (error) => ({
   type: actions.UPDATE_TASK_ERROR,
-  payload: message,
+  payload: error,
 })
 
-export const updateTaskSuccess = (message) => ({
+export const updateTaskSuccess = (success) => ({
   type: actions.UPDATE_TASK_SUCCESS,
-  payload: message,
+  payload: success,
 })

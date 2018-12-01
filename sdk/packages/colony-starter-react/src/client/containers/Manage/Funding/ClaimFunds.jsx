@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { claimFunds, getClaimableFunds } from '../../../actions/fundingActions'
+import * as fundingActions from '../../../actions/fundingActions'
 import ClaimFunds from '../../../components/Manage/Funding/ClaimFunds'
 
 class ClaimFundsContainer extends Component {
@@ -28,6 +28,10 @@ class ClaimFundsContainer extends Component {
     if (this.props.claimFundsSuccess && prevProps.claimFundsSuccess !== this.props.claimFundsSuccess) {
       this.props.getClaimableFunds(this.props.colonyClient)
     }
+  }
+
+  componentWillUnmount() {
+    this.props.resetSuccess()
   }
 
   handleClick() {
@@ -64,10 +68,14 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   claimFunds(colonyClient) {
-    dispatch(claimFunds(colonyClient))
+    dispatch(fundingActions.claimFunds(colonyClient))
   },
   getClaimableFunds(colonyClient) {
-    dispatch(getClaimableFunds(colonyClient))
+    dispatch(fundingActions.getClaimableFunds(colonyClient))
+  },
+  resetSuccess() {
+    dispatch(fundingActions.claimFundsSuccess(false))
+    dispatch(fundingActions.getClaimableFundsSuccess(false))
   },
 })
 

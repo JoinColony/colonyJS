@@ -37,7 +37,7 @@ const accountReducer = (state = initialState, action) => {
       return {
         ...state,
         getAccountsLoading: false,
-        getAccountsSuccess: true,
+        getAccountsSuccess: action.payload,
       }
 
     // setStateAccounts

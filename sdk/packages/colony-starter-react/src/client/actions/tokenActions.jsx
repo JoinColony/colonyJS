@@ -10,21 +10,21 @@ export const createToken = (networkClient, name, symbol) => ({
   payload: tokenActions.createToken(networkClient, name, symbol)
     .then(tokenAddress => {
       store.dispatch(setStateTokenAddress(tokenAddress))
-      store.dispatch(createTokenSuccess())
+      store.dispatch(createTokenSuccess(true))
     })
     .catch(error => {
       store.dispatch(createTokenError(error.message))
     }),
 })
 
-export const createTokenError = (message) => ({
+export const createTokenError = (error) => ({
   type: actions.CREATE_TOKEN_ERROR,
-  payload: message,
+  payload: error,
 })
 
-export const createTokenSuccess = (message) => ({
+export const createTokenSuccess = (success) => ({
   type: actions.CREATE_TOKEN_SUCCESS,
-  payload: message,
+  payload: success,
 })
 
 // getToken
@@ -34,21 +34,21 @@ export const getToken = (colonyClient) => ({
   payload: tokenActions.getToken(colonyClient)
     .then(token => {
       store.dispatch(setStateToken(token))
-      store.dispatch(getTokenSuccess())
+      store.dispatch(getTokenSuccess(true))
     })
     .catch(error => {
       store.dispatch(getTokenError(error.message))
     }),
 })
 
-export const getTokenError = (message) => ({
+export const getTokenError = (error) => ({
   type: actions.GET_TOKEN_ERROR,
-  payload: message,
+  payload: error,
 })
 
-export const getTokenSuccess = (message) => ({
+export const getTokenSuccess = (success) => ({
   type: actions.GET_TOKEN_SUCCESS,
-  payload: message,
+  payload: success,
 })
 
 // mintTokens
@@ -59,21 +59,21 @@ export const mintTokens = (colonyClient, amount) => ({
     .then(token => {
       store.dispatch(setStateToken(token))
       store.dispatch(setStateClaimableFunds(null))
-      store.dispatch(mintTokensSuccess())
+      store.dispatch(mintTokensSuccess(true))
     })
     .catch(error => {
       store.dispatch(mintTokensError(error.message))
     }),
 })
 
-export const mintTokensError = (message) => ({
+export const mintTokensError = (error) => ({
   type: actions.MINT_TOKENS_ERROR,
-  payload: message,
+  payload: error,
 })
 
-export const mintTokensSuccess = (message) => ({
+export const mintTokensSuccess = (success) => ({
   type: actions.MINT_TOKENS_SUCCESS,
-  payload: message,
+  payload: success,
 })
 
 // setStateToken

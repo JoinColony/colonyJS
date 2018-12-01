@@ -50,7 +50,7 @@ const tokenReducer = (state = initialState, action) => {
       return {
         ...state,
         createTokenLoading: false,
-        createTokenSuccess: true,
+        createTokenSuccess: action.payload,
       }
 
     // getToken
@@ -74,7 +74,7 @@ const tokenReducer = (state = initialState, action) => {
       return {
         ...state,
         getTokenLoading: false,
-        getTokenSuccess: true,
+        getTokenSuccess: action.payload,
       }
 
     // mintTokens
@@ -98,7 +98,7 @@ const tokenReducer = (state = initialState, action) => {
       return {
         ...state,
         mintTokensLoading: false,
-        mintTokensSuccess: true,
+        mintTokensSuccess: action.payload,
       }
 
     // setStateToken

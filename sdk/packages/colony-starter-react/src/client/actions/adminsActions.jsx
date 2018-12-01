@@ -8,21 +8,21 @@ export const addAdmin = (colonyClient, userAddress) => ({
   type: actions.ADD_ADMIN,
   payload: adminsActions.addAdmin(colonyClient, userAddress)
     .then(success => {
-      store.dispatch(addAdminSuccess())
+      store.dispatch(addAdminSuccess(true))
     })
     .catch(error => {
       store.dispatch(addAdminError(error.message))
     }),
 })
 
-export const addAdminError = (message) => ({
+export const addAdminError = (error) => ({
   type: actions.ADD_ADMIN_ERROR,
-  payload: message,
+  payload: error,
 })
 
-export const addAdminSuccess = (message) => ({
+export const addAdminSuccess = (success) => ({
   type: actions.ADD_ADMIN_SUCCESS,
-  payload: message,
+  payload: success,
 })
 
 // checkAdmin
@@ -32,21 +32,21 @@ export const checkAdmin = (colonyClient, userAddress) => ({
   payload: adminsActions.checkAdmin(colonyClient, userAddress)
     .then(admin => {
       store.dispatch(setStateAdmin(admin))
-      store.dispatch(checkAdminSuccess())
+      store.dispatch(checkAdminSuccess(true))
     })
     .catch(error => {
       store.dispatch(checkAdminError(error.message))
     }),
 })
 
-export const checkAdminError = (message) => ({
+export const checkAdminError = (error) => ({
   type: actions.CHECK_ADMIN_ERROR,
-  payload: message,
+  payload: error,
 })
 
-export const checkAdminSuccess = (message) => ({
+export const checkAdminSuccess = (success) => ({
   type: actions.CHECK_ADMIN_SUCCESS,
-  payload: message,
+  payload: success,
 })
 
 // removeAdmin
@@ -55,21 +55,21 @@ export const removeAdmin = (colonyClient, userAddress) => ({
   type: actions.REMOVE_ADMIN,
   payload: adminsActions.removeAdmin(colonyClient, userAddress)
     .then(success => {
-      store.dispatch(removeAdminSuccess())
+      store.dispatch(removeAdminSuccess(true))
     })
     .catch(error => {
       store.dispatch(removeAdminError(error.message))
     }),
 })
 
-export const removeAdminError = (message) => ({
+export const removeAdminError = (error) => ({
   type: actions.REMOVE_ADMIN_ERROR,
-  payload: message,
+  payload: error,
 })
 
-export const removeAdminSuccess = (message) => ({
+export const removeAdminSuccess = (success) => ({
   type: actions.REMOVE_ADMIN_SUCCESS,
-  payload: message,
+  payload: success,
 })
 
 // setStateAdmin

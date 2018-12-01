@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { moveFunds } from '../../../actions/fundingActions'
+import { moveFunds, moveFundsSuccess } from '../../../actions/fundingActions'
 import MoveFunds from '../../../components/Manage/Funding/MoveFunds'
 
 class MoveFundsContainer extends Component {
@@ -16,6 +16,10 @@ class MoveFundsContainer extends Component {
     if (this.props.moveFundsSuccess && prevProps.moveFundsSuccess !== this.props.moveFundsSuccess) {
       this.setState({ funding: { amount: 0, fromPot: 0, toPot: 0 } })
     }
+  }
+
+  componentWillUnmount() {
+    this.props.resetSuccess()
   }
 
   handleChange(event) {
@@ -58,6 +62,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   moveFunds(colonyClient, fromPot, toPot, amount) {
     dispatch(moveFunds(colonyClient, fromPot, toPot, amount))
+  },
+  resetSuccess() {
+    dispatch(moveFundsSuccess(false))
   },
 })
 

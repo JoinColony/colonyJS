@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { submitWork } from '../../../actions/tasksActions'
+import { submitWork, submitWorkSuccess } from '../../../actions/tasksActions'
 import SubmitWork from '../../../components/Manage/Tasks/SubmitWork'
 
 class SubmitWorkContainer extends Component {
@@ -24,6 +24,10 @@ class SubmitWorkContainer extends Component {
         },
       })
     }
+  }
+
+  componentWillUnmount() {
+    this.props.resetSuccess()
   }
 
   handleChange(event) {
@@ -65,6 +69,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   submitWork(colonyClient, taskId, deliverable) {
     dispatch(submitWork(colonyClient, taskId, deliverable))
+  },
+  resetSuccess() {
+    dispatch(submitWorkSuccess(false))
   },
 })
 
