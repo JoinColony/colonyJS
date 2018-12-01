@@ -3,9 +3,17 @@
 export const addAdmin = async (colonyClient, userAddress) => {
 
   // add user role admin
-  await colonyClient.setAdminRole.send({
+  const tx = await colonyClient.setAdminRole.send({
     user: userAddress,
   })
+
+  // check unsuccessful
+  if (!tx.successful) {
+
+    // throw error
+    throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
+
+  }
 
   // return true
   return true
@@ -32,9 +40,17 @@ export const checkAdmin = async (colonyClient, userAddress) => {
 export const removeAdmin = async (colonyClient, userAddress) => {
 
   // remove user role admin
-  await colonyClient.removeAdminRole.send({
+  const tx = await colonyClient.removeAdminRole.send({
     user: userAddress,
   })
+
+  // check unsuccessful
+  if (!tx.successful) {
+
+    // throw error
+    throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
+
+  }
 
   // return true
   return true

@@ -38,11 +38,19 @@ export const claimPayout = async (colonyClient, taskId, role) => {
   const token = colonyClient.token.contract.address
 
   // claim payout
-  await colonyClient.claimPayout.send({
+  const tx = await colonyClient.claimPayout.send({
     taskId,
     role,
     token,
   })
+
+  // check unsuccessful
+  if (!tx.successful) {
+
+    // throw error
+    throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
+
+  }
 
   // return true
   return true
@@ -66,10 +74,18 @@ export const createTask = async (colonyClient, task) => {
   const domainId = Number(task.domainId)
 
   // create task
-  const { eventData: { taskId }} = await colonyClient.createTask.send({
+  const tx = await colonyClient.createTask.send({
     domainId,
     specificationHash,
   })
+
+  // check unsuccessful
+  if (!tx.successful) {
+
+    // throw error
+    throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
+
+  }
 
   // check due date
   if (task.dueDate) {
@@ -78,7 +94,7 @@ export const createTask = async (colonyClient, task) => {
     const dueDate = new Date(task.dueDate)
 
     // set task due date
-    await setTaskDueDate(colonyClient, taskId, dueDate)
+    await setTaskDueDate(colonyClient, tx.eventData.taskId, dueDate)
 
   }
 
@@ -157,16 +173,18 @@ export const createTask = async (colonyClient, task) => {
 export const finalizeTask = async (colonyClient, taskId) => {
 
   // finalize task
-  await colonyClient.finalizeTask.send({ taskId })
+  const tx = await colonyClient.finalizeTask.send({ taskId })
 
-  // get updated task
-  const updatedTask = await getTask(colonyClient, taskId)
+  // check unsuccessful
+  if (!tx.successful) {
 
-  // get updated task extended
-  const updatedTaskExtended = await getTaskExtended(colonyClient, updatedTask)
+    // throw error
+    throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
 
-  // return updated task extended
-  return updatedTaskExtended
+  }
+
+  // return successful
+  return tx.successful
 
 }
 
@@ -186,12 +204,20 @@ export const fundTask = async (colonyClient, taskId, amount) => {
   })
 
   // move funds between pots
-  await colonyClient.moveFundsBetweenPots.send({
+  const tx = await colonyClient.moveFundsBetweenPots.send({
     fromPot: domain.potId,
     toPot: task.potId,
     amount: new BN(amount),
     token,
   })
+
+  // check unsuccessful
+  if (!tx.successful) {
+
+    // throw error
+    throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
+
+  }
 
   // get updated task extended
   const updatedTaskExtended = await getTaskExtended(colonyClient, task)
@@ -393,7 +419,15 @@ export const revealRating = async (colonyClient, taskId, role, rating) => {
   const { secret } = await colonyClient.generateSecret.call({ salt, value })
 
   // reveal task work rating
-  const revealTaskWorkRating = await colonyClient.revealTaskWorkRating.send({ taskId, role, rating, salt })
+  const tx = await colonyClient.revealTaskWorkRating.send({ taskId, role, rating, salt })
+
+  // check unsuccessful
+  if (!tx.successful) {
+
+    // throw error
+    throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
+
+  }
 
   // get updated task
   const updatedTask = await getTask(colonyClient, taskId)
@@ -441,7 +475,15 @@ export const setTaskBrief = async (colonyClient, taskId, specification) => {
 export const setTaskDomain = async (colonyClient, taskId, domainId) => {
 
   // set task domain
-  await colonyClient.setTaskDomain.send({ taskId, domainId })
+  const tx = await colonyClient.setTaskDomain.send({ taskId, domainId })
+
+  // check unsuccessful
+  if (!tx.successful) {
+
+    // throw error
+    throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
+
+  }
 
   // return id
   return taskId
@@ -1234,7 +1276,15 @@ export const submitRating = async (colonyClient, taskId, role, rating) => {
   const { secret } = await colonyClient.generateSecret.call({ salt, value })
 
   // submit task work rating
-  const submitTaskWorkRating = await colonyClient.submitTaskWorkRating.send({ taskId, role, secret })
+  const tx = await colonyClient.submitTaskWorkRating.send({ taskId, role, secret })
+
+  // check unsuccessful
+  if (!tx.successful) {
+
+    // throw error
+    throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
+
+  }
 
   // get updated task
   const updatedTask = await getTask(colonyClient, taskId)
@@ -1261,7 +1311,15 @@ export const submitWork = async (colonyClient, taskId, deliverable) => {
   await ecp.stop()
 
   // submit task deliverable
-  await colonyClient.submitTaskDeliverable.send({ taskId, deliverableHash })
+  const tx = await colonyClient.submitTaskDeliverable.send({ taskId, deliverableHash })
+
+  // check unsuccessful
+  if (!tx.successful) {
+
+    // throw error
+    throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
+
+  }
 
   // get updated task
   const updatedTask = await getTask(colonyClient, taskId)

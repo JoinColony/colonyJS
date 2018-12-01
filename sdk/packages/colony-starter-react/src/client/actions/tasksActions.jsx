@@ -79,9 +79,9 @@ export const createTaskSuccess = (success) => ({
 export const finalizeTask = (colonyClient, taskId) => ({
   type: actions.FINALIZE_TASK,
   payload: tasksActions.finalizeTask(colonyClient, taskId)
-    .then(task => {
-      store.dispatch(setStateTask(task))
-      store.dispatch(finalizeTaskSuccess(true))
+    .then(success => {
+      store.dispatch(getTask(taskId))
+      store.dispatch(finalizeTaskSuccess(success))
     })
     .catch(error => {
       store.dispatch(finalizeTaskError(error.message))

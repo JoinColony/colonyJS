@@ -6,9 +6,17 @@ import BN from 'bn.js'
 export const addDomain = async (colonyClient) => {
 
   // add domain
-  const addDomainResponse = await colonyClient.addDomain.send({
+  const tx = await colonyClient.addDomain.send({
     parentSkillId: 1,
   })
+
+  // check unsuccessful
+  if (!tx.successful) {
+
+    // throw error
+    throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
+
+  }
 
   // get domain id
   const { count: domainId } = await colonyClient.getDomainCount.call()
@@ -32,12 +40,20 @@ export const fundDomain = async (colonyClient, domainId, amount) => {
   const { potId } = await colonyClient.getDomain.call({ domainId })
 
   // move funds between pots
-  await colonyClient.moveFundsBetweenPots.send({
+  const tx = await colonyClient.moveFundsBetweenPots.send({
     fromPot: 1,
     toPot: potId,
     amount: new BN(amount),
     token,
   })
+
+  // check unsuccessful
+  if (!tx.successful) {
+
+    // throw error
+    throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
+
+  }
 
   // return true
   return true

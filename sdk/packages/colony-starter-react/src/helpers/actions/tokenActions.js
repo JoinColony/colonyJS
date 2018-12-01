@@ -9,15 +9,21 @@ import { utils } from 'web3'
 export const createToken = async (networkClient, name, symbol) => {
 
   // create token
-  const {
-    meta: { receipt: { contractAddress: tokenAddress } }
-  } = await networkClient.createToken.send({
+  const tx = await networkClient.createToken.send({
     name: utils.sha3(name),
     symbol: utils.sha3(symbol),
   })
 
+  // check unsuccessful
+  if (!tx.successful) {
+
+    // throw error
+    throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
+
+  }
+
   // return token address
-  return tokenAddress
+  return tx.meta.receipt.contractAddress
 
 }
 
@@ -53,7 +59,15 @@ export const getToken = async (colonyClient) => {
 export const mintTokens = async (colonyClient, amount) => {
 
   // mint tokens
-  await colonyClient.mintTokens.send({ amount: new BN(amount) })
+  const tx = await colonyClient.mintTokens.send({ amount: new BN(amount) })
+
+  // check unsuccessful
+  if (!tx.successful) {
+
+    // throw error
+    throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
+
+  }
 
   // get token
   const token = await getToken(colonyClient)

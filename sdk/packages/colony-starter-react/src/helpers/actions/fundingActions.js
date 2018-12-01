@@ -15,7 +15,15 @@ export const claimFunds = async (colonyClient) => {
   const token = colonyClient.token.contract.address
 
   // claim funds
-  await colonyClient.claimColonyFunds.send({ token })
+  const tx = await colonyClient.claimColonyFunds.send({ token })
+
+  // check unsuccessful
+  if (!tx.successful) {
+
+    // throw error
+    throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
+
+  }
 
   // get updated pots
   const pots = await getPots(colonyClient)
@@ -33,12 +41,20 @@ export const moveFunds = async (colonyClient, fromPot, toPot, amount) => {
   const token = colonyClient.token.contract.address
 
   // move funds between pots
-  await colonyClient.moveFundsBetweenPots.send({
+  const tx = await colonyClient.moveFundsBetweenPots.send({
     fromPot,
     toPot,
     amount: new BN(amount),
     token,
   })
+
+  // check unsuccessful
+  if (!tx.successful) {
+
+    // throw error
+    throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
+
+  }
 
   // get updated pots
   const pots = await getPots(colonyClient)
