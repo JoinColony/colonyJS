@@ -9,6 +9,7 @@ class TaskActionsContainer extends Component {
   constructor(props) {
     super(props)
     this.cancelTask = this.cancelTask.bind(this)
+    this.claimPayout = this.claimPayout.bind(this)
     this.editTask = this.editTask.bind(this)
     this.finalizeTask = this.finalizeTask.bind(this)
     this.revealRating = this.revealRating.bind(this)
@@ -20,6 +21,10 @@ class TaskActionsContainer extends Component {
 
   cancelTask() {
     this.props.cancelTask(this.props.colonyClient, this.props.task.id)
+  }
+
+  claimPayout() {
+    this.props.history.push(`/manage/tasks/claim/${this.props.task.id}`)
   }
 
   editTask() {
@@ -54,6 +59,7 @@ class TaskActionsContainer extends Component {
     return (
       <TaskActions
         cancelTask={this.cancelTask}
+        claimPayout={this.claimPayout}
         editTask={this.editTask}
         error={
           this.props.cancelTaskError ||

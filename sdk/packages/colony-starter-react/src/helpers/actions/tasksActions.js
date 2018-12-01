@@ -31,6 +31,24 @@ export const cancelTask = async (colonyClient, taskId) => {
 
 }
 
+// claimPayout
+
+export const claimPayout = async (colonyClient, taskId, role) => {
+
+  const token = colonyClient.token.contract.address
+
+  // claim payout
+  await colonyClient.claimPayout.send({
+    taskId,
+    role,
+    token,
+  })
+
+  // return true
+  return true
+
+}
+
 // createTask
 
 export const createTask = async (colonyClient, task) => {
@@ -157,7 +175,7 @@ export const finalizeTask = async (colonyClient, taskId) => {
 export const fundTask = async (colonyClient, taskId, amount) => {
 
   // set token
-  const token = colonyClient.token._contract.address
+  const token = colonyClient.token.contract.address
 
   // get task
   const task = await getTask(colonyClient, taskId)
@@ -250,7 +268,7 @@ export const getTaskExtended = async (colonyClient, task) => {
   const potId = task.potId
 
   // set token
-  const token = colonyClient.token._contract.address
+  const token = colonyClient.token.contract.address
 
   // get pot balance
   const potBalance = await colonyClient.getPotBalance.call({
@@ -551,7 +569,7 @@ export const setTaskManagerPayout = async (colonyClient, taskId, amount) => {
   // start set task manager payout operation
   const setTaskManagerPayout =  await colonyClient.setTaskManagerPayout.startOperation({
     taskId,
-    token: colonyClient.token._contract.address,
+    token: colonyClient.token.contract.address,
     amount: new BN(amount),
   })
 
@@ -573,7 +591,7 @@ export const setTaskEvaluatorPayout = async (colonyClient, taskId, amount) => {
   // start set task evaluator payout operation
   const setTaskEvaluatorPayout = await colonyClient.setTaskEvaluatorPayout.startOperation({
     taskId,
-    token: colonyClient.token._contract.address,
+    token: colonyClient.token.contract.address,
     amount: new BN(amount),
   })
 
@@ -595,7 +613,7 @@ export const setTaskWorkerPayout = async (colonyClient, taskId, amount) => {
   // start set task worker payout operation
   const setTaskWorkerPayout = await colonyClient.setTaskWorkerPayout.startOperation({
     taskId,
-    token: colonyClient.token._contract.address,
+    token: colonyClient.token.contract.address,
     amount: new BN(amount),
   })
 

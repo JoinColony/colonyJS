@@ -1,5 +1,6 @@
 import React from 'react'
 import { NavLink, Route, Switch } from 'react-router-dom'
+import ClaimPayout from '../../containers/Manage/Tasks/ClaimPayout'
 import CreateTask from '../../containers/Manage/Tasks/CreateTask'
 import EditTask from '../../containers/Manage/Tasks/EditTask'
 import FundTask from '../../containers/Manage/Tasks/FundTask'
@@ -28,6 +29,7 @@ const Tasks = () => (
       <Route exact path="/manage/tasks/new" component={CreateTask} />
       <Route exact path="/manage/tasks/fund" component={FundTask} />
       <Route exact path="/manage/tasks/:id" component={ViewTask} />
+      <Route exact path="/manage/tasks/claim/:id" component={ClaimPayout} />
       <Route exact path="/manage/tasks/edit/:id" component={EditTask} />
       <Route exact path="/manage/tasks/rate/:id" component={SubmitRating} />
       <Route exact path="/manage/tasks/reveal/:id" component={RevealRating} />

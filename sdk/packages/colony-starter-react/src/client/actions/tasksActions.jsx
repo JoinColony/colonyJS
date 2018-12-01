@@ -27,6 +27,29 @@ export const cancelTaskSuccess = (message) => ({
   payload: message,
 })
 
+// claimPayout
+
+export const claimPayout = (colonyClient, taskId, role) => ({
+  type: actions.CLAIM_PAYOUT,
+  payload: tasksActions.claimPayout(colonyClient, taskId, role)
+    .then(success => {
+      store.dispatch(claimPayoutSuccess())
+    })
+    .catch(error => {
+      store.dispatch(claimPayoutError(error.message))
+    }),
+})
+
+export const claimPayoutError = (message) => ({
+  type: actions.CLAIM_PAYOUT_ERROR,
+  payload: message,
+})
+
+export const claimPayoutSuccess = (message) => ({
+  type: actions.CLAIM_PAYOUT_SUCCESS,
+  payload: message,
+})
+
 // createTask
 
 export const createTask = (colonyClient, task) => ({

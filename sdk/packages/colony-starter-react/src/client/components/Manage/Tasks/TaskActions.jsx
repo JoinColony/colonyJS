@@ -3,6 +3,7 @@ import styles from './TaskActions.scss'
 
 const TaskActions = ({
   cancelTask,
+  claimPayout,
   editTask,
   error,
   finalizeTask,
@@ -46,6 +47,9 @@ const TaskActions = ({
         </button>
 
       */}
+      <button onClick={claimPayout}>
+        {'Claim Payout'}
+      </button>
     </div>
     {error && !loading &&
       <div className={styles.message}>

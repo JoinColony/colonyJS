@@ -12,7 +12,7 @@ import { getTask } from './tasksActions'
 export const claimFunds = async (colonyClient) => {
 
   // set token
-  const token = colonyClient.token._contract.address
+  const token = colonyClient.token.contract.address
 
   // claim funds
   await colonyClient.claimColonyFunds.send({ token })
@@ -30,7 +30,7 @@ export const claimFunds = async (colonyClient) => {
 export const moveFunds = async (colonyClient, fromPot, toPot, amount) => {
 
   // set token
-  const token = colonyClient.token._contract.address
+  const token = colonyClient.token.contract.address
 
   // move funds between pots
   await colonyClient.moveFundsBetweenPots.send({
@@ -53,7 +53,7 @@ export const moveFunds = async (colonyClient, fromPot, toPot, amount) => {
 export const getClaimableFunds = async (colonyClient) => {
 
   // set token
-  const token = colonyClient.token._contract.address
+  const token = colonyClient.token.contract.address
 
   // get non rewards
   const { total: nonRewards } = await colonyClient.getNonRewardPotsTotal.call({ token })
@@ -76,7 +76,7 @@ export const getPotBalance = async (colonyClient, potId) => {
   // get pot balance
   const potBalance = await colonyClient.getPotBalance.call({
     potId,
-    token: colonyClient.token._contract.address,
+    token: colonyClient.token.contract.address,
   })
 
   // return pot balance

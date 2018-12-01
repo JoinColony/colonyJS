@@ -7,6 +7,11 @@ const initialState = {
   cancelTaskLoading: false,
   cancelTaskSuccess: false,
 
+  // claimPayout
+  claimPayoutError: null,
+  claimPayoutLoading: false,
+  claimPayoutSuccess: false,
+
   // createTask
   createTaskError: null,
   createTaskLoading: false,
@@ -91,6 +96,30 @@ const tasksReducer = (state = initialState, action) => {
         ...state,
         cancelTaskLoading: false,
         cancelTaskSuccess: true,
+      }
+
+    // claimPayout
+
+    case actions.CLAIM_PAYOUT:
+      return {
+        ...state,
+        claimPayoutError: null,
+        claimPayoutLoading: true,
+        claimPayoutSuccess: false,
+      }
+
+    case actions.CLAIM_PAYOUT_ERROR:
+      return {
+        ...state,
+        claimPayoutError: action.payload,
+        claimPayoutLoading: false,
+      }
+
+    case actions.CLAIM_PAYOUT_SUCCESS:
+      return {
+        ...state,
+        claimPayoutLoading: false,
+        claimPayoutSuccess: true,
       }
 
     // createTask
