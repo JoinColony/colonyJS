@@ -37,9 +37,15 @@ const TaskActions = ({
       <button onClick={finalizeTask}>
         {'Finalize Task'}
       </button>
-      <button onClick={cancelTask}>
-        {'Cancel Task'}
-      </button>
+      {/*
+
+        // TODO: Add the following back in once colonyJS#314 is included
+
+        <button onClick={cancelTask}>
+          {'Cancel Task'}
+        </button>
+
+      */}
     </div>
     {error && !loading &&
       <div className={styles.message}>

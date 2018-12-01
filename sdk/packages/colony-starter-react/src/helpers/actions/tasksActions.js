@@ -11,8 +11,14 @@ const web3 = require('web3');
 
 export const cancelTask = async (colonyClient, taskId) => {
 
-  // cancel task
-  await colonyClient.cancelTask.send({ taskId })
+  // start cancel task operation
+  const cancelTaskOperation = await colonyClient.cancelTask.startOperation({ taskId })
+
+  // serialize operation into JSON format
+  const cancelTaskOperationJSON = cancelTaskOperation.toJSON()
+
+  // sign cancel task
+  await signCancelTask(colonyClient, cancelTaskOperationJSON)
 
   // get updated task
   const updatedTask = await getTask(colonyClient, taskId)
@@ -611,6 +617,9 @@ export const signTask = async (colonyClient, taskId) => {
   // set address
   const address = colonyClient._contract.address
 
+  // get JSON formatted cancel task operation from local storage
+  const cancelTaskOperationJSON = localStorage.getItem('cancelTaskOperationJSON')
+
   // get JSON formatted task brief operation from local storage
   const setTaskBriefOperationJSON = localStorage.getItem('setTaskBriefOperationJSON')
 
@@ -638,6 +647,9 @@ export const signTask = async (colonyClient, taskId) => {
   // get JSON formatted task worker payout operation from local storage
   const setTaskWorkerPayoutOperationJSON = localStorage.getItem('setTaskWorkerPayoutOperationJSON')
 
+  // set cancelTaskOperation
+  const cancelTaskOperation = JSON.parse(cancelTaskOperationJSON)
+
   // set setTaskBriefOperation
   const setTaskBriefOperation = JSON.parse(setTaskBriefOperationJSON)
 
@@ -664,6 +676,18 @@ export const signTask = async (colonyClient, taskId) => {
 
   // set setTaskWorkerPayoutOperation
   const setTaskWorkerPayoutOperation = JSON.parse(setTaskWorkerPayoutOperationJSON)
+
+  // check if cancel task operation exists for contract and task
+  if (
+    cancelTaskOperationJSON &&
+    cancelTaskOperation.payload.sourceAddress === address &&
+    cancelTaskOperation.payload.inputValues.taskId === taskId
+  ) {
+
+    // sign cancel task
+    await signCancelTask(colonyClient, cancelTaskOperationJSON)
+
+  }
 
   // check if task brief operation exists for contract and task
   if (
@@ -781,6 +805,49 @@ export const signTask = async (colonyClient, taskId) => {
 
   // return updated task extended
   return updatedTaskExtended
+
+}
+
+// signCancelTask
+
+export const signCancelTask = async (colonyClient, operationJSON) => {
+
+  // restore operation
+  const cancelTaskOperation = await colonyClient.cancelTask.restoreOperation(operationJSON)
+
+  console.log('cancelTaskOperation', cancelTaskOperation)
+
+  console.log('colonyClient.adapter.wallet.address', colonyClient.adapter.wallet.address)
+
+  // check if required signees includes current user address
+  if (cancelTaskOperation.requiredSignees.includes(colonyClient.adapter.wallet.address.toLowerCase())) {
+
+    // sign set task brief operation
+    await cancelTaskOperation.sign()
+
+  }
+
+  // check for missing signees
+  if (cancelTaskOperation.missingSignees.length === 0) {
+
+    // send set task brief operation
+    await cancelTaskOperation.send()
+
+    // remove local storage item
+    localStorage.removeItem('cancelTaskOperationJSON')
+
+  } else {
+
+    // serialize operation into JSON format
+    const cancelTaskOperationJSON = cancelTaskOperation.toJSON()
+
+    // save operation to local storage
+    localStorage.setItem('cancelTaskOperationJSON', cancelTaskOperationJSON)
+
+  }
+
+  // return operation
+  return cancelTaskOperation
 
 }
 
