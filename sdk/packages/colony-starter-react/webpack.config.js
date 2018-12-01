@@ -9,6 +9,7 @@ module.exports = {
   output: {
     filename: 'index.min.js',
     path: path.join(__dirname, '/public'),
+    publicPath: '/',
   },
   module: {
     rules: [

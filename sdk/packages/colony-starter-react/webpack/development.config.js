@@ -22,16 +22,17 @@ module.exports = merge(base, {
             }
           },
           {
-            loader: 'sass-loader'
+            loader: 'sass-loader',
           },
           {
-            loader: 'postcss-loader'
+            loader: 'postcss-loader',
           }
         ]
       },
     ],
   },
   devServer: {
-    contentBase: path.join(__dirname, '../public')
+    contentBase: path.join(__dirname, '../public'),
+    historyApiFallback: true,
   },
 })
