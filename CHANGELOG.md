@@ -2,6 +2,12 @@
 
 ## v.NEXT
 
+**Bug fixes**
+
+* Define `ColonyClient.cancelTask` as a `MultisigSender` (`@colony/colony-js-client`)
+
+## v1.8.0
+
 **Maintenance**
 
 * Add `ColonyClient` events:

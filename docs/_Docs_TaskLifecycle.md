@@ -23,7 +23,7 @@ Tasks have 3 'roles' that may be assigned to addresses: manager, evaluator, and 
 | removeTaskWorkerRole     | X       |           | *      |
 | removeTaskEvaluatorRole  | X       | *         |        |
 | submitTaskDeliverable    |         |           | X      |
-| cancelTask               | X       |           |        |
+| cancelTask               | X       |           | *      |
 | finalizeTask             | X       | X         | X      |
 
 ( * ) - If the task has been assigned to a role already, the operation requires this role's signature.
@@ -49,12 +49,6 @@ Once a task has been created, it can be examined:
 
 ```js
 await colonyClient.getTask.call({ taskId });
-```
-
-At any time before a task is finalized, the task can be canceled, which allows any funding to be returned to the colony and halts any further modification of the task.
-
-```js
-await colonyClient.cancelTask.send({ taskId });
 ```
 
 ## Modification
@@ -189,6 +183,15 @@ await colonyClient.claimPayout.send({
   token,
 });
 ```
+
+## Cancel
+
+At any time before a task is finalized, the task can be canceled, which allows any funding to be returned to the colony and halts any further modification of the task. Cancelling a task must be approved by the manager and the worker.
+
+```js
+await colonyClient.cancelTask.startOperation({ taskId });
+```
+
 
 ## Using IPFS for a Task Specification
 
