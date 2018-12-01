@@ -8,7 +8,7 @@ class SubmitRatingContainer extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      rating: 10,
+      rating: 1,
       role: 'MANAGER',
     }
     this.handleClick = this.handleClick.bind(this)
@@ -18,7 +18,7 @@ class SubmitRatingContainer extends Component {
   componentDidUpdate(prevProps) {
     if (this.props.submitRatingSuccess && prevProps.submitRatingSuccess !== this.props.submitRatingSuccess) {
       this.setState({
-        rating: 10,
+        rating: 1,
         role: 'MANAGER',
       })
     }

@@ -30,14 +30,14 @@ const RevealRating = ({
         {'rating:'}
       </label>
       <select id="rating" value={rating} onChange={handleChange}>
-        <option value={10}>
-          {'10'}
+        <option value={1}>
+          {'1'}
         </option>
-        <option value={20}>
-          {'20'}
+        <option value={2}>
+          {'2'}
         </option>
-        <option value={30}>
-          {'30'}
+        <option value={3}>
+          {'3'}
         </option>
       </select>
     </div>

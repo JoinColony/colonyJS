@@ -8,7 +8,7 @@ class RevealRatingContainer extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      rating: 10,
+      rating: 1,
       role: 'MANAGER',
     }
     this.handleClick = this.handleClick.bind(this)
@@ -18,7 +18,7 @@ class RevealRatingContainer extends Component {
   componentDidUpdate(prevProps) {
     if (this.props.revealRatingSuccess && prevProps.revealRatingSuccess !== this.props.revealRatingSuccess) {
       this.setState({
-        rating: 10,
+        rating: 1,
         role: 'MANAGER',
       })
     }

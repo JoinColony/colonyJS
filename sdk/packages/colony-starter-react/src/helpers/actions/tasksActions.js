@@ -4,6 +4,9 @@ import BN from 'bn.js'
 // import extended protocol
 import ecp from '../ecp'
 
+// import web3 library
+const web3 = require('web3');
+
 // cancelTask
 
 export const cancelTask = async (colonyClient, taskId) => {
@@ -357,7 +360,7 @@ export const getTasks = async (colonyClient) => {
 export const revealRating = async (colonyClient, taskId, role, rating) => {
 
   // set salt
-  const salt = 'secret'
+  const salt = web3.utils.sha3('secret')
 
   // set value
   const value = rating
@@ -627,6 +630,9 @@ export const signTask = async (colonyClient, taskId) => {
   const setTaskDueDateOperationJSON = localStorage.getItem('setTaskDueDateOperationJSON')
 
   // get JSON formatted task evaluator payout operation from local storage
+  const setTaskManagerPayoutOperationJSON = localStorage.getItem('setTaskManagerPayoutOperationJSON')
+
+  // get JSON formatted task evaluator payout operation from local storage
   const setTaskEvaluatorPayoutOperationJSON = localStorage.getItem('setTaskEvaluatorPayoutOperationJSON')
 
   // get JSON formatted task worker payout operation from local storage
@@ -649,6 +655,9 @@ export const signTask = async (colonyClient, taskId) => {
 
   // set setTaskDueDateOperation
   const setTaskDueDateOperation = JSON.parse(setTaskDueDateOperationJSON)
+
+  // set setTaskManagerPayoutOperation
+  const setTaskManagerPayoutOperation = JSON.parse(setTaskManagerPayoutOperationJSON)
 
   // set setTaskEvaluatorPayoutOperation
   const setTaskEvaluatorPayoutOperation = JSON.parse(setTaskEvaluatorPayoutOperationJSON)
@@ -1131,7 +1140,7 @@ export const signTaskWorkerPayout = async (colonyClient, operationJSON) => {
 export const submitRating = async (colonyClient, taskId, role, rating) => {
 
   // set salt
-  const salt = 'secret'
+  const salt = web3.utils.sha3('secret')
 
   // set value
   const value = rating
