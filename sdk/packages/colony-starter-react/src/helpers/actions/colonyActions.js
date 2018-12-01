@@ -1,47 +1,26 @@
+// import setTokenOwner
+import { setTokenOwner } from './tokenActions'
+
 // createColony
 
 export const createColony = async (networkClient, tokenAddress) => {
 
   // create colony
-  const tx1 = await networkClient.createColony.send({ tokenAddress })
+  const tx = await networkClient.createColony.send({ tokenAddress })
 
   // check unsuccessful
-  if (!tx1.successful) {
+  if (!tx.successful) {
 
     // throw error
-    throw Error ('Transaction Failed: ' + tx1.meta.transaction.hash)
+    throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
 
   }
 
   // get colony client
-  const colonyClient = await getColonyClient(networkClient, tx1.eventData.colonyAddress)
+  const colonyClient = await getColonyClient(networkClient, tx.eventData.colonyAddress)
 
-  // set colony contract as token owner
-  const tx2 = await colonyClient.token.setOwner.send({
-    owner: colonyClient.contract.address,
-  })
-
-  // check unsuccessful
-  if (!tx2.successful) {
-
-    // throw error
-    throw Error ('Transaction Failed: ' + tx2.meta.transaction.hash)
-
-  }
-
-  // set current user as user role owner
-  const tx3 = await colonyClient.authority.setUserRole.send({
-    user: colonyClient.adapter.wallet.address,
-    role: 'OWNER',
-  })
-
-  // check unsuccessful
-  if (!tx3.successful) {
-
-    // throw error
-    throw Error ('Transaction Failed: ' + tx3.meta.transaction.hash)
-
-  }
+  // set colony as token owner
+  await setTokenOwner(colonyClient, colonyClient.contract.address)
 
   // return colony client
   return colonyClient

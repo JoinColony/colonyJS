@@ -76,3 +76,25 @@ export const mintTokens = async (colonyClient, amount) => {
   return token
 
 }
+
+// setTokenOwner
+
+export const setTokenOwner = async (colonyClient, colonyAddress) => {
+
+  // set colony contract as token owner
+  const tx = await colonyClient.token.setOwner.send({
+    owner: colonyAddress,
+  })
+
+  // check unsuccessful
+  if (!tx.successful) {
+
+    // throw error
+    throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
+
+  }
+
+  // return true
+  return true
+
+}
