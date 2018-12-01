@@ -827,25 +827,6 @@ An instance of a `ContractResponse`
 
 
 
-### `cancelTask.send({ taskId }, options)`
-
-Cancels a task.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|taskId|number|Integer taskId.|
-
-**Returns**
-
-An instance of a `ContractResponse` which will eventually receive the following event data:
-
-|Event data|Type|Description|
-|---|---|---|
-|taskId|number|The task ID of the task that was canceled.|
-|TaskCanceled|object|Contains the data defined in [TaskCanceled](#events-TaskCanceled)|
-
 ### `finalizeTask.send({ taskId }, options)`
 
 Finalizes a task, allowing roles to claim payouts and prohibiting all further changes to the task.
@@ -1316,6 +1297,25 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |role|number|The role that changed for the task.|
 |user|Address|The user with the role that changed for the task.|
 |TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#events-TaskRoleUserSet)|
+
+### `cancelTask.startOperation({ taskId })`
+
+Cancels a task.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|taskId|number|Integer taskId.|
+
+**Returns**
+
+An instance of a `MultiSigOperation` whose sender will eventually receive the following event data:
+
+|Event Data|Type|Description|
+|---|---|---|
+|taskId|number|The task ID of the task that was canceled.|
+|TaskCanceled|object|Contains the data defined in [TaskCanceled](#events-TaskCanceled)|
 
   
 ## Events
