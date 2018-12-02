@@ -18,20 +18,17 @@
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
   margin: 1rem auto;
   padding: 1rem;
+  transition: 0.25s;
+
+  &:hover {
+    background: rgb(250, 250, 250);
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+  }
 
   .title {
     font-size: 1.2rem;
     font-weight: 400;
-  }
-
-}
-
-.buttons {
-  padding: 0.5rem 0;
-
-  button {
-    margin: 0.25rem;
-    padding: 0.5rem;
   }
 
 }

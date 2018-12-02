@@ -16,13 +16,8 @@ const ViewTasks = ({
     :
       <ul className={styles.list}>
         {tasks.map(task => (
-          <li key={task.id} className={styles.item}>
+          <li key={task.id} className={styles.item} onClick={() => viewTask(task.id)}>
             <TaskPreview task={task} />
-            <div className={styles.buttons}>
-              <button onClick={() => viewTask(task.id)}>
-                {'View Task'}
-              </button>
-            </div>
           </li>
         ))}
       </ul>
