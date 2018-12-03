@@ -46,7 +46,7 @@ class SetDetailsContainer extends Component {
 
   canSetDetails() {
     const completionDate = this.props.task.completionDate
-    return (!this.props.admin && completionDate === null)
+    return completionDate === null
   }
 
   handleChange(event) {
@@ -125,7 +125,6 @@ class SetDetailsContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  admin: state.admins.admin,
   colonyClient: state.colony.colonyClient,
   setTaskDetailsError: state.tasks.setTaskDetailsError,
   setTaskDetailsLoading: state.tasks.setTaskDetailsLoading,

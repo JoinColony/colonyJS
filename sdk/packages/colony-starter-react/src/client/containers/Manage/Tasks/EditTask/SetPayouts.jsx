@@ -39,12 +39,12 @@ class SetPayoutsContainer extends Component {
 
   canSetPayouts() {
     const completionDate = this.props.task.completionDate
-    return (this.props.admin && completionDate === null)
+    return completionDate === null
   }
 
   handleChange(event) {
     let state = this.state
-    state[event.target.id] = event.target.value
+    state.payouts[event.target.id] = event.target.value
     this.setState({ ...state })
   }
 
@@ -94,7 +94,6 @@ class SetPayoutsContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  admin: state.admins.admin,
   colonyClient: state.colony.colonyClient,
   setTaskPayoutError: state.tasks.setTaskPayoutError,
   setTaskPayoutLoading: state.tasks.setTaskPayoutLoading,

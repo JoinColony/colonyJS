@@ -389,16 +389,14 @@ export const setTaskBrief = async (colonyClient, taskId, specification) => {
 
 export const setTaskDomain = async (colonyClient, taskId, domainId) => {
 
-  // set task domain
-  const tx = await colonyClient.setTaskDomain.send({ taskId, domainId })
+  // start set task domain operation
+  const setTaskDomainOperation = await colonyClient.setTaskDomain.startOperation({ taskId, domainId })
 
-  // check unsuccessful
-  if (!tx.successful) {
+  // serialize operation into JSON format
+  const setTaskDomainOperationJSON = setTaskDomainOperation.toJSON()
 
-    // throw error
-    throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
-
-  }
+  // sign task domain
+  await signTaskDomain(colonyClient, setTaskDomainOperationJSON)
 
   // return id
   return taskId
@@ -585,8 +583,6 @@ export const setTaskRole = async (colonyClient, taskId, role, user) => {
       user,
     })
 
-    console.log('setTaskManagerRoleOperation', setTaskManagerRoleOperation)
-
     // serialize operation into JSON format
     const setTaskManagerRoleOperationJSON = setTaskManagerRoleOperation.toJSON()
 
@@ -646,6 +642,9 @@ export const signTask = async (colonyClient, taskId) => {
 
   // get JSON formatted task brief operation from local storage
   const setTaskBriefOperationJSON = localStorage.getItem('setTaskBriefOperationJSON')
+
+  // get JSON formatted task domain operation from local storage
+  const setTaskDomainOperationJSON = localStorage.getItem('setTaskDomainOperationJSON')
 
   // get JSON formatted task skill operation from local storage
   const setTaskSkillOperationJSON = localStorage.getItem('setTaskSkillOperationJSON')
@@ -722,6 +721,18 @@ export const signTask = async (colonyClient, taskId) => {
 
     // sign task brief
     await signTaskBrief(colonyClient, setTaskBriefOperationJSON)
+
+  }
+
+  // check if task domain operation exists for contract and task
+  if (
+    setTaskDomainOperationJSON &&
+    setTaskDomainOperation.payload.sourceAddress === address &&
+    setTaskDomainOperation.payload.inputValues.taskId === taskId
+  ) {
+
+    // sign task domain
+    await signTaskDomain(colonyClient, setTaskDomainOperationJSON)
 
   }
 
@@ -833,10 +844,6 @@ export const signCancelTask = async (colonyClient, operationJSON) => {
   // restore operation
   const cancelTaskOperation = await colonyClient.cancelTask.restoreOperation(operationJSON)
 
-  console.log('cancelTaskOperation', cancelTaskOperation)
-
-  console.log('colonyClient.adapter.wallet.address', colonyClient.adapter.wallet.address)
-
   // check if required signees includes current user address
   if (cancelTaskOperation.requiredSignees.includes(colonyClient.adapter.wallet.address.toLowerCase())) {
 
@@ -849,10 +856,18 @@ export const signCancelTask = async (colonyClient, operationJSON) => {
   if (cancelTaskOperation.missingSignees.length === 0) {
 
     // send set task brief operation
-    await cancelTaskOperation.send()
+    const tx = await cancelTaskOperation.send()
 
     // remove local storage item
     localStorage.removeItem('cancelTaskOperationJSON')
+
+    // check unsuccessful
+    if (!tx.successful) {
+
+      // throw error
+      throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
+
+    }
 
   } else {
 
@@ -888,10 +903,18 @@ export const signTaskBrief = async (colonyClient, operationJSON) => {
   if (setTaskBriefOperation.missingSignees.length === 0) {
 
     // send set task brief operation
-    await setTaskBriefOperation.send()
+    const tx = await setTaskBriefOperation.send()
 
     // remove local storage item
     localStorage.removeItem('setTaskBriefOperationJSON')
+
+    // check unsuccessful
+    if (!tx.successful) {
+
+      // throw error
+      throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
+
+    }
 
   } else {
 
@@ -905,6 +928,53 @@ export const signTaskBrief = async (colonyClient, operationJSON) => {
 
   // return operation
   return setTaskBriefOperation
+
+}
+
+// signTaskDomain
+
+export const signTaskDomain = async (colonyClient, operationJSON) => {
+
+  // restore operation
+  const setTaskDomainOperation = await colonyClient.setTaskDomain.restoreOperation(operationJSON)
+
+  // check if required signees includes current user address
+  if (setTaskDomainOperation.requiredSignees.includes(colonyClient.adapter.wallet.address.toLowerCase())) {
+
+    // sign set task brief operation
+    await setTaskDomainOperation.sign()
+
+  }
+
+  // check for missing signees
+  if (setTaskDomainOperation.missingSignees.length === 0) {
+
+    // send set task domain operation
+    const tx = await setTaskDomainOperation.send()
+
+    // remove local storage item
+    localStorage.removeItem('setTaskDomainOperationJSON')
+
+    // check unsuccessful
+    if (!tx.successful) {
+
+      // throw error
+      throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
+
+    }
+
+  } else {
+
+    // serialize operation into JSON format
+    const setTaskDomainOperationJSON = setTaskDomainOperation.toJSON()
+
+    // save operation to local storage
+    localStorage.setItem('setTaskDomainOperationJSON', setTaskDomainOperationJSON)
+
+  }
+
+  // return operation
+  return setTaskDomainOperation
 
 }
 
@@ -927,10 +997,18 @@ export const signTaskSkill = async (colonyClient, operationJSON) => {
   if (setTaskSkillOperation.missingSignees.length === 0) {
 
     // send set task skill operation
-    await setTaskSkillOperation.send()
+    const tx = await setTaskSkillOperation.send()
 
     // remove local storage item
     localStorage.removeItem('setTaskSkillOperationJSON')
+
+    // check unsuccessful
+    if (!tx.successful) {
+
+      // throw error
+      throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
+
+    }
 
   } else {
 
@@ -954,8 +1032,6 @@ export const signTaskManagerRole = async (colonyClient, operationJSON) => {
   // restore operation
   const setTaskManagerRoleOperation = await colonyClient.setTaskManagerRole.restoreOperation(operationJSON)
 
-  console.log('setTaskManagerRoleOperation', setTaskManagerRoleOperation)
-
   // check if required signees includes current user address
   if (setTaskManagerRoleOperation.requiredSignees.includes(colonyClient.adapter.wallet.address.toLowerCase())) {
 
@@ -970,6 +1046,9 @@ export const signTaskManagerRole = async (colonyClient, operationJSON) => {
     // send set task manager role operation
     const tx = await setTaskManagerRoleOperation.send()
 
+    // remove local storage item
+    localStorage.removeItem('setTaskManagerRoleOperationJSON')
+
     // check unsuccessful
     if (!tx.successful) {
 
@@ -977,9 +1056,6 @@ export const signTaskManagerRole = async (colonyClient, operationJSON) => {
       throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
 
     }
-
-    // remove local storage item
-    localStorage.removeItem('setTaskManagerRoleOperationJSON')
 
   } else {
 
@@ -1015,10 +1091,18 @@ export const signTaskEvaluatorRole = async (colonyClient, operationJSON) => {
   if (setTaskEvaluatorRoleOperation.missingSignees.length === 0) {
 
     // send set task evaluator role operation
-    await setTaskEvaluatorRoleOperation.send()
+    const tx = await setTaskEvaluatorRoleOperation.send()
 
     // remove local storage item
     localStorage.removeItem('setTaskEvaluatorRoleOperationJSON')
+
+    // check unsuccessful
+    if (!tx.successful) {
+
+      // throw error
+      throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
+
+    }
 
   } else {
 
@@ -1054,10 +1138,18 @@ export const signTaskWorkerRole = async (colonyClient, operationJSON) => {
   if (setTaskWorkerRoleOperation.missingSignees.length === 0) {
 
     // send set task worker role operation
-    await setTaskWorkerRoleOperation.send()
+    const tx = await setTaskWorkerRoleOperation.send()
 
     // remove local storage item
     localStorage.removeItem('setTaskWorkerRoleOperationJSON')
+
+    // check unsuccessful
+    if (!tx.successful) {
+
+      // throw error
+      throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
+
+    }
 
   } else {
 
@@ -1093,10 +1185,18 @@ export const signTaskDueDate = async (colonyClient, operationJSON) => {
   if (setTaskDueDateOperation.missingSignees.length === 0) {
 
     // send set task due date operation
-    await setTaskDueDateOperation.send()
+    const tx = await setTaskDueDateOperation.send()
 
     // remove local storage item
     localStorage.removeItem('setTaskDueDateOperationJSON')
+
+    // check unsuccessful
+    if (!tx.successful) {
+
+      // throw error
+      throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
+
+    }
 
   } else {
 
@@ -1132,10 +1232,18 @@ export const signTaskManagerPayout = async (colonyClient, operationJSON) => {
   if (setTaskManagerPayoutOperation.missingSignees.length === 0) {
 
     // send set task manager payout operation
-    await setTaskManagerPayoutOperation.send()
+    const tx = await setTaskManagerPayoutOperation.send()
 
     // remove local storage item
     localStorage.removeItem('setTaskManagerPayoutOperationJSON')
+
+    // check unsuccessful
+    if (!tx.successful) {
+
+      // throw error
+      throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
+
+    }
 
   } else {
 
@@ -1171,10 +1279,18 @@ export const signTaskEvaluatorPayout = async (colonyClient, operationJSON) => {
   if (setTaskEvaluatorPayoutOperation.missingSignees.length === 0) {
 
     // send set task evaluator payout operation
-    await setTaskEvaluatorPayoutOperation.send()
+    const tx = await setTaskEvaluatorPayoutOperation.send()
 
     // remove local storage item
     localStorage.removeItem('setTaskEvaluatorPayoutOperationJSON')
+
+    // check unsuccessful
+    if (!tx.successful) {
+
+      // throw error
+      throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
+
+    }
 
   } else {
 
@@ -1210,10 +1326,18 @@ export const signTaskWorkerPayout = async (colonyClient, operationJSON) => {
   if (setTaskWorkerPayoutOperation.missingSignees.length === 0) {
 
     // send set task worker payout operation
-    await setTaskWorkerPayoutOperation.send()
+    const tx = await setTaskWorkerPayoutOperation.send()
 
     // remove local storage item
     localStorage.removeItem('setTaskWorkerPayoutOperationJSON')
+
+    // check unsuccessful
+    if (!tx.successful) {
+
+      // throw error
+      throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
+
+    }
 
   } else {
 

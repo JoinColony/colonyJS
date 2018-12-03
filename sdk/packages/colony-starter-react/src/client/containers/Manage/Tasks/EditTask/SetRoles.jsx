@@ -10,9 +10,15 @@ class SetRolesContainer extends Component {
     super(props)
     this.state = {
       roles: {
-        manager: props.task.roles.manager,
-        evaluator: props.task.roles.evaluator,
-        worker: props.task.roles.worker,
+        manager: {
+          address: props.task.roles.manager.address,
+        },
+        evaluator: {
+          address: props.task.roles.evaluator.address || '',
+        },
+        worker: {
+          address: props.task.roles.worker.address || '',
+        },
       },
     }
     this.canSetManagerRole = this.canSetManagerRole.bind(this)
@@ -28,9 +34,15 @@ class SetRolesContainer extends Component {
     if (!prevProps.setTaskRoleSuccess && this.props.setTaskRoleSuccess) {
       this.setState({
         roles: {
-          manager: this.props.task.roles.manager,
-          evaluator: this.props.task.roles.evaluator,
-          worker: this.props.task.roles.worker,
+          manager: {
+            address: this.props.task.roles.manager.address,
+          },
+          evaluator: {
+            address: this.props.task.roles.evaluator.address || '',
+          },
+          worker: {
+            address: this.props.task.roles.worker.address || '',
+          },
         },
       })
     }
@@ -59,7 +71,7 @@ class SetRolesContainer extends Component {
 
   handleChange(event) {
     let state = this.state
-    state[event.target.id] = event.target.value
+    state.roles[event.target.id].address = event.target.value
     this.setState({ ...state })
   }
 
