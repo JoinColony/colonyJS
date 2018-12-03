@@ -1,0 +1,26 @@
+.container {
+  padding: 2rem;
+
+  h2 {
+    font-weight: 400;
+    padding-bottom: 1rem;
+  }
+
+}
+
+.field {
+  padding: 0.5rem 0;
+
+  label, span {
+    margin-right: 0.5rem;
+  }
+
+}
+
+.buttons, .message {
+  padding: 1rem 0;
+}
+
+.error {
+  color: red;
+}

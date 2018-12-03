@@ -1,0 +1,31 @@
+.container {
+  padding: 1rem 0;
+  text-align: center;
+  width: 100vw;
+
+  h2 {
+    font-size: 2rem;
+    padding: 1rem 0;
+  }
+
+}
+
+.field {
+  padding: 1rem;
+
+  label {
+    display: inline-block;
+    text-align: left;
+    width: 70px;
+  }
+
+}
+
+.buttons {
+  padding-bottom: 2rem;
+  padding-top: 1rem;
+}
+
+.error {
+  color: red;
+}
