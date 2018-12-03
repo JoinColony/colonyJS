@@ -123,6 +123,30 @@ export const fundTaskSuccess = (success) => ({
   payload: success,
 })
 
+// getMultisigOperations
+
+export const getMultisigOperations = (colonyClient, taskId) => ({
+  type: actions.GET_MULTISIG_OPERATIONS,
+  payload: tasksActions.getMultisigOperations(colonyClient, taskId)
+    .then(multisigOperations => {
+      store.dispatch(setStateMultisigOperations(multisigOperations))
+      store.dispatch(getMultisigOperationsSuccess(true))
+    })
+    .catch(error => {
+      store.dispatch(getMultisigOperationsError(error.message))
+    }),
+})
+
+export const getMultisigOperationsError = (error) => ({
+  type: actions.GET_MULTISIG_OPERATIONS_ERROR,
+  payload: error,
+})
+
+export const getMultisigOperationsSuccess = (success) => ({
+  type: actions.GET_MULTISIG_OPERATIONS_SUCCESS,
+  payload: success,
+})
+
 // getTask
 
 export const getTask = (colonyClient, taskId) => ({
@@ -193,6 +217,13 @@ export const revealRatingError = (error) => ({
 export const revealRatingSuccess = (success) => ({
   type: actions.REVEAL_RATING_SUCCESS,
   payload: success,
+})
+
+// setStateMultisigOperations
+
+export const setStateMultisigOperations = (multisigOperations) => ({
+  type: actions.SET_STATE_MULTISIG_OPERATIONS,
+  payload: multisigOperations,
 })
 
 // setStateTask
@@ -295,6 +326,7 @@ export const signTask = (colonyClient, taskId) => ({
   payload: tasksActions.signTask(colonyClient, taskId)
     .then(success => {
       store.dispatch(getTask(colonyClient, taskId))
+      store.dispatch(getMultisigOperations(colonyClient, taskId))
       store.dispatch(signTaskSuccess(true))
     })
     .catch(error => {

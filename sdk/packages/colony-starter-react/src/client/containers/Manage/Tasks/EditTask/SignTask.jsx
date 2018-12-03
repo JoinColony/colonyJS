@@ -12,15 +12,22 @@ class SignTaskContainer extends Component {
     this.handleClick = this.handleClick.bind(this)
   }
 
+  componentDidMount() {
+    this.props.getMultisigOperations(this.props.colonyClient, this.props.task.id)
+  }
+
   componentWillUnmount() {
     this.props.resetActions()
   }
 
   canSignTask() {
-
-    // TODO check whether user is required to sign anything ?
-
-    return true
+    if (this.props.multisigOperations) {
+      const userAddress = this.props.colonyClient.adapter.wallet.address.toLowerCase()
+      const multisigOperations = this.props.multisigOperations.filter(op => op.missingSignees.includes(userAddress))
+      return multisigOperations.length > 0
+    } else {
+      return false
+    }
   }
 
   handleClick() {
@@ -32,6 +39,7 @@ class SignTaskContainer extends Component {
       <SignTask
         canSignTask={this.canSignTask}
         handleClick={this.handleClick}
+        multisigOperations={this.props.multisigOperations}
         signTaskError={this.props.signTaskError}
         signTaskLoading={this.props.signTaskLoading}
         signTaskSuccess={this.props.signTaskSuccess}
@@ -43,6 +51,10 @@ class SignTaskContainer extends Component {
 
 const mapStateToProps = state => ({
   colonyClient: state.colony.colonyClient,
+  getMultisigOperationsError: state.tasks.getMultisigOperationsError,
+  getMultisigOperationsLoading: state.tasks.getMultisigOperationsLoading,
+  getMultisigOperationsSuccess: state.tasks.getMultisigOperationsSuccess,
+  multisigOperations: state.tasks.multisigOperations,
   signTaskError: state.tasks.signTaskError,
   signTaskLoading: state.tasks.signTaskLoading,
   signTaskSuccess: state.tasks.signTaskSuccess,
@@ -50,6 +62,9 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
+  getMultisigOperations(colonyClient, taskId) {
+    dispatch(tasksActions.getMultisigOperations(colonyClient, taskId))
+  },
   resetActions() {
     dispatch(tasksActions.signTaskError(null))
     dispatch(tasksActions.signTaskSuccess(false))

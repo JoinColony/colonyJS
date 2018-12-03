@@ -78,7 +78,7 @@ class SetDetailsContainer extends Component {
     }
 
     // set dueDate if dueDate has changed
-    if (prev.dueDate !== next.dueDate) {
+    if (formatDate(prev.dueDate) !== next.dueDate) {
       dueDate = next.dueDate
     }
 

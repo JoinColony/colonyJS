@@ -27,6 +27,11 @@ const initialState = {
   fundTaskLoading: false,
   fundTaskSuccess: false,
 
+  // getMultisigOperations
+  getMultisigOperationsError: null,
+  getMultisigOperationsLoading: false,
+  getMultisigOperationsSuccess: false,
+
   // getTask
   getTaskError: null,
   getTaskLoading: false,
@@ -36,6 +41,9 @@ const initialState = {
   getTasksError: null,
   getTasksLoading: false,
   getTasksSuccess: false,
+
+  // multisigOperations
+  multisigOperations: null,
 
   // revealRating
   revealRatingError: null,
@@ -207,6 +215,30 @@ const tasksReducer = (state = initialState, action) => {
         fundTaskSuccess: action.payload,
       }
 
+    // getMultisigOperations
+
+    case actions.GET_MULTISIG_OPERATIONS:
+      return {
+        ...state,
+        getMultisigOperationsError: null,
+        getMultisigOperationsLoading: true,
+        getMultisigOperationsSuccess: false,
+      }
+
+    case actions.GET_MULTISIG_OPERATIONS_ERROR:
+      return {
+        ...state,
+        getMultisigOperationsError: action.payload,
+        getMultisigOperationsLoading: false,
+      }
+
+    case actions.GET_MULTISIG_OPERATIONS_SUCCESS:
+      return {
+        ...state,
+        getMultisigOperationsLoading: false,
+        getMultisigOperationsSuccess: action.payload,
+      }
+
     // getTask
 
     case actions.GET_TASK:
@@ -277,6 +309,14 @@ const tasksReducer = (state = initialState, action) => {
         ...state,
         revealRatingLoading: false,
         revealRatingSuccess: action.payload,
+      }
+
+    // setStateMultisigOperations
+
+    case actions.SET_STATE_MULTISIG_OPERATIONS:
+      return {
+        ...state,
+        multisigOperations: action.payload,
       }
 
     // setStateTask
