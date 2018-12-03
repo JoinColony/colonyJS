@@ -68,17 +68,17 @@ export const moveFunds = async (colonyClient, fromPot, toPot, amount) => {
 
 export const getClaimableFunds = async (colonyClient) => {
 
-  // set token
-  const token = colonyClient.token.contract.address
+  // get colony balance
+  const { amount: balance } = await colonyClient.token.getBalanceOf.call({
+    sourceAddress: colonyClient.contract.address,
+  })
 
-  // get non rewards
-  const { total: nonRewards } = await colonyClient.getNonRewardPotsTotal.call({ token })
-
-  // get token supply
-  const { amount: tokenSupply} = await colonyClient.token.getTotalSupply.call()
+  const { total: nonRewards } = await colonyClient.getNonRewardPotsTotal.call({
+    token: colonyClient.token.contract.address,
+  })
 
   // calculate claimable funds
-  const claimableFunds = tokenSupply.sub(nonRewards).toNumber()
+  const claimableFunds = balance.sub(nonRewards).toNumber()
 
   // return claimed funds
   return claimableFunds
