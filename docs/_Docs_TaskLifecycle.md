@@ -8,28 +8,29 @@ The most useful abstraction within a colony is the `task`. Tasks are used to coo
 
 Tasks have 3 'roles' that may be assigned to addresses: manager, evaluator, and worker. Each role and its permissions are outlined in the table below:
 
-|                          | Manager | Evaluator | Worker |
-|--------------------------|---------|-----------|--------|
-| cancelTask               | X       |           | *      |
-| setTaskBrief             | X       |           | *      |
-| setTaskDomain            | X       |           | *      |
-| setTaskSkill             | X       |           | *      |
-| setTaskDueDate           | X       |           | *      |
-| setTaskManagerPayout     | X       |           | *      |
-| setTaskEvaluatorPayout   | X       | *         |        |
-| setTaskWorkerPayout      | X       |           | *      |
-| setTaskManagerRole       | X       |           |        |
-| setTaskEvaluatorRole     | X       | *         |        |
-| setTaskWorkerRole        | X       |           | *      |
-| removeTaskWorkerRole     | X       |           | *      |
-| removeTaskEvaluatorRole  | X       | *         |        |
-| submitTaskDeliverable    |         |           | X      |
-| submitTaskWorkRating     | X       | X         | X      |
-| revealTaskWorkRating     | X       | X         | X      |
-| claimPayout              | X       | X         | X      |
-| finalizeTask             | X       | X         | X      |
+|                          | Manager | Evaluator | Worker | Other                      |
+|--------------------------|---------|-----------|--------|----------------------------|
+| cancelTask               | *       |           | *      |                            |
+| setTaskBrief             | *       |           | *      |                            |
+| setTaskDomain            | *       |           | *      |                            |
+| setTaskSkill             | *       |           | *      |                            |
+| setTaskDueDate           | *       |           | *      |                            |
+| setTaskManagerPayout     | *       |           | *      |                            |
+| setTaskEvaluatorPayout   | *       | *         |        |                            |
+| setTaskWorkerPayout      | *       |           | *      |                            |
+| setTaskManagerRole       | *       |           |        | * proposed manager (admin) |
+| setTaskEvaluatorRole     | *       | *         |        | * proposed evaluator       |
+| setTaskWorkerRole        | *       |           | *      | * proposed worker          |
+| removeTaskWorkerRole     | *       |           | *      |                            |
+| removeTaskEvaluatorRole  | *       | *         |        |                            |
+| submitTaskDeliverable    |         |           | X      |                            |
+| submitTaskWorkRating     | X       | X         | X      |                            |
+| revealTaskWorkRating     | X       | X         | X      |                            |
+| claimPayout              | X       | X         | X      |                            |
+| finalizeTask             |         |           |        |                            |
 
-( * ) - If the task has been assigned to a role already, the operation requires this role's signature.
+( X ) - Only this user can call the method. If there is no X in the row, any user can call the method.
+( * ) - If the task has already been assigned to a role, the operation requires this role's signature.
 
 
 ==TOC==
