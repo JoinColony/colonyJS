@@ -3,47 +3,50 @@ import styles from './TaskActions.scss'
 
 const TaskActions = ({
   cancelTask,
+  canCancelTask,
+  canClaimPayout,
+  canEditTask,
+  canFinalizeTask,
+  canRevealRating,
+  canSubmitWork,
+  canSubmitRating,
   claimPayout,
   editTask,
   error,
   finalizeTask,
   loading,
   revealRating,
-  signTask,
   submitRating,
   submitWork,
   success,
 }) => (
   <div className={styles.container}>
     <div className={styles.buttons}>
-      <button onClick={editTask}>
+      <button className={canEditTask() ? null : styles.disabled} onClick={editTask}>
         {'Edit Task'}
       </button>
-      <button onClick={signTask}>
-        {'Sign Task'}
-      </button>
-      <button onClick={submitWork}>
+      <button className={canSubmitWork() ? null : styles.disabled} onClick={submitWork}>
         {'Submit Work'}
       </button>
-      <button onClick={submitRating}>
+      <button className={canSubmitRating() ? null : styles.disabled} onClick={submitRating}>
         {'Submit Rating'}
       </button>
-      <button onClick={revealRating}>
+      <button className={canRevealRating() ? null : styles.disabled} onClick={revealRating}>
         {'Reveal Rating'}
       </button>
-      <button onClick={finalizeTask}>
+      <button className={canFinalizeTask() ? null : styles.disabled} onClick={finalizeTask}>
         {'Finalize Task'}
       </button>
       {/*
 
         // TODO: Add the following back in once colonyJS#314 is included
 
-        <button onClick={cancelTask}>
+        <button className={canCancelTask() ? null : styles.disabled} onClick={cancelTask}>
           {'Cancel Task'}
         </button>
 
       */}
-      <button onClick={claimPayout}>
+      <button className={canClaimPayout() ? null : styles.disabled} onClick={claimPayout}>
         {'Claim Payout'}
       </button>
     </div>

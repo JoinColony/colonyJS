@@ -42,6 +42,21 @@ const initialState = {
   revealRatingLoading: false,
   revealRatingSuccess: false,
 
+  // setTaskDetails
+  setTaskDetailsError: null,
+  setTaskDetailsLoading: false,
+  setTaskDetailsSuccess: false,
+
+  // setTaskPayout
+  setTaskPayoutError: null,
+  setTaskPayoutLoading: false,
+  setTaskPayoutSuccess: false,
+
+  // setTaskRole
+  setTaskRoleError: null,
+  setTaskRoleLoading: false,
+  setTaskRoleSuccess: false,
+
   // signTask
   signTaskError: null,
   signTaskLoading: false,
@@ -57,13 +72,11 @@ const initialState = {
   submitWorkLoading: false,
   submitWorkSuccess: false,
 
-  // updateTask
-  updateTaskError: null,
-  updateTaskLoading: false,
-  updateTaskSuccess: false,
-
   // task
   task: null,
+
+  // taskCount
+  taskCount: null,
 
   // tasks
   tasks: null,
@@ -289,10 +302,90 @@ const tasksReducer = (state = initialState, action) => {
 
     // setStateTasks
 
+    case actions.SET_STATE_TASK_COUNT:
+      return {
+        ...state,
+        taskCount: action.payload,
+      }
+
+    // setStateTasks
+
     case actions.SET_STATE_TASKS:
       return {
         ...state,
         tasks: action.payload,
+      }
+
+    // setTaskDetails
+
+    case actions.SET_TASK_DETAILS:
+      return {
+        ...state,
+        setTaskDetailsError: null,
+        setTaskDetailsLoading: true,
+        setTaskDetailsSuccess: false,
+      }
+
+    case actions.SET_TASK_DETAILS_ERROR:
+      return {
+        ...state,
+        setTaskDetailsError: action.payload,
+        setTaskDetailsLoading: false,
+      }
+
+    case actions.SET_TASK_DETAILS_SUCCESS:
+      return {
+        ...state,
+        setTaskDetailsLoading: false,
+        setTaskDetailsSuccess: action.payload,
+      }
+
+    // setTaskPayout
+
+    case actions.SET_TASK_PAYOUT:
+      return {
+        ...state,
+        setTaskPayoutError: null,
+        setTaskPayoutLoading: true,
+        setTaskPayoutSuccess: false,
+      }
+
+    case actions.SET_TASK_PAYOUT_ERROR:
+      return {
+        ...state,
+        setTaskPayoutError: action.payload,
+        setTaskPayoutLoading: false,
+      }
+
+    case actions.SET_TASK_PAYOUT_SUCCESS:
+      return {
+        ...state,
+        setTaskPayoutLoading: false,
+        setTaskPayoutSuccess: action.payload,
+      }
+
+    // setTaskRole
+
+    case actions.SET_TASK_ROLE:
+      return {
+        ...state,
+        setTaskRoleError: null,
+        setTaskRoleLoading: true,
+        setTaskRoleSuccess: false,
+      }
+
+    case actions.SET_TASK_ROLE_ERROR:
+      return {
+        ...state,
+        setTaskRoleError: action.payload,
+        setTaskRoleLoading: false,
+      }
+
+    case actions.SET_TASK_ROLE_SUCCESS:
+      return {
+        ...state,
+        setTaskRoleLoading: false,
+        setTaskRoleSuccess: action.payload,
       }
 
     // signTask
@@ -365,30 +458,6 @@ const tasksReducer = (state = initialState, action) => {
         ...state,
         submitWorkLoading: false,
         submitWorkSuccess: action.payload,
-      }
-
-    // updateTask
-
-    case actions.UPDATE_TASK:
-      return {
-        ...state,
-        updateTaskError: null,
-        updateTaskLoading: true,
-        updateTaskSuccess: false,
-      }
-
-    case actions.UPDATE_TASK_ERROR:
-      return {
-        ...state,
-        updateTaskError: action.payload,
-        updateTaskLoading: false,
-      }
-
-    case actions.UPDATE_TASK_SUCCESS:
-      return {
-        ...state,
-        updateTaskLoading: false,
-        updateTaskSuccess: action.payload,
       }
 
     // default

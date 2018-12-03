@@ -1,49 +1,21 @@
 import React from 'react'
-import TaskForm from './TaskForm'
+import SetDetails from '../../../containers/Manage/Tasks/EditTask/SetDetails'
+import SetPayout from '../../../containers/Manage/Tasks/EditTask/SetPayout'
+import SetRole from '../../../containers/Manage/Tasks/EditTask/SetRole'
+import SignTask from '../../../containers/Manage/Tasks/EditTask/SignTask'
 import styles from './EditTask.scss'
 
 const EditTask = ({
   getTaskError,
   getTaskLoading,
   getTaskSuccess,
-  handleChange,
-  handleClick,
   task,
-  updateTaskError,
-  updateTaskLoading,
-  updateTaskSuccess,
 }) => (
-  <div className={styles.container}>
-    <h2>{'Edit Task'}</h2>
-      {!task || getTaskLoading ?
-        <div>{'loading...'}</div>
-      :
-        <div>
-          <TaskForm
-            handleChange={handleChange}
-            task={task}
-          />
-          <div className={styles.buttons}>
-            <button onClick={handleClick}>
-              {'Update Task'}
-            </button>
-          </div>
-          {updateTaskError &&
-            <div className={styles.message}>
-              <span className={styles.error}>
-                {updateTaskError}
-              </span>
-            </div>
-          }
-          {updateTaskLoading &&
-            <div className={styles.message}>
-              <span>
-                {'loading...'}
-              </span>
-            </div>
-          }
-        </div>
-      }
+  <div>
+    <SetDetails />
+    <SetPayout />
+    <SetRole />
+    <SignTask />
   </div>
 )
 

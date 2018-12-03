@@ -11,8 +11,7 @@ class ViewTaskContainer extends Component {
 
   componentDidMount() {
     const taskId = Number(this.props.match.params.id)
-    const task = this.props.tasks.find(task => task.id === taskId)
-    this.props.getTask(this.props.colonyClient, task)
+    this.props.getTask(this.props.colonyClient, taskId)
   }
 
   componentWillUnmount() {
@@ -38,12 +37,11 @@ const mapStateToProps = state => ({
   getTaskLoading: state.tasks.getTaskLoading,
   getTaskSuccess: state.tasks.getTaskSuccess,
   task: state.tasks.task,
-  tasks: state.tasks.tasks,
 })
 
 const mapDispatchToProps = dispatch => ({
-  getTask(colonyClient, task) {
-    dispatch(tasksActions.getTask(colonyClient, task))
+  getTask(colonyClient, taskId) {
+    dispatch(tasksActions.getTask(colonyClient, taskId))
   },
   resetActions() {
     dispatch(tasksActions.getTaskError(null))

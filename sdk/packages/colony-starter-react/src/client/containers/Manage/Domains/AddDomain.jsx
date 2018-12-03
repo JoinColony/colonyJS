@@ -10,12 +10,12 @@ class AddDomainContainer extends Component {
     this.handleClick = this.handleClick.bind(this)
   }
 
-  handleClick() {
-    this.props.addDomain(this.props.colonyClient)
-  }
-
   componentWillUnmount() {
     this.props.resetActions()
+  }
+
+  handleClick() {
+    this.props.addDomain(this.props.colonyClient)
   }
 
   render() {

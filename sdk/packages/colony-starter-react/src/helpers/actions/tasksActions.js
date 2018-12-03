@@ -20,14 +20,8 @@ export const cancelTask = async (colonyClient, taskId) => {
   // sign cancel task
   await signCancelTask(colonyClient, cancelTaskOperationJSON)
 
-  // get updated task
-  const updatedTask = await getTask(colonyClient, taskId)
-
-  // get updated task extended
-  const updatedTaskExtended = await getTaskExtended(colonyClient, updatedTask)
-
-  // return updated task extended
-  return updatedTaskExtended
+  // return id
+  return taskId
 
 }
 
@@ -61,23 +55,41 @@ export const claimPayout = async (colonyClient, taskId, role) => {
 
 export const createTask = async (colonyClient, task) => {
 
+  // set formatted task
+  const formattedTask = {}
+
   // initialize extended protocol
   await ecp.init()
 
   // create specification hash
-  const specificationHash = await ecp.saveTaskSpecification(task.specification)
+  formattedTask.specificationHash = await ecp.saveTaskSpecification(task.specification)
 
   // stop extended protocol
   await ecp.stop()
 
-  // format domain id
-  const domainId = Number(task.domainId)
+  // check domain id
+  if (task.domainId) {
+
+    // append domain id
+    formattedTask.domainId = task.domainId
+  }
+
+  // check skill id
+  if (task.skillId) {
+
+    // append skill id
+    formattedTask.skillId = task.skillId
+  }
+
+  // check due date
+  if (task.dueDate) {
+
+    // append formatted due date
+    formattedTask.dueDate = new Date(task.dueDate)
+  }
 
   // create task
-  const tx = await colonyClient.createTask.send({
-    domainId,
-    specificationHash,
-  })
+  const tx = await colonyClient.createTask.send({ ...formattedTask })
 
   // check unsuccessful
   if (!tx.successful) {
@@ -87,84 +99,8 @@ export const createTask = async (colonyClient, task) => {
 
   }
 
-  // check due date
-  if (task.dueDate) {
-
-    // format due date
-    const dueDate = new Date(task.dueDate)
-
-    // set task due date
-    await setTaskDueDate(colonyClient, tx.eventData.taskId, dueDate)
-
-  }
-
-  // check skill id
-  if (task.skillId) {
-
-    // format skillId
-    const skillId = Number(task.skillId)
-
-    // set task skill
-    await setTaskSkill(colonyClient, tx.eventData.taskId, skillId)
-
-  }
-
-  // check evaluator payout
-  if (task.payouts.evaluator) {
-
-    // set task evaluator payout
-    await setTaskEvaluatorPayout(colonyClient, tx.eventData.taskId, task.payouts.evaluator)
-
-  }
-
-  // check manager payout
-  if (task.payouts.manager) {
-
-    // set task manager payout
-    await setTaskManagerPayout(colonyClient, tx.eventData.taskId, task.payouts.manager)
-
-  }
-
-  // check worker payout
-  if (task.payouts.worker) {
-
-    // set task worker payout
-    await setTaskWorkerPayout(colonyClient, tx.eventData.taskId, task.payouts.worker)
-
-  }
-
-  // check evaluator
-  if (task.roles.evaluator) {
-
-    // set task role
-    await setTaskRole(colonyClient, tx.eventData.taskId, 'EVALUATOR', task.roles.evaluator)
-
-  }
-
-  // check manager
-  if (task.roles.manager) {
-
-    // set task role
-    await setTaskRole(colonyClient, tx.eventData.taskId, 'MANAGER', task.roles.manager)
-
-  }
-
-  // check worker
-  if (task.roles.worker) {
-
-    // set task role
-    await setTaskRole(colonyClient, tx.eventData.taskId, 'WORKER', task.roles.worker)
-
-  }
-
-  // get new task
-  const newTask = await getTask(colonyClient, tx.eventData.taskId)
-
-  // get new task extended
-  const newTaskExtended = await getTaskExtended(colonyClient, newTask)
-
-  // return new task extended
-  return newTaskExtended
+  // return id
+  return tx.eventData.taskId
 
 }
 
@@ -219,22 +155,8 @@ export const fundTask = async (colonyClient, taskId, amount) => {
 
   }
 
-  // get updated task extended
-  const updatedTaskExtended = await getTaskExtended(colonyClient, task)
-
-  // return updated task extended
-  return updatedTaskExtended
-
-}
-
-// getRatings
-
-export const getRatings = async (colonyClient, taskId) => {
-
-  const { count, date } = await colonyClient.getTaskWorkRatings.call({ taskId })
-
-  // return ratings
-  return { count, date }
+  // return true
+  return true
 
 }
 
@@ -267,10 +189,10 @@ export const getTask = async (colonyClient, taskId) => {
 
 // getTaskExtended
 
-export const getTaskExtended = async (colonyClient, task) => {
+export const getTaskExtended = async (colonyClient, taskId) => {
 
-  // set task id
-  const taskId = task.id
+  // get task
+  const task = await getTask(colonyClient, taskId)
 
   // get evaluator
   const evaluator = await colonyClient.getTaskRole.call({
@@ -346,8 +268,7 @@ export const getTaskExtended = async (colonyClient, task) => {
   // check deliverable
   if (deliverable) {
 
-    // get ratings
-    ratings = await getRatings(colonyClient, taskId)
+    const ratings = await colonyClient.getTaskWorkRatings.call({ taskId })
 
   }
 
@@ -429,14 +350,8 @@ export const revealRating = async (colonyClient, taskId, role, rating) => {
 
   }
 
-  // get updated task
-  const updatedTask = await getTask(colonyClient, taskId)
-
-  // get updated task extended
-  const updatedTaskExtended = await getTaskExtended(colonyClient, updatedTask)
-
-  // return updated task extended
-  return updatedTaskExtended
+  // return id
+  return taskId
 
 }
 
@@ -544,6 +459,119 @@ export const setTaskDueDate = async (colonyClient, taskId, dueDate) => {
 
 }
 
+// setTaskDetails
+
+export const setTaskDetails = async (colonyClient, taskId, details) => {
+
+  // check domain id
+  if (details.domainId) {
+
+    // format domain id
+    const domainId = Number(details.domainId)
+
+    // set task domain
+    await setTaskDomain(colonyClient, taskId, domainId)
+
+  }
+
+  // check due date
+  if (details.dueDate) {
+
+    // format due date
+    const dueDate = new Date(details.dueDate)
+
+    // set task due date
+    await setTaskDueDate(colonyClient, taskId, dueDate)
+
+  }
+
+  // check skill id
+  if (details.skillId) {
+
+    // format skillId
+    const skillId = Number(details.skillId)
+
+    // set task due date
+    await setTaskSkill(colonyClient, taskId, skillId)
+
+  }
+
+  // check specification
+  if (details.specification) {
+
+    // set task brief
+    await setTaskBrief(colonyClient, taskId, details.specification)
+
+  }
+
+  // return id
+  return taskId
+
+}
+
+// setTaskPayout
+
+export const setTaskPayout = async (colonyClient, taskId, role, amount) => {
+
+  // check manager payout
+  if (role === 'MANAGER') {
+
+    // start set task manager payout operation
+    const setTaskManagerPayout =  await colonyClient.setTaskManagerPayout.startOperation({
+      taskId,
+      token: colonyClient.token.contract.address,
+      amount: new BN(amount),
+    })
+
+    // serialize operation into JSON format
+    const setTaskManagerPayoutJSON = setTaskManagerPayout.toJSON()
+
+    // sign task manager payout
+    await signTaskManagerPayout(colonyClient, setTaskManagerPayoutJSON)
+
+  }
+
+  // check evaluator payout
+  if (role === 'EVALUATOR') {
+
+    // start set task evaluator payout operation
+    const setTaskEvaluatorPayout = await colonyClient.setTaskEvaluatorPayout.startOperation({
+      taskId,
+      token: colonyClient.token.contract.address,
+      amount: new BN(amount),
+    })
+
+    // serialize operation into JSON format
+    const setTaskEvaluatorPayoutJSON = setTaskEvaluatorPayout.toJSON()
+
+    // sign task evaluator payout
+    await signTaskEvaluatorPayout(colonyClient, setTaskEvaluatorPayoutJSON)
+
+  }
+
+  // check worker payout
+  if (role === 'WORKER') {
+
+    // start set task worker payout operation
+    const setTaskWorkerPayout = await colonyClient.setTaskWorkerPayout.startOperation({
+      taskId,
+      token: colonyClient.token.contract.address,
+      amount: new BN(amount),
+    })
+
+    // serialize operation into JSON format
+    const setTaskWorkerPayoutJSON = setTaskWorkerPayout.toJSON()
+
+    // sign task worker payout
+    await signTaskWorkerPayout(colonyClient, setTaskWorkerPayoutJSON)
+
+  }
+
+  // return id
+  return taskId
+
+}
+
 // setTaskRole
 
 export const setTaskRole = async (colonyClient, taskId, role, user) => {
@@ -556,6 +584,8 @@ export const setTaskRole = async (colonyClient, taskId, role, user) => {
       taskId,
       user,
     })
+
+    console.log('setTaskManagerRoleOperation', setTaskManagerRoleOperation)
 
     // serialize operation into JSON format
     const setTaskManagerRoleOperationJSON = setTaskManagerRoleOperation.toJSON()
@@ -598,72 +628,6 @@ export const setTaskRole = async (colonyClient, taskId, role, user) => {
     await signTaskWorkerRole(colonyClient, setTaskWorkerRoleOperationJSON)
 
   }
-
-  // return id
-  return taskId
-
-}
-
-// setTaskManagerPayout
-
-export const setTaskManagerPayout = async (colonyClient, taskId, amount) => {
-
-  // start set task manager payout operation
-  const setTaskManagerPayout =  await colonyClient.setTaskManagerPayout.startOperation({
-    taskId,
-    token: colonyClient.token.contract.address,
-    amount: new BN(amount),
-  })
-
-  // serialize operation into JSON format
-  const setTaskManagerPayoutJSON = setTaskManagerPayout.toJSON()
-
-  // sign task manager payout
-  await signTaskManagerPayout(colonyClient, setTaskManagerPayoutJSON)
-
-  // return id
-  return taskId
-
-}
-
-// setTaskEvaluatorPayout
-
-export const setTaskEvaluatorPayout = async (colonyClient, taskId, amount) => {
-
-  // start set task evaluator payout operation
-  const setTaskEvaluatorPayout = await colonyClient.setTaskEvaluatorPayout.startOperation({
-    taskId,
-    token: colonyClient.token.contract.address,
-    amount: new BN(amount),
-  })
-
-  // serialize operation into JSON format
-  const setTaskEvaluatorPayoutJSON = setTaskEvaluatorPayout.toJSON()
-
-  // sign task evaluator payout
-  await signTaskEvaluatorPayout(colonyClient, setTaskEvaluatorPayoutJSON)
-
-  // return id
-  return taskId
-
-}
-
-// setTaskWorkerPayout
-
-export const setTaskWorkerPayout = async (colonyClient, taskId, amount) => {
-
-  // start set task worker payout operation
-  const setTaskWorkerPayout = await colonyClient.setTaskWorkerPayout.startOperation({
-    taskId,
-    token: colonyClient.token.contract.address,
-    amount: new BN(amount),
-  })
-
-  // serialize operation into JSON format
-  const setTaskWorkerPayoutJSON = setTaskWorkerPayout.toJSON()
-
-  // sign task worker payout
-  await signTaskWorkerPayout(colonyClient, setTaskWorkerPayoutJSON)
 
   // return id
   return taskId
@@ -857,14 +821,8 @@ export const signTask = async (colonyClient, taskId) => {
 
   }
 
-  // get updated task
-  const updatedTask = await getTask(colonyClient, taskId)
-
-  // get updated task extended
-  const updatedTaskExtended = await getTaskExtended(colonyClient, updatedTask)
-
-  // return updated task extended
-  return updatedTaskExtended
+  // return id
+  return taskId
 
 }
 
@@ -996,6 +954,8 @@ export const signTaskManagerRole = async (colonyClient, operationJSON) => {
   // restore operation
   const setTaskManagerRoleOperation = await colonyClient.setTaskManagerRole.restoreOperation(operationJSON)
 
+  console.log('setTaskManagerRoleOperation', setTaskManagerRoleOperation)
+
   // check if required signees includes current user address
   if (setTaskManagerRoleOperation.requiredSignees.includes(colonyClient.adapter.wallet.address.toLowerCase())) {
 
@@ -1008,7 +968,15 @@ export const signTaskManagerRole = async (colonyClient, operationJSON) => {
   if (setTaskManagerRoleOperation.missingSignees.length === 0) {
 
     // send set task manager role operation
-    await setTaskManagerRoleOperation.send()
+    const tx = await setTaskManagerRoleOperation.send()
+
+    // check unsuccessful
+    if (!tx.successful) {
+
+      // throw error
+      throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
+
+    }
 
     // remove local storage item
     localStorage.removeItem('setTaskManagerRoleOperationJSON')
@@ -1286,14 +1254,8 @@ export const submitRating = async (colonyClient, taskId, role, rating) => {
 
   }
 
-  // get updated task
-  const updatedTask = await getTask(colonyClient, taskId)
-
-  // get updated task extended
-  const updatedTaskExtended = await getTaskExtended(colonyClient, updatedTask)
-
-  // return updated task extended
-  return updatedTaskExtended
+  // return id
+  return taskId
 
 }
 
@@ -1321,120 +1283,7 @@ export const submitWork = async (colonyClient, taskId, deliverable) => {
 
   }
 
-  // get updated task
-  const updatedTask = await getTask(colonyClient, taskId)
-
-  // get updated task extended
-  const updatedTaskExtended = await getTaskExtended(colonyClient, updatedTask)
-
-  // return updated task extended
-  return updatedTaskExtended
-
-}
-
-// updateTask
-
-export const updateTask = async (colonyClient, task) => {
-
-  // set id
-  const taskId = task.id
-
-  // check domain id
-  if (task.domainId) {
-
-    // format domain id
-    const domainId = Number(task.domainId)
-
-    // set task domain
-    await setTaskDomain(colonyClient, taskId, domainId)
-
-  }
-
-  // check due date
-  if (task.dueDate) {
-
-    // format due date
-    const dueDate = new Date(task.dueDate)
-
-    // set task due date
-    await setTaskDueDate(colonyClient, taskId, dueDate)
-
-  }
-
-  // check evaluator payout
-  if (task.payouts.evaluator) {
-
-    // set task evaluator payout
-    await setTaskEvaluatorPayout(colonyClient, taskId, task.payouts.evaluator)
-
-  }
-
-  // check manager payout
-  if (task.payouts.manager) {
-
-    // set task manager payout
-    await setTaskManagerPayout(colonyClient, taskId, task.payouts.manager)
-
-  }
-
-  // check worker payout
-  if (task.payouts.worker) {
-
-    // set task worker payout
-    await setTaskWorkerPayout(colonyClient, taskId, task.payouts.worker)
-
-  }
-
-  // check evaluator
-  if (task.roles.evaluator) {
-
-    // set task role
-    await setTaskRole(colonyClient, taskId, 'EVALUATOR', task.roles.evaluator)
-
-  }
-
-  // check manager
-  if (task.roles.manager) {
-
-    // set task role
-    await setTaskRole(colonyClient, taskId, 'MANAGER', task.roles.manager)
-
-  }
-
-  // check worker
-  if (task.roles.worker) {
-
-    // set task role
-    await setTaskRole(colonyClient, taskId, 'WORKER', task.roles.worker)
-
-  }
-
-  // check skill id
-  if (task.skillId) {
-
-    // format skillId
-    const skillId = Number(task.skillId)
-
-    // set task due date
-    await setTaskSkill(colonyClient, taskId, skillId)
-
-  }
-
-  // check specification
-  if (task.specification) {
-
-    // set task brief
-    await setTaskBrief(colonyClient, taskId, task.specification)
-
-  }
-
-  // get updated task
-  const updatedTask = await getTask(colonyClient, taskId)
-
-  // get updated task extended
-  const updatedTaskExtended = await getTaskExtended(colonyClient, updatedTask)
-
-  // return updated task extended
-  return updatedTaskExtended
+  // return id
+  return taskId
 
 }
