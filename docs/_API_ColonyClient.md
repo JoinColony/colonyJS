@@ -675,27 +675,6 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |user|Address|The removed colony admin user|
 |ColonyAdminRoleRemoved|object|Contains the data defined in [ColonyAdminRoleRemoved](#events-ColonyAdminRoleRemoved)|
 
-### `setTaskDomain.send({ taskId, domainId }, options)`
-
-Every task must belong to a single existing Domain. This can only be called by the manager of the task.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|taskId|number|Integer taskId.|
-|domainId|number|Integer domainId.|
-
-**Returns**
-
-An instance of a `ContractResponse` which will eventually receive the following event data:
-
-|Event data|Type|Description|
-|---|---|---|
-|taskId|number|The task ID.|
-|domainId|number|The task's new domain ID.|
-|TaskDomainSet|object|Contains the data defined in [TaskDomainSet](#events-TaskDomainSet)|
-
 ### `setAllTaskPayouts.send({ taskId, token, managerAmount, evaluatorAmount, workerAmount }, options)`
 
 Set the payouts for the task manager, evaluator and worker in one transaction, for a specific token address. This can only be called by the task manager, and only if the evaluator and worker roles are either unassigned or the same as the manager.
@@ -1075,6 +1054,27 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |taskId|number|The task ID.|
 |specificationHash|string|The IPFS hash of the task's new specification.|
 |TaskBriefSet|object|Contains the data defined in [TaskBriefSet](#events-TaskBriefSet)|
+
+### `setTaskDomain.startOperation({ taskId, domainId })`
+
+Every task must belong to a single existing Domain. This can only be called by the manager of the task.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|taskId|number|Integer taskId.|
+|domainId|number|Integer domainId.|
+
+**Returns**
+
+An instance of a `MultiSigOperation` whose sender will eventually receive the following event data:
+
+|Event Data|Type|Description|
+|---|---|---|
+|taskId|number|The task ID.|
+|domainId|number|The task's new domain ID.|
+|TaskDomainSet|object|Contains the data defined in [TaskDomainSet](#events-TaskDomainSet)|
 
 ### `setTaskDueDate.startOperation({ taskId, dueDate })`
 

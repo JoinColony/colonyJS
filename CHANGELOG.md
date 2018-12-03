@@ -4,6 +4,7 @@
 
 **Bug fixes**
 
+* Define `ColonyClient.addDomain` as a `MultisigSender` (`@colony/colony-js-client`)
 * Define `ColonyClient.cancelTask` as a `MultisigSender` (`@colony/colony-js-client`)
 
 ## v1.8.0
