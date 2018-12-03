@@ -2,6 +2,9 @@
 
 ## v.NEXT
 
+
+## v1.8.1
+
 **Bug fixes**
 
 * Define `ColonyClient.addDomain` as a `MultisigSender` (`@colony/colony-js-client`)
