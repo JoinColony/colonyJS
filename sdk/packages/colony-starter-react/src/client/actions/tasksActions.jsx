@@ -240,27 +240,27 @@ export const setTaskDetailsSuccess = (success) => ({
   payload: success,
 })
 
-// setTaskPayout
+// setTaskPayouts
 
-export const setTaskPayout = (colonyClient, taskId, role, amount) => ({
-  type: actions.SET_TASK_PAYOUT,
-  payload: tasksActions.setTaskPayout(colonyClient, taskId, role, amount)
+export const setTaskPayouts = (colonyClient, taskId, managerAmount, evaluatorAmount, workerAmount) => ({
+  type: actions.SET_TASK_PAYOUTS,
+  payload: tasksActions.setTaskPayouts(colonyClient, taskId, managerAmount, evaluatorAmount, workerAmount)
     .then(success => {
       store.dispatch(getTask(colonyClient, taskId))
-      store.dispatch(setTaskPayoutSuccess(true))
+      store.dispatch(setTaskPayoutsSuccess(true))
     })
     .catch(error => {
-      store.dispatch(setTaskPayoutError(error.message))
+      store.dispatch(setTaskPayoutsError(error.message))
     }),
 })
 
-export const setTaskPayoutError = (error) => ({
-  type: actions.SET_TASK_PAYOUT_ERROR,
+export const setTaskPayoutsError = (error) => ({
+  type: actions.SET_TASK_PAYOUTS_ERROR,
   payload: error,
 })
 
-export const setTaskPayoutSuccess = (success) => ({
-  type: actions.SET_TASK_PAYOUT_SUCCESS,
+export const setTaskPayoutsSuccess = (success) => ({
+  type: actions.SET_TASK_PAYOUTS_SUCCESS,
   payload: success,
 })
 

@@ -499,66 +499,21 @@ export const setTaskDetails = async (colonyClient, taskId, details) => {
 
 }
 
-// setTaskPayout
+// setTaskPayouts
 
-export const setTaskPayout = async (colonyClient, taskId, role, amount) => {
+export const setTaskPayouts = async (colonyClient, taskId, managerAmount, evaluatorAmount, workerAmount) => {
 
-  // check manager payout
-  if (role === 'MANAGER') {
+  // start set task manager payout operation
+  const setTaskPayouts =  await colonyClient.setAllTaskPayouts.send({
+    taskId,
+    token: colonyClient.token.contract.address,
+    managerAmount: new BN(managerAmount),
+    evaluatorAmount: new BN(evaluatorAmount),
+    workerAmount: new BN(workerAmount),
+  })
 
-    // start set task manager payout operation
-    const setTaskManagerPayout =  await colonyClient.setTaskManagerPayout.startOperation({
-      taskId,
-      token: colonyClient.token.contract.address,
-      amount: new BN(amount),
-    })
-
-    // serialize operation into JSON format
-    const setTaskManagerPayoutJSON = setTaskManagerPayout.toJSON()
-
-    // sign task manager payout
-    await signTaskManagerPayout(colonyClient, setTaskManagerPayoutJSON)
-
-  }
-
-  // check evaluator payout
-  if (role === 'EVALUATOR') {
-
-    // start set task evaluator payout operation
-    const setTaskEvaluatorPayout = await colonyClient.setTaskEvaluatorPayout.startOperation({
-      taskId,
-      token: colonyClient.token.contract.address,
-      amount: new BN(amount),
-    })
-
-    // serialize operation into JSON format
-    const setTaskEvaluatorPayoutJSON = setTaskEvaluatorPayout.toJSON()
-
-    // sign task evaluator payout
-    await signTaskEvaluatorPayout(colonyClient, setTaskEvaluatorPayoutJSON)
-
-  }
-
-  // check worker payout
-  if (role === 'WORKER') {
-
-    // start set task worker payout operation
-    const setTaskWorkerPayout = await colonyClient.setTaskWorkerPayout.startOperation({
-      taskId,
-      token: colonyClient.token.contract.address,
-      amount: new BN(amount),
-    })
-
-    // serialize operation into JSON format
-    const setTaskWorkerPayoutJSON = setTaskWorkerPayout.toJSON()
-
-    // sign task worker payout
-    await signTaskWorkerPayout(colonyClient, setTaskWorkerPayoutJSON)
-
-  }
-
-  // return id
-  return taskId
+  // return true
+  return true
 
 }
 
@@ -641,6 +596,9 @@ export const signTask = async (colonyClient, taskId) => {
   // get JSON formatted task skill operation from local storage
   const setTaskSkillOperationJSON = localStorage.getItem('setTaskSkillOperationJSON')
 
+  // get JSON formatted task due date operation from local storage
+  const setTaskDueDateOperationJSON = localStorage.getItem('setTaskDueDateOperationJSON')
+
   // get JSON formatted task manager role operation from local storage
   const setTaskManagerRoleOperationJSON = localStorage.getItem('setTaskManagerRoleOperationJSON')
 
@@ -650,26 +608,20 @@ export const signTask = async (colonyClient, taskId) => {
   // get JSON formatted task worker role operation from local storage
   const setTaskWorkerRoleOperationJSON = localStorage.getItem('setTaskWorkerRoleOperationJSON')
 
-  // get JSON formatted task due date operation from local storage
-  const setTaskDueDateOperationJSON = localStorage.getItem('setTaskDueDateOperationJSON')
-
-  // get JSON formatted task evaluator payout operation from local storage
-  const setTaskManagerPayoutOperationJSON = localStorage.getItem('setTaskManagerPayoutOperationJSON')
-
-  // get JSON formatted task evaluator payout operation from local storage
-  const setTaskEvaluatorPayoutOperationJSON = localStorage.getItem('setTaskEvaluatorPayoutOperationJSON')
-
-  // get JSON formatted task worker payout operation from local storage
-  const setTaskWorkerPayoutOperationJSON = localStorage.getItem('setTaskWorkerPayoutOperationJSON')
-
   // set cancelTaskOperation
   const cancelTaskOperation = JSON.parse(cancelTaskOperationJSON)
 
   // set setTaskBriefOperation
   const setTaskBriefOperation = JSON.parse(setTaskBriefOperationJSON)
 
+  // set setTaskDomainOperation
+  const setTaskDomainOperation = JSON.parse(setTaskDomainOperationJSON)
+
   // set setTaskSkillOperation
   const setTaskSkillOperation = JSON.parse(setTaskSkillOperationJSON)
+
+  // set setTaskDueDateOperation
+  const setTaskDueDateOperation = JSON.parse(setTaskDueDateOperationJSON)
 
   // set setTaskManagerRoleOperation
   const setTaskManagerRoleOperation = JSON.parse(setTaskManagerRoleOperationJSON)
@@ -679,18 +631,6 @@ export const signTask = async (colonyClient, taskId) => {
 
   // set setTaskWorkerRoleOperation
   const setTaskWorkerRoleOperation = JSON.parse(setTaskWorkerRoleOperationJSON)
-
-  // set setTaskDueDateOperation
-  const setTaskDueDateOperation = JSON.parse(setTaskDueDateOperationJSON)
-
-  // set setTaskManagerPayoutOperation
-  const setTaskManagerPayoutOperation = JSON.parse(setTaskManagerPayoutOperationJSON)
-
-  // set setTaskEvaluatorPayoutOperation
-  const setTaskEvaluatorPayoutOperation = JSON.parse(setTaskEvaluatorPayoutOperationJSON)
-
-  // set setTaskWorkerPayoutOperation
-  const setTaskWorkerPayoutOperation = JSON.parse(setTaskWorkerPayoutOperationJSON)
 
   // check if cancel task operation exists for contract and task
   if (
@@ -740,6 +680,18 @@ export const signTask = async (colonyClient, taskId) => {
 
   }
 
+  // check if task due date operation exists for contract and task
+  if (
+    setTaskDueDateOperationJSON &&
+    setTaskDueDateOperation.payload.sourceAddress === address &&
+    setTaskDueDateOperation.payload.inputValues.taskId === taskId
+  ) {
+
+    // sign task due date
+    await signTaskDueDate(colonyClient, setTaskDueDateOperationJSON)
+
+  }
+
   // check if task manager role operation exists for contract and task
   if (
     setTaskManagerRoleOperationJSON &&
@@ -773,54 +725,6 @@ export const signTask = async (colonyClient, taskId) => {
 
     // sign task worker role
     await signTaskWorkerRole(colonyClient, setTaskWorkerRoleOperationJSON)
-
-  }
-
-  // check if task due date operation exists for contract and task
-  if (
-    setTaskDueDateOperationJSON &&
-    setTaskDueDateOperation.payload.sourceAddress === address &&
-    setTaskDueDateOperation.payload.inputValues.taskId === taskId
-  ) {
-
-    // sign task due date
-    await signTaskDueDate(colonyClient, setTaskDueDateOperationJSON)
-
-  }
-
-  // check if task manager payout operation exists for contract and task
-  if (
-    setTaskManagerPayoutOperationJSON &&
-    setTaskManagerPayoutOperation.payload.sourceAddress === address &&
-    setTaskManagerPayoutOperation.payload.inputValues.taskId === taskId
-  ) {
-
-    // sign task manager payout
-    await signTaskManagerPayout(colonyClient, setTaskManagerPayoutOperationJSON)
-
-  }
-
-  // check if task evaluator payout operation exists for contract and task
-  if (
-    setTaskEvaluatorPayoutOperationJSON &&
-    setTaskEvaluatorPayoutOperation.payload.sourceAddress === address &&
-    setTaskEvaluatorPayoutOperation.payload.inputValues.taskId === taskId
-  ) {
-
-    // sign task evaluator payout
-    await signTaskEvaluatorPayout(colonyClient, setTaskEvaluatorPayoutOperationJSON)
-
-  }
-
-  // check if task worker payout operation exists for contract and task
-  if (
-    setTaskWorkerPayoutOperationJSON &&
-    setTaskWorkerPayoutOperation.payload.sourceAddress === address &&
-    setTaskWorkerPayoutOperation.payload.inputValues.taskId === taskId
-  ) {
-
-    // sign task worker payout
-    await signTaskWorkerPayout(colonyClient, setTaskWorkerPayoutOperationJSON)
 
   }
 
@@ -1017,6 +921,53 @@ export const signTaskSkill = async (colonyClient, operationJSON) => {
 
 }
 
+// signTaskDueDate
+
+export const signTaskDueDate = async (colonyClient, operationJSON) => {
+
+  // restore operation
+  const setTaskDueDateOperation = await colonyClient.setTaskDueDate.restoreOperation(operationJSON)
+
+  // check if required signees includes current user address
+  if (setTaskDueDateOperation.requiredSignees.includes(colonyClient.adapter.wallet.address.toLowerCase())) {
+
+    // sign set task due date operation
+    await setTaskDueDateOperation.sign()
+
+  }
+
+  // check for missing signees
+  if (setTaskDueDateOperation.missingSignees.length === 0) {
+
+    // send set task due date operation
+    const tx = await setTaskDueDateOperation.send()
+
+    // remove local storage item
+    localStorage.removeItem('setTaskDueDateOperationJSON')
+
+    // check unsuccessful
+    if (!tx.successful) {
+
+      // throw error
+      throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
+
+    }
+
+  } else {
+
+    // serialize operation into JSON format
+    const setTaskDueDateOperationJSON = setTaskDueDateOperation.toJSON()
+
+    // save operation to local storage
+    localStorage.setItem('setTaskDueDateOperationJSON', setTaskDueDateOperationJSON)
+
+  }
+
+  // return operation
+  return setTaskDueDateOperation
+
+}
+
 // signTaskManagerRole
 
 export const signTaskManagerRole = async (colonyClient, operationJSON) => {
@@ -1155,194 +1106,6 @@ export const signTaskWorkerRole = async (colonyClient, operationJSON) => {
 
   // return operation
   return setTaskWorkerRoleOperation
-
-}
-
-// signTaskDueDate
-
-export const signTaskDueDate = async (colonyClient, operationJSON) => {
-
-  // restore operation
-  const setTaskDueDateOperation = await colonyClient.setTaskDueDate.restoreOperation(operationJSON)
-
-  // check if required signees includes current user address
-  if (setTaskDueDateOperation.requiredSignees.includes(colonyClient.adapter.wallet.address.toLowerCase())) {
-
-    // sign set task due date operation
-    await setTaskDueDateOperation.sign()
-
-  }
-
-  // check for missing signees
-  if (setTaskDueDateOperation.missingSignees.length === 0) {
-
-    // send set task due date operation
-    const tx = await setTaskDueDateOperation.send()
-
-    // remove local storage item
-    localStorage.removeItem('setTaskDueDateOperationJSON')
-
-    // check unsuccessful
-    if (!tx.successful) {
-
-      // throw error
-      throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
-
-    }
-
-  } else {
-
-    // serialize operation into JSON format
-    const setTaskDueDateOperationJSON = setTaskDueDateOperation.toJSON()
-
-    // save operation to local storage
-    localStorage.setItem('setTaskDueDateOperationJSON', setTaskDueDateOperationJSON)
-
-  }
-
-  // return operation
-  return setTaskDueDateOperation
-
-}
-
-// signTaskManagerPayout
-
-export const signTaskManagerPayout = async (colonyClient, operationJSON) => {
-
-  // restore operation
-  const setTaskManagerPayoutOperation = await colonyClient.setTaskManagerPayout.restoreOperation(operationJSON)
-
-  // check if required signees includes current user address
-  if (setTaskManagerPayoutOperation.requiredSignees.includes(colonyClient.adapter.wallet.address.toLowerCase())) {
-
-    // sign set task manager payout operation
-    await setTaskManagerPayoutOperation.sign()
-
-  }
-
-  // check for missing signees
-  if (setTaskManagerPayoutOperation.missingSignees.length === 0) {
-
-    // send set task manager payout operation
-    const tx = await setTaskManagerPayoutOperation.send()
-
-    // remove local storage item
-    localStorage.removeItem('setTaskManagerPayoutOperationJSON')
-
-    // check unsuccessful
-    if (!tx.successful) {
-
-      // throw error
-      throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
-
-    }
-
-  } else {
-
-    // serialize operation into JSON format
-    const setTaskManagerPayoutOperationJSON = setTaskManagerPayoutOperation.toJSON()
-
-    // save operation to local storage
-    localStorage.setItem('setTaskManagerPayoutOperationJSON', setTaskManagerPayoutOperationJSON)
-
-  }
-
-  // return operation
-  return setTaskManagerPayoutOperation
-
-}
-
-// signTaskEvaluatorPayout
-
-export const signTaskEvaluatorPayout = async (colonyClient, operationJSON) => {
-
-  // restore operation
-  const setTaskEvaluatorPayoutOperation = await colonyClient.setTaskEvaluatorPayout.restoreOperation(operationJSON)
-
-  // check if required signees includes current user address
-  if (setTaskEvaluatorPayoutOperation.requiredSignees.includes(colonyClient.adapter.wallet.address.toLowerCase())) {
-
-    // sign set task evaluator payout operation
-    await setTaskEvaluatorPayoutOperation.sign()
-
-  }
-
-  // check for missing signees
-  if (setTaskEvaluatorPayoutOperation.missingSignees.length === 0) {
-
-    // send set task evaluator payout operation
-    const tx = await setTaskEvaluatorPayoutOperation.send()
-
-    // remove local storage item
-    localStorage.removeItem('setTaskEvaluatorPayoutOperationJSON')
-
-    // check unsuccessful
-    if (!tx.successful) {
-
-      // throw error
-      throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
-
-    }
-
-  } else {
-
-    // serialize operation into JSON format
-    const setTaskEvaluatorPayoutOperationJSON = setTaskEvaluatorPayoutOperation.toJSON()
-
-    // save operation to local storage
-    localStorage.setItem('setTaskEvaluatorPayoutOperationJSON', setTaskEvaluatorPayoutOperationJSON)
-
-  }
-
-  // return operation
-  return setTaskEvaluatorPayoutOperation
-
-}
-
-// signTaskWorkerPayout
-
-export const signTaskWorkerPayout = async (colonyClient, operationJSON) => {
-
-  // restore operation
-  const setTaskWorkerPayoutOperation = await colonyClient.setTaskWorkerPayout.restoreOperation(operationJSON)
-
-  // check if required signees includes current user address
-  if (setTaskWorkerPayoutOperation.requiredSignees.includes(colonyClient.adapter.wallet.address.toLowerCase())) {
-
-    // sign set task worker payout operation
-    await setTaskWorkerPayoutOperation.sign()
-
-  }
-
-  // check for missing signees
-  if (setTaskWorkerPayoutOperation.missingSignees.length === 0) {
-
-    // send set task worker payout operation
-    const tx = await setTaskWorkerPayoutOperation.send()
-
-    // remove local storage item
-    localStorage.removeItem('setTaskWorkerPayoutOperationJSON')
-
-    // check unsuccessful
-    if (!tx.successful) {
-
-      // throw error
-      throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
-
-    }
-
-  } else {
-
-    // serialize operation into JSON format
-    const setTaskWorkerPayoutOperationJSON = setTaskWorkerPayoutOperation.toJSON()
-
-    // save operation to local storage
-    localStorage.setItem('setTaskWorkerPayoutOperationJSON', setTaskWorkerPayoutOperationJSON)
-
-  }
-
-  // return operation
-  return setTaskWorkerPayoutOperation
 
 }
 

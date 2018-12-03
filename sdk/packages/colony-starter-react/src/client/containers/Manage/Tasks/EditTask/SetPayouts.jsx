@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as adminsActions from '../../../../actions/adminsActions'
 import * as tasksActions from '../../../../actions/tasksActions'
 import SetPayouts from '../../../../components/Manage/Tasks/EditTask/SetPayouts'
 
@@ -16,20 +15,12 @@ class SetPayoutsContainer extends Component {
       },
     }
     this.canSetPayouts = this.canSetPayouts.bind(this)
-    this.setManagerPayout = this.setManagerPayout.bind(this)
-    this.setEvaluatorPayout = this.setEvaluatorPayout.bind(this)
-    this.setWorkerPayout = this.setWorkerPayout.bind(this)
+    this.handleClick = this.handleClick.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
 
-  componentDidMount() {
-    const colonyClient = this.props.colonyClient
-    const userAddress = this.props.colonyClient.adapter.wallet.address
-    this.props.checkAdmin(colonyClient, userAddress)
-  }
-
   componentDidUpdate(prevProps) {
-    if (!prevProps.setTaskPayoutSuccess && this.props.setTaskPayoutSuccess) {
+    if (!prevProps.setTaskPayoutsSuccess && this.props.setTaskPayoutsSuccess) {
       this.setState({
         payouts: {
           manager: this.props.task.payouts.manager,
@@ -46,7 +37,16 @@ class SetPayoutsContainer extends Component {
 
   canSetPayouts() {
     const completionDate = this.props.task.completionDate
-    return completionDate === null
+    const managerAddress = this.props.task.roles.manager.address
+    const evaluatorAddress = this.props.task.roles.evaluator.address
+    const workerAddress = this.props.task.roles.worker.address
+    const userAddress = this.props.colonyClient.adapter.wallet.address
+    return (
+      managerAddress === userAddress &&
+      (evaluatorAddress === userAddress || evaluatorAddress === null) &&
+      (workerAddress === userAddress || workerAddress === null) &&
+      completionDate === null
+    )
   }
 
   handleChange(event) {
@@ -55,29 +55,12 @@ class SetPayoutsContainer extends Component {
     this.setState({ ...state })
   }
 
-  setManagerPayout() {
-    this.props.setTaskPayout(
+  handleClick() {
+    this.props.setTaskPayouts(
       this.props.colonyClient,
       Number(this.props.task.id),
-      'MANAGER',
       Number(this.state.payouts.manager),
-    )
-  }
-
-  setEvaluatorPayout() {
-    this.props.setTaskPayout(
-      this.props.colonyClient,
-      Number(this.props.task.id),
-      'EVALUATOR',
       Number(this.state.payouts.evaluator),
-    )
-  }
-
-  setWorkerPayout() {
-    this.props.setTaskPayout(
-      this.props.colonyClient,
-      Number(this.props.task.id),
-      'WORKER',
       Number(this.state.payouts.worker),
     )
   }
@@ -87,13 +70,11 @@ class SetPayoutsContainer extends Component {
       <SetPayouts
         canSetPayouts={this.canSetPayouts}
         handleChange={this.handleChange}
+        handleClick={this.handleClick}
         payouts={this.state.payouts}
-        setManagerPayout={this.setManagerPayout}
-        setEvaluatorPayout={this.setEvaluatorPayout}
-        setWorkerPayout={this.setWorkerPayout}
-        setTaskPayoutError={this.props.setTaskPayoutError}
-        setTaskPayoutLoading={this.props.setTaskPayoutLoading}
-        setTaskPayoutSuccess={this.props.setTaskPayoutSuccess}
+        setTaskPayoutsError={this.props.setTaskPayoutsError}
+        setTaskPayoutsLoading={this.props.setTaskPayoutsLoading}
+        setTaskPayoutsSuccess={this.props.setTaskPayoutsSuccess}
       />
     )
   }
@@ -101,26 +82,20 @@ class SetPayoutsContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  admin: state.admins.admin,
   colonyClient: state.colony.colonyClient,
-  setTaskPayoutError: state.tasks.setTaskPayoutError,
-  setTaskPayoutLoading: state.tasks.setTaskPayoutLoading,
-  setTaskPayoutSuccess: state.tasks.setTaskPayoutSuccess,
+  setTaskPayoutsError: state.tasks.setTaskPayoutsError,
+  setTaskPayoutsLoading: state.tasks.setTaskPayoutsLoading,
+  setTaskPayoutsSuccess: state.tasks.setTaskPayoutsSuccess,
   task: state.tasks.task,
 })
 
 const mapDispatchToProps = dispatch => ({
-  checkAdmin(colonyClient, userAddress) {
-    dispatch(adminsActions.checkAdmin(colonyClient, userAddress))
-  },
   resetActions() {
-    dispatch(adminsActions.checkAdminError(null))
-    dispatch(adminsActions.checkAdminSuccess(false))
-    dispatch(tasksActions.setTaskPayoutError(null))
-    dispatch(tasksActions.setTaskPayoutSuccess(false))
+    dispatch(tasksActions.setTaskPayoutsError(null))
+    dispatch(tasksActions.setTaskPayoutsSuccess(false))
   },
-  setTaskPayout(colonyClient, taskId, role, amount) {
-    dispatch(tasksActions.setTaskPayout(colonyClient, taskId, role, amount))
+  setTaskPayouts(colonyClient, taskId, managerAmount, evaluatorAmount, workerAmount) {
+    dispatch(tasksActions.setTaskPayouts(colonyClient, taskId, managerAmount, evaluatorAmount, workerAmount))
   },
 })
 

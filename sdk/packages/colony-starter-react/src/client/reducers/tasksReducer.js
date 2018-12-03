@@ -47,10 +47,10 @@ const initialState = {
   setTaskDetailsLoading: false,
   setTaskDetailsSuccess: false,
 
-  // setTaskPayout
-  setTaskPayoutError: null,
-  setTaskPayoutLoading: false,
-  setTaskPayoutSuccess: false,
+  // setTaskPayouts
+  setTaskPayoutsError: null,
+  setTaskPayoutsLoading: false,
+  setTaskPayoutsSuccess: false,
 
   // setTaskRole
   setTaskRoleError: null,
@@ -340,28 +340,28 @@ const tasksReducer = (state = initialState, action) => {
         setTaskDetailsSuccess: action.payload,
       }
 
-    // setTaskPayout
+    // setTaskPayouts
 
-    case actions.SET_TASK_PAYOUT:
+    case actions.SET_TASK_PAYOUTS:
       return {
         ...state,
-        setTaskPayoutError: null,
-        setTaskPayoutLoading: true,
-        setTaskPayoutSuccess: false,
+        setTaskPayoutsError: null,
+        setTaskPayoutsLoading: true,
+        setTaskPayoutsSuccess: false,
       }
 
-    case actions.SET_TASK_PAYOUT_ERROR:
+    case actions.SET_TASK_PAYOUTS_ERROR:
       return {
         ...state,
-        setTaskPayoutError: action.payload,
-        setTaskPayoutLoading: false,
+        setTaskPayoutsError: action.payload,
+        setTaskPayoutsLoading: false,
       }
 
-    case actions.SET_TASK_PAYOUT_SUCCESS:
+    case actions.SET_TASK_PAYOUTS_SUCCESS:
       return {
         ...state,
-        setTaskPayoutLoading: false,
-        setTaskPayoutSuccess: action.payload,
+        setTaskPayoutsLoading: false,
+        setTaskPayoutsSuccess: action.payload,
       }
 
     // setTaskRole

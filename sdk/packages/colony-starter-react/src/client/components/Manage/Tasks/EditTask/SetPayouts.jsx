@@ -5,12 +5,10 @@ const SetPayouts = ({
   canSetPayouts,
   handleChange,
   payouts,
-  setManagerPayout,
-  setEvaluatorPayout,
-  setWorkerPayout,
-  setTaskPayoutError,
-  setTaskPayoutLoading,
-  setTaskPayoutSuccess,
+  handleClick,
+  setTaskPayoutsError,
+  setTaskPayoutsLoading,
+  setTaskPayoutsSuccess,
 }) => (
   <div className={styles.container}>
     <h2>{'Set Payouts'}</h2>
@@ -26,11 +24,6 @@ const SetPayouts = ({
         value={payouts.manager}
       />
     </div>
-    <div className={styles.buttons}>
-      <button className={canSetPayouts() ? null : styles.disabled} onClick={setManagerPayout}>
-        {'Set Manager Payout'}
-      </button>
-    </div>
     <div className={styles.field}>
       <label htmlFor="evaluator">
         {'Evaluator:'}
@@ -42,11 +35,6 @@ const SetPayouts = ({
         type="number"
         value={payouts.evaluator}
       />
-    </div>
-    <div className={styles.buttons}>
-      <button className={canSetPayouts() ? null : styles.disabled} onClick={setEvaluatorPayout}>
-        {'Set Evaluator Payout'}
-      </button>
     </div>
     <div className={styles.field}>
       <label htmlFor="worker">
@@ -61,25 +49,25 @@ const SetPayouts = ({
       />
     </div>
     <div className={styles.buttons}>
-      <button className={canSetPayouts() ? null : styles.disabled} onClick={setWorkerPayout}>
-        {'Set Worker Payout'}
+      <button className={canSetPayouts() ? null : styles.disabled} onClick={handleClick}>
+        {'Set Payouts'}
       </button>
     </div>
-    {setTaskPayoutError &&
+    {setTaskPayoutsError &&
       <div className={styles.message}>
         <span className={styles.error}>
-          {setTaskPayoutError}
+          {setTaskPayoutsError}
         </span>
       </div>
     }
-    {setTaskPayoutLoading &&
+    {setTaskPayoutsLoading &&
       <div className={styles.message}>
         <span>
           {'loading...'}
         </span>
       </div>
     }
-    {setTaskPayoutSuccess &&
+    {setTaskPayoutsSuccess &&
       <div className={styles.message}>
         <span>
           {'success'}
