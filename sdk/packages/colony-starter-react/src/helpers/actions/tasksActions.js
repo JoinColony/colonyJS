@@ -262,15 +262,7 @@ export const getTaskExtended = async (colonyClient, taskId) => {
   // stop extended protocol
   await ecp.stop()
 
-  // set ratings
-  let ratings = { count: 0, date: null }
-
-  // check deliverable
-  if (deliverable) {
-
-    const ratings = await colonyClient.getTaskWorkRatings.call({ taskId })
-
-  }
+  const ratings = await colonyClient.getTaskWorkRatings.call({ taskId })
 
   // return task
   return {

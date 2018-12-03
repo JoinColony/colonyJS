@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import * as adminsActions from '../../../actions/adminsActions'
 import * as tasksActions from '../../../actions/tasksActions'
 import TaskActions from '../../../components/Manage/Tasks/TaskActions'
 
@@ -25,12 +24,6 @@ class TaskActionsContainer extends Component {
     this.submitWork = this.submitWork.bind(this)
   }
 
-  componentDidMount() {
-    const colonyClient = this.props.colonyClient
-    const userAddress = this.props.colonyClient.adapter.wallet.address
-    this.props.checkAdmin(colonyClient, userAddress)
-  }
-
   componentWillUnmount() {
     this.props.resetActions()
   }
@@ -41,21 +34,22 @@ class TaskActionsContainer extends Component {
 
   canCancelTask() {
     const completionDate = this.props.task.completionDate
-    return (this.props.admin && completionDate !== null)
+    return completionDate !== null
   }
 
   canClaimPayout() {
+    const status = this.props.task.status
     const userAddress = this.props.colonyClient.adapter.wallet.address
     const managerAddress = this.props.task.roles.manager.address
     const evaluatorAddress = this.props.task.roles.evaluator.address
     const workerAddress = this.props.task.roles.worker.address
-    const status = this.props.task.status
+    const potBalance = this.props.task.pot.balance
     return (
-      (
+      status === 'FINALIZED' && (
         userAddress === managerAddress ||
         userAddress === evaluatorAddress ||
         userAddress === workerAddress
-      ) && status === 'FINALIZED'
+      ) && potBalance > 0
     )
   }
 
@@ -65,21 +59,28 @@ class TaskActionsContainer extends Component {
   }
 
   canFinalizeTask() {
-    const ratingsCount = this.props.task.ratings.count
-
-    // TODO check whether both reveals are submitted ?
-
-    return (ratingsCount === 2)
+    const status = this.props.task.status
+    const managerRating = this.props.task.roles.manager.rating
+    const workerRating = this.props.task.roles.worker.rating
+    return (
+      status === 'ACTIVE' &&
+      (managerRating !== 0 && workerRating !== 0)
+    )
   }
 
   canRevealRating() {
     const userAddress = this.props.colonyClient.adapter.wallet.address
     const evaluatorAddress = this.props.task.roles.evaluator.address
     const workerAddress = this.props.task.roles.worker.address
+    const completionDate = this.props.task.completionDate
     const ratingsCount = this.props.task.ratings.count
+    const managerRating = this.props.task.roles.manager.rating
+    const workerRating = this.props.task.roles.worker.rating
     return (
       (userAddress === evaluatorAddress || userAddress === workerAddress) &&
-      ratingsCount === 2
+      completionDate !== null &&
+      ratingsCount === 2 &&
+      (managerRating === 0 && workerRating === 0)
     )
   }
 
@@ -88,16 +89,22 @@ class TaskActionsContainer extends Component {
     const evaluatorAddress = this.props.task.roles.evaluator.address
     const workerAddress = this.props.task.roles.worker.address
     const completionDate = this.props.task.completionDate
+    const ratingsCount = this.props.task.ratings.count
     return (
       (userAddress === evaluatorAddress || userAddress === workerAddress) &&
-      completionDate !== null
+      completionDate !== null &&
+      ratingsCount !== 2
     )
   }
 
   canSubmitWork() {
     const userAddress = this.props.colonyClient.adapter.wallet.address
     const workerAddress = this.props.task.roles.worker.address
-    return (userAddress === workerAddress)
+    const completionDate = this.props.task.completionDate
+    return (
+      userAddress === workerAddress &&
+      completionDate === null
+    )
   }
 
   claimPayout() {
@@ -161,7 +168,6 @@ class TaskActionsContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  admin: state.admins.admin,
   cancelTaskError: state.tasks.cancelTaskError,
   cancelTaskLoading: state.tasks.cancelTaskLoading,
   cancelTaskSuccess: state.tasks.cancelTaskSuccess,
@@ -175,15 +181,10 @@ const mapDispatchToProps = dispatch => ({
   cancelTask(colonyClient, taskId) {
     dispatch(tasksActions.cancelTask(colonyClient, taskId))
   },
-  checkAdmin(colonyClient, userAddress) {
-    dispatch(adminsActions.checkAdmin(colonyClient, userAddress))
-  },
   finalizeTask(colonyClient, taskId) {
     dispatch(tasksActions.finalizeTask(colonyClient, taskId))
   },
   resetActions() {
-    dispatch(adminsActions.checkAdminError(null))
-    dispatch(adminsActions.checkAdminSuccess(false))
     dispatch(tasksActions.cancelTaskError(null))
     dispatch(tasksActions.cancelTaskSuccess(false))
     dispatch(tasksActions.finalizeTaskError(null))

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import * as adminsActions from '../../../../actions/adminsActions'
 import * as tasksActions from '../../../../actions/tasksActions'
 import SetPayouts from '../../../../components/Manage/Tasks/EditTask/SetPayouts'
 
@@ -19,6 +20,12 @@ class SetPayoutsContainer extends Component {
     this.setEvaluatorPayout = this.setEvaluatorPayout.bind(this)
     this.setWorkerPayout = this.setWorkerPayout.bind(this)
     this.handleChange = this.handleChange.bind(this)
+  }
+
+  componentDidMount() {
+    const colonyClient = this.props.colonyClient
+    const userAddress = this.props.colonyClient.adapter.wallet.address
+    this.props.checkAdmin(colonyClient, userAddress)
   }
 
   componentDidUpdate(prevProps) {
@@ -94,6 +101,7 @@ class SetPayoutsContainer extends Component {
 }
 
 const mapStateToProps = state => ({
+  admin: state.admins.admin,
   colonyClient: state.colony.colonyClient,
   setTaskPayoutError: state.tasks.setTaskPayoutError,
   setTaskPayoutLoading: state.tasks.setTaskPayoutLoading,
@@ -102,7 +110,12 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
+  checkAdmin(colonyClient, userAddress) {
+    dispatch(adminsActions.checkAdmin(colonyClient, userAddress))
+  },
   resetActions() {
+    dispatch(adminsActions.checkAdminError(null))
+    dispatch(adminsActions.checkAdminSuccess(false))
     dispatch(tasksActions.setTaskPayoutError(null))
     dispatch(tasksActions.setTaskPayoutSuccess(false))
   },
