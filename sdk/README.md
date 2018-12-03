@@ -64,7 +64,7 @@ cd colony-starter-basic
 Now that you have a basic understanding of how Colony works, check out some of the other starter projects by repeating steps 2 and 3 and substituting `colony-starter-basic` with the project of your choice!
 
 - [colony-starter-basic](/packages/colony-starter-basic)
-- [colony-starter-react](/packages/colony-starter-react) (_coming soon..._)
+- [colony-starter-react](/packages/colony-starter-react)
 
 ## Contribute
 
