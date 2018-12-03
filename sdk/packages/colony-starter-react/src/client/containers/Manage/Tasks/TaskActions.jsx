@@ -9,7 +9,6 @@ class TaskActionsContainer extends Component {
 
   constructor(props) {
     super(props)
-    this.state = { admin: false }
     this.cancelTask = this.cancelTask.bind(this)
     this.canCancelTask = this.canCancelTask.bind(this)
     this.canClaimPayout = this.canClaimPayout.bind(this)
@@ -29,8 +28,7 @@ class TaskActionsContainer extends Component {
   componentDidMount() {
     const colonyClient = this.props.colonyClient
     const userAddress = this.props.colonyClient.adapter.wallet.address
-    const admin = adminsActions.checkAdmin(colonyClient, userAddress)
-    this.setState({ admin })
+    this.props.checkAdmin(colonyClient, userAddress)
   }
 
   componentWillUnmount() {
@@ -43,7 +41,7 @@ class TaskActionsContainer extends Component {
 
   canCancelTask() {
     const completionDate = this.props.task.completionDate
-    return (this.state.admin && completionDate !== null)
+    return (this.props.admin && completionDate !== null)
   }
 
   canClaimPayout() {
@@ -163,6 +161,7 @@ class TaskActionsContainer extends Component {
 }
 
 const mapStateToProps = state => ({
+  admin: state.admins.admin,
   cancelTaskError: state.tasks.cancelTaskError,
   cancelTaskLoading: state.tasks.cancelTaskLoading,
   cancelTaskSuccess: state.tasks.cancelTaskSuccess,
@@ -175,6 +174,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   cancelTask(colonyClient, taskId) {
     dispatch(tasksActions.cancelTask(colonyClient, taskId))
+  },
+  checkAdmin(colonyClient, userAddress) {
+    dispatch(adminsActions.checkAdmin(colonyClient, userAddress))
   },
   finalizeTask(colonyClient, taskId) {
     dispatch(tasksActions.finalizeTask(colonyClient, taskId))

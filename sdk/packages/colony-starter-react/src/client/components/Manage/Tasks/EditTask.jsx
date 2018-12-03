@@ -1,7 +1,7 @@
 import React from 'react'
 import SetDetails from '../../../containers/Manage/Tasks/EditTask/SetDetails'
-import SetPayout from '../../../containers/Manage/Tasks/EditTask/SetPayout'
-import SetRole from '../../../containers/Manage/Tasks/EditTask/SetRole'
+import SetPayouts from '../../../containers/Manage/Tasks/EditTask/SetPayouts'
+import SetRoles from '../../../containers/Manage/Tasks/EditTask/SetRoles'
 import SignTask from '../../../containers/Manage/Tasks/EditTask/SignTask'
 import styles from './EditTask.scss'
 
@@ -12,10 +12,10 @@ const EditTask = ({
   task,
 }) => (
   <div>
-    <SetDetails />
-    <SetPayout />
-    <SetRole />
     <SignTask />
+    <SetDetails />
+    <SetPayouts />
+    <SetRoles />
   </div>
 )
 

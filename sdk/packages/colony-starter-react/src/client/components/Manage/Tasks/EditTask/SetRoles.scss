@@ -19,6 +19,15 @@
 
 .buttons, .message {
   padding: 1rem 0;
+
+  .disabled {
+    background: rgb(250, 250, 250);
+    box-shadow: none;
+    color: rgb(180, 180, 180);
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
 }
 
 .error {

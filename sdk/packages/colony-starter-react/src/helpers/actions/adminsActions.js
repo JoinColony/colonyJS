@@ -24,14 +24,20 @@ export const addAdmin = async (colonyClient, userAddress) => {
 
 export const checkAdmin = async (colonyClient, userAddress) => {
 
+  // check user role owner
+  const { hasRole: isOwner } = await colonyClient.authority.hasUserRole.call({
+    user: userAddress,
+    role: 'OWNER',
+  })
+
   // check user role admin
-  const { hasRole } = await colonyClient.authority.hasUserRole.call({
+  const { hasRole: isAdmin } = await colonyClient.authority.hasUserRole.call({
     user: userAddress,
     role: 'ADMIN',
   })
 
-  // return hasRole
-  return hasRole
+  // return condition
+  return (isOwner || isAdmin)
 
 }
 
