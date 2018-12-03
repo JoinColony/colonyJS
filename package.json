@@ -34,7 +34,8 @@
         "Griffin Hotchkiss <griffin@colony.io>",
         "James Lefrère <james@colony.io>",
         "Jan Kaßel <jan@colony.io>",
-        "Raul Glogovetan <raul@colony.io>"
+        "Raul Glogovetan <raul@colony.io>",
+        "Ryan Christofferson <ryan@colony.io>"
     ],
     "scripts": {
         "lint": "run(){ eslint --ignore-pattern=**/{node_modules,dist,lib}/* --fix ${@:-\"packages/**/src/{,**/}*.js\"}; }; run",
@@ -46,7 +47,6 @@
         "packages/*"
     ],
     "engines": {
-        "node": ">=8.2.1",
-        "yarn": ">=1.3.2"
+        "node": ">=8.2.1"
     }
 }

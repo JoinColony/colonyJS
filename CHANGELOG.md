@@ -7,6 +7,10 @@
 * Define `ColonyClient.addDomain` as a `MultisigSender` (`@colony/colony-js-client`)
 * Define `ColonyClient.cancelTask` as a `MultisigSender` (`@colony/colony-js-client`)
 
+**Maintenance**
+
+* Removed `engines -> yarn` requirement
+
 ## v1.8.0
 
 **Maintenance**
