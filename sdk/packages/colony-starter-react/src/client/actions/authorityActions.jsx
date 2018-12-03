@@ -1,12 +1,12 @@
 import { store } from '../index'
 import * as actions from '../constants/actions'
-import * as adminsActions from '../../helpers/actions/adminsActions'
+import * as authorityActions from '../../helpers/actions/authorityActions'
 
 // addAdmin
 
 export const addAdmin = (colonyClient, userAddress) => ({
   type: actions.ADD_ADMIN,
-  payload: adminsActions.addAdmin(colonyClient, userAddress)
+  payload: authorityActions.addAdmin(colonyClient, userAddress)
     .then(success => {
       store.dispatch(addAdminSuccess(true))
     })
@@ -29,7 +29,7 @@ export const addAdminSuccess = (success) => ({
 
 export const checkAdmin = (colonyClient, userAddress) => ({
   type: actions.CHECK_ADMIN,
-  payload: adminsActions.checkAdmin(colonyClient, userAddress)
+  payload: authorityActions.checkAdmin(colonyClient, userAddress)
     .then(admin => {
       store.dispatch(setStateAdmin(admin))
       store.dispatch(checkAdminSuccess(true))
@@ -53,7 +53,7 @@ export const checkAdminSuccess = (success) => ({
 
 export const removeAdmin = (colonyClient, userAddress) => ({
   type: actions.REMOVE_ADMIN,
-  payload: adminsActions.removeAdmin(colonyClient, userAddress)
+  payload: authorityActions.removeAdmin(colonyClient, userAddress)
     .then(success => {
       store.dispatch(removeAdminSuccess(true))
     })

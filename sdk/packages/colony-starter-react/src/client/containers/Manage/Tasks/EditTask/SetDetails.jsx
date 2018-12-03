@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import formatDate from '../../../../helpers/formatDate'
-import * as tasksActions from '../../../../actions/tasksActions'
+import * as taskActions from '../../../../actions/taskActions'
 import SetDetails from '../../../../components/Manage/Tasks/EditTask/SetDetails'
 
 class SetDetailsContainer extends Component {
@@ -126,19 +126,19 @@ class SetDetailsContainer extends Component {
 
 const mapStateToProps = state => ({
   colonyClient: state.colony.colonyClient,
-  setTaskDetailsError: state.tasks.setTaskDetailsError,
-  setTaskDetailsLoading: state.tasks.setTaskDetailsLoading,
-  setTaskDetailsSuccess: state.tasks.setTaskDetailsSuccess,
-  task: state.tasks.task,
+  setTaskDetailsError: state.task.setTaskDetailsError,
+  setTaskDetailsLoading: state.task.setTaskDetailsLoading,
+  setTaskDetailsSuccess: state.task.setTaskDetailsSuccess,
+  task: state.task.task,
 })
 
 const mapDispatchToProps = dispatch => ({
   resetActions() {
-    dispatch(tasksActions.setTaskDetailsError(null))
-    dispatch(tasksActions.setTaskDetailsSuccess(false))
+    dispatch(taskActions.setTaskDetailsError(null))
+    dispatch(taskActions.setTaskDetailsSuccess(false))
   },
   setTaskDetails(colonyClient, taskId, details) {
-    dispatch(tasksActions.setTaskDetails(colonyClient, taskId, details))
+    dispatch(taskActions.setTaskDetails(colonyClient, taskId, details))
   },
 })
 

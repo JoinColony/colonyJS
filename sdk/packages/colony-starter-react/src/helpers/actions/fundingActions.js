@@ -2,10 +2,10 @@
 import BN from 'bn.js'
 
 // import get domain and domains from domain actions
-import { getDomain } from './domainsActions'
+import { getDomain } from './domainActions'
 
 // import get task from task actions
-import { getTask } from './tasksActions'
+import { getTask } from './taskActions'
 
 // claimFunds
 

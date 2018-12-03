@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as adminsActions from '../../../actions/adminsActions'
+import * as authorityActions from '../../../actions/authorityActions'
 import CheckAdmin from '../../../components/Manage/Admins/CheckAdmin'
 
 class CheckAdminContainer extends Component {
@@ -49,20 +49,20 @@ class CheckAdminContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  admin: state.admins.admin,
+  admin: state.authority.admin,
   colonyClient: state.colony.colonyClient,
-  checkAdminError: state.admins.checkAdminError,
-  checkAdminLoading: state.admins.checkAdminLoading,
-  checkAdminSuccess: state.admins.checkAdminSuccess,
+  checkAdminError: state.authority.checkAdminError,
+  checkAdminLoading: state.authority.checkAdminLoading,
+  checkAdminSuccess: state.authority.checkAdminSuccess,
 })
 
 const mapDispatchToProps = dispatch => ({
   checkAdmin(colonyClient, userAddress) {
-    dispatch(adminsActions.checkAdmin(colonyClient, userAddress))
+    dispatch(authorityActions.checkAdmin(colonyClient, userAddress))
   },
   resetActions() {
-    dispatch(adminsActions.checkAdminError(null))
-    dispatch(adminsActions.checkAdminSuccess(false))
+    dispatch(authorityActions.checkAdminError(null))
+    dispatch(authorityActions.checkAdminSuccess(false))
   },
 })
 

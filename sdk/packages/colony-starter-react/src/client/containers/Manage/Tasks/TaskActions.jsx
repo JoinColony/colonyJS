@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import * as tasksActions from '../../../actions/tasksActions'
+import * as taskActions from '../../../actions/taskActions'
 import TaskActions from '../../../components/Manage/Tasks/TaskActions'
 
 class TaskActionsContainer extends Component {
@@ -168,27 +168,27 @@ class TaskActionsContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  cancelTaskError: state.tasks.cancelTaskError,
-  cancelTaskLoading: state.tasks.cancelTaskLoading,
-  cancelTaskSuccess: state.tasks.cancelTaskSuccess,
+  cancelTaskError: state.task.cancelTaskError,
+  cancelTaskLoading: state.task.cancelTaskLoading,
+  cancelTaskSuccess: state.task.cancelTaskSuccess,
   colonyClient: state.colony.colonyClient,
-  finalizeTaskError: state.tasks.finalizeTaskError,
-  finalizeTaskLoading: state.tasks.finalizeTaskLoading,
-  finalizeTaskSuccess: state.tasks.finalizeTaskSuccess,
+  finalizeTaskError: state.task.finalizeTaskError,
+  finalizeTaskLoading: state.task.finalizeTaskLoading,
+  finalizeTaskSuccess: state.task.finalizeTaskSuccess,
 })
 
 const mapDispatchToProps = dispatch => ({
   cancelTask(colonyClient, taskId) {
-    dispatch(tasksActions.cancelTask(colonyClient, taskId))
+    dispatch(taskActions.cancelTask(colonyClient, taskId))
   },
   finalizeTask(colonyClient, taskId) {
-    dispatch(tasksActions.finalizeTask(colonyClient, taskId))
+    dispatch(taskActions.finalizeTask(colonyClient, taskId))
   },
   resetActions() {
-    dispatch(tasksActions.cancelTaskError(null))
-    dispatch(tasksActions.cancelTaskSuccess(false))
-    dispatch(tasksActions.finalizeTaskError(null))
-    dispatch(tasksActions.finalizeTaskSuccess(false))
+    dispatch(taskActions.cancelTaskError(null))
+    dispatch(taskActions.cancelTaskSuccess(false))
+    dispatch(taskActions.finalizeTaskError(null))
+    dispatch(taskActions.finalizeTaskSuccess(false))
   },
 })
 

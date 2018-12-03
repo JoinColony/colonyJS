@@ -1,7 +1,7 @@
 import { store } from '../index'
 import * as actions from '../constants/actions'
 import * as colonyActions from '../../helpers/actions/colonyActions'
-import { setStateDomains } from './domainsActions'
+import { setStateDomains } from './domainActions'
 
 // createColony
 

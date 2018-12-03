@@ -1,13 +1,13 @@
 import { store } from '../index'
 import * as actions from '../constants/actions'
-import * as domainsActions from '../../helpers/actions/domainsActions'
+import * as domainActions from '../../helpers/actions/domainActions'
 import { getPots } from './fundingActions'
 
 // addDomain
 
 export const addDomain = (colonyClient) => ({
   type: actions.ADD_DOMAIN,
-  payload: domainsActions.addDomain(colonyClient)
+  payload: domainActions.addDomain(colonyClient)
     .then(domain => {
       store.dispatch(getDomains(colonyClient))
       store.dispatch(addDomainSuccess(true))
@@ -31,7 +31,7 @@ export const addDomainSuccess = (success) => ({
 
 export const fundDomain = (colonyClient, domainId, amount) => ({
   type: actions.FUND_DOMAIN,
-  payload: domainsActions.fundDomain(colonyClient, domainId, amount)
+  payload: domainActions.fundDomain(colonyClient, domainId, amount)
     .then(success => {
       store.dispatch(getPots(colonyClient))
       store.dispatch(fundDomainSuccess(true))
@@ -55,7 +55,7 @@ export const fundDomainSuccess = (success) => ({
 
 export const getDomains = (colonyClient) => ({
   type: actions.GET_DOMAINS,
-  payload: domainsActions.getDomains(colonyClient)
+  payload: domainActions.getDomains(colonyClient)
     .then(domains => {
       store.dispatch(setStateDomains(domains))
       store.dispatch(getDomainsSuccess(true))

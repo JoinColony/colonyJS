@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as adminsActions from '../../../../actions/adminsActions'
-import * as tasksActions from '../../../../actions/tasksActions'
+import * as authorityActions from '../../../../actions/authorityActions'
+import * as taskActions from '../../../../actions/taskActions'
 import SetRoles from '../../../../components/Manage/Tasks/EditTask/SetRoles'
 
 class SetRolesContainer extends Component {
@@ -123,21 +123,21 @@ class SetRolesContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  admin: state.admins.admin,
+  admin: state.authority.admin,
   colonyClient: state.colony.colonyClient,
-  setTaskRoleError: state.tasks.setTaskRoleError,
-  setTaskRoleLoading: state.tasks.setTaskRoleLoading,
-  setTaskRoleSuccess: state.tasks.setTaskRoleSuccess,
-  task: state.tasks.task,
+  setTaskRoleError: state.task.setTaskRoleError,
+  setTaskRoleLoading: state.task.setTaskRoleLoading,
+  setTaskRoleSuccess: state.task.setTaskRoleSuccess,
+  task: state.task.task,
 })
 
 const mapDispatchToProps = dispatch => ({
   resetActions() {
-    dispatch(tasksActions.setTaskRoleError(null))
-    dispatch(tasksActions.setTaskRoleSuccess(false))
+    dispatch(taskActions.setTaskRoleError(null))
+    dispatch(taskActions.setTaskRoleSuccess(false))
   },
   setTaskRole(colonyClient, taskId, role, user) {
-    dispatch(tasksActions.setTaskRole(colonyClient, taskId, role, user))
+    dispatch(taskActions.setTaskRole(colonyClient, taskId, role, user))
   },
 })
 

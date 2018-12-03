@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as tasksActions from '../../../actions/tasksActions'
+import * as taskActions from '../../../actions/taskActions'
 import EditTask from '../../../components/Manage/Tasks/EditTask'
 
 class EditTaskContainer extends Component {
@@ -33,19 +33,19 @@ class EditTaskContainer extends Component {
 
 const mapStateToProps = state => ({
   colonyClient: state.colony.colonyClient,
-  getTaskError: state.tasks.getTaskError,
-  getTaskLoading: state.tasks.getTaskLoading,
-  getTaskSuccess: state.tasks.getTaskSuccess,
-  task: state.tasks.task,
+  getTaskError: state.task.getTaskError,
+  getTaskLoading: state.task.getTaskLoading,
+  getTaskSuccess: state.task.getTaskSuccess,
+  task: state.task.task,
 })
 
 const mapDispatchToProps = dispatch => ({
   getTask(colonyClient, task) {
-    dispatch(tasksActions.getTask(colonyClient, task))
+    dispatch(taskActions.getTask(colonyClient, task))
   },
   resetActions() {
-    dispatch(tasksActions.getTaskError(null))
-    dispatch(tasksActions.getTaskSuccess(false))
+    dispatch(taskActions.getTaskError(null))
+    dispatch(taskActions.getTaskSuccess(false))
   },
 })
 

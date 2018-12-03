@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as tasksActions from '../../../actions/tasksActions'
+import * as taskActions from '../../../actions/taskActions'
 import SubmitWork from '../../../components/Manage/Tasks/SubmitWork'
 
 class SubmitWorkContainer extends Component {
@@ -61,18 +61,18 @@ class SubmitWorkContainer extends Component {
 
 const mapStateToProps = state => ({
   colonyClient: state.colony.colonyClient,
-  submitWorkError: state.tasks.submitWorkError,
-  submitWorkLoading: state.tasks.submitWorkLoading,
-  submitWorkSuccess: state.tasks.submitWorkSuccess,
+  submitWorkError: state.task.submitWorkError,
+  submitWorkLoading: state.task.submitWorkLoading,
+  submitWorkSuccess: state.task.submitWorkSuccess,
 })
 
 const mapDispatchToProps = dispatch => ({
   submitWork(colonyClient, taskId, deliverable) {
-    dispatch(tasksActions.submitWork(colonyClient, taskId, deliverable))
+    dispatch(taskActions.submitWork(colonyClient, taskId, deliverable))
   },
   resetActions() {
-    dispatch(tasksActions.submitWorkError(null))
-    dispatch(tasksActions.submitWorkSuccess(false))
+    dispatch(taskActions.submitWorkError(null))
+    dispatch(taskActions.submitWorkSuccess(false))
   },
 })
 

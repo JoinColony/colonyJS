@@ -26,9 +26,40 @@ export const connectNetworkSuccess = (success) => ({
   payload: success,
 })
 
+// getSkills
+
+export const getSkills = (networkClient) => ({
+  type: actions.GET_SKILLS,
+  payload: networkActions.getSkills(networkClient)
+    .then(skills => {
+      store.dispatch(setStateSkills(skills))
+      store.dispatch(getSkillsSuccess(true))
+    })
+    .catch(error => {
+      store.dispatch(getSkillsError(error.message))
+    }),
+})
+
+export const getSkillsError = (error) => ({
+  type: actions.GET_SKILLS_ERROR,
+  payload: error,
+})
+
+export const getSkillsSuccess = (success) => ({
+  type: actions.GET_SKILLS_SUCCESS,
+  payload: success,
+})
+
 // setStateNetworkClient
 
 export const setStateNetworkClient = (networkClient) => ({
   type: actions.SET_STATE_NETWORK_CLIENT,
   payload: networkClient,
+})
+
+// setStateSkills
+
+export const setStateSkills = (skills) => ({
+  type: actions.SET_STATE_SKILLS,
+  payload: skills,
 })

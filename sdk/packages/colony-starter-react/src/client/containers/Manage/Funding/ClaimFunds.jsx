@@ -56,14 +56,14 @@ class ClaimFundsContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  claimableFunds: state.funds.claimableFunds,
-  claimFundsError: state.funds.claimFundsError,
-  claimFundsLoading: state.funds.claimFundsLoading,
-  claimFundsSuccess: state.funds.claimFundsSuccess,
+  claimableFunds: state.funding.claimableFunds,
+  claimFundsError: state.funding.claimFundsError,
+  claimFundsLoading: state.funding.claimFundsLoading,
+  claimFundsSuccess: state.funding.claimFundsSuccess,
   colonyClient: state.colony.colonyClient,
-  getClaimableFundsError: state.funds.getClaimableFundsError,
-  getClaimableFundsLoading: state.funds.getClaimableFundsLoading,
-  getClaimableFundsSuccess: state.funds.getClaimableFundsSuccess,
+  getClaimableFundsError: state.funding.getClaimableFundsError,
+  getClaimableFundsLoading: state.funding.getClaimableFundsLoading,
+  getClaimableFundsSuccess: state.funding.getClaimableFundsSuccess,
 })
 
 const mapDispatchToProps = dispatch => ({

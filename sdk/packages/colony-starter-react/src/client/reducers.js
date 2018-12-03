@@ -1,23 +1,21 @@
 import { combineReducers } from 'redux'
 import accountReducer from './reducers/accountReducer'
-import adminsReducer from './reducers/adminsReducer'
+import authorityReducer from './reducers/authorityReducer'
 import colonyReducer from './reducers/colonyReducer'
-import domainsReducer from './reducers/domainsReducer'
+import domainReducer from './reducers/domainReducer'
 import fundingReducer from './reducers/fundingReducer'
 import networkReducer from './reducers/networkReducer'
-import skillsReducer from './reducers/skillsReducer'
-import tasksReducer from './reducers/tasksReducer'
+import taskReducer from './reducers/taskReducer'
 import tokenReducer from './reducers/tokenReducer'
 
 const reducers = combineReducers({
   account: accountReducer,
-  admins: adminsReducer,
+  authority: authorityReducer,
   colony: colonyReducer,
-  domains: domainsReducer,
-  funds: fundingReducer,
+  domain: domainReducer,
+  funding: fundingReducer,
   network: networkReducer,
-  skills: skillsReducer,
-  tasks: tasksReducer,
+  task: taskReducer,
   token: tokenReducer,
 })
 

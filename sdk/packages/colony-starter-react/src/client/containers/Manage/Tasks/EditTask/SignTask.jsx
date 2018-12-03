@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import formatDate from '../../../../helpers/formatDate'
-import * as tasksActions from '../../../../actions/tasksActions'
+import * as taskActions from '../../../../actions/taskActions'
 import SignTask from '../../../../components/Manage/Tasks/EditTask/SignTask'
 
 class SignTaskContainer extends Component {
@@ -51,26 +51,26 @@ class SignTaskContainer extends Component {
 
 const mapStateToProps = state => ({
   colonyClient: state.colony.colonyClient,
-  getMultisigOperationsError: state.tasks.getMultisigOperationsError,
-  getMultisigOperationsLoading: state.tasks.getMultisigOperationsLoading,
-  getMultisigOperationsSuccess: state.tasks.getMultisigOperationsSuccess,
-  multisigOperations: state.tasks.multisigOperations,
-  signTaskError: state.tasks.signTaskError,
-  signTaskLoading: state.tasks.signTaskLoading,
-  signTaskSuccess: state.tasks.signTaskSuccess,
-  task: state.tasks.task,
+  getMultisigOperationsError: state.task.getMultisigOperationsError,
+  getMultisigOperationsLoading: state.task.getMultisigOperationsLoading,
+  getMultisigOperationsSuccess: state.task.getMultisigOperationsSuccess,
+  multisigOperations: state.task.multisigOperations,
+  signTaskError: state.task.signTaskError,
+  signTaskLoading: state.task.signTaskLoading,
+  signTaskSuccess: state.task.signTaskSuccess,
+  task: state.task.task,
 })
 
 const mapDispatchToProps = dispatch => ({
   getMultisigOperations(colonyClient, taskId) {
-    dispatch(tasksActions.getMultisigOperations(colonyClient, taskId))
+    dispatch(taskActions.getMultisigOperations(colonyClient, taskId))
   },
   resetActions() {
-    dispatch(tasksActions.signTaskError(null))
-    dispatch(tasksActions.signTaskSuccess(false))
+    dispatch(taskActions.signTaskError(null))
+    dispatch(taskActions.signTaskSuccess(false))
   },
   signTask(colonyClient, taskId) {
-    dispatch(tasksActions.signTask(colonyClient, taskId))
+    dispatch(taskActions.signTask(colonyClient, taskId))
   },
 })
 

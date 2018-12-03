@@ -54,9 +54,9 @@ class MoveFundsContainer extends Component {
 
 const mapStateToProps = state => ({
   colonyClient: state.colony.colonyClient,
-  moveFundsError: state.funds.moveFundsError,
-  moveFundsLoading: state.funds.moveFundsLoading,
-  moveFundsSuccess: state.funds.moveFundsSuccess,
+  moveFundsError: state.funding.moveFundsError,
+  moveFundsLoading: state.funding.moveFundsLoading,
+  moveFundsSuccess: state.funding.moveFundsSuccess,
 })
 
 const mapDispatchToProps = dispatch => ({

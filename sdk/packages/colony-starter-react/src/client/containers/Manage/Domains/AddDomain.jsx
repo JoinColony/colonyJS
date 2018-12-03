@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as domainsActions from '../../../actions/domainsActions'
+import * as domainActions from '../../../actions/domainActions'
 import AddDomain from '../../../components/Manage/Domains/AddDomain'
 
 class AddDomainContainer extends Component {
@@ -32,19 +32,19 @@ class AddDomainContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  addDomainError: state.domains.addDomainError,
-  addDomainLoading: state.domains.addDomainLoading,
-  addDomainSuccess: state.domains.addDomainSuccess,
+  addDomainError: state.domain.addDomainError,
+  addDomainLoading: state.domain.addDomainLoading,
+  addDomainSuccess: state.domain.addDomainSuccess,
   colonyClient: state.colony.colonyClient,
 })
 
 const mapDispatchToProps = dispatch => ({
   addDomain(colonyClient) {
-    dispatch(domainsActions.addDomain(colonyClient))
+    dispatch(domainActions.addDomain(colonyClient))
   },
   resetActions() {
-    dispatch(domainsActions.addDomainError(null))
-    dispatch(domainsActions.addDomainSuccess(false))
+    dispatch(domainActions.addDomainError(null))
+    dispatch(domainActions.addDomainSuccess(false))
   }
 })
 

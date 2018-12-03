@@ -91,7 +91,7 @@ const initialState = {
 
 }
 
-const tasksReducer = (state = initialState, action) => {
+const taskReducer = (state = initialState, action) => {
 
   switch (action.type) {
 
@@ -509,4 +509,4 @@ const tasksReducer = (state = initialState, action) => {
 
 }
 
-export default tasksReducer
+export default taskReducer

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import * as tasksActions from '../../../actions/tasksActions'
+import * as taskActions from '../../../actions/taskActions'
 import FundTask from '../../../components/Manage/Tasks/FundTask'
 import formatDate from '../../../helpers/formatDate'
 
@@ -55,18 +55,18 @@ class FundTaskContainer extends Component {
 
 const mapStateToProps = state => ({
   colonyClient: state.colony.colonyClient,
-  fundTaskError: state.tasks.fundTaskError,
-  fundTaskLoading: state.tasks.fundTaskLoading,
-  fundTaskSuccess: state.tasks.fundTaskSuccess,
+  fundTaskError: state.task.fundTaskError,
+  fundTaskLoading: state.task.fundTaskLoading,
+  fundTaskSuccess: state.task.fundTaskSuccess,
 })
 
 const mapDispatchToProps = dispatch => ({
   fundTask(colonyClient, taskId, amount) {
-    dispatch(tasksActions.fundTask(colonyClient, taskId, amount))
+    dispatch(taskActions.fundTask(colonyClient, taskId, amount))
   },
   resetActions() {
-    dispatch(tasksActions.fundTaskError(null))
-    dispatch(tasksActions.fundTaskSuccess(false))
+    dispatch(taskActions.fundTaskError(null))
+    dispatch(taskActions.fundTaskSuccess(false))
   },
 })
 

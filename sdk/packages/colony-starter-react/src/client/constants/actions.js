@@ -6,7 +6,7 @@ export const GET_ACCOUNTS_SUCCESS = 'GET_ACCOUNTS_SUCCESS'
 
 export const SET_STATE_ACCOUNTS = 'SET_STATE_ACCOUNTS'
 
-// adminsActions
+// authorityActions
 
 export const ADD_ADMIN = 'ADD_ADMIN'
 export const ADD_ADMIN_ERROR = 'ADD_ADMIN_ERROR'
@@ -34,7 +34,7 @@ export const GET_COLONY_CLIENT_SUCCESS = 'GET_COLONY_CLIENT_SUCCESS'
 
 export const SET_STATE_COLONY_CLIENT = 'SET_STATE_COLONY_CLIENT'
 
-// domainsActions
+// domainActions
 
 export const ADD_DOMAIN = 'ADD_DOMAIN'
 export const ADD_DOMAIN_ERROR = 'ADD_DOMAIN_ERROR'
@@ -79,7 +79,7 @@ export const GET_POTS_SUCCESS = 'GET_POTS_SUCCESS'
 export const SET_STATE_CLAIMABLE_FUNDS = 'SET_STATE_CLAIMABLE_FUNDS'
 export const SET_STATE_POTS = 'SET_STATE_POTS'
 
-// skillsActions
+// networkActions
 
 export const GET_SKILLS = 'GET_SKILLS'
 export const GET_SKILLS_ERROR = 'GET_SKILLS_ERROR'
@@ -87,7 +87,7 @@ export const GET_SKILLS_SUCCESS = 'GET_SKILLS_SUCCESS'
 
 export const SET_STATE_SKILLS = 'SET_STATE_SKILLS'
 
-// tasksActions
+// taskActions
 
 export const CANCEL_TASK = 'CANCEL_TASK'
 export const CANCEL_TASK_ERROR = 'CANCEL_TASK_ERROR'

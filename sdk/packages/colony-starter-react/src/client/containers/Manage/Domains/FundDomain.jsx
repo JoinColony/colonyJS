@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as domainsActions from '../../../actions/domainsActions'
+import * as domainActions from '../../../actions/domainActions'
 import FundDomain from '../../../components/Manage/Domains/FundDomain'
 
 class FundDomainContainer extends Component {
@@ -53,18 +53,18 @@ class FundDomainContainer extends Component {
 
 const mapStateToProps = state => ({
   colonyClient: state.colony.colonyClient,
-  fundDomainError: state.domains.fundDomainError,
-  fundDomainLoading: state.domains.fundDomainLoading,
-  fundDomainSuccess: state.domains.fundDomainSuccess,
+  fundDomainError: state.domain.fundDomainError,
+  fundDomainLoading: state.domain.fundDomainLoading,
+  fundDomainSuccess: state.domain.fundDomainSuccess,
 })
 
 const mapDispatchToProps = dispatch => ({
   fundDomain(colonyClient, domainId, amount) {
-    dispatch(domainsActions.fundDomain(colonyClient, domainId, amount))
+    dispatch(domainActions.fundDomain(colonyClient, domainId, amount))
   },
   resetActions() {
-    dispatch(domainsActions.fundDomainError(null))
-    dispatch(domainsActions.fundDomainSuccess(false))
+    dispatch(domainActions.fundDomainError(null))
+    dispatch(domainActions.fundDomainSuccess(false))
   },
 })
 

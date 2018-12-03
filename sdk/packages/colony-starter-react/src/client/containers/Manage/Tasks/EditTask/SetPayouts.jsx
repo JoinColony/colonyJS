@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as tasksActions from '../../../../actions/tasksActions'
+import * as taskActions from '../../../../actions/taskActions'
 import SetPayouts from '../../../../components/Manage/Tasks/EditTask/SetPayouts'
 
 class SetPayoutsContainer extends Component {
@@ -83,19 +83,19 @@ class SetPayoutsContainer extends Component {
 
 const mapStateToProps = state => ({
   colonyClient: state.colony.colonyClient,
-  setTaskPayoutsError: state.tasks.setTaskPayoutsError,
-  setTaskPayoutsLoading: state.tasks.setTaskPayoutsLoading,
-  setTaskPayoutsSuccess: state.tasks.setTaskPayoutsSuccess,
-  task: state.tasks.task,
+  setTaskPayoutsError: state.task.setTaskPayoutsError,
+  setTaskPayoutsLoading: state.task.setTaskPayoutsLoading,
+  setTaskPayoutsSuccess: state.task.setTaskPayoutsSuccess,
+  task: state.task.task,
 })
 
 const mapDispatchToProps = dispatch => ({
   resetActions() {
-    dispatch(tasksActions.setTaskPayoutsError(null))
-    dispatch(tasksActions.setTaskPayoutsSuccess(false))
+    dispatch(taskActions.setTaskPayoutsError(null))
+    dispatch(taskActions.setTaskPayoutsSuccess(false))
   },
   setTaskPayouts(colonyClient, taskId, managerAmount, evaluatorAmount, workerAmount) {
-    dispatch(tasksActions.setTaskPayouts(colonyClient, taskId, managerAmount, evaluatorAmount, workerAmount))
+    dispatch(taskActions.setTaskPayouts(colonyClient, taskId, managerAmount, evaluatorAmount, workerAmount))
   },
 })
 

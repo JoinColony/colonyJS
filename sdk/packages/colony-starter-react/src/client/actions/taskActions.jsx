@@ -1,13 +1,13 @@
 import { store } from '../index'
 import * as actions from '../constants/actions'
-import * as tasksActions from '../../helpers/actions/tasksActions'
+import * as taskActions from '../../helpers/actions/taskActions'
 import { setStatePots } from './fundingActions'
 
 // cancelTask
 
 export const cancelTask = (colonyClient, taskId) => ({
   type: actions.CANCEL_TASK,
-  payload: tasksActions.cancelTask(colonyClient, taskId)
+  payload: taskActions.cancelTask(colonyClient, taskId)
     .then(task => {
       store.dispatch(setStateTask(task))
       store.dispatch(cancelTaskSuccess(true))
@@ -31,7 +31,7 @@ export const cancelTaskSuccess = (success) => ({
 
 export const claimPayout = (colonyClient, taskId, role) => ({
   type: actions.CLAIM_PAYOUT,
-  payload: tasksActions.claimPayout(colonyClient, taskId, role)
+  payload: taskActions.claimPayout(colonyClient, taskId, role)
     .then(success => {
       store.dispatch(claimPayoutSuccess(true))
     })
@@ -54,7 +54,7 @@ export const claimPayoutSuccess = (success) => ({
 
 export const createTask = (colonyClient, task) => ({
   type: actions.CREATE_TASK,
-  payload: tasksActions.createTask(colonyClient, task)
+  payload: taskActions.createTask(colonyClient, task)
     .then(taskId => {
       store.dispatch(getTask(colonyClient, taskId))
       store.dispatch(setStateTaskCount(taskId))
@@ -79,7 +79,7 @@ export const createTaskSuccess = (success) => ({
 
 export const finalizeTask = (colonyClient, taskId) => ({
   type: actions.FINALIZE_TASK,
-  payload: tasksActions.finalizeTask(colonyClient, taskId)
+  payload: taskActions.finalizeTask(colonyClient, taskId)
     .then(success => {
       store.dispatch(getTask(colonyClient, taskId))
       store.dispatch(finalizeTaskSuccess(success))
@@ -103,7 +103,7 @@ export const finalizeTaskSuccess = (success) => ({
 
 export const fundTask = (colonyClient, taskId, amount) => ({
   type: actions.FUND_TASK,
-  payload: tasksActions.fundTask(colonyClient, taskId, amount)
+  payload: taskActions.fundTask(colonyClient, taskId, amount)
     .then(success => {
       store.dispatch(setStatePots(null))
       store.dispatch(fundTaskSuccess(true))
@@ -127,7 +127,7 @@ export const fundTaskSuccess = (success) => ({
 
 export const getMultisigOperations = (colonyClient, taskId) => ({
   type: actions.GET_MULTISIG_OPERATIONS,
-  payload: tasksActions.getMultisigOperations(colonyClient, taskId)
+  payload: taskActions.getMultisigOperations(colonyClient, taskId)
     .then(multisigOperations => {
       store.dispatch(setStateMultisigOperations(multisigOperations))
       store.dispatch(getMultisigOperationsSuccess(true))
@@ -151,7 +151,7 @@ export const getMultisigOperationsSuccess = (success) => ({
 
 export const getTask = (colonyClient, taskId) => ({
   type: actions.GET_TASK,
-  payload: tasksActions.getTaskExtended(colonyClient, taskId)
+  payload: taskActions.getTaskExtended(colonyClient, taskId)
     .then(task => {
       store.dispatch(setStateTask(task))
       store.dispatch(getTaskSuccess(true))
@@ -175,7 +175,7 @@ export const getTaskSuccess = (success) => ({
 
 export const getTasks = (colonyClient) => ({
   type: actions.GET_TASKS,
-  payload: tasksActions.getTasks(colonyClient)
+  payload: taskActions.getTasks(colonyClient)
     .then(tasks => {
       store.dispatch(setStateTasks(tasks))
       store.dispatch(getTasksSuccess(true))
@@ -199,7 +199,7 @@ export const getTasksSuccess = (success) => ({
 
 export const revealRating = (colonyClient, taskId, role, rating) => ({
   type: actions.REVEAL_RATING,
-  payload: tasksActions.revealRating(colonyClient, taskId, role, rating)
+  payload: taskActions.revealRating(colonyClient, taskId, role, rating)
     .then(success => {
       store.dispatch(getTask(colonyClient, taskId))
       store.dispatch(revealRatingSuccess(true))
@@ -251,7 +251,7 @@ export const setStateTasks = (tasks) => ({
 
 export const setTaskDetails = (colonyClient, taskId, details) => ({
   type: actions.SET_TASK_DETAILS,
-  payload: tasksActions.setTaskDetails(colonyClient, taskId, details)
+  payload: taskActions.setTaskDetails(colonyClient, taskId, details)
     .then(success => {
       store.dispatch(getTask(colonyClient, taskId))
       store.dispatch(setTaskDetailsSuccess(true))
@@ -275,7 +275,7 @@ export const setTaskDetailsSuccess = (success) => ({
 
 export const setTaskPayouts = (colonyClient, taskId, managerAmount, evaluatorAmount, workerAmount) => ({
   type: actions.SET_TASK_PAYOUTS,
-  payload: tasksActions.setTaskPayouts(colonyClient, taskId, managerAmount, evaluatorAmount, workerAmount)
+  payload: taskActions.setTaskPayouts(colonyClient, taskId, managerAmount, evaluatorAmount, workerAmount)
     .then(success => {
       store.dispatch(getTask(colonyClient, taskId))
       store.dispatch(setTaskPayoutsSuccess(true))
@@ -299,7 +299,7 @@ export const setTaskPayoutsSuccess = (success) => ({
 
 export const setTaskRole = (colonyClient, taskId, role, user) => ({
   type: actions.SET_TASK_ROLE,
-  payload: tasksActions.setTaskRole(colonyClient, taskId, role, user)
+  payload: taskActions.setTaskRole(colonyClient, taskId, role, user)
     .then(success => {
       store.dispatch(getTask(colonyClient, taskId))
       store.dispatch(setTaskRoleSuccess(true))
@@ -323,7 +323,7 @@ export const setTaskRoleSuccess = (success) => ({
 
 export const signTask = (colonyClient, taskId) => ({
   type: actions.SIGN_TASK,
-  payload: tasksActions.signTask(colonyClient, taskId)
+  payload: taskActions.signTask(colonyClient, taskId)
     .then(success => {
       store.dispatch(getTask(colonyClient, taskId))
       store.dispatch(getMultisigOperations(colonyClient, taskId))
@@ -348,7 +348,7 @@ export const signTaskSuccess = (success) => ({
 
 export const submitRating = (colonyClient, taskId, role, rating) => ({
   type: actions.SUBMIT_RATING,
-  payload: tasksActions.submitRating(colonyClient, taskId, role, rating)
+  payload: taskActions.submitRating(colonyClient, taskId, role, rating)
     .then(success => {
       store.dispatch(getTask(colonyClient, taskId))
       store.dispatch(submitRatingSuccess(true))
@@ -372,7 +372,7 @@ export const submitRatingSuccess = (success) => ({
 
 export const submitWork = (colonyClient, taskId, deliverable) => ({
   type: actions.SUBMIT_WORK,
-  payload: tasksActions.submitWork(colonyClient, taskId, deliverable)
+  payload: taskActions.submitWork(colonyClient, taskId, deliverable)
     .then(success => {
       store.dispatch(getTask(colonyClient, taskId))
       store.dispatch(submitWorkSuccess(true))

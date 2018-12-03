@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as tasksActions from '../../../actions/tasksActions'
+import * as taskActions from '../../../actions/taskActions'
 import ClaimPayout from '../../../components/Manage/Tasks/ClaimPayout'
 
 class ClaimPayoutContainer extends Component {
@@ -53,18 +53,18 @@ class ClaimPayoutContainer extends Component {
 
 const mapStateToProps = state => ({
   colonyClient: state.colony.colonyClient,
-  claimPayoutError: state.tasks.claimPayoutError,
-  claimPayoutLoading: state.tasks.claimPayoutLoading,
-  claimPayoutSuccess: state.tasks.claimPayoutSuccess,
+  claimPayoutError: state.task.claimPayoutError,
+  claimPayoutLoading: state.task.claimPayoutLoading,
+  claimPayoutSuccess: state.task.claimPayoutSuccess,
 })
 
 const mapDispatchToProps = dispatch => ({
   claimPayout(colonyClient, taskId, role) {
-    dispatch(tasksActions.claimPayout(colonyClient, taskId, role))
+    dispatch(taskActions.claimPayout(colonyClient, taskId, role))
   },
   resetActions() {
-    dispatch(tasksActions.claimPayoutError(null))
-    dispatch(tasksActions.claimPayoutSuccess(false))
+    dispatch(taskActions.claimPayoutError(null))
+    dispatch(taskActions.claimPayoutSuccess(false))
   },
 })
 

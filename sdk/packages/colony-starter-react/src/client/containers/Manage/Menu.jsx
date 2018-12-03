@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import * as colonyActions from '../../actions/colonyActions'
-import * as domainsActions from '../../actions/domainsActions'
+import * as domainActions from '../../actions/domainActions'
 import * as fundingActions from '../../actions/fundingActions'
-import * as tasksActions from '../../actions/tasksActions'
+import * as taskActions from '../../actions/taskActions'
 import * as tokenActions from '../../actions/tokenActions'
 import Menu from '../../components/Manage/Menu'
 
@@ -40,16 +40,16 @@ const mapDispatchToProps = dispatch => ({
     dispatch(fundingActions.setStateClaimableFunds(claimableFunds))
   },
   setStateDomains(domains) {
-    dispatch(domainsActions.setStateDomains(domains))
+    dispatch(domainActions.setStateDomains(domains))
   },
   setStatePots(pots) {
     dispatch(fundingActions.setStatePots(pots))
   },
   setStateTask(task) {
-    dispatch(tasksActions.setStateTask(task))
+    dispatch(taskActions.setStateTask(task))
   },
   setStateTasks(tasks) {
-    dispatch(tasksActions.setStateTasks(tasks))
+    dispatch(taskActions.setStateTasks(tasks))
   },
   setStateToken(token) {
     dispatch(tokenActions.setStateToken(token))

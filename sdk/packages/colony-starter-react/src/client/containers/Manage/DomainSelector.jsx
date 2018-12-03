@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as domainsActions from '../../actions/domainsActions'
+import * as domainActions from '../../actions/domainActions'
 import DomainSelector from '../../components/Manage/DomainSelector'
 
 class DomainSelectorContainer extends Component {
@@ -37,19 +37,19 @@ class DomainSelectorContainer extends Component {
 
 const mapStateToProps = state => ({
   colonyClient: state.colony.colonyClient,
-  domains: state.domains.domains,
-  getDomainsError: state.domains.getDomainsError,
-  getDomainsLoading: state.domains.getDomainsLoading,
-  getDomainsSuccess: state.domains.getDomainsSuccess,
+  domains: state.domain.domains,
+  getDomainsError: state.domain.getDomainsError,
+  getDomainsLoading: state.domain.getDomainsLoading,
+  getDomainsSuccess: state.domain.getDomainsSuccess,
 })
 
 const mapDispatchToProps = dispatch => ({
   getDomains(colonyClient) {
-    dispatch(domainsActions.getDomains(colonyClient))
+    dispatch(domainActions.getDomains(colonyClient))
   },
   resetActions() {
-    dispatch(domainsActions.getDomainsError(null))
-    dispatch(domainsActions.getDomainsSuccess(false))
+    dispatch(domainActions.getDomainsError(null))
+    dispatch(domainActions.getDomainsSuccess(false))
   },
 })
 

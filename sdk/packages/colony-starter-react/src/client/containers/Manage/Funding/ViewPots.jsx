@@ -40,10 +40,10 @@ class ViewPotsContainer extends Component {
 
 const mapStateToProps = state => ({
   colonyClient: state.colony.colonyClient,
-  getPotsError: state.funds.getPotsError,
-  getPotsLoading: state.funds.getPotsLoading,
-  getPotsSuccess: state.funds.getPotsSuccess,
-  pots: state.funds.pots,
+  getPotsError: state.funding.getPotsError,
+  getPotsLoading: state.funding.getPotsLoading,
+  getPotsSuccess: state.funding.getPotsSuccess,
+  pots: state.funding.pots,
 })
 
 const mapDispatchToProps = dispatch => ({
