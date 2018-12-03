@@ -8,25 +8,29 @@ The most useful abstraction within a colony is the `task`. Tasks are used to coo
 
 Tasks have 3 'roles' that may be assigned to addresses: manager, evaluator, and worker. Each role and its permissions are outlined in the table below:
 
-|                          | Manager | Evaluator | Worker |
-|--------------------------|---------|-----------|--------|
-| setTaskBrief             | X       |           | *      |
-| setTaskDomain            | X       |           |        |
-| setTaskSkill             | X       |           | *      |
-| setTaskDueDate           | X       |           | *      |
-| setTaskManagerPayout     | X       |           | *      |
-| setTaskEvaluatorPayout   | X       | *         |        |
-| setTaskWorkerPayout      | X       |           | *      |
-| setTaskManagerRole       | X       |           |        |
-| setTaskEvaluatorRole     | X       |           |        |
-| setTaskWorkerRole        | X       |           |        |
-| removeTaskWorkerRole     | X       |           | *      |
-| removeTaskEvaluatorRole  | X       | *         |        |
-| submitTaskDeliverable    |         |           | X      |
-| cancelTask               | X       |           |        |
-| finalizeTask             | X       | X         | X      |
+|                          | Manager | Evaluator | Worker | Other                      |
+|--------------------------|---------|-----------|--------|----------------------------|
+| cancelTask               | *       |           | *      |                            |
+| setTaskBrief             | *       |           | *      |                            |
+| setTaskDomain            | *       |           | *      |                            |
+| setTaskSkill             | *       |           | *      |                            |
+| setTaskDueDate           | *       |           | *      |                            |
+| setTaskManagerPayout     | *       |           | *      |                            |
+| setTaskEvaluatorPayout   | *       | *         |        |                            |
+| setTaskWorkerPayout      | *       |           | *      |                            |
+| setTaskManagerRole       | *       |           |        | * proposed manager (admin) |
+| setTaskEvaluatorRole     | *       | *         |        | * proposed evaluator       |
+| setTaskWorkerRole        | *       |           | *      | * proposed worker          |
+| removeTaskWorkerRole     | *       |           | *      |                            |
+| removeTaskEvaluatorRole  | *       | *         |        |                            |
+| submitTaskDeliverable    |         |           | X      |                            |
+| submitTaskWorkRating     | X       | X         | X      |                            |
+| revealTaskWorkRating     | X       | X         | X      |                            |
+| claimPayout              | X       | X         | X      |                            |
+| finalizeTask             |         |           |        |                            |
 
-( * ) - If the task has been assigned to a role already, the operation requires this role's signature.
+( X ) - Only this user can call the method. If there is no X in the row, any user can call the method.
+( * ) - If the task has already been assigned to a role, the operation requires this role's signature.
 
 
 ==TOC==
@@ -51,42 +55,42 @@ Once a task has been created, it can be examined:
 await colonyClient.getTask.call({ taskId });
 ```
 
-At any time before a task is finalized, the task can be canceled, which allows any funding to be returned to the colony and halts any further modification of the task.
+## Cancel
+
+At any time before a task is finalized, the task can be canceled, which allows any funding to be returned to the colony and halts any further modification of the task. Cancelling a task must be approved by the manager and the worker.
 
 ```js
-await colonyClient.cancelTask.send({ taskId });
-```
-
-## Modification
-
-After the task has been created, the task domain can be modified.
-
-```js
-// Set the task domain
-await colonyClient.setTaskDomain.send({
-  taskId,
-  domainId,
-});
+await colonyClient.cancelTask.startOperation({ taskId });
 ```
 
 ## Modification with Multisig Operations
 
 Important changes to a task must be approved by multiple people. Task changes requiring two signatures are:
 
-* Changing the task brief (Manager and Worker)
-* Changing or setting the task skill (Manager and Worker)
-* Changing or setting the task due date (Manager and Worker)
-* Changing or setting the managers's payout (Manager and Worker)
-* Changing or setting the evaluator's payout (Manager and Evaluator)
-* Changing or setting the worker's payout (Manager and Worker)
-* Removing the evaluator's role (Manager and Evaluator)
-* Removing the worker's role (Manager and Worker)
+* Changing the task brief (manager and worker)
+* Changing or setting the task domain (manager and worker)
+* Changing or setting the task skill (manager and worker)
+* Changing or setting the task due date (manager and worker)
+* Changing or setting the managers's payout (manager and worker)
+* Changing or setting the evaluator's payout (manager and evaluator)
+* Changing or setting the worker's payout (manager and worker)
+* Changing the manager's role (manager and proposed manager)
+* Setting the evaluator's role (manager and proposed evaluator)
+* Setting the worker's role (manager and proposed worker)
+* Removing the evaluator's role (manager and evaluator)
+* Removing the worker's role (manager and worker)
 
 ```js
 // Set the task brief
 await colonyClient.setTaskBrief.startOperation({
   taskId,
   specificationHash,
+});
+
+// Set the task domain
+await colonyClient.setTaskDomain.startOperation({
+  taskId,
+  domainId,
 });
 
 // Set the task skill
@@ -100,15 +104,25 @@ await colonyClient.setTaskDueDate.startOperation({
   taskId,
   dueDate,
 });
-```
 
-Some changes can be made by an admin but still need be approved by the task manager. Task changes made by an admin that require the managers signature are:
+// Set the task manager payout
+await colonyClient.setTaskManagerPayout.startOperation({
+  taskId,
+  amount,
+});
 
-* Changing or setting the managers's role (Manager)
-* Changing or setting the evaluator's role (Manager)
-* Changing or setting the workers's role (Manager)
+// Set the task worker payout
+await colonyClient.setTaskEvaluatorPayout.startOperation({
+  taskId,
+  amount,
+});
 
-```js
+// Set the task worker payout
+await colonyClient.setTaskWorkerPayout.startOperation({
+  taskId,
+  amount,
+});
+
 // Set the task manager role
 await colonyClient.setTaskManagerRole.startOperation({
   taskId,
@@ -123,6 +137,18 @@ await colonyClient.setTaskEvaluatorRole.startOperation({
 
 // Set the task worker role
 await colonyClient.setTaskWorkerRole.startOperation({
+  taskId,
+  user,
+});
+
+// Remove the task worker role
+await colonyClient.removeTaskEvaluatorRole.startOperation({
+  taskId,
+  user,
+});
+
+// Remove the task worker role
+await colonyClient.removeTaskWorkerRole.startOperation({
   taskId,
   user,
 });

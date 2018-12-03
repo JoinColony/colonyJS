@@ -587,7 +587,7 @@ export default class ColonyClient extends ContractClient {
   /*
     Every task must belong to a single existing Domain. This can only be called by the manager of the task.
   */
-  setTaskDomain: ColonyClient.Sender<
+  setTaskDomain: ColonyClient.MultisigSender<
     {
       taskId: number, // Integer taskId.
       domainId: number, // Integer domainId.
@@ -789,7 +789,7 @@ export default class ColonyClient extends ContractClient {
   /*
     Cancels a task.
   */
-  cancelTask: ColonyClient.Sender<
+  cancelTask: ColonyClient.MultisigSender<
     {
       taskId: number, // Integer taskId.
     },
@@ -1212,9 +1212,6 @@ export default class ColonyClient extends ContractClient {
     this.addSender('assignWorkRating', {
       input: [['taskId', 'number']],
     });
-    this.addSender('cancelTask', {
-      input: [['taskId', 'number']],
-    });
     this.addSender('claimColonyFunds', {
       input: [['token', 'tokenAddress']],
     });
@@ -1268,9 +1265,6 @@ export default class ColonyClient extends ContractClient {
         ['rating', 'number'],
         ['salt', 'string'],
       ],
-    });
-    this.addSender('setTaskDomain', {
-      input: [['taskId', 'number'], ['domainId', 'number']],
     });
     this.addSender('setAllTaskPayouts', {
       input: [
@@ -1347,6 +1341,12 @@ export default class ColonyClient extends ContractClient {
         nonceFunctionName: 'getTaskChangeNonce',
         nonceInput: [['taskId', 'number']],
       });
+    makeExecuteTaskChange('cancelTask', [], [MANAGER_ROLE, WORKER_ROLE]);
+    makeExecuteTaskChange(
+      'setTaskDomain',
+      [['domainId', 'number']],
+      [MANAGER_ROLE, WORKER_ROLE],
+    );
     makeExecuteTaskChange(
       'setTaskSkill',
       [['skillId', 'number']],
