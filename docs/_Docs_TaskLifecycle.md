@@ -40,7 +40,7 @@ Tasks have 3 "roles" that may be assigned to addresses: manager, evaluator, and 
 
 When creating a task, the task must be assigned a `specificationHash` and a `domainId`.
 
-Also known as a "task brief", the task specification is a description of the work required in order to be considered sufficient for a task payout. The `specificationHash` can be any arbitrary hash string (32 bytes) but this is especially suited for a unique IPFS content hash. See [Using IPFS](#using-ipfs) for details.
+Also known as a "task brief", the task specification is a description of the work required in order to be considered sufficient for a task payout. The `specificationHash` can be any arbitrary hash string (32 bytes) but this is especially suited for a unique IPFS content hash. See [Using IPFS](/colonyjs/docs-using-ipfs/) for details.
 
 The domain is required when creating a task because reputation is earned within the context of domains. Upon the completion of a task, each role will earn reputation that is associated with the domain. The "root domain" of every colony is `1`, which is the default value if the `domainId` is not specified when creating a task.
 
@@ -195,7 +195,7 @@ await colonyClient.cancelTask.startOperation({ taskId });
 
 ## Submit Work
 
-Once a worker has been assigned to the task, the task deliverable (or "task work") can be submitted. Like the `specificationHash`, the `deliverableHash` can be any arbitrary hash string (32 bytes) but this is especially suited for a unique IPFS content hash. See [Using IPFS](#using-ipfs) for details.
+Once a worker has been assigned to the task, the task deliverable (or "task work") can be submitted. Like the `specificationHash`, the `deliverableHash` can be any arbitrary hash string (32 bytes) but this is especially suited for a unique IPFS content hash. See [Using IPFS](/colonyjs/docs-using-ipfs/) for details.
 
 ```js
 
@@ -284,113 +284,5 @@ await colonyClient.claimPayout.send({
   role,
   token,
 });
-
-```
-
-## Using IPFS
-
-The format for the task specification (the description of the work to be done) and the task deliverable (the work done) is left open. The use of hashes provides an opportunity to use text files, PDFs, or other forms of media.
-
-A natural way to use the `specificationHash` and `deliverableHash` fields within a task is to point to a file hosted on IPFS.
-
-#### IPFS Setup
-
-For development with colonyJS, IPFS must be aded to your project.
-
-The easiest way to add IPFS is via npm:
-
-```
-
-yarn add ipfs
-
-```
-
-Then include it in your project's code:
-
-```js
-
-const IPFS = require('ipfs');
-const ipfs = new IPFS();
-
-```
-
-This will run a full IPFS node in Node.js or your browser. Heads up! Running your IPFS node in your browser will require you to install the [`Buffer` package](https://www.npmjs.com/package/buffer) separately, which is included in Node.js by default.
-
-#### Alternative IPFS Setup
-
-You can also run a Go node and access it via [js-ipfs-api](https://github.com/ipfs/js-ipfs-api) which should conform to the [IPFS core interface specification](https://github.com/ipfs/interface-ipfs-core).
-
-If you decided to use the Go node approach, this should get you a running installation of `go-ipfs`:
-
-Download `ipfs-update` for your platform [Install IPFS | IPFS Docs](https://ipfs.io/docs/install/#installing-with-ipfs-update)
-
-For example, using MacOS:
-
-```
-
-curl -O https://dist.ipfs.io/ipfs-update/v1.5.2/ipfs-update_v1.5.2_darwin-amd64.tar.gz`
-
-```
-
-Unpack and install:
-
-```
-
-tar -xvzf ipfs-update_v1.5.2_darwin-amd64.tar.gz
-
-cd ipfs-update && ./install.sh
-
-```
-
-Get the latest version:
-
-```
-
-ipfs-update install latest
-
-```
-
-Check whether `ipfs` is installed properly:
-
-```
-
-$ ipfs --version
-
-ipfs version 0.4.15
-
-```
-
-#### Set Hash
-
-The IPFS hash is returned after adding the file to IPFS.
-
-IPFS requires that files be uploaded as a `Buffer`, which is a binary representation of the data to host.
-
-To create that buffer, the object must first be converted to a JSON string.
-
-```js
-
-// Prepare our data by passing our object as a JSON string to `Buffer`
-const data = Buffer.from(JSON.stringify(object));
-
-// Upload our file to IPFS
-const files = await ipfs.files.add(data);
-
-// Set the hash when it's returned after upload
-const { hash } = files[0];
-
-```
-
-#### Get Hash
-
-To retrieve the hash from IPFS, use the `getTask` method.
-
-```js
-
-// IPFS will provide a binary representation ('buffer') of our spec given the hash from our task
-const buffer = await node.files.cat(`/ipfs/${hash}`);
-
-// You likely will want to parse the buffer back into a regular JS object
-const contents = JSON.parse(buffer.toString());
 
 ```
