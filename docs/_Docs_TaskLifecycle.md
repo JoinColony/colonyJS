@@ -6,7 +6,7 @@ order: 2
 
 The most useful abstraction within a colony is the `task`. Tasks are used to coordinate work, track reputation, and ultimately the only way to get paid through a colony. See [tasks](/colonynetwork/docs-tasks/) for a complete description of what tasks are within a colony.
 
-Tasks have 3 'roles' that may be assigned to addresses: manager, evaluator, and worker. Each role and its permissions are outlined in the table below:
+Tasks have 3 "roles" that may be assigned to addresses: manager, evaluator, and worker. Each role and its permissions are outlined in the table below:
 
 |                          | Manager | Evaluator | Worker | Other                      |
 |--------------------------|---------|-----------|--------|----------------------------|
@@ -29,43 +29,67 @@ Tasks have 3 'roles' that may be assigned to addresses: manager, evaluator, and 
 | claimPayout              | X       | X         | X      |                            |
 | finalizeTask             |         |           |        |                            |
 
-( X ) - Only this user can call the method. If there is no X in the row, any user can call the method.
-( * ) - If the task has already been assigned to a role, the operation requires this role's signature.
+( X ) - Only this role can call the method. If there is no X in the row, any address can call the method.
+( * ) - If the task has already been assigned to this role, the operation requires this role's signature.
 
 
 ==TOC==
 
 
-## Create
+## Create Task
 
-A newly created task must be assigned to a domain and must reference a `specificationHash` for the task's completion. Also known as a "Task Brief", the task specification is a description of the work to be done and how that work will be evaluated. This can be any arbitrary hash string (32 bytes), but is especially suited be a unique IPFS content hash. See [Using IPFS](#using-ipfs-for-a-task-specification) for details.
+When creating a task, the task must be assigned a `specificationHash` and a `domainId`.
 
-The "root domain" of any colony is `1`, and is the default value for `domainId` if unspecified.
+Also known as a "task brief", the task specification is a description of the work required in order to be considered sufficient for a task payout. The `specificationHash` can be any arbitrary hash string (32 bytes) but this is especially suited for a unique IPFS content hash. See [Using IPFS](#using-ipfs) for details.
+
+The domain is required when creating a task because reputation is earned within the context of domains. Upon the completion of a task, each role will earn reputation that is associated with the domain. The "root domain" of every colony is `1`, which is the default value if the `domainId` is not specified when creating a task.
 
 ```js
-const { eventData: { taskId } } = await colonyClient.createTask.send({
+
+// Create a task
+await colonyClient.createTask.send({
   specificationHash,
   domainId,
 });
+
 ```
 
-Once a task has been created, it can be examined:
+When creating a task, the task can also be assigned a `skillId` and a `dueDate`.
+
+Skills are global, meaning they are shared across the Colony Network and only the Meta Colony can create new skills. When completing a task, reputation is also earned within the context of skills. There is no default value if the `skillId` is not specified and the `skillId` is not required when creating a task.
+
+The due date determines the deadline for the task. The task work cannot be submitted after the due date has passed. If the `dueDate` is not specified when creating a task, the default `dueDate` will be 90 days from the time that the task was created.
 
 ```js
+
+// Create a task
+await colonyClient.createTask.send({
+  specificationHash,
+  domainId,
+  skillId,
+  dueDate,
+});
+
+```
+
+In the initial version of Colony Network, only admins have permission to create new tasks. Eventually, permission to create tasks will be based on the reputation that the address holds within the colony.
+
+## View Task
+
+Once a task has been created, it can be viewed:
+
+```js
+
+// Get the task
 await colonyClient.getTask.call({ taskId });
+
 ```
 
-## Cancel
+## Modify Task
 
-At any time before a task is finalized, the task can be canceled, which allows any funding to be returned to the colony and halts any further modification of the task. Cancelling a task must be approved by the manager and the worker.
+Important changes to a task must be approved by multiple roles. Most of the methods that modify a task require multiple signatures before the modification will take affect (see [Multisgnature](/colonyjs/docs-multisignature-transactions/) for more details).
 
-```js
-await colonyClient.cancelTask.startOperation({ taskId });
-```
-
-## Modification with Multisig Operations
-
-Important changes to a task must be approved by multiple people. Task changes requiring two signatures are:
+Task changes requiring multiple signatures are:
 
 * Changing the task brief (manager and worker)
 * Changing or setting the task domain (manager and worker)
@@ -81,6 +105,7 @@ Important changes to a task must be approved by multiple people. Task changes re
 * Removing the worker's role (manager and worker)
 
 ```js
+
 // Set the task brief
 await colonyClient.setTaskBrief.startOperation({
   taskId,
@@ -111,7 +136,7 @@ await colonyClient.setTaskManagerPayout.startOperation({
   amount,
 });
 
-// Set the task worker payout
+// Set the task evaluator payout
 await colonyClient.setTaskEvaluatorPayout.startOperation({
   taskId,
   amount,
@@ -129,7 +154,7 @@ await colonyClient.setTaskManagerRole.startOperation({
   user,
 });
 
-// Set the task worker role
+// Set the task evaluator role
 await colonyClient.setTaskEvaluatorRole.startOperation({
   taskId,
   user,
@@ -141,7 +166,7 @@ await colonyClient.setTaskWorkerRole.startOperation({
   user,
 });
 
-// Remove the task worker role
+// Remove the task evaluator role
 await colonyClient.removeTaskEvaluatorRole.startOperation({
   taskId,
   user,
@@ -152,141 +177,220 @@ await colonyClient.removeTaskWorkerRole.startOperation({
   taskId,
   user,
 });
+
 ```
 
-Attempting to use these methods without a MultisigOperation will throw an error. You can learn more about Multisignature transactions in colonyJS [here](/colonyjs/docs-multisignature-transactions/).
+Attempting to use these methods without `startOperation` will throw an error.
 
-## Rate
+## Cancel Task
 
-After the work has been submitted (or the due date has passed), the work rating period begins.
+Any time before a task is completed, the task can be cancelled, which allows any funding to be returned to the colony and halts any further modification of the task. Cancelling a task must be approved by both the manager and the worker.
 
-Task payouts are determined by work rating based on a "3-star" system.
+```js
+
+// Cancel the task
+await colonyClient.cancelTask.startOperation({ taskId });
+
+```
+
+## Submit Work
+
+Once a worker has been assigned to the task, the task deliverable (or "task work") can be submitted. Like the `specificationHash`, the `deliverableHash` can be any arbitrary hash string (32 bytes) but this is especially suited for a unique IPFS content hash. See [Using IPFS](#using-ipfs) for details.
+
+```js
+
+// Submit the task work
+await colonyClient.submitTaskDeliverable.send({
+  taskId,
+  deliverableHash,
+});
+
+```
+
+## Rate and Reveal
+
+After the task work has been submitted (or the due date has passed), the work rating period begins.
+
+Task payouts are determined by work rating based on a 3-star system.
 
 * The Evaluator reviews the work done and submits a rating for the Worker.
 * The Worker considers the task assignment and submits a rating for the Manager.
 
-Because work ratings are on-chain, they follow a _*Commit* and *Reveal*_ pattern in which ratings are obscured to prevent them from influencing each other.
+Because work ratings are on-chain, they follow a "commit and reveal" pattern in which ratings are obscured in order to prevent ratings from influencing each other.
 
-* During the *Commit* period, hidden ratings are submitted to the blockchain. The commit period lasts 5 days or as long as it takes for all ratings to be submitted.
+* During the "commit period", ratings are submitted to the blockchain and hidden until they are later revealed. The commit period lasts 5 days or as long as it takes for both ratings to be submitted.
 
 ```js
-const secret = await colonyClient.generateSecret.call({ salt, value });
 
+// Generate secret
+const { secret } = await colonyClient.generateSecret.call({ salt, value });
+
+// Submit work rating
 await colonyClient.submitTaskWorkRating.send({
   taskId,
   role,
   secret,
 });
+
 ```
 
-* During the *Reveal* period, users submit a transaction to reveal their rating. The reveal period lasts 5 days or as long as it takes for all ratings to be revealed.
+* During the "reveal period", users submit a transaction to reveal their rating. The reveal period lasts 5 days or as long as it takes for both ratings to be revealed.
 
 ```js
+
+// Reveal work rating
 await colonyClient.revealTaskWorkRating.send({
   taskId,
   role,
   rating,
   salt,
 });
+
 ```
 
-During the rating period, if either party fails to commit or reveal their rating within the given period, their counterpart is given the highest possible rating, and their own rating is penalized.
+During the rating period, if either party fails to commit or reveal their rating within the given period, their counterpart is given the highest possible rating, and their own rating is given the lowest possible rating.
 
 It's easy to check the status of a task during the rating period:
 
 ```js
-const { count, timestamp } = await colonyClient.getTaskWorkRatings.call({
+
+// Get work ratings
+await colonyClient.getTaskWorkRatings.call({
   taskId,
 });
+
 ```
 
-## Finalize
+## Finalize Task
 
-After the rating period has finished, the task may be finalized, which prevents any further task modifications and allows each role to claim their payout.
+After the rating period has finished, the task may be finalized, which prevents any further task modifications and allows each task role to claim their payout.
 
 ```js
+
+// Finalize task
 await colonyClient.finalizeTask.send({
   taskId,
 });
 
+```
+
+## Claim Payout
+
+```js
+
+// Claim payout
 await colonyClient.claimPayout.send({
   taskId,
   role,
   token,
 });
+
 ```
 
-## Using IPFS for a Task Specification
+## Using IPFS
 
-The task specification is meant to be a description of work to be done that would be considered sufficient for a task payout. The exact format is left open; it could be a text file, .pdf, or other media.
+The format for the task specification (the description of the work to be done) and the task deliverable (the work done) is left open. The use of hashes provides an opportunity to use text files, PDFs, or other forms of media.
 
-A natural way to use the `specificationHash` field is to point to a file hosted on IPFS.
+A natural way to use the `specificationHash` and `deliverableHash` fields within a task is to point to a file hosted on IPFS.
 
-## Set up IPFS
+#### IPFS Setup
 
-For development with colonyJS, IPFS must be aded to your project
+For development with colonyJS, IPFS must be aded to your project.
 
-The easiest way to add ipfs is via npm:
-```bash
+The easiest way to add IPFS is via npm:
+
+```
+
 yarn add ipfs
+
 ```
 
 Then include it in your project's code:
-```bash
+
+```js
+
 const IPFS = require('ipfs');
 const ipfs = new IPFS();
+
 ```
 
-This will run a full IPFS node in node.js or your browser. Heads up! Running your IPFS node in browser will require you to install the [`Buffer` package](https://www.npmjs.com/package/buffer) seperately (while it's included in node.js by default).
+This will run a full IPFS node in Node.js or your browser. Heads up! Running your IPFS node in your browser will require you to install the [`Buffer` package](https://www.npmjs.com/package/buffer) separately, which is included in Node.js by default.
 
-#### Alternative IPFS setup
+#### Alternative IPFS Setup
 
-You can also run a go node and access it via [js-ipfs-api](https://github.com/ipfs/js-ipfs-api) which should conform to the [IPFS core interface specification](https://github.com/ipfs/interface-ipfs-core).
+You can also run a Go node and access it via [js-ipfs-api](https://github.com/ipfs/js-ipfs-api) which should conform to the [IPFS core interface specification](https://github.com/ipfs/interface-ipfs-core).
 
-If you decided to use the go node approach, this should get you a running installation of go-ipfs:
+If you decided to use the Go node approach, this should get you a running installation of `go-ipfs`:
 
-1. Download ipfs-update for your platform [Install IPFS | IPFS Docs](https://ipfs.io/docs/install/#installing-with-ipfs-update) (for example `curl -O https://dist.ipfs.io/ipfs-update/v1.5.2/ipfs-update_v1.5.2_darwin-amd64.tar.gz` for MacOS
-2. Unpack and install:
-`tar -xvzf ipfs-update_v1.5.2_darwin-amd64.tar.gz`
-`cd ipfs-update && ./install.sh`
-4. Get the `latest` version of IPFS:
-`ipfs-update install latest`
-5. Check whether ipfs is installed properly
+Download `ipfs-update` for your platform [Install IPFS | IPFS Docs](https://ipfs.io/docs/install/#installing-with-ipfs-update)
+
+For example, using MacOS:
+
 ```
+
+curl -O https://dist.ipfs.io/ipfs-update/v1.5.2/ipfs-update_v1.5.2_darwin-amd64.tar.gz`
+
+```
+
+Unpack and install:
+
+```
+
+tar -xvzf ipfs-update_v1.5.2_darwin-amd64.tar.gz
+
+cd ipfs-update && ./install.sh
+
+```
+
+Get the latest version:
+
+```
+
+ipfs-update install latest
+
+```
+
+Check whether `ipfs` is installed properly:
+
+```
+
 $ ipfs --version
+
 ipfs version 0.4.15
+
 ```
 
-## Set the `specificationHash`
+#### Set Hash
 
-The IPFS hash is returned after adding the file to IPFS. Use that return to pass the specificationHash value on to the `createTask` method.
+The IPFS hash is returned after adding the file to IPFS.
 
 IPFS requires that files be uploaded as a `Buffer`, which is a binary representation of the data to host.
 
-To create that buffer, the specification must first be 'converted' to a JSON string.
+To create that buffer, the object must first be converted to a JSON string.
 
 ```js
-// Prepare our data by passing our spec object as a JSON string to `Buffer`
-const data = Buffer.from(JSON.stringify(spec));
-// upload your file to IPFS
-const files = await ipfs.files.add(data)
-// set the hash when it's returned after upload
+
+// Prepare our data by passing our object as a JSON string to `Buffer`
+const data = Buffer.from(JSON.stringify(object));
+
+// Upload our file to IPFS
+const files = await ipfs.files.add(data);
+
+// Set the hash when it's returned after upload
 const { hash } = files[0];
 
-// Create a new task with your IPFS hash set as the specificationHash
-colonyClient.createTask.send({ specificationHash });
 ```
 
-You can also update the specificationHash by calling the `setTaskBrief` multisignature operation. See [multisignature transactions](/colonyjs/docs-multisignature-transactions/) for more details.
+#### Get Hash
 
-## Retrieve the task specification from IPFS
-
-To retrieve the specification from IPFS for a task that's already been created, use the `getTask` method.
+To retrieve the hash from IPFS, use the `getTask` method.
 
 ```js
-const task = await colonyClient.getTask.call({ taskId })
+
 // IPFS will provide a binary representation ('buffer') of our spec given the hash from our task
-const buffer = await node.files.cat(`/ipfs/${task.specificationHash}`);
-// You likely will want to parse the buffer back into a regular JS object:
+const buffer = await node.files.cat(`/ipfs/${hash}`);
+
+// You likely will want to parse the buffer back into a regular JS object
 const contents = JSON.parse(buffer.toString());
+
 ```
