@@ -24,7 +24,7 @@ For more info see the [`Multisignature` docs](/colonyjs/docs-multisignature-tran
 
 ### `sign()`
 
-Sign the message hash with the current wallet or provider and add the signature. This method is asyncrhonous.
+Sign the message hash with the current wallet or provider and add the signature. This method is asynchronous.
 
 **Returns**
 

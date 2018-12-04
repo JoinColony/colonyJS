@@ -19,8 +19,8 @@ Tasks have 3 'roles' that may be assigned to addresses: manager, evaluator, and 
 | setTaskEvaluatorPayout   | *       | *         |        |                            |
 | setTaskWorkerPayout      | *       |           | *      |                            |
 | setTaskManagerRole       | *       |           |        | * proposed manager (admin) |
-| setTaskEvaluatorRole     | *       | *         |        | * proposed evaluator       |
-| setTaskWorkerRole        | *       |           | *      | * proposed worker          |
+| setTaskEvaluatorRole     | *       |           |        | * proposed evaluator       |
+| setTaskWorkerRole        | *       |           |        | * proposed worker          |
 | removeTaskWorkerRole     | *       |           | *      |                            |
 | removeTaskEvaluatorRole  | *       | *         |        |                            |
 | submitTaskDeliverable    |         |           | X      |                            |
