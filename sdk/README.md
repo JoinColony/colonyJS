@@ -21,7 +21,7 @@ _Learn to build with Colony! Get a head start on your next project!_ Colony Star
 
 ### Prerequisites
 
-- Yarn
+- Yarn 1.12.3
 - Docker
 - Node 10.12.0
 

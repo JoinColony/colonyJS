@@ -4,7 +4,7 @@ _Learn to build with Colony using React!_
 
 ## Prerequisites
 
-- Yarn
+- Yarn 1.12.3
 - Node 10.12.0
 
 _You may find it helpful to use Node Version Manager (`nvm`) to manage Node versions._
