@@ -853,15 +853,15 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |TaskPayoutClaimed|object|Contains the data defined in [TaskPayoutClaimed](#events-TaskPayoutClaimed)|
 |Transfer|object|Contains the data defined in [Transfer](#events-Transfer)|
 
-### `addDomain.send({ parentSkillId }, options)`
+### `addDomain.send({ parentDomainId }, options)`
 
-Adds a domain to the Colony along with the new domain's respective local skill (with id `parentSkillId`). This can only be called by founders of the colony. Adding new domains is currently retricted to one level only, i.e. `parentSkillId` has to be the root domain (id: 1).
+Adds a domain to the colony. Adding new domains is currently retricted to one level, i.e. `parentDomainId` has to be the id of the root domain (`parentDomainId: 1`).
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|parentSkillId|number|Id of the local skill under which the new skill will be added.|
+|parentDomainId|number|Id of the domain under which the new domain will be added.|
 
 **Returns**
 
@@ -869,9 +869,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|skillId|number|A skillId for this domain.|
-|parentSkillId|number|The parent skill id.|
-|SkillAdded|object|Contains the data defined in [SkillAdded](#events-SkillAdded)|
+|domainId|number|The ID of the domain that was added.|
+|DomainAdded|object|Contains the data defined in [DomainAdded](#events-DomainAdded)|
 
 ### `claimColonyFunds.send({ token }, options)`
 

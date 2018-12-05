@@ -822,13 +822,13 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Adds a domain to the Colony along with the new domain's respective local skill (with id `parentSkillId`). This can only be called by founders of the colony. Adding new domains is currently retricted to one level only, i.e. `parentSkillId` has to be the root domain (id: 1).
+    Adds a domain to the colony. Adding new domains is currently retricted to one level, i.e. `parentDomainId` has to be the id of the root domain (`parentDomainId: 1`).
   */
   addDomain: ColonyClient.Sender<
     {
-      parentSkillId: number, // Id of the local skill under which the new skill will be added.
+      parentDomainId: number, // Id of the domain under which the new domain will be added.
     },
-    { SkillAdded: SkillAdded },
+    { DomainAdded: DomainAdded },
     ColonyClient,
   >;
   /*
@@ -1207,7 +1207,7 @@ export default class ColonyClient extends ContractClient {
 
     // Senders
     this.addSender('addDomain', {
-      input: [['parentSkillId', 'number']],
+      input: [['parentDomainId', 'number']],
     });
     this.addSender('assignWorkRating', {
       input: [['taskId', 'number']],
