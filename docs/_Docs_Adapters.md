@@ -1,7 +1,7 @@
 ---
 title: Adapters
 section: Docs
-order: 4
+order: 5
 ---
 
 ## What are Adapters?

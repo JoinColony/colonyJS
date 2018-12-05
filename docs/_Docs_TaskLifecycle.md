@@ -10,6 +10,7 @@ Tasks have 3 "roles" that may be assigned to addresses: manager, evaluator, and 
 
 |                          | Manager | Evaluator | Worker | Other                      |
 |--------------------------|---------|-----------|--------|----------------------------|
+| createTask               |         |           |        | X (admin)                  |
 | cancelTask               | *       |           | *      |                            |
 | setTaskBrief             | *       |           | *      |                            |
 | setTaskDomain            | *       |           | *      |                            |
@@ -72,7 +73,7 @@ await colonyClient.createTask.send({
 
 ```
 
-In the initial version of Colony Network, only admins have permission to create new tasks. Eventually, permission to create tasks will be based on the reputation that the address holds within the colony.
+In the initial version of Colony Network, only admins have permission to create new tasks. Eventually, permission to create tasks will be based on the reputation of the address within the colony.
 
 ## View Task
 
