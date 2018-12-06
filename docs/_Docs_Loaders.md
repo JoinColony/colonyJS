@@ -1,7 +1,7 @@
 ---
 title: Loaders
 section: Docs
-order: 4
+order: 5
 ---
 
 ## What are Loaders?
@@ -17,7 +17,7 @@ In a nutshell, the loader is an abstraction that takes an argument (e.g. the nam
 We imagine that the most useful case for developers will be for a loader to accept a contract name and return that contract's ABI from an http source such as Etherscan's API.
 
 ### Loading an ABI from Etherscan using an Address
-```javascript
+```js
 import { EtherscanLoader } from '@colony/colony-js-contract-loader-http';
 
 // EtherscanLoader has a default endpoint:
@@ -31,7 +31,7 @@ const { abi, address } = await loader.load({ contractAddress: '0xf00000000000000
 ### Loading contractAddress and ABI from TrufflePig using a name
 For local development, contracts are quite commonly deployed, destroyed, and re-deployed multiple times to a local testRPC network. Colony's very own [TrufflePig](https://github.com/JoinColony/trufflepig) is a tool specially built to serve both contractAddress and ABI when given a unique name to specify a contract.
 
-```javascript
+```js
 import { TrufflepigLoader } from '@colony/colony-js-contract-loader-http';
 
 // The default endpoint for TrufflePig is
@@ -45,7 +45,7 @@ const { abi, address, bytecode } = await loader.load({ contractName: 'ColonyNetw
 ### Loading from a custom data source (using the `transform`)
 It's possible that a custom data source will deliver your data in a format different than etherscan or TrufflePig. For this, it's necessary to utilize the `transform` property, which can transform the raw output of the source. The default behavior of `transform` is to return the JSON object that is passed to it.
 
-```javascript
+```js
 import { ContractHttpLoader } from '@colony/colony-js-contract-loader-http';
 
 const loader = new ContractHttpLoader({

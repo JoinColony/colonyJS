@@ -1,7 +1,7 @@
 ---
 title: Multisignature
 section: Docs
-order: 7
+order: 8
 ---
 
 Some contract functions rely on what's known as a [Multisignature](https://en.wikipedia.org/wiki/Multisignature) in order to process a transaction. The implementation for some of the task-related functions in `colonyNetwork` is based on [`simple-multisig`](https://github.com/christianlundkvist/simple-multisig).
