@@ -39,6 +39,9 @@ class CreateTaskContainer extends Component {
       case 'specification-title':
         task.specification[event.target.id.substring(14)] = event.target.value
         break
+      case 'domainId':
+        task.domainId[event.target.id] = Number(event.target.value)
+        break
       default:
         task[event.target.id] = event.target.value
         break
