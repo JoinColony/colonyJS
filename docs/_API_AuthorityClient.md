@@ -6,11 +6,11 @@ order: 7
 
 The `AuthorityClient` is a standard interface for interactions with functions and events described in `Authority.sol`.
 
-In the current implementation of the Colony Network, some events on-chain are not mediated by reputation scores as described in the whitepaper. Rather, certain actions within a colony that would ordinarily require some minimum reputation are assigned an 'authority' of Colony Owner and Colony Admin. This includes colony-wide actions such as minting new colony tokens as well as the creation and finalization of tasks.
+In the current implementation of the Colony Network, some events on-chain are not mediated by reputation scores as described in the whitepaper. Rather, certain actions within a colony that would ordinarily require some minimum reputation are assigned an 'authority' of Colony Founder and Colony Admin. This includes colony-wide actions such as minting new colony tokens as well as the creation and finalization of tasks.
 
-The roles of `OWNER` and `ADMIN` are able to call certain specific functions on the Colony Network, which are not permitted by addresses without an authorityRole defined.
+The roles of `FOUNDER` and `ADMIN` are able to call certain specific functions on the Colony Network, which are not permitted by addresses without an authorityRole defined.
 
-|                                     | Role: `OWNER` | Role: `ADMIN` |
+|                                     | Role: `FOUNDER` | Role: `ADMIN` |
 |-------------------------------------|---------------|---------------|
 | `setToken`                          | X             |               |
 | `mintTokens`                        | X             |               |
@@ -48,7 +48,7 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|role|Authority Role|That user's authority role (`OWNER` or `ADMIN`).|
+|role|Authority Role|That user's authority role (`FOUNDER` or `ADMIN`).|
 
 ### `hasUserRole.call({ user, role })`
 
@@ -59,7 +59,7 @@ For the given user's address and role, return true if the user has that role.
 |Argument|Type|Description|
 |---|---|---|
 |user|Address|The user in question|
-|role|Authority Role|The role to be checked (`OWNER` or `ADMIN`).|
+|role|Authority Role|The role to be checked (`FOUNDER` or `ADMIN`).|
 
 **Returns**
 
@@ -82,7 +82,7 @@ Enable or disable a particular role for a user's address (default behaviour: ena
 |Argument|Type|Description|
 |---|---|---|
 |user|Address|The user address to be granted (or stripped of) authority.|
-|role|Authority Role|The authority role (`OWNER` or `ADMIN`).|
+|role|Authority Role|The authority role (`FOUNDER` or `ADMIN`).|
 |enabled|boolean|Whether or not that role has been enabled.|
 
 **Returns**
