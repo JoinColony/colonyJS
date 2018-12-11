@@ -2,6 +2,9 @@
 
 ## v.NEXT
 
+**New features**
+
+* Add `getAccounts` method to `TrufflepigLoader` (`@colony/colony-js-contract-loader-http`)
 
 ## v1.8.1
 
