@@ -1,7 +1,7 @@
 ---
-title: Authority
+title: Authority Roles
 section: Docs
-order: 4
+order: 3
 ---
 
 In the current implementation of the Colony Network, some events on-chain are not mediated by reputation scores as described in the whitepaper. Rather, certain actions within a colony that would ordinarily require some minimum reputation are assigned an "authority".

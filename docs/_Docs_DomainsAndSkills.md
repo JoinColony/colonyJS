@@ -1,7 +1,7 @@
 ---
 title: Domains and Skills
 section: Docs
-order: 3
+order: 4
 ---
 
 As demonstrated in [Task Lifecycle](/colonyjs/docs-task-lifecycle/), a task must be assigned a domain. The domain is required when creating a task because reputation is earned within the context of domains. Upon the completion of a task, each role (assuming the manager and worker both received adequate ratings) will earn reputation within the domain that the task was assigned.
@@ -14,9 +14,7 @@ Domains and skills can also have "sub-domains" and "sub-skills". When reputation
 
 Let's take a closer look at how to create and manage domains and skills within colonyJS. For more information about domains and skills, you can also check out [Domains and Skills](/colonynetwork/docs-domains-and-skills/) in the Colony Network documentation.
 
-
 ==TOC==
-
 
 ## Domains
 
