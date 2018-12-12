@@ -41,7 +41,11 @@ The permission for each "task role" are outlined in the table below:
 ( * ) - If the task has already been assigned to this role, the operation requires this role's signature.  
 ( X ) - Only this role can call the method. If there is no "X" in the row, any address can call the method.
 
-## Create Task
+## Task Methods
+
+All methods associated with tasks can be called using an instance of the [ColonyClient](/colonyjs/api-colonyclient).
+
+### Create Task
 
 When creating a task, the task must be assigned a `specificationHash` and a `domainId`.
 
@@ -77,9 +81,9 @@ await colonyClient.createTask.send({
 
 ```
 
-## View Task
+### View Task
 
-Once a task has been created, it can be viewed:
+Once a task has been created, it can be viewed.
 
 ```js
 
@@ -88,7 +92,7 @@ await colonyClient.getTask.call({ taskId });
 
 ```
 
-## Modify Task
+### Modify Task
 
 Important changes to a task must be approved by multiple "task roles". Most of the methods that modify a task require multiple signatures before the modification will take affect (see [Multisgnature](/colonyjs/docs-multisignature-transactions/) for more information).
 
@@ -240,7 +244,7 @@ await colonyClient.removeTaskWorkerRole.startOperation({
 
 Attempting to use these methods without `startOperation` will throw an error.
 
-## Cancel Task
+### Cancel Task
 
 Any time before a task is completed, the task can be cancelled, which allows any funding to be returned to the colony and halts any further modification of the task. Cancelling a task must be approved by both the `MANAGER` and the `WORKER`.
 
@@ -251,7 +255,7 @@ await colonyClient.cancelTask.startOperation({ taskId });
 
 ```
 
-## Submit Work
+### Submit Work
 
 Once a `WORKER` has been assigned to the task, the task deliverable (or "task work") can be submitted.
 
@@ -267,7 +271,7 @@ await colonyClient.submitTaskDeliverable.send({
 
 ```
 
-## Rate and Reveal
+### Rate and Reveal
 
 After the task deliverable has been submitted (or the due date has passed), the work rating period begins.
 
@@ -319,7 +323,7 @@ await colonyClient.getTaskWorkRatings.call({ taskId });
 
 ```
 
-## Finalize Task
+### Finalize Task
 
 After the "rating period" has finished, the task may be finalized, which prevents any further task modifications.
 
@@ -330,7 +334,7 @@ await colonyClient.finalizeTask.send({ taskId });
 
 ```
 
-## Claim Payout
+### Claim Payout
 
 Once a task is finalized, each "task role" can then claim their payout:
 
