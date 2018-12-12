@@ -43,7 +43,7 @@ The permission for each "task role" are outlined in the table below:
 
 ## Task Methods
 
-All methods associated with tasks can be called using an instance of the [ColonyClient](/colonyjs/api-colonyclient).
+All methods associated with tasks can be called using an instance of the [ColonyClient](/colonyjs/api-colonyclient). The methods are listed below in an order that reflects the general flow of the task lifecycle from creating a task to claiming task payouts.
 
 ### Create Task
 
