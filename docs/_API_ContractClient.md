@@ -1,24 +1,26 @@
 ---
 title: ContractClient
-section: Docs
-order: 7
+section: API
+order: 1
 ---
 
 The `ContractClient` is a superclass for all client implementations that access a Colony smart contract. It contains abstractions for Callers and Senders as well as certain tools for listening to events, providing information about the network state, and interacting with the reputation mining system.
 
-The `ContractClient` is split into two sub-classes, each of which interacts with a corresponding interface on-chain.
+The `ContractClient` is has four sub-classes, each of which interacts with a corresponding interface on-chain. The on-chain interfaces are `IColonyNetwork.sol`, `IColony.sol`, `IMetaColony.sol` and `Token.sol`. For more information about these, please refer to the [Colony Network Documentation](/colonynetwork/api-the-colony-network/).
 
-The on-chain interfaces are `IColonyNetwork.sol` and `IColony.sol`. For more information about these, please refer to the [Colony Network Documentation](/colonynetwork/api-the-colony-network/).
+==TOC==
 
+## Clients
 
-## ColonyNetworkClient
+### `ColonyNetworkClient`
+
 The `ColonyNetworkClient` class is the standard interface for functions and events that interact described in `IColonyNetwork.sol`.
 
 These interactions are generally concerned with the colony network as a whole, rather than at the Colony level. This includes operations like getting a count of all Colonies on the network, querying for information about skills, and interactions with the CLNY token and reputation system.
 
 [ColonyNetworkClient API documentation](/colonyjs/api-colonynetworkclient/)
 
-## ColonyClient
+### `ColonyClient`
 
 The `ColonyClient` class is a standard interface for interactions with the on-chain functions and events described in `IColony.sol`.
 
@@ -26,11 +28,28 @@ These interactions are generally concerned with functions and events internal to
 
 [ColonyClient API documentation](/colonyjs/api-colonyclient/)
 
+### `MetaColonyClient`
+
+The `MetaColonyClient` class is a standard interface for interactions with the on-chain functions and events described in `IMetaColony.sol`.
+
+These interactions are generally concerned with functions and events internal to a colony, such as creating a task, assigning a work rating, or moving funds between pots.
+
+[MetaColonyClient API documentation](/colonyjs/api-metacolonyclient/)
+
+### `TokenClient`
+
+The `TokenClient` class is the standard interface for functions and events that interact described in `Token.sol`.
+
+These interactions are generally concerned with the colony network as a whole, rather than at the Colony level. This includes operations like getting a count of all Colonies on the network, querying for information about skills, and interactions with the CLNY token and reputation system.
+
+[TokenClient API documentation](/colonyjs/api-tokenclient/)
+
 ## Callers
 
 **Callers** are functions that passively interact with objects on the blockchain and do not need to produce transactions. Usually these will expect certain parameters and will return an object or objects. They usually accept an object of named parameters (e.g. `taskId`) and always return an object with named values (e.g. `dueDate`).
 
 ```js
+
 // With parameters:
 const task = await colonyClient.getTask.call({ taskId: 1 });
 // -> {
@@ -48,6 +67,7 @@ const task = await colonyClient.getTask.call({ taskId: 1 });
 // Without parameters:
 const tasks = await colonyClient.getTaskCount.call();
 // -> { count: 201 }
+
 ```
 
 ## Senders
@@ -86,6 +106,7 @@ The response in this example is a [ContractResponse](#contractresponse).
 The `send` function also accepts `SendOptions` as an optional second parameter; see more on these options [here](/colonyjs/api-contractmethodsender/#sendinputvalues-options).
 
 ```js
+
 // Sending with options
 await networkClient.createColony.send({
   name: 'My Little Colony',
@@ -95,6 +116,7 @@ await networkClient.createColony.send({
   timeoutMs: 1000 * 60 * 2, // two minutes
   waitForMining: true,
 });
+
 ```
 
 ### ContractResponse
@@ -104,6 +126,7 @@ A `ContractResponse` is a plain object with certain properties, depending on whe
 With `waitForMining: true` (the default behaviour):
 
 ```js
+
 {
   // Boolean flag for whether the transaction was executed successfully or not
   successful: true,
@@ -154,11 +177,13 @@ With `waitForMining: true` (the default behaviour):
     },
   }
 }
+
 ```
 
 And with `waitForMining: false`:
 
 ```js
+
 {
   // Resolves to the `successful` value above
   successfulPromise: Promise,
@@ -193,6 +218,7 @@ And with `waitForMining: false`:
     },
   },
 }
+
 ```
 
 ## Events
@@ -200,7 +226,9 @@ And with `waitForMining: false`:
 **Events** are provided on each `ContractClient`, and can be used to attach event listeners that provide formatted event data whenever that event is triggered.
 
 ```js
+
 const handler = ({ taskId }) => { console.log(`TaskAdded event: ${taskId}`); }
+
 colonyClient.events.TaskAdded.addListener(handler);
 
 await colonyClient.createTask.send({ specificationHash });
@@ -210,4 +238,5 @@ await colonyClient.createTask.send({ specificationHash });
 // TaskAdded event: 2
 
 colonyClient.events.TaskAdded.removeListener(handler);
+
 ```
