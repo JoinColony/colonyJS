@@ -1,47 +1,51 @@
 ---
 title: Task Lifecycle
 section: Docs
-order: 2
+order: 3
 ---
 
-The most useful abstraction within a colony is the `task`. Tasks are used to coordinate work, track reputation, and ultimately the only way to get paid through a colony. See [tasks](/colonynetwork/docs-tasks/) for a complete description of what tasks are within a colony.
-
-Tasks have 3 "roles" that may be assigned to addresses: manager, evaluator, and worker. Each role and its permissions are outlined in the table below:
-
-|                          | Manager | Evaluator | Worker | Other                      |
-|--------------------------|---------|-----------|--------|----------------------------|
-| createTask               |         |           |        | X (admin)                  |
-| cancelTask               | *       |           | *      |                            |
-| setTaskBrief             | *       |           | *      |                            |
-| setTaskDomain            | *       |           | *      |                            |
-| setTaskSkill             | *       |           | *      |                            |
-| setTaskDueDate           | *       |           | *      |                            |
-| setTaskManagerPayout     | *       |           | *      |                            |
-| setTaskEvaluatorPayout   | *       | *         |        |                            |
-| setTaskWorkerPayout      | *       |           | *      |                            |
-| setTaskManagerRole       | *       |           |        | * proposed manager (admin) |
-| setTaskEvaluatorRole     | *       |           |        | * proposed evaluator       |
-| setTaskWorkerRole        | *       |           |        | * proposed worker          |
-| removeTaskWorkerRole     | *       |           | *      |                            |
-| removeTaskEvaluatorRole  | *       | *         |        |                            |
-| submitTaskDeliverable    |         |           | X      |                            |
-| submitTaskWorkRating     | X       | X         | X      |                            |
-| revealTaskWorkRating     | X       | X         | X      |                            |
-| claimPayout              | X       | X         | X      |                            |
-| finalizeTask             |         |           |        |                            |
-
-( X ) - Only this role can call the method. If there is no X in the row, any address can call the method.
-( * ) - If the task has already been assigned to this role, the operation requires this role's signature.
-
+The most useful abstraction within a colony is the task. Tasks are used to coordinate work and track reputation. They provide the only means to ultimately get paid through a colony. See [Tasks](/colonynetwork/docs-tasks/) as described in the colonyNetwork documentation for a complete description of what tasks are and how they function within a colony.
 
 ==TOC==
 
+## Task Roles
+
+There are three "task roles" that can be assigned to each task: `MANAGER`, `EVALUATOR`, and `WORKER`.
+
+Each "task role" has specific permissions for calling and approving certain actions. Actions that modify a task may require approval from two "task roles" if those roles have already been assigned (see [Modify Task](/colonyjs/docs-task-lifecycle#modify-task) for more information).
+
+The permission for each "task role" are outlined in the table below:
+
+|                          | Manager | Evaluator | Worker | Other                                  |
+|--------------------------|---------|-----------|--------|----------------------------------------|
+| createTask               |         |           |        | X (`FOUNDER` or `ADMIN`)               |
+| cancelTask               | *       |           | *      |                                        |
+| setTaskBrief             | *       |           | *      |                                        |
+| setTaskDomain            | *       |           | *      |                                        |
+| setTaskSkill             | *       |           | *      |                                        |
+| setTaskDueDate           | *       |           | *      |                                        |
+| setTaskManagerPayout     | *       |           | *      |                                        |
+| setTaskEvaluatorPayout   | *       | *         |        |                                        |
+| setTaskWorkerPayout      | *       |           | *      |                                        |
+| setTaskManagerRole       | *       |           |        | * new `MANAGER` (`FOUNDER` or `ADMIN`) |
+| setTaskEvaluatorRole     | *       |           |        | * new `EVALUATOR`                      |
+| setTaskWorkerRole        | *       |           |        | * new `WORKER`                         |
+| removeTaskWorkerRole     | *       |           | *      |                                        |
+| removeTaskEvaluatorRole  | *       | *         |        |                                        |
+| submitTaskDeliverable    |         |           | X      |                                        |
+| submitTaskWorkRating     | X       | X         | X      |                                        |
+| revealTaskWorkRating     | X       | X         | X      |                                        |
+| claimPayout              | X       | X         | X      |                                        |
+| finalizeTask             |         |           |        |                                        |
+
+( * ) - If the task has already been assigned to this role, the operation requires this role's signature.  
+( X ) - Only this role can call the method. If there is no "X" in the row, any address can call the method.
 
 ## Create Task
 
 When creating a task, the task must be assigned a `specificationHash` and a `domainId`.
 
-Also known as a "task brief", the task specification is a description of the work required in order to be considered sufficient for a task payout. The `specificationHash` can be any arbitrary hash string (32 bytes) but this is especially suited for a unique IPFS content hash. See [Using IPFS](/colonyjs/docs-using-ipfs/) for details.
+Also known as the "task brief", the task specification is a description of the work required to be considered sufficient for a task payout. The `specificationHash` can be any arbitrary hash string (32 bytes) but this is especially suited for a unique IPFS content hash. See [Using IPFS](/colonyjs/docs-using-ipfs/) for more information about using an IPFS content hash.
 
 The domain is required when creating a task because reputation is earned within the context of domains. Upon the completion of a task, each role will earn reputation that is associated with the domain. The "root domain" of every colony is `1`, which is the default value if the `domainId` is not specified when creating a task.
 
@@ -73,8 +77,6 @@ await colonyClient.createTask.send({
 
 ```
 
-In the initial version of Colony Network, only admins have permission to create new tasks. Eventually, permission to create tasks will be based on the reputation of the address within the colony.
-
 ## View Task
 
 Once a task has been created, it can be viewed:
@@ -88,22 +90,11 @@ await colonyClient.getTask.call({ taskId });
 
 ## Modify Task
 
-Important changes to a task must be approved by multiple roles. Most of the methods that modify a task require multiple signatures before the modification will take affect (see [Multisgnature](/colonyjs/docs-multisignature-transactions/) for more details).
+Important changes to a task must be approved by multiple "task roles". Most of the methods that modify a task require multiple signatures before the modification will take affect (see [Multisgnature](/colonyjs/docs-multisignature-transactions/) for more information).
 
-Task changes requiring multiple signatures are:
+Task modification methods and the required signatures for each are listed below.
 
-* Changing the task brief (manager and worker)
-* Changing or setting the task domain (manager and worker)
-* Changing or setting the task skill (manager and worker)
-* Changing or setting the task due date (manager and worker)
-* Changing or setting the managers's payout (manager and worker)
-* Changing or setting the evaluator's payout (manager and evaluator)
-* Changing or setting the worker's payout (manager and worker)
-* Changing the manager's role (manager and proposed manager)
-* Setting the evaluator's role (manager and proposed evaluator)
-* Setting the worker's role (manager and proposed worker)
-* Removing the evaluator's role (manager and evaluator)
-* Removing the worker's role (manager and worker)
+Changing the task brief (`MANAGER` and `WORKER`):
 
 ```js
 
@@ -113,11 +104,23 @@ await colonyClient.setTaskBrief.startOperation({
   specificationHash,
 });
 
+```
+
+Changing or setting the task domain (`MANAGER` and `WORKER`):
+
+```js
+
 // Set the task domain
 await colonyClient.setTaskDomain.startOperation({
   taskId,
   domainId,
 });
+
+```
+
+Changing or setting the task skill (`MANAGER` and `WORKER`):
+
+```js
 
 // Set the task skill
 await colonyClient.setTaskSkill.startOperation({
@@ -125,11 +128,23 @@ await colonyClient.setTaskSkill.startOperation({
   skillId,
 });
 
+```
+
+Changing or setting the task due date (`MANAGER` and `WORKER`):
+
+```js
+
 // Set the task due date
 await colonyClient.setTaskDueDate.startOperation({
   taskId,
   dueDate,
 });
+
+```
+
+Changing or setting the managers's payout (`MANAGER` and `WORKER`):
+
+```js
 
 // Set the task manager payout
 await colonyClient.setTaskManagerPayout.startOperation({
@@ -137,11 +152,23 @@ await colonyClient.setTaskManagerPayout.startOperation({
   amount,
 });
 
+```
+
+Changing or setting the evaluator's payout (`MANAGER` and `EVALUATOR`):
+
+```js
+
 // Set the task evaluator payout
 await colonyClient.setTaskEvaluatorPayout.startOperation({
   taskId,
   amount,
 });
+
+```
+
+Changing or setting the worker's payout (`MANAGER` and `WORKER`):
+
+```js
 
 // Set the task worker payout
 await colonyClient.setTaskWorkerPayout.startOperation({
@@ -149,11 +176,23 @@ await colonyClient.setTaskWorkerPayout.startOperation({
   amount,
 });
 
+```
+
+Changing the manager's role (`MANAGER` and proposed `MANAGER`):
+
+```js
+
 // Set the task manager role
 await colonyClient.setTaskManagerRole.startOperation({
   taskId,
   user,
 });
+
+```
+
+Setting the evaluator's role (`MANAGER` and proposed `EVALUATOR`):
+
+```js
 
 // Set the task evaluator role
 await colonyClient.setTaskEvaluatorRole.startOperation({
@@ -161,17 +200,35 @@ await colonyClient.setTaskEvaluatorRole.startOperation({
   user,
 });
 
+```
+
+Setting the worker's role (`MANAGER` and proposed `WORKER`):
+
+```js
+
 // Set the task worker role
 await colonyClient.setTaskWorkerRole.startOperation({
   taskId,
   user,
 });
 
+```
+
+Removing the evaluator's role (`MANAGER` and `EVALUATOR`):
+
+```js
+
 // Remove the task evaluator role
 await colonyClient.removeTaskEvaluatorRole.startOperation({
   taskId,
   user,
 });
+
+```
+
+Removing the worker's role (`MANAGER` and `WORKER`):
+
+```js
 
 // Remove the task worker role
 await colonyClient.removeTaskWorkerRole.startOperation({
@@ -185,7 +242,7 @@ Attempting to use these methods without `startOperation` will throw an error.
 
 ## Cancel Task
 
-Any time before a task is completed, the task can be cancelled, which allows any funding to be returned to the colony and halts any further modification of the task. Cancelling a task must be approved by both the manager and the worker.
+Any time before a task is completed, the task can be cancelled, which allows any funding to be returned to the colony and halts any further modification of the task. Cancelling a task must be approved by both the `MANAGER` and the `WORKER`.
 
 ```js
 
@@ -196,7 +253,9 @@ await colonyClient.cancelTask.startOperation({ taskId });
 
 ## Submit Work
 
-Once a worker has been assigned to the task, the task deliverable (or "task work") can be submitted. Like the `specificationHash`, the `deliverableHash` can be any arbitrary hash string (32 bytes) but this is especially suited for a unique IPFS content hash. See [Using IPFS](/colonyjs/docs-using-ipfs/) for details.
+Once a `WORKER` has been assigned to the task, the task deliverable (or "task work") can be submitted.
+
+Like the `specificationHash`, the `deliverableHash` can be any arbitrary hash string (32 bytes) but this is especially suited for a unique IPFS content hash. See [Using IPFS](/colonyjs/docs-using-ipfs/) for more information about using an IPFS content hash.
 
 ```js
 
@@ -210,16 +269,16 @@ await colonyClient.submitTaskDeliverable.send({
 
 ## Rate and Reveal
 
-After the task work has been submitted (or the due date has passed), the work rating period begins.
+After the task deliverable has been submitted (or the due date has passed), the work rating period begins.
 
 Task payouts are determined by work rating based on a 3-star system.
 
-* The Evaluator reviews the work done and submits a rating for the Worker.
-* The Worker considers the task assignment and submits a rating for the Manager.
+* The `EVALUATOR` reviews the work done and submits a rating for the `WORKER`.
+* The `WORKER` considers the task assignment and submits a rating for the `MANAGER`.
 
 Because work ratings are on-chain, they follow a "commit and reveal" pattern in which ratings are obscured in order to prevent ratings from influencing each other.
 
-* During the "commit period", ratings are submitted to the blockchain and hidden until they are later revealed. The commit period lasts 5 days or as long as it takes for both ratings to be submitted.
+During the "commit period", ratings are submitted to the blockchain and hidden until they are later revealed. The commit period lasts 5 days or as long as it takes for both ratings to be submitted.
 
 ```js
 
@@ -235,7 +294,7 @@ await colonyClient.submitTaskWorkRating.send({
 
 ```
 
-* During the "reveal period", users submit a transaction to reveal their rating. The reveal period lasts 5 days or as long as it takes for both ratings to be revealed.
+During the "reveal period", users submit a transaction to reveal their rating. The reveal period lasts 5 days or as long as it takes for both ratings to be revealed.
 
 ```js
 
@@ -249,33 +308,31 @@ await colonyClient.revealTaskWorkRating.send({
 
 ```
 
-During the rating period, if either party fails to commit or reveal their rating within the given period, their counterpart is given the highest possible rating, and their own rating is given the lowest possible rating.
+During the "rating period" (the "commit period" and "reveal period"), if either party fails to commit or reveal their rating within the given time, their counterpart is given the highest possible rating, and their own rating is given the lowest possible rating.
 
-It's easy to check the status of a task during the rating period:
+It's easy to check the status of a task during the "rating period":
 
 ```js
 
 // Get work ratings
-await colonyClient.getTaskWorkRatings.call({
-  taskId,
-});
+await colonyClient.getTaskWorkRatings.call({ taskId });
 
 ```
 
 ## Finalize Task
 
-After the rating period has finished, the task may be finalized, which prevents any further task modifications and allows each task role to claim their payout.
+After the "rating period" has finished, the task may be finalized, which prevents any further task modifications.
 
 ```js
 
 // Finalize task
-await colonyClient.finalizeTask.send({
-  taskId,
-});
+await colonyClient.finalizeTask.send({ taskId });
 
 ```
 
 ## Claim Payout
+
+Once a task is finalized, each "task role" can then claim their payout:
 
 ```js
 
