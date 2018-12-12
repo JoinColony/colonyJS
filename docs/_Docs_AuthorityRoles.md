@@ -1,14 +1,16 @@
 ---
 title: Authority Roles
 section: Docs
-order: 3
+order: 2
 ---
 
-In the current implementation of the Colony Network, some events on-chain are not mediated by reputation scores as described in the whitepaper. Rather, certain actions within a colony that would ordinarily require some minimum reputation are assigned an "authority".
+In the current implementation of the colonyNetwork smart contracts, some events on-chain are not mediated by reputation scores as described in the [Whitepaper](https://colony.io/whitepaper.pdf). For now, certain actions within a colony that would ordinarily require some minimum reputation are assigned an "authority role".
 
-There are two "authority" roles: `FOUNDER` and `ADMIN`. This includes colony-wide actions such as minting new colony tokens as well as the creation and finalization of tasks. The roles of `FOUNDER` and `ADMIN` are able to call certain specific functions on the Colony Network, which are not permitted by addresses without an authority role defined.
+There are two "authority roles": `FOUNDER` and `ADMIN`. Each "authority role" can call certain colonyNetwork methods, which are not permitted by addresses without an "authority role" defined. This includes actions such as minting new colony tokens, setting and removing "authority roles", adding domains, creating tasks, and much more.
 
-Permissions for function using `ColonyClient`:
+*Note: The "authority roles" described here are distinct from "task roles" (`MANAGER`, `WORKER`, and `EVALUATOR`). You can learn more about "task roles" and their permissions in [Task Lifecycle](/colonyjs/docs-task-lifecycle).*
+
+## Permissions for `ColonyClient` methods
 
 |                                   | Founder       | Admin         |
 |-----------------------------------|---------------|---------------|
@@ -29,7 +31,9 @@ Permissions for function using `ColonyClient`:
 | startNextRewardPayout             | X             | X             |
 | setRewardInverse                  | X             |               |
 
-Additional permissions for function using `MetaColonyClient`:
+*See [ColonyClient](/colonyjs/api-colonyclient) for more information about each method.*
+
+## Permissions for `MetaColonyClient` methods
 
 |                                   | Founder       | Admin         |
 |-----------------------------------|---------------|---------------|
@@ -37,4 +41,4 @@ Additional permissions for function using `MetaColonyClient`:
 | mintTokensForColonyNetwork        | X             |               |
 | setNetworkFeeInverse              | X             |               |
 
-Note: These authority roles are distinct from the "roles" assigned in a task (manager, worker, and evaluator). See the [Task Lifecycle](/colonyjs/docs-task-lifecycle/) docs for a summary of task roles.
+*See [MetaColonyClient](/colonyjs/api-metacolonyclient) for more information about each method.*
