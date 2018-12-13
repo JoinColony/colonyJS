@@ -14,7 +14,7 @@ There are three "task roles" that can be assigned to each task: `MANAGER`, `EVAL
 
 Each "task role" has specific permissions for calling and approving certain actions. Actions that modify a task may require approval from two "task roles" if those roles have already been assigned (see [Modify Task](/colonyjs/docs-task-lifecycle#modify-task) for more information).
 
-The permission for each "task role" are outlined in the table below:
+### Permissions for `ColonyClient` methods
 
 |                          | Manager | Evaluator | Worker | Other                                  |
 |--------------------------|---------|-----------|--------|----------------------------------------|
