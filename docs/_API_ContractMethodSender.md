@@ -1,12 +1,12 @@
 ---
 title: ContractMethodSender
 section: API
-order: 5
+order: 7
 ---
 
-The `ContractMethodSender` (short `Sender`) class is a part of the `ContractClient` to eventually create blockchain transactions. They are usually created for a `ContractClient` class on its initialization (e.g. the [`ColonyClient`](/colonyjs/api-colonyclient)) and are associated with one single method on the smart contract.
+The `ContractMethodSender` (short `Sender`) class is a part of the `ContractClient` to eventually create blockchain transactions. They are usually created for a `ContractClient` class on its initialization (e.g. the [ColonyClient](/colonyjs/api-colonyclient)) and are associated with one single method on the smart contract.
 
-For more info see the [`ContractClient` docs](/colonyjs/docs-contractclient/).
+For more info see the [ContractClient](/colonyjs/docs-contractclient/) docs.
 
 ==TOC==
 
@@ -62,4 +62,3 @@ with `waitForMining: false`:
 |successfulPromise|Promise<boolean>|Just like above but will only be resolved when mined|
 |eventDataPromise|Object|Just like above but will only be resolved when event data is emitted|
 |meta|Object|Just like above execpt the `receipt` is `receiptPromise` and will be resolved when mined|
-

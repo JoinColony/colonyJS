@@ -1,54 +1,91 @@
 ---
 title: Loaders
 section: Docs
-order: 3
+order: 6
 ---
 
-## What are Loaders?
 Loaders make it possible to easily access and load Ethereum smart contracts.
 
-To interact with a contract, whether it's on mainnet, a testnet, or your local machine, one needs to have the contract's deployed address, together with its Application Binary Interface (ABI).
+To interact with a contract, whether it's deployed on a local or remote network, you need the address of the deployed contract and its Application Binary Interface (ABI).
 
-Loaders provide a simple way to get the address and ABI of a deployed contract, in a certain version, at a particular location (testnet, mainnet, local). This information is then passed as an object to the [adapters](/colonyjs/docs-adapters/), which initialize the contract for use with whichever web3 library they adapt to (such as ethers).
+Loaders provide a simple way to get the address and ABI of a deployed contract, in a certain version, at a particular location. This information is passed as an object to the [adapter](/colonyjs/docs-adapters/), which initialize the contract for use.
 
-In a nutshell, the loader is an abstraction that takes an argument (e.g. the name of a contract) and returns a definition (most likely the contract's ABI and address) from a specific source (e.g. an http host).
+In a nutshell, the loader is an abstraction that takes an argument (e.g. the address of a contract) and returns a definition (e.g. the address of the contract and its ABI) from a specific source (e.g. an http host).
 
-## How to use loaders
-We imagine that the most useful case for developers will be for a loader to accept a contract name and return that contract's ABI from an http source such as Etherscan's API.
+==TOC==
 
-### Loading an ABI from Etherscan using an Address
-```javascript
-import { EtherscanLoader } from '@colony/colony-js-contract-loader-http';
+## Loader Examples
 
-// EtherscanLoader has a default endpoint:
-// https://api.etherscan.io/api?module=contract&action=getabi&address=%%ADDRESS%%
-const loader = new EtherscanLoader();
+Let's take a look at some examples.
 
-// The object may then be called by the adapter:
-const { abi, address } = await loader.load({ contractAddress: '0xf000000000000000000000000000000000000000' });
- ```
+### EtherscanLoader
 
-### Loading contractAddress and ABI from TrufflePig using a name
-For local development, contracts are quite commonly deployed, destroyed, and re-deployed multiple times to a local testRPC network. Colony's very own [TrufflePig](https://github.com/JoinColony/trufflepig) is a tool specially built to serve both contractAddress and ABI when given a unique name to specify a contract.
+We imagine that the most useful case for developers will be a loader that accepts a contract address and returns the contract's ABI from an http source such as Etherscan's API.
 
-```javascript
-import { TrufflepigLoader } from '@colony/colony-js-contract-loader-http';
+Install `@colony/colony-js-contract-loader-http`:
 
-// The default endpoint for TrufflePig is
-// https://127.0.0.1:3030/contracts?name=%%NAME%%&address=%%ADDRESS%%&version=%%VERSION%%
-const loader = new TrufflepigLoader();
-
-// The object may then be called by the adapter:
-const { abi, address, bytecode } = await loader.load({ contractName: 'ColonyNetwork' });
+```
+yarn add @colony/colony-js-contract-loader-http
 ```
 
-### Loading from a custom data source (using the `transform`)
-It's possible that a custom data source will deliver your data in a format different than etherscan or TrufflePig. For this, it's necessary to utilize the `transform` property, which can transform the raw output of the source. The default behavior of `transform` is to return the JSON object that is passed to it.
+Load contract data from Etherscan using `EtherscanLoader`:
 
-```javascript
-import { ContractHttpLoader } from '@colony/colony-js-contract-loader-http';
+```js
 
-const loader = new ContractHttpLoader({
+import { EtherscanLoader } from '@colony/colony-js-contract-loader-http';
+
+const loader = new EtherscanLoader();
+
+const { abi, address } = await loader.load({
+  contractAddress: '0xf000000000000000000000000000000000000000',
+});
+
+```
+
+### TrufflePigLoader
+
+For local development, colonyJS provides a loader that accepts a contract name and returns the contract's ABI from truffle-generated contract files being sniffed out by our very own [TrufflePig](https://github.com/JoinColony/trufflepig).
+
+Install `@colony/colony-js-contract-loader-http`:
+
+```
+yarn add @colony/colony-js-contract-loader-http
+```
+
+Load contract data from Trufflepig using `TrufflepigLoader`:
+
+```js
+
+import { TrufflepigLoader } from '@colony/colony-js-contract-loader-http';
+
+const loader = new TrufflepigLoader();
+
+const { abi, address } = await loader.load({
+  contractName: 'ColonyNetwork',
+  version: 1,
+});
+
+```
+
+### HttpLoader (using `transform`)
+
+Both the `EtherscanLoader` and `TrufflepigLoader` are modified versions of the more general `HttpLoader`.
+
+It's possible that a custom data source will deliver your data in a format different than Etherscan or TrufflePig. For this, it's necessary to utilize the `transform` property, which can transform the raw output of the source. The default behavior of `transform` is to return the JSON object that is passed to it.
+
+Install `@colony/colony-js-contract-loader-http`:
+
+```
+yarn add @colony/colony-js-contract-loader-http
+```
+
+Load contract data from a custom data source using `HttpLoader` with `transform`:
+
+```js
+
+import { HttpLoader } from '@colony/colony-js-contract-loader-http';
+
+const loader = new HttpLoader({
   endpoint: 'https://myDataSource.io/contracts?address=%%ADDRESS%%',
   transform(response, query) {
     return {
@@ -59,14 +96,44 @@ const loader = new ContractHttpLoader({
   },
 });
 
-// The object may then be called by the adapter:
-const { abi, address, bytecode } = await loader.load({ contractAddress: '0xdeadbeef' });
+const { abi, address, bytecode } = await loader.load({
+  contractAddress: '0xf000000000000000000000000000000000000000',
+});
+
 ```
 
-## Future/Imaginable loaders
-Both the `etherscanLoader` and `TrufflepigLoader` are modified versions of the more general `ContractHttpLoader`. We hope to extend functionality to load from more data sources, such as:
+### NetworkLoader
 
-- Databases (indexeddb on the browser, other dbs in node)
-- IPFS (which might be a very specific http loader)
-- Swarm
-- Browser file API (for testing in the browser)
+We've also made it convenient to load deployed colonyNetwork smart contracts.
+
+Install `@colony/colony-js-contract-loader-network`:
+
+```
+yarn add @colony/colony-js-contract-loader-network
+```
+
+Load contract data from a given network using `NetworkLoader`:
+
+```js
+
+import { NetworkLoader } from '@colony/colony-js-contract-loader-network';
+
+const loader = new NetworkLoader({ network: 'rinkeby' });
+
+const { abi, address } = await loader.load({
+  contractName: 'ColonyNetwork',
+  version: 1,
+});
+
+```
+
+## Future Loaders
+
+We hope to extend functionality to load from more data sources such as:
+
+* IPFS
+* EthPM
+* GitHub tagged releases
+* Databases (including IndexedDB)
+* Browser file API
+* Swarm

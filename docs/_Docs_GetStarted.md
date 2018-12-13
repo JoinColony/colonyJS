@@ -4,118 +4,109 @@ section: Docs
 order: 1
 ---
 
-Using colonyJS, you can query the blockchain for information about tasks, create new tasks, modify them, commit and reveal ratings, and finalize them to trigger payouts -- all from within your application.
+Using the colonyJS library, you can query a given network for information about tasks, create new tasks, modify tasks, commit and reveal task ratings, and finalize tasks to trigger payouts -- all from within your application or service.
 
-This page details all the necessary steps to set up colonyJS in your local environment, deploy a local set of colonyNetwork contracts for testing, create a new colony with its own token, and go through the whole task workflow from your colonyJS application.
+This page provides instructions on how to set up a local test network, deploy the [colonyNetwork](https://github.com/JoinColony/colonyNetwork) smart contracts to that local test network, and then use colonyJS to create your first colony with its own native token!
 
 ==TOC==
 
 ## Prerequisites
 
-First of all, we will need to set up some prerequisites:
+First of all, we will need to set up some prerequisites.
 
-If you don't have them installed already, you'll need to install `nodejs`, `npm`, and `yarn` to your system.
+### Node and Yarn
 
-### Colony Network
+If you don't have them installed already, you'll need to install `node` and `yarn`. We recommended using `node` version `10.12.0` and `yarn` version `1.12.0` or higher. An easy solution for managing `node` versions is `nvm`.
 
-colonyJS requires the colonyNetwork contracts to interact with. In the working directory of your choice, clone the latest version of the contracts:
+*Note: You will need a JavaScript environment that supports `async`/`await`, since colonyJS uses promises extensively. Recent versions of `node` support promises out of the box, but when you start building beyond the example provided here, you may want to consider using [Webpack](https://webpack.js.org/) and [Babel](https://babeljs.io/) for better support.*
+
+### colonyNetwork
+
+Using colonyJS in a local development environment will require a locally deployed version of the colonyNetwork smart contracts, so the first order of business will be pulling down the colonyNetwork repository.
+
+In the working directory of your choice, clone the latest version of [colonyNetwork](https://github.com/JoinColony/colonyNetwork):
 
 ```
-$ git clone --recursive https://github.com/JoinColony/colonyNetwork.git
+git clone --recursive https://github.com/JoinColony/colonyNetwork.git
 ```
 
 *Because colonyNetwork is under continuous development, it's possible that the version you get is ahead of this documentation. Make sure you're on the same page as this guide by checking out a specific version of the contracts:*
 
 ```
-$ cd colonyNetwork
+cd colonyNetwork
 
-$ git checkout e82710813605a929e55236879fbb44585d1761ae
+git checkout d50abbeb9f119850cb70e9ec854576123a707205
 
-$ yarn
-```
-
-### Ganache
-
-The colonyNetwork contracts are, for the moment, not on a public network for testing. So to interact with a deployed version of the contracts, you'll need your own local blockchain for testing.
-
-For general development and testing, the full Ganache has a nice UI to get real-time information about your test chain, and instructions for installation can be found on the [website](http://truffleframework.com/ganache/).
-
-We want a bit more flexibility with our accounts (to use in colonyJS), so it'll be easier to use `ganache-cli` in this case.
-
-```
-$ yarn global add ganache-cli
+yarn
 ```
 
 ### TrufflePig
 
-Our application will need its *own copy* of the colonyNetwork contracts to read, so that it knows how to format the data it sends and recieves to/from the blockchain. colonyJS uses the [loaders](/colonyjs/docs-loaders) method to accomplish this.
+There are a few different loaders that colonyJS supports but we want to interact with contracts deployed locally, so we need to serve them from a local source. Thankfully, we have a trusty [TrufflePig](https://github.com/JoinColony/trufflepig) and the `TrufflepigLoader`!
 
-There are a few different loaders that colonyJS supports to get its contracts from, such as the etherscan.io API. In this case, the contracts we want to use are not deployed yet, so we need to serve them from a local source. Thankfully, we have a trusty TrufflePig!
-
-Install trufflepig globally:
+Let's add `trufflepig` to our globally installed packages:
 
 ```
-$ yarn global add trufflepig
+yarn global add trufflepig
 ```
 
-TrufflePig will take truffle-generated contract files and serve them to colonyJS over a simple HTTP API for local development.
+## Fire up a test network
 
+For our local test network, there are a few tweaks to default settings that need to be made: We want to set the `gasLimit` to `7000000` and we want all our account keys to be stored in a `.json` file that we'll be able to easily call inside our application.
 
-### Fire up your testing environment
-
-For our local test blockchain, there are a few tweaks to default settings that need to be made: We want to set the `gasLimit` to 7000000, and we want all our account keys to be stored in a .json file that we'll be able to easily call inside our application. With `ganache-cli` we can do this all in one command at start. Open up a new terminal window, and `cd` back to your colonyNetwork/ working directory:
-
-```
-$ ./node_modules/.bin/ganache-cli -d --gasLimit 7000000 --acctKeys ganache-accounts.json
-```
-
-This will start up a new test blockchain that keeps account keys in a place that is easy to access for TrufflePig and colonyJS.
-
-Now you need to deploy the Colony contracts to your freshly running local testing blockchain.
-
-Open up a new terminal window, and `cd` to the colonyNetwork directory again.
-
-Deploy your contracts with truffle:
+With `ganache-cli` we can do this all in one command at start. Open up a new terminal window and, within the colonyNetwork directory, run the following command:
 
 ```
-$ ./node_modules/.bin/truffle migrate --reset --compile-all
+./node_modules/.bin/ganache-cli -d --gasLimit 7000000 --acctKeys ganache-accounts.json
 ```
 
-*Note: this step requires that you use a specific version of `truffle` that was included when you set up the colonyNetwork directory with `yarn`. If you have truffle installed globally, using the global version might cause an error. The flags '--reset' and '--compile-all' are needed if you're re-deploying the contracts*
+This will start up a new test network that keeps account keys in a place that is easy to access for TrufflePig.
 
-Wait a little bit for the contracts to complile and deploy on your ganache instance.
+## Deploy smart contracts
 
-After the contracts have deployed, you can start up TrufflePig, pointing it to the same accounts that you created with `ganache-cli`:
+Now you need to deploy the colonyNetwork smart contracts to your local test network.
 
-```
-$ trufflepig --ganacheKeyFile ganache-accounts.json
-```
-
-### Initialize your project
-
-Create a new directory for your project, and initialize it with `yarn init`:
+Open up a new terminal window and, within the colonyNetwork directory, deploy the colonyNetwork smart contracts with `truffle` using the following command:
 
 ```
-$ mkdir exampleProject
+./node_modules/.bin/truffle migrate --reset --compile-all
+```
 
-$ cd exampleProject
+*Note: This step requires that you use a specific version of `truffle` that was included when you set up the colonyNetwork directory with `yarn`. If you have `truffle` installed globally, using the global version might cause an error. The flags `--reset` and `--compile-all` are needed if you're re-deploying the contracts.*
 
-$ yarn init
+## Put TrufflePig to work
+
+After the contracts have deployed, start `trufflepig`, pointing it to the same accounts you used when starting `ganache-cli`:
+
+```
+trufflepig --ganacheKeyFile ganache-accounts.json
+```
+
+## Initialize your project
+
+Return to a working directory of your choice.
+
+Now, create a new directory for your project and initialize it with `yarn init`:
+
+```
+mkdir colonyExample
+
+cd colonyExample
+
+yarn init
 ```
 
 Add the required libraries to your project with `yarn`:
 
-```bash
-yarn add @colony/colony-js-client @colony/colony-js-adapter-ethers @colony/colony-js-contract-loader-http ethers
+```
+yarn add @colony/colony-js-adapter-ethers@1.7.0 @colony/colony-js-client@1.7.5 @colony/colony-js-contract-loader-http@1.6.2 ethers
 ```
 
-### Tooling and further reading
+*As you can see in the above command, we have included specific colonyJS package versions. These are recommended versions that have been tested with the colonyNetwork version that we deployed to our local test network.*
 
-It's also beneficial to have a JavaScript environment that supports `async`/`await`, since colonyJS uses Promises extensively. Recent versions of Node and Chrome support Promises out of the box, but you may want to consider using [webpack](https://webpack.js.org/) and [Babel](https://babeljs.io/) for better support.
+## Create a new colony
 
-## Create a new colony with `example.js`
-
-Inside your new project directory, you can then start to work with colonyJS to communicate with your colony. Create a new file `example.js`, and add the following code:
+Inside your new project directory, you can then start to work with colonyJS to communicate with your colony. Create a new file `index.js` in the root directory, and add the following code:
 
 ```js
 
@@ -123,102 +114,83 @@ Inside your new project directory, you can then start to work with colonyJS to c
 const { providers, Wallet } = require('ethers');
 const { default: EthersAdapter } = require('@colony/colony-js-adapter-ethers');
 const { TrufflepigLoader } = require('@colony/colony-js-contract-loader-http');
-
-// Import the ColonyNetworkClient
 const { default: ColonyNetworkClient } = require('@colony/colony-js-client');
 
-// Create an instance of the Trufflepig contract loader
+// Create an instance of TrufflepigLoader
 const loader = new TrufflepigLoader();
 
-// Create a provider for local TestRPC (Ganache)
+// Create an instance of JsonRPCProvider using the url of our test network
 const provider = new providers.JsonRpcProvider('http://localhost:8545/');
 
-// The following methods use Promises
+// Create an async function
 const example = async () => {
 
-  // Get the private key from the first account from the ganache-accounts
-  // using the Trufflepig contract loader
+  // Get the private key from the first account
   const { privateKey } = await loader.getAccount(0);
 
-  // Create a wallet with the private key (so we have a balance we can use)
+  // Create an instance of Wallet using the private key and provider
   const wallet = new Wallet(privateKey, provider);
 
-  // Create an adapter (powered by ethers)
+  // Create an instance of EthersAdapter
   const adapter = new EthersAdapter({
     loader,
     provider,
     wallet,
   });
 
-  // Connect to ColonyNetwork with the adapter!
+  // Create an instance of ColonyNetworkClient using the adapter
   const networkClient = new ColonyNetworkClient({ adapter });
 
+  // Initialize the client
   await networkClient.init();
 
-  // Let's deploy a new ERC20 token for our Colony.
-  // You could also skip this step and use a pre-existing/deployed contract.
+  // Congrats, you've connected to the network!
+  console.log('network address: ' + networkClient.contract.address);
+
+  // Create an ERC20 token (you could also skip this step and use a pre-existing token)
   const { meta: { receipt: { contractAddress } } } = await networkClient.createToken.send({
-    name: 'Cool Colony Token',
-    symbol: 'COLNY',
+    name: 'Token',
+    symbol: 'TKN',
   });
 
-  // Congrats, you've created a Token!
-  console.log('Token address: ' + contractAddress);
+  // Congrats, you've created an ERC20 token!
+  console.log('token address: ' + contractAddress);
 
-  // Create a cool Colony!
-  const {
-    eventData: { colonyId, colonyAddress },
-  } = await networkClient.createColony.send({ tokenAddress: contractAddress });
+  // Create a colony using the token address of the ERC20 token we created
+  const { eventData: { colonyId, colonyAddress } } = await networkClient.createColony.send({
+    tokenAddress: contractAddress,
+  });
 
-  // Congrats, you've created a Colony!
-  console.log('Colony ID: ' + colonyId);
-  console.log('Colony address: ' + colonyAddress);
+  // Congrats, you've created a colony!
+  console.log('colony id: ' + colonyId);
+  console.log('colony address: ' + colonyAddress);
 
-  // For a colony that exists already, you just need its ID:
+  // Get an initialized ColonyClient for the colony we just created
   const colonyClient = await networkClient.getColonyClient(colonyId);
-
-  // Or alternatively, just its address:
-  // const colonyClient = await networkClient.getColonyClientByAddress(colonyAddress);
-
-  // You can also get the Meta Colony:
-  const metaColonyClient = await networkClient.getMetaColonyClient();
-
-  console.log('Meta Colony address: ' + metaColonyClient.contract.address);
 
 };
 
-// Execute the example
+// Execute the example async function
 example()
   .then(() => process.exit())
-  .catch(err => console.error(err));
+  .catch(error => console.error(error));
 
 ```
 
-Save the file, and run with `$ node example.js` - You should see your new cool colony and token appear on your private blockchain!
+Save the file, and run the example:
 
-## Funding your Colony
-
-Whether you've brought your ERC20 token from an existing token contract or created a new one at the same time as the colony (as shown in the above example), you can use the [tokenClient](/colonyJS/api-tokenclient/) to call and sent transactions relating to your colony's funding. This client handles all the functions in the ERC20 standard interface, as well as `mint` and `burn`. Functions that would ordinarily be performed by the contract owner may be performed by anyone in the colony with ADMIN authority. You can learn more about authority roles in the [authorityClient API](/colonyJS/api-authorityclient/).
-
-Your colony's token is an important component in the [reputation system](/colonyNetwork/docs-reputation/). Any task payouts in the native token of the colony grant the recipient reputation (proportional to the task rating). Any member of the colony's combined reputation and token holdings determine the amount they can claim from the [rewards pot](/colonyNetwork/docs-pots-and-funding/).
-
-```js
-// Make the colony contract the owner of the token
-await colonyClient.token.setOwner.send({ owner: colonyClient.contract.address });
-
-// Add yourself as an admin
-await colonyClient.authority.setAdminRole.send({ user: wallet.address });
-
-// Mint some tokens
-await colonyClient.mintTokens.send({ amount: new BigNumber(1000) });
-
-// Get the total supply
-const { amount } = await colonyClient.token.getTotalSupply.call();
-// 1000
+```
+node index.js
 ```
 
-What's next?
+You should see your new colony appear on your local test network!
 
-Continue on to the [Task Lifecycle](/colonyjs/docs-task-lifecycle) to learn how to interact with colony tasks.
+## What's next?
 
-Re-configure your code for public testnet by [switching to the `NetworkLoader`](/colonyjs/api-loaders/#networkloader).
+* Learn about creating a task and running through the task lifecycle in [Task Lifecycle](/colonyjs/docs-task-lifecycle).
+
+* Learn about domains and skills and how they relate to reputation in [Domains and Skills](/colonyjs/docs-domains-and-skills).
+
+* Learn about native colony tokens and managing colony funds in [Managing Funds](/colonyjs/docs-managing-funds).
+
+* Learn about [Loaders](/colonyjs/docs-loaders) and reconfigure the above example for a remote network by switching to the [NetworkLoader](/colonyjs/api-contractloader/#networkloader).

@@ -1,32 +1,22 @@
 ---
-title: Loaders
+title: ContractLoader
 section: API
 order: 0
 ---
 
-This document describes the high level contract loader interface as well as various officially supported implementations. For a better explanation what loaders are, see [Loaders](/colonyjs/docs-loaders/).
+The `ContractLoader` is a superclass for all loader implementations that can be used to access contract data. This page provides an overview of the `ContractLoader` interface and its officially supported implementations.
+
+For a high-level explanation of what loaders are and some quickstart instructions, see [Loaders](/colonyjs/docs-loaders/).
 
 ==TOC==
 
-## Quickstart (using `colony-js-contract-loader-http`)
+## Create an instance
+
+```js
+
+const loader = new Loader([config]);
+
 ```
-yarn add @colony/colony-js-contract-loader-http
-```
-
-```javascript
-import { EtherscanLoader } from '@colony/colony-js-contract-loader-http';
-
-// EtherscanLoader has a default endpoint:
-// https://api.etherscan.io/api?module=contract&action=getabi&address=%%ADDRESS%%
-const loader = new EtherscanLoader();
-
-// This will be done by the adapter!
-const { abi, address } = await loader.load({ contractAddress: '0xf000000000000000000000000000000000000000'});
-```
-
-## `ContractLoader` interface
-
-### `new Loader([config])`
 
 This will create a new loader instance with the given configuration. The config object varies across implementations and might not be needed at all.
 
@@ -34,19 +24,25 @@ This will create a new loader instance with the given configuration. The config 
 
 **`config`** (`?object`): A config object specific to the loader implementation.
 
-Can contain a **`transform`** property, which is a function whose default implementation is the identity function
+A config object can contain a **`transform`** property, which is a function whose default implementation is the identity function.
+
 ```
 (input, query, requiredProps) => input
 ```
+
 This function transforms the input of the loader (e.g. from a http endpoint) to a `ContractDefinition` object (see below).
 
 **Returns**
 
 **`Loader`** instance.
 
-### `loader.load(query, [requiredProps])`
+## Instance methods
 
-**This function will be called by the adapter; in most of the cases you would not want to do this.** Loaders just implement one function: `load`. It returns a Promise that resolves to a `ContractDefinition` object which may contain the contract's ABI, the address and / or the bytecode
+Loaders just implement one function: `load`. It returns a Promise that resolves to a `ContractDefinition` object which may contain the contract's ABI, the address and/or the bytecode.
+
+### `load(query, [requiredProps])`
+
+**This function will be called by the adapter; in most of the cases you would not want to do this.**
 
 **Arguments**
 
@@ -80,27 +76,26 @@ type ContractDefinition = {
 }
 ```
 
-#### Example
-
-```javascript
-const { abi, address } = await loader.load('ContractName', { networkId: 99 });
-```
-
-
 ## Loaders
 
 ### `NetworkLoader`
 
 Consider the `NetworkLoader` the official Loader to load deployed Colony contracts. You just need to specify a `network` on instantiation and the rest will be taken care of by the loader (as long as the contracts are deployed on that specific network).
 
-#### Installation and usage
+#### Installation
+
+Install `colony-js-contract-loader-network`:
 
 ```
 yarn add @colony/colony-js-contract-loader-network
 ```
 
-```
+Import `NetworkLoader`:
+
+```js
+
 import NetworkLoader from '@colony/colony-js-contract-loader-network'
+
 ```
 
 #### `new NetworkLoader({ network, transform })`
@@ -125,17 +120,38 @@ The `NetworkLoader` also implements the `loader.load` function and works like de
 
 The `HTTPLoader` uses the browser's `fetch` API to get contract definitions from a HTTP source (like [trufflepig](https://github.com/JoinColony/trufflepig) or [etherscan](https://etherscan.io/contractsVerified)).
 
-Available sub-loaders: `EtherscanLoader`, `TrufflepigLoader`. These are specialised HTTPLoaders with their respective endpoints and transforms already set.
+Available sub-loaders: `EtherscanLoader`, `TrufflepigLoader`. These are specialized HTTPLoaders with their respective endpoints and transforms already set.
 
-#### Installation and usage
+#### Installation
+
+Install `colony-js-contract-loader-http`:
 
 ```
 yarn add @colony/colony-js-contract-loader-http
 ```
 
+Import `HTTPLoader`:
+
+```js
+
+import HTTPLoader from '@colony/colony-js-contract-loader-http'
+
 ```
-// Import just the one you need
-import HTTPLoader, { EtherscanLoader, TrufflepigLoader } from '@colony/colony-js-contract-loader-http'
+
+Import `EtherscanLoader`:
+
+```js
+
+import { EtherscanLoader } from '@colony/colony-js-contract-loader-http'
+
+```
+
+Import `TrufflepigLoader`:
+
+```js
+
+import { TrufflepigLoader } from '@colony/colony-js-contract-loader-http'
+
 ```
 
 #### `new HTTPLoader({ endpoint, transform })`
@@ -173,19 +189,33 @@ This is just a `HTTPLoader` with a specific endpoint (`https://api.etherscan.io/
 ### `FSLoader`
 
 **`FSLoader` is only available in node.js environments.**
+
 This loader loads files by name from a specific directory in a file system.
 
 Available sub-loaders: `Truffleloader`. This one uses a transform function specialized for compiled truffle ABIs.
 
-#### Installation and usage
+#### Installation
+
+Install `colony-js-contract-loader-fs`:
 
 ```
 yarn add @colony/colony-js-contract-loader-fs
 ```
 
+Import `FSLoader`:
+
+```js
+
+const { FSLoader } = require('@colony/colony-js-contract-loader-fs');
+
 ```
-// Import just the one you need
-const { FSLoader, TruffleLoader } = require('@colony/colony-js-contract-loader-fs');
+
+Import `TruffleLoader`:
+
+```js
+
+const { TruffleLoader } = require('@colony/colony-js-contract-loader-fs');
+
 ```
 
 #### `new FSLoader({ contractDir, transform })`
@@ -203,3 +233,7 @@ Instantiates a new `FSLoader`.
 **`FSLoader`** instance.
 
 The `FSLoader` also implements the `loader.load` function and works like described above. It can take the `contractName` and `routerName` properties.
+
+#### `new TruffleLoader({ contractDir, transform })`
+
+This is just a `FSLoader` with a transform function specialized for compiled truffle ABIs.

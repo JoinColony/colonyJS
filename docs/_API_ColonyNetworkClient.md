@@ -10,17 +10,20 @@ These interactions are generally concerned with the colony network as a whole, r
 
 You can learn more about the solidity implementation from the [Colony Network Docs](/colonynetwork/docs-colony).
 
-For interactions within a particular colony, see [the ColonyClient docs](/colonyjs/api-colonyclient/).
+For interactions within a particular colony, see the [ColonyClient API](/colonyjs/api-colonyclient/).
 
 ==TOC==
 
-## Creating a new instance
+## Create an instance
 
-Assuming you're inside an `async` function:
+You can create an instance of `ColonyNetworkClient` by providing an [adapter](/colonyjs/docs-adapters):
 
-```javascript
+```js
+
 const networkClient = new ColonyNetworkClient({ adapter });
+
 await networkClient.init();
+
 ```
 
 ## Instance methods

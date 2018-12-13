@@ -1,7 +1,7 @@
 ---
 title: MultisigOperation
 section: API
-order: 6
+order: 9
 ---
 
 The `MultisigOperation` class is a part of the `ContractClient` to handle Multisignature transactions. They are usually created by a `MultisigSender` class and are associated with the sender which created them.
@@ -24,7 +24,7 @@ For more info see the [`Multisignature` docs](/colonyjs/docs-multisignature-tran
 
 ### `sign()`
 
-Sign the message hash with the current wallet or provider and add the signature.
+Sign the message hash with the current wallet or provider and add the signature. This method is asynchronous.
 
 **Returns**
 
@@ -32,7 +32,7 @@ The `MultisigOperation` instance.
 
 ### `refresh()`
 
-Refresh the nonce value, required signees, and message hash.
+Refresh the nonce value, required signees, and message hash. This method is asyncrhonous.
 
 If there was no nonce value, a new one will be set; otherwise, if the nonce value changed, the it will be updated, and the `_signers` will be reset. This is done because when the nonce values changes, the signatures that were collected will not work, and the operation will need to be re-signed by all parties.
 
