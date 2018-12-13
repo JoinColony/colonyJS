@@ -1,7 +1,7 @@
 ---
 title: MultisigOperation
 section: API
-order: 6
+order: 9
 ---
 
 The `MultisigOperation` class is a part of the `ContractClient` to handle Multisignature transactions. They are usually created by a `MultisigSender` class and are associated with the sender which created them.

@@ -6,7 +6,7 @@ order: 5
 
 Whether you brought your own ERC20 token from an existing token contract or created a new token at the same time that you created a colony, you can use the [TokenClient](/colonyJS/api-tokenclient/) to call and send transactions associated with the token contract.
 
-`TokenClient` handles all the functions in the ERC20 standard interface, as well as `mint` and `burn`. Functions that you would ordinarily be able to perform as the contract owner may be performed by anyone in the colony with either `FOUNDER` or `ADMIN` authority. You can learn more about authority in [Authority Roles](/colonyJS/docs-authority-roles/).
+`TokenClient` handles all the functions in the ERC20 standard interface, as well as `mint` and `burn`. Functions that you would ordinarily be able to perform as the contract owner may be performed by anyone in the colony with either `FOUNDER` or `ADMIN` authority. You can learn more about authority roles in [Authority](/colonyJS/docs-authority/).
 
 ==TOC==
 

@@ -8,27 +8,29 @@ The `MetaColonyClient` class is a standard interface for interactions with the o
 
 These interactions are generally concerned with functions and events internal to the Meta Colony, such as adding global skills.
 
-For functions and events that concern the colonyNetwork as a whole, refer to the [ColonyNetworkClient API](/colonyjs/api-colonynetworkclient/)
+For functions and events that concern the colonyNetwork as a whole, refer to the [ColonyNetworkClient API](/colonyjs/api-colonynetworkclient/).
 
 ==TOC==
 
-## Creating a new instance
+## Create an instance
 
-You _could_ create a MetaColonyClient by using an adapter and a query: `new MetaColonyClient({ adapter, query })` and then `.init()` it but it is advised to ask the network client for a new instance:
+The easiest way to initialize the `MetaColonyClient` is to ask the `ColonyNetworkClient` for a new instance:
 
-```javascript
-const metaColonyClient = await networkClient.getMetaColonyClient(colonyId); // This is already initialised
+```js
+
+const metaColonyClient = await networkClient.getMetaColonyClient();
+
 ```
 
-## Instance properties
+You _could_ create an instance of `MetaColonyClient` by providing an [adapter](/colonyjs/docs-adapters) and a query:
 
-### `networkClient`
+```js
 
-The Meta Colony's [ColonyNetworkClient](/colonyjs/api-colonynetworkclient/) instance.
+const metaColonyClient = new MetaColonyClient({ adapter, query });
 
-### `token`
+await metaColonyClient.init();
 
-The Meta Colony's [TokenClient](/colonyjs/api-tokenclient/) instance.
+```
 
   
 ## Callers

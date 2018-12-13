@@ -4,75 +4,11 @@ section: API
 order: 0
 ---
 
-This document describes the high level contract loader interface as well as various officially supported implementations. For a better explanation what loaders are, see [Loaders](/colonyjs/docs-loaders/).
+The `ContractLoader` is a superclass for all loader implementations that can be used to access contract data. This page provides an overview of the `ContractLoader` interface and its officially supported implementations.
+
+For a high-level explanation of what loaders are and some quickstart instructions, see [Loaders](/colonyjs/docs-loaders/).
 
 ==TOC==
-
-## Quickstart
-
-Load contract data from Etherscan using `EtherscanLoader`:
-
-```
-yarn add @colony/colony-js-contract-loader-http
-```
-
-```js
-
-// Default endpoint for EtherscanLoader:
-// https://api.etherscan.io/api?module=contract&action=getabi&address=%%ADDRESS%%
-
-import { EtherscanLoader } from '@colony/colony-js-contract-loader-http';
-
-const loader = new EtherscanLoader();
-
-const { abi, address } = await loader.load({
-  contractAddress: '0xf000000000000000000000000000000000000000',
-});
-
-```
-
-Load contract data from Trufflepig using `TrufflepigLoader`:
-
-```
-yarn add @colony/colony-js-contract-loader-http
-```
-
-```js
-
-// Default endpoint for TrufflepigLoader:
-// https://127.0.0.1:3030/contracts?name=%%NAME%%&address=%%ADDRESS%%&version=%%VERSION%%
-
-import { TrufflepigLoader } from '@colony/colony-js-contract-loader-http';
-
-const loader = new TrufflepigLoader();
-
-const { abi, address } = await loader.load({
-  contractAddress: '0xf000000000000000000000000000000000000000',
-  contractName: 'IColony',
-  version: '1',
-});
-
-```
-
-Load contract data from a given network using `NetworkLoader`:
-
-```
-yarn add @colony/colony-js-contract-loader-network
-```
-
-```js
-
-import { NetworkLoader } from '@colony/colony-js-contract-loader-network';
-
-const loader = new NetworkLoader({ network: 'main' });
-
-const { abi, address } = await loader.load({
-  contractAddress: '0xf000000000000000000000000000000000000000',
-  contractName: 'IColony',
-  version: '1',
-});
-
-```
 
 ## Create an instance
 

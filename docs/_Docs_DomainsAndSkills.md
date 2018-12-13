@@ -23,9 +23,7 @@ Creating a domain is simple using an instance of the [ColonyClient](/colonyjs/ap
 ```js
 
 // Create a domain
-await colonyClient.addDomain.send({
-  parentDomainId,
-});
+await colonyClient.addDomain.send({ parentDomainId });
 
 ```
 
@@ -40,9 +38,7 @@ Creating a skill is simple using an instance of the [MetaColonyClient](/colonyjs
 ```js
 
 // Create a skill
-await metaColonyClient.addGlobalSkill.send({
-  parentSkillId,
-});
+await metaColonyClient.addGlobalSkill.send({ parentSkillId });
 
 ```
 

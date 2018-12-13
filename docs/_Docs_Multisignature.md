@@ -1,10 +1,10 @@
 ---
 title: Multisignature
 section: Docs
-order: 8
+order: 9
 ---
 
-Some contract functions rely on what's known as a [Multisignature](https://en.wikipedia.org/wiki/Multisignature) in order to process a transaction. The implementation for some of the task-related functions in `colonyNetwork` is based on [`simple-multisig`](https://github.com/christianlundkvist/simple-multisig).
+Some contract functions rely on what's known as a [Multisignature](https://en.wikipedia.org/wiki/Multisignature) in order to process a transaction. The implementation for some of the task-related functions in colonyNetwork is based on [simple-multisig](https://github.com/christianlundkvist/simple-multisig).
 
 In order to use these functions, we need to create contract data to call our target contract function, gather parameters needed for executing the change on the contract, find which addresses we need signatures from, get each party to sign a transaction in a specific format, and finally, collate these signatures and send them off in one single transaction.
 
@@ -14,11 +14,11 @@ Wow, that's convoluted!
 
 ## Multisignature Support
 
-Thankfully, the `ContractClient` makes this much simpler for us by providing the `MultisigSender` and `MultisigOperation`.
+Thankfully, `ContractClient` makes this much simpler for us by providing `MultisigSender` and `MultisigOperation`.
 
-A `MultisigSender` is an extension of the `Sender`. It provides methods that makes it simple to start and restore a `MultisigOperation`.
+`MultisigSender` is an extension of `Sender`. It provides methods that makes it simple to start and restore `MultisigOperation`.
 
-The basic idea is that we'll start an operation for a particular function (for example, setting the task specification with `setTaskBrief`), then get that operation signed and sent off.
+The basic idea is that we'll start an `MultisigOperation` for a particular function (for example, setting the task specification with `setTaskBrief`), then get that operation signed and sent off.
 
 That's more like it!
 
@@ -107,7 +107,7 @@ We can then retrieve the stored json and restore the operation with the `Multisi
 ```js
 
 const operation = await colonyClient.setTaskBrief.restoreOperation(operationJSON);
-// -> Our MultisigOperation with the same parameters and the first signature already in place
+// -> Our MultisigOperation with the same parameters and the first signature already in place.
 
 ```
 
@@ -121,7 +121,7 @@ await operation.sign();
 
 console.log(op.missingSignees);
 // -> []
-//    ^ We have all the signatures we need
+//    ^ We have all the signatures we need!
 
 ```
 
@@ -164,13 +164,13 @@ The `MultisigOperation` can refresh these values in order to help prevent sendin
 
 ```js
 
-// Example: two operations with the same nonce:
+// Two operations with the same nonce:
 console.log(firstOperation._nonce);
 // -> 1
 console.log(secondOperation._nonce);
 // -> 1
 
-// And no missing signees:
+// Neither operation has missing signees:
 console.log(firstOperation.missingSignees);
 // -> []
 console.log(secondOperation.missingSignees);
@@ -180,7 +180,7 @@ console.log(secondOperation.missingSignees);
 await firstOperation.send();
 // -> { successful: true }
 
-// The second operation can be refreshed:
+// And then the second operation can be refreshed:
 await secondOperation.refresh();
 
 // The nonce should have been incremented:
@@ -193,9 +193,7 @@ console.log(firstOperation.missingSignees);
 
 ```
 
-It's worth noting that starting a new operation or sending an existing operation will always trigger a refresh first, so this can reset the (now invalid) signers.
-
-If desired, we can make the resetting of signers more explicit by attaching a callback:
+It's worth noting that starting a new operation or sending an existing operation will always trigger a refresh first, which will reset the signers. If desired, we can make the resetting of signers more explicit by attaching a callback:
 
 ```js
 
