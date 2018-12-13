@@ -27,6 +27,13 @@ describe('ContractClient', () => {
     callEstimate = sandbox.fn(async () => gasEstimate);
     callTransaction = sandbox.fn(async () => transaction);
     createTransactionData = sandbox.fn(async () => txData);
+    interface = {
+      events: {
+        myEvent: {
+          topics: ['0xabc'],
+        },
+      },
+    };
   }();
   const query = { contractName: 'MyContract' };
   const adapter = {
@@ -160,8 +167,9 @@ describe('ContractClient', () => {
     );
   });
 
-  test('Events can be defined', () => {
+  test('Events can be defined', async () => {
     const client = new ContractClient({ adapter, contract, options });
+    await client.init();
 
     // Define an event on the client
     client.addEvent('myEvent', [['myEventValue', 'number']]);

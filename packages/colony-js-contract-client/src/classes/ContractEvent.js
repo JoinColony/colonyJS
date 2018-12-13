@@ -44,6 +44,9 @@ export default class ContractEvent<ParamTypes: Object> {
     this.client = client;
     this.argsDef = argsDef;
 
+    if (!this.interface)
+      throw new Error(`No such event "${eventName}" on this contract`);
+
     this._wrappedHandlers = new Map();
     this.assertValid = makeAssert(`Validation failed for event ${eventName}`);
   }
@@ -73,17 +76,22 @@ export default class ContractEvent<ParamTypes: Object> {
     return this.client.contract.interface.events[this.eventName];
   }
 
-  /*
+  /**
    * Given an array of logs, filter matching topics and parse event data from them.
    */
   parseLogs(logs: Log[]): Array<Object> {
     return logs
-      .filter(({ topics }) =>
-        topics.every(topic => this.interface.topics.includes(topic)),
-      )
-      .map(({ data, topics }) =>
-        this.parse(this.interface.parse(topics, data)),
-      );
+      .filter(({ topics: [topic] }) => this.interface.topics.includes(topic))
+      .map(log => this.parseLog(log));
+  }
+
+  /**
+   * Given a log, parse its event data.
+   */
+  parseLog({ topics, data }: Log): Object {
+    if (!this.interface.topics.includes(topics[0]))
+      throw new Error('Cannot parse unknown topic');
+    return this.parse(this.interface.parse(topics, data));
   }
 
   parse(args: EventArgs) {

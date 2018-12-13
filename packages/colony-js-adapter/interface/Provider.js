@@ -9,8 +9,8 @@ import type { TransactionReceipt } from './TransactionReceipt';
 export type LogFilter = {
   address?: string,
   fromBlock?: number,
-  toBlock?: 'latest' | number,
-  topics?: string[],
+  toBlock?: 'latest' | 'pending' | number,
+  topics?: Array<string | Array<string>>,
 };
 
 export type Log = { data: string, topics: string[] };

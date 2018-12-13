@@ -17,10 +17,34 @@ jest.mock('../TokenClient');
 describe('ColonyNetworkClient', () => {
   const sandbox = createSandbox();
 
+  const colonyNetworkEvents = [
+    'ColonyAdded',
+    'SkillAdded',
+    'AuctionCreated',
+    'UserLabelRegistered',
+    'ColonyLabelRegistered',
+    'ColonyNetworkInitialised',
+    'TokenLockingAddressSet',
+    'MiningCycleResolverSet',
+    'NetworkFeeInverseSet',
+    'ColonyVersionAdded',
+    'MetaColonyCreated',
+    'ReputationMiningInitialised',
+    'ReputationMiningCycleComplete',
+    'ReputationRootHashSet',
+  ];
   const colonyAddress = '0x123 Colony Lane';
   const contract = {
     interface: {
-      events: {},
+      events: colonyNetworkEvents.reduce(
+        (acc, eventName, i) => ({
+          ...acc,
+          [eventName]: {
+            topics: [`0x${i}`],
+          },
+        }),
+        {},
+      ),
     },
   };
   const deployTransaction = {

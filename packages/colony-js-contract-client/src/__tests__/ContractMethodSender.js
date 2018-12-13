@@ -87,8 +87,8 @@ describe('ContractMethodSender', () => {
     },
   };
   const client = new ContractClient({ contract, adapter });
-  client.addEvent('TaskAdded', [['taskId', 'number']]);
   client._contract = contract;
+  client.addEvent('TaskAdded', [['taskId', 'number']]);
 
   beforeEach(() => sandbox.clear());
 
