@@ -20,9 +20,13 @@ export default class TrufflepigLoader extends HttpLoader {
     this._host = host;
   }
 
-  async getAccount(index: number) {
+  async getAccounts() {
     const response = await fetch(`${this._host}/accounts`);
-    const accounts = await response.json();
+    return response.json();
+  }
+
+  async getAccount(index: number) {
+    const accounts = await this.getAccounts();
 
     const addresses = Object.keys(accounts);
     if (!addresses[index])
