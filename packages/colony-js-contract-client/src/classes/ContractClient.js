@@ -123,7 +123,17 @@ export default class ContractClient {
   }
 
   /**
-   * Get logs from the contract with filter, return parsed event logs.
+   * Get logs with filter, and return parsed event logs.
+   */
+  async getEvents(
+    filter?: LogFilter & { eventNames?: Array<string> } = {},
+  ): Promise<Array<Object>> {
+    const logs = await this.getLogs(filter);
+    return this.parseLogs(logs);
+  }
+
+  /**
+   * Get logs from the contract with filter.
    */
   async getLogs(
     filter?: LogFilter & { eventNames?: Array<string> } = {},
@@ -147,11 +157,10 @@ export default class ContractClient {
     }
 
     // Fetch the logs and parse
-    const logs = await this.adapter.provider.getLogs({
+    return this.adapter.provider.getLogs({
       ...filter,
       topics,
     });
-    return this.parseLogs(logs);
   }
 
   /**
