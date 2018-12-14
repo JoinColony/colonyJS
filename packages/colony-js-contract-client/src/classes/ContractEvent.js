@@ -3,6 +3,7 @@ import type {
   Event,
   EventArgs,
   EventCallback,
+  Log,
 } from '@colony/colony-js-adapter';
 import { makeAssert } from '@colony/colony-js-utils';
 import ContractClient from '../classes/ContractClient';
@@ -43,6 +44,9 @@ export default class ContractEvent<ParamTypes: Object> {
     this.client = client;
     this.argsDef = argsDef;
 
+    if (!this.interface)
+      throw new Error(`No such event "${eventName}" on this contract`);
+
     this._wrappedHandlers = new Map();
     this.assertValid = makeAssert(`Validation failed for event ${eventName}`);
   }
@@ -66,6 +70,28 @@ export default class ContractEvent<ParamTypes: Object> {
     const parsedArgs = convertOutputValues(args, argsDef);
     validateParams(parsedArgs, argsDef, assertValid);
     return parsedArgs;
+  }
+
+  get interface() {
+    return this.client.contract.interface.events[this.eventName];
+  }
+
+  /**
+   * Given an array of logs, filter matching topics and parse event data from them.
+   */
+  parseLogs(logs: Log[]): Array<Object> {
+    return logs
+      .filter(({ topics: [topic] }) => this.interface.topics.includes(topic))
+      .map(log => this.parseLog(log));
+  }
+
+  /**
+   * Given a log, parse its event data.
+   */
+  parseLog({ topics, data }: Log): Object {
+    if (!this.interface.topics.includes(topics[0]))
+      throw new Error('Cannot parse unknown topic');
+    return this.parse(this.interface.parse(topics, data));
   }
 
   parse(args: EventArgs) {

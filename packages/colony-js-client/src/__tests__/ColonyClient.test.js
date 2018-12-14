@@ -7,11 +7,45 @@ import ColonyClient from '../ColonyClient';
 import TokenClient from '../TokenClient';
 import ColonyNetworkClient from '../ColonyNetworkClient';
 
+const colonyEvents = [
+  'DomainAdded',
+  'PotAdded',
+  'TaskAdded',
+  'TaskCompleted',
+  'RewardPayoutCycleStarted',
+  'RewardPayoutCycleEnded',
+  'TaskBriefSet',
+  'TaskDueDateSet',
+  'TaskDomainSet',
+  'TaskSkillSet',
+  'TaskRoleUserSet',
+  'TaskPayoutSet',
+  'TaskDeliverableSubmitted',
+  'TaskWorkRatingRevealed',
+  'TaskPayoutClaimed',
+  'TaskFinalized',
+  'TaskCanceled',
+  'ColonyTokenSet',
+  'ColonyInitialised',
+  'ColonyUpgraded',
+  'ColonyFounderRoleSet',
+  'ColonyAdminRoleSet',
+  'ColonyAdminRoleRemoved',
+  'ColonyFundsMovedBetweenFundingPots',
+  'ColonyFundsClaimed',
+  'ColonyRewardInverseSet',
+];
 const contract = {
   interface: {
-    events: {
-      TaskAdded: 'TaskAdded interface',
-    },
+    events: colonyEvents.reduce(
+      (acc, eventName, i) => ({
+        ...acc,
+        [eventName]: {
+          topics: [`0x${i}`],
+        },
+      }),
+      {},
+    ),
   },
 };
 

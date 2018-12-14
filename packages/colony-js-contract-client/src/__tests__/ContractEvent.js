@@ -24,7 +24,15 @@ describe('ContractEvent', () => {
   beforeEach(async done => {
     sandbox.clear();
 
-    contract = new MockEmittingContract();
+    contract = new class extends MockEmittingContract {
+      interface = {
+        events: {
+          [eventName]: {
+            topics: ['0xabc'],
+          },
+        },
+      };
+    }();
     adapter = { getContract: sandbox.fn(() => contract) };
     client = new ContractClient({ adapter });
     await client.init();

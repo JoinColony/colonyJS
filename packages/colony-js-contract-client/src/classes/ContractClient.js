@@ -4,6 +4,8 @@ import type { Query } from '@colony/colony-js-contract-loader';
 import type {
   IAdapter,
   IContract,
+  Log,
+  LogFilter,
   TransactionOptions,
   TransactionReceipt,
 } from '@colony/colony-js-adapter';
@@ -32,6 +34,9 @@ export default class ContractClient {
 
   // The contract event subscription methods
   events = {};
+
+  // Mapping of event topics to ContractEvents
+  eventSignatures = {};
 
   // Static getters used in lieu of named exports; this package only has
   // one export.
@@ -118,6 +123,38 @@ export default class ContractClient {
   }
 
   /**
+   * Get logs from the contract with filter, return parsed event logs.
+   */
+  async getLogs(
+    filter?: LogFilter & { eventNames?: Array<string> } = {},
+  ): Promise<Array<Object>> {
+    const { eventNames = [], topics = [] } = filter;
+
+    // Get topics for the given eventNames
+    const extraTopics: Array<string> = eventNames.reduce((acc, eventName) => {
+      if (!this.events[eventName])
+        throw new Error('Cannot get logs for unknown event');
+      return [...acc, ...this.events[eventName].interface.topics];
+    }, []);
+
+    // Combine any existing topics with the extra ones
+    if (!topics.length) {
+      topics.push(extraTopics);
+    } else if (Array.isArray(topics[0])) {
+      topics[0].push(...extraTopics);
+    } else {
+      topics[0] = [...topics[0], ...extraTopics];
+    }
+
+    // Fetch the logs and parse
+    const logs = await this.adapter.provider.getLogs({
+      ...filter,
+      topics,
+    });
+    return this.parseLogs(logs);
+  }
+
+  /**
    * Given a transaction receipt, decode the event logs with the contract
    * interface, then use the corresponding ContractEvents to collect event data.
    */
@@ -160,6 +197,15 @@ export default class ContractClient {
     return this.contract.createTransactionData(functionName, args);
   }
 
+  parseLogs(logs: Log[]): Array<Object> {
+    return logs
+      .filter(({ topics: [topic] }) => this.eventSignatures[topic])
+      .map(log => ({
+        ...this.eventSignatures[log.topics[0]].parseLog(log),
+        eventName: this.eventSignatures[log.topics[0]].eventName,
+      }));
+  }
+
   addMethod(
     Method: typeof ContractMethod.constructor,
     name: string,
@@ -194,12 +240,18 @@ export default class ContractClient {
       throw new Error(`An event named "${eventName}" already exists`);
     }
 
+    const event = new ContractEvent({
+      eventName,
+      client: this,
+      argsDef,
+    });
+
     Object.assign(this.events, {
-      [eventName]: new ContractEvent({
-        eventName,
-        client: this,
-        argsDef,
-      }),
+      [eventName]: event,
+    });
+
+    Object.assign(this.eventSignatures, {
+      [event.interface.topics[0]]: event,
     });
   }
 }

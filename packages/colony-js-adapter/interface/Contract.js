@@ -18,7 +18,7 @@ export interface Contract {
   interface: {
     events: {
       [eventName: string]: {
-        parse(topics: Array<string>, data: Object): Object,
+        parse(topics: Array<string>, data: string): Object,
         topics: Array<string>,
       },
     },

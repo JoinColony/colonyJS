@@ -6,6 +6,15 @@ import type { Block } from './Block';
 import type { Transaction } from './Transaction';
 import type { TransactionReceipt } from './TransactionReceipt';
 
+export type LogFilter = {
+  address?: string,
+  fromBlock?: number,
+  toBlock?: 'latest' | 'pending' | number,
+  topics?: Array<string | Array<string>>,
+};
+
+export type Log = { data: string, topics: string[] };
+
 export interface Provider {
   name: string;
   chainId: string;
@@ -28,5 +37,6 @@ export interface Provider {
   getTransactionReceipt(transactionHash: string): Promise<TransactionReceipt>;
   waitForTransaction(transactionHash: string): Promise<Transaction>;
   lookupAddress(address: string): Promise<string | null>;
+  getLogs(logFilter: LogFilter): Promise<Log[]>;
   resolveName(ensName: string): Promise<string | null>;
 }
