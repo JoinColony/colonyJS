@@ -28,7 +28,7 @@ const colonyEvents = [
   'ColonyTokenSet',
   'ColonyInitialised',
   'ColonyUpgraded',
-  'ColonyFounderSet',
+  'ColonyFounderRoleSet',
   'ColonyAdminRoleSet',
   'ColonyAdminRoleRemoved',
   'ColonyFundsMovedBetweenFundingPots',

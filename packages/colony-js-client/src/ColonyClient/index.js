@@ -1165,7 +1165,7 @@ export default class ColonyClient extends ContractClient {
       ['oldVersion', 'number'],
       ['newVersion', 'number'],
     ]);
-    this.addEvent('ColonyFounderSet', [
+    this.addEvent('ColonyFounderRoleSet', [
       ['oldFounder', 'address'],
       ['newFounder', 'address'],
     ]);
