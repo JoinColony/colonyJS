@@ -2,9 +2,15 @@
 
 ## v.NEXT
 
+**Bug fixes**
+
+* The `ColonyFounderRoleSet` event is now named correctly (`@colony/colony-js-client`)
+
 **New features**
 
 * Add `getAccounts` method to `TrufflepigLoader` (`@colony/colony-js-contract-loader-http`)
+* Add event log parsing with `ContractEvent.parseLogs` (`@colony/colony-js-contract-client`)
+* Add historical log fetching with `ContractClient.getLogs`, and optionally also parsing with `.getEvents` (`@colony/colony-js-contract-client`)
 
 ## v1.8.1
 
