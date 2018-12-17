@@ -113,7 +113,7 @@ Let's take a quick look at an example of the returned task object from the `getT
 
 Several of these properties are pretty straight forward. The `id` is the `id` of the task, which we will need to include in the input for all methods that are specific to a task. The `status` is the current status of the task, which will either be `ACTIVE`, `CANCELLED` or `FINALIZED`. See [Cancel Task](/colonyjs/docs-task-lifecycle#cancel-task) or [Finalize Task](/colonyjs/docs-task-lifecycle#finalize-task) for more information.
 
-We already introduced `specificationHash`, `domainId`, `skillId` and `dueDate` above in our [Create Task](/colonyjs/docs-task-lifecycle#creatr-task) example and we will introduce `deliverableHash` below in our [Submit Work](/colonyjs/docs-task-lifecycle#submit-work) example. That leaves us with `potId` and `payoutsWeCannotMake`, which we will now introduce in our [Fund Task](/colonyjs/docs-task-lifecycle#fund-task) example.
+We already introduced `specificationHash`, `domainId`, `skillId` and `dueDate` above in our [Create Task](/colonyjs/docs-task-lifecycle#create-task) example and we will introduce `deliverableHash` below in our [Submit Work](/colonyjs/docs-task-lifecycle#submit-work) example. That leaves us with `potId` and `payoutsWeCannotMake`, which we will now introduce in our [Fund Task](/colonyjs/docs-task-lifecycle#fund-task) example.
 
 ### Fund Task
 
