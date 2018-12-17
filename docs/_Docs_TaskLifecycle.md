@@ -137,6 +137,8 @@ The "pot" associated with our task must have enough allocated funds to distribut
 
 How does `payoutsWeCannotMake` work? If the previous amount in the pot was enough to cover the payouts and the new amount in the pot is not enough to cover the payouts, then a value of `1` will be added to `payoutsWeCannotMake`. If the previous amount in the pot was not enough to cover the payouts and the new amount in the pot is enough to cover the payouts, then a value of `1` will be subtracted from `payoutsWeCannotMake`.
 
+For more information about how funding works within a colony, check out [Managing Funds](/colonyjs/docs-managing-funds).
+
 ### Modify Task
 
 Important changes to a task must be approved by multiple "task roles". Most of the methods that modify a task require multiple signatures before the modification will take affect (see [Multisgnature](/colonyjs/docs-multisignature-transactions/) for more information).
