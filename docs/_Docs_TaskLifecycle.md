@@ -83,7 +83,7 @@ await colonyClient.createTask.send({
 
 ### View Task
 
-Once a task has been created, it can be viewed.
+Once a task has been created, we can view the task using the `getTask` method.
 
 ```js
 
@@ -91,6 +91,53 @@ Once a task has been created, it can be viewed.
 await colonyClient.getTask.call({ taskId });
 
 ```
+
+Let's take a quick look at an example of the returned task object from the `getTask` method.
+
+```
+
+{
+  specificationHash: 'QmWvM3isCmEY8bsixThuFeUJmE5MN2he1UxaPzMngLZ7Wq',
+  deliverableHash: null,
+  status: 'ACTIVE',
+  dueDate: 2019-01-01T00:00:00.000Z,
+  payoutsWeCannotMake: 0,
+  potId: 2,
+  completionDate: null,
+  domainId: 1,
+  skillId: 0,
+  id: 1,
+}
+
+```
+
+Several of these properties are pretty straight forward. The `id` is the `id` of the task, which we will need to include in the input for all methods that are specific to a task. The `status` is the current status of the task, which will either be `ACTIVE`, `CANCELLED` or `FINALIZED`. See [Cancel Task](/colonyjs/docs-task-lifecycle#cancel-task) or [Finalize Task](/colonyjs/docs-task-lifecycle#finalize-task) for more information.
+
+We already introduced `specificationHash`, `domainId`, `skillId` and `dueDate` above in our [Create Task](/colonyjs/docs-task-lifecycle#create-task) example and we will introduce `deliverableHash` below in our [Submit Work](/colonyjs/docs-task-lifecycle#submit-work) example. That leaves us with `potId` and `payoutsWeCannotMake`, which we will now introduce in our [Fund Task](/colonyjs/docs-task-lifecycle#fund-task) example.
+
+### Fund Task
+
+Each time a new task is created, a new "pot" is also created and assigned to the new task. Each "pot" assigned to a task is specific to that task, therefore, each task has a unique `potId`.
+
+In order to fund a task, we will need the `potId` of the task (which will be our `toPot` in the example below) and the `potId` of the domain or another task that we would like to move funds from (which will be our `fromPot` in the example below).
+
+```js
+
+// Move funds between pots
+await colonyClient.moveFundsBetweenPots.send({
+  fromPot,
+  toPot,
+  amount,
+  token,
+})
+
+```
+
+The "pot" associated with our task must have enough allocated funds to distribute to each of the "task roles" that have a positive payout assigned to it. If the total of each payout exceeds the amount of total allocated funds in the "pot" associated with the task, `payoutsWeCannotMake` will have a positive value.
+
+How does `payoutsWeCannotMake` work? If the previous amount in the pot was enough to cover the payouts and the new amount in the pot is not enough to cover the payouts, then a value of `1` will be added to `payoutsWeCannotMake`. If the previous amount in the pot was not enough to cover the payouts and the new amount in the pot is enough to cover the payouts, then a value of `1` will be subtracted from `payoutsWeCannotMake`.
+
+For more information about how funding works within a colony, check out [Managing Funds](/colonyjs/docs-managing-funds).
 
 ### Modify Task
 
