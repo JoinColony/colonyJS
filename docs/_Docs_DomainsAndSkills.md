@@ -43,3 +43,35 @@ await metaColonyClient.addGlobalSkill.send({ parentSkillId });
 ```
 
 When you are creating a skill for the first time, you will need to set the `parentSkillId` to be `1` because the network only has one skill, the "root skill". Unlike how tasks can be assigned to the "root domain", tasks cannot be assigned to the "root skill".
+
+### Parent Skill
+
+Looking up the parent skill of a global skill is simple:
+
+```js
+
+await networkClient.getParentSkillId.call({
+  skillId,
+  parentSkillIndex,
+});
+
+```
+
+The `parentSkillIndex` is the index of the parent skill in the array of parent skills associated with the given skill.
+
+### Child Skill
+
+Looking up the child skill of a global skill is simple:
+
+```js
+
+await networkClient.getParentSkillId.call({
+  skillId,
+  childSkillIndex,
+});
+
+```
+
+The `childSkillIndex` is the index of the child skill in the array of child skills associated with the given skill.
+
+*Note: It is not possible to look up the parent or child skill of a domain using the same methods introduced here. Even though domains have a `skillId` associated with them, they do not exist within the "skill tree", which only includes global skills.*
