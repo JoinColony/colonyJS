@@ -14,11 +14,25 @@ This page provides instructions on how to set up a local test network, deploy th
 
 First of all, we will need to set up some prerequisites.
 
-### Node and Yarn
+### Node
 
-If you don't have them installed already, you'll need to install `node` and `yarn`. We recommended using `node` version `10.12.0` and `yarn` version `1.12.0` or higher. An easy solution for managing `node` versions is `nvm`.
+You will need to have `node` installed. We recommended using `node` version `10.12.0`. An easy solution for managing `node` versions is `nvm`. If you do not have `node` installed, check out [Download Node](https://nodejs.org/en/download/) or [Node Package Manager](https://github.com/creationix/nvm).
 
 *Note: You will need a JavaScript environment that supports `async`/`await`, since colonyJS uses promises extensively. Recent versions of `node` support promises out of the box, but when you start building beyond the example provided here, you may want to consider using [Webpack](https://webpack.js.org/) and [Babel](https://babeljs.io/) for better support.*
+
+### Yarn
+
+You will also need to install `yarn`. We recommended using `yarn` version `1.12.0` or higher. Check out the [Yarn Installation](https://yarnpkg.com/lang/en/docs/install/#mac-stable) documentation and then select your operating system for install instructions.
+
+### Docker
+
+In order to compile the colonyNetwork smart contracts, you will need to have Docker installed and running. We recommend using Docker Community Version `2.0.0.0`. You can find instructions for installing Docker here: [Docker Installation](https://docs.docker.com/install/).
+
+The colonyNetwork smart contracts require the `ethereum/solc:0.4.23` Docker image, so we will need to pull down this image before we can begin. Make sure Docker is installed and run the following command:
+
+```
+docker pull ethereum/solc:0.4.23
+```
 
 ### colonyNetwork
 
