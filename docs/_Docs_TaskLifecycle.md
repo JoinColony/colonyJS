@@ -141,7 +141,7 @@ For more information about how funding works within a colony, check out [Managin
 
 ### Modify Task
 
-Important changes to a task must be approved by multiple "task roles". Most of the methods that modify a task require multiple signatures before the modification will take affect (see [Multisgnature](/colonyjs/docs-multisignature-transactions/) for more information).
+Important changes to a task must be approved by multiple "task roles". Most of the methods that modify a task require multiple signatures before the modification will take affect (see [Multisignature](/colonyjs/docs-multisignature-transactions/) for more information).
 
 Task modification methods and the required signatures for each are listed below.
 
