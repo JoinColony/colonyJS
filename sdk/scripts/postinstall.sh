@@ -21,6 +21,18 @@ git submodule update --init --recursive
 # Move to colonyNetwork directory
 cd modules/colonyNetwork
 
+# Set colonyNework version
+log "Checking out colonyNetwork version..."
+git -c advice.detachedHead=false checkout f73dc84a41f5fc1962c999a24e13b15ba491b8a6
+
 # Install colonyNetwork dependencies
 log "Installing colonyNetwork dependencies..."
 yarn
+
+# Initialize colonyNetwork submodules
+log "Initializing colonyNetwork submodules..."
+git submodule update --init --recursive
+
+# Provision colonyNetwork submodules
+log "Provisioning colonyNetwork submodules..."
+yarn run provision:token:contracts
