@@ -9,6 +9,7 @@ import ContractClient from '@colony/colony-js-contract-client';
 
 import ColonyClient from '../ColonyClient/index';
 import MetaColonyClient from '../MetaColonyClient/index';
+import TokenClient from '../TokenClient/index';
 import CreateToken from './senders/CreateToken';
 import addRecoveryMethods from '../addRecoveryMethods';
 
@@ -448,6 +449,10 @@ export default class ColonyNetworkClient extends ContractClient {
       contractName: 'IColonyNetwork',
       routerName: 'EtherRouter',
     };
+  }
+
+  static get TokenClient(): * {
+    return TokenClient;
   }
 
   static get ColonyClient(): * {
