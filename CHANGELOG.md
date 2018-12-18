@@ -5,6 +5,7 @@
 **Bug fixes**
 
 * The `ColonyFounderRoleSet` event is now named correctly (`@colony/colony-js-client`)
+* Initialise `MetaColonyClient` and `ColonyClient` before returning them (`@colony/colony-js-client`)
 
 **New features**
 
