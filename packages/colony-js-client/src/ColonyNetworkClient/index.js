@@ -467,7 +467,8 @@ export default class ColonyNetworkClient extends ContractClient {
       networkClient: this,
       query: { contractAddress },
     });
-    return colonyClient.init();
+    await colonyClient.init();
+    return colonyClient;
   }
   /*
   Returns an initialized ColonyClient for the specified ID of a deployed colony contract
@@ -499,7 +500,7 @@ export default class ColonyNetworkClient extends ContractClient {
       networkClient: this,
       query: { contractAddress },
     });
-    metaColonyClient.init();
+    await metaColonyClient.init();
     return metaColonyClient;
   }
   /*
