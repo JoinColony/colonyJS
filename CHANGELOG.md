@@ -2,6 +2,9 @@
 
 ## v.NEXT
 
+
+## v1.9.0
+
 **Bug fixes**
 
 * The `ColonyFounderRoleSet` event is now named correctly (`@colony/colony-js-client`)
