@@ -25,7 +25,7 @@ class SetDetailsContainer extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (!prevProps.setDetailsSuccess && this.props.setDetailsSuccess) {
+    if (!prevProps.getTaskSuccess && this.props.getTaskSuccess) {
       this.setState({
         task: {
           domainId: this.props.task.domainId,
@@ -55,6 +55,12 @@ class SetDetailsContainer extends Component {
       case 'specification-description':
       case 'specification-title':
         task.specification[event.target.id.substring(14)] = event.target.value
+        break
+      case 'domainId':
+        task[event.target.id] = Number(event.target.value)
+        break
+      case 'skillId':
+        task[event.target.id] = Number(event.target.value)
         break
       default:
         task[event.target.id] = event.target.value
@@ -126,6 +132,9 @@ class SetDetailsContainer extends Component {
 
 const mapStateToProps = state => ({
   colonyClient: state.colony.colonyClient,
+  getTaskError: state.task.getTaskError,
+  getTaskLoading: state.task.getTaskLoading,
+  getTaskSuccess: state.task.getTaskSuccess,
   setTaskDetailsError: state.task.setTaskDetailsError,
   setTaskDetailsLoading: state.task.setTaskDetailsLoading,
   setTaskDetailsSuccess: state.task.setTaskDetailsSuccess,

@@ -45,6 +45,11 @@ const initialState = {
   // multisigOperations
   multisigOperations: null,
 
+  // removeTaskRole
+  removeTaskRoleError: null,
+  removeTaskRoleLoading: false,
+  removeTaskRoleSuccess: false,
+
   // revealRating
   revealRatingError: null,
   revealRatingLoading: false,
@@ -285,6 +290,30 @@ const taskReducer = (state = initialState, action) => {
         ...state,
         getTasksLoading: false,
         getTasksSuccess: action.payload,
+      }
+
+    // removeTaskRole
+
+    case actions.REMOVE_TASK_ROLE:
+      return {
+        ...state,
+        removeTaskRoleError: null,
+        removeTaskRoleLoading: true,
+        removeTaskRoleSuccess: false,
+      }
+
+    case actions.REMOVE_TASK_ROLE_ERROR:
+      return {
+        ...state,
+        removeTaskRoleError: action.payload,
+        removeTaskRoleLoading: false,
+      }
+
+    case actions.REMOVE_TASK_ROLE_SUCCESS:
+      return {
+        ...state,
+        removeTaskRoleLoading: false,
+        removeTaskRoleSuccess: action.payload,
       }
 
     // revealRating

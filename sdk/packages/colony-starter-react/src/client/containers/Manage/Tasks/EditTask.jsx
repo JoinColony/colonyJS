@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import * as authorityActions from '../../../actions/authorityActions'
 import * as taskActions from '../../../actions/taskActions'
 import EditTask from '../../../components/Manage/Tasks/EditTask'
 
@@ -10,8 +11,11 @@ class EditTaskContainer extends Component {
   }
 
   componentDidMount() {
+    const colonyClient = this.props.colonyClient
     const taskId = Number(this.props.match.params.id)
-    this.props.getTask(this.props.colonyClient, taskId)
+    const userAddress = colonyClient.adapter.wallet.address
+    this.props.getTask(colonyClient, taskId)
+    this.props.checkAdmin(colonyClient, userAddress)
   }
 
   componentWillUnmount() {
@@ -40,10 +44,15 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
+  checkAdmin(colonyClient, userAddress) {
+    dispatch(authorityActions.checkAdmin(colonyClient, userAddress))
+  },
   getTask(colonyClient, task) {
     dispatch(taskActions.getTask(colonyClient, task))
   },
   resetActions() {
+    dispatch(authorityActions.checkAdminError(null))
+    dispatch(authorityActions.checkAdminSuccess(false))
     dispatch(taskActions.getTaskError(null))
     dispatch(taskActions.getTaskSuccess(false))
   },

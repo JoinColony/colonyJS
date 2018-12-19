@@ -14,7 +14,7 @@
     "start-ganache": "sh scripts/start_ganache.sh",
     "deploy-contracts": "sh scripts/deploy_contracts.sh",
     "start-trufflepig": "sh scripts/start_trufflepig.sh",
-    "seed-network": "node scripts/seed_netowrk.js",
+    "seed-network": "node scripts/seed_network.js",
     "build": "webpack -p --config webpack/production.config.js",
     "start": "webpack-dev-server --config webpack/development.config.js",
     "test": "jest --updateSnapshot"

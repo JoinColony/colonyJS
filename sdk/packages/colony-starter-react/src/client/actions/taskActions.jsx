@@ -195,6 +195,30 @@ export const getTasksSuccess = (success) => ({
   payload: success,
 })
 
+// removeTaskRole
+
+export const removeTaskRole = (colonyClient, taskId, role) => ({
+  type: actions.REMOVE_TASK_ROLE,
+  payload: taskActions.removeTaskRole(colonyClient, taskId, role)
+    .then(success => {
+      store.dispatch(getTask(colonyClient, taskId))
+      store.dispatch(removeTaskRoleSuccess(true))
+    })
+    .catch(error => {
+      store.dispatch(removeTaskRoleError(error.message))
+    }),
+})
+
+export const removeTaskRoleError = (error) => ({
+  type: actions.REMOVE_TASK_ROLE_ERROR,
+  payload: error,
+})
+
+export const removeTaskRoleSuccess = (success) => ({
+  type: actions.REMOVE_TASK_ROLE_SUCCESS,
+  payload: success,
+})
+
 // revealRating
 
 export const revealRating = (colonyClient, taskId, role, rating) => ({

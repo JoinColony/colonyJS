@@ -544,6 +544,49 @@ export const getTasks = async (colonyClient) => {
 
 }
 
+// removeTaskRole
+
+export const removeTaskRole = async (colonyClient, taskId, role) => {
+
+  // check evaluator role
+  if (role === 'EVALUATOR') {
+
+    // set task evaluator role
+    const removeTaskEvaluatorRoleOperation = await colonyClient.removeTaskEvaluatorRole.startOperation({
+      taskId,
+    })
+
+    // serialize operation into JSON format
+    const removeTaskEvaluatorRoleOperationJSON = removeTaskEvaluatorRoleOperation.toJSON()
+
+    // sign remove task evaluator role
+    await signRemoveTaskEvaluatorRole(colonyClient, removeTaskEvaluatorRoleOperationJSON)
+
+  }
+
+  // check worker role
+  if (role === 'WORKER') {
+
+    // set task worker role
+    const removeTaskWorkerRoleOperation = await colonyClient.removeTaskWorkerRole.startOperation({
+      taskId,
+    })
+
+    console.log('removeTaskWorkerRoleOperation', removeTaskWorkerRoleOperation)
+
+    // serialize operation into JSON format
+    const removeTaskWorkerRoleOperationJSON = removeTaskWorkerRoleOperation.toJSON()
+
+    // sign remove task worker role
+    await signRemoveTaskWorkerRole(colonyClient, removeTaskWorkerRoleOperationJSON)
+
+  }
+
+  // return id
+  return taskId
+
+}
+
 // revealRating
 
 export const revealRating = async (colonyClient, taskId, role, rating) => {
@@ -759,8 +802,8 @@ export const setTaskRole = async (colonyClient, taskId, role, user) => {
     // serialize operation into JSON format
     const setTaskManagerRoleOperationJSON = setTaskManagerRoleOperation.toJSON()
 
-    // sign task manager role
-    await signTaskManagerRole(colonyClient, setTaskManagerRoleOperationJSON)
+    // sign set task manager role
+    await signSetTaskManagerRole(colonyClient, setTaskManagerRoleOperationJSON)
 
   }
 
@@ -776,8 +819,8 @@ export const setTaskRole = async (colonyClient, taskId, role, user) => {
     // serialize operation into JSON format
     const setTaskEvaluatorRoleOperationJSON = setTaskEvaluatorRoleOperation.toJSON()
 
-    // sign task evaluator role
-    await signTaskEvaluatorRole(colonyClient, setTaskEvaluatorRoleOperationJSON)
+    // sign set task evaluator role
+    await signSetTaskEvaluatorRole(colonyClient, setTaskEvaluatorRoleOperationJSON)
 
   }
 
@@ -795,8 +838,8 @@ export const setTaskRole = async (colonyClient, taskId, role, user) => {
     // serialize operation into JSON format
     const setTaskWorkerRoleOperationJSON = setTaskWorkerRoleOperation.toJSON()
 
-    // sign task worker role
-    await signTaskWorkerRole(colonyClient, setTaskWorkerRoleOperationJSON)
+    // sign set task worker role
+    await signSetTaskWorkerRole(colonyClient, setTaskWorkerRoleOperationJSON)
 
   }
 
@@ -927,8 +970,8 @@ export const signTask = async (colonyClient, taskId) => {
     setTaskManagerRoleOperation.payload.inputValues.taskId === taskId
   ) {
 
-    // sign task manager role
-    await signTaskManagerRole(colonyClient, setTaskManagerRoleOperationJSON)
+    // sign set task manager role
+    await signSetTaskManagerRole(colonyClient, setTaskManagerRoleOperationJSON)
 
   }
 
@@ -939,8 +982,8 @@ export const signTask = async (colonyClient, taskId) => {
     setTaskEvaluatorRoleOperation.payload.inputValues.taskId === taskId
   ) {
 
-    // sign task evaluator role
-    await signTaskEvaluatorRole(colonyClient, setTaskEvaluatorRoleOperationJSON)
+    // sign set task evaluator role
+    await signSetTaskEvaluatorRole(colonyClient, setTaskEvaluatorRoleOperationJSON)
 
   }
 
@@ -951,8 +994,32 @@ export const signTask = async (colonyClient, taskId) => {
     setTaskWorkerRoleOperation.payload.inputValues.taskId === taskId
   ) {
 
-    // sign task worker role
-    await signTaskWorkerRole(colonyClient, setTaskWorkerRoleOperationJSON)
+    // sign set task worker role
+    await signSetTaskWorkerRole(colonyClient, setTaskWorkerRoleOperationJSON)
+
+  }
+
+  // check if task evaluator role operation exists for contract and task
+  if (
+    removeTaskEvaluatorRoleOperationJSON &&
+    removeTaskEvaluatorRoleOperation.payload.sourceAddress === address &&
+    removeTaskEvaluatorRoleOperation.payload.inputValues.taskId === taskId
+  ) {
+
+    // sign remove task evaluator role
+    await signRemoveTaskEvaluatorRole(colonyClient, removeTaskEvaluatorRoleOperationJSON)
+
+  }
+
+  // check if task worker role operation exists for contract and task
+  if (
+    removeTaskWorkerRoleOperationJSON &&
+    removeTaskWorkerRoleOperation.payload.sourceAddress === address &&
+    removeTaskWorkerRoleOperation.payload.inputValues.taskId === taskId
+  ) {
+
+    // sign remove task worker role
+    await signRemoveTaskWorkerRole(colonyClient, removeTaskWorkerRoleOperationJSON)
 
   }
 
@@ -1196,9 +1263,9 @@ export const signTaskDueDate = async (colonyClient, operationJSON) => {
 
 }
 
-// signTaskManagerRole
+// signSetTaskManagerRole
 
-export const signTaskManagerRole = async (colonyClient, operationJSON) => {
+export const signSetTaskManagerRole = async (colonyClient, operationJSON) => {
 
   // restore operation
   const setTaskManagerRoleOperation = await colonyClient.setTaskManagerRole.restoreOperation(operationJSON)
@@ -1243,9 +1310,9 @@ export const signTaskManagerRole = async (colonyClient, operationJSON) => {
 
 }
 
-// signTaskEvaluatorRole
+// signSetTaskEvaluatorRole
 
-export const signTaskEvaluatorRole = async (colonyClient, operationJSON) => {
+export const signSetTaskEvaluatorRole = async (colonyClient, operationJSON) => {
 
   // restore operation
   const setTaskEvaluatorRoleOperation = await colonyClient.setTaskEvaluatorRole.restoreOperation(operationJSON)
@@ -1290,9 +1357,9 @@ export const signTaskEvaluatorRole = async (colonyClient, operationJSON) => {
 
 }
 
-// signTaskWorkerRole
+// signSetTaskWorkerRole
 
-export const signTaskWorkerRole = async (colonyClient, operationJSON) => {
+export const signSetTaskWorkerRole = async (colonyClient, operationJSON) => {
 
   // restore operation
   const setTaskWorkerRoleOperation = await colonyClient.setTaskWorkerRole.restoreOperation(operationJSON)
@@ -1334,6 +1401,100 @@ export const signTaskWorkerRole = async (colonyClient, operationJSON) => {
 
   // return operation
   return setTaskWorkerRoleOperation
+
+}
+
+// signRemoveTaskEvaluatorRole
+
+export const signRemoveTaskEvaluatorRole = async (colonyClient, operationJSON) => {
+
+  // restore operation
+  const removeTaskEvaluatorRoleOperation = await colonyClient.removeTaskEvaluatorRole.restoreOperation(operationJSON)
+
+  // check if required signees includes current user address
+  if (removeTaskEvaluatorRoleOperation.requiredSignees.includes(colonyClient.adapter.wallet.address.toLowerCase())) {
+
+    // sign remove task evaluator role operation
+    await removeTaskEvaluatorRoleOperation.sign()
+
+  }
+
+  // check for missing signees
+  if (removeTaskEvaluatorRoleOperation.missingSignees.length === 0) {
+
+    // send remove task evaluator role operation
+    const tx = await removeTaskEvaluatorRoleOperation.send()
+
+    // remove local storage item
+    localStorage.removeItem('removeTaskEvaluatorRoleOperationJSON')
+
+    // check unsuccessful
+    if (!tx.successful) {
+
+      // throw error
+      throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
+
+    }
+
+  } else {
+
+    // serialize operation into JSON format
+    const removeTaskEvaluatorRoleOperationJSON = removeTaskEvaluatorRoleOperation.toJSON()
+
+    // save operation to local storage
+    localStorage.removeItem('removeTaskEvaluatorRoleOperationJSON', removeTaskEvaluatorRoleOperationJSON)
+
+  }
+
+  // return operation
+  return removeTaskEvaluatorRoleOperation
+
+}
+
+// signRemoveTaskWorkerRole
+
+export const signRemoveTaskWorkerRole = async (colonyClient, operationJSON) => {
+
+  // restore operation
+  const removeTaskWorkerRoleOperation = await colonyClient.removeTaskWorkerRole.restoreOperation(operationJSON)
+
+  // check if required signees includes current user address
+  if (removeTaskWorkerRoleOperation.requiredSignees.includes(colonyClient.adapter.wallet.address.toLowerCase())) {
+
+    // sign remove task worker role operation
+    await removeTaskWorkerRoleOperation.sign()
+
+  }
+
+  // check for missing signees
+  if (removeTaskWorkerRoleOperation.missingSignees.length === 0) {
+
+    // send remove task worker role operation
+    const tx = await removeTaskWorkerRoleOperation.send()
+
+    // remove local storage item
+    localStorage.removeItem('removeTaskWorkerRoleOperationJSON')
+
+    // check unsuccessful
+    if (!tx.successful) {
+
+      // throw error
+      throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
+
+    }
+
+  } else {
+
+    // serialize operation into JSON format
+    const removeTaskWorkerRoleOperationJSON = removeTaskWorkerRoleOperation.toJSON()
+
+    // save operation to local storage
+    localStorage.removeItem('removeTaskWorkerRoleOperationJSON', removeTaskWorkerRoleOperationJSON)
+
+  }
+
+  // return operation
+  return removeTaskWorkerRoleOperation
 
 }
 

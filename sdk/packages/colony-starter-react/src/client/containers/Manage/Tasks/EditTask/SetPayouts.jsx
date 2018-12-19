@@ -20,7 +20,7 @@ class SetPayoutsContainer extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (!prevProps.setTaskPayoutsSuccess && this.props.setTaskPayoutsSuccess) {
+    if (!prevProps.getTaskSuccess && this.props.getTaskSuccess) {
       this.setState({
         payouts: {
           manager: this.props.task.payouts.manager,
@@ -83,6 +83,9 @@ class SetPayoutsContainer extends Component {
 
 const mapStateToProps = state => ({
   colonyClient: state.colony.colonyClient,
+  getTaskError: state.task.getTaskError,
+  getTaskLoading: state.task.getTaskLoading,
+  getTaskSuccess: state.task.getTaskSuccess,
   setTaskPayoutsError: state.task.setTaskPayoutsError,
   setTaskPayoutsLoading: state.task.setTaskPayoutsLoading,
   setTaskPayoutsSuccess: state.task.setTaskPayoutsSuccess,
