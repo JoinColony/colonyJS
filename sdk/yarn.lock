@@ -25,32 +25,32 @@
   dependencies:
     regenerator-runtime "^0.12.0"
 
-"@colony/colony-js-adapter-ethers@^1.8.1":
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/@colony/colony-js-adapter-ethers/-/colony-js-adapter-ethers-1.8.1.tgz#8fadc6c49dcd3757a43d0ba6d3e8b1eb1d67788d"
-  integrity sha512-f7lcVdinY2gJf89IsvsZ4gztOcV/Se1lvdatfHtvPQ4JEV1MT8E80N7RGJpVg5lrP7s/UL0XmjQyZPy5pqFUhg==
+"@colony/colony-js-adapter-ethers@^1.9.0":
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/@colony/colony-js-adapter-ethers/-/colony-js-adapter-ethers-1.9.0.tgz#a245ce516d2848a28e62e9b542cb8b9dc0c99e9b"
+  integrity sha512-qCzWyhoiec1F2U2Ajc9pwoB1U8Yoo2mUwBPpBigWDNubK737UKLZrT1KfP/wvgngZlcmMSDl6PCv0ZNkq8oLcA==
   dependencies:
-    "@colony/colony-js-adapter" "^1.8.1"
+    "@colony/colony-js-adapter" "^1.9.0"
     "@colony/colony-js-contract-loader" "^1.8.1"
     "@colony/colony-js-utils" "^1.8.1"
     babel-runtime "^6.26.0"
     ethers "^3.0.27"
 
-"@colony/colony-js-adapter@^1.8.1":
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/@colony/colony-js-adapter/-/colony-js-adapter-1.8.1.tgz#c4d2a148673d4dee7642742cad9a98883555feb4"
-  integrity sha512-6Aq1ZHHoKOwfzf1yrsIPQ5MLnmKnewAKVaRZ/zcAHEmFeKkayL8qqG/A25Thw3iOy10u+RI4Qtgd5L3srF4+wA==
+"@colony/colony-js-adapter@^1.9.0":
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/@colony/colony-js-adapter/-/colony-js-adapter-1.9.0.tgz#4f16eaaac1922fd4f056a3bfc80d3379f3f98073"
+  integrity sha512-GwZfYG+KbI2PFDSYuj1GqPjn2jEMY/2+83tHBmQByyHgmk0E4Gmc4pcKOBBhB6+uA4+PaPUtYESH3qUrVkFcBg==
   dependencies:
     "@colony/colony-js-contract-loader" "^1.8.1"
     bn.js "^4.11.6"
 
-"@colony/colony-js-client@^1.8.1":
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/@colony/colony-js-client/-/colony-js-client-1.8.1.tgz#0221369b543ecdd141556e811fbee5b4cf78cd99"
-  integrity sha512-OTXu9qm72Z44b9O/deuDUZqEcSgP2i5GqkBkWdevLJxiBQdUeXaNw0NmnmGlsEVCGXvoI0YBwxbiE2fDy5Dcxg==
+"@colony/colony-js-client@^1.9.0":
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/@colony/colony-js-client/-/colony-js-client-1.9.0.tgz#2a6925264ad4bac9176b723148873bb6a41e0adc"
+  integrity sha512-ew2p/wD/4TTSGiHsKSV3WWFOOJOn1A35xH+rIIxInAjs71mp3HFrwZcrQ5SOCxlv9czWTH02Wmw/h6rXyQ2ckw==
   dependencies:
-    "@colony/colony-js-adapter" "^1.8.1"
-    "@colony/colony-js-contract-client" "^1.8.1"
+    "@colony/colony-js-adapter" "^1.9.0"
+    "@colony/colony-js-contract-client" "^1.9.0"
     "@colony/colony-js-contract-loader" "^1.8.1"
     "@colony/colony-js-utils" "^1.8.1"
     assert "^1.4.1"
@@ -59,12 +59,12 @@
     isomorphic-fetch "^2.2.1"
     web3-utils "^1.0.0-beta.34"
 
-"@colony/colony-js-contract-client@^1.8.1":
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/@colony/colony-js-contract-client/-/colony-js-contract-client-1.8.1.tgz#b0855c7d996c53f97ec4fe3c412f2ae28f5dd2f5"
-  integrity sha512-BTJ6h9kjFfVNwLHKUv6W2jjKSJy8/YTNNn+I3garnq+l7xSrxmQqXcWYAJIqRO68r7+9BokthH4U/S7u7QKDGQ==
+"@colony/colony-js-contract-client@^1.9.0":
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/@colony/colony-js-contract-client/-/colony-js-contract-client-1.9.0.tgz#69817b301b2c3694322cae1b2273d234fc3bca12"
+  integrity sha512-kCkrlXWZwvqVnwl9ljUAjfMJowiZRuiDSlBipQQOQCrr/odK7O3Dm+WbOaHhjDsYtoHqGgKL+cQD0WUQkEmmGg==
   dependencies:
-    "@colony/colony-js-adapter" "^1.8.1"
+    "@colony/colony-js-adapter" "^1.9.0"
     "@colony/colony-js-contract-loader" "^1.8.1"
     "@colony/colony-js-utils" "^1.8.1"
     assert "^1.4.1"
@@ -75,10 +75,10 @@
     lodash.isplainobject "^4.0.6"
     web3-utils "^1.0.0-beta.34"
 
-"@colony/colony-js-contract-loader-http@^1.8.1":
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/@colony/colony-js-contract-loader-http/-/colony-js-contract-loader-http-1.8.1.tgz#9ab035a5db76c5f3a7c558b4ec2a22ad162d5075"
-  integrity sha512-XT41Y+dp9m52jeSD2EA1/odHuvzf4KEBUuJejrPOt+vPKVum/M+bXoDx+SsRDADzx1tstOJ69oALAdqh3WLWRg==
+"@colony/colony-js-contract-loader-http@^1.9.0":
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/@colony/colony-js-contract-loader-http/-/colony-js-contract-loader-http-1.9.0.tgz#e57b719e4580a69fddf42b11a3c3a8cd75b2e8aa"
+  integrity sha512-H5rd8392rLQAWajKPtg/WRGq4AJ3BzCOZIAw0LxmWCFTt5aQUx9E80n0jcPZdAdkCZleipRCm8IYC35xOSDEYQ==
   dependencies:
     "@colony/colony-js-contract-loader" "^1.8.1"
     assert "^1.4.1"
