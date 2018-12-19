@@ -502,7 +502,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |Event data|Type|Description|
 |---|---|---|
 |rewardInverse|BigNumber|The reward inverse value|
-|ColonyRewardInverseSet|object|Contains the data defined in [ColonyRewardInverseSet](#events-ColonyRewardInverseSet)|
+|ColonyRewardInverseSet|object|Contains the data defined in [ColonyRewardInverseSet](#eventscolonyrewardinversesetaddlistener-rewardinverse-------)|
 
 ### `removeRecoveryRole.send({ user }, options)`
 
@@ -559,9 +559,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |taskId|number|The task ID.|
 |potId|number|The ID of the funding pot that was added.|
 |domainId|number|The ID of the domain that was added.|
-|TaskAdded|object|Contains the data defined in [TaskAdded](#events-TaskAdded)|
-|PotAdded|object|Contains the data defined in [PotAdded](#events-PotAdded)|
-|DomainAdded|object|Contains the data defined in [DomainAdded](#events-DomainAdded)|
+|TaskAdded|object|Contains the data defined in [TaskAdded](#eventstaskaddedaddlistener-taskid-------)|
+|PotAdded|object|Contains the data defined in [PotAdded](#eventspotaddedaddlistener-potid-------)|
+|DomainAdded|object|Contains the data defined in [DomainAdded](#eventsdomainaddedaddlistener-domainid-------)|
 
 ### `completeTask.send({ taskId }, options)`
 
@@ -580,7 +580,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |Event data|Type|Description|
 |---|---|---|
 |taskId|number|The task ID.|
-|TaskCompleted|object|Contains the data defined in [TaskCompleted](#events-TaskCompleted)|
+|TaskCompleted|object|Contains the data defined in [TaskCompleted](#eventstaskcompletedaddlistener-taskid-------)|
 
 ### `registerColonyLabel.send({ colonyName, orbitDBPath }, options)`
 
@@ -601,7 +601,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |colony|Address|Address of the colony that registered a label|
 |label|string|The label registered|
-|ColonyLabelRegistered|object|Contains the data defined in [ColonyLabelRegistered](#events-ColonyLabelRegistered)|
+|ColonyLabelRegistered|object|Contains the data defined in [ColonyLabelRegistered](#eventscolonylabelregisteredaddlistener-colony-label-------)|
 
 ### `setFounderRole.send({ user }, options)`
 
@@ -621,7 +621,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |oldFounder|Address|The current founder delegating the role away|
 |newFounder|Address|The user receiving the colony founder role|
-|ColonyFounderRoleSet|object|Contains the data defined in [ColonyFounderRoleSet](#events-ColonyFounderRoleSet)|
+|ColonyFounderRoleSet|object|Contains the data defined in [ColonyFounderRoleSet](#eventscolonyfounderrolesetaddlistener-oldfounder-newfounder-------)|
 
 ### `setAdminRole.send({ user }, options)`
 
@@ -640,7 +640,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |Event data|Type|Description|
 |---|---|---|
 |user|Address|The newly-added colony admin user|
-|ColonyAdminRoleSet|object|Contains the data defined in [ColonyAdminRoleSet](#events-ColonyAdminRoleSet)|
+|ColonyAdminRoleSet|object|Contains the data defined in [ColonyAdminRoleSet](#eventscolonyadminrolesetaddlistener-user-------)|
 
 ### `setRecoveryRole.send({ user }, options)`
 
@@ -675,7 +675,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |Event data|Type|Description|
 |---|---|---|
 |user|Address|The removed colony admin user|
-|ColonyAdminRoleRemoved|object|Contains the data defined in [ColonyAdminRoleRemoved](#events-ColonyAdminRoleRemoved)|
+|ColonyAdminRoleRemoved|object|Contains the data defined in [ColonyAdminRoleRemoved](#eventscolonyadminroleremovedaddlistener-user-------)|
 
 ### `setAllTaskPayouts.send({ taskId, token, managerAmount, evaluatorAmount, workerAmount }, options)`
 
@@ -701,7 +701,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |role|Role|The role the payout is for|
 |token|Token address|The token address (0x indicates ether).|
 |amount|number|The token amount.|
-|TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#events-TaskPayoutSet)|
+|TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutsetaddlistener-taskid-role-token-amount-------)|
 
 ### `submitTaskDeliverable.send({ taskId, deliverableHash }, options)`
 
@@ -723,8 +723,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |taskId|number|The task ID.|
 |taskId|number|The task ID.|
 |deliverableHash|IPFS hash|The IPFS hash of the deliverable.|
-|TaskCompleted|object|Contains the data defined in [TaskCompleted](#events-TaskCompleted)|
-|TaskDeliverableSubmitted|object|Contains the data defined in [TaskDeliverableSubmitted](#events-TaskDeliverableSubmitted)|
+|TaskCompleted|object|Contains the data defined in [TaskCompleted](#eventstaskcompletedaddlistener-taskid-------)|
+|TaskDeliverableSubmitted|object|Contains the data defined in [TaskDeliverableSubmitted](#eventstaskdeliverablesubmittedaddlistener-taskid-deliverablehash-------)|
 
 ### `submitTaskWorkRating.send({ taskId, role, secret }, options)`
 
@@ -765,8 +765,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |taskId|number|The task ID.|
 |taskId|number|The task ID.|
 |deliverableHash|IPFS hash|The IPFS hash of the deliverable.|
-|TaskCompleted|object|Contains the data defined in [TaskCompleted](#events-TaskCompleted)|
-|TaskDeliverableSubmitted|object|Contains the data defined in [TaskDeliverableSubmitted](#events-TaskDeliverableSubmitted)|
+|TaskCompleted|object|Contains the data defined in [TaskCompleted](#eventstaskcompletedaddlistener-taskid-------)|
+|TaskDeliverableSubmitted|object|Contains the data defined in [TaskDeliverableSubmitted](#eventstaskdeliverablesubmittedaddlistener-taskid-deliverablehash-------)|
 
 ### `revealTaskWorkRating.send({ taskId, role, rating, salt }, options)`
 
@@ -790,7 +790,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |taskId|number|The task ID.|
 |role|Role|The role of the work rating.|
 |rating|number|The rating value.|
-|TaskWorkRatingRevealed|object|Contains the data defined in [TaskWorkRatingRevealed](#events-TaskWorkRatingRevealed)|
+|TaskWorkRatingRevealed|object|Contains the data defined in [TaskWorkRatingRevealed](#eventstaskworkratingrevealedaddlistener-taskid-role-rating-------)|
 
 ### `assignWorkRating.send({ taskId }, options)`
 
@@ -825,7 +825,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |Event data|Type|Description|
 |---|---|---|
 |taskId|number|The task ID of the task that was finalized.|
-|TaskFinalized|object|Contains the data defined in [TaskFinalized](#events-TaskFinalized)|
+|TaskFinalized|object|Contains the data defined in [TaskFinalized](#eventstaskfinalizedaddlistener-taskid-------)|
 
 ### `claimPayout.send({ taskId, role, token }, options)`
 
@@ -852,8 +852,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |from|Address|Event data indicating the 'from' address.|
 |to|Address|Event data indicating the 'to' address.|
 |value|BigNumber|Event data indicating the amount transferred.|
-|TaskPayoutClaimed|object|Contains the data defined in [TaskPayoutClaimed](#events-TaskPayoutClaimed)|
-|Transfer|object|Contains the data defined in [Transfer](#events-Transfer)|
+|TaskPayoutClaimed|object|Contains the data defined in [TaskPayoutClaimed](#eventstaskpayoutclaimedaddlistener-taskid-role-token-amount-------)|
+|Transfer|object|Contains the data defined in [Transfer](#eventstransferaddlistener-from-to-value-------)|
 
 ### `addDomain.send({ parentDomainId }, options)`
 
@@ -872,11 +872,11 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |Event data|Type|Description|
 |---|---|---|
 |domainId|number|The ID of the domain that was added.|
-|DomainAdded|object|Contains the data defined in [DomainAdded](#events-DomainAdded)|
+|DomainAdded|object|Contains the data defined in [DomainAdded](#eventsdomainaddedaddlistener-domainid-------)|
 
 ### `claimColonyFunds.send({ token }, options)`
 
-Move any funds received by the colony for `token` denomination to the top-levl domain pot, siphoning off a small amount to the rewards pot. No fee is taken if called against a colony's own token.
+Move any funds received by the colony for `token` denomination to the top-level domain pot, siphoning off a small amount to the rewards pot. No fee is taken if called against a colony's own token.
 
 **Arguments**
 
@@ -893,7 +893,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |token|Address|The token address being claimed|
 |fee|BigNumber|The fee deducted for rewards|
 |payoutRemainder|BigNumber|The remaining funds moved to the top-level domain pot|
-|ColonyFundsClaimed|object|Contains the data defined in [ColonyFundsClaimed](#events-ColonyFundsClaimed)|
+|ColonyFundsClaimed|object|Contains the data defined in [ColonyFundsClaimed](#eventscolonyfundsclaimedaddlistener-token-fee-payoutremainder-------)|
 
 ### `finalizeRewardPayout.send({ payoutId }, options)`
 
@@ -934,7 +934,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |toPot|number|The target funding pot|
 |amount|BigNumber|The amount that was transferred|
 |token|Address|The token address being transferred|
-|ColonyFundsMovedBetweenFundingPots|object|Contains the data defined in [ColonyFundsMovedBetweenFundingPots](#events-ColonyFundsMovedBetweenFundingPots)|
+|ColonyFundsMovedBetweenFundingPots|object|Contains the data defined in [ColonyFundsMovedBetweenFundingPots](#eventscolonyfundsmovedbetweenfundingpotsaddlistener-frompot-topot-amount-token-------)|
 
 ### `mintTokens.send({ amount }, options)`
 
@@ -957,8 +957,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |from|Address|Event data indicating the 'from' address.|
 |to|Address|Event data indicating the 'to' address.|
 |value|BigNumber|Event data indicating the amount transferred.|
-|Mint|object|Contains the data defined in [Mint](#events-Mint)|
-|Transfer|object|Contains the data defined in [Transfer](#events-Transfer)|
+|Mint|object|Contains the data defined in [Mint](#eventsmintaddlistener-address-amount-------)|
+|Transfer|object|Contains the data defined in [Transfer](#eventstransferaddlistener-from-to-value-------)|
 
 ### `startNextRewardPayout.send({ token }, options)`
 
@@ -977,7 +977,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |Event data|Type|Description|
 |---|---|---|
 |payoutId|number|The reward payout cycle ID logged when a new reward payout cycle has started.|
-|RewardPayoutCycleStarted|object|Contains the data defined in [RewardPayoutCycleStarted](#events-RewardPayoutCycleStarted)|
+|RewardPayoutCycleStarted|object|Contains the data defined in [RewardPayoutCycleStarted](#eventsrewardpayoutcyclestartedaddlistener-payoutid-------)|
 
 ### `waiveRewardPayouts.send({ numPayouts }, options)`
 
@@ -1029,7 +1029,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |oldVersion|number|The previous colony version|
 |newVersion|number|The new colony version|
-|ColonyUpgraded|object|Contains the data defined in [ColonyUpgraded](#events-ColonyUpgraded)|
+|ColonyUpgraded|object|Contains the data defined in [ColonyUpgraded](#eventscolonyupgradedaddlistener-oldversion-newversion-------)|
 
   
 ## Task MultiSig
@@ -1054,7 +1054,7 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |---|---|---|
 |taskId|number|The task ID.|
 |specificationHash|string|The IPFS hash of the task's new specification.|
-|TaskBriefSet|object|Contains the data defined in [TaskBriefSet](#events-TaskBriefSet)|
+|TaskBriefSet|object|Contains the data defined in [TaskBriefSet](#eventstaskbriefsetaddlistener-taskid-specificationhash-------)|
 
 ### `setTaskDomain.startOperation({ taskId, domainId })`
 
@@ -1075,7 +1075,7 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |---|---|---|
 |taskId|number|The task ID.|
 |domainId|number|The task's new domain ID.|
-|TaskDomainSet|object|Contains the data defined in [TaskDomainSet](#events-TaskDomainSet)|
+|TaskDomainSet|object|Contains the data defined in [TaskDomainSet](#eventstaskdomainsetaddlistener-taskid-domainid-------)|
 
 ### `setTaskDueDate.startOperation({ taskId, dueDate })`
 
@@ -1096,7 +1096,7 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |---|---|---|
 |taskId|number|The task ID.|
 |dueDate|Date|The task's new due date.|
-|TaskDueDateSet|object|Contains the data defined in [TaskDueDateSet](#events-TaskDueDateSet)|
+|TaskDueDateSet|object|Contains the data defined in [TaskDueDateSet](#eventstaskduedatesetaddlistener-taskid-duedate-------)|
 
 ### `setTaskManagerRole.startOperation({ taskId, user })`
 
@@ -1118,7 +1118,7 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |taskId|number|The task ID.|
 |role|number|The role that changed for the task.|
 |user|Address|The user with the role that changed for the task.|
-|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#events-TaskRoleUserSet)|
+|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleusersetaddlistener-taskid-role-user-------)|
 
 ### `setTaskWorkerRole.startOperation({ taskId, user })`
 
@@ -1140,7 +1140,7 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |taskId|number|The task ID.|
 |role|number|The role that changed for the task.|
 |user|Address|The user with the role that changed for the task.|
-|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#events-TaskRoleUserSet)|
+|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleusersetaddlistener-taskid-role-user-------)|
 
 ### `setTaskEvaluatorRole.startOperation({ taskId, user })`
 
@@ -1162,7 +1162,7 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |taskId|number|The task ID.|
 |role|number|The role that changed for the task.|
 |user|Address|The user with the role that changed for the task.|
-|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#events-TaskRoleUserSet)|
+|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleusersetaddlistener-taskid-role-user-------)|
 
 ### `setTaskSkill.startOperation({ taskId, skillId })`
 
@@ -1183,7 +1183,7 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |---|---|---|
 |taskId|number|The task ID.|
 |skillId|number|The task's new skill ID.|
-|TaskSkillSet|object|Contains the data defined in [TaskSkillSet](#events-TaskSkillSet)|
+|TaskSkillSet|object|Contains the data defined in [TaskSkillSet](#eventstaskskillsetaddlistener-taskid-skillid-------)|
 
 ### `setTaskEvaluatorPayout.startOperation({ taskId, token, amount })`
 
@@ -1207,7 +1207,7 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |role|Role|The role the payout is for|
 |token|Token address|The token address (0x indicates ether).|
 |amount|number|The token amount.|
-|TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#events-TaskPayoutSet)|
+|TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutsetaddlistener-taskid-role-token-amount-------)|
 
 ### `setTaskManagerPayout.startOperation({ taskId, token, amount })`
 
@@ -1231,7 +1231,7 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |role|Role|The role the payout is for|
 |token|Token address|The token address (0x indicates ether).|
 |amount|number|The token amount.|
-|TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#events-TaskPayoutSet)|
+|TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutsetaddlistener-taskid-role-token-amount-------)|
 
 ### `setTaskWorkerPayout.startOperation({ taskId, token, amount })`
 
@@ -1255,7 +1255,7 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |role|Role|The role the payout is for|
 |token|Token address|The token address (0x indicates ether).|
 |amount|number|The token amount.|
-|TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#events-TaskPayoutSet)|
+|TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutsetaddlistener-taskid-role-token-amount-------)|
 
 ### `removeTaskWorkerRole.startOperation({ taskId })`
 
@@ -1276,7 +1276,7 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |taskId|number|The task ID.|
 |role|number|The role that changed for the task.|
 |user|Address|The user with the role that changed for the task.|
-|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#events-TaskRoleUserSet)|
+|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleusersetaddlistener-taskid-role-user-------)|
 
 ### `removeTaskEvaluatorRole.startOperation({ taskId })`
 
@@ -1297,7 +1297,7 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |taskId|number|The task ID.|
 |role|number|The role that changed for the task.|
 |user|Address|The user with the role that changed for the task.|
-|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#events-TaskRoleUserSet)|
+|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleusersetaddlistener-taskid-role-user-------)|
 
 ### `cancelTask.startOperation({ taskId })`
 
@@ -1316,7 +1316,7 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |Event Data|Type|Description|
 |---|---|---|
 |taskId|number|The task ID of the task that was canceled.|
-|TaskCanceled|object|Contains the data defined in [TaskCanceled](#events-TaskCanceled)|
+|TaskCanceled|object|Contains the data defined in [TaskCanceled](#eventstaskcanceledaddlistener-taskid-------)|
 
   
 ## Events
@@ -1324,7 +1324,7 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events) to interact with these events.
 
 
-### [events.DomainAdded.addListener(({ domainId }) => { /* ... */ })](#events-DomainAdded)
+### `events.DomainAdded.addListener(({ domainId }) => { /* ... */ })`
 
 
 
@@ -1335,7 +1335,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |domainId|number|The ID of the domain that was added.|
 
 
-### [events.PotAdded.addListener(({ potId }) => { /* ... */ })](#events-PotAdded)
+### `events.PotAdded.addListener(({ potId }) => { /* ... */ })`
 
 
 
@@ -1346,7 +1346,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |potId|number|The ID of the funding pot that was added.|
 
 
-### [events.SkillAdded.addListener(({ skillId, parentSkillId }) => { /* ... */ })](#events-SkillAdded)
+### `events.SkillAdded.addListener(({ skillId, parentSkillId }) => { /* ... */ })`
 
 
 
@@ -1358,7 +1358,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |parentSkillId|number|The parent skill id.|
 
 
-### [events.TaskAdded.addListener(({ taskId }) => { /* ... */ })](#events-TaskAdded)
+### `events.TaskAdded.addListener(({ taskId }) => { /* ... */ })`
 
 
 
@@ -1369,7 +1369,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |taskId|number|The task ID.|
 
 
-### [events.TaskBriefSet.addListener(({ taskId, specificationHash }) => { /* ... */ })](#events-TaskBriefSet)
+### `events.TaskBriefSet.addListener(({ taskId, specificationHash }) => { /* ... */ })`
 
 
 
@@ -1381,7 +1381,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |specificationHash|string|The IPFS hash of the task's new specification.|
 
 
-### [events.TaskCompleted.addListener(({ taskId }) => { /* ... */ })](#events-TaskCompleted)
+### `events.TaskCompleted.addListener(({ taskId }) => { /* ... */ })`
 
 
 
@@ -1392,7 +1392,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |taskId|number|The task ID.|
 
 
-### [events.TaskDueDateSet.addListener(({ taskId, dueDate }) => { /* ... */ })](#events-TaskDueDateSet)
+### `events.TaskDueDateSet.addListener(({ taskId, dueDate }) => { /* ... */ })`
 
 
 
@@ -1404,7 +1404,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |dueDate|Date|The task's new due date.|
 
 
-### [events.TaskDomainSet.addListener(({ taskId, domainId }) => { /* ... */ })](#events-TaskDomainSet)
+### `events.TaskDomainSet.addListener(({ taskId, domainId }) => { /* ... */ })`
 
 
 
@@ -1416,7 +1416,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |domainId|number|The task's new domain ID.|
 
 
-### [events.TaskSkillSet.addListener(({ taskId, skillId }) => { /* ... */ })](#events-TaskSkillSet)
+### `events.TaskSkillSet.addListener(({ taskId, skillId }) => { /* ... */ })`
 
 
 
@@ -1428,7 +1428,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |skillId|number|The task's new skill ID.|
 
 
-### [events.TaskRoleUserSet.addListener(({ taskId, role, user }) => { /* ... */ })](#events-TaskRoleUserSet)
+### `events.TaskRoleUserSet.addListener(({ taskId, role, user }) => { /* ... */ })`
 
 
 
@@ -1441,7 +1441,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |user|Address|The user with the role that changed for the task.|
 
 
-### [events.TaskPayoutSet.addListener(({ taskId, role, token, amount }) => { /* ... */ })](#events-TaskPayoutSet)
+### `events.TaskPayoutSet.addListener(({ taskId, role, token, amount }) => { /* ... */ })`
 
 
 
@@ -1455,7 +1455,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |amount|number|The token amount.|
 
 
-### [events.TaskDeliverableSubmitted.addListener(({ taskId, deliverableHash }) => { /* ... */ })](#events-TaskDeliverableSubmitted)
+### `events.TaskDeliverableSubmitted.addListener(({ taskId, deliverableHash }) => { /* ... */ })`
 
 
 
@@ -1467,7 +1467,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |deliverableHash|IPFS hash|The IPFS hash of the deliverable.|
 
 
-### [events.TaskWorkRatingRevealed.addListener(({ taskId, role, rating }) => { /* ... */ })](#events-TaskWorkRatingRevealed)
+### `events.TaskWorkRatingRevealed.addListener(({ taskId, role, rating }) => { /* ... */ })`
 
 
 
@@ -1480,7 +1480,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |rating|number|The rating value.|
 
 
-### [events.TaskFinalized.addListener(({ taskId }) => { /* ... */ })](#events-TaskFinalized)
+### `events.TaskFinalized.addListener(({ taskId }) => { /* ... */ })`
 
 
 
@@ -1491,7 +1491,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |taskId|number|The task ID of the task that was finalized.|
 
 
-### [events.TaskPayoutClaimed.addListener(({ taskId, role, token, amount }) => { /* ... */ })](#events-TaskPayoutClaimed)
+### `events.TaskPayoutClaimed.addListener(({ taskId, role, token, amount }) => { /* ... */ })`
 
 
 
@@ -1505,7 +1505,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |amount|number|The token amount.|
 
 
-### [events.TaskCanceled.addListener(({ taskId }) => { /* ... */ })](#events-TaskCanceled)
+### `events.TaskCanceled.addListener(({ taskId }) => { /* ... */ })`
 
 
 
@@ -1516,7 +1516,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |taskId|number|The task ID of the task that was canceled.|
 
 
-### [events.RewardPayoutCycleStarted.addListener(({ payoutId }) => { /* ... */ })](#events-RewardPayoutCycleStarted)
+### `events.RewardPayoutCycleStarted.addListener(({ payoutId }) => { /* ... */ })`
 
 
 
@@ -1527,7 +1527,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |payoutId|number|The reward payout cycle ID logged when a new reward payout cycle has started.|
 
 
-### [events.RewardPayoutCycleEnded.addListener(({ payoutId }) => { /* ... */ })](#events-RewardPayoutCycleEnded)
+### `events.RewardPayoutCycleEnded.addListener(({ payoutId }) => { /* ... */ })`
 
 
 
@@ -1538,7 +1538,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |payoutId|number|The reward payout cycle ID logged when a reward payout cycle has ended.|
 
 
-### [events.ColonyLabelRegistered.addListener(({ colony, label }) => { /* ... */ })](#events-ColonyLabelRegistered)
+### `events.ColonyLabelRegistered.addListener(({ colony, label }) => { /* ... */ })`
 
 
 
@@ -1550,7 +1550,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |label|string|The label registered|
 
 
-### [events.Transfer.addListener(({ from, to, value }) => { /* ... */ })](#events-Transfer)
+### `events.Transfer.addListener(({ from, to, value }) => { /* ... */ })`
 
 
 
@@ -1563,7 +1563,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |value|BigNumber|Event data indicating the amount transferred.|
 
 
-### [events.Mint.addListener(({ address, amount }) => { /* ... */ })](#events-Mint)
+### `events.Mint.addListener(({ address, amount }) => { /* ... */ })`
 
 
 
@@ -1575,7 +1575,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |amount|BigNumber|Event data indicating the amount of tokens minted.|
 
 
-### [events.ColonyFounderRoleSet.addListener(({ oldFounder, newFounder }) => { /* ... */ })](#events-ColonyFounderRoleSet)
+### `events.ColonyFounderRoleSet.addListener(({ oldFounder, newFounder }) => { /* ... */ })`
 
 
 
@@ -1587,7 +1587,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |newFounder|Address|The user receiving the colony founder role|
 
 
-### [events.ColonyAdminRoleSet.addListener(({ user }) => { /* ... */ })](#events-ColonyAdminRoleSet)
+### `events.ColonyAdminRoleSet.addListener(({ user }) => { /* ... */ })`
 
 
 
@@ -1598,7 +1598,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |user|Address|The newly-added colony admin user|
 
 
-### [events.ColonyAdminRoleRemoved.addListener(({ user }) => { /* ... */ })](#events-ColonyAdminRoleRemoved)
+### `events.ColonyAdminRoleRemoved.addListener(({ user }) => { /* ... */ })`
 
 
 
@@ -1609,7 +1609,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |user|Address|The removed colony admin user|
 
 
-### [events.ColonyFundsMovedBetweenFundingPots.addListener(({ fromPot, toPot, amount, token }) => { /* ... */ })](#events-ColonyFundsMovedBetweenFundingPots)
+### `events.ColonyFundsMovedBetweenFundingPots.addListener(({ fromPot, toPot, amount, token }) => { /* ... */ })`
 
 
 
@@ -1623,7 +1623,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |token|Address|The token address being transferred|
 
 
-### [events.ColonyFundsClaimed.addListener(({ token, fee, payoutRemainder }) => { /* ... */ })](#events-ColonyFundsClaimed)
+### `events.ColonyFundsClaimed.addListener(({ token, fee, payoutRemainder }) => { /* ... */ })`
 
 
 
@@ -1636,7 +1636,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |payoutRemainder|BigNumber|The remaining funds moved to the top-level domain pot|
 
 
-### [events.RewardPayoutClaimed.addListener(({ rewardPayoutId, user, fee, payoutRemainder }) => { /* ... */ })](#events-RewardPayoutClaimed)
+### `events.RewardPayoutClaimed.addListener(({ rewardPayoutId, user, fee, payoutRemainder }) => { /* ... */ })`
 
 
 
@@ -1650,7 +1650,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |payoutRemainder|BigNumber|The remaining reward amount paid out to the user|
 
 
-### [events.ColonyRewardInverseSet.addListener(({ rewardInverse }) => { /* ... */ })](#events-ColonyRewardInverseSet)
+### `events.ColonyRewardInverseSet.addListener(({ rewardInverse }) => { /* ... */ })`
 
 
 
@@ -1661,7 +1661,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |rewardInverse|BigNumber|The reward inverse value|
 
 
-### [events.ColonyInitialised.addListener(({ colonyNetwork }) => { /* ... */ })](#events-ColonyInitialised)
+### `events.ColonyInitialised.addListener(({ colonyNetwork }) => { /* ... */ })`
 
 
 
@@ -1672,7 +1672,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |colonyNetwork|Address|The Colony Network address|
 
 
-### [events.ColonyUpgraded.addListener(({ oldVersion, newVersion }) => { /* ... */ })](#events-ColonyUpgraded)
+### `events.ColonyUpgraded.addListener(({ oldVersion, newVersion }) => { /* ... */ })`
 
 
 

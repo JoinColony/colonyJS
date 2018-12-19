@@ -85,7 +85,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |skillId|number|A skillId for this domain.|
 |parentSkillId|number|The parent skill id.|
-|SkillAdded|object|Contains the data defined in [SkillAdded](#events-SkillAdded)|
+|SkillAdded|object|Contains the data defined in [SkillAdded](#eventsskilladdedaddlistener-skillid-parentskillid-------)|
 
 ### `mintTokensForColonyNetwork.send({ amount }, options)`
 
@@ -105,7 +105,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |address|Address|The address that initiated the mint event.|
 |amount|BigNumber|Event data indicating the amount of tokens minted.|
-|Mint|object|Contains the data defined in [Mint](#events-Mint)|
+|Mint|object|Contains the data defined in [Mint](#eventsmintaddlistener-address-amount-------)|
 
 ### `setNetworkFeeInverse.send({ feeInverse }, options)`
 
@@ -130,7 +130,7 @@ An instance of a `ContractResponse`
 Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events) to interact with these events.
 
 
-### [events.SkillAdded.addListener(({ skillId, parentSkillId }) => { /* ... */ })](#events-SkillAdded)
+### `events.SkillAdded.addListener(({ skillId, parentSkillId }) => { /* ... */ })`
 
 
 
@@ -142,7 +142,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |parentSkillId|number|The parent skill id.|
 
 
-### [events.Mint.addListener(({ address, amount }) => { /* ... */ })](#events-Mint)
+### `events.Mint.addListener(({ address, amount }) => { /* ... */ })`
 
 
 

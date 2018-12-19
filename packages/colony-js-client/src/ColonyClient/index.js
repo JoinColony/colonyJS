@@ -832,7 +832,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Move any funds received by the colony for `token` denomination to the top-levl domain pot, siphoning off a small amount to the rewards pot. No fee is taken if called against a colony's own token.
+    Move any funds received by the colony for `token` denomination to the top-level domain pot, siphoning off a small amount to the rewards pot. No fee is taken if called against a colony's own token.
   */
   claimColonyFunds: ColonyClient.Sender<
     {
