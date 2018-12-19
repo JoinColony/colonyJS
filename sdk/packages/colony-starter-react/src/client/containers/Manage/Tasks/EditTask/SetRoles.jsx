@@ -35,7 +35,7 @@ class SetRolesContainer extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (!prevProps.setTaskRoleSuccess && this.props.setTaskRoleSuccess) {
+    if (!prevProps.getTaskSuccess && this.props.getTaskSuccess) {
       this.setState({
         roles: {
           manager: {
@@ -164,6 +164,9 @@ class SetRolesContainer extends Component {
 const mapStateToProps = state => ({
   admin: state.authority.admin,
   colonyClient: state.colony.colonyClient,
+  getTaskError: state.task.getTaskError,
+  getTaskLoading: state.task.getTaskLoading,
+  getTaskSuccess: state.task.getTaskSuccess,
   removeTaskRoleError: state.task.removeTaskRoleError,
   removeTaskRoleLoading: state.task.removeTaskRoleLoading,
   removeTaskRoleSuccess: state.task.removeTaskRoleSuccess,

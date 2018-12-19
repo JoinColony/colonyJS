@@ -16,6 +16,12 @@ class SignTaskContainer extends Component {
     this.props.getMultisigOperations(this.props.colonyClient, this.props.task.id)
   }
 
+  componentDidUpdate(prevProps) {
+    if (!prevProps.getTaskSuccess && this.props.getTaskSuccess) {
+      this.props.getMultisigOperations(this.props.colonyClient, this.props.task.id)
+    }
+  }
+
   componentWillUnmount() {
     this.props.resetActions()
   }
@@ -54,6 +60,9 @@ const mapStateToProps = state => ({
   getMultisigOperationsError: state.task.getMultisigOperationsError,
   getMultisigOperationsLoading: state.task.getMultisigOperationsLoading,
   getMultisigOperationsSuccess: state.task.getMultisigOperationsSuccess,
+  getTaskError: state.task.getTaskError,
+  getTaskLoading: state.task.getTaskLoading,
+  getTaskSuccess: state.task.getTaskSuccess,
   multisigOperations: state.task.multisigOperations,
   signTaskError: state.task.signTaskError,
   signTaskLoading: state.task.signTaskLoading,

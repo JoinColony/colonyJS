@@ -25,7 +25,7 @@ class SetDetailsContainer extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (!prevProps.setDetailsSuccess && this.props.setDetailsSuccess) {
+    if (!prevProps.getTaskSuccess && this.props.getTaskSuccess) {
       this.setState({
         task: {
           domainId: this.props.task.domainId,
@@ -132,6 +132,9 @@ class SetDetailsContainer extends Component {
 
 const mapStateToProps = state => ({
   colonyClient: state.colony.colonyClient,
+  getTaskError: state.task.getTaskError,
+  getTaskLoading: state.task.getTaskLoading,
+  getTaskSuccess: state.task.getTaskSuccess,
   setTaskDetailsError: state.task.setTaskDetailsError,
   setTaskDetailsLoading: state.task.setTaskDetailsLoading,
   setTaskDetailsSuccess: state.task.setTaskDetailsSuccess,
