@@ -29,15 +29,23 @@ yarn deploy-contracts
 
 ### Start TrufflePig
 
-Open a new terminal window and start [TrufflePig](https://github.com/JoinColony/trufflepig):
+Once the contracts have been deployed, start [TrufflePig](https://github.com/JoinColony/trufflepig):
 
 ```
 yarn start-trufflepig
 ```
 
+### Seed Network
+
+Open a new terminal window and run the seed network script:
+
+```
+yarn seed-network
+```
+
 ### Start Webpack Dev Server
 
-Open a new terminal window and start [webpack-dev-server](https://github.com/webpack/webpack-dev-server):
+Once the network has been seeded, start [webpack-dev-server](https://github.com/webpack/webpack-dev-server):
 
 ```
 yarn start
