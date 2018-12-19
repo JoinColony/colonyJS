@@ -144,7 +144,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |from|Address|Event data indicating the 'from' address.|
 |to|Address|Event data indicating the 'to' address.|
 |value|BigNumber|Event data indicating the amount transferred.|
-|Transfer|object|Contains the data defined in [Transfer](#events-Transfer)|
+|Transfer|object|Contains the data defined in [Transfer](#eventstransferaddlistener-from-to-value-------)|
 
 ### `approve.send({ user, amount }, options)`
 
@@ -166,7 +166,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |owner|Address|Event data indicating the token owner ('from' address).|
 |spender|Address|Event data indicating the spender (who is given the `allowance`).|
 |value|BigNumber|Event data indicating the new value of allowed transfer.|
-|Approval|object|Contains the data defined in [Approval](#events-Approval)|
+|Approval|object|Contains the data defined in [Approval](#eventsapprovaladdlistener-owner-spender-value-------)|
 
 ### `mint.send({ amount }, options)`
 
@@ -186,7 +186,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |address|Address|The address that initiated the mint event.|
 |amount|BigNumber|Event data indicating the amount of tokens minted.|
-|Mint|object|Contains the data defined in [Mint](#events-Mint)|
+|Mint|object|Contains the data defined in [Mint](#eventsmintaddlistener-address-amount-------)|
 
 ### `burn.send({ amount }, options)`
 
@@ -206,7 +206,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |address|Address|The address that initiated the burn event.|
 |amount|BigNumber|Event data indicating the amount burned.|
-|Burn|object|Contains the data defined in [Burn](#events-Burn)|
+|Burn|object|Contains the data defined in [Burn](#eventsburnaddlistener-address-amount-------)|
 
 ### `setOwner.send({ owner }, options)`
 
@@ -225,7 +225,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |Event data|Type|Description|
 |---|---|---|
 |owner|Address|Event data indicating the new owner.|
-|LogSetOwner|object|Contains the data defined in [LogSetOwner](#events-LogSetOwner)|
+|LogSetOwner|object|Contains the data defined in [LogSetOwner](#eventslogsetowneraddlistener-owner-------)|
 
 ### `setAuthority.send({ authority }, options)`
 
@@ -244,7 +244,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |Event data|Type|Description|
 |---|---|---|
 |authority|Address|Event data indicating the address given authority.|
-|LogSetAuthority|object|Contains the data defined in [LogSetAuthority](#events-LogSetAuthority)|
+|LogSetAuthority|object|Contains the data defined in [LogSetAuthority](#eventslogsetauthorityaddlistener-authority-------)|
 
   
   
@@ -253,7 +253,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events) to interact with these events.
 
 
-### [events.Transfer.addListener(({ from, to, value }) => { /* ... */ })](#events-Transfer)
+### `events.Transfer.addListener(({ from, to, value }) => { /* ... */ })`
 
 
 
@@ -266,7 +266,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |value|BigNumber|Event data indicating the amount transferred.|
 
 
-### [events.Approval.addListener(({ owner, spender, value }) => { /* ... */ })](#events-Approval)
+### `events.Approval.addListener(({ owner, spender, value }) => { /* ... */ })`
 
 
 
@@ -279,7 +279,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |value|BigNumber|Event data indicating the new value of allowed transfer.|
 
 
-### [events.Burn.addListener(({ address, amount }) => { /* ... */ })](#events-Burn)
+### `events.Burn.addListener(({ address, amount }) => { /* ... */ })`
 
 
 
@@ -291,7 +291,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |amount|BigNumber|Event data indicating the amount burned.|
 
 
-### [events.LogSetAuthority.addListener(({ authority }) => { /* ... */ })](#events-LogSetAuthority)
+### `events.LogSetAuthority.addListener(({ authority }) => { /* ... */ })`
 
 
 
@@ -302,7 +302,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |authority|Address|Event data indicating the address given authority.|
 
 
-### [events.LogSetOwner.addListener(({ owner }) => { /* ... */ })](#events-LogSetOwner)
+### `events.LogSetOwner.addListener(({ owner }) => { /* ... */ })`
 
 
 
@@ -313,7 +313,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |owner|Address|Event data indicating the new owner.|
 
 
-### [events.Mint.addListener(({ address, amount }) => { /* ... */ })](#events-Mint)
+### `events.Mint.addListener(({ address, amount }) => { /* ... */ })`
 
 
 

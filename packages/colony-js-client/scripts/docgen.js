@@ -180,7 +180,7 @@ function printEvents(events) {
 Refer to the \`ContractEvent\` class [here](/colonyjs/docs-contractclient/#events) to interact with these events.
 
 ` + events.map(event => `
-### [events.${event.name}.addListener((${printArgs(event.args)}) => { /* ... */ })](#events-${event.name})
+### \`events.${event.name}.addListener((${printArgs(event.args)}) => { /* ... */ })\`
 
 ${event.description}
 ${event.args && event.args.length ? '\n**Arguments**\n\n' : ''}${printProps('Argument', event.args)}
@@ -284,7 +284,8 @@ function getEventName(p) {
 }
 
 function getNestedEventDescription(event) {
-  return `Contains the data defined in [${event.name}](#events-${event.name})`;
+  const args = printArgs(event.args).toLowerCase().replace(/\s/g, '').replace(/\W/g, '-');
+  return `Contains the data defined in [${event.name}](#events${event.name.toLowerCase()}addlistener${args}------)`;
 }
 
 function formatDescription(str) {

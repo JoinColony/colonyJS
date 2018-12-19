@@ -503,7 +503,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |skillId|number||
 |parentSkillId|number||
-|SkillAdded|object|Contains the data defined in [SkillAdded](#events-SkillAdded)|
+|SkillAdded|object|Contains the data defined in [SkillAdded](#eventsskilladdedaddlistener-skillid-parentskillid-------)|
 
 ### `setTokenLocking.send({ tokenLockingAddress }, options)`
 
@@ -522,7 +522,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |Event data|Type|Description|
 |---|---|---|
 |tokenLocking|Address|Address of the TokenLocking contract|
-|TokenLockingAddressSet|object|Contains the data defined in [TokenLockingAddressSet](#events-TokenLockingAddressSet)|
+|TokenLockingAddressSet|object|Contains the data defined in [TokenLockingAddressSet](#eventstokenlockingaddresssetaddlistener-tokenlocking-------)|
 
 ### `createMetaColony.send({ tokenAddress }, options)`
 
@@ -543,7 +543,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |colonyAddress|number|Address of the Meta Colony|
 |tokenAddress|Address|Address of the associated CLNY token|
 |rootSkillId|number|ID of the root skill of the global skills tree (normally, this is 2)|
-|MetaColonyCreated|object|Contains the data defined in [MetaColonyCreated](#events-MetaColonyCreated)|
+|MetaColonyCreated|object|Contains the data defined in [MetaColonyCreated](#eventsmetacolonycreatedaddlistener-colonyaddress-tokenaddress-rootskillid-------)|
 
 ### `createColony.send({ tokenAddress }, options)`
 
@@ -564,7 +564,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |colonyId|number|ID of the newly-created colony|
 |colonyAddress|Address|Address of the newly-created colony|
 |tokenAddress|Address|Address of the associated colony token|
-|ColonyAdded|object|Contains the data defined in [ColonyAdded](#events-ColonyAdded)|
+|ColonyAdded|object|Contains the data defined in [ColonyAdded](#eventscolonyaddedaddlistener-colonyid-colonyaddress-tokenaddress-------)|
 
 ### `addColonyVersion.send({ version, resolver }, options)`
 
@@ -585,7 +585,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |version|number|The new int colony version, e.g. 2, 3, 4, etc|
 |resolver|Address|The new colony contract resolver contract instance|
-|ColonyVersionAdded|object|Contains the data defined in [ColonyVersionAdded](#events-ColonyVersionAdded)|
+|ColonyVersionAdded|object|Contains the data defined in [ColonyVersionAdded](#eventscolonyversionaddedaddlistener-version-resolver-------)|
 
 ### `startTokenAuction.send({ tokenAddress }, options)`
 
@@ -606,7 +606,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |auction|string|The address of the auction contract|
 |token|Address|The address of the token being auctioned|
 |quantity|BigNumber|The amount of available tokens for auction|
-|AuctionCreated|object|Contains the data defined in [AuctionCreated](#events-AuctionCreated)|
+|AuctionCreated|object|Contains the data defined in [AuctionCreated](#eventsauctioncreatedaddlistener-auction-token-quantity-------)|
 
 ### `setupRegistrar.send({ ens, rootNode }, options)`
 
@@ -644,7 +644,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |user|Address|Address of the user that registered a label|
 |label|string|The label registered|
-|UserLabelRegistered|object|Contains the data defined in [UserLabelRegistered](#events-UserLabelRegistered)|
+|UserLabelRegistered|object|Contains the data defined in [UserLabelRegistered](#eventsuserlabelregisteredaddlistener-user-label-------)|
 
   
   
@@ -653,7 +653,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events) to interact with these events.
 
 
-### [events.ColonyAdded.addListener(({ colonyId, colonyAddress, tokenAddress }) => { /* ... */ })](#events-ColonyAdded)
+### `events.ColonyAdded.addListener(({ colonyId, colonyAddress, tokenAddress }) => { /* ... */ })`
 
 
 
@@ -666,7 +666,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |tokenAddress|Address|Address of the associated colony token|
 
 
-### [events.SkillAdded.addListener(({ skillId, parentSkillId }) => { /* ... */ })](#events-SkillAdded)
+### `events.SkillAdded.addListener(({ skillId, parentSkillId }) => { /* ... */ })`
 
 
 
@@ -678,7 +678,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |parentSkillId|number||
 
 
-### [events.AuctionCreated.addListener(({ auction, token, quantity }) => { /* ... */ })](#events-AuctionCreated)
+### `events.AuctionCreated.addListener(({ auction, token, quantity }) => { /* ... */ })`
 
 
 
@@ -691,7 +691,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |quantity|BigNumber|The amount of available tokens for auction|
 
 
-### [events.UserLabelRegistered.addListener(({ user, label }) => { /* ... */ })](#events-UserLabelRegistered)
+### `events.UserLabelRegistered.addListener(({ user, label }) => { /* ... */ })`
 
 
 
@@ -703,7 +703,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |label|string|The label registered|
 
 
-### [events.ColonyLabelRegistered.addListener(({ colony, label }) => { /* ... */ })](#events-ColonyLabelRegistered)
+### `events.ColonyLabelRegistered.addListener(({ colony, label }) => { /* ... */ })`
 
 
 
@@ -715,7 +715,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |label|string|The label registered|
 
 
-### [events.ReputationMiningInitialised.addListener(({ inactiveReputationMiningCycle }) => { /* ... */ })](#events-ReputationMiningInitialised)
+### `events.ReputationMiningInitialised.addListener(({ inactiveReputationMiningCycle }) => { /* ... */ })`
 
 
 
@@ -726,7 +726,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |inactiveReputationMiningCycle|Address|Address of the newly created ReputationMiningCycle used in logging reputation changes|
 
 
-### [events.ReputationMiningCycleComplete.addListener(({ hash, nNodes }) => { /* ... */ })](#events-ReputationMiningCycleComplete)
+### `events.ReputationMiningCycleComplete.addListener(({ hash, nNodes }) => { /* ... */ })`
 
 
 
@@ -738,7 +738,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |nNodes|number|The number of nodes in the reputation state|
 
 
-### [events.ReputationRootHashSet.addListener(({ newHash, newNNodes, stakers, reward }) => { /* ... */ })](#events-ReputationRootHashSet)
+### `events.ReputationRootHashSet.addListener(({ newHash, newNNodes, stakers, reward }) => { /* ... */ })`
 
 
 
@@ -752,7 +752,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |reward|undefined|Amount of CLNY distributed as reward to miners|
 
 
-### [events.TokenLockingAddressSet.addListener(({ tokenLocking }) => { /* ... */ })](#events-TokenLockingAddressSet)
+### `events.TokenLockingAddressSet.addListener(({ tokenLocking }) => { /* ... */ })`
 
 
 
@@ -763,7 +763,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |tokenLocking|Address|Address of the TokenLocking contract|
 
 
-### [events.ColonyNetworkInitialised.addListener(({ resolver }) => { /* ... */ })](#events-ColonyNetworkInitialised)
+### `events.ColonyNetworkInitialised.addListener(({ resolver }) => { /* ... */ })`
 
 
 
@@ -774,7 +774,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |resolver|Address|The Resolver contract address used by the Colony version 1|
 
 
-### [events.MiningCycleResolverSet.addListener(({ miningCycleResolver }) => { /* ... */ })](#events-MiningCycleResolverSet)
+### `events.MiningCycleResolverSet.addListener(({ miningCycleResolver }) => { /* ... */ })`
 
 
 
@@ -785,7 +785,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |miningCycleResolver|Address|Resolver address for the ReputationMiningCycle contract|
 
 
-### [events.NetworkFeeInverseSet.addListener(({ feeInverse }) => { /* ... */ })](#events-NetworkFeeInverseSet)
+### `events.NetworkFeeInverseSet.addListener(({ feeInverse }) => { /* ... */ })`
 
 
 
@@ -796,7 +796,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |feeInverse|BigNumber|The network fee inverse value|
 
 
-### [events.ColonyVersionAdded.addListener(({ version, resolver }) => { /* ... */ })](#events-ColonyVersionAdded)
+### `events.ColonyVersionAdded.addListener(({ version, resolver }) => { /* ... */ })`
 
 
 
@@ -808,7 +808,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |resolver|Address|The new colony contract resolver contract instance|
 
 
-### [events.MetaColonyCreated.addListener(({ colonyAddress, tokenAddress, rootSkillId }) => { /* ... */ })](#events-MetaColonyCreated)
+### `events.MetaColonyCreated.addListener(({ colonyAddress, tokenAddress, rootSkillId }) => { /* ... */ })`
 
 
 
