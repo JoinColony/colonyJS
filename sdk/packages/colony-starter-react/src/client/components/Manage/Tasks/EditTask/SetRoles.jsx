@@ -2,14 +2,21 @@ import React from 'react'
 import styles from './SetRoles.scss'
 
 const SetRoles = ({
+  canRemoveEvaluatorRole,
+  canRemoveWorkerRole,
   canSetManagerRole,
   canSetEvaluatorRole,
   canSetWorkerRole,
   handleChange,
+  removeEvaluatorRole,
+  removeWorkerRole,
+  removeTaskRoleError,
+  removeTaskRoleLoading,
+  removeTaskRoleSuccess,
+  roles,
   setManagerRole,
   setEvaluatorRole,
   setWorkerRole,
-  roles,
   setTaskRoleError,
   setTaskRoleLoading,
   setTaskRoleSuccess,
@@ -49,6 +56,9 @@ const SetRoles = ({
       <button className={canSetEvaluatorRole() ? null : styles.disabled} onClick={setEvaluatorRole}>
         {'Set Evaluator Role'}
       </button>
+      <button className={canRemoveEvaluatorRole() ? null : styles.disabled} onClick={removeEvaluatorRole}>
+        {'Remove Evaluator Role'}
+      </button>
     </div>
     <div className={styles.field}>
       <label htmlFor="worker">
@@ -66,22 +76,25 @@ const SetRoles = ({
       <button className={canSetWorkerRole() ? null : styles.disabled} onClick={setWorkerRole}>
         {'Set Worker Role'}
       </button>
+      <button className={canRemoveWorkerRole() ? null : styles.disabled} onClick={removeWorkerRole}>
+        {'Remove Worker Role'}
+      </button>
     </div>
-    {setTaskRoleError &&
+    {(setTaskRoleError || removeTaskRoleError) &&
       <div className={styles.message}>
         <span className={styles.error}>
-          {setTaskRoleError}
+          {(setTaskRoleError || removeTaskRoleError)}
         </span>
       </div>
     }
-    {setTaskRoleLoading &&
+    {(setTaskRoleLoading || removeTaskRoleLoading) &&
       <div className={styles.message}>
         <span>
           {'loading...'}
         </span>
       </div>
     }
-    {setTaskRoleSuccess &&
+    {(setTaskRoleSuccess || removeTaskRoleSuccess) &&
       <div className={styles.message}>
         <span>
           {'success'}
