@@ -48,15 +48,6 @@ DATABASE = {
 // Testing Colony Starter Basic examples
 describe('Colony Starter Basic', () => {
 
-  // Instantiate TrufflepigLoader
-  const loader = new TrufflepigLoader();
-
-  // Get ganache test accounts
-  const accountsObject = await loader.getAccounts();
-
-  // Convert accounts object into an array of public keys
-  const accounts = Object.keys(accountsObject);
-
   // A unix timestamp representing 31 days from now
   const futureDueDate = new Date(Date.now() + 2678400000);
 
@@ -65,6 +56,15 @@ describe('Colony Starter Basic', () => {
     networkClient: [],    // networkClient (per account)
     colonyClient: [],     // colonyClient (per account)
   };
+
+  // Test TrufflepigLoader getAccounts()
+  test('TrufflepigLoader getAccounts() works', async () => {
+    const loader = new TrufflepigLoader();
+    const accountsObject = await loader.getAccounts();
+    accountsArray = Object.keys(accountsObject);
+    state.accounts = accountsArray.map(account => account.toLowerCase());
+    expect(state.accounts.length).toEqual(12);
+  }, 5000)
 
   // Test the connectNetwork() example from account[0]
   test('account[0] connectNetwork() works', async () => {
@@ -361,13 +361,13 @@ describe('Colony Starter Basic', () => {
     await setTaskEvaluatorRole(
       state.colonyClient[0],          // colonyClient
       state.task.id,                  // taskId
-      accounts[1],                    // user
+      state.accounts[1],              // user
     );
     expect(JSON.parse(DATABASE.operations.setTaskEvaluatorRole)).toEqual(expect.objectContaining({
       payload: expect.objectContaining({
         inputValues: expect.objectContaining({
           taskId: state.task.id,
-          user: accounts[1],
+          user: state.accounts[1],
         }),
       }),
     }));
@@ -413,8 +413,9 @@ describe('Colony Starter Basic', () => {
       state.colonyClient[1],          // colonyClient
       state.task.id,                  // taskId
     );
+    taskRole.address = taskRole.address.toLowerCase();
     expect(taskRole).toEqual(expect.objectContaining({
-      address: expect.stringMatching(accounts[1]),
+      address: expect.stringMatching(state.accounts[1]),
     }));
   }, 5000);
 
@@ -423,13 +424,13 @@ describe('Colony Starter Basic', () => {
     await setTaskWorkerRole(
       state.colonyClient[0],          // colonyClient
       state.task.id,                  // taskId
-      accounts[2],                    // user
+      state.accounts[2],              // user
     );
     expect(JSON.parse(DATABASE.operations.setTaskWorkerRole)).toEqual(expect.objectContaining({
       payload: expect.objectContaining({
         inputValues: expect.objectContaining({
           taskId: state.task.id,
-          user: accounts[2],
+          user: state.accounts[2],
         }),
       }),
     }));
@@ -475,8 +476,9 @@ describe('Colony Starter Basic', () => {
       state.colonyClient[2],          // colonyClient
       state.task.id,                  // taskId
     );
+    taskRole.address = taskRole.address.toLowerCase();
     expect(taskRole).toEqual(expect.objectContaining({
-      address: expect.stringMatching(accounts[2]),
+      address: expect.stringMatching(state.accounts[2]),
     }));
   }, 5000);
 
