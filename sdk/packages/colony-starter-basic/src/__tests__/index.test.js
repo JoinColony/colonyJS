@@ -1,4 +1,7 @@
-// Import big number library
+// Import TrufflepigLoader
+const { TrufflepigLoader } = require('@colony/colony-js-contract-loader-http');
+
+// Import Big Number library
 const BN = require('bn.js');
 
 // Import examples
@@ -42,18 +45,20 @@ DATABASE = {
   operations: {},
 };
 
-// Test accounts
-const accounts = [
-  '0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1',
-  '0xFFcf8FDEE72ac11b5c542428B35EEF5769C409f0',
-  '0x22d491Bde2303f2f43325b2108D26f1eAbA1e32b'
-];
-
-// A unix timestamp representing 31 days from now
-const futureDueDate = new Date(Date.now() + 2678400000);
-
 // Testing Colony Starter Basic examples
 describe('Colony Starter Basic', () => {
+
+  // Instantiate TrufflepigLoader
+  const loader = new TrufflepigLoader();
+
+  // Get ganache test accounts
+  const accountsObject = await loader.getAccounts();
+
+  // Convert accounts object into an array of public keys
+  const accounts = Object.keys(accountsObject);
+
+  // A unix timestamp representing 31 days from now
+  const futureDueDate = new Date(Date.now() + 2678400000);
 
   // State
   const state = {
