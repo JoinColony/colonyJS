@@ -34,9 +34,7 @@ export const getToken = async (colonyClient) => {
   // set token address
   const address = colonyClient.token.contract.address
 
-  // TODO: Add the following back in once colonyJS#306 is resolved
-  // get token info
-  // const info = await colonyClient.token.getTokenInfo.call()
+  const info = await colonyClient.token.getTokenInfo.call()
 
   // get total supply
   const { amount } = await colonyClient.token.getTotalSupply.call()
@@ -48,8 +46,7 @@ export const getToken = async (colonyClient) => {
   return {
     address,
     supply,
-    // TODO: Add the following back in once colonyJS#306 is resolved
-    // ...info,
+    ...info,
   }
 
 }

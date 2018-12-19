@@ -7,7 +7,7 @@ export const addDomain = async (colonyClient) => {
 
   // add domain
   const tx = await colonyClient.addDomain.send({
-    parentSkillId: 1,
+    parentDomainId: 1,
   })
 
   // check unsuccessful
