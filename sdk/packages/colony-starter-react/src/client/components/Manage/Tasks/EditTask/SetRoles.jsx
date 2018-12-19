@@ -94,7 +94,10 @@ const SetRoles = ({
         </span>
       </div>
     }
-    {(setTaskRoleSuccess || removeTaskRoleSuccess) &&
+    {(
+      (setTaskRoleSuccess && !setTaskRoleLoading && !removeTaskRoleLoading && !setTaskRoleError && !removeTaskRoleError) ||
+      (removeTaskRoleSuccess && !removeTaskRoleLoading && !setTaskRoleLoading && !setTaskRoleError && !removeTaskRoleError)
+    ) &&
       <div className={styles.message}>
         <span>
           {'success'}
