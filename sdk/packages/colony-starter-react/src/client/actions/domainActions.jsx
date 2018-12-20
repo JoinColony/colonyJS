@@ -10,6 +10,7 @@ export const addDomain = (colonyClient) => ({
   payload: domainActions.addDomain(colonyClient)
     .then(domain => {
       store.dispatch(getDomains(colonyClient))
+      store.dispatch(getPots(colonyClient))
       store.dispatch(addDomainSuccess(true))
     })
     .catch(error => {
