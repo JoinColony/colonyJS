@@ -33,8 +33,12 @@ class TaskActionsContainer extends Component {
   }
 
   canCancelTask() {
+    const status = this.props.task.status
     const completionDate = this.props.task.completionDate
-    return completionDate !== null
+    return (
+      status === 'ACTIVE' &&
+      completionDate !== null
+    )
   }
 
   canClaimPayout() {
@@ -77,10 +81,9 @@ class TaskActionsContainer extends Component {
     const managerRating = this.props.task.roles.manager.rating
     const workerRating = this.props.task.roles.worker.rating
     return (
-      (userAddress === evaluatorAddress || userAddress === workerAddress) &&
+      (userAddress === evaluatorAddress && workerRating === 0 || userAddress === workerAddress && managerRating === 0) &&
       completionDate !== null &&
-      ratingsCount === 2 &&
-      (managerRating === 0 && workerRating === 0)
+      ratingsCount === 2
     )
   }
 
