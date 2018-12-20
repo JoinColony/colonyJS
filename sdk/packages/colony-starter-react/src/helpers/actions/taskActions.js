@@ -302,6 +302,12 @@ export const getMultisigOperations = async (colonyClient, taskId) => {
   // get JSON formatted cancel task operation from local storage
   const cancelTaskOperationJSON = localStorage.getItem('cancelTaskOperationJSON')
 
+  // get JSON formatted task evaluator role operation from local storage
+  const removeTaskEvaluatorRoleOperationJSON = localStorage.getItem('removeTaskEvaluatorRoleOperationJSON')
+
+  // get JSON formatted task worker role operation from local storage
+  const removeTaskWorkerRoleOperationJSON = localStorage.getItem('removeTaskWorkerRoleOperationJSON')
+
   // get JSON formatted task brief operation from local storage
   const setTaskBriefOperationJSON = localStorage.getItem('setTaskBriefOperationJSON')
 
@@ -346,6 +352,12 @@ export const getMultisigOperations = async (colonyClient, taskId) => {
 
   // set setTaskWorkerRoleOperation
   const setTaskWorkerRoleOperation = JSON.parse(setTaskWorkerRoleOperationJSON)
+
+  // set removeTaskEvaluatorRoleOperation
+  const removeTaskEvaluatorRoleOperation = JSON.parse(removeTaskEvaluatorRoleOperationJSON)
+
+  // set removeTaskWorkerRoleOperation
+  const removeTaskWorkerRoleOperation = JSON.parse(removeTaskWorkerRoleOperationJSON)
 
   // check if cancel task operation exists for contract and task
   if (
@@ -507,6 +519,46 @@ export const getMultisigOperations = async (colonyClient, taskId) => {
 
   }
 
+  // check if task evaluator role operation exists for contract and task
+  if (
+    removeTaskEvaluatorRoleOperationJSON &&
+    removeTaskEvaluatorRoleOperation.payload.sourceAddress === colonyAddress &&
+    removeTaskEvaluatorRoleOperation.payload.inputValues.taskId === taskId
+  ) {
+
+    // restore operation
+    const operation = await colonyClient.removeTaskEvaluatorRole.restoreOperation(removeTaskEvaluatorRoleOperationJSON)
+
+    // check user
+    if (operation.requiredSignees.includes(userAddress)) {
+
+      // push operation
+      operations.push(operation)
+
+    }
+
+  }
+
+  // check if task worker role operation exists for contract and task
+  if (
+    removeTaskWorkerRoleOperationJSON &&
+    removeTaskWorkerRoleOperation.payload.sourceAddress === colonyAddress &&
+    removeTaskWorkerRoleOperation.payload.inputValues.taskId === taskId
+  ) {
+
+    // restore operation
+    const operation = await colonyClient.removeTaskWorkerRole.restoreOperation(removeTaskWorkerRoleOperationJSON)
+
+    // check user
+    if (operation.requiredSignees.includes(userAddress)) {
+
+      // push operation
+      operations.push(operation)
+
+    }
+
+  }
+
   // return operations
   return operations
 
@@ -571,8 +623,6 @@ export const removeTaskRole = async (colonyClient, taskId, role) => {
     const removeTaskWorkerRoleOperation = await colonyClient.removeTaskWorkerRole.startOperation({
       taskId,
     })
-
-    console.log('removeTaskWorkerRoleOperation', removeTaskWorkerRoleOperation)
 
     // serialize operation into JSON format
     const removeTaskWorkerRoleOperationJSON = removeTaskWorkerRoleOperation.toJSON()
@@ -833,8 +883,6 @@ export const setTaskRole = async (colonyClient, taskId, role, user) => {
       user,
     })
 
-    console.log('setTaskWorkerRoleOperation', setTaskWorkerRoleOperation)
-
     // serialize operation into JSON format
     const setTaskWorkerRoleOperationJSON = setTaskWorkerRoleOperation.toJSON()
 
@@ -857,6 +905,12 @@ export const signTask = async (colonyClient, taskId) => {
 
   // get JSON formatted cancel task operation from local storage
   const cancelTaskOperationJSON = localStorage.getItem('cancelTaskOperationJSON')
+
+  // get JSON formatted task evaluator role operation from local storage
+  const removeTaskEvaluatorRoleOperationJSON = localStorage.getItem('removeTaskEvaluatorRoleOperationJSON')
+
+  // get JSON formatted task worker role operation from local storage
+  const removeTaskWorkerRoleOperationJSON = localStorage.getItem('removeTaskWorkerRoleOperationJSON')
 
   // get JSON formatted task brief operation from local storage
   const setTaskBriefOperationJSON = localStorage.getItem('setTaskBriefOperationJSON')
@@ -902,6 +956,12 @@ export const signTask = async (colonyClient, taskId) => {
 
   // set setTaskWorkerRoleOperation
   const setTaskWorkerRoleOperation = JSON.parse(setTaskWorkerRoleOperationJSON)
+
+  // set removeTaskEvaluatorRoleOperation
+  const removeTaskEvaluatorRoleOperation = JSON.parse(removeTaskEvaluatorRoleOperationJSON)
+
+  // set removeTaskWorkerRoleOperation
+  const removeTaskWorkerRoleOperation = JSON.parse(removeTaskWorkerRoleOperationJSON)
 
   // check if cancel task operation exists for contract and task
   if (
@@ -1442,7 +1502,7 @@ export const signRemoveTaskEvaluatorRole = async (colonyClient, operationJSON) =
     const removeTaskEvaluatorRoleOperationJSON = removeTaskEvaluatorRoleOperation.toJSON()
 
     // save operation to local storage
-    localStorage.removeItem('removeTaskEvaluatorRoleOperationJSON', removeTaskEvaluatorRoleOperationJSON)
+    localStorage.setItem('removeTaskEvaluatorRoleOperationJSON', removeTaskEvaluatorRoleOperationJSON)
 
   }
 
@@ -1489,7 +1549,7 @@ export const signRemoveTaskWorkerRole = async (colonyClient, operationJSON) => {
     const removeTaskWorkerRoleOperationJSON = removeTaskWorkerRoleOperation.toJSON()
 
     // save operation to local storage
-    localStorage.removeItem('removeTaskWorkerRoleOperationJSON', removeTaskWorkerRoleOperationJSON)
+    localStorage.setItem('removeTaskWorkerRoleOperationJSON', removeTaskWorkerRoleOperationJSON)
 
   }
 

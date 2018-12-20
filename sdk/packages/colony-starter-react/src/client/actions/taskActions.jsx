@@ -106,6 +106,7 @@ export const fundTask = (colonyClient, taskId, amount) => ({
   payload: taskActions.fundTask(colonyClient, taskId, amount)
     .then(success => {
       store.dispatch(setStatePots(null))
+      store.dispatch(setStateTasks(null))
       store.dispatch(fundTaskSuccess(true))
     })
     .catch(error => {

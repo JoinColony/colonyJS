@@ -37,15 +37,9 @@ const TaskActions = ({
       <button className={canFinalizeTask() ? null : styles.disabled} onClick={finalizeTask}>
         {'Finalize Task'}
       </button>
-      {/*
-
-        // TODO: Add the following back in once colonyJS#314 is included
-
-        <button className={canCancelTask() ? null : styles.disabled} onClick={cancelTask}>
-          {'Cancel Task'}
-        </button>
-
-      */}
+      <button className={canCancelTask() ? null : styles.disabled} onClick={cancelTask}>
+        {'Cancel Task'}
+      </button>
       <button className={canClaimPayout() ? null : styles.disabled} onClick={claimPayout}>
         {'Claim Payout'}
       </button>

@@ -1,26 +1,18 @@
 // import TrufflepigLoader
 const { TrufflepigLoader } = require('@colony/colony-js-contract-loader-http')
 
-// instantiate TrufflepigLoader
-const loader = new TrufflepigLoader()
-
 // getAccounts
 
 export const getAccounts = async () => {
 
-  // set accounts
-  let accounts = []
+  // instantiate TrufflepigLoader
+  const loader = new TrufflepigLoader()
 
-  // get first 10 accounts
-  for (let i = 0; i < 10; i++) {
+  // get ganache test accounts
+  const accountsObject = await loader.getAccounts()
 
-    // get account
-    const { address } = await loader.getAccount(i)
-
-    // push account
-    accounts.push(address)
-
-  }
+  // convert accounts object into an array of public keys
+  const accounts = Object.keys(accountsObject)
 
   // return accounts
   return accounts
