@@ -36,7 +36,7 @@ docker pull ethereum/solc:0.4.23
 
 ### colonyNetwork
 
-Using colonyJS in a local development environment will require a locally deployed version of the colonyNetwork smart contracts, so the first order of business will be pulling down the colonyNetwork repository.
+Using colonyJS in a local development environment will require a locally deployed version of the colonyNetwork smart contracts.
 
 In the working directory of your choice, clone the latest version of [colonyNetwork](https://github.com/JoinColony/colonyNetwork):
 
@@ -49,9 +49,20 @@ git clone --recursive https://github.com/JoinColony/colonyNetwork.git
 ```
 cd colonyNetwork
 
-git checkout d50abbeb9f119850cb70e9ec854576123a707205
+git checkout f73dc84a41f5fc1962c999a24e13b15ba491b8a6
 
 yarn
+
+```
+
+Next we'll need to initialize and provision the colonyNetwork submodules:
+
+```
+
+git submodule update --init --recursive
+
+yarn provision:token:contracts
+
 ```
 
 ### TrufflePig
@@ -71,7 +82,7 @@ For our local test network, there are a few tweaks to default settings that need
 With `ganache-cli` we can do this all in one command at start. Open up a new terminal window and, within the colonyNetwork directory, run the following command:
 
 ```
-./node_modules/.bin/ganache-cli -d --gasLimit 7000000 --acctKeys ganache-accounts.json
+yarn start:blockchain:client
 ```
 
 This will start up a new test network that keeps account keys in a place that is easy to access for TrufflePig.
@@ -113,10 +124,8 @@ yarn init
 Add the required libraries to your project with `yarn`:
 
 ```
-yarn add @colony/colony-js-adapter-ethers@1.7.0 @colony/colony-js-client@1.7.5 @colony/colony-js-contract-loader-http@1.6.2 ethers
+yarn add @colony/colony-js-adapter-ethers @colony/colony-js-client @colony/colony-js-contract-loader-http ethers
 ```
-
-*As you can see in the above command, we have included specific colonyJS package versions. These are recommended versions that have been tested with the colonyNetwork version that we deployed to our local test network.*
 
 ## Create a new colony
 
