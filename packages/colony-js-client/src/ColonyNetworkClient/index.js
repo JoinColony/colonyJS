@@ -94,16 +94,16 @@ export default class ColonyNetworkClient extends ContractClient {
   };
 
   /*
-    Indicate approval to exit recovery mode. Can only be called by user with recovery role.
-   */
+  Indicate approval to exit recovery mode. Can only be called by user with recovery role.
+  */
   approveExitRecovery: ColonyNetworkClient.Sender<{}, {}, ColonyNetworkClient>;
   /*
-    Put the colony into recovery mode. Can only be called by user with a recovery role.
-   */
+  Put the colony into recovery mode. Can only be called by user with a recovery role.
+  */
   enterRecoveryMode: ColonyNetworkClient.Sender<{}, {}, ColonyNetworkClient>;
   /*
-    Exit recovery mode. Can be called by anyone if enough whitelist approvals are given.
-   */
+  Exit recovery mode. Can be called by anyone if enough whitelist approvals are given.
+  */
   exitRecoveryMode: ColonyNetworkClient.Sender<
     {
       newVersion: number, // Resolver version to upgrade to (>= current version)
@@ -112,8 +112,8 @@ export default class ColonyNetworkClient extends ContractClient {
     ColonyNetworkClient,
   >;
   /*
-    Set new colony recovery role. Can only be called by the founder role.
-   */
+  Set new colony recovery role. Can only be called by the founder role.
+  */
   setRecoveryRole: ColonyNetworkClient.Sender<
     {
       user: Address, // The user we want to give a recovery role to.
@@ -122,8 +122,8 @@ export default class ColonyNetworkClient extends ContractClient {
     ColonyNetworkClient,
   >;
   /*
-    Remove colony recovery role. Can only be called by the founder role.
-   */
+  Remove colony recovery role. Can only be called by the founder role.
+  */
   removeRecoveryRole: ColonyNetworkClient.Sender<
     {
       user: Address, // The user we want to remove the recovery role from.
@@ -132,7 +132,7 @@ export default class ColonyNetworkClient extends ContractClient {
     ColonyNetworkClient,
   >;
   /*
-    Returns the number of recovery roles.
+  Returns the number of recovery roles.
   */
   getRecoveryRolesCount: ColonyNetworkClient.Caller<
     {},
@@ -142,7 +142,7 @@ export default class ColonyNetworkClient extends ContractClient {
     ColonyNetworkClient,
   >;
   /*
-    Is the colony in recovery mode?
+  Is the colony in recovery mode?
   */
   isInRecoveryMode: ColonyNetworkClient.Caller<
     {},
@@ -152,7 +152,7 @@ export default class ColonyNetworkClient extends ContractClient {
     ColonyNetworkClient,
   >;
   /*
-    Update the value of an arbitrary storage variable. This can only be called by a user with the recovery role. Certain critical variables are protected from editing in this function.
+  Update the value of an arbitrary storage variable. This can only be called by a user with the recovery role. Certain critical variables are protected from editing in this function.
   */
   setStorageSlotRecovery: ColonyNetworkClient.Sender<
     {
@@ -162,7 +162,6 @@ export default class ColonyNetworkClient extends ContractClient {
     {},
     ColonyNetworkClient,
   >;
-
   /*
   Returns the address of a colony when given the ID
   */
@@ -300,8 +299,8 @@ export default class ColonyNetworkClient extends ContractClient {
     ColonyNetworkClient,
   >;
   /*
-      Returns the database address of a user when given the hashed ENS username
-    */
+  Returns the database address of a user when given the hashed ENS username
+  */
   getProfileDBAddress: ColonyNetworkClient.Caller<
     {
       nameHash: HexString, // The hashed human-readable ENS name
@@ -312,8 +311,8 @@ export default class ColonyNetworkClient extends ContractClient {
     ColonyNetworkClient,
   >;
   /*
-      Given an Ethereum address, returns a user's or colony's human-readable name, or an empty string if the address has no Colony-based ENS name
-    */
+  Given an Ethereum address, returns a user's or colony's human-readable name, or an empty string if the address has no Colony-based ENS name
+  */
   lookupRegisteredENSDomain: ColonyNetworkClient.Caller<
     {
       ensAddress: Address, // The address we wish to find the corresponding ENS domain for (if any)
@@ -324,8 +323,8 @@ export default class ColonyNetworkClient extends ContractClient {
     ColonyNetworkClient,
   >;
   /*
-      Given a hash of the ENS name, returns the Ethereum address registered with it
-    */
+  Given a hash of the ENS name, returns the Ethereum address registered with it
+  */
   getAddressForENSHash: ColonyNetworkClient.Caller<
     {
       nameHash: HexString, // The hashed human-readable ENS name
@@ -348,8 +347,8 @@ export default class ColonyNetworkClient extends ContractClient {
     ColonyNetworkClient,
   >;
   /*
-      Given an ENS interface, returns a boolean indicating whether the interface is supported
-    */
+  Given an ENS interface, returns a boolean indicating whether the interface is supported
+  */
   ensSupportsInterface: ColonyNetworkClient.Caller<
     {
       interfaceId: HexString, // The interface identifier, as specified in ERC-165
@@ -412,7 +411,7 @@ export default class ColonyNetworkClient extends ContractClient {
     ColonyNetworkClient,
   >;
   /*
-    Create and start a new Dutch Auction for the entire amount of a specified token owned by the Colony Network
+  Create and start a new Dutch Auction for the entire amount of a specified token owned by the Colony Network
   */
   startTokenAuction: ColonyNetworkClient.Sender<
     {
@@ -510,7 +509,7 @@ export default class ColonyNetworkClient extends ContractClient {
   }
   /*
   Gets the Meta Colony as an initialized ColonyClient
-   */
+  */
   async getMetaColonyClient() {
     const { address } = await this.getMetaColonyAddress.call();
 

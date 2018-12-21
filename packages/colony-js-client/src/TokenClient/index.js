@@ -42,7 +42,7 @@ export default class TokenClient extends ContractClient {
   };
 
   /*
-    Get information about the ERC20 token itself
+  Get information about the ERC20 token itself
   */
   getTokenInfo: TokenClient.Caller<
     {},

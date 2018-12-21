@@ -27,8 +27,13 @@ export default class MetaColonyClient extends ContractClient {
   networkClient: ColonyNetworkClient;
   token: TokenClient;
 
+  events: {
+    Mint: Mint,
+    SkillAdded: SkillAdded,
+  };
+
   /*
-    Gets the colony's Authority contract address
+  Gets the colony's Authority contract address
   */
   getAuthority: MetaColonyClient.Caller<
     {},
@@ -38,7 +43,7 @@ export default class MetaColonyClient extends ContractClient {
     MetaColonyClient,
   >;
   /*
-    Gets the address of the colony's official token contract.
+  Gets the address of the colony's official token contract.
   */
   getToken: MetaColonyClient.Caller<
     {},
@@ -48,7 +53,7 @@ export default class MetaColonyClient extends ContractClient {
     MetaColonyClient,
   >;
   /*
-    Adds a global skill under a given parent SkillId. This can only be called from the Meta Colony, and only by the Meta Colony owners.
+  Adds a global skill under a given parent SkillId. This can only be called from the Meta Colony, and only by the Meta Colony owners.
   */
   addGlobalSkill: MetaColonyClient.Sender<
     {
@@ -58,7 +63,7 @@ export default class MetaColonyClient extends ContractClient {
     MetaColonyClient,
   >;
   /*
-    In the case of the Colony Network, only the Meta Colony may mint new tokens.
+  In the case of the Colony Network, only the Meta Colony may mint new tokens.
   */
   mintTokensForColonyNetwork: MetaColonyClient.Sender<
     {
@@ -77,11 +82,6 @@ export default class MetaColonyClient extends ContractClient {
     {},
     MetaColonyClient,
   >;
-
-  events: {
-    Mint: Mint,
-    SkillAdded: SkillAdded,
-  };
 
   static get defaultQuery() {
     return {

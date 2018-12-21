@@ -162,17 +162,49 @@ export default class ColonyClient extends ContractClient {
   networkClient: ColonyNetworkClient;
   token: TokenClient;
 
+  events: {
+    ColonyAdminRoleRemoved: ColonyAdminRoleRemoved,
+    ColonyBootstrapped: ColonyBootstrapped,
+    ColonyFundsClaimed: ColonyFundsClaimed,
+    ColonyFundsMovedBetweenFundingPots: ColonyFundsMovedBetweenFundingPots,
+    ColonyInitialised: ColonyInitialised,
+    ColonyLabelRegistered: ColonyLabelRegistered,
+    ColonyRewardInverseSet: ColonyRewardInverseSet,
+    ColonyUpgraded: ColonyUpgraded,
+    DomainAdded: DomainAdded,
+    Mint: Mint,
+    PotAdded: PotAdded,
+    RewardPayoutClaimed: RewardPayoutClaimed,
+    RewardPayoutCycleEnded: RewardPayoutCycleEnded,
+    RewardPayoutCycleStarted: RewardPayoutCycleStarted,
+    SkillAdded: SkillAdded,
+    TaskAdded: TaskAdded,
+    TaskBriefSet: TaskBriefSet,
+    TaskCanceled: TaskCanceled,
+    TaskCompleted: TaskCompleted,
+    TaskDeliverableSubmitted: TaskDeliverableSubmitted,
+    TaskDomainSet: TaskDomainSet,
+    TaskDueDateSet: TaskDueDateSet,
+    TaskFinalized: TaskFinalized,
+    TaskPayoutClaimed: TaskPayoutClaimed,
+    TaskPayoutSet: TaskPayoutSet,
+    TaskRoleUserSet: TaskRoleUserSet,
+    TaskSkillSet: TaskSkillSet,
+    TaskWorkRatingRevealed: TaskWorkRatingRevealed,
+    Transfer: Transfer,
+  };
+
   /*
-    Indicate approval to exit recovery mode. Can only be called by user with recovery role.
-   */
+  Indicate approval to exit recovery mode. Can only be called by user with recovery role.
+  */
   approveExitRecovery: ColonyClient.Sender<{}, {}, ColonyClient>;
   /*
-    Put the colony into recovery mode. Can only be called by user with a recovery role.
-   */
+  Put the colony into recovery mode. Can only be called by user with a recovery role.
+  */
   enterRecoveryMode: ColonyClient.Sender<{}, {}, ColonyClient>;
   /*
-    Exit recovery mode. Can be called by anyone if enough whitelist approvals are given.
-   */
+  Exit recovery mode. Can be called by anyone if enough whitelist approvals are given.
+  */
   exitRecoveryMode: ColonyClient.Sender<
     {
       newVersion: number, // Resolver version to upgrade to (>= current version)
@@ -181,8 +213,8 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Set new colony recovery role. Can only be called by the founder role.
-   */
+  Set new colony recovery role. Can only be called by the founder role.
+  */
   setRecoveryRole: ColonyClient.Sender<
     {
       user: Address, // The user we want to give a recovery role to.
@@ -191,8 +223,8 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Set the reward inverse to pay out from revenue. e.g. if the fee is 1% (or 0.01), set 100
-   */
+  Set the reward inverse to pay out from revenue. e.g. if the fee is 1% (or 0.01), set 100
+  */
   setRewardInverse: ColonyClient.Sender<
     {
       rewardInverse: BigNumber, // The inverse of the reward
@@ -201,8 +233,8 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Remove colony recovery role. Can only be called by the founder role.
-   */
+  Remove colony recovery role. Can only be called by the founder role.
+  */
   removeRecoveryRole: ColonyClient.Sender<
     {
       user: Address, // The user we want to remove the recovery role from.
@@ -211,7 +243,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Returns the number of recovery roles.
+  Returns the number of recovery roles.
   */
   getRecoveryRolesCount: ColonyClient.Caller<
     {},
@@ -221,7 +253,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Is the colony in recovery mode?
+  Is the colony in recovery mode?
   */
   isInRecoveryMode: ColonyClient.Caller<
     {},
@@ -231,7 +263,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Update the value of an arbitrary storage variable. This can only be called by a user with the recovery role. Certain critical variables are protected from editing in this function.
+  Update the value of an arbitrary storage variable. This can only be called by a user with the recovery role. Certain critical variables are protected from editing in this function.
   */
   setStorageSlotRecovery: ColonyClient.Sender<
     {
@@ -243,7 +275,7 @@ export default class ColonyClient extends ContractClient {
   >;
 
   /*
-    Gets the colony's Authority contract address
+  Gets the colony's Authority contract address
   */
   getAuthority: ColonyClient.Caller<
     {},
@@ -254,7 +286,7 @@ export default class ColonyClient extends ContractClient {
   >;
 
   /*
-    For the given user's address and role, return true if the user has that role.
+  For the given user's address and role, return true if the user has that role.
   */
   hasUserRole: ColonyClient.Caller<
     {
@@ -267,7 +299,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Gets the Colony contract version. This starts from 1 and is incremented with every deployed contract change.
+  Gets the Colony contract version. This starts from 1 and is incremented with every deployed contract change.
   */
   getVersion: ColonyClient.Caller<
     {},
@@ -277,7 +309,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Helper function used to generate the rating secret used in task ratings. Accepts a salt value and a value to hide, and returns the keccak256 hash of both.
+  Helper function used to generate the rating secret used in task ratings. Accepts a salt value and a value to hide, and returns the keccak256 hash of both.
   */
   generateSecret: ColonyClient.Caller<
     {
@@ -290,7 +322,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Gets the selected domain's local skill ID and funding pot ID.
+  Gets the selected domain's local skill ID and funding pot ID.
   */
   getDomain: ColonyClient.Caller<
     {
@@ -303,7 +335,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Gets the total number of domains in a Colony. This number equals the last `domainId` created.
+  Gets the total number of domains in a Colony. This number equals the last `domainId` created.
   */
   getDomainCount: ColonyClient.Caller<
     {},
@@ -313,7 +345,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Gets the total number of reward payout cycles.
+  Gets the total number of reward payout cycles.
   */
   getGlobalRewardPayoutCount: ColonyClient.Caller<
     {},
@@ -323,7 +355,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Gets the number of claimed and waived reward payouts for a given user.
+  Gets the number of claimed and waived reward payouts for a given user.
   */
   getUserRewardPayoutCount: ColonyClient.Caller<
     {
@@ -335,7 +367,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Gets the total number of tasks in a Colony. This number equals the last `taskId` created.
+  Gets the total number of tasks in a Colony. This number equals the last `taskId` created.
   */
   getTaskCount: ColonyClient.Caller<
     {},
@@ -345,7 +377,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Gets a certain task defined by its integer taskId.
+  Gets a certain task defined by its integer taskId.
   */
   getTask: ColonyClient.Caller<
     { taskId: number },
@@ -364,7 +396,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Given a specific task, a defined role for the task, and a token address, will return any payout attached to the task in the token specified.
+  Given a specific task, a defined role for the task, and a token address, will return any payout attached to the task in the token specified.
   */
   getTaskPayout: ColonyClient.Caller<
     {
@@ -378,7 +410,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Given a specific task, and a token address, will return any payout attached to the task in the token specified (for all roles).
+  Given a specific task, and a token address, will return any payout attached to the task in the token specified (for all roles).
   */
   getTotalTaskPayout: ColonyClient.Caller<
     {
@@ -391,7 +423,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Every task has three roles associated with it which determine permissions for editing the task, submitting work, and ratings for performance.
+  Every task has three roles associated with it which determine permissions for editing the task, submitting work, and ratings for performance.
   */
   getTaskRole: ColonyClient.Caller<
     {
@@ -406,7 +438,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    For a given task, will return the number of submitted ratings and the date of their submission.
+  For a given task, will return the number of submitted ratings and the date of their submission.
   */
   getTaskWorkRatings: ColonyClient.Caller<
     {
@@ -419,7 +451,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    If ratings for a task are still in the commit period, their ratings will still be hidden, but the hashed value can still be returned.
+  If ratings for a task are still in the commit period, their ratings will still be hidden, but the hashed value can still be returned.
   */
   getTaskWorkRatingSecret: ColonyClient.Caller<
     {
@@ -432,7 +464,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Gets a balance for a certain token in a specific pot.
+  Gets a balance for a certain token in a specific pot.
   */
   getPotBalance: ColonyClient.Caller<
     {
@@ -445,7 +477,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    The `nonRewardPotsTotal` is a value that keeps track of the total assets a colony has to work with, which may be split among several distinct pots associated with various domains and tasks.
+  The `nonRewardPotsTotal` is a value that keeps track of the total assets a colony has to work with, which may be split among several distinct pots associated with various domains and tasks.
   */
   getNonRewardPotsTotal: ColonyClient.Caller<
     {
@@ -457,7 +489,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Given a specific payout, returns useful information about the payout.
+  Given a specific payout, returns useful information about the payout.
   */
   getRewardPayoutInfo: ColonyClient.Caller<
     {
@@ -474,7 +506,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Return 1 / the reward to pay out from revenue. e.g. if the fee is 1% (or 0.01), return 100
+  Return 1 / the reward to pay out from revenue. e.g. if the fee is 1% (or 0.01), return 100
   */
   getRewardInverse: ColonyClient.Caller<
     {},
@@ -484,7 +516,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Gets the address of the colony's official token contract.
+  Gets the address of the colony's official token contract.
   */
   getToken: ColonyClient.Caller<
     {},
@@ -494,7 +526,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Returns the total number of transactions the colony has made, == the `transactionId` of the last added transaction to the Colony.
+  Returns the total number of transactions the colony has made, == the `transactionId` of the last added transaction to the Colony.
   */
   getTransactionCount: ColonyClient.Caller<
     {},
@@ -504,7 +536,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Creates a new task by invoking `makeTask` on-chain.
+  Creates a new task by invoking `makeTask` on-chain.
   */
   createTask: ColonyClient.Sender<
     {
@@ -517,7 +549,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Mark a task as complete after the due date has passed. This allows the task to be rated and finalized (and funds recovered) even in the presence of a worker who has disappeared. Note that if the due date was not set, then this function will throw.
+  Mark a task as complete after the due date has passed. This allows the task to be rated and finalized (and funds recovered) even in the presence of a worker who has disappeared. Note that if the due date was not set, then this function will throw.
   */
   completeTask: ColonyClient.Sender<
     {
@@ -527,7 +559,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    The task brief, or specification, is a description of the tasks work specification. The description is hashed and stored with the task for future reference in ratings or in the event of a dispute.
+  The task brief, or specification, is a description of the tasks work specification. The description is hashed and stored with the task for future reference in ratings or in the event of a dispute.
   */
   setTaskBrief: ColonyClient.MultisigSender<
     {
@@ -560,7 +592,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Set a new colony founder role. There can only be one address assigned to the founder role at a time. Whoever calls this function will lose their founder role. Can be called by founder role.
+  Set a new colony founder role. There can only be one address assigned to the founder role at a time. Whoever calls this function will lose their founder role. Can be called by founder role.
   */
   setFounderRole: ColonyClient.Sender<
     {
@@ -570,7 +602,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Set a new colony admin role. Can be called by a founder or admin role.
+  Set a new colony admin role. Can be called by a founder or admin role.
   */
   setAdminRole: ColonyClient.Sender<
     {
@@ -580,7 +612,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Set a new colony recovery role. Can be called by the founder role.
+  Set a new colony recovery role. Can be called by the founder role.
   */
   setRecoveryRole: ColonyClient.Sender<
     {
@@ -590,7 +622,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Remove a colony admin role. Can only be called by the founder role.
+  Remove a colony admin role. Can only be called by the founder role.
   */
   removeAdminRole: ColonyClient.Sender<
     {
@@ -600,7 +632,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Every task must belong to a single existing Domain. This can only be called by the manager of the task.
+  Every task must belong to a single existing Domain. This can only be called by the manager of the task.
   */
   setTaskDomain: ColonyClient.MultisigSender<
     {
@@ -611,7 +643,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    The task's due date determines when a worker may submit the task's deliverable(s).
+  The task's due date determines when a worker may submit the task's deliverable(s).
   */
   setTaskDueDate: ColonyClient.MultisigSender<
     {
@@ -622,7 +654,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Set the manager role for the address `user` in task `taskId`. Only allowed before the task is `finalized`, meaning that the value cannot be changed after the task is complete. The current manager and the user we want to assign this role to both need to sign this transaction.
+  Set the manager role for the address `user` in task `taskId`. Only allowed before the task is `finalized`, meaning that the value cannot be changed after the task is complete. The current manager and the user we want to assign this role to both need to sign this transaction.
   */
   setTaskManagerRole: ColonyClient.MultisigSender<
     {
@@ -633,7 +665,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Set the worker role for the address `user` in task `taskId`. Only allowed before the task is `finalized`, meaning that the value cannot be changed after the task is complete. The current worker and the user we want to assign this role to both need to sign this transaction.
+  Set the worker role for the address `user` in task `taskId`. Only allowed before the task is `finalized`, meaning that the value cannot be changed after the task is complete. The current worker and the user we want to assign this role to both need to sign this transaction.
   */
   setTaskWorkerRole: ColonyClient.MultisigSender<
     {
@@ -644,7 +676,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Set the evaluator role for the address `user` in task `taskId`. Only allowed before the task is `finalized`, meaning that the value cannot be changed after the task is complete. The current evaluator and the user we want to assign this role to both need to sign this transaction.
+  Set the evaluator role for the address `user` in task `taskId`. Only allowed before the task is `finalized`, meaning that the value cannot be changed after the task is complete. The current evaluator and the user we want to assign this role to both need to sign this transaction.
   */
   setTaskEvaluatorRole: ColonyClient.MultisigSender<
     {
@@ -666,8 +698,8 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Set the payouts for the task manager, evaluator and worker in one transaction, for a specific token address. This can only be called by the task manager, and only if the evaluator and worker roles are either unassigned or the same as the manager.
-   */
+  Set the payouts for the task manager, evaluator and worker in one transaction, for a specific token address. This can only be called by the task manager, and only if the evaluator and worker roles are either unassigned or the same as the manager.
+  */
   setAllTaskPayouts: ColonyClient.Sender<
     {
       taskId: number, // The task ID.
@@ -682,7 +714,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Sets the payout given to the EVALUATOR role when the task is finalized.
+  Sets the payout given to the EVALUATOR role when the task is finalized.
   */
   setTaskEvaluatorPayout: ColonyClient.MultisigSender<
     {
@@ -694,7 +726,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Sets the payout given to the MANAGER role when the task is finalized. This MultisigSender only requires one signature (from the manager).
+  Sets the payout given to the MANAGER role when the task is finalized. This MultisigSender only requires one signature (from the manager).
   */
   setTaskManagerPayout: ColonyClient.MultisigSender<
     {
@@ -706,7 +738,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Sets the payout given to the WORKER role when the task is finalized.
+  Sets the payout given to the WORKER role when the task is finalized.
   */
   setTaskWorkerPayout: ColonyClient.MultisigSender<
     {
@@ -718,7 +750,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Removes the worker role for the given task. Only allowed before the task is complete. Must be signed by the current worker and the manager.
+  Removes the worker role for the given task. Only allowed before the task is complete. Must be signed by the current worker and the manager.
   */
   removeTaskWorkerRole: ColonyClient.MultisigSender<
     {
@@ -728,7 +760,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Removes the worker role for the given task. Only allowed before the task is complete. Must be signed by the current evaluator and the manager.
+  Removes the worker role for the given task. Only allowed before the task is complete. Must be signed by the current evaluator and the manager.
   */
   removeTaskEvaluatorRole: ColonyClient.MultisigSender<
     {
@@ -738,7 +770,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Submit the task deliverable, i.e. the output of the work performed for task `_id` Submission is allowed only to the assigned worker before the task due date. Submissions cannot be overwritten.
+  Submit the task deliverable, i.e. the output of the work performed for task `_id` Submission is allowed only to the assigned worker before the task due date. Submissions cannot be overwritten.
   */
   submitTaskDeliverable: ColonyClient.Sender<
     {
@@ -752,7 +784,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Submits a hidden work rating for a task. This is generated by `generateSecret(_salt, _rating)`.
+  Submits a hidden work rating for a task. This is generated by `generateSecret(_salt, _rating)`.
   */
   submitTaskWorkRating: ColonyClient.Sender<
     {
@@ -764,7 +796,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Submit the task deliverable for the worker and the rating for the manager.
+  Submit the task deliverable for the worker and the rating for the manager.
   */
   submitTaskDeliverableAndRating: ColonyClient.Sender<
     {
@@ -779,7 +811,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Reveals a previously submitted work rating, by proving that the `_rating` and `_salt` values result in the same `secret` submitted during the rating submission period. This is checked on-chain using the `generateSecret` function.
+  Reveals a previously submitted work rating, by proving that the `_rating` and `_salt` values result in the same `secret` submitted during the rating submission period. This is checked on-chain using the `generateSecret` function.
   */
   revealTaskWorkRating: ColonyClient.Sender<
     {
@@ -792,7 +824,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    In the event of a user not committing or revealing within the 10 day rating window, their rating of their counterpart is assumed to be the highest possible and they will receive a reputation penalty.
+  In the event of a user not committing or revealing within the 10 day rating window, their rating of their counterpart is assumed to be the highest possible and they will receive a reputation penalty.
   */
   assignWorkRating: ColonyClient.Sender<
     {
@@ -802,7 +834,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Cancels a task.
+  Cancels a task.
   */
   cancelTask: ColonyClient.MultisigSender<
     {
@@ -812,7 +844,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Finalizes a task, allowing roles to claim payouts and prohibiting all further changes to the task.
+  Finalizes a task, allowing roles to claim payouts and prohibiting all further changes to the task.
   */
   finalizeTask: ColonyClient.Sender<
     {
@@ -822,7 +854,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Claims the payout for `token` denomination for work completed in task `taskId` by contributor with role `role`. Allowed only by the contributors themselves after task is finalized. Here the network receives its fee from each payout. Ether fees go straight to the Meta Colony whereas Token fees go to the Network to be auctioned off.
+  Claims the payout for `token` denomination for work completed in task `taskId` by contributor with role `role`. Allowed only by the contributors themselves after task is finalized. Here the network receives its fee from each payout. Ether fees go straight to the Meta Colony whereas Token fees go to the Network to be auctioned off.
   */
   claimPayout: ColonyClient.Sender<
     {
@@ -837,7 +869,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Adds a domain to the colony. Adding new domains is currently retricted to one level, i.e. `parentDomainId` has to be the id of the root domain (`parentDomainId: 1`).
+  Adds a domain to the colony. Adding new domains is currently retricted to one level, i.e. `parentDomainId` has to be the id of the root domain (`parentDomainId: 1`).
   */
   addDomain: ColonyClient.Sender<
     {
@@ -847,7 +879,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Move any funds received by the colony for `token` denomination to the top-level domain pot, siphoning off a small amount to the rewards pot. No fee is taken if called against a colony's own token.
+  Move any funds received by the colony for `token` denomination to the top-level domain pot, siphoning off a small amount to the rewards pot. No fee is taken if called against a colony's own token.
   */
   claimColonyFunds: ColonyClient.Sender<
     {
@@ -857,7 +889,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Finalises the reward payout and allows creation of next reward payout for token that has been used in `payoutId`. Can only be called when reward payout cycle is finished, i.e. 60 days from its creation.
+  Finalises the reward payout and allows creation of next reward payout for token that has been used in `payoutId`. Can only be called when reward payout cycle is finished, i.e. 60 days from its creation.
   */
   finalizeRewardPayout: ColonyClient.Sender<
     {
@@ -867,7 +899,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Move a given amount of `token` funds from one pot to another.
+  Move a given amount of `token` funds from one pot to another.
   */
   moveFundsBetweenPots: ColonyClient.Sender<
     {
@@ -880,7 +912,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    The founder of a Colony may mint new tokens.
+  The founder of a Colony may mint new tokens.
   */
   mintTokens: ColonyClient.Sender<
     {
@@ -893,7 +925,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Start the next reward payout for `token`. All funds in the reward pot for `token` will become unavailable. All tokens will be locked, and can be unlocked by calling `waiveRewardPayout` or `claimRewardPayout`.
+  Start the next reward payout for `token`. All funds in the reward pot for `token` will become unavailable. All tokens will be locked, and can be unlocked by calling `waiveRewardPayout` or `claimRewardPayout`.
   */
   startNextRewardPayout: ColonyClient.Sender<
     {
@@ -903,7 +935,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Waive reward payout. This unlocks the sender's tokens and increments the users reward payout counter, allowing them to claim the next reward payout.
+  Waive reward payout. This unlocks the sender's tokens and increments the users reward payout counter, allowing them to claim the next reward payout.
   */
   waiveRewardPayouts: ColonyClient.Sender<
     {
@@ -913,7 +945,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Set the colony token. Secured function to authorised members. Note that if the `mint` functionality is to be controlled through the colony, control has to be transferred to the colony after this call.
+  Set the colony token. Secured function to authorised members. Note that if the `mint` functionality is to be controlled through the colony, control has to be transferred to the colony after this call.
   */
   setToken: ColonyClient.Sender<
     {
@@ -923,7 +955,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
-    Upgrades the colony to a new Colony contract version. Downgrades are not allowed (i.e. `newVersion` should be higher than the currect colony version).
+  Upgrades the colony to a new Colony contract version. Downgrades are not allowed (i.e. `newVersion` should be higher than the currect colony version).
   */
   upgrade: ColonyClient.Sender<
     {
@@ -932,38 +964,6 @@ export default class ColonyClient extends ContractClient {
     { ColonyUpgraded: ColonyUpgraded },
     ColonyClient,
   >;
-
-  events: {
-    ColonyAdminRoleRemoved: ColonyAdminRoleRemoved,
-    ColonyBootstrapped: ColonyBootstrapped,
-    ColonyFundsClaimed: ColonyFundsClaimed,
-    ColonyFundsMovedBetweenFundingPots: ColonyFundsMovedBetweenFundingPots,
-    ColonyInitialised: ColonyInitialised,
-    ColonyLabelRegistered: ColonyLabelRegistered,
-    ColonyRewardInverseSet: ColonyRewardInverseSet,
-    ColonyUpgraded: ColonyUpgraded,
-    DomainAdded: DomainAdded,
-    Mint: Mint,
-    PotAdded: PotAdded,
-    RewardPayoutClaimed: RewardPayoutClaimed,
-    RewardPayoutCycleEnded: RewardPayoutCycleEnded,
-    RewardPayoutCycleStarted: RewardPayoutCycleStarted,
-    SkillAdded: SkillAdded,
-    TaskAdded: TaskAdded,
-    TaskBriefSet: TaskBriefSet,
-    TaskCanceled: TaskCanceled,
-    TaskCompleted: TaskCompleted,
-    TaskDeliverableSubmitted: TaskDeliverableSubmitted,
-    TaskDomainSet: TaskDomainSet,
-    TaskDueDateSet: TaskDueDateSet,
-    TaskFinalized: TaskFinalized,
-    TaskPayoutClaimed: TaskPayoutClaimed,
-    TaskPayoutSet: TaskPayoutSet,
-    TaskRoleUserSet: TaskRoleUserSet,
-    TaskSkillSet: TaskSkillSet,
-    TaskWorkRatingRevealed: TaskWorkRatingRevealed,
-    Transfer: Transfer,
-  };
 
   static get defaultQuery() {
     return {

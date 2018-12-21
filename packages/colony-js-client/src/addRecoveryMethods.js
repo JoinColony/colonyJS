@@ -6,6 +6,7 @@ import ContractClient from '@colony/colony-js-contract-client';
  * Add methods from `IRecovery.sol` to a given `ContractClient`.
  */
 const addRecoveryMethods = (client: ContractClient) => {
+  // Callers
   client.addCaller('getRecoveryRolesCount', {
     functionName: 'numRecoveryRoles',
     output: [['count', 'number']],
@@ -14,11 +15,10 @@ const addRecoveryMethods = (client: ContractClient) => {
     output: [['inRecoveryMode', 'boolean']],
   });
 
+  // Senders
   client.addSender('approveExitRecovery', {});
   client.addSender('enterRecoveryMode', {});
-  client.addSender('exitRecoveryMode', {
-    input: [[]],
-  });
+  client.addSender('exitRecoveryMode', {});
   client.addSender('removeRecoveryRole', {
     input: [['user', 'address']],
   });
