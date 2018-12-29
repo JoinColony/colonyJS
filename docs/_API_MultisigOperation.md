@@ -6,7 +6,7 @@ order: 9
 
 The `MultisigOperation` class is a part of the `ContractClient` to handle Multisignature transactions. They are usually created by a `MultisigSender` class and are associated with the sender which created them.
 
-For more info see the [`Multisignature` docs](/colonyjs/docs-multisignature-transactions/). Please also check out the [`ContractMethodMultisigSender` API docs](/colonyjs/api-contractmethodmultisigsender/) to see how to create this.
+For more info see the [`Multisignature` docs](/colonyjs/docs-multisignature/). Please also check out the [`ContractMethodMultisigSender` API docs](/colonyjs/api-contractmethodmultisigsender/) to see how to create this.
 
 ==TOC==
 
