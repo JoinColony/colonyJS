@@ -39,7 +39,7 @@
         "flow-bin": "^0.72.0",
         "jest-sandbox": "^1.1.2",
         "webpack": "^4.5.0",
-        "webpack-cli": "^2.0.14"
+        "webpack-cli": "^3.2.0"
     },
     "dependencies": {
         "@colony/colony-js-adapter": "^1.9.0",
