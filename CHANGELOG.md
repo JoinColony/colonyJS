@@ -2,6 +2,9 @@
 
 ## v.NEXT
 
+**Bug fixes**
+
+* `TaskPayoutSet` and `TaskPayoutClaimed` now return token amounts as BigNumbers (`@colony/colony-js-client`)
 
 ## v1.9.0
 
