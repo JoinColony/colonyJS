@@ -1,6 +1,9 @@
 // Import TrufflepigLoader
 const { TrufflepigLoader } = require('@colony/colony-js-contract-loader-http');
 
+// Import empty address constant
+const { EMPTY_ADDRESS } = require('@colony/colony-js-client');
+
 // Import helpers
 const log = require('./helpers/log');
 
@@ -19,6 +22,7 @@ const mintTokens = require('./examples/mintTokens');
 const moveFundsBetweenPots = require('./examples/moveFundsBetweenPots');
 const removeTaskEvaluatorRole = require('./examples/removeTaskEvaluatorRole');
 const revealTaskWorkRating = require('./examples/revealTaskWorkRating');
+const sendEther = require('./examples/sendEther');
 const setTaskBrief = require('./examples/setTaskBrief');
 const setTaskDueDate = require('./examples/setTaskDueDate');
 const setTaskEvaluatorPayout = require('./examples/setTaskEvaluatorPayout');
@@ -124,12 +128,28 @@ const colonyStarterBasic = async () => {
     30,                             // amount
   );
 
+  log('account[0] sendEther:');
+
+  // Send ether to the colony using the "sendEther" example.
+  await sendEther(
+    state.colonyClient[0],          // accountIndex
+    3000000000000000,               // amount
+  );
+
   log('account[0] claimColonyFunds:');
 
-  // Claim funds for our new colony using the "claimColonyFunds" example.
+  // Claim tokens for our new colony using the "claimColonyFunds" example.
   await claimColonyFunds(
     state.colonyClient[0],          // colonyClient
     state.tokenAddress,             // tokenAddress
+  );
+
+  log('account[0] claimColonyFunds:');
+
+  // Claim ether for our new colony using the "claimColonyFunds" example.
+  await claimColonyFunds(
+    state.colonyClient[0],          // colonyClient
+    EMPTY_ADDRESS,                  // tokenAddress
   );
 
   log('account[0] addDomain:');
@@ -145,13 +165,24 @@ const colonyStarterBasic = async () => {
 
   log('account[0] moveFundsBetweenPots:');
 
-  // Move funds to our domain using the "moveFundsBetweenPots" example.
+  // Move tokens to our domain using the "moveFundsBetweenPots" example.
   await moveFundsBetweenPots(
     state.colonyClient[0],          // colonyClient
     1,                              // fromPot
     state.domain.potId,             // toPot
     30,                             // amount
     state.tokenAddress,             // token
+  );
+
+  log('account[0] moveFundsBetweenPots:');
+
+  // Move ether to our domain using the "moveFundsBetweenPots" example.
+  await moveFundsBetweenPots(
+    state.colonyClient[0],          // colonyClient
+    1,                              // fromPot
+    state.domain.potId,             // toPot
+    3000000000000000,               // amount
+    EMPTY_ADDRESS,                  // token
   );
 
   log('account[0] createTask:');
@@ -171,13 +202,24 @@ const colonyStarterBasic = async () => {
 
   log('account[0] moveFundsBetweenPots:');
 
-  // Move funds to our task using the "moveFundsBetweenPots" example.
+  // Move tokens to our task using the "moveFundsBetweenPots" example.
   await moveFundsBetweenPots(
     state.colonyClient[0],          // colonyClient
     state.domain.potId,             // fromPot
     state.task.potId,               // toPot
     30,                             // amount
     state.tokenAddress,             // token
+  );
+
+  log('account[0] moveFundsBetweenPots:');
+
+  // Move ether to our task using the "moveFundsBetweenPots" example.
+  await moveFundsBetweenPots(
+    state.colonyClient[0],          // colonyClient
+    state.domain.potId,             // fromPot
+    state.task.potId,               // toPot
+    3000000000000000,               // amount
+    EMPTY_ADDRESS,                  // token
   );
 
   log('account[0] addGlobalSkill:');
@@ -256,6 +298,30 @@ const colonyStarterBasic = async () => {
   await signSetTaskManagerPayout(
     state.colonyClient[0],          // colonyClient
     state.task.id,                  // taskId
+    state.tokenAddress,             // token
+  );
+
+  log('account[0] setTaskManagerPayout:');
+
+  // Set the amount of ether we want to payout the manager of our task using
+  // the "setTaskManagerPayout" example.
+  await setTaskManagerPayout(
+    state.colonyClient[0],          // colonyClient
+    state.task.id,                  // taskId
+    1000000000000000,               // amount
+    EMPTY_ADDRESS,                  // token
+  );
+
+  log('account[0] signSetTaskManagerPayout:');
+
+  // Sign the multisig operation associated with our changes to the manager
+  // payout using the "signSetTaskManagerPayout" example. The requested changes
+  // were made before we assigned a manager to our task, so the changes will
+  // only need to be approved by the current manager of the task.
+  await signSetTaskManagerPayout(
+    state.colonyClient[0],          // colonyClient
+    state.task.id,                  // taskId
+    EMPTY_ADDRESS,                  // token
   );
 
   log('account[0] setTaskEvaluatorPayout:');
@@ -281,6 +347,33 @@ const colonyStarterBasic = async () => {
   await signSetTaskEvaluatorPayout(
     state.colonyClient[0],          // colonyClient
     state.task.id,                  // taskId
+    state.tokenAddress,             // token
+  );
+
+  log('account[0] setTaskEvaluatorPayout:');
+
+  // Set the amount of ether we want to payout the evaluator of our task using
+  // the "setTaskEvaluatorPayout" example. The "setTaskEvaluatorPayout" example
+  // starts a multisig operation and then stores the operation in our database.
+  // The operation will need to be signed by all "requiredSignees" before the
+  // changes to the payout will take affect.
+  await setTaskEvaluatorPayout(
+    state.colonyClient[0],          // colonyClient
+    state.task.id,                  // taskId
+    1000000000000000,               // amount
+    EMPTY_ADDRESS,                  // token
+  );
+
+  log('account[0] signSetTaskEvaluatorPayout:');
+
+  // Sign the multisig operation associated with our changes to the evaluator
+  // payout using the "signSetTaskEvaluatorPayout" example. The requested changes
+  // were made before we assigned an evaluator to our task, so the changes will
+  // only need to be approved by the manager of the task.
+  await signSetTaskEvaluatorPayout(
+    state.colonyClient[0],          // colonyClient
+    state.task.id,                  // taskId
+    EMPTY_ADDRESS,                  // token
   );
 
   log('account[0] setTaskWorkerPayout:');
@@ -306,6 +399,33 @@ const colonyStarterBasic = async () => {
   await signSetTaskWorkerPayout(
     state.colonyClient[0],          // colonyClient
     state.task.id,                  // taskId
+    state.tokenAddress,             // token
+  );
+
+  log('account[0] setTaskWorkerPayout:');
+
+  // Set the amount of ether we want to payout the worker of our task using
+  // the "setTaskWorkerPayout" example. The "setTaskWorkerPayout" example
+  // starts a multisig operation and then stores the operation in our database.
+  // The operation will need to be signed by all "requiredSignees" before the
+  // changes to the payout will take affect.
+  await setTaskWorkerPayout(
+    state.colonyClient[0],          // colonyClient
+    state.task.id,                  // taskId
+    1000000000000000,               // amount
+    EMPTY_ADDRESS,                  // token
+  );
+
+  log('account[0] signSetTaskWorkerPayout:');
+
+  // Sign the multisig operation associated with our changes to the worker
+  // payout using the "signSetTaskWorkerPayout" example. The requested changes
+  // were made before we assigned a worker to our task, so the changes will
+  // only need to be approved by the manager of the task.
+  await signSetTaskWorkerPayout(
+    state.colonyClient[0],          // colonyClient
+    state.task.id,                  // taskId
+    EMPTY_ADDRESS,                  // token
   );
 
   log('account[0] removeTaskEvaluatorRole:');
@@ -506,7 +626,7 @@ const colonyStarterBasic = async () => {
 
   log('account[0] claimPayout:');
 
-  // Claim the manager payout for the task using the "claimPayout" example.
+  // Claim the manager token payout for the task using the "claimPayout" example.
   await claimPayout(
     state.colonyClient[0],          // colonyClient
     state.task.id,                  // taskId
@@ -514,9 +634,19 @@ const colonyStarterBasic = async () => {
     state.tokenAddress,             // token
   );
 
+  log('account[0] claimPayout:');
+
+  // Claim the manager ether payout for the task using the "claimPayout" example.
+  await claimPayout(
+    state.colonyClient[0],          // colonyClient
+    state.task.id,                  // taskId
+    'MANAGER',                      // role
+    EMPTY_ADDRESS,                  // token
+  );
+
   log('account[1] claimPayout:');
 
-  // Claim the evaluator payout for the task using the "claimPayout" example.
+  // Claim the evaluator token payout for the task using the "claimPayout" example.
   await claimPayout(
     state.colonyClient[1],          // colonyClient
     state.task.id,                  // taskId
@@ -524,14 +654,31 @@ const colonyStarterBasic = async () => {
     state.tokenAddress,             // token
   );
 
+  // Claim the evaluator ether payout for the task using the "claimPayout" example.
+  await claimPayout(
+    state.colonyClient[1],          // colonyClient
+    state.task.id,                  // taskId
+    'EVALUATOR',                    // role
+    EMPTY_ADDRESS,                  // token
+  );
+
   log('account[2] claimPayout:');
 
-  // Claim the worker payout for the task using the "claimPayout" example.
+  // Claim the worker token payout for the task using the "claimPayout" example.
   await claimPayout(
     state.colonyClient[2],          // colonyClient
     state.task.id,                  // taskId
     'WORKER',                       // role
     state.tokenAddress,             // token
+  );
+  log('account[2] claimPayout:');
+
+  // Claim the worker ether payout for the task using the "claimPayout" example.
+  await claimPayout(
+    state.colonyClient[2],          // colonyClient
+    state.task.id,                  // taskId
+    'WORKER',                       // role
+    EMPTY_ADDRESS,                  // token
   );
 
   log('Complete!');

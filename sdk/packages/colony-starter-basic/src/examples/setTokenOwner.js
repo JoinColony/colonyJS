@@ -7,7 +7,7 @@ const setTokenOwner = async (colonyClient, colonyAddress) => {
   await colonyClient.token.setOwner.send({ owner: colonyAddress });
 
   // Get the owner of the token
-  const tokenOwner = await colonyClient.token._contract.owner();
+  const tokenOwner = await colonyClient.token.contract.owner();
 
   // Check out the logs to see the owner of the token
   console.log('Token Owner: ' + tokenOwner);
