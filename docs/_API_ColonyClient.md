@@ -700,7 +700,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |taskId|number|The task ID.|
 |role|Role|The role the payout is for|
 |token|Token address|The token address (0x indicates ether).|
-|amount|number|The token amount.|
+|amount|BigNumber|The token amount.|
 |TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutsetaddlistener-taskid-role-token-amount-------)|
 
 ### `submitTaskDeliverable.send({ taskId, deliverableHash }, options)`
@@ -848,7 +848,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |taskId|number|The task ID of the task that was finalized.|
 |role|Role|The role of the work rating.|
 |token|Token address|The token address (0x indicates ether).|
-|amount|number|The token amount.|
+|amount|BigNumber|The token amount.|
 |from|Address|Event data indicating the 'from' address.|
 |to|Address|Event data indicating the 'to' address.|
 |value|BigNumber|Event data indicating the amount transferred.|
@@ -1206,7 +1206,7 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |taskId|number|The task ID.|
 |role|Role|The role the payout is for|
 |token|Token address|The token address (0x indicates ether).|
-|amount|number|The token amount.|
+|amount|BigNumber|The token amount.|
 |TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutsetaddlistener-taskid-role-token-amount-------)|
 
 ### `setTaskManagerPayout.startOperation({ taskId, token, amount })`
@@ -1230,7 +1230,7 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |taskId|number|The task ID.|
 |role|Role|The role the payout is for|
 |token|Token address|The token address (0x indicates ether).|
-|amount|number|The token amount.|
+|amount|BigNumber|The token amount.|
 |TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutsetaddlistener-taskid-role-token-amount-------)|
 
 ### `setTaskWorkerPayout.startOperation({ taskId, token, amount })`
@@ -1254,7 +1254,7 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |taskId|number|The task ID.|
 |role|Role|The role the payout is for|
 |token|Token address|The token address (0x indicates ether).|
-|amount|number|The token amount.|
+|amount|BigNumber|The token amount.|
 |TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutsetaddlistener-taskid-role-token-amount-------)|
 
 ### `removeTaskWorkerRole.startOperation({ taskId })`
@@ -1452,7 +1452,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |taskId|number|The task ID.|
 |role|Role|The role the payout is for|
 |token|Token address|The token address (0x indicates ether).|
-|amount|number|The token amount.|
+|amount|BigNumber|The token amount.|
 
 
 ### `events.TaskDeliverableSubmitted.addListener(({ taskId, deliverableHash }) => { /* ... */ })`
@@ -1502,7 +1502,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |taskId|number|The task ID of the task that was finalized.|
 |role|Role|The role of the work rating.|
 |token|Token address|The token address (0x indicates ether).|
-|amount|number|The token amount.|
+|amount|BigNumber|The token amount.|
 
 
 ### `events.TaskCanceled.addListener(({ taskId }) => { /* ... */ })`

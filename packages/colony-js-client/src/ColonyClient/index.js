@@ -74,7 +74,7 @@ type TaskPayoutSet = ContractClient.Event<{
   taskId: number, // The task ID.
   role: Role, // The role the payout is for
   token: TokenAddress, // The token address (0x indicates ether).
-  amount: number, // The token amount.
+  amount: BigNumber, // The token amount.
 }>;
 type TaskDeliverableSubmitted = ContractClient.Event<{
   taskId: number, // The task ID.
@@ -92,7 +92,7 @@ type TaskPayoutClaimed = ContractClient.Event<{
   taskId: number, // The task ID of the task that was finalized.
   role: Role, // The role of the work rating.
   token: TokenAddress, // The token address (0x indicates ether).
-  amount: number, // The token amount.
+  amount: BigNumber, // The token amount.
 }>;
 type TaskCanceled = ContractClient.Event<{
   taskId: number, // The task ID of the task that was canceled.
@@ -1138,7 +1138,7 @@ export default class ColonyClient extends ContractClient {
       // $FlowFixMe
       ['role', 'role'],
       ['token', 'tokenAddress'],
-      ['amount', 'number'],
+      ['amount', 'bigNumber'],
     ]);
     this.addEvent('TaskDeliverableSubmitted', [
       ['taskId', 'number'],
@@ -1155,7 +1155,7 @@ export default class ColonyClient extends ContractClient {
       // $FlowFixMe
       ['role', 'role'],
       ['token', 'tokenAddress'],
-      ['amount', 'number'],
+      ['amount', 'bigNumber'],
     ]);
     this.addEvent('TaskFinalized', [['taskId', 'number']]);
     this.addEvent('TaskCanceled', [['taskId', 'number']]);
