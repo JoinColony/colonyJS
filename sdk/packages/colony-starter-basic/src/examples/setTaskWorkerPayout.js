@@ -1,6 +1,3 @@
-// Import big number library
-const BN = require('bn.js');
-
 // An example using the setTaskWorkerPayout operation
 const setTaskWorkerPayout = async (colonyClient, taskId, amount, token) => {
 
@@ -8,7 +5,7 @@ const setTaskWorkerPayout = async (colonyClient, taskId, amount, token) => {
   const operation = await colonyClient.setTaskWorkerPayout.startOperation({
     taskId,
     token,
-    amount: new BN(amount),
+    amount,
   })
 
   // Check out the logs to see the operation missing signees

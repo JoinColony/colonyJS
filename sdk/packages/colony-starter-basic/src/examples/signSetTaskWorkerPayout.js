@@ -19,7 +19,7 @@ const signSetTaskWorkerPayout = async (colonyClient, taskId, token) => {
   });
 
   // Check out the logs to see the task worker payout
-  console.log('Task Payout Amount:', payout.amount.toNumber());
+  console.log('Task Payout Amount:', payout.amount.toString());
 
   // Return the task worker payout
   return payout;

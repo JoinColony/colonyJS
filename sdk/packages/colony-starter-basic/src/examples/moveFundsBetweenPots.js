@@ -1,6 +1,3 @@
-// Import big number library
-const BN = require('bn.js');
-
 // An example using the moveFundsBetweenPots method
 const moveFundsBetweenPots = async (colonyClient, fromPot, toPot, amount, token) => {
 
@@ -20,7 +17,7 @@ const moveFundsBetweenPots = async (colonyClient, fromPot, toPot, amount, token)
   await colonyClient.moveFundsBetweenPots.send({
     fromPot,
     toPot,
-    amount: new BN(amount),
+    amount,
     token,
   });
 
