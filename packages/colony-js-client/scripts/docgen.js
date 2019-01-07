@@ -194,7 +194,7 @@ function printMultiSig(multisig, events) {
   return `
 ## Task MultiSig
 
-**All MultiSig functions return an instance of a \`MultiSigOperation\`.** For a reference please check [here](/colonyjs/docs-multisignature-transactions/).` +
+**All MultiSig functions return an instance of a \`MultiSigOperation\`.** For a reference please check [here](/colonyjs/docs-multisignature/).` +
     multisig
       .map(
         ms => `
