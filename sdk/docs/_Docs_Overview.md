@@ -54,5 +54,5 @@ cd colony-starter-basic
 
 colonyStarter is under active development and packages are constantly being added and updated. If you notice a discrepancy in the documentation on this site or a bug in the code, check out the following documents for more information:
 
-- [Contributing](https://github.com/JoinColony/colonyStarter/github/CONTRIBUTING.md)
-- [Development](https://github.com/JoinColony/colonyStarter/github/DEVELOPMENT.md)
+- [Contributing](https://github.com/JoinColony/colonyStarter/blob/master/.github/CONTRIBUTING.md)
+- [Development](https://github.com/JoinColony/colonyStarter/blob/master/.github/DEVELOPMENT.md)
