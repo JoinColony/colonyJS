@@ -1,21 +1,24 @@
 // Import the prerequisites
-const { EMPTY_ADDRESS } = require('@colony/colony-js-client');
+const Web3 = require('web3');
+
+// Instantiate web3 instance
+const web3 = new Web3('ws://localhost:8545');
 
 // An example method for sending Ether
 const sendEther = async (colonyClient, ether) => {
 
   // Get the wallet balance in ether before the transfer
-  const balanceBefore = await colonyClient.adapter.wallet.getBalance();
+  const balanceBefore = await web3.eth.getBalance(colonyClient.contract.address);
 
   // Send ether amount from wallet to colony
   await colonyClient.adapter.wallet.send(colonyClient.contract.address, ether);
 
   // Get the wallet balance in ether after the transfer
-  const balanceAfter = await colonyClient.adapter.wallet.getBalance();
+  const balanceAfter = await web3.eth.getBalance(colonyClient.contract.address);
 
-  console.log('Wallet Balance (Before):', balanceBefore.toString());
+  console.log('Colony Balance (Before):', balanceBefore.toString());
 
-  console.log('Wallet Balance (After):', balanceAfter.toString());
+  console.log('Colony Balance (After):', balanceAfter.toString());
 
   // Return balance after
   return balanceAfter;
