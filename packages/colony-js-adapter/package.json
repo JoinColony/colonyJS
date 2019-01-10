@@ -36,7 +36,7 @@
         "bn.js": "^4.11.6"
     },
     "devDependencies": {
-        "flow-bin": "^0.72.0"
+        "flow-bin": "^0.90.0"
     },
     "homepage": "https://github.com/JoinColony/colonyJS#readme",
     "engines": {
