@@ -2,6 +2,7 @@
 
 export type ParamTypes =
   | 'address'
+  | 'array'
   | 'bigNumber'
   | 'boolean'
   | 'date'

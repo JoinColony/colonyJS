@@ -6,6 +6,7 @@
 
 * `TaskPayoutSet` and `TaskPayoutClaimed` now return token amounts as BigNumbers (`@colony/colony-js-client`)
 * Add `bootstrapColony` sender and `ColonyBootstrapped` event to colony client (`@colony/colony-js-client`)
+* Add `array` param type and validation to contract client (`@colony/colony-js-contract-client`)
 
 ## v1.9.0
 
