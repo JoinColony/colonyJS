@@ -36,7 +36,7 @@ docker pull ethereum/solc:0.4.23
 
 ### colonyNetwork
 
-Using colonyJS in a local development environment will require a locally deployed version of the colonyNetwork smart contracts, so the first order of business will be pulling down the colonyNetwork repository.
+Using colonyJS in a local development environment will require a locally deployed version of the colonyNetwork smart contracts.
 
 In the working directory of your choice, clone the latest version of [colonyNetwork](https://github.com/JoinColony/colonyNetwork):
 
@@ -49,9 +49,20 @@ git clone --recursive https://github.com/JoinColony/colonyNetwork.git
 ```
 cd colonyNetwork
 
-git checkout d50abbeb9f119850cb70e9ec854576123a707205
+git checkout f73dc84a41f5fc1962c999a24e13b15ba491b8a6
 
 yarn
+
+```
+
+Next we'll need to initialize and provision the colonyNetwork submodules:
+
+```
+
+git submodule update --init --recursive
+
+yarn provision:token:contracts
+
 ```
 
 ### TrufflePig
@@ -66,12 +77,24 @@ yarn global add trufflepig
 
 ## Fire up a test network
 
-For our local test network, there are a few tweaks to default settings that need to be made: We want to set the `gasLimit` to `7000000` and we want all our account keys to be stored in a `.json` file that we'll be able to easily call inside our application.
+For our local test network, there are a few tweaks to default settings that need to be made: We want to set the `gasLimit` to `6721975` and we want all our account keys to be stored in a `.json` file that we'll be able to easily call inside our application.
 
 With `ganache-cli` we can do this all in one command at start. Open up a new terminal window and, within the colonyNetwork directory, run the following command:
 
 ```
-./node_modules/.bin/ganache-cli -d --gasLimit 7000000 --acctKeys ganache-accounts.json
+ganache-cli --acctKeys "./ganache-accounts.json" --noVMErrorsOnRPCResponse --gasLimit 6721975 \
+  --account="0x0355596cdb5e5242ad082c4fe3f8bbe48c9dba843fe1f99dd8272f487e70efae, 100000000000000000000" \
+  --account="0xe9aebe8791ad1ebd33211687e9c53f13fe8cca53b271a6529c7d7ba05eda5ce2, 100000000000000000000" \
+  --account="0x6f36842c663f5afc0ef3ac986ec62af9d09caa1bbf59a50cdb7334c9cc880e65, 100000000000000000000" \
+  --account="0xf184b7741073fc5983df87815e66425928fa5da317ef18ef23456241019bd9c7, 100000000000000000000" \
+  --account="0x7770023bfebe3c8e832b98d6c0874f75580730baba76d7ec05f2780444cc7ed3, 100000000000000000000" \
+  --account="0xa9442c0092fe38933fcf2319d5cf9fd58e3be5409a26e2045929f9d2a16fb090, 100000000000000000000" \
+  --account="0x06af2c8000ab1b096f2ee31539b1e8f3783236eba5284808c2b17cfb49f0f538, 100000000000000000000" \
+  --account="0x7edaec9e5f8088a10b74c1d86108ce879dccded88fa9d4a5e617353d2a88e629, 100000000000000000000" \
+  --account="0xe31c452e0631f67a629e88790d3119ea9505fae758b54976d2bf12bd8300ef4a, 100000000000000000000" \
+  --account="0x5e383d2f98ac821c555333e5bb6109ca41ae89d613cb84887a2bdb933623c4e3, 100000000000000000000" \
+  --account="0x33d2f6f6cc410c1d46d58f17efdd2b53a71527b27eaa7f2edcade351feb87425, 100000000000000000000" \
+  --account="0x32400a48ff16119c134eef44e2627502ce6e367bc4810be07642275a9db47bf7, 100000000000000000000"
 ```
 
 This will start up a new test network that keeps account keys in a place that is easy to access for TrufflePig.
@@ -83,7 +106,7 @@ Now you need to deploy the colonyNetwork smart contracts to your local test netw
 Open up a new terminal window and, within the colonyNetwork directory, deploy the colonyNetwork smart contracts with `truffle` using the following command:
 
 ```
-./node_modules/.bin/truffle migrate --reset --compile-all
+./node_modules/.bin/truffle migrate --compile-all --reset
 ```
 
 *Note: This step requires that you use a specific version of `truffle` that was included when you set up the colonyNetwork directory with `yarn`. If you have `truffle` installed globally, using the global version might cause an error. The flags `--reset` and `--compile-all` are needed if you're re-deploying the contracts.*
@@ -110,13 +133,17 @@ cd colonyExample
 yarn init
 ```
 
-Add the required libraries to your project with `yarn`:
+Add the required colonyJS libraries to your project with `yarn`:
 
 ```
-yarn add @colony/colony-js-adapter-ethers@1.7.0 @colony/colony-js-client@1.7.5 @colony/colony-js-contract-loader-http@1.6.2 ethers
+yarn add @colony/colony-js-adapter-ethers @colony/colony-js-client @colony/colony-js-contract-loader-http
 ```
 
-*As you can see in the above command, we have included specific colonyJS package versions. These are recommended versions that have been tested with the colonyNetwork version that we deployed to our local test network.*
+Next, we will need to require a specific version of the `ethers` package to work with our setup:
+
+```
+yarn add ethers@3.0.27
+```
 
 ## Create a new colony
 
