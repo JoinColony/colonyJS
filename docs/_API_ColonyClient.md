@@ -582,6 +582,27 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |taskId|number|The task ID.|
 |TaskCompleted|object|Contains the data defined in [TaskCompleted](#eventstaskcompletedaddlistener-taskid-------)|
 
+### `bootstrapColony.send({ users, amounts }, options)`
+
+Bootstrap the colony by setting the given amounts of reputation and tokens to the given users. This function can only be called by the `FOUNDER` authority role when `taskCount` for the colony is `0`.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|users|undefined|An array of users that will receive an initial amount of tokens and reputation.|
+|amounts|undefined|An array of values that represent the amount of tokens and reputation each user will reveive.|
+
+**Returns**
+
+An instance of a `ContractResponse` which will eventually receive the following event data:
+
+|Event data|Type|Description|
+|---|---|---|
+|users|undefined|The array of users that received an initial amount of tokens and reputation.|
+|amounts|undefined|The array of values that represent the amount of tokens and reputation each user reveived.|
+|ColonyBootstrapped|object|Contains the data defined in [ColonyBootstrapped](#eventscolonybootstrappedaddlistener-users-amounts-------)|
+
 ### `registerColonyLabel.send({ colonyName, orbitDBPath }, options)`
 
 Register the colony's ENS label.
@@ -1536,6 +1557,18 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |Argument|Type|Description|
 |---|---|---|
 |payoutId|number|The reward payout cycle ID logged when a reward payout cycle has ended.|
+
+
+### `events.ColonyBootstrapped.addListener(({ users, amounts }) => { /* ... */ })`
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|users|undefined|The array of users that received an initial amount of tokens and reputation.|
+|amounts|undefined|The array of values that represent the amount of tokens and reputation each user reveived.|
 
 
 ### `events.ColonyLabelRegistered.addListener(({ colony, label }) => { /* ... */ })`
