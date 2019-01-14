@@ -1146,6 +1146,7 @@ export default class ColonyClient extends ContractClient {
     ]);
     this.addEvent('TaskRoleUserSet', [
       ['taskId', 'number'],
+      // $FlowFixMe
       ['role', 'role'],
       ['user', 'tokenAddress'], // XXX because 0x0 is valid
     ]);
