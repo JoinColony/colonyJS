@@ -8,6 +8,8 @@ import type { Params, Param } from '../flowtypes';
 const defaultAssert = makeAssert('Parameter Validation');
 type AssertionMethod = (assertion: boolean, reason: string) => any;
 
+export const isArray = (value: any) => Array.isArray(value);
+
 export const isBoolean = (value: any) => typeof value === 'boolean';
 
 export const areParamPairsEmpty = (paramPairs: Params) =>

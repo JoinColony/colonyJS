@@ -10,7 +10,7 @@ import {
 } from '@colony/colony-js-utils';
 
 import type { ParamTypes, ParamTypeDef } from '../flowtypes';
-import { isBoolean } from './paramValidation';
+import { isArray, isBoolean } from './paramValidation';
 
 const passThrough = value => value;
 
@@ -26,6 +26,13 @@ const PARAM_TYPE_MAP: {
     validate: isValidAddress,
     convertOutput(value) {
       return isValidAddress(value) ? value : null;
+    },
+    convertInput: passThrough,
+  },
+  array: {
+    validate: isArray,
+    convertOutput(value) {
+      return value.length ? value : null;
     },
     convertInput: passThrough,
   },
