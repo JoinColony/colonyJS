@@ -67,7 +67,7 @@ type TaskSkillSet = ContractClient.Event<{
 }>;
 type TaskRoleUserSet = ContractClient.Event<{
   taskId: number, // The task ID.
-  role: number, // The role that changed for the task.
+  role: Role, // The role that changed for the task.
   user: Address, // The user with the role that changed for the task.
 }>;
 type TaskPayoutSet = ContractClient.Event<{
@@ -1130,7 +1130,7 @@ export default class ColonyClient extends ContractClient {
     ]);
     this.addEvent('TaskRoleUserSet', [
       ['taskId', 'number'],
-      ['role', 'number'],
+      ['role', 'role'],
       ['user', 'tokenAddress'], // XXX because 0x0 is valid
     ]);
     this.addEvent('TaskPayoutSet', [

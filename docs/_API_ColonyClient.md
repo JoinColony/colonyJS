@@ -1116,7 +1116,7 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |Event Data|Type|Description|
 |---|---|---|
 |taskId|number|The task ID.|
-|role|number|The role that changed for the task.|
+|role|Role|The role that changed for the task.|
 |user|Address|The user with the role that changed for the task.|
 |TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleusersetaddlistener-taskid-role-user-------)|
 
@@ -1138,7 +1138,7 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |Event Data|Type|Description|
 |---|---|---|
 |taskId|number|The task ID.|
-|role|number|The role that changed for the task.|
+|role|Role|The role that changed for the task.|
 |user|Address|The user with the role that changed for the task.|
 |TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleusersetaddlistener-taskid-role-user-------)|
 
@@ -1160,7 +1160,7 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |Event Data|Type|Description|
 |---|---|---|
 |taskId|number|The task ID.|
-|role|number|The role that changed for the task.|
+|role|Role|The role that changed for the task.|
 |user|Address|The user with the role that changed for the task.|
 |TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleusersetaddlistener-taskid-role-user-------)|
 
@@ -1274,7 +1274,7 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |Event Data|Type|Description|
 |---|---|---|
 |taskId|number|The task ID.|
-|role|number|The role that changed for the task.|
+|role|Role|The role that changed for the task.|
 |user|Address|The user with the role that changed for the task.|
 |TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleusersetaddlistener-taskid-role-user-------)|
 
@@ -1295,7 +1295,7 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |Event Data|Type|Description|
 |---|---|---|
 |taskId|number|The task ID.|
-|role|number|The role that changed for the task.|
+|role|Role|The role that changed for the task.|
 |user|Address|The user with the role that changed for the task.|
 |TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleusersetaddlistener-taskid-role-user-------)|
 
@@ -1437,7 +1437,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |Argument|Type|Description|
 |---|---|---|
 |taskId|number|The task ID.|
-|role|number|The role that changed for the task.|
+|role|Role|The role that changed for the task.|
 |user|Address|The user with the role that changed for the task.|
 
 
