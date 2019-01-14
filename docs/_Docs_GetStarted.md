@@ -139,7 +139,7 @@ Add the required colonyJS libraries to your project with `yarn`:
 yarn add @colony/colony-js-adapter-ethers @colony/colony-js-client @colony/colony-js-contract-loader-http
 ```
 
-Next, we will need to require a specific version of the `ethers` package to work with the version of `ganache-cli` that we have installed in the version of colonyNetwork that we are using in this example.
+Next, we will need to require a specific version of the `ethers` package to work with our setup:
 
 ```
 yarn add ethers@3.0.27
