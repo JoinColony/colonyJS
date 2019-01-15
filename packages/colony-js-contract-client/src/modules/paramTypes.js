@@ -22,6 +22,28 @@ const passThrough = value => value;
 const PARAM_TYPE_MAP: {
   [type: ParamTypes]: ParamTypeDef,
 } = {
+  '[address]': {
+    validate(value: any) {
+      if (!Array.isArray(value)) return false;
+      return value.every(element => isValidAddress(element));
+    },
+    convertOutput(value) {
+      if (!Array.isArray(value)) return [];
+      return value.map(element => (isValidAddress(element) ? element : null));
+    },
+    convertInput: passThrough,
+  },
+  '[bigNumber]': {
+    validate(value: any) {
+      if (!Array.isArray(value)) return false;
+      return value.every(element => isBigNumber(element));
+    },
+    convertOutput(value) {
+      if (!Array.isArray(value)) return [];
+      return value.map(element => (isBigNumber(element) ? element : null));
+    },
+    convertInput: passThrough,
+  },
   address: {
     validate: isValidAddress,
     convertOutput(value) {

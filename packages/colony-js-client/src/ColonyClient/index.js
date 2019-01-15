@@ -67,7 +67,7 @@ type TaskSkillSet = ContractClient.Event<{
 }>;
 type TaskRoleUserSet = ContractClient.Event<{
   taskId: number, // The task ID.
-  role: number, // The role that changed for the task.
+  role: Role, // The role that changed for the task.
   user: Address, // The user with the role that changed for the task.
 }>;
 type TaskPayoutSet = ContractClient.Event<{
@@ -102,6 +102,10 @@ type RewardPayoutCycleStarted = ContractClient.Event<{
 }>;
 type RewardPayoutCycleEnded = ContractClient.Event<{
   payoutId: number, // The reward payout cycle ID logged when a reward payout cycle has ended.
+}>;
+type ColonyBootstrapped = ContractClient.Event<{
+  users: Array<Address>, // The array of users that received an initial amount of tokens and reputation.
+  amounts: Array<BigNumber>, // The array of values that represent the amount of tokens and reputation each user reveived.
 }>;
 type ColonyLabelRegistered = ContractClient.Event<{
   colony: Address, // Address of the colony that registered a label
@@ -534,6 +538,17 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
   >;
   /*
+    Bootstrap the colony by setting the given amounts of reputation and tokens to the given users. This function can only be called by the `FOUNDER` authority role when `taskCount` for the colony is `0`.
+   */
+  bootstrapColony: ColonyClient.Sender<
+    {
+      users: Array<Address>, // An array of users that will receive an initial amount of tokens and reputation.
+      amounts: Array<BigNumber>, // An array of values that represent the amount of tokens and reputation each user will reveive.
+    },
+    { ColonyBootstrapped: ColonyBootstrapped },
+    ColonyClient,
+  >;
+  /*
     Register the colony's ENS label.
   */
   registerColonyLabel: ColonyClient.Sender<
@@ -920,6 +935,7 @@ export default class ColonyClient extends ContractClient {
 
   events: {
     ColonyAdminRoleRemoved: ColonyAdminRoleRemoved,
+    ColonyBootstrapped: ColonyBootstrapped,
     ColonyFundsClaimed: ColonyFundsClaimed,
     ColonyFundsMovedBetweenFundingPots: ColonyFundsMovedBetweenFundingPots,
     ColonyInitialised: ColonyInitialised,
@@ -1130,7 +1146,8 @@ export default class ColonyClient extends ContractClient {
     ]);
     this.addEvent('TaskRoleUserSet', [
       ['taskId', 'number'],
-      ['role', 'number'],
+      // $FlowFixMe
+      ['role', 'role'],
       ['user', 'tokenAddress'], // XXX because 0x0 is valid
     ]);
     this.addEvent('TaskPayoutSet', [
@@ -1164,6 +1181,10 @@ export default class ColonyClient extends ContractClient {
     this.addEvent('ColonyUpgraded', [
       ['oldVersion', 'number'],
       ['newVersion', 'number'],
+    ]);
+    this.addEvent('ColonyBootstrapped', [
+      ['users', '[address]'],
+      ['amounts', '[bigNumber]'],
     ]);
     this.addEvent('ColonyFounderRoleSet', [
       ['oldFounder', 'address'],
@@ -1296,6 +1317,9 @@ export default class ColonyClient extends ContractClient {
     });
     this.addSender('submitTaskWorkRating', {
       input: [['taskId', 'number'], ['role', 'role'], ['secret', 'hexString']],
+    });
+    this.addSender('bootstrapColony', {
+      input: [['users', '[address]'], ['amounts', '[bigNumber]']],
     });
     this.addSender('registerColonyLabel', {
       input: [['colonyName', 'string'], ['orbitDBPath', 'string']],
