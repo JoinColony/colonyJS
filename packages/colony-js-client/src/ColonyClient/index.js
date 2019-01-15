@@ -1183,8 +1183,8 @@ export default class ColonyClient extends ContractClient {
       ['newVersion', 'number'],
     ]);
     this.addEvent('ColonyBootstrapped', [
-      ['users', 'array'],
-      ['amounts', 'array'],
+      ['users', '[address]'],
+      ['amounts', '[bigNumber]'],
     ]);
     this.addEvent('ColonyFounderRoleSet', [
       ['oldFounder', 'address'],
@@ -1319,7 +1319,7 @@ export default class ColonyClient extends ContractClient {
       input: [['taskId', 'number'], ['role', 'role'], ['secret', 'hexString']],
     });
     this.addSender('bootstrapColony', {
-      input: [['users', 'array'], ['amounts', 'array']],
+      input: [['users', '[address]'], ['amounts', '[bigNumber]']],
     });
     this.addSender('registerColonyLabel', {
       input: [['colonyName', 'string'], ['orbitDBPath', 'string']],

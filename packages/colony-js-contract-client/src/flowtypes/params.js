@@ -1,8 +1,9 @@
 /* @flow */
 
 export type ParamTypes =
+  | '[address]'
+  | '[bigNumber]'
   | 'address'
-  | 'array'
   | 'bigNumber'
   | 'boolean'
   | 'date'
