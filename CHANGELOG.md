@@ -6,14 +6,14 @@
 
 * `TaskPayoutSet` and `TaskPayoutClaimed` now return token amounts as BigNumbers (`@colony/colony-js-client`)
 * Add `bootstrapColony` sender and `ColonyBootstrapped` event to colony client (`@colony/colony-js-client`)
-* Add `array` param type and validation to contract client (`@colony/colony-js-contract-client`)
+* Add `[address]` and `[bigNumber]` param type and validation (`@colony/colony-js-contract-client`)
 
 ## v1.9.0
 
 **Bug fixes**
 
 * The `ColonyFounderRoleSet` event is now named correctly (`@colony/colony-js-client`)
-* Initialise `MetaColonyClient` and `ColonyClient` before returning them (`@colony/colony-js-client`)
+* Initialize `MetaColonyClient` and `ColonyClient` before returning them (`@colony/colony-js-client`)
 
 **New features**
 
