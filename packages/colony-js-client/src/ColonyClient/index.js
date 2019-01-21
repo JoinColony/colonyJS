@@ -34,128 +34,128 @@ type IPFSHash = string;
 type TaskStatus = $Keys<typeof TASK_STATUSES>;
 
 type DomainAdded = ContractClient.Event<{
-  domainId: number, // The ID of the domain that was added.
+  domainId: number, // The numeric ID of the domain that was added.
 }>;
 type PotAdded = ContractClient.Event<{
-  potId: number, // The ID of the funding pot that was added.
+  potId: number, // The numeric ID of the pot that was added.
 }>;
 type SkillAdded = ContractClient.Event<{
-  skillId: number, // A skillId for this domain.
-  parentSkillId: number, // The parent skill id.
+  skillId: number, // The numeric ID of the skill that was added.
+  parentSkillId: number, // The numeric ID of the parent skill.
 }>;
 type TaskAdded = ContractClient.Event<{
-  taskId: number, // The task ID.
+  taskId: number, // The numeric ID of the task that was added.
 }>;
 type TaskBriefSet = ContractClient.Event<{
-  taskId: number, // The task ID.
-  specificationHash: string, // The IPFS hash of the task's new specification.
+  taskId: number, // The numeric ID of the task that was modified.
+  specificationHash: string, // The specification hash that was set (an IPFS hash).
 }>;
 type TaskCompleted = ContractClient.Event<{
-  taskId: number, // The task ID.
+  taskId: number, // The numeric ID of the task that was completed.
 }>;
 type TaskDueDateSet = ContractClient.Event<{
-  taskId: number, // The task ID.
-  dueDate: Date, // The task's new due date.
+  taskId: number, // The numeric ID of the task that was modified.
+  dueDate: Date, // The due date that was set.
 }>;
 type TaskDomainSet = ContractClient.Event<{
-  taskId: number, // The task ID.
-  domainId: number, // The task's new domain ID.
+  taskId: number, // The numeric ID of the task that was modified.
+  domainId: number, // The numeric ID of the domain that was set.
 }>;
 type TaskSkillSet = ContractClient.Event<{
-  taskId: number, // The task ID.
-  skillId: number, // The task's new skill ID.
+  taskId: number, // The numeric ID of the task that was modified.
+  skillId: number, // The numeric ID of the skill that was set.
 }>;
 type TaskRoleUserSet = ContractClient.Event<{
-  taskId: number, // The task ID.
-  role: Role, // The role that changed for the task.
-  user: Address, // The user with the role that changed for the task.
+  taskId: number, // The numeric ID of the task that was modified.
+  role: Role, // The role of the task that was set (`MANAGER`, `EVALUATOR`, or `WORKER`).
+  user: Address, // The user that was assigned the task role.
 }>;
 type TaskPayoutSet = ContractClient.Event<{
-  taskId: number, // The task ID.
-  role: Role, // The role the payout is for
-  token: TokenAddress, // The token address (0x indicates ether).
-  amount: BigNumber, // The token amount.
+  taskId: number, // The numeric ID of the task that was modified.
+  role: Role, // The role of the task that was modified (`MANAGER`, `EVALUATOR`, or `WORKER`).
+  token: TokenAddress, // The address of the token contract (an empty address if Ether).
+  amount: BigNumber, // The task payout amount that was set.
 }>;
 type TaskDeliverableSubmitted = ContractClient.Event<{
-  taskId: number, // The task ID.
-  deliverableHash: IPFSHash, // The IPFS hash of the deliverable.
+  taskId: number, // The numeric ID of the task that was modified.
+  deliverableHash: IPFSHash, // The deliverable hash that was submitted (an IPFS hash).
 }>;
 type TaskWorkRatingRevealed = ContractClient.Event<{
-  taskId: number, // The task ID.
-  role: Role, // The role of the work rating.
-  rating: number, // The rating value.
+  taskId: number, // The numeric ID of the task that was modified.
+  role: Role, // The role of the task that received the rating (`MANAGER`, `EVALUATOR`, or `WORKER`).
+  rating: number, // The value of the rating that was revealed (`1`, `2`, or `3`).
 }>;
 type TaskFinalized = ContractClient.Event<{
-  taskId: number, // The task ID of the task that was finalized.
+  taskId: number, // The numeric ID of the task that was finalized.
 }>;
 type TaskPayoutClaimed = ContractClient.Event<{
-  taskId: number, // The task ID of the task that was finalized.
-  role: Role, // The role of the work rating.
-  token: TokenAddress, // The token address (0x indicates ether).
-  amount: BigNumber, // The token amount.
+  taskId: number, // The numeric ID of the task that was modified.
+  role: Role, // The role of the task that was assigned the task payout (`MANAGER`, `EVALUATOR`, or `WORKER`).
+  token: TokenAddress, // The address of the token contract (an empty address if Ether).
+  amount: BigNumber, // The task payout amount that was claimed.
 }>;
 type TaskCanceled = ContractClient.Event<{
-  taskId: number, // The task ID of the task that was canceled.
+  taskId: number, // The numeric ID of the task that was canceled.
 }>;
 type RewardPayoutCycleStarted = ContractClient.Event<{
-  payoutId: number, // The reward payout cycle ID logged when a new reward payout cycle has started.
+  payoutId: number, // The numeric ID of the payout cycle that started.
 }>;
 type RewardPayoutCycleEnded = ContractClient.Event<{
-  payoutId: number, // The reward payout cycle ID logged when a reward payout cycle has ended.
+  payoutId: number, // The numeric ID of the payout cycle that ended.
 }>;
 type ColonyBootstrapped = ContractClient.Event<{
   users: Array<Address>, // The array of users that received an initial amount of tokens and reputation.
-  amounts: Array<BigNumber>, // The array of values that represent the amount of tokens and reputation each user reveived.
+  amounts: Array<BigNumber>, // The array of corresponding token and reputation amounts each user recieved.
 }>;
 type ColonyLabelRegistered = ContractClient.Event<{
-  colony: Address, // Address of the colony that registered a label
-  label: string, // The label registered
+  colony: Address, // The address of the colony that was modified.
+  label: string, // The label that was registered for the colony.
 }>;
 type Transfer = ContractClient.Event<{
-  from: Address, // Event data indicating the 'from' address.
-  to: Address, // Event data indicating the 'to' address.
-  value: BigNumber, // Event data indicating the amount transferred.
+  from: Address, // The address of the account that sent tokens.
+  to: Address, // The address of the account that received tokens.
+  value: BigNumber, // The amount of tokens that were transferred.
 }>;
 type Mint = ContractClient.Event<{
   address: Address, // The address that initiated the mint event.
-  amount: BigNumber, // Event data indicating the amount of tokens minted.
+  amount: BigNumber, // The amount of tokens that were minted.
 }>;
 type ColonyFounderRoleSet = ContractClient.Event<{
-  oldFounder: Address, // The current founder delegating the role away
-  newFounder: Address, // The user receiving the colony founder role
+  oldFounder: Address, // The address of the user that assigned the `FOUNDER` authority role (the old founder).
+  newFounder: Address, // The address of the user that was assigned the `FOUNDER` authority role (the new founder).
 }>;
 type ColonyAdminRoleSet = ContractClient.Event<{
-  user: Address, // The newly-added colony admin user
+  user: Address, // The address of the user that was assigned the `ADMIN` authority role.
 }>;
 type ColonyAdminRoleRemoved = ContractClient.Event<{
-  user: Address, // The removed colony admin user
+  user: Address, // The address of the user that was unassigned the `ADMIN` authority role.
 }>;
 type ColonyFundsMovedBetweenFundingPots = ContractClient.Event<{
-  fromPot: number, // The source funding pot
-  toPot: number, // The target funding pot
-  amount: BigNumber, // The amount that was transferred
-  token: Address, // The token address being transferred
+  fromPot: number, // The numeric ID of the pot from which the funds were moved.
+  toPot: number, // The numeric ID of the pot to which the funds were moved.
+  amount: BigNumber, // The amount of funds that were moved between pots.
+  token: Address, // The address of the token contract (an empty address if Ether).
 }>;
 type ColonyFundsClaimed = ContractClient.Event<{
-  token: Address, // The token address being claimed
-  fee: BigNumber, // The fee deducted for rewards
-  payoutRemainder: BigNumber, // The remaining funds moved to the top-level domain pot
+  token: Address, // The address of the token contract (an empty address if Ether).
+  fee: BigNumber, // The fee deducted from the claim and added to the colony rewards pot.
+  payoutRemainder: BigNumber, // The remaining funds (after the fee) moved to the top-level domain pot.
 }>;
 type RewardPayoutClaimed = ContractClient.Event<{
-  rewardPayoutId: number, // The reward payout cycle ID
-  user: Address, // The user who received the reward payout
-  fee: BigNumber, // The fee deducted from the payout
-  payoutRemainder: BigNumber, // The remaining reward amount paid out to the user
+  rewardPayoutId: number, // The numeric ID of the reward payout.
+  user: Address, // The address of the user who claimed the reward payout.
+  fee: BigNumber, // The fee deducted from the claim and added to the colony rewards pot.
+  payoutRemainder: BigNumber, // The remaining payout amount (after the fee) transferred to the user.
 }>;
 type ColonyRewardInverseSet = ContractClient.Event<{
-  rewardInverse: BigNumber, // The reward inverse value
+  rewardInverse: BigNumber, // The reward inverse value that was set.
 }>;
 type ColonyInitialised = ContractClient.Event<{
-  colonyNetwork: Address, // The Colony Network address
+  colonyNetwork: Address, // The address of the Colony Network.
 }>;
 type ColonyUpgraded = ContractClient.Event<{
-  oldVersion: number, // The previous colony version
-  newVersion: number, // The new colony version
+  oldVersion: number, // The old version number of the colony.
+  newVersion: number, // The new version number of the colony.
 }>;
 
 export default class ColonyClient extends ContractClient {

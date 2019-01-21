@@ -501,7 +501,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|rewardInverse|BigNumber|The reward inverse value|
+|rewardInverse|BigNumber|The reward inverse value that was set.|
 |ColonyRewardInverseSet|object|Contains the data defined in [ColonyRewardInverseSet](#eventscolonyrewardinversesetaddlistener-rewardinverse-------)|
 
 ### `removeRecoveryRole.send({ user }, options)`
@@ -556,9 +556,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|taskId|number|The task ID.|
-|potId|number|The ID of the funding pot that was added.|
-|domainId|number|The ID of the domain that was added.|
+|taskId|number|The numeric ID of the task that was added.|
+|potId|number|The numeric ID of the pot that was added.|
+|domainId|number|The numeric ID of the domain that was added.|
 |TaskAdded|object|Contains the data defined in [TaskAdded](#eventstaskaddedaddlistener-taskid-------)|
 |PotAdded|object|Contains the data defined in [PotAdded](#eventspotaddedaddlistener-potid-------)|
 |DomainAdded|object|Contains the data defined in [DomainAdded](#eventsdomainaddedaddlistener-domainid-------)|
@@ -579,7 +579,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|taskId|number|The task ID.|
+|taskId|number|The numeric ID of the task that was completed.|
 |TaskCompleted|object|Contains the data defined in [TaskCompleted](#eventstaskcompletedaddlistener-taskid-------)|
 
 ### `bootstrapColony.send({ users, amounts }, options)`
@@ -600,7 +600,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |Event data|Type|Description|
 |---|---|---|
 |users|undefined|The array of users that received an initial amount of tokens and reputation.|
-|amounts|undefined|The array of values that represent the amount of tokens and reputation each user reveived.|
+|amounts|undefined|The array of corresponding token and reputation amounts each user recieved.|
 |ColonyBootstrapped|object|Contains the data defined in [ColonyBootstrapped](#eventscolonybootstrappedaddlistener-users-amounts-------)|
 
 ### `registerColonyLabel.send({ colonyName, orbitDBPath }, options)`
@@ -620,8 +620,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|colony|Address|Address of the colony that registered a label|
-|label|string|The label registered|
+|colony|Address|The address of the colony that was modified.|
+|label|string|The label that was registered for the colony.|
 |ColonyLabelRegistered|object|Contains the data defined in [ColonyLabelRegistered](#eventscolonylabelregisteredaddlistener-colony-label-------)|
 
 ### `setFounderRole.send({ user }, options)`
@@ -640,8 +640,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|oldFounder|Address|The current founder delegating the role away|
-|newFounder|Address|The user receiving the colony founder role|
+|oldFounder|Address|The address of the user that assigned the `FOUNDER` authority role (the old founder).|
+|newFounder|Address|The address of the user that was assigned the `FOUNDER` authority role (the new founder).|
 |ColonyFounderRoleSet|object|Contains the data defined in [ColonyFounderRoleSet](#eventscolonyfounderrolesetaddlistener-oldfounder-newfounder-------)|
 
 ### `setAdminRole.send({ user }, options)`
@@ -660,7 +660,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|user|Address|The newly-added colony admin user|
+|user|Address|The address of the user that was assigned the `ADMIN` authority role.|
 |ColonyAdminRoleSet|object|Contains the data defined in [ColonyAdminRoleSet](#eventscolonyadminrolesetaddlistener-user-------)|
 
 ### `setRecoveryRole.send({ user }, options)`
@@ -695,7 +695,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|user|Address|The removed colony admin user|
+|user|Address|The address of the user that was unassigned the `ADMIN` authority role.|
 |ColonyAdminRoleRemoved|object|Contains the data defined in [ColonyAdminRoleRemoved](#eventscolonyadminroleremovedaddlistener-user-------)|
 
 ### `setAllTaskPayouts.send({ taskId, token, managerAmount, evaluatorAmount, workerAmount }, options)`
@@ -718,10 +718,10 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|taskId|number|The task ID.|
-|role|Role|The role the payout is for|
-|token|Token address|The token address (0x indicates ether).|
-|amount|BigNumber|The token amount.|
+|taskId|number|The numeric ID of the task that was modified.|
+|role|Role|The role of the task that was modified (`MANAGER`, `EVALUATOR`, or `WORKER`).|
+|token|Token address|The address of the token contract (an empty address if Ether).|
+|amount|BigNumber|The task payout amount that was set.|
 |TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutsetaddlistener-taskid-role-token-amount-------)|
 
 ### `submitTaskDeliverable.send({ taskId, deliverableHash }, options)`
@@ -741,9 +741,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|taskId|number|The task ID.|
-|taskId|number|The task ID.|
-|deliverableHash|IPFS hash|The IPFS hash of the deliverable.|
+|taskId|number|The numeric ID of the task that was completed.|
+|taskId|number|The numeric ID of the task that was modified.|
+|deliverableHash|IPFS hash|The deliverable hash that was submitted (an IPFS hash).|
 |TaskCompleted|object|Contains the data defined in [TaskCompleted](#eventstaskcompletedaddlistener-taskid-------)|
 |TaskDeliverableSubmitted|object|Contains the data defined in [TaskDeliverableSubmitted](#eventstaskdeliverablesubmittedaddlistener-taskid-deliverablehash-------)|
 
@@ -783,9 +783,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|taskId|number|The task ID.|
-|taskId|number|The task ID.|
-|deliverableHash|IPFS hash|The IPFS hash of the deliverable.|
+|taskId|number|The numeric ID of the task that was completed.|
+|taskId|number|The numeric ID of the task that was modified.|
+|deliverableHash|IPFS hash|The deliverable hash that was submitted (an IPFS hash).|
 |TaskCompleted|object|Contains the data defined in [TaskCompleted](#eventstaskcompletedaddlistener-taskid-------)|
 |TaskDeliverableSubmitted|object|Contains the data defined in [TaskDeliverableSubmitted](#eventstaskdeliverablesubmittedaddlistener-taskid-deliverablehash-------)|
 
@@ -808,9 +808,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|taskId|number|The task ID.|
-|role|Role|The role of the work rating.|
-|rating|number|The rating value.|
+|taskId|number|The numeric ID of the task that was modified.|
+|role|Role|The role of the task that received the rating (`MANAGER`, `EVALUATOR`, or `WORKER`).|
+|rating|number|The value of the rating that was revealed (`1`, `2`, or `3`).|
 |TaskWorkRatingRevealed|object|Contains the data defined in [TaskWorkRatingRevealed](#eventstaskworkratingrevealedaddlistener-taskid-role-rating-------)|
 
 ### `assignWorkRating.send({ taskId }, options)`
@@ -845,7 +845,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|taskId|number|The task ID of the task that was finalized.|
+|taskId|number|The numeric ID of the task that was finalized.|
 |TaskFinalized|object|Contains the data defined in [TaskFinalized](#eventstaskfinalizedaddlistener-taskid-------)|
 
 ### `claimPayout.send({ taskId, role, token }, options)`
@@ -866,13 +866,13 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|taskId|number|The task ID of the task that was finalized.|
-|role|Role|The role of the work rating.|
-|token|Token address|The token address (0x indicates ether).|
-|amount|BigNumber|The token amount.|
-|from|Address|Event data indicating the 'from' address.|
-|to|Address|Event data indicating the 'to' address.|
-|value|BigNumber|Event data indicating the amount transferred.|
+|taskId|number|The numeric ID of the task that was modified.|
+|role|Role|The role of the task that was assigned the task payout (`MANAGER`, `EVALUATOR`, or `WORKER`).|
+|token|Token address|The address of the token contract (an empty address if Ether).|
+|amount|BigNumber|The task payout amount that was claimed.|
+|from|Address|The address of the account that sent tokens.|
+|to|Address|The address of the account that received tokens.|
+|value|BigNumber|The amount of tokens that were transferred.|
 |TaskPayoutClaimed|object|Contains the data defined in [TaskPayoutClaimed](#eventstaskpayoutclaimedaddlistener-taskid-role-token-amount-------)|
 |Transfer|object|Contains the data defined in [Transfer](#eventstransferaddlistener-from-to-value-------)|
 
@@ -892,7 +892,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|domainId|number|The ID of the domain that was added.|
+|domainId|number|The numeric ID of the domain that was added.|
 |DomainAdded|object|Contains the data defined in [DomainAdded](#eventsdomainaddedaddlistener-domainid-------)|
 
 ### `claimColonyFunds.send({ token }, options)`
@@ -911,9 +911,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|token|Address|The token address being claimed|
-|fee|BigNumber|The fee deducted for rewards|
-|payoutRemainder|BigNumber|The remaining funds moved to the top-level domain pot|
+|token|Address|The address of the token contract (an empty address if Ether).|
+|fee|BigNumber|The fee deducted from the claim and added to the colony rewards pot.|
+|payoutRemainder|BigNumber|The remaining funds (after the fee) moved to the top-level domain pot.|
 |ColonyFundsClaimed|object|Contains the data defined in [ColonyFundsClaimed](#eventscolonyfundsclaimedaddlistener-token-fee-payoutremainder-------)|
 
 ### `finalizeRewardPayout.send({ payoutId }, options)`
@@ -951,10 +951,10 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|fromPot|number|The source funding pot|
-|toPot|number|The target funding pot|
-|amount|BigNumber|The amount that was transferred|
-|token|Address|The token address being transferred|
+|fromPot|number|The numeric ID of the pot from which the funds were moved.|
+|toPot|number|The numeric ID of the pot to which the funds were moved.|
+|amount|BigNumber|The amount of funds that were moved between pots.|
+|token|Address|The address of the token contract (an empty address if Ether).|
 |ColonyFundsMovedBetweenFundingPots|object|Contains the data defined in [ColonyFundsMovedBetweenFundingPots](#eventscolonyfundsmovedbetweenfundingpotsaddlistener-frompot-topot-amount-token-------)|
 
 ### `mintTokens.send({ amount }, options)`
@@ -974,10 +974,10 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |Event data|Type|Description|
 |---|---|---|
 |address|Address|The address that initiated the mint event.|
-|amount|BigNumber|Event data indicating the amount of tokens minted.|
-|from|Address|Event data indicating the 'from' address.|
-|to|Address|Event data indicating the 'to' address.|
-|value|BigNumber|Event data indicating the amount transferred.|
+|amount|BigNumber|The amount of tokens that were minted.|
+|from|Address|The address of the account that sent tokens.|
+|to|Address|The address of the account that received tokens.|
+|value|BigNumber|The amount of tokens that were transferred.|
 |Mint|object|Contains the data defined in [Mint](#eventsmintaddlistener-address-amount-------)|
 |Transfer|object|Contains the data defined in [Transfer](#eventstransferaddlistener-from-to-value-------)|
 
@@ -997,7 +997,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|payoutId|number|The reward payout cycle ID logged when a new reward payout cycle has started.|
+|payoutId|number|The numeric ID of the payout cycle that started.|
 |RewardPayoutCycleStarted|object|Contains the data defined in [RewardPayoutCycleStarted](#eventsrewardpayoutcyclestartedaddlistener-payoutid-------)|
 
 ### `waiveRewardPayouts.send({ numPayouts }, options)`
@@ -1048,8 +1048,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|oldVersion|number|The previous colony version|
-|newVersion|number|The new colony version|
+|oldVersion|number|The old version number of the colony.|
+|newVersion|number|The new version number of the colony.|
 |ColonyUpgraded|object|Contains the data defined in [ColonyUpgraded](#eventscolonyupgradedaddlistener-oldversion-newversion-------)|
 
   
@@ -1073,8 +1073,8 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 
 |Event Data|Type|Description|
 |---|---|---|
-|taskId|number|The task ID.|
-|specificationHash|string|The IPFS hash of the task's new specification.|
+|taskId|number|The numeric ID of the task that was modified.|
+|specificationHash|string|The specification hash that was set (an IPFS hash).|
 |TaskBriefSet|object|Contains the data defined in [TaskBriefSet](#eventstaskbriefsetaddlistener-taskid-specificationhash-------)|
 
 ### `setTaskDomain.startOperation({ taskId, domainId })`
@@ -1094,8 +1094,8 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 
 |Event Data|Type|Description|
 |---|---|---|
-|taskId|number|The task ID.|
-|domainId|number|The task's new domain ID.|
+|taskId|number|The numeric ID of the task that was modified.|
+|domainId|number|The numeric ID of the domain that was set.|
 |TaskDomainSet|object|Contains the data defined in [TaskDomainSet](#eventstaskdomainsetaddlistener-taskid-domainid-------)|
 
 ### `setTaskDueDate.startOperation({ taskId, dueDate })`
@@ -1115,8 +1115,8 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 
 |Event Data|Type|Description|
 |---|---|---|
-|taskId|number|The task ID.|
-|dueDate|Date|The task's new due date.|
+|taskId|number|The numeric ID of the task that was modified.|
+|dueDate|Date|The due date that was set.|
 |TaskDueDateSet|object|Contains the data defined in [TaskDueDateSet](#eventstaskduedatesetaddlistener-taskid-duedate-------)|
 
 ### `setTaskManagerRole.startOperation({ taskId, user })`
@@ -1136,9 +1136,9 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 
 |Event Data|Type|Description|
 |---|---|---|
-|taskId|number|The task ID.|
-|role|Role|The role that changed for the task.|
-|user|Address|The user with the role that changed for the task.|
+|taskId|number|The numeric ID of the task that was modified.|
+|role|Role|The role of the task that was set (`MANAGER`, `EVALUATOR`, or `WORKER`).|
+|user|Address|The user that was assigned the task role.|
 |TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleusersetaddlistener-taskid-role-user-------)|
 
 ### `setTaskWorkerRole.startOperation({ taskId, user })`
@@ -1158,9 +1158,9 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 
 |Event Data|Type|Description|
 |---|---|---|
-|taskId|number|The task ID.|
-|role|Role|The role that changed for the task.|
-|user|Address|The user with the role that changed for the task.|
+|taskId|number|The numeric ID of the task that was modified.|
+|role|Role|The role of the task that was set (`MANAGER`, `EVALUATOR`, or `WORKER`).|
+|user|Address|The user that was assigned the task role.|
 |TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleusersetaddlistener-taskid-role-user-------)|
 
 ### `setTaskEvaluatorRole.startOperation({ taskId, user })`
@@ -1180,9 +1180,9 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 
 |Event Data|Type|Description|
 |---|---|---|
-|taskId|number|The task ID.|
-|role|Role|The role that changed for the task.|
-|user|Address|The user with the role that changed for the task.|
+|taskId|number|The numeric ID of the task that was modified.|
+|role|Role|The role of the task that was set (`MANAGER`, `EVALUATOR`, or `WORKER`).|
+|user|Address|The user that was assigned the task role.|
 |TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleusersetaddlistener-taskid-role-user-------)|
 
 ### `setTaskSkill.startOperation({ taskId, skillId })`
@@ -1202,8 +1202,8 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 
 |Event Data|Type|Description|
 |---|---|---|
-|taskId|number|The task ID.|
-|skillId|number|The task's new skill ID.|
+|taskId|number|The numeric ID of the task that was modified.|
+|skillId|number|The numeric ID of the skill that was set.|
 |TaskSkillSet|object|Contains the data defined in [TaskSkillSet](#eventstaskskillsetaddlistener-taskid-skillid-------)|
 
 ### `setTaskEvaluatorPayout.startOperation({ taskId, token, amount })`
@@ -1224,10 +1224,10 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 
 |Event Data|Type|Description|
 |---|---|---|
-|taskId|number|The task ID.|
-|role|Role|The role the payout is for|
-|token|Token address|The token address (0x indicates ether).|
-|amount|BigNumber|The token amount.|
+|taskId|number|The numeric ID of the task that was modified.|
+|role|Role|The role of the task that was modified (`MANAGER`, `EVALUATOR`, or `WORKER`).|
+|token|Token address|The address of the token contract (an empty address if Ether).|
+|amount|BigNumber|The task payout amount that was set.|
 |TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutsetaddlistener-taskid-role-token-amount-------)|
 
 ### `setTaskManagerPayout.startOperation({ taskId, token, amount })`
@@ -1248,10 +1248,10 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 
 |Event Data|Type|Description|
 |---|---|---|
-|taskId|number|The task ID.|
-|role|Role|The role the payout is for|
-|token|Token address|The token address (0x indicates ether).|
-|amount|BigNumber|The token amount.|
+|taskId|number|The numeric ID of the task that was modified.|
+|role|Role|The role of the task that was modified (`MANAGER`, `EVALUATOR`, or `WORKER`).|
+|token|Token address|The address of the token contract (an empty address if Ether).|
+|amount|BigNumber|The task payout amount that was set.|
 |TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutsetaddlistener-taskid-role-token-amount-------)|
 
 ### `setTaskWorkerPayout.startOperation({ taskId, token, amount })`
@@ -1272,10 +1272,10 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 
 |Event Data|Type|Description|
 |---|---|---|
-|taskId|number|The task ID.|
-|role|Role|The role the payout is for|
-|token|Token address|The token address (0x indicates ether).|
-|amount|BigNumber|The token amount.|
+|taskId|number|The numeric ID of the task that was modified.|
+|role|Role|The role of the task that was modified (`MANAGER`, `EVALUATOR`, or `WORKER`).|
+|token|Token address|The address of the token contract (an empty address if Ether).|
+|amount|BigNumber|The task payout amount that was set.|
 |TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutsetaddlistener-taskid-role-token-amount-------)|
 
 ### `removeTaskWorkerRole.startOperation({ taskId })`
@@ -1294,9 +1294,9 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 
 |Event Data|Type|Description|
 |---|---|---|
-|taskId|number|The task ID.|
-|role|Role|The role that changed for the task.|
-|user|Address|The user with the role that changed for the task.|
+|taskId|number|The numeric ID of the task that was modified.|
+|role|Role|The role of the task that was set (`MANAGER`, `EVALUATOR`, or `WORKER`).|
+|user|Address|The user that was assigned the task role.|
 |TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleusersetaddlistener-taskid-role-user-------)|
 
 ### `removeTaskEvaluatorRole.startOperation({ taskId })`
@@ -1315,9 +1315,9 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 
 |Event Data|Type|Description|
 |---|---|---|
-|taskId|number|The task ID.|
-|role|Role|The role that changed for the task.|
-|user|Address|The user with the role that changed for the task.|
+|taskId|number|The numeric ID of the task that was modified.|
+|role|Role|The role of the task that was set (`MANAGER`, `EVALUATOR`, or `WORKER`).|
+|user|Address|The user that was assigned the task role.|
 |TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleusersetaddlistener-taskid-role-user-------)|
 
 ### `cancelTask.startOperation({ taskId })`
@@ -1336,7 +1336,7 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 
 |Event Data|Type|Description|
 |---|---|---|
-|taskId|number|The task ID of the task that was canceled.|
+|taskId|number|The numeric ID of the task that was canceled.|
 |TaskCanceled|object|Contains the data defined in [TaskCanceled](#eventstaskcanceledaddlistener-taskid-------)|
 
   
@@ -1353,7 +1353,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|domainId|number|The ID of the domain that was added.|
+|domainId|number|The numeric ID of the domain that was added.|
 
 
 ### `events.PotAdded.addListener(({ potId }) => { /* ... */ })`
@@ -1364,7 +1364,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|potId|number|The ID of the funding pot that was added.|
+|potId|number|The numeric ID of the pot that was added.|
 
 
 ### `events.SkillAdded.addListener(({ skillId, parentSkillId }) => { /* ... */ })`
@@ -1375,8 +1375,8 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|skillId|number|A skillId for this domain.|
-|parentSkillId|number|The parent skill id.|
+|skillId|number|The numeric ID of the skill that was added.|
+|parentSkillId|number|The numeric ID of the parent skill.|
 
 
 ### `events.TaskAdded.addListener(({ taskId }) => { /* ... */ })`
@@ -1387,7 +1387,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|taskId|number|The task ID.|
+|taskId|number|The numeric ID of the task that was added.|
 
 
 ### `events.TaskBriefSet.addListener(({ taskId, specificationHash }) => { /* ... */ })`
@@ -1398,8 +1398,8 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|taskId|number|The task ID.|
-|specificationHash|string|The IPFS hash of the task's new specification.|
+|taskId|number|The numeric ID of the task that was modified.|
+|specificationHash|string|The specification hash that was set (an IPFS hash).|
 
 
 ### `events.TaskCompleted.addListener(({ taskId }) => { /* ... */ })`
@@ -1410,7 +1410,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|taskId|number|The task ID.|
+|taskId|number|The numeric ID of the task that was completed.|
 
 
 ### `events.TaskDueDateSet.addListener(({ taskId, dueDate }) => { /* ... */ })`
@@ -1421,8 +1421,8 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|taskId|number|The task ID.|
-|dueDate|Date|The task's new due date.|
+|taskId|number|The numeric ID of the task that was modified.|
+|dueDate|Date|The due date that was set.|
 
 
 ### `events.TaskDomainSet.addListener(({ taskId, domainId }) => { /* ... */ })`
@@ -1433,8 +1433,8 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|taskId|number|The task ID.|
-|domainId|number|The task's new domain ID.|
+|taskId|number|The numeric ID of the task that was modified.|
+|domainId|number|The numeric ID of the domain that was set.|
 
 
 ### `events.TaskSkillSet.addListener(({ taskId, skillId }) => { /* ... */ })`
@@ -1445,8 +1445,8 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|taskId|number|The task ID.|
-|skillId|number|The task's new skill ID.|
+|taskId|number|The numeric ID of the task that was modified.|
+|skillId|number|The numeric ID of the skill that was set.|
 
 
 ### `events.TaskRoleUserSet.addListener(({ taskId, role, user }) => { /* ... */ })`
@@ -1457,9 +1457,9 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|taskId|number|The task ID.|
-|role|Role|The role that changed for the task.|
-|user|Address|The user with the role that changed for the task.|
+|taskId|number|The numeric ID of the task that was modified.|
+|role|Role|The role of the task that was set (`MANAGER`, `EVALUATOR`, or `WORKER`).|
+|user|Address|The user that was assigned the task role.|
 
 
 ### `events.TaskPayoutSet.addListener(({ taskId, role, token, amount }) => { /* ... */ })`
@@ -1470,10 +1470,10 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|taskId|number|The task ID.|
-|role|Role|The role the payout is for|
-|token|Token address|The token address (0x indicates ether).|
-|amount|BigNumber|The token amount.|
+|taskId|number|The numeric ID of the task that was modified.|
+|role|Role|The role of the task that was modified (`MANAGER`, `EVALUATOR`, or `WORKER`).|
+|token|Token address|The address of the token contract (an empty address if Ether).|
+|amount|BigNumber|The task payout amount that was set.|
 
 
 ### `events.TaskDeliverableSubmitted.addListener(({ taskId, deliverableHash }) => { /* ... */ })`
@@ -1484,8 +1484,8 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|taskId|number|The task ID.|
-|deliverableHash|IPFS hash|The IPFS hash of the deliverable.|
+|taskId|number|The numeric ID of the task that was modified.|
+|deliverableHash|IPFS hash|The deliverable hash that was submitted (an IPFS hash).|
 
 
 ### `events.TaskWorkRatingRevealed.addListener(({ taskId, role, rating }) => { /* ... */ })`
@@ -1496,9 +1496,9 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|taskId|number|The task ID.|
-|role|Role|The role of the work rating.|
-|rating|number|The rating value.|
+|taskId|number|The numeric ID of the task that was modified.|
+|role|Role|The role of the task that received the rating (`MANAGER`, `EVALUATOR`, or `WORKER`).|
+|rating|number|The value of the rating that was revealed (`1`, `2`, or `3`).|
 
 
 ### `events.TaskFinalized.addListener(({ taskId }) => { /* ... */ })`
@@ -1509,7 +1509,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|taskId|number|The task ID of the task that was finalized.|
+|taskId|number|The numeric ID of the task that was finalized.|
 
 
 ### `events.TaskPayoutClaimed.addListener(({ taskId, role, token, amount }) => { /* ... */ })`
@@ -1520,10 +1520,10 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|taskId|number|The task ID of the task that was finalized.|
-|role|Role|The role of the work rating.|
-|token|Token address|The token address (0x indicates ether).|
-|amount|BigNumber|The token amount.|
+|taskId|number|The numeric ID of the task that was modified.|
+|role|Role|The role of the task that was assigned the task payout (`MANAGER`, `EVALUATOR`, or `WORKER`).|
+|token|Token address|The address of the token contract (an empty address if Ether).|
+|amount|BigNumber|The task payout amount that was claimed.|
 
 
 ### `events.TaskCanceled.addListener(({ taskId }) => { /* ... */ })`
@@ -1534,7 +1534,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|taskId|number|The task ID of the task that was canceled.|
+|taskId|number|The numeric ID of the task that was canceled.|
 
 
 ### `events.RewardPayoutCycleStarted.addListener(({ payoutId }) => { /* ... */ })`
@@ -1545,7 +1545,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|payoutId|number|The reward payout cycle ID logged when a new reward payout cycle has started.|
+|payoutId|number|The numeric ID of the payout cycle that started.|
 
 
 ### `events.RewardPayoutCycleEnded.addListener(({ payoutId }) => { /* ... */ })`
@@ -1556,7 +1556,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|payoutId|number|The reward payout cycle ID logged when a reward payout cycle has ended.|
+|payoutId|number|The numeric ID of the payout cycle that ended.|
 
 
 ### `events.ColonyBootstrapped.addListener(({ users, amounts }) => { /* ... */ })`
@@ -1568,7 +1568,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |Argument|Type|Description|
 |---|---|---|
 |users|undefined|The array of users that received an initial amount of tokens and reputation.|
-|amounts|undefined|The array of values that represent the amount of tokens and reputation each user reveived.|
+|amounts|undefined|The array of corresponding token and reputation amounts each user recieved.|
 
 
 ### `events.ColonyLabelRegistered.addListener(({ colony, label }) => { /* ... */ })`
@@ -1579,8 +1579,8 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|colony|Address|Address of the colony that registered a label|
-|label|string|The label registered|
+|colony|Address|The address of the colony that was modified.|
+|label|string|The label that was registered for the colony.|
 
 
 ### `events.Transfer.addListener(({ from, to, value }) => { /* ... */ })`
@@ -1591,9 +1591,9 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|from|Address|Event data indicating the 'from' address.|
-|to|Address|Event data indicating the 'to' address.|
-|value|BigNumber|Event data indicating the amount transferred.|
+|from|Address|The address of the account that sent tokens.|
+|to|Address|The address of the account that received tokens.|
+|value|BigNumber|The amount of tokens that were transferred.|
 
 
 ### `events.Mint.addListener(({ address, amount }) => { /* ... */ })`
@@ -1605,7 +1605,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |Argument|Type|Description|
 |---|---|---|
 |address|Address|The address that initiated the mint event.|
-|amount|BigNumber|Event data indicating the amount of tokens minted.|
+|amount|BigNumber|The amount of tokens that were minted.|
 
 
 ### `events.ColonyFounderRoleSet.addListener(({ oldFounder, newFounder }) => { /* ... */ })`
@@ -1616,8 +1616,8 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|oldFounder|Address|The current founder delegating the role away|
-|newFounder|Address|The user receiving the colony founder role|
+|oldFounder|Address|The address of the user that assigned the `FOUNDER` authority role (the old founder).|
+|newFounder|Address|The address of the user that was assigned the `FOUNDER` authority role (the new founder).|
 
 
 ### `events.ColonyAdminRoleSet.addListener(({ user }) => { /* ... */ })`
@@ -1628,7 +1628,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|user|Address|The newly-added colony admin user|
+|user|Address|The address of the user that was assigned the `ADMIN` authority role.|
 
 
 ### `events.ColonyAdminRoleRemoved.addListener(({ user }) => { /* ... */ })`
@@ -1639,7 +1639,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|user|Address|The removed colony admin user|
+|user|Address|The address of the user that was unassigned the `ADMIN` authority role.|
 
 
 ### `events.ColonyFundsMovedBetweenFundingPots.addListener(({ fromPot, toPot, amount, token }) => { /* ... */ })`
@@ -1650,10 +1650,10 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|fromPot|number|The source funding pot|
-|toPot|number|The target funding pot|
-|amount|BigNumber|The amount that was transferred|
-|token|Address|The token address being transferred|
+|fromPot|number|The numeric ID of the pot from which the funds were moved.|
+|toPot|number|The numeric ID of the pot to which the funds were moved.|
+|amount|BigNumber|The amount of funds that were moved between pots.|
+|token|Address|The address of the token contract (an empty address if Ether).|
 
 
 ### `events.ColonyFundsClaimed.addListener(({ token, fee, payoutRemainder }) => { /* ... */ })`
@@ -1664,9 +1664,9 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|token|Address|The token address being claimed|
-|fee|BigNumber|The fee deducted for rewards|
-|payoutRemainder|BigNumber|The remaining funds moved to the top-level domain pot|
+|token|Address|The address of the token contract (an empty address if Ether).|
+|fee|BigNumber|The fee deducted from the claim and added to the colony rewards pot.|
+|payoutRemainder|BigNumber|The remaining funds (after the fee) moved to the top-level domain pot.|
 
 
 ### `events.RewardPayoutClaimed.addListener(({ rewardPayoutId, user, fee, payoutRemainder }) => { /* ... */ })`
@@ -1677,10 +1677,10 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|rewardPayoutId|number|The reward payout cycle ID|
-|user|Address|The user who received the reward payout|
-|fee|BigNumber|The fee deducted from the payout|
-|payoutRemainder|BigNumber|The remaining reward amount paid out to the user|
+|rewardPayoutId|number|The numeric ID of the reward payout.|
+|user|Address|The address of the user who claimed the reward payout.|
+|fee|BigNumber|The fee deducted from the claim and added to the colony rewards pot.|
+|payoutRemainder|BigNumber|The remaining payout amount (after the fee) transferred to the user.|
 
 
 ### `events.ColonyRewardInverseSet.addListener(({ rewardInverse }) => { /* ... */ })`
@@ -1691,7 +1691,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|rewardInverse|BigNumber|The reward inverse value|
+|rewardInverse|BigNumber|The reward inverse value that was set.|
 
 
 ### `events.ColonyInitialised.addListener(({ colonyNetwork }) => { /* ... */ })`
@@ -1702,7 +1702,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|colonyNetwork|Address|The Colony Network address|
+|colonyNetwork|Address|The address of the Colony Network.|
 
 
 ### `events.ColonyUpgraded.addListener(({ oldVersion, newVersion }) => { /* ... */ })`
@@ -1713,5 +1713,5 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|oldVersion|number|The previous colony version|
-|newVersion|number|The new colony version|
+|oldVersion|number|The old version number of the colony.|
+|newVersion|number|The new version number of the colony.|
