@@ -1,0 +1,64 @@
+{
+  "name": "@colony/colony-starter-angular",
+  "version": "0.0.0",
+  "description": "A simple starter project for building with Colony",
+  "license": "MIT",
+  "engines": {
+    "node": "10.12.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "initialize": "sh scripts/initialize_project.sh",
+    "start-ganache": "sh scripts/start_ganache.sh",
+    "deploy-contracts": "sh scripts/deploy_contracts.sh",
+    "start-trufflepig": "sh scripts/start_trufflepig.sh",
+    "seed-network": "node scripts/seed_network.js",
+    "start": "ng serve",
+    "build": "ng build",
+    "test": "ng lint && ng test && ng e2e"
+  },
+  "dependencies": {
+    "@angular/animations": "^7.2.1",
+    "@angular/common": "^7.2.1",
+    "@angular/compiler": "^7.2.1",
+    "@angular/core": "^7.2.1",
+    "@angular/forms": "^7.2.1",
+    "@angular/platform-browser": "^7.2.1",
+    "@angular/platform-browser-dynamic": "^7.2.1",
+    "@angular/router": "^7.2.1",
+    "@colony/colony-js-adapter-ethers": "^1.9.0",
+    "@colony/colony-js-client": "^1.9.0",
+    "@colony/colony-js-contract-loader-http": "^1.9.0",
+    "@colony/colony-js-contract-loader-network": "^1.6.2",
+    "bn.js": "^4.11.8",
+    "buffer": "^5.1.0",
+    "ethers": "3.0.27",
+    "ipfs": "^0.29.2",
+    "web3": "^1.0.0-beta.35",
+    "zone.js": "^0.8.28"
+  },
+  "devDependencies": {
+    "@angular-builders/custom-webpack": "^7.2.0",
+    "@angular-builders/dev-server": "^7.2.1",
+    "@angular-devkit/build-angular": "^0.12.2",
+    "@angular/cli": "^7.2.2",
+    "@angular/compiler-cli": "^7.2.1",
+    "@angular/language-service": "^7.2.1",
+    "@types/jasmine": "^3.3.7",
+    "@types/jasminewd2": "^2.0.6",
+    "@types/node": "^10.12.18",
+    "ganache-cli": "^6.2.3",
+    "jasmine-spec-reporter": "^4.2.1",
+    "karma": "^3.1.4",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-coverage-istanbul-reporter": "^2.0.4",
+    "karma-jasmine": "^2.0.1",
+    "karma-jasmine-html-reporter": "^1.4.0",
+    "protractor": "^5.4.2",
+    "trufflepig": "^1.1.1",
+    "ts-node": "^7.0.1",
+    "tslint": "^5.12.1"
+  }
+}
