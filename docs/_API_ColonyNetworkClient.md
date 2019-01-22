@@ -501,8 +501,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|skillId|number||
-|parentSkillId|number||
+|skillId|number|The numeric ID of the skill that was added.|
+|parentSkillId|number|The numeric ID of the parent skill.|
 |SkillAdded|object|Contains the data defined in [SkillAdded](#eventsskilladdedaddlistener-skillid-parentskillid-------)|
 
 ### `setTokenLocking.send({ tokenLockingAddress }, options)`
@@ -521,7 +521,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|tokenLocking|Address|Address of the TokenLocking contract|
+|tokenLocking|Address|The address of the token locking contract.|
 |TokenLockingAddressSet|object|Contains the data defined in [TokenLockingAddressSet](#eventstokenlockingaddresssetaddlistener-tokenlocking-------)|
 
 ### `createMetaColony.send({ tokenAddress }, options)`
@@ -540,9 +540,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|colonyAddress|number|Address of the Meta Colony|
-|tokenAddress|Address|Address of the associated CLNY token|
-|rootSkillId|number|ID of the root skill of the global skills tree (normally, this is 2)|
+|colonyAddress|number|The address of the Meta Colony.|
+|tokenAddress|Address|The address of the CLNY token contract.|
+|rootSkillId|number|The numeric ID of the root skill.|
 |MetaColonyCreated|object|Contains the data defined in [MetaColonyCreated](#eventsmetacolonycreatedaddlistener-colonyaddress-tokenaddress-rootskillid-------)|
 
 ### `createColony.send({ tokenAddress }, options)`
@@ -561,9 +561,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|colonyId|number|ID of the newly-created colony|
-|colonyAddress|Address|Address of the newly-created colony|
-|tokenAddress|Address|Address of the associated colony token|
+|colonyId|number|The numeric ID of the colony that was added.|
+|colonyAddress|Address|The address of the colony contract that was created.|
+|tokenAddress|Address|The address of the token contract that was assigned.|
 |ColonyAdded|object|Contains the data defined in [ColonyAdded](#eventscolonyaddedaddlistener-colonyid-colonyaddress-tokenaddress-------)|
 
 ### `addColonyVersion.send({ version, resolver }, options)`
@@ -583,8 +583,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|version|number|The new int colony version, e.g. 2, 3, 4, etc|
-|resolver|Address|The new colony contract resolver contract instance|
+|version|number|The version number of the colony contract that was added.|
+|resolver|Address|The address of the resolver contract.|
 |ColonyVersionAdded|object|Contains the data defined in [ColonyVersionAdded](#eventscolonyversionaddedaddlistener-version-resolver-------)|
 
 ### `startTokenAuction.send({ tokenAddress }, options)`
@@ -603,9 +603,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|auction|string|The address of the auction contract|
-|token|Address|The address of the token being auctioned|
-|quantity|BigNumber|The amount of available tokens for auction|
+|auction|string|The address of the auction contract that was created.|
+|token|Address|The address of the token contract that was assigned.|
+|quantity|BigNumber|The amount of tokens available for the auction.|
 |AuctionCreated|object|Contains the data defined in [AuctionCreated](#eventsauctioncreatedaddlistener-auction-token-quantity-------)|
 
 ### `setupRegistrar.send({ ens, rootNode }, options)`
@@ -642,8 +642,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|user|Address|Address of the user that registered a label|
-|label|string|The label registered|
+|user|Address|The address of the user that registered a label.|
+|label|string|The ENS label that was registered for the user.|
 |UserLabelRegistered|object|Contains the data defined in [UserLabelRegistered](#eventsuserlabelregisteredaddlistener-user-label-------)|
 
   
@@ -661,9 +661,9 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|colonyId|number|ID of the newly-created colony|
-|colonyAddress|Address|Address of the newly-created colony|
-|tokenAddress|Address|Address of the associated colony token|
+|colonyId|number|The numeric ID of the colony that was added.|
+|colonyAddress|Address|The address of the colony contract that was created.|
+|tokenAddress|Address|The address of the token contract that was assigned.|
 
 
 ### `events.SkillAdded.addListener(({ skillId, parentSkillId }) => { /* ... */ })`
@@ -674,8 +674,8 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|skillId|number||
-|parentSkillId|number||
+|skillId|number|The numeric ID of the skill that was added.|
+|parentSkillId|number|The numeric ID of the parent skill.|
 
 
 ### `events.AuctionCreated.addListener(({ auction, token, quantity }) => { /* ... */ })`
@@ -686,9 +686,9 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|auction|string|The address of the auction contract|
-|token|Address|The address of the token being auctioned|
-|quantity|BigNumber|The amount of available tokens for auction|
+|auction|string|The address of the auction contract that was created.|
+|token|Address|The address of the token contract that was assigned.|
+|quantity|BigNumber|The amount of tokens available for the auction.|
 
 
 ### `events.UserLabelRegistered.addListener(({ user, label }) => { /* ... */ })`
@@ -699,8 +699,8 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|user|Address|Address of the user that registered a label|
-|label|string|The label registered|
+|user|Address|The address of the user that registered a label.|
+|label|string|The ENS label that was registered for the user.|
 
 
 ### `events.ColonyLabelRegistered.addListener(({ colony, label }) => { /* ... */ })`
@@ -711,8 +711,8 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|colony|Address|Address of the colony that registered a label|
-|label|string|The label registered|
+|colony|Address|The address of the colony that registered a label.|
+|label|string|The ENS label that was registered for the colony.|
 
 
 ### `events.ReputationMiningInitialised.addListener(({ inactiveReputationMiningCycle }) => { /* ... */ })`
@@ -723,7 +723,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|inactiveReputationMiningCycle|Address|Address of the newly created ReputationMiningCycle used in logging reputation changes|
+|inactiveReputationMiningCycle|Address|The address of the reputation mining cycle that was initialized.|
 
 
 ### `events.ReputationMiningCycleComplete.addListener(({ hash, nNodes }) => { /* ... */ })`
@@ -734,8 +734,8 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|hash|Hex string|The root hash of the newly accepted reputation state|
-|nNodes|number|The number of nodes in the reputation state|
+|hash|Hex string|The root hash of the reputation state that was accepted.|
+|nNodes|number|The total number of nodes in the reputation state.|
 
 
 ### `events.ReputationRootHashSet.addListener(({ newHash, newNNodes, stakers, reward }) => { /* ... */ })`
@@ -746,10 +746,10 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|newHash|Hex string|The reputation root hash|
-|newNNodes|number|The updated nodes count value|
-|stakers|undefined|Array of users who submitted or backed the hash accepted|
-|reward|undefined|Amount of CLNY distributed as reward to miners|
+|newHash|Hex string|The reputation root hash that was set.|
+|newNNodes|number|The total number of nodes in the reputation state.|
+|stakers|undefined|The array of users who submitted or backed the accepted hash.|
+|reward|undefined|The array of corresponding amounts of CLNY each user received.|
 
 
 ### `events.TokenLockingAddressSet.addListener(({ tokenLocking }) => { /* ... */ })`
@@ -760,7 +760,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|tokenLocking|Address|Address of the TokenLocking contract|
+|tokenLocking|Address|The address of the token locking contract.|
 
 
 ### `events.ColonyNetworkInitialised.addListener(({ resolver }) => { /* ... */ })`
@@ -771,7 +771,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|resolver|Address|The Resolver contract address used by the Colony version 1|
+|resolver|Address|The address of the resolver contract.|
 
 
 ### `events.MiningCycleResolverSet.addListener(({ miningCycleResolver }) => { /* ... */ })`
@@ -782,7 +782,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|miningCycleResolver|Address|Resolver address for the ReputationMiningCycle contract|
+|miningCycleResolver|Address|The address of the resolver contract for the reputation mining cycle contract.|
 
 
 ### `events.NetworkFeeInverseSet.addListener(({ feeInverse }) => { /* ... */ })`
@@ -793,7 +793,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|feeInverse|BigNumber|The network fee inverse value|
+|feeInverse|BigNumber|The inverse value of the network fee that was set.|
 
 
 ### `events.ColonyVersionAdded.addListener(({ version, resolver }) => { /* ... */ })`
@@ -804,8 +804,8 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|version|number|The new int colony version, e.g. 2, 3, 4, etc|
-|resolver|Address|The new colony contract resolver contract instance|
+|version|number|The version number of the colony contract that was added.|
+|resolver|Address|The address of the resolver contract.|
 
 
 ### `events.MetaColonyCreated.addListener(({ colonyAddress, tokenAddress, rootSkillId }) => { /* ... */ })`
@@ -816,6 +816,6 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|colonyAddress|number|Address of the Meta Colony|
-|tokenAddress|Address|Address of the associated CLNY token|
-|rootSkillId|number|ID of the root skill of the global skills tree (normally, this is 2)|
+|colonyAddress|number|The address of the Meta Colony.|
+|tokenAddress|Address|The address of the CLNY token contract.|
+|rootSkillId|number|The numeric ID of the root skill.|

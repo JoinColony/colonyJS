@@ -19,60 +19,60 @@ type Address = string;
 type HexString = string;
 
 type ColonyAdded = ContractClient.Event<{
-  colonyId: number, // ID of the newly-created colony
-  colonyAddress: Address, // Address of the newly-created colony
-  tokenAddress: Address, // Address of the associated colony token
+  colonyId: number, // The numeric ID of the colony that was added.
+  colonyAddress: Address, // The address of the colony contract that was created.
+  tokenAddress: Address, // The address of the token contract that was assigned.
 }>;
 type SkillAdded = ContractClient.Event<{
-  skillId: number,
-  parentSkillId: number,
+  skillId: number, // The numeric ID of the skill that was added.
+  parentSkillId: number, // The numeric ID of the parent skill.
 }>;
 type AuctionCreated = ContractClient.Event<{
-  auction: string, // The address of the auction contract
-  token: Address, // The address of the token being auctioned
-  quantity: BigNumber, // The amount of available tokens for auction
+  auction: string, // The address of the auction contract that was created.
+  token: Address, // The address of the token contract that was assigned.
+  quantity: BigNumber, // The amount of tokens available for the auction.
 }>;
 type UserLabelRegistered = ContractClient.Event<{
-  user: Address, // Address of the user that registered a label
-  label: string, // The label registered
+  user: Address, // The address of the user that registered a label.
+  label: string, // The ENS label that was registered for the user.
 }>;
 type ColonyLabelRegistered = ContractClient.Event<{
-  colony: Address, // Address of the colony that registered a label
-  label: string, // The label registered
+  colony: Address, // The address of the colony that registered a label.
+  label: string, // The ENS label that was registered for the colony.
 }>;
 type ReputationMiningInitialised = ContractClient.Event<{
-  inactiveReputationMiningCycle: Address, // Address of the newly created ReputationMiningCycle used in logging reputation changes
+  inactiveReputationMiningCycle: Address, // The address of the reputation mining cycle that was initialized.
 }>;
 type ReputationMiningCycleComplete = ContractClient.Event<{
-  hash: HexString, // The root hash of the newly accepted reputation state
-  nNodes: number, // The number of nodes in the reputation state
+  hash: HexString, // The root hash of the reputation state that was accepted.
+  nNodes: number, // The total number of nodes in the reputation state.
 }>;
 type ReputationRootHashSet = ContractClient.Event<{
-  newHash: HexString, // The reputation root hash
-  newNNodes: number, // The updated nodes count value
-  stakers: Address[], // Array of users who submitted or backed the hash accepted
-  reward: BigNumber[], // Amount of CLNY distributed as reward to miners
+  newHash: HexString, // The reputation root hash that was set.
+  newNNodes: number, // The total number of nodes in the reputation state.
+  stakers: Address[], // The array of users who submitted or backed the accepted hash.
+  reward: BigNumber[], // The array of corresponding amounts of CLNY each user received.
 }>;
 type TokenLockingAddressSet = ContractClient.Event<{
-  tokenLocking: Address, // Address of the TokenLocking contract
+  tokenLocking: Address, // The address of the token locking contract.
 }>;
 type ColonyNetworkInitialised = ContractClient.Event<{
-  resolver: Address, // The Resolver contract address used by the Colony version 1
+  resolver: Address, // The address of the resolver contract.
 }>;
 type MiningCycleResolverSet = ContractClient.Event<{
-  miningCycleResolver: Address, // Resolver address for the ReputationMiningCycle contract
+  miningCycleResolver: Address, // The address of the resolver contract for the reputation mining cycle contract.
 }>;
 type NetworkFeeInverseSet = ContractClient.Event<{
-  feeInverse: BigNumber, // The network fee inverse value
+  feeInverse: BigNumber, // The inverse value of the network fee that was set.
 }>;
 type ColonyVersionAdded = ContractClient.Event<{
-  version: number, // The new int colony version, e.g. 2, 3, 4, etc
-  resolver: Address, // The new colony contract resolver contract instance
+  version: number, // The version number of the colony contract that was added.
+  resolver: Address, // The address of the resolver contract.
 }>;
 type MetaColonyCreated = ContractClient.Event<{
-  colonyAddress: number, // Address of the Meta Colony
-  tokenAddress: Address, // Address of the associated CLNY token
-  rootSkillId: number, // ID of the root skill of the global skills tree (normally, this is 2)
+  colonyAddress: number, // The address of the Meta Colony.
+  tokenAddress: Address, // The address of the CLNY token contract.
+  rootSkillId: number, // The numeric ID of the root skill.
 }>;
 
 export default class ColonyNetworkClient extends ContractClient {
