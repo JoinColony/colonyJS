@@ -89,7 +89,7 @@ Gets the Meta Colony as an initialized ColonyClient
 
 ### `getRecoveryRolesCount.call()`
 
-Returns the number of recovery roles.
+Get the total number of users that are assigned a network recovery role.
 
 
 **Returns**
@@ -98,11 +98,11 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|count|number|Number of users with the recovery role (excluding owner)|
+|count|number|The total number of users that are assigned a colony recovery role.|
 
 ### `isInRecoveryMode.call()`
 
-Is the colony in recovery mode?
+Check whether or not the network is in recovery mode.
 
 
 **Returns**
@@ -111,17 +111,17 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|inRecoveryMode|boolean|Return true if recovery mode is active, false otherwise|
+|inRecoveryMode|boolean|A boolean indicating whether or not the network is in recovery mode.|
 
 ### `getColony.call({ id })`
 
-Returns the address of a colony when given the ID
+Get the colony contract address for a colony.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|id|number|Integer colony ID|
+|id|number|The numeric ID of the colony.|
 
 **Returns**
 
@@ -129,11 +129,11 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|address|Address|Address of the colony contract|
+|address|Address|The address of the colony contract.|
 
 ### `getMetaColonyAddress.call()`
 
-Returns the address of the Meta Colony
+Get the Meta Colony contract address.
 
 
 **Returns**
@@ -142,11 +142,11 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|address|Address|Address of the Meta Colony contract|
+|address|Address|The address of the Meta Colony contract.|
 
 ### `getColonyCount.call()`
 
-Returns the number of colonies created on the Colony Network, i.e. the colonyId of the most recently created colony.
+Get the total number of colonies on the network. The return value is also the numeric ID of the last colony created.
 
 
 **Returns**
@@ -155,17 +155,17 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|count|number|colonyId of the most recently created colony|
+|count|number|The total number of colonies.|
 
 ### `isColony.call({ colony })`
 
-Check if specific address is a Colony created on the Colony Network
+Check whether or not an address is a colony contract.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|colony|Address|Address of the colony|
+|colony|Address|The address that will be checked.|
 
 **Returns**
 
@@ -173,17 +173,17 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|isColony|boolean|Whether specified address is a colony|
+|isColony|boolean|A boolean indicating whether or not an address is a colony contract.|
 
 ### `getColonyVersionResolver.call({ version })`
 
-Given a version of the colony contract, returns the address of the corresponding `Resolver` contract
+Get the address of the resolver contract for a specific colony version.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|version|number|The Colony contract version|
+|version|number|The version number of the colony contract.|
 
 **Returns**
 
@@ -191,11 +191,11 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|address|Address|Address of the `Resolver` contract|
+|address|Address|The address of the resolver contract.|
 
 ### `getCurrentColonyVersion.call()`
 
-Returns the latest Colony contract version. This is the version used to create all new colonies.
+Get the latest colony contract version. This is the version used to create all new colonies.
 
 
 **Returns**
@@ -204,18 +204,18 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|version|number|The current / latest Colony contract version|
+|version|number|The version number of the latest colony contract.|
 
 ### `getParentSkillId.call({ skillId, parentSkillIndex })`
 
-Given the id of a particular skill, returns the skill's parent skill id
+Get the ID of a parent skill.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|skillId|number|Id of the skill|
-|parentSkillIndex|number|Index of the `skill.parents` array to get|
+|skillId|number|The numberic ID of the skill that will be checked.|
+|parentSkillIndex|number|The index of the parent skill array to be checked.|
 
 **Returns**
 
@@ -223,18 +223,18 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|parentSkillId|number|Id of the parent skill|
+|parentSkillId|number|The numeric ID of the parent skill.|
 
 ### `getChildSkillId.call({ skillId, childSkillIndex })`
 
-Given the id of a particular skill, returns the child skill at the given index
+Get the ID of a child skill.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|skillId|number|Id of the skill|
-|childSkillIndex|number|Index of the `skill.children` array to get|
+|skillId|number|The numberic ID of the skill that will be checked.|
+|childSkillIndex|number|The index of the child skill array to be checked.|
 
 **Returns**
 
@@ -242,17 +242,17 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|childSkillId|number|Id of the child skill|
+|childSkillId|number|The numeric ID of the child skill.|
 
 ### `getSkill.call({ skillId })`
 
-Returns the number of parent and child skills associated with the provided skill
+Get information about a domain.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|skillId|number|skillId to be checked|
+|skillId|number|The numeric ID of the skill.|
 
 **Returns**
 
@@ -260,13 +260,13 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|nParents|number|Number of parent skills|
-|nChildren|number|Number of child skills|
-|isGlobalSkill|boolean|Whether the specified skill is a global skill|
+|nParents|number|The total number of parent skills.|
+|nChildren|number|The total number of child skills.|
+|isGlobalSkill|boolean|A boolean indicating whether or not the skill is a global skill.|
 
 ### `getSkillCount.call()`
 
-Get the total number of skills in the network (both global and local skills)
+Get the total number of global and local skills in the network.
 
 
 **Returns**
@@ -275,7 +275,7 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|count|number|The number of skills on the network|
+|count|number|The total number of global and local skills in the network.|
 
 ### `getRootGlobalSkillId.call()`
 
@@ -288,7 +288,7 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|skillId|number|The root global skill id|
+|skillId|number|The numeric ID of the root global skill.|
 
 ### `getTokenLocking.call()`
 
@@ -301,17 +301,17 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|lockingAddress|Address|Token locking contract address|
+|lockingAddress|Address|The address of the token locking contract.|
 
 ### `getProfileDBAddress.call({ nameHash })`
 
-Returns the database address of a user when given the hashed ENS username
+Get the address of the OrbitDB database associaated with a user profile.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|nameHash|Hex string|The hashed human-readable ENS name|
+|nameHash|Hex string|The hashed ENS label that was registered for the user.|
 
 **Returns**
 
@@ -319,17 +319,17 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|orbitDBAddress|string|Address of the UserProfile DDB|
+|orbitDBAddress|string|The path of the OrbitDB database associated with the user profile.|
 
 ### `lookupRegisteredENSDomain.call({ ensAddress })`
 
-Given an Ethereum address, returns a user's or colony's human-readable name, or an empty string if the address has no Colony-based ENS name
+Lookup the registed ENS label for an address. This function will return an empty string if the address does not have a registered ENS label.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|ensAddress|Address|The address we wish to find the corresponding ENS domain for (if any)|
+|ensAddress|Address|The address that will checked.|
 
 **Returns**
 
@@ -337,17 +337,17 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|domain|string|A string containing the colony-based ENS name corresponding to `ensAddress`|
+|domain|string|The ENS label associated with the address.|
 
 ### `getAddressForENSHash.call({ nameHash })`
 
-Given a hash of the ENS name, returns the Ethereum address registered with it
+Get the address of a registered ENS label. This function will return an empty address if an ENS label has not been registered.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|nameHash|Hex string|The hashed human-readable ENS name|
+|nameHash|Hex string|The hached ENS label that will be checked.|
 
 **Returns**
 
@@ -355,17 +355,17 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|ensAddress|Address|The registered ENS username for a colony or a user|
+|ensAddress|Address|The address associated with the ENS label.|
 
 ### `ensSupportsInterface.call({ interfaceId })`
 
-Given an ENS interface, returns a boolean indicating whether the interface is supported
+Check whether or not ENS supports a contract interface. A supported contract interface implements `interfaceId`.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|interfaceId|Hex string|The interface identifier, as specified in ERC-165|
+|interfaceId|Hex string|The hashed ID of the contract interface as specified in ERC-165.|
 
 **Returns**
 
@@ -373,26 +373,15 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|isSupported|boolean|Returns `true` if the contract implements `interfaceId`|
+|isSupported|boolean|A boolean indicating whether or not the contract interface is supported.|
 
   
 ## Senders
 
 **All senders return an instance of a `ContractResponse`.** Every `send()` method takes an `options` object as the second argument. For a reference please check [here](/colonyjs/docs-contractclient/#senders).
-### `approveExitRecovery.send(options)`
-
-Indicate approval to exit recovery mode. Can only be called by user with recovery role.
-
-
-**Returns**
-
-An instance of a `ContractResponse`
-
-
-
 ### `enterRecoveryMode.send(options)`
 
-Put the colony into recovery mode. Can only be called by user with a recovery role.
+Enter network recovery mode. This function can only be called by a user with a recovery role.
 
 
 **Returns**
@@ -401,15 +390,21 @@ An instance of a `ContractResponse`
 
 
 
-### `exitRecoveryMode.send({ newVersion }, options)`
+### `approveExitRecovery.send(options)`
 
-Exit recovery mode. Can be called by anyone if enough whitelist approvals are given.
+Indicate approval to exit network recovery mode. This function can only be called by a user with a recovery role.
 
-**Arguments**
 
-|Argument|Type|Description|
-|---|---|---|
-|newVersion|number|Resolver version to upgrade to (>= current version)|
+**Returns**
+
+An instance of a `ContractResponse`
+
+
+
+### `exitRecoveryMode.send(options)`
+
+Exit network recovery mode. This function can be called by anyone if enough whitelist approvals are given.
+
 
 **Returns**
 
@@ -419,13 +414,13 @@ An instance of a `ContractResponse`
 
 ### `setRecoveryRole.send({ user }, options)`
 
-Set new colony recovery role. Can only be called by the founder role.
+Assign a network recovery role to a user. This function can only be called by the `FOUNDER` authority role.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|user|Address|The user we want to give a recovery role to.|
+|user|Address|The address of the user that will be assigned a network recovery role.|
 
 **Returns**
 
@@ -435,13 +430,13 @@ An instance of a `ContractResponse`
 
 ### `removeRecoveryRole.send({ user }, options)`
 
-Remove colony recovery role. Can only be called by the founder role.
+Remove the network recovery role from a user. This function can only be called by the `FOUNDER` authority role.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|user|Address|The user we want to remove the recovery role from.|
+|user|Address|The address of the user that will be unassigned a network recovery role.|
 
 **Returns**
 
@@ -451,14 +446,14 @@ An instance of a `ContractResponse`
 
 ### `setStorageSlotRecovery.send({ slot, value }, options)`
 
-Update the value of an arbitrary storage variable. This can only be called by a user with the recovery role. Certain critical variables are protected from editing in this function.
+Set the value for a storage slot while in recovery mode. This can only be called by a user with a recovery role.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|slot|number|Address of storage slot to be updated.|
-|value|Hex string|Word of data to be set.|
+|slot|number|The numeric ID of the storage slot that will be modified.|
+|value|Hex string|The hex string of data that will be set as the value.|
 
 **Returns**
 
@@ -468,15 +463,15 @@ An instance of a `ContractResponse`
 
 ### `createToken.send({ name, symbol, decimals }, options)`
 
-Deploys a new ERC20 compatible token contract for you to use with your Colony. You can also use your own token when creating a Colony.
+Create a new ERC20 token contract.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|name|string|Name of the token to create|
-|symbol|string|Symbol of the token (e.g. CLNY)|
-|decimals|number|Decimals to use for your token|
+|name|string|The name of the token.|
+|symbol|string|The symbol of the token.|
+|decimals|number|The number of decimals.|
 
 **Returns**
 
@@ -486,14 +481,14 @@ An instance of a `ContractResponse` which will receive a receipt with a `contrac
 
 ### `addSkill.send({ parentSkillId, globalSkill }, options)`
 
-Adds a new skill to the global or local skills tree.
+Add a new global or local skill to the skills tree.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|parentSkillId|number|The skill under which the new skill will be added|
-|globalSkill|boolean|Whether the new skill is global|
+|parentSkillId|number|The numeric ID of the skill under which the new skill will be added.|
+|globalSkill|boolean|A boolean indicating whether or not the skill will be a global skill.|
 
 **Returns**
 
@@ -507,13 +502,13 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 ### `setTokenLocking.send({ tokenLockingAddress }, options)`
 
-Sets the token locking address.
+Set the token locking address.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|tokenLockingAddress|Address|Address of the locking contract|
+|tokenLockingAddress|Address|The address of the locking contract.|
 
 **Returns**
 
@@ -526,13 +521,13 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 ### `createMetaColony.send({ tokenAddress }, options)`
 
-Create the Meta Colony, same as a normal Colony plus the root skill.
+Create the Meta Colony.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|tokenAddress|Address|Token to import. Note: the ownership of the token contract must be transferred to the newly-created Meta Colony.|
+|tokenAddress|Address|The address of the token contract.|
 
 **Returns**
 
@@ -547,13 +542,13 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 ### `createColony.send({ tokenAddress }, options)`
 
-Creates a new colony on the network.
+Create a new colony on the network.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|tokenAddress|Address|Token to import. Note: the ownership of the token contract must be transferred to the newly-created Colony.|
+|tokenAddress|Address|The address of the token contract.|
 
 **Returns**
 
@@ -568,14 +563,14 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 ### `addColonyVersion.send({ version, resolver }, options)`
 
-Adds a new Colony contract version and the address of associated Resolver contract.
+Add a new colony contract version and set the address of the resolver contract.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|version|number|The new Colony contract version|
-|resolver|Address|Address of the Resolver contract|
+|version|number|The versions number of the colony contract.|
+|resolver|Address|The address of the resolver contract.|
 
 **Returns**
 
@@ -589,13 +584,13 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 ### `startTokenAuction.send({ tokenAddress }, options)`
 
-Create and start a new Dutch Auction for the entire amount of a specified token owned by the Colony Network
+Create and start an auction for a token owned by the Colony Network. The auction will be for the total amount of the specificed tokens that are owned by the Colony Network.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|tokenAddress|Address|Address of the token held by the network to be auctioned|
+|tokenAddress|Address|The address of the token contract.|
 
 **Returns**
 
@@ -610,14 +605,14 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 ### `setupRegistrar.send({ ens, rootNode }, options)`
 
-Setup registrar with ENS and root node.
+Set up the registrar.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|ens|Address|Address of ENS registrar|
-|rootNode|string|Namehash of the root node for the domain|
+|ens|Address|The adddress of the ENS registrar.|
+|rootNode|string|The namehash of the root node for the domain.|
 
 **Returns**
 
@@ -627,14 +622,14 @@ An instance of a `ContractResponse`
 
 ### `registerUserLabel.send({ username, orbitDBPath }, options)`
 
-Register a "user.joincolony.eth" label.
+Register an ENS label for a user.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|username|string|The label to register|
-|orbitDBPath|string|The path of the OrbitDB database associated with the user profile|
+|username|string|The ENS label that will be registered for the user.|
+|orbitDBPath|string|The path of the OrbitDB database associated with the user profile.|
 
 **Returns**
 
