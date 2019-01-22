@@ -130,18 +130,6 @@ An instance of a `ContractResponse`
 Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events) to interact with these events.
 
 
-### `events.SkillAdded.addListener(({ skillId, parentSkillId }) => { /* ... */ })`
-
-
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|skillId|number|The numeric ID of the skill that was added.|
-|parentSkillId|number|The numeric ID of the parent skill.|
-
-
 ### `events.Mint.addListener(({ address, amount }) => { /* ... */ })`
 
 
@@ -152,3 +140,15 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |---|---|---|
 |address|Address|The address that initiated the mint event.|
 |amount|BigNumber|The amount of tokens that were minted.|
+
+
+### `events.SkillAdded.addListener(({ skillId, parentSkillId }) => { /* ... */ })`
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|skillId|number|The numeric ID of the skill that was added.|
+|parentSkillId|number|The numeric ID of the parent skill.|

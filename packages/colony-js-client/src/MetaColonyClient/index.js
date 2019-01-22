@@ -14,13 +14,13 @@ import TokenClient from '../TokenClient/index';
 
 type Address = string;
 
-type SkillAdded = ContractClient.Event<{
-  skillId: number, // The numeric ID of the skill that was added.
-  parentSkillId: number, // The numeric ID of the parent skill.
-}>;
 type Mint = ContractClient.Event<{
   address: Address, // The address that initiated the mint event.
   amount: BigNumber, // The amount of tokens that were minted.
+}>;
+type SkillAdded = ContractClient.Event<{
+  skillId: number, // The numeric ID of the skill that was added.
+  parentSkillId: number, // The numeric ID of the parent skill.
 }>;
 
 export default class MetaColonyClient extends ContractClient {
@@ -32,6 +32,16 @@ export default class MetaColonyClient extends ContractClient {
     SkillAdded: SkillAdded,
   };
 
+  /*
+  Add a new global skill to the skills tree. This can only be called from the Meta Colony, and only by the user assigned the `FOUNDER` role.
+  */
+  addGlobalSkill: MetaColonyClient.Sender<
+    {
+      parentSkillId: number, // The numeric ID of the skill under which the new skill will be added.
+    },
+    { SkillAdded: SkillAdded },
+    MetaColonyClient,
+  >;
   /*
   Get the authority contract address associated with the colony.
   */
@@ -50,16 +60,6 @@ export default class MetaColonyClient extends ContractClient {
     {
       address: Address, // The address of the ERC20 token contract.
     },
-    MetaColonyClient,
-  >;
-  /*
-  Add a new global skill to the skills tree. This can only be called from the Meta Colony, and only by the user assigned the `FOUNDER` role.
-  */
-  addGlobalSkill: MetaColonyClient.Sender<
-    {
-      parentSkillId: number, // The numeric ID of the skill under which the new skill will be added.
-    },
-    { SkillAdded: SkillAdded },
     MetaColonyClient,
   >;
   /*
