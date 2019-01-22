@@ -18,52 +18,22 @@ const MISSING_ID = 'An ID parameter must be provided';
 type Address = string;
 type HexString = string;
 
-type ColonyAdded = ContractClient.Event<{
-  colonyId: number, // The numeric ID of the colony that was added.
-  colonyAddress: Address, // The address of the colony contract that was created.
-  tokenAddress: Address, // The address of the token contract that was assigned.
-}>;
-type SkillAdded = ContractClient.Event<{
-  skillId: number, // The numeric ID of the skill that was added.
-  parentSkillId: number, // The numeric ID of the parent skill.
-}>;
 type AuctionCreated = ContractClient.Event<{
   auction: string, // The address of the auction contract that was created.
   token: Address, // The address of the token contract that was assigned.
   quantity: BigNumber, // The amount of tokens available for the auction.
 }>;
-type UserLabelRegistered = ContractClient.Event<{
-  user: Address, // The address of the user that registered a label.
-  label: string, // The ENS label that was registered for the user.
+type ColonyAdded = ContractClient.Event<{
+  colonyId: number, // The numeric ID of the colony that was added.
+  colonyAddress: Address, // The address of the colony contract that was created.
+  tokenAddress: Address, // The address of the token contract that was assigned.
 }>;
 type ColonyLabelRegistered = ContractClient.Event<{
   colony: Address, // The address of the colony that registered a label.
   label: string, // The ENS label that was registered for the colony.
 }>;
-type ReputationMiningInitialised = ContractClient.Event<{
-  inactiveReputationMiningCycle: Address, // The address of the reputation mining cycle that was initialized.
-}>;
-type ReputationMiningCycleComplete = ContractClient.Event<{
-  hash: HexString, // The root hash of the reputation state that was accepted.
-  nNodes: number, // The total number of nodes in the reputation state.
-}>;
-type ReputationRootHashSet = ContractClient.Event<{
-  newHash: HexString, // The reputation root hash that was set.
-  newNNodes: number, // The total number of nodes in the reputation state.
-  stakers: Address[], // The array of users who submitted or backed the accepted hash.
-  reward: BigNumber[], // The array of corresponding amounts of CLNY each user received.
-}>;
-type TokenLockingAddressSet = ContractClient.Event<{
-  tokenLocking: Address, // The address of the token locking contract.
-}>;
 type ColonyNetworkInitialised = ContractClient.Event<{
   resolver: Address, // The address of the resolver contract.
-}>;
-type MiningCycleResolverSet = ContractClient.Event<{
-  miningCycleResolver: Address, // The address of the resolver contract for the reputation mining cycle contract.
-}>;
-type NetworkFeeInverseSet = ContractClient.Event<{
-  feeInverse: BigNumber, // The inverse value of the network fee that was set.
 }>;
 type ColonyVersionAdded = ContractClient.Event<{
   version: number, // The version number of the colony contract that was added.
@@ -73,6 +43,36 @@ type MetaColonyCreated = ContractClient.Event<{
   colonyAddress: number, // The address of the Meta Colony.
   tokenAddress: Address, // The address of the CLNY token contract.
   rootSkillId: number, // The numeric ID of the root skill.
+}>;
+type MiningCycleResolverSet = ContractClient.Event<{
+  miningCycleResolver: Address, // The address of the resolver contract for the reputation mining cycle contract.
+}>;
+type NetworkFeeInverseSet = ContractClient.Event<{
+  feeInverse: BigNumber, // The inverse value of the network fee that was set.
+}>;
+type ReputationMiningCycleComplete = ContractClient.Event<{
+  hash: HexString, // The root hash of the reputation state that was accepted.
+  nNodes: number, // The total number of nodes in the reputation state.
+}>;
+type ReputationMiningInitialised = ContractClient.Event<{
+  inactiveReputationMiningCycle: Address, // The address of the reputation mining cycle that was initialized.
+}>;
+type ReputationRootHashSet = ContractClient.Event<{
+  newHash: HexString, // The reputation root hash that was set.
+  newNNodes: number, // The total number of nodes in the reputation state.
+  stakers: Address[], // The array of users who submitted or backed the accepted hash.
+  reward: BigNumber[], // The array of corresponding amounts of CLNY each user received.
+}>;
+type SkillAdded = ContractClient.Event<{
+  skillId: number, // The numeric ID of the skill that was added.
+  parentSkillId: number, // The numeric ID of the parent skill.
+}>;
+type TokenLockingAddressSet = ContractClient.Event<{
+  tokenLocking: Address, // The address of the token locking contract.
+}>;
+type UserLabelRegistered = ContractClient.Event<{
+  user: Address, // The address of the user that registered a label.
+  label: string, // The ENS label that was registered for the user.
 }>;
 
 export default class ColonyNetworkClient extends ContractClient {
@@ -94,66 +94,106 @@ export default class ColonyNetworkClient extends ContractClient {
   };
 
   /*
-  Enter network recovery mode. This function can only be called by a user with a recovery role.
+  Add a new colony contract version and set the address of the resolver contract.
   */
-  enterRecoveryMode: ColonyNetworkClient.Sender<{}, {}, ColonyNetworkClient>;
+  addColonyVersion: ColonyNetworkClient.Sender<
+    {
+      version: number, // The versions number of the colony contract.
+      resolver: Address, // The address of the resolver contract.
+    },
+    { ColonyVersionAdded: ColonyVersionAdded },
+    ColonyNetworkClient,
+  >;
+  /*
+  Add a new global or local skill to the skills tree.
+  */
+  addSkill: ColonyNetworkClient.Sender<
+    {
+      parentSkillId: number, // The numeric ID of the skill under which the new skill will be added.
+      globalSkill: boolean, // A boolean indicating whether or not the skill will be a global skill.
+    },
+    { SkillAdded: SkillAdded },
+    ColonyNetworkClient,
+  >;
   /*
   Indicate approval to exit network recovery mode. This function can only be called by a user with a recovery role.
   */
   approveExitRecovery: ColonyNetworkClient.Sender<{}, {}, ColonyNetworkClient>;
   /*
+  Create a new colony on the network.
+  */
+  createColony: ColonyNetworkClient.Sender<
+    {
+      tokenAddress: Address, // The address of the token contract.
+    },
+    { ColonyAdded: ColonyAdded },
+    ColonyNetworkClient,
+  >;
+  /*
+  Create the Meta Colony.
+  */
+  createMetaColony: ColonyNetworkClient.Sender<
+    {
+      tokenAddress: Address, // The address of the token contract.
+    },
+    { MetaColonyCreated: MetaColonyCreated },
+    ColonyNetworkClient,
+  >;
+  /*
+  Create a new ERC20 token contract.
+  */
+  createToken: ColonyNetworkClient.Sender<
+    {
+      name: string, // The name of the token.
+      symbol: string, // The symbol of the token.
+      decimals: number, // The number of decimals.
+    },
+    {},
+    ColonyNetworkClient,
+  >;
+  /*
+  Check whether or not ENS supports a contract interface. A supported contract interface implements `interfaceId`.
+  */
+  ensSupportsInterface: ColonyNetworkClient.Caller<
+    {
+      interfaceId: HexString, // The hashed ID of the contract interface as specified in ERC-165.
+    },
+    {
+      isSupported: boolean, // A boolean indicating whether or not the contract interface is supported.
+    },
+    ColonyNetworkClient,
+  >;
+  /*
+  Enter network recovery mode. This function can only be called by a user with a recovery role.
+  */
+  enterRecoveryMode: ColonyNetworkClient.Sender<{}, {}, ColonyNetworkClient>;
+  /*
   Exit network recovery mode. This function can be called by anyone if enough whitelist approvals are given.
   */
   exitRecoveryMode: ColonyNetworkClient.Sender<{}, {}, ColonyNetworkClient>;
   /*
-  Assign a network recovery role to a user. This function can only be called by the `FOUNDER` authority role.
+  Get the address of a registered ENS label. This function will return an empty address if an ENS label has not been registered.
   */
-  setRecoveryRole: ColonyNetworkClient.Sender<
+  getAddressForENSHash: ColonyNetworkClient.Caller<
     {
-      user: Address, // The address of the user that will be assigned a network recovery role.
+      nameHash: HexString, // The hached ENS label that will be checked.
     },
-    {},
-    ColonyNetworkClient,
-  >;
-  /*
-  Remove the network recovery role from a user. This function can only be called by the `FOUNDER` authority role.
-  */
-  removeRecoveryRole: ColonyNetworkClient.Sender<
     {
-      user: Address, // The address of the user that will be unassigned a network recovery role.
-    },
-    {},
-    ColonyNetworkClient,
-  >;
-  /*
-  Get the total number of users that are assigned a network recovery role.
-  */
-  getRecoveryRolesCount: ColonyNetworkClient.Caller<
-    {},
-    {
-      count: number, // The total number of users that are assigned a colony recovery role.
+      ensAddress: Address, // The address associated with the ENS label.
     },
     ColonyNetworkClient,
   >;
   /*
-  Check whether or not the network is in recovery mode.
+  Get the ID of a child skill.
   */
-  isInRecoveryMode: ColonyNetworkClient.Caller<
-    {},
+  getChildSkillId: ColonyNetworkClient.Caller<
     {
-      inRecoveryMode: boolean, // A boolean indicating whether or not the network is in recovery mode.
+      skillId: number, // The numberic ID of the skill that will be checked.
+      childSkillIndex: number, // The index of the child skill array to be checked.
     },
-    ColonyNetworkClient,
-  >;
-  /*
-  Set the value for a storage slot while in recovery mode. This can only be called by a user with a recovery role.
-  */
-  setStorageSlotRecovery: ColonyNetworkClient.Sender<
     {
-      slot: number, // The numeric ID of the storage slot that will be modified.
-      value: HexString, // The hex string of data that will be set as the value.
+      childSkillId: number, // The numeric ID of the child skill.
     },
-    {},
     ColonyNetworkClient,
   >;
   /*
@@ -169,34 +209,12 @@ export default class ColonyNetworkClient extends ContractClient {
     ColonyNetworkClient,
   >;
   /*
-  Get the Meta Colony contract address.
-  */
-  getMetaColonyAddress: ColonyNetworkClient.Caller<
-    {},
-    {
-      address: Address, // The address of the Meta Colony contract.
-    },
-    ColonyNetworkClient,
-  >;
-  /*
   Get the total number of colonies on the network. The return value is also the numeric ID of the last colony created.
   */
   getColonyCount: ColonyNetworkClient.Caller<
     {},
     {
       count: number, // The total number of colonies.
-    },
-    ColonyNetworkClient,
-  >;
-  /*
-  Check whether or not an address is a colony contract.
-  */
-  isColony: ColonyNetworkClient.Caller<
-    {
-      colony: Address, // The address that will be checked.
-    },
-    {
-      isColony: boolean, // A boolean indicating whether or not an address is a colony contract.
     },
     ColonyNetworkClient,
   >;
@@ -223,6 +241,16 @@ export default class ColonyNetworkClient extends ContractClient {
     ColonyNetworkClient,
   >;
   /*
+  Get the Meta Colony contract address.
+  */
+  getMetaColonyAddress: ColonyNetworkClient.Caller<
+    {},
+    {
+      address: Address, // The address of the Meta Colony contract.
+    },
+    ColonyNetworkClient,
+  >;
+  /*
   Get the ID of a parent skill.
   */
   getParentSkillId: ColonyNetworkClient.Caller<
@@ -236,15 +264,34 @@ export default class ColonyNetworkClient extends ContractClient {
     ColonyNetworkClient,
   >;
   /*
-  Get the ID of a child skill.
+  Get the address of the OrbitDB database associaated with a user profile.
   */
-  getChildSkillId: ColonyNetworkClient.Caller<
+  getProfileDBAddress: ColonyNetworkClient.Caller<
     {
-      skillId: number, // The numberic ID of the skill that will be checked.
-      childSkillIndex: number, // The index of the child skill array to be checked.
+      nameHash: HexString, // The hashed ENS label that was registered for the user.
     },
     {
-      childSkillId: number, // The numeric ID of the child skill.
+      orbitDBAddress: string, // The path of the OrbitDB database associated with the user profile.
+    },
+    ColonyNetworkClient,
+  >;
+  /*
+  Get the total number of users that are assigned a network recovery role.
+  */
+  getRecoveryRolesCount: ColonyNetworkClient.Caller<
+    {},
+    {
+      count: number, // The total number of users that are assigned a colony recovery role.
+    },
+    ColonyNetworkClient,
+  >;
+  /*
+  Get the ID of the root global skill.
+  */
+  getRootGlobalSkillId: ColonyNetworkClient.Caller<
+    {},
+    {
+      skillId: number, // The numeric ID of the root global skill.
     },
     ColonyNetworkClient,
   >;
@@ -273,16 +320,6 @@ export default class ColonyNetworkClient extends ContractClient {
     ColonyNetworkClient,
   >;
   /*
-  Get the ID of the root global skill.
-  */
-  getRootGlobalSkillId: ColonyNetworkClient.Caller<
-    {},
-    {
-      skillId: number, // The numeric ID of the root global skill.
-    },
-    ColonyNetworkClient,
-  >;
-  /*
   Get the token locking contract address.
   */
   getTokenLocking: ColonyNetworkClient.Caller<
@@ -293,14 +330,24 @@ export default class ColonyNetworkClient extends ContractClient {
     ColonyNetworkClient,
   >;
   /*
-  Get the address of the OrbitDB database associaated with a user profile.
+  Check whether or not an address is a colony contract.
   */
-  getProfileDBAddress: ColonyNetworkClient.Caller<
+  isColony: ColonyNetworkClient.Caller<
     {
-      nameHash: HexString, // The hashed ENS label that was registered for the user.
+      colony: Address, // The address that will be checked.
     },
     {
-      orbitDBAddress: string, // The path of the OrbitDB database associated with the user profile.
+      isColony: boolean, // A boolean indicating whether or not an address is a colony contract.
+    },
+    ColonyNetworkClient,
+  >;
+  /*
+  Check whether or not the network is in recovery mode.
+  */
+  isInRecoveryMode: ColonyNetworkClient.Caller<
+    {},
+    {
+      inRecoveryMode: boolean, // A boolean indicating whether or not the network is in recovery mode.
     },
     ColonyNetworkClient,
   >;
@@ -317,50 +364,45 @@ export default class ColonyNetworkClient extends ContractClient {
     ColonyNetworkClient,
   >;
   /*
-  Get the address of a registered ENS label. This function will return an empty address if an ENS label has not been registered.
+  Register an ENS label for a user.
   */
-  getAddressForENSHash: ColonyNetworkClient.Caller<
+  registerUserLabel: ColonyNetworkClient.Sender<
     {
-      nameHash: HexString, // The hached ENS label that will be checked.
+      username: string, // The ENS label that will be registered for the user.
+      orbitDBPath: string, // The path of the OrbitDB database associated with the user profile.
     },
-    {
-      ensAddress: Address, // The address associated with the ENS label.
-    },
+    { UserLabelRegistered: UserLabelRegistered },
     ColonyNetworkClient,
   >;
   /*
-  Create a new ERC20 token contract.
+  Remove the network recovery role from a user. This function can only be called by the `FOUNDER` authority role.
   */
-  createToken: ColonyNetworkClient.Sender<
+  removeRecoveryRole: ColonyNetworkClient.Sender<
     {
-      name: string, // The name of the token.
-      symbol: string, // The symbol of the token.
-      decimals: number, // The number of decimals.
+      user: Address, // The address of the user that will be unassigned a network recovery role.
     },
     {},
     ColonyNetworkClient,
   >;
   /*
-  Check whether or not ENS supports a contract interface. A supported contract interface implements `interfaceId`.
+  Assign a network recovery role to a user. This function can only be called by the `FOUNDER` authority role.
   */
-  ensSupportsInterface: ColonyNetworkClient.Caller<
+  setRecoveryRole: ColonyNetworkClient.Sender<
     {
-      interfaceId: HexString, // The hashed ID of the contract interface as specified in ERC-165.
+      user: Address, // The address of the user that will be assigned a network recovery role.
     },
-    {
-      isSupported: boolean, // A boolean indicating whether or not the contract interface is supported.
-    },
+    {},
     ColonyNetworkClient,
   >;
   /*
-  Add a new global or local skill to the skills tree.
+  Set the value for a storage slot while in recovery mode. This can only be called by a user with a recovery role.
   */
-  addSkill: ColonyNetworkClient.Sender<
+  setStorageSlotRecovery: ColonyNetworkClient.Sender<
     {
-      parentSkillId: number, // The numeric ID of the skill under which the new skill will be added.
-      globalSkill: boolean, // A boolean indicating whether or not the skill will be a global skill.
+      slot: number, // The numeric ID of the storage slot that will be modified.
+      value: HexString, // The hex string of data that will be set as the value.
     },
-    { SkillAdded: SkillAdded },
+    {},
     ColonyNetworkClient,
   >;
   /*
@@ -371,47 +413,6 @@ export default class ColonyNetworkClient extends ContractClient {
       tokenLockingAddress: Address, // The address of the locking contract.
     },
     { TokenLockingAddressSet: TokenLockingAddressSet },
-    ColonyNetworkClient,
-  >;
-  /*
-  Create the Meta Colony.
-  */
-  createMetaColony: ColonyNetworkClient.Sender<
-    {
-      tokenAddress: Address, // The address of the token contract.
-    },
-    { MetaColonyCreated: MetaColonyCreated },
-    ColonyNetworkClient,
-  >;
-  /*
-  Create a new colony on the network.
-  */
-  createColony: ColonyNetworkClient.Sender<
-    {
-      tokenAddress: Address, // The address of the token contract.
-    },
-    { ColonyAdded: ColonyAdded },
-    ColonyNetworkClient,
-  >;
-  /*
-  Add a new colony contract version and set the address of the resolver contract.
-  */
-  addColonyVersion: ColonyNetworkClient.Sender<
-    {
-      version: number, // The versions number of the colony contract.
-      resolver: Address, // The address of the resolver contract.
-    },
-    { ColonyVersionAdded: ColonyVersionAdded },
-    ColonyNetworkClient,
-  >;
-  /*
-  Create and start an auction for a token owned by the Colony Network. The auction will be for the total amount of the specificed tokens that are owned by the Colony Network.
-  */
-  startTokenAuction: ColonyNetworkClient.Sender<
-    {
-      tokenAddress: Address, // The address of the token contract.
-    },
-    { AuctionCreated: AuctionCreated },
     ColonyNetworkClient,
   >;
   /*
@@ -426,14 +427,13 @@ export default class ColonyNetworkClient extends ContractClient {
     ColonyNetworkClient,
   >;
   /*
-  Register an ENS label for a user.
+  Create and start an auction for a token owned by the Colony Network. The auction will be for the total amount of the specificed tokens that are owned by the Colony Network.
   */
-  registerUserLabel: ColonyNetworkClient.Sender<
+  startTokenAuction: ColonyNetworkClient.Sender<
     {
-      username: string, // The ENS label that will be registered for the user.
-      orbitDBPath: string, // The path of the OrbitDB database associated with the user profile.
+      tokenAddress: Address, // The address of the token contract.
     },
-    { UserLabelRegistered: UserLabelRegistered },
+    { AuctionCreated: AuctionCreated },
     ColonyNetworkClient,
   >;
 
