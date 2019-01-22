@@ -37,77 +37,6 @@ await colonyClient.init();
 
 **All callers return promises which resolve to an object containing the given return values.** For a reference please check [here](/colonyjs/docs-contractclient/#callers).
 
-### `getRecoveryRolesCount.call()`
-
-Get the total number of users that are assigned a colony recovery role.
-
-
-**Returns**
-
-A promise which resolves to an object containing the following properties:
-
-|Return value|Type|Description|
-|---|---|---|
-|count|number|The total number of users that are assigned a colony recovery role.|
-
-### `isInRecoveryMode.call()`
-
-Check whether or not the colony is in recovery mode.
-
-
-**Returns**
-
-A promise which resolves to an object containing the following properties:
-
-|Return value|Type|Description|
-|---|---|---|
-|inRecoveryMode|boolean|A boolean indicating whether or not the colony is in recovery mode.|
-
-### `getAuthority.call()`
-
-Get the authority contract address associated with the colony.
-
-
-**Returns**
-
-A promise which resolves to an object containing the following properties:
-
-|Return value|Type|Description|
-|---|---|---|
-|address|Address|The address of the authority contract associated with the colony.|
-
-### `hasUserRole.call({ user, role })`
-
-Check whether a user has an authority role.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|user|Address|The address of the user that will be checked.|
-|role|Authority Role|The authority role that will be checked (`FOUNDER` or `ADMIN`).|
-
-**Returns**
-
-A promise which resolves to an object containing the following properties:
-
-|Return value|Type|Description|
-|---|---|---|
-|hasRole|boolean|A boolean indicating whether or not the user has the authority role.|
-
-### `getVersion.call()`
-
-Get the version number of the colony contract. The version number starts at `1` and is incremented by `1` with every new version.
-
-
-**Returns**
-
-A promise which resolves to an object containing the following properties:
-
-|Return value|Type|Description|
-|---|---|---|
-|version|number|The version number of the colony contract.|
-
 ### `generateSecret.call({ salt, value })`
 
 Generate the rating secret used in task ratings. This function returns a keccak256 hash created from the `salt` and `value`.
@@ -126,6 +55,19 @@ A promise which resolves to an object containing the following properties:
 |Return value|Type|Description|
 |---|---|---|
 |secret|Hex string|A keccak256 hash that keeps the task rating hidden.|
+
+### `getAuthority.call()`
+
+Get the authority contract address associated with the colony.
+
+
+**Returns**
+
+A promise which resolves to an object containing the following properties:
+
+|Return value|Type|Description|
+|---|---|---|
+|address|Address|The address of the authority contract associated with the colony.|
 
 ### `getDomain.call({ domainId })`
 
@@ -172,15 +114,15 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |count|number|The total number of reward payout cycles.|
 
-### `getUserRewardPayoutCount.call({ user })`
+### `getNonRewardPotsTotal.call({ token })`
 
-Get the total number of claimed and waived reward payout cycles for a given user in the colony.
+Get the total amount of funds that are not in the colony rewards pot. The total amount of funds that are not in the colony rewards pot is a value that keeps track of the total assets a colony has to work with, which may be split among several distinct pots associated with various domains and tasks.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|user|Address|The address of the user.|
+|token|Token address|The address of the token contract (an empty address if Ether).|
 
 **Returns**
 
@@ -188,11 +130,30 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|count|number|The total number of reward payout cycles.|
+|total|BigNumber|The total amount of funds that are not in the colony rewards pot.|
 
-### `getTaskCount.call()`
+### `getPotBalance.call({ potId, token })`
 
-Get the total number of tasks in the colony. The return value is also the numeric ID of the last task created.
+Get the balance of a funding pot.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|potId|number|The numeric ID of the funding pot.|
+|token|Token address|The address of the token contract (an empty address if Ether).|
+
+**Returns**
+
+A promise which resolves to an object containing the following properties:
+
+|Return value|Type|Description|
+|---|---|---|
+|balance|BigNumber|The balance of tokens (or Ether) in the funding pot.|
+
+### `getRecoveryRolesCount.call()`
+
+Get the total number of users that are assigned a colony recovery role.
 
 
 **Returns**
@@ -201,7 +162,43 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|count|number|The total number of tasks.|
+|count|number|The total number of users that are assigned a colony recovery role.|
+
+### `getRewardInverse.call()`
+
+Get the inverse amount of the reward. If the fee is 1% (or 0.01), the inverse amount will be 100.
+
+
+**Returns**
+
+A promise which resolves to an object containing the following properties:
+
+|Return value|Type|Description|
+|---|---|---|
+|rewardInverse|BigNumber|The inverse amount of the reward.|
+
+### `getRewardPayoutInfo.call({ payoutId })`
+
+Get information about a reward payout cycle.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|payoutId|number|The ID of the reward payout cycle.|
+
+**Returns**
+
+A promise which resolves to an object containing the following properties:
+
+|Return value|Type|Description|
+|---|---|---|
+|blockNumber|number|The block number at the time the reward payout cycle started.|
+|remainingTokenAmount|BigNumber|The remaining amount of unclaimed tokens (or Ether).|
+|reputationRootHash|string|The reputation root hash at the time the reward payout cycle started.|
+|token|Token address|The address of the token contract (an empty address if Ether).|
+|totalTokenAmountForRewardPayout|BigNumber|The total amount of tokens set aside for the reward payout cycle.|
+|totalTokens|BigNumber|The total amount of tokens at the time the reward payout cycle started.|
 
 ### `getTask.call({ taskId })`
 
@@ -230,6 +227,19 @@ A promise which resolves to an object containing the following properties:
 |specificationHash|IPFS hash|The specification hash of the task (an IPFS hash).|
 |status|undefined|The task status (`ACTIVE`, `CANCELLED` or `FINALIZED`).|
 
+### `getTaskCount.call()`
+
+Get the total number of tasks in the colony. The return value is also the numeric ID of the last task created.
+
+
+**Returns**
+
+A promise which resolves to an object containing the following properties:
+
+|Return value|Type|Description|
+|---|---|---|
+|count|number|The total number of tasks.|
+
 ### `getTaskPayout.call({ taskId, role, token })`
 
 Get the task payout amount assigned to a task role. Multiple tokens can be used for task payouts, therefore the token must be specified when calling this function. In order to get the task payout amount in Ether, `token` must be an empty address.
@@ -250,25 +260,6 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |amount|BigNumber|The amount of tokens (or Ether) assigned to the task role as a payout.|
 
-### `getTotalTaskPayout.call({ taskId, token })`
-
-Get the total payout amount assigned to all task roles. Multiple tokens can be used for task payouts, therefore the token must be specified when calling this function. In order to get the task payout amount in Ether, `token` must be an empty address.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|taskId|number|The numeric ID of the task.|
-|token|Token address|The address of the token contract (an empty address if Ether).|
-
-**Returns**
-
-A promise which resolves to an object containing the following properties:
-
-|Return value|Type|Description|
-|---|---|---|
-|amount|BigNumber|The total amount of tokens (or Ether) assigned to all task roles as payouts.|
-
 ### `getTaskRole.call({ taskId, role })`
 
 Get information about a task role.
@@ -286,7 +277,7 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|address|Address|The address of the user assigned to the task role.|
+|address|Address|The address of the user that is assigned the task role.|
 |rateFail|boolean|A boolean indicating whether or not the user failed to rate their counterpart.|
 |rating|number|The rating that the user received (`1`, `2`, or `3`).|
 
@@ -328,79 +319,6 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |secret|Hex string|A keccak256 hash that keeps the task rating hidden.|
 
-### `getPotBalance.call({ potId, token })`
-
-Get the balance of a funding pot.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|potId|number|The numeric ID of the funding pot.|
-|token|Token address|The address of the token contract (an empty address if Ether).|
-
-**Returns**
-
-A promise which resolves to an object containing the following properties:
-
-|Return value|Type|Description|
-|---|---|---|
-|balance|BigNumber|The balance of tokens (or Ether) in the funding pot.|
-
-### `getNonRewardPotsTotal.call({ token })`
-
-Get the total amount of funds that are not in the colony rewards pot. The total amount of funds that are not in the colony rewards pot is a value that keeps track of the total assets a colony has to work with, which may be split among several distinct pots associated with various domains and tasks.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|token|Token address|The address of the token contract (an empty address if Ether).|
-
-**Returns**
-
-A promise which resolves to an object containing the following properties:
-
-|Return value|Type|Description|
-|---|---|---|
-|total|BigNumber|The total amount of funds that are not in the colony rewards pot.|
-
-### `getRewardPayoutInfo.call({ payoutId })`
-
-Get information about a reward payout cycle.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|payoutId|number|The ID of the reward payout cycle.|
-
-**Returns**
-
-A promise which resolves to an object containing the following properties:
-
-|Return value|Type|Description|
-|---|---|---|
-|blockNumber|number|The block number at the time the reward payout cycle started.|
-|remainingTokenAmount|BigNumber|The remaining amount of unclaimed tokens (or Ether).|
-|reputationRootHash|string|The reputation root hash at the time the reward payout cycle started.|
-|token|Token address|The address of the token contract (an empty address if Ether).|
-|totalTokenAmountForRewardPayout|BigNumber|The total amount of tokens set aside for the reward payout cycle.|
-|totalTokens|BigNumber|The total amount of tokens at the time the reward payout cycle started.|
-
-### `getRewardInverse.call()`
-
-Get the inverse amount of the reward. If the fee is 1% (or 0.01), the inverse amount will be 100.
-
-
-**Returns**
-
-A promise which resolves to an object containing the following properties:
-
-|Return value|Type|Description|
-|---|---|---|
-|rewardInverse|BigNumber|The inverse amount of the reward.|
-
 ### `getToken.call()`
 
 Get the address of the ERC20 token contract that is the native token assigned to the colony. The native token is the token used to calculate reputation scores, i.e. `1` token earned for completing a task with an adequate rating (`2`) will result in `1` reputation point earned.
@@ -413,6 +331,25 @@ A promise which resolves to an object containing the following properties:
 |Return value|Type|Description|
 |---|---|---|
 |address|Address|The address of the ERC20 token contract.|
+
+### `getTotalTaskPayout.call({ taskId, token })`
+
+Get the total payout amount assigned to all task roles. Multiple tokens can be used for task payouts, therefore the token must be specified when calling this function. In order to get the task payout amount in Ether, `token` must be an empty address.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|taskId|number|The numeric ID of the task.|
+|token|Token address|The address of the token contract (an empty address if Ether).|
+
+**Returns**
+
+A promise which resolves to an object containing the following properties:
+
+|Return value|Type|Description|
+|---|---|---|
+|amount|BigNumber|The total amount of tokens (or Ether) assigned to all task roles as payouts.|
 
 ### `getTransactionCount.call()`
 
@@ -427,20 +364,91 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |count|number|The total number of transactions that the colony has made.|
 
-  
-## Senders
+### `getUserRewardPayoutCount.call({ user })`
 
-**All senders return an instance of a `ContractResponse`.** Every `send()` method takes an `options` object as the second argument. For a reference please check [here](/colonyjs/docs-contractclient/#senders).
-### `enterRecoveryMode.send(options)`
+Get the total number of claimed and waived reward payout cycles for a given user in the colony.
 
-Enter colony recovery mode. This function can only be called by a user with a recovery role.
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|user|Address|The address of the user.|
+
+**Returns**
+
+A promise which resolves to an object containing the following properties:
+
+|Return value|Type|Description|
+|---|---|---|
+|count|number|The total number of reward payout cycles.|
+
+### `getVersion.call()`
+
+Get the version number of the colony contract. The version number starts at `1` and is incremented by `1` with every new version.
 
 
 **Returns**
 
-An instance of a `ContractResponse`
+A promise which resolves to an object containing the following properties:
+
+|Return value|Type|Description|
+|---|---|---|
+|version|number|The version number of the colony contract.|
+
+### `hasUserRole.call({ user, role })`
+
+Check whether a user has an authority role.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|user|Address|The address of the user that will be checked.|
+|role|Authority Role|The authority role that will be checked (`FOUNDER` or `ADMIN`).|
+
+**Returns**
+
+A promise which resolves to an object containing the following properties:
+
+|Return value|Type|Description|
+|---|---|---|
+|hasRole|boolean|A boolean indicating whether or not the user has the authority role.|
+
+### `isInRecoveryMode.call()`
+
+Check whether or not the colony is in recovery mode.
 
 
+**Returns**
+
+A promise which resolves to an object containing the following properties:
+
+|Return value|Type|Description|
+|---|---|---|
+|inRecoveryMode|boolean|A boolean indicating whether or not the colony is in recovery mode.|
+
+  
+## Senders
+
+**All senders return an instance of a `ContractResponse`.** Every `send()` method takes an `options` object as the second argument. For a reference please check [here](/colonyjs/docs-contractclient/#senders).
+### `addDomain.send({ parentDomainId }, options)`
+
+Add a domain to the colony. Adding new domains is currently retricted to one level, i.e. the `parentDomainId` must be the id of the root domain `1`, which represents the colony itself.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|parentDomainId|number|The numeric ID of the parent domain.|
+
+**Returns**
+
+An instance of a `ContractResponse` which will eventually receive the following event data:
+
+|Event data|Type|Description|
+|---|---|---|
+|domainId|number|The numeric ID of the domain that was added.|
+|DomainAdded|object|Contains the data defined in [DomainAdded](#eventsdomainaddedaddlistener-domainid-------)|
 
 ### `approveExitRecovery.send(options)`
 
@@ -453,26 +461,15 @@ An instance of a `ContractResponse`
 
 
 
-### `exitRecoveryMode.send(options)`
+### `assignWorkRating.send({ taskId }, options)`
 
-Exit colony recovery mode. This function can be called by anyone if enough whitelist approvals are given.
-
-
-**Returns**
-
-An instance of a `ContractResponse`
-
-
-
-### `setRecoveryRole.send({ user }, options)`
-
-Assign a colony recovery role to a user. This function can only be called by the `FOUNDER` authority role.
+Assign the work rating for any task roles that did not receive a rating. In the event of a user not committing or revealing a work rating within the 10-day rating window (5-day maximum commit period and 5-day maximum reveal period), their counterpart is given the highest work rating possible (`3`) and the user who failed to commit or reveal their work rating will receive a reputation penalty.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|user|Address|The address of the user that will be assigned a colony recovery role.|
+|taskId|number|The numeric ID of the task.|
 
 **Returns**
 
@@ -480,38 +477,94 @@ An instance of a `ContractResponse`
 
 
 
-### `removeRecoveryRole.send({ user }, options)`
+### `bootstrapColony.send({ users, amounts }, options)`
 
-Remove the colony recovery role from a user. This function can only be called by the `FOUNDER` authority role.
+Bootstrap the colony by giving an initial amount of tokens and reputation to selected users. This function can only be called by the user assigned the `FOUNDER` authority role when the `taskCount` for the colony is equal to `0`.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|user|Address|The address of the user that will be unassigned a colony recovery role.|
+|users|undefined|The array of users that will recieve an initial amount of tokens and reputation.|
+|amounts|undefined|The array of corresponding token and reputation amounts each user will recieve.|
 
 **Returns**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse` which will eventually receive the following event data:
 
+|Event data|Type|Description|
+|---|---|---|
+|users|undefined|The array of users that received an initial amount of tokens and reputation.|
+|amounts|undefined|The array of corresponding token and reputation amounts each user recieved.|
+|ColonyBootstrapped|object|Contains the data defined in [ColonyBootstrapped](#eventscolonybootstrappedaddlistener-users-amounts-------)|
 
+### `claimColonyFunds.send({ token }, options)`
 
-### `setStorageSlotRecovery.send({ slot, value }, options)`
-
-Set the value for a storage slot while in recovery mode. This can only be called by a user with a recovery role.
+Claim funds that the colony has received by adding them to the funding pot of the root domain. A small fee is deducted from the funds claimed and added to the colony rewards pot. No fee is deducted when tokens native to the colony are claimed.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|slot|number|The numeric ID of the storage slot that will be modified.|
-|value|Hex string|The hex string of data that will be set as the value.|
+|token|Token address|The address of the token contract (an empty address if Ether).|
 
 **Returns**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse` which will eventually receive the following event data:
 
+|Event data|Type|Description|
+|---|---|---|
+|token|Address|The address of the token contract (an empty address if Ether).|
+|fee|BigNumber|The fee deducted from the claim and added to the colony rewards pot.|
+|payoutRemainder|BigNumber|The remaining funds (after the fee) moved to the top-level domain pot.|
+|ColonyFundsClaimed|object|Contains the data defined in [ColonyFundsClaimed](#eventscolonyfundsclaimedaddlistener-token-fee-payoutremainder-------)|
 
+### `claimPayout.send({ taskId, role, token }, options)`
+
+Claim the payout assigned to a task role. This function can only be called by the user who is assigned a task role (`MANAGER`, `EVALUATOR`, or `WORKER`) after the task has been finalized.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|taskId|number|The numeric ID of the task.|
+|role|Role|The role that submitted the rating (`MANAGER`, `EVALUATOR`, or `WORKER`).|
+|token|Token address|The address of the token contract (an empty address if Ether).|
+
+**Returns**
+
+An instance of a `ContractResponse` which will eventually receive the following event data:
+
+|Event data|Type|Description|
+|---|---|---|
+|taskId|number|The numeric ID of the task that was modified.|
+|role|Role|The role of the task that was assigned the task payout (`MANAGER`, `EVALUATOR`, or `WORKER`).|
+|token|Token address|The address of the token contract (an empty address if Ether).|
+|amount|BigNumber|The task payout amount that was claimed.|
+|from|Address|The address of the account that sent tokens.|
+|to|Address|The address of the account that received tokens.|
+|value|BigNumber|The amount of tokens that were transferred.|
+|TaskPayoutClaimed|object|Contains the data defined in [TaskPayoutClaimed](#eventstaskpayoutclaimedaddlistener-taskid-role-token-amount-------)|
+|Transfer|object|Contains the data defined in [Transfer](#eventstransferaddlistener-from-to-value-------)|
+
+### `completeTask.send({ taskId }, options)`
+
+Mark a task as complete. If the user assigned the `WORKER` task role fails to submit the task deliverable by the due date, this function must be called by the user assigned the `MANAGER` task role. This allows the task work to be rated and the task to be finalized.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|taskId|number|The numeric ID of the task.|
+
+**Returns**
+
+An instance of a `ContractResponse` which will eventually receive the following event data:
+
+|Event data|Type|Description|
+|---|---|---|
+|taskId|number|The numeric ID of the task that was completed.|
+|TaskCompleted|object|Contains the data defined in [TaskCompleted](#eventstaskcompletedaddlistener-taskid-------)|
 
 ### `createTask.send({ specificationHash, domainId, skillId, dueDate }, options)`
 
@@ -539,9 +592,47 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |PotAdded|object|Contains the data defined in [PotAdded](#eventspotaddedaddlistener-potid-------)|
 |DomainAdded|object|Contains the data defined in [DomainAdded](#eventsdomainaddedaddlistener-domainid-------)|
 
-### `completeTask.send({ taskId }, options)`
+### `enterRecoveryMode.send(options)`
 
-Mark a task as complete. If the user assigned the `WORKER` task role fails to submit the task deliverable by the due date, this function must be called by the user assigned the `MANAGER` task role. This allows the task work to be rated and the task to be finalized.
+Enter colony recovery mode. This function can only be called by a user with a recovery role.
+
+
+**Returns**
+
+An instance of a `ContractResponse`
+
+
+
+### `exitRecoveryMode.send(options)`
+
+Exit colony recovery mode. This function can be called by anyone if enough whitelist approvals are given.
+
+
+**Returns**
+
+An instance of a `ContractResponse`
+
+
+
+### `finalizeRewardPayout.send({ payoutId }, options)`
+
+Finalize the reward payout cycle. This function can only be called when the reward payout cycle has finished, i.e. 60 days have passed since the creation of the reward payout cycle.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|payoutId|number|The numeric ID of the reward payout cycle.|
+
+**Returns**
+
+An instance of a `ContractResponse`
+
+
+
+### `finalizeTask.send({ taskId }, options)`
+
+Finalize a task. Once a task is finalized, each user assigned a task role can claim the payout assigned to their role and no further changes to the task can be made.
 
 **Arguments**
 
@@ -555,19 +646,18 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|taskId|number|The numeric ID of the task that was completed.|
-|TaskCompleted|object|Contains the data defined in [TaskCompleted](#eventstaskcompletedaddlistener-taskid-------)|
+|taskId|number|The numeric ID of the task that was finalized.|
+|TaskFinalized|object|Contains the data defined in [TaskFinalized](#eventstaskfinalizedaddlistener-taskid-------)|
 
-### `bootstrapColony.send({ users, amounts }, options)`
+### `mintTokens.send({ amount }, options)`
 
-Bootstrap the colony by giving an initial amount of tokens and reputation to selected users. This function can only be called by the user assigned the `FOUNDER` authority role when the `taskCount` for the colony is equal to `0`.
+Mint new tokens. This function can only be called if the address of the colony contract is the owner of the token contract. If this is the case, then this function can only be called by the user assigned the `FOUNDER` authority role.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|users|undefined|The array of users that will recieve an initial amount of tokens and reputation.|
-|amounts|undefined|The array of corresponding token and reputation amounts each user will recieve.|
+|amount|BigNumber|The amount of new tokens that will be minted.|
 
 **Returns**
 
@@ -575,9 +665,38 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|users|undefined|The array of users that received an initial amount of tokens and reputation.|
-|amounts|undefined|The array of corresponding token and reputation amounts each user recieved.|
-|ColonyBootstrapped|object|Contains the data defined in [ColonyBootstrapped](#eventscolonybootstrappedaddlistener-users-amounts-------)|
+|address|Address|The address that initiated the mint event.|
+|amount|BigNumber|The amount of tokens that were minted.|
+|from|Address|The address of the account that sent tokens.|
+|to|Address|The address of the account that received tokens.|
+|value|BigNumber|The amount of tokens that were transferred.|
+|Mint|object|Contains the data defined in [Mint](#eventsmintaddlistener-address-amount-------)|
+|Transfer|object|Contains the data defined in [Transfer](#eventstransferaddlistener-from-to-value-------)|
+
+### `moveFundsBetweenPots.send({ fromPot, toPot, amount, token }, options)`
+
+Move funds from one pot to another.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|fromPot|number|The numeric ID of the pot from which funds will be moved.|
+|toPot|number|The numeric ID of the pot to which funds will be moved.|
+|amount|BigNumber|The amount of funds that will be moved between pots.|
+|token|Token address|The address of the token contract (an empty address if Ether).|
+
+**Returns**
+
+An instance of a `ContractResponse` which will eventually receive the following event data:
+
+|Event data|Type|Description|
+|---|---|---|
+|fromPot|number|The numeric ID of the pot from which the funds were moved.|
+|toPot|number|The numeric ID of the pot to which the funds were moved.|
+|amount|BigNumber|The amount of funds that were moved between pots.|
+|token|Address|The address of the token contract (an empty address if Ether).|
+|ColonyFundsMovedBetweenFundingPots|object|Contains the data defined in [ColonyFundsMovedBetweenFundingPots](#eventscolonyfundsmovedbetweenfundingpotsaddlistener-frompot-topot-amount-token-------)|
 
 ### `registerColonyLabel.send({ colonyName, orbitDBPath }, options)`
 
@@ -600,15 +719,15 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |label|string|The label that was registered for the colony.|
 |ColonyLabelRegistered|object|Contains the data defined in [ColonyLabelRegistered](#eventscolonylabelregisteredaddlistener-colony-label-------)|
 
-### `setFounderRole.send({ user }, options)`
+### `removeAdminRole.send({ user }, options)`
 
-Assign the `FOUNDER` authority role to a user. This function can only be called by the user currently assigned the `FOUNDER` authority role. There can only be one address assigned to the `FOUNDER` authority role, therefore, the user currently assigned will forfeit their role.
+Remove the `ADMIN` authority role from a user. This function can only be called by the user assigned the `FOUNDER` authroity role.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|user|Address|The address of the user that will be assigned the `FOUNDER` authority role.|
+|user|Address|The address that we will be unassigned the `ADMIN` authority role.|
 
 **Returns**
 
@@ -616,9 +735,48 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|oldFounder|Address|The address of the user that assigned the `FOUNDER` authority role (the old founder).|
-|newFounder|Address|The address of the user that was assigned the `FOUNDER` authority role (the new founder).|
-|ColonyFounderRoleSet|object|Contains the data defined in [ColonyFounderRoleSet](#eventscolonyfounderrolesetaddlistener-oldfounder-newfounder-------)|
+|user|Address|The address that was unassigned the `ADMIN` authority role.|
+|ColonyAdminRoleRemoved|object|Contains the data defined in [ColonyAdminRoleRemoved](#eventscolonyadminroleremovedaddlistener-user-------)|
+
+### `removeRecoveryRole.send({ user }, options)`
+
+Remove the colony recovery role from a user. This function can only be called by the `FOUNDER` authority role.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|user|Address|The address that will be unassigned a colony recovery role.|
+
+**Returns**
+
+An instance of a `ContractResponse`
+
+
+
+### `revealTaskWorkRating.send({ taskId, role, rating, salt }, options)`
+
+Reveal a submitted work rating. In order to reveal a work rating, the same `salt` and `value` used to generate the `secret` when the task work rating was submitted must be provided again here to reveal the task work rating.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|taskId|number|The numeric ID of the task.|
+|role|Role|The role that received the rating (`MANAGER` or `WORKER`).|
+|rating|number|The rating that was submitted (`1`, `2`, or `3`).|
+|salt|string|The string that was used to generate the secret.|
+
+**Returns**
+
+An instance of a `ContractResponse` which will eventually receive the following event data:
+
+|Event data|Type|Description|
+|---|---|---|
+|taskId|number|The numeric ID of the task that was modified.|
+|role|Role|The role of the task that received the rating (`MANAGER`, `EVALUATOR`, or `WORKER`).|
+|rating|number|The value of the rating that was revealed (`1`, `2`, or `3`).|
+|TaskWorkRatingRevealed|object|Contains the data defined in [TaskWorkRatingRevealed](#eventstaskworkratingrevealedaddlistener-taskid-role-rating-------)|
 
 ### `setAdminRole.send({ user }, options)`
 
@@ -628,7 +786,7 @@ Assign the `ADMIN` authority role to a user. This function can only be called by
 
 |Argument|Type|Description|
 |---|---|---|
-|user|Address|The address of the user that will be assigned the `ADMIN` authroity role.|
+|user|Address|The address that will be assigned the `ADMIN` authroity role.|
 
 **Returns**
 
@@ -636,43 +794,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|user|Address|The address of the user that was assigned the `ADMIN` authority role.|
+|user|Address|The address that was assigned the `ADMIN` authority role.|
 |ColonyAdminRoleSet|object|Contains the data defined in [ColonyAdminRoleSet](#eventscolonyadminrolesetaddlistener-user-------)|
-
-### `setRecoveryRole.send({ user }, options)`
-
-Assign the recovery role to a user. This function can only be called by the user assigned the `FOUNDER` authroity role.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|user|Address|The address of the user that will be assigned the recovery role.|
-
-**Returns**
-
-An instance of a `ContractResponse`
-
-
-
-### `removeAdminRole.send({ user }, options)`
-
-Remove the `ADMIN` authority role from a user. This function can only be called by the user assigned the `FOUNDER` authroity role.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|user|Address|The address of the user that we will be unassigned the `ADMIN` authority role.|
-
-**Returns**
-
-An instance of a `ContractResponse` which will eventually receive the following event data:
-
-|Event data|Type|Description|
-|---|---|---|
-|user|Address|The address of the user that was unassigned the `ADMIN` authority role.|
-|ColonyAdminRoleRemoved|object|Contains the data defined in [ColonyAdminRoleRemoved](#eventscolonyadminroleremovedaddlistener-user-------)|
 
 ### `setAllTaskPayouts.send({ taskId, token, managerAmount, evaluatorAmount, workerAmount }, options)`
 
@@ -700,6 +823,94 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |amount|BigNumber|The task payout amount that was set.|
 |TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutsetaddlistener-taskid-role-token-amount-------)|
 
+### `setFounderRole.send({ user }, options)`
+
+Assign the `FOUNDER` authority role to a user. This function can only be called by the user currently assigned the `FOUNDER` authority role. There can only be one address assigned to the `FOUNDER` authority role, therefore, the user currently assigned will forfeit their role.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|user|Address|The address that will be assigned the `FOUNDER` authority role.|
+
+**Returns**
+
+An instance of a `ContractResponse` which will eventually receive the following event data:
+
+|Event data|Type|Description|
+|---|---|---|
+|oldFounder|Address|The address that assigned the `FOUNDER` authority role (the old founder).|
+|newFounder|Address|The address that was assigned the `FOUNDER` authority role (the new founder).|
+|ColonyFounderRoleSet|object|Contains the data defined in [ColonyFounderRoleSet](#eventscolonyfounderrolesetaddlistener-oldfounder-newfounder-------)|
+
+### `setRecoveryRole.send({ user }, options)`
+
+Assign a colony recovery role to a user. This function can only be called by the `FOUNDER` authority role.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|user|Address|The address that will be assigned a colony recovery role.|
+
+**Returns**
+
+An instance of a `ContractResponse`
+
+
+
+### `setStorageSlotRecovery.send({ slot, value }, options)`
+
+Set the value for a storage slot while in recovery mode. This can only be called by a user with a recovery role.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|slot|number|The numeric ID of the storage slot that will be modified.|
+|value|Hex string|The hex string of data that will be set as the value.|
+
+**Returns**
+
+An instance of a `ContractResponse`
+
+
+
+### `setToken.send({ token }, options)`
+
+Set the native token for the colony. This function can only be called by the user assigned the `FOUNDER` authority role.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|token|Address|The address of the token contract.|
+
+**Returns**
+
+An instance of a `ContractResponse`
+
+
+
+### `startNextRewardPayout.send({ token }, options)`
+
+Start the next reward payout cycle. All the funds in the colony rewards pot for the given token will become locked until reputation holders have either waived the reward payout cycle using `waiveRewardPayouts`, which means they forfeit a given number of reward payout cycles and unlock their share of tokens for those payout cycles, or reputation holders have claimed their rewards payout using `claimRewardPayout`, which means the payout was claimed and the tokens were transferred to their account.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|token|Token address|The address of the token contract (an empty address if Ether).|
+
+**Returns**
+
+An instance of a `ContractResponse` which will eventually receive the following event data:
+
+|Event data|Type|Description|
+|---|---|---|
+|payoutId|number|The numeric ID of the payout cycle that started.|
+|RewardPayoutCycleStarted|object|Contains the data defined in [RewardPayoutCycleStarted](#eventsrewardpayoutcyclestartedaddlistener-payoutid-------)|
+
 ### `submitTaskDeliverable.send({ taskId, deliverableHash }, options)`
 
 Submit the task deliverable. This function can only be called by the user assigned the `WORKER` task role on or before the task due date. The submission cannot be overwritten, which means the deliverable cannot be changed once it has been submitted.
@@ -710,6 +921,30 @@ Submit the task deliverable. This function can only be called by the user assign
 |---|---|---|
 |taskId|number|The numeric ID of the task.|
 |deliverableHash|IPFS hash|The deliverable hash of the task (an IPFS hash).|
+
+**Returns**
+
+An instance of a `ContractResponse` which will eventually receive the following event data:
+
+|Event data|Type|Description|
+|---|---|---|
+|taskId|number|The numeric ID of the task that was completed.|
+|taskId|number|The numeric ID of the task that was modified.|
+|deliverableHash|IPFS hash|The deliverable hash that was submitted (an IPFS hash).|
+|TaskCompleted|object|Contains the data defined in [TaskCompleted](#eventstaskcompletedaddlistener-taskid-------)|
+|TaskDeliverableSubmitted|object|Contains the data defined in [TaskDeliverableSubmitted](#eventstaskdeliverablesubmittedaddlistener-taskid-deliverablehash-------)|
+
+### `submitTaskDeliverableAndRating.send({ taskId, deliverableHash, secret }, options)`
+
+Submit the task deliverable and the work rating for the user assigned the `MANAGER` task role. This function can only be called by the user assigned the `WORKER` task role on or before the task due date. The submission cannot be overwritten, which means the deliverable cannot be changed once it has been submitted. In order to submit a rating, a `secret` must be generated using the `generateSecret` method, which keeps the rating hidden until all ratings have been submitted and revealed.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|taskId|number|The numeric ID of the task.|
+|deliverableHash|IPFS hash|The deliverable hash of the task (an IPFS hash).|
+|secret|Hex string|A keccak256 hash that keeps the task rating hidden.|
 
 **Returns**
 
@@ -741,273 +976,6 @@ An instance of a `ContractResponse`
 
 
 
-### `submitTaskDeliverableAndRating.send({ taskId, deliverableHash, secret }, options)`
-
-Submit the task deliverable and the work rating for the user assigned the `MANAGER` task role. This function can only be called by the user assigned the `WORKER` task role on or before the task due date. The submission cannot be overwritten, which means the deliverable cannot be changed once it has been submitted. In order to submit a rating, a `secret` must be generated using the `generateSecret` method, which keeps the rating hidden until all ratings have been submitted and revealed.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|taskId|number|The numeric ID of the task.|
-|deliverableHash|IPFS hash|The deliverable hash of the task (an IPFS hash).|
-|secret|Hex string|A keccak256 hash that keeps the task rating hidden.|
-
-**Returns**
-
-An instance of a `ContractResponse` which will eventually receive the following event data:
-
-|Event data|Type|Description|
-|---|---|---|
-|taskId|number|The numeric ID of the task that was completed.|
-|taskId|number|The numeric ID of the task that was modified.|
-|deliverableHash|IPFS hash|The deliverable hash that was submitted (an IPFS hash).|
-|TaskCompleted|object|Contains the data defined in [TaskCompleted](#eventstaskcompletedaddlistener-taskid-------)|
-|TaskDeliverableSubmitted|object|Contains the data defined in [TaskDeliverableSubmitted](#eventstaskdeliverablesubmittedaddlistener-taskid-deliverablehash-------)|
-
-### `revealTaskWorkRating.send({ taskId, role, rating, salt }, options)`
-
-Reveal a submitted work rating. In order to reveal a work rating, the same `salt` and `value` used to generate the `secret` when the task work rating was submitted must be provided again here to reveal the task work rating.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|taskId|number|The numeric ID of the task.|
-|role|Role|The role that received the rating (`MANAGER` or `WORKER`).|
-|rating|number|The rating that was submitted (`1`, `2`, or `3`).|
-|salt|string|The string that was used to generate the secret.|
-
-**Returns**
-
-An instance of a `ContractResponse` which will eventually receive the following event data:
-
-|Event data|Type|Description|
-|---|---|---|
-|taskId|number|The numeric ID of the task that was modified.|
-|role|Role|The role of the task that received the rating (`MANAGER`, `EVALUATOR`, or `WORKER`).|
-|rating|number|The value of the rating that was revealed (`1`, `2`, or `3`).|
-|TaskWorkRatingRevealed|object|Contains the data defined in [TaskWorkRatingRevealed](#eventstaskworkratingrevealedaddlistener-taskid-role-rating-------)|
-
-### `assignWorkRating.send({ taskId }, options)`
-
-Assign the work rating for any task roles that did not receive a rating. In the event of a user not committing or revealing a work rating within the 10-day rating window (5-day maximum commit period and 5-day maximum reveal period), their counterpart is given the highest work rating possible (`3`) and the user who failed to commit or reveal their work rating will receive a reputation penalty.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|taskId|number|The numeric ID of the task.|
-
-**Returns**
-
-An instance of a `ContractResponse`
-
-
-
-### `finalizeTask.send({ taskId }, options)`
-
-Finalize a task. Once a task is finalized, each user assigned a task role can claim the payout assigned to their role and no further changes to the task can be made.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|taskId|number|The numeric ID of the task.|
-
-**Returns**
-
-An instance of a `ContractResponse` which will eventually receive the following event data:
-
-|Event data|Type|Description|
-|---|---|---|
-|taskId|number|The numeric ID of the task that was finalized.|
-|TaskFinalized|object|Contains the data defined in [TaskFinalized](#eventstaskfinalizedaddlistener-taskid-------)|
-
-### `claimPayout.send({ taskId, role, token }, options)`
-
-Claim the payout assigned to a task role. This function can only be called by the user who is assigned a task role (`MANAGER`, `EVALUATOR`, or `WORKER`) after the task has been finalized.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|taskId|number|The numeric ID of the task.|
-|role|Role|The role that submitted the rating (`MANAGER`, `EVALUATOR`, or `WORKER`).|
-|token|Token address|The address of the token contract (an empty address if Ether).|
-
-**Returns**
-
-An instance of a `ContractResponse` which will eventually receive the following event data:
-
-|Event data|Type|Description|
-|---|---|---|
-|taskId|number|The numeric ID of the task that was modified.|
-|role|Role|The role of the task that was assigned the task payout (`MANAGER`, `EVALUATOR`, or `WORKER`).|
-|token|Token address|The address of the token contract (an empty address if Ether).|
-|amount|BigNumber|The task payout amount that was claimed.|
-|from|Address|The address of the account that sent tokens.|
-|to|Address|The address of the account that received tokens.|
-|value|BigNumber|The amount of tokens that were transferred.|
-|TaskPayoutClaimed|object|Contains the data defined in [TaskPayoutClaimed](#eventstaskpayoutclaimedaddlistener-taskid-role-token-amount-------)|
-|Transfer|object|Contains the data defined in [Transfer](#eventstransferaddlistener-from-to-value-------)|
-
-### `addDomain.send({ parentDomainId }, options)`
-
-Add a domain to the colony. Adding new domains is currently retricted to one level, i.e. the `parentDomainId` must be the id of the root domain `1`, which represents the colony itself.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|parentDomainId|number|The numeric ID of the parent domain.|
-
-**Returns**
-
-An instance of a `ContractResponse` which will eventually receive the following event data:
-
-|Event data|Type|Description|
-|---|---|---|
-|domainId|number|The numeric ID of the domain that was added.|
-|DomainAdded|object|Contains the data defined in [DomainAdded](#eventsdomainaddedaddlistener-domainid-------)|
-
-### `claimColonyFunds.send({ token }, options)`
-
-Claim funds that the colony has received by adding them to the funding pot of the root domain. A small fee is deducted from the funds claimed and added to the colony rewards pot. No fee is deducted when tokens native to the colony are claimed.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|token|Token address|The address of the token contract (an empty address if Ether).|
-
-**Returns**
-
-An instance of a `ContractResponse` which will eventually receive the following event data:
-
-|Event data|Type|Description|
-|---|---|---|
-|token|Address|The address of the token contract (an empty address if Ether).|
-|fee|BigNumber|The fee deducted from the claim and added to the colony rewards pot.|
-|payoutRemainder|BigNumber|The remaining funds (after the fee) moved to the top-level domain pot.|
-|ColonyFundsClaimed|object|Contains the data defined in [ColonyFundsClaimed](#eventscolonyfundsclaimedaddlistener-token-fee-payoutremainder-------)|
-
-### `finalizeRewardPayout.send({ payoutId }, options)`
-
-Finalize the reward payout cycle. This function can only be called when the reward payout cycle has finished, i.e. 60 days have passed since the creation of the reward payout cycle.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|payoutId|number|The numeric ID of the reward payout cycle.|
-
-**Returns**
-
-An instance of a `ContractResponse`
-
-
-
-### `moveFundsBetweenPots.send({ fromPot, toPot, amount, token }, options)`
-
-Move funds from one pot to another.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|fromPot|number|The numeric ID of the pot from which funds will be moved.|
-|toPot|number|The numeric ID of the pot to which funds will be moved.|
-|amount|BigNumber|The amount of funds that will be moved between pots.|
-|token|Token address|The address of the token contract (an empty address if Ether).|
-
-**Returns**
-
-An instance of a `ContractResponse` which will eventually receive the following event data:
-
-|Event data|Type|Description|
-|---|---|---|
-|fromPot|number|The numeric ID of the pot from which the funds were moved.|
-|toPot|number|The numeric ID of the pot to which the funds were moved.|
-|amount|BigNumber|The amount of funds that were moved between pots.|
-|token|Address|The address of the token contract (an empty address if Ether).|
-|ColonyFundsMovedBetweenFundingPots|object|Contains the data defined in [ColonyFundsMovedBetweenFundingPots](#eventscolonyfundsmovedbetweenfundingpotsaddlistener-frompot-topot-amount-token-------)|
-
-### `mintTokens.send({ amount }, options)`
-
-Mint new tokens. This function can only be called if the address of the colony contract is the owner of the token contract. If this is the case, then this function can only be called by the user assigned the `FOUNDER` authority role.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|amount|BigNumber|The amount of new tokens that will be minted.|
-
-**Returns**
-
-An instance of a `ContractResponse` which will eventually receive the following event data:
-
-|Event data|Type|Description|
-|---|---|---|
-|address|Address|The address that initiated the mint event.|
-|amount|BigNumber|The amount of tokens that were minted.|
-|from|Address|The address of the account that sent tokens.|
-|to|Address|The address of the account that received tokens.|
-|value|BigNumber|The amount of tokens that were transferred.|
-|Mint|object|Contains the data defined in [Mint](#eventsmintaddlistener-address-amount-------)|
-|Transfer|object|Contains the data defined in [Transfer](#eventstransferaddlistener-from-to-value-------)|
-
-### `startNextRewardPayout.send({ token }, options)`
-
-Start the next reward payout cycle. All the funds in the colony rewards pot for the given token will become locked until reputation holders have either waived the reward payout cycle using `waiveRewardPayouts`, which means they forfeit a given number of reward payout cycles and unlock their share of tokens for those payout cycles, or reputation holders have claimed their rewards payout using `claimRewardPayout`, which means the payout was claimed and the tokens were transferred to their account.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|token|Token address|The address of the token contract (an empty address if Ether).|
-
-**Returns**
-
-An instance of a `ContractResponse` which will eventually receive the following event data:
-
-|Event data|Type|Description|
-|---|---|---|
-|payoutId|number|The numeric ID of the payout cycle that started.|
-|RewardPayoutCycleStarted|object|Contains the data defined in [RewardPayoutCycleStarted](#eventsrewardpayoutcyclestartedaddlistener-payoutid-------)|
-
-### `waiveRewardPayouts.send({ numPayouts }, options)`
-
-Waive reward payout cycles. This unlocks tokens for a given number of reward payout cycles.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|numPayouts|number|The number of reward payout cycles that will be waived.|
-
-**Returns**
-
-An instance of a `ContractResponse`
-
-
-
-### `setToken.send({ token }, options)`
-
-Set the native token for the colony. This function can only be called by the user assigned the `FOUNDER` authority role.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|token|Address|The address of the token contract.|
-
-**Returns**
-
-An instance of a `ContractResponse`
-
-
-
 ### `upgrade.send({ newVersion }, options)`
 
 Upgrade the colony to a new contract version. The new version number must be higher than the current version. Downgrading to old contract versions is not permitted.
@@ -1028,10 +996,87 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |newVersion|number|The new version number of the colony.|
 |ColonyUpgraded|object|Contains the data defined in [ColonyUpgraded](#eventscolonyupgradedaddlistener-oldversion-newversion-------)|
 
+### `waiveRewardPayouts.send({ numPayouts }, options)`
+
+Waive reward payout cycles. This unlocks tokens for a given number of reward payout cycles.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|numPayouts|number|The number of reward payout cycles that will be waived.|
+
+**Returns**
+
+An instance of a `ContractResponse`
+
+
+
   
 ## Task MultiSig
 
 **All MultiSig functions return an instance of a `MultiSigOperation`.** For a reference please check [here](/colonyjs/docs-multisignature/).
+### `cancelTask.startOperation({ taskId })`
+
+Cancel a task. Once a task is cancelled, no further changes to the task can be made.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|taskId|number|The numeric ID of the task.|
+
+**Returns**
+
+An instance of a `MultiSigOperation` whose sender will eventually receive the following event data:
+
+|Event Data|Type|Description|
+|---|---|---|
+|taskId|number|The numeric ID of the task that was canceled.|
+|TaskCanceled|object|Contains the data defined in [TaskCanceled](#eventstaskcanceledaddlistener-taskid-------)|
+
+### `removeTaskEvaluatorRole.startOperation({ taskId })`
+
+Remove the `EVALUATOR` task role assignment. This function can only be called before the task is complete, i.e. either before the deliverable has been submitted or the user assigned the `WORKER` task role has failed to meet the deadline and the user assigned the `MANAGER` task role has marked the task as complete.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|taskId|number|The numeric ID of the task.|
+
+**Returns**
+
+An instance of a `MultiSigOperation` whose sender will eventually receive the following event data:
+
+|Event Data|Type|Description|
+|---|---|---|
+|taskId|number|The numeric ID of the task that was modified.|
+|role|Role|The role of the task that was set (`MANAGER`, `EVALUATOR`, or `WORKER`).|
+|user|Address|The user that was assigned the task role.|
+|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleusersetaddlistener-taskid-role-user-------)|
+
+### `removeTaskWorkerRole.startOperation({ taskId })`
+
+Remove the `WORKER` task role assignment. This function can only be called before the task is complete, i.e. either before the deliverable has been submitted or the user assigned the `WORKER` task role has failed to meet the deadline and the user assigned the `MANAGER` task role has marked the task as complete.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|taskId|number|The numeric ID of the task.|
+
+**Returns**
+
+An instance of a `MultiSigOperation` whose sender will eventually receive the following event data:
+
+|Event Data|Type|Description|
+|---|---|---|
+|taskId|number|The numeric ID of the task that was modified.|
+|role|Role|The role of the task that was set (`MANAGER`, `EVALUATOR`, or `WORKER`).|
+|user|Address|The user that was assigned the task role.|
+|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleusersetaddlistener-taskid-role-user-------)|
+
 ### `setTaskBrief.startOperation({ taskId, specificationHash })`
 
 Set the task specification. The task specification, or "task brief", is a description of the work that must be completed for the task. The description is hashed and stored with the task for future reference during the rating process or in the event of a dispute.
@@ -1095,50 +1140,6 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |dueDate|Date|The due date that was set.|
 |TaskDueDateSet|object|Contains the data defined in [TaskDueDateSet](#eventstaskduedatesetaddlistener-taskid-duedate-------)|
 
-### `setTaskManagerRole.startOperation({ taskId, user })`
-
-Assign the `MANAGER` task role to a user. This function can only be called before the task is finalized. The user currently assigned the `MANAGER` task role and the user being assigned the `MANAGER` task role must both sign the transaction before it can be executed.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|taskId|number|The numeric ID of the task.|
-|user|Address|The address of the user.|
-
-**Returns**
-
-An instance of a `MultiSigOperation` whose sender will eventually receive the following event data:
-
-|Event Data|Type|Description|
-|---|---|---|
-|taskId|number|The numeric ID of the task that was modified.|
-|role|Role|The role of the task that was set (`MANAGER`, `EVALUATOR`, or `WORKER`).|
-|user|Address|The user that was assigned the task role.|
-|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleusersetaddlistener-taskid-role-user-------)|
-
-### `setTaskWorkerRole.startOperation({ taskId, user })`
-
-Assign the `WORKER` task role to a user. This function can only be called before the task is finalized. The user assigned the `MANAGER` task role and the user being assigned the `WORKER` task role must both sign the transaction before it can be executed.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|taskId|number|The numeric ID of the task.|
-|user|Address|The address of the user.|
-
-**Returns**
-
-An instance of a `MultiSigOperation` whose sender will eventually receive the following event data:
-
-|Event Data|Type|Description|
-|---|---|---|
-|taskId|number|The numeric ID of the task that was modified.|
-|role|Role|The role of the task that was set (`MANAGER`, `EVALUATOR`, or `WORKER`).|
-|user|Address|The user that was assigned the task role.|
-|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleusersetaddlistener-taskid-role-user-------)|
-
 ### `setTaskEvaluatorRole.startOperation({ taskId, user })`
 
 Assign the `EVALUATOR` task role to a user. This function can only be called before the task is finalized. The user assigned the `MANAGER` task role and the user being assigned the `EVALUATOR` task role must both sign the transaction before it can be executed.
@@ -1148,7 +1149,29 @@ Assign the `EVALUATOR` task role to a user. This function can only be called bef
 |Argument|Type|Description|
 |---|---|---|
 |taskId|number|The numeric ID of the task.|
-|user|Address|The address of the user.|
+|user|Address|The address that will be assigned the `EVALUATOR` task role.|
+
+**Returns**
+
+An instance of a `MultiSigOperation` whose sender will eventually receive the following event data:
+
+|Event Data|Type|Description|
+|---|---|---|
+|taskId|number|The numeric ID of the task that was modified.|
+|role|Role|The role of the task that was set (`MANAGER`, `EVALUATOR`, or `WORKER`).|
+|user|Address|The user that was assigned the task role.|
+|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleusersetaddlistener-taskid-role-user-------)|
+
+### `setTaskManagerRole.startOperation({ taskId, user })`
+
+Assign the `MANAGER` task role to a user. This function can only be called before the task is finalized. The user currently assigned the `MANAGER` task role and the user being assigned the `MANAGER` task role must both sign the transaction before it can be executed.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|taskId|number|The numeric ID of the task.|
+|user|Address|The address that will be assigned the `MANANAGER` task role.|
 
 **Returns**
 
@@ -1181,6 +1204,28 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |taskId|number|The numeric ID of the task that was modified.|
 |skillId|number|The numeric ID of the skill that was set.|
 |TaskSkillSet|object|Contains the data defined in [TaskSkillSet](#eventstaskskillsetaddlistener-taskid-skillid-------)|
+
+### `setTaskWorkerRole.startOperation({ taskId, user })`
+
+Assign the `WORKER` task role to a user. This function can only be called before the task is finalized. The user assigned the `MANAGER` task role and the user being assigned the `WORKER` task role must both sign the transaction before it can be executed.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|taskId|number|The numeric ID of the task.|
+|user|Address|The address that will be assigned the `WORKER` task role.|
+
+**Returns**
+
+An instance of a `MultiSigOperation` whose sender will eventually receive the following event data:
+
+|Event Data|Type|Description|
+|---|---|---|
+|taskId|number|The numeric ID of the task that was modified.|
+|role|Role|The role of the task that was set (`MANAGER`, `EVALUATOR`, or `WORKER`).|
+|user|Address|The user that was assigned the task role.|
+|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleusersetaddlistener-taskid-role-user-------)|
 
 ### `setTaskManagerPayout.startOperation({ taskId, token, amount })`
 
@@ -1254,71 +1299,129 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |amount|BigNumber|The task payout amount that was set.|
 |TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutsetaddlistener-taskid-role-token-amount-------)|
 
-### `removeTaskWorkerRole.startOperation({ taskId })`
-
-Remove the `WORKER` task role assignment. This function can only be called before the task is complete, i.e. either before the deliverable has been submitted or the user assigned the `WORKER` task role has failed to meet the deadline and the user assigned the `MANAGER` task role has marked the task as complete.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|taskId|number|The numeric ID of the task.|
-
-**Returns**
-
-An instance of a `MultiSigOperation` whose sender will eventually receive the following event data:
-
-|Event Data|Type|Description|
-|---|---|---|
-|taskId|number|The numeric ID of the task that was modified.|
-|role|Role|The role of the task that was set (`MANAGER`, `EVALUATOR`, or `WORKER`).|
-|user|Address|The user that was assigned the task role.|
-|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleusersetaddlistener-taskid-role-user-------)|
-
-### `removeTaskEvaluatorRole.startOperation({ taskId })`
-
-Remove the `EVALUATOR` task role assignment. This function can only be called before the task is complete, i.e. either before the deliverable has been submitted or the user assigned the `WORKER` task role has failed to meet the deadline and the user assigned the `MANAGER` task role has marked the task as complete.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|taskId|number|The numeric ID of the task.|
-
-**Returns**
-
-An instance of a `MultiSigOperation` whose sender will eventually receive the following event data:
-
-|Event Data|Type|Description|
-|---|---|---|
-|taskId|number|The numeric ID of the task that was modified.|
-|role|Role|The role of the task that was set (`MANAGER`, `EVALUATOR`, or `WORKER`).|
-|user|Address|The user that was assigned the task role.|
-|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleusersetaddlistener-taskid-role-user-------)|
-
-### `cancelTask.startOperation({ taskId })`
-
-Cancel a task. Once a task is cancelled, no further changes to the task can be made.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|taskId|number|The numeric ID of the task.|
-
-**Returns**
-
-An instance of a `MultiSigOperation` whose sender will eventually receive the following event data:
-
-|Event Data|Type|Description|
-|---|---|---|
-|taskId|number|The numeric ID of the task that was canceled.|
-|TaskCanceled|object|Contains the data defined in [TaskCanceled](#eventstaskcanceledaddlistener-taskid-------)|
-
   
 ## Events
 
 Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events) to interact with these events.
+
+
+### `events.ColonyAdminRoleRemoved.addListener(({ user }) => { /* ... */ })`
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|user|Address|The address that was unassigned the `ADMIN` authority role.|
+
+
+### `events.ColonyAdminRoleSet.addListener(({ user }) => { /* ... */ })`
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|user|Address|The address that was assigned the `ADMIN` authority role.|
+
+
+### `events.ColonyBootstrapped.addListener(({ users, amounts }) => { /* ... */ })`
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|users|undefined|The array of users that received an initial amount of tokens and reputation.|
+|amounts|undefined|The array of corresponding token and reputation amounts each user recieved.|
+
+
+### `events.ColonyFounderRoleSet.addListener(({ oldFounder, newFounder }) => { /* ... */ })`
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|oldFounder|Address|The address that assigned the `FOUNDER` authority role (the old founder).|
+|newFounder|Address|The address that was assigned the `FOUNDER` authority role (the new founder).|
+
+
+### `events.ColonyFundsClaimed.addListener(({ token, fee, payoutRemainder }) => { /* ... */ })`
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|token|Address|The address of the token contract (an empty address if Ether).|
+|fee|BigNumber|The fee deducted from the claim and added to the colony rewards pot.|
+|payoutRemainder|BigNumber|The remaining funds (after the fee) moved to the top-level domain pot.|
+
+
+### `events.ColonyFundsMovedBetweenFundingPots.addListener(({ fromPot, toPot, amount, token }) => { /* ... */ })`
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|fromPot|number|The numeric ID of the pot from which the funds were moved.|
+|toPot|number|The numeric ID of the pot to which the funds were moved.|
+|amount|BigNumber|The amount of funds that were moved between pots.|
+|token|Address|The address of the token contract (an empty address if Ether).|
+
+
+### `events.ColonyInitialised.addListener(({ colonyNetwork }) => { /* ... */ })`
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|colonyNetwork|Address|The address of the Colony Network.|
+
+
+### `events.ColonyLabelRegistered.addListener(({ colony, label }) => { /* ... */ })`
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|colony|Address|The address of the colony that was modified.|
+|label|string|The label that was registered for the colony.|
+
+
+### `events.ColonyRewardInverseSet.addListener(({ rewardInverse }) => { /* ... */ })`
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|rewardInverse|BigNumber|The reward inverse value that was set.|
+
+
+### `events.ColonyUpgraded.addListener(({ oldVersion, newVersion }) => { /* ... */ })`
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|oldVersion|number|The old version number of the colony.|
+|newVersion|number|The new version number of the colony.|
 
 
 ### `events.DomainAdded.addListener(({ domainId }) => { /* ... */ })`
@@ -1332,6 +1435,18 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |domainId|number|The numeric ID of the domain that was added.|
 
 
+### `events.Mint.addListener(({ address, amount }) => { /* ... */ })`
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|address|Address|The address that initiated the mint event.|
+|amount|BigNumber|The amount of tokens that were minted.|
+
+
 ### `events.PotAdded.addListener(({ potId }) => { /* ... */ })`
 
 
@@ -1341,6 +1456,42 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |Argument|Type|Description|
 |---|---|---|
 |potId|number|The numeric ID of the pot that was added.|
+
+
+### `events.RewardPayoutClaimed.addListener(({ rewardPayoutId, user, fee, payoutRemainder }) => { /* ... */ })`
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|rewardPayoutId|number|The numeric ID of the reward payout cycle.|
+|user|Address|The address of the user who claimed the reward payout.|
+|fee|BigNumber|The fee deducted from the claim and added to the colony rewards pot.|
+|payoutRemainder|BigNumber|The remaining payout amount (after the fee) transferred to the user.|
+
+
+### `events.RewardPayoutCycleEnded.addListener(({ payoutId }) => { /* ... */ })`
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|payoutId|number|The numeric ID of the payout cycle that ended.|
+
+
+### `events.RewardPayoutCycleStarted.addListener(({ payoutId }) => { /* ... */ })`
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|payoutId|number|The numeric ID of the payout cycle that started.|
 
 
 ### `events.SkillAdded.addListener(({ skillId, parentSkillId }) => { /* ... */ })`
@@ -1378,6 +1529,17 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |specificationHash|string|The specification hash that was set (an IPFS hash).|
 
 
+### `events.TaskCanceled.addListener(({ taskId }) => { /* ... */ })`
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|taskId|number|The numeric ID of the task that was canceled.|
+
+
 ### `events.TaskCompleted.addListener(({ taskId }) => { /* ... */ })`
 
 
@@ -1387,69 +1549,6 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |Argument|Type|Description|
 |---|---|---|
 |taskId|number|The numeric ID of the task that was completed.|
-
-
-### `events.TaskDueDateSet.addListener(({ taskId, dueDate }) => { /* ... */ })`
-
-
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|taskId|number|The numeric ID of the task that was modified.|
-|dueDate|Date|The due date that was set.|
-
-
-### `events.TaskDomainSet.addListener(({ taskId, domainId }) => { /* ... */ })`
-
-
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|taskId|number|The numeric ID of the task that was modified.|
-|domainId|number|The numeric ID of the domain that was set.|
-
-
-### `events.TaskSkillSet.addListener(({ taskId, skillId }) => { /* ... */ })`
-
-
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|taskId|number|The numeric ID of the task that was modified.|
-|skillId|number|The numeric ID of the skill that was set.|
-
-
-### `events.TaskRoleUserSet.addListener(({ taskId, role, user }) => { /* ... */ })`
-
-
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|taskId|number|The numeric ID of the task that was modified.|
-|role|Role|The role of the task that was set (`MANAGER`, `EVALUATOR`, or `WORKER`).|
-|user|Address|The user that was assigned the task role.|
-
-
-### `events.TaskPayoutSet.addListener(({ taskId, role, token, amount }) => { /* ... */ })`
-
-
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|taskId|number|The numeric ID of the task that was modified.|
-|role|Role|The role of the task that was modified (`MANAGER`, `EVALUATOR`, or `WORKER`).|
-|token|Token address|The address of the token contract (an empty address if Ether).|
-|amount|BigNumber|The task payout amount that was set.|
 
 
 ### `events.TaskDeliverableSubmitted.addListener(({ taskId, deliverableHash }) => { /* ... */ })`
@@ -1464,7 +1563,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |deliverableHash|IPFS hash|The deliverable hash that was submitted (an IPFS hash).|
 
 
-### `events.TaskWorkRatingRevealed.addListener(({ taskId, role, rating }) => { /* ... */ })`
+### `events.TaskDomainSet.addListener(({ taskId, domainId }) => { /* ... */ })`
 
 
 
@@ -1473,8 +1572,19 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |Argument|Type|Description|
 |---|---|---|
 |taskId|number|The numeric ID of the task that was modified.|
-|role|Role|The role of the task that received the rating (`MANAGER`, `EVALUATOR`, or `WORKER`).|
-|rating|number|The value of the rating that was revealed (`1`, `2`, or `3`).|
+|domainId|number|The numeric ID of the domain that was set.|
+
+
+### `events.TaskDueDateSet.addListener(({ taskId, dueDate }) => { /* ... */ })`
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|taskId|number|The numeric ID of the task that was modified.|
+|dueDate|Date|The due date that was set.|
 
 
 ### `events.TaskFinalized.addListener(({ taskId }) => { /* ... */ })`
@@ -1502,7 +1612,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |amount|BigNumber|The task payout amount that was claimed.|
 
 
-### `events.TaskCanceled.addListener(({ taskId }) => { /* ... */ })`
+### `events.TaskPayoutSet.addListener(({ taskId, role, token, amount }) => { /* ... */ })`
 
 
 
@@ -1510,21 +1620,13 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|taskId|number|The numeric ID of the task that was canceled.|
+|taskId|number|The numeric ID of the task that was modified.|
+|role|Role|The role of the task that was modified (`MANAGER`, `EVALUATOR`, or `WORKER`).|
+|token|Token address|The address of the token contract (an empty address if Ether).|
+|amount|BigNumber|The task payout amount that was set.|
 
 
-### `events.RewardPayoutCycleStarted.addListener(({ payoutId }) => { /* ... */ })`
-
-
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|payoutId|number|The numeric ID of the payout cycle that started.|
-
-
-### `events.RewardPayoutCycleEnded.addListener(({ payoutId }) => { /* ... */ })`
+### `events.TaskRoleUserSet.addListener(({ taskId, role, user }) => { /* ... */ })`
 
 
 
@@ -1532,22 +1634,12 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|payoutId|number|The numeric ID of the payout cycle that ended.|
+|taskId|number|The numeric ID of the task that was modified.|
+|role|Role|The role of the task that was set (`MANAGER`, `EVALUATOR`, or `WORKER`).|
+|user|Address|The user that was assigned the task role.|
 
 
-### `events.ColonyBootstrapped.addListener(({ users, amounts }) => { /* ... */ })`
-
-
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|users|undefined|The array of users that received an initial amount of tokens and reputation.|
-|amounts|undefined|The array of corresponding token and reputation amounts each user recieved.|
-
-
-### `events.ColonyLabelRegistered.addListener(({ colony, label }) => { /* ... */ })`
+### `events.TaskSkillSet.addListener(({ taskId, skillId }) => { /* ... */ })`
 
 
 
@@ -1555,8 +1647,21 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|colony|Address|The address of the colony that was modified.|
-|label|string|The label that was registered for the colony.|
+|taskId|number|The numeric ID of the task that was modified.|
+|skillId|number|The numeric ID of the skill that was set.|
+
+
+### `events.TaskWorkRatingRevealed.addListener(({ taskId, role, rating }) => { /* ... */ })`
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|taskId|number|The numeric ID of the task that was modified.|
+|role|Role|The role of the task that received the rating (`MANAGER`, `EVALUATOR`, or `WORKER`).|
+|rating|number|The value of the rating that was revealed (`1`, `2`, or `3`).|
 
 
 ### `events.Transfer.addListener(({ from, to, value }) => { /* ... */ })`
@@ -1570,124 +1675,3 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |from|Address|The address of the account that sent tokens.|
 |to|Address|The address of the account that received tokens.|
 |value|BigNumber|The amount of tokens that were transferred.|
-
-
-### `events.Mint.addListener(({ address, amount }) => { /* ... */ })`
-
-
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|address|Address|The address that initiated the mint event.|
-|amount|BigNumber|The amount of tokens that were minted.|
-
-
-### `events.ColonyFounderRoleSet.addListener(({ oldFounder, newFounder }) => { /* ... */ })`
-
-
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|oldFounder|Address|The address of the user that assigned the `FOUNDER` authority role (the old founder).|
-|newFounder|Address|The address of the user that was assigned the `FOUNDER` authority role (the new founder).|
-
-
-### `events.ColonyAdminRoleSet.addListener(({ user }) => { /* ... */ })`
-
-
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|user|Address|The address of the user that was assigned the `ADMIN` authority role.|
-
-
-### `events.ColonyAdminRoleRemoved.addListener(({ user }) => { /* ... */ })`
-
-
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|user|Address|The address of the user that was unassigned the `ADMIN` authority role.|
-
-
-### `events.ColonyFundsMovedBetweenFundingPots.addListener(({ fromPot, toPot, amount, token }) => { /* ... */ })`
-
-
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|fromPot|number|The numeric ID of the pot from which the funds were moved.|
-|toPot|number|The numeric ID of the pot to which the funds were moved.|
-|amount|BigNumber|The amount of funds that were moved between pots.|
-|token|Address|The address of the token contract (an empty address if Ether).|
-
-
-### `events.ColonyFundsClaimed.addListener(({ token, fee, payoutRemainder }) => { /* ... */ })`
-
-
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|token|Address|The address of the token contract (an empty address if Ether).|
-|fee|BigNumber|The fee deducted from the claim and added to the colony rewards pot.|
-|payoutRemainder|BigNumber|The remaining funds (after the fee) moved to the top-level domain pot.|
-
-
-### `events.RewardPayoutClaimed.addListener(({ rewardPayoutId, user, fee, payoutRemainder }) => { /* ... */ })`
-
-
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|rewardPayoutId|number|The numeric ID of the reward payout cycle.|
-|user|Address|The address of the user who claimed the reward payout.|
-|fee|BigNumber|The fee deducted from the claim and added to the colony rewards pot.|
-|payoutRemainder|BigNumber|The remaining payout amount (after the fee) transferred to the user.|
-
-
-### `events.ColonyRewardInverseSet.addListener(({ rewardInverse }) => { /* ... */ })`
-
-
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|rewardInverse|BigNumber|The reward inverse value that was set.|
-
-
-### `events.ColonyInitialised.addListener(({ colonyNetwork }) => { /* ... */ })`
-
-
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|colonyNetwork|Address|The address of the Colony Network.|
-
-
-### `events.ColonyUpgraded.addListener(({ oldVersion, newVersion }) => { /* ... */ })`
-
-
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|oldVersion|number|The old version number of the colony.|
-|newVersion|number|The new version number of the colony.|
