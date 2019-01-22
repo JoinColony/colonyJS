@@ -37,6 +37,43 @@ await tokenClient.init();
 
 **All callers return promises which resolve to an object containing the given return values.** For a reference please check [here](/colonyjs/docs-contractclient/#callers).
 
+### `getAllowance.call({ sourceAddress, user })`
+
+Get the token allowance of an address. The allowance is the amount of tokens that the `spender` is authorized to transfer using the `transferFrom` function.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|sourceAddress|Address|The address that approved the allowance (the token `owner`).|
+|user|Address|The address that was approved for the allowance (the token `spender`).|
+
+**Returns**
+
+A promise which resolves to an object containing the following properties:
+
+|Return value|Type|Description|
+|---|---|---|
+|amount|BigNumber|The amount of tokens that were approved (the amount `allowed`).|
+
+### `getBalanceOf.call({ sourceAddress })`
+
+Get the the token balance of an address.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|sourceAddress|Address|The address that will be checked.|
+
+**Returns**
+
+A promise which resolves to an object containing the following properties:
+
+|Return value|Type|Description|
+|---|---|---|
+|amount|BigNumber|The balance of tokens for the address.|
+
 ### `getTokenInfo.call()`
 
 Get information about the token.
@@ -65,47 +102,110 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |amount|BigNumber|The total supply of the token.|
 
-### `getBalanceOf.call({ sourceAddress })`
-
-Get the the token balance of an address.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|sourceAddress|Address|The address that will be checked.|
-
-**Returns**
-
-A promise which resolves to an object containing the following properties:
-
-|Return value|Type|Description|
-|---|---|---|
-|amount|BigNumber|The balance of tokens for the address.|
-
-### `getAllowance.call({ sourceAddress, user })`
-
-Get the token allowance of an address. The allowance is the amount of tokens that the `spender` is authorized to transfer using the `transferFrom` function.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|sourceAddress|Address|The address that approved the allowance (the token `owner`).|
-|user|Address|The address that was approved for the allowance (the token `spender`).|
-
-**Returns**
-
-A promise which resolves to an object containing the following properties:
-
-|Return value|Type|Description|
-|---|---|---|
-|amount|BigNumber|The amount of tokens that were approved (the amount `allowed`).|
-
   
 ## Senders
 
 **All senders return an instance of a `ContractResponse`.** Every `send()` method takes an `options` object as the second argument. For a reference please check [here](/colonyjs/docs-contractclient/#senders).
+### `approve.send({ user, amount }, options)`
+
+Approve a token allowance. This function can only be called by the token `owner`. The allowance is the amount of tokens that the `spender` is authorized to transfer using the `transferFrom` function.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|user|Address|The address that will be approved for the allowance (the token `spender`).|
+|amount|BigNumber|The amount of tokens that will be approved (the amount `allowed`).|
+
+**Returns**
+
+An instance of a `ContractResponse` which will eventually receive the following event data:
+
+|Event data|Type|Description|
+|---|---|---|
+|owner|Address|The address that approved the allowance (the token `owner`).|
+|spender|Address|The address that was approved for the allowance (the token `spender`).|
+|value|BigNumber|The amount of tokens that were approved (the amount `allowed`).|
+|Approval|object|Contains the data defined in [Approval](#eventsapprovaladdlistener-owner-spender-value-------)|
+
+### `burn.send({ amount }, options)`
+
+Burn tokens. This is an `ERC20Extended` function that can only be called by the token `owner`. When a colony contract address is assigned as the token `owner`, this function can only be called by the user assigned the `FOUNDER` authority role.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|amount|BigNumber|The amount of tokens that will be burned.|
+
+**Returns**
+
+An instance of a `ContractResponse` which will eventually receive the following event data:
+
+|Event data|Type|Description|
+|---|---|---|
+|address|Address|The address that initiated the burn event.|
+|amount|BigNumber|The amount of tokens that were burned.|
+|Burn|object|Contains the data defined in [Burn](#eventsburnaddlistener-address-amount-------)|
+
+### `mint.send({ amount }, options)`
+
+Mint new tokens. This is an `ERC20Extended` function that can only be called by the token `owner`. When a colony contract address is assigned as the token `owner`, this function can only be called by the user assigned the `FOUNDER` authority role.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|amount|BigNumber|The amount of tokens that will be minted.|
+
+**Returns**
+
+An instance of a `ContractResponse` which will eventually receive the following event data:
+
+|Event data|Type|Description|
+|---|---|---|
+|address|Address|The address that initiated the mint event.|
+|amount|BigNumber|The amount of tokens that were minted.|
+|Mint|object|Contains the data defined in [Mint](#eventsmintaddlistener-address-amount-------)|
+
+### `setAuthority.send({ authority }, options)`
+
+Assign an account the `ADMIN` authority role within a colony.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|authority|Address|The address that will be assigned the `ADMIN` authority role.|
+
+**Returns**
+
+An instance of a `ContractResponse` which will eventually receive the following event data:
+
+|Event data|Type|Description|
+|---|---|---|
+|authority|Address|The address that was assigned an authority role.|
+|LogSetAuthority|object|Contains the data defined in [LogSetAuthority](#eventslogsetauthorityaddlistener-authority-------)|
+
+### `setOwner.send({ owner }, options)`
+
+Set the `owner` of a token contract. This function can only be called by the current `owner` of the contract. In order to call token contract methods from within a colony, the token `owner` must be the address of the colony contract.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|owner|Address|The address that will be assigned as the new owner.|
+
+**Returns**
+
+An instance of a `ContractResponse` which will eventually receive the following event data:
+
+|Event data|Type|Description|
+|---|---|---|
+|owner|Address|The address that was assigned as the new owner.|
+|LogSetOwner|object|Contains the data defined in [LogSetOwner](#eventslogsetowneraddlistener-owner-------)|
+
 ### `transfer.send({ destinationAddress, amount }, options)`
 
 Transfer tokens from the address calling the function to another address. The current address must have a sufficient token balance.
@@ -146,124 +246,11 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |value|BigNumber|The amount of tokens that were transferred.|
 |Transfer|object|Contains the data defined in [Transfer](#eventstransferaddlistener-from-to-value-------)|
 
-### `approve.send({ user, amount }, options)`
-
-Approve a token allowance. This function can only be called by the token `owner`. The allowance is the amount of tokens that the `spender` is authorized to transfer using the `transferFrom` function.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|user|Address|The address that will be approved for the allowance (the token `spender`).|
-|amount|BigNumber|The amount of tokens that will be approved (the amount `allowed`).|
-
-**Returns**
-
-An instance of a `ContractResponse` which will eventually receive the following event data:
-
-|Event data|Type|Description|
-|---|---|---|
-|owner|Address|The address that approved the allowance (the token `owner`).|
-|spender|Address|The address that was approved for the allowance (the token `spender`).|
-|value|BigNumber|The amount of tokens that were approved (the amount `allowed`).|
-|Approval|object|Contains the data defined in [Approval](#eventsapprovaladdlistener-owner-spender-value-------)|
-
-### `mint.send({ amount }, options)`
-
-Mint new tokens. This is an `ERC20Extended` function that can only be called by the token `owner`. When a colony contract address is assigned as the token `owner`, this function can only be called by the user assigned the `FOUNDER` authority role.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|amount|BigNumber|The amount of tokens that will be minted.|
-
-**Returns**
-
-An instance of a `ContractResponse` which will eventually receive the following event data:
-
-|Event data|Type|Description|
-|---|---|---|
-|address|Address|The address that initiated the mint event.|
-|amount|BigNumber|The amount of tokens that were minted.|
-|Mint|object|Contains the data defined in [Mint](#eventsmintaddlistener-address-amount-------)|
-
-### `burn.send({ amount }, options)`
-
-Burn tokens. This is an `ERC20Extended` function that can only be called by the token `owner`. When a colony contract address is assigned as the token `owner`, this function can only be called by the user assigned the `FOUNDER` authority role.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|amount|BigNumber|The amount of tokens that will be burned.|
-
-**Returns**
-
-An instance of a `ContractResponse` which will eventually receive the following event data:
-
-|Event data|Type|Description|
-|---|---|---|
-|address|Address|The address that initiated the burn event.|
-|amount|BigNumber|The amount of tokens that were burned.|
-|Burn|object|Contains the data defined in [Burn](#eventsburnaddlistener-address-amount-------)|
-
-### `setOwner.send({ owner }, options)`
-
-Set the `owner` of a token contract. This function can only be called by the current `owner` of the contract. In order to call token contract methods from within a colony, the token `owner` must be the address of the colony contract.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|owner|Address|The address that will be assigned as the new owner.|
-
-**Returns**
-
-An instance of a `ContractResponse` which will eventually receive the following event data:
-
-|Event data|Type|Description|
-|---|---|---|
-|owner|Address|The address that was assigned as the new owner.|
-|LogSetOwner|object|Contains the data defined in [LogSetOwner](#eventslogsetowneraddlistener-owner-------)|
-
-### `setAuthority.send({ authority }, options)`
-
-Assign an account the `ADMIN` authority role within a colony.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|authority|Address|The address that will be assigned the `ADMIN` authority role.|
-
-**Returns**
-
-An instance of a `ContractResponse` which will eventually receive the following event data:
-
-|Event data|Type|Description|
-|---|---|---|
-|authority|Address|The address that was assigned an authority role.|
-|LogSetAuthority|object|Contains the data defined in [LogSetAuthority](#eventslogsetauthorityaddlistener-authority-------)|
-
   
   
 ## Events
 
 Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events) to interact with these events.
-
-
-### `events.Transfer.addListener(({ from, to, value }) => { /* ... */ })`
-
-
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|from|Address|The address that sent the tokens.|
-|to|Address|The address that received the tokens.|
-|value|BigNumber|The amount of tokens that were transferred.|
 
 
 ### `events.Approval.addListener(({ owner, spender, value }) => { /* ... */ })`
@@ -323,3 +310,16 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |---|---|---|
 |address|Address|The address that initiated the mint event.|
 |amount|BigNumber|The amount of tokens that were minted.|
+
+
+### `events.Transfer.addListener(({ from, to, value }) => { /* ... */ })`
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|from|Address|The address that sent the tokens.|
+|to|Address|The address that received the tokens.|
+|value|BigNumber|The amount of tokens that were transferred.|
