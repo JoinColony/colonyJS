@@ -15,12 +15,12 @@ import TokenClient from '../TokenClient/index';
 type Address = string;
 
 type SkillAdded = ContractClient.Event<{
-  skillId: number, // A skillId for this domain.
-  parentSkillId: number, // The parent skill id.
+  skillId: number, // The numeric ID of the skill that was added.
+  parentSkillId: number, // The numeric ID of the parent skill.
 }>;
 type Mint = ContractClient.Event<{
   address: Address, // The address that initiated the mint event.
-  amount: BigNumber, // Event data indicating the amount of tokens minted.
+  amount: BigNumber, // The amount of tokens that were minted.
 }>;
 
 export default class MetaColonyClient extends ContractClient {
@@ -33,51 +33,51 @@ export default class MetaColonyClient extends ContractClient {
   };
 
   /*
-  Gets the colony's Authority contract address
+  Get the authority contract address associated with the colony.
   */
   getAuthority: MetaColonyClient.Caller<
     {},
     {
-      address: Address, // The colony's Authority contract address
+      address: Address, // The address of the authority contract associated with the colony.
     },
     MetaColonyClient,
   >;
   /*
-  Gets the address of the colony's official token contract.
+  Get the address of the ERC20 token contract that is the native token assigned to the Meta Colony.
   */
   getToken: MetaColonyClient.Caller<
     {},
     {
-      address: Address, // The address of the colony's official deployed token contract
+      address: Address, // The address of the ERC20 token contract.
     },
     MetaColonyClient,
   >;
   /*
-  Adds a global skill under a given parent SkillId. This can only be called from the Meta Colony, and only by the Meta Colony owners.
+  Add a new global skill to the skills tree. This can only be called from the Meta Colony, and only by the user assigned the `FOUNDER` role.
   */
   addGlobalSkill: MetaColonyClient.Sender<
     {
-      parentSkillId: number, // Integer id of the parent skill.
+      parentSkillId: number, // The numeric ID of the skill under which the new skill will be added.
     },
     { SkillAdded: SkillAdded },
     MetaColonyClient,
   >;
   /*
-  In the case of the Colony Network, only the Meta Colony may mint new tokens.
+  Mint tokens for the Colony Network. This can only be called from the Meta Colony, and only by the user assigned the `FOUNDER` role.
   */
   mintTokensForColonyNetwork: MetaColonyClient.Sender<
     {
-      amount: BigNumber, // Amount of new tokens to be minted.
+      amount: BigNumber, // The amount of new tokens that will be minted.
     },
     { Mint: Mint },
     MetaColonyClient,
   >;
   /*
-  Set the Colony Network fee inverse amount. This can only be called from the Meta Colony, and only by the Meta Colony owners.
+  Set the inverse amount of the reward. If the fee is 1% (or 0.01), the inverse amount will be 100. This can only be called from the Meta Colony, and only by the user assigned the `FOUNDER` role.
   */
   setNetworkFeeInverse: MetaColonyClient.Sender<
     {
-      feeInverse: number, // Integer id of the parent skill.
+      feeInverse: number, // The inverse amount that will be set.
     },
     {},
     MetaColonyClient,
