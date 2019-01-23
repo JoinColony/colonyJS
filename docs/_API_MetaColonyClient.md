@@ -39,7 +39,7 @@ await metaColonyClient.init();
 
 ### `getAuthority.call()`
 
-Gets the colony's Authority contract address
+Get the authority contract address associated with the colony.
 
 
 **Returns**
@@ -48,11 +48,11 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|address|Address|The colony's Authority contract address|
+|address|Address|The address of the authority contract associated with the colony.|
 
 ### `getToken.call()`
 
-Gets the address of the colony's official token contract.
+Get the address of the ERC20 token contract that is the native token assigned to the Meta Colony.
 
 
 **Returns**
@@ -61,7 +61,7 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|address|Address|The address of the colony's official deployed token contract|
+|address|Address|The address of the ERC20 token contract.|
 
   
 ## Senders
@@ -69,13 +69,13 @@ A promise which resolves to an object containing the following properties:
 **All senders return an instance of a `ContractResponse`.** Every `send()` method takes an `options` object as the second argument. For a reference please check [here](/colonyjs/docs-contractclient/#senders).
 ### `addGlobalSkill.send({ parentSkillId }, options)`
 
-Adds a global skill under a given parent SkillId. This can only be called from the Meta Colony, and only by the Meta Colony owners.
+Add a new global skill to the skills tree. This can only be called from the Meta Colony, and only by the user assigned the `FOUNDER` role.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|parentSkillId|number|Integer id of the parent skill.|
+|parentSkillId|number|The numeric ID of the skill under which the new skill will be added.|
 
 **Returns**
 
@@ -83,19 +83,19 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|skillId|number|A skillId for this domain.|
-|parentSkillId|number|The parent skill id.|
+|skillId|number|The numeric ID of the skill that was added.|
+|parentSkillId|number|The numeric ID of the parent skill.|
 |SkillAdded|object|Contains the data defined in [SkillAdded](#eventsskilladdedaddlistener-skillid-parentskillid-------)|
 
 ### `mintTokensForColonyNetwork.send({ amount }, options)`
 
-In the case of the Colony Network, only the Meta Colony may mint new tokens.
+Mint tokens for the Colony Network. This can only be called from the Meta Colony, and only by the user assigned the `FOUNDER` role.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|amount|BigNumber|Amount of new tokens to be minted.|
+|amount|BigNumber|The amount of new tokens that will be minted.|
 
 **Returns**
 
@@ -104,18 +104,18 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |Event data|Type|Description|
 |---|---|---|
 |address|Address|The address that initiated the mint event.|
-|amount|BigNumber|Event data indicating the amount of tokens minted.|
+|amount|BigNumber|The amount of tokens that were minted.|
 |Mint|object|Contains the data defined in [Mint](#eventsmintaddlistener-address-amount-------)|
 
 ### `setNetworkFeeInverse.send({ feeInverse }, options)`
 
-Set the Colony Network fee inverse amount. This can only be called from the Meta Colony, and only by the Meta Colony owners.
+Set the inverse amount of the reward. If the fee is 1% (or 0.01), the inverse amount will be 100. This can only be called from the Meta Colony, and only by the user assigned the `FOUNDER` role.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|feeInverse|number|Integer id of the parent skill.|
+|feeInverse|number|The inverse amount that will be set.|
 
 **Returns**
 
@@ -130,18 +130,6 @@ An instance of a `ContractResponse`
 Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events) to interact with these events.
 
 
-### `events.SkillAdded.addListener(({ skillId, parentSkillId }) => { /* ... */ })`
-
-
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|skillId|number|A skillId for this domain.|
-|parentSkillId|number|The parent skill id.|
-
-
 ### `events.Mint.addListener(({ address, amount }) => { /* ... */ })`
 
 
@@ -151,4 +139,16 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |Argument|Type|Description|
 |---|---|---|
 |address|Address|The address that initiated the mint event.|
-|amount|BigNumber|Event data indicating the amount of tokens minted.|
+|amount|BigNumber|The amount of tokens that were minted.|
+
+
+### `events.SkillAdded.addListener(({ skillId, parentSkillId }) => { /* ... */ })`
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|skillId|number|The numeric ID of the skill that was added.|
+|parentSkillId|number|The numeric ID of the parent skill.|
