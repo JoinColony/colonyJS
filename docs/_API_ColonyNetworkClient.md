@@ -105,6 +105,15 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |isSupported|boolean|A boolean indicating whether or not the contract interface is supported.|
 
+**Network Information**
+
+
+  - Name: `supportsInterface`
+  - Contract: `ColonyNetworkENS.sol`
+  - Interface: `IColonyNetwork.sol`
+  - Version: `0`
+  
+
 ### `getAddressForENSHash.call({ nameHash })`
 
 Get the address of a registered ENS label. This function will return an empty address if an ENS label has not been registered.
@@ -122,6 +131,15 @@ A promise which resolves to an object containing the following properties:
 |Return value|Type|Description|
 |---|---|---|
 |ensAddress|Address|The address associated with the ENS label.|
+
+**Network Information**
+
+
+  - Name: `addr`
+  - Contract: `ColonyNetworkENS.sol`
+  - Interface: `IColonyNetwork.sol`
+  - Version: `0`
+  
 
 ### `getChildSkillId.call({ skillId, childSkillIndex })`
 
@@ -142,6 +160,15 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |childSkillId|number|The numeric ID of the child skill.|
 
+**Network Information**
+
+
+  
+  - Contract: `ColonyNetwork.sol`
+  - Interface: `IColonyNetwork.sol`
+  - Version: `0`
+  
+
 ### `getColony.call({ id })`
 
 Get the colony contract address for a colony.
@@ -160,6 +187,15 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |address|Address|The address of the colony contract.|
 
+**Network Information**
+
+
+  
+  - Contract: `ColonyNetwork.sol`
+  - Interface: `IColonyNetwork.sol`
+  - Version: `0`
+  
+
 ### `getColonyCount.call()`
 
 Get the total number of colonies on the network. The return value is also the numeric ID of the last colony created.
@@ -172,6 +208,15 @@ A promise which resolves to an object containing the following properties:
 |Return value|Type|Description|
 |---|---|---|
 |count|number|The total number of colonies.|
+
+**Network Information**
+
+
+  
+  - Contract: `ColonyNetwork.sol`
+  - Interface: `IColonyNetwork.sol`
+  - Version: `0`
+  
 
 ### `getColonyVersionResolver.call({ version })`
 
@@ -191,6 +236,15 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |address|Address|The address of the resolver contract.|
 
+**Network Information**
+
+
+  
+  - Contract: `ColonyNetwork.sol`
+  - Interface: `IColonyNetwork.sol`
+  - Version: `0`
+  
+
 ### `getCurrentColonyVersion.call()`
 
 Get the latest colony contract version. This is the version used to create all new colonies.
@@ -204,6 +258,15 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |version|number|The version number of the latest colony contract.|
 
+**Network Information**
+
+
+  
+  - Contract: `ColonyNetwork.sol`
+  - Interface: `IColonyNetwork.sol`
+  - Version: `0`
+  
+
 ### `getMetaColonyAddress.call()`
 
 Get the Meta Colony contract address.
@@ -216,6 +279,15 @@ A promise which resolves to an object containing the following properties:
 |Return value|Type|Description|
 |---|---|---|
 |address|Address|The address of the Meta Colony contract.|
+
+**Network Information**
+
+
+  - Name: `getMetaColony`
+  - Contract: `ColonyNetwork.sol`
+  - Interface: `IColonyNetwork.sol`
+  - Version: `0`
+  
 
 ### `getParentSkillId.call({ skillId, parentSkillIndex })`
 
@@ -236,6 +308,15 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |parentSkillId|number|The numeric ID of the parent skill.|
 
+**Network Information**
+
+
+  
+  - Contract: `ColonyNetwork.sol`
+  - Interface: `IColonyNetwork.sol`
+  - Version: `0`
+  
+
 ### `getProfileDBAddress.call({ nameHash })`
 
 Get the address of the OrbitDB database associaated with a user profile.
@@ -254,6 +335,15 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |orbitDBAddress|string|The path of the OrbitDB database associated with the user profile.|
 
+**Network Information**
+
+
+  
+  - Contract: `ColonyNetworkENS.sol`
+  - Interface: `IColonyNetwork.sol`
+  - Version: `0`
+  
+
 ### `getRecoveryRolesCount.call()`
 
 Get the total number of users that are assigned a network recovery role.
@@ -267,6 +357,15 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |count|number|The total number of users that are assigned a colony recovery role.|
 
+**Network Information**
+
+
+  
+  - Contract: `?`
+  - Interface: `?`
+  - Version: `0`
+  
+
 ### `getRootGlobalSkillId.call()`
 
 Get the ID of the root global skill.
@@ -279,6 +378,15 @@ A promise which resolves to an object containing the following properties:
 |Return value|Type|Description|
 |---|---|---|
 |skillId|number|The numeric ID of the root global skill.|
+
+**Network Information**
+
+
+  
+  - Contract: `ColonyNetwork.sol`
+  - Interface: `IColonyNetwork.sol`
+  - Version: `0`
+  
 
 ### `getSkill.call({ skillId })`
 
@@ -300,6 +408,15 @@ A promise which resolves to an object containing the following properties:
 |nChildren|number|The total number of child skills.|
 |isGlobalSkill|boolean|A boolean indicating whether or not the skill is a global skill.|
 
+**Network Information**
+
+
+  
+  - Contract: `ColonyNetwork.sol`
+  - Interface: `IColonyNetwork.sol`
+  - Version: `0`
+  
+
 ### `getSkillCount.call()`
 
 Get the total number of global and local skills in the network.
@@ -313,6 +430,15 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |count|number|The total number of global and local skills in the network.|
 
+**Network Information**
+
+
+  
+  - Contract: `ColonyNetwork.sol`
+  - Interface: `IColonyNetwork.sol`
+  - Version: `0`
+  
+
 ### `getTokenLocking.call()`
 
 Get the token locking contract address.
@@ -325,6 +451,15 @@ A promise which resolves to an object containing the following properties:
 |Return value|Type|Description|
 |---|---|---|
 |lockingAddress|Address|The address of the token locking contract.|
+
+**Network Information**
+
+
+  
+  - Contract: `ColonyNetwork.sol`
+  - Interface: `IColonyNetwork.sol`
+  - Version: `0`
+  
 
 ### `isColony.call({ colony })`
 
@@ -344,6 +479,15 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |isColony|boolean|A boolean indicating whether or not an address is a colony contract.|
 
+**Network Information**
+
+
+  
+  - Contract: `ColonyNetwork.sol`
+  - Interface: `IColonyNetwork.sol`
+  - Version: `0`
+  
+
 ### `isInRecoveryMode.call()`
 
 Check whether or not the network is in recovery mode.
@@ -356,6 +500,15 @@ A promise which resolves to an object containing the following properties:
 |Return value|Type|Description|
 |---|---|---|
 |inRecoveryMode|boolean|A boolean indicating whether or not the network is in recovery mode.|
+
+**Network Information**
+
+
+  
+  - Contract: `ContractRecovery.sol`
+  - Interface: `IRecovery.sol`
+  - Version: `0`
+  
 
 ### `lookupRegisteredENSDomain.call({ ensAddress })`
 
@@ -374,6 +527,15 @@ A promise which resolves to an object containing the following properties:
 |Return value|Type|Description|
 |---|---|---|
 |domain|string|The ENS label associated with the address.|
+
+**Network Information**
+
+
+  
+  - Contract: `ColonyNetworkENS.sol`
+  - Interface: `IColonyNetwork.sol`
+  - Version: `0`
+  
 
   
 ## Senders
@@ -400,6 +562,15 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |resolver|Address|The address of the resolver contract.|
 |ColonyVersionAdded|object|Contains the data defined in [ColonyVersionAdded](#eventscolonyversionaddedaddlistener-version-resolver-------)|
 
+**Network Information**
+
+
+  
+  - Contract: `ColonyNetwork.sol`
+  - Interface: `IColonyNetwork.sol`
+  - Version: `0`
+  
+
 ### `addSkill.send({ parentSkillId, globalSkill }, options)`
 
 Add a new global or local skill to the skills tree.
@@ -421,6 +592,15 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |parentSkillId|number|The numeric ID of the parent skill.|
 |SkillAdded|object|Contains the data defined in [SkillAdded](#eventsskilladdedaddlistener-skillid-parentskillid-------)|
 
+**Network Information**
+
+
+  
+  - Contract: `ColonyNetwork.sol`
+  - Interface: `IColonyNetwork.sol`
+  - Version: `0`
+  
+
 ### `approveExitRecovery.send(options)`
 
 Indicate approval to exit network recovery mode. This function can only be called by a user with a recovery role.
@@ -431,6 +611,15 @@ Indicate approval to exit network recovery mode. This function can only be calle
 An instance of a `ContractResponse`
 
 
+
+**Network Information**
+
+
+  
+  - Contract: `ContractRecovery.sol`
+  - Interface: `IRecovery.sol`
+  - Version: `0`
+  
 
 ### `createColony.send({ tokenAddress }, options)`
 
@@ -453,6 +642,15 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |tokenAddress|Address|The address of the token contract that was assigned.|
 |ColonyAdded|object|Contains the data defined in [ColonyAdded](#eventscolonyaddedaddlistener-colonyid-colonyaddress-tokenaddress-------)|
 
+**Network Information**
+
+
+  
+  - Contract: `ColonyNetwork.sol`
+  - Interface: `IColonyNetwork.sol`
+  - Version: `0`
+  
+
 ### `createMetaColony.send({ tokenAddress }, options)`
 
 Create the Meta Colony.
@@ -474,6 +672,15 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |rootSkillId|number|The numeric ID of the root skill.|
 |MetaColonyCreated|object|Contains the data defined in [MetaColonyCreated](#eventsmetacolonycreatedaddlistener-colonyaddress-tokenaddress-rootskillid-------)|
 
+**Network Information**
+
+
+  
+  - Contract: `ColonyNetwork.sol`
+  - Interface: `IColonyNetwork.sol`
+  - Version: `0`
+  
+
 ### `createToken.send({ name, symbol, decimals }, options)`
 
 Create a new ERC20 token contract.
@@ -492,6 +699,15 @@ An instance of a `ContractResponse` which will receive a receipt with a `contrac
 
 
 
+**Network Information**
+
+
+  
+  - Contract: `?`
+  - Interface: `?`
+  - Version: `0`
+  
+
 ### `enterRecoveryMode.send(options)`
 
 Enter network recovery mode. This function can only be called by a user with a recovery role.
@@ -503,6 +719,15 @@ An instance of a `ContractResponse`
 
 
 
+**Network Information**
+
+
+  
+  - Contract: `ContractRecovery.sol`
+  - Interface: `IRecovery.sol`
+  - Version: `0`
+  
+
 ### `exitRecoveryMode.send(options)`
 
 Exit network recovery mode. This function can be called by anyone if enough whitelist approvals are given.
@@ -513,6 +738,15 @@ Exit network recovery mode. This function can be called by anyone if enough whit
 An instance of a `ContractResponse`
 
 
+
+**Network Information**
+
+
+  
+  - Contract: `ContractRecovery.sol`
+  - Interface: `IRecovery.sol`
+  - Version: `0`
+  
 
 ### `registerUserLabel.send({ username, orbitDBPath }, options)`
 
@@ -535,6 +769,15 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |label|string|The ENS label that was registered for the user.|
 |UserLabelRegistered|object|Contains the data defined in [UserLabelRegistered](#eventsuserlabelregisteredaddlistener-user-label-------)|
 
+**Network Information**
+
+
+  
+  - Contract: `ColonyNetworkENS.sol`
+  - Interface: `IColonyNetwork.sol`
+  - Version: `0`
+  
+
 ### `removeRecoveryRole.send({ user }, options)`
 
 Remove the network recovery role from a user. This function can only be called by the `FOUNDER` authority role.
@@ -550,6 +793,15 @@ Remove the network recovery role from a user. This function can only be called b
 An instance of a `ContractResponse`
 
 
+
+**Network Information**
+
+
+  
+  - Contract: `ContractRecovery.sol`
+  - Interface: `IRecovery.sol`
+  - Version: `0`
+  
 
 ### `setRecoveryRole.send({ user }, options)`
 
@@ -567,6 +819,15 @@ An instance of a `ContractResponse`
 
 
 
+**Network Information**
+
+
+  
+  - Contract: `ContractRecovery.sol`
+  - Interface: `IRecovery.sol`
+  - Version: `0`
+  
+
 ### `setStorageSlotRecovery.send({ slot, value }, options)`
 
 Set the value for a storage slot while in recovery mode. This can only be called by a user with a recovery role.
@@ -583,6 +844,15 @@ Set the value for a storage slot while in recovery mode. This can only be called
 An instance of a `ContractResponse`
 
 
+
+**Network Information**
+
+
+  
+  - Contract: `ContractRecovery.sol`
+  - Interface: `IRecovery.sol`
+  - Version: `0`
+  
 
 ### `setTokenLocking.send({ tokenLockingAddress }, options)`
 
@@ -603,6 +873,15 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |tokenLocking|Address|The address of the token locking contract.|
 |TokenLockingAddressSet|object|Contains the data defined in [TokenLockingAddressSet](#eventstokenlockingaddresssetaddlistener-tokenlocking-------)|
 
+**Network Information**
+
+
+  
+  - Contract: `ColonyNetwork.sol`
+  - Interface: `IColonyNetwork.sol`
+  - Version: `0`
+  
+
 ### `setupRegistrar.send({ ens, rootNode }, options)`
 
 Set up the registrar.
@@ -619,6 +898,15 @@ Set up the registrar.
 An instance of a `ContractResponse`
 
 
+
+**Network Information**
+
+
+  
+  - Contract: `ColonyNetworkENS.sol`
+  - Interface: `IColonyNetwork.sol`
+  - Version: `0`
+  
 
 ### `startTokenAuction.send({ tokenAddress }, options)`
 
@@ -640,6 +928,15 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |token|Address|The address of the token contract that was assigned.|
 |quantity|BigNumber|The amount of tokens available for the auction.|
 |AuctionCreated|object|Contains the data defined in [AuctionCreated](#eventsauctioncreatedaddlistener-auction-token-quantity-------)|
+
+**Network Information**
+
+
+  
+  - Contract: `ColonyNetworkAuction.sol`
+  - Interface: `IColonyNetwork.sol`
+  - Version: `0`
+  
 
   
   

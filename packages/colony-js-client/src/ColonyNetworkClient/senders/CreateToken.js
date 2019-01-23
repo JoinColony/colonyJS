@@ -6,7 +6,13 @@ export default class CreateToken<
   InputValues: *,
   OutputValues: *,
   Client: *,
-> extends ContractClient.Sender<InputValues, OutputValues, Client> {
+  NetworkData: *,
+> extends ContractClient.Sender<
+  InputValues,
+  OutputValues,
+  Client,
+  NetworkData,
+> {
   constructor({
     name = 'createToken',
     defaultValues = { decimals: 18 },
