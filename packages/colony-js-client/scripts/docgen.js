@@ -61,6 +61,7 @@ const generateMarkdown = ({ file, templateFile, output }) => {
           description: getDescription(ast, p),
           args: mapObjectProps(ast, params[0]),
           returns: mapObjectProps(ast, params[1]),
+          network: getNetworkData(params[3]),
         });
       }
       else if (p.value.id.name === 'Sender') {
@@ -71,6 +72,7 @@ const generateMarkdown = ({ file, templateFile, output }) => {
           description: getDescription(ast, p),
           args: mapObjectProps(ast, params[0]),
           events: mapObjectProps(ast, params[1]),
+          network: getNetworkData(params[3]),
         });
       }
       else if (p.value.id.name === 'MultisigSender') {
@@ -81,6 +83,7 @@ const generateMarkdown = ({ file, templateFile, output }) => {
           description: getDescription(ast, p),
           args: mapObjectProps(ast, params[0]),
           events: mapObjectProps(ast, params[1]),
+          network: getNetworkData(params[3]),
         });
       }
       else if (p.value.id.name === 'Event') {
@@ -132,6 +135,10 @@ ${caller.args && caller.args.length ? '\n**Arguments**\n\n' : ''}${printProps('A
 A promise which resolves to an object containing the following properties:
 
 ${printProps('Return value', caller.returns)}
+
+**Network Information**
+
+${printNetworkData(caller.network)}
 `,
     )
     .join('');
@@ -166,6 +173,10 @@ An instance of a \`ContractResponse\`${
 }
 
 ${printProps('Event data', getEventProps(events, sender.events))}
+
+**Network Information**
+
+${printNetworkData(sender.network)}
 `,
     )
     .join('');
@@ -208,9 +219,22 @@ ${ms.args && ms.args.length ? '\n**Arguments**\n\n' : ''}${printProps('Argument'
 An instance of a \`MultiSigOperation\`${ms.events && ms.events.length ? ' whose sender will eventually receive the following event data:' : ''}
 
 ${printProps('Event Data', getEventProps(events, ms.events))}
+
+**Network Information**
+
+${printNetworkData(ms.network)}
 `,
     )
     .join('');
+}
+
+function printNetworkData(data) {
+  return `
+  ${data.name ? '- Name: `' + data.name + '`': ''}
+  - Contract: \`${data.contract}\`
+  - Interface: \`${data.interface}\`
+  - Version: \`${data.version}\`
+  `
 }
 
 function printProps(title, props) {
@@ -269,6 +293,12 @@ function mapObjectProps(ast, param) {
 
 function getName(p) {
   return p.parent.parent.parent.value.key.name;
+}
+
+function getNetworkData(param) {
+  return param.properties.reduce((obj, item) => {
+    return (obj[item.key.name] = item.value.value, obj);
+  }, {});
 }
 
 function getDescription(ast, p) {
