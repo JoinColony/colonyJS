@@ -50,6 +50,15 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |address|Address|The address of the authority contract associated with the colony.|
 
+**Network Information**
+
+
+  - Name: `authority`
+  - Contract: `dappsys/auth.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
+
 ### `getToken.call()`
 
 Get the address of the ERC20 token contract that is the native token assigned to the Meta Colony.
@@ -62,6 +71,15 @@ A promise which resolves to an object containing the following properties:
 |Return value|Type|Description|
 |---|---|---|
 |address|Address|The address of the ERC20 token contract.|
+
+**Network Information**
+
+
+  
+  - Contract: `Colony.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
 
   
 ## Senders
@@ -87,6 +105,15 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |parentSkillId|number|The numeric ID of the parent skill.|
 |SkillAdded|object|Contains the data defined in [SkillAdded](#eventsskilladdedaddlistener-skillid-parentskillid-------)|
 
+**Network Information**
+
+
+  
+  - Contract: `Colony.sol`
+  - Interface: `IMetaColony.sol`
+  - Version: `0`
+  
+
 ### `mintTokensForColonyNetwork.send({ amount }, options)`
 
 Mint tokens for the Colony Network. This can only be called from the Meta Colony, and only by the user assigned the `FOUNDER` role.
@@ -107,6 +134,15 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |amount|BigNumber|The amount of tokens that were minted.|
 |Mint|object|Contains the data defined in [Mint](#eventsmintaddlistener-address-amount-------)|
 
+**Network Information**
+
+
+  
+  - Contract: `Colony.sol`
+  - Interface: `IMetaColony.sol`
+  - Version: `0`
+  
+
 ### `setNetworkFeeInverse.send({ feeInverse }, options)`
 
 Set the inverse amount of the reward. If the fee is 1% (or 0.01), the inverse amount will be 100. This can only be called from the Meta Colony, and only by the user assigned the `FOUNDER` role.
@@ -122,6 +158,15 @@ Set the inverse amount of the reward. If the fee is 1% (or 0.01), the inverse am
 An instance of a `ContractResponse`
 
 
+
+**Network Information**
+
+
+  
+  - Contract: `Colony.sol`
+  - Interface: `IMetaColony.sol`
+  - Version: `0`
+  
 
   
   

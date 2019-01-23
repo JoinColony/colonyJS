@@ -39,8 +39,15 @@ export default class MetaColonyClient extends ContractClient {
     {
       parentSkillId: number, // The numeric ID of the skill under which the new skill will be added.
     },
-    { SkillAdded: SkillAdded },
+    {
+      SkillAdded: SkillAdded,
+    },
     MetaColonyClient,
+    {
+      contract: 'Colony.sol',
+      interface: 'IMetaColony.sol',
+      version: 0,
+    },
   >;
   /*
   Get the authority contract address associated with the colony.
@@ -51,6 +58,12 @@ export default class MetaColonyClient extends ContractClient {
       address: Address, // The address of the authority contract associated with the colony.
     },
     MetaColonyClient,
+    {
+      name: 'authority',
+      contract: 'dappsys/auth.sol',
+      interface: 'IColony.sol',
+      version: 0,
+    },
   >;
   /*
   Get the address of the ERC20 token contract that is the native token assigned to the Meta Colony.
@@ -61,6 +74,11 @@ export default class MetaColonyClient extends ContractClient {
       address: Address, // The address of the ERC20 token contract.
     },
     MetaColonyClient,
+    {
+      contract: 'Colony.sol',
+      interface: 'IColony.sol',
+      version: 0,
+    },
   >;
   /*
   Mint tokens for the Colony Network. This can only be called from the Meta Colony, and only by the user assigned the `FOUNDER` role.
@@ -69,8 +87,15 @@ export default class MetaColonyClient extends ContractClient {
     {
       amount: BigNumber, // The amount of new tokens that will be minted.
     },
-    { Mint: Mint },
+    {
+      Mint: Mint,
+    },
     MetaColonyClient,
+    {
+      contract: 'Colony.sol',
+      interface: 'IMetaColony.sol',
+      version: 0,
+    },
   >;
   /*
   Set the inverse amount of the reward. If the fee is 1% (or 0.01), the inverse amount will be 100. This can only be called from the Meta Colony, and only by the user assigned the `FOUNDER` role.
@@ -81,6 +106,11 @@ export default class MetaColonyClient extends ContractClient {
     },
     {},
     MetaColonyClient,
+    {
+      contract: 'Colony.sol',
+      interface: 'IMetaColony.sol',
+      version: 0,
+    },
   >;
 
   static get defaultQuery() {
