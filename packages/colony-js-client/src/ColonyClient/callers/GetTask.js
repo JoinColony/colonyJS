@@ -28,6 +28,7 @@ export default class GetTask extends ContractClient.Caller<
   // OutputValues generic pass through for now; it's overspecified
   *,
   ColonyClient,
+  *,
 > {
   constructor(params: *) {
     super({

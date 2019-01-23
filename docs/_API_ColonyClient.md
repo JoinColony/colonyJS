@@ -56,6 +56,15 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |secret|Hex string|A keccak256 hash that keeps the task rating hidden.|
 
+**Network Information**
+
+
+  
+  - Contract: `ColonyTask.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
+
 ### `getAuthority.call()`
 
 Get the authority contract address associated with the colony.
@@ -68,6 +77,15 @@ A promise which resolves to an object containing the following properties:
 |Return value|Type|Description|
 |---|---|---|
 |address|Address|The address of the authority contract associated with the colony.|
+
+**Network Information**
+
+
+  - Name: `authority`
+  - Contract: `dappsys/auth.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
 
 ### `getDomain.call({ domainId })`
 
@@ -88,6 +106,15 @@ A promise which resolves to an object containing the following properties:
 |localSkillId|number|The numeric ID of the local skill.|
 |potId|number|The numeric ID of the funding pot.|
 
+**Network Information**
+
+
+  
+  - Contract: `Colony.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
+
 ### `getDomainCount.call()`
 
 Get the total number of domains in the colony. The return value is also the numeric ID of the last domain created.
@@ -101,6 +128,15 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |count|number|The total number of domains.|
 
+**Network Information**
+
+
+  
+  - Contract: `Colony.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
+
 ### `getGlobalRewardPayoutCount.call()`
 
 Get the total number of claimed and waived reward payout cycles in the colony.
@@ -113,6 +149,15 @@ A promise which resolves to an object containing the following properties:
 |Return value|Type|Description|
 |---|---|---|
 |count|number|The total number of reward payout cycles.|
+
+**Network Information**
+
+
+  
+  - Contract: `?`
+  - Interface: `?`
+  - Version: `0`
+  
 
 ### `getNonRewardPotsTotal.call({ token })`
 
@@ -131,6 +176,15 @@ A promise which resolves to an object containing the following properties:
 |Return value|Type|Description|
 |---|---|---|
 |total|BigNumber|The total amount of funds that are not in the colony rewards pot.|
+
+**Network Information**
+
+
+  
+  - Contract: `ColonyFunding.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
 
 ### `getPotBalance.call({ potId, token })`
 
@@ -151,6 +205,15 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |balance|BigNumber|The balance of tokens (or Ether) in the funding pot.|
 
+**Network Information**
+
+
+  
+  - Contract: `ColonyFunding.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
+
 ### `getRecoveryRolesCount.call()`
 
 Get the total number of users that are assigned a colony recovery role.
@@ -164,6 +227,15 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |count|number|The total number of users that are assigned a colony recovery role.|
 
+**Network Information**
+
+
+  
+  - Contract: `?`
+  - Interface: `?`
+  - Version: `0`
+  
+
 ### `getRewardInverse.call()`
 
 Get the inverse amount of the reward. If the fee is 1% (or 0.01), the inverse amount will be 100.
@@ -176,6 +248,15 @@ A promise which resolves to an object containing the following properties:
 |Return value|Type|Description|
 |---|---|---|
 |rewardInverse|BigNumber|The inverse amount of the reward.|
+
+**Network Information**
+
+
+  
+  - Contract: `ColonyFunding.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
 
 ### `getRewardPayoutInfo.call({ payoutId })`
 
@@ -199,6 +280,15 @@ A promise which resolves to an object containing the following properties:
 |token|Token address|The address of the token contract (an empty address if Ether).|
 |totalTokenAmountForRewardPayout|BigNumber|The total amount of tokens set aside for the reward payout cycle.|
 |totalTokens|BigNumber|The total amount of tokens at the time the reward payout cycle started.|
+
+**Network Information**
+
+
+  
+  - Contract: `ColonyFunding.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
 
 ### `getTask.call({ taskId })`
 
@@ -227,6 +317,15 @@ A promise which resolves to an object containing the following properties:
 |specificationHash|IPFS hash|The specification hash of the task (an IPFS hash).|
 |status|undefined|The task status (`ACTIVE`, `CANCELLED` or `FINALIZED`).|
 
+**Network Information**
+
+
+  
+  - Contract: `ColonyTask.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
+
 ### `getTaskCount.call()`
 
 Get the total number of tasks in the colony. The return value is also the numeric ID of the last task created.
@@ -239,6 +338,15 @@ A promise which resolves to an object containing the following properties:
 |Return value|Type|Description|
 |---|---|---|
 |count|number|The total number of tasks.|
+
+**Network Information**
+
+
+  
+  - Contract: `ColonyTask.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
 
 ### `getTaskPayout.call({ taskId, role, token })`
 
@@ -259,6 +367,15 @@ A promise which resolves to an object containing the following properties:
 |Return value|Type|Description|
 |---|---|---|
 |amount|BigNumber|The amount of tokens (or Ether) assigned to the task role as a payout.|
+
+**Network Information**
+
+
+  
+  - Contract: `ColonyFunding.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
 
 ### `getTaskRole.call({ taskId, role })`
 
@@ -281,6 +398,15 @@ A promise which resolves to an object containing the following properties:
 |rateFail|boolean|A boolean indicating whether or not the user failed to rate their counterpart.|
 |rating|number|The rating that the user received (`1`, `2`, or `3`).|
 
+**Network Information**
+
+
+  
+  - Contract: `ColonyTask.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
+
 ### `getTaskWorkRatings.call({ taskId })`
 
 Get information about the ratings of a task.
@@ -299,6 +425,15 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |count|number|The total number of submitted ratings for a task.|
 |date|Date|The date that the last rating was submitted.|
+
+**Network Information**
+
+
+  
+  - Contract: `ColonyTask.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
 
 ### `getTaskWorkRatingSecret.call({ taskId, role })`
 
@@ -319,6 +454,15 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |secret|Hex string|A keccak256 hash that keeps the task rating hidden.|
 
+**Network Information**
+
+
+  
+  - Contract: `ColonyTask.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
+
 ### `getToken.call()`
 
 Get the address of the ERC20 token contract that is the native token assigned to the colony. The native token is the token used to calculate reputation scores, i.e. `1` token earned for completing a task with an adequate rating (`2`) will result in `1` reputation point earned.
@@ -331,6 +475,15 @@ A promise which resolves to an object containing the following properties:
 |Return value|Type|Description|
 |---|---|---|
 |address|Address|The address of the ERC20 token contract.|
+
+**Network Information**
+
+
+  
+  - Contract: `Colony.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
 
 ### `getTotalTaskPayout.call({ taskId, token })`
 
@@ -351,6 +504,15 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |amount|BigNumber|The total amount of tokens (or Ether) assigned to all task roles as payouts.|
 
+**Network Information**
+
+
+  
+  - Contract: `ColonyFunding.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
+
 ### `getTransactionCount.call()`
 
 Get the total number of transactions that the colony has made. The total number of transactions is equal to the ID of the last transaction.
@@ -363,6 +525,15 @@ A promise which resolves to an object containing the following properties:
 |Return value|Type|Description|
 |---|---|---|
 |count|number|The total number of transactions that the colony has made.|
+
+**Network Information**
+
+
+  
+  - Contract: `?`
+  - Interface: `?`
+  - Version: `0`
+  
 
 ### `getUserRewardPayoutCount.call({ user })`
 
@@ -382,6 +553,15 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |count|number|The total number of reward payout cycles.|
 
+**Network Information**
+
+
+  
+  - Contract: `?`
+  - Interface: `?`
+  - Version: `0`
+  
+
 ### `getVersion.call()`
 
 Get the version number of the colony contract. The version number starts at `1` and is incremented by `1` with every new version.
@@ -394,6 +574,15 @@ A promise which resolves to an object containing the following properties:
 |Return value|Type|Description|
 |---|---|---|
 |version|number|The version number of the colony contract.|
+
+**Network Information**
+
+
+  - Name: `version`
+  - Contract: `Colony.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
 
 ### `hasUserRole.call({ user, role })`
 
@@ -414,6 +603,15 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |hasRole|boolean|A boolean indicating whether or not the user has the authority role.|
 
+**Network Information**
+
+
+  
+  - Contract: `Colony.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
+
 ### `isInRecoveryMode.call()`
 
 Check whether or not the colony is in recovery mode.
@@ -426,6 +624,15 @@ A promise which resolves to an object containing the following properties:
 |Return value|Type|Description|
 |---|---|---|
 |inRecoveryMode|boolean|A boolean indicating whether or not the colony is in recovery mode.|
+
+**Network Information**
+
+
+  
+  - Contract: `ContractRecovery.sol`
+  - Interface: `IRecovery.sol`
+  - Version: `0`
+  
 
   
 ## Senders
@@ -450,6 +657,15 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |domainId|number|The numeric ID of the domain that was added.|
 |DomainAdded|object|Contains the data defined in [DomainAdded](#eventsdomainaddedaddlistener-domainid-------)|
 
+**Network Information**
+
+
+  
+  - Contract: `Colony.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
+
 ### `approveExitRecovery.send(options)`
 
 Indicate approval to exit colony recovery mode. This function can only be called by a user with a recovery role.
@@ -460,6 +676,15 @@ Indicate approval to exit colony recovery mode. This function can only be called
 An instance of a `ContractResponse`
 
 
+
+**Network Information**
+
+
+  
+  - Contract: `ContractRecovery.sol`
+  - Interface: `IRecovery.sol`
+  - Version: `0`
+  
 
 ### `assignWorkRating.send({ taskId }, options)`
 
@@ -476,6 +701,15 @@ Assign the work rating for any task roles that did not receive a rating. In the 
 An instance of a `ContractResponse`
 
 
+
+**Network Information**
+
+
+  
+  - Contract: `ColonyTask.sol`
+  - Interface: `?`
+  - Version: `0`
+  
 
 ### `bootstrapColony.send({ users, amounts }, options)`
 
@@ -498,6 +732,15 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |amounts|undefined|The array of corresponding token and reputation amounts each user recieved.|
 |ColonyBootstrapped|object|Contains the data defined in [ColonyBootstrapped](#eventscolonybootstrappedaddlistener-users-amounts-------)|
 
+**Network Information**
+
+
+  
+  - Contract: `Colony.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
+
 ### `claimColonyFunds.send({ token }, options)`
 
 Claim funds that the colony has received by adding them to the funding pot of the root domain. A small fee is deducted from the funds claimed and added to the colony rewards pot. No fee is deducted when tokens native to the colony are claimed.
@@ -518,6 +761,15 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |fee|BigNumber|The fee deducted from the claim and added to the colony rewards pot.|
 |payoutRemainder|BigNumber|The remaining funds (after the fee) moved to the top-level domain pot.|
 |ColonyFundsClaimed|object|Contains the data defined in [ColonyFundsClaimed](#eventscolonyfundsclaimedaddlistener-token-fee-payoutremainder-------)|
+
+**Network Information**
+
+
+  
+  - Contract: `ColonyFunding.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
 
 ### `claimPayout.send({ taskId, role, token }, options)`
 
@@ -547,6 +799,15 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |TaskPayoutClaimed|object|Contains the data defined in [TaskPayoutClaimed](#eventstaskpayoutclaimedaddlistener-taskid-role-token-amount-------)|
 |Transfer|object|Contains the data defined in [Transfer](#eventstransferaddlistener-from-to-value-------)|
 
+**Network Information**
+
+
+  
+  - Contract: `ColonyFunding.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
+
 ### `completeTask.send({ taskId }, options)`
 
 Mark a task as complete. If the user assigned the `WORKER` task role fails to submit the task deliverable by the due date, this function must be called by the user assigned the `MANAGER` task role. This allows the task work to be rated and the task to be finalized.
@@ -565,6 +826,15 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |taskId|number|The numeric ID of the task that was completed.|
 |TaskCompleted|object|Contains the data defined in [TaskCompleted](#eventstaskcompletedaddlistener-taskid-------)|
+
+**Network Information**
+
+
+  
+  - Contract: `ColonyTask.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
 
 ### `createTask.send({ specificationHash, domainId, skillId, dueDate }, options)`
 
@@ -592,6 +862,15 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |PotAdded|object|Contains the data defined in [PotAdded](#eventspotaddedaddlistener-potid-------)|
 |DomainAdded|object|Contains the data defined in [DomainAdded](#eventsdomainaddedaddlistener-domainid-------)|
 
+**Network Information**
+
+
+  - Name: `makeTask`
+  - Contract: `ColonyTask.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
+
 ### `enterRecoveryMode.send(options)`
 
 Enter colony recovery mode. This function can only be called by a user with a recovery role.
@@ -603,6 +882,15 @@ An instance of a `ContractResponse`
 
 
 
+**Network Information**
+
+
+  
+  - Contract: `ContractRecovery.sol`
+  - Interface: `IRecovery.sol`
+  - Version: `0`
+  
+
 ### `exitRecoveryMode.send(options)`
 
 Exit colony recovery mode. This function can be called by anyone if enough whitelist approvals are given.
@@ -613,6 +901,15 @@ Exit colony recovery mode. This function can be called by anyone if enough white
 An instance of a `ContractResponse`
 
 
+
+**Network Information**
+
+
+  
+  - Contract: `ContractRecovery.sol`
+  - Interface: `IRecovery.sol`
+  - Version: `0`
+  
 
 ### `finalizeRewardPayout.send({ payoutId }, options)`
 
@@ -629,6 +926,15 @@ Finalize the reward payout cycle. This function can only be called when the rewa
 An instance of a `ContractResponse`
 
 
+
+**Network Information**
+
+
+  
+  - Contract: `ColonyFunding.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
 
 ### `finalizeTask.send({ taskId }, options)`
 
@@ -648,6 +954,15 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |taskId|number|The numeric ID of the task that was finalized.|
 |TaskFinalized|object|Contains the data defined in [TaskFinalized](#eventstaskfinalizedaddlistener-taskid-------)|
+
+**Network Information**
+
+
+  
+  - Contract: `ColonyTask.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
 
 ### `mintTokens.send({ amount }, options)`
 
@@ -672,6 +987,15 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |value|BigNumber|The amount of tokens that were transferred.|
 |Mint|object|Contains the data defined in [Mint](#eventsmintaddlistener-address-amount-------)|
 |Transfer|object|Contains the data defined in [Transfer](#eventstransferaddlistener-from-to-value-------)|
+
+**Network Information**
+
+
+  
+  - Contract: `Colony.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
 
 ### `moveFundsBetweenPots.send({ fromPot, toPot, amount, token }, options)`
 
@@ -698,6 +1022,15 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |token|Address|The address of the token contract (an empty address if Ether).|
 |ColonyFundsMovedBetweenFundingPots|object|Contains the data defined in [ColonyFundsMovedBetweenFundingPots](#eventscolonyfundsmovedbetweenfundingpotsaddlistener-frompot-topot-amount-token-------)|
 
+**Network Information**
+
+
+  
+  - Contract: `ColonyFunding.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
+
 ### `registerColonyLabel.send({ colonyName, orbitDBPath }, options)`
 
 Register an ENS label for the colony.
@@ -719,6 +1052,15 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |label|string|The label that was registered for the colony.|
 |ColonyLabelRegistered|object|Contains the data defined in [ColonyLabelRegistered](#eventscolonylabelregisteredaddlistener-colony-label-------)|
 
+**Network Information**
+
+
+  
+  - Contract: `Colony.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
+
 ### `removeAdminRole.send({ user }, options)`
 
 Remove the `ADMIN` authority role from a user. This function can only be called by the user assigned the `FOUNDER` authroity role.
@@ -738,6 +1080,15 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |user|Address|The address that was unassigned the `ADMIN` authority role.|
 |ColonyAdminRoleRemoved|object|Contains the data defined in [ColonyAdminRoleRemoved](#eventscolonyadminroleremovedaddlistener-user-------)|
 
+**Network Information**
+
+
+  
+  - Contract: `Colony.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
+
 ### `removeRecoveryRole.send({ user }, options)`
 
 Remove the colony recovery role from a user. This function can only be called by the `FOUNDER` authority role.
@@ -753,6 +1104,15 @@ Remove the colony recovery role from a user. This function can only be called by
 An instance of a `ContractResponse`
 
 
+
+**Network Information**
+
+
+  
+  - Contract: `ContractRecovery.sol`
+  - Interface: `IRecovery.sol`
+  - Version: `0`
+  
 
 ### `revealTaskWorkRating.send({ taskId, role, rating, salt }, options)`
 
@@ -778,6 +1138,15 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |rating|number|The value of the rating that was revealed (`1`, `2`, or `3`).|
 |TaskWorkRatingRevealed|object|Contains the data defined in [TaskWorkRatingRevealed](#eventstaskworkratingrevealedaddlistener-taskid-role-rating-------)|
 
+**Network Information**
+
+
+  
+  - Contract: `ColonyTask.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
+
 ### `setAdminRole.send({ user }, options)`
 
 Assign the `ADMIN` authority role to a user. This function can only be called by the user assigned the `FOUNDER` authority role or a user assigned the `ADMIN` authority role. There is no limit to the number of users that can be assigned the `ADMIN` authority role.
@@ -796,6 +1165,15 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |user|Address|The address that was assigned the `ADMIN` authority role.|
 |ColonyAdminRoleSet|object|Contains the data defined in [ColonyAdminRoleSet](#eventscolonyadminrolesetaddlistener-user-------)|
+
+**Network Information**
+
+
+  
+  - Contract: `Colony.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
 
 ### `setAllTaskPayouts.send({ taskId, token, managerAmount, evaluatorAmount, workerAmount }, options)`
 
@@ -823,6 +1201,15 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |amount|BigNumber|The task payout amount that was set.|
 |TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutsetaddlistener-taskid-role-token-amount-------)|
 
+**Network Information**
+
+
+  
+  - Contract: `ColonyFunding.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
+
 ### `setFounderRole.send({ user }, options)`
 
 Assign the `FOUNDER` authority role to a user. This function can only be called by the user currently assigned the `FOUNDER` authority role. There can only be one address assigned to the `FOUNDER` authority role, therefore, the user currently assigned will forfeit their role.
@@ -843,6 +1230,15 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |newFounder|Address|The address that was assigned the `FOUNDER` authority role (the new founder).|
 |ColonyFounderRoleSet|object|Contains the data defined in [ColonyFounderRoleSet](#eventscolonyfounderrolesetaddlistener-oldfounder-newfounder-------)|
 
+**Network Information**
+
+
+  
+  - Contract: `Colony.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
+
 ### `setRecoveryRole.send({ user }, options)`
 
 Assign a colony recovery role to a user. This function can only be called by the `FOUNDER` authority role.
@@ -858,6 +1254,15 @@ Assign a colony recovery role to a user. This function can only be called by the
 An instance of a `ContractResponse`
 
 
+
+**Network Information**
+
+
+  
+  - Contract: `ContractRecovery.sol`
+  - Interface: `IRecovery.sol`
+  - Version: `0`
+  
 
 ### `setStorageSlotRecovery.send({ slot, value }, options)`
 
@@ -876,6 +1281,15 @@ An instance of a `ContractResponse`
 
 
 
+**Network Information**
+
+
+  
+  - Contract: `ContractRecovery.sol`
+  - Interface: `IRecovery.sol`
+  - Version: `0`
+  
+
 ### `setToken.send({ token }, options)`
 
 Set the native token for the colony. This function can only be called by the user assigned the `FOUNDER` authority role.
@@ -891,6 +1305,15 @@ Set the native token for the colony. This function can only be called by the use
 An instance of a `ContractResponse`
 
 
+
+**Network Information**
+
+
+  
+  - Contract: `?`
+  - Interface: `?`
+  - Version: `0`
+  
 
 ### `startNextRewardPayout.send({ token }, options)`
 
@@ -910,6 +1333,15 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |payoutId|number|The numeric ID of the payout cycle that started.|
 |RewardPayoutCycleStarted|object|Contains the data defined in [RewardPayoutCycleStarted](#eventsrewardpayoutcyclestartedaddlistener-payoutid-------)|
+
+**Network Information**
+
+
+  
+  - Contract: `ColonyFunding.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
 
 ### `submitTaskDeliverable.send({ taskId, deliverableHash }, options)`
 
@@ -933,6 +1365,15 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |deliverableHash|IPFS hash|The deliverable hash that was submitted (an IPFS hash).|
 |TaskCompleted|object|Contains the data defined in [TaskCompleted](#eventstaskcompletedaddlistener-taskid-------)|
 |TaskDeliverableSubmitted|object|Contains the data defined in [TaskDeliverableSubmitted](#eventstaskdeliverablesubmittedaddlistener-taskid-deliverablehash-------)|
+
+**Network Information**
+
+
+  
+  - Contract: `ColonyTask.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
 
 ### `submitTaskDeliverableAndRating.send({ taskId, deliverableHash, secret }, options)`
 
@@ -958,6 +1399,15 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |TaskCompleted|object|Contains the data defined in [TaskCompleted](#eventstaskcompletedaddlistener-taskid-------)|
 |TaskDeliverableSubmitted|object|Contains the data defined in [TaskDeliverableSubmitted](#eventstaskdeliverablesubmittedaddlistener-taskid-deliverablehash-------)|
 
+**Network Information**
+
+
+  
+  - Contract: `ColonyTask.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
+
 ### `submitTaskWorkRating.send({ taskId, role, secret }, options)`
 
 Submit a work rating for a task. This function can only be called by the user assigned the `EVALUATOR` task role, who is submitting a rating for the user assigned the `WORKER` task role, or the user assigned the `WORKER` task role, who is submitting a rating for the user assigned the `MANAGER` task role. In order to submit a rating, a `secret` must be generated using the `generateSecret` method, which keeps the rating hidden until all ratings have been submitted and revealed.
@@ -975,6 +1425,15 @@ Submit a work rating for a task. This function can only be called by the user as
 An instance of a `ContractResponse`
 
 
+
+**Network Information**
+
+
+  
+  - Contract: `ColonyTask.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
 
 ### `upgrade.send({ newVersion }, options)`
 
@@ -996,6 +1455,15 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |newVersion|number|The new version number of the colony.|
 |ColonyUpgraded|object|Contains the data defined in [ColonyUpgraded](#eventscolonyupgradedaddlistener-oldversion-newversion-------)|
 
+**Network Information**
+
+
+  
+  - Contract: `Colony.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
+
 ### `waiveRewardPayouts.send({ numPayouts }, options)`
 
 Waive reward payout cycles. This unlocks tokens for a given number of reward payout cycles.
@@ -1011,6 +1479,15 @@ Waive reward payout cycles. This unlocks tokens for a given number of reward pay
 An instance of a `ContractResponse`
 
 
+
+**Network Information**
+
+
+  
+  - Contract: `?`
+  - Interface: `?`
+  - Version: `0`
+  
 
   
 ## Task MultiSig
@@ -1035,6 +1512,15 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |taskId|number|The numeric ID of the task that was canceled.|
 |TaskCanceled|object|Contains the data defined in [TaskCanceled](#eventstaskcanceledaddlistener-taskid-------)|
 
+**Network Information**
+
+
+  
+  - Contract: `ColonyTask.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
+
 ### `removeTaskEvaluatorRole.startOperation({ taskId })`
 
 Remove the `EVALUATOR` task role assignment. This function can only be called before the task is complete, i.e. either before the deliverable has been submitted or the user assigned the `WORKER` task role has failed to meet the deadline and the user assigned the `MANAGER` task role has marked the task as complete.
@@ -1055,6 +1541,15 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |role|Role|The role of the task that was set (`MANAGER`, `EVALUATOR`, or `WORKER`).|
 |user|Address|The user that was assigned the task role.|
 |TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleusersetaddlistener-taskid-role-user-------)|
+
+**Network Information**
+
+
+  
+  - Contract: `ColonyTask.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
 
 ### `removeTaskWorkerRole.startOperation({ taskId })`
 
@@ -1077,6 +1572,15 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |user|Address|The user that was assigned the task role.|
 |TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleusersetaddlistener-taskid-role-user-------)|
 
+**Network Information**
+
+
+  
+  - Contract: `ColonyTask.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
+
 ### `setTaskBrief.startOperation({ taskId, specificationHash })`
 
 Set the task specification. The task specification, or "task brief", is a description of the work that must be completed for the task. The description is hashed and stored with the task for future reference during the rating process or in the event of a dispute.
@@ -1097,6 +1601,15 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |taskId|number|The numeric ID of the task that was modified.|
 |specificationHash|string|The specification hash that was set (an IPFS hash).|
 |TaskBriefSet|object|Contains the data defined in [TaskBriefSet](#eventstaskbriefsetaddlistener-taskid-specificationhash-------)|
+
+**Network Information**
+
+
+  
+  - Contract: `ColonyTask.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
 
 ### `setTaskDomain.startOperation({ taskId, domainId })`
 
@@ -1119,6 +1632,15 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |domainId|number|The numeric ID of the domain that was set.|
 |TaskDomainSet|object|Contains the data defined in [TaskDomainSet](#eventstaskdomainsetaddlistener-taskid-domainid-------)|
 
+**Network Information**
+
+
+  
+  - Contract: `ColonyTask.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
+
 ### `setTaskDueDate.startOperation({ taskId, dueDate })`
 
 Set the due date of a task. The due date is the last day that the user assigned the `WORKER` task role can submit the task deliverable.
@@ -1139,6 +1661,15 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |taskId|number|The numeric ID of the task that was modified.|
 |dueDate|Date|The due date that was set.|
 |TaskDueDateSet|object|Contains the data defined in [TaskDueDateSet](#eventstaskduedatesetaddlistener-taskid-duedate-------)|
+
+**Network Information**
+
+
+  
+  - Contract: `ColonyTask.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
 
 ### `setTaskEvaluatorRole.startOperation({ taskId, user })`
 
@@ -1162,6 +1693,15 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |user|Address|The user that was assigned the task role.|
 |TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleusersetaddlistener-taskid-role-user-------)|
 
+**Network Information**
+
+
+  
+  - Contract: `ColonyTask.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
+
 ### `setTaskManagerRole.startOperation({ taskId, user })`
 
 Assign the `MANAGER` task role to a user. This function can only be called before the task is finalized. The user currently assigned the `MANAGER` task role and the user being assigned the `MANAGER` task role must both sign the transaction before it can be executed.
@@ -1184,6 +1724,15 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |user|Address|The user that was assigned the task role.|
 |TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleusersetaddlistener-taskid-role-user-------)|
 
+**Network Information**
+
+
+  
+  - Contract: `ColonyTask.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
+
 ### `setTaskSkill.startOperation({ taskId, skillId })`
 
 Set the skill of a task. Only one skill can be assigned per task. The user assigned the `MANAGER` task role and the user assigned the `WORKER` task role must both sign this transaction before it can be executed.
@@ -1204,6 +1753,15 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |taskId|number|The numeric ID of the task that was modified.|
 |skillId|number|The numeric ID of the skill that was set.|
 |TaskSkillSet|object|Contains the data defined in [TaskSkillSet](#eventstaskskillsetaddlistener-taskid-skillid-------)|
+
+**Network Information**
+
+
+  
+  - Contract: `ColonyTask.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
 
 ### `setTaskWorkerRole.startOperation({ taskId, user })`
 
@@ -1226,6 +1784,15 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |role|Role|The role of the task that was set (`MANAGER`, `EVALUATOR`, or `WORKER`).|
 |user|Address|The user that was assigned the task role.|
 |TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleusersetaddlistener-taskid-role-user-------)|
+
+**Network Information**
+
+
+  
+  - Contract: `ColonyTask.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
 
 ### `setTaskManagerPayout.startOperation({ taskId, token, amount })`
 
@@ -1251,6 +1818,15 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |amount|BigNumber|The task payout amount that was set.|
 |TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutsetaddlistener-taskid-role-token-amount-------)|
 
+**Network Information**
+
+
+  
+  - Contract: `ColonyFunding.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
+
 ### `setTaskEvaluatorPayout.startOperation({ taskId, token, amount })`
 
 Set the payout amount for the `EVALUATOR` task role.
@@ -1275,6 +1851,15 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |amount|BigNumber|The task payout amount that was set.|
 |TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutsetaddlistener-taskid-role-token-amount-------)|
 
+**Network Information**
+
+
+  
+  - Contract: `ColonyFunding.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
+
 ### `setTaskWorkerPayout.startOperation({ taskId, token, amount })`
 
 Set the payout amount for the `WORKER` task role.
@@ -1298,6 +1883,15 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |token|Token address|The address of the token contract (an empty address if Ether).|
 |amount|BigNumber|The task payout amount that was set.|
 |TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutsetaddlistener-taskid-role-token-amount-------)|
+
+**Network Information**
+
+
+  
+  - Contract: `ColonyFunding.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
 
   
 ## Events

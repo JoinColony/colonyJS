@@ -23,6 +23,7 @@ export default class CreateTask extends ContractClient.Sender<
   InputValues,
   OutputValues,
   ColonyClient,
+  *,
 > {
   async send(inputValues: InputValues, options: *) {
     // Validate that the domain exists before attempting to create a task
