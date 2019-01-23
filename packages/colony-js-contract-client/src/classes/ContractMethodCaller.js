@@ -11,7 +11,13 @@ export default class ContractMethodCaller<
   InputValues: { [inputValueName: string]: any },
   OutputValues: { [outputValueName: string]: any },
   IContractClient: ContractClient,
-> extends ContractMethod<InputValues, OutputValues, IContractClient> {
+  NetworkData: { [dataValueName: string]: any },
+> extends ContractMethod<
+  InputValues,
+  OutputValues,
+  IContractClient,
+  NetworkData,
+> {
   _validateEmpty: ?ValidateEmpty;
 
   static containsNullValues(values: Object | null) {
