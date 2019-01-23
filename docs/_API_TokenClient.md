@@ -56,6 +56,15 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |amount|BigNumber|The amount of tokens that were approved (the amount `allowed`).|
 
+**Network Information**
+
+
+  - Name: `allowance`
+  - Contract: `?`
+  - Interface: `?`
+  - Version: `0`
+  
+
 ### `getBalanceOf.call({ sourceAddress })`
 
 Get the the token balance of an address.
@@ -74,6 +83,15 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |amount|BigNumber|The balance of tokens for the address.|
 
+**Network Information**
+
+
+  - Name: `balanceOf`
+  - Contract: `?`
+  - Interface: `?`
+  - Version: `0`
+  
+
 ### `getTokenInfo.call()`
 
 Get information about the token.
@@ -89,6 +107,15 @@ A promise which resolves to an object containing the following properties:
 |symbol|string|The symbol of the token.|
 |decimals|number|The number of decimals.|
 
+**Network Information**
+
+
+  
+  - Contract: `?`
+  - Interface: `?`
+  - Version: `0`
+  
+
 ### `getTotalSupply.call()`
 
 Get the total supply of the token.
@@ -101,6 +128,15 @@ A promise which resolves to an object containing the following properties:
 |Return value|Type|Description|
 |---|---|---|
 |amount|BigNumber|The total supply of the token.|
+
+**Network Information**
+
+
+  - Name: `totalSupply`
+  - Contract: `?`
+  - Interface: `?`
+  - Version: `0`
+  
 
   
 ## Senders
@@ -128,6 +164,15 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |value|BigNumber|The amount of tokens that were approved (the amount `allowed`).|
 |Approval|object|Contains the data defined in [Approval](#eventsapprovaladdlistener-owner-spender-value-------)|
 
+**Network Information**
+
+
+  
+  - Contract: `?`
+  - Interface: `?`
+  - Version: `0`
+  
+
 ### `burn.send({ amount }, options)`
 
 Burn tokens. This is an `ERC20Extended` function that can only be called by the token `owner`. When a colony contract address is assigned as the token `owner`, this function can only be called by the user assigned the `FOUNDER` authority role.
@@ -147,6 +192,15 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |address|Address|The address that initiated the burn event.|
 |amount|BigNumber|The amount of tokens that were burned.|
 |Burn|object|Contains the data defined in [Burn](#eventsburnaddlistener-address-amount-------)|
+
+**Network Information**
+
+
+  
+  - Contract: `ERC20Extended.sol`
+  - Interface: `?`
+  - Version: `0`
+  
 
 ### `mint.send({ amount }, options)`
 
@@ -168,6 +222,15 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |amount|BigNumber|The amount of tokens that were minted.|
 |Mint|object|Contains the data defined in [Mint](#eventsmintaddlistener-address-amount-------)|
 
+**Network Information**
+
+
+  
+  - Contract: `ERC20Extended.sol`
+  - Interface: `?`
+  - Version: `0`
+  
+
 ### `setAuthority.send({ authority }, options)`
 
 Assign an account the `ADMIN` authority role within a colony.
@@ -186,6 +249,15 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |authority|Address|The address that was assigned an authority role.|
 |LogSetAuthority|object|Contains the data defined in [LogSetAuthority](#eventslogsetauthorityaddlistener-authority-------)|
+
+**Network Information**
+
+
+  - Name: `authority`
+  - Contract: `dappsys/auth.sol`
+  - Interface: `IColony.sol`
+  - Version: `0`
+  
 
 ### `setOwner.send({ owner }, options)`
 
@@ -206,6 +278,15 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |owner|Address|The address that was assigned as the new owner.|
 |LogSetOwner|object|Contains the data defined in [LogSetOwner](#eventslogsetowneraddlistener-owner-------)|
 
+**Network Information**
+
+
+  
+  - Contract: `?`
+  - Interface: `?`
+  - Version: `0`
+  
+
 ### `transfer.send({ destinationAddress, amount }, options)`
 
 Transfer tokens from the address calling the function to another address. The current address must have a sufficient token balance.
@@ -222,6 +303,15 @@ Transfer tokens from the address calling the function to another address. The cu
 An instance of a `ContractResponse`
 
 
+
+**Network Information**
+
+
+  
+  - Contract: `?`
+  - Interface: `?`
+  - Version: `0`
+  
 
 ### `transferFrom.send({ sourceAddress, destinationAddress, amount }, options)`
 
@@ -245,6 +335,15 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |to|Address|The address that received the tokens.|
 |value|BigNumber|The amount of tokens that were transferred.|
 |Transfer|object|Contains the data defined in [Transfer](#eventstransferaddlistener-from-to-value-------)|
+
+**Network Information**
+
+
+  
+  - Contract: `?`
+  - Interface: `?`
+  - Version: `0`
+  
 
   
   

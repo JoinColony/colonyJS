@@ -49,8 +49,15 @@ export default class TokenClient extends ContractClient {
       user: Address, // The address that will be approved for the allowance (the token `spender`).
       amount: BigNumber, // The amount of tokens that will be approved (the amount `allowed`).
     },
-    { Approval: Approval },
+    {
+      Approval: Approval,
+    },
     TokenClient,
+    {
+      contract: '?',
+      interface: '?',
+      version: 0,
+    },
   >;
   /*
   Burn tokens. This is an `ERC20Extended` function that can only be called by the token `owner`. When a colony contract address is assigned as the token `owner`, this function can only be called by the user assigned the `FOUNDER` authority role.
@@ -59,8 +66,15 @@ export default class TokenClient extends ContractClient {
     {
       amount: BigNumber, // The amount of tokens that will be burned.
     },
-    { Burn: Burn },
+    {
+      Burn: Burn,
+    },
     TokenClient,
+    {
+      contract: 'ERC20Extended.sol',
+      interface: '?',
+      version: 0,
+    },
   >;
   /*
   Get the token allowance of an address. The allowance is the amount of tokens that the `spender` is authorized to transfer using the `transferFrom` function.
@@ -74,6 +88,12 @@ export default class TokenClient extends ContractClient {
       amount: BigNumber, // The amount of tokens that were approved (the amount `allowed`).
     },
     TokenClient,
+    {
+      name: 'allowance',
+      contract: '?',
+      interface: '?',
+      version: 0,
+    },
   >;
   /*
   Get the the token balance of an address.
@@ -86,6 +106,12 @@ export default class TokenClient extends ContractClient {
       amount: BigNumber, // The balance of tokens for the address.
     },
     TokenClient,
+    {
+      name: 'balanceOf',
+      contract: '?',
+      interface: '?',
+      version: 0,
+    },
   >;
   /*
   Get information about the token.
@@ -98,6 +124,11 @@ export default class TokenClient extends ContractClient {
       decimals: number, // The number of decimals.
     },
     TokenClient,
+    {
+      contract: '?',
+      interface: '?',
+      version: 0,
+    },
   >;
   /*
   Get the total supply of the token.
@@ -108,6 +139,12 @@ export default class TokenClient extends ContractClient {
       amount: BigNumber, // The total supply of the token.
     },
     TokenClient,
+    {
+      name: 'totalSupply',
+      contract: '?',
+      interface: '?',
+      version: 0,
+    },
   >;
   /*
   Mint new tokens. This is an `ERC20Extended` function that can only be called by the token `owner`. When a colony contract address is assigned as the token `owner`, this function can only be called by the user assigned the `FOUNDER` authority role.
@@ -116,8 +153,15 @@ export default class TokenClient extends ContractClient {
     {
       amount: BigNumber, // The amount of tokens that will be minted.
     },
-    { Mint: Mint },
+    {
+      Mint: Mint,
+    },
     TokenClient,
+    {
+      contract: 'ERC20Extended.sol',
+      interface: '?',
+      version: 0,
+    },
   >;
   /*
   Assign an account the `ADMIN` authority role within a colony.
@@ -126,8 +170,16 @@ export default class TokenClient extends ContractClient {
     {
       authority: Address, // The address that will be assigned the `ADMIN` authority role.
     },
-    { LogSetAuthority: LogSetAuthority },
+    {
+      LogSetAuthority: LogSetAuthority,
+    },
     TokenClient,
+    {
+      name: 'authority',
+      contract: 'dappsys/auth.sol',
+      interface: 'IColony.sol',
+      version: 0,
+    },
   >;
   /*
   Set the `owner` of a token contract. This function can only be called by the current `owner` of the contract. In order to call token contract methods from within a colony, the token `owner` must be the address of the colony contract.
@@ -136,8 +188,15 @@ export default class TokenClient extends ContractClient {
     {
       owner: Address, // The address that will be assigned as the new owner.
     },
-    { LogSetOwner: LogSetOwner },
+    {
+      LogSetOwner: LogSetOwner,
+    },
     TokenClient,
+    {
+      contract: '?',
+      interface: '?',
+      version: 0,
+    },
   >;
   /*
   Transfer tokens from the address calling the function to another address. The current address must have a sufficient token balance.
@@ -149,6 +208,11 @@ export default class TokenClient extends ContractClient {
     },
     {},
     TokenClient,
+    {
+      contract: '?',
+      interface: '?',
+      version: 0,
+    },
   >;
   /*
   Transfer tokens from one address to another address. The address the tokens are transferred from must have a sufficient token balance and it must have a sufficient token allowance approved by the token owner.
@@ -159,8 +223,15 @@ export default class TokenClient extends ContractClient {
       destinationAddress: Address, // The address to which tokens will be transferred.
       amount: BigNumber, // The amount of tokens that will be transferred.
     },
-    { Transfer: Transfer },
+    {
+      Transfer: Transfer,
+    },
     TokenClient,
+    {
+      contract: '?',
+      interface: '?',
+      version: 0,
+    },
   >;
 
   static get defaultQuery() {
