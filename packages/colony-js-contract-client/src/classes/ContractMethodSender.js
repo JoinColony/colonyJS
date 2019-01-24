@@ -20,12 +20,12 @@ export default class ContractMethodSender<
   InputValues: { [inputValueName: string]: any },
   OutputValues: { [outputValueName: string]: any },
   IContractClient: ContractClient,
-  NetworkData: { [dataValueName: string]: any },
+  ContractData: { [dataValueName: string]: any },
 > extends ContractMethod<
   InputValues,
   OutputValues,
   IContractClient,
-  NetworkData,
+  ContractData,
 > {
   _defaultGasLimit: ?number;
 

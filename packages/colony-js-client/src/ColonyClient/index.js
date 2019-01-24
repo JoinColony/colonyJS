@@ -208,7 +208,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'Colony.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -221,7 +221,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ContractRecovery.sol',
       interface: 'IRecovery.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -236,7 +236,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: '?',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -254,7 +254,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'Colony.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -271,7 +271,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -288,7 +288,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyFunding.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -308,7 +308,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyFunding.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -325,7 +325,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -348,7 +348,7 @@ export default class ColonyClient extends ContractClient {
       name: 'makeTask',
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -361,7 +361,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ContractRecovery.sol',
       interface: 'IRecovery.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -374,7 +374,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ContractRecovery.sol',
       interface: 'IRecovery.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -389,7 +389,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyFunding.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -406,7 +406,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -424,7 +424,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -440,7 +440,7 @@ export default class ColonyClient extends ContractClient {
       name: 'authority',
       contract: 'dappsys/auth.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -458,7 +458,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'Colony.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -473,7 +473,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'Colony.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -488,7 +488,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: '?',
       interface: '?',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -505,7 +505,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyFunding.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -523,7 +523,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyFunding.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -538,7 +538,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: '?',
       interface: '?',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -553,7 +553,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyFunding.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -575,7 +575,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyFunding.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -601,7 +601,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -616,7 +616,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -635,7 +635,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyFunding.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -655,7 +655,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -673,7 +673,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -691,7 +691,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -706,7 +706,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'Colony.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -724,7 +724,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyFunding.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -739,7 +739,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: '?',
       interface: '?',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -756,7 +756,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: '?',
       interface: '?',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -772,7 +772,7 @@ export default class ColonyClient extends ContractClient {
       name: 'version',
       contract: 'Colony.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -790,7 +790,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'Colony.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -805,7 +805,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ContractRecovery.sol',
       interface: 'IRecovery.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -823,7 +823,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'Colony.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -841,7 +841,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyFunding.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -859,7 +859,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'Colony.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -876,7 +876,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'Colony.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -891,7 +891,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ContractRecovery.sol',
       interface: 'IRecovery.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -908,7 +908,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -925,7 +925,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -945,7 +945,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -962,7 +962,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'Colony.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -983,7 +983,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyFunding.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -1000,7 +1000,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'Colony.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -1015,7 +1015,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ContractRecovery.sol',
       interface: 'IRecovery.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -1031,7 +1031,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ContractRecovery.sol',
       interface: 'IRecovery.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -1049,7 +1049,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -1067,7 +1067,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -1085,7 +1085,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -1103,7 +1103,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -1121,7 +1121,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -1139,7 +1139,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -1157,7 +1157,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -1176,7 +1176,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyFunding.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -1195,7 +1195,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyFunding.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -1214,7 +1214,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyFunding.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -1229,7 +1229,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: '?',
       interface: '?',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -1246,7 +1246,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyFunding.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -1265,7 +1265,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -1285,7 +1285,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -1302,7 +1302,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -1319,7 +1319,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'Colony.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -1334,7 +1334,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: '?',
       interface: '?',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
 

@@ -46,7 +46,7 @@ export default class MetaColonyClient extends ContractClient {
     {
       contract: 'Colony.sol',
       interface: 'IMetaColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -62,7 +62,7 @@ export default class MetaColonyClient extends ContractClient {
       name: 'authority',
       contract: 'dappsys/auth.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -77,7 +77,7 @@ export default class MetaColonyClient extends ContractClient {
     {
       contract: 'Colony.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -94,7 +94,7 @@ export default class MetaColonyClient extends ContractClient {
     {
       contract: 'Colony.sol',
       interface: 'IMetaColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -109,7 +109,7 @@ export default class MetaColonyClient extends ContractClient {
     {
       contract: 'Colony.sol',
       interface: 'IMetaColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
 

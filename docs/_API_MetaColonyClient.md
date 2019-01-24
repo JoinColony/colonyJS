@@ -50,13 +50,12 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |address|Address|The address of the authority contract associated with the colony.|
 
-**Network Information**
+**Contract Information**
 
 
   - Name: `authority`
-  - Contract: `dappsys/auth.sol`
-  - Interface: `IColony.sol`
-  - Version: `0`
+  - Contract: [dappsys/auth.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/dappsys/auth.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/dappsys/auth.sol)
   
 
 ### `getToken.call()`
@@ -72,13 +71,12 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |address|Address|The address of the ERC20 token contract.|
 
-**Network Information**
+**Contract Information**
 
 
   
-  - Contract: `Colony.sol`
-  - Interface: `IColony.sol`
-  - Version: `0`
+  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/Colony.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/Colony.sol)
   
 
   
@@ -105,13 +103,12 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |parentSkillId|number|The numeric ID of the parent skill.|
 |SkillAdded|object|Contains the data defined in [SkillAdded](#eventsskilladdedaddlistener-skillid-parentskillid-------)|
 
-**Network Information**
+**Contract Information**
 
 
   
-  - Contract: `Colony.sol`
-  - Interface: `IMetaColony.sol`
-  - Version: `0`
+  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/Colony.sol)
+  - Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/Colony.sol)
   
 
 ### `mintTokensForColonyNetwork.send({ amount }, options)`
@@ -134,13 +131,12 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |amount|BigNumber|The amount of tokens that were minted.|
 |Mint|object|Contains the data defined in [Mint](#eventsmintaddlistener-address-amount-------)|
 
-**Network Information**
+**Contract Information**
 
 
   
-  - Contract: `Colony.sol`
-  - Interface: `IMetaColony.sol`
-  - Version: `0`
+  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/Colony.sol)
+  - Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/Colony.sol)
   
 
 ### `setNetworkFeeInverse.send({ feeInverse }, options)`
@@ -159,13 +155,12 @@ An instance of a `ContractResponse`
 
 
 
-**Network Information**
+**Contract Information**
 
 
   
-  - Contract: `Colony.sol`
-  - Interface: `IMetaColony.sol`
-  - Version: `0`
+  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/Colony.sol)
+  - Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/Colony.sol)
   
 
   

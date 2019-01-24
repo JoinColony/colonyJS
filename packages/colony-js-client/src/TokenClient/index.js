@@ -56,7 +56,7 @@ export default class TokenClient extends ContractClient {
     {
       contract: '?',
       interface: '?',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -73,7 +73,7 @@ export default class TokenClient extends ContractClient {
     {
       contract: 'ERC20Extended.sol',
       interface: '?',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -92,7 +92,7 @@ export default class TokenClient extends ContractClient {
       name: 'allowance',
       contract: '?',
       interface: '?',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -110,7 +110,7 @@ export default class TokenClient extends ContractClient {
       name: 'balanceOf',
       contract: '?',
       interface: '?',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -127,7 +127,7 @@ export default class TokenClient extends ContractClient {
     {
       contract: '?',
       interface: '?',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -143,7 +143,7 @@ export default class TokenClient extends ContractClient {
       name: 'totalSupply',
       contract: '?',
       interface: '?',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -160,7 +160,7 @@ export default class TokenClient extends ContractClient {
     {
       contract: 'ERC20Extended.sol',
       interface: '?',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -178,7 +178,7 @@ export default class TokenClient extends ContractClient {
       name: 'authority',
       contract: 'dappsys/auth.sol',
       interface: 'IColony.sol',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -195,7 +195,7 @@ export default class TokenClient extends ContractClient {
     {
       contract: '?',
       interface: '?',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -211,7 +211,7 @@ export default class TokenClient extends ContractClient {
     {
       contract: '?',
       interface: '?',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
   /*
@@ -230,7 +230,7 @@ export default class TokenClient extends ContractClient {
     {
       contract: '?',
       interface: '?',
-      version: 0,
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
 

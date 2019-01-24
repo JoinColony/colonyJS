@@ -6,12 +6,12 @@ export default class CreateToken<
   InputValues: *,
   OutputValues: *,
   Client: *,
-  NetworkData: *,
+  ContractData: *,
 > extends ContractClient.Sender<
   InputValues,
   OutputValues,
   Client,
-  NetworkData,
+  ContractData,
 > {
   constructor({
     name = 'createToken',

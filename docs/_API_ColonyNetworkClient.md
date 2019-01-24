@@ -105,13 +105,12 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |isSupported|boolean|A boolean indicating whether or not the contract interface is supported.|
 
-**Network Information**
+**Contract Information**
 
 
   - Name: `supportsInterface`
-  - Contract: `ColonyNetworkENS.sol`
-  - Interface: `IColonyNetwork.sol`
-  - Version: `0`
+  - Contract: [ColonyNetworkENS.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetworkENS.sol)
+  - Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetworkENS.sol)
   
 
 ### `getAddressForENSHash.call({ nameHash })`
@@ -132,13 +131,12 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |ensAddress|Address|The address associated with the ENS label.|
 
-**Network Information**
+**Contract Information**
 
 
   - Name: `addr`
-  - Contract: `ColonyNetworkENS.sol`
-  - Interface: `IColonyNetwork.sol`
-  - Version: `0`
+  - Contract: [ColonyNetworkENS.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetworkENS.sol)
+  - Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetworkENS.sol)
   
 
 ### `getChildSkillId.call({ skillId, childSkillIndex })`
@@ -160,13 +158,12 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |childSkillId|number|The numeric ID of the child skill.|
 
-**Network Information**
+**Contract Information**
 
 
   
-  - Contract: `ColonyNetwork.sol`
-  - Interface: `IColonyNetwork.sol`
-  - Version: `0`
+  - Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetwork.sol)
+  - Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetwork.sol)
   
 
 ### `getColony.call({ id })`
@@ -187,13 +184,12 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |address|Address|The address of the colony contract.|
 
-**Network Information**
+**Contract Information**
 
 
   
-  - Contract: `ColonyNetwork.sol`
-  - Interface: `IColonyNetwork.sol`
-  - Version: `0`
+  - Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetwork.sol)
+  - Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetwork.sol)
   
 
 ### `getColonyCount.call()`
@@ -209,13 +205,12 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |count|number|The total number of colonies.|
 
-**Network Information**
+**Contract Information**
 
 
   
-  - Contract: `ColonyNetwork.sol`
-  - Interface: `IColonyNetwork.sol`
-  - Version: `0`
+  - Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetwork.sol)
+  - Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetwork.sol)
   
 
 ### `getColonyVersionResolver.call({ version })`
@@ -236,13 +231,12 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |address|Address|The address of the resolver contract.|
 
-**Network Information**
+**Contract Information**
 
 
   
-  - Contract: `ColonyNetwork.sol`
-  - Interface: `IColonyNetwork.sol`
-  - Version: `0`
+  - Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetwork.sol)
+  - Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetwork.sol)
   
 
 ### `getCurrentColonyVersion.call()`
@@ -258,13 +252,12 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |version|number|The version number of the latest colony contract.|
 
-**Network Information**
+**Contract Information**
 
 
   
-  - Contract: `ColonyNetwork.sol`
-  - Interface: `IColonyNetwork.sol`
-  - Version: `0`
+  - Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetwork.sol)
+  - Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetwork.sol)
   
 
 ### `getMetaColonyAddress.call()`
@@ -280,13 +273,12 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |address|Address|The address of the Meta Colony contract.|
 
-**Network Information**
+**Contract Information**
 
 
   - Name: `getMetaColony`
-  - Contract: `ColonyNetwork.sol`
-  - Interface: `IColonyNetwork.sol`
-  - Version: `0`
+  - Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetwork.sol)
+  - Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetwork.sol)
   
 
 ### `getParentSkillId.call({ skillId, parentSkillIndex })`
@@ -308,13 +300,12 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |parentSkillId|number|The numeric ID of the parent skill.|
 
-**Network Information**
+**Contract Information**
 
 
   
-  - Contract: `ColonyNetwork.sol`
-  - Interface: `IColonyNetwork.sol`
-  - Version: `0`
+  - Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetwork.sol)
+  - Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetwork.sol)
   
 
 ### `getProfileDBAddress.call({ nameHash })`
@@ -335,13 +326,12 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |orbitDBAddress|string|The path of the OrbitDB database associated with the user profile.|
 
-**Network Information**
+**Contract Information**
 
 
   
-  - Contract: `ColonyNetworkENS.sol`
-  - Interface: `IColonyNetwork.sol`
-  - Version: `0`
+  - Contract: [ColonyNetworkENS.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetworkENS.sol)
+  - Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetworkENS.sol)
   
 
 ### `getRecoveryRolesCount.call()`
@@ -357,13 +347,12 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |count|number|The total number of users that are assigned a colony recovery role.|
 
-**Network Information**
+**Contract Information**
 
 
   
-  - Contract: `?`
-  - Interface: `?`
-  - Version: `0`
+  - Contract: [?](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/?)
+  - Interface: [?](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/?)
   
 
 ### `getRootGlobalSkillId.call()`
@@ -379,13 +368,12 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |skillId|number|The numeric ID of the root global skill.|
 
-**Network Information**
+**Contract Information**
 
 
   
-  - Contract: `ColonyNetwork.sol`
-  - Interface: `IColonyNetwork.sol`
-  - Version: `0`
+  - Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetwork.sol)
+  - Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetwork.sol)
   
 
 ### `getSkill.call({ skillId })`
@@ -408,13 +396,12 @@ A promise which resolves to an object containing the following properties:
 |nChildren|number|The total number of child skills.|
 |isGlobalSkill|boolean|A boolean indicating whether or not the skill is a global skill.|
 
-**Network Information**
+**Contract Information**
 
 
   
-  - Contract: `ColonyNetwork.sol`
-  - Interface: `IColonyNetwork.sol`
-  - Version: `0`
+  - Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetwork.sol)
+  - Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetwork.sol)
   
 
 ### `getSkillCount.call()`
@@ -430,13 +417,12 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |count|number|The total number of global and local skills in the network.|
 
-**Network Information**
+**Contract Information**
 
 
   
-  - Contract: `ColonyNetwork.sol`
-  - Interface: `IColonyNetwork.sol`
-  - Version: `0`
+  - Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetwork.sol)
+  - Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetwork.sol)
   
 
 ### `getTokenLocking.call()`
@@ -452,13 +438,12 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |lockingAddress|Address|The address of the token locking contract.|
 
-**Network Information**
+**Contract Information**
 
 
   
-  - Contract: `ColonyNetwork.sol`
-  - Interface: `IColonyNetwork.sol`
-  - Version: `0`
+  - Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetwork.sol)
+  - Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetwork.sol)
   
 
 ### `isColony.call({ colony })`
@@ -479,13 +464,12 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |isColony|boolean|A boolean indicating whether or not an address is a colony contract.|
 
-**Network Information**
+**Contract Information**
 
 
   
-  - Contract: `ColonyNetwork.sol`
-  - Interface: `IColonyNetwork.sol`
-  - Version: `0`
+  - Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetwork.sol)
+  - Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetwork.sol)
   
 
 ### `isInRecoveryMode.call()`
@@ -501,13 +485,12 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |inRecoveryMode|boolean|A boolean indicating whether or not the network is in recovery mode.|
 
-**Network Information**
+**Contract Information**
 
 
   
-  - Contract: `ContractRecovery.sol`
-  - Interface: `IRecovery.sol`
-  - Version: `0`
+  - Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ContractRecovery.sol)
+  - Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ContractRecovery.sol)
   
 
 ### `lookupRegisteredENSDomain.call({ ensAddress })`
@@ -528,13 +511,12 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |domain|string|The ENS label associated with the address.|
 
-**Network Information**
+**Contract Information**
 
 
   
-  - Contract: `ColonyNetworkENS.sol`
-  - Interface: `IColonyNetwork.sol`
-  - Version: `0`
+  - Contract: [ColonyNetworkENS.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetworkENS.sol)
+  - Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetworkENS.sol)
   
 
   
@@ -562,13 +544,12 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |resolver|Address|The address of the resolver contract.|
 |ColonyVersionAdded|object|Contains the data defined in [ColonyVersionAdded](#eventscolonyversionaddedaddlistener-version-resolver-------)|
 
-**Network Information**
+**Contract Information**
 
 
   
-  - Contract: `ColonyNetwork.sol`
-  - Interface: `IColonyNetwork.sol`
-  - Version: `0`
+  - Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetwork.sol)
+  - Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetwork.sol)
   
 
 ### `addSkill.send({ parentSkillId, globalSkill }, options)`
@@ -592,13 +573,12 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |parentSkillId|number|The numeric ID of the parent skill.|
 |SkillAdded|object|Contains the data defined in [SkillAdded](#eventsskilladdedaddlistener-skillid-parentskillid-------)|
 
-**Network Information**
+**Contract Information**
 
 
   
-  - Contract: `ColonyNetwork.sol`
-  - Interface: `IColonyNetwork.sol`
-  - Version: `0`
+  - Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetwork.sol)
+  - Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetwork.sol)
   
 
 ### `approveExitRecovery.send(options)`
@@ -612,13 +592,12 @@ An instance of a `ContractResponse`
 
 
 
-**Network Information**
+**Contract Information**
 
 
   
-  - Contract: `ContractRecovery.sol`
-  - Interface: `IRecovery.sol`
-  - Version: `0`
+  - Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ContractRecovery.sol)
+  - Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ContractRecovery.sol)
   
 
 ### `createColony.send({ tokenAddress }, options)`
@@ -642,13 +621,12 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |tokenAddress|Address|The address of the token contract that was assigned.|
 |ColonyAdded|object|Contains the data defined in [ColonyAdded](#eventscolonyaddedaddlistener-colonyid-colonyaddress-tokenaddress-------)|
 
-**Network Information**
+**Contract Information**
 
 
   
-  - Contract: `ColonyNetwork.sol`
-  - Interface: `IColonyNetwork.sol`
-  - Version: `0`
+  - Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetwork.sol)
+  - Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetwork.sol)
   
 
 ### `createMetaColony.send({ tokenAddress }, options)`
@@ -672,13 +650,12 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |rootSkillId|number|The numeric ID of the root skill.|
 |MetaColonyCreated|object|Contains the data defined in [MetaColonyCreated](#eventsmetacolonycreatedaddlistener-colonyaddress-tokenaddress-rootskillid-------)|
 
-**Network Information**
+**Contract Information**
 
 
   
-  - Contract: `ColonyNetwork.sol`
-  - Interface: `IColonyNetwork.sol`
-  - Version: `0`
+  - Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetwork.sol)
+  - Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetwork.sol)
   
 
 ### `createToken.send({ name, symbol, decimals }, options)`
@@ -699,13 +676,12 @@ An instance of a `ContractResponse` which will receive a receipt with a `contrac
 
 
 
-**Network Information**
+**Contract Information**
 
 
   
-  - Contract: `?`
-  - Interface: `?`
-  - Version: `0`
+  - Contract: [?](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/?)
+  - Interface: [?](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/?)
   
 
 ### `enterRecoveryMode.send(options)`
@@ -719,13 +695,12 @@ An instance of a `ContractResponse`
 
 
 
-**Network Information**
+**Contract Information**
 
 
   
-  - Contract: `ContractRecovery.sol`
-  - Interface: `IRecovery.sol`
-  - Version: `0`
+  - Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ContractRecovery.sol)
+  - Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ContractRecovery.sol)
   
 
 ### `exitRecoveryMode.send(options)`
@@ -739,13 +714,12 @@ An instance of a `ContractResponse`
 
 
 
-**Network Information**
+**Contract Information**
 
 
   
-  - Contract: `ContractRecovery.sol`
-  - Interface: `IRecovery.sol`
-  - Version: `0`
+  - Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ContractRecovery.sol)
+  - Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ContractRecovery.sol)
   
 
 ### `registerUserLabel.send({ username, orbitDBPath }, options)`
@@ -769,13 +743,12 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |label|string|The ENS label that was registered for the user.|
 |UserLabelRegistered|object|Contains the data defined in [UserLabelRegistered](#eventsuserlabelregisteredaddlistener-user-label-------)|
 
-**Network Information**
+**Contract Information**
 
 
   
-  - Contract: `ColonyNetworkENS.sol`
-  - Interface: `IColonyNetwork.sol`
-  - Version: `0`
+  - Contract: [ColonyNetworkENS.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetworkENS.sol)
+  - Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetworkENS.sol)
   
 
 ### `removeRecoveryRole.send({ user }, options)`
@@ -794,13 +767,12 @@ An instance of a `ContractResponse`
 
 
 
-**Network Information**
+**Contract Information**
 
 
   
-  - Contract: `ContractRecovery.sol`
-  - Interface: `IRecovery.sol`
-  - Version: `0`
+  - Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ContractRecovery.sol)
+  - Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ContractRecovery.sol)
   
 
 ### `setRecoveryRole.send({ user }, options)`
@@ -819,13 +791,12 @@ An instance of a `ContractResponse`
 
 
 
-**Network Information**
+**Contract Information**
 
 
   
-  - Contract: `ContractRecovery.sol`
-  - Interface: `IRecovery.sol`
-  - Version: `0`
+  - Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ContractRecovery.sol)
+  - Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ContractRecovery.sol)
   
 
 ### `setStorageSlotRecovery.send({ slot, value }, options)`
@@ -845,13 +816,12 @@ An instance of a `ContractResponse`
 
 
 
-**Network Information**
+**Contract Information**
 
 
   
-  - Contract: `ContractRecovery.sol`
-  - Interface: `IRecovery.sol`
-  - Version: `0`
+  - Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ContractRecovery.sol)
+  - Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ContractRecovery.sol)
   
 
 ### `setTokenLocking.send({ tokenLockingAddress }, options)`
@@ -873,13 +843,12 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |tokenLocking|Address|The address of the token locking contract.|
 |TokenLockingAddressSet|object|Contains the data defined in [TokenLockingAddressSet](#eventstokenlockingaddresssetaddlistener-tokenlocking-------)|
 
-**Network Information**
+**Contract Information**
 
 
   
-  - Contract: `ColonyNetwork.sol`
-  - Interface: `IColonyNetwork.sol`
-  - Version: `0`
+  - Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetwork.sol)
+  - Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetwork.sol)
   
 
 ### `setupRegistrar.send({ ens, rootNode }, options)`
@@ -899,13 +868,12 @@ An instance of a `ContractResponse`
 
 
 
-**Network Information**
+**Contract Information**
 
 
   
-  - Contract: `ColonyNetworkENS.sol`
-  - Interface: `IColonyNetwork.sol`
-  - Version: `0`
+  - Contract: [ColonyNetworkENS.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetworkENS.sol)
+  - Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetworkENS.sol)
   
 
 ### `startTokenAuction.send({ tokenAddress }, options)`
@@ -929,13 +897,12 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |quantity|BigNumber|The amount of tokens available for the auction.|
 |AuctionCreated|object|Contains the data defined in [AuctionCreated](#eventsauctioncreatedaddlistener-auction-token-quantity-------)|
 
-**Network Information**
+**Contract Information**
 
 
   
-  - Contract: `ColonyNetworkAuction.sol`
-  - Interface: `IColonyNetwork.sol`
-  - Version: `0`
+  - Contract: [ColonyNetworkAuction.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetworkAuction.sol)
+  - Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetworkAuction.sol)
   
 
   

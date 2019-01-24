@@ -61,7 +61,7 @@ const generateMarkdown = ({ file, templateFile, output }) => {
           description: getDescription(ast, p),
           args: mapObjectProps(ast, params[0]),
           returns: mapObjectProps(ast, params[1]),
-          network: getNetworkData(params[3]),
+          network: getContractData(params[3]),
         });
       }
       else if (p.value.id.name === 'Sender') {
@@ -72,7 +72,7 @@ const generateMarkdown = ({ file, templateFile, output }) => {
           description: getDescription(ast, p),
           args: mapObjectProps(ast, params[0]),
           events: mapObjectProps(ast, params[1]),
-          network: getNetworkData(params[3]),
+          network: getContractData(params[3]),
         });
       }
       else if (p.value.id.name === 'MultisigSender') {
@@ -83,7 +83,7 @@ const generateMarkdown = ({ file, templateFile, output }) => {
           description: getDescription(ast, p),
           args: mapObjectProps(ast, params[0]),
           events: mapObjectProps(ast, params[1]),
-          network: getNetworkData(params[3]),
+          network: getContractData(params[3]),
         });
       }
       else if (p.value.id.name === 'Event') {
@@ -136,9 +136,9 @@ A promise which resolves to an object containing the following properties:
 
 ${printProps('Return value', caller.returns)}
 
-**Network Information**
+**Contract Information**
 
-${printNetworkData(caller.network)}
+${printContractData(caller.network)}
 `,
     )
     .join('');
@@ -174,9 +174,9 @@ An instance of a \`ContractResponse\`${
 
 ${printProps('Event data', getEventProps(events, sender.events))}
 
-**Network Information**
+**Contract Information**
 
-${printNetworkData(sender.network)}
+${printContractData(sender.network)}
 `,
     )
     .join('');
@@ -220,20 +220,19 @@ An instance of a \`MultiSigOperation\`${ms.events && ms.events.length ? ' whose 
 
 ${printProps('Event Data', getEventProps(events, ms.events))}
 
-**Network Information**
+**Contract Information**
 
-${printNetworkData(ms.network)}
+${printContractData(ms.network)}
 `,
     )
     .join('');
 }
 
-function printNetworkData(data) {
+function printContractData(data) {
   return `
   ${data.name ? '- Name: `' + data.name + '`': ''}
-  - Contract: \`${data.contract}\`
-  - Interface: \`${data.interface}\`
-  - Version: \`${data.version}\`
+  - Contract: [${data.contract}](https://github.com/JoinColony/colonyNetwork/tree/${data.version}/contracts/${data.contract})
+  - Interface: [${data.interface}](https://github.com/JoinColony/colonyNetwork/tree/${data.version}/contracts/${data.contract})
   `
 }
 
@@ -295,7 +294,7 @@ function getName(p) {
   return p.parent.parent.parent.value.key.name;
 }
 
-function getNetworkData(param) {
+function getContractData(param) {
   return param.properties.reduce((obj, item) => {
     return (obj[item.key.name] = item.value.value, obj);
   }, {});

@@ -20,12 +20,12 @@ export default class ContractMethodMultisigSender<
   InputValues: { [outputValueName: string]: any },
   OutputValues: { [outputValueName: string]: any },
   IContractClient: ContractClient,
-  NetworkData: { [dataValueName: string]: any },
+  ContractData: { [dataValueName: string]: any },
 > extends ContractMethodSender<
   InputValues,
   OutputValues,
   IContractClient,
-  NetworkData,
+  ContractData,
 > {
   nonceFunctionName: string;
   nonceInput: Params;

@@ -56,13 +56,12 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |amount|BigNumber|The amount of tokens that were approved (the amount `allowed`).|
 
-**Network Information**
+**Contract Information**
 
 
   - Name: `allowance`
-  - Contract: `?`
-  - Interface: `?`
-  - Version: `0`
+  - Contract: [?](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/?)
+  - Interface: [?](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/?)
   
 
 ### `getBalanceOf.call({ sourceAddress })`
@@ -83,13 +82,12 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |amount|BigNumber|The balance of tokens for the address.|
 
-**Network Information**
+**Contract Information**
 
 
   - Name: `balanceOf`
-  - Contract: `?`
-  - Interface: `?`
-  - Version: `0`
+  - Contract: [?](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/?)
+  - Interface: [?](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/?)
   
 
 ### `getTokenInfo.call()`
@@ -107,13 +105,12 @@ A promise which resolves to an object containing the following properties:
 |symbol|string|The symbol of the token.|
 |decimals|number|The number of decimals.|
 
-**Network Information**
+**Contract Information**
 
 
   
-  - Contract: `?`
-  - Interface: `?`
-  - Version: `0`
+  - Contract: [?](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/?)
+  - Interface: [?](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/?)
   
 
 ### `getTotalSupply.call()`
@@ -129,13 +126,12 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |amount|BigNumber|The total supply of the token.|
 
-**Network Information**
+**Contract Information**
 
 
   - Name: `totalSupply`
-  - Contract: `?`
-  - Interface: `?`
-  - Version: `0`
+  - Contract: [?](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/?)
+  - Interface: [?](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/?)
   
 
   
@@ -164,13 +160,12 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |value|BigNumber|The amount of tokens that were approved (the amount `allowed`).|
 |Approval|object|Contains the data defined in [Approval](#eventsapprovaladdlistener-owner-spender-value-------)|
 
-**Network Information**
+**Contract Information**
 
 
   
-  - Contract: `?`
-  - Interface: `?`
-  - Version: `0`
+  - Contract: [?](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/?)
+  - Interface: [?](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/?)
   
 
 ### `burn.send({ amount }, options)`
@@ -193,13 +188,12 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |amount|BigNumber|The amount of tokens that were burned.|
 |Burn|object|Contains the data defined in [Burn](#eventsburnaddlistener-address-amount-------)|
 
-**Network Information**
+**Contract Information**
 
 
   
-  - Contract: `ERC20Extended.sol`
-  - Interface: `?`
-  - Version: `0`
+  - Contract: [ERC20Extended.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ERC20Extended.sol)
+  - Interface: [?](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ERC20Extended.sol)
   
 
 ### `mint.send({ amount }, options)`
@@ -222,13 +216,12 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |amount|BigNumber|The amount of tokens that were minted.|
 |Mint|object|Contains the data defined in [Mint](#eventsmintaddlistener-address-amount-------)|
 
-**Network Information**
+**Contract Information**
 
 
   
-  - Contract: `ERC20Extended.sol`
-  - Interface: `?`
-  - Version: `0`
+  - Contract: [ERC20Extended.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ERC20Extended.sol)
+  - Interface: [?](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ERC20Extended.sol)
   
 
 ### `setAuthority.send({ authority }, options)`
@@ -250,13 +243,12 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |authority|Address|The address that was assigned an authority role.|
 |LogSetAuthority|object|Contains the data defined in [LogSetAuthority](#eventslogsetauthorityaddlistener-authority-------)|
 
-**Network Information**
+**Contract Information**
 
 
   - Name: `authority`
-  - Contract: `dappsys/auth.sol`
-  - Interface: `IColony.sol`
-  - Version: `0`
+  - Contract: [dappsys/auth.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/dappsys/auth.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/dappsys/auth.sol)
   
 
 ### `setOwner.send({ owner }, options)`
@@ -278,13 +270,12 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |owner|Address|The address that was assigned as the new owner.|
 |LogSetOwner|object|Contains the data defined in [LogSetOwner](#eventslogsetowneraddlistener-owner-------)|
 
-**Network Information**
+**Contract Information**
 
 
   
-  - Contract: `?`
-  - Interface: `?`
-  - Version: `0`
+  - Contract: [?](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/?)
+  - Interface: [?](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/?)
   
 
 ### `transfer.send({ destinationAddress, amount }, options)`
@@ -304,13 +295,12 @@ An instance of a `ContractResponse`
 
 
 
-**Network Information**
+**Contract Information**
 
 
   
-  - Contract: `?`
-  - Interface: `?`
-  - Version: `0`
+  - Contract: [?](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/?)
+  - Interface: [?](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/?)
   
 
 ### `transferFrom.send({ sourceAddress, destinationAddress, amount }, options)`
@@ -336,13 +326,12 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |value|BigNumber|The amount of tokens that were transferred.|
 |Transfer|object|Contains the data defined in [Transfer](#eventstransferaddlistener-from-to-value-------)|
 
-**Network Information**
+**Contract Information**
 
 
   
-  - Contract: `?`
-  - Interface: `?`
-  - Version: `0`
+  - Contract: [?](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/?)
+  - Interface: [?](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/?)
   
 
   
