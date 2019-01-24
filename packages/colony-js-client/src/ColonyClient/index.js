@@ -440,7 +440,7 @@ export default class ColonyClient extends ContractClient {
       name: 'authority',
       contract: 'auth.sol',
       // eslint-disable-next-line max-len
-      contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626/',
+      contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626',
       interface: 'IColony.sol',
       version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
