@@ -229,10 +229,12 @@ ${printContractData(ms.network)}
 }
 
 function printContractData(data) {
+  const colonyPath = `https://github.com/JoinColony/colonyNetwork/tree/${data.version}/contracts`
+  const contractPath = data.contractPath ? data.contractPath : colonyPath;
   return `
-  ${data.name ? '- Name: `' + data.name + '`': ''}
-  - Contract: [${data.contract}](https://github.com/JoinColony/colonyNetwork/tree/${data.version}/contracts/${data.contract})
-  - Interface: [${data.interface}](https://github.com/JoinColony/colonyNetwork/tree/${data.version}/contracts/${data.contract})
+  ${data.name ? `- Name: \`${data.name}\`` : ''}
+  ${data.contract ? `- Contract: [${data.contract}](${contractPath}/${data.contract})` : ''}
+  ${data.interface ? `- Interface: [${data.interface}](${colonyPath}/${data.interface})` : ''}
   `
 }
 

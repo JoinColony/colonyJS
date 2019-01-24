@@ -193,7 +193,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
   
   - Contract: [ERC20Extended.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ERC20Extended.sol)
-  - Interface: [?](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ERC20Extended.sol)
+  - Interface: [?](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/?)
   
 
 ### `mint.send({ amount }, options)`
@@ -221,7 +221,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
   
   - Contract: [ERC20Extended.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ERC20Extended.sol)
-  - Interface: [?](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ERC20Extended.sol)
+  - Interface: [?](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/?)
   
 
 ### `setAuthority.send({ authority }, options)`
@@ -247,8 +247,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
   - Name: `authority`
-  - Contract: [dappsys/auth.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/dappsys/auth.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/dappsys/auth.sol)
+  - Contract: [auth.sol](https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626//auth.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
   
 
 ### `setOwner.send({ owner }, options)`
