@@ -673,7 +673,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
   - Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColonyNetwork.sol)
   
 
-### `createToken.send({ name, symbol, decimals }, options)`
+### `createToken.send({ symbol }, options)`
 
 Create a new ERC20 token contract.
 
@@ -681,9 +681,7 @@ Create a new ERC20 token contract.
 
 |Argument|Type|Description|
 |---|---|---|
-|name|string|The name of the token.|
 |symbol|string|The symbol of the token.|
-|decimals|number|The number of decimals.|
 
 **Returns**
 

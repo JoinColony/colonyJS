@@ -1,5 +1,11 @@
 # Changelog
 
+## v.Next
+
+**Maintenance**
+
+* `TokenClient` is now based on the `DSToken` contract, due to the removal of `ERC20ExtendedToken` (`@colony/colony-js-client`)
+
 ## v1.10.0
 
 **Bug fixes**

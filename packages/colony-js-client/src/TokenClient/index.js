@@ -12,7 +12,7 @@ type Approval = ContractClient.Event<{
   value: BigNumber, // The amount of tokens that were approved (the amount `allowed`).
 }>;
 type Burn = ContractClient.Event<{
-  address: Address, // The address that initiated the burn event.
+  address: Address, // The address from which the tokens were burned.
   amount: BigNumber, // The amount of tokens that were burned.
 }>;
 type LogSetAuthority = ContractClient.Event<{
@@ -22,7 +22,7 @@ type LogSetOwner = ContractClient.Event<{
   owner: Address, // The address that was assigned as the new owner.
 }>;
 type Mint = ContractClient.Event<{
-  address: Address, // The address that initiated the mint event.
+  address: Address, // The address to which the minted tokens were sent.
   amount: BigNumber, // The amount of tokens that were minted.
 }>;
 type TokenLocked = ContractClient.Event<{
@@ -70,6 +70,7 @@ export default class TokenClient extends ContractClient {
   */
   burn: TokenClient.Sender<
     {
+      user: Address, // The address from which the tokens will be burned.
       amount: BigNumber, // The amount of tokens that will be burned.
     },
     {
@@ -162,6 +163,7 @@ export default class TokenClient extends ContractClient {
   */
   mint: TokenClient.Sender<
     {
+      user: Address, // The address that will receive the minted tokens.
       amount: BigNumber, // The amount of tokens that will be minted.
     },
     {
@@ -191,6 +193,22 @@ export default class TokenClient extends ContractClient {
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626',
       version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
+  >;
+  /*
+  Set the `name` of a token contract. This function can only be called by the current `owner` of the contract. In order to call token contract methods from within a colony, the token `owner` must be the address of the colony contract.
+  */
+  setName: TokenClient.Sender<
+    {
+      name: string, // The name of the token that will be set.
+    },
+    {},
+    TokenClient,
+    {
+      contract: 'token.sol',
+      // eslint-disable-next-line max-len
+      contractPath: 'https://github.com/dapphub/dappsys-monolithic/tree/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
+      version: '9ddf14118cd0436a19a7278282e4b8a607e14b54',
     },
   >;
   /*
@@ -305,10 +323,13 @@ export default class TokenClient extends ContractClient {
       input: [user, amount],
     });
     this.addSender('mint', {
-      input: [amount],
+      input: [user, amount],
     });
     this.addSender('burn', {
-      input: [amount],
+      input: [user, amount],
+    });
+    this.addSender('setName', {
+      input: [['name', 'bytes32String']],
     });
     this.addSender('setOwner', {
       input: [['owner', 'address']],
