@@ -1,11 +1,5 @@
-import { Component, OnInit } from "@angular/core";
-
-const addDomain = require("../../examples/addDomain");
-const connectNetwork = require("../../examples/connectNetwork");
-const createColony = require("../../examples/createColony");
-const createTask = require("../../examples/createTask");
-const createToken = require("../../examples/createToken");
-const getColonyClient = require("../../examples/getColonyClient");
+import { Component, Inject, OnInit } from "@angular/core";
+import { AppService } from "./app.service";
 
 @Component({
   selector: "app-root",
@@ -18,65 +12,96 @@ export class AppComponent implements OnInit {
   public title = "colony-starter-angular";
 
   public state = {
+    colonyClient: [],     // colonyClient (per account)
+    networkClient: [],    // networkClient (per account)
+  };
+
+  public model = {
     colony: {
       address: "",
       id: null,
     },
-    colonyClient: [],     // colonyClient (per account)
     domain: {
       id: null,
       parentSkillId: null,
       potId: null,
     },
-    networkClient: [],    // networkClient (per account)
-    task: {},
-    tokenAddress: "",
+    networkClient: {
+      accountAddr: "",
+      addr: "",
+    },
+    parentDomainId: 1,
+    task: {
+      desc: "",
+      title: "",
+    },
+    taskObject: null,
+    token: {
+      address: "",
+      name: "",
+      symbol: "",
+    },
   };
 
+  constructor(@Inject(AppService) private appService: AppService) {}
+
   public ngOnInit(): void {
-    this.example();
+    this.start();
   }
 
-  public async example() {
-
+  public async start() {
     // Create an instance of ColonyNetworkClient using the adapter
-    this.state.networkClient[0] = await connectNetwork(0);
+    this.appService.connectNetwork().then( (res) => {
+      console.log(res);
+      this.state.networkClient[0] = res;
+      this.model.networkClient.addr = this.state.networkClient[0]._contract.address;
+      this.model.networkClient.accountAddr = this.state.networkClient[0]._contract.signer.address;
+    });
+  }
 
     // Create an ERC20 token
-    this.state.tokenAddress = await createToken(
-      this.state.networkClient[0],      // networkClient
-      "Token",                          // name
-      "TKN",                            // symbol
-    );
-
-    // Create a colony using the token address of the ERC20 token
-    this.state.colony = await createColony(
-      this.state.networkClient[0],      // networkClient
-      this.state.tokenAddress,          // tokenAddress
-    );
-
-    // Get an initialized ColonyClient for the colony
-    this.state.colonyClient[0] = await getColonyClient(
-      this.state.networkClient[0],      // networkClient
-      this.state.colony.id,             // colonyId
-    );
-
-    // Add a domain to the colony
-    this.state.domain = await addDomain(
-      this.state.colonyClient[0],       // colonyClient
-      1,                                // parentDomainId
-    );
-
-    // Create a task in the colony
-    this.state.task = await createTask(
-      this.state.colonyClient[0],       // colonyClient
-      this.state.domain.id,             // domainId
-      {
-        description: "Title Description",      // description
-        title: "Task Title",                  // title
-      },
-    );
-
+    public async token(name, symbol) {
+    this.appService.createToken(this.state.networkClient[0], name, symbol).then( (res) => {
+      console.log(res);
+      this.model.token.name = name;
+      this.model.token.symbol = symbol;
+      this.model.token.address = res;
+    });
   }
 
+  // Create a colony using the token address of the ERC20 token
+  public async createColony() {
+    this.appService.createColony(this.state.networkClient[0], this.model.token.address).then( (res) => {
+      console.log(res);
+      this.model.colony = res;
+      this.getColonyClient();
+    });
+  }
+
+  // Get an initialized ColonyClient for the colony
+  public async getColonyClient() {
+    this.appService.getColonyClient(this.state.networkClient[0], this.model.colony.id).then( (res) => {
+      console.log(res);
+      this.state.colonyClient[0] = res;
+    });
+  }
+
+  // Add a domain to the colony
+  public async addDomain() {
+    this.appService.addDomain(this.state.colonyClient[0], this.model.parentDomainId).then( (res) => {
+      console.log(res);
+      this.model.domain = res;
+    });
+  }
+
+  // Create a task in the colony
+  public async createTask(title, desc) {
+    const taskObj = {title, desc};
+    this.model.task.title = title;
+    this.model.task.desc = desc;
+    this.appService.createTask(this.state.colonyClient[0], this.model.domain.id, taskObj).then( (res) => {
+      console.log(res);
+      this.model.taskObject = res;
+    });
+  }
 }
