@@ -14,6 +14,7 @@ import TokenClient from '../TokenClient/index';
 import GetTask from './callers/GetTask';
 import CreateTask from './senders/CreateTask';
 import addRecoveryMethods from '../addRecoveryMethods';
+import addTokenLockingMethods from '../addTokenLockingMethods';
 import {
   ROLES,
   ADMIN_ROLE,
@@ -464,21 +465,6 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Get the total number of claimed and waived reward payout cycles in the colony.
-  */
-  getGlobalRewardPayoutCount: ColonyClient.Caller<
-    {},
-    {
-      count: number, // The total number of reward payout cycles.
-    },
-    ColonyClient,
-    {
-      contract: '?',
-      interface: '?',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
-    },
-  >;
-  /*
   Get the total amount of funds that are not in the colony rewards pot. The total amount of funds that are not in the colony rewards pot is a value that keeps track of the total assets a colony has to work with, which may be split among several distinct pots associated with various domains and tasks.
   */
   getNonRewardPotsTotal: ColonyClient.Caller<
@@ -693,6 +679,21 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'Colony.sol',
       interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
+  >;
+  /*
+  Get the total number of locked tokens in the colony.
+  */
+  getTotalLockCount: ColonyClient.Caller<
+    {},
+    {
+      count: number, // The total number of locked tokens in the colony.
+    },
+    ColonyClient,
+    {
+      contract: 'TokenLocking.sol',
+      interface: 'ITokenLocking.sol',
       version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
@@ -1371,6 +1372,7 @@ export default class ColonyClient extends ContractClient {
 
   initializeContractMethods() {
     addRecoveryMethods(this);
+    addTokenLockingMethods(this);
 
     this.getTask = new GetTask({ client: this });
 
@@ -1443,9 +1445,6 @@ export default class ColonyClient extends ContractClient {
       },
     });
     this.addCaller('getDomainCount', {
-      output: [['count', 'number']],
-    });
-    this.addCaller('getGlobalRewardPayoutCount', {
       output: [['count', 'number']],
     });
     this.addCaller('getUserRewardPayoutCount', {
