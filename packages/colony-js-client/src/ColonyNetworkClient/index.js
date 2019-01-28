@@ -399,8 +399,9 @@ export default class ColonyNetworkClient extends ContractClient {
     },
     ColonyNetworkClient,
     {
-      contract: '?',
-      interface: '?',
+      name: 'numRecoveryRoles',
+      contract: 'ContractRecovery.sol',
+      interface: 'IRecovery.sol',
       version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;

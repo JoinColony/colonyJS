@@ -202,9 +202,9 @@ A promise which resolves to an object containing the following properties:
 **Contract Information**
 
 
-  
-  - Contract: [?](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/?)
-  - Interface: [?](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/?)
+  - Name: `numRecoveryRoles`
+  - Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ContractRecovery.sol)
+  - Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IRecovery.sol)
   
 
 ### `getRewardInverse.call()`
