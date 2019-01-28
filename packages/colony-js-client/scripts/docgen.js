@@ -61,7 +61,7 @@ const generateMarkdown = ({ file, templateFile, output }) => {
           description: getDescription(ast, p),
           args: mapObjectProps(ast, params[0]),
           returns: mapObjectProps(ast, params[1]),
-          network: getContractData(params[3]),
+          contractData: getContractData(params[3]),
         });
       }
       else if (p.value.id.name === 'Sender') {
@@ -72,7 +72,7 @@ const generateMarkdown = ({ file, templateFile, output }) => {
           description: getDescription(ast, p),
           args: mapObjectProps(ast, params[0]),
           events: mapObjectProps(ast, params[1]),
-          network: getContractData(params[3]),
+          contractData: getContractData(params[3]),
         });
       }
       else if (p.value.id.name === 'MultisigSender') {
@@ -83,7 +83,7 @@ const generateMarkdown = ({ file, templateFile, output }) => {
           description: getDescription(ast, p),
           args: mapObjectProps(ast, params[0]),
           events: mapObjectProps(ast, params[1]),
-          network: getContractData(params[3]),
+          contractData: getContractData(params[3]),
         });
       }
       else if (p.value.id.name === 'Event') {
@@ -138,7 +138,7 @@ ${printProps('Return value', caller.returns)}
 
 **Contract Information**
 
-${printContractData(caller.network)}
+${printContractData(caller.contractData)}
 `,
     )
     .join('');
@@ -176,7 +176,7 @@ ${printProps('Event data', getEventProps(events, sender.events))}
 
 **Contract Information**
 
-${printContractData(sender.network)}
+${printContractData(sender.contractData)}
 `,
     )
     .join('');
@@ -222,7 +222,7 @@ ${printProps('Event Data', getEventProps(events, ms.events))}
 
 **Contract Information**
 
-${printContractData(ms.network)}
+${printContractData(ms.contractData)}
 `,
     )
     .join('');

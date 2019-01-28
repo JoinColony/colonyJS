@@ -22,11 +22,11 @@ export default class ContractMethod<
 > {
   assertValid: Function;
   client: IContractClient;
+  contractData: ContractData;
   defaultValues: DefaultValues;
   functionName: string;
   input: Params;
   name: string;
-  networkData: ContractData;
   output: Params;
 
   /**
