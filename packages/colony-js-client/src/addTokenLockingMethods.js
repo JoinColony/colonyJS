@@ -10,6 +10,10 @@ const addTokenLockingMethods = (client: ContractClient) => {
   client.addCaller('getTotalLockCount', {
     output: [['count', 'number']],
   });
+  this.addCaller('getUserLock', {
+    input: [['user', 'address']],
+    output: [['count', 'number']],
+  });
 };
 
 export default addTokenLockingMethods;

@@ -495,9 +495,9 @@ A promise which resolves to an object containing the following properties:
   - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
   
 
-### `getUserRewardPayoutCount.call({ user })`
+### `getUserLock.call({ user })`
 
-Get the total number of claimed and waived reward payout cycles for a given user in the colony.
+Get the total number of locked tokens for a given user in the colony.
 
 **Arguments**
 
@@ -511,14 +511,14 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|count|number|The total number of reward payout cycles.|
+|count|number|The total number of locked tokens.|
 
 **Contract Information**
 
 
   
-  - Contract: [?](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/?)
-  - Interface: [?](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/?)
+  - Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/TokenLocking.sol)
+  - Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ITokenLocking.sol)
   
 
 ### `getVersion.call()`
