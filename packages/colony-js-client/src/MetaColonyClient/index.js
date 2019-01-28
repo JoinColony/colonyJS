@@ -168,6 +168,9 @@ export default class MetaColonyClient extends ContractClient {
     this.addSender('mintTokensForColonyNetwork', {
       input: [['amount', 'bigNumber']],
     });
+    this.addSender('setNetworkFeeInverse', {
+      input: [['feeInverse', 'number']],
+    });
   }
 
   async getReputation({
