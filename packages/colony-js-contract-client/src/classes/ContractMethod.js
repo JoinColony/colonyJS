@@ -18,9 +18,11 @@ export default class ContractMethod<
   InputValues: { [inputValueName: string]: any },
   OutputValues: { [outputValueName: string]: any },
   IContractClient: ContractClient,
+  ContractData: { [dataValueName: string]: any },
 > {
   assertValid: Function;
   client: IContractClient;
+  contractData: ContractData;
   defaultValues: DefaultValues;
   functionName: string;
   input: Params;

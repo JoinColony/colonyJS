@@ -39,18 +39,15 @@ export default class MetaColonyClient extends ContractClient {
     {
       parentSkillId: number, // The numeric ID of the skill under which the new skill will be added.
     },
-    { SkillAdded: SkillAdded },
-    MetaColonyClient,
-  >;
-  /*
-  Get the authority contract address associated with the colony.
-  */
-  getAuthority: MetaColonyClient.Caller<
-    {},
     {
-      address: Address, // The address of the authority contract associated with the colony.
+      SkillAdded: SkillAdded,
     },
     MetaColonyClient,
+    {
+      contract: 'Colony.sol',
+      interface: 'IMetaColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Get the address of the ERC20 token contract that is the native token assigned to the Meta Colony.
@@ -61,6 +58,11 @@ export default class MetaColonyClient extends ContractClient {
       address: Address, // The address of the ERC20 token contract.
     },
     MetaColonyClient,
+    {
+      contract: 'Colony.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Mint tokens for the Colony Network. This can only be called from the Meta Colony, and only by the user assigned the `FOUNDER` role.
@@ -69,8 +71,15 @@ export default class MetaColonyClient extends ContractClient {
     {
       amount: BigNumber, // The amount of new tokens that will be minted.
     },
-    { Mint: Mint },
+    {
+      Mint: Mint,
+    },
     MetaColonyClient,
+    {
+      contract: 'Colony.sol',
+      interface: 'IMetaColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Set the inverse amount of the reward. If the fee is 1% (or 0.01), the inverse amount will be 100. This can only be called from the Meta Colony, and only by the user assigned the `FOUNDER` role.
@@ -81,6 +90,11 @@ export default class MetaColonyClient extends ContractClient {
     },
     {},
     MetaColonyClient,
+    {
+      contract: 'Colony.sol',
+      interface: 'IMetaColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
 
   static get defaultQuery() {
@@ -143,10 +157,6 @@ export default class MetaColonyClient extends ContractClient {
     /* eslint-enable max-len */
 
     // Callers
-    this.addCaller('getAuthority', {
-      functionName: 'authority',
-      output: [['address', 'address']],
-    });
     this.addCaller('getToken', {
       output: [['address', 'address']],
     });
@@ -157,6 +167,9 @@ export default class MetaColonyClient extends ContractClient {
     });
     this.addSender('mintTokensForColonyNetwork', {
       input: [['amount', 'bigNumber']],
+    });
+    this.addSender('setNetworkFeeInverse', {
+      input: [['feeInverse', 'number']],
     });
   }
 

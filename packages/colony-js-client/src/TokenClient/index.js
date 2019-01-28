@@ -49,8 +49,16 @@ export default class TokenClient extends ContractClient {
       user: Address, // The address that will be approved for the allowance (the token `spender`).
       amount: BigNumber, // The amount of tokens that will be approved (the amount `allowed`).
     },
-    { Approval: Approval },
+    {
+      Approval: Approval,
+    },
     TokenClient,
+    {
+      contract: 'erc20.sol',
+      // eslint-disable-next-line max-len
+      contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Burn tokens. This is an `ERC20Extended` function that can only be called by the token `owner`. When a colony contract address is assigned as the token `owner`, this function can only be called by the user assigned the `FOUNDER` authority role.
@@ -59,8 +67,16 @@ export default class TokenClient extends ContractClient {
     {
       amount: BigNumber, // The amount of tokens that will be burned.
     },
-    { Burn: Burn },
+    {
+      Burn: Burn,
+    },
     TokenClient,
+    {
+      contract: 'ERC20Extended.sol',
+      // eslint-disable-next-line max-len
+      contractPath: 'https://github.com/JoinColony/colonyToken/blob/7359eedaadacd55a1393c795964bd61513b2af33/contracts',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Get the token allowance of an address. The allowance is the amount of tokens that the `spender` is authorized to transfer using the `transferFrom` function.
@@ -74,6 +90,13 @@ export default class TokenClient extends ContractClient {
       amount: BigNumber, // The amount of tokens that were approved (the amount `allowed`).
     },
     TokenClient,
+    {
+      name: 'allowance',
+      contract: 'erc20.sol',
+      // eslint-disable-next-line max-len
+      contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Get the the token balance of an address.
@@ -86,6 +109,13 @@ export default class TokenClient extends ContractClient {
       amount: BigNumber, // The balance of tokens for the address.
     },
     TokenClient,
+    {
+      name: 'balanceOf',
+      contract: 'erc20.sol',
+      // eslint-disable-next-line max-len
+      contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Get information about the token.
@@ -98,6 +128,12 @@ export default class TokenClient extends ContractClient {
       decimals: number, // The number of decimals.
     },
     TokenClient,
+    {
+      contract: 'Token.sol',
+      // eslint-disable-next-line max-len
+      contractPath: 'https://github.com/JoinColony/colonyToken/blob/7359eedaadacd55a1393c795964bd61513b2af33/contracts',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Get the total supply of the token.
@@ -108,6 +144,13 @@ export default class TokenClient extends ContractClient {
       amount: BigNumber, // The total supply of the token.
     },
     TokenClient,
+    {
+      name: 'totalSupply',
+      contract: 'erc20.sol',
+      // eslint-disable-next-line max-len
+      contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Mint new tokens. This is an `ERC20Extended` function that can only be called by the token `owner`. When a colony contract address is assigned as the token `owner`, this function can only be called by the user assigned the `FOUNDER` authority role.
@@ -116,8 +159,16 @@ export default class TokenClient extends ContractClient {
     {
       amount: BigNumber, // The amount of tokens that will be minted.
     },
-    { Mint: Mint },
+    {
+      Mint: Mint,
+    },
     TokenClient,
+    {
+      contract: 'ERC20Extended.sol',
+      // eslint-disable-next-line max-len
+      contractPath: 'https://github.com/JoinColony/colonyToken/blob/7359eedaadacd55a1393c795964bd61513b2af33/contracts',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Assign an account the `ADMIN` authority role within a colony.
@@ -126,8 +177,16 @@ export default class TokenClient extends ContractClient {
     {
       authority: Address, // The address that will be assigned the `ADMIN` authority role.
     },
-    { LogSetAuthority: LogSetAuthority },
+    {
+      LogSetAuthority: LogSetAuthority,
+    },
     TokenClient,
+    {
+      contract: 'auth.sol',
+      // eslint-disable-next-line max-len
+      contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Set the `owner` of a token contract. This function can only be called by the current `owner` of the contract. In order to call token contract methods from within a colony, the token `owner` must be the address of the colony contract.
@@ -136,8 +195,16 @@ export default class TokenClient extends ContractClient {
     {
       owner: Address, // The address that will be assigned as the new owner.
     },
-    { LogSetOwner: LogSetOwner },
+    {
+      LogSetOwner: LogSetOwner,
+    },
     TokenClient,
+    {
+      contract: 'auth.sol',
+      // eslint-disable-next-line max-len
+      contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Transfer tokens from the address calling the function to another address. The current address must have a sufficient token balance.
@@ -149,6 +216,12 @@ export default class TokenClient extends ContractClient {
     },
     {},
     TokenClient,
+    {
+      contract: 'erc20.sol',
+      // eslint-disable-next-line max-len
+      contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Transfer tokens from one address to another address. The address the tokens are transferred from must have a sufficient token balance and it must have a sufficient token allowance approved by the token owner.
@@ -159,8 +232,16 @@ export default class TokenClient extends ContractClient {
       destinationAddress: Address, // The address to which tokens will be transferred.
       amount: BigNumber, // The amount of tokens that will be transferred.
     },
-    { Transfer: Transfer },
+    {
+      Transfer: Transfer,
+    },
     TokenClient,
+    {
+      contract: 'Token.sol',
+      // eslint-disable-next-line max-len
+      contractPath: 'https://github.com/JoinColony/colonyToken/blob/7359eedaadacd55a1393c795964bd61513b2af33/contracts',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
 
   static get defaultQuery() {
@@ -175,6 +256,7 @@ export default class TokenClient extends ContractClient {
     const destinationAddress = ['destinationAddress', 'address'];
     const user = ['user', 'address'];
 
+    // Events
     this.addEvent('Transfer', [
       ['from', 'address'],
       ['to', 'address'],
@@ -190,49 +272,42 @@ export default class TokenClient extends ContractClient {
     this.addEvent('LogSetOwner', [['owner', 'address']]);
     this.addEvent('LogSetAuthority', [['authority', 'address']]);
 
+    // Callers
     this.getTokenInfo = new GetTokenInfo({ client: this });
-
     this.addCaller('getTotalSupply', {
       functionName: 'totalSupply',
       output: [amount],
     });
-
     this.addCaller('getBalanceOf', {
       functionName: 'balanceOf',
       input: [sourceAddress],
       output: [amount],
     });
-
     this.addCaller('getAllowance', {
       functionName: 'allowance',
       input: [sourceAddress, user],
       output: [amount],
     });
 
+    // Senders
     this.addSender('transfer', {
       input: [destinationAddress, amount],
     });
-
     this.addSender('transferFrom', {
       input: [sourceAddress, destinationAddress, amount],
     });
-
     this.addSender('approve', {
       input: [user, amount],
     });
-
     this.addSender('mint', {
       input: [amount],
     });
-
     this.addSender('burn', {
       input: [amount],
     });
-
     this.addSender('setOwner', {
       input: [['owner', 'address']],
     });
-
     this.addSender('setAuthority', {
       input: [['authority', 'address']],
     });

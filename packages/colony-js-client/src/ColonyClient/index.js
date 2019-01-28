@@ -14,6 +14,7 @@ import TokenClient from '../TokenClient/index';
 import GetTask from './callers/GetTask';
 import CreateTask from './senders/CreateTask';
 import addRecoveryMethods from '../addRecoveryMethods';
+import addTokenLockingMethods from '../addTokenLockingMethods';
 import {
   ROLES,
   ADMIN_ROLE,
@@ -201,22 +202,28 @@ export default class ColonyClient extends ContractClient {
     {
       parentDomainId: number, // The numeric ID of the parent domain.
     },
-    { DomainAdded: DomainAdded },
+    {
+      DomainAdded: DomainAdded,
+    },
     ColonyClient,
+    {
+      contract: 'Colony.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Indicate approval to exit colony recovery mode. This function can only be called by a user with a recovery role.
   */
-  approveExitRecovery: ColonyClient.Sender<{}, {}, ColonyClient>;
-  /*
-  Assign the work rating for any task roles that did not receive a rating. In the event of a user not committing or revealing a work rating within the 10-day rating window (5-day maximum commit period and 5-day maximum reveal period), their counterpart is given the highest work rating possible (`3`) and the user who failed to commit or reveal their work rating will receive a reputation penalty.
-  */
-  assignWorkRating: ColonyClient.Sender<
-    {
-      taskId: number, // The numeric ID of the task.
-    },
+  approveExitRecovery: ColonyClient.Sender<
+    {},
     {},
     ColonyClient,
+    {
+      contract: 'ContractRecovery.sol',
+      interface: 'IRecovery.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Bootstrap the colony by giving an initial amount of tokens and reputation to selected users. This function can only be called by the user assigned the `FOUNDER` authority role when the `taskCount` for the colony is equal to `0`.
@@ -226,8 +233,15 @@ export default class ColonyClient extends ContractClient {
       users: Array<Address>, // The array of users that will recieve an initial amount of tokens and reputation.
       amounts: Array<BigNumber>, // The array of corresponding token and reputation amounts each user will recieve.
     },
-    { ColonyBootstrapped: ColonyBootstrapped },
+    {
+      ColonyBootstrapped: ColonyBootstrapped,
+    },
     ColonyClient,
+    {
+      contract: 'Colony.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Cancel a task. Once a task is cancelled, no further changes to the task can be made.
@@ -236,8 +250,15 @@ export default class ColonyClient extends ContractClient {
     {
       taskId: number, // The numeric ID of the task.
     },
-    { TaskCanceled: TaskCanceled },
+    {
+      TaskCanceled: TaskCanceled,
+    },
     ColonyClient,
+    {
+      contract: 'ColonyTask.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Claim funds that the colony has received by adding them to the funding pot of the root domain. A small fee is deducted from the funds claimed and added to the colony rewards pot. No fee is deducted when tokens native to the colony are claimed.
@@ -246,8 +267,15 @@ export default class ColonyClient extends ContractClient {
     {
       token: TokenAddress, // The address of the token contract (an empty address if Ether).
     },
-    { ColonyFundsClaimed: ColonyFundsClaimed },
+    {
+      ColonyFundsClaimed: ColonyFundsClaimed,
+    },
     ColonyClient,
+    {
+      contract: 'ColonyFunding.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Claim the payout assigned to a task role. This function can only be called by the user who is assigned a task role (`MANAGER`, `EVALUATOR`, or `WORKER`) after the task has been finalized.
@@ -263,6 +291,11 @@ export default class ColonyClient extends ContractClient {
       Transfer: Transfer,
     },
     ColonyClient,
+    {
+      contract: 'ColonyFunding.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Mark a task as complete. If the user assigned the `WORKER` task role fails to submit the task deliverable by the due date, this function must be called by the user assigned the `MANAGER` task role. This allows the task work to be rated and the task to be finalized.
@@ -271,8 +304,15 @@ export default class ColonyClient extends ContractClient {
     {
       taskId: number, // The numeric ID of the task.
     },
-    { TaskCompleted: TaskCompleted },
+    {
+      TaskCompleted: TaskCompleted,
+    },
     ColonyClient,
+    {
+      contract: 'ColonyTask.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Create a new task within the colony.
@@ -284,17 +324,45 @@ export default class ColonyClient extends ContractClient {
       skillId?: number, // The numeric ID of the skill (optional with a default value of `null`).
       dueDate?: Date, // The due date of the task (optional with a default value of `30` days from now).
     },
-    { TaskAdded: TaskAdded, PotAdded: PotAdded, DomainAdded: DomainAdded },
+    {
+      TaskAdded: TaskAdded,
+      PotAdded: PotAdded,
+      DomainAdded: DomainAdded,
+    },
     ColonyClient,
+    {
+      name: 'makeTask',
+      contract: 'ColonyTask.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Enter colony recovery mode. This function can only be called by a user with a recovery role.
   */
-  enterRecoveryMode: ColonyClient.Sender<{}, {}, ColonyClient>;
+  enterRecoveryMode: ColonyClient.Sender<
+    {},
+    {},
+    ColonyClient,
+    {
+      contract: 'ContractRecovery.sol',
+      interface: 'IRecovery.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
+  >;
   /*
   Exit colony recovery mode. This function can be called by anyone if enough whitelist approvals are given.
   */
-  exitRecoveryMode: ColonyClient.Sender<{}, {}, ColonyClient>;
+  exitRecoveryMode: ColonyClient.Sender<
+    {},
+    {},
+    ColonyClient,
+    {
+      contract: 'ContractRecovery.sol',
+      interface: 'IRecovery.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
+  >;
   /*
   Finalize the reward payout cycle. This function can only be called when the reward payout cycle has finished, i.e. 60 days have passed since the creation of the reward payout cycle.
   */
@@ -304,6 +372,11 @@ export default class ColonyClient extends ContractClient {
     },
     {},
     ColonyClient,
+    {
+      contract: 'ColonyFunding.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Finalize a task. Once a task is finalized, each user assigned a task role can claim the payout assigned to their role and no further changes to the task can be made.
@@ -312,8 +385,15 @@ export default class ColonyClient extends ContractClient {
     {
       taskId: number, // The numeric ID of the task.
     },
-    { TaskFinalized: TaskFinalized },
+    {
+      TaskFinalized: TaskFinalized,
+    },
     ColonyClient,
+    {
+      contract: 'ColonyTask.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Generate the rating secret used in task ratings. This function returns a keccak256 hash created from the `salt` and `value`.
@@ -327,6 +407,11 @@ export default class ColonyClient extends ContractClient {
       secret: HexString, // A keccak256 hash that keeps the task rating hidden.
     },
     ColonyClient,
+    {
+      contract: 'ColonyTask.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Get the authority contract address associated with the colony.
@@ -337,6 +422,14 @@ export default class ColonyClient extends ContractClient {
       address: Address, // The address of the authority contract associated with the colony.
     },
     ColonyClient,
+    {
+      name: 'authority',
+      contract: 'auth.sol',
+      // eslint-disable-next-line max-len
+      contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Get information about a domain.
@@ -350,6 +443,11 @@ export default class ColonyClient extends ContractClient {
       potId: number, // The numeric ID of the funding pot.
     },
     ColonyClient,
+    {
+      contract: 'Colony.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Get the total number of domains in the colony. The return value is also the numeric ID of the last domain created.
@@ -360,16 +458,11 @@ export default class ColonyClient extends ContractClient {
       count: number, // The total number of domains.
     },
     ColonyClient,
-  >;
-  /*
-  Get the total number of claimed and waived reward payout cycles in the colony.
-  */
-  getGlobalRewardPayoutCount: ColonyClient.Caller<
-    {},
     {
-      count: number, // The total number of reward payout cycles.
+      contract: 'Colony.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
-    ColonyClient,
   >;
   /*
   Get the total amount of funds that are not in the colony rewards pot. The total amount of funds that are not in the colony rewards pot is a value that keeps track of the total assets a colony has to work with, which may be split among several distinct pots associated with various domains and tasks.
@@ -382,6 +475,11 @@ export default class ColonyClient extends ContractClient {
       total: BigNumber, // The total amount of funds that are not in the colony rewards pot.
     },
     ColonyClient,
+    {
+      contract: 'ColonyFunding.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Get the balance of a funding pot.
@@ -395,6 +493,11 @@ export default class ColonyClient extends ContractClient {
       balance: BigNumber, // The balance of tokens (or Ether) in the funding pot.
     },
     ColonyClient,
+    {
+      contract: 'ColonyFunding.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Get the total number of users that are assigned a colony recovery role.
@@ -405,6 +508,12 @@ export default class ColonyClient extends ContractClient {
       count: number, // The total number of users that are assigned a colony recovery role.
     },
     ColonyClient,
+    {
+      name: 'numRecoveryRoles',
+      contract: 'ContractRecovery.sol',
+      interface: 'IRecovery.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Get the inverse amount of the reward. If the fee is 1% (or 0.01), the inverse amount will be 100.
@@ -415,6 +524,11 @@ export default class ColonyClient extends ContractClient {
       rewardInverse: BigNumber, // The inverse amount of the reward.
     },
     ColonyClient,
+    {
+      contract: 'ColonyFunding.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Get information about a reward payout cycle.
@@ -432,6 +546,11 @@ export default class ColonyClient extends ContractClient {
       totalTokens: BigNumber, // The total amount of tokens at the time the reward payout cycle started.
     },
     ColonyClient,
+    {
+      contract: 'ColonyFunding.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Get information about a task.
@@ -453,6 +572,11 @@ export default class ColonyClient extends ContractClient {
       status: TaskStatus, // The task status (`ACTIVE`, `CANCELLED` or `FINALIZED`).
     },
     ColonyClient,
+    {
+      contract: 'ColonyTask.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Get the total number of tasks in the colony. The return value is also the numeric ID of the last task created.
@@ -463,6 +587,11 @@ export default class ColonyClient extends ContractClient {
       count: number, // The total number of tasks.
     },
     ColonyClient,
+    {
+      contract: 'ColonyTask.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Get the task payout amount assigned to a task role. Multiple tokens can be used for task payouts, therefore the token must be specified when calling this function. In order to get the task payout amount in Ether, `token` must be an empty address.
@@ -477,6 +606,11 @@ export default class ColonyClient extends ContractClient {
       amount: BigNumber, // The amount of tokens (or Ether) assigned to the task role as a payout.
     },
     ColonyClient,
+    {
+      contract: 'ColonyFunding.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Get information about a task role.
@@ -492,6 +626,11 @@ export default class ColonyClient extends ContractClient {
       rating: number, // The rating that the user received (`1`, `2`, or `3`).
     },
     ColonyClient,
+    {
+      contract: 'ColonyTask.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Get information about the ratings of a task.
@@ -505,6 +644,11 @@ export default class ColonyClient extends ContractClient {
       date: Date, // The date that the last rating was submitted.
     },
     ColonyClient,
+    {
+      contract: 'ColonyTask.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Get the secret of a rating that has been submitted. If a task is in the commit period of the rating process, the ratings are hidden in a keccak256 hash that was created from a `salt` and `value`. The rating secret can be retrieved but in order to reveal the secret, one would have to know both the `salt` and `value` used to generate the secret.
@@ -518,6 +662,11 @@ export default class ColonyClient extends ContractClient {
       secret: HexString, // A keccak256 hash that keeps the task rating hidden.
     },
     ColonyClient,
+    {
+      contract: 'ColonyTask.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Get the address of the ERC20 token contract that is the native token assigned to the colony. The native token is the token used to calculate reputation scores, i.e. `1` token earned for completing a task with an adequate rating (`2`) will result in `1` reputation point earned.
@@ -528,6 +677,26 @@ export default class ColonyClient extends ContractClient {
       address: Address, // The address of the ERC20 token contract.
     },
     ColonyClient,
+    {
+      contract: 'Colony.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
+  >;
+  /*
+  Get the total number of locked tokens in the colony.
+  */
+  getTotalLockCount: ColonyClient.Caller<
+    {},
+    {
+      count: number, // The total number of locked tokens in the colony.
+    },
+    ColonyClient,
+    {
+      contract: 'TokenLocking.sol',
+      interface: 'ITokenLocking.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Get the total payout amount assigned to all task roles. Multiple tokens can be used for task payouts, therefore the token must be specified when calling this function. In order to get the task payout amount in Ether, `token` must be an empty address.
@@ -541,28 +710,28 @@ export default class ColonyClient extends ContractClient {
       amount: BigNumber, // The total amount of tokens (or Ether) assigned to all task roles as payouts.
     },
     ColonyClient,
-  >;
-  /*
-  Get the total number of transactions that the colony has made. The total number of transactions is equal to the ID of the last transaction.
-  */
-  getTransactionCount: ColonyClient.Caller<
-    {},
     {
-      count: number, // The total number of transactions that the colony has made.
+      contract: 'ColonyFunding.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
-    ColonyClient,
   >;
   /*
-  Get the total number of claimed and waived reward payout cycles for a given user in the colony.
+  Get the total number of locked tokens for a given user in the colony.
   */
-  getUserRewardPayoutCount: ColonyClient.Caller<
+  getUserLock: ColonyClient.Caller<
     {
       user: Address, // The address of the user.
     },
     {
-      count: number, // The total number of reward payout cycles.
+      count: number, // The total number of locked tokens.
     },
     ColonyClient,
+    {
+      contract: 'TokenLocking.sol',
+      interface: 'ITokenLocking.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Get the version number of the colony contract. The version number starts at `1` and is incremented by `1` with every new version.
@@ -573,6 +742,12 @@ export default class ColonyClient extends ContractClient {
       version: number, // The version number of the colony contract.
     },
     ColonyClient,
+    {
+      name: 'version',
+      contract: 'Colony.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Check whether a user has an authority role.
@@ -586,6 +761,11 @@ export default class ColonyClient extends ContractClient {
       hasRole: boolean, // A boolean indicating whether or not the user has the authority role.
     },
     ColonyClient,
+    {
+      contract: 'Colony.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Check whether or not the colony is in recovery mode.
@@ -596,6 +776,11 @@ export default class ColonyClient extends ContractClient {
       inRecoveryMode: boolean, // A boolean indicating whether or not the colony is in recovery mode.
     },
     ColonyClient,
+    {
+      contract: 'ContractRecovery.sol',
+      interface: 'IRecovery.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Mint new tokens. This function can only be called if the address of the colony contract is the owner of the token contract. If this is the case, then this function can only be called by the user assigned the `FOUNDER` authority role.
@@ -609,6 +794,11 @@ export default class ColonyClient extends ContractClient {
       Transfer: Transfer,
     },
     ColonyClient,
+    {
+      contract: 'Colony.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Move funds from one pot to another.
@@ -622,6 +812,11 @@ export default class ColonyClient extends ContractClient {
     },
     { ColonyFundsMovedBetweenFundingPots: ColonyFundsMovedBetweenFundingPots },
     ColonyClient,
+    {
+      contract: 'ColonyFunding.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Register an ENS label for the colony.
@@ -631,8 +826,15 @@ export default class ColonyClient extends ContractClient {
       colonyName: string, // The ENS label that will be registered for the colony.
       orbitDBPath: string, // The path of the OrbitDB database associated with the colony.
     },
-    { ColonyLabelRegistered: ColonyLabelRegistered },
+    {
+      ColonyLabelRegistered: ColonyLabelRegistered,
+    },
     ColonyClient,
+    {
+      contract: 'Colony.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Remove the `ADMIN` authority role from a user. This function can only be called by the user assigned the `FOUNDER` authroity role.
@@ -641,8 +843,15 @@ export default class ColonyClient extends ContractClient {
     {
       user: Address, // The address that we will be unassigned the `ADMIN` authority role.
     },
-    { ColonyAdminRoleRemoved: ColonyAdminRoleRemoved },
+    {
+      ColonyAdminRoleRemoved: ColonyAdminRoleRemoved,
+    },
     ColonyClient,
+    {
+      contract: 'Colony.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Remove the colony recovery role from a user. This function can only be called by the `FOUNDER` authority role.
@@ -653,6 +862,11 @@ export default class ColonyClient extends ContractClient {
     },
     {},
     ColonyClient,
+    {
+      contract: 'ContractRecovery.sol',
+      interface: 'IRecovery.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Remove the `EVALUATOR` task role assignment. This function can only be called before the task is complete, i.e. either before the deliverable has been submitted or the user assigned the `WORKER` task role has failed to meet the deadline and the user assigned the `MANAGER` task role has marked the task as complete.
@@ -661,8 +875,15 @@ export default class ColonyClient extends ContractClient {
     {
       taskId: number, // The numeric ID of the task.
     },
-    { TaskRoleUserSet: TaskRoleUserSet },
+    {
+      TaskRoleUserSet: TaskRoleUserSet,
+    },
     ColonyClient,
+    {
+      contract: 'ColonyTask.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Remove the `WORKER` task role assignment. This function can only be called before the task is complete, i.e. either before the deliverable has been submitted or the user assigned the `WORKER` task role has failed to meet the deadline and the user assigned the `MANAGER` task role has marked the task as complete.
@@ -671,8 +892,15 @@ export default class ColonyClient extends ContractClient {
     {
       taskId: number, // The numeric ID of the task.
     },
-    { TaskRoleUserSet: TaskRoleUserSet },
+    {
+      TaskRoleUserSet: TaskRoleUserSet,
+    },
     ColonyClient,
+    {
+      contract: 'ColonyTask.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Reveal a submitted work rating. In order to reveal a work rating, the same `salt` and `value` used to generate the `secret` when the task work rating was submitted must be provided again here to reveal the task work rating.
@@ -684,8 +912,15 @@ export default class ColonyClient extends ContractClient {
       rating: number, // The rating that was submitted (`1`, `2`, or `3`).
       salt: string, // The string that was used to generate the secret.
     },
-    { TaskWorkRatingRevealed: TaskWorkRatingRevealed },
+    {
+      TaskWorkRatingRevealed: TaskWorkRatingRevealed,
+    },
     ColonyClient,
+    {
+      contract: 'ColonyTask.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Assign the `ADMIN` authority role to a user. This function can only be called by the user assigned the `FOUNDER` authority role or a user assigned the `ADMIN` authority role. There is no limit to the number of users that can be assigned the `ADMIN` authority role.
@@ -694,8 +929,15 @@ export default class ColonyClient extends ContractClient {
     {
       user: Address, // The address that will be assigned the `ADMIN` authroity role.
     },
-    { ColonyAdminRoleSet: ColonyAdminRoleSet },
+    {
+      ColonyAdminRoleSet: ColonyAdminRoleSet,
+    },
     ColonyClient,
+    {
+      contract: 'Colony.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Set the payouts for all task roles (`MANAGER`, `EVALUATOR`, and `WORKER`). This can only be called by the user assigned the `MANAGER` task role and only if the `EVALUATOR` and `WORKER` task roles are either not assigned or assigned to the same user as the `MANAGER` task role.
@@ -712,6 +954,11 @@ export default class ColonyClient extends ContractClient {
       TaskPayoutSet: TaskPayoutSet,
     },
     ColonyClient,
+    {
+      contract: 'ColonyFunding.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Assign the `FOUNDER` authority role to a user. This function can only be called by the user currently assigned the `FOUNDER` authority role. There can only be one address assigned to the `FOUNDER` authority role, therefore, the user currently assigned will forfeit their role.
@@ -720,8 +967,15 @@ export default class ColonyClient extends ContractClient {
     {
       user: Address, // The address that will be assigned the `FOUNDER` authority role.
     },
-    { ColonyFounderRoleSet: ColonyFounderRoleSet },
+    {
+      ColonyFounderRoleSet: ColonyFounderRoleSet,
+    },
     ColonyClient,
+    {
+      contract: 'Colony.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Assign a colony recovery role to a user. This function can only be called by the `FOUNDER` authority role.
@@ -732,6 +986,11 @@ export default class ColonyClient extends ContractClient {
     },
     {},
     ColonyClient,
+    {
+      contract: 'ContractRecovery.sol',
+      interface: 'IRecovery.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Set the value for a storage slot while in recovery mode. This can only be called by a user with a recovery role.
@@ -743,6 +1002,11 @@ export default class ColonyClient extends ContractClient {
     },
     {},
     ColonyClient,
+    {
+      contract: 'ContractRecovery.sol',
+      interface: 'IRecovery.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Set the task specification. The task specification, or "task brief", is a description of the work that must be completed for the task. The description is hashed and stored with the task for future reference during the rating process or in the event of a dispute.
@@ -752,8 +1016,15 @@ export default class ColonyClient extends ContractClient {
       taskId: number, // The numeric ID of the task.
       specificationHash: IPFSHash, // The specification hash of the task (an IPFS hash).
     },
-    { TaskBriefSet: TaskBriefSet },
+    {
+      TaskBriefSet: TaskBriefSet,
+    },
     ColonyClient,
+    {
+      contract: 'ColonyTask.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Set the domain of a task. Every task must belong to a domain. This function can only be called by the user assigned the `MANAGER` task role.
@@ -763,8 +1034,15 @@ export default class ColonyClient extends ContractClient {
       taskId: number, // The numeric ID of the task.
       domainId: number, // The numeric ID of the domain.
     },
-    { TaskDomainSet: TaskDomainSet },
+    {
+      TaskDomainSet: TaskDomainSet,
+    },
     ColonyClient,
+    {
+      contract: 'ColonyTask.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Set the due date of a task. The due date is the last day that the user assigned the `WORKER` task role can submit the task deliverable.
@@ -774,8 +1052,15 @@ export default class ColonyClient extends ContractClient {
       taskId: number, // The numeric ID of the task.
       dueDate: Date, // The due date of the task.
     },
-    { TaskDueDateSet: TaskDueDateSet },
+    {
+      TaskDueDateSet: TaskDueDateSet,
+    },
     ColonyClient,
+    {
+      contract: 'ColonyTask.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Assign the `EVALUATOR` task role to a user. This function can only be called before the task is finalized. The user assigned the `MANAGER` task role and the user being assigned the `EVALUATOR` task role must both sign the transaction before it can be executed.
@@ -785,8 +1070,15 @@ export default class ColonyClient extends ContractClient {
       taskId: number, // The numeric ID of the task.
       user: Address, // The address that will be assigned the `EVALUATOR` task role.
     },
-    { TaskRoleUserSet: TaskRoleUserSet },
+    {
+      TaskRoleUserSet: TaskRoleUserSet,
+    },
     ColonyClient,
+    {
+      contract: 'ColonyTask.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Assign the `MANAGER` task role to a user. This function can only be called before the task is finalized. The user currently assigned the `MANAGER` task role and the user being assigned the `MANAGER` task role must both sign the transaction before it can be executed.
@@ -796,8 +1088,15 @@ export default class ColonyClient extends ContractClient {
       taskId: number, // The numeric ID of the task.
       user: Address, // The address that will be assigned the `MANANAGER` task role.
     },
-    { TaskRoleUserSet: TaskRoleUserSet },
+    {
+      TaskRoleUserSet: TaskRoleUserSet,
+    },
     ColonyClient,
+    {
+      contract: 'ColonyTask.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Set the skill of a task. Only one skill can be assigned per task. The user assigned the `MANAGER` task role and the user assigned the `WORKER` task role must both sign this transaction before it can be executed.
@@ -807,8 +1106,15 @@ export default class ColonyClient extends ContractClient {
       taskId: number, // The numeric ID of the task.
       skillId: number, // The numeric ID of the skill.
     },
-    { TaskSkillSet: TaskSkillSet },
+    {
+      TaskSkillSet: TaskSkillSet,
+    },
     ColonyClient,
+    {
+      contract: 'ColonyTask.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Assign the `WORKER` task role to a user. This function can only be called before the task is finalized. The user assigned the `MANAGER` task role and the user being assigned the `WORKER` task role must both sign the transaction before it can be executed.
@@ -818,8 +1124,15 @@ export default class ColonyClient extends ContractClient {
       taskId: number, // The numeric ID of the task.
       user: Address, // The address that will be assigned the `WORKER` task role.
     },
-    { TaskRoleUserSet: TaskRoleUserSet },
+    {
+      TaskRoleUserSet: TaskRoleUserSet,
+    },
     ColonyClient,
+    {
+      contract: 'ColonyTask.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Set the payout amount for the `MANAGER` task role.
@@ -830,8 +1143,15 @@ export default class ColonyClient extends ContractClient {
       token: TokenAddress, // The address of the token contract (an empty address if Ether).
       amount: BigNumber, // The payout amount in tokens (or Ether).
     },
-    { TaskPayoutSet: TaskPayoutSet },
+    {
+      TaskPayoutSet: TaskPayoutSet,
+    },
     ColonyClient,
+    {
+      contract: 'ColonyFunding.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Set the payout amount for the `EVALUATOR` task role.
@@ -842,8 +1162,15 @@ export default class ColonyClient extends ContractClient {
       token: TokenAddress, // The address of the token contract (an empty address if Ether).
       amount: BigNumber, // The payout amount in tokens (or Ether).
     },
-    { TaskPayoutSet: TaskPayoutSet },
+    {
+      TaskPayoutSet: TaskPayoutSet,
+    },
     ColonyClient,
+    {
+      contract: 'ColonyFunding.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Set the payout amount for the `WORKER` task role.
@@ -854,28 +1181,32 @@ export default class ColonyClient extends ContractClient {
       token: TokenAddress, // The address of the token contract (an empty address if Ether).
       amount: BigNumber, // The payout amount in tokens (or Ether).
     },
-    { TaskPayoutSet: TaskPayoutSet },
-    ColonyClient,
-  >;
-  /*
-  Set the native token for the colony. This function can only be called by the user assigned the `FOUNDER` authority role.
-  */
-  setToken: ColonyClient.Sender<
     {
-      token: Address, // The address of the token contract.
+      TaskPayoutSet: TaskPayoutSet,
     },
-    {},
     ColonyClient,
+    {
+      contract: 'ColonyFunding.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
-  Start the next reward payout cycle. All the funds in the colony rewards pot for the given token will become locked until reputation holders have either waived the reward payout cycle using `waiveRewardPayouts`, which means they forfeit a given number of reward payout cycles and unlock their share of tokens for those payout cycles, or reputation holders have claimed their rewards payout using `claimRewardPayout`, which means the payout was claimed and the tokens were transferred to their account.
+  Start the next reward payout cycle. All the funds in the colony rewards pot for the given token will become locked until reputation holders have claimed their rewards payout using `claimRewardPayout`. Reputation holders can also waive their reward payout and unlock their tokens for past reward payout cycles by using `incrementLockCounterTo`.
   */
   startNextRewardPayout: ColonyClient.Sender<
     {
       token: TokenAddress, // The address of the token contract (an empty address if Ether).
     },
-    { RewardPayoutCycleStarted: RewardPayoutCycleStarted },
+    {
+      RewardPayoutCycleStarted: RewardPayoutCycleStarted,
+    },
     ColonyClient,
+    {
+      contract: 'ColonyFunding.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Submit the task deliverable. This function can only be called by the user assigned the `WORKER` task role on or before the task due date. The submission cannot be overwritten, which means the deliverable cannot be changed once it has been submitted.
@@ -890,6 +1221,11 @@ export default class ColonyClient extends ContractClient {
       TaskDeliverableSubmitted: TaskDeliverableSubmitted,
     },
     ColonyClient,
+    {
+      contract: 'ColonyTask.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Submit the task deliverable and the work rating for the user assigned the `MANAGER` task role. This function can only be called by the user assigned the `WORKER` task role on or before the task due date. The submission cannot be overwritten, which means the deliverable cannot be changed once it has been submitted. In order to submit a rating, a `secret` must be generated using the `generateSecret` method, which keeps the rating hidden until all ratings have been submitted and revealed.
@@ -905,6 +1241,11 @@ export default class ColonyClient extends ContractClient {
       TaskDeliverableSubmitted: TaskDeliverableSubmitted,
     },
     ColonyClient,
+    {
+      contract: 'ColonyTask.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Submit a work rating for a task. This function can only be called by the user assigned the `EVALUATOR` task role, who is submitting a rating for the user assigned the `WORKER` task role, or the user assigned the `WORKER` task role, who is submitting a rating for the user assigned the `MANAGER` task role. In order to submit a rating, a `secret` must be generated using the `generateSecret` method, which keeps the rating hidden until all ratings have been submitted and revealed.
@@ -917,6 +1258,11 @@ export default class ColonyClient extends ContractClient {
     },
     {},
     ColonyClient,
+    {
+      contract: 'ColonyTask.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Upgrade the colony to a new contract version. The new version number must be higher than the current version. Downgrading to old contract versions is not permitted.
@@ -925,18 +1271,31 @@ export default class ColonyClient extends ContractClient {
     {
       newVersion: number, // The version number of the colony contract.
     },
-    { ColonyUpgraded: ColonyUpgraded },
+    {
+      ColonyUpgraded: ColonyUpgraded,
+    },
     ColonyClient,
+    {
+      contract: 'Colony.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
-  Waive reward payout cycles. This unlocks tokens for a given number of reward payout cycles.
+  Increment the token lock counter. This method allows users to waive reward payouts for past reward payout cycles, unlocking the tokens that were locked in previous reward payout cycles.
   */
-  waiveRewardPayouts: ColonyClient.Sender<
+  incrementLockCounterTo: ColonyClient.Sender<
     {
-      numPayouts: number, // The number of reward payout cycles that will be waived.
+      token: TokenAddress, // The address of the token contract (an empty address if Ether).
+      lockId: number, // The numeric ID of the lock count that will be set.
     },
     {},
     ColonyClient,
+    {
+      contract: 'TokenLocking.sol',
+      interface: 'ITokenLocking.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
 
   static get defaultQuery() {
@@ -985,6 +1344,7 @@ export default class ColonyClient extends ContractClient {
 
   initializeContractMethods() {
     addRecoveryMethods(this);
+    addTokenLockingMethods(this);
 
     this.getTask = new GetTask({ client: this });
 
@@ -1057,13 +1417,6 @@ export default class ColonyClient extends ContractClient {
       },
     });
     this.addCaller('getDomainCount', {
-      output: [['count', 'number']],
-    });
-    this.addCaller('getGlobalRewardPayoutCount', {
-      output: [['count', 'number']],
-    });
-    this.addCaller('getUserRewardPayoutCount', {
-      input: [['user', 'address']],
       output: [['count', 'number']],
     });
     this.addCaller('getNonRewardPotsTotal', {
@@ -1204,9 +1557,6 @@ export default class ColonyClient extends ContractClient {
     this.addSender('addDomain', {
       input: [['parentDomainId', 'number']],
     });
-    this.addSender('assignWorkRating', {
-      input: [['taskId', 'number']],
-    });
     this.addSender('claimColonyFunds', {
       input: [['token', 'tokenAddress']],
     });
@@ -1270,9 +1620,6 @@ export default class ColonyClient extends ContractClient {
         ['workerAmount', 'bigNumber'],
       ],
     });
-    this.addSender('setToken', {
-      input: [['token', 'tokenAddress']],
-    });
     this.addSender('submitTaskDeliverable', {
       input: [['taskId', 'number'], ['deliverableHash', 'ipfsHash']],
     });
@@ -1285,9 +1632,6 @@ export default class ColonyClient extends ContractClient {
     });
     this.addSender('startNextRewardPayout', {
       input: [['token', 'tokenAddress']],
-    });
-    this.addSender('waiveRewardPayouts', {
-      input: [['numPayouts', 'number']],
     });
     this.addSender('submitTaskWorkRating', {
       input: [['taskId', 'number'], ['role', 'role'], ['secret', 'hexString']],
@@ -1309,10 +1653,6 @@ export default class ColonyClient extends ContractClient {
     });
     this.addSender('upgrade', {
       input: [['newVersion', 'number']],
-    });
-    this.addSender('initialise', {
-      functionName: 'initialiseColony',
-      input: [['colonyNetwork', 'address']],
     });
 
     // Remove duplicate/invalid signees and normalise lowercase

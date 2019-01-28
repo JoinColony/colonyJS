@@ -101,8 +101,15 @@ export default class ColonyNetworkClient extends ContractClient {
       version: number, // The versions number of the colony contract.
       resolver: Address, // The address of the resolver contract.
     },
-    { ColonyVersionAdded: ColonyVersionAdded },
+    {
+      ColonyVersionAdded: ColonyVersionAdded,
+    },
     ColonyNetworkClient,
+    {
+      contract: 'ColonyNetwork.sol',
+      interface: 'IColonyNetwork.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Add a new global or local skill to the skills tree.
@@ -112,13 +119,29 @@ export default class ColonyNetworkClient extends ContractClient {
       parentSkillId: number, // The numeric ID of the skill under which the new skill will be added.
       globalSkill: boolean, // A boolean indicating whether or not the skill will be a global skill.
     },
-    { SkillAdded: SkillAdded },
+    {
+      SkillAdded: SkillAdded,
+    },
     ColonyNetworkClient,
+    {
+      contract: 'ColonyNetwork.sol',
+      interface: 'IColonyNetwork.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Indicate approval to exit network recovery mode. This function can only be called by a user with a recovery role.
   */
-  approveExitRecovery: ColonyNetworkClient.Sender<{}, {}, ColonyNetworkClient>;
+  approveExitRecovery: ColonyNetworkClient.Sender<
+    {},
+    {},
+    ColonyNetworkClient,
+    {
+      contract: 'ContractRecovery.sol',
+      interface: 'IRecovery.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
+  >;
   /*
   Create a new colony on the network.
   */
@@ -126,8 +149,15 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       tokenAddress: Address, // The address of the token contract.
     },
-    { ColonyAdded: ColonyAdded },
+    {
+      ColonyAdded: ColonyAdded,
+    },
     ColonyNetworkClient,
+    {
+      contract: 'ColonyNetwork.sol',
+      interface: 'IColonyNetwork.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Create the Meta Colony.
@@ -136,8 +166,15 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       tokenAddress: Address, // The address of the token contract.
     },
-    { MetaColonyCreated: MetaColonyCreated },
+    {
+      MetaColonyCreated: MetaColonyCreated,
+    },
     ColonyNetworkClient,
+    {
+      contract: 'ColonyNetwork.sol',
+      interface: 'IColonyNetwork.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Create a new ERC20 token contract.
@@ -150,6 +187,12 @@ export default class ColonyNetworkClient extends ContractClient {
     },
     {},
     ColonyNetworkClient,
+    {
+      contract: 'Token.sol',
+      // eslint-disable-next-line max-len
+      contractPath: 'https://github.com/JoinColony/colonyToken/blob/7359eedaadacd55a1393c795964bd61513b2af33/contracts',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Check whether or not ENS supports a contract interface. A supported contract interface implements `interfaceId`.
@@ -162,15 +205,39 @@ export default class ColonyNetworkClient extends ContractClient {
       isSupported: boolean, // A boolean indicating whether or not the contract interface is supported.
     },
     ColonyNetworkClient,
+    {
+      name: 'supportsInterface',
+      contract: 'ColonyNetworkENS.sol',
+      interface: 'IColonyNetwork.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Enter network recovery mode. This function can only be called by a user with a recovery role.
   */
-  enterRecoveryMode: ColonyNetworkClient.Sender<{}, {}, ColonyNetworkClient>;
+  enterRecoveryMode: ColonyNetworkClient.Sender<
+    {},
+    {},
+    ColonyNetworkClient,
+    {
+      contract: 'ContractRecovery.sol',
+      interface: 'IRecovery.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
+  >;
   /*
   Exit network recovery mode. This function can be called by anyone if enough whitelist approvals are given.
   */
-  exitRecoveryMode: ColonyNetworkClient.Sender<{}, {}, ColonyNetworkClient>;
+  exitRecoveryMode: ColonyNetworkClient.Sender<
+    {},
+    {},
+    ColonyNetworkClient,
+    {
+      contract: 'ContractRecovery.sol',
+      interface: 'IRecovery.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
+  >;
   /*
   Get the address of a registered ENS label. This function will return an empty address if an ENS label has not been registered.
   */
@@ -182,6 +249,12 @@ export default class ColonyNetworkClient extends ContractClient {
       ensAddress: Address, // The address associated with the ENS label.
     },
     ColonyNetworkClient,
+    {
+      name: 'addr',
+      contract: 'ColonyNetworkENS.sol',
+      interface: 'IColonyNetwork.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Get the ID of a child skill.
@@ -195,6 +268,11 @@ export default class ColonyNetworkClient extends ContractClient {
       childSkillId: number, // The numeric ID of the child skill.
     },
     ColonyNetworkClient,
+    {
+      contract: 'ColonyNetwork.sol',
+      interface: 'IColonyNetwork.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Get the colony contract address for a colony.
@@ -207,6 +285,11 @@ export default class ColonyNetworkClient extends ContractClient {
       address: Address, // The address of the colony contract.
     },
     ColonyNetworkClient,
+    {
+      contract: 'ColonyNetwork.sol',
+      interface: 'IColonyNetwork.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Get the total number of colonies on the network. The return value is also the numeric ID of the last colony created.
@@ -217,6 +300,11 @@ export default class ColonyNetworkClient extends ContractClient {
       count: number, // The total number of colonies.
     },
     ColonyNetworkClient,
+    {
+      contract: 'ColonyNetwork.sol',
+      interface: 'IColonyNetwork.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Get the address of the resolver contract for a specific colony version.
@@ -229,6 +317,11 @@ export default class ColonyNetworkClient extends ContractClient {
       address: Address, // The address of the resolver contract.
     },
     ColonyNetworkClient,
+    {
+      contract: 'ColonyNetwork.sol',
+      interface: 'IColonyNetwork.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Get the latest colony contract version. This is the version used to create all new colonies.
@@ -239,6 +332,11 @@ export default class ColonyNetworkClient extends ContractClient {
       version: number, // The version number of the latest colony contract.
     },
     ColonyNetworkClient,
+    {
+      contract: 'ColonyNetwork.sol',
+      interface: 'IColonyNetwork.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Get the Meta Colony contract address.
@@ -249,6 +347,12 @@ export default class ColonyNetworkClient extends ContractClient {
       address: Address, // The address of the Meta Colony contract.
     },
     ColonyNetworkClient,
+    {
+      name: 'getMetaColony',
+      contract: 'ColonyNetwork.sol',
+      interface: 'IColonyNetwork.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Get the ID of a parent skill.
@@ -262,6 +366,11 @@ export default class ColonyNetworkClient extends ContractClient {
       parentSkillId: number, // The numeric ID of the parent skill.
     },
     ColonyNetworkClient,
+    {
+      contract: 'ColonyNetwork.sol',
+      interface: 'IColonyNetwork.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Get the address of the OrbitDB database associaated with a user profile.
@@ -274,6 +383,11 @@ export default class ColonyNetworkClient extends ContractClient {
       orbitDBAddress: string, // The path of the OrbitDB database associated with the user profile.
     },
     ColonyNetworkClient,
+    {
+      contract: 'ColonyNetworkENS.sol',
+      interface: 'IColonyNetwork.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Get the total number of users that are assigned a network recovery role.
@@ -284,6 +398,12 @@ export default class ColonyNetworkClient extends ContractClient {
       count: number, // The total number of users that are assigned a colony recovery role.
     },
     ColonyNetworkClient,
+    {
+      name: 'numRecoveryRoles',
+      contract: 'ContractRecovery.sol',
+      interface: 'IRecovery.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Get the ID of the root global skill.
@@ -294,6 +414,11 @@ export default class ColonyNetworkClient extends ContractClient {
       skillId: number, // The numeric ID of the root global skill.
     },
     ColonyNetworkClient,
+    {
+      contract: 'ColonyNetwork.sol',
+      interface: 'IColonyNetwork.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Get information about a domain.
@@ -308,6 +433,11 @@ export default class ColonyNetworkClient extends ContractClient {
       isGlobalSkill: boolean, // A boolean indicating whether or not the skill is a global skill.
     },
     ColonyNetworkClient,
+    {
+      contract: 'ColonyNetwork.sol',
+      interface: 'IColonyNetwork.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Get the total number of global and local skills in the network.
@@ -318,6 +448,11 @@ export default class ColonyNetworkClient extends ContractClient {
       count: number, // The total number of global and local skills in the network.
     },
     ColonyNetworkClient,
+    {
+      contract: 'ColonyNetwork.sol',
+      interface: 'IColonyNetwork.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Get the token locking contract address.
@@ -328,6 +463,11 @@ export default class ColonyNetworkClient extends ContractClient {
       lockingAddress: Address, // The address of the token locking contract.
     },
     ColonyNetworkClient,
+    {
+      contract: 'ColonyNetwork.sol',
+      interface: 'IColonyNetwork.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Check whether or not an address is a colony contract.
@@ -340,6 +480,11 @@ export default class ColonyNetworkClient extends ContractClient {
       isColony: boolean, // A boolean indicating whether or not an address is a colony contract.
     },
     ColonyNetworkClient,
+    {
+      contract: 'ColonyNetwork.sol',
+      interface: 'IColonyNetwork.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Check whether or not the network is in recovery mode.
@@ -350,6 +495,11 @@ export default class ColonyNetworkClient extends ContractClient {
       inRecoveryMode: boolean, // A boolean indicating whether or not the network is in recovery mode.
     },
     ColonyNetworkClient,
+    {
+      contract: 'ContractRecovery.sol',
+      interface: 'IRecovery.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Lookup the registed ENS label for an address. This function will return an empty string if the address does not have a registered ENS label.
@@ -362,6 +512,11 @@ export default class ColonyNetworkClient extends ContractClient {
       domain: string, // The ENS label associated with the address.
     },
     ColonyNetworkClient,
+    {
+      contract: 'ColonyNetworkENS.sol',
+      interface: 'IColonyNetwork.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Register an ENS label for a user.
@@ -371,8 +526,15 @@ export default class ColonyNetworkClient extends ContractClient {
       username: string, // The ENS label that will be registered for the user.
       orbitDBPath: string, // The path of the OrbitDB database associated with the user profile.
     },
-    { UserLabelRegistered: UserLabelRegistered },
+    {
+      UserLabelRegistered: UserLabelRegistered,
+    },
     ColonyNetworkClient,
+    {
+      contract: 'ColonyNetworkENS.sol',
+      interface: 'IColonyNetwork.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Remove the network recovery role from a user. This function can only be called by the `FOUNDER` authority role.
@@ -383,6 +545,11 @@ export default class ColonyNetworkClient extends ContractClient {
     },
     {},
     ColonyNetworkClient,
+    {
+      contract: 'ContractRecovery.sol',
+      interface: 'IRecovery.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Assign a network recovery role to a user. This function can only be called by the `FOUNDER` authority role.
@@ -393,6 +560,11 @@ export default class ColonyNetworkClient extends ContractClient {
     },
     {},
     ColonyNetworkClient,
+    {
+      contract: 'ContractRecovery.sol',
+      interface: 'IRecovery.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Set the value for a storage slot while in recovery mode. This can only be called by a user with a recovery role.
@@ -404,6 +576,11 @@ export default class ColonyNetworkClient extends ContractClient {
     },
     {},
     ColonyNetworkClient,
+    {
+      contract: 'ContractRecovery.sol',
+      interface: 'IRecovery.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Set the token locking address.
@@ -412,8 +589,15 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       tokenLockingAddress: Address, // The address of the locking contract.
     },
-    { TokenLockingAddressSet: TokenLockingAddressSet },
+    {
+      TokenLockingAddressSet: TokenLockingAddressSet,
+    },
     ColonyNetworkClient,
+    {
+      contract: 'ColonyNetwork.sol',
+      interface: 'IColonyNetwork.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Set up the registrar.
@@ -425,6 +609,11 @@ export default class ColonyNetworkClient extends ContractClient {
     },
     {},
     ColonyNetworkClient,
+    {
+      contract: 'ColonyNetworkENS.sol',
+      interface: 'IColonyNetwork.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
   /*
   Create and start an auction for a token owned by the Colony Network. The auction will be for the total amount of the specificed tokens that are owned by the Colony Network.
@@ -433,8 +622,15 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       tokenAddress: Address, // The address of the token contract.
     },
-    { AuctionCreated: AuctionCreated },
+    {
+      AuctionCreated: AuctionCreated,
+    },
     ColonyNetworkClient,
+    {
+      contract: 'ColonyNetworkAuction.sol',
+      interface: 'IColonyNetwork.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
   >;
 
   static get defaultQuery() {

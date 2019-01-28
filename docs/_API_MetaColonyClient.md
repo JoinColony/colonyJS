@@ -37,19 +37,6 @@ await metaColonyClient.init();
 
 **All callers return promises which resolve to an object containing the given return values.** For a reference please check [here](/colonyjs/docs-contractclient/#callers).
 
-### `getAuthority.call()`
-
-Get the authority contract address associated with the colony.
-
-
-**Returns**
-
-A promise which resolves to an object containing the following properties:
-
-|Return value|Type|Description|
-|---|---|---|
-|address|Address|The address of the authority contract associated with the colony.|
-
 ### `getToken.call()`
 
 Get the address of the ERC20 token contract that is the native token assigned to the Meta Colony.
@@ -62,6 +49,14 @@ A promise which resolves to an object containing the following properties:
 |Return value|Type|Description|
 |---|---|---|
 |address|Address|The address of the ERC20 token contract.|
+
+**Contract Information**
+
+
+  
+  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/Colony.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  
 
   
 ## Senders
@@ -87,6 +82,14 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |parentSkillId|number|The numeric ID of the parent skill.|
 |SkillAdded|object|Contains the data defined in [SkillAdded](#eventsskilladdedaddlistener-skillid-parentskillid-------)|
 
+**Contract Information**
+
+
+  
+  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/Colony.sol)
+  - Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IMetaColony.sol)
+  
+
 ### `mintTokensForColonyNetwork.send({ amount }, options)`
 
 Mint tokens for the Colony Network. This can only be called from the Meta Colony, and only by the user assigned the `FOUNDER` role.
@@ -107,6 +110,14 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |amount|BigNumber|The amount of tokens that were minted.|
 |Mint|object|Contains the data defined in [Mint](#eventsmintaddlistener-address-amount-------)|
 
+**Contract Information**
+
+
+  
+  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/Colony.sol)
+  - Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IMetaColony.sol)
+  
+
 ### `setNetworkFeeInverse.send({ feeInverse }, options)`
 
 Set the inverse amount of the reward. If the fee is 1% (or 0.01), the inverse amount will be 100. This can only be called from the Meta Colony, and only by the user assigned the `FOUNDER` role.
@@ -122,6 +133,14 @@ Set the inverse amount of the reward. If the fee is 1% (or 0.01), the inverse am
 An instance of a `ContractResponse`
 
 
+
+**Contract Information**
+
+
+  
+  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/Colony.sol)
+  - Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IMetaColony.sol)
+  
 
   
   

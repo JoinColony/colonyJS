@@ -12,6 +12,7 @@ export default class GetTokenInfo extends ContractClient.Caller<
   InputValues,
   *,
   TokenClient,
+  *,
 > {
   constructor(params: *) {
     super({

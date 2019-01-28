@@ -56,6 +56,14 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |amount|BigNumber|The amount of tokens that were approved (the amount `allowed`).|
 
+**Contract Information**
+
+
+  - Name: `allowance`
+  - Contract: [erc20.sol](https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626/erc20.sol)
+  
+  
+
 ### `getBalanceOf.call({ sourceAddress })`
 
 Get the the token balance of an address.
@@ -74,6 +82,14 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |amount|BigNumber|The balance of tokens for the address.|
 
+**Contract Information**
+
+
+  - Name: `balanceOf`
+  - Contract: [erc20.sol](https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626/erc20.sol)
+  
+  
+
 ### `getTokenInfo.call()`
 
 Get information about the token.
@@ -89,6 +105,14 @@ A promise which resolves to an object containing the following properties:
 |symbol|string|The symbol of the token.|
 |decimals|number|The number of decimals.|
 
+**Contract Information**
+
+
+  
+  - Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7359eedaadacd55a1393c795964bd61513b2af33/contracts/Token.sol)
+  
+  
+
 ### `getTotalSupply.call()`
 
 Get the total supply of the token.
@@ -101,6 +125,14 @@ A promise which resolves to an object containing the following properties:
 |Return value|Type|Description|
 |---|---|---|
 |amount|BigNumber|The total supply of the token.|
+
+**Contract Information**
+
+
+  - Name: `totalSupply`
+  - Contract: [erc20.sol](https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626/erc20.sol)
+  
+  
 
   
 ## Senders
@@ -128,6 +160,14 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |value|BigNumber|The amount of tokens that were approved (the amount `allowed`).|
 |Approval|object|Contains the data defined in [Approval](#eventsapprovaladdlistener-owner-spender-value-------)|
 
+**Contract Information**
+
+
+  
+  - Contract: [erc20.sol](https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626/erc20.sol)
+  
+  
+
 ### `burn.send({ amount }, options)`
 
 Burn tokens. This is an `ERC20Extended` function that can only be called by the token `owner`. When a colony contract address is assigned as the token `owner`, this function can only be called by the user assigned the `FOUNDER` authority role.
@@ -147,6 +187,14 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |address|Address|The address that initiated the burn event.|
 |amount|BigNumber|The amount of tokens that were burned.|
 |Burn|object|Contains the data defined in [Burn](#eventsburnaddlistener-address-amount-------)|
+
+**Contract Information**
+
+
+  
+  - Contract: [ERC20Extended.sol](https://github.com/JoinColony/colonyToken/blob/7359eedaadacd55a1393c795964bd61513b2af33/contracts/ERC20Extended.sol)
+  
+  
 
 ### `mint.send({ amount }, options)`
 
@@ -168,6 +216,14 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |amount|BigNumber|The amount of tokens that were minted.|
 |Mint|object|Contains the data defined in [Mint](#eventsmintaddlistener-address-amount-------)|
 
+**Contract Information**
+
+
+  
+  - Contract: [ERC20Extended.sol](https://github.com/JoinColony/colonyToken/blob/7359eedaadacd55a1393c795964bd61513b2af33/contracts/ERC20Extended.sol)
+  
+  
+
 ### `setAuthority.send({ authority }, options)`
 
 Assign an account the `ADMIN` authority role within a colony.
@@ -186,6 +242,14 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |authority|Address|The address that was assigned an authority role.|
 |LogSetAuthority|object|Contains the data defined in [LogSetAuthority](#eventslogsetauthorityaddlistener-authority-------)|
+
+**Contract Information**
+
+
+  
+  - Contract: [auth.sol](https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626/auth.sol)
+  
+  
 
 ### `setOwner.send({ owner }, options)`
 
@@ -206,6 +270,14 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |owner|Address|The address that was assigned as the new owner.|
 |LogSetOwner|object|Contains the data defined in [LogSetOwner](#eventslogsetowneraddlistener-owner-------)|
 
+**Contract Information**
+
+
+  
+  - Contract: [auth.sol](https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626/auth.sol)
+  
+  
+
 ### `transfer.send({ destinationAddress, amount }, options)`
 
 Transfer tokens from the address calling the function to another address. The current address must have a sufficient token balance.
@@ -222,6 +294,14 @@ Transfer tokens from the address calling the function to another address. The cu
 An instance of a `ContractResponse`
 
 
+
+**Contract Information**
+
+
+  
+  - Contract: [erc20.sol](https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626/erc20.sol)
+  
+  
 
 ### `transferFrom.send({ sourceAddress, destinationAddress, amount }, options)`
 
@@ -245,6 +325,14 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |to|Address|The address that received the tokens.|
 |value|BigNumber|The amount of tokens that were transferred.|
 |Transfer|object|Contains the data defined in [Transfer](#eventstransferaddlistener-from-to-value-------)|
+
+**Contract Information**
+
+
+  
+  - Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7359eedaadacd55a1393c795964bd61513b2af33/contracts/Token.sol)
+  
+  
 
   
   

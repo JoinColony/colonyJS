@@ -61,6 +61,7 @@ const generateMarkdown = ({ file, templateFile, output }) => {
           description: getDescription(ast, p),
           args: mapObjectProps(ast, params[0]),
           returns: mapObjectProps(ast, params[1]),
+          contractData: getContractData(params[3]),
         });
       }
       else if (p.value.id.name === 'Sender') {
@@ -71,6 +72,7 @@ const generateMarkdown = ({ file, templateFile, output }) => {
           description: getDescription(ast, p),
           args: mapObjectProps(ast, params[0]),
           events: mapObjectProps(ast, params[1]),
+          contractData: getContractData(params[3]),
         });
       }
       else if (p.value.id.name === 'MultisigSender') {
@@ -81,6 +83,7 @@ const generateMarkdown = ({ file, templateFile, output }) => {
           description: getDescription(ast, p),
           args: mapObjectProps(ast, params[0]),
           events: mapObjectProps(ast, params[1]),
+          contractData: getContractData(params[3]),
         });
       }
       else if (p.value.id.name === 'Event') {
@@ -132,6 +135,10 @@ ${caller.args && caller.args.length ? '\n**Arguments**\n\n' : ''}${printProps('A
 A promise which resolves to an object containing the following properties:
 
 ${printProps('Return value', caller.returns)}
+
+**Contract Information**
+
+${printContractData(caller.contractData)}
 `,
     )
     .join('');
@@ -166,6 +173,10 @@ An instance of a \`ContractResponse\`${
 }
 
 ${printProps('Event data', getEventProps(events, sender.events))}
+
+**Contract Information**
+
+${printContractData(sender.contractData)}
 `,
     )
     .join('');
@@ -208,9 +219,23 @@ ${ms.args && ms.args.length ? '\n**Arguments**\n\n' : ''}${printProps('Argument'
 An instance of a \`MultiSigOperation\`${ms.events && ms.events.length ? ' whose sender will eventually receive the following event data:' : ''}
 
 ${printProps('Event Data', getEventProps(events, ms.events))}
+
+**Contract Information**
+
+${printContractData(ms.contractData)}
 `,
     )
     .join('');
+}
+
+function printContractData(data) {
+  const colonyPath = `https://github.com/JoinColony/colonyNetwork/tree/${data.version}/contracts`
+  const contractPath = data.contractPath ? data.contractPath : colonyPath;
+  return `
+  ${data.name ? `- Name: \`${data.name}\`` : ''}
+  ${data.contract ? `- Contract: [${data.contract}](${contractPath}/${data.contract})` : ''}
+  ${data.interface ? `- Interface: [${data.interface}](${colonyPath}/${data.interface})` : ''}
+  `
 }
 
 function printProps(title, props) {
@@ -269,6 +294,12 @@ function mapObjectProps(ast, param) {
 
 function getName(p) {
   return p.parent.parent.parent.value.key.name;
+}
+
+function getContractData(param) {
+  return param.properties.reduce((obj, item) => {
+    return (obj[item.key.name] = item.value.value, obj);
+  }, {});
 }
 
 function getDescription(ast, p) {

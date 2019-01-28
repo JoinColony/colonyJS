@@ -26,10 +26,12 @@ export default class MultisigOperation<
   InputValues: { [inputValueName: string]: any },
   OutputValues: { [outputValueName: string]: any },
   IContractClient: ContractClient,
+  ContractData: { [dataValueName: string]: any },
   Sender: ContractMethodMultisigSender<
     InputValues,
     OutputValues,
     IContractClient,
+    ContractData,
   >,
 > {
   sender: Sender;
