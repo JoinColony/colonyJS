@@ -661,30 +661,6 @@ An instance of a `ContractResponse`
   - Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IRecovery.sol)
   
 
-### `assignWorkRating.send({ taskId }, options)`
-
-Assign the work rating for any task roles that did not receive a rating. In the event of a user not committing or revealing a work rating within the 10-day rating window (5-day maximum commit period and 5-day maximum reveal period), their counterpart is given the highest work rating possible (`3`) and the user who failed to commit or reveal their work rating will receive a reputation penalty.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|taskId|number|The numeric ID of the task.|
-
-**Returns**
-
-An instance of a `ContractResponse`
-
-
-
-**Contract Information**
-
-
-  
-  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyTask.sol)
-  - Interface: [?](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/?)
-  
-
 ### `bootstrapColony.send({ users, amounts }, options)`
 
 Bootstrap the colony by giving an initial amount of tokens and reputation to selected users. This function can only be called by the user assigned the `FOUNDER` authority role when the `taskCount` for the colony is equal to `0`.
