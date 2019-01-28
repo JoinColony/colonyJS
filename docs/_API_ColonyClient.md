@@ -1201,7 +1201,7 @@ An instance of a `ContractResponse`
 
 ### `startNextRewardPayout.send({ token }, options)`
 
-Start the next reward payout cycle. All the funds in the colony rewards pot for the given token will become locked until reputation holders have either waived the reward payout cycle using `waiveRewardPayouts`, which means they forfeit a given number of reward payout cycles and unlock their share of tokens for those payout cycles, or reputation holders have claimed their rewards payout using `claimRewardPayout`, which means the payout was claimed and the tokens were transferred to their account.
+Start the next reward payout cycle. All the funds in the colony rewards pot for the given token will become locked until reputation holders have claimed their rewards payout using `claimRewardPayout`. Reputation holders can also waive their reward payout and unlock their tokens for past reward payout cycles by using `incrementLockCounterTo`.
 
 **Arguments**
 
@@ -1343,15 +1343,16 @@ An instance of a `ContractResponse` which will eventually receive the following 
   - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
   
 
-### `waiveRewardPayouts.send({ numPayouts }, options)`
+### `incrementLockCounterTo.send({ token, lockId }, options)`
 
-Waive reward payout cycles. This unlocks tokens for a given number of reward payout cycles.
+Increment the token lock counter. This method allows users to waive reward payouts for past reward payout cycles, unlocking the tokens that were locked in previous reward payout cycles.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|numPayouts|number|The number of reward payout cycles that will be waived.|
+|token|Token address|The address of the token contract (an empty address if Ether).|
+|lockId|number|The numeric ID of the lock count that will be set.|
 
 **Returns**
 
@@ -1363,8 +1364,8 @@ An instance of a `ContractResponse`
 
 
   
-  - Contract: [?](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/?)
-  - Interface: [?](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/?)
+  - Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/TokenLocking.sol)
+  - Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ITokenLocking.sol)
   
 
   

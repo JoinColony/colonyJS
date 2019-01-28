@@ -1192,7 +1192,7 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Start the next reward payout cycle. All the funds in the colony rewards pot for the given token will become locked until reputation holders have either waived the reward payout cycle using `waiveRewardPayouts`, which means they forfeit a given number of reward payout cycles and unlock their share of tokens for those payout cycles, or reputation holders have claimed their rewards payout using `claimRewardPayout`, which means the payout was claimed and the tokens were transferred to their account.
+  Start the next reward payout cycle. All the funds in the colony rewards pot for the given token will become locked until reputation holders have claimed their rewards payout using `claimRewardPayout`. Reputation holders can also waive their reward payout and unlock their tokens for past reward payout cycles by using `incrementLockCounterTo`.
   */
   startNextRewardPayout: ColonyClient.Sender<
     {
@@ -1282,17 +1282,18 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Waive reward payout cycles. This unlocks tokens for a given number of reward payout cycles.
+  Increment the token lock counter. This method allows users to waive reward payouts for past reward payout cycles, unlocking the tokens that were locked in previous reward payout cycles.
   */
-  waiveRewardPayouts: ColonyClient.Sender<
+  incrementLockCounterTo: ColonyClient.Sender<
     {
-      numPayouts: number, // The number of reward payout cycles that will be waived.
+      token: TokenAddress, // The address of the token contract (an empty address if Ether).
+      lockId: number, // The numeric ID of the lock count that will be set.
     },
     {},
     ColonyClient,
     {
-      contract: '?',
-      interface: '?',
+      contract: 'TokenLocking.sol',
+      interface: 'ITokenLocking.sol',
       version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
@@ -1631,9 +1632,6 @@ export default class ColonyClient extends ContractClient {
     });
     this.addSender('startNextRewardPayout', {
       input: [['token', 'tokenAddress']],
-    });
-    this.addSender('waiveRewardPayouts', {
-      input: [['numPayouts', 'number']],
     });
     this.addSender('submitTaskWorkRating', {
       input: [['taskId', 'number'], ['role', 'role'], ['secret', 'hexString']],
