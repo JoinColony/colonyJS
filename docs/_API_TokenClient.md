@@ -109,7 +109,7 @@ A promise which resolves to an object containing the following properties:
 
 
   
-  - Contract: [name, symbol, decimals](https://github.com/JoinColony/colonyToken/blob/7359eedaadacd55a1393c795964bd61513b2af33/contracts/name, symbol, decimals)
+  - Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7359eedaadacd55a1393c795964bd61513b2af33/contracts/Token.sol)
   
   
 

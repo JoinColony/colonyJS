@@ -129,7 +129,7 @@ export default class TokenClient extends ContractClient {
     },
     TokenClient,
     {
-      contract: 'name, symbol, decimals',
+      contract: 'Token.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/JoinColony/colonyToken/blob/7359eedaadacd55a1393c795964bd61513b2af33/contracts',
       version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
