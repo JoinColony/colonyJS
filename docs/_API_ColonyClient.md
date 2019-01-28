@@ -495,27 +495,6 @@ A promise which resolves to an object containing the following properties:
   - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
   
 
-### `getTransactionCount.call()`
-
-Get the total number of transactions that the colony has made. The total number of transactions is equal to the ID of the last transaction.
-
-
-**Returns**
-
-A promise which resolves to an object containing the following properties:
-
-|Return value|Type|Description|
-|---|---|---|
-|count|number|The total number of transactions that the colony has made.|
-
-**Contract Information**
-
-
-  
-  - Contract: [?](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/?)
-  - Interface: [?](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/?)
-  
-
 ### `getUserRewardPayoutCount.call({ user })`
 
 Get the total number of claimed and waived reward payout cycles for a given user in the colony.

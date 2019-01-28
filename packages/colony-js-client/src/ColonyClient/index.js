@@ -717,21 +717,6 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Get the total number of transactions that the colony has made. The total number of transactions is equal to the ID of the last transaction.
-  */
-  getTransactionCount: ColonyClient.Caller<
-    {},
-    {
-      count: number, // The total number of transactions that the colony has made.
-    },
-    ColonyClient,
-    {
-      contract: '?',
-      interface: '?',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
-    },
-  >;
-  /*
   Get the total number of claimed and waived reward payout cycles for a given user in the colony.
   */
   getUserRewardPayoutCount: ColonyClient.Caller<
