@@ -50,24 +50,6 @@ export default class MetaColonyClient extends ContractClient {
     },
   >;
   /*
-  Get the authority contract address associated with the colony.
-  */
-  getAuthority: MetaColonyClient.Caller<
-    {},
-    {
-      address: Address, // The address of the authority contract associated with the colony.
-    },
-    MetaColonyClient,
-    {
-      name: 'authority',
-      contract: 'auth.sol',
-      // eslint-disable-next-line max-len
-      contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626',
-      interface: 'IColony.sol',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
-    },
-  >;
-  /*
   Get the address of the ERC20 token contract that is the native token assigned to the Meta Colony.
   */
   getToken: MetaColonyClient.Caller<
@@ -175,10 +157,6 @@ export default class MetaColonyClient extends ContractClient {
     /* eslint-enable max-len */
 
     // Callers
-    this.addCaller('getAuthority', {
-      functionName: 'authority',
-      output: [['address', 'address']],
-    });
     this.addCaller('getToken', {
       output: [['address', 'address']],
     });

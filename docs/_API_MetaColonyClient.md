@@ -37,27 +37,6 @@ await metaColonyClient.init();
 
 **All callers return promises which resolve to an object containing the given return values.** For a reference please check [here](/colonyjs/docs-contractclient/#callers).
 
-### `getAuthority.call()`
-
-Get the authority contract address associated with the colony.
-
-
-**Returns**
-
-A promise which resolves to an object containing the following properties:
-
-|Return value|Type|Description|
-|---|---|---|
-|address|Address|The address of the authority contract associated with the colony.|
-
-**Contract Information**
-
-
-  - Name: `authority`
-  - Contract: [auth.sol](https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626/auth.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
-  
-
 ### `getToken.call()`
 
 Get the address of the ERC20 token contract that is the native token assigned to the Meta Colony.

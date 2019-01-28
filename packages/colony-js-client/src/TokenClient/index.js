@@ -256,6 +256,7 @@ export default class TokenClient extends ContractClient {
     const destinationAddress = ['destinationAddress', 'address'];
     const user = ['user', 'address'];
 
+    // Events
     this.addEvent('Transfer', [
       ['from', 'address'],
       ['to', 'address'],
@@ -271,49 +272,42 @@ export default class TokenClient extends ContractClient {
     this.addEvent('LogSetOwner', [['owner', 'address']]);
     this.addEvent('LogSetAuthority', [['authority', 'address']]);
 
+    // Callers
     this.getTokenInfo = new GetTokenInfo({ client: this });
-
     this.addCaller('getTotalSupply', {
       functionName: 'totalSupply',
       output: [amount],
     });
-
     this.addCaller('getBalanceOf', {
       functionName: 'balanceOf',
       input: [sourceAddress],
       output: [amount],
     });
-
     this.addCaller('getAllowance', {
       functionName: 'allowance',
       input: [sourceAddress, user],
       output: [amount],
     });
 
+    // Senders
     this.addSender('transfer', {
       input: [destinationAddress, amount],
     });
-
     this.addSender('transferFrom', {
       input: [sourceAddress, destinationAddress, amount],
     });
-
     this.addSender('approve', {
       input: [user, amount],
     });
-
     this.addSender('mint', {
       input: [amount],
     });
-
     this.addSender('burn', {
       input: [amount],
     });
-
     this.addSender('setOwner', {
       input: [['owner', 'address']],
     });
-
     this.addSender('setAuthority', {
       input: [['authority', 'address']],
     });
