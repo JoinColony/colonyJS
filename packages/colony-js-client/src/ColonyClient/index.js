@@ -1654,10 +1654,6 @@ export default class ColonyClient extends ContractClient {
     this.addSender('upgrade', {
       input: [['newVersion', 'number']],
     });
-    this.addSender('initialise', {
-      functionName: 'initialiseColony',
-      input: [['colonyNetwork', 'address']],
-    });
 
     // Remove duplicate/invalid signees and normalise lowercase
     const filterRequiredSignees = (signees: Array<Address>) =>
