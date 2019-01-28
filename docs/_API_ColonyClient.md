@@ -1199,30 +1199,6 @@ An instance of a `ContractResponse`
   - Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IRecovery.sol)
   
 
-### `setToken.send({ token }, options)`
-
-Set the native token for the colony. This function can only be called by the user assigned the `FOUNDER` authority role.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|token|Address|The address of the token contract.|
-
-**Returns**
-
-An instance of a `ContractResponse`
-
-
-
-**Contract Information**
-
-
-  
-  - Contract: [?](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/?)
-  - Interface: [?](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/?)
-  
-
 ### `startNextRewardPayout.send({ token }, options)`
 
 Start the next reward payout cycle. All the funds in the colony rewards pot for the given token will become locked until reputation holders have either waived the reward payout cycle using `waiveRewardPayouts`, which means they forfeit a given number of reward payout cycles and unlock their share of tokens for those payout cycles, or reputation holders have claimed their rewards payout using `claimRewardPayout`, which means the payout was claimed and the tokens were transferred to their account.

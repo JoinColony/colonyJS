@@ -1192,21 +1192,6 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Set the native token for the colony. This function can only be called by the user assigned the `FOUNDER` authority role.
-  */
-  setToken: ColonyClient.Sender<
-    {
-      token: Address, // The address of the token contract.
-    },
-    {},
-    ColonyClient,
-    {
-      contract: '?',
-      interface: '?',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
-    },
-  >;
-  /*
   Start the next reward payout cycle. All the funds in the colony rewards pot for the given token will become locked until reputation holders have either waived the reward payout cycle using `waiveRewardPayouts`, which means they forfeit a given number of reward payout cycles and unlock their share of tokens for those payout cycles, or reputation holders have claimed their rewards payout using `claimRewardPayout`, which means the payout was claimed and the tokens were transferred to their account.
   */
   startNextRewardPayout: ColonyClient.Sender<
@@ -1633,9 +1618,6 @@ export default class ColonyClient extends ContractClient {
         ['evaluatorAmount', 'bigNumber'],
         ['workerAmount', 'bigNumber'],
       ],
-    });
-    this.addSender('setToken', {
-      input: [['token', 'tokenAddress']],
     });
     this.addSender('submitTaskDeliverable', {
       input: [['taskId', 'number'], ['deliverableHash', 'ipfsHash']],
