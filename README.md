@@ -38,6 +38,12 @@ We're using [yarn workspaces](https://yarnpkg.com/blog/2017/08/02/introducing-wo
 
 [Flow](https://flow.org/) typing is also use throughout this repo.
 
+### Workflow
+
+The `master` branch currently supports colonyNetwork up to commit `f73dc84a41f5fc1962c999a24e13b15ba491b8a6`. Official package releases will be published using the `master` branch. Fixes and maintenance to support this version of colonyNetwork should be merged into the `master` branch.
+
+The `develop` branch is working towards supporting the latest version of colonyNetwork. Unofficial package releases will be published using the `develop` branch. Fixes and maintenance to support the latest version of colonyNetwork should be merged into the `develop` branch.
+
 ### Yarn workspaces
 
 To use yarn workspaces you'll have to activate it in your yarn settings like so:
