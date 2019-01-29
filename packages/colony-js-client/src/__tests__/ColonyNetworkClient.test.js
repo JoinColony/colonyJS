@@ -4,7 +4,6 @@
 import createSandbox from 'jest-sandbox';
 import ColonyNetworkClient from '../ColonyNetworkClient';
 import ColonyClient from '../ColonyClient';
-import MetaColonyClient from '../MetaColonyClient';
 import TokenClient from '../TokenClient';
 
 jest.mock('web3-utils', () => ({
@@ -255,18 +254,18 @@ describe('ColonyNetworkClient', () => {
 
     let client;
     const MockMetaColonyClient = sandbox.fn((...args) => {
-      client = new MetaColonyClient(...args);
+      client = new ColonyClient(...args);
       return client;
     });
     const metaColonyClientSpy = sandbox
-      .spyOn(ColonyNetworkClient, 'MetaColonyClient', 'get')
+      .spyOn(ColonyNetworkClient, 'ColonyClient', 'get')
       .mockImplementation(() => MockMetaColonyClient);
-    sandbox.spyOn(MetaColonyClient.prototype, 'init');
+    sandbox.spyOn(ColonyClient.prototype, 'init');
 
     // Test the mocked getter
     expect(
-      new ColonyNetworkClient.MetaColonyClient({ networkClient }),
-    ).toBeInstanceOf(MetaColonyClient);
+      new ColonyNetworkClient.ColonyClient({ networkClient }),
+    ).toBeInstanceOf(ColonyClient);
     expect(MockMetaColonyClient).toHaveBeenCalledWith({ networkClient });
     MockMetaColonyClient.mockClear();
 
@@ -276,7 +275,7 @@ describe('ColonyNetworkClient', () => {
       .spyOn(networkClient.getMetaColonyAddress, 'call')
       .mockImplementation(async () => ({ address: metaColonyAddress }));
     sandbox
-      .spyOn(MetaColonyClient.prototype, 'initializeContractMethods')
+      .spyOn(ColonyClient.prototype, 'initializeContractMethods')
       .mockImplementation(() => {
         client.getToken = {
           call: sandbox.fn().mockImplementation(async () => ({
@@ -290,7 +289,7 @@ describe('ColonyNetworkClient', () => {
     );
 
     expect(metaColonyClientSpy).toHaveBeenCalled();
-    expect(metaColonyClient).toBeInstanceOf(MetaColonyClient);
+    expect(metaColonyClient).toBeInstanceOf(ColonyClient);
     expect(MockMetaColonyClient).toHaveBeenCalledWith({
       adapter: networkClient.adapter,
       networkClient,

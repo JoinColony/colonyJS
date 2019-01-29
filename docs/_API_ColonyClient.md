@@ -621,6 +621,34 @@ An instance of a `ContractResponse` which will eventually receive the following 
   - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
   
 
+### `addGlobalSkill.send({ parentSkillId }, options)`
+
+Add a new global skill to the skills tree. This can only be called from the Meta Colony and only by the user assigned the `FOUNDER` role.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|parentSkillId|number|The numeric ID of the skill under which the new skill will be added.|
+
+**Returns**
+
+An instance of a `ContractResponse` which will eventually receive the following event data:
+
+|Event data|Type|Description|
+|---|---|---|
+|skillId|number|The numeric ID of the skill that was added.|
+|parentSkillId|number|The numeric ID of the parent skill.|
+|SkillAdded|object|Contains the data defined in [SkillAdded](#eventsskilladdedaddlistener-skillid-parentskillid-------)|
+
+**Contract Information**
+
+
+  
+  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/Colony.sol)
+  - Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IMetaColony.sol)
+  
+
 ### `approveExitRecovery.send(options)`
 
 Indicate approval to exit colony recovery mode. This function can only be called by a user with a recovery role.
@@ -916,6 +944,34 @@ An instance of a `ContractResponse` which will eventually receive the following 
   - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
   
 
+### `mintTokensForColonyNetwork.send({ amount }, options)`
+
+Mint tokens for the Colony Network. This can only be called from the Meta Colony and only by the user assigned the `FOUNDER` role.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|amount|BigNumber|The amount of new tokens that will be minted.|
+
+**Returns**
+
+An instance of a `ContractResponse` which will eventually receive the following event data:
+
+|Event data|Type|Description|
+|---|---|---|
+|address|Address|The address that initiated the mint event.|
+|amount|BigNumber|The amount of tokens that were minted.|
+|Mint|object|Contains the data defined in [Mint](#eventsmintaddlistener-address-amount-------)|
+
+**Contract Information**
+
+
+  
+  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/Colony.sol)
+  - Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IMetaColony.sol)
+  
+
 ### `moveFundsBetweenPots.send({ fromPot, toPot, amount, token }, options)`
 
 Move funds from one pot to another.
@@ -1148,6 +1204,30 @@ An instance of a `ContractResponse` which will eventually receive the following 
   
   - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/Colony.sol)
   - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  
+
+### `setNetworkFeeInverse.send({ feeInverse }, options)`
+
+Set the inverse amount of the reward. This can only be called from the Meta Colony and only by the user assigned the `FOUNDER` role. If the fee is 1% (or 0.01), the inverse amount will be 100.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|feeInverse|number|The inverse amount that will be set.|
+
+**Returns**
+
+An instance of a `ContractResponse`
+
+
+
+**Contract Information**
+
+
+  
+  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/Colony.sol)
+  - Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IMetaColony.sol)
   
 
 ### `setRecoveryRole.send({ user }, options)`

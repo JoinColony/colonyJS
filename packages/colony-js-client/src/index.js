@@ -11,7 +11,6 @@ import './paramTypes';
 
 import ColonyNetworkClient from './ColonyNetworkClient/index';
 import ColonyClient from './ColonyClient/index';
-import MetaColonyClient from './MetaColonyClient/index';
 import TokenClient from './TokenClient/index';
 
 export type {
@@ -19,7 +18,6 @@ export type {
   ColonyNetworkClient,
   ContractClientConstructorArgs,
   ContractResponse,
-  MetaColonyClient,
   MultisigOperationConstructorArgs,
   SendOptions,
   TokenClient,

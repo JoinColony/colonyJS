@@ -8,7 +8,6 @@ import 'isomorphic-fetch';
 import ContractClient from '@colony/colony-js-contract-client';
 
 import ColonyClient from '../ColonyClient/index';
-import MetaColonyClient from '../MetaColonyClient/index';
 import TokenClient from '../TokenClient/index';
 import CreateToken from './senders/CreateToken';
 import addRecoveryMethods from '../addRecoveryMethods';
@@ -648,10 +647,6 @@ export default class ColonyNetworkClient extends ContractClient {
     return ColonyClient;
   }
 
-  static get MetaColonyClient(): * {
-    return MetaColonyClient;
-  }
-
   /*
   Returns an initialized ColonyClient for the contract at address `contractAddress`
   */
@@ -689,7 +684,7 @@ export default class ColonyNetworkClient extends ContractClient {
   Returns an initialized ColonyClient for the contract at address `contractAddress`
   */
   async getMetaColonyClientByAddress(contractAddress: Address) {
-    const metaColonyClient = new this.constructor.MetaColonyClient({
+    const metaColonyClient = new this.constructor.ColonyClient({
       adapter: this.adapter,
       networkClient: this,
       query: { contractAddress },
