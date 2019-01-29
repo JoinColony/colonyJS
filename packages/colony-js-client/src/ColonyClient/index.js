@@ -13,6 +13,7 @@ import ColonyNetworkClient from '../ColonyNetworkClient/index';
 import TokenClient from '../TokenClient/index';
 import GetTask from './callers/GetTask';
 import CreateTask from './senders/CreateTask';
+import addMetaColonyMethods from '../addMetaColonyMethods';
 import addRecoveryMethods from '../addRecoveryMethods';
 import addTokenLockingMethods from '../addTokenLockingMethods';
 import {
@@ -209,6 +210,23 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'Colony.sol',
       interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
+  >;
+  /*
+  Add a new global skill to the skills tree. This can only be called from the Meta Colony and only by the user assigned the `FOUNDER` role.
+  */
+  addGlobalSkill: ColonyClient.Sender<
+    {
+      parentSkillId: number, // The numeric ID of the skill under which the new skill will be added.
+    },
+    {
+      SkillAdded: SkillAdded,
+    },
+    ColonyClient,
+    {
+      contract: 'Colony.sol',
+      interface: 'IMetaColony.sol',
       version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
@@ -801,6 +819,23 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
+  Mint tokens for the Colony Network. This can only be called from the Meta Colony and only by the user assigned the `FOUNDER` role.
+  */
+  mintTokensForColonyNetwork: ColonyClient.Sender<
+    {
+      amount: BigNumber, // The amount of new tokens that will be minted.
+    },
+    {
+      Mint: Mint,
+    },
+    ColonyClient,
+    {
+      contract: 'Colony.sol',
+      interface: 'IMetaColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
+  >;
+  /*
   Move funds from one pot to another.
   */
   moveFundsBetweenPots: ColonyClient.Sender<
@@ -974,6 +1009,21 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'Colony.sol',
       interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
+  >;
+  /*
+  Set the inverse amount of the reward. This can only be called from the Meta Colony and only by the user assigned the `FOUNDER` role. If the fee is 1% (or 0.01), the inverse amount will be 100.
+  */
+  setNetworkFeeInverse: ColonyClient.Sender<
+    {
+      feeInverse: number, // The inverse amount that will be set.
+    },
+    {},
+    ColonyClient,
+    {
+      contract: 'Colony.sol',
+      interface: 'IMetaColony.sol',
       version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
@@ -1343,6 +1393,7 @@ export default class ColonyClient extends ContractClient {
   }
 
   initializeContractMethods() {
+    addMetaColonyMethods(this);
     addRecoveryMethods(this);
     addTokenLockingMethods(this);
 
