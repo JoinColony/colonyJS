@@ -343,6 +343,21 @@ export default class ColonyNetworkClient extends ContractClient {
     },
   >;
   /*
+  Get the inverse amount of the network fee. If the fee is 1% (or 0.01), the inverse amount will be 100.
+  */
+  getFeeInverse: ColonyNetworkClient.Caller<
+    {},
+    {
+      feeInverse: BigNumber, // The inverse amount of the network fee.
+    },
+    ColonyClient,
+    {
+      contract: 'ColonyNetwork.sol',
+      interface: 'IColonyNetwork.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
+  >;
+  /*
   Get the Meta Colony contract address.
   */
   getMetaColonyAddress: ColonyNetworkClient.Caller<
@@ -552,6 +567,23 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ContractRecovery.sol',
       interface: 'IRecovery.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
+  >;
+  /*
+  Set the inverse amount of the network fee. If the fee is 1% (or 0.01), the inverse amount will be 100.
+  */
+  setFeeInverse: ColonyClient.Sender<
+    {
+      feeInverse: BigNumber, // The inverse amount of the network fee.
+    },
+    {
+      NetworkFeeInverseSet: NetworkFeeInverseSet,
+    },
+    ColonyClient,
+    {
+      contract: 'ColonyNetwork.sol',
+      interface: 'IColonyNetwork.sol',
       version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
@@ -787,6 +819,9 @@ export default class ColonyNetworkClient extends ContractClient {
     this.addCaller('getCurrentColonyVersion', {
       output: [['version', 'number']],
     });
+    this.addCaller('getFeeInverse', {
+      output: [['feeInverse', 'bigNumber']],
+    });
     this.addCaller('getParentSkillId', {
       input: [['skillId', 'number'], ['parentSkillIndex', 'number']],
       output: [['parentSkillId', 'number']],
@@ -854,6 +889,9 @@ export default class ColonyNetworkClient extends ContractClient {
     });
     this.addSender('addColonyVersion', {
       input: [['version', 'number'], ['resolver', 'address']],
+    });
+    this.addSender('setFeeInverse', {
+      input: [['feeInverse', 'bigNumber']],
     });
     this.addSender('startTokenAuction', {
       input: [['tokenAddress', 'address']],

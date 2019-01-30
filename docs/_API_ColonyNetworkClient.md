@@ -260,6 +260,27 @@ A promise which resolves to an object containing the following properties:
   - Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColonyNetwork.sol)
   
 
+### `getFeeInverse.call()`
+
+Get the inverse amount of the network fee. If the fee is 1% (or 0.01), the inverse amount will be 100.
+
+
+**Returns**
+
+A promise which resolves to an object containing the following properties:
+
+|Return value|Type|Description|
+|---|---|---|
+|feeInverse|big number|The inverse amount of the network fee.|
+
+**Contract Information**
+
+
+  
+  - Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetwork.sol)
+  - Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColonyNetwork.sol)
+  
+
 ### `getMetaColonyAddress.call()`
 
 Get the Meta Colony contract address.
@@ -775,6 +796,33 @@ An instance of a `ContractResponse`
   
   - Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ContractRecovery.sol)
   - Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IRecovery.sol)
+  
+
+### `setFeeInverse.send({ feeInverse }, options)`
+
+Set the inverse amount of the network fee. If the fee is 1% (or 0.01), the inverse amount will be 100.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|feeInverse|big number|The inverse amount of the network fee.|
+
+**Returns**
+
+An instance of a `ContractResponse` which will eventually receive the following event data:
+
+|Event data|Type|Description|
+|---|---|---|
+|feeInverse|big number|The inverse value of the network fee that was set.|
+|NetworkFeeInverseSet|object|Contains the data defined in [NetworkFeeInverseSet](#eventsnetworkfeeinversesetaddlistener-feeinverse-------)|
+
+**Contract Information**
+
+
+  
+  - Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetwork.sol)
+  - Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColonyNetwork.sol)
   
 
 ### `setRecoveryRole.send({ user }, options)`
