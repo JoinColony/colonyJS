@@ -23,6 +23,7 @@ describe('ColonyNetworkClient', () => {
     'UserLabelRegistered',
     'ColonyLabelRegistered',
     'ColonyNetworkInitialised',
+    'ColonyTokenSet',
     'TokenLockingAddressSet',
     'MiningCycleResolverSet',
     'NetworkFeeInverseSet',

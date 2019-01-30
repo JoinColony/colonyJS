@@ -619,7 +619,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |colonyId|number|The numeric ID of the colony that was added.|
 |colonyAddress|Address|The address of the colony contract that was created.|
 |tokenAddress|Address|The address of the token contract that was assigned.|
+|token|Address|The address of the token contract.|
 |ColonyAdded|object|Contains the data defined in [ColonyAdded](#eventscolonyaddedaddlistener-colonyid-colonyaddress-tokenaddress-------)|
+|ColonyTokenSet|object|Contains the data defined in [ColonyTokenSet](#eventscolonytokensetaddlistener-token-------)|
 
 **Contract Information**
 
@@ -959,6 +961,17 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |Argument|Type|Description|
 |---|---|---|
 |resolver|Address|The address of the resolver contract.|
+
+
+### `events.ColonyTokenSet.addListener(({ token }) => { /* ... */ })`
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|token|Address|The address of the token contract.|
 
 
 ### `events.ColonyVersionAdded.addListener(({ version, resolver }) => { /* ... */ })`

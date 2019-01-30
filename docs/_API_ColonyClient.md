@@ -611,7 +611,12 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |Event data|Type|Description|
 |---|---|---|
 |domainId|number|The numeric ID of the domain that was added.|
+|potId|number|The numeric ID of the pot that was added.|
+|skillId|number|The numeric ID of the skill that was added.|
+|parentSkillId|number|The numeric ID of the parent skill.|
 |DomainAdded|object|Contains the data defined in [DomainAdded](#eventsdomainaddedaddlistener-domainid-------)|
+|PotAdded|object|Contains the data defined in [PotAdded](#eventspotaddedaddlistener-potid-------)|
+|SkillAdded|object|Contains the data defined in [SkillAdded](#eventsskilladdedaddlistener-skillid-parentskillid-------)|
 
 **Contract Information**
 
@@ -808,12 +813,16 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|taskId|number|The numeric ID of the task that was added.|
 |potId|number|The numeric ID of the pot that was added.|
-|domainId|number|The numeric ID of the domain that was added.|
-|TaskAdded|object|Contains the data defined in [TaskAdded](#eventstaskaddedaddlistener-taskid-------)|
+|taskId|number|The numeric ID of the task that was added.|
+|taskId|number|The numeric ID of the task that was modified.|
+|skillId|number|The numeric ID of the skill that was set.|
+|taskId|number|The numeric ID of the task that was modified.|
+|dueDate|Date|The due date that was set.|
 |PotAdded|object|Contains the data defined in [PotAdded](#eventspotaddedaddlistener-potid-------)|
-|DomainAdded|object|Contains the data defined in [DomainAdded](#eventsdomainaddedaddlistener-domainid-------)|
+|TaskAdded|object|Contains the data defined in [TaskAdded](#eventstaskaddedaddlistener-taskid-------)|
+|TaskSkillSet|object|Contains the data defined in [TaskSkillSet](#eventstaskskillsetaddlistener-taskid-skillid-------)|
+|TaskDueDateSet|object|Contains the data defined in [TaskDueDateSet](#eventstaskduedatesetaddlistener-taskid-duedate-------)|
 
 **Contract Information**
 
@@ -873,9 +882,12 @@ Finalize the reward payout cycle. This function can only be called when the rewa
 
 **Returns**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse` which will eventually receive the following event data:
 
-
+|Event data|Type|Description|
+|---|---|---|
+|payoutId|number|The numeric ID of the payout cycle that ended.|
+|RewardPayoutCycleEnded|object|Contains the data defined in [RewardPayoutCycleEnded](#eventsrewardpayoutcycleendedaddlistener-payoutid-------)|
 
 **Contract Information**
 
@@ -930,11 +942,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |address|Address|The address that initiated the mint event.|
 |amount|BigNumber|The amount of tokens that were minted.|
-|from|Address|The address of the account that sent tokens.|
-|to|Address|The address of the account that received tokens.|
-|value|BigNumber|The amount of tokens that were transferred.|
 |Mint|object|Contains the data defined in [Mint](#eventsmintaddlistener-address-amount-------)|
-|Transfer|object|Contains the data defined in [Transfer](#eventstransferaddlistener-from-to-value-------)|
 
 **Contract Information**
 
@@ -962,7 +970,11 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |address|Address|The address that initiated the mint event.|
 |amount|BigNumber|The amount of tokens that were minted.|
+|from|Address|The address of the account that sent tokens.|
+|to|Address|The address of the account that received tokens.|
+|value|BigNumber|The amount of tokens that were transferred.|
 |Mint|object|Contains the data defined in [Mint](#eventsmintaddlistener-address-amount-------)|
+|Transfer|object|Contains the data defined in [Transfer](#eventstransferaddlistener-from-to-value-------)|
 
 **Contract Information**
 
@@ -1296,7 +1308,10 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |Event data|Type|Description|
 |---|---|---|
 |payoutId|number|The numeric ID of the payout cycle that started.|
+|token|Address|The address of the token contract.|
+|lockCount|number|The total lock count for the token.|
 |RewardPayoutCycleStarted|object|Contains the data defined in [RewardPayoutCycleStarted](#eventsrewardpayoutcyclestartedaddlistener-payoutid-------)|
+|TokenLocked|object|Contains the data defined in [TokenLocked](#eventstokenlockedaddlistener-token-lockcount-------)|
 
 **Contract Information**
 
@@ -2202,6 +2217,18 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |taskId|number|The numeric ID of the task that was modified.|
 |role|Role|The role of the task that received the rating (`MANAGER`, `EVALUATOR`, or `WORKER`).|
 |rating|number|The value of the rating that was revealed (`1`, `2`, or `3`).|
+
+
+### `events.TokenLocked.addListener(({ token, lockCount }) => { /* ... */ })`
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|token|Address|The address of the token contract.|
+|lockCount|number|The total lock count for the token.|
 
 
 ### `events.Transfer.addListener(({ from, to, value }) => { /* ... */ })`

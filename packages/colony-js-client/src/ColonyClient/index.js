@@ -154,6 +154,10 @@ type TaskWorkRatingRevealed = ContractClient.Event<{
   role: Role, // The role of the task that received the rating (`MANAGER`, `EVALUATOR`, or `WORKER`).
   rating: number, // The value of the rating that was revealed (`1`, `2`, or `3`).
 }>;
+type TokenLocked = ContractClient.Event<{
+  token: Address, // The address of the token contract.
+  lockCount: number, // The total lock count for the token.
+}>;
 type Transfer = ContractClient.Event<{
   from: Address, // The address of the account that sent tokens.
   to: Address, // The address of the account that received tokens.
@@ -193,6 +197,7 @@ export default class ColonyClient extends ContractClient {
     TaskRoleUserSet: TaskRoleUserSet,
     TaskSkillSet: TaskSkillSet,
     TaskWorkRatingRevealed: TaskWorkRatingRevealed,
+    TokenLocked: TokenLocked,
     Transfer: Transfer,
   };
 
@@ -205,6 +210,8 @@ export default class ColonyClient extends ContractClient {
     },
     {
       DomainAdded: DomainAdded,
+      PotAdded: PotAdded,
+      SkillAdded: SkillAdded,
     },
     ColonyClient,
     {
@@ -343,9 +350,10 @@ export default class ColonyClient extends ContractClient {
       dueDate?: Date, // The due date of the task (optional with a default value of `30` days from now).
     },
     {
-      TaskAdded: TaskAdded,
       PotAdded: PotAdded,
-      DomainAdded: DomainAdded,
+      TaskAdded: TaskAdded,
+      TaskSkillSet: TaskSkillSet,
+      TaskDueDateSet: TaskDueDateSet,
     },
     ColonyClient,
     {
@@ -388,7 +396,9 @@ export default class ColonyClient extends ContractClient {
     {
       payoutId: number, // The numeric ID of the reward payout cycle.
     },
-    {},
+    {
+      RewardPayoutCycleEnded: RewardPayoutCycleEnded,
+    },
     ColonyClient,
     {
       contract: 'ColonyFunding.sol',
@@ -809,7 +819,6 @@ export default class ColonyClient extends ContractClient {
     },
     {
       Mint: Mint,
-      Transfer: Transfer,
     },
     ColonyClient,
     {
@@ -827,6 +836,7 @@ export default class ColonyClient extends ContractClient {
     },
     {
       Mint: Mint,
+      Transfer: Transfer,
     },
     ColonyClient,
     {
@@ -845,7 +855,9 @@ export default class ColonyClient extends ContractClient {
       amount: BigNumber, // The amount of funds that will be moved between pots.
       token: TokenAddress, // The address of the token contract (an empty address if Ether).
     },
-    { ColonyFundsMovedBetweenFundingPots: ColonyFundsMovedBetweenFundingPots },
+    {
+      ColonyFundsMovedBetweenFundingPots: ColonyFundsMovedBetweenFundingPots,
+    },
     ColonyClient,
     {
       contract: 'ColonyFunding.sol',
@@ -1250,6 +1262,7 @@ export default class ColonyClient extends ContractClient {
     },
     {
       RewardPayoutCycleStarted: RewardPayoutCycleStarted,
+      TokenLocked: TokenLocked,
     },
     ColonyClient,
     {
@@ -1554,7 +1567,6 @@ export default class ColonyClient extends ContractClient {
     ]);
     this.addEvent('TaskFinalized', [['taskId', 'number']]);
     this.addEvent('TaskCanceled', [['taskId', 'number']]);
-    this.addEvent('ColonyTokenSet', [['token', 'tokenAddress']]);
     this.addEvent('ColonyInitialised', [['colonyNetwork', 'address']]);
     this.addEvent('ColonyUpgraded', [
       ['oldVersion', 'number'],
@@ -1599,8 +1611,10 @@ export default class ColonyClient extends ContractClient {
     if (this.token) {
       this.events.Transfer = this.token.events.Transfer;
       this.events.Mint = this.token.events.Mint;
+      this.events.TokenLocked = this.token.events.TokenLocked;
       this.contract.interface.events.Transfer = this.token.contract.interface.events.Transfer;
       this.contract.interface.events.Mint = this.token.contract.interface.events.Mint;
+      this.contract.interface.events.TokenLocked = this.token.contract.interface.events.TokenLocked;
     }
     /* eslint-enable max-len */
 

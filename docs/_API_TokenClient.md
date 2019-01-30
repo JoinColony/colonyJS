@@ -321,8 +321,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|from|Address|The address that sent the tokens.|
-|to|Address|The address that received the tokens.|
+|from|Address|The address of the account that sent tokens.|
+|to|Address|The address of the account that received tokens.|
 |value|BigNumber|The amount of tokens that were transferred.|
 |Transfer|object|Contains the data defined in [Transfer](#eventstransferaddlistener-from-to-value-------)|
 
@@ -400,6 +400,18 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |amount|BigNumber|The amount of tokens that were minted.|
 
 
+### `events.TokenLocked.addListener(({ token, lockCount }) => { /* ... */ })`
+
+
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|token|Address|The address of the token contract.|
+|lockCount|number|The total lock count for the token.|
+
+
 ### `events.Transfer.addListener(({ from, to, value }) => { /* ... */ })`
 
 
@@ -408,6 +420,6 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|from|Address|The address that sent the tokens.|
-|to|Address|The address that received the tokens.|
+|from|Address|The address of the account that sent tokens.|
+|to|Address|The address of the account that received tokens.|
 |value|BigNumber|The amount of tokens that were transferred.|

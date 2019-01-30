@@ -25,7 +25,6 @@ const colonyEvents = [
   'TaskPayoutClaimed',
   'TaskFinalized',
   'TaskCanceled',
-  'ColonyTokenSet',
   'ColonyInitialised',
   'ColonyUpgraded',
   'ColonyBootstrapped',
