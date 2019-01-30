@@ -1055,6 +1055,23 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
+  Set the inverse amount of the reward. If the fee is 1% (or 0.01), the inverse amount will be 100.
+  */
+  setRewardInverse: ColonyClient.Sender<
+    {
+      rewardInverse: BigNumber, // The inverse amount of the reward.
+    },
+    {
+      ColonyRewardInverseSet: ColonyRewardInverseSet,
+    },
+    ColonyClient,
+    {
+      contract: 'ColonyFunding.sol',
+      interface: 'IColony.sol',
+      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+    },
+  >;
+  /*
   Set the value for a storage slot while in recovery mode. This can only be called by a user with a recovery role.
   */
   setStorageSlotRecovery: ColonyClient.Sender<
@@ -1709,6 +1726,9 @@ export default class ColonyClient extends ContractClient {
     });
     this.addSender('setFounderRole', {
       input: [['user', 'address']],
+    });
+    this.addSender('setRewardInverse', {
+      input: [['rewardInverse', 'bigNumber']],
     });
     this.addSender('setAdminRole', {
       input: [['user', 'address']],

@@ -1266,6 +1266,33 @@ An instance of a `ContractResponse`
   - Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IRecovery.sol)
   
 
+### `setRewardInverse.send({ rewardInverse }, options)`
+
+Set the inverse amount of the reward. If the fee is 1% (or 0.01), the inverse amount will be 100.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|rewardInverse|big number|The inverse amount of the reward.|
+
+**Returns**
+
+An instance of a `ContractResponse` which will eventually receive the following event data:
+
+|Event data|Type|Description|
+|---|---|---|
+|rewardInverse|big number|The reward inverse value that was set.|
+|ColonyRewardInverseSet|object|Contains the data defined in [ColonyRewardInverseSet](#eventscolonyrewardinversesetaddlistener-rewardinverse-------)|
+
+**Contract Information**
+
+
+  
+  - Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyFunding.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  
+
 ### `setStorageSlotRecovery.send({ slot, value }, options)`
 
 Set the value for a storage slot while in recovery mode. This can only be called by a user with a recovery role.
