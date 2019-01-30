@@ -205,7 +205,7 @@ export default class ColonyNetworkClient extends ContractClient {
     },
     ColonyNetworkClient,
     {
-      name: 'supportsInterface',
+      function: 'supportsInterface',
       contract: 'ColonyNetworkENS.sol',
       interface: 'IColonyNetwork.sol',
       version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
@@ -249,7 +249,7 @@ export default class ColonyNetworkClient extends ContractClient {
     },
     ColonyNetworkClient,
     {
-      name: 'addr',
+      function: 'addr',
       contract: 'ColonyNetworkENS.sol',
       interface: 'IColonyNetwork.sol',
       version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
@@ -347,7 +347,7 @@ export default class ColonyNetworkClient extends ContractClient {
     },
     ColonyNetworkClient,
     {
-      name: 'getMetaColony',
+      function: 'getMetaColony',
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
       version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
@@ -398,7 +398,7 @@ export default class ColonyNetworkClient extends ContractClient {
     },
     ColonyNetworkClient,
     {
-      name: 'numRecoveryRoles',
+      function: 'numRecoveryRoles',
       contract: 'ContractRecovery.sol',
       interface: 'IRecovery.sol',
       version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',

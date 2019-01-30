@@ -91,7 +91,7 @@ export default class TokenClient extends ContractClient {
     },
     TokenClient,
     {
-      name: 'allowance',
+      function: 'allowance',
       contract: 'erc20.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626',
@@ -110,7 +110,7 @@ export default class TokenClient extends ContractClient {
     },
     TokenClient,
     {
-      name: 'balanceOf',
+      function: 'balanceOf',
       contract: 'erc20.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626',
@@ -145,7 +145,7 @@ export default class TokenClient extends ContractClient {
     },
     TokenClient,
     {
-      name: 'totalSupply',
+      function: 'totalSupply',
       contract: 'erc20.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626',

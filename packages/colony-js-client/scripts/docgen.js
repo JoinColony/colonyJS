@@ -227,7 +227,7 @@ function printContractData(data) {
   const colonyPath = `https://github.com/JoinColony/colonyNetwork/tree/${data.version}/contracts`
   const contractPath = data.contractPath ? data.contractPath : colonyPath;
   return `
-  ${data.name ? `- Name: \`${data.name}\`` : ''}
+  ${data.function ? `- Function: \`${data.function}\`` : ''}
   ${data.contract ? `- Contract: [${data.contract}](${contractPath}/${data.contract})` : ''}
   ${data.interface ? `- Interface: [${data.interface}](${colonyPath}/${data.interface})` : ''}
   `

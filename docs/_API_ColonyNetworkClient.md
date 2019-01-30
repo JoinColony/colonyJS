@@ -108,7 +108,7 @@ A promise which resolves to an object containing the following properties:
 **Contract Information**
 
 
-  - Name: `supportsInterface`
+  - Function: `supportsInterface`
   - Contract: [ColonyNetworkENS.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetworkENS.sol)
   - Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColonyNetwork.sol)
   
@@ -134,7 +134,7 @@ A promise which resolves to an object containing the following properties:
 **Contract Information**
 
 
-  - Name: `addr`
+  - Function: `addr`
   - Contract: [ColonyNetworkENS.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetworkENS.sol)
   - Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColonyNetwork.sol)
   
@@ -276,7 +276,7 @@ A promise which resolves to an object containing the following properties:
 **Contract Information**
 
 
-  - Name: `getMetaColony`
+  - Function: `getMetaColony`
   - Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetwork.sol)
   - Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColonyNetwork.sol)
   
@@ -350,7 +350,7 @@ A promise which resolves to an object containing the following properties:
 **Contract Information**
 
 
-  - Name: `numRecoveryRoles`
+  - Function: `numRecoveryRoles`
   - Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ContractRecovery.sol)
   - Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IRecovery.sol)
   

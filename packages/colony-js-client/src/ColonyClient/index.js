@@ -349,7 +349,7 @@ export default class ColonyClient extends ContractClient {
     },
     ColonyClient,
     {
-      name: 'makeTask',
+      function: 'makeTask',
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
       version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
@@ -441,7 +441,7 @@ export default class ColonyClient extends ContractClient {
     },
     ColonyClient,
     {
-      name: 'authority',
+      function: 'authority',
       contract: 'auth.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626',
@@ -527,7 +527,7 @@ export default class ColonyClient extends ContractClient {
     },
     ColonyClient,
     {
-      name: 'numRecoveryRoles',
+      function: 'numRecoveryRoles',
       contract: 'ContractRecovery.sol',
       interface: 'IRecovery.sol',
       version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
@@ -761,7 +761,7 @@ export default class ColonyClient extends ContractClient {
     },
     ColonyClient,
     {
-      name: 'version',
+      function: 'version',
       contract: 'Colony.sol',
       interface: 'IColony.sol',
       version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',

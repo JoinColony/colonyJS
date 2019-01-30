@@ -80,7 +80,7 @@ A promise which resolves to an object containing the following properties:
 **Contract Information**
 
 
-  - Name: `authority`
+  - Function: `authority`
   - Contract: [auth.sol](https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626/auth.sol)
   - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
   
@@ -202,7 +202,7 @@ A promise which resolves to an object containing the following properties:
 **Contract Information**
 
 
-  - Name: `numRecoveryRoles`
+  - Function: `numRecoveryRoles`
   - Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ContractRecovery.sol)
   - Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IRecovery.sol)
   
@@ -537,7 +537,7 @@ A promise which resolves to an object containing the following properties:
 **Contract Information**
 
 
-  - Name: `version`
+  - Function: `version`
   - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/Colony.sol)
   - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
   
@@ -818,7 +818,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 **Contract Information**
 
 
-  - Name: `makeTask`
+  - Function: `makeTask`
   - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyTask.sol)
   - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
   

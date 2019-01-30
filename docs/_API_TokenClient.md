@@ -59,7 +59,7 @@ A promise which resolves to an object containing the following properties:
 **Contract Information**
 
 
-  - Name: `allowance`
+  - Function: `allowance`
   - Contract: [erc20.sol](https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626/erc20.sol)
   
   
@@ -85,7 +85,7 @@ A promise which resolves to an object containing the following properties:
 **Contract Information**
 
 
-  - Name: `balanceOf`
+  - Function: `balanceOf`
   - Contract: [erc20.sol](https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626/erc20.sol)
   
   
@@ -129,7 +129,7 @@ A promise which resolves to an object containing the following properties:
 **Contract Information**
 
 
-  - Name: `totalSupply`
+  - Function: `totalSupply`
   - Contract: [erc20.sol](https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626/erc20.sol)
   
   
