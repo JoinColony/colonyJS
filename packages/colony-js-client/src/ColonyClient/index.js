@@ -17,7 +17,7 @@ import addMetaColonyMethods from '../addMetaColonyMethods';
 import addRecoveryMethods from '../addRecoveryMethods';
 import addTokenLockingMethods from '../addTokenLockingMethods';
 import {
-  ROLES,
+  TASK_ROLES,
   ADMIN_ROLE,
   AUTHORITY_ROLES,
   WORKER_ROLE,
@@ -28,12 +28,12 @@ import {
 } from '../constants';
 
 type Address = string;
-type TokenAddress = string;
-type HexString = string;
-type Role = $Keys<typeof ROLES>;
 type AuthorityRole = $Keys<typeof AUTHORITY_ROLES>;
+type HexString = string;
 type IPFSHash = string;
+type TaskRole = $Keys<typeof TASK_ROLES>;
 type TaskStatus = $Keys<typeof TASK_STATUSES>;
+type TokenAddress = string;
 
 type ColonyAdminRoleRemoved = ContractClient.Event<{
   user: Address, // The address that was unassigned the `ADMIN` authority role.
@@ -50,7 +50,7 @@ type ColonyFounderRoleSet = ContractClient.Event<{
   newFounder: Address, // The address that was assigned the `FOUNDER` authority role (the new founder).
 }>;
 type ColonyFundsClaimed = ContractClient.Event<{
-  token: Address, // The address of the token contract (an empty address if Ether).
+  token: TokenAddress, // The address of the token contract (an empty address if Ether).
   fee: BigNumber, // The fee deducted from the claim and added to the colony rewards pot.
   payoutRemainder: BigNumber, // The remaining funds (after the fee) moved to the top-level domain pot.
 }>;
@@ -58,7 +58,7 @@ type ColonyFundsMovedBetweenFundingPots = ContractClient.Event<{
   fromPot: number, // The numeric ID of the pot from which the funds were moved.
   toPot: number, // The numeric ID of the pot to which the funds were moved.
   amount: BigNumber, // The amount of funds that were moved between pots.
-  token: Address, // The address of the token contract (an empty address if Ether).
+  token: TokenAddress, // The address of the token contract (an empty address if Ether).
 }>;
 type ColonyInitialised = ContractClient.Event<{
   colonyNetwork: Address, // The address of the Colony Network.
@@ -130,19 +130,19 @@ type TaskFinalized = ContractClient.Event<{
 }>;
 type TaskPayoutClaimed = ContractClient.Event<{
   taskId: number, // The numeric ID of the task that was modified.
-  role: Role, // The role of the task that was assigned the task payout (`MANAGER`, `EVALUATOR`, or `WORKER`).
+  role: TaskRole, // The role of the task that was assigned the task payout (`MANAGER`, `EVALUATOR`, or `WORKER`).
   token: TokenAddress, // The address of the token contract (an empty address if Ether).
   amount: BigNumber, // The task payout amount that was claimed.
 }>;
 type TaskPayoutSet = ContractClient.Event<{
   taskId: number, // The numeric ID of the task that was modified.
-  role: Role, // The role of the task that was modified (`MANAGER`, `EVALUATOR`, or `WORKER`).
+  role: TaskRole, // The role of the task that was modified (`MANAGER`, `EVALUATOR`, or `WORKER`).
   token: TokenAddress, // The address of the token contract (an empty address if Ether).
   amount: BigNumber, // The task payout amount that was set.
 }>;
 type TaskRoleUserSet = ContractClient.Event<{
   taskId: number, // The numeric ID of the task that was modified.
-  role: Role, // The role of the task that was set (`MANAGER`, `EVALUATOR`, or `WORKER`).
+  role: TaskRole, // The role of the task that was set (`MANAGER`, `EVALUATOR`, or `WORKER`).
   user: Address, // The user that was assigned the task role.
 }>;
 type TaskSkillSet = ContractClient.Event<{
@@ -151,11 +151,11 @@ type TaskSkillSet = ContractClient.Event<{
 }>;
 type TaskWorkRatingRevealed = ContractClient.Event<{
   taskId: number, // The numeric ID of the task that was modified.
-  role: Role, // The role of the task that received the rating (`MANAGER`, `EVALUATOR`, or `WORKER`).
+  role: TaskRole, // The role of the task that received the rating (`MANAGER`, `EVALUATOR`, or `WORKER`).
   rating: number, // The value of the rating that was revealed (`1`, `2`, or `3`).
 }>;
 type TokenLocked = ContractClient.Event<{
-  token: Address, // The address of the token contract.
+  token: TokenAddress, // The address of the token contract (an empty address if Ether).
   lockCount: number, // The total lock count for the token.
 }>;
 type Transfer = ContractClient.Event<{
@@ -308,7 +308,7 @@ export default class ColonyClient extends ContractClient {
   claimPayout: ColonyClient.Sender<
     {
       taskId: number, // The numeric ID of the task.
-      role: Role, // The role that submitted the rating (`MANAGER`, `EVALUATOR`, or `WORKER`).
+      role: TaskRole, // The role that submitted the rating (`MANAGER`, `EVALUATOR`, or `WORKER`).
       token: TokenAddress, // The address of the token contract (an empty address if Ether).
     },
     {
@@ -627,7 +627,7 @@ export default class ColonyClient extends ContractClient {
   getTaskPayout: ColonyClient.Caller<
     {
       taskId: number, // The numeric ID of the task.
-      role: Role, // The task role (`MANAGER`, `EVALUATOR`, or `WORKER`).
+      role: TaskRole, // The task role (`MANAGER`, `EVALUATOR`, or `WORKER`).
       token: TokenAddress, // The address of the token contract (an empty address if Ether).
     },
     {
@@ -646,7 +646,7 @@ export default class ColonyClient extends ContractClient {
   getTaskRole: ColonyClient.Caller<
     {
       taskId: number, // The numeric ID of the task.
-      role: Role, // The role of the task (`MANAGER`, `EVALUATOR`, or `WORKER`).
+      role: TaskRole, // The role of the task (`MANAGER`, `EVALUATOR`, or `WORKER`).
     },
     {
       address: Address, // The address of the user that is assigned the task role.
@@ -684,7 +684,7 @@ export default class ColonyClient extends ContractClient {
   getTaskWorkRatingSecret: ColonyClient.Caller<
     {
       taskId: number, // The numeric ID of the task.
-      role: Role, // The role that submitted the rating (`MANAGER`, `EVALUATOR`, or `WORKER`).
+      role: TaskRole, // The role that submitted the rating (`MANAGER`, `EVALUATOR`, or `WORKER`).
     },
     {
       secret: HexString, // A keccak256 hash that keeps the task rating hidden.
@@ -955,7 +955,7 @@ export default class ColonyClient extends ContractClient {
   revealTaskWorkRating: ColonyClient.Sender<
     {
       taskId: number, // The numeric ID of the task.
-      role: Role, // The role that received the rating (`MANAGER` or `WORKER`).
+      role: TaskRole, // The role that received the rating (`MANAGER` or `WORKER`).
       rating: number, // The rating that was submitted (`1`, `2`, or `3`).
       salt: string, // The string that was used to generate the secret.
     },
@@ -1316,7 +1316,7 @@ export default class ColonyClient extends ContractClient {
   submitTaskWorkRating: ColonyClient.Sender<
     {
       taskId: number, // The numeric ID of the task.
-      role: Role, // The role that will receive the rating (`MANAGER` or `WORKER`).
+      role: TaskRole, // The role that will receive the rating (`MANAGER` or `WORKER`).
       secret: HexString, // A keccak256 hash that keeps the task rating hidden.
     },
     {},
@@ -1730,7 +1730,7 @@ export default class ColonyClient extends ContractClient {
     const makeExecuteTaskChange = (
       name: string,
       input: Array<*>,
-      roles: Array<Role> = [],
+      roles: Array<TaskRole> = [],
     ) =>
       this.addMultisigSender(name, {
         input: [['taskId', 'number'], ...input],

@@ -62,8 +62,8 @@ type ReputationMiningInitialised = ContractClient.Event<{
 type ReputationRootHashSet = ContractClient.Event<{
   newHash: HexString, // The reputation root hash that was set.
   newNNodes: number, // The total number of nodes in the reputation state.
-  stakers: Address[], // The array of users who submitted or backed the accepted hash.
-  reward: BigNumber[], // The array of corresponding amounts of CLNY each user received.
+  stakers: Array<Address>, // The array of users who submitted or backed the accepted hash.
+  reward: Array<Address>, // The array of corresponding amounts of CLNY each user received.
 }>;
 type SkillAdded = ContractClient.Event<{
   skillId: number, // The numeric ID of the skill that was added.

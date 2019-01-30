@@ -7,7 +7,12 @@ import createSandbox from 'jest-sandbox';
 import { padLeft } from 'web3-utils';
 
 import '../paramTypes';
-import { ROLES, WORKER_ROLE, EVALUATOR_ROLE, MANAGER_ROLE } from '../constants';
+import {
+  TASK_ROLES,
+  WORKER_ROLE,
+  EVALUATOR_ROLE,
+  MANAGER_ROLE,
+} from '../constants';
 
 describe('Custom param types', () => {
   const sandbox = createSandbox();
@@ -41,38 +46,38 @@ describe('Custom param types', () => {
         { role: WORKER_ROLE },
         client.getRole.input,
       ),
-    ).toEqual([ROLES.WORKER]);
+    ).toEqual([TASK_ROLES.WORKER]);
     expect(
       client.getRole.convertInputValues(
         { role: EVALUATOR_ROLE },
         client.getRole.input,
       ),
-    ).toEqual([ROLES.EVALUATOR]);
+    ).toEqual([TASK_ROLES.EVALUATOR]);
     expect(
       client.getRole.convertInputValues(
         { role: MANAGER_ROLE },
         client.getRole.input,
       ),
-    ).toEqual([ROLES.MANAGER]);
+    ).toEqual([TASK_ROLES.MANAGER]);
   });
   test('Custom type "role" converts output correctly', () => {
     expect(
-      client.getRole.convertOutputValues(new BigNumber(ROLES.WORKER)),
+      client.getRole.convertOutputValues(new BigNumber(TASK_ROLES.WORKER)),
     ).toEqual({
       role: WORKER_ROLE,
     });
     expect(
-      client.getRole.convertOutputValues(new BigNumber(ROLES.EVALUATOR)),
+      client.getRole.convertOutputValues(new BigNumber(TASK_ROLES.EVALUATOR)),
     ).toEqual({
       role: EVALUATOR_ROLE,
     });
     expect(
-      client.getRole.convertOutputValues(new BigNumber(ROLES.MANAGER)),
+      client.getRole.convertOutputValues(new BigNumber(TASK_ROLES.MANAGER)),
     ).toEqual({
       role: MANAGER_ROLE,
     });
     expect(
-      client.getRole.convertOutputValues(padLeft(`0x${ROLES.WORKER}`, 64)),
+      client.getRole.convertOutputValues(padLeft(`0x${TASK_ROLES.WORKER}`, 64)),
     ).toEqual({
       role: WORKER_ROLE,
     });

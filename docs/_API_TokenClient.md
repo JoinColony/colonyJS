@@ -45,8 +45,8 @@ Get the token allowance of an address. The allowance is the amount of tokens tha
 
 |Argument|Type|Description|
 |---|---|---|
-|sourceAddress|Address|The address that approved the allowance (the token `owner`).|
-|user|Address|The address that was approved for the allowance (the token `spender`).|
+|sourceAddress|address|The address that approved the allowance (the token `owner`).|
+|user|address|The address that was approved for the allowance (the token `spender`).|
 
 **Returns**
 
@@ -54,7 +54,7 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|amount|BigNumber|The amount of tokens that were approved (the amount `allowed`).|
+|amount|big number|The amount of tokens that were approved (the amount `allowed`).|
 
 **Contract Information**
 
@@ -72,7 +72,7 @@ Get the the token balance of an address.
 
 |Argument|Type|Description|
 |---|---|---|
-|sourceAddress|Address|The address that will be checked.|
+|sourceAddress|address|The address that will be checked.|
 
 **Returns**
 
@@ -80,7 +80,7 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|amount|BigNumber|The balance of tokens for the address.|
+|amount|big number|The balance of tokens for the address.|
 
 **Contract Information**
 
@@ -124,7 +124,7 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|amount|BigNumber|The total supply of the token.|
+|amount|big number|The total supply of the token.|
 
 **Contract Information**
 
@@ -146,8 +146,8 @@ Approve a token allowance. This function can only be called by the token `owner`
 
 |Argument|Type|Description|
 |---|---|---|
-|user|Address|The address that will be approved for the allowance (the token `spender`).|
-|amount|BigNumber|The amount of tokens that will be approved (the amount `allowed`).|
+|user|address|The address that will be approved for the allowance (the token `spender`).|
+|amount|big number|The amount of tokens that will be approved (the amount `allowed`).|
 
 **Returns**
 
@@ -155,9 +155,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|owner|Address|The address that approved the allowance (the token `owner`).|
-|spender|Address|The address that was approved for the allowance (the token `spender`).|
-|value|BigNumber|The amount of tokens that were approved (the amount `allowed`).|
+|owner|address|The address that approved the allowance (the token `owner`).|
+|spender|address|The address that was approved for the allowance (the token `spender`).|
+|value|big number|The amount of tokens that were approved (the amount `allowed`).|
 |Approval|object|Contains the data defined in [Approval](#eventsapprovaladdlistener-owner-spender-value-------)|
 
 **Contract Information**
@@ -176,7 +176,7 @@ Burn tokens. This is an `ERC20Extended` function that can only be called by the 
 
 |Argument|Type|Description|
 |---|---|---|
-|amount|BigNumber|The amount of tokens that will be burned.|
+|amount|big number|The amount of tokens that will be burned.|
 
 **Returns**
 
@@ -184,8 +184,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|address|Address|The address that initiated the burn event.|
-|amount|BigNumber|The amount of tokens that were burned.|
+|address|address|The address that initiated the burn event.|
+|amount|big number|The amount of tokens that were burned.|
 |Burn|object|Contains the data defined in [Burn](#eventsburnaddlistener-address-amount-------)|
 
 **Contract Information**
@@ -204,7 +204,7 @@ Mint new tokens. This is an `ERC20Extended` function that can only be called by 
 
 |Argument|Type|Description|
 |---|---|---|
-|amount|BigNumber|The amount of tokens that will be minted.|
+|amount|big number|The amount of tokens that will be minted.|
 
 **Returns**
 
@@ -212,8 +212,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|address|Address|The address that initiated the mint event.|
-|amount|BigNumber|The amount of tokens that were minted.|
+|address|address|The address that initiated the mint event.|
+|amount|big number|The amount of tokens that were minted.|
 |Mint|object|Contains the data defined in [Mint](#eventsmintaddlistener-address-amount-------)|
 
 **Contract Information**
@@ -232,7 +232,7 @@ Assign an account the `ADMIN` authority role within a colony.
 
 |Argument|Type|Description|
 |---|---|---|
-|authority|Address|The address that will be assigned the `ADMIN` authority role.|
+|authority|address|The address that will be assigned the `ADMIN` authority role.|
 
 **Returns**
 
@@ -240,7 +240,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|authority|Address|The address that was assigned an authority role.|
+|authority|address|The address that was assigned an authority role.|
 |LogSetAuthority|object|Contains the data defined in [LogSetAuthority](#eventslogsetauthorityaddlistener-authority-------)|
 
 **Contract Information**
@@ -259,7 +259,7 @@ Set the `owner` of a token contract. This function can only be called by the cur
 
 |Argument|Type|Description|
 |---|---|---|
-|owner|Address|The address that will be assigned as the new owner.|
+|owner|address|The address that will be assigned as the new owner.|
 
 **Returns**
 
@@ -267,7 +267,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|owner|Address|The address that was assigned as the new owner.|
+|owner|address|The address that was assigned as the new owner.|
 |LogSetOwner|object|Contains the data defined in [LogSetOwner](#eventslogsetowneraddlistener-owner-------)|
 
 **Contract Information**
@@ -286,8 +286,8 @@ Transfer tokens from the address calling the function to another address. The cu
 
 |Argument|Type|Description|
 |---|---|---|
-|destinationAddress|Address|The address to which tokens will be transferred.|
-|amount|BigNumber|The amount of tokens that will be transferred.|
+|destinationAddress|address|The address to which tokens will be transferred.|
+|amount|big number|The amount of tokens that will be transferred.|
 
 **Returns**
 
@@ -311,9 +311,9 @@ Transfer tokens from one address to another address. The address the tokens are 
 
 |Argument|Type|Description|
 |---|---|---|
-|sourceAddress|Address|The address from which tokens will be transferred.|
-|destinationAddress|Address|The address to which tokens will be transferred.|
-|amount|BigNumber|The amount of tokens that will be transferred.|
+|sourceAddress|address|The address from which tokens will be transferred.|
+|destinationAddress|address|The address to which tokens will be transferred.|
+|amount|big number|The amount of tokens that will be transferred.|
 
 **Returns**
 
@@ -321,9 +321,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|from|Address|The address of the account that sent tokens.|
-|to|Address|The address of the account that received tokens.|
-|value|BigNumber|The amount of tokens that were transferred.|
+|from|address|The address of the account that sent tokens.|
+|to|address|The address of the account that received tokens.|
+|value|big number|The amount of tokens that were transferred.|
 |Transfer|object|Contains the data defined in [Transfer](#eventstransferaddlistener-from-to-value-------)|
 
 **Contract Information**
@@ -349,9 +349,9 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|owner|Address|The address that approved the allowance (the token `owner`).|
-|spender|Address|The address that was approved for the allowance (the token `spender`).|
-|value|BigNumber|The amount of tokens that were approved (the amount `allowed`).|
+|owner|address|The address that approved the allowance (the token `owner`).|
+|spender|address|The address that was approved for the allowance (the token `spender`).|
+|value|big number|The amount of tokens that were approved (the amount `allowed`).|
 
 
 ### `events.Burn.addListener(({ address, amount }) => { /* ... */ })`
@@ -362,8 +362,8 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|address|Address|The address that initiated the burn event.|
-|amount|BigNumber|The amount of tokens that were burned.|
+|address|address|The address that initiated the burn event.|
+|amount|big number|The amount of tokens that were burned.|
 
 
 ### `events.LogSetAuthority.addListener(({ authority }) => { /* ... */ })`
@@ -374,7 +374,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|authority|Address|The address that was assigned an authority role.|
+|authority|address|The address that was assigned an authority role.|
 
 
 ### `events.LogSetOwner.addListener(({ owner }) => { /* ... */ })`
@@ -385,7 +385,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|owner|Address|The address that was assigned as the new owner.|
+|owner|address|The address that was assigned as the new owner.|
 
 
 ### `events.Mint.addListener(({ address, amount }) => { /* ... */ })`
@@ -396,8 +396,8 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|address|Address|The address that initiated the mint event.|
-|amount|BigNumber|The amount of tokens that were minted.|
+|address|address|The address that initiated the mint event.|
+|amount|big number|The amount of tokens that were minted.|
 
 
 ### `events.TokenLocked.addListener(({ token, lockCount }) => { /* ... */ })`
@@ -408,7 +408,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|token|Address|The address of the token contract.|
+|token|address|The address of the token contract.|
 |lockCount|number|The total lock count for the token.|
 
 
@@ -420,6 +420,6 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|from|Address|The address of the account that sent tokens.|
-|to|Address|The address of the account that received tokens.|
-|value|BigNumber|The amount of tokens that were transferred.|
+|from|address|The address of the account that sent tokens.|
+|to|address|The address of the account that received tokens.|
+|value|big number|The amount of tokens that were transferred.|
