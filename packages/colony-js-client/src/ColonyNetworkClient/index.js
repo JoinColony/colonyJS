@@ -1,14 +1,17 @@
 /* @flow */
 
-import assert from 'assert';
-import { isValidAddress } from '@colony/colony-js-utils';
-import BigNumber from 'bn.js';
 import 'isomorphic-fetch';
 
+import assert from 'assert';
+import BigNumber from 'bn.js';
+
 import ContractClient from '@colony/colony-js-contract-client';
+import { isValidAddress } from '@colony/colony-js-utils';
 
 import ColonyClient from '../ColonyClient/index';
 import TokenClient from '../TokenClient/index';
+import TokenLockingClient from '../TokenLockingClient/index';
+
 import CreateToken from './senders/CreateToken';
 import addRecoveryMethods from '../addRecoveryMethods';
 
@@ -671,16 +674,40 @@ export default class ColonyNetworkClient extends ContractClient {
     };
   }
 
-  static get TokenClient(): * {
-    return TokenClient;
-  }
-
   static get ColonyClient(): * {
     return ColonyClient;
   }
 
+  static get TokenClient(): * {
+    return TokenClient;
+  }
+
+  static get TokenLockingClient(): * {
+    return TokenLockingClient;
+  }
+
   /*
-  Returns an initialized ColonyClient for the contract at address `contractAddress`
+  Get the address of the `Colony` contract with the given `id`
+  */
+  async getColonyAddress(id: number) {
+    assert(Number.isFinite(id), MISSING_ID);
+    const { address } = await this.getColony.call({ id });
+
+    if (!isValidAddress(address))
+      throw new Error(`Colony contract with ID ${id} could not be found`);
+
+    return address;
+  }
+  /*
+  Get an initialized ColonyClient for the `Colony` contract with the given `id`.
+  */
+  async getColonyClient(id: number) {
+    assert(Number.isFinite(id), MISSING_ID);
+    const address = await this.getColonyAddress(id);
+    return this.getColonyClientByAddress(address);
+  }
+  /*
+  Get an initialized ColonyClient for the `Colony` contract with the given `contractAddress`.
   */
   async getColonyClientByAddress(contractAddress: Address) {
     const colonyClient = new this.constructor.ColonyClient({
@@ -692,28 +719,18 @@ export default class ColonyNetworkClient extends ContractClient {
     return colonyClient;
   }
   /*
-  Returns an initialized ColonyClient for the specified ID of a deployed colony contract
+  Get an initialized ColonyClient for the Meta Colony.
   */
-  async getColonyClient(id: number) {
-    assert(Number.isFinite(id), MISSING_ID);
-    const address = await this.getColonyAddress(id);
-    return this.getColonyClientByAddress(address);
-  }
-  /*
-  Gets the address of a deployed colony contract for the specified ID of a deployed colony contract
-  */
-  async getColonyAddress(id: number) {
-    assert(Number.isFinite(id), MISSING_ID);
-
-    const { address } = await this.getColony.call({ id });
+  async getMetaColonyClient() {
+    const { address } = await this.getMetaColonyAddress.call();
 
     if (!isValidAddress(address))
-      throw new Error(`Colony with ID ${id} could not be found`);
+      throw new Error(`MetaColony contract could not be found`);
 
-    return address;
+    return this.getMetaColonyClientByAddress(address);
   }
   /*
-  Returns an initialized ColonyClient for the contract at address `contractAddress`
+  Get an initialized ColonyClient for the `Colony` contract with the given `contractAddress`.
   */
   async getMetaColonyClientByAddress(contractAddress: Address) {
     const metaColonyClient = new this.constructor.ColonyClient({
@@ -725,48 +742,48 @@ export default class ColonyNetworkClient extends ContractClient {
     return metaColonyClient;
   }
   /*
-  Gets the Meta Colony as an initialized ColonyClient
+  Get an initialized TokenLockingClient.
   */
-  async getMetaColonyClient() {
-    const { address } = await this.getMetaColonyAddress.call();
+  async getTokenLockingClient() {
+    const { lockingAddress } = await this.getTokenLocking.call();
 
-    if (!isValidAddress(address))
-      throw new Error(`Meta Colony could not be found`);
+    if (!isValidAddress(lockingAddress))
+      throw new Error(`TokenLocking contract could not be found`);
 
-    return this.getMetaColonyClientByAddress(address);
+    return this.getTokenLockingClientByAddress(lockingAddress);
   }
+  /*
+  Get an initialized TokenLockingClient for the `TokenLocking` contract with the given `contractAddress`.
+  */
+  async getTokenLockingClientByAddress(contractAddress: Address) {
+    const tokenLockingClient = new this.constructor.TokenLockingClient({
+      adapter: this.adapter,
+      networkClient: this,
+      query: { contractAddress },
+    });
+    await tokenLockingClient.init();
+    return tokenLockingClient;
+  }
+
   initializeContractMethods() {
     addRecoveryMethods(this);
 
     // Events
-    this.addEvent('ColonyAdded', [
-      ['colonyId', 'number'],
-      ['colonyAddress', 'address'],
-      ['tokenAddress', 'tokenAddress'],
-    ]);
-    this.addEvent('SkillAdded', [
-      ['skillId', 'number'],
-      ['parentSkillId', 'number'],
-    ]);
     this.addEvent('AuctionCreated', [
       ['auction', 'address'],
       ['token', 'tokenAddress'],
       ['quantity', 'bigNumber'],
     ]);
-    this.addEvent('UserLabelRegistered', [
-      ['user', 'address'],
-      ['label', 'string'],
+    this.addEvent('ColonyAdded', [
+      ['colonyId', 'number'],
+      ['colonyAddress', 'address'],
+      ['tokenAddress', 'tokenAddress'],
     ]);
     this.addEvent('ColonyLabelRegistered', [
       ['colony', 'address'],
       ['label', 'string'],
     ]);
     this.addEvent('ColonyNetworkInitialised', [['resolver', 'address']]);
-    this.addEvent('TokenLockingAddressSet', [['tokenLocking', 'address']]);
-    this.addEvent('MiningCycleResolverSet', [
-      ['miningCycleResolver', 'address'],
-    ]);
-    this.addEvent('NetworkFeeInverseSet', [['feeInverse', 'number']]);
     this.addEvent('ColonyVersionAdded', [
       ['version', 'number'],
       ['resolver', 'address'],
@@ -776,12 +793,16 @@ export default class ColonyNetworkClient extends ContractClient {
       ['token', 'tokenAddress'],
       ['rootSkillId', 'number'],
     ]);
-    this.addEvent('ReputationMiningInitialised', [
-      ['inactiveReputationMiningCycle', 'address'],
+    this.addEvent('MiningCycleResolverSet', [
+      ['miningCycleResolver', 'address'],
     ]);
+    this.addEvent('NetworkFeeInverseSet', [['feeInverse', 'number']]);
     this.addEvent('ReputationMiningCycleComplete', [
       ['hash', 'hexString'],
       ['nNodes', 'number'],
+    ]);
+    this.addEvent('ReputationMiningInitialised', [
+      ['inactiveReputationMiningCycle', 'address'],
     ]);
     this.addEvent('ReputationRootHashSet', [
       ['newHash', 'hexString'],
@@ -789,22 +810,37 @@ export default class ColonyNetworkClient extends ContractClient {
       ['stakers', 'address'],
       ['reward', 'bigNumber'],
     ]);
+    this.addEvent('SkillAdded', [
+      ['skillId', 'number'],
+      ['parentSkillId', 'number'],
+    ]);
+    this.addEvent('TokenLockingAddressSet', [['tokenLocking', 'address']]);
+    this.addEvent('UserLabelRegistered', [
+      ['user', 'address'],
+      ['label', 'string'],
+    ]);
 
     // Callers
+    this.addCaller('ensSupportsInterface', {
+      functionName: 'supportsInterface',
+      input: [['interfaceId', 'hexString']],
+      output: [['isSupported', 'boolean']],
+    });
+    this.addCaller('getAddressForENSHash', {
+      functionName: 'addr',
+      input: [['nameHash', 'hexString']],
+      output: [['ensAddress', 'address']],
+    });
+    this.addCaller('getChildSkillId', {
+      input: [['skillId', 'number'], ['childSkillIndex', 'number']],
+      output: [['childSkillId', 'number']],
+    });
     this.addCaller('getColony', {
       input: [['id', 'number']],
       output: [['address', 'address']],
     });
-    this.addCaller('getMetaColonyAddress', {
-      functionName: 'getMetaColony',
-      output: [['address', 'address']],
-    });
     this.addCaller('getColonyCount', {
       output: [['count', 'number']],
-    });
-    this.addCaller('isColony', {
-      input: [['colony', 'address']],
-      output: [['isColony', 'boolean']],
     });
     this.addCaller('getColonyVersionResolver', {
       input: [['version', 'number']],
@@ -816,13 +852,20 @@ export default class ColonyNetworkClient extends ContractClient {
     this.addCaller('getFeeInverse', {
       output: [['feeInverse', 'bigNumber']],
     });
+    this.addCaller('getMetaColonyAddress', {
+      functionName: 'getMetaColony',
+      output: [['address', 'address']],
+    });
     this.addCaller('getParentSkillId', {
       input: [['skillId', 'number'], ['parentSkillIndex', 'number']],
       output: [['parentSkillId', 'number']],
     });
-    this.addCaller('getChildSkillId', {
-      input: [['skillId', 'number'], ['childSkillIndex', 'number']],
-      output: [['childSkillId', 'number']],
+    this.addCaller('getProfileDBAddress', {
+      input: [['nameHash', 'hexString']],
+      output: [['orbitDBAddress', 'string']],
+    });
+    this.addCaller('getRootGlobalSkillId', {
+      output: [['skillId', 'number']],
     });
     this.addCaller('getSkill', {
       input: [['skillId', 'number']],
@@ -840,65 +883,55 @@ export default class ColonyNetworkClient extends ContractClient {
     this.addCaller('getSkillCount', {
       output: [['count', 'number']],
     });
-    this.addCaller('getRootGlobalSkillId', {
-      output: [['skillId', 'number']],
-    });
     this.addCaller('getTokenLocking', {
       output: [['lockingAddress', 'address']],
     });
-    this.addCaller('getProfileDBAddress', {
-      input: [['nameHash', 'hexString']],
-      output: [['orbitDBAddress', 'string']],
+    this.addCaller('isColony', {
+      input: [['colony', 'address']],
+      output: [['isColony', 'boolean']],
     });
     this.addCaller('lookupRegisteredENSDomain', {
       input: [['ensAddress', 'address']],
       output: [['domain', 'string']],
     });
-    this.addCaller('ensSupportsInterface', {
-      functionName: 'supportsInterface',
-      input: [['interfaceId', 'hexString']],
-      output: [['isSupported', 'boolean']],
-    });
-    this.addCaller('getAddressForENSHash', {
-      functionName: 'addr',
-      input: [['nameHash', 'hexString']],
-      output: [['ensAddress', 'address']],
-    });
 
     // Senders
     this.createToken = new CreateToken({ client: this });
+    this.addSender('addColonyVersion', {
+      input: [['version', 'number'], ['resolver', 'address']],
+    });
     this.addSender('addSkill', {
       input: [['parentSkillId', 'number'], ['globalSkill', 'boolean']],
-    });
-    this.addSender('setTokenLocking', {
-      input: [['tokenLockingAddress', 'address']],
-    });
-    this.addSender('createMetaColony', {
-      input: [['tokenAddress', 'address']],
-      defaultGasLimit: 4000000,
     });
     this.addSender('createColony', {
       input: [['tokenAddress', 'address']],
       defaultGasLimit: 4000000,
     });
-    this.addSender('addColonyVersion', {
-      input: [['version', 'number'], ['resolver', 'address']],
-    });
-    this.addSender('setFeeInverse', {
-      input: [['feeInverse', 'bigNumber']],
-    });
-    this.addSender('startTokenAuction', {
+    this.addSender('createMetaColony', {
       input: [['tokenAddress', 'address']],
-    });
-    this.addSender('setupRegistrar', {
-      input: [['ens', 'address'], ['rootNode', 'string']],
+      defaultGasLimit: 4000000,
     });
     this.addSender('registerUserLabel', {
       input: [['username', 'string'], ['orbitDBPath', 'string']],
       defaultGasLimit: 260000,
     });
+    this.addSender('setTokenLocking', {
+      input: [['tokenLockingAddress', 'address']],
+    });
+    this.addSender('setFeeInverse', {
+      input: [['feeInverse', 'bigNumber']],
+    });
+    this.addSender('setupRegistrar', {
+      input: [['ens', 'address'], ['rootNode', 'string']],
+    });
+    this.addSender('startTokenAuction', {
+      input: [['tokenAddress', 'address']],
+    });
   }
 
+  /*
+  Get the reputation of a user within a colony for the given `skillId`.
+  */
   async getReputation({
     colonyAddress,
     skillId = 1,
