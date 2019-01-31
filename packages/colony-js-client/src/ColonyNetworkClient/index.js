@@ -34,9 +34,6 @@ type ColonyLabelRegistered = ContractClient.Event<{
 type ColonyNetworkInitialised = ContractClient.Event<{
   resolver: Address, // The address of the resolver contract.
 }>;
-type ColonyTokenSet = ContractClient.Event<{
-  token: Address, // The address of the token contract.
-}>;
 type ColonyVersionAdded = ContractClient.Event<{
   version: number, // The version number of the colony contract that was added.
   resolver: Address, // The address of the resolver contract.
@@ -83,7 +80,6 @@ export default class ColonyNetworkClient extends ContractClient {
     ColonyAdded: ColonyAdded,
     ColonyLabelRegistered: ColonyLabelRegistered,
     ColonyNetworkInitialised: ColonyNetworkInitialised,
-    ColonyTokenSet: ColonyTokenSet,
     ColonyVersionAdded: ColonyVersionAdded,
     MetaColonyCreated: MetaColonyCreated,
     MiningCycleResolverSet: MiningCycleResolverSet,
@@ -154,7 +150,6 @@ export default class ColonyNetworkClient extends ContractClient {
     },
     {
       ColonyAdded: ColonyAdded,
-      ColonyTokenSet: ColonyTokenSet,
     },
     ColonyNetworkClient,
     {
@@ -749,7 +744,6 @@ export default class ColonyNetworkClient extends ContractClient {
       ['colonyAddress', 'address'],
       ['tokenAddress', 'tokenAddress'],
     ]);
-    this.addEvent('ColonyTokenSet', [['token', 'tokenAddress']]);
     this.addEvent('SkillAdded', [
       ['skillId', 'number'],
       ['parentSkillId', 'number'],

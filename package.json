@@ -38,6 +38,7 @@
         "Ryan Christofferson <ryan@colony.io>"
     ],
     "scripts": {
+        "build": "lerna run build",
         "lint": "run(){ eslint --ignore-pattern=**/{node_modules,dist,lib}/* --fix ${@:-\"packages/**/src/{,**/}*.js\"}; }; run",
         "precommit": "lerna run --concurrency 1 --stream precommit",
         "release": "lerna run test && lerna run build && lerna publish",
