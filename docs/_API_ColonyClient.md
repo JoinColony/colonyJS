@@ -447,27 +447,6 @@ A promise which resolves to an object containing the following properties:
   - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
   
 
-### `getTotalLockCount.call()`
-
-Get the total number of locked tokens in the colony.
-
-
-**Returns**
-
-A promise which resolves to an object containing the following properties:
-
-|Return value|Type|Description|
-|---|---|---|
-|count|number|The total number of locked tokens in the colony.|
-
-**Contract Information**
-
-
-  
-  - Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/TokenLocking.sol)
-  - Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ITokenLocking.sol)
-  
-
 ### `getTotalTaskPayout.call({ taskId, token })`
 
 Get the total payout amount assigned to all task roles. Multiple tokens can be used for task payouts, therefore the token must be specified when calling this function. In order to get the task payout amount in Ether, `token` must be an empty address.
@@ -493,32 +472,6 @@ A promise which resolves to an object containing the following properties:
   
   - Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyFunding.sol)
   - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
-  
-
-### `getUserLock.call({ user })`
-
-Get the total number of locked tokens for a given user in the colony.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|user|address|The address of the user.|
-
-**Returns**
-
-A promise which resolves to an object containing the following properties:
-
-|Return value|Type|Description|
-|---|---|---|
-|count|number|The total number of locked tokens.|
-
-**Contract Information**
-
-
-  
-  - Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/TokenLocking.sol)
-  - Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ITokenLocking.sol)
   
 
 ### `getVersion.call()`
@@ -1463,31 +1416,6 @@ An instance of a `ContractResponse` which will eventually receive the following 
   
   - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/Colony.sol)
   - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
-  
-
-### `incrementLockCounterTo.send({ token, lockId }, options)`
-
-Increment the token lock counter. This method allows users to waive reward payouts for past reward payout cycles, unlocking the tokens that were locked in previous reward payout cycles.
-
-**Arguments**
-
-|Argument|Type|Description|
-|---|---|---|
-|token|address|The address of the token contract (an empty address if Ether).|
-|lockId|number|The numeric ID of the lock count that will be set.|
-
-**Returns**
-
-An instance of a `ContractResponse`
-
-
-
-**Contract Information**
-
-
-  
-  - Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/TokenLocking.sol)
-  - Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ITokenLocking.sol)
   
 
   

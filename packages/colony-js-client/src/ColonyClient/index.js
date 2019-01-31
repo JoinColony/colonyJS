@@ -13,9 +13,7 @@ import ColonyNetworkClient from '../ColonyNetworkClient/index';
 import TokenClient from '../TokenClient/index';
 import GetTask from './callers/GetTask';
 import CreateTask from './senders/CreateTask';
-import addMetaColonyMethods from '../addMetaColonyMethods';
 import addRecoveryMethods from '../addRecoveryMethods';
-import addTokenLockingMethods from '../addTokenLockingMethods';
 import {
   TASK_ROLES,
   ADMIN_ROLE,
@@ -712,21 +710,6 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Get the total number of locked tokens in the colony.
-  */
-  getTotalLockCount: ColonyClient.Caller<
-    {},
-    {
-      count: number, // The total number of locked tokens in the colony.
-    },
-    ColonyClient,
-    {
-      contract: 'TokenLocking.sol',
-      interface: 'ITokenLocking.sol',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
-    },
-  >;
-  /*
   Get the total payout amount assigned to all task roles. Multiple tokens can be used for task payouts, therefore the token must be specified when calling this function. In order to get the task payout amount in Ether, `token` must be an empty address.
   */
   getTotalTaskPayout: ColonyClient.Caller<
@@ -741,23 +724,6 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyFunding.sol',
       interface: 'IColony.sol',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
-    },
-  >;
-  /*
-  Get the total number of locked tokens for a given user in the colony.
-  */
-  getUserLock: ColonyClient.Caller<
-    {
-      user: Address, // The address of the user.
-    },
-    {
-      count: number, // The total number of locked tokens.
-    },
-    ColonyClient,
-    {
-      contract: 'TokenLocking.sol',
-      interface: 'ITokenLocking.sol',
       version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
@@ -1361,26 +1327,10 @@ export default class ColonyClient extends ContractClient {
       version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
     },
   >;
-  /*
-  Increment the token lock counter. This method allows users to waive reward payouts for past reward payout cycles, unlocking the tokens that were locked in previous reward payout cycles.
-  */
-  incrementLockCounterTo: ColonyClient.Sender<
-    {
-      token: TokenAddress, // The address of the token contract (an empty address if Ether).
-      lockId: number, // The numeric ID of the lock count that will be set.
-    },
-    {},
-    ColonyClient,
-    {
-      contract: 'TokenLocking.sol',
-      interface: 'ITokenLocking.sol',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
-    },
-  >;
 
   static get defaultQuery() {
     return {
-      contractName: 'IColony',
+      contractName: 'IMetaColony', // IMetaColony extends IColony
     };
   }
 
@@ -1423,9 +1373,7 @@ export default class ColonyClient extends ContractClient {
   }
 
   initializeContractMethods() {
-    addMetaColonyMethods(this);
     addRecoveryMethods(this);
-    addTokenLockingMethods(this);
 
     this.getTask = new GetTask({ client: this });
 
@@ -1639,6 +1587,9 @@ export default class ColonyClient extends ContractClient {
     this.addSender('addDomain', {
       input: [['parentDomainId', 'number']],
     });
+    this.addSender('addGlobalSkill', {
+      input: [['parentSkillId', 'number']],
+    });
     this.addSender('claimColonyFunds', {
       input: [['token', 'tokenAddress']],
     });
@@ -1677,6 +1628,9 @@ export default class ColonyClient extends ContractClient {
     this.addSender('mintTokens', {
       input: [['amount', 'bigNumber']],
     });
+    this.addSender('mintTokensForColonyNetwork', {
+      input: [['amount', 'bigNumber']],
+    });
     this.addSender('moveFundsBetweenPots', {
       input: [
         ['fromPot', 'number'],
@@ -1701,6 +1655,9 @@ export default class ColonyClient extends ContractClient {
         ['evaluatorAmount', 'bigNumber'],
         ['workerAmount', 'bigNumber'],
       ],
+    });
+    this.addSender('setNetworkFeeInverse', {
+      input: [['feeInverse', 'number']],
     });
     this.addSender('submitTaskDeliverable', {
       input: [['taskId', 'number'], ['deliverableHash', 'ipfsHash']],
