@@ -9,7 +9,6 @@ import ContractClient from '@colony/colony-js-contract-client';
 import { isValidAddress } from '@colony/colony-js-utils';
 
 import ColonyClient from '../ColonyClient/index';
-import TokenClient from '../TokenClient/index';
 import TokenLockingClient from '../TokenLockingClient/index';
 
 import CreateToken from './senders/CreateToken';
@@ -678,10 +677,6 @@ export default class ColonyNetworkClient extends ContractClient {
     return ColonyClient;
   }
 
-  static get TokenClient(): * {
-    return TokenClient;
-  }
-
   static get TokenLockingClient(): * {
     return TokenLockingClient;
   }
@@ -710,10 +705,12 @@ export default class ColonyNetworkClient extends ContractClient {
   Get an initialized ColonyClient for the `Colony` contract with the given `contractAddress`.
   */
   async getColonyClientByAddress(contractAddress: Address) {
+    const tokenLockingClient = await this.getTokenLockingClient();
     const colonyClient = new this.constructor.ColonyClient({
       adapter: this.adapter,
       networkClient: this,
       query: { contractAddress },
+      tokenLockingClient,
     });
     await colonyClient.init();
     return colonyClient;
@@ -733,10 +730,12 @@ export default class ColonyNetworkClient extends ContractClient {
   Get an initialized ColonyClient for the `Colony` contract with the given `contractAddress`.
   */
   async getMetaColonyClientByAddress(contractAddress: Address) {
+    const tokenLockingClient = await this.getTokenLockingClient();
     const metaColonyClient = new this.constructor.ColonyClient({
       adapter: this.adapter,
       networkClient: this,
-      query: { contractAddress },
+      query: { contractAddress, contractName: 'IMetaColony' },
+      tokenLockingClient,
     });
     await metaColonyClient.init();
     return metaColonyClient;

@@ -12,6 +12,7 @@ import './paramTypes';
 import ColonyNetworkClient from './ColonyNetworkClient/index';
 import ColonyClient from './ColonyClient/index';
 import TokenClient from './TokenClient/index';
+import TokenLockingClient from './TokenLockingClient/index';
 
 export type {
   ColonyClient,
@@ -21,6 +22,7 @@ export type {
   MultisigOperationConstructorArgs,
   SendOptions,
   TokenClient,
+  TokenLockingClient,
 };
 
 export {

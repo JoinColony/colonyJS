@@ -26,8 +26,8 @@ const dictType = (dict: { [key: string]: number }) => ({
   },
 });
 
-addParamType('taskStatus', dictType(TASK_STATUSES));
-
-addParamType('role', dictType(TASK_ROLES));
-
 addParamType('authorityRole', dictType(AUTHORITY_ROLES));
+
+addParamType('taskRole', dictType(TASK_ROLES));
+
+addParamType('taskStatus', dictType(TASK_STATUSES));

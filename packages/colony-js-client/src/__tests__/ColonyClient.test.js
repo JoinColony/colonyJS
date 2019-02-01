@@ -5,6 +5,7 @@ import createSandbox from 'jest-sandbox';
 
 import ColonyClient from '../ColonyClient';
 import TokenClient from '../TokenClient';
+import TokenLockingClient from '../TokenLockingClient';
 import ColonyNetworkClient from '../ColonyNetworkClient';
 
 const colonyEvents = [
@@ -81,8 +82,24 @@ describe('ColonyClient', () => {
       Transfer: 'Transfer ContractEvent',
     };
 
+    const tokenLockingClient = new TokenLockingClient({ adapter });
+    tokenLockingClient._contract = {
+      interface: {
+        events: {
+          TokenLocked: 'TokenLocked interface',
+        },
+      },
+    };
+    tokenLockingClient.events = {
+      TokenLocked: 'TokenLocked ContractEvent',
+    };
+
     // Create a ColonyClient without a TokenClient
-    const withoutToken = new ColonyClient({ adapter, networkClient });
+    const withoutToken = new ColonyClient({
+      adapter,
+      networkClient,
+      tokenLockingClient,
+    });
     withoutToken._contract = contract;
 
     // The networkClient should have been set
@@ -116,12 +133,13 @@ describe('ColonyClient', () => {
     const withToken = new ColonyClient({
       adapter,
       networkClient,
-      token: tokenClient,
+      tokenClient,
+      tokenLockingClient,
     });
     withToken._contract = contract;
 
     // The token client should be set
-    expect(withToken).toHaveProperty('token', tokenClient);
+    expect(withToken).toHaveProperty('tokenClient', tokenClient);
 
     // Since it hasn't been initialized yet, we should not expect events from
     // the TokenClient to have been set on the ColonyClient

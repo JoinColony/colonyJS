@@ -3,10 +3,6 @@
 import BigNumber from 'bn.js';
 
 import ContractClient from '@colony/colony-js-contract-client';
-// eslint-disable-next-line max-len
-import type { ContractClientConstructorArgs } from '@colony/colony-js-contract-client';
-
-import ColonyNetworkClient from '../ColonyNetworkClient/index';
 
 type Address = string;
 type TokenAddress = string;
@@ -18,6 +14,8 @@ type TokenLocked = ContractClient.Event<{
 type UserTokenDeposited = ContractClient.Event<{
   token: TokenAddress, // The address of the token contract receiving the deposit.
   user: Address, // The address of the user that deposited tokens.
+  amount: BigNumber, // The amount of tokens that were deposited.
+  timestamp: Date, // The timestamp when the tokens were deposited.
 }>;
 type UserTokenUnlocked = ContractClient.Event<{
   token: TokenAddress, // The address of the token contract that was unlocked.
@@ -27,11 +25,10 @@ type UserTokenUnlocked = ContractClient.Event<{
 type UserTokenWithdrawn = ContractClient.Event<{
   token: TokenAddress, // The address of the token contract from which tokens were withdrawn.
   user: Address, // The address of the user that withdrew tokens.
+  amount: BigNumber, // The amount of tokens that were withdrawn.
 }>;
 
-export default class ColonyClient extends ContractClient {
-  networkClient: ColonyNetworkClient;
-
+export default class TokenLockingClient extends ContractClient {
   events: {
     TokenLocked: TokenLocked,
     UserTokenDeposited: UserTokenDeposited,
@@ -42,7 +39,7 @@ export default class ColonyClient extends ContractClient {
   /*
   Deposit tokens. This function only be called if the tokens that the user is attempting to deposit are not locked and if the user has allowed the token locking contract to transfer the tokens.
   */
-  deposit: ColonyClient.Sender<
+  deposit: TokenLockingClient.Sender<
     {
       token: TokenAddress, // The address of the token contract (an empty address if Ether).
       amount: BigNumber, // The amount of tokens that will be deposited.
@@ -50,7 +47,7 @@ export default class ColonyClient extends ContractClient {
     {
       UserTokenDeposited: UserTokenDeposited,
     },
-    ColonyClient,
+    TokenLockingClient,
     {
       contract: 'TokenLocking.sol',
       interface: 'ITokenLocking.sol',
@@ -60,12 +57,14 @@ export default class ColonyClient extends ContractClient {
   /*
   Get the total number of locked tokens.
   */
-  getTotalLockCount: ColonyClient.Caller<
-    {},
+  getTotalLockCount: TokenLockingClient.Caller<
+    {
+      token: TokenAddress, // The address of the token contract (an empty address if Ether).
+    },
     {
       count: number, // The total number of locked tokens in the colony.
     },
-    ColonyClient,
+    TokenLockingClient,
     {
       contract: 'TokenLocking.sol',
       interface: 'ITokenLocking.sol',
@@ -75,14 +74,15 @@ export default class ColonyClient extends ContractClient {
   /*
   Get the total number of locked tokens for a given user.
   */
-  getUserLock: ColonyClient.Caller<
+  getUserLock: TokenLockingClient.Caller<
     {
+      token: TokenAddress, // The address of the token contract (an empty address if Ether).
       user: Address, // The address of the user.
     },
     {
       count: BigNumber, // The total number of locked tokens.
     },
-    ColonyClient,
+    TokenLockingClient,
     {
       contract: 'TokenLocking.sol',
       interface: 'ITokenLocking.sol',
@@ -92,14 +92,14 @@ export default class ColonyClient extends ContractClient {
   /*
   Lock all tokens for a given token contract.
   */
-  lockToken: ColonyClient.Sender<
+  lockToken: TokenLockingClient.Sender<
     {
       token: TokenAddress, // The address of the token contract (an empty address if Ether).
     },
     {
       TokenLocked: TokenLocked,
     },
-    ColonyClient,
+    TokenLockingClient,
     {
       contract: 'TokenLocking.sol',
       interface: 'ITokenLocking.sol',
@@ -109,13 +109,13 @@ export default class ColonyClient extends ContractClient {
   /*
   Increment the token lock counter. This method allows users to waive reward payouts for past reward payout cycles, unlocking the tokens that were locked in previous reward payout cycles.
   */
-  incrementLockCounterTo: ColonyClient.Sender<
+  incrementLockCounterTo: TokenLockingClient.Sender<
     {
       token: TokenAddress, // The address of the token contract (an empty address if Ether).
       lockId: number, // The numeric ID of the lock count that will be set.
     },
     {},
-    ColonyClient,
+    TokenLockingClient,
     {
       contract: 'TokenLocking.sol',
       interface: 'ITokenLocking.sol',
@@ -125,7 +125,7 @@ export default class ColonyClient extends ContractClient {
   /*
   Unlock all tokens for a user on a given token contract.
   */
-  unlockTokenForUser: ColonyClient.Sender<
+  unlockTokenForUser: TokenLockingClient.Sender<
     {
       token: TokenAddress, // The address of the token contract (an empty address if Ether).
       user: Address, // The address of the user.
@@ -134,7 +134,7 @@ export default class ColonyClient extends ContractClient {
     {
       UserTokenUnlocked: UserTokenUnlocked,
     },
-    ColonyClient,
+    TokenLockingClient,
     {
       contract: 'TokenLocking.sol',
       interface: 'ITokenLocking.sol',
@@ -144,7 +144,7 @@ export default class ColonyClient extends ContractClient {
   /*
   Withdraw tokens. This function only be called if the tokens that the user is attempting to withdraw are not locked.
   */
-  withdraw: ColonyClient.Sender<
+  withdraw: TokenLockingClient.Sender<
     {
       token: TokenAddress, // The address of the token contract (an empty address if Ether).
       amount: BigNumber, // The amount of tokens that will be deposited.
@@ -152,7 +152,7 @@ export default class ColonyClient extends ContractClient {
     {
       UserTokenWithdrawn: UserTokenWithdrawn,
     },
-    ColonyClient,
+    TokenLockingClient,
     {
       contract: 'TokenLocking.sol',
       interface: 'ITokenLocking.sol',
@@ -166,35 +166,14 @@ export default class ColonyClient extends ContractClient {
     };
   }
 
-  constructor({
-    adapter,
-    networkClient,
-    query,
-  }: {
-    networkClient?: ColonyNetworkClient,
-  } & ContractClientConstructorArgs) {
-    super({ adapter, query });
-    if (!(networkClient instanceof ColonyNetworkClient))
-      throw new Error(
-        'A `networkClient` property must be supplied ' +
-          '(an instance of `ColonyNetworkClient`)',
-      );
-    this.networkClient = networkClient;
-    return this;
-  }
-
-  async init() {
-    await super.init();
-    return this;
-  }
-
   initializeContractMethods() {
     // Callers
     this.addCaller('getTotalLockCount', {
+      input: [['token', 'tokenAddress']],
       output: [['count', 'number']],
     });
     this.addCaller('getUserLock', {
-      input: [['user', 'address']],
+      input: [['token', 'tokenAddress'], ['user', 'address']],
       output: [['count', 'number']],
     });
 
@@ -206,6 +185,8 @@ export default class ColonyClient extends ContractClient {
     this.addEvent('UserTokenDeposited', [
       ['token', 'tokenAddress'],
       ['user', 'address'],
+      ['amount', 'bigNumber'],
+      ['timestamp', 'date'],
     ]);
     this.addEvent('UserTokenUnlocked', [
       ['token', 'tokenAddress'],
@@ -215,6 +196,7 @@ export default class ColonyClient extends ContractClient {
     this.addEvent('UserTokenWithdrawn', [
       ['token', 'tokenAddress'],
       ['user', 'address'],
+      ['amount', 'bigNumber'],
     ]);
 
     // Senders
@@ -231,7 +213,7 @@ export default class ColonyClient extends ContractClient {
       input: [
         ['token', 'tokenAddress'],
         ['user', 'address'],
-        ['lockCount', 'number'],
+        ['lockId', 'number'],
       ],
     });
     this.addSender('withdraw', {

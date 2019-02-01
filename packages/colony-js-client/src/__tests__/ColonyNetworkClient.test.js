@@ -23,6 +23,7 @@ describe('ColonyNetworkClient', () => {
     'UserLabelRegistered',
     'ColonyLabelRegistered',
     'ColonyNetworkInitialised',
+    'TokenLocked',
     'TokenLockingAddressSet',
     'MiningCycleResolverSet',
     'NetworkFeeInverseSet',
@@ -31,6 +32,9 @@ describe('ColonyNetworkClient', () => {
     'ReputationMiningInitialised',
     'ReputationMiningCycleComplete',
     'ReputationRootHashSet',
+    'UserTokenDeposited',
+    'UserTokenUnlocked',
+    'UserTokenWithdrawn',
   ];
   const colonyAddress = '0x123 Colony Lane';
   const contract = {
@@ -204,6 +208,8 @@ describe('ColonyNetworkClient', () => {
       colonyAddress,
     );
 
+    const tokenLockingClient = await networkClient.getTokenLockingClient();
+
     expect(colonyClientSpy).toHaveBeenCalled();
     expect(colonyClient).toBeInstanceOf(ColonyClient);
     expect(MockColonyClient).toHaveBeenCalledWith({
@@ -212,11 +218,12 @@ describe('ColonyNetworkClient', () => {
       query: {
         contractAddress: colonyAddress,
       },
+      tokenLockingClient,
     });
     expect(colonyClient.init).toHaveBeenCalled();
     expect(colonyClient.getToken.call).toHaveBeenCalled();
-    expect(colonyClient).toHaveProperty('token', expect.any(TokenClient));
-    expect(colonyClient.token.init).toHaveBeenCalled();
+    expect(colonyClient).toHaveProperty('tokenClient', expect.any(TokenClient));
+    expect(colonyClient.tokenClient.init).toHaveBeenCalled();
     expect(TokenClient).toHaveBeenCalledWith(
       expect.objectContaining({
         adapter: colonyClient.adapter,
@@ -252,9 +259,11 @@ describe('ColonyNetworkClient', () => {
     const networkClient = new ColonyNetworkClient({ adapter });
     await networkClient.init();
 
+    const tokenLockingClient = await networkClient.getTokenLockingClient();
+
     let client;
     const MockMetaColonyClient = sandbox.fn((...args) => {
-      client = new ColonyClient(...args);
+      client = new ColonyClient({ tokenLockingClient, ...args });
       return client;
     });
     const metaColonyClientSpy = sandbox

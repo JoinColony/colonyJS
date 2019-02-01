@@ -11,9 +11,13 @@ import type { ContractClientConstructorArgs } from '@colony/colony-js-contract-c
 
 import ColonyNetworkClient from '../ColonyNetworkClient/index';
 import TokenClient from '../TokenClient/index';
+import TokenLockingClient from '../TokenLockingClient/index';
+
 import GetTask from './callers/GetTask';
 import CreateTask from './senders/CreateTask';
+import addMetaColonyMethods from '../addMetaColonyMethods';
 import addRecoveryMethods from '../addRecoveryMethods';
+
 import {
   TASK_ROLES,
   ADMIN_ROLE,
@@ -164,7 +168,8 @@ type Transfer = ContractClient.Event<{
 
 export default class ColonyClient extends ContractClient {
   networkClient: ColonyNetworkClient;
-  token: TokenClient;
+  tokenClient: TokenClient;
+  tokenLockingClient: TokenLockingClient;
 
   events: {
     ColonyAdminRoleRemoved: ColonyAdminRoleRemoved,
@@ -1330,18 +1335,28 @@ export default class ColonyClient extends ContractClient {
 
   static get defaultQuery() {
     return {
-      contractName: 'IMetaColony', // IMetaColony extends IColony
+      contractName: 'IColony',
     };
+  }
+
+  static get TokenClient(): * {
+    return TokenClient;
+  }
+
+  static get TokenLockingClient(): * {
+    return TokenLockingClient;
   }
 
   constructor({
     adapter,
     networkClient,
     query,
-    token,
+    tokenClient,
+    tokenLockingClient,
   }: {
     networkClient?: ColonyNetworkClient,
-    token?: TokenClient,
+    tokenClient?: TokenClient,
+    tokenLockingClient?: TokenLockingClient,
   } & ContractClientConstructorArgs) {
     super({ adapter, query });
 
@@ -1351,8 +1366,15 @@ export default class ColonyClient extends ContractClient {
           '(an instance of `ColonyNetworkClient`)',
       );
 
+    if (!(tokenLockingClient instanceof TokenLockingClient))
+      throw new Error(
+        'A `tokenLockingClient` property must be supplied ' +
+          '(an instance of `TokenLockingClient`)',
+      );
+
     this.networkClient = networkClient;
-    if (token) this.token = token;
+    if (tokenClient) this.tokenClient = tokenClient;
+    this.tokenLockingClient = tokenLockingClient;
 
     return this;
   }
@@ -1360,20 +1382,32 @@ export default class ColonyClient extends ContractClient {
   async init() {
     await super.init();
 
-    const { address: tokenAddress } = await this.getToken.call();
-    if (!(this.token instanceof TokenClient)) {
-      this.token = new TokenClient({
-        adapter: this.adapter,
-        query: { contractAddress: tokenAddress },
-      });
-      await this.token.init();
+    if (!(this.tokenClient instanceof TokenClient)) {
+      this.tokenClient = await this.getTokenClient();
     }
 
     return this;
   }
 
+  /*
+  Get an initialized TokenClient.
+  */
+  async getTokenClient() {
+    const { address: tokenAddress } = await this.getToken.call();
+    const tokenClient = new this.constructor.TokenClient({
+      adapter: this.adapter,
+      query: { contractAddress: tokenAddress },
+    });
+    await tokenClient.init();
+    return tokenClient;
+  }
+
   initializeContractMethods() {
     addRecoveryMethods(this);
+
+    if (this._query.contractName === 'IMetaColony') {
+      addMetaColonyMethods(this);
+    }
 
     this.getTask = new GetTask({ client: this });
 
@@ -1394,7 +1428,7 @@ export default class ColonyClient extends ContractClient {
 
     makeTaskCaller(
       'getTaskPayout',
-      [['role', 'role'], ['token', 'tokenAddress']],
+      [['role', 'taskRole'], ['token', 'tokenAddress']],
       [['amount', 'bigNumber']],
     );
     makeTaskCaller(
@@ -1404,7 +1438,7 @@ export default class ColonyClient extends ContractClient {
     );
     makeTaskCaller(
       'getTaskRole',
-      [['role', 'role']],
+      [['role', 'taskRole']],
       [['address', 'address'], ['rateFail', 'boolean'], ['rating', 'number']],
     );
     makeTaskCaller(
@@ -1414,7 +1448,7 @@ export default class ColonyClient extends ContractClient {
     );
     makeTaskCaller(
       'getTaskWorkRatingSecret',
-      [['role', 'role']],
+      [['role', 'taskRole']],
       [['secret', 'hexString']],
     );
 
@@ -1503,13 +1537,13 @@ export default class ColonyClient extends ContractClient {
     this.addEvent('TaskRoleUserSet', [
       ['taskId', 'number'],
       // $FlowFixMe
-      ['role', 'role'],
+      ['role', 'taskRole'],
       ['user', 'tokenAddress'], // XXX because 0x0 is valid
     ]);
     this.addEvent('TaskPayoutSet', [
       ['taskId', 'number'],
       // $FlowFixMe
-      ['role', 'role'],
+      ['role', 'taskRole'],
       ['token', 'tokenAddress'],
       ['amount', 'bigNumber'],
     ]);
@@ -1520,13 +1554,13 @@ export default class ColonyClient extends ContractClient {
     this.addEvent('TaskWorkRatingRevealed', [
       ['taskId', 'number'],
       // $FlowFixMe
-      ['role', 'role'],
+      ['role', 'taskRole'],
       ['rating', 'number'],
     ]);
     this.addEvent('TaskPayoutClaimed', [
       ['taskId', 'number'],
       // $FlowFixMe
-      ['role', 'role'],
+      ['role', 'taskRole'],
       ['token', 'tokenAddress'],
       ['amount', 'bigNumber'],
     ]);
@@ -1560,26 +1594,30 @@ export default class ColonyClient extends ContractClient {
     ]);
     this.addEvent('ColonyRewardInverseSet', [['rewardInverse', 'bigNumber']]);
 
-    // XXX The SkillAdded/ColonyLabelRegistered events (and their underlying
-    // interfaces) are defined on the network client, but methods like
-    // `ColonyClient.addGlobalSkill` will cause these events to be logged;
-    // this workaround copies the event definition here so that it can be
-    // parsed correctly.
     /* eslint-disable max-len */
+    // The following events (and their underlying interfaces) are defined on
+    // another client, but methods within the colony client will cause these
+    // events to be logged. This workaround copies the event definitions here
+    // so that it can be parsed correctly.
+
+    // Events defined on the network client
     this.events.SkillAdded = this.networkClient.events.SkillAdded;
     this.events.ColonyLabelRegistered = this.networkClient.events.ColonyLabelRegistered;
     this.contract.interface.events.SkillAdded = this.networkClient.contract.interface.events.SkillAdded;
     this.contract.interface.events.ColonyLabelRegistered = this.networkClient.contract.interface.events.ColonyLabelRegistered;
 
-    // XXX Similarly, the `Transfer` and `Mint` events from the token contract
-    // need to be defined here, since they are emitted from various methods.
-    if (this.token) {
-      this.events.Transfer = this.token.events.Transfer;
-      this.events.Mint = this.token.events.Mint;
-      this.events.TokenLocked = this.token.events.TokenLocked;
-      this.contract.interface.events.Transfer = this.token.contract.interface.events.Transfer;
-      this.contract.interface.events.Mint = this.token.contract.interface.events.Mint;
-      this.contract.interface.events.TokenLocked = this.token.contract.interface.events.TokenLocked;
+    // Events defined on the token client
+    if (this.tokenClient) {
+      this.events.Transfer = this.tokenClient.events.Transfer;
+      this.events.Mint = this.tokenClient.events.Mint;
+      this.contract.interface.events.Transfer = this.tokenClient.contract.interface.events.Transfer;
+      this.contract.interface.events.Mint = this.tokenClient.contract.interface.events.Mint;
+    }
+
+    // Events defined on the token locking client
+    if (this.tokenLockingClient) {
+      this.events.TokenLocked = this.tokenLockingClient.events.TokenLocked;
+      this.contract.interface.events.TokenLocked = this.tokenLockingClient.contract.interface.events.TokenLocked;
     }
     /* eslint-enable max-len */
 
@@ -1587,16 +1625,13 @@ export default class ColonyClient extends ContractClient {
     this.addSender('addDomain', {
       input: [['parentDomainId', 'number']],
     });
-    this.addSender('addGlobalSkill', {
-      input: [['parentSkillId', 'number']],
-    });
     this.addSender('claimColonyFunds', {
       input: [['token', 'tokenAddress']],
     });
     this.addSender('claimPayout', {
       input: [
         ['taskId', 'number'],
-        ['role', 'role'],
+        ['role', 'taskRole'],
         ['token', 'tokenAddress'],
       ],
     });
@@ -1628,9 +1663,6 @@ export default class ColonyClient extends ContractClient {
     this.addSender('mintTokens', {
       input: [['amount', 'bigNumber']],
     });
-    this.addSender('mintTokensForColonyNetwork', {
-      input: [['amount', 'bigNumber']],
-    });
     this.addSender('moveFundsBetweenPots', {
       input: [
         ['fromPot', 'number'],
@@ -1642,7 +1674,7 @@ export default class ColonyClient extends ContractClient {
     this.addSender('revealTaskWorkRating', {
       input: [
         ['taskId', 'number'],
-        ['role', 'role'],
+        ['role', 'taskRole'],
         ['rating', 'number'],
         ['salt', 'string'],
       ],
@@ -1655,9 +1687,6 @@ export default class ColonyClient extends ContractClient {
         ['evaluatorAmount', 'bigNumber'],
         ['workerAmount', 'bigNumber'],
       ],
-    });
-    this.addSender('setNetworkFeeInverse', {
-      input: [['feeInverse', 'number']],
     });
     this.addSender('submitTaskDeliverable', {
       input: [['taskId', 'number'], ['deliverableHash', 'ipfsHash']],
@@ -1673,7 +1702,11 @@ export default class ColonyClient extends ContractClient {
       input: [['token', 'tokenAddress']],
     });
     this.addSender('submitTaskWorkRating', {
-      input: [['taskId', 'number'], ['role', 'role'], ['secret', 'hexString']],
+      input: [
+        ['taskId', 'number'],
+        ['role', 'taskRole'],
+        ['secret', 'hexString'],
+      ],
     });
     this.addSender('bootstrapColony', {
       input: [['users', '[address]'], ['amounts', '[bigNumber]']],
