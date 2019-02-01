@@ -1432,11 +1432,6 @@ export default class ColonyClient extends ContractClient {
       [['amount', 'bigNumber']],
     );
     makeTaskCaller(
-      'getTotalTaskPayout',
-      [['token', 'tokenAddress']],
-      [['amount', 'bigNumber']],
-    );
-    makeTaskCaller(
       'getTaskRole',
       [['role', 'taskRole']],
       [['address', 'address'], ['rateFail', 'boolean'], ['rating', 'number']],
@@ -1451,23 +1446,20 @@ export default class ColonyClient extends ContractClient {
       [['role', 'taskRole']],
       [['secret', 'hexString']],
     );
+    makeTaskCaller(
+      'getTotalTaskPayout',
+      [['token', 'tokenAddress']],
+      [['amount', 'bigNumber']],
+    );
 
     // Callers
-    this.addCaller('hasUserRole', {
-      input: [['user', 'address'], ['role', 'authorityRole']],
-      output: [['hasRole', 'boolean']],
+    this.addCaller('generateSecret', {
+      input: [['salt', 'string'], ['value', 'number']],
+      output: [['secret', 'hexString']],
     });
     this.addCaller('getAuthority', {
       functionName: 'authority',
       output: [['address', 'address']],
-    });
-    this.addCaller('getVersion', {
-      functionName: 'version',
-      output: [['version', 'number']],
-    });
-    this.addCaller('generateSecret', {
-      input: [['salt', 'string'], ['value', 'number']],
-      output: [['secret', 'hexString']],
     });
     this.addCaller('getDomain', {
       input: [['domainId', 'number']],
@@ -1490,6 +1482,9 @@ export default class ColonyClient extends ContractClient {
       input: [['potId', 'number'], ['token', 'tokenAddress']],
       output: [['balance', 'bigNumber']],
     });
+    this.addCaller('getRewardInverse', {
+      output: [['rewardInverse', 'bigNumber']],
+    });
     this.addCaller('getRewardPayoutInfo', {
       input: [['payoutId'], 'number'],
       output: [
@@ -1501,76 +1496,24 @@ export default class ColonyClient extends ContractClient {
         ['blockNumber', 'number'],
       ],
     });
-    this.addCaller('getRewardInverse', {
-      output: [['rewardInverse', 'bigNumber']],
-    });
     this.addCaller('getTaskCount', {
       output: [['count', 'number']],
     });
     this.addCaller('getToken', {
       output: [['address', 'address']],
     });
+    this.addCaller('getVersion', {
+      functionName: 'version',
+      output: [['version', 'number']],
+    });
+    this.addCaller('hasUserRole', {
+      input: [['user', 'address'], ['role', 'authorityRole']],
+      output: [['hasRole', 'boolean']],
+    });
 
     // Events
-    this.addEvent('DomainAdded', [['domainId', 'number']]);
-    this.addEvent('PotAdded', [['potId', 'number']]);
-    this.addEvent('TaskAdded', [['taskId', 'number']]);
-    this.addEvent('TaskCompleted', [['taskId', 'number']]);
-    this.addEvent('RewardPayoutCycleStarted', [['payoutId', 'number']]);
-    this.addEvent('RewardPayoutCycleEnded', [['payoutId', 'number']]);
-    this.addEvent('TaskBriefSet', [
-      ['taskId', 'number'],
-      ['specificationHash', 'ipfsHash'],
-    ]);
-    this.addEvent('TaskDueDateSet', [
-      ['taskId', 'number'],
-      ['dueDate', 'date'],
-    ]);
-    this.addEvent('TaskDomainSet', [
-      ['taskId', 'number'],
-      ['domainId', 'number'],
-    ]);
-    this.addEvent('TaskSkillSet', [
-      ['taskId', 'number'],
-      ['skillId', 'number'],
-    ]);
-    this.addEvent('TaskRoleUserSet', [
-      ['taskId', 'number'],
-      // $FlowFixMe
-      ['role', 'taskRole'],
-      ['user', 'tokenAddress'], // XXX because 0x0 is valid
-    ]);
-    this.addEvent('TaskPayoutSet', [
-      ['taskId', 'number'],
-      // $FlowFixMe
-      ['role', 'taskRole'],
-      ['token', 'tokenAddress'],
-      ['amount', 'bigNumber'],
-    ]);
-    this.addEvent('TaskDeliverableSubmitted', [
-      ['taskId', 'number'],
-      ['deliverableHash', 'ipfsHash'],
-    ]);
-    this.addEvent('TaskWorkRatingRevealed', [
-      ['taskId', 'number'],
-      // $FlowFixMe
-      ['role', 'taskRole'],
-      ['rating', 'number'],
-    ]);
-    this.addEvent('TaskPayoutClaimed', [
-      ['taskId', 'number'],
-      // $FlowFixMe
-      ['role', 'taskRole'],
-      ['token', 'tokenAddress'],
-      ['amount', 'bigNumber'],
-    ]);
-    this.addEvent('TaskFinalized', [['taskId', 'number']]);
-    this.addEvent('TaskCanceled', [['taskId', 'number']]);
-    this.addEvent('ColonyInitialised', [['colonyNetwork', 'address']]);
-    this.addEvent('ColonyUpgraded', [
-      ['oldVersion', 'number'],
-      ['newVersion', 'number'],
-    ]);
+    this.addEvent('ColonyAdminRoleRemoved', [['user', 'address']]);
+    this.addEvent('ColonyAdminRoleSet', [['user', 'address']]);
     this.addEvent('ColonyBootstrapped', [
       ['users', '[address]'],
       ['amounts', '[bigNumber]'],
@@ -1579,20 +1522,77 @@ export default class ColonyClient extends ContractClient {
       ['oldFounder', 'address'],
       ['newFounder', 'address'],
     ]);
-    this.addEvent('ColonyAdminRoleSet', [['user', 'address']]);
-    this.addEvent('ColonyAdminRoleRemoved', [['user', 'address']]);
+    this.addEvent('ColonyFundsClaimed', [
+      ['token', 'tokenAddress'],
+      ['fee', 'bigNumber'],
+      ['payoutRemainder', 'bigNumber'],
+    ]);
     this.addEvent('ColonyFundsMovedBetweenFundingPots', [
       ['fromPot', 'number'],
       ['toPot', 'number'],
       ['amount', 'bigNumber'],
       ['token', 'tokenAddress'],
     ]);
-    this.addEvent('ColonyFundsClaimed', [
-      ['token', 'tokenAddress'],
-      ['fee', 'bigNumber'],
-      ['payoutRemainder', 'bigNumber'],
-    ]);
+    this.addEvent('ColonyInitialised', [['colonyNetwork', 'address']]);
     this.addEvent('ColonyRewardInverseSet', [['rewardInverse', 'bigNumber']]);
+    this.addEvent('ColonyUpgraded', [
+      ['oldVersion', 'number'],
+      ['newVersion', 'number'],
+    ]);
+    this.addEvent('DomainAdded', [['domainId', 'number']]);
+    this.addEvent('PotAdded', [['potId', 'number']]);
+    this.addEvent('RewardPayoutCycleStarted', [['payoutId', 'number']]);
+    this.addEvent('RewardPayoutCycleEnded', [['payoutId', 'number']]);
+    this.addEvent('TaskAdded', [['taskId', 'number']]);
+    this.addEvent('TaskBriefSet', [
+      ['taskId', 'number'],
+      ['specificationHash', 'ipfsHash'],
+    ]);
+    this.addEvent('TaskCanceled', [['taskId', 'number']]);
+    this.addEvent('TaskCompleted', [['taskId', 'number']]);
+    this.addEvent('TaskDeliverableSubmitted', [
+      ['taskId', 'number'],
+      ['deliverableHash', 'ipfsHash'],
+    ]);
+    this.addEvent('TaskDomainSet', [
+      ['taskId', 'number'],
+      ['domainId', 'number'],
+    ]);
+    this.addEvent('TaskDueDateSet', [
+      ['taskId', 'number'],
+      ['dueDate', 'date'],
+    ]);
+    this.addEvent('TaskFinalized', [['taskId', 'number']]);
+    this.addEvent('TaskPayoutClaimed', [
+      ['taskId', 'number'],
+      // $FlowFixMe
+      ['role', 'taskRole'],
+      ['token', 'tokenAddress'],
+      ['amount', 'bigNumber'],
+    ]);
+    this.addEvent('TaskPayoutSet', [
+      ['taskId', 'number'],
+      // $FlowFixMe
+      ['role', 'taskRole'],
+      ['token', 'tokenAddress'],
+      ['amount', 'bigNumber'],
+    ]);
+    this.addEvent('TaskRoleUserSet', [
+      ['taskId', 'number'],
+      // $FlowFixMe
+      ['role', 'taskRole'],
+      ['user', 'tokenAddress'], // XXX because 0x0 is valid
+    ]);
+    this.addEvent('TaskSkillSet', [
+      ['taskId', 'number'],
+      ['skillId', 'number'],
+    ]);
+    this.addEvent('TaskWorkRatingRevealed', [
+      ['taskId', 'number'],
+      // $FlowFixMe
+      ['role', 'taskRole'],
+      ['rating', 'number'],
+    ]);
 
     /* eslint-disable max-len */
     // The following events (and their underlying interfaces) are defined on
@@ -1601,29 +1601,30 @@ export default class ColonyClient extends ContractClient {
     // so that it can be parsed correctly.
 
     // Events defined on the network client
-    this.events.SkillAdded = this.networkClient.events.SkillAdded;
     this.events.ColonyLabelRegistered = this.networkClient.events.ColonyLabelRegistered;
-    this.contract.interface.events.SkillAdded = this.networkClient.contract.interface.events.SkillAdded;
+    this.events.SkillAdded = this.networkClient.events.SkillAdded;
     this.contract.interface.events.ColonyLabelRegistered = this.networkClient.contract.interface.events.ColonyLabelRegistered;
+    this.contract.interface.events.SkillAdded = this.networkClient.contract.interface.events.SkillAdded;
 
     // Events defined on the token client
     if (this.tokenClient) {
-      this.events.Transfer = this.tokenClient.events.Transfer;
       this.events.Mint = this.tokenClient.events.Mint;
-      this.contract.interface.events.Transfer = this.tokenClient.contract.interface.events.Transfer;
+      this.events.Transfer = this.tokenClient.events.Transfer;
       this.contract.interface.events.Mint = this.tokenClient.contract.interface.events.Mint;
+      this.contract.interface.events.Transfer = this.tokenClient.contract.interface.events.Transfer;
     }
 
     // Events defined on the token locking client
-    if (this.tokenLockingClient) {
-      this.events.TokenLocked = this.tokenLockingClient.events.TokenLocked;
-      this.contract.interface.events.TokenLocked = this.tokenLockingClient.contract.interface.events.TokenLocked;
-    }
+    this.events.TokenLocked = this.tokenLockingClient.events.TokenLocked;
+    this.contract.interface.events.TokenLocked = this.tokenLockingClient.contract.interface.events.TokenLocked;
     /* eslint-enable max-len */
 
     // Senders
     this.addSender('addDomain', {
       input: [['parentDomainId', 'number']],
+    });
+    this.addSender('bootstrapColony', {
+      input: [['users', '[address]'], ['amounts', '[bigNumber]']],
     });
     this.addSender('claimColonyFunds', {
       input: [['token', 'tokenAddress']],
@@ -1671,6 +1672,12 @@ export default class ColonyClient extends ContractClient {
         ['token', 'tokenAddress'],
       ],
     });
+    this.addSender('registerColonyLabel', {
+      input: [['colonyName', 'string'], ['orbitDBPath', 'string']],
+    });
+    this.addSender('removeAdminRole', {
+      input: [['user', 'address']],
+    });
     this.addSender('revealTaskWorkRating', {
       input: [
         ['taskId', 'number'],
@@ -1678,6 +1685,9 @@ export default class ColonyClient extends ContractClient {
         ['rating', 'number'],
         ['salt', 'string'],
       ],
+    });
+    this.addSender('setAdminRole', {
+      input: [['user', 'address']],
     });
     this.addSender('setAllTaskPayouts', {
       input: [
@@ -1687,6 +1697,15 @@ export default class ColonyClient extends ContractClient {
         ['evaluatorAmount', 'bigNumber'],
         ['workerAmount', 'bigNumber'],
       ],
+    });
+    this.addSender('setFounderRole', {
+      input: [['user', 'address']],
+    });
+    this.addSender('setRewardInverse', {
+      input: [['rewardInverse', 'bigNumber']],
+    });
+    this.addSender('startNextRewardPayout', {
+      input: [['token', 'tokenAddress']],
     });
     this.addSender('submitTaskDeliverable', {
       input: [['taskId', 'number'], ['deliverableHash', 'ipfsHash']],
@@ -1698,33 +1717,12 @@ export default class ColonyClient extends ContractClient {
         ['secret', 'hexString'],
       ],
     });
-    this.addSender('startNextRewardPayout', {
-      input: [['token', 'tokenAddress']],
-    });
     this.addSender('submitTaskWorkRating', {
       input: [
         ['taskId', 'number'],
         ['role', 'taskRole'],
         ['secret', 'hexString'],
       ],
-    });
-    this.addSender('bootstrapColony', {
-      input: [['users', '[address]'], ['amounts', '[bigNumber]']],
-    });
-    this.addSender('registerColonyLabel', {
-      input: [['colonyName', 'string'], ['orbitDBPath', 'string']],
-    });
-    this.addSender('setFounderRole', {
-      input: [['user', 'address']],
-    });
-    this.addSender('setRewardInverse', {
-      input: [['rewardInverse', 'bigNumber']],
-    });
-    this.addSender('setAdminRole', {
-      input: [['user', 'address']],
-    });
-    this.addSender('removeAdminRole', {
-      input: [['user', 'address']],
     });
     this.addSender('upgrade', {
       input: [['newVersion', 'number']],
@@ -1756,38 +1754,8 @@ export default class ColonyClient extends ContractClient {
       });
     makeExecuteTaskChange('cancelTask', [], [MANAGER_ROLE, WORKER_ROLE]);
     makeExecuteTaskChange(
-      'setTaskDomain',
-      [['domainId', 'number']],
-      [MANAGER_ROLE, WORKER_ROLE],
-    );
-    makeExecuteTaskChange(
-      'setTaskSkill',
-      [['skillId', 'number']],
-      [MANAGER_ROLE, WORKER_ROLE],
-    );
-    makeExecuteTaskChange(
-      'setTaskManagerPayout',
-      [['token', 'tokenAddress'], ['amount', 'bigNumber']],
-      [MANAGER_ROLE, WORKER_ROLE],
-    );
-    makeExecuteTaskChange(
-      'setTaskBrief',
-      [['specificationHash', 'ipfsHash']],
-      [MANAGER_ROLE, WORKER_ROLE],
-    );
-    makeExecuteTaskChange(
-      'setTaskDueDate',
-      [['dueDate', 'date']],
-      [MANAGER_ROLE, WORKER_ROLE],
-    );
-    makeExecuteTaskChange(
-      'setTaskWorkerPayout',
-      [['token', 'tokenAddress'], ['amount', 'bigNumber']],
-      [MANAGER_ROLE, WORKER_ROLE],
-    );
-    makeExecuteTaskChange(
-      'setTaskEvaluatorPayout',
-      [['token', 'tokenAddress'], ['amount', 'bigNumber']],
+      'removeTaskEvaluatorRole',
+      [],
       [MANAGER_ROLE, EVALUATOR_ROLE],
     );
     makeExecuteTaskChange(
@@ -1796,9 +1764,39 @@ export default class ColonyClient extends ContractClient {
       [MANAGER_ROLE, WORKER_ROLE],
     );
     makeExecuteTaskChange(
-      'removeTaskEvaluatorRole',
-      [],
+      'setTaskBrief',
+      [['specificationHash', 'ipfsHash']],
+      [MANAGER_ROLE, WORKER_ROLE],
+    );
+    makeExecuteTaskChange(
+      'setTaskDomain',
+      [['domainId', 'number']],
+      [MANAGER_ROLE, WORKER_ROLE],
+    );
+    makeExecuteTaskChange(
+      'setTaskDueDate',
+      [['dueDate', 'date']],
+      [MANAGER_ROLE, WORKER_ROLE],
+    );
+    makeExecuteTaskChange(
+      'setTaskEvaluatorPayout',
+      [['token', 'tokenAddress'], ['amount', 'bigNumber']],
       [MANAGER_ROLE, EVALUATOR_ROLE],
+    );
+    makeExecuteTaskChange(
+      'setTaskManagerPayout',
+      [['token', 'tokenAddress'], ['amount', 'bigNumber']],
+      [MANAGER_ROLE, WORKER_ROLE],
+    );
+    makeExecuteTaskChange(
+      'setTaskSkill',
+      [['skillId', 'number']],
+      [MANAGER_ROLE, WORKER_ROLE],
+    );
+    makeExecuteTaskChange(
+      'setTaskWorkerPayout',
+      [['token', 'tokenAddress'], ['amount', 'bigNumber']],
+      [MANAGER_ROLE, WORKER_ROLE],
     );
 
     // Task role change MultisigSenders
@@ -1826,15 +1824,6 @@ export default class ColonyClient extends ContractClient {
         nonceFunctionName: 'getTaskChangeNonce',
         nonceInput: [['taskId', 'number']],
       });
-    makeExecuteTaskRoleChange('setTaskManagerRole', async ({ user }) => {
-      const isAdmin = await this.hasUserRole.call({
-        user,
-        role: ADMIN_ROLE,
-      });
-      if (!isAdmin)
-        throw new Error('Unable to set task role; user must be an admin');
-      return null;
-    });
     makeExecuteTaskRoleChange('setTaskEvaluatorRole', async ({ taskId }) => {
       const { address } = await this.getTaskRole.call({
         taskId,
@@ -1842,6 +1831,15 @@ export default class ColonyClient extends ContractClient {
       });
       if (isValidAddress(address))
         throw new Error('Unable to set task role; evaluator is already set');
+      return null;
+    });
+    makeExecuteTaskRoleChange('setTaskManagerRole', async ({ user }) => {
+      const isAdmin = await this.hasUserRole.call({
+        user,
+        role: ADMIN_ROLE,
+      });
+      if (!isAdmin)
+        throw new Error('Unable to set task role; user must be an admin');
       return null;
     });
     makeExecuteTaskRoleChange('setTaskWorkerRole', async ({ taskId }) => {
