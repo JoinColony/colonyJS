@@ -5,6 +5,7 @@ import createSandbox from 'jest-sandbox';
 import ColonyNetworkClient from '../ColonyNetworkClient';
 import ColonyClient from '../ColonyClient';
 import TokenClient from '../TokenClient';
+import TokenLockingClient from '../TokenLockingClient';
 
 jest.mock('web3-utils', () => ({
   isHex: jest.fn().mockReturnValue(true),
@@ -23,6 +24,7 @@ describe('ColonyNetworkClient', () => {
     'UserLabelRegistered',
     'ColonyLabelRegistered',
     'ColonyNetworkInitialised',
+    'TokenLocked',
     'TokenLockingAddressSet',
     'MiningCycleResolverSet',
     'NetworkFeeInverseSet',
@@ -31,6 +33,9 @@ describe('ColonyNetworkClient', () => {
     'ReputationMiningInitialised',
     'ReputationMiningCycleComplete',
     'ReputationRootHashSet',
+    'UserTokenDeposited',
+    'UserTokenUnlocked',
+    'UserTokenWithdrawn',
   ];
   const colonyAddress = '0x123 Colony Lane';
   const contract = {
@@ -180,6 +185,10 @@ describe('ColonyNetworkClient', () => {
   test('Getting a ColonyClient by address', async () => {
     const networkClient = new ColonyNetworkClient({ adapter });
     await networkClient.init();
+    const lockingAddress = 'The token locking contract lives here';
+    sandbox
+      .spyOn(networkClient.getTokenLocking, 'call')
+      .mockImplementation(async () => ({ lockingAddress }));
 
     let client;
     const MockColonyClient = sandbox.fn((...args) => {
@@ -212,17 +221,12 @@ describe('ColonyNetworkClient', () => {
       query: {
         contractAddress: colonyAddress,
       },
+      tokenLockingClient: expect.any(TokenLockingClient),
     });
     expect(colonyClient.init).toHaveBeenCalled();
     expect(colonyClient.getToken.call).toHaveBeenCalled();
-    expect(colonyClient).toHaveProperty('token', expect.any(TokenClient));
-    expect(colonyClient.token.init).toHaveBeenCalled();
-    expect(TokenClient).toHaveBeenCalledWith(
-      expect.objectContaining({
-        adapter: colonyClient.adapter,
-        query: { contractAddress: 'token address' },
-      }),
-    );
+    expect(colonyClient).toHaveProperty('tokenClient', expect.any(TokenClient));
+    expect(colonyClient.tokenClient.init).toHaveBeenCalled();
   });
 
   test('Getting a Colony address', async () => {
@@ -252,6 +256,15 @@ describe('ColonyNetworkClient', () => {
     const networkClient = new ColonyNetworkClient({ adapter });
     await networkClient.init();
 
+    const metaColonyAddress = 'The Meta Colony lives here';
+    const lockingAddress = 'The token locking contract lives here';
+    sandbox
+      .spyOn(networkClient.getTokenLocking, 'call')
+      .mockImplementation(async () => ({ lockingAddress }));
+    sandbox
+      .spyOn(networkClient.getMetaColonyAddress, 'call')
+      .mockImplementation(async () => ({ address: metaColonyAddress }));
+
     let client;
     const MockMetaColonyClient = sandbox.fn((...args) => {
       client = new ColonyClient(...args);
@@ -259,21 +272,8 @@ describe('ColonyNetworkClient', () => {
     });
     const metaColonyClientSpy = sandbox
       .spyOn(ColonyNetworkClient, 'ColonyClient', 'get')
-      .mockImplementation(() => MockMetaColonyClient);
+      .mockReturnValue(MockMetaColonyClient);
     sandbox.spyOn(ColonyClient.prototype, 'init');
-
-    // Test the mocked getter
-    expect(
-      new ColonyNetworkClient.ColonyClient({ networkClient }),
-    ).toBeInstanceOf(ColonyClient);
-    expect(MockMetaColonyClient).toHaveBeenCalledWith({ networkClient });
-    MockMetaColonyClient.mockClear();
-
-    const metaColonyAddress = 'The Meta Colony lives here';
-
-    sandbox
-      .spyOn(networkClient.getMetaColonyAddress, 'call')
-      .mockImplementation(async () => ({ address: metaColonyAddress }));
     sandbox
       .spyOn(ColonyClient.prototype, 'initializeContractMethods')
       .mockImplementation(() => {
@@ -295,7 +295,9 @@ describe('ColonyNetworkClient', () => {
       networkClient,
       query: {
         contractAddress: metaColonyAddress,
+        contractName: 'IMetaColony',
       },
+      tokenLockingClient: expect.any(TokenLockingClient),
     });
     expect(metaColonyClient.init).toHaveBeenCalled();
   });

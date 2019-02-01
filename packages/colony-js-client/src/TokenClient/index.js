@@ -25,9 +25,13 @@ type Mint = ContractClient.Event<{
   address: Address, // The address that initiated the mint event.
   amount: BigNumber, // The amount of tokens that were minted.
 }>;
+type TokenLocked = ContractClient.Event<{
+  token: Address, // The address of the token contract.
+  lockCount: number, // The total lock count for the token.
+}>;
 type Transfer = ContractClient.Event<{
-  from: Address, // The address that sent the tokens.
-  to: Address, // The address that received the tokens.
+  from: Address, // The address of the account that sent tokens.
+  to: Address, // The address of the account that received tokens.
   value: BigNumber, // The amount of tokens that were transferred.
 }>;
 
@@ -39,6 +43,7 @@ export default class TokenClient extends ContractClient {
     LogSetOwner: LogSetOwner,
     Mint: Mint,
     Transfer: Transfer,
+    TokenLocked: TokenLocked,
   };
 
   /*
@@ -91,7 +96,7 @@ export default class TokenClient extends ContractClient {
     },
     TokenClient,
     {
-      name: 'allowance',
+      function: 'allowance',
       contract: 'erc20.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626',
@@ -110,7 +115,7 @@ export default class TokenClient extends ContractClient {
     },
     TokenClient,
     {
-      name: 'balanceOf',
+      function: 'balanceOf',
       contract: 'erc20.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626',
@@ -145,7 +150,7 @@ export default class TokenClient extends ContractClient {
     },
     TokenClient,
     {
-      name: 'totalSupply',
+      function: 'totalSupply',
       contract: 'erc20.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626',

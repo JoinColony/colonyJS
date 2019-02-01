@@ -26,16 +26,18 @@ const CONTRACT_CLIENTS = [
 
 const TYPES = {
   BooleanTypeAnnotation: 'boolean',
-  StringTypeAnnotation: 'string',
-  NumberTypeAnnotation: 'number',
-  Date: 'Date',
-  Address: 'Address',
-  BigNumber: 'BigNumber',
-  Role: 'Role',
-  AuthorityRole: 'Authority Role',
+  Address: 'address',
+  Array: 'array',
+  AuthorityRole: 'authority role',
+  BigNumber: 'big number',
+  Date: 'date',
   IPFSHash: 'IPFS hash',
-  TokenAddress: 'Token address',
-  HexString: 'Hex string',
+  NumberTypeAnnotation: 'number',
+  StringTypeAnnotation: 'string',
+  TaskRole: 'task role',
+  TaskStatus: 'task status',
+  TokenAddress: 'address',
+  HexString: 'hex string',
 };
 
 const generateMarkdown = ({ file, templateFile, output }) => {
@@ -227,7 +229,7 @@ function printContractData(data) {
   const colonyPath = `https://github.com/JoinColony/colonyNetwork/tree/${data.version}/contracts`
   const contractPath = data.contractPath ? data.contractPath : colonyPath;
   return `
-  ${data.name ? `- Name: \`${data.name}\`` : ''}
+  ${data.function ? `- Function: \`${data.function}\`` : ''}
   ${data.contract ? `- Contract: [${data.contract}](${contractPath}/${data.contract})` : ''}
   ${data.interface ? `- Interface: [${data.interface}](${colonyPath}/${data.interface})` : ''}
   `

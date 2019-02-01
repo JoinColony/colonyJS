@@ -12,6 +12,7 @@ import './paramTypes';
 import ColonyNetworkClient from './ColonyNetworkClient/index';
 import ColonyClient from './ColonyClient/index';
 import TokenClient from './TokenClient/index';
+import TokenLockingClient from './TokenLockingClient/index';
 
 export type {
   ColonyClient,
@@ -21,21 +22,22 @@ export type {
   MultisigOperationConstructorArgs,
   SendOptions,
   TokenClient,
+  TokenLockingClient,
 };
 
 export {
+  ACTIVE_TASK_STATUS,
   ADMIN_ROLE,
   AUTHORITY_ROLES,
+  CANCELLED_TASK_STATUS,
   EMPTY_ADDRESS,
   EVALUATOR_ROLE,
-  MANAGER_ROLE,
-  FOUNDER_ROLE,
-  ROLES,
-  WORKER_ROLE,
-  ACTIVE_TASK_STATUS,
-  CANCELLED_TASK_STATUS,
   FINALIZED_TASK_STATUS,
+  FOUNDER_ROLE,
+  MANAGER_ROLE,
+  TASK_ROLES,
   TASK_STATUSES,
+  WORKER_ROLE,
 } from './constants';
 
 export default ColonyNetworkClient;

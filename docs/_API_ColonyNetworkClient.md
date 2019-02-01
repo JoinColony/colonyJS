@@ -95,7 +95,7 @@ Check whether or not ENS supports a contract interface. A supported contract int
 
 |Argument|Type|Description|
 |---|---|---|
-|interfaceId|Hex string|The hashed ID of the contract interface as specified in ERC-165.|
+|interfaceId|hex string|The hashed ID of the contract interface as specified in ERC-165.|
 
 **Returns**
 
@@ -108,7 +108,7 @@ A promise which resolves to an object containing the following properties:
 **Contract Information**
 
 
-  - Name: `supportsInterface`
+  - Function: `supportsInterface`
   - Contract: [ColonyNetworkENS.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetworkENS.sol)
   - Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColonyNetwork.sol)
   
@@ -121,7 +121,7 @@ Get the address of a registered ENS label. This function will return an empty ad
 
 |Argument|Type|Description|
 |---|---|---|
-|nameHash|Hex string|The hached ENS label that will be checked.|
+|nameHash|hex string|The hached ENS label that will be checked.|
 
 **Returns**
 
@@ -129,12 +129,12 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|ensAddress|Address|The address associated with the ENS label.|
+|ensAddress|address|The address associated with the ENS label.|
 
 **Contract Information**
 
 
-  - Name: `addr`
+  - Function: `addr`
   - Contract: [ColonyNetworkENS.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetworkENS.sol)
   - Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColonyNetwork.sol)
   
@@ -182,7 +182,7 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|address|Address|The address of the colony contract.|
+|address|address|The address of the colony contract.|
 
 **Contract Information**
 
@@ -229,7 +229,7 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|address|Address|The address of the resolver contract.|
+|address|address|The address of the resolver contract.|
 
 **Contract Information**
 
@@ -260,6 +260,27 @@ A promise which resolves to an object containing the following properties:
   - Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColonyNetwork.sol)
   
 
+### `getFeeInverse.call()`
+
+Get the inverse amount of the network fee. If the fee is 1% (or 0.01), the inverse amount will be 100.
+
+
+**Returns**
+
+A promise which resolves to an object containing the following properties:
+
+|Return value|Type|Description|
+|---|---|---|
+|feeInverse|big number|The inverse amount of the network fee.|
+
+**Contract Information**
+
+
+  
+  - Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetwork.sol)
+  - Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColonyNetwork.sol)
+  
+
 ### `getMetaColonyAddress.call()`
 
 Get the Meta Colony contract address.
@@ -271,12 +292,12 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|address|Address|The address of the Meta Colony contract.|
+|address|address|The address of the Meta Colony contract.|
 
 **Contract Information**
 
 
-  - Name: `getMetaColony`
+  - Function: `getMetaColony`
   - Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetwork.sol)
   - Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColonyNetwork.sol)
   
@@ -316,7 +337,7 @@ Get the address of the OrbitDB database associaated with a user profile.
 
 |Argument|Type|Description|
 |---|---|---|
-|nameHash|Hex string|The hashed ENS label that was registered for the user.|
+|nameHash|hex string|The hashed ENS label that was registered for the user.|
 
 **Returns**
 
@@ -350,7 +371,7 @@ A promise which resolves to an object containing the following properties:
 **Contract Information**
 
 
-  - Name: `numRecoveryRoles`
+  - Function: `numRecoveryRoles`
   - Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ContractRecovery.sol)
   - Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IRecovery.sol)
   
@@ -436,7 +457,7 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|lockingAddress|Address|The address of the token locking contract.|
+|lockingAddress|address|The address of the token locking contract.|
 
 **Contract Information**
 
@@ -454,7 +475,7 @@ Check whether or not an address is a colony contract.
 
 |Argument|Type|Description|
 |---|---|---|
-|colony|Address|The address that will be checked.|
+|colony|address|The address that will be checked.|
 
 **Returns**
 
@@ -501,7 +522,7 @@ Lookup the registed ENS label for an address. This function will return an empty
 
 |Argument|Type|Description|
 |---|---|---|
-|ensAddress|Address|The address that will checked.|
+|ensAddress|address|The address that will checked.|
 
 **Returns**
 
@@ -532,7 +553,7 @@ Add a new colony contract version and set the address of the resolver contract.
 |Argument|Type|Description|
 |---|---|---|
 |version|number|The versions number of the colony contract.|
-|resolver|Address|The address of the resolver contract.|
+|resolver|address|The address of the resolver contract.|
 
 **Returns**
 
@@ -541,7 +562,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |Event data|Type|Description|
 |---|---|---|
 |version|number|The version number of the colony contract that was added.|
-|resolver|Address|The address of the resolver contract.|
+|resolver|address|The address of the resolver contract.|
 |ColonyVersionAdded|object|Contains the data defined in [ColonyVersionAdded](#eventscolonyversionaddedaddlistener-version-resolver-------)|
 
 **Contract Information**
@@ -608,7 +629,7 @@ Create a new colony on the network.
 
 |Argument|Type|Description|
 |---|---|---|
-|tokenAddress|Address|The address of the token contract.|
+|tokenAddress|address|The address of the token contract.|
 
 **Returns**
 
@@ -617,8 +638,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |Event data|Type|Description|
 |---|---|---|
 |colonyId|number|The numeric ID of the colony that was added.|
-|colonyAddress|Address|The address of the colony contract that was created.|
-|tokenAddress|Address|The address of the token contract that was assigned.|
+|colonyAddress|address|The address of the colony contract that was created.|
+|tokenAddress|address|The address of the token contract that was assigned.|
 |ColonyAdded|object|Contains the data defined in [ColonyAdded](#eventscolonyaddedaddlistener-colonyid-colonyaddress-tokenaddress-------)|
 
 **Contract Information**
@@ -637,7 +658,7 @@ Create the Meta Colony.
 
 |Argument|Type|Description|
 |---|---|---|
-|tokenAddress|Address|The address of the token contract.|
+|tokenAddress|address|The address of the token contract.|
 
 **Returns**
 
@@ -646,7 +667,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |Event data|Type|Description|
 |---|---|---|
 |colonyAddress|number|The address of the Meta Colony.|
-|tokenAddress|Address|The address of the CLNY token contract.|
+|tokenAddress|address|The address of the CLNY token contract.|
 |rootSkillId|number|The numeric ID of the root skill.|
 |MetaColonyCreated|object|Contains the data defined in [MetaColonyCreated](#eventsmetacolonycreatedaddlistener-colonyaddress-tokenaddress-rootskillid-------)|
 
@@ -739,7 +760,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|user|Address|The address of the user that registered a label.|
+|user|address|The address of the user that registered a label.|
 |label|string|The ENS label that was registered for the user.|
 |UserLabelRegistered|object|Contains the data defined in [UserLabelRegistered](#eventsuserlabelregisteredaddlistener-user-label-------)|
 
@@ -759,7 +780,7 @@ Remove the network recovery role from a user. This function can only be called b
 
 |Argument|Type|Description|
 |---|---|---|
-|user|Address|The address of the user that will be unassigned a network recovery role.|
+|user|address|The address of the user that will be unassigned a network recovery role.|
 
 **Returns**
 
@@ -775,6 +796,33 @@ An instance of a `ContractResponse`
   - Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IRecovery.sol)
   
 
+### `setFeeInverse.send({ feeInverse }, options)`
+
+Set the inverse amount of the network fee. If the fee is 1% (or 0.01), the inverse amount will be 100.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|feeInverse|big number|The inverse amount of the network fee.|
+
+**Returns**
+
+An instance of a `ContractResponse` which will eventually receive the following event data:
+
+|Event data|Type|Description|
+|---|---|---|
+|feeInverse|big number|The inverse value of the network fee that was set.|
+|NetworkFeeInverseSet|object|Contains the data defined in [NetworkFeeInverseSet](#eventsnetworkfeeinversesetaddlistener-feeinverse-------)|
+
+**Contract Information**
+
+
+  
+  - Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyNetwork.sol)
+  - Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColonyNetwork.sol)
+  
+
 ### `setRecoveryRole.send({ user }, options)`
 
 Assign a network recovery role to a user. This function can only be called by the `FOUNDER` authority role.
@@ -783,7 +831,7 @@ Assign a network recovery role to a user. This function can only be called by th
 
 |Argument|Type|Description|
 |---|---|---|
-|user|Address|The address of the user that will be assigned a network recovery role.|
+|user|address|The address of the user that will be assigned a network recovery role.|
 
 **Returns**
 
@@ -808,7 +856,7 @@ Set the value for a storage slot while in recovery mode. This can only be called
 |Argument|Type|Description|
 |---|---|---|
 |slot|number|The numeric ID of the storage slot that will be modified.|
-|value|Hex string|The hex string of data that will be set as the value.|
+|value|hex string|The hex string of data that will be set as the value.|
 
 **Returns**
 
@@ -832,7 +880,7 @@ Set the token locking address.
 
 |Argument|Type|Description|
 |---|---|---|
-|tokenLockingAddress|Address|The address of the locking contract.|
+|tokenLockingAddress|address|The address of the locking contract.|
 
 **Returns**
 
@@ -840,7 +888,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|tokenLocking|Address|The address of the token locking contract.|
+|tokenLocking|address|The address of the token locking contract.|
 |TokenLockingAddressSet|object|Contains the data defined in [TokenLockingAddressSet](#eventstokenlockingaddresssetaddlistener-tokenlocking-------)|
 
 **Contract Information**
@@ -859,7 +907,7 @@ Set up the registrar.
 
 |Argument|Type|Description|
 |---|---|---|
-|ens|Address|The adddress of the ENS registrar.|
+|ens|address|The adddress of the ENS registrar.|
 |rootNode|string|The namehash of the root node for the domain.|
 
 **Returns**
@@ -884,7 +932,7 @@ Create and start an auction for a token owned by the Colony Network. The auction
 
 |Argument|Type|Description|
 |---|---|---|
-|tokenAddress|Address|The address of the token contract.|
+|tokenAddress|address|The address of the token contract.|
 
 **Returns**
 
@@ -893,8 +941,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |Event data|Type|Description|
 |---|---|---|
 |auction|string|The address of the auction contract that was created.|
-|token|Address|The address of the token contract that was assigned.|
-|quantity|BigNumber|The amount of tokens available for the auction.|
+|token|address|The address of the token contract that was assigned.|
+|quantity|big number|The amount of tokens available for the auction.|
 |AuctionCreated|object|Contains the data defined in [AuctionCreated](#eventsauctioncreatedaddlistener-auction-token-quantity-------)|
 
 **Contract Information**
@@ -921,8 +969,8 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |Argument|Type|Description|
 |---|---|---|
 |auction|string|The address of the auction contract that was created.|
-|token|Address|The address of the token contract that was assigned.|
-|quantity|BigNumber|The amount of tokens available for the auction.|
+|token|address|The address of the token contract that was assigned.|
+|quantity|big number|The amount of tokens available for the auction.|
 
 
 ### `events.ColonyAdded.addListener(({ colonyId, colonyAddress, tokenAddress }) => { /* ... */ })`
@@ -934,8 +982,8 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |Argument|Type|Description|
 |---|---|---|
 |colonyId|number|The numeric ID of the colony that was added.|
-|colonyAddress|Address|The address of the colony contract that was created.|
-|tokenAddress|Address|The address of the token contract that was assigned.|
+|colonyAddress|address|The address of the colony contract that was created.|
+|tokenAddress|address|The address of the token contract that was assigned.|
 
 
 ### `events.ColonyLabelRegistered.addListener(({ colony, label }) => { /* ... */ })`
@@ -946,7 +994,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|colony|Address|The address of the colony that registered a label.|
+|colony|address|The address of the colony that registered a label.|
 |label|string|The ENS label that was registered for the colony.|
 
 
@@ -958,7 +1006,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|resolver|Address|The address of the resolver contract.|
+|resolver|address|The address of the resolver contract.|
 
 
 ### `events.ColonyVersionAdded.addListener(({ version, resolver }) => { /* ... */ })`
@@ -970,7 +1018,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |Argument|Type|Description|
 |---|---|---|
 |version|number|The version number of the colony contract that was added.|
-|resolver|Address|The address of the resolver contract.|
+|resolver|address|The address of the resolver contract.|
 
 
 ### `events.MetaColonyCreated.addListener(({ colonyAddress, tokenAddress, rootSkillId }) => { /* ... */ })`
@@ -982,7 +1030,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 |Argument|Type|Description|
 |---|---|---|
 |colonyAddress|number|The address of the Meta Colony.|
-|tokenAddress|Address|The address of the CLNY token contract.|
+|tokenAddress|address|The address of the CLNY token contract.|
 |rootSkillId|number|The numeric ID of the root skill.|
 
 
@@ -994,7 +1042,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|miningCycleResolver|Address|The address of the resolver contract for the reputation mining cycle contract.|
+|miningCycleResolver|address|The address of the resolver contract for the reputation mining cycle contract.|
 
 
 ### `events.NetworkFeeInverseSet.addListener(({ feeInverse }) => { /* ... */ })`
@@ -1005,7 +1053,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|feeInverse|BigNumber|The inverse value of the network fee that was set.|
+|feeInverse|big number|The inverse value of the network fee that was set.|
 
 
 ### `events.ReputationMiningCycleComplete.addListener(({ hash, nNodes }) => { /* ... */ })`
@@ -1016,7 +1064,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|hash|Hex string|The root hash of the reputation state that was accepted.|
+|hash|hex string|The root hash of the reputation state that was accepted.|
 |nNodes|number|The total number of nodes in the reputation state.|
 
 
@@ -1028,7 +1076,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|inactiveReputationMiningCycle|Address|The address of the reputation mining cycle that was initialized.|
+|inactiveReputationMiningCycle|address|The address of the reputation mining cycle that was initialized.|
 
 
 ### `events.ReputationRootHashSet.addListener(({ newHash, newNNodes, stakers, reward }) => { /* ... */ })`
@@ -1039,10 +1087,10 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|newHash|Hex string|The reputation root hash that was set.|
+|newHash|hex string|The reputation root hash that was set.|
 |newNNodes|number|The total number of nodes in the reputation state.|
-|stakers|undefined|The array of users who submitted or backed the accepted hash.|
-|reward|undefined|The array of corresponding amounts of CLNY each user received.|
+|stakers|array|The array of users who submitted or backed the accepted hash.|
+|reward|array|The array of corresponding amounts of CLNY each user received.|
 
 
 ### `events.SkillAdded.addListener(({ skillId, parentSkillId }) => { /* ... */ })`
@@ -1065,7 +1113,7 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|tokenLocking|Address|The address of the token locking contract.|
+|tokenLocking|address|The address of the token locking contract.|
 
 
 ### `events.UserLabelRegistered.addListener(({ user, label }) => { /* ... */ })`
@@ -1076,5 +1124,5 @@ Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events)
 
 |Argument|Type|Description|
 |---|---|---|
-|user|Address|The address of the user that registered a label.|
+|user|address|The address of the user that registered a label.|
 |label|string|The ENS label that was registered for the user.|

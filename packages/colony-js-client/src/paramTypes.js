@@ -4,7 +4,7 @@ import { isBigNumber } from '@colony/colony-js-utils';
 import { isHexStrict, hexToNumber } from 'web3-utils';
 import { addParamType } from '@colony/colony-js-contract-client';
 
-import { ROLES, AUTHORITY_ROLES, TASK_STATUSES } from './constants';
+import { AUTHORITY_ROLES, TASK_ROLES, TASK_STATUSES } from './constants';
 
 const dictType = (dict: { [key: string]: number }) => ({
   validate(value: any) {
@@ -26,8 +26,8 @@ const dictType = (dict: { [key: string]: number }) => ({
   },
 });
 
-addParamType('taskStatus', dictType(TASK_STATUSES));
-
-addParamType('role', dictType(ROLES));
-
 addParamType('authorityRole', dictType(AUTHORITY_ROLES));
+
+addParamType('taskRole', dictType(TASK_ROLES));
+
+addParamType('taskStatus', dictType(TASK_STATUSES));
