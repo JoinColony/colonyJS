@@ -15,7 +15,6 @@ import TokenLockingClient from '../TokenLockingClient/index';
 
 import GetTask from './callers/GetTask';
 import CreateTask from './senders/CreateTask';
-import addMetaColonyMethods from '../addMetaColonyMethods';
 import addRecoveryMethods from '../addRecoveryMethods';
 
 import {
@@ -1389,6 +1388,24 @@ export default class ColonyClient extends ContractClient {
     return this;
   }
 
+  isMetaColony() {
+    return this._query.contractName === 'IMetaColony';
+  }
+
+  _addMetaColonyOnlyError(propName: string) {
+    Object.assign(this, {
+      [propName]: () => {
+        throw new Error(`"${propName}" is only available for the MetaColony`);
+      },
+    });
+  }
+
+  addMetaColonySender(name: string, def: Object) {
+    return this.isMetaColony()
+      ? this.addSender(name, def)
+      : this._addMetaColonyOnlyError(name);
+  }
+
   /*
   Get an initialized TokenClient.
   */
@@ -1404,10 +1421,6 @@ export default class ColonyClient extends ContractClient {
 
   initializeContractMethods() {
     addRecoveryMethods(this);
-
-    if (this._query.contractName === 'IMetaColony') {
-      addMetaColonyMethods(this);
-    }
 
     this.getTask = new GetTask({ client: this });
 
@@ -1726,6 +1739,15 @@ export default class ColonyClient extends ContractClient {
     });
     this.addSender('upgrade', {
       input: [['newVersion', 'number']],
+    });
+    this.addMetaColonySender('addGlobalSkill', {
+      input: [['parentSkillId', 'number']],
+    });
+    this.addMetaColonySender('mintTokensForColonyNetwork', {
+      input: [['amount', 'bigNumber']],
+    });
+    this.addMetaColonySender('setNetworkFeeInverse', {
+      input: [['feeInverse', 'number']],
     });
 
     // Remove duplicate/invalid signees and normalise lowercase
