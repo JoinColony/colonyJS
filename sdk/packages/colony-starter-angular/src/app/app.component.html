@@ -1,7 +1,84 @@
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
+<mat-toolbar color="primary">
+  <span>{{title}}</span>
+</mat-toolbar>
+
+<div class="row">
+  <div class="col-6">
+    <mat-list>
+      <mat-list-item>Network Address: {{model.networkClient.addr}}</mat-list-item>
+      <mat-list-item>Account Address: {{model.networkClient.accountAddr}}</mat-list-item>
+      <mat-list-item *ngIf="model.token.address">Token Address: {{model.token.address}}</mat-list-item>
+      <mat-list-item *ngIf="model.colony.address">Colony Address: {{model.colony.address}} | ID: {{model.colony.id}}</mat-list-item>      
+    </mat-list> 
+  </div><!-- end col -->
+  <div class="col-6">
+    <mat-list>
+      <mat-list-item *ngIf="model.domain.id">Domain ID: {{model.domain.id}} LocalSkillID: {{model.domain.localSkillId}} PotID: {{model.domain.potId}}</mat-list-item>
+      <br>
+      <mat-list-item *ngIf="model.taskObject">Task: {{model.taskObject | json}}</mat-list-item>
+    </mat-list> 
+  </div><!-- end col -->
+</div><!-- end row -->
+<div class="row">
+  <div class="col-6">
+    <form>
+      <mat-card>
+        <mat-card-header>Create Token <span *ngIf="model.token.name">: {{model.token.name}} {{model.token.symbol}}</span></mat-card-header>
+        <mat-card-content>
+          <mat-form-field>
+            <input matInput placeholder="Token Name" #tokenName>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Token Symbol" #tokenSymbol>
+          </mat-form-field>
+          <button mat-button type="button" color="primary" (click)="token(tokenName.value, tokenSymbol.value)">Create Token</button>
+        </mat-card-content>
+      </mat-card>
+    </form>
+  </div><!-- end col -->
+  <div class="col-6">
+    <form>
+      <mat-card>
+        <mat-card-header>Add Domain</mat-card-header>
+        <mat-card-content>
+          <button mat-button type="button" color="primary" (click)="addDomain()">Add Domain</button>
+        </mat-card-content>
+      </mat-card>
+    </form>
+  </div><!-- end col -->
+</div><!-- end row -->
+<div class="row">
+  <div class="col-6">
+    <form>
+      <mat-card>
+        <mat-card-header>Create Colony and Get Colony Cient</mat-card-header>
+        <mat-card-content>
+          <mat-form-field>
+            <input matInput placeholder="Token Address" #tokenAddress>
+          </mat-form-field>
+          <button mat-button type="button" color="primary" (click)="createColony(tokenAddress.value)">Create Colony</button>
+        </mat-card-content>
+      </mat-card>
+    </form>
+  </div><!-- end col -->  
+  <div class="col-6">
+    <form>
+      <mat-card>
+        <mat-card-header>Create Task <span *ngIf="model.task.title">: {{model.task.title}} {{model.task.desc}}</span></mat-card-header>
+        <mat-card-content>
+          <mat-form-field>
+            <input matInput placeholder="Task Title" #taskTitle>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Task Description" #taskDesc>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Domain ID" #domainId>
+          </mat-form-field>
+          <button mat-button type="button" color="primary" (click)="createTask(taskTitle.value, taskDesc.value, domainId.value)">Create Task</button>
+        </mat-card-content>
+      </mat-card>
+    </form>
+  </div><!-- end col -->
+</div><!-- end row -->
 
