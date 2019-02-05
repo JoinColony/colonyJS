@@ -1,7 +1,7 @@
-// Import TrufflepigLoader
+// Import prerequisites
 const { TrufflepigLoader } = require('@colony/colony-js-contract-loader-http');
-
-// Import Big Number library
+const { EMPTY_ADDRESS } = require('@colony/colony-js-client');
+const { utils } = require('ethers');
 const BN = require('bn.js');
 
 // Import examples
@@ -19,6 +19,7 @@ const mintTokens = require('../examples/mintTokens');
 const moveFundsBetweenPots = require('../examples/moveFundsBetweenPots');
 const removeTaskEvaluatorRole = require('../examples/removeTaskEvaluatorRole');
 const revealTaskWorkRating = require('../examples/revealTaskWorkRating');
+const sendEther = require('../examples/sendEther');
 const setTaskBrief = require('../examples/setTaskBrief');
 const setTaskDueDate = require('../examples/setTaskDueDate');
 const setTaskEvaluatorPayout = require('../examples/setTaskEvaluatorPayout');
@@ -130,13 +131,31 @@ describe('Colony Starter Basic', () => {
     expect(tokenSupply.amount.toNumber()).toEqual(30);
   }, 5000);
 
+  // Test the sendEther() example from account[0]
+  test('account[0] sendEther() works', async () => {
+    const balanceAfter = await sendEther(
+      state.colonyClient[0],          // accountIndex
+      utils.parseEther('3.0'),        // amount
+    );
+    expect(balanceAfter).toEqual(utils.parseEther('3.0').toString());
+  }, 5000);
+
   // Test the claimColonyFunds() example from account[0]
-  test('account[0] claimColonyFunds() works', async () => {
+  test('account[0] claimColonyFunds() works with token', async () => {
     const colonyPotBalance = await claimColonyFunds(
       state.colonyClient[0],          // colonyClient
       state.tokenAddress,             // tokenAddress
     );
     expect(colonyPotBalance.balance.toNumber()).toEqual(30);
+  }, 5000);
+
+  // Test the claimColonyFunds() example from account[0]
+  test('account[0] claimColonyFunds() works with ether', async () => {
+    const colonyPotBalance = await claimColonyFunds(
+      state.colonyClient[0],          // colonyClient
+      EMPTY_ADDRESS,                  // tokenAddress
+    );
+    expect(colonyPotBalance.balance).toEqual(utils.parseEther('3.0'));
   }, 5000);
 
   // Test the addDomain() example from account[0]
@@ -149,15 +168,27 @@ describe('Colony Starter Basic', () => {
   }, 5000);
 
   // Test the moveFundsBetweenPots() example from account[0]
-  test('account[0] moveFundsBetweenPots() works', async () => {
+  test('account[0] moveFundsBetweenPots() works with token', async () => {
     const potBalance = await moveFundsBetweenPots(
       state.colonyClient[0],          // colonyClient
       1,                              // fromPot
       state.domain.potId,             // toPot
-      30,                             // amount
+      new BN(30),                     // amount
       state.tokenAddress,             // token
     );
     expect(potBalance.balance.toNumber()).toEqual(30);
+  }, 5000);
+
+  // Test the moveFundsBetweenPots() example from account[0]
+  test('account[0] moveFundsBetweenPots() works with ether', async () => {
+    const potBalance = await moveFundsBetweenPots(
+      state.colonyClient[0],          // colonyClient
+      1,                              // fromPot
+      state.domain.potId,             // toPot
+      utils.parseEther('3.0'),        // amount
+      EMPTY_ADDRESS,                  // token
+    );
+    expect(potBalance.balance).toEqual(utils.parseEther('3.0'));
   }, 5000);
 
   // Test the createTask() example from account[0]
@@ -177,15 +208,27 @@ describe('Colony Starter Basic', () => {
   }, 15000);
 
   // Test the moveFundsBetweenPots() example from account[0]
-  test('account[0] moveFundsBetweenPots() works', async () => {
+  test('account[0] moveFundsBetweenPots() works with tokens', async () => {
     const potBalance = await moveFundsBetweenPots(
       state.colonyClient[0],          // colonyClient
       state.domain.potId,             // fromPot
       state.task.potId,               // toPot
-      30,                             // amount
+      new BN(30),                     // amount
       state.tokenAddress,             // token
     );
     expect(potBalance.balance.toNumber()).toEqual(30);
+  }, 5000);
+
+  // Test the moveFundsBetweenPots() example from account[0]
+  test('account[0] moveFundsBetweenPots() works with ether', async () => {
+    const potBalance = await moveFundsBetweenPots(
+      state.colonyClient[0],          // colonyClient
+      state.domain.potId,             // fromPot
+      state.task.potId,               // toPot
+      utils.parseEther('3.0'),        // amount
+      EMPTY_ADDRESS,                  // token
+    );
+    expect(potBalance.balance).toEqual(utils.parseEther('3.0'));
   }, 5000);
 
   // Test the addGlobalSkill() example from account[0]
@@ -250,11 +293,11 @@ describe('Colony Starter Basic', () => {
   }, 5000);
 
   // Test the setTaskManagerPayout() example from account[0]
-  test('account[0] setTaskManagerPayout() works', async () => {
+  test('account[0] setTaskManagerPayout() works with tokens', async () => {
     await setTaskManagerPayout(
       state.colonyClient[0],          // colonyClient
       state.task.id,                  // taskId
-      10,                             // amount
+      new BN(10),                     // amount
       state.tokenAddress,             // token
     );
     expect(JSON.parse(DATABASE.operations.setTaskManagerPayout)).toEqual(expect.objectContaining({
@@ -267,20 +310,50 @@ describe('Colony Starter Basic', () => {
   }, 5000);
 
   // Test the signSetTaskManagerPayout() example from account[0]
-  test('account[0] signSetTaskManagerPayout() works', async () => {
+  test('account[0] signSetTaskManagerPayout() works with tokens', async () => {
     const taskManagerPayout = await signSetTaskManagerPayout(
       state.colonyClient[0],          // colonyClient
       state.task.id,                  // taskId
+      state.tokenAddress,             // token
     );
     expect(taskManagerPayout.amount.toNumber()).toEqual(10);
   }, 5000);
 
+  // Test the setTaskManagerPayout() example from account[0]
+  test('account[0] setTaskManagerPayout() works with ether', async () => {
+    await setTaskManagerPayout(
+      state.colonyClient[0],          // colonyClient
+      state.task.id,                  // taskId
+      utils.parseEther('1.0'),        // amount
+      EMPTY_ADDRESS,                  // token
+    );
+    expect(JSON.parse(DATABASE.operations.setTaskManagerPayout)).toEqual(expect.objectContaining({
+      payload: expect.objectContaining({
+        inputValues: expect.objectContaining({
+          amount: expect.objectContaining({
+            _bn: (utils.parseEther('1.0')._bn).toJSON(),
+          }),
+        }),
+      }),
+    }));
+  }, 5000);
+
+  // Test the signSetTaskManagerPayout() example from account[0]
+  test('account[0] signSetTaskManagerPayout() works with ether', async () => {
+    const taskManagerPayout = await signSetTaskManagerPayout(
+      state.colonyClient[0],          // colonyClient
+      state.task.id,                  // taskId
+      EMPTY_ADDRESS,                  // token
+    );
+    expect(taskManagerPayout.amount).toEqual(utils.parseEther('1.0'));
+  }, 5000);
+
   // Test the setTaskEvaluatorPayout() example from account[0]
-  test('account[0] setTaskEvaluatorPayout() works', async () => {
+  test('account[0] setTaskEvaluatorPayout() works with tokens', async () => {
     await setTaskEvaluatorPayout(
       state.colonyClient[0],          // colonyClient
       state.task.id,                  // taskId
-      10,                             // amount
+      new BN(10),                     // amount
       state.tokenAddress,             // token
     );
     expect(JSON.parse(DATABASE.operations.setTaskEvaluatorPayout)).toEqual(expect.objectContaining({
@@ -293,20 +366,50 @@ describe('Colony Starter Basic', () => {
   }, 5000);
 
   // Test the signSetTaskEvaluatorPayout() example from account[0]
-  test('account[0] signSetTaskEvaluatorPayout() works', async () => {
+  test('account[0] signSetTaskEvaluatorPayout() works with tokens', async () => {
     const taskEvaluatorPayout = await signSetTaskEvaluatorPayout(
       state.colonyClient[0],          // colonyClient
       state.task.id,                  // taskId
+      state.tokenAddress,             // token
     );
     expect(taskEvaluatorPayout.amount.toNumber()).toEqual(10);
   }, 5000);
 
+  // Test the setTaskEvaluatorPayout() example from account[0]
+  test('account[0] setTaskEvaluatorPayout() works with ether', async () => {
+    await setTaskEvaluatorPayout(
+      state.colonyClient[0],          // colonyClient
+      state.task.id,                  // taskId
+      utils.parseEther('1.0'),        // amount
+      EMPTY_ADDRESS,                  // token
+    );
+    expect(JSON.parse(DATABASE.operations.setTaskEvaluatorPayout)).toEqual(expect.objectContaining({
+      payload: expect.objectContaining({
+        inputValues: expect.objectContaining({
+          amount: expect.objectContaining({
+            _bn: (utils.parseEther('1.0')._bn).toJSON(),
+          }),
+        }),
+      }),
+    }));
+  }, 5000);
+
+  // Test the signSetTaskEvaluatorPayout() example from account[0]
+  test('account[0] signSetTaskEvaluatorPayout() works with ether', async () => {
+    const taskEvaluatorPayout = await signSetTaskEvaluatorPayout(
+      state.colonyClient[0],          // colonyClient
+      state.task.id,                  // taskId
+      EMPTY_ADDRESS,                  // token
+    );
+    expect(taskEvaluatorPayout.amount).toEqual(utils.parseEther('1.0'));
+  }, 5000);
+
   // Test the setTaskWorkerPayout() example from account[0]
-  test('account[0] setTaskWorkerPayout() works', async () => {
+  test('account[0] setTaskWorkerPayout() works with tokens', async () => {
     await setTaskWorkerPayout(
       state.colonyClient[0],          // colonyClient
       state.task.id,                  // taskId
-      10,                             // amount
+      new BN(10),                     // amount
       state.tokenAddress,             // token
     );
     expect(JSON.parse(DATABASE.operations.setTaskWorkerPayout)).toEqual(expect.objectContaining({
@@ -319,12 +422,42 @@ describe('Colony Starter Basic', () => {
   }, 5000);
 
   // Test the signSetTaskWorkerPayout() example from account[0]
-  test('account[0] signSetTaskWorkerPayout() works', async () => {
+  test('account[0] signSetTaskWorkerPayout() works with tokens', async () => {
     const taskWorkerPayout = await signSetTaskWorkerPayout(
       state.colonyClient[0],          // colonyClient
       state.task.id,                  // taskId
+      state.tokenAddress,             // token
     );
     expect(taskWorkerPayout.amount.toNumber()).toEqual(10);
+  }, 5000);
+
+  // Test the setTaskWorkerPayout() example from account[0]
+  test('account[0] setTaskWorkerPayout() works with ether', async () => {
+    await setTaskWorkerPayout(
+      state.colonyClient[0],          // colonyClient
+      state.task.id,                  // taskId
+      utils.parseEther('1.0'),        // amount
+      EMPTY_ADDRESS,                  // token
+    );
+    expect(JSON.parse(DATABASE.operations.setTaskWorkerPayout)).toEqual(expect.objectContaining({
+      payload: expect.objectContaining({
+        inputValues: expect.objectContaining({
+          amount: expect.objectContaining({
+            _bn: (utils.parseEther('1.0')._bn).toJSON(),
+          }),
+        }),
+      }),
+    }));
+  }, 5000);
+
+  // Test the signSetTaskWorkerPayout() example from account[0]
+  test('account[0] signSetTaskWorkerPayout() works with ether', async () => {
+    const taskWorkerPayout = await signSetTaskWorkerPayout(
+      state.colonyClient[0],          // colonyClient
+      state.task.id,                  // taskId
+      EMPTY_ADDRESS,                  // token
+    );
+    expect(taskWorkerPayout.amount).toEqual(utils.parseEther('1.0'));
   }, 5000);
 
   // Test the removeTaskEvaluatorRole() example from account[0]
@@ -594,7 +727,7 @@ describe('Colony Starter Basic', () => {
   }, 5000);
 
   // Test the claimPayout() example from account[0]
-  test('account[0] claimPayout() works', async () => {
+  test('account[0] claimPayout() works with tokens', async () => {
     const taskPayout = await claimPayout(
       state.colonyClient[0],          // colonyClient
       state.task.id,                  // taskId
@@ -604,8 +737,19 @@ describe('Colony Starter Basic', () => {
     expect(taskPayout.amount.toNumber()).toEqual(0);
   }, 5000);
 
+  // Test the claimPayout() example from account[0]
+  test('account[0] claimPayout() works with ether', async () => {
+    const taskPayout = await claimPayout(
+      state.colonyClient[0],          // colonyClient
+      state.task.id,                  // taskId
+      'MANAGER',                      // role
+      EMPTY_ADDRESS,                  // token
+    );
+    expect(taskPayout.amount.toNumber()).toEqual(0);
+  }, 5000);
+
   // Test the claimPayout() example from account[1]
-  test('account[1] claimPayout() works', async () => {
+  test('account[1] claimPayout() works with tokens', async () => {
     const taskPayout = await claimPayout(
       state.colonyClient[1],          // colonyClient
       state.task.id,                  // taskId
@@ -615,13 +759,35 @@ describe('Colony Starter Basic', () => {
     expect(taskPayout.amount.toNumber()).toEqual(0);
   }, 5000);
 
+  // Test the claimPayout() example from account[1]
+  test('account[1] claimPayout() works with ether', async () => {
+    const taskPayout = await claimPayout(
+      state.colonyClient[1],          // colonyClient
+      state.task.id,                  // taskId
+      'EVALUATOR',                    // role
+      EMPTY_ADDRESS,                  // token
+    );
+    expect(taskPayout.amount.toNumber()).toEqual(0);
+  }, 5000);
+
   // Test the claimPayout() example from account[2]
-  test('account[2] claimPayout() works', async () => {
+  test('account[2] claimPayout() works with tokens', async () => {
     const taskPayout = await claimPayout(
       state.colonyClient[2],          // colonyClient
       state.task.id,                  // taskId
       'WORKER',                       // role
       state.tokenAddress,             // token
+    );
+    expect(taskPayout.amount.toNumber()).toEqual(0);
+  }, 5000);
+
+  // Test the claimPayout() example from account[2]
+  test('account[2] claimPayout() works with ether', async () => {
+    const taskPayout = await claimPayout(
+      state.colonyClient[2],          // colonyClient
+      state.task.id,                  // taskId
+      'WORKER',                       // role
+      EMPTY_ADDRESS,                  // token
     );
     expect(taskPayout.amount.toNumber()).toEqual(0);
   }, 5000);

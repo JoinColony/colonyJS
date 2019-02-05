@@ -2,7 +2,7 @@
 const executeTaskMultisig = require('../helpers/executeTaskMultisig');
 
 // An example using the setTaskWorkerPayout operation
-const signSetTaskWorkerPayout = async (colonyClient, taskId) => {
+const signSetTaskWorkerPayout = async (colonyClient, taskId, token) => {
 
   // Execute task multisig operation for the given colonyJS method
   await executeTaskMultisig(
@@ -15,11 +15,11 @@ const signSetTaskWorkerPayout = async (colonyClient, taskId) => {
   const payout = await colonyClient.getTaskPayout.call({
     taskId,
     role: 'WORKER',
-    token: colonyClient.token._contract.address,
+    token,
   });
 
   // Check out the logs to see the task worker payout
-  console.log('Task Payout Amount:', payout.amount.toNumber());
+  console.log('Task Payout Amount:', payout.amount.toString());
 
   // Return the task worker payout
   return payout;

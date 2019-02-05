@@ -1,7 +1,7 @@
 // An example using the claimColonyFunds method
 const claimColonyFunds = async (colonyClient, token) => {
 
-  // Claim funds for our colony from our token
+  // Claim funds for our colony from the given token
   await colonyClient.claimColonyFunds.send({ token });
 
   // Get the pot balance of our colony

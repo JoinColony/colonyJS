@@ -29,7 +29,7 @@ export const cancelTask = async (colonyClient, taskId) => {
 
 export const claimPayout = async (colonyClient, taskId, role) => {
 
-  const token = colonyClient.token.contract.address
+  const token = colonyClient.tokenClient.contract.address
 
   // claim payout
   const tx = await colonyClient.claimPayout.send({
@@ -129,7 +129,7 @@ export const finalizeTask = async (colonyClient, taskId) => {
 export const fundTask = async (colonyClient, taskId, amount) => {
 
   // set token
-  const token = colonyClient.token.contract.address
+  const token = colonyClient.tokenClient.contract.address
 
   // get task
   const task = await getTask(colonyClient, taskId)
@@ -216,7 +216,7 @@ export const getTaskExtended = async (colonyClient, taskId) => {
   const potId = task.potId
 
   // set token
-  const token = colonyClient.token.contract.address
+  const token = colonyClient.tokenClient.contract.address
 
   // get pot balance
   const potBalance = await colonyClient.getPotBalance.call({
@@ -825,7 +825,7 @@ export const setTaskPayouts = async (colonyClient, taskId, managerAmount, evalua
   // start set task manager payout operation
   const setTaskPayouts =  await colonyClient.setAllTaskPayouts.send({
     taskId,
-    token: colonyClient.token.contract.address,
+    token: colonyClient.tokenClient.contract.address,
     managerAmount: new BN(managerAmount),
     evaluatorAmount: new BN(evaluatorAmount),
     workerAmount: new BN(workerAmount),

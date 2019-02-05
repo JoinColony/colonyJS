@@ -34,7 +34,7 @@ export const addDomain = async (colonyClient) => {
 export const fundDomain = async (colonyClient, domainId, amount) => {
 
   // set token
-  const token = colonyClient.token.contract.address
+  const token = colonyClient.tokenClient.contract.address
 
   // get domain
   const { potId } = await colonyClient.getDomain.call({ domainId })
