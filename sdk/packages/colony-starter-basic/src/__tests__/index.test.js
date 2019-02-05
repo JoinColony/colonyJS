@@ -457,7 +457,7 @@ describe('Colony Starter Basic', () => {
       state.task.id,                  // taskId
       EMPTY_ADDRESS,                  // token
     );
-    expect(taskWorkerPayout.amount).toEqual(10);
+    expect(taskWorkerPayout.amount).toEqual(utils.parseEther('1.0'));
   }, 5000);
 
   // Test the removeTaskEvaluatorRole() example from account[0]

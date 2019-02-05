@@ -32,12 +32,12 @@ export const createToken = async (networkClient, name, symbol) => {
 export const getToken = async (colonyClient) => {
 
   // set token address
-  const address = colonyClient.token.contract.address
+  const address = colonyClient.tokenClient.contract.address
 
-  const info = await colonyClient.token.getTokenInfo.call()
+  const info = await colonyClient.tokenClient.getTokenInfo.call()
 
   // get total supply
-  const { amount } = await colonyClient.token.getTotalSupply.call()
+  const { amount } = await colonyClient.tokenClient.getTotalSupply.call()
 
   // set supply
   const supply = amount.toNumber()
@@ -79,7 +79,7 @@ export const mintTokens = async (colonyClient, amount) => {
 export const setTokenOwner = async (colonyClient, colonyAddress) => {
 
   // set colony contract as token owner
-  const tx = await colonyClient.token.setOwner.send({
+  const tx = await colonyClient.tokenClient.setOwner.send({
     owner: colonyAddress,
   })
 

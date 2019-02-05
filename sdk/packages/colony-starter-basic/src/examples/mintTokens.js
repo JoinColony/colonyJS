@@ -8,7 +8,7 @@ const mintTokens = async (colonyClient, amount) => {
   await colonyClient.mintTokens.send({ amount: new BN(amount) });
 
   // Get the total supply of tokens
-  const totalSupply = await colonyClient.token.getTotalSupply.call();
+  const totalSupply = await colonyClient.tokenClient.getTotalSupply.call();
 
   // Check out the logs to see the total supply of tokens
   console.log('Total Supply Amount: ' + totalSupply.amount);
