@@ -1,10 +1,10 @@
 ---
 title: Domains and Skills
-section: Docs
-order: 4
+section: Topics
+order: 5
 ---
 
-As demonstrated in [Task Lifecycle](/colonyjs/docs-task-lifecycle/), a task must be assigned a domain. The domain is required when creating a task because reputation is earned within the context of domains. Upon the completion of a task, each role (assuming that the `MANAGER` and `WORKER` both received adequate ratings) will earn reputation within the domain that the task was assigned.
+As demonstrated in [Task Lifecycle](/colonyjs/topics-task-lifecycle/), a task must be assigned a domain. The domain is required when creating a task because reputation is earned within the context of domains. Upon the completion of a task, each role (assuming that the `MANAGER` and `WORKER` both received adequate ratings) will earn reputation within the domain that the task was assigned.
 
 We also have the option of assigning a skill to our task. When completing a task that is assigned a skill, reputation is also earned within the context of that skill (in addition to the reputation earned within the context of the assigned domain). Skills are "global", meaning they are shared across the Colony Network.
 
@@ -33,7 +33,7 @@ All domains that you create within a colony must have a "parent domain" assigned
 
 Remember, skills are "global", meaning they are shared across the Colony Network, therefore, the action of creating a new skill is only allowed by the `FOUNDER` of the [Meta Colony](/colonynetwork/docs-the-meta-colony-and-clny).
 
-Creating a skill is simple using an instance of the [MetaColonyClient](/colonyjs/api-metacolonyclient):
+Creating a skill is simple using an instance of the [ColonyClient](/colonyjs/api-colonyclient):
 
 ```js
 

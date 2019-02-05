@@ -1,12 +1,12 @@
 ---
-title: Managing Funds
-section: Docs
-order: 5
+title: Tokens and Funding
+section: Topics
+order: 6
 ---
 
 Whether you brought your own ERC20 token from an existing token contract or created a new token at the same time that you created a colony, you can use the [TokenClient](/colonyJS/api-tokenclient/) to call and send transactions associated with the token contract.
 
-`TokenClient` handles all the functions in the ERC20 standard interface, as well as `mint` and `burn`. Functions that you would ordinarily be able to perform as the contract owner may be performed by anyone in the colony with either `FOUNDER` or `ADMIN` authority. You can learn more about authority roles in [Authority](/colonyJS/docs-authority/).
+`TokenClient` handles all the functions in the ERC20 standard interface, as well as `mint` and `burn`. Functions that you would ordinarily be able to perform as the contract owner may be performed by anyone in the colony with either `FOUNDER` or `ADMIN` authority. You can learn more about authority roles in [Managing Permissions](/colonyJS/topics-managing-permissions/).
 
 ==TOC==
 
@@ -21,7 +21,10 @@ Creating a new token is simple using an instance of the [ColonyNetworkClient](/c
 ```js
 
 // Create a token
-await networkClient.createToken.send({ name, symbol });
+await networkClient.createToken.send({
+  name,
+  symbol,
+});
 
 ```
 
@@ -32,7 +35,7 @@ We can get the token info using an instance of the [TokenClient](/colonyjs/api-t
 ```js
 
 // View token
-await colonyClient.token.getTokenInfo.call()
+await colonyClient.tokenClient.getTokenInfo.call()
 
 ```
 
@@ -45,7 +48,7 @@ We can set the `owner` of the token contract using an instance of the [TokenClie
 ```js
 
 // Set token owner
-await colonyClient.token.setOwner.send({ owner });
+await colonyClient.tokenClient.setOwner.send({ owner });
 
 ```
 
@@ -84,7 +87,7 @@ We can get the total supply of out token using an instance of the [TokenClient](
 ```js
 
 // Get total supply
-await colonyClient.token.getTotalSupply.call();
+await colonyClient.tokenClient.getTotalSupply.call();
 
 ```
 

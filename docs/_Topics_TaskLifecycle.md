@@ -1,7 +1,7 @@
 ---
 title: Task Lifecycle
-section: Docs
-order: 3
+section: Topics
+order: 4
 ---
 
 The most useful abstraction within a colony is the task. Tasks are used to coordinate work and track reputation. They provide the only means to ultimately get paid through a colony. See [Tasks](/colonynetwork/docs-tasks/) as described in the colonyNetwork documentation for a complete description of what tasks are and how they function within a colony.
@@ -12,9 +12,9 @@ The most useful abstraction within a colony is the task. Tasks are used to coord
 
 There are three "task roles" that can be assigned to each task: `MANAGER`, `EVALUATOR`, and `WORKER`.
 
-Each "task role" has specific permissions for calling and approving certain actions. Actions that modify a task may require approval from two "task roles" if those roles have already been assigned (see [Modify Task](/colonyjs/docs-task-lifecycle#modify-task) for more information).
+Each "task role" has specific permissions for calling and approving certain actions. Actions that modify a task may require approval from two "task roles" if those roles have already been assigned (see [Modify Task](/#modify-task) for more information).
 
-### Permissions for `ColonyClient` methods
+### Permissions
 
 |                          | Manager | Evaluator | Worker | Other                                  |
 |--------------------------|---------|-----------|--------|----------------------------------------|
@@ -49,10 +49,6 @@ All methods associated with tasks can be called using an instance of the [Colony
 
 When creating a task, the task must be assigned a `specificationHash` and a `domainId`.
 
-Also known as the "task brief", the task specification is a description of the work required to be considered sufficient for a task payout. The `specificationHash` can be any arbitrary hash string (32 bytes) but this is especially suited for a unique IPFS content hash. See [Using IPFS](/colonyjs/docs-using-ipfs/) for more information about using an IPFS content hash.
-
-The domain is required when creating a task because reputation is earned within the context of domains. Upon the completion of a task, each role will earn reputation that is associated with the domain. The "root domain" of every colony is `1`, which is the default value if the `domainId` is not specified when creating a task.
-
 ```js
 
 // Create a task
@@ -63,11 +59,11 @@ await colonyClient.createTask.send({
 
 ```
 
+Also known as the "task brief", the task specification is a description of the work required to be considered sufficient for a task payout. The `specificationHash` can be any arbitrary hash string (32 bytes) but this is especially suited for a unique IPFS content hash. See [Using IPFS](/colonyjs/topics-using-ipfs/) for more information about using an IPFS content hash.
+
+The domain is required when creating a task because reputation is earned within the context of domains. Upon the completion of a task, each role will earn reputation that is associated with the domain. The "root domain" of every colony is `1`, which is the default value if the `domainId` is not specified when creating a task.
+
 When creating a task, the task can also be assigned a `skillId` and a `dueDate`.
-
-Skills are global, meaning they are shared across the Colony Network and only the Meta Colony can create new skills. When completing a task, reputation is also earned within the context of skills. There is no default value if the `skillId` is not specified and the `skillId` is not required when creating a task.
-
-The due date determines the deadline for the task. The task work cannot be submitted after the due date has passed. If the `dueDate` is not specified when creating a task, the default `dueDate` will be 90 days from the time that the task was created.
 
 ```js
 
@@ -80,6 +76,10 @@ await colonyClient.createTask.send({
 });
 
 ```
+
+Skills are global, meaning they are shared across the Colony Network and only the Meta Colony can create new skills. When completing a task, reputation is also earned within the context of skills. There is no default value if the `skillId` is not specified and the `skillId` is not required when creating a task.
+
+The due date determines the deadline for the task. The task work cannot be submitted after the due date has passed. If the `dueDate` is not specified when creating a task, the default `dueDate` will be 90 days from the time that the task was created.
 
 ### View Task
 
@@ -111,9 +111,9 @@ Let's take a quick look at an example of the returned task object from the `getT
 
 ```
 
-Several of these properties are pretty straight forward. The `id` is the `id` of the task, which we will need to include in the input for all methods that are specific to a task. The `status` is the current status of the task, which will either be `ACTIVE`, `CANCELLED` or `FINALIZED`. See [Cancel Task](/colonyjs/docs-task-lifecycle#cancel-task) or [Finalize Task](/colonyjs/docs-task-lifecycle#finalize-task) for more information.
+Several of these properties are pretty straight forward. The `id` is the `id` of the task, which we will need to include in the input for all methods that are specific to a task. The `status` is the current status of the task, which will either be `ACTIVE`, `CANCELLED` or `FINALIZED`. See [Cancel Task](/#cancel-task) or [Finalize Task](/#finalize-task) for more information.
 
-We already introduced `specificationHash`, `domainId`, `skillId` and `dueDate` above in our [Create Task](/colonyjs/docs-task-lifecycle#create-task) example and we will introduce `deliverableHash` below in our [Submit Work](/colonyjs/docs-task-lifecycle#submit-work) example. That leaves us with `potId` and `payoutsWeCannotMake`, which we will now introduce in our [Fund Task](/colonyjs/docs-task-lifecycle#fund-task) example.
+We already introduced `specificationHash`, `domainId`, `skillId` and `dueDate` in [Create Task](/#create-task). Next, we will introduce `potId` and `payoutsWeCannotMake` below in [Fund Task](/#fund-task) and then `deliverableHash` a bit further down in [Submit Work](/#submit-work).
 
 ### Fund Task
 
@@ -137,11 +137,11 @@ The "pot" associated with our task must have enough allocated funds to distribut
 
 How does `payoutsWeCannotMake` work? If the previous amount in the pot was enough to cover the payouts and the new amount in the pot is not enough to cover the payouts, then a value of `1` will be added to `payoutsWeCannotMake`. If the previous amount in the pot was not enough to cover the payouts and the new amount in the pot is enough to cover the payouts, then a value of `1` will be subtracted from `payoutsWeCannotMake`.
 
-For more information about how funding works within a colony, check out [Managing Funds](/colonyjs/docs-managing-funds).
+For more information about how funding works within a colony, check out [Tokens and Funding](/colonyjs/topics-tokens-and-funding).
 
 ### Modify Task
 
-Important changes to a task must be approved by multiple "task roles". Most of the methods that modify a task require multiple signatures before the modification will take affect (see [Multisignature](/colonyjs/docs-multisignature/) for more information).
+Important changes to a task must be approved by multiple "task roles". Most of the methods that modify a task require multiple signatures before the modification will take affect (see [Using Multisignature](/colonyjs/topics-using-multisignature/) for more information).
 
 Task modification methods and the required signatures for each are listed below.
 
@@ -306,7 +306,7 @@ await colonyClient.cancelTask.startOperation({ taskId });
 
 Once a `WORKER` has been assigned to the task, the task deliverable (or "task work") can be submitted.
 
-Like the `specificationHash`, the `deliverableHash` can be any arbitrary hash string (32 bytes) but this is especially suited for a unique IPFS content hash. See [Using IPFS](/colonyjs/docs-using-ipfs/) for more information about using an IPFS content hash.
+Like the `specificationHash`, the `deliverableHash` can be any arbitrary hash string (32 bytes) but this is especially suited for a unique IPFS content hash. See [Using IPFS](/colonyjs/topics-using-ipfs/) for more information about using an IPFS content hash.
 
 ```js
 
@@ -334,7 +334,10 @@ During the "commit period", ratings are submitted to the blockchain and hidden u
 ```js
 
 // Generate secret
-const { secret } = await colonyClient.generateSecret.call({ salt, value });
+const { secret } = await colonyClient.generateSecret.call({
+  salt,
+  value,
+});
 
 // Submit work rating
 await colonyClient.submitTaskWorkRating.send({

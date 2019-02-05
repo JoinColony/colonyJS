@@ -1,7 +1,7 @@
 ---
-title: Authority
-section: Docs
-order: 2
+title: Managing Permissions
+section: Topics
+order: 7
 ---
 
 In the current implementation of the colonyNetwork smart contracts, some events on-chain are not mediated by reputation scores as described in the [Whitepaper](https://colony.io/whitepaper.pdf). For now, certain actions within a colony that would ordinarily require some minimum reputation are assigned an "authority role".
@@ -12,7 +12,7 @@ In the current implementation of the colonyNetwork smart contracts, some events 
 
 There are two "authority roles": `FOUNDER` and `ADMIN`. Each authority role can call certain colonyNetwork methods, which are not permitted by addresses without an authority role. This includes actions such as minting new colony tokens, setting and removing authority roles, adding domains, creating tasks, and much more.
 
-*Note: The "authority roles" described here are distinct from "task roles" (`MANAGER`, `WORKER`, and `EVALUATOR`). You can learn more about task roles and their permissions in [Task Lifecycle](/colonyjs/docs-task-lifecycle).*
+*Note: The "authority roles" described here are distinct from "task roles" (`MANAGER`, `WORKER`, and `EVALUATOR`). You can learn more about task roles and their permissions in [Task Lifecycle](/colonyjs/topics-task-lifecycle).*
 
 ### Permissions for `ColonyClient` methods
 
@@ -37,7 +37,7 @@ There are two "authority roles": `FOUNDER` and `ADMIN`. Each authority role can 
 
 *See [ColonyClient](/colonyjs/api-colonyclient) for more information about each method.*
 
-### Permissions for `MetaColonyClient` methods
+### Permissions for `ColonyClient` methods (Meta Colony)
 
 |                                   | Founder       | Admin         |
 |-----------------------------------|---------------|---------------|
@@ -45,7 +45,16 @@ There are two "authority roles": `FOUNDER` and `ADMIN`. Each authority role can 
 | mintTokensForColonyNetwork        | X             |               |
 | setNetworkFeeInverse              | X             |               |
 
-*See [MetaColonyClient](/colonyjs/api-metacolonyclient) for more information about each method.*
+*See [ColonyClient](/colonyjs/api-colonyclient) for more information about each method.*
+
+### Permissions for `ColonyNetworkClient` methods
+
+|                                   | Founder       | Admin         |
+|-----------------------------------|---------------|---------------|
+| removeRecoveryRole                | X             |               |
+| setRecoveryRole                   | X             |               |
+
+*See [ColonyNetworkClient](/colonyjs/api-colonynetworkclient) for more information about each method.*
 
 ## Authority Methods
 

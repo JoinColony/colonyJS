@@ -1,18 +1,14 @@
 ---
 title: ColonyClient
 section: API
-order: 4
+order: 1
 ---
 
-The `ColonyClient` class is a standard interface for interactions with the on-chain functions and events described in `IColony.sol`
-
-These interactions are generally concerned with functions and events internal to a colony, such as creating a task, assigning a work rating, or moving funds between pots.
-
-For functions and events that concern the colonyNetwork as a whole, refer to the [ColonyNetworkClient API](/colonyjs/api-colonynetworkclient/).
+The `ColonyClient` class is a standard interface for interactions with the methods and events described in both `IColony.sol` and `IMetaColony.sol`. These interactions are generally concerned with actions within a colony, such as adding a new domain, creating a task, moving funds between pots, and managing permissions.
 
 ==TOC==
 
-## Create an instance
+## Initialize
 
 The easiest way to initialize the `ColonyClient` is to ask the `ColonyNetworkClient` for a new instance:
 
@@ -22,7 +18,7 @@ const colonyClient = await networkClient.getColonyClient(colonyId);
 
 ```
 
-You _could_ also create an instance of `ColonyClient` by providing an [adapter](/colonyjs/docs-adapters) and a query:
+You _could_ also create an instance of `ColonyClient` by providing an [adapter](/colonyjs/components-adapters) and a query:
 
 ```js
 
@@ -35,7 +31,7 @@ await colonyClient.init();
   
 ## Callers
 
-**All callers return promises which resolve to an object containing the given return values.** For a reference please check [here](/colonyjs/docs-contractclient/#callers).
+**All callers return promises which resolve to an object containing the given return values.**.
 
 ### `generateSecret.call({ salt, value })`
 
@@ -546,7 +542,7 @@ A promise which resolves to an object containing the following properties:
   
 ## Senders
 
-**All senders return an instance of a `ContractResponse`.** Every `send()` method takes an `options` object as the second argument. For a reference please check [here](/colonyjs/docs-contractclient/#senders).
+**All senders return an instance of a `ContractResponse`.** Every `send()` method takes an `options` object as the second argument.
 ### `addDomain.send({ parentDomainId }, options)`
 
 Add a domain to the colony. Adding new domains is currently retricted to one level, i.e. the `parentDomainId` must be the id of the root domain `1`, which represents the colony itself.
@@ -1419,9 +1415,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
   
 
   
-## Task MultiSig
+## MultiSigSenders
 
-**All MultiSig functions return an instance of a `MultiSigOperation`.** For a reference please check [here](/colonyjs/docs-multisignature/).
+**All MultiSig functions return an instance of a `MultiSigOperation`.**
 ### `cancelTask.startOperation({ taskId })`
 
 Cancel a task. Once a task is cancelled, no further changes to the task can be made.
@@ -1811,8 +1807,6 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 
   
 ## Events
-
-Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events) to interact with these events.
 
 
 ### `events.ColonyAdminRoleRemoved.addListener(({ user }) => { /* ... */ })`

@@ -24,7 +24,7 @@ To learn more about Colony, you can visit [the website](https://colony.io/) or r
 
 ## Documentation
 
-Please see the [full documentation](https://joincolony.github.io/colonyjs/docs-overview/) with detailed examples and explanations.
+Please see the [full documentation](https://joincolony.github.io/colonyjs/intro-welcome/) with detailed examples and explanations.
 
 ## Contributing
 

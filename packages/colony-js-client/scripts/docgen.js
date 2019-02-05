@@ -22,6 +22,11 @@ const CONTRACT_CLIENTS = [
     templateFile: path.resolve(__dirname, '..', 'docs', '_API_TokenClient.template.md'),
     output: path.resolve(__dirname, '..', '..', '..', 'docs', '_API_TokenClient.md'),
   },
+  {
+    file: path.resolve(__dirname, '..', 'src', 'TokenLockingClient', 'index.js'),
+    templateFile: path.resolve(__dirname, '..', 'docs', '_API_TokenLockingClient.template.md'),
+    output: path.resolve(__dirname, '..', '..', '..', 'docs', '_API_TokenLockingClient.md'),
+  },
 ];
 
 const TYPES = {
@@ -117,7 +122,7 @@ function printCallers(callers) {
   return `
 ## Callers
 
-**All callers return promises which resolve to an object containing the given return values.** For a reference please check [here](/colonyjs/docs-contractclient/#callers).
+**All callers return promises which resolve to an object containing the given return values.**.
 ` +
     callers
       .map(
@@ -147,7 +152,7 @@ function printSenders(senders, events) {
   return `
 ## Senders
 
-**All senders return an instance of a \`ContractResponse\`.** Every \`send()\` method takes an \`options\` object as the second argument. For a reference please check [here](/colonyjs/docs-contractclient/#senders).` +
+**All senders return an instance of a \`ContractResponse\`.** Every \`send()\` method takes an \`options\` object as the second argument.` +
     senders
       .map(
         sender => `
@@ -185,8 +190,6 @@ function printEvents(events) {
   return `
 ## Events
 
-Refer to the \`ContractEvent\` class [here](/colonyjs/docs-contractclient/#events) to interact with these events.
-
 ` + events.map(event => `
 ### \`events.${event.name}.addListener((${printArgs(event.args)}) => { /* ... */ })\`
 
@@ -200,9 +203,9 @@ function printMultiSig(multisig, events) {
   if (!multisig.length) return '';
   // TODO: use templates to properly place this text into the file
   return `
-## Task MultiSig
+## MultiSigSenders
 
-**All MultiSig functions return an instance of a \`MultiSigOperation\`.** For a reference please check [here](/colonyjs/docs-multisignature/).` +
+**All MultiSig functions return an instance of a \`MultiSigOperation\`.**` +
     multisig
       .map(
         ms => `
