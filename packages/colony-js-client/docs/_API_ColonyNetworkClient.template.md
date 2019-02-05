@@ -4,19 +4,13 @@ section: API
 order: 2
 ---
 
-The `ColonyNetworkClient` is a standard interface for interactions with functions and events described in `IColonyNetwork.sol`.
-
-These interactions are generally concerned with the colony network as a whole, rather than at the colony level. This includes operations like getting a count of all colonies on the network, querying for information about a parent skillId, or deposits/withdrawals of staked CLNY for use in the reputation system.
-
-You can learn more about the solidity implementation from the [Colony Network Docs](/colonynetwork/docs-colony).
-
-For interactions within a particular colony, see the [ColonyClient API](/colonyjs/api-colonyclient/).
+The `ColonyNetworkClient` is a standard interface for interactions with methods and events described in `IColonyNetwork.sol`. These interactions are generally concerned with the colony network as a whole. This includes operations like getting a count of all colonies on the network, querying for information about a skill, or registering an ENS label for a user.
 
 ==TOC==
 
-## Create an instance
+## Initialize
 
-You can create an instance of `ColonyNetworkClient` by providing an [adapter](/colonyjs/docs-adapters):
+You can create an instance of `ColonyNetworkClient` by providing an [adapter](/colonyjs/components-adapters):
 
 ```js
 
@@ -30,19 +24,20 @@ await networkClient.init();
 
 **All instance methods return promises.**
 
-### `getColonyClientByAddress(contractAddress)`
+### `getColonyAddress(id)`
 
-Returns an initialized ColonyClient for the contract at address `contractAddress`
+Get the address of a Colony for the specified id of a deployed colony contract.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|contractAddress|Adress|Address of a deployed Colony contract|
+|key|string|Name of the Colony to get|
+|id|number|Integer number of the Colony|
 
 **Returns**
 
-`Promise<ColonyClient>`. An instance of a `ColonyClient` associated with the given Colony contract
+`Promise<Address>`. The address of the given Colony contract
 
 ### `getColonyClient(id)`
 
@@ -59,20 +54,19 @@ Returns an initialized ColonyClient for the specified id of a deployed colony co
 
 `Promise<ColonyClient>`. An instance of a `ColonyClient` associated with the given Colony contract
 
-### `getColonyAddress(id)`
+### `getColonyClientByAddress(contractAddress)`
 
-Get the address of a Colony for the specified id of a deployed colony contract.
+Returns an initialized ColonyClient for the contract at address `contractAddress`
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
-|key|string|Name of the Colony to get|
-|id|number|Integer number of the Colony|
+|contractAddress|Adress|Address of a deployed Colony contract|
 
 **Returns**
 
-`Promise<Address>`. The address of the given Colony contract
+`Promise<ColonyClient>`. An instance of a `ColonyClient` associated with the given Colony contract
 
 ### `getMetaColonyClient()`
 

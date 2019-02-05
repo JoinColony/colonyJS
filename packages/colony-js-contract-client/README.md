@@ -6,10 +6,6 @@
 yarn add @colony/colony-js-contract-client
 ```
 
-## Usage
-
-Please see [the full documentation](https://joincolony.github.io/colonyjs/docs-contract-client/).
-
 ## Contributing
 
 This package is part of the [colonyJS monorepo](https://github.com/JoinColony/colonyJS).

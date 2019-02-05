@@ -9,13 +9,6 @@ the node `fs` module, for local testing and in dev environments
 yarn add @colony/colony-js-contract-loader-fs
 ```
 
-
-## Usage
-
-// TODO DOCS
-Please see [the full documentation](https://joincolony.github.io/colonyjs/api-loaders/#INSERTCORRECTANCHORHERE).
-
-
 ## Contributing
 
 This package is part of the [colonyJS monorepo](https://github.com/JoinColony/colonyJS).

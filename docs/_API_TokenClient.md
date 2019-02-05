@@ -4,25 +4,21 @@ section: API
 order: 3
 ---
 
-The `TokenClient` is a standard interface for interactions with functions and events described in `Token.sol`.
-
-Upon creation, new colonies can either create or import existing token contracts. These contracts are expected to conform to the ERC20 or ERC20Extended token standard interface, the latter allowing for `mint` and `burn` functions. The token client is intended to help keep interactions with a colony's token straightforward.
-
-Most functions are fairly self-explanatory and mirror their on-chain counterparts, but in some cases the function will return values passed from event data, rather than simple boolean expressions (which are returned from the contract on-chain).
+The `TokenClient` is a standard interface for interactions with methods and events described in `Token.sol`. These interactions are extended from the ERC20 and ERC20Extended standard token interfaces and are generally concerned with managing the native token assigned to a colony. This includes operations such as minting tokens, burning tokens, and transferring tokens.
 
 ==TOC==
 
-## Create an instance
+## Initialize
 
 The `TokenClient` is initialized for you when you ask the `ColonyNetworkClient` for a new instance of `ColonyClient`:
 
 ```js
 
-const tokenClient = colonyClient.token;
+const tokenClient = colonyClient.tokenClient;
 
 ```
 
-You _could_ create an instance of `TokenClient` by providing an [adapter](/colonyjs/docs-adapters) and a query:
+You _could_ create an instance of `TokenClient` by providing an [adapter](/colonyjs/components-adapters) and a query:
 
 ```js
 
@@ -35,7 +31,7 @@ await tokenClient.init();
   
 ## Callers
 
-**All callers return promises which resolve to an object containing the given return values.** For a reference please check [here](/colonyjs/docs-contractclient/#callers).
+**All callers return promises which resolve to an object containing the given return values.**.
 
 ### `getAllowance.call({ sourceAddress, user })`
 
@@ -137,7 +133,7 @@ A promise which resolves to an object containing the following properties:
   
 ## Senders
 
-**All senders return an instance of a `ContractResponse`.** Every `send()` method takes an `options` object as the second argument. For a reference please check [here](/colonyjs/docs-contractclient/#senders).
+**All senders return an instance of a `ContractResponse`.** Every `send()` method takes an `options` object as the second argument.
 ### `approve.send({ user, amount }, options)`
 
 Approve a token allowance. This function can only be called by the token `owner`. The allowance is the amount of tokens that the `spender` is authorized to transfer using the `transferFrom` function.
@@ -337,8 +333,6 @@ An instance of a `ContractResponse` which will eventually receive the following 
   
   
 ## Events
-
-Refer to the `ContractEvent` class [here](/colonyjs/docs-contractclient/#events) to interact with these events.
 
 
 ### `events.Approval.addListener(({ owner, spender, value }) => { /* ... */ })`

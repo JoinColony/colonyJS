@@ -10,12 +10,6 @@ HTTP requests, with a facility to look up the contract by name.
 yarn add @colony/colony-js-contract-loader-http
 ```
 
-
-## Usage
-
-Please see [the full documentation](https://joincolony.github.io/colonyjs/api-loaders/#httpcontractloader).
-
-
 ## Contributing
 
 This package is part of the [colonyJS monorepo](https://github.com/JoinColony/colonyJS).
