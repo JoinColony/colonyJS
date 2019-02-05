@@ -65,6 +65,7 @@ Now that you have a basic understanding of how Colony works, check out some of t
 
 - [colony-starter-basic](/packages/colony-starter-basic)
 - [colony-starter-react](/packages/colony-starter-react)
+- [colony-starter-angular](/packages/colony-starter-angular)
 
 ## Contribute
 
