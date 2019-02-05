@@ -2,7 +2,7 @@
 
 This is a simple starter project that demonstrates how to use [colonyJS](https://github.com/JoinColony/colonyJS) (a JavaScript client for [colonyNetwork](https://github.com/JoinColony/colonyNetwork)). This project is set up to start a local test network using [Ganache](https://github.com/trufflesuite/ganache-cli) and then deploy the [colonyNetwork](https://github.com/JoinColony/colonyNetwork) contracts to the local test network using [Truffle](https://github.com/trufflesuite/truffle). This project also uses [TrufflePig](https://github.com/JoinColony/trufflepig) to find and read the deployed contracts during local development.
 
-This project includes example scripts also found in the [Get Started](https://joincolony.github.io/colonyjs/docs-get-started/) and [Task Lifecycle](https://docs.colony.io/colonyjs/docs-task-lifecycle/) pages of the [colonyJS Docs](https://docs.colony.io/colonyjs/docs-overview). In order to help you hit the ground running with your new project, this starter project includes all of the examples from the docs plus some, and it gives you the opportunity to execute and test those examples with a few simple commands.
+This project includes example scripts also found in the [Local Setup](https://joincolony.github.io/colonyjs/intro-local-setup/) and [Task Lifecycle](https://docs.colony.io/colonyjs/topics-task-lifecycle/) pages of the [colonyJS Docs](https://docs.colony.io/colonyjs/intro-welcome). In order to help you hit the ground running with your new project, this starter project includes all of the examples from the docs plus some, and it gives you the opportunity to execute and test those examples with a few simple commands.
 
 ## Prerequisites
 
