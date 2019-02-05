@@ -8,7 +8,7 @@ order: 2
 
 The `colony-starter-react` package is a starter project that demonstrates how to use [colonyJS](https://github.com/JoinColony/colonyJS) (a JavaScript client for [colonyNetwork](https://github.com/JoinColony/colonyNetwork)) with `react`, `redux` and `webpack`. This project is set up to start a local test network using [Ganache](https://github.com/trufflesuite/ganache-cli) and then deploy the [colonyNetwork](https://github.com/JoinColony/colonyNetwork) contracts to the local test network using [Truffle](https://github.com/trufflesuite/truffle). This project also uses [TrufflePig](https://github.com/JoinColony/trufflepig) to find and read the deployed contracts during local development.
 
-This project includes example scripts also found in the [colonyJS Docs](/colonyjs/docs-overview). In order to help you hit the ground running with your new project, this starter project includes all of the examples that can be called through interactions with a simple user interface.
+This project includes example scripts also found in the colonyJS [Local Setup](/colonyjs/intro-local-setup) documentation. In order to help you hit the ground running with your new project, this starter project includes all of the examples that can be called through interactions with a simple user interface.
 
 ## Prerequisites
 
