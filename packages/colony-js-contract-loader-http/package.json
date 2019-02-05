@@ -1,6 +1,6 @@
 {
     "name": "@colony/colony-js-contract-loader-http",
-    "version": "1.9.0",
+    "version": "1.10.0",
     "description": "Load Ethereum smart contract definitions/metadata over HTTP",
     "main": "lib/index.js",
     "files": [
