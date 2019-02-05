@@ -1,12 +1,49 @@
 # Changelog
 
-## v.NEXT
+## v1.10.0
 
 **Bug fixes**
 
-* `TaskPayoutSet` and `TaskPayoutClaimed` now return token amounts as BigNumbers (`@colony/colony-js-client`)
-* Add `bootstrapColony` sender and `ColonyBootstrapped` event to colony client (`@colony/colony-js-client`)
+* Use BigNumber for token amount in `TaskPayoutSet` and `TaskPayoutClaimed` (`@colony/colony-js-client`)
+
+**New Features**
+
 * Add `[address]` and `[bigNumber]` param type and validation (`@colony/colony-js-contract-client`)
+* Add `ContractData` to `ContractClient` classes (`@colony/colony-js-contract-client`)
+* Add `ColonyClient` methods and events (`@colony/colony-js-client`)
+  * `ColonyBootstrapped`
+  * `bootstrapColony`
+  * `getNetworkFee`
+  * `setNetworkFee`
+  * `setNetworkFeeInverse`
+  * `setRewardInverse`
+* Extend `ColonyClient` with MetaColony methods and events (`@colony/colony-js-client`)
+  * Add `addMetaColonySender` to add when `IMetaColony` contract
+  * Update `getMetaColonyClient` to query `IMetaColony` contract
+* Add `TokenLockingClient` and methods and events (`@colony/colony-js-client`)
+  * `TokenLocked`
+  * `UserTokenDeposited`
+  * `UserTokenUnlocked`
+  * `UserTokenWithdrawn`
+  * `deposit`
+  * `getTotalLockCount`
+  * `getUserLock`
+  * `lockToken`
+  * `incrementLockCounterTo`
+  * `unlockTokenForUser`
+  * `withdraw`
+
+**Maintenance**
+
+* Remove methods from `ColonyClient` (`@colony/colony-js-client`)
+  * `assignWorkRating`
+  * `initialise`
+  * `getTransactionCount`
+  * `setToken`
+* Update methods in `ColonyClient` (`@colony/colony-js-client`)
+  * Update `getGlobalRewardPayoutCount` to `getTotalLockCount`
+  * Update `getUserRewardPayoutCount` to `getUserLock`
+  * Update `waiveRewardPayouts` to `incrementLockCounterTo`
 
 ## v1.9.0
 
