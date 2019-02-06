@@ -61,12 +61,12 @@ export default class TokenClient extends ContractClient {
     {
       contract: 'erc20.sol',
       // eslint-disable-next-line max-len
-      contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
+      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
     },
   >;
   /*
-  Burn tokens. This is an `ERC20Extended` function that can only be called by the token `owner`. When a colony contract address is assigned as the token `owner`, this function can only be called by the user assigned the `FOUNDER` authority role.
+  Burn tokens. This is a `DSToken` function that can only be called by the token `owner`. When a colony contract address is assigned as the token `owner`, this function can only be called by the user assigned the `FOUNDER` authority role.
   */
   burn: TokenClient.Sender<
     {
@@ -78,10 +78,10 @@ export default class TokenClient extends ContractClient {
     },
     TokenClient,
     {
-      contract: 'ERC20Extended.sol',
+      contract: 'token.sol',
       // eslint-disable-next-line max-len
-      contractPath: 'https://github.com/JoinColony/colonyToken/blob/7359eedaadacd55a1393c795964bd61513b2af33/contracts',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
+      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
     },
   >;
   /*
@@ -100,8 +100,8 @@ export default class TokenClient extends ContractClient {
       function: 'allowance',
       contract: 'erc20.sol',
       // eslint-disable-next-line max-len
-      contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
+      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
     },
   >;
   /*
@@ -119,8 +119,8 @@ export default class TokenClient extends ContractClient {
       function: 'balanceOf',
       contract: 'erc20.sol',
       // eslint-disable-next-line max-len
-      contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
+      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
     },
   >;
   /*
@@ -138,7 +138,7 @@ export default class TokenClient extends ContractClient {
       contract: 'Token.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/JoinColony/colonyToken/blob/7359eedaadacd55a1393c795964bd61513b2af33/contracts',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
     },
   >;
   /*
@@ -154,12 +154,12 @@ export default class TokenClient extends ContractClient {
       function: 'totalSupply',
       contract: 'erc20.sol',
       // eslint-disable-next-line max-len
-      contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
+      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
     },
   >;
   /*
-  Mint new tokens. This is an `ERC20Extended` function that can only be called by the token `owner`. When a colony contract address is assigned as the token `owner`, this function can only be called by the user assigned the `FOUNDER` authority role.
+  Mint new tokens. This is a `DSToken` function that can only be called by the token `owner`. When a colony contract address is assigned as the token `owner`, this function can only be called by the user assigned the `FOUNDER` authority role.
   */
   mint: TokenClient.Sender<
     {
@@ -171,10 +171,10 @@ export default class TokenClient extends ContractClient {
     },
     TokenClient,
     {
-      contract: 'ERC20Extended.sol',
+      contract: 'token.sol',
       // eslint-disable-next-line max-len
-      contractPath: 'https://github.com/JoinColony/colonyToken/blob/7359eedaadacd55a1393c795964bd61513b2af33/contracts',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
+      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
     },
   >;
   /*
@@ -191,8 +191,8 @@ export default class TokenClient extends ContractClient {
     {
       contract: 'auth.sol',
       // eslint-disable-next-line max-len
-      contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
+      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
     },
   >;
   /*
@@ -225,8 +225,8 @@ export default class TokenClient extends ContractClient {
     {
       contract: 'auth.sol',
       // eslint-disable-next-line max-len
-      contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
+      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
     },
   >;
   /*
@@ -242,8 +242,8 @@ export default class TokenClient extends ContractClient {
     {
       contract: 'erc20.sol',
       // eslint-disable-next-line max-len
-      contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
+      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
     },
   >;
   /*
@@ -263,7 +263,7 @@ export default class TokenClient extends ContractClient {
       contract: 'Token.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/JoinColony/colonyToken/blob/7359eedaadacd55a1393c795964bd61513b2af33/contracts',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
     },
   >;
 

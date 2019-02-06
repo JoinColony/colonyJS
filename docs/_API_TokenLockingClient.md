@@ -55,8 +55,8 @@ A promise which resolves to an object containing the following properties:
 
 
   
-  - Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/TokenLocking.sol)
-  - Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ITokenLocking.sol)
+  - Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/TokenLocking.sol)
+  - Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ITokenLocking.sol)
   
 
 ### `getUserLock.call({ token, user })`
@@ -82,8 +82,8 @@ A promise which resolves to an object containing the following properties:
 
 
   
-  - Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/TokenLocking.sol)
-  - Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ITokenLocking.sol)
+  - Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/TokenLocking.sol)
+  - Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ITokenLocking.sol)
   
 
   
@@ -117,8 +117,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
   
-  - Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/TokenLocking.sol)
-  - Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ITokenLocking.sol)
+  - Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/TokenLocking.sol)
+  - Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ITokenLocking.sol)
   
 
 ### `lockToken.send({ token }, options)`
@@ -145,8 +145,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
   
-  - Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/TokenLocking.sol)
-  - Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ITokenLocking.sol)
+  - Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/TokenLocking.sol)
+  - Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ITokenLocking.sol)
   
 
 ### `incrementLockCounterTo.send({ token, lockId }, options)`
@@ -170,8 +170,8 @@ An instance of a `ContractResponse`
 
 
   
-  - Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/TokenLocking.sol)
-  - Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ITokenLocking.sol)
+  - Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/TokenLocking.sol)
+  - Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ITokenLocking.sol)
   
 
 ### `unlockTokenForUser.send({ token, user, lockId }, options)`
@@ -201,8 +201,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
   
-  - Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/TokenLocking.sol)
-  - Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ITokenLocking.sol)
+  - Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/TokenLocking.sol)
+  - Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ITokenLocking.sol)
   
 
 ### `withdraw.send({ token, amount }, options)`
@@ -231,8 +231,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
   
-  - Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/TokenLocking.sol)
-  - Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ITokenLocking.sol)
+  - Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/TokenLocking.sol)
+  - Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ITokenLocking.sol)
   
 
   
