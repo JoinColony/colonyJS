@@ -78,6 +78,23 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
+"@colony/colony-js-contract-loader-network@^1.6.2":
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/@colony/colony-js-contract-loader-network/-/colony-js-contract-loader-network-1.6.2.tgz#12b88484b1fa40e065d1f4295f14590483928e51"
+  integrity sha512-sNMcN7VBlHyU7rCxRHAFmIYyU6C5sU2jX5cBaMvZPCrkmuW52RMFQUXc+ZvC3QJ2QyNjKtPV8uS7Kc1OKOJTXw==
+  dependencies:
+    "@colony/colony-js-contract-loader" "1.5.4"
+    assert "^1.4.1"
+    babel-runtime "^6.26.0"
+
+"@colony/colony-js-contract-loader@1.5.4":
+  version "1.5.4"
+  resolved "https://registry.yarnpkg.com/@colony/colony-js-contract-loader/-/colony-js-contract-loader-1.5.4.tgz#4b43cf66671f2ea419490cc676b08619b28002f8"
+  integrity sha1-S0PPZmcfLqQZSQzGdrCGGbKAAvg=
+  dependencies:
+    assert "^1.4.1"
+    babel-runtime "^6.26.0"
+
 "@colony/eslint-config-colony@^4.0.0":
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/@colony/eslint-config-colony/-/eslint-config-colony-4.0.1.tgz#74495655bf461ef196edc262983c471b42cf2d75"
@@ -2691,7 +2708,7 @@ eth-lib@0.1.27:
     ws "^3.0.0"
     xhr-request-promise "^0.1.2"
 
-ethers@^3.0.27:
+ethers@3.0.27, ethers@^3.0.27:
   version "3.0.27"
   resolved "https://registry.yarnpkg.com/ethers/-/ethers-3.0.27.tgz#f9e89bb43a7265a65512d3142c51f26489667f53"
   dependencies:
