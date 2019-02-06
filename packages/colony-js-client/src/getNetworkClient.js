@@ -8,6 +8,7 @@ import ColonyNetworkClient from './ColonyNetworkClient/index';
 const getNetworkClient = async (network: string, wallet: any) => {
   const loader = new NetworkLoader({ network });
   const provider = providers.getDefaultProvider(network);
+  if (!wallet.provider) Object.assign(wallet, { provider });
   const adapter = new EthersAdapter({
     loader,
     provider,
