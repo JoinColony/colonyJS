@@ -10,6 +10,7 @@ import TokenLockingClient from '../TokenLockingClient';
 jest.mock('web3-utils', () => ({
   isHex: jest.fn().mockReturnValue(true),
   isAddress: jest.fn().mockReturnValue(true),
+  utf8ToHex: jest.fn().mockImplementation(value => `0x${value}`),
 }));
 
 jest.mock('../TokenClient');
@@ -85,9 +86,7 @@ describe('ColonyNetworkClient', () => {
 
     sandbox.spyOn(networkClient.createToken, '_send');
 
-    const name = 'TestCoin';
     const symbol = 'TST';
-    const decimals = 20;
 
     const options = { gasLimit: 400000 };
 
@@ -97,17 +96,15 @@ describe('ColonyNetworkClient', () => {
       },
     } = await networkClient.createToken.send(
       {
-        name,
         symbol,
-        decimals,
       },
       options,
     );
 
     expect(contractAddress).toBe(receipt.contractAddress);
     expect(adapter.getContractDeployTransaction).toHaveBeenCalledWith(
-      expect.objectContaining({ contractName: 'Token' }),
-      [name, symbol, decimals],
+      expect.objectContaining({ contractName: 'DSToken' }),
+      [`0x${symbol.padStart(64, '0')}`],
     );
     expect(wallet.sendTransaction).toHaveBeenCalledWith(
       deployTransaction,

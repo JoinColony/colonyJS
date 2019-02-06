@@ -82,7 +82,7 @@ In preparation for the launch of the colonyNetwork smart contracts on `mainnet`,
 Within the colonyNetwork directory, run the following command:
 
 ```
-git checkout f73dc84a41f5fc1962c999a24e13b15ba491b8a6
+git checkout 396b6bb4762dcd111daad153aa54cd76184afa53
 ```
 
 At this point, you will need to move back into the root directory and make your first commit (or your next commit if you added the submodule to an existing project). If you do not commit your changes, the version will not be saved.

@@ -4,7 +4,7 @@ section: API
 order: 3
 ---
 
-The `TokenClient` is a standard interface for interactions with methods and events described in `Token.sol`. These interactions are extended from the ERC20 and ERC20Extended standard token interfaces and are generally concerned with managing the native token assigned to a colony. This includes operations such as minting tokens, burning tokens, and transferring tokens.
+The `TokenClient` is a standard interface for interactions with methods and events described in `Token.sol`. These interactions are extended from the ERC20 and DSToken standard token interfaces and are generally concerned with managing the native token assigned to a colony. This includes operations such as minting tokens, burning tokens, and transferring tokens.
 
 ==TOC==
 
@@ -56,7 +56,7 @@ A promise which resolves to an object containing the following properties:
 
 
   - Function: `allowance`
-  - Contract: [erc20.sol](https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626/erc20.sol)
+  - Contract: [erc20.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/erc20.sol)
   
   
 
@@ -82,7 +82,7 @@ A promise which resolves to an object containing the following properties:
 
 
   - Function: `balanceOf`
-  - Contract: [erc20.sol](https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626/erc20.sol)
+  - Contract: [erc20.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/erc20.sol)
   
   
 
@@ -126,7 +126,7 @@ A promise which resolves to an object containing the following properties:
 
 
   - Function: `totalSupply`
-  - Contract: [erc20.sol](https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626/erc20.sol)
+  - Contract: [erc20.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/erc20.sol)
   
   
 
@@ -160,18 +160,19 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
   
-  - Contract: [erc20.sol](https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626/erc20.sol)
+  - Contract: [erc20.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/erc20.sol)
   
   
 
-### `burn.send({ amount }, options)`
+### `burn.send({ user, amount }, options)`
 
-Burn tokens. This is an `ERC20Extended` function that can only be called by the token `owner`. When a colony contract address is assigned as the token `owner`, this function can only be called by the user assigned the `FOUNDER` authority role.
+Burn tokens. This is a `DSToken` function that can only be called by the token `owner`. When a colony contract address is assigned as the token `owner`, this function can only be called by the user assigned the `FOUNDER` authority role.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
+|user|address|The address from which the tokens will be burned.|
 |amount|big number|The amount of tokens that will be burned.|
 
 **Returns**
@@ -180,7 +181,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|address|address|The address that initiated the burn event.|
+|address|address|The address from which the tokens were burned.|
 |amount|big number|The amount of tokens that were burned.|
 |Burn|object|Contains the data defined in [Burn](#eventsburnaddlistener-address-amount-------)|
 
@@ -188,18 +189,19 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
   
-  - Contract: [ERC20Extended.sol](https://github.com/JoinColony/colonyToken/blob/7359eedaadacd55a1393c795964bd61513b2af33/contracts/ERC20Extended.sol)
+  - Contract: [token.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/token.sol)
   
   
 
-### `mint.send({ amount }, options)`
+### `mint.send({ user, amount }, options)`
 
-Mint new tokens. This is an `ERC20Extended` function that can only be called by the token `owner`. When a colony contract address is assigned as the token `owner`, this function can only be called by the user assigned the `FOUNDER` authority role.
+Mint new tokens. This is a `DSToken` function that can only be called by the token `owner`. When a colony contract address is assigned as the token `owner`, this function can only be called by the user assigned the `FOUNDER` authority role.
 
 **Arguments**
 
 |Argument|Type|Description|
 |---|---|---|
+|user|address|The address that will receive the minted tokens.|
 |amount|big number|The amount of tokens that will be minted.|
 
 **Returns**
@@ -208,7 +210,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event data|Type|Description|
 |---|---|---|
-|address|address|The address that initiated the mint event.|
+|address|address|The address to which the minted tokens were sent.|
 |amount|big number|The amount of tokens that were minted.|
 |Mint|object|Contains the data defined in [Mint](#eventsmintaddlistener-address-amount-------)|
 
@@ -216,7 +218,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
   
-  - Contract: [ERC20Extended.sol](https://github.com/JoinColony/colonyToken/blob/7359eedaadacd55a1393c795964bd61513b2af33/contracts/ERC20Extended.sol)
+  - Contract: [token.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/token.sol)
   
   
 
@@ -243,7 +245,31 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
   
-  - Contract: [auth.sol](https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626/auth.sol)
+  - Contract: [auth.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/auth.sol)
+  
+  
+
+### `setName.send({ name }, options)`
+
+Set the `name` of a token contract. This function can only be called by the current `owner` of the contract. In order to call token contract methods from within a colony, the token `owner` must be the address of the colony contract.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|name|string|The name of the token that will be set.|
+
+**Returns**
+
+An instance of a `ContractResponse`
+
+
+
+**Contract Information**
+
+
+  
+  - Contract: [token.sol](https://github.com/dapphub/dappsys-monolithic/tree/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/token.sol)
   
   
 
@@ -270,7 +296,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
   
-  - Contract: [auth.sol](https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626/auth.sol)
+  - Contract: [auth.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/auth.sol)
   
   
 
@@ -295,7 +321,7 @@ An instance of a `ContractResponse`
 
 
   
-  - Contract: [erc20.sol](https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626/erc20.sol)
+  - Contract: [erc20.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/erc20.sol)
   
   
 
@@ -356,7 +382,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Argument|Type|Description|
 |---|---|---|
-|address|address|The address that initiated the burn event.|
+|address|address|The address from which the tokens were burned.|
 |amount|big number|The amount of tokens that were burned.|
 
 
@@ -390,7 +416,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Argument|Type|Description|
 |---|---|---|
-|address|address|The address that initiated the mint event.|
+|address|address|The address to which the minted tokens were sent.|
 |amount|big number|The amount of tokens that were minted.|
 
 

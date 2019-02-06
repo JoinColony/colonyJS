@@ -56,8 +56,8 @@ A promise which resolves to an object containing the following properties:
 
 
   
-  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyTask.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ColonyTask.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `getAuthority.call()`
@@ -77,8 +77,8 @@ A promise which resolves to an object containing the following properties:
 
 
   - Function: `authority`
-  - Contract: [auth.sol](https://github.com/dapphub/dappsys-monolithic/blob/002389d43cf54e8f0b919fee1fc364b20ebdf626/auth.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [auth.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/auth.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `getDomain.call({ domainId })`
@@ -104,8 +104,8 @@ A promise which resolves to an object containing the following properties:
 
 
   
-  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/Colony.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/Colony.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `getDomainCount.call()`
@@ -125,8 +125,8 @@ A promise which resolves to an object containing the following properties:
 
 
   
-  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/Colony.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/Colony.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `getNonRewardPotsTotal.call({ token })`
@@ -151,8 +151,8 @@ A promise which resolves to an object containing the following properties:
 
 
   
-  - Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyFunding.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ColonyFunding.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `getPotBalance.call({ potId, token })`
@@ -178,8 +178,8 @@ A promise which resolves to an object containing the following properties:
 
 
   
-  - Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyFunding.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ColonyFunding.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `getRecoveryRolesCount.call()`
@@ -199,8 +199,8 @@ A promise which resolves to an object containing the following properties:
 
 
   - Function: `numRecoveryRoles`
-  - Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ContractRecovery.sol)
-  - Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IRecovery.sol)
+  - Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ContractRecovery.sol)
+  - Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IRecovery.sol)
   
 
 ### `getRewardInverse.call()`
@@ -220,8 +220,8 @@ A promise which resolves to an object containing the following properties:
 
 
   
-  - Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyFunding.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ColonyFunding.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `getRewardPayoutInfo.call({ payoutId })`
@@ -251,8 +251,8 @@ A promise which resolves to an object containing the following properties:
 
 
   
-  - Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyFunding.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ColonyFunding.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `getTask.call({ taskId })`
@@ -286,8 +286,8 @@ A promise which resolves to an object containing the following properties:
 
 
   
-  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyTask.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ColonyTask.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `getTaskCount.call()`
@@ -307,8 +307,8 @@ A promise which resolves to an object containing the following properties:
 
 
   
-  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyTask.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ColonyTask.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `getTaskPayout.call({ taskId, role, token })`
@@ -335,8 +335,8 @@ A promise which resolves to an object containing the following properties:
 
 
   
-  - Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyFunding.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ColonyFunding.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `getTaskRole.call({ taskId, role })`
@@ -364,8 +364,8 @@ A promise which resolves to an object containing the following properties:
 
 
   
-  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyTask.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ColonyTask.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `getTaskWorkRatings.call({ taskId })`
@@ -391,8 +391,8 @@ A promise which resolves to an object containing the following properties:
 
 
   
-  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyTask.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ColonyTask.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `getTaskWorkRatingSecret.call({ taskId, role })`
@@ -418,13 +418,13 @@ A promise which resolves to an object containing the following properties:
 
 
   
-  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyTask.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ColonyTask.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `getToken.call()`
 
-Get the address of the ERC20 token contract that is the native token assigned to the colony. The native token is the token used to calculate reputation scores, i.e. `1` token earned for completing a task with an adequate rating (`2`) will result in `1` reputation point earned.
+Get the address of the token contract that is the native token assigned to the colony. The native token is the token used to calculate reputation scores, i.e. `1` token earned for completing a task with an adequate rating (`2`) will result in `1` reputation point earned.
 
 
 **Returns**
@@ -433,14 +433,14 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|address|address|The address of the ERC20 token contract.|
+|address|address|The address of the token contract.|
 
 **Contract Information**
 
 
   
-  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/Colony.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/Colony.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `getTotalTaskPayout.call({ taskId, token })`
@@ -466,8 +466,8 @@ A promise which resolves to an object containing the following properties:
 
 
   
-  - Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyFunding.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ColonyFunding.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `getVersion.call()`
@@ -487,8 +487,8 @@ A promise which resolves to an object containing the following properties:
 
 
   - Function: `version`
-  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/Colony.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/Colony.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `hasUserRole.call({ user, role })`
@@ -514,8 +514,8 @@ A promise which resolves to an object containing the following properties:
 
 
   
-  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/Colony.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/Colony.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `isInRecoveryMode.call()`
@@ -535,8 +535,8 @@ A promise which resolves to an object containing the following properties:
 
 
   
-  - Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ContractRecovery.sol)
-  - Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IRecovery.sol)
+  - Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ContractRecovery.sol)
+  - Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IRecovery.sol)
   
 
   
@@ -571,8 +571,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
   
-  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/Colony.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/Colony.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `addGlobalSkill.send({ parentSkillId }, options)`
@@ -599,8 +599,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
   
-  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/Colony.sol)
-  - Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IMetaColony.sol)
+  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/Colony.sol)
+  - Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IMetaColony.sol)
   
 
 ### `approveExitRecovery.send(options)`
@@ -618,8 +618,8 @@ An instance of a `ContractResponse`
 
 
   
-  - Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ContractRecovery.sol)
-  - Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IRecovery.sol)
+  - Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ContractRecovery.sol)
+  - Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IRecovery.sol)
   
 
 ### `bootstrapColony.send({ users, amounts }, options)`
@@ -647,8 +647,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
   
-  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/Colony.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/Colony.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `claimColonyFunds.send({ token }, options)`
@@ -676,8 +676,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
   
-  - Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyFunding.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ColonyFunding.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `claimPayout.send({ taskId, role, token }, options)`
@@ -712,8 +712,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
   
-  - Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyFunding.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ColonyFunding.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `completeTask.send({ taskId }, options)`
@@ -739,8 +739,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
   
-  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyTask.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ColonyTask.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `createTask.send({ specificationHash, domainId, skillId, dueDate }, options)`
@@ -777,8 +777,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
   - Function: `makeTask`
-  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyTask.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ColonyTask.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `enterRecoveryMode.send(options)`
@@ -796,8 +796,8 @@ An instance of a `ContractResponse`
 
 
   
-  - Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ContractRecovery.sol)
-  - Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IRecovery.sol)
+  - Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ContractRecovery.sol)
+  - Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IRecovery.sol)
   
 
 ### `exitRecoveryMode.send(options)`
@@ -815,8 +815,8 @@ An instance of a `ContractResponse`
 
 
   
-  - Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ContractRecovery.sol)
-  - Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IRecovery.sol)
+  - Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ContractRecovery.sol)
+  - Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IRecovery.sol)
   
 
 ### `finalizeRewardPayout.send({ payoutId }, options)`
@@ -842,8 +842,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
   
-  - Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyFunding.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ColonyFunding.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `finalizeTask.send({ taskId }, options)`
@@ -869,8 +869,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
   
-  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyTask.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ColonyTask.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `mintTokens.send({ amount }, options)`
@@ -897,8 +897,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
   
-  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/Colony.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/Colony.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `mintTokensForColonyNetwork.send({ amount }, options)`
@@ -929,8 +929,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
   
-  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/Colony.sol)
-  - Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IMetaColony.sol)
+  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/Colony.sol)
+  - Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IMetaColony.sol)
   
 
 ### `moveFundsBetweenPots.send({ fromPot, toPot, amount, token }, options)`
@@ -962,8 +962,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
   
-  - Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyFunding.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ColonyFunding.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `registerColonyLabel.send({ colonyName, orbitDBPath }, options)`
@@ -991,8 +991,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
   
-  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/Colony.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/Colony.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `removeAdminRole.send({ user }, options)`
@@ -1018,8 +1018,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
   
-  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/Colony.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/Colony.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `removeRecoveryRole.send({ user }, options)`
@@ -1042,8 +1042,8 @@ An instance of a `ContractResponse`
 
 
   
-  - Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ContractRecovery.sol)
-  - Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IRecovery.sol)
+  - Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ContractRecovery.sol)
+  - Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IRecovery.sol)
   
 
 ### `revealTaskWorkRating.send({ taskId, role, rating, salt }, options)`
@@ -1074,8 +1074,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
   
-  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyTask.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ColonyTask.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `setAdminRole.send({ user }, options)`
@@ -1101,8 +1101,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
   
-  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/Colony.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/Colony.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `setAllTaskPayouts.send({ taskId, token, managerAmount, evaluatorAmount, workerAmount }, options)`
@@ -1135,8 +1135,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
   
-  - Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyFunding.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ColonyFunding.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `setFounderRole.send({ user }, options)`
@@ -1163,8 +1163,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
   
-  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/Colony.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/Colony.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `setNetworkFeeInverse.send({ feeInverse }, options)`
@@ -1187,8 +1187,8 @@ An instance of a `ContractResponse`
 
 
   
-  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/Colony.sol)
-  - Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IMetaColony.sol)
+  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/Colony.sol)
+  - Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IMetaColony.sol)
   
 
 ### `setRecoveryRole.send({ user }, options)`
@@ -1211,8 +1211,8 @@ An instance of a `ContractResponse`
 
 
   
-  - Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ContractRecovery.sol)
-  - Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IRecovery.sol)
+  - Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ContractRecovery.sol)
+  - Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IRecovery.sol)
   
 
 ### `setRewardInverse.send({ rewardInverse }, options)`
@@ -1238,8 +1238,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
   
-  - Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyFunding.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ColonyFunding.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `setStorageSlotRecovery.send({ slot, value }, options)`
@@ -1263,8 +1263,8 @@ An instance of a `ContractResponse`
 
 
   
-  - Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ContractRecovery.sol)
-  - Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IRecovery.sol)
+  - Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ContractRecovery.sol)
+  - Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IRecovery.sol)
   
 
 ### `startNextRewardPayout.send({ token }, options)`
@@ -1293,8 +1293,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
   
-  - Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyFunding.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ColonyFunding.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `submitTaskDeliverable.send({ taskId, deliverableHash }, options)`
@@ -1324,8 +1324,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
   
-  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyTask.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ColonyTask.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `submitTaskDeliverableAndRating.send({ taskId, deliverableHash, secret }, options)`
@@ -1356,8 +1356,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
   
-  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyTask.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ColonyTask.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `submitTaskWorkRating.send({ taskId, role, secret }, options)`
@@ -1382,8 +1382,8 @@ An instance of a `ContractResponse`
 
 
   
-  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyTask.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ColonyTask.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `upgrade.send({ newVersion }, options)`
@@ -1410,8 +1410,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
   
-  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/Colony.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/Colony.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
   
@@ -1441,8 +1441,8 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 
 
   
-  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyTask.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ColonyTask.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `removeTaskEvaluatorRole.startOperation({ taskId })`
@@ -1470,8 +1470,8 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 
 
   
-  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyTask.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ColonyTask.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `removeTaskWorkerRole.startOperation({ taskId })`
@@ -1499,8 +1499,8 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 
 
   
-  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyTask.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ColonyTask.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `setTaskBrief.startOperation({ taskId, specificationHash })`
@@ -1528,8 +1528,8 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 
 
   
-  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyTask.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ColonyTask.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `setTaskDomain.startOperation({ taskId, domainId })`
@@ -1557,8 +1557,8 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 
 
   
-  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyTask.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ColonyTask.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `setTaskDueDate.startOperation({ taskId, dueDate })`
@@ -1586,8 +1586,8 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 
 
   
-  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyTask.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ColonyTask.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `setTaskEvaluatorRole.startOperation({ taskId, user })`
@@ -1616,8 +1616,8 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 
 
   
-  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyTask.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ColonyTask.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `setTaskManagerRole.startOperation({ taskId, user })`
@@ -1646,8 +1646,8 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 
 
   
-  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyTask.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ColonyTask.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `setTaskSkill.startOperation({ taskId, skillId })`
@@ -1675,8 +1675,8 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 
 
   
-  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyTask.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ColonyTask.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `setTaskWorkerRole.startOperation({ taskId, user })`
@@ -1705,8 +1705,8 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 
 
   
-  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyTask.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ColonyTask.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `setTaskManagerPayout.startOperation({ taskId, token, amount })`
@@ -1737,8 +1737,8 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 
 
   
-  - Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyFunding.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ColonyFunding.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `setTaskEvaluatorPayout.startOperation({ taskId, token, amount })`
@@ -1769,8 +1769,8 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 
 
   
-  - Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyFunding.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ColonyFunding.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
 ### `setTaskWorkerPayout.startOperation({ taskId, token, amount })`
@@ -1801,8 +1801,8 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 
 
   
-  - Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/ColonyFunding.sol)
-  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/f73dc84a41f5fc1962c999a24e13b15ba491b8a6/contracts/IColony.sol)
+  - Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ColonyFunding.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/IColony.sol)
   
 
   

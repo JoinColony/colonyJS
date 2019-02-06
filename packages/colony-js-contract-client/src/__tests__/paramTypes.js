@@ -87,6 +87,31 @@ describe('Parameter types', () => {
     expect(convertInputValue(false, 'boolean')).toBe(false);
   });
 
+  test('Bytes32 strings are handled properly', () => {
+    const string = 'a string';
+    const longString = 'this is a very long string which will fail validation';
+    const hexString =
+      '0x0000000000000000000000000000000000000000000000006120737472696e67';
+    const emptyBytes =
+      '0x0000000000000000000000000000000000000000000000000000000000000000';
+
+    // Validation
+    expect(validateValueType(string, 'bytes32String')).toBe(true);
+    expect(validateValueType(true, 'bytes32String')).toBe(false);
+    expect(validateValueType(false, 'bytes32String')).toBe(false);
+    expect(validateValueType(null, 'bytes32String')).toBe(false);
+    expect(validateValueType(1, 'bytes32String')).toBe(false);
+    expect(validateValueType(longString, 'bytes32String')).toBe(false);
+
+    // Converting output values
+    expect(convertOutputValue(emptyBytes, 'bytes32String')).toBe('');
+    expect(convertOutputValue(hexString, 'bytes32String')).toBe(string);
+
+    // Converting input values
+    expect(convertInputValue('', 'bytes32String')).toBe(emptyBytes);
+    expect(convertInputValue(string, 'bytes32String')).toBe(hexString);
+  });
+
   test('Numbers are handled properly', () => {
     // Validation
     expect(validateValueType(1, 'number')).toBe(true);

@@ -44,6 +44,8 @@ The `master` branch currently supports colonyNetwork up to commit `f73dc84a41f5f
 
 The `develop` branch is working towards supporting the latest version of colonyNetwork. Unofficial package releases will be published using the `develop` branch. Fixes and maintenance to support the latest version of colonyNetwork should be merged into the `develop` branch.
 
+See [Publishing Releases](https://github.com/JoinColony/colonyJS/wiki/Publishing-Releases) for publishing steps.
+
 ### Yarn workspaces
 
 To use yarn workspaces you'll have to activate it in your yarn settings like so:
