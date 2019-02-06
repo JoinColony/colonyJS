@@ -40,11 +40,9 @@ We're using [yarn workspaces](https://yarnpkg.com/blog/2017/08/02/introducing-wo
 
 ### Workflow
 
-The `master` branch currently supports colonyNetwork up to commit `f73dc84a41f5fc1962c999a24e13b15ba491b8a6`. Official package releases will be published using the `master` branch. Fixes and maintenance to support this version of colonyNetwork should be merged into the `master` branch.
-
 The `develop` branch is working towards supporting the latest version of colonyNetwork. Unofficial package releases will be published using the `develop` branch. Fixes and maintenance to support the latest version of colonyNetwork should be merged into the `develop` branch.
 
-See [Publishing Releases](https://github.com/JoinColony/colonyJS/wiki/Publishing-Releases) for publishing steps.
+The `master` branch currently supports colonyNetwork up to commit `f73dc84a41f5fc1962c999a24e13b15ba491b8a6`. Official package releases will be published using the `master` branch. Hot fixes to support this version of colonyNetwork should be merged into the `master` branch, which will then be merged into `develop`.
 
 ### Yarn workspaces
 
@@ -90,3 +88,5 @@ for the environment to resolve the common devDependencies:
 ```
 lerna run --scope=@colony/my-package-name test
 ```
+
+See [Publishing Releases](https://github.com/JoinColony/colonyJS/wiki/Publishing-Releases) for publishing workflow.

@@ -23,16 +23,14 @@ Open up your terminal and move to your project directory. You can create a new p
 
 You will need to install the following packages:
 
-- `@colony/colony-js-adapter-ethers@1.6.2`
-- `@colony/colony-js-client@1.6.2`
-- `@colony/colony-js-contract-loader-network@1.6.2`
-- `ethers@3.0.27`
+- `@colony/colony-js-client`
+- `@colony/purser-software`
 
 
 Install the packages with the following command:
 
 ```
-yarn add @colony/colony-js-adapter-ethers@1.6.2 @colony/colony-js-client@1.6.2 @colony/colony-js-contract-loader-network@1.6.2 ethers@3.0.27
+yarn add @colony/colony-js-client @colony/purser
 ```
 
 ## Connect Network
@@ -42,38 +40,20 @@ Create a `colony.js` file in the root of your project and add the following code
 ```js
 
 // Import the prerequisites
-const { providers, Wallet } = require('ethers');
-const { default: EthersAdapter } = require('@colony/colony-js-adapter-ethers');
-const { default: NetworkLoader } = require('@colony/colony-js-contract-loader-network');
-const { default: ColonyNetworkClient } = require('@colony/colony-js-client');
+const { getNetworkClient } = require('@colony/colony-js-client');
+const { open } = require('@colony/purser-software');
 
-// An example method for connecting to the network
+// Set the private key (We recommend using a wallet that you strictly use for testing)
+const privateKey = '0x000000000000000000000000000000000000000000000000000000000000000';
+
+// An example method for connecting
 const connectNetwork = async (network) => {
 
-  // Create instance of NetworkLoader
-  const loader = new NetworkLoader({ network });
+  // Create wallet instance with private key
+  const wallet = await open({ privateKey });
 
-  // Create provider for wallet and ethers adapter
-  const provider = providers.getDefaultProvider(network);
-
-  // Set the private key (We recommend using a wallet that you strictly use for testing)
-  const privateKey = '0x000000000000000000000000000000000000000000000000000000000000000';
-
-  // Create wallet with private key and provider
-  const wallet = new Wallet(privateKey, provider);
-
-  // Create a new ethers adapter
-  const adapter = new EthersAdapter({
-    loader,
-    provider,
-    wallet,
-  });
-
-  // Connect to ColonyNetwork with the adapter
-  const networkClient = new ColonyNetworkClient({ adapter });
-
-  // Initialize networkClient
-  await networkClient.init();
+  // Get network client for given network using wallet instance
+  const networkClient = await getNetworkClient(network, wallet);
 
   // Check out the logs to see the address of the contract signer
   console.log('Account Address: ', networkClient.contract.signer.address);
@@ -81,7 +61,7 @@ const connectNetwork = async (network) => {
   // Check out the logs to see the address of the deployed network
   console.log('Network Address: ', networkClient.contract.address);
 
-  // Return networkClient
+  // Return network client
   return networkClient;
 
 };
@@ -94,10 +74,10 @@ Add the following code below the `connectNetwork` example:
 
 ```js
 
-// An example method for creating an ERC20 token
+// An example method for creating a token
 const createToken = async (networkClient, name, symbol) => {
 
-  // Create a new ERC20 token
+  // Create a token
   const tokenAddress = await networkClient.createToken({
     name,
     symbol,

@@ -2,9 +2,13 @@
 
 ## v.Next
 
+**New Features**
+
+* Add `getNetworkClient` method using `NetworkLoader` (`@colony/colony-js-client`)
+
 **Maintenance**
 
-* `TokenClient` is now based on the `DSToken` contract, due to the removal of `ERC20ExtendedToken` (`@colony/colony-js-client`)
+* `TokenClient` is now based on the `DSToken` contract (`@colony/colony-js-client`)
 
 ## v1.10.0
 
@@ -41,7 +45,9 @@
 
 **Maintenance**
 
+* Update `token` to `tokenClient` (`@colony/colony-js-client`)
 * Remove methods from `ColonyClient` (`@colony/colony-js-client`)
+  * `ColonyTokenSet`
   * `assignWorkRating`
   * `initialise`
   * `getTransactionCount`
