@@ -8,7 +8,17 @@ Clients are aggregations of all the interactions possible with the colonyNetwork
 
 ## ColonyNetworkClient
 
-Create an instance of `ColonyNetworkClient` by providing an adapter:
+Use `getNetworkClient` to get an instance of `ColonyNetworkClient`:
+
+```js
+
+const networkClient = getNetworkClient(`rinkeby`, wallet);
+
+```
+
+See [purser](/purser/docs-overview) to learn how to create a wallet instance.
+
+Or create an instance of `ColonyNetworkClient` by providing an adapter:
 
 ```js
 
