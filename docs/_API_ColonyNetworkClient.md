@@ -95,7 +95,7 @@ Check whether or not ENS supports a contract interface. A supported contract int
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |isSupported|boolean|A boolean indicating whether or not the contract interface is supported.|
 
@@ -121,7 +121,7 @@ Get the address of a registered ENS label. This function will return an empty ad
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |ensAddress|address|The address associated with the ENS label.|
 
@@ -148,7 +148,7 @@ Get the ID of a child skill.
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |childSkillId|number|The numeric ID of the child skill.|
 
@@ -174,7 +174,7 @@ Get the colony contract address for a colony.
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |address|address|The address of the colony contract.|
 
@@ -195,7 +195,7 @@ Get the total number of colonies on the network. The return value is also the nu
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |count|number|The total number of colonies.|
 
@@ -221,7 +221,7 @@ Get the address of the resolver contract for a specific colony version.
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |address|address|The address of the resolver contract.|
 
@@ -242,7 +242,7 @@ Get the latest colony contract version. This is the version used to create all n
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |version|number|The version number of the latest colony contract.|
 
@@ -263,7 +263,7 @@ Get the inverse amount of the network fee. If the fee is 1% (or 0.01), the inver
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |feeInverse|big number|The inverse amount of the network fee.|
 
@@ -284,7 +284,7 @@ Get the Meta Colony contract address.
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |address|address|The address of the Meta Colony contract.|
 
@@ -311,7 +311,7 @@ Get the ID of a parent skill.
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |parentSkillId|number|The numeric ID of the parent skill.|
 
@@ -337,7 +337,7 @@ Get the address of the OrbitDB database associaated with a user profile.
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |orbitDBAddress|string|The path of the OrbitDB database associated with the user profile.|
 
@@ -358,7 +358,7 @@ Get the total number of users that are assigned a network recovery role.
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |count|number|The total number of users that are assigned a colony recovery role.|
 
@@ -379,7 +379,7 @@ Get the ID of the root global skill.
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |skillId|number|The numeric ID of the root global skill.|
 
@@ -405,7 +405,7 @@ Get information about a domain.
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |nParents|number|The total number of parent skills.|
 |nChildren|number|The total number of child skills.|
@@ -428,7 +428,7 @@ Get the total number of global and local skills in the network.
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |count|number|The total number of global and local skills in the network.|
 
@@ -449,7 +449,7 @@ Get the token locking contract address.
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |lockingAddress|address|The address of the token locking contract.|
 
@@ -475,7 +475,7 @@ Check whether or not an address is a colony contract.
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |isColony|boolean|A boolean indicating whether or not an address is a colony contract.|
 
@@ -496,7 +496,7 @@ Check whether or not the network is in recovery mode.
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |inRecoveryMode|boolean|A boolean indicating whether or not the network is in recovery mode.|
 
@@ -522,7 +522,7 @@ Lookup the registed ENS label for an address. This function will return an empty
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |domain|string|The ENS label associated with the address.|
 
@@ -553,7 +553,7 @@ Add a new colony contract version and set the address of the resolver contract.
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |version|number|The version number of the colony contract that was added.|
 |resolver|address|The address of the resolver contract.|
@@ -582,7 +582,7 @@ Add a new global or local skill to the skills tree.
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |skillId|number|The numeric ID of the skill that was added.|
 |parentSkillId|number|The numeric ID of the parent skill.|
@@ -629,7 +629,7 @@ Create a new colony on the network.
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |colonyId|number|The numeric ID of the colony that was added.|
 |colonyAddress|address|The address of the colony contract that was created.|
@@ -658,7 +658,7 @@ Create the Meta Colony.
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |colonyAddress|number|The address of the Meta Colony.|
 |tokenAddress|address|The address of the CLNY token contract.|
@@ -750,7 +750,7 @@ Register an ENS label for a user.
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |user|address|The address of the user that registered a label.|
 |label|string|The ENS label that was registered for the user.|
@@ -802,7 +802,7 @@ Set the inverse amount of the network fee. If the fee is 1% (or 0.01), the inver
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |feeInverse|big number|The inverse value of the network fee that was set.|
 |NetworkFeeInverseSet|object|Contains the data defined in [NetworkFeeInverseSet](#eventsnetworkfeeinversesetaddlistener-feeinverse-------)|
@@ -878,7 +878,7 @@ Set the token locking address.
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |tokenLocking|address|The address of the token locking contract.|
 |TokenLockingAddressSet|object|Contains the data defined in [TokenLockingAddressSet](#eventstokenlockingaddresssetaddlistener-tokenlocking-------)|
@@ -930,7 +930,7 @@ Create and start an auction for a token owned by the Colony Network. The auction
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |auction|string|The address of the auction contract that was created.|
 |token|address|The address of the token contract that was assigned.|

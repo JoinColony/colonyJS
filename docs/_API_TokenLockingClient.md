@@ -47,7 +47,7 @@ Get the total number of locked tokens.
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |count|number|The total number of locked tokens in the colony.|
 
@@ -74,7 +74,7 @@ Get the total number of locked tokens for a given user.
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |count|big number|The total number of locked tokens.|
 
@@ -105,7 +105,7 @@ Deposit tokens. This function only be called if the tokens that the user is atte
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |token|address|The address of the token contract receiving the deposit.|
 |user|address|The address of the user that deposited tokens.|
@@ -135,7 +135,7 @@ Lock all tokens for a given token contract.
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |token|address|The address of the token contract that was locked.|
 |lockCount|big number|The address of the token contract that was assigned.|
@@ -190,7 +190,7 @@ Unlock all tokens for a user on a given token contract.
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |token|address|The address of the token contract that was unlocked.|
 |user|address|The address of the user that the tokens were unlocked for.|
@@ -220,7 +220,7 @@ Withdraw tokens. This function only be called if the tokens that the user is att
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |token|address|The address of the token contract from which tokens were withdrawn.|
 |user|address|The address of the user that withdrew tokens.|

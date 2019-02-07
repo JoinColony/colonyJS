@@ -48,7 +48,7 @@ Generate the rating secret used in task ratings. This function returns a keccak2
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |secret|hex string|A keccak256 hash that keeps the task rating hidden.|
 
@@ -69,7 +69,7 @@ Get the authority contract address associated with the colony.
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |address|address|The address of the authority contract associated with the colony.|
 
@@ -95,7 +95,7 @@ Get information about a domain.
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |localSkillId|number|The numeric ID of the local skill.|
 |potId|number|The numeric ID of the funding pot.|
@@ -117,7 +117,7 @@ Get the total number of domains in the colony. The return value is also the nume
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |count|number|The total number of domains.|
 
@@ -143,7 +143,7 @@ Get the total amount of funds that are not in the colony rewards pot. The total 
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |total|big number|The total amount of funds that are not in the colony rewards pot.|
 
@@ -197,7 +197,7 @@ Get the balance of a funding pot.
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |balance|big number|The balance of tokens (or Ether) in the funding pot.|
 
@@ -239,7 +239,7 @@ Get the total number of users that are assigned a colony recovery role.
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |count|number|The total number of users that are assigned a colony recovery role.|
 
@@ -260,7 +260,7 @@ Get the inverse amount of the reward. If the fee is 1% (or 0.01), the inverse am
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |rewardInverse|big number|The inverse amount of the reward.|
 
@@ -286,7 +286,7 @@ Get information about a reward payout cycle.
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |blockNumber|number|The block number at the time the reward payout cycle started.|
 |remainingTokenAmount|big number|The remaining amount of unclaimed tokens (or Ether).|
@@ -317,7 +317,7 @@ Get information about a task.
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |completionDate|date (optional)|The date when the task deliverable was submitted.|
 |deliverableHash|IPFS hash (optional)|The deliverable hash of the task (an IPFS hash).|
@@ -347,7 +347,7 @@ Get the total number of tasks in the colony. The return value is also the numeri
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |count|number|The total number of tasks.|
 
@@ -375,7 +375,7 @@ Get the task payout amount assigned to a task role. Multiple tokens can be used 
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |amount|big number|The amount of tokens (or Ether) assigned to the task role as a payout.|
 
@@ -402,7 +402,7 @@ Get information about a task role.
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |address|address|The address of the user that is assigned the task role.|
 |rateFail|boolean|A boolean indicating whether or not the user failed to rate their counterpart.|
@@ -430,7 +430,7 @@ Get information about the ratings of a task.
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |count|number|The total number of submitted ratings for a task.|
 |date|date|The date that the last rating was submitted.|
@@ -458,7 +458,7 @@ Get the secret of a rating that has been submitted. If a task is in the commit p
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |secret|hex string|A keccak256 hash that keeps the task rating hidden.|
 
@@ -479,7 +479,7 @@ Get the address of the token contract that is the native token assigned to the c
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |address|address|The address of the token contract.|
 
@@ -506,7 +506,7 @@ Get the total payout amount assigned to all task roles. Multiple tokens can be u
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |amount|big number|The total amount of tokens (or Ether) assigned to all task roles as payouts.|
 
@@ -527,7 +527,7 @@ Get the version number of the colony contract. The version number starts at `1` 
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |version|number|The version number of the colony contract.|
 
@@ -554,7 +554,7 @@ Check whether a user has an authority role.
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |hasRole|boolean|A boolean indicating whether or not the user has the authority role.|
 
@@ -575,7 +575,7 @@ Check whether or not the colony is in recovery mode.
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |inRecoveryMode|boolean|A boolean indicating whether or not the colony is in recovery mode.|
 
@@ -605,7 +605,7 @@ Add a domain to the colony. Adding new domains is currently retricted to one lev
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |domainId|number|The numeric ID of the domain that was added.|
 |potId|number|The numeric ID of the pot that was added.|
@@ -637,7 +637,7 @@ Add a new global skill to the skills tree. This can only be called from the Meta
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |skillId|number|The numeric ID of the skill that was added.|
 |parentSkillId|number|The numeric ID of the parent skill.|
@@ -685,7 +685,7 @@ Bootstrap the colony by giving an initial amount of tokens and reputation to sel
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |users|array|The array of users that received an initial amount of tokens and reputation.|
 |amounts|array|The array of corresponding token and reputation amounts each user recieved.|
@@ -713,7 +713,7 @@ Claim funds that the colony has received by adding them to the funding pot of th
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |token|address|The address of the token contract (an empty address if Ether).|
 |fee|big number|The fee deducted from the claim and added to the colony rewards pot.|
@@ -744,7 +744,7 @@ Claim the payout assigned to a task role. This function can only be called by th
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |taskId|number|The numeric ID of the task that was modified.|
 |role|task role|The role of the task that was assigned the task payout (`MANAGER`, `EVALUATOR`, or `WORKER`).|
@@ -778,7 +778,7 @@ Mark a task as complete. If the user assigned the `WORKER` task role fails to su
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |taskId|number|The numeric ID of the task that was completed.|
 |TaskCompleted|object|Contains the data defined in [TaskCompleted](#eventstaskcompletedaddlistener-taskid-------)|
@@ -808,13 +808,11 @@ Create a new task within the colony.
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |potId|number|The numeric ID of the pot that was added.|
 |taskId|number|The numeric ID of the task that was added.|
-|taskId|number|The numeric ID of the task that was modified.|
 |skillId|number|The numeric ID of the skill that was set.|
-|taskId|number|The numeric ID of the task that was modified.|
 |dueDate|date|The due date that was set.|
 |FundingPotAdded|object|Contains the data defined in [FundingPotAdded](#eventsfundingpotaddedaddlistener-potid-------)|
 |TaskAdded|object|Contains the data defined in [TaskAdded](#eventstaskaddedaddlistener-taskid-------)|
@@ -881,7 +879,7 @@ Finalize the reward payout cycle. This function can only be called when the rewa
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |payoutId|number|The numeric ID of the payout cycle that ended.|
 |RewardPayoutCycleEnded|object|Contains the data defined in [RewardPayoutCycleEnded](#eventsrewardpayoutcycleendedaddlistener-payoutid-------)|
@@ -908,7 +906,7 @@ Finalize a task. Once a task is finalized, each user assigned a task role can cl
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |taskId|number|The numeric ID of the task that was finalized.|
 |TaskFinalized|object|Contains the data defined in [TaskFinalized](#eventstaskfinalizedaddlistener-taskid-------)|
@@ -997,7 +995,7 @@ Mint new tokens. This function can only be called if the address of the colony c
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |address|address|The address that initiated the mint event.|
 |amount|big number|The amount of tokens that were minted.|
@@ -1025,7 +1023,7 @@ Mint tokens for the Colony Network. This can only be called from the Meta Colony
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |address|address|The address that initiated the mint event.|
 |amount|big number|The amount of tokens that were minted.|
@@ -1060,7 +1058,7 @@ Move funds from one pot to another.
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |fromPot|number|The numeric ID of the pot from which the funds were moved.|
 |toPot|number|The numeric ID of the pot to which the funds were moved.|
@@ -1091,7 +1089,7 @@ Register an ENS label for the colony.
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |colony|address|The address of the colony that was modified.|
 |label|string|The label that was registered for the colony.|
@@ -1119,7 +1117,7 @@ Remove the `ADMIN` authority role from a user. This function can only be called 
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |user|address|The address that was unassigned the `ADMIN` authority role.|
 |ColonyAdminRoleRemoved|object|Contains the data defined in [ColonyAdminRoleRemoved](#eventscolonyadminroleremovedaddlistener-user-------)|
@@ -1173,7 +1171,7 @@ Reveal a submitted work rating. In order to reveal a work rating, the same `salt
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |taskId|number|The numeric ID of the task that was modified.|
 |role|task role|The role of the task that received the rating (`MANAGER`, `EVALUATOR`, or `WORKER`).|
@@ -1202,7 +1200,7 @@ Assign the `ADMIN` authority role to a user. This function can only be called by
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |user|address|The address that was assigned the `ADMIN` authority role.|
 |ColonyAdminRoleSet|object|Contains the data defined in [ColonyAdminRoleSet](#eventscolonyadminrolesetaddlistener-user-------)|
@@ -1233,7 +1231,7 @@ Set the payouts for all task roles (`MANAGER`, `EVALUATOR`, and `WORKER`). This 
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |taskId|number|The numeric ID of the task that was modified.|
 |role|task role|The role of the task that was modified (`MANAGER`, `EVALUATOR`, or `WORKER`).|
@@ -1263,7 +1261,7 @@ Assign the `FOUNDER` authority role to a user. This function can only be called 
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |oldFounder|address|The address that assigned the `FOUNDER` authority role (the old founder).|
 |newFounder|address|The address that was assigned the `FOUNDER` authority role (the new founder).|
@@ -1339,7 +1337,7 @@ Set the inverse amount of the reward. If the fee is 1% (or 0.01), the inverse am
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |rewardInverse|big number|The reward inverse value that was set.|
 |ColonyRewardInverseSet|object|Contains the data defined in [ColonyRewardInverseSet](#eventscolonyrewardinversesetaddlistener-rewardinverse-------)|
@@ -1391,7 +1389,7 @@ Start the next reward payout cycle. All the funds in the colony rewards pot for 
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |payoutId|number|The numeric ID of the payout cycle that started.|
 |token|address|The address of the token contract (an empty address if Ether).|
@@ -1422,10 +1420,9 @@ Submit the task deliverable. This function can only be called by the user assign
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |taskId|number|The numeric ID of the task that was completed.|
-|taskId|number|The numeric ID of the task that was modified.|
 |deliverableHash|IPFS hash|The deliverable hash that was submitted (an IPFS hash).|
 |TaskCompleted|object|Contains the data defined in [TaskCompleted](#eventstaskcompletedaddlistener-taskid-------)|
 |TaskDeliverableSubmitted|object|Contains the data defined in [TaskDeliverableSubmitted](#eventstaskdeliverablesubmittedaddlistener-taskid-deliverablehash-------)|
@@ -1454,10 +1451,9 @@ Submit the task deliverable and the work rating for the user assigned the `MANAG
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |taskId|number|The numeric ID of the task that was completed.|
-|taskId|number|The numeric ID of the task that was modified.|
 |deliverableHash|IPFS hash|The deliverable hash that was submitted (an IPFS hash).|
 |TaskCompleted|object|Contains the data defined in [TaskCompleted](#eventstaskcompletedaddlistener-taskid-------)|
 |TaskDeliverableSubmitted|object|Contains the data defined in [TaskDeliverableSubmitted](#eventstaskdeliverablesubmittedaddlistener-taskid-deliverablehash-------)|
@@ -1510,7 +1506,7 @@ Upgrade the colony to a new contract version. The new version number must be hig
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |oldVersion|number|The old version number of the colony.|
 |newVersion|number|The new version number of the colony.|

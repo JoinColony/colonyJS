@@ -48,7 +48,7 @@ Get the token allowance of an address. The allowance is the amount of tokens tha
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |amount|big number|The amount of tokens that were approved (the amount `allowed`).|
 
@@ -74,7 +74,7 @@ Get the the token balance of an address.
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |amount|big number|The balance of tokens for the address.|
 
@@ -95,7 +95,7 @@ Get information about the token.
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |name|string|The name of the token.|
 |symbol|string|The symbol of the token.|
@@ -118,7 +118,7 @@ Get the total supply of the token.
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |amount|big number|The total supply of the token.|
 
@@ -149,7 +149,7 @@ Approve a token allowance. This function can only be called by the token `owner`
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |owner|address|The address that approved the allowance (the token `owner`).|
 |spender|address|The address that was approved for the allowance (the token `spender`).|
@@ -179,7 +179,7 @@ Burn tokens. This is a `DSToken` function that can only be called by the token `
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |address|address|The address from which the tokens were burned.|
 |amount|big number|The amount of tokens that were burned.|
@@ -208,7 +208,7 @@ Mint new tokens. This is a `DSToken` function that can only be called by the tok
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |address|address|The address to which the minted tokens were sent.|
 |amount|big number|The amount of tokens that were minted.|
@@ -236,7 +236,7 @@ Assign an account the `ADMIN` authority role within a colony.
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |authority|address|The address that was assigned an authority role.|
 |LogSetAuthority|object|Contains the data defined in [LogSetAuthority](#eventslogsetauthorityaddlistener-authority-------)|
@@ -287,7 +287,7 @@ Set the `owner` of a token contract. This function can only be called by the cur
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |owner|address|The address that was assigned as the new owner.|
 |LogSetOwner|object|Contains the data defined in [LogSetOwner](#eventslogsetowneraddlistener-owner-------)|
@@ -341,7 +341,7 @@ Transfer tokens from one address to another address. The address the tokens are 
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |from|address|The address of the account that sent tokens.|
 |to|address|The address of the account that received tokens.|
