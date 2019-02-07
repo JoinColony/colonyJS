@@ -215,7 +215,7 @@ Within the `scripts` directory, create a file named `start-trufflepig.sh` and ad
 cd modules/colonyNetwork
 
 # Start serving contract data
-trufflepig --ganacheKeyFile ganache-accounts.json
+./node_modules/.bin/trufflepig --ganacheKeyFile ganache-accounts.json
 ```
 
 **# Move to colonyNetwork**
@@ -255,16 +255,14 @@ yarn
 
 Next, you will need to install the following packages:
 
-- `@colony/colony-js-adapter-ethers`
 - `@colony/colony-js-client`
-- `@colony/colony-js-contract-loader-http`
-- `ethers@3.0.27` (_specific version required_)
+- `@colony/purser-software`
 - `trufflepig`
 
 Install the colonyJS packages and `ethers` package using the following command:
 
 ```
-yarn add @colony/colony-js-adapter-ethers @colony/colony-js-client @colony/colony-js-contract-loader-http ethers@3.0.27
+yarn add @colony/colony-js-client @colony/purser
 ```
 
 Install the `trufflpig` package using the following command:
@@ -280,48 +278,53 @@ Create a `connectNetwork.js` file in the root directory and add the following co
 ```js
 
 // Import the prerequisites
-const { providers, Wallet } = require('ethers');
-const { default: EthersAdapter } = require('@colony/colony-js-adapter-ethers');
-const { default: ColonyNetworkClient } = require('@colony/colony-js-client');
-const { TrufflepigLoader } = require('@colony/colony-js-contract-loader-http');
+const { getNetworkClient } = require('@colony/colony-js-client');
+const { open } = require('@colony/purser-software');
 
-// Create an instance of TrufflepigLoader
-const loader = new TrufflepigLoader();
+// Return a wallet instance
+const openWallet = async (privateKey) => {
 
-// Create an instance of JsonRPCProvider
-const provider = new providers.JsonRpcProvider('http://localhost:8545/');
+  // Create wallet instance with private key
+  const wallet = await open({ privateKey });
 
-// An example method for connecting to the network
-const connectNetwork = async (accountIndex) => {
+  // Check out the logs to see the address of the contract signer
+  console.log('Wallet Address: ', wallet.address);
 
-  // Get the private key from a specified test account index
-  const { privateKey } = await loader.getAccount(accountIndex || 0);
+  // Return wallet
+  return wallet;
 
-  // Create an instance of Wallet
-  const wallet = new Wallet(privateKey, provider);
+};
 
-  // Create an instance of EthersAdapter
-  const adapter = new EthersAdapter({
-    loader,
-    provider,
-    wallet,
-  });
+// Return a network client instance
+const getNetworkClient = async (wallet) => {
 
-  // Create an instance of ColonyNetworkClient
-  const networkClient = new ColonyNetworkClient({ adapter });
+  // Get network client for given network using wallet instance
+  const networkClient = await getNetworkClient(network, wallet);
 
-  // Initialize the client
-  await networkClient.init();
+  // Check out the logs to see the address of the deployed network
+  console.log('Network Address: ', networkClient.contract.address);
 
-  // Congrats, you've connected to the network!
-  console.log('network address: ' + networkClient.contract.address);
-
+  // Return network client
   return networkClient;
 
 };
 
-// Run example
-connectNetwork()
+// Run examples
+(async () => {
+
+  // Set network to rinkeby
+  const network = 'rinkeby';
+
+  // Set the private key (We recommend using a wallet that you strictly use for testing)
+  const privateKey = '0x000000000000000000000000000000000000000000000000000000000000000';
+
+  // Get the wallet instance
+  const wallet = await getNetworkClient(privateKey);
+
+  // Get the network client instance
+  const networkClient = await getNetworkClient(network);
+
+})()
   .then(() => process.exit())
   .catch(error => console.error(error));
 

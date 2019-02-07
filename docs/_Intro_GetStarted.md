@@ -26,37 +26,56 @@ You will need to install the following packages:
 - `@colony/colony-js-client`
 - `@colony/purser-software`
 
-
 Install the packages with the following command:
 
 ```
 yarn add @colony/colony-js-client @colony/purser
 ```
 
-## Connect Network
+## Open Wallet
 
-Create a `colony.js` file in the root of your project and add the following code:
+Create a `colony.js` file in the root of your project and add the following:
 
 ```js
 
 // Import the prerequisites
-const { getNetworkClient } = require('@colony/colony-js-client');
 const { open } = require('@colony/purser-software');
 
-// Set the private key (We recommend using a wallet that you strictly use for testing)
-const privateKey = '0x000000000000000000000000000000000000000000000000000000000000000';
-
-// An example method for connecting
-const connectNetwork = async (network) => {
+// Return a wallet instance
+const openWallet = async (privateKey) => {
 
   // Create wallet instance with private key
   const wallet = await open({ privateKey });
 
+  // Check out the logs to see the address of the contract signer
+  console.log('Wallet Address: ', wallet.address);
+
+  // Return wallet
+  return wallet;
+
+};
+
+```
+
+## Connect Network
+
+Add the following to the prerequisites:
+
+```js
+
+const { getNetworkClient } = require('@colony/colony-js-client');
+
+```
+
+Add the following below the `openWallet` example:
+
+```js
+
+// Return a network client instance
+const getNetworkClient = async (wallet) => {
+
   // Get network client for given network using wallet instance
   const networkClient = await getNetworkClient(network, wallet);
-
-  // Check out the logs to see the address of the contract signer
-  console.log('Account Address: ', networkClient.contract.signer.address);
 
   // Check out the logs to see the address of the deployed network
   console.log('Network Address: ', networkClient.contract.address);
@@ -70,18 +89,15 @@ const connectNetwork = async (network) => {
 
 ## Create Token
 
-Add the following code below the `connectNetwork` example:
+Add the following below the `connectNetwork` example:
 
 ```js
 
 // An example method for creating a token
-const createToken = async (networkClient, name, symbol) => {
+const createToken = async (networkClient, symbol) => {
 
   // Create a token
-  const tokenAddress = await networkClient.createToken({
-    name,
-    symbol,
-  });
+  const tokenAddress = await networkClient.createToken({ symbol });
 
   // Check out the logs to see the token address
   console.log('Token Address: ', tokenAddress);
@@ -95,7 +111,7 @@ const createToken = async (networkClient, name, symbol) => {
 
 ## Create Colony
 
-Add the following code below the `createToken` example:
+Add the following below the `createToken` example:
 
 ```js
 
@@ -124,7 +140,7 @@ const createColony = async (networkClient, tokenAddress) => {
 
 ## Create Task
 
-Add the following code below the `createColony` example:
+Add the following below the `createColony` example:
 
 ```js
 
@@ -153,17 +169,41 @@ const createTask = async (colonyClient, specificationHash) => {
 
 You now have all the example methods you need to connect to the network, create a token, create a colony, and create a task. Next, you will need to add some code that will execute those methods.
 
-Add the following code below the `createTask` example:
+Add the following below the `createTask` example:
 
 
 ```js
 
-// Execute example methods
+// Run examples
 (async () => {
-  const networkClient = await connectNetwork('rinkeby');
-  const tokenAddress = await createToken(networkClient, 'Token', 'TKN');
+
+  // Set network to rinkeby
+  const network = 'rinkeby';
+
+  // Set the private key (We recommend using a wallet that you strictly use for testing)
+  const privateKey = '0x000000000000000000000000000000000000000000000000000000000000000';
+
+  // Set the token symbol
+  const tokenSymbol = 'TKN';
+
+  // Set the task specification
+  const taskSpecification = 'QmThycv5h17LTx2DM5qAKNBpHKDL3YTkpfvp1krq2hmUdB';
+
+  // Get the wallet instance
+  const wallet = await getNetworkClient(privateKey);
+
+  // Get the network client instance
+  const networkClient = await getNetworkClient(network);
+
+  // Create a token and store the returned address
+  const tokenAddress = await createToken(networkClient, tokenSymbol);
+
+  // Create a colony and store the returned colony client
   const colonyClient = await createColony(networkClient, tokenAddress);
-  await createTask(colonyClient, 'QmThycv5h17LTx2DM5qAKNBpHKDL3YTkpfvp1krq2hmUdB');
+
+  // Create a task with an example specification hash
+  await createTask(colonyClient, taskSpecification);
+
 })()
   .then(() => process.exit())
   .catch(error => console.error(error));
