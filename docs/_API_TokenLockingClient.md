@@ -37,13 +37,13 @@ await tokenLockingClient.init();
 
 Get the total number of locked tokens.
 
-**Arguments**
+#### Arguments
 
 |Argument|Type|Description|
 |---|---|---|
 |token|address|The address of the token contract (an empty address if Ether).|
 
-**Returns**
+#### Return Values
 
 A promise which resolves to an object containing the following properties:
 
@@ -51,26 +51,33 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |count|number|The total number of locked tokens in the colony.|
 
-**Contract Information**
+#### Contract Information
 
 
   
+<<<<<<< e7e38b90f1bcea9e7d63ce2b9356f0f987a69536
   - Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba127b0286708d4f8919526a943b0e916cfd7c/contracts/TokenLocking.sol)
   - Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba127b0286708d4f8919526a943b0e916cfd7c/contracts/ITokenLocking.sol)
+=======
+  
+Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/TokenLocking.sol)
+  
+Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ITokenLocking.sol)
+>>>>>>> Verious fixes to API docs and docgen
   
 
 ### `getUserLock.call({ token, user })`
 
 Get the total number of locked tokens for a given user.
 
-**Arguments**
+#### Arguments
 
 |Argument|Type|Description|
 |---|---|---|
 |token|address|The address of the token contract (an empty address if Ether).|
 |user|address|The address of the user.|
 
-**Returns**
+#### Return Values
 
 A promise which resolves to an object containing the following properties:
 
@@ -78,12 +85,19 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |count|big number|The total number of locked tokens.|
 
-**Contract Information**
+#### Contract Information
 
 
   
+<<<<<<< e7e38b90f1bcea9e7d63ce2b9356f0f987a69536
   - Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba127b0286708d4f8919526a943b0e916cfd7c/contracts/TokenLocking.sol)
   - Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba127b0286708d4f8919526a943b0e916cfd7c/contracts/ITokenLocking.sol)
+=======
+  
+Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/TokenLocking.sol)
+  
+Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ITokenLocking.sol)
+>>>>>>> Verious fixes to API docs and docgen
   
 
   
@@ -94,14 +108,14 @@ A promise which resolves to an object containing the following properties:
 
 Deposit tokens. This function only be called if the tokens that the user is attempting to deposit are not locked and if the user has allowed the token locking contract to transfer the tokens.
 
-**Arguments**
+#### Arguments
 
 |Argument|Type|Description|
 |---|---|---|
 |token|address|The address of the token contract (an empty address if Ether).|
 |amount|big number|The amount of tokens that will be deposited.|
 
-**Returns**
+#### Response
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
@@ -113,25 +127,32 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |timestamp|date|The timestamp when the tokens were deposited.|
 |UserTokenDeposited|object|Contains the data defined in [UserTokenDeposited](#eventsusertokendepositedaddlistener-token-user-amount-timestamp-------)|
 
-**Contract Information**
+#### Contract Information
 
 
   
+<<<<<<< e7e38b90f1bcea9e7d63ce2b9356f0f987a69536
   - Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba127b0286708d4f8919526a943b0e916cfd7c/contracts/TokenLocking.sol)
   - Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba127b0286708d4f8919526a943b0e916cfd7c/contracts/ITokenLocking.sol)
+=======
+  
+Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/TokenLocking.sol)
+  
+Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ITokenLocking.sol)
+>>>>>>> Verious fixes to API docs and docgen
   
 
 ### `lockToken.send({ token }, options)`
 
 Lock all tokens for a given token contract.
 
-**Arguments**
+#### Arguments
 
 |Argument|Type|Description|
 |---|---|---|
 |token|address|The address of the token contract (an empty address if Ether).|
 
-**Returns**
+#### Response
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
@@ -141,44 +162,58 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |lockCount|big number|The address of the token contract that was assigned.|
 |TokenLocked|object|Contains the data defined in [TokenLocked](#eventstokenlockedaddlistener-token-lockcount-------)|
 
-**Contract Information**
+#### Contract Information
 
 
   
+<<<<<<< e7e38b90f1bcea9e7d63ce2b9356f0f987a69536
   - Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba127b0286708d4f8919526a943b0e916cfd7c/contracts/TokenLocking.sol)
   - Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba127b0286708d4f8919526a943b0e916cfd7c/contracts/ITokenLocking.sol)
+=======
+  
+Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/TokenLocking.sol)
+  
+Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ITokenLocking.sol)
+>>>>>>> Verious fixes to API docs and docgen
   
 
 ### `incrementLockCounterTo.send({ token, lockId }, options)`
 
 Increment the token lock counter. This method allows users to waive reward payouts for past reward payout cycles, unlocking the tokens that were locked in previous reward payout cycles.
 
-**Arguments**
+#### Arguments
 
 |Argument|Type|Description|
 |---|---|---|
 |token|address|The address of the token contract (an empty address if Ether).|
 |lockId|number|The ID of the lock count that will be set.|
 
-**Returns**
+#### Response
 
 An instance of a `ContractResponse`
 
 
 
-**Contract Information**
+#### Contract Information
 
 
   
+<<<<<<< e7e38b90f1bcea9e7d63ce2b9356f0f987a69536
   - Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba127b0286708d4f8919526a943b0e916cfd7c/contracts/TokenLocking.sol)
   - Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba127b0286708d4f8919526a943b0e916cfd7c/contracts/ITokenLocking.sol)
+=======
+  
+Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/TokenLocking.sol)
+  
+Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ITokenLocking.sol)
+>>>>>>> Verious fixes to API docs and docgen
   
 
 ### `unlockTokenForUser.send({ token, user, lockId }, options)`
 
 Unlock all tokens for a user on a given token contract.
 
-**Arguments**
+#### Arguments
 
 |Argument|Type|Description|
 |---|---|---|
@@ -186,7 +221,7 @@ Unlock all tokens for a user on a given token contract.
 |user|address|The address of the user.|
 |lockId|number|The ID of the lock count that will be set.|
 
-**Returns**
+#### Response
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
@@ -197,26 +232,33 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |lockId|number|The ID of the lock that the was set for the user.|
 |UserTokenUnlocked|object|Contains the data defined in [UserTokenUnlocked](#eventsusertokenunlockedaddlistener-token-user-lockid-------)|
 
-**Contract Information**
+#### Contract Information
 
 
   
+<<<<<<< e7e38b90f1bcea9e7d63ce2b9356f0f987a69536
   - Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba127b0286708d4f8919526a943b0e916cfd7c/contracts/TokenLocking.sol)
   - Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba127b0286708d4f8919526a943b0e916cfd7c/contracts/ITokenLocking.sol)
+=======
+  
+Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/TokenLocking.sol)
+  
+Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ITokenLocking.sol)
+>>>>>>> Verious fixes to API docs and docgen
   
 
 ### `withdraw.send({ token, amount }, options)`
 
 Withdraw tokens. This function only be called if the tokens that the user is attempting to withdraw are not locked.
 
-**Arguments**
+#### Arguments
 
 |Argument|Type|Description|
 |---|---|---|
 |token|address|The address of the token contract (an empty address if Ether).|
 |amount|big number|The amount of tokens that will be deposited.|
 
-**Returns**
+#### Response
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
@@ -227,12 +269,19 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |amount|big number|The amount of tokens that were withdrawn.|
 |UserTokenWithdrawn|object|Contains the data defined in [UserTokenWithdrawn](#eventsusertokenwithdrawnaddlistener-token-user-amount-------)|
 
-**Contract Information**
+#### Contract Information
 
 
   
+<<<<<<< e7e38b90f1bcea9e7d63ce2b9356f0f987a69536
   - Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba127b0286708d4f8919526a943b0e916cfd7c/contracts/TokenLocking.sol)
   - Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba127b0286708d4f8919526a943b0e916cfd7c/contracts/ITokenLocking.sol)
+=======
+  
+Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/TokenLocking.sol)
+  
+Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/396b6bb4762dcd111daad153aa54cd76184afa53/contracts/ITokenLocking.sol)
+>>>>>>> Verious fixes to API docs and docgen
   
 
   
@@ -244,7 +293,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
 
-**Arguments**
+#### Arguments
 
 |Argument|Type|Description|
 |---|---|---|
@@ -256,7 +305,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
 
-**Arguments**
+#### Arguments
 
 |Argument|Type|Description|
 |---|---|---|
@@ -270,7 +319,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
 
-**Arguments**
+#### Arguments
 
 |Argument|Type|Description|
 |---|---|---|
@@ -283,7 +332,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
 
-**Arguments**
+#### Arguments
 
 |Argument|Type|Description|
 |---|---|---|

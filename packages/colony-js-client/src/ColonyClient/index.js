@@ -348,9 +348,9 @@ export default class ColonyClient extends ContractClient {
   createTask: ColonyClient.Sender<
     {
       specificationHash: IPFSHash, // The specification hash of the task (an IPFS hash).
-      domainId?: number, // The ID of the domain (optional with a default value of `1`).
-      skillId?: number, // The ID of the skill (optional with a default value of `null`).
-      dueDate?: Date, // The due date of the task (optional with a default value of `30` days from now).
+      domainId: ?number, // The ID of the domain (default value of `1`).
+      skillId: ?number, // The ID of the skill (default value of `null`).
+      dueDate: ?Date, // The due date of the task (default value of `30` days from creation).
     },
     {
       FundingPotAdded: FundingPotAdded,
@@ -624,13 +624,13 @@ export default class ColonyClient extends ContractClient {
       taskId: number, // The ID of the task.
     },
     {
-      completionDate: ?Date, // The date when the task deliverable was submitted.
-      deliverableHash: ?IPFSHash, // The deliverable hash of the task (an IPFS hash).
+      completionDate: Date, // The date when the task deliverable was submitted.
+      deliverableHash: IPFSHash, // The deliverable hash of the task (an IPFS hash).
       domainId: number, // The ID of the domain.
-      dueDate: ?Date, // The final date that the task deliverable can be submitted.
+      dueDate: Date, // The final date that the task deliverable can be submitted.
       id: number, // The ID of the task.
-      payoutsWeCannotMake: ?number, // The number of payouts that cannot be completed (`0` or `1`). If this value is `1`, it means that the funding pot associated with the task does not have enough funds to perform the task payouts, i.e. the total amount for the three task payouts is more than the total balance of the funding pot associated with the task.
-      potId: ?number, // The ID of the funding pot.
+      payoutsWeCannotMake: number, // The number of payouts that cannot be completed (`0` or `1`). If this value is `1`, it means that the funding pot associated with the task does not have enough funds to perform the task payouts, i.e. the total amount for the three task payouts is more than the total balance of the funding pot associated with the task.
+      potId: number, // The ID of the funding pot.
       skillId: number, // The ID of the skill.
       specificationHash: IPFSHash, // The specification hash of the task (an IPFS hash).
       status: TaskStatus, // The task status (`ACTIVE`, `CANCELLED` or `FINALIZED`).
