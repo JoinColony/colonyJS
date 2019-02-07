@@ -20,7 +20,7 @@ type UserTokenDeposited = ContractClient.Event<{
 type UserTokenUnlocked = ContractClient.Event<{
   token: TokenAddress, // The address of the token contract that was unlocked.
   user: Address, // The address of the user that the tokens were unlocked for.
-  lockId: number, // The numeric ID of the lock that the was set for the user.
+  lockId: number, // The ID of the lock that the was set for the user.
 }>;
 type UserTokenWithdrawn = ContractClient.Event<{
   token: TokenAddress, // The address of the token contract from which tokens were withdrawn.
@@ -112,7 +112,7 @@ export default class TokenLockingClient extends ContractClient {
   incrementLockCounterTo: TokenLockingClient.Sender<
     {
       token: TokenAddress, // The address of the token contract (an empty address if Ether).
-      lockId: number, // The numeric ID of the lock count that will be set.
+      lockId: number, // The ID of the lock count that will be set.
     },
     {},
     TokenLockingClient,
@@ -129,7 +129,7 @@ export default class TokenLockingClient extends ContractClient {
     {
       token: TokenAddress, // The address of the token contract (an empty address if Ether).
       user: Address, // The address of the user.
-      lockId: number, // The numeric ID of the lock count that will be set.
+      lockId: number, // The ID of the lock count that will be set.
     },
     {
       UserTokenUnlocked: UserTokenUnlocked,

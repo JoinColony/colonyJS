@@ -158,7 +158,7 @@ Increment the token lock counter. This method allows users to waive reward payou
 |Argument|Type|Description|
 |---|---|---|
 |token|address|The address of the token contract (an empty address if Ether).|
-|lockId|number|The numeric ID of the lock count that will be set.|
+|lockId|number|The ID of the lock count that will be set.|
 
 **Returns**
 
@@ -184,7 +184,7 @@ Unlock all tokens for a user on a given token contract.
 |---|---|---|
 |token|address|The address of the token contract (an empty address if Ether).|
 |user|address|The address of the user.|
-|lockId|number|The numeric ID of the lock count that will be set.|
+|lockId|number|The ID of the lock count that will be set.|
 
 **Returns**
 
@@ -194,7 +194,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |token|address|The address of the token contract that was unlocked.|
 |user|address|The address of the user that the tokens were unlocked for.|
-|lockId|number|The numeric ID of the lock that the was set for the user.|
+|lockId|number|The ID of the lock that the was set for the user.|
 |UserTokenUnlocked|object|Contains the data defined in [UserTokenUnlocked](#eventsusertokenunlockedaddlistener-token-user-lockid-------)|
 
 **Contract Information**
@@ -276,7 +276,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |token|address|The address of the token contract that was unlocked.|
 |user|address|The address of the user that the tokens were unlocked for.|
-|lockId|number|The numeric ID of the lock that the was set for the user.|
+|lockId|number|The ID of the lock that the was set for the user.|
 
 
 ### `events.UserTokenWithdrawn.addListener(({ token, user, amount }) => { /* ... */ })`

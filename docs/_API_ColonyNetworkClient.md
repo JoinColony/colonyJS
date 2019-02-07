@@ -150,7 +150,7 @@ A promise which resolves to an object containing the following properties:
 
 |Return Value|Type|Description|
 |---|---|---|
-|childSkillId|number|The numeric ID of the child skill.|
+|childSkillId|number|The ID of the child skill.|
 
 **Contract Information**
 
@@ -168,7 +168,7 @@ Get the colony contract address for a colony.
 
 |Argument|Type|Description|
 |---|---|---|
-|id|number|The numeric ID of the colony.|
+|id|number|The ID of the colony.|
 
 **Returns**
 
@@ -188,7 +188,7 @@ A promise which resolves to an object containing the following properties:
 
 ### `getColonyCount.call()`
 
-Get the total number of colonies on the network. The return value is also the numeric ID of the last colony created.
+Get the total number of colonies on the network. The return value is also the ID of the last colony created.
 
 
 **Returns**
@@ -313,7 +313,7 @@ A promise which resolves to an object containing the following properties:
 
 |Return Value|Type|Description|
 |---|---|---|
-|parentSkillId|number|The numeric ID of the parent skill.|
+|parentSkillId|number|The ID of the parent skill.|
 
 **Contract Information**
 
@@ -381,7 +381,7 @@ A promise which resolves to an object containing the following properties:
 
 |Return Value|Type|Description|
 |---|---|---|
-|skillId|number|The numeric ID of the root global skill.|
+|skillId|number|The ID of the root global skill.|
 
 **Contract Information**
 
@@ -399,7 +399,7 @@ Get information about a domain.
 
 |Argument|Type|Description|
 |---|---|---|
-|skillId|number|The numeric ID of the skill.|
+|skillId|number|The ID of the skill.|
 
 **Returns**
 
@@ -575,7 +575,7 @@ Add a new global or local skill to the skills tree.
 
 |Argument|Type|Description|
 |---|---|---|
-|parentSkillId|number|The numeric ID of the skill under which the new skill will be added.|
+|parentSkillId|number|The ID of the skill under which the new skill will be added.|
 |globalSkill|boolean|A boolean indicating whether or not the skill will be a global skill.|
 
 **Returns**
@@ -584,8 +584,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event Data|Type|Description|
 |---|---|---|
-|skillId|number|The numeric ID of the skill that was added.|
-|parentSkillId|number|The numeric ID of the parent skill.|
+|skillId|number|The ID of the skill that was added.|
+|parentSkillId|number|The ID of the parent skill.|
 |SkillAdded|object|Contains the data defined in [SkillAdded](#eventsskilladdedaddlistener-skillid-parentskillid-------)|
 
 **Contract Information**
@@ -631,7 +631,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Event Data|Type|Description|
 |---|---|---|
-|colonyId|number|The numeric ID of the colony that was added.|
+|colonyId|number|The ID of the colony that was added.|
 |colonyAddress|address|The address of the colony contract that was created.|
 |tokenAddress|address|The address of the token contract that was assigned.|
 |ColonyAdded|object|Contains the data defined in [ColonyAdded](#eventscolonyaddedaddlistener-colonyid-colonyaddress-tokenaddress-------)|
@@ -662,7 +662,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |colonyAddress|number|The address of the Meta Colony.|
 |tokenAddress|address|The address of the CLNY token contract.|
-|rootSkillId|number|The numeric ID of the root skill.|
+|rootSkillId|number|The ID of the root skill.|
 |MetaColonyCreated|object|Contains the data defined in [MetaColonyCreated](#eventsmetacolonycreatedaddlistener-colonyaddress-tokenaddress-rootskillid-------)|
 
 **Contract Information**
@@ -847,7 +847,7 @@ Set the value for a storage slot while in recovery mode. This can only be called
 
 |Argument|Type|Description|
 |---|---|---|
-|slot|number|The numeric ID of the storage slot that will be modified.|
+|slot|number|The ID of the storage slot that will be modified.|
 |value|hex string|The hex string of data that will be set as the value.|
 
 **Returns**
@@ -971,7 +971,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Argument|Type|Description|
 |---|---|---|
-|colonyId|number|The numeric ID of the colony that was added.|
+|colonyId|number|The ID of the colony that was added.|
 |colonyAddress|address|The address of the colony contract that was created.|
 |tokenAddress|address|The address of the token contract that was assigned.|
 
@@ -1021,7 +1021,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |colonyAddress|number|The address of the Meta Colony.|
 |tokenAddress|address|The address of the CLNY token contract.|
-|rootSkillId|number|The numeric ID of the root skill.|
+|rootSkillId|number|The ID of the root skill.|
 
 
 ### `events.MiningCycleResolverSet.addListener(({ miningCycleResolver }) => { /* ... */ })`
@@ -1091,8 +1091,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Argument|Type|Description|
 |---|---|---|
-|skillId|number|The numeric ID of the skill that was added.|
-|parentSkillId|number|The numeric ID of the parent skill.|
+|skillId|number|The ID of the skill that was added.|
+|parentSkillId|number|The ID of the parent skill.|
 
 
 ### `events.TokenLockingAddressSet.addListener(({ tokenLocking }) => { /* ... */ })`
