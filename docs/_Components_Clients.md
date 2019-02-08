@@ -12,13 +12,21 @@ Use `getNetworkClient` to get an instance of `ColonyNetworkClient`:
 
 ```js
 
+// Get the network client using the rinkeby network
 const networkClient = getNetworkClient(`rinkeby`, wallet);
 
 ```
 
-See [purser](/purser/docs-overview) to learn how to create a wallet instance.
+```js
 
-Or create an instance of `ColonyNetworkClient` by providing an adapter:
+// Get the network client using the local network
+const networkClient = getNetworkClient(`local`, wallet);
+
+```
+
+See [purser](/purser/docs-overview) to learn how to create a wallet instance. If you are using this method with the "local" option, you will need to have [TrufflePig](https://github.com/JoinColony/trufflepig) installed and running.
+
+Another way to create an instance of `ColonyNetworkClient` is by providing an adapter:
 
 ```js
 

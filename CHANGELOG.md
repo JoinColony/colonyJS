@@ -4,11 +4,11 @@
 
 **New Features**
 
-* Add `getNetworkClient` method using `NetworkLoader` (`@colony/colony-js-client`)
+* Add `getNetworkClient` method (`@colony/colony-js-client`)
 
 **Maintenance**
 
-* `TokenClient` is now based on the `DSToken` contract (`@colony/colony-js-client`)
+* Update `TokenClient` to use `DSToken` contract (`@colony/colony-js-client`)
 
 ## v1.10.0
 
