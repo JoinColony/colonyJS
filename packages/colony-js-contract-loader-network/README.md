@@ -10,6 +10,6 @@ yarn add @colony/colony-js-contract-loader-network
 
 ## Contributing
 
-This package is part of the [colonyNetwork repo](https://github.com/JoinColony/colonyNetwork).
+This package is part of the [colonyJS repo](https://github.com/JoinColony/colonyJS).
 
-Please read our [contributing guidelines](https://github.com/JoinColony/colonyNetwork/blob/develop/docs/CONTRIBUTING.md).
+Please read our [contributing guidelines](https://github.com/JoinColony/colonyJS/CONTRIBUTING.md).
