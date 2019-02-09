@@ -1,1 +1,3 @@
-export { default } from "./NetworkLoader";
+/* @flow */
+
+export { default } from './NetworkLoader';
