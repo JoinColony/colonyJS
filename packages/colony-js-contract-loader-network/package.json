@@ -1,0 +1,23 @@
+{
+  "name": "@colony/colony-js-contract-loader-network",
+  "version": "1.6.2",
+  "description": "Load the Colony contract ABIs directly from this package",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "babel src --out-dir lib --ignore __tests__ --source-maps",
+    "clean": "shx rm -rf lib",
+    "test": "jest --config=jest.conf.json",
+    "prepublish": "yarn run build"
+  },
+  "author": "Christian Maniewski <chris@colony.io>",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "babel-runtime": "^6.26.0",
+    "@colony/colony-js-contract-loader": "1.8.1",
+    "assert": "^1.4.1"
+  },
+  "devDependencies": {
+    "jest": "^23.6.0",
+    "shx": "^0.3.0"
+  }
+}
