@@ -19,7 +19,7 @@ log "Initializing colonyNetwork submodule..."
 git submodule update --init --recursive
 
 # Move to colonyNetwork directory
-cd modules/colonyNetwork
+cd lib/colonyNetwork
 
 # Set colonyNework version
 log "Checking out colonyNetwork version..."
