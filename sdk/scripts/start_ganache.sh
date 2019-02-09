@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Move to colonyNetwork directory
-cd modules/colonyNetwork
+cd lib/colonyNetwork
 
 # Start Ganache using the accounts defined in colonyNetwork
 ganache-cli --acctKeys "./ganache-accounts.json" --noVMErrorsOnRPCResponse --gasLimit 6721975 \
