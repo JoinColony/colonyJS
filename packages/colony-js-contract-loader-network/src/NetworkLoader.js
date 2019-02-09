@@ -71,7 +71,6 @@ class NetworkLoader extends ContractLoader {
       );
     }
     throw new Error(
-      // eslint-disable-next-line max-len
       `Contract ${contractName} with version ${version} not found in ${
         this._network ? this._network : 'main'
       }`,
