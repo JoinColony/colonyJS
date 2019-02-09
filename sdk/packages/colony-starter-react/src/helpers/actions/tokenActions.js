@@ -1,17 +1,14 @@
 // import big number
 import BN from 'bn.js'
 
-// import web3 utilities
-import { utils } from 'web3'
-
 // createToken
 
 export const createToken = async (networkClient, name, symbol) => {
 
   // create token
   const tx = await networkClient.createToken.send({
-    name: utils.sha3(name),
-    symbol: utils.sha3(symbol),
+    name,
+    symbol,
   })
 
   // check unsuccessful

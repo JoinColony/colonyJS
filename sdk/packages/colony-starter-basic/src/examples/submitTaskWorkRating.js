@@ -1,11 +1,11 @@
-// Import web3 library
-const web3 = require('web3');
+// Import web3 utils library
+const web3Utils = require('web3-utils');
 
 // An example using the submitTaskWorkRating method
 const submitTaskWorkRating = async (colonyClient, taskId, role, rating) => {
 
   // Set salt value
-  const salt = web3.utils.sha3('secret');
+  const salt = web3Utils.sha3('secret');
 
   // Set rating value
   const value = rating;
