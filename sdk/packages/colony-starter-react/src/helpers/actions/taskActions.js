@@ -4,8 +4,8 @@ import BN from 'bn.js'
 // import extended protocol
 import ecp from '../ecp'
 
-// import web3 library
-const web3 = require('web3');
+// import web3 utils library
+const web3Utils = require('web3-utils');
 
 // cancelTask
 
@@ -642,7 +642,7 @@ export const removeTaskRole = async (colonyClient, taskId, role) => {
 export const revealRating = async (colonyClient, taskId, role, rating) => {
 
   // set salt
-  const salt = web3.utils.sha3('secret')
+  const salt = web3Utils.sha3('secret')
 
   // set value
   const value = rating
@@ -1563,7 +1563,7 @@ export const signRemoveTaskWorkerRole = async (colonyClient, operationJSON) => {
 export const submitRating = async (colonyClient, taskId, role, rating) => {
 
   // set salt
-  const salt = web3.utils.sha3('secret')
+  const salt = web3Utils.sha3('secret')
 
   // set value
   const value = rating
