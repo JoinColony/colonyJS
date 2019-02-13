@@ -62,7 +62,7 @@ export default class TokenClient extends ContractClient {
       contract: 'erc20.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -81,7 +81,7 @@ export default class TokenClient extends ContractClient {
       contract: 'token.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -101,7 +101,7 @@ export default class TokenClient extends ContractClient {
       contract: 'erc20.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -120,7 +120,7 @@ export default class TokenClient extends ContractClient {
       contract: 'erc20.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -138,7 +138,7 @@ export default class TokenClient extends ContractClient {
       contract: 'Token.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/JoinColony/colonyToken/blob/7359eedaadacd55a1393c795964bd61513b2af33/contracts',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -155,7 +155,7 @@ export default class TokenClient extends ContractClient {
       contract: 'erc20.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -174,7 +174,7 @@ export default class TokenClient extends ContractClient {
       contract: 'token.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -192,7 +192,7 @@ export default class TokenClient extends ContractClient {
       contract: 'auth.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -226,7 +226,7 @@ export default class TokenClient extends ContractClient {
       contract: 'auth.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -243,7 +243,7 @@ export default class TokenClient extends ContractClient {
       contract: 'erc20.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -263,7 +263,7 @@ export default class TokenClient extends ContractClient {
       contract: 'Token.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/JoinColony/colonyToken/blob/7359eedaadacd55a1393c795964bd61513b2af33/contracts',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
 

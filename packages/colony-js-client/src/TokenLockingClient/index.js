@@ -51,7 +51,7 @@ export default class TokenLockingClient extends ContractClient {
     {
       contract: 'TokenLocking.sol',
       interface: 'ITokenLocking.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -68,7 +68,7 @@ export default class TokenLockingClient extends ContractClient {
     {
       contract: 'TokenLocking.sol',
       interface: 'ITokenLocking.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -86,7 +86,7 @@ export default class TokenLockingClient extends ContractClient {
     {
       contract: 'TokenLocking.sol',
       interface: 'ITokenLocking.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -103,7 +103,7 @@ export default class TokenLockingClient extends ContractClient {
     {
       contract: 'TokenLocking.sol',
       interface: 'ITokenLocking.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -119,7 +119,7 @@ export default class TokenLockingClient extends ContractClient {
     {
       contract: 'TokenLocking.sol',
       interface: 'ITokenLocking.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -138,7 +138,7 @@ export default class TokenLockingClient extends ContractClient {
     {
       contract: 'TokenLocking.sol',
       interface: 'ITokenLocking.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -156,7 +156,7 @@ export default class TokenLockingClient extends ContractClient {
     {
       contract: 'TokenLocking.sol',
       interface: 'ITokenLocking.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
 
