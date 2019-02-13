@@ -21,7 +21,7 @@
         "eslint-plugin-import": "^2.8.0",
         "eslint-plugin-prettier": "^2.6.0",
         "flow-bin": "^0.75.0",
-        "flow-copy-source": "^1.2.1",
+        "flow-copy-source": "^2.0.3",
         "flow-parser": "^0.75.0",
         "husky": "^0.14.3",
         "lerna": "^2.5.1",
