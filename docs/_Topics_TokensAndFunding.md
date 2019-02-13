@@ -131,7 +131,7 @@ We can get the balance of a pot using an instance of the [ColonyClient](/colonyj
 ```js
 
 // Get pot balance
-await colonyClient.getPotBalance.call({
+await colonyClient.getFundingPotBalance.call({
   potId,
   token,
 })

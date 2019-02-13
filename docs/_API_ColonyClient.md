@@ -155,7 +155,7 @@ A promise which resolves to an object containing the following properties:
   - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba127b0286708d4f8919526a943b0e916cfd7c/contracts/IColony.sol)
   
 
-### `getPotBalance.call({ potId, token })`
+### `getFundingPotBalance.call({ potId, token })`
 
 Get the balance of a funding pot.
 

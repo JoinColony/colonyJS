@@ -514,7 +514,7 @@ export default class ColonyClient extends ContractClient {
   /*
   Get the balance of a funding pot.
   */
-  getPotBalance: ColonyClient.Caller<
+  getFundingPotBalance: ColonyClient.Caller<
     {
       potId: number, // The numeric ID of the funding pot.
       token: TokenAddress, // The address of the token contract (an empty address if Ether).
@@ -1491,7 +1491,7 @@ export default class ColonyClient extends ContractClient {
       input: [['token', 'tokenAddress']],
       output: [['total', 'bigNumber']],
     });
-    this.addCaller('getPotBalance', {
+    this.addCaller('getFundingPotBalance', {
       input: [['potId', 'number'], ['token', 'tokenAddress']],
       output: [['balance', 'bigNumber']],
     });
