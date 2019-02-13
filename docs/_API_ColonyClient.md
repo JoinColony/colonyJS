@@ -921,6 +921,68 @@ An instance of a `ContractResponse` which will eventually receive the following 
   - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba127b0286708d4f8919526a943b0e916cfd7c/contracts/IColony.sol)
   
 
+### `makePayment.send({ worker, token, amount, domainId, skillId }, options)`
+
+Make a payment. This function can only be called by the user assigned either the `FOUNDER` or `ADMIN` authority role.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|worker|address||
+|token|address||
+|amount|big number||
+|domainId|number||
+|skillId|number||
+
+**Returns**
+
+An instance of a `ContractResponse` which will eventually receive the following event data:
+
+|Event data|Type|Description|
+|---|---|---|
+|potId|number|The numeric ID of the pot that was added.|
+|taskId|number|The numeric ID of the task that was added.|
+|taskId|number|The numeric ID of the task that was modified.|
+|skillId|number|The numeric ID of the skill that was set.|
+|taskId|number|The numeric ID of the task that was modified.|
+|dueDate|date|The due date that was set.|
+|taskId|number|The numeric ID of the task that was modified.|
+|role|task role|The role of the task that was set (`MANAGER`, `EVALUATOR`, or `WORKER`).|
+|user|address|The user that was assigned the task role.|
+|taskId|number|The numeric ID of the task that was modified.|
+|role|task role|The role of the task that was modified (`MANAGER`, `EVALUATOR`, or `WORKER`).|
+|token|address|The address of the token contract (an empty address if Ether).|
+|amount|big number|The task payout amount that was set.|
+|fromPot|number|The numeric ID of the pot from which the funds were moved.|
+|toPot|number|The numeric ID of the pot to which the funds were moved.|
+|amount|big number|The amount of funds that were moved between pots.|
+|token|address|The address of the token contract (an empty address if Ether).|
+|taskId|number|The numeric ID of the task that was modified.|
+|role|task role|The role of the task that was assigned the task payout (`MANAGER`, `EVALUATOR`, or `WORKER`).|
+|token|address|The address of the token contract (an empty address if Ether).|
+|amount|big number|The task payout amount that was claimed.|
+|from|address|The address of the account that sent tokens.|
+|to|address|The address of the account that received tokens.|
+|value|big number|The amount of tokens that were transferred.|
+|PotAdded|object|Contains the data defined in [PotAdded](#eventspotaddedaddlistener-potid-------)|
+|TaskAdded|object|Contains the data defined in [TaskAdded](#eventstaskaddedaddlistener-taskid-------)|
+|TaskSkillSet|object|Contains the data defined in [TaskSkillSet](#eventstaskskillsetaddlistener-taskid-skillid-------)|
+|TaskDueDateSet|object|Contains the data defined in [TaskDueDateSet](#eventstaskduedatesetaddlistener-taskid-duedate-------)|
+|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleusersetaddlistener-taskid-role-user-------)|
+|TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutsetaddlistener-taskid-role-token-amount-------)|
+|ColonyFundsMovedBetweenFundingPots|object|Contains the data defined in [ColonyFundsMovedBetweenFundingPots](#eventscolonyfundsmovedbetweenfundingpotsaddlistener-frompot-topot-amount-token-------)|
+|TaskPayoutClaimed|object|Contains the data defined in [TaskPayoutClaimed](#eventstaskpayoutclaimedaddlistener-taskid-role-token-amount-------)|
+|Transfer|object|Contains the data defined in [Transfer](#eventstransferaddlistener-from-to-value-------)|
+
+**Contract Information**
+
+
+  
+  - Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba127b0286708d4f8919526a943b0e916cfd7c/contracts/ContractRecovery.sol)
+  - Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba127b0286708d4f8919526a943b0e916cfd7c/contracts/IRecovery.sol)
+  
+
 ### `mintTokens.send({ amount }, options)`
 
 Mint new tokens. This function can only be called if the address of the colony contract is the owner of the token contract. If this is the case, then this function can only be called by the user assigned the `FOUNDER` authority role.

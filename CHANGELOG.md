@@ -6,6 +6,7 @@
 
 * Add `getNetworkClient` method (`@colony/colony-js-client`)
 * Add `getFundingPot` and `getFundingPotCount` (`@colony/colony-js-client`)
+* Add temporary `makePayment` method (`@colony/colony-js-client`)
 
 **Maintenance**
 

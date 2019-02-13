@@ -814,6 +814,35 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
+  Make a payment. This function can only be called by the user assigned either the `FOUNDER` or `ADMIN` authority role.
+  */
+  makePayment: ColonyClient.Sender<
+    {
+      worker: Address,
+      token: TokenAddress,
+      amount: BigNumber,
+      domainId: number,
+      skillId: number,
+    },
+    {
+      PotAdded: PotAdded,
+      TaskAdded: TaskAdded,
+      TaskSkillSet: TaskSkillSet,
+      TaskDueDateSet: TaskDueDateSet,
+      TaskRoleUserSet: TaskRoleUserSet,
+      TaskPayoutSet: TaskPayoutSet,
+      ColonyFundsMovedBetweenFundingPots: ColonyFundsMovedBetweenFundingPots,
+      TaskPayoutClaimed: TaskPayoutClaimed,
+      Transfer: Transfer,
+    },
+    ColonyClient,
+    {
+      contract: 'ContractRecovery.sol',
+      interface: 'IRecovery.sol',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
+    },
+  >;
+  /*
   Mint new tokens. This function can only be called if the address of the colony contract is the owner of the token contract. If this is the case, then this function can only be called by the user assigned the `FOUNDER` authority role.
   */
   mintTokens: ColonyClient.Sender<
@@ -1713,6 +1742,15 @@ export default class ColonyClient extends ContractClient {
     });
     this.addSender('finalizeRewardPayout', {
       input: [['payoutId', 'number']],
+    });
+    this.addSender('makePayment', {
+      input: [
+        ['worker', 'address'],
+        ['token', 'tokenAddress'],
+        ['amount', 'bigNumber'],
+        ['domainId', 'number'],
+        ['skillId', 'number'],
+      ],
     });
     this.addSender('mintTokens', {
       input: [['amount', 'bigNumber']],
