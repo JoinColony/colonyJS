@@ -512,6 +512,24 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
+  Get information about a funding pot.
+  */
+  getFundingPot: ColonyClient.Caller<
+    {
+      potId: number, // The numeric ID of the funding pot.
+    },
+    {
+      associatedType: string, // The associated type of the funding pot (`domain` or `task`).
+      associatedTypeId: number, // The id of the associated type (`domainId` or `taskId`).
+    },
+    ColonyClient,
+    {
+      contract: 'ColonyFunding.sol',
+      interface: 'IColony.sol',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
+    },
+  >;
+  /*
   Get the balance of a funding pot.
   */
   getFundingPotBalance: ColonyClient.Caller<
@@ -521,6 +539,21 @@ export default class ColonyClient extends ContractClient {
     },
     {
       balance: BigNumber, // The balance of tokens (or Ether) in the funding pot.
+    },
+    ColonyClient,
+    {
+      contract: 'ColonyFunding.sol',
+      interface: 'IColony.sol',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
+    },
+  >;
+  /*
+  Get the total number of funding pots.
+  */
+  getFundingPotCount: ColonyClient.Caller<
+    {},
+    {
+      count: number, // The total number of funding pots.
     },
     ColonyClient,
     {
@@ -1491,9 +1524,16 @@ export default class ColonyClient extends ContractClient {
       input: [['token', 'tokenAddress']],
       output: [['total', 'bigNumber']],
     });
+    this.addCaller('getFundingPot', {
+      input: [['potId', 'number']],
+      output: [['associatedType', 'string'], ['associatedTypeId', 'number']],
+    });
     this.addCaller('getFundingPotBalance', {
       input: [['potId', 'number'], ['token', 'tokenAddress']],
       output: [['balance', 'bigNumber']],
+    });
+    this.addCaller('getFundingPotCount', {
+      output: [['count', 'number']],
     });
     this.addCaller('getRewardInverse', {
       output: [['rewardInverse', 'bigNumber']],

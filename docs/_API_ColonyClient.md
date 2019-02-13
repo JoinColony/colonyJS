@@ -155,6 +155,33 @@ A promise which resolves to an object containing the following properties:
   - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba127b0286708d4f8919526a943b0e916cfd7c/contracts/IColony.sol)
   
 
+### `getFundingPot.call({ potId })`
+
+Get information about a funding pot.
+
+**Arguments**
+
+|Argument|Type|Description|
+|---|---|---|
+|potId|number|The numeric ID of the funding pot.|
+
+**Returns**
+
+A promise which resolves to an object containing the following properties:
+
+|Return value|Type|Description|
+|---|---|---|
+|associatedType|string|The associated type of the funding pot (`domain` or `task`).|
+|associatedTypeId|number|The id of the associated type (`domainId` or `taskId`).|
+
+**Contract Information**
+
+
+  
+  - Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba127b0286708d4f8919526a943b0e916cfd7c/contracts/ColonyFunding.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba127b0286708d4f8919526a943b0e916cfd7c/contracts/IColony.sol)
+  
+
 ### `getFundingPotBalance.call({ potId, token })`
 
 Get the balance of a funding pot.
@@ -173,6 +200,27 @@ A promise which resolves to an object containing the following properties:
 |Return value|Type|Description|
 |---|---|---|
 |balance|big number|The balance of tokens (or Ether) in the funding pot.|
+
+**Contract Information**
+
+
+  
+  - Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba127b0286708d4f8919526a943b0e916cfd7c/contracts/ColonyFunding.sol)
+  - Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba127b0286708d4f8919526a943b0e916cfd7c/contracts/IColony.sol)
+  
+
+### `getFundingPotCount.call()`
+
+Get the total number of funding pots.
+
+
+**Returns**
+
+A promise which resolves to an object containing the following properties:
+
+|Return value|Type|Description|
+|---|---|---|
+|count|number|The total number of funding pots.|
 
 **Contract Information**
 

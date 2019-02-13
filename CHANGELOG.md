@@ -5,6 +5,7 @@
 **New Features**
 
 * Add `getNetworkClient` method (`@colony/colony-js-client`)
+* Add `getFundingPot` and `getFundingPotCount` (`@colony/colony-js-client`)
 
 **Maintenance**
 
