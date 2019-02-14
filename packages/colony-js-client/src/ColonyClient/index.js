@@ -15,6 +15,7 @@ import TokenLockingClient from '../TokenLockingClient/index';
 
 import GetTask from './callers/GetTask';
 import CreateTask from './senders/CreateTask';
+import MakePayment from './senders/MakePayment';
 import addRecoveryMethods from '../addRecoveryMethods';
 
 import {
@@ -1743,7 +1744,10 @@ export default class ColonyClient extends ContractClient {
     this.addSender('finalizeRewardPayout', {
       input: [['payoutId', 'number']],
     });
-    this.addSender('makePayment', {
+    this.makePayment = new MakePayment({
+      client: this,
+      name: 'makePayment',
+      functionName: 'makePayment',
       input: [
         ['worker', 'address'],
         ['token', 'tokenAddress'],
@@ -1751,6 +1755,10 @@ export default class ColonyClient extends ContractClient {
         ['domainId', 'number'],
         ['skillId', 'number'],
       ],
+      defaultValues: {
+        domainId: DEFAULT_DOMAIN_ID,
+        skillId: 0,
+      },
     });
     this.addSender('mintTokens', {
       input: [['amount', 'bigNumber']],
