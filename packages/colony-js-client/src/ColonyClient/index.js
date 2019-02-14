@@ -15,6 +15,7 @@ import TokenLockingClient from '../TokenLockingClient/index';
 
 import GetTask from './callers/GetTask';
 import CreateTask from './senders/CreateTask';
+import MakePayment from './senders/MakePayment';
 import addRecoveryMethods from '../addRecoveryMethods';
 
 import {
@@ -82,7 +83,7 @@ type Mint = ContractClient.Event<{
   address: Address, // The address that initiated the mint event.
   amount: BigNumber, // The amount of tokens that were minted.
 }>;
-type PotAdded = ContractClient.Event<{
+type FundingPotAdded = ContractClient.Event<{
   potId: number, // The numeric ID of the pot that was added.
 }>;
 type RewardPayoutClaimed = ContractClient.Event<{
@@ -181,7 +182,7 @@ export default class ColonyClient extends ContractClient {
     ColonyUpgraded: ColonyUpgraded,
     DomainAdded: DomainAdded,
     Mint: Mint,
-    PotAdded: PotAdded,
+    FundingPotAdded: FundingPotAdded,
     RewardPayoutClaimed: RewardPayoutClaimed,
     RewardPayoutCycleEnded: RewardPayoutCycleEnded,
     RewardPayoutCycleStarted: RewardPayoutCycleStarted,
@@ -212,14 +213,14 @@ export default class ColonyClient extends ContractClient {
     },
     {
       DomainAdded: DomainAdded,
-      PotAdded: PotAdded,
+      FundingPotAdded: FundingPotAdded,
       SkillAdded: SkillAdded,
     },
     ColonyClient,
     {
       contract: 'Colony.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -236,7 +237,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'Colony.sol',
       interface: 'IMetaColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -249,7 +250,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ContractRecovery.sol',
       interface: 'IRecovery.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -267,7 +268,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'Colony.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -284,7 +285,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -301,7 +302,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyFunding.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -321,7 +322,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyFunding.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -338,7 +339,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -352,7 +353,7 @@ export default class ColonyClient extends ContractClient {
       dueDate?: Date, // The due date of the task (optional with a default value of `30` days from now).
     },
     {
-      PotAdded: PotAdded,
+      FundingPotAdded: FundingPotAdded,
       TaskAdded: TaskAdded,
       TaskSkillSet: TaskSkillSet,
       TaskDueDateSet: TaskDueDateSet,
@@ -362,7 +363,7 @@ export default class ColonyClient extends ContractClient {
       function: 'makeTask',
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -375,7 +376,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ContractRecovery.sol',
       interface: 'IRecovery.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -388,7 +389,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ContractRecovery.sol',
       interface: 'IRecovery.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -405,7 +406,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyFunding.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -422,7 +423,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -440,7 +441,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -458,7 +459,7 @@ export default class ColonyClient extends ContractClient {
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -476,7 +477,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'Colony.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -491,7 +492,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'Colony.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -508,13 +509,31 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyFunding.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
+    },
+  >;
+  /*
+  Get information about a funding pot.
+  */
+  getFundingPot: ColonyClient.Caller<
+    {
+      potId: number, // The numeric ID of the funding pot.
+    },
+    {
+      associatedType: string, // The associated type of the funding pot (`domain` or `task`).
+      associatedTypeId: number, // The id of the associated type (`domainId` or `taskId`).
+    },
+    ColonyClient,
+    {
+      contract: 'ColonyFunding.sol',
+      interface: 'IColony.sol',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
   Get the balance of a funding pot.
   */
-  getPotBalance: ColonyClient.Caller<
+  getFundingPotBalance: ColonyClient.Caller<
     {
       potId: number, // The numeric ID of the funding pot.
       token: TokenAddress, // The address of the token contract (an empty address if Ether).
@@ -526,7 +545,22 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyFunding.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
+    },
+  >;
+  /*
+  Get the total number of funding pots.
+  */
+  getFundingPotCount: ColonyClient.Caller<
+    {},
+    {
+      count: number, // The total number of funding pots.
+    },
+    ColonyClient,
+    {
+      contract: 'ColonyFunding.sol',
+      interface: 'IColony.sol',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -542,7 +576,7 @@ export default class ColonyClient extends ContractClient {
       function: 'numRecoveryRoles',
       contract: 'ContractRecovery.sol',
       interface: 'IRecovery.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -557,7 +591,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyFunding.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -579,7 +613,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyFunding.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -605,7 +639,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -620,7 +654,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -639,7 +673,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyFunding.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -659,7 +693,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -677,7 +711,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -695,7 +729,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -710,7 +744,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'Colony.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -728,7 +762,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyFunding.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -744,7 +778,7 @@ export default class ColonyClient extends ContractClient {
       function: 'version',
       contract: 'Colony.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -762,7 +796,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'Colony.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -777,7 +811,36 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ContractRecovery.sol',
       interface: 'IRecovery.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
+    },
+  >;
+  /*
+  Make a payment. This function can only be called by the user assigned either the `FOUNDER` or `ADMIN` authority role.
+  */
+  makePayment: ColonyClient.Sender<
+    {
+      worker: Address,
+      token: TokenAddress,
+      amount: BigNumber,
+      domainId: number,
+      skillId: number,
+    },
+    {
+      FundingPotAdded: FundingPotAdded,
+      TaskAdded: TaskAdded,
+      TaskSkillSet: TaskSkillSet,
+      TaskDueDateSet: TaskDueDateSet,
+      TaskRoleUserSet: TaskRoleUserSet,
+      TaskPayoutSet: TaskPayoutSet,
+      ColonyFundsMovedBetweenFundingPots: ColonyFundsMovedBetweenFundingPots,
+      TaskPayoutClaimed: TaskPayoutClaimed,
+      Transfer: Transfer,
+    },
+    ColonyClient,
+    {
+      contract: 'ContractRecovery.sol',
+      interface: 'IRecovery.sol',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -794,7 +857,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'Colony.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -812,7 +875,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'Colony.sol',
       interface: 'IMetaColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -832,7 +895,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyFunding.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -850,7 +913,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'Colony.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -867,7 +930,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'Colony.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -882,7 +945,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ContractRecovery.sol',
       interface: 'IRecovery.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -899,7 +962,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -916,7 +979,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -936,7 +999,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -953,7 +1016,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'Colony.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -974,7 +1037,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyFunding.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -991,7 +1054,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'Colony.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -1006,7 +1069,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'Colony.sol',
       interface: 'IMetaColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -1021,7 +1084,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ContractRecovery.sol',
       interface: 'IRecovery.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -1038,7 +1101,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyFunding.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -1054,7 +1117,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ContractRecovery.sol',
       interface: 'IRecovery.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -1072,7 +1135,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -1090,7 +1153,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -1108,7 +1171,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -1126,7 +1189,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -1144,7 +1207,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -1162,7 +1225,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -1180,7 +1243,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -1199,7 +1262,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyFunding.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -1218,7 +1281,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyFunding.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -1237,7 +1300,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyFunding.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -1255,7 +1318,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyFunding.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -1274,7 +1337,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -1294,7 +1357,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -1311,7 +1374,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'ColonyTask.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -1328,7 +1391,7 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'Colony.sol',
       interface: 'IColony.sol',
-      version: '396b6bb4762dcd111daad153aa54cd76184afa53',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
 
@@ -1491,9 +1554,16 @@ export default class ColonyClient extends ContractClient {
       input: [['token', 'tokenAddress']],
       output: [['total', 'bigNumber']],
     });
-    this.addCaller('getPotBalance', {
+    this.addCaller('getFundingPot', {
+      input: [['potId', 'number']],
+      output: [['associatedType', 'string'], ['associatedTypeId', 'number']],
+    });
+    this.addCaller('getFundingPotBalance', {
       input: [['potId', 'number'], ['token', 'tokenAddress']],
       output: [['balance', 'bigNumber']],
+    });
+    this.addCaller('getFundingPotCount', {
+      output: [['count', 'number']],
     });
     this.addCaller('getRewardInverse', {
       output: [['rewardInverse', 'bigNumber']],
@@ -1553,7 +1623,7 @@ export default class ColonyClient extends ContractClient {
       ['newVersion', 'number'],
     ]);
     this.addEvent('DomainAdded', [['domainId', 'number']]);
-    this.addEvent('PotAdded', [['potId', 'number']]);
+    this.addEvent('FundingPotAdded', [['potId', 'number']]);
     this.addEvent('RewardPayoutCycleStarted', [['payoutId', 'number']]);
     this.addEvent('RewardPayoutCycleEnded', [['payoutId', 'number']]);
     this.addEvent('TaskAdded', [['taskId', 'number']]);
@@ -1673,6 +1743,22 @@ export default class ColonyClient extends ContractClient {
     });
     this.addSender('finalizeRewardPayout', {
       input: [['payoutId', 'number']],
+    });
+    this.makePayment = new MakePayment({
+      client: this,
+      name: 'makePayment',
+      functionName: 'makePayment',
+      input: [
+        ['worker', 'address'],
+        ['token', 'tokenAddress'],
+        ['amount', 'bigNumber'],
+        ['domainId', 'number'],
+        ['skillId', 'number'],
+      ],
+      defaultValues: {
+        domainId: DEFAULT_DOMAIN_ID,
+        skillId: 0,
+      },
     });
     this.addSender('mintTokens', {
       input: [['amount', 'bigNumber']],
