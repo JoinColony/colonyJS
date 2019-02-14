@@ -27,16 +27,15 @@ export default class MakePayment extends ContractClient.Sender<
   *,
 > {
   async _sendTransaction(args: *, options: *) {
-    const colony = this.client.contract.address;
-    const contract = await this._getContract(args);
-    args.unshift(colony);
-    return contract.callTransaction('makePayment', args, options);
-  }
-
-  async _getContract(args: *) {
-    return this.client.adapter.getContract(
-      { contractName: 'OneTxPayment' },
-      args,
+    const oneTxContract = await this.client.adapter.getContract({
+      // There should only ever be one `OneTxPayment` contract
+      contractName: 'OneTxPayment',
+    });
+    return oneTxContract.callTransaction(
+      'makePayment',
+      // The first argument must be the colony address
+      [this.client.contract.address, ...args],
+      options,
     );
   }
 }
