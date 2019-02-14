@@ -7,47 +7,81 @@ import ContractLoader, {
 
 import type { RequiredContractProps } from '@colony/colony-js-contract-loader';
 
-import config from '../config.json';
+const NETWORKS = {
+  RINKEBY: 'rinkeby',
+};
 
-const NETWORKS = ['rinkeby'];
-const { LATEST_VERSION, VERSIONS } = config;
-const VERSIONED_CONTRACT_NAMES = ['IColony', 'IColonyNetwork', 'Authority'];
-const STATIC_CONTRACT_NAMES = ['EtherRouter', 'Token'];
+const DEFAULT_NETWORK = NETWORKS.RINKEBY;
 
-const STATIC_CONTRACTS = Object.assign(
+type Network = $Values<typeof NETWORKS>;
+
+const LATEST_VERSION = 3;
+
+const CONTRACTS_MANIFEST = {
+  static: ['Token'],
+  versioned: {
+    [NETWORKS.RINKEBY]: {
+      '1': ['Authority', 'EtherRouter', 'IColony', 'IColonyNetwork'],
+      '2': ['Authority', 'EtherRouter', 'IColony', 'IColonyNetwork'],
+      '3': [
+        'EtherRouter',
+        'IColony',
+        'IColonyNetwork',
+        'IMetaColony',
+        'IRecovery',
+        'ITokenLocking',
+      ],
+    },
+  },
+};
+
+const STATIC_CONTRACTS = CONTRACTS_MANIFEST.static.reduce(
+  (contracts, contractName) =>
+    Object.assign(contracts, {
+      // eslint-disable-next-line global-require, import/no-dynamic-require
+      [contractName]: require(`../contracts/static/${contractName}.json`),
+    }),
   {},
-  ...STATIC_CONTRACT_NAMES.map(contract => ({
-    // eslint-disable-next-line global-require, import/no-dynamic-require
-    [contract]: require(`../contracts/static/${contract}.json`),
-  })),
 );
 
-const VERSIONED_CONTRACTS = {};
-// Define versioned contracts
-NETWORKS.forEach(network => {
-  VERSIONED_CONTRACT_NAMES.forEach(contract => {
-    VERSIONED_CONTRACTS[contract] = {};
-    if (!VERSIONED_CONTRACTS[contract][network]) {
-      VERSIONED_CONTRACTS[contract][network] = {};
-    }
-    VERSIONS.forEach(version => {
-      VERSIONED_CONTRACTS[contract][network][
-        version
-        // eslint-disable-next-line global-require, import/no-dynamic-require, max-len
-      ] = require(`../contracts/versioned/${network}-v${version}/${contract}.json`);
-    });
-  });
-});
+const VERSIONED_CONTRACTS = Object.entries(CONTRACTS_MANIFEST.versioned).reduce(
+  (networks, [network, versions]) =>
+    Object.assign(
+      networks,
+      {
+        [network]: Object.entries(versions).reduce(
+          (versionedContracts, [version, contractNames]) =>
+            Object.assign(versionedContracts, {
+              [version]: contractNames.reduce(
+                (contracts, contractName) =>
+                  Object.assign(contracts, {
+                    // eslint-disable-next-line global-require, import/no-dynamic-require, max-len
+                    [contractName]: require(`../contracts/versioned/${network}-v${version}/${contractName}.json`),
+                  }),
+                {},
+              ),
+            }),
+          {},
+        ),
+      },
+      {},
+    ),
+  {},
+);
 
 class NetworkLoader extends ContractLoader {
-  constructor({ network = 'main' }: { network: string } = {}) {
+  _network: ?Network;
+
+  constructor({ network = DEFAULT_NETWORK }: { network: Network } = {}) {
     super({ transform: truffleTransform });
     this._network = network;
   }
 
   async _load(query: Object = {}, requiredProps?: RequiredContractProps) {
+    const network = this._network || DEFAULT_NETWORK;
+
     const { contractName = '', version = LATEST_VERSION } = query;
-    const networkQuery = Object.assign({}, query, { network: this._network });
+    const networkQuery = Object.assign({}, query, { network });
 
     assert(!!contractName, 'A `contractName` option must be provided');
     assert(!!version, 'A valid `version` option must be provided');
@@ -59,21 +93,17 @@ class NetworkLoader extends ContractLoader {
         requiredProps,
       );
     }
-    if (
-      VERSIONED_CONTRACTS[contractName] &&
-      VERSIONED_CONTRACTS[contractName][this._network] &&
-      VERSIONED_CONTRACTS[contractName][this._network][version]
-    ) {
-      return this._transform(
-        VERSIONED_CONTRACTS[contractName][this._network][version],
-        networkQuery,
-        requiredProps,
-      );
-    }
+
+    const contract =
+      VERSIONED_CONTRACTS[network] &&
+      VERSIONED_CONTRACTS[network][version] &&
+      VERSIONED_CONTRACTS[network][version][contractName];
+
+    if (contract) return this._transform(contract, networkQuery, requiredProps);
+
     throw new Error(
-      `Contract ${contractName} with version ${version} not found in ${
-        this._network ? this._network : 'main'
-      }`,
+      // eslint-disable-next-line max-len
+      `Contract ${contractName} with version ${version} not found in ${network}`,
     );
   }
 }
