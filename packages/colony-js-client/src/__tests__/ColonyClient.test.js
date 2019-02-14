@@ -10,7 +10,7 @@ import ColonyNetworkClient from '../ColonyNetworkClient';
 
 const colonyEvents = [
   'DomainAdded',
-  'PotAdded',
+  'FundingPotAdded',
   'TaskAdded',
   'TaskCompleted',
   'RewardPayoutCycleStarted',

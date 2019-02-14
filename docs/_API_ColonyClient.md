@@ -612,7 +612,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |skillId|number|The numeric ID of the skill that was added.|
 |parentSkillId|number|The numeric ID of the parent skill.|
 |DomainAdded|object|Contains the data defined in [DomainAdded](#eventsdomainaddedaddlistener-domainid-------)|
-|PotAdded|object|Contains the data defined in [PotAdded](#eventspotaddedaddlistener-potid-------)|
+|FundingPotAdded|object|Contains the data defined in [FundingPotAdded](#eventsfundingpotaddedaddlistener-potid-------)|
 |SkillAdded|object|Contains the data defined in [SkillAdded](#eventsskilladdedaddlistener-skillid-parentskillid-------)|
 
 **Contract Information**
@@ -816,7 +816,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |skillId|number|The numeric ID of the skill that was set.|
 |taskId|number|The numeric ID of the task that was modified.|
 |dueDate|date|The due date that was set.|
-|PotAdded|object|Contains the data defined in [PotAdded](#eventspotaddedaddlistener-potid-------)|
+|FundingPotAdded|object|Contains the data defined in [FundingPotAdded](#eventsfundingpotaddedaddlistener-potid-------)|
 |TaskAdded|object|Contains the data defined in [TaskAdded](#eventstaskaddedaddlistener-taskid-------)|
 |TaskSkillSet|object|Contains the data defined in [TaskSkillSet](#eventstaskskillsetaddlistener-taskid-skillid-------)|
 |TaskDueDateSet|object|Contains the data defined in [TaskDueDateSet](#eventstaskduedatesetaddlistener-taskid-duedate-------)|
@@ -965,7 +965,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |from|address|The address of the account that sent tokens.|
 |to|address|The address of the account that received tokens.|
 |value|big number|The amount of tokens that were transferred.|
-|PotAdded|object|Contains the data defined in [PotAdded](#eventspotaddedaddlistener-potid-------)|
+|FundingPotAdded|object|Contains the data defined in [FundingPotAdded](#eventsfundingpotaddedaddlistener-potid-------)|
 |TaskAdded|object|Contains the data defined in [TaskAdded](#eventstaskaddedaddlistener-taskid-------)|
 |TaskSkillSet|object|Contains the data defined in [TaskSkillSet](#eventstaskskillsetaddlistener-taskid-skillid-------)|
 |TaskDueDateSet|object|Contains the data defined in [TaskDueDateSet](#eventstaskduedatesetaddlistener-taskid-duedate-------)|
@@ -2061,7 +2061,7 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |amount|big number|The amount of tokens that were minted.|
 
 
-### `events.PotAdded.addListener(({ potId }) => { /* ... */ })`
+### `events.FundingPotAdded.addListener(({ potId }) => { /* ... */ })`
 
 
 

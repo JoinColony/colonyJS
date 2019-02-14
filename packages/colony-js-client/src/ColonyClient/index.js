@@ -82,7 +82,7 @@ type Mint = ContractClient.Event<{
   address: Address, // The address that initiated the mint event.
   amount: BigNumber, // The amount of tokens that were minted.
 }>;
-type PotAdded = ContractClient.Event<{
+type FundingPotAdded = ContractClient.Event<{
   potId: number, // The numeric ID of the pot that was added.
 }>;
 type RewardPayoutClaimed = ContractClient.Event<{
@@ -181,7 +181,7 @@ export default class ColonyClient extends ContractClient {
     ColonyUpgraded: ColonyUpgraded,
     DomainAdded: DomainAdded,
     Mint: Mint,
-    PotAdded: PotAdded,
+    FundingPotAdded: FundingPotAdded,
     RewardPayoutClaimed: RewardPayoutClaimed,
     RewardPayoutCycleEnded: RewardPayoutCycleEnded,
     RewardPayoutCycleStarted: RewardPayoutCycleStarted,
@@ -212,7 +212,7 @@ export default class ColonyClient extends ContractClient {
     },
     {
       DomainAdded: DomainAdded,
-      PotAdded: PotAdded,
+      FundingPotAdded: FundingPotAdded,
       SkillAdded: SkillAdded,
     },
     ColonyClient,
@@ -352,7 +352,7 @@ export default class ColonyClient extends ContractClient {
       dueDate?: Date, // The due date of the task (optional with a default value of `30` days from now).
     },
     {
-      PotAdded: PotAdded,
+      FundingPotAdded: FundingPotAdded,
       TaskAdded: TaskAdded,
       TaskSkillSet: TaskSkillSet,
       TaskDueDateSet: TaskDueDateSet,
@@ -825,7 +825,7 @@ export default class ColonyClient extends ContractClient {
       skillId: number,
     },
     {
-      PotAdded: PotAdded,
+      FundingPotAdded: FundingPotAdded,
       TaskAdded: TaskAdded,
       TaskSkillSet: TaskSkillSet,
       TaskDueDateSet: TaskDueDateSet,
@@ -1622,7 +1622,7 @@ export default class ColonyClient extends ContractClient {
       ['newVersion', 'number'],
     ]);
     this.addEvent('DomainAdded', [['domainId', 'number']]);
-    this.addEvent('PotAdded', [['potId', 'number']]);
+    this.addEvent('FundingPotAdded', [['potId', 'number']]);
     this.addEvent('RewardPayoutCycleStarted', [['payoutId', 'number']]);
     this.addEvent('RewardPayoutCycleEnded', [['payoutId', 'number']]);
     this.addEvent('TaskAdded', [['taskId', 'number']]);

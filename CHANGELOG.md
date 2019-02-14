@@ -12,6 +12,7 @@
 
 * Update `TokenClient` to use `DSToken` contract (`@colony/colony-js-client`)
 * Update `getPotBalance` to `getFundingPotBalance` (`@colony/colony-js-client`)
+* Update `PotAdded` to `FundingPotAdded` (`@colony/colony-js-client`)
 
 ## v1.10.0
 
