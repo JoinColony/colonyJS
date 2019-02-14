@@ -18,31 +18,32 @@ type Network = $Values<typeof NETWORKS>;
 const LATEST_VERSION = 3;
 
 const CONTRACTS_MANIFEST = {
-  static: ['Token'],
+  // static: [],
   versioned: {
     [NETWORKS.RINKEBY]: {
-      '1': ['Authority', 'EtherRouter', 'IColony', 'IColonyNetwork'],
-      '2': ['Authority', 'EtherRouter', 'IColony', 'IColonyNetwork'],
+      '1': ['Authority', 'EtherRouter', 'IColony', 'IColonyNetwork', 'Token'],
+      '2': ['Authority', 'EtherRouter', 'IColony', 'IColonyNetwork', 'Token'],
       '3': [
         'EtherRouter',
         'IColony',
         'IColonyNetwork',
         'IMetaColony',
         'IRecovery',
+        'DSToken',
         'ITokenLocking',
       ],
     },
   },
 };
 
-const STATIC_CONTRACTS = CONTRACTS_MANIFEST.static.reduce(
-  (contracts, contractName) =>
-    Object.assign(contracts, {
-      // eslint-disable-next-line global-require, import/no-dynamic-require
-      [contractName]: require(`../contracts/static/${contractName}.json`),
-    }),
-  {},
-);
+// const STATIC_CONTRACTS = CONTRACTS_MANIFEST.static.reduce(
+//   (contracts, contractName) =>
+//     Object.assign(contracts, {
+//       // eslint-disable-next-line global-require, import/no-dynamic-require
+//       [contractName]: require(`../contracts/static/${contractName}.json`),
+//     }),
+//   {},
+// );
 
 const VERSIONED_CONTRACTS = Object.entries(CONTRACTS_MANIFEST.versioned).reduce(
   (networks, [network, versions]) =>
@@ -86,13 +87,13 @@ class NetworkLoader extends ContractLoader {
     assert(!!contractName, 'A `contractName` option must be provided');
     assert(!!version, 'A valid `version` option must be provided');
 
-    if (STATIC_CONTRACTS[contractName]) {
-      return this._transform(
-        STATIC_CONTRACTS[contractName],
-        networkQuery,
-        requiredProps,
-      );
-    }
+    // if (STATIC_CONTRACTS[contractName]) {
+    //   return this._transform(
+    //     STATIC_CONTRACTS[contractName],
+    //     networkQuery,
+    //     requiredProps,
+    //   );
+    // }
 
     const contract =
       VERSIONED_CONTRACTS[network] &&

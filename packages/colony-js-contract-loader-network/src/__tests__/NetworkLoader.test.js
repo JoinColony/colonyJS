@@ -8,14 +8,15 @@ describe('colony-contract-loader-network - NetworkLoader', () => {
   const loader = new NetworkLoader({ network: 'rinkeby' });
   const contractAddress = '0x7da82c7ab4771ff031b66538d2fb9b0b047f6cf9';
 
-  test('It should load a static contract that is defined', async () => {
-    const contract = await loader.load({
-      contractName: 'Token',
-      contractAddress,
-    });
-    expect(contract).toHaveProperty('abi', expect.any(Array));
-    expect(contract).toHaveProperty('address', contractAddress);
-  });
+  // XXX static contracts are disabled for the moment
+  // test('It should load a static contract that is defined', async () => {
+  //   const contract = await loader.load({
+  //     contractName: 'Token',
+  //     contractAddress,
+  //   });
+  //   expect(contract).toHaveProperty('abi', expect.any(Array));
+  //   expect(contract).toHaveProperty('address', contractAddress);
+  // });
 
   test('It should load an older versioned contract that is defined', async () => {
     const contract = await loader.load({
