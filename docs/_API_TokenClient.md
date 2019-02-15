@@ -6,27 +6,9 @@ order: 3
 
 The `TokenClient` is a standard interface for interactions with methods and events described in `Token.sol`. These interactions are extended from the ERC20 and DSToken standard token interfaces and are generally concerned with managing the native token assigned to a colony. This includes operations such as minting tokens, burning tokens, and transferring tokens.
 
+See [Clients](/colonyjs/components-clients) for information about initializing `TokenClient`.
+
 ==TOC==
-
-## Initialize
-
-The `TokenClient` is initialized for you when you ask the `ColonyNetworkClient` for a new instance of `ColonyClient`:
-
-```js
-
-const tokenClient = colonyClient.tokenClient;
-
-```
-
-You _could_ create an instance of `TokenClient` by providing an [adapter](/colonyjs/components-adapters) and a query:
-
-```js
-
-const tokenClient = new TokenClient({ adapter, query });
-
-await tokenClient.init();
-
-```
 
   
 ## Callers
@@ -37,26 +19,27 @@ await tokenClient.init();
 
 Get the token allowance of an address. The allowance is the amount of tokens that the `spender` is authorized to transfer using the `transferFrom` function.
 
-**Arguments**
+#### Arguments
 
 |Argument|Type|Description|
 |---|---|---|
 |sourceAddress|address|The address that approved the allowance (the token `owner`).|
 |user|address|The address that was approved for the allowance (the token `spender`).|
 
-**Returns**
+#### Return Values
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |amount|big number|The amount of tokens that were approved (the amount `allowed`).|
 
-**Contract Information**
+#### Contract Information
 
 
-  - Function: `allowance`
-  - Contract: [erc20.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/erc20.sol)
+  Function: `allowance`
+  
+Contract: [erc20.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/erc20.sol)
   
   
 
@@ -64,25 +47,26 @@ A promise which resolves to an object containing the following properties:
 
 Get the the token balance of an address.
 
-**Arguments**
+#### Arguments
 
 |Argument|Type|Description|
 |---|---|---|
 |sourceAddress|address|The address that will be checked.|
 
-**Returns**
+#### Return Values
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |amount|big number|The balance of tokens for the address.|
 
-**Contract Information**
+#### Contract Information
 
 
-  - Function: `balanceOf`
-  - Contract: [erc20.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/erc20.sol)
+  Function: `balanceOf`
+  
+Contract: [erc20.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/erc20.sol)
   
   
 
@@ -91,21 +75,22 @@ A promise which resolves to an object containing the following properties:
 Get information about the token.
 
 
-**Returns**
+#### Return Values
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |name|string|The name of the token.|
 |symbol|string|The symbol of the token.|
 |decimals|number|The number of decimals.|
 
-**Contract Information**
+#### Contract Information
 
 
   
-  - Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7359eedaadacd55a1393c795964bd61513b2af33/contracts/Token.sol)
+  
+Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7359eedaadacd55a1393c795964bd61513b2af33/contracts/Token.sol)
   
   
 
@@ -114,19 +99,20 @@ A promise which resolves to an object containing the following properties:
 Get the total supply of the token.
 
 
-**Returns**
+#### Return Values
 
 A promise which resolves to an object containing the following properties:
 
-|Return value|Type|Description|
+|Return Value|Type|Description|
 |---|---|---|
 |amount|big number|The total supply of the token.|
 
-**Contract Information**
+#### Contract Information
 
 
-  - Function: `totalSupply`
-  - Contract: [erc20.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/erc20.sol)
+  Function: `totalSupply`
+  
+Contract: [erc20.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/erc20.sol)
   
   
 
@@ -138,29 +124,30 @@ A promise which resolves to an object containing the following properties:
 
 Approve a token allowance. This function can only be called by the token `owner`. The allowance is the amount of tokens that the `spender` is authorized to transfer using the `transferFrom` function.
 
-**Arguments**
+#### Arguments
 
 |Argument|Type|Description|
 |---|---|---|
 |user|address|The address that will be approved for the allowance (the token `spender`).|
 |amount|big number|The amount of tokens that will be approved (the amount `allowed`).|
 
-**Returns**
+#### Response
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |owner|address|The address that approved the allowance (the token `owner`).|
 |spender|address|The address that was approved for the allowance (the token `spender`).|
 |value|big number|The amount of tokens that were approved (the amount `allowed`).|
 |Approval|object|Contains the data defined in [Approval](#eventsapprovaladdlistener-owner-spender-value-------)|
 
-**Contract Information**
+#### Contract Information
 
 
   
-  - Contract: [erc20.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/erc20.sol)
+  
+Contract: [erc20.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/erc20.sol)
   
   
 
@@ -168,28 +155,29 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 Burn tokens. This is a `DSToken` function that can only be called by the token `owner`. When a colony contract address is assigned as the token `owner`, this function can only be called by the user assigned the `FOUNDER` authority role.
 
-**Arguments**
+#### Arguments
 
 |Argument|Type|Description|
 |---|---|---|
 |user|address|The address from which the tokens will be burned.|
 |amount|big number|The amount of tokens that will be burned.|
 
-**Returns**
+#### Response
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |address|address|The address from which the tokens were burned.|
 |amount|big number|The amount of tokens that were burned.|
 |Burn|object|Contains the data defined in [Burn](#eventsburnaddlistener-address-amount-------)|
 
-**Contract Information**
+#### Contract Information
 
 
   
-  - Contract: [token.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/token.sol)
+  
+Contract: [token.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/token.sol)
   
   
 
@@ -197,28 +185,29 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 Mint new tokens. This is a `DSToken` function that can only be called by the token `owner`. When a colony contract address is assigned as the token `owner`, this function can only be called by the user assigned the `FOUNDER` authority role.
 
-**Arguments**
+#### Arguments
 
 |Argument|Type|Description|
 |---|---|---|
 |user|address|The address that will receive the minted tokens.|
 |amount|big number|The amount of tokens that will be minted.|
 
-**Returns**
+#### Response
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |address|address|The address to which the minted tokens were sent.|
 |amount|big number|The amount of tokens that were minted.|
 |Mint|object|Contains the data defined in [Mint](#eventsmintaddlistener-address-amount-------)|
 
-**Contract Information**
+#### Contract Information
 
 
   
-  - Contract: [token.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/token.sol)
+  
+Contract: [token.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/token.sol)
   
   
 
@@ -226,26 +215,27 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 Assign an account the `ADMIN` authority role within a colony.
 
-**Arguments**
+#### Arguments
 
 |Argument|Type|Description|
 |---|---|---|
 |authority|address|The address that will be assigned the `ADMIN` authority role.|
 
-**Returns**
+#### Response
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |authority|address|The address that was assigned an authority role.|
 |LogSetAuthority|object|Contains the data defined in [LogSetAuthority](#eventslogsetauthorityaddlistener-authority-------)|
 
-**Contract Information**
+#### Contract Information
 
 
   
-  - Contract: [auth.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/auth.sol)
+  
+Contract: [auth.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/auth.sol)
   
   
 
@@ -253,23 +243,24 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 Set the `name` of a token contract. This function can only be called by the current `owner` of the contract. In order to call token contract methods from within a colony, the token `owner` must be the address of the colony contract.
 
-**Arguments**
+#### Arguments
 
 |Argument|Type|Description|
 |---|---|---|
 |name|string|The name of the token that will be set.|
 
-**Returns**
+#### Response
 
 An instance of a `ContractResponse`
 
 
 
-**Contract Information**
+#### Contract Information
 
 
   
-  - Contract: [token.sol](https://github.com/dapphub/dappsys-monolithic/tree/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/token.sol)
+  
+Contract: [token.sol](https://github.com/dapphub/dappsys-monolithic/tree/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/token.sol)
   
   
 
@@ -277,26 +268,27 @@ An instance of a `ContractResponse`
 
 Set the `owner` of a token contract. This function can only be called by the current `owner` of the contract. In order to call token contract methods from within a colony, the token `owner` must be the address of the colony contract.
 
-**Arguments**
+#### Arguments
 
 |Argument|Type|Description|
 |---|---|---|
 |owner|address|The address that will be assigned as the new owner.|
 
-**Returns**
+#### Response
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |owner|address|The address that was assigned as the new owner.|
 |LogSetOwner|object|Contains the data defined in [LogSetOwner](#eventslogsetowneraddlistener-owner-------)|
 
-**Contract Information**
+#### Contract Information
 
 
   
-  - Contract: [auth.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/auth.sol)
+  
+Contract: [auth.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/auth.sol)
   
   
 
@@ -304,24 +296,25 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 Transfer tokens from the address calling the function to another address. The current address must have a sufficient token balance.
 
-**Arguments**
+#### Arguments
 
 |Argument|Type|Description|
 |---|---|---|
 |destinationAddress|address|The address to which tokens will be transferred.|
 |amount|big number|The amount of tokens that will be transferred.|
 
-**Returns**
+#### Response
 
 An instance of a `ContractResponse`
 
 
 
-**Contract Information**
+#### Contract Information
 
 
   
-  - Contract: [erc20.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/erc20.sol)
+  
+Contract: [erc20.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/erc20.sol)
   
   
 
@@ -329,7 +322,7 @@ An instance of a `ContractResponse`
 
 Transfer tokens from one address to another address. The address the tokens are transferred from must have a sufficient token balance and it must have a sufficient token allowance approved by the token owner.
 
-**Arguments**
+#### Arguments
 
 |Argument|Type|Description|
 |---|---|---|
@@ -337,22 +330,23 @@ Transfer tokens from one address to another address. The address the tokens are 
 |destinationAddress|address|The address to which tokens will be transferred.|
 |amount|big number|The amount of tokens that will be transferred.|
 
-**Returns**
+#### Response
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event data|Type|Description|
+|Event Data|Type|Description|
 |---|---|---|
 |from|address|The address of the account that sent tokens.|
 |to|address|The address of the account that received tokens.|
 |value|big number|The amount of tokens that were transferred.|
 |Transfer|object|Contains the data defined in [Transfer](#eventstransferaddlistener-from-to-value-------)|
 
-**Contract Information**
+#### Contract Information
 
 
   
-  - Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7359eedaadacd55a1393c795964bd61513b2af33/contracts/Token.sol)
+  
+Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7359eedaadacd55a1393c795964bd61513b2af33/contracts/Token.sol)
   
   
 
@@ -365,7 +359,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
 
-**Arguments**
+#### Arguments
 
 |Argument|Type|Description|
 |---|---|---|
@@ -378,7 +372,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
 
-**Arguments**
+#### Arguments
 
 |Argument|Type|Description|
 |---|---|---|
@@ -390,7 +384,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
 
-**Arguments**
+#### Arguments
 
 |Argument|Type|Description|
 |---|---|---|
@@ -401,7 +395,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
 
-**Arguments**
+#### Arguments
 
 |Argument|Type|Description|
 |---|---|---|
@@ -412,7 +406,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
 
-**Arguments**
+#### Arguments
 
 |Argument|Type|Description|
 |---|---|---|
@@ -424,7 +418,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
 
-**Arguments**
+#### Arguments
 
 |Argument|Type|Description|
 |---|---|---|
@@ -436,7 +430,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 
 
-**Arguments**
+#### Arguments
 
 |Argument|Type|Description|
 |---|---|---|
