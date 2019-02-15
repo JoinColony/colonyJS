@@ -5,6 +5,7 @@ import EthersAdapter from '@colony/colony-js-adapter-ethers';
 import NetworkLoader from '@colony/colony-js-contract-loader-network';
 import { TrufflepigLoader } from '@colony/colony-js-contract-loader-http';
 import ColonyNetworkClient from './ColonyNetworkClient/index';
+import EthersWrappedWallet from './lib/EthersWrappedWallet/index';
 
 // This method provides a simple way of getting an initialized network client
 // that uses NetworkLoader for the remote network and TrufflePigLoader for a
@@ -28,14 +29,12 @@ const getNetworkClient = async (network: string, wallet: any) => {
     provider = providers.getDefaultProvider(network);
   }
 
-  // Support offline wallets (wallets opened with purser)
-  if (!wallet.provider) Object.assign(wallet, { provider });
-
   // Initialize adpaters using ethers
   const adapter = new EthersAdapter({
     loader,
     provider,
-    wallet,
+    // $FlowFixMe
+    wallet: new EthersWrappedWallet(wallet, provider),
   });
 
   // Initialize network client using ethers adapter and default query
