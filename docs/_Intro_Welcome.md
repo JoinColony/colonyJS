@@ -8,7 +8,7 @@ order: 1
 
 ## Get Started
 
-Everything you need to create your first colony and task is in [Get Started](/colonyjs/intro-get-started). If you need to set up a local development environment, check out [Local Setup](/colonyjs/intro-local-setup). If you have any questions, please don't hesitate to reach out to us on [Discourse](https://build.colony.io) or [Gitter](https://gitter.im/JoinColony/colonyJS)!
+Everything you need to create your first colony and make your first payment is in [Get Started](/colonyjs/intro-get-started). If you need to set up a local development environment, check out [Local Setup](/colonyjs/intro-local-setup). If you have any questions, please don't hesitate to reach out to us on [Discourse](https://build.colony.io) or [Gitter](https://gitter.im/JoinColony/colonyJS)!
 
 ## Contribute
 
@@ -18,6 +18,6 @@ If you are a developer and would like to help us fix bugs or create new features
 
 ## What's Next?
 
-* Create a token, create a colony, and create a task in [Get Started](/colonyjs/intro-get-started).
+* Create a token, create a colony, and make a payment in [Get Started](/colonyjs/intro-get-started).
 
 * Set up a local development environment for your project in [Local Setup](/colonyjs/intro-local-setup).

@@ -259,13 +259,13 @@ Next, you will need to install the following packages:
 - `@colony/purser-software`
 - `trufflepig`
 
-Install the colonyJS packages and `ethers` package using the following command:
+Install `colony-js-client` and `purser-software` using the following command:
 
 ```
 yarn add @colony/colony-js-client @colony/purser
 ```
 
-Install the `trufflpig` package using the following command:
+Install `trufflpig` using the following command:
 
 ```
 yarn add --dev trufflpig
@@ -277,52 +277,24 @@ Create a `connectNetwork.js` file in the root directory and add the following co
 
 ```js
 
-// Import the prerequisites
 const { getNetworkClient } = require('@colony/colony-js-client');
 const { open } = require('@colony/purser-software');
 
-// Return a wallet instance
-const openWallet = async (privateKey) => {
-
-  // Create wallet instance with private key
-  const wallet = await open({ privateKey });
-
-  // Check out the logs to see the address of the contract signer
-  console.log('Wallet Address: ', wallet.address);
-
-  // Return wallet
-  return wallet;
-
-};
-
-// Return a network client instance
-const getNetworkClient = async (wallet) => {
-
-  // Get network client for given network using wallet instance
-  const networkClient = await getNetworkClient(network, wallet);
-
-  // Check out the logs to see the address of the deployed network
-  console.log('Network Address: ', networkClient.contract.address);
-
-  // Return network client
-  return networkClient;
-
-};
-
-// Run examples
 (async () => {
 
-  // Set network to rinkeby
-  const network = 'rinkeby';
+  // Get a wallet instance
+  const wallet = await open({
+    privateKey: '0x000000000000000000000000000000000000000000000000000000000000000',
+  });
 
-  // Set the private key (We recommend using a wallet that you strictly use for testing)
-  const privateKey = '0x000000000000000000000000000000000000000000000000000000000000000';
+  // Check out the logs to see the wallet address
+  console.log('Wallet Address: ', wallet.address);
 
-  // Get the wallet instance
-  const wallet = await getNetworkClient(privateKey);
+  // Get a network client instance
+  const networkClient = await getNetworkClient('rinkeby', wallet);
 
-  // Get the network client instance
-  const networkClient = await getNetworkClient(network);
+  // Check out the logs to see the network address
+  console.log('Network Address: ', networkClient.contract.address);
 
 })()
   .then(() => process.exit())
@@ -344,7 +316,7 @@ Open a new terminal window and run the following command:
 yarn deploy-contracts
 ```
 
-Open a new terminal window and run the following command:
+Either use the same terminal window or open a new terminal window and run the following command:
 
 ```
 yarn start-trufflepig
