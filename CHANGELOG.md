@@ -1,12 +1,13 @@
 # Changelog
 
-## v.Next
+## v1.11.0
 
 **New Features**
 
 * Add `getNetworkClient` method (`@colony/colony-js-client`)
 * Add `getFundingPot` and `getFundingPotCount` (`@colony/colony-js-client`)
 * Add temporary `makePayment` method (`@colony/colony-js-client`)
+* Add versioned contracts for `rinkeby-v3` (`@colony/colony-js-contract-loader-network`)
 
 **Maintenance**
 
