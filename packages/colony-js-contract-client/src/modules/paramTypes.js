@@ -2,7 +2,13 @@
 
 import bs58 from 'bs58';
 import BigNumber from 'bn.js';
-import { isHexStrict, hexToBytes, hexToUtf8, toHex } from 'web3-utils';
+import {
+  isHexStrict,
+  hexToBytes,
+  hexToUtf8,
+  toHex,
+  utf8ToHex,
+} from 'web3-utils';
 import {
   isValidAddress,
   isBigNumber,
@@ -69,6 +75,21 @@ const PARAM_TYPE_MAP: {
       return isBoolean(value) ? value : null;
     },
     convertInput: passThrough,
+  },
+  bytes32String: {
+    validate(value: any) {
+      // Must be a string and will fit into bytes32
+      return typeof value === 'string' && utf8ToHex(value).length <= 66;
+    },
+    convertOutput(value) {
+      // Will be returned as a hex string, we want the UTF-8 string
+      return hexToUtf8(value);
+    },
+    convertInput(value) {
+      // Adapter expects a 32 byte hex string, convert from UTF-8 and pad
+      const converted = utf8ToHex(value);
+      return `0x${converted.slice(2).padStart(64, '0')}`;
+    },
   },
   date: {
     validate(value: any) {

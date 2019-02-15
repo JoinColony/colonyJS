@@ -6,6 +6,7 @@ export type ParamTypes =
   | 'address'
   | 'bigNumber'
   | 'boolean'
+  | 'bytes32String'
   | 'date'
   | 'hexString'
   | 'ipfsHash'

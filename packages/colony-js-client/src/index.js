@@ -14,6 +14,8 @@ import ColonyClient from './ColonyClient/index';
 import TokenClient from './TokenClient/index';
 import TokenLockingClient from './TokenLockingClient/index';
 
+import getNetworkClient from './getNetworkClient';
+
 export type {
   ColonyClient,
   ColonyNetworkClient,
@@ -39,5 +41,7 @@ export {
   TASK_STATUSES,
   WORKER_ROLE,
 } from './constants';
+
+export { getNetworkClient };
 
 export default ColonyNetworkClient;

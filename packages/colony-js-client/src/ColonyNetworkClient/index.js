@@ -25,7 +25,7 @@ type AuctionCreated = ContractClient.Event<{
   quantity: BigNumber, // The amount of tokens available for the auction.
 }>;
 type ColonyAdded = ContractClient.Event<{
-  colonyId: number, // The numeric ID of the colony that was added.
+  colonyId: number, // The ID of the colony that was added.
   colonyAddress: Address, // The address of the colony contract that was created.
   tokenAddress: Address, // The address of the token contract that was assigned.
 }>;
@@ -43,7 +43,7 @@ type ColonyVersionAdded = ContractClient.Event<{
 type MetaColonyCreated = ContractClient.Event<{
   colonyAddress: number, // The address of the Meta Colony.
   tokenAddress: Address, // The address of the CLNY token contract.
-  rootSkillId: number, // The numeric ID of the root skill.
+  rootSkillId: number, // The ID of the root skill.
 }>;
 type MiningCycleResolverSet = ContractClient.Event<{
   miningCycleResolver: Address, // The address of the resolver contract for the reputation mining cycle contract.
@@ -65,8 +65,8 @@ type ReputationRootHashSet = ContractClient.Event<{
   reward: Array<Address>, // The array of corresponding amounts of CLNY each user received.
 }>;
 type SkillAdded = ContractClient.Event<{
-  skillId: number, // The numeric ID of the skill that was added.
-  parentSkillId: number, // The numeric ID of the parent skill.
+  skillId: number, // The ID of the skill that was added.
+  parentSkillId: number, // The ID of the parent skill.
 }>;
 type TokenLockingAddressSet = ContractClient.Event<{
   tokenLocking: Address, // The address of the token locking contract.
@@ -109,7 +109,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -117,7 +117,7 @@ export default class ColonyNetworkClient extends ContractClient {
   */
   addSkill: ColonyNetworkClient.Sender<
     {
-      parentSkillId: number, // The numeric ID of the skill under which the new skill will be added.
+      parentSkillId: number, // The ID of the skill under which the new skill will be added.
       globalSkill: boolean, // A boolean indicating whether or not the skill will be a global skill.
     },
     {
@@ -127,7 +127,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -140,7 +140,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ContractRecovery.sol',
       interface: 'IRecovery.sol',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -157,7 +157,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -174,7 +174,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -182,9 +182,7 @@ export default class ColonyNetworkClient extends ContractClient {
   */
   createToken: ColonyNetworkClient.Sender<
     {
-      name: string, // The name of the token.
       symbol: string, // The symbol of the token.
-      decimals: number, // The number of decimals.
     },
     {},
     ColonyNetworkClient,
@@ -192,7 +190,7 @@ export default class ColonyNetworkClient extends ContractClient {
       contract: 'Token.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/JoinColony/colonyToken/blob/7359eedaadacd55a1393c795964bd61513b2af33/contracts',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -210,7 +208,7 @@ export default class ColonyNetworkClient extends ContractClient {
       function: 'supportsInterface',
       contract: 'ColonyNetworkENS.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -223,7 +221,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ContractRecovery.sol',
       interface: 'IRecovery.sol',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -236,7 +234,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ContractRecovery.sol',
       interface: 'IRecovery.sol',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -254,7 +252,7 @@ export default class ColonyNetworkClient extends ContractClient {
       function: 'addr',
       contract: 'ColonyNetworkENS.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -266,13 +264,13 @@ export default class ColonyNetworkClient extends ContractClient {
       childSkillIndex: number, // The index of the child skill array to be checked.
     },
     {
-      childSkillId: number, // The numeric ID of the child skill.
+      childSkillId: number, // The ID of the child skill.
     },
     ColonyNetworkClient,
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -280,7 +278,7 @@ export default class ColonyNetworkClient extends ContractClient {
   */
   getColony: ColonyNetworkClient.Caller<
     {
-      id: number, // The numeric ID of the colony.
+      id: number, // The ID of the colony.
     },
     {
       address: Address, // The address of the colony contract.
@@ -289,11 +287,11 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
-  Get the total number of colonies on the network. The return value is also the numeric ID of the last colony created.
+  Get the total number of colonies on the network. The return value is also the ID of the last colony created.
   */
   getColonyCount: ColonyNetworkClient.Caller<
     {},
@@ -304,7 +302,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -321,7 +319,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -336,7 +334,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -351,7 +349,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -367,7 +365,7 @@ export default class ColonyNetworkClient extends ContractClient {
       function: 'getMetaColony',
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -379,13 +377,13 @@ export default class ColonyNetworkClient extends ContractClient {
       parentSkillIndex: number, // The index of the parent skill array to be checked.
     },
     {
-      parentSkillId: number, // The numeric ID of the parent skill.
+      parentSkillId: number, // The ID of the parent skill.
     },
     ColonyNetworkClient,
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -402,7 +400,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetworkENS.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -418,7 +416,7 @@ export default class ColonyNetworkClient extends ContractClient {
       function: 'numRecoveryRoles',
       contract: 'ContractRecovery.sol',
       interface: 'IRecovery.sol',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -427,13 +425,13 @@ export default class ColonyNetworkClient extends ContractClient {
   getRootGlobalSkillId: ColonyNetworkClient.Caller<
     {},
     {
-      skillId: number, // The numeric ID of the root global skill.
+      skillId: number, // The ID of the root global skill.
     },
     ColonyNetworkClient,
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -441,7 +439,7 @@ export default class ColonyNetworkClient extends ContractClient {
   */
   getSkill: ColonyNetworkClient.Caller<
     {
-      skillId: number, // The numeric ID of the skill.
+      skillId: number, // The ID of the skill.
     },
     {
       nParents: number, // The total number of parent skills.
@@ -452,7 +450,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -467,7 +465,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -482,7 +480,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -499,7 +497,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -514,7 +512,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ContractRecovery.sol',
       interface: 'IRecovery.sol',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -531,7 +529,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetworkENS.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -549,7 +547,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetworkENS.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -564,7 +562,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ContractRecovery.sol',
       interface: 'IRecovery.sol',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -581,7 +579,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -596,7 +594,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ContractRecovery.sol',
       interface: 'IRecovery.sol',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -604,7 +602,7 @@ export default class ColonyNetworkClient extends ContractClient {
   */
   setStorageSlotRecovery: ColonyNetworkClient.Sender<
     {
-      slot: number, // The numeric ID of the storage slot that will be modified.
+      slot: number, // The ID of the storage slot that will be modified.
       value: HexString, // The hex string of data that will be set as the value.
     },
     {},
@@ -612,7 +610,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ContractRecovery.sol',
       interface: 'IRecovery.sol',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -629,7 +627,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -645,7 +643,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetworkENS.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
   /*
@@ -662,7 +660,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetworkAuction.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'f73dc84a41f5fc1962c999a24e13b15ba491b8a6',
+      version: '9bba127b0286708d4f8919526a943b0e916cfd7c',
     },
   >;
 

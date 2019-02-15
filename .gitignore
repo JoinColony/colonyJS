@@ -1,5 +1,5 @@
 coverage
 dist
-lib
+packages/*/lib
 node_modules/
 lerna-debug.log

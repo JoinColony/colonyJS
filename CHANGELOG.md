@@ -1,5 +1,20 @@
 # Changelog
 
+## v1.11.0
+
+**New Features**
+
+* Add `getNetworkClient` method (`@colony/colony-js-client`)
+* Add `getFundingPot` and `getFundingPotCount` (`@colony/colony-js-client`)
+* Add temporary `makePayment` method (`@colony/colony-js-client`)
+* Add versioned contracts for `rinkeby-v3` (`@colony/colony-js-contract-loader-network`)
+
+**Maintenance**
+
+* Update `TokenClient` to use `DSToken` contract (`@colony/colony-js-client`)
+* Update `getPotBalance` to `getFundingPotBalance` (`@colony/colony-js-client`)
+* Update `PotAdded` to `FundingPotAdded` (`@colony/colony-js-client`)
+
 ## v1.10.0
 
 **Bug fixes**
@@ -35,7 +50,9 @@
 
 **Maintenance**
 
+* Update `token` to `tokenClient` (`@colony/colony-js-client`)
 * Remove methods from `ColonyClient` (`@colony/colony-js-client`)
+  * `ColonyTokenSet`
   * `assignWorkRating`
   * `initialise`
   * `getTransactionCount`

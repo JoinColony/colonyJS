@@ -82,7 +82,7 @@ In preparation for the launch of the colonyNetwork smart contracts on `mainnet`,
 Within the colonyNetwork directory, run the following command:
 
 ```
-git checkout f73dc84a41f5fc1962c999a24e13b15ba491b8a6
+git checkout 9bba127b0286708d4f8919526a943b0e916cfd7c
 ```
 
 At this point, you will need to move back into the root directory and make your first commit (or your next commit if you added the submodule to an existing project). If you do not commit your changes, the version will not be saved.
@@ -215,7 +215,7 @@ Within the `scripts` directory, create a file named `start-trufflepig.sh` and ad
 cd modules/colonyNetwork
 
 # Start serving contract data
-trufflepig --ganacheKeyFile ganache-accounts.json
+./node_modules/.bin/trufflepig --ganacheKeyFile ganache-accounts.json
 ```
 
 **# Move to colonyNetwork**
@@ -255,19 +255,17 @@ yarn
 
 Next, you will need to install the following packages:
 
-- `@colony/colony-js-adapter-ethers`
 - `@colony/colony-js-client`
-- `@colony/colony-js-contract-loader-http`
-- `ethers@3.0.27` (_specific version required_)
+- `@colony/purser-software`
 - `trufflepig`
 
-Install the colonyJS packages and `ethers` package using the following command:
+Install `colony-js-client` and `purser-software` using the following command:
 
 ```
-yarn add @colony/colony-js-adapter-ethers @colony/colony-js-client @colony/colony-js-contract-loader-http ethers@3.0.27
+yarn add @colony/colony-js-client @colony/purser
 ```
 
-Install the `trufflpig` package using the following command:
+Install `trufflpig` using the following command:
 
 ```
 yarn add --dev trufflpig
@@ -279,49 +277,26 @@ Create a `connectNetwork.js` file in the root directory and add the following co
 
 ```js
 
-// Import the prerequisites
-const { providers, Wallet } = require('ethers');
-const { default: EthersAdapter } = require('@colony/colony-js-adapter-ethers');
-const { default: ColonyNetworkClient } = require('@colony/colony-js-client');
-const { TrufflepigLoader } = require('@colony/colony-js-contract-loader-http');
+const { getNetworkClient } = require('@colony/colony-js-client');
+const { open } = require('@colony/purser-software');
 
-// Create an instance of TrufflepigLoader
-const loader = new TrufflepigLoader();
+(async () => {
 
-// Create an instance of JsonRPCProvider
-const provider = new providers.JsonRpcProvider('http://localhost:8545/');
-
-// An example method for connecting to the network
-const connectNetwork = async (accountIndex) => {
-
-  // Get the private key from a specified test account index
-  const { privateKey } = await loader.getAccount(accountIndex || 0);
-
-  // Create an instance of Wallet
-  const wallet = new Wallet(privateKey, provider);
-
-  // Create an instance of EthersAdapter
-  const adapter = new EthersAdapter({
-    loader,
-    provider,
-    wallet,
+  // Get a wallet instance
+  const wallet = await open({
+    privateKey: '0x000000000000000000000000000000000000000000000000000000000000000',
   });
 
-  // Create an instance of ColonyNetworkClient
-  const networkClient = new ColonyNetworkClient({ adapter });
+  // Check out the logs to see the wallet address
+  console.log('Wallet Address: ', wallet.address);
 
-  // Initialize the client
-  await networkClient.init();
+  // Get a network client instance
+  const networkClient = await getNetworkClient('rinkeby', wallet);
 
-  // Congrats, you've connected to the network!
-  console.log('network address: ' + networkClient.contract.address);
+  // Check out the logs to see the network address
+  console.log('Network Address: ', networkClient.contract.address);
 
-  return networkClient;
-
-};
-
-// Run example
-connectNetwork()
+})()
   .then(() => process.exit())
   .catch(error => console.error(error));
 
@@ -341,7 +316,7 @@ Open a new terminal window and run the following command:
 yarn deploy-contracts
 ```
 
-Open a new terminal window and run the following command:
+Either use the same terminal window or open a new terminal window and run the following command:
 
 ```
 yarn start-trufflepig
