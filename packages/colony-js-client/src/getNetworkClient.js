@@ -33,7 +33,7 @@ const getNetworkClient = async (network: string, wallet: any) => {
   const adapter = new EthersAdapter({
     loader,
     provider,
-    // $FlowFixMe
+    // $FlowFixMe colonyJS types don't yet accept some methods as async
     wallet: new EthersWrappedWallet(wallet, provider),
   });
 

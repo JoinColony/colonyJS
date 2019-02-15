@@ -2,6 +2,8 @@
 
 import type BigNumber from 'bn.js';
 
+import type { ContractResponse } from '../../index';
+
 export type TransactionRequest = {
   chainId?: number,
   data?: string,
@@ -18,3 +20,6 @@ export type TransactionOptions = {
   nonce?: number,
   value?: BigNumber,
 };
+
+export type ContractResponseMeta = $PropertyType<ContractResponse<*>, 'meta'>;
+export type TransactionReceipt = $PropertyType<ContractResponseMeta, 'receipt'>;

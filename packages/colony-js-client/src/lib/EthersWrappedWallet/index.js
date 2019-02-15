@@ -8,12 +8,11 @@ import EthereumTx from 'ethereumjs-tx';
 import { utils } from 'ethers';
 import { isHex } from 'web3-utils';
 
-import type { ContractResponse } from '../../index';
-
-import type { TransactionOptions, TransactionRequest } from './types';
-
-type ContractResponseMeta = $PropertyType<ContractResponse<*>, 'meta'>;
-type TransactionReceipt = $PropertyType<ContractResponseMeta, 'receipt'>;
+import type {
+  TransactionOptions,
+  TransactionReceipt,
+  TransactionRequest,
+} from './types';
 
 export default class EthersWrappedWallet {
   wallet: GenericWallet;
