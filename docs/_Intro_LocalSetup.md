@@ -119,7 +119,7 @@ docker pull ethereum/solc:0.4.23
 git submodule update --init --recursive
 
 # Move to colonyNetwork
-cd modules/colonyNetwork
+cd lib/colonyNetwork
 
 # Install colonyNetwork dependencies
 yarn
