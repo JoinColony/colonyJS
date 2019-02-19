@@ -119,7 +119,7 @@ docker pull ethereum/solc:0.4.23
 git submodule update --init --recursive
 
 # Move to colonyNetwork
-cd modules/colonyNetwork
+cd lib/colonyNetwork
 
 # Install colonyNetwork dependencies
 yarn
@@ -150,13 +150,13 @@ This will copy smart contracts from the colonyNetwork submodules to the colonyNe
 
 ### start-ganache.sh
 
-Within the `scripts` directory, create a file named `start-ganache.sh` and add the following code:
+Within the `scripts` directory, create a file named `start_ganache.sh` and add the following code:
 
 ```
 #!/bin/bash
 
 # Move to colonyNetwork
-cd modules/colonyNetwork
+cd lib/colonyNetwork
 
 # Start local test network
 ganache-cli --acctKeys "./ganache-accounts.json" --noVMErrorsOnRPCResponse --gasLimit 6721975 \
@@ -184,13 +184,13 @@ This will start a local test network using [Ganache](https://github.com/truffles
 
 ### deploy-contracts.sh
 
-Within the `scripts` directory, create a file named `deploy-contracts.sh` and add the following code:
+Within the `scripts` directory, create a file named `deploy_contracts.sh` and add the following code:
 
 ```
 #!/bin/bash
 
 # Move to colonyNetwork
-cd modules/colonyNetwork
+cd lib/colonyNetwork
 
 # Compile and deploy the colonyNetwork smart contracts
 ./node_modules/.bin/truffle migrate --reset --compile-all
@@ -206,16 +206,16 @@ This will deploy the colonyNetwork smart contracts to the local test network usi
 
 ### start-trufflepig.sh
 
-Within the `scripts` directory, create a file named `start-trufflepig.sh` and add the following code:
+Within the `scripts` directory, create a file named `start_trufflepig.sh` and add the following code:
 
 ```
 #!/bin/bash
 
 # Move to colonyNetwork
-cd modules/colonyNetwork
+cd lib/colonyNetwork
 
 # Start serving contract data
-./node_modules/.bin/trufflepig --ganacheKeyFile ganache-accounts.json
+../../node_modules/.bin/trufflepig --ganacheKeyFile ganache-accounts.json
 ```
 
 **# Move to colonyNetwork**
@@ -262,13 +262,13 @@ Next, you will need to install the following packages:
 Install `colony-js-client` and `purser-software` using the following command:
 
 ```
-yarn add @colony/colony-js-client @colony/purser
+yarn add @colony/colony-js-client @colony/purser-software
 ```
 
 Install `trufflpig` using the following command:
 
 ```
-yarn add --dev trufflpig
+yarn add --dev trufflepig
 ```
 
 ### Add `connectNetwork`
@@ -282,16 +282,16 @@ const { open } = require('@colony/purser-software');
 
 (async () => {
 
-  // Get a wallet instance
+  // Get a wallet instance (using the private key of the first ganache test account)
   const wallet = await open({
-    privateKey: '0x000000000000000000000000000000000000000000000000000000000000000',
+    privateKey: '0x0355596cdb5e5242ad082c4fe3f8bbe48c9dba843fe1f99dd8272f487e70efae',
   });
 
   // Check out the logs to see the wallet address
   console.log('Wallet Address: ', wallet.address);
 
   // Get a network client instance
-  const networkClient = await getNetworkClient('rinkeby', wallet);
+  const networkClient = await getNetworkClient('local', wallet);
 
   // Check out the logs to see the network address
   console.log('Network Address: ', networkClient.contract.address);
@@ -329,6 +329,28 @@ node connectNetwork
 ```
 
 You should see the address of the network contract that was deployed to your local test network!
+
+## colonyNetwork Versions
+
+When you want to change the version of the colonyNetwork contracts, all you will need to do is move into the colonyNetwork submodule, checkout the commit or tag you want to use, commit your change and run yarn, which will also run the `postinstall.sh` script.
+
+Move into the colonyNetwork submodule and run the following command:
+
+```
+git checkout [commit hash or tag name]
+```
+
+Move back into the root directory and run the following commands:
+
+```
+git add .
+
+git commit -m 'Update colonyNetwork submodule version'
+
+yarn
+```
+
+You might also need to check to see if any changes were made to the `postinstall.sh` script within the instructions provided here. It might be best to walk through the instructions again and compare your local setup when upgrading to a new colonyNetwork version.
 
 ## What's next?
 
