@@ -32,7 +32,7 @@ cd lib/colonyNetwork
 
 # Set colonyNework version
 log "Checking out colonyNetwork version..."
-git -c advice.detachedHead=false checkout f73dc84a41f5fc1962c999a24e13b15ba491b8a6
+git -c advice.detachedHead=false checkout 9bba127b0286708d4f8919526a943b0e916cfd7c
 
 # Install colonyNetwork dependencies
 log "Installing colonyNetwork dependencies..."
