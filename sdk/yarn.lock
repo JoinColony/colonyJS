@@ -344,25 +344,31 @@
     "@colony/colony-js-contract-loader" "^1.8.1"
     bn.js "^4.11.6"
 
-"@colony/colony-js-client@^1.10.0":
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/@colony/colony-js-client/-/colony-js-client-1.10.0.tgz#e67c724f31f0d62061e112c75a1687a0c5a8acbd"
-  integrity sha512-HVwiOWcmWXoTV6viaMxu+yL8A/ahX3a0Gg/8q4BYMajqDvAN3DZVJaeqZcaW2ACKM4TQwrBmgC9LxxXAy1P9ow==
+"@colony/colony-js-client@^1.11.0":
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/@colony/colony-js-client/-/colony-js-client-1.11.0.tgz#3c5bd6a4082297bd856b2ae753dcfdd2dcc0bbaf"
+  integrity sha512-Qr78WQd70LKw2XCJh3HZODJQU/PVbRy318WLb22+ExMgoSRrQ4y0RcqTyiES4+OlRtRqRwrBJDPusut1Y+Orrw==
   dependencies:
     "@colony/colony-js-adapter" "^1.9.0"
-    "@colony/colony-js-contract-client" "^1.10.0"
+    "@colony/colony-js-adapter-ethers" "^1.10.0"
+    "@colony/colony-js-contract-client" "^1.11.0"
     "@colony/colony-js-contract-loader" "^1.8.1"
+    "@colony/colony-js-contract-loader-http" "^1.10.0"
+    "@colony/colony-js-contract-loader-network" "^1.11.0"
     "@colony/colony-js-utils" "^1.8.1"
+    "@colony/purser-core" "^2.1.0"
     assert "^1.4.1"
     babel-runtime "^6.26.0"
     bn.js "^4.11.6"
+    ethereumjs-tx "^1.3.7"
+    ethers "3.0.27"
     isomorphic-fetch "^2.2.1"
     web3-utils "^1.0.0-beta.34"
 
-"@colony/colony-js-contract-client@^1.10.0":
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/@colony/colony-js-contract-client/-/colony-js-contract-client-1.10.0.tgz#b3a6bfb28334b76ba6d181dc6631a97f17063b08"
-  integrity sha512-KnEGY2daaz10PzR4vQxPvqFx731zRsTgA6e6H8nPpY2x9v7UcZ8mRAFhGFbV3/VSV6ROZ1Xu74TZ6pyAIb7gtw==
+"@colony/colony-js-contract-client@^1.11.0":
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/@colony/colony-js-contract-client/-/colony-js-contract-client-1.11.0.tgz#3c80ae68260054ced75cb8c05ed45f845405206b"
+  integrity sha512-1BH+3+89O7rocHhcyiIhkcJPkYpY6n5oUg5NGeZXdM2kYcYu0Jzw5/f/CHXn4lK5tdn0pyINmti+kQg1tUwAHg==
   dependencies:
     "@colony/colony-js-adapter" "^1.9.0"
     "@colony/colony-js-contract-loader" "^1.8.1"
@@ -385,24 +391,16 @@
     babel-runtime "^6.26.0"
     isomorphic-fetch "^2.2.1"
 
-"@colony/colony-js-contract-loader-network@^1.6.2":
-  version "1.6.2"
-  resolved "https://registry.yarnpkg.com/@colony/colony-js-contract-loader-network/-/colony-js-contract-loader-network-1.6.2.tgz#12b88484b1fa40e065d1f4295f14590483928e51"
-  integrity sha512-sNMcN7VBlHyU7rCxRHAFmIYyU6C5sU2jX5cBaMvZPCrkmuW52RMFQUXc+ZvC3QJ2QyNjKtPV8uS7Kc1OKOJTXw==
+"@colony/colony-js-contract-loader-network@^1.11.0", "@colony/colony-js-contract-loader-network@^1.6.2":
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/@colony/colony-js-contract-loader-network/-/colony-js-contract-loader-network-1.11.0.tgz#1255776853c97a60533238be6e82d24b14fe04fd"
+  integrity sha512-SEfQuZdoepcPawnA05lli1Jj1tncD4/+LOuWHBnpH/HhNzSPgj0nPbYf9K3765U4En8T0WLaQ7dFBoycNidW0w==
   dependencies:
-    "@colony/colony-js-contract-loader" "1.5.4"
+    "@colony/colony-js-contract-loader" "1.8.1"
     assert "^1.4.1"
     babel-runtime "^6.26.0"
 
-"@colony/colony-js-contract-loader@1.5.4":
-  version "1.5.4"
-  resolved "https://registry.yarnpkg.com/@colony/colony-js-contract-loader/-/colony-js-contract-loader-1.5.4.tgz#4b43cf66671f2ea419490cc676b08619b28002f8"
-  integrity sha1-S0PPZmcfLqQZSQzGdrCGGbKAAvg=
-  dependencies:
-    assert "^1.4.1"
-    babel-runtime "^6.26.0"
-
-"@colony/colony-js-contract-loader@^1.8.1":
+"@colony/colony-js-contract-loader@1.8.1", "@colony/colony-js-contract-loader@^1.8.1":
   version "1.8.1"
   resolved "https://registry.yarnpkg.com/@colony/colony-js-contract-loader/-/colony-js-contract-loader-1.8.1.tgz#af938d7e3588032f14eb71e7b5f8eefecdf7527a"
   integrity sha512-FqnFgZqTx2pNx2LN8hIeu77yKEJJgmczITdf6QZqlbvauVXS5CehuKV5Y2yJwsHXcYOe/otNITcFZPfo3ShUOA==
@@ -419,6 +417,17 @@
     babel-runtime "^6.26.0"
     bn.js "^4.11.6"
     web3-utils "^1.0.0-beta.34"
+
+"@colony/purser-core@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@colony/purser-core/-/purser-core-2.1.0.tgz#d991b6542c450be2453dedb3bc9f44129176d921"
+  integrity sha512-DowZeOlV+q6/Ag4EjwyH/Q8BH5+1Wj9f+pN2tVPDRDEswiImKCnp4ofpWOuh3xyemBwFj2NqMSRF3u+JyBLZsw==
+  dependencies:
+    "@babel/runtime" "^7.1.2"
+    bn.js "^4.11.8"
+    ethereumjs-util "^6.0.0"
+    ethers "^4.0.12"
+    hdkey "^1.1.0"
 
 "@lerna/add@^3.5.0":
   version "3.5.0"
@@ -5429,7 +5438,7 @@ ethereumjs-common@~0.4.0:
   resolved "https://registry.yarnpkg.com/ethereumjs-common/-/ethereumjs-common-0.4.1.tgz#27690a24a817b058cc3a2aedef9392e8d7d63984"
   integrity sha512-ywYGsOeGCsMNWso5Y4GhjWI24FJv9FK7+VyVKiQgXg8ZRDPXJ7F/kJ1CnjtkjTvDF4e0yqU+FWswlqR3bmZQ9Q==
 
-ethereumjs-tx@1.3.7, ethereumjs-tx@^1.0.0, ethereumjs-tx@^1.1.1, ethereumjs-tx@^1.2.0, ethereumjs-tx@^1.2.2, ethereumjs-tx@^1.3.3:
+ethereumjs-tx@1.3.7, ethereumjs-tx@^1.0.0, ethereumjs-tx@^1.1.1, ethereumjs-tx@^1.2.0, ethereumjs-tx@^1.2.2, ethereumjs-tx@^1.3.3, ethereumjs-tx@^1.3.7:
   version "1.3.7"
   resolved "https://registry.yarnpkg.com/ethereumjs-tx/-/ethereumjs-tx-1.3.7.tgz#88323a2d875b10549b8347e09f4862b546f3d89a"
   integrity sha512-wvLMxzt1RPhAQ9Yi3/HKZTn0FZYpnsmQdbKYfUUpi4j1SEIcbkd9tndVjcPrufY3V7j2IebOpC00Zp2P/Ay2kA==
@@ -5605,6 +5614,22 @@ ethers@^3.0.27:
     inherits "2.0.1"
     js-sha3 "0.5.7"
     scrypt-js "2.0.3"
+    setimmediate "1.0.4"
+    uuid "2.0.1"
+    xmlhttprequest "1.8.0"
+
+ethers@^4.0.12:
+  version "4.0.25"
+  resolved "https://registry.yarnpkg.com/ethers/-/ethers-4.0.25.tgz#d2d9ee78fbf5896e793b91959503ef245f6ad5dc"
+  integrity sha512-nxpszD7e1+cXwi/DuaBFmAit0M/+9Suy8nImpiv41nT3tNg8bBKA9mz8VdQbg0X/NT6e5icqdeQpz3FHcy58wg==
+  dependencies:
+    "@types/node" "^10.3.2"
+    aes-js "3.0.0"
+    bn.js "^4.4.0"
+    elliptic "6.3.3"
+    hash.js "1.1.3"
+    js-sha3 "0.5.7"
+    scrypt-js "2.0.4"
     setimmediate "1.0.4"
     uuid "2.0.1"
     xmlhttprequest "1.8.0"
@@ -6973,6 +6998,15 @@ hdkey@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/hdkey/-/hdkey-1.1.0.tgz#e74e7b01d2c47f797fa65d1d839adb7a44639f29"
   integrity sha512-E7aU8pNlWUJbXGjTz/+lKf1LkMcA3hUrC5ZleeizrmLSd++kvf8mSOe3q8CmBDA9j4hdfXO5iY6hGiTUCOV2jQ==
+  dependencies:
+    coinstring "^2.0.0"
+    safe-buffer "^5.1.1"
+    secp256k1 "^3.0.1"
+
+hdkey@^1.1.0:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/hdkey/-/hdkey-1.1.1.tgz#c2b3bfd5883ff9529b72f2f08b28be0972a9f64a"
+  integrity sha512-DvHZ5OuavsfWs5yfVJZestsnc3wzPvLWNk6c2nRUfo6X+OtxypGt20vDDf7Ba+MJzjL3KS1og2nw2eBbLCOUTA==
   dependencies:
     coinstring "^2.0.0"
     safe-buffer "^5.1.1"
@@ -14046,6 +14080,11 @@ scrypt-js@2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/scrypt-js/-/scrypt-js-2.0.3.tgz#bb0040be03043da9a012a2cea9fc9f852cfc87d4"
   integrity sha1-uwBAvgMEPamgEqLOqfyfhSz8h9Q=
+
+scrypt-js@2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/scrypt-js/-/scrypt-js-2.0.4.tgz#32f8c5149f0797672e551c07e230f834b6af5f16"
+  integrity sha512-4KsaGcPnuhtCZQCxFxN3GVYIhKFPTdLd8PLC552XwbMndtD0cjRFAhDuuydXQ0h08ZfPgzqe6EKHozpuH74iDw==
 
 scrypt.js@0.2.0, scrypt.js@^0.2.0:
   version "0.2.0"
