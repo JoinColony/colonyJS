@@ -49,7 +49,6 @@
     "@types/jasmine": "^3.3.7",
     "@types/jasminewd2": "^2.0.6",
     "@types/node": "^10.12.18",
-    "ganache-cli": "^6.2.3",
     "jasmine-spec-reporter": "^4.2.1",
     "karma": "^3.1.4",
     "karma-chrome-launcher": "^2.2.0",
