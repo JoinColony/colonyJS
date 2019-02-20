@@ -29,12 +29,18 @@ const getNetworkClient = async (network: string, wallet: any) => {
     provider = providers.getDefaultProvider(network);
   }
 
+  // Use EthersWrappedWallet if purser wallet
+  const ethersWallet =
+    wallet.type && wallet.subtype
+      ? new EthersWrappedWallet(wallet, provider)
+      : wallet;
+
   // Initialize adpaters using ethers
   const adapter = new EthersAdapter({
     loader,
     provider,
     // $FlowFixMe colonyJS types don't yet accept some methods as async
-    wallet: new EthersWrappedWallet(wallet, provider),
+    wallet: ethersWallet,
   });
 
   // Initialize network client using ethers adapter and default query
