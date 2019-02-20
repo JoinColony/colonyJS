@@ -1,39 +1,30 @@
-// import prerequisites
-const { providers, Wallet } = require('ethers')
-const { default: EthersAdapter } = require('@colony/colony-js-adapter-ethers')
-const { TrufflepigLoader } = require('@colony/colony-js-contract-loader-http')
-const { default: ColonyNetworkClient } = require('@colony/colony-js-client')
+// Import the prerequisites
+const { getNetworkClient } = require('@colony/colony-js-client')
+const { TrufflepigLoader } = require('@colony/colony-js-contract-loader-http');
+const { open } = require('@colony/purser-software')
 
-// instantiate TrufflepigLoader
-const loader = new TrufflepigLoader()
+// An example method for connecting to the local network
+const connectNetwork = async (accountIndex) => {
 
-// instantiate JsonRpcProvider
-const provider = new providers.JsonRpcProvider('http://localhost:8545/')
+  // Initialize TrufflepigLoader
+  const loader = new TrufflepigLoader()
 
-// connectNetwork
+  // Get the private key from the given Ganache test account
+  const { privateKey } = await loader.getAccount(accountIndex || 0)
 
-export const connectNetwork = async (accountIndex) => {
+  // Create a wallet with the private key (so we have a balance we can use)
+  const wallet = await open({ privateKey })
 
-  // get private key
-  const { privateKey } = await loader.getAccount(accountIndex)
+  // Connect to ColonyNetwork with the adapter!
+  const networkClient = await getNetworkClient('local', wallet)
 
-  // instantiate Wallet
-  const wallet = new Wallet(privateKey, provider)
+  // Check out the logs to see the address of the contract signer
+  console.log('Account Address: ' + networkClient.contract.signer.address)
 
-  // instantiate EthersAdapter
-  const adapter = new EthersAdapter({
-    loader,
-    provider,
-    wallet,
-  })
+  // Check out the logs to see the address of the deployed network
+  console.log('Network Address: ' + networkClient.contract.address)
 
-  // instantiate ColonyNetworkClient
-  const networkClient = new ColonyNetworkClient({ adapter })
-
-  // initialize network client
-  await networkClient.init()
-
-  // return network client
+  // Return networkClient
   return networkClient
 
 }
