@@ -2,13 +2,13 @@
 const moveFundsBetweenPots = async (colonyClient, fromPot, toPot, amount, token) => {
 
   // Get the balance for the pot that funds were withdrawn from
-  const fromPotBalanceBefore = await colonyClient.getPotBalance.call({
+  const fromPotBalanceBefore = await colonyClient.getFundingPotBalance.call({
     potId: fromPot,
     token,
   });
 
   // Get the balance for the pot that funds were deposited into
-  const toPotBalanceBefore = await colonyClient.getPotBalance.call({
+  const toPotBalanceBefore = await colonyClient.getFundingPotBalance.call({
     potId: toPot,
     token,
   });
@@ -22,13 +22,13 @@ const moveFundsBetweenPots = async (colonyClient, fromPot, toPot, amount, token)
   });
 
   // Get the balance for the pot that funds were withdrawn from
-  const fromPotBalanceAfter = await colonyClient.getPotBalance.call({
+  const fromPotBalanceAfter = await colonyClient.getFundingPotBalance.call({
     potId: fromPot,
     token,
   });
 
   // Get the balance for the pot that funds were deposited into
-  const toPotBalanceAfter = await colonyClient.getPotBalance.call({
+  const toPotBalanceAfter = await colonyClient.getFundingPotBalance.call({
     potId: toPot,
     token,
   });

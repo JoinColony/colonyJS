@@ -219,7 +219,7 @@ export const getTaskExtended = async (colonyClient, taskId) => {
   const token = colonyClient.tokenClient.contract.address
 
   // get pot balance
-  const potBalance = await colonyClient.getPotBalance.call({
+  const potBalance = await colonyClient.getFundingPotBalance.call({
     potId,
     token,
   })
