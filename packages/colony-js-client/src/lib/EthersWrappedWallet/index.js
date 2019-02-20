@@ -50,7 +50,7 @@ export default class EthersWrappedWallet {
       gasPrice: gasPrice ? new BigNumber(gasPrice) : await this.getGasPrice(),
       nonce: nonce || (await this.getTransactionCount()),
       to,
-      value: new BigNumber(value),
+      value,
     };
     const signedTx = await this.sign(signOptions);
 
@@ -105,7 +105,7 @@ export default class EthersWrappedWallet {
 
   async send(
     to: string,
-    value: string,
+    value: BigNumber,
     options: TransactionOptions = {},
   ): Promise<TransactionReceipt> {
     return this.sendTransaction({
