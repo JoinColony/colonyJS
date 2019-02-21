@@ -55,10 +55,7 @@ const colonyStarterBasic = async () => {
   const loader = new TrufflepigLoader();
 
   // Get ganache test accounts
-  const accountsObject = await loader.getAccounts();
-
-  // Convert accounts object into an array of public keys
-  const accounts = Object.keys(accountsObject);
+  const accounts = Object.entries(await loader.getAccounts());
 
   // A unix timestamp representing 31 days from now
   const futureDueDate = new Date(Date.now() + 2678400000);
@@ -77,7 +74,8 @@ const colonyStarterBasic = async () => {
   // Connect to the network using the "connectNetwork" example and then store
   // the returned "networkClient" in the state object.
   state.networkClient[0] = await connectNetwork(
-    0,                              // accountIndex
+    'local',                        // network
+    accounts[0][1],                 // privateKey
   );
 
   log('account[0] createToken:');
@@ -446,7 +444,7 @@ const colonyStarterBasic = async () => {
   await setTaskEvaluatorRole(
     state.colonyClient[0],          // colonyClient
     state.task.id,                  // taskId
-    accounts[1],                    // user
+    accounts[1][0],                 // user
   );
 
   log('account[0] signSetTaskEvaluatorRole:');
@@ -461,7 +459,8 @@ const colonyStarterBasic = async () => {
   // Connect to the network using the "connectNetwork" example and then store
   // the returned "networkClient" in the state object.
   state.networkClient[1] = await connectNetwork(
-    1,                              // accountIndex
+    'local',                        // network
+    accounts[1][1],                 // privateKey
   );
 
   log('account[1] getColonyClient:');
@@ -486,7 +485,7 @@ const colonyStarterBasic = async () => {
   await setTaskWorkerRole(
     state.colonyClient[0],          // colonyClient
     state.task.id,                  // taskId
-    accounts[2],                    // user
+    accounts[2][0],                 // user
   );
 
   log('account[0] signSetTaskWorkerRole:');
@@ -501,7 +500,8 @@ const colonyStarterBasic = async () => {
   // Connect to the network using the "connectNetwork" example and then store
   // the returned "networkClient" in the state object.
   state.networkClient[2] = await connectNetwork(
-    2,                              // accountIndex
+    'local',                        // network
+    accounts[2][1],                 // privateKey
   );
 
   log('account[2] getColonyClient:');
