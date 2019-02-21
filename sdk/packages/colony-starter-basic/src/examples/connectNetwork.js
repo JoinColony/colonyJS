@@ -15,11 +15,11 @@ const connectNetwork = async (accountIndex) => {
   // Create a wallet with the private key (so we have a balance we can use)
   const wallet = await open({ privateKey });
 
+  // Check out the logs to see the address of the wallet
+  console.log('Wallet Address: ' + wallet.address);
+
   // Connect to ColonyNetwork with the adapter!
   const networkClient = await getNetworkClient('local', wallet);
-
-  // Check out the logs to see the address of the contract signer
-  console.log('Account Address: ' + networkClient.contract.signer.address);
 
   // Check out the logs to see the address of the deployed network
   console.log('Network Address: ' + networkClient.contract.address);
