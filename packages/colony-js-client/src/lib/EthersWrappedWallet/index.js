@@ -15,14 +15,16 @@ import type {
 } from './types';
 
 export default class EthersWrappedWallet {
-  address: string;
   wallet: GenericWallet;
   provider: *;
 
   constructor(wallet: *, provider: *) {
-    this.address = wallet.address;
     this.wallet = wallet;
     this.provider = provider;
+  }
+
+  get address() {
+    return this.wallet.address;
   }
 
   async getAddress(): Promise<string> {
@@ -51,7 +53,9 @@ export default class EthersWrappedWallet {
       // it by 1.1 (an amount that will prevent the transaction from failing)
       gasLimit: gasLimit
         ? new BigNumber(gasLimit)
-        : new BigNumber((await this.estimateGas(tx)).toNumber() * 1.1),
+        : (await this.estimateGas(tx))
+            .mul(new BigNumber('11'))
+            .div(new BigNumber('10')),
       gasPrice: gasPrice ? new BigNumber(gasPrice) : await this.getGasPrice(),
       nonce: nonce || (await this.getTransactionCount()),
       to,
