@@ -97,8 +97,20 @@ const createStarter = (name, specific, verbose) => {
       console.log(`  Initializing ${chalk.cyan(packageName)}...`);
       console.log();
 
-      // Execute initialize project script and log output
-      cp.execSync('yarn initialize', { stdio: [0, 1, 2] });
+      // Initialize git
+      cp.execSync(`git init`);
+
+      // Add gitignore file
+      cp.execSync(`echo "node_modules" >> .gitignore`);
+
+      // Add add postinstall script
+      cp.execSync(`json -I -f package.json -e 'this.scripts.postinstall="sh scripts/postinstall.sh"'`);
+
+      // Add add colonyNetwork submodule
+      cp.execSync(`git submodule add https://github.com/JoinColony/colonyNetwork lib/colonyNetwork`);
+
+      // Run postinstall script
+      cp.execSync(`yarn`, { stdio: [0, 1, 2] });
 
     }).then(() => {
 

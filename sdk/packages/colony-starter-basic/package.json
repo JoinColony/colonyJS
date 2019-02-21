@@ -10,8 +10,7 @@
     "access": "public"
   },
   "scripts": {
-    "postinstall": "sh scripts/postinstall.sh",
-    "initialize": "sh scripts/initialize_project.sh",
+    "postinstall": "",
     "start-ganache": "sh scripts/start_ganache.sh",
     "deploy-contracts": "sh scripts/deploy_contracts.sh",
     "start-trufflepig": "sh scripts/start_trufflepig.sh",
