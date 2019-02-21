@@ -46,7 +46,11 @@ export default class EthersWrappedWallet {
     const signOptions = {
       chainId: chainId || this.provider.chainId,
       data,
-      gasLimit: gasLimit ? new BigNumber(gasLimit) : await this.estimateGas(tx),
+      // If no gas limit is provided, we need to get the estimate and multiply
+      // it by 1.1 (an amount that will prevent the transaction from failing)
+      gasLimit: gasLimit
+        ? new BigNumber(gasLimit)
+        : new BigNumber((await this.estimateGas(tx)).toNumber() * 1.1),
       gasPrice: gasPrice ? new BigNumber(gasPrice) : await this.getGasPrice(),
       nonce: nonce || (await this.getTransactionCount()),
       to,
