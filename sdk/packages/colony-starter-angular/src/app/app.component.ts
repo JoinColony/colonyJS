@@ -57,7 +57,7 @@ export class AppComponent implements OnInit {
     this.appService.connectNetwork().then( (res) => {
       this.state.networkClient[0] = res;
       this.model.networkClient.addr = this.state.networkClient[0]._contract.address;
-      this.model.networkClient.accountAddr = this.state.networkClient[0]._contract.signer.address;
+      this.model.networkClient.accountAddr = this.state.networkClient[0].contract.signer.address;
     }).catch( (err) => {
       this.setStatus("Error: See console");
       console.error(err);

@@ -36,10 +36,10 @@ const connectRinkeby = async () => {
   await networkClient.init();
 
   // Check out the logs to see the address of the contract signer
-  console.log('Account Address: ' + networkClient._contract.signer.address);
+  console.log('Account Address: ' + networkClient.contract.signer.address);
 
   // Check out the logs to see the address of the deployed network
-  console.log('Network Address: ' + networkClient._contract.address);
+  console.log('Network Address: ' + networkClient.contract.address);
 
   // Return networkClient
   return networkClient;

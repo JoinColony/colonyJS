@@ -88,7 +88,7 @@ const connectMetamask = async () => {
   console.log('Account Address: ' + signerAddress);
 
   // Check out the logs to see the address of the deployed network
-  console.log('Network Address: ' + networkClient._contract.address);
+  console.log('Network Address: ' + networkClient.contract.address);
 
   // Disconnect metamask
   metamaskConnector.stop();
