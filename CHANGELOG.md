@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.11.1
+
+**Bug Fixes**
+
+* Fix `ethers` wallet being passed to `getNetworkClient` (`@colony/colony-js-client`)
+* Fix `address` depth when using `EthersWrappedWallet` (`@colony/colony-js-client`)
+* Fix `gasLimit` based on estimate in `EthersWrappedWallet` (`@colony/colony-js-client`)
+* Fix `amount` type for `send` in `EthersWrappedWallet` (`@colony/colony-js-client`)
+
 ## v1.11.0
 
 **New Features**
