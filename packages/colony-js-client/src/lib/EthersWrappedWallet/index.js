@@ -16,12 +16,15 @@ import type {
 
 export default class EthersWrappedWallet {
   wallet: GenericWallet;
-
   provider: *;
 
   constructor(wallet: *, provider: *) {
     this.wallet = wallet;
     this.provider = provider;
+  }
+
+  get address() {
+    return this.wallet.address;
   }
 
   async getAddress(): Promise<string> {
@@ -46,11 +49,17 @@ export default class EthersWrappedWallet {
     const signOptions = {
       chainId: chainId || this.provider.chainId,
       data,
-      gasLimit: gasLimit ? new BigNumber(gasLimit) : await this.estimateGas(tx),
+      // If no gas limit is provided, we need to get the estimate and multiply
+      // it by 1.1 (an amount that will prevent the transaction from failing)
+      gasLimit: gasLimit
+        ? new BigNumber(gasLimit)
+        : (await this.estimateGas(tx))
+            .mul(new BigNumber('11'))
+            .div(new BigNumber('10')),
       gasPrice: gasPrice ? new BigNumber(gasPrice) : await this.getGasPrice(),
       nonce: nonce || (await this.getTransactionCount()),
       to,
-      value: new BigNumber(value),
+      value,
     };
     const signedTx = await this.sign(signOptions);
 
@@ -105,7 +114,7 @@ export default class EthersWrappedWallet {
 
   async send(
     to: string,
-    value: string,
+    value: BigNumber,
     options: TransactionOptions = {},
   ): Promise<TransactionReceipt> {
     return this.sendTransaction({
