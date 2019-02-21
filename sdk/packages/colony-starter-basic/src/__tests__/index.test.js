@@ -1,7 +1,6 @@
 // Import prerequisites
 const { TrufflepigLoader } = require('@colony/colony-js-contract-loader-http');
 const { EMPTY_ADDRESS } = require('@colony/colony-js-client');
-const { utils } = require('ethers');
 const BN = require('bn.js');
 
 // Import examples
@@ -135,9 +134,9 @@ describe('Colony Starter Basic', () => {
   test('account[0] sendEther() works', async () => {
     const balanceAfter = await sendEther(
       state.colonyClient[0],          // accountIndex
-      utils.parseEther('3.0'),        // amount
+      new BN('3000000000000000000'),  // amount
     );
-    expect(balanceAfter).toEqual(utils.parseEther('3.0').toString());
+    expect(balanceAfter).toEqual(new BN('3000000000000000000').toString());
   }, 5000);
 
   // Test the claimColonyFunds() example from account[0]
@@ -155,7 +154,7 @@ describe('Colony Starter Basic', () => {
       state.colonyClient[0],          // colonyClient
       EMPTY_ADDRESS,                  // tokenAddress
     );
-    expect(colonyPotBalance.balance).toEqual(utils.parseEther('3.0'));
+    expect(colonyPotBalance.balance).toEqual(new BN('3000000000000000000'));
   }, 5000);
 
   // Test the addDomain() example from account[0]
@@ -173,7 +172,7 @@ describe('Colony Starter Basic', () => {
       state.colonyClient[0],          // colonyClient
       1,                              // fromPot
       state.domain.potId,             // toPot
-      new BN(30),                     // amount
+      new BN('3000000000000000000'),  // amount
       state.tokenAddress,             // token
     );
     expect(potBalance.balance.toNumber()).toEqual(30);
@@ -185,10 +184,10 @@ describe('Colony Starter Basic', () => {
       state.colonyClient[0],          // colonyClient
       1,                              // fromPot
       state.domain.potId,             // toPot
-      utils.parseEther('3.0'),        // amount
+      new BN('3000000000000000000'),  // amount
       EMPTY_ADDRESS,                  // token
     );
-    expect(potBalance.balance).toEqual(utils.parseEther('3.0'));
+    expect(potBalance.balance).toEqual(new BN('3000000000000000000'));
   }, 5000);
 
   // Test the createTask() example from account[0]
@@ -213,7 +212,7 @@ describe('Colony Starter Basic', () => {
       state.colonyClient[0],          // colonyClient
       state.domain.potId,             // fromPot
       state.task.potId,               // toPot
-      new BN(30),                     // amount
+      new BN('3000000000000000000'),  // amount
       state.tokenAddress,             // token
     );
     expect(potBalance.balance.toNumber()).toEqual(30);
@@ -225,10 +224,10 @@ describe('Colony Starter Basic', () => {
       state.colonyClient[0],          // colonyClient
       state.domain.potId,             // fromPot
       state.task.potId,               // toPot
-      utils.parseEther('3.0'),        // amount
+      new BN('3000000000000000000'),  // amount
       EMPTY_ADDRESS,                  // token
     );
-    expect(potBalance.balance).toEqual(utils.parseEther('3.0'));
+    expect(potBalance.balance).toEqual(new BN('3000000000000000000'));
   }, 5000);
 
   // Test the addGlobalSkill() example from account[0]
@@ -297,7 +296,7 @@ describe('Colony Starter Basic', () => {
     await setTaskManagerPayout(
       state.colonyClient[0],          // colonyClient
       state.task.id,                  // taskId
-      new BN(10),                     // amount
+      new BN('3000000000000000000'),  // amount
       state.tokenAddress,             // token
     );
     expect(JSON.parse(DATABASE.operations.setTaskManagerPayout)).toEqual(expect.objectContaining({
@@ -324,14 +323,14 @@ describe('Colony Starter Basic', () => {
     await setTaskManagerPayout(
       state.colonyClient[0],          // colonyClient
       state.task.id,                  // taskId
-      utils.parseEther('1.0'),        // amount
+      new BN('1000000000000000000'),  // amount
       EMPTY_ADDRESS,                  // token
     );
     expect(JSON.parse(DATABASE.operations.setTaskManagerPayout)).toEqual(expect.objectContaining({
       payload: expect.objectContaining({
         inputValues: expect.objectContaining({
           amount: expect.objectContaining({
-            _bn: (utils.parseEther('1.0')._bn).toJSON(),
+            _bn: (new BN('3000000000000000000')._bn).toJSON(),
           }),
         }),
       }),
@@ -345,7 +344,7 @@ describe('Colony Starter Basic', () => {
       state.task.id,                  // taskId
       EMPTY_ADDRESS,                  // token
     );
-    expect(taskManagerPayout.amount).toEqual(utils.parseEther('1.0'));
+    expect(taskManagerPayout.amount).toEqual(new BN('3000000000000000000'));
   }, 5000);
 
   // Test the setTaskEvaluatorPayout() example from account[0]
@@ -353,7 +352,7 @@ describe('Colony Starter Basic', () => {
     await setTaskEvaluatorPayout(
       state.colonyClient[0],          // colonyClient
       state.task.id,                  // taskId
-      new BN(10),                     // amount
+      new BN('3000000000000000000'),  // amount
       state.tokenAddress,             // token
     );
     expect(JSON.parse(DATABASE.operations.setTaskEvaluatorPayout)).toEqual(expect.objectContaining({
@@ -380,14 +379,14 @@ describe('Colony Starter Basic', () => {
     await setTaskEvaluatorPayout(
       state.colonyClient[0],          // colonyClient
       state.task.id,                  // taskId
-      utils.parseEther('1.0'),        // amount
+      new BN('1000000000000000000'),  // amount
       EMPTY_ADDRESS,                  // token
     );
     expect(JSON.parse(DATABASE.operations.setTaskEvaluatorPayout)).toEqual(expect.objectContaining({
       payload: expect.objectContaining({
         inputValues: expect.objectContaining({
           amount: expect.objectContaining({
-            _bn: (utils.parseEther('1.0')._bn).toJSON(),
+            _bn: (new BN('3000000000000000000')._bn).toJSON(),
           }),
         }),
       }),
@@ -401,7 +400,7 @@ describe('Colony Starter Basic', () => {
       state.task.id,                  // taskId
       EMPTY_ADDRESS,                  // token
     );
-    expect(taskEvaluatorPayout.amount).toEqual(utils.parseEther('1.0'));
+    expect(taskEvaluatorPayout.amount).toEqual(new BN('3000000000000000000'));
   }, 5000);
 
   // Test the setTaskWorkerPayout() example from account[0]
@@ -409,7 +408,7 @@ describe('Colony Starter Basic', () => {
     await setTaskWorkerPayout(
       state.colonyClient[0],          // colonyClient
       state.task.id,                  // taskId
-      new BN(10),                     // amount
+      new BN('3000000000000000000'),  // amount
       state.tokenAddress,             // token
     );
     expect(JSON.parse(DATABASE.operations.setTaskWorkerPayout)).toEqual(expect.objectContaining({
@@ -436,14 +435,14 @@ describe('Colony Starter Basic', () => {
     await setTaskWorkerPayout(
       state.colonyClient[0],          // colonyClient
       state.task.id,                  // taskId
-      utils.parseEther('1.0'),        // amount
+      new BN('1000000000000000000'),  // amount
       EMPTY_ADDRESS,                  // token
     );
     expect(JSON.parse(DATABASE.operations.setTaskWorkerPayout)).toEqual(expect.objectContaining({
       payload: expect.objectContaining({
         inputValues: expect.objectContaining({
           amount: expect.objectContaining({
-            _bn: (utils.parseEther('1.0')._bn).toJSON(),
+            _bn: (new BN('3000000000000000000')._bn).toJSON(),
           }),
         }),
       }),
@@ -457,7 +456,7 @@ describe('Colony Starter Basic', () => {
       state.task.id,                  // taskId
       EMPTY_ADDRESS,                  // token
     );
-    expect(taskWorkerPayout.amount).toEqual(utils.parseEther('1.0'));
+    expect(taskWorkerPayout.amount).toEqual(new BN('3000000000000000000'));
   }, 5000);
 
   // Test the removeTaskEvaluatorRole() example from account[0]

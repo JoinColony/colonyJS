@@ -2,7 +2,6 @@
 const log = require('./helpers/log');
 const { TrufflepigLoader } = require('@colony/colony-js-contract-loader-http');
 const { EMPTY_ADDRESS } = require('@colony/colony-js-client');
-const { utils } = require('ethers');
 const BN = require('bn.js');
 
 // Import examples
@@ -123,7 +122,7 @@ const colonyStarterBasic = async () => {
   // Mint tokens for our new token using the "mintTokens" example.
   await mintTokens(
     state.colonyClient[0],          // colonyClient
-    30,                             // amount
+    new BN('3000000000000000000'),  // amount
   );
 
   log('account[0] sendEther:');
@@ -131,7 +130,7 @@ const colonyStarterBasic = async () => {
   // Send ether to the colony using the "sendEther" example.
   await sendEther(
     state.colonyClient[0],          // accountIndex
-    utils.parseEther('3.0'),        // amount
+    new BN('3000000000000000000'),  // amount
   );
 
   log('account[0] claimColonyFunds:');
@@ -168,7 +167,7 @@ const colonyStarterBasic = async () => {
     state.colonyClient[0],          // colonyClient
     1,                              // fromPot
     state.domain.potId,             // toPot
-    new BN(30),                     // amount
+    new BN('3000000000000000000'),  // amount
     state.tokenAddress,             // token
   );
 
@@ -179,7 +178,7 @@ const colonyStarterBasic = async () => {
     state.colonyClient[0],          // colonyClient
     1,                              // fromPot
     state.domain.potId,             // toPot
-    utils.parseEther('3.0'),        // amount
+    new BN('3000000000000000000'),  // amount
     EMPTY_ADDRESS,                  // token
   );
 
@@ -205,7 +204,7 @@ const colonyStarterBasic = async () => {
     state.colonyClient[0],          // colonyClient
     state.domain.potId,             // fromPot
     state.task.potId,               // toPot
-    new BN(30),                     // amount
+    new BN('3000000000000000000'),  // amount
     state.tokenAddress,             // token
   );
 
@@ -216,7 +215,7 @@ const colonyStarterBasic = async () => {
     state.colonyClient[0],          // colonyClient
     state.domain.potId,             // fromPot
     state.task.potId,               // toPot
-    utils.parseEther('3.0'),        // amount
+    new BN('3000000000000000000'),  // amount
     EMPTY_ADDRESS,                  // token
   );
 
@@ -283,7 +282,7 @@ const colonyStarterBasic = async () => {
   await setTaskManagerPayout(
     state.colonyClient[0],          // colonyClient
     state.task.id,                  // taskId
-    new BN(10),                     // amount
+    new BN('1000000000000000000'),  // amount
     state.tokenAddress,             // token
   );
 
@@ -306,7 +305,7 @@ const colonyStarterBasic = async () => {
   await setTaskManagerPayout(
     state.colonyClient[0],          // colonyClient
     state.task.id,                  // taskId
-    utils.parseEther('1.0'),        // amount
+    new BN('1000000000000000000'),  // amount
     EMPTY_ADDRESS,                  // token
   );
 
@@ -332,7 +331,7 @@ const colonyStarterBasic = async () => {
   await setTaskEvaluatorPayout(
     state.colonyClient[0],          // colonyClient
     state.task.id,                  // taskId
-    new BN(10),                     // amount
+    new BN('1000000000000000000'),  // amount
     state.tokenAddress,             // token
   );
 
@@ -358,7 +357,7 @@ const colonyStarterBasic = async () => {
   await setTaskEvaluatorPayout(
     state.colonyClient[0],          // colonyClient
     state.task.id,                  // taskId
-    utils.parseEther('1.0'),        // amount
+    new BN('1000000000000000000'),  // amount
     EMPTY_ADDRESS,                  // token
   );
 
@@ -384,7 +383,7 @@ const colonyStarterBasic = async () => {
   await setTaskWorkerPayout(
     state.colonyClient[0],          // colonyClient
     state.task.id,                  // taskId
-    new BN(10),                     // amount
+    new BN('1000000000000000000'),  // amount
     state.tokenAddress,             // token
   );
 
@@ -410,7 +409,7 @@ const colonyStarterBasic = async () => {
   await setTaskWorkerPayout(
     state.colonyClient[0],          // colonyClient
     state.task.id,                  // taskId
-    utils.parseEther('1.0'),        // amount
+    new BN('1000000000000000000'),  // amount
     EMPTY_ADDRESS,                  // token
   );
 
