@@ -10,6 +10,7 @@
     "access": "public"
   },
   "scripts": {
+    "postinstall": "sh scripts/postinstall.sh",
     "initialize": "sh scripts/initialize_project.sh",
     "start-ganache": "sh scripts/start_ganache.sh",
     "deploy-contracts": "sh scripts/deploy_contracts.sh",
