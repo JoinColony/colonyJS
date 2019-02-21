@@ -30,7 +30,7 @@
     "@angular/platform-browser": "^7.2.1",
     "@angular/platform-browser-dynamic": "^7.2.1",
     "@angular/router": "^7.2.1",
-    "@colony/colony-js-client": "^1.11.0",
+    "@colony/colony-js-client": "^1.11.1",
     "@colony/colony-js-contract-loader-http": "^1.10.0",
     "@colony/purser-metamask": "^2.1.1",
     "bn.js": "^4.11.8",
