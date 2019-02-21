@@ -9,6 +9,10 @@ class AppContainer extends Component {
     super(props)
   }
 
+  componentDidMount() {
+    this.props.connectNetwork('local')
+  }
+
   componentDidUpdate(prevProps) {
     if (this.props.location !== prevProps.location) {
       scroll(0,0)
@@ -41,8 +45,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  connectNetwork(accountIndex) {
-    dispatch(networkActions.connectNetwork(accountIndex))
+  connectNetwork(network) {
+    dispatch(networkActions.connectNetwork(network))
   },
   resetActions() {
     dispatch(networkActions.connectNetworkError(null))
