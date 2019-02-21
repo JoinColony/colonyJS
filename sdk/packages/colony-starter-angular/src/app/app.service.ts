@@ -11,7 +11,7 @@ const getColonyClient = require("../../examples/getColonyClient");
 export class AppService {
 
   public async connectNetwork() {
-    const networkClient = await connectNetwork(0);
+    const networkClient = await connectNetwork('local');
     return networkClient;
   }
 

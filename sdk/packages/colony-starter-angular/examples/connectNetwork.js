@@ -1,33 +1,20 @@
 // Import the prerequisites
 const { getNetworkClient } = require('@colony/colony-js-client');
-const { TrufflepigLoader } = require('@colony/colony-js-contract-loader-http');
-const { open } = require('@colony/purser-software');
+const { open } = require('@colony/purser-metamask');
 
-// An example method for connecting to the local network
-const connectNetwork = async (accountIndex) => {
+// An example method for connecting to the network
+const connectNetwork = async (network) => {
 
-  // Initialize TrufflepigLoader
-  const loader = new TrufflepigLoader();
+  // Create a wallet
+  const wallet = await open()
 
-  // Get the private key from the given Ganache test account
-  const { privateKey } = await loader.getAccount(accountIndex || 0);
-
-  // Create a wallet with the private key (so we have a balance we can use)
-  const wallet = await open({ privateKey });
-
-  // Connect to ColonyNetwork with the adapter!
-  const networkClient = await getNetworkClient('local', wallet);
-
-  // Check out the logs to see the address of the contract signer
-  console.log('Account Address: ' + networkClient.contract.signer.address);
-
-  // Check out the logs to see the address of the deployed network
-  console.log('Network Address: ' + networkClient.contract.address);
+  // Get the network client
+  const networkClient = await getNetworkClient(network, wallet)
 
   // Return networkClient
-  return networkClient;
+  return networkClient
 
-};
+}
 
 // Export connectNetwork example
 module.exports = connectNetwork;
