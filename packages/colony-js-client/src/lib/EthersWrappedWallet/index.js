@@ -15,11 +15,12 @@ import type {
 } from './types';
 
 export default class EthersWrappedWallet {
+  address: string;
   wallet: GenericWallet;
-
   provider: *;
 
   constructor(wallet: *, provider: *) {
+    this.address = wallet.address;
     this.wallet = wallet;
     this.provider = provider;
   }
