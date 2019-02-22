@@ -1,5 +1,11 @@
 # Changelog
 
+## v.NEXT
+
+**Types**
+
+* Add missing event definitions to `ColonyClient` (`@colony/colony-js-client`)
+
 ## v1.11.1
 
 **Bug Fixes**
