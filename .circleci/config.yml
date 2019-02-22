@@ -1,6 +1,9 @@
 version: 2
+
 jobs:
-  build:
+
+  test-coverage:
+
     docker:
       - image: circleci/node:10.12.0
 
@@ -47,3 +50,19 @@ jobs:
             $HOME/.config/yarn/global/node_modules/.bin/greenkeeper-lockfile-update
             yarn test
             $HOME/.config/yarn/global/node_modules/.bin/greenkeeper-lockfile-upload
+
+workflows:
+  version: 2
+  commit:
+    jobs:
+      - test-coverage
+  nightly:
+    triggers:
+      - schedule:
+          cron: "0 1 * * *" # 1am UTC
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - test-coverage

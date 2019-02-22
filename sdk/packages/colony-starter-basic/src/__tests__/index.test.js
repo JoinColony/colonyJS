@@ -1,5 +1,4 @@
 // Import prerequisites
-const { TrufflepigLoader } = require('@colony/colony-js-contract-loader-http');
 const { EMPTY_ADDRESS } = require('@colony/colony-js-client');
 const BN = require('bn.js');
 
@@ -13,6 +12,7 @@ const createColony = require('../examples/createColony');
 const createTask = require('../examples/createTask');
 const createToken = require('../examples/createToken');
 const finalizeTask = require('../examples/finalizeTask');
+const getAccounts = require('../examples/getAccounts');
 const getColonyClient = require('../examples/getColonyClient');
 const mintTokens = require('../examples/mintTokens');
 const moveFundsBetweenPots = require('../examples/moveFundsBetweenPots');
@@ -45,30 +45,27 @@ DATABASE = {
   operations: {},
 };
 
+// State
+const state = {
+  networkClient: [],    // networkClient (per account)
+  colonyClient: [],     // colonyClient (per account)
+};
+
 // Testing Colony Starter Basic examples
 describe('Colony Starter Basic', () => {
 
-  // A unix timestamp representing 31 days from now
-  const futureDueDate = new Date(Date.now() + 2678400000);
-
-  // State
-  const state = {
-    networkClient: [],    // networkClient (per account)
-    colonyClient: [],     // colonyClient (per account)
-  };
-
   // Test TrufflepigLoader getAccounts()
-  test('TrufflepigLoader getAccounts() works', async () => {
-    const loader = new TrufflepigLoader();
-    const accountsObject = await loader.getAccounts();
-    accountsArray = Object.keys(accountsObject);
-    state.accounts = accountsArray.map(account => account.toLowerCase());
+  test('getAccounts() works', async () => {
+    state.accounts = await getAccounts();
     expect(state.accounts.length).toEqual(12);
   }, 5000)
 
   // Test the connectNetwork() example from account[0]
   test('account[0] connectNetwork() works', async () => {
-    state.networkClient[0] = await connectNetwork(0);
+    state.networkClient[0] = await connectNetwork(
+      'local',                        // network
+      state.accounts[0][1],           // privateKey
+    );
     expect(state.networkClient[0]).toEqual(expect.objectContaining({
       _contract: expect.objectContaining({
         address: expect.stringContaining('0x'),
@@ -125,9 +122,9 @@ describe('Colony Starter Basic', () => {
   test('account[0] mintTokens() works', async () => {
     const tokenSupply = await mintTokens(
       state.colonyClient[0],          // colonyClient
-      30,                             // amount
+      new BN('3000000000000000000'),  // amount
     );
-    expect(tokenSupply.amount.toNumber()).toEqual(30);
+    expect(tokenSupply.amount.toString()).toEqual('3000000000000000000');
   }, 5000);
 
   // Test the sendEther() example from account[0]
@@ -136,7 +133,7 @@ describe('Colony Starter Basic', () => {
       state.colonyClient[0],          // accountIndex
       new BN('3000000000000000000'),  // amount
     );
-    expect(balanceAfter).toEqual(new BN('3000000000000000000').toString());
+    expect(balanceAfter).toEqual('3000000000000000000');
   }, 5000);
 
   // Test the claimColonyFunds() example from account[0]
@@ -145,7 +142,7 @@ describe('Colony Starter Basic', () => {
       state.colonyClient[0],          // colonyClient
       state.tokenAddress,             // tokenAddress
     );
-    expect(colonyPotBalance.balance.toNumber()).toEqual(30);
+    expect(colonyPotBalance.balance.toString()).toEqual('3000000000000000000');
   }, 5000);
 
   // Test the claimColonyFunds() example from account[0]
@@ -154,7 +151,7 @@ describe('Colony Starter Basic', () => {
       state.colonyClient[0],          // colonyClient
       EMPTY_ADDRESS,                  // tokenAddress
     );
-    expect(colonyPotBalance.balance).toEqual(new BN('3000000000000000000'));
+    expect(colonyPotBalance.balance.toString()).toEqual('3000000000000000000');
   }, 5000);
 
   // Test the addDomain() example from account[0]
@@ -175,7 +172,7 @@ describe('Colony Starter Basic', () => {
       new BN('3000000000000000000'),  // amount
       state.tokenAddress,             // token
     );
-    expect(potBalance.balance.toNumber()).toEqual(30);
+    expect(potBalance.balance.toString()).toEqual('3000000000000000000');
   }, 5000);
 
   // Test the moveFundsBetweenPots() example from account[0]
@@ -187,7 +184,7 @@ describe('Colony Starter Basic', () => {
       new BN('3000000000000000000'),  // amount
       EMPTY_ADDRESS,                  // token
     );
-    expect(potBalance.balance).toEqual(new BN('3000000000000000000'));
+    expect(potBalance.balance.toString()).toEqual('3000000000000000000');
   }, 5000);
 
   // Test the createTask() example from account[0]
@@ -215,7 +212,7 @@ describe('Colony Starter Basic', () => {
       new BN('3000000000000000000'),  // amount
       state.tokenAddress,             // token
     );
-    expect(potBalance.balance.toNumber()).toEqual(30);
+    expect(potBalance.balance.toString()).toEqual('3000000000000000000');
   }, 5000);
 
   // Test the moveFundsBetweenPots() example from account[0]
@@ -227,7 +224,7 @@ describe('Colony Starter Basic', () => {
       new BN('3000000000000000000'),  // amount
       EMPTY_ADDRESS,                  // token
     );
-    expect(potBalance.balance).toEqual(new BN('3000000000000000000'));
+    expect(potBalance.balance.toString()).toEqual('3000000000000000000');
   }, 5000);
 
   // Test the addGlobalSkill() example from account[0]
@@ -268,15 +265,15 @@ describe('Colony Starter Basic', () => {
   // Test the setTaskDueDate() example from account[0]
   test('account[0] setTaskDueDate() works', async () => {
     await setTaskDueDate(
-      state.colonyClient[0],          // colonyClient
-      state.task.id,                  // taskId
-      futureDueDate,                  // domainId
+      state.colonyClient[0],                  // colonyClient
+      state.task.id,                          // taskId
+      new Date('2020-01-01T00:00:00.000Z'),   // dueDate
     );
     expect(JSON.parse(DATABASE.operations.setTaskDueDate)).toEqual(expect.objectContaining({
       payload: expect.objectContaining({
         inputValues: expect.objectContaining({
           taskId: state.task.id,
-          dueDate: futureDueDate.toISOString(),
+          dueDate: '2020-01-01T00:00:00.000Z',
         }),
       }),
     }));
@@ -288,7 +285,7 @@ describe('Colony Starter Basic', () => {
       state.colonyClient[0],          // colonyClient
       state.task.id,                  // taskId
     );
-    expect(state.task.dueDate).toEqual(futureDueDate);
+    expect(state.task.dueDate).toEqual(new Date('2020-01-01T00:00:00.000Z'));
   }, 5000);
 
   // Test the setTaskManagerPayout() example from account[0]
@@ -296,13 +293,13 @@ describe('Colony Starter Basic', () => {
     await setTaskManagerPayout(
       state.colonyClient[0],          // colonyClient
       state.task.id,                  // taskId
-      new BN('3000000000000000000'),  // amount
+      new BN('1000000000000000000'),  // amount
       state.tokenAddress,             // token
     );
     expect(JSON.parse(DATABASE.operations.setTaskManagerPayout)).toEqual(expect.objectContaining({
       payload: expect.objectContaining({
         inputValues: expect.objectContaining({
-          amount: (new BN(10)).toJSON(),
+          amount: (new BN('1000000000000000000')).toJSON(),
         }),
       }),
     }));
@@ -315,7 +312,7 @@ describe('Colony Starter Basic', () => {
       state.task.id,                  // taskId
       state.tokenAddress,             // token
     );
-    expect(taskManagerPayout.amount.toNumber()).toEqual(10);
+    expect(taskManagerPayout.amount.toString()).toEqual('1000000000000000000');
   }, 5000);
 
   // Test the setTaskManagerPayout() example from account[0]
@@ -329,9 +326,7 @@ describe('Colony Starter Basic', () => {
     expect(JSON.parse(DATABASE.operations.setTaskManagerPayout)).toEqual(expect.objectContaining({
       payload: expect.objectContaining({
         inputValues: expect.objectContaining({
-          amount: expect.objectContaining({
-            _bn: (new BN('3000000000000000000')._bn).toJSON(),
-          }),
+          amount: (new BN('1000000000000000000')).toJSON(),
         }),
       }),
     }));
@@ -344,7 +339,7 @@ describe('Colony Starter Basic', () => {
       state.task.id,                  // taskId
       EMPTY_ADDRESS,                  // token
     );
-    expect(taskManagerPayout.amount).toEqual(new BN('3000000000000000000'));
+    expect(taskManagerPayout.amount._bn).toEqual(new BN('1000000000000000000'));
   }, 5000);
 
   // Test the setTaskEvaluatorPayout() example from account[0]
@@ -352,13 +347,13 @@ describe('Colony Starter Basic', () => {
     await setTaskEvaluatorPayout(
       state.colonyClient[0],          // colonyClient
       state.task.id,                  // taskId
-      new BN('3000000000000000000'),  // amount
+      new BN('1000000000000000000'),  // amount
       state.tokenAddress,             // token
     );
     expect(JSON.parse(DATABASE.operations.setTaskEvaluatorPayout)).toEqual(expect.objectContaining({
       payload: expect.objectContaining({
         inputValues: expect.objectContaining({
-          amount: (new BN(10)).toJSON(),
+          amount: (new BN('1000000000000000000')).toJSON(),
         }),
       }),
     }));
@@ -371,7 +366,7 @@ describe('Colony Starter Basic', () => {
       state.task.id,                  // taskId
       state.tokenAddress,             // token
     );
-    expect(taskEvaluatorPayout.amount.toNumber()).toEqual(10);
+    expect(taskEvaluatorPayout.amount.toString()).toEqual('1000000000000000000');
   }, 5000);
 
   // Test the setTaskEvaluatorPayout() example from account[0]
@@ -385,9 +380,7 @@ describe('Colony Starter Basic', () => {
     expect(JSON.parse(DATABASE.operations.setTaskEvaluatorPayout)).toEqual(expect.objectContaining({
       payload: expect.objectContaining({
         inputValues: expect.objectContaining({
-          amount: expect.objectContaining({
-            _bn: (new BN('3000000000000000000')._bn).toJSON(),
-          }),
+          amount: (new BN('1000000000000000000')).toJSON(),
         }),
       }),
     }));
@@ -400,7 +393,7 @@ describe('Colony Starter Basic', () => {
       state.task.id,                  // taskId
       EMPTY_ADDRESS,                  // token
     );
-    expect(taskEvaluatorPayout.amount).toEqual(new BN('3000000000000000000'));
+    expect(taskEvaluatorPayout.amount.toString()).toEqual('1000000000000000000');
   }, 5000);
 
   // Test the setTaskWorkerPayout() example from account[0]
@@ -408,13 +401,13 @@ describe('Colony Starter Basic', () => {
     await setTaskWorkerPayout(
       state.colonyClient[0],          // colonyClient
       state.task.id,                  // taskId
-      new BN('3000000000000000000'),  // amount
+      new BN('1000000000000000000'),  // amount
       state.tokenAddress,             // token
     );
     expect(JSON.parse(DATABASE.operations.setTaskWorkerPayout)).toEqual(expect.objectContaining({
       payload: expect.objectContaining({
         inputValues: expect.objectContaining({
-          amount: (new BN(10)).toJSON(),
+          amount: (new BN('1000000000000000000')).toJSON(),
         }),
       }),
     }));
@@ -427,7 +420,7 @@ describe('Colony Starter Basic', () => {
       state.task.id,                  // taskId
       state.tokenAddress,             // token
     );
-    expect(taskWorkerPayout.amount.toNumber()).toEqual(10);
+    expect(taskWorkerPayout.amount.toString()).toEqual('1000000000000000000');
   }, 5000);
 
   // Test the setTaskWorkerPayout() example from account[0]
@@ -441,9 +434,7 @@ describe('Colony Starter Basic', () => {
     expect(JSON.parse(DATABASE.operations.setTaskWorkerPayout)).toEqual(expect.objectContaining({
       payload: expect.objectContaining({
         inputValues: expect.objectContaining({
-          amount: expect.objectContaining({
-            _bn: (new BN('3000000000000000000')._bn).toJSON(),
-          }),
+          amount: (new BN('1000000000000000000')).toJSON(),
         }),
       }),
     }));
@@ -456,7 +447,7 @@ describe('Colony Starter Basic', () => {
       state.task.id,                  // taskId
       EMPTY_ADDRESS,                  // token
     );
-    expect(taskWorkerPayout.amount).toEqual(new BN('3000000000000000000'));
+    expect(taskWorkerPayout.amount.toString()).toEqual('1000000000000000000');
   }, 5000);
 
   // Test the removeTaskEvaluatorRole() example from account[0]
@@ -493,13 +484,13 @@ describe('Colony Starter Basic', () => {
     await setTaskEvaluatorRole(
       state.colonyClient[0],          // colonyClient
       state.task.id,                  // taskId
-      state.accounts[1],              // user
+      state.accounts[1][0],           // user
     );
     expect(JSON.parse(DATABASE.operations.setTaskEvaluatorRole)).toEqual(expect.objectContaining({
       payload: expect.objectContaining({
         inputValues: expect.objectContaining({
           taskId: state.task.id,
-          user: state.accounts[1],
+          user: state.accounts[1][0],
         }),
       }),
     }));
@@ -518,7 +509,10 @@ describe('Colony Starter Basic', () => {
 
   // Test the connectNetwork() example from account[1]
   test('account[1] connectNetwork() works', async () => {
-    state.networkClient[1] = await connectNetwork(1);
+    state.networkClient[1] = await connectNetwork(
+      'local',                        // network
+      state.accounts[1][1],           // privateKey
+    );
     expect(state.networkClient[1]).toEqual(expect.objectContaining({
       _contract: expect.objectContaining({
         address: expect.stringContaining('0x'),
@@ -547,7 +541,7 @@ describe('Colony Starter Basic', () => {
     );
     taskRole.address = taskRole.address.toLowerCase();
     expect(taskRole).toEqual(expect.objectContaining({
-      address: expect.stringMatching(state.accounts[1]),
+      address: expect.stringMatching(state.accounts[1][0]),
     }));
   }, 5000);
 
@@ -556,13 +550,13 @@ describe('Colony Starter Basic', () => {
     await setTaskWorkerRole(
       state.colonyClient[0],          // colonyClient
       state.task.id,                  // taskId
-      state.accounts[2],              // user
+      state.accounts[2][0],           // user
     );
     expect(JSON.parse(DATABASE.operations.setTaskWorkerRole)).toEqual(expect.objectContaining({
       payload: expect.objectContaining({
         inputValues: expect.objectContaining({
           taskId: state.task.id,
-          user: state.accounts[2],
+          user: state.accounts[2][0],
         }),
       }),
     }));
@@ -581,7 +575,10 @@ describe('Colony Starter Basic', () => {
 
   // Test the connectNetwork() example from account[2]
   test('account[2] connectNetwork() works', async () => {
-    state.networkClient[2] = await connectNetwork(2);
+    state.networkClient[2] = await connectNetwork(
+      'local',                        // network
+      state.accounts[2][1],           // privateKey
+    );
     expect(state.networkClient[2]).toEqual(expect.objectContaining({
       _contract: expect.objectContaining({
         address: expect.stringContaining('0x'),
@@ -610,7 +607,7 @@ describe('Colony Starter Basic', () => {
     );
     taskRole.address = taskRole.address.toLowerCase();
     expect(taskRole).toEqual(expect.objectContaining({
-      address: expect.stringMatching(state.accounts[2]),
+      address: expect.stringMatching(state.accounts[2][0]),
     }));
   }, 5000);
 
@@ -733,7 +730,7 @@ describe('Colony Starter Basic', () => {
       'MANAGER',                      // role
       state.tokenAddress,             // token
     );
-    expect(taskPayout.amount.toNumber()).toEqual(0);
+    expect(taskPayout.amount.toString()).toEqual('0');
   }, 5000);
 
   // Test the claimPayout() example from account[0]
@@ -744,7 +741,7 @@ describe('Colony Starter Basic', () => {
       'MANAGER',                      // role
       EMPTY_ADDRESS,                  // token
     );
-    expect(taskPayout.amount.toNumber()).toEqual(0);
+    expect(taskPayout.amount.toString()).toEqual('0');
   }, 5000);
 
   // Test the claimPayout() example from account[1]
@@ -755,7 +752,7 @@ describe('Colony Starter Basic', () => {
       'EVALUATOR',                    // role
       state.tokenAddress,             // token
     );
-    expect(taskPayout.amount.toNumber()).toEqual(0);
+    expect(taskPayout.amount.toString()).toEqual('0');
   }, 5000);
 
   // Test the claimPayout() example from account[1]
@@ -766,7 +763,7 @@ describe('Colony Starter Basic', () => {
       'EVALUATOR',                    // role
       EMPTY_ADDRESS,                  // token
     );
-    expect(taskPayout.amount.toNumber()).toEqual(0);
+    expect(taskPayout.amount.toString()).toEqual('0');
   }, 5000);
 
   // Test the claimPayout() example from account[2]
@@ -777,7 +774,7 @@ describe('Colony Starter Basic', () => {
       'WORKER',                       // role
       state.tokenAddress,             // token
     );
-    expect(taskPayout.amount.toNumber()).toEqual(0);
+    expect(taskPayout.amount.toString()).toEqual('0');
   }, 5000);
 
   // Test the claimPayout() example from account[2]
@@ -788,7 +785,7 @@ describe('Colony Starter Basic', () => {
       'WORKER',                       // role
       EMPTY_ADDRESS,                  // token
     );
-    expect(taskPayout.amount.toNumber()).toEqual(0);
+    expect(taskPayout.amount.toString()).toEqual('0');
   }, 5000);
 
 });

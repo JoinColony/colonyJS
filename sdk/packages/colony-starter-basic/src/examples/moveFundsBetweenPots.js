@@ -34,16 +34,16 @@ const moveFundsBetweenPots = async (colonyClient, fromPot, toPot, amount, token)
   });
 
   // Check out the log to see the pot balance
-  console.log('Pot Balance From (Before): ' + fromPotBalanceBefore.balance.toString());
+  console.log('Pot Balance From (Before):', fromPotBalanceBefore.balance.toString());
 
   // Check out the log to see the pot balance
-  console.log('Pot Balance To (Before): ' + toPotBalanceBefore.balance.toString());
+  console.log('Pot Balance To (Before):', toPotBalanceBefore.balance.toString());
 
   // Check out the log to see the pot balance
-  console.log('Pot Balance From (After): ' + fromPotBalanceAfter.balance.toString());
+  console.log('Pot Balance From (After):', fromPotBalanceAfter.balance.toString());
 
   // Check out the log to see the pot balance
-  console.log('Pot Balance To (After): ' + toPotBalanceAfter.balance.toString());
+  console.log('Pot Balance To (After):', toPotBalanceAfter.balance.toString());
 
   // Return the balance for the pot that funds were deposited into
   return toPotBalanceAfter;
