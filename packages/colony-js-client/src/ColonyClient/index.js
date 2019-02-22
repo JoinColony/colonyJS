@@ -173,7 +173,9 @@ export default class ColonyClient extends ContractClient {
 
   events: {
     ColonyAdminRoleRemoved: ColonyAdminRoleRemoved,
+    ColonyAdminRoleSet: ColonyAdminRoleSet,
     ColonyBootstrapped: ColonyBootstrapped,
+    ColonyFounderRoleSet: ColonyFounderRoleSet,
     ColonyFundsClaimed: ColonyFundsClaimed,
     ColonyFundsMovedBetweenFundingPots: ColonyFundsMovedBetweenFundingPots,
     ColonyInitialised: ColonyInitialised,
@@ -181,8 +183,8 @@ export default class ColonyClient extends ContractClient {
     ColonyRewardInverseSet: ColonyRewardInverseSet,
     ColonyUpgraded: ColonyUpgraded,
     DomainAdded: DomainAdded,
-    Mint: Mint,
     FundingPotAdded: FundingPotAdded,
+    Mint: Mint,
     RewardPayoutClaimed: RewardPayoutClaimed,
     RewardPayoutCycleEnded: RewardPayoutCycleEnded,
     RewardPayoutCycleStarted: RewardPayoutCycleStarted,
