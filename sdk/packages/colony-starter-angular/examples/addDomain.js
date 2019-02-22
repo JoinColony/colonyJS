@@ -1,8 +1,8 @@
 // An example using the addDomain method
-const addDomain = async (colonyClient, parentDomainId) => {
+const addDomain = async (colonyClient) => {
 
   // Create a new domain using the parent domain id
-  await colonyClient.addDomain.send({ parentDomainId });
+  await colonyClient.addDomain.send({ parentDomainId: 1 });
 
   // Get the total number of domains in the colony (our new domain id)
   const { count: domainId } = await colonyClient.getDomainCount.call();
