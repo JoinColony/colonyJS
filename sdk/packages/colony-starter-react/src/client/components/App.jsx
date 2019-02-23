@@ -1,6 +1,5 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
-import Accounts from '../containers/Accounts'
 import Create from './Create'
 import Manage from '../containers/Manage'
 import Footer from './Footer'
@@ -36,11 +35,6 @@ const App = ({
         </Switch>
         <Footer />
       </div>
-    }
-    {!networkClient &&  !connectNetworkLoading && !connectNetworkError &&
-      <Accounts
-        connectNetwork={connectNetwork}
-      />
     }
   </div>
 )

@@ -7,32 +7,23 @@ ROOT_PATH=$(pwd)
 log() {
   CYAN='\033[0;36m'
   NONE='\033[0m'
-  echo "\n  ${CYAN}[colony-starter-react]${NONE} $1\n"
+  echo "${CYAN}$1${NONE}"
 }
-
-# Initialize git repository
-log "Initializing git repository..."
-git init
-
-# Add gitignore file
-log "Adding gitignore file..."
-echo "node_modules" >> .gitignore
-echo "node_modules"
 
 # Pull docker image
 log "Pulling docker image..."
 docker pull ethereum/solc:0.4.23
 
-# Add colonyNetwork submodule
-log "Adding colonyNetwork submodule..."
-git submodule add https://github.com/JoinColony/colonyNetwork lib/colonyNetwork
+# Initialize colonyNetwork submodule
+log "Initializing colonyNetwork submodule..."
+git submodule update --init --recursive
 
 # Move to colonyNetwork directory
 cd lib/colonyNetwork
 
 # Set colonyNework version
 log "Checking out colonyNetwork version..."
-git -c advice.detachedHead=false checkout f73dc84a41f5fc1962c999a24e13b15ba491b8a6
+git -c advice.detachedHead=false checkout 9bba127b0286708d4f8919526a943b0e916cfd7c
 
 # Install colonyNetwork dependencies
 log "Installing colonyNetwork dependencies..."

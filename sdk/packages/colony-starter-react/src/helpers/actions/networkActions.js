@@ -1,39 +1,17 @@
-// import prerequisites
-const { providers, Wallet } = require('ethers')
-const { default: EthersAdapter } = require('@colony/colony-js-adapter-ethers')
-const { TrufflepigLoader } = require('@colony/colony-js-contract-loader-http')
-const { default: ColonyNetworkClient } = require('@colony/colony-js-client')
+// Import the prerequisites
+import { getNetworkClient } from '@colony/colony-js-client'
+import { open } from '@colony/purser-metamask'
 
-// instantiate TrufflepigLoader
-const loader = new TrufflepigLoader()
+// An example method for connecting to the network
+export const connectNetwork = async (network) => {
 
-// instantiate JsonRpcProvider
-const provider = new providers.JsonRpcProvider('http://localhost:8545/')
+  // Create a wallet
+  const wallet = await open()
 
-// connectNetwork
+  // Get the network client
+  const networkClient = await getNetworkClient(network, wallet)
 
-export const connectNetwork = async (accountIndex) => {
-
-  // get private key
-  const { privateKey } = await loader.getAccount(accountIndex)
-
-  // instantiate Wallet
-  const wallet = new Wallet(privateKey, provider)
-
-  // instantiate EthersAdapter
-  const adapter = new EthersAdapter({
-    loader,
-    provider,
-    wallet,
-  })
-
-  // instantiate ColonyNetworkClient
-  const networkClient = new ColonyNetworkClient({ adapter })
-
-  // initialize network client
-  await networkClient.init()
-
-  // return network client
+  // Return networkClient
   return networkClient
 
 }

@@ -1,9 +1,7 @@
 // Import prerequisites
-const log = require('./helpers/log');
-const { TrufflepigLoader } = require('@colony/colony-js-contract-loader-http');
 const { EMPTY_ADDRESS } = require('@colony/colony-js-client');
-const { utils } = require('ethers');
 const BN = require('bn.js');
+const log = require('./helpers/log');
 
 // Import examples
 const addDomain = require('./examples/addDomain');
@@ -15,6 +13,7 @@ const createColony = require('./examples/createColony');
 const createTask = require('./examples/createTask');
 const createToken = require('./examples/createToken');
 const finalizeTask = require('./examples/finalizeTask');
+const getAccounts = require('./examples/getAccounts');
 const getColonyClient = require('./examples/getColonyClient');
 const mintTokens = require('./examples/mintTokens');
 const moveFundsBetweenPots = require('./examples/moveFundsBetweenPots');
@@ -49,36 +48,31 @@ DATABASE = {
   operations: {},
 };
 
-// Colony Starter Basic example
-const colonyStarterBasic = async () => {
+// In order to demonstrate the complete task lifecycle, we will need to call
+// some of the examples using different accounts. The state object below will
+// store the accounts and the networkClient and colonyClient for each account
+// as well as state that will be shared across all accounts.
+const state = {
+  colonyClient: [],               // colonyClient (per account)
+  networkClient: [],              // networkClient (per account)
+};
 
-  // Instantiate TrufflepigLoader
-  const loader = new TrufflepigLoader();
+// A method that runs through the examples
+const colonyStarterExample = async () => {
 
-  // Get ganache test accounts
-  const accountsObject = await loader.getAccounts();
+  log('account[0] getAccounts:');
 
-  // Convert accounts object into an array of public keys
-  const accounts = Object.keys(accountsObject);
-
-  // A unix timestamp representing 31 days from now
-  const futureDueDate = new Date(Date.now() + 2678400000);
-
-  // In order to demonstrate the complete task lifecycle, we will need to call
-  // some of the examples using different accounts. The state object below will
-  // store the networkClient and colonyClient for each account as well as state
-  // that will be shared across all accounts.
-  const state = {
-    networkClient: [],              // networkClient (per account)
-    colonyClient: [],               // colonyClient (per account)
-  };
+  // Get the ganache test accounts and then store the returned "accounts" in
+  // the state object.
+  state.accounts = await getAccounts();
 
   log('account[0] connectNetwork:');
 
   // Connect to the network using the "connectNetwork" example and then store
   // the returned "networkClient" in the state object.
   state.networkClient[0] = await connectNetwork(
-    0,                              // accountIndex
+    'local',                        // network
+    state.accounts[0][1],           // privateKey
   );
 
   log('account[0] createToken:');
@@ -123,7 +117,7 @@ const colonyStarterBasic = async () => {
   // Mint tokens for our new token using the "mintTokens" example.
   await mintTokens(
     state.colonyClient[0],          // colonyClient
-    30,                             // amount
+    new BN('3000000000000000000'),  // amount
   );
 
   log('account[0] sendEther:');
@@ -131,7 +125,7 @@ const colonyStarterBasic = async () => {
   // Send ether to the colony using the "sendEther" example.
   await sendEther(
     state.colonyClient[0],          // accountIndex
-    utils.parseEther('3.0'),        // amount
+    new BN('3000000000000000000'),  // amount
   );
 
   log('account[0] claimColonyFunds:');
@@ -168,7 +162,7 @@ const colonyStarterBasic = async () => {
     state.colonyClient[0],          // colonyClient
     1,                              // fromPot
     state.domain.potId,             // toPot
-    new BN(30),                     // amount
+    new BN('3000000000000000000'),  // amount
     state.tokenAddress,             // token
   );
 
@@ -179,7 +173,7 @@ const colonyStarterBasic = async () => {
     state.colonyClient[0],          // colonyClient
     1,                              // fromPot
     state.domain.potId,             // toPot
-    utils.parseEther('3.0'),        // amount
+    new BN('3000000000000000000'),  // amount
     EMPTY_ADDRESS,                  // token
   );
 
@@ -205,7 +199,7 @@ const colonyStarterBasic = async () => {
     state.colonyClient[0],          // colonyClient
     state.domain.potId,             // fromPot
     state.task.potId,               // toPot
-    new BN(30),                     // amount
+    new BN('3000000000000000000'),  // amount
     state.tokenAddress,             // token
   );
 
@@ -216,7 +210,7 @@ const colonyStarterBasic = async () => {
     state.colonyClient[0],          // colonyClient
     state.domain.potId,             // fromPot
     state.task.potId,               // toPot
-    utils.parseEther('3.0'),        // amount
+    new BN('3000000000000000000'),  // amount
     EMPTY_ADDRESS,                  // token
   );
 
@@ -260,9 +254,9 @@ const colonyStarterBasic = async () => {
   // operation in our database. The operation will need to be signed by all
   // "requiredSignees" before the changes to our task will take affect.
   await setTaskDueDate(
-    state.colonyClient[0],          // colonyClient
-    state.task.id,                  // taskId
-    futureDueDate,                  // dueDate
+    state.colonyClient[0],              // colonyClient
+    state.task.id,                      // taskId
+    new Date(Date.now() + 2678400000),  // dueDate
   );
 
   log('account[0] signSetTaskDueDate:');
@@ -283,7 +277,7 @@ const colonyStarterBasic = async () => {
   await setTaskManagerPayout(
     state.colonyClient[0],          // colonyClient
     state.task.id,                  // taskId
-    new BN(10),                     // amount
+    new BN('1000000000000000000'),  // amount
     state.tokenAddress,             // token
   );
 
@@ -306,7 +300,7 @@ const colonyStarterBasic = async () => {
   await setTaskManagerPayout(
     state.colonyClient[0],          // colonyClient
     state.task.id,                  // taskId
-    utils.parseEther('1.0'),        // amount
+    new BN('1000000000000000000'),  // amount
     EMPTY_ADDRESS,                  // token
   );
 
@@ -332,7 +326,7 @@ const colonyStarterBasic = async () => {
   await setTaskEvaluatorPayout(
     state.colonyClient[0],          // colonyClient
     state.task.id,                  // taskId
-    new BN(10),                     // amount
+    new BN('1000000000000000000'),  // amount
     state.tokenAddress,             // token
   );
 
@@ -358,7 +352,7 @@ const colonyStarterBasic = async () => {
   await setTaskEvaluatorPayout(
     state.colonyClient[0],          // colonyClient
     state.task.id,                  // taskId
-    utils.parseEther('1.0'),        // amount
+    new BN('1000000000000000000'),  // amount
     EMPTY_ADDRESS,                  // token
   );
 
@@ -384,7 +378,7 @@ const colonyStarterBasic = async () => {
   await setTaskWorkerPayout(
     state.colonyClient[0],          // colonyClient
     state.task.id,                  // taskId
-    new BN(10),                     // amount
+    new BN('1000000000000000000'),  // amount
     state.tokenAddress,             // token
   );
 
@@ -410,7 +404,7 @@ const colonyStarterBasic = async () => {
   await setTaskWorkerPayout(
     state.colonyClient[0],          // colonyClient
     state.task.id,                  // taskId
-    utils.parseEther('1.0'),        // amount
+    new BN('1000000000000000000'),  // amount
     EMPTY_ADDRESS,                  // token
   );
 
@@ -447,7 +441,7 @@ const colonyStarterBasic = async () => {
   await setTaskEvaluatorRole(
     state.colonyClient[0],          // colonyClient
     state.task.id,                  // taskId
-    accounts[1],                    // user
+    state.accounts[1][0],           // user
   );
 
   log('account[0] signSetTaskEvaluatorRole:');
@@ -462,7 +456,8 @@ const colonyStarterBasic = async () => {
   // Connect to the network using the "connectNetwork" example and then store
   // the returned "networkClient" in the state object.
   state.networkClient[1] = await connectNetwork(
-    1,                              // accountIndex
+    'local',                        // network
+    state.accounts[1][1],           // privateKey
   );
 
   log('account[1] getColonyClient:');
@@ -487,7 +482,7 @@ const colonyStarterBasic = async () => {
   await setTaskWorkerRole(
     state.colonyClient[0],          // colonyClient
     state.task.id,                  // taskId
-    accounts[2],                    // user
+    state.accounts[2][0],           // user
   );
 
   log('account[0] signSetTaskWorkerRole:');
@@ -502,7 +497,8 @@ const colonyStarterBasic = async () => {
   // Connect to the network using the "connectNetwork" example and then store
   // the returned "networkClient" in the state object.
   state.networkClient[2] = await connectNetwork(
-    2,                              // accountIndex
+    'local',                        // network
+    state.accounts[2][1],           // privateKey
   );
 
   log('account[2] getColonyClient:');
@@ -686,6 +682,6 @@ const colonyStarterBasic = async () => {
 }
 
 // Execute example
-colonyStarterBasic()
+colonyStarterExample()
   .then(() => process.exit())
   .catch(err => console.error(err));

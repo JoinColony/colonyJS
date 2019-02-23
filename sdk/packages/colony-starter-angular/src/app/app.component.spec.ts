@@ -1,13 +1,17 @@
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { async, TestBed } from "@angular/core/testing";
+import { MatSnackBarModule } from "@angular/material";
 import { AppComponent } from "./app.component";
+import { AppService } from "./app.service";
 
 describe("AppComponent", () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        AppComponent,
-      ],
+      declarations: [ AppComponent ],
+      imports: [ MatSnackBarModule ],
+      providers: [ AppService ],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
     }).compileComponents();
   }));
 
@@ -15,19 +19,6 @@ describe("AppComponent", () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
-  });
-
-  it(`should have as title "colony-starter-angular"`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual("colony-starter-angular");
-  });
-
-  it("should render title in a h1 tag", () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector("h1").textContent).toContain("Welcome to colony-starter-angular!");
   });
 
 });

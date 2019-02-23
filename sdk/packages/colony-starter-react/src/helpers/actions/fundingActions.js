@@ -85,12 +85,12 @@ export const getClaimableFunds = async (colonyClient) => {
 
 }
 
-// getPotBalance
+// getFundingPotBalance
 
-export const getPotBalance = async (colonyClient, potId) => {
+export const getFundingPotBalance = async (colonyClient, potId) => {
 
   // get pot balance
-  const potBalance = await colonyClient.getPotBalance.call({
+  const potBalance = await colonyClient.getFundingPotBalance.call({
     potId,
     token: colonyClient.tokenClient.contract.address,
   })
@@ -126,7 +126,7 @@ export const getPots = async (colonyClient) => {
     const { potId } = await getDomain(colonyClient, domainId)
 
     // get pot balance for domain
-    const potBalance = await getPotBalance(colonyClient, potId)
+    const potBalance = await getFundingPotBalance(colonyClient, potId)
 
     // set pot properties
     pot.id = potId
@@ -160,7 +160,7 @@ export const getPots = async (colonyClient) => {
     const { potId, specification: { title } } = await getTask(colonyClient, taskId)
 
     // get pot balance for task
-    const potBalance = await getPotBalance(colonyClient, potId)
+    const potBalance = await getFundingPotBalance(colonyClient, potId)
 
     // set properties
     pot.id = potId

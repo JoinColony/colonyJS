@@ -28,6 +28,7 @@ process.on('uncaughtException', handleError);
 // Log start
 console.log();
 console.log(chalk.cyan('  Starting test install...'));
+console.log();
 
 // Get package name from argument
 const packageName = process.argv[2];

@@ -4,6 +4,16 @@
 module.exports = function (config) {
   config.set({
     basePath: './app',
+    customLaunchers: {
+      ChromeHeadless:  {
+        base:   'Chrome',
+        flags:  [
+          '--headless',
+          '--disable-gpu',
+          '--remote-debugging-port=9222',
+        ],
+      }
+    },
     frameworks: ['jasmine', '@angular-devkit/build-angular'],
     plugins: [
       require('karma-jasmine'),
@@ -13,7 +23,7 @@ module.exports = function (config) {
       require('@angular-devkit/build-angular/plugins/karma')
     ],
     autoWatch: false,
-    browsers: ['Chrome'],
+    browsers: ['ChromeHeadless'],
     singleRun: true
   });
 };

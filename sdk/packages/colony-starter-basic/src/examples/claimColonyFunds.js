@@ -5,7 +5,7 @@ const claimColonyFunds = async (colonyClient, token) => {
   await colonyClient.claimColonyFunds.send({ token });
 
   // Get the pot balance of our colony
-  const potBalance = await colonyClient.getPotBalance.call({
+  const potBalance = await colonyClient.getFundingPotBalance.call({
     potId: 1,
     token,
   });

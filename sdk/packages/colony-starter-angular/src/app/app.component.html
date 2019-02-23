@@ -5,80 +5,104 @@
 <div class="row">
   <div class="col-6">
     <mat-list>
-      <mat-list-item>Network Address: {{model.networkClient.addr}}</mat-list-item>
-      <mat-list-item>Account Address: {{model.networkClient.accountAddr}}</mat-list-item>
-      <mat-list-item *ngIf="model.token.address">Token Address: {{model.token.address}}</mat-list-item>
-      <mat-list-item *ngIf="model.colony.address">Colony Address: {{model.colony.address}} | ID: {{model.colony.id}}</mat-list-item>      
-    </mat-list> 
-  </div><!-- end col -->
+      <mat-list-item *ngIf="model.networkClient">
+        Network Address: {{model.networkClient.contract.address}}
+      </mat-list-item>
+      <mat-list-item *ngIf="model.networkClient">
+        Account Address: {{model.networkClient.contract.signer.address}}
+      </mat-list-item>
+      <mat-list-item *ngIf="model.token">
+        Token Address: {{model.token.address}}
+      </mat-list-item>
+      <mat-list-item *ngIf="model.colony">
+        Colony Address: {{model.colony.address}} | ID: {{model.colony.id}}
+      </mat-list-item>
+    </mat-list>
+  </div>
   <div class="col-6">
     <mat-list>
-      <mat-list-item *ngIf="model.domain.id">Domain ID: {{model.domain.id}} LocalSkillID: {{model.domain.localSkillId}} PotID: {{model.domain.potId}}</mat-list-item>
+      <mat-list-item *ngIf="model.domain">
+        Domain ID: {{model.domain.id}} LocalSkillID: {{model.domain.localSkillId}} PotID: {{model.domain.potId}}
+      </mat-list-item>
       <br>
-      <mat-list-item *ngIf="model.taskObject">Task: {{model.taskObject | json}}</mat-list-item>
-    </mat-list> 
-  </div><!-- end col -->
-</div><!-- end row -->
+      <mat-list-item *ngIf="model.task">
+        Task: {{model.task | json}}
+      </mat-list-item>
+    </mat-list>
+  </div>
+</div>
 <div class="row">
   <div class="col-6">
     <form>
       <mat-card>
-        <mat-card-header>Create Token <span *ngIf="model.token.name">: {{model.token.name}} {{model.token.symbol}}</span></mat-card-header>
+        <mat-card-header>
+          Create Token <span *ngIf="model.token">: {{model.token.symbol}}</span>
+        </mat-card-header>
         <mat-card-content>
-          <mat-form-field>
-            <input matInput placeholder="Token Name" #tokenName>
-          </mat-form-field>
           <mat-form-field>
             <input matInput placeholder="Token Symbol" #tokenSymbol>
           </mat-form-field>
-          <button mat-button type="button" color="primary" (click)="token(tokenName.value, tokenSymbol.value)">Create Token</button>
+          <button mat-button type="button" color="primary" (click)="token(tokenSymbol.value)">
+            Create Token
+          </button>
         </mat-card-content>
       </mat-card>
     </form>
-  </div><!-- end col -->
+  </div>
   <div class="col-6">
     <form>
       <mat-card>
-        <mat-card-header>Add Domain</mat-card-header>
+        <mat-card-header>
+          Add Domain
+        </mat-card-header>
         <mat-card-content>
-          <button mat-button type="button" color="primary" (click)="addDomain()">Add Domain</button>
+          <button mat-button type="button" color="primary" (click)="addDomain()">
+            Add Domain
+          </button>
         </mat-card-content>
       </mat-card>
     </form>
-  </div><!-- end col -->
-</div><!-- end row -->
+  </div>
+</div>
 <div class="row">
   <div class="col-6">
     <form>
       <mat-card>
-        <mat-card-header>Create Colony and Get Colony Cient</mat-card-header>
+        <mat-card-header>
+          Create Colony and Get Colony Cient
+        </mat-card-header>
         <mat-card-content>
           <mat-form-field>
             <input matInput placeholder="Token Address" #tokenAddress>
           </mat-form-field>
-          <button mat-button type="button" color="primary" (click)="createColony(tokenAddress.value)">Create Colony</button>
+          <button mat-button type="button" color="primary" (click)="createColony(tokenAddress.value)">
+            Create Colony
+          </button>
         </mat-card-content>
       </mat-card>
     </form>
-  </div><!-- end col -->  
+  </div>
   <div class="col-6">
     <form>
       <mat-card>
-        <mat-card-header>Create Task <span *ngIf="model.task.title">: {{model.task.title}} {{model.task.desc}}</span></mat-card-header>
+        <mat-card-header>
+          Create Task <span *ngIf="model.task">: {{model.task.title}} {{model.task.desc}}</span>
+        </mat-card-header>
         <mat-card-content>
           <mat-form-field>
             <input matInput placeholder="Task Title" #taskTitle>
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="Task Description" #taskDesc>
+            <input matInput placeholder="Task Description" #taskDescription>
           </mat-form-field>
           <mat-form-field>
             <input matInput placeholder="Domain ID" #domainId>
           </mat-form-field>
-          <button mat-button type="button" color="primary" (click)="createTask(taskTitle.value, taskDesc.value, domainId.value)">Create Task</button>
+          <button mat-button type="button" color="primary" (click)="createTask(taskTitle.value, taskDescription.value, domainId.value)">
+            Create Task
+          </button>
         </mat-card-content>
       </mat-card>
     </form>
-  </div><!-- end col -->
-</div><!-- end row -->
-
+  </div>
+</div>

@@ -1,7 +1,21 @@
-import { NgModule } from "@angular/core";
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  NgModule,
+} from "@angular/core";
+import {
+  MatButtonModule,
+  MatCardModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatInputModule,
+  MatMenuModule,
+  MatSidenavModule,
+  MatSnackBarModule,
+  MatToolbarModule,
+  MatTooltipModule,
+} from "@angular/material";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { MatButtonModule, MatCardModule, MatInputModule, MatListModule, MatSnackBarModule, MatToolbarModule } from "@angular/material";
 import { AppComponent } from "./app.component";
 import { AppService } from "./app.service";
 
@@ -11,14 +25,19 @@ import { AppService } from "./app.service";
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MatToolbarModule,
-    MatInputModule,
-    MatCardModule,
     MatButtonModule,
-    MatListModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatMenuModule,
+    MatSidenavModule,
     MatSnackBarModule,
+    MatToolbarModule,
+    MatTooltipModule,
   ],
   providers: [AppService],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
 })
 
 export class AppModule { }

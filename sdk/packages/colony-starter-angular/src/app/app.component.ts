@@ -12,41 +12,19 @@ export class AppComponent implements OnInit {
 
   public title = "colony-starter-angular";
   public status = "";
-
-  public state = {
-    colonyClient: [],     // colonyClient (per account)
-    networkClient: [],    // networkClient (per account)
-  };
-
   public model = {
-    colony: {
-      address: "",
-      id: null,
-    },
-    domain: {
-      id: null,
-      parentSkillId: null,
-      potId: null,
-    },
-    networkClient: {
-      accountAddr: "",
-      addr: "",
-    },
-    parentDomainId: 1,
-    task: {
-      desc: "",
-      title: "",
-    },
-    taskObject: null,
-    token: {
-      address: "",
-      name: "",
-      symbol: "",
-    },
+    colony: null,
+    colonyClient: null,
+    domain: null,
+    networkClient: null,
+    task: null,
+    token: null,
   };
 
-  constructor(@Inject(MatSnackBar) private matSnackBar: MatSnackBar,
-              @Inject(AppService) private appService: AppService) {}
+  constructor(
+    @Inject(MatSnackBar) private matSnackBar: MatSnackBar,
+    @Inject(AppService) private appService: AppService,
+  ) {}
 
   public ngOnInit(): void {
     this.start();
@@ -54,36 +32,34 @@ export class AppComponent implements OnInit {
 
   public async start() {
     // Create an instance of ColonyNetworkClient using the adapter
-    this.appService.connectNetwork().then( (res) => {
-      this.state.networkClient[0] = res;
-      this.model.networkClient.addr = this.state.networkClient[0]._contract.address;
-      this.model.networkClient.accountAddr = this.state.networkClient[0]._contract.signer.address;
-    }).catch( (err) => {
+    this.appService.connectNetwork().then((res) => {
+      this.model.networkClient = res;
+    }).catch((err) => {
       this.setStatus("Error: See console");
       console.error(err);
     });
   }
 
   // Create an ERC20 token
-  public async token(name, symbol) {
+  public async token(symbol: string) {
     this.setStatus("Initiating tx...");
-    this.appService.createToken(this.state.networkClient[0], name, symbol).then( (res) => {
+    this.appService.createToken(this.model.networkClient, symbol).then((res) => {
       this.model.token.name = name;
       this.model.token.symbol = symbol;
       this.model.token.address = res;
-    }).catch( (err) => {
+    }).catch((err) => {
       this.setStatus("Error: See console");
       console.error(err);
     });
   }
 
   // Create a colony using the token address of the ERC20 token
-  public async createColony(tokenAddress) {
+  public async createColony(tokenAddress: string) {
     this.setStatus("Initiating tx...");
-    this.appService.createColony(this.state.networkClient[0], tokenAddress).then( (res) => {
+    this.appService.createColony(this.model.networkClient, tokenAddress).then((res) => {
       this.model.colony = res;
       this.getColonyClient();
-    }).catch( (err) => {
+    }).catch((err) => {
       this.setStatus("Error: See console");
       console.error(err);
     });
@@ -91,37 +67,35 @@ export class AppComponent implements OnInit {
 
   // Get an initialized ColonyClient for the colony
   public async getColonyClient() {
-    this.appService.getColonyClient(this.state.networkClient[0], this.model.colony.id).then( (res) => {
-      this.state.colonyClient[0] = res;
+    this.appService.getColonyClient(this.model.networkClient, this.model.colony.id).then((res) => {
+      this.model.colonyClient = res;
     });
   }
 
   // Add a domain to the colony
   public async addDomain() {
     this.setStatus("Initiating tx...");
-    this.appService.addDomain(this.state.colonyClient[0], this.model.parentDomainId).then( (res) => {
+    this.appService.addDomain(this.model.colonyClient).then((res) => {
       this.model.domain = res;
-    }).catch( (err) => {
+    }).catch((err) => {
       this.setStatus("Error: See console");
       console.error(err);
     });
   }
 
   // Create a task in the colony
-  public async createTask(title, desc, domainId) {
+  public async createTask(title: string, description: string, domainId: number) {
     this.setStatus("Initiating tx...");
-    const taskObj = {title, desc};
-    this.model.task.title = title;
-    this.model.task.desc = desc;
-    this.appService.createTask(this.state.colonyClient[0], Number(domainId), taskObj).then( (res) => {
-      this.model.taskObject = res;
-    }).catch( (err) => {
+    const taskSpecification = { title, description };
+    this.appService.createTask(this.model.colonyClient, Number(domainId), taskSpecification).then((res) => {
+      this.model.task = res;
+    }).catch((err) => {
       this.setStatus("Error: See console");
       console.error(err);
     });
   }
 
-  private setStatus(status) {
-    this.matSnackBar.open(status, null, {duration: 3000});
+  private setStatus(status: string) {
+    this.matSnackBar.open(status, null, { duration: 3000 });
   }
 }

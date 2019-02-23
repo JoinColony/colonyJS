@@ -4,9 +4,9 @@ import * as networkActions from '../../helpers/actions/networkActions'
 
 // connectNetwork
 
-export const connectNetwork = (accountIndex) => ({
+export const connectNetwork = (network) => ({
   type: actions.CONNECT_NETWORK,
-  payload: networkActions.connectNetwork(accountIndex)
+  payload: networkActions.connectNetwork(network)
     .then(networkClient => {
       store.dispatch(setStateNetworkClient(networkClient))
       store.dispatch(connectNetworkSuccess(true))
