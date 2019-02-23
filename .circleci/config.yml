@@ -5,7 +5,9 @@ jobs:
   test-coverage:
 
     docker:
-      - image: circleci/node:10.12.0
+      - image: circleci/node:10.12.0-browsers
+        environment:
+            CHROME_BIN: "/usr/bin/google-chrome"
 
     steps:
       - checkout
