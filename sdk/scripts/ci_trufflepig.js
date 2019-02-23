@@ -6,8 +6,8 @@ const path = require('path');
 const TrufflePig = require('trufflepig');
 
 const trufflePigOptions = {
-  contractDir: path.resolve(__dirname, '..', 'modules', 'colonyNetwork', 'build', 'contracts'),
-  ganacheKeyFile: path.resolve(__dirname, '..', 'modules', 'colonyNetwork', 'ganache-accounts.json'),
+  contractDir: path.resolve(__dirname, '..', 'lib', 'colonyNetwork', 'build', 'contracts'),
+  ganacheKeyFile: path.resolve(__dirname, '..', 'lib', 'colonyNetwork', 'ganache-accounts.json'),
   verbose: true,
 };
 

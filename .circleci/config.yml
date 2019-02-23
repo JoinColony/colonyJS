@@ -52,17 +52,21 @@ jobs:
             $HOME/.config/yarn/global/node_modules/.bin/greenkeeper-lockfile-upload
 
 workflows:
+
   version: 2
+
   commit:
     jobs:
       - test-coverage
+
   nightly:
     triggers:
       - schedule:
-          cron: "0 1 * * *" # 1am UTC
+          cron: "0 1 * * *"
           filters:
             branches:
               only:
                 - master
+
     jobs:
       - test-coverage
