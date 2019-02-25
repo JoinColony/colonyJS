@@ -74,7 +74,12 @@ export default class EthersWrappedWallet {
       txHash = await this.provider.sendTransaction(signedTx);
     }
 
-    return this.provider.getTransaction(txHash);
+    // We need to wait for transaction to be mined but ganache will mine the
+    // transaction too quickly causing us to wait indefinitely, therefore, we
+    // need to try getting the transaction and then, if that fails, we need to
+    // try getting the transaction using `waitForTransaction`.
+    const transaction = await this.provider.getTransaction(txHash);
+    return transaction || this.provider.waitForTransaction(txHash);
   }
 
   /**
