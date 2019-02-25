@@ -7,7 +7,7 @@
     "access": "public"
   },
   "bin": {
-    "colony-starter": "./index.js"
+    "colony": "./index.js"
   },
   "dependencies": {
     "chalk": "^2.4.1",

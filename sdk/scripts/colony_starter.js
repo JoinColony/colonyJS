@@ -43,13 +43,16 @@ if (process.argv[2] === 'build') {
 
   // Log start
   console.log();
-  console.log(chalk.cyan('  Preparing local test build...'));
+  console.log(chalk.cyan('  Starting local build...'));
   console.log();
+
+  // Define package name
+  const packageName = `colony-starter-${process.argv[3]}`;
 
   // Define paths
   const buildPath = path.join(rootPath, 'build');
   const packagesPath = path.join(rootPath, 'packages');
-  const packagePath = path.join(packagesPath, process.argv[3]);
+  const packagePath = path.join(packagesPath, packageName);
   const packageJSON = path.join(packagePath, 'package.json');
 
   // Check if package exists
@@ -84,7 +87,7 @@ if (process.argv[2] === 'build') {
     {
       cwd: buildPath,
       stdio: 'inherit',
-    }
+    },
   );
 
 } else {
@@ -94,7 +97,7 @@ if (process.argv[2] === 'build') {
     `node ${scriptPath} ${scriptArguments}`,
     {
       stdio: 'inherit',
-    }
+    },
   );
 
 }

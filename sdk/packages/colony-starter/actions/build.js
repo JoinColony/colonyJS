@@ -13,7 +13,9 @@ const url = require('url');
 const os = require('os');
 
 // Install and build a starter package
-const build = (commander, packageName) => {
+const build = (commander, shortName) => {
+
+  const packageName = `colony-starter-${shortName}`;
 
   // Make sure package name is defined
   if (typeof packageName === 'undefined') {
@@ -24,7 +26,7 @@ const build = (commander, packageName) => {
     console.log();
     console.log('For example:');
     console.log();
-    console.log(`  ${chalk.cyan(commander.name())} build ${chalk.cyan('colony-starter-basic')}`);
+    console.log(`  ${chalk.cyan(commander.name())} build ${chalk.cyan('basic')}`);
     console.log();
     process.exit(1);
   }
@@ -154,12 +156,12 @@ const isYarnInstalled = () => {
 const getSpecificPackage = (packageName, specific) => {
   const validSemver = semver.valid(specific);
   if (validSemver) {
-    return `@colony/${packageName}@${validSemver}`;
+    return `@colony/colony-starter-${packageName}@${validSemver}`;
   }
   if (specific) {
     return specific;
   }
-  return `@colony/${packageName}`;
+  return `@colony/colony-starter-${packageName}`;
 }
 
 // Get package tarball and/or unpack package tarball
