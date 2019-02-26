@@ -1,10 +1,16 @@
 # Changelog
 
-## v.NEXT
+## v1.11.2
+
+**Bug Fixes**
+
+* Fix transaction retrieval after sending in `EthersWrappedWallet` (`@colony/colony-js-client`)
 
 **Types**
 
 * Add missing event definitions to `ColonyClient` (`@colony/colony-js-client`)
+  * `ColonyAdminRoleSet`
+  * `ColonyFounderRoleSet`
 
 ## v1.11.1
 
