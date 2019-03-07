@@ -107,7 +107,7 @@ Within your root directory, create a subdirectory named `scripts`.
 
 ### postinstall.sh
 
-Within the `scripts` directory, create a file named `postintall.sh` and add the following code:
+Within the `scripts` directory, create a file named `postinstall.sh` and add the following code:
 
 ```
 #!/bin/bash
@@ -134,7 +134,7 @@ The colonyNetwork smart contracts require the `ethereum/solc:0.4.23` image from 
 
 **# Update colonyNetwork**
 
-This will update the colonyNetwork submodule to the colonyNetwork version that you set above. The `--recurseive` flag will update all of the submodules within the colonyNetwork submodule as well. This will ensure that anyone who is working on the project is using the same version of colonyNetwork and the same version of each submodule within colonyNetwork.
+This will update the colonyNetwork submodule to the colonyNetwork version that you set above. The `--recursive` flag will update all of the submodules within the colonyNetwork submodule as well. This will ensure that anyone who is working on the project is using the same version of colonyNetwork and the same version of each submodule within colonyNetwork.
 
 **# Move to colonyNetwork**
 
