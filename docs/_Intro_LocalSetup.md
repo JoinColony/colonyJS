@@ -107,7 +107,7 @@ Within your root directory, create a subdirectory named `scripts`.
 
 ### postinstall.sh
 
-Within the `scripts` directory, create a file named `postintall.sh` and add the following code:
+Within the `scripts` directory, create a file named `postinstall.sh` and add the following code:
 
 ```
 #!/bin/bash
@@ -134,7 +134,7 @@ The colonyNetwork smart contracts require the `ethereum/solc:0.4.23` image from 
 
 **# Update colonyNetwork**
 
-This will update the colonyNetwork submodule to the colonyNetwork version that you set above. The `--recurseive` flag will update all of the submodules within the colonyNetwork submodule as well. This will ensure that anyone who is working on the project is using the same version of colonyNetwork and the same version of each submodule within colonyNetwork.
+This will update the colonyNetwork submodule to the colonyNetwork version that you set above. The `--recursive` flag will update all of the submodules within the colonyNetwork submodule as well. This will ensure that anyone who is working on the project is using the same version of colonyNetwork and the same version of each submodule within colonyNetwork.
 
 **# Move to colonyNetwork**
 
@@ -159,7 +159,7 @@ Within the `scripts` directory, create a file named `start_ganache.sh` and add t
 cd lib/colonyNetwork
 
 # Start local test network
-ganache-cli --acctKeys "./ganache-accounts.json" --noVMErrorsOnRPCResponse --gasLimit 6721975 \
+./node_modules/.bin/ganache-cli --acctKeys "./ganache-accounts.json" --noVMErrorsOnRPCResponse --gasLimit 6721975 \
   --account="0x0355596cdb5e5242ad082c4fe3f8bbe48c9dba843fe1f99dd8272f487e70efae, 100000000000000000000" \
   --account="0xe9aebe8791ad1ebd33211687e9c53f13fe8cca53b271a6529c7d7ba05eda5ce2, 100000000000000000000" \
   --account="0x6f36842c663f5afc0ef3ac986ec62af9d09caa1bbf59a50cdb7334c9cc880e65, 100000000000000000000" \
