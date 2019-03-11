@@ -33,13 +33,13 @@ yarn global add @colony/colony-starter
 Move to your working directory and unpack the [colony-starter-basic](/colonystarter/packages-colony-starter-basic/) package:
 
 ```
-colony-starter colony-starter-basic
+colony build basic
 ```
 
 Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and kickstart the [colony-starter-basic](/colonystarter/packages-colony-starter-basic/) package in one line without having to globally add the `colony-starter` package:
 
 ```
-npx -p @colony/colony-starter colony-starter colony-starter-basic
+npx -p @colony/colony-starter colony build basic
 ```
 
 ### Step 3

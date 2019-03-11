@@ -53,7 +53,7 @@ yarn start
 
 ### Open Your Browser
 
-Open your browser and checkout the example react app::
+Open your browser and check out the example react app::
 
 [localhost:8080](http://localhost:8080)
 
