@@ -43,10 +43,10 @@ class TaskActionsContainer extends Component {
 
   canClaimPayout() {
     const status = this.props.task.status
-    const userAddress = this.props.colonyClient.adapter.wallet.address
-    const managerAddress = this.props.task.roles.manager.address
-    const evaluatorAddress = this.props.task.roles.evaluator.address
-    const workerAddress = this.props.task.roles.worker.address
+    const userAddress = this.props.colonyClient.adapter.wallet.address.toLowerCase()
+    const managerAddress = this.props.task.roles.manager.address.toLowerCase()
+    const evaluatorAddress = this.props.task.roles.evaluator.address.toLowerCase()
+    const workerAddress = this.props.task.roles.worker.address.toLowerCase()
     const potBalance = this.props.task.pot.balance
     return (
       status === 'FINALIZED' && (
@@ -73,24 +73,27 @@ class TaskActionsContainer extends Component {
   }
 
   canRevealRating() {
-    const userAddress = this.props.colonyClient.adapter.wallet.address
-    const evaluatorAddress = this.props.task.roles.evaluator.address
-    const workerAddress = this.props.task.roles.worker.address
+    const userAddress = this.props.colonyClient.adapter.wallet.address.toLowerCase()
+    const evaluatorAddress = this.props.task.roles.evaluator.address.toLowerCase()
+    const workerAddress = this.props.task.roles.worker.address.toLowerCase()
     const completionDate = this.props.task.completionDate
     const ratingsCount = this.props.task.ratings.count
     const managerRating = this.props.task.roles.manager.rating
     const workerRating = this.props.task.roles.worker.rating
     return (
-      (userAddress === evaluatorAddress && workerRating === 0 || userAddress === workerAddress && managerRating === 0) &&
+      (
+        userAddress === evaluatorAddress && workerRating === 0 ||
+        userAddress === workerAddress && managerRating === 0
+      ) &&
       completionDate !== null &&
       ratingsCount === 2
     )
   }
 
   canSubmitRating() {
-    const userAddress = this.props.colonyClient.adapter.wallet.address
-    const evaluatorAddress = this.props.task.roles.evaluator.address
-    const workerAddress = this.props.task.roles.worker.address
+    const userAddress = this.props.colonyClient.adapter.wallet.address.toLowerCase()
+    const evaluatorAddress = this.props.task.roles.evaluator.address.toLowerCase()
+    const workerAddress = this.props.task.roles.worker.address.toLowerCase()
     const completionDate = this.props.task.completionDate
     const ratingsCount = this.props.task.ratings.count
     return (
@@ -101,9 +104,14 @@ class TaskActionsContainer extends Component {
   }
 
   canSubmitWork() {
-    const userAddress = this.props.colonyClient.adapter.wallet.address
-    const workerAddress = this.props.task.roles.worker.address
+    const userAddress = this.props.colonyClient.adapter.wallet.address.toLowerCase()
+    const workerAddress = this.props.task.roles.worker.address.toLowerCase()
     const completionDate = this.props.task.completionDate
+
+    console.log('userAddress', userAddress)
+    console.log('workerAddress', workerAddress)
+    console.log('completionDate', completionDate)
+
     return (
       userAddress === workerAddress &&
       completionDate === null
