@@ -1,6 +1,5 @@
 // Import dependencies
 const chalk = require('chalk');
-const commander = require('commander');
 const fs = require('fs-extra');
 const path = require('path');
 const cp = require('child_process');
@@ -10,27 +9,25 @@ const dns = require('dns');
 const tmp = require('tmp');
 const tarPack = require('tar-pack');
 const url = require('url');
-const os = require('os');
 
 // Install and build a starter package
-const build = (commander, shortName) => {
+const build = async (commander, packageName) => {
 
-  const packageName = `colony-starter-${shortName}`;
+  // Log step
+  console.log();
+  console.log(`  Starting ${chalk.cyan('build')} action...`);
 
   // Make sure package name is defined
   if (typeof packageName === 'undefined') {
     console.log();
-    console.error('Please specify a starter package:');
+    console.log('The name of the package is required:');
     console.log();
-    console.log(`  ${chalk.cyan(commander.name())} build ${chalk.cyan('<package-name>')}`);
-    console.log();
-    console.log('For example:');
-    console.log();
-    console.log(`  ${chalk.cyan(commander.name())} build ${chalk.cyan('basic')}`);
+    console.log(`  ${commander.name()} build ${chalk.cyan('<package-name>')}`);
     console.log();
     process.exit(1);
   }
 
+  // Log step
   console.log();
   console.log(`  Verifying ${chalk.cyan('yarn')} is installed...`);
 
@@ -42,103 +39,152 @@ const build = (commander, shortName) => {
     process.exit(1);
   }
 
+  // Format package name
+  const formattedName = packageName.includes('colony-starter-')
+    ? packageName
+    : `colony-starter-${packageName}`;
+
+  // Log step
   console.log();
-  console.log(`  Creating ${chalk.cyan(packageName)} folder...`);
+  console.log(`  Creating ${chalk.cyan(formattedName)} folder...`);
 
   // Set destination path
-  const destinationPath = path.resolve(packageName);
+  const destinationPath = path.resolve(formattedName);
 
-  // Ensure destination path exists
+  // Ensure destination exists
   fs.ensureDirSync(destinationPath);
 
-  // Make sure destination directory is empty
+  // Ensure destination directory is empty
   if (fs.readdirSync(destinationPath).length > 0) {
     console.log();
-    console.log(chalk.red(`  The ${packageName} folder must be empty!`));
+    console.log(chalk.red(`  The ${formattedName} folder must be empty!`));
     console.log();
     process.exit(1);
   }
 
-  // Move to destination path
+  // Move to destination
   process.chdir(destinationPath);
 
-  // Determine specific package version or source
-  const packageToInstall = getSpecificPackage(packageName, commander.specific);
+  // Get the specific package to install
+  const specificPackage = getSpecificPackage(
+    formattedName,
+    commander.specific,
+  );
 
+  // Log step
   console.log();
-  console.log(`  Preparing to install ${chalk.cyan(packageToInstall)}...`);
+  console.log(`  Preparing to install ${chalk.cyan(specificPackage)}...`);
 
-  // Get package name from url or path
-  prepareInstall(packageToInstall, destinationPath)
-    .then(packageName =>
+  // Set tarball
+  const tarball = {};
 
-      // Check if online and return online status and package name
-      checkIfOnline().then(isOnline => ({ isOnline, packageName }))
+  // Get tarball if not already tarball and/or set declared tarball properties
+  if (!specificPackage.match(/^.+\.(tgz|tar\.gz)$/) || specificPackage[0] === '/') {
 
-    ).then(info => {
+    // Get package tarball
+    const result = getPackageTarball(specificPackage, destinationPath);
 
-      const isOnline = info.isOnline;
-      const packageName = info.packageName;
+    // Set tarball properties
+    tarball.name = result.name;
+    tarball.path = result.path;
 
-      console.log();
-      console.log(`  Installing ${chalk.cyan(packageName)}...`);
-      console.log();
+  } else {
 
-      // Install the package
-      return installPackage(
-        destinationPath,
-        commander.verbose,
-        isOnline
-      );
+    // Set tarball properties
+    tarball.name = specificPackage;
+    tarball.path = path.join(destinationPath, tarball.name);
 
-    }).then(() => {
+  }
 
-      console.log();
-      console.log(`  Initializing ${chalk.cyan(packageName)}...`);
-      console.log();
+  // Create temporary directory
+  const temp = await createTemporaryDirectory();
 
-      // Initialize git
-      cp.execSync(`git init`);
+  // Set read stream for temporary directory
+  const stream = fs.createReadStream(tarball.path);
 
-      // Add gitignore file
-      cp.execSync(`echo "node_modules" >> .gitignore`);
+  // Extract read stream for temporary directory
+  await extractStream(stream, temp.tmpdir);
 
-      // Add add postinstall script
-      cp.execSync(`json -I -f package.json -e 'this.scripts.postinstall="sh scripts/postinstall.sh"'`);
+  // Copy temporary directory to destination directory
+  await fs.copy(temp.tmpdir, destinationPath)
 
-      // Add add colonyNetwork submodule
-      cp.execSync(`git submodule add https://github.com/JoinColony/colonyNetwork lib/colonyNetwork`);
+  // Temp cleanup
+  temp.cleanup();
 
-      // Run postinstall script
-      cp.execSync(`yarn`, { stdio: [0, 1, 2] });
+  // Check if tarball file is in destination directory
+  if (fs.existsSync(path.join(destinationPath, tarball.name))) {
 
-    }).then(() => {
+    // Remove tarball file
+    fs.unlink(tarball.path);
 
-      console.log();
-      console.log(`  Success! Created ${chalk.cyan(packageName)} at ${chalk.cyan(destinationPath)}`);
-      console.log();
+  }
 
-    }).catch(reason => {
+  // Check yarn registry
+  const isOnline = await checkOnline();
 
-      console.log();
-      console.log(chalk.red('  Aborting installation. Please report an issue.'));
-      console.log();
+  // Log step
+  console.log();
+  console.log(`  Installing ${chalk.cyan(specificPackage)}...`);
+  console.log();
 
-      if (reason.command) {
+  // Install the package
+  await installPackage(
+    destinationPath,
+    commander.verbose,
+    isOnline
+  );
 
-        console.log(chalk.red(`  Failed to execute ${reason.command}`));
-        console.log();
+  // Log step
+  console.log();
+  console.log(`  Initializing ${chalk.cyan(formattedName)}...`);
+  console.log();
 
-      } else {
+  // Initialize git
+  cp.execSync(`git init`);
 
-        console.log(chalk.red(`  ${reason}`));
-        console.log();
+  // Add gitignore file
+  cp.execSync(`echo "node_modules" >> .gitignore`);
 
-      }
+  // Add add postinstall script
+  cp.execSync(`json -I -f package.json -e 'this.scripts.postinstall="sh scripts/postinstall.sh"'`);
 
-      process.exit(1);
+  // Add add colonyNetwork submodule
+  cp.execSync(`git submodule add https://github.com/JoinColony/colonyNetwork lib/colonyNetwork`);
 
-    });
+  // Run postinstall script
+  cp.execSync(`yarn`, { stdio: [0, 1, 2] });
+
+  // Log step
+  console.log();
+  console.log(`  Success! Created ${chalk.cyan(formattedName)} at ${chalk.cyan(destinationPath)}`);
+  console.log();
+
+}
+
+// Exit with error
+const handleError = (reason) => {
+
+  // Log error
+  console.log();
+  console.log(chalk.red('  Aborting installation. Please report an issue.'));
+  console.log();
+
+  if (reason.command) {
+
+    // Log error
+    console.log(chalk.red(`  Failed to execute ${reason.command}`));
+    console.log();
+
+  } else {
+
+    // Log error
+    console.log(chalk.red(`  ${reason}`));
+    console.log();
+
+  }
+
+  // Exit on error
+  process.exit(1);
 
 }
 
@@ -152,81 +198,20 @@ const isYarnInstalled = () => {
   }
 }
 
-// Format package name based on specific
-const getSpecificPackage = (packageName, specific) => {
+// Get the specific package to install
+const getSpecificPackage = (formattedName, specific) => {
   const validSemver = semver.valid(specific);
   if (validSemver) {
-    return `@colony/colony-starter-${packageName}@${validSemver}`;
+    return `@colony/${formattedName}@${validSemver}`;
   }
   if (specific) {
     return specific;
   }
-  return `@colony/colony-starter-${packageName}`;
+  return `@colony/${formattedName}`;
 }
 
-// Get package tarball and/or unpack package tarball
-const prepareInstall = (packageToInstall, destination) => {
-
-  const tarball = {};
-
-  // Get tarball if not already tarball and/or set declared tarball properties
-  if (!packageToInstall.match(/^.+\.(tgz|tar\.gz)$/) || packageToInstall[0] === '/') {
-
-    // Get package tarball using npm
-    const result = getPackageTarball(packageToInstall, destination);
-
-    // Set tarball properties
-    tarball.name = result.name;
-    tarball.path = result.path;
-
-  } else {
-
-    // Set tarball properties
-    tarball.name = packageToInstall;
-    tarball.path = path.join(destination, tarball.name);
-
-  }
-
-  // Get temporary directory
-  return getTemporaryDirectory()
-    .then(obj => {
-
-      // Create read stream for temporary directory
-      const stream = fs.createReadStream(tarball.path);
-      return extractStream(stream, obj.tmpdir).then(() => obj);
-
-    })
-    .then(obj => {
-
-      // Copy temporary directory to destination directory
-      return fs.copy(obj.tmpdir, destination).then(() => {
-
-        // Cleanup
-        obj.cleanup();
-
-        // Check if tarball file is in destination directory
-        if (fs.existsSync(path.join(destination, tarball.name))) {
-
-          // Remove tarball file
-          fs.unlink(tarball.path);
-
-        }
-
-        // Get package name
-        const packageName = require(path.join(destination, 'package.json')).name;
-
-        // Return package name
-        return packageName;
-
-      });
-
-    // Catch any errors
-    }).catch(err => err);
-
-}
-
-// Get temporary directory
-const getTemporaryDirectory = () => {
+// Create temporary directory
+const createTemporaryDirectory = () => {
   return new Promise((resolve, reject) => {
     tmp.dir({ unsafeCleanup: true }, (err, tmpdir, callback) => {
       if (err) {
@@ -262,7 +247,7 @@ const extractStream = (stream, dest) => {
 }
 
 // Check yarn registry
-const checkIfOnline = () => {
+const checkOnline = () => {
   return new Promise(resolve => {
     dns.lookup('registry.yarnpkg.com', err => {
       let proxy;
@@ -294,18 +279,18 @@ const getProxy = () => {
 }
 
 // Get package tarball using npm
-const getPackageTarball = (packageToInstall, destination) => {
+const getPackageTarball = (specificPackage, destinationPath) => {
 
   try {
 
     // Download tarball
     const tarballName = cp
-      .execSync(`npm pack ${packageToInstall} --silent`)
+      .execSync(`npm pack ${specificPackage} --silent`)
       .toString()
       .trim();
 
     // Set tarball path to current/destination directory
-    const tarballPath = path.join(destination, tarballName);
+    const tarballPath = path.join(destinationPath, tarballName);
 
     // Return tarball info
     return {
@@ -316,9 +301,10 @@ const getPackageTarball = (packageToInstall, destination) => {
   } catch (exec) {
 
     console.log();
-    console.log(chalk.red(`  Unable to locate ${packageToInstall} on npm`));
+    console.log(chalk.red(`  Unable to locate ${specificPackage} on npm`));
     console.log();
 
+    // Exit on error
     process.exit(1);
 
   }
@@ -326,7 +312,7 @@ const getPackageTarball = (packageToInstall, destination) => {
 }
 
 // Install packages in destination directory
-const installPackage = (destination, verbose, isOnline) => {
+const installPackage = (destinationPath, verbose, isOnline) => {
   return new Promise((resolve, reject) => {
     const args = [];
     if (verbose) args.push('--verbose');

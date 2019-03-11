@@ -3,7 +3,7 @@
 // Import dependencies
 const commander = require('commander');
 
-// Import package information
+// Import package json
 const package = require('./package.json');
 
 // Import actions

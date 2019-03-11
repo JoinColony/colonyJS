@@ -14,7 +14,7 @@ const handleExit = () => {
 };
 
 // Exit with error
-const handleError = error => {
+const handleError = (error) => {
   console.error(error);
   console.log();
   console.log(chalk.red('  Exiting with error...'));
@@ -26,7 +26,7 @@ const handleError = error => {
 process.on('SIGINT', handleExit);
 process.on('uncaughtException', handleError);
 
-// Define root and script path
+// Define root and starter script path
 const rootPath = path.join(__dirname, '..');
 const scriptPath = path.join(
   rootPath,
@@ -35,24 +35,31 @@ const scriptPath = path.join(
   'index.js',
 );
 
-// Define starter script arguments
+// Set starter script action
+const scriptAction = process.argv[2];
+
+// Set starter script arguments
 const scriptArguments = process.argv.slice(2).join(' ');
 
-// Check if build action
-if (process.argv[2] === 'build') {
+// Check starter script action
+if (scriptAction === 'build') {
 
-  // Log start
   console.log();
-  console.log(chalk.cyan('  Starting local build...'));
+  console.log('  Starting local build...');
   console.log();
 
-  // Define package name
-  const packageName = `colony-starter-${process.argv[3]}`;
+  // Set package name
+  const packageName = process.argv[3];
 
-  // Define paths
+  // Format package name
+  const formattedName = packageName.includes('colony-starter-')
+    ? packageName
+    : `colony-starter-${packageName}`;
+
+  // Define build and package paths
   const buildPath = path.join(rootPath, 'build');
   const packagesPath = path.join(rootPath, 'packages');
-  const packagePath = path.join(packagesPath, packageName);
+  const packagePath = path.join(packagesPath, formattedName);
   const packageJSON = path.join(packagePath, 'package.json');
 
   // Check if package exists
@@ -95,9 +102,7 @@ if (process.argv[2] === 'build') {
   // Execute starter script
   cp.execSync(
     `node ${scriptPath} ${scriptArguments}`,
-    {
-      stdio: 'inherit',
-    },
+    { stdio: 'inherit' },
   );
 
 }
