@@ -1,19 +1,21 @@
+import { getNetworkClient } from '@colony/colony-js-client'
+import { open } from '@colony/purser-metamask'
 import { store } from '../index'
 import * as actions from '../constants/actions'
-import * as networkActions from '../../helpers/actions/networkActions'
 
 // connectNetwork
 
 export const connectNetwork = (network) => ({
   type: actions.CONNECT_NETWORK,
-  payload: networkActions.connectNetwork(network)
-    .then(networkClient => {
-      store.dispatch(setStateNetworkClient(networkClient))
-      store.dispatch(connectNetworkSuccess(true))
-    })
-    .catch(error => {
-      store.dispatch(connectNetworkError(error.message))
-    }),
+  payload: (async () => open())()
+  .then(wallet => getNetworkClient(network, wallet))
+  .then(networkClient => {
+    store.dispatch(setStateNetworkClient(networkClient))
+    store.dispatch(connectNetworkSuccess(true))
+  })
+  .catch(error => {
+    store.dispatch(connectNetworkError(error.message))
+  }),
 })
 
 export const connectNetworkError = (error) => ({
@@ -30,14 +32,57 @@ export const connectNetworkSuccess = (success) => ({
 
 export const getSkills = (networkClient) => ({
   type: actions.GET_SKILLS,
-  payload: networkActions.getSkills(networkClient)
-    .then(skills => {
-      store.dispatch(setStateSkills(skills))
-      store.dispatch(getSkillsSuccess(true))
-    })
-    .catch(error => {
-      store.dispatch(getSkillsError(error.message))
-    }),
+  payload: (async () => {
+
+    // get skill count
+    const { count: skillCount } = await networkClient.getSkillCount.call()
+
+    // set skill id
+    let skillId = 1
+
+    // set skills
+    let skills = []
+
+    // loop through skills
+    while (skillId <= skillCount) {
+
+      // get parent skill id and prevent throwing error with catch
+      const { parentSkillId } = await networkClient.getParentSkillId.call({
+        skillId,
+        parentSkillIndex: 0,
+      })
+      .catch(() => false)
+
+      // check if global skill
+      if (parentSkillId && parentSkillId === 1) {
+
+        // get skill
+        let skill = await networkClient.getSkill.call({ skillId })
+
+        // append skill id
+        skill.id = skillId
+
+        // add skill to skills
+        skills.push(skill)
+
+      }
+
+      // increment id
+      skillId++
+
+    }
+
+    // return skills
+    return skills
+
+  })()
+  .then(skills => {
+    store.dispatch(setStateSkills(skills))
+    store.dispatch(getSkillsSuccess(true))
+  })
+  .catch(error => {
+    store.dispatch(getSkillsError(error.message))
+  }),
 })
 
 export const getSkillsError = (error) => ({

@@ -26,11 +26,18 @@ class AppContainer extends Component {
   render() {
     return (
       <App
-        connectNetwork={this.props.connectNetwork}
-        connectNetworkError={this.props.connectNetworkError}
-        connectNetworkLoading={this.props.connectNetworkLoading}
-        connectNetworkSuccess={this.props.connectNetworkSuccess}
-        networkClient={this.props.networkClient}
+        error={
+          this.props.connectNetworkError ||
+          this.props.getNetworkClientError
+        }
+        loading={
+          this.props.connectNetworkLoading ||
+          this.props.getNetworkClientLoading
+        }
+        success={
+          this.props.connectNetworkSuccess ||
+          this.props.getNetworkClientSuccess
+        }
       />
     )
   }
@@ -41,7 +48,9 @@ const mapStateToProps = state => ({
   connectNetworkError: state.network.connectNetworkError,
   connectNetworkLoading: state.network.connectNetworkLoading,
   connectNetworkSuccess: state.network.connectNetworkSuccess,
-  networkClient: state.network.networkClient,
+  getNetworkClientError: state.network.getNetworkClientError,
+  getNetworkClientLoading: state.network.getNetworkClientLoading,
+  getNetworkClientSuccess: state.network.getNetworkClientSuccess,
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -51,6 +60,8 @@ const mapDispatchToProps = dispatch => ({
   resetActions() {
     dispatch(networkActions.connectNetworkError(null))
     dispatch(networkActions.connectNetworkSuccess(false))
+    dispatch(networkActions.getNetworkClientError(null))
+    dispatch(networkActions.getNetworkClientSuccess(false))
   },
 })
 
