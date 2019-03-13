@@ -1,6 +1,5 @@
 node_modules
 
-builds
-packs
+build
 
 packages/colony-starter-react/src/client/__snapshots__
