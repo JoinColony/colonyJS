@@ -1,20 +1,53 @@
 import { store } from '../index'
 import * as actions from '../constants/actions'
-import * as colonyActions from '../../helpers/actions/colonyActions'
 import { setStateDomains } from './domainActions'
 
 // createColony
 
 export const createColony = (networkClient, tokenAddress) => ({
   type: actions.CREATE_COLONY,
-  payload: colonyActions.createColony(networkClient, tokenAddress)
-    .then(colonyClient => {
-      store.dispatch(setStateColonyClient(colonyClient))
-      store.dispatch(createColonySuccess(true))
+  payload: (async () => {
+
+    // create colony
+    const tx1 = await networkClient.createColony.send({ tokenAddress })
+
+    // check unsuccessful
+    if (!tx1.successful) {
+
+      // throw error
+      throw Error ('Transaction Failed: ' + tx1.meta.transaction.hash)
+
+    }
+
+    // get colony client
+    const colonyClient = await networkClient.getColonyClientByAddress(
+      tx1.eventData.colonyAddress,
+    )
+
+    // set colony contract as token owner
+    const tx2 = await colonyClient.tokenClient.setOwner.send({
+      owner: tx1.eventData.colonyAddress,
     })
-    .catch(error => {
-      store.dispatch(createColonyError(error.message))
-    }),
+
+    // check unsuccessful
+    if (!tx2.successful) {
+
+      // throw error
+      throw Error ('Transaction Failed: ' + tx2.meta.transaction.hash)
+
+    }
+
+    // return colony client
+    return colonyClient
+
+  })()
+  .then(colonyClient => {
+    store.dispatch(setStateColonyClient(colonyClient))
+    store.dispatch(createColonySuccess(true))
+  })
+  .catch(error => {
+    store.dispatch(createColonyError(error.message))
+  }),
 })
 
 export const createColonyError = (error) => ({
@@ -31,14 +64,24 @@ export const createColonySuccess = (success) => ({
 
 export const getColonyClient = (networkClient, colonyAddress) => ({
   type: actions.GET_COLONY_CLIENT,
-  payload: colonyActions.getColonyClient(networkClient, colonyAddress)
-    .then(colonyClient => {
-      store.dispatch(setStateColonyClient(colonyClient))
-      store.dispatch(getColonyClientSuccess(true))
-    })
-    .catch(error => {
-      store.dispatch(getColonyClientError(error.message))
-    }),
+  payload: (async() => {
+
+    // get colony client
+    const colonyClient = await networkClient.getColonyClientByAddress(
+      colonyAddress,
+    )
+
+    // return colony client
+    return colonyClient
+
+  })()
+  .then(colonyClient => {
+    store.dispatch(setStateColonyClient(colonyClient))
+    store.dispatch(getColonyClientSuccess(true))
+  })
+  .catch(error => {
+    store.dispatch(getColonyClientError(error.message))
+  }),
 })
 
 export const getColonyClientError = (error) => ({
