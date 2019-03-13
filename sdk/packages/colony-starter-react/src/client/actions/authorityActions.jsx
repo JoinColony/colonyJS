@@ -1,18 +1,35 @@
 import { store } from '../index'
 import * as actions from '../constants/actions'
-import * as authorityActions from '../../helpers/actions/authorityActions'
 
 // addAdmin
 
 export const addAdmin = (colonyClient, userAddress) => ({
   type: actions.ADD_ADMIN,
-  payload: authorityActions.addAdmin(colonyClient, userAddress)
-    .then(success => {
-      store.dispatch(addAdminSuccess(true))
+  payload: (async () => {
+
+    // add user role admin
+    const tx = await colonyClient.setAdminRole.send({
+      user: userAddress,
     })
-    .catch(error => {
-      store.dispatch(addAdminError(error.message))
-    }),
+
+    // check unsuccessful
+    if (!tx.successful) {
+
+      // throw error
+      throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
+
+    }
+
+    // return true
+    return true
+
+  })()
+  .then(success => {
+    store.dispatch(addAdminSuccess(true))
+  })
+  .catch(error => {
+    store.dispatch(addAdminError(error.message))
+  }),
 })
 
 export const addAdminError = (error) => ({
@@ -29,14 +46,31 @@ export const addAdminSuccess = (success) => ({
 
 export const checkAdmin = (colonyClient, userAddress) => ({
   type: actions.CHECK_ADMIN,
-  payload: authorityActions.checkAdmin(colonyClient, userAddress)
-    .then(admin => {
-      store.dispatch(setStateAdmin(admin))
-      store.dispatch(checkAdminSuccess(true))
+  payload: (async () => {
+
+    // check user role owner
+    const { hasRole: owner } = await colonyClient.hasUserRole.call({
+      user: userAddress,
+      role: 'FOUNDER',
     })
-    .catch(error => {
-      store.dispatch(checkAdminError(error.message))
-    }),
+
+    // check user role admin
+    const { hasRole: admin } = await colonyClient.hasUserRole.call({
+      user: userAddress,
+      role: 'ADMIN',
+    })
+
+    // return condition
+    return (owner || admin)
+
+  })()
+  .then(admin => {
+    store.dispatch(setStateAdmin(admin))
+    store.dispatch(checkAdminSuccess(true))
+  })
+  .catch(error => {
+    store.dispatch(checkAdminError(error.message))
+  }),
 })
 
 export const checkAdminError = (error) => ({
@@ -53,13 +87,31 @@ export const checkAdminSuccess = (success) => ({
 
 export const removeAdmin = (colonyClient, userAddress) => ({
   type: actions.REMOVE_ADMIN,
-  payload: authorityActions.removeAdmin(colonyClient, userAddress)
-    .then(success => {
-      store.dispatch(removeAdminSuccess(true))
+  payload: (async () => {
+
+    // remove user role admin
+    const tx = await colonyClient.removeAdminRole.send({
+      user: userAddress,
     })
-    .catch(error => {
-      store.dispatch(removeAdminError(error.message))
-    }),
+
+    // check unsuccessful
+    if (!tx.successful) {
+
+      // throw error
+      throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
+
+    }
+
+    // return true
+    return true
+
+  })()
+  .then(success => {
+    store.dispatch(removeAdminSuccess(true))
+  })
+  .catch(error => {
+    store.dispatch(removeAdminError(error.message))
+  }),
 })
 
 export const removeAdminError = (error) => ({
