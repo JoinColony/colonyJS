@@ -1,20 +1,39 @@
+import BN from 'bn.js'
 import { store } from '../index'
 import * as actions from '../constants/actions'
-import * as tokenActions from '../../helpers/actions/tokenActions'
 import { setStateClaimableFunds } from './fundingActions'
 
 // createToken
 
 export const createToken = (networkClient, name, symbol) => ({
   type: actions.CREATE_TOKEN,
-  payload: tokenActions.createToken(networkClient, name, symbol)
-    .then(tokenAddress => {
-      store.dispatch(setStateTokenAddress(tokenAddress))
-      store.dispatch(createTokenSuccess(true))
+  payload: (async () => {
+
+    // create token
+    const tx = await networkClient.createToken.send({
+      name,
+      symbol,
     })
-    .catch(error => {
-      store.dispatch(createTokenError(error.message))
-    }),
+
+    // check unsuccessful
+    if (!tx.successful) {
+
+      // throw error
+      throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
+
+    }
+
+    // return token address
+    return tx.meta.receipt.contractAddress
+
+  })()
+  .then(tokenAddress => {
+    store.dispatch(setStateTokenAddress(tokenAddress))
+    store.dispatch(createTokenSuccess(true))
+  })
+  .catch(error => {
+    store.dispatch(createTokenError(error.message))
+  }),
 })
 
 export const createTokenError = (error) => ({
@@ -31,14 +50,34 @@ export const createTokenSuccess = (success) => ({
 
 export const getToken = (colonyClient) => ({
   type: actions.GET_TOKEN,
-  payload: tokenActions.getToken(colonyClient)
-    .then(token => {
-      store.dispatch(setStateToken(token))
-      store.dispatch(getTokenSuccess(true))
-    })
-    .catch(error => {
-      store.dispatch(getTokenError(error.message))
-    }),
+  payload: (async () => {
+
+    // set token address
+    const address = colonyClient.tokenClient.contract.address
+
+    const info = await colonyClient.tokenClient.getTokenInfo.call()
+
+    // get total supply
+    const { amount } = await colonyClient.tokenClient.getTotalSupply.call()
+
+    // set supply
+    const supply = amount.toNumber()
+
+    // return token
+    return {
+      address,
+      supply,
+      ...info,
+    }
+
+  })()
+  .then(token => {
+    store.dispatch(setStateToken(token))
+    store.dispatch(getTokenSuccess(true))
+  })
+  .catch(error => {
+    store.dispatch(getTokenError(error.message))
+  }),
 })
 
 export const getTokenError = (error) => ({
@@ -55,15 +94,31 @@ export const getTokenSuccess = (success) => ({
 
 export const mintTokens = (colonyClient, amount) => ({
   type: actions.MINT_TOKENS,
-  payload: tokenActions.mintTokens(colonyClient, amount)
-    .then(token => {
-      store.dispatch(setStateToken(token))
-      store.dispatch(setStateClaimableFunds(null))
-      store.dispatch(mintTokensSuccess(true))
-    })
-    .catch(error => {
-      store.dispatch(mintTokensError(error.message))
-    }),
+  payload: (async () => {
+
+    // mint tokens
+    const tx = await colonyClient.mintTokens.send({ amount: new BN(amount) })
+
+    // check unsuccessful
+    if (!tx.successful) {
+
+      // throw error
+      throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
+
+    }
+
+    // return true
+    return true
+
+  })()
+  .then(success => {
+    store.dispatch(getToken(colonyClient))
+    store.dispatch(setStateClaimableFunds(null))
+    store.dispatch(mintTokensSuccess(true))
+  })
+  .catch(error => {
+    store.dispatch(mintTokensError(error.message))
+  }),
 })
 
 export const mintTokensError = (error) => ({
