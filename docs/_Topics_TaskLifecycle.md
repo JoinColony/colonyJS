@@ -200,6 +200,7 @@ Changing or setting the managers's payout (`MANAGER` and `WORKER`):
 // Set the task manager payout
 await colonyClient.setTaskManagerPayout.startOperation({
   taskId,
+  token,
   amount,
 });
 
@@ -212,6 +213,7 @@ Changing or setting the evaluator's payout (`MANAGER` and `EVALUATOR`):
 // Set the task evaluator payout
 await colonyClient.setTaskEvaluatorPayout.startOperation({
   taskId,
+  token,
   amount,
 });
 
@@ -224,6 +226,7 @@ Changing or setting the worker's payout (`MANAGER` and `WORKER`):
 // Set the task worker payout
 await colonyClient.setTaskWorkerPayout.startOperation({
   taskId,
+  token,
   amount,
 });
 
