@@ -1,9 +1,6 @@
 // import big number
 import BN from 'bn.js'
 
-// import get domain and domains from domain actions
-import { getDomain } from './domainActions'
-
 // import get task from task actions
 import { getTask } from './taskActions'
 
@@ -122,8 +119,8 @@ export const getPots = async (colonyClient) => {
     // set pot
     let pot = {}
 
-    // get domain
-    const { potId } = await getDomain(colonyClient, domainId)
+    // get domain pot id
+    const { potId } = await colonyClient.getDomain.call({ domainId })
 
     // get pot balance for domain
     const potBalance = await getFundingPotBalance(colonyClient, potId)
