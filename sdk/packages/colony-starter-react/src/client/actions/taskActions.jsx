@@ -20,14 +20,6 @@ export const cancelTask = (colonyClient, taskId) => ({
     // Sign multisignature operation
     const tx = await ms.signOperation(operation);
 
-    // Check unsuccessful
-    if (!tx.successful) {
-
-      // Throw failed transaction error
-      throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
-
-    }
-
     // Return successful
     return tx.successful
 
@@ -492,14 +484,6 @@ export const removeTaskRole = (colonyClient, taskId, role) => ({
       // Sign multisignature operation
       const tx = await ms.signOperation(operation);
 
-      // Check unsuccessful
-      if (!tx.successful) {
-
-        // Throw failed transaction error
-        throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
-
-      }
-
       // Return successful
       return tx.successful
 
@@ -515,14 +499,6 @@ export const removeTaskRole = (colonyClient, taskId, role) => ({
 
       // Handle multisignature operation
       const tx = await ms.signOperation(operation);
-
-      // Check unsuccessful
-      if (!tx.successful) {
-
-        // Throw failed transaction error
-        throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
-
-      }
 
       // Return successful
       return tx.successful
@@ -647,14 +623,6 @@ export const setTaskDetails = (colonyClient, taskId, details) => ({
       // Handle multisignature operation
       tx = await ms.signOperation(operation);
 
-      // Check unsuccessful
-      if (!tx.successful) {
-
-        // Throw failed transaction error
-        throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
-
-      }
-
     }
 
     // Check skill id
@@ -668,14 +636,6 @@ export const setTaskDetails = (colonyClient, taskId, details) => ({
 
       // Handle multisignature operation
       tx = await ms.signOperation(operation);
-
-      // Check unsuccessful
-      if (!tx.successful) {
-
-        // Throw failed transaction error
-        throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
-
-      }
 
     }
 
@@ -700,14 +660,6 @@ export const setTaskDetails = (colonyClient, taskId, details) => ({
       // Handle multisignature operation
       tx = await ms.signOperation(operation);
 
-      // Check unsuccessful
-      if (!tx.successful) {
-
-        // Throw failed transaction error
-        throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
-
-      }
-
     }
 
     // Check due date
@@ -721,14 +673,6 @@ export const setTaskDetails = (colonyClient, taskId, details) => ({
 
       // Handle multisignature operation
       tx = await ms.signOperation(operation);
-
-      // Check unsuccessful
-      if (!tx.successful) {
-
-        // Throw failed transaction error
-        throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
-
-      }
 
     }
 
@@ -822,14 +766,6 @@ export const setTaskRole = (colonyClient, taskId, role, user) => ({
       // Handle multisignature operation
       tx = await ms.signOperation(operation);
 
-      // Check unsuccessful
-      if (!tx.successful) {
-
-        // Throw failed transaction error
-        throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
-
-      }
-
     }
 
     // Check evaluator role
@@ -844,14 +780,6 @@ export const setTaskRole = (colonyClient, taskId, role, user) => ({
       // Handle multisignature operation
       tx = await ms.signOperation(operation);
 
-      // Check unsuccessful
-      if (!tx.successful) {
-
-        // Throw failed transaction error
-        throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
-
-      }
-
     }
 
     // Check worker role
@@ -865,14 +793,6 @@ export const setTaskRole = (colonyClient, taskId, role, user) => ({
 
       // Handle multisignature operation
       tx = await ms.signOperation(operation);
-
-      // Check unsuccessful
-      if (!tx.successful) {
-
-        // Throw failed transaction error
-        throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
-
-      }
 
     }
 
@@ -909,12 +829,12 @@ export const signTask = (colonyClient, taskId) => ({
     const operations = await ms.getOperations(colonyClient, taskId)
 
     // Loop through operations
-    operations.map(async operation => {
+    await Promise.all(operations.map(async operation => {
 
       // Sign multisignature operation
       await ms.signOperation(operation)
 
-    })
+    }))
 
   })()
   .then(success => {

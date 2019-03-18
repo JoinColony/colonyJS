@@ -13,31 +13,34 @@ export const getOperations = async (colonyClient, taskId) => {
   // Set wallet address
   const walletAddress = colonyClient.adapter.wallet.address.toLowerCase()
 
-  // Get stored items
+  // Get stored operation items
   const items = db.getAll()
 
-  // Loop through stored items
-  await Promise.all(items.map(async item => {
+  // Filter stored operation items
+  items.filter(item => {
 
-    // Get operation payload
+    // Get stored operation item payload
     const { payload } = JSON.parse(item.data)
 
-    // Check if operation matches colony and task
-    if (
+    // Return stored operation items that match colony and task
+    return (
       payload.sourceAddress.toLowerCase() === colonyAddress &&
       payload.inputValues.taskId === taskId
-    ) {
+    )
 
-      // Restore operation
-      const operation = await colonyClient[item.name].restoreOperation(item.data)
+  })
 
-      // Check if required signee
-      if (operation.requiredSignees.includes(walletAddress)) {
+  // Loop through stored operation items
+  await Promise.all(items.map(async item => {
 
-        // Push operation to operations
-        operations.push(operation)
+    // Restore operation
+    const operation = await colonyClient[item.name].restoreOperation(item.data)
 
-      }
+    // Check if required signees includes wallet address
+    if (operation.requiredSignees.includes(walletAddress)) {
+
+      // Push operation to operations
+      operations.push(operation)
 
     }
 
@@ -45,21 +48,6 @@ export const getOperations = async (colonyClient, taskId) => {
 
   // Return operations
   return operations
-
-}
-
-// A helper method for restoring and signing an operation
-export const restoreOperation = async (colonyClient, taskMethod) => {
-
-  // Get the operatation
-  const operationJSON = await db.get(taskMethod)
-
-  // Restore operation
-  const operation = await colonyClient[taskMethod].restoreOperation(
-    operationJSON,
-  )
-
-  return operation
 
 }
 
@@ -72,14 +60,28 @@ export const signOperation = async operation => {
   // Check missing signees
   if (operation.missingSignees.length === 0) {
 
-    // Send operation
-    const transaction = await operation.send()
+    // Serialize operation into JSON format
+    const operationJSON = operation.toJSON()
+
+    // Save operation
+    db.set(operation.sender.name, operationJSON)
+
+    // Send operation method
+    const tx = await operation.send()
+
+    // Check unsuccessful
+    if (!tx.successful) {
+
+      // Throw failed transaction error
+      throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
+
+    }
 
     // Delete operation
     db.remove(operation.sender.name)
 
     // Return transaction
-    return transaction
+    return tx
 
   } else {
 
