@@ -17,7 +17,7 @@ export const cancelTask = (colonyClient, taskId) => ({
       taskId,
     })
 
-    // Handle multisignature operation
+    // Sign multisignature operation
     const tx = await ms.signOperation(operation);
 
     // Check unsuccessful
@@ -108,7 +108,7 @@ export const createTask = (colonyClient, task) => ({
     await ecp.init()
 
     // Create specification hash
-    newTask.specificationHash = await ecp.saveTaskSpecification(task.specification)
+    newTask.specificationHash = await ecp.saveHash(task.specification)
 
     // Stop extended protocol
     await ecp.stop()
@@ -296,7 +296,7 @@ export const getTask = (colonyClient, taskId) => ({
     await ecp.init()
 
     // Get specification from specification hash
-    const specification = await ecp.getTaskSpecification(task.specificationHash)
+    const specification = await ecp.getHash(task.specificationHash)
 
     // Stop extended protocol
     await ecp.stop()
@@ -359,7 +359,7 @@ export const getTask = (colonyClient, taskId) => ({
       await ecp.init()
 
       // Get deliverable from deliverable hash
-      deliverable = await ecp.getTaskDeliverable(task.deliverableHash)
+      deliverable = await ecp.getHash(task.deliverableHash)
 
       // Stop extended protocol
       await ecp.stop()
@@ -436,7 +436,7 @@ export const getTasks = (colonyClient) => ({
       await ecp.init()
 
       // Get specification from specification hash
-      const specification = await ecp.getTaskSpecification(task.specificationHash)
+      const specification = await ecp.getHash(task.specificationHash)
 
       // Stop extended protocol
       await ecp.stop()
@@ -630,6 +630,8 @@ export const setTaskDetails = (colonyClient, taskId, details) => ({
   type: actions.SET_TASK_DETAILS,
   payload: (async () => {
 
+    let tx
+
     // Check domain id
     if (details.domainId) {
 
@@ -643,29 +645,7 @@ export const setTaskDetails = (colonyClient, taskId, details) => ({
       })
 
       // Handle multisignature operation
-      const tx = await ms.signOperation(operation);
-
-      // Check unsuccessful
-      if (!tx.successful) {
-
-        // Throw failed transaction error
-        throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
-
-      }
-
-    }
-
-    // Check due date
-    if (details.dueDate) {
-
-      // Format due date
-      const dueDate = new Date(details.dueDate)
-
-      // Set task due date
-      const operation = await colonyClient.setTaskDueDate.startOperation({ taskId, dueDate })
-
-      // Handle multisignature operation
-      const tx = await ms.signOperation(operation);
+      tx = await ms.signOperation(operation);
 
       // Check unsuccessful
       if (!tx.successful) {
@@ -687,7 +667,7 @@ export const setTaskDetails = (colonyClient, taskId, details) => ({
       const operation = await colonyClient.setTaskSkill.startOperation({ taskId, skillId })
 
       // Handle multisignature operation
-      const tx = await ms.signOperation(operation);
+      tx = await ms.signOperation(operation);
 
       // Check unsuccessful
       if (!tx.successful) {
@@ -706,19 +686,19 @@ export const setTaskDetails = (colonyClient, taskId, details) => ({
       await ecp.init()
 
       // Create specification hash
-      const specificationHash = await ecp.saveTaskSpecification(specification)
+      const specificationHash = await ecp.saveHash(details.specification)
 
       // Stop extended protocol
       await ecp.stop()
 
-      // start set task brief operation
+      // Set task brief
       const operation = await colonyClient.setTaskBrief.startOperation({
         taskId,
         specificationHash,
       })
 
       // Handle multisignature operation
-      const tx = await ms.signOperation(operation);
+      tx = await ms.signOperation(operation);
 
       // Check unsuccessful
       if (!tx.successful) {
@@ -730,8 +710,30 @@ export const setTaskDetails = (colonyClient, taskId, details) => ({
 
     }
 
-    // return successful
-    return true
+    // Check due date
+    if (details.dueDate) {
+
+      // Format due date
+      const dueDate = new Date(details.dueDate)
+
+      // Set task due date
+      const operation = await colonyClient.setTaskDueDate.startOperation({ taskId, dueDate })
+
+      // Handle multisignature operation
+      tx = await ms.signOperation(operation);
+
+      // Check unsuccessful
+      if (!tx.successful) {
+
+        // Throw failed transaction error
+        throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
+
+      }
+
+    }
+
+    // Return successful
+    return tx.successful
 
   })()
   .then(success => {
@@ -1005,7 +1007,7 @@ export const submitWork = (colonyClient, taskId, deliverable) => ({
     await ecp.init()
 
     // Create deliverable hash
-    const deliverableHash = await ecp.saveTaskDeliverable(deliverable)
+    const deliverableHash = await ecp.saveHash(deliverable)
 
     // Stop extended protocol
     await ecp.stop()
