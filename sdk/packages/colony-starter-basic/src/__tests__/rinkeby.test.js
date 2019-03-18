@@ -1,18 +1,11 @@
 // Import examples
 const connectNetwork = require('../examples/connectNetwork');
-const getAccounts = require('../examples/getAccounts');
 
 // State
 const state = {};
 
 // Testing Colony Starter Basic examples
 describe('Colony Starter Basic', () => {
-
-  // Test TrufflepigLoader getAccounts()
-  test('getAccounts() works', async () => {
-    state.accounts = await getAccounts();
-    expect(state.accounts.length).toEqual(12);
-  }, 5000)
 
   // Test the connectNetwork() example from account[0]
   test('account[0] connectNetwork() works', async () => {
