@@ -9,21 +9,21 @@ export const createToken = (networkClient, name, symbol) => ({
   type: actions.CREATE_TOKEN,
   payload: (async () => {
 
-    // create token
+    // Create token
     const tx = await networkClient.createToken.send({
       name,
       symbol,
     })
 
-    // check unsuccessful
+    // Check unsuccessful
     if (!tx.successful) {
 
-      // throw error
+      // Throw failed transaction error
       throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
 
     }
 
-    // return token address
+    // Return token address
     return tx.meta.receipt.contractAddress
 
   })()
@@ -52,21 +52,26 @@ export const getToken = (colonyClient) => ({
   type: actions.GET_TOKEN,
   payload: (async () => {
 
-    // set token address
+    // Set token address
     const address = colonyClient.tokenClient.contract.address
 
+    // Get token info
     const info = await colonyClient.tokenClient.getTokenInfo.call()
 
-    // get total supply
+    // Get total supply
     const { amount } = await colonyClient.tokenClient.getTotalSupply.call()
 
-    // set supply
-    const supply = amount.toNumber()
+    // Get token owner
+    const owner = await colonyClient.tokenClient.contract.owner.call()
+
+    // Format total supply
+    const totalSupply = amount.toNumber()
 
     // return token
     return {
       address,
-      supply,
+      owner,
+      totalSupply,
       ...info,
     }
 
@@ -96,25 +101,25 @@ export const mintTokens = (colonyClient, amount) => ({
   type: actions.MINT_TOKENS,
   payload: (async () => {
 
-    // mint tokens
+    // Mint tokens
     const tx = await colonyClient.mintTokens.send({ amount: new BN(amount) })
 
-    // check unsuccessful
+    // Check unsuccessful
     if (!tx.successful) {
 
-      // throw error
+      // Throw failed transaction error
       throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
 
     }
 
-    // return true
-    return true
+    // Return successful
+    return tx.successful
 
   })()
   .then(success => {
     store.dispatch(getToken(colonyClient))
     store.dispatch(setStateClaimableFunds(null))
-    store.dispatch(mintTokensSuccess(true))
+    store.dispatch(mintTokensSuccess(success))
   })
   .catch(error => {
     store.dispatch(mintTokensError(error.message))
@@ -128,6 +133,48 @@ export const mintTokensError = (error) => ({
 
 export const mintTokensSuccess = (success) => ({
   type: actions.MINT_TOKENS_SUCCESS,
+  payload: success,
+})
+
+// setTokenOwner
+
+export const setTokenOwner = (colonyClient) => ({
+  type: actions.SET_TOKEN_OWNER,
+  payload: (async () => {
+
+    // Set colony contract as token owner
+    const tx = await colonyClient.tokenClient.setOwner.send({
+      owner: colonyClient.contract.address,
+    })
+
+    // Check unsuccessful
+    if (!tx.successful) {
+
+      // Throw failed transaction error
+      throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
+
+    }
+
+    // Return successful
+    return tx.successful
+
+  })()
+  .then(success => {
+    store.dispatch(getToken(colonyClient))
+    store.dispatch(setTokenOwnerSuccess(success))
+  })
+  .catch(error => {
+    store.dispatch(setTokenOwnerError(error.message))
+  }),
+})
+
+export const setTokenOwnerError = (error) => ({
+  type: actions.SET_TOKEN_OWNER_ERROR,
+  payload: error,
+})
+
+export const setTokenOwnerSuccess = (success) => ({
+  type: actions.SET_TOKEN_OWNER_SUCCESS,
   payload: success,
 })
 

@@ -34,45 +34,45 @@ export const getSkills = (networkClient) => ({
   type: actions.GET_SKILLS,
   payload: (async () => {
 
-    // get skill count
+    // Get skill count
     const { count: skillCount } = await networkClient.getSkillCount.call()
 
-    // set skill id
+    // Set skill id
     let skillId = 1
 
-    // set skills
+    // Set skills
     let skills = []
 
-    // loop through skills
+    // Loop through skills
     while (skillId <= skillCount) {
 
-      // get parent skill id and prevent throwing error with catch
+      // Get parent skill id and prevent throwing error with catch
       const { parentSkillId } = await networkClient.getParentSkillId.call({
         skillId,
         parentSkillIndex: 0,
       })
       .catch(() => false)
 
-      // check if global skill
+      // Check global skill
       if (parentSkillId && parentSkillId === 1) {
 
-        // get skill
+        // Get skill
         let skill = await networkClient.getSkill.call({ skillId })
 
-        // append skill id
+        // Append skill id
         skill.id = skillId
 
-        // add skill to skills
+        // Add skill to skills
         skills.push(skill)
 
       }
 
-      // increment id
+      // Increment id
       skillId++
 
     }
 
-    // return skills
+    // Return skills
     return skills
 
   })()

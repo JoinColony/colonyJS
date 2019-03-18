@@ -9,26 +9,26 @@ export const addDomain = (colonyClient) => ({
   type: actions.ADD_DOMAIN,
   payload: (async () => {
 
-    // add domain
+    // Add domain
     const tx = await colonyClient.addDomain.send({
       parentDomainId: 1,
     })
 
-    // check unsuccessful
+    // Check unsuccessful
     if (!tx.successful) {
 
-      // throw error
+      // Throw failed transaction error
       throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
 
     }
 
-    // get domain id
+    // Get domain id
     const { count: domainId } = await colonyClient.getDomainCount.call()
 
-    // get domain
+    // Get domain
     const domain = await colonyClient.getDomain.call({ domainId })
 
-    // return domain
+    // Return domain
     return domain
 
   })()
@@ -58,13 +58,13 @@ export const fundDomain = (colonyClient, domainId, amount) => ({
   type: actions.FUND_DOMAIN,
   payload: (async () => {
 
-    // set token
+    // Set token
     const token = colonyClient.tokenClient.contract.address
 
-    // get domain
+    // Get domain
     const { potId } = await colonyClient.getDomain.call({ domainId })
 
-    // move funds between pots
+    // Move funds between pots
     const tx = await colonyClient.moveFundsBetweenPots.send({
       fromPot: 1,
       toPot: potId,
@@ -72,15 +72,15 @@ export const fundDomain = (colonyClient, domainId, amount) => ({
       token,
     })
 
-    // check unsuccessful
+    // Check unsuccessful
     if (!tx.successful) {
 
-      // throw error
+      // Throw failed transaction error
       throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
 
     }
 
-    // return true
+    // Return true
     return true
 
   })()
@@ -109,33 +109,33 @@ export const getDomains = (colonyClient) => ({
   type: actions.GET_DOMAINS,
   payload: (async () => {
 
-    // get domain count
+    // Get domain count
     const { count: domainCount} = await colonyClient.getDomainCount.call()
 
-    // set domain id
+    // Set domain id
     let domainId = 1
 
-    // set domains
+    // Set domains
     let domains = []
 
-    // get domains
+    // Get domains
     while (domainId <= domainCount) {
 
-      // get domain
+      // Get domain
       const domain = await colonyClient.getDomain.call({ domainId })
 
-      // append domain id
+      // Append domain id
       domain.id = domainId
 
-      // push domain to domains
+      // Add domain to domains
       domains.push(domain)
 
-      // increment domain id
+      // Increment domain id
       domainId++
 
     }
 
-    // return domains
+    // Return domains
     return domains
 
   })()

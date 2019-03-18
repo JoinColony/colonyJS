@@ -8,27 +8,27 @@ export const claimFunds = (colonyClient) => ({
   type: actions.CLAIM_FUNDS,
   payload: (async () => {
 
-    // set token
+    // Set token
     const token = colonyClient.tokenClient.contract.address
 
-    // claim funds
+    // Claim funds
     const tx = await colonyClient.claimColonyFunds.send({ token })
 
-    // check unsuccessful
+    // Check unsuccessful
     if (!tx.successful) {
 
-      // throw error
+      // Throw failed transaction error
       throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
 
     }
 
-    // return true
-    return true
+    // Return successful
+    return tx.successful
 
   })()
   .then(success => {
     store.dispatch(getPots(colonyClient))
-    store.dispatch(claimFundsSuccess(true))
+    store.dispatch(claimFundsSuccess(success))
   })
   .catch(error => {
     store.dispatch(claimFundsError(error.message))
@@ -51,19 +51,20 @@ export const getClaimableFunds = (colonyClient) => ({
   type: actions.GET_CLAIMABLE_FUNDS,
   payload: (async () => {
 
-    // get colony balance
+    // Get colony balance
     const { amount: balance } = await colonyClient.tokenClient.getBalanceOf.call({
       sourceAddress: colonyClient.contract.address,
     })
 
+    // Get non-rewards pot balance
     const { total: nonRewards } = await colonyClient.getNonRewardPotsTotal.call({
       token: colonyClient.tokenClient.contract.address,
     })
 
-    // calculate claimable funds
+    // Calculate claimable funds
     const claimableFunds = balance.sub(nonRewards).toNumber()
 
-    // return claimed funds
+    // Return claimable funds
     return claimableFunds
 
   })()
@@ -92,84 +93,84 @@ export const getPots = (colonyClient) => ({
   type: actions.GET_POTS,
   payload: (async () => {
 
-    // set pots
+    // Declare pots
     let pots = []
 
-    // get domain count
+    // Get domain count
     const { count: domainCount} = await colonyClient.getDomainCount.call()
 
-    // set domain id
+    // Set domain id
     let domainId = 1
 
-    // set domains
+    // Set domains
     let domains = []
 
-    // get domains
+    // Get domains
     while (domainId <= domainCount) {
 
-      // set pot
+      // Declare pot
       let pot = {}
 
-      // get domain pot id
+      // Get domain pot id
       const { potId } = await colonyClient.getDomain.call({ domainId })
 
-      // get pot balance
+      // Get pot balance
       const potBalance = await colonyClient.getFundingPotBalance.call({
         potId,
         token: colonyClient.tokenClient.contract.address,
       })
 
-      // set pot properties
+      // Set pot properties
       pot.id = potId
       pot.type = 'domain'
       pot.balance = potBalance.balance.toNumber()
 
-      // add pot to pots
+      // Add pot to pots
       pots.push(pot)
 
-      // increment domain id
+      // Increment domain id
       domainId++
 
     }
 
-    // get task count
+    // Get task count
     const { count: taskCount } = await colonyClient.getTaskCount.call()
 
-    // set task id
+    // Set task id
     let taskId = 1
 
-    // set tasks
+    // Set tasks
     let tasks = []
 
-    // get tasks
+    // Get tasks
     while (taskId <= taskCount) {
 
-      // set pot
+      // Set pot
       let pot = {}
 
-      // get task
+      // Get task
       const { potId } = await colonyClient.getTask.call({ taskId })
 
-      // get pot balance
+      // Get pot balance
       const potBalance = await colonyClient.getFundingPotBalance.call({
         potId,
         token: colonyClient.tokenClient.contract.address,
       })
 
-      // set properties
+      // Set properties
       pot.id = potId
       pot.type = 'task'
       pot.balance = potBalance.balance.toNumber()
 
-      // add pot to pots
+      // Add pot to pots
       pots.push(pot)
 
-      // increment task id
+      // Increment task id
       taskId++
 
     }
 
-    // return pots
+    // Return pots
     return pots
 
   })()
@@ -198,10 +199,10 @@ export const moveFunds = (colonyClient, fromPot, toPot, amount) => ({
   type: actions.MOVE_FUNDS,
   payload: (async () => {
 
-    // set token
+    // Set token
     const token = colonyClient.tokenClient.contract.address
 
-    // move funds between pots
+    // Move funds between pots
     const tx = await colonyClient.moveFundsBetweenPots.send({
       fromPot,
       toPot,
@@ -209,21 +210,21 @@ export const moveFunds = (colonyClient, fromPot, toPot, amount) => ({
       token,
     })
 
-    // check unsuccessful
+    // Check unsuccessful
     if (!tx.successful) {
 
-      // throw error
+      // Throw failed transaction error
       throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
 
     }
 
-    // return true
-    return true
+    // Return successful
+    return tx.successful
 
   })()
   .then(success => {
     store.dispatch(getPots(colonyClient))
-    store.dispatch(moveFundsSuccess(true))
+    store.dispatch(moveFundsSuccess(success))
   })
   .catch(error => {
     store.dispatch(moveFundsError(error.message))

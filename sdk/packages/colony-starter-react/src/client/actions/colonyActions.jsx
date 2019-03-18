@@ -8,36 +8,23 @@ export const createColony = (networkClient, tokenAddress) => ({
   type: actions.CREATE_COLONY,
   payload: (async () => {
 
-    // create colony
-    const tx1 = await networkClient.createColony.send({ tokenAddress })
+    // Create colony
+    const tx = await networkClient.createColony.send({ tokenAddress })
 
-    // check unsuccessful
-    if (!tx1.successful) {
+    // Check unsuccessful
+    if (!tx.successful) {
 
-      // throw error
-      throw Error ('Transaction Failed: ' + tx1.meta.transaction.hash)
+      // Throw failed transaction error
+      throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
 
     }
 
-    // get colony client
+    // Get colony client
     const colonyClient = await networkClient.getColonyClientByAddress(
-      tx1.eventData.colonyAddress,
+      tx.eventData.colonyAddress,
     )
 
-    // set colony contract as token owner
-    const tx2 = await colonyClient.tokenClient.setOwner.send({
-      owner: tx1.eventData.colonyAddress,
-    })
-
-    // check unsuccessful
-    if (!tx2.successful) {
-
-      // throw error
-      throw Error ('Transaction Failed: ' + tx2.meta.transaction.hash)
-
-    }
-
-    // return colony client
+    // Return colony client
     return colonyClient
 
   })()
@@ -66,12 +53,12 @@ export const getColonyClient = (networkClient, colonyAddress) => ({
   type: actions.GET_COLONY_CLIENT,
   payload: (async() => {
 
-    // get colony client
+    // Get colony client
     const colonyClient = await networkClient.getColonyClientByAddress(
       colonyAddress,
     )
 
-    // return colony client
+    // Return colony client
     return colonyClient
 
   })()

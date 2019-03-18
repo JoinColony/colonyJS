@@ -7,25 +7,25 @@ export const addAdmin = (colonyClient, userAddress) => ({
   type: actions.ADD_ADMIN,
   payload: (async () => {
 
-    // add user role admin
+    // Add admin
     const tx = await colonyClient.setAdminRole.send({
       user: userAddress,
     })
 
-    // check unsuccessful
+    // Check unsuccessful
     if (!tx.successful) {
 
-      // throw error
+      // Throw failed transaction error
       throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
 
     }
 
-    // return true
-    return true
+    // Return successful
+    return tx.successful
 
   })()
   .then(success => {
-    store.dispatch(addAdminSuccess(true))
+    store.dispatch(addAdminSuccess(success))
   })
   .catch(error => {
     store.dispatch(addAdminError(error.message))
@@ -48,19 +48,19 @@ export const checkAdmin = (colonyClient, userAddress) => ({
   type: actions.CHECK_ADMIN,
   payload: (async () => {
 
-    // check user role owner
+    // Check owner
     const { hasRole: owner } = await colonyClient.hasUserRole.call({
       user: userAddress,
       role: 'FOUNDER',
     })
 
-    // check user role admin
+    // Check admin
     const { hasRole: admin } = await colonyClient.hasUserRole.call({
       user: userAddress,
       role: 'ADMIN',
     })
 
-    // return condition
+    // Return owner or admin
     return (owner || admin)
 
   })()
@@ -89,25 +89,25 @@ export const removeAdmin = (colonyClient, userAddress) => ({
   type: actions.REMOVE_ADMIN,
   payload: (async () => {
 
-    // remove user role admin
+    // Remove admin
     const tx = await colonyClient.removeAdminRole.send({
       user: userAddress,
     })
 
-    // check unsuccessful
+    // Check unsuccessful
     if (!tx.successful) {
 
-      // throw error
+      // Throw failed transaction error
       throw Error ('Transaction Failed: ' + tx.meta.transaction.hash)
 
     }
 
-    // return true
-    return true
+    // Return successful
+    return tx.successful
 
   })()
   .then(success => {
-    store.dispatch(removeAdminSuccess(true))
+    store.dispatch(removeAdminSuccess(success))
   })
   .catch(error => {
     store.dispatch(removeAdminError(error.message))
