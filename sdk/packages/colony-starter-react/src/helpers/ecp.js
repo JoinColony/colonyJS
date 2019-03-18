@@ -20,12 +20,12 @@ const waitForIPFS = () => {
   })
 }
 
-exports.init = async () => {
+export const init = async () => {
   await waitForIPFS()
   return node.start()
 }
 
-exports.getHash = async hash => {
+export const getHash = async hash => {
   const buf = await node.files.cat(`/ipfs/${hash}`)
   let spec
   try {
@@ -36,10 +36,10 @@ exports.getHash = async hash => {
   return spec
 }
 
-exports.saveHash = async spec => {
+export const saveHash = async spec => {
   const data = Buffer.from(JSON.stringify(spec))
   const result = await node.files.add(data)
   return result[0].hash
 }
 
-exports.stop = () => node.stop()
+export const stop = () => node.stop()

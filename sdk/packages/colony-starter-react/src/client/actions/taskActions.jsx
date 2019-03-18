@@ -3,8 +3,8 @@ import { sha3 } from 'web3-utils';
 import { store } from '../index'
 import * as actions from '../constants/actions'
 import { setStatePots } from './fundingActions'
-import ecp from '../../helpers/ecp'
-import ms from '../../helpers/ms'
+import * as ecp from '../../helpers/ecp'
+import * as ms from '../../helpers/ms'
 
 // cancelTask
 
@@ -258,7 +258,7 @@ export const getMultisigOperations = (colonyClient, taskId) => ({
   payload: (async () => {
 
     // Get operations
-    const multisigOperations = ms.getOperations(colonyClient, taskId)
+    const multisigOperations = await ms.getOperations(colonyClient, taskId)
 
     // Return operations
     return multisigOperations
@@ -909,14 +909,10 @@ export const signTask = (colonyClient, taskId) => ({
     const operations = await ms.getOperations(colonyClient, taskId)
 
     // Loop through operations
-    operations.forEach(async operation => {
+    operations.map(async operation => {
 
-      // Restore and sign multisignature operation
-      await ms.restoreAndSignOperation(
-        colonyClient,
-        taskId,
-        operations.sender.name,
-      )
+      // Sign multisignature operation
+      await ms.signOperation(operation)
 
     })
 
