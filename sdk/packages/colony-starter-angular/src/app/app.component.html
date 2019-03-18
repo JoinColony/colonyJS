@@ -4,40 +4,11 @@
 
 <div class="row">
   <div class="col-6">
-    <mat-list>
-      <mat-list-item *ngIf="model.networkClient">
-        Network Address: {{model.networkClient.contract.address}}
-      </mat-list-item>
-      <mat-list-item *ngIf="model.networkClient">
-        Account Address: {{model.networkClient.contract.signer.address}}
-      </mat-list-item>
-      <mat-list-item *ngIf="model.token">
-        Token Address: {{model.token.address}}
-      </mat-list-item>
-      <mat-list-item *ngIf="model.colony">
-        Colony Address: {{model.colony.address}} | ID: {{model.colony.id}}
-      </mat-list-item>
-    </mat-list>
-  </div>
-  <div class="col-6">
-    <mat-list>
-      <mat-list-item *ngIf="model.domain">
-        Domain ID: {{model.domain.id}} LocalSkillID: {{model.domain.localSkillId}} PotID: {{model.domain.potId}}
-      </mat-list-item>
-      <br>
-      <mat-list-item *ngIf="model.task">
-        Task: {{model.task | json}}
-      </mat-list-item>
-    </mat-list>
-  </div>
-</div>
-<div class="row">
-  <div class="col-6">
     <form>
       <mat-card>
-        <mat-card-header>
-          Create Token <span *ngIf="model.token">: {{model.token.symbol}}</span>
-        </mat-card-header>
+        <mat-card-title>
+          Create Token
+        </mat-card-title>
         <mat-card-content>
           <mat-form-field>
             <input matInput placeholder="Token Symbol" #tokenSymbol>
@@ -48,29 +19,11 @@
         </mat-card-content>
       </mat-card>
     </form>
-  </div>
-  <div class="col-6">
     <form>
       <mat-card>
-        <mat-card-header>
-          Add Domain
-        </mat-card-header>
-        <mat-card-content>
-          <button mat-button type="button" color="primary" (click)="addDomain()">
-            Add Domain
-          </button>
-        </mat-card-content>
-      </mat-card>
-    </form>
-  </div>
-</div>
-<div class="row">
-  <div class="col-6">
-    <form>
-      <mat-card>
-        <mat-card-header>
-          Create Colony and Get Colony Cient
-        </mat-card-header>
+        <mat-card-title>
+          Create Colony
+        </mat-card-title>
         <mat-card-content>
           <mat-form-field>
             <input matInput placeholder="Token Address" #tokenAddress>
@@ -81,13 +34,41 @@
         </mat-card-content>
       </mat-card>
     </form>
-  </div>
-  <div class="col-6">
     <form>
       <mat-card>
-        <mat-card-header>
-          Create Task <span *ngIf="model.task">: {{model.task.title}} {{model.task.desc}}</span>
-        </mat-card-header>
+        <mat-card-title>
+          Get Colony Cient
+        </mat-card-title>
+        <mat-card-content>
+          <mat-form-field>
+            <input matInput placeholder="Colony Address" #colonyAddress>
+          </mat-form-field>
+          <button mat-button type="button" color="primary" (click)="getColonyClient(colonyAddress.value)">
+            Get Colony Cient
+          </button>
+        </mat-card-content>
+      </mat-card>
+    </form>
+    <form>
+      <mat-card>
+        <mat-card-title>
+          Add Domain
+        </mat-card-title>
+        <mat-card-content>
+          <mat-form-field>
+            <input matInput placeholder="Parent Domain ID" #parentDomainId>
+          </mat-form-field>
+          <button mat-button type="button" color="primary" (click)="addDomain(parentDomainId.value)">
+            Add Domain
+          </button>
+        </mat-card-content>
+      </mat-card>
+    </form>
+    <form>
+      <mat-card>
+        <mat-card-title>
+          Create Task
+        </mat-card-title>
         <mat-card-content>
           <mat-form-field>
             <input matInput placeholder="Task Title" #taskTitle>
@@ -104,5 +85,66 @@
         </mat-card-content>
       </mat-card>
     </form>
+  </div>
+  <div class="col-6">
+    <mat-card *ngIf="model.networkClient">
+      <mat-card-title>
+        Wallet Address
+      </mat-card-title>
+      <mat-card-content>
+        {{model.networkClient.contract.signer.address}}
+      </mat-card-content>
+    </mat-card>
+    <mat-card *ngIf="model.networkClient">
+      <mat-card-title>
+        Network Address
+      </mat-card-title>
+      <mat-card-content>
+        {{model.networkClient.contract.address}}
+      </mat-card-content>
+    </mat-card>
+    <mat-card *ngIf="model.token.address">
+      <mat-card-title>
+        Token Address
+      </mat-card-title>
+      <mat-card-content>
+        {{model.token.address}}
+      </mat-card-content>
+    </mat-card>
+    <mat-card *ngIf="model.colonyAddress">
+      <mat-card-title>
+        Colony Address
+      </mat-card-title>
+      <mat-card-content>
+        {{model.colonyAddress}}
+      </mat-card-content>
+    </mat-card>
+    <mat-card *ngIf="model.colonyClient">
+      <mat-card-title>
+        Colony Client
+      </mat-card-title>
+      <mat-card-content>
+        colony client loaded for contract:
+      </mat-card-content>
+      <mat-card-content>
+        {{model.colonyClient.contract.address}}
+      </mat-card-content>
+    </mat-card>
+    <mat-card *ngIf="model.domain">
+      <mat-card-title>
+        Domain
+      </mat-card-title>
+      <mat-card-content>
+        {{model.domain | json}}
+      </mat-card-content>
+    </mat-card>
+    <mat-card *ngIf="model.task">
+      <mat-card-title>
+        Task
+      </mat-card-title>
+      <mat-card-content>
+        {{model.task | json}}
+      </mat-card-content>
+    </mat-card>
   </div>
 </div>
