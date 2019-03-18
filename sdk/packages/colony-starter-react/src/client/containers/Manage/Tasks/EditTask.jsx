@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as authorityActions from '../../../actions/authorityActions'
+import * as adminActions from '../../../actions/adminActions'
 import * as taskActions from '../../../actions/taskActions'
 import EditTask from '../../../components/Manage/Tasks/EditTask'
 
@@ -45,14 +45,14 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   checkAdmin(colonyClient, userAddress) {
-    dispatch(authorityActions.checkAdmin(colonyClient, userAddress))
+    dispatch(adminActions.checkAdmin(colonyClient, userAddress))
   },
   getTask(colonyClient, task) {
     dispatch(taskActions.getTask(colonyClient, task))
   },
   resetActions() {
-    dispatch(authorityActions.checkAdminError(null))
-    dispatch(authorityActions.checkAdminSuccess(false))
+    dispatch(adminActions.checkAdminError(null))
+    dispatch(adminActions.checkAdminSuccess(false))
     dispatch(taskActions.getTaskError(null))
     dispatch(taskActions.getTaskSuccess(false))
   },

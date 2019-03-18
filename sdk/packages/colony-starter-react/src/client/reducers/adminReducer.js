@@ -22,7 +22,7 @@ const initialState = {
 
 }
 
-const authorityReducer = (state = initialState, action) => {
+const adminReducer = (state = initialState, action) => {
 
   switch (action.type) {
 
@@ -115,4 +115,4 @@ const authorityReducer = (state = initialState, action) => {
 
 }
 
-export default authorityReducer
+export default adminReducer

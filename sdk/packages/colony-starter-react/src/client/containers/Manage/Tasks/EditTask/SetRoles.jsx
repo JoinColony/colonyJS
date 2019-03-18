@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as authorityActions from '../../../../actions/authorityActions'
+import * as adminActions from '../../../../actions/adminActions'
 import * as taskActions from '../../../../actions/taskActions'
 import SetRoles from '../../../../components/Manage/Tasks/EditTask/SetRoles'
 
@@ -166,7 +166,7 @@ class SetRolesContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  admin: state.authority.admin,
+  admin: state.admin.admin,
   colonyClient: state.colony.colonyClient,
   getTaskError: state.task.getTaskError,
   getTaskLoading: state.task.getTaskLoading,

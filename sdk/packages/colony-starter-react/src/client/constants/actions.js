@@ -6,7 +6,7 @@ export const GET_ACCOUNTS_SUCCESS = 'GET_ACCOUNTS_SUCCESS'
 
 export const SET_STATE_ACCOUNTS = 'SET_STATE_ACCOUNTS'
 
-// authorityActions
+// adminActions
 
 export const ADD_ADMIN = 'ADD_ADMIN'
 export const ADD_ADMIN_ERROR = 'ADD_ADMIN_ERROR'
