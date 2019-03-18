@@ -11,6 +11,8 @@ const createToken = require('../examples/createToken');
 const getAccounts = require('../examples/getAccounts');
 const getColonyClient = require('../examples/getColonyClient');
 const mintTokens = require('../examples/mintTokens');
+const moveFundsBetweenPots = require('../examples/moveFundsBetweenPots');
+const setTokenOwner = require('../examples/setTokenOwner');
 
 // Database
 DATABASE = {
@@ -23,8 +25,8 @@ const state = {
   colonyClient: [],     // colonyClient (per account)
 };
 
-// Testing Colony Starter Basic examples
-describe('Colony Starter Basic', () => {
+// Testing colony-starter-basic examples
+describe('colony-starter-basic', () => {
 
   // Test TrufflepigLoader getAccounts()
   test('getAccounts() works', async () => {

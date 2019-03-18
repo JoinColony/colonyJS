@@ -51,8 +51,8 @@ const state = {
   colonyClient: [],     // colonyClient (per account)
 };
 
-// Testing Colony Starter Basic examples
-describe('Colony Starter Basic', () => {
+// Testing colony-starter-basic-extended examples
+describe('colony-starter-basic-extended', () => {
 
   // Test TrufflepigLoader getAccounts()
   test('getAccounts() works', async () => {

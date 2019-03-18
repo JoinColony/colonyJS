@@ -1,24 +1,20 @@
 // Import examples
 const connectNetwork = require('../examples/connectNetwork');
-const getAccounts = require('../examples/getAccounts');
 
 // State
 const state = {};
 
-// Testing Colony Starter Basic examples
-describe('Colony Starter Basic', () => {
+// Set the private key (this is the private key for the first Ganache test account)
+const privateKey = '0x4f3edf983ac636a65a842ce7c78d9aa706d3b113bce9c46f30d7d21715b23b1d';
 
-  // Test TrufflepigLoader getAccounts()
-  test('getAccounts() works', async () => {
-    state.accounts = await getAccounts();
-    expect(state.accounts.length).toEqual(12);
-  }, 5000)
+// Testing colony-starter-basic-extended examples
+describe('colony-starter-basic-extended', () => {
 
   // Test the connectNetwork() example from account[0]
   test('account[0] connectNetwork() works', async () => {
     state.networkClient = await connectNetwork(
-      'rinkeby',                      // network
-      state.accounts[0][1],           // privateKey
+      'rinkeby',                // network
+      privateKey,               // privateKey
     );
     expect(state.networkClient).toEqual(expect.objectContaining({
       _contract: expect.objectContaining({
