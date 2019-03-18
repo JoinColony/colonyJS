@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 
-const { getNetworkClient } = require('@colony/colony-js-client');
-const { open } = require('@colony/purser-metamask');
-const ecp = require('../helpers/ecp');
+const { getNetworkClient } = require("@colony/colony-js-client");
+const { open } = require("@colony/purser-metamask");
+const ecp = require("../helpers/ecp");
 
 @Injectable()
 
@@ -11,13 +11,13 @@ export class AppService {
   public async connectNetwork(network: string) {
 
     // Open wallet
-    const wallet = await open()
+    const wallet = await open();
 
     // Get network client
-    const networkClient = await getNetworkClient(network, wallet)
+    const networkClient = await getNetworkClient(network, wallet);
 
     // Return network client
-    return networkClient
+    return networkClient;
 
   }
 
@@ -25,7 +25,7 @@ export class AppService {
 
     // Create token
     const {
-      meta: { receipt: { contractAddress: tokenAddress } }
+      meta: { receipt: { contractAddress: tokenAddress } },
     } = await networkClient.createToken.send({ symbol });
 
     // Return address
@@ -37,7 +37,7 @@ export class AppService {
 
     // Create colony
     const {
-      eventData: { colonyAddress }
+      eventData: { colonyAddress },
     } = await networkClient.createColony.send({ tokenAddress });
 
     // Return address
@@ -93,8 +93,8 @@ export class AppService {
 
     // Create task
     const { eventData: { taskId } } = await colonyClient.createTask.send({
-      specificationHash,
       domainId,
+      specificationHash,
     });
 
     // Get task
