@@ -1,5 +1,5 @@
 // Import database
-import db from './db'
+import db from '../../helpers/db'
 
 // A helper method for getting the task operataions
 export const getOperations = async (colonyClient, taskId) => {
@@ -59,12 +59,6 @@ export const signOperation = async operation => {
 
   // Check missing signees
   if (operation.missingSignees.length === 0) {
-
-    // Serialize operation into JSON format
-    const operationJSON = operation.toJSON()
-
-    // Save operation
-    db.set(operation.sender.name, operationJSON)
 
     // Send operation method
     const tx = await operation.send()

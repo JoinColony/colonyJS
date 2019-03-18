@@ -4,7 +4,7 @@ import { store } from '../index'
 import * as actions from '../constants/actions'
 import { setStatePots } from './fundingActions'
 import * as ecp from '../../helpers/ecp'
-import * as ms from '../../helpers/ms'
+import * as ms from '../helpers/multisignature'
 
 // cancelTask
 
