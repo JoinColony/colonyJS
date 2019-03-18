@@ -7,6 +7,11 @@ const initialState = {
   connectNetworkLoading: false,
   connectNetworkSuccess: false,
 
+  // getNetworkClient
+  getNetworkClientError: null,
+  getNetworkClientLoading: false,
+  getNetworkClientSuccess: false,
+
   // getSkills
   getSkillsError: null,
   getSkillsLoading: false,
@@ -17,6 +22,9 @@ const initialState = {
 
   // skills
   skills: null,
+
+  // wallet
+  wallet: null,
 
 }
 
@@ -46,6 +54,30 @@ const networkReducer = (state = initialState, action) => {
         ...state,
         connectNetworkLoading: false,
         connectNetworkSuccess: action.payload,
+      }
+
+    // getNetworkClient
+
+    case actions.GET_NETWORK_CLIENT:
+      return {
+        ...state,
+        getNetworkClientError: null,
+        getNetworkClientLoading: true,
+        getNetworkClientSuccess: false,
+      }
+
+    case actions.GET_NETWORK_CLIENT_ERROR:
+      return {
+        ...state,
+        getNetworkClientError: action.payload,
+        getNetworkClientLoading: false,
+      }
+
+    case actions.GET_NETWORK_CLIENT_SUCCESS:
+      return {
+        ...state,
+        getNetworkClientLoading: false,
+        getNetworkClientSuccess: action.payload,
       }
 
     // getSkills
@@ -86,6 +118,14 @@ const networkReducer = (state = initialState, action) => {
       return {
         ...state,
         skills: action.payload,
+      }
+
+    // setStateWallet
+
+    case actions.SET_STATE_WALLET:
+      return {
+        ...state,
+        wallet: action.payload,
       }
 
     // default

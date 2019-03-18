@@ -8,24 +8,22 @@ import Home from '../containers/Home'
 import styles from './App.scss'
 
 const App = ({
-  connectNetwork,
-  connectNetworkError,
-  connectNetworkLoading,
-  connectNetworkSuccess,
-  networkClient,
+  error,
+  loading,
+  success,
 }) => (
   <div className={styles.container}>
-    {connectNetworkLoading &&
+    {loading &&
       <div className={styles.message}>
-        {'connecting to colonyNetwork...'}
+        {'Connecting to Colony Network...'}
       </div>
     }
-    {connectNetworkError &&
+    {error &&
       <div className={styles.message}>
-        {connectNetworkError}
+        {error}
       </div>
     }
-    {networkClient && !connectNetworkLoading && !connectNetworkError &&
+    {success && !loading && !error &&
       <div>
         <Header />
         <Switch>

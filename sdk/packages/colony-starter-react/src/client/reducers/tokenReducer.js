@@ -17,6 +17,11 @@ const initialState = {
   mintTokensLoading: false,
   mintTokensSuccess: false,
 
+  // setTokenOwner
+  setTokenOwnerError: null,
+  setTokenOwnerLoading: false,
+  setTokenOwnerSuccess: false,
+
   // token
   token: null,
 
@@ -99,6 +104,30 @@ const tokenReducer = (state = initialState, action) => {
         ...state,
         mintTokensLoading: false,
         mintTokensSuccess: action.payload,
+      }
+
+    // setTokenOwner
+
+    case actions.SET_TOKEN_OWNER:
+      return {
+        ...state,
+        setTokenOwnerError: null,
+        setTokenOwnerLoading: true,
+        setTokenOwnerSuccess: false,
+      }
+
+    case actions.SET_TOKEN_OWNER_ERROR:
+      return {
+        ...state,
+        setTokenOwnerError: action.payload,
+        setTokenOwnerLoading: false,
+      }
+
+    case actions.SET_TOKEN_OWNER_SUCCESS:
+      return {
+        ...state,
+        setTokenOwnerLoading: false,
+        setTokenOwnerSuccess: action.payload,
       }
 
     // setStateToken
