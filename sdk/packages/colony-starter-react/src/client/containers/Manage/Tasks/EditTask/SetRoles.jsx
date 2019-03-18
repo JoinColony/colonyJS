@@ -82,7 +82,11 @@ class SetRolesContainer extends Component {
   canSetWorkerRole() {
     const completionDate = this.props.task.completionDate
     const workerAddress = this.props.task.roles.worker.address
-    return (!workerAddress && completionDate === null)
+    return (
+      !workerAddress &&
+      completionDate === null &&
+      this.props.task.skillId
+    )
   }
 
   handleChange(event) {
