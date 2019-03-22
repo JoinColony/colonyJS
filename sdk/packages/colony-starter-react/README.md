@@ -1,4 +1,4 @@
-# Colony Starter: React
+# colony-starter-react
 
 _Learn to build with Colony using React!_
 
