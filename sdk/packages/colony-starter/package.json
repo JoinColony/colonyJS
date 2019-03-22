@@ -1,21 +1,41 @@
 {
   "name": "@colony/colony-starter",
   "version": "1.0.0-beta.6",
-  "description": "A command line interface for developers building with Colony",
+  "description": "A simple starter project for building with Colony",
   "license": "MIT",
+  "engines": {
+    "node": "10.12.0"
+  },
   "publishConfig": {
     "access": "public"
   },
-  "bin": {
-    "colony": "./index.js"
+  "scripts": {
+    "postinstall": "",
+    "start-ganache": "sh scripts/start_ganache.sh",
+    "deploy-contracts": "sh scripts/deploy_contracts.sh",
+    "start-trufflepig": "sh scripts/start_trufflepig.sh",
+    "start": "node src/index",
+    "rinkeby": "node src/rinkeby",
+    "test": "jest"
+  },
+  "jest": {
+    "rootDir": "src",
+    "testURL": "http://localhost"
   },
   "dependencies": {
+    "@colony/colony-js-client": "^1.11.2",
+    "@colony/colony-js-contract-loader-http": "^1.10.0",
+    "@colony/purser-software": "^1.2.4",
+    "bn.js": "^4.11.8",
+    "buffer": "^5.1.0",
     "chalk": "^2.4.1",
-    "commander": "^2.17.1",
-    "cross-spawn": "^6.0.5",
-    "fs-extra": "^7.0.0",
-    "json": "^9.0.6",
-    "tar-pack": "^3.4.1",
-    "tmp": "^0.0.33"
+    "ethers": "3.0.27",
+    "ipfs": "^0.29.2",
+    "web3": "^1.0.0-beta.35",
+    "web3-utils": "^1.0.0-beta.44"
+  },
+  "devDependencies": {
+    "jest": "^23.1.0",
+    "trufflepig": "^1.1.1"
   }
 }

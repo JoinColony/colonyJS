@@ -31,41 +31,49 @@ _If you are using Linux, check out the [Linux Setup](/.github/LINUX_SETUP.md) pa
 
 ### Step 1
 
-Globally install the [colony-starter](/packages/colony-starter) package:
+Globally install the [colony-cli](/packages/colony-cli) package:
 
 ```
-yarn global add @colony/colony-starter
+yarn global add @colony/colony-cli
 ```
 
 ### Step 2
 
-Move to your working directory and unpack the [colony-starter-basic](/packages/colony-starter-basic) package:
+Move to your working directory and unpack the [colony-starter](/packages/colony-starter) package:
 
 ```
-colony build basic
+colony build colony-starter
 ```
 
-Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and kickstart the [colony-starter-basic](/packages/colony-starter-basic) package in one line without having to globally install the [colony-starter](/packages/colony-starter) package:
+Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and kickstart the [colony-starter](/packages/colony-starter) package in one line without having to globally install the [colony-cli](/packages/colony-cli) package:
 
 ```
-npx -p @colony/colony-starter colony build basic
+npx -p @colony/colony-cli colony build colony-starter
 ```
 
 ### Step 3
 
-Move to your new project directory and checkout the [colony-starter-basic](/packages/colony-starter-basic) readme:
+Move to your new project directory and checkout the [colony-starter](/packages/colony-starter) readme:
 
 ```
-cd colony-starter-basic
+cd colony-starter
 ```
 
 ## Starter Projects
 
-Now that you have a basic understanding of how Colony works, check out some of the other starter projects by repeating steps 2 and 3 and substituting `colony-starter-basic` with the project of your choice!
+Now that you have a basic understanding of how Colony works, check out some of the other starter projects by repeating steps 2 and 3 and substituting `colony-starter` with the project of your choice!
 
-- [colony-starter-basic](/packages/colony-starter-basic)
-- [colony-starter-react](/packages/colony-starter-react)
-- [colony-starter-angular](/packages/colony-starter-angular)
+[colony-starter-extended](/packages/colony-starter-extended)
+
+- This package is structured the same as the `colony-starter` package but with more examples.
+
+[colony-starter-react](/packages/colony-starter-react)
+
+- This package is a starter project built using react and redux.
+
+[colony-starter-angular](/packages/colony-starter-angular)
+
+- This package is a starter project built using angular.
 
 ## Contribute
 

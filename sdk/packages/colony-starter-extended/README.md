@@ -1,4 +1,4 @@
-# colony-starter-basic
+# colony-starter-extended
 
 This is a simple starter project that demonstrates how to use [colonyJS](https://github.com/JoinColony/colonyJS) (a JavaScript client for [colonyNetwork](https://github.com/JoinColony/colonyNetwork)). This project is set up to start a local test network using [Ganache](https://github.com/trufflesuite/ganache-cli) and then deploy the [colonyNetwork](https://github.com/JoinColony/colonyNetwork) contracts to the local test network using [Truffle](https://github.com/trufflesuite/truffle). This project also uses [TrufflePig](https://github.com/JoinColony/trufflepig) to find and read the deployed contracts during local development.
 
@@ -11,6 +11,38 @@ This project includes example scripts also found in the [Local Setup](https://jo
 - Node 10.12.0
 
 _You may find it helpful to use Node Version Manager (`nvm`) to manage Node versions._
+
+## Installation
+
+### Step 1
+
+Globally install the [colony-cli](/packages/colony-cli) package:
+
+```
+yarn global add @colony/colony-cli
+```
+
+### Step 2
+
+Move to your working directory and unpack the [colony-starter](/packages/colony-starter) package:
+
+```
+colony build colony-starter-extended
+```
+
+Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and kickstart the `colony-starter-extended` package in one line without having to globally install the [colony-cli](../colony-cli) package:
+
+```
+npx -p @colony/colony-cli colony build colony-starter-extended
+```
+
+### Step 3
+
+Move to your new project directory and follow the instructions below:
+
+```
+cd colony-starter-extended
+```
 
 ## Development
 

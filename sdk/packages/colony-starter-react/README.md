@@ -9,6 +9,38 @@ _Learn to build with Colony using React!_
 
 _You may find it helpful to use Node Version Manager (`nvm`) to manage Node versions._
 
+## Installation
+
+### Step 1
+
+Globally install the [colony-cli](/packages/colony-cli) package:
+
+```
+yarn global add @colony/colony-cli
+```
+
+### Step 2
+
+Move to your working directory and unpack the [colony-starter](/packages/colony-starter) package:
+
+```
+colony build colony-starter-react
+```
+
+Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and kickstart the `colony-starter-react` package in one line without having to globally install the [colony-cli](../colony-cli) package:
+
+```
+npx -p @colony/colony-cli colony build colony-starter-react
+```
+
+### Step 3
+
+Move to your new project directory and follow the instructions below:
+
+```
+cd colony-starter-react
+```
+
 ## Development
 
 ### Start Network

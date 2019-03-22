@@ -1,0 +1,21 @@
+{
+  "name": "@colony/colony-cli",
+  "version": "1.0.0-beta.0",
+  "description": "A command line interface for developers building with Colony",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "bin": {
+    "colony": "./index.js"
+  },
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "commander": "^2.17.1",
+    "cross-spawn": "^6.0.5",
+    "fs-extra": "^7.0.0",
+    "json": "^9.0.6",
+    "tar-pack": "^3.4.1",
+    "tmp": "^0.0.33"
+  }
+}
