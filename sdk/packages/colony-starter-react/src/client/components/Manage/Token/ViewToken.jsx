@@ -14,10 +14,11 @@ const ViewToken = ({
     :
       <div>
         <p>{'Address: ' + token.address}</p>
+        <p>{'Owner: ' + token.owner}</p>
         <p>{'Name: ' + token.name}</p>
         <p>{'Symbol: ' + token.symbol}</p>
         <p>{'Decimals: ' + token.decimals}</p>
-        <p>{'Total Supply: ' + token.supply}</p>
+        <p>{'Total Supply: ' + token.totalSupply}</p>
       </div>
     }
   </div>

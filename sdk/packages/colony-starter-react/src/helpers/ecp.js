@@ -3,6 +3,7 @@
 // It will make the Colony Network more human usable with functionality for
 // non-consensus-relevant contexts by enriching the data stored on chain with
 // metadata (which might be too expensive to store on chain).
+
 // It helps developers building on the Colony Network provide a web 2.0 like
 // user experience, without compromising decentralisation.
 
@@ -19,12 +20,12 @@ const waitForIPFS = () => {
   })
 }
 
-exports.init = async () => {
+export const init = async () => {
   await waitForIPFS()
   return node.start()
 }
 
-exports.getTaskDeliverable = async (hash) => {
+export const getHash = async hash => {
   const buf = await node.files.cat(`/ipfs/${hash}`)
   let spec
   try {
@@ -35,27 +36,10 @@ exports.getTaskDeliverable = async (hash) => {
   return spec
 }
 
-exports.saveTaskDeliverable = async (spec) => {
+export const saveHash = async spec => {
   const data = Buffer.from(JSON.stringify(spec))
   const result = await node.files.add(data)
   return result[0].hash
 }
 
-exports.getTaskSpecification = async (hash) => {
-  const buf = await node.files.cat(`/ipfs/${hash}`)
-  let spec
-  try {
-    spec = JSON.parse(buf.toString())
-  } catch (e) {
-    throw new Error(`Could not get task specification for hash ${hash}`)
-  }
-  return spec
-}
-
-exports.saveTaskSpecification = async (spec) => {
-  const data = Buffer.from(JSON.stringify(spec))
-  const result = await node.files.add(data)
-  return result[0].hash
-}
-
-exports.stop = () => node.stop()
+export const stop = () => node.stop()

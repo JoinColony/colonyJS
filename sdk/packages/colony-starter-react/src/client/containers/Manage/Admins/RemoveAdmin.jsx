@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as authorityActions from '../../../actions/authorityActions'
+import * as adminActions from '../../../actions/adminActions'
 import RemoveAdmin from '../../../components/Manage/Admins/RemoveAdmin'
 
 class RemoveAdminContainer extends Component {
@@ -49,18 +49,18 @@ class RemoveAdminContainer extends Component {
 
 const mapStateToProps = state => ({
   colonyClient: state.colony.colonyClient,
-  removeAdminError: state.authority.removeAdminError,
-  removeAdminLoading: state.authority.removeAdminLoading,
-  removeAdminSuccess: state.authority.removeAdminSuccess,
+  removeAdminError: state.admin.removeAdminError,
+  removeAdminLoading: state.admin.removeAdminLoading,
+  removeAdminSuccess: state.admin.removeAdminSuccess,
 })
 
 const mapDispatchToProps = dispatch => ({
   removeAdmin(colonyClient, userAddress) {
-    dispatch(authorityActions.removeAdmin(colonyClient, userAddress))
+    dispatch(adminActions.removeAdmin(colonyClient, userAddress))
   },
   resetActions() {
-    dispatch(authorityActions.removeAdminError(null))
-    dispatch(authorityActions.removeAdminSuccess(false))
+    dispatch(adminActions.removeAdminError(null))
+    dispatch(adminActions.removeAdminSuccess(false))
   },
 })
 
