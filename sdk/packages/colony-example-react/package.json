@@ -1,6 +1,6 @@
 {
   "name": "@colony/colony-example-react",
-  "version": "1.0.0-beta.7",
+  "version": "1.0.0-beta.0",
   "description": "A simple starter project for building with Colony",
   "license": "MIT",
   "engines": {
