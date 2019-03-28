@@ -51,15 +51,10 @@ if (scriptAction === 'build') {
   // Set package name
   const packageName = process.argv[3];
 
-  // Format package name
-  const formattedName = packageName.includes('colony-starter-')
-    ? packageName
-    : `colony-starter-${packageName}`;
-
   // Define build and package paths
   const buildPath = path.join(rootPath, 'build');
   const packagesPath = path.join(rootPath, 'packages');
-  const packagePath = path.join(packagesPath, formattedName);
+  const packagePath = path.join(packagesPath, packageName);
   const packageJSON = path.join(packagePath, 'package.json');
 
   // Check if package exists

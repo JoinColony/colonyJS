@@ -39,17 +39,12 @@ const build = async (commander, packageName) => {
     process.exit(1);
   }
 
-  // Format package name
-  const formattedName = packageName.includes('colony-starter-')
-    ? packageName
-    : `colony-starter-${packageName}`;
-
   // Log step
   console.log();
-  console.log(`  Creating ${chalk.cyan(formattedName)} folder...`);
+  console.log(`  Creating ${chalk.cyan(packageName)} folder...`);
 
   // Set destination path
-  const destinationPath = path.resolve(formattedName);
+  const destinationPath = path.resolve(packageName);
 
   // Ensure destination exists
   fs.ensureDirSync(destinationPath);
@@ -57,7 +52,7 @@ const build = async (commander, packageName) => {
   // Ensure destination directory is empty
   if (fs.readdirSync(destinationPath).length > 0) {
     console.log();
-    console.log(chalk.red(`  The ${formattedName} folder must be empty!`));
+    console.log(chalk.red(`  The ${packageName} folder must be empty!`));
     console.log();
     process.exit(1);
   }
@@ -67,7 +62,7 @@ const build = async (commander, packageName) => {
 
   // Get the specific package to install
   const specificPackage = getSpecificPackage(
-    formattedName,
+    packageName,
     commander.specific,
   );
 
@@ -136,7 +131,7 @@ const build = async (commander, packageName) => {
 
   // Log step
   console.log();
-  console.log(`  Initializing ${chalk.cyan(formattedName)}...`);
+  console.log(`  Initializing ${chalk.cyan(packageName)}...`);
   console.log();
 
   // Initialize git
@@ -156,7 +151,7 @@ const build = async (commander, packageName) => {
 
   // Log step
   console.log();
-  console.log(`  Success! Created ${chalk.cyan(formattedName)} at ${chalk.cyan(destinationPath)}`);
+  console.log(`  Success! Created ${chalk.cyan(packageName)} at ${chalk.cyan(destinationPath)}`);
   console.log();
 
 }
@@ -199,15 +194,15 @@ const isYarnInstalled = () => {
 }
 
 // Get the specific package to install
-const getSpecificPackage = (formattedName, specific) => {
+const getSpecificPackage = (packageName, specific) => {
   const validSemver = semver.valid(specific);
   if (validSemver) {
-    return `@colony/${formattedName}@${validSemver}`;
+    return `@colony/${packageName}@${validSemver}`;
   }
   if (specific) {
     return specific;
   }
-  return `@colony/${formattedName}`;
+  return `@colony/${packageName}`;
 }
 
 // Create temporary directory
