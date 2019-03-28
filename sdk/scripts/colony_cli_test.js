@@ -31,7 +31,7 @@ const rootPath = path.join(__dirname, '..');
 const scriptPath = path.join(
   rootPath,
   'packages',
-  'colony-starter',
+  'colony-cli',
   'index.js',
 );
 
