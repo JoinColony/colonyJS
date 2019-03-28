@@ -1,12 +1,12 @@
 ---
-title: colony-starter-angular
-section: Packages
+title: colony-starter-react
+section: Starters
 order: 2
 ---
 
 ## About
 
-The `colony-starter-angular` package is a starter project that demonstrates how to use [colonyJS](https://github.com/JoinColony/colonyJS) (a JavaScript client for [colonyNetwork](https://github.com/JoinColony/colonyNetwork)) with `angular`. This project is set up to start a local test network using [Ganache](https://github.com/trufflesuite/ganache-cli) and then deploy the [colonyNetwork](https://github.com/JoinColony/colonyNetwork) contracts to the local test network using [Truffle](https://github.com/trufflesuite/truffle). This project also uses [TrufflePig](https://github.com/JoinColony/trufflepig) to find and read the deployed contracts during local development.
+The `colony-starter-react` package is a starter project that demonstrates how to use [colonyJS](https://github.com/JoinColony/colonyJS) (a JavaScript client for [colonyNetwork](https://github.com/JoinColony/colonyNetwork)) with `react`, `redux` and `webpack`. This project is set up to start a local test network using [Ganache](https://github.com/trufflesuite/ganache-cli) and then deploy the [colonyNetwork](https://github.com/JoinColony/colonyNetwork) contracts to the local test network using [Truffle](https://github.com/trufflesuite/truffle). This project also uses [TrufflePig](https://github.com/JoinColony/trufflepig) to find and read the deployed contracts during local development.
 
 This project includes example scripts also found in the colonyJS [Local Setup](/colonyjs/intro-local-setup) documentation. In order to help you hit the ground running with your new project, this starter project includes all of the examples that can be called through interactions with a simple user interface.
 
@@ -22,22 +22,22 @@ _If you are using Linux, check out the [Linux Setup](/colonystarter/docs-linux-s
 
 ## Installation
 
-Globally install the `colony-starter` package.
+Globally install the `colony-cli` package.
 
 ```
-yarn global add @colony/colony-starter
+yarn global add @colony/colony-cli
 ```
 
-Install the `colony-starter-angular` package.
+Install the `colony-starter-react` package.
 
 ```
-colony build angular
+colony build colony-starter-react
 ```
 
-Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and kickstart the `colony-starter-angular` package in one line without having to globally add the [colony-starter](/colonystarter/packages-colony-starter/) package:
+Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and kickstart the `colony-starter-react` package in one line without having to globally add the [colony-starter](/colonystarter/starters-colony-starter/) package:
 
 ```
-npx -p @colony/colony-starter colony build angular
+npx -p @colony/colony-starter colony build colony-starter-react
 ```
 
 ## Run Examples
@@ -74,9 +74,9 @@ Open a new terminal window and run the seed network script:
 yarn seed-network
 ```
 
-### Start Angular
+### Start Webpack Dev Server
 
-Once the network has been seeded, start angular:
+Once the network has been seeded, start [webpack-dev-server](https://github.com/webpack/webpack-dev-server):
 
 ```
 yarn start
@@ -84,7 +84,7 @@ yarn start
 
 ### Open Your Browser
 
-Open your browser and check out the example angular app::
+Open your browser and check out the example react app::
 
 [localhost:8080](http://localhost:8080)
 

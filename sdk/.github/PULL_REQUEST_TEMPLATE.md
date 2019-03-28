@@ -26,6 +26,6 @@ _List any added/updated dependencies._
 
 **Updated Dependencies**:
 
-## Resolves
+## Related Issues
 
 _If the pull request is related to an issue, add a link to the issue here._

@@ -1,12 +1,12 @@
 ---
-title: colony-starter-basic
-section: Packages
+title: colony-example
+section: Starters
 order: 1
 ---
 
 ## About
 
-The `colony-starter-basic` package is a starter project that demonstrates how to use [colonyJS](https://github.com/JoinColony/colonyJS) (a JavaScript client for [colonyNetwork](https://github.com/JoinColony/colonyNetwork)). This project is set up to start a local test network using [Ganache](https://github.com/trufflesuite/ganache-cli) and then deploy the [colonyNetwork](https://github.com/JoinColony/colonyNetwork) contracts to the local test network using [Truffle](https://github.com/trufflesuite/truffle). This project also uses [TrufflePig](https://github.com/JoinColony/trufflepig) to find and read the deployed contracts during local development.
+The `colony-example` package is a starter project that demonstrates how to use [colonyJS](https://github.com/JoinColony/colonyJS) (a JavaScript client for [colonyNetwork](https://github.com/JoinColony/colonyNetwork)). This project is set up to start a local test network using [Ganache](https://github.com/trufflesuite/ganache-cli) and then deploy the [colonyNetwork](https://github.com/JoinColony/colonyNetwork) contracts to the local test network using [Truffle](https://github.com/trufflesuite/truffle). This project also uses [TrufflePig](https://github.com/JoinColony/trufflepig) to find and read the deployed contracts during local development.
 
 This project includes example scripts also found in the colonyJS [Local Setup](/colonyjs/intro-local-setup) documentation. In order to help you hit the ground running with your new project, this starter project includes all of the examples from the docs plus some, and it gives you the opportunity to execute and test those examples with a few simple commands.
 
@@ -22,22 +22,22 @@ _If you are using Linux, check out the [Linux Setup](/colonystarter/docs-linux-s
 
 ## Installation
 
-Globally install the `colony-starter` package.
+Globally install the `colony-cli` package.
 
 ```
-yarn global add @colony/colony-starter
+yarn global add @colony/colony-cli
 ```
 
-Install the `colony-starter-basic` package.
+Install the `colony-example` package.
 
 ```
-colony build basic
+colony build colony-example
 ```
 
-Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and kickstart the `colony-starter-basic` package in one line without having to globally add the [colony-starter](/colonystarter/packages-colony-starter/) package:
+Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and kickstart the `colony-example` package in one line without having to globally add the [colony-example](/colonystarter/examples-colony-example/) package:
 
 ```
-npx -p @colony/colony-starter colony build basic
+npx -p @colony/colony-cli colony build colony-example
 ```
 
 ## Run Examples

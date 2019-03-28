@@ -15,7 +15,7 @@
 
 # Colony Starter
 
-_Learn to build with Colony! Get a head start on your next project!_ Colony Starter (formerly known as "Hackathon Starter") includes a variety of starter projects that demonstrate how to use and integrate different tools with Colony.
+_Get a head start on your next project!_ Colony Starter (formerly known as "Hackathon Starter") includes a variety of starter projects that will help you get started with Colony and demonstrate how to use and integrate different tools with Colony.
 
 ## Get Started
 
@@ -61,19 +61,29 @@ cd colony-starter
 
 ## Starter Projects
 
-Now that you have a basic understanding of how Colony works, check out some of the other starter projects by repeating steps 2 and 3 and substituting `colony-starter` with the project of your choice!
+Now that you have a basic understanding of how Colony works, check out some of the other colonyStarter packages by repeating steps 2 and 3 and substituting `colony-starter` with the package of your choice!
 
-[colony-starter-extended](/packages/colony-starter-extended)
+[colony-starter](/packages/colony-starter)
 
-- This package is structured the same as the `colony-starter` package but with more examples.
+- This package is a boilerplate with no framework.
 
 [colony-starter-react](/packages/colony-starter-react)
 
-- This package is a starter project built using react and redux.
+- This package is a boilerplate using react and redux.
 
 [colony-starter-angular](/packages/colony-starter-angular)
 
-- This package is a starter project built using angular.
+- This package is a boilerplate using angular.
+
+## Example Projects
+
+[colony-example](/packages/colony-example)
+
+- This package is a built out versions of the `colony-starter` package with more examples.
+
+[colony-example-react](/packages/colony-example-react)
+
+- This package is a built out versions of the `colony-starter-react` package with more examples.
 
 ## Contribute
 

@@ -1,6 +1,6 @@
 ---
 title: colony-starter-react
-section: Packages
+section: Starters
 order: 2
 ---
 
@@ -22,22 +22,22 @@ _If you are using Linux, check out the [Linux Setup](/colonystarter/docs-linux-s
 
 ## Installation
 
-Globally install the `colony-starter` package.
+Globally install the `colony-cli` package.
 
 ```
-yarn global add @colony/colony-starter
+yarn global add @colony/colony-cli
 ```
 
 Install the `colony-starter-react` package.
 
 ```
-colony build react
+colony build colony-starter-react
 ```
 
-Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and kickstart the `colony-starter-react` package in one line without having to globally add the [colony-starter](/colonystarter/packages-colony-starter/) package:
+Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and kickstart the `colony-starter-react` package in one line without having to globally add the [colony-starter](/colonystarter/starters-colony-starter/) package:
 
 ```
-npx -p @colony/colony-starter colony build react
+npx -p @colony/colony-starter colony build colony-starter-react
 ```
 
 ## Run Examples
