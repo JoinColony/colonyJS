@@ -20,7 +20,7 @@
     "seed-network": "node scripts/seed_network.js",
     "build": "react-scripts build",
     "start": "react-scripts start",
-    "test": "react-scripts test",
+    "test": "react-scripts test --coverage",
     "eject": "react-scripts eject"
   },
   "dependencies": {
@@ -28,6 +28,6 @@
     "react-dom": "^16.8.6"
   },
   "devDependencies": {
-    "react-scripts": "2.1.8"
+    "react-scripts": "^2.1.8"
   }
 }
