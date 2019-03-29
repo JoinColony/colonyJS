@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer'
-import App from './App';
+import App from './containers/App';
 
 // Mock react-dom for testing
 jest.mock('react-dom', () => ({
