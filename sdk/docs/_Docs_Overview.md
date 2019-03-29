@@ -34,12 +34,6 @@ Move to your working directory and unpack the [colony-starter](/starters-colony-
 colony build colony-starter
 ```
 
-Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and kickstart the [colony-starter](/starters-colony-starter) package in one line without having to globally add the `colony-starter` package:
-
-```
-npx -p @colony/colony-starter colony build colony-starter
-```
-
 ### Step 3
 
 Move to your new project directory and check out [colony-starter](/starters-colony-starter) for further instructions:
@@ -48,11 +42,21 @@ Move to your new project directory and check out [colony-starter](/starters-colo
 cd colony-starter
 ```
 
-## CLI Package
+### Using NPX
 
-The [colony-cli](/cli-colony-cli) package currently has one action (`build`), which can be used to unpack any of the starter and example projects within this repository. We have plans for `colony-cli`, stay tuned.
+Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and unpack the [colony-starter](/packages/colony-starter) package without installing the [colony-cli](/packages/colony-cli) package:
 
-## Starter Packages
+```
+npx -p @colony/colony-cli colony build colony-starter
+```
+
+## Packages
+
+### CLI Package
+
+The [colony-cli](/cli-colony-cli) package currently has one action (`build`), which can be used to unpack any of the starter and example projects within this repository. We have plans for this package... stay tuned.
+
+### Starter Packages
 
 Check out some of the other starter packages by repeating steps 2 and 3 and substituting `colony-starter` with the package of your choice. If you would like to create a new package, open a pull request or send us a message in [Gitter](https://gitter.im/JoinColony/colonyStarter).
 
@@ -68,7 +72,9 @@ Check out some of the other starter packages by repeating steps 2 and 3 and subs
 
 - This package is a boilerplate using angular.
 
-## Example Packages
+### Example Packages
+
+We also have a couple example packages that you can unpack using the same `build` command. If you are uncertain how to do something, you might find the answers you are looking for in one of these packages.
 
 [colony-example](/examples-colony-example)
 

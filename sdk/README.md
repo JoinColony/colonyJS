@@ -61,11 +61,13 @@ Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and unpack t
 npx -p @colony/colony-cli colony build colony-starter
 ```
 
-## CLI Package
+## Packages
 
-The `colony-cli` package currently has one action (`build`), which can be used to unpack any of the starter and example projects within this repository. We have plans for `colony-cli`, stay tuned.
+### CLI Package
 
-## Starter Packages
+The [colony-cli](/packages/colony-cli) package currently has one action (`build`), which can be used to unpack any of the starter and example projects within this repository. We have plans for this package... stay tuned.
+
+### Starter Packages
 
 Check out some of the other starter packages by repeating steps 2 and 3 and substituting `colony-starter` with the package of your choice. If you would like to create a new package, open a pull request or send us a message in [Gitter](https://gitter.im/JoinColony/colonyStarter).
 
@@ -81,7 +83,9 @@ Check out some of the other starter packages by repeating steps 2 and 3 and subs
 
 - This package is a boilerplate using angular.
 
-## Example Packages
+### Example Packages
+
+We also have a couple example packages that you can unpack using the same `build` command. If you are uncertain how to do something, you might find the answers you are looking for in one of these packages.
 
 [colony-example](/packages/colony-example)
 
