@@ -1,10 +1,10 @@
 ---
-title: colony-starter-angular
+title: colony-example
 section: Starters
-order: 3
+order: 1
 ---
 
-The `colony-starter-angular` package is a boilerplate using [colonyJS](https://github.com/JoinColony/colonyJS) and Angular. This package is set up for local development using [Ganache](https://github.com/trufflesuite/ganache-cli), [colonyNetwork](https://github.com/JoinColony/colonyNetwork), and [TrufflePig](https://github.com/JoinColony/trufflepig).
+This package is a built out version of the [colony-starter](/starters-colony-starter) package with more examples.
 
 ## Prerequisites
 
@@ -24,16 +24,16 @@ Globally install the [colony-cli](/cli-colony-cli) package.
 yarn global add @colony/colony-cli
 ```
 
-Install the `colony-starter-angular` package.
+Install the `colony-example` package.
 
 ```
-colony build colony-starter-angular
+colony build colony-example
 ```
 
-Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and kickstart the `colony-starter-angular` package in one line without having to globally add the [colony-cli](/cli-colony-cli) package:
+Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and kickstart the `colony-example` package in one line without having to globally add the [colony-cli](/cli-colony-cli) package:
 
 ```
-npx -p @colony/colony-cli colony build colony-starter-angular
+npx -p @colony/colony-cli colony build colony-example
 ```
 
 ## Run Examples
@@ -62,27 +62,13 @@ Once the contracts have been deployed, start [TrufflePig](https://github.com/Joi
 yarn start-trufflepig
 ```
 
-### Seed Network
+### Run Example Script
 
-Open a new terminal window and run the seed network script:
-
-```
-yarn seed-network
-```
-
-### Start Angular
-
-Once the network has been seeded, start angular:
+Open a new terminal window and run the example script:
 
 ```
 yarn start
 ```
-
-### Open Your Browser
-
-Open your browser and check out the example angular app::
-
-[localhost:8080](http://localhost:8080)
 
 ### Run Example Tests
 

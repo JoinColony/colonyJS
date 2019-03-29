@@ -1,7 +1,7 @@
 ---
 title: Linux Setup
 section: Docs
-order: 1
+order: 2
 ---
 
 ### Yarn Setup
