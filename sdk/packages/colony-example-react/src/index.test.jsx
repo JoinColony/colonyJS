@@ -14,8 +14,8 @@ jest.mock('react-dom', () => ({
   findDOMNode: () => {},
 }))
 
-// Testing Colony Starter React
-describe('Colony Starter React', () => {
+// Testing colony-example-react
+describe('colony-example-react', () => {
 
   // Create store using reducers and middleware
   const store = createStore(reducers, middleware)

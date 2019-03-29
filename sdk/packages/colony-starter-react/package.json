@@ -14,7 +14,7 @@
     "seed-network": "node scripts/seed_network.js",
     "build": "react-scripts build",
     "start": "react-scripts start",
-    "test": "react-scripts test --coverage",
+    "test": "react-scripts test --coverage --updateSnapshot",
     "eject": "react-scripts eject"
   },
   "dependencies": {
@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "react-scripts": "^2.1.8",
+    "react-test-renderer": "^16.8.6",
     "trufflepig": "^1.1.1"
   },
   "browserslist": [
