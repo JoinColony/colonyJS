@@ -4,11 +4,9 @@
   "description": "A simple starter project for building with Colony",
   "license": "MIT",
   "engines": {
-    "node": "10.12.0"
+    "node": ">=10.12.0"
   },
-  "publishConfig": {
-    "access": "public"
-  },
+  "files": ["/", ".gitignore"],
   "scripts": {
     "postinstall": "",
     "start-ganache": "sh scripts/start_ganache.sh",
@@ -20,16 +18,16 @@
     "test": "ng lint && ng test"
   },
   "dependencies": {
-    "@angular/animations": "^7.2.1",
-    "@angular/cdk": "^7.2.1",
-    "@angular/common": "^7.2.1",
-    "@angular/compiler": "^7.2.1",
-    "@angular/core": "^7.2.1",
-    "@angular/forms": "^7.2.1",
-    "@angular/material": "^7.2.1",
-    "@angular/platform-browser": "^7.2.1",
-    "@angular/platform-browser-dynamic": "^7.2.1",
-    "@angular/router": "^7.2.1",
+    "@angular/animations": "^7.2.11",
+    "@angular/cdk": "^7.2.11",
+    "@angular/common": "^7.2.11",
+    "@angular/compiler": "^7.2.11",
+    "@angular/core": "^7.2.11",
+    "@angular/forms": "^7.2.11",
+    "@angular/material": "^7.2.11",
+    "@angular/platform-browser": "^7.2.11",
+    "@angular/platform-browser-dynamic": "^7.2.11",
+    "@angular/router": "^7.2.11",
     "@colony/colony-js-client": "^1.11.2",
     "@colony/colony-js-contract-loader-http": "^1.10.0",
     "@colony/purser-metamask": "^2.1.1",
@@ -42,16 +40,16 @@
   },
   "devDependencies": {
     "@angular-builders/custom-webpack": "^7.2.0",
-    "@angular-builders/dev-server": "^7.2.1",
-    "@angular-devkit/build-angular": "^0.12.2",
+    "@angular-builders/dev-server": "^7.2.11",
+    "@angular-devkit/build-angular": "^0.13.7",
     "@angular/cli": "^7.2.2",
-    "@angular/compiler-cli": "^7.2.1",
-    "@angular/language-service": "^7.2.1",
+    "@angular/compiler-cli": "^7.2.11",
+    "@angular/language-service": "^7.2.11",
     "@types/jasmine": "^3.3.7",
     "@types/jasminewd2": "^2.0.6",
     "@types/node": "^10.12.18",
     "jasmine-spec-reporter": "^4.2.1",
-    "karma": "^3.1.4",
+    "karma": "^4.0.1",
     "karma-chrome-launcher": "^2.2.0",
     "karma-coverage-istanbul-reporter": "^2.0.4",
     "karma-jasmine": "^2.0.1",

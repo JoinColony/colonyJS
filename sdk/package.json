@@ -11,7 +11,7 @@
     "start-ganache": "sh scripts/start_ganache.sh",
     "deploy-contracts": "sh scripts/deploy_contracts.sh",
     "start-trufflepig": "sh scripts/start_trufflepig.sh",
-    "colony": "node scripts/colony_starter.js",
+    "colony": "node scripts/colony_cli.js",
     "test": "lerna run test"
   },
   "devDependencies": {

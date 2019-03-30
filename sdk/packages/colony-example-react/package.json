@@ -1,0 +1,51 @@
+{
+  "name": "@colony/colony-example-react",
+  "version": "1.0.0-beta.0",
+  "description": "A simple example project built with Colony",
+  "license": "MIT",
+  "engines": {
+    "node": ">=10.12.0"
+  },
+  "files": ["/", ".gitignore"],
+  "scripts": {
+    "postinstall": "",
+    "start-ganache": "sh scripts/start_ganache.sh",
+    "deploy-contracts": "sh scripts/deploy_contracts.sh",
+    "start-trufflepig": "sh scripts/start_trufflepig.sh",
+    "seed-network": "node scripts/seed_network.js",
+    "build": "react-scripts build",
+    "start": "react-scripts start",
+    "test": "react-scripts test --coverage --updateSnapshot",
+    "eject": "react-scripts eject"
+  },
+  "dependencies": {
+    "@colony/colony-js-client": "^1.11.2",
+    "@colony/colony-js-contract-loader-http": "^1.10.0",
+    "@colony/purser-metamask": "^2.1.1",
+    "bn.js": "^4.11.8",
+    "buffer": "^5.1.0",
+    "ethers": "3.0.27",
+    "ipfs": "^0.34.4",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-redux": "^5.1.1",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "redux": "^4.0.1",
+    "redux-logger": "^3.0.6",
+    "web3": "^1.0.0-beta.35",
+    "web3-utils": "^1.0.0-beta.44"
+  },
+  "devDependencies": {
+    "node-sass": "^4.9.0",
+    "react-scripts": "^2.1.8",
+    "react-test-renderer": "^16.8.6",
+    "trufflepig": "^1.1.1"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
