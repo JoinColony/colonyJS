@@ -10,9 +10,9 @@ This is a built out version of the [colony-starter](/starters-colony-starter) pa
 
 ## Prerequisites
 
-- Node >=10.12.0
-- Yarn >=1.12.0
-- Docker >=18.09.0
+- Node `>=10.12.0`
+- Yarn `>=1.12.0`
+- Docker `>=18.09.0`
 
 _You may find it helpful to use Node Version Manager (`nvm`) to manage Node versions._
 

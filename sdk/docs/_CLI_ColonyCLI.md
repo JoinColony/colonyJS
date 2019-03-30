@@ -8,9 +8,9 @@ The `colony-cli` package is a command line tool for building [colonyStarter](htt
 
 ## Prerequisites
 
-- Node >=10.12.0
-- Yarn >=1.12.0
-- Docker >=18.09.0
+- Node `>=10.12.0`
+- Yarn `>=1.12.0`
+- Docker `>=18.09.0`
 
 _You may find it helpful to use Node Version Manager (`nvm`) to manage Node versions._
 
@@ -18,7 +18,7 @@ _If you are using Linux, check out [Linux Setup](/docs-linux-setup/) to ensure Y
 
 ## Install
 
-Globally install the `colony-cli` package.
+Install the `colony-cli` package globally:
 
 ```
 yarn global add @colony/colony-cli
@@ -28,7 +28,7 @@ yarn global add @colony/colony-cli
 
 ### `build`
 
-Install [colonyStarter](https://github.com/JoinColony/colonyStarter) packages:
+Build [colonyStarter](https://github.com/JoinColony/colonyStarter) packages:
 
 ```
 colony build [package-name]
@@ -36,7 +36,7 @@ colony build [package-name]
 
 ### `service`
 
-Start [Ganache](https://github.com/trufflesuite/ganache-cli):
+Start a local test network with [Ganache](https://github.com/trufflesuite/ganache-cli):
 
 ```
 colony service start-ganache
@@ -48,13 +48,13 @@ Deploy the [colonyNetwork](https://github.com/JoinColony/colonyNetwork) smart co
 colony service deploy-contracts
 ```
 
-Start [TrufflePig](https://github.com/JoinColony/trufflepig):
+Serve truffle contract data with [TrufflePig](https://github.com/JoinColony/trufflepig):
 
 ```
 colony service start-trufflepig
 ```
 
-Seed the Meta Colony with global skills:
+Seed the network with with global skills:
 
 ```
 colony service seed-network

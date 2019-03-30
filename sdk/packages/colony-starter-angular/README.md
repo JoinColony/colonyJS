@@ -4,9 +4,9 @@ _A boilerplate to get started with [colonyJS](https://github.com/JoinColony/colo
 
 ## Prerequisites
 
-- Node >=10.12.0
-- Yarn >=1.12.0
-- Docker >=18.09.0
+- Node `>=10.12.0`
+- Yarn `>=1.12.0`
+- Docker `>=18.09.0`
 
 _You may find it helpful to use Node Version Manager (`nvm`) to manage Node versions._
 
@@ -30,18 +30,20 @@ Move to your working directory and unpack the [colony-starter](/packages/colony-
 colony build colony-starter-angular
 ```
 
-Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and kickstart the `colony-starter-angular` package in one line without having to globally install the [colony-cli](../colony-cli) package:
-
-```
-npx -p @colony/colony-cli colony build colony-starter-angular
-```
-
 ### Step 3
 
 Move to your new project directory and follow the instructions below:
 
 ```
 cd colony-starter-angular
+```
+
+### Using NPX
+
+Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and unpack the [colony-starter-angular](/packages/colony-starter-angular) package without installing the [colony-cli](/packages/colony-cli) package:
+
+```
+npx -p @colony/colony-cli colony build colony-starter-angular
 ```
 
 ## Development
