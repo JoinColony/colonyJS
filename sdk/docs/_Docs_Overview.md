@@ -10,9 +10,9 @@ _Get a head start on your next project!_ Colony Starter (formerly known as "Hack
 
 ### Prerequisites
 
-- Yarn >=1.12.0
-- Docker
 - Node >=10.12.0
+- Yarn >=1.12.0
+- Docker >=18.09.0
 
 _You may find it helpful to use Node Version Manager (`nvm`) to manage Node versions._
 
@@ -52,7 +52,7 @@ npx -p @colony/colony-cli colony build colony-starter
 
 ## Packages
 
-### CLI Package
+### colony-cli
 
 The [colony-cli](/cli-colony-cli) package currently has one action (`build`), which can be used to unpack any of the starter and example projects within this repository. We have plans for this package... stay tuned.
 

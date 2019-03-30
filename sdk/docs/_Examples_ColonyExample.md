@@ -4,13 +4,15 @@ section: Starters
 order: 1
 ---
 
-This package is a built out version of the [colony-starter](/starters-colony-starter) package with more examples.
+_An example project using [colonyJS](https://github.com/JoinColony/colonyJS)!_
+
+This is a built out version of the [colony-starter](/starters-colony-starter) package with more examples.
 
 ## Prerequisites
 
-- Yarn >=1.12.0
-- Docker
 - Node >=10.12.0
+- Yarn >=1.12.0
+- Docker >=18.09.0
 
 _You may find it helpful to use Node Version Manager (`nvm`) to manage Node versions._
 

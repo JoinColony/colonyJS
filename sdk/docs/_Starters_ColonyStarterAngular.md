@@ -4,13 +4,13 @@ section: Starters
 order: 3
 ---
 
-The `colony-starter-angular` package is a boilerplate using [colonyJS](https://github.com/JoinColony/colonyJS) and Angular. This package is set up for local development using [Ganache](https://github.com/trufflesuite/ganache-cli), [colonyNetwork](https://github.com/JoinColony/colonyNetwork), and [TrufflePig](https://github.com/JoinColony/trufflepig).
+_A boilerplate to get started with [colonyJS](https://github.com/JoinColony/colonyJS) using Angular!_
 
 ## Prerequisites
 
-- Yarn >=1.12.0
-- Docker
 - Node >=10.12.0
+- Yarn >=1.12.0
+- Docker >=18.09.0
 
 _You may find it helpful to use Node Version Manager (`nvm`) to manage Node versions._
 

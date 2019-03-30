@@ -4,13 +4,13 @@ section: Starters
 order: 2
 ---
 
-The `colony-starter-react` package is a boilerplate using [colonyJS](https://github.com/JoinColony/colonyJS) and React. This package is set up for local development using [Ganache](https://github.com/trufflesuite/ganache-cli), [colonyNetwork](https://github.com/JoinColony/colonyNetwork), and [TrufflePig](https://github.com/JoinColony/trufflepig).
+_A boilerplate to get started with [colonyJS](https://github.com/JoinColony/colonyJS) using React!_
 
 ## Prerequisites
 
-- Yarn >=1.12.0
-- Docker
 - Node >=10.12.0
+- Yarn >=1.12.0
+- Docker >=18.09.0
 
 _You may find it helpful to use Node Version Manager (`nvm`) to manage Node versions._
 

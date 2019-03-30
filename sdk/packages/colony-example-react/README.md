@@ -1,13 +1,18 @@
 # colony-example-react
 
-_Learn to build with Colony using React!_
+_An example project using [colonyJS](https://github.com/JoinColony/colonyJS)!_
+
+This is a built out version of the [colony-starter-react](/starters-colony-starter-react) package with more examples.
 
 ## Prerequisites
 
-- Yarn 1.12.3
-- Node 10.12.0
+- Node >=10.12.0
+- Yarn >=1.12.0
+- Docker >=18.09.0
 
 _You may find it helpful to use Node Version Manager (`nvm`) to manage Node versions._
+
+_If you are using Linux, check out [Linux Setup](/.github/LINUX_SETUP.md) to ensure Yarn and Docker are set up accordingly._
 
 ## Installation
 

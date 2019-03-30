@@ -21,9 +21,9 @@ _Get a head start on your next project!_ Colony Starter (formerly known as "Hack
 
 ### Prerequisites
 
-- Yarn >=1.12.0
-- Docker
 - Node >=10.12.0
+- Yarn >=1.12.0
+- Docker >=18.09.0
 
 _You may find it helpful to use Node Version Manager (`nvm`) to manage Node versions._
 
@@ -63,9 +63,9 @@ npx -p @colony/colony-cli colony build colony-starter
 
 ## Packages
 
-### CLI Package
+### colony-cli
 
-The [colony-cli](/packages/colony-cli) package currently has one action (`build`), which can be used to unpack any of the starter and example projects within this repository. We have plans for this package... stay tuned.
+The [colony-cli](/packages/colony-cli) package is a command line interface used to build colonyStarter packages. [colony-cli](/packages/colony-cli) currently has one action (`build`), which can be used to unpack any of the starters and examples in this repository. We have plans for this package... stay tuned.
 
 ### Starter Packages
 
@@ -73,15 +73,15 @@ Check out some of the other starter packages by repeating steps 2 and 3 and subs
 
 [colony-starter](/packages/colony-starter)
 
-- This package is a boilerplate with no framework.
+- A boilerplate to get started with [colonyJS](https://github.com/JoinColony/colonyJS).
 
 [colony-starter-react](/packages/colony-starter-react)
 
-- This package is a boilerplate using react.
+- A boilerplate to get started with [colonyJS](https://github.com/JoinColony/colonyJS) using React.
 
 [colony-starter-angular](/packages/colony-starter-angular)
 
-- This package is a boilerplate using angular.
+- A boilerplate to get started with [colonyJS](https://github.com/JoinColony/colonyJS) using Angular.
 
 ### Example Packages
 
@@ -89,11 +89,11 @@ We also have a couple example packages that you can unpack using the same `build
 
 [colony-example](/packages/colony-example)
 
-- This package is a built out version of the `colony-starter` package with more examples.
+- A built out version of the [colony-starter](/packages/colony-starter) package with more examples.
 
 [colony-example-react](/packages/colony-example-react)
 
-- This package is a built out version of the `colony-starter-react` package with more examples.
+- A built out version of the [colony-starter-react](/packages/colony-starter-react) package with more examples.
 
 ## Contribute
 
