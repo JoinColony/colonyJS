@@ -28,17 +28,8 @@ process.on('uncaughtException', handleError);
 
 // Define root and starter script path
 const rootPath = path.join(__dirname, '..');
-const cliPath = path.join(
-  rootPath,
-  'packages',
-  'colony-cli',
-);
-const scriptPath = path.join(
-  rootPath,
-  'packages',
-  'colony-cli',
-  'index.js',
-);
+const cliPath = path.join(rootPath, 'packages', 'colony-cli');
+const scriptPath = path.join(cliPath, 'src', 'index.js');
 
 // Set starter script action
 const scriptAction = process.argv[2];
