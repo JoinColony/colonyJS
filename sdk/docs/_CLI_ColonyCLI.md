@@ -4,7 +4,7 @@ section: CLI
 order: 1
 ---
 
-The `colony-cli` package is a command line interface used to build [colonyStarter](https://github.com/JoinColony/colonyStarter) packages. `colony-cli` currently has one action (`build`), which can be used to unpack any of the starters and examples in the [colonyStarter](https://github.com/JoinColony/colonyStarter) repository. We have plans for this package... stay tuned.
+The `colony-cli` package is a command line tool for building [colonyStarter](https://github.com/JoinColony/colonyStarter) packages and running services associated with the [colonyNetwork](https://github.com/JoinColony/colonyNetwork) smart contracts.
 
 ## Prerequisites
 
@@ -24,16 +24,38 @@ Globally install the `colony-cli` package.
 yarn global add @colony/colony-cli
 ```
 
-## Build Command
+## Commands
 
-Install the colonyStarter package of your choice:
+### `build`
 
-```
-colony-cli build [package-name]
-```
-
-Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and unpack colonyStarter packages without globally installing the `colony-cli` package:
+Install [colonyStarter](https://github.com/JoinColony/colonyStarter) packages:
 
 ```
-npx -p @colony/colony-cli colony build [package-name]
+colony build [package-name]
+```
+
+### `service`
+
+Start [Ganache](https://github.com/trufflesuite/ganache-cli):
+
+```
+colony service start-ganache
+```
+
+Deploy the [colonyNetwork](https://github.com/JoinColony/colonyNetwork) smart contracts:
+
+```
+colony service deploy-contracts
+```
+
+Start [TrufflePig](https://github.com/JoinColony/trufflepig):
+
+```
+colony service start-trufflepig
+```
+
+Seed the Meta Colony with global skills:
+
+```
+colony service seed-network
 ```
