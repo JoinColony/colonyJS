@@ -23,7 +23,7 @@ cd lib/colonyNetwork
 
 # Set colonyNework version
 log "Checking out colonyNetwork version..."
-git -c advice.detachedHead=false checkout 9bba127b0286708d4f8919526a943b0e916cfd7c
+git -c advice.detachedHead=false checkout temp/eth-denver
 
 # Install colonyNetwork dependencies
 log "Installing colonyNetwork dependencies..."

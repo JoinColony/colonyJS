@@ -44,6 +44,12 @@ Deploy the [colonyNetwork](https://github.com/JoinColony/colonyNetwork) smart co
 colony service deploy-contracts
 ```
 
+Deploy a specific version of the [colonyNetwork](https://github.com/JoinColony/colonyNetwork) smart contracts:
+
+```
+colony service deploy-contracts --specific develop
+```
+
 Serve truffle contract data with [TrufflePig](https://github.com/JoinColony/trufflepig):
 
 ```

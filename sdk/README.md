@@ -73,15 +73,15 @@ Check out some of the other starter packages by repeating steps 2 and 3 and subs
 
 [colony-starter](/packages/colony-starter)
 
-- A boilerplate to get started with [colonyJS](https://github.com/JoinColony/colonyJS).
+- A boilerplate using [colonyJS](https://github.com/JoinColony/colonyJS).
 
 [colony-starter-react](/packages/colony-starter-react)
 
-- A boilerplate to get started with [colonyJS](https://github.com/JoinColony/colonyJS) using React.
+- A boilerplate using [colonyJS](https://github.com/JoinColony/colonyJS) with React.
 
 [colony-starter-angular](/packages/colony-starter-angular)
 
-- A boilerplate to get started with [colonyJS](https://github.com/JoinColony/colonyJS) using Angular.
+- A boilerplate using [colonyJS](https://github.com/JoinColony/colonyJS) with Angular.
 
 ### Example Packages
 

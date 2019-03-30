@@ -36,8 +36,15 @@ const service = async (commander, serviceName) => {
     console.log(`  Deploying the colonyNetwork smart contracts...`);
     console.log();
 
-    // Start trufflepig
-    cp.execSync('sh scripts/deploy_contracts.sh', { stdio: [0, 1, 2] });
+    // Deploy contracts
+    if (commander.specific) {
+      cp.execSync(
+        `sh scripts/deploy_contracts.sh ${commander.specific}`,
+        { stdio: [0, 1, 2] },
+      );
+    } else {
+      cp.execSync(`sh scripts/deploy_contracts.sh`, { stdio: [0, 1, 2] });
+    }
 
   } else if (serviceName === 'seed-network') {
 
@@ -46,7 +53,7 @@ const service = async (commander, serviceName) => {
     console.log(`  Adding global skills to the Meta Colony...`);
     console.log();
 
-    // Start trufflepig
+    // Seed network
     cp.execSync('node scripts/seed_network.js', { stdio: [0, 1, 2] });
 
   } else if (serviceName === 'start-trufflepig') {
