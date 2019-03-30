@@ -99,7 +99,7 @@ if (scriptAction === 'build') {
 
 } else {
 
-  // Execute service action
+  // Execute other actions
   cp.execSync(
     `node ${scriptPath} ${scriptArguments}`,
     {

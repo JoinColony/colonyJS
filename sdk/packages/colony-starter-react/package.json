@@ -8,17 +8,20 @@
   },
   "files": ["/", ".gitignore"],
   "scripts": {
-    "postinstall": "",
-    "start-ganache": "sh scripts/start_ganache.sh",
-    "deploy-contracts": "sh scripts/deploy_contracts.sh",
-    "start-trufflepig": "sh scripts/start_trufflepig.sh",
-    "seed-network": "node scripts/seed_network.js",
+    "start-ganache": "colony service start-ganache",
+    "deploy-contracts": "colony service deploy-contracts",
+    "start-trufflepig": "colony service start-trufflepig",
+    "seed-network": "colony service seed-network",
     "build": "react-scripts build",
     "start": "react-scripts start",
     "test": "react-scripts test --coverage --updateSnapshot",
     "eject": "react-scripts eject"
   },
   "dependencies": {
+    "@colony/colony-cli": "^1.0.0-beta.0",
+    "@colony/colony-js-client": "^1.11.2",
+    "@colony/colony-js-contract-loader-http": "^1.10.0",
+    "@colony/purser-metamask": "^2.1.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
   },
