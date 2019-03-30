@@ -84,7 +84,7 @@ A promise which resolves to an object containing the following properties:
 |Return value|Type|Description|
 |---|---|---|
 |localSkillId|number|The domain's local skill ID.|
-|potId|number|The domain's funding pot ID.|
+|fundingPotId|number|The domain's funding pot ID.|
 
 ### `getDomainCount.call()`
 
@@ -167,7 +167,7 @@ A promise which resolves to an object containing the following properties:
 |finalized|boolean|Boolean flag denoting whether the task is finalized.|
 |id|number|Integer task ID.|
 |payoutsWeCannotMake|number (optional)|Number of payouts that cannot be completed with the current task funding.|
-|potId|number (optional)|Integer ID of funding pot for the task.|
+|fundingPotId|number (optional)|Integer ID of funding pot for the task.|
 |skillId|number|Integer Skill ID the task is assigned to.|
 |specificationHash|IPFS hash|Unique hash of the specification content.|
 
@@ -250,7 +250,7 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |secret|Hex string|the hashed rating (equivalent to the output of `keccak256(_salt, _rating)`).|
 
-### `getPotBalance.call({ potId, token })`
+### `getFundingPotBalance.call(fundingPotId, token)`
 
 Gets a balance for a certain token in a specific pot.
 
@@ -258,7 +258,7 @@ Gets a balance for a certain token in a specific pot.
 
 |Argument|Type|Description|
 |---|---|---|
-|potId|number|Integer potId.|
+|fundingPotId|number|Integer fundingPotId.|
 |token|Token address|Address to get funds from, such as the token contract address, or empty address (`0x0` for Ether)|
 
 **Returns**
@@ -267,7 +267,7 @@ A promise which resolves to an object containing the following properties:
 
 |Return value|Type|Description|
 |---|---|---|
-|balance|BigNumber|Balance for token `token` in pot `potId`.|
+|balance|BigNumber|Balance for token `token` in pot `fundingPotId`.|
 
 ### `getNonRewardPotsTotal.call({ token })`
 
