@@ -4,10 +4,11 @@
 const commander = require('commander');
 
 // Import package json
-const package = require('./package.json');
+const package = require('../package.json');
 
 // Import actions
 const build = require('./actions/build');
+const service = require('./actions/service');
 
 // Define commander
 commander
@@ -18,7 +19,12 @@ commander
 
 commander
   .command('build <package-name>')
-  .description('Install and build a colonyStarter package')
+  .description('Build a colonyStarter package')
   .action(packageName => build(commander, packageName))
+
+commander
+  .command('service <service-name>')
+  .description('Run a local development service script')
+  .action(serviceName => service(commander, serviceName))
 
 commander.parse(process.argv)

@@ -8,9 +8,9 @@ _A boilerplate to get started with [colonyJS](https://github.com/JoinColony/colo
 
 ## Prerequisites
 
-- Node >=10.12.0
-- Yarn >=1.12.0
-- Docker >=18.09.0
+- Node `>=10.12.0`
+- Yarn `>=1.12.0`
+- Docker `>=18.09.0`
 
 _You may find it helpful to use Node Version Manager (`nvm`) to manage Node versions._
 

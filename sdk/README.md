@@ -21,9 +21,9 @@ _Get a head start on your next project!_ Colony Starter (formerly known as "Hack
 
 ### Prerequisites
 
-- Node >=10.12.0
-- Yarn >=1.12.0
-- Docker >=18.09.0
+- Node `>=10.12.0`
+- Yarn `>=1.12.0`
+- Docker `>=18.09.0`
 
 _You may find it helpful to use Node Version Manager (`nvm`) to manage Node versions._
 
@@ -63,13 +63,13 @@ npx -p @colony/colony-cli colony build colony-starter
 
 ## Packages
 
-### colony-cli
+### Colony CLI
 
-The [colony-cli](/packages/colony-cli) package is a command line interface used to build colonyStarter packages. [colony-cli](/packages/colony-cli) currently has one action (`build`), which can be used to unpack any of the starters and examples in this repository. We have plans for this package... stay tuned.
+The [colony-cli](/packages/colony-cli) package is a command line tool for building [colonyStarter](https://github.com/JoinColony/colonyStarter) packages and running services associated with the [colonyNetwork](https://github.com/JoinColony/colonyNetwork) smart contracts.
 
 ### Starter Packages
 
-Check out some of the other starter packages by repeating steps 2 and 3 and substituting `colony-starter` with the package of your choice. If you would like to create a new package, open a pull request or send us a message in [Gitter](https://gitter.im/JoinColony/colonyStarter).
+Check out some of the other starter packages by repeating steps 2 and 3 and substituting `colony-starter` with the package of your choice. If you have ideas for new packages or improvements, feel free to open an issue or pull request.
 
 [colony-starter](/packages/colony-starter)
 
@@ -85,7 +85,7 @@ Check out some of the other starter packages by repeating steps 2 and 3 and subs
 
 ### Example Packages
 
-We also have a couple example packages that you can unpack using the same `build` command. If you are uncertain how to do something, you might find the answers you are looking for in one of these packages.
+We also have a couple example packages that you can unpack using the same `build` command. If you are uncertain how to do something, it might be helpful to use one of these packages as a reference.
 
 [colony-example](/packages/colony-example)
 

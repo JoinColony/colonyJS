@@ -137,12 +137,6 @@ const build = async (commander, packageName) => {
   // Initialize git
   cp.execSync(`git init`);
 
-  // Add add postinstall script
-  cp.execSync(`json -I -f package.json -e 'this.scripts.postinstall="sh scripts/postinstall.sh"'`);
-
-  // Add add colonyNetwork submodule
-  cp.execSync(`git submodule add https://github.com/JoinColony/colonyNetwork lib/colonyNetwork`);
-
   // Run postinstall script
   cp.execSync(`yarn`, { stdio: [0, 1, 2] });
 

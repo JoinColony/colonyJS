@@ -4,7 +4,10 @@
   "description": "A command line tool for building with Colony",
   "license": "MIT",
   "bin": {
-    "colony": "./index.js"
+    "colony": "src/index.js"
+  },
+  "scripts": {
+    "postinstall": "sh scripts/postinstall.sh"
   },
   "dependencies": {
     "chalk": "^2.4.1",
@@ -13,6 +16,7 @@
     "fs-extra": "^7.0.0",
     "json": "^9.0.6",
     "tar-pack": "^3.4.1",
-    "tmp": "^0.0.33"
+    "tmp": "^0.0.33",
+    "trufflepig": "^1.1.1"
   }
 }

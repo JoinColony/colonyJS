@@ -4,13 +4,13 @@ section: CLI
 order: 1
 ---
 
-The `colony-cli` package is a command line interface used to build [colonyStarter](https://github.com/JoinColony/colonyStarter) packages. `colony-cli` currently has one action (`build`), which can be used to unpack any of the starters and examples in the [colonyStarter](https://github.com/JoinColony/colonyStarter) repository. We have plans for this package... stay tuned.
+The `colony-cli` package is a command line tool for building [colonyStarter](https://github.com/JoinColony/colonyStarter) packages and running services associated with the [colonyNetwork](https://github.com/JoinColony/colonyNetwork) smart contracts.
 
 ## Prerequisites
 
-- Node >=10.12.0
-- Yarn >=1.12.0
-- Docker >=18.09.0
+- Node `>=10.12.0`
+- Yarn `>=1.12.0`
+- Docker `>=18.09.0`
 
 _You may find it helpful to use Node Version Manager (`nvm`) to manage Node versions._
 
@@ -18,22 +18,44 @@ _If you are using Linux, check out [Linux Setup](/docs-linux-setup/) to ensure Y
 
 ## Install
 
-Globally install the `colony-cli` package.
+Install the `colony-cli` package globally:
 
 ```
 yarn global add @colony/colony-cli
 ```
 
-## Build Command
+## Commands
 
-Install the colonyStarter package of your choice:
+### `build`
 
-```
-colony-cli build [package-name]
-```
-
-Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and unpack colonyStarter packages without globally installing the `colony-cli` package:
+Build [colonyStarter](https://github.com/JoinColony/colonyStarter) packages:
 
 ```
-npx -p @colony/colony-cli colony build [package-name]
+colony build [package-name]
+```
+
+### `service`
+
+Start a local test network with [Ganache](https://github.com/trufflesuite/ganache-cli):
+
+```
+colony service start-ganache
+```
+
+Deploy the [colonyNetwork](https://github.com/JoinColony/colonyNetwork) smart contracts:
+
+```
+colony service deploy-contracts
+```
+
+Serve truffle contract data with [TrufflePig](https://github.com/JoinColony/trufflepig):
+
+```
+colony service start-trufflepig
+```
+
+Seed the network with with global skills:
+
+```
+colony service seed-network
 ```

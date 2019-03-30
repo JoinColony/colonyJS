@@ -6,9 +6,9 @@ This is a built out version of the [colony-starter-react](/starters-colony-start
 
 ## Prerequisites
 
-- Node >=10.12.0
-- Yarn >=1.12.0
-- Docker >=18.09.0
+- Node `>=10.12.0`
+- Yarn `>=1.12.0`
+- Docker `>=18.09.0`
 
 _You may find it helpful to use Node Version Manager (`nvm`) to manage Node versions._
 
@@ -32,18 +32,20 @@ Move to your working directory and unpack the [colony-starter](/packages/colony-
 colony build colony-example-react
 ```
 
-Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and kickstart the `colony-example-react` package in one line without having to globally install the [colony-cli](../colony-cli) package:
-
-```
-npx -p @colony/colony-cli colony build colony-example-react
-```
-
 ### Step 3
 
 Move to your new project directory and follow the instructions below:
 
 ```
 cd colony-example-react
+```
+
+### Using NPX
+
+Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and unpack the [colony-example-react](/packages/colony-example-react) package without installing the [colony-cli](/packages/colony-cli) package:
+
+```
+npx -p @colony/colony-cli colony build colony-example-react
 ```
 
 ## Development
