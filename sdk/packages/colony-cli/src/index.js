@@ -4,7 +4,7 @@
 const commander = require('commander');
 
 // Import package json
-const package = require('./package.json');
+const package = require('../package.json');
 
 // Import actions
 const build = require('./actions/build');

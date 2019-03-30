@@ -4,7 +4,7 @@
   "description": "A command line tool for building with Colony",
   "license": "MIT",
   "bin": {
-    "colony": "./src/index.js"
+    "colony": "src/index.js"
   },
   "scripts": {
     "postinstall": "sh scripts/postinstall.sh"

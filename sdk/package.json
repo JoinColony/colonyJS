@@ -4,7 +4,7 @@
     "packages/*"
   ],
   "engines": {
-    "node": "10.12.0"
+    "node": ">=10.12.0"
   },
   "scripts": {
     "colony": "node scripts/colony.js",
