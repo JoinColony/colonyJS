@@ -6,6 +6,7 @@
   "engines": {
     "node": ">=10.12.0"
   },
+  "files": ["/", ".gitignore"],
   "scripts": {
     "postinstall": "",
     "start-ganache": "sh scripts/start_ganache.sh",
@@ -14,10 +15,6 @@
     "start": "node src/index",
     "rinkeby": "node src/rinkeby",
     "test": "jest"
-  },
-  "jest": {
-    "rootDir": "src",
-    "testURL": "http://localhost"
   },
   "dependencies": {
     "@colony/colony-js-client": "^1.11.2",

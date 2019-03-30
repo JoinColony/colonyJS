@@ -18,7 +18,7 @@ commander
 
 commander
   .command('build <package-name>')
-  .description('Install and build a starter package')
+  .description('Install and build a colonyStarter package')
   .action(packageName => build(commander, packageName))
 
 commander.parse(process.argv)

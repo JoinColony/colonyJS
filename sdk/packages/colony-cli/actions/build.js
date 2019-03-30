@@ -137,9 +137,6 @@ const build = async (commander, packageName) => {
   // Initialize git
   cp.execSync(`git init`);
 
-  // Add gitignore file
-  cp.execSync(`echo "node_modules" >> .gitignore`);
-
   // Add add postinstall script
   cp.execSync(`json -I -f package.json -e 'this.scripts.postinstall="sh scripts/postinstall.sh"'`);
 
