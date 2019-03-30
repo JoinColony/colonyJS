@@ -62,15 +62,15 @@ Check out some of the other starter packages by repeating steps 2 and 3 and subs
 
 [colony-starter](/starters-colony-starter)
 
-- This package is a boilerplate with no framework.
+- A boilerplate using [colonyJS](https://github.com/JoinColony/colonyJS).
 
 [colony-starter-react](/starters-colony-starter-react)
 
-- This package is a boilerplate using react.
+- A boilerplate using [colonyJS](https://github.com/JoinColony/colonyJS) with React.
 
 [colony-starter-angular](/starters-colony-starter-angular)
 
-- This package is a boilerplate using angular.
+- A boilerplate using [colonyJS](https://github.com/JoinColony/colonyJS) with Angular.
 
 ### Example Packages
 
@@ -78,11 +78,11 @@ We also have a couple example packages that you can unpack using the same `build
 
 [colony-example](/examples-colony-example)
 
-- This package is a built out version of the `colony-starter` package with more examples.
+- A built out version of the [colony-starter](/starters-colony-starter) package with more examples.
 
 [colony-example-react](/examples-colony-example-react)
 
-- This package is a built out version of the `colony-starter-react` package with more examples.
+- A built out version of the [colony-starter-react](/starters-colony-starter-react) package with more examples.
 
 ## Contribute
 
