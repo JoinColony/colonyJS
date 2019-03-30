@@ -47,7 +47,7 @@ const service = async (commander, serviceName) => {
     console.log();
 
     // Start trufflepig
-    cp.execSync('sh scripts/seed-network.sh', { stdio: [0, 1, 2] });
+    cp.execSync('node scripts/seed_network.js', { stdio: [0, 1, 2] });
 
   } else if (serviceName === 'start-trufflepig') {
 
@@ -67,11 +67,6 @@ const service = async (commander, serviceName) => {
     process.exit(1);
 
   }
-
-  // Log step
-  console.log();
-  console.log(`  Successfully ran "colony service ${serviceName}"!`);
-  console.log();
 
 }
 
