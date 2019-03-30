@@ -3,6 +3,9 @@
   "version": "1.0.0-beta.0",
   "description": "A command line tool for building with Colony",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "bin": {
     "colony": "src/index.js"
   },
