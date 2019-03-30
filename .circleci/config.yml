@@ -34,16 +34,16 @@ jobs:
 
       - run:
           name: "Start Ganache"
-          command: yarn start-ganache
+          command: yarn colony service start-ganache
           background: true
 
       - run:
           name: "Deploy Contracts"
-          command: yarn deploy-contracts
+          command: yarn colony service deploy-contracts
 
       - run:
           name: "Start Trufflepig"
-          command: scripts/ci_trufflepig.js
+          command: yarn colony service start-trufflepig
           background: true
 
       - run:

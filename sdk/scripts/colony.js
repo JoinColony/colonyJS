@@ -28,6 +28,11 @@ process.on('uncaughtException', handleError);
 
 // Define root and starter script path
 const rootPath = path.join(__dirname, '..');
+const cliPath = path.join(
+  rootPath,
+  'packages',
+  'colony-cli',
+);
 const scriptPath = path.join(
   rootPath,
   'packages',
@@ -83,7 +88,7 @@ if (scriptAction === 'build') {
     packPath,
   );
 
-  // Execute starter script
+  // Execute build action
   cp.execSync(
     `node ${scriptPath} ${scriptArguments} --specific ${packPath}`,
     {
@@ -94,10 +99,13 @@ if (scriptAction === 'build') {
 
 } else {
 
-  // Execute starter script
+  // Execute service action
   cp.execSync(
     `node ${scriptPath} ${scriptArguments}`,
-    { stdio: 'inherit' },
+    {
+      cwd: cliPath,
+      stdio: 'inherit',
+    },
   );
 
 }

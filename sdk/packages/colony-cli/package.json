@@ -6,6 +6,9 @@
   "bin": {
     "colony": "./index.js"
   },
+  "scripts": {
+    "postinstall": "sh scripts/postinstall.sh"
+  },
   "dependencies": {
     "chalk": "^2.4.1",
     "commander": "^2.17.1",
@@ -13,6 +16,7 @@
     "fs-extra": "^7.0.0",
     "json": "^9.0.6",
     "tar-pack": "^3.4.1",
-    "tmp": "^0.0.33"
+    "tmp": "^0.0.33",
+    "trufflepig": "^1.1.1"
   }
 }
