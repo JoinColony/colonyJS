@@ -1,6 +1,7 @@
 // Import dependencies
 const chalk = require('chalk');
 const cp = require('child_process');
+const path = require('path');
 
 // Run a local development service script
 const service = async (commander, serviceName) => {
@@ -8,6 +9,9 @@ const service = async (commander, serviceName) => {
   // Log step
   console.log();
   console.log(`  Starting ${chalk.cyan('service')} action...`);
+
+  // Set scripts path
+  const scriptsPath = path.join(__dirname, '../../scripts');
 
   // Make sure service name is defined
   if (typeof serviceName === 'undefined') {
@@ -27,7 +31,7 @@ const service = async (commander, serviceName) => {
     console.log();
 
     // Start ganache
-    cp.execSync('sh scripts/start_ganache.sh', { stdio: [0, 1, 2] });
+    cp.execSync(`sh ${scriptsPath}/start_ganache.sh`, { stdio: [0, 1, 2] });
 
   } else if (serviceName === 'deploy-contracts') {
 
@@ -39,11 +43,11 @@ const service = async (commander, serviceName) => {
     // Deploy contracts
     if (commander.specific) {
       cp.execSync(
-        `sh scripts/deploy_contracts.sh ${commander.specific}`,
+        `sh ${scriptsPath}/deploy_contracts.sh ${commander.specific}`,
         { stdio: [0, 1, 2] },
       );
     } else {
-      cp.execSync(`sh scripts/deploy_contracts.sh`, { stdio: [0, 1, 2] });
+      cp.execSync(`sh ${scriptsPath}/deploy_contracts.sh`, { stdio: [0, 1, 2] });
     }
 
   } else if (serviceName === 'seed-network') {
@@ -54,7 +58,7 @@ const service = async (commander, serviceName) => {
     console.log();
 
     // Seed network
-    cp.execSync('node scripts/seed_network.js', { stdio: [0, 1, 2] });
+    cp.execSync(`node ${scriptsPath}/seed_network.js`, { stdio: [0, 1, 2] });
 
   } else if (serviceName === 'start-trufflepig') {
 
@@ -64,7 +68,7 @@ const service = async (commander, serviceName) => {
     console.log();
 
     // Start trufflepig
-    cp.execSync('sh scripts/start_trufflepig.sh', { stdio: [0, 1, 2] });
+    cp.execSync(`sh ${scriptsPath}/start_trufflepig.sh`, { stdio: [0, 1, 2] });
 
   } else {
 
