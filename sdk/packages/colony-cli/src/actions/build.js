@@ -22,7 +22,7 @@ const build = async (commander, packageName) => {
     console.log();
     console.log('The name of the package is required:');
     console.log();
-    console.log(`  ${commander.name()} build ${chalk.cyan('<package-name>')}`);
+    console.log(`  colony build ${chalk.cyan('<package-name>')}`);
     console.log();
     process.exit(1);
   }
