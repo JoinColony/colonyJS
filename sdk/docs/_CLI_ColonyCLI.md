@@ -4,7 +4,7 @@ section: CLI
 order: 1
 ---
 
-The `colony-cli` package is a command line tool for building [colonyStarter](https://github.com/JoinColony/colonyStarter) packages and running services associated with the [colonyNetwork](https://github.com/JoinColony/colonyNetwork) smart contracts.
+The `colony-cli` package is a command line tool for building [colonyStarter](https://github.com/JoinColony/colonyStarter) packages and running services such as Ganache, Truffle, and Trufflepig to assist with local development alongside the [colonyNetwork](https://github.com/JoinColony/colonyNetwork) smart contracts.
 
 ## Prerequisites
 
