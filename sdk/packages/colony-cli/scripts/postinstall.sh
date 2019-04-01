@@ -7,17 +7,15 @@ log() {
   echo "${CYAN}$1${NONE}"
 }
 
-# Pull docker image
-log "Pulling docker image..."
-docker pull ethereum/solc:0.4.23
+# Check colonyNetwork directory
+if [ ! -d 'lib/colonyNetwork' ]; then
 
-if [ ! -d "lib/colonyNetwork" ]; then
+  # Pull docker image
+  log "Pulling docker image..."
+  docker pull ethereum/solc:0.4.23
 
-  # Ensure lib directory exists
-  if [ ! -d "lib" ]; then mkdir lib; fi
-
-  # Move to lib directory
-  cd lib
+  # Create and move to lib directory
+  mkdir lib && cd lib
 
   # Clone colonyNetwork repository
   log "Cloning colonyNetwork repository..."
@@ -26,7 +24,7 @@ if [ ! -d "lib/colonyNetwork" ]; then
   # Move to colonyNetwork directory
   cd colonyNetwork
 
-  # Checkout default default version
+  # Checkout default colonyNetwork version
   log "Checking out colonyNetwork version..."
   git checkout 543423abb133119a4029ac2adcc8cebb16a8c6d9
 
