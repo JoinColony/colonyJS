@@ -1,3 +1,0 @@
-[submodule "packages/colony-cli/lib/colonyNetwork"]
-	path = sdk/packages/colony-cli/lib/colonyNetwork
-	url = https://github.com/JoinColony/colonyNetwork

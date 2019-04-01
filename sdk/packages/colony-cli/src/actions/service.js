@@ -35,8 +35,9 @@ const service = async (commander, serviceName) => {
 
     // Start ganache
     cp.execSync(
-      `sh ${scriptsPath}/start_ganache.sh ${colonyNetworkPath}`,
+      `sh ${scriptsPath}/start_ganache.sh`,
       {
+        cwd: colonyNetworkPath,
         stdio: 'inherit',
       },
     );
@@ -53,8 +54,9 @@ const service = async (commander, serviceName) => {
 
       // Start deployment process using specific version
       cp.execSync(
-        `sh ${scriptsPath}/deploy_contracts.sh ${colonyNetworkPath} ${commander.specific}`,
+        `sh ${scriptsPath}/deploy_contracts.sh ${commander.specific}`,
         {
+          cwd: colonyNetworkPath,
           stdio: 'inherit',
         },
       );
@@ -63,8 +65,9 @@ const service = async (commander, serviceName) => {
 
       // Start deployment process
       cp.execSync(
-        `sh ${scriptsPath}/deploy_contracts.sh ${colonyNetworkPath}`,
+        `sh ${scriptsPath}/deploy_contracts.sh`,
         {
+          cwd: colonyNetworkPath,
           stdio: 'inherit',
         }
       );

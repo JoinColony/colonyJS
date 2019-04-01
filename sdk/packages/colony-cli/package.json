@@ -8,9 +8,7 @@
   },
   "bin": {
     "colony": "src/index.js",
-    "ganache-cli": "lib/colonyNetwork/node_modules/ganache-cli/cli.js",
-    "truffle": "lib/colonyNetwork/node_modules/truffle/build/cli.bundled.js",
-    "trufflepig": "node_modules/trufflepig/bin/trufflepig.js"
+    "trufflepig": "node_modules/.bin/trufflepig"
   },
   "scripts": {
     "postinstall": "sh scripts/postinstall.sh"

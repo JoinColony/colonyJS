@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Paths
-ROOT_PATH=$(pwd)
-
 # Log
 log() {
   CYAN='\033[0;36m'
@@ -10,15 +7,12 @@ log() {
   echo "${CYAN}$1${NONE}"
 }
 
-# Move to colonyNetwork
-cd $1
-
 # Check for specified version
-if [ $2 ]; then
+if [ $1 ]; then
 
   # Set colonyNework to specified version
   log "Checking out colonyNetwork version..."
-  git -c advice.detachedHead=false checkout $2
+  git -c advice.detachedHead=false checkout $1
 
 else
 
@@ -40,6 +34,6 @@ git submodule update --init --recursive
 log "Provisioning colonyNetwork contracts..."
 yarn run provision:token:contracts
 
-# Compile and deploy colonyNetwork contracts
-log "Compiling and deploying colonyNetwork contracts..."
-$ROOT_PATH/node_modules/.bin/truffle migrate --reset
+# Migrate colonyNetwork contracts
+log "Migrating colonyNetwork contracts..."
+./node_modules/truffle/build/cli.bundled.js migrate --reset
