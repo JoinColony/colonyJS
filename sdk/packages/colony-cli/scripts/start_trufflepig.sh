@@ -2,5 +2,5 @@
 
 # Start Trufflepig using the accounts defined in the colonyNetwork submodule
 ./node_modules/.bin/trufflepig \
-  --contractDir ./lib/colonyNetwork/build/contracts \
-  --ganacheKeyFile ./lib/colonyNetwork/ganache-accounts.json
+  --contractDir $1/build/contracts \
+  --ganacheKeyFile $1/ganache-accounts.json

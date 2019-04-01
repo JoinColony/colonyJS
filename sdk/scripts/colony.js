@@ -94,7 +94,6 @@ if (scriptAction === 'build') {
   cp.execSync(
     `node ${scriptPath} ${scriptArguments}`,
     {
-      cwd: cliPath,
       stdio: 'inherit',
     },
   );

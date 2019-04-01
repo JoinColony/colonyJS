@@ -7,7 +7,8 @@
     "access": "public"
   },
   "bin": {
-    "colony": "src/index.js"
+    "colony": "src/index.js",
+    "trufflepig": "node_modules/.bin/trufflepig"
   },
   "scripts": {
     "postinstall": "sh scripts/postinstall.sh"

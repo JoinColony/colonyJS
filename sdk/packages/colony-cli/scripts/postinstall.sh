@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Paths
-ROOT_PATH=$(pwd)
-
 # Log
 log() {
   CYAN='\033[0;36m'
@@ -10,29 +7,29 @@ log() {
   echo "${CYAN}$1${NONE}"
 }
 
-# Pull docker image
-log "Pulling docker image..."
-docker pull ethereum/solc:0.4.23
+# Check colonyNetwork directory
+if [ ! -d 'lib/colonyNetwork' ]; then
 
-# Initialize colonyNetwork submodule
-log "Initializing colonyNetwork submodule..."
-git submodule update --init --recursive
+  # Pull docker image
+  log "Pulling docker image..."
+  docker pull ethereum/solc:0.4.23
 
-# Move to colonyNetwork directory
-cd lib/colonyNetwork
+  # Create and move to lib directory
+  mkdir lib && cd lib
 
-# Set colonyNework version
-log "Checking out colonyNetwork version..."
-git -c advice.detachedHead=false checkout temp/eth-denver
+  # Clone colonyNetwork repository
+  log "Cloning colonyNetwork repository..."
+  git clone ssh://git@github.com/JoinColony/colonyNetwork.git
 
-# Install colonyNetwork dependencies
-log "Installing colonyNetwork dependencies..."
-yarn
+  # Move to colonyNetwork directory
+  cd colonyNetwork
 
-# Initialize colonyNetwork submodules
-log "Initializing colonyNetwork submodules..."
-git submodule update --init --recursive
+  # Checkout default colonyNetwork version
+  log "Checking out colonyNetwork version..."
+  git checkout 543423abb133119a4029ac2adcc8cebb16a8c6d9
 
-# Provision colonyNetwork submodules
-log "Provisioning colonyNetwork submodules..."
-yarn run provision:token:contracts
+  # Install colonyNetwork dependencies
+  log "Installing colonyNetwork dependencies..."
+  yarn
+
+fi

@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Paths
-ROOT_PATH=$(pwd)
-
 # Log
 log() {
   CYAN='\033[0;36m'
@@ -10,21 +7,18 @@ log() {
   echo "${CYAN}$1${NONE}"
 }
 
-# Move to colonyNetwork directory
-cd lib/colonyNetwork
-
-# If version specified
+# Check for specified version
 if [ $1 ]; then
 
-  # Set colonyNework version
+  # Set colonyNework to specified version
   log "Checking out colonyNetwork version..."
   git -c advice.detachedHead=false checkout $1
 
 else
 
-  # Set colonyNework version
+  # Set colonyNework to default version
   log "Checking out colonyNetwork version..."
-  git -c advice.detachedHead=false checkout temp/eth-denver
+  git -c advice.detachedHead=false checkout 543423abb133119a4029ac2adcc8cebb16a8c6d9
 
 fi
 
@@ -32,13 +26,14 @@ fi
 log "Installing colonyNetwork dependencies..."
 yarn
 
-# Initialize colonyNetwork submodules
-log "Initializing colonyNetwork submodules..."
+# Update colonyNetwork submodules
+log "Updating colonyNetwork submodules..."
 git submodule update --init --recursive
 
 # Provision colonyNetwork submodules
-log "Provisioning colonyNetwork submodules..."
+log "Provisioning colonyNetwork contracts..."
 yarn run provision:token:contracts
 
-# Compile and deploy colonyNetwork contracts
-./node_modules/.bin/truffle migrate --compile-all --reset
+# Migrate colonyNetwork contracts
+log "Migrating colonyNetwork contracts..."
+./node_modules/truffle/build/cli.bundled.js migrate --reset

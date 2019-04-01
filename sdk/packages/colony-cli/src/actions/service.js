@@ -1,6 +1,7 @@
 // Import dependencies
 const chalk = require('chalk');
 const cp = require('child_process');
+const path = require('path');
 
 // Run a local development service script
 const service = async (commander, serviceName) => {
@@ -9,12 +10,18 @@ const service = async (commander, serviceName) => {
   console.log();
   console.log(`  Starting ${chalk.cyan('service')} action...`);
 
+  // Set path to scripts directory
+  const scriptsPath = path.join(__dirname, '../../scripts');
+
+  // Set path to colonyNetwork directory
+  const colonyNetworkPath = path.join(__dirname, '../../lib/colonyNetwork');
+
   // Make sure service name is defined
   if (typeof serviceName === 'undefined') {
     console.log();
-    console.log('The name of the service is required.');
+    console.log('The name of the service is required:');
     console.log();
-    console.log(`  ${commander.name()} service ${chalk.cyan('<service-name>')}`);
+    console.log(`  colony service ${chalk.cyan('<service-name>')}`);
     console.log();
     process.exit(1);
   }
@@ -27,34 +34,59 @@ const service = async (commander, serviceName) => {
     console.log();
 
     // Start ganache
-    cp.execSync('sh scripts/start_ganache.sh', { stdio: [0, 1, 2] });
+    cp.execSync(
+      `sh ${scriptsPath}/start_ganache.sh`,
+      {
+        cwd: colonyNetworkPath,
+        stdio: 'inherit',
+      },
+    );
 
   } else if (serviceName === 'deploy-contracts') {
 
     // Log step
     console.log();
-    console.log(`  Deploying the colonyNetwork smart contracts...`);
+    console.log(`  Starting deployment process...`);
     console.log();
 
-    // Deploy contracts
+    // Check specific
     if (commander.specific) {
+
+      // Start deployment process using specific version
       cp.execSync(
-        `sh scripts/deploy_contracts.sh ${commander.specific}`,
-        { stdio: [0, 1, 2] },
+        `sh ${scriptsPath}/deploy_contracts.sh ${commander.specific}`,
+        {
+          cwd: colonyNetworkPath,
+          stdio: 'inherit',
+        },
       );
+
     } else {
-      cp.execSync(`sh scripts/deploy_contracts.sh`, { stdio: [0, 1, 2] });
+
+      // Start deployment process
+      cp.execSync(
+        `sh ${scriptsPath}/deploy_contracts.sh`,
+        {
+          cwd: colonyNetworkPath,
+          stdio: 'inherit',
+        }
+      );
     }
 
   } else if (serviceName === 'seed-network') {
 
     // Log step
     console.log();
-    console.log(`  Adding global skills to the Meta Colony...`);
+    console.log(`  Starting seed network process...`);
     console.log();
 
     // Seed network
-    cp.execSync('node scripts/seed_network.js', { stdio: [0, 1, 2] });
+    cp.execSync(
+      `node ${scriptsPath}/seed_network.js`,
+      {
+        stdio: 'inherit',
+      },
+    );
 
   } else if (serviceName === 'start-trufflepig') {
 
@@ -64,7 +96,12 @@ const service = async (commander, serviceName) => {
     console.log();
 
     // Start trufflepig
-    cp.execSync('sh scripts/start_trufflepig.sh', { stdio: [0, 1, 2] });
+    cp.execSync(
+      `sh ${scriptsPath}/start_trufflepig.sh ${colonyNetworkPath}`,
+      {
+        stdio: 'inherit',
+      }
+    );
 
   } else {
 

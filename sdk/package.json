@@ -8,6 +8,9 @@
   },
   "scripts": {
     "colony": "node scripts/colony.js",
+    "start-ganache": "node scripts/colony.js service start-ganache",
+    "deploy-contracts": "node scripts/colony.js service deploy-contracts",
+    "start-trufflepig": "node scripts/colony.js service start-trufflepig",
     "test": "lerna run test"
   },
   "devDependencies": {
