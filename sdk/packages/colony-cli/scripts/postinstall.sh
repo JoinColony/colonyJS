@@ -19,7 +19,7 @@ if [ ! -d 'lib/colonyNetwork' ]; then
 
   # Clone colonyNetwork repository
   log "Cloning colonyNetwork repository..."
-  git clone https://github.com/JoinColony/colonyNetwork
+  git clone ssh://git@github.com/JoinColony/colonyNetwork.git
 
   # Move to colonyNetwork directory
   cd colonyNetwork
