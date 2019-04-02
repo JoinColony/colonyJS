@@ -1,13 +1,13 @@
-// An example using the moveFundsBetweenPots method
+// An example action using the moveFundsBetweenPots method
 const moveFundsBetweenPots = async (colonyClient, fromPot, toPot, amount, token) => {
 
-  // Get the balance for the pot that funds were withdrawn from
+  // Get the balance of the pot that funds were withdrawn from
   const fromPotBalanceBefore = await colonyClient.getFundingPotBalance.call({
     potId: fromPot,
     token,
   });
 
-  // Get the balance for the pot that funds were deposited into
+  // Get the balance of the pot that funds were deposited into
   const toPotBalanceBefore = await colonyClient.getFundingPotBalance.call({
     potId: toPot,
     token,
@@ -21,33 +21,34 @@ const moveFundsBetweenPots = async (colonyClient, fromPot, toPot, amount, token)
     token,
   });
 
-  // Get the balance for the pot that funds were withdrawn from
+  // Get the balance of the pot that funds were withdrawn from
   const fromPotBalanceAfter = await colonyClient.getFundingPotBalance.call({
     potId: fromPot,
     token,
   });
 
-  // Get the balance for the pot that funds were deposited into
+  // Get the balance of the pot that funds were deposited into
   const toPotBalanceAfter = await colonyClient.getFundingPotBalance.call({
     potId: toPot,
     token,
   });
 
-  // Check out the log to see the pot balance
+  // Check out the log to see the balance of the pot that funds were withdrawn from
   console.log('Pot Balance From (Before):', fromPotBalanceBefore.balance.toString());
 
-  // Check out the log to see the pot balance
+  // Check out the log to see the balance of the pot that funds were deposited into
   console.log('Pot Balance To (Before):', toPotBalanceBefore.balance.toString());
 
-  // Check out the log to see the pot balance
+  // Check out the log to see the balance of the pot that funds were withdrawn from
   console.log('Pot Balance From (After):', fromPotBalanceAfter.balance.toString());
 
-  // Check out the log to see the pot balance
+  // Check out the log to see the balance of the pot that funds were deposited into
   console.log('Pot Balance To (After):', toPotBalanceAfter.balance.toString());
 
-  // Return the balance for the pot that funds were deposited into
+  // Return the balance of the pot that funds were deposited into
   return toPotBalanceAfter;
 
 }
 
+// Export moveFundsBetweenPots action
 module.exports = moveFundsBetweenPots;

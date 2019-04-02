@@ -1,21 +1,21 @@
-// An example using the setTaskWorkerRole method
+// An example action using the setTaskWorkerRole method
 const setTaskWorkerRole = async (colonyClient, taskId, user) => {
 
-  // Update the worker role of the task
+  // Start the operation to set the task worker role
   const operation = await colonyClient.setTaskWorkerRole.startOperation({
     taskId,
     user,
   });
 
-  // Check out the logs to see the operation missing signees
+  // Check out the logs to see the missing signees
   console.log('Missing Signees:', operation.missingSignees);
 
   // Serialize the operation into JSON format
   const operationJSON = operation.toJSON();
 
-  // Save the operation to our mock database
+  // Save the operation to the mock database
   DATABASE.operations.setTaskWorkerRole = operationJSON;
 }
 
-// Export setTaskWorkerRole example
+// Export setTaskWorkerRole action
 module.exports = setTaskWorkerRole;

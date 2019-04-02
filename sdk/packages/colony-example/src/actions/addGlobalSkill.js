@@ -1,27 +1,27 @@
-// An example using the addGlobalSkill method
+// An example action using the addGlobalSkill method
 const addGlobalSkill = async (networkClient, parentSkillId) => {
 
   // In order to add a new global skill, we will need the Meta Colony. Global
-  // skills can only be called from the Meta Colony by Meta Colony owners.
+  // skills can only be created from the Meta Colony by Meta Colony owners.
   const metaColonyClient = await networkClient.getMetaColonyClient();
 
-  // Add a new global skill with the given parentSkillId
+  // Add a new global skill with the given parent skill id
   await metaColonyClient.addGlobalSkill.send({ parentSkillId });
 
-  // Get the id of the skill we just created
+  // Get the total number of skills in the colony (the new skill id)
   const { count: skillId } = await networkClient.getSkillCount.call();
 
-  // Get our new global skill
+  // Get the new global skill
   const skill = await networkClient.getSkill.call({ skillId });
 
-  // Check out the logs to see our new global skill
+  // Check out the logs to see the new global skill
   console.log('Skill:', {
     id: skillId,
     parentSkillId,
     ...skill,
   });
 
-  // Return our new global skill
+  // Return the new global skill
   return {
     id: skillId,
     parentSkillId,
@@ -30,5 +30,5 @@ const addGlobalSkill = async (networkClient, parentSkillId) => {
 
 };
 
-// Export addGlobalSkill example
+// Export addGlobalSkill action
 module.exports = addGlobalSkill;

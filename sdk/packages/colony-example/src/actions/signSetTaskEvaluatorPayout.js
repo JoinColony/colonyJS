@@ -1,10 +1,10 @@
-// Import executeTaskMultisig helper method
+// Import the prerequisites
 const executeTaskMultisig = require('../helpers/multisig');
 
-// An example using the setTaskEvaluatorPayout operation
+// An example action using the setTaskEvaluatorPayout operation
 const signSetTaskEvaluatorPayout = async (colonyClient, taskId, token) => {
 
-  // Execute task multisig operation for the given colonyJS method
+  // Execute the task multisig operation
   await executeTaskMultisig(
     colonyClient,
     colonyClient.setTaskEvaluatorPayout,
@@ -26,5 +26,5 @@ const signSetTaskEvaluatorPayout = async (colonyClient, taskId, token) => {
 
 }
 
-// Export signSetTaskEvaluatorPayout example
+// Export signSetTaskEvaluatorPayout action
 module.exports = signSetTaskEvaluatorPayout;

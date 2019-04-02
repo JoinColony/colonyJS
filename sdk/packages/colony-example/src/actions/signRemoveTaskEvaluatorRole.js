@@ -1,10 +1,10 @@
-// Import executeTaskMultisig helper method
+// Import the prerequisites
 const executeTaskMultisig = require('../helpers/multisig');
 
-// An example using the removeTaskEvaluatorRole operation
+// An example action using the removeTaskEvaluatorRole operation
 const signRemoveTaskEvaluatorRole = async (colonyClient, taskId) => {
 
-  // Execute task multisig operation for the given colonyJS method
+  // Execute the task multisig operation
   await executeTaskMultisig(
     colonyClient,
     colonyClient.removeTaskEvaluatorRole,
@@ -25,5 +25,5 @@ const signRemoveTaskEvaluatorRole = async (colonyClient, taskId) => {
 
 }
 
-// Export signRemoveTaskEvaluatorRole example
+// Export signRemoveTaskEvaluatorRole action
 module.exports = signRemoveTaskEvaluatorRole;

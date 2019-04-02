@@ -2,19 +2,19 @@
 const { getNetworkClient } = require('@colony/colony-js-client');
 const { open } = require('@colony/purser-software');
 
-// An example method for connecting to the local network
+// An example action for connecting to the network
 const connectNetwork = async (network, privateKey) => {
 
-  // Create a wallet with the private key (so we have a balance we can use)
+  // Open a wallet with the private key
   const wallet = await open({ privateKey });
 
   // Check out the logs to see the address of the wallet
   console.log('Wallet Address: ' + wallet.address);
 
-  // Connect to ColonyNetwork with the adapter!
+  // Get the colony network client
   const networkClient = await getNetworkClient(network, wallet);
 
-  // Check out the logs to see the address of the deployed network
+  // Check out the logs to see the address of the network router
   console.log('Network Address: ' + networkClient.contract.address);
 
   // Return networkClient
@@ -22,5 +22,5 @@ const connectNetwork = async (network, privateKey) => {
 
 };
 
-// Export connectNetwork example
+// Export connectNetwork action
 module.exports = connectNetwork;

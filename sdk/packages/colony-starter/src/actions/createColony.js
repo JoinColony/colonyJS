@@ -1,18 +1,18 @@
-// An example using the createColony method
+// An example action using the createColony method
 const createColony = async (networkClient, tokenAddress) => {
 
   // Create a colony with the given token
   const {
     eventData: { colonyAddress, colonyId }
-  } = await networkClient.createColony.send({ tokenAddress }, { gasLimit: 4432466 });
+  } = await networkClient.createColony.send({ tokenAddress });
 
-  // Check out the logs to see our new colony address
+  // Check out the logs to see the new colony address
   console.log('Colony Address:', colonyAddress);
 
-  // Check out the logs to see our new colony id
+  // Check out the logs to see the new colony id
   console.log('Colony ID:', colonyId);
 
-  // Return our new colony
+  // Return the new colony
   return {
     address: colonyAddress,
     id: colonyId,
@@ -20,5 +20,5 @@ const createColony = async (networkClient, tokenAddress) => {
 
 };
 
-// Export createColony example
+// Export createColony action
 module.exports = createColony;

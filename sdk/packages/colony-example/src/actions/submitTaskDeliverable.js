@@ -1,19 +1,19 @@
-// Import the Extended Colony Protocol
+// Import the prerequisites
 const ecp = require('../helpers/ecp');
 
-// An example using the submitTaskDeliverable method
+// An example action using the submitTaskDeliverable method
 const submitTaskDeliverable = async (colonyClient, taskId, deliverable) => {
 
-  // Initialise the Extended Colony Protocol
+  // Initialize the "Extended Colony Protocol"
   await ecp.init()
 
   // Create a deliverable hash for the task
   const deliverableHash = await ecp.saveHash(deliverable)
 
-  // Stop the Extended Colony Protocol
+  // Stop the "Extended Colony Protocol"
   await ecp.stop()
 
-  // Submit the deliverable for the given task
+  // Submit the deliverable for the task
   await colonyClient.submitTaskDeliverable.send({
     taskId,
     deliverableHash,
@@ -30,5 +30,5 @@ const submitTaskDeliverable = async (colonyClient, taskId, deliverable) => {
 
 }
 
-// Export submitTaskDeliverable example
+// Export submitTaskDeliverable action
 module.exports = submitTaskDeliverable;

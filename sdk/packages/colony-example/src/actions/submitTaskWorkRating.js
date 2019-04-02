@@ -1,7 +1,7 @@
-// Import web3 utils library
+// Import the prerequisites
 const web3Utils = require('web3-utils');
 
-// An example using the submitTaskWorkRating method
+// An example action using the submitTaskWorkRating method
 const submitTaskWorkRating = async (colonyClient, taskId, role, rating) => {
 
   // Set salt value
@@ -28,7 +28,7 @@ const submitTaskWorkRating = async (colonyClient, taskId, role, rating) => {
     taskId,
   });
 
-  // Check out the logs to see the updated task work ratings
+  // Check out the logs to see the task work ratings
   console.log('Task Work Ratings:', taskWorkRatings);
 
   // Get the task role
@@ -45,4 +45,5 @@ const submitTaskWorkRating = async (colonyClient, taskId, role, rating) => {
 
 }
 
+// Export submitTaskWorkRating action
 module.exports = submitTaskWorkRating;

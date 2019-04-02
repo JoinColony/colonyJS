@@ -1,10 +1,10 @@
-// Import executeTaskMultisig helper method
+// Import the prerequisites
 const executeTaskMultisig = require('../helpers/multisig');
 
-// An example using the setTaskManagerPayout operation
+// An example action using the setTaskManagerPayout operation
 const signSetTaskManagerPayout = async (colonyClient, taskId, token) => {
 
-  // Execute task multisig operation for the given colonyJS method
+  // Execute the task multisig operation
   await executeTaskMultisig(
     colonyClient,
     colonyClient.setTaskManagerPayout,
@@ -26,5 +26,5 @@ const signSetTaskManagerPayout = async (colonyClient, taskId, token) => {
 
 }
 
-// Export signSetTaskManagerPayout example
+// Export signSetTaskManagerPayout action
 module.exports = signSetTaskManagerPayout;

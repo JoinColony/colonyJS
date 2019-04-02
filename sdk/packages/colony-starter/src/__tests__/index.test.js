@@ -34,7 +34,7 @@ describe('colony-starter [ local ]', () => {
     expect(state.accounts.length).toEqual(12);
   }, 5000)
 
-  // Test the connectNetwork() example from account[0]
+  // Test the connectNetwork() action from account[0]
   test('account[0] connectNetwork() works', async () => {
     state.networkClient[0] = await connectNetwork(
       'local',                        // network
@@ -50,7 +50,7 @@ describe('colony-starter [ local ]', () => {
     }));
   }, 5000);
 
-  // Test the createToken() example from account[0]
+  // Test the createToken() action from account[0]
   test('account[0] createToken() works', async () => {
     state.tokenAddress = await createToken(
       state.networkClient[0],         // networkClient
@@ -60,7 +60,7 @@ describe('colony-starter [ local ]', () => {
     expect(state.tokenAddress).toEqual(expect.stringContaining('0x'));
   }, 5000);
 
-  // Test the createColony() example from account[0]
+  // Test the createColony() action from account[0]
   test('account[0] createColony() works', async () => {
     state.colony = await createColony(
       state.networkClient[0],         // networkClient
@@ -70,7 +70,7 @@ describe('colony-starter [ local ]', () => {
     expect(state.colony.id).toBeGreaterThan(0);
   }, 5000);
 
-  // Test the getColonyClient() example from account[0]
+  // Test the getColonyClient() action from account[0]
   test('account[0] getColonyClient() works', async () => {
     state.colonyClient[0] = await getColonyClient(
       state.networkClient[0],         // networkClient
@@ -83,7 +83,7 @@ describe('colony-starter [ local ]', () => {
     }));
   }, 5000);
 
-  // Test the setTokenOwner() example from account[0]
+  // Test the setTokenOwner() action from account[0]
   test('account[0] setTokenOwner() works', async () => {
     const tokenOwner = await setTokenOwner(
       state.colonyClient[0],          // colonyClient
@@ -92,7 +92,7 @@ describe('colony-starter [ local ]', () => {
     expect(tokenOwner).toEqual(state.colony.address);
   }, 5000);
 
-  // Test the mintTokens() example from account[0]
+  // Test the mintTokens() action from account[0]
   test('account[0] mintTokens() works', async () => {
     const tokenSupply = await mintTokens(
       state.colonyClient[0],          // colonyClient
@@ -101,7 +101,7 @@ describe('colony-starter [ local ]', () => {
     expect(tokenSupply.amount.toString()).toEqual('3000000000000000000');
   }, 5000);
 
-  // Test the claimColonyFunds() example from account[0]
+  // Test the claimColonyFunds() action from account[0]
   test('account[0] claimColonyFunds() works', async () => {
     const colonyPotBalance = await claimColonyFunds(
       state.colonyClient[0],          // colonyClient
@@ -110,7 +110,7 @@ describe('colony-starter [ local ]', () => {
     expect(colonyPotBalance.balance.toString()).toEqual('3000000000000000000');
   }, 5000);
 
-  // Test the addDomain() example from account[0]
+  // Test the addDomain() action from account[0]
   test('account[0] addDomain() works', async () => {
     state.domain = await addDomain(
       state.colonyClient[0],          // colonyClient
@@ -119,7 +119,7 @@ describe('colony-starter [ local ]', () => {
     expect(state.domain.id).toBeGreaterThan(1);
   }, 5000);
 
-  // Test the moveFundsBetweenPots() example from account[0]
+  // Test the moveFundsBetweenPots() action from account[0]
   test('account[0] moveFundsBetweenPots() works with token', async () => {
     const potBalance = await moveFundsBetweenPots(
       state.colonyClient[0],          // colonyClient
@@ -131,7 +131,7 @@ describe('colony-starter [ local ]', () => {
     expect(potBalance.balance.toString()).toEqual('3000000000000000000');
   }, 5000);
 
-  // Test the createTask() example from account[0]
+  // Test the createTask() action from account[0]
   test('account[0] createTask() works', async () => {
     state.task = await createTask(
       state.colonyClient[0],          // colonyClient

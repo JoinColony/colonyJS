@@ -1,10 +1,10 @@
-// Import the Extended Colony Protocol
+// Import the prerequisites
 const ecp = require('../helpers/ecp');
 
-// An example using the setTaskBrief operation
+// An example action using the setTaskBrief operation
 const setTaskBrief = async (colonyClient, taskId, specification) => {
 
-  // Initialise the Extended Colony Protocol
+  // Initialize the "Extended Colony Protocol"
   await ecp.init();
 
   // Create a specification hash for the task
@@ -13,25 +13,25 @@ const setTaskBrief = async (colonyClient, taskId, specification) => {
   // Check out the logs to see the specification hash
   console.log('Specification Hash: ' + specificationHash);
 
-  // Stop the Extended Colony Protocol
+  // Stop the "Extended Colony Protocol"
   await ecp.stop();
 
-  // Update the specification for the given task
+  // Start the operation to set the task specification
   const operation = await colonyClient.setTaskBrief.startOperation({
     taskId,
     specificationHash,
   });
 
-  // Check out the logs to see the operation missing signees
+  // Check out the logs to see the missing signees
   console.log('Missing Signees:', operation.missingSignees);
 
   // Serialize the operation into JSON format
   const operationJSON = operation.toJSON();
 
-  // Save the operation to our mock database
+  // Save the operation to the mock database
   DATABASE.operations.setTaskBrief = operationJSON;
 
 }
 
-// Export setTaskBrief example
+// Export setTaskBrief action
 module.exports = setTaskBrief;

@@ -1,7 +1,7 @@
-// Import web3 utils library
+// Import the prerequisites
 const web3Utils = require('web3-utils');
 
-// An example using the revealTaskWorkRating method
+// An example action using the revealTaskWorkRating method
 const revealTaskWorkRating = async (colonyClient, taskId, role, rating) => {
 
   // Set salt value
@@ -46,4 +46,5 @@ const revealTaskWorkRating = async (colonyClient, taskId, role, rating) => {
 
 }
 
+// Export revealTaskWorkRating action
 module.exports = revealTaskWorkRating;

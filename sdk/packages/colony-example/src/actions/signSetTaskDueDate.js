@@ -1,10 +1,10 @@
-// Import executeTaskMultisig helper method
+// Import the prerequisites
 const executeTaskMultisig = require('../helpers/multisig');
 
-// An example using the setTaskDueDate operation
+// An example action using the setTaskDueDate operation
 const signSetTaskDueDate = async (colonyClient, taskId) => {
 
-  // Execute task multisig operation for the given colonyJS method
+  // Execute the task multisig operation
   await executeTaskMultisig(
     colonyClient,
     colonyClient.setTaskDueDate,
@@ -14,7 +14,7 @@ const signSetTaskDueDate = async (colonyClient, taskId) => {
   // Get the updated task
   const updatedTask = await colonyClient.getTask.call({ taskId });
 
-  // Check out the logs to see the task we updated
+  // Check out the logs to see the updated task
   console.log('Task:', updatedTask);
 
   // Return the updated task
@@ -22,5 +22,5 @@ const signSetTaskDueDate = async (colonyClient, taskId) => {
 
 }
 
-// Export signSetTaskDueDate example
+// Export signSetTaskDueDate action
 module.exports = signSetTaskDueDate;

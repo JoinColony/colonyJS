@@ -1,7 +1,7 @@
-// An example using the finalizeTask method
+// An example action using the finalizeTask method
 const finalizeTask = async (colonyClient, taskId) => {
 
-  // Finalize the given task
+  // Finalize the task
   await colonyClient.finalizeTask.send({ taskId });
 
   // Get the updated task
@@ -15,4 +15,5 @@ const finalizeTask = async (colonyClient, taskId) => {
 
 }
 
+// Export finalizeTask action
 module.exports = finalizeTask;

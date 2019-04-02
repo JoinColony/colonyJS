@@ -1,10 +1,10 @@
-// Import executeTaskMultisig helper method
+// Import the prerequisites
 const executeTaskMultisig = require('../helpers/multisig');
 
-// An example using the setTaskBrief operation
+// An example action using the setTaskBrief operation
 const signSetTaskBrief = async (colonyClient, taskId) => {
 
-  // Execute task multisig operation for the given colonyJS method
+  // Execute the task multisig operation
   await executeTaskMultisig(
     colonyClient,
     colonyClient.setTaskBrief,
@@ -14,7 +14,7 @@ const signSetTaskBrief = async (colonyClient, taskId) => {
   // Get the updated task
   const updatedTask = await colonyClient.getTask.call({ taskId });
 
-  // Check out the logs to see the task we updated
+  // Check out the logs to see the updated task
   console.log('Task:', updatedTask);
 
   // Return the updated task
@@ -22,5 +22,5 @@ const signSetTaskBrief = async (colonyClient, taskId) => {
 
 }
 
-// Export signSetTaskBrief example
+// Export signSetTaskBrief action
 module.exports = signSetTaskBrief;
