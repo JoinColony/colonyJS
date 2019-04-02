@@ -11,13 +11,13 @@ log() {
 if [ $1 ]; then
 
   # Set colonyNework to specified version
-  log "Checking out colonyNetwork version..."
+  log "Checking out specified colonyNetwork version..."
   git -c advice.detachedHead=false checkout $1
 
 else
 
   # Set colonyNework to default version
-  log "Checking out colonyNetwork version..."
+  log "Checking out default colonyNetwork version..."
   git -c advice.detachedHead=false checkout 543423abb133119a4029ac2adcc8cebb16a8c6d9
 
 fi
