@@ -1,5 +1,5 @@
 // Import executeTaskMultisig helper method
-const executeTaskMultisig = require('../helpers/executeTaskMultisig');
+const executeTaskMultisig = require('../helpers/multisig');
 
 // An example using the removeTaskEvaluatorRole operation
 const signRemoveTaskEvaluatorRole = async (colonyClient, taskId) => {

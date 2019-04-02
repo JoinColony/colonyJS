@@ -1,5 +1,5 @@
 // Import executeTaskMultisig helper method
-const executeTaskMultisig = require('../helpers/executeTaskMultisig');
+const executeTaskMultisig = require('../helpers/multisig');
 
 // An example using the setTaskWorkerRole operation
 const signSetTaskWorkerRole = async (colonyClient, taskId) => {

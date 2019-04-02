@@ -1,5 +1,5 @@
 // Import executeTaskMultisig helper method
-const executeTaskMultisig = require('../helpers/executeTaskMultisig');
+const executeTaskMultisig = require('../helpers/multisig');
 
 // An example using the setTaskEvaluatorPayout operation
 const signSetTaskEvaluatorPayout = async (colonyClient, taskId, token) => {
