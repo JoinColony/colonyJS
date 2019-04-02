@@ -17,9 +17,20 @@ if [ ! -d 'lib/colonyNetwork' ]; then
   # Create and move to lib directory
   mkdir lib && cd lib
 
-  # Clone colonyNetwork repository
-  log "Cloning colonyNetwork repository..."
-  git clone ssh://git@github.com/JoinColony/colonyNetwork.git
+  # Check CI
+  if [ -z $CI ]; then
+
+    # Clone colonyNetwork repository
+    log "Cloning colonyNetwork repository..."
+    git clone ssh://git@github.com/JoinColony/colonyNetwork.git
+
+  else
+
+    # Clone colonyNetwork repository
+    log "Cloning colonyNetwork repository..."
+    git clone https://github.com/JoinColony/colonyNetwork
+
+  fi
 
   # Move to colonyNetwork directory
   cd colonyNetwork
