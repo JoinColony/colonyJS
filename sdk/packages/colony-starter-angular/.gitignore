@@ -1,16 +1,22 @@
-# See http://help.github.com/ignore-files/ for more about ignoring files.
-
-# compiled output
-/dist
-/tmp
-/out-tsc
-/build
-
 # dependencies
 /node_modules
 
-# misc
-yarn-error.log
+# output
+/build
+/dist
+/out-tsc
+/tmp
 
-# System Files
+# misc
 .DS_Store
+
+# env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
