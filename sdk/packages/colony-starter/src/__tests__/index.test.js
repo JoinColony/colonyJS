@@ -1,18 +1,18 @@
 // Import prerequisites
 const BN = require('bn.js');
 
-// Import examples
-const addDomain = require('../examples/addDomain');
-const claimColonyFunds = require('../examples/claimColonyFunds');
-const connectNetwork = require('../examples/connectNetwork');
-const createColony = require('../examples/createColony');
-const createTask = require('../examples/createTask');
-const createToken = require('../examples/createToken');
-const getAccounts = require('../examples/getAccounts');
-const getColonyClient = require('../examples/getColonyClient');
-const mintTokens = require('../examples/mintTokens');
-const moveFundsBetweenPots = require('../examples/moveFundsBetweenPots');
-const setTokenOwner = require('../examples/setTokenOwner');
+// Import actions
+const addDomain = require('../actions/addDomain');
+const claimColonyFunds = require('../actions/claimColonyFunds');
+const connectNetwork = require('../actions/connectNetwork');
+const createColony = require('../actions/createColony');
+const createTask = require('../actions/createTask');
+const createToken = require('../actions/createToken');
+const getAccounts = require('../actions/getAccounts');
+const getColonyClient = require('../actions/getColonyClient');
+const mintTokens = require('../actions/mintTokens');
+const moveFundsBetweenPots = require('../actions/moveFundsBetweenPots');
+const setTokenOwner = require('../actions/setTokenOwner');
 
 // Database
 DATABASE = {
@@ -25,8 +25,8 @@ const state = {
   colonyClient: [],     // colonyClient (per account)
 };
 
-// Testing colony-starter-basic examples
-describe('colony-starter-basic', () => {
+// Testing colony-starter actions
+describe('colony-starter [ local ]', () => {
 
   // Test TrufflepigLoader getAccounts()
   test('getAccounts() works', async () => {

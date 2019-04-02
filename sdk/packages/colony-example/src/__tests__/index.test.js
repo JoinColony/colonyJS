@@ -2,43 +2,43 @@
 const { EMPTY_ADDRESS } = require('@colony/colony-js-client');
 const BN = require('bn.js');
 
-// Import examples
-const addDomain = require('../examples/addDomain');
-const addGlobalSkill = require('../examples/addGlobalSkill');
-const claimColonyFunds = require('../examples/claimColonyFunds');
-const claimPayout = require('../examples/claimPayout');
-const connectNetwork = require('../examples/connectNetwork');
-const createColony = require('../examples/createColony');
-const createTask = require('../examples/createTask');
-const createToken = require('../examples/createToken');
-const finalizeTask = require('../examples/finalizeTask');
-const getAccounts = require('../examples/getAccounts');
-const getColonyClient = require('../examples/getColonyClient');
-const mintTokens = require('../examples/mintTokens');
-const moveFundsBetweenPots = require('../examples/moveFundsBetweenPots');
-const removeTaskEvaluatorRole = require('../examples/removeTaskEvaluatorRole');
-const revealTaskWorkRating = require('../examples/revealTaskWorkRating');
-const sendEther = require('../examples/sendEther');
-const setTaskBrief = require('../examples/setTaskBrief');
-const setTaskDueDate = require('../examples/setTaskDueDate');
-const setTaskEvaluatorPayout = require('../examples/setTaskEvaluatorPayout');
-const setTaskEvaluatorRole = require('../examples/setTaskEvaluatorRole');
-const setTaskManagerPayout = require('../examples/setTaskManagerPayout');
-const setTaskSkill = require('../examples/setTaskSkill');
-const setTaskWorkerPayout = require('../examples/setTaskWorkerPayout');
-const setTaskWorkerRole = require('../examples/setTaskWorkerRole');
-const setTokenOwner = require('../examples/setTokenOwner');
-const signRemoveTaskEvaluatorRole = require('../examples/signRemoveTaskEvaluatorRole');
-const signSetTaskBrief = require('../examples/signSetTaskBrief');
-const signSetTaskEvaluatorPayout = require('../examples/signSetTaskEvaluatorPayout');
-const signSetTaskEvaluatorRole = require('../examples/signSetTaskEvaluatorRole');
-const signSetTaskManagerPayout = require('../examples/signSetTaskManagerPayout');
-const signSetTaskSkill = require('../examples/signSetTaskSkill');
-const signSetTaskWorkerPayout = require('../examples/signSetTaskWorkerPayout');
-const signSetTaskWorkerRole = require('../examples/signSetTaskWorkerRole');
-const signSetTaskDueDate = require('../examples/signSetTaskDueDate');
-const submitTaskDeliverable = require('../examples/submitTaskDeliverable');
-const submitTaskWorkRating = require('../examples/submitTaskWorkRating');
+// Import actions
+const addDomain = require('../actions/addDomain');
+const addGlobalSkill = require('../actions/addGlobalSkill');
+const claimColonyFunds = require('../actions/claimColonyFunds');
+const claimPayout = require('../actions/claimPayout');
+const connectNetwork = require('../actions/connectNetwork');
+const createColony = require('../actions/createColony');
+const createTask = require('../actions/createTask');
+const createToken = require('../actions/createToken');
+const finalizeTask = require('../actions/finalizeTask');
+const getAccounts = require('../actions/getAccounts');
+const getColonyClient = require('../actions/getColonyClient');
+const mintTokens = require('../actions/mintTokens');
+const moveFundsBetweenPots = require('../actions/moveFundsBetweenPots');
+const removeTaskEvaluatorRole = require('../actions/removeTaskEvaluatorRole');
+const revealTaskWorkRating = require('../actions/revealTaskWorkRating');
+const sendEther = require('../actions/sendEther');
+const setTaskBrief = require('../actions/setTaskBrief');
+const setTaskDueDate = require('../actions/setTaskDueDate');
+const setTaskEvaluatorPayout = require('../actions/setTaskEvaluatorPayout');
+const setTaskEvaluatorRole = require('../actions/setTaskEvaluatorRole');
+const setTaskManagerPayout = require('../actions/setTaskManagerPayout');
+const setTaskSkill = require('../actions/setTaskSkill');
+const setTaskWorkerPayout = require('../actions/setTaskWorkerPayout');
+const setTaskWorkerRole = require('../actions/setTaskWorkerRole');
+const setTokenOwner = require('../actions/setTokenOwner');
+const signRemoveTaskEvaluatorRole = require('../actions/signRemoveTaskEvaluatorRole');
+const signSetTaskBrief = require('../actions/signSetTaskBrief');
+const signSetTaskEvaluatorPayout = require('../actions/signSetTaskEvaluatorPayout');
+const signSetTaskEvaluatorRole = require('../actions/signSetTaskEvaluatorRole');
+const signSetTaskManagerPayout = require('../actions/signSetTaskManagerPayout');
+const signSetTaskSkill = require('../actions/signSetTaskSkill');
+const signSetTaskWorkerPayout = require('../actions/signSetTaskWorkerPayout');
+const signSetTaskWorkerRole = require('../actions/signSetTaskWorkerRole');
+const signSetTaskDueDate = require('../actions/signSetTaskDueDate');
+const submitTaskDeliverable = require('../actions/submitTaskDeliverable');
+const submitTaskWorkRating = require('../actions/submitTaskWorkRating');
 
 // Database
 DATABASE = {
@@ -51,8 +51,8 @@ const state = {
   colonyClient: [],     // colonyClient (per account)
 };
 
-// Testing colony-starter-basic-extended examples
-describe('colony-starter-basic-extended', () => {
+// Testing colony-example actions
+describe('colony-example [ local ]', () => {
 
   // Test TrufflepigLoader getAccounts()
   test('getAccounts() works', async () => {

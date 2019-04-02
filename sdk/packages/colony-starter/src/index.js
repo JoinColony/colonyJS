@@ -2,18 +2,18 @@
 const BN = require('bn.js');
 const log = require('./helpers/log');
 
-// Import examples
-const addDomain = require('./examples/addDomain');
-const claimColonyFunds = require('./examples/claimColonyFunds');
-const connectNetwork = require('./examples/connectNetwork');
-const createColony = require('./examples/createColony');
-const createTask = require('./examples/createTask');
-const createToken = require('./examples/createToken');
-const getAccounts = require('./examples/getAccounts');
-const getColonyClient = require('./examples/getColonyClient');
-const mintTokens = require('./examples/mintTokens');
-const moveFundsBetweenPots = require('./examples/moveFundsBetweenPots');
-const setTokenOwner = require('./examples/setTokenOwner');
+// Import actions
+const addDomain = require('./actions/addDomain');
+const claimColonyFunds = require('./actions/claimColonyFunds');
+const connectNetwork = require('./actions/connectNetwork');
+const createColony = require('./actions/createColony');
+const createTask = require('./actions/createTask');
+const createToken = require('./actions/createToken');
+const getAccounts = require('./actions/getAccounts');
+const getColonyClient = require('./actions/getColonyClient');
+const mintTokens = require('./actions/mintTokens');
+const moveFundsBetweenPots = require('./actions/moveFundsBetweenPots');
+const setTokenOwner = require('./actions/setTokenOwner');
 
 // The global database object will act as a mock database where we will store
 // our pending multisig operations so that we can restore the operations when
@@ -23,7 +23,7 @@ DATABASE = {
 };
 
 // In order to demonstrate the complete task lifecycle, we will need to call
-// some of the examples using different accounts. The state object below will
+// some of the actions using different accounts. The state object below will
 // store the accounts and the networkClient and colonyClient for each account
 // as well as state that will be shared across all accounts.
 const state = {
@@ -31,8 +31,8 @@ const state = {
   networkClient: [],              // networkClient (per account)
 };
 
-// A method that runs through the examples
-const colonyStarterExample = async () => {
+// Run example
+(async () => {
 
   log('account[0] getAccounts:');
 
@@ -42,7 +42,7 @@ const colonyStarterExample = async () => {
 
   log('account[0] connectNetwork:');
 
-  // Connect to the network using the "connectNetwork" example and then store
+  // Connect to the network using the "connectNetwork" action and then store
   // the returned "networkClient" in the state object.
   state.networkClient[0] = await connectNetwork(
     'local',                        // network
@@ -51,7 +51,7 @@ const colonyStarterExample = async () => {
 
   log('account[0] createToken:');
 
-  // Create a new ERC20 token using the "createToken" example and then store
+  // Create a new ERC20 token using the "createToken" action and then store
   // the returned "tokenAddress" in the state object.
   state.tokenAddress = await createToken(
     state.networkClient[0],         // networkClient
@@ -61,7 +61,7 @@ const colonyStarterExample = async () => {
 
   log('account[0] createColony:');
 
-  // Create a new colony with our new token using the "createColony" example
+  // Create a new colony with our new token using the "createColony" action
   // and then store the returned "colony" in the state object.
   state.colony = await createColony(
     state.networkClient[0],         // networkClient
@@ -70,7 +70,7 @@ const colonyStarterExample = async () => {
 
   log('account[0] getColonyClient:');
 
-  // Get the client for our new colony using the "getColonyClient" example and
+  // Get the client for our new colony using the "getColonyClient" action and
   // then store the returned "colonyClient" in the state object.
   state.colonyClient[0] = await getColonyClient(
     state.networkClient[0],         // networkClient
@@ -80,7 +80,7 @@ const colonyStarterExample = async () => {
   log('account[0] setTokenOwner:');
 
   // Set our new colony as the owner of our new token using the "setTokenOwner"
-  // example. This will allow our colony to mint and claim tokens.
+  // action. This will allow our colony to mint and claim tokens.
   await setTokenOwner(
     state.colonyClient[0],          // colonyClient
     state.colony.address,           // colonyAddress
@@ -88,7 +88,7 @@ const colonyStarterExample = async () => {
 
   log('account[0] mintTokens:');
 
-  // Mint tokens for our new token using the "mintTokens" example.
+  // Mint tokens for our new token using the "mintTokens" action.
   await mintTokens(
     state.colonyClient[0],          // colonyClient
     new BN('3000000000000000000'),  // amount
@@ -96,7 +96,7 @@ const colonyStarterExample = async () => {
 
   log('account[0] claimColonyFunds:');
 
-  // Claim tokens for our new colony using the "claimColonyFunds" example.
+  // Claim tokens for our new colony using the "claimColonyFunds" action.
   await claimColonyFunds(
     state.colonyClient[0],          // colonyClient
     state.tokenAddress,             // tokenAddress
@@ -104,7 +104,7 @@ const colonyStarterExample = async () => {
 
   log('account[0] addDomain:');
 
-  // Add a new domain to our new colony using the "addDomain" example and then
+  // Add a new domain to our new colony using the "addDomain" action and then
   // store the returned "domain" in the state object. Each colony comes with a
   // root domain. In this case, we want the root domain to be the parent of our
   // new domain, so we will use "1" for "parentDomainId".
@@ -115,7 +115,7 @@ const colonyStarterExample = async () => {
 
   log('account[0] moveFundsBetweenPots:');
 
-  // Move tokens to our domain using the "moveFundsBetweenPots" example.
+  // Move tokens to our domain using the "moveFundsBetweenPots" action.
   await moveFundsBetweenPots(
     state.colonyClient[0],          // colonyClient
     1,                              // fromPot
@@ -126,7 +126,7 @@ const colonyStarterExample = async () => {
 
   log('account[0] createTask:');
 
-  // Create a new task within our new domain using the "createTask" example and
+  // Create a new task within our new domain using the "createTask" action and
   // then store the returned "task" in the state object. We could also create a
   // new task within the root domain, using "1" for the "domainId", but here we
   // will use the "domainId" of our new domain, which has a value of "2".
@@ -141,9 +141,6 @@ const colonyStarterExample = async () => {
 
   log('Complete!');
 
-}
-
-// Execute example
-colonyStarterExample()
+})()
   .then(() => process.exit())
   .catch(err => console.error(err));
