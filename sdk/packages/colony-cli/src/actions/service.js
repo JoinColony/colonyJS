@@ -10,8 +10,8 @@ const service = async (commander, serviceName) => {
   console.log();
   console.log(`  Starting ${chalk.cyan('service')} action...`);
 
-  // Set path to scripts directory
-  const scriptsPath = path.join(__dirname, '../../scripts');
+  // Set path to service scripts directory
+  const scriptsPath = path.join(__dirname, '../services');
 
   // Set path to colonyNetwork directory
   const colonyNetworkPath = path.join(__dirname, '../../lib/colonyNetwork');

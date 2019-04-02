@@ -2,13 +2,13 @@
 
 # Log
 log() {
-  CYAN='\033[0;36m'
-  NONE='\033[0m'
+  CYAN="\033[0;36m"
+  NONE="\033[0m"
   echo "${CYAN}$1${NONE}"
 }
 
 # Check colonyNetwork directory
-if [ ! -d 'lib/colonyNetwork' ]; then
+if [ ! -d "lib/colonyNetwork" ]; then
 
   # Pull docker image
   log "Pulling docker image..."
@@ -17,19 +17,14 @@ if [ ! -d 'lib/colonyNetwork' ]; then
   # Create and move to lib directory
   mkdir lib && cd lib
 
-  # Check CI
+  # Clone colonyNetwork repository
+  log "Cloning colonyNetwork repository..."
+
+  # Check CI variable
   if [ -z $CI ]; then
-
-    # Clone colonyNetwork repository
-    log "Cloning colonyNetwork repository..."
     git clone ssh://git@github.com/JoinColony/colonyNetwork.git
-
   else
-
-    # Clone colonyNetwork repository
-    log "Cloning colonyNetwork repository..."
     git clone https://github.com/JoinColony/colonyNetwork
-
   fi
 
   # Move to colonyNetwork directory
