@@ -23,10 +23,10 @@ module.exports = async (colonyClient, taskId, role, token) => {
   });
 
   // Check out the logs to see the task payout amount before it was claimed
-  console.log('Task Payout Amount (Before): ' + taskPayoutBefore.amount);
+  console.log('Task Payout (Before): ' + taskPayoutBefore.amount);
 
   // Check out the logs to see the task payout amount after it was claimed
-  console.log('Task Payout Amount (After): ' + taskPayoutAfter.amount);
+  console.log('Task Payout (After): ' + taskPayoutAfter.amount);
 
   // Return the task payout amount after it was claimed
   return taskPayoutAfter;
