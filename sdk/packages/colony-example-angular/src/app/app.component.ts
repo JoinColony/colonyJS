@@ -44,6 +44,7 @@ export class AppComponent implements OnInit {
       return this.appService.getNetworkClient("local", wallet);
     }).then((networkClient) => {
       this.model.networkClient = networkClient;
+      this.clearLoading();
     }).catch((error) => {
       this.setError(error);
     });
