@@ -2,6 +2,18 @@
 # yarn lockfile v1
 
 
+"@angular-builders/custom-webpack@~7.2.0":
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/@angular-builders/custom-webpack/-/custom-webpack-7.2.0.tgz#1a5d44560435d1efff4dea98f3e1880a192b952f"
+  integrity sha512-m6K1T7rDofyxxxgRdAHEUfjbvu8G3RL3XKeAieDbbHSRhsptEAgYdBx5BpkW+xrrfgX5TWG6AZaEgfPNlJtbAA==
+  dependencies:
+    lodash "^4.17.10"
+
+"@angular-builders/dev-server@~7.2.0":
+  version "7.2.1"
+  resolved "https://registry.yarnpkg.com/@angular-builders/dev-server/-/dev-server-7.2.1.tgz#e960705a8edc5e4e3efbad05eba316f30e2f2261"
+  integrity sha512-hQZD/aB/jMq4Yf3+lkkGpU8OFAQwZ+S+422P+m2NkZ40+UXLsJpVzDRFMcL0GGObjwTxhxrmw6wFUk+2V5TwIg==
+
 "@angular-devkit/architect@0.13.7":
   version "0.13.7"
   resolved "https://registry.yarnpkg.com/@angular-devkit/architect/-/architect-0.13.7.tgz#b09e80dedeacddb86a94d3002c7fb8627733554f"
@@ -1097,19 +1109,6 @@
     esutils "^2.0.2"
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
-
-"@colony/colony-cli@file:../../../../workspace/projects/colony/colonyStarter/packages/colony-cli":
-  version "1.0.0-beta.0"
-  dependencies:
-    "@colony/purser-software" "^1.2.4"
-    chalk "^2.4.1"
-    commander "^2.17.1"
-    cross-spawn "^6.0.5"
-    fs-extra "^7.0.0"
-    json "^9.0.6"
-    tar-pack "^3.4.1"
-    tmp "^0.0.33"
-    trufflepig "^1.1.1"
 
 "@colony/colony-js-adapter-ethers@^1.10.0":
   version "1.10.0"
@@ -15061,7 +15060,7 @@ pull-write@^1.1.4:
     pull-cat "^1.1.11"
     pull-stream "^3.4.5"
 
-"pull-ws@github:hugomrdias/pull-ws#fix/bundle-size":
+pull-ws@hugomrdias/pull-ws#fix/bundle-size:
   version "3.3.1"
   resolved "https://codeload.github.com/hugomrdias/pull-ws/tar.gz/8e2ce0bb3b1cd6804828316e937fff8e0bef6225"
   dependencies:

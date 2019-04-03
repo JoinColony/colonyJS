@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 
-const { getNetworkClient } = require("@colony/colony-js-client");
-const { open } = require("@colony/purser-metamask");
+import { getNetworkClient } from "@colony/colony-js-client";
+import { open } from "@colony/purser-metamask";
 
 @Injectable()
 

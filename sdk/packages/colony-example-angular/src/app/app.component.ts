@@ -39,10 +39,10 @@ export class AppComponent implements OnInit {
     this.clearError();
     this.setLoading();
     this.appService.openWallet()
-    .then(wallet => {
+    .then((wallet) => {
       this.model.wallet = wallet;
       return this.appService.getNetworkClient("local", wallet);
-    }).then(networkClient => {
+    }).then((networkClient) => {
       this.model.networkClient = networkClient;
     }).catch((error) => {
       this.setError(error);

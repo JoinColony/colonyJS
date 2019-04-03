@@ -32,15 +32,15 @@ export class AppComponent implements OnInit {
     this.clearError();
     this.setLoading();
     this.appService.openWallet()
-    .then(wallet => {
+    .then((wallet) => {
       this.model.wallet = wallet;
       return this.appService.getNetworkClient("local", wallet);
     })
-    .then(networkClient => {
+    .then((networkClient) => {
       this.model.networkClient = networkClient;
       return this.appService.getColonyClient(networkClient, 1);
     })
-    .then(colonyClient => {
+    .then((colonyClient) => {
       this.model.colonyClient = colonyClient;
       this.clearLoading();
     }).catch((error) => {
