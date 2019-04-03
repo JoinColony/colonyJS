@@ -24,7 +24,8 @@
     "@colony/colony-js-contract-loader-http": "^1.10.0",
     "@colony/purser-software": "^1.2.4",
     "bn.js": "^4.11.8",
-    "chalk": "^2.4.1"
+    "chalk": "^2.4.1",
+    "web3": "^1.0.0-beta.35"
   },
   "devDependencies": {
     "jest": "^23.1.0"
