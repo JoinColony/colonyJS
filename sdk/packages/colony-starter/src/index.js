@@ -1,149 +1,121 @@
-// Import prerequisites
+// Import dependencies
 const BN = require('bn.js');
+
+// Import helpers
 const log = require('./helpers/log');
 
-// Import examples
-const addDomain = require('./examples/addDomain');
-const claimColonyFunds = require('./examples/claimColonyFunds');
-const connectNetwork = require('./examples/connectNetwork');
-const createColony = require('./examples/createColony');
-const createTask = require('./examples/createTask');
-const createToken = require('./examples/createToken');
-const getAccounts = require('./examples/getAccounts');
-const getColonyClient = require('./examples/getColonyClient');
-const mintTokens = require('./examples/mintTokens');
-const moveFundsBetweenPots = require('./examples/moveFundsBetweenPots');
-const setTokenOwner = require('./examples/setTokenOwner');
+// Import actions
+const claimColonyFunds = require('./actions/claimColonyFunds');
+const createColony = require('./actions/createColony');
+const createToken = require('./actions/createToken');
+const getColonyClient = require('./actions/getColonyClient');
+const getNetworkClient = require('./actions/getNetworkClient');
+const makePayment = require('./actions/makePayment');
+const mintTokens = require('./actions/mintTokens');
+const openWallet = require('./actions/openWallet');
+const setAdminRole = require('./actions/setAdminRole');
+const setTokenOwner = require('./actions/setTokenOwner');
 
-// The global database object will act as a mock database where we will store
-// our pending multisig operations so that we can restore the operations when
-// we need to sign them from another account.
-DATABASE = {
-  operations: {},
-};
+// Set the private key (this is the private key for the first Ganache test account)
+const privateKey = '0x0355596cdb5e5242ad082c4fe3f8bbe48c9dba843fe1f99dd8272f487e70efae';
 
-// In order to demonstrate the complete task lifecycle, we will need to call
-// some of the examples using different accounts. The state object below will
-// store the accounts and the networkClient and colonyClient for each account
-// as well as state that will be shared across all accounts.
-const state = {
-  colonyClient: [],               // colonyClient (per account)
-  networkClient: [],              // networkClient (per account)
-};
+// Set contract address for OneTxPayment contract
+const OneTxPayment = '0xA8DA163375713753Acc7e1D429c64F72b9412077';
 
-// A method that runs through the examples
-const colonyStarterExample = async () => {
+// Set the worker address (this is the public key for the second Ganache test account)
+const workerAddress = '0x9df24e73f40b2a911eb254a8825103723e13209c';
 
-  log('account[0] getAccounts:');
+// Run example
+(async () => {
 
-  // Get the ganache test accounts and then store the returned "accounts" in
-  // the state object.
-  state.accounts = await getAccounts();
+  // Set state
+  const state = {}
 
-  log('account[0] connectNetwork:');
+  log('openWallet:');
 
-  // Connect to the network using the "connectNetwork" example and then store
-  // the returned "networkClient" in the state object.
-  state.networkClient[0] = await connectNetwork(
-    'local',                        // network
-    state.accounts[0][1],           // privateKey
+  // Open a wallet using the "openWallet" example action.
+  state.wallet = await openWallet(
+    privateKey,                     // privateKey
   );
 
-  log('account[0] createToken:');
+  log('getNetworkClient:');
 
-  // Create a new ERC20 token using the "createToken" example and then store
-  // the returned "tokenAddress" in the state object.
+  // Get the network client using the "getNetworkClient" example action.
+  state.networkClient = await getNetworkClient(
+    'local',                        // network
+    state.wallet,                   // wallet
+  );
+
+  log('createToken:');
+
+  // Create a token using the "createToken" example action.
   state.tokenAddress = await createToken(
-    state.networkClient[0],         // networkClient
-    'Token',                        // name
+    state.networkClient,            // networkClient
     'TKN',                          // symbol
   );
 
-  log('account[0] createColony:');
+  log('createColony:');
 
-  // Create a new colony with our new token using the "createColony" example
-  // and then store the returned "colony" in the state object.
+  // Create a colony using the "createColony" example action.
   state.colony = await createColony(
-    state.networkClient[0],         // networkClient
+    state.networkClient,            // networkClient
     state.tokenAddress,             // tokenAddress
   );
 
-  log('account[0] getColonyClient:');
+  log('getColonyClient:');
 
-  // Get the client for our new colony using the "getColonyClient" example and
-  // then store the returned "colonyClient" in the state object.
-  state.colonyClient[0] = await getColonyClient(
-    state.networkClient[0],         // networkClient
+  // Get the colony client using the "getColonyClient" example action.
+  state.colonyClient = await getColonyClient(
+    state.networkClient,            // networkClient
     state.colony.id,                // colonyId
   );
 
-  log('account[0] setTokenOwner:');
+  log('setTokenOwner:');
 
-  // Set our new colony as the owner of our new token using the "setTokenOwner"
-  // example. This will allow our colony to mint and claim tokens.
+  // Set the token owner using the "setTokenOwner" example action.
   await setTokenOwner(
-    state.colonyClient[0],          // colonyClient
+    state.colonyClient,             // colonyClient
     state.colony.address,           // colonyAddress
   );
 
-  log('account[0] mintTokens:');
+  log('mintTokens:');
 
-  // Mint tokens for our new token using the "mintTokens" example.
+  // Mint tokens using the "mintTokens" action.
   await mintTokens(
-    state.colonyClient[0],          // colonyClient
-    new BN('3000000000000000000'),  // amount
+    state.colonyClient,             // colonyClient
+    new BN('1000000000000000000'),  // amount
   );
 
-  log('account[0] claimColonyFunds:');
+  log('claimColonyFunds:');
 
-  // Claim tokens for our new colony using the "claimColonyFunds" example.
+  // Claim colony funds using the "claimColonyFunds" example action.
   await claimColonyFunds(
-    state.colonyClient[0],          // colonyClient
+    state.colonyClient,             // colonyClient
     state.tokenAddress,             // tokenAddress
   );
 
-  log('account[0] addDomain:');
+  log('setAdminRole:');
 
-  // Add a new domain to our new colony using the "addDomain" example and then
-  // store the returned "domain" in the state object. Each colony comes with a
-  // root domain. In this case, we want the root domain to be the parent of our
-  // new domain, so we will use "1" for "parentDomainId".
-  state.domain = await addDomain(
-    state.colonyClient[0],          // colonyClient
-    1,                              // parentDomainId
+  // Set an admin role using the "setAdminRole" example action.
+  await setAdminRole(
+    state.colonyClient,             // colonyClient
+    OneTxPayment,                   // user
   );
 
-  log('account[0] moveFundsBetweenPots:');
+  log('makePayment:');
 
-  // Move tokens to our domain using the "moveFundsBetweenPots" example.
-  await moveFundsBetweenPots(
-    state.colonyClient[0],          // colonyClient
-    1,                              // fromPot
-    state.domain.potId,             // toPot
-    new BN('3000000000000000000'),  // amount
+  // Make a payment using the "makePayment" example action.
+  await makePayment(
+    state.colonyClient,             // colonyClient
+    workerAddress,                  // worker
     state.tokenAddress,             // token
-  );
-
-  log('account[0] createTask:');
-
-  // Create a new task within our new domain using the "createTask" example and
-  // then store the returned "task" in the state object. We could also create a
-  // new task within the root domain, using "1" for the "domainId", but here we
-  // will use the "domainId" of our new domain, which has a value of "2".
-  state.task = await createTask(
-    state.colonyClient[0],          // colonyClient
-    state.domain.id,                // domainId
-    {
-      title: 'New Task Title',                  // title
-      description: 'New Task Description',      // description
-    },
+    new BN('1000000000000000000'),  // amount
+    1,                              // domainId
+    1,                              // skillId
   );
 
   log('Complete!');
 
-}
-
-// Execute example
-colonyStarterExample()
+})()
   .then(() => process.exit())
   .catch(err => console.error(err));

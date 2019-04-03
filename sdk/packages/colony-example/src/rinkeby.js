@@ -1,36 +1,33 @@
 // Import helpers
 const log = require('./helpers/log');
 
-// Import example
-const connectNetwork = require('./examples/connectNetwork');
-const getAccounts = require('./examples/getAccounts');
+// Import actions
+const getNetworkClient = require('./actions/getNetworkClient');
+const openWallet = require('./actions/openWallet');
 
 // Set the private key (this is the private key for the first Ganache test account)
-const privateKey = '0x4f3edf983ac636a65a842ce7c78d9aa706d3b113bce9c46f30d7d21715b23b1d';
+const privateKey = '0x0355596cdb5e5242ad082c4fe3f8bbe48c9dba843fe1f99dd8272f487e70efae';
 
-// A method that runs through the examples
-const colonyStarterExample = async () => {
+// Run example
+(async () => {
 
-  log('account[0] getAccounts:');
+  log('openWallet:');
 
-  // Get the ganache test accounts and then store the returned "accounts" in
-  // the state object.
-  state.accounts = await getAccounts();
+  // Open a wallet using the "openWallet" example action.
+  const wallet = await openWallet(
+    privateKey,                     // privateKey
+  );
 
-  log('connectNetwork:');
+  log('getNetworkClient:');
 
-  // Connect to the network using the "connectNetwork" example and then store
-  // the returned "networkClient" in the state object.
-  await connectNetwork(
+  // Get the network client using the "getNetworkClient" example action.
+  const networkClient = await getNetworkClient(
     'rinkeby',                      // network
-    state.accounts[0][1],           // privateKey
+    wallet,                         // wallet
   );
 
   log('Complete!');
 
-}
-
-// Execute example
-colonyStarterExample()
+})()
   .then(() => process.exit())
   .catch(err => console.error(err));

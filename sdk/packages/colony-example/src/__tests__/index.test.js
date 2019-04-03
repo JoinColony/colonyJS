@@ -2,57 +2,64 @@
 const { EMPTY_ADDRESS } = require('@colony/colony-js-client');
 const BN = require('bn.js');
 
-// Import examples
-const addDomain = require('../examples/addDomain');
-const addGlobalSkill = require('../examples/addGlobalSkill');
-const claimColonyFunds = require('../examples/claimColonyFunds');
-const claimPayout = require('../examples/claimPayout');
-const connectNetwork = require('../examples/connectNetwork');
-const createColony = require('../examples/createColony');
-const createTask = require('../examples/createTask');
-const createToken = require('../examples/createToken');
-const finalizeTask = require('../examples/finalizeTask');
-const getAccounts = require('../examples/getAccounts');
-const getColonyClient = require('../examples/getColonyClient');
-const mintTokens = require('../examples/mintTokens');
-const moveFundsBetweenPots = require('../examples/moveFundsBetweenPots');
-const removeTaskEvaluatorRole = require('../examples/removeTaskEvaluatorRole');
-const revealTaskWorkRating = require('../examples/revealTaskWorkRating');
-const sendEther = require('../examples/sendEther');
-const setTaskBrief = require('../examples/setTaskBrief');
-const setTaskDueDate = require('../examples/setTaskDueDate');
-const setTaskEvaluatorPayout = require('../examples/setTaskEvaluatorPayout');
-const setTaskEvaluatorRole = require('../examples/setTaskEvaluatorRole');
-const setTaskManagerPayout = require('../examples/setTaskManagerPayout');
-const setTaskSkill = require('../examples/setTaskSkill');
-const setTaskWorkerPayout = require('../examples/setTaskWorkerPayout');
-const setTaskWorkerRole = require('../examples/setTaskWorkerRole');
-const setTokenOwner = require('../examples/setTokenOwner');
-const signRemoveTaskEvaluatorRole = require('../examples/signRemoveTaskEvaluatorRole');
-const signSetTaskBrief = require('../examples/signSetTaskBrief');
-const signSetTaskEvaluatorPayout = require('../examples/signSetTaskEvaluatorPayout');
-const signSetTaskEvaluatorRole = require('../examples/signSetTaskEvaluatorRole');
-const signSetTaskManagerPayout = require('../examples/signSetTaskManagerPayout');
-const signSetTaskSkill = require('../examples/signSetTaskSkill');
-const signSetTaskWorkerPayout = require('../examples/signSetTaskWorkerPayout');
-const signSetTaskWorkerRole = require('../examples/signSetTaskWorkerRole');
-const signSetTaskDueDate = require('../examples/signSetTaskDueDate');
-const submitTaskDeliverable = require('../examples/submitTaskDeliverable');
-const submitTaskWorkRating = require('../examples/submitTaskWorkRating');
+// Import actions
+const addDomain = require('../actions/addDomain');
+const addGlobalSkill = require('../actions/addGlobalSkill');
+const claimColonyFunds = require('../actions/claimColonyFunds');
+const claimPayout = require('../actions/claimPayout');
+const createColony = require('../actions/createColony');
+const createTask = require('../actions/createTask');
+const createToken = require('../actions/createToken');
+const finalizeTask = require('../actions/finalizeTask');
+const getAccounts = require('../actions/getAccounts');
+const getColonyClient = require('../actions/getColonyClient');
+const getNetworkClient = require('../actions/getNetworkClient');
+const makePayment = require('../actions/makePayment');
+const mintTokens = require('../actions/mintTokens');
+const moveFundsBetweenPots = require('../actions/moveFundsBetweenPots');
+const openWallet = require('../actions/openWallet');
+const removeTaskEvaluatorRole = require('../actions/removeTaskEvaluatorRole');
+const revealTaskWorkRating = require('../actions/revealTaskWorkRating');
+const sendEther = require('../actions/sendEther');
+const setAdminRole = require('../actions/setAdminRole');
+const setTaskBrief = require('../actions/setTaskBrief');
+const setTaskDueDate = require('../actions/setTaskDueDate');
+const setTaskEvaluatorPayout = require('../actions/setTaskEvaluatorPayout');
+const setTaskEvaluatorRole = require('../actions/setTaskEvaluatorRole');
+const setTaskManagerPayout = require('../actions/setTaskManagerPayout');
+const setTaskSkill = require('../actions/setTaskSkill');
+const setTaskWorkerPayout = require('../actions/setTaskWorkerPayout');
+const setTaskWorkerRole = require('../actions/setTaskWorkerRole');
+const setTokenOwner = require('../actions/setTokenOwner');
+const signRemoveTaskEvaluatorRole = require('../actions/signRemoveTaskEvaluatorRole');
+const signSetTaskBrief = require('../actions/signSetTaskBrief');
+const signSetTaskEvaluatorPayout = require('../actions/signSetTaskEvaluatorPayout');
+const signSetTaskEvaluatorRole = require('../actions/signSetTaskEvaluatorRole');
+const signSetTaskManagerPayout = require('../actions/signSetTaskManagerPayout');
+const signSetTaskSkill = require('../actions/signSetTaskSkill');
+const signSetTaskWorkerPayout = require('../actions/signSetTaskWorkerPayout');
+const signSetTaskWorkerRole = require('../actions/signSetTaskWorkerRole');
+const signSetTaskDueDate = require('../actions/signSetTaskDueDate');
+const submitTaskDeliverable = require('../actions/submitTaskDeliverable');
+const submitTaskWorkRating = require('../actions/submitTaskWorkRating');
 
 // Database
 DATABASE = {
   operations: {},
 };
 
-// State
-const state = {
-  networkClient: [],    // networkClient (per account)
-  colonyClient: [],     // colonyClient (per account)
-};
+// Set contract address for OneTxPayment contract
+const OneTxPayment = '0xA8DA163375713753Acc7e1D429c64F72b9412077';
 
-// Testing colony-starter-basic-extended examples
-describe('colony-starter-basic-extended', () => {
+// Testing colony-example actions
+describe('colony-example [ local ]', () => {
+
+  // State
+  const state = {
+    colonyClient: [],               // colonyClient (per account)
+    networkClient: [],              // networkClient (per account)
+    wallets: [],                    // wallets (per account)
+  };
 
   // Test TrufflepigLoader getAccounts()
   test('getAccounts() works', async () => {
@@ -60,14 +67,22 @@ describe('colony-starter-basic-extended', () => {
     expect(state.accounts.length).toEqual(12);
   }, 5000)
 
-  // Test the connectNetwork() example from account[0]
-  test('account[0] connectNetwork() works', async () => {
-    state.networkClient[0] = await connectNetwork(
+  // Test the openWallet() example action
+  test('account[0] openWallet() works', async () => {
+    state.wallets[0] = await openWallet(
+      state.accounts[0][1],                 // privateKey
+    );
+    expect(state.wallets[0].address.toLowerCase()).toEqual(state.accounts[0][0]);
+  }, 5000)
+
+  // Test the getNetworkClient() example action
+  test('account[0] getNetworkClient() works', async () => {
+    state.networkClient[0] = await getNetworkClient(
       'local',                        // network
-      state.accounts[0][1],           // privateKey
+      state.wallets[0],                // wallet
     );
     expect(state.networkClient[0]).toEqual(expect.objectContaining({
-      _contract: expect.objectContaining({
+      contract: expect.objectContaining({
         address: expect.stringContaining('0x'),
         signer: expect.objectContaining({
           address: expect.stringContaining('0x'),
@@ -76,17 +91,16 @@ describe('colony-starter-basic-extended', () => {
     }));
   }, 5000);
 
-  // Test the createToken() example from account[0]
+  // Test the createToken() example action
   test('account[0] createToken() works', async () => {
     state.tokenAddress = await createToken(
       state.networkClient[0],         // networkClient
-      'Token',                        // name
       'TKN',                          // symbol
     );
     expect(state.tokenAddress).toEqual(expect.stringContaining('0x'));
   }, 5000);
 
-  // Test the createColony() example from account[0]
+  // Test the createColony() example action
   test('account[0] createColony() works', async () => {
     state.colony = await createColony(
       state.networkClient[0],         // networkClient
@@ -96,7 +110,7 @@ describe('colony-starter-basic-extended', () => {
     expect(state.colony.id).toBeGreaterThan(0);
   }, 5000);
 
-  // Test the getColonyClient() example from account[0]
+  // Test the getColonyClient() example action
   test('account[0] getColonyClient() works', async () => {
     state.colonyClient[0] = await getColonyClient(
       state.networkClient[0],         // networkClient
@@ -109,7 +123,7 @@ describe('colony-starter-basic-extended', () => {
     }));
   }, 5000);
 
-  // Test the setTokenOwner() example from account[0]
+  // Test the setTokenOwner() example action
   test('account[0] setTokenOwner() works', async () => {
     const tokenOwner = await setTokenOwner(
       state.colonyClient[0],          // colonyClient
@@ -118,43 +132,79 @@ describe('colony-starter-basic-extended', () => {
     expect(tokenOwner).toEqual(state.colony.address);
   }, 5000);
 
-  // Test the mintTokens() example from account[0]
+  // Test the mintTokens() example action
   test('account[0] mintTokens() works', async () => {
     const tokenSupply = await mintTokens(
       state.colonyClient[0],          // colonyClient
-      new BN('3000000000000000000'),  // amount
+      new BN('4000000000000000000'),  // amount
     );
-    expect(tokenSupply.amount.toString()).toEqual('3000000000000000000');
+    expect(tokenSupply.amount.toString()).toEqual('4000000000000000000');
   }, 5000);
 
-  // Test the sendEther() example from account[0]
+  // Test the sendEther() action from account[0]
   test('account[0] sendEther() works', async () => {
     const balanceAfter = await sendEther(
-      state.colonyClient[0],          // accountIndex
-      new BN('3000000000000000000'),  // amount
+      state.colonyClient[0],          // wallet
+      state.colony.address,           // to
+      new BN('4000000000000000000'),  // amount
     );
-    expect(balanceAfter).toEqual('3000000000000000000');
+    expect(balanceAfter).toEqual('4000000000000000000');
   }, 5000);
 
-  // Test the claimColonyFunds() example from account[0]
-  test('account[0] claimColonyFunds() works with token', async () => {
+  // Test the claimColonyFunds() example action
+  test('account[0] claimColonyFunds() works [ token ]', async () => {
     const colonyPotBalance = await claimColonyFunds(
       state.colonyClient[0],          // colonyClient
       state.tokenAddress,             // tokenAddress
     );
-    expect(colonyPotBalance.balance.toString()).toEqual('3000000000000000000');
+    expect(colonyPotBalance.balance.toString()).toEqual('4000000000000000000');
   }, 5000);
 
-  // Test the claimColonyFunds() example from account[0]
-  test('account[0] claimColonyFunds() works with ether', async () => {
+  // Test the claimColonyFunds() action from account[0]
+  test('account[0] claimColonyFunds() works [ ether ]', async () => {
     const colonyPotBalance = await claimColonyFunds(
       state.colonyClient[0],          // colonyClient
       EMPTY_ADDRESS,                  // tokenAddress
     );
-    expect(colonyPotBalance.balance.toString()).toEqual('3000000000000000000');
+    expect(colonyPotBalance.balance.toString()).toEqual('4000000000000000000');
   }, 5000);
 
-  // Test the addDomain() example from account[0]
+  // Test the setAdminRole() example action
+  test('account[0] setAdminRole() works', async () => {
+    const hasAdminRole = await setAdminRole(
+      state.colonyClient[0],          // colonyClient
+      OneTxPayment,                   // user
+    );
+    expect(hasAdminRole).toEqual(true);
+  }, 5000);
+
+  // Test the makePayment() example action
+  test('account[0] makePayment() works [ token ]', async () => {
+    const transaction = await makePayment(
+      state.colonyClient[0],          // colonyClient
+      state.accounts[2][0],           // worker
+      state.tokenAddress,             // token
+      new BN('1000000000000000000'),  // amount
+      1,                              // domainId
+      1,                              // skillId
+    );
+    expect(transaction.successful).toEqual(true);
+  }, 5000);
+
+  // Test the makePayment() example action
+  test('account[0] makePayment() works [ ether ]', async () => {
+    const transaction = await makePayment(
+      state.colonyClient[0],          // colonyClient
+      state.accounts[2][0],           // worker
+      EMPTY_ADDRESS,                  // token
+      new BN('1000000000000000000'),  // amount
+      1,                              // domainId
+      1,                              // skillId
+    );
+    expect(transaction.successful).toEqual(true);
+  }, 5000);
+
+  // Test the addDomain() action from account[0]
   test('account[0] addDomain() works', async () => {
     state.domain = await addDomain(
       state.colonyClient[0],          // colonyClient
@@ -163,7 +213,7 @@ describe('colony-starter-basic-extended', () => {
     expect(state.domain.id).toBeGreaterThan(1);
   }, 5000);
 
-  // Test the moveFundsBetweenPots() example from account[0]
+  // Test the moveFundsBetweenPots() action from account[0]
   test('account[0] moveFundsBetweenPots() works with token', async () => {
     const potBalance = await moveFundsBetweenPots(
       state.colonyClient[0],          // colonyClient
@@ -175,8 +225,8 @@ describe('colony-starter-basic-extended', () => {
     expect(potBalance.balance.toString()).toEqual('3000000000000000000');
   }, 5000);
 
-  // Test the moveFundsBetweenPots() example from account[0]
-  test('account[0] moveFundsBetweenPots() works with ether', async () => {
+  // Test the moveFundsBetweenPots() action from account[0]
+  test('account[0] moveFundsBetweenPots() works [ ether ]', async () => {
     const potBalance = await moveFundsBetweenPots(
       state.colonyClient[0],          // colonyClient
       1,                              // fromPot
@@ -187,7 +237,7 @@ describe('colony-starter-basic-extended', () => {
     expect(potBalance.balance.toString()).toEqual('3000000000000000000');
   }, 5000);
 
-  // Test the createTask() example from account[0]
+  // Test the createTask() action from account[0]
   test('account[0] createTask() works', async () => {
     state.task = await createTask(
       state.colonyClient[0],          // colonyClient
@@ -203,8 +253,8 @@ describe('colony-starter-basic-extended', () => {
     }));
   }, 15000);
 
-  // Test the moveFundsBetweenPots() example from account[0]
-  test('account[0] moveFundsBetweenPots() works with tokens', async () => {
+  // Test the moveFundsBetweenPots() action from account[0]
+  test('account[0] moveFundsBetweenPots() works [ token ]', async () => {
     const potBalance = await moveFundsBetweenPots(
       state.colonyClient[0],          // colonyClient
       state.domain.potId,             // fromPot
@@ -215,8 +265,8 @@ describe('colony-starter-basic-extended', () => {
     expect(potBalance.balance.toString()).toEqual('3000000000000000000');
   }, 5000);
 
-  // Test the moveFundsBetweenPots() example from account[0]
-  test('account[0] moveFundsBetweenPots() works with ether', async () => {
+  // Test the moveFundsBetweenPots() action from account[0]
+  test('account[0] moveFundsBetweenPots() works [ ether ]', async () => {
     const potBalance = await moveFundsBetweenPots(
       state.colonyClient[0],          // colonyClient
       state.domain.potId,             // fromPot
@@ -227,7 +277,7 @@ describe('colony-starter-basic-extended', () => {
     expect(potBalance.balance.toString()).toEqual('3000000000000000000');
   }, 5000);
 
-  // Test the addGlobalSkill() example from account[0]
+  // Test the addGlobalSkill() action from account[0]
   test('account[0] addGlobalSkill() works', async () => {
     state.skill = await addGlobalSkill(
       state.networkClient[0],         // networkClient
@@ -236,7 +286,7 @@ describe('colony-starter-basic-extended', () => {
     expect(state.skill.id).toBeGreaterThan(1);
   }, 5000);
 
-  // Test the setTaskSkill() example from account[0]
+  // Test the setTaskSkill() action from account[0]
   test('account[0] setTaskSkill() works', async () => {
     await setTaskSkill(
       state.colonyClient[0],          // colonyClient
@@ -253,7 +303,7 @@ describe('colony-starter-basic-extended', () => {
     }));
   }, 5000);
 
-  // Test the signSetTaskSkill() example from account[0]
+  // Test the signSetTaskSkill() action from account[0]
   test('account[0] signSetTaskSkill() works', async () => {
     state.task = await signSetTaskSkill(
       state.colonyClient[0],          // colonyClient
@@ -262,7 +312,7 @@ describe('colony-starter-basic-extended', () => {
     expect(state.task.skillId).toEqual(state.skill.id);
   }, 5000);
 
-  // Test the setTaskDueDate() example from account[0]
+  // Test the setTaskDueDate() action from account[0]
   test('account[0] setTaskDueDate() works', async () => {
     await setTaskDueDate(
       state.colonyClient[0],                  // colonyClient
@@ -279,7 +329,7 @@ describe('colony-starter-basic-extended', () => {
     }));
   }, 5000);
 
-  // Test the signSetTaskDueDate() example from account[0]
+  // Test the signSetTaskDueDate() action from account[0]
   test('account[0] signSetTaskDueDate() works', async () => {
     state.task = await signSetTaskDueDate(
       state.colonyClient[0],          // colonyClient
@@ -288,8 +338,8 @@ describe('colony-starter-basic-extended', () => {
     expect(state.task.dueDate).toEqual(new Date('2020-01-01T00:00:00.000Z'));
   }, 5000);
 
-  // Test the setTaskManagerPayout() example from account[0]
-  test('account[0] setTaskManagerPayout() works with tokens', async () => {
+  // Test the setTaskManagerPayout() action from account[0]
+  test('account[0] setTaskManagerPayout() works [ token ]', async () => {
     await setTaskManagerPayout(
       state.colonyClient[0],          // colonyClient
       state.task.id,                  // taskId
@@ -305,8 +355,8 @@ describe('colony-starter-basic-extended', () => {
     }));
   }, 5000);
 
-  // Test the signSetTaskManagerPayout() example from account[0]
-  test('account[0] signSetTaskManagerPayout() works with tokens', async () => {
+  // Test the signSetTaskManagerPayout() action from account[0]
+  test('account[0] signSetTaskManagerPayout() works [ token ]', async () => {
     const taskManagerPayout = await signSetTaskManagerPayout(
       state.colonyClient[0],          // colonyClient
       state.task.id,                  // taskId
@@ -315,8 +365,8 @@ describe('colony-starter-basic-extended', () => {
     expect(taskManagerPayout.amount.toString()).toEqual('1000000000000000000');
   }, 5000);
 
-  // Test the setTaskManagerPayout() example from account[0]
-  test('account[0] setTaskManagerPayout() works with ether', async () => {
+  // Test the setTaskManagerPayout() action from account[0]
+  test('account[0] setTaskManagerPayout() works [ ether ]', async () => {
     await setTaskManagerPayout(
       state.colonyClient[0],          // colonyClient
       state.task.id,                  // taskId
@@ -332,8 +382,8 @@ describe('colony-starter-basic-extended', () => {
     }));
   }, 5000);
 
-  // Test the signSetTaskManagerPayout() example from account[0]
-  test('account[0] signSetTaskManagerPayout() works with ether', async () => {
+  // Test the signSetTaskManagerPayout() action from account[0]
+  test('account[0] signSetTaskManagerPayout() works [ ether ]', async () => {
     const taskManagerPayout = await signSetTaskManagerPayout(
       state.colonyClient[0],          // colonyClient
       state.task.id,                  // taskId
@@ -342,8 +392,8 @@ describe('colony-starter-basic-extended', () => {
     expect(taskManagerPayout.amount._bn).toEqual(new BN('1000000000000000000'));
   }, 5000);
 
-  // Test the setTaskEvaluatorPayout() example from account[0]
-  test('account[0] setTaskEvaluatorPayout() works with tokens', async () => {
+  // Test the setTaskEvaluatorPayout() action from account[0]
+  test('account[0] setTaskEvaluatorPayout() works [ token ]', async () => {
     await setTaskEvaluatorPayout(
       state.colonyClient[0],          // colonyClient
       state.task.id,                  // taskId
@@ -359,8 +409,8 @@ describe('colony-starter-basic-extended', () => {
     }));
   }, 5000);
 
-  // Test the signSetTaskEvaluatorPayout() example from account[0]
-  test('account[0] signSetTaskEvaluatorPayout() works with tokens', async () => {
+  // Test the signSetTaskEvaluatorPayout() action from account[0]
+  test('account[0] signSetTaskEvaluatorPayout() works [ token ]', async () => {
     const taskEvaluatorPayout = await signSetTaskEvaluatorPayout(
       state.colonyClient[0],          // colonyClient
       state.task.id,                  // taskId
@@ -369,8 +419,8 @@ describe('colony-starter-basic-extended', () => {
     expect(taskEvaluatorPayout.amount.toString()).toEqual('1000000000000000000');
   }, 5000);
 
-  // Test the setTaskEvaluatorPayout() example from account[0]
-  test('account[0] setTaskEvaluatorPayout() works with ether', async () => {
+  // Test the setTaskEvaluatorPayout() action from account[0]
+  test('account[0] setTaskEvaluatorPayout() works [ ether ]', async () => {
     await setTaskEvaluatorPayout(
       state.colonyClient[0],          // colonyClient
       state.task.id,                  // taskId
@@ -386,8 +436,8 @@ describe('colony-starter-basic-extended', () => {
     }));
   }, 5000);
 
-  // Test the signSetTaskEvaluatorPayout() example from account[0]
-  test('account[0] signSetTaskEvaluatorPayout() works with ether', async () => {
+  // Test the signSetTaskEvaluatorPayout() action from account[0]
+  test('account[0] signSetTaskEvaluatorPayout() works [ ether ]', async () => {
     const taskEvaluatorPayout = await signSetTaskEvaluatorPayout(
       state.colonyClient[0],          // colonyClient
       state.task.id,                  // taskId
@@ -396,8 +446,8 @@ describe('colony-starter-basic-extended', () => {
     expect(taskEvaluatorPayout.amount.toString()).toEqual('1000000000000000000');
   }, 5000);
 
-  // Test the setTaskWorkerPayout() example from account[0]
-  test('account[0] setTaskWorkerPayout() works with tokens', async () => {
+  // Test the setTaskWorkerPayout() action from account[0]
+  test('account[0] setTaskWorkerPayout() works [ token ]', async () => {
     await setTaskWorkerPayout(
       state.colonyClient[0],          // colonyClient
       state.task.id,                  // taskId
@@ -413,8 +463,8 @@ describe('colony-starter-basic-extended', () => {
     }));
   }, 5000);
 
-  // Test the signSetTaskWorkerPayout() example from account[0]
-  test('account[0] signSetTaskWorkerPayout() works with tokens', async () => {
+  // Test the signSetTaskWorkerPayout() action from account[0]
+  test('account[0] signSetTaskWorkerPayout() works [ token ]', async () => {
     const taskWorkerPayout = await signSetTaskWorkerPayout(
       state.colonyClient[0],          // colonyClient
       state.task.id,                  // taskId
@@ -423,8 +473,8 @@ describe('colony-starter-basic-extended', () => {
     expect(taskWorkerPayout.amount.toString()).toEqual('1000000000000000000');
   }, 5000);
 
-  // Test the setTaskWorkerPayout() example from account[0]
-  test('account[0] setTaskWorkerPayout() works with ether', async () => {
+  // Test the setTaskWorkerPayout() action from account[0]
+  test('account[0] setTaskWorkerPayout() works [ ether ]', async () => {
     await setTaskWorkerPayout(
       state.colonyClient[0],          // colonyClient
       state.task.id,                  // taskId
@@ -440,8 +490,8 @@ describe('colony-starter-basic-extended', () => {
     }));
   }, 5000);
 
-  // Test the signSetTaskWorkerPayout() example from account[0]
-  test('account[0] signSetTaskWorkerPayout() works with ether', async () => {
+  // Test the signSetTaskWorkerPayout() action from account[0]
+  test('account[0] signSetTaskWorkerPayout() works [ ether ]', async () => {
     const taskWorkerPayout = await signSetTaskWorkerPayout(
       state.colonyClient[0],          // colonyClient
       state.task.id,                  // taskId
@@ -450,7 +500,7 @@ describe('colony-starter-basic-extended', () => {
     expect(taskWorkerPayout.amount.toString()).toEqual('1000000000000000000');
   }, 5000);
 
-  // Test the removeTaskEvaluatorRole() example from account[0]
+  // Test the removeTaskEvaluatorRole() action from account[0]
   test('account[0] removeTaskEvaluatorRole() works', async () => {
     await removeTaskEvaluatorRole(
       state.colonyClient[0],          // colonyClient
@@ -468,7 +518,7 @@ describe('colony-starter-basic-extended', () => {
     }));
   }, 5000);
 
-  // Test the signRemoveTaskEvaluatorRole() example from account[0]
+  // Test the signRemoveTaskEvaluatorRole() action from account[0]
   test('account[0] signRemoveTaskEvaluatorRole() works', async () => {
     const taskRole = await signRemoveTaskEvaluatorRole(
       state.colonyClient[0],          // colonyClient
@@ -479,7 +529,7 @@ describe('colony-starter-basic-extended', () => {
     }));
   }, 5000);
 
-  // Test the setTaskEvaluatorRole() example from account[0]
+  // Test the setTaskEvaluatorRole() action from account[0]
   test('account[0] setTaskEvaluatorRole() works', async () => {
     await setTaskEvaluatorRole(
       state.colonyClient[0],          // colonyClient
@@ -496,7 +546,7 @@ describe('colony-starter-basic-extended', () => {
     }));
   }, 5000);
 
-  // Test the signSetTaskEvaluatorRole() example from account[0]
+  // Test the signSetTaskEvaluatorRole() action from account[0]
   test('account[0] signSetTaskEvaluatorRole() works', async () => {
     const taskRole = await signSetTaskEvaluatorRole(
       state.colonyClient[0],          // colonyClient
@@ -507,20 +557,31 @@ describe('colony-starter-basic-extended', () => {
     }));
   }, 5000);
 
-  // Test the connectNetwork() example from account[1]
-  test('account[1] connectNetwork() works', async () => {
-    state.networkClient[1] = await connectNetwork(
+  // Test the openWallet() example action
+  test('account[1] openWallet() works', async () => {
+    state.wallets[1] = await openWallet(
+      state.accounts[1][1],                 // privateKey
+    );
+    expect(state.wallets[1].address.toLowerCase()).toEqual(state.accounts[1][0]);
+  }, 5000)
+
+  // Test the getNetworkClient() example action
+  test('account[1] getNetworkClient() works', async () => {
+    state.networkClient[1] = await getNetworkClient(
       'local',                        // network
-      state.accounts[1][1],           // privateKey
+      state.wallets[1],                // wallet
     );
     expect(state.networkClient[1]).toEqual(expect.objectContaining({
-      _contract: expect.objectContaining({
+      contract: expect.objectContaining({
         address: expect.stringContaining('0x'),
+        signer: expect.objectContaining({
+          address: expect.stringContaining('0x'),
+        }),
       })
     }));
   }, 5000);
 
-  // Test the getColonyClient() example from account[1]
+  // Test the getColonyClient() action from account[1]
   test('account[1] getColonyClient() works', async () => {
     state.colonyClient[1] = await getColonyClient(
       state.networkClient[1],         // networkClient
@@ -533,7 +594,7 @@ describe('colony-starter-basic-extended', () => {
     }));
   }, 5000);
 
-  // Test the signSetTaskEvaluatorRole() example from account[1]
+  // Test the signSetTaskEvaluatorRole() action from account[1]
   test('account[1] signSetTaskEvaluatorRole() works', async () => {
     const taskRole = await signSetTaskEvaluatorRole(
       state.colonyClient[1],          // colonyClient
@@ -545,7 +606,7 @@ describe('colony-starter-basic-extended', () => {
     }));
   }, 5000);
 
-  // Test the setTaskWorkerRole() example from account[0]
+  // Test the setTaskWorkerRole() action from account[0]
   test('account[0] setTaskWorkerRole() works', async () => {
     await setTaskWorkerRole(
       state.colonyClient[0],          // colonyClient
@@ -562,7 +623,7 @@ describe('colony-starter-basic-extended', () => {
     }));
   }, 5000);
 
-  // Test the signSetTaskWorkerRole() example from account[0]
+  // Test the signSetTaskWorkerRole() action from account[0]
   test('account[0] signSetTaskWorkerRole() works', async () => {
     const taskRole = await signSetTaskWorkerRole(
       state.colonyClient[0],          // colonyClient
@@ -573,20 +634,31 @@ describe('colony-starter-basic-extended', () => {
     }));
   }, 5000);
 
-  // Test the connectNetwork() example from account[2]
-  test('account[2] connectNetwork() works', async () => {
-    state.networkClient[2] = await connectNetwork(
+  // Test the openWallet() example action
+  test('account[2] openWallet() works', async () => {
+    state.wallets[2] = await openWallet(
+      state.accounts[2][1],                 // privateKey
+    );
+    expect(state.wallets[2].address.toLowerCase()).toEqual(state.accounts[2][0]);
+  }, 5000)
+
+  // Test the getNetworkClient() example action
+  test('account[2] getNetworkClient() works', async () => {
+    state.networkClient[2] = await getNetworkClient(
       'local',                        // network
-      state.accounts[2][1],           // privateKey
+      state.wallets[2],                // wallet
     );
     expect(state.networkClient[2]).toEqual(expect.objectContaining({
-      _contract: expect.objectContaining({
+      contract: expect.objectContaining({
         address: expect.stringContaining('0x'),
+        signer: expect.objectContaining({
+          address: expect.stringContaining('0x'),
+        }),
       })
     }));
   }, 5000);
 
-  // Test the getColonyClient() example from account[2]
+  // Test the getColonyClient() action from account[2]
   test('account[2] getColonyClient() works', async () => {
     state.colonyClient[2] = await getColonyClient(
       state.networkClient[2],         // networkClient
@@ -599,7 +671,7 @@ describe('colony-starter-basic-extended', () => {
     }));
   }, 5000);
 
-  // Test the signSetTaskWorkerRole() example from account[2]
+  // Test the signSetTaskWorkerRole() action from account[2]
   test('account[2] signSetTaskWorkerRole() works', async () => {
     const taskRole = await signSetTaskWorkerRole(
       state.colonyClient[2],          // colonyClient
@@ -611,7 +683,7 @@ describe('colony-starter-basic-extended', () => {
     }));
   }, 5000);
 
-  // Test the setTaskBrief() example from account[0]
+  // Test the setTaskBrief() action from account[0]
   test('account[0] setTaskBrief() works', async () => {
     await setTaskBrief(
       state.colonyClient[0],          // colonyClient
@@ -631,7 +703,7 @@ describe('colony-starter-basic-extended', () => {
     }));
   }, 5000);
 
-  // Test the signSetTaskBrief() example from account[0]
+  // Test the signSetTaskBrief() action from account[0]
   test('account[0] signSetTaskBrief() works', async () => {
     state.task = await signSetTaskBrief(
       state.colonyClient[0],          // colonyClient
@@ -642,7 +714,7 @@ describe('colony-starter-basic-extended', () => {
     }));
   }, 5000);
 
-  // Test the signSetTaskBrief() example from account[2]
+  // Test the signSetTaskBrief() action from account[2]
   test('account[2] signSetTaskBrief() works', async () => {
     state.task = await signSetTaskBrief(
       state.colonyClient[2],          // colonyClient
@@ -653,7 +725,7 @@ describe('colony-starter-basic-extended', () => {
     }));
   }, 5000);
 
-  // Test the submitTaskDeliverable() example from account[2]
+  // Test the submitTaskDeliverable() action from account[2]
   test('account[2] submitTaskDeliverable() works', async () => {
     state.task = await submitTaskDeliverable(
       state.colonyClient[2],          // colonyClient
@@ -667,7 +739,7 @@ describe('colony-starter-basic-extended', () => {
     }));
   }, 5000);
 
-  // Test the submitTaskWorkRating() example from account[1]
+  // Test the submitTaskWorkRating() action from account[1]
   test('account[1] submitTaskWorkRating() works', async () => {
     const taskWorkRatings = await submitTaskWorkRating(
       state.colonyClient[1],          // colonyClient
@@ -678,7 +750,7 @@ describe('colony-starter-basic-extended', () => {
     expect(taskWorkRatings.count).toEqual(1);
   }, 5000);
 
-  // Test the submitTaskWorkRating() example from account[2]
+  // Test the submitTaskWorkRating() action from account[2]
   test('account[2] submitTaskWorkRating() works', async () => {
     const taskWorkRatings = await submitTaskWorkRating(
       state.colonyClient[2],          // colonyClient
@@ -689,7 +761,7 @@ describe('colony-starter-basic-extended', () => {
     expect(taskWorkRatings.count).toEqual(2);
   }, 5000);
 
-  // Test the revealTaskWorkRating() example from account[1]
+  // Test the revealTaskWorkRating() action from account[1]
   test('account[1] revealTaskWorkRating() works', async () => {
     const taskRole = await revealTaskWorkRating(
       state.colonyClient[1],          // colonyClient
@@ -700,7 +772,7 @@ describe('colony-starter-basic-extended', () => {
     expect(taskRole.rating).toEqual(3);
   }, 5000);
 
-  // Test the revealTaskWorkRating() example from account[2]
+  // Test the revealTaskWorkRating() action from account[2]
   test('account[2] revealTaskWorkRating() works', async () => {
     const taskRole = await revealTaskWorkRating(
       state.colonyClient[2],          // colonyClient
@@ -711,7 +783,7 @@ describe('colony-starter-basic-extended', () => {
     expect(taskRole.rating).toEqual(3);
   }, 5000);
 
-  // Test the finalizeTask() example from account[0]
+  // Test the finalizeTask() action from account[0]
   test('account[0] finalizeTask() works', async () => {
     state.task = await finalizeTask(
       state.colonyClient[0],          // colonyClient
@@ -722,8 +794,8 @@ describe('colony-starter-basic-extended', () => {
     }));
   }, 5000);
 
-  // Test the claimPayout() example from account[0]
-  test('account[0] claimPayout() works with tokens', async () => {
+  // Test the claimPayout() action from account[0]
+  test('account[0] claimPayout() works [ token ]', async () => {
     const taskPayout = await claimPayout(
       state.colonyClient[0],          // colonyClient
       state.task.id,                  // taskId
@@ -733,8 +805,8 @@ describe('colony-starter-basic-extended', () => {
     expect(taskPayout.amount.toString()).toEqual('0');
   }, 5000);
 
-  // Test the claimPayout() example from account[0]
-  test('account[0] claimPayout() works with ether', async () => {
+  // Test the claimPayout() action from account[0]
+  test('account[0] claimPayout() works [ ether ]', async () => {
     const taskPayout = await claimPayout(
       state.colonyClient[0],          // colonyClient
       state.task.id,                  // taskId
@@ -744,8 +816,8 @@ describe('colony-starter-basic-extended', () => {
     expect(taskPayout.amount.toString()).toEqual('0');
   }, 5000);
 
-  // Test the claimPayout() example from account[1]
-  test('account[1] claimPayout() works with tokens', async () => {
+  // Test the claimPayout() action from account[1]
+  test('account[1] claimPayout() works [ token ]', async () => {
     const taskPayout = await claimPayout(
       state.colonyClient[1],          // colonyClient
       state.task.id,                  // taskId
@@ -755,8 +827,8 @@ describe('colony-starter-basic-extended', () => {
     expect(taskPayout.amount.toString()).toEqual('0');
   }, 5000);
 
-  // Test the claimPayout() example from account[1]
-  test('account[1] claimPayout() works with ether', async () => {
+  // Test the claimPayout() action from account[1]
+  test('account[1] claimPayout() works [ ether ]', async () => {
     const taskPayout = await claimPayout(
       state.colonyClient[1],          // colonyClient
       state.task.id,                  // taskId
@@ -766,8 +838,8 @@ describe('colony-starter-basic-extended', () => {
     expect(taskPayout.amount.toString()).toEqual('0');
   }, 5000);
 
-  // Test the claimPayout() example from account[2]
-  test('account[2] claimPayout() works with tokens', async () => {
+  // Test the claimPayout() action from account[2]
+  test('account[2] claimPayout() works [ token ]', async () => {
     const taskPayout = await claimPayout(
       state.colonyClient[2],          // colonyClient
       state.task.id,                  // taskId
@@ -777,8 +849,8 @@ describe('colony-starter-basic-extended', () => {
     expect(taskPayout.amount.toString()).toEqual('0');
   }, 5000);
 
-  // Test the claimPayout() example from account[2]
-  test('account[2] claimPayout() works with ether', async () => {
+  // Test the claimPayout() action from account[2]
+  test('account[2] claimPayout() works [ ether ]', async () => {
     const taskPayout = await claimPayout(
       state.colonyClient[2],          // colonyClient
       state.task.id,                  // taskId

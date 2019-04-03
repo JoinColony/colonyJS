@@ -64,7 +64,7 @@ Once the contracts have been deployed, start [TrufflePig](https://github.com/Joi
 yarn start-trufflepig
 ```
 
-### Run Example Script
+### Run Script
 
 Open a new terminal window and run the example script:
 
@@ -72,7 +72,7 @@ Open a new terminal window and run the example script:
 yarn start
 ```
 
-### Run Example Tests
+### Run Tests
 
 Open a new terminal window and run the example tests:
 

@@ -84,6 +84,10 @@ We also have a couple example packages that you can unpack using the same `build
 
 - A built out version of the [colony-starter-react](/starters-colony-starter-react) package with more examples.
 
+[colony-example-angular](/examples-colony-example-angular)
+
+- A built out version of the [colony-starter-angular](/starters-colony-starter-angular) package with more examples.
+
 ## Contribute
 
 [colonyStarter](https://github.com/JoinColony/colonyStarter) is under active development and packages are constantly being added and updated. If you notice a discrepancy in the documentation on this site or a bug in the code, check out the following documents for more information:

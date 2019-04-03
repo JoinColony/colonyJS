@@ -88,7 +88,7 @@ if (scriptAction === 'build') {
     },
   );
 
-} else {
+} else if (scriptAction === 'service') {
 
   // Execute other actions
   cp.execSync(
@@ -97,6 +97,13 @@ if (scriptAction === 'build') {
       stdio: 'inherit',
     },
   );
+
+} else {
+
+  console.log();
+  console.log(chalk.red('  The action you provided does not exist!'));
+  console.log();
+  process.exit(1);
 
 }
 

@@ -41,7 +41,7 @@ const build = async (commander, packageName) => {
 
   // Log step
   console.log();
-  console.log(`  Creating ${chalk.cyan(packageName)} folder...`);
+  console.log(`  Creating ${chalk.cyan(packageName)} directory...`);
 
   // Set destination path
   const destinationPath = path.resolve(packageName);
@@ -52,7 +52,7 @@ const build = async (commander, packageName) => {
   // Ensure destination directory is empty
   if (fs.readdirSync(destinationPath).length > 0) {
     console.log();
-    console.log(chalk.red(`  The ${packageName} folder must be empty!`));
+    console.log(chalk.red(`  The ${packageName} directory must be empty!`));
     console.log();
     process.exit(1);
   }
@@ -286,6 +286,7 @@ const getPackageTarball = (specificPackage, destinationPath) => {
 
   } catch (exec) {
 
+    // Log error
     console.log();
     console.log(chalk.red(`  Unable to locate ${specificPackage} on npm`));
     console.log();

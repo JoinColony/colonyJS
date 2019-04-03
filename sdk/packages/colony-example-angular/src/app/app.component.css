@@ -1,0 +1,47 @@
+mat-toolbar {
+  align-items: center;
+  display: flex;
+  height: 5rem;
+  justify-content: center;
+  text-align: center;
+}
+
+.logo {
+  display: inline-block;
+  width: 50px;
+}
+
+.title {
+  display: inline-block;
+  padding: 0.5rem;
+}
+
+.row [class^=col] {
+  float: left;
+  margin: 1rem;
+}
+
+.col-6 {
+  width: 96%;
+}
+
+@media only screen and (min-width: 45em) {
+
+  .col-6 {
+    width: 46%;
+  }
+
+}
+
+mat-card {
+  margin-bottom: 1rem;
+}
+
+mat-card-title {
+  font-size: 1rem;
+  padding: 0.25rem 0.5rem;
+}
+
+mat-card-content {
+  padding: 0.25rem 0.5rem;
+}

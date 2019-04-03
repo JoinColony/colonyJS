@@ -2,6 +2,8 @@
 
 _A boilerplate to get started with [colonyJS](https://github.com/JoinColony/colonyJS) using Angular!_
 
+This package was bootstrapped with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.7.
+
 ## Prerequisites
 
 - Node `>=10.12.0`
@@ -24,7 +26,7 @@ yarn global add @colony/colony-cli
 
 ### Step 2
 
-Move to your working directory and unpack the [colony-starter](/packages/colony-starter) package:
+Move to your working directory and unpack the [colony-starter-angular](/packages/colony-starter-angular) package:
 
 ```
 colony build colony-starter-angular
@@ -80,17 +82,25 @@ Open a new terminal window and run the seed network script:
 yarn seed-network
 ```
 
-### Start Dev Server
+### Colony Setup
 
-Once the network has been seeded, start the development server:
+Once the network has been seeded, run the colony setup script:
+
+```
+yarn colony-setup
+```
+
+### Start Server
+
+Once your colony has been set up, start the development server:
 
 ```
 yarn start
 ```
 
-### Open Your Browser
+### Open Browser
 
-Open your browser and check out the example react app::
+Open your browser and start building your app:
 
 [localhost:4200](http://localhost:4200)
 

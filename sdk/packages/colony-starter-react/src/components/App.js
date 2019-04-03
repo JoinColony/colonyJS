@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from '../assets/logo.svg';
 import styles from './App.module.scss';
 
-const App = ({ error, loading, networkClient }) => (
+const App = ({ colonyClient, error, loading }) => (
   <div className={styles.container}>
     <header className={styles.header}>
       <img src={logo} className={styles.logo} alt="logo" />
@@ -17,10 +17,11 @@ const App = ({ error, loading, networkClient }) => (
       {loading &&
         <p>{'loading...'}</p>
       }
-      {networkClient &&
+      {colonyClient &&
         <div>
-          <p>{`Wallet Address: ${networkClient.adapter.wallet.address}`}</p>
-          <p>{`Network Address: ${networkClient.contract.address}`}</p>
+          <p>{`Wallet Address: ${colonyClient.adapter.wallet.address}`}</p>
+          <p>{`Network Address: ${colonyClient.networkClient.contract.address}`}</p>
+          <p>{`Colony Address: ${colonyClient.contract.address}`}</p>
         </div>
       }
     </div>
