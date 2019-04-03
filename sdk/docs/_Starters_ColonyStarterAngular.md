@@ -70,6 +70,14 @@ Open a new terminal window and run the seed network script:
 yarn seed-network
 ```
 
+### Colony Setup
+
+Once the network has been seeded, run the colony setup script:
+
+```
+yarn colony-setup
+```
+
 ### Start Angular
 
 Once the network has been seeded, start angular:

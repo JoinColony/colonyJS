@@ -15,6 +15,7 @@
     "deploy-contracts": "colony service deploy-contracts",
     "start-trufflepig": "colony service start-trufflepig",
     "seed-network": "colony service seed-network",
+    "colony-setup": "node scripts/setupColony.js",
     "build": "react-scripts build",
     "start": "react-scripts start",
     "test": "react-scripts test --coverage --updateSnapshot",
@@ -24,7 +25,8 @@
     "@colony/colony-cli": "^1.0.0-beta.0",
     "@colony/colony-js-client": "^1.11.2",
     "@colony/colony-js-contract-loader-http": "^1.10.0",
-    "@colony/purser-metamask": "^2.1.1",
+    "@colony/purser-metamask": "^2.2.0",
+    "@colony/purser-software": "^1.2.4",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
   },

@@ -8,18 +8,19 @@ class AppContainer extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      colonyClient: null,
       error: null,
       loading: true,
-      networkClient: null,
     }
   }
 
   componentDidMount() {
     open()
       .then(wallet => getNetworkClient('local', wallet))
-      .then(networkClient => this.setState({
+      .then(networkClient => networkClient.getColonyClient(1))
+      .then(colonyClient => this.setState({
         loading: false,
-        networkClient,
+        colonyClient,
       }))
       .catch(error => this.setState({
         loading: false,
@@ -30,9 +31,9 @@ class AppContainer extends Component {
   render() {
     return (
       <App
+        colonyClient={this.state.colonyClient}
         error={this.state.error}
         loading={this.state.loading}
-        networkClient={this.state.networkClient}
       />
     )
   }

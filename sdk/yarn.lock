@@ -1190,7 +1190,7 @@
     ethers "^4.0.12"
     hdkey "^1.1.0"
 
-"@colony/purser-metamask@^2.1.1":
+"@colony/purser-metamask@^2.2.0":
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/@colony/purser-metamask/-/purser-metamask-2.2.0.tgz#31d039db248c0f2b93d11af74f0327b91f1f0f0e"
   integrity sha512-u0csExLqILvBRIP5xpDrO/CSlhsAJI2LCeLWth/DoOEItjOtud81/DBAt+XpnzAiCz3l9VeQBF8iFEhUHBJeUQ==
