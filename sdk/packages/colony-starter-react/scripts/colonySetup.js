@@ -1,5 +1,7 @@
+// Import dependencies
 const { getNetworkClient } = require('@colony/colony-js-client');
 const { open } = require('@colony/purser-software');
+const BN = require('bn.js');
 
 // Set the private key (this is the private key for the first Ganache test account)
 const privateKey = '0x0355596cdb5e5242ad082c4fe3f8bbe48c9dba843fe1f99dd8272f487e70efae';
@@ -53,7 +55,9 @@ const OneTxPayment = '0xA8DA163375713753Acc7e1D429c64F72b9412077';
   console.log('Token Owner: ' + tokenOwner);
 
   // Mint tokens
-  await colonyClient.mintTokens.send({ amount });
+  await colonyClient.mintTokens.send({
+    amount: new BN('10000000000000000000'),
+  });
 
   // Get the total supply of tokens after minting
   const totalSupply = await colonyClient.tokenClient.getTotalSupply.call();
@@ -62,12 +66,14 @@ const OneTxPayment = '0xA8DA163375713753Acc7e1D429c64F72b9412077';
   console.log('Token Supply: ' + totalSupply.amount);
 
   // Claim funds on behalf of the colony
-  await colonyClient.claimColonyFunds.send({ token });
+  await colonyClient.claimColonyFunds.send({
+    token: tokenAddress,
+  });
 
   // Get the colony pot balance after claiming funds
   const potBalance = await colonyClient.getFundingPotBalance.call({
     potId: 1,
-    token,
+    token: tokenAddress,
   });
 
   // Check out the logs to see the colony pot balance after claiming funds
