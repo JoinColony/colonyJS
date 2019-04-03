@@ -1,10 +1,12 @@
 ---
-title: colony-starter-react
+title: colony-example-angular
 section: Starters
-order: 2
+order: 3
 ---
 
-_A boilerplate to get started with [colonyJS](https://github.com/JoinColony/colonyJS) using React!_
+_An example project using [colonyJS](https://github.com/JoinColony/colonyJS) with Angular!_
+
+This is a built out version of the [colony-starter-angular](/starters-colony-starter-angular) package with more examples.
 
 ## Prerequisites
 
@@ -24,16 +26,16 @@ Globally install the [colony-cli](/cli-colony-cli) package.
 yarn global add @colony/colony-cli
 ```
 
-Install the `colony-starter-react` package.
+Install the `colony-example-angular` package.
 
 ```
-colony build colony-starter-react
+colony build colony-example-angular
 ```
 
-Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and kickstart the `colony-starter-react` package in one line without having to globally add the [colony-cli](/cli-colony-cli) package:
+Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and kickstart the `colony-example-angular` package in one line without having to add the [colony-cli](/cli-colony-cli) package:
 
 ```
-npx -p @colony/colony-starter colony build colony-starter-react
+npx -p @colony/colony-starter colony build colony-example-angular
 ```
 
 ## Run Examples
@@ -88,9 +90,9 @@ yarn start
 
 ### Open Your Browser
 
-Open your browser and check out the example react app::
+Open your browser and check out the example angular app::
 
-[localhost:8080](http://localhost:8080)
+[localhost:4200](http://localhost:4200)
 
 ### Run Example Tests
 

@@ -78,9 +78,9 @@ Once the network has been seeded, run the colony setup script:
 yarn colony-setup
 ```
 
-### Start Angular
+### Start Dev Server
 
-Once the network has been seeded, start angular:
+Once your colony has been set up, start the development server:
 
 ```
 yarn start

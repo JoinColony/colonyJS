@@ -90,7 +90,7 @@ yarn colony-setup
 
 ### Start Webpack Dev Server
 
-Once the network has been seeded, start [webpack-dev-server](https://github.com/webpack/webpack-dev-server):
+Once your colony has been set up, start the development server:
 
 ```
 yarn start
@@ -98,7 +98,7 @@ yarn start
 
 ### Open Your Browser
 
-Open your browser and check out the example react app::
+Open your browser and start building your app:
 
 [localhost:8080](http://localhost:8080)
 

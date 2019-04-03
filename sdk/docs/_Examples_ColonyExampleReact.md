@@ -4,7 +4,7 @@ section: Starters
 order: 2
 ---
 
-_An example project using [colonyJS](https://github.com/JoinColony/colonyJS)!_
+_An example project using [colonyJS](https://github.com/JoinColony/colonyJS) with React!_
 
 This is a built out version of the [colony-starter-react](/starters-colony-starter-react) package with more examples.
 
@@ -72,9 +72,17 @@ Open a new terminal window and run the seed network script:
 yarn seed-network
 ```
 
-### Start Webpack Dev Server
+### Colony Setup
 
-Once the network has been seeded, start [webpack-dev-server](https://github.com/webpack/webpack-dev-server):
+Once the network has been seeded, run the colony setup script:
+
+```
+yarn colony-setup
+```
+
+### Start Dev Server
+
+Once your colony has been set up, start the development server:
 
 ```
 yarn start

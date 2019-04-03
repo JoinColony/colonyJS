@@ -1,8 +1,8 @@
 # colony-example-angular
 
-_A boilerplate to get started with [colonyJS](https://github.com/JoinColony/colonyJS) using Angular!_
+_An example project using [colonyJS](https://github.com/JoinColony/colonyJS) with Angular!_
 
-This package was bootstrapped with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.7.
+This is a built out version of the [colony-starter-angular](/starters-colony-starter-angular) package with more examples.
 
 ## Prerequisites
 
@@ -92,7 +92,7 @@ yarn colony-setup
 
 ### Start Dev Server
 
-Once the network has been seeded, start the development server:
+Once your colony has been set up, start the development server:
 
 ```
 yarn start
@@ -100,7 +100,7 @@ yarn start
 
 ### Open Your Browser
 
-Open your browser and check out the example react app::
+Open your browser and start building your app:
 
 [localhost:4200](http://localhost:4200)
 
