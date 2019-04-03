@@ -2,17 +2,17 @@
 
 ### Prerequisites
 
-- Yarn 1.12.3
-- Docker
-- Node 10.12.0
+- Node `>=10.12.0`
+- Yarn `>=1.12.0`
+- Docker `>=18.09.0`
 
 _You may find it helpful to use Node Version Manager (`nvm`) to manage Node versions._
 
 _If you are a Linux user, check out the [Linux Setup](/.github/LINUX_SETUP.md) page to ensure Yarn and Docker are set up accordingly._
 
-### Install Dependencies
+### Install
 
-Install development dependencies:
+Install dependencies for all packages:
 
 ```
 yarn
@@ -44,7 +44,7 @@ yarn start-trufflepig
 
 ### Run Tests
 
-Open a new terminal window and run tests:
+Open a new terminal window and run the tests for all packages:
 
 ```
 yarn test
@@ -55,5 +55,13 @@ yarn test
 Open a new terminal window and test install a package:
 
 ```
-yarn colony-starter [colony-starter-package]
+yarn colony build [package-name]
+```
+
+### Publish Packages
+
+Update package versions and publish packages independently:
+
+```
+yarn lerna publish
 ```

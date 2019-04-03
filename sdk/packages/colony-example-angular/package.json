@@ -1,0 +1,66 @@
+{
+  "name": "@colony/colony-example-angular",
+  "version": "1.0.0-beta.1",
+  "description": "A simple example project built with Colony",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=10.12.0"
+  },
+  "files": ["/", ".gitignore"],
+  "scripts": {
+    "start-ganache": "colony service start-ganache",
+    "deploy-contracts": "colony service deploy-contracts",
+    "start-trufflepig": "colony service start-trufflepig",
+    "seed-network": "colony service seed-network",
+    "colony-setup": "node scripts/colonySetup.js",
+    "start": "ng serve",
+    "build": "ng build",
+    "test": "ng lint && ng test"
+  },
+  "dependencies": {
+    "@angular/animations": "~7.2.0",
+    "@angular/cdk": "~7.2.0",
+    "@angular/common": "~7.2.0",
+    "@angular/compiler": "~7.2.0",
+    "@angular/core": "~7.2.0",
+    "@angular/forms": "~7.2.0",
+    "@angular/material": "~7.2.0",
+    "@angular/platform-browser": "~7.2.0",
+    "@angular/platform-browser-dynamic": "~7.2.0",
+    "@angular/router": "~7.2.0",
+    "@colony/colony-cli": "^1.0.0-beta.0",
+    "@colony/colony-js-client": "^1.11.2",
+    "@colony/colony-js-contract-loader-http": "^1.10.0",
+    "@colony/purser-metamask": "^2.2.0",
+    "@colony/purser-software": "^1.2.4",
+    "bn.js": "^4.11.8",
+    "buffer": "^5.1.0",
+    "ipfs": "^0.29.2",
+    "rxjs": "^6.0.0",
+    "zone.js": "^0.8.28"
+  },
+  "devDependencies": {
+    "@angular-builders/dev-server": "~7.2.0",
+    "@angular-builders/custom-webpack": "~7.2.0",
+    "@angular-devkit/build-angular": "~0.13.0",
+    "@angular/cli": "~7.3.7",
+    "@angular/compiler-cli": "~7.2.0",
+    "@angular/language-service": "~7.2.0",
+    "@types/jasmine": "~2.8.8",
+    "@types/jasminewd2": "~2.0.3",
+    "@types/node": "~8.9.4",
+    "jasmine-core": "^3.3.0",
+    "jasmine-spec-reporter": "^4.2.1",
+    "karma": "^4.0.1",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-coverage-istanbul-reporter": "^2.0.4",
+    "karma-jasmine": "^2.0.1",
+    "karma-jasmine-html-reporter": "^1.4.0",
+    "ts-node": "^7.0.1",
+    "tslint": "^5.12.1",
+    "typescript": "~3.2.2"
+  }
+}

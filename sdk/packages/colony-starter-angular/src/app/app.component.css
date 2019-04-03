@@ -1,29 +1,31 @@
-.row [class^=col] {
-  float: left;
-  margin: 1rem;
+mat-toolbar {
+  align-items: center;
+  display: flex;
+  height: 5rem;
+  justify-content: center;
+  text-align: center;
 }
 
-.col-6 {
-  width: 96%;
+.logo {
+  display: inline-block;
+  width: 50px;
 }
 
-@media only screen and (min-width: 45em) {
-
-  .col-6 {
-    width: 46%;
-  }
-
+.title {
+  display: inline-block;
+  padding: 0.5rem;
 }
 
 mat-card {
-  margin-bottom: 1rem;
+  padding: 1rem;
+  text-align: center;
 }
 
 mat-card-title {
   font-size: 1rem;
-  padding: 0.25rem 0.5rem;
+  padding: 0.5rem;
 }
 
 mat-card-content {
-  padding: 0.25rem 0.5rem;
+  padding: 0.5rem;
 }

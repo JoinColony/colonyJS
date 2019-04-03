@@ -43,7 +43,7 @@ jobs:
 
       - run:
           name: "Start Trufflepig"
-          command: scripts/ci_trufflepig.js
+          command: yarn start-trufflepig
           background: true
 
       - run:
@@ -64,7 +64,7 @@ workflows:
   nightly:
     triggers:
       - schedule:
-          cron: "0 1 * * *"
+          cron: "0 3 * * *"
           filters:
             branches:
               only:

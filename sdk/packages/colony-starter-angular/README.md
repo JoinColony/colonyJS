@@ -1,13 +1,52 @@
 # colony-starter-angular
 
-_Learn to build with Colony using Angular!_
+_A boilerplate to get started with [colonyJS](https://github.com/JoinColony/colonyJS) using Angular!_
+
+This package was bootstrapped with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.7.
 
 ## Prerequisites
 
-- Yarn 1.12.3
-- Node 10.12.0
+- Node `>=10.12.0`
+- Yarn `>=1.12.0`
+- Docker `>=18.09.0`
 
 _You may find it helpful to use Node Version Manager (`nvm`) to manage Node versions._
+
+_If you are using Linux, check out [Linux Setup](/.github/LINUX_SETUP.md) to ensure Yarn and Docker are set up accordingly._
+
+## Installation
+
+### Step 1
+
+Globally install the [colony-cli](/packages/colony-cli) package:
+
+```
+yarn global add @colony/colony-cli
+```
+
+### Step 2
+
+Move to your working directory and unpack the [colony-starter-angular](/packages/colony-starter-angular) package:
+
+```
+colony build colony-starter-angular
+```
+
+### Step 3
+
+Move to your new project directory and follow the instructions below:
+
+```
+cd colony-starter-angular
+```
+
+### Using NPX
+
+Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and unpack the [colony-starter-angular](/packages/colony-starter-angular) package without installing the [colony-cli](/packages/colony-cli) package:
+
+```
+npx -p @colony/colony-cli colony build colony-starter-angular
+```
 
 ## Development
 
@@ -43,17 +82,25 @@ Open a new terminal window and run the seed network script:
 yarn seed-network
 ```
 
-### Start Dev Server
+### Colony Setup
 
-Once the network has been seeded, start the development server:
+Once the network has been seeded, run the colony setup script:
+
+```
+yarn colony-setup
+```
+
+### Start Server
+
+Once your colony has been set up, start the development server:
 
 ```
 yarn start
 ```
 
-### Open Your Browser
+### Open Browser
 
-Open your browser and check out the example react app::
+Open your browser and start building your app:
 
 [localhost:4200](http://localhost:4200)
 
@@ -63,4 +110,12 @@ Open a new terminal window and run the tests:
 
 ```
 yarn test
+```
+
+## Contract Versions
+
+If you do not want to use the default version of the [colonyNetwork](https://github.com/JoinColony/colonyNetwork) smart contracts defined by the [colony-cli](/packages/colony-cli) package, you can update the `"deploy-contracts"` scripts property in your `package.json` file to use a specific version. This can be a branch name, a commit hash, or a version tag.
+
+```
+"deploy-contracts": "colony service deploy-contracts --specific develop",
 ```
