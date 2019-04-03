@@ -18,11 +18,15 @@ const service = async (commander, serviceName) => {
 
   // Make sure service name is defined
   if (typeof serviceName === 'undefined') {
+
+    // Log error
     console.log();
     console.log('The name of the service is required:');
     console.log();
     console.log(`  colony service ${chalk.cyan('<service-name>')}`);
     console.log();
+
+    // Exit on error
     process.exit(1);
   }
 
@@ -30,7 +34,7 @@ const service = async (commander, serviceName) => {
 
     // Log step
     console.log();
-    console.log(`  Starting local test network...`);
+    console.log('  Starting local test network...');
     console.log();
 
     // Start ganache
@@ -46,7 +50,7 @@ const service = async (commander, serviceName) => {
 
     // Log step
     console.log();
-    console.log(`  Starting deployment process...`);
+    console.log('  Starting deployment process...');
     console.log();
 
     // Check specific
@@ -77,7 +81,7 @@ const service = async (commander, serviceName) => {
 
     // Log step
     console.log();
-    console.log(`  Starting seed network process...`);
+    console.log('  Starting seed network process...');
     console.log();
 
     // Seed network
@@ -92,7 +96,7 @@ const service = async (commander, serviceName) => {
 
     // Log step
     console.log();
-    console.log(`  Starting trufflepig...`);
+    console.log('  Starting trufflepig...');
     console.log();
 
     // Start trufflepig
@@ -105,9 +109,12 @@ const service = async (commander, serviceName) => {
 
   } else {
 
-    // Log step
+    // Log error
     console.log();
     console.log(chalk.red('  The service you provided does not exist.'));
+    console.log();
+
+    // Exit on error
     process.exit(1);
 
   }

@@ -286,6 +286,7 @@ const getPackageTarball = (specificPackage, destinationPath) => {
 
   } catch (exec) {
 
+    // Log error
     console.log();
     console.log(chalk.red(`  Unable to locate ${specificPackage} on npm`));
     console.log();
