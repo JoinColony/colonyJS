@@ -11,6 +11,9 @@ const service = async (commander, serviceName) => {
   console.log(`  Starting ${chalk.cyan('service')} action...`);
 
   // Set path to service scripts directory
+  const rootPath = path.join(__dirname, '../../');
+
+  // Set path to service scripts directory
   const scriptsPath = path.join(__dirname, '../services');
 
   // Set path to colonyNetwork directory
@@ -103,6 +106,7 @@ const service = async (commander, serviceName) => {
     cp.execSync(
       `sh ${scriptsPath}/start_trufflepig.sh ${colonyNetworkPath}`,
       {
+        cwd: rootPath,
         stdio: 'inherit',
       }
     );
