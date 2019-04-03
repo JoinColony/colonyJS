@@ -1,6 +1,6 @@
 ---
 title: colony-example-angular
-section: Starters
+section: Examples
 order: 3
 ---
 

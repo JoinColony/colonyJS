@@ -54,7 +54,7 @@ Serve truffle contract data with [TrufflePig](https://github.com/JoinColony/truf
 colony service start-trufflepig
 ```
 
-Seed the network with with global skills:
+Seed the network with global skills:
 
 ```
 colony service seed-network

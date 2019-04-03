@@ -1,6 +1,6 @@
 ---
 title: colony-example-react
-section: Starters
+section: Examples
 order: 2
 ---
 

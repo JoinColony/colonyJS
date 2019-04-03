@@ -1,6 +1,6 @@
 ---
 title: colony-example
-section: Starters
+section: Examples
 order: 1
 ---
 
