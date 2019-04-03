@@ -1,150 +1,27 @@
 <mat-toolbar color="primary">
-  <span>{{title}}</span>
+  <img class="logo" src="/assets/logo.png" />
+  <h1 class="title">
+    {{title}}
+  </h1>
 </mat-toolbar>
 
-<div class="row">
-  <div class="col-6">
-    <form>
-      <mat-card>
-        <mat-card-title>
-          Create Token
-        </mat-card-title>
-        <mat-card-content>
-          <mat-form-field>
-            <input matInput placeholder="Token Symbol" #tokenSymbol>
-          </mat-form-field>
-          <button mat-button type="button" color="primary" (click)="token(tokenSymbol.value)">
-            Create Token
-          </button>
-        </mat-card-content>
-      </mat-card>
-    </form>
-    <form>
-      <mat-card>
-        <mat-card-title>
-          Create Colony
-        </mat-card-title>
-        <mat-card-content>
-          <mat-form-field>
-            <input matInput placeholder="Token Address" #tokenAddress>
-          </mat-form-field>
-          <button mat-button type="button" color="primary" (click)="createColony(tokenAddress.value)">
-            Create Colony
-          </button>
-        </mat-card-content>
-      </mat-card>
-    </form>
-    <form>
-      <mat-card>
-        <mat-card-title>
-          Get Colony Cient
-        </mat-card-title>
-        <mat-card-content>
-          <mat-form-field>
-            <input matInput placeholder="Colony Address" #colonyAddress>
-          </mat-form-field>
-          <button mat-button type="button" color="primary" (click)="getColonyClient(colonyAddress.value)">
-            Get Colony Cient
-          </button>
-        </mat-card-content>
-      </mat-card>
-    </form>
-    <form>
-      <mat-card>
-        <mat-card-title>
-          Add Domain
-        </mat-card-title>
-        <mat-card-content>
-          <mat-form-field>
-            <input matInput placeholder="Parent Domain ID" #parentDomainId>
-          </mat-form-field>
-          <button mat-button type="button" color="primary" (click)="addDomain(parentDomainId.value)">
-            Add Domain
-          </button>
-        </mat-card-content>
-      </mat-card>
-    </form>
-    <form>
-      <mat-card>
-        <mat-card-title>
-          Create Task
-        </mat-card-title>
-        <mat-card-content>
-          <mat-form-field>
-            <input matInput placeholder="Task Title" #taskTitle>
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput placeholder="Task Description" #taskDescription>
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput placeholder="Domain ID" #domainId>
-          </mat-form-field>
-          <button mat-button type="button" color="primary" (click)="createTask(taskTitle.value, taskDescription.value, domainId.value)">
-            Create Task
-          </button>
-        </mat-card-content>
-      </mat-card>
-    </form>
-  </div>
-  <div class="col-6">
-    <mat-card *ngIf="model.networkClient">
-      <mat-card-title>
-        Wallet Address
-      </mat-card-title>
-      <mat-card-content>
-        {{model.networkClient.contract.signer.address}}
-      </mat-card-content>
-    </mat-card>
-    <mat-card *ngIf="model.networkClient">
-      <mat-card-title>
-        Network Address
-      </mat-card-title>
-      <mat-card-content>
-        {{model.networkClient.contract.address}}
-      </mat-card-content>
-    </mat-card>
-    <mat-card *ngIf="model.token.address">
-      <mat-card-title>
-        Token Address
-      </mat-card-title>
-      <mat-card-content>
-        {{model.token.address}}
-      </mat-card-content>
-    </mat-card>
-    <mat-card *ngIf="model.colonyAddress">
-      <mat-card-title>
-        Colony Address
-      </mat-card-title>
-      <mat-card-content>
-        {{model.colonyAddress}}
-      </mat-card-content>
-    </mat-card>
-    <mat-card *ngIf="model.colonyClient">
-      <mat-card-title>
-        Colony Client
-      </mat-card-title>
-      <mat-card-content>
-        colony client loaded for contract:
-      </mat-card-content>
-      <mat-card-content>
-        {{model.colonyClient.contract.address}}
-      </mat-card-content>
-    </mat-card>
-    <mat-card *ngIf="model.domain">
-      <mat-card-title>
-        Domain
-      </mat-card-title>
-      <mat-card-content>
-        {{model.domain | json}}
-      </mat-card-content>
-    </mat-card>
-    <mat-card *ngIf="model.task">
-      <mat-card-title>
-        Task
-      </mat-card-title>
-      <mat-card-content>
-        {{model.task | json}}
-      </mat-card-content>
-    </mat-card>
-  </div>
-</div>
+<mat-card>
+  <mat-card-title *ngIf="model.wallet">
+    Wallet Address
+  </mat-card-title>
+  <mat-card-content *ngIf="model.wallet">
+    {{model.wallet.address}}
+  </mat-card-content>
+  <mat-card-title *ngIf="model.networkClient">
+    Network Address
+  </mat-card-title>
+  <mat-card-content *ngIf="model.networkClient">
+    {{model.networkClient.contract.address}}
+  </mat-card-content>
+  <mat-card-title *ngIf="model.colonyClient">
+    Colony Address
+  </mat-card-title>
+  <mat-card-content *ngIf="model.colonyClient">
+    {{model.colonyClient.contract.address}}
+  </mat-card-content>
+</mat-card>

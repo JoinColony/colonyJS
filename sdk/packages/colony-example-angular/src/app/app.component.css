@@ -16,16 +16,32 @@ mat-toolbar {
   padding: 0.5rem;
 }
 
+.row [class^=col] {
+  float: left;
+  margin: 1rem;
+}
+
+.col-6 {
+  width: 96%;
+}
+
+@media only screen and (min-width: 45em) {
+
+  .col-6 {
+    width: 46%;
+  }
+
+}
+
 mat-card {
-  padding: 1rem;
-  text-align: center;
+  margin-bottom: 1rem;
 }
 
 mat-card-title {
   font-size: 1rem;
-  padding: 0.5rem;
+  padding: 0.25rem 0.5rem;
 }
 
 mat-card-content {
-  padding: 0.5rem;
+  padding: 0.25rem 0.5rem;
 }

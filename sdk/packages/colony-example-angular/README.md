@@ -1,4 +1,4 @@
-# colony-starter-angular
+# colony-example-angular
 
 _A boilerplate to get started with [colonyJS](https://github.com/JoinColony/colonyJS) using Angular!_
 
@@ -26,10 +26,10 @@ yarn global add @colony/colony-cli
 
 ### Step 2
 
-Move to your working directory and unpack the [colony-starter-angular](/packages/colony-starter-angular) package:
+Move to your working directory and unpack the [colony-example-angular](/packages/colony-example-angular) package:
 
 ```
-colony build colony-starter-angular
+colony build colony-example-angular
 ```
 
 ### Step 3
@@ -37,15 +37,15 @@ colony build colony-starter-angular
 Move to your new project directory and follow the instructions below:
 
 ```
-cd colony-starter-angular
+cd colony-example-angular
 ```
 
 ### Using NPX
 
-Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and unpack the [colony-starter-angular](/packages/colony-starter-angular) package without installing the [colony-cli](/packages/colony-cli) package:
+Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and unpack the [colony-example-angular](/packages/colony-example-angular) package without installing the [colony-cli](/packages/colony-cli) package:
 
 ```
-npx -p @colony/colony-cli colony build colony-starter-angular
+npx -p @colony/colony-cli colony build colony-example-angular
 ```
 
 ## Development
