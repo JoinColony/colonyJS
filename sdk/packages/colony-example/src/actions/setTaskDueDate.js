@@ -1,5 +1,5 @@
-// An example action using the setTaskDueDate operation
-const setTaskDueDate = async (colonyClient, taskId, dueDate) => {
+// An example action using the "setTaskDueDate" operation
+module.exports = async (colonyClient, taskId, dueDate) => {
 
   // Start the operation to set the task due date
   const operation = await colonyClient.setTaskDueDate.startOperation({
@@ -16,7 +16,4 @@ const setTaskDueDate = async (colonyClient, taskId, dueDate) => {
   // Save the operation to the mock database
   DATABASE.operations.setTaskDueDate = operationJSON;
 
-}
-
-// Export setTaskDueDate action
-module.exports = setTaskDueDate;
+};

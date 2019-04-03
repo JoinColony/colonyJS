@@ -1,5 +1,5 @@
-// An example action using the claimPayout method
-const claimPayout = async (colonyClient, taskId, role, token) => {
+// An example action using the "claimPayout" method
+module.exports = async (colonyClient, taskId, role, token) => {
 
   // Get the task payout
   const taskPayoutBefore = await colonyClient.getTaskPayout.call({
@@ -31,7 +31,4 @@ const claimPayout = async (colonyClient, taskId, role, token) => {
   // Return the task payout amount after it was claimed
   return taskPayoutAfter;
 
-}
-
-// Export claimPayout action
-module.exports = claimPayout;
+};

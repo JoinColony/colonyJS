@@ -1,5 +1,5 @@
-// An example action using the setTaskEvaluatorRole method
-const setTaskEvaluatorRole = async (colonyClient, taskId, user) => {
+// An example action using the "setTaskEvaluatorRole" method
+module.exports = async (colonyClient, taskId, user) => {
 
   // Start the operation to set the task evaluator role
   const operation = await colonyClient.setTaskEvaluatorRole.startOperation({
@@ -15,7 +15,5 @@ const setTaskEvaluatorRole = async (colonyClient, taskId, user) => {
 
   // Save the operation to the mock database
   DATABASE.operations.setTaskEvaluatorRole = operationJSON;
-}
 
-// Export setTaskEvaluatorRole action
-module.exports = setTaskEvaluatorRole;
+};

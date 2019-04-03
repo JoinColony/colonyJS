@@ -1,8 +1,8 @@
 // Import the prerequisites
 const executeTaskMultisig = require('../helpers/multisig');
 
-// An example action using the setTaskWorkerRole operation
-const signSetTaskWorkerRole = async (colonyClient, taskId) => {
+// An example action using the "setTaskWorkerRole" operation
+module.exports = async (colonyClient, taskId) => {
 
   // Execute the task multisig operation
   await executeTaskMultisig(
@@ -23,7 +23,4 @@ const signSetTaskWorkerRole = async (colonyClient, taskId) => {
   // Return the task worker role
   return taskRole;
 
-}
-
-// Export signSetTaskWorkerRole action
-module.exports = signSetTaskWorkerRole;
+};

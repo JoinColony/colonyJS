@@ -1,5 +1,5 @@
-// An example action using the setTaskWorkerRole method
-const setTaskWorkerRole = async (colonyClient, taskId, user) => {
+// An example action using the "setTaskWorkerRole" method
+module.exports = async (colonyClient, taskId, user) => {
 
   // Start the operation to set the task worker role
   const operation = await colonyClient.setTaskWorkerRole.startOperation({
@@ -15,7 +15,5 @@ const setTaskWorkerRole = async (colonyClient, taskId, user) => {
 
   // Save the operation to the mock database
   DATABASE.operations.setTaskWorkerRole = operationJSON;
-}
 
-// Export setTaskWorkerRole action
-module.exports = setTaskWorkerRole;
+};

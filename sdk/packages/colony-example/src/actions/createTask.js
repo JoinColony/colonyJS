@@ -1,8 +1,8 @@
 // Import the prerequisites
 const ecp = require('../helpers/ecp');
 
-// An example action using the createColony method
-const createTask = async (colonyClient, domainId, specification) => {
+// An example action using the "createTask" method
+module.exports = async (colonyClient, domainId, specification) => {
 
   // Initialize the "Extended Colony Protocol"
   await ecp.init();
@@ -28,7 +28,4 @@ const createTask = async (colonyClient, domainId, specification) => {
   // Return the new task
   return task;
 
-}
-
-// Export createTask action
-module.exports = createTask;
+};

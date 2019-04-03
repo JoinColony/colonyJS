@@ -1,8 +1,8 @@
 // Import the prerequisites
 const ecp = require('../helpers/ecp');
 
-// An example action using the setTaskBrief operation
-const setTaskBrief = async (colonyClient, taskId, specification) => {
+// An example action using the "setTaskBrief" operation
+module.exports = async (colonyClient, taskId, specification) => {
 
   // Initialize the "Extended Colony Protocol"
   await ecp.init();
@@ -31,7 +31,4 @@ const setTaskBrief = async (colonyClient, taskId, specification) => {
   // Save the operation to the mock database
   DATABASE.operations.setTaskBrief = operationJSON;
 
-}
-
-// Export setTaskBrief action
-module.exports = setTaskBrief;
+};

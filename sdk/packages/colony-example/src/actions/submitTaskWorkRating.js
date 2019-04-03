@@ -1,8 +1,8 @@
 // Import the prerequisites
 const web3Utils = require('web3-utils');
 
-// An example action using the submitTaskWorkRating method
-const submitTaskWorkRating = async (colonyClient, taskId, role, rating) => {
+// An example action using the "submitTaskWorkRating" method
+module.exports = async (colonyClient, taskId, role, rating) => {
 
   // Set salt value
   const salt = web3Utils.sha3('secret');
@@ -43,7 +43,4 @@ const submitTaskWorkRating = async (colonyClient, taskId, role, rating) => {
   // Return the task work ratings
   return taskWorkRatings;
 
-}
-
-// Export submitTaskWorkRating action
-module.exports = submitTaskWorkRating;
+};

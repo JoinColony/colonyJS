@@ -1,8 +1,8 @@
 // Import the prerequisites
 const executeTaskMultisig = require('../helpers/multisig');
 
-// An example action using the setTaskBrief operation
-const signSetTaskBrief = async (colonyClient, taskId) => {
+// An example action using the "setTaskBrief" operation
+module.exports = async (colonyClient, taskId) => {
 
   // Execute the task multisig operation
   await executeTaskMultisig(
@@ -20,7 +20,4 @@ const signSetTaskBrief = async (colonyClient, taskId) => {
   // Return the updated task
   return updatedTask;
 
-}
-
-// Export signSetTaskBrief action
-module.exports = signSetTaskBrief;
+};

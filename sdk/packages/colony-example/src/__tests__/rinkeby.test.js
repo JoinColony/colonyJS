@@ -1,23 +1,35 @@
 // Import actions
-const connectNetwork = require('../actions/connectNetwork');
+const getNetworkClient = require('../actions/getNetworkClient');
+const openWallet = require('../actions/openWallet');
 
-// State
-const state = {};
+// Set the public key (this is the public key for the first Ganache test account)
+const publicKey = '0xb77d57f4959eafa0339424b83fcfaf9c15407461';
 
 // Set the private key (this is the private key for the first Ganache test account)
-const privateKey = '0x4f3edf983ac636a65a842ce7c78d9aa706d3b113bce9c46f30d7d21715b23b1d';
+const privateKey = '0x0355596cdb5e5242ad082c4fe3f8bbe48c9dba843fe1f99dd8272f487e70efae';
 
-// Testing colony-example actions
-describe('colony-example [ rinkeby ]', () => {
+// Testing colony-starter actions
+describe('colony-starter [ rinkeby ]', () => {
 
-  // Test the connectNetwork() action from account[0]
-  test('account[0] connectNetwork() works', async () => {
-    state.networkClient = await connectNetwork(
-      'rinkeby',                // network
-      privateKey,               // privateKey
+  // Set state
+  const state = {}
+
+  // Test the openWallet() example action
+  test('openWallet() works', async () => {
+    state.wallet = await openWallet(
+      privateKey,                     // privateKey
+    );
+    expect(state.wallet.address.toLowerCase()).toEqual(publicKey);
+  }, 5000)
+
+  // Test the getNetworkClient() example action
+  test('getNetworkClient() works', async () => {
+    state.networkClient = await getNetworkClient(
+      'rinkeby',                      // network
+      state.wallet,                   // wallet
     );
     expect(state.networkClient).toEqual(expect.objectContaining({
-      _contract: expect.objectContaining({
+      contract: expect.objectContaining({
         address: expect.stringContaining('0x'),
         signer: expect.objectContaining({
           address: expect.stringContaining('0x'),

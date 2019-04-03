@@ -1,5 +1,5 @@
-// An example action using the removeTaskEvaluatorRole method
-const removeTaskEvaluatorRole = async (colonyClient, taskId, user) => {
+// An example action using the "removeTaskEvaluatorRole" method
+module.exports = async (colonyClient, taskId, user) => {
 
   // Update the evaluator role for the task
   const operation = await colonyClient.removeTaskEvaluatorRole.startOperation({
@@ -16,7 +16,4 @@ const removeTaskEvaluatorRole = async (colonyClient, taskId, user) => {
   // Save the operation to the mock database
   DATABASE.operations.removeTaskEvaluatorRole = operationJSON;
 
-}
-
-// Export removeTaskEvaluatorRole action
-module.exports = removeTaskEvaluatorRole;
+};

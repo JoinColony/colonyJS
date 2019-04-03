@@ -1,5 +1,5 @@
-// An example action using the claimColonyFunds method
-const claimColonyFunds = async (colonyClient, token) => {
+// An example action using the "claimColonyFunds" method
+module.exports = async (colonyClient, token) => {
 
   // Claim funds on behalf of the colony
   await colonyClient.claimColonyFunds.send({ token });
@@ -16,7 +16,4 @@ const claimColonyFunds = async (colonyClient, token) => {
   // Return the colony pot balance
   return potBalance;
 
-}
-
-// Export claimColonyFunds action
-module.exports = claimColonyFunds;
+};

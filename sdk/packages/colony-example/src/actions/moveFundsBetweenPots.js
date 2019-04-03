@@ -1,5 +1,5 @@
 // An example action using the moveFundsBetweenPots method
-const moveFundsBetweenPots = async (colonyClient, fromPot, toPot, amount, token) => {
+module.exports = async (colonyClient, fromPot, toPot, amount, token) => {
 
   // Get the balance of the pot that funds were withdrawn from
   const fromPotBalanceBefore = await colonyClient.getFundingPotBalance.call({
@@ -48,7 +48,4 @@ const moveFundsBetweenPots = async (colonyClient, fromPot, toPot, amount, token)
   // Return the balance of the pot that funds were deposited into
   return toPotBalanceAfter;
 
-}
-
-// Export moveFundsBetweenPots action
-module.exports = moveFundsBetweenPots;
+};

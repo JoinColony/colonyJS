@@ -1,5 +1,5 @@
-// An example action using the setTaskManagerPayout operation
-const setTaskManagerPayout = async (colonyClient, taskId, amount, token) => {
+// An example action using the "setTaskManagerPayout" operation
+module.exports = async (colonyClient, taskId, amount, token) => {
 
   // Start the operation to set the task manager payout
   const operation = await colonyClient.setTaskManagerPayout.startOperation({
@@ -17,7 +17,4 @@ const setTaskManagerPayout = async (colonyClient, taskId, amount, token) => {
   // Save the operation to the mock database
   DATABASE.operations.setTaskManagerPayout = operationJSON;
 
-}
-
-// Export setTaskManagerPayout action
-module.exports = setTaskManagerPayout;
+};

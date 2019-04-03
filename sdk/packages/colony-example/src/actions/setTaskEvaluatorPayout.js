@@ -1,5 +1,5 @@
-// An example action using the setTaskEvaluatorPayout operation
-const setTaskEvaluatorPayout = async (colonyClient, taskId, amount, token) => {
+// An example action using the "setTaskEvaluatorPayout" operation
+module.exports = async (colonyClient, taskId, amount, token) => {
 
   // Start the operation to set the task evaluator payout
   const operation = await colonyClient.setTaskEvaluatorPayout.startOperation({
@@ -17,7 +17,4 @@ const setTaskEvaluatorPayout = async (colonyClient, taskId, amount, token) => {
   // Save the operation to the mock database
   DATABASE.operations.setTaskEvaluatorPayout = operationJSON;
 
-}
-
-// Export setTaskEvaluatorPayout action
-module.exports = setTaskEvaluatorPayout;
+};

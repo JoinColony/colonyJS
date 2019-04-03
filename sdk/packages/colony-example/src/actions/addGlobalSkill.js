@@ -1,5 +1,5 @@
-// An example action using the addGlobalSkill method
-const addGlobalSkill = async (networkClient, parentSkillId) => {
+// An example action using the "addGlobalSkill" method
+module.exports = async (networkClient, parentSkillId) => {
 
   // In order to add a new global skill, we will need the Meta Colony. Global
   // skills can only be created from the Meta Colony by Meta Colony owners.
@@ -29,6 +29,3 @@ const addGlobalSkill = async (networkClient, parentSkillId) => {
   };
 
 };
-
-// Export addGlobalSkill action
-module.exports = addGlobalSkill;

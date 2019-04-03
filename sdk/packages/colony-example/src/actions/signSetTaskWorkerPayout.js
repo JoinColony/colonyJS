@@ -1,8 +1,8 @@
 // Import the prerequisites
 const executeTaskMultisig = require('../helpers/multisig');
 
-// An example action using the setTaskWorkerPayout operation
-const signSetTaskWorkerPayout = async (colonyClient, taskId, token) => {
+// An example action using the "setTaskWorkerPayout" operation
+module.exports = async (colonyClient, taskId, token) => {
 
   // Execute the task multisig operation
   await executeTaskMultisig(
@@ -24,7 +24,4 @@ const signSetTaskWorkerPayout = async (colonyClient, taskId, token) => {
   // Return the task worker payout
   return payout;
 
-}
-
-// Export signSetTaskWorkerPayout action
-module.exports = signSetTaskWorkerPayout;
+};

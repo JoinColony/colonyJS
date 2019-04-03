@@ -1,8 +1,8 @@
 // Import the prerequisites
 const executeTaskMultisig = require('../helpers/multisig');
 
-// An example action using the setTaskDueDate operation
-const signSetTaskDueDate = async (colonyClient, taskId) => {
+// An example action using the "setTaskDueDate" operation
+module.exports = async (colonyClient, taskId) => {
 
   // Execute the task multisig operation
   await executeTaskMultisig(
@@ -20,7 +20,4 @@ const signSetTaskDueDate = async (colonyClient, taskId) => {
   // Return the updated task
   return updatedTask;
 
-}
-
-// Export signSetTaskDueDate action
-module.exports = signSetTaskDueDate;
+};

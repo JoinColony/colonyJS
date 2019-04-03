@@ -1,8 +1,7 @@
-// An example action using the setTokenOwner method
-const setTokenOwner = async (colonyClient, colonyAddress) => {
+// An example action using the "setTokenOwner" method
+module.exports = async (colonyClient, colonyAddress) => {
 
-  // Set the token owner to be the colony contract. This will allow us to mint
-  // and claim tokens using the colonyClient.
+  // Set the token owner to be the colony contract
   await colonyClient.tokenClient.setOwner.send({ owner: colonyAddress });
 
   // Get token owner
@@ -14,7 +13,4 @@ const setTokenOwner = async (colonyClient, colonyAddress) => {
   // Return the token owner
   return tokenOwner;
 
-}
-
-// Export setTokenOwner action
-module.exports = setTokenOwner;
+};

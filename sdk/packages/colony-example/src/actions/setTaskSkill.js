@@ -1,5 +1,5 @@
-// An example action using the setTaskSkill operation
-const setTaskSkill = async (colonyClient, taskId, skillId) => {
+// An example action using the "setTaskSkill" operation
+module.exports = async (colonyClient, taskId, skillId) => {
 
   // Start the operation to set the task skill
   const operation = await colonyClient.setTaskSkill.startOperation({
@@ -16,7 +16,4 @@ const setTaskSkill = async (colonyClient, taskId, skillId) => {
   // Save the operation to the mock database
   DATABASE.operations.setTaskSkill = operationJSON;
 
-}
-
-// Export setTaskSkill action
-module.exports = setTaskSkill;
+};

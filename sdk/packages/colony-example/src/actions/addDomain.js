@@ -1,5 +1,5 @@
-// An example action using the addDomain method
-const addDomain = async (colonyClient, parentDomainId) => {
+// An example action using the "addDomain" method
+module.exports = async (colonyClient, parentDomainId) => {
 
   // Create a new domain using the parent domain id
   await colonyClient.addDomain.send({ parentDomainId });
@@ -23,6 +23,3 @@ const addDomain = async (colonyClient, parentDomainId) => {
   };
 
 };
-
-// Export addDomain action
-module.exports = addDomain;

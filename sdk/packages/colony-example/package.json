@@ -26,13 +26,11 @@
     "bn.js": "^4.11.8",
     "buffer": "^5.1.0",
     "chalk": "^2.4.1",
-    "ethers": "3.0.27",
     "ipfs": "^0.29.2",
     "web3": "^1.0.0-beta.35",
     "web3-utils": "^1.0.0-beta.44"
   },
   "devDependencies": {
-    "jest": "^23.1.0",
-    "trufflepig": "^1.1.1"
+    "jest": "^23.1.0"
   }
 }

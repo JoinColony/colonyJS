@@ -1,10 +1,10 @@
-// An example action using the createToken method
-const createToken = async (networkClient, name, symbol) => {
+// An example action using the "createToken" method
+module.exports = async (networkClient, symbol) => {
 
   // Create token
   const {
     meta: { receipt: { contractAddress: tokenAddress } }
-  } = await networkClient.createToken.send({ name, symbol });
+  } = await networkClient.createToken.send({ symbol });
 
   // Check out the logs to see the token address
   console.log('Token Address: ' + tokenAddress);
@@ -13,6 +13,3 @@ const createToken = async (networkClient, name, symbol) => {
   return tokenAddress;
 
 };
-
-// Export createToken action
-module.exports = createToken;

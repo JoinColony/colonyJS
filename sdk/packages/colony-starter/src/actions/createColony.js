@@ -1,5 +1,5 @@
-// An example action using the createColony method
-const createColony = async (networkClient, tokenAddress) => {
+// An example action using the "createColony" method
+module.exports = async (networkClient, tokenAddress) => {
 
   // Create a colony with the given token
   const {
@@ -19,6 +19,3 @@ const createColony = async (networkClient, tokenAddress) => {
   };
 
 };
-
-// Export createColony action
-module.exports = createColony;

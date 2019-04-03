@@ -1,8 +1,8 @@
 // Import the prerequisites
 const web3Utils = require('web3-utils');
 
-// An example action using the revealTaskWorkRating method
-const revealTaskWorkRating = async (colonyClient, taskId, role, rating) => {
+// An example action using the "revealTaskWorkRating" method
+module.exports = async (colonyClient, taskId, role, rating) => {
 
   // Set salt value
   const salt = web3Utils.sha3('secret');
@@ -44,7 +44,4 @@ const revealTaskWorkRating = async (colonyClient, taskId, role, rating) => {
   // Return the task role
   return taskRole;
 
-}
-
-// Export revealTaskWorkRating action
-module.exports = revealTaskWorkRating;
+};

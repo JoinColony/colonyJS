@@ -1,8 +1,8 @@
 // Import the prerequisites
 const { TrufflepigLoader } = require('@colony/colony-js-contract-loader-http');
 
-// An example action for getting local test accounts
-const getAccounts = async () => {
+// An example action using TrufflepigLoader to get test accounts
+module.exports = async () => {
 
   // Instantiate TrufflepigLoader
   const loader = new TrufflepigLoader();
@@ -16,7 +16,4 @@ const getAccounts = async () => {
   // Return the local test accounts
   return accounts;
 
-}
-
-// Export getAccounts action
-module.exports = getAccounts;
+};

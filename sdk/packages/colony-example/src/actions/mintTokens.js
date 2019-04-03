@@ -1,5 +1,5 @@
-// An example action using the mintTokens method
-const mintTokens = async (colonyClient, amount) => {
+// An example action using the "mintTokens" method
+module.exports = async (colonyClient, amount) => {
 
   // Mint tokens
   await colonyClient.mintTokens.send({ amount });
@@ -13,7 +13,4 @@ const mintTokens = async (colonyClient, amount) => {
   // Return the total supply of tokens
   return totalSupply;
 
-}
-
-// Export mintTokens action
-module.exports = mintTokens;
+};
