@@ -17,7 +17,7 @@ See [ContractClient](/colonyjs/api-contractclient) for more information about th
   
 ## Callers
 
-**All callers return promises which resolve to an object containing the given return values.**.
+**All callers return promises which resolve to an object containing the given return values.**
 
 ### `getAllowance.call({ sourceAddress, user })`
 
@@ -148,7 +148,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |owner|address|The address that approved the allowance (the token `owner`).|
 |spender|address|The address that was approved for the allowance (the token `spender`).|
 |value|big number|The amount of tokens that were approved (the amount `allowed`).|
-|Approval|object|Contains the data defined in [Approval](#eventsapprovaladdlistener-owner-spender-value-------)|
+|Approval|object|Contains the data defined in [Approval](#eventsapproval)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -182,7 +184,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |address|address|The address from which the tokens were burned.|
 |amount|big number|The amount of tokens that were burned.|
-|Burn|object|Contains the data defined in [Burn](#eventsburnaddlistener-address-amount-------)|
+|Burn|object|Contains the data defined in [Burn](#eventsburn)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -216,7 +220,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |address|address|The address to which the minted tokens were sent.|
 |amount|big number|The amount of tokens that were minted.|
-|Mint|object|Contains the data defined in [Mint](#eventsmintaddlistener-address-amount-------)|
+|Mint|object|Contains the data defined in [Mint](#eventsmint)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -248,7 +254,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |Name|Type|Description|
 |---|---|---|
 |authority|address|The address that was assigned an authority role.|
-|LogSetAuthority|object|Contains the data defined in [LogSetAuthority](#eventslogsetauthorityaddlistener-authority-------)|
+|LogSetAuthority|object|Contains the data defined in [LogSetAuthority](#eventslogsetauthority)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -275,9 +283,11 @@ See [Sender](/colonyjs/api-contractclient/#sender) for more information about op
 
 **Response**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse`.
 
 
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -309,7 +319,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |Name|Type|Description|
 |---|---|---|
 |owner|address|The address that was assigned as the new owner.|
-|LogSetOwner|object|Contains the data defined in [LogSetOwner](#eventslogsetowneraddlistener-owner-------)|
+|LogSetOwner|object|Contains the data defined in [LogSetOwner](#eventslogsetowner)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -337,9 +349,11 @@ See [Sender](/colonyjs/api-contractclient/#sender) for more information about op
 
 **Response**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse`.
 
 
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -375,7 +389,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |from|address|The address of the account that sent tokens.|
 |to|address|The address of the account that received tokens.|
 |value|big number|The amount of tokens that were transferred.|
-|Transfer|object|Contains the data defined in [Transfer](#eventstransferaddlistener-from-to-value-------)|
+|Transfer|object|Contains the data defined in [Transfer](#eventstransfer)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 

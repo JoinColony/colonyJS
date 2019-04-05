@@ -73,7 +73,7 @@ Gets the Meta Colony as an initialized ColonyClient
   
 ## Callers
 
-**All callers return promises which resolve to an object containing the given return values.**.
+**All callers return promises which resolve to an object containing the given return values.**
 
 ### `ensSupportsInterface.call({ interfaceId })`
 
@@ -593,7 +593,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |version|number|The version number of the colony contract that was added.|
 |resolver|address|The address of the resolver contract.|
-|ColonyVersionAdded|object|Contains the data defined in [ColonyVersionAdded](#eventscolonyversionaddedaddlistener-version-resolver-------)|
+|ColonyVersionAdded|object|Contains the data defined in [ColonyVersionAdded](#eventscolonyversionadded)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -628,7 +630,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |skillId|number|The ID of the skill that was added.|
 |parentSkillId|number|The ID of the parent skill.|
-|SkillAdded|object|Contains the data defined in [SkillAdded](#eventsskilladdedaddlistener-skillid-parentskillid-------)|
+|SkillAdded|object|Contains the data defined in [SkillAdded](#eventsskilladded)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -651,9 +655,11 @@ See [Sender](/colonyjs/api-contractclient/#sender) for more information about op
 
 **Response**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse`.
 
 
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -688,7 +694,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |colonyId|number|The ID of the colony that was added.|
 |colonyAddress|address|The address of the colony contract that was created.|
 |tokenAddress|address|The address of the token contract that was assigned.|
-|ColonyAdded|object|Contains the data defined in [ColonyAdded](#eventscolonyaddedaddlistener-colonyid-colonyaddress-tokenaddress-------)|
+|ColonyAdded|object|Contains the data defined in [ColonyAdded](#eventscolonyadded)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -723,7 +731,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |colonyAddress|number|The address of the Meta Colony.|
 |tokenAddress|address|The address of the CLNY token contract.|
 |rootSkillId|number|The ID of the root skill.|
-|MetaColonyCreated|object|Contains the data defined in [MetaColonyCreated](#eventsmetacolonycreatedaddlistener-colonyaddress-tokenaddress-rootskillid-------)|
+|MetaColonyCreated|object|Contains the data defined in [MetaColonyCreated](#eventsmetacolonycreated)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -751,9 +761,11 @@ See [Sender](/colonyjs/api-contractclient/#sender) for more information about op
 
 **Response**
 
-An instance of a `ContractResponse` which will receive a receipt with a `contractAddress` property (the address of the newly-deployed contract)
+An instance of a `ContractResponse` which will receive a receipt with a `contractAddress` property.
 
 
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -775,9 +787,11 @@ See [Sender](/colonyjs/api-contractclient/#sender) for more information about op
 
 **Response**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse`.
 
 
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -800,9 +814,11 @@ See [Sender](/colonyjs/api-contractclient/#sender) for more information about op
 
 **Response**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse`.
 
 
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -837,7 +853,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |user|address|The address of the user that registered a label.|
 |label|string|The ENS label that was registered for the user.|
-|UserLabelRegistered|object|Contains the data defined in [UserLabelRegistered](#eventsuserlabelregisteredaddlistener-user-label-------)|
+|UserLabelRegistered|object|Contains the data defined in [UserLabelRegistered](#eventsuserlabelregistered)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -865,9 +883,11 @@ See [Sender](/colonyjs/api-contractclient/#sender) for more information about op
 
 **Response**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse`.
 
 
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -900,7 +920,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |Name|Type|Description|
 |---|---|---|
 |feeInverse|big number|The inverse value of the network fee that was set.|
-|NetworkFeeInverseSet|object|Contains the data defined in [NetworkFeeInverseSet](#eventsnetworkfeeinversesetaddlistener-feeinverse-------)|
+|NetworkFeeInverseSet|object|Contains the data defined in [NetworkFeeInverseSet](#eventsnetworkfeeinverseset)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -928,9 +950,11 @@ See [Sender](/colonyjs/api-contractclient/#sender) for more information about op
 
 **Response**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse`.
 
 
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -959,9 +983,11 @@ See [Sender](/colonyjs/api-contractclient/#sender) for more information about op
 
 **Response**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse`.
 
 
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -994,7 +1020,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |Name|Type|Description|
 |---|---|---|
 |tokenLocking|address|The address of the token locking contract.|
-|TokenLockingAddressSet|object|Contains the data defined in [TokenLockingAddressSet](#eventstokenlockingaddresssetaddlistener-tokenlocking-------)|
+|TokenLockingAddressSet|object|Contains the data defined in [TokenLockingAddressSet](#eventstokenlockingaddressset)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -1023,9 +1051,11 @@ See [Sender](/colonyjs/api-contractclient/#sender) for more information about op
 
 **Response**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse`.
 
 
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -1060,7 +1090,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |auction|string|The address of the auction contract that was created.|
 |token|address|The address of the token contract that was assigned.|
 |quantity|big number|The amount of tokens available for the auction.|
-|AuctionCreated|object|Contains the data defined in [AuctionCreated](#eventsauctioncreatedaddlistener-auction-token-quantity-------)|
+|AuctionCreated|object|Contains the data defined in [AuctionCreated](#eventsauctioncreated)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 

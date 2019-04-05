@@ -17,7 +17,7 @@ See [ContractClient](/colonyjs/api-contractclient) for more information about th
   
 ## Callers
 
-**All callers return promises which resolve to an object containing the given return values.**.
+**All callers return promises which resolve to an object containing the given return values.**
 
 ### `generateSecret.call({ salt, value })`
 
@@ -645,9 +645,11 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |potId|number|The numeric ID of the pot that was added.|
 |skillId|number|The ID of the skill that was added.|
 |parentSkillId|number|The ID of the parent skill.|
-|DomainAdded|object|Contains the data defined in [DomainAdded](#eventsdomainaddedaddlistener-domainid-------)|
-|FundingPotAdded|object|Contains the data defined in [FundingPotAdded](#eventsfundingpotaddedaddlistener-potid-------)|
-|SkillAdded|object|Contains the data defined in [SkillAdded](#eventsskilladdedaddlistener-skillid-parentskillid-------)|
+|DomainAdded|object|Contains the data defined in [DomainAdded](#eventsdomainadded)|
+|FundingPotAdded|object|Contains the data defined in [FundingPotAdded](#eventsfundingpotadded)|
+|SkillAdded|object|Contains the data defined in [SkillAdded](#eventsskilladded)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -681,7 +683,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |skillId|number|The ID of the skill that was added.|
 |parentSkillId|number|The ID of the parent skill.|
-|SkillAdded|object|Contains the data defined in [SkillAdded](#eventsskilladdedaddlistener-skillid-parentskillid-------)|
+|SkillAdded|object|Contains the data defined in [SkillAdded](#eventsskilladded)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -704,9 +708,11 @@ See [Sender](/colonyjs/api-contractclient/#sender) for more information about op
 
 **Response**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse`.
 
 
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -741,7 +747,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |users|array|The array of users that received an initial amount of tokens and reputation.|
 |amounts|array|The array of corresponding token and reputation amounts each user recieved.|
-|ColonyBootstrapped|object|Contains the data defined in [ColonyBootstrapped](#eventscolonybootstrappedaddlistener-users-amounts-------)|
+|ColonyBootstrapped|object|Contains the data defined in [ColonyBootstrapped](#eventscolonybootstrapped)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -776,7 +784,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |token|address|The address of the token contract (an empty address if Ether).|
 |fee|big number|The fee deducted from the claim and added to the colony rewards pot.|
 |payoutRemainder|big number|The remaining funds (after the fee) moved to the top-level domain pot.|
-|ColonyFundsClaimed|object|Contains the data defined in [ColonyFundsClaimed](#eventscolonyfundsclaimedaddlistener-token-fee-payoutremainder-------)|
+|ColonyFundsClaimed|object|Contains the data defined in [ColonyFundsClaimed](#eventscolonyfundsclaimed)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -817,8 +827,10 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |from|address|The address of the account that sent tokens.|
 |to|address|The address of the account that received tokens.|
 |value|big number|The amount of tokens that were transferred.|
-|TaskPayoutClaimed|object|Contains the data defined in [TaskPayoutClaimed](#eventstaskpayoutclaimedaddlistener-taskid-role-token-amount-------)|
-|Transfer|object|Contains the data defined in [Transfer](#eventstransferaddlistener-from-to-value-------)|
+|TaskPayoutClaimed|object|Contains the data defined in [TaskPayoutClaimed](#eventstaskpayoutclaimed)|
+|Transfer|object|Contains the data defined in [Transfer](#eventstransfer)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -851,7 +863,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was completed.|
-|TaskCompleted|object|Contains the data defined in [TaskCompleted](#eventstaskcompletedaddlistener-taskid-------)|
+|TaskCompleted|object|Contains the data defined in [TaskCompleted](#eventstaskcompleted)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -890,10 +904,12 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |taskId|number|The ID of the task that was added.|
 |skillId|number|The ID of the skill that was set.|
 |dueDate|date|The due date that was set.|
-|FundingPotAdded|object|Contains the data defined in [FundingPotAdded](#eventsfundingpotaddedaddlistener-potid-------)|
-|TaskAdded|object|Contains the data defined in [TaskAdded](#eventstaskaddedaddlistener-taskid-------)|
-|TaskSkillSet|object|Contains the data defined in [TaskSkillSet](#eventstaskskillsetaddlistener-taskid-skillid-------)|
-|TaskDueDateSet|object|Contains the data defined in [TaskDueDateSet](#eventstaskduedatesetaddlistener-taskid-duedate-------)|
+|FundingPotAdded|object|Contains the data defined in [FundingPotAdded](#eventsfundingpotadded)|
+|TaskAdded|object|Contains the data defined in [TaskAdded](#eventstaskadded)|
+|TaskSkillSet|object|Contains the data defined in [TaskSkillSet](#eventstaskskillset)|
+|TaskDueDateSet|object|Contains the data defined in [TaskDueDateSet](#eventstaskduedateset)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -916,9 +932,11 @@ See [Sender](/colonyjs/api-contractclient/#sender) for more information about op
 
 **Response**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse`.
 
 
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -941,9 +959,11 @@ See [Sender](/colonyjs/api-contractclient/#sender) for more information about op
 
 **Response**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse`.
 
 
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -976,7 +996,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |Name|Type|Description|
 |---|---|---|
 |payoutId|number|The ID of the payout cycle that ended.|
-|RewardPayoutCycleEnded|object|Contains the data defined in [RewardPayoutCycleEnded](#eventsrewardpayoutcycleendedaddlistener-payoutid-------)|
+|RewardPayoutCycleEnded|object|Contains the data defined in [RewardPayoutCycleEnded](#eventsrewardpayoutcycleended)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -1009,7 +1031,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was finalized.|
-|TaskFinalized|object|Contains the data defined in [TaskFinalized](#eventstaskfinalizedaddlistener-taskid-------)|
+|TaskFinalized|object|Contains the data defined in [TaskFinalized](#eventstaskfinalized)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -1058,15 +1082,17 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |from|address|The address of the account that sent tokens.|
 |to|address|The address of the account that received tokens.|
 |value|big number|The amount of tokens that were transferred.|
-|FundingPotAdded|object|Contains the data defined in [FundingPotAdded](#eventsfundingpotaddedaddlistener-potid-------)|
-|TaskAdded|object|Contains the data defined in [TaskAdded](#eventstaskaddedaddlistener-taskid-------)|
-|TaskSkillSet|object|Contains the data defined in [TaskSkillSet](#eventstaskskillsetaddlistener-taskid-skillid-------)|
-|TaskDueDateSet|object|Contains the data defined in [TaskDueDateSet](#eventstaskduedatesetaddlistener-taskid-duedate-------)|
-|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleusersetaddlistener-taskid-role-user-------)|
-|TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutsetaddlistener-taskid-role-token-amount-------)|
-|ColonyFundsMovedBetweenFundingPots|object|Contains the data defined in [ColonyFundsMovedBetweenFundingPots](#eventscolonyfundsmovedbetweenfundingpotsaddlistener-frompot-topot-amount-token-------)|
-|TaskPayoutClaimed|object|Contains the data defined in [TaskPayoutClaimed](#eventstaskpayoutclaimedaddlistener-taskid-role-token-amount-------)|
-|Transfer|object|Contains the data defined in [Transfer](#eventstransferaddlistener-from-to-value-------)|
+|FundingPotAdded|object|Contains the data defined in [FundingPotAdded](#eventsfundingpotadded)|
+|TaskAdded|object|Contains the data defined in [TaskAdded](#eventstaskadded)|
+|TaskSkillSet|object|Contains the data defined in [TaskSkillSet](#eventstaskskillset)|
+|TaskDueDateSet|object|Contains the data defined in [TaskDueDateSet](#eventstaskduedateset)|
+|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleuserset)|
+|TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutset)|
+|ColonyFundsMovedBetweenFundingPots|object|Contains the data defined in [ColonyFundsMovedBetweenFundingPots](#eventscolonyfundsmovedbetweenfundingpots)|
+|TaskPayoutClaimed|object|Contains the data defined in [TaskPayoutClaimed](#eventstaskpayoutclaimed)|
+|Transfer|object|Contains the data defined in [Transfer](#eventstransfer)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -1100,7 +1126,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |address|address|The address that initiated the mint event.|
 |amount|big number|The amount of tokens that were minted.|
-|Mint|object|Contains the data defined in [Mint](#eventsmintaddlistener-address-amount-------)|
+|Mint|object|Contains the data defined in [Mint](#eventsmint)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -1137,8 +1165,10 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |from|address|The address of the account that sent tokens.|
 |to|address|The address of the account that received tokens.|
 |value|big number|The amount of tokens that were transferred.|
-|Mint|object|Contains the data defined in [Mint](#eventsmintaddlistener-address-amount-------)|
-|Transfer|object|Contains the data defined in [Transfer](#eventstransferaddlistener-from-to-value-------)|
+|Mint|object|Contains the data defined in [Mint](#eventsmint)|
+|Transfer|object|Contains the data defined in [Transfer](#eventstransfer)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -1177,7 +1207,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |toPot|number|The ID of the pot to which the funds were moved.|
 |amount|big number|The amount of funds that were moved between pots.|
 |token|address|The address of the token contract (an empty address if Ether).|
-|ColonyFundsMovedBetweenFundingPots|object|Contains the data defined in [ColonyFundsMovedBetweenFundingPots](#eventscolonyfundsmovedbetweenfundingpotsaddlistener-frompot-topot-amount-token-------)|
+|ColonyFundsMovedBetweenFundingPots|object|Contains the data defined in [ColonyFundsMovedBetweenFundingPots](#eventscolonyfundsmovedbetweenfundingpots)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -1212,7 +1244,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |colony|address|The address of the colony that was modified.|
 |label|string|The label that was registered for the colony.|
-|ColonyLabelRegistered|object|Contains the data defined in [ColonyLabelRegistered](#eventscolonylabelregisteredaddlistener-colony-label-------)|
+|ColonyLabelRegistered|object|Contains the data defined in [ColonyLabelRegistered](#eventscolonylabelregistered)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -1245,7 +1279,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |Name|Type|Description|
 |---|---|---|
 |user|address|The address that was unassigned the `ADMIN` authority role.|
-|ColonyAdminRoleRemoved|object|Contains the data defined in [ColonyAdminRoleRemoved](#eventscolonyadminroleremovedaddlistener-user-------)|
+|ColonyAdminRoleRemoved|object|Contains the data defined in [ColonyAdminRoleRemoved](#eventscolonyadminroleremoved)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -1273,9 +1309,11 @@ See [Sender](/colonyjs/api-contractclient/#sender) for more information about op
 
 **Response**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse`.
 
 
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -1313,7 +1351,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |taskId|number|The ID of the task that was modified.|
 |role|task role|The role of the task that received the rating (`MANAGER`, `EVALUATOR`, or `WORKER`).|
 |rating|number|The value of the rating that was revealed (`1`, `2`, or `3`).|
-|TaskWorkRatingRevealed|object|Contains the data defined in [TaskWorkRatingRevealed](#eventstaskworkratingrevealedaddlistener-taskid-role-rating-------)|
+|TaskWorkRatingRevealed|object|Contains the data defined in [TaskWorkRatingRevealed](#eventstaskworkratingrevealed)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -1346,7 +1386,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |Name|Type|Description|
 |---|---|---|
 |user|address|The address that was assigned the `ADMIN` authority role.|
-|ColonyAdminRoleSet|object|Contains the data defined in [ColonyAdminRoleSet](#eventscolonyadminrolesetaddlistener-user-------)|
+|ColonyAdminRoleSet|object|Contains the data defined in [ColonyAdminRoleSet](#eventscolonyadminroleset)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -1386,7 +1428,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |role|task role|The role of the task that was modified (`MANAGER`, `EVALUATOR`, or `WORKER`).|
 |token|address|The address of the token contract (an empty address if Ether).|
 |amount|big number|The task payout amount that was set.|
-|TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutsetaddlistener-taskid-role-token-amount-------)|
+|TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutset)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -1420,7 +1464,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |oldFounder|address|The address that assigned the `FOUNDER` authority role (the old founder).|
 |newFounder|address|The address that was assigned the `FOUNDER` authority role (the new founder).|
-|ColonyFounderRoleSet|object|Contains the data defined in [ColonyFounderRoleSet](#eventscolonyfounderrolesetaddlistener-oldfounder-newfounder-------)|
+|ColonyFounderRoleSet|object|Contains the data defined in [ColonyFounderRoleSet](#eventscolonyfounderroleset)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -1448,9 +1494,11 @@ See [Sender](/colonyjs/api-contractclient/#sender) for more information about op
 
 **Response**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse`.
 
 
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -1478,9 +1526,11 @@ See [Sender](/colonyjs/api-contractclient/#sender) for more information about op
 
 **Response**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse`.
 
 
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -1513,7 +1563,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |Name|Type|Description|
 |---|---|---|
 |rewardInverse|big number|The reward inverse value that was set.|
-|ColonyRewardInverseSet|object|Contains the data defined in [ColonyRewardInverseSet](#eventscolonyrewardinversesetaddlistener-rewardinverse-------)|
+|ColonyRewardInverseSet|object|Contains the data defined in [ColonyRewardInverseSet](#eventscolonyrewardinverseset)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -1542,9 +1594,11 @@ See [Sender](/colonyjs/api-contractclient/#sender) for more information about op
 
 **Response**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse`.
 
 
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -1579,8 +1633,10 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |payoutId|number|The ID of the payout cycle that started.|
 |token|address|The address of the token contract (an empty address if Ether).|
 |lockCount|number|The total lock count for the token.|
-|RewardPayoutCycleStarted|object|Contains the data defined in [RewardPayoutCycleStarted](#eventsrewardpayoutcyclestartedaddlistener-payoutid-------)|
-|TokenLocked|object|Contains the data defined in [TokenLocked](#eventstokenlockedaddlistener-token-lockcount-------)|
+|RewardPayoutCycleStarted|object|Contains the data defined in [RewardPayoutCycleStarted](#eventsrewardpayoutcyclestarted)|
+|TokenLocked|object|Contains the data defined in [TokenLocked](#eventstokenlocked)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -1615,8 +1671,10 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |taskId|number|The ID of the task that was completed.|
 |deliverableHash|IPFS hash|The deliverable hash that was submitted (an IPFS hash).|
-|TaskCompleted|object|Contains the data defined in [TaskCompleted](#eventstaskcompletedaddlistener-taskid-------)|
-|TaskDeliverableSubmitted|object|Contains the data defined in [TaskDeliverableSubmitted](#eventstaskdeliverablesubmittedaddlistener-taskid-deliverablehash-------)|
+|TaskCompleted|object|Contains the data defined in [TaskCompleted](#eventstaskcompleted)|
+|TaskDeliverableSubmitted|object|Contains the data defined in [TaskDeliverableSubmitted](#eventstaskdeliverablesubmitted)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -1652,8 +1710,10 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |taskId|number|The ID of the task that was completed.|
 |deliverableHash|IPFS hash|The deliverable hash that was submitted (an IPFS hash).|
-|TaskCompleted|object|Contains the data defined in [TaskCompleted](#eventstaskcompletedaddlistener-taskid-------)|
-|TaskDeliverableSubmitted|object|Contains the data defined in [TaskDeliverableSubmitted](#eventstaskdeliverablesubmittedaddlistener-taskid-deliverablehash-------)|
+|TaskCompleted|object|Contains the data defined in [TaskCompleted](#eventstaskcompleted)|
+|TaskDeliverableSubmitted|object|Contains the data defined in [TaskDeliverableSubmitted](#eventstaskdeliverablesubmitted)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -1683,9 +1743,11 @@ See [Sender](/colonyjs/api-contractclient/#sender) for more information about op
 
 **Response**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse`.
 
 
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -1719,7 +1781,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |oldVersion|number|The old version number of the colony.|
 |newVersion|number|The new version number of the colony.|
-|ColonyUpgraded|object|Contains the data defined in [ColonyUpgraded](#eventscolonyupgradedaddlistener-oldversion-newversion-------)|
+|ColonyUpgraded|object|Contains the data defined in [ColonyUpgraded](#eventscolonyupgraded)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -1752,7 +1816,9 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was canceled.|
-|TaskCanceled|object|Contains the data defined in [TaskCanceled](#eventstaskcanceledaddlistener-taskid-------)|
+|TaskCanceled|object|Contains the data defined in [TaskCanceled](#eventstaskcanceled)|
+
+See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
 
 **Contract Information**
 
@@ -1783,7 +1849,9 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |taskId|number|The ID of the task that was modified.|
 |role|task role|The role of the task that was set (`MANAGER`, `EVALUATOR`, or `WORKER`).|
 |user|address|The user that was assigned the task role.|
-|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleusersetaddlistener-taskid-role-user-------)|
+|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleuserset)|
+
+See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
 
 **Contract Information**
 
@@ -1814,7 +1882,9 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |taskId|number|The ID of the task that was modified.|
 |role|task role|The role of the task that was set (`MANAGER`, `EVALUATOR`, or `WORKER`).|
 |user|address|The user that was assigned the task role.|
-|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleusersetaddlistener-taskid-role-user-------)|
+|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleuserset)|
+
+See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
 
 **Contract Information**
 
@@ -1845,7 +1915,9 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |---|---|---|
 |taskId|number|The ID of the task that was modified.|
 |specificationHash|string|The specification hash that was set (an IPFS hash).|
-|TaskBriefSet|object|Contains the data defined in [TaskBriefSet](#eventstaskbriefsetaddlistener-taskid-specificationhash-------)|
+|TaskBriefSet|object|Contains the data defined in [TaskBriefSet](#eventstaskbriefset)|
+
+See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
 
 **Contract Information**
 
@@ -1876,7 +1948,9 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |---|---|---|
 |taskId|number|The ID of the task that was modified.|
 |domainId|number|The ID of the domain that was set.|
-|TaskDomainSet|object|Contains the data defined in [TaskDomainSet](#eventstaskdomainsetaddlistener-taskid-domainid-------)|
+|TaskDomainSet|object|Contains the data defined in [TaskDomainSet](#eventstaskdomainset)|
+
+See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
 
 **Contract Information**
 
@@ -1907,7 +1981,9 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |---|---|---|
 |taskId|number|The ID of the task that was modified.|
 |dueDate|date|The due date that was set.|
-|TaskDueDateSet|object|Contains the data defined in [TaskDueDateSet](#eventstaskduedatesetaddlistener-taskid-duedate-------)|
+|TaskDueDateSet|object|Contains the data defined in [TaskDueDateSet](#eventstaskduedateset)|
+
+See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
 
 **Contract Information**
 
@@ -1939,7 +2015,9 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |taskId|number|The ID of the task that was modified.|
 |role|task role|The role of the task that was set (`MANAGER`, `EVALUATOR`, or `WORKER`).|
 |user|address|The user that was assigned the task role.|
-|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleusersetaddlistener-taskid-role-user-------)|
+|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleuserset)|
+
+See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
 
 **Contract Information**
 
@@ -1971,7 +2049,9 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |taskId|number|The ID of the task that was modified.|
 |role|task role|The role of the task that was set (`MANAGER`, `EVALUATOR`, or `WORKER`).|
 |user|address|The user that was assigned the task role.|
-|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleusersetaddlistener-taskid-role-user-------)|
+|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleuserset)|
+
+See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
 
 **Contract Information**
 
@@ -2002,7 +2082,9 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |---|---|---|
 |taskId|number|The ID of the task that was modified.|
 |skillId|number|The ID of the skill that was set.|
-|TaskSkillSet|object|Contains the data defined in [TaskSkillSet](#eventstaskskillsetaddlistener-taskid-skillid-------)|
+|TaskSkillSet|object|Contains the data defined in [TaskSkillSet](#eventstaskskillset)|
+
+See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
 
 **Contract Information**
 
@@ -2034,7 +2116,9 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |taskId|number|The ID of the task that was modified.|
 |role|task role|The role of the task that was set (`MANAGER`, `EVALUATOR`, or `WORKER`).|
 |user|address|The user that was assigned the task role.|
-|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleusersetaddlistener-taskid-role-user-------)|
+|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleuserset)|
+
+See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
 
 **Contract Information**
 
@@ -2068,7 +2152,9 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |role|task role|The role of the task that was modified (`MANAGER`, `EVALUATOR`, or `WORKER`).|
 |token|address|The address of the token contract (an empty address if Ether).|
 |amount|big number|The task payout amount that was set.|
-|TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutsetaddlistener-taskid-role-token-amount-------)|
+|TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutset)|
+
+See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
 
 **Contract Information**
 
@@ -2102,7 +2188,9 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |role|task role|The role of the task that was modified (`MANAGER`, `EVALUATOR`, or `WORKER`).|
 |token|address|The address of the token contract (an empty address if Ether).|
 |amount|big number|The task payout amount that was set.|
-|TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutsetaddlistener-taskid-role-token-amount-------)|
+|TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutset)|
+
+See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
 
 **Contract Information**
 
@@ -2136,7 +2224,9 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |role|task role|The role of the task that was modified (`MANAGER`, `EVALUATOR`, or `WORKER`).|
 |token|address|The address of the token contract (an empty address if Ether).|
 |amount|big number|The task payout amount that was set.|
-|TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutsetaddlistener-taskid-role-token-amount-------)|
+|TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutset)|
+
+See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
 
 **Contract Information**
 

@@ -17,7 +17,7 @@ See [ContractClient](/colonyjs/api-contractclient) for more information about th
   
 ## Callers
 
-**All callers return promises which resolve to an object containing the given return values.**.
+**All callers return promises which resolve to an object containing the given return values.**
 
 ### `getTotalLockCount.call({ token })`
 
@@ -105,7 +105,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |user|address|The address of the user that deposited tokens.|
 |amount|big number|The amount of tokens that were deposited.|
 |timestamp|date|The timestamp when the tokens were deposited.|
-|UserTokenDeposited|object|Contains the data defined in [UserTokenDeposited](#eventsusertokendepositedaddlistener-token-user-amount-timestamp-------)|
+|UserTokenDeposited|object|Contains the data defined in [UserTokenDeposited](#eventsusertokendeposited)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -139,7 +141,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |token|address|The address of the token contract that was locked.|
 |lockCount|big number|The address of the token contract that was assigned.|
-|TokenLocked|object|Contains the data defined in [TokenLocked](#eventstokenlockedaddlistener-token-lockcount-------)|
+|TokenLocked|object|Contains the data defined in [TokenLocked](#eventstokenlocked)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -168,9 +172,11 @@ See [Sender](/colonyjs/api-contractclient/#sender) for more information about op
 
 **Response**
 
-An instance of a `ContractResponse`
+An instance of a `ContractResponse`.
 
 
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -207,7 +213,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |token|address|The address of the token contract that was unlocked.|
 |user|address|The address of the user that the tokens were unlocked for.|
 |lockId|number|The ID of the lock that the was set for the user.|
-|UserTokenUnlocked|object|Contains the data defined in [UserTokenUnlocked](#eventsusertokenunlockedaddlistener-token-user-lockid-------)|
+|UserTokenUnlocked|object|Contains the data defined in [UserTokenUnlocked](#eventsusertokenunlocked)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 
@@ -243,7 +251,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |token|address|The address of the token contract from which tokens were withdrawn.|
 |user|address|The address of the user that withdrew tokens.|
 |amount|big number|The amount of tokens that were withdrawn.|
-|UserTokenWithdrawn|object|Contains the data defined in [UserTokenWithdrawn](#eventsusertokenwithdrawnaddlistener-token-user-amount-------)|
+|UserTokenWithdrawn|object|Contains the data defined in [UserTokenWithdrawn](#eventsusertokenwithdrawn)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
 **Contract Information**
 

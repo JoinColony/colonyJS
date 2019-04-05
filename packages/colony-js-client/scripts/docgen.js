@@ -122,7 +122,7 @@ function printCallers(callers) {
   return `
 ## Callers
 
-**All callers return promises which resolve to an object containing the given return values.**.
+**All callers return promises which resolve to an object containing the given return values.**
 ` +
     callers
       .map(
@@ -170,15 +170,17 @@ See [Sender](/colonyjs/api-contractclient/#sender) for more information about op
 An instance of a \`ContractResponse\`${
   // XXX If this gets even more complicated, find another way!
   sender.name === 'createToken'
-    ? ' which will receive a receipt with a \`contractAddress\` property (the address of the newly-deployed contract)'
+    ? ' which will receive a receipt with a \`contractAddress\` property.'
     : (
         sender.events && sender.events.length
           ? ' which will eventually receive the following event data:'
-          : ''
+          : '.'
       )
 }
 
 ${printProps(getEventProps(events, sender.events))}
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about \`ContractResponse\`.
 
 **Contract Information**
 
@@ -227,9 +229,11 @@ ${ms.args && ms.args.length ? '\n**Input**\n\n' : ''}${printProps(ms.args)}
 
 **Response**
 
-An instance of a \`MultiSigOperation\`${ms.events && ms.events.length ? ' whose sender will eventually receive the following event data:' : ''}
+An instance of a \`MultiSigOperation\`${ms.events && ms.events.length ? ' whose sender will eventually receive the following event data:' : '.'}
 
 ${printProps(getEventProps(events, ms.events))}
+
+See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
 
 **Contract Information**
 
@@ -324,7 +328,7 @@ function getEventName(p) {
 
 function getNestedEventDescription(event) {
   const args = printArgs(event.args).toLowerCase().replace(/\s/g, '').replace(/\W/g, '-');
-  return `Contains the data defined in [${event.name}](#events${event.name.toLowerCase()}addlistener${args}------)`;
+  return `Contains the data defined in [${event.name}](#events${event.name.toLowerCase()})`;
 }
 
 function formatDescription(str) {
