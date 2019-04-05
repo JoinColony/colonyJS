@@ -26,7 +26,7 @@ export default class ContractEvent<ParamTypes: Object> {
   argsDef: Params;
 
   // A store for the event handlers that got wrapped for type validation.
-  _wrappedHandlers: Map<EventCallback, EventCallback>;
+  _wrappedHandlers: Map<string, EventCallback>;
 
   // Throwing custom assertion messages.
   assertValid: AssertionMethod;
@@ -104,7 +104,9 @@ export default class ContractEvent<ParamTypes: Object> {
    * event has been emitted by the contract.
    */
   addListener(handlerFunction: TypedEventCallback<ParamTypes>) {
-    if (this._wrappedHandlers.get(handlerFunction)) {
+    const stringifiedHandlerFunction = handlerFunction.toString();
+
+    if (this._wrappedHandlers.get(stringifiedHandlerFunction)) {
       return;
     }
 
@@ -115,7 +117,10 @@ export default class ContractEvent<ParamTypes: Object> {
     );
 
     this.client.contract.addListener(this.eventName, wrappedHandlerFunction);
-    this._wrappedHandlers.set(handlerFunction, wrappedHandlerFunction);
+    this._wrappedHandlers.set(
+      stringifiedHandlerFunction,
+      wrappedHandlerFunction,
+    );
   }
 
   /**
@@ -123,7 +128,11 @@ export default class ContractEvent<ParamTypes: Object> {
    * `removeListener` removes it.
    */
   removeListener(handlerFunction: TypedEventCallback<ParamTypes>) {
-    const wrappedHandlerFunction = this._wrappedHandlers.get(handlerFunction);
+    const stringifiedHandlerFunction = handlerFunction.toString();
+
+    const wrappedHandlerFunction = this._wrappedHandlers.get(
+      stringifiedHandlerFunction,
+    );
 
     if (wrappedHandlerFunction) {
       this.client.contract.removeListener(
@@ -131,7 +140,7 @@ export default class ContractEvent<ParamTypes: Object> {
         wrappedHandlerFunction,
       );
 
-      this._wrappedHandlers.delete(handlerFunction);
+      this._wrappedHandlers.delete(stringifiedHandlerFunction);
     }
   }
 }
