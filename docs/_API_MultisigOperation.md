@@ -66,4 +66,4 @@ Serialize the `MultisigOperation` into JSON format.
 
 This method is the same method used in the `ContractClient` superclass.
 
-See [Sender](colonyjs/api-contractclient/#sendinput-options) for more information about the input, options, and response.
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about the input, options, and response.

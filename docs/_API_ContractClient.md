@@ -4,7 +4,7 @@ section: API
 order: 0
 ---
 
-`ContractClient` is a superclass for all implementations of [clients](/colonyjs/components-clients/). Each client contains abstractions such as `Caller`, `Sender`, and `MulitisigSender` which are inherited from the `ContractClient` superclass. The `ContractClient` superclass also contains tools for listening to events and interacting with the reputation mining system.
+`ContractClient` is a superclass for all implementations of [Clients](/colonyjs/components-clients/). Each client contains abstractions such as `Caller`, `Sender`, and `MulitisigSender` which are inherited from the `ContractClient` superclass. The `ContractClient` superclass also contains tools for listening to events and interacting with the reputation mining system.
 
 ## Table of Contents
 

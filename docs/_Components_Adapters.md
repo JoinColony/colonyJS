@@ -20,7 +20,7 @@ Adapters require the following parameters:
 
 ```
 
-## Initialize an adapter
+## Initialization
 
 An example of initializing an adapter might look like this:
 
@@ -55,10 +55,6 @@ const adapter = new EthersAdapter({
 
 ```
 
-## Supported adapters
+## Future Adapters
 
-- [ethers](https://github.com/JoinColony/colony-js/tree/master/packages/colony-js-adapter-ethers)
-
-## Future adapters
-
-- Check out [tailor](/tailor/docs-overview/) to learn more about adapters we plan to support in the future.
+Check out [tailor](/tailor/docs-overview/) to learn more about adapters we plan to support in the future.

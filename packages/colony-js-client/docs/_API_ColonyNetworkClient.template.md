@@ -6,9 +6,9 @@ order: 2
 
 The `ColonyNetworkClient` is a standard interface for interactions with methods and events described in `IColonyNetwork.sol`. These interactions are generally concerned with the colony network as a whole. This includes operations like getting a count of all colonies on the network, querying for information about a skill, or registering an ENS label for a user.
 
-See [Clients](/colonyjs/components-clients) for information about initializing `ColonyNetworkClient`.
+See [Clients](/colonyjs/components-clients) for more information about initializing `ColonyNetworkClient`.
 
-See [ContractClient](/colonyjs/api-contractclient) for information about the `ContractClient` class.
+See [ContractClient](/colonyjs/api-contractclient) for more information about the `ContractClient` class.
 
 ## Table of Contents
 

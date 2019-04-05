@@ -6,9 +6,9 @@ order: 2
 
 The `ColonyNetworkClient` is a standard interface for interactions with methods and events described in `IColonyNetwork.sol`. These interactions are generally concerned with the colony network as a whole. This includes operations like getting a count of all colonies on the network, querying for information about a skill, or registering an ENS label for a user.
 
-See [Clients](/colonyjs/components-clients) for information about initializing `ColonyNetworkClient`.
+See [Clients](/colonyjs/components-clients) for more information about initializing `ColonyNetworkClient`.
 
-See [ContractClient](/colonyjs/api-contractclient) for information about the `ContractClient` class.
+See [ContractClient](/colonyjs/api-contractclient) for more information about the `ContractClient` class.
 
 ## Table of Contents
 
@@ -79,7 +79,7 @@ Gets the Meta Colony as an initialized ColonyClient
 
 Check whether or not ENS supports a contract interface. A supported contract interface implements `interfaceId`.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -107,7 +107,7 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 
 Get the address of a registered ENS label. This function will return an empty address if an ENS label has not been registered.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -135,7 +135,7 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 
 Get the ID of a child skill.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -164,7 +164,7 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 
 Get the colony contract address for a colony.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -215,7 +215,7 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 
 Get the address of the resolver contract for a specific colony version.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -312,7 +312,7 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 
 Get the ID of a parent skill.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -341,7 +341,7 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 
 Get the address of the OrbitDB database associaated with a user profile.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -415,7 +415,7 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 
 Get information about a domain.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -491,7 +491,7 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 
 Check whether or not an address is a colony contract.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -542,7 +542,7 @@ Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba
 
 Lookup the registed ENS label for an address. This function will return an empty string if the address does not have a registered ENS label.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -574,12 +574,16 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 
 Add a new colony contract version and set the address of the resolver contract.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |version|number|The versions number of the colony contract.|
 |resolver|address|The address of the resolver contract.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -605,12 +609,16 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 
 Add a new global or local skill to the skills tree.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |parentSkillId|number|The ID of the skill under which the new skill will be added.|
 |globalSkill|boolean|A boolean indicating whether or not the skill will be a global skill.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -637,6 +645,10 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 Indicate approval to exit network recovery mode. This function can only be called by a user with a recovery role.
 
 
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
 **Response**
 
 An instance of a `ContractResponse`
@@ -657,11 +669,15 @@ Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba
 
 Create a new colony on the network.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |tokenAddress|address|The address of the token contract.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -688,11 +704,15 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 
 Create the Meta Colony.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |tokenAddress|address|The address of the token contract.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -719,11 +739,15 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 
 Create a new ERC20 token contract.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |symbol|string|The symbol of the token.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -744,6 +768,10 @@ Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7359eedaada
 
 Enter network recovery mode. This function can only be called by a user with a recovery role.
 
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -766,6 +794,10 @@ Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba
 Exit network recovery mode. This function can be called by anyone if enough whitelist approvals are given.
 
 
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
 **Response**
 
 An instance of a `ContractResponse`
@@ -786,12 +818,16 @@ Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba
 
 Register an ENS label for a user.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |username|string|The ENS label that will be registered for the user.|
 |orbitDBPath|string|The path of the OrbitDB database associated with the user profile.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -817,11 +853,15 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 
 Remove the network recovery role from a user. This function can only be called by the `FOUNDER` authority role.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |user|address|The address of the user that will be unassigned a network recovery role.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -843,11 +883,15 @@ Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba
 
 Set the inverse amount of the network fee. If the fee is 1% (or 0.01), the inverse amount will be 100.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |feeInverse|big number|The inverse amount of the network fee.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -872,11 +916,15 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 
 Assign a network recovery role to a user. This function can only be called by the `FOUNDER` authority role.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |user|address|The address of the user that will be assigned a network recovery role.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -898,12 +946,16 @@ Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba
 
 Set the value for a storage slot while in recovery mode. This can only be called by a user with a recovery role.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |slot|number|The ID of the storage slot that will be modified.|
 |value|hex string|The hex string of data that will be set as the value.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -925,11 +977,15 @@ Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba
 
 Set the token locking address.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |tokenLockingAddress|address|The address of the locking contract.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -954,12 +1010,16 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 
 Set up the registrar.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |ens|address|The adddress of the ENS registrar.|
 |rootNode|string|The namehash of the root node for the domain.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -981,11 +1041,15 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 
 Create and start an auction for a token owned by the Colony Network. The auction will be for the total amount of the specificed tokens that are owned by the Colony Network.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |tokenAddress|address|The address of the token contract.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -1017,7 +1081,7 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -1030,7 +1094,7 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -1043,7 +1107,7 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -1055,7 +1119,7 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -1066,7 +1130,7 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -1078,7 +1142,7 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -1091,7 +1155,7 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -1102,7 +1166,7 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -1113,7 +1177,7 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -1125,7 +1189,7 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -1136,7 +1200,7 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -1150,7 +1214,7 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -1162,7 +1226,7 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -1173,7 +1237,7 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|

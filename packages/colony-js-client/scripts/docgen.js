@@ -130,15 +130,15 @@ function printCallers(callers) {
 ### \`${caller.name}.call(${printArgs(caller.args, false)})\`
 
 ${caller.description}
-${caller.args && caller.args.length ? '\n#### Arguments\n\n' : ''}${printProps('Argument', caller.args)}
+${caller.args && caller.args.length ? '\n**Input**\n\n' : ''}${printProps('Argument', caller.args)}
 
-#### Return Values
+**Response**
 
 A promise which resolves to an object containing the following properties:
 
 ${printProps('Return Value', caller.returns)}
 
-#### Contract Information
+**Contract Information**
 
 ${printContractData(caller.contractData)}
 `,
@@ -159,9 +159,13 @@ function printSenders(senders, events) {
 ### \`${sender.name}.send(${printArgs(sender.args, true)})\`
 
 ${sender.description}
-${sender.args && sender.args.length ? '\n#### Arguments\n\n' : ''}${printProps('Argument', sender.args)}
+${sender.args && sender.args.length ? '\n**Input**\n\n' : ''}${printProps('Argument', sender.args)}
 
-#### Response
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
 
 An instance of a \`ContractResponse\`${
   // XXX If this gets even more complicated, find another way!
@@ -176,7 +180,7 @@ An instance of a \`ContractResponse\`${
 
 ${printProps('Event Data', getEventProps(events, sender.events))}
 
-#### Contract Information
+**Contract Information**
 
 ${printContractData(sender.contractData)}
 `,
@@ -194,7 +198,7 @@ function printEvents(events) {
 ### \`events.${event.name}.addListener((${printArgs(event.args)}) => { /* ... */ })\`
 
 ${event.description}
-${event.args && event.args.length ? '\n#### Arguments\n\n' : ''}${printProps('Argument', event.args)}
+${event.args && event.args.length ? '\n**Input**\n\n' : ''}${printProps('Argument', event.args)}
 
 `).join('');
 }
@@ -212,15 +216,15 @@ function printMultiSig(multisig, events) {
 ### \`${ms.name}.startOperation(${printArgs(ms.args, false)})\`
 
 ${ms.description}
-${ms.args && ms.args.length ? '\n#### Arguments\n\n' : ''}${printProps('Argument', ms.args)}
+${ms.args && ms.args.length ? '\n**Input**\n\n' : ''}${printProps('Argument', ms.args)}
 
-#### Response
+**Response**
 
 An instance of a \`MultiSigOperation\`${ms.events && ms.events.length ? ' whose sender will eventually receive the following event data:' : ''}
 
 ${printProps('Event Data', getEventProps(events, ms.events))}
 
-#### Contract Information
+**Contract Information**
 
 ${printContractData(ms.contractData)}
 `,
@@ -240,7 +244,7 @@ function printContractData(data) {
 
 function printProps(title, props) {
   if (props && props.length) {
-    return `|${title}|Type|Description|
+    return `|Name|Type|Description|
 |---|---|---|
 ${props
       .map(param => `|${param.name}|${param.type}|${param.description}|`)

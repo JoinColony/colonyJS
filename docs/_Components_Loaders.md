@@ -8,7 +8,7 @@ Loaders make it possible to easily access and load Ethereum smart contracts. To 
 
 Loaders provide a simple way to get the address and ABI of a deployed contract, in a certain version, at a particular location. This information is passed as an object to the [adapter](/colonyjs/components-adapters/), which initialize the contract for use.
 
-## NetworkLoader
+## Network Loader
 
 Install `@colony/colony-js-contract-loader-network`:
 
@@ -26,7 +26,7 @@ const loader = new NetworkLoader({ network: 'rinkeby' });
 
 ```
 
-## TrufflePigLoader
+## Trufflepig Loader
 
 For local development, colonyJS provides a loader that accepts a contract name and returns the contract's ABI from truffle-generated contract files being sniffed out by our very own [TrufflePig](https://github.com/JoinColony/trufflepig).
 
@@ -46,6 +46,6 @@ const loader = new TrufflepigLoader();
 
 ```
 
-## Future loaders
+## Future Loaders
 
 - Check out [tailor](/tailor/docs-overview/) to learn more about loaders we plan to support in the future.

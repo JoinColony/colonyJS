@@ -6,9 +6,9 @@ order: 3
 
 The `TokenClient` is a standard interface for interactions with methods and events described in `Token.sol`. These interactions are extended from the ERC20 and DSToken standard token interfaces and are generally concerned with managing the native token assigned to a colony. This includes operations such as minting tokens, burning tokens, and transferring tokens.
 
-See [Clients](/colonyjs/components-clients) for information about initializing `TokenClient`.
+See [Clients](/colonyjs/components-clients) for more information about initializing `TokenClient`.
 
-See [ContractClient](/colonyjs/api-contractclient) for information about the `ContractClient` class.
+See [ContractClient](/colonyjs/api-contractclient) for more information about the `ContractClient` class.
 
 ## Table of Contents
 
@@ -23,7 +23,7 @@ See [ContractClient](/colonyjs/api-contractclient) for information about the `Co
 
 Get the token allowance of an address. The allowance is the amount of tokens that the `spender` is authorized to transfer using the `transferFrom` function.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -51,7 +51,7 @@ Contract: [erc20.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c
 
 Get the the token balance of an address.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -128,12 +128,16 @@ Contract: [erc20.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c
 
 Approve a token allowance. This function can only be called by the token `owner`. The allowance is the amount of tokens that the `spender` is authorized to transfer using the `transferFrom` function.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |user|address|The address that will be approved for the allowance (the token `spender`).|
 |amount|big number|The amount of tokens that will be approved (the amount `allowed`).|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -159,12 +163,16 @@ Contract: [erc20.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c
 
 Burn tokens. This is a `DSToken` function that can only be called by the token `owner`. When a colony contract address is assigned as the token `owner`, this function can only be called by the user assigned the `FOUNDER` authority role.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |user|address|The address from which the tokens will be burned.|
 |amount|big number|The amount of tokens that will be burned.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -189,12 +197,16 @@ Contract: [token.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c
 
 Mint new tokens. This is a `DSToken` function that can only be called by the token `owner`. When a colony contract address is assigned as the token `owner`, this function can only be called by the user assigned the `FOUNDER` authority role.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |user|address|The address that will receive the minted tokens.|
 |amount|big number|The amount of tokens that will be minted.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -219,11 +231,15 @@ Contract: [token.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c
 
 Assign an account the `ADMIN` authority role within a colony.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |authority|address|The address that will be assigned the `ADMIN` authority role.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -247,11 +263,15 @@ Contract: [auth.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5
 
 Set the `name` of a token contract. This function can only be called by the current `owner` of the contract. In order to call token contract methods from within a colony, the token `owner` must be the address of the colony contract.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |name|string|The name of the token that will be set.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -272,11 +292,15 @@ Contract: [token.sol](https://github.com/dapphub/dappsys-monolithic/tree/de9114c
 
 Set the `owner` of a token contract. This function can only be called by the current `owner` of the contract. In order to call token contract methods from within a colony, the token `owner` must be the address of the colony contract.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |owner|address|The address that will be assigned as the new owner.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -300,12 +324,16 @@ Contract: [auth.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5
 
 Transfer tokens from the address calling the function to another address. The current address must have a sufficient token balance.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |destinationAddress|address|The address to which tokens will be transferred.|
 |amount|big number|The amount of tokens that will be transferred.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -326,13 +354,17 @@ Contract: [erc20.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c
 
 Transfer tokens from one address to another address. The address the tokens are transferred from must have a sufficient token balance and it must have a sufficient token allowance approved by the token owner.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |sourceAddress|address|The address from which tokens will be transferred.|
 |destinationAddress|address|The address to which tokens will be transferred.|
 |amount|big number|The amount of tokens that will be transferred.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -363,7 +395,7 @@ Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7359eedaada
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -376,7 +408,7 @@ Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7359eedaada
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -388,7 +420,7 @@ Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7359eedaada
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -399,7 +431,7 @@ Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7359eedaada
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -410,7 +442,7 @@ Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7359eedaada
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -422,7 +454,7 @@ Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7359eedaada
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -434,7 +466,7 @@ Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7359eedaada
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|

@@ -6,9 +6,9 @@ order: 4
 
 The `TokenLockingClient` is a standard interface for interactions with methods and events described in `ITokenLocking.sol`. These interactions are generally concerned token locking, such as locking and unlocking tokens.
 
-See [Clients](/colonyjs/components-clients) for information about initializing `TokenLockingClient`.
+See [Clients](/colonyjs/components-clients) for more information about initializing `TokenLockingClient`.
 
-See [ContractClient](/colonyjs/api-contractclient) for information about the `ContractClient` class.
+See [ContractClient](/colonyjs/api-contractclient) for more information about the `ContractClient` class.
 
 ## Table of Contents
 
@@ -23,7 +23,7 @@ See [ContractClient](/colonyjs/api-contractclient) for information about the `Co
 
 Get the total number of locked tokens.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -51,7 +51,7 @@ Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/
 
 Get the total number of locked tokens for a given user.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -84,12 +84,16 @@ Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/
 
 Deposit tokens. This function only be called if the tokens that the user is attempting to deposit are not locked and if the user has allowed the token locking contract to transfer the tokens.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |token|address|The address of the token contract (an empty address if Ether).|
 |amount|big number|The amount of tokens that will be deposited.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -117,11 +121,15 @@ Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/
 
 Lock all tokens for a given token contract.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |token|address|The address of the token contract (an empty address if Ether).|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -147,12 +155,16 @@ Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/
 
 Increment the token lock counter. This method allows users to waive reward payouts for past reward payout cycles, unlocking the tokens that were locked in previous reward payout cycles.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |token|address|The address of the token contract (an empty address if Ether).|
 |lockId|number|The ID of the lock count that will be set.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -174,13 +186,17 @@ Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/
 
 Unlock all tokens for a user on a given token contract.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |token|address|The address of the token contract (an empty address if Ether).|
 |user|address|The address of the user.|
 |lockId|number|The ID of the lock count that will be set.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -207,12 +223,16 @@ Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/
 
 Withdraw tokens. This function only be called if the tokens that the user is attempting to withdraw are not locked.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |token|address|The address of the token contract (an empty address if Ether).|
 |amount|big number|The amount of tokens that will be deposited.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -244,7 +264,7 @@ Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -256,7 +276,7 @@ Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -270,7 +290,7 @@ Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -283,7 +303,7 @@ Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|

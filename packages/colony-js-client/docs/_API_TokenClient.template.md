@@ -6,9 +6,9 @@ order: 3
 
 The `TokenClient` is a standard interface for interactions with methods and events described in `Token.sol`. These interactions are extended from the ERC20 and DSToken standard token interfaces and are generally concerned with managing the native token assigned to a colony. This includes operations such as minting tokens, burning tokens, and transferring tokens.
 
-See [Clients](/colonyjs/components-clients) for information about initializing `TokenClient`.
+See [Clients](/colonyjs/components-clients) for more information about initializing `TokenClient`.
 
-See [ContractClient](/colonyjs/api-contractclient) for information about the `ContractClient` class.
+See [ContractClient](/colonyjs/api-contractclient) for more information about the `ContractClient` class.
 
 ## Table of Contents
 

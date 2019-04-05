@@ -6,9 +6,9 @@ order: 1
 
 The `ColonyClient` class is a standard interface for interactions with the methods and events described in both `IColony.sol` and `IMetaColony.sol`. These interactions are generally concerned with actions within a colony, such as adding a new domain, creating a task, moving funds between pots, and managing permissions.
 
-See [Clients](/colonyjs/components-clients) for information about initializing `ColonyClient`.
+See [Clients](/colonyjs/components-clients) for more information about initializing `ColonyClient`.
 
-See [ContractClient](/colonyjs/api-contractclient) for information about the `ContractClient` class.
+See [ContractClient](/colonyjs/api-contractclient) for more information about the `ContractClient` class.
 
 ## Table of Contents
 
@@ -23,7 +23,7 @@ See [ContractClient](/colonyjs/api-contractclient) for information about the `Co
 
 Generate the rating secret used in task ratings. This function returns a keccak256 hash created from the `salt` and `value`.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -75,7 +75,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Get information about a domain.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -127,7 +127,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Get the total amount of funds that are not in the colony rewards pot. The total amount of funds that are not in the colony rewards pot is a value that keeps track of the total assets a colony has to work with, which may be split among several distinct pots associated with various domains and tasks.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -155,7 +155,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Get information about a funding pot.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -184,7 +184,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Get the balance of a funding pot.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -282,7 +282,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Get information about a reward payout cycle.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -315,7 +315,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Get information about a task.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -375,7 +375,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Get the task payout amount assigned to a task role. Multiple tokens can be used for task payouts, therefore the token must be specified when calling this function. In order to get the task payout amount in Ether, `token` must be an empty address.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -405,7 +405,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Get information about a task role.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -436,7 +436,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Get information about the ratings of a task.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -465,7 +465,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Get the secret of a rating that has been submitted. If a task is in the commit period of the rating process, the ratings are hidden in a keccak256 hash that was created from a `salt` and `value`. The rating secret can be retrieved but in order to reveal the secret, one would have to know both the `salt` and `value` used to generate the secret.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -517,7 +517,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Get the total payout amount assigned to all task roles. Multiple tokens can be used for task payouts, therefore the token must be specified when calling this function. In order to get the task payout amount in Ether, `token` must be an empty address.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -569,7 +569,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Check whether a user has an authority role.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -625,11 +625,15 @@ Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba
 
 Add a domain to the colony. Adding new domains is currently retricted to one level, i.e. the `parentDomainId` must be the id of the root domain `1`, which represents the colony itself.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |parentDomainId|number|The ID of the parent domain.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -659,11 +663,15 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Add a new global skill to the skills tree. This can only be called from the Meta Colony and only by the user assigned the `FOUNDER` role.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |parentSkillId|number|The ID of the skill under which the new skill will be added.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -690,6 +698,10 @@ Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9b
 Indicate approval to exit colony recovery mode. This function can only be called by a user with a recovery role.
 
 
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
 **Response**
 
 An instance of a `ContractResponse`
@@ -710,12 +722,16 @@ Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba
 
 Bootstrap the colony by giving an initial amount of tokens and reputation to selected users. This function can only be called by the user assigned the `FOUNDER` authority role when the `taskCount` for the colony is equal to `0`.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |users|array|The array of users that will recieve an initial amount of tokens and reputation.|
 |amounts|array|The array of corresponding token and reputation amounts each user will recieve.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -741,11 +757,15 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Claim funds that the colony has received by adding them to the funding pot of the root domain. A small fee is deducted from the funds claimed and added to the colony rewards pot. No fee is deducted when tokens native to the colony are claimed.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |token|address|The address of the token contract (an empty address if Ether).|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -772,13 +792,17 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Claim the payout assigned to a task role. This function can only be called by the user who is assigned a task role (`MANAGER`, `EVALUATOR`, or `WORKER`) after the task has been finalized.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
 |role|task role|The role that submitted the rating (`MANAGER`, `EVALUATOR`, or `WORKER`).|
 |token|address|The address of the token contract (an empty address if Ether).|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -810,11 +834,15 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Mark a task as complete. If the user assigned the `WORKER` task role fails to submit the task deliverable by the due date, this function must be called by the user assigned the `MANAGER` task role. This allows the task work to be rated and the task to be finalized.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -839,7 +867,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Create a new task within the colony.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -847,6 +875,10 @@ Create a new task within the colony.
 |domainId|number (optional)|The ID of the domain (default value of `1`).|
 |skillId|number (optional)|The ID of the skill (default value of `null`).|
 |dueDate|date (optional)|The due date of the task (default value of `30` days from creation).|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -878,6 +910,10 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 Enter colony recovery mode. This function can only be called by a user with a recovery role.
 
 
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
 **Response**
 
 An instance of a `ContractResponse`
@@ -899,6 +935,10 @@ Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba
 Exit colony recovery mode. This function can be called by anyone if enough whitelist approvals are given.
 
 
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
 **Response**
 
 An instance of a `ContractResponse`
@@ -919,11 +959,15 @@ Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba
 
 Finalize the reward payout cycle. This function can only be called when the reward payout cycle has finished, i.e. 60 days have passed since the creation of the reward payout cycle.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |payoutId|number|The ID of the reward payout cycle.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -948,11 +992,15 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Finalize a task. Once a task is finalized, each user assigned a task role can claim the payout assigned to their role and no further changes to the task can be made.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -977,7 +1025,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Make a payment. This function can only be called by the user assigned either the `FOUNDER` or `ADMIN` authority role.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -986,6 +1034,10 @@ Make a payment. This function can only be called by the user assigned either the
 |amount|big number||
 |domainId|number||
 |skillId|number||
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -1030,11 +1082,15 @@ Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba
 
 Mint new tokens. This function can only be called if the address of the colony contract is the owner of the token contract. If this is the case, then this function can only be called by the user assigned the `FOUNDER` authority role.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |amount|big number|The amount of new tokens that will be minted.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -1060,11 +1116,15 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Mint tokens for the Colony Network. This can only be called from the Meta Colony and only by the user assigned the `FOUNDER` role.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |amount|big number|The amount of new tokens that will be minted.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -1094,7 +1154,7 @@ Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9b
 
 Move funds from one pot to another.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -1102,6 +1162,10 @@ Move funds from one pot to another.
 |toPot|number|The ID of the pot to which funds will be moved.|
 |amount|big number|The amount of funds that will be moved between pots.|
 |token|address|The address of the token contract (an empty address if Ether).|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -1129,12 +1193,16 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Register an ENS label for the colony.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |colonyName|string|The ENS label that will be registered for the colony.|
 |orbitDBPath|string|The path of the OrbitDB database associated with the colony.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -1160,11 +1228,15 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Remove the `ADMIN` authority role from a user. This function can only be called by the user assigned the `FOUNDER` authroity role.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |user|address|The address that we will be unassigned the `ADMIN` authority role.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -1189,11 +1261,15 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Remove the colony recovery role from a user. This function can only be called by the `FOUNDER` authority role.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |user|address|The address that will be unassigned a colony recovery role.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -1215,7 +1291,7 @@ Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba
 
 Reveal a submitted work rating. In order to reveal a work rating, the same `salt` and `value` used to generate the `secret` when the task work rating was submitted must be provided again here to reveal the task work rating.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -1223,6 +1299,10 @@ Reveal a submitted work rating. In order to reveal a work rating, the same `salt
 |role|task role|The role that received the rating (`MANAGER` or `WORKER`).|
 |rating|number|The rating that was submitted (`1`, `2`, or `3`).|
 |salt|string|The string that was used to generate the secret.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -1249,11 +1329,15 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Assign the `ADMIN` authority role to a user. This function can only be called by the user assigned the `FOUNDER` authority role or a user assigned the `ADMIN` authority role. There is no limit to the number of users that can be assigned the `ADMIN` authority role.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |user|address|The address that will be assigned the `ADMIN` authroity role.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -1278,7 +1362,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Set the payouts for all task roles (`MANAGER`, `EVALUATOR`, and `WORKER`). This can only be called by the user assigned the `MANAGER` task role and only if the `EVALUATOR` and `WORKER` task roles are either not assigned or assigned to the same user as the `MANAGER` task role.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -1287,6 +1371,10 @@ Set the payouts for all task roles (`MANAGER`, `EVALUATOR`, and `WORKER`). This 
 |managerAmount|big number|The payout amount in tokens (or Ether) for the `MANAGER` task role.|
 |evaluatorAmount|big number|The payout amount in tokens (or Ether) for the `EVALUATOR` task role.|
 |workerAmount|big number|The payout amount in tokens (or Ether) for the `WORKER` task role.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -1314,11 +1402,15 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Assign the `FOUNDER` authority role to a user. This function can only be called by the user currently assigned the `FOUNDER` authority role. There can only be one address assigned to the `FOUNDER` authority role, therefore, the user currently assigned will forfeit their role.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |user|address|The address that will be assigned the `FOUNDER` authority role.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -1344,11 +1436,15 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Set the inverse amount of the reward. This can only be called from the Meta Colony and only by the user assigned the `FOUNDER` role. If the fee is 1% (or 0.01), the inverse amount will be 100.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |feeInverse|number|The inverse amount that will be set.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -1370,11 +1466,15 @@ Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9b
 
 Assign a colony recovery role to a user. This function can only be called by the `FOUNDER` authority role.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |user|address|The address that will be assigned a colony recovery role.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -1396,11 +1496,15 @@ Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba
 
 Set the inverse amount of the reward. If the fee is 1% (or 0.01), the inverse amount will be 100.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |rewardInverse|big number|The inverse amount of the reward.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -1425,12 +1529,16 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Set the value for a storage slot while in recovery mode. This can only be called by a user with a recovery role.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |slot|number|The ID of the storage slot that will be modified.|
 |value|hex string|The hex string of data that will be set as the value.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -1452,11 +1560,15 @@ Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba
 
 Start the next reward payout cycle. All the funds in the colony rewards pot for the given token will become locked until reputation holders have claimed their rewards payout using `claimRewardPayout`. Reputation holders can also waive their reward payout and unlock their tokens for past reward payout cycles by using `incrementLockCounterTo`.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |token|address|The address of the token contract (an empty address if Ether).|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -1484,12 +1596,16 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Submit the task deliverable. This function can only be called by the user assigned the `WORKER` task role on or before the task due date. The submission cannot be overwritten, which means the deliverable cannot be changed once it has been submitted.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
 |deliverableHash|IPFS hash|The deliverable hash of the task (an IPFS hash).|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -1516,13 +1632,17 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Submit the task deliverable and the work rating for the user assigned the `MANAGER` task role. This function can only be called by the user assigned the `WORKER` task role on or before the task due date. The submission cannot be overwritten, which means the deliverable cannot be changed once it has been submitted. In order to submit a rating, a `secret` must be generated using the `generateSecret` method, which keeps the rating hidden until all ratings have been submitted and revealed.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
 |deliverableHash|IPFS hash|The deliverable hash of the task (an IPFS hash).|
 |secret|hex string|A keccak256 hash that keeps the task rating hidden.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -1549,13 +1669,17 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Submit a work rating for a task. This function can only be called by the user assigned the `EVALUATOR` task role, who is submitting a rating for the user assigned the `WORKER` task role, or the user assigned the `WORKER` task role, who is submitting a rating for the user assigned the `MANAGER` task role. In order to submit a rating, a `secret` must be generated using the `generateSecret` method, which keeps the rating hidden until all ratings have been submitted and revealed.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
 |role|task role|The role that will receive the rating (`MANAGER` or `WORKER`).|
 |secret|hex string|A keccak256 hash that keeps the task rating hidden.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -1577,11 +1701,15 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Upgrade the colony to a new contract version. The new version number must be higher than the current version. Downgrading to old contract versions is not permitted.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
 |newVersion|number|The version number of the colony contract.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
 
 **Response**
 
@@ -1611,7 +1739,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Cancel a task. Once a task is cancelled, no further changes to the task can be made.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -1640,7 +1768,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Remove the `EVALUATOR` task role assignment. This function can only be called before the task is complete, i.e. either before the deliverable has been submitted or the user assigned the `WORKER` task role has failed to meet the deadline and the user assigned the `MANAGER` task role has marked the task as complete.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -1671,7 +1799,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Remove the `WORKER` task role assignment. This function can only be called before the task is complete, i.e. either before the deliverable has been submitted or the user assigned the `WORKER` task role has failed to meet the deadline and the user assigned the `MANAGER` task role has marked the task as complete.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -1702,7 +1830,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Set the task specification. The task specification, or "task brief", is a description of the work that must be completed for the task. The description is hashed and stored with the task for future reference during the rating process or in the event of a dispute.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -1733,7 +1861,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Set the domain of a task. Every task must belong to a domain. This function can only be called by the user assigned the `MANAGER` task role.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -1764,7 +1892,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Set the due date of a task. The due date is the last day that the user assigned the `WORKER` task role can submit the task deliverable.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -1795,7 +1923,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Assign the `EVALUATOR` task role to a user. This function can only be called before the task is finalized. The user assigned the `MANAGER` task role and the user being assigned the `EVALUATOR` task role must both sign the transaction before it can be executed.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -1827,7 +1955,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Assign the `MANAGER` task role to a user. This function can only be called before the task is finalized. The user currently assigned the `MANAGER` task role and the user being assigned the `MANAGER` task role must both sign the transaction before it can be executed.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -1859,7 +1987,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Set the skill of a task. Only one skill can be assigned per task. The user assigned the `MANAGER` task role and the user assigned the `WORKER` task role must both sign this transaction before it can be executed.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -1890,7 +2018,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Assign the `WORKER` task role to a user. This function can only be called before the task is finalized. The user assigned the `MANAGER` task role and the user being assigned the `WORKER` task role must both sign the transaction before it can be executed.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -1922,7 +2050,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Set the payout amount for the `MANAGER` task role.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -1956,7 +2084,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Set the payout amount for the `EVALUATOR` task role.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -1990,7 +2118,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Set the payout amount for the `WORKER` task role.
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2028,7 +2156,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2039,7 +2167,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2050,7 +2178,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2062,7 +2190,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2074,7 +2202,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2087,7 +2215,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2101,7 +2229,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2112,7 +2240,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2124,7 +2252,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2135,7 +2263,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2147,7 +2275,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2158,7 +2286,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2170,7 +2298,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2181,7 +2309,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2195,7 +2323,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2206,7 +2334,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2217,7 +2345,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2229,7 +2357,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2240,7 +2368,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2252,7 +2380,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2263,7 +2391,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2274,7 +2402,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2286,7 +2414,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2298,7 +2426,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2310,7 +2438,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2321,7 +2449,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2335,7 +2463,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2349,7 +2477,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2362,7 +2490,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2374,7 +2502,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2387,7 +2515,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2399,7 +2527,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 
 
-**Arguments**
+**Input**
 
 |Name|Type|Description|
 |---|---|---|
