@@ -8,4 +8,8 @@ The `TokenClient` is a standard interface for interactions with methods and even
 
 See [Clients](/colonyjs/components-clients) for information about initializing `TokenClient`.
 
+See [ContractClient](/colonyjs/api-contractclient) for information about the `ContractClient` class.
+
+## Table of Contents
+
 ==TOC==
