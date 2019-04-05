@@ -8,7 +8,7 @@ The `TokenClient` is a standard interface for interactions with methods and even
 
 See [Clients](/colonyjs/components-clients) for more information about initializing `TokenClient`.
 
-See [ContractClient](/colonyjs/api-contractclient) for more information about the `ContractClient` class.
+See [ContractClient](/colonyjs/api-contractclient) for more information about the `ContractClient` superclass.
 
 ## Table of Contents
 
@@ -391,11 +391,18 @@ Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7359eedaada
 ## Events
 
 
-### `events.Approval.addListener(({ owner, spender, value }) => { /* ... */ })`
+### `events.Approval`
+
+**Methods**
+
+`.addListener(({ owner, spender, value }) => { /* ... */ })`
+
+`.removeListener(({ owner, spender, value }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
@@ -404,11 +411,18 @@ Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7359eedaada
 |value|big number|The amount of tokens that were approved (the amount `allowed`).|
 
 
-### `events.Burn.addListener(({ address, amount }) => { /* ... */ })`
+### `events.Burn`
+
+**Methods**
+
+`.addListener(({ address, amount }) => { /* ... */ })`
+
+`.removeListener(({ address, amount }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
@@ -416,33 +430,54 @@ Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7359eedaada
 |amount|big number|The amount of tokens that were burned.|
 
 
-### `events.LogSetAuthority.addListener(({ authority }) => { /* ... */ })`
+### `events.LogSetAuthority`
+
+**Methods**
+
+`.addListener(({ authority }) => { /* ... */ })`
+
+`.removeListener(({ authority }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
 |authority|address|The address that was assigned an authority role.|
 
 
-### `events.LogSetOwner.addListener(({ owner }) => { /* ... */ })`
+### `events.LogSetOwner`
+
+**Methods**
+
+`.addListener(({ owner }) => { /* ... */ })`
+
+`.removeListener(({ owner }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
 |owner|address|The address that was assigned as the new owner.|
 
 
-### `events.Mint.addListener(({ address, amount }) => { /* ... */ })`
+### `events.Mint`
+
+**Methods**
+
+`.addListener(({ address, amount }) => { /* ... */ })`
+
+`.removeListener(({ address, amount }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
@@ -450,11 +485,18 @@ Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7359eedaada
 |amount|big number|The amount of tokens that were minted.|
 
 
-### `events.TokenLocked.addListener(({ token, lockCount }) => { /* ... */ })`
+### `events.TokenLocked`
+
+**Methods**
+
+`.addListener(({ token, lockCount }) => { /* ... */ })`
+
+`.removeListener(({ token, lockCount }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
@@ -462,11 +504,18 @@ Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7359eedaada
 |lockCount|number|The total lock count for the token.|
 
 
-### `events.Transfer.addListener(({ from, to, value }) => { /* ... */ })`
+### `events.Transfer`
+
+**Methods**
+
+`.addListener(({ from, to, value }) => { /* ... */ })`
+
+`.removeListener(({ from, to, value }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|

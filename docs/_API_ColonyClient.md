@@ -8,7 +8,7 @@ The `ColonyClient` class is a standard interface for interactions with the metho
 
 See [Clients](/colonyjs/components-clients) for more information about initializing `ColonyClient`.
 
-See [ContractClient](/colonyjs/api-contractclient) for more information about the `ContractClient` class.
+See [ContractClient](/colonyjs/api-contractclient) for more information about the `ContractClient` superclass.
 
 ## Table of Contents
 
@@ -2152,33 +2152,54 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 ## Events
 
 
-### `events.ColonyAdminRoleRemoved.addListener(({ user }) => { /* ... */ })`
+### `events.ColonyAdminRoleRemoved`
+
+**Methods**
+
+`.addListener(({ user }) => { /* ... */ })`
+
+`.removeListener(({ user }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
 |user|address|The address that was unassigned the `ADMIN` authority role.|
 
 
-### `events.ColonyAdminRoleSet.addListener(({ user }) => { /* ... */ })`
+### `events.ColonyAdminRoleSet`
+
+**Methods**
+
+`.addListener(({ user }) => { /* ... */ })`
+
+`.removeListener(({ user }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
 |user|address|The address that was assigned the `ADMIN` authority role.|
 
 
-### `events.ColonyBootstrapped.addListener(({ users, amounts }) => { /* ... */ })`
+### `events.ColonyBootstrapped`
+
+**Methods**
+
+`.addListener(({ users, amounts }) => { /* ... */ })`
+
+`.removeListener(({ users, amounts }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2186,11 +2207,18 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 |amounts|array|The array of corresponding token and reputation amounts each user recieved.|
 
 
-### `events.ColonyFounderRoleSet.addListener(({ oldFounder, newFounder }) => { /* ... */ })`
+### `events.ColonyFounderRoleSet`
+
+**Methods**
+
+`.addListener(({ oldFounder, newFounder }) => { /* ... */ })`
+
+`.removeListener(({ oldFounder, newFounder }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2198,11 +2226,18 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 |newFounder|address|The address that was assigned the `FOUNDER` authority role (the new founder).|
 
 
-### `events.ColonyFundsClaimed.addListener(({ token, fee, payoutRemainder }) => { /* ... */ })`
+### `events.ColonyFundsClaimed`
+
+**Methods**
+
+`.addListener(({ token, fee, payoutRemainder }) => { /* ... */ })`
+
+`.removeListener(({ token, fee, payoutRemainder }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2211,11 +2246,18 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 |payoutRemainder|big number|The remaining funds (after the fee) moved to the top-level domain pot.|
 
 
-### `events.ColonyFundsMovedBetweenFundingPots.addListener(({ fromPot, toPot, amount, token }) => { /* ... */ })`
+### `events.ColonyFundsMovedBetweenFundingPots`
+
+**Methods**
+
+`.addListener(({ fromPot, toPot, amount, token }) => { /* ... */ })`
+
+`.removeListener(({ fromPot, toPot, amount, token }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2225,22 +2267,36 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 |token|address|The address of the token contract (an empty address if Ether).|
 
 
-### `events.ColonyInitialised.addListener(({ colonyNetwork }) => { /* ... */ })`
+### `events.ColonyInitialised`
+
+**Methods**
+
+`.addListener(({ colonyNetwork }) => { /* ... */ })`
+
+`.removeListener(({ colonyNetwork }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
 |colonyNetwork|address|The address of the Colony Network.|
 
 
-### `events.ColonyLabelRegistered.addListener(({ colony, label }) => { /* ... */ })`
+### `events.ColonyLabelRegistered`
+
+**Methods**
+
+`.addListener(({ colony, label }) => { /* ... */ })`
+
+`.removeListener(({ colony, label }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2248,22 +2304,36 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 |label|string|The label that was registered for the colony.|
 
 
-### `events.ColonyRewardInverseSet.addListener(({ rewardInverse }) => { /* ... */ })`
+### `events.ColonyRewardInverseSet`
+
+**Methods**
+
+`.addListener(({ rewardInverse }) => { /* ... */ })`
+
+`.removeListener(({ rewardInverse }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
 |rewardInverse|big number|The reward inverse value that was set.|
 
 
-### `events.ColonyUpgraded.addListener(({ oldVersion, newVersion }) => { /* ... */ })`
+### `events.ColonyUpgraded`
+
+**Methods**
+
+`.addListener(({ oldVersion, newVersion }) => { /* ... */ })`
+
+`.removeListener(({ oldVersion, newVersion }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2271,22 +2341,36 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 |newVersion|number|The new version number of the colony.|
 
 
-### `events.DomainAdded.addListener(({ domainId }) => { /* ... */ })`
+### `events.DomainAdded`
+
+**Methods**
+
+`.addListener(({ domainId }) => { /* ... */ })`
+
+`.removeListener(({ domainId }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
 |domainId|number|The ID of the domain that was added.|
 
 
-### `events.Mint.addListener(({ address, amount }) => { /* ... */ })`
+### `events.Mint`
+
+**Methods**
+
+`.addListener(({ address, amount }) => { /* ... */ })`
+
+`.removeListener(({ address, amount }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2294,22 +2378,36 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 |amount|big number|The amount of tokens that were minted.|
 
 
-### `events.FundingPotAdded.addListener(({ potId }) => { /* ... */ })`
+### `events.FundingPotAdded`
+
+**Methods**
+
+`.addListener(({ potId }) => { /* ... */ })`
+
+`.removeListener(({ potId }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
 |potId|number|The numeric ID of the pot that was added.|
 
 
-### `events.RewardPayoutClaimed.addListener(({ rewardPayoutId, user, fee, payoutRemainder }) => { /* ... */ })`
+### `events.RewardPayoutClaimed`
+
+**Methods**
+
+`.addListener(({ rewardPayoutId, user, fee, payoutRemainder }) => { /* ... */ })`
+
+`.removeListener(({ rewardPayoutId, user, fee, payoutRemainder }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2319,33 +2417,54 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 |payoutRemainder|big number|The remaining payout amount (after the fee) transferred to the user.|
 
 
-### `events.RewardPayoutCycleEnded.addListener(({ payoutId }) => { /* ... */ })`
+### `events.RewardPayoutCycleEnded`
+
+**Methods**
+
+`.addListener(({ payoutId }) => { /* ... */ })`
+
+`.removeListener(({ payoutId }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
 |payoutId|number|The ID of the payout cycle that ended.|
 
 
-### `events.RewardPayoutCycleStarted.addListener(({ payoutId }) => { /* ... */ })`
+### `events.RewardPayoutCycleStarted`
+
+**Methods**
+
+`.addListener(({ payoutId }) => { /* ... */ })`
+
+`.removeListener(({ payoutId }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
 |payoutId|number|The ID of the payout cycle that started.|
 
 
-### `events.SkillAdded.addListener(({ skillId, parentSkillId }) => { /* ... */ })`
+### `events.SkillAdded`
+
+**Methods**
+
+`.addListener(({ skillId, parentSkillId }) => { /* ... */ })`
+
+`.removeListener(({ skillId, parentSkillId }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2353,22 +2472,36 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 |parentSkillId|number|The ID of the parent skill.|
 
 
-### `events.TaskAdded.addListener(({ taskId }) => { /* ... */ })`
+### `events.TaskAdded`
+
+**Methods**
+
+`.addListener(({ taskId }) => { /* ... */ })`
+
+`.removeListener(({ taskId }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was added.|
 
 
-### `events.TaskBriefSet.addListener(({ taskId, specificationHash }) => { /* ... */ })`
+### `events.TaskBriefSet`
+
+**Methods**
+
+`.addListener(({ taskId, specificationHash }) => { /* ... */ })`
+
+`.removeListener(({ taskId, specificationHash }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2376,33 +2509,54 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 |specificationHash|string|The specification hash that was set (an IPFS hash).|
 
 
-### `events.TaskCanceled.addListener(({ taskId }) => { /* ... */ })`
+### `events.TaskCanceled`
+
+**Methods**
+
+`.addListener(({ taskId }) => { /* ... */ })`
+
+`.removeListener(({ taskId }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was canceled.|
 
 
-### `events.TaskCompleted.addListener(({ taskId }) => { /* ... */ })`
+### `events.TaskCompleted`
+
+**Methods**
+
+`.addListener(({ taskId }) => { /* ... */ })`
+
+`.removeListener(({ taskId }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was completed.|
 
 
-### `events.TaskDeliverableSubmitted.addListener(({ taskId, deliverableHash }) => { /* ... */ })`
+### `events.TaskDeliverableSubmitted`
+
+**Methods**
+
+`.addListener(({ taskId, deliverableHash }) => { /* ... */ })`
+
+`.removeListener(({ taskId, deliverableHash }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2410,11 +2564,18 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 |deliverableHash|IPFS hash|The deliverable hash that was submitted (an IPFS hash).|
 
 
-### `events.TaskDomainSet.addListener(({ taskId, domainId }) => { /* ... */ })`
+### `events.TaskDomainSet`
+
+**Methods**
+
+`.addListener(({ taskId, domainId }) => { /* ... */ })`
+
+`.removeListener(({ taskId, domainId }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2422,11 +2583,18 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 |domainId|number|The ID of the domain that was set.|
 
 
-### `events.TaskDueDateSet.addListener(({ taskId, dueDate }) => { /* ... */ })`
+### `events.TaskDueDateSet`
+
+**Methods**
+
+`.addListener(({ taskId, dueDate }) => { /* ... */ })`
+
+`.removeListener(({ taskId, dueDate }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2434,22 +2602,36 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 |dueDate|date|The due date that was set.|
 
 
-### `events.TaskFinalized.addListener(({ taskId }) => { /* ... */ })`
+### `events.TaskFinalized`
+
+**Methods**
+
+`.addListener(({ taskId }) => { /* ... */ })`
+
+`.removeListener(({ taskId }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was finalized.|
 
 
-### `events.TaskPayoutClaimed.addListener(({ taskId, role, token, amount }) => { /* ... */ })`
+### `events.TaskPayoutClaimed`
+
+**Methods**
+
+`.addListener(({ taskId, role, token, amount }) => { /* ... */ })`
+
+`.removeListener(({ taskId, role, token, amount }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2459,11 +2641,18 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 |amount|big number|The task payout amount that was claimed.|
 
 
-### `events.TaskPayoutSet.addListener(({ taskId, role, token, amount }) => { /* ... */ })`
+### `events.TaskPayoutSet`
+
+**Methods**
+
+`.addListener(({ taskId, role, token, amount }) => { /* ... */ })`
+
+`.removeListener(({ taskId, role, token, amount }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2473,11 +2662,18 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 |amount|big number|The task payout amount that was set.|
 
 
-### `events.TaskRoleUserSet.addListener(({ taskId, role, user }) => { /* ... */ })`
+### `events.TaskRoleUserSet`
+
+**Methods**
+
+`.addListener(({ taskId, role, user }) => { /* ... */ })`
+
+`.removeListener(({ taskId, role, user }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2486,11 +2682,18 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 |user|address|The user that was assigned the task role.|
 
 
-### `events.TaskSkillSet.addListener(({ taskId, skillId }) => { /* ... */ })`
+### `events.TaskSkillSet`
+
+**Methods**
+
+`.addListener(({ taskId, skillId }) => { /* ... */ })`
+
+`.removeListener(({ taskId, skillId }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2498,11 +2701,18 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 |skillId|number|The ID of the skill that was set.|
 
 
-### `events.TaskWorkRatingRevealed.addListener(({ taskId, role, rating }) => { /* ... */ })`
+### `events.TaskWorkRatingRevealed`
+
+**Methods**
+
+`.addListener(({ taskId, role, rating }) => { /* ... */ })`
+
+`.removeListener(({ taskId, role, rating }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2511,11 +2721,18 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 |rating|number|The value of the rating that was revealed (`1`, `2`, or `3`).|
 
 
-### `events.TokenLocked.addListener(({ token, lockCount }) => { /* ... */ })`
+### `events.TokenLocked`
+
+**Methods**
+
+`.addListener(({ token, lockCount }) => { /* ... */ })`
+
+`.removeListener(({ token, lockCount }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
@@ -2523,11 +2740,18 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 |lockCount|number|The total lock count for the token.|
 
 
-### `events.Transfer.addListener(({ from, to, value }) => { /* ... */ })`
+### `events.Transfer`
+
+**Methods**
+
+`.addListener(({ from, to, value }) => { /* ... */ })`
+
+`.removeListener(({ from, to, value }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|

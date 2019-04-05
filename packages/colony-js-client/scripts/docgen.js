@@ -130,13 +130,13 @@ function printCallers(callers) {
 ### \`${caller.name}.call(${printArgs(caller.args, false)})\`
 
 ${caller.description}
-${caller.args && caller.args.length ? '\n**Input**\n\n' : ''}${printProps('Argument', caller.args)}
+${caller.args && caller.args.length ? '\n**Input**\n\n' : ''}${printProps(caller.args)}
 
 **Response**
 
 A promise which resolves to an object containing the following properties:
 
-${printProps('Return Value', caller.returns)}
+${printProps(caller.returns)}
 
 **Contract Information**
 
@@ -159,7 +159,7 @@ function printSenders(senders, events) {
 ### \`${sender.name}.send(${printArgs(sender.args, true)})\`
 
 ${sender.description}
-${sender.args && sender.args.length ? '\n**Input**\n\n' : ''}${printProps('Argument', sender.args)}
+${sender.args && sender.args.length ? '\n**Input**\n\n' : ''}${printProps(sender.args)}
 
 **Options**
 
@@ -178,7 +178,7 @@ An instance of a \`ContractResponse\`${
       )
 }
 
-${printProps('Event Data', getEventProps(events, sender.events))}
+${printProps(getEventProps(events, sender.events))}
 
 **Contract Information**
 
@@ -195,10 +195,17 @@ function printEvents(events) {
 ## Events
 
 ` + events.map(event => `
-### \`events.${event.name}.addListener((${printArgs(event.args)}) => { /* ... */ })\`
+### \`events.${event.name}\`
+
+**Methods**
+
+\`.addListener((${printArgs(event.args)}) => { /* ... */ })\`
+
+\`.removeListener((${printArgs(event.args)}) => { /* ... */ })\`
 
 ${event.description}
-${event.args && event.args.length ? '\n**Input**\n\n' : ''}${printProps('Argument', event.args)}
+
+${event.args && event.args.length ? '\n**Event Data**\n\n' : ''}${printProps(event.args)}
 
 `).join('');
 }
@@ -216,13 +223,13 @@ function printMultiSig(multisig, events) {
 ### \`${ms.name}.startOperation(${printArgs(ms.args, false)})\`
 
 ${ms.description}
-${ms.args && ms.args.length ? '\n**Input**\n\n' : ''}${printProps('Argument', ms.args)}
+${ms.args && ms.args.length ? '\n**Input**\n\n' : ''}${printProps(ms.args)}
 
 **Response**
 
 An instance of a \`MultiSigOperation\`${ms.events && ms.events.length ? ' whose sender will eventually receive the following event data:' : ''}
 
-${printProps('Event Data', getEventProps(events, ms.events))}
+${printProps(getEventProps(events, ms.events))}
 
 **Contract Information**
 
@@ -242,7 +249,7 @@ function printContractData(data) {
   `
 }
 
-function printProps(title, props) {
+function printProps(props) {
   if (props && props.length) {
     return `|Name|Type|Description|
 |---|---|---|

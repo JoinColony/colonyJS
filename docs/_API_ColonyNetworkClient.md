@@ -8,7 +8,7 @@ The `ColonyNetworkClient` is a standard interface for interactions with methods 
 
 See [Clients](/colonyjs/components-clients) for more information about initializing `ColonyNetworkClient`.
 
-See [ContractClient](/colonyjs/api-contractclient) for more information about the `ContractClient` class.
+See [ContractClient](/colonyjs/api-contractclient) for more information about the `ContractClient` superclass.
 
 ## Table of Contents
 
@@ -1077,11 +1077,18 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 ## Events
 
 
-### `events.AuctionCreated.addListener(({ auction, token, quantity }) => { /* ... */ })`
+### `events.AuctionCreated`
+
+**Methods**
+
+`.addListener(({ auction, token, quantity }) => { /* ... */ })`
+
+`.removeListener(({ auction, token, quantity }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
@@ -1090,11 +1097,18 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 |quantity|big number|The amount of tokens available for the auction.|
 
 
-### `events.ColonyAdded.addListener(({ colonyId, colonyAddress, tokenAddress }) => { /* ... */ })`
+### `events.ColonyAdded`
+
+**Methods**
+
+`.addListener(({ colonyId, colonyAddress, tokenAddress }) => { /* ... */ })`
+
+`.removeListener(({ colonyId, colonyAddress, tokenAddress }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
@@ -1103,11 +1117,18 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 |tokenAddress|address|The address of the token contract that was assigned.|
 
 
-### `events.ColonyLabelRegistered.addListener(({ colony, label }) => { /* ... */ })`
+### `events.ColonyLabelRegistered`
+
+**Methods**
+
+`.addListener(({ colony, label }) => { /* ... */ })`
+
+`.removeListener(({ colony, label }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
@@ -1115,22 +1136,36 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 |label|string|The ENS label that was registered for the colony.|
 
 
-### `events.ColonyNetworkInitialised.addListener(({ resolver }) => { /* ... */ })`
+### `events.ColonyNetworkInitialised`
+
+**Methods**
+
+`.addListener(({ resolver }) => { /* ... */ })`
+
+`.removeListener(({ resolver }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
 |resolver|address|The address of the resolver contract.|
 
 
-### `events.ColonyVersionAdded.addListener(({ version, resolver }) => { /* ... */ })`
+### `events.ColonyVersionAdded`
+
+**Methods**
+
+`.addListener(({ version, resolver }) => { /* ... */ })`
+
+`.removeListener(({ version, resolver }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
@@ -1138,11 +1173,18 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 |resolver|address|The address of the resolver contract.|
 
 
-### `events.MetaColonyCreated.addListener(({ colonyAddress, tokenAddress, rootSkillId }) => { /* ... */ })`
+### `events.MetaColonyCreated`
+
+**Methods**
+
+`.addListener(({ colonyAddress, tokenAddress, rootSkillId }) => { /* ... */ })`
+
+`.removeListener(({ colonyAddress, tokenAddress, rootSkillId }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
@@ -1151,33 +1193,54 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 |rootSkillId|number|The ID of the root skill.|
 
 
-### `events.MiningCycleResolverSet.addListener(({ miningCycleResolver }) => { /* ... */ })`
+### `events.MiningCycleResolverSet`
+
+**Methods**
+
+`.addListener(({ miningCycleResolver }) => { /* ... */ })`
+
+`.removeListener(({ miningCycleResolver }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
 |miningCycleResolver|address|The address of the resolver contract for the reputation mining cycle contract.|
 
 
-### `events.NetworkFeeInverseSet.addListener(({ feeInverse }) => { /* ... */ })`
+### `events.NetworkFeeInverseSet`
+
+**Methods**
+
+`.addListener(({ feeInverse }) => { /* ... */ })`
+
+`.removeListener(({ feeInverse }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
 |feeInverse|big number|The inverse value of the network fee that was set.|
 
 
-### `events.ReputationMiningCycleComplete.addListener(({ hash, nNodes }) => { /* ... */ })`
+### `events.ReputationMiningCycleComplete`
+
+**Methods**
+
+`.addListener(({ hash, nNodes }) => { /* ... */ })`
+
+`.removeListener(({ hash, nNodes }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
@@ -1185,22 +1248,36 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 |nNodes|number|The total number of nodes in the reputation state.|
 
 
-### `events.ReputationMiningInitialised.addListener(({ inactiveReputationMiningCycle }) => { /* ... */ })`
+### `events.ReputationMiningInitialised`
+
+**Methods**
+
+`.addListener(({ inactiveReputationMiningCycle }) => { /* ... */ })`
+
+`.removeListener(({ inactiveReputationMiningCycle }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
 |inactiveReputationMiningCycle|address|The address of the reputation mining cycle that was initialized.|
 
 
-### `events.ReputationRootHashSet.addListener(({ newHash, newNNodes, stakers, reward }) => { /* ... */ })`
+### `events.ReputationRootHashSet`
+
+**Methods**
+
+`.addListener(({ newHash, newNNodes, stakers, reward }) => { /* ... */ })`
+
+`.removeListener(({ newHash, newNNodes, stakers, reward }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
@@ -1210,11 +1287,18 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 |reward|array|The array of corresponding amounts of CLNY each user received.|
 
 
-### `events.SkillAdded.addListener(({ skillId, parentSkillId }) => { /* ... */ })`
+### `events.SkillAdded`
+
+**Methods**
+
+`.addListener(({ skillId, parentSkillId }) => { /* ... */ })`
+
+`.removeListener(({ skillId, parentSkillId }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
@@ -1222,22 +1306,36 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 |parentSkillId|number|The ID of the parent skill.|
 
 
-### `events.TokenLockingAddressSet.addListener(({ tokenLocking }) => { /* ... */ })`
+### `events.TokenLockingAddressSet`
+
+**Methods**
+
+`.addListener(({ tokenLocking }) => { /* ... */ })`
+
+`.removeListener(({ tokenLocking }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
 |tokenLocking|address|The address of the token locking contract.|
 
 
-### `events.UserLabelRegistered.addListener(({ user, label }) => { /* ... */ })`
+### `events.UserLabelRegistered`
+
+**Methods**
+
+`.addListener(({ user, label }) => { /* ... */ })`
+
+`.removeListener(({ user, label }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|

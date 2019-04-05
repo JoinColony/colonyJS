@@ -8,7 +8,7 @@ The `ColonyClient` class is a standard interface for interactions with the metho
 
 See [Clients](/colonyjs/components-clients) for more information about initializing `ColonyClient`.
 
-See [ContractClient](/colonyjs/api-contractclient) for more information about the `ContractClient` class.
+See [ContractClient](/colonyjs/api-contractclient) for more information about the `ContractClient` superclass.
 
 ## Table of Contents
 

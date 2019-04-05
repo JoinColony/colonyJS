@@ -8,7 +8,7 @@ The `TokenLockingClient` is a standard interface for interactions with methods a
 
 See [Clients](/colonyjs/components-clients) for more information about initializing `TokenLockingClient`.
 
-See [ContractClient](/colonyjs/api-contractclient) for more information about the `ContractClient` class.
+See [ContractClient](/colonyjs/api-contractclient) for more information about the `ContractClient` superclass.
 
 ## Table of Contents
 
@@ -260,11 +260,18 @@ Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/
 ## Events
 
 
-### `events.TokenLocked.addListener(({ token, lockCount }) => { /* ... */ })`
+### `events.TokenLocked`
+
+**Methods**
+
+`.addListener(({ token, lockCount }) => { /* ... */ })`
+
+`.removeListener(({ token, lockCount }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
@@ -272,11 +279,18 @@ Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/
 |lockCount|big number|The address of the token contract that was assigned.|
 
 
-### `events.UserTokenDeposited.addListener(({ token, user, amount, timestamp }) => { /* ... */ })`
+### `events.UserTokenDeposited`
+
+**Methods**
+
+`.addListener(({ token, user, amount, timestamp }) => { /* ... */ })`
+
+`.removeListener(({ token, user, amount, timestamp }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
@@ -286,11 +300,18 @@ Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/
 |timestamp|date|The timestamp when the tokens were deposited.|
 
 
-### `events.UserTokenUnlocked.addListener(({ token, user, lockId }) => { /* ... */ })`
+### `events.UserTokenUnlocked`
+
+**Methods**
+
+`.addListener(({ token, user, lockId }) => { /* ... */ })`
+
+`.removeListener(({ token, user, lockId }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|
@@ -299,11 +320,18 @@ Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/
 |lockId|number|The ID of the lock that the was set for the user.|
 
 
-### `events.UserTokenWithdrawn.addListener(({ token, user, amount }) => { /* ... */ })`
+### `events.UserTokenWithdrawn`
+
+**Methods**
+
+`.addListener(({ token, user, amount }) => { /* ... */ })`
+
+`.removeListener(({ token, user, amount }) => { /* ... */ })`
 
 
 
-**Input**
+
+**Event Data**
 
 |Name|Type|Description|
 |---|---|---|

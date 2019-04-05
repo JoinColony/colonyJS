@@ -112,3 +112,19 @@ Given a `MultisigOperation` in JSON format, the `restoreOperation` method restor
 `Promise<MultisigOperation>` - A promise that resolves to a `MultisigOperation` instance.
 
 See [MultisigOperation](/api-multisigoperation/) for more information and [Using Multisignature](/topics-using-multisignature/) for examples.
+
+## Events
+
+Each client instance created by the `ContractClient` superclass has an `events` property that contains all the events associated with the contract methods for the given client. Listeners can be added and removed from each event.
+
+### `addListener(input)`
+
+**Input**
+
+`function` - A callback function using the return values for the event as the input parameters.
+
+### `removeListener(input)`
+
+**Input**
+
+`function` - A callback function using the return values for the event as the input parameters.
