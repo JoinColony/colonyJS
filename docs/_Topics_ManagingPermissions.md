@@ -76,7 +76,9 @@ We can use an instance of the [ColonyClient](/colonyjs/api-colonyclient) to set 
 ```js
 
 // Set admin role
-await colonyClient.setAdminRole.send({ user })
+await colonyClient.setAdminRole.send({
+  user: '0x0...',
+});
 
 ```
 
@@ -87,7 +89,9 @@ We can use an instance of the [ColonyClient](/colonyjs/api-colonyclient) to remo
 ```js
 
 // Remove admin role
-await colonyClient.removeAdminRole.send({ user })
+await colonyClient.removeAdminRole.send({
+  user: '0x0...',
+});
 
 ```
 
@@ -98,7 +102,9 @@ We can use an instance of the [ColonyClient](/colonyjs/api-colonyclient) to set 
 ```js
 
 // Set admin role
-await colonyClient.setRecoveryRole.send({ user })
+await colonyClient.setRecoveryRole.send({
+  user: '0x0...',
+});
 
 ```
 
@@ -109,7 +115,9 @@ We can use an instance of the [ColonyClient](/colonyjs/api-colonyclient) to remo
 ```js
 
 // Remove admin role
-await colonyClient.removeRecoveryRole.send({ user })
+await colonyClient.removeRecoveryRole.send({
+  user: '0x0...',
+});
 
 ```
 
@@ -120,7 +128,9 @@ We can use an instance of the [ColonyClient](/colonyjs/api-colonyclient) to set 
 ```js
 
 // Set founder role
-await colonyClient.setFounderRole.send({ user })
+await colonyClient.setFounderRole.send({
+  user: '0x0...',
+});
 
 ```
 
@@ -134,8 +144,8 @@ We can use an instance of the [ColonyClient](/colonyjs/api-colonyclient) to chec
 
 // Check user role
 await colonyClient.hasUserRole.call({
-  user,
-  role,
+  user: '0x0...',
+  role: 'ADMIN',
 });
 
 ```

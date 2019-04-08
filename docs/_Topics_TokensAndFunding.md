@@ -22,8 +22,7 @@ Creating a new token is simple using an instance of the [ColonyNetworkClient](/c
 
 // Create a token
 await networkClient.createToken.send({
-  name,
-  symbol,
+  symbol: 'TKN',
 });
 
 ```
@@ -48,7 +47,9 @@ We can set the `owner` of the token contract using an instance of the [TokenClie
 ```js
 
 // Set token owner
-await colonyClient.tokenClient.setOwner.send({ owner });
+await colonyClient.tokenClient.setOwner.send({
+  owner: '0x0...',
+});
 
 ```
 
@@ -61,7 +62,9 @@ We can mint tokens using an instance of the [ColonyClient](/colonyjs/api-colonyc
 ```js
 
 // Mint tokens
-await colonyClient.mintTokens.send({ amount });
+await colonyClient.mintTokens.send({
+  amount: new BN('10000000000000000000'),
+});
 
 ```
 
@@ -74,7 +77,9 @@ We can burn tokens using an instance of the [ColonyClient](/colonyjs/api-colonyc
 ```js
 
 // Burn tokens
-await colonyClient.burnTokens.send({ amount });
+await colonyClient.burnTokens.send({
+  amount: new BN('10000000000000000000'),
+});
 
 ```
 
@@ -102,7 +107,9 @@ We can claim colony funds using an instance of the [ColonyClient](/colonyjs/api-
 ```js
 
 // Claim colony funds
-await colonyClient.claimColonyFunds.send({ token })
+await colonyClient.claimColonyFunds.send({
+  token: '0x0...',
+});
 
 ```
 
@@ -114,11 +121,11 @@ We can move funds between pots using an instance of the [ColonyClient](/colonyjs
 
 // Move funds between pots
 await colonyClient.moveFundsBetweenPots.send({
-  fromPot,
-  toPot,
-  amount,
-  token,
-})
+  fromPot: 1,
+  toPot: 2,
+  amount: new BN('1000000000000000000'),
+  token: '0x0...',
+});
 
 ```
 
@@ -132,8 +139,8 @@ We can get the balance of a pot using an instance of the [ColonyClient](/colonyj
 
 // Get pot balance
 await colonyClient.getFundingPotBalance.call({
-  potId,
-  token,
-})
+  potId: 2,
+  token: '0x0...',
+});
 
 ```

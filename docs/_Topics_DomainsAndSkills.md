@@ -23,7 +23,9 @@ Creating a domain is simple using an instance of the [ColonyClient](/colonyjs/ap
 ```js
 
 // Create a domain
-await colonyClient.addDomain.send({ parentDomainId });
+await colonyClient.addDomain.send({
+  parentDomainId: 1,
+});
 
 ```
 
@@ -38,7 +40,9 @@ Creating a skill is simple using an instance of the [ColonyClient](/colonyjs/api
 ```js
 
 // Create a skill
-await metaColonyClient.addGlobalSkill.send({ parentSkillId });
+await metaColonyClient.addGlobalSkill.send({
+  parentSkillId: 1,
+});
 
 ```
 
@@ -51,8 +55,8 @@ Looking up the parent skill of a global skill is simple:
 ```js
 
 await networkClient.getParentSkillId.call({
-  skillId,
-  parentSkillIndex,
+  skillId: 1,
+  parentSkillIndex: 0,
 });
 
 ```
@@ -65,9 +69,9 @@ Looking up the child skill of a global skill is simple:
 
 ```js
 
-await networkClient.getParentSkillId.call({
-  skillId,
-  childSkillIndex,
+await networkClient.getChildSkillId.call({
+  skillId: 1,
+  childSkillIndex: 0,
 });
 
 ```

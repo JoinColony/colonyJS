@@ -53,8 +53,8 @@ When creating a task, the task must be assigned a `specificationHash` and a `dom
 
 // Create a task
 await colonyClient.createTask.send({
-  specificationHash,
-  domainId,
+  specificationHash: 'Qm...',
+  domainId: 1,
 });
 
 ```
@@ -69,10 +69,10 @@ When creating a task, the task can also be assigned a `skillId` and a `dueDate`.
 
 // Create a task
 await colonyClient.createTask.send({
-  specificationHash,
-  domainId,
-  skillId,
-  dueDate,
+  specificationHash: 'Qm...',
+  domainId: 1,
+  skillId: 1,
+  dueDate: new Date('...'),
 });
 
 ```
@@ -88,24 +88,26 @@ Once a task has been created, we can view the task using the `getTask` method.
 ```js
 
 // Get the task
-await colonyClient.getTask.call({ taskId });
+await colonyClient.getTask.call({
+  taskId: 1,
+});
 
 ```
 
 Let's take a quick look at an example of the returned task object from the `getTask` method.
 
-```
+```js
 
 {
   specificationHash: 'QmWvM3isCmEY8bsixThuFeUJmE5MN2he1UxaPzMngLZ7Wq',
   deliverableHash: null,
   status: 'ACTIVE',
-  dueDate: 2019-01-01T00:00:00.000Z,
+  dueDate: '2019-01-01T00:00:00.000Z',
   payoutsWeCannotMake: 0,
   potId: 2,
   completionDate: null,
   domainId: 1,
-  skillId: 0,
+  skillId: 1,
   id: 1,
 }
 
@@ -125,11 +127,11 @@ In order to fund a task, we will need the `potId` of the task (which will be our
 
 // Move funds between pots
 await colonyClient.moveFundsBetweenPots.send({
-  fromPot,
-  toPot,
-  amount,
-  token,
-})
+  fromPot: 1,
+  toPot: 2,
+  amount: new BN('1000000000000000000'),
+  token: '0x...',
+});
 
 ```
 
@@ -151,8 +153,8 @@ Changing the task brief (`MANAGER` and `WORKER`):
 
 // Set the task brief
 await colonyClient.setTaskBrief.startOperation({
-  taskId,
-  specificationHash,
+  taskId: 1,
+  specificationHash: 'Qm...',
 });
 
 ```
@@ -163,8 +165,8 @@ Changing or setting the task domain (`MANAGER` and `WORKER`):
 
 // Set the task domain
 await colonyClient.setTaskDomain.startOperation({
-  taskId,
-  domainId,
+  taskId: 1,
+  domainId: 1,
 });
 
 ```
@@ -175,8 +177,8 @@ Changing or setting the task skill (`MANAGER` and `WORKER`):
 
 // Set the task skill
 await colonyClient.setTaskSkill.startOperation({
-  taskId,
-  skillId,
+  taskId: 1,
+  skillId: 1,
 });
 
 ```
@@ -187,8 +189,8 @@ Changing or setting the task due date (`MANAGER` and `WORKER`):
 
 // Set the task due date
 await colonyClient.setTaskDueDate.startOperation({
-  taskId,
-  dueDate,
+  taskId: 1,
+  dueDate: new Date('...'),
 });
 
 ```
@@ -199,9 +201,9 @@ Changing or setting the managers's payout (`MANAGER` and `WORKER`):
 
 // Set the task manager payout
 await colonyClient.setTaskManagerPayout.startOperation({
-  taskId,
-  token,
-  amount,
+  taskId: 1,
+  token: '0x0...',
+  amount: new BN('1000000000000000000'),
 });
 
 ```
@@ -212,9 +214,9 @@ Changing or setting the evaluator's payout (`MANAGER` and `EVALUATOR`):
 
 // Set the task evaluator payout
 await colonyClient.setTaskEvaluatorPayout.startOperation({
-  taskId,
-  token,
-  amount,
+  taskId: 1,
+  token: '0x0...',
+  amount: new BN('1000000000000000000'),
 });
 
 ```
@@ -225,9 +227,9 @@ Changing or setting the worker's payout (`MANAGER` and `WORKER`):
 
 // Set the task worker payout
 await colonyClient.setTaskWorkerPayout.startOperation({
-  taskId,
-  token,
-  amount,
+  taskId: 1,
+  token: '0x0...',
+  amount: new BN('1000000000000000000'),
 });
 
 ```
@@ -238,8 +240,8 @@ Changing the manager's role (`MANAGER` and proposed `MANAGER`):
 
 // Set the task manager role
 await colonyClient.setTaskManagerRole.startOperation({
-  taskId,
-  user,
+  taskId: 1,
+  user: '0x0...',
 });
 
 ```
@@ -250,8 +252,8 @@ Setting the evaluator's role (`MANAGER` and proposed `EVALUATOR`):
 
 // Set the task evaluator role
 await colonyClient.setTaskEvaluatorRole.startOperation({
-  taskId,
-  user,
+  taskId: 1,
+  user: '0x0...',
 });
 
 ```
@@ -262,8 +264,8 @@ Setting the worker's role (`MANAGER` and proposed `WORKER`):
 
 // Set the task worker role
 await colonyClient.setTaskWorkerRole.startOperation({
-  taskId,
-  user,
+  taskId: 1,
+  user: '0x0...',
 });
 
 ```
@@ -274,8 +276,8 @@ Removing the evaluator's role (`MANAGER` and `EVALUATOR`):
 
 // Remove the task evaluator role
 await colonyClient.removeTaskEvaluatorRole.startOperation({
-  taskId,
-  user,
+  taskId: 1,
+  user: '0x0...',
 });
 
 ```
@@ -286,8 +288,8 @@ Removing the worker's role (`MANAGER` and `WORKER`):
 
 // Remove the task worker role
 await colonyClient.removeTaskWorkerRole.startOperation({
-  taskId,
-  user,
+  taskId: 1,
+  user: '0x0...',
 });
 
 ```
@@ -301,7 +303,9 @@ Any time before a task is completed, the task can be cancelled, which allows any
 ```js
 
 // Cancel the task
-await colonyClient.cancelTask.startOperation({ taskId });
+await colonyClient.cancelTask.startOperation({
+  taskId: 1,
+});
 
 ```
 
@@ -315,8 +319,8 @@ Like the `specificationHash`, the `deliverableHash` can be any arbitrary hash st
 
 // Submit the task work
 await colonyClient.submitTaskDeliverable.send({
-  taskId,
-  deliverableHash,
+  taskId: 1,
+  deliverableHash: 'Qm...',
 });
 
 ```
@@ -338,14 +342,14 @@ During the "commit period", ratings are submitted to the blockchain and hidden u
 
 // Generate secret
 const { secret } = await colonyClient.generateSecret.call({
-  salt,
-  value,
+  salt: 'secret',
+  value: 2,
 });
 
 // Submit work rating
 await colonyClient.submitTaskWorkRating.send({
-  taskId,
-  role,
+  taskId: 1,
+  role: 'WORKER',
   secret,
 });
 
@@ -357,10 +361,10 @@ During the "reveal period", users submit a transaction to reveal their rating. T
 
 // Reveal work rating
 await colonyClient.revealTaskWorkRating.send({
-  taskId,
-  role,
-  rating,
-  salt,
+  taskId: 1,
+  role: 'WORKER',
+  rating: 2,
+  salt: 'secret',
 });
 
 ```
@@ -372,7 +376,9 @@ It's easy to check the status of a task during the "rating period":
 ```js
 
 // Get work ratings
-await colonyClient.getTaskWorkRatings.call({ taskId });
+await colonyClient.getTaskWorkRatings.call({
+  taskId: 1,
+});
 
 ```
 
@@ -383,7 +389,9 @@ After the "rating period" has finished, the task may be finalized, which prevent
 ```js
 
 // Finalize task
-await colonyClient.finalizeTask.send({ taskId });
+await colonyClient.finalizeTask.send({
+  taskId: 1,
+});
 
 ```
 
@@ -395,9 +403,9 @@ Once a task is finalized, each "task role" can then claim their payout:
 
 // Claim payout
 await colonyClient.claimPayout.send({
-  taskId,
-  role,
-  token,
+  taskId: 1,
+  role: 'WORKER',
+  token: '0x0...',
 });
 
 ```
