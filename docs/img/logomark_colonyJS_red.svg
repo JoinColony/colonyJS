@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 94 94" version="1.1">
+	<rect x="6.5" y="56.2" style="fill:#F5416E" width="31.6" height="31.6"/>
+	<rect x="6.5" y="6.5" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -9.2426 22.3063)" style="fill:#F5416E" width="31.6" height="31.6"/>
+	<rect x="56.2" y="56" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -29.6538 71.9005)" style="fill:#F5416E" width="31.6" height="31.6"/>
+	<circle style="fill:#F5416E" cx="72" cy="22.4" r="18.8"/>
+</svg>
