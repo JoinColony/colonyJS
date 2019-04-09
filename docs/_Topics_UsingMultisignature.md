@@ -1,7 +1,7 @@
 ---
 title: Using Multisignature
 section: Topics
-order: 8
+order: 9
 ---
 
 Important changes to a task within a colony must be approved by multiple "task roles". Most of the methods that modify a task require multiple signatures before the modification will take affect and the transaction will be executed. We achieve this process with something known as "multisgnature".

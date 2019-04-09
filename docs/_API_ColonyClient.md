@@ -2,40 +2,43 @@
 title: ColonyClient
 section: API
 order: 1
-tocdepth: 1
 ---
 
 The `ColonyClient` class is a standard interface for interactions with the methods and events described in both `IColony.sol` and `IMetaColony.sol`. These interactions are generally concerned with actions within a colony, such as adding a new domain, creating a task, moving funds between pots, and managing permissions.
 
-See [Clients](/colonyjs/components-clients) for information about initializing `ColonyClient`.
+See [Clients](/colonyjs/components-clients) for more information about initializing `ColonyClient`.
+
+See [ContractClient](/colonyjs/api-contractclient) for more information about the `ContractClient` superclass.
+
+## Table of Contents
 
 ==TOC==
 
   
 ## Callers
 
-**All callers return promises which resolve to an object containing the given return values.**.
+**All callers return promises which resolve to an object containing the given return values.**
 
 ### `generateSecret.call({ salt, value })`
 
 Generate the rating secret used in task ratings. This function returns a keccak256 hash created from the `salt` and `value`.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |salt|string|The string that will be used to generate a secret.|
 |value|number|The task rating that will be hidden (`1`, `2`, or `3`).|
 
-#### Return Values
+**Response**
 
 A promise which resolves to an object containing the following properties:
 
-|Return Value|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |secret|hex string|A keccak256 hash that keeps the task rating hidden.|
 
-#### Contract Information
+**Contract Information**
 
 
   
@@ -50,15 +53,15 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 Get the authority contract address associated with the colony.
 
 
-#### Return Values
+**Response**
 
 A promise which resolves to an object containing the following properties:
 
-|Return Value|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |address|address|The address of the authority contract associated with the colony.|
 
-#### Contract Information
+**Contract Information**
 
 
   Function: `authority`
@@ -72,22 +75,22 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Get information about a domain.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |domainId|number|The ID of the domain.|
 
-#### Return Values
+**Response**
 
 A promise which resolves to an object containing the following properties:
 
-|Return Value|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |localSkillId|number|The ID of the local skill.|
 |potId|number|The ID of the funding pot.|
 
-#### Contract Information
+**Contract Information**
 
 
   
@@ -102,15 +105,15 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 Get the total number of domains in the colony. The return value is also the ID of the last domain created.
 
 
-#### Return Values
+**Response**
 
 A promise which resolves to an object containing the following properties:
 
-|Return Value|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |count|number|The total number of domains.|
 
-#### Contract Information
+**Contract Information**
 
 
   
@@ -124,21 +127,21 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Get the total amount of funds that are not in the colony rewards pot. The total amount of funds that are not in the colony rewards pot is a value that keeps track of the total assets a colony has to work with, which may be split among several distinct pots associated with various domains and tasks.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |token|address|The address of the token contract (an empty address if Ether).|
 
-#### Return Values
+**Response**
 
 A promise which resolves to an object containing the following properties:
 
-|Return Value|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |total|big number|The total amount of funds that are not in the colony rewards pot.|
 
-#### Contract Information
+**Contract Information**
 
 
   
@@ -152,22 +155,22 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Get information about a funding pot.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |potId|number|The numeric ID of the funding pot.|
 
-#### Return Values
+**Response**
 
 A promise which resolves to an object containing the following properties:
 
-|Return Value|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |associatedType|string|The associated type of the funding pot (`domain` or `task`).|
 |associatedTypeId|number|The id of the associated type (`domainId` or `taskId`).|
 
-#### Contract Information
+**Contract Information**
 
 
   
@@ -181,22 +184,22 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Get the balance of a funding pot.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |potId|number|The ID of the funding pot.|
 |token|address|The address of the token contract (an empty address if Ether).|
 
-#### Return Values
+**Response**
 
 A promise which resolves to an object containing the following properties:
 
-|Return Value|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |balance|big number|The balance of tokens (or Ether) in the funding pot.|
 
-#### Contract Information
+**Contract Information**
 
 
   
@@ -211,15 +214,15 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 Get the total number of funding pots.
 
 
-#### Return Values
+**Response**
 
 A promise which resolves to an object containing the following properties:
 
-|Return Value|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |count|number|The total number of funding pots.|
 
-#### Contract Information
+**Contract Information**
 
 
   
@@ -234,15 +237,15 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 Get the total number of users that are assigned a colony recovery role.
 
 
-#### Return Values
+**Response**
 
 A promise which resolves to an object containing the following properties:
 
-|Return Value|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |count|number|The total number of users that are assigned a colony recovery role.|
 
-#### Contract Information
+**Contract Information**
 
 
   Function: `numRecoveryRoles`
@@ -257,15 +260,15 @@ Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba
 Get the inverse amount of the reward. If the fee is 1% (or 0.01), the inverse amount will be 100.
 
 
-#### Return Values
+**Response**
 
 A promise which resolves to an object containing the following properties:
 
-|Return Value|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |rewardInverse|big number|The inverse amount of the reward.|
 
-#### Contract Information
+**Contract Information**
 
 
   
@@ -279,17 +282,17 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Get information about a reward payout cycle.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |payoutId|number|The ID of the reward payout cycle.|
 
-#### Return Values
+**Response**
 
 A promise which resolves to an object containing the following properties:
 
-|Return Value|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |blockNumber|number|The block number at the time the reward payout cycle started.|
 |remainingTokenAmount|big number|The remaining amount of unclaimed tokens (or Ether).|
@@ -298,7 +301,7 @@ A promise which resolves to an object containing the following properties:
 |totalTokenAmountForRewardPayout|big number|The total amount of tokens set aside for the reward payout cycle.|
 |totalTokens|big number|The total amount of tokens at the time the reward payout cycle started.|
 
-#### Contract Information
+**Contract Information**
 
 
   
@@ -312,17 +315,17 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Get information about a task.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
 
-#### Return Values
+**Response**
 
 A promise which resolves to an object containing the following properties:
 
-|Return Value|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |completionDate|date|The date when the task deliverable was submitted.|
 |deliverableHash|IPFS hash|The deliverable hash of the task (an IPFS hash).|
@@ -335,7 +338,7 @@ A promise which resolves to an object containing the following properties:
 |specificationHash|IPFS hash|The specification hash of the task (an IPFS hash).|
 |status|task status|The task status (`ACTIVE`, `CANCELLED` or `FINALIZED`).|
 
-#### Contract Information
+**Contract Information**
 
 
   
@@ -350,15 +353,15 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 Get the total number of tasks in the colony. The return value is also the ID of the last task created.
 
 
-#### Return Values
+**Response**
 
 A promise which resolves to an object containing the following properties:
 
-|Return Value|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |count|number|The total number of tasks.|
 
-#### Contract Information
+**Contract Information**
 
 
   
@@ -372,23 +375,23 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Get the task payout amount assigned to a task role. Multiple tokens can be used for task payouts, therefore the token must be specified when calling this function. In order to get the task payout amount in Ether, `token` must be an empty address.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
 |role|task role|The task role (`MANAGER`, `EVALUATOR`, or `WORKER`).|
 |token|address|The address of the token contract (an empty address if Ether).|
 
-#### Return Values
+**Response**
 
 A promise which resolves to an object containing the following properties:
 
-|Return Value|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |amount|big number|The amount of tokens (or Ether) assigned to the task role as a payout.|
 
-#### Contract Information
+**Contract Information**
 
 
   
@@ -402,24 +405,24 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Get information about a task role.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
 |role|task role|The role of the task (`MANAGER`, `EVALUATOR`, or `WORKER`).|
 
-#### Return Values
+**Response**
 
 A promise which resolves to an object containing the following properties:
 
-|Return Value|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |address|address|The address of the user that is assigned the task role.|
 |rateFail|boolean|A boolean indicating whether or not the user failed to rate their counterpart.|
 |rating|number|The rating that the user received (`1`, `2`, or `3`).|
 
-#### Contract Information
+**Contract Information**
 
 
   
@@ -433,22 +436,22 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Get information about the ratings of a task.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
 
-#### Return Values
+**Response**
 
 A promise which resolves to an object containing the following properties:
 
-|Return Value|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |count|number|The total number of submitted ratings for a task.|
 |date|date|The date that the last rating was submitted.|
 
-#### Contract Information
+**Contract Information**
 
 
   
@@ -462,22 +465,22 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Get the secret of a rating that has been submitted. If a task is in the commit period of the rating process, the ratings are hidden in a keccak256 hash that was created from a `salt` and `value`. The rating secret can be retrieved but in order to reveal the secret, one would have to know both the `salt` and `value` used to generate the secret.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
 |role|task role|The role that submitted the rating (`MANAGER`, `EVALUATOR`, or `WORKER`).|
 
-#### Return Values
+**Response**
 
 A promise which resolves to an object containing the following properties:
 
-|Return Value|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |secret|hex string|A keccak256 hash that keeps the task rating hidden.|
 
-#### Contract Information
+**Contract Information**
 
 
   
@@ -492,15 +495,15 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 Get the address of the token contract that is the native token assigned to the colony. The native token is the token used to calculate reputation scores, i.e. `1` token earned for completing a task with an adequate rating (`2`) will result in `1` reputation point earned.
 
 
-#### Return Values
+**Response**
 
 A promise which resolves to an object containing the following properties:
 
-|Return Value|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |address|address|The address of the token contract.|
 
-#### Contract Information
+**Contract Information**
 
 
   
@@ -514,22 +517,22 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Get the total payout amount assigned to all task roles. Multiple tokens can be used for task payouts, therefore the token must be specified when calling this function. In order to get the task payout amount in Ether, `token` must be an empty address.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
 |token|address|The address of the token contract (an empty address if Ether).|
 
-#### Return Values
+**Response**
 
 A promise which resolves to an object containing the following properties:
 
-|Return Value|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |amount|big number|The total amount of tokens (or Ether) assigned to all task roles as payouts.|
 
-#### Contract Information
+**Contract Information**
 
 
   
@@ -544,15 +547,15 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 Get the version number of the colony contract. The version number starts at `1` and is incremented by `1` with every new version.
 
 
-#### Return Values
+**Response**
 
 A promise which resolves to an object containing the following properties:
 
-|Return Value|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |version|number|The version number of the colony contract.|
 
-#### Contract Information
+**Contract Information**
 
 
   Function: `version`
@@ -566,22 +569,22 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Check whether a user has an authority role.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |user|address|The address of the user that will be checked.|
 |role|authority role|The authority role that will be checked (`FOUNDER` or `ADMIN`).|
 
-#### Return Values
+**Response**
 
 A promise which resolves to an object containing the following properties:
 
-|Return Value|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |hasRole|boolean|A boolean indicating whether or not the user has the authority role.|
 
-#### Contract Information
+**Contract Information**
 
 
   
@@ -596,15 +599,15 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 Check whether or not the colony is in recovery mode.
 
 
-#### Return Values
+**Response**
 
 A promise which resolves to an object containing the following properties:
 
-|Return Value|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |inRecoveryMode|boolean|A boolean indicating whether or not the colony is in recovery mode.|
 
-#### Contract Information
+**Contract Information**
 
 
   
@@ -622,27 +625,33 @@ Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba
 
 Add a domain to the colony. Adding new domains is currently retricted to one level, i.e. the `parentDomainId` must be the id of the root domain `1`, which represents the colony itself.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |parentDomainId|number|The ID of the parent domain.|
 
-#### Response
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event Data|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |domainId|number|The ID of the domain that was added.|
 |potId|number|The numeric ID of the pot that was added.|
 |skillId|number|The ID of the skill that was added.|
 |parentSkillId|number|The ID of the parent skill.|
-|DomainAdded|object|Contains the data defined in [DomainAdded](#eventsdomainaddedaddlistener-domainid-------)|
-|FundingPotAdded|object|Contains the data defined in [FundingPotAdded](#eventsfundingpotaddedaddlistener-potid-------)|
-|SkillAdded|object|Contains the data defined in [SkillAdded](#eventsskilladdedaddlistener-skillid-parentskillid-------)|
+|DomainAdded|object|Contains the data defined in [DomainAdded](#eventsdomainadded)|
+|FundingPotAdded|object|Contains the data defined in [FundingPotAdded](#eventsfundingpotadded)|
+|SkillAdded|object|Contains the data defined in [SkillAdded](#eventsskilladded)|
 
-#### Contract Information
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
 
 
   
@@ -656,23 +665,29 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Add a new global skill to the skills tree. This can only be called from the Meta Colony and only by the user assigned the `FOUNDER` role.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |parentSkillId|number|The ID of the skill under which the new skill will be added.|
 
-#### Response
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event Data|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |skillId|number|The ID of the skill that was added.|
 |parentSkillId|number|The ID of the parent skill.|
-|SkillAdded|object|Contains the data defined in [SkillAdded](#eventsskilladdedaddlistener-skillid-parentskillid-------)|
+|SkillAdded|object|Contains the data defined in [SkillAdded](#eventsskilladded)|
 
-#### Contract Information
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
 
 
   
@@ -687,13 +702,19 @@ Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9b
 Indicate approval to exit colony recovery mode. This function can only be called by a user with a recovery role.
 
 
-#### Response
+**Options**
 
-An instance of a `ContractResponse`
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
+
+An instance of a `ContractResponse`.
 
 
 
-#### Contract Information
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
 
 
   
@@ -707,24 +728,30 @@ Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba
 
 Bootstrap the colony by giving an initial amount of tokens and reputation to selected users. This function can only be called by the user assigned the `FOUNDER` authority role when the `taskCount` for the colony is equal to `0`.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |users|array|The array of users that will recieve an initial amount of tokens and reputation.|
 |amounts|array|The array of corresponding token and reputation amounts each user will recieve.|
 
-#### Response
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event Data|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |users|array|The array of users that received an initial amount of tokens and reputation.|
 |amounts|array|The array of corresponding token and reputation amounts each user recieved.|
-|ColonyBootstrapped|object|Contains the data defined in [ColonyBootstrapped](#eventscolonybootstrappedaddlistener-users-amounts-------)|
+|ColonyBootstrapped|object|Contains the data defined in [ColonyBootstrapped](#eventscolonybootstrapped)|
 
-#### Contract Information
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
 
 
   
@@ -738,24 +765,30 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Claim funds that the colony has received by adding them to the funding pot of the root domain. A small fee is deducted from the funds claimed and added to the colony rewards pot. No fee is deducted when tokens native to the colony are claimed.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |token|address|The address of the token contract (an empty address if Ether).|
 
-#### Response
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event Data|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |token|address|The address of the token contract (an empty address if Ether).|
 |fee|big number|The fee deducted from the claim and added to the colony rewards pot.|
 |payoutRemainder|big number|The remaining funds (after the fee) moved to the top-level domain pot.|
-|ColonyFundsClaimed|object|Contains the data defined in [ColonyFundsClaimed](#eventscolonyfundsclaimedaddlistener-token-fee-payoutremainder-------)|
+|ColonyFundsClaimed|object|Contains the data defined in [ColonyFundsClaimed](#eventscolonyfundsclaimed)|
 
-#### Contract Information
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
 
 
   
@@ -769,19 +802,23 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Claim the payout assigned to a task role. This function can only be called by the user who is assigned a task role (`MANAGER`, `EVALUATOR`, or `WORKER`) after the task has been finalized.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
 |role|task role|The role that submitted the rating (`MANAGER`, `EVALUATOR`, or `WORKER`).|
 |token|address|The address of the token contract (an empty address if Ether).|
 
-#### Response
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event Data|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was modified.|
 |role|task role|The role of the task that was assigned the task payout (`MANAGER`, `EVALUATOR`, or `WORKER`).|
@@ -790,10 +827,12 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |from|address|The address of the account that sent tokens.|
 |to|address|The address of the account that received tokens.|
 |value|big number|The amount of tokens that were transferred.|
-|TaskPayoutClaimed|object|Contains the data defined in [TaskPayoutClaimed](#eventstaskpayoutclaimedaddlistener-taskid-role-token-amount-------)|
-|Transfer|object|Contains the data defined in [Transfer](#eventstransferaddlistener-from-to-value-------)|
+|TaskPayoutClaimed|object|Contains the data defined in [TaskPayoutClaimed](#eventstaskpayoutclaimed)|
+|Transfer|object|Contains the data defined in [Transfer](#eventstransfer)|
 
-#### Contract Information
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
 
 
   
@@ -807,22 +846,28 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Mark a task as complete. If the user assigned the `WORKER` task role fails to submit the task deliverable by the due date, this function must be called by the user assigned the `MANAGER` task role. This allows the task work to be rated and the task to be finalized.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
 
-#### Response
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event Data|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was completed.|
-|TaskCompleted|object|Contains the data defined in [TaskCompleted](#eventstaskcompletedaddlistener-taskid-------)|
+|TaskCompleted|object|Contains the data defined in [TaskCompleted](#eventstaskcompleted)|
 
-#### Contract Information
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
 
 
   
@@ -836,31 +881,37 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Create a new task within the colony.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |specificationHash|IPFS hash|The specification hash of the task (an IPFS hash).|
 |domainId|number (optional)|The ID of the domain (default value of `1`).|
 |skillId|number (optional)|The ID of the skill (default value of `null`).|
 |dueDate|date (optional)|The due date of the task (default value of `30` days from creation).|
 
-#### Response
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event Data|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |potId|number|The numeric ID of the pot that was added.|
 |taskId|number|The ID of the task that was added.|
 |skillId|number|The ID of the skill that was set.|
 |dueDate|date|The due date that was set.|
-|FundingPotAdded|object|Contains the data defined in [FundingPotAdded](#eventsfundingpotaddedaddlistener-potid-------)|
-|TaskAdded|object|Contains the data defined in [TaskAdded](#eventstaskaddedaddlistener-taskid-------)|
-|TaskSkillSet|object|Contains the data defined in [TaskSkillSet](#eventstaskskillsetaddlistener-taskid-skillid-------)|
-|TaskDueDateSet|object|Contains the data defined in [TaskDueDateSet](#eventstaskduedatesetaddlistener-taskid-duedate-------)|
+|FundingPotAdded|object|Contains the data defined in [FundingPotAdded](#eventsfundingpotadded)|
+|TaskAdded|object|Contains the data defined in [TaskAdded](#eventstaskadded)|
+|TaskSkillSet|object|Contains the data defined in [TaskSkillSet](#eventstaskskillset)|
+|TaskDueDateSet|object|Contains the data defined in [TaskDueDateSet](#eventstaskduedateset)|
 
-#### Contract Information
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
 
 
   Function: `makeTask`
@@ -875,13 +926,19 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 Enter colony recovery mode. This function can only be called by a user with a recovery role.
 
 
-#### Response
+**Options**
 
-An instance of a `ContractResponse`
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
+
+An instance of a `ContractResponse`.
 
 
 
-#### Contract Information
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
 
 
   
@@ -896,13 +953,19 @@ Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba
 Exit colony recovery mode. This function can be called by anyone if enough whitelist approvals are given.
 
 
-#### Response
+**Options**
 
-An instance of a `ContractResponse`
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
+
+An instance of a `ContractResponse`.
 
 
 
-#### Contract Information
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
 
 
   
@@ -916,22 +979,28 @@ Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba
 
 Finalize the reward payout cycle. This function can only be called when the reward payout cycle has finished, i.e. 60 days have passed since the creation of the reward payout cycle.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |payoutId|number|The ID of the reward payout cycle.|
 
-#### Response
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event Data|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |payoutId|number|The ID of the payout cycle that ended.|
-|RewardPayoutCycleEnded|object|Contains the data defined in [RewardPayoutCycleEnded](#eventsrewardpayoutcycleendedaddlistener-payoutid-------)|
+|RewardPayoutCycleEnded|object|Contains the data defined in [RewardPayoutCycleEnded](#eventsrewardpayoutcycleended)|
 
-#### Contract Information
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
 
 
   
@@ -945,22 +1014,28 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Finalize a task. Once a task is finalized, each user assigned a task role can claim the payout assigned to their role and no further changes to the task can be made.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
 
-#### Response
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event Data|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was finalized.|
-|TaskFinalized|object|Contains the data defined in [TaskFinalized](#eventstaskfinalizedaddlistener-taskid-------)|
+|TaskFinalized|object|Contains the data defined in [TaskFinalized](#eventstaskfinalized)|
 
-#### Contract Information
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
 
 
   
@@ -974,9 +1049,9 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Make a payment. This function can only be called by the user assigned either the `FOUNDER` or `ADMIN` authority role.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |worker|address||
 |token|address||
@@ -984,11 +1059,15 @@ Make a payment. This function can only be called by the user assigned either the
 |domainId|number||
 |skillId|number||
 
-#### Response
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event Data|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |potId|number|The numeric ID of the pot that was added.|
 |taskId|number|The ID of the task that was added.|
@@ -1003,17 +1082,19 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |from|address|The address of the account that sent tokens.|
 |to|address|The address of the account that received tokens.|
 |value|big number|The amount of tokens that were transferred.|
-|FundingPotAdded|object|Contains the data defined in [FundingPotAdded](#eventsfundingpotaddedaddlistener-potid-------)|
-|TaskAdded|object|Contains the data defined in [TaskAdded](#eventstaskaddedaddlistener-taskid-------)|
-|TaskSkillSet|object|Contains the data defined in [TaskSkillSet](#eventstaskskillsetaddlistener-taskid-skillid-------)|
-|TaskDueDateSet|object|Contains the data defined in [TaskDueDateSet](#eventstaskduedatesetaddlistener-taskid-duedate-------)|
-|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleusersetaddlistener-taskid-role-user-------)|
-|TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutsetaddlistener-taskid-role-token-amount-------)|
-|ColonyFundsMovedBetweenFundingPots|object|Contains the data defined in [ColonyFundsMovedBetweenFundingPots](#eventscolonyfundsmovedbetweenfundingpotsaddlistener-frompot-topot-amount-token-------)|
-|TaskPayoutClaimed|object|Contains the data defined in [TaskPayoutClaimed](#eventstaskpayoutclaimedaddlistener-taskid-role-token-amount-------)|
-|Transfer|object|Contains the data defined in [Transfer](#eventstransferaddlistener-from-to-value-------)|
+|FundingPotAdded|object|Contains the data defined in [FundingPotAdded](#eventsfundingpotadded)|
+|TaskAdded|object|Contains the data defined in [TaskAdded](#eventstaskadded)|
+|TaskSkillSet|object|Contains the data defined in [TaskSkillSet](#eventstaskskillset)|
+|TaskDueDateSet|object|Contains the data defined in [TaskDueDateSet](#eventstaskduedateset)|
+|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleuserset)|
+|TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutset)|
+|ColonyFundsMovedBetweenFundingPots|object|Contains the data defined in [ColonyFundsMovedBetweenFundingPots](#eventscolonyfundsmovedbetweenfundingpots)|
+|TaskPayoutClaimed|object|Contains the data defined in [TaskPayoutClaimed](#eventstaskpayoutclaimed)|
+|Transfer|object|Contains the data defined in [Transfer](#eventstransfer)|
 
-#### Contract Information
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
 
 
   
@@ -1027,23 +1108,29 @@ Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba
 
 Mint new tokens. This function can only be called if the address of the colony contract is the owner of the token contract. If this is the case, then this function can only be called by the user assigned the `FOUNDER` authority role.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |amount|big number|The amount of new tokens that will be minted.|
 
-#### Response
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event Data|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |address|address|The address that initiated the mint event.|
 |amount|big number|The amount of tokens that were minted.|
-|Mint|object|Contains the data defined in [Mint](#eventsmintaddlistener-address-amount-------)|
+|Mint|object|Contains the data defined in [Mint](#eventsmint)|
 
-#### Contract Information
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
 
 
   
@@ -1057,27 +1144,33 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Mint tokens for the Colony Network. This can only be called from the Meta Colony and only by the user assigned the `FOUNDER` role.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |amount|big number|The amount of new tokens that will be minted.|
 
-#### Response
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event Data|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |address|address|The address that initiated the mint event.|
 |amount|big number|The amount of tokens that were minted.|
 |from|address|The address of the account that sent tokens.|
 |to|address|The address of the account that received tokens.|
 |value|big number|The amount of tokens that were transferred.|
-|Mint|object|Contains the data defined in [Mint](#eventsmintaddlistener-address-amount-------)|
-|Transfer|object|Contains the data defined in [Transfer](#eventstransferaddlistener-from-to-value-------)|
+|Mint|object|Contains the data defined in [Mint](#eventsmint)|
+|Transfer|object|Contains the data defined in [Transfer](#eventstransfer)|
 
-#### Contract Information
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
 
 
   
@@ -1091,28 +1184,34 @@ Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9b
 
 Move funds from one pot to another.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |fromPot|number|The ID of the pot from which funds will be moved.|
 |toPot|number|The ID of the pot to which funds will be moved.|
 |amount|big number|The amount of funds that will be moved between pots.|
 |token|address|The address of the token contract (an empty address if Ether).|
 
-#### Response
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event Data|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |fromPot|number|The ID of the pot from which the funds were moved.|
 |toPot|number|The ID of the pot to which the funds were moved.|
 |amount|big number|The amount of funds that were moved between pots.|
 |token|address|The address of the token contract (an empty address if Ether).|
-|ColonyFundsMovedBetweenFundingPots|object|Contains the data defined in [ColonyFundsMovedBetweenFundingPots](#eventscolonyfundsmovedbetweenfundingpotsaddlistener-frompot-topot-amount-token-------)|
+|ColonyFundsMovedBetweenFundingPots|object|Contains the data defined in [ColonyFundsMovedBetweenFundingPots](#eventscolonyfundsmovedbetweenfundingpots)|
 
-#### Contract Information
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
 
 
   
@@ -1126,24 +1225,30 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Register an ENS label for the colony.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |colonyName|string|The ENS label that will be registered for the colony.|
 |orbitDBPath|string|The path of the OrbitDB database associated with the colony.|
 
-#### Response
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event Data|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |colony|address|The address of the colony that was modified.|
 |label|string|The label that was registered for the colony.|
-|ColonyLabelRegistered|object|Contains the data defined in [ColonyLabelRegistered](#eventscolonylabelregisteredaddlistener-colony-label-------)|
+|ColonyLabelRegistered|object|Contains the data defined in [ColonyLabelRegistered](#eventscolonylabelregistered)|
 
-#### Contract Information
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
 
 
   
@@ -1157,22 +1262,28 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Remove the `ADMIN` authority role from a user. This function can only be called by the user assigned the `FOUNDER` authroity role.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |user|address|The address that we will be unassigned the `ADMIN` authority role.|
 
-#### Response
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event Data|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |user|address|The address that was unassigned the `ADMIN` authority role.|
-|ColonyAdminRoleRemoved|object|Contains the data defined in [ColonyAdminRoleRemoved](#eventscolonyadminroleremovedaddlistener-user-------)|
+|ColonyAdminRoleRemoved|object|Contains the data defined in [ColonyAdminRoleRemoved](#eventscolonyadminroleremoved)|
 
-#### Contract Information
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
 
 
   
@@ -1186,19 +1297,25 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Remove the colony recovery role from a user. This function can only be called by the `FOUNDER` authority role.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |user|address|The address that will be unassigned a colony recovery role.|
 
-#### Response
+**Options**
 
-An instance of a `ContractResponse`
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
+
+An instance of a `ContractResponse`.
 
 
 
-#### Contract Information
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
 
 
   
@@ -1212,27 +1329,33 @@ Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba
 
 Reveal a submitted work rating. In order to reveal a work rating, the same `salt` and `value` used to generate the `secret` when the task work rating was submitted must be provided again here to reveal the task work rating.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
 |role|task role|The role that received the rating (`MANAGER` or `WORKER`).|
 |rating|number|The rating that was submitted (`1`, `2`, or `3`).|
 |salt|string|The string that was used to generate the secret.|
 
-#### Response
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event Data|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was modified.|
 |role|task role|The role of the task that received the rating (`MANAGER`, `EVALUATOR`, or `WORKER`).|
 |rating|number|The value of the rating that was revealed (`1`, `2`, or `3`).|
-|TaskWorkRatingRevealed|object|Contains the data defined in [TaskWorkRatingRevealed](#eventstaskworkratingrevealedaddlistener-taskid-role-rating-------)|
+|TaskWorkRatingRevealed|object|Contains the data defined in [TaskWorkRatingRevealed](#eventstaskworkratingrevealed)|
 
-#### Contract Information
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
 
 
   
@@ -1246,22 +1369,28 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Assign the `ADMIN` authority role to a user. This function can only be called by the user assigned the `FOUNDER` authority role or a user assigned the `ADMIN` authority role. There is no limit to the number of users that can be assigned the `ADMIN` authority role.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |user|address|The address that will be assigned the `ADMIN` authroity role.|
 
-#### Response
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event Data|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |user|address|The address that was assigned the `ADMIN` authority role.|
-|ColonyAdminRoleSet|object|Contains the data defined in [ColonyAdminRoleSet](#eventscolonyadminrolesetaddlistener-user-------)|
+|ColonyAdminRoleSet|object|Contains the data defined in [ColonyAdminRoleSet](#eventscolonyadminroleset)|
 
-#### Contract Information
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
 
 
   
@@ -1275,9 +1404,9 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Set the payouts for all task roles (`MANAGER`, `EVALUATOR`, and `WORKER`). This can only be called by the user assigned the `MANAGER` task role and only if the `EVALUATOR` and `WORKER` task roles are either not assigned or assigned to the same user as the `MANAGER` task role.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
 |token|address|The address of the token contract (an empty address if Ether).|
@@ -1285,19 +1414,25 @@ Set the payouts for all task roles (`MANAGER`, `EVALUATOR`, and `WORKER`). This 
 |evaluatorAmount|big number|The payout amount in tokens (or Ether) for the `EVALUATOR` task role.|
 |workerAmount|big number|The payout amount in tokens (or Ether) for the `WORKER` task role.|
 
-#### Response
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event Data|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was modified.|
 |role|task role|The role of the task that was modified (`MANAGER`, `EVALUATOR`, or `WORKER`).|
 |token|address|The address of the token contract (an empty address if Ether).|
 |amount|big number|The task payout amount that was set.|
-|TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutsetaddlistener-taskid-role-token-amount-------)|
+|TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutset)|
 
-#### Contract Information
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
 
 
   
@@ -1311,23 +1446,29 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Assign the `FOUNDER` authority role to a user. This function can only be called by the user currently assigned the `FOUNDER` authority role. There can only be one address assigned to the `FOUNDER` authority role, therefore, the user currently assigned will forfeit their role.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |user|address|The address that will be assigned the `FOUNDER` authority role.|
 
-#### Response
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event Data|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |oldFounder|address|The address that assigned the `FOUNDER` authority role (the old founder).|
 |newFounder|address|The address that was assigned the `FOUNDER` authority role (the new founder).|
-|ColonyFounderRoleSet|object|Contains the data defined in [ColonyFounderRoleSet](#eventscolonyfounderrolesetaddlistener-oldfounder-newfounder-------)|
+|ColonyFounderRoleSet|object|Contains the data defined in [ColonyFounderRoleSet](#eventscolonyfounderroleset)|
 
-#### Contract Information
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
 
 
   
@@ -1341,19 +1482,25 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Set the inverse amount of the reward. This can only be called from the Meta Colony and only by the user assigned the `FOUNDER` role. If the fee is 1% (or 0.01), the inverse amount will be 100.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |feeInverse|number|The inverse amount that will be set.|
 
-#### Response
+**Options**
 
-An instance of a `ContractResponse`
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
+
+An instance of a `ContractResponse`.
 
 
 
-#### Contract Information
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
 
 
   
@@ -1367,19 +1514,25 @@ Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9b
 
 Assign a colony recovery role to a user. This function can only be called by the `FOUNDER` authority role.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |user|address|The address that will be assigned a colony recovery role.|
 
-#### Response
+**Options**
 
-An instance of a `ContractResponse`
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
+
+An instance of a `ContractResponse`.
 
 
 
-#### Contract Information
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
 
 
   
@@ -1393,22 +1546,28 @@ Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba
 
 Set the inverse amount of the reward. If the fee is 1% (or 0.01), the inverse amount will be 100.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |rewardInverse|big number|The inverse amount of the reward.|
 
-#### Response
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event Data|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |rewardInverse|big number|The reward inverse value that was set.|
-|ColonyRewardInverseSet|object|Contains the data defined in [ColonyRewardInverseSet](#eventscolonyrewardinversesetaddlistener-rewardinverse-------)|
+|ColonyRewardInverseSet|object|Contains the data defined in [ColonyRewardInverseSet](#eventscolonyrewardinverseset)|
 
-#### Contract Information
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
 
 
   
@@ -1422,20 +1581,26 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Set the value for a storage slot while in recovery mode. This can only be called by a user with a recovery role.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |slot|number|The ID of the storage slot that will be modified.|
 |value|hex string|The hex string of data that will be set as the value.|
 
-#### Response
+**Options**
 
-An instance of a `ContractResponse`
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
+
+An instance of a `ContractResponse`.
 
 
 
-#### Contract Information
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
 
 
   
@@ -1449,25 +1614,31 @@ Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba
 
 Start the next reward payout cycle. All the funds in the colony rewards pot for the given token will become locked until reputation holders have claimed their rewards payout using `claimRewardPayout`. Reputation holders can also waive their reward payout and unlock their tokens for past reward payout cycles by using `incrementLockCounterTo`.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |token|address|The address of the token contract (an empty address if Ether).|
 
-#### Response
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event Data|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |payoutId|number|The ID of the payout cycle that started.|
 |token|address|The address of the token contract (an empty address if Ether).|
 |lockCount|number|The total lock count for the token.|
-|RewardPayoutCycleStarted|object|Contains the data defined in [RewardPayoutCycleStarted](#eventsrewardpayoutcyclestartedaddlistener-payoutid-------)|
-|TokenLocked|object|Contains the data defined in [TokenLocked](#eventstokenlockedaddlistener-token-lockcount-------)|
+|RewardPayoutCycleStarted|object|Contains the data defined in [RewardPayoutCycleStarted](#eventsrewardpayoutcyclestarted)|
+|TokenLocked|object|Contains the data defined in [TokenLocked](#eventstokenlocked)|
 
-#### Contract Information
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
 
 
   
@@ -1481,25 +1652,31 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Submit the task deliverable. This function can only be called by the user assigned the `WORKER` task role on or before the task due date. The submission cannot be overwritten, which means the deliverable cannot be changed once it has been submitted.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
 |deliverableHash|IPFS hash|The deliverable hash of the task (an IPFS hash).|
 
-#### Response
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event Data|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was completed.|
 |deliverableHash|IPFS hash|The deliverable hash that was submitted (an IPFS hash).|
-|TaskCompleted|object|Contains the data defined in [TaskCompleted](#eventstaskcompletedaddlistener-taskid-------)|
-|TaskDeliverableSubmitted|object|Contains the data defined in [TaskDeliverableSubmitted](#eventstaskdeliverablesubmittedaddlistener-taskid-deliverablehash-------)|
+|TaskCompleted|object|Contains the data defined in [TaskCompleted](#eventstaskcompleted)|
+|TaskDeliverableSubmitted|object|Contains the data defined in [TaskDeliverableSubmitted](#eventstaskdeliverablesubmitted)|
 
-#### Contract Information
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
 
 
   
@@ -1513,26 +1690,32 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Submit the task deliverable and the work rating for the user assigned the `MANAGER` task role. This function can only be called by the user assigned the `WORKER` task role on or before the task due date. The submission cannot be overwritten, which means the deliverable cannot be changed once it has been submitted. In order to submit a rating, a `secret` must be generated using the `generateSecret` method, which keeps the rating hidden until all ratings have been submitted and revealed.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
 |deliverableHash|IPFS hash|The deliverable hash of the task (an IPFS hash).|
 |secret|hex string|A keccak256 hash that keeps the task rating hidden.|
 
-#### Response
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event Data|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was completed.|
 |deliverableHash|IPFS hash|The deliverable hash that was submitted (an IPFS hash).|
-|TaskCompleted|object|Contains the data defined in [TaskCompleted](#eventstaskcompletedaddlistener-taskid-------)|
-|TaskDeliverableSubmitted|object|Contains the data defined in [TaskDeliverableSubmitted](#eventstaskdeliverablesubmittedaddlistener-taskid-deliverablehash-------)|
+|TaskCompleted|object|Contains the data defined in [TaskCompleted](#eventstaskcompleted)|
+|TaskDeliverableSubmitted|object|Contains the data defined in [TaskDeliverableSubmitted](#eventstaskdeliverablesubmitted)|
 
-#### Contract Information
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
 
 
   
@@ -1546,21 +1729,27 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Submit a work rating for a task. This function can only be called by the user assigned the `EVALUATOR` task role, who is submitting a rating for the user assigned the `WORKER` task role, or the user assigned the `WORKER` task role, who is submitting a rating for the user assigned the `MANAGER` task role. In order to submit a rating, a `secret` must be generated using the `generateSecret` method, which keeps the rating hidden until all ratings have been submitted and revealed.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
 |role|task role|The role that will receive the rating (`MANAGER` or `WORKER`).|
 |secret|hex string|A keccak256 hash that keeps the task rating hidden.|
 
-#### Response
+**Options**
 
-An instance of a `ContractResponse`
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
+
+An instance of a `ContractResponse`.
 
 
 
-#### Contract Information
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
 
 
   
@@ -1574,23 +1763,29 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Upgrade the colony to a new contract version. The new version number must be higher than the current version. Downgrading to old contract versions is not permitted.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |newVersion|number|The version number of the colony contract.|
 
-#### Response
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event Data|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |oldVersion|number|The old version number of the colony.|
 |newVersion|number|The new version number of the colony.|
-|ColonyUpgraded|object|Contains the data defined in [ColonyUpgraded](#eventscolonyupgradedaddlistener-oldversion-newversion-------)|
+|ColonyUpgraded|object|Contains the data defined in [ColonyUpgraded](#eventscolonyupgraded)|
 
-#### Contract Information
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
 
 
   
@@ -1608,22 +1803,24 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Cancel a task. Once a task is cancelled, no further changes to the task can be made.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
 
-#### Response
+**Response**
 
 An instance of a `MultiSigOperation` whose sender will eventually receive the following event data:
 
-|Event Data|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was canceled.|
-|TaskCanceled|object|Contains the data defined in [TaskCanceled](#eventstaskcanceledaddlistener-taskid-------)|
+|TaskCanceled|object|Contains the data defined in [TaskCanceled](#eventstaskcanceled)|
 
-#### Contract Information
+See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
+
+**Contract Information**
 
 
   
@@ -1637,24 +1834,26 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Remove the `EVALUATOR` task role assignment. This function can only be called before the task is complete, i.e. either before the deliverable has been submitted or the user assigned the `WORKER` task role has failed to meet the deadline and the user assigned the `MANAGER` task role has marked the task as complete.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
 
-#### Response
+**Response**
 
 An instance of a `MultiSigOperation` whose sender will eventually receive the following event data:
 
-|Event Data|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was modified.|
 |role|task role|The role of the task that was set (`MANAGER`, `EVALUATOR`, or `WORKER`).|
 |user|address|The user that was assigned the task role.|
-|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleusersetaddlistener-taskid-role-user-------)|
+|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleuserset)|
 
-#### Contract Information
+See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
+
+**Contract Information**
 
 
   
@@ -1668,24 +1867,26 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Remove the `WORKER` task role assignment. This function can only be called before the task is complete, i.e. either before the deliverable has been submitted or the user assigned the `WORKER` task role has failed to meet the deadline and the user assigned the `MANAGER` task role has marked the task as complete.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
 
-#### Response
+**Response**
 
 An instance of a `MultiSigOperation` whose sender will eventually receive the following event data:
 
-|Event Data|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was modified.|
 |role|task role|The role of the task that was set (`MANAGER`, `EVALUATOR`, or `WORKER`).|
 |user|address|The user that was assigned the task role.|
-|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleusersetaddlistener-taskid-role-user-------)|
+|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleuserset)|
 
-#### Contract Information
+See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
+
+**Contract Information**
 
 
   
@@ -1699,24 +1900,26 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Set the task specification. The task specification, or "task brief", is a description of the work that must be completed for the task. The description is hashed and stored with the task for future reference during the rating process or in the event of a dispute.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
 |specificationHash|IPFS hash|The specification hash of the task (an IPFS hash).|
 
-#### Response
+**Response**
 
 An instance of a `MultiSigOperation` whose sender will eventually receive the following event data:
 
-|Event Data|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was modified.|
 |specificationHash|string|The specification hash that was set (an IPFS hash).|
-|TaskBriefSet|object|Contains the data defined in [TaskBriefSet](#eventstaskbriefsetaddlistener-taskid-specificationhash-------)|
+|TaskBriefSet|object|Contains the data defined in [TaskBriefSet](#eventstaskbriefset)|
 
-#### Contract Information
+See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
+
+**Contract Information**
 
 
   
@@ -1730,24 +1933,26 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Set the domain of a task. Every task must belong to a domain. This function can only be called by the user assigned the `MANAGER` task role.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
 |domainId|number|The ID of the domain.|
 
-#### Response
+**Response**
 
 An instance of a `MultiSigOperation` whose sender will eventually receive the following event data:
 
-|Event Data|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was modified.|
 |domainId|number|The ID of the domain that was set.|
-|TaskDomainSet|object|Contains the data defined in [TaskDomainSet](#eventstaskdomainsetaddlistener-taskid-domainid-------)|
+|TaskDomainSet|object|Contains the data defined in [TaskDomainSet](#eventstaskdomainset)|
 
-#### Contract Information
+See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
+
+**Contract Information**
 
 
   
@@ -1761,24 +1966,26 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Set the due date of a task. The due date is the last day that the user assigned the `WORKER` task role can submit the task deliverable.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
 |dueDate|date|The due date of the task.|
 
-#### Response
+**Response**
 
 An instance of a `MultiSigOperation` whose sender will eventually receive the following event data:
 
-|Event Data|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was modified.|
 |dueDate|date|The due date that was set.|
-|TaskDueDateSet|object|Contains the data defined in [TaskDueDateSet](#eventstaskduedatesetaddlistener-taskid-duedate-------)|
+|TaskDueDateSet|object|Contains the data defined in [TaskDueDateSet](#eventstaskduedateset)|
 
-#### Contract Information
+See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
+
+**Contract Information**
 
 
   
@@ -1792,25 +1999,27 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Assign the `EVALUATOR` task role to a user. This function can only be called before the task is finalized. The user assigned the `MANAGER` task role and the user being assigned the `EVALUATOR` task role must both sign the transaction before it can be executed.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
 |user|address|The address that will be assigned the `EVALUATOR` task role.|
 
-#### Response
+**Response**
 
 An instance of a `MultiSigOperation` whose sender will eventually receive the following event data:
 
-|Event Data|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was modified.|
 |role|task role|The role of the task that was set (`MANAGER`, `EVALUATOR`, or `WORKER`).|
 |user|address|The user that was assigned the task role.|
-|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleusersetaddlistener-taskid-role-user-------)|
+|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleuserset)|
 
-#### Contract Information
+See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
+
+**Contract Information**
 
 
   
@@ -1824,25 +2033,27 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Assign the `MANAGER` task role to a user. This function can only be called before the task is finalized. The user currently assigned the `MANAGER` task role and the user being assigned the `MANAGER` task role must both sign the transaction before it can be executed.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
 |user|address|The address that will be assigned the `MANANAGER` task role.|
 
-#### Response
+**Response**
 
 An instance of a `MultiSigOperation` whose sender will eventually receive the following event data:
 
-|Event Data|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was modified.|
 |role|task role|The role of the task that was set (`MANAGER`, `EVALUATOR`, or `WORKER`).|
 |user|address|The user that was assigned the task role.|
-|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleusersetaddlistener-taskid-role-user-------)|
+|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleuserset)|
 
-#### Contract Information
+See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
+
+**Contract Information**
 
 
   
@@ -1856,24 +2067,26 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Set the skill of a task. Only one skill can be assigned per task. The user assigned the `MANAGER` task role and the user assigned the `WORKER` task role must both sign this transaction before it can be executed.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
 |skillId|number|The ID of the skill.|
 
-#### Response
+**Response**
 
 An instance of a `MultiSigOperation` whose sender will eventually receive the following event data:
 
-|Event Data|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was modified.|
 |skillId|number|The ID of the skill that was set.|
-|TaskSkillSet|object|Contains the data defined in [TaskSkillSet](#eventstaskskillsetaddlistener-taskid-skillid-------)|
+|TaskSkillSet|object|Contains the data defined in [TaskSkillSet](#eventstaskskillset)|
 
-#### Contract Information
+See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
+
+**Contract Information**
 
 
   
@@ -1887,25 +2100,27 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Assign the `WORKER` task role to a user. This function can only be called before the task is finalized. The user assigned the `MANAGER` task role and the user being assigned the `WORKER` task role must both sign the transaction before it can be executed.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
 |user|address|The address that will be assigned the `WORKER` task role.|
 
-#### Response
+**Response**
 
 An instance of a `MultiSigOperation` whose sender will eventually receive the following event data:
 
-|Event Data|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was modified.|
 |role|task role|The role of the task that was set (`MANAGER`, `EVALUATOR`, or `WORKER`).|
 |user|address|The user that was assigned the task role.|
-|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleusersetaddlistener-taskid-role-user-------)|
+|TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleuserset)|
 
-#### Contract Information
+See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
+
+**Contract Information**
 
 
   
@@ -1919,27 +2134,29 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Set the payout amount for the `MANAGER` task role.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
 |token|address|The address of the token contract (an empty address if Ether).|
 |amount|big number|The payout amount in tokens (or Ether).|
 
-#### Response
+**Response**
 
 An instance of a `MultiSigOperation` whose sender will eventually receive the following event data:
 
-|Event Data|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was modified.|
 |role|task role|The role of the task that was modified (`MANAGER`, `EVALUATOR`, or `WORKER`).|
 |token|address|The address of the token contract (an empty address if Ether).|
 |amount|big number|The task payout amount that was set.|
-|TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutsetaddlistener-taskid-role-token-amount-------)|
+|TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutset)|
 
-#### Contract Information
+See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
+
+**Contract Information**
 
 
   
@@ -1953,27 +2170,29 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Set the payout amount for the `EVALUATOR` task role.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
 |token|address|The address of the token contract (an empty address if Ether).|
 |amount|big number|The payout amount in tokens (or Ether).|
 
-#### Response
+**Response**
 
 An instance of a `MultiSigOperation` whose sender will eventually receive the following event data:
 
-|Event Data|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was modified.|
 |role|task role|The role of the task that was modified (`MANAGER`, `EVALUATOR`, or `WORKER`).|
 |token|address|The address of the token contract (an empty address if Ether).|
 |amount|big number|The task payout amount that was set.|
-|TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutsetaddlistener-taskid-role-token-amount-------)|
+|TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutset)|
 
-#### Contract Information
+See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
+
+**Contract Information**
 
 
   
@@ -1987,27 +2206,29 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 
 Set the payout amount for the `WORKER` task role.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
 |token|address|The address of the token contract (an empty address if Ether).|
 |amount|big number|The payout amount in tokens (or Ether).|
 
-#### Response
+**Response**
 
 An instance of a `MultiSigOperation` whose sender will eventually receive the following event data:
 
-|Event Data|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was modified.|
 |role|task role|The role of the task that was modified (`MANAGER`, `EVALUATOR`, or `WORKER`).|
 |token|address|The address of the token contract (an empty address if Ether).|
 |amount|big number|The task payout amount that was set.|
-|TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutsetaddlistener-taskid-role-token-amount-------)|
+|TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutset)|
 
-#### Contract Information
+See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
+
+**Contract Information**
 
 
   
@@ -2021,72 +2242,114 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 ## Events
 
 
-### `events.ColonyAdminRoleRemoved.addListener(({ user }) => { /* ... */ })`
+### `events.ColonyAdminRoleRemoved`
+
+**Methods**
+
+`.addListener(({ user }) => { /* ... */ })`
+
+`.removeListener(({ user }) => { /* ... */ })`
 
 
 
-#### Arguments
 
-|Argument|Type|Description|
+**Event Data**
+
+|Name|Type|Description|
 |---|---|---|
 |user|address|The address that was unassigned the `ADMIN` authority role.|
 
 
-### `events.ColonyAdminRoleSet.addListener(({ user }) => { /* ... */ })`
+### `events.ColonyAdminRoleSet`
+
+**Methods**
+
+`.addListener(({ user }) => { /* ... */ })`
+
+`.removeListener(({ user }) => { /* ... */ })`
 
 
 
-#### Arguments
 
-|Argument|Type|Description|
+**Event Data**
+
+|Name|Type|Description|
 |---|---|---|
 |user|address|The address that was assigned the `ADMIN` authority role.|
 
 
-### `events.ColonyBootstrapped.addListener(({ users, amounts }) => { /* ... */ })`
+### `events.ColonyBootstrapped`
+
+**Methods**
+
+`.addListener(({ users, amounts }) => { /* ... */ })`
+
+`.removeListener(({ users, amounts }) => { /* ... */ })`
 
 
 
-#### Arguments
 
-|Argument|Type|Description|
+**Event Data**
+
+|Name|Type|Description|
 |---|---|---|
 |users|array|The array of users that received an initial amount of tokens and reputation.|
 |amounts|array|The array of corresponding token and reputation amounts each user recieved.|
 
 
-### `events.ColonyFounderRoleSet.addListener(({ oldFounder, newFounder }) => { /* ... */ })`
+### `events.ColonyFounderRoleSet`
+
+**Methods**
+
+`.addListener(({ oldFounder, newFounder }) => { /* ... */ })`
+
+`.removeListener(({ oldFounder, newFounder }) => { /* ... */ })`
 
 
 
-#### Arguments
 
-|Argument|Type|Description|
+**Event Data**
+
+|Name|Type|Description|
 |---|---|---|
 |oldFounder|address|The address that assigned the `FOUNDER` authority role (the old founder).|
 |newFounder|address|The address that was assigned the `FOUNDER` authority role (the new founder).|
 
 
-### `events.ColonyFundsClaimed.addListener(({ token, fee, payoutRemainder }) => { /* ... */ })`
+### `events.ColonyFundsClaimed`
+
+**Methods**
+
+`.addListener(({ token, fee, payoutRemainder }) => { /* ... */ })`
+
+`.removeListener(({ token, fee, payoutRemainder }) => { /* ... */ })`
 
 
 
-#### Arguments
 
-|Argument|Type|Description|
+**Event Data**
+
+|Name|Type|Description|
 |---|---|---|
 |token|address|The address of the token contract (an empty address if Ether).|
 |fee|big number|The fee deducted from the claim and added to the colony rewards pot.|
 |payoutRemainder|big number|The remaining funds (after the fee) moved to the top-level domain pot.|
 
 
-### `events.ColonyFundsMovedBetweenFundingPots.addListener(({ fromPot, toPot, amount, token }) => { /* ... */ })`
+### `events.ColonyFundsMovedBetweenFundingPots`
+
+**Methods**
+
+`.addListener(({ fromPot, toPot, amount, token }) => { /* ... */ })`
+
+`.removeListener(({ fromPot, toPot, amount, token }) => { /* ... */ })`
 
 
 
-#### Arguments
 
-|Argument|Type|Description|
+**Event Data**
+
+|Name|Type|Description|
 |---|---|---|
 |fromPot|number|The ID of the pot from which the funds were moved.|
 |toPot|number|The ID of the pot to which the funds were moved.|
@@ -2094,93 +2357,149 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 |token|address|The address of the token contract (an empty address if Ether).|
 
 
-### `events.ColonyInitialised.addListener(({ colonyNetwork }) => { /* ... */ })`
+### `events.ColonyInitialised`
+
+**Methods**
+
+`.addListener(({ colonyNetwork }) => { /* ... */ })`
+
+`.removeListener(({ colonyNetwork }) => { /* ... */ })`
 
 
 
-#### Arguments
 
-|Argument|Type|Description|
+**Event Data**
+
+|Name|Type|Description|
 |---|---|---|
 |colonyNetwork|address|The address of the Colony Network.|
 
 
-### `events.ColonyLabelRegistered.addListener(({ colony, label }) => { /* ... */ })`
+### `events.ColonyLabelRegistered`
+
+**Methods**
+
+`.addListener(({ colony, label }) => { /* ... */ })`
+
+`.removeListener(({ colony, label }) => { /* ... */ })`
 
 
 
-#### Arguments
 
-|Argument|Type|Description|
+**Event Data**
+
+|Name|Type|Description|
 |---|---|---|
 |colony|address|The address of the colony that was modified.|
 |label|string|The label that was registered for the colony.|
 
 
-### `events.ColonyRewardInverseSet.addListener(({ rewardInverse }) => { /* ... */ })`
+### `events.ColonyRewardInverseSet`
+
+**Methods**
+
+`.addListener(({ rewardInverse }) => { /* ... */ })`
+
+`.removeListener(({ rewardInverse }) => { /* ... */ })`
 
 
 
-#### Arguments
 
-|Argument|Type|Description|
+**Event Data**
+
+|Name|Type|Description|
 |---|---|---|
 |rewardInverse|big number|The reward inverse value that was set.|
 
 
-### `events.ColonyUpgraded.addListener(({ oldVersion, newVersion }) => { /* ... */ })`
+### `events.ColonyUpgraded`
+
+**Methods**
+
+`.addListener(({ oldVersion, newVersion }) => { /* ... */ })`
+
+`.removeListener(({ oldVersion, newVersion }) => { /* ... */ })`
 
 
 
-#### Arguments
 
-|Argument|Type|Description|
+**Event Data**
+
+|Name|Type|Description|
 |---|---|---|
 |oldVersion|number|The old version number of the colony.|
 |newVersion|number|The new version number of the colony.|
 
 
-### `events.DomainAdded.addListener(({ domainId }) => { /* ... */ })`
+### `events.DomainAdded`
+
+**Methods**
+
+`.addListener(({ domainId }) => { /* ... */ })`
+
+`.removeListener(({ domainId }) => { /* ... */ })`
 
 
 
-#### Arguments
 
-|Argument|Type|Description|
+**Event Data**
+
+|Name|Type|Description|
 |---|---|---|
 |domainId|number|The ID of the domain that was added.|
 
 
-### `events.Mint.addListener(({ address, amount }) => { /* ... */ })`
+### `events.Mint`
+
+**Methods**
+
+`.addListener(({ address, amount }) => { /* ... */ })`
+
+`.removeListener(({ address, amount }) => { /* ... */ })`
 
 
 
-#### Arguments
 
-|Argument|Type|Description|
+**Event Data**
+
+|Name|Type|Description|
 |---|---|---|
 |address|address|The address that initiated the mint event.|
 |amount|big number|The amount of tokens that were minted.|
 
 
-### `events.FundingPotAdded.addListener(({ potId }) => { /* ... */ })`
+### `events.FundingPotAdded`
+
+**Methods**
+
+`.addListener(({ potId }) => { /* ... */ })`
+
+`.removeListener(({ potId }) => { /* ... */ })`
 
 
 
-#### Arguments
 
-|Argument|Type|Description|
+**Event Data**
+
+|Name|Type|Description|
 |---|---|---|
 |potId|number|The numeric ID of the pot that was added.|
 
 
-### `events.RewardPayoutClaimed.addListener(({ rewardPayoutId, user, fee, payoutRemainder }) => { /* ... */ })`
+### `events.RewardPayoutClaimed`
+
+**Methods**
+
+`.addListener(({ rewardPayoutId, user, fee, payoutRemainder }) => { /* ... */ })`
+
+`.removeListener(({ rewardPayoutId, user, fee, payoutRemainder }) => { /* ... */ })`
 
 
 
-#### Arguments
 
-|Argument|Type|Description|
+**Event Data**
+
+|Name|Type|Description|
 |---|---|---|
 |rewardPayoutId|number|The ID of the reward payout cycle.|
 |user|address|The address of the user who claimed the reward payout.|
@@ -2188,139 +2507,223 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 |payoutRemainder|big number|The remaining payout amount (after the fee) transferred to the user.|
 
 
-### `events.RewardPayoutCycleEnded.addListener(({ payoutId }) => { /* ... */ })`
+### `events.RewardPayoutCycleEnded`
+
+**Methods**
+
+`.addListener(({ payoutId }) => { /* ... */ })`
+
+`.removeListener(({ payoutId }) => { /* ... */ })`
 
 
 
-#### Arguments
 
-|Argument|Type|Description|
+**Event Data**
+
+|Name|Type|Description|
 |---|---|---|
 |payoutId|number|The ID of the payout cycle that ended.|
 
 
-### `events.RewardPayoutCycleStarted.addListener(({ payoutId }) => { /* ... */ })`
+### `events.RewardPayoutCycleStarted`
+
+**Methods**
+
+`.addListener(({ payoutId }) => { /* ... */ })`
+
+`.removeListener(({ payoutId }) => { /* ... */ })`
 
 
 
-#### Arguments
 
-|Argument|Type|Description|
+**Event Data**
+
+|Name|Type|Description|
 |---|---|---|
 |payoutId|number|The ID of the payout cycle that started.|
 
 
-### `events.SkillAdded.addListener(({ skillId, parentSkillId }) => { /* ... */ })`
+### `events.SkillAdded`
+
+**Methods**
+
+`.addListener(({ skillId, parentSkillId }) => { /* ... */ })`
+
+`.removeListener(({ skillId, parentSkillId }) => { /* ... */ })`
 
 
 
-#### Arguments
 
-|Argument|Type|Description|
+**Event Data**
+
+|Name|Type|Description|
 |---|---|---|
 |skillId|number|The ID of the skill that was added.|
 |parentSkillId|number|The ID of the parent skill.|
 
 
-### `events.TaskAdded.addListener(({ taskId }) => { /* ... */ })`
+### `events.TaskAdded`
+
+**Methods**
+
+`.addListener(({ taskId }) => { /* ... */ })`
+
+`.removeListener(({ taskId }) => { /* ... */ })`
 
 
 
-#### Arguments
 
-|Argument|Type|Description|
+**Event Data**
+
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was added.|
 
 
-### `events.TaskBriefSet.addListener(({ taskId, specificationHash }) => { /* ... */ })`
+### `events.TaskBriefSet`
+
+**Methods**
+
+`.addListener(({ taskId, specificationHash }) => { /* ... */ })`
+
+`.removeListener(({ taskId, specificationHash }) => { /* ... */ })`
 
 
 
-#### Arguments
 
-|Argument|Type|Description|
+**Event Data**
+
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was modified.|
 |specificationHash|string|The specification hash that was set (an IPFS hash).|
 
 
-### `events.TaskCanceled.addListener(({ taskId }) => { /* ... */ })`
+### `events.TaskCanceled`
+
+**Methods**
+
+`.addListener(({ taskId }) => { /* ... */ })`
+
+`.removeListener(({ taskId }) => { /* ... */ })`
 
 
 
-#### Arguments
 
-|Argument|Type|Description|
+**Event Data**
+
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was canceled.|
 
 
-### `events.TaskCompleted.addListener(({ taskId }) => { /* ... */ })`
+### `events.TaskCompleted`
+
+**Methods**
+
+`.addListener(({ taskId }) => { /* ... */ })`
+
+`.removeListener(({ taskId }) => { /* ... */ })`
 
 
 
-#### Arguments
 
-|Argument|Type|Description|
+**Event Data**
+
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was completed.|
 
 
-### `events.TaskDeliverableSubmitted.addListener(({ taskId, deliverableHash }) => { /* ... */ })`
+### `events.TaskDeliverableSubmitted`
+
+**Methods**
+
+`.addListener(({ taskId, deliverableHash }) => { /* ... */ })`
+
+`.removeListener(({ taskId, deliverableHash }) => { /* ... */ })`
 
 
 
-#### Arguments
 
-|Argument|Type|Description|
+**Event Data**
+
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was modified.|
 |deliverableHash|IPFS hash|The deliverable hash that was submitted (an IPFS hash).|
 
 
-### `events.TaskDomainSet.addListener(({ taskId, domainId }) => { /* ... */ })`
+### `events.TaskDomainSet`
+
+**Methods**
+
+`.addListener(({ taskId, domainId }) => { /* ... */ })`
+
+`.removeListener(({ taskId, domainId }) => { /* ... */ })`
 
 
 
-#### Arguments
 
-|Argument|Type|Description|
+**Event Data**
+
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was modified.|
 |domainId|number|The ID of the domain that was set.|
 
 
-### `events.TaskDueDateSet.addListener(({ taskId, dueDate }) => { /* ... */ })`
+### `events.TaskDueDateSet`
+
+**Methods**
+
+`.addListener(({ taskId, dueDate }) => { /* ... */ })`
+
+`.removeListener(({ taskId, dueDate }) => { /* ... */ })`
 
 
 
-#### Arguments
 
-|Argument|Type|Description|
+**Event Data**
+
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was modified.|
 |dueDate|date|The due date that was set.|
 
 
-### `events.TaskFinalized.addListener(({ taskId }) => { /* ... */ })`
+### `events.TaskFinalized`
+
+**Methods**
+
+`.addListener(({ taskId }) => { /* ... */ })`
+
+`.removeListener(({ taskId }) => { /* ... */ })`
 
 
 
-#### Arguments
 
-|Argument|Type|Description|
+**Event Data**
+
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was finalized.|
 
 
-### `events.TaskPayoutClaimed.addListener(({ taskId, role, token, amount }) => { /* ... */ })`
+### `events.TaskPayoutClaimed`
+
+**Methods**
+
+`.addListener(({ taskId, role, token, amount }) => { /* ... */ })`
+
+`.removeListener(({ taskId, role, token, amount }) => { /* ... */ })`
 
 
 
-#### Arguments
 
-|Argument|Type|Description|
+**Event Data**
+
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was modified.|
 |role|task role|The role of the task that was assigned the task payout (`MANAGER`, `EVALUATOR`, or `WORKER`).|
@@ -2328,13 +2731,20 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 |amount|big number|The task payout amount that was claimed.|
 
 
-### `events.TaskPayoutSet.addListener(({ taskId, role, token, amount }) => { /* ... */ })`
+### `events.TaskPayoutSet`
+
+**Methods**
+
+`.addListener(({ taskId, role, token, amount }) => { /* ... */ })`
+
+`.removeListener(({ taskId, role, token, amount }) => { /* ... */ })`
 
 
 
-#### Arguments
 
-|Argument|Type|Description|
+**Event Data**
+
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was modified.|
 |role|task role|The role of the task that was modified (`MANAGER`, `EVALUATOR`, or `WORKER`).|
@@ -2342,63 +2752,98 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/9bba12
 |amount|big number|The task payout amount that was set.|
 
 
-### `events.TaskRoleUserSet.addListener(({ taskId, role, user }) => { /* ... */ })`
+### `events.TaskRoleUserSet`
+
+**Methods**
+
+`.addListener(({ taskId, role, user }) => { /* ... */ })`
+
+`.removeListener(({ taskId, role, user }) => { /* ... */ })`
 
 
 
-#### Arguments
 
-|Argument|Type|Description|
+**Event Data**
+
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was modified.|
 |role|task role|The role of the task that was set (`MANAGER`, `EVALUATOR`, or `WORKER`).|
 |user|address|The user that was assigned the task role.|
 
 
-### `events.TaskSkillSet.addListener(({ taskId, skillId }) => { /* ... */ })`
+### `events.TaskSkillSet`
+
+**Methods**
+
+`.addListener(({ taskId, skillId }) => { /* ... */ })`
+
+`.removeListener(({ taskId, skillId }) => { /* ... */ })`
 
 
 
-#### Arguments
 
-|Argument|Type|Description|
+**Event Data**
+
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was modified.|
 |skillId|number|The ID of the skill that was set.|
 
 
-### `events.TaskWorkRatingRevealed.addListener(({ taskId, role, rating }) => { /* ... */ })`
+### `events.TaskWorkRatingRevealed`
+
+**Methods**
+
+`.addListener(({ taskId, role, rating }) => { /* ... */ })`
+
+`.removeListener(({ taskId, role, rating }) => { /* ... */ })`
 
 
 
-#### Arguments
 
-|Argument|Type|Description|
+**Event Data**
+
+|Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was modified.|
 |role|task role|The role of the task that received the rating (`MANAGER`, `EVALUATOR`, or `WORKER`).|
 |rating|number|The value of the rating that was revealed (`1`, `2`, or `3`).|
 
 
-### `events.TokenLocked.addListener(({ token, lockCount }) => { /* ... */ })`
+### `events.TokenLocked`
+
+**Methods**
+
+`.addListener(({ token, lockCount }) => { /* ... */ })`
+
+`.removeListener(({ token, lockCount }) => { /* ... */ })`
 
 
 
-#### Arguments
 
-|Argument|Type|Description|
+**Event Data**
+
+|Name|Type|Description|
 |---|---|---|
 |token|address|The address of the token contract (an empty address if Ether).|
 |lockCount|number|The total lock count for the token.|
 
 
-### `events.Transfer.addListener(({ from, to, value }) => { /* ... */ })`
+### `events.Transfer`
+
+**Methods**
+
+`.addListener(({ from, to, value }) => { /* ... */ })`
+
+`.removeListener(({ from, to, value }) => { /* ... */ })`
 
 
 
-#### Arguments
 
-|Argument|Type|Description|
+**Event Data**
+
+|Name|Type|Description|
 |---|---|---|
 |from|address|The address of the account that sent tokens.|
 |to|address|The address of the account that received tokens.|

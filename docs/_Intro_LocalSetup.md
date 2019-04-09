@@ -51,6 +51,8 @@ git init
 
 This will initialize your project as a Git repository, which will allow you to add colonyNetwork as a submodule, switch between colonyNetwork versions, and save the colonyNetwork version that you will be using in your local development environment.
 
+Also, now would be a good time to add a `.gitignore` file in the root of your repository and ignore `node_modules`.
+
 ### Initialize Yarn
 
 Within the root directory, run the following command and follow the prompt:
@@ -82,7 +84,7 @@ In preparation for the launch of the colonyNetwork smart contracts on `mainnet`,
 Within the colonyNetwork directory, run the following command:
 
 ```
-git checkout 9bba127b0286708d4f8919526a943b0e916cfd7c
+git checkout 543423abb133119a4029ac2adcc8cebb16a8c6d9
 ```
 
 At this point, you will need to move back into the root directory and make your first commit (or your next commit if you added the submodule to an existing project). If you do not commit your changes, the version will not be saved.

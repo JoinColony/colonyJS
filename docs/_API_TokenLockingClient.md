@@ -6,34 +6,38 @@ order: 4
 
 The `TokenLockingClient` is a standard interface for interactions with methods and events described in `ITokenLocking.sol`. These interactions are generally concerned token locking, such as locking and unlocking tokens.
 
-See [Clients](/colonyjs/components-clients) for information about initializing `TokenLockingClient`.
+See [Clients](/colonyjs/components-clients) for more information about initializing `TokenLockingClient`.
+
+See [ContractClient](/colonyjs/api-contractclient) for more information about the `ContractClient` superclass.
+
+## Table of Contents
 
 ==TOC==
 
   
 ## Callers
 
-**All callers return promises which resolve to an object containing the given return values.**.
+**All callers return promises which resolve to an object containing the given return values.**
 
 ### `getTotalLockCount.call({ token })`
 
 Get the total number of locked tokens.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |token|address|The address of the token contract (an empty address if Ether).|
 
-#### Return Values
+**Response**
 
 A promise which resolves to an object containing the following properties:
 
-|Return Value|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |count|number|The total number of locked tokens in the colony.|
 
-#### Contract Information
+**Contract Information**
 
 
   
@@ -47,22 +51,22 @@ Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/
 
 Get the total number of locked tokens for a given user.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |token|address|The address of the token contract (an empty address if Ether).|
 |user|address|The address of the user.|
 
-#### Return Values
+**Response**
 
 A promise which resolves to an object containing the following properties:
 
-|Return Value|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |count|big number|The total number of locked tokens.|
 
-#### Contract Information
+**Contract Information**
 
 
   
@@ -80,26 +84,32 @@ Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/
 
 Deposit tokens. This function only be called if the tokens that the user is attempting to deposit are not locked and if the user has allowed the token locking contract to transfer the tokens.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |token|address|The address of the token contract (an empty address if Ether).|
 |amount|big number|The amount of tokens that will be deposited.|
 
-#### Response
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event Data|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |token|address|The address of the token contract receiving the deposit.|
 |user|address|The address of the user that deposited tokens.|
 |amount|big number|The amount of tokens that were deposited.|
 |timestamp|date|The timestamp when the tokens were deposited.|
-|UserTokenDeposited|object|Contains the data defined in [UserTokenDeposited](#eventsusertokendepositedaddlistener-token-user-amount-timestamp-------)|
+|UserTokenDeposited|object|Contains the data defined in [UserTokenDeposited](#eventsusertokendeposited)|
 
-#### Contract Information
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
 
 
   
@@ -113,23 +123,29 @@ Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/
 
 Lock all tokens for a given token contract.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |token|address|The address of the token contract (an empty address if Ether).|
 
-#### Response
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event Data|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |token|address|The address of the token contract that was locked.|
 |lockCount|big number|The address of the token contract that was assigned.|
-|TokenLocked|object|Contains the data defined in [TokenLocked](#eventstokenlockedaddlistener-token-lockcount-------)|
+|TokenLocked|object|Contains the data defined in [TokenLocked](#eventstokenlocked)|
 
-#### Contract Information
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
 
 
   
@@ -143,20 +159,26 @@ Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/
 
 Increment the token lock counter. This method allows users to waive reward payouts for past reward payout cycles, unlocking the tokens that were locked in previous reward payout cycles.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |token|address|The address of the token contract (an empty address if Ether).|
 |lockId|number|The ID of the lock count that will be set.|
 
-#### Response
+**Options**
 
-An instance of a `ContractResponse`
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
+
+An instance of a `ContractResponse`.
 
 
 
-#### Contract Information
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
 
 
   
@@ -170,26 +192,32 @@ Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/
 
 Unlock all tokens for a user on a given token contract.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |token|address|The address of the token contract (an empty address if Ether).|
 |user|address|The address of the user.|
 |lockId|number|The ID of the lock count that will be set.|
 
-#### Response
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event Data|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |token|address|The address of the token contract that was unlocked.|
 |user|address|The address of the user that the tokens were unlocked for.|
 |lockId|number|The ID of the lock that the was set for the user.|
-|UserTokenUnlocked|object|Contains the data defined in [UserTokenUnlocked](#eventsusertokenunlockedaddlistener-token-user-lockid-------)|
+|UserTokenUnlocked|object|Contains the data defined in [UserTokenUnlocked](#eventsusertokenunlocked)|
 
-#### Contract Information
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
 
 
   
@@ -203,25 +231,31 @@ Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/
 
 Withdraw tokens. This function only be called if the tokens that the user is attempting to withdraw are not locked.
 
-#### Arguments
+**Input**
 
-|Argument|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |token|address|The address of the token contract (an empty address if Ether).|
 |amount|big number|The amount of tokens that will be deposited.|
 
-#### Response
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
 
 An instance of a `ContractResponse` which will eventually receive the following event data:
 
-|Event Data|Type|Description|
+|Name|Type|Description|
 |---|---|---|
 |token|address|The address of the token contract from which tokens were withdrawn.|
 |user|address|The address of the user that withdrew tokens.|
 |amount|big number|The amount of tokens that were withdrawn.|
-|UserTokenWithdrawn|object|Contains the data defined in [UserTokenWithdrawn](#eventsusertokenwithdrawnaddlistener-token-user-amount-------)|
+|UserTokenWithdrawn|object|Contains the data defined in [UserTokenWithdrawn](#eventsusertokenwithdrawn)|
 
-#### Contract Information
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
 
 
   
@@ -236,25 +270,39 @@ Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/
 ## Events
 
 
-### `events.TokenLocked.addListener(({ token, lockCount }) => { /* ... */ })`
+### `events.TokenLocked`
+
+**Methods**
+
+`.addListener(({ token, lockCount }) => { /* ... */ })`
+
+`.removeListener(({ token, lockCount }) => { /* ... */ })`
 
 
 
-#### Arguments
 
-|Argument|Type|Description|
+**Event Data**
+
+|Name|Type|Description|
 |---|---|---|
 |token|address|The address of the token contract that was locked.|
 |lockCount|big number|The address of the token contract that was assigned.|
 
 
-### `events.UserTokenDeposited.addListener(({ token, user, amount, timestamp }) => { /* ... */ })`
+### `events.UserTokenDeposited`
+
+**Methods**
+
+`.addListener(({ token, user, amount, timestamp }) => { /* ... */ })`
+
+`.removeListener(({ token, user, amount, timestamp }) => { /* ... */ })`
 
 
 
-#### Arguments
 
-|Argument|Type|Description|
+**Event Data**
+
+|Name|Type|Description|
 |---|---|---|
 |token|address|The address of the token contract receiving the deposit.|
 |user|address|The address of the user that deposited tokens.|
@@ -262,26 +310,40 @@ Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/
 |timestamp|date|The timestamp when the tokens were deposited.|
 
 
-### `events.UserTokenUnlocked.addListener(({ token, user, lockId }) => { /* ... */ })`
+### `events.UserTokenUnlocked`
+
+**Methods**
+
+`.addListener(({ token, user, lockId }) => { /* ... */ })`
+
+`.removeListener(({ token, user, lockId }) => { /* ... */ })`
 
 
 
-#### Arguments
 
-|Argument|Type|Description|
+**Event Data**
+
+|Name|Type|Description|
 |---|---|---|
 |token|address|The address of the token contract that was unlocked.|
 |user|address|The address of the user that the tokens were unlocked for.|
 |lockId|number|The ID of the lock that the was set for the user.|
 
 
-### `events.UserTokenWithdrawn.addListener(({ token, user, amount }) => { /* ... */ })`
+### `events.UserTokenWithdrawn`
+
+**Methods**
+
+`.addListener(({ token, user, amount }) => { /* ... */ })`
+
+`.removeListener(({ token, user, amount }) => { /* ... */ })`
 
 
 
-#### Arguments
 
-|Argument|Type|Description|
+**Event Data**
+
+|Name|Type|Description|
 |---|---|---|
 |token|address|The address of the token contract from which tokens were withdrawn.|
 |user|address|The address of the user that withdrew tokens.|

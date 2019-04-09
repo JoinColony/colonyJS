@@ -122,7 +122,7 @@ function printCallers(callers) {
   return `
 ## Callers
 
-**All callers return promises which resolve to an object containing the given return values.**.
+**All callers return promises which resolve to an object containing the given return values.**
 ` +
     callers
       .map(
@@ -130,15 +130,15 @@ function printCallers(callers) {
 ### \`${caller.name}.call(${printArgs(caller.args, false)})\`
 
 ${caller.description}
-${caller.args && caller.args.length ? '\n#### Arguments\n\n' : ''}${printProps('Argument', caller.args)}
+${caller.args && caller.args.length ? '\n**Input**\n\n' : ''}${printProps(caller.args)}
 
-#### Return Values
+**Response**
 
 A promise which resolves to an object containing the following properties:
 
-${printProps('Return Value', caller.returns)}
+${printProps(caller.returns)}
 
-#### Contract Information
+**Contract Information**
 
 ${printContractData(caller.contractData)}
 `,
@@ -159,24 +159,30 @@ function printSenders(senders, events) {
 ### \`${sender.name}.send(${printArgs(sender.args, true)})\`
 
 ${sender.description}
-${sender.args && sender.args.length ? '\n#### Arguments\n\n' : ''}${printProps('Argument', sender.args)}
+${sender.args && sender.args.length ? '\n**Input**\n\n' : ''}${printProps(sender.args)}
 
-#### Response
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
 
 An instance of a \`ContractResponse\`${
   // XXX If this gets even more complicated, find another way!
   sender.name === 'createToken'
-    ? ' which will receive a receipt with a \`contractAddress\` property (the address of the newly-deployed contract)'
+    ? ' which will receive a receipt with a \`contractAddress\` property.'
     : (
         sender.events && sender.events.length
           ? ' which will eventually receive the following event data:'
-          : ''
+          : '.'
       )
 }
 
-${printProps('Event Data', getEventProps(events, sender.events))}
+${printProps(getEventProps(events, sender.events))}
 
-#### Contract Information
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about \`ContractResponse\`.
+
+**Contract Information**
 
 ${printContractData(sender.contractData)}
 `,
@@ -191,10 +197,17 @@ function printEvents(events) {
 ## Events
 
 ` + events.map(event => `
-### \`events.${event.name}.addListener((${printArgs(event.args)}) => { /* ... */ })\`
+### \`events.${event.name}\`
+
+**Methods**
+
+\`.addListener((${printArgs(event.args)}) => { /* ... */ })\`
+
+\`.removeListener((${printArgs(event.args)}) => { /* ... */ })\`
 
 ${event.description}
-${event.args && event.args.length ? '\n#### Arguments\n\n' : ''}${printProps('Argument', event.args)}
+
+${event.args && event.args.length ? '\n**Event Data**\n\n' : ''}${printProps(event.args)}
 
 `).join('');
 }
@@ -212,15 +225,17 @@ function printMultiSig(multisig, events) {
 ### \`${ms.name}.startOperation(${printArgs(ms.args, false)})\`
 
 ${ms.description}
-${ms.args && ms.args.length ? '\n#### Arguments\n\n' : ''}${printProps('Argument', ms.args)}
+${ms.args && ms.args.length ? '\n**Input**\n\n' : ''}${printProps(ms.args)}
 
-#### Response
+**Response**
 
-An instance of a \`MultiSigOperation\`${ms.events && ms.events.length ? ' whose sender will eventually receive the following event data:' : ''}
+An instance of a \`MultiSigOperation\`${ms.events && ms.events.length ? ' whose sender will eventually receive the following event data:' : '.'}
 
-${printProps('Event Data', getEventProps(events, ms.events))}
+${printProps(getEventProps(events, ms.events))}
 
-#### Contract Information
+See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
+
+**Contract Information**
 
 ${printContractData(ms.contractData)}
 `,
@@ -238,9 +253,9 @@ function printContractData(data) {
   `
 }
 
-function printProps(title, props) {
+function printProps(props) {
   if (props && props.length) {
-    return `|${title}|Type|Description|
+    return `|Name|Type|Description|
 |---|---|---|
 ${props
       .map(param => `|${param.name}|${param.type}|${param.description}|`)
@@ -313,7 +328,7 @@ function getEventName(p) {
 
 function getNestedEventDescription(event) {
   const args = printArgs(event.args).toLowerCase().replace(/\s/g, '').replace(/\W/g, '-');
-  return `Contains the data defined in [${event.name}](#events${event.name.toLowerCase()}addlistener${args}------)`;
+  return `Contains the data defined in [${event.name}](#events${event.name.toLowerCase()})`;
 }
 
 function formatDescription(str) {
