@@ -9,7 +9,10 @@
   "engines": {
     "node": ">=10.12.0"
   },
-  "files": ["/", ".gitignore"],
+  "files": [
+    "/",
+    ".gitignore"
+  ],
   "scripts": {
     "start-ganache": "colony service start-ganache",
     "deploy-contracts": "colony service deploy-contracts",
