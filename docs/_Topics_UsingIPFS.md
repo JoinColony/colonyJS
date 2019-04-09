@@ -1,7 +1,7 @@
 ---
 title: Using IPFS
 section: Topics
-order: 9
+order: 10
 ---
 
 A natural way to use the `specificationHash` and `deliverableHash` properties within a task is to point to a file hosted on IPFS. This leaves open the format for the task specification (the description of the work to be done) and the task deliverable (the work done) and provides the opportunity to use text files, PDFs, or other forms of media.
