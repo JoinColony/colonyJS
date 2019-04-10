@@ -137,7 +137,13 @@ const build = async (commander, packageName) => {
   // Initialize git
   cp.execSync(`git init`);
 
-  // Run postinstall script
+  // Prepare initial commit
+  cp.execSync(`git add .`);
+
+  // Perform initial commit
+  cp.execSync(`git commit -m '${packageName}'`);
+
+  // Install dependencies
   cp.execSync(`yarn`, { stdio: [0, 1, 2] });
 
   // Log step
