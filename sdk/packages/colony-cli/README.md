@@ -38,6 +38,12 @@ Start a local test network with [Ganache](https://github.com/trufflesuite/ganach
 colony service start-ganache
 ```
 
+Start a local test network with [Ganache](https://github.com/trufflesuite/ganache-cli) using `--noVMErrorsOnRPCResponse`:
+
+```
+colony service start-ganache --noVMErrorsOnRPCResponse
+```
+
 Deploy the [colonyNetwork](https://github.com/JoinColony/colonyNetwork) smart contracts:
 
 ```

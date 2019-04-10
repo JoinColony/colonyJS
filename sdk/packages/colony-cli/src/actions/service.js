@@ -40,14 +40,30 @@ const service = async (commander, serviceName) => {
     console.log('  Starting local test network...');
     console.log();
 
-    // Start ganache
-    cp.execSync(
-      `sh ${scriptsPath}/start_ganache.sh`,
-      {
-        cwd: colonyNetworkPath,
-        stdio: 'inherit',
-      },
-    );
+    // Check for noVMErrorsOnRPCResponse flag
+    if (commander.args[1].noVMErrorsOnRPCResponse) {
+
+      // Start ganache using noVMErrorsOnRPCResponse flag
+      cp.execSync(
+        `sh ${scriptsPath}/start_ganache.sh --noVMErrorsOnRPCResponse`,
+        {
+          cwd: colonyNetworkPath,
+          stdio: 'inherit',
+        },
+      );
+
+    } else {
+
+      // Start ganache
+      cp.execSync(
+        `sh ${scriptsPath}/start_ganache.sh`,
+        {
+          cwd: colonyNetworkPath,
+          stdio: 'inherit',
+        },
+      );
+
+    }
 
   } else if (serviceName === 'deploy-contracts') {
 
