@@ -24,6 +24,7 @@ commander
 commander
   .command('service <service-name>')
   .description('Run a local development service script')
+  .option('--noVMErrorsOnRPCResponse', 'do not transmit transaction failures as RPC errors')
   .action(serviceName => service(commander, serviceName));
 
 commander

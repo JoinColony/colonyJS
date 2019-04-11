@@ -9,7 +9,10 @@
   "engines": {
     "node": ">=10.12.0"
   },
-  "files": ["/", ".gitignore"],
+  "files": [
+    "/",
+    ".gitignore"
+  ],
   "scripts": {
     "start-ganache": "colony service start-ganache",
     "deploy-contracts": "colony service deploy-contracts",
@@ -27,6 +30,8 @@
     "@colony/colony-js-contract-loader-http": "^1.10.0",
     "@colony/purser-metamask": "^2.2.0",
     "@colony/purser-software": "^1.2.4",
+    "buffer": "^5.1.0",
+    "ipfs": "^0.29.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
   },
