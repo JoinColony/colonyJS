@@ -9,29 +9,33 @@
 
 const IPFS = require('ipfs');
 const { Buffer } = require('buffer');
+const path = require('path');
 
 let node;
 
 const waitForIPFS = () => {
-  node = new IPFS({ start: false });
+  node = new IPFS({
+    start: false,
+    repo: './tmp/ipfs/data',
+  });
   return new Promise((resolve, reject) => {
     node.on('ready', () => resolve(true));
     node.on('error', err => reject(err));
   })
 };
 
-exports.init = async () => {
+export const init = async () => {
   await waitForIPFS();
   return node.start();
 }
 
-exports.saveHash = async (obj) => {
+export const saveHash = async (obj) => {
   const data = Buffer.from(JSON.stringify(obj));
   const result = await node.files.add(data);
   return result[0].hash;
 }
 
-exports.getHash = async (hash) => {
+export const getHash = async (hash) => {
   const buf = await node.files.cat(`/ipfs/${hash}`);
   let obj;
   try {
@@ -42,4 +46,4 @@ exports.getHash = async (hash) => {
   return obj;
 }
 
-exports.stop = () => node.stop();
+export const stop = () => node.stop();
