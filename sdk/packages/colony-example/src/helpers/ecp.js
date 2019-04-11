@@ -13,7 +13,10 @@ const { Buffer } = require('buffer');
 let node;
 
 const waitForIPFS = () => {
-  node = new IPFS({ start: false });
+  node = new IPFS({
+    start: false,
+    repo: './tmp/ipfs/data',
+  });
   return new Promise((resolve, reject) => {
     node.on('ready', () => resolve(true));
     node.on('error', err => reject(err));

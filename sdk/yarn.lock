@@ -8416,7 +8416,7 @@ ipfs-unixfs@~0.1.14, ipfs-unixfs@~0.1.15:
   dependencies:
     protons "^1.0.1"
 
-ipfs@^0.29.2:
+ipfs@^0.29.3:
   version "0.29.3"
   resolved "https://registry.yarnpkg.com/ipfs/-/ipfs-0.29.3.tgz#60b4fa56992861e758d752d79895b932de7fd954"
   integrity sha512-czJQOb+jlmmujyqq4C4CxkwKLJeElp6MwXJfpanXUTyG31X823uGAOe+dRS6L/ouiojLhDxMb9TUj0era6ukIQ==
