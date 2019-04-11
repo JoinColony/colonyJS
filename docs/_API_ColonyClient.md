@@ -820,14 +820,13 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Name|Type|Description|
 |---|---|---|
-|taskId|number|The ID of the task that was modified.|
-|role|task role|The role of the task that was assigned the task payout (`MANAGER`, `EVALUATOR`, or `WORKER`).|
+|potId|number|The ID of the pot that was modified.|
 |token|address|The address of the token contract (an empty address if Ether).|
 |amount|big number|The task payout amount that was claimed.|
 |from|address|The address of the account that sent tokens.|
 |to|address|The address of the account that received tokens.|
 |value|big number|The amount of tokens that were transferred.|
-|TaskPayoutClaimed|object|Contains the data defined in [TaskPayoutClaimed](#eventstaskpayoutclaimed)|
+|PayoutClaimed|object|Contains the data defined in [PayoutClaimed](#eventspayoutclaimed)|
 |Transfer|object|Contains the data defined in [Transfer](#eventstransfer)|
 
 See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
@@ -1089,7 +1088,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |TaskRoleUserSet|object|Contains the data defined in [TaskRoleUserSet](#eventstaskroleuserset)|
 |TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutset)|
 |ColonyFundsMovedBetweenFundingPots|object|Contains the data defined in [ColonyFundsMovedBetweenFundingPots](#eventscolonyfundsmovedbetweenfundingpots)|
-|TaskPayoutClaimed|object|Contains the data defined in [TaskPayoutClaimed](#eventstaskpayoutclaimed)|
+|PayoutClaimed|object|Contains the data defined in [PayoutClaimed](#eventspayoutclaimed)|
 |Transfer|object|Contains the data defined in [Transfer](#eventstransfer)|
 
 See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
@@ -1278,8 +1277,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Name|Type|Description|
 |---|---|---|
-|user|address|The address that was unassigned the `ADMIN` authority role.|
-|ColonyAdminRoleRemoved|object|Contains the data defined in [ColonyAdminRoleRemoved](#eventscolonyadminroleremoved)|
+|user|address|The address that was either assigned or unassigned `ADMINISTRATION_ROLE`.|
+|setTo|boolean|A boolean indicating whether the address was assigned or unassigned `ADMINISTRATION_ROLE`.|
+|ColonyAdministrationRoleSet|object|Contains the data defined in [ColonyAdministrationRoleSet](#eventscolonyadministrationroleset)|
 
 See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
@@ -1385,8 +1385,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Name|Type|Description|
 |---|---|---|
-|user|address|The address that was assigned the `ADMIN` authority role.|
-|ColonyAdminRoleSet|object|Contains the data defined in [ColonyAdminRoleSet](#eventscolonyadminroleset)|
+|user|address|The address that was either assigned or unassigned `ADMINISTRATION_ROLE`.|
+|setTo|boolean|A boolean indicating whether the address was assigned or unassigned `ADMINISTRATION_ROLE`.|
+|ColonyAdministrationRoleSet|object|Contains the data defined in [ColonyAdministrationRoleSet](#eventscolonyadministrationroleset)|
 
 See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
@@ -1462,9 +1463,9 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Name|Type|Description|
 |---|---|---|
-|oldFounder|address|The address that assigned the `FOUNDER` authority role (the old founder).|
-|newFounder|address|The address that was assigned the `FOUNDER` authority role (the new founder).|
-|ColonyFounderRoleSet|object|Contains the data defined in [ColonyFounderRoleSet](#eventscolonyfounderroleset)|
+|user|address|The address that was either assigned or unassigned `ROOT_ROLE`.|
+|setTo|boolean|A boolean indicating whether the address was assigned or unassigned `ROOT_ROLE`.|
+|ColonyRootRoleSet|object|Contains the data defined in [ColonyRootRoleSet](#eventscolonyrootroleset)|
 
 See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
@@ -2242,13 +2243,13 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 ## Events
 
 
-### `events.ColonyAdminRoleRemoved`
+### `events.ColonyAdministrationRoleSet`
 
 **Methods**
 
-`.addListener(({ user }) => { /* ... */ })`
+`.addListener(({ user, setTo }) => { /* ... */ })`
 
-`.removeListener(({ user }) => { /* ... */ })`
+`.removeListener(({ user, setTo }) => { /* ... */ })`
 
 
 
@@ -2257,16 +2258,17 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 
 |Name|Type|Description|
 |---|---|---|
-|user|address|The address that was unassigned the `ADMIN` authority role.|
+|user|address|The address that was either assigned or unassigned `ADMINISTRATION_ROLE`.|
+|setTo|boolean|A boolean indicating whether the address was assigned or unassigned `ADMINISTRATION_ROLE`.|
 
 
-### `events.ColonyAdminRoleSet`
+### `events.ColonyArchitectureRoleSet`
 
 **Methods**
 
-`.addListener(({ user }) => { /* ... */ })`
+`.addListener(({ user, setTo }) => { /* ... */ })`
 
-`.removeListener(({ user }) => { /* ... */ })`
+`.removeListener(({ user, setTo }) => { /* ... */ })`
 
 
 
@@ -2275,7 +2277,8 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 
 |Name|Type|Description|
 |---|---|---|
-|user|address|The address that was assigned the `ADMIN` authority role.|
+|user|address|The address that was either assigned or unassigned `ARCHITECTURE_ROLE`.|
+|setTo|boolean|A boolean indicating whether the address was assigned or unassigned `ARCHITECTURE_ROLE`.|
 
 
 ### `events.ColonyBootstrapped`
@@ -2297,13 +2300,13 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 |amounts|array|The array of corresponding token and reputation amounts each user recieved.|
 
 
-### `events.ColonyFounderRoleSet`
+### `events.ColonyFundingRoleSet`
 
 **Methods**
 
-`.addListener(({ oldFounder, newFounder }) => { /* ... */ })`
+`.addListener(({ user, setTo }) => { /* ... */ })`
 
-`.removeListener(({ oldFounder, newFounder }) => { /* ... */ })`
+`.removeListener(({ user, setTo }) => { /* ... */ })`
 
 
 
@@ -2312,8 +2315,8 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 
 |Name|Type|Description|
 |---|---|---|
-|oldFounder|address|The address that assigned the `FOUNDER` authority role (the old founder).|
-|newFounder|address|The address that was assigned the `FOUNDER` authority role (the new founder).|
+|user|address|The address that was either assigned or unassigned `FUNDING_ROLE`.|
+|setTo|boolean|A boolean indicating whether the address was assigned or unassigned `FUNDING_ROLE`.|
 
 
 ### `events.ColonyFundsClaimed`
@@ -2361,9 +2364,9 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 
 **Methods**
 
-`.addListener(({ colonyNetwork }) => { /* ... */ })`
+`.addListener(({ colonyNetwork, token }) => { /* ... */ })`
 
-`.removeListener(({ colonyNetwork }) => { /* ... */ })`
+`.removeListener(({ colonyNetwork, token }) => { /* ... */ })`
 
 
 
@@ -2373,6 +2376,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 |Name|Type|Description|
 |---|---|---|
 |colonyNetwork|address|The address of the Colony Network.|
+|token|address|The address of the token contract.|
 
 
 ### `events.ColonyLabelRegistered`
@@ -2412,6 +2416,25 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 |rewardInverse|big number|The reward inverse value that was set.|
 
 
+### `events.ColonyRootRoleSet`
+
+**Methods**
+
+`.addListener(({ user, setTo }) => { /* ... */ })`
+
+`.removeListener(({ user, setTo }) => { /* ... */ })`
+
+
+
+
+**Event Data**
+
+|Name|Type|Description|
+|---|---|---|
+|user|address|The address that was either assigned or unassigned `ROOT_ROLE`.|
+|setTo|boolean|A boolean indicating whether the address was assigned or unassigned `ROOT_ROLE`.|
+
+
 ### `events.ColonyUpgraded`
 
 **Methods**
@@ -2449,6 +2472,24 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 |domainId|number|The ID of the domain that was added.|
 
 
+### `events.FundingPotAdded`
+
+**Methods**
+
+`.addListener(({ potId }) => { /* ... */ })`
+
+`.removeListener(({ potId }) => { /* ... */ })`
+
+
+
+
+**Event Data**
+
+|Name|Type|Description|
+|---|---|---|
+|potId|number|The numeric ID of the pot that was added.|
+
+
 ### `events.Mint`
 
 **Methods**
@@ -2468,13 +2509,13 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 |amount|big number|The amount of tokens that were minted.|
 
 
-### `events.FundingPotAdded`
+### `events.PaymentAdded`
 
 **Methods**
 
-`.addListener(({ potId }) => { /* ... */ })`
+`.addListener(({ paymentId }) => { /* ... */ })`
 
-`.removeListener(({ potId }) => { /* ... */ })`
+`.removeListener(({ paymentId }) => { /* ... */ })`
 
 
 
@@ -2483,7 +2524,27 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 
 |Name|Type|Description|
 |---|---|---|
-|potId|number|The numeric ID of the pot that was added.|
+|paymentId|number|The ID of the payment that was added.|
+
+
+### `events.PayoutClaimed`
+
+**Methods**
+
+`.addListener(({ potId, token, amount }) => { /* ... */ })`
+
+`.removeListener(({ potId, token, amount }) => { /* ... */ })`
+
+
+
+
+**Event Data**
+
+|Name|Type|Description|
+|---|---|---|
+|potId|number|The ID of the pot that was modified.|
+|token|address|The address of the token contract (an empty address if Ether).|
+|amount|big number|The task payout amount that was claimed.|
 
 
 ### `events.RewardPayoutClaimed`
@@ -2708,27 +2769,6 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 |Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was finalized.|
-
-
-### `events.TaskPayoutClaimed`
-
-**Methods**
-
-`.addListener(({ taskId, role, token, amount }) => { /* ... */ })`
-
-`.removeListener(({ taskId, role, token, amount }) => { /* ... */ })`
-
-
-
-
-**Event Data**
-
-|Name|Type|Description|
-|---|---|---|
-|taskId|number|The ID of the task that was modified.|
-|role|task role|The role of the task that was assigned the task payout (`MANAGER`, `EVALUATOR`, or `WORKER`).|
-|token|address|The address of the token contract (an empty address if Ether).|
-|amount|big number|The task payout amount that was claimed.|
 
 
 ### `events.TaskPayoutSet`

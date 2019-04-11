@@ -1,5 +1,23 @@
 # Changelog
 
+## next
+
+**Types**
+
+* Update event definitions in `ColonyClient` (`@colony/colony-js-client`)
+  * Add `token` param to `ColonyInitialised`
+  * Add `ColonyAdministrationRoleSet`
+  * Add `ColonyArchitectureRoleSet`
+  * Add `ColonyFundingRoleSet`
+  * Add `ColonyRootRoleSet`
+  * Add `PaymentAdded`
+  * Add `PayoutClaimed`
+  * Remove `ColonyAdminRoleRemoved`
+  * Remove `ColonyAdminRoleSet`
+  * Remove `ColonyFounderRoleSet`
+  * Remove `TaskPayoutClaimed`
+
+
 ## v1.11.2
 
 **Bug Fixes**

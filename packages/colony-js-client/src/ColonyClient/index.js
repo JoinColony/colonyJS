@@ -37,19 +37,21 @@ type TaskRole = $Keys<typeof TASK_ROLES>;
 type TaskStatus = $Keys<typeof TASK_STATUSES>;
 type TokenAddress = string;
 
-type ColonyAdminRoleRemoved = ContractClient.Event<{
-  user: Address, // The address that was unassigned the `ADMIN` authority role.
+type ColonyAdministrationRoleSet = ContractClient.Event<{
+  user: Address, // The address that was either assigned or unassigned `ADMINISTRATION_ROLE`.
+  setTo: boolean, // A boolean indicating whether the address was assigned or unassigned `ADMINISTRATION_ROLE`.
 }>;
-type ColonyAdminRoleSet = ContractClient.Event<{
-  user: Address, // The address that was assigned the `ADMIN` authority role.
+type ColonyArchitectureRoleSet = ContractClient.Event<{
+  user: Address, // The address that was either assigned or unassigned `ARCHITECTURE_ROLE`.
+  setTo: boolean, // A boolean indicating whether the address was assigned or unassigned `ARCHITECTURE_ROLE`.
 }>;
 type ColonyBootstrapped = ContractClient.Event<{
   users: Array<Address>, // The array of users that received an initial amount of tokens and reputation.
   amounts: Array<BigNumber>, // The array of corresponding token and reputation amounts each user recieved.
 }>;
-type ColonyFounderRoleSet = ContractClient.Event<{
-  oldFounder: Address, // The address that assigned the `FOUNDER` authority role (the old founder).
-  newFounder: Address, // The address that was assigned the `FOUNDER` authority role (the new founder).
+type ColonyFundingRoleSet = ContractClient.Event<{
+  user: Address, // The address that was either assigned or unassigned `FUNDING_ROLE`.
+  setTo: boolean, // A boolean indicating whether the address was assigned or unassigned `FUNDING_ROLE`.
 }>;
 type ColonyFundsClaimed = ContractClient.Event<{
   token: TokenAddress, // The address of the token contract (an empty address if Ether).
@@ -64,6 +66,7 @@ type ColonyFundsMovedBetweenFundingPots = ContractClient.Event<{
 }>;
 type ColonyInitialised = ContractClient.Event<{
   colonyNetwork: Address, // The address of the Colony Network.
+  token: TokenAddress, // The address of the token contract.
 }>;
 type ColonyLabelRegistered = ContractClient.Event<{
   colony: Address, // The address of the colony that was modified.
@@ -72,6 +75,10 @@ type ColonyLabelRegistered = ContractClient.Event<{
 type ColonyRewardInverseSet = ContractClient.Event<{
   rewardInverse: BigNumber, // The reward inverse value that was set.
 }>;
+type ColonyRootRoleSet = ContractClient.Event<{
+  user: Address, // The address that was either assigned or unassigned `ROOT_ROLE`.
+  setTo: boolean, // A boolean indicating whether the address was assigned or unassigned `ROOT_ROLE`.
+}>;
 type ColonyUpgraded = ContractClient.Event<{
   oldVersion: number, // The old version number of the colony.
   newVersion: number, // The new version number of the colony.
@@ -79,12 +86,20 @@ type ColonyUpgraded = ContractClient.Event<{
 type DomainAdded = ContractClient.Event<{
   domainId: number, // The ID of the domain that was added.
 }>;
+type FundingPotAdded = ContractClient.Event<{
+  potId: number, // The numeric ID of the pot that was added.
+}>;
 type Mint = ContractClient.Event<{
   address: Address, // The address that initiated the mint event.
   amount: BigNumber, // The amount of tokens that were minted.
 }>;
-type FundingPotAdded = ContractClient.Event<{
-  potId: number, // The numeric ID of the pot that was added.
+type PaymentAdded = ContractClient.Event<{
+  paymentId: number, // The ID of the payment that was added.
+}>;
+type PayoutClaimed = ContractClient.Event<{
+  potId: number, // The ID of the pot that was modified.
+  token: TokenAddress, // The address of the token contract (an empty address if Ether).
+  amount: BigNumber, // The task payout amount that was claimed.
 }>;
 type RewardPayoutClaimed = ContractClient.Event<{
   rewardPayoutId: number, // The ID of the reward payout cycle.
@@ -130,12 +145,6 @@ type TaskDueDateSet = ContractClient.Event<{
 type TaskFinalized = ContractClient.Event<{
   taskId: number, // The ID of the task that was finalized.
 }>;
-type TaskPayoutClaimed = ContractClient.Event<{
-  taskId: number, // The ID of the task that was modified.
-  role: TaskRole, // The role of the task that was assigned the task payout (`MANAGER`, `EVALUATOR`, or `WORKER`).
-  token: TokenAddress, // The address of the token contract (an empty address if Ether).
-  amount: BigNumber, // The task payout amount that was claimed.
-}>;
 type TaskPayoutSet = ContractClient.Event<{
   taskId: number, // The ID of the task that was modified.
   role: TaskRole, // The role of the task that was modified (`MANAGER`, `EVALUATOR`, or `WORKER`).
@@ -172,19 +181,22 @@ export default class ColonyClient extends ContractClient {
   tokenLockingClient: TokenLockingClient;
 
   events: {
-    ColonyAdminRoleRemoved: ColonyAdminRoleRemoved,
-    ColonyAdminRoleSet: ColonyAdminRoleSet,
+    ColonyAdministrationRoleSet: ColonyAdministrationRoleSet,
+    ColonyArchitectureRoleSet: ColonyArchitectureRoleSet,
     ColonyBootstrapped: ColonyBootstrapped,
-    ColonyFounderRoleSet: ColonyFounderRoleSet,
+    ColonyFundingRoleSet: ColonyFundingRoleSet,
     ColonyFundsClaimed: ColonyFundsClaimed,
     ColonyFundsMovedBetweenFundingPots: ColonyFundsMovedBetweenFundingPots,
     ColonyInitialised: ColonyInitialised,
     ColonyLabelRegistered: ColonyLabelRegistered,
     ColonyRewardInverseSet: ColonyRewardInverseSet,
+    ColonyRootRoleSet: ColonyRootRoleSet,
     ColonyUpgraded: ColonyUpgraded,
     DomainAdded: DomainAdded,
     FundingPotAdded: FundingPotAdded,
     Mint: Mint,
+    PaymentAdded: PaymentAdded,
+    PayoutClaimed: PayoutClaimed,
     RewardPayoutClaimed: RewardPayoutClaimed,
     RewardPayoutCycleEnded: RewardPayoutCycleEnded,
     RewardPayoutCycleStarted: RewardPayoutCycleStarted,
@@ -197,7 +209,6 @@ export default class ColonyClient extends ContractClient {
     TaskDomainSet: TaskDomainSet,
     TaskDueDateSet: TaskDueDateSet,
     TaskFinalized: TaskFinalized,
-    TaskPayoutClaimed: TaskPayoutClaimed,
     TaskPayoutSet: TaskPayoutSet,
     TaskRoleUserSet: TaskRoleUserSet,
     TaskSkillSet: TaskSkillSet,
@@ -317,7 +328,7 @@ export default class ColonyClient extends ContractClient {
       token: TokenAddress, // The address of the token contract (an empty address if Ether).
     },
     {
-      TaskPayoutClaimed: TaskPayoutClaimed,
+      PayoutClaimed: PayoutClaimed,
       Transfer: Transfer,
     },
     ColonyClient,
@@ -835,7 +846,7 @@ export default class ColonyClient extends ContractClient {
       TaskRoleUserSet: TaskRoleUserSet,
       TaskPayoutSet: TaskPayoutSet,
       ColonyFundsMovedBetweenFundingPots: ColonyFundsMovedBetweenFundingPots,
-      TaskPayoutClaimed: TaskPayoutClaimed,
+      PayoutClaimed: PayoutClaimed,
       Transfer: Transfer,
     },
     ColonyClient,
@@ -926,7 +937,7 @@ export default class ColonyClient extends ContractClient {
       user: Address, // The address that we will be unassigned the `ADMIN` authority role.
     },
     {
-      ColonyAdminRoleRemoved: ColonyAdminRoleRemoved,
+      ColonyAdministrationRoleSet: ColonyAdministrationRoleSet,
     },
     ColonyClient,
     {
@@ -1012,7 +1023,7 @@ export default class ColonyClient extends ContractClient {
       user: Address, // The address that will be assigned the `ADMIN` authroity role.
     },
     {
-      ColonyAdminRoleSet: ColonyAdminRoleSet,
+      ColonyAdministrationRoleSet: ColonyAdministrationRoleSet,
     },
     ColonyClient,
     {
@@ -1050,7 +1061,7 @@ export default class ColonyClient extends ContractClient {
       user: Address, // The address that will be assigned the `FOUNDER` authority role.
     },
     {
-      ColonyFounderRoleSet: ColonyFounderRoleSet,
+      ColonyRootRoleSet: ColonyRootRoleSet,
     },
     ColonyClient,
     {
@@ -1597,15 +1608,21 @@ export default class ColonyClient extends ContractClient {
     });
 
     // Events
-    this.addEvent('ColonyAdminRoleRemoved', [['user', 'address']]);
-    this.addEvent('ColonyAdminRoleSet', [['user', 'address']]);
+    this.addEvent('ColonyAdministrationRoleSet', [
+      ['user', 'address'],
+      ['setTo', 'boolean'],
+    ]);
+    this.addEvent('ColonyArchitectureRoleSet', [
+      ['user', 'address'],
+      ['setTo', 'boolean'],
+    ]);
     this.addEvent('ColonyBootstrapped', [
       ['users', '[address]'],
       ['amounts', '[bigNumber]'],
     ]);
-    this.addEvent('ColonyFounderRoleSet', [
-      ['oldFounder', 'address'],
-      ['newFounder', 'address'],
+    this.addEvent('ColonyFundingRoleSet', [
+      ['user', 'address'],
+      ['setTo', 'boolean'],
     ]);
     this.addEvent('ColonyFundsClaimed', [
       ['token', 'tokenAddress'],
@@ -1618,14 +1635,29 @@ export default class ColonyClient extends ContractClient {
       ['amount', 'bigNumber'],
       ['token', 'tokenAddress'],
     ]);
-    this.addEvent('ColonyInitialised', [['colonyNetwork', 'address']]);
+    this.addEvent('ColonyInitialised', [
+      ['colonyNetwork', 'address'],
+      ['token', 'tokenAddress'],
+    ]);
     this.addEvent('ColonyRewardInverseSet', [['rewardInverse', 'bigNumber']]);
+    this.addEvent('ColonyRootRoleSet', [
+      ['user', 'address'],
+      ['setTo', 'boolean'],
+    ]);
     this.addEvent('ColonyUpgraded', [
       ['oldVersion', 'number'],
       ['newVersion', 'number'],
     ]);
     this.addEvent('DomainAdded', [['domainId', 'number']]);
     this.addEvent('FundingPotAdded', [['potId', 'number']]);
+    this.addEvent('PaymentAdded', [['paymentId', 'number']]);
+    this.addEvent('PayoutClaimed', [
+      ['taskId', 'number'],
+      // $FlowFixMe
+      ['role', 'taskRole'],
+      ['token', 'tokenAddress'],
+      ['amount', 'bigNumber'],
+    ]);
     this.addEvent('RewardPayoutCycleStarted', [['payoutId', 'number']]);
     this.addEvent('RewardPayoutCycleEnded', [['payoutId', 'number']]);
     this.addEvent('TaskAdded', [['taskId', 'number']]);
@@ -1648,13 +1680,6 @@ export default class ColonyClient extends ContractClient {
       ['dueDate', 'date'],
     ]);
     this.addEvent('TaskFinalized', [['taskId', 'number']]);
-    this.addEvent('TaskPayoutClaimed', [
-      ['taskId', 'number'],
-      // $FlowFixMe
-      ['role', 'taskRole'],
-      ['token', 'tokenAddress'],
-      ['amount', 'bigNumber'],
-    ]);
     this.addEvent('TaskPayoutSet', [
       ['taskId', 'number'],
       // $FlowFixMe
