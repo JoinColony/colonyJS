@@ -342,7 +342,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 
 ### `getRecoveryRolesCount.call()`
 
-Get the total number of addresses that are assigned a colony recovery role.
+Get the total number of addresses that are assigned the colony `RECOVERY` role.
 
 
 **Response**
@@ -351,7 +351,7 @@ A promise which resolves to an object containing the following properties:
 
 |Name|Type|Description|
 |---|---|---|
-|count|number|The total number of addresses that are assigned a colony recovery role.|
+|count|number|The total number of addresses that are assigned the colony `RECOVERY` role.|
 
 **Contract Information**
 
@@ -486,7 +486,7 @@ Get the task payout amount assigned to a task role. Multiple tokens can be used 
 |Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
-|role|task role|The task role (`MANAGER_ROLE`, `EVALUATOR_ROLE`, or `WORKER_ROLE`).|
+|role|task role|The task role (`MANAGER`, `EVALUATOR`, or `WORKER`).|
 |token|address|The address of the token contract (an empty address if Ether).|
 
 **Response**
@@ -516,7 +516,7 @@ Get information about a task role.
 |Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
-|role|task role|The role of the task (`MANAGER_ROLE`, `EVALUATOR_ROLE`, or `WORKER_ROLE`).|
+|role|task role|The role of the task (`MANAGER`, `EVALUATOR`, or `WORKER`).|
 
 **Response**
 
@@ -598,7 +598,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 
 ### `getToken.call()`
 
-Get the address of the token contract that is the native token assigned to the colony. The native token is the token used to calculate reputation scores, i.e. `1` token earned for completing a task with an adequate rating (`2`) will result in `1` reputation point earned.
+Get the address of the token contract that is the native token assigned to the colony. The native token is the token used to calculate reputation scores, i.e. `1` token earned for completing a task with a satisfactory rating (`2`) will result in `1` reputation point earned.
 
 
 **Response**
@@ -652,7 +652,7 @@ Check whether an address has a role assigned.
 |---|---|---|
 |user|address|The address that will be checked for the role.|
 |domainId|number|The ID of the domain that the role is assigned.|
-|role|authority role|The role that will be checked (`ROOT_ROLE`, `ADMINISTRATION_ROLE`, `ARCHITECTURE_ROLE`, `FUNDING_ROLE`).|
+|role|undefined|The role that will be checked (`RECOVERY`, `ROOT`, `ARCHITECTURE`, `ARCHITECTURE_SUBDOMAIN`, `ADMINISTRATION`, `FUNDING`).|
 
 **Response**
 
@@ -772,7 +772,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 
 ### `addGlobalSkill.send({ parentSkillId }, options)`
 
-Add a global skill to the skills tree. This can only be called from the Meta Colony and only by the address assigned the `ROOT_ROLE`.
+Add a global skill to the skills tree. This can only be called from the Meta Colony and only by the address assigned the colony `ROOT` role.
 
 **Input**
 
@@ -897,7 +897,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 
 ### `approveExitRecovery.send(options)`
 
-Indicate approval to exit colony recovery mode. This function can only be called by an address assigned the `RECOVERY_ROLE`.
+Indicate approval to exit colony recovery mode. This function can only be called by an address assigned the colony `RECOVERY` role.
 
 
 **Options**
@@ -924,7 +924,7 @@ Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/1539
 
 ### `bootstrapColony.send({ users, amounts }, options)`
 
-Bootstrap the colony by giving an initial amount of tokens and reputation to selected addresses. This function can only be called by the address assigned the `ROOT_ROLE` when the `taskCount` for the colony is equal to `0`.
+Bootstrap the colony by giving an initial amount of tokens and reputation to selected addresses. This function can only be called by the address assigned the colony `ROOT` role when the `taskCount` for the colony is equal to `0`.
 
 **Input**
 
@@ -1091,14 +1091,14 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 
 ### `claimTaskPayout.send({ taskId, role, token }, options)`
 
-Claim a payout assigned to a task role (`MANAGER_ROLE`, `EVALUATOR_ROLE`, or `WORKER_ROLE`). This function can only be called by the address assigned the given task role after the task has been finalized.
+Claim a payout assigned to a task role (`MANAGER`, `EVALUATOR`, or `WORKER`). This function can only be called by the address assigned the given task role after the task has been finalized.
 
 **Input**
 
 |Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
-|role|task role|The role that submitted the rating (`MANAGER_ROLE`, `EVALUATOR_ROLE`, or `WORKER_ROLE`).|
+|role|task role|The task role that is claiming the payout (`MANAGER`, `EVALUATOR`, or `WORKER`).|
 |token|address|The address of the token contract (an empty address if Ether).|
 
 **Options**
@@ -1134,7 +1134,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 
 ### `completeTask.send({ taskId }, options)`
 
-Mark a task as complete. If the address assigned the `WORKER_ROLE` fails to submit the task deliverable by the due date, this function must be called by the address assigned the `MANAGER_ROLE`. This allows the task work to be rated and the task to be finalized.
+Mark a task as complete. If the address assigned the task `WORKER` role fails to submit the task deliverable by the due date, this function must be called by the address assigned the task `MANAGER` role. This allows the task work to be rated and the task to be finalized.
 
 **Input**
 
@@ -1169,7 +1169,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 
 ### `enterRecoveryMode.send(options)`
 
-Enter colony recovery mode. This function can only be called by a user assigned the `RECOVERY_ROLE`.
+Enter colony recovery mode. This function can only be called by a user assigned the colony `RECOVERY` role.
 
 
 **Options**
@@ -1327,7 +1327,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 
 ### `mintTokens.send({ amount }, options)`
 
-Mint new tokens. This function can only be called if the address of the colony contract is the owner of the token contract. If this is the case, then this function can only be called by the address assigned the `ROOT_ROLE`.
+Mint new tokens. This function can only be called if the address of the colony contract is the owner of the token contract. If this is the case, then this function can only be called by the address assigned the colony `ROOT` role.
 
 **Input**
 
@@ -1363,7 +1363,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 
 ### `mintTokensForColonyNetwork.send({ amount }, options)`
 
-Mint tokens for the Colony Network. This can only be called from the Meta Colony and only by the address assigned the `ROOT_ROLE`.
+Mint tokens for the Colony Network. This can only be called from the Meta Colony and only by the address assigned the colony `ROOT` role.
 
 **Input**
 
@@ -1484,13 +1484,13 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 
 ### `removeRecoveryRole.send({ address }, options)`
 
-Remove the colony recovery role from an address. This function can only be called by the `ROOT_ROLE`.
+Remove the colony `RECOVERY` role from an address. This function can only be called by the colony `ROOT` role.
 
 **Input**
 
 |Name|Type|Description|
 |---|---|---|
-|address|address|The address that will be unassigned a colony recovery role.|
+|address|address|The address that will be unassigned the colony `RECOVERY` role.|
 
 **Options**
 
@@ -1523,7 +1523,7 @@ Reveal a submitted work rating. In order to reveal a work rating, the same `salt
 |Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
-|role|task role|The role that received the rating (`MANAGER_ROLE` or `WORKER_ROLE`).|
+|role|task role|The role that received the rating (`MANAGER` or `WORKER`).|
 |rating|number|The rating that was submitted (`1`, `2`, or `3`).|
 |salt|string|The string that was used to generate the secret.|
 
@@ -1556,7 +1556,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 
 ### `setAdministrationRole.send({ permissionDomainId, childSkillIndex, address, domainId, setTo }, options)`
 
-Assign the `ADMINISTRATION_ROLE` to an address. The address calling the method must have permission within the domain that permission is being granted or a parent domain to the domain that permission is being granted. The address calling the method must already be assigned either the `ROOT_ROLE` or `ARCHITECTURE_ROLE` within the domain or parent domain.
+Assign the colony `ADMINISTRATION` role to an address. The address calling the method must have permission within the domain that permission is being granted or a parent domain to the domain that permission is being granted. The address calling the method must already be assigned either the colony `ROOT` or `ARCHITECTURE` role within the domain or parent domain.
 
 **Input**
 
@@ -1564,9 +1564,9 @@ Assign the `ADMINISTRATION_ROLE` to an address. The address calling the method m
 |---|---|---|
 |permissionDomainId|number|The ID of the domain that grants the address permission to call the method.|
 |childSkillIndex|number|The index that the `domainId` is relative to the `permissionDomainId`.|
-|address|address|The address that will be assigned or unassigned the `ADMINISTRATION_ROLE`.|
-|domainId|number|The ID of the domain that the `ADMINISTRATION_ROLE` will be assigned or unassigned.|
-|setTo|boolean|A boolean indicating whether the address will be assigned or unassigned the `ADMINISTRATION_ROLE`.|
+|address|address|The address that will be assigned or unassigned the colony `ADMINISTRATION` role.|
+|domainId|number|The ID of the domain that the colony `ADMINISTRATION` role will be assigned or unassigned.|
+|setTo|boolean|A boolean indicating whether the address will be assigned or unassigned the colony `ADMINISTRATION` role.|
 
 **Options**
 
@@ -1578,8 +1578,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Name|Type|Description|
 |---|---|---|
-|user|address|The address that was either assigned or unassigned `ADMINISTRATION_ROLE`.|
-|setTo|boolean|A boolean indicating whether the address was assigned or unassigned `ADMINISTRATION_ROLE`.|
+|user|address|The address that was either assigned or unassigned the colony `ADMINISTRATION` role.|
+|setTo|boolean|A boolean indicating whether the address was assigned or unassigned the colony `ADMINISTRATION` role.|
 |ColonyAdministrationRoleSet|object|Contains the data defined in [ColonyAdministrationRoleSet](#eventscolonyadministrationroleset)|
 
 See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
@@ -1596,7 +1596,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 
 ### `setAllTaskPayouts.send({ taskId, token, managerAmount, evaluatorAmount, workerAmount }, options)`
 
-Set the payouts for all task roles. This can only be called by the address assigned the `MANAGER_ROLE` and only if the `EVALUATOR_ROLE` and `WORKER_ROLE` are not assigned or they are assigned to the same address that is currently assigned the `MANAGER_ROLE`.
+Set the payouts for all task roles. This can only be called by the address assigned the task `MANAGER` role and only if the task `EVALUATOR` role and `WORKER` task role are not assigned or they are assigned to the same address that is currently assigned the task `MANAGER` role.
 
 **Input**
 
@@ -1604,9 +1604,9 @@ Set the payouts for all task roles. This can only be called by the address assig
 |---|---|---|
 |taskId|number|The ID of the task.|
 |token|address|The address of the token contract (an empty address if Ether).|
-|managerAmount|big number|The payout amount in tokens (or Ether) for the `MANAGER_ROLE`.|
-|evaluatorAmount|big number|The payout amount in tokens (or Ether) for the `EVALUATOR_ROLE`.|
-|workerAmount|big number|The payout amount in tokens (or Ether) for the `WORKER_ROLE`.|
+|managerAmount|big number|The payout amount in tokens (or Ether) for the task `MANAGER` role.|
+|evaluatorAmount|big number|The payout amount in tokens (or Ether) for the task `EVALUATOR` role.|
+|workerAmount|big number|The payout amount in tokens (or Ether) for the task `WORKER` role.|
 
 **Options**
 
@@ -1638,7 +1638,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 
 ### `setArchitectureRole.send({ permissionDomainId, childSkillIndex, address, domainId, setTo }, options)`
 
-Assign the `ARCHITECTURE_ROLE` to an address. The address calling the method must have permission within the domain that permission is being granted or a parent domain to the domain that permission is being granted. The address calling the method must already be assigned either the `ROOT_ROLE` or `ARCHITECTURE_ROLE` within the domain or parent domain.
+Assign the colony `ARCHITECTURE` role to an address. The address calling the method must have permission within the domain that permission is being granted or a parent domain to the domain that permission is being granted. The address calling the method must already be assigned either the colony `ROOT` or `ARCHITECTURE` role within the domain or parent domain.
 
 **Input**
 
@@ -1646,9 +1646,9 @@ Assign the `ARCHITECTURE_ROLE` to an address. The address calling the method mus
 |---|---|---|
 |permissionDomainId|number|The ID of the domain that grants the address permission to call the method.|
 |childSkillIndex|number|The index that the `domainId` is relative to the `permissionDomainId`.|
-|address|address|The address that will be assigned or unassigned the `ARCHITECTURE_ROLE`.|
-|domainId|number|The ID of the domain that the `ARCHITECTURE_ROLE` will be assigned or unassigned.|
-|setTo|boolean|A boolean indicating whether the address will be assigned or unassigned the `ARCHITECTURE_ROLE`.|
+|address|address|The address that will be assigned or unassigned the colony `ARCHITECTURE` role.|
+|domainId|number|The ID of the domain that the colony `ARCHITECTURE` role will be assigned or unassigned.|
+|setTo|boolean|A boolean indicating whether the address will be assigned or unassigned the colony `ARCHITECTURE` role.|
 
 **Options**
 
@@ -1660,8 +1660,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Name|Type|Description|
 |---|---|---|
-|user|address|The address that was either assigned or unassigned `ARCHITECTURE_ROLE`.|
-|setTo|boolean|A boolean indicating whether the address was assigned or unassigned `ARCHITECTURE_ROLE`.|
+|user|address|The address that was either assigned or unassigned the colony `ARCHITECTURE` role.|
+|setTo|boolean|A boolean indicating whether the address was assigned or unassigned the colony `ARCHITECTURE` role.|
 |ColonyArchitectureRoleSet|object|Contains the data defined in [ColonyArchitectureRoleSet](#eventscolonyarchitectureroleset)|
 
 See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
@@ -1678,7 +1678,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 
 ### `setFundingRole.send({ permissionDomainId, childSkillIndex, address, domainId, setTo }, options)`
 
-Assign the `FUNDING_ROLE` to an address. The address calling the method must have permission within the domain that permission is being granted or a parent domain to the domain that permission is being granted. The address calling the method must already be assigned either the `ROOT_ROLE` or `ARCHITECTURE_ROLE` within the domain or parent domain.
+Assign the colony `FUNDING` role to an address. The address calling the method must have permission within the domain that permission is being granted or a parent domain to the domain that permission is being granted. The address calling the method must already be assigned either the colony `ROOT` or `ARCHITECTURE` role within the domain or parent domain.
 
 **Input**
 
@@ -1686,9 +1686,9 @@ Assign the `FUNDING_ROLE` to an address. The address calling the method must hav
 |---|---|---|
 |permissionDomainId|number|The ID of the domain that grants the address permission to call the method.|
 |childSkillIndex|number|The index that the `domainId` is relative to the `permissionDomainId`.|
-|address|address|The address that will be assigned or unassigned the `FUNDING_ROLE`.|
-|domainId|number|The ID of the domain that the `FUNDING_ROLE` will be assigned or unassigned.|
-|setTo|boolean|A boolean indicating whether the address will be assigned or unassigned the `FUNDING_ROLE`.|
+|address|address|The address that will be assigned or unassigned the colony `FUNDING` role.|
+|domainId|number|The ID of the domain that the colony `FUNDING` role will be assigned or unassigned.|
+|setTo|boolean|A boolean indicating whether the address will be assigned or unassigned the colony `FUNDING` role.|
 
 **Options**
 
@@ -1700,8 +1700,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Name|Type|Description|
 |---|---|---|
-|user|address|The address that was either assigned or unassigned `FUNDING_ROLE`.|
-|setTo|boolean|A boolean indicating whether the address was assigned or unassigned `FUNDING_ROLE`.|
+|user|address|The address that was either assigned or unassigned the colony `FUNDING` role.|
+|setTo|boolean|A boolean indicating whether the address was assigned or unassigned the colony `FUNDING` role.|
 |ColonyFundingRoleSet|object|Contains the data defined in [ColonyFundingRoleSet](#eventscolonyfundingroleset)|
 
 See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
@@ -1718,7 +1718,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 
 ### `setNetworkFeeInverse.send({ feeInverse }, options)`
 
-Set the inverse amount of the reward. This can only be called from the Meta Colony and only by the address assigned the `ROOT_ROLE`. If the fee is 1% (or 0.01), the inverse amount will be 100.
+Set the inverse amount of the reward. This can only be called from the Meta Colony and only by the address assigned the colony `ROOT` role. If the fee is 1% (or 0.01), the inverse amount will be 100.
 
 **Input**
 
@@ -1890,13 +1890,13 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 
 ### `setRecoveryRole.send({ user }, options)`
 
-Assign a colony recovery role to a user. This function can only be called by the `ROOT_ROLE`.
+Assign the colony `RECOVERY` role to an address. This function can only be called by the colony `ROOT` role.
 
 **Input**
 
 |Name|Type|Description|
 |---|---|---|
-|user|address|The address that will be assigned a colony recovery role.|
+|user|address|The address that will be assigned the colony `RECOVERY` role.|
 
 **Options**
 
@@ -1957,14 +1957,14 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 
 ### `setRootRole.send({ address, setTo }, options)`
 
-Assign the `ROOT_ROLE` to an address. This function can only be called by the address currently assigned the `ROOT_ROLE`. There can only be one address assigned to the `ROOT_ROLE`, therefore, the address currently assigned will forfeit their role.
+Assign the colony `ROOT` role to an address. This function can only be called by the address currently assigned the colony `ROOT` role. There can only be one address assigned to the colony `ROOT` role, therefore, the address currently assigned will forfeit the role.
 
 **Input**
 
 |Name|Type|Description|
 |---|---|---|
-|address|address|The address that will either be assigned or unassigned `ROOT_ROLE`.|
-|setTo|boolean|A boolean indicating whether the address will be assigned or unassigned `ROOT_ROLE`.|
+|address|address|The address that will either be assigned or unassigned the colony `ROOT` role.|
+|setTo|boolean|A boolean indicating whether the address will be assigned or unassigned the colony `ROOT` role.|
 
 **Options**
 
@@ -1976,8 +1976,8 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Name|Type|Description|
 |---|---|---|
-|user|address|The address that was either assigned or unassigned `ROOT_ROLE`.|
-|setTo|boolean|A boolean indicating whether the address was assigned or unassigned `ROOT_ROLE`.|
+|user|address|The address that was either assigned or unassigned the colony `ROOT` role.|
+|setTo|boolean|A boolean indicating whether the address was assigned or unassigned the colony `ROOT` role.|
 |ColonyRootRoleSet|object|Contains the data defined in [ColonyRootRoleSet](#eventscolonyrootroleset)|
 
 See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
@@ -1994,7 +1994,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 
 ### `setStorageSlotRecovery.send({ slot, value }, options)`
 
-Set the value for a storage slot while in recovery mode. This can only be called by a user assigned the `RECOVERY_ROLE`.
+Set the value for a storage slot while in recovery mode. This can only be called by a user assigned the colony `RECOVERY` role.
 
 **Input**
 
@@ -2069,7 +2069,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 
 ### `submitTaskDeliverable.send({ taskId, deliverableHash }, options)`
 
-Submit the task deliverable. This function can only be called by the address assigned the `WORKER_ROLE` on or before the task due date. The submission cannot be overwritten, which means the deliverable cannot be changed once it has been submitted.
+Submit the task deliverable. This function can only be called by the address assigned the task `WORKER` role on or before the task due date. The submission cannot be overwritten, which means the deliverable cannot be changed once it has been submitted.
 
 **Input**
 
@@ -2107,7 +2107,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 
 ### `submitTaskDeliverableAndRating.send({ taskId, deliverableHash, secret }, options)`
 
-Submit the task deliverable and the work rating for the address assigned the `MANAGER_ROLE`. This function can only be called by the address assigned the `WORKER_ROLE` on or before the task due date. The submission cannot be overwritten, which means the deliverable cannot be changed once it has been submitted. In order to submit a rating, a `secret` must be generated using the `generateSecret` method, which keeps the rating hidden until all ratings have been submitted and revealed.
+Submit the task deliverable and the work rating for the address assigned the task `MANAGER` role. This function can only be called by the address assigned the task `WORKER` role on or before the task due date. The submission cannot be overwritten, which means the deliverable cannot be changed once it has been submitted. In order to submit a rating, a `secret` must be generated using the `generateSecret` method, which keeps the rating hidden until all ratings have been submitted and revealed.
 
 **Input**
 
@@ -2146,7 +2146,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 
 ### `submitTaskWorkRating.send({ taskId, role, secret }, options)`
 
-Submit a work rating for a task. This function can only be called by the address assigned the `EVALUATOR_ROLE`, who is submitting a rating for the address assigned the `WORKER_ROLE`, or the address assigned the `WORKER_ROLE`, who is submitting a rating for the address assigned the `MANAGER_ROLE`. In order to submit a rating, a `secret` must be generated using the `generateSecret` method, which keeps the rating hidden until all ratings have been submitted and revealed.
+Submit a work rating for a task. This function can only be called by the address assigned the task `EVALUATOR` role, who is submitting a rating for the address assigned the task `WORKER` role, or the address assigned the task `WORKER` role, who is submitting a rating for the address assigned the task `MANAGER` role. In order to submit a rating, a `secret` must be generated using the `generateSecret` method, which keeps the rating hidden until all ratings have been submitted and revealed.
 
 **Input**
 
@@ -2251,7 +2251,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 
 ### `removeTaskEvaluatorRole.startOperation({ taskId })`
 
-Remove the `EVALUATOR_ROLE` from an address. This function can only be called before the task is complete, i.e. either before the deliverable has been submitted or the address assigned the `WORKER_ROLE` has failed to meet the deadline and the address assigned the `MANAGER_ROLE` has marked the task as complete.
+Remove the task `EVALUATOR` role from an address. This function can only be called before the task is complete, i.e. either before the deliverable has been submitted or the address assigned the task `WORKER` role has failed to meet the deadline and the address assigned the task `MANAGER` role has marked the task as complete.
 
 **Input**
 
@@ -2284,7 +2284,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 
 ### `removeTaskWorkerRole.startOperation({ taskId })`
 
-Remove the `WORKER_ROLE` from an address. This function can only be called before the task is complete, i.e. either before the deliverable has been submitted or the address assigned the `WORKER_ROLE` has failed to meet the deadline and the address assigned the `MANAGER_ROLE` has marked the task as complete.
+Remove the task `WORKER` role from an address. This function can only be called before the task is complete, i.e. either before the deliverable has been submitted or the address assigned the task `WORKER` role has failed to meet the deadline and the address assigned the task `MANAGER` role has marked the task as complete.
 
 **Input**
 
@@ -2350,7 +2350,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 
 ### `setTaskDomain.startOperation({ taskId, domainId })`
 
-Set the domain of a task. Every task must belong to a domain. This function can only be called by the address assigned the `MANAGER_ROLE`.
+Set the domain of a task. Every task must belong to a domain. This function can only be called by the address assigned the task `MANAGER` role.
 
 **Input**
 
@@ -2383,7 +2383,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 
 ### `setTaskDueDate.startOperation({ taskId, dueDate })`
 
-Set the due date of a task. The due date is the last day that the address assigned the `WORKER_ROLE` can submit the task deliverable.
+Set the due date of a task. The due date is the last day that the address assigned the task `WORKER` role can submit the task deliverable.
 
 **Input**
 
@@ -2416,7 +2416,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 
 ### `setTaskEvaluatorPayout.startOperation({ taskId, token, amount })`
 
-Set the payout amount for the `EVALUATOR_ROLE`.
+Set the payout amount for the task `EVALUATOR` role.
 
 **Input**
 
@@ -2452,14 +2452,14 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 
 ### `setTaskEvaluatorRole.startOperation({ taskId, user })`
 
-Assign the `EVALUATOR_ROLE` to an address. This function can only be called before the task is finalized. The address assigned the `MANAGER_ROLE` and the address being assigned the `EVALUATOR_ROLE` must both sign the transaction before it can be executed.
+Assign the task `EVALUATOR` role to an address. This function can only be called before the task is finalized. The address assigned the task `MANAGER` role and the address being assigned the task `EVALUATOR` role must both sign the transaction before it can be executed.
 
 **Input**
 
 |Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
-|user|address|The address that will be assigned the `EVALUATOR_ROLE`.|
+|user|address|The address that will be assigned the task `EVALUATOR` role.|
 
 **Response**
 
@@ -2486,7 +2486,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 
 ### `setTaskManagerPayout.startOperation({ taskId, token, amount })`
 
-Set the payout amount for the `MANAGER_ROLE`.
+Set the payout amount for the task `MANAGER` role.
 
 **Input**
 
@@ -2522,14 +2522,14 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 
 ### `setTaskManagerRole.startOperation({ taskId, user, permissionDomainId, childSkillIndex })`
 
-Assign the `MANAGER_ROLE` to an address. This function can only be called before the task is finalized. The address currently assigned the `MANAGER_ROLE` and the address being assigned the `MANAGER_ROLE` must both sign the transaction before it can be executed.
+Assign the task `MANAGER` role to an address. This function can only be called before the task is finalized. The address currently assigned the task `MANAGER` role and the address being assigned the task `MANAGER` role must both sign the transaction before it can be executed.
 
 **Input**
 
 |Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
-|user|address|The address that will be assigned the `MANANAGER` task role.|
+|user|address|The address that will be assigned the task `MANAGER` role.|
 |permissionDomainId|number|The domainId in the sender has the permission to take this action.|
 |childSkillIndex|number|The index that the `domainId` is relative to the `permissionDomainId`.|
 
@@ -2558,7 +2558,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 
 ### `setTaskSkill.startOperation({ taskId, skillId })`
 
-Set the skill of a task. Only one skill can be assigned per task. The user assigned the `MANAGER_ROLE` and the address assigned the `WORKER_ROLE` must both sign this transaction before it can be executed.
+Set the skill of a task. Only one skill can be assigned per task. The user assigned the task `MANAGER` role and the address assigned the task `WORKER` role must both sign this transaction before it can be executed.
 
 **Input**
 
@@ -2591,7 +2591,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 
 ### `setTaskWorkerPayout.startOperation({ taskId, token, amount })`
 
-Set the payout amount for the `WORKER_ROLE`.
+Set the payout amount for the task `WORKER` role.
 
 **Input**
 
@@ -2627,14 +2627,14 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 
 ### `setTaskWorkerRole.startOperation({ taskId, user })`
 
-Assign the `WORKER_ROLE` to an address. This function can only be called before the task is finalized. The address assigned the `MANAGER_ROLE` and the address being assigned the `WORKER_ROLE` must both sign the transaction before it can be executed.
+Assign the task `WORKER` role to an address. This function can only be called before the task is finalized. The address assigned the task `MANAGER` role and the address being assigned the task `WORKER` role must both sign the transaction before it can be executed.
 
 **Input**
 
 |Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
-|user|address|The address that will be assigned the `WORKER_ROLE`.|
+|user|address|The address that will be assigned the task `WORKER` role.|
 
 **Response**
 
@@ -2678,8 +2678,8 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 
 |Name|Type|Description|
 |---|---|---|
-|user|address|The address that was either assigned or unassigned `ADMINISTRATION_ROLE`.|
-|setTo|boolean|A boolean indicating whether the address was assigned or unassigned `ADMINISTRATION_ROLE`.|
+|user|address|The address that was either assigned or unassigned the colony `ADMINISTRATION` role.|
+|setTo|boolean|A boolean indicating whether the address was assigned or unassigned the colony `ADMINISTRATION` role.|
 
 
 ### `events.ColonyArchitectureRoleSet`
@@ -2697,8 +2697,8 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 
 |Name|Type|Description|
 |---|---|---|
-|user|address|The address that was either assigned or unassigned `ARCHITECTURE_ROLE`.|
-|setTo|boolean|A boolean indicating whether the address was assigned or unassigned `ARCHITECTURE_ROLE`.|
+|user|address|The address that was either assigned or unassigned the colony `ARCHITECTURE` role.|
+|setTo|boolean|A boolean indicating whether the address was assigned or unassigned the colony `ARCHITECTURE` role.|
 
 
 ### `events.ColonyBootstrapped`
@@ -2735,8 +2735,8 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 
 |Name|Type|Description|
 |---|---|---|
-|user|address|The address that was either assigned or unassigned `FUNDING_ROLE`.|
-|setTo|boolean|A boolean indicating whether the address was assigned or unassigned `FUNDING_ROLE`.|
+|user|address|The address that was either assigned or unassigned the colony `FUNDING` role.|
+|setTo|boolean|A boolean indicating whether the address was assigned or unassigned the colony `FUNDING` role.|
 
 
 ### `events.ColonyFundsClaimed`
@@ -2851,8 +2851,8 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d
 
 |Name|Type|Description|
 |---|---|---|
-|user|address|The address that was either assigned or unassigned `ROOT_ROLE`.|
-|setTo|boolean|A boolean indicating whether the address was assigned or unassigned `ROOT_ROLE`.|
+|user|address|The address that was either assigned or unassigned the colony `ROOT` role.|
+|setTo|boolean|A boolean indicating whether the address was assigned or unassigned the colony `ROOT` role.|
 
 
 ### `events.ColonyUpgraded`

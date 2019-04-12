@@ -19,18 +19,18 @@ import AddTask from './senders/AddTask';
 import addRecoveryMethods from '../addRecoveryMethods';
 
 import {
-  TASK_ROLES,
-  ADMIN_ROLE,
-  AUTHORITY_ROLES,
-  WORKER_ROLE,
-  EVALUATOR_ROLE,
-  MANAGER_ROLE,
+  COLONY_ROLE_ADMINISTRATION,
+  COLONY_ROLES,
   DEFAULT_DOMAIN_ID,
+  TASK_ROLE_EVALUATOR,
+  TASK_ROLE_MANAGER,
+  TASK_ROLE_WORKER,
+  TASK_ROLES,
   TASK_STATUSES,
 } from '../constants';
 
 type Address = string;
-type AuthorityRole = $Keys<typeof AUTHORITY_ROLES>;
+type ColonyRole = $Keys<typeof COLONY_ROLES>;
 type HexString = string;
 type IPFSHash = string;
 type TaskRole = $Keys<typeof TASK_ROLES>;
@@ -38,20 +38,20 @@ type TaskStatus = $Keys<typeof TASK_STATUSES>;
 type TokenAddress = string;
 
 type ColonyAdministrationRoleSet = ContractClient.Event<{
-  user: Address, // The address that was either assigned or unassigned `ADMINISTRATION_ROLE`.
-  setTo: boolean, // A boolean indicating whether the address was assigned or unassigned `ADMINISTRATION_ROLE`.
+  user: Address, // The address that was either assigned or unassigned the colony `ADMINISTRATION` role.
+  setTo: boolean, // A boolean indicating whether the address was assigned or unassigned the colony `ADMINISTRATION` role.
 }>;
 type ColonyArchitectureRoleSet = ContractClient.Event<{
-  user: Address, // The address that was either assigned or unassigned `ARCHITECTURE_ROLE`.
-  setTo: boolean, // A boolean indicating whether the address was assigned or unassigned `ARCHITECTURE_ROLE`.
+  user: Address, // The address that was either assigned or unassigned the colony `ARCHITECTURE` role.
+  setTo: boolean, // A boolean indicating whether the address was assigned or unassigned the colony `ARCHITECTURE` role.
 }>;
 type ColonyBootstrapped = ContractClient.Event<{
   users: Array<Address>, // The array of users that received an initial amount of tokens and reputation.
   amounts: Array<BigNumber>, // The array of corresponding token and reputation amounts each user recieved.
 }>;
 type ColonyFundingRoleSet = ContractClient.Event<{
-  user: Address, // The address that was either assigned or unassigned `FUNDING_ROLE`.
-  setTo: boolean, // A boolean indicating whether the address was assigned or unassigned `FUNDING_ROLE`.
+  user: Address, // The address that was either assigned or unassigned the colony `FUNDING` role.
+  setTo: boolean, // A boolean indicating whether the address was assigned or unassigned the colony `FUNDING` role.
 }>;
 type ColonyFundsClaimed = ContractClient.Event<{
   token: TokenAddress, // The address of the token contract (an empty address if Ether).
@@ -76,8 +76,8 @@ type ColonyRewardInverseSet = ContractClient.Event<{
   rewardInverse: BigNumber, // The reward inverse value that was set.
 }>;
 type ColonyRootRoleSet = ContractClient.Event<{
-  user: Address, // The address that was either assigned or unassigned `ROOT_ROLE`.
-  setTo: boolean, // A boolean indicating whether the address was assigned or unassigned `ROOT_ROLE`.
+  user: Address, // The address that was either assigned or unassigned the colony `ROOT` role.
+  setTo: boolean, // A boolean indicating whether the address was assigned or unassigned the colony `ROOT` role.
 }>;
 type ColonyUpgraded = ContractClient.Event<{
   oldVersion: number, // The old version number of the colony.
@@ -239,7 +239,7 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Add a global skill to the skills tree. This can only be called from the Meta Colony and only by the address assigned the `ROOT_ROLE`.
+  Add a global skill to the skills tree. This can only be called from the Meta Colony and only by the address assigned the colony `ROOT` role.
   */
   addGlobalSkill: ColonyClient.Sender<
     {
@@ -306,7 +306,7 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Indicate approval to exit colony recovery mode. This function can only be called by an address assigned the `RECOVERY_ROLE`.
+  Indicate approval to exit colony recovery mode. This function can only be called by an address assigned the colony `RECOVERY` role.
   */
   approveExitRecovery: ColonyClient.Sender<
     {},
@@ -319,7 +319,7 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Bootstrap the colony by giving an initial amount of tokens and reputation to selected addresses. This function can only be called by the address assigned the `ROOT_ROLE` when the `taskCount` for the colony is equal to `0`.
+  Bootstrap the colony by giving an initial amount of tokens and reputation to selected addresses. This function can only be called by the address assigned the colony `ROOT` role when the `taskCount` for the colony is equal to `0`.
    */
   bootstrapColony: ColonyClient.Sender<
     {
@@ -414,12 +414,12 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Claim a payout assigned to a task role (`MANAGER_ROLE`, `EVALUATOR_ROLE`, or `WORKER_ROLE`). This function can only be called by the address assigned the given task role after the task has been finalized.
+  Claim a payout assigned to a task role (`MANAGER`, `EVALUATOR`, or `WORKER`). This function can only be called by the address assigned the given task role after the task has been finalized.
   */
   claimTaskPayout: ColonyClient.Sender<
     {
       taskId: number, // The ID of the task.
-      role: TaskRole, // The role that submitted the rating (`MANAGER_ROLE`, `EVALUATOR_ROLE`, or `WORKER_ROLE`).
+      role: TaskRole, // The task role that is claiming the payout (`MANAGER`, `EVALUATOR`, or `WORKER`).
       token: TokenAddress, // The address of the token contract (an empty address if Ether).
     },
     {
@@ -434,7 +434,7 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Mark a task as complete. If the address assigned the `WORKER_ROLE` fails to submit the task deliverable by the due date, this function must be called by the address assigned the `MANAGER_ROLE`. This allows the task work to be rated and the task to be finalized.
+  Mark a task as complete. If the address assigned the task `WORKER` role fails to submit the task deliverable by the due date, this function must be called by the address assigned the task `MANAGER` role. This allows the task work to be rated and the task to be finalized.
   */
   completeTask: ColonyClient.Sender<
     {
@@ -451,7 +451,7 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Enter colony recovery mode. This function can only be called by a user assigned the `RECOVERY_ROLE`.
+  Enter colony recovery mode. This function can only be called by a user assigned the colony `RECOVERY` role.
   */
   enterRecoveryMode: ColonyClient.Sender<
     {},
@@ -738,12 +738,12 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Get the total number of addresses that are assigned a colony recovery role.
+  Get the total number of addresses that are assigned the colony `RECOVERY` role.
   */
   getRecoveryRolesCount: ColonyClient.Caller<
     {},
     {
-      count: number, // The total number of addresses that are assigned a colony recovery role.
+      count: number, // The total number of addresses that are assigned the colony `RECOVERY` role.
     },
     ColonyClient,
     {
@@ -835,7 +835,7 @@ export default class ColonyClient extends ContractClient {
   getTaskPayout: ColonyClient.Caller<
     {
       taskId: number, // The ID of the task.
-      role: TaskRole, // The task role (`MANAGER_ROLE`, `EVALUATOR_ROLE`, or `WORKER_ROLE`).
+      role: TaskRole, // The task role (`MANAGER`, `EVALUATOR`, or `WORKER`).
       token: TokenAddress, // The address of the token contract (an empty address if Ether).
     },
     {
@@ -854,7 +854,7 @@ export default class ColonyClient extends ContractClient {
   getTaskRole: ColonyClient.Caller<
     {
       taskId: number, // The ID of the task.
-      role: TaskRole, // The role of the task (`MANAGER_ROLE`, `EVALUATOR_ROLE`, or `WORKER_ROLE`).
+      role: TaskRole, // The role of the task (`MANAGER`, `EVALUATOR`, or `WORKER`).
     },
     {
       address: Address, // The address that is assigned the task role.
@@ -905,7 +905,7 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Get the address of the token contract that is the native token assigned to the colony. The native token is the token used to calculate reputation scores, i.e. `1` token earned for completing a task with an adequate rating (`2`) will result in `1` reputation point earned.
+  Get the address of the token contract that is the native token assigned to the colony. The native token is the token used to calculate reputation scores, i.e. `1` token earned for completing a task with a satisfactory rating (`2`) will result in `1` reputation point earned.
   */
   getToken: ColonyClient.Caller<
     {},
@@ -942,7 +942,7 @@ export default class ColonyClient extends ContractClient {
     {
       user: Address, // The address that will be checked for the role.
       domainId: number, // The ID of the domain that the role is assigned.
-      role: AuthorityRole, // The role that will be checked (`ROOT_ROLE`, `ADMINISTRATION_ROLE`, `ARCHITECTURE_ROLE`, `FUNDING_ROLE`).
+      role: ColonyRole, // The role that will be checked (`RECOVERY`, `ROOT`, `ARCHITECTURE`, `ARCHITECTURE_SUBDOMAIN`, `ADMINISTRATION`, `FUNDING`).
     },
     {
       hasRole: boolean, // A boolean indicating whether or not the address has the role assigned.
@@ -971,7 +971,7 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Mint new tokens. This function can only be called if the address of the colony contract is the owner of the token contract. If this is the case, then this function can only be called by the address assigned the `ROOT_ROLE`.
+  Mint new tokens. This function can only be called if the address of the colony contract is the owner of the token contract. If this is the case, then this function can only be called by the address assigned the colony `ROOT` role.
   */
   mintTokens: ColonyClient.Sender<
     {
@@ -988,7 +988,7 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Mint tokens for the Colony Network. This can only be called from the Meta Colony and only by the address assigned the `ROOT_ROLE`.
+  Mint tokens for the Colony Network. This can only be called from the Meta Colony and only by the address assigned the colony `ROOT` role.
   */
   mintTokensForColonyNetwork: ColonyClient.Sender<
     {
@@ -1047,11 +1047,11 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Remove the colony recovery role from an address. This function can only be called by the `ROOT_ROLE`.
+  Remove the colony `RECOVERY` role from an address. This function can only be called by the colony `ROOT` role.
   */
   removeRecoveryRole: ColonyClient.Sender<
     {
-      address: Address, // The address that will be unassigned a colony recovery role.
+      address: Address, // The address that will be unassigned the colony `RECOVERY` role.
     },
     {},
     ColonyClient,
@@ -1062,7 +1062,7 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Remove the `EVALUATOR_ROLE` from an address. This function can only be called before the task is complete, i.e. either before the deliverable has been submitted or the address assigned the `WORKER_ROLE` has failed to meet the deadline and the address assigned the `MANAGER_ROLE` has marked the task as complete.
+  Remove the task `EVALUATOR` role from an address. This function can only be called before the task is complete, i.e. either before the deliverable has been submitted or the address assigned the task `WORKER` role has failed to meet the deadline and the address assigned the task `MANAGER` role has marked the task as complete.
   */
   removeTaskEvaluatorRole: ColonyClient.MultisigSender<
     {
@@ -1079,7 +1079,7 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Remove the `WORKER_ROLE` from an address. This function can only be called before the task is complete, i.e. either before the deliverable has been submitted or the address assigned the `WORKER_ROLE` has failed to meet the deadline and the address assigned the `MANAGER_ROLE` has marked the task as complete.
+  Remove the task `WORKER` role from an address. This function can only be called before the task is complete, i.e. either before the deliverable has been submitted or the address assigned the task `WORKER` role has failed to meet the deadline and the address assigned the task `MANAGER` role has marked the task as complete.
   */
   removeTaskWorkerRole: ColonyClient.MultisigSender<
     {
@@ -1101,7 +1101,7 @@ export default class ColonyClient extends ContractClient {
   revealTaskWorkRating: ColonyClient.Sender<
     {
       taskId: number, // The ID of the task.
-      role: TaskRole, // The role that received the rating (`MANAGER_ROLE` or `WORKER_ROLE`).
+      role: TaskRole, // The role that received the rating (`MANAGER` or `WORKER`).
       rating: number, // The rating that was submitted (`1`, `2`, or `3`).
       salt: string, // The string that was used to generate the secret.
     },
@@ -1116,15 +1116,15 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Assign the `ADMINISTRATION_ROLE` to an address. The address calling the method must have permission within the domain that permission is being granted or a parent domain to the domain that permission is being granted. The address calling the method must already be assigned either the `ROOT_ROLE` or `ARCHITECTURE_ROLE` within the domain or parent domain.
+  Assign the colony `ADMINISTRATION` role to an address. The address calling the method must have permission within the domain that permission is being granted or a parent domain to the domain that permission is being granted. The address calling the method must already be assigned either the colony `ROOT` or `ARCHITECTURE` role within the domain or parent domain.
   */
   setAdministrationRole: ColonyClient.Sender<
     {
       permissionDomainId: number, // The ID of the domain that grants the address permission to call the method.
       childSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
-      address: Address, // The address that will be assigned or unassigned the `ADMINISTRATION_ROLE`.
-      domainId: number, // The ID of the domain that the `ADMINISTRATION_ROLE` will be assigned or unassigned.
-      setTo: boolean, // A boolean indicating whether the address will be assigned or unassigned the `ADMINISTRATION_ROLE`.
+      address: Address, // The address that will be assigned or unassigned the colony `ADMINISTRATION` role.
+      domainId: number, // The ID of the domain that the colony `ADMINISTRATION` role will be assigned or unassigned.
+      setTo: boolean, // A boolean indicating whether the address will be assigned or unassigned the colony `ADMINISTRATION` role.
     },
     {
       ColonyAdministrationRoleSet: ColonyAdministrationRoleSet,
@@ -1137,15 +1137,15 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Set the payouts for all task roles. This can only be called by the address assigned the `MANAGER_ROLE` and only if the `EVALUATOR_ROLE` and `WORKER_ROLE` are not assigned or they are assigned to the same address that is currently assigned the `MANAGER_ROLE`.
+  Set the payouts for all task roles. This can only be called by the address assigned the task `MANAGER` role and only if the task `EVALUATOR` role and `WORKER` task role are not assigned or they are assigned to the same address that is currently assigned the task `MANAGER` role.
   */
   setAllTaskPayouts: ColonyClient.Sender<
     {
       taskId: number, // The ID of the task.
       token: TokenAddress, // The address of the token contract (an empty address if Ether).
-      managerAmount: BigNumber, // The payout amount in tokens (or Ether) for the `MANAGER_ROLE`.
-      evaluatorAmount: BigNumber, // The payout amount in tokens (or Ether) for the `EVALUATOR_ROLE`.
-      workerAmount: BigNumber, // The payout amount in tokens (or Ether) for the `WORKER_ROLE`.
+      managerAmount: BigNumber, // The payout amount in tokens (or Ether) for the task `MANAGER` role.
+      evaluatorAmount: BigNumber, // The payout amount in tokens (or Ether) for the task `EVALUATOR` role.
+      workerAmount: BigNumber, // The payout amount in tokens (or Ether) for the task `WORKER` role.
     },
     {
       TaskPayoutSet: TaskPayoutSet,
@@ -1158,15 +1158,15 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Assign the `ARCHITECTURE_ROLE` to an address. The address calling the method must have permission within the domain that permission is being granted or a parent domain to the domain that permission is being granted. The address calling the method must already be assigned either the `ROOT_ROLE` or `ARCHITECTURE_ROLE` within the domain or parent domain.
+  Assign the colony `ARCHITECTURE` role to an address. The address calling the method must have permission within the domain that permission is being granted or a parent domain to the domain that permission is being granted. The address calling the method must already be assigned either the colony `ROOT` or `ARCHITECTURE` role within the domain or parent domain.
   */
   setArchitectureRole: ColonyClient.Sender<
     {
       permissionDomainId: number, // The ID of the domain that grants the address permission to call the method.
       childSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
-      address: Address, // The address that will be assigned or unassigned the `ARCHITECTURE_ROLE`.
-      domainId: number, // The ID of the domain that the `ARCHITECTURE_ROLE` will be assigned or unassigned.
-      setTo: boolean, // A boolean indicating whether the address will be assigned or unassigned the `ARCHITECTURE_ROLE`.
+      address: Address, // The address that will be assigned or unassigned the colony `ARCHITECTURE` role.
+      domainId: number, // The ID of the domain that the colony `ARCHITECTURE` role will be assigned or unassigned.
+      setTo: boolean, // A boolean indicating whether the address will be assigned or unassigned the colony `ARCHITECTURE` role.
     },
     {
       ColonyArchitectureRoleSet: ColonyArchitectureRoleSet,
@@ -1179,15 +1179,15 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Assign the `FUNDING_ROLE` to an address. The address calling the method must have permission within the domain that permission is being granted or a parent domain to the domain that permission is being granted. The address calling the method must already be assigned either the `ROOT_ROLE` or `ARCHITECTURE_ROLE` within the domain or parent domain.
+  Assign the colony `FUNDING` role to an address. The address calling the method must have permission within the domain that permission is being granted or a parent domain to the domain that permission is being granted. The address calling the method must already be assigned either the colony `ROOT` or `ARCHITECTURE` role within the domain or parent domain.
   */
   setFundingRole: ColonyClient.Sender<
     {
       permissionDomainId: number, // The ID of the domain that grants the address permission to call the method.
       childSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
-      address: Address, // The address that will be assigned or unassigned the `FUNDING_ROLE`.
-      domainId: number, // The ID of the domain that the `FUNDING_ROLE` will be assigned or unassigned.
-      setTo: boolean, // A boolean indicating whether the address will be assigned or unassigned the `FUNDING_ROLE`.
+      address: Address, // The address that will be assigned or unassigned the colony `FUNDING` role.
+      domainId: number, // The ID of the domain that the colony `FUNDING` role will be assigned or unassigned.
+      setTo: boolean, // A boolean indicating whether the address will be assigned or unassigned the colony `FUNDING` role.
     },
     {
       ColonyFundingRoleSet: ColonyFundingRoleSet,
@@ -1200,7 +1200,7 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Set the inverse amount of the reward. This can only be called from the Meta Colony and only by the address assigned the `ROOT_ROLE`. If the fee is 1% (or 0.01), the inverse amount will be 100.
+  Set the inverse amount of the reward. This can only be called from the Meta Colony and only by the address assigned the colony `ROOT` role. If the fee is 1% (or 0.01), the inverse amount will be 100.
   */
   setNetworkFeeInverse: ColonyClient.Sender<
     {
@@ -1287,11 +1287,11 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Assign a colony recovery role to a user. This function can only be called by the `ROOT_ROLE`.
+  Assign the colony `RECOVERY` role to an address. This function can only be called by the colony `ROOT` role.
   */
   setRecoveryRole: ColonyClient.Sender<
     {
-      user: Address, // The address that will be assigned a colony recovery role.
+      user: Address, // The address that will be assigned the colony `RECOVERY` role.
     },
     {},
     ColonyClient,
@@ -1319,12 +1319,12 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Assign the `ROOT_ROLE` to an address. This function can only be called by the address currently assigned the `ROOT_ROLE`. There can only be one address assigned to the `ROOT_ROLE`, therefore, the address currently assigned will forfeit their role.
+  Assign the colony `ROOT` role to an address. This function can only be called by the address currently assigned the colony `ROOT` role. There can only be one address assigned to the colony `ROOT` role, therefore, the address currently assigned will forfeit the role.
   */
   setRootRole: ColonyClient.Sender<
     {
-      address: Address, // The address that will either be assigned or unassigned `ROOT_ROLE`.
-      setTo: boolean, // A boolean indicating whether the address will be assigned or unassigned `ROOT_ROLE`.
+      address: Address, // The address that will either be assigned or unassigned the colony `ROOT` role.
+      setTo: boolean, // A boolean indicating whether the address will be assigned or unassigned the colony `ROOT` role.
     },
     {
       ColonyRootRoleSet: ColonyRootRoleSet,
@@ -1337,7 +1337,7 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Set the value for a storage slot while in recovery mode. This can only be called by a user assigned the `RECOVERY_ROLE`.
+  Set the value for a storage slot while in recovery mode. This can only be called by a user assigned the colony `RECOVERY` role.
   */
   setStorageSlotRecovery: ColonyClient.Sender<
     {
@@ -1371,7 +1371,7 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Set the domain of a task. Every task must belong to a domain. This function can only be called by the address assigned the `MANAGER_ROLE`.
+  Set the domain of a task. Every task must belong to a domain. This function can only be called by the address assigned the task `MANAGER` role.
   */
   setTaskDomain: ColonyClient.MultisigSender<
     {
@@ -1389,7 +1389,7 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Set the due date of a task. The due date is the last day that the address assigned the `WORKER_ROLE` can submit the task deliverable.
+  Set the due date of a task. The due date is the last day that the address assigned the task `WORKER` role can submit the task deliverable.
   */
   setTaskDueDate: ColonyClient.MultisigSender<
     {
@@ -1407,7 +1407,7 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Set the payout amount for the `EVALUATOR_ROLE`.
+  Set the payout amount for the task `EVALUATOR` role.
   */
   setTaskEvaluatorPayout: ColonyClient.MultisigSender<
     {
@@ -1426,12 +1426,12 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Assign the `EVALUATOR_ROLE` to an address. This function can only be called before the task is finalized. The address assigned the `MANAGER_ROLE` and the address being assigned the `EVALUATOR_ROLE` must both sign the transaction before it can be executed.
+  Assign the task `EVALUATOR` role to an address. This function can only be called before the task is finalized. The address assigned the task `MANAGER` role and the address being assigned the task `EVALUATOR` role must both sign the transaction before it can be executed.
   */
   setTaskEvaluatorRole: ColonyClient.MultisigSender<
     {
       taskId: number, // The ID of the task.
-      user: Address, // The address that will be assigned the `EVALUATOR_ROLE`.
+      user: Address, // The address that will be assigned the task `EVALUATOR` role.
     },
     {
       TaskRoleUserSet: TaskRoleUserSet,
@@ -1444,7 +1444,7 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Set the payout amount for the `MANAGER_ROLE`.
+  Set the payout amount for the task `MANAGER` role.
   */
   setTaskManagerPayout: ColonyClient.MultisigSender<
     {
@@ -1463,12 +1463,12 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Assign the `MANAGER_ROLE` to an address. This function can only be called before the task is finalized. The address currently assigned the `MANAGER_ROLE` and the address being assigned the `MANAGER_ROLE` must both sign the transaction before it can be executed.
+  Assign the task `MANAGER` role to an address. This function can only be called before the task is finalized. The address currently assigned the task `MANAGER` role and the address being assigned the task `MANAGER` role must both sign the transaction before it can be executed.
   */
   setTaskManagerRole: ColonyClient.MultisigSender<
     {
       taskId: number, // The ID of the task.
-      user: Address, // The address that will be assigned the `MANANAGER` task role.
+      user: Address, // The address that will be assigned the task `MANAGER` role.
       permissionDomainId: number, // The domainId in the sender has the permission to take this action.
       childSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
     },
@@ -1483,7 +1483,7 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Set the skill of a task. Only one skill can be assigned per task. The user assigned the `MANAGER_ROLE` and the address assigned the `WORKER_ROLE` must both sign this transaction before it can be executed.
+  Set the skill of a task. Only one skill can be assigned per task. The user assigned the task `MANAGER` role and the address assigned the task `WORKER` role must both sign this transaction before it can be executed.
   */
   setTaskSkill: ColonyClient.MultisigSender<
     {
@@ -1501,7 +1501,7 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Set the payout amount for the `WORKER_ROLE`.
+  Set the payout amount for the task `WORKER` role.
   */
   setTaskWorkerPayout: ColonyClient.MultisigSender<
     {
@@ -1520,12 +1520,12 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Assign the `WORKER_ROLE` to an address. This function can only be called before the task is finalized. The address assigned the `MANAGER_ROLE` and the address being assigned the `WORKER_ROLE` must both sign the transaction before it can be executed.
+  Assign the task `WORKER` role to an address. This function can only be called before the task is finalized. The address assigned the task `MANAGER` role and the address being assigned the task `WORKER` role must both sign the transaction before it can be executed.
   */
   setTaskWorkerRole: ColonyClient.MultisigSender<
     {
       taskId: number, // The ID of the task.
-      user: Address, // The address that will be assigned the `WORKER_ROLE`.
+      user: Address, // The address that will be assigned the task `WORKER` role.
     },
     {
       TaskRoleUserSet: TaskRoleUserSet,
@@ -1560,7 +1560,7 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Submit the task deliverable. This function can only be called by the address assigned the `WORKER_ROLE` on or before the task due date. The submission cannot be overwritten, which means the deliverable cannot be changed once it has been submitted.
+  Submit the task deliverable. This function can only be called by the address assigned the task `WORKER` role on or before the task due date. The submission cannot be overwritten, which means the deliverable cannot be changed once it has been submitted.
   */
   submitTaskDeliverable: ColonyClient.Sender<
     {
@@ -1579,7 +1579,7 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Submit the task deliverable and the work rating for the address assigned the `MANAGER_ROLE`. This function can only be called by the address assigned the `WORKER_ROLE` on or before the task due date. The submission cannot be overwritten, which means the deliverable cannot be changed once it has been submitted. In order to submit a rating, a `secret` must be generated using the `generateSecret` method, which keeps the rating hidden until all ratings have been submitted and revealed.
+  Submit the task deliverable and the work rating for the address assigned the task `MANAGER` role. This function can only be called by the address assigned the task `WORKER` role on or before the task due date. The submission cannot be overwritten, which means the deliverable cannot be changed once it has been submitted. In order to submit a rating, a `secret` must be generated using the `generateSecret` method, which keeps the rating hidden until all ratings have been submitted and revealed.
   */
   submitTaskDeliverableAndRating: ColonyClient.Sender<
     {
@@ -1599,7 +1599,7 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Submit a work rating for a task. This function can only be called by the address assigned the `EVALUATOR_ROLE`, who is submitting a rating for the address assigned the `WORKER_ROLE`, or the address assigned the `WORKER_ROLE`, who is submitting a rating for the address assigned the `MANAGER_ROLE`. In order to submit a rating, a `secret` must be generated using the `generateSecret` method, which keeps the rating hidden until all ratings have been submitted and revealed.
+  Submit a work rating for a task. This function can only be called by the address assigned the task `EVALUATOR` role, who is submitting a rating for the address assigned the task `WORKER` role, or the address assigned the task `WORKER` role, who is submitting a rating for the address assigned the task `MANAGER` role. In order to submit a rating, a `secret` must be generated using the `generateSecret` method, which keeps the rating hidden until all ratings have been submitted and revealed.
   */
   submitTaskWorkRating: ColonyClient.Sender<
     {
@@ -1909,7 +1909,7 @@ export default class ColonyClient extends ContractClient {
       input: [
         ['user', 'address'],
         ['domainId', 'number'],
-        ['role', 'authorityRole'],
+        ['role', 'colonyRole'],
       ],
       output: [['hasRole', 'boolean']],
     });
@@ -2262,51 +2262,55 @@ export default class ColonyClient extends ContractClient {
         nonceFunctionName: 'getTaskChangeNonce',
         nonceInput: [['taskId', 'number']],
       });
-    makeExecuteTaskChange('cancelTask', [], [MANAGER_ROLE, WORKER_ROLE]);
+    makeExecuteTaskChange(
+      'cancelTask',
+      [],
+      [TASK_ROLE_MANAGER, TASK_ROLE_WORKER],
+    );
     makeExecuteTaskChange(
       'removeTaskEvaluatorRole',
       [],
-      [MANAGER_ROLE, EVALUATOR_ROLE],
+      [TASK_ROLE_MANAGER, TASK_ROLE_EVALUATOR],
     );
     makeExecuteTaskChange(
       'removeTaskWorkerRole',
       [],
-      [MANAGER_ROLE, WORKER_ROLE],
+      [TASK_ROLE_MANAGER, TASK_ROLE_WORKER],
     );
     makeExecuteTaskChange(
       'setTaskBrief',
       [['specificationHash', 'ipfsHash']],
-      [MANAGER_ROLE, WORKER_ROLE],
+      [TASK_ROLE_MANAGER, TASK_ROLE_WORKER],
     );
     makeExecuteTaskChange(
       'setTaskDomain',
       [['domainId', 'number']],
-      [MANAGER_ROLE, WORKER_ROLE],
+      [TASK_ROLE_MANAGER, TASK_ROLE_WORKER],
     );
     makeExecuteTaskChange(
       'setTaskDueDate',
       [['dueDate', 'date']],
-      [MANAGER_ROLE, WORKER_ROLE],
+      [TASK_ROLE_MANAGER, TASK_ROLE_WORKER],
     );
     makeExecuteTaskChange(
       'setTaskEvaluatorPayout',
       [['token', 'tokenAddress'], ['amount', 'bigNumber']],
-      [MANAGER_ROLE, EVALUATOR_ROLE],
+      [TASK_ROLE_MANAGER, TASK_ROLE_EVALUATOR],
     );
     makeExecuteTaskChange(
       'setTaskManagerPayout',
       [['token', 'tokenAddress'], ['amount', 'bigNumber']],
-      [MANAGER_ROLE, WORKER_ROLE],
+      [TASK_ROLE_MANAGER, TASK_ROLE_WORKER],
     );
     makeExecuteTaskChange(
       'setTaskSkill',
       [['skillId', 'number']],
-      [MANAGER_ROLE, WORKER_ROLE],
+      [TASK_ROLE_MANAGER, TASK_ROLE_WORKER],
     );
     makeExecuteTaskChange(
       'setTaskWorkerPayout',
       [['token', 'tokenAddress'], ['amount', 'bigNumber']],
-      [MANAGER_ROLE, WORKER_ROLE],
+      [TASK_ROLE_MANAGER, TASK_ROLE_WORKER],
     );
 
     // Task role change MultisigSenders
@@ -2322,7 +2326,7 @@ export default class ColonyClient extends ContractClient {
           // The manager's sig is required for all role change operations
           const { address: manager } = await this.getTaskRole.call({
             taskId,
-            role: MANAGER_ROLE,
+            role: TASK_ROLE_MANAGER,
           });
 
           const requiredSignees = await getRequiredSignees(args);
@@ -2337,7 +2341,7 @@ export default class ColonyClient extends ContractClient {
     makeExecuteTaskRoleChange('setTaskEvaluatorRole', async ({ taskId }) => {
       const { address } = await this.getTaskRole.call({
         taskId,
-        role: EVALUATOR_ROLE,
+        role: TASK_ROLE_EVALUATOR,
       });
       if (isValidAddress(address))
         throw new Error('Unable to set task role; evaluator is already set');
@@ -2346,7 +2350,7 @@ export default class ColonyClient extends ContractClient {
     makeExecuteTaskRoleChange('setTaskManagerRole', async ({ user }) => {
       const isAdmin = await this.hasRole.call({
         user,
-        role: ADMIN_ROLE,
+        role: COLONY_ROLE_ADMINISTRATION,
       });
       if (!isAdmin)
         throw new Error('Unable to set task role; user must be an admin');
@@ -2355,7 +2359,7 @@ export default class ColonyClient extends ContractClient {
     makeExecuteTaskRoleChange('setTaskWorkerRole', async ({ taskId }) => {
       const { address } = await this.getTaskRole.call({
         taskId,
-        role: WORKER_ROLE,
+        role: TASK_ROLE_WORKER,
       });
       if (isValidAddress(address))
         throw new Error('Unable to set task role; worker is already set');

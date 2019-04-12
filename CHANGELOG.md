@@ -4,6 +4,36 @@
 
 **Maintenance**
 
+* Updated constants in `ColonyClient` (`@colony/colony-js-client`)
+  * Added `COLONY_ROLE_ADMINISTRATION`
+  * Added `COLONY_ROLE_ARBITRATION`
+  * Added `COLONY_ROLE_ARCHITECTURE`
+  * Added `COLONY_ROLE_ARCHITECTURE_SUBDOMAIN`
+  * Added `COLONY_ROLE_FUNDING`
+  * Added `COLONY_ROLE_RECOVERY`
+  * Added `COLONY_ROLE_ROOT`
+  * Added `COLONY_ROLES`
+  * Added `ETHER_ADDRESS`
+  * Added `TASK_RATING_NONE`
+  * Added `TASK_RATING_UNSATISFACTORY`
+  * Added `TASK_RATING_SATISFACTORY`
+  * Added `TASK_RATING_EXCELLENT`
+  * Added `TASK_RATINGS`
+  * Added `TASK_ROLE_EVALUATOR`
+  * Added `TASK_ROLE_MANAGER`
+  * Added `TASK_ROLE_WORKER`
+  * Added `TASK_ROLES`
+  * Removed `FOUNDER_ROLE` (See `COLONY_ROLE_ROOT`)
+  * Removed `ADMIN_ROLE` (See `COLONY_ROLE_ADMINISTRATION`)
+  * Removed `AUTHORITY_ROLES` (See `COLONY_ROLES`)
+  * Removed `MANAGER_ROLE` (See `TASK_ROLE_MANAGER`)
+  * Removed `EVALUATOR_ROLE` (See `TASK_ROLE_EVALUATOR`)
+  * Removed `WORKER_ROLE` (See `TASK_ROLE_WORKER`)
+  * Removed `ACTIVE_TASK_STATUS` (See `TASK_STATUS_ACTIVE`)
+  * Removed `CANCELLED_TASK_STATUS` (See `TASK_STATUS_CANCELLED`)
+  * Removed `FINALIZED_TASK_STATUS` (See `TASK_STATUS_FINALIZED`)
+  * Updated `TASK_ROLES`
+
 * Updated caller methods in `ColonyClient` (`@colony/colony-js-client`)
   * Added `getOwner`
   * Added `getFundingPotPayout`
