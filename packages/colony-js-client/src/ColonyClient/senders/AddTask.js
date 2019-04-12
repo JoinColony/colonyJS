@@ -1,10 +1,11 @@
 /* @flow */
-/* eslint-disable no-underscore-dangle */
 
 import ContractClient from '@colony/colony-js-contract-client';
 import type ColonyClient from '../index';
 
 type InputValues = {
+  permissionDomainId: number,
+  childSkillIndex: number,
   specificationHash: string,
   domainId: number,
   skillId: number,
@@ -19,7 +20,7 @@ type OutputValues = {
 // but since the underlying method functionality is due to change very soon,
 // we're opting to not make big changes to the Sender behaviour, and simply
 // extend the `send` method to perform this async validation.
-export default class CreateTask extends ContractClient.Sender<
+export default class AddTask extends ContractClient.Sender<
   InputValues,
   OutputValues,
   ColonyClient,

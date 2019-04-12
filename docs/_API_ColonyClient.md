@@ -736,7 +736,7 @@ Add a domain to the colony.
 
 |Name|Type|Description|
 |---|---|---|
-|permissionDomainId|number|The domainId in the sender has the permission to take this action.|
+|permissionDomainId|number|The ID of the domain in which the sender has permission.|
 |childSkillIndex|number|The index that the `domainId` is relative to the `permissionDomainId`.|
 |parentDomainId|number|The ID of the parent domain.|
 
@@ -814,7 +814,7 @@ Add a payment to the colony.
 
 |Name|Type|Description|
 |---|---|---|
-|permissionDomainId|number|The domainId in the sender has the permission to take this action.|
+|permissionDomainId|number|The ID of the domain in which the sender has permission.|
 |childSkillIndex|number|The index that the `domainId` is relative to the `permissionDomainId`.|
 |recipient|address|The address that will receive the payment.|
 |token|address|The address of the token contract (an empty address if Ether).|
@@ -857,7 +857,7 @@ Add a new task within the colony.
 
 |Name|Type|Description|
 |---|---|---|
-|permissionDomainId|number|The domainId in the sender has the permission to take this action.|
+|permissionDomainId|number|The ID of the domain in which the sender has permission.|
 |childSkillIndex|number|The index that the `domainId` is relative to the `permissionDomainId`.|
 |specificationHash|IPFS hash|The specification hash of the task (an IPFS hash).|
 |domainId|number (optional)|The ID of the domain (default value of `1`).|
@@ -1229,7 +1229,7 @@ Finalize a payment. Once a payment is finalized, no further changes to the payme
 
 |Name|Type|Description|
 |---|---|---|
-|permissionDomainId|number|The domainId in the sender has the permission to take this action.|
+|permissionDomainId|number|The ID of the domain in which the sender has permission.|
 |childSkillIndex|number|The index that the `domainId` is relative to the `permissionDomainId`.|
 |paymentId|number|The ID of the payment.|
 
@@ -1323,6 +1323,60 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/ColonyTask.sol)
   
 Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/IColony.sol)
+  
+
+### `makePayment.send({ permissionDomainId, childSkillIndex, callerPermissionDomainId, callerChildSkillIndex, recipient, token, amount, domainId, skillId }, options)`
+
+Make a payment in one transaction. This function is not included in the core contracts but instead it comes from the `OneTxPayment` extension contract. The `OneTxPayment` extension contract and the sender must both be assigned the colony `ADMINISTRATION` role.
+
+**Input**
+
+|Name|Type|Description|
+|---|---|---|
+|permissionDomainId|number|The ID of the domain in which the sender has permission.|
+|childSkillIndex|number|The index that the `domainId` is relative to the `permissionDomainId`.|
+|callerPermissionDomainId|number|The ID of the domain in which the caller has permission.|
+|callerChildSkillIndex|number|The index that the `domainId` is relative to the `callerPermissionDomainId`.|
+|recipient|address|The address that will receive the payment.|
+|token|address|The address of the token contract (an empty address if Ether).|
+|amount|big number|The amount of tokens (or Ether) for the payment.|
+|domainId|number|The ID of the domain.|
+|skillId|number|The ID of the skill.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
+
+An instance of a `ContractResponse` which will eventually receive the following event data:
+
+|Name|Type|Description|
+|---|---|---|
+|potId|number|The ID of the pot that was added.|
+|paymentId|number|The ID of the payment that was added.|
+|fromPot|number|The ID of the pot from which the funds were moved.|
+|toPot|number|The ID of the pot to which the funds were moved.|
+|amount|big number|The amount of funds that were moved between pots.|
+|token|address|The address of the token contract (an empty address if Ether).|
+|from|address|The address of the account that sent tokens.|
+|to|address|The address of the account that received tokens.|
+|value|big number|The amount of tokens that were transferred.|
+|FundingPotAdded|object|Contains the data defined in [FundingPotAdded](#eventsfundingpotadded)|
+|PaymentAdded|object|Contains the data defined in [PaymentAdded](#eventspaymentadded)|
+|ColonyFundsMovedBetweenFundingPots|object|Contains the data defined in [ColonyFundsMovedBetweenFundingPots](#eventscolonyfundsmovedbetweenfundingpots)|
+|Transfer|object|Contains the data defined in [Transfer](#eventstransfer)|
+|PayoutClaimed|object|Contains the data defined in [PayoutClaimed](#eventspayoutclaimed)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
+
+
+  
+  
+Contract: [OneTxPayment.sol](https://github.com/JoinColony/colonyNetwork/blob/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/extensions/OneTxPayment.sol/OneTxPayment.sol)
+  
   
 
 ### `mintTokens.send({ amount }, options)`
@@ -1756,7 +1810,7 @@ Set the payment domain.
 
 |Name|Type|Description|
 |---|---|---|
-|permissionDomainId|number|The domainId in the sender has the permission to take this action.|
+|permissionDomainId|number|The ID of the domain in which the sender has permission.|
 |childSkillIndex|number|The index that the `domainId` is relative to the `permissionDomainId`.|
 |paymentId|number|The ID of the payment.|
 |domainId|address|The ID of the domain.|
@@ -1791,7 +1845,7 @@ Set the payment payout.
 
 |Name|Type|Description|
 |---|---|---|
-|permissionDomainId|number|The domainId in the sender has the permission to take this action.|
+|permissionDomainId|number|The ID of the domain in which the sender has permission.|
 |childSkillIndex|number|The index that the `domainId` is relative to the `permissionDomainId`.|
 |paymentId|number|The ID of the payment.|
 |amount|big number|The amount of the payment.|
@@ -1826,7 +1880,7 @@ Set the payment recipient.
 
 |Name|Type|Description|
 |---|---|---|
-|permissionDomainId|number|The domainId in the sender has the permission to take this action.|
+|permissionDomainId|number|The ID of the domain in which the sender has permission.|
 |childSkillIndex|number|The index that the `domainId` is relative to the `permissionDomainId`.|
 |paymentId|number|The ID of the payment.|
 |recipient|address|The address that will receive the payment.|
@@ -1861,7 +1915,7 @@ Set the payment skill.
 
 |Name|Type|Description|
 |---|---|---|
-|permissionDomainId|number|The domainId in the sender has the permission to take this action.|
+|permissionDomainId|number|The ID of the domain in which the sender has permission.|
 |childSkillIndex|number|The index that the `domainId` is relative to the `permissionDomainId`.|
 |paymentId|number|The ID of the payment.|
 |skillId|address|The ID of the skill.|
@@ -2530,7 +2584,7 @@ Assign the task `MANAGER` role to an address. This function can only be called b
 |---|---|---|
 |taskId|number|The ID of the task.|
 |user|address|The address that will be assigned the task `MANAGER` role.|
-|permissionDomainId|number|The domainId in the sender has the permission to take this action.|
+|permissionDomainId|number|The ID of the domain in which the sender has permission.|
 |childSkillIndex|number|The index that the `domainId` is relative to the `permissionDomainId`.|
 
 **Response**

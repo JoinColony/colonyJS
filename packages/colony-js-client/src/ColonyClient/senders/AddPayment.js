@@ -9,7 +9,9 @@ type Address = string;
 type TokenAddress = string;
 
 type InputValues = {
-  worker: Address,
+  permissionDomainId: number,
+  childSkillIndex: number,
+  recipient: Address,
   token: TokenAddress,
   amount: BigNumber,
   domainId: number,
@@ -20,22 +22,23 @@ type OutputValues = {
   id: number,
 };
 
-export default class MakePayment extends ContractClient.Sender<
+// XXX This is a good use-case for some kind of async validation step,
+// but since the underlying method functionality is due to change very soon,
+// we're opting to not make big changes to the Sender behaviour, and simply
+// extend the `send` method to perform this async validation.
+export default class AddPayment extends ContractClient.Sender<
   InputValues,
   OutputValues,
   ColonyClient,
   *,
 > {
-  async _sendTransaction(args: *, options: *) {
-    const oneTxContract = await this.client.adapter.getContract({
-      // There should only ever be one `OneTxPayment` contract
-      contractName: 'OneTxPayment',
-    });
-    return oneTxContract.callTransaction(
-      'makePayment',
-      // The first argument must be the colony address
-      [this.client.contract.address, ...args],
-      options,
-    );
+  async send(inputValues: InputValues, options: *) {
+    // Validate that the domain exists before attempting to create a task
+    if (Object.hasOwnProperty.call(inputValues, 'domainId')) {
+      const { count } = await this.client.getDomainCount.call();
+      if (count < inputValues.domainId)
+        throw new Error(`Domain ID ${inputValues.domainId} not found`);
+    }
+    return super.send(inputValues, options);
   }
 }

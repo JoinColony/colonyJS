@@ -65,10 +65,10 @@
   * Added `setPaymentSkill`
   * Removed `claimPayout` (See `claimPayment` and `claimTaskPayout`)
   * Removed `createTask` (See `addTask`)
-  * Removed `makePayment` (See `addPayment`)
   * Removed `removeAdminRole` (See `setAdministrationRole`)
   * Removed `setFounderRole` (See `setRootRole`)
   * Updated `addDomain`
+  * Updated `makePayment`
   * Updated `moveFundsBetweenPots`
   * Updated `setTaskManagerRole`
   * Updated `startNextRewardPayout`

@@ -16,6 +16,7 @@ import TokenLockingClient from '../TokenLockingClient/index';
 import GetTask from './callers/GetTask';
 import AddPayment from './senders/AddPayment';
 import AddTask from './senders/AddTask';
+import OneTxPayment from './senders/OneTxPayment';
 import addRecoveryMethods from '../addRecoveryMethods';
 
 import {
@@ -222,7 +223,7 @@ export default class ColonyClient extends ContractClient {
   */
   addDomain: ColonyClient.Sender<
     {
-      permissionDomainId: number, // The domainId in the sender has the permission to take this action.
+      permissionDomainId: number, // The ID of the domain in which the sender has permission.
       childSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
       parentDomainId: number, // The ID of the parent domain.
     },
@@ -260,7 +261,7 @@ export default class ColonyClient extends ContractClient {
   */
   addPayment: ColonyClient.Sender<
     {
-      permissionDomainId: number, // The domainId in the sender has the permission to take this action.
+      permissionDomainId: number, // The ID of the domain in which the sender has permission.
       childSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
       recipient: Address, // The address that will receive the payment.
       token: TokenAddress, // The address of the token contract (an empty address if Ether).
@@ -284,7 +285,7 @@ export default class ColonyClient extends ContractClient {
   */
   addTask: ColonyClient.Sender<
     {
-      permissionDomainId: number, // The domainId in the sender has the permission to take this action.
+      permissionDomainId: number, // The ID of the domain in which the sender has permission.
       childSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
       specificationHash: IPFSHash, // The specification hash of the task (an IPFS hash).
       domainId: ?number, // The ID of the domain (default value of `1`).
@@ -481,7 +482,7 @@ export default class ColonyClient extends ContractClient {
   */
   finalizePayment: ColonyClient.Sender<
     {
-      permissionDomainId: number, // The domainId in the sender has the permission to take this action.
+      permissionDomainId: number, // The ID of the domain in which the sender has permission.
       childSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
       paymentId: number, // The ID of the payment.
     },
@@ -971,6 +972,36 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
+  Make a payment in one transaction. This function is not included in the core contracts but instead it comes from the `OneTxPayment` extension contract. The `OneTxPayment` extension contract and the sender must both be assigned the colony `ADMINISTRATION` role.
+  */
+  makePayment: ColonyClient.Sender<
+    {
+      permissionDomainId: number, // The ID of the domain in which the sender has permission.
+      childSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
+      callerPermissionDomainId: number, // The ID of the domain in which the caller has permission.
+      callerChildSkillIndex: number, // The index that the `domainId` is relative to the `callerPermissionDomainId`.
+      recipient: Address, // The address that will receive the payment.
+      token: TokenAddress, // The address of the token contract (an empty address if Ether).
+      amount: BigNumber, // The amount of tokens (or Ether) for the payment.
+      domainId: number, // The ID of the domain.
+      skillId: number, // The ID of the skill.
+    },
+    {
+      FundingPotAdded: FundingPotAdded,
+      PaymentAdded: PaymentAdded,
+      ColonyFundsMovedBetweenFundingPots: ColonyFundsMovedBetweenFundingPots,
+      Transfer: Transfer,
+      PayoutClaimed: PayoutClaimed,
+    },
+    ColonyClient,
+    {
+      contract: 'OneTxPayment.sol',
+      // eslint-disable-next-line max-len
+      contractPath: 'https://github.com/JoinColony/colonyNetwork/blob/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/extensions/OneTxPayment.sol',
+      version: '15397d7aa99208b6fd916373aac9acb93596a9d7',
+    },
+  >;
+  /*
   Mint new tokens. This function can only be called if the address of the colony contract is the owner of the token contract. If this is the case, then this function can only be called by the address assigned the colony `ROOT` role.
   */
   mintTokens: ColonyClient.Sender<
@@ -1219,7 +1250,7 @@ export default class ColonyClient extends ContractClient {
   */
   setPaymentDomain: ColonyClient.Sender<
     {
-      permissionDomainId: number, // The domainId in the sender has the permission to take this action.
+      permissionDomainId: number, // The ID of the domain in which the sender has permission.
       childSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
       paymentId: number, // The ID of the payment.
       domainId: Address, // The ID of the domain.
@@ -1237,7 +1268,7 @@ export default class ColonyClient extends ContractClient {
   */
   setPaymentPayout: ColonyClient.Sender<
     {
-      permissionDomainId: number, // The domainId in the sender has the permission to take this action.
+      permissionDomainId: number, // The ID of the domain in which the sender has permission.
       childSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
       paymentId: number, // The ID of the payment.
       amount: BigNumber, // The amount of the payment.
@@ -1255,7 +1286,7 @@ export default class ColonyClient extends ContractClient {
   */
   setPaymentRecipient: ColonyClient.Sender<
     {
-      permissionDomainId: number, // The domainId in the sender has the permission to take this action.
+      permissionDomainId: number, // The ID of the domain in which the sender has permission.
       childSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
       paymentId: number, // The ID of the payment.
       recipient: Address, // The address that will receive the payment.
@@ -1273,7 +1304,7 @@ export default class ColonyClient extends ContractClient {
   */
   setPaymentSkill: ColonyClient.Sender<
     {
-      permissionDomainId: number, // The domainId in the sender has the permission to take this action.
+      permissionDomainId: number, // The ID of the domain in which the sender has permission.
       childSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
       paymentId: number, // The ID of the payment.
       skillId: Address, // The ID of the skill.
@@ -1469,7 +1500,7 @@ export default class ColonyClient extends ContractClient {
     {
       taskId: number, // The ID of the task.
       user: Address, // The address that will be assigned the task `MANAGER` role.
-      permissionDomainId: number, // The domainId in the sender has the permission to take this action.
+      permissionDomainId: number, // The ID of the domain in which the sender has permission.
       childSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
     },
     {
@@ -1781,6 +1812,26 @@ export default class ColonyClient extends ContractClient {
         dueDate: new Date(0),
       },
     });
+    this.makePayment = new OneTxPayment({
+      client: this,
+      name: 'makePayment',
+      functionName: 'makePayment',
+      input: [
+        ['permissionDomainId', 'number'],
+        ['childSkillIndex', 'number'],
+        ['callerPermissionDomainId', 'number'],
+        ['callerChildSkillIndex', 'number'],
+        ['recipient', 'address'],
+        ['token', 'tokenAddress'],
+        ['amount', 'bigNumber'],
+        ['domainId', 'number'],
+        ['skillId', 'number'],
+      ],
+      defaultValues: {
+        domainId: DEFAULT_DOMAIN_ID,
+        skillId: 0,
+      },
+    });
 
     // Task callers
     const makeTaskCaller = (
@@ -1892,10 +1943,6 @@ export default class ColonyClient extends ContractClient {
     });
     this.addCaller('getTaskCount', {
       output: [['count', 'number']],
-    });
-    this.addCaller('getTaskWorkRatingSecretsInfo', {
-      input: [['taskId'], 'number'],
-      output: [['count', 'number'], ['lastSubmitted', 'date']],
     });
     this.addCaller('getToken', {
       output: [['address', 'address']],
@@ -2347,15 +2394,19 @@ export default class ColonyClient extends ContractClient {
         throw new Error('Unable to set task role; evaluator is already set');
       return null;
     });
-    makeExecuteTaskRoleChange('setTaskManagerRole', async ({ user }) => {
-      const isAdmin = await this.hasRole.call({
-        user,
-        role: COLONY_ROLE_ADMINISTRATION,
-      });
-      if (!isAdmin)
-        throw new Error('Unable to set task role; user must be an admin');
-      return null;
-    });
+    makeExecuteTaskRoleChange(
+      'setTaskManagerRole',
+      async ({ domainId, user }) => {
+        const isAdmin = await this.hasRole.call({
+          user,
+          domainId,
+          role: COLONY_ROLE_ADMINISTRATION,
+        });
+        if (!isAdmin)
+          throw new Error('Unable to set task role; user must be an admin');
+        return null;
+      },
+    );
     makeExecuteTaskRoleChange('setTaskWorkerRole', async ({ taskId }) => {
       const { address } = await this.getTaskRole.call({
         taskId,
