@@ -1,24 +1,62 @@
 # Changelog
 
-## next
+## next
 
-**Types**
+**Maintenance**
 
-* Update event definitions in `ColonyClient` (`@colony/colony-js-client`)
-  * Add `token` param to `ColonyInitialised`
-  * Add `ColonyAdministrationRoleSet`
-  * Add `ColonyArchitectureRoleSet`
-  * Add `ColonyFundingRoleSet`
-  * Add `ColonyRootRoleSet`
-  * Add `PaymentAdded`
-  * Add `PayoutClaimed`
-  * Remove `ColonyAdminRoleRemoved`
-  * Remove `ColonyAdminRoleSet`
-  * Remove `ColonyFounderRoleSet`
-  * Remove `TaskPayoutClaimed`
+* Updated caller methods in `ColonyClient` (`@colony/colony-js-client`)
+  * Added `getOwner`
+  * Added `getFundingPotPayout`
+  * Added `getPayment`
+  * Added `getPaymentCount`
+  * Added `getTaskWorkRatingSecretsInfo`
+  * Added `hasRole`
+  * Added `verifyReputationProof`
+  * Removed `getTaskWorkRatings` (See `getTaskWorkRatingSecretsInfo`)
+  * Removed `getTotalTaskPayout` (See `getFundingPotPayout`)
+  * Removed `hasUserRole` (See `hasRole`)
+  * Updated `getDomain`
+  * Updated `getFundingPot`
+  * Updated `getRewardPayoutInfo`
+  * Updated `getTask`
 
+* Updated sender methods in `ColonyClient` (`@colony/colony-js-client`)
+  * Added `addPayment`
+  * Added `addTask`
+  * Added `claimPayment`
+  * Added `claimTaskPayout`
+  * Added `claimRewardPayout`
+  * Added `finalizePayment`
+  * Added `setRootRole`
+  * Added `setArchitectureRole`
+  * Added `setPaymentDomain`
+  * Added `setPaymentPayout`
+  * Added `setPaymentRecipient`
+  * Added `setPaymentSkill`
+  * Removed `claimPayout` (See `claimPayment` and `claimTaskPayout`)
+  * Removed `createTask` (See `addTask`)
+  * Removed `makePayment` (See `addPayment`)
+  * Removed `removeAdminRole` (See `setAdministrationRole`)
+  * Removed `setFounderRole` (See `setRootRole`)
+  * Updated `addDomain`
+  * Updated `moveFundsBetweenPots`
+  * Updated `setTaskManagerRole`
+  * Updated `startNextRewardPayout`
 
-## v1.11.2
+* Updated events in `ColonyClient` (`@colony/colony-js-client`)
+  * Added `ColonyAdministrationRoleSet`
+  * Added `ColonyArchitectureRoleSet`
+  * Added `ColonyFundingRoleSet`
+  * Added `ColonyRootRoleSet`
+  * Added `PaymentAdded`
+  * Added `PayoutClaimed`
+  * Removed `ColonyAdminRoleRemoved` (See `ColonyAdministrationRoleSet`)
+  * Removed `ColonyAdminRoleSet` (See `ColonyAdministrationRoleSet`)
+  * Removed `ColonyFounderRoleSet` (See `ColonyRootRoleSet`)
+  * Removed `TaskPayoutClaimed` (See `PayoutClaimed`)
+  * Updated `ColonyInitialised`
+
+## v1.11.2
 
 **Bug Fixes**
 

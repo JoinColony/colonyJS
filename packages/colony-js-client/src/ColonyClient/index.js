@@ -14,8 +14,8 @@ import TokenClient from '../TokenClient/index';
 import TokenLockingClient from '../TokenLockingClient/index';
 
 import GetTask from './callers/GetTask';
-import CreateTask from './senders/CreateTask';
-import MakePayment from './senders/MakePayment';
+import AddPayment from './senders/AddPayment';
+import AddTask from './senders/AddTask';
 import addRecoveryMethods from '../addRecoveryMethods';
 
 import {
@@ -87,7 +87,7 @@ type DomainAdded = ContractClient.Event<{
   domainId: number, // The ID of the domain that was added.
 }>;
 type FundingPotAdded = ContractClient.Event<{
-  potId: number, // The numeric ID of the pot that was added.
+  potId: number, // The ID of the pot that was added.
 }>;
 type Mint = ContractClient.Event<{
   address: Address, // The address that initiated the mint event.
@@ -218,16 +218,18 @@ export default class ColonyClient extends ContractClient {
   };
 
   /*
-  Add a domain to the colony. Adding new domains is currently retricted to one level, i.e. the `parentDomainId` must be the id of the root domain `1`, which represents the colony itself.
+  Add a domain to the colony.
   */
   addDomain: ColonyClient.Sender<
     {
+      permissionDomainId: number, // The domainId in the sender has the permission to take this action.
+      childSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
       parentDomainId: number, // The ID of the parent domain.
     },
     {
+      SkillAdded: SkillAdded,
       DomainAdded: DomainAdded,
       FundingPotAdded: FundingPotAdded,
-      SkillAdded: SkillAdded,
     },
     ColonyClient,
     {
@@ -237,7 +239,7 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Add a new global skill to the skills tree. This can only be called from the Meta Colony and only by the user assigned the `FOUNDER` role.
+  Add a global skill to the skills tree. This can only be called from the Meta Colony and only by the address assigned the `ROOT_ROLE`.
   */
   addGlobalSkill: ColonyClient.Sender<
     {
@@ -254,7 +256,57 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Indicate approval to exit colony recovery mode. This function can only be called by a user with a recovery role.
+  Add a payment to the colony.
+  */
+  addPayment: ColonyClient.Sender<
+    {
+      permissionDomainId: number, // The domainId in the sender has the permission to take this action.
+      childSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
+      recipient: Address, // The address that will receive the payment.
+      token: TokenAddress, // The address of the token contract (an empty address if Ether).
+      amount: BigNumber, // The amount of tokens (or Ether) for the payment.
+      domainId: number, // The ID of the domain.
+      skillId: number, // The ID of the skill.
+    },
+    {
+      FundingPotAdded: FundingPotAdded,
+      PaymentAdded: PaymentAdded,
+    },
+    ColonyClient,
+    {
+      contract: 'ColonyPayment.sol',
+      interface: 'IColony.sol',
+      version: '15397d7aa99208b6fd916373aac9acb93596a9d7',
+    },
+  >;
+  /*
+  Add a new task within the colony.
+  */
+  addTask: ColonyClient.Sender<
+    {
+      permissionDomainId: number, // The domainId in the sender has the permission to take this action.
+      childSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
+      specificationHash: IPFSHash, // The specification hash of the task (an IPFS hash).
+      domainId: ?number, // The ID of the domain (default value of `1`).
+      skillId: ?number, // The ID of the skill (default value of `null`).
+      dueDate: ?Date, // The due date of the task (default value of `30` days from creation).
+    },
+    {
+      TaskSkillSet: TaskSkillSet,
+      TaskDueDateSet: TaskDueDateSet,
+      FundingPotAdded: FundingPotAdded,
+      TaskAdded: TaskAdded,
+    },
+    ColonyClient,
+    {
+      function: 'makeTask',
+      contract: 'ColonyTask.sol',
+      interface: 'IColony.sol',
+      version: '15397d7aa99208b6fd916373aac9acb93596a9d7',
+    },
+  >;
+  /*
+  Indicate approval to exit colony recovery mode. This function can only be called by an address assigned the `RECOVERY_ROLE`.
   */
   approveExitRecovery: ColonyClient.Sender<
     {},
@@ -267,7 +319,7 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Bootstrap the colony by giving an initial amount of tokens and reputation to selected users. This function can only be called by the user assigned the `FOUNDER` authority role when the `taskCount` for the colony is equal to `0`.
+  Bootstrap the colony by giving an initial amount of tokens and reputation to selected addresses. This function can only be called by the address assigned the `ROOT_ROLE` when the `taskCount` for the colony is equal to `0`.
    */
   bootstrapColony: ColonyClient.Sender<
     {
@@ -276,6 +328,7 @@ export default class ColonyClient extends ContractClient {
     },
     {
       ColonyBootstrapped: ColonyBootstrapped,
+      Transfer: Transfer,
     },
     ColonyClient,
     {
@@ -302,7 +355,7 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Claim funds that the colony has received by adding them to the funding pot of the root domain. A small fee is deducted from the funds claimed and added to the colony rewards pot. No fee is deducted when tokens native to the colony are claimed.
+  Claim funds that the colony has received by adding them to the funding pot of the root domain. A set fee is deducted from the funds claimed and added to the colony rewards pot. No fee is deducted when tokens native to the colony are claimed.
   */
   claimColonyFunds: ColonyClient.Sender<
     {
@@ -319,12 +372,11 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Claim the payout assigned to a task role. This function can only be called by the user who is assigned a task role (`MANAGER`, `EVALUATOR`, or `WORKER`) after the task has been finalized.
+  Claim a payment.
   */
-  claimPayout: ColonyClient.Sender<
+  claimPayment: ColonyClient.Sender<
     {
-      taskId: number, // The ID of the task.
-      role: TaskRole, // The role that submitted the rating (`MANAGER`, `EVALUATOR`, or `WORKER`).
+      paymentId: number, // The ID of the payment.
       token: TokenAddress, // The address of the token contract (an empty address if Ether).
     },
     {
@@ -339,7 +391,50 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Mark a task as complete. If the user assigned the `WORKER` task role fails to submit the task deliverable by the due date, this function must be called by the user assigned the `MANAGER` task role. This allows the task work to be rated and the task to be finalized.
+  Claim a reward payout.
+  */
+  claimRewardPayout: ColonyClient.Sender<
+    {
+      payoutId: number, // The ID of the payout.
+      squareRoots: Array<number>, // The square roots of values used in the equation.
+      key: string, // The key of the element that the proof is for.
+      value: string, // The value of the element that the proof is for.
+      branchMask: number, // The branchmask of the proof.
+      siblings: Array<string>, // The siblings of the proof.
+    },
+    {
+      RewardPayoutClaimed: RewardPayoutClaimed,
+      Transfer: Transfer,
+    },
+    ColonyClient,
+    {
+      contract: 'ColonyFunding.sol',
+      interface: 'IColony.sol',
+      version: '15397d7aa99208b6fd916373aac9acb93596a9d7',
+    },
+  >;
+  /*
+  Claim a payout assigned to a task role (`MANAGER_ROLE`, `EVALUATOR_ROLE`, or `WORKER_ROLE`). This function can only be called by the address assigned the given task role after the task has been finalized.
+  */
+  claimTaskPayout: ColonyClient.Sender<
+    {
+      taskId: number, // The ID of the task.
+      role: TaskRole, // The role that submitted the rating (`MANAGER_ROLE`, `EVALUATOR_ROLE`, or `WORKER_ROLE`).
+      token: TokenAddress, // The address of the token contract (an empty address if Ether).
+    },
+    {
+      PayoutClaimed: PayoutClaimed,
+      Transfer: Transfer,
+    },
+    ColonyClient,
+    {
+      contract: 'ColonyFunding.sol',
+      interface: 'IColony.sol',
+      version: '15397d7aa99208b6fd916373aac9acb93596a9d7',
+    },
+  >;
+  /*
+  Mark a task as complete. If the address assigned the `WORKER_ROLE` fails to submit the task deliverable by the due date, this function must be called by the address assigned the `MANAGER_ROLE`. This allows the task work to be rated and the task to be finalized.
   */
   completeTask: ColonyClient.Sender<
     {
@@ -356,31 +451,7 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Create a new task within the colony.
-  */
-  createTask: ColonyClient.Sender<
-    {
-      specificationHash: IPFSHash, // The specification hash of the task (an IPFS hash).
-      domainId: ?number, // The ID of the domain (default value of `1`).
-      skillId: ?number, // The ID of the skill (default value of `null`).
-      dueDate: ?Date, // The due date of the task (default value of `30` days from creation).
-    },
-    {
-      FundingPotAdded: FundingPotAdded,
-      TaskAdded: TaskAdded,
-      TaskSkillSet: TaskSkillSet,
-      TaskDueDateSet: TaskDueDateSet,
-    },
-    ColonyClient,
-    {
-      function: 'makeTask',
-      contract: 'ColonyTask.sol',
-      interface: 'IColony.sol',
-      version: '15397d7aa99208b6fd916373aac9acb93596a9d7',
-    },
-  >;
-  /*
-  Enter colony recovery mode. This function can only be called by a user with a recovery role.
+  Enter colony recovery mode. This function can only be called by a user assigned the `RECOVERY_ROLE`.
   */
   enterRecoveryMode: ColonyClient.Sender<
     {},
@@ -406,7 +477,24 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Finalize the reward payout cycle. This function can only be called when the reward payout cycle has finished, i.e. 60 days have passed since the creation of the reward payout cycle.
+  Finalize a payment. Once a payment is finalized, no further changes to the payment can be made and the address that is assigned the payment can claim the payment.
+  */
+  finalizePayment: ColonyClient.Sender<
+    {
+      permissionDomainId: number, // The domainId in the sender has the permission to take this action.
+      childSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
+      paymentId: number, // The ID of the payment.
+    },
+    {},
+    ColonyClient,
+    {
+      contract: 'ColonyPayment.sol',
+      interface: 'IColony.sol',
+      version: '15397d7aa99208b6fd916373aac9acb93596a9d7',
+    },
+  >;
+  /*
+  Finalize a reward payout cycle. This function can only be called when the reward payout cycle has finished, i.e. 60 days have passed since the creation of the reward payout cycle.
   */
   finalizeRewardPayout: ColonyClient.Sender<
     {
@@ -423,7 +511,7 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Finalize a task. Once a task is finalized, each user assigned a task role can claim the payout assigned to their role and no further changes to the task can be made.
+  Finalize a task. Once a task is finalized, no further changes to the task can be made and each user assigned a task role can claim the payout assigned to their role.
   */
   finalizeTask: ColonyClient.Sender<
     {
@@ -440,7 +528,7 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Generate the rating secret used in task ratings. This function returns a keccak256 hash created from the `salt` and `value`.
+  Generate a secret for task ratings. This function returns a keccak256 hash created from the input parameters.
   */
   generateSecret: ColonyClient.Caller<
     {
@@ -458,12 +546,12 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Get the authority contract address associated with the colony.
+  Get the authority contract address associated with the colony contract.
   */
   getAuthority: ColonyClient.Caller<
     {},
     {
-      address: Address, // The address of the authority contract associated with the colony.
+      address: Address, // The address of the authority contract associated with the colony contract.
     },
     ColonyClient,
     {
@@ -484,7 +572,7 @@ export default class ColonyClient extends ContractClient {
     },
     {
       localSkillId: number, // The ID of the local skill.
-      potId: number, // The ID of the funding pot.
+      fundingPotId: number, // The ID of the funding pot.
     },
     ColonyClient,
     {
@@ -509,32 +597,16 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Get the total amount of funds that are not in the colony rewards pot. The total amount of funds that are not in the colony rewards pot is a value that keeps track of the total assets a colony has to work with, which may be split among several distinct pots associated with various domains and tasks.
-  */
-  getNonRewardPotsTotal: ColonyClient.Caller<
-    {
-      token: TokenAddress, // The address of the token contract (an empty address if Ether).
-    },
-    {
-      total: BigNumber, // The total amount of funds that are not in the colony rewards pot.
-    },
-    ColonyClient,
-    {
-      contract: 'ColonyFunding.sol',
-      interface: 'IColony.sol',
-      version: '15397d7aa99208b6fd916373aac9acb93596a9d7',
-    },
-  >;
-  /*
   Get information about a funding pot.
   */
   getFundingPot: ColonyClient.Caller<
     {
-      potId: number, // The numeric ID of the funding pot.
+      potId: number, // The ID of the funding pot.
     },
     {
-      associatedType: string, // The associated type of the funding pot (`domain` or `task`).
-      associatedTypeId: number, // The id of the associated type (`domainId` or `taskId`).
+      type: string, // The associated type of the funding pot (`domain` or `task`).
+      typeId: number, // The id of the associated type (`domainId` or `taskId`).
+      payoutsWeCannotMake: number, // The total number of payouts that the funding pot cannot make.
     },
     ColonyClient,
     {
@@ -577,12 +649,101 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Get the total number of users that are assigned a colony recovery role.
+  Get the payout of a funding pot.
+  */
+  getFundingPotPayout: ColonyClient.Caller<
+    {
+      potId: number, // The ID of the funding pot.
+      token: TokenAddress, // The address of the token contract (an empty address if Ether).
+    },
+    {
+      payout: BigNumber, // The payout of tokens (or Ether) for the funding pot.
+    },
+    ColonyClient,
+    {
+      contract: 'ColonyFunding.sol',
+      interface: 'IColony.sol',
+      version: '15397d7aa99208b6fd916373aac9acb93596a9d7',
+    },
+  >;
+  /*
+  Get the total amount of funds that are not in the colony rewards pot. This is a value that keeps track of the total assets a colony has to work with, which may be split among several distinct pots associated with various domains and tasks.
+  */
+  getNonRewardPotsTotal: ColonyClient.Caller<
+    {
+      token: TokenAddress, // The address of the token contract (an empty address if Ether).
+    },
+    {
+      total: BigNumber, // The total amount of funds that are not in the colony rewards pot.
+    },
+    ColonyClient,
+    {
+      contract: 'ColonyFunding.sol',
+      interface: 'IColony.sol',
+      version: '15397d7aa99208b6fd916373aac9acb93596a9d7',
+    },
+  >;
+  /*
+  Get the owner address associated with the colony contract.
+  */
+  getOwner: ColonyClient.Caller<
+    {},
+    {
+      address: Address, // The address of the owner associated with the colony contract.
+    },
+    ColonyClient,
+    {
+      function: 'owner',
+      contract: 'auth.sol',
+      // eslint-disable-next-line max-len
+      contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
+      interface: 'IColony.sol',
+      version: '15397d7aa99208b6fd916373aac9acb93596a9d7',
+    },
+  >;
+  /*
+  Get information about a payment.
+  */
+  getPayment: ColonyClient.Caller<
+    {
+      paymentId: number, // The ID of the payment.
+    },
+    {
+      recipient: Address, // The address of the assigned recipient.
+      finalized: boolean, // A boolean indicating whether or not the payment has been finalized.
+      fundingPotId: number, // The ID of the funding pot.
+      domainId: number, // The ID of the domain.
+      skills: Array<number>, // An array of skill IDs.
+    },
+    ColonyClient,
+    {
+      contract: 'ColonyPayment.sol',
+      interface: 'IColony.sol',
+      version: '15397d7aa99208b6fd916373aac9acb93596a9d7',
+    },
+  >;
+  /*
+  Get the total number of payments.
+  */
+  getPaymentCount: ColonyClient.Caller<
+    {},
+    {
+      count: number, // The total number of payments.
+    },
+    ColonyClient,
+    {
+      contract: 'ColonyPayment.sol',
+      interface: 'IColony.sol',
+      version: '15397d7aa99208b6fd916373aac9acb93596a9d7',
+    },
+  >;
+  /*
+  Get the total number of addresses that are assigned a colony recovery role.
   */
   getRecoveryRolesCount: ColonyClient.Caller<
     {},
     {
-      count: number, // The total number of users that are assigned a colony recovery role.
+      count: number, // The total number of addresses that are assigned a colony recovery role.
     },
     ColonyClient,
     {
@@ -615,12 +776,12 @@ export default class ColonyClient extends ContractClient {
       payoutId: number, // The ID of the reward payout cycle.
     },
     {
-      blockNumber: number, // The block number at the time the reward payout cycle started.
-      remainingTokenAmount: BigNumber, // The remaining amount of unclaimed tokens (or Ether).
-      reputationRootHash: string, // The reputation root hash at the time the reward payout cycle started.
-      token: TokenAddress, // The address of the token contract (an empty address if Ether).
-      totalTokenAmountForRewardPayout: BigNumber, // The total amount of tokens set aside for the reward payout cycle.
-      totalTokens: BigNumber, // The total amount of tokens at the time the reward payout cycle started.
+      reputationState: string, // The reputation root hash at the time the reward payout was created.
+      colonyWideReputation: BigNumber, // The total reputation score throughout the colony.
+      totalTokens: BigNumber, // The total amount of tokens at the time the reward payout was created.
+      amount: BigNumber, // The total amount of tokens allocated for the reward payout.
+      tokenAddress: TokenAddress, // The address of the token contract (an empty address if Ether).
+      blockTimestamp: Date, // The timestamp at the time the reward payout was created.
     },
     ColonyClient,
     {
@@ -637,16 +798,14 @@ export default class ColonyClient extends ContractClient {
       taskId: number, // The ID of the task.
     },
     {
-      completionDate: Date, // The date when the task deliverable was submitted.
-      deliverableHash: IPFSHash, // The deliverable hash of the task (an IPFS hash).
-      domainId: number, // The ID of the domain.
-      dueDate: Date, // The final date that the task deliverable can be submitted.
-      id: number, // The ID of the task.
-      payoutsWeCannotMake: number, // The number of payouts that cannot be completed (`0` or `1`). If this value is `1`, it means that the funding pot associated with the task does not have enough funds to perform the task payouts, i.e. the total amount for the three task payouts is more than the total balance of the funding pot associated with the task.
-      potId: number, // The ID of the funding pot.
-      skillId: number, // The ID of the skill.
       specificationHash: IPFSHash, // The specification hash of the task (an IPFS hash).
+      deliverableHash: IPFSHash, // The deliverable hash of the task (an IPFS hash).
       status: TaskStatus, // The task status (`ACTIVE`, `CANCELLED` or `FINALIZED`).
+      dueDate: Date, // The final date that the task deliverable can be submitted.
+      fundingPotId: number, // The ID of the funding pot.
+      completionTimestamp: Date, // The date when the task deliverable was submitted.
+      domainId: number, // The ID of the domain.
+      skills: Array<number>, // An array of skills IDs.
     },
     ColonyClient,
     {
@@ -676,7 +835,7 @@ export default class ColonyClient extends ContractClient {
   getTaskPayout: ColonyClient.Caller<
     {
       taskId: number, // The ID of the task.
-      role: TaskRole, // The task role (`MANAGER`, `EVALUATOR`, or `WORKER`).
+      role: TaskRole, // The task role (`MANAGER_ROLE`, `EVALUATOR_ROLE`, or `WORKER_ROLE`).
       token: TokenAddress, // The address of the token contract (an empty address if Ether).
     },
     {
@@ -695,12 +854,12 @@ export default class ColonyClient extends ContractClient {
   getTaskRole: ColonyClient.Caller<
     {
       taskId: number, // The ID of the task.
-      role: TaskRole, // The role of the task (`MANAGER`, `EVALUATOR`, or `WORKER`).
+      role: TaskRole, // The role of the task (`MANAGER_ROLE`, `EVALUATOR_ROLE`, or `WORKER_ROLE`).
     },
     {
-      address: Address, // The address of the user that is assigned the task role.
-      rateFail: boolean, // A boolean indicating whether or not the user failed to rate their counterpart.
-      rating: number, // The rating that the user received (`1`, `2`, or `3`).
+      address: Address, // The address that is assigned the task role.
+      rateFail: boolean, // A boolean indicating whether or not the assigned address failed to submit a rating.
+      rating: number, // The rating that the assigned address received (`1`, `2`, or `3`).
     },
     ColonyClient,
     {
@@ -710,25 +869,7 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Get information about the ratings of a task.
-  */
-  getTaskWorkRatings: ColonyClient.Caller<
-    {
-      taskId: number, // The ID of the task.
-    },
-    {
-      count: number, // The total number of submitted ratings for a task.
-      date: Date, // The date that the last rating was submitted.
-    },
-    ColonyClient,
-    {
-      contract: 'ColonyTask.sol',
-      interface: 'IColony.sol',
-      version: '15397d7aa99208b6fd916373aac9acb93596a9d7',
-    },
-  >;
-  /*
-  Get the secret of a rating that has been submitted. If a task is in the commit period of the rating process, the ratings are hidden in a keccak256 hash that was created from a `salt` and `value`. The rating secret can be retrieved but in order to reveal the secret, one would have to know both the `salt` and `value` used to generate the secret.
+  Get the secret of a task work rating that has been submitted. If a task is in the commit period of the rating process, the work ratings are hidden in a keccak256 hash that was created from a `salt` and `value`. The rating secret can be retrieved but in order to reveal the secret, one would have to know both the `salt` and `value` used to generate the secret.
   */
   getTaskWorkRatingSecret: ColonyClient.Caller<
     {
@@ -737,6 +878,24 @@ export default class ColonyClient extends ContractClient {
     },
     {
       secret: HexString, // A keccak256 hash that keeps the task rating hidden.
+    },
+    ColonyClient,
+    {
+      contract: 'ColonyTask.sol',
+      interface: 'IColony.sol',
+      version: '15397d7aa99208b6fd916373aac9acb93596a9d7',
+    },
+  >;
+  /*
+  Get information about the secrets of the task work ratings.
+  */
+  getTaskWorkRatingSecretsInfo: ColonyClient.Caller<
+    {
+      taskId: number, // The ID of the task.
+    },
+    {
+      count: number, // The total number of secrets.
+      lastSubmitted: Date, // The date when the last secret was submitted.
     },
     ColonyClient,
     {
@@ -761,24 +920,6 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Get the total payout amount assigned to all task roles. Multiple tokens can be used for task payouts, therefore the token must be specified when calling this function. In order to get the task payout amount in Ether, `token` must be an empty address.
-  */
-  getTotalTaskPayout: ColonyClient.Caller<
-    {
-      taskId: number, // The ID of the task.
-      token: TokenAddress, // The address of the token contract (an empty address if Ether).
-    },
-    {
-      amount: BigNumber, // The total amount of tokens (or Ether) assigned to all task roles as payouts.
-    },
-    ColonyClient,
-    {
-      contract: 'ColonyFunding.sol',
-      interface: 'IColony.sol',
-      version: '15397d7aa99208b6fd916373aac9acb93596a9d7',
-    },
-  >;
-  /*
   Get the version number of the colony contract. The version number starts at `1` and is incremented by `1` with every new version.
   */
   getVersion: ColonyClient.Caller<
@@ -795,18 +936,20 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Check whether a user has an authority role.
+  Check whether an address has a role assigned.
   */
-  hasUserRole: ColonyClient.Caller<
+  hasRole: ColonyClient.Caller<
     {
-      user: Address, // The address of the user that will be checked.
-      role: AuthorityRole, // The authority role that will be checked (`FOUNDER` or `ADMIN`).
+      user: Address, // The address that will be checked for the role.
+      domainId: number, // The ID of the domain that the role is assigned.
+      role: AuthorityRole, // The role that will be checked (`ROOT_ROLE`, `ADMINISTRATION_ROLE`, `ARCHITECTURE_ROLE`, `FUNDING_ROLE`).
     },
     {
-      hasRole: boolean, // A boolean indicating whether or not the user has the authority role.
+      hasRole: boolean, // A boolean indicating whether or not the address has the role assigned.
     },
     ColonyClient,
     {
+      function: 'hasUserRole',
       contract: 'Colony.sol',
       interface: 'IColony.sol',
       version: '15397d7aa99208b6fd916373aac9acb93596a9d7',
@@ -828,36 +971,7 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Make a payment. This function can only be called by the user assigned either the `FOUNDER` or `ADMIN` authority role.
-  */
-  makePayment: ColonyClient.Sender<
-    {
-      worker: Address,
-      token: TokenAddress,
-      amount: BigNumber,
-      domainId: number,
-      skillId: number,
-    },
-    {
-      FundingPotAdded: FundingPotAdded,
-      TaskAdded: TaskAdded,
-      TaskSkillSet: TaskSkillSet,
-      TaskDueDateSet: TaskDueDateSet,
-      TaskRoleUserSet: TaskRoleUserSet,
-      TaskPayoutSet: TaskPayoutSet,
-      ColonyFundsMovedBetweenFundingPots: ColonyFundsMovedBetweenFundingPots,
-      PayoutClaimed: PayoutClaimed,
-      Transfer: Transfer,
-    },
-    ColonyClient,
-    {
-      contract: 'ContractRecovery.sol',
-      interface: 'IRecovery.sol',
-      version: '15397d7aa99208b6fd916373aac9acb93596a9d7',
-    },
-  >;
-  /*
-  Mint new tokens. This function can only be called if the address of the colony contract is the owner of the token contract. If this is the case, then this function can only be called by the user assigned the `FOUNDER` authority role.
+  Mint new tokens. This function can only be called if the address of the colony contract is the owner of the token contract. If this is the case, then this function can only be called by the address assigned the `ROOT_ROLE`.
   */
   mintTokens: ColonyClient.Sender<
     {
@@ -874,7 +988,7 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Mint tokens for the Colony Network. This can only be called from the Meta Colony and only by the user assigned the `FOUNDER` role.
+  Mint tokens for the Colony Network. This can only be called from the Meta Colony and only by the address assigned the `ROOT_ROLE`.
   */
   mintTokensForColonyNetwork: ColonyClient.Sender<
     {
@@ -896,6 +1010,9 @@ export default class ColonyClient extends ContractClient {
   */
   moveFundsBetweenPots: ColonyClient.Sender<
     {
+      permissionDomainId: number, // The ID of the domain that grants the address permission to call the method.
+      fromChildSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
+      toChildSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
       fromPot: number, // The ID of the pot from which funds will be moved.
       toPot: number, // The ID of the pot to which funds will be moved.
       amount: BigNumber, // The amount of funds that will be moved between pots.
@@ -930,28 +1047,11 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Remove the `ADMIN` authority role from a user. This function can only be called by the user assigned the `FOUNDER` authroity role.
-  */
-  removeAdminRole: ColonyClient.Sender<
-    {
-      user: Address, // The address that we will be unassigned the `ADMIN` authority role.
-    },
-    {
-      ColonyAdministrationRoleSet: ColonyAdministrationRoleSet,
-    },
-    ColonyClient,
-    {
-      contract: 'Colony.sol',
-      interface: 'IColony.sol',
-      version: '15397d7aa99208b6fd916373aac9acb93596a9d7',
-    },
-  >;
-  /*
-  Remove the colony recovery role from a user. This function can only be called by the `FOUNDER` authority role.
+  Remove the colony recovery role from an address. This function can only be called by the `ROOT_ROLE`.
   */
   removeRecoveryRole: ColonyClient.Sender<
     {
-      user: Address, // The address that will be unassigned a colony recovery role.
+      address: Address, // The address that will be unassigned a colony recovery role.
     },
     {},
     ColonyClient,
@@ -962,7 +1062,7 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Remove the `EVALUATOR` task role assignment. This function can only be called before the task is complete, i.e. either before the deliverable has been submitted or the user assigned the `WORKER` task role has failed to meet the deadline and the user assigned the `MANAGER` task role has marked the task as complete.
+  Remove the `EVALUATOR_ROLE` from an address. This function can only be called before the task is complete, i.e. either before the deliverable has been submitted or the address assigned the `WORKER_ROLE` has failed to meet the deadline and the address assigned the `MANAGER_ROLE` has marked the task as complete.
   */
   removeTaskEvaluatorRole: ColonyClient.MultisigSender<
     {
@@ -979,7 +1079,7 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Remove the `WORKER` task role assignment. This function can only be called before the task is complete, i.e. either before the deliverable has been submitted or the user assigned the `WORKER` task role has failed to meet the deadline and the user assigned the `MANAGER` task role has marked the task as complete.
+  Remove the `WORKER_ROLE` from an address. This function can only be called before the task is complete, i.e. either before the deliverable has been submitted or the address assigned the `WORKER_ROLE` has failed to meet the deadline and the address assigned the `MANAGER_ROLE` has marked the task as complete.
   */
   removeTaskWorkerRole: ColonyClient.MultisigSender<
     {
@@ -1001,7 +1101,7 @@ export default class ColonyClient extends ContractClient {
   revealTaskWorkRating: ColonyClient.Sender<
     {
       taskId: number, // The ID of the task.
-      role: TaskRole, // The role that received the rating (`MANAGER` or `WORKER`).
+      role: TaskRole, // The role that received the rating (`MANAGER_ROLE` or `WORKER_ROLE`).
       rating: number, // The rating that was submitted (`1`, `2`, or `3`).
       salt: string, // The string that was used to generate the secret.
     },
@@ -1016,11 +1116,15 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Assign the `ADMIN` authority role to a user. This function can only be called by the user assigned the `FOUNDER` authority role or a user assigned the `ADMIN` authority role. There is no limit to the number of users that can be assigned the `ADMIN` authority role.
+  Assign the `ADMINISTRATION_ROLE` to an address. The address calling the method must have permission within the domain that permission is being granted or a parent domain to the domain that permission is being granted. The address calling the method must already be assigned either the `ROOT_ROLE` or `ARCHITECTURE_ROLE` within the domain or parent domain.
   */
-  setAdminRole: ColonyClient.Sender<
+  setAdministrationRole: ColonyClient.Sender<
     {
-      user: Address, // The address that will be assigned the `ADMIN` authroity role.
+      permissionDomainId: number, // The ID of the domain that grants the address permission to call the method.
+      childSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
+      address: Address, // The address that will be assigned or unassigned the `ADMINISTRATION_ROLE`.
+      domainId: number, // The ID of the domain that the `ADMINISTRATION_ROLE` will be assigned or unassigned.
+      setTo: boolean, // A boolean indicating whether the address will be assigned or unassigned the `ADMINISTRATION_ROLE`.
     },
     {
       ColonyAdministrationRoleSet: ColonyAdministrationRoleSet,
@@ -1033,15 +1137,15 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Set the payouts for all task roles (`MANAGER`, `EVALUATOR`, and `WORKER`). This can only be called by the user assigned the `MANAGER` task role and only if the `EVALUATOR` and `WORKER` task roles are either not assigned or assigned to the same user as the `MANAGER` task role.
+  Set the payouts for all task roles. This can only be called by the address assigned the `MANAGER_ROLE` and only if the `EVALUATOR_ROLE` and `WORKER_ROLE` are not assigned or they are assigned to the same address that is currently assigned the `MANAGER_ROLE`.
   */
   setAllTaskPayouts: ColonyClient.Sender<
     {
       taskId: number, // The ID of the task.
       token: TokenAddress, // The address of the token contract (an empty address if Ether).
-      managerAmount: BigNumber, // The payout amount in tokens (or Ether) for the `MANAGER` task role.
-      evaluatorAmount: BigNumber, // The payout amount in tokens (or Ether) for the `EVALUATOR` task role.
-      workerAmount: BigNumber, // The payout amount in tokens (or Ether) for the `WORKER` task role.
+      managerAmount: BigNumber, // The payout amount in tokens (or Ether) for the `MANAGER_ROLE`.
+      evaluatorAmount: BigNumber, // The payout amount in tokens (or Ether) for the `EVALUATOR_ROLE`.
+      workerAmount: BigNumber, // The payout amount in tokens (or Ether) for the `WORKER_ROLE`.
     },
     {
       TaskPayoutSet: TaskPayoutSet,
@@ -1054,14 +1158,18 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Assign the `FOUNDER` authority role to a user. This function can only be called by the user currently assigned the `FOUNDER` authority role. There can only be one address assigned to the `FOUNDER` authority role, therefore, the user currently assigned will forfeit their role.
+  Assign the `ARCHITECTURE_ROLE` to an address. The address calling the method must have permission within the domain that permission is being granted or a parent domain to the domain that permission is being granted. The address calling the method must already be assigned either the `ROOT_ROLE` or `ARCHITECTURE_ROLE` within the domain or parent domain.
   */
-  setFounderRole: ColonyClient.Sender<
+  setArchitectureRole: ColonyClient.Sender<
     {
-      user: Address, // The address that will be assigned the `FOUNDER` authority role.
+      permissionDomainId: number, // The ID of the domain that grants the address permission to call the method.
+      childSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
+      address: Address, // The address that will be assigned or unassigned the `ARCHITECTURE_ROLE`.
+      domainId: number, // The ID of the domain that the `ARCHITECTURE_ROLE` will be assigned or unassigned.
+      setTo: boolean, // A boolean indicating whether the address will be assigned or unassigned the `ARCHITECTURE_ROLE`.
     },
     {
-      ColonyRootRoleSet: ColonyRootRoleSet,
+      ColonyArchitectureRoleSet: ColonyArchitectureRoleSet,
     },
     ColonyClient,
     {
@@ -1071,7 +1179,28 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Set the inverse amount of the reward. This can only be called from the Meta Colony and only by the user assigned the `FOUNDER` role. If the fee is 1% (or 0.01), the inverse amount will be 100.
+  Assign the `FUNDING_ROLE` to an address. The address calling the method must have permission within the domain that permission is being granted or a parent domain to the domain that permission is being granted. The address calling the method must already be assigned either the `ROOT_ROLE` or `ARCHITECTURE_ROLE` within the domain or parent domain.
+  */
+  setFundingRole: ColonyClient.Sender<
+    {
+      permissionDomainId: number, // The ID of the domain that grants the address permission to call the method.
+      childSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
+      address: Address, // The address that will be assigned or unassigned the `FUNDING_ROLE`.
+      domainId: number, // The ID of the domain that the `FUNDING_ROLE` will be assigned or unassigned.
+      setTo: boolean, // A boolean indicating whether the address will be assigned or unassigned the `FUNDING_ROLE`.
+    },
+    {
+      ColonyFundingRoleSet: ColonyFundingRoleSet,
+    },
+    ColonyClient,
+    {
+      contract: 'Colony.sol',
+      interface: 'IColony.sol',
+      version: '15397d7aa99208b6fd916373aac9acb93596a9d7',
+    },
+  >;
+  /*
+  Set the inverse amount of the reward. This can only be called from the Meta Colony and only by the address assigned the `ROOT_ROLE`. If the fee is 1% (or 0.01), the inverse amount will be 100.
   */
   setNetworkFeeInverse: ColonyClient.Sender<
     {
@@ -1086,7 +1215,79 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Assign a colony recovery role to a user. This function can only be called by the `FOUNDER` authority role.
+  Set the payment domain.
+  */
+  setPaymentDomain: ColonyClient.Sender<
+    {
+      permissionDomainId: number, // The domainId in the sender has the permission to take this action.
+      childSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
+      paymentId: number, // The ID of the payment.
+      domainId: Address, // The ID of the domain.
+    },
+    {},
+    ColonyClient,
+    {
+      contract: 'ColonyPayment.sol',
+      interface: 'IColony.sol',
+      version: '15397d7aa99208b6fd916373aac9acb93596a9d7',
+    },
+  >;
+  /*
+  Set the payment payout.
+  */
+  setPaymentPayout: ColonyClient.Sender<
+    {
+      permissionDomainId: number, // The domainId in the sender has the permission to take this action.
+      childSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
+      paymentId: number, // The ID of the payment.
+      amount: BigNumber, // The amount of the payment.
+    },
+    {},
+    ColonyClient,
+    {
+      contract: 'ColonyFunding.sol',
+      interface: 'IColony.sol',
+      version: '15397d7aa99208b6fd916373aac9acb93596a9d7',
+    },
+  >;
+  /*
+  Set the payment recipient.
+  */
+  setPaymentRecipient: ColonyClient.Sender<
+    {
+      permissionDomainId: number, // The domainId in the sender has the permission to take this action.
+      childSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
+      paymentId: number, // The ID of the payment.
+      recipient: Address, // The address that will receive the payment.
+    },
+    {},
+    ColonyClient,
+    {
+      contract: 'ColonyPayment.sol',
+      interface: 'IColony.sol',
+      version: '15397d7aa99208b6fd916373aac9acb93596a9d7',
+    },
+  >;
+  /*
+  Set the payment skill.
+  */
+  setPaymentSkill: ColonyClient.Sender<
+    {
+      permissionDomainId: number, // The domainId in the sender has the permission to take this action.
+      childSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
+      paymentId: number, // The ID of the payment.
+      skillId: Address, // The ID of the skill.
+    },
+    {},
+    ColonyClient,
+    {
+      contract: 'ColonyPayment.sol',
+      interface: 'IColony.sol',
+      version: '15397d7aa99208b6fd916373aac9acb93596a9d7',
+    },
+  >;
+  /*
+  Assign a colony recovery role to a user. This function can only be called by the `ROOT_ROLE`.
   */
   setRecoveryRole: ColonyClient.Sender<
     {
@@ -1118,7 +1319,25 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Set the value for a storage slot while in recovery mode. This can only be called by a user with a recovery role.
+  Assign the `ROOT_ROLE` to an address. This function can only be called by the address currently assigned the `ROOT_ROLE`. There can only be one address assigned to the `ROOT_ROLE`, therefore, the address currently assigned will forfeit their role.
+  */
+  setRootRole: ColonyClient.Sender<
+    {
+      address: Address, // The address that will either be assigned or unassigned `ROOT_ROLE`.
+      setTo: boolean, // A boolean indicating whether the address will be assigned or unassigned `ROOT_ROLE`.
+    },
+    {
+      ColonyRootRoleSet: ColonyRootRoleSet,
+    },
+    ColonyClient,
+    {
+      contract: 'Colony.sol',
+      interface: 'IColony.sol',
+      version: '15397d7aa99208b6fd916373aac9acb93596a9d7',
+    },
+  >;
+  /*
+  Set the value for a storage slot while in recovery mode. This can only be called by a user assigned the `RECOVERY_ROLE`.
   */
   setStorageSlotRecovery: ColonyClient.Sender<
     {
@@ -1152,7 +1371,7 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Set the domain of a task. Every task must belong to a domain. This function can only be called by the user assigned the `MANAGER` task role.
+  Set the domain of a task. Every task must belong to a domain. This function can only be called by the address assigned the `MANAGER_ROLE`.
   */
   setTaskDomain: ColonyClient.MultisigSender<
     {
@@ -1170,7 +1389,7 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Set the due date of a task. The due date is the last day that the user assigned the `WORKER` task role can submit the task deliverable.
+  Set the due date of a task. The due date is the last day that the address assigned the `WORKER_ROLE` can submit the task deliverable.
   */
   setTaskDueDate: ColonyClient.MultisigSender<
     {
@@ -1188,98 +1407,7 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Assign the `EVALUATOR` task role to a user. This function can only be called before the task is finalized. The user assigned the `MANAGER` task role and the user being assigned the `EVALUATOR` task role must both sign the transaction before it can be executed.
-  */
-  setTaskEvaluatorRole: ColonyClient.MultisigSender<
-    {
-      taskId: number, // The ID of the task.
-      user: Address, // The address that will be assigned the `EVALUATOR` task role.
-    },
-    {
-      TaskRoleUserSet: TaskRoleUserSet,
-    },
-    ColonyClient,
-    {
-      contract: 'ColonyTask.sol',
-      interface: 'IColony.sol',
-      version: '15397d7aa99208b6fd916373aac9acb93596a9d7',
-    },
-  >;
-  /*
-  Assign the `MANAGER` task role to a user. This function can only be called before the task is finalized. The user currently assigned the `MANAGER` task role and the user being assigned the `MANAGER` task role must both sign the transaction before it can be executed.
-  */
-  setTaskManagerRole: ColonyClient.MultisigSender<
-    {
-      taskId: number, // The ID of the task.
-      user: Address, // The address that will be assigned the `MANANAGER` task role.
-    },
-    {
-      TaskRoleUserSet: TaskRoleUserSet,
-    },
-    ColonyClient,
-    {
-      contract: 'ColonyTask.sol',
-      interface: 'IColony.sol',
-      version: '15397d7aa99208b6fd916373aac9acb93596a9d7',
-    },
-  >;
-  /*
-  Set the skill of a task. Only one skill can be assigned per task. The user assigned the `MANAGER` task role and the user assigned the `WORKER` task role must both sign this transaction before it can be executed.
-  */
-  setTaskSkill: ColonyClient.MultisigSender<
-    {
-      taskId: number, // The ID of the task.
-      skillId: number, // The ID of the skill.
-    },
-    {
-      TaskSkillSet: TaskSkillSet,
-    },
-    ColonyClient,
-    {
-      contract: 'ColonyTask.sol',
-      interface: 'IColony.sol',
-      version: '15397d7aa99208b6fd916373aac9acb93596a9d7',
-    },
-  >;
-  /*
-  Assign the `WORKER` task role to a user. This function can only be called before the task is finalized. The user assigned the `MANAGER` task role and the user being assigned the `WORKER` task role must both sign the transaction before it can be executed.
-  */
-  setTaskWorkerRole: ColonyClient.MultisigSender<
-    {
-      taskId: number, // The ID of the task.
-      user: Address, // The address that will be assigned the `WORKER` task role.
-    },
-    {
-      TaskRoleUserSet: TaskRoleUserSet,
-    },
-    ColonyClient,
-    {
-      contract: 'ColonyTask.sol',
-      interface: 'IColony.sol',
-      version: '15397d7aa99208b6fd916373aac9acb93596a9d7',
-    },
-  >;
-  /*
-  Set the payout amount for the `MANAGER` task role.
-  */
-  setTaskManagerPayout: ColonyClient.MultisigSender<
-    {
-      taskId: number, // The ID of the task.
-      token: TokenAddress, // The address of the token contract (an empty address if Ether).
-      amount: BigNumber, // The payout amount in tokens (or Ether).
-    },
-    {
-      TaskPayoutSet: TaskPayoutSet,
-    },
-    ColonyClient,
-    {
-      contract: 'ColonyFunding.sol',
-      interface: 'IColony.sol',
-      version: '15397d7aa99208b6fd916373aac9acb93596a9d7',
-    },
-  >;
-  /*
-  Set the payout amount for the `EVALUATOR` task role.
+  Set the payout amount for the `EVALUATOR_ROLE`.
   */
   setTaskEvaluatorPayout: ColonyClient.MultisigSender<
     {
@@ -1298,7 +1426,82 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Set the payout amount for the `WORKER` task role.
+  Assign the `EVALUATOR_ROLE` to an address. This function can only be called before the task is finalized. The address assigned the `MANAGER_ROLE` and the address being assigned the `EVALUATOR_ROLE` must both sign the transaction before it can be executed.
+  */
+  setTaskEvaluatorRole: ColonyClient.MultisigSender<
+    {
+      taskId: number, // The ID of the task.
+      user: Address, // The address that will be assigned the `EVALUATOR_ROLE`.
+    },
+    {
+      TaskRoleUserSet: TaskRoleUserSet,
+    },
+    ColonyClient,
+    {
+      contract: 'ColonyTask.sol',
+      interface: 'IColony.sol',
+      version: '15397d7aa99208b6fd916373aac9acb93596a9d7',
+    },
+  >;
+  /*
+  Set the payout amount for the `MANAGER_ROLE`.
+  */
+  setTaskManagerPayout: ColonyClient.MultisigSender<
+    {
+      taskId: number, // The ID of the task.
+      token: TokenAddress, // The address of the token contract (an empty address if Ether).
+      amount: BigNumber, // The payout amount in tokens (or Ether).
+    },
+    {
+      TaskPayoutSet: TaskPayoutSet,
+    },
+    ColonyClient,
+    {
+      contract: 'ColonyFunding.sol',
+      interface: 'IColony.sol',
+      version: '15397d7aa99208b6fd916373aac9acb93596a9d7',
+    },
+  >;
+  /*
+  Assign the `MANAGER_ROLE` to an address. This function can only be called before the task is finalized. The address currently assigned the `MANAGER_ROLE` and the address being assigned the `MANAGER_ROLE` must both sign the transaction before it can be executed.
+  */
+  setTaskManagerRole: ColonyClient.MultisigSender<
+    {
+      taskId: number, // The ID of the task.
+      user: Address, // The address that will be assigned the `MANANAGER` task role.
+      permissionDomainId: number, // The domainId in the sender has the permission to take this action.
+      childSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
+    },
+    {
+      TaskRoleUserSet: TaskRoleUserSet,
+    },
+    ColonyClient,
+    {
+      contract: 'ColonyTask.sol',
+      interface: 'IColony.sol',
+      version: '15397d7aa99208b6fd916373aac9acb93596a9d7',
+    },
+  >;
+  /*
+  Set the skill of a task. Only one skill can be assigned per task. The user assigned the `MANAGER_ROLE` and the address assigned the `WORKER_ROLE` must both sign this transaction before it can be executed.
+  */
+  setTaskSkill: ColonyClient.MultisigSender<
+    {
+      taskId: number, // The ID of the task.
+      skillId: number, // The ID of the skill.
+    },
+    {
+      TaskSkillSet: TaskSkillSet,
+    },
+    ColonyClient,
+    {
+      contract: 'ColonyTask.sol',
+      interface: 'IColony.sol',
+      version: '15397d7aa99208b6fd916373aac9acb93596a9d7',
+    },
+  >;
+  /*
+  Set the payout amount for the `WORKER_ROLE`.
   */
   setTaskWorkerPayout: ColonyClient.MultisigSender<
     {
@@ -1317,15 +1520,37 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
+  Assign the `WORKER_ROLE` to an address. This function can only be called before the task is finalized. The address assigned the `MANAGER_ROLE` and the address being assigned the `WORKER_ROLE` must both sign the transaction before it can be executed.
+  */
+  setTaskWorkerRole: ColonyClient.MultisigSender<
+    {
+      taskId: number, // The ID of the task.
+      user: Address, // The address that will be assigned the `WORKER_ROLE`.
+    },
+    {
+      TaskRoleUserSet: TaskRoleUserSet,
+    },
+    ColonyClient,
+    {
+      contract: 'ColonyTask.sol',
+      interface: 'IColony.sol',
+      version: '15397d7aa99208b6fd916373aac9acb93596a9d7',
+    },
+  >;
+  /*
   Start the next reward payout cycle. All the funds in the colony rewards pot for the given token will become locked until reputation holders have claimed their rewards payout using `claimRewardPayout`. Reputation holders can also waive their reward payout and unlock their tokens for past reward payout cycles by using `incrementLockCounterTo`.
   */
   startNextRewardPayout: ColonyClient.Sender<
     {
       token: TokenAddress, // The address of the token contract (an empty address if Ether).
+      key: string, // The key of the element that the proof is for.
+      value: string, // The value of the element that the proof is for.
+      branchMask: number, // The branchmask of the proof.
+      siblings: Array<string>, // The siblings of the proof.
     },
     {
-      RewardPayoutCycleStarted: RewardPayoutCycleStarted,
       TokenLocked: TokenLocked,
+      RewardPayoutCycleStarted: RewardPayoutCycleStarted,
     },
     ColonyClient,
     {
@@ -1335,7 +1560,7 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Submit the task deliverable. This function can only be called by the user assigned the `WORKER` task role on or before the task due date. The submission cannot be overwritten, which means the deliverable cannot be changed once it has been submitted.
+  Submit the task deliverable. This function can only be called by the address assigned the `WORKER_ROLE` on or before the task due date. The submission cannot be overwritten, which means the deliverable cannot be changed once it has been submitted.
   */
   submitTaskDeliverable: ColonyClient.Sender<
     {
@@ -1354,7 +1579,7 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Submit the task deliverable and the work rating for the user assigned the `MANAGER` task role. This function can only be called by the user assigned the `WORKER` task role on or before the task due date. The submission cannot be overwritten, which means the deliverable cannot be changed once it has been submitted. In order to submit a rating, a `secret` must be generated using the `generateSecret` method, which keeps the rating hidden until all ratings have been submitted and revealed.
+  Submit the task deliverable and the work rating for the address assigned the `MANAGER_ROLE`. This function can only be called by the address assigned the `WORKER_ROLE` on or before the task due date. The submission cannot be overwritten, which means the deliverable cannot be changed once it has been submitted. In order to submit a rating, a `secret` must be generated using the `generateSecret` method, which keeps the rating hidden until all ratings have been submitted and revealed.
   */
   submitTaskDeliverableAndRating: ColonyClient.Sender<
     {
@@ -1374,7 +1599,7 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Submit a work rating for a task. This function can only be called by the user assigned the `EVALUATOR` task role, who is submitting a rating for the user assigned the `WORKER` task role, or the user assigned the `WORKER` task role, who is submitting a rating for the user assigned the `MANAGER` task role. In order to submit a rating, a `secret` must be generated using the `generateSecret` method, which keeps the rating hidden until all ratings have been submitted and revealed.
+  Submit a work rating for a task. This function can only be called by the address assigned the `EVALUATOR_ROLE`, who is submitting a rating for the address assigned the `WORKER_ROLE`, or the address assigned the `WORKER_ROLE`, who is submitting a rating for the address assigned the `MANAGER_ROLE`. In order to submit a rating, a `secret` must be generated using the `generateSecret` method, which keeps the rating hidden until all ratings have been submitted and revealed.
   */
   submitTaskWorkRating: ColonyClient.Sender<
     {
@@ -1400,6 +1625,24 @@ export default class ColonyClient extends ContractClient {
     {
       ColonyUpgraded: ColonyUpgraded,
     },
+    ColonyClient,
+    {
+      contract: 'Colony.sol',
+      interface: 'IColony.sol',
+      version: '15397d7aa99208b6fd916373aac9acb93596a9d7',
+    },
+  >;
+  /*
+  Verify the correctness of a patricia proof associated with reputation.
+  */
+  verifyReputationProof: ColonyClient.Caller<
+    {
+      key: string, // The key of the element that the proof is for.
+      value: string, // The value of the element that the proof is for.
+      branchMask: number, // The branchmask of the proof.
+      siblings: Array<string>, // The siblings of the proof.
+    },
+    {},
     ColonyClient,
     {
       contract: 'Colony.sol',
@@ -1498,8 +1741,48 @@ export default class ColonyClient extends ContractClient {
   initializeContractMethods() {
     addRecoveryMethods(this);
 
+    // Custom callers
     this.getTask = new GetTask({ client: this });
 
+    // Custom senders
+    this.addPayment = new AddPayment({
+      client: this,
+      name: 'addPayment',
+      functionName: 'addPayment',
+      input: [
+        ['permissionDomainId', 'number'],
+        ['childSkillIndex', 'number'],
+        ['recipient', 'address'],
+        ['token', 'tokenAddress'],
+        ['amount', 'bigNumber'],
+        ['domainId', 'number'],
+        ['skillId', 'number'],
+      ],
+      defaultValues: {
+        domainId: DEFAULT_DOMAIN_ID,
+        skillId: 0,
+      },
+    });
+    this.addTask = new AddTask({
+      client: this,
+      name: 'addTask',
+      functionName: 'makeTask',
+      input: [
+        ['permissionDomainId', 'number'],
+        ['childSkillIndex', 'number'],
+        ['specificationHash', 'ipfsHash'],
+        ['domainId', 'number'],
+        ['skillId', 'number'],
+        ['dueDate', 'date'],
+      ],
+      defaultValues: {
+        domainId: DEFAULT_DOMAIN_ID,
+        skillId: 0,
+        dueDate: new Date(0),
+      },
+    });
+
+    // Task callers
     const makeTaskCaller = (
       name: string,
       input: Array<any>,
@@ -1514,7 +1797,6 @@ export default class ColonyClient extends ContractClient {
           return true;
         },
       });
-
     makeTaskCaller(
       'getTaskPayout',
       [['role', 'taskRole'], ['token', 'tokenAddress']],
@@ -1526,19 +1808,14 @@ export default class ColonyClient extends ContractClient {
       [['address', 'address'], ['rateFail', 'boolean'], ['rating', 'number']],
     );
     makeTaskCaller(
-      'getTaskWorkRatings',
-      [],
-      [['count', 'number'], ['date', 'date']],
-    );
-    makeTaskCaller(
       'getTaskWorkRatingSecret',
       [['role', 'taskRole']],
       [['secret', 'hexString']],
     );
     makeTaskCaller(
-      'getTotalTaskPayout',
-      [['token', 'tokenAddress']],
-      [['amount', 'bigNumber']],
+      'getTaskWorkRatingSecretsInfo',
+      [],
+      [['count', 'number'], ['lastSubmitted', 'date']],
     );
 
     // Callers
@@ -1552,7 +1829,7 @@ export default class ColonyClient extends ContractClient {
     });
     this.addCaller('getDomain', {
       input: [['domainId', 'number']],
-      output: [['localSkillId', 'number'], ['potId', 'number']],
+      output: [['skillId', 'number'], ['potId', 'number']],
       validateEmpty: async ({ domainId }: { domainId: number }) => {
         const { count } = await this.getDomainCount.call();
         if (domainId > count)
@@ -1569,13 +1846,34 @@ export default class ColonyClient extends ContractClient {
     });
     this.addCaller('getFundingPot', {
       input: [['potId', 'number']],
-      output: [['associatedType', 'string'], ['associatedTypeId', 'number']],
+      output: [['type', 'string'], ['typeId', 'number']],
     });
     this.addCaller('getFundingPotBalance', {
       input: [['potId', 'number'], ['token', 'tokenAddress']],
       output: [['balance', 'bigNumber']],
     });
     this.addCaller('getFundingPotCount', {
+      output: [['count', 'number']],
+    });
+    this.addCaller('getFundingPotPayout', {
+      input: [['potId', 'number'], ['token', 'tokenAddress']],
+      output: [['payout', 'bigNumber']],
+    });
+    this.addCaller('getOwner', {
+      functionName: 'owner',
+      output: [['address', 'address']],
+    });
+    this.addCaller('getPayment', {
+      input: [['paymentId', 'number']],
+      output: [
+        ['recipient', 'address'],
+        ['finalized', 'boolean'],
+        ['fundingPotId', 'number'],
+        ['domainId', 'number'],
+        ['skills', '[number]'],
+      ],
+    });
+    this.addCaller('getPaymentCount', {
       output: [['count', 'number']],
     });
     this.addCaller('getRewardInverse', {
@@ -1595,6 +1893,10 @@ export default class ColonyClient extends ContractClient {
     this.addCaller('getTaskCount', {
       output: [['count', 'number']],
     });
+    this.addCaller('getTaskWorkRatingSecretsInfo', {
+      input: [['taskId'], 'number'],
+      output: [['count', 'number'], ['lastSubmitted', 'date']],
+    });
     this.addCaller('getToken', {
       output: [['address', 'address']],
     });
@@ -1602,9 +1904,23 @@ export default class ColonyClient extends ContractClient {
       functionName: 'version',
       output: [['version', 'number']],
     });
-    this.addCaller('hasUserRole', {
-      input: [['user', 'address'], ['role', 'authorityRole']],
+    this.addCaller('hasRole', {
+      functionName: 'hasUserRole',
+      input: [
+        ['user', 'address'],
+        ['domainId', 'number'],
+        ['role', 'authorityRole'],
+      ],
       output: [['hasRole', 'boolean']],
+    });
+    this.addCaller('verifyReputationProof', {
+      input: [
+        ['key', 'string'],
+        ['value', 'string'],
+        ['branchMask', 'number'],
+        ['siblings', '[string]'],
+      ],
+      output: [['isValid', 'boolean']],
     });
 
     // Events
@@ -1658,8 +1974,8 @@ export default class ColonyClient extends ContractClient {
       ['token', 'tokenAddress'],
       ['amount', 'bigNumber'],
     ]);
-    this.addEvent('RewardPayoutCycleStarted', [['payoutId', 'number']]);
     this.addEvent('RewardPayoutCycleEnded', [['payoutId', 'number']]);
+    this.addEvent('RewardPayoutCycleStarted', [['payoutId', 'number']]);
     this.addEvent('TaskAdded', [['taskId', 'number']]);
     this.addEvent('TaskBriefSet', [
       ['taskId', 'number'],
@@ -1731,7 +2047,11 @@ export default class ColonyClient extends ContractClient {
 
     // Senders
     this.addSender('addDomain', {
-      input: [['parentDomainId', 'number']],
+      input: [
+        ['permissionDomainId', 'number'],
+        ['childSkillIndex', 'number'],
+        ['parentDomainId', 'number'],
+      ],
     });
     this.addSender('bootstrapColony', {
       input: [['users', '[address]'], ['amounts', '[bigNumber]']],
@@ -1739,59 +2059,50 @@ export default class ColonyClient extends ContractClient {
     this.addSender('claimColonyFunds', {
       input: [['token', 'tokenAddress']],
     });
-    this.addSender('claimPayout', {
+    this.addSender('claimPayment', {
+      input: [['paymentId', 'number'], ['token', 'tokenAddress']],
+    });
+    this.addSender('claimRewardPayout', {
+      input: [
+        ['payoutId', 'number'],
+        ['squareRoots', '[number]'],
+        ['key', 'string'],
+        ['value', 'string'],
+        ['branchMask', 'number'],
+        ['siblings', '[string]'],
+      ],
+    });
+    this.addSender('claimTaskPayout', {
       input: [
         ['taskId', 'number'],
         ['role', 'taskRole'],
         ['token', 'tokenAddress'],
       ],
     });
-    this.createTask = new CreateTask({
-      client: this,
-      name: 'createTask',
-      functionName: 'makeTask',
-      input: [
-        ['specificationHash', 'ipfsHash'],
-        ['domainId', 'number'],
-        ['skillId', 'number'],
-        ['dueDate', 'date'],
-      ],
-      defaultValues: {
-        domainId: DEFAULT_DOMAIN_ID,
-        skillId: 0,
-        dueDate: new Date(0),
-      },
-    });
     this.addSender('completeTask', {
       input: [['taskId', 'number']],
     });
-    this.addSender('finalizeTask', {
-      input: [['taskId', 'number']],
+    this.addSender('finalizePayment', {
+      input: [
+        ['permissionDomainId', 'number'],
+        ['childSkillIndex', 'number'],
+        ['paymentId', 'number'],
+      ],
     });
     this.addSender('finalizeRewardPayout', {
       input: [['payoutId', 'number']],
     });
-    this.makePayment = new MakePayment({
-      client: this,
-      name: 'makePayment',
-      functionName: 'makePayment',
-      input: [
-        ['worker', 'address'],
-        ['token', 'tokenAddress'],
-        ['amount', 'bigNumber'],
-        ['domainId', 'number'],
-        ['skillId', 'number'],
-      ],
-      defaultValues: {
-        domainId: DEFAULT_DOMAIN_ID,
-        skillId: 0,
-      },
+    this.addSender('finalizeTask', {
+      input: [['taskId', 'number']],
     });
     this.addSender('mintTokens', {
       input: [['amount', 'bigNumber']],
     });
     this.addSender('moveFundsBetweenPots', {
       input: [
+        ['permissionDomainId', 'number'],
+        ['fromChildSkillIndex', 'number'],
+        ['toChildSkillIndex', 'number'],
         ['fromPot', 'number'],
         ['toPot', 'number'],
         ['amount', 'bigNumber'],
@@ -1812,8 +2123,14 @@ export default class ColonyClient extends ContractClient {
         ['salt', 'string'],
       ],
     });
-    this.addSender('setAdminRole', {
-      input: [['user', 'address']],
+    this.addSender('setAdministrationRole', {
+      input: [
+        ['permissionDomainId', 'number'],
+        ['childSkillIndex', 'number'],
+        ['address', 'address'],
+        ['domainId', 'number'],
+        ['setTo', 'boolean'],
+      ],
     });
     this.addSender('setAllTaskPayouts', {
       input: [
@@ -1824,14 +2141,70 @@ export default class ColonyClient extends ContractClient {
         ['workerAmount', 'bigNumber'],
       ],
     });
-    this.addSender('setFounderRole', {
-      input: [['user', 'address']],
+    this.addSender('setArchitectureRole', {
+      input: [
+        ['permissionDomainId', 'number'],
+        ['childSkillIndex', 'number'],
+        ['address', 'address'],
+        ['domainId', 'number'],
+        ['setTo', 'boolean'],
+      ],
+    });
+    this.addSender('setFundingRole', {
+      input: [
+        ['permissionDomainId', 'number'],
+        ['childSkillIndex', 'number'],
+        ['address', 'address'],
+        ['domainId', 'number'],
+        ['setTo', 'boolean'],
+      ],
+    });
+    this.addSender('setPaymentAmount', {
+      input: [
+        ['permissionDomainId', 'number'],
+        ['childSkillIndex', 'number'],
+        ['paymentId', 'number'],
+        ['amount', 'bigNumber'],
+      ],
+    });
+    this.addSender('setPaymentDomain', {
+      input: [
+        ['permissionDomainId', 'number'],
+        ['childSkillIndex', 'number'],
+        ['paymentId', 'number'],
+        ['domainId', 'number'],
+      ],
+    });
+    this.addSender('setPaymentRecipient', {
+      input: [
+        ['permissionDomainId', 'number'],
+        ['childSkillIndex', 'number'],
+        ['paymentId', 'number'],
+        ['recipient', 'address'],
+      ],
+    });
+    this.addSender('setPaymentSkill', {
+      input: [
+        ['permissionDomainId', 'number'],
+        ['childSkillIndex', 'number'],
+        ['paymentId', 'number'],
+        ['skillId', 'number'],
+      ],
     });
     this.addSender('setRewardInverse', {
       input: [['rewardInverse', 'bigNumber']],
     });
+    this.addSender('setRootRole', {
+      input: [['address', 'address'], ['setTo', 'boolean']],
+    });
     this.addSender('startNextRewardPayout', {
-      input: [['token', 'tokenAddress']],
+      input: [
+        ['token', 'tokenAddress'],
+        ['key', 'string'],
+        ['value', 'string'],
+        ['branchMask', 'number'],
+        ['siblings', '[string]'],
+      ],
     });
     this.addSender('submitTaskDeliverable', {
       input: [['taskId', 'number'], ['deliverableHash', 'ipfsHash']],
@@ -1853,6 +2226,8 @@ export default class ColonyClient extends ContractClient {
     this.addSender('upgrade', {
       input: [['newVersion', 'number']],
     });
+
+    // Meta Colony senders
     this.addMetaColonySender('addGlobalSkill', {
       input: [['parentSkillId', 'number']],
     });
@@ -1969,7 +2344,7 @@ export default class ColonyClient extends ContractClient {
       return null;
     });
     makeExecuteTaskRoleChange('setTaskManagerRole', async ({ user }) => {
-      const isAdmin = await this.hasUserRole.call({
+      const isAdmin = await this.hasRole.call({
         user,
         role: ADMIN_ROLE,
       });

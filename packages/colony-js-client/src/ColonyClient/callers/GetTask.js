@@ -39,11 +39,10 @@ export default class GetTask extends ContractClient.Caller<
         ['deliverableHash', 'ipfsHash'],
         ['status', 'taskStatus'],
         ['dueDate', 'date'],
-        ['payoutsWeCannotMake', 'number'],
         ['potId', 'number'],
-        ['completionDate', 'date'],
+        ['completionTimestamp', 'date'],
         ['domainId', 'number'],
-        ['skillId', 'number'],
+        ['skills', '[number]'],
       ],
       ...params,
     });
