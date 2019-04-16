@@ -1190,7 +1190,7 @@ export default class ColonyNetworkClient extends ContractClient {
       input: [['tokenAddress', 'address']],
       defaultGasLimit: 4000000,
     });
-    this.addSender('initialiseReputationMining');
+    this.addSender('initialiseReputationMining', {});
     this.addSender('registerColonyLabel', {
       input: [['colonyName', 'string'], ['orbitDBPath', 'string']],
       defaultGasLimit: 260000,
@@ -1231,7 +1231,7 @@ export default class ColonyNetworkClient extends ContractClient {
     this.addSender('setupRegistrar', {
       input: [['ens', 'address'], ['rootNode', 'string']],
     });
-    this.addSender('startNextMiningCycle');
+    this.addSender('startNextMiningCycle', {});
     this.addSender('startTokenAuction', {
       input: [['tokenAddress', 'address']],
     });

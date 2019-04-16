@@ -501,25 +501,6 @@ Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7359eedaada
 |amount|big number|The amount of tokens that were minted.|
 
 
-### `events.TokenLocked`
-
-**Methods**
-
-`.addListener(({ token, lockCount }) => { /* ... */ })`
-
-`.removeListener(({ token, lockCount }) => { /* ... */ })`
-
-
-
-
-**Event Data**
-
-|Name|Type|Description|
-|---|---|---|
-|token|address|The address of the token contract.|
-|lockCount|number|The total lock count for the token.|
-
-
 ### `events.Transfer`
 
 **Methods**

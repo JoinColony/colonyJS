@@ -75,9 +75,38 @@ Gets the Meta Colony as an initialized ColonyClient
 
 **All callers return promises which resolve to an object containing the given return values.**
 
+### `calculateMinerWeight.call({ timeStaked, submissionIndexed })`
+
+Calculate the raw miner weight in WADs.
+
+**Input**
+
+|Name|Type|Description|
+|---|---|---|
+|timeStaked|number|Amount of time (in seconds) that the miner has staked their CLNY.|
+|submissionIndexed|number|The index of reputation hash submission (between `0` and `11`).|
+
+**Response**
+
+A promise which resolves to an object containing the following properties:
+
+|Name|Type|Description|
+|---|---|---|
+|minerWeight|number|The weight of miner reward in WADs.|
+
+**Contract Information**
+
+
+  
+  
+Contract: [ColonyNetworkMining.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/ColonyNetworkMining.sol)
+  
+Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/IRecovery.sol)
+  
+
 ### `ensSupportsInterface.call({ interfaceId })`
 
-Check whether or not ENS supports a contract interface. A supported contract interface implements `interfaceId`.
+Check whether an ENS interface is supported.
 
 **Input**
 
@@ -91,12 +120,12 @@ A promise which resolves to an object containing the following properties:
 
 |Name|Type|Description|
 |---|---|---|
-|isSupported|boolean|A boolean indicating whether or not the contract interface is supported.|
+|isSupported|boolean|A boolean indicating whether or not the ENS interface is supported.|
 
 **Contract Information**
 
 
-  Function: `supportsInterface`
+  
   
 Contract: [ColonyNetworkENS.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/ColonyNetworkENS.sol)
   
@@ -262,6 +291,29 @@ Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/1
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/IColonyNetwork.sol)
   
 
+### `getENSRegistrarAddress.call()`
+
+Get the address of the ENS registrar.
+
+
+**Response**
+
+A promise which resolves to an object containing the following properties:
+
+|Name|Type|Description|
+|---|---|---|
+|address|address|The address of the ENS registrar.|
+
+**Contract Information**
+
+
+  
+  
+Contract: [ColonyNetworkENS.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/ColonyNetworkENS.sol)
+  
+Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/IColonyNetwork.sol)
+  
+
 ### `getFeeInverse.call()`
 
 Get the inverse amount of the network fee. If the fee is 1% (or 0.01), the inverse amount will be 100.
@@ -302,6 +354,29 @@ A promise which resolves to an object containing the following properties:
 
 
   Function: `getMetaColony`
+  
+Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/ColonyNetwork.sol)
+  
+Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/IColonyNetwork.sol)
+  
+
+### `getMiningResolverAddress.call()`
+
+Get the address of the mining resolver.
+
+
+**Response**
+
+A promise which resolves to an object containing the following properties:
+
+|Name|Type|Description|
+|---|---|---|
+|address|address|The address of the mining resolver.|
+
+**Contract Information**
+
+
+  Function: `getMiningResolver`
   
 Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/ColonyNetwork.sol)
   
@@ -367,7 +442,7 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 
 ### `getRecoveryRolesCount.call()`
 
-Get the total number of users that are assigned a network recovery role.
+Get the total number of addresses that are assigned a `RECOVERY` role.
 
 
 **Response**
@@ -376,7 +451,7 @@ A promise which resolves to an object containing the following properties:
 
 |Name|Type|Description|
 |---|---|---|
-|count|number|The total number of users that are assigned a colony recovery role.|
+|count|number|The total number of addresses that are assigned a `RECOVERY` role.|
 
 **Contract Information**
 
@@ -388,9 +463,71 @@ Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tre
 Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/IRecovery.sol)
   
 
-### `getRootGlobalSkillId.call()`
+### `getReplacementReputationUpdateLogEntry.call({ reputationMiningCycle, id })`
 
-Get the ID of the root global skill.
+Get replacement log entry that was set when the network was in recovery mode.
+
+**Input**
+
+|Name|Type|Description|
+|---|---|---|
+|reputationMiningCycle|address||
+|id|number||
+
+**Response**
+
+A promise which resolves to an object containing the following properties:
+
+|Name|Type|Description|
+|---|---|---|
+|user|address||
+|amount|number||
+|skillId|number||
+|colony|address||
+|nUpdates|number||
+|nPreviousUpdates|number||
+
+**Contract Information**
+
+
+  
+  
+Contract: [ColonyNetworkMining.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/ColonyNetworkMining.sol)
+  
+Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/IColonyNetwork.sol)
+  
+
+### `getReputationMiningCycle.call({ active })`
+
+Get the address of either the active or inactive reputation mining cycle. The active reputation mining cycle is the one currently under consideration by reputation miners. The inactive reputation cycle is the one with the log that is being appended.
+
+**Input**
+
+|Name|Type|Description|
+|---|---|---|
+|active|boolean|A boolean indicating whether to get the active or inactive reputation mining cycle.|
+
+**Response**
+
+A promise which resolves to an object containing the following properties:
+
+|Name|Type|Description|
+|---|---|---|
+|address|address|The address of the reputation mining cycle.|
+
+**Contract Information**
+
+
+  
+  
+Contract: [ColonyNetworkMining.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/ColonyNetworkMining.sol)
+  
+Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/IColonyNetwork.sol)
+  
+
+### `getReputationMiningSkillId.call()`
+
+Get the ID of the skill associated with reputation mining.
 
 
 **Response**
@@ -399,7 +536,53 @@ A promise which resolves to an object containing the following properties:
 
 |Name|Type|Description|
 |---|---|---|
-|skillId|number|The ID of the root global skill.|
+|skillId|number|The ID of the skill associated with reputation mining.|
+
+**Contract Information**
+
+
+  
+  
+Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/ColonyNetwork.sol)
+  
+Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/IColonyNetwork.sol)
+  
+
+### `getReputationRootHash.call()`
+
+Get the root hash of the current reputation state tree.
+
+
+**Response**
+
+A promise which resolves to an object containing the following properties:
+
+|Name|Type|Description|
+|---|---|---|
+|rootHash|string|The root hash of the current reputation state tree.|
+
+**Contract Information**
+
+
+  
+  
+Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/ColonyNetwork.sol)
+  
+Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/IColonyNetwork.sol)
+  
+
+### `getReputationRootHashNNodes.call()`
+
+Get the number of nodes in the current reputation state tree.
+
+
+**Response**
+
+A promise which resolves to an object containing the following properties:
+
+|Name|Type|Description|
+|---|---|---|
+|nNodes|number|The number of nodes in the current reputation state tree.|
 
 **Contract Information**
 
@@ -413,7 +596,7 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 
 ### `getSkill.call({ skillId })`
 
-Get information about a domain.
+Get information about a skill.
 
 **Input**
 
@@ -429,6 +612,8 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |nParents|number|The total number of parent skills.|
 |nChildren|number|The total number of child skills.|
+|parents|array|An array of parent skill ids.|
+|children|array|An array of child skill ids.|
 |isGlobalSkill|boolean|A boolean indicating whether or not the skill is a global skill.|
 
 **Contract Information**
@@ -464,7 +649,7 @@ Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/1
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/IColonyNetwork.sol)
   
 
-### `getTokenLocking.call()`
+### `getTokenLockingAddress.call()`
 
 Get the token locking contract address.
 
@@ -475,7 +660,7 @@ A promise which resolves to an object containing the following properties:
 
 |Name|Type|Description|
 |---|---|---|
-|lockingAddress|address|The address of the token locking contract.|
+|address|address|The address of the token locking contract.|
 
 **Contract Information**
 
@@ -644,9 +829,43 @@ Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/1
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/IColonyNetwork.sol)
   
 
+### `appendReputationUpdateLog.send({ user, amount, skillId }, options)`
+
+Add a reputation update entry to the log.
+
+**Input**
+
+|Name|Type|Description|
+|---|---|---|
+|user|address||
+|amount|number||
+|skillId|number||
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
+
+An instance of a `ContractResponse`.
+
+
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
+
+
+  
+  
+Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/ColonyNetwork.sol)
+  
+Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/IColonyNetwork.sol)
+  
+
 ### `approveExitRecovery.send(options)`
 
-Indicate approval to exit network recovery mode. This function can only be called by a user with a recovery role.
+Indicate approval to exit network recovery mode. This function can only be called by an address assigned the `RECOVERY` role.
 
 
 **Options**
@@ -679,7 +898,7 @@ Create a new colony on the network.
 
 |Name|Type|Description|
 |---|---|---|
-|tokenAddress|address|The address of the token contract.|
+|tokenAddress|address|The address of the token contract that will become the native token for the colony.|
 
 **Options**
 
@@ -691,9 +910,12 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Name|Type|Description|
 |---|---|---|
+|skillId|number|The ID of the skill that was added.|
+|parentSkillId|number|The ID of the parent skill.|
 |colonyId|number|The ID of the colony that was added.|
 |colonyAddress|address|The address of the colony contract that was created.|
 |tokenAddress|address|The address of the token contract that was assigned.|
+|SkillAdded|object|Contains the data defined in [SkillAdded](#eventsskilladded)|
 |ColonyAdded|object|Contains the data defined in [ColonyAdded](#eventscolonyadded)|
 
 See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
@@ -728,9 +950,14 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Name|Type|Description|
 |---|---|---|
-|colonyAddress|number|The address of the Meta Colony.|
-|tokenAddress|address|The address of the CLNY token contract.|
+|skillId|number|The ID of the skill that was added.|
+|parentSkillId|number|The ID of the parent skill.|
+|colonyId|number|The ID of the colony that was added.|
+|colonyAddress|address|The address of the colony contract that was created.|
+|tokenAddress|address|The address of the token contract that was assigned.|
 |rootSkillId|number|The ID of the root skill.|
+|SkillAdded|object|Contains the data defined in [SkillAdded](#eventsskilladded)|
+|ColonyAdded|object|Contains the data defined in [ColonyAdded](#eventscolonyadded)|
 |MetaColonyCreated|object|Contains the data defined in [MetaColonyCreated](#eventsmetacolonycreated)|
 
 See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
@@ -778,7 +1005,7 @@ Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7359eedaada
 
 ### `enterRecoveryMode.send(options)`
 
-Enter network recovery mode. This function can only be called by a user with a recovery role.
+Enter network recovery mode. This function can only be called by an address assigned the `RECOVERY` role.
 
 
 **Options**
@@ -830,6 +1057,70 @@ Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tre
 Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/IRecovery.sol)
   
 
+### `initialiseReputationMining.send(options)`
+
+Create an initial inactive reputation mining cycle.
+
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
+
+An instance of a `ContractResponse`.
+
+
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
+
+
+  
+  
+Contract: [ColonyNetworkMining.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/ColonyNetworkMining.sol)
+  
+Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/IColonyNetwork.sol)
+  
+
+### `registerColonyLabel.send({ colonyName, orbitDBPath }, options)`
+
+Register an ENS label for a colony.
+
+**Input**
+
+|Name|Type|Description|
+|---|---|---|
+|colonyName|string|The ENS label that will be registered for the colony.|
+|orbitDBPath|string|The path of the OrbitDB database associated with the colony.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
+
+An instance of a `ContractResponse` which will eventually receive the following event data:
+
+|Name|Type|Description|
+|---|---|---|
+|colony|address|The address of the colony that registered a label.|
+|label|string|The ENS label that was registered for the colony.|
+|ColonyLabelRegistered|object|Contains the data defined in [ColonyLabelRegistered](#eventscolonylabelregistered)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
+
+
+  
+  
+Contract: [ColonyNetworkENS.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/ColonyNetworkENS.sol)
+  
+Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/IColonyNetwork.sol)
+  
+
 ### `registerUserLabel.send({ username, orbitDBPath }, options)`
 
 Register an ENS label for a user.
@@ -839,7 +1130,7 @@ Register an ENS label for a user.
 |Name|Type|Description|
 |---|---|---|
 |username|string|The ENS label that will be registered for the user.|
-|orbitDBPath|string|The path of the OrbitDB database associated with the user profile.|
+|orbitDBPath|string|The path of the OrbitDB database associated with the user.|
 
 **Options**
 
@@ -869,13 +1160,13 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 
 ### `removeRecoveryRole.send({ user }, options)`
 
-Remove the network recovery role from a user. This function can only be called by the `FOUNDER` authority role.
+Remove the `RECOVERY` role from an address. This function can only be called by an address assigned the `ROOT` role.
 
 **Input**
 
 |Name|Type|Description|
 |---|---|---|
-|user|address|The address of the user that will be unassigned a network recovery role.|
+|user|address|The address that will be unassigned a `RECOVERY` role.|
 
 **Options**
 
@@ -934,15 +1225,50 @@ Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/1
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/IColonyNetwork.sol)
   
 
-### `setRecoveryRole.send({ user }, options)`
+### `setMiningResolver.send({ miningResolverAddress }, options)`
 
-Assign a network recovery role to a user. This function can only be called by the `FOUNDER` authority role.
+Set the address for the mining resolver.
 
 **Input**
 
 |Name|Type|Description|
 |---|---|---|
-|user|address|The address of the user that will be assigned a network recovery role.|
+|miningResolverAddress|address|The address that will be set for the mining resolver.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
+
+An instance of a `ContractResponse` which will eventually receive the following event data:
+
+|Name|Type|Description|
+|---|---|---|
+|miningCycleResolver|address|The address of the resolver contract for the reputation mining cycle contract.|
+|MiningCycleResolverSet|object|Contains the data defined in [MiningCycleResolverSet](#eventsminingcycleresolverset)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
+
+
+  
+  
+Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/ColonyNetwork.sol)
+  
+Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/IColonyNetwork.sol)
+  
+
+### `setRecoveryRole.send({ user }, options)`
+
+Assign a `RECOVERY` role to an address. This function can only be called by an address assigned the `ROOT` role.
+
+**Input**
+
+|Name|Type|Description|
+|---|---|---|
+|user|address|The address that will be assigned a `RECOVERY` role.|
 
 **Options**
 
@@ -966,9 +1292,83 @@ Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tre
 Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/IRecovery.sol)
   
 
+### `setReplacementReputationUpdateLogEntry.send({ reputationMiningCycle, id, user, amount, skillId, colony, nUpdates, nPreviousUpdates }, options)`
+
+Set replacement log entry when the network is in recovery mode.
+
+**Input**
+
+|Name|Type|Description|
+|---|---|---|
+|reputationMiningCycle|address||
+|id|number||
+|user|address||
+|amount|number||
+|skillId|number||
+|colony|address||
+|nUpdates|number||
+|nPreviousUpdates|number||
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
+
+An instance of a `ContractResponse`.
+
+
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
+
+
+  
+  
+Contract: [ColonyNetworkMining.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/ColonyNetworkMining.sol)
+  
+Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/IColonyNetwork.sol)
+  
+
+### `setReputationRootHash.send({ newHash, newNNodes, stakers, reward }, options)`
+
+Set the root hash of the reputation mining cycle.
+
+**Input**
+
+|Name|Type|Description|
+|---|---|---|
+|newHash|string||
+|newNNodes|number||
+|stakers|array||
+|reward|number||
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
+
+An instance of a `ContractResponse`.
+
+
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
+
+
+  
+  
+Contract: [ColonyNetworkMining.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/ColonyNetworkMining.sol)
+  
+Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/IColonyNetwork.sol)
+  
+
 ### `setStorageSlotRecovery.send({ slot, value }, options)`
 
-Set the value for a storage slot while in recovery mode. This can only be called by a user with a recovery role.
+Set the value for a storage slot while in recovery mode. This can only be called by an address assigned the `RECOVERY` role.
 
 **Input**
 
@@ -1063,6 +1463,33 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
   
   
 Contract: [ColonyNetworkENS.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/ColonyNetworkENS.sol)
+  
+Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/IColonyNetwork.sol)
+  
+
+### `startNextMiningCycle.send(options)`
+
+Start the next reputation mining cycle.
+
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
+
+An instance of a `ContractResponse`.
+
+
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
+
+
+  
+  
+Contract: [ColonyNetworkMining.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/ColonyNetworkMining.sol)
   
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/15397d7aa99208b6fd916373aac9acb93596a9d7/contracts/IColonyNetwork.sol)
   

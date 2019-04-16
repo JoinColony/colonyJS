@@ -25,10 +25,6 @@ type Mint = ContractClient.Event<{
   address: Address, // The address to which the minted tokens were sent.
   amount: BigNumber, // The amount of tokens that were minted.
 }>;
-type TokenLocked = ContractClient.Event<{
-  token: Address, // The address of the token contract.
-  lockCount: number, // The total lock count for the token.
-}>;
 type Transfer = ContractClient.Event<{
   from: Address, // The address of the account that sent tokens.
   to: Address, // The address of the account that received tokens.
@@ -43,7 +39,6 @@ export default class TokenClient extends ContractClient {
     LogSetOwner: LogSetOwner,
     Mint: Mint,
     Transfer: Transfer,
-    TokenLocked: TokenLocked,
   };
 
   /*

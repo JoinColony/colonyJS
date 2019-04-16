@@ -4,9 +4,9 @@
 import createSandbox from 'jest-sandbox';
 
 import ColonyClient from '../ColonyClient';
+import ColonyNetworkClient from '../ColonyNetworkClient';
 import TokenClient from '../TokenClient';
 import TokenLockingClient from '../TokenLockingClient';
-import ColonyNetworkClient from '../ColonyNetworkClient';
 
 const colonyEvents = [
   'ColonyAdministrationRoleSet',
@@ -56,7 +56,6 @@ const contract = {
 
 describe('ColonyClient', () => {
   const sandbox = createSandbox();
-
   const adapter = {
     getContract: sandbox.fn().mockImplementation(async () => contract),
   };

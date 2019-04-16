@@ -95,7 +95,7 @@
   * Added `getReputationMiningSkillId`
   * Added `getReputationRootHash`
   * Added `getReputationRootHashNNodes`
-  * Added `getTokenLocking`
+  * Added `getTokenLockingAddress`
   * Removed `getRootGlobalSkillId` (See `getReputationMiningSkillId`)
   * Removed `getTokenLocking` (See `getTokenLockingAddress`)
   * Updated `getSkill`
