@@ -7,6 +7,10 @@ log() {
   echo "${CYAN}$1${NONE}"
 }
 
+# Check ssh connection
+log "Checking ssh connection..."
+ssh -T git@github.com
+
 # Check for specified version
 if [ $1 ]; then
 
