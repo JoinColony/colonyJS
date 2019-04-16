@@ -10,7 +10,7 @@ if [ ! -d "lib/colonyNetwork" ]; then
   mkdir lib && cd lib
 
   # Check CI variable
-  if [ -z $CI ]; then
+  if [ $CI ]; then
 
     # Clone colonyNetwork repository using ssh
     git clone ssh://git@github.com/JoinColony/colonyNetwork.git
