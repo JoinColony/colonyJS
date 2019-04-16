@@ -86,6 +86,29 @@
   * Removed `TaskPayoutClaimed` (See `PayoutClaimed`)
   * Updated `ColonyInitialised`
 
+* Updated caller methods in `ColonyNetworkClient` (`@colony/colony-js-client`)
+  * Added `calculateMinerWeight`
+  * Added `getENSRegistrarAddress`
+  * Added `getMiningResolverAddress`
+  * Added `getReplacementReputationUpdateLogEntry`
+  * Added `getReputationMiningCycle`
+  * Added `getReputationMiningSkillId`
+  * Added `getReputationRootHash`
+  * Added `getReputationRootHashNNodes`
+  * Added `getTokenLocking`
+  * Removed `getRootGlobalSkillId` (See `getReputationMiningSkillId`)
+  * Removed `getTokenLocking` (See `getTokenLockingAddress`)
+  * Updated `getSkill`
+
+* Updated sender methods in `ColonyNetworkClient` (`@colony/colony-js-client`)
+  * Added `appendReputationUpdateLog`
+  * Added `initialiseReputationMining`
+  * Added `registerColonyLabel`
+  * Added `setMiningResolver`
+  * Added `setReplacementReputationUpdateLogEntry`
+  * Added `setReputationRootHash`
+  * Added `startNextMiningCycle`
+
 ## v1.11.2
 
 **Bug Fixes**
