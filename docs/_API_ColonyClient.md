@@ -1608,6 +1608,44 @@ Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a
 Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50719cd51459db153006b5bd56c031e9d169/contracts/IColony.sol)
   
 
+### `setAdminRole.send({ address, setTo }, options)`
+
+Assign the colony `ADMIN` role to an address. This function is not included in the core contracts but instead it comes from the `OldRoles` extension contract. This function can only be called by an address assigned the colony `ROOT` (`FOUNDER`) role or an address assigned the colony `ADMIN` (`ARCHITECTURE`) role. There is no limit to the number of addresses that can be assigned the colony `ADMIN` role.
+
+**Input**
+
+|Name|Type|Description|
+|---|---|---|
+|address|address|The address that will be assigned the colony `ADMIN` role.|
+|setTo|boolean|A boolean indicating whether the address will be assigned or unassigned the colony `ADMIN` role.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
+
+An instance of a `ContractResponse` which will eventually receive the following event data:
+
+|Name|Type|Description|
+|---|---|---|
+|user|address|The address that was either assigned or unassigned the colony `ARCHITECTURE` role.|
+|setTo|boolean|A boolean indicating whether the address was assigned or unassigned the colony `ARCHITECTURE` role.|
+|ColonyArchitectureRoleSet|object|Contains the data defined in [ColonyArchitectureRoleSet](#eventscolonyarchitectureroleset)|
+|ColonyFundingRoleSet|object|Contains the data defined in [ColonyFundingRoleSet](#eventscolonyfundingroleset)|
+|ColonyAdministrationRoleSet|object|Contains the data defined in [ColonyAdministrationRoleSet](#eventscolonyadministrationroleset)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
+
+
+  
+  
+Contract: [OldRoles.sol](https://github.com/JoinColony/colonyNetwork/blob/8d3a50719cd51459db153006b5bd56c031e9d169/contracts/extensions/OldRoles.sol/OldRoles.sol)
+  
+  
+
 ### `setAdministrationRole.send({ permissionDomainId, childSkillIndex, address, domainId, setTo }, options)`
 
 Assign the colony `ADMINISTRATION` role to an address. The address calling the method must have permission within the domain that permission is being granted or a parent domain to the domain that permission is being granted. The address calling the method must already be assigned either the colony `ROOT` or `ARCHITECTURE` role within the domain or parent domain.
@@ -1728,6 +1766,44 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50719cd51459db153006b5bd56c031e9d169/contracts/Colony.sol)
   
 Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50719cd51459db153006b5bd56c031e9d169/contracts/IColony.sol)
+  
+
+### `setFounderRole.send({ address }, options)`
+
+Assign the colony `FOUNDER` role to an address. This function is not included in the core contracts but instead it comes from the `OldRoles` extension contract. This function can only be called by an address assigned the colony `ROOT` (`FOUNDER`) role. There can only be one address assigned to the colony `ROOT` (`FOUNDER`) role, therefore, the address currently assigned will forfeit the role.
+
+**Input**
+
+|Name|Type|Description|
+|---|---|---|
+|address|address|The address that will be assigned the colony `FOUNDER` role.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
+
+An instance of a `ContractResponse` which will eventually receive the following event data:
+
+|Name|Type|Description|
+|---|---|---|
+|user|address|The address that was either assigned or unassigned the colony `ROOT` role.|
+|setTo|boolean|A boolean indicating whether the address was assigned or unassigned the colony `ROOT` role.|
+|ColonyRootRoleSet|object|Contains the data defined in [ColonyRootRoleSet](#eventscolonyrootroleset)|
+|ColonyArchitectureRoleSet|object|Contains the data defined in [ColonyArchitectureRoleSet](#eventscolonyarchitectureroleset)|
+|ColonyFundingRoleSet|object|Contains the data defined in [ColonyFundingRoleSet](#eventscolonyfundingroleset)|
+|ColonyAdministrationRoleSet|object|Contains the data defined in [ColonyAdministrationRoleSet](#eventscolonyadministrationroleset)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
+
+
+  
+  
+Contract: [OldRoles.sol](https://github.com/JoinColony/colonyNetwork/blob/8d3a50719cd51459db153006b5bd56c031e9d169/contracts/extensions/OldRoles.sol/OldRoles.sol)
+  
   
 
 ### `setFundingRole.send({ permissionDomainId, childSkillIndex, address, domainId, setTo }, options)`

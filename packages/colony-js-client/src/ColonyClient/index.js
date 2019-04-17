@@ -17,6 +17,8 @@ import GetTask from './callers/GetTask';
 import AddPayment from './senders/AddPayment';
 import AddTask from './senders/AddTask';
 import OneTxPayment from './senders/OneTxPayment';
+import SetAdminRole from './senders/SetAdminRole';
+import SetFounderRole from './senders/SetFounderRole';
 import addRecoveryMethods from '../addRecoveryMethods';
 
 import {
@@ -1147,6 +1149,27 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
+  Assign the colony `ADMIN` role to an address. This function is not included in the core contracts but instead it comes from the `OldRoles` extension contract. This function can only be called by an address assigned the colony `ROOT` (`FOUNDER`) role or an address assigned the colony `ADMIN` (`ARCHITECTURE`) role. There is no limit to the number of addresses that can be assigned the colony `ADMIN` role.
+  */
+  setAdminRole: ColonyClient.Sender<
+    {
+      address: Address, // The address that will be assigned the colony `ADMIN` role.
+      setTo: boolean, // A boolean indicating whether the address will be assigned or unassigned the colony `ADMIN` role.
+    },
+    {
+      ColonyArchitectureRoleSet: ColonyArchitectureRoleSet,
+      ColonyFundingRoleSet: ColonyFundingRoleSet,
+      ColonyAdministrationRoleSet: ColonyAdministrationRoleSet,
+    },
+    ColonyClient,
+    {
+      contract: 'OldRoles.sol',
+      // eslint-disable-next-line max-len
+      contractPath: 'https://github.com/JoinColony/colonyNetwork/blob/8d3a50719cd51459db153006b5bd56c031e9d169/contracts/extensions/OldRoles.sol',
+      version: '8d3a50719cd51459db153006b5bd56c031e9d169',
+    },
+  >;
+  /*
   Assign the colony `ADMINISTRATION` role to an address. The address calling the method must have permission within the domain that permission is being granted or a parent domain to the domain that permission is being granted. The address calling the method must already be assigned either the colony `ROOT` or `ARCHITECTURE` role within the domain or parent domain.
   */
   setAdministrationRole: ColonyClient.Sender<
@@ -1206,6 +1229,27 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'Colony.sol',
       interface: 'IColony.sol',
+      version: '8d3a50719cd51459db153006b5bd56c031e9d169',
+    },
+  >;
+  /*
+  Assign the colony `FOUNDER` role to an address. This function is not included in the core contracts but instead it comes from the `OldRoles` extension contract. This function can only be called by an address assigned the colony `ROOT` (`FOUNDER`) role. There can only be one address assigned to the colony `ROOT` (`FOUNDER`) role, therefore, the address currently assigned will forfeit the role.
+  */
+  setFounderRole: ColonyClient.Sender<
+    {
+      address: Address, // The address that will be assigned the colony `FOUNDER` role.
+    },
+    {
+      ColonyRootRoleSet: ColonyRootRoleSet,
+      ColonyArchitectureRoleSet: ColonyArchitectureRoleSet,
+      ColonyFundingRoleSet: ColonyFundingRoleSet,
+      ColonyAdministrationRoleSet: ColonyAdministrationRoleSet,
+    },
+    ColonyClient,
+    {
+      contract: 'OldRoles.sol',
+      // eslint-disable-next-line max-len
+      contractPath: 'https://github.com/JoinColony/colonyNetwork/blob/8d3a50719cd51459db153006b5bd56c031e9d169/contracts/extensions/OldRoles.sol',
       version: '8d3a50719cd51459db153006b5bd56c031e9d169',
     },
   >;
@@ -1831,6 +1875,18 @@ export default class ColonyClient extends ContractClient {
         domainId: DEFAULT_DOMAIN_ID,
         skillId: 0,
       },
+    });
+    this.setAdminRole = new SetAdminRole({
+      client: this,
+      name: 'setAdminRole',
+      functionName: 'setAdminRole',
+      input: [['address', 'address'], ['setTo', 'boolean']],
+    });
+    this.setFounderRole = new SetFounderRole({
+      client: this,
+      name: 'setFounderRole',
+      functionName: 'setFounderRole',
+      input: [['address', 'address']],
     });
 
     // Task callers
