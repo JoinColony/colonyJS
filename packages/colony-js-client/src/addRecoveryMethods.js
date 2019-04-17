@@ -20,10 +20,10 @@ const addRecoveryMethods = (client: ContractClient) => {
   client.addSender('enterRecoveryMode', {});
   client.addSender('exitRecoveryMode', {});
   client.addSender('removeRecoveryRole', {
-    input: [['user', 'address']],
+    input: [['address', 'address']],
   });
   client.addSender('setRecoveryRole', {
-    input: [['user', 'address']],
+    input: [['address', 'address']],
   });
   client.addSender('setStorageSlotRecovery', {
     input: [['slot', 'number'], ['value', 'hexString']],

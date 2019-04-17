@@ -22,7 +22,7 @@ import SetFounderRole from './senders/SetFounderRole';
 import addRecoveryMethods from '../addRecoveryMethods';
 
 import {
-  COLONY_ROLE_ADMINISTRATION,
+  COLONY_ROLE_ARCHITECTURE,
   COLONY_ROLES,
   DEFAULT_DOMAIN_ID,
   TASK_ROLE_EVALUATOR,
@@ -41,19 +41,19 @@ type TaskStatus = $Keys<typeof TASK_STATUSES>;
 type TokenAddress = string;
 
 type ColonyAdministrationRoleSet = ContractClient.Event<{
-  user: Address, // The address that was either assigned or unassigned the colony `ADMINISTRATION` role.
+  address: Address, // The address that was either assigned or unassigned the colony `ADMINISTRATION` role.
   setTo: boolean, // A boolean indicating whether the address was assigned or unassigned the colony `ADMINISTRATION` role.
 }>;
 type ColonyArchitectureRoleSet = ContractClient.Event<{
-  user: Address, // The address that was either assigned or unassigned the colony `ARCHITECTURE` role.
+  address: Address, // The address that was either assigned or unassigned the colony `ARCHITECTURE` role.
   setTo: boolean, // A boolean indicating whether the address was assigned or unassigned the colony `ARCHITECTURE` role.
 }>;
 type ColonyBootstrapped = ContractClient.Event<{
-  users: Array<Address>, // The array of users that received an initial amount of tokens and reputation.
+  addresses: Array<Address>, // The array of users that received an initial amount of tokens and reputation.
   amounts: Array<BigNumber>, // The array of corresponding token and reputation amounts each user recieved.
 }>;
 type ColonyFundingRoleSet = ContractClient.Event<{
-  user: Address, // The address that was either assigned or unassigned the colony `FUNDING` role.
+  address: Address, // The address that was either assigned or unassigned the colony `FUNDING` role.
   setTo: boolean, // A boolean indicating whether the address was assigned or unassigned the colony `FUNDING` role.
 }>;
 type ColonyFundsClaimed = ContractClient.Event<{
@@ -79,12 +79,16 @@ type ColonyRewardInverseSet = ContractClient.Event<{
   rewardInverse: BigNumber, // The reward inverse value that was set.
 }>;
 type ColonyRootRoleSet = ContractClient.Event<{
-  user: Address, // The address that was either assigned or unassigned the colony `ROOT` role.
+  address: Address, // The address that was either assigned or unassigned the colony `ROOT` role.
   setTo: boolean, // A boolean indicating whether the address was assigned or unassigned the colony `ROOT` role.
 }>;
 type ColonyUpgraded = ContractClient.Event<{
   oldVersion: number, // The old version number of the colony.
   newVersion: number, // The new version number of the colony.
+}>;
+type ColonyVersionAdded = ContractClient.Event<{
+  version: number, // The colony contract version that was added.
+  resolver: Address, // The address of the `Resolver` contract which will be used with the underlying `EtherRouter` contract.
 }>;
 type DomainAdded = ContractClient.Event<{
   domainId: number, // The ID of the domain that was added.
@@ -195,6 +199,7 @@ export default class ColonyClient extends ContractClient {
     ColonyRewardInverseSet: ColonyRewardInverseSet,
     ColonyRootRoleSet: ColonyRootRoleSet,
     ColonyUpgraded: ColonyUpgraded,
+    ColonyVersionAdded: ColonyVersionAdded,
     DomainAdded: DomainAdded,
     FundingPotAdded: FundingPotAdded,
     Mint: Mint,
@@ -221,6 +226,24 @@ export default class ColonyClient extends ContractClient {
   };
 
   /*
+  Add a colony contract version. This can only be called from the Meta Colony and only by the address assigned the colony `ROOT` role.
+  */
+  addNetworkColonyVersion: ColonyClient.Sender<
+    {
+      version: number, // The colony contract version that will be added.
+      resolver: number, // The address of the `Resolver` contract which will be used with the underlying `EtherRouter` contract.
+    },
+    {
+      ColonyVersionAdded: ColonyVersionAdded,
+    },
+    ColonyClient,
+    {
+      contract: 'Colony.sol',
+      interface: 'IColony.sol',
+      version: '8d3a50719cd51459db153006b5bd56c031e9d169',
+    },
+  >;
+  /*
   Add a domain to the colony.
   */
   addDomain: ColonyClient.Sender<
@@ -242,12 +265,10 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Add a global skill to the skills tree. This can only be called from the Meta Colony and only by the address assigned the colony `ROOT` role.
+  Add a global skill. This can only be called from the Meta Colony and only by the address assigned the colony `ROOT` role.
   */
   addGlobalSkill: ColonyClient.Sender<
-    {
-      parentSkillId: number, // The ID of the skill under which the new skill will be added.
-    },
+    {},
     {
       SkillAdded: SkillAdded,
     },
@@ -326,7 +347,7 @@ export default class ColonyClient extends ContractClient {
    */
   bootstrapColony: ColonyClient.Sender<
     {
-      users: Array<Address>, // The array of users that will recieve an initial amount of tokens and reputation.
+      addresses: Array<Address>, // The array of users that will recieve an initial amount of tokens and reputation.
       amounts: Array<BigNumber>, // The array of corresponding token and reputation amounts each user will recieve.
     },
     {
@@ -454,6 +475,21 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
+  Deprecate a global skill. This can only be called from the Meta Colony and only by the address assigned the colony `ROOT` role.
+  */
+  deprecateGlobalSkill: ColonyClient.Sender<
+    {
+      skillId: number, // The ID of the skill that will be deprecated.
+    },
+    {},
+    ColonyClient,
+    {
+      contract: 'Colony.sol',
+      interface: 'IMetaColony.sol',
+      version: '8d3a50719cd51459db153006b5bd56c031e9d169',
+    },
+  >;
+  /*
   Enter colony recovery mode. This function can only be called by a user assigned the colony `RECOVERY` role.
   */
   enterRecoveryMode: ColonyClient.Sender<
@@ -549,9 +585,9 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Get the authority contract address associated with the colony contract.
+  Get the address of the authority contract associated with the colony contract.
   */
-  getAuthority: ColonyClient.Caller<
+  getAuthorityAddress: ColonyClient.Caller<
     {},
     {
       address: Address, // The address of the authority contract associated with the colony contract.
@@ -562,6 +598,21 @@ export default class ColonyClient extends ContractClient {
       contract: 'auth.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
+      interface: 'IColony.sol',
+      version: '8d3a50719cd51459db153006b5bd56c031e9d169',
+    },
+  >;
+  /*
+  Get the address of the Colony Network contract.
+  */
+  getColonyNetworkAddress: ColonyClient.Caller<
+    {},
+    {
+      address: Address, // The address of the Colony Network contract.
+    },
+    ColonyClient,
+    {
+      function: 'getColonyNetwork',
       interface: 'IColony.sol',
       version: '8d3a50719cd51459db153006b5bd56c031e9d169',
     },
@@ -687,12 +738,12 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Get the owner address associated with the colony contract.
+  Get the address of the owner of the colony contract.
   */
-  getOwner: ColonyClient.Caller<
+  getOwnerAddress: ColonyClient.Caller<
     {},
     {
-      address: Address, // The address of the owner associated with the colony contract.
+      address: Address, // The address of the owner of the colony contract.
     },
     ColonyClient,
     {
@@ -808,7 +859,7 @@ export default class ColonyClient extends ContractClient {
       fundingPotId: number, // The ID of the funding pot.
       completionTimestamp: Date, // The date when the task deliverable was submitted.
       domainId: number, // The ID of the domain.
-      skills: Array<number>, // An array of skills IDs.
+      skillIds: Array<number>, // An array of skills IDs.
     },
     ColonyClient,
     {
@@ -910,13 +961,14 @@ export default class ColonyClient extends ContractClient {
   /*
   Get the address of the token contract that is the native token assigned to the colony. The native token is the token used to calculate reputation scores, i.e. `1` token earned for completing a task with a satisfactory rating (`2`) will result in `1` reputation point earned.
   */
-  getToken: ColonyClient.Caller<
+  getTokenAddress: ColonyClient.Caller<
     {},
     {
-      address: Address, // The address of the token contract.
+      address: Address, // The address of the token contract assigned as the native token for the colony.
     },
     ColonyClient,
     {
+      method: 'getToken',
       contract: 'Colony.sol',
       interface: 'IColony.sol',
       version: '8d3a50719cd51459db153006b5bd56c031e9d169',
@@ -941,14 +993,14 @@ export default class ColonyClient extends ContractClient {
   /*
   Check whether an address has a role assigned.
   */
-  hasRole: ColonyClient.Caller<
+  hasColonyRole: ColonyClient.Caller<
     {
-      user: Address, // The address that will be checked for the role.
+      address: Address, // The address that will be checked for the role.
       domainId: number, // The ID of the domain that the role is assigned.
       role: ColonyRole, // The role that will be checked (`RECOVERY`, `ROOT`, `ARCHITECTURE`, `ARCHITECTURE_SUBDOMAIN`, `ADMINISTRATION`, `FUNDING`).
     },
     {
-      hasRole: boolean, // A boolean indicating whether or not the address has the role assigned.
+      hasColonyRole: boolean, // A boolean indicating whether or not the address has the role assigned.
     },
     ColonyClient,
     {
@@ -1315,6 +1367,7 @@ export default class ColonyClient extends ContractClient {
       permissionDomainId: number, // The ID of the domain in which the sender has permission.
       childSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
       paymentId: number, // The ID of the payment.
+      token: Address, // The address of the token contract (an empty address if Ether).
       amount: BigNumber, // The amount of the payment.
     },
     {},
@@ -1366,7 +1419,7 @@ export default class ColonyClient extends ContractClient {
   */
   setRecoveryRole: ColonyClient.Sender<
     {
-      user: Address, // The address that will be assigned the colony `RECOVERY` role.
+      address: Address, // The address that will be assigned the colony `RECOVERY` role.
     },
     {},
     ColonyClient,
@@ -1506,7 +1559,7 @@ export default class ColonyClient extends ContractClient {
   setTaskEvaluatorRole: ColonyClient.MultisigSender<
     {
       taskId: number, // The ID of the task.
-      user: Address, // The address that will be assigned the task `EVALUATOR` role.
+      address: Address, // The address that will be assigned the task `EVALUATOR` role.
     },
     {
       TaskRoleUserSet: TaskRoleUserSet,
@@ -1543,7 +1596,7 @@ export default class ColonyClient extends ContractClient {
   setTaskManagerRole: ColonyClient.MultisigSender<
     {
       taskId: number, // The ID of the task.
-      user: Address, // The address that will be assigned the task `MANAGER` role.
+      address: Address, // The address that will be assigned the task `MANAGER` role.
       permissionDomainId: number, // The ID of the domain in which the sender has permission.
       childSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
     },
@@ -1600,7 +1653,7 @@ export default class ColonyClient extends ContractClient {
   setTaskWorkerRole: ColonyClient.MultisigSender<
     {
       taskId: number, // The ID of the task.
-      user: Address, // The address that will be assigned the task `WORKER` role.
+      address: Address, // The address that will be assigned the task `WORKER` role.
     },
     {
       TaskRoleUserSet: TaskRoleUserSet,
@@ -1691,11 +1744,11 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Upgrade the colony to a new contract version. The new version number must be higher than the current version. Downgrading to old contract versions is not permitted.
+  Upgrade the colony to a new colony contract version. The new version must be higher than the current version. Downgrading to old versions is not permitted.
   */
   upgrade: ColonyClient.Sender<
     {
-      newVersion: number, // The version number of the colony contract.
+      newVersion: number, // The new colony contract version that will be applied to the colony.
     },
     {
       ColonyUpgraded: ColonyUpgraded,
@@ -1717,7 +1770,9 @@ export default class ColonyClient extends ContractClient {
       branchMask: number, // The branchmask of the proof.
       siblings: Array<string>, // The siblings of the proof.
     },
-    {},
+    {
+      isValid: boolean, // A boolean indicating whether ot not the proof is valid.
+    },
     ColonyClient,
     {
       contract: 'Colony.sol',
@@ -1804,7 +1859,7 @@ export default class ColonyClient extends ContractClient {
   Get an initialized TokenClient.
   */
   async getTokenClient() {
-    const { address: tokenAddress } = await this.getToken.call();
+    const { address: tokenAddress } = await this.getTokenAddress.call();
     const tokenClient = new this.constructor.TokenClient({
       adapter: this.adapter,
       query: { contractAddress: tokenAddress },
@@ -1930,8 +1985,12 @@ export default class ColonyClient extends ContractClient {
       input: [['salt', 'string'], ['value', 'number']],
       output: [['secret', 'hexString']],
     });
-    this.addCaller('getAuthority', {
+    this.addCaller('getAuthorityAddress', {
       functionName: 'authority',
+      output: [['address', 'address']],
+    });
+    this.addCaller('getColonyNetworkAddress', {
+      functionName: 'getColonyNetwork',
       output: [['address', 'address']],
     });
     this.addCaller('getDomain', {
@@ -1966,7 +2025,7 @@ export default class ColonyClient extends ContractClient {
       input: [['potId', 'number'], ['token', 'tokenAddress']],
       output: [['payout', 'bigNumber']],
     });
-    this.addCaller('getOwner', {
+    this.addCaller('getOwnerAddress', {
       functionName: 'owner',
       output: [['address', 'address']],
     });
@@ -1994,27 +2053,28 @@ export default class ColonyClient extends ContractClient {
         ['totalTokenAmountForRewardPayout', 'bigNumber'],
         ['remainingTokenAmount', 'bigNumber'],
         ['token', 'tokenAddress'],
-        ['blockNumber', 'number'],
+        ['blockTimestamp', 'number'],
       ],
     });
     this.addCaller('getTaskCount', {
       output: [['count', 'number']],
     });
-    this.addCaller('getToken', {
+    this.addCaller('getTokenAddress', {
+      functionName: 'getToken',
       output: [['address', 'address']],
     });
     this.addCaller('getVersion', {
       functionName: 'version',
       output: [['version', 'number']],
     });
-    this.addCaller('hasRole', {
+    this.addCaller('hasColonyRole', {
       functionName: 'hasUserRole',
       input: [
-        ['user', 'address'],
+        ['address', 'address'],
         ['domainId', 'number'],
         ['role', 'colonyRole'],
       ],
-      output: [['hasRole', 'boolean']],
+      output: [['hasColonyRole', 'boolean']],
     });
     this.addCaller('verifyReputationProof', {
       input: [
@@ -2028,19 +2088,19 @@ export default class ColonyClient extends ContractClient {
 
     // Events
     this.addEvent('ColonyAdministrationRoleSet', [
-      ['user', 'address'],
+      ['address', 'address'],
       ['setTo', 'boolean'],
     ]);
     this.addEvent('ColonyArchitectureRoleSet', [
-      ['user', 'address'],
+      ['address', 'address'],
       ['setTo', 'boolean'],
     ]);
     this.addEvent('ColonyBootstrapped', [
-      ['users', '[address]'],
+      ['addresses', '[address]'],
       ['amounts', '[bigNumber]'],
     ]);
     this.addEvent('ColonyFundingRoleSet', [
-      ['user', 'address'],
+      ['address', 'address'],
       ['setTo', 'boolean'],
     ]);
     this.addEvent('ColonyFundsClaimed', [
@@ -2060,7 +2120,7 @@ export default class ColonyClient extends ContractClient {
     ]);
     this.addEvent('ColonyRewardInverseSet', [['rewardInverse', 'bigNumber']]);
     this.addEvent('ColonyRootRoleSet', [
-      ['user', 'address'],
+      ['address', 'address'],
       ['setTo', 'boolean'],
     ]);
     this.addEvent('ColonyUpgraded', [
@@ -2157,7 +2217,7 @@ export default class ColonyClient extends ContractClient {
       ],
     });
     this.addSender('bootstrapColony', {
-      input: [['users', '[address]'], ['amounts', '[bigNumber]']],
+      input: [['addresses', '[address]'], ['amounts', '[bigNumber]']],
     });
     this.addSender('claimColonyFunds', {
       input: [['token', 'tokenAddress']],
@@ -2184,6 +2244,9 @@ export default class ColonyClient extends ContractClient {
     });
     this.addSender('completeTask', {
       input: [['taskId', 'number']],
+    });
+    this.addSender('deprecateGlobalSkill', {
+      input: [['skillId', 'number']],
     });
     this.addSender('finalizePayment', {
       input: [
@@ -2278,6 +2341,15 @@ export default class ColonyClient extends ContractClient {
         ['domainId', 'number'],
       ],
     });
+    this.addSender('setPaymentPayout', {
+      input: [
+        ['permissionDomainId', 'number'],
+        ['childSkillIndex', 'number'],
+        ['paymentId', 'number'],
+        ['token', 'address'],
+        ['amount', 'bigNumber'],
+      ],
+    });
     this.addSender('setPaymentRecipient', {
       input: [
         ['permissionDomainId', 'number'],
@@ -2331,9 +2403,7 @@ export default class ColonyClient extends ContractClient {
     });
 
     // Meta Colony senders
-    this.addMetaColonySender('addGlobalSkill', {
-      input: [['parentSkillId', 'number']],
-    });
+    this.addMetaColonySender('addGlobalSkill', {});
     this.addMetaColonySender('mintTokensForColonyNetwork', {
       input: [['amount', 'bigNumber']],
     });
@@ -2452,11 +2522,11 @@ export default class ColonyClient extends ContractClient {
     });
     makeExecuteTaskRoleChange(
       'setTaskManagerRole',
-      async ({ domainId, user }) => {
-        const isAdmin = await this.hasRole.call({
-          user,
+      async ({ domainId, address }) => {
+        const isAdmin = await this.hasColonyRole.call({
+          address,
           domainId,
-          role: COLONY_ROLE_ADMINISTRATION,
+          role: COLONY_ROLE_ARCHITECTURE,
         });
         if (!isAdmin)
           throw new Error('Unable to set task role; user must be an admin');

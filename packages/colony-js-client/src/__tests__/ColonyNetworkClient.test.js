@@ -204,7 +204,7 @@ describe('ColonyNetworkClient', () => {
     sandbox
       .spyOn(ColonyClient.prototype, 'initializeContractMethods')
       .mockImplementation(() => {
-        client.getToken = {
+        client.getTokenAddress = {
           call: sandbox.fn().mockImplementation(async () => ({
             address: 'token address',
           })),
@@ -226,7 +226,7 @@ describe('ColonyNetworkClient', () => {
       tokenLockingClient: expect.any(TokenLockingClient),
     });
     expect(colonyClient.init).toHaveBeenCalled();
-    expect(colonyClient.getToken.call).toHaveBeenCalled();
+    expect(colonyClient.getTokenAddress.call).toHaveBeenCalled();
     expect(colonyClient).toHaveProperty('tokenClient', expect.any(TokenClient));
     expect(colonyClient.tokenClient.init).toHaveBeenCalled();
   });
@@ -279,7 +279,7 @@ describe('ColonyNetworkClient', () => {
     sandbox
       .spyOn(ColonyClient.prototype, 'initializeContractMethods')
       .mockImplementation(() => {
-        client.getToken = {
+        client.getTokenAddress = {
           call: sandbox.fn().mockImplementation(async () => ({
             address: 'token address',
           })),

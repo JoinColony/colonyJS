@@ -481,11 +481,39 @@ A promise which resolves to an object containing the following properties:
 |Name|Type|Description|
 |---|---|---|
 |user|address||
-|amount|number||
+|amount|big number||
 |skillId|number||
 |colony|address||
 |nUpdates|number||
 |nPreviousUpdates|number||
+
+**Contract Information**
+
+
+  
+  
+Contract: [ColonyNetworkMining.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50719cd51459db153006b5bd56c031e9d169/contracts/ColonyNetworkMining.sol)
+  
+Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50719cd51459db153006b5bd56c031e9d169/contracts/IColonyNetwork.sol)
+  
+
+### `getReplacementReputationUpdateLogEntry.call({ reputationMiningCycle })`
+
+Get whether any replacement log entries have been set for the supplied reputation mining cycle.
+
+**Input**
+
+|Name|Type|Description|
+|---|---|---|
+|reputationMiningCycle|address||
+
+**Response**
+
+A promise which resolves to an object containing the following properties:
+
+|Name|Type|Description|
+|---|---|---|
+|logsExist|boolean||
 
 **Contract Information**
 
@@ -571,7 +599,7 @@ Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/8
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50719cd51459db153006b5bd56c031e9d169/contracts/IColonyNetwork.sol)
   
 
-### `getReputationRootHashNNodes.call()`
+### `getReputationRootHashNodeCount.call()`
 
 Get the number of nodes in the current reputation state tree.
 
@@ -792,7 +820,7 @@ Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/8
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50719cd51459db153006b5bd56c031e9d169/contracts/IColonyNetwork.sol)
   
 
-### `addSkill.send({ parentSkillId, globalSkill }, options)`
+### `addSkill.send({ parentSkillId }, options)`
 
 Add a new global or local skill to the skills tree.
 
@@ -801,7 +829,6 @@ Add a new global or local skill to the skills tree.
 |Name|Type|Description|
 |---|---|---|
 |parentSkillId|number|The ID of the skill under which the new skill will be added.|
-|globalSkill|boolean|A boolean indicating whether or not the skill will be a global skill.|
 
 **Options**
 
@@ -838,7 +865,7 @@ Add a reputation update entry to the log.
 |Name|Type|Description|
 |---|---|---|
 |user|address||
-|amount|number||
+|amount|big number||
 |skillId|number||
 
 **Options**
@@ -1003,6 +1030,38 @@ Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/2dc3136d71c
   
   
 
+### `deprecateSkill.send({ skillId }, options)`
+
+Deprecate a skill.
+
+**Input**
+
+|Name|Type|Description|
+|---|---|---|
+|skillId|number|The ID of the skill that will be deprecated.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
+
+An instance of a `ContractResponse`.
+
+
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
+
+
+  
+  
+Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50719cd51459db153006b5bd56c031e9d169/contracts/ColonyNetwork.sol)
+  
+Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50719cd51459db153006b5bd56c031e9d169/contracts/IColonyNetwork.sol)
+  
+
 ### `enterRecoveryMode.send(options)`
 
 Enter network recovery mode. This function can only be called by an address assigned the `RECOVERY` role.
@@ -1158,7 +1217,7 @@ Contract: [ColonyNetworkENS.sol](https://github.com/JoinColony/colonyNetwork/tre
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50719cd51459db153006b5bd56c031e9d169/contracts/IColonyNetwork.sol)
   
 
-### `removeRecoveryRole.send({ user }, options)`
+### `removeRecoveryRole.send({ address }, options)`
 
 Remove the `RECOVERY` role from an address. This function can only be called by an address assigned the `ROOT` role.
 
@@ -1166,7 +1225,7 @@ Remove the `RECOVERY` role from an address. This function can only be called by 
 
 |Name|Type|Description|
 |---|---|---|
-|user|address|The address that will be unassigned a `RECOVERY` role.|
+|address|address|The address that will be unassigned a `RECOVERY` role.|
 
 **Options**
 
@@ -1260,7 +1319,7 @@ Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/8
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50719cd51459db153006b5bd56c031e9d169/contracts/IColonyNetwork.sol)
   
 
-### `setRecoveryRole.send({ user }, options)`
+### `setRecoveryRole.send({ address }, options)`
 
 Assign a `RECOVERY` role to an address. This function can only be called by an address assigned the `ROOT` role.
 
@@ -1268,7 +1327,7 @@ Assign a `RECOVERY` role to an address. This function can only be called by an a
 
 |Name|Type|Description|
 |---|---|---|
-|user|address|The address that will be assigned a `RECOVERY` role.|
+|address|address|The address that will be assigned a `RECOVERY` role.|
 
 **Options**
 
@@ -1303,7 +1362,7 @@ Set replacement log entry when the network is in recovery mode.
 |reputationMiningCycle|address||
 |id|number||
 |user|address||
-|amount|number||
+|amount|big number||
 |skillId|number||
 |colony|address||
 |nUpdates|number||
@@ -1494,7 +1553,7 @@ Contract: [ColonyNetworkMining.sol](https://github.com/JoinColony/colonyNetwork/
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50719cd51459db153006b5bd56c031e9d169/contracts/IColonyNetwork.sol)
   
 
-### `startTokenAuction.send({ tokenAddress }, options)`
+### `startTokenAuction.send({ token }, options)`
 
 Create and start an auction for a token owned by the Colony Network. The auction will be for the total amount of the specificed tokens that are owned by the Colony Network.
 
@@ -1502,7 +1561,7 @@ Create and start an auction for a token owned by the Colony Network. The auction
 
 |Name|Type|Description|
 |---|---|---|
-|tokenAddress|address|The address of the token contract.|
+|token|address|The address of the token contract.|
 
 **Options**
 

@@ -42,7 +42,7 @@ export default class GetTask extends ContractClient.Caller<
         ['potId', 'number'],
         ['completionTimestamp', 'date'],
         ['domainId', 'number'],
-        ['skills', '[number]'],
+        ['skillId', 'number'],
       ],
       ...params,
     });

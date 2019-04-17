@@ -116,7 +116,6 @@ export default class ColonyNetworkClient extends ContractClient {
   addSkill: ColonyNetworkClient.Sender<
     {
       parentSkillId: number, // The ID of the skill under which the new skill will be added.
-      globalSkill: boolean, // A boolean indicating whether or not the skill will be a global skill.
     },
     {
       SkillAdded: SkillAdded,
@@ -134,7 +133,7 @@ export default class ColonyNetworkClient extends ContractClient {
   appendReputationUpdateLog: ColonyNetworkClient.Sender<
     {
       user: Address,
-      amount: number,
+      amount: BigNumber,
       skillId: number,
     },
     {},
@@ -226,6 +225,21 @@ export default class ColonyNetworkClient extends ContractClient {
       contract: 'Token.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/JoinColony/colonyToken/blob/2dc3136d71c0af9adb9b05e187885dd9dcae94c8/contracts',
+      version: '8d3a50719cd51459db153006b5bd56c031e9d169',
+    },
+  >;
+  /*
+  Deprecate a skill.
+  */
+  deprecateSkill: ColonyNetworkClient.Sender<
+    {
+      skillId: number, // The ID of the skill that will be deprecated.
+    },
+    {},
+    ColonyNetworkClient,
+    {
+      contract: 'ColonyNetwork.sol',
+      interface: 'IColonyNetwork.sol',
       version: '8d3a50719cd51459db153006b5bd56c031e9d169',
     },
   >;
@@ -497,11 +511,28 @@ export default class ColonyNetworkClient extends ContractClient {
     },
     {
       user: Address,
-      amount: number,
+      amount: BigNumber,
       skillId: number,
       colony: Address,
       nUpdates: number,
       nPreviousUpdates: number,
+    },
+    ColonyNetworkClient,
+    {
+      contract: 'ColonyNetworkMining.sol',
+      interface: 'IColonyNetwork.sol',
+      version: '8d3a50719cd51459db153006b5bd56c031e9d169',
+    },
+  >;
+  /*
+  Get whether any replacement log entries have been set for the supplied reputation mining cycle.
+  */
+  getReplacementReputationUpdateLogEntry: ColonyNetworkClient.Caller<
+    {
+      reputationMiningCycle: Address,
+    },
+    {
+      logsExist: boolean,
     },
     ColonyNetworkClient,
     {
@@ -560,13 +591,14 @@ export default class ColonyNetworkClient extends ContractClient {
   /*
   Get the number of nodes in the current reputation state tree.
   */
-  getReputationRootHashNNodes: ColonyNetworkClient.Caller<
+  getReputationRootHashNodeCount: ColonyNetworkClient.Caller<
     {},
     {
       nNodes: number, // The number of nodes in the current reputation state tree.
     },
     ColonyNetworkClient,
     {
+      method: 'getReputationRootHashNNodes',
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
       version: '8d3a50719cd51459db153006b5bd56c031e9d169',
@@ -618,6 +650,7 @@ export default class ColonyNetworkClient extends ContractClient {
     },
     ColonyNetworkClient,
     {
+      method: 'getTokenLocking',
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
       version: '8d3a50719cd51459db153006b5bd56c031e9d169',
@@ -726,7 +759,7 @@ export default class ColonyNetworkClient extends ContractClient {
   */
   removeRecoveryRole: ColonyNetworkClient.Sender<
     {
-      user: Address, // The address that will be unassigned a `RECOVERY` role.
+      address: Address, // The address that will be unassigned a `RECOVERY` role.
     },
     {},
     ColonyNetworkClient,
@@ -775,7 +808,7 @@ export default class ColonyNetworkClient extends ContractClient {
   */
   setRecoveryRole: ColonyNetworkClient.Sender<
     {
-      user: Address, // The address that will be assigned a `RECOVERY` role.
+      address: Address, // The address that will be assigned a `RECOVERY` role.
     },
     {},
     ColonyNetworkClient,
@@ -793,7 +826,7 @@ export default class ColonyNetworkClient extends ContractClient {
       reputationMiningCycle: Address,
       id: number,
       user: Address,
-      amount: number,
+      amount: BigNumber,
       skillId: number,
       colony: Address,
       nUpdates: number,
@@ -893,7 +926,7 @@ export default class ColonyNetworkClient extends ContractClient {
   */
   startTokenAuction: ColonyNetworkClient.Sender<
     {
-      tokenAddress: Address, // The address of the token contract.
+      token: Address, // The address of the token contract.
     },
     {
       AuctionCreated: AuctionCreated,
@@ -1122,12 +1155,16 @@ export default class ColonyNetworkClient extends ContractClient {
       input: [['reputationMiningCycle', 'address'], ['id', 'number']],
       output: [
         ['user', 'address'],
-        ['amount', 'number'],
+        ['amount', 'bigNumber'],
         ['skillId', 'number'],
         ['colony', 'address'],
         ['nUpdates', 'number'],
         ['nPreviousUpdates', 'number'],
       ],
+    });
+    this.addCaller('getReplacementReputationUpdateLogsExist', {
+      input: [['reputationMiningCycle', 'address']],
+      output: [['logsExist', 'boolean']],
     });
     this.addCaller('getReputationMiningCycle', {
       input: [['active', 'boolean']],
@@ -1139,7 +1176,8 @@ export default class ColonyNetworkClient extends ContractClient {
     this.addCaller('getReputationRootHash', {
       output: [['rootHash', 'string']],
     });
-    this.addCaller('getReputationRootHashNNodes', {
+    this.addCaller('getReputationRootHashNodeCount', {
+      functionName: 'getReputationRootHashNNodes',
       output: [['nNodes', 'number']],
     });
     this.addCaller('getSkill', {
@@ -1161,6 +1199,7 @@ export default class ColonyNetworkClient extends ContractClient {
       output: [['count', 'number']],
     });
     this.addCaller('getTokenLockingAddress', {
+      functionName: 'getTokenLocking',
       output: [['address', 'address']],
     });
     this.addCaller('isColony', {
@@ -1177,10 +1216,14 @@ export default class ColonyNetworkClient extends ContractClient {
       input: [['version', 'number'], ['resolver', 'address']],
     });
     this.addSender('addSkill', {
-      input: [['parentSkillId', 'number'], ['globalSkill', 'boolean']],
+      input: [['parentSkillId', 'number']],
     });
     this.addSender('appendReputationUpdateLog', {
-      input: [['user', 'address'], ['amount', 'number'], ['skillId', 'number']],
+      input: [
+        ['user', 'address'],
+        ['amount', 'bigNumber'],
+        ['skillId', 'number'],
+      ],
     });
     this.addSender('createColony', {
       input: [['tokenAddress', 'address']],
@@ -1189,6 +1232,9 @@ export default class ColonyNetworkClient extends ContractClient {
     this.addSender('createMetaColony', {
       input: [['tokenAddress', 'address']],
       defaultGasLimit: 4000000,
+    });
+    this.addSender('deprecateSkill', {
+      input: [['skillId', 'number']],
     });
     this.addSender('initialiseReputationMining', {});
     this.addSender('registerColonyLabel', {
@@ -1213,7 +1259,7 @@ export default class ColonyNetworkClient extends ContractClient {
         ['reputationMiningCycle', 'address'],
         ['id', 'number'],
         ['user', 'address'],
-        ['amount', 'number'],
+        ['amount', 'bigNumber'],
         ['skillId', 'number'],
         ['colony', 'address'],
         ['nUpdates', 'number'],
@@ -1233,7 +1279,7 @@ export default class ColonyNetworkClient extends ContractClient {
     });
     this.addSender('startNextMiningCycle', {});
     this.addSender('startTokenAuction', {
-      input: [['tokenAddress', 'address']],
+      input: [['token', 'tokenAddress']],
     });
   }
 

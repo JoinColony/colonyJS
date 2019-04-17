@@ -35,16 +35,23 @@
   * Updated `TASK_ROLES`
 
 * Updated caller methods in `ColonyClient` (`@colony/colony-js-client`)
-  * Added `getOwner`
+  * Added `getAuthorityAddress`
+  * Added `getColonyNetworkAddress`
   * Added `getFundingPotPayout`
+  * Added `getOwnerAddress`
   * Added `getPayment`
   * Added `getPaymentCount`
   * Added `getTaskWorkRatingSecretsInfo`
-  * Added `hasRole`
+  * Added `getTokenAddress`
+  * Added `hasColonyRole`
   * Added `verifyReputationProof`
+  * Removed `getAuthority` (See `getAuthorityAddress`)
+    * Updated to `getAuthorityAddress` to maintain consistency
   * Removed `getTaskWorkRatings` (See `getTaskWorkRatingSecretsInfo`)
+  * Removed `getToken` (See `getTokenAddress`)
+    * Updated to `getTokenAddress` to maintain consistency
   * Removed `getTotalTaskPayout` (See `getFundingPotPayout`)
-  * Removed `hasUserRole` (See `hasRole`)
+  * Removed `hasUserRole` (See `hasColonyRole`)
   * Updated `getDomain`
   * Updated `getFundingPot`
   * Updated `getRewardPayoutInfo`
@@ -68,11 +75,21 @@
   * Removed `claimPayout` (See `claimPayment` and `claimTaskPayout`)
   * Removed `createTask` (See `addTask`)
   * Removed `removeAdminRole` (See `setAdminRole`)
+  * Updated `removeRecoveryRole`
+    * Changed `user` input parameter to `address`
+  * Updated `setRecoveryRole`
+    * Changed `user` input parameter to `address`
+  * Updated `addGlobalSkill`
+    * Removed `parentSkillId` as an input parameter. Global skills no longer exist within a skills tree and therefore will always use `0` for the `parentSkillId`.
   * Updated `addDomain`
+  * Updated `bootstrapColony`
+    * Changed `users` input parameter to `addresses`
   * Updated `makePayment`
   * Updated `moveFundsBetweenPots`
   * Updated `setAdminRole`
+    * This is now connected to the `OldRoles` extension contract
   * Updated `setFounderRole`
+    * This is now connected to the `OldRoles` extension contract
   * Updated `setTaskManagerRole`
   * Updated `startNextRewardPayout`
 
@@ -87,6 +104,8 @@
   * Removed `ColonyAdminRoleSet` (See `ColonyAdministrationRoleSet`)
   * Removed `ColonyFounderRoleSet` (See `ColonyRootRoleSet`)
   * Removed `TaskPayoutClaimed` (See `PayoutClaimed`)
+  * Updated `ColonyBootstrapped`
+    * Changed `users` parameter to `addresses`
   * Updated `ColonyInitialised`
 
 * Updated caller methods in `ColonyNetworkClient` (`@colony/colony-js-client`)
@@ -97,20 +116,28 @@
   * Added `getReputationMiningCycle`
   * Added `getReputationMiningSkillId`
   * Added `getReputationRootHash`
-  * Added `getReputationRootHashNNodes`
+  * Added `getReputationRootHashNodeCount`
   * Added `getTokenLockingAddress`
   * Removed `getRootGlobalSkillId` (See `getReputationMiningSkillId`)
   * Removed `getTokenLocking` (See `getTokenLockingAddress`)
   * Updated `getSkill`
 
 * Updated sender methods in `ColonyNetworkClient` (`@colony/colony-js-client`)
+  * Added `addNetworkColonyVersion`
   * Added `appendReputationUpdateLog`
+  * Added `deprecateSkill`
   * Added `initialiseReputationMining`
   * Added `registerColonyLabel`
   * Added `setMiningResolver`
   * Added `setReplacementReputationUpdateLogEntry`
   * Added `setReputationRootHash`
   * Added `startNextMiningCycle`
+  * Updated `addSkill`
+    * Removed `globalSkill` input parameter
+  * Updated `startTokenAuction`
+
+* Updated events in `ColonyNetworkClient` (`@colony/colony-js-client`)
+  * Added `ColonyVersionAdded`
 
 ## v1.11.2
 

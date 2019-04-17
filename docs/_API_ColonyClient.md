@@ -48,9 +48,9 @@ Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a
 Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50719cd51459db153006b5bd56c031e9d169/contracts/IColony.sol)
   
 
-### `getAuthority.call()`
+### `getAuthorityAddress.call()`
 
-Get the authority contract address associated with the colony contract.
+Get the address of the authority contract associated with the colony contract.
 
 
 **Response**
@@ -67,6 +67,28 @@ A promise which resolves to an object containing the following properties:
   Function: `authority`
   
 Contract: [auth.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/auth.sol)
+  
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50719cd51459db153006b5bd56c031e9d169/contracts/IColony.sol)
+  
+
+### `getColonyNetworkAddress.call()`
+
+Get the address of the Colony Network contract.
+
+
+**Response**
+
+A promise which resolves to an object containing the following properties:
+
+|Name|Type|Description|
+|---|---|---|
+|address|address|The address of the Colony Network contract.|
+
+**Contract Information**
+
+
+  Function: `getColonyNetwork`
+  
   
 Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50719cd51459db153006b5bd56c031e9d169/contracts/IColony.sol)
   
@@ -262,9 +284,9 @@ Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/8
 Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50719cd51459db153006b5bd56c031e9d169/contracts/IColony.sol)
   
 
-### `getOwner.call()`
+### `getOwnerAddress.call()`
 
-Get the owner address associated with the colony contract.
+Get the address of the owner of the colony contract.
 
 
 **Response**
@@ -273,7 +295,7 @@ A promise which resolves to an object containing the following properties:
 
 |Name|Type|Description|
 |---|---|---|
-|address|address|The address of the owner associated with the colony contract.|
+|address|address|The address of the owner of the colony contract.|
 
 **Contract Information**
 
@@ -442,7 +464,7 @@ A promise which resolves to an object containing the following properties:
 |fundingPotId|number|The ID of the funding pot.|
 |completionTimestamp|date|The date when the task deliverable was submitted.|
 |domainId|number|The ID of the domain.|
-|skills|array|An array of skills IDs.|
+|skillIds|array|An array of skills IDs.|
 
 **Contract Information**
 
@@ -596,7 +618,7 @@ Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a
 Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50719cd51459db153006b5bd56c031e9d169/contracts/IColony.sol)
   
 
-### `getToken.call()`
+### `getTokenAddress.call()`
 
 Get the address of the token contract that is the native token assigned to the colony. The native token is the token used to calculate reputation scores, i.e. `1` token earned for completing a task with a satisfactory rating (`2`) will result in `1` reputation point earned.
 
@@ -607,7 +629,7 @@ A promise which resolves to an object containing the following properties:
 
 |Name|Type|Description|
 |---|---|---|
-|address|address|The address of the token contract.|
+|address|address|The address of the token contract assigned as the native token for the colony.|
 
 **Contract Information**
 
@@ -642,7 +664,7 @@ Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a5071
 Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50719cd51459db153006b5bd56c031e9d169/contracts/IColony.sol)
   
 
-### `hasRole.call({ user, domainId, role })`
+### `hasColonyRole.call({ address, domainId, role })`
 
 Check whether an address has a role assigned.
 
@@ -650,7 +672,7 @@ Check whether an address has a role assigned.
 
 |Name|Type|Description|
 |---|---|---|
-|user|address|The address that will be checked for the role.|
+|address|address|The address that will be checked for the role.|
 |domainId|number|The ID of the domain that the role is assigned.|
 |role|undefined|The role that will be checked (`RECOVERY`, `ROOT`, `ARCHITECTURE`, `ARCHITECTURE_SUBDOMAIN`, `ADMINISTRATION`, `FUNDING`).|
 
@@ -660,7 +682,7 @@ A promise which resolves to an object containing the following properties:
 
 |Name|Type|Description|
 |---|---|---|
-|hasRole|boolean|A boolean indicating whether or not the address has the role assigned.|
+|hasColonyRole|boolean|A boolean indicating whether or not the address has the role assigned.|
 
 **Contract Information**
 
@@ -712,7 +734,9 @@ Verify the correctness of a patricia proof associated with reputation.
 
 A promise which resolves to an object containing the following properties:
 
-
+|Name|Type|Description|
+|---|---|---|
+|isValid|boolean|A boolean indicating whether ot not the proof is valid.|
 
 **Contract Information**
 
@@ -728,6 +752,43 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50
 ## Senders
 
 **All senders return an instance of a `ContractResponse`.** Every `send()` method takes an `options` object as the second argument.
+### `addNetworkColonyVersion.send({ version, resolver }, options)`
+
+Add a colony contract version. This can only be called from the Meta Colony and only by the address assigned the colony `ROOT` role.
+
+**Input**
+
+|Name|Type|Description|
+|---|---|---|
+|version|number|The colony contract version that will be added.|
+|resolver|number|The address of the `Resolver` contract which will be used with the underlying `EtherRouter` contract.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
+
+An instance of a `ContractResponse` which will eventually receive the following event data:
+
+|Name|Type|Description|
+|---|---|---|
+|version|number|The colony contract version that was added.|
+|resolver|address|The address of the `Resolver` contract which will be used with the underlying `EtherRouter` contract.|
+|ColonyVersionAdded|object|Contains the data defined in [ColonyVersionAdded](#eventscolonyversionadded)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
+
+
+  
+  
+Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50719cd51459db153006b5bd56c031e9d169/contracts/Colony.sol)
+  
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50719cd51459db153006b5bd56c031e9d169/contracts/IColony.sol)
+  
+
 ### `addDomain.send({ permissionDomainId, childSkillIndex, parentDomainId }, options)`
 
 Add a domain to the colony.
@@ -770,15 +831,10 @@ Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a5071
 Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50719cd51459db153006b5bd56c031e9d169/contracts/IColony.sol)
   
 
-### `addGlobalSkill.send({ parentSkillId }, options)`
+### `addGlobalSkill.send(options)`
 
-Add a global skill to the skills tree. This can only be called from the Meta Colony and only by the address assigned the colony `ROOT` role.
+Add a global skill. This can only be called from the Meta Colony and only by the address assigned the colony `ROOT` role.
 
-**Input**
-
-|Name|Type|Description|
-|---|---|---|
-|parentSkillId|number|The ID of the skill under which the new skill will be added.|
 
 **Options**
 
@@ -922,7 +978,7 @@ Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tre
 Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50719cd51459db153006b5bd56c031e9d169/contracts/IRecovery.sol)
   
 
-### `bootstrapColony.send({ users, amounts }, options)`
+### `bootstrapColony.send({ addresses, amounts }, options)`
 
 Bootstrap the colony by giving an initial amount of tokens and reputation to selected addresses. This function can only be called by the address assigned the colony `ROOT` role when the `taskCount` for the colony is equal to `0`.
 
@@ -930,7 +986,7 @@ Bootstrap the colony by giving an initial amount of tokens and reputation to sel
 
 |Name|Type|Description|
 |---|---|---|
-|users|array|The array of users that will recieve an initial amount of tokens and reputation.|
+|addresses|array|The array of users that will recieve an initial amount of tokens and reputation.|
 |amounts|array|The array of corresponding token and reputation amounts each user will recieve.|
 
 **Options**
@@ -943,7 +999,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Name|Type|Description|
 |---|---|---|
-|users|array|The array of users that received an initial amount of tokens and reputation.|
+|addresses|array|The array of users that received an initial amount of tokens and reputation.|
 |amounts|array|The array of corresponding token and reputation amounts each user recieved.|
 |from|address|The address of the account that sent tokens.|
 |to|address|The address of the account that received tokens.|
@@ -1165,6 +1221,38 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50719cd51459db153006b5bd56c031e9d169/contracts/ColonyTask.sol)
   
 Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50719cd51459db153006b5bd56c031e9d169/contracts/IColony.sol)
+  
+
+### `deprecateGlobalSkill.send({ skillId }, options)`
+
+Deprecate a global skill. This can only be called from the Meta Colony and only by the address assigned the colony `ROOT` role.
+
+**Input**
+
+|Name|Type|Description|
+|---|---|---|
+|skillId|number|The ID of the skill that will be deprecated.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
+
+An instance of a `ContractResponse`.
+
+
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
+
+
+  
+  
+Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50719cd51459db153006b5bd56c031e9d169/contracts/Colony.sol)
+  
+Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50719cd51459db153006b5bd56c031e9d169/contracts/IMetaColony.sol)
   
 
 ### `enterRecoveryMode.send(options)`
@@ -1629,7 +1717,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Name|Type|Description|
 |---|---|---|
-|user|address|The address that was either assigned or unassigned the colony `ARCHITECTURE` role.|
+|address|address|The address that was either assigned or unassigned the colony `ARCHITECTURE` role.|
 |setTo|boolean|A boolean indicating whether the address was assigned or unassigned the colony `ARCHITECTURE` role.|
 |ColonyArchitectureRoleSet|object|Contains the data defined in [ColonyArchitectureRoleSet](#eventscolonyarchitectureroleset)|
 |ColonyFundingRoleSet|object|Contains the data defined in [ColonyFundingRoleSet](#eventscolonyfundingroleset)|
@@ -1670,7 +1758,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Name|Type|Description|
 |---|---|---|
-|user|address|The address that was either assigned or unassigned the colony `ADMINISTRATION` role.|
+|address|address|The address that was either assigned or unassigned the colony `ADMINISTRATION` role.|
 |setTo|boolean|A boolean indicating whether the address was assigned or unassigned the colony `ADMINISTRATION` role.|
 |ColonyAdministrationRoleSet|object|Contains the data defined in [ColonyAdministrationRoleSet](#eventscolonyadministrationroleset)|
 
@@ -1752,7 +1840,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Name|Type|Description|
 |---|---|---|
-|user|address|The address that was either assigned or unassigned the colony `ARCHITECTURE` role.|
+|address|address|The address that was either assigned or unassigned the colony `ARCHITECTURE` role.|
 |setTo|boolean|A boolean indicating whether the address was assigned or unassigned the colony `ARCHITECTURE` role.|
 |ColonyArchitectureRoleSet|object|Contains the data defined in [ColonyArchitectureRoleSet](#eventscolonyarchitectureroleset)|
 
@@ -1788,7 +1876,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Name|Type|Description|
 |---|---|---|
-|user|address|The address that was either assigned or unassigned the colony `ROOT` role.|
+|address|address|The address that was either assigned or unassigned the colony `ROOT` role.|
 |setTo|boolean|A boolean indicating whether the address was assigned or unassigned the colony `ROOT` role.|
 |ColonyRootRoleSet|object|Contains the data defined in [ColonyRootRoleSet](#eventscolonyrootroleset)|
 |ColonyArchitectureRoleSet|object|Contains the data defined in [ColonyArchitectureRoleSet](#eventscolonyarchitectureroleset)|
@@ -1830,7 +1918,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Name|Type|Description|
 |---|---|---|
-|user|address|The address that was either assigned or unassigned the colony `FUNDING` role.|
+|address|address|The address that was either assigned or unassigned the colony `FUNDING` role.|
 |setTo|boolean|A boolean indicating whether the address was assigned or unassigned the colony `FUNDING` role.|
 |ColonyFundingRoleSet|object|Contains the data defined in [ColonyFundingRoleSet](#eventscolonyfundingroleset)|
 
@@ -1913,7 +2001,7 @@ Contract: [ColonyPayment.sol](https://github.com/JoinColony/colonyNetwork/tree/8
 Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50719cd51459db153006b5bd56c031e9d169/contracts/IColony.sol)
   
 
-### `setPaymentPayout.send({ permissionDomainId, childSkillIndex, paymentId, amount }, options)`
+### `setPaymentPayout.send({ permissionDomainId, childSkillIndex, paymentId, token, amount }, options)`
 
 Set the payment payout.
 
@@ -1924,6 +2012,7 @@ Set the payment payout.
 |permissionDomainId|number|The ID of the domain in which the sender has permission.|
 |childSkillIndex|number|The index that the `domainId` is relative to the `permissionDomainId`.|
 |paymentId|number|The ID of the payment.|
+|token|address|The address of the token contract (an empty address if Ether).|
 |amount|big number|The amount of the payment.|
 
 **Options**
@@ -2018,7 +2107,7 @@ Contract: [ColonyPayment.sol](https://github.com/JoinColony/colonyNetwork/tree/8
 Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50719cd51459db153006b5bd56c031e9d169/contracts/IColony.sol)
   
 
-### `setRecoveryRole.send({ user }, options)`
+### `setRecoveryRole.send({ address }, options)`
 
 Assign the colony `RECOVERY` role to an address. This function can only be called by the colony `ROOT` role.
 
@@ -2026,7 +2115,7 @@ Assign the colony `RECOVERY` role to an address. This function can only be calle
 
 |Name|Type|Description|
 |---|---|---|
-|user|address|The address that will be assigned the colony `RECOVERY` role.|
+|address|address|The address that will be assigned the colony `RECOVERY` role.|
 
 **Options**
 
@@ -2106,7 +2195,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Name|Type|Description|
 |---|---|---|
-|user|address|The address that was either assigned or unassigned the colony `ROOT` role.|
+|address|address|The address that was either assigned or unassigned the colony `ROOT` role.|
 |setTo|boolean|A boolean indicating whether the address was assigned or unassigned the colony `ROOT` role.|
 |ColonyRootRoleSet|object|Contains the data defined in [ColonyRootRoleSet](#eventscolonyrootroleset)|
 
@@ -2310,13 +2399,13 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50
 
 ### `upgrade.send({ newVersion }, options)`
 
-Upgrade the colony to a new contract version. The new version number must be higher than the current version. Downgrading to old contract versions is not permitted.
+Upgrade the colony to a new colony contract version. The new version must be higher than the current version. Downgrading to old versions is not permitted.
 
 **Input**
 
 |Name|Type|Description|
 |---|---|---|
-|newVersion|number|The version number of the colony contract.|
+|newVersion|number|The new colony contract version that will be applied to the colony.|
 
 **Options**
 
@@ -2580,7 +2669,7 @@ Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/8
 Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50719cd51459db153006b5bd56c031e9d169/contracts/IColony.sol)
   
 
-### `setTaskEvaluatorRole.startOperation({ taskId, user })`
+### `setTaskEvaluatorRole.startOperation({ taskId, address })`
 
 Assign the task `EVALUATOR` role to an address. This function can only be called before the task is finalized. The address assigned the task `MANAGER` role and the address being assigned the task `EVALUATOR` role must both sign the transaction before it can be executed.
 
@@ -2589,7 +2678,7 @@ Assign the task `EVALUATOR` role to an address. This function can only be called
 |Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
-|user|address|The address that will be assigned the task `EVALUATOR` role.|
+|address|address|The address that will be assigned the task `EVALUATOR` role.|
 
 **Response**
 
@@ -2650,7 +2739,7 @@ Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/8
 Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50719cd51459db153006b5bd56c031e9d169/contracts/IColony.sol)
   
 
-### `setTaskManagerRole.startOperation({ taskId, user, permissionDomainId, childSkillIndex })`
+### `setTaskManagerRole.startOperation({ taskId, address, permissionDomainId, childSkillIndex })`
 
 Assign the task `MANAGER` role to an address. This function can only be called before the task is finalized. The address currently assigned the task `MANAGER` role and the address being assigned the task `MANAGER` role must both sign the transaction before it can be executed.
 
@@ -2659,7 +2748,7 @@ Assign the task `MANAGER` role to an address. This function can only be called b
 |Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
-|user|address|The address that will be assigned the task `MANAGER` role.|
+|address|address|The address that will be assigned the task `MANAGER` role.|
 |permissionDomainId|number|The ID of the domain in which the sender has permission.|
 |childSkillIndex|number|The index that the `domainId` is relative to the `permissionDomainId`.|
 
@@ -2755,7 +2844,7 @@ Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/8
 Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50719cd51459db153006b5bd56c031e9d169/contracts/IColony.sol)
   
 
-### `setTaskWorkerRole.startOperation({ taskId, user })`
+### `setTaskWorkerRole.startOperation({ taskId, address })`
 
 Assign the task `WORKER` role to an address. This function can only be called before the task is finalized. The address assigned the task `MANAGER` role and the address being assigned the task `WORKER` role must both sign the transaction before it can be executed.
 
@@ -2764,7 +2853,7 @@ Assign the task `WORKER` role to an address. This function can only be called be
 |Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
-|user|address|The address that will be assigned the task `WORKER` role.|
+|address|address|The address that will be assigned the task `WORKER` role.|
 
 **Response**
 
@@ -2797,9 +2886,9 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50
 
 **Methods**
 
-`.addListener(({ user, setTo }) => { /* ... */ })`
+`.addListener(({ address, setTo }) => { /* ... */ })`
 
-`.removeListener(({ user, setTo }) => { /* ... */ })`
+`.removeListener(({ address, setTo }) => { /* ... */ })`
 
 
 
@@ -2808,7 +2897,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50
 
 |Name|Type|Description|
 |---|---|---|
-|user|address|The address that was either assigned or unassigned the colony `ADMINISTRATION` role.|
+|address|address|The address that was either assigned or unassigned the colony `ADMINISTRATION` role.|
 |setTo|boolean|A boolean indicating whether the address was assigned or unassigned the colony `ADMINISTRATION` role.|
 
 
@@ -2816,9 +2905,9 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50
 
 **Methods**
 
-`.addListener(({ user, setTo }) => { /* ... */ })`
+`.addListener(({ address, setTo }) => { /* ... */ })`
 
-`.removeListener(({ user, setTo }) => { /* ... */ })`
+`.removeListener(({ address, setTo }) => { /* ... */ })`
 
 
 
@@ -2827,7 +2916,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50
 
 |Name|Type|Description|
 |---|---|---|
-|user|address|The address that was either assigned or unassigned the colony `ARCHITECTURE` role.|
+|address|address|The address that was either assigned or unassigned the colony `ARCHITECTURE` role.|
 |setTo|boolean|A boolean indicating whether the address was assigned or unassigned the colony `ARCHITECTURE` role.|
 
 
@@ -2835,9 +2924,9 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50
 
 **Methods**
 
-`.addListener(({ users, amounts }) => { /* ... */ })`
+`.addListener(({ addresses, amounts }) => { /* ... */ })`
 
-`.removeListener(({ users, amounts }) => { /* ... */ })`
+`.removeListener(({ addresses, amounts }) => { /* ... */ })`
 
 
 
@@ -2846,7 +2935,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50
 
 |Name|Type|Description|
 |---|---|---|
-|users|array|The array of users that received an initial amount of tokens and reputation.|
+|addresses|array|The array of users that received an initial amount of tokens and reputation.|
 |amounts|array|The array of corresponding token and reputation amounts each user recieved.|
 
 
@@ -2854,9 +2943,9 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50
 
 **Methods**
 
-`.addListener(({ user, setTo }) => { /* ... */ })`
+`.addListener(({ address, setTo }) => { /* ... */ })`
 
-`.removeListener(({ user, setTo }) => { /* ... */ })`
+`.removeListener(({ address, setTo }) => { /* ... */ })`
 
 
 
@@ -2865,7 +2954,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50
 
 |Name|Type|Description|
 |---|---|---|
-|user|address|The address that was either assigned or unassigned the colony `FUNDING` role.|
+|address|address|The address that was either assigned or unassigned the colony `FUNDING` role.|
 |setTo|boolean|A boolean indicating whether the address was assigned or unassigned the colony `FUNDING` role.|
 
 
@@ -2970,9 +3059,9 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50
 
 **Methods**
 
-`.addListener(({ user, setTo }) => { /* ... */ })`
+`.addListener(({ address, setTo }) => { /* ... */ })`
 
-`.removeListener(({ user, setTo }) => { /* ... */ })`
+`.removeListener(({ address, setTo }) => { /* ... */ })`
 
 
 
@@ -2981,7 +3070,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50
 
 |Name|Type|Description|
 |---|---|---|
-|user|address|The address that was either assigned or unassigned the colony `ROOT` role.|
+|address|address|The address that was either assigned or unassigned the colony `ROOT` role.|
 |setTo|boolean|A boolean indicating whether the address was assigned or unassigned the colony `ROOT` role.|
 
 
@@ -3002,6 +3091,25 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/8d3a50
 |---|---|---|
 |oldVersion|number|The old version number of the colony.|
 |newVersion|number|The new version number of the colony.|
+
+
+### `events.ColonyVersionAdded`
+
+**Methods**
+
+`.addListener(({ version, resolver }) => { /* ... */ })`
+
+`.removeListener(({ version, resolver }) => { /* ... */ })`
+
+
+
+
+**Event Data**
+
+|Name|Type|Description|
+|---|---|---|
+|version|number|The colony contract version that was added.|
+|resolver|address|The address of the `Resolver` contract which will be used with the underlying `EtherRouter` contract.|
 
 
 ### `events.DomainAdded`
