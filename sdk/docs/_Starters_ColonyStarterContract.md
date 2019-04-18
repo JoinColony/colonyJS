@@ -1,4 +1,8 @@
-# colony-starter-contract
+---
+title: colony-starter-contract
+section: Starters
+order: 4
+---
 
 _A boilerplate to start building extension contracts alongside [colonyNetwork](https://github.com/JoinColony/colonyNetwork)!_
 
@@ -10,45 +14,23 @@ _A boilerplate to start building extension contracts alongside [colonyNetwork](h
 
 _You may find it helpful to use Node Version Manager (`nvm`) to manage Node versions._
 
-_If you are using Linux, check out [Linux Setup](/.github/LINUX_SETUP.md) to ensure Yarn and Docker are set up accordingly._
+_If you are using Linux, check out [Linux Setup](/docs-linux-setup/) to ensure Yarn and Docker are set up accordingly._
 
 ## Installation
 
-### Step 1
-
-Globally install the [colony-cli](/packages/colony-cli) package:
+Globally install the [colony-cli](/cli-colony-cli) package.
 
 ```
 yarn global add @colony/colony-cli
 ```
 
-### Step 2
-
-Move to your working directory and unpack the [colony-starter](/packages/colony-starter) package:
+Install the `colony-starter-contract` package.
 
 ```
 colony build colony-starter-contract
 ```
 
-### Step 3
-
-Move to your new project directory and follow the instructions below:
-
-```
-cd colony-starter-contract
-```
-
-### Using NPX
-
-Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and unpack the [colony-starter-contract](/packages/colony-starter-contract) package without installing the [colony-cli](/packages/colony-cli) package.
-
-Pull down the docker image:
-
-```
-docker pull ethereum/solc:0.4.23
-```
-
-Build the colonyStarter package using `npx`:
+Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and kickstart the `colony-starter-contract` package in one line without having to globally add the [colony-cli](/cli-colony-cli) package:
 
 ```
 npx -p @colony/colony-cli colony build colony-starter-contract
