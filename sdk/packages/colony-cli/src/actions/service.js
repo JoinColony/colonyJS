@@ -127,6 +127,25 @@ const service = async (commander, serviceName) => {
       }
     );
 
+  } else if (serviceName === 'truffle') {
+
+    const rawArgs = commander.args[1].parent.rawArgs;
+    const truffleIndex = rawArgs.findIndex(arg => arg === 'truffle');
+    const truffleArgs = rawArgs.splice(truffleIndex + 1);
+
+    // Log step
+    console.log();
+    console.log('  Running truffle command...');
+    console.log();
+
+    // Run truffle command
+    cp.execSync(
+      `${colonyNetworkPath}/node_modules/.bin/truffle ${truffleArgs.join(' ')}`,
+      {
+        stdio: 'inherit',
+      },
+    );
+
   } else {
 
     // Log error
