@@ -56,7 +56,7 @@ npx -p @colony/colony-cli colony build colony-starter-contract
 
 ## Development
 
-### Start Network
+### Start Ganache
 
 Open a new terminal window and start [Ganache](https://github.com/trufflesuite/ganache-cli):
 
@@ -66,15 +66,31 @@ yarn start-ganache
 
 ### Deploy Contracts
 
-Open a new terminal window and deploy the [colonyNetwork](https://github.com/JoinColony/colonyNetwork) contracts alongside the contracts that have been written written within this project:
+Open a new terminal window and deploy the [colonyNetwork](https://github.com/JoinColony/colonyNetwork) contracts:
 
 ```
 yarn deploy-contracts
 ```
 
-### Test Contracts
+### Truffle Compile
 
-Test the contracts that have been written written within this project:
+Compile the starter contracts using the `truffle` service command:
+
+```
+yarn compile
+```
+
+### Truffle Migrate
+
+Migrate the starter contracts using the `truffle` service command:
+
+```
+yarn migrate
+```
+
+### Truffle Test
+
+Test the starter contracts using the `truffle` service command:
 
 ```
 yarn test
