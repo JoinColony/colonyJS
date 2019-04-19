@@ -1,5 +1,5 @@
-var SampleContract = artifacts.require("./SampleContract.sol");
+var ColonyExtended = artifacts.require("./ColonyExtended.sol");
 
 module.exports = function(deployer) {
-  deployer.deploy(SampleContract);
+  deployer.deploy(ColonyExtended);
 };

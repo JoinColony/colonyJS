@@ -1,4 +1,5 @@
 pragma solidity >=0.4.23 <0.5.0;
+pragma experimental ABIEncoderV2;
 
 contract Migrations {
 
@@ -13,7 +14,6 @@ contract Migrations {
     owner = msg.sender;
   }
 
-  // A function with the signature `setCompleted(uint)` is required.
   function setCompleted(uint completed) restricted public {
     last_completed_migration = completed;
   }
@@ -22,4 +22,5 @@ contract Migrations {
     Migrations upgraded = Migrations(new_address);
     upgraded.setCompleted(last_completed_migration);
   }
+
 }
