@@ -68,8 +68,14 @@ Seed the network with global skills:
 colony service seed-network
 ```
 
+Create a test colony:
+
+```
+colony service colony-setup
+```
+
 Run [Truffle](https://github.com/trufflesuite/truffle) commands:
 
 ```
-colony service truffle [compile/migrate/test]
+colony service truffle [develop/compile/migrate/test]
 ```

@@ -127,6 +127,21 @@ const service = async (commander, serviceName) => {
       }
     );
 
+  } else if (serviceName === 'colony-setup') {
+
+    // Log step
+    console.log();
+    console.log('  Starting colony setup...');
+    console.log();
+
+    // Start colony setup
+    cp.execSync(
+      `node ${scriptsPath}/colonySetup`,
+      {
+        stdio: 'inherit',
+      },
+    );
+
   } else if (serviceName === 'truffle') {
 
     const rawArgs = commander.args[1].parent.rawArgs;
