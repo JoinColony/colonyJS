@@ -47,6 +47,10 @@ jobs:
           background: true
 
       - run:
+          name: "Colony Setup"
+          command: yarn colony-setup
+
+      - run:
           name: "Test Packages"
           command: |
             $HOME/.config/yarn/global/node_modules/.bin/greenkeeper-lockfile-update
