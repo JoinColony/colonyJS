@@ -1,4 +1,4 @@
-pragma solidity >=0.4.23 <0.5.0;
+pragma solidity >=0.4.24;
 pragma experimental ABIEncoderV2;
 
 import "truffle/Assert.sol";
@@ -8,8 +8,11 @@ contract TestColonyExtended {
 
   function testColonyExtended() public {
 
+    // The address of the first colony created from `yarn colony-setup`
+    address colonyAddress = 0xEc46E0d7208FF021CDb5B9D47196adb8bbe07a3D;
+
     // Create an instance of the extension contract
-    ColonyExtended colonyExtended = new ColonyExtended(address(0));
+    ColonyExtended colonyExtended = new ColonyExtended(colonyAddress);
 
     // Get the initial colony hash value
     bytes32 initialHash = colonyExtended.getColonyHash();

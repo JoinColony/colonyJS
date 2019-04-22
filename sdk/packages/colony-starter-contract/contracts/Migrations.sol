@@ -1,4 +1,4 @@
-pragma solidity >=0.4.23 <0.5.0;
+pragma solidity >=0.4.24;
 pragma experimental ABIEncoderV2;
 
 contract Migrations {

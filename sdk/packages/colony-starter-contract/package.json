@@ -16,10 +16,10 @@
   "scripts": {
     "start-ganache": "colony service start-ganache",
     "deploy-contracts": "colony service deploy-contracts",
-    "develop": "colony service truffle develop",
-    "compile": "colony service truffle compile",
-    "migrate": "colony service truffle migrate",
-    "test": "colony service truffle test"
+    "start-trufflepig": "colony service start-trufflepig",
+    "colony-setup": "colony service colony-setup",
+    "truffle": "colony service truffle",
+    "test": "colony-setup && truffle test"
   },
   "dependencies": {
     "@colony/colony-cli": "1.0.0-beta.3"

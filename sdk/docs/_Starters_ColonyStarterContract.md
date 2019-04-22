@@ -54,28 +54,28 @@ Open a new terminal window and deploy the [colonyNetwork](https://github.com/Joi
 yarn deploy-contracts
 ```
 
-### Truffle Compile
+### Start TrufflePig
 
-Compile the starter contracts using the `truffle` service command:
-
-```
-yarn compile
-```
-
-### Truffle Migrate
-
-Migrate the starter contracts using the `truffle` service command:
+Once the contracts have been deployed, start [TrufflePig](https://github.com/JoinColony/trufflepig):
 
 ```
-yarn migrate
+yarn start-trufflepig
 ```
 
-### Truffle Test
+### Colony Setup
 
-Test the starter contracts using the `truffle` service command:
+Open a new terminal window and create a test colony:
 
 ```
-yarn test
+yarn colony-setup
+```
+
+### Truffle Commands
+
+Run `truffle` commands using [colony-cli](https://github.com/JoinColony/colonyStarter/tree/master/packages/colony-cli):
+
+```
+yarn truffle [develop/compile/migrate/test]
 ```
 
 ## Contract Versions
