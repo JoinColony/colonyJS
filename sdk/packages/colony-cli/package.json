@@ -10,9 +10,6 @@
     "colony": "src/index.js",
     "trufflepig": "node_modules/.bin/trufflepig"
   },
-  "scripts": {
-    "postinstall": "sh scripts/postinstall.sh"
-  },
   "dependencies": {
     "@colony/colony-js-client": "^1.11.2",
     "@colony/purser-software": "^1.2.4",

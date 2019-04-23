@@ -11,24 +11,9 @@ log() {
 log "Checking ssh connection..."
 ssh -T git@github.com
 
-# Check for specified version
-if [ $1 ]; then
-
-  # Set colonyNework to specified version
-  log "Checking out specified colonyNetwork version..."
-  git -c advice.detachedHead=false checkout $1
-
-else
-
-  # Set colonyNework to default version
-  log "Checking out default colonyNetwork version..."
-  git -c advice.detachedHead=false checkout 543423abb133119a4029ac2adcc8cebb16a8c6d9
-
-fi
-
-# Install colonyNetwork dependencies
-log "Installing colonyNetwork dependencies..."
-yarn
+# Pull docker image
+log "Pulling docker image..."
+docker pull ethereum/solc:0.4.23
 
 # Update colonyNetwork submodules
 log "Updating colonyNetwork submodules..."
