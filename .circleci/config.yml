@@ -51,6 +51,10 @@ jobs:
           background: true
 
       - run:
+          name: "Wait for Trufflepig"
+          command: dockerize -wait tcp://localhost:3030 -timeout 1m
+
+      - run:
           name: "Seed Network"
           command: yarn seed-network
 
