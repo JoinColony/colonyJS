@@ -1,43 +1,134 @@
 // Import dependencies
 const chalk = require('chalk');
 const cp = require('child_process');
+const fs = require('fs-extra');
 const path = require('path');
+
+// Set services
+const services = [
+  'start-ganache',
+  'deploy-contracts',
+  'start-trufflepig',
+  'seed-network',
+  'colony-setup',
+  'truffle',
+];
 
 // Run a local development service script
 const service = async (commander, serviceName) => {
 
   // Log step
-  console.log();
-  console.log(`  Starting ${chalk.cyan('service')} action...`);
+  console.log(chalk.cyan('Starting service command...'));
 
-  // Set path to service scripts directory
-  const rootPath = path.join(__dirname, '../../');
-
-  // Set path to service scripts directory
-  const scriptsPath = path.join(__dirname, '../services');
-
-  // Set path to colonyNetwork directory
-  const colonyNetworkPath = path.join(__dirname, '../../lib/colonyNetwork');
+  // Log message
+  console.log(`
+  Thank you for trying the colony-cli service command. This feature is still
+  in beta so please report any issues so that we can get them fixed.
+  `);
 
   // Make sure service name is defined
   if (typeof serviceName === 'undefined') {
 
     // Log error
-    console.log();
-    console.log('The name of the service is required:');
-    console.log();
-    console.log(`  colony service ${chalk.cyan('<service-name>')}`);
+    console.log(chalk.red(`ERROR: The name of the service is required.`));
     console.log();
 
     // Exit on error
     process.exit(1);
+
+  } else if (!services.includes(serviceName)) {
+
+    // Log error
+    console.log(chalk.red(`ERROR: "${serviceName}" is not a valid service.`));
+    console.log();
+
+    // Exit on error
+    process.exit(1);
+
   }
 
+  // Set directory and file paths
+  const rootPath = path.join(__dirname, '../../');
+  const libPath = path.join(rootPath, 'lib');
+  const scriptsPath = path.join(__dirname, '../scripts');
+  const colonyNetworkPath = path.join(libPath, 'colonyNetwork');
+  const colonyNetworkLockfile = path.join(colonyNetworkPath, 'yarn.lock');
+
+  // Log step
+  console.log(chalk.cyan('Checking colonyNetwork setup...'));
+
+  // Check if colonyNetwork lock file exists
+  if (!fs.existsSync(colonyNetworkLockfile)) {
+
+    // Log message
+    console.log(`
+  It looks like this is the first time you are running a service command
+  with a fresh install of the colony-cli package. The first time you run
+  a service command, colony-cli will clone and install the colonyNetwork
+  repository within the colony-cli package. This might take awhile!
+    `);
+
+    // Ensure lib path exists
+    fs.ensureDirSync(libPath);
+
+    // Check if failed installation exists
+    if (fs.existsSync(colonyNetworkPath)) {
+
+      // Remove failed installation
+      fs.removeSync(colonyNetworkPath);
+
+    }
+
+    // Check specific
+    if (commander.specific) {
+
+      // Install colonyNetwork using specific version
+      cp.execSync(
+        `sh ${scriptsPath}/network_install.sh ${commander.specific}`,
+        {
+          cwd: libPath,
+          stdio: 'inherit',
+        },
+      );
+
+    } else {
+
+      // Install colonyNetwork using the default version
+      cp.execSync(
+        `sh ${scriptsPath}/network_install.sh`,
+        {
+          cwd: libPath,
+          stdio: 'inherit',
+        },
+      );
+    }
+
+  } else if (commander.specific) {
+
+    // Update colonyNetwork using specific version
+    cp.execSync(
+      `sh ${scriptsPath}/network_update.sh ${commander.specific}`,
+      {
+        cwd: colonyNetworkPath,
+        stdio: 'inherit',
+      },
+    );
+
+  } else {
+
+    const version = fs.readFileSync(path.join(colonyNetworkPath, '.git/HEAD'));
+
+    // Log version
+    console.log();
+    console.log(`  Using colonyNetwork version ${version}`);
+
+  }
+
+  // Check service name and run service
   if (serviceName === 'start-ganache') {
 
     // Log step
-    console.log();
-    console.log('  Starting local test network...');
+    console.log(chalk.cyan('Starting Ganache...'));
     console.log();
 
     // Check for noVMErrorsOnRPCResponse flag
@@ -67,55 +158,19 @@ const service = async (commander, serviceName) => {
 
   } else if (serviceName === 'deploy-contracts') {
 
-    // Log step
-    console.log();
-    console.log('  Starting deployment process...');
-    console.log();
-
-    // Check specific
-    if (commander.specific) {
-
-      // Start deployment process using specific version
-      cp.execSync(
-        `sh ${scriptsPath}/deploy_contracts.sh ${commander.specific}`,
-        {
-          cwd: colonyNetworkPath,
-          stdio: 'inherit',
-        },
-      );
-
-    } else {
-
-      // Start deployment process
-      cp.execSync(
-        `sh ${scriptsPath}/deploy_contracts.sh`,
-        {
-          cwd: colonyNetworkPath,
-          stdio: 'inherit',
-        }
-      );
-    }
-
-  } else if (serviceName === 'seed-network') {
-
-    // Log step
-    console.log();
-    console.log('  Starting seed network process...');
-    console.log();
-
-    // Seed network
+    // Start deployment process
     cp.execSync(
-      `node ${scriptsPath}/seed_network.js`,
+      `sh ${scriptsPath}/deploy_contracts.sh`,
       {
+        cwd: colonyNetworkPath,
         stdio: 'inherit',
-      },
+      }
     );
 
   } else if (serviceName === 'start-trufflepig') {
 
     // Log step
-    console.log();
-    console.log('  Starting trufflepig...');
+    console.log(chalk.cyan('Starting trufflepig...'));
     console.log();
 
     // Start trufflepig
@@ -127,11 +182,24 @@ const service = async (commander, serviceName) => {
       }
     );
 
+  } else if (serviceName === 'seed-network') {
+
+    // Log step
+    console.log(chalk.cyan('Starting seed network...'));
+    console.log();
+
+    // Seed network
+    cp.execSync(
+      `node ${scriptsPath}/seed_network.js`,
+      {
+        stdio: 'inherit',
+      },
+    );
+
   } else if (serviceName === 'colony-setup') {
 
     // Log step
-    console.log();
-    console.log('  Starting colony setup...');
+    console.log(chalk.cyan('Starting colony setup...'));
     console.log();
 
     // Start colony setup
@@ -149,8 +217,7 @@ const service = async (commander, serviceName) => {
     const truffleArgs = rawArgs.splice(truffleIndex + 1);
 
     // Log step
-    console.log();
-    console.log('  Running truffle command...');
+    console.log(chalk.cyan('Running truffle command...'));
     console.log();
 
     // Run truffle command
@@ -160,16 +227,6 @@ const service = async (commander, serviceName) => {
         stdio: 'inherit',
       },
     );
-
-  } else {
-
-    // Log error
-    console.log();
-    console.log(chalk.red('  The service you provided does not exist.'));
-    console.log();
-
-    // Exit on error
-    process.exit(1);
 
   }
 
