@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 // Import dependencies
+const chalk = require('chalk');
 const commander = require('commander');
 
 // Import package configuration

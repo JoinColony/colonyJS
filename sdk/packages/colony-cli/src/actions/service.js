@@ -30,7 +30,7 @@ const service = async (commander, serviceName) => {
   if (typeof serviceName === 'undefined') {
 
     // Log error
-    console.log(chalk.red(`ERROR: The name of the service is required.`));
+    console.log(chalk.red('  ERROR: The name of the service is required.'));
     console.log();
 
     // Exit on error
@@ -39,7 +39,7 @@ const service = async (commander, serviceName) => {
   } else if (!services.includes(serviceName)) {
 
     // Log error
-    console.log(chalk.red(`ERROR: "${serviceName}" is not a valid service.`));
+    console.log(chalk.red(`  ERROR: "${serviceName}" is not a valid service.`));
     console.log();
 
     // Exit on error

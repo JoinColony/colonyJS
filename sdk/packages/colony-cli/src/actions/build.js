@@ -10,38 +10,69 @@ const tmp = require('tmp');
 const tarPack = require('tar-pack');
 const url = require('url');
 
+// Set packages
+const packages = [
+  'colony-example',
+  'colony-example-angular',
+  'colony-example-react',
+  'colony-starter',
+  'colony-starter-angular',
+  'colony-starter-contract',
+  'colony-starter-react',
+];
+
 // Install and build a starter package
 const build = async (commander, packageName) => {
 
   // Log step
-  console.log();
-  console.log(`  Starting ${chalk.cyan('build')} action...`);
+  console.log(chalk.cyan('Starting build command...'));
+
+  // Log message
+  console.log(`
+  Thank you for trying the colony-cli build command. This feature is still
+  in beta so please report any issues so that we can get them fixed.
+  `);
 
   // Make sure package name is defined
   if (typeof packageName === 'undefined') {
+
+    // Log error
+    console.log(chalk.red('  ERROR: The name of the package is required.'));
     console.log();
-    console.log('The name of the package is required:');
-    console.log();
-    console.log(`  colony build ${chalk.cyan('<package-name>')}`);
-    console.log();
+
+    // Exit on error
     process.exit(1);
+
+  } else if (!packages.includes(packageName)) {
+
+    // Log error
+    console.log(chalk.red(`  ERROR: "${packageName}" is not a valid package.`));
+    console.log();
+
+    // Exit on error
+    process.exit(1);
+
   }
 
   // Log step
-  console.log();
-  console.log(`  Verifying ${chalk.cyan('yarn')} is installed...`);
+  console.log(chalk.cyan('Verifying yarn is installed...'));
 
-  // Make sure yarn is installed
+  // Check if yarn is installed
   if (!isYarnInstalled()) {
+
+    // Log error
     console.log();
-    console.log(chalk.red('  Yarn must be installed!'));
+    console.log(chalk.red('  ERROR: Yarn must be installed!'));
     console.log();
+
+    // Exit on error
     process.exit(1);
+
   }
 
   // Log step
   console.log();
-  console.log(`  Creating ${chalk.cyan(packageName)} directory...`);
+  console.log(`Creating ${chalk.cyan(packageName)} directory...`);
 
   // Set destination path
   const destinationPath = path.resolve(packageName);
@@ -51,10 +82,15 @@ const build = async (commander, packageName) => {
 
   // Ensure destination directory is empty
   if (fs.readdirSync(destinationPath).length > 0) {
+
+    // Log error
     console.log();
-    console.log(chalk.red(`  The ${packageName} directory must be empty!`));
+    console.log(chalk.red(`  ERROR: The ${packageName} directory must be empty!`));
     console.log();
+
+    // Exit on error
     process.exit(1);
+
   }
 
   // Move to destination
@@ -68,7 +104,7 @@ const build = async (commander, packageName) => {
 
   // Log step
   console.log();
-  console.log(`  Preparing to install ${chalk.cyan(specificPackage)}...`);
+  console.log(`Preparing to install ${chalk.cyan(specificPackage)}...`);
 
   // Set tarball
   const tarball = {};
@@ -119,7 +155,7 @@ const build = async (commander, packageName) => {
 
   // Log step
   console.log();
-  console.log(`  Installing ${chalk.cyan(specificPackage)}...`);
+  console.log(`Installing ${chalk.cyan(specificPackage)}...`);
   console.log();
 
   // Install the package
@@ -131,7 +167,7 @@ const build = async (commander, packageName) => {
 
   // Log step
   console.log();
-  console.log(`  Initializing ${chalk.cyan(packageName)}...`);
+  console.log(`Initializing ${chalk.cyan(packageName)}...`);
   console.log();
 
   // Initialize git
@@ -148,35 +184,8 @@ const build = async (commander, packageName) => {
 
   // Log step
   console.log();
-  console.log(`  Success! Created ${chalk.cyan(packageName)} at ${chalk.cyan(destinationPath)}`);
+  console.log(`Success! Created ${chalk.cyan(packageName)} at ${chalk.cyan(destinationPath)}`);
   console.log();
-
-}
-
-// Exit with error
-const handleError = (reason) => {
-
-  // Log error
-  console.log();
-  console.log(chalk.red('  Aborting installation. Please report an issue.'));
-  console.log();
-
-  if (reason.command) {
-
-    // Log error
-    console.log(chalk.red(`  Failed to execute ${reason.command}`));
-    console.log();
-
-  } else {
-
-    // Log error
-    console.log(chalk.red(`  ${reason}`));
-    console.log();
-
-  }
-
-  // Exit on error
-  process.exit(1);
 
 }
 
@@ -294,7 +303,7 @@ const getPackageTarball = (specificPackage, destinationPath) => {
 
     // Log error
     console.log();
-    console.log(chalk.red(`  Unable to locate ${specificPackage} on npm`));
+    console.log(chalk.red(`  ERROR: Unable to locate ${specificPackage} on npm.`));
     console.log();
 
     // Exit on error
