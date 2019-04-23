@@ -103,6 +103,13 @@ export default class ContractMethodMultisigSender<
   }
 
   /**
+   * Given arguments and options for a multisig function, call it.
+   */
+  async callMultisig(args: Array<any>) {
+    return this._call(args);
+  }
+
+  /**
    * Given arguments and options for a multisig function, send a transaction.
    */
   async sendMultisig(args: Array<any>, options: SendOptions) {

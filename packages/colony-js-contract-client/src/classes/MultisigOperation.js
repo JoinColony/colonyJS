@@ -244,6 +244,16 @@ export default class MultisigOperation<
   }
 
   /**
+   * Ensure that the necessary signees have signed the operation, then get the
+   * arguments and call the function.
+   */
+  async call() {
+    await this.refresh();
+    this._validateRequiredSignees();
+    return this.sender.callMultisig(this._getArgs());
+  }
+
+  /**
    * Given send options, ensure that the necessary signees have signed the
    * operation, then get the arguments and send the transaction.
    */

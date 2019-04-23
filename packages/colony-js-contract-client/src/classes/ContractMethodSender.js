@@ -9,7 +9,7 @@ import type {
 } from '@colony/colony-js-adapter';
 
 import ContractClient from './ContractClient';
-import ContractMethod from './ContractMethod';
+import ContractMethodCaller from './ContractMethodCaller';
 import type {
   ContractResponse,
   ContractMethodArgs,
@@ -21,7 +21,7 @@ export default class ContractMethodSender<
   OutputValues: { [outputValueName: string]: any },
   IContractClient: ContractClient,
   ContractData: { [dataValueName: string]: any },
-> extends ContractMethod<
+> extends ContractMethodCaller<
   InputValues,
   OutputValues,
   IContractClient,

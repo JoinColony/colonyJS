@@ -55,13 +55,17 @@ export default class ContractMethodCaller<
     return true;
   }
 
+  async _call(args: Array<any>) {
+    return this.client.call(this.functionName, args);
+  }
+
   /**
    * Given named input values, perform a call on the method's
    * contract function, and get named output values from the result.
    */
   async call(inputValues?: InputValues) {
     const args = this.getValidatedArgs(inputValues);
-    const callResult = await this.client.call(this.functionName, args);
+    const callResult = await this._call(args);
     const outputValues = this.convertOutputValues(callResult, inputValues);
 
     if (this.constructor.containsNullValues(outputValues))
