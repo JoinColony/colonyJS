@@ -38,6 +38,10 @@ jobs:
           background: true
 
       - run:
+          name: "Wait for Ganache"
+          command: dockerize -wait tcp://localhost:8545 -timeout 1m
+
+      - run:
           name: "Deploy Contracts"
           command: yarn deploy-contracts
 
