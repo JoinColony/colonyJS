@@ -6,26 +6,6 @@ const cp = require('child_process');
 const fs = require('fs-extra');
 const path = require('path');
 
-// Exit without error
-const handleExit = () => {
-  console.log(chalk.cyan('  Exiting without error...'));
-  console.log();
-  process.exit();
-};
-
-// Exit with error
-const handleError = (error) => {
-  console.error(error);
-  console.log();
-  console.log(chalk.red('  Exiting with error...'));
-  console.log();
-  process.exit(1);
-};
-
-// Handle cancel and exceptions
-process.on('SIGINT', handleExit);
-process.on('uncaughtException', handleError);
-
 // Define root and starter script path
 const rootPath = path.join(__dirname, '..');
 const cliPath = path.join(rootPath, 'packages', 'colony-cli');
@@ -106,6 +86,3 @@ if (scriptAction === 'build') {
   process.exit(1);
 
 }
-
-// Exit script
-handleExit();
