@@ -19,7 +19,7 @@
     "start-trufflepig": "colony service start-trufflepig",
     "colony-setup": "colony service colony-setup",
     "truffle": "colony service truffle",
-    "test": "colony-setup && truffle test"
+    "test": "colony service truffle test"
   },
   "dependencies": {
     "@colony/colony-cli": "1.0.0-beta.3"
