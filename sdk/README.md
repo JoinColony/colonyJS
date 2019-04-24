@@ -83,6 +83,10 @@ Check out some of the other starter packages by repeating steps 2 and 3 and subs
 
 - A boilerplate using [colonyJS](https://github.com/JoinColony/colonyJS) with Angular.
 
+[colony-starter-contract](/packages/colony-starter-contract)
+
+- A boilerplate to start building extension contracts alongside [colonyNetwork](https://github.com/JoinColony/colonyNetwork).
+
 ### Example Packages
 
 We also have a couple example packages that you can unpack using the same `build` command. If you are uncertain how to do something, it might be helpful to use one of these packages as a reference.
