@@ -21,7 +21,7 @@
     "colony-setup": "node scripts/colonySetup.js",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng lint && ng test"
+    "test": "ng lint && ng test --progress=false"
   },
   "dependencies": {
     "@angular/animations": "~7.2.0",

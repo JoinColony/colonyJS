@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 // Import dependencies
+const chalk = require('chalk');
 const commander = require('commander');
 
 // Import package configuration
@@ -9,6 +10,26 @@ const package = require('../package.json');
 // Import commander actions
 const build = require('./actions/build');
 const service = require('./actions/service');
+
+// Exit without error
+const handleExit = () => {
+  console.log(chalk.cyan('  Exiting without error...'));
+  console.log();
+  process.exit();
+};
+
+// Exit with error
+const handleError = (error) => {
+  console.error(error);
+  console.log();
+  console.log(chalk.red('  Exiting with error...'));
+  console.log();
+  process.exit(1);
+};
+
+// Handle cancel and exceptions
+process.on('SIGINT', handleExit);
+process.on('uncaughtException', handleError);
 
 commander
   .version(package.version)

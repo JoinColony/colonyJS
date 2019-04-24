@@ -6,26 +6,6 @@ const cp = require('child_process');
 const fs = require('fs-extra');
 const path = require('path');
 
-// Exit without error
-const handleExit = () => {
-  console.log(chalk.cyan('  Exiting without error...'));
-  console.log();
-  process.exit();
-};
-
-// Exit with error
-const handleError = (error) => {
-  console.error(error);
-  console.log();
-  console.log(chalk.red('  Exiting with error...'));
-  console.log();
-  process.exit(1);
-};
-
-// Handle cancel and exceptions
-process.on('SIGINT', handleExit);
-process.on('uncaughtException', handleError);
-
 // Define root and starter script path
 const rootPath = path.join(__dirname, '..');
 const cliPath = path.join(rootPath, 'packages', 'colony-cli');
@@ -40,8 +20,9 @@ const scriptArguments = process.argv.slice(2).join(' ');
 // Check starter script action
 if (scriptAction === 'build') {
 
+  // Log step
   console.log();
-  console.log('  Starting local build...');
+  console.log(chalk.cyan('Starting local build...'));
   console.log();
 
   // Set package name
@@ -55,10 +36,14 @@ if (scriptAction === 'build') {
 
   // Check if package exists
   if (!fs.existsSync(packageJSON)) {
+
+    // Log error
+    console.log(chalk.red('ERROR: Unable to locate the requested package!'));
     console.log();
-    console.log(chalk.red('  Unable to locate the requested package!'));
-    console.log();
+
+    // Exit on error
     process.exit(1);
+
   }
 
   // Ensure build path exists
@@ -69,6 +54,9 @@ if (scriptAction === 'build') {
     .execSync(`npm pack`, { cwd: packagePath })
     .toString()
     .trim();
+
+  // Log space
+  console.log();
 
   // Pack path
   const packPath = path.join(buildPath, packName);
@@ -100,12 +88,11 @@ if (scriptAction === 'build') {
 
 } else {
 
+  // Log error
+  console.log(chalk.red('ERROR: The action you provided does not exist!'));
   console.log();
-  console.log(chalk.red('  The action you provided does not exist!'));
-  console.log();
+
+  // Exit on error
   process.exit(1);
 
 }
-
-// Exit script
-handleExit();

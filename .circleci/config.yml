@@ -38,6 +38,10 @@ jobs:
           background: true
 
       - run:
+          name: "Wait for Ganache"
+          command: dockerize -wait tcp://localhost:8545 -timeout 1m
+
+      - run:
           name: "Deploy Contracts"
           command: yarn deploy-contracts
 
@@ -45,6 +49,14 @@ jobs:
           name: "Start Trufflepig"
           command: yarn start-trufflepig
           background: true
+
+      - run:
+          name: "Wait for Trufflepig"
+          command: dockerize -wait tcp://localhost:3030 -timeout 1m
+
+      - run:
+          name: "Seed Network"
+          command: yarn seed-network
 
       - run:
           name: "Colony Setup"

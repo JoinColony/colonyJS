@@ -42,14 +42,6 @@ cd colony-starter-react
 
 Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and unpack the [colony-starter-react](/packages/colony-starter-react) package without installing the [colony-cli](/packages/colony-cli) package.
 
-Pull down the docker image:
-
-```
-docker pull ethereum/solc:0.4.23
-```
-
-Build the colonyStarter package using `npx`:
-
 ```
 npx -p @colony/colony-cli colony build colony-starter-react
 ```
