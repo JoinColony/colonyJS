@@ -22,6 +22,6 @@
     "test": "colony service truffle test"
   },
   "dependencies": {
-    "@colony/colony-cli": "1.0.0-beta.3"
+    "@colony/colony-cli": "1.0.0-beta.4"
   }
 }
