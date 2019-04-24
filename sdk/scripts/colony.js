@@ -20,8 +20,9 @@ const scriptArguments = process.argv.slice(2).join(' ');
 // Check starter script action
 if (scriptAction === 'build') {
 
+  // Log step
   console.log();
-  console.log('  Starting local build...');
+  console.log(chalk.cyan('Starting local build...'));
   console.log();
 
   // Set package name
@@ -35,10 +36,14 @@ if (scriptAction === 'build') {
 
   // Check if package exists
   if (!fs.existsSync(packageJSON)) {
+
+    // Log error
+    console.log(chalk.red('ERROR: Unable to locate the requested package!'));
     console.log();
-    console.log(chalk.red('  Unable to locate the requested package!'));
-    console.log();
+
+    // Exit on error
     process.exit(1);
+
   }
 
   // Ensure build path exists
@@ -49,6 +54,9 @@ if (scriptAction === 'build') {
     .execSync(`npm pack`, { cwd: packagePath })
     .toString()
     .trim();
+
+  // Log space
+  console.log();
 
   // Pack path
   const packPath = path.join(buildPath, packName);
@@ -80,9 +88,11 @@ if (scriptAction === 'build') {
 
 } else {
 
+  // Log error
+  console.log(chalk.red('ERROR: The action you provided does not exist!'));
   console.log();
-  console.log(chalk.red('  The action you provided does not exist!'));
-  console.log();
+
+  // Exit on error
   process.exit(1);
 
 }
