@@ -21,12 +21,15 @@ import AddPayment from './senders/AddPayment';
 import AddTask from './senders/AddTask';
 import MakePayment from './senders/MakePayment';
 import RemoveExtension from './senders/RemoveExtension';
+// eslint-disable-next-line no-unused-vars
+import DomainAuth from './senders/DomainAuth';
 import SetAdminRole from './senders/SetAdminRole';
 import SetFounderRole from './senders/SetFounderRole';
 import addRecoveryMethods from '../addRecoveryMethods';
 
 import {
   COLONY_ROLE_ARCHITECTURE,
+  COLONY_ROLE_FUNDING,
   COLONY_ROLES,
   DEFAULT_DOMAIN_ID,
   FUNDING_POT_TYPES,
@@ -303,8 +306,6 @@ export default class ColonyClient extends ContractClient {
   */
   addPayment: ColonyClient.Sender<
     {
-      permissionDomainId: number, // The ID of the domain in which the sender has permission.
-      childSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
       recipient: Address, // The address that will receive the payment.
       token: TokenAddress, // The address of the token contract (an empty address if Ether).
       amount: BigNumber, // The amount of tokens (or Ether) for the payment.
@@ -1951,6 +1952,14 @@ export default class ColonyClient extends ContractClient {
         domainId: DEFAULT_DOMAIN_ID,
         skillId: 0,
       },
+      permissions: [
+        {
+          role: COLONY_ROLE_FUNDING,
+          domainIdInputValueName: 'domainId',
+          permissionDomainIdInputValueName: 'permissionDomainId',
+          childSkillIndexInputValueName: 'childSkillIndex',
+        },
+      ],
     });
     this.addTask = new AddTask({
       client: this,

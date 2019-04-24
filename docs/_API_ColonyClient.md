@@ -918,7 +918,7 @@ Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e25
 Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IMetaColony.sol)
   
 
-### `addPayment.send({ permissionDomainId, childSkillIndex, recipient, token, amount, domainId, skillId }, options)`
+### `addPayment.send({ recipient, token, amount, domainId, skillId }, options)`
 
 Add a payment to the colony.
 
@@ -926,8 +926,6 @@ Add a payment to the colony.
 
 |Name|Type|Description|
 |---|---|---|
-|permissionDomainId|number|The ID of the domain in which the sender has permission.|
-|childSkillIndex|number|The index that the `domainId` is relative to the `permissionDomainId`.|
 |recipient|address|The address that will receive the payment.|
 |token|address|The address of the token contract (an empty address if Ether).|
 |amount|big number|The amount of tokens (or Ether) for the payment.|
