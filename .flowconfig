@@ -1,6 +1,17 @@
 [ignore]
-<PROJECT_ROOT>/packages/colonyDapp/.*
 <PROJECT_ROOT>/node_modules/oboe/test/json/incomplete.json
+<PROJECT_ROOT>/lib/colonyNetwork/*.js
+<PROJECT_ROOT>/lib/colonyNetwork/contracts
+<PROJECT_ROOT>/lib/colonyNetwork/docs
+<PROJECT_ROOT>/lib/colonyNetwork/helpers
+<PROJECT_ROOT>/lib/colonyNetwork/lib
+<PROJECT_ROOT>/lib/colonyNetwork/migrations
+<PROJECT_ROOT>/lib/colonyNetwork/node_modules
+<PROJECT_ROOT>/lib/colonyNetwork/packages
+<PROJECT_ROOT>/lib/colonyNetwork/scripts
+<PROJECT_ROOT>/lib/colonyNetwork/test
+<PROJECT_ROOT>/lib/colonyNetwork/test-gas-costs
+<PROJECT_ROOT>/lib/colonyNetwork/test-upgrade
 
 [include]
 

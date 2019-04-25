@@ -5,6 +5,7 @@
   },
   "globals": {
      // XXX waiting on https://github.com/gajus/eslint-plugin-flowtype/pull/308
+    "$NonMaybeType": false,
     "$PropertyType": false,
     "$Values": false,
     "$Keys": false

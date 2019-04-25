@@ -2,6 +2,7 @@
     "private": true,
     "devDependencies": {
         "@colony/eslint-config-colony": "^8.0.0-beta.2",
+        "@colony/purser-core": "^2.1.0",
         "babel-cli": "^6.26.0",
         "babel-core": "^6.26.0",
         "babel-eslint": "^10.0.1",
@@ -16,6 +17,7 @@
         "eslint-config-airbnb-base": "^13.1.0",
         "eslint-config-prettier": "^4.2.0",
         "eslint-import-resolver-jest": "^2.1.1",
+        "eslint-plugin-eslint-comments": "^3.1.1",
         "eslint-plugin-flowtype": "^3.6.1",
         "eslint-plugin-import": "^2.17.2",
         "eslint-plugin-prettier": "^3.0.1",
@@ -45,5 +47,9 @@
     },
     "engines": {
         "node": ">=8.2.1"
+    },
+    "dependencies": {
+        "web3": "^1.0.0-beta.52",
+        "web3-utils": "^1.0.0-beta.52"
     }
 }
