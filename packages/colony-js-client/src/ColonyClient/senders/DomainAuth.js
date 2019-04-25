@@ -23,9 +23,9 @@ type PermissionType = {|
 |};
 
 export default class DomainAuth<
-  InputValues: { [inputValueName: string]: any },
-  OutputValues: { [outputValueName: string]: any },
-  ContractData: { [dataValueName: string]: any },
+  InputValues: *,
+  OutputValues: *,
+  ContractData: *,
 > extends ContractClient.Sender<
   InputValues,
   OutputValues,
@@ -35,13 +35,20 @@ export default class DomainAuth<
   _permissions: PermissionType[];
 
   constructor({
+    client,
+    defaultGasLimit,
     permissions,
+    validateEmpty,
     ...rest
   }: ContractMethodSenderArgs<ColonyClient> & {
     permissions: PermissionType[],
   }) {
-    // $FlowFixMe why does it think things are missing?
-    super(rest);
+    super({
+      client,
+      defaultGasLimit,
+      validateEmpty,
+      ...rest,
+    });
     this._permissions = permissions;
   }
 
@@ -60,7 +67,6 @@ export default class DomainAuth<
     // get proof input values
     const proofs = await this.getPermissionProofs(inputValues);
 
-    // $FlowFixMe needs to be InputValues plus extra values from permissions
     return super.send(
       {
         ...inputValues,
@@ -75,7 +81,7 @@ export default class DomainAuth<
    * childSkillIndex as proof of permission, under the specified input value
    * keys. Return an object of input values.
    */
-  async getPermissionProofs(inputValues: InputValues) {
+  async getPermissionProofs(inputValues: InputValues): Promise<Object> {
     const proofs = await Promise.all(
       this._permissions.map(
         async ({
@@ -176,9 +182,8 @@ export default class DomainAuth<
       domainId: 1,
       role,
     });
-    if (hasRootPermission) return 1;
 
-    return -1;
+    return hasRootPermission ? 1 : -1;
   }
 
   /**
