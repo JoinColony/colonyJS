@@ -527,7 +527,7 @@ export default class ColonyNetworkClient extends ContractClient {
   /*
   Get whether any replacement log entries have been set for the supplied reputation mining cycle.
   */
-  getReplacementReputationUpdateLogEntry: ColonyNetworkClient.Caller<
+  getReplacementReputationUpdateLogsExist: ColonyNetworkClient.Caller<
     {
       reputationMiningCycle: Address,
     },
@@ -926,7 +926,7 @@ export default class ColonyNetworkClient extends ContractClient {
   */
   startTokenAuction: ColonyNetworkClient.Sender<
     {
-      token: Address, // The address of the token contract.
+      tokenAddress: Address, // The address of the token contract.
     },
     {
       AuctionCreated: AuctionCreated,
@@ -1279,7 +1279,7 @@ export default class ColonyNetworkClient extends ContractClient {
     });
     this.addSender('startNextMiningCycle', {});
     this.addSender('startTokenAuction', {
-      input: [['token', 'tokenAddress']],
+      input: [['tokenAddress', 'tokenAddress']],
     });
   }
 

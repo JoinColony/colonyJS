@@ -497,7 +497,7 @@ Contract: [ColonyNetworkMining.sol](https://github.com/JoinColony/colonyNetwork/
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColonyNetwork.sol)
   
 
-### `getReplacementReputationUpdateLogEntry.call({ reputationMiningCycle })`
+### `getReplacementReputationUpdateLogsExist.call({ reputationMiningCycle })`
 
 Get whether any replacement log entries have been set for the supplied reputation mining cycle.
 
@@ -1553,7 +1553,7 @@ Contract: [ColonyNetworkMining.sol](https://github.com/JoinColony/colonyNetwork/
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColonyNetwork.sol)
   
 
-### `startTokenAuction.send({ token }, options)`
+### `startTokenAuction.send({ tokenAddress }, options)`
 
 Create and start an auction for a token owned by the Colony Network. The auction will be for the total amount of the specificed tokens that are owned by the Colony Network.
 
@@ -1561,7 +1561,7 @@ Create and start an auction for a token owned by the Colony Network. The auction
 
 |Name|Type|Description|
 |---|---|---|
-|token|address|The address of the token contract.|
+|tokenAddress|address|The address of the token contract.|
 
 **Options**
 
