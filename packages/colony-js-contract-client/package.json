@@ -1,0 +1,58 @@
+{
+    "name": "@colony/colony-js-contract-client",
+    "version": "1.11.0",
+    "description": "Method-like interface for Smart Contracts",
+    "main": "lib/index.js",
+    "files": [
+        "dist",
+        "lib",
+        "README.md"
+    ],
+    "scripts": {
+        "build": "yarn run clean && yarn run build:dist && yarn run build:lib && yarn run build:flow",
+        "build:dist": "webpack",
+        "build:flow": "flow-copy-source src lib --ignore '__tests__/*.js'",
+        "build:lib": "babel src --out-dir lib --ignore __tests__ --source-maps",
+        "clean": "shx rm -rf lib",
+        "flow": "flow check",
+        "lint": "eslint src/{,**/}*.js",
+        "precommit": "lint-staged",
+        "test": "yarn run lint && yarn run test:unit",
+        "test:unit": "jest --coverage --config=jest.conf.json"
+    },
+    "lint-staged": {
+        "src/{,**/}*.js": [
+            "lint --fix",
+            "git add"
+        ]
+    },
+    "contributors": [
+        "Christian Maniewski <chris@colony.io>",
+        "Griffin Hotchkiss <griffin@colony.io>",
+        "James Lefrère <james@colony.io>",
+        "Jan Kaßel <jan@colony.io>",
+        "Raul Glogovetan <raul@colony.io>"
+    ],
+    "license": "MIT",
+    "devDependencies": {
+        "flow-bin": "^0.72.0",
+        "jest-sandbox": "^1.1.2",
+        "webpack": "^4.5.0",
+        "webpack-cli": "^2.0.14"
+    },
+    "dependencies": {
+        "@colony/colony-js-adapter": "^1.9.0",
+        "@colony/colony-js-contract-loader": "^1.8.1",
+        "@colony/colony-js-utils": "^1.8.1",
+        "assert": "^1.4.1",
+        "babel-runtime": "^6.26.0",
+        "bn.js": "^4.11.6",
+        "bs58": "^4.0.1",
+        "lodash.isequal": "^4.5.0",
+        "lodash.isplainobject": "^4.0.6",
+        "web3-utils": "^1.0.0-beta.34"
+    },
+    "engines": {
+        "node": ">=8.2.1"
+    }
+}

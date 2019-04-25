@@ -1,0 +1,24 @@
+{
+  "extends": ["@colony/eslint-config-colony"],
+  "env": {
+    "browser": true
+  },
+  "globals": {
+     // XXX waiting on https://github.com/gajus/eslint-plugin-flowtype/pull/308
+    "$PropertyType": false,
+    "$Values": false,
+    "$Keys": false
+  },
+  "overrides": [
+        {
+            "files": [
+              "**/__tests__/*.js",
+              "*.test.js",
+              "*.config.js"
+            ],
+            "rules": {
+                "flowtype/require-valid-file-annotation": "off"
+            }
+        }
+    ]
+}

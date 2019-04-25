@@ -1,0 +1,58 @@
+{
+    "name": "@colony/colony-js-contract-loader-fs",
+    "version": "1.10.0",
+    "description": "Load Ethereum smart contract definitions/metadata from the filesystem (in node.js)",
+    "main": "lib/index.js",
+    "files": [
+        "lib",
+        "README.md"
+    ],
+    "scripts": {
+        "build": "yarn run build:flow && yarn run build:lib",
+        "build:flow": "flow-copy-source src lib --ignore '__tests__/*.js'",
+        "build:lib": "flow-remove-types --out-dir lib/ src/",
+        "dev": "nodemon",
+        "flow": "flow check",
+        "lint": "eslint src",
+        "precommit": "lint-staged",
+        "test": "yarn run flow && yarn run lint && yarn run test:unit",
+        "test:unit": "jest --coverage --config=jest.conf.json"
+    },
+    "lint-staged": {
+        "src/{,**/}*.js": [
+            "lint --fix",
+            "git add"
+        ]
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/JoinColony/colonyJS.git"
+    },
+    "contributors": [
+        "Christian Maniewski <chris@colony.io>",
+        "Griffin Hotchkiss <griffin@colony.io>",
+        "James Lefrère <james@colony.io>",
+        "Jan Kaßel <jan@colony.io>",
+        "Raul Glogovetan <raul@colony.io>"
+    ],
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/JoinColony/colonyJS/issues"
+    },
+    "homepage": "https://github.com/JoinColony/colonyJS#readme",
+    "dependencies": {
+        "@colony/colony-js-contract-loader": "^1.8.1",
+        "jsonfile": "^4.0.0"
+    },
+    "devDependencies": {
+        "flow-bin": "^0.72.0",
+        "flow-copy-source": "^2.0.0",
+        "flow-remove-types": "^1.2.3",
+        "jest": "^22.4.0",
+        "jest-sandbox": "^1.1.2",
+        "nodemon": "^1.17.5"
+    },
+    "engines": {
+        "node": ">=8.2.1"
+    }
+}

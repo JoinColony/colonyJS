@@ -1,0 +1,11 @@
+{
+    "rootDir": "src",
+    "collectCoverageFrom" : ["*.{js}", "**/*.{js}"],
+    "coverageDirectory": "../coverage",
+    "coverageThreshold": {
+        "global": {
+            "branches": 0
+        }
+    },
+    "setupFiles": ["../setup-jest.js"]
+  }
