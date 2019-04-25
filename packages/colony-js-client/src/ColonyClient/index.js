@@ -129,7 +129,7 @@ type TaskAdded = ContractClient.Event<{
 }>;
 type TaskBriefSet = ContractClient.Event<{
   taskId: number, // The ID of the task that was modified.
-  specificationHash: string, // The specification hash that was set (an IPFS hash).
+  specificationHash: IPFSHash, // The specification hash that was set (an IPFS hash).
 }>;
 type TaskCanceled = ContractClient.Event<{
   taskId: number, // The ID of the task that was canceled.
@@ -239,7 +239,7 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
     {
       contract: 'Colony.sol',
-      interface: 'IColony.sol',
+      interface: 'IMetaColony.sol',
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
@@ -625,8 +625,8 @@ export default class ColonyClient extends ContractClient {
       domainId: number, // The ID of the domain.
     },
     {
-      localSkillId: number, // The ID of the local skill.
-      fundingPotId: number, // The ID of the funding pot.
+      skillId: number, // The ID of the local skill.
+      potId: number, // The ID of the funding pot.
     },
     ColonyClient,
     {
@@ -765,7 +765,7 @@ export default class ColonyClient extends ContractClient {
     {
       recipient: Address, // The address of the assigned recipient.
       finalized: boolean, // A boolean indicating whether or not the payment has been finalized.
-      fundingPotId: number, // The ID of the funding pot.
+      potId: number, // The ID of the funding pot.
       domainId: number, // The ID of the domain.
       skills: Array<number>, // An array of skill IDs.
     },
@@ -856,10 +856,10 @@ export default class ColonyClient extends ContractClient {
       deliverableHash: IPFSHash, // The deliverable hash of the task (an IPFS hash).
       status: TaskStatus, // The task status (`ACTIVE`, `CANCELLED` or `FINALIZED`).
       dueDate: Date, // The final date that the task deliverable can be submitted.
-      fundingPotId: number, // The ID of the funding pot.
-      completionTimestamp: Date, // The date when the task deliverable was submitted.
+      potId: number, // The ID of the funding pot.
+      completionDate: Date, // The date when the task deliverable was submitted.
       domainId: number, // The ID of the domain.
-      skillIds: Array<number>, // An array of skills IDs.
+      skillId: number, // The ID of the skill.
     },
     ColonyClient,
     {
@@ -1000,7 +1000,7 @@ export default class ColonyClient extends ContractClient {
       role: ColonyRole, // The role that will be checked (`RECOVERY`, `ROOT`, `ARCHITECTURE`, `ARCHITECTURE_SUBDOMAIN`, `ADMINISTRATION`, `FUNDING`).
     },
     {
-      hasColonyRole: boolean, // A boolean indicating whether or not the address has the role assigned.
+      hasRole: boolean, // A boolean indicating whether or not the address has the role assigned.
     },
     ColonyClient,
     {
@@ -1430,7 +1430,7 @@ export default class ColonyClient extends ContractClient {
     },
   >;
   /*
-  Set the inverse amount of the reward. If the fee is 1% (or 0.01), the inverse amount will be 100.
+  Set the inverse amount of the reward. This function can only be called by the address currently assigned the colony `ROOT` role. If the fee is 1% (or 0.01), the inverse amount will be 100.
   */
   setRewardInverse: ColonyClient.Sender<
     {
@@ -2012,7 +2012,11 @@ export default class ColonyClient extends ContractClient {
     });
     this.addCaller('getFundingPot', {
       input: [['potId', 'number']],
-      output: [['type', 'string'], ['typeId', 'number']],
+      output: [
+        ['type', 'string'],
+        ['typeId', 'number'],
+        ['payoutsWeCannotMake', 'number'],
+      ],
     });
     this.addCaller('getFundingPotBalance', {
       input: [['potId', 'number'], ['token', 'tokenAddress']],
@@ -2034,7 +2038,7 @@ export default class ColonyClient extends ContractClient {
       output: [
         ['recipient', 'address'],
         ['finalized', 'boolean'],
-        ['fundingPotId', 'number'],
+        ['potId', 'number'],
         ['domainId', 'number'],
         ['skills', '[number]'],
       ],
@@ -2048,12 +2052,12 @@ export default class ColonyClient extends ContractClient {
     this.addCaller('getRewardPayoutInfo', {
       input: [['payoutId'], 'number'],
       output: [
-        ['reputationRootHash', 'string'],
+        ['reputationState', 'string'],
+        ['colonyWideReputation', 'bigNumber'],
         ['totalTokens', 'bigNumber'],
-        ['totalTokenAmountForRewardPayout', 'bigNumber'],
-        ['remainingTokenAmount', 'bigNumber'],
-        ['token', 'tokenAddress'],
-        ['blockTimestamp', 'number'],
+        ['amount', 'bigNumber'],
+        ['tokenAddress', 'tokenAddress'],
+        ['blockTimestamp', 'date'],
       ],
     });
     this.addCaller('getTaskCount', {
@@ -2074,7 +2078,7 @@ export default class ColonyClient extends ContractClient {
         ['domainId', 'number'],
         ['role', 'colonyRole'],
       ],
-      output: [['hasColonyRole', 'boolean']],
+      output: [['hasRole', 'boolean']],
     });
     this.addCaller('verifyReputationProof', {
       input: [

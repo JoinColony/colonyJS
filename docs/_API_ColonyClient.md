@@ -109,8 +109,8 @@ A promise which resolves to an object containing the following properties:
 
 |Name|Type|Description|
 |---|---|---|
-|localSkillId|number|The ID of the local skill.|
-|fundingPotId|number|The ID of the funding pot.|
+|skillId|number|The ID of the local skill.|
+|potId|number|The ID of the funding pot.|
 
 **Contract Information**
 
@@ -325,7 +325,7 @@ A promise which resolves to an object containing the following properties:
 |---|---|---|
 |recipient|address|The address of the assigned recipient.|
 |finalized|boolean|A boolean indicating whether or not the payment has been finalized.|
-|fundingPotId|number|The ID of the funding pot.|
+|potId|number|The ID of the funding pot.|
 |domainId|number|The ID of the domain.|
 |skills|array|An array of skill IDs.|
 
@@ -461,10 +461,10 @@ A promise which resolves to an object containing the following properties:
 |deliverableHash|IPFS hash|The deliverable hash of the task (an IPFS hash).|
 |status|task status|The task status (`ACTIVE`, `CANCELLED` or `FINALIZED`).|
 |dueDate|date|The final date that the task deliverable can be submitted.|
-|fundingPotId|number|The ID of the funding pot.|
-|completionTimestamp|date|The date when the task deliverable was submitted.|
+|potId|number|The ID of the funding pot.|
+|completionDate|date|The date when the task deliverable was submitted.|
 |domainId|number|The ID of the domain.|
-|skillIds|array|An array of skills IDs.|
+|skillId|number|The ID of the skill.|
 
 **Contract Information**
 
@@ -682,7 +682,7 @@ A promise which resolves to an object containing the following properties:
 
 |Name|Type|Description|
 |---|---|---|
-|hasColonyRole|boolean|A boolean indicating whether or not the address has the role assigned.|
+|hasRole|boolean|A boolean indicating whether or not the address has the role assigned.|
 
 **Contract Information**
 
@@ -786,7 +786,7 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
   
 Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/Colony.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IMetaColony.sol)
   
 
 ### `addDomain.send({ permissionDomainId, childSkillIndex, parentDomainId }, options)`
@@ -2141,7 +2141,7 @@ Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd
 
 ### `setRewardInverse.send({ rewardInverse }, options)`
 
-Set the inverse amount of the reward. If the fee is 1% (or 0.01), the inverse amount will be 100.
+Set the inverse amount of the reward. This function can only be called by the address currently assigned the colony `ROOT` role. If the fee is 1% (or 0.01), the inverse amount will be 100.
 
 **Input**
 
@@ -2552,7 +2552,7 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was modified.|
-|specificationHash|string|The specification hash that was set (an IPFS hash).|
+|specificationHash|IPFS hash|The specification hash that was set (an IPFS hash).|
 |TaskBriefSet|object|Contains the data defined in [TaskBriefSet](#eventstaskbriefset)|
 
 See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
@@ -3315,7 +3315,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e
 |Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task that was modified.|
-|specificationHash|string|The specification hash that was set (an IPFS hash).|
+|specificationHash|IPFS hash|The specification hash that was set (an IPFS hash).|
 
 
 ### `events.TaskCanceled`
