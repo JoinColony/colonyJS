@@ -24,7 +24,6 @@
         "flow-copy-source": "^1.2.1",
         "flow-parser": "^0.75.0",
         "husky": "^0.14.3",
-        "lerna": "^2.5.1",
         "lint-staged": "^6.1.1",
         "prettier": "^1.10.2",
         "shx": "^0.2.2"
@@ -35,19 +34,18 @@
         "James Lefrère <james@colony.io>",
         "Jan Kaßel <jan@colony.io>",
         "Raul Glogovetan <raul@colony.io>",
+        "Scott Street <scott@colony.io>",
+        "Karolin Siebert <karolin@colony.io>",
+        "Thiago Delgado <thiago@colony.io>",
+        "Curtis Olson <curtis@colony.io>",
         "Ryan Christofferson <ryan@colony.io>"
     ],
     "scripts": {
-        "build": "lerna run build",
-        "lint": "run(){ eslint --ignore-pattern=**/{node_modules,dist,lib}/* --fix ${@:-\"packages/**/src/{,**/}*.js\"}; }; run",
-        "precommit": "lerna run --concurrency 1 --stream precommit",
+        "lint": "run(){ eslint --ignore-pattern=**/{node_modules,dist,lib}/* --fix ${@:-\"src/{,**/}*.js\"}; }; run",
         "provision": "git submodule update --init --recursive",
-        "release": "lerna run test && lerna run build && lerna publish",
-        "test": "flow check && lerna run test"
+        "release": "yarn test && yarn build && yarn publish",
+        "test": "flow check && yarn test"
     },
-    "workspaces": [
-        "packages/*"
-    ],
     "engines": {
         "node": ">=8.2.1"
     }

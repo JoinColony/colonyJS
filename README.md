@@ -34,8 +34,6 @@ We welcome all contributions to colonyJS. Please read our [contributing guidelin
 
 colonyJS is a monorepo-based project. A monorepo is simply a common repository for all npm modules of a certain scope, sharing common modules and dev environments. You can learn more about monorepos [here](https://github.com/babel/babel/blob/master/doc/design/monorepo.md).
 
-We're using [yarn workspaces](https://yarnpkg.com/blog/2017/08/02/introducing-workspaces/) and [lerna](https://github.com/lerna/lerna) to manage this monorepo.
-
 [Flow](https://flow.org/) typing is also use throughout this repo.
 
 ### Workflow
@@ -61,32 +59,5 @@ yarn add [packagename]
 ```
 
 in your `packages/*` directory.
-
-### Lerna
-
-We're using lerna to publish the packages to npm and to run commands inside the repositories. We're running in lerna's `independence` mode, meaning the modules won't all have the same version number and are versioned independently.
-
-To run a command (e.g. the `build` command) in all packages just do:
-
-```
-lerna run build
-```
-
-which will call the npm script for `build` (more info [here](https://github.com/lerna/lerna#run)).
-
-To publish modules to npm, run:
-
-```
-lerna publish
-```
-
-and it will guide you through the [publish process](https://github.com/lerna/lerna#publish).
-
-To run a command for a single package, lerna ought to be used in order
-for the environment to resolve the common devDependencies:
-
-```
-lerna run --scope=@colony/my-package-name test
-```
 
 See [Publishing Releases](https://github.com/JoinColony/colonyJS/wiki/Publishing-Releases) for publishing workflow.
