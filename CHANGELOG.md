@@ -2,6 +2,8 @@
 
 ## next
 
+This release implements a lot of changes and additions in preparation for the upcoming deployment of the colonyNetwork contracts on `rinkeby` and `mainnet`. This release currently supports the colonyNetwork smart contracts at commit `5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce`. Also, please note that colonyJS is currently using `ethers` version `3.0.27`.
+
 **Maintenance**
 
 * Updated constants (`@colony/colony-js-client`)
@@ -29,17 +31,13 @@
   * Added `TASK_ROLE_WORKER`
   * Added `TASK_ROLES`
   * Removed `FOUNDER_ROLE`
-    * `FOUNDER_ROLE` has been deprecated in favor of the new colony roles. When
-    using the `setFounderRole` method provided by the `OldRoles.sol` extension
-    contract, the following colony roles will be applied:
+    * `FOUNDER_ROLE` has been deprecated in favor of the new colony roles. When using the `setFounderRole` method provided by the `OldRoles.sol` extension contract, the following colony roles will be applied:
       * `COLONY_ROLE_ROOT`
       * `COLONY_ROLE_ARCHITECTURE`
       * `COLONY_ROLE_FUNDING`
       * `COLONY_ROLE_ADMINISTRATION`
   * Removed `ADMIN_ROLE`
-    * `ADMIN_ROLE` has been deprecated in favor of the new colony roles. When
-    using the `setAdminRole` method provided by the `OldRoles.sol` extension
-    contract, the following colony roles will be applied:
+    * `ADMIN_ROLE` has been deprecated in favor of the new colony roles. When using the `setAdminRole` method provided by the `OldRoles.sol` extension contract, the following colony roles will be applied:
       * `COLONY_ROLE_ARCHITECTURE`
       * `COLONY_ROLE_FUNDING`
       * `COLONY_ROLE_ADMINISTRATION`
@@ -83,8 +81,7 @@
   * Removed `getTotalTaskPayout`
     * `getFundingPotPayout` has replaced `getTotalTaskPayout`.
   * Removed `hasUserRole`
-    * `hasColonyRole` has replaced `hasUserRole`. `hasColonyRole` uses `address`
-    instead of `user` as an input parameter and adds `domainId`.
+    * `hasColonyRole` has replaced `hasUserRole`. `hasColonyRole` uses `address` instead of `user` as an input parameter and adds `domainId`.
   * Updated `getDomain`
     * Changed `localSkillId` output parameter to `skillId`.
   * Updated `getFundingPot`
@@ -124,8 +121,7 @@
     * Added `permissionDomainId` input parameter.
     * Added `childSkillIndex` input parameter.
   * Updated `addGlobalSkill`
-    * Removed `parentSkillId` as an input parameter. Global skills no longer
-    exist within a skills tree and always use `0` for the `parentSkillId`.
+    * Removed `parentSkillId` as an input parameter. Global skills no longer exist within a skills tree and always use `0` for the `parentSkillId`.
   * Updated `bootstrapColony`
     * Changed `users` input parameter to `addresses`.
   * Updated `makePayment`
