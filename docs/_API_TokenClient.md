@@ -43,7 +43,7 @@ A promise which resolves to an object containing the following properties:
 
   Function: `allowance`
   
-Contract: [erc20.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/erc20.sol)
+Contract: [base.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/base.sol)
   
   
 
@@ -70,7 +70,7 @@ A promise which resolves to an object containing the following properties:
 
   Function: `balanceOf`
   
-Contract: [erc20.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/erc20.sol)
+Contract: [base.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/base.sol)
   
   
 
@@ -116,7 +116,7 @@ A promise which resolves to an object containing the following properties:
 
   Function: `totalSupply`
   
-Contract: [erc20.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/erc20.sol)
+Contract: [base.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/base.sol)
   
   
 
@@ -157,7 +157,7 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [erc20.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/erc20.sol)
+Contract: [base.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/base.sol)
   
   
 
@@ -193,7 +193,7 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [token.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/token.sol)
+Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7cc7d6b5bf3e94e6d97cd65583e3da38a994753f/contracts/Token.sol)
   
   
 
@@ -229,7 +229,7 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [token.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/token.sol)
+Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7cc7d6b5bf3e94e6d97cd65583e3da38a994753f/contracts/Token.sol)
   
   
 
@@ -264,37 +264,6 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
   
   
 Contract: [auth.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/auth.sol)
-  
-  
-
-### `setName.send({ name }, options)`
-
-Set the `name` of a token contract. This function can only be called by the current `owner` of the contract. In order to call token contract methods from within a colony, the token `owner` must be the address of the colony contract.
-
-**Input**
-
-|Name|Type|Description|
-|---|---|---|
-|name|string|The name of the token that will be set.|
-
-**Options**
-
-See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
-
-**Response**
-
-An instance of a `ContractResponse`.
-
-
-
-See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
-
-**Contract Information**
-
-
-  
-  
-Contract: [token.sol](https://github.com/dapphub/dappsys-monolithic/tree/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/token.sol)
   
   
 
@@ -360,7 +329,7 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [erc20.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/erc20.sol)
+Contract: [base.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/base.sol)
   
   
 
@@ -398,7 +367,7 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7cc7d6b5bf3e94e6d97cd65583e3da38a994753f/contracts/Token.sol)
+Contract: [base.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/base.sol)
   
   
 

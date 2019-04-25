@@ -237,6 +237,8 @@ Also, please note that colonyJS is currently using `ethers` version `3.0.27`.
 * Updated events in `ColonyNetworkClient` (`@colony/colony-js-client`)
   * Added `ColonyVersionAdded`
 
+* Updated `TokenClient` to reflect `colonyToken` contract (`@colony/colony-js-client`)
+
 ## v1.11.2
 
 **Bug Fixes**
