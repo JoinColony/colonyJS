@@ -25,6 +25,7 @@ import {
   COLONY_ROLE_ARCHITECTURE,
   COLONY_ROLES,
   DEFAULT_DOMAIN_ID,
+  FUNDING_POT_TYPES,
   TASK_ROLE_EVALUATOR,
   TASK_ROLE_MANAGER,
   TASK_ROLE_WORKER,
@@ -34,6 +35,7 @@ import {
 
 type Address = string;
 type ColonyRole = $Keys<typeof COLONY_ROLES>;
+type FundingPotTypes = $Keys<typeof FUNDING_POT_TYPES>;
 type HexString = string;
 type IPFSHash = string;
 type TaskRole = $Keys<typeof TASK_ROLES>;
@@ -658,8 +660,8 @@ export default class ColonyClient extends ContractClient {
       potId: number, // The ID of the funding pot.
     },
     {
-      type: string, // The associated type of the funding pot (`domain` or `task`).
-      typeId: number, // The id of the associated type (`domainId` or `taskId`).
+      type: FundingPotTypes, // The associated type of the funding pot (`DOMAIN`, `TASK`, `PAYMENT`, or `UNASSIGNED`).
+      typeId: number, // The id of the associated type (`domainId`, `taskId`, or `paymentId`).
       payoutsWeCannotMake: number, // The total number of payouts that the funding pot cannot make.
     },
     ColonyClient,
@@ -2013,7 +2015,7 @@ export default class ColonyClient extends ContractClient {
     this.addCaller('getFundingPot', {
       input: [['potId', 'number']],
       output: [
-        ['type', 'string'],
+        ['type', 'fundingPotType'],
         ['typeId', 'number'],
         ['payoutsWeCannotMake', 'number'],
       ],

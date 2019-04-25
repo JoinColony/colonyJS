@@ -6,6 +6,7 @@ import { addParamType } from '@colony/colony-js-contract-client';
 
 import {
   COLONY_ROLES,
+  FUNDING_POT_TYPES,
   TASK_RATINGS,
   TASK_ROLES,
   TASK_STATUSES,
@@ -32,6 +33,8 @@ const dictType = (dict: { [key: string]: number }) => ({
 });
 
 addParamType('colonyRole', dictType(COLONY_ROLES));
+
+addParamType('fundingPotType', dictType(FUNDING_POT_TYPES));
 
 addParamType('taskRatings', dictType(TASK_RATINGS));
 

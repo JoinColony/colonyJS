@@ -161,8 +161,8 @@ A promise which resolves to an object containing the following properties:
 
 |Name|Type|Description|
 |---|---|---|
-|type|string|The associated type of the funding pot (`domain` or `task`).|
-|typeId|number|The id of the associated type (`domainId` or `taskId`).|
+|type|undefined|The associated type of the funding pot (`DOMAIN`, `TASK`, `PAYMENT`, or `UNASSIGNED`).|
+|typeId|number|The id of the associated type (`domainId`, `taskId`, or `paymentId`).|
 |payoutsWeCannotMake|number|The total number of payouts that the funding pot cannot make.|
 
 **Contract Information**
