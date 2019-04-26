@@ -128,7 +128,6 @@ describe('ColonyNetworkClient', () => {
     expect(networkClient.createColony).toBeInstanceOf(
       networkClient.constructor.Sender,
     );
-    expect(networkClient.createColony).toHaveProperty('_defaultGasLimit');
     expect(networkClient.createColony.input).toEqual([
       ['tokenAddress', 'address'],
     ]);

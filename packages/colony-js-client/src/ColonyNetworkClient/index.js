@@ -1227,11 +1227,9 @@ export default class ColonyNetworkClient extends ContractClient {
     });
     this.addSender('createColony', {
       input: [['tokenAddress', 'address']],
-      defaultGasLimit: 4000000,
     });
     this.addSender('createMetaColony', {
       input: [['tokenAddress', 'address']],
-      defaultGasLimit: 4000000,
     });
     this.addSender('deprecateSkill', {
       input: [['skillId', 'number']],
@@ -1239,11 +1237,9 @@ export default class ColonyNetworkClient extends ContractClient {
     this.addSender('initialiseReputationMining', {});
     this.addSender('registerColonyLabel', {
       input: [['colonyName', 'string'], ['orbitDBPath', 'string']],
-      defaultGasLimit: 260000,
     });
     this.addSender('registerUserLabel', {
       input: [['username', 'string'], ['orbitDBPath', 'string']],
-      defaultGasLimit: 260000,
     });
     this.addSender('setMiningResolver', {
       input: [['miningResolverAddress', 'address']],
