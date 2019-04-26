@@ -2,7 +2,9 @@
 
 ## next
 
-This release implements a lot of changes and additions in preparation for the upcoming deployment of the colonyNetwork contracts on `rinkeby` and `mainnet`. This release currently supports the colonyNetwork smart contracts at commit `5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce`. Also, please note that colonyJS is currently using `ethers` version `3.0.27`.
+This release implements a lot of changes and additions in preparation for the upcoming deployment of the colonyNetwork contracts on `rinkeby` and `mainnet`. This release currently supports the colonyNetwork smart contracts at commit `5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce`.
+
+Also, please note that colonyJS is currently using `ethers` version `3.0.27`.
 
 **Maintenance**
 
@@ -64,6 +66,7 @@ This release implements a lot of changes and additions in preparation for the up
 * Updated caller methods in `ColonyClient` (`@colony/colony-js-client`)
   * Added `getAuthorityAddress`
   * Added `getColonyNetworkAddress`
+  * Added `getExtensionAddress`
   * Added `getFundingPotPayout`
   * Added `getOwnerAddress`
   * Added `getPayment`
@@ -94,6 +97,7 @@ This release implements a lot of changes and additions in preparation for the up
     * Removed `payoutsWeCannotMake` output parameter.
 
 * Updated sender methods in `ColonyClient` (`@colony/colony-js-client`)
+  * Added `addExtension`
   * Added `addNetworkColonyVersion` (MetaColony)
   * Added `addPayment`
   * Added `addTask`
@@ -102,6 +106,7 @@ This release implements a lot of changes and additions in preparation for the up
   * Added `claimRewardPayout`
   * Added `deprecateGlobalSkill` (MetaColony)
   * Added `finalizePayment`
+  * Added `removeExtension`
   * Added `setAdministrationRole`
   * Added `setArchitectureRole`
   * Added `setFundingRole`

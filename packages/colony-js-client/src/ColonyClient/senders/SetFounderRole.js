@@ -10,24 +10,24 @@ type InputValues = {
   user: Address,
 };
 
-type OutputValues = {};
-
-export default class OneTxPayment extends ContractClient.Sender<
+export default class SetFounderRole extends ContractClient.Sender<
   InputValues,
-  OutputValues,
+  *,
   ColonyClient,
   *,
 > {
   async _sendTransaction(args: *, options: *) {
-    const oldRolesContract = await this.client.adapter.getContract({
-      // There should only ever be one `OldRoles` contract
+    const factoryContract = await this.client.adapter.getContract({
+      contractName: 'OldRolesFactory',
+    });
+    const contractAddress = await factoryContract.callConstant(
+      'deployedExtensions',
+      [this.client.contract.address],
+    );
+    const contract = await this.client.adapter.getContract({
+      contractAddress,
       contractName: 'OldRoles',
     });
-    return oldRolesContract.callTransaction(
-      'setFounderRole',
-      // The first argument must be the colony address
-      [this.client.contract.address, ...args],
-      options,
-    );
+    return contract.callTransaction('setFounderRole', args, options);
   }
 }

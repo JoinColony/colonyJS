@@ -16,26 +16,24 @@ type InputValues = {
   skillId: number,
 };
 
-type OutputValues = {
-  id: number,
-};
-
 export default class OneTxPayment extends ContractClient.Sender<
   InputValues,
-  OutputValues,
+  *,
   ColonyClient,
   *,
 > {
   async _sendTransaction(args: *, options: *) {
-    const oneTxContract = await this.client.adapter.getContract({
-      // There should only ever be one `OneTxPayment` contract
+    const factoryContract = await this.client.adapter.getContract({
+      contractName: 'OneTxPaymentFactory',
+    });
+    const contractAddress = await factoryContract.callConstant(
+      'deployedExtensions',
+      [this.client.contract.address],
+    );
+    const contract = await this.client.adapter.getContract({
+      contractAddress,
       contractName: 'OneTxPayment',
     });
-    return oneTxContract.callTransaction(
-      'makePayment',
-      // The first argument must be the colony address
-      [this.client.contract.address, ...args],
-      options,
-    );
+    return contract.callTransaction('makePayment', args, options);
   }
 }

@@ -14,9 +14,13 @@ import TokenClient from '../TokenClient/index';
 import TokenLockingClient from '../TokenLockingClient/index';
 
 import GetTask from './callers/GetTask';
+import GetExtensionAddress from './callers/GetExtensionAddress';
+
+import AddExtension from './senders/AddExtension';
 import AddPayment from './senders/AddPayment';
 import AddTask from './senders/AddTask';
-import OneTxPayment from './senders/OneTxPayment';
+import MakePayment from './senders/MakePayment';
+import RemoveExtension from './senders/RemoveExtension';
 import SetAdminRole from './senders/SetAdminRole';
 import SetFounderRole from './senders/SetFounderRole';
 import addRecoveryMethods from '../addRecoveryMethods';
@@ -263,6 +267,19 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'Colony.sol',
       interface: 'IColony.sol',
+      version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
+    },
+  >;
+  /*
+  Add an extension contract.
+  */
+  addExtension: ColonyClient.Sender<
+    {
+      contractName: string, // The name of the extension contract (`OneTxPayment` or `OldRoles`).
+    },
+    {},
+    ColonyClient,
+    {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
@@ -649,6 +666,21 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'Colony.sol',
       interface: 'IColony.sol',
+      version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
+    },
+  >;
+  /*
+  Get the address of an extension contract associated with the colony address.
+  */
+  getExtensionAddress: ColonyClient.Caller<
+    {
+      contractName: string, // The name of the extension contract.
+    },
+    {
+      address: Address, // The address of the extension contract.
+    },
+    ColonyClient,
+    {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
@@ -1130,6 +1162,19 @@ export default class ColonyClient extends ContractClient {
     {
       contract: 'Colony.sol',
       interface: 'IColony.sol',
+      version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
+    },
+  >;
+  /*
+  Remove an extension contract.
+  */
+  removeExtension: ColonyClient.Sender<
+    {
+      contractName: string, // The name of the extension contract (`OneTxPayment` or `OldRoles`).
+    },
+    {},
+    ColonyClient,
+    {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
@@ -1875,8 +1920,20 @@ export default class ColonyClient extends ContractClient {
 
     // Custom callers
     this.getTask = new GetTask({ client: this });
+    this.getExtensionAddress = new GetExtensionAddress({
+      client: this,
+      name: 'getExtensionAddress',
+      functionName: 'deployedExtensions',
+      input: [['contractName', 'string']],
+    });
 
     // Custom senders
+    this.addExtension = new AddExtension({
+      client: this,
+      name: 'addExtension',
+      functionName: 'deployExtension',
+      input: [['contractName', 'string']],
+    });
     this.addPayment = new AddPayment({
       client: this,
       name: 'addPayment',
@@ -1913,7 +1970,7 @@ export default class ColonyClient extends ContractClient {
         dueDate: new Date(0),
       },
     });
-    this.makePayment = new OneTxPayment({
+    this.makePayment = new MakePayment({
       client: this,
       name: 'makePayment',
       functionName: 'makePayment',
@@ -1932,6 +1989,12 @@ export default class ColonyClient extends ContractClient {
         domainId: DEFAULT_DOMAIN_ID,
         skillId: 0,
       },
+    });
+    this.removeExtension = new RemoveExtension({
+      client: this,
+      name: 'removeExtension',
+      functionName: 'removeExtension',
+      input: [['contractName', 'string']],
     });
     this.setAdminRole = new SetAdminRole({
       client: this,

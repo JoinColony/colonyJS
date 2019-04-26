@@ -145,6 +145,32 @@ Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e25
 Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
   
 
+### `getExtensionAddress.call({ contractName })`
+
+Get the address of an extension contract associated with the colony address.
+
+**Input**
+
+|Name|Type|Description|
+|---|---|---|
+|contractName|string|The name of the extension contract.|
+
+**Response**
+
+A promise which resolves to an object containing the following properties:
+
+|Name|Type|Description|
+|---|---|---|
+|address|address|The address of the extension contract.|
+
+**Contract Information**
+
+
+  
+  
+  
+  
+
 ### `getFundingPot.call({ potId })`
 
 Get information about a funding pot.
@@ -829,6 +855,36 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/Colony.sol)
   
 Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+  
+
+### `addExtension.send({ contractName }, options)`
+
+Add an extension contract.
+
+**Input**
+
+|Name|Type|Description|
+|---|---|---|
+|contractName|string|The name of the extension contract (`OneTxPayment` or `OldRoles`).|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
+
+An instance of a `ContractResponse`.
+
+
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
+
+
+  
+  
+  
   
 
 ### `addGlobalSkill.send(options)`
@@ -1622,6 +1678,36 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/Colony.sol)
   
 Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+  
+
+### `removeExtension.send({ contractName }, options)`
+
+Remove an extension contract.
+
+**Input**
+
+|Name|Type|Description|
+|---|---|---|
+|contractName|string|The name of the extension contract (`OneTxPayment` or `OldRoles`).|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
+
+An instance of a `ContractResponse`.
+
+
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
+
+
+  
+  
+  
   
 
 ### `removeRecoveryRole.send({ address }, options)`
