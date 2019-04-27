@@ -2200,9 +2200,7 @@ export default class ColonyClient extends ContractClient {
     this.addEvent('FundingPotAdded', [['potId', 'number']]);
     this.addEvent('PaymentAdded', [['paymentId', 'number']]);
     this.addEvent('PayoutClaimed', [
-      ['taskId', 'number'],
-      // $FlowFixMe
-      ['role', 'taskRole'],
+      ['potId', 'number'],
       ['token', 'tokenAddress'],
       ['amount', 'bigNumber'],
     ]);
