@@ -6,6 +6,10 @@ This release implements a lot of changes and additions in preparation for the up
 
 Also, please note that colonyJS is currently using `ethers` version `3.0.27`.
 
+**Types**
+
+* Added `[number]` param type (`@colony/colony-js-contract-client`)
+
 **Maintenance**
 
 * Updated constants (`@colony/colony-js-client`)

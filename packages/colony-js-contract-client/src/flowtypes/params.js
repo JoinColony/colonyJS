@@ -3,6 +3,7 @@
 export type ParamTypes =
   | '[address]'
   | '[bigNumber]'
+  | '[number]'
   | 'address'
   | 'bigNumber'
   | 'boolean'

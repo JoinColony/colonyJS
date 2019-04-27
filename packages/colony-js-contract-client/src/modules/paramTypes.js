@@ -50,6 +50,17 @@ const PARAM_TYPE_MAP: {
     },
     convertInput: passThrough,
   },
+  '[number]': {
+    validate(value: any) {
+      if (!Array.isArray(value)) return false;
+      return value.every(element => Number.isFinite(element));
+    },
+    convertOutput(value) {
+      if (!Array.isArray(value)) return [];
+      return value.map(element => (Number.isFinite(element) ? element : null));
+    },
+    convertInput: passThrough,
+  },
   address: {
     validate: isValidAddress,
     convertOutput(value) {
