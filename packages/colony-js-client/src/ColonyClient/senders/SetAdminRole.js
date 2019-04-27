@@ -11,7 +11,7 @@ type InputValues = {
   setTo: boolean,
 };
 
-export default class OneTxPayment extends ContractClient.Sender<
+export default class SetAdminRole extends ContractClient.Sender<
   InputValues,
   *,
   ColonyClient,

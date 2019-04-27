@@ -8,7 +8,7 @@ type InputValues = {
   contractName: string,
 };
 
-export default class RemveExtension extends ContractClient.Sender<
+export default class RemoveExtension extends ContractClient.Sender<
   InputValues,
   *,
   ColonyClient,
