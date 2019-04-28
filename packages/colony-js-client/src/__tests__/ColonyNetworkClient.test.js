@@ -2,10 +2,49 @@
 /* eslint-disable no-underscore-dangle */
 
 import createSandbox from 'jest-sandbox';
-import ColonyNetworkClient from '../ColonyNetworkClient';
+
 import ColonyClient from '../ColonyClient';
+import ColonyNetworkClient from '../ColonyNetworkClient';
 import TokenClient from '../TokenClient';
 import TokenLockingClient from '../TokenLockingClient';
+
+const colonyNetworkEvents = [
+  'AuctionCreated',
+  'ColonyAdded',
+  'ColonyLabelRegistered',
+  'ColonyNetworkInitialised',
+  'ColonyVersionAdded',
+  'MetaColonyCreated',
+  'MiningCycleResolverSet',
+  'NetworkFeeInverseSet',
+  'ReputationMiningCycleComplete',
+  'ReputationMiningInitialised',
+  'ReputationRootHashSet',
+  'SkillAdded',
+  'TokenLockingAddressSet',
+  'UserLabelRegistered',
+];
+
+const tokenLockingEvents = [
+  'TokenLocked',
+  'UserTokenDeposited',
+  'UserTokenUnlocked',
+  'UserTokenWithdrawn',
+];
+
+const contract = {
+  interface: {
+    events: [...colonyNetworkEvents, ...tokenLockingEvents].reduce(
+      (acc, eventName, i) => ({
+        ...acc,
+        [eventName]: {
+          topics: [`0x${i}`],
+        },
+      }),
+      {},
+    ),
+  },
+};
 
 jest.mock('web3-utils', () => ({
   isHex: jest.fn().mockReturnValue(true),
@@ -17,41 +56,7 @@ jest.mock('../TokenClient');
 
 describe('ColonyNetworkClient', () => {
   const sandbox = createSandbox();
-
-  const colonyNetworkEvents = [
-    'ColonyAdded',
-    'SkillAdded',
-    'AuctionCreated',
-    'UserLabelRegistered',
-    'ColonyLabelRegistered',
-    'ColonyNetworkInitialised',
-    'TokenLocked',
-    'TokenLockingAddressSet',
-    'MiningCycleResolverSet',
-    'NetworkFeeInverseSet',
-    'ColonyVersionAdded',
-    'MetaColonyCreated',
-    'ReputationMiningInitialised',
-    'ReputationMiningCycleComplete',
-    'ReputationRootHashSet',
-    'UserTokenDeposited',
-    'UserTokenUnlocked',
-    'UserTokenWithdrawn',
-  ];
   const colonyAddress = '0x123 Colony Lane';
-  const contract = {
-    interface: {
-      events: colonyNetworkEvents.reduce(
-        (acc, eventName, i) => ({
-          ...acc,
-          [eventName]: {
-            topics: [`0x${i}`],
-          },
-        }),
-        {},
-      ),
-    },
-  };
   const deployTransaction = {
     hash: 'the deploy transaction hash',
   };
@@ -123,7 +128,6 @@ describe('ColonyNetworkClient', () => {
     expect(networkClient.createColony).toBeInstanceOf(
       networkClient.constructor.Sender,
     );
-    expect(networkClient.createColony).toHaveProperty('_defaultGasLimit');
     expect(networkClient.createColony.input).toEqual([
       ['tokenAddress', 'address'],
     ]);
@@ -184,8 +188,8 @@ describe('ColonyNetworkClient', () => {
     await networkClient.init();
     const lockingAddress = 'The token locking contract lives here';
     sandbox
-      .spyOn(networkClient.getTokenLocking, 'call')
-      .mockImplementation(async () => ({ lockingAddress }));
+      .spyOn(networkClient.getTokenLockingAddress, 'call')
+      .mockImplementation(async () => ({ address: lockingAddress }));
 
     let client;
     const MockColonyClient = sandbox.fn((...args) => {
@@ -199,7 +203,7 @@ describe('ColonyNetworkClient', () => {
     sandbox
       .spyOn(ColonyClient.prototype, 'initializeContractMethods')
       .mockImplementation(() => {
-        client.getToken = {
+        client.getTokenAddress = {
           call: sandbox.fn().mockImplementation(async () => ({
             address: 'token address',
           })),
@@ -221,7 +225,7 @@ describe('ColonyNetworkClient', () => {
       tokenLockingClient: expect.any(TokenLockingClient),
     });
     expect(colonyClient.init).toHaveBeenCalled();
-    expect(colonyClient.getToken.call).toHaveBeenCalled();
+    expect(colonyClient.getTokenAddress.call).toHaveBeenCalled();
     expect(colonyClient).toHaveProperty('tokenClient', expect.any(TokenClient));
     expect(colonyClient.tokenClient.init).toHaveBeenCalled();
   });
@@ -256,8 +260,8 @@ describe('ColonyNetworkClient', () => {
     const metaColonyAddress = 'The Meta Colony lives here';
     const lockingAddress = 'The token locking contract lives here';
     sandbox
-      .spyOn(networkClient.getTokenLocking, 'call')
-      .mockImplementation(async () => ({ lockingAddress }));
+      .spyOn(networkClient.getTokenLockingAddress, 'call')
+      .mockImplementation(async () => ({ address: lockingAddress }));
     sandbox
       .spyOn(networkClient.getMetaColonyAddress, 'call')
       .mockImplementation(async () => ({ address: metaColonyAddress }));
@@ -274,7 +278,7 @@ describe('ColonyNetworkClient', () => {
     sandbox
       .spyOn(ColonyClient.prototype, 'initializeContractMethods')
       .mockImplementation(() => {
-        client.getToken = {
+        client.getTokenAddress = {
           call: sandbox.fn().mockImplementation(async () => ({
             address: 'token address',
           })),

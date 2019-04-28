@@ -2,21 +2,16 @@
 
 import ContractClient from '@colony/colony-js-contract-client';
 
-import type BigNumber from 'bn.js';
 import type ColonyClient from '../index';
 
 type Address = string;
-type TokenAddress = string;
 
 type InputValues = {
-  worker: Address,
-  token: TokenAddress,
-  amount: BigNumber,
-  domainId: number,
-  skillId: number,
+  address: Address,
+  setTo: boolean,
 };
 
-export default class OneTxPayment extends ContractClient.Sender<
+export default class SetAdminRole extends ContractClient.Sender<
   InputValues,
   *,
   ColonyClient,
@@ -24,7 +19,7 @@ export default class OneTxPayment extends ContractClient.Sender<
 > {
   async _sendTransaction(args: *, options: *) {
     const factoryContract = await this.client.adapter.getContract({
-      contractName: 'OneTxPaymentFactory',
+      contractName: 'OldRolesFactory',
     });
     const contractAddress = await factoryContract.callConstant(
       'deployedExtensions',
@@ -32,8 +27,8 @@ export default class OneTxPayment extends ContractClient.Sender<
     );
     const contract = await this.client.adapter.getContract({
       contractAddress,
-      contractName: 'OneTxPayment',
+      contractName: 'OldRoles',
     });
-    return contract.callTransaction('makePayment', args, options);
+    return contract.callTransaction('setAdminRole', args, options);
   }
 }

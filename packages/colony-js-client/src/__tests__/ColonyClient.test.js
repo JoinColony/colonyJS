@@ -4,38 +4,42 @@
 import createSandbox from 'jest-sandbox';
 
 import ColonyClient from '../ColonyClient';
+import ColonyNetworkClient from '../ColonyNetworkClient';
 import TokenClient from '../TokenClient';
 import TokenLockingClient from '../TokenLockingClient';
-import ColonyNetworkClient from '../ColonyNetworkClient';
 
 const colonyEvents = [
+  'ColonyAdministrationRoleSet',
+  'ColonyArchitectureRoleSet',
+  'ColonyBootstrapped',
+  'ColonyFundingRoleSet',
+  'ColonyFundsClaimed',
+  'ColonyFundsMovedBetweenFundingPots',
+  'ColonyInitialised',
+  'ColonyRewardInverseSet',
+  'ColonyRootRoleSet',
+  'ColonyUpgraded',
   'DomainAdded',
   'FundingPotAdded',
-  'TaskAdded',
-  'TaskCompleted',
-  'RewardPayoutCycleStarted',
+  'PaymentAdded',
+  'PayoutClaimed',
+  'RewardPayoutClaimed',
   'RewardPayoutCycleEnded',
+  'RewardPayoutCycleStarted',
+  'TaskAdded',
   'TaskBriefSet',
-  'TaskDueDateSet',
-  'TaskDomainSet',
-  'TaskSkillSet',
-  'TaskRoleUserSet',
-  'TaskPayoutSet',
-  'TaskDeliverableSubmitted',
-  'TaskWorkRatingRevealed',
-  'TaskPayoutClaimed',
-  'TaskFinalized',
   'TaskCanceled',
-  'ColonyInitialised',
-  'ColonyUpgraded',
-  'ColonyBootstrapped',
-  'ColonyFounderRoleSet',
-  'ColonyAdminRoleSet',
-  'ColonyAdminRoleRemoved',
-  'ColonyFundsMovedBetweenFundingPots',
-  'ColonyFundsClaimed',
-  'ColonyRewardInverseSet',
+  'TaskCompleted',
+  'TaskDeliverableSubmitted',
+  'TaskDomainSet',
+  'TaskDueDateSet',
+  'TaskFinalized',
+  'TaskPayoutSet',
+  'TaskRoleUserSet',
+  'TaskSkillSet',
+  'TaskWorkRatingRevealed',
 ];
+
 const contract = {
   interface: {
     events: colonyEvents.reduce(
@@ -52,7 +56,6 @@ const contract = {
 
 describe('ColonyClient', () => {
   const sandbox = createSandbox();
-
   const adapter = {
     getContract: sandbox.fn().mockImplementation(async () => contract),
   };
@@ -62,11 +65,13 @@ describe('ColonyClient', () => {
     networkClient._contract = {
       interface: {
         events: {
+          ColonyLabelRegistered: 'ColonyLabelRegistered interface',
           SkillAdded: 'SkillAdded interface',
         },
       },
     };
     networkClient.events = {
+      ColonyLabelRegistered: 'ColonyLabelRegistered ContractEvent',
       SkillAdded: 'SkillAdded ContractEvent',
     };
 
@@ -74,11 +79,13 @@ describe('ColonyClient', () => {
     tokenClient._contract = {
       interface: {
         events: {
+          Mint: 'Mint interface',
           Transfer: 'Transfer interface',
         },
       },
     };
     tokenClient.events = {
+      Mint: 'Mint ContractEvent',
       Transfer: 'Transfer ContractEvent',
     };
 
@@ -107,7 +114,11 @@ describe('ColonyClient', () => {
 
     // Since the ColonyClient hasn't been initialized, we should not expect
     // events from the ColonyNetworkClient to have been set.
+    expect(withoutToken.events).not.toHaveProperty('ColonyLabelRegistered');
     expect(withoutToken.events).not.toHaveProperty('SkillAdded');
+    expect(withoutToken.contract.interface.events).not.toHaveProperty(
+      'ColonyLabelRegistered',
+    );
     expect(withoutToken.contract.interface.events).not.toHaveProperty(
       'SkillAdded',
     );
@@ -119,11 +130,16 @@ describe('ColonyClient', () => {
     // the ColonyClient
     expect(withoutToken).toHaveProperty(
       'events',
-      expect.objectContaining({ SkillAdded: networkClient.events.SkillAdded }),
+      expect.objectContaining({
+        ColonyLabelRegistered: networkClient.events.ColonyLabelRegistered,
+        SkillAdded: networkClient.events.SkillAdded,
+      }),
     );
     expect(withoutToken.contract.interface).toHaveProperty(
       'events',
       expect.objectContaining({
+        ColonyLabelRegistered:
+          networkClient.contract.interface.events.ColonyLabelRegistered,
         SkillAdded: networkClient.contract.interface.events.SkillAdded,
         TaskAdded: contract.interface.events.TaskAdded,
       }),
@@ -143,7 +159,9 @@ describe('ColonyClient', () => {
 
     // Since it hasn't been initialized yet, we should not expect events from
     // the TokenClient to have been set on the ColonyClient
+    expect(withToken.events).not.toHaveProperty('Mint');
     expect(withToken.events).not.toHaveProperty('Transfer');
+    expect(withToken.contract.interface.events).not.toHaveProperty('Mint');
     expect(withToken.contract.interface.events).not.toHaveProperty('Transfer');
 
     // Initialize the ColonyClient
@@ -152,11 +170,15 @@ describe('ColonyClient', () => {
     // Events from the TokenClient should have been set on the ColonyClient
     expect(withToken).toHaveProperty(
       'events',
-      expect.objectContaining({ Transfer: tokenClient.events.Transfer }),
+      expect.objectContaining({
+        Mint: tokenClient.events.Mint,
+        Transfer: tokenClient.events.Transfer,
+      }),
     );
     expect(withToken.contract.interface).toHaveProperty(
       'events',
       expect.objectContaining({
+        Mint: tokenClient.contract.interface.events.Mint,
         Transfer: tokenClient.contract.interface.events.Transfer,
         TaskAdded: contract.interface.events.TaskAdded,
       }),

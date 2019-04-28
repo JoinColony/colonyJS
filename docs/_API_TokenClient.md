@@ -94,7 +94,7 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7359eedaadacd55a1393c795964bd61513b2af33/contracts/Token.sol)
+Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7cc7d6b5bf3e94e6d97cd65583e3da38a994753f/contracts/Token.sol)
   
   
 
@@ -398,7 +398,7 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7359eedaadacd55a1393c795964bd61513b2af33/contracts/Token.sol)
+Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7cc7d6b5bf3e94e6d97cd65583e3da38a994753f/contracts/Token.sol)
   
   
 
@@ -499,25 +499,6 @@ Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7359eedaada
 |---|---|---|
 |address|address|The address to which the minted tokens were sent.|
 |amount|big number|The amount of tokens that were minted.|
-
-
-### `events.TokenLocked`
-
-**Methods**
-
-`.addListener(({ token, lockCount }) => { /* ... */ })`
-
-`.removeListener(({ token, lockCount }) => { /* ... */ })`
-
-
-
-
-**Event Data**
-
-|Name|Type|Description|
-|---|---|---|
-|token|address|The address of the token contract.|
-|lockCount|number|The total lock count for the token.|
 
 
 ### `events.Transfer`

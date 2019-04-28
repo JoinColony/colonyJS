@@ -8,10 +8,10 @@ import { padLeft } from 'web3-utils';
 
 import '../paramTypes';
 import {
+  TASK_ROLE_EVALUATOR,
+  TASK_ROLE_MANAGER,
+  TASK_ROLE_WORKER,
   TASK_ROLES,
-  WORKER_ROLE,
-  EVALUATOR_ROLE,
-  MANAGER_ROLE,
 } from '../constants';
 
 describe('Custom param types', () => {
@@ -32,9 +32,9 @@ describe('Custom param types', () => {
   });
 
   test('Custom type "taskRole" validates correctly', () => {
-    expect(client.getRole.validate({ role: WORKER_ROLE })).toBe(true);
-    expect(client.getRole.validate({ role: EVALUATOR_ROLE })).toBe(true);
-    expect(client.getRole.validate({ role: MANAGER_ROLE })).toBe(true);
+    expect(client.getRole.validate({ role: TASK_ROLE_WORKER })).toBe(true);
+    expect(client.getRole.validate({ role: TASK_ROLE_EVALUATOR })).toBe(true);
+    expect(client.getRole.validate({ role: TASK_ROLE_MANAGER })).toBe(true);
     expect(() => {
       client.getRole.validate({ role: 'QUEEN_ANT 🐜👑' }); // "Thants"
     }).toThrowError('expected a value of type "taskRole"');
@@ -42,19 +42,19 @@ describe('Custom param types', () => {
   test('Custom type "taskRole" converts input correctly', () => {
     expect(
       client.getRole.convertInputValues(
-        { role: WORKER_ROLE },
+        { role: TASK_ROLE_WORKER },
         client.getRole.input,
       ),
     ).toEqual([TASK_ROLES.WORKER]);
     expect(
       client.getRole.convertInputValues(
-        { role: EVALUATOR_ROLE },
+        { role: TASK_ROLE_EVALUATOR },
         client.getRole.input,
       ),
     ).toEqual([TASK_ROLES.EVALUATOR]);
     expect(
       client.getRole.convertInputValues(
-        { role: MANAGER_ROLE },
+        { role: TASK_ROLE_MANAGER },
         client.getRole.input,
       ),
     ).toEqual([TASK_ROLES.MANAGER]);
@@ -63,22 +63,22 @@ describe('Custom param types', () => {
     expect(
       client.getRole.convertOutputValues(new BigNumber(TASK_ROLES.WORKER)),
     ).toEqual({
-      role: WORKER_ROLE,
+      role: TASK_ROLE_WORKER,
     });
     expect(
       client.getRole.convertOutputValues(new BigNumber(TASK_ROLES.EVALUATOR)),
     ).toEqual({
-      role: EVALUATOR_ROLE,
+      role: TASK_ROLE_EVALUATOR,
     });
     expect(
       client.getRole.convertOutputValues(new BigNumber(TASK_ROLES.MANAGER)),
     ).toEqual({
-      role: MANAGER_ROLE,
+      role: TASK_ROLE_MANAGER,
     });
     expect(
       client.getRole.convertOutputValues(padLeft(`0x${TASK_ROLES.WORKER}`, 64)),
     ).toEqual({
-      role: WORKER_ROLE,
+      role: TASK_ROLE_WORKER,
     });
     // Bad/missing output values should be null
     expect(client.getRole.convertOutputValues(new BigNumber(4))).toEqual({
