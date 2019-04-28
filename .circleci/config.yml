@@ -39,7 +39,7 @@ jobs:
 
       - run:
           name: "Wait for Ganache"
-          command: dockerize -wait tcp://localhost:8545 -timeout 1m
+          command: dockerize -wait tcp://localhost:8545 -timeout 2m
 
       - run:
           name: "Deploy Contracts"

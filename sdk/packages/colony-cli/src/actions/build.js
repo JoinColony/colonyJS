@@ -26,12 +26,12 @@ const build = async (commander, packageName) => {
 
   // Log step
   console.log(chalk.cyan('Starting build command...'));
-  console.log();
 
   // Make sure package name is defined
   if (typeof packageName === 'undefined') {
 
     // Log error
+    console.log();
     console.log(chalk.red('ERROR: The name of the package is required.'));
     console.log();
 
@@ -41,6 +41,7 @@ const build = async (commander, packageName) => {
   } else if (!packages.includes(packageName)) {
 
     // Log error
+    console.log();
     console.log(chalk.red(`ERROR: "${packageName}" is not a valid package.`));
     console.log();
 
@@ -66,7 +67,6 @@ const build = async (commander, packageName) => {
   }
 
   // Log step
-  console.log();
   console.log(chalk.cyan(`Creating ${packageName} directory...`));
 
   // Set destination path
@@ -98,7 +98,6 @@ const build = async (commander, packageName) => {
   );
 
   // Log step
-  console.log();
   console.log(chalk.cyan(`Preparing to install ${specificPackage}...`));
 
   // Set tarball
@@ -149,9 +148,7 @@ const build = async (commander, packageName) => {
   const isOnline = await checkOnline();
 
   // Log step
-  console.log();
   console.log(chalk.cyan(`Installing ${specificPackage}...`));
-  console.log();
 
   // Install the package
   await installPackage(
@@ -161,9 +158,7 @@ const build = async (commander, packageName) => {
   );
 
   // Log step
-  console.log();
   console.log(`Initializing ${chalk.cyan(packageName)}...`);
-  console.log();
 
   // Initialize git
   cp.execSync(`git init`);
@@ -181,9 +176,7 @@ const build = async (commander, packageName) => {
   cp.execSync(`cd ${destinationPath}`);
 
   // Log step
-  console.log();
   console.log(chalk.cyan(`Successfully built ${packageName}!`));
-  console.log();
 
 }
 

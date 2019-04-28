@@ -21,9 +21,7 @@ const scriptArguments = process.argv.slice(2).join(' ');
 if (scriptAction === 'build') {
 
   // Log step
-  console.log();
   console.log(chalk.cyan('Starting local build...'));
-  console.log();
 
   // Set package name
   const packageName = process.argv[3];
@@ -38,6 +36,7 @@ if (scriptAction === 'build') {
   if (!fs.existsSync(packageJSON)) {
 
     // Log error
+    console.log();
     console.log(chalk.red('ERROR: Unable to locate the requested package!'));
     console.log();
 
@@ -54,9 +53,6 @@ if (scriptAction === 'build') {
     .execSync(`npm pack`, { cwd: packagePath })
     .toString()
     .trim();
-
-  // Log space
-  console.log();
 
   // Pack path
   const packPath = path.join(buildPath, packName);
@@ -89,6 +85,7 @@ if (scriptAction === 'build') {
 } else {
 
   // Log error
+  console.log();
   console.log(chalk.red('ERROR: The action you provided does not exist!'));
   console.log();
 
