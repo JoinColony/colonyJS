@@ -14,13 +14,32 @@ type ColonyRole = $Keys<typeof COLONY_ROLES>;
 type PermissionType = {|
   // the role required
   role: ColonyRole,
-  // the name of the input value containing the domainId in which the role is required
-  domainIdInputValueName: string,
+  // name of the input value conatining the domainId, or function to get the domainId
+  domainId: string | ((inputValues: Object) => Promise<number>),
   // the name of the output value to set as the permisisonDomainId
   permissionDomainIdInputValueName: string,
   // the name of the output value to set as the childSkillIndex
   childSkillIndexInputValueName: string,
+  // address for which the permission is required (default of current wallet address)
+  address?: string | (() => Promise<string>),
 |};
+
+export const getDomainIdFromPot = async (potId: number, colonyClient: *) => {
+  const { type, typeId } = await colonyClient.getFundingPot.call({ potId });
+  // TODO: should use contstants to check the type
+  if (type === 1) {
+    return typeId;
+  } else if (type === 2) {
+    const { domainId } = await colonyClient.getTask.call({ taskId: typeId });
+    return domainId;
+  } else if (type === 3) {
+    const { domainId } = await colonyClient.getPayment.call({
+      paymentId: typeId,
+    });
+    return domainId;
+  }
+  throw new Error('Rewards pot has no domain!');
+};
 
 export default class DomainAuth<
   InputValues: *,
@@ -86,16 +105,21 @@ export default class DomainAuth<
       this._permissions.map(
         async ({
           role,
-          domainIdInputValueName,
+          domainId,
           permissionDomainIdInputValueName,
           childSkillIndexInputValueName,
+          address,
         }) => {
           const [
             permissionDomainId,
             childSkillIndex,
           ] = await this.getPermissionProof(
-            inputValues[domainIdInputValueName],
+            typeof domainId === 'function'
+              ? await domainId(inputValues)
+              : inputValues[domainId],
             role,
+            (typeof address === 'function' ? await address() : address) ||
+              (await this.client.adapter.wallet.getAddress()),
           );
           return {
             [permissionDomainIdInputValueName]: permissionDomainId,
@@ -112,9 +136,17 @@ export default class DomainAuth<
    * domain, get the permissionDomainId and childSkillIndex as proof of that
    * fact.
    */
-  async getPermissionProof(domainId: number, role: ColonyRole) {
+  async getPermissionProof(
+    domainId: number,
+    role: ColonyRole,
+    address: string,
+  ) {
     // check for permission in that domain
-    const permissionDomainId = await this.hasPermission(domainId, role);
+    const permissionDomainId = await this.hasPermission(
+      domainId,
+      role,
+      address,
+    );
 
     if (permissionDomainId < 0) {
       // don't continue if tx will fail
@@ -161,9 +193,11 @@ export default class DomainAuth<
    * the current wallet address has permission for a role in a given domain.
    * Returns the domainId in which we have permission.
    */
-  async hasPermission(domainId: number, role: ColonyRole): Promise<number> {
-    const address = await this.client.adapter.wallet.getAddress();
-
+  async hasPermission(
+    domainId: number,
+    role: ColonyRole,
+    address: string,
+  ): Promise<number> {
     // if we have permission in the specified domain, return that
     const {
       hasColonyRole: hasDomainPermission,

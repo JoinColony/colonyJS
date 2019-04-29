@@ -21,8 +21,7 @@ import AddPayment from './senders/AddPayment';
 import AddTask from './senders/AddTask';
 import MakePayment from './senders/MakePayment';
 import RemoveExtension from './senders/RemoveExtension';
-// eslint-disable-next-line no-unused-vars
-import DomainAuth from './senders/DomainAuth';
+import DomainAuth, { getDomainIdFromPot } from './senders/DomainAuth';
 import SetAdminRole from './senders/SetAdminRole';
 import SetFounderRole from './senders/SetFounderRole';
 import addRecoveryMethods from '../addRecoveryMethods';
@@ -257,8 +256,6 @@ export default class ColonyClient extends ContractClient {
   */
   addDomain: ColonyClient.Sender<
     {
-      permissionDomainId: number, // The ID of the domain in which the sender has permission.
-      childSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
       parentDomainId: number, // The ID of the parent domain.
     },
     {
@@ -328,8 +325,6 @@ export default class ColonyClient extends ContractClient {
   */
   addTask: ColonyClient.Sender<
     {
-      permissionDomainId: number, // The ID of the domain in which the sender has permission.
-      childSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
       specificationHash: IPFSHash, // The specification hash of the task (an IPFS hash).
       domainId: ?number, // The ID of the domain (default value of `1`).
       skillId: ?number, // The ID of the skill (default value of `null`).
@@ -540,8 +535,6 @@ export default class ColonyClient extends ContractClient {
   */
   finalizePayment: ColonyClient.Sender<
     {
-      permissionDomainId: number, // The ID of the domain in which the sender has permission.
-      childSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
       paymentId: number, // The ID of the payment.
     },
     {},
@@ -1065,10 +1058,6 @@ export default class ColonyClient extends ContractClient {
   */
   makePayment: ColonyClient.Sender<
     {
-      permissionDomainId: number, // The ID of the domain in which the sender has permission.
-      childSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
-      callerPermissionDomainId: number, // The ID of the domain in which the caller has permission.
-      callerChildSkillIndex: number, // The index that the `domainId` is relative to the `callerPermissionDomainId`.
       recipient: Address, // The address that will receive the payment.
       token: TokenAddress, // The address of the token contract (an empty address if Ether).
       amount: BigNumber, // The amount of tokens (or Ether) for the payment.
@@ -1130,9 +1119,6 @@ export default class ColonyClient extends ContractClient {
   */
   moveFundsBetweenPots: ColonyClient.Sender<
     {
-      permissionDomainId: number, // The ID of the domain that grants the address permission to call the method.
-      fromChildSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
-      toChildSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
       fromPot: number, // The ID of the pot from which funds will be moved.
       toPot: number, // The ID of the pot to which funds will be moved.
       amount: BigNumber, // The amount of funds that will be moved between pots.
@@ -1274,8 +1260,6 @@ export default class ColonyClient extends ContractClient {
   */
   setAdministrationRole: ColonyClient.Sender<
     {
-      permissionDomainId: number, // The ID of the domain that grants the address permission to call the method.
-      childSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
       address: Address, // The address that will be assigned or unassigned the colony `ADMINISTRATION` role.
       domainId: number, // The ID of the domain that the colony `ADMINISTRATION` role will be assigned or unassigned.
       setTo: boolean, // A boolean indicating whether the address will be assigned or unassigned the colony `ADMINISTRATION` role.
@@ -1316,8 +1300,6 @@ export default class ColonyClient extends ContractClient {
   */
   setArchitectureRole: ColonyClient.Sender<
     {
-      permissionDomainId: number, // The ID of the domain that grants the address permission to call the method.
-      childSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
       address: Address, // The address that will be assigned or unassigned the colony `ARCHITECTURE` role.
       domainId: number, // The ID of the domain that the colony `ARCHITECTURE` role will be assigned or unassigned.
       setTo: boolean, // A boolean indicating whether the address will be assigned or unassigned the colony `ARCHITECTURE` role.
@@ -1358,8 +1340,6 @@ export default class ColonyClient extends ContractClient {
   */
   setFundingRole: ColonyClient.Sender<
     {
-      permissionDomainId: number, // The ID of the domain that grants the address permission to call the method.
-      childSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
       address: Address, // The address that will be assigned or unassigned the colony `FUNDING` role.
       domainId: number, // The ID of the domain that the colony `FUNDING` role will be assigned or unassigned.
       setTo: boolean, // A boolean indicating whether the address will be assigned or unassigned the colony `FUNDING` role.
@@ -1394,8 +1374,6 @@ export default class ColonyClient extends ContractClient {
   */
   setPaymentDomain: ColonyClient.Sender<
     {
-      permissionDomainId: number, // The ID of the domain in which the sender has permission.
-      childSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
       paymentId: number, // The ID of the payment.
       domainId: Address, // The ID of the domain.
     },
@@ -1412,8 +1390,6 @@ export default class ColonyClient extends ContractClient {
   */
   setPaymentPayout: ColonyClient.Sender<
     {
-      permissionDomainId: number, // The ID of the domain in which the sender has permission.
-      childSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
       paymentId: number, // The ID of the payment.
       token: Address, // The address of the token contract (an empty address if Ether).
       amount: BigNumber, // The amount of the payment.
@@ -1431,8 +1407,6 @@ export default class ColonyClient extends ContractClient {
   */
   setPaymentRecipient: ColonyClient.Sender<
     {
-      permissionDomainId: number, // The ID of the domain in which the sender has permission.
-      childSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
       paymentId: number, // The ID of the payment.
       recipient: Address, // The address that will receive the payment.
     },
@@ -1449,8 +1423,6 @@ export default class ColonyClient extends ContractClient {
   */
   setPaymentSkill: ColonyClient.Sender<
     {
-      permissionDomainId: number, // The ID of the domain in which the sender has permission.
-      childSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
       paymentId: number, // The ID of the payment.
       skillId: Address, // The ID of the skill.
     },
@@ -1645,8 +1617,6 @@ export default class ColonyClient extends ContractClient {
     {
       taskId: number, // The ID of the task.
       address: Address, // The address that will be assigned the task `MANAGER` role.
-      permissionDomainId: number, // The ID of the domain in which the sender has permission.
-      childSkillIndex: number, // The index that the `domainId` is relative to the `permissionDomainId`.
     },
     {
       TaskRoleUserSet: TaskRoleUserSet,
@@ -1954,8 +1924,8 @@ export default class ColonyClient extends ContractClient {
       },
       permissions: [
         {
-          role: COLONY_ROLE_FUNDING,
-          domainIdInputValueName: 'domainId',
+          role: COLONY_ROLE_FUNDING, // TODO: what does this need to be
+          domainId: 'domainId',
           permissionDomainIdInputValueName: 'permissionDomainId',
           childSkillIndexInputValueName: 'childSkillIndex',
         },
@@ -1978,14 +1948,24 @@ export default class ColonyClient extends ContractClient {
         skillId: 0,
         dueDate: new Date(0),
       },
+      permissions: [
+        {
+          role: COLONY_ROLE_FUNDING, // TODO: what does this need to be
+          domainId: 'domainId',
+          permissionDomainIdInputValueName: 'permissionDomainId',
+          childSkillIndexInputValueName: 'childSkillIndex',
+        },
+      ],
     });
     this.makePayment = new MakePayment({
       client: this,
       name: 'makePayment',
       functionName: 'makePayment',
       input: [
+        // permission proof for OneTX contract
         ['permissionDomainId', 'number'],
         ['childSkillIndex', 'number'],
+        // permission proof for caller
         ['callerPermissionDomainId', 'number'],
         ['callerChildSkillIndex', 'number'],
         ['recipient', 'address'],
@@ -1998,6 +1978,21 @@ export default class ColonyClient extends ContractClient {
         domainId: DEFAULT_DOMAIN_ID,
         skillId: 0,
       },
+      permissions: [
+        {
+          role: COLONY_ROLE_FUNDING, // TODO: what does this need to be
+          domainId: 'domainId',
+          // TODO: these need to be proof for the OneTx extension contract
+          permissionDomainIdInputValueName: 'permissionDomainId',
+          childSkillIndexInputValueName: 'childSkillIndex',
+        },
+        {
+          role: COLONY_ROLE_FUNDING, // TODO: what does this need to be
+          domainId: 'domainId',
+          permissionDomainIdInputValueName: 'callerPermissionDomainId',
+          childSkillIndexInputValueName: 'callerChildSkillIndex',
+        },
+      ],
     });
     this.removeExtension = new RemoveExtension({
       client: this,
@@ -2016,6 +2011,197 @@ export default class ColonyClient extends ContractClient {
       name: 'setFounderRole',
       functionName: 'setFounderRole',
       input: [['address', 'address']],
+    });
+    this.addDomain = new DomainAuth({
+      client: this,
+      name: 'addDomain',
+      functionName: 'addDomain',
+      input: [
+        ['permissionDomainId', 'number'],
+        ['childSkillIndex', 'number'],
+        ['parentDomainId', 'number'],
+      ],
+      permissions: [
+        {
+          role: COLONY_ROLE_FUNDING, // TODO: what does this need to be
+          domainId: 'parentDomainId',
+          permissionDomainIdInputValueName: 'permissionDomainId',
+          childSkillIndexInputValueName: 'childSkillIndex',
+        },
+      ],
+    });
+    this.finalizePayment = new DomainAuth({
+      client: this,
+      name: 'finalizePayment',
+      functionName: 'finalizePayment',
+      input: [
+        ['permissionDomainId', 'number'],
+        ['childSkillIndex', 'number'],
+        ['paymentId', 'number'],
+      ],
+      permissions: [
+        {
+          role: COLONY_ROLE_FUNDING, // TODO: what does this need to be
+          domainId: () => Promise.resolve(1), // TODO: fetch this from the task
+          permissionDomainIdInputValueName: 'permissionDomainId',
+          childSkillIndexInputValueName: 'childSkillIndex',
+        },
+      ],
+    });
+    this.moveFundsBetweenPots = new DomainAuth({
+      client: this,
+      name: 'moveFundsBetweenPots',
+      functionName: 'moveFundsBetweenPots',
+      input: [
+        ['permissionDomainId', 'number'],
+        ['fromChildSkillIndex', 'number'],
+        ['toChildSkillIndex', 'number'],
+        ['fromPot', 'number'],
+        ['toPot', 'number'],
+        ['amount', 'bigNumber'],
+        ['token', 'tokenAddress'],
+      ],
+      permissions: [
+        {
+          role: COLONY_ROLE_FUNDING, // TODO: what does this need to be
+          domainId: ({ fromPot }) => getDomainIdFromPot(fromPot, this),
+          permissionDomainIdInputValueName: 'permissionDomainId',
+          childSkillIndexInputValueName: 'fromChildSkillIndex',
+        },
+        {
+          role: COLONY_ROLE_FUNDING, // TODO: what does this need to be
+          domainId: ({ toPot }) => getDomainIdFromPot(toPot, this),
+          permissionDomainIdInputValueName: 'permissionDomainId',
+          childSkillIndexInputValueName: 'toChildSkillIndex',
+        },
+      ],
+    });
+    this.setAdministrationRole = new DomainAuth({
+      client: this,
+      name: 'setAdministrationRole',
+      functionName: 'setAdministrationRole',
+      input: [
+        ['permissionDomainId', 'number'],
+        ['childSkillIndex', 'number'],
+        ['address', 'address'],
+        ['domainId', 'number'],
+        ['setTo', 'boolean'],
+      ],
+      permissions: [
+        {
+          role: COLONY_ROLE_FUNDING, // TODO: what does this need to be
+          domainId: 'domainId',
+          permissionDomainIdInputValueName: 'permissionDomainId',
+          childSkillIndexInputValueName: 'childSkillIndex',
+        },
+      ],
+    });
+    this.setArchitectureRole = new DomainAuth({
+      client: this,
+      name: 'setArchitectureRole',
+      functionName: 'setArchitectureRole',
+      input: [
+        ['permissionDomainId', 'number'],
+        ['childSkillIndex', 'number'],
+        ['address', 'address'],
+        ['domainId', 'number'],
+        ['setTo', 'boolean'],
+      ],
+      permissions: [
+        {
+          role: COLONY_ROLE_FUNDING, // TODO: what does this need to be
+          domainId: 'domainId',
+          permissionDomainIdInputValueName: 'permissionDomainId',
+          childSkillIndexInputValueName: 'childSkillIndex',
+        },
+      ],
+    });
+    this.setFundingRole = new DomainAuth({
+      client: this,
+      name: 'setFundingRole',
+      functionName: 'setFundingRole',
+      input: [
+        ['permissionDomainId', 'number'],
+        ['childSkillIndex', 'number'],
+        ['address', 'address'],
+        ['domainId', 'number'],
+        ['setTo', 'boolean'],
+      ],
+      permissions: [
+        {
+          role: COLONY_ROLE_FUNDING, // TODO: what does this need to be
+          domainId: 'domainId',
+          permissionDomainIdInputValueName: 'permissionDomainId',
+          childSkillIndexInputValueName: 'childSkillIndex',
+        },
+      ],
+    });
+    this.setPaymentPayout = new DomainAuth({
+      client: this,
+      name: 'setPaymentPayout',
+      functionName: 'setPaymentPayout',
+      input: [
+        ['permissionDomainId', 'number'],
+        ['childSkillIndex', 'number'],
+        ['paymentId', 'number'],
+        ['token', 'address'],
+        ['amount', 'bigNumber'],
+      ],
+      permissions: [
+        {
+          role: COLONY_ROLE_FUNDING, // TODO: what does this need to be
+          domainId: async ({ paymentId }) => {
+            const { domainId } = await this.getPayment.call({ paymentId });
+            return domainId;
+          },
+          permissionDomainIdInputValueName: 'permissionDomainId',
+          childSkillIndexInputValueName: 'childSkillIndex',
+        },
+      ],
+    });
+    this.setPaymentRecipient = new DomainAuth({
+      client: this,
+      name: 'setPaymentRecipient',
+      functionName: 'setPaymentRecipient',
+      input: [
+        ['permissionDomainId', 'number'],
+        ['childSkillIndex', 'number'],
+        ['paymentId', 'number'],
+        ['recipient', 'address'],
+      ],
+      permissions: [
+        {
+          role: COLONY_ROLE_FUNDING, // TODO: what does this need to be
+          domainId: async ({ paymentId }) => {
+            const { domainId } = await this.getPayment.call({ paymentId });
+            return domainId;
+          },
+          permissionDomainIdInputValueName: 'permissionDomainId',
+          childSkillIndexInputValueName: 'childSkillIndex',
+        },
+      ],
+    });
+    this.setPaymentSkill = new DomainAuth({
+      client: this,
+      name: 'setPaymentSkill',
+      functionName: 'setPaymentSkill',
+      input: [
+        ['permissionDomainId', 'number'],
+        ['childSkillIndex', 'number'],
+        ['paymentId', 'number'],
+        ['skillId', 'number'],
+      ],
+      permissions: [
+        {
+          role: COLONY_ROLE_FUNDING, // TODO: what does this need to be
+          domainId: async ({ paymentId }) => {
+            const { domainId } = await this.getPayment.call({ paymentId });
+            return domainId;
+          },
+          permissionDomainIdInputValueName: 'permissionDomainId',
+          childSkillIndexInputValueName: 'childSkillIndex',
+        },
+      ],
     });
 
     // Task callers
@@ -2285,13 +2471,6 @@ export default class ColonyClient extends ContractClient {
     /* eslint-enable max-len */
 
     // Senders
-    this.addSender('addDomain', {
-      input: [
-        ['permissionDomainId', 'number'],
-        ['childSkillIndex', 'number'],
-        ['parentDomainId', 'number'],
-      ],
-    });
     this.addSender('bootstrapColony', {
       input: [['addresses', '[address]'], ['amounts', '[bigNumber]']],
     });
@@ -2324,13 +2503,6 @@ export default class ColonyClient extends ContractClient {
     this.addSender('deprecateGlobalSkill', {
       input: [['skillId', 'number']],
     });
-    this.addSender('finalizePayment', {
-      input: [
-        ['permissionDomainId', 'number'],
-        ['childSkillIndex', 'number'],
-        ['paymentId', 'number'],
-      ],
-    });
     this.addSender('finalizeRewardPayout', {
       input: [['payoutId', 'number']],
     });
@@ -2339,17 +2511,6 @@ export default class ColonyClient extends ContractClient {
     });
     this.addSender('mintTokens', {
       input: [['amount', 'bigNumber']],
-    });
-    this.addSender('moveFundsBetweenPots', {
-      input: [
-        ['permissionDomainId', 'number'],
-        ['fromChildSkillIndex', 'number'],
-        ['toChildSkillIndex', 'number'],
-        ['fromPot', 'number'],
-        ['toPot', 'number'],
-        ['amount', 'bigNumber'],
-        ['token', 'tokenAddress'],
-      ],
     });
     this.addSender('registerColonyLabel', {
       input: [['colonyName', 'string'], ['orbitDBPath', 'string']],
@@ -2365,15 +2526,6 @@ export default class ColonyClient extends ContractClient {
         ['salt', 'string'],
       ],
     });
-    this.addSender('setAdministrationRole', {
-      input: [
-        ['permissionDomainId', 'number'],
-        ['childSkillIndex', 'number'],
-        ['address', 'address'],
-        ['domainId', 'number'],
-        ['setTo', 'boolean'],
-      ],
-    });
     this.addSender('setAllTaskPayouts', {
       input: [
         ['taskId', 'number'],
@@ -2381,65 +2533,6 @@ export default class ColonyClient extends ContractClient {
         ['managerAmount', 'bigNumber'],
         ['evaluatorAmount', 'bigNumber'],
         ['workerAmount', 'bigNumber'],
-      ],
-    });
-    this.addSender('setArchitectureRole', {
-      input: [
-        ['permissionDomainId', 'number'],
-        ['childSkillIndex', 'number'],
-        ['address', 'address'],
-        ['domainId', 'number'],
-        ['setTo', 'boolean'],
-      ],
-    });
-    this.addSender('setFundingRole', {
-      input: [
-        ['permissionDomainId', 'number'],
-        ['childSkillIndex', 'number'],
-        ['address', 'address'],
-        ['domainId', 'number'],
-        ['setTo', 'boolean'],
-      ],
-    });
-    this.addSender('setPaymentAmount', {
-      input: [
-        ['permissionDomainId', 'number'],
-        ['childSkillIndex', 'number'],
-        ['paymentId', 'number'],
-        ['amount', 'bigNumber'],
-      ],
-    });
-    this.addSender('setPaymentDomain', {
-      input: [
-        ['permissionDomainId', 'number'],
-        ['childSkillIndex', 'number'],
-        ['paymentId', 'number'],
-        ['domainId', 'number'],
-      ],
-    });
-    this.addSender('setPaymentPayout', {
-      input: [
-        ['permissionDomainId', 'number'],
-        ['childSkillIndex', 'number'],
-        ['paymentId', 'number'],
-        ['token', 'address'],
-        ['amount', 'bigNumber'],
-      ],
-    });
-    this.addSender('setPaymentRecipient', {
-      input: [
-        ['permissionDomainId', 'number'],
-        ['childSkillIndex', 'number'],
-        ['paymentId', 'number'],
-        ['recipient', 'address'],
-      ],
-    });
-    this.addSender('setPaymentSkill', {
-      input: [
-        ['permissionDomainId', 'number'],
-        ['childSkillIndex', 'number'],
-        ['paymentId', 'number'],
-        ['skillId', 'number'],
       ],
     });
     this.addSender('setRewardInverse', {
