@@ -12,7 +12,7 @@ Another way of looking at domains would be thinking of them as "local skills". T
 
 Domains and skills can also have "sub-domains" and "sub-skills". When reputation is earned within a "sub-domain" or "sub-skill", reputation is also earned within the "parent domain" or "parent skill". As a matter of fact, each domain is already a "sub-domain" because the "parent domain" is the colony itself, also known as the "root domain".
 
-Let's take a closer look at how to create and manage domains and skills using colonyJS. For more information about domains and skills, you can also check out [Domains and Skills](/colonynetwork/docs-domains-and-skills/) in the colonyNetwork documentation.
+Let's take a closer look at how to create and manage domains and skills using colonyJS. For more information about domains and skills, you can also check out [Domains and Skills](/colonynetwork/whitepaper-tldr-domains-and-skills) in the colonyNetwork documentation.
 
 ## Domains
 
