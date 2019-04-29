@@ -15,11 +15,13 @@ type PermissionType = {|
   // the role required
   role: ColonyRole,
   // name of the input value conatining the domainId, or function to get the domainId
-  domainId: string | ((inputValues: Object) => Promise<number>),
+  domainIds:
+    | Array<string | ((inputValues: Object) => Promise<number>)>
+    | ((inputValues: Object) => Promise<number[]>),
   // the name of the output value to set as the permisisonDomainId
-  permissionDomainIdInputValueName: string,
+  permissionDomainIdName: string,
   // the name of the output value to set as the childSkillIndex
-  childSkillIndexInputValueName: string,
+  childSkillIndexNames: string[],
   // address for which the permission is required (default of current wallet address)
   address?: string | (() => Promise<string>),
 |};
@@ -105,55 +107,91 @@ export default class DomainAuth<
       this._permissions.map(
         async ({
           role,
-          domainId,
-          permissionDomainIdInputValueName,
-          childSkillIndexInputValueName,
-          address,
+          domainIds: inputDomainIds,
+          permissionDomainIdName,
+          childSkillIndexNames,
+          address: inputAddress,
         }) => {
-          const [
-            permissionDomainId,
-            childSkillIndex,
-          ] = await this.getPermissionProof(
-            typeof domainId === 'function'
-              ? await domainId(inputValues)
-              : inputValues[domainId],
-            role,
-            (typeof address === 'function' ? await address() : address) ||
-              (await this.client.adapter.wallet.getAddress()),
+          if (inputDomainIds.length !== childSkillIndexNames.length) {
+            throw new Error(
+              'Number of domainIds must match number of childSkillIndexes',
+            );
+          }
+
+          // resolve the functions or fetch from inputValues
+          const domainIds =
+            typeof inputDomainIds === 'function'
+              ? await inputDomainIds(inputValues)
+              : await Promise.all(
+                  inputDomainIds.map(
+                    async inputDomainId =>
+                      typeof inputDomainId === 'function'
+                        ? inputDomainId(inputValues)
+                        : inputValues[inputDomainId],
+                  ),
+                );
+
+          // resolve the  address
+          const address =
+            (typeof inputAddress === 'function'
+              ? await inputAddress()
+              : inputAddress) ||
+            (await this.client.adapter.wallet.getAddress());
+
+          const permissionDomains = await Promise.all(
+            domainIds.map(async domainId =>
+              this.hasPermission(domainId, role, address),
+            ),
           );
-          return {
-            [permissionDomainIdInputValueName]: permissionDomainId,
-            [childSkillIndexInputValueName]: childSkillIndex,
-          };
+
+          const highestDomain = await this.getHighestDomain(permissionDomains);
+
+          const childSkillIndexes = await Promise.all(
+            domainIds.map(async domainId =>
+              this.getChildSkillIndex(highestDomain, domainId),
+            ),
+          );
+
+          return childSkillIndexes.reduce(
+            (acc, childSkillIndex, i) => ({
+              ...acc,
+              [childSkillIndexNames[i]]: childSkillIndex,
+            }),
+            { [permissionDomainIdName]: highestDomain },
+          );
         },
       ),
     );
     return proofs.reduce((acc, proof) => ({ ...acc, ...proof }));
   }
 
-  /**
-   * For a given domainId and role, if we have permission for that role in that
-   * domain, get the permissionDomainId and childSkillIndex as proof of that
-   * fact.
-   */
-  async getPermissionProof(
-    domainId: number,
-    role: ColonyRole,
-    address: string,
-  ) {
-    // check for permission in that domain
-    const permissionDomainId = await this.hasPermission(
-      domainId,
-      role,
-      address,
-    );
+  async getHighestDomain(domainIds: number[]): Promise<number> {
+    const skills = await Promise.all(
+      domainIds.map(async domainId => {
+        const { skillId } = await this.client.getDomain.call({
+          domainId,
+        });
 
+        const skill = await this.client.networkClient.getSkill.call({
+          skillId,
+        });
+
+        return skill;
+      }),
+    );
+    return skills.sort((a, b) => b.children.length - a.children.length)[0];
+  }
+
+  async getChildSkillIndex(
+    permissionDomainId: number,
+    childDomainId: number,
+  ): Promise<number> {
     if (permissionDomainId < 0) {
       // don't continue if tx will fail
       throw new Error('Current wallet address does not have permission');
-    } else if (permissionDomainId === domainId) {
+    } else if (permissionDomainId === childDomainId) {
       // if we have permission in immediate domain we know index will be zero
-      return [permissionDomainId, 0]; // TODO: is this correct?
+      return 0; // TODO: is this correct?
     }
 
     // get the permission and child domain skills
@@ -163,7 +201,7 @@ export default class DomainAuth<
       domainId: permissionDomainId,
     });
     const { skillId: childDomainSkillId } = await this.client.getDomain.call({
-      domainId,
+      domainId: childDomainId,
     });
 
     // get all the child skills of the permission domain skill
@@ -185,7 +223,7 @@ export default class DomainAuth<
       );
     }
 
-    return [permissionDomainId, childSkillIndex];
+    return childSkillIndex;
   }
 
   /**
@@ -218,53 +256,5 @@ export default class DomainAuth<
     });
 
     return hasRootPermission ? 1 : -1;
-  }
-
-  /**
-   * For colonies with multiple levels of domains, determine whether the
-   * current wallet address has permission for a role in a given domain.
-   * Returns the domainId in which we have permission.
-   *
-   * NOTE: this is not currently used
-   * TODO: it's broken
-   */
-  async hasPermissionMultiLevel(
-    domainId: number,
-    role: ColonyRole,
-  ): Promise<number> {
-    const address = await this.client.adapter.wallet.getAddress();
-
-    // check for permission in that domain
-    let { hasColonyRole: hasPermission } = await this.client.hasColonyRole.call(
-      {
-        address,
-        domainId,
-        role,
-      },
-    );
-
-    // keep searching up the domain tree until we have permission
-    let currentDomainId = domainId;
-    while (!hasPermission && currentDomainId !== 1) {
-      // get the parent domain
-      // TODO: this is getting the parent skill
-      ({
-        parentSkillId: currentDomainId,
-        // eslint-disable-next-line no-await-in-loop
-      } = await this.client.networkClient.getParentSkillId.call({
-        skillId: currentDomainId,
-        parentSkillIndex: 0,
-      }));
-
-      // check for permission in that
-      // eslint-disable-next-line no-await-in-loop
-      ({ hasColonyRole: hasPermission } = await this.client.hasColonyRole.call({
-        address,
-        domainId: currentDomainId,
-        role,
-      }));
-    }
-
-    return hasPermission ? currentDomainId : -1;
   }
 }

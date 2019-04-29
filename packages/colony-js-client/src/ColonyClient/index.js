@@ -27,6 +27,8 @@ import SetFounderRole from './senders/SetFounderRole';
 import addRecoveryMethods from '../addRecoveryMethods';
 
 import {
+  COLONY_ROLE_ADMINISTRATION,
+  COLONY_ROLE_ARCHITECTURE_SUBDOMAIN,
   COLONY_ROLE_ARCHITECTURE,
   COLONY_ROLE_FUNDING,
   COLONY_ROLES,
@@ -1924,10 +1926,10 @@ export default class ColonyClient extends ContractClient {
       },
       permissions: [
         {
-          role: COLONY_ROLE_FUNDING, // TODO: what does this need to be
-          domainId: 'domainId',
-          permissionDomainIdInputValueName: 'permissionDomainId',
-          childSkillIndexInputValueName: 'childSkillIndex',
+          childSkillIndexNames: ['childSkillIndex'],
+          domainIds: ['domainId'],
+          permissionDomainIdName: 'permissionDomainId',
+          role: COLONY_ROLE_ADMINISTRATION,
         },
       ],
     });
@@ -1950,10 +1952,10 @@ export default class ColonyClient extends ContractClient {
       },
       permissions: [
         {
-          role: COLONY_ROLE_FUNDING, // TODO: what does this need to be
-          domainId: 'domainId',
-          permissionDomainIdInputValueName: 'permissionDomainId',
-          childSkillIndexInputValueName: 'childSkillIndex',
+          childSkillIndexNames: ['childSkillIndex'],
+          domainIds: ['domainId'],
+          permissionDomainIdName: 'permissionDomainId',
+          role: COLONY_ROLE_ADMINISTRATION,
         },
       ],
     });
@@ -1980,17 +1982,22 @@ export default class ColonyClient extends ContractClient {
       },
       permissions: [
         {
-          role: COLONY_ROLE_FUNDING, // TODO: what does this need to be
-          domainId: 'domainId',
-          // TODO: these need to be proof for the OneTx extension contract
-          permissionDomainIdInputValueName: 'permissionDomainId',
-          childSkillIndexInputValueName: 'childSkillIndex',
+          address: async () => {
+            const { address } = await this.getExtensionAddress.call({
+              contractName: 'OneTx',
+            });
+            return address;
+          },
+          childSkillIndexNames: ['childSkillIndex'],
+          domainIds: ['domainId'],
+          permissionDomainIdName: 'permissionDomainId',
+          role: COLONY_ROLE_ADMINISTRATION, // TODO: also need to have COLONY_ROLE_FUNDING
         },
         {
-          role: COLONY_ROLE_FUNDING, // TODO: what does this need to be
-          domainId: 'domainId',
-          permissionDomainIdInputValueName: 'callerPermissionDomainId',
-          childSkillIndexInputValueName: 'callerChildSkillIndex',
+          childSkillIndexNames: ['callerChildSkillIndex'],
+          domainIds: ['domainId'],
+          permissionDomainIdName: 'callerPermissionDomainId',
+          role: COLONY_ROLE_ADMINISTRATION, // TODO: also need to have COLONY_ROLE_FUNDING
         },
       ],
     });
@@ -2023,10 +2030,10 @@ export default class ColonyClient extends ContractClient {
       ],
       permissions: [
         {
-          role: COLONY_ROLE_FUNDING, // TODO: what does this need to be
-          domainId: 'parentDomainId',
-          permissionDomainIdInputValueName: 'permissionDomainId',
-          childSkillIndexInputValueName: 'childSkillIndex',
+          childSkillIndexNames: ['childSkillIndex'],
+          domainIds: ['parentDomainId'],
+          permissionDomainIdName: 'permissionDomainId',
+          role: COLONY_ROLE_ARCHITECTURE,
         },
       ],
     });
@@ -2041,10 +2048,13 @@ export default class ColonyClient extends ContractClient {
       ],
       permissions: [
         {
-          role: COLONY_ROLE_FUNDING, // TODO: what does this need to be
-          domainId: () => Promise.resolve(1), // TODO: fetch this from the task
-          permissionDomainIdInputValueName: 'permissionDomainId',
-          childSkillIndexInputValueName: 'childSkillIndex',
+          childSkillIndexNames: ['childSkillIndex'],
+          domainIds: async ({ paymentId }) => {
+            const { domainId } = await this.getPayment.call({ paymentId });
+            return [domainId];
+          },
+          permissionDomainIdName: 'permissionDomainId',
+          role: COLONY_ROLE_ADMINISTRATION,
         },
       ],
     });
@@ -2063,16 +2073,13 @@ export default class ColonyClient extends ContractClient {
       ],
       permissions: [
         {
-          role: COLONY_ROLE_FUNDING, // TODO: what does this need to be
-          domainId: ({ fromPot }) => getDomainIdFromPot(fromPot, this),
-          permissionDomainIdInputValueName: 'permissionDomainId',
-          childSkillIndexInputValueName: 'fromChildSkillIndex',
-        },
-        {
-          role: COLONY_ROLE_FUNDING, // TODO: what does this need to be
-          domainId: ({ toPot }) => getDomainIdFromPot(toPot, this),
-          permissionDomainIdInputValueName: 'permissionDomainId',
-          childSkillIndexInputValueName: 'toChildSkillIndex',
+          childSkillIndexNames: ['fromChildSkillIndex', 'toChildSkillIndex'],
+          domainIds: async ({ fromPot, toPot }) => [
+            await getDomainIdFromPot(fromPot, this),
+            await getDomainIdFromPot(toPot, this),
+          ],
+          permissionDomainIdName: 'permissionDomainId',
+          role: COLONY_ROLE_FUNDING,
         },
       ],
     });
@@ -2089,10 +2096,10 @@ export default class ColonyClient extends ContractClient {
       ],
       permissions: [
         {
-          role: COLONY_ROLE_FUNDING, // TODO: what does this need to be
-          domainId: 'domainId',
-          permissionDomainIdInputValueName: 'permissionDomainId',
-          childSkillIndexInputValueName: 'childSkillIndex',
+          childSkillIndexNames: ['childSkillIndex'],
+          domainIds: ['domainId'],
+          permissionDomainIdName: 'permissionDomainId',
+          role: COLONY_ROLE_ARCHITECTURE_SUBDOMAIN, // TODO: also should allow COLONY_ROLE_ROOT
         },
       ],
     });
@@ -2109,10 +2116,10 @@ export default class ColonyClient extends ContractClient {
       ],
       permissions: [
         {
-          role: COLONY_ROLE_FUNDING, // TODO: what does this need to be
-          domainId: 'domainId',
-          permissionDomainIdInputValueName: 'permissionDomainId',
-          childSkillIndexInputValueName: 'childSkillIndex',
+          childSkillIndexNames: ['childSkillIndex'],
+          domainIds: ['domainId'],
+          permissionDomainIdName: 'permissionDomainId',
+          role: COLONY_ROLE_ARCHITECTURE_SUBDOMAIN, // TODO: also should allow COLONY_ROLE_ROOT
         },
       ],
     });
@@ -2129,10 +2136,10 @@ export default class ColonyClient extends ContractClient {
       ],
       permissions: [
         {
-          role: COLONY_ROLE_FUNDING, // TODO: what does this need to be
-          domainId: 'domainId',
-          permissionDomainIdInputValueName: 'permissionDomainId',
-          childSkillIndexInputValueName: 'childSkillIndex',
+          childSkillIndexNames: ['childSkillIndex'],
+          domainIds: ['domainId'],
+          permissionDomainIdName: 'permissionDomainId',
+          role: COLONY_ROLE_ARCHITECTURE_SUBDOMAIN, // TODO: also should allow COLONY_ROLE_ROOT
         },
       ],
     });
@@ -2149,13 +2156,13 @@ export default class ColonyClient extends ContractClient {
       ],
       permissions: [
         {
-          role: COLONY_ROLE_FUNDING, // TODO: what does this need to be
-          domainId: async ({ paymentId }) => {
+          childSkillIndexNames: ['childSkillIndex'],
+          domainIds: async ({ paymentId }) => {
             const { domainId } = await this.getPayment.call({ paymentId });
-            return domainId;
+            return [domainId];
           },
-          permissionDomainIdInputValueName: 'permissionDomainId',
-          childSkillIndexInputValueName: 'childSkillIndex',
+          permissionDomainIdName: 'permissionDomainId',
+          role: COLONY_ROLE_ADMINISTRATION,
         },
       ],
     });
@@ -2171,13 +2178,13 @@ export default class ColonyClient extends ContractClient {
       ],
       permissions: [
         {
-          role: COLONY_ROLE_FUNDING, // TODO: what does this need to be
-          domainId: async ({ paymentId }) => {
+          childSkillIndexNames: ['childSkillIndex'],
+          domainIds: async ({ paymentId }) => {
             const { domainId } = await this.getPayment.call({ paymentId });
-            return domainId;
+            return [domainId];
           },
-          permissionDomainIdInputValueName: 'permissionDomainId',
-          childSkillIndexInputValueName: 'childSkillIndex',
+          permissionDomainIdName: 'permissionDomainId',
+          role: COLONY_ROLE_ADMINISTRATION,
         },
       ],
     });
@@ -2193,13 +2200,13 @@ export default class ColonyClient extends ContractClient {
       ],
       permissions: [
         {
-          role: COLONY_ROLE_FUNDING, // TODO: what does this need to be
-          domainId: async ({ paymentId }) => {
+          childSkillIndexNames: ['childSkillIndex'],
+          domainIds: async ({ paymentId }) => {
             const { domainId } = await this.getPayment.call({ paymentId });
-            return domainId;
+            return [domainId];
           },
-          permissionDomainIdInputValueName: 'permissionDomainId',
-          childSkillIndexInputValueName: 'childSkillIndex',
+          permissionDomainIdName: 'permissionDomainId',
+          role: COLONY_ROLE_ADMINISTRATION,
         },
       ],
     });
