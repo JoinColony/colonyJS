@@ -5,7 +5,12 @@ import ContractClient from '@colony/colony-js-contract-client';
 // eslint-disable-next-line max-len
 import type { ContractMethodSenderArgs } from '@colony/colony-js-contract-client';
 
-import { COLONY_ROLES } from '../../constants';
+import {
+  COLONY_ROLES,
+  FUNDING_POT_TYPE_DOMAIN,
+  FUNDING_POT_TYPE_PAYMENT,
+  FUNDING_POT_TYPE_TASK,
+} from '../../constants';
 
 import type { ColonyClient } from '../../index';
 
@@ -28,13 +33,12 @@ type PermissionType = {|
 
 export const getDomainIdFromPot = async (potId: number, colonyClient: *) => {
   const { type, typeId } = await colonyClient.getFundingPot.call({ potId });
-  // TODO: should use contstants to check the type
-  if (type === 1) {
+  if (type === FUNDING_POT_TYPE_DOMAIN) {
     return typeId;
-  } else if (type === 2) {
+  } else if (type === FUNDING_POT_TYPE_TASK) {
     const { domainId } = await colonyClient.getTask.call({ taskId: typeId });
     return domainId;
-  } else if (type === 3) {
+  } else if (type === FUNDING_POT_TYPE_PAYMENT) {
     const { domainId } = await colonyClient.getPayment.call({
       paymentId: typeId,
     });
@@ -112,12 +116,6 @@ export default class DomainAuth<
           childSkillIndexNames,
           address: inputAddress,
         }) => {
-          if (inputDomainIds.length !== childSkillIndexNames.length) {
-            throw new Error(
-              'Number of domainIds must match number of childSkillIndexes',
-            );
-          }
-
           // resolve the functions or fetch from inputValues
           const domainIds =
             typeof inputDomainIds === 'function'
@@ -130,6 +128,13 @@ export default class DomainAuth<
                         : inputValues[inputDomainId],
                   ),
                 );
+
+          // throw if mismatch
+          if (domainIds.length !== childSkillIndexNames.length) {
+            throw new Error(
+              'Number of domainIds must match number of childSkillIndexes',
+            );
+          }
 
           // resolve the  address
           const address =
@@ -168,6 +173,8 @@ export default class DomainAuth<
   async getHighestDomain(domainIds: number[]): Promise<number> {
     const skills = await Promise.all(
       domainIds.map(async domainId => {
+        if (domainId < 0) return [domainId, null];
+
         const { skillId } = await this.client.getDomain.call({
           domainId,
         });
@@ -176,10 +183,13 @@ export default class DomainAuth<
           skillId,
         });
 
-        return skill;
+        return [domainId, skill];
       }),
     );
-    return skills.sort((a, b) => b.children.length - a.children.length)[0];
+    return skills.filter(([, skill]) => skill !== null).sort(
+      // $FlowFixMe these will all be skills because of the filter
+      ([, a], [, b]) => b.children.length - a.children.length,
+    )[0][0];
   }
 
   async getChildSkillIndex(
@@ -238,7 +248,7 @@ export default class DomainAuth<
   ): Promise<number> {
     // if we have permission in the specified domain, return that
     const {
-      hasColonyRole: hasDomainPermission,
+      hasRole: hasDomainPermission,
     } = await this.client.hasColonyRole.call({
       address,
       domainId,
@@ -247,13 +257,13 @@ export default class DomainAuth<
     if (hasDomainPermission) return domainId;
 
     // if we have permission in root domain, return that
-    const {
-      hasColonyRole: hasRootPermission,
-    } = await this.client.hasColonyRole.call({
-      address,
-      domainId: 1,
-      role,
-    });
+    const { hasRole: hasRootPermission } = await this.client.hasColonyRole.call(
+      {
+        address,
+        domainId: 1,
+        role,
+      },
+    );
 
     return hasRootPermission ? 1 : -1;
   }

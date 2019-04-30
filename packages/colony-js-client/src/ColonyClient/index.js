@@ -1984,7 +1984,7 @@ export default class ColonyClient extends ContractClient {
         {
           address: async () => {
             const { address } = await this.getExtensionAddress.call({
-              contractName: 'OneTx',
+              contractName: 'OneTxPayment',
             });
             return address;
           },
