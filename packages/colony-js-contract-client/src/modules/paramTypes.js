@@ -46,7 +46,10 @@ const PARAM_TYPE_MAP: {
     },
     convertOutput(value) {
       if (!Array.isArray(value)) return [];
-      return value.map(element => (isBigNumber(element) ? element : null));
+      return value.map(
+        element =>
+          isBigNumber(element) ? new BigNumber(element.toString()) : null,
+      );
     },
     convertInput: passThrough,
   },
@@ -72,7 +75,7 @@ const PARAM_TYPE_MAP: {
     validate: isBigNumber,
     convertOutput(value: any) {
       if (isBigNumber(value)) {
-        return value;
+        return new BigNumber(value.toString());
       } else if (Number.isFinite(value)) {
         return new BigNumber(value);
       }

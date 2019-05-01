@@ -61,7 +61,7 @@ describe('Parameter types', () => {
     expect(validateValueType(bn, 'bigNumber')).toBe(true);
 
     // Cleaning
-    expect(convertOutputValue(bn, 'bigNumber')).toBe(bn);
+    expect(convertOutputValue(bn, 'bigNumber')).toEqual(bn);
 
     expect(convertOutputValue(null, 'bigNumber')).toBe(null);
 
