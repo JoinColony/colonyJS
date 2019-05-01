@@ -2,6 +2,7 @@
 
 import BigNumber from 'bn.js';
 import ContractClient from '@colony/colony-js-contract-client';
+import CreateTokenAuthority from './senders/CreateTokenAuthority';
 import GetTokenInfo from './callers/GetTokenInfo';
 
 type Address = string;
@@ -261,6 +262,24 @@ export default class TokenClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+  /*
+  Deploy a TokenAuthority contract which can then be use to control the transfer of a token.
+  */
+  createTokenAuthority: TokenClient.Sender<
+    {
+      allowedToTransfer: Address[], // Additional addresses which are allowed to transfer the token while locked.
+      colonyAddress: Address, // The address of the colony which should be allowed control of the token.
+      tokenAddress: Address, // The address of the token for which this contract will operate.
+    },
+    {},
+    TokenClient,
+    {
+      contract: 'Token.sol',
+      // eslint-disable-next-line max-len
+      contractPath: 'https://github.com/JoinColony/colonyToken/blob/7cc7d6b5bf3e94e6d97cd65583e3da38a994753f/contracts',
+      version: '8d3a50719cd51459db153006b5bd56c031e9d169',
+    },
+  >;
 
   static get defaultQuery() {
     return {
@@ -308,6 +327,7 @@ export default class TokenClient extends ContractClient {
     });
 
     // Senders
+    this.createTokenAuthority = new CreateTokenAuthority({ client: this });
     this.addSender('transfer', {
       input: [destinationAddress, amount],
     });

@@ -169,7 +169,7 @@ See [Sender](/colonyjs/api-contractclient/#sender) for more information about op
 
 An instance of a \`ContractResponse\`${
   // XXX If this gets even more complicated, find another way!
-  sender.name === 'createToken'
+  sender.name === 'createToken' || sender.name === 'createTokenAuthority'
     ? ' which will receive a receipt with a \`contractAddress\` property.'
     : (
         sender.events && sender.events.length

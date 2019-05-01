@@ -402,6 +402,39 @@ Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7cc7d6b5bf3
   
   
 
+### `createTokenAuthority.send({ allowedToTransfer, colonyAddress, tokenAddress }, options)`
+
+Deploy a TokenAuthority contract which can then be use to control the transfer of a token.
+
+**Input**
+
+|Name|Type|Description|
+|---|---|---|
+|allowedToTransfer|undefined|Additional addresses which are allowed to transfer the token while locked.|
+|colonyAddress|address|The address of the colony which should be allowed control of the token.|
+|tokenAddress|address|The address of the token for which this contract will operate.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
+
+An instance of a `ContractResponse` which will receive a receipt with a `contractAddress` property.
+
+
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
+
+
+  
+  
+Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7cc7d6b5bf3e94e6d97cd65583e3da38a994753f/contracts/Token.sol)
+  
+  
+
   
   
 ## Events
