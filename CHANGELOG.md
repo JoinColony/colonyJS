@@ -6,6 +6,10 @@ This release implements a lot of changes and additions in preparation for the up
 
 Also, please note that colonyJS is currently using `ethers` version `3.0.27`.
 
+**New Features**
+
+* Added `createTokenAuthority`method (`@colony/colony-js-client`)
+
 **Types**
 
 * Added `[number]` param type (`@colony/colony-js-contract-client`)
