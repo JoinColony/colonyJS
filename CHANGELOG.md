@@ -127,26 +127,13 @@ Also, please note that colonyJS is currently using `ethers` version `3.0.27`.
     * See `claimPayment` and `claimTaskPayout` for more information.
   * Removed `createTask`
     * `addTask` has replaced `createTask` for consistency.
-    * `addTask` added a `permissionDomainId` input parameter.
-    * `addTask` added a `childSkillIndex` input parameter.
   * Removed `removeAdminRole` (See `setAdminRole`)
-  * Updated `addDomain`
-    * Added `permissionDomainId` input parameter.
-    * Added `childSkillIndex` input parameter.
   * Updated `addGlobalSkill`
     * Removed `parentSkillId` as an input parameter. Global skills no longer exist within a skills tree and always use `0` for the `parentSkillId`.
   * Updated `bootstrapColony`
     * Changed `users` input parameter to `addresses`.
   * Updated `makePayment`
-    * Added `permissionDomainId` input parameter.
-    * Added `childSkillIndex` input parameter.
-    * Added `callerPermissionDomainId` input parameter.
-    * Added `callerChildSkillIndex` input parameter.
     * Changed `worker` input parameter to `recipient`.
-  * Updated `moveFundsBetweenPots`
-    * Added `permissionDomainId` input parameter.
-    * Added `fromChildSkillIndex` input parameter.
-    * Added `toChildSkillIndex` input parameter.
   * Updated `removeRecoveryRole`
     * Changed `user` input parameter to `address`.
   * Updated `setRecoveryRole`
@@ -162,8 +149,6 @@ Also, please note that colonyJS is currently using `ethers` version `3.0.27`.
     * Changed `user` input parameter to `address`.
   * Updated `setTaskManagerRole`
     * Changed `user` input parameter to `address`.
-    * Added `permissionDomainId` input parameter.
-    * Added `childSkillIndex` input parameter.
   * Updated `setTaskWorkerRole`
     * Changed `user` input parameter to `address`.
   * Updated `startNextRewardPayout`
