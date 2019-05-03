@@ -57,7 +57,11 @@ const PARAM_TYPE_MAP: {
     },
     convertOutput(value) {
       if (!Array.isArray(value)) return [];
-      return value.map(element => (Number.isFinite(element) ? element : null));
+      return value.map(element => {
+        // convert BN (ethers or bn.js)
+        const number = isBigNumber(element) ? element.toNumber() : element;
+        return Number.isFinite(number) ? number : null;
+      });
     },
     convertInput: passThrough,
   },

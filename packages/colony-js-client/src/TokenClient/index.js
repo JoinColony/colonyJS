@@ -55,7 +55,7 @@ export default class TokenClient extends ContractClient {
     },
     TokenClient,
     {
-      contract: 'erc20.sol',
+      contract: 'base.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
@@ -74,10 +74,10 @@ export default class TokenClient extends ContractClient {
     },
     TokenClient,
     {
-      contract: 'token.sol',
+      contract: 'Token.sol',
       // eslint-disable-next-line max-len
-      contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
-      version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
+      contractPath: 'https://github.com/JoinColony/colonyToken/blob/7cc7d6b5bf3e94e6d97cd65583e3da38a994753f/contracts',
+      version: '8d3a50719cd51459db153006b5bd56c031e9d169',
     },
   >;
   /*
@@ -94,7 +94,7 @@ export default class TokenClient extends ContractClient {
     TokenClient,
     {
       function: 'allowance',
-      contract: 'erc20.sol',
+      contract: 'base.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
@@ -113,7 +113,7 @@ export default class TokenClient extends ContractClient {
     TokenClient,
     {
       function: 'balanceOf',
-      contract: 'erc20.sol',
+      contract: 'base.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
@@ -134,7 +134,7 @@ export default class TokenClient extends ContractClient {
       contract: 'Token.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/JoinColony/colonyToken/blob/7cc7d6b5bf3e94e6d97cd65583e3da38a994753f/contracts',
-      version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
+      version: '8d3a50719cd51459db153006b5bd56c031e9d169',
     },
   >;
   /*
@@ -148,7 +148,7 @@ export default class TokenClient extends ContractClient {
     TokenClient,
     {
       function: 'totalSupply',
-      contract: 'erc20.sol',
+      contract: 'base.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
@@ -167,10 +167,10 @@ export default class TokenClient extends ContractClient {
     },
     TokenClient,
     {
-      contract: 'token.sol',
+      contract: 'Token.sol',
       // eslint-disable-next-line max-len
-      contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
-      version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
+      contractPath: 'https://github.com/JoinColony/colonyToken/blob/7cc7d6b5bf3e94e6d97cd65583e3da38a994753f/contracts',
+      version: '8d3a50719cd51459db153006b5bd56c031e9d169',
     },
   >;
   /*
@@ -189,22 +189,6 @@ export default class TokenClient extends ContractClient {
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
-    },
-  >;
-  /*
-  Set the `name` of a token contract. This function can only be called by the current `owner` of the contract. In order to call token contract methods from within a colony, the token `owner` must be the address of the colony contract.
-  */
-  setName: TokenClient.Sender<
-    {
-      name: string, // The name of the token that will be set.
-    },
-    {},
-    TokenClient,
-    {
-      contract: 'token.sol',
-      // eslint-disable-next-line max-len
-      contractPath: 'https://github.com/dapphub/dappsys-monolithic/tree/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
-      version: '9ddf14118cd0436a19a7278282e4b8a607e14b54',
     },
   >;
   /*
@@ -236,7 +220,7 @@ export default class TokenClient extends ContractClient {
     {},
     TokenClient,
     {
-      contract: 'erc20.sol',
+      contract: 'base.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
@@ -256,10 +240,10 @@ export default class TokenClient extends ContractClient {
     },
     TokenClient,
     {
-      contract: 'Token.sol',
+      contract: 'base.sol',
       // eslint-disable-next-line max-len
-      contractPath: 'https://github.com/JoinColony/colonyToken/blob/7cc7d6b5bf3e94e6d97cd65583e3da38a994753f/contracts',
-      version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
+      contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
+      version: '8d3a50719cd51459db153006b5bd56c031e9d169',
     },
   >;
   /*
@@ -342,9 +326,6 @@ export default class TokenClient extends ContractClient {
     });
     this.addSender('burn', {
       input: [user, amount],
-    });
-    this.addSender('setName', {
-      input: [['name', 'bytes32String']],
     });
     this.addSender('setOwner', {
       input: [['owner', 'address']],

@@ -815,7 +815,7 @@ Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e25
 Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IMetaColony.sol)
   
 
-### `addDomain.send({ permissionDomainId, childSkillIndex, parentDomainId }, options)`
+### `addDomain.send({ parentDomainId }, options)`
 
 Add a domain to the colony.
 
@@ -823,8 +823,6 @@ Add a domain to the colony.
 
 |Name|Type|Description|
 |---|---|---|
-|permissionDomainId|number|The ID of the domain in which the sender has permission.|
-|childSkillIndex|number|The index that the `domainId` is relative to the `permissionDomainId`.|
 |parentDomainId|number|The ID of the parent domain.|
 
 **Options**
@@ -918,7 +916,7 @@ Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e25
 Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IMetaColony.sol)
   
 
-### `addPayment.send({ permissionDomainId, childSkillIndex, recipient, token, amount, domainId, skillId }, options)`
+### `addPayment.send({ recipient, token, amount, domainId, skillId }, options)`
 
 Add a payment to the colony.
 
@@ -926,8 +924,6 @@ Add a payment to the colony.
 
 |Name|Type|Description|
 |---|---|---|
-|permissionDomainId|number|The ID of the domain in which the sender has permission.|
-|childSkillIndex|number|The index that the `domainId` is relative to the `permissionDomainId`.|
 |recipient|address|The address that will receive the payment.|
 |token|address|The address of the token contract (an empty address if Ether).|
 |amount|big number|The amount of tokens (or Ether) for the payment.|
@@ -961,7 +957,7 @@ Contract: [ColonyPayment.sol](https://github.com/JoinColony/colonyNetwork/tree/5
 Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
   
 
-### `addTask.send({ permissionDomainId, childSkillIndex, specificationHash, domainId, skillId, dueDate }, options)`
+### `addTask.send({ specificationHash, domainId, skillId, dueDate }, options)`
 
 Add a new task within the colony.
 
@@ -969,8 +965,6 @@ Add a new task within the colony.
 
 |Name|Type|Description|
 |---|---|---|
-|permissionDomainId|number|The ID of the domain in which the sender has permission.|
-|childSkillIndex|number|The index that the `domainId` is relative to the `permissionDomainId`.|
 |specificationHash|IPFS hash|The specification hash of the task (an IPFS hash).|
 |domainId|number (optional)|The ID of the domain (default value of `1`).|
 |skillId|number (optional)|The ID of the skill (default value of `null`).|
@@ -1365,7 +1359,7 @@ Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tre
 Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IRecovery.sol)
   
 
-### `finalizePayment.send({ permissionDomainId, childSkillIndex, paymentId }, options)`
+### `finalizePayment.send({ paymentId }, options)`
 
 Finalize a payment. Once a payment is finalized, no further changes to the payment can be made and the address that is assigned the payment can claim the payment.
 
@@ -1373,8 +1367,6 @@ Finalize a payment. Once a payment is finalized, no further changes to the payme
 
 |Name|Type|Description|
 |---|---|---|
-|permissionDomainId|number|The ID of the domain in which the sender has permission.|
-|childSkillIndex|number|The index that the `domainId` is relative to the `permissionDomainId`.|
 |paymentId|number|The ID of the payment.|
 
 **Options**
@@ -1469,7 +1461,7 @@ Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd
 Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
   
 
-### `makePayment.send({ permissionDomainId, childSkillIndex, callerPermissionDomainId, callerChildSkillIndex, recipient, token, amount, domainId, skillId }, options)`
+### `makePayment.send({ recipient, token, amount, domainId, skillId }, options)`
 
 Make a payment in one transaction. This function is not included in the core contracts but instead it comes from the `OneTxPayment` extension contract. The `OneTxPayment` extension contract and the sender must both be assigned the colony `ADMINISTRATION` role.
 
@@ -1477,10 +1469,6 @@ Make a payment in one transaction. This function is not included in the core con
 
 |Name|Type|Description|
 |---|---|---|
-|permissionDomainId|number|The ID of the domain in which the sender has permission.|
-|childSkillIndex|number|The index that the `domainId` is relative to the `permissionDomainId`.|
-|callerPermissionDomainId|number|The ID of the domain in which the caller has permission.|
-|callerChildSkillIndex|number|The index that the `domainId` is relative to the `callerPermissionDomainId`.|
 |recipient|address|The address that will receive the payment.|
 |token|address|The address of the token contract (an empty address if Ether).|
 |amount|big number|The amount of tokens (or Ether) for the payment.|
@@ -1599,7 +1587,7 @@ Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e25
 Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IMetaColony.sol)
   
 
-### `moveFundsBetweenPots.send({ permissionDomainId, fromChildSkillIndex, toChildSkillIndex, fromPot, toPot, amount, token }, options)`
+### `moveFundsBetweenPots.send({ fromPot, toPot, amount, token }, options)`
 
 Move funds from one pot to another.
 
@@ -1607,9 +1595,6 @@ Move funds from one pot to another.
 
 |Name|Type|Description|
 |---|---|---|
-|permissionDomainId|number|The ID of the domain that grants the address permission to call the method.|
-|fromChildSkillIndex|number|The index that the `domainId` is relative to the `permissionDomainId`.|
-|toChildSkillIndex|number|The index that the `domainId` is relative to the `permissionDomainId`.|
 |fromPot|number|The ID of the pot from which funds will be moved.|
 |toPot|number|The ID of the pot to which funds will be moved.|
 |amount|big number|The amount of funds that will be moved between pots.|
@@ -1820,7 +1805,7 @@ Contract: [OldRoles.sol](https://github.com/JoinColony/colonyNetwork/blob/5acd5e
   
   
 
-### `setAdministrationRole.send({ permissionDomainId, childSkillIndex, address, domainId, setTo }, options)`
+### `setAdministrationRole.send({ address, domainId, setTo }, options)`
 
 Assign the colony `ADMINISTRATION` role to an address. The address calling the method must have permission within the domain that permission is being granted or a parent domain to the domain that permission is being granted. The address calling the method must already be assigned either the colony `ROOT` or `ARCHITECTURE` role within the domain or parent domain.
 
@@ -1828,8 +1813,6 @@ Assign the colony `ADMINISTRATION` role to an address. The address calling the m
 
 |Name|Type|Description|
 |---|---|---|
-|permissionDomainId|number|The ID of the domain that grants the address permission to call the method.|
-|childSkillIndex|number|The index that the `domainId` is relative to the `permissionDomainId`.|
 |address|address|The address that will be assigned or unassigned the colony `ADMINISTRATION` role.|
 |domainId|number|The ID of the domain that the colony `ADMINISTRATION` role will be assigned or unassigned.|
 |setTo|boolean|A boolean indicating whether the address will be assigned or unassigned the colony `ADMINISTRATION` role.|
@@ -1902,7 +1885,7 @@ Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/5
 Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
   
 
-### `setArchitectureRole.send({ permissionDomainId, childSkillIndex, address, domainId, setTo }, options)`
+### `setArchitectureRole.send({ address, domainId, setTo }, options)`
 
 Assign the colony `ARCHITECTURE` role to an address. The address calling the method must have permission within the domain that permission is being granted or a parent domain to the domain that permission is being granted. The address calling the method must already be assigned either the colony `ROOT` or `ARCHITECTURE` role within the domain or parent domain.
 
@@ -1910,8 +1893,6 @@ Assign the colony `ARCHITECTURE` role to an address. The address calling the met
 
 |Name|Type|Description|
 |---|---|---|
-|permissionDomainId|number|The ID of the domain that grants the address permission to call the method.|
-|childSkillIndex|number|The index that the `domainId` is relative to the `permissionDomainId`.|
 |address|address|The address that will be assigned or unassigned the colony `ARCHITECTURE` role.|
 |domainId|number|The ID of the domain that the colony `ARCHITECTURE` role will be assigned or unassigned.|
 |setTo|boolean|A boolean indicating whether the address will be assigned or unassigned the colony `ARCHITECTURE` role.|
@@ -1980,7 +1961,7 @@ Contract: [OldRoles.sol](https://github.com/JoinColony/colonyNetwork/blob/5acd5e
   
   
 
-### `setFundingRole.send({ permissionDomainId, childSkillIndex, address, domainId, setTo }, options)`
+### `setFundingRole.send({ address, domainId, setTo }, options)`
 
 Assign the colony `FUNDING` role to an address. The address calling the method must have permission within the domain that permission is being granted or a parent domain to the domain that permission is being granted. The address calling the method must already be assigned either the colony `ROOT` or `ARCHITECTURE` role within the domain or parent domain.
 
@@ -1988,8 +1969,6 @@ Assign the colony `FUNDING` role to an address. The address calling the method m
 
 |Name|Type|Description|
 |---|---|---|
-|permissionDomainId|number|The ID of the domain that grants the address permission to call the method.|
-|childSkillIndex|number|The index that the `domainId` is relative to the `permissionDomainId`.|
 |address|address|The address that will be assigned or unassigned the colony `FUNDING` role.|
 |domainId|number|The ID of the domain that the colony `FUNDING` role will be assigned or unassigned.|
 |setTo|boolean|A boolean indicating whether the address will be assigned or unassigned the colony `FUNDING` role.|
@@ -2052,7 +2031,7 @@ Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e25
 Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IMetaColony.sol)
   
 
-### `setPaymentDomain.send({ permissionDomainId, childSkillIndex, paymentId, domainId }, options)`
+### `setPaymentDomain.send({ paymentId, domainId }, options)`
 
 Set the payment domain.
 
@@ -2060,8 +2039,6 @@ Set the payment domain.
 
 |Name|Type|Description|
 |---|---|---|
-|permissionDomainId|number|The ID of the domain in which the sender has permission.|
-|childSkillIndex|number|The index that the `domainId` is relative to the `permissionDomainId`.|
 |paymentId|number|The ID of the payment.|
 |domainId|address|The ID of the domain.|
 
@@ -2087,7 +2064,7 @@ Contract: [ColonyPayment.sol](https://github.com/JoinColony/colonyNetwork/tree/5
 Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
   
 
-### `setPaymentPayout.send({ permissionDomainId, childSkillIndex, paymentId, token, amount }, options)`
+### `setPaymentPayout.send({ paymentId, token, amount }, options)`
 
 Set the payment payout.
 
@@ -2095,8 +2072,6 @@ Set the payment payout.
 
 |Name|Type|Description|
 |---|---|---|
-|permissionDomainId|number|The ID of the domain in which the sender has permission.|
-|childSkillIndex|number|The index that the `domainId` is relative to the `permissionDomainId`.|
 |paymentId|number|The ID of the payment.|
 |token|address|The address of the token contract (an empty address if Ether).|
 |amount|big number|The amount of the payment.|
@@ -2123,7 +2098,7 @@ Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/5
 Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
   
 
-### `setPaymentRecipient.send({ permissionDomainId, childSkillIndex, paymentId, recipient }, options)`
+### `setPaymentRecipient.send({ paymentId, recipient }, options)`
 
 Set the payment recipient.
 
@@ -2131,8 +2106,6 @@ Set the payment recipient.
 
 |Name|Type|Description|
 |---|---|---|
-|permissionDomainId|number|The ID of the domain in which the sender has permission.|
-|childSkillIndex|number|The index that the `domainId` is relative to the `permissionDomainId`.|
 |paymentId|number|The ID of the payment.|
 |recipient|address|The address that will receive the payment.|
 
@@ -2158,7 +2131,7 @@ Contract: [ColonyPayment.sol](https://github.com/JoinColony/colonyNetwork/tree/5
 Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
   
 
-### `setPaymentSkill.send({ permissionDomainId, childSkillIndex, paymentId, skillId }, options)`
+### `setPaymentSkill.send({ paymentId, skillId }, options)`
 
 Set the payment skill.
 
@@ -2166,8 +2139,6 @@ Set the payment skill.
 
 |Name|Type|Description|
 |---|---|---|
-|permissionDomainId|number|The ID of the domain in which the sender has permission.|
-|childSkillIndex|number|The index that the `domainId` is relative to the `permissionDomainId`.|
 |paymentId|number|The ID of the payment.|
 |skillId|address|The ID of the skill.|
 
@@ -2825,7 +2796,7 @@ Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/5
 Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
   
 
-### `setTaskManagerRole.startOperation({ taskId, address, permissionDomainId, childSkillIndex })`
+### `setTaskManagerRole.startOperation({ taskId, address })`
 
 Assign the task `MANAGER` role to an address. This function can only be called before the task is finalized. The address currently assigned the task `MANAGER` role and the address being assigned the task `MANAGER` role must both sign the transaction before it can be executed.
 
@@ -2835,8 +2806,6 @@ Assign the task `MANAGER` role to an address. This function can only be called b
 |---|---|---|
 |taskId|number|The ID of the task.|
 |address|address|The address that will be assigned the task `MANAGER` role.|
-|permissionDomainId|number|The ID of the domain in which the sender has permission.|
-|childSkillIndex|number|The index that the `domainId` is relative to the `permissionDomainId`.|
 
 **Response**
 
