@@ -15,7 +15,7 @@ export default class CreateToken<
 > {
   constructor({
     name = 'createToken',
-    input = [['symbol', 'bytes32String']],
+    input = [['name', 'string'], ['symbol', 'string'], ['decimals', 'number']],
     ...props
   }: *) {
     super({ name, input, ...props });
@@ -34,7 +34,7 @@ export default class CreateToken<
 
   async _getContractDeployTransaction(args: *) {
     return this.client.adapter.getContractDeployTransaction(
-      { contractName: 'DSToken' },
+      { contractName: 'Token' },
       args,
     );
   }
