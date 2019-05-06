@@ -17,7 +17,18 @@ export default class SetAdminRole extends ContractClient.Sender<
   ColonyClient,
   *,
 > {
+  async estimate(inputValues: *) {
+    const args = this.getValidatedArgs(inputValues);
+    const contract = await this._getContract();
+    return contract.callEstimate('setAdminRole', args);
+  }
+
   async _sendTransaction(args: *, options: *) {
+    const contract = await this._getContract();
+    return contract.callTransaction('setAdminRole', args, options);
+  }
+
+  async _getContract() {
     const factoryContract = await this.client.adapter.getContract({
       contractName: 'OldRolesFactory',
     });
@@ -25,10 +36,12 @@ export default class SetAdminRole extends ContractClient.Sender<
       'deployedExtensions',
       [this.client.contract.address],
     );
+    if (!contractAddress)
+      throw new Error('OldRoles not deployed for this Colony');
     const contract = await this.client.adapter.getContract({
       contractAddress,
       contractName: 'OldRoles',
     });
-    return contract.callTransaction('setAdminRole', args, options);
+    return contract;
   }
 }
