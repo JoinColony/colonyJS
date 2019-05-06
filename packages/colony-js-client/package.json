@@ -1,6 +1,6 @@
 {
     "name": "@colony/colony-js-client",
-    "version": "1.12.0-beta.1",
+    "version": "1.12.0-beta.2",
     "description": "Reference implementation of the Colony API",
     "main": "lib/index.js",
     "files": [
@@ -44,7 +44,7 @@
     "dependencies": {
         "@colony/colony-js-adapter": "^1.9.0",
         "@colony/colony-js-adapter-ethers": "^1.10.0",
-        "@colony/colony-js-contract-client": "^1.12.0-beta.1",
+        "@colony/colony-js-contract-client": "^1.12.0-beta.2",
         "@colony/colony-js-contract-loader": "^1.8.1",
         "@colony/colony-js-contract-loader-http": "^1.10.0",
         "@colony/colony-js-contract-loader-network": "^1.11.0",
