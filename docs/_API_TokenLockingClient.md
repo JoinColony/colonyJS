@@ -27,7 +27,7 @@ Get the total number of locked tokens.
 
 |Name|Type|Description|
 |---|---|---|
-|token|address|The address of the token contract (an empty address if Ether).|
+|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
 
 **Response**
 
@@ -55,7 +55,7 @@ Get the total number of locked tokens for a given user.
 
 |Name|Type|Description|
 |---|---|---|
-|token|address|The address of the token contract (an empty address if Ether).|
+|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
 |user|address|The address of the user.|
 
 **Response**
@@ -88,7 +88,7 @@ Deposit tokens. This function only be called if the tokens that the user is atte
 
 |Name|Type|Description|
 |---|---|---|
-|token|address|The address of the token contract (an empty address if Ether).|
+|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
 |amount|big number|The amount of tokens that will be deposited.|
 
 **Options**
@@ -101,7 +101,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Name|Type|Description|
 |---|---|---|
-|token|address|The address of the token contract receiving the deposit.|
+|token|address (0x0 included)|The address of the token contract receiving the deposit.|
 |user|address|The address of the user that deposited tokens.|
 |amount|big number|The amount of tokens that were deposited.|
 |timestamp|date|The timestamp when the tokens were deposited.|
@@ -127,7 +127,7 @@ Lock all tokens for a given token contract.
 
 |Name|Type|Description|
 |---|---|---|
-|token|address|The address of the token contract (an empty address if Ether).|
+|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
 
 **Options**
 
@@ -139,7 +139,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Name|Type|Description|
 |---|---|---|
-|token|address|The address of the token contract that was locked.|
+|token|address (0x0 included)|The address of the token contract that was locked.|
 |lockCount|big number|The address of the token contract that was assigned.|
 |TokenLocked|object|Contains the data defined in [TokenLocked](#eventstokenlocked)|
 
@@ -163,7 +163,7 @@ Increment the token lock counter. This method allows users to waive reward payou
 
 |Name|Type|Description|
 |---|---|---|
-|token|address|The address of the token contract (an empty address if Ether).|
+|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
 |lockId|number|The ID of the lock count that will be set.|
 
 **Options**
@@ -196,7 +196,7 @@ Unlock all tokens for a user on a given token contract.
 
 |Name|Type|Description|
 |---|---|---|
-|token|address|The address of the token contract (an empty address if Ether).|
+|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
 |user|address|The address of the user.|
 |lockId|number|The ID of the lock count that will be set.|
 
@@ -210,7 +210,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Name|Type|Description|
 |---|---|---|
-|token|address|The address of the token contract that was unlocked.|
+|token|address (0x0 included)|The address of the token contract that was unlocked.|
 |user|address|The address of the user that the tokens were unlocked for.|
 |lockId|number|The ID of the lock that the was set for the user.|
 |UserTokenUnlocked|object|Contains the data defined in [UserTokenUnlocked](#eventsusertokenunlocked)|
@@ -235,7 +235,7 @@ Withdraw tokens. This function only be called if the tokens that the user is att
 
 |Name|Type|Description|
 |---|---|---|
-|token|address|The address of the token contract (an empty address if Ether).|
+|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
 |amount|big number|The amount of tokens that will be deposited.|
 
 **Options**
@@ -248,7 +248,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Name|Type|Description|
 |---|---|---|
-|token|address|The address of the token contract from which tokens were withdrawn.|
+|token|address (0x0 included)|The address of the token contract from which tokens were withdrawn.|
 |user|address|The address of the user that withdrew tokens.|
 |amount|big number|The amount of tokens that were withdrawn.|
 |UserTokenWithdrawn|object|Contains the data defined in [UserTokenWithdrawn](#eventsusertokenwithdrawn)|
@@ -285,7 +285,7 @@ Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/
 
 |Name|Type|Description|
 |---|---|---|
-|token|address|The address of the token contract that was locked.|
+|token|address (0x0 included)|The address of the token contract that was locked.|
 |lockCount|big number|The address of the token contract that was assigned.|
 
 
@@ -304,7 +304,7 @@ Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/
 
 |Name|Type|Description|
 |---|---|---|
-|token|address|The address of the token contract receiving the deposit.|
+|token|address (0x0 included)|The address of the token contract receiving the deposit.|
 |user|address|The address of the user that deposited tokens.|
 |amount|big number|The amount of tokens that were deposited.|
 |timestamp|date|The timestamp when the tokens were deposited.|
@@ -325,7 +325,7 @@ Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/
 
 |Name|Type|Description|
 |---|---|---|
-|token|address|The address of the token contract that was unlocked.|
+|token|address (0x0 included)|The address of the token contract that was unlocked.|
 |user|address|The address of the user that the tokens were unlocked for.|
 |lockId|number|The ID of the lock that the was set for the user.|
 
@@ -345,6 +345,6 @@ Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/
 
 |Name|Type|Description|
 |---|---|---|
-|token|address|The address of the token contract from which tokens were withdrawn.|
+|token|address (0x0 included)|The address of the token contract from which tokens were withdrawn.|
 |user|address|The address of the user that withdrew tokens.|
 |amount|big number|The amount of tokens that were withdrawn.|
