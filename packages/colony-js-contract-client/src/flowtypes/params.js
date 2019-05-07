@@ -12,7 +12,7 @@ export type ParamTypes =
   | 'hexString'
   | 'ipfsHash'
   | 'number'
-  | 'tokenAddress'
+  | 'anyAddress'
   | 'string';
 
 // [param name, param type]

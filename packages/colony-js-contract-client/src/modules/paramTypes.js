@@ -183,9 +183,8 @@ const PARAM_TYPE_MAP: {
         .toString('hex')}`;
     },
   },
-  // Either a valid address, or an empty address to indicate ether
-  // (0x0 or 0x0000000000000000000000000000000000000000)
-  tokenAddress: {
+  // Either a valid address, or an empty address
+  anyAddress: {
     validate(value: any) {
       return isValidAddress(value) || isEmptyHexString(value);
     },

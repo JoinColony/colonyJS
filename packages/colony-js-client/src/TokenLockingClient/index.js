@@ -169,55 +169,55 @@ export default class TokenLockingClient extends ContractClient {
   initializeContractMethods() {
     // Callers
     this.addCaller('getTotalLockCount', {
-      input: [['token', 'tokenAddress']],
+      input: [['token', 'anyAddress']],
       output: [['count', 'number']],
     });
     this.addCaller('getUserLock', {
-      input: [['token', 'tokenAddress'], ['user', 'address']],
+      input: [['token', 'anyAddress'], ['user', 'address']],
       output: [['count', 'number']],
     });
 
     // Events
     this.addEvent('TokenLocked', [
-      ['token', 'tokenAddress'],
+      ['token', 'anyAddress'],
       ['lockCount', 'bigNumber'],
     ]);
     this.addEvent('UserTokenDeposited', [
-      ['token', 'tokenAddress'],
+      ['token', 'anyAddress'],
       ['user', 'address'],
       ['amount', 'bigNumber'],
       ['timestamp', 'date'],
     ]);
     this.addEvent('UserTokenUnlocked', [
-      ['token', 'tokenAddress'],
+      ['token', 'anyAddress'],
       ['user', 'address'],
       ['lockId', 'number'],
     ]);
     this.addEvent('UserTokenWithdrawn', [
-      ['token', 'tokenAddress'],
+      ['token', 'anyAddress'],
       ['user', 'address'],
       ['amount', 'bigNumber'],
     ]);
 
     // Senders
     this.addSender('deposit', {
-      input: [['token', 'tokenAddress'], ['amount', 'bigNumber']],
+      input: [['token', 'anyAddress'], ['amount', 'bigNumber']],
     });
     this.addSender('incrementLockCounterTo', {
-      input: [['token', 'tokenAddress'], ['lockId', 'number']],
+      input: [['token', 'anyAddress'], ['lockId', 'number']],
     });
     this.addSender('lockToken', {
-      input: [['token', 'tokenAddress']],
+      input: [['token', 'anyAddress']],
     });
     this.addSender('unlockTokenForUser', {
       input: [
-        ['token', 'tokenAddress'],
+        ['token', 'anyAddress'],
         ['user', 'address'],
         ['lockId', 'number'],
       ],
     });
     this.addSender('withdraw', {
-      input: [['token', 'tokenAddress'], ['amount', 'bigNumber']],
+      input: [['token', 'anyAddress'], ['amount', 'bigNumber']],
     });
   }
 }
