@@ -30,19 +30,19 @@ const CONTRACT_CLIENTS = [
 ];
 
 const TYPES = {
-  BooleanTypeAnnotation: 'boolean',
   Address: 'address',
+  AnyAddress: 'address (0x0 included)',
   Array: 'array',
   AuthorityRole: 'authority role',
   BigNumber: 'big number',
+  BooleanTypeAnnotation: 'boolean',
   Date: 'date',
+  HexString: 'hex string',
   IPFSHash: 'IPFS hash',
   NumberTypeAnnotation: 'number',
   StringTypeAnnotation: 'string',
   TaskRole: 'task role',
   TaskStatus: 'task status',
-  TokenAddress: 'address',
-  HexString: 'hex string',
 };
 
 const generateMarkdown = ({ file, templateFile, output }) => {

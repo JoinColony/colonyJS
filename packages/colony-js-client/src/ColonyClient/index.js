@@ -48,7 +48,7 @@ type HexString = string;
 type IPFSHash = string;
 type TaskRole = $Keys<typeof TASK_ROLES>;
 type TaskStatus = $Keys<typeof TASK_STATUSES>;
-type TokenAddress = string;
+type AnyAddress = string;
 
 type ColonyAdministrationRoleSet = ContractClient.Event<{
   address: Address, // The address that was either assigned or unassigned the colony `ADMINISTRATION` role.
@@ -67,7 +67,7 @@ type ColonyFundingRoleSet = ContractClient.Event<{
   setTo: boolean, // A boolean indicating whether the address was assigned or unassigned the colony `FUNDING` role.
 }>;
 type ColonyFundsClaimed = ContractClient.Event<{
-  token: TokenAddress, // The address of the token contract (an empty address if Ether).
+  token: AnyAddress, // The address of the token contract (an empty address if Ether).
   fee: BigNumber, // The fee deducted from the claim and added to the colony rewards pot.
   payoutRemainder: BigNumber, // The remaining funds (after the fee) moved to the top-level domain pot.
 }>;
@@ -75,11 +75,11 @@ type ColonyFundsMovedBetweenFundingPots = ContractClient.Event<{
   fromPot: number, // The ID of the pot from which the funds were moved.
   toPot: number, // The ID of the pot to which the funds were moved.
   amount: BigNumber, // The amount of funds that were moved between pots.
-  token: TokenAddress, // The address of the token contract (an empty address if Ether).
+  token: AnyAddress, // The address of the token contract (an empty address if Ether).
 }>;
 type ColonyInitialised = ContractClient.Event<{
   colonyNetwork: Address, // The address of the Colony Network.
-  token: TokenAddress, // The address of the token contract.
+  token: AnyAddress, // The address of the token contract.
 }>;
 type ColonyLabelRegistered = ContractClient.Event<{
   colony: Address, // The address of the colony that was modified.
@@ -115,7 +115,7 @@ type PaymentAdded = ContractClient.Event<{
 }>;
 type PayoutClaimed = ContractClient.Event<{
   potId: number, // The ID of the pot that was modified.
-  token: TokenAddress, // The address of the token contract (an empty address if Ether).
+  token: AnyAddress, // The address of the token contract (an empty address if Ether).
   amount: BigNumber, // The task payout amount that was claimed.
 }>;
 type RewardPayoutClaimed = ContractClient.Event<{
@@ -165,7 +165,7 @@ type TaskFinalized = ContractClient.Event<{
 type TaskPayoutSet = ContractClient.Event<{
   taskId: number, // The ID of the task that was modified.
   role: TaskRole, // The role of the task that was modified (`MANAGER`, `EVALUATOR`, or `WORKER`).
-  token: TokenAddress, // The address of the token contract (an empty address if Ether).
+  token: AnyAddress, // The address of the token contract (an empty address if Ether).
   amount: BigNumber, // The task payout amount that was set.
 }>;
 type TaskRoleUserSet = ContractClient.Event<{
@@ -183,7 +183,7 @@ type TaskWorkRatingRevealed = ContractClient.Event<{
   rating: number, // The value of the rating that was revealed (`1`, `2`, or `3`).
 }>;
 type TokenLocked = ContractClient.Event<{
-  token: TokenAddress, // The address of the token contract (an empty address if Ether).
+  token: AnyAddress, // The address of the token contract (an empty address if Ether).
   lockCount: number, // The total lock count for the token.
 }>;
 type Transfer = ContractClient.Event<{
@@ -306,7 +306,7 @@ export default class ColonyClient extends ContractClient {
   addPayment: ColonyClient.Sender<
     {
       recipient: Address, // The address that will receive the payment.
-      token: TokenAddress, // The address of the token contract (an empty address if Ether).
+      token: AnyAddress, // The address of the token contract (an empty address if Ether).
       amount: BigNumber, // The amount of tokens (or Ether) for the payment.
       domainId: number, // The ID of the domain.
       skillId: number, // The ID of the skill.
@@ -400,7 +400,7 @@ export default class ColonyClient extends ContractClient {
   */
   claimColonyFunds: ColonyClient.Sender<
     {
-      token: TokenAddress, // The address of the token contract (an empty address if Ether).
+      token: AnyAddress, // The address of the token contract (an empty address if Ether).
     },
     {
       ColonyFundsClaimed: ColonyFundsClaimed,
@@ -418,7 +418,7 @@ export default class ColonyClient extends ContractClient {
   claimPayment: ColonyClient.Sender<
     {
       paymentId: number, // The ID of the payment.
-      token: TokenAddress, // The address of the token contract (an empty address if Ether).
+      token: AnyAddress, // The address of the token contract (an empty address if Ether).
     },
     {
       PayoutClaimed: PayoutClaimed,
@@ -461,7 +461,7 @@ export default class ColonyClient extends ContractClient {
     {
       taskId: number, // The ID of the task.
       role: TaskRole, // The task role that is claiming the payout (`MANAGER`, `EVALUATOR`, or `WORKER`).
-      token: TokenAddress, // The address of the token contract (an empty address if Ether).
+      token: AnyAddress, // The address of the token contract (an empty address if Ether).
     },
     {
       PayoutClaimed: PayoutClaimed,
@@ -705,7 +705,7 @@ export default class ColonyClient extends ContractClient {
   getFundingPotBalance: ColonyClient.Caller<
     {
       potId: number, // The ID of the funding pot.
-      token: TokenAddress, // The address of the token contract (an empty address if Ether).
+      token: AnyAddress, // The address of the token contract (an empty address if Ether).
     },
     {
       balance: BigNumber, // The balance of tokens (or Ether) in the funding pot.
@@ -738,7 +738,7 @@ export default class ColonyClient extends ContractClient {
   getFundingPotPayout: ColonyClient.Caller<
     {
       potId: number, // The ID of the funding pot.
-      token: TokenAddress, // The address of the token contract (an empty address if Ether).
+      token: AnyAddress, // The address of the token contract (an empty address if Ether).
     },
     {
       payout: BigNumber, // The payout of tokens (or Ether) for the funding pot.
@@ -755,7 +755,7 @@ export default class ColonyClient extends ContractClient {
   */
   getNonRewardPotsTotal: ColonyClient.Caller<
     {
-      token: TokenAddress, // The address of the token contract (an empty address if Ether).
+      token: AnyAddress, // The address of the token contract (an empty address if Ether).
     },
     {
       total: BigNumber, // The total amount of funds that are not in the colony rewards pot.
@@ -864,7 +864,7 @@ export default class ColonyClient extends ContractClient {
       colonyWideReputation: BigNumber, // The total reputation score throughout the colony.
       totalTokens: BigNumber, // The total amount of tokens at the time the reward payout was created.
       amount: BigNumber, // The total amount of tokens allocated for the reward payout.
-      tokenAddress: TokenAddress, // The address of the token contract (an empty address if Ether).
+      tokenAddress: AnyAddress, // The address of the token contract (an empty address if Ether).
       blockTimestamp: Date, // The timestamp at the time the reward payout was created.
     },
     ColonyClient,
@@ -920,7 +920,7 @@ export default class ColonyClient extends ContractClient {
     {
       taskId: number, // The ID of the task.
       role: TaskRole, // The task role (`MANAGER`, `EVALUATOR`, or `WORKER`).
-      token: TokenAddress, // The address of the token contract (an empty address if Ether).
+      token: AnyAddress, // The address of the token contract (an empty address if Ether).
     },
     {
       amount: BigNumber, // The amount of tokens (or Ether) assigned to the task role as a payout.
@@ -1061,7 +1061,7 @@ export default class ColonyClient extends ContractClient {
   makePayment: ColonyClient.Sender<
     {
       recipient: Address, // The address that will receive the payment.
-      token: TokenAddress, // The address of the token contract (an empty address if Ether).
+      token: AnyAddress, // The address of the token contract (an empty address if Ether).
       amount: BigNumber, // The amount of tokens (or Ether) for the payment.
       domainId: number, // The ID of the domain.
       skillId: number, // The ID of the skill.
@@ -1124,7 +1124,7 @@ export default class ColonyClient extends ContractClient {
       fromPot: number, // The ID of the pot from which funds will be moved.
       toPot: number, // The ID of the pot to which funds will be moved.
       amount: BigNumber, // The amount of funds that will be moved between pots.
-      token: TokenAddress, // The address of the token contract (an empty address if Ether).
+      token: AnyAddress, // The address of the token contract (an empty address if Ether).
     },
     {
       ColonyFundsMovedBetweenFundingPots: ColonyFundsMovedBetweenFundingPots,
@@ -1282,7 +1282,7 @@ export default class ColonyClient extends ContractClient {
   setAllTaskPayouts: ColonyClient.Sender<
     {
       taskId: number, // The ID of the task.
-      token: TokenAddress, // The address of the token contract (an empty address if Ether).
+      token: AnyAddress, // The address of the token contract (an empty address if Ether).
       managerAmount: BigNumber, // The payout amount in tokens (or Ether) for the task `MANAGER` role.
       evaluatorAmount: BigNumber, // The payout amount in tokens (or Ether) for the task `EVALUATOR` role.
       workerAmount: BigNumber, // The payout amount in tokens (or Ether) for the task `WORKER` role.
@@ -1562,7 +1562,7 @@ export default class ColonyClient extends ContractClient {
   setTaskEvaluatorPayout: ColonyClient.MultisigSender<
     {
       taskId: number, // The ID of the task.
-      token: TokenAddress, // The address of the token contract (an empty address if Ether).
+      token: AnyAddress, // The address of the token contract (an empty address if Ether).
       amount: BigNumber, // The payout amount in tokens (or Ether).
     },
     {
@@ -1599,7 +1599,7 @@ export default class ColonyClient extends ContractClient {
   setTaskManagerPayout: ColonyClient.MultisigSender<
     {
       taskId: number, // The ID of the task.
-      token: TokenAddress, // The address of the token contract (an empty address if Ether).
+      token: AnyAddress, // The address of the token contract (an empty address if Ether).
       amount: BigNumber, // The payout amount in tokens (or Ether).
     },
     {
@@ -1654,7 +1654,7 @@ export default class ColonyClient extends ContractClient {
   setTaskWorkerPayout: ColonyClient.MultisigSender<
     {
       taskId: number, // The ID of the task.
-      token: TokenAddress, // The address of the token contract (an empty address if Ether).
+      token: AnyAddress, // The address of the token contract (an empty address if Ether).
       amount: BigNumber, // The payout amount in tokens (or Ether).
     },
     {
@@ -1690,7 +1690,7 @@ export default class ColonyClient extends ContractClient {
   */
   startNextRewardPayout: ColonyClient.Sender<
     {
-      token: TokenAddress, // The address of the token contract (an empty address if Ether).
+      token: AnyAddress, // The address of the token contract (an empty address if Ether).
       key: string, // The key of the element that the proof is for.
       value: string, // The value of the element that the proof is for.
       branchMask: number, // The branchmask of the proof.
