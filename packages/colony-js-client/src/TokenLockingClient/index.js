@@ -5,25 +5,25 @@ import BigNumber from 'bn.js';
 import ContractClient from '@colony/colony-js-contract-client';
 
 type Address = string;
-type TokenAddress = string;
+type AnyAddress = string;
 
 type TokenLocked = ContractClient.Event<{
-  token: TokenAddress, // The address of the token contract that was locked.
+  token: AnyAddress, // The address of the token contract that was locked.
   lockCount: BigNumber, // The address of the token contract that was assigned.
 }>;
 type UserTokenDeposited = ContractClient.Event<{
-  token: TokenAddress, // The address of the token contract receiving the deposit.
+  token: AnyAddress, // The address of the token contract receiving the deposit.
   user: Address, // The address of the user that deposited tokens.
   amount: BigNumber, // The amount of tokens that were deposited.
   timestamp: Date, // The timestamp when the tokens were deposited.
 }>;
 type UserTokenUnlocked = ContractClient.Event<{
-  token: TokenAddress, // The address of the token contract that was unlocked.
+  token: AnyAddress, // The address of the token contract that was unlocked.
   user: Address, // The address of the user that the tokens were unlocked for.
   lockId: number, // The ID of the lock that the was set for the user.
 }>;
 type UserTokenWithdrawn = ContractClient.Event<{
-  token: TokenAddress, // The address of the token contract from which tokens were withdrawn.
+  token: AnyAddress, // The address of the token contract from which tokens were withdrawn.
   user: Address, // The address of the user that withdrew tokens.
   amount: BigNumber, // The amount of tokens that were withdrawn.
 }>;
@@ -41,7 +41,7 @@ export default class TokenLockingClient extends ContractClient {
   */
   deposit: TokenLockingClient.Sender<
     {
-      token: TokenAddress, // The address of the token contract (an empty address if Ether).
+      token: AnyAddress, // The address of the token contract (an empty address if Ether).
       amount: BigNumber, // The amount of tokens that will be deposited.
     },
     {
@@ -59,7 +59,7 @@ export default class TokenLockingClient extends ContractClient {
   */
   getTotalLockCount: TokenLockingClient.Caller<
     {
-      token: TokenAddress, // The address of the token contract (an empty address if Ether).
+      token: AnyAddress, // The address of the token contract (an empty address if Ether).
     },
     {
       count: number, // The total number of locked tokens in the colony.
@@ -76,7 +76,7 @@ export default class TokenLockingClient extends ContractClient {
   */
   getUserLock: TokenLockingClient.Caller<
     {
-      token: TokenAddress, // The address of the token contract (an empty address if Ether).
+      token: AnyAddress, // The address of the token contract (an empty address if Ether).
       user: Address, // The address of the user.
     },
     {
@@ -94,7 +94,7 @@ export default class TokenLockingClient extends ContractClient {
   */
   lockToken: TokenLockingClient.Sender<
     {
-      token: TokenAddress, // The address of the token contract (an empty address if Ether).
+      token: AnyAddress, // The address of the token contract (an empty address if Ether).
     },
     {
       TokenLocked: TokenLocked,
@@ -111,7 +111,7 @@ export default class TokenLockingClient extends ContractClient {
   */
   incrementLockCounterTo: TokenLockingClient.Sender<
     {
-      token: TokenAddress, // The address of the token contract (an empty address if Ether).
+      token: AnyAddress, // The address of the token contract (an empty address if Ether).
       lockId: number, // The ID of the lock count that will be set.
     },
     {},
@@ -127,7 +127,7 @@ export default class TokenLockingClient extends ContractClient {
   */
   unlockTokenForUser: TokenLockingClient.Sender<
     {
-      token: TokenAddress, // The address of the token contract (an empty address if Ether).
+      token: AnyAddress, // The address of the token contract (an empty address if Ether).
       user: Address, // The address of the user.
       lockId: number, // The ID of the lock count that will be set.
     },
@@ -146,7 +146,7 @@ export default class TokenLockingClient extends ContractClient {
   */
   withdraw: TokenLockingClient.Sender<
     {
-      token: TokenAddress, // The address of the token contract (an empty address if Ether).
+      token: AnyAddress, // The address of the token contract (an empty address if Ether).
       amount: BigNumber, // The amount of tokens that will be deposited.
     },
     {
@@ -169,55 +169,55 @@ export default class TokenLockingClient extends ContractClient {
   initializeContractMethods() {
     // Callers
     this.addCaller('getTotalLockCount', {
-      input: [['token', 'tokenAddress']],
+      input: [['token', 'anyAddress']],
       output: [['count', 'number']],
     });
     this.addCaller('getUserLock', {
-      input: [['token', 'tokenAddress'], ['user', 'address']],
+      input: [['token', 'anyAddress'], ['user', 'address']],
       output: [['count', 'number']],
     });
 
     // Events
     this.addEvent('TokenLocked', [
-      ['token', 'tokenAddress'],
+      ['token', 'anyAddress'],
       ['lockCount', 'bigNumber'],
     ]);
     this.addEvent('UserTokenDeposited', [
-      ['token', 'tokenAddress'],
+      ['token', 'anyAddress'],
       ['user', 'address'],
       ['amount', 'bigNumber'],
       ['timestamp', 'date'],
     ]);
     this.addEvent('UserTokenUnlocked', [
-      ['token', 'tokenAddress'],
+      ['token', 'anyAddress'],
       ['user', 'address'],
       ['lockId', 'number'],
     ]);
     this.addEvent('UserTokenWithdrawn', [
-      ['token', 'tokenAddress'],
+      ['token', 'anyAddress'],
       ['user', 'address'],
       ['amount', 'bigNumber'],
     ]);
 
     // Senders
     this.addSender('deposit', {
-      input: [['token', 'tokenAddress'], ['amount', 'bigNumber']],
+      input: [['token', 'anyAddress'], ['amount', 'bigNumber']],
     });
     this.addSender('incrementLockCounterTo', {
-      input: [['token', 'tokenAddress'], ['lockId', 'number']],
+      input: [['token', 'anyAddress'], ['lockId', 'number']],
     });
     this.addSender('lockToken', {
-      input: [['token', 'tokenAddress']],
+      input: [['token', 'anyAddress']],
     });
     this.addSender('unlockTokenForUser', {
       input: [
-        ['token', 'tokenAddress'],
+        ['token', 'anyAddress'],
         ['user', 'address'],
         ['lockId', 'number'],
       ],
     });
     this.addSender('withdraw', {
-      input: [['token', 'tokenAddress'], ['amount', 'bigNumber']],
+      input: [['token', 'anyAddress'], ['amount', 'bigNumber']],
     });
   }
 }

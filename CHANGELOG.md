@@ -13,6 +13,7 @@ Also, please note that colonyJS is currently using `ethers` version `3.0.27`.
 **Types**
 
 * Added `[number]` param type (`@colony/colony-js-contract-client`)
+* Renamed `tokenAddress` param type to `anyAddress` to better reflect its uses (`@colony/colony-js-contract-client`)
 
 **Maintenance**
 

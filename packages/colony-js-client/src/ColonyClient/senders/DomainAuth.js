@@ -77,6 +77,27 @@ export default class DomainAuth<
     this._permissions = permissions;
   }
 
+  async estimate(inputValues: *) {
+    // if for some reason we don't have the required methods, then throw
+    if (
+      !(
+        this.client.networkClient &&
+        this.client.networkClient.getParentSkillId &&
+        this.client.hasColonyRole
+      )
+    ) {
+      throw new Error('Client not compatible with DomainAuth sender');
+    }
+
+    // get proof input values
+    const proofs = await this.getPermissionProofs(inputValues);
+
+    return super.estimate({
+      ...inputValues,
+      ...proofs,
+    });
+  }
+
   async send(inputValues: InputValues, options: *) {
     // if for some reason we don't have the required methods, then throw
     if (

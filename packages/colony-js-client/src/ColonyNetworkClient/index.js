@@ -1046,13 +1046,13 @@ export default class ColonyNetworkClient extends ContractClient {
     // Events
     this.addEvent('AuctionCreated', [
       ['auction', 'address'],
-      ['token', 'tokenAddress'],
+      ['token', 'anyAddress'],
       ['quantity', 'bigNumber'],
     ]);
     this.addEvent('ColonyAdded', [
       ['colonyId', 'number'],
       ['colonyAddress', 'address'],
-      ['tokenAddress', 'tokenAddress'],
+      ['tokenAddress', 'anyAddress'],
     ]);
     this.addEvent('ColonyLabelRegistered', [
       ['colony', 'address'],
@@ -1065,7 +1065,7 @@ export default class ColonyNetworkClient extends ContractClient {
     ]);
     this.addEvent('MetaColonyCreated', [
       ['metaColony', 'address'],
-      ['token', 'tokenAddress'],
+      ['token', 'anyAddress'],
       ['rootSkillId', 'number'],
     ]);
     this.addEvent('MiningCycleResolverSet', [
@@ -1275,7 +1275,7 @@ export default class ColonyNetworkClient extends ContractClient {
     });
     this.addSender('startNextMiningCycle', {});
     this.addSender('startTokenAuction', {
-      input: [['tokenAddress', 'tokenAddress']],
+      input: [['tokenAddress', 'anyAddress']],
     });
   }
 

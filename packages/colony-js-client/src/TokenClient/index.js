@@ -279,19 +279,19 @@ export default class TokenClient extends ContractClient {
 
     // Events
     this.addEvent('Transfer', [
-      ['from', 'address'],
-      ['to', 'address'],
+      ['from', 'anyAddress'],
+      ['to', 'anyAddress'],
       ['value', 'bigNumber'],
     ]);
     this.addEvent('Approval', [
-      ['owner', 'address'],
-      ['spender', 'address'],
+      ['owner', 'anyAddress'],
+      ['spender', 'anyAddress'],
       ['value', 'bigNumber'],
     ]);
-    this.addEvent('Mint', [['address', 'address'], ['amount', 'bigNumber']]);
-    this.addEvent('Burn', [['address', 'address'], ['amount', 'bigNumber']]);
-    this.addEvent('LogSetOwner', [['owner', 'address']]);
-    this.addEvent('LogSetAuthority', [['authority', 'address']]);
+    this.addEvent('Mint', [['address', 'anyAddress'], ['amount', 'bigNumber']]);
+    this.addEvent('Burn', [['address', 'anyAddress'], ['amount', 'bigNumber']]);
+    this.addEvent('LogSetOwner', [['owner', 'anyAddress']]);
+    this.addEvent('LogSetAuthority', [['authority', 'anyAddress']]);
 
     // Callers
     this.getTokenInfo = new GetTokenInfo({ client: this });
