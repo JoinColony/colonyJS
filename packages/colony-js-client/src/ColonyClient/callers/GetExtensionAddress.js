@@ -25,8 +25,9 @@ export default class GetExtensionAddress extends ContractClient.Caller<
     const factoryContract = await this.client.adapter.getContract({
       contractName: `${args.contractName}Factory`,
     });
-    return factoryContract.callConstant('deployedExtensions', [
+    const address = await factoryContract.callConstant('deployedExtensions', [
       this.client.contract.address,
     ]);
+    return { address };
   }
 }
