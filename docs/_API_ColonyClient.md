@@ -210,7 +210,7 @@ Get the balance of a funding pot.
 |Name|Type|Description|
 |---|---|---|
 |potId|number|The ID of the funding pot.|
-|token|address|The address of the token contract (an empty address if Ether).|
+|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
 
 **Response**
 
@@ -262,7 +262,7 @@ Get the payout of a funding pot.
 |Name|Type|Description|
 |---|---|---|
 |potId|number|The ID of the funding pot.|
-|token|address|The address of the token contract (an empty address if Ether).|
+|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
 
 **Response**
 
@@ -290,7 +290,7 @@ Get the total amount of funds that are not in the colony rewards pot. This is a 
 
 |Name|Type|Description|
 |---|---|---|
-|token|address|The address of the token contract (an empty address if Ether).|
+|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
 
 **Response**
 
@@ -454,7 +454,7 @@ A promise which resolves to an object containing the following properties:
 |colonyWideReputation|big number|The total reputation score throughout the colony.|
 |totalTokens|big number|The total amount of tokens at the time the reward payout was created.|
 |amount|big number|The total amount of tokens allocated for the reward payout.|
-|tokenAddress|address|The address of the token contract (an empty address if Ether).|
+|tokenAddress|address (0x0 included)|The address of the token contract (an empty address if Ether).|
 |blockTimestamp|date|The timestamp at the time the reward payout was created.|
 
 **Contract Information**
@@ -535,7 +535,7 @@ Get the task payout amount assigned to a task role. Multiple tokens can be used 
 |---|---|---|
 |taskId|number|The ID of the task.|
 |role|task role|The task role (`MANAGER`, `EVALUATOR`, or `WORKER`).|
-|token|address|The address of the token contract (an empty address if Ether).|
+|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
 
 **Response**
 
@@ -925,7 +925,7 @@ Add a payment to the colony.
 |Name|Type|Description|
 |---|---|---|
 |recipient|address|The address that will receive the payment.|
-|token|address|The address of the token contract (an empty address if Ether).|
+|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
 |amount|big number|The amount of tokens (or Ether) for the payment.|
 |domainId|number|The ID of the domain.|
 |skillId|number|The ID of the skill.|
@@ -1077,7 +1077,7 @@ Claim funds that the colony has received by adding them to the funding pot of th
 
 |Name|Type|Description|
 |---|---|---|
-|token|address|The address of the token contract (an empty address if Ether).|
+|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
 
 **Options**
 
@@ -1089,7 +1089,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Name|Type|Description|
 |---|---|---|
-|token|address|The address of the token contract (an empty address if Ether).|
+|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
 |fee|big number|The fee deducted from the claim and added to the colony rewards pot.|
 |payoutRemainder|big number|The remaining funds (after the fee) moved to the top-level domain pot.|
 |ColonyFundsClaimed|object|Contains the data defined in [ColonyFundsClaimed](#eventscolonyfundsclaimed)|
@@ -1115,7 +1115,7 @@ Claim a payment.
 |Name|Type|Description|
 |---|---|---|
 |paymentId|number|The ID of the payment.|
-|token|address|The address of the token contract (an empty address if Ether).|
+|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
 
 **Options**
 
@@ -1128,7 +1128,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |Name|Type|Description|
 |---|---|---|
 |potId|number|The ID of the pot that was modified.|
-|token|address|The address of the token contract (an empty address if Ether).|
+|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
 |amount|big number|The task payout amount that was claimed.|
 |from|address|The address of the account that sent tokens.|
 |to|address|The address of the account that received tokens.|
@@ -1205,7 +1205,7 @@ Claim a payout assigned to a task role (`MANAGER`, `EVALUATOR`, or `WORKER`). Th
 |---|---|---|
 |taskId|number|The ID of the task.|
 |role|task role|The task role that is claiming the payout (`MANAGER`, `EVALUATOR`, or `WORKER`).|
-|token|address|The address of the token contract (an empty address if Ether).|
+|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
 
 **Options**
 
@@ -1218,7 +1218,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |Name|Type|Description|
 |---|---|---|
 |potId|number|The ID of the pot that was modified.|
-|token|address|The address of the token contract (an empty address if Ether).|
+|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
 |amount|big number|The task payout amount that was claimed.|
 |from|address|The address of the account that sent tokens.|
 |to|address|The address of the account that received tokens.|
@@ -1470,7 +1470,7 @@ Make a payment in one transaction. This function is not included in the core con
 |Name|Type|Description|
 |---|---|---|
 |recipient|address|The address that will receive the payment.|
-|token|address|The address of the token contract (an empty address if Ether).|
+|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
 |amount|big number|The amount of tokens (or Ether) for the payment.|
 |domainId|number|The ID of the domain.|
 |skillId|number|The ID of the skill.|
@@ -1490,7 +1490,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |fromPot|number|The ID of the pot from which the funds were moved.|
 |toPot|number|The ID of the pot to which the funds were moved.|
 |amount|big number|The amount of funds that were moved between pots.|
-|token|address|The address of the token contract (an empty address if Ether).|
+|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
 |from|address|The address of the account that sent tokens.|
 |to|address|The address of the account that received tokens.|
 |value|big number|The amount of tokens that were transferred.|
@@ -1598,7 +1598,7 @@ Move funds from one pot to another.
 |fromPot|number|The ID of the pot from which funds will be moved.|
 |toPot|number|The ID of the pot to which funds will be moved.|
 |amount|big number|The amount of funds that will be moved between pots.|
-|token|address|The address of the token contract (an empty address if Ether).|
+|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
 
 **Options**
 
@@ -1613,7 +1613,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |fromPot|number|The ID of the pot from which the funds were moved.|
 |toPot|number|The ID of the pot to which the funds were moved.|
 |amount|big number|The amount of funds that were moved between pots.|
-|token|address|The address of the token contract (an empty address if Ether).|
+|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
 |ColonyFundsMovedBetweenFundingPots|object|Contains the data defined in [ColonyFundsMovedBetweenFundingPots](#eventscolonyfundsmovedbetweenfundingpots)|
 
 See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
@@ -1852,7 +1852,7 @@ Set the payouts for all task roles. This can only be called by the address assig
 |Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
-|token|address|The address of the token contract (an empty address if Ether).|
+|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
 |managerAmount|big number|The payout amount in tokens (or Ether) for the task `MANAGER` role.|
 |evaluatorAmount|big number|The payout amount in tokens (or Ether) for the task `EVALUATOR` role.|
 |workerAmount|big number|The payout amount in tokens (or Ether) for the task `WORKER` role.|
@@ -1869,7 +1869,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |taskId|number|The ID of the task that was modified.|
 |role|task role|The role of the task that was modified (`MANAGER`, `EVALUATOR`, or `WORKER`).|
-|token|address|The address of the token contract (an empty address if Ether).|
+|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
 |amount|big number|The task payout amount that was set.|
 |TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutset)|
 
@@ -2309,7 +2309,7 @@ Start the next reward payout cycle. All the funds in the colony rewards pot for 
 
 |Name|Type|Description|
 |---|---|---|
-|token|address|The address of the token contract (an empty address if Ether).|
+|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
 |key|string|The key of the element that the proof is for.|
 |value|string|The value of the element that the proof is for.|
 |branchMask|number|The branchmask of the proof.|
@@ -2325,7 +2325,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Name|Type|Description|
 |---|---|---|
-|token|address|The address of the token contract (an empty address if Ether).|
+|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
 |lockCount|number|The total lock count for the token.|
 |payoutId|number|The ID of the payout cycle that started.|
 |TokenLocked|object|Contains the data defined in [TokenLocked](#eventstokenlocked)|
@@ -2699,7 +2699,7 @@ Set the payout amount for the task `EVALUATOR` role.
 |Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
-|token|address|The address of the token contract (an empty address if Ether).|
+|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
 |amount|big number|The payout amount in tokens (or Ether).|
 
 **Response**
@@ -2710,7 +2710,7 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |---|---|---|
 |taskId|number|The ID of the task that was modified.|
 |role|task role|The role of the task that was modified (`MANAGER`, `EVALUATOR`, or `WORKER`).|
-|token|address|The address of the token contract (an empty address if Ether).|
+|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
 |amount|big number|The task payout amount that was set.|
 |TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutset)|
 
@@ -2769,7 +2769,7 @@ Set the payout amount for the task `MANAGER` role.
 |Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
-|token|address|The address of the token contract (an empty address if Ether).|
+|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
 |amount|big number|The payout amount in tokens (or Ether).|
 
 **Response**
@@ -2780,7 +2780,7 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |---|---|---|
 |taskId|number|The ID of the task that was modified.|
 |role|task role|The role of the task that was modified (`MANAGER`, `EVALUATOR`, or `WORKER`).|
-|token|address|The address of the token contract (an empty address if Ether).|
+|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
 |amount|big number|The task payout amount that was set.|
 |TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutset)|
 
@@ -2872,7 +2872,7 @@ Set the payout amount for the task `WORKER` role.
 |Name|Type|Description|
 |---|---|---|
 |taskId|number|The ID of the task.|
-|token|address|The address of the token contract (an empty address if Ether).|
+|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
 |amount|big number|The payout amount in tokens (or Ether).|
 
 **Response**
@@ -2883,7 +2883,7 @@ An instance of a `MultiSigOperation` whose sender will eventually receive the fo
 |---|---|---|
 |taskId|number|The ID of the task that was modified.|
 |role|task role|The role of the task that was modified (`MANAGER`, `EVALUATOR`, or `WORKER`).|
-|token|address|The address of the token contract (an empty address if Ether).|
+|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
 |amount|big number|The task payout amount that was set.|
 |TaskPayoutSet|object|Contains the data defined in [TaskPayoutSet](#eventstaskpayoutset)|
 
@@ -3028,7 +3028,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e
 
 |Name|Type|Description|
 |---|---|---|
-|token|address|The address of the token contract (an empty address if Ether).|
+|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
 |fee|big number|The fee deducted from the claim and added to the colony rewards pot.|
 |payoutRemainder|big number|The remaining funds (after the fee) moved to the top-level domain pot.|
 
@@ -3051,7 +3051,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e
 |fromPot|number|The ID of the pot from which the funds were moved.|
 |toPot|number|The ID of the pot to which the funds were moved.|
 |amount|big number|The amount of funds that were moved between pots.|
-|token|address|The address of the token contract (an empty address if Ether).|
+|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
 
 
 ### `events.ColonyInitialised`
@@ -3070,7 +3070,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e
 |Name|Type|Description|
 |---|---|---|
 |colonyNetwork|address|The address of the Colony Network.|
-|token|address|The address of the token contract.|
+|token|address (0x0 included)|The address of the token contract.|
 
 
 ### `events.ColonyLabelRegistered`
@@ -3256,7 +3256,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e
 |Name|Type|Description|
 |---|---|---|
 |potId|number|The ID of the pot that was modified.|
-|token|address|The address of the token contract (an empty address if Ether).|
+|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
 |amount|big number|The task payout amount that was claimed.|
 
 
@@ -3501,7 +3501,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e
 |---|---|---|
 |taskId|number|The ID of the task that was modified.|
 |role|task role|The role of the task that was modified (`MANAGER`, `EVALUATOR`, or `WORKER`).|
-|token|address|The address of the token contract (an empty address if Ether).|
+|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
 |amount|big number|The task payout amount that was set.|
 
 
@@ -3579,7 +3579,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e
 
 |Name|Type|Description|
 |---|---|---|
-|token|address|The address of the token contract (an empty address if Ether).|
+|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
 |lockCount|number|The total lock count for the token.|
 
 
