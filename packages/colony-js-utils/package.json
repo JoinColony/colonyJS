@@ -55,7 +55,7 @@
         "webpack-cli": "^2.0.14"
     },
     "dependencies": {
-        "assert": "^1.4.1",
+        "assert": "^2.0.0",
         "babel-runtime": "^6.26.0",
         "bn.js": "^4.11.6",
         "web3-utils": "^1.0.0-beta.34"
