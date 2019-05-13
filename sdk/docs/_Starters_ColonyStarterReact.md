@@ -14,11 +14,11 @@ _A boilerplate to get started with [colonyJS](https://github.com/JoinColony/colo
 
 _You may find it helpful to use Node Version Manager (`nvm`) to manage Node versions._
 
-_If you are using Linux, check out [Linux Setup](/docs-linux-setup/) to ensure Yarn and Docker are set up accordingly._
+_If you are using Linux, check out [Linux Setup](/colonystarter/docs-linux-setup/) to ensure Yarn and Docker are set up accordingly._
 
 ## Installation
 
-Globally install the [colony-cli](/cli-colony-cli) package.
+Globally install the [colony-cli](/colonystarter/cli-colony-cli) package.
 
 ```
 yarn global add @colony/colony-cli
@@ -30,7 +30,7 @@ Install the `colony-starter-react` package.
 colony build colony-starter-react
 ```
 
-Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and kickstart the `colony-starter-react` package in one line without having to globally add the [colony-cli](/cli-colony-cli) package:
+Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and kickstart the `colony-starter-react` package in one line without having to globally add the [colony-cli](/colonystarter/cli-colony-cli) package:
 
 ```
 npx -p @colony/colony-starter colony build colony-starter-react

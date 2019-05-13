@@ -14,7 +14,7 @@ The `colony-cli` package is a command line tool for building [colonyStarter](htt
 
 _You may find it helpful to use Node Version Manager (`nvm`) to manage Node versions._
 
-_If you are using Linux, check out [Linux Setup](/docs-linux-setup/) to ensure Yarn and Docker are set up accordingly._
+_If you are using Linux, check out [Linux Setup](/colonystarter/docs-linux-setup/) to ensure Yarn and Docker are set up accordingly._
 
 ## Install
 

@@ -14,11 +14,11 @@ _A boilerplate to start building extension contracts alongside [colonyNetwork](h
 
 _You may find it helpful to use Node Version Manager (`nvm`) to manage Node versions._
 
-_If you are using Linux, check out [Linux Setup](/docs-linux-setup/) to ensure Yarn and Docker are set up accordingly._
+_If you are using Linux, check out [Linux Setup](/colonystarter/docs-linux-setup/) to ensure Yarn and Docker are set up accordingly._
 
 ## Installation
 
-Globally install the [colony-cli](/cli-colony-cli) package.
+Globally install the [colony-cli](/colonystarter/cli-colony-cli) package.
 
 ```
 yarn global add @colony/colony-cli
@@ -30,7 +30,7 @@ Install the `colony-starter-contract` package.
 colony build colony-starter-contract
 ```
 
-Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and kickstart the `colony-starter-contract` package in one line without having to globally add the [colony-cli](/cli-colony-cli) package:
+Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and kickstart the `colony-starter-contract` package in one line without having to globally add the [colony-cli](/colonystarter/cli-colony-cli) package:
 
 ```
 npx -p @colony/colony-cli colony build colony-starter-contract
@@ -80,7 +80,7 @@ yarn truffle [develop/compile/migrate/test]
 
 ## Contract Versions
 
-If you do not want to use the default version of the [colonyNetwork](https://github.com/JoinColony/colonyNetwork) smart contracts defined by the [colony-cli](/packages/colony-cli) package, you can update the `"deploy-contracts"` scripts property in your `package.json` file to use a specific version. This can be a branch name, a commit hash, or a version tag.
+If you do not want to use the default version of the [colonyNetwork](https://github.com/JoinColony/colonyNetwork) smart contracts defined by the [colony-cli](/colonystarter/colony-cli) package, you can update the `"deploy-contracts"` scripts property in your `package.json` file to use a specific version. This can be a branch name, a commit hash, or a version tag.
 
 ```
 "deploy-contracts": "colony service deploy-contracts --specific develop",
