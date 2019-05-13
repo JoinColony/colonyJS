@@ -6,7 +6,7 @@ order: 1
 
 _An example project using [colonyJS](https://github.com/JoinColony/colonyJS)!_
 
-This is a built out version of the [colony-starter](/starters-colony-starter) package with more examples.
+This is a built out version of the [colony-starter](/colonystarter/starters-colony-starter) package with more examples.
 
 ## Prerequisites
 
@@ -16,11 +16,11 @@ This is a built out version of the [colony-starter](/starters-colony-starter) pa
 
 _You may find it helpful to use Node Version Manager (`nvm`) to manage Node versions._
 
-_If you are using Linux, check out [Linux Setup](/docs-linux-setup/) to ensure Yarn and Docker are set up accordingly._
+_If you are using Linux, check out [Linux Setup](/colonystarter/docs-linux-setup/) to ensure Yarn and Docker are set up accordingly._
 
 ## Installation
 
-Globally install the [colony-cli](/cli-colony-cli) package.
+Globally install the [colony-cli](/colonystarter/cli-colony-cli) package.
 
 ```
 yarn global add @colony/colony-cli

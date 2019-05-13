@@ -1110,6 +1110,22 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
+"@colony/colony-cli@1.0.0-beta.4":
+  version "1.0.0-beta.4"
+  resolved "https://registry.yarnpkg.com/@colony/colony-cli/-/colony-cli-1.0.0-beta.4.tgz#001bc5444cfa5cdb24874fdce43a71859587955c"
+  integrity sha512-VgSzMOsBpisH161eShpdxkvZV9tWg0/jhv7y1kfsaPisY0zM4eoeowBumgJEZleFdG86aA5YKkIUvQ/fWul07Q==
+  dependencies:
+    "@colony/colony-js-client" "^1.11.2"
+    "@colony/purser-software" "^1.2.4"
+    chalk "^2.4.1"
+    commander "^2.17.1"
+    cross-spawn "^6.0.5"
+    fs-extra "^7.0.0"
+    json "^9.0.6"
+    tar-pack "^3.4.1"
+    tmp "^0.0.33"
+    trufflepig "^1.1.1"
+
 "@colony/colony-js-adapter-ethers@^1.10.0":
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/@colony/colony-js-adapter-ethers/-/colony-js-adapter-ethers-1.10.0.tgz#4a6525476ef872a0c544d91bf30b7d4244cb8c9a"
