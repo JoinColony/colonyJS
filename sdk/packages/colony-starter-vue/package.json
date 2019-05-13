@@ -1,0 +1,43 @@
+{
+  "name": "colony-starter-vue",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start-ganache": "colony service start-ganache",
+    "deploy-contracts": "colony service deploy-contracts",
+    "start-trufflepig": "colony service start-trufflepig",
+    "seed-network": "colony service seed-network",
+    "colony-setup": "node scripts/colonySetup.js",
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "fix": "vue-cli-service lint --fix"
+  },
+  "dependencies": {
+    "@colony/colony-cli": "^1.0.0-beta.5",
+    "@colony/colony-js-client": "^1.11.2",
+    "@colony/colony-js-contract-loader-http": "^1.10.0",
+    "@colony/purser-metamask": "^2.2.0",
+    "@colony/purser-software": "^1.2.4",
+    "buffer": "^5.2.1",
+    "core-js": "^2.6.5",
+    "ipfs": "^0.35.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "vue": "^2.6.10",
+    "vue-router": "^3.0.3",
+    "vuex": "^3.0.1"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.7.0",
+    "@vue/cli-plugin-eslint": "^3.7.0",
+    "@vue/cli-service": "^3.7.0",
+    "@vue/eslint-config-airbnb": "^4.0.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "sass": "^1.18.0",
+    "sass-loader": "^7.1.0",
+    "vue-template-compiler": "^2.5.21"
+  }
+}
