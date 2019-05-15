@@ -2,11 +2,31 @@
     "name": "@colony/colony-js-contract-loader",
     "version": "1.8.1",
     "description": "Contract loader interfaces",
-    "main": "lib/index.js",
+    "keywords": [
+        "ethers",
+        "web3",
+        "colony",
+        "api"
+    ],
+    "homepage": "https://github.com/JoinColony/colonyJS#readme",
+    "bugs": {
+        "url": "https://github.com/JoinColony/colonyJS/issues"
+    },
+    "license": "MIT",
+    "contributors": [
+        "Christian Maniewski <chris@colony.io>",
+        "Curtis Olson <chris@colony.io>",
+        "Griffin Hotchkiss <griffin@colony.io>",
+        "James Lefrère <james@colony.io>",
+        "Raul Glogovetan <raul@colony.io>",
+        "Ryan Christofferson <ryan@colony.io>",
+        "Scott Street <scott@colony.io>"
+    ],
     "files": [
         "lib",
         "README.md"
     ],
+    "main": "lib/index.js",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/JoinColony/colonyJS.git"
@@ -28,25 +48,16 @@
             "git add"
         ]
     },
-    "contributors": [
-        "Christian Maniewski <chris@colony.io>",
-        "James Lefrère <james@colony.io>"
-    ],
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/JoinColony/colonyJS/issues"
+    "dependencies": {
+        "assert": "^2.0.0",
+        "babel-runtime": "^6.26.0"
     },
-    "homepage": "https://github.com/JoinColony/colonyJS#readme",
     "devDependencies": {
         "flow-bin": "^0.98.1",
         "flow-copy-source": "^2.0.6",
         "jest-sandbox": "^1.1.2"
     },
     "engines": {
-        "node": ">=8.2.1"
-    },
-    "dependencies": {
-        "assert": "^2.0.0",
-        "babel-runtime": "^6.26.0"
+        "node": ">=10.12.0 <12.0.0"
     }
 }

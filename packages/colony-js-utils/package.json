@@ -2,19 +2,43 @@
     "name": "@colony/colony-js-utils",
     "version": "1.8.1",
     "description": "Utilities for Colony JS packages",
-    "main": "lib/index.js",
+    "keywords": [
+        "ethers",
+        "web3",
+        "colony",
+        "api"
+    ],
+    "homepage": "https://github.com/JoinColony/colonyJS#readme",
+    "bugs": {
+        "url": "https://github.com/JoinColony/colonyJS/issues"
+    },
+    "license": "MIT",
+    "contributors": [
+        "Christian Maniewski <chris@colony.io>",
+        "Curtis Olson <chris@colony.io>",
+        "Griffin Hotchkiss <griffin@colony.io>",
+        "James Lefrère <james@colony.io>",
+        "Raul Glogovetan <raul@colony.io>",
+        "Ryan Christofferson <ryan@colony.io>",
+        "Scott Street <scott@colony.io>"
+    ],
     "files": [
         "dist",
         "lib",
         "README.md"
     ],
+    "main": "lib/index.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/JoinColony/colonyJS.git"
+    },
     "scripts": {
         "build": "yarn run clean && yarn run build:dist && yarn run build:lib && yarn run build:flow",
         "build:dist": "webpack",
         "build:flow": "flow-copy-source src lib --ignore '__tests__/*.js'",
         "build:lib": "babel src --out-dir lib --ignore __tests__ --source-maps",
         "clean": "shx rm -rf lib",
-        "flow": "flow src",
+        "flow": "flow check",
         "lint": "eslint src/{,**/}*.js",
         "precommit": "lint-staged",
         "test": "yarn run lint && yarn run test:unit",
@@ -26,41 +50,19 @@
             "git add"
         ]
     },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/JoinColony/colonyJS.git"
-    },
-    "keywords": [
-        "ethers",
-        "web3",
-        "colony",
-        "api"
-    ],
-    "contributors": [
-        "Christian Maniewski <chris@colony.io>",
-        "Griffin Hotchkiss <griffin@colony.io>",
-        "James Lefrère <james@colony.io>",
-        "Jan Kaßel <jan@colony.io>",
-        "Raul Glogovetan <raul@colony.io>"
-    ],
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/JoinColony/colonyJS/issues"
-    },
-    "homepage": "https://github.com/JoinColony/colonyJS#readme",
-    "devDependencies": {
-        "flow-bin": "^0.98.1",
-        "jest-sandbox": "^1.1.2",
-        "webpack": "^4.31.0",
-        "webpack-cli": "^3.3.2"
-    },
     "dependencies": {
         "assert": "^2.0.0",
         "babel-runtime": "^6.26.0",
         "bn.js": "^4.11.8",
         "web3-utils": "^1.0.0-beta.55"
     },
+    "devDependencies": {
+        "flow-bin": "^0.98.1",
+        "jest-sandbox": "^1.1.2",
+        "webpack": "^4.31.0",
+        "webpack-cli": "^3.3.2"
+    },
     "engines": {
-        "node": ">=8.2.1"
+        "node": ">=10.12.0 <12.0.0"
     }
 }

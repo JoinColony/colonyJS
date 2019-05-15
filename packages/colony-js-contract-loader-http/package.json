@@ -2,12 +2,36 @@
     "name": "@colony/colony-js-contract-loader-http",
     "version": "1.10.0",
     "description": "Load Ethereum smart contract definitions/metadata over HTTP",
-    "main": "lib/index.js",
+    "keywords": [
+        "ethers",
+        "web3",
+        "colony",
+        "api"
+    ],
+    "homepage": "https://github.com/JoinColony/colonyJS#readme",
+    "bugs": {
+        "url": "https://github.com/JoinColony/colonyJS/issues"
+    },
+    "license": "MIT",
+    "contributors": [
+        "Christian Maniewski <chris@colony.io>",
+        "Curtis Olson <chris@colony.io>",
+        "Griffin Hotchkiss <griffin@colony.io>",
+        "James Lefrère <james@colony.io>",
+        "Raul Glogovetan <raul@colony.io>",
+        "Ryan Christofferson <ryan@colony.io>",
+        "Scott Street <scott@colony.io>"
+    ],
     "files": [
         "dist",
         "lib",
         "README.md"
     ],
+    "main": "lib/index.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/JoinColony/colonyJS.git"
+    },
     "scripts": {
         "build": "yarn run clean && yarn run build:dist && yarn run build:lib && yarn run build:flow",
         "build:dist": "webpack",
@@ -26,22 +50,6 @@
             "git add"
         ]
     },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/JoinColony/colonyJS.git"
-    },
-    "contributors": [
-        "Christian Maniewski <chris@colony.io>",
-        "Griffin Hotchkiss <griffin@colony.io>",
-        "James Lefrère <james@colony.io>",
-        "Jan Kaßel <jan@colony.io>",
-        "Raul Glogovetan <raul@colony.io>"
-    ],
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/JoinColony/colonyJS/issues"
-    },
-    "homepage": "https://github.com/JoinColony/colonyJS#readme",
     "dependencies": {
         "@colony/colony-js-contract-loader": "^1.8.1",
         "assert": "^2.0.0",
@@ -58,6 +66,6 @@
         "webpack-cli": "^3.3.2"
     },
     "engines": {
-        "node": ">=8.2.1"
+        "node": ">=10.12.0 <12.0.0"
     }
 }
