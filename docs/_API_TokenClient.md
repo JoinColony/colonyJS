@@ -120,6 +120,28 @@ Contract: [base.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5
   
   
 
+### `isLocked.call()`
+
+Get whether the token is locked.
+
+
+**Response**
+
+A promise which resolves to an object containing the following properties:
+
+|Name|Type|Description|
+|---|---|---|
+|locked|boolean|Whether the token is locked.|
+
+**Contract Information**
+
+
+  Function: `locked`
+  
+Contract: [Token.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/Token.sol)
+  
+  
+
   
 ## Senders
 
@@ -390,6 +412,32 @@ See [Sender](/colonyjs/api-contractclient/#sender) for more information about op
 **Response**
 
 An instance of a `ContractResponse` which will receive a receipt with a `contractAddress` property.
+
+
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
+
+
+  
+  
+Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7cc7d6b5bf3e94e6d97cd65583e3da38a994753f/contracts/Token.sol)
+  
+  
+
+### `unlock.send(options)`
+
+Unlock the token.
+
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
+
+An instance of a `ContractResponse`.
 
 
 
