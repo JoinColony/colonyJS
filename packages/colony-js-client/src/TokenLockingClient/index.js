@@ -54,6 +54,7 @@ export default class TokenLockingClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get the total number of locked tokens.
   */
@@ -71,6 +72,7 @@ export default class TokenLockingClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get the total number of locked tokens for a given user.
   */
@@ -89,6 +91,7 @@ export default class TokenLockingClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Lock all tokens for a given token contract.
   */
@@ -106,6 +109,7 @@ export default class TokenLockingClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Increment the token lock counter. This method allows users to waive reward payouts for past reward payout cycles, unlocking the tokens that were locked in previous reward payout cycles.
   */
@@ -122,6 +126,7 @@ export default class TokenLockingClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Unlock all tokens for a user on a given token contract.
   */
@@ -141,6 +146,7 @@ export default class TokenLockingClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Withdraw tokens. This function only be called if the tokens that the user is attempting to withdraw are not locked.
   */

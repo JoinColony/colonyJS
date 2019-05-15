@@ -1,4 +1,5 @@
 /* @flow */
+/* eslint-disable import/no-cycle */
 
 import isPlainObject from 'lodash.isplainobject';
 import { makeAssert } from '@colony/colony-js-utils';

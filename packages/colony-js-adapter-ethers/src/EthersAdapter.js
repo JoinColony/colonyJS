@@ -21,13 +21,17 @@ import { DEFAULT_TRANSACTION_WAIT_TIMEOUT } from './defaults';
 
 export default class EthersAdapter implements IAdapter {
   loader: ContractLoader;
+
   provider: IProvider;
+
   wallet: IWallet;
+
   constructor({ loader, provider, wallet }: ConstructorArgs) {
     this.loader = loader;
     this.provider = provider;
     this.wallet = wallet;
   }
+
   async getContract(query: Query): Promise<IContract> {
     const { address, abi } =
       (await this.loader.load(query, {
@@ -41,6 +45,7 @@ export default class EthersAdapter implements IAdapter {
 
     return new EthersContract(address, abi, this.wallet);
   }
+
   async getContractDeployTransaction(
     query: Query,
     contractParams: Array<any>,
@@ -56,6 +61,7 @@ export default class EthersAdapter implements IAdapter {
       ...contractParams,
     );
   }
+
   async _getTransactionReceipt(transactionHash: string) {
     const receipt = await this.provider.getTransactionReceipt(transactionHash);
     if (receipt == null)
@@ -64,6 +70,7 @@ export default class EthersAdapter implements IAdapter {
       );
     return receipt;
   }
+
   async waitForTransaction(
     transactionHash: string,
     timeoutMs: number = DEFAULT_TRANSACTION_WAIT_TIMEOUT,
@@ -73,6 +80,7 @@ export default class EthersAdapter implements IAdapter {
       timeoutMs,
     );
   }
+
   async getTransactionReceipt(transactionHash: string, timeoutMs?: number) {
     let receipt;
     try {
@@ -90,6 +98,7 @@ export default class EthersAdapter implements IAdapter {
     receipt = this._getTransactionReceipt(transactionHash);
     return receipt;
   }
+
   /**
    * Sign a message hash (as binary) and return a split signature.
    */

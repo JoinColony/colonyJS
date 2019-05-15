@@ -1,4 +1,6 @@
 // @flow
+/* eslint-disable import/no-cycle */
+
 import type {
   Event,
   EventArgs,
@@ -6,7 +8,7 @@ import type {
   Log,
 } from '@colony/colony-js-adapter';
 import { makeAssert } from '@colony/colony-js-utils';
-import ContractClient from '../classes/ContractClient';
+import ContractClient from './ContractClient';
 import { convertOutputValues } from '../modules/paramConversion';
 import { validateParams } from '../modules/paramValidation';
 

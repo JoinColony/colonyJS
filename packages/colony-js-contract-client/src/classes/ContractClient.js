@@ -1,4 +1,5 @@
 /* @flow */
+/* eslint-disable import/no-cycle */
 
 import type { Query } from '@colony/colony-js-contract-loader';
 import type {
@@ -43,12 +44,15 @@ export default class ContractClient {
   static get Caller(): typeof ContractMethodCaller {
     return ContractMethodCaller;
   }
+
   static get Sender(): typeof ContractMethodSender {
     return ContractMethodSender;
   }
+
   static get MultisigSender(): typeof ContractMethodMultisigSender {
     return ContractMethodMultisigSender;
   }
+
   static get Event(): typeof ContractEvent {
     return ContractEvent;
   }

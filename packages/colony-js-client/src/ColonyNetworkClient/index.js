@@ -1,4 +1,5 @@
 /* @flow */
+/* eslint-disable import/no-cycle */
 
 import 'isomorphic-fetch';
 
@@ -110,6 +111,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Add a new global or local skill to the skills tree.
   */
@@ -127,6 +129,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Add a reputation update entry to the log.
   */
@@ -144,6 +147,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Indicate approval to exit network recovery mode. This function can only be called by an address assigned the `RECOVERY` role.
   */
@@ -157,6 +161,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Calculate the raw miner weight in WADs.
   */
@@ -175,6 +180,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Create a new colony on the network.
   */
@@ -193,6 +199,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Create the Meta Colony.
   */
@@ -212,6 +219,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Create a new ERC20 token contract.
   */
@@ -228,6 +236,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Deprecate a skill.
   */
@@ -243,6 +252,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Check whether an ENS interface is supported.
   */
@@ -261,6 +271,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Enter network recovery mode. This function can only be called by an address assigned the `RECOVERY` role.
   */
@@ -274,6 +285,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Exit network recovery mode. This function can be called by anyone if enough whitelist approvals are given.
   */
@@ -287,6 +299,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get the address of a registered ENS label. This function will return an empty address if an ENS label has not been registered.
   */
@@ -305,6 +318,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get the ID of a child skill.
   */
@@ -323,6 +337,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get the colony contract address for a colony.
   */
@@ -340,6 +355,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get the total number of colonies on the network. The return value is also the ID of the last colony created.
   */
@@ -355,6 +371,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get the address of the resolver contract for a specific colony version.
   */
@@ -372,6 +389,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get the latest colony contract version. This is the version used to create all new colonies.
   */
@@ -387,6 +405,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get the address of the ENS registrar.
   */
@@ -403,6 +422,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get the inverse amount of the network fee. If the fee is 1% (or 0.01), the inverse amount will be 100.
   */
@@ -418,6 +438,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get the Meta Colony contract address.
   */
@@ -434,6 +455,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get the address of the mining resolver.
   */
@@ -450,6 +472,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get the ID of a parent skill.
   */
@@ -468,6 +491,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get the address of the OrbitDB database associaated with a user profile.
   */
@@ -485,6 +509,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get the total number of addresses that are assigned a `RECOVERY` role.
   */
@@ -501,6 +526,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get replacement log entry that was set when the network was in recovery mode.
   */
@@ -524,6 +550,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get whether any replacement log entries have been set for the supplied reputation mining cycle.
   */
@@ -541,6 +568,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get the address of either the active or inactive reputation mining cycle. The active reputation mining cycle is the one currently under consideration by reputation miners. The inactive reputation cycle is the one with the log that is being appended.
   */
@@ -558,6 +586,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get the ID of the skill associated with reputation mining.
   */
@@ -573,6 +602,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get the root hash of the current reputation state tree.
   */
@@ -588,6 +618,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get the number of nodes in the current reputation state tree.
   */
@@ -604,6 +635,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get information about a skill.
   */
@@ -625,6 +657,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get the total number of global and local skills in the network.
   */
@@ -640,6 +673,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get the token locking contract address.
   */
@@ -656,6 +690,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Create an initial inactive reputation mining cycle.
   */
@@ -669,6 +704,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Check whether or not an address is a colony contract.
   */
@@ -686,6 +722,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Check whether or not the network is in recovery mode.
   */
@@ -701,6 +738,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Lookup the registed ENS label for an address. This function will return an empty string if the address does not have a registered ENS label.
   */
@@ -718,6 +756,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Register an ENS label for a colony.
   */
@@ -736,6 +775,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Register an ENS label for a user.
   */
@@ -754,6 +794,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Remove the `RECOVERY` role from an address. This function can only be called by an address assigned the `ROOT` role.
   */
@@ -769,6 +810,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Set the inverse amount of the network fee. If the fee is 1% (or 0.01), the inverse amount will be 100.
   */
@@ -786,6 +828,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Set the address for the mining resolver.
   */
@@ -803,6 +846,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Assign a `RECOVERY` role to an address. This function can only be called by an address assigned the `ROOT` role.
   */
@@ -818,6 +862,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Set replacement log entry when the network is in recovery mode.
   */
@@ -840,6 +885,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Set the root hash of the reputation mining cycle.
   */
@@ -858,6 +904,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Set the value for a storage slot while in recovery mode. This can only be called by an address assigned the `RECOVERY` role.
   */
@@ -874,6 +921,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Set the token locking address.
   */
@@ -891,6 +939,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Set up the registrar.
   */
@@ -907,6 +956,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Start the next reputation mining cycle.
   */
@@ -921,6 +971,7 @@ export default class ColonyNetworkClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Create and start an auction for a token owned by the Colony Network. The auction will be for the total amount of the specificed tokens that are owned by the Colony Network.
   */
@@ -966,6 +1017,7 @@ export default class ColonyNetworkClient extends ContractClient {
 
     return address;
   }
+
   /*
   Get an initialized ColonyClient for the `Colony` contract with the given `id`.
   */
@@ -974,6 +1026,7 @@ export default class ColonyNetworkClient extends ContractClient {
     const address = await this.getColonyAddress(id);
     return this.getColonyClientByAddress(address);
   }
+
   /*
   Get an initialized ColonyClient for the `Colony` contract with the given `contractAddress`.
   */
@@ -988,6 +1041,7 @@ export default class ColonyNetworkClient extends ContractClient {
     await colonyClient.init();
     return colonyClient;
   }
+
   /*
   Get an initialized ColonyClient for the Meta Colony.
   */
@@ -999,6 +1053,7 @@ export default class ColonyNetworkClient extends ContractClient {
 
     return this.getMetaColonyClientByAddress(address);
   }
+
   /*
   Get an initialized ColonyClient for the `Colony` contract with the given `contractAddress`.
   */
@@ -1013,6 +1068,7 @@ export default class ColonyNetworkClient extends ContractClient {
     await metaColonyClient.init();
     return metaColonyClient;
   }
+
   /*
   Get an initialized TokenLockingClient.
   */
@@ -1024,6 +1080,7 @@ export default class ColonyNetworkClient extends ContractClient {
 
     return this.getTokenLockingClientByAddress(address);
   }
+
   /*
   Get an initialized TokenLockingClient for the `TokenLocking` contract with the given `contractAddress`.
   */

@@ -1,4 +1,5 @@
 /* @flow */
+/* eslint-disable import/no-cycle */
 
 import assert from 'assert';
 
@@ -194,7 +195,9 @@ type Transfer = ContractClient.Event<{
 
 export default class ColonyClient extends ContractClient {
   networkClient: ColonyNetworkClient;
+
   tokenClient: TokenClient;
+
   tokenLockingClient: TokenLockingClient;
 
   events: {
@@ -253,6 +256,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Add a domain to the colony.
   */
@@ -272,6 +276,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Add an extension contract.
   */
@@ -285,6 +290,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Add a global skill. This can only be called from the Meta Colony and only by the address assigned the colony `ROOT` role.
   */
@@ -300,6 +306,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Add a payment to the colony.
   */
@@ -322,6 +329,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Add a new task within the colony.
   */
@@ -346,6 +354,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Indicate approval to exit colony recovery mode. This function can only be called by an address assigned the colony `RECOVERY` role.
   */
@@ -359,6 +368,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Bootstrap the colony by giving an initial amount of tokens and reputation to selected addresses. This function can only be called by the address assigned the colony `ROOT` role when the `taskCount` for the colony is equal to `0`.
    */
@@ -378,6 +388,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Cancel a task. Once a task is cancelled, no further changes to the task can be made.
   */
@@ -395,6 +406,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Claim funds that the colony has received by adding them to the funding pot of the root domain. A set fee is deducted from the funds claimed and added to the colony rewards pot. No fee is deducted when tokens native to the colony are claimed.
   */
@@ -412,6 +424,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Claim a payment.
   */
@@ -431,6 +444,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Claim a reward payout.
   */
@@ -454,6 +468,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Claim a payout assigned to a task role (`MANAGER`, `EVALUATOR`, or `WORKER`). This function can only be called by the address assigned the given task role after the task has been finalized.
   */
@@ -474,6 +489,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Mark a task as complete. If the address assigned the task `WORKER` role fails to submit the task deliverable by the due date, this function must be called by the address assigned the task `MANAGER` role. This allows the task work to be rated and the task to be finalized.
   */
@@ -491,6 +507,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Deprecate a global skill. This can only be called from the Meta Colony and only by the address assigned the colony `ROOT` role.
   */
@@ -506,6 +523,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Enter colony recovery mode. This function can only be called by a user assigned the colony `RECOVERY` role.
   */
@@ -519,6 +537,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Exit colony recovery mode. This function can be called by anyone if enough whitelist approvals are given.
   */
@@ -532,6 +551,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Finalize a payment. Once a payment is finalized, no further changes to the payment can be made and the address that is assigned the payment can claim the payment.
   */
@@ -547,6 +567,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Finalize a reward payout cycle. This function can only be called when the reward payout cycle has finished, i.e. 60 days have passed since the creation of the reward payout cycle.
   */
@@ -564,6 +585,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Finalize a task. Once a task is finalized, no further changes to the task can be made and each user assigned a task role can claim the payout assigned to their role.
   */
@@ -581,6 +603,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Generate a secret for task ratings. This function returns a keccak256 hash created from the input parameters.
   */
@@ -599,6 +622,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get the address of the authority contract associated with the colony contract.
   */
@@ -617,6 +641,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get the address of the Colony Network contract.
   */
@@ -632,6 +657,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get information about a domain.
   */
@@ -650,6 +676,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get the total number of domains in the colony. The return value is also the ID of the last domain created.
   */
@@ -665,6 +692,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get the address of an extension contract associated with the colony address.
   */
@@ -680,6 +708,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get information about a funding pot.
   */
@@ -699,6 +728,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get the balance of a funding pot.
   */
@@ -717,6 +747,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get the total number of funding pots.
   */
@@ -732,6 +763,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get the payout of a funding pot.
   */
@@ -750,6 +782,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get the total amount of funds that are not in the colony rewards pot. This is a value that keeps track of the total assets a colony has to work with, which may be split among several distinct pots associated with various domains and tasks.
   */
@@ -767,6 +800,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get the address of the owner of the colony contract.
   */
@@ -785,6 +819,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get information about a payment.
   */
@@ -806,6 +841,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get the total number of payments.
   */
@@ -821,6 +857,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get the total number of addresses that are assigned the colony `RECOVERY` role.
   */
@@ -837,6 +874,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get the inverse amount of the reward. If the fee is 1% (or 0.01), the inverse amount will be 100.
   */
@@ -852,6 +890,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get information about a reward payout cycle.
   */
@@ -874,6 +913,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get information about a task.
   */
@@ -898,6 +938,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get the total number of tasks in the colony. The return value is also the ID of the last task created.
   */
@@ -913,6 +954,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get the task payout amount assigned to a task role. Multiple tokens can be used for task payouts, therefore the token must be specified when calling this function. In order to get the task payout amount in Ether, `token` must be an empty address.
   */
@@ -932,6 +974,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get information about a task role.
   */
@@ -952,6 +995,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get the secret of a task work rating that has been submitted. If a task is in the commit period of the rating process, the work ratings are hidden in a keccak256 hash that was created from a `salt` and `value`. The rating secret can be retrieved but in order to reveal the secret, one would have to know both the `salt` and `value` used to generate the secret.
   */
@@ -970,6 +1014,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get information about the secrets of the task work ratings.
   */
@@ -988,6 +1033,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get the address of the token contract that is the native token assigned to the colony. The native token is the token used to calculate reputation scores, i.e. `1` token earned for completing a task with a satisfactory rating (`2`) will result in `1` reputation point earned.
   */
@@ -1004,6 +1050,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get the version number of the colony contract. The version number starts at `1` and is incremented by `1` with every new version.
   */
@@ -1020,6 +1067,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Check whether an address has a role assigned.
   */
@@ -1040,6 +1088,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Check whether or not the colony is in recovery mode.
   */
@@ -1055,6 +1104,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Make a payment in one transaction. This function is not included in the core contracts but instead it comes from the `OneTxPayment` extension contract. The `OneTxPayment` extension contract and the sender must both be assigned the colony `ADMINISTRATION` role.
   */
@@ -1081,6 +1131,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Mint new tokens. This function can only be called if the address of the colony contract is the owner of the token contract. If this is the case, then this function can only be called by the address assigned the colony `ROOT` role.
   */
@@ -1098,6 +1149,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Mint tokens for the Colony Network. This can only be called from the Meta Colony and only by the address assigned the colony `ROOT` role.
   */
@@ -1116,6 +1168,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Move funds from one pot to another.
   */
@@ -1136,6 +1189,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Register an ENS label for the colony.
   */
@@ -1154,6 +1208,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Remove an extension contract.
   */
@@ -1167,6 +1222,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Remove the colony `RECOVERY` role from an address. This function can only be called by the colony `ROOT` role.
   */
@@ -1182,6 +1238,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Remove the task `EVALUATOR` role from an address. This function can only be called before the task is complete, i.e. either before the deliverable has been submitted or the address assigned the task `WORKER` role has failed to meet the deadline and the address assigned the task `MANAGER` role has marked the task as complete.
   */
@@ -1199,6 +1256,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Remove the task `WORKER` role from an address. This function can only be called before the task is complete, i.e. either before the deliverable has been submitted or the address assigned the task `WORKER` role has failed to meet the deadline and the address assigned the task `MANAGER` role has marked the task as complete.
   */
@@ -1216,6 +1274,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Reveal a submitted work rating. In order to reveal a work rating, the same `salt` and `value` used to generate the `secret` when the task work rating was submitted must be provided again here to reveal the task work rating.
   */
@@ -1236,6 +1295,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Assign the colony `ADMIN` role to an address. This function is not included in the core contracts but instead it comes from the `OldRoles` extension contract. This function can only be called by an address assigned the colony `ROOT` (`FOUNDER`) role or an address assigned the colony `ADMIN` (`ARCHITECTURE`) role. There is no limit to the number of addresses that can be assigned the colony `ADMIN` role.
   */
@@ -1257,6 +1317,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Assign the colony `ADMINISTRATION` role to an address. The address calling the method must have permission within the domain that permission is being granted or a parent domain to the domain that permission is being granted. The address calling the method must already be assigned either the colony `ROOT` or `ARCHITECTURE` role within the domain or parent domain.
   */
@@ -1276,6 +1337,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Set the payouts for all task roles. This can only be called by the address assigned the task `MANAGER` role and only if the task `EVALUATOR` role and `WORKER` task role are not assigned or they are assigned to the same address that is currently assigned the task `MANAGER` role.
   */
@@ -1297,6 +1359,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Assign the colony `ARCHITECTURE` role to an address. The address calling the method must have permission within the domain that permission is being granted or a parent domain to the domain that permission is being granted. The address calling the method must already be assigned either the colony `ROOT` or `ARCHITECTURE` role within the domain or parent domain.
   */
@@ -1316,6 +1379,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Assign the colony `FOUNDER` role to an address. This function is not included in the core contracts but instead it comes from the `OldRoles` extension contract. This function can only be called by an address assigned the colony `ROOT` (`FOUNDER`) role. There can only be one address assigned to the colony `ROOT` (`FOUNDER`) role, therefore, the address currently assigned will forfeit the role.
   */
@@ -1337,6 +1401,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Assign the colony `FUNDING` role to an address. The address calling the method must have permission within the domain that permission is being granted or a parent domain to the domain that permission is being granted. The address calling the method must already be assigned either the colony `ROOT` or `ARCHITECTURE` role within the domain or parent domain.
   */
@@ -1356,6 +1421,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Set the inverse amount of the reward. This can only be called from the Meta Colony and only by the address assigned the colony `ROOT` role. If the fee is 1% (or 0.01), the inverse amount will be 100.
   */
@@ -1371,6 +1437,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Set the payment domain.
   */
@@ -1387,6 +1454,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Set the payment payout.
   */
@@ -1404,6 +1472,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Set the payment recipient.
   */
@@ -1420,6 +1489,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Set the payment skill.
   */
@@ -1436,6 +1506,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Assign the colony `RECOVERY` role to an address. This function can only be called by the colony `ROOT` role.
   */
@@ -1451,6 +1522,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Set the inverse amount of the reward. This function can only be called by the address currently assigned the colony `ROOT` role. If the fee is 1% (or 0.01), the inverse amount will be 100.
   */
@@ -1468,6 +1540,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Assign the colony `ROOT` role to an address. This function can only be called by the address currently assigned the colony `ROOT` role. There can only be one address assigned to the colony `ROOT` role, therefore, the address currently assigned will forfeit the role.
   */
@@ -1486,6 +1559,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Set the value for a storage slot while in recovery mode. This can only be called by a user assigned the colony `RECOVERY` role.
   */
@@ -1502,6 +1576,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Set the task specification. The task specification, or "task brief", is a description of the work that must be completed for the task. The description is hashed and stored with the task for future reference during the rating process or in the event of a dispute.
   */
@@ -1520,6 +1595,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Set the domain of a task. Every task must belong to a domain. This function can only be called by the address assigned the task `MANAGER` role.
   */
@@ -1538,6 +1614,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Set the due date of a task. The due date is the last day that the address assigned the task `WORKER` role can submit the task deliverable.
   */
@@ -1556,6 +1633,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Set the payout amount for the task `EVALUATOR` role.
   */
@@ -1575,6 +1653,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Assign the task `EVALUATOR` role to an address. This function can only be called before the task is finalized. The address assigned the task `MANAGER` role and the address being assigned the task `EVALUATOR` role must both sign the transaction before it can be executed.
   */
@@ -1593,6 +1672,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Set the payout amount for the task `MANAGER` role.
   */
@@ -1612,6 +1692,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Assign the task `MANAGER` role to an address. This function can only be called before the task is finalized. The address currently assigned the task `MANAGER` role and the address being assigned the task `MANAGER` role must both sign the transaction before it can be executed.
   */
@@ -1630,6 +1711,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Set the skill of a task. Only one skill can be assigned per task. The user assigned the task `MANAGER` role and the address assigned the task `WORKER` role must both sign this transaction before it can be executed.
   */
@@ -1648,6 +1730,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Set the payout amount for the task `WORKER` role.
   */
@@ -1667,6 +1750,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Assign the task `WORKER` role to an address. This function can only be called before the task is finalized. The address assigned the task `MANAGER` role and the address being assigned the task `WORKER` role must both sign the transaction before it can be executed.
   */
@@ -1685,6 +1769,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Start the next reward payout cycle. All the funds in the colony rewards pot for the given token will become locked until reputation holders have claimed their rewards payout using `claimRewardPayout`. Reputation holders can also waive their reward payout and unlock their tokens for past reward payout cycles by using `incrementLockCounterTo`.
   */
@@ -1707,6 +1792,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Submit the task deliverable. This function can only be called by the address assigned the task `WORKER` role on or before the task due date. The submission cannot be overwritten, which means the deliverable cannot be changed once it has been submitted.
   */
@@ -1726,6 +1812,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Submit the task deliverable and the work rating for the address assigned the task `MANAGER` role. This function can only be called by the address assigned the task `WORKER` role on or before the task due date. The submission cannot be overwritten, which means the deliverable cannot be changed once it has been submitted. In order to submit a rating, a `secret` must be generated using the `generateSecret` method, which keeps the rating hidden until all ratings have been submitted and revealed.
   */
@@ -1746,6 +1833,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Submit a work rating for a task. This function can only be called by the address assigned the task `EVALUATOR` role, who is submitting a rating for the address assigned the task `WORKER` role, or the address assigned the task `WORKER` role, who is submitting a rating for the address assigned the task `MANAGER` role. In order to submit a rating, a `secret` must be generated using the `generateSecret` method, which keeps the rating hidden until all ratings have been submitted and revealed.
   */
@@ -1763,6 +1851,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Upgrade the colony to a new colony contract version. The new version must be higher than the current version. Downgrading to old versions is not permitted.
   */
@@ -1780,6 +1869,7 @@ export default class ColonyClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Verify the correctness of a patricia proof associated with reputation.
   */
@@ -2439,7 +2529,7 @@ export default class ColonyClient extends ContractClient {
       ['taskId', 'number'],
       // $FlowFixMe
       ['role', 'taskRole'],
-      ['user', 'anyAddress'], // XXX because 0x0 is valid
+      ['user', 'anyAddress'],
     ]);
     this.addEvent('TaskSkillSet', [
       ['taskId', 'number'],

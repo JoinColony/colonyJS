@@ -53,6 +53,7 @@ export default class GetTask extends ContractClient.Caller<
       return true;
     };
   }
+
   // eslint-disable-next-line class-methods-use-this
   convertOutputValues(result: CallResult, { taskId }: *) {
     const task = super.convertOutputValues(result);

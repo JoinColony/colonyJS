@@ -1,4 +1,5 @@
 /* @flow */
+/* eslint-disable import/no-cycle */
 
 import BigNumber from 'bn.js';
 import { raceAgainstTimeout } from '@colony/colony-js-utils';

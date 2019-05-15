@@ -7,7 +7,7 @@ import type ColonyClient from '../index';
 type Address = string;
 
 type InputValues = {
-  user: Address,
+  address: Address,
 };
 
 export default class SetFounderRole extends ContractClient.Sender<

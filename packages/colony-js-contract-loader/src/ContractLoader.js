@@ -20,6 +20,7 @@ const validateField = (assertion, field) =>
 
 export default class ContractLoader {
   _network: ?string;
+
   _transform: Transform;
 
   /**
@@ -65,6 +66,7 @@ export default class ContractLoader {
 
     return true;
   }
+
   constructor({
     transform = this.constructor.defaultTransform(),
   }: ConstructorArgs = {}) {
@@ -74,6 +76,7 @@ export default class ContractLoader {
     );
     this._transform = transform;
   }
+
   /* eslint-disable class-methods-use-this,no-unused-vars */
   async _load(
     query: Query,
@@ -83,6 +86,7 @@ export default class ContractLoader {
       'ContractLoader._load() is expected to be defined in a derived class',
     );
   }
+
   /* eslint-enable class-methods-use-this,no-unused-vars */
   async load(
     query: Query,

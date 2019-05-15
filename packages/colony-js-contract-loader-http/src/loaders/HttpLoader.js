@@ -16,6 +16,7 @@ import type { ConstructorArgs } from '../flowtypes';
 export default class HttpLoader extends ContractLoader
   implements IContractLoader {
   _network: ?string;
+
   _endpoint: string;
 
   constructor({ endpoint, transform }: ConstructorArgs = {}) {
@@ -26,6 +27,7 @@ export default class HttpLoader extends ContractLoader
     );
     this._endpoint = endpoint;
   }
+
   resolveEndpointResource({
     contractName,
     contractAddress,
@@ -39,13 +41,14 @@ export default class HttpLoader extends ContractLoader
         .replace(
           '%%VERSION%%',
           version != null &&
-          (typeof version === 'string' ||
-            Number(parseInt(version, 10)) === version)
+            (typeof version === 'string' ||
+              Number(parseInt(version, 10)) === version)
             ? version.toString()
             : '',
         )
     );
   }
+
   async _load(
     query: Query = {},
     requiredProps?: RequiredContractProps,
