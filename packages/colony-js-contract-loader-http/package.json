@@ -22,7 +22,7 @@
     },
     "lint-staged": {
         "src/{,**/}*.js": [
-            "lint --fix",
+            "yarn lint --fix",
             "git add"
         ]
     },
@@ -44,18 +44,18 @@
     "homepage": "https://github.com/JoinColony/colonyJS#readme",
     "dependencies": {
         "@colony/colony-js-contract-loader": "^1.8.1",
-        "assert": "^1.4.1",
+        "assert": "^2.0.0",
         "babel-runtime": "^6.26.0",
         "isomorphic-fetch": "^2.2.1"
     },
     "devDependencies": {
-        "flow-bin": "^0.72.0",
-        "flow-copy-source": "^1.2.1",
+        "flow-bin": "^0.98.1",
+        "flow-copy-source": "^2.0.6",
         "jest": "^22.4.0",
-        "jest-fetch-mock": "^1.4.1",
+        "jest-fetch-mock": "^2.1.2",
         "jest-sandbox": "^1.1.2",
-        "webpack": "^4.5.0",
-        "webpack-cli": "^2.0.14"
+        "webpack": "^4.31.0",
+        "webpack-cli": "^3.3.2"
     },
     "engines": {
         "node": ">=8.2.1"

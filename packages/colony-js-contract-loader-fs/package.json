@@ -20,7 +20,7 @@
     },
     "lint-staged": {
         "src/{,**/}*.js": [
-            "lint --fix",
+            "yarn lint --fix",
             "git add"
         ]
     },
@@ -45,12 +45,12 @@
         "jsonfile": "^4.0.0"
     },
     "devDependencies": {
-        "flow-bin": "^0.72.0",
-        "flow-copy-source": "^2.0.0",
+        "flow-bin": "^0.98.1",
+        "flow-copy-source": "^2.0.6",
         "flow-remove-types": "^1.2.3",
         "jest": "^22.4.0",
         "jest-sandbox": "^1.1.2",
-        "nodemon": "^1.17.5"
+        "nodemon": "^1.19.0"
     },
     "engines": {
         "node": ">=8.2.1"
