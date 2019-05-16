@@ -1,0 +1,351 @@
+{
+  "contractName": "ITokenLocking",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "colonyNetwork",
+          "type": "address"
+        }
+      ],
+      "name": "ColonyNetworkSet",
+      "type": "event",
+      "signature": "0xaac08694cb36f6250aa0c27b058ab1542ec8a9289c0a3af21af36cdfaf1b46cc"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "lockCount",
+          "type": "uint256"
+        }
+      ],
+      "name": "TokenLocked",
+      "type": "event",
+      "signature": "0xf9626bca62c59d77fa45a204dc096874ee066a5c5e124aa9ce6c438dbdf7387a"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "lockId",
+          "type": "uint256"
+        }
+      ],
+      "name": "UserTokenUnlocked",
+      "type": "event",
+      "signature": "0x66d1ba6a7bba8a64b1341777e1e7721371ab2824e4b50ec33c687036451fe7f0"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "timestamp",
+          "type": "uint256"
+        }
+      ],
+      "name": "UserTokenDeposited",
+      "type": "event",
+      "signature": "0xf55b0151d50819699161c8aded687da573680e059b1775eb51715a4e3100d9e9"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "UserTokenWithdrawn",
+      "type": "event",
+      "signature": "0x01e2c71b014f62b55400e8becdca80c6a907b5cc36c7a5789443c3ed5e579927"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "miner",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "beneficiary",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "tokensLost",
+          "type": "uint256"
+        }
+      ],
+      "name": "ReputationMinerPenalised",
+      "type": "event",
+      "signature": "0x51cae99a709e7fb360c44b4b49079ac46304ab5b2322a2855a129811dafdefc3"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_colonyNetwork",
+          "type": "address"
+        }
+      ],
+      "name": "setColonyNetwork",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0x03e27b42"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getColonyNetwork",
+      "outputs": [
+        {
+          "name": "networkAddress",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x4e5e8395"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_token",
+          "type": "address"
+        }
+      ],
+      "name": "lockToken",
+      "outputs": [
+        {
+          "name": "lockCount",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0x10693fcd"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_token",
+          "type": "address"
+        },
+        {
+          "name": "_user",
+          "type": "address"
+        },
+        {
+          "name": "_lockId",
+          "type": "uint256"
+        }
+      ],
+      "name": "unlockTokenForUser",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0x6d7bd889"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_token",
+          "type": "address"
+        },
+        {
+          "name": "_lockId",
+          "type": "uint256"
+        }
+      ],
+      "name": "incrementLockCounterTo",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0xbf503823"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_token",
+          "type": "address"
+        },
+        {
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "deposit",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0x47e7ef24"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_token",
+          "type": "address"
+        },
+        {
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "withdraw",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0xf3fef3a3"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_stakers",
+          "type": "address[]"
+        },
+        {
+          "name": "_beneficiary",
+          "type": "address"
+        },
+        {
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "punishStakers",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0x1c20ed99"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_token",
+          "type": "address"
+        }
+      ],
+      "name": "getTotalLockCount",
+      "outputs": [
+        {
+          "name": "lockCount",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x1ca55574"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_token",
+          "type": "address"
+        },
+        {
+          "name": "_user",
+          "type": "address"
+        }
+      ],
+      "name": "getUserLock",
+      "outputs": [
+        {
+          "components": [
+            {
+              "name": "lockCount",
+              "type": "uint256"
+            },
+            {
+              "name": "balance",
+              "type": "uint256"
+            },
+            {
+              "name": "timestamp",
+              "type": "uint256"
+            }
+          ],
+          "name": "lock",
+          "type": "tuple"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x1cc17c52"
+    }
+  ],
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.6+commit.b259423e.Linux.g++"
+  },
+  "networks": {},
+  "schemaVersion": "3.0.8",
+  "updatedAt": "2019-05-16T14:07:53.191Z"
+}
