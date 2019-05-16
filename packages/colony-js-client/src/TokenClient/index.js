@@ -162,6 +162,24 @@ export default class TokenClient extends ContractClient {
   >;
 
   /*
+  Get whether the token is locked.
+  */
+  isLocked: TokenClient.Caller<
+    {},
+    {
+      locked: boolean, // Whether the token is locked.
+    },
+    TokenClient,
+    {
+      function: 'locked',
+      contract: 'Token.sol',
+      // eslint-disable-next-line max-len
+      contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
+      version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
+    },
+  >;
+
+  /*
   Mint new tokens. This is a `DSToken` function that can only be called by the token `owner`. When a colony contract address is assigned as the token `owner`, this function can only be called by the user assigned the `FOUNDER` authority role.
   */
   mint: TokenClient.Sender<
@@ -277,6 +295,21 @@ export default class TokenClient extends ContractClient {
     },
   >;
 
+  /*
+  Unlock the token.
+  */
+  unlock: TokenClient.Sender<
+    {},
+    {},
+    TokenClient,
+    {
+      contract: 'Token.sol',
+      // eslint-disable-next-line max-len
+      contractPath: 'https://github.com/JoinColony/colonyToken/blob/7cc7d6b5bf3e94e6d97cd65583e3da38a994753f/contracts',
+      version: '8d3a50719cd51459db153006b5bd56c031e9d169',
+    },
+  >;
+
   static get defaultQuery() {
     return {
       contractName: 'Token',
@@ -321,6 +354,10 @@ export default class TokenClient extends ContractClient {
       input: [sourceAddress, user],
       output: [amount],
     });
+    this.addCaller('isLocked', {
+      functionName: 'locked',
+      output: [['locked', 'boolean']],
+    });
 
     // Senders
     this.createTokenAuthority = new CreateTokenAuthority({ client: this });
@@ -345,5 +382,6 @@ export default class TokenClient extends ContractClient {
     this.addSender('setAuthority', {
       input: [['authority', 'address']],
     });
+    this.addSender('unlock', {});
   }
 }
