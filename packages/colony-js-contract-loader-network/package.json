@@ -24,6 +24,7 @@
     ],
     "files": [
         "lib",
+        "contracts",
         "README.md"
     ],
     "main": "lib/index.js",
