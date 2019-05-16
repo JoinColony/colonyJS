@@ -12,4 +12,5 @@
 
 [options]
 module.ignore_non_literal_requires=true
+server.max_workers=1
 [strict]

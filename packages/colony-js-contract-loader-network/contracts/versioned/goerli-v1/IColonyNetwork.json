@@ -1,0 +1,1235 @@
+{
+  "contractName": "IColonyNetwork",
+  "abi": [
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "approveExitRecovery",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0x31292ba7"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "exitRecoveryMode",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0x38e5b7ae"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "numRecoveryRoles",
+      "outputs": [
+        {
+          "name": "numRoles",
+          "type": "uint64"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x54584330"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_slot",
+          "type": "uint256"
+        },
+        {
+          "name": "_value",
+          "type": "bytes32"
+        }
+      ],
+      "name": "setStorageSlotRecovery",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0x55028923"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "isInRecoveryMode",
+      "outputs": [
+        {
+          "name": "inRecoveryMode",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x80d9fad3"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_slot",
+          "type": "uint256"
+        }
+      ],
+      "name": "checkNotAdditionalProtectedVariable",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x8831fa34"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_user",
+          "type": "address"
+        }
+      ],
+      "name": "removeRecoveryRole",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0x99cf7cc7"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_user",
+          "type": "address"
+        }
+      ],
+      "name": "setRecoveryRole",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0xd24536a5"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "enterRecoveryMode",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0xe77aaee2"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "resolver",
+          "type": "address"
+        }
+      ],
+      "name": "ColonyNetworkInitialised",
+      "type": "event",
+      "signature": "0xb359e28a27b6359e12b2a89378843d9900e4235acbbc05656ea06bf4c2064896"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "tokenLocking",
+          "type": "address"
+        }
+      ],
+      "name": "TokenLockingAddressSet",
+      "type": "event",
+      "signature": "0xae5c99e483b74f96e60231cd7e3460f8d8403205510ffdb7fe24b0d66ca7ec36"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "miningCycleResolver",
+          "type": "address"
+        }
+      ],
+      "name": "MiningCycleResolverSet",
+      "type": "event",
+      "signature": "0x1200d5181cf6b6a78c9b47af4a9217d46f4240add3629d168f6781e232b06e62"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "feeInverse",
+          "type": "uint256"
+        }
+      ],
+      "name": "NetworkFeeInverseSet",
+      "type": "event",
+      "signature": "0x8c240c7dd895a1b58d8d303d8d83782acf54b1329592f70db2ee5a0497220cef"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "version",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "resolver",
+          "type": "address"
+        }
+      ],
+      "name": "ColonyVersionAdded",
+      "type": "event",
+      "signature": "0x8200c0c16a44d6f048a2199def86b6dbd55664cab6c3f01ddd2ab43a1adf1676"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "metaColony",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "rootSkillId",
+          "type": "uint256"
+        }
+      ],
+      "name": "MetaColonyCreated",
+      "type": "event",
+      "signature": "0x6b59832e92ce4e0a6a6908df30a543563ccabf542c8836e78a1c50b0cdfc5959"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "colonyId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "name": "colonyAddress",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "token",
+          "type": "address"
+        }
+      ],
+      "name": "ColonyAdded",
+      "type": "event",
+      "signature": "0x1904953a6126b2f999ad2661494642bfc63346430965de35cdcd7b5d4e6787ae"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "skillId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "parentSkillId",
+          "type": "uint256"
+        }
+      ],
+      "name": "SkillAdded",
+      "type": "event",
+      "signature": "0xafe765b392910efb92e8447f3571f7d46c9046cf149b438ccd40b473f4fb332e"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "auction",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "quantity",
+          "type": "uint256"
+        }
+      ],
+      "name": "AuctionCreated",
+      "type": "event",
+      "signature": "0x261f6e6830ed857876d5aa4eca876ccf116d09b91a6675e3e1a1920d53ef585e"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "inactiveReputationMiningCycle",
+          "type": "address"
+        }
+      ],
+      "name": "ReputationMiningInitialised",
+      "type": "event",
+      "signature": "0x47b5df58a92479a9589bce437805f6eec45839c2bafd67d8635c2120c9cf5bff"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "hash",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "name": "nNodes",
+          "type": "uint256"
+        }
+      ],
+      "name": "ReputationMiningCycleComplete",
+      "type": "event",
+      "signature": "0x752ef39e1c821a8c89637d42bd3a0126ea4839ad4ce6f6a10bea30141c117260"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "newHash",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "name": "newNNodes",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "stakers",
+          "type": "address[]"
+        },
+        {
+          "indexed": false,
+          "name": "reward",
+          "type": "uint256"
+        }
+      ],
+      "name": "ReputationRootHashSet",
+      "type": "event",
+      "signature": "0xf784e6b3e559bebd532257ff6eb5e044b4b59f3f9802eaca5dd04a44805ce04f"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "label",
+          "type": "bytes32"
+        }
+      ],
+      "name": "UserLabelRegistered",
+      "type": "event",
+      "signature": "0xb59bb806875ef5718727778ded48d6def0daadc637571c2265f9eaee20aaa024"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "colony",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "label",
+          "type": "bytes32"
+        }
+      ],
+      "name": "ColonyLabelRegistered",
+      "type": "event",
+      "signature": "0x5eac6ea5170b50277715d82d48b59bc29df52d4433a20502217dfc779ccdfe73"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "interfaceID",
+          "type": "bytes4"
+        }
+      ],
+      "name": "supportsInterface",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "pure",
+      "type": "function",
+      "signature": "0x01ffc9a7"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_reputationMiningCycle",
+          "type": "address"
+        },
+        {
+          "name": "_id",
+          "type": "uint256"
+        },
+        {
+          "name": "_user",
+          "type": "address"
+        },
+        {
+          "name": "_amount",
+          "type": "int256"
+        },
+        {
+          "name": "_skillId",
+          "type": "uint256"
+        },
+        {
+          "name": "_colony",
+          "type": "address"
+        },
+        {
+          "name": "_nUpdates",
+          "type": "uint128"
+        },
+        {
+          "name": "_nPreviousUpdates",
+          "type": "uint128"
+        }
+      ],
+      "name": "setReplacementReputationUpdateLogEntry",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0x23100714"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_reputationMiningCycle",
+          "type": "address"
+        },
+        {
+          "name": "_id",
+          "type": "uint256"
+        }
+      ],
+      "name": "getReplacementReputationUpdateLogEntry",
+      "outputs": [
+        {
+          "components": [
+            {
+              "name": "user",
+              "type": "address"
+            },
+            {
+              "name": "amount",
+              "type": "int256"
+            },
+            {
+              "name": "skillId",
+              "type": "uint256"
+            },
+            {
+              "name": "colony",
+              "type": "address"
+            },
+            {
+              "name": "nUpdates",
+              "type": "uint128"
+            },
+            {
+              "name": "nPreviousUpdates",
+              "type": "uint128"
+            }
+          ],
+          "name": "reputationLogEntry",
+          "type": "tuple"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xe926f61c"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_reputationMiningCycle",
+          "type": "address"
+        }
+      ],
+      "name": "getReplacementReputationUpdateLogsExist",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x1d5b14e3"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getMetaColony",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x731bc22f"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getColonyCount",
+      "outputs": [
+        {
+          "name": "count",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x711a39be"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_colony",
+          "type": "address"
+        }
+      ],
+      "name": "isColony",
+      "outputs": [
+        {
+          "name": "addressIsColony",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xdb0dd7ff"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_parentSkillId",
+          "type": "uint256"
+        }
+      ],
+      "name": "addSkill",
+      "outputs": [
+        {
+          "name": "skillId",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0x162419cc"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_skillId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getSkill",
+      "outputs": [
+        {
+          "components": [
+            {
+              "name": "nParents",
+              "type": "uint128"
+            },
+            {
+              "name": "nChildren",
+              "type": "uint128"
+            },
+            {
+              "name": "parents",
+              "type": "uint256[]"
+            },
+            {
+              "name": "children",
+              "type": "uint256[]"
+            },
+            {
+              "name": "globalSkill",
+              "type": "bool"
+            },
+            {
+              "name": "deprecated",
+              "type": "bool"
+            }
+          ],
+          "name": "skill",
+          "type": "tuple"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xbd880fae"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_skillId",
+          "type": "uint256"
+        }
+      ],
+      "name": "deprecateSkill",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0xbb47bf18"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_user",
+          "type": "address"
+        },
+        {
+          "name": "_amount",
+          "type": "int256"
+        },
+        {
+          "name": "_skillId",
+          "type": "uint256"
+        }
+      ],
+      "name": "appendReputationUpdateLog",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0x5a8adafa"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getSkillCount",
+      "outputs": [
+        {
+          "name": "count",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x05f53b29"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getReputationMiningSkillId",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x1c46bc7f"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_tokenLockingAddress",
+          "type": "address"
+        }
+      ],
+      "name": "setTokenLocking",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0x8fb6839a"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getTokenLocking",
+      "outputs": [
+        {
+          "name": "lockingAddress",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xb319902a"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_tokenAddress",
+          "type": "address"
+        }
+      ],
+      "name": "createMetaColony",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0xa2f99b86"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_tokenAddress",
+          "type": "address"
+        }
+      ],
+      "name": "createColony",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0x08eb0d2c"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_version",
+          "type": "uint256"
+        },
+        {
+          "name": "_resolver",
+          "type": "address"
+        }
+      ],
+      "name": "addColonyVersion",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0xf07eb921"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_resolver",
+          "type": "address"
+        }
+      ],
+      "name": "initialise",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0x9d6a890f"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_id",
+          "type": "uint256"
+        }
+      ],
+      "name": "getColony",
+      "outputs": [
+        {
+          "name": "colonyAddress",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x6f92650d"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getCurrentColonyVersion",
+      "outputs": [
+        {
+          "name": "version",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xbca1e4df"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_skillId",
+          "type": "uint256"
+        },
+        {
+          "name": "_parentSkillIndex",
+          "type": "uint256"
+        }
+      ],
+      "name": "getParentSkillId",
+      "outputs": [
+        {
+          "name": "skillId",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xd987fc16"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_skillId",
+          "type": "uint256"
+        },
+        {
+          "name": "_childSkillIndex",
+          "type": "uint256"
+        }
+      ],
+      "name": "getChildSkillId",
+      "outputs": [
+        {
+          "name": "skillId",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x09d10a5e"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_active",
+          "type": "bool"
+        }
+      ],
+      "name": "getReputationMiningCycle",
+      "outputs": [
+        {
+          "name": "repMiningCycleAddress",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xf2c8599c"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_timeStaked",
+          "type": "uint256"
+        },
+        {
+          "name": "_submissonIndex",
+          "type": "uint256"
+        }
+      ],
+      "name": "calculateMinerWeight",
+      "outputs": [
+        {
+          "name": "minerWeight",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "pure",
+      "type": "function",
+      "signature": "0x8e4544d7"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_version",
+          "type": "uint256"
+        }
+      ],
+      "name": "getColonyVersionResolver",
+      "outputs": [
+        {
+          "name": "resolverAddress",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x8f14c886"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "newHash",
+          "type": "bytes32"
+        },
+        {
+          "name": "newNNodes",
+          "type": "uint256"
+        },
+        {
+          "name": "stakers",
+          "type": "address[]"
+        },
+        {
+          "name": "reward",
+          "type": "uint256"
+        }
+      ],
+      "name": "setReputationRootHash",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0xba5f5b53"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "startNextCycle",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0x450e2ed3"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "initialiseReputationMining",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0xee65786a"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getReputationRootHash",
+      "outputs": [
+        {
+          "name": "rootHash",
+          "type": "bytes32"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x97824c3f"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getReputationRootHashNNodes",
+      "outputs": [
+        {
+          "name": "nNodes",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x7680150d"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_token",
+          "type": "address"
+        }
+      ],
+      "name": "startTokenAuction",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0x55a8495a"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_ens",
+          "type": "address"
+        },
+        {
+          "name": "_rootNode",
+          "type": "bytes32"
+        }
+      ],
+      "name": "setupRegistrar",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0x6060c4aa"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "username",
+          "type": "string"
+        },
+        {
+          "name": "orbitdb",
+          "type": "string"
+        }
+      ],
+      "name": "registerUserLabel",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0xb5e34fbf"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "colonyName",
+          "type": "string"
+        },
+        {
+          "name": "orbitdb",
+          "type": "string"
+        }
+      ],
+      "name": "registerColonyLabel",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0xe2db777b"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "node",
+          "type": "bytes32"
+        }
+      ],
+      "name": "getProfileDBAddress",
+      "outputs": [
+        {
+          "name": "orbitDB",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xcd930b63"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "addr",
+          "type": "address"
+        }
+      ],
+      "name": "lookupRegisteredENSDomain",
+      "outputs": [
+        {
+          "name": "domain",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x60c64776"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "node",
+          "type": "bytes32"
+        }
+      ],
+      "name": "addr",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x3b3b57de"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getENSRegistrar",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xa5e42536"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "miningResolverAddress",
+          "type": "address"
+        }
+      ],
+      "name": "setMiningResolver",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0xe1636882"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getMiningResolver",
+      "outputs": [
+        {
+          "name": "miningResolverAddress",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x749f15cd"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getFeeInverse",
+      "outputs": [
+        {
+          "name": "_feeInverse",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xef63c380"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_feeInverse",
+          "type": "uint256"
+        }
+      ],
+      "name": "setFeeInverse",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0x3812b259"
+    }
+  ],
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.6+commit.b259423e.Linux.g++"
+  },
+  "networks": {},
+  "schemaVersion": "3.0.8",
+  "updatedAt": "2019-05-16T14:07:53.168Z"
+}

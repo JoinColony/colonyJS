@@ -9,6 +9,7 @@ import type { RequiredContractProps } from '@colony/colony-js-contract-loader';
 
 const NETWORKS = {
   RINKEBY: 'rinkeby',
+  GOERLI: 'goerli',
 };
 
 const DEFAULT_NETWORK = NETWORKS.RINKEBY;
@@ -33,6 +34,22 @@ const CONTRACTS_MANIFEST = {
         'DSToken',
         'ITokenLocking',
         'OneTxPayment',
+      ],
+    },
+    [NETWORKS.GOERLI]: {
+      '1': [
+        'EtherRouter',
+        'IColony',
+        'IColonyNetwork',
+        'IMetaColony',
+        'IRecovery',
+        'ITokenLocking',
+        'OldRoles',
+        'OldRolesFactory',
+        'OneTxPayment',
+        'OneTxPaymentFactory',
+        'Token',
+        'TokenAuthority',
       ],
     },
   },
