@@ -26,8 +26,8 @@ See [colonyJS Documentation](https://joincolony.github.io/colonyjs/intro-welcome
 
 ## Contributing
 
-We welcome all contributions to colonyJS. See [Contributing](https://github.com/JoinColony/colonyJS/blob/develop/.github/CONTRIBUTING.md) for more information.
+We welcome all contributions to colonyJS! See [Contributing](https://github.com/JoinColony/colonyJS/blob/develop/.github/CONTRIBUTING.md) for more information.
 
 ## Development
 
-If you are a developer working on colonyJS, see [Development](https://github.com/JoinColony/colonyJS/blob/develop/.github/DEVELOPMENT.md).
+If you are a developer contributing to colonyJS, see [Development](https://github.com/JoinColony/colonyJS/blob/develop/.github/DEVELOPMENT.md).
