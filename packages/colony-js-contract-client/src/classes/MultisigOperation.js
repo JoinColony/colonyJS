@@ -1,5 +1,5 @@
 /* @flow */
-/* eslint-disable no-underscore-dangle */
+/* eslint-disable import/no-cycle */
 
 import { padLeft, soliditySha3, isHexStrict, hexToBytes } from 'web3-utils';
 import defaultAssert from 'assert';
@@ -35,11 +35,17 @@ export default class MultisigOperation<
   >,
 > {
   sender: Sender;
+
   payload: MultisigOperationPayload<InputValues>; // Immutable
+
   _messageHash: string;
+
   _nonce: number;
+
   _onReset: ?Function;
+
   _requiredSignees: Array<string>;
+
   _signers: Signers;
 
   static _validatePayload(payload: any) {
@@ -102,7 +108,9 @@ export default class MultisigOperation<
     args: MultisigOperationConstructorArgs<InputValues>,
   ) {
     const { payload, signers = {}, nonce, onReset } = args;
+    // eslint-disable-next-line no-underscore-dangle
     this.constructor._validatePayload(payload);
+    // eslint-disable-next-line no-underscore-dangle
     this.constructor._validateSigners(signers);
     defaultAssert(
       nonce == null || Number.isInteger(nonce),
@@ -138,6 +146,7 @@ export default class MultisigOperation<
       isEqual(this.payload, payload),
       'Unable to add state; incompatible payloads',
     );
+    // eslint-disable-next-line no-underscore-dangle
     this.constructor._validateSigners(signers);
     this._signers = Object.assign({}, this._signers, signers);
     return this;

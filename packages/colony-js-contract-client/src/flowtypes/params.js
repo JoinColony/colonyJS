@@ -4,7 +4,9 @@ export type ParamTypes =
   | '[address]'
   | '[bigNumber]'
   | '[number]'
+  | '[string]'
   | 'address'
+  | 'anyAddress'
   | 'bigNumber'
   | 'boolean'
   | 'bytes32String'
@@ -12,7 +14,6 @@ export type ParamTypes =
   | 'hexString'
   | 'ipfsHash'
   | 'number'
-  | 'anyAddress'
   | 'string';
 
 // [param name, param type]

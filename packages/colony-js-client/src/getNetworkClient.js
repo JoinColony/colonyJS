@@ -1,4 +1,5 @@
 /* @flow */
+/* eslint-disable import/no-cycle */
 
 import { providers } from 'ethers';
 import EthersAdapter from '@colony/colony-js-adapter-ethers';

@@ -92,6 +92,7 @@ class EthersContract extends ethers.Contract implements IContract {
       transactionHash,
     });
   }
+
   removeListener(
     eventName: string,
     callback: Function,
@@ -108,14 +109,17 @@ class EthersContract extends ethers.Contract implements IContract {
       this._listeners.splice(handlerIndex, 1);
     }
   }
+
   _initialiseEvents() {
     Object.getOwnPropertyNames(this.events).forEach(eventName => {
       const self = this;
       this.events[eventName] = function eventDispatcher() {
-        self._dispatchEvent(this); // eslint-disable-line no-underscore-dangle
+        // eslint-disable-next-line no-underscore-dangle
+        self._dispatchEvent(this);
       };
     });
   }
+
   _dispatchEvent(event: Event) {
     const eventHandlers = this._listeners.filter(
       ({ eventName, transactionHash }) =>

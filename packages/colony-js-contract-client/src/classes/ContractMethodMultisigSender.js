@@ -1,4 +1,5 @@
 /* @flow */
+/* eslint-disable import/no-cycle */
 
 import assert from 'assert';
 import { isBigNumber, isValidAddress } from '@colony/colony-js-utils';
@@ -28,8 +29,11 @@ export default class ContractMethodMultisigSender<
   ContractData,
 > {
   nonceFunctionName: string;
+
   nonceInput: Params;
+
   multisigFunctionName: string;
+
   _getRequiredSignees: GetRequiredSignees;
 
   /**
@@ -94,7 +98,8 @@ export default class ContractMethodMultisigSender<
 
     return nonce;
   }
-  // eslint-disable-next-line class-methods-use-this,no-unused-vars
+
+  // eslint-disable-next-line class-methods-use-this, no-unused-vars
   async send(inputValues: InputValues, options: SendOptions) {
     throw new Error(
       'This Sender uses multi-signature transactions; call ' +

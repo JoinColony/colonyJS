@@ -1,4 +1,5 @@
 /* @flow */
+/* eslint-disable import/no-cycle */
 
 import BigNumber from 'bn.js';
 import ContractClient from '@colony/colony-js-contract-client';
@@ -61,6 +62,7 @@ export default class TokenClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Burn tokens. This is a `DSToken` function that can only be called by the token `owner`. When a colony contract address is assigned as the token `owner`, this function can only be called by the user assigned the `FOUNDER` authority role.
   */
@@ -80,6 +82,7 @@ export default class TokenClient extends ContractClient {
       version: '8d3a50719cd51459db153006b5bd56c031e9d169',
     },
   >;
+
   /*
   Get the token allowance of an address. The allowance is the amount of tokens that the `spender` is authorized to transfer using the `transferFrom` function.
   */
@@ -100,6 +103,7 @@ export default class TokenClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get the the token balance of an address.
   */
@@ -119,6 +123,7 @@ export default class TokenClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Get information about the token.
   */
@@ -137,6 +142,7 @@ export default class TokenClient extends ContractClient {
       version: '8d3a50719cd51459db153006b5bd56c031e9d169',
     },
   >;
+
   /*
   Get the total supply of the token.
   */
@@ -154,6 +160,7 @@ export default class TokenClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Mint new tokens. This is a `DSToken` function that can only be called by the token `owner`. When a colony contract address is assigned as the token `owner`, this function can only be called by the user assigned the `FOUNDER` authority role.
   */
@@ -173,6 +180,7 @@ export default class TokenClient extends ContractClient {
       version: '8d3a50719cd51459db153006b5bd56c031e9d169',
     },
   >;
+
   /*
   Assign an account the `ADMIN` authority role within a colony.
   */
@@ -191,6 +199,7 @@ export default class TokenClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Set the `owner` of a token contract. This function can only be called by the current `owner` of the contract. In order to call token contract methods from within a colony, the token `owner` must be the address of the colony contract.
   */
@@ -209,6 +218,7 @@ export default class TokenClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Transfer tokens from the address calling the function to another address. The current address must have a sufficient token balance.
   */
@@ -226,6 +236,7 @@ export default class TokenClient extends ContractClient {
       version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
     },
   >;
+
   /*
   Transfer tokens from one address to another address. The address the tokens are transferred from must have a sufficient token balance and it must have a sufficient token allowance approved by the token owner.
   */
@@ -246,6 +257,7 @@ export default class TokenClient extends ContractClient {
       version: '8d3a50719cd51459db153006b5bd56c031e9d169',
     },
   >;
+
   /*
   Deploy a TokenAuthority contract which can then be use to control the transfer of a token.
   */

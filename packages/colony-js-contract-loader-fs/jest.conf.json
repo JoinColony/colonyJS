@@ -6,5 +6,6 @@
         "global": {
             "branches": 0
         }
-    }
-  }
+    },
+    "testURL": "http://localhost/"
+}

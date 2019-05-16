@@ -35,10 +35,12 @@ export const getDomainIdFromPot = async (potId: number, colonyClient: *) => {
   const { type, typeId } = await colonyClient.getFundingPot.call({ potId });
   if (type === FUNDING_POT_TYPE_DOMAIN) {
     return typeId;
-  } else if (type === FUNDING_POT_TYPE_TASK) {
+  }
+  if (type === FUNDING_POT_TYPE_TASK) {
     const { domainId } = await colonyClient.getTask.call({ taskId: typeId });
     return domainId;
-  } else if (type === FUNDING_POT_TYPE_PAYMENT) {
+  }
+  if (type === FUNDING_POT_TYPE_PAYMENT) {
     const { domainId } = await colonyClient.getPayment.call({
       paymentId: typeId,
     });
@@ -142,11 +144,10 @@ export default class DomainAuth<
             typeof inputDomainIds === 'function'
               ? await inputDomainIds(inputValues)
               : await Promise.all(
-                  inputDomainIds.map(
-                    async inputDomainId =>
-                      typeof inputDomainId === 'function'
-                        ? inputDomainId(inputValues)
-                        : inputValues[inputDomainId],
+                  inputDomainIds.map(async inputDomainId =>
+                    typeof inputDomainId === 'function'
+                      ? inputDomainId(inputValues)
+                      : inputValues[inputDomainId],
                   ),
                 );
 
@@ -207,10 +208,12 @@ export default class DomainAuth<
         return [domainId, skill];
       }),
     );
-    return skills.filter(([, skill]) => skill !== null).sort(
-      // $FlowFixMe these will all be skills because of the filter
-      ([, a], [, b]) => b.children.length - a.children.length,
-    )[0][0];
+    return skills
+      .filter(([, skill]) => skill !== null)
+      .sort(
+        // $FlowFixMe these will all be skills because of the filter
+        ([, a], [, b]) => b.children.length - a.children.length,
+      )[0][0];
   }
 
   async getChildSkillIndex(

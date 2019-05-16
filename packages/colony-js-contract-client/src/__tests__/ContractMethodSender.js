@@ -18,7 +18,8 @@ describe('ContractMethodSender', () => {
           signature: 'TaskAdded(uint256)',
           type: 'event',
           topics: [
-            '0x2f304925f4f66741b976d6f4f9a127315b8ef823c6e2a3b08895e5b11579bc78', // eslint-disable-line max-len
+            // eslint-disable-next-line max-len
+            '0x2f304925f4f66741b976d6f4f9a127315b8ef823c6e2a3b08895e5b11579bc78',
           ],
           inputs: {
             names: ['id'],

@@ -20,13 +20,19 @@ describe('ContractClient', () => {
   const txData = "0x123 oh look at me, I'm some data";
   const constantData = { constantValue: 123 };
   const gasEstimate = new BigNumber(123);
-  const contract = new class extends MockEmittingContract {
+  const contract = new (class extends MockEmittingContract {
     address = '0x123';
+
     events = {};
+
     callConstant = sandbox.fn(async () => constantData);
+
     callEstimate = sandbox.fn(async () => gasEstimate);
+
     callTransaction = sandbox.fn(async () => transaction);
+
     createTransactionData = sandbox.fn(async () => txData);
+
     interface = {
       events: {
         myEvent: {
@@ -34,7 +40,7 @@ describe('ContractClient', () => {
         },
       },
     };
-  }();
+  })();
   const query = { contractName: 'MyContract' };
   const adapter = {
     getContract: sandbox.fn(() => contract),

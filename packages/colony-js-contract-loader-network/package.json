@@ -1,23 +1,52 @@
 {
-  "name": "@colony/colony-js-contract-loader-network",
-  "version": "1.11.0",
-  "description": "Load the Colony contract ABIs directly from this package",
-  "main": "lib/index.js",
-  "scripts": {
-    "build": "babel src --out-dir lib --ignore __tests__ --source-maps",
-    "clean": "shx rm -rf lib",
-    "test": "jest --config=jest.conf.json",
-    "prepublish": "yarn run build"
-  },
-  "author": "Christian Maniewski <chris@colony.io>",
-  "license": "GPL-3.0",
-  "dependencies": {
-    "@colony/colony-js-contract-loader": "1.8.1",
-    "assert": "^1.4.1",
-    "babel-runtime": "^6.26.0"
-  },
-  "devDependencies": {
-    "jest": "^23.6.0",
-    "shx": "^0.3.0"
-  }
+    "name": "@colony/colony-js-contract-loader-network",
+    "version": "1.11.0",
+    "description": "Load the Colony contract ABIs directly from this package",
+    "keywords": [
+        "ethers",
+        "web3",
+        "colony",
+        "api"
+    ],
+    "homepage": "https://github.com/JoinColony/colonyJS#readme",
+    "bugs": {
+        "url": "https://github.com/JoinColony/colonyJS/issues"
+    },
+    "license": "MIT",
+    "contributors": [
+        "Christian Maniewski <chris@colony.io>",
+        "Curtis Olson <chris@colony.io>",
+        "Griffin Hotchkiss <griffin@colony.io>",
+        "James Lefrère <james@colony.io>",
+        "Raul Glogovetan <raul@colony.io>",
+        "Ryan Christofferson <ryan@colony.io>",
+        "Scott Street <scott@colony.io>"
+    ],
+    "files": [
+        "lib",
+        "README.md"
+    ],
+    "main": "lib/index.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/JoinColony/colonyJS.git"
+    },
+    "scripts": {
+        "build": "babel src --out-dir lib --ignore __tests__ --source-maps",
+        "clean": "shx rm -rf lib",
+        "test": "jest --config=jest.conf.json",
+        "prepublish": "yarn run build"
+    },
+    "dependencies": {
+        "@colony/colony-js-contract-loader": "1.8.1",
+        "assert": "^2.0.0",
+        "babel-runtime": "^6.26.0"
+    },
+    "devDependencies": {
+        "jest": "^23.6.0",
+        "shx": "^0.3.2"
+    },
+    "engines": {
+        "node": ">=10.12.0 <12.0.0"
+    }
 }

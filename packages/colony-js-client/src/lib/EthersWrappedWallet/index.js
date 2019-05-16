@@ -16,6 +16,7 @@ import type {
 
 export default class EthersWrappedWallet {
   wallet: GenericWallet;
+
   provider: *;
 
   constructor(wallet: *, provider: *) {
