@@ -2,7 +2,7 @@
 
 ## next
 
-This release implements a lot of changes and additions in preparation for the upcoming deployment of the colonyNetwork contracts on `rinkeby` and `mainnet`. This release currently supports the colonyNetwork smart contracts at commit `5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce`.
+This release implements significant changes and additions that enables support for the colonyNetwork [glider-rc.1](https://github.com/JoinColony/colonyNetwork/releases/tag/glider-rc.1) release. Please do not hesitate to reach out to us on [Discourse](https://build.colony.io/c/support) or [Gitter](https://gitter.im/JoinColony/colonyJS) if you are having any issues updating to this release.
 
 Also, please note that colonyJS is currently using `ethers` version `3.0.27`.
 

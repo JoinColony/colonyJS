@@ -51,7 +51,7 @@ export default class TokenLockingClient extends ContractClient {
     {
       contract: 'TokenLocking.sol',
       interface: 'ITokenLocking.sol',
-      version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
+      version: 'glider-rc.1',
     },
   >;
 
@@ -69,7 +69,7 @@ export default class TokenLockingClient extends ContractClient {
     {
       contract: 'TokenLocking.sol',
       interface: 'ITokenLocking.sol',
-      version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
+      version: 'glider-rc.1',
     },
   >;
 
@@ -88,7 +88,7 @@ export default class TokenLockingClient extends ContractClient {
     {
       contract: 'TokenLocking.sol',
       interface: 'ITokenLocking.sol',
-      version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
+      version: 'glider-rc.1',
     },
   >;
 
@@ -106,7 +106,7 @@ export default class TokenLockingClient extends ContractClient {
     {
       contract: 'TokenLocking.sol',
       interface: 'ITokenLocking.sol',
-      version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
+      version: 'glider-rc.1',
     },
   >;
 
@@ -123,7 +123,7 @@ export default class TokenLockingClient extends ContractClient {
     {
       contract: 'TokenLocking.sol',
       interface: 'ITokenLocking.sol',
-      version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
+      version: 'glider-rc.1',
     },
   >;
 
@@ -143,7 +143,7 @@ export default class TokenLockingClient extends ContractClient {
     {
       contract: 'TokenLocking.sol',
       interface: 'ITokenLocking.sol',
-      version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
+      version: 'glider-rc.1',
     },
   >;
 
@@ -162,7 +162,7 @@ export default class TokenLockingClient extends ContractClient {
     {
       contract: 'TokenLocking.sol',
       interface: 'ITokenLocking.sol',
-      version: '5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce',
+      version: 'glider-rc.1',
     },
   >;
 
