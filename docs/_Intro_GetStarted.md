@@ -4,7 +4,7 @@ section: Intro
 order: 2
 ---
 
-This page will show you how to use colonyJS to connect to the network, create a token, create a colony, and make a payment. We will be using the `rinkeby` test network, so make sure you have an Ethereum wallet with some test Ether before getting started. If you have never created a wallet or requested test Ether, check out [this article](https://medium.com/compound-finance/the-beginners-guide-to-using-an-ethereum-test-network-95bbbc85fc1d).
+This page will show you how to use colonyJS to connect to the network, create a token, create a colony, and make a payment. We will be using the `goerli` test network, so make sure you have an Ethereum wallet with some test Ether before getting started. If you have never created an Ethereum wallet, check out [this article](https://medium.com/compound-finance/the-beginners-guide-to-using-an-ethereum-test-network-95bbbc85fc1d). For test Ether, you can use the [Goerli Authenticated Faucet](https://faucet.goerli.mudit.blog).
 
 ## Prerequisites
 
@@ -15,9 +15,9 @@ For this example, you will need the following tools:
 
 ## Project Setup
 
-Open up your terminal and move to your project directory. You can create a new project or use an existing project. If you create a new project, you will need to run `yarn init` within your project directory.
+First, you will need to open up your terminal and move to your project directory. You can create a new project or use an existing project. If you create a new project, you will need to run `yarn init` within your project directory before continuing.
 
-*Note: If you are using an existing project that uses `npm` or you would prefer to use `npm`, feel free to do so, just bare in mind that you will need to substitute the `yarn` commands for `npm` commands throughout the instructions provided here.*
+*Note: If you are using an existing project that uses `npm` or you would prefer to use `npm`, feel free to do so, just bare in mind that you will need to substitute `yarn` commands for `npm` commands throughout the instructions provided here.*
 
 ## Installation
 
@@ -25,17 +25,17 @@ You will need to install the following packages:
 
 - `@colony/colony-js-client`
 - `@colony/purser-software`
-- `bn.js`
+- `web3-utils`
 
-Install the packages with the following command:
+You can install the packages with the following command:
 
 ```
-yarn add @colony/colony-js-client @colony/purser-software bn.js
+yarn add @colony/colony-js-client @colony/purser-software web3-utils
 ```
 
 ## Colony Script
 
-In this example, you will create a simple script that runs in the terminal with `node`. The script will run through the necessary steps to connect to the network, create a token, create a colony, and make a payment.
+In this example, you will create a simple Node script. The script will run through the necessary steps to connect to the network, create a token, create a colony, and make a payment.
 
 Create a `colony.js` file in the root of your project and add the following code:
 
@@ -43,7 +43,7 @@ Create a `colony.js` file in the root of your project and add the following code
 
 const { getNetworkClient } = require('@colony/colony-js-client');
 const { open } = require('@colony/purser-software');
-const BN = require('bn.js');
+const { BN } = require('web3-utils');
 
 (async () => {
 
@@ -57,9 +57,21 @@ const BN = require('bn.js');
 
   // Step 5: Get Colony Client
 
-  // Step 6: Allow Payments
+  // Step 6: Set Token Owner
 
-  // Step 7: Make Payment
+  // Step 7: Mint Tokens
+
+  // Step 8: Claim Colony Funds
+
+  // Step 9: Add Payment
+
+  // Step 10: Get Payment
+
+  // Step 11: Move Funds
+
+  // Step 12: Finalize Payment
+
+  // Step 13: Claim Payment
 
 })()
   .then(() => process.exit())
@@ -67,9 +79,9 @@ const BN = require('bn.js');
 
 ```
 
-## Open Wallet
+## Step 1: Open Wallet
 
-First, you will need an instance of your Ethereum wallet. In this example, you will use [purser-software](/purser/modules-@colonypurser-software/). We recommend using a wallet that you strictly use for testing.
+First, you will need an instance of your Ethereum wallet, which you can get with [purser-software](/purser/modules-@colonypurser-software/). We recommend using a wallet that you strictly use for testing.
 
 Add the following code below `// Step 1: Open Wallet`:
 
@@ -77,7 +89,7 @@ Add the following code below `// Step 1: Open Wallet`:
 
 // Get a wallet instance
 const wallet = await open({
-  privateKey: '0x000000000000000000000000000000000000000000000000000000000000000',
+  privateKey: process.env.PRIVATE_KEY,
 });
 
 // Check out the logs to see the wallet address
@@ -85,114 +97,206 @@ console.log('Wallet Address:', wallet.address);
 
 ```
 
-## Get Network Client
+## Step 2: Get Network Client
 
-Next, you will need to use your wallet instance to get an instance of the network client.
+Next, you will need to use the wallet instance to get an instance of the network client.
 
 Add the following code below `// Step 2: Get Network Client`:
 
 ```js
 
 // Get a network client instance
-const networkClient = await getNetworkClient('rinkeby', wallet);
+const networkClient = await getNetworkClient('goerli', wallet);
 
 // Check out the logs to see the network address
 console.log('Network Address:', networkClient.contract.address);
 
 ```
 
-## Create Token
+## Step 3: Create Token
 
-Each colony has a native token. The next step will be creating the token that will be assigned to your colony.
+Each colony has a native token that will be used to calculate reputation within the colony. The next step will be creating that token.
 
 Add the following code below `// Step 3: Create Token`:
 
 ```js
 
-// Create a token using the network client instance
-const { meta: { receipt: { contractAddress: tokenAddress } } } = await networkClient.createToken.send({
+// Create a token
+const createTokenTransaction = await networkClient.createToken.send({
+  name: 'Token',
   symbol: 'TKN',
 });
+
+// Set the token address
+const tokenAddress = createTokenTransaction.meta.receipt.contractAddress;
 
 // Check out the logs to see the token address
 console.log('Token Address: ', tokenAddress);
 
 ```
 
-## Create Colony
+## Step 4: Create Colony
 
-Now that you have a token, you can create a new colony.
+Now that you have a token, you can create a colony!
 
 Add the following code below `// Step 4: Create Colony`:
 
 ```js
 
-// Create a colony using the network client instance
-const { eventData: { colonyAddress } } = await networkClient.createColony.send({
+// Create a colony
+const createColonyResponse = await networkClient.createColony.send({
   tokenAddress,
 });
+
+// Set the colony address
+const colonyAddress = createColonyResponse.eventData.colonyAddress;
 
 // Check out the logs to see the colony address
 console.log('Colony Address:', colonyAddress);
 
 ```
 
-## Get Colony Client
+## Step 5: Get Colony Client
 
-You have used the network client to create a token and create a colony but now you will need to call methods specific to your colony, which will require the colony client.
+You used the network client to create a token and create a colony but now you will need to call methods specific to your colony, which will require the colony client.
 
 Add the following code below `// Step 5: Get Colony Client`:
 
 ```js
 
-// Get a colony client instance using the network client instance
-const colonyClient = await networkClient.getColonyClientByAddress(
-  colonyAddress,
-);
+// Get a colony client instance
+const colonyClient = await networkClient.getColonyClientByAddress(colonyAddress);
 
 ```
 
-## Allow Payments
+## Step 6: Set Token Owner
 
-In order to use the extended payments feature, you will need to grant permission to the `OneTxPayment` contract.
+In order for you and permissioned colony members to call token methods such as `mint` from your colony, you will need to set the colony contract address as the token owner.
 
-Add the following code below `// Step 6: Allow Payments`:
+Add the following code below `// Step 6: Set Token Owner`:
 
 ```js
 
-// Set an admin using the colony client instance
-await colonyClient.setAdminRole.send({
-  user: '0xD447E2a66f50EB067a9bFe52296354C629fD2214',
+// Set the colony contract as the token owner
+await colonyClient.tokenClient.setOwner.send({
+  owner: colonyAddress,
 });
 
 ```
 
-## Make Payment
+## Step 7: Mint Tokens
 
-You now have a colony with a native token and the extended payments feature is enabled. The final step is making a payment.
+In order to make payments and fund tasks within your colony, you're gonna need some tokens.
 
-Add the following code below `// Step 7: Make Payment`:
+Add the following code below `// Step 7: Mint Tokens`:
 
 ```js
 
-// Make a payment using the colony client instance
-const tx = await colonyClient.makePayment.send({
-  worker: wallet.address,
-  token: '0x0000000000000000000000000000000000000000',
-  amount: new BN(0),
-  domainId: 1,
-  skillId: 1,
+// Mint tokens
+await colonyClient.mintTokens.send({
+  amount: new BN('1000000000000000000'),
 });
 
-console.log('Transaction Hash:', tx.meta.transaction.hash);
+```
+
+## Step 8: Claim Colony Funds
+
+Great! You've minted some tokens but before you can use them within your colony, you will need to claim them. Claiming colony funds will add the tokens to the funding pot for the colony.
+
+Add the following code below `// Step 8: Claim Colony Funds`:
+
+```js
+
+// Claim colony funds
+await colonyClient.claimColonyFunds.send({ token: tokenAddress });
+
+```
+
+## Step 9: Add Payment
+
+Now that you have some funds in your colony, you can make payments.
+
+Add the following code below `// Step 9: Add Payment`:
+
+```js
+
+// Add a payment
+const paymentId = await colonyClient.addPayment.send({
+  recipient: wallet.address,
+  token: tokenAddress,
+  amount: new BN('1000000000000000000'),
+});
+
+// Check out the logs to see the payment id
+console.log('Payment ID:', paymentId);
+
+```
+
+## Step 10: Get Payment
+
+You added a payment within your colony but you will need to fund the payment before you can finalize and claim it. First, get some information about your payment.
+
+Add the following code below `// Step 10: Get Payment`:
+
+```js
+
+// Get a payment
+const payment = await colonyClient.getPayment.call({ paymentId });
+
+// Check out the logs to see the payment
+console.log('Payment:', payment);
+
+```
+
+## Step 11: Move Funds
+
+You will need to fund your payment by moving funds from the funding pot for the colony to the funding pot for the payment.
+
+Add the following code below `// Step 10: Get Payment`:
+
+```js
+
+await colonyClient.moveFundsBetweenPots.send({
+  fromPot: 1,
+  toPot: payment.potId,
+  amount: new BN('1000000000000000000'),
+  token: tokenAddress,
+});
+
+```
+
+## Step 12: Finalize Payment
+
+Now that your payment has been funded. You can finalize it.
+
+Add the following code below `// Step 12: Finalize Payment`:
+
+```js
+
+// Finalize a payment
+await colonyClient.finalizePayment.send({ paymentId });
+
+```
+
+## Step 13: Claim Payment
+
+Once a payment has been finalized, it can be claimed!
+
+Add the following code below `// Step 13: Claim Payment`:
+
+```js
+
+// Claim a payment
+await colonyClient.claimPayment.send({
+  paymentId,
+  token: tokenAddress,
+});
 
 ```
 
 ## Run Script
 
-You now have all the example methods you need to connect to the network, create a token, create a colony, and make a payment but before you execute the code, you will need to change `privateKey` in the `Open Wallet` example. We recommend using the private key of a wallet that you strictly use for testing.
-
-You are all set! All you need to do now is run `node colony` in your terminal, which will connect to the network, create a token, create a colony, and make a payment using colonyJS.
+You now have all the steps you need to connect to the network, create a token, create a colony, and make your first payment. All you need to do now is add your private key as an environment variable using `PRIVATE_KEY` and then running `node colony` in your terminal.
 
 ## What's next?
 
