@@ -8,7 +8,8 @@
 // user experience, without compromising decentralisation.
 
 const IPFS = require('ipfs');
-const { Buffer } = require('buffer');
+
+const { Buffer } = IPFS;
 
 let node;
 
@@ -30,12 +31,12 @@ exports.init = async () => {
 
 exports.saveHash = async (obj) => {
   const data = Buffer.from(JSON.stringify(obj));
-  const result = await node.files.add(data);
+  const result = await node.add(data);
   return result[0].hash;
 }
 
 exports.getHash = async (hash) => {
-  const buf = await node.files.cat(`/ipfs/${hash}`);
+  const buf = await node.cat(`/ipfs/${hash}`);
   let obj;
   try {
     obj = JSON.parse(buf.toString());
