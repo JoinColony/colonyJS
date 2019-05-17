@@ -53,9 +53,9 @@ commander
 
     // Log error
     console.log();
-    console.log(`Invalid command: ${program.args.join(' ')}`);
+    console.log(chalk.red(`  ERROR: "${commander.args[0]}" is not a valid command.`));
     console.log();
-    console.log('See --help for a list of available commands.');
+    console.log(chalk.red('  See --help for a list of available commands.'));
     console.log();
 
     // Exit on error
