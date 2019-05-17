@@ -36,6 +36,18 @@ const CreateToken = ({
         value={token.symbol}
       />
     </div>
+    <div className={styles.field}>
+      <label htmlFor="decimals">
+        {'Decimals:'}
+      </label>
+      <input
+        id="decimals"
+        onChange={handleChange}
+        placeholder={18}
+        type="number"
+        value={token.decimals}
+      />
+    </div>
     <div className={styles.buttons}>
       <button onClick={handleClick}>
         {'Create Token'}

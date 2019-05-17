@@ -2,6 +2,11 @@ import * as actions from '../constants/actions'
 
 const initialState = {
 
+  // addTask
+  addTaskError: null,
+  addTaskLoading: false,
+  addTaskSuccess: false,
+
   // cancelTask
   cancelTaskError: null,
   cancelTaskLoading: false,
@@ -11,11 +16,6 @@ const initialState = {
   claimPayoutError: null,
   claimPayoutLoading: false,
   claimPayoutSuccess: false,
-
-  // createTask
-  createTaskError: null,
-  createTaskLoading: false,
-  createTaskSuccess: false,
 
   // finalizeTask
   finalizeTaskError: null,
@@ -148,28 +148,28 @@ const taskReducer = (state = initialState, action) => {
         claimPayoutSuccess: action.payload,
       }
 
-    // createTask
+    // addTask
 
-    case actions.CREATE_TASK:
+    case actions.ADD_TASK:
       return {
         ...state,
-        createTaskError: null,
-        createTaskLoading: true,
-        createTaskSuccess: false,
+        addTaskError: null,
+        addTaskLoading: true,
+        addTaskSuccess: false,
       }
 
-    case actions.CREATE_TASK_ERROR:
+    case actions.ADD_TASK_ERROR:
       return {
         ...state,
-        createTaskError: action.payload,
-        createTaskLoading: false,
+        addTaskError: action.payload,
+        addTaskLoading: false,
       }
 
-    case actions.CREATE_TASK_SUCCESS:
+    case actions.ADD_TASK_SUCCESS:
       return {
         ...state,
-        createTaskLoading: false,
-        createTaskSuccess: action.payload,
+        addTaskLoading: false,
+        addTaskSuccess: action.payload,
       }
 
     // finalizeTask

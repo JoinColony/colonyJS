@@ -46,18 +46,11 @@ export const getSkills = (networkClient) => ({
     // Loop through skills
     while (skillId <= skillCount) {
 
-      // Get parent skill id and prevent throwing error with catch
-      const { parentSkillId } = await networkClient.getParentSkillId.call({
-        skillId,
-        parentSkillIndex: 0,
-      })
-      .catch(() => false)
+      // Get skill
+      let skill = await networkClient.getSkill.call({ skillId })
 
-      // Check global skill
-      if (parentSkillId && parentSkillId === 1) {
-
-        // Get skill
-        let skill = await networkClient.getSkill.call({ skillId })
+      // Check if global skill
+      if (skill.isGlobalSkill) {
 
         // Append skill id
         skill.id = skillId
