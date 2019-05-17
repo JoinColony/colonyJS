@@ -20,9 +20,9 @@ export class AppComponent implements OnInit {
     task: null,
     token: {
       address: null,
+      decimals: null,
       name: null,
       symbol: null,
-      decimals: null,
     },
     wallet: null,
   };

@@ -14,7 +14,6 @@ const finalizeTask = require('./actions/finalizeTask');
 const getAccounts = require('./actions/getAccounts');
 const getColonyClient = require('./actions/getColonyClient');
 const getNetworkClient = require('./actions/getNetworkClient');
-const makePayment = require('./actions/makePayment');
 const mintTokens = require('./actions/mintTokens');
 const moveFundsBetweenPots = require('./actions/moveFundsBetweenPots');
 const openWallet = require('./actions/openWallet');

@@ -2,15 +2,17 @@
 const { BN } = require('web3-utils');
 
 // Import actions
+const addPayment = require('../actions/addPayment');
 const claimColonyFunds = require('../actions/claimColonyFunds');
+const claimPayment = require('../actions/claimPayment');
 const createColony = require('../actions/createColony');
 const createToken = require('../actions/createToken');
+const finalizePayment = require('../actions/finalizePayment');
 const getColonyClient = require('../actions/getColonyClient');
 const getNetworkClient = require('../actions/getNetworkClient');
-const makePayment = require('../actions/makePayment');
 const mintTokens = require('../actions/mintTokens');
+const moveFundsBetweenPots = require('../actions/moveFundsBetweenPots');
 const openWallet = require('../actions/openWallet');
-const setAdminRole = require('../actions/setAdminRole');
 const setTokenOwner = require('../actions/setTokenOwner');
 
 // Set the public key (this is the public key for the first Ganache test account)
@@ -19,11 +21,8 @@ const publicKey = '0xb77d57f4959eafa0339424b83fcfaf9c15407461';
 // Set the private key (this is the private key for the first Ganache test account)
 const privateKey = '0x0355596cdb5e5242ad082c4fe3f8bbe48c9dba843fe1f99dd8272f487e70efae';
 
-// Set contract address for OneTxPayment contract
-const OneTxPayment = '0xA8DA163375713753Acc7e1D429c64F72b9412077';
-
-// Set the worker address (this is the public key for the second Ganache test account)
-const workerAddress = '0x9df24e73f40b2a911eb254a8825103723e13209c';
+// Set the recipient address (this is the public key for the second Ganache test account)
+const recipientAddress = '0x9df24e73f40b2a911eb254a8825103723e13209c';
 
 // Testing colony-starter actions
 describe('colony-starter [ local ]', () => {
@@ -59,7 +58,9 @@ describe('colony-starter [ local ]', () => {
   test('createToken() works', async () => {
     state.tokenAddress = await createToken(
       state.networkClient,            // networkClient
+      'Token',                        // name
       'TKN',                          // symbol
+      18,                             // decimals
     );
     expect(state.tokenAddress).toEqual(expect.stringContaining('0x'));
   }, 5000);
@@ -114,26 +115,51 @@ describe('colony-starter [ local ]', () => {
     expect(colonyPotBalance.balance.toString()).toEqual('1000000000000000000');
   }, 5000);
 
-  // Test the setAdminRole() example action
-  test('setAdminRole() works', async () => {
-    const hasAdminRole = await setAdminRole(
+  // Test the addPayment() example action
+  test('addPayment() works', async () => {
+    state.payment = await addPayment(
       state.colonyClient,             // colonyClient
-      OneTxPayment,                   // user
-    );
-    expect(hasAdminRole).toEqual(true);
-  }, 5000);
-
-  // Test the makePayment() example action
-  test('makePayment() works', async () => {
-    const transaction = await makePayment(
-      state.colonyClient,             // colonyClient
-      workerAddress,                  // worker
+      recipientAddress,               // recipient
       state.tokenAddress,             // token
       new BN('1000000000000000000'),  // amount
       1,                              // domainId
-      1,                              // skillId
     );
-    expect(transaction.successful).toEqual(true);
+    expect(state.payment.id).toBeGreaterThan(0);
+    expect(state.payment.potId).toBeGreaterThan(0);
+  }, 5000);
+
+  // Test the moveFundsBetweenPots() action
+  test('moveFundsBetweenPots() works', async () => {
+    const potBalance = await moveFundsBetweenPots(
+      state.colonyClient,             // colonyClient
+      1,                              // fromPot
+      state.payment.potId,            // toPot
+      new BN('1000000000000000000'),  // amount
+      state.tokenAddress,             // token
+    );
+    expect(potBalance.balance.toString()).toEqual('1000000000000000000');
+  }, 5000);
+
+  // Test the finalizePayment() action
+  test('finalizePayment() works', async () => {
+    state.payment = await finalizePayment(
+      state.colonyClient,             // colonyClient
+      1,                              // fromPot
+      state.payment.potId,            // toPot
+      new BN('1000000000000000000'),  // amount
+      state.tokenAddress,             // token
+    );
+    expect(state.payment.finalized).toEqual(true);
+  }, 5000);
+
+  // Test the claimPayment() action
+  test('claimPayment() works', async () => {
+    const taskPayout = await claimPayment(
+      state.colonyClient,             // colonyClient
+      state.payment,                  // payment
+      state.tokenAddress,             // token
+    );
+    expect(taskPayout.balance.toString()).toEqual('0');
   }, 5000);
 
 });

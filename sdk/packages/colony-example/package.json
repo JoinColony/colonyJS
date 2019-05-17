@@ -2,13 +2,11 @@
   "name": "@colony/colony-example",
   "version": "1.0.0-beta.2",
   "description": "A simple example project built with Colony",
+  "keywords": [
+    "colony",
+    "example"
+  ],
   "license": "MIT",
-  "publishConfig": {
-    "access": "public"
-  },
-  "engines": {
-    "node": ">=10.12.0"
-  },
   "files": [
     "/",
     ".gitignore"
@@ -33,6 +31,12 @@
     "web3-utils": "^1.0.0-beta.55"
   },
   "devDependencies": {
-    "jest": "^23.1.0"
+    "jest": "^24.8.0"
+  },
+  "engines": {
+    "node": ">=10.12.0 <12.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

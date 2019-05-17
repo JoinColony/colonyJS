@@ -37,9 +37,9 @@ export class AppService {
 
     // Create token
     const tokenTransaction = await networkClient.createToken.send({
+      decimals,
       name,
       symbol,
-      decimals,
     });
 
     // Set token address

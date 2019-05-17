@@ -8,20 +8,18 @@ const addGlobalSkill = require('../actions/addGlobalSkill');
 const claimColonyFunds = require('../actions/claimColonyFunds');
 const claimPayout = require('../actions/claimPayout');
 const createColony = require('../actions/createColony');
-const createTask = require('../actions/createTask');
+const addTask = require('../actions/addTask');
 const createToken = require('../actions/createToken');
 const finalizeTask = require('../actions/finalizeTask');
 const getAccounts = require('../actions/getAccounts');
 const getColonyClient = require('../actions/getColonyClient');
 const getNetworkClient = require('../actions/getNetworkClient');
-const makePayment = require('../actions/makePayment');
 const mintTokens = require('../actions/mintTokens');
 const moveFundsBetweenPots = require('../actions/moveFundsBetweenPots');
 const openWallet = require('../actions/openWallet');
 const removeTaskEvaluatorRole = require('../actions/removeTaskEvaluatorRole');
 const revealTaskWorkRating = require('../actions/revealTaskWorkRating');
 const sendEther = require('../actions/sendEther');
-const setAdminRole = require('../actions/setAdminRole');
 const setTaskBrief = require('../actions/setTaskBrief');
 const setTaskDueDate = require('../actions/setTaskDueDate');
 const setTaskEvaluatorPayout = require('../actions/setTaskEvaluatorPayout');
@@ -47,9 +45,6 @@ const submitTaskWorkRating = require('../actions/submitTaskWorkRating');
 DATABASE = {
   operations: {},
 };
-
-// Set contract address for OneTxPayment contract
-const OneTxPayment = '0xA8DA163375713753Acc7e1D429c64F72b9412077';
 
 // Testing colony-example actions
 describe('colony-example [ local ]', () => {
@@ -95,7 +90,9 @@ describe('colony-example [ local ]', () => {
   test('account[0] createToken() works', async () => {
     state.tokenAddress = await createToken(
       state.networkClient[0],         // networkClient
+      'Token',                        // name
       'TKN',                          // symbol
+      18,                             // decimals
     );
     expect(state.tokenAddress).toEqual(expect.stringContaining('0x'));
   }, 5000);
@@ -169,41 +166,6 @@ describe('colony-example [ local ]', () => {
     expect(colonyPotBalance.balance.toString()).toEqual('4000000000000000000');
   }, 5000);
 
-  // Test the setAdminRole() example action
-  test('account[0] setAdminRole() works', async () => {
-    const hasAdminRole = await setAdminRole(
-      state.colonyClient[0],          // colonyClient
-      OneTxPayment,                   // user
-    );
-    expect(hasAdminRole).toEqual(true);
-  }, 5000);
-
-  // Test the makePayment() example action
-  test('account[0] makePayment() works [ token ]', async () => {
-    const transaction = await makePayment(
-      state.colonyClient[0],          // colonyClient
-      state.accounts[2][0],           // worker
-      state.tokenAddress,             // token
-      new BN('1000000000000000000'),  // amount
-      1,                              // domainId
-      1,                              // skillId
-    );
-    expect(transaction.successful).toEqual(true);
-  }, 5000);
-
-  // Test the makePayment() example action
-  test('account[0] makePayment() works [ ether ]', async () => {
-    const transaction = await makePayment(
-      state.colonyClient[0],          // colonyClient
-      state.accounts[2][0],           // worker
-      EMPTY_ADDRESS,                  // token
-      new BN('1000000000000000000'),  // amount
-      1,                              // domainId
-      1,                              // skillId
-    );
-    expect(transaction.successful).toEqual(true);
-  }, 5000);
-
   // Test the addDomain() action from account[0]
   test('account[0] addDomain() works', async () => {
     state.domain = await addDomain(
@@ -237,9 +199,9 @@ describe('colony-example [ local ]', () => {
     expect(potBalance.balance.toString()).toEqual('3000000000000000000');
   }, 5000);
 
-  // Test the createTask() action from account[0]
-  test('account[0] createTask() works', async () => {
-    state.task = await createTask(
+  // Test the addTask() action from account[0]
+  test('account[0] addTask() works', async () => {
+    state.task = await addTask(
       state.colonyClient[0],          // colonyClient
       state.domain.id,                // domainId
       {

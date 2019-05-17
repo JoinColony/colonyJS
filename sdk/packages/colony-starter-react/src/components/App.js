@@ -12,7 +12,7 @@ const App = ({ colonyClient, error, loading }) => (
     </header>
     <div className={styles.message}>
       {error &&
-        <p>{error}</p>
+        <p>{error.message}</p>
       }
       {loading &&
         <p>{'loading...'}</p>
