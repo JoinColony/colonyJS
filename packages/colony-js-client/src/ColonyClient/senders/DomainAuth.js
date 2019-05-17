@@ -46,7 +46,7 @@ export const getDomainIdFromPot = async (potId: number, colonyClient: *) => {
     });
     return domainId;
   }
-  throw new Error('Rewards pot has no domain!');
+  throw new Error('Invalid potId');
 };
 
 export default class DomainAuth<
