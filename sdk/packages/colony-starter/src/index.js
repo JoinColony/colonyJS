@@ -5,25 +5,24 @@ const { BN } = require('web3-utils');
 const log = require('./helpers/log');
 
 // Import actions
+const addPayment = require('./actions/addPayment');
 const claimColonyFunds = require('./actions/claimColonyFunds');
+const claimPayment = require('./actions/claimPayment');
 const createColony = require('./actions/createColony');
 const createToken = require('./actions/createToken');
+const finalizePayment = require('./actions/finalizePayment');
 const getColonyClient = require('./actions/getColonyClient');
 const getNetworkClient = require('./actions/getNetworkClient');
-const makePayment = require('./actions/makePayment');
 const mintTokens = require('./actions/mintTokens');
+const moveFundsBetweenPots = require('./actions/moveFundsBetweenPots');
 const openWallet = require('./actions/openWallet');
-const setAdminRole = require('./actions/setAdminRole');
 const setTokenOwner = require('./actions/setTokenOwner');
 
 // Set the private key (this is the private key for the first Ganache test account)
 const privateKey = '0x0355596cdb5e5242ad082c4fe3f8bbe48c9dba843fe1f99dd8272f487e70efae';
 
-// Set contract address for OneTxPayment contract
-const OneTxPayment = '0xA8DA163375713753Acc7e1D429c64F72b9412077';
-
-// Set the worker address (this is the public key for the second Ganache test account)
-const workerAddress = '0x9df24e73f40b2a911eb254a8825103723e13209c';
+// Set the recipient address (this is the public key for the second Ganache test account)
+const recipientAddress = '0x9df24e73f40b2a911eb254a8825103723e13209c';
 
 // Run example
 (async () => {
@@ -51,7 +50,9 @@ const workerAddress = '0x9df24e73f40b2a911eb254a8825103723e13209c';
   // Create a token using the "createToken" example action.
   state.tokenAddress = await createToken(
     state.networkClient,            // networkClient
+    'Token',                        // name
     'TKN',                          // symbol
+    18,                             // decimals
   );
 
   log('createColony:');
@@ -94,24 +95,43 @@ const workerAddress = '0x9df24e73f40b2a911eb254a8825103723e13209c';
     state.tokenAddress,             // tokenAddress
   );
 
-  log('setAdminRole:');
+  log('addPayment:');
 
-  // Set an admin role using the "setAdminRole" example action.
-  await setAdminRole(
+  // Make a payment using the "addPayment" example action.
+  state.payment = await addPayment(
     state.colonyClient,             // colonyClient
-    OneTxPayment,                   // user
-  );
-
-  log('makePayment:');
-
-  // Make a payment using the "makePayment" example action.
-  await makePayment(
-    state.colonyClient,             // colonyClient
-    workerAddress,                  // worker
+    recipientAddress,               // recipient
     state.tokenAddress,             // token
     new BN('1000000000000000000'),  // amount
     1,                              // domainId
-    1,                              // skillId
+  );
+
+  log('moveFundsBetweenPots:');
+
+  // Move funds between pots using the "moveFundsBetweenPots" example action.
+  await moveFundsBetweenPots(
+    state.colonyClient,             // colonyClient
+    1,                              // fromPot
+    state.payment.potId,            // toPot
+    new BN('1000000000000000000'),  // amount
+    state.tokenAddress,             // token
+  );
+
+  log('finalizePayment:');
+
+  // Finalize a payment using the "finalizePayment" example action.
+  await finalizePayment(
+    state.colonyClient,             // colonyClient
+    state.payment.id,               // paymentId
+  );
+
+  log('claimPayment:');
+
+  // Claim a payment using the "claimPayment" example action.
+  await claimPayment(
+    state.colonyClient,             // colonyClient
+    state.payment,                  // payment
+    state.tokenAddress,             // token
   );
 
   log('Complete!');
