@@ -37,7 +37,7 @@ const getInfuraProvider = (network: string, infuraProjectId?: string) => {
 
   return new providers.JsonRpcProvider(
     `https://${host}/v3/${infuraProjectId || defaultInfuraProjectId}`,
-    network,
+    network === 'goerli' ? undefined : network,
   );
 };
 
