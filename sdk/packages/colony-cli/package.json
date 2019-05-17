@@ -11,15 +11,17 @@
     "trufflepig": "node_modules/.bin/trufflepig"
   },
   "dependencies": {
-    "@colony/colony-js-client": "^1.11.2",
+    "@colony/colony-js-client": "^1.12.0-beta.5",
     "@colony/purser-software": "^1.2.4",
-    "chalk": "^2.4.1",
+    "chalk": "^2.4.2",
     "commander": "^2.17.1",
     "cross-spawn": "^6.0.5",
     "fs-extra": "^7.0.0",
     "json": "^9.0.6",
     "tar-pack": "^3.4.1",
     "tmp": "^0.0.33",
-    "trufflepig": "^1.1.1"
+    "trufflepig": "^1.1.1",
+    "web3": "^1.0.0-beta.55",
+    "web3-utils": "^1.0.0-beta.55"
   }
 }

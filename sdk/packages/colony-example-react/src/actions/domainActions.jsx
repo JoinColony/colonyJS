@@ -1,4 +1,5 @@
-import BN from 'bn.js'
+import { BN } from 'web3-utils'
+
 import { store } from '../index'
 import * as actions from '../constants/actions'
 import { getPots } from './fundingActions'

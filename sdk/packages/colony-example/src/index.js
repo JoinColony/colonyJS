@@ -1,9 +1,8 @@
-// Import prerequisites
 const { EMPTY_ADDRESS } = require('@colony/colony-js-client');
-const BN = require('bn.js');
+const { BN } = require('web3-utils');
+
 const log = require('./helpers/log');
 
-// Import actions
 const addDomain = require('./actions/addDomain');
 const addGlobalSkill = require('./actions/addGlobalSkill');
 const claimColonyFunds = require('./actions/claimColonyFunds');

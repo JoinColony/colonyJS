@@ -1,5 +1,5 @@
-import BN from 'bn.js'
-import { sha3 } from 'web3-utils';
+import { BN, sha3 } from 'web3-utils';
+
 import { store } from '../index'
 import * as actions from '../constants/actions'
 import { setStatePots } from './fundingActions'

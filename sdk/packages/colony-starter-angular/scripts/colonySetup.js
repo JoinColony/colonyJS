@@ -1,7 +1,7 @@
 // Import dependencies
 const { getNetworkClient } = require('@colony/colony-js-client');
 const { open } = require('@colony/purser-software');
-const BN = require('bn.js');
+const { BN } = require('web3-utils');
 
 // Set the private key (this is the private key for the first Ganache test account)
 const privateKey = '0x0355596cdb5e5242ad082c4fe3f8bbe48c9dba843fe1f99dd8272f487e70efae';

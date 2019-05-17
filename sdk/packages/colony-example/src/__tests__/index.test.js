@@ -1,6 +1,6 @@
 // Import prerequisites
 const { EMPTY_ADDRESS } = require('@colony/colony-js-client');
-const BN = require('bn.js');
+const { BN } = require('web3-utils');
 
 // Import actions
 const addDomain = require('../actions/addDomain');

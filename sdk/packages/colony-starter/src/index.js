@@ -1,5 +1,5 @@
 // Import dependencies
-const BN = require('bn.js');
+const { BN } = require('web3-utils');
 
 // Import helpers
 const log = require('./helpers/log');

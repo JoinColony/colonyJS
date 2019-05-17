@@ -25,7 +25,7 @@ describe('colony-starter [ rinkeby ]', () => {
   // Test the getNetworkClient() example action
   test('getNetworkClient() works', async () => {
     state.networkClient = await getNetworkClient(
-      'rinkeby',                      // network
+      'rinkeby',                       // network
       state.wallet,                   // wallet
     );
     expect(state.networkClient).toEqual(expect.objectContaining({

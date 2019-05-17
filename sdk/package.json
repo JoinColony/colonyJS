@@ -16,7 +16,7 @@
     "test": "sh scripts/test.sh"
   },
   "devDependencies": {
-    "chalk": "^2.4.1",
+    "chalk": "^2.4.2",
     "fs-extra": "^7.0.0",
     "husky": "^2.3.0",
     "lerna": "^3.4.3"

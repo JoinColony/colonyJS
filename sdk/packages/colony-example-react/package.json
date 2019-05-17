@@ -25,12 +25,11 @@
   },
   "dependencies": {
     "@colony/colony-cli": "^1.0.0-beta.4",
-    "@colony/colony-js-client": "^1.11.2",
+    "@colony/colony-js-client": "^1.12.0-beta.5",
     "@colony/colony-js-contract-loader-http": "^1.10.0",
     "@colony/purser-metamask": "^2.2.0",
-    "bn.js": "^4.11.8",
-    "buffer": "^5.1.0",
-    "ipfs": "^0.29.3",
+    "buffer": "^5.2.1",
+    "ipfs": "^0.35.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^5.1.1",
@@ -38,7 +37,8 @@
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
-    "web3-utils": "^1.0.0-beta.44"
+    "web3": "^1.0.0-beta.55",
+    "web3-utils": "^1.0.0-beta.55"
   },
   "devDependencies": {
     "node-sass": "^4.9.0",

@@ -1,5 +1,5 @@
 // Import dependencies
-const BN = require('bn.js');
+const { BN } = require('web3-utils');
 
 // Import actions
 const claimColonyFunds = require('../actions/claimColonyFunds');
