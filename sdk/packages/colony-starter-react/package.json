@@ -23,7 +23,7 @@
     "deploy-contracts": "colony service deploy-contracts",
     "start-trufflepig": "colony service start-trufflepig",
     "seed-network": "colony service seed-network",
-    "colony-setup": "node scripts/colonySetup.js",
+    "colony-setup": "colony service colony-setup",
     "build": "react-scripts build",
     "start": "react-scripts start",
     "test": "react-scripts test --coverage --updateSnapshot",
