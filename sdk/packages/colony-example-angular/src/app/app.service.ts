@@ -28,14 +28,24 @@ export class AppService {
 
   }
 
-  public async createToken(networkClient: any, symbol: string) {
+  public async createToken(
+    networkClient: any,
+    name: string,
+    symbol: string,
+    decimals: number,
+  ) {
 
     // Create token
-    const {
-      meta: { receipt: { contractAddress: tokenAddress } },
-    } = await networkClient.createToken.send({ symbol });
+    const tokenTransaction = await networkClient.createToken.send({
+      name,
+      symbol,
+      decimals,
+    });
 
-    // Return address
+    // Set token address
+    const tokenAddress = tokenTransaction.meta.receipt.contractAddress;
+
+    // Return the token address
     return tokenAddress;
 
   }
@@ -83,7 +93,7 @@ export class AppService {
 
   }
 
-  public async createTask(
+  public async addTask(
     colonyClient: any,
     domainId: number,
     specification: object,
@@ -99,7 +109,7 @@ export class AppService {
     await ecp.stop();
 
     // Create task
-    const { eventData: { taskId } } = await colonyClient.createTask.send({
+    const { eventData: { taskId } } = await colonyClient.addTask.send({
       domainId,
       specificationHash,
     });
