@@ -13,16 +13,19 @@ const service = require('./actions/service');
 
 // Exit without error
 const handleExit = () => {
-  console.log(chalk.cyan('  Exiting without error...'));
+  console.log();
+  console.log();
+  console.log(chalk.cyan('Exiting without error...'));
   console.log();
   process.exit();
 };
 
 // Exit with error
 const handleError = (error) => {
+  console.log();
   console.error(error);
   console.log();
-  console.log(chalk.red('  Exiting with error...'));
+  console.log(chalk.red('Exiting with error...'));
   console.log();
   process.exit(1);
 };
