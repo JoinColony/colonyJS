@@ -17,6 +17,7 @@
     "commander": "^2.17.1",
     "cross-spawn": "^6.0.5",
     "fs-extra": "^7.0.0",
+    "ganache-cli": "6.4.1",
     "json": "^9.0.6",
     "tar-pack": "^3.4.1",
     "tmp": "^0.0.33",

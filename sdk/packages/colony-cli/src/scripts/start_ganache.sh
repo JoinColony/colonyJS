@@ -1,7 +1,12 @@
 #!/bin/bash
 
+# TODO The ganache-cli version in colonyNetwork is breaking on gas estimation.
+# We need to switch the ganache-cli used in this script back to the version in
+# colonyNetwork when colonyNetwork is using a version with an appropriate fix.
+# ./node_modules/ganache-cli/cli.js \
+
 # Start Ganache
-./node_modules/ganache-cli/cli.js \
+./node_modules/.bin/ganache-cli \
   --gasLimit="6721975" \
   --acctKeys="./ganache-accounts.json" \
   --noVMErrorsOnRPCResponse=$(if [[ $* == *--noVMErrorsOnRPCResponse* ]]; then echo "true"; else echo "false"; fi) \

@@ -162,7 +162,12 @@ const service = async (commander, serviceName) => {
       cp.execSync(
         `sh ${scriptsPath}/start_ganache.sh`,
         {
-          cwd: colonyNetworkPath,
+          // TODO The ganache-cli version in colonyNetwork is breaking on gas
+          // estimation. We need to switch the ganache-cli used in this script
+          // back to the version in colonyNetwork when colonyNetwork is using
+          // a version with an appropriate fix.
+          // cwd: colonyNetworkPath,
+          cwd: rootPath,
           stdio: 'inherit',
         },
       );
