@@ -25,7 +25,7 @@ module.exports = async (colonyClient, taskId, role, rating) => {
   });
 
   // Get the task work ratings
-  const taskWorkRatings = await colonyClient.getTaskWorkRatings.call({
+  const taskWorkRatings = await colonyClient.getTaskWorkRatingSecretsInfo.call({
     taskId,
   });
 

@@ -9,7 +9,7 @@ module.exports = async (colonyClient, taskId, role, token) => {
   });
 
   // Claim the task payout
-  await colonyClient.claimPayout.send({
+  await colonyClient.claimTaskPayout.send({
     taskId,
     role,
     token,

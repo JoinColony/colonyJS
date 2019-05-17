@@ -1,7 +1,7 @@
 // Import the prerequisites
 const ecp = require('../helpers/ecp');
 
-// An example action using the "createTask" method
+// An example action using the "addTask" method
 module.exports = async (colonyClient, domainId, specification) => {
 
   // Initialize the "Extended Colony Protocol"
@@ -14,7 +14,7 @@ module.exports = async (colonyClient, domainId, specification) => {
   await ecp.stop();
 
   // Create a task and get the task id from the event data
-  const { eventData: { taskId } } = await colonyClient.createTask.send({
+  const { eventData: { taskId } } = await colonyClient.addTask.send({
     specificationHash,
     domainId,
   });
