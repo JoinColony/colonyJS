@@ -22,7 +22,7 @@ const privateKey = '0x0355596cdb5e5242ad082c4fe3f8bbe48c9dba843fe1f99dd8272f487e
 
   // Get the network client using the "getNetworkClient" example action.
   const networkClient = await getNetworkClient(
-    'rinkeby',                       // network
+    'goerli',                       // network
     wallet,                         // wallet
   );
 

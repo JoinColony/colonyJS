@@ -18,7 +18,7 @@
     "deploy-contracts": "colony service deploy-contracts",
     "start-trufflepig": "colony service start-trufflepig",
     "start": "node src/index",
-    "rinkeby": "node src/rinkeby",
+    "goerli": "node src/goerli",
     "test": "jest"
   },
   "dependencies": {
