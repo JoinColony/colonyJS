@@ -116,11 +116,24 @@ const service = async (commander, serviceName) => {
 
   } else {
 
-    const version = fs.readFileSync(path.join(colonyNetworkPath, '.git/HEAD'));
+    let version = fs.readFileSync(path.join(colonyNetworkPath, '.git/HEAD'));
+    version = version.toString().trim();
 
-    // Log version
-    console.log();
-    console.log(`  Using colonyNetwork version ${version}`);
+    if (version === 'b43238a4d14a0b6e31190045db25caafdb85da4c') {
+
+      // Log version
+      console.log();
+      console.log(`  Using colonyNetwork version glider-rc.1`);
+      console.log();
+
+    } else {
+
+      // Log version
+      console.log();
+      console.log(`  Using colonyNetwork version ${version}`);
+      console.log();
+
+    }
 
   }
 
