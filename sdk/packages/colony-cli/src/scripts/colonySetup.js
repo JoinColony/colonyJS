@@ -19,14 +19,17 @@ const OneTxPayment = '0xA8DA163375713753Acc7e1D429c64F72b9412077';
   const networkClient = await getNetworkClient('local', wallet);
 
   // Create token
-  const {
-    meta: { receipt: { contractAddress: tokenAddress } }
-  } = await networkClient.createToken.send({
+  const tokenTransaction = await networkClient.createToken.send({
+    name: 'Token',
     symbol: 'TKN',
+    decimals: 18,
   });
 
+  // Set token address
+  const tokenAddress = tokenTransaction.meta.receipt.contractAddress;
+
   // Check out the logs to see the token address
-  console.log('Token Address: ', tokenAddress);
+  console.log('Token Address: ' + tokenAddress);
 
   // Create a colony
   const {
