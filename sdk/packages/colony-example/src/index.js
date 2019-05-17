@@ -252,7 +252,6 @@ const OneTxPayment = '0xA8DA163375713753Acc7e1D429c64F72b9412077';
   // Add a global skill using the "addGlobalSkill" example action.
   state.skill = await addGlobalSkill(
     state.networkClient[0],         // networkClient
-    1,                              // parentSkillId
   );
 
   log('account[0] setTaskSkill:');

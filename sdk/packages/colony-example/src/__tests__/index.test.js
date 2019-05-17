@@ -281,7 +281,6 @@ describe('colony-example [ local ]', () => {
   test('account[0] addGlobalSkill() works', async () => {
     state.skill = await addGlobalSkill(
       state.networkClient[0],         // networkClient
-      1,                              // parentSkillId
     );
     expect(state.skill.id).toBeGreaterThan(1);
   }, 5000);
