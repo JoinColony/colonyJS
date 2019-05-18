@@ -6,8 +6,6 @@ order: 2
 
 This page will show you how to use colonyJS to connect to the network, create a token, create a colony, and make a payment. We will be using the `goerli` test network, so make sure you have an Ethereum wallet with some test Ether before getting started. If you have never created an Ethereum wallet, check out [this article](https://medium.com/compound-finance/the-beginners-guide-to-using-an-ethereum-test-network-95bbbc85fc1d). For test Ether, you can use the [Goerli Authenticated Faucet](https://faucet.goerli.mudit.blog).
 
-*Note: If you would prefer to do this locally, check out [Local Setup](https://docs.colony.io/colonyjs/intro-local-setup) and come back here once you have your local environment set up. You will need to use the private key of the first ganache test account and change `goerli` to `local` in "Step 2: Get Network Client".*
-
 ## Prerequisites
 
 For this example, you will need the following tools:
@@ -17,9 +15,9 @@ For this example, you will need the following tools:
 
 ## Project Setup
 
-First, open up your terminal and move to your project directory. You can create a new project or use an existing project. If you create a new project, you will need to run `yarn init` within your project directory before continuing.
+First, open up your terminal and move to your project directory. You can create a new project or use an existing project. If you create a new project, you will need to run `yarn init`.
 
-*Note: If you are using an existing project that uses `npm` or you would prefer to use `npm`, feel free to do so, just bare in mind that you will need to substitute `yarn` commands for `npm` commands throughout the instructions provided here.*
+*Note: If you are using an existing project that uses `npm` or you would prefer to use `npm`, feel free to do so, just keep in mind that you will need to substitute `yarn` commands for `npm` commands throughout the instructions provided for this example.*
 
 ## Installation
 
@@ -38,8 +36,6 @@ yarn add @colony/colony-js-client @colony/purser-software web3-utils
 ## Colony Script
 
 In this example, you will create a simple Node script. The script will run through the necessary steps to connect to the network, create a token, create a colony, and make a payment. A working example using the same methods can be found in the [colony-starter](https://github.com/JoinColony/colonyStarter/tree/master/packages/colony-starter) package.
-
-*Note: If you change the input values and encounter a bug, it is not necessary to call every method again. For example, if you provided an incorrect `amount` when attempting to call the `mintTokens` method, you already have a token, a colony, and the colony is set as the token owner, so you would comment out steps 3, 4, and 6 and use your colony address for `getColonyClientByAddress`.*
 
 Create a `colony.js` file in the root of your project and add the following code:
 
@@ -81,6 +77,8 @@ const { BN } = require('web3-utils');
 
 ```
 
+*Note: If you change the input values and encounter a bug, it is not necessary to call every method again. For example, if you provided an incorrect `amount` when attempting to call the `mintTokens` method, you already have a token, a colony, and the colony is set as the token owner, so you would comment out steps 3, 4, and 6 and use your colony address for `getColonyClientByAddress`.*
+
 ## Step 1: Open Wallet
 
 First, you will need an instance of your Ethereum wallet, which you can get with [purser-software](/purser/modules-@colonypurser-software/). We recommend using a wallet that you strictly use for testing.
@@ -114,6 +112,8 @@ const networkClient = await getNetworkClient('goerli', wallet);
 console.log('Network Address:', networkClient.contract.address);
 
 ```
+
+*Note: If you would prefer to do this locally, check out [Local Setup](https://docs.colony.io/colonyjs/intro-local-setup) and come back here once you have your local environment set up. You will need to use the private key of the first ganache test account and change `goerli` to `local` in the `getNetworkClient` method.*
 
 ## Step 3: Create Token
 
