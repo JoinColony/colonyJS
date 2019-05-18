@@ -21,23 +21,23 @@ If you have these installed, feel free to skip ahead to the next section.
 
 ### Git
 
-You will need to have [Git](https://git-scm.com/) installed. We recommend using version `2.6.4` or higher. If you do not have Git installed, check out [Install Git](https://www.atlassian.com/git/tutorials/install-git).
+You will need to have [Git](https://git-scm.com/) installed. We recommend using version `2.6.4` or higher. If you do not have Git installed, check out [Install Git](https://www.atlassian.com/git/tutorials/install-git). We also recommend [connecting to Github with SSH](https://help.github.com/en/articles/connecting-to-github-with-ssh) if you have not done so already.
 
 ### Node
 
-You will need to have [Node](https://nodejs.org/en/) installed. We recommend using version `10.12.0` or higher. If you do not have Node installed, check out [Download Node](https://nodejs.org/en/download/) or [Node Version Manager](https://github.com/creationix/nvm).
+You will need to have [Node](https://nodejs.org/en/) installed. We recommend using version `10.12.0` or higher. If you do not have Node installed, check out [Download Node](https://nodejs.org/en/download/). We highly recommend using [Node Version Manager](https://github.com/creationix/nvm) or [Node Version Management](https://github.com/tj/n) to manage multiple Node versions.
 
 ### Yarn
 
-You will also need to have [Yarn](https://yarnpkg.com/en/) installed. We recommended using version `1.12.0` or higher. If you do not have Yarn installed, check out [Yarn Installation](https://yarnpkg.com/lang/en/docs/install/#mac-stable).
+All of our repositories use [Yarn](https://yarnpkg.com/en/) and some of our tools require that you have Yarn installed. You are more than welcome to try running commands with [NPM](https://www.npmjs.com/get-npm) but we recommend using Yarn version `1.12.0` or higher. If you do not have Yarn installed, check out [Yarn Installation](https://yarnpkg.com/lang/en/docs/install/#mac-stable).
 
 ### Docker
 
-You will also need to have [Docker](https://www.docker.com/) installed. We recommend using Docker Community Edition `2.0.0` or higher, which starts at Docker version `18.09.0`. If you do not have Docker installed check out [Get Started with Docker](https://www.docker.com/get-started).
+You will also need to have [Docker](https://www.docker.com/) installed. The [colonyNetwork](https://github.com/JoinColony/colonyNetwork) smart contracts use a Docker image for the solidity compiler. We recommend using Docker Community Edition `2.0.0` or higher, which starts at version `18.09.0`. If you do not have Docker installed, check out [Get Started with Docker](https://www.docker.com/get-started).
 
 ## Initial Setup
 
-Are you building a new project from scratch or integrating colonyJS into an existing project? If you are integrating colonyJS into an existing project and you have both Git and Yarn already initialized within your project, feel free to skip ahead to the next section.
+Are you building a new project from scratch or integrating colonyJS into an existing project? If you are integrating colonyJS into an existing project and you have both Git and Yarn already initialized, you can skip ahead to the next section.
 
 ### Initialize Git
 
@@ -47,7 +47,7 @@ Within the root directory, run the following command:
 git init
 ```
 
-This will initialize your project as a Git repository. Now would be a good time to add a `.gitignore` file in the root of your repository and include `.env`, `node_modules`, and any other files you don't want to include when you push your code to a remote repository.
+This will initialize your project as a Git repository. Now would be a good time to add a `.gitignore` file and include `.env`, `node_modules`, and any other files that you want Git to ignore.
 
 ### Initialize Yarn
 
@@ -57,17 +57,17 @@ Within the root directory, run the following command and follow the prompt:
 yarn init
 ```
 
-This will initialize your project as a Node package, which will allow you to install npm packages.
+This will initialize your project as a Node package, which will allow you to install other packages.
 
 ## Add Scripts
 
-In order for colonyJS to interact with [colonyNetwork](https://github.com/JoinColony/colonyNetwork) in a local development environment, you will need to compile the colonyNetwork smart contracts, deploy the contracts to a local test network, and then read the contract data in order to interact with the contracts.
+In order for colonyJS to interact with [colonyNetwork](https://github.com/JoinColony/colonyNetwork) in a local development environment, you will need to compile the colonyNetwork smart contracts, deploy the contracts to a local test network, and then make the contract data available within you project.
 
-Do not fear! We created a tool to make this process as simple as possible. There are a lot of services that you do not need to install and run separately to start interacting with the colonyNetwork smart contracts but we have made them all accessible in a command line tool.
+Do not fear! We created a simple command line tool to make this easier for you. No need to install and configure services and add the colonyNetwork repository as a submodule to start building with colonyJS. We bundled up everything for you in a simple command line tool.
 
-[colony-cli](http://docs.colony.io/colonystarter/cli-colony-cli) is a command line tool that installs colonyNetwork behind the scenes and makes services within colonyNetwork available via `colony` commands within your project. The services you need to run a local test network, deploy the colonyNetwork contracts to that local test network, and serve the deployed contract data are all included in `colony-cli`.
+[colony-cli](http://docs.colony.io/colonystarter/cli-colony-cli) is a command line tool that installs colonyNetwork behind the scenes and makes services within colonyNetwork available via `colony` commands within your project. Everything you need to run a local test network, deploy the colonyNetwork smart contracts, and serve the contract data, are all included in `colony-cli` package.
 
-### Install colonyCLI
+### Install colony-cli
 
 Within the root directory, install [colony-cli](http://docs.colony.io/colonystarter/cli-colony-cli):
 
@@ -77,7 +77,7 @@ yarn add @colony/colony-cli
 
 ### Add script commands
 
-Within your `package.json` file, we recommend adding the following `scripts`:
+Within your `package.json` file, add the following `scripts`:
 
 ```
 "scripts": {
@@ -87,17 +87,7 @@ Within your `package.json` file, we recommend adding the following `scripts`:
 }
 ```
 
-Also, switching colonyNetwork versions that you want to use in your project is as simple as using a `--specific` option. The default version is using the [glider-rc.1](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1) release. If a new release came out, and you are not ready to update, you can add the `--specific` option:
-
-```
-"scripts": {
-  "start-ganache": "colony service start-ganache --specific glider-rc.1",
-  "deploy-contracts": "colony service deploy-contracts",
-  "start-trufflepig": "colony service start-trufflepig"
-}
-```
-
-*Note: Using `--specific develop` is not recommended if you are using colonyJS because colonyJS will not yet have an official release that supports an unreleased version of the colonyNetwork.*
+*Note: You can specify different colonyNetwork versions with the `--specific` option added to any of the `service` commands. The default version is using the [glider-rc.1](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1) release. Using `develop` is not recommended if you are using colonyJS because colonyJS will not yet have an official release that supports an unreleased version of the colonyNetwork.*
 
 ## Add colonyJS
 
@@ -155,7 +145,7 @@ Open a new terminal window and run the following command:
 yarn start-ganache
 ```
 
-### Deploy colonyNetwork contracts
+### Deploy Contracts
 
 Open a new terminal window and run the following command:
 
