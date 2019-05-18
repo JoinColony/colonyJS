@@ -8,15 +8,18 @@
 // user experience, without compromising decentralisation.
 
 const IPFS = require('ipfs');
+const IPFSRepo = require('ipfs-repo');
 
 const { Buffer } = IPFS;
 
-let node;
+let node, repo;
 
 const waitForIPFS = () => {
+  repo = new IPFSRepo('./tmp/ipfs/data');
+  repo.apiAddr.set('/ip4/127.0.0.1/api', () => {});
   node = new IPFS({
     start: false,
-    repo: './tmp/ipfs/data',
+    repo,
   });
   return new Promise((resolve, reject) => {
     node.on('ready', () => resolve(true));
