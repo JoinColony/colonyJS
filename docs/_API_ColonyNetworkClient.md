@@ -999,7 +999,7 @@ Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/g
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColonyNetwork.sol)
   
 
-### `createToken.send({ symbol }, options)`
+### `createToken.send({ name, symbol, decimals }, options)`
 
 Create a new ERC20 token contract.
 
@@ -1007,7 +1007,9 @@ Create a new ERC20 token contract.
 
 |Name|Type|Description|
 |---|---|---|
+|name|string|The name of the token.|
 |symbol|string|The symbol of the token.|
+|decimals|number (optional)|The number of decimals.|
 
 **Options**
 

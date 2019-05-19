@@ -45,8 +45,14 @@ const { BN } = require('web3-utils');
     privateKey: process.env.PRIVATE_KEY,
   });
 
+  // Check out the logs to see the wallet address
+  console.log('Wallet Address:', wallet.address);
+
   // Get a network client instance
   const networkClient = await getNetworkClient('goerli', wallet);
+
+  // Check out the logs to see the network address
+  console.log('Network Address:', networkClient.contract.address);
 
   // Create a token
   const createTokenTransaction = await networkClient.createToken.send({
@@ -58,6 +64,9 @@ const { BN } = require('web3-utils');
   // Set the token address
   const tokenAddress = createTokenTransaction.meta.receipt.contractAddress;
 
+  // Check out the logs to see the token address
+  console.log('Token Address: ', tokenAddress);
+
   // Create a colony
   const createColonyResponse = await networkClient.createColony.send({
     tokenAddress,
@@ -65,6 +74,9 @@ const { BN } = require('web3-utils');
 
   // Set the colony address
   const colonyAddress = createColonyResponse.eventData.colonyAddress;
+
+  // Check out the logs to see the colony address
+  console.log('Colony Address:', colonyAddress);
 
   // Get a colony client instance
   const colonyClient = await networkClient.getColonyClientByAddress(colonyAddress);
@@ -74,18 +86,24 @@ const { BN } = require('web3-utils');
     owner: colonyAddress,
   });
 
+  console.log('Token owner set!');
+
   // Mint tokens
   await colonyClient.mintTokens.send({
     amount: new BN('1000000000000000000'),
   });
+
+  console.log('Tokens minted!');
 
   // Claim colony funds
   await colonyClient.claimColonyFunds.send({
     token: tokenAddress,
   });
 
+  console.log('Colony funds claimed!');
+
   // Add a payment
-  const makePaymentResponse = await colonyClient.addPayment.send({
+  const addPaymentResponse = await colonyClient.addPayment.send({
     recipient: wallet.address,
     token: tokenAddress,
     amount: new BN('1000000000000000000'),
@@ -93,7 +111,10 @@ const { BN } = require('web3-utils');
   });
 
   // Set payment id and pot id
-  const { paymentId, potId } = makePaymentResponse.eventData;
+  const { paymentId, potId } = addPaymentResponse.eventData;
+
+  // Check out the logs to see the payment data
+  console.log('Payment Data:', { paymentId, potId });
 
   // Move funds  between funding pots
   await colonyClient.moveFundsBetweenPots.send({
@@ -103,14 +124,20 @@ const { BN } = require('web3-utils');
     token: tokenAddress,
   });
 
+  console.log('Funds moved to payment pot!');
+
   // Finalize a payment
   await colonyClient.finalizePayment.send({ paymentId });
+
+  console.log('Payment finalized!');
 
   // Claim a payment
   await colonyClient.claimPayment.send({
     paymentId,
     token: tokenAddress,
   });
+
+  console.log('Payment claimed!');
 
 })()
   .then(() => process.exit())

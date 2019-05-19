@@ -4,11 +4,13 @@ section: Intro
 order: 2
 ---
 
-This page will show you how to use colonyJS to connect to the network, create a token, create a colony, and make a payment. We will be using the `goerli` test network, so make sure you have an Ethereum wallet with some test Ether before getting started. If you have never created an Ethereum wallet, check out [this article](https://medium.com/compound-finance/the-beginners-guide-to-using-an-ethereum-test-network-95bbbc85fc1d). For test Ether, you can use the [Goerli Authenticated Faucet](https://faucet.goerli.mudit.blog).
+This page will show you how to use [colonyJS](https://github.com/JoinColony/colonyJS) to connect to the network, create a token, create a colony, and make a payment. We will be using the `goerli` test network, so make sure you have an Ethereum wallet with some test Ether before getting started. If you have never created an Ethereum wallet, check out [this article](https://medium.com/compound-finance/the-beginners-guide-to-using-an-ethereum-test-network-95bbbc85fc1d). To get some test Ether, you can use [Goerli Authenticated Faucet](https://faucet.goerli.mudit.blog).
+
+*Note: If you would prefer to do this locally, check out [Local Setup](https://docs.colony.io/colonyjs/intro-local-setup) and come back here once you have your local environment set up. You will need to use the private key of the first ganache test account and change `goerli` to `local` in the `getNetworkClient` method.*
 
 ## Prerequisites
 
-For this example, you will need the following tools:
+For this example, you will need the following:
 
 * Node `>=10.12.0`
 * Yarn `>=1.12.0`
@@ -17,7 +19,7 @@ For this example, you will need the following tools:
 
 First, open up your terminal and move to your project directory. You can create a new project or use an existing project. If you create a new project, you will need to run `yarn init`.
 
-*Note: If you are using an existing project that uses `npm` or you would prefer to use `npm`, feel free to do so, just keep in mind that you will need to substitute `yarn` commands for `npm` commands throughout the instructions provided for this example.*
+*Note: If you are using an existing project that uses `npm` or you would prefer to use `npm`, feel free to do so, just keep in mind that you will need to substitute `yarn` commands for `npm` commands throughout the instructions provided in this example.*
 
 ## Installation
 
@@ -35,7 +37,7 @@ yarn add @colony/colony-js-client @colony/purser-software web3-utils
 
 ## Colony Script
 
-In this example, you will create a simple Node script. The script will run through the necessary steps to connect to the network, create a token, create a colony, and make a payment. A working example using the same methods can be found in the [colony-starter](https://github.com/JoinColony/colonyStarter/tree/master/packages/colony-starter) package.
+You will create a simple Node script. The script will run through the necessary steps to connect to the network, create a token, create a colony, and make a payment. A working example using the same methods can be found in the [readme](https://github.com/JoinColony/colonyJS) and the [colony-starter](https://github.com/JoinColony/colonyStarter/tree/master/packages/colony-starter) package.
 
 Create a `colony.js` file in the root of your project and add the following code:
 
@@ -77,7 +79,7 @@ const { BN } = require('web3-utils');
 
 ```
 
-*Note: If you change the input values and encounter a bug, it is not necessary to call every method again. For example, if you provided an incorrect `amount` when attempting to call the `mintTokens` method, you already have a token, a colony, and the colony is set as the token owner, so you would comment out steps 3, 4, and 6 and use your colony address for `getColonyClientByAddress`.*
+*Note: If you change the input values in the example and you encounter a bug, it is not necessary to call every method again. For example, if you provide an invalid `amount` when calling `mintTokens`, you will already have a token, a colony, and your colony will be set as the token owner, so you can comment out steps 3, 4, and 6 and use your colony address in `// Step 5: Get Colony Client`.*
 
 ## Step 1: Open Wallet
 
@@ -113,11 +115,10 @@ console.log('Network Address:', networkClient.contract.address);
 
 ```
 
-*Note: If you would prefer to do this locally, check out [Local Setup](https://docs.colony.io/colonyjs/intro-local-setup) and come back here once you have your local environment set up. You will need to use the private key of the first ganache test account and change `goerli` to `local` in the `getNetworkClient` method.*
 
 ## Step 3: Create Token
 
-Each colony has a native token that will be used to calculate reputation within the colony. The native token can be any ERC20 token but it cannot be changed once assigned to the colony. The next step will be creating that token using the standard [colonyToken](https://github.com/JoinColony/colonyToken) contract.
+Each colony has a native token that will be used to calculate reputation within the colony. The native token can be any ERC20 token but it cannot be changed after you create your colony. The next step will be creating that token using our standard [colonyToken](https://github.com/JoinColony/colonyToken) contract.
 
 Add the following code below `// Step 3: Create Token`:
 
@@ -140,7 +141,7 @@ console.log('Token Address: ', tokenAddress);
 
 ## Step 4: Create Colony
 
-Now that you have a token, you can create a colony!
+Now that you have a token, you can create a colony! A colony is a smart contract that will manage and govern your project, community, organization, or whatever you see fit.
 
 Add the following code below `// Step 4: Create Colony`:
 
@@ -161,7 +162,7 @@ console.log('Colony Address:', colonyAddress);
 
 ## Step 5: Get Colony Client
 
-Great! You are using the network client to create a token and create a colony but now you will need to call methods specific to your colony, which will require the colony client.
+Great! You used the network client to create a token and create a colony but now you need to call methods specific to your colony, which will require the colony client.
 
 Add the following code below `// Step 5: Get Colony Client`:
 
@@ -176,7 +177,7 @@ const colonyClient = await networkClient.getColonyClientByAddress(colonyAddress)
 
 ## Step 6: Set Token Owner
 
-In order for you and permissioned colony members to call token methods such as `mint` and `burn` on behalf of your colony, you will need to set the colony address as the token owner.
+In order for you and permissioned colony members to call token methods such as `mint` and `burn` from your colony, you will need to set the colony address as the token owner.
 
 Add the following code below `// Step 6: Set Token Owner`:
 
@@ -193,7 +194,7 @@ console.log('Token owner set!');
 
 ## Step 7: Mint Tokens
 
-In order to make payments and fund tasks within your colony, you will need to mint some tokens. If you are using an existing token that already has some tokens in supply, you can skip this step.
+In order to fund payments within your colony, you will first need to mint some tokens. If you did not change the input in `// Step 3: Create Token`, which used a value of `18` for your token decimals, the following `amount` will be equivalent to `1` token in the smallest unit.
 
 Add the following code below `// Step 7: Mint Tokens`:
 
@@ -210,7 +211,7 @@ console.log('Tokens minted!');
 
 ## Step 8: Claim Colony Funds
 
-Great! You've minted some tokens but before you can use them within your colony, you will need to claim them. Claiming colony funds will add the tokens to the funding pot in the root domain of your colony, which will also secure the availability of those tokens within your colony.
+Great! You've minted your first token but before you can use it within your colony, you will need to claim it. Claiming colony funds will add any tokens owned by the colony contract to the funding pot associated with the root domain of the colony, which also secures the availability of those funds.
 
 Add the following code below `// Step 8: Claim Colony Funds`:
 
@@ -227,16 +228,16 @@ console.log('Colony funds claimed!');
 
 ## Step 9: Add Payment
 
-Now that you have funds available in the root domain of your colony, you can fund domains, tasks, and payments within your colony. We are focusing on payments in this example, therefore, the next step will be adding a payment.
+Now that you have funds available in the root domain of your colony, you can fund domains, tasks, and payments within your colony. The goal within this example is to make a payment, so the next step will be adding that payment to your colony.
 
-You will use your wallet address as the recipient for all the hard work you are putting in to set up the colony. You will also use your native colony token so that you will earn reputation for your hard work and you will use the root domain so that you earn that reputation in the root domain of your colony.
+You will use your wallet address as the recipient, which you can justify as your reward for all the hard work you put in to setting up your colony. You will also use the address of the token you assigned as the native token for your colony and the id of the root domain so that you will earn some reputation at the root level of your colony.
 
 Add the following code below `// Step 9: Add Payment`:
 
 ```js
 
 // Add a payment
-const makePaymentResponse = await colonyClient.addPayment.send({
+const addPaymentResponse = await colonyClient.addPayment.send({
   recipient: wallet.address,
   token: tokenAddress,
   amount: new BN('1000000000000000000'),
@@ -244,7 +245,7 @@ const makePaymentResponse = await colonyClient.addPayment.send({
 });
 
 // Set payment id and pot id
-const { paymentId, potId } = makePaymentResponse.eventData;
+const { paymentId, potId } = addPaymentResponse.eventData;
 
 // Check out the logs to see the payment data
 console.log('Payment Data:', { paymentId, potId });
@@ -253,7 +254,7 @@ console.log('Payment Data:', { paymentId, potId });
 
 ## Step 10: Move Funds
 
-You will need to fund your payment by moving funds from the funding pot for the colony to the funding pot for the payment. Each domain, task and payment within a colony has its own funding pot in order to ensure funds are secured for each.
+Next, you will need to fund your payment by moving funds from the funding pot for the colony to the funding pot for the payment. Each payment within a colony has its own funding pot in order to ensure funds are secured for that payment.
 
 Add the following code below `// Step 10: Move Funds`:
 
@@ -273,7 +274,7 @@ console.log('Funds moved to payment pot!');
 
 ## Step 11: Finalize Payment
 
-Now that your payment has been funded, you can finalize it. A payment can only be finalized if the payment amount is available in the funding pot associated with the payment. If you need to update the payment, you can use other methods to make changes, but once a payment is finalized, you will no longer be able to update it and the recipient will be able to claim it.
+Now that your payment has been funded, you can finalize it. A payment can only be finalized if the payment amount is available in the funding pot associated with the payment. There are additional methods available to update your payment, but once a payment is finalized, you will no longer be able to update it and the recipient will be able to claim the payment.
 
 Add the following code below `// Step 11: Finalize Payment`:
 
@@ -288,7 +289,7 @@ console.log('Payment finalized!');
 
 ## Step 12: Claim Payment
 
-Wahoo! All your hard work has paid off. It's time to claim your payment! Since you are the recipient of the payment, you can now claim the payment, which will transfer the native tokens to your wallet and reward you with reputation within your colony.
+Wahoo! All your hard work has paid off. It's time to claim your payment! Claiming your payment will transfer the payment amount to your wallet and reward you with reputation within your colony.
 
 Add the following code below `// Step 12: Claim Payment`:
 
@@ -306,9 +307,13 @@ console.log('Payment claimed!');
 
 ## Run Script
 
-You now have all the steps you need to connect to the network, create a token, create a colony, and make your first payment. All you need to do now is add your private key as an environment variable using `PRIVATE_KEY` and run `node colony` in your terminal.
+You now have all the steps you need to connect to the network, create a token, create a colony, and make a payment. Now just add your private key as an environment variable using `PRIVATE_KEY` and run `node colony` in your terminal.
 
-Congratulations! You have created your first colony and made your first payment. Colony is all about collaboration and collective work, so you should probably get some help managing your colony and reward them with some payments rather than just making payments to yourself.
+```
+PRIVATE_KEY=<private-key> node colony
+```
+
+Congratulations! You created your first colony and made your first payment. Creating and managing a colony is all about collaboration and a colony made up of one member who only pays themselves is not a very attractive colony for others to join, so you should probably seek out some collaborators and reward them with some payments before paying yourself for any more of your "hard work".
 
 ## What's next?
 
