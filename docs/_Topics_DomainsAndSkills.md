@@ -1,7 +1,7 @@
 ---
 title: Domains and Skills
 section: Topics
-order: 5
+order: 3
 ---
 
 As demonstrated in [Task Lifecycle](/colonyjs/topics-task-lifecycle/), a task must be assigned a domain. The domain is required when creating a task because reputation is earned within the context of domains. Upon the completion of a task, each role (assuming that the `MANAGER` and `WORKER` both received adequate ratings) will earn reputation within the domain that the task was assigned.

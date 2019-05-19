@@ -1,7 +1,7 @@
 ---
-title: Managing Permissions
+title: Colony Roles
 section: Topics
-order: 7
+order: 1
 ---
 
 In the current implementation of the colonyNetwork smart contracts, some events on-chain are not mediated by reputation scores as described in the [Whitepaper](https://colony.io/whitepaper.pdf). For now, certain actions within a colony that would require some minimum reputation are instead assigned authority roles.

@@ -1,7 +1,7 @@
 ---
 title: Tokens and Funding
 section: Topics
-order: 6
+order: 2
 ---
 
 Whether you brought your own ERC20 token from an existing token contract or created a new token at the same time that you created a colony, you can use the [TokenClient](/colonyJS/api-tokenclient/) to call and send transactions associated with the token contract.

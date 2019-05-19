@@ -1,7 +1,7 @@
 ---
-title: Viewing Reputation
+title: Reputation and Rewards
 section: Topics
-order: 8
+order: 5
 ---
 
 Whenever a user earns native tokens from a colony by completing a task or receiving a payment, the address associated with the account earns a reputation score equivalent to the token amount. See [Reputation](https://docs.colony.io/colonynetwork/whitepaper-tldr-reputation/) as defined in the colonyNetwork documentation for more information.
