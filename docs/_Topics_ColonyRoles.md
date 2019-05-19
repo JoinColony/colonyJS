@@ -4,148 +4,231 @@ section: Topics
 order: 1
 ---
 
-In the current implementation of the colonyNetwork smart contracts, some events on-chain are not mediated by reputation scores as described in the [Whitepaper](https://colony.io/whitepaper.pdf). For now, certain actions within a colony that would require some minimum reputation are instead assigned authority roles.
+In the current implementation of the colonyNetwork smart contracts, certain actions within a colony can only be performed by addresses assigned specific "colony roles".
 
-==TOC==
+There are seven colony roles:
 
-## Authority Roles
+1. `RECOVERY`
+2. `ROOT`
+3. `ARBITRATION` (currently not in use)
+4. `ARCHITECTURE`
+5. `ARCHITECTURE_SUBDOMAIN`
+6. `FUNDING`
+7. `ADMINISTRATION`
 
-There are three "authority roles": `FOUNDER`,  `ADMIN`, and `RECOVERY`. Each authority role can call certain colonyNetwork methods, which are not permitted by addresses without an authority role. This includes actions such as minting new colony tokens, setting and removing authority roles, adding domains, creating tasks, and much more.
 
-*Note: The "authority roles" described here are distinct from "task roles" (`MANAGER`, `WORKER`, and `EVALUATOR`). You can learn more about task roles and their permissions in [Task Lifecycle](/colonyjs/topics-task-lifecycle).*
+*Note: In the future, colonyNetwork will support the option to mediate which addresses can perform which actions based on reputation as described in the [White Paper](https://colony.io/whitepaper.pdf).*
 
-### Permissions for `ColonyClient` methods
+## Permissions
 
-|                                   | Founder       | Admin         | Recovery      |
-|-----------------------------------|---------------|---------------|---------------|
-| addDomain                         | X             | X             |               |
-| addNetworkColonyVersion           | X             |               |               |
-| approveExitRecovery               |               |               | X             |
-| bootstrapColony                   | X             |               |               |
-| createTask                        | X             | X             |               |
-| enterRecoveryMode                 |               |               | X             |
-| exitRecoveryMode                  |               |               | X             |
-| mintTokens                        | X             |               |               |
-| moveFundsBetweenPots              | X             | X             |               |
-| registerColonyLabel               | X             |               |               |
-| removeAdminRole                   | X             |               |               |
-| removeRecoveryRole                | X             |               |               |
-| setAdminRole                      | X             | X             |               |
-| setFounderRole                    | X             |               |               |
-| setRecoveryRole                   | X             |               |               |
-| setRewardInverse                  | X             |               |               |
-| setStorageSlotRecovery            |               |               | X             |
-| setToken                          | X             |               |               |
-| startNextRewardPayout             | X             | X             |               |
-| upgrade                           | X             |               |               |
+The permissions each colony role has for calling client methods are as follows.
 
+### Colony Client
+
+|                                   |  1  |  2  |  3  |  4  |  5  |  6  |  7  |
+|-----------------------------------|-----|-----|-----|-----|-----|-----|-----|
+| addDomain                         |     |  X  |     |  X  |     |     |     |
+| addPayment                        |     |  X  |     |     |     |     |  X  |
+| addTask                           |     |  X  |     |     |     |     |  X  |
+| approveExitRecovery               |  X  |  X  |     |     |     |     |     |
+| bootstrapColony                   |     |  X  |     |     |     |     |     |
+| enterRecoveryMode                 |  X  |  X  |     |     |     |     |     |
+| exitRecoveryMode                  |  X  |  X  |     |     |     |     |     |
+| finalizePayment                   |     |  X  |     |     |     |     |  X  |
+| mintTokens                        |     |  X  |     |     |     |     |     |
+| moveFundsBetweenPots              |     |  X  |     |     |     |  X  |     |
+| registerColonyLabel               |     |  X  |     |     |     |     |     |
+| removeRecoveryRole                |     |  X  |     |     |     |     |     |
+| setAdministrationRole             |     |  X  |     |     |  X  |     |     |
+| setArchitectureRole               |     |  X  |     |     |  X  |     |     |
+| setFundingRole                    |     |  X  |     |     |  X  |     |     |
+| setPaymentDomain                  |     |  X  |     |     |     |     |  X  |
+| setPaymentPayout                  |     |  X  |     |     |     |     |  X  |
+| setPaymentRecipient               |     |  X  |     |     |     |     |  X  |
+| setPaymentSkill                   |     |  X  |     |     |     |     |  X  |
+| setRecoveryRole                   |     |  X  |     |     |     |     |     |
+| setRewardInverse                  |     |  X  |     |     |     |     |     |
+| setRootRole                       |     |  X  |     |     |     |     |     |
+| setStorageSlotRecovery            |  X  |  X  |     |     |     |     |     |
+| setToken                          |     |  X  |     |     |     |     |     |
+| startNextRewardPayout             |     |  X  |     |     |     |     |     |
+| upgrade                           |     |  X  |     |     |     |     |     |
 
 *See [ColonyClient](/colonyjs/api-colonyclient) for more information about each method.*
 
-### Permissions for `ColonyClient` methods (Meta Colony)
+### Colony Client (Meta Colony)
 
-The following permissions are in addition to those defined above.
-
-|                                   | Founder       | Admin         | Recovery      |
-|-----------------------------------|---------------|---------------|---------------|
-| addGlobalSkill                    | X             |               |               |
-| mintTokensForColonyNetwork        | X             |               |               |
-| setNetworkFeeInverse              | X             |               |               |
+|                                   |  1  |  2  |  3  |  4  |  5  |  6  |  7  |
+|-----------------------------------|-----|-----|-----|-----|-----|-----|-----|
+| addGlobalSkill                    |     |  X  |     |     |     |     |     |
+| addNetworkColonyVersion           |     |  X  |     |     |     |     |     |
+| deprecateGlobalSkill              |     |  X  |     |     |     |     |     |
+| setNetworkFeeInverse              |     |  X  |     |     |     |     |     |
 
 *See [ColonyClient](/colonyjs/api-colonyclient) for more information about each method.*
 
-### Permissions for `ColonyNetworkClient` methods
+### Colony Network Client
 
-|                                   | Founder       | Admin         | Recovery      |
-|-----------------------------------|---------------|---------------|---------------|
-| approveExitRecovery               |               |               | X             |
-| enterRecoveryMode                 |               |               | X             |
-| exitRecoveryMode                  |               |               | X             |
-| removeRecoveryRole                | X             |               |               |
-| setRecoveryRole                   | X             |               |               |
-| setStorageSlotRecovery            |               |               | X             |
+|                                   |  1  |  2  |  3  |  4  |  5  |  6  |  7  |
+|-----------------------------------|-----|-----|-----|-----|-----|-----|-----|
+| approveExitRecovery               |  X  |  X  |     |     |     |     |     |
+| enterRecoveryMode                 |  X  |  X  |     |     |     |     |     |
+| exitRecoveryMode                  |  X  |  X  |     |     |     |     |     |
+| removeRecoveryRole                |     |  X  |     |     |     |     |     |
+| setRecoveryRole                   |     |  X  |     |     |     |     |     |
+| setStorageSlotRecovery            |  X  |  X  |     |     |     |     |     |
 
 *See [ColonyNetworkClient](/colonyjs/api-colonynetworkclient) for more information about each method.*
 
-## Authority Methods
+## Managing Permissions
 
-### Set Admin Role
+Managing colony roles can be done with an instance of [ColonyClient](/colonyjs/api-colonyclient).
 
-We can use an instance of the [ColonyClient](/colonyjs/api-colonyclient) to set a user's role to `ADMIN`:
+### Recovery Role
 
-```js
-
-// Set admin role
-await colonyClient.setAdminRole.send({
-  user: '0x0...',
-});
-
-```
-
-### Remove Admin Role
-
-We can use an instance of the [ColonyClient](/colonyjs/api-colonyclient) to remove a user's role as `ADMIN`:
+Assigning the `RECOVERY` role to an address:
 
 ```js
 
-// Remove admin role
-await colonyClient.removeAdminRole.send({
-  user: '0x0...',
-});
-
-```
-
-### Set Recovery Role
-
-We can use an instance of the [ColonyClient](/colonyjs/api-colonyclient) to set a user's role to `RECOVERY`:
-
-```js
-
-// Set admin role
+// Set recovery role
 await colonyClient.setRecoveryRole.send({
-  user: '0x0...',
+  address: '0x0...',
 });
 
 ```
 
-### Remove Recovery Role
-
-We can use an instance of the [ColonyClient](/colonyjs/api-colonyclient) to remove a user's role as `RECOVERY`:
+Removing the `RECOVERY` role from an address:
 
 ```js
 
-// Remove admin role
+// Remove recovery role
 await colonyClient.removeRecoveryRole.send({
-  user: '0x0...',
+  address: '0x0...',
 });
 
 ```
 
-### Set Founder Role
+### Root Role
 
-We can use an instance of the [ColonyClient](/colonyjs/api-colonyclient) to set a user's role to `FOUNDER`:
+Assigning the `ROOT` role to an address:
 
 ```js
 
-// Set founder role
-await colonyClient.setFounderRole.send({
-  user: '0x0...',
+// Set root role
+await colonyClient.setRootRole.send({
+  address: '0x0...',
+  setTo: true,
 });
 
 ```
 
-There can be only one `FOUNDER`, so setting a user to `FOUNDER` will remove the authority role of the current `FOUNDER`. Also, there is no `removeFounderRole` method because a colony must always have a `FOUNDER`.
-
-### Check Authority Role
-
-We can use an instance of the [ColonyClient](/colonyjs/api-colonyclient) to check the authority role of a user:
+Removing the `ROOT` role from an address:
 
 ```js
 
-// Check user role
-await colonyClient.hasUserRole.call({
-  user: '0x0...',
-  role: 'ADMIN',
+// Remove root role
+await colonyClient.setRootRole.send({
+  address: '0x0...',
+  setTo: false,
+});
+
+```
+
+### Architecture Roles
+
+Assigning the `ARCHITECTURE` and `ARCHITECTURE_SUBDOMAIN` roles to an address:
+
+```js
+
+// Set architecture role
+await colonyClient.setArchitectureRole.send({
+  address: '0x0...',
+  domainId: 1,
+  setTo: true,
+});
+
+```
+
+Removing the `ARCHITECTURE` and `ARCHITECTURE_SUBDOMAIN` roles from an address:
+
+```js
+
+// Remove architecture role
+await colonyClient.setArchitectureRole.send({
+  address: '0x0...',
+  domainId: 1,
+  setTo: false,
+});
+
+```
+
+### Funding Role
+
+Assigning the `FUNDING` role to an address:
+
+```js
+
+// Set funding role
+await colonyClient.setFundingRole.send({
+  address: '0x0...',
+  domainId: 1,
+  setTo: true,
+});
+
+```
+
+Removing the `FUNDING` role from an address:
+
+```js
+
+// Remove funding role
+await colonyClient.setFundingRole.send({
+  address: '0x0...',
+  domainId: 1,
+  setTo: false,
+});
+
+```
+
+### Administration Role
+
+Assigning the `ADMINISTRATION` role to an address:
+
+```js
+
+// Set administration role
+await colonyClient.setAdministrationRole.send({
+  address: '0x0...',
+  domainId: 1,
+  setTo: true,
+});
+
+```
+
+Removing the `ADMINISTRATION` role from an address:
+
+```js
+
+// Remove administration role
+await colonyClient.setAdministrationRole.send({
+  address: '0x0...',
+  domainId: 1,
+  setTo: false,
+});
+
+```
+
+### Checking Roles
+
+Checking whether an address is assigned a colony role:
+
+```js
+
+// Check colony role
+await colonyClient.hasColonyRole.call({
+  address: '0x0...',
+  domainId: 1,
+  role: 'ADMINISTRATION',
 });
 
 ```
