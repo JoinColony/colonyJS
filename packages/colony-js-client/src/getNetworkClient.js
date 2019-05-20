@@ -37,7 +37,13 @@ const getInfuraProvider = (network: string, infuraProjectId?: string) => {
 
   return new providers.JsonRpcProvider(
     `https://${host}/v3/${infuraProjectId || defaultInfuraProjectId}`,
-    network === 'goerli' ? undefined : network,
+    network === 'goerli'
+      ? {
+          chainId: 5,
+          ensAddress: '0x112234455c3a32fd11230c42e7bccd4a84e02010',
+          name: 'goerli',
+        }
+      : network,
   );
 };
 
