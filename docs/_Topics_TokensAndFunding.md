@@ -70,7 +70,7 @@ await colonyClient.tokenClient.mint.send({
 
 ### Get Token Info
 
-You can get information about your token using an instance of [TokenClient](/colonyjs/api-tokenclient):
+You can get information about the token using an instance of [TokenClient](/colonyjs/api-tokenclient):
 
 ```js
 
@@ -81,7 +81,7 @@ await colonyClient.tokenClient.getTokenInfo.call()
 
 ### Get Total Supply
 
-You can get the total supply of your token using an instance of [TokenClient](/colonyjs/api-tokenclient):
+You can get the total supply of the token using an instance of [TokenClient](/colonyjs/api-tokenclient):
 
 ```js
 
@@ -125,15 +125,42 @@ await colonyClient.moveFundsBetweenPots.send({
 
 *Note: You must be assigned the `ROOT` or `FUNDING` role to call this method.*
 
-### Get Pot Balance
+### Get Funding Pot
 
-You can get the balance of a pot using an instance of [ColonyClient](/colonyjs/api-colonyclient):
+You can get information about a funding pot using an instance of [ColonyClient](/colonyjs/api-colonyclient):
 
 ```js
 
-// Get pot balance
+// Get funding pot information
+await colonyClient.getFundingPot.call({
+  potId: 1,
+});
+
+```
+
+### Get Funding Pot Payout
+
+You can get the payout for a funding pot using an instance of [ColonyClient](/colonyjs/api-colonyclient):
+
+```js
+
+// Get funding pot information
+await colonyClient.getFundingPot.call({
+  potId: 1,
+  token: '0x0...',
+});
+
+```
+
+### Get Funding Pot Balance
+
+You can get the balance of a funding pot using an instance of [ColonyClient](/colonyjs/api-colonyclient):
+
+```js
+
+// Get funding pot balance
 await colonyClient.getFundingPotBalance.call({
-  potId: 2,
+  potId: 1,
   token: '0x0...',
 });
 
