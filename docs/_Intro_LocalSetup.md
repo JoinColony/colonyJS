@@ -21,7 +21,7 @@ If you have these installed, feel free to skip ahead to the next section.
 
 ### Git
 
-You will need to have [Git](https://git-scm.com/) installed. We recommend using version `2.6.4` or higher. If you do not have Git installed, check out [Install Git](https://www.atlassian.com/git/tutorials/install-git). We also recommend [connecting to Github with SSH](https://help.github.com/en/articles/connecting-to-github-with-ssh) if you have not done so already.
+You will need to have [Git](https://git-scm.com/) installed. We recommend using version `2.6.4` or higher. If you do not have Git installed, check out [Install Git](https://www.atlassian.com/git/tutorials/install-git). We also recommend [connecting to Github with SSH](https://help.github.com/en/articles/connecting-to-github-with-ssh).
 
 ### Node
 
@@ -37,7 +37,7 @@ You will also need to have [Docker](https://www.docker.com/) installed. The [col
 
 ## Initial Setup
 
-Are you building a new project from scratch or integrating colonyJS into an existing project? If you are integrating colonyJS into an existing project and you have both Git and Yarn already initialized, you can skip ahead to the next section.
+Are you building a project from scratch or integrating colonyJS into an existing project? If the latter and you have both Git and Yarn already initialized, you can skip ahead to the next section.
 
 ### Initialize Git
 
@@ -47,7 +47,7 @@ Within the root directory, run the following command:
 git init
 ```
 
-This will initialize your project as a Git repository. Now would be a good time to add a `.gitignore` file and include `.env`, `node_modules`, and any other files that you want Git to ignore.
+This will initialize your project as a Git repository. Now would be a good time to add a `.gitignore` file and include `node_modules` and any other files you want Git to ignore.
 
 ### Initialize Yarn
 
@@ -57,19 +57,19 @@ Within the root directory, run the following command and follow the prompt:
 yarn init
 ```
 
-This will initialize your project as a Node package, which will allow you to install other packages.
+This will initialize your project as a Node package, allowing you to install other packages.
 
 ## Add Scripts
 
-In order for colonyJS to interact with [colonyNetwork](https://github.com/JoinColony/colonyNetwork) in a local development environment, you will need to compile the colonyNetwork smart contracts, deploy the contracts to a local test network, and then make the contract data available within you project.
+In order for colonyJS to interact with [colonyNetwork](https://github.com/JoinColony/colonyNetwork) in a local development environment, you will need to compile the colonyNetwork smart contracts, deploy the contracts to a local test network, and then make the contract data available within your project.
 
-Do not fear! We created a simple command line tool to make this easier for you. No need to install and configure services and add the colonyNetwork repository as a submodule to start building with colonyJS. We bundled up everything for you in a simple command line tool.
+Do not fear! We created a simple command line tool to make this easier for you. No need to install and configure services and add the colonyNetwork repository as a submodule to start building with colonyJS. We bundled up everything for you in [colony-cli](http://docs.colony.io/colonystarter/cli-colony-cli).
 
-[colony-cli](http://docs.colony.io/colonystarter/cli-colony-cli) is a command line tool that installs colonyNetwork behind the scenes and makes services within colonyNetwork available via `colony` commands within your project. Everything you need to run a local test network, deploy the colonyNetwork smart contracts, and serve the contract data, are all included in `colony-cli` package.
+[colony-cli](http://docs.colony.io/colonystarter/cli-colony-cli) is a command line tool that pulls down and installs [colonyNetwork](https://github.com/JoinColony/colonyNetwork) behind the scenes and makes services within colonyNetwork available via `colony` commands. Everything you need to run a local test network, compile and deploy the colonyNetwork smart contracts, and serve the contract data are made accessible in `colony-cli` using the `service` command.
 
 ### Install colony-cli
 
-Within the root directory, install [colony-cli](http://docs.colony.io/colonystarter/cli-colony-cli):
+Within your project, install the [colony-cli](http://docs.colony.io/colonystarter/cli-colony-cli) package:
 
 ```
 yarn add @colony/colony-cli
@@ -87,7 +87,7 @@ Within your `package.json` file, add the following `scripts`:
 }
 ```
 
-*Note: You can specify different colonyNetwork versions with the `--specific` option added to any of the `service` commands. The default version is using the [glider-rc.1](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1) release. Using `develop` is not recommended if you are using colonyJS because colonyJS will not yet have an official release that supports an unreleased version of the colonyNetwork.*
+*Note: You can specify different colonyNetwork versions with the `--specific` option added to any of the `service` commands. The default version is using the [glider-rc.1](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1) release. Using `develop` is not recommended if you are using colonyJS because colonyJS will not yet have an official release that supports an unreleased version of the colonyNetwork smart contracts.*
 
 ## Add colonyJS
 
@@ -98,13 +98,13 @@ Next, you will need to install the following packages:
 - `@colony/colony-js-client`
 - `@colony/purser-software`
 
-Install `colony-js-client` and `purser-software` using the following command:
+You can install these packages using the following command:
 
 ```
 yarn add @colony/colony-js-client @colony/purser-software
 ```
 
-### Add `connectNetwork`
+### Add connectNetwork script
 
 Create a `connectNetwork.js` file in the root directory and add the following code:
 
@@ -155,7 +155,7 @@ yarn deploy-contracts
 
 ### Start Trufflepig
 
-Either use the same terminal window or open a new terminal window and run the following command:
+Open a new terminal window and run the following command:
 
 ```
 yarn start-trufflepig
@@ -173,10 +173,10 @@ You should see the address of the network contract that was deployed to your loc
 
 ## What's next?
 
-* Learn about creating a task and running through the task lifecycle in [Task Lifecycle](/colonyjs/topics-task-lifecycle).
-
-* Learn about domains and skills and how they relate to reputation in [Domains and Skills](/colonyjs/topics-domains-and-skills).
+* Learn about "colony roles" and managing permissions in [Colony Roles](/colonyjs/topics-colony-roles).
 
 * Learn about native colony tokens and managing colony funds in [Tokens and Funding](/colonyjs/topics-tokens-and-funding).
 
-* Learn about managing permissions and "authority roles" in [Managing Permissions](/colonyjs/topics-managing-permissions).
+* Learn about domains and skills and how they relate to reputation in [Domains and Skills](/colonyjs/topics-domains-and-skills).
+
+* Learn about the task lifecycle and more about payments in [Tasks and Payments](/colonyjs/topics-tasks-and-payments).

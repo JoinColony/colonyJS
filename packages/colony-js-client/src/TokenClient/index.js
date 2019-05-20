@@ -84,6 +84,25 @@ export default class TokenClient extends ContractClient {
   >;
 
   /*
+  Deploy a TokenAuthority contract which can then be use to control the transfer of a token.
+  */
+  createTokenAuthority: TokenClient.Sender<
+    {
+      allowedToTransfer: Address[], // Additional addresses which are allowed to transfer the token while locked.
+      colonyAddress: Address, // The address of the colony which should be allowed control of the token.
+      tokenAddress: Address, // The address of the token for which this contract will operate.
+    },
+    {},
+    TokenClient,
+    {
+      contract: 'Token.sol',
+      // eslint-disable-next-line max-len
+      contractPath: 'https://github.com/JoinColony/colonyToken/blob/59cf56f18c54c0bc749ddaa8b6d77ebfd0d0aaf4/contracts',
+      version: 'glider-rc.1',
+    },
+  >;
+
+  /*
   Get the token allowance of an address. The allowance is the amount of tokens that the `spender` is authorized to transfer using the `transferFrom` function.
   */
   getAllowance: TokenClient.Caller<
@@ -272,25 +291,6 @@ export default class TokenClient extends ContractClient {
       contract: 'base.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
-      version: 'glider-rc.1',
-    },
-  >;
-
-  /*
-  Deploy a TokenAuthority contract which can then be use to control the transfer of a token.
-  */
-  createTokenAuthority: TokenClient.Sender<
-    {
-      allowedToTransfer: Address[], // Additional addresses which are allowed to transfer the token while locked.
-      colonyAddress: Address, // The address of the colony which should be allowed control of the token.
-      tokenAddress: Address, // The address of the token for which this contract will operate.
-    },
-    {},
-    TokenClient,
-    {
-      contract: 'Token.sol',
-      // eslint-disable-next-line max-len
-      contractPath: 'https://github.com/JoinColony/colonyToken/blob/59cf56f18c54c0bc749ddaa8b6d77ebfd0d0aaf4/contracts',
       version: 'glider-rc.1',
     },
   >;

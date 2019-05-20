@@ -4,11 +4,15 @@ section: Topics
 order: 5
 ---
 
-Whenever a user earns native tokens from a colony by completing a task or receiving a payment, the address associated with the account earns a reputation score equivalent to the token amount. See [Reputation](https://docs.colony.io/colonynetwork/whitepaper-tldr-reputation/) as defined in the colonyNetwork documentation for more information.
+When an address earns tokens from a task payout or payment and the tokens earned are native to the colony, the address earns a reputation score equivalent to the number of tokens.
 
-## Get Reputation
+A set fee for every task payout and payment is collected and stored within the rewards pot of the colony, which can then be distributed based on reputation to colony members as a reward.
 
-Getting the reputation for an address is simple. You can use either the `ColonyClient` or `ColonyNetworkClient`.
+## Reputation
+
+### Get Reputation
+
+To get the reputation score for a given address within a particular domain or skill, you can use an instance of [ColonyClient](/colonyjs/api-colonyclient) or [ColonyNetworkClient](/colonyjs/api-colonynetworkclient).
 
 ```js
 
@@ -17,6 +21,10 @@ await colonyClient.getReputation.send({
   skillId: 1,
   user: '0x0...',
 });
+
+```
+
+```js
 
 // Get reputation using network client
 await networkClient.getReputation.send({
@@ -27,4 +35,4 @@ await networkClient.getReputation.send({
 
 ```
 
-*Note: Currently this method is only supported on rinkeby. We will be adding instructions for running the reputation miner and viewing reputation in a local environment in the near future.*
+*Note: Currently this method is only supported on rinkeby.*

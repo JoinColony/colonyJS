@@ -10,7 +10,7 @@ The most useful abstractions within a colony are tasks and payments. Tasks and p
 
 There are three "task roles" that can be assigned to a task: `MANAGER`, `EVALUATOR`, and `WORKER`.
 
-Each "task role" has permissions for calling and approving actions associated with the task. Actions that modify a task require approval from two "task roles" if those roles have already been assigned within the given task (see [Modify Task](/#modify-task) for more information).
+Each "task role" has permissions for calling and approving actions associated with the task. Actions that modify a task require approval from two "task roles" if those roles have already been assigned within the given task (see [Modify Task](#modify-task) for more information).
 
 ### Role Permissions
 
@@ -108,7 +108,7 @@ The object returned from the `getTask` method will look something like this:
 
 ```
 
-We already introduced `specificationHash`, `domainId`, `skillId` and `dueDate`. The `status` is the current status of the task, which will either be `ACTIVE`, `CANCELLED` or `FINALIZED` (see [Cancel Task](/#cancel-task) or [Finalize Task](/#finalize-task) for more information). We will further explain `potId` and `deliverableHash` in the sections below (`potId` in [Fund Task](/#fund-task) and `deliverableHash` in [Submit Work](/#submit-work)).
+We already introduced `specificationHash`, `domainId`, `skillId` and `dueDate`. The `status` is the current status of the task, which will either be `ACTIVE`, `CANCELLED` or `FINALIZED` (see [Cancel Task](#cancel-task) or [Finalize Task](#finalize-task) for more information). We will further explain `potId` and `deliverableHash` in the sections below (`potId` in [Fund Task](#fund-task) and `deliverableHash` in [Submit Work](#submit-work)).
 
 ### Fund Task
 
@@ -148,7 +148,7 @@ await colonyClient.setTaskBrief.startOperation({
 
 ```
 
-Changing or setting the task domain (`MANAGER` and `WORKER`):
+Changing the task domain (`MANAGER` and `WORKER`):
 
 ```js
 
@@ -172,7 +172,7 @@ await colonyClient.setTaskSkill.startOperation({
 
 ```
 
-Changing or setting the task due date (`MANAGER` and `WORKER`):
+Changing the task due date (`MANAGER` and `WORKER`):
 
 ```js
 
@@ -300,7 +300,9 @@ await colonyClient.cancelTask.startOperation({
 
 ### Submit Work
 
-Once a `WORKER` has been assigned a task, the assigned `WORKER` can submit the task deliverable (or "task work"). Like the `specificationHash`, the `deliverableHash` can be any arbitrary hash string (32 bytes) but the `deliverableHash` was specially designed to support an IPFS content hash. See [Using IPFS](/colonyjs/topics-using-ipfs/) for more information about using an IPFS content hash.
+After a `WORKER` has been assigned a task and before the due date, the `WORKER` can submit the task work, also known as the "task deliverable".
+
+Like the `specificationHash`, the `deliverableHash` can be any arbitrary hash string (32 bytes) but the `deliverableHash` was specially designed to support an IPFS content hash. See [Using IPFS](/colonyjs/topics-using-ipfs/) for more information about using an IPFS content hash.
 
 ```js
 
@@ -354,9 +356,9 @@ await colonyClient.revealTaskWorkRating.send({
 
 ```
 
-During the "rating period" (which includes both the "commit period" and "reveal period"), if either party fails to commit or reveal their rating within time, their counterpart is given the highest possible rating and they are given the lowest possible rating.
+During the "rating period" (which includes both the "commit period" and "reveal period"), if either party fails to commit or reveal their rating, their counterpart will be given the highest possible rating and they will be given the lowest possible rating.
 
-It's easy to check the status of submissions during the "rating period":
+You can check the status of submissions:
 
 ```js
 
@@ -382,7 +384,7 @@ await colonyClient.finalizeTask.send({
 
 ### Claim Payout
 
-Once a task is finalized, each "task role" can then claim their payout:
+Once a task is finalized, each task role can then claim their payout:
 
 ```js
 
@@ -424,7 +426,7 @@ You can view information about a payment after it has been added:
 
 // Get payment
 await colonyClient.getPayment.send({
-  paymentId: 2,
+  paymentId: 1,
 });
 
 ```
@@ -453,7 +455,7 @@ For more information about how funding works within a colony, check out [Tokens 
 
 ### Modify Payment
 
-Unlike tasks, payments do not require signatures to be modified. A payment can be modified by an address assigned either the `ROOT` colony role or the `ADMINISTRATION` colony role.
+Unlike tasks, payments do not require signatures to be modified. A payment can be modified by addresses assigned the `ROOT` colony role and the `ADMINISTRATION` colony role.
 
 ```js
 

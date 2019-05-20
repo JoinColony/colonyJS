@@ -21,7 +21,7 @@ There are seven colony roles:
 
 ## Permissions
 
-The permissions each colony role has for calling client methods are as follows.
+The permissions for calling client methods are as follows.
 
 ### Colony Client
 
@@ -80,7 +80,7 @@ The permissions each colony role has for calling client methods are as follows.
 
 *See [ColonyNetworkClient](/colonyjs/api-colonynetworkclient) for more information about each method.*
 
-## Managing Permissions
+## Managing Roles
 
 Managing colony roles can be done with an instance of [ColonyClient](/colonyjs/api-colonyclient).
 

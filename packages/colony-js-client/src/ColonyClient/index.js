@@ -1542,7 +1542,7 @@ export default class ColonyClient extends ContractClient {
   >;
 
   /*
-  Assign the colony `ROOT` role to an address. This function can only be called by the address currently assigned the colony `ROOT` role. There can only be one address assigned to the colony `ROOT` role, therefore, the address currently assigned will forfeit the role.
+  Assign the colony `ROOT` role to an address. This function can only be called by an address currently assigned the colony `ROOT` role.
   */
   setRootRole: ColonyClient.Sender<
     {

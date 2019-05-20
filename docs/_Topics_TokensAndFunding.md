@@ -145,7 +145,7 @@ You can get the payout for a funding pot using an instance of [ColonyClient](/co
 ```js
 
 // Get funding pot information
-await colonyClient.getFundingPot.call({
+await colonyClient.getFundingPotPayout.call({
   potId: 1,
   token: '0x0...',
 });

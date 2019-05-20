@@ -225,7 +225,9 @@ export default class ColonyNetworkClient extends ContractClient {
   */
   createToken: ColonyNetworkClient.Sender<
     {
+      name: string, // The name of the token.
       symbol: string, // The symbol of the token.
+      decimals: ?number, // The number of decimals.
     },
     {},
     ColonyNetworkClient,

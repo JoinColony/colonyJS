@@ -4,9 +4,9 @@ section: Topics
 order: 3
 ---
 
-Domains and skills are concepts that define a colony's organizational structure in a decentralized context, allowing for the division of labor without a strict management hierarchy. Within a colony, reputation is rewarded within the context of domains and skills, therefore, adding payments and tasks will require a domain assignment and include an optional skill assignment.
+Domains and skills help define the organizational structure of a colony, allowing for the division of labor without having a strict management hierarchy. Within a colony, reputation is rewarded within the context of domains and skills.
 
-Domains are a structure for compartmentalizing the work and shared resources of a colony into smaller, more specialized sub-groups which are analogous to the departments of a traditional company. Skills are a similar structure that categorize the type of work done, independent of the domain or colony in which the work took place.
+How domains are used is up to the colony but domains can be analogous to the departments of a traditional company. Skills categorize the type of work done, independent of the domain or colony in which the work took place.
 
 For more information, see [Domains and Skills](/colonynetwork/whitepaper-tldr-domains-and-skills) in the colonyNetwork documentation.
 
@@ -79,7 +79,20 @@ await networkClient.addSkill.send();
 
 ### Deprecate Skill
 
-You can deprecate a skill using an instance of [ColonyNetworkClient](/colonyjs/api-colonynetworkclient):
+You can deprecate a skill using an instance of [ColonyClient](/colonyjs/api-colonyclient) for the Meta Colony:
+
+```js
+
+// Deprecate a global skill
+await metaColonyClient.deprecateGlobalSkill.send({
+  skillId: 1,
+});
+
+```
+
+*Note: You must be assigned the `ROOT` role within the Meta Colony to call this method.*
+
+Alternatively, you can deprecate a skill using an instance of [ColonyNetworkClient](/colonyjs/api-colonynetworkclient):
 
 ```js
 
@@ -94,7 +107,7 @@ await networkClient.deprecateSkill.send({
 
 ### Get Skill
 
-You can get information about a domain using an instance of [ColonyNetworkClient](/colonyjs/api-colonynetworkclient):
+You can get information about a skill using an instance of [ColonyNetworkClient](/colonyjs/api-colonynetworkclient):
 
 ```js
 
