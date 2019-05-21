@@ -13,16 +13,19 @@ const service = require('./actions/service');
 
 // Exit without error
 const handleExit = () => {
-  console.log(chalk.cyan('  Exiting without error...'));
+  console.log();
+  console.log();
+  console.log(chalk.cyan('Exiting without error...'));
   console.log();
   process.exit();
 };
 
 // Exit with error
 const handleError = (error) => {
+  console.log();
   console.error(error);
   console.log();
-  console.log(chalk.red('  Exiting with error...'));
+  console.log(chalk.red('Exiting with error...'));
   console.log();
   process.exit(1);
 };
@@ -53,9 +56,9 @@ commander
 
     // Log error
     console.log();
-    console.log(`Invalid command: ${program.args.join(' ')}`);
+    console.log(chalk.red(`  ERROR: "${commander.args[0]}" is not a valid command.`));
     console.log();
-    console.log('See --help for a list of available commands.');
+    console.log(chalk.red('  See --help for a list of available commands.'));
     console.log();
 
     // Exit on error

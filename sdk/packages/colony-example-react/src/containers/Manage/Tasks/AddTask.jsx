@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as taskActions from '../../../actions/taskActions'
-import CreateTask from '../../../components/Manage/Tasks/CreateTask'
+import AddTask from '../../../components/Manage/Tasks/AddTask'
 
-class CreateTaskContainer extends Component {
+class AddTaskContainer extends Component {
 
   constructor(props) {
     super(props)
@@ -23,7 +23,7 @@ class CreateTaskContainer extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (!prevProps.createTaskSuccess && this.props.createTaskSuccess) {
+    if (!prevProps.addTaskSuccess && this.props.addTaskSuccess) {
       this.props.history.push(`/manage/tasks/${this.props.taskCount}`)
     }
   }
@@ -53,15 +53,15 @@ class CreateTaskContainer extends Component {
   }
 
   handleClick() {
-    this.props.createTask(this.props.colonyClient, this.state.task)
+    this.props.addTask(this.props.colonyClient, this.state.task)
   }
 
   render() {
     return (
-      <CreateTask
-        createTaskError={this.props.createTaskError}
-        createTaskLoading={this.props.createTaskLoading}
-        createTaskSuccess={this.props.createTaskSuccess}
+      <AddTask
+        addTaskError={this.props.addTaskError}
+        addTaskLoading={this.props.addTaskLoading}
+        addTaskSuccess={this.props.addTaskSuccess}
         handleChange={this.handleChange}
         handleClick={this.handleClick}
         task={this.state.task}
@@ -73,21 +73,21 @@ class CreateTaskContainer extends Component {
 
 const mapStateToProps = state => ({
   colonyClient: state.colony.colonyClient,
-  createTaskError: state.task.createTaskError,
-  createTaskLoading: state.task.createTaskLoading,
-  createTaskSuccess: state.task.createTaskSuccess,
+  addTaskError: state.task.addTaskError,
+  addTaskLoading: state.task.addTaskLoading,
+  addTaskSuccess: state.task.addTaskSuccess,
   task: state.task.task,
   taskCount: state.task.taskCount,
 })
 
 const mapDispatchToProps = dispatch => ({
-  createTask(colonyClient, task) {
-    dispatch(taskActions.createTask(colonyClient, task))
+  addTask(colonyClient, task) {
+    dispatch(taskActions.addTask(colonyClient, task))
   },
   resetActions() {
-    dispatch(taskActions.createTaskError(null))
-    dispatch(taskActions.createTaskSuccess(false))
+    dispatch(taskActions.addTaskError(null))
+    dispatch(taskActions.addTaskSuccess(false))
   },
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateTaskContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(AddTaskContainer)

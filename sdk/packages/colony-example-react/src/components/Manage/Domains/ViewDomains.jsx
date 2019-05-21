@@ -15,7 +15,7 @@ const ViewDomains = ({
       <ul className={styles.list}>
         {domains.map((domain, index) => (
           <li key={index} className={styles.item}>
-            <p>{'Skill ID: ' + domain.localSkillId}</p>
+            <p>{'Skill ID: ' + domain.skillId}</p>
             <p>{'Pot ID: ' + domain.potId}</p>
           </li>
         ))}

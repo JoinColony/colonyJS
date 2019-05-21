@@ -8,8 +8,10 @@ export const addAdmin = (colonyClient, userAddress) => ({
   payload: (async () => {
 
     // Add admin
-    const tx = await colonyClient.setAdminRole.send({
-      user: userAddress,
+    const tx = await colonyClient.setAdministrationRole.send({
+      address: userAddress,
+      domainId: 1,
+      setTo: true,
     })
 
     // Check unsuccessful
@@ -48,20 +50,22 @@ export const checkAdmin = (colonyClient, userAddress) => ({
   type: actions.CHECK_ADMIN,
   payload: (async () => {
 
-    // Check owner
-    const { hasRole: owner } = await colonyClient.hasUserRole.call({
-      user: userAddress,
-      role: 'FOUNDER',
+    // Check root
+    const { hasRole: root } = await colonyClient.hasColonyRole.call({
+      address: userAddress,
+      domainId: 1,
+      role: 'ROOT',
     })
 
     // Check admin
-    const { hasRole: admin } = await colonyClient.hasUserRole.call({
-      user: userAddress,
-      role: 'ADMIN',
+    const { hasRole: admin } = await colonyClient.hasColonyRole.call({
+      address: userAddress,
+      domainId: 1,
+      role: 'ADMINISTRATION',
     })
 
-    // Return owner or admin
-    return (owner || admin)
+    // Return root or admin
+    return (root || admin)
 
   })()
   .then(admin => {
@@ -90,8 +94,9 @@ export const removeAdmin = (colonyClient, userAddress) => ({
   payload: (async () => {
 
     // Remove admin
-    const tx = await colonyClient.removeAdminRole.send({
-      user: userAddress,
+    const tx = await colonyClient.setAdministrationRole.send({
+      address: userAddress,
+      setTo: false,
     })
 
     // Check unsuccessful

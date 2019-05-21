@@ -1,4 +1,4 @@
-// An example action using the "claimPayout" method
+// An example action using the "claimTaskPayout" method
 module.exports = async (colonyClient, taskId, role, token) => {
 
   // Get the task payout
@@ -9,7 +9,7 @@ module.exports = async (colonyClient, taskId, role, token) => {
   });
 
   // Claim the task payout
-  await colonyClient.claimPayout.send({
+  await colonyClient.claimTaskPayout.send({
     taskId,
     role,
     token,

@@ -1,11 +1,12 @@
-import BN from 'bn.js'
+import { BN } from 'web3-utils'
+
 import { store } from '../index'
 import * as actions from '../constants/actions'
 import { setStateClaimableFunds } from './fundingActions'
 
 // createToken
 
-export const createToken = (networkClient, name, symbol) => ({
+export const createToken = (networkClient, name, symbol, decimals) => ({
   type: actions.CREATE_TOKEN,
   payload: (async () => {
 
@@ -13,6 +14,7 @@ export const createToken = (networkClient, name, symbol) => ({
     const tx = await networkClient.createToken.send({
       name,
       symbol,
+      decimals,
     })
 
     // Check unsuccessful

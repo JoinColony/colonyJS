@@ -9,7 +9,7 @@ const publicKey = '0xb77d57f4959eafa0339424b83fcfaf9c15407461';
 const privateKey = '0x0355596cdb5e5242ad082c4fe3f8bbe48c9dba843fe1f99dd8272f487e70efae';
 
 // Testing colony-starter actions
-describe('colony-starter [ rinkeby ]', () => {
+describe('colony-starter [ goerli ]', () => {
 
   // Set state
   const state = {}
@@ -25,7 +25,7 @@ describe('colony-starter [ rinkeby ]', () => {
   // Test the getNetworkClient() example action
   test('getNetworkClient() works', async () => {
     state.networkClient = await getNetworkClient(
-      'rinkeby',                      // network
+      'goerli',                       // network
       state.wallet,                   // wallet
     );
     expect(state.networkClient).toEqual(expect.objectContaining({

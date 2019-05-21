@@ -1,20 +1,11 @@
 // Import the prerequisites
-const web3Utils = require('web3-utils');
+const { sha3 } = require('web3-utils');
 
 // An example action using the "revealTaskWorkRating" method
 module.exports = async (colonyClient, taskId, role, rating) => {
 
   // Set salt value
-  const salt = web3Utils.sha3('secret');
-
-  // Set rating value
-  const value = rating;
-
-  // Generate a secret for the task work rating
-  const { secret } = await colonyClient.generateSecret.call({
-    salt,
-    value,
-  });
+  const salt = sha3('secret');
 
   // Reveal the task work rating
   await colonyClient.revealTaskWorkRating.send({
@@ -25,7 +16,7 @@ module.exports = async (colonyClient, taskId, role, rating) => {
   });
 
   // Get the task work ratings
-  const taskWorkRatings = await colonyClient.getTaskWorkRatings.call({
+  const taskWorkRatings = await colonyClient.getTaskWorkRatingSecretsInfo.call({
     taskId,
   });
 

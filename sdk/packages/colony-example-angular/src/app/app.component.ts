@@ -20,6 +20,8 @@ export class AppComponent implements OnInit {
     task: null,
     token: {
       address: null,
+      decimals: null,
+      name: null,
       symbol: null,
     },
     wallet: null,
@@ -51,12 +53,19 @@ export class AppComponent implements OnInit {
   }
 
   // Create an ERC20 token
-  public async token(symbol: string) {
+  public async token(name: string, symbol: string, decimals: number) {
     this.clearError();
     this.setLoading();
-    this.appService.createToken(this.model.networkClient, symbol).then((res) => {
+    this.appService.createToken(
+      this.model.networkClient,
+      name,
+      symbol,
+      Number(decimals),
+    ).then((res) => {
       this.model.token.address = res;
+      this.model.token.name = name;
       this.model.token.symbol = symbol;
+      this.model.token.decimals = decimals;
       this.clearLoading();
     }).catch((error) => {
       this.setError(error);
@@ -67,7 +76,10 @@ export class AppComponent implements OnInit {
   public async createColony(tokenAddress: string) {
     this.clearError();
     this.setLoading();
-    this.appService.createColony(this.model.networkClient, tokenAddress).then((res) => {
+    this.appService.createColony(
+      this.model.networkClient,
+      tokenAddress,
+    ).then((res) => {
       this.model.colonyAddress = res;
       this.clearLoading();
     }).catch((error) => {
@@ -79,7 +91,10 @@ export class AppComponent implements OnInit {
   public async getColonyClient(colonyAddress: string) {
     this.clearError();
     this.setLoading();
-    this.appService.getColonyClient(this.model.networkClient, colonyAddress).then((res) => {
+    this.appService.getColonyClient(
+      this.model.networkClient,
+      colonyAddress,
+    ).then((res) => {
       this.model.colonyClient = res;
       this.clearLoading();
     }).catch((error) => {
@@ -91,7 +106,10 @@ export class AppComponent implements OnInit {
   public async addDomain(parentDomainId: number) {
     this.clearError();
     this.setLoading();
-    this.appService.addDomain(this.model.colonyClient, Number(parentDomainId)).then((res) => {
+    this.appService.addDomain(
+      this.model.colonyClient,
+      Number(parentDomainId),
+    ).then((res) => {
       this.model.domain = res;
       this.clearLoading();
     }).catch((error) => {
@@ -100,10 +118,14 @@ export class AppComponent implements OnInit {
   }
 
   // Create a task in the colony
-  public async createTask(title: string, description: string, domainId: number) {
+  public async addTask(title: string, description: string, domainId: number) {
     this.clearError();
     this.setLoading();
-    this.appService.createTask(this.model.colonyClient, Number(domainId), { title, description }).then((res) => {
+    this.appService.addTask(
+      this.model.colonyClient,
+      Number(domainId),
+      { title, description },
+    ).then((res) => {
       this.model.task = res;
       this.clearLoading();
     }).catch((error) => {

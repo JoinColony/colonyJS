@@ -14,9 +14,15 @@
         </mat-card-title>
         <mat-card-content>
           <mat-form-field>
+            <input matInput placeholder="Token Name" #tokenName>
+          </mat-form-field>
+          <mat-form-field>
             <input matInput placeholder="Token Symbol" #tokenSymbol>
           </mat-form-field>
-          <button mat-button type="button" color="primary" (click)="token(tokenSymbol.value)">
+          <mat-form-field>
+            <input matInput placeholder="Token Decimals" #tokenDecimals>
+          </mat-form-field>
+          <button mat-button type="button" color="primary" (click)="token(tokenName.value, tokenSymbol.value, tokenDecimals.value)">
             Create Token
           </button>
         </mat-card-content>
@@ -70,7 +76,7 @@
     <form>
       <mat-card>
         <mat-card-title>
-          Create Task
+          Add Task
         </mat-card-title>
         <mat-card-content>
           <mat-form-field>
@@ -82,8 +88,8 @@
           <mat-form-field>
             <input matInput placeholder="Domain ID" #domainId>
           </mat-form-field>
-          <button mat-button type="button" color="primary" (click)="createTask(taskTitle.value, taskDescription.value, domainId.value)">
-            Create Task
+          <button mat-button type="button" color="primary" (click)="addTask(taskTitle.value, taskDescription.value, domainId.value)">
+            Add Task
           </button>
         </mat-card-content>
       </mat-card>

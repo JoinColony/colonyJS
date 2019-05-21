@@ -7,14 +7,14 @@ class CreateTokenContainer extends Component {
 
   constructor(props) {
     super(props)
-    this.state = { token: { name: '', symbol: '' } }
+    this.state = { token: { name: '', symbol: '', decimals: 0 } }
     this.handleChange = this.handleChange.bind(this)
     this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.createTokenSuccess && prevProps.createTokenSuccess !== this.props.createTokenSuccess) {
-      this.setState({ token: { name: '', symbol: '' } })
+      this.setState({ token: { name: '', symbol: '', decimals: 0 } })
     }
   }
 
@@ -29,7 +29,12 @@ class CreateTokenContainer extends Component {
   }
 
   handleClick() {
-    this.props.createToken(this.props.networkClient, this.state.token.name, this.state.token.symbol)
+    this.props.createToken(
+      this.props.networkClient,
+      this.state.token.name,
+      this.state.token.symbol,
+      Number(this.state.token.decimals),
+    )
   }
 
   render() {
@@ -57,8 +62,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  createToken(networkClient, name, symbol) {
-    dispatch(tokenActions.createToken(networkClient, name, symbol))
+  createToken(networkClient, name, symbol, decimals) {
+    dispatch(tokenActions.createToken(networkClient, name, symbol, decimals))
   },
   resetActions() {
     dispatch(tokenActions.createTokenError(null))

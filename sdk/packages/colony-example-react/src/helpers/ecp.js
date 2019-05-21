@@ -8,15 +8,18 @@
 // user experience, without compromising decentralisation.
 
 const IPFS = require('ipfs');
-const { Buffer } = require('buffer');
-const path = require('path');
+const IPFSRepo = require('ipfs-repo');
 
-let node;
+const { Buffer } = IPFS;
+
+let node, repo;
 
 const waitForIPFS = () => {
+  repo = new IPFSRepo('./tmp/ipfs/data');
+  repo.apiAddr.set('/ip4/127.0.0.1/api', () => {});
   node = new IPFS({
     start: false,
-    repo: './tmp/ipfs/data',
+    repo,
   });
   return new Promise((resolve, reject) => {
     node.on('ready', () => resolve(true));
@@ -31,12 +34,12 @@ export const init = async () => {
 
 export const saveHash = async (obj) => {
   const data = Buffer.from(JSON.stringify(obj));
-  const result = await node.files.add(data);
+  const result = await node.add(data);
   return result[0].hash;
 }
 
 export const getHash = async (hash) => {
-  const buf = await node.files.cat(`/ipfs/${hash}`);
+  const buf = await node.cat(`/ipfs/${hash}`);
   let obj;
   try {
     obj = JSON.parse(buf.toString());

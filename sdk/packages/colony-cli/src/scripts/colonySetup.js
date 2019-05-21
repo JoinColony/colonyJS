@@ -1,13 +1,10 @@
 // Import dependencies
 const { getNetworkClient } = require('@colony/colony-js-client');
 const { open } = require('@colony/purser-software');
-const BN = require('bn.js');
+const { BN } = require('web3-utils');
 
 // Set the private key (this is the private key for the first Ganache test account)
 const privateKey = '0x0355596cdb5e5242ad082c4fe3f8bbe48c9dba843fe1f99dd8272f487e70efae';
-
-// Set contract address for OneTxPayment contract
-const OneTxPayment = '0xA8DA163375713753Acc7e1D429c64F72b9412077';
 
 // Run setup
 (async () => {
@@ -19,14 +16,17 @@ const OneTxPayment = '0xA8DA163375713753Acc7e1D429c64F72b9412077';
   const networkClient = await getNetworkClient('local', wallet);
 
   // Create token
-  const {
-    meta: { receipt: { contractAddress: tokenAddress } }
-  } = await networkClient.createToken.send({
+  const tokenTransaction = await networkClient.createToken.send({
+    name: 'Token',
     symbol: 'TKN',
+    decimals: 18,
   });
 
+  // Set token address
+  const tokenAddress = tokenTransaction.meta.receipt.contractAddress;
+
   // Check out the logs to see the token address
-  console.log('Token Address: ', tokenAddress);
+  console.log('Token Address: ' + tokenAddress);
 
   // Create a colony
   const {
@@ -78,20 +78,6 @@ const OneTxPayment = '0xA8DA163375713753Acc7e1D429c64F72b9412077';
 
   // Check out the logs to see the colony pot balance after claiming funds
   console.log('Colony Pot Balance: ' + potBalance.balance);
-
-  // Set the admin role for OneTxPayment
-  await colonyClient.setAdminRole.send({
-    user: OneTxPayment,
-  });
-
-  // Check if the contract was assigned the admin role
-  const { hasRole } = await colonyClient.hasUserRole.call({
-    user: OneTxPayment,
-    role: 'ADMIN',
-  })
-
-  // Check out the logs to see if the contract was assigned the admin role
-  console.log('OneTxPayment:', hasRole);
 
 })()
   .then(() => process.exit())

@@ -1,5 +1,5 @@
-import BN from 'bn.js'
-import { sha3 } from 'web3-utils';
+import { BN, sha3 } from 'web3-utils';
+
 import { store } from '../index'
 import * as actions from '../constants/actions'
 import { setStatePots } from './fundingActions'
@@ -87,10 +87,10 @@ export const claimPayoutSuccess = (success) => ({
   payload: success,
 })
 
-// createTask
+// addTask
 
-export const createTask = (colonyClient, task) => ({
-  type: actions.CREATE_TASK,
+export const addTask = (colonyClient, task) => ({
+  type: actions.ADD_TASK,
   payload: (async () => {
 
     // Declare new task
@@ -114,8 +114,8 @@ export const createTask = (colonyClient, task) => ({
     // Set due date if provided
     if (task.dueDate) newTask.dueDate = new Date(task.dueDate)
 
-    // Create task
-    const tx = await colonyClient.createTask.send(newTask)
+    // Add Task
+    const tx = await colonyClient.addTask.send(newTask)
 
     // Check unsuccessful
     if (!tx.successful) {
@@ -132,20 +132,20 @@ export const createTask = (colonyClient, task) => ({
   .then(taskId => {
 
     store.dispatch(getTask(colonyClient, taskId))
-    store.dispatch(createTaskSuccess(true))
+    store.dispatch(addTaskSuccess(true))
   })
   .catch(error => {
-    store.dispatch(createTaskError(error.message))
+    store.dispatch(addTaskError(error.message))
   }),
 })
 
-export const createTaskError = (error) => ({
-  type: actions.CREATE_TASK_ERROR,
+export const addTaskError = (error) => ({
+  type: actions.ADD_TASK_ERROR,
   payload: error,
 })
 
-export const createTaskSuccess = (success) => ({
-  type: actions.CREATE_TASK_SUCCESS,
+export const addTaskSuccess = (success) => ({
+  type: actions.ADD_TASK_SUCCESS,
   payload: success,
 })
 
@@ -364,7 +364,7 @@ export const getTask = (colonyClient, taskId) => ({
     }
 
     // Get ratings
-    const ratings = await colonyClient.getTaskWorkRatings.call({ taskId })
+    const ratings = await colonyClient.getTaskWorkRatingSecretsInfo.call({ taskId })
 
     // Return task
     return {

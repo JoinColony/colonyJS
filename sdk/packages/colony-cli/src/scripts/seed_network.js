@@ -18,13 +18,13 @@ const privateKey = '0x0355596cdb5e5242ad082c4fe3f8bbe48c9dba843fe1f99dd8272f487e
   const metaColonyClient = await networkClient.getMetaColonyClient();
 
   // Add global skill
-  await metaColonyClient.addGlobalSkill.send({ parentSkillId: 1 });
+  await metaColonyClient.addGlobalSkill.send();
 
   // Add global skill
-  await metaColonyClient.addGlobalSkill.send({ parentSkillId: 1 });
+  await metaColonyClient.addGlobalSkill.send();
 
   // Add global skill
-  await metaColonyClient.addGlobalSkill.send({ parentSkillId: 1 });
+  await metaColonyClient.addGlobalSkill.send();
 
 })()
   .then(() => process.exit())

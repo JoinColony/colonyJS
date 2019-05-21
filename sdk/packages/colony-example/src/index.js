@@ -1,28 +1,25 @@
-// Import prerequisites
 const { EMPTY_ADDRESS } = require('@colony/colony-js-client');
-const BN = require('bn.js');
+const { BN } = require('web3-utils');
+
 const log = require('./helpers/log');
 
-// Import actions
 const addDomain = require('./actions/addDomain');
 const addGlobalSkill = require('./actions/addGlobalSkill');
 const claimColonyFunds = require('./actions/claimColonyFunds');
-const claimPayout = require('./actions/claimPayout');
+const claimTaskPayout = require('./actions/claimTaskPayout');
 const createColony = require('./actions/createColony');
-const createTask = require('./actions/createTask');
+const addTask = require('./actions/addTask');
 const createToken = require('./actions/createToken');
 const finalizeTask = require('./actions/finalizeTask');
 const getAccounts = require('./actions/getAccounts');
 const getColonyClient = require('./actions/getColonyClient');
 const getNetworkClient = require('./actions/getNetworkClient');
-const makePayment = require('./actions/makePayment');
 const mintTokens = require('./actions/mintTokens');
 const moveFundsBetweenPots = require('./actions/moveFundsBetweenPots');
 const openWallet = require('./actions/openWallet');
 const removeTaskEvaluatorRole = require('./actions/removeTaskEvaluatorRole');
 const revealTaskWorkRating = require('./actions/revealTaskWorkRating');
 const sendEther = require('./actions/sendEther');
-const setAdminRole = require('./actions/setAdminRole');
 const setTaskBrief = require('./actions/setTaskBrief');
 const setTaskDueDate = require('./actions/setTaskDueDate');
 const setTaskEvaluatorPayout = require('./actions/setTaskEvaluatorPayout');
@@ -50,9 +47,6 @@ const submitTaskWorkRating = require('./actions/submitTaskWorkRating');
 DATABASE = {
   operations: {},
 };
-
-// Set contract address for OneTxPayment contract
-const OneTxPayment = '0xA8DA163375713753Acc7e1D429c64F72b9412077';
 
 // Run example
 (async () => {
@@ -92,7 +86,9 @@ const OneTxPayment = '0xA8DA163375713753Acc7e1D429c64F72b9412077';
   // Create a token using the "createToken" example action.
   state.tokenAddress = await createToken(
     state.networkClient[0],         // networkClient
+    'Token',                        // name
     'TKN',                          // symbol
+    18,                             // decimals
   );
 
   log('account[0] createColony:');
@@ -124,7 +120,7 @@ const OneTxPayment = '0xA8DA163375713753Acc7e1D429c64F72b9412077';
   // Mint tokens using the "mintTokens" example action.
   await mintTokens(
     state.colonyClient[0],          // colonyClient
-    new BN('4000000000000000000'),  // amount
+    new BN('3000000000000000000'),  // amount
   );
 
   log('account[0] sendEther:');
@@ -133,7 +129,7 @@ const OneTxPayment = '0xA8DA163375713753Acc7e1D429c64F72b9412077';
   await sendEther(
     state.colonyClient[0],          // colonyClient
     state.colony.address,           // to
-    new BN('4000000000000000000'),  // amount
+    new BN('3000000000000000000'),  // amount
   );
 
   log('account[0] claimColonyFunds [ token ]:');
@@ -150,38 +146,6 @@ const OneTxPayment = '0xA8DA163375713753Acc7e1D429c64F72b9412077';
   await claimColonyFunds(
     state.colonyClient[0],          // colonyClient
     EMPTY_ADDRESS,                  // tokenAddress
-  );
-
-  log('account[0] setAdminRole:');
-
-  // Set an admin role using the "setAdminRole" example action.
-  await setAdminRole(
-    state.colonyClient[0],          // colonyClient
-    OneTxPayment,                   // user
-  );
-
-  log('account[0] makePayment [ token ]:');
-
-  // Make a payment using the "makePayment" example action.
-  await makePayment(
-    state.colonyClient[0],          // colonyClient
-    state.accounts[2][0],           // worker
-    state.tokenAddress,             // token
-    new BN('1000000000000000000'),  // amount
-    1,                              // domainId
-    1,                              // skillId
-  );
-
-  log('account[0] makePayment [ ether ]:');
-
-  // Make a payment using the "makePayment" example action.
-  await makePayment(
-    state.colonyClient[0],          // colonyClient
-    state.accounts[2][0],           // worker
-    EMPTY_ADDRESS,                  // token
-    new BN('1000000000000000000'),  // amount
-    1,                              // domainId
-    1,                              // skillId
   );
 
   log('account[0] addDomain:');
@@ -214,10 +178,10 @@ const OneTxPayment = '0xA8DA163375713753Acc7e1D429c64F72b9412077';
     EMPTY_ADDRESS,                  // token
   );
 
-  log('account[0] createTask:');
+  log('account[0] addTask:');
 
-  // Create a task using the "createTask" example action.
-  state.task = await createTask(
+  // Create a task using the "addTask" example action.
+  state.task = await addTask(
     state.colonyClient[0],          // colonyClient
     state.domain.id,                // domainId
     {
@@ -253,7 +217,6 @@ const OneTxPayment = '0xA8DA163375713753Acc7e1D429c64F72b9412077';
   // Add a global skill using the "addGlobalSkill" example action.
   state.skill = await addGlobalSkill(
     state.networkClient[0],         // networkClient
-    1,                              // parentSkillId
   );
 
   log('account[0] setTaskSkill:');
@@ -603,59 +566,59 @@ const OneTxPayment = '0xA8DA163375713753Acc7e1D429c64F72b9412077';
     state.task.id,                  // taskId
   );
 
-  log('account[0] claimPayout [ token ]:');
+  log('account[0] claimTaskPayout [ token ]:');
 
-  // Claim the manager payout using the "claimPayout" example action.
-  await claimPayout(
+  // Claim the manager payout using the "claimTaskPayout" example action.
+  await claimTaskPayout(
     state.colonyClient[0],          // colonyClient
     state.task.id,                  // taskId
     'MANAGER',                      // role
     state.tokenAddress,             // token
   );
 
-  log('account[0] claimPayout [ ether ]:');
+  log('account[0] claimTaskPayout [ ether ]:');
 
-  // Claim the manager payout using the "claimPayout" example action.
-  await claimPayout(
+  // Claim the manager payout using the "claimTaskPayout" example action.
+  await claimTaskPayout(
     state.colonyClient[0],          // colonyClient
     state.task.id,                  // taskId
     'MANAGER',                      // role
     EMPTY_ADDRESS,                  // token
   );
 
-  log('account[1] claimPayout [ token ]:');
+  log('account[1] claimTaskPayout [ token ]:');
 
-  // Claim the evaluator payout using the "claimPayout" example action.
-  await claimPayout(
+  // Claim the evaluator payout using the "claimTaskPayout" example action.
+  await claimTaskPayout(
     state.colonyClient[1],          // colonyClient
     state.task.id,                  // taskId
     'EVALUATOR',                    // role
     state.tokenAddress,             // token
   );
 
-  log('account[1] claimPayout [ ether ]:');
+  log('account[1] claimTaskPayout [ ether ]:');
 
-  // Claim the evaluator payout using the "claimPayout" example action.
-  await claimPayout(
+  // Claim the evaluator payout using the "claimTaskPayout" example action.
+  await claimTaskPayout(
     state.colonyClient[1],          // colonyClient
     state.task.id,                  // taskId
     'EVALUATOR',                    // role
     EMPTY_ADDRESS,                  // token
   );
 
-  log('account[2] claimPayout [ token ]:');
+  log('account[2] claimTaskPayout [ token ]:');
 
-  // Claim the worker payout using the "claimPayout" example action.
-  await claimPayout(
+  // Claim the worker payout using the "claimTaskPayout" example action.
+  await claimTaskPayout(
     state.colonyClient[2],          // colonyClient
     state.task.id,                  // taskId
     'WORKER',                       // role
     state.tokenAddress,             // token
   );
-  log('account[2] claimPayout [ ether ]:');
+  log('account[2] claimTaskPayout [ ether ]:');
 
-  // Claim the worker payout using the "claimPayout" example action.
-  await claimPayout(
+  // Claim the worker payout using the "claimTaskPayout" example action.
+  await claimTaskPayout(
     state.colonyClient[2],          // colonyClient
     state.task.id,                  // taskId
     'WORKER',                       // role

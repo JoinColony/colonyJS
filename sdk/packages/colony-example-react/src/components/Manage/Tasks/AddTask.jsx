@@ -1,18 +1,18 @@
 import React from 'react'
 import DomainSelector from '../../../containers/Manage/DomainSelector'
 import SkillSelector from '../../../containers/Manage/SkillSelector'
-import styles from './CreateTask.module.scss'
+import styles from './AddTask.module.scss'
 
-const CreateTask = ({
-  createTaskError,
-  createTaskLoading,
-  createTaskSuccess,
+const AddTask = ({
+  addTaskError,
+  addTaskLoading,
+  addTaskSuccess,
   handleChange,
   handleClick,
   task,
 }) => (
   <div className={styles.container}>
-    <h2>{'Create Task'}</h2>
+    <h2>{'Add Task'}</h2>
     <DomainSelector
       handleChange={handleChange}
       domainId={task.domainId}
@@ -59,17 +59,17 @@ const CreateTask = ({
     </div>
     <div className={styles.buttons}>
       <button onClick={handleClick}>
-        {'Create Task'}
+        {'Add Task'}
       </button>
     </div>
-    {createTaskError &&
+    {addTaskError &&
       <div className={styles.message}>
         <span className={styles.error}>
-          {createTaskError}
+          {addTaskError}
         </span>
       </div>
     }
-    {createTaskLoading &&
+    {addTaskLoading &&
       <div className={styles.message}>
         <span>
           {'loading...'}
@@ -79,4 +79,4 @@ const CreateTask = ({
   </div>
 )
 
-export default CreateTask
+export default AddTask
