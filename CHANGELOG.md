@@ -8,7 +8,8 @@ Also, please note that colonyJS is currently using `ethers` version `3.0.27`.
 
 **New Features**
 
-* Added `createTokenAuthority`method (`@colony/colony-js-client`)
+* Added `goerli` as a `getNetworkClient` option (`@colony/colony-js-client`)
+* Added `goerli` to network loader (`@colony/colony-js-contract-loader-network`)
 
 **Types**
 
@@ -223,7 +224,14 @@ Also, please note that colonyJS is currently using `ethers` version `3.0.27`.
 * Updated events in `ColonyNetworkClient` (`@colony/colony-js-client`)
   * Added `ColonyVersionAdded`
 
-* Updated `TokenClient` to reflect `colonyToken` contract (`@colony/colony-js-client`)
+* Updated caller methods in `TokenClient` (`@colony/colony-js-client`)
+  * Added `isLocked`
+
+* Updated sender methods in `TokenClient` (`@colony/colony-js-client`)
+  * Added `createTokenAuthority`
+  * Added `unlock`
+  * Updated `createToken`
+    * Require `name` and `decimals` input parameters.
 
 ## v1.11.2
 
