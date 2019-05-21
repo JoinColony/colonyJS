@@ -1,13 +1,33 @@
 {
     "name": "@colony/colony-js-adapter",
-    "version": "1.9.0",
+    "version": "1.12.0-beta.4",
     "description": "ColonyContract adapter interfaces",
-    "main": "index.js",
+    "keywords": [
+        "ethers",
+        "web3",
+        "colony",
+        "api"
+    ],
+    "homepage": "https://github.com/JoinColony/colonyJS#readme",
+    "bugs": {
+        "url": "https://github.com/JoinColony/colonyJS/issues"
+    },
+    "license": "MIT",
+    "contributors": [
+        "Christian Maniewski <chris@colony.io>",
+        "Curtis Olson <chris@colony.io>",
+        "Griffin Hotchkiss <griffin@colony.io>",
+        "James Lefrère <james@colony.io>",
+        "Raul Glogovetan <raul@colony.io>",
+        "Ryan Christofferson <ryan@colony.io>",
+        "Scott Street <scott@colony.io>"
+    ],
     "files": [
         "interface",
         "index.js",
         "README.md"
     ],
+    "main": "index.js",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/JoinColony/colonyJS.git"
@@ -18,28 +38,19 @@
         "precommit": "lint-staged"
     },
     "lint-staged": {
-        "./{,interface/}*": [
-            "lint --fix",
+        "interface/{,**/}*.js": [
+            "yarn lint --fix",
             "git add"
         ]
     },
-    "contributors": [
-        "Christian Maniewski <chris@colony.io>",
-        "James Lefrère <james@colony.io>"
-    ],
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/JoinColony/colonyJS/issues"
-    },
     "dependencies": {
-        "@colony/colony-js-contract-loader": "^1.8.1",
-        "bn.js": "^4.11.6"
+        "@colony/colony-js-contract-loader": "^1.12.0-beta.4",
+        "bn.js": "^4.11.8"
     },
     "devDependencies": {
-        "flow-bin": "^0.72.0"
+        "flow-bin": "^0.98.1"
     },
-    "homepage": "https://github.com/JoinColony/colonyJS#readme",
     "engines": {
-        "node": ">=8.6.0"
+        "node": ">=10.12.0 <12.0.0"
     }
 }

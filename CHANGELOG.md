@@ -1,6 +1,239 @@
 # Changelog
 
-## v1.11.2
+## next
+
+This release implements significant changes and additions that enables support for the colonyNetwork [glider-rc.1](https://github.com/JoinColony/colonyNetwork/releases/tag/glider-rc.1) release. Please do not hesitate to reach out to us on [Discourse](https://build.colony.io/c/support) or [Gitter](https://gitter.im/JoinColony/colonyJS) if you are having any issues updating to this release.
+
+Also, please note that colonyJS is currently using `ethers` version `3.0.27`.
+
+**New Features**
+
+* Added `goerli` as a `getNetworkClient` option (`@colony/colony-js-client`)
+* Added `goerli` to network loader (`@colony/colony-js-contract-loader-network`)
+
+**Types**
+
+* Added `[number]` param type (`@colony/colony-js-contract-client`)
+* Renamed `tokenAddress` param type to `anyAddress` to better reflect its uses (`@colony/colony-js-contract-client`)
+
+**Maintenance**
+
+* Updated constants (`@colony/colony-js-client`)
+  * Added `COLONY_ROLE_ADMINISTRATION`
+  * Added `COLONY_ROLE_ARBITRATION`
+  * Added `COLONY_ROLE_ARCHITECTURE`
+  * Added `COLONY_ROLE_ARCHITECTURE_SUBDOMAIN`
+  * Added `COLONY_ROLE_FUNDING`
+  * Added `COLONY_ROLE_RECOVERY`
+  * Added `COLONY_ROLE_ROOT`
+  * Added `COLONY_ROLES`
+  * Added `ETHER_ADDRESS`
+  * Added `FUNDING_POT_TYPE_DOMAIN`
+  * Added `FUNDING_POT_TYPE_PAYMENT`
+  * Added `FUNDING_POT_TYPE_TASK`
+  * Added `FUNDING_POT_TYPE_UNASSIGNED`
+  * Added `FUNDING_POT_TYPES`
+  * Added `TASK_RATING_NONE`
+  * Added `TASK_RATING_UNSATISFACTORY`
+  * Added `TASK_RATING_SATISFACTORY`
+  * Added `TASK_RATING_EXCELLENT`
+  * Added `TASK_RATINGS`
+  * Added `TASK_ROLE_EVALUATOR`
+  * Added `TASK_ROLE_MANAGER`
+  * Added `TASK_ROLE_WORKER`
+  * Added `TASK_ROLES`
+  * Removed `FOUNDER_ROLE`
+    * `FOUNDER_ROLE` has been deprecated in favor of the new colony roles. When using the `setFounderRole` method provided by the `OldRoles.sol` extension contract, the following colony roles will be applied:
+      * `COLONY_ROLE_ROOT`
+      * `COLONY_ROLE_ARCHITECTURE`
+      * `COLONY_ROLE_FUNDING`
+      * `COLONY_ROLE_ADMINISTRATION`
+  * Removed `ADMIN_ROLE`
+    * `ADMIN_ROLE` has been deprecated in favor of the new colony roles. When using the `setAdminRole` method provided by the `OldRoles.sol` extension contract, the following colony roles will be applied:
+      * `COLONY_ROLE_ARCHITECTURE`
+      * `COLONY_ROLE_FUNDING`
+      * `COLONY_ROLE_ADMINISTRATION`
+  * Removed `AUTHORITY_ROLES`
+    * `AUTHORITY_ROLES` has been replaced by `COLONY_ROLES`
+  * Removed `MANAGER_ROLE`
+    * `MANAGER_ROLE` has been replaced with `TASK_ROLE_MANAGER`
+  * Removed `EVALUATOR_ROLE`
+    * `EVALUATOR_ROLE` has been replaced with `TASK_ROLE_EVALUATOR`
+  * Removed `WORKER_ROLE`
+    * `WORKER_ROLE` has been replaced with `TASK_ROLE_WORKER`
+  * Removed `ACTIVE_TASK_STATUS`
+    * `ACTIVE_TASK_STATUS` has been replaced with `TASK_STATUS_ACTIVE`
+  * Removed `CANCELLED_TASK_STATUS`
+    * `CANCELLED_TASK_STATUS` has been replaced with `TASK_STATUS_CANCELLED`
+  * Removed `FINALIZED_TASK_STATUS`
+    * `FINALIZED_TASK_STATUS` has been replaced with `TASK_STATUS_FINALIZED`
+  * Updated `TASK_ROLES`
+    * `TASK_ROLES` has been updated to use the following reformatted constants:
+      * `TASK_ROLE_MANAGER`
+      * `TASK_ROLE_EVALUATOR`
+      * `TASK_ROLE_WORKER`
+
+* Updated caller methods in `ColonyClient` (`@colony/colony-js-client`)
+  * Added `getAuthorityAddress`
+  * Added `getColonyNetworkAddress`
+  * Added `getExtensionAddress`
+  * Added `getFundingPotPayout`
+  * Added `getOwnerAddress`
+  * Added `getPayment`
+  * Added `getPaymentCount`
+  * Added `getTaskWorkRatingSecretsInfo`
+  * Added `getTokenAddress`
+  * Added `hasColonyRole`
+  * Added `verifyReputationProof`
+  * Removed `getAuthority`
+    * `getAuthorityAddress` has replaced `getAuthority`.
+  * Removed `getTaskWorkRatings`
+    * `getTaskWorkRatingSecretsInfo` has replaced `getTaskWorkRatings`.
+  * Removed `getToken`
+    * `getTokenAddress` has replaced `getToken`.
+  * Removed `getTotalTaskPayout`
+    * `getFundingPotPayout` has replaced `getTotalTaskPayout`.
+  * Removed `hasUserRole`
+    * `hasColonyRole` has replaced `hasUserRole`. `hasColonyRole` uses `address` instead of `user` as an input parameter and adds `domainId`.
+  * Updated `getDomain`
+    * Changed `localSkillId` output parameter to `skillId`.
+  * Updated `getFundingPot`
+    * Changed `associatedType` output parameter to `type`.
+    * Changed `associatedTypeId` output parameter to `typeId`.
+    * Added `payoutsWeCannotMake` output parameter.
+  * Updated `getRewardPayoutInfo`
+    * Updated output parameters based on the new `RewardPayoutCycle` struct.
+  * Updated `getTask`
+    * Removed `payoutsWeCannotMake` output parameter.
+
+* Updated sender methods in `ColonyClient` (`@colony/colony-js-client`)
+  * Added `addExtension`
+  * Added `addNetworkColonyVersion` (MetaColony)
+  * Added `addPayment`
+  * Added `addTask`
+  * Added `claimPayment`
+  * Added `claimTaskPayout`
+  * Added `claimRewardPayout`
+  * Added `deprecateGlobalSkill` (MetaColony)
+  * Added `finalizePayment`
+  * Added `removeExtension`
+  * Added `setAdministrationRole`
+  * Added `setArchitectureRole`
+  * Added `setFundingRole`
+  * Added `setPaymentDomain`
+  * Added `setPaymentPayout`
+  * Added `setPaymentRecipient`
+  * Added `setPaymentSkill`
+  * Added `setRootRole`
+  * Removed `claimPayout`
+    * See `claimPayment` and `claimTaskPayout` for more information.
+  * Removed `createTask`
+    * `addTask` has replaced `createTask` for consistency.
+  * Removed `removeAdminRole` (See `setAdminRole`)
+  * Updated `addGlobalSkill`
+    * Removed `parentSkillId` as an input parameter. Global skills no longer exist within a skills tree and always use `0` for the `parentSkillId`.
+  * Updated `bootstrapColony`
+    * Changed `users` input parameter to `addresses`.
+  * Updated `makePayment`
+    * Changed `worker` input parameter to `recipient`.
+  * Updated `removeRecoveryRole`
+    * Changed `user` input parameter to `address`.
+  * Updated `setRecoveryRole`
+    * Changed `user` input parameter to `address`.
+  * Updated `setAdminRole`
+    * `setAdminRole` is now connected to the `OldRoles` extension contract.
+    * Changed `user` input parameter to `address`.
+    * Added `setTo` input parameter.
+  * Updated `setFounderRole`
+    * `setAdminRole` is now connected to the `OldRoles` extension contract.
+    * Changed `user` input parameter to `address`.
+  * Updated `setTaskEvaluatorRole`
+    * Changed `user` input parameter to `address`.
+  * Updated `setTaskManagerRole`
+    * Changed `user` input parameter to `address`.
+  * Updated `setTaskWorkerRole`
+    * Changed `user` input parameter to `address`.
+  * Updated `startNextRewardPayout`
+    * Added `key` input parameter.
+    * Added `value` input parameter.
+    * Added `branchMask` input parameter.
+    * Added `siblings` input parameter.
+
+* Updated events in `ColonyClient` (`@colony/colony-js-client`)
+  * Added `ColonyAdministrationRoleSet`
+  * Added `ColonyArchitectureRoleSet`
+  * Added `ColonyFundingRoleSet`
+  * Added `ColonyRootRoleSet`
+  * Added `ColonyVersionAdded`
+  * Added `PaymentAdded`
+  * Added `PayoutClaimed`
+  * Removed `ColonyAdminRoleRemoved`
+    * `ColonyAdministrationRoleSet` has replaced `ColonyAdminRoleRemoved`.
+    * `ColonyAdministrationRoleSet` changes `user` parameter to `address`.
+    * `ColonyAdministrationRoleSet` adds `setTo` parameter.
+  * Removed `ColonyAdminRoleSet`
+    * `ColonyAdministrationRoleSet` has replaced `ColonyAdminRoleRemoved`.
+    * `ColonyAdministrationRoleSet` changes `user` parameter to `address`.
+    * `ColonyAdministrationRoleSet` adds `setTo` parameter.
+  * Removed `ColonyFounderRoleSet`
+    * `ColonyRootRoleSet` has replaced `ColonyFounderRoleSet`.
+    * `ColonyRootRoleSet` changes `user` parameter to `address`.
+    * `ColonyRootRoleSet` adds `setTo` parameter.
+  * Removed `TaskPayoutClaimed`
+    * `PayoutClaimed` has replaced `TaskPayoutClaimed`.
+  * Updated `ColonyBootstrapped`
+    * Changed `users` parameter to `addresses`.
+  * Updated `ColonyInitialised`
+    * Added `token` parameter.
+
+* Updated caller methods in `ColonyNetworkClient` (`@colony/colony-js-client`)
+  * Added `calculateMinerWeight`
+  * Added `getENSRegistrarAddress`
+  * Added `getMiningResolverAddress`
+  * Added `getReplacementReputationUpdateLogEntry`
+  * Added `getReputationMiningCycle`
+  * Added `getReputationMiningSkillId`
+  * Added `getReputationRootHash`
+  * Added `getReputationRootHashNodeCount`
+  * Added `getTokenLockingAddress`
+  * Removed `getRootGlobalSkillId`
+    * `getReputationMiningSkillId` has replaced `getRootGlobalSkillId`.
+  * Removed `getTokenLocking`
+    * `getTokenLockingAddress` has replaced `getTokenLocking`.
+    * `getTokenLockingAddress` changes `lockingAddress` parameter to `address`.
+  * Updated `getSkill`
+    * Added `parents` output parameter.
+    * Added `children` output parameter.
+
+* Updated sender methods in `ColonyNetworkClient` (`@colony/colony-js-client`)
+  * Added `appendReputationUpdateLog`
+  * Added `deprecateSkill`
+  * Added `initialiseReputationMining`
+  * Added `registerColonyLabel`
+  * Added `setMiningResolver`
+  * Added `setReplacementReputationUpdateLogEntry`
+  * Added `setReputationRootHash`
+  * Added `startNextMiningCycle`
+  * Updated `addSkill`
+    * Removed `globalSkill` input parameter.
+  * Updated `removeRecoveryRole`
+    * Changed `user` input parameter to `address`.
+  * Updated `setRecoveryRole`
+    * Changed `user` input parameter to `address`.
+
+* Updated events in `ColonyNetworkClient` (`@colony/colony-js-client`)
+  * Added `ColonyVersionAdded`
+
+* Updated caller methods in `TokenClient` (`@colony/colony-js-client`)
+  * Added `isLocked`
+
+* Updated sender methods in `TokenClient` (`@colony/colony-js-client`)
+  * Added `createTokenAuthority`
+  * Added `unlock`
+  * Updated `createToken`
+    * Require `name` and `decimals` input parameters.
+
+## v1.11.2
 
 **Bug Fixes**
 

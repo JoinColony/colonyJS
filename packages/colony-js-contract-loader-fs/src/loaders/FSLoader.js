@@ -17,6 +17,7 @@ const ContractLoader = require('@colony/colony-js-contract-loader').default;
 
 class FSLoader extends ContractLoader implements IContractLoader {
   _network: ?string;
+
   _contractDir: string;
 
   constructor({ contractDir, transform }: ConstructorArgs = {}) {
@@ -27,6 +28,7 @@ class FSLoader extends ContractLoader implements IContractLoader {
     );
     this._contractDir = contractDir;
   }
+
   async _load(
     query: Query = {},
     requiredProps?: RequiredContractProps,

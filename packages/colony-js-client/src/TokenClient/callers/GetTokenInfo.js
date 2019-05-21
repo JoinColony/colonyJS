@@ -26,6 +26,7 @@ export default class GetTokenInfo extends ContractClient.Caller<
       ...params,
     });
   }
+
   async call() {
     const name = await this.getValueFor('name');
     const symbol = await this.getValueFor('symbol');
@@ -35,6 +36,7 @@ export default class GetTokenInfo extends ContractClient.Caller<
 
     return this.convertOutputValues(callResult);
   }
+
   async getValueFor(prop: string) {
     let data;
     try {

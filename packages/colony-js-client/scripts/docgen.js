@@ -8,21 +8,25 @@ const types = require('ast-types');
 
 const CONTRACT_CLIENTS = [
   {
+    client: 'colonyClient',
     file: path.resolve(__dirname, '..', 'src', 'ColonyClient', 'index.js'),
     templateFile: path.resolve(__dirname, '..', 'docs', '_API_ColonyClient.template.md'),
     output: path.resolve(__dirname, '..', '..', '..', 'docs', '_API_ColonyClient.md'),
   },
   {
+    client: 'colonyNetworkClient',
     file: path.resolve(__dirname, '..', 'src', 'ColonyNetworkClient', 'index.js'),
     templateFile: path.resolve(__dirname, '..', 'docs', '_API_ColonyNetworkClient.template.md'),
     output: path.resolve(__dirname, '..', '..', '..', 'docs', '_API_ColonyNetworkClient.md'),
   },
   {
+    client: 'tokenClient',
     file: path.resolve(__dirname, '..', 'src', 'TokenClient', 'index.js'),
     templateFile: path.resolve(__dirname, '..', 'docs', '_API_TokenClient.template.md'),
     output: path.resolve(__dirname, '..', '..', '..', 'docs', '_API_TokenClient.md'),
   },
   {
+    client: 'tokenLockingClient',
     file: path.resolve(__dirname, '..', 'src', 'TokenLockingClient', 'index.js'),
     templateFile: path.resolve(__dirname, '..', 'docs', '_API_TokenLockingClient.template.md'),
     output: path.resolve(__dirname, '..', '..', '..', 'docs', '_API_TokenLockingClient.md'),
@@ -30,22 +34,22 @@ const CONTRACT_CLIENTS = [
 ];
 
 const TYPES = {
-  BooleanTypeAnnotation: 'boolean',
   Address: 'address',
+  AnyAddress: 'address (0x0 included)',
   Array: 'array',
   AuthorityRole: 'authority role',
   BigNumber: 'big number',
+  BooleanTypeAnnotation: 'boolean',
   Date: 'date',
+  HexString: 'hex string',
   IPFSHash: 'IPFS hash',
   NumberTypeAnnotation: 'number',
   StringTypeAnnotation: 'string',
   TaskRole: 'task role',
   TaskStatus: 'task status',
-  TokenAddress: 'address',
-  HexString: 'hex string',
 };
 
-const generateMarkdown = ({ file, templateFile, output }) => {
+const generateMarkdown = ({ client, file, templateFile, output }) => {
   const ast = parser.parse(fs.readFileSync(file).toString());
 
   const callers = [];
@@ -59,6 +63,7 @@ const generateMarkdown = ({ file, templateFile, output }) => {
         const { params } = p.parent.value.typeParameters;
 
         callers.push({
+          client,
           name: getName(p),
           description: getDescription(ast, p),
           args: mapObjectProps(ast, params[0]),
@@ -70,6 +75,7 @@ const generateMarkdown = ({ file, templateFile, output }) => {
         const { params } = p.parent.value.typeParameters;
 
         senders.push({
+          client,
           name: getName(p),
           description: getDescription(ast, p),
           args: mapObjectProps(ast, params[0]),
@@ -81,6 +87,7 @@ const generateMarkdown = ({ file, templateFile, output }) => {
         const { params } = p.parent.value.typeParameters;
 
         multisig.push({
+          client,
           name: getName(p),
           description: getDescription(ast, p),
           args: mapObjectProps(ast, params[0]),
@@ -92,6 +99,7 @@ const generateMarkdown = ({ file, templateFile, output }) => {
         const { params } = p.parent.value.typeParameters;
 
         events.push({
+          client,
           name: getEventName(p),
           description: getDescription(ast, p),
           args: mapObjectProps(ast, params[0]),
@@ -122,23 +130,27 @@ function printCallers(callers) {
   return `
 ## Callers
 
-**All callers return promises which resolve to an object containing the given return values.**.
 ` +
     callers
       .map(
         caller => `
-### \`${caller.name}.call(${printArgs(caller.args, false)})\`
+### \`${caller.name}\`
 
 ${caller.description}
-${caller.args && caller.args.length ? '\n#### Arguments\n\n' : ''}${printProps('Argument', caller.args)}
 
-#### Return Values
+\`\`\`js
+await ${caller.client}.${caller.name}.call(${printArgs(caller.args, false)});
+\`\`\`
+
+${caller.args && caller.args.length ? '\n**Input**\n\n' : ''}${printProps(caller.args)}
+
+**Response**
 
 A promise which resolves to an object containing the following properties:
 
-${printProps('Return Value', caller.returns)}
+${printProps(caller.returns)}
 
-#### Contract Information
+**Contract Information**
 
 ${printContractData(caller.contractData)}
 `,
@@ -152,51 +164,47 @@ function printSenders(senders, events) {
   return `
 ## Senders
 
-**All senders return an instance of a \`ContractResponse\`.** Every \`send()\` method takes an \`options\` object as the second argument.` +
+` +
     senders
       .map(
         sender => `
-### \`${sender.name}.send(${printArgs(sender.args, true)})\`
+### \`${sender.name}\`
 
 ${sender.description}
-${sender.args && sender.args.length ? '\n#### Arguments\n\n' : ''}${printProps('Argument', sender.args)}
 
-#### Response
+\`\`\`js
+await ${sender.client}.${sender.name}.send(${printArgs(sender.args, true)});
+\`\`\`
+
+${sender.args && sender.args.length ? '\n**Input**\n\n' : ''}${printProps(sender.args)}
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
 
 An instance of a \`ContractResponse\`${
   // XXX If this gets even more complicated, find another way!
-  sender.name === 'createToken'
-    ? ' which will receive a receipt with a \`contractAddress\` property (the address of the newly-deployed contract)'
+  sender.name === 'createToken' || sender.name === 'createTokenAuthority'
+    ? ' which will receive a receipt with a \`contractAddress\` property.'
     : (
         sender.events && sender.events.length
           ? ' which will eventually receive the following event data:'
-          : ''
+          : '.'
       )
 }
 
-${printProps('Event Data', getEventProps(events, sender.events))}
+${printProps(getEventProps(events, sender.events))}
 
-#### Contract Information
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about \`ContractResponse\`.
+
+**Contract Information**
 
 ${printContractData(sender.contractData)}
 `,
     )
     .join('');
-}
-
-
-function printEvents(events) {
-  if (!events.length) return '';
-  return `
-## Events
-
-` + events.map(event => `
-### \`events.${event.name}.addListener((${printArgs(event.args)}) => { /* ... */ })\`
-
-${event.description}
-${event.args && event.args.length ? '\n#### Arguments\n\n' : ''}${printProps('Argument', event.args)}
-
-`).join('');
 }
 
 function printMultiSig(multisig, events) {
@@ -205,27 +213,69 @@ function printMultiSig(multisig, events) {
   return `
 ## MultiSigSenders
 
-**All MultiSig functions return an instance of a \`MultiSigOperation\`.**` +
+` +
     multisig
       .map(
         ms => `
-### \`${ms.name}.startOperation(${printArgs(ms.args, false)})\`
+### \`${ms.name}\`
 
 ${ms.description}
-${ms.args && ms.args.length ? '\n#### Arguments\n\n' : ''}${printProps('Argument', ms.args)}
 
-#### Response
+\`\`\`js
+await ${ms.client}.${ms.name}.startOperation(${printArgs(ms.args, false)});
+\`\`\`
 
-An instance of a \`MultiSigOperation\`${ms.events && ms.events.length ? ' whose sender will eventually receive the following event data:' : ''}
+${ms.args && ms.args.length ? '\n**Input**\n\n' : ''}${printProps(ms.args)}
 
-${printProps('Event Data', getEventProps(events, ms.events))}
+**Response**
 
-#### Contract Information
+An instance of a \`MultiSigOperation\`${ms.events && ms.events.length ? ' whose sender will eventually receive the following event data:' : '.'}
+
+${printProps(getEventProps(events, ms.events))}
+
+See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
+
+**Contract Information**
 
 ${printContractData(ms.contractData)}
 `,
     )
     .join('');
+}
+
+function printEvents(events) {
+  if (!events.length) return '';
+  return `
+## Events
+
+` + events.map(event => `
+### \`${event.name}\`
+
+**Event Handler**
+
+\`\`\`js
+const eventHandler = (${printArgs(event.args)}) => {
+  // perform an action using the event data
+};
+\`\`\`
+
+**Add Listener**
+
+\`\`\`js
+${event.client}.events.${event.name}.addListener(eventHandler);
+\`\`\`
+
+**Remove Listener**
+
+\`\`\`js
+${event.client}.events.${event.name}.removeListener(eventHandler);
+\`\`\`
+
+${event.description}
+
+${event.args && event.args.length ? '\n**Event Data**\n\n' : ''}${printProps(event.args)}
+
+`).join('');
 }
 
 function printContractData(data) {
@@ -238,9 +288,9 @@ function printContractData(data) {
   `
 }
 
-function printProps(title, props) {
+function printProps(props) {
   if (props && props.length) {
-    return `|${title}|Type|Description|
+    return `|Name|Type|Description|
 |---|---|---|
 ${props
       .map(param => `|${param.name}|${param.type}|${param.description}|`)
@@ -269,7 +319,10 @@ function getEventProps(contractEvents, methodEvents) {
 
 function printArgs(args, withOpts) {
   if (args && args.length) {
-    return `{ ${args.map(arg => arg.name).join(', ')} }${withOpts ? ', options' : ''}`;
+    return `{
+  ${args.map(arg => arg.name).join(`,
+  `)},
+}${withOpts ? ', options' : ''}`;
   }
   return withOpts ? 'options' : '';
 }
@@ -313,7 +366,7 @@ function getEventName(p) {
 
 function getNestedEventDescription(event) {
   const args = printArgs(event.args).toLowerCase().replace(/\s/g, '').replace(/\W/g, '-');
-  return `Contains the data defined in [${event.name}](#events${event.name.toLowerCase()}addlistener${args}------)`;
+  return `Contains the data defined in [${event.name}](#events${event.name.toLowerCase()})`;
 }
 
 function formatDescription(str) {

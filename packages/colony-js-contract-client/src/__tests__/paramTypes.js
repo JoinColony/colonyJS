@@ -37,21 +37,21 @@ describe('Parameter types', () => {
     const etherFull = '0x0000000000000000000000000000000000000000';
 
     // Validation
-    expect(validateValueType(validAddress, 'tokenAddress')).toBe(true);
-    expect(validateValueType(etherShort, 'tokenAddress')).toBe(true);
-    expect(validateValueType(etherFull, 'tokenAddress')).toBe(true);
+    expect(validateValueType(validAddress, 'anyAddress')).toBe(true);
+    expect(validateValueType(etherShort, 'anyAddress')).toBe(true);
+    expect(validateValueType(etherFull, 'anyAddress')).toBe(true);
 
     // Converting output values
-    expect(convertOutputValue(validAddress, 'tokenAddress')).toBe(validAddress);
-    expect(convertOutputValue(etherShort, 'tokenAddress')).toBe(etherFull);
-    expect(convertOutputValue(etherFull, 'tokenAddress')).toBe(etherFull);
+    expect(convertOutputValue(validAddress, 'anyAddress')).toBe(validAddress);
+    expect(convertOutputValue(etherShort, 'anyAddress')).toBe(etherFull);
+    expect(convertOutputValue(etherFull, 'anyAddress')).toBe(etherFull);
 
-    expect(convertOutputValue(null, 'tokenAddress')).toBe(null);
+    expect(convertOutputValue(null, 'anyAddress')).toBe(null);
 
     // Converting input values
-    expect(convertInputValue(validAddress, 'tokenAddress')).toBe(validAddress);
-    expect(convertInputValue(etherShort, 'tokenAddress')).toBe(etherFull);
-    expect(convertInputValue(etherFull, 'tokenAddress')).toBe(etherFull);
+    expect(convertInputValue(validAddress, 'anyAddress')).toBe(validAddress);
+    expect(convertInputValue(etherShort, 'anyAddress')).toBe(etherFull);
+    expect(convertInputValue(etherFull, 'anyAddress')).toBe(etherFull);
   });
 
   test('BigNumbers are handled properly', () => {

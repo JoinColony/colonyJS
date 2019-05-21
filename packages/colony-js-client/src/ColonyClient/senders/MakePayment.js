@@ -1,41 +1,34 @@
 /* @flow */
+/* eslint-disable import/no-cycle */
 
-import ContractClient from '@colony/colony-js-contract-client';
+import DomainAuth from './DomainAuth';
 
-import type BigNumber from 'bn.js';
-import type ColonyClient from '../index';
+export default class MakePayment extends DomainAuth<*, *, *> {
+  async estimate(inputValues: *) {
+    const args = this.getValidatedArgs(inputValues);
+    const contract = await this._getContract();
+    return contract.callEstimate('makePayment', args);
+  }
 
-type Address = string;
-type TokenAddress = string;
-
-type InputValues = {
-  worker: Address,
-  token: TokenAddress,
-  amount: BigNumber,
-  domainId: number,
-  skillId: number,
-};
-
-type OutputValues = {
-  id: number,
-};
-
-export default class MakePayment extends ContractClient.Sender<
-  InputValues,
-  OutputValues,
-  ColonyClient,
-  *,
-> {
   async _sendTransaction(args: *, options: *) {
-    const oneTxContract = await this.client.adapter.getContract({
-      // There should only ever be one `OneTxPayment` contract
+    const contract = await this._getContract();
+    return contract.callTransaction('makePayment', args, options);
+  }
+
+  async _getContract() {
+    const factoryContract = await this.client.adapter.getContract({
+      contractName: 'OneTxPaymentFactory',
+    });
+    const contractAddress = await factoryContract.callConstant(
+      'deployedExtensions',
+      [this.client.contract.address],
+    );
+    if (!contractAddress)
+      throw new Error('OneTxPayment not deployed for this Colony');
+    const contract = await this.client.adapter.getContract({
+      contractAddress,
       contractName: 'OneTxPayment',
     });
-    return oneTxContract.callTransaction(
-      'makePayment',
-      // The first argument must be the colony address
-      [this.client.contract.address, ...args],
-      options,
-    );
+    return contract;
   }
 }

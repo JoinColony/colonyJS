@@ -1,8 +1,28 @@
 {
     "private": true,
+    "workspaces": [
+        "packages/*"
+    ],
+    "contributors": [
+        "Christian Maniewski <chris@colony.io>",
+        "Curtis Olson <chris@colony.io>",
+        "Griffin Hotchkiss <griffin@colony.io>",
+        "James Lefrère <james@colony.io>",
+        "Raul Glogovetan <raul@colony.io>",
+        "Ryan Christofferson <ryan@colony.io>",
+        "Scott Street <scott@colony.io>"
+    ],
+    "scripts": {
+        "build": "lerna run build",
+        "lint": "run(){ eslint --ignore-pattern=**/{node_modules,dist,lib}/* --fix ${@:-\"packages/**/src/{,**/}*.js\"}; }; run",
+        "precommit": "lerna run --concurrency 1 --stream precommit && yarn --cwd packages/colony-js-client build:docs && git add docs",
+        "provision": "git submodule update --init --recursive",
+        "release": "lerna run test && lerna run build && lerna publish",
+        "test": "flow check && lerna run test"
+    },
     "devDependencies": {
-        "@colony/eslint-config-colony": "^4.0.0",
-        "ast-types": "^0.11.3",
+        "@colony/eslint-config-colony": "^7.0.0",
+        "ast-types": "^0.12.4",
         "babel-cli": "^6.26.0",
         "babel-core": "^6.26.0",
         "babel-eslint": "^8.0.2",
@@ -13,42 +33,22 @@
         "babel-plugin-transform-runtime": "^6.23.0",
         "babel-preset-env": "^1.6.1",
         "babel-preset-flow": "^6.23.0",
-        "eslint": "^4.17.0",
-        "eslint-config-airbnb-base": "^12.1.0",
-        "eslint-config-prettier": "^2.9.0",
+        "eslint": "^5.16.0",
+        "eslint-config-airbnb-base": "^13.1.0",
+        "eslint-config-prettier": "^4.2.0",
         "eslint-import-resolver-jest": "^2.1.1",
-        "eslint-plugin-flowtype": "^2.44.0",
-        "eslint-plugin-import": "^2.8.0",
-        "eslint-plugin-prettier": "^2.6.0",
-        "flow-bin": "^0.75.0",
-        "flow-copy-source": "^1.2.1",
-        "flow-parser": "^0.75.0",
-        "husky": "^0.14.3",
-        "lerna": "^2.5.1",
-        "lint-staged": "^6.1.1",
-        "prettier": "^1.10.2",
-        "shx": "^0.2.2"
+        "eslint-plugin-flowtype": "^3.8.2",
+        "eslint-plugin-import": "^2.17.2",
+        "eslint-plugin-prettier": "^3.1.0",
+        "flow-bin": "^0.98.1",
+        "flow-copy-source": "^2.0.6",
+        "flow-parser": "^0.98.1",
+        "lerna": "^3.14.1",
+        "lint-staged": "^8.1.7",
+        "prettier": "^1.17.1",
+        "shx": "^0.3.2"
     },
-    "contributors": [
-        "Christian Maniewski <chris@colony.io>",
-        "Griffin Hotchkiss <griffin@colony.io>",
-        "James Lefrère <james@colony.io>",
-        "Jan Kaßel <jan@colony.io>",
-        "Raul Glogovetan <raul@colony.io>",
-        "Ryan Christofferson <ryan@colony.io>"
-    ],
-    "scripts": {
-        "build": "lerna run build",
-        "lint": "run(){ eslint --ignore-pattern=**/{node_modules,dist,lib}/* --fix ${@:-\"packages/**/src/{,**/}*.js\"}; }; run",
-        "precommit": "lerna run --concurrency 1 --stream precommit",
-        "provision": "git submodule update --init --recursive",
-        "release": "lerna run test && lerna run build && lerna publish",
-        "test": "flow check && lerna run test"
-    },
-    "workspaces": [
-        "packages/*"
-    ],
     "engines": {
-        "node": ">=8.2.1"
+        "node": ">=10.12.0 <12.0.0"
     }
 }

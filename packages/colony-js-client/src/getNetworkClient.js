@@ -1,4 +1,5 @@
 /* @flow */
+/* eslint-disable import/no-cycle */
 
 import { providers } from 'ethers';
 import EthersAdapter from '@colony/colony-js-adapter-ethers';
@@ -7,10 +8,53 @@ import { TrufflepigLoader } from '@colony/colony-js-contract-loader-http';
 import ColonyNetworkClient from './ColonyNetworkClient/index';
 import EthersWrappedWallet from './lib/EthersWrappedWallet/index';
 
+export const defaultInfuraProjectId = '7d0d81d0919f4f05b9ab6634be01ee73';
+
+// Adapted from Ethers 4.0 to include support for Goerli
+const getInfuraProvider = (network: string, infuraProjectId?: string) => {
+  let host;
+  switch (network) {
+    case 'homestead':
+      host = 'mainnet.infura.io';
+      break;
+    case 'ropsten':
+      host = 'ropsten.infura.io';
+      break;
+    case 'rinkeby':
+      host = 'rinkeby.infura.io';
+      break;
+    case 'goerli':
+      host = 'goerli.infura.io';
+      break;
+    case 'kovan':
+      host = 'kovan.infura.io';
+      break;
+    default:
+      throw new Error(
+        `Could not get provider, unsupported network: ${network}`,
+      );
+  }
+
+  return new providers.JsonRpcProvider(
+    `https://${host}/v3/${infuraProjectId || defaultInfuraProjectId}`,
+    network === 'goerli'
+      ? {
+          chainId: 5,
+          ensAddress: '0x112234455c3a32fd11230c42e7bccd4a84e02010',
+          name: 'goerli',
+        }
+      : network,
+  );
+};
+
 // This method provides a simple way of getting an initialized network client
 // that uses NetworkLoader for the remote network and TrufflePigLoader for a
 // local testrpc network (TrufflePig must be installed and running).
-const getNetworkClient = async (network: string, wallet: any) => {
+const getNetworkClient = async (
+  network: string,
+  wallet: any,
+  infuraProjectId?: string,
+) => {
   let loader;
   let provider;
 
@@ -26,7 +70,7 @@ const getNetworkClient = async (network: string, wallet: any) => {
     provider = new providers.JsonRpcProvider();
   } else {
     loader = new NetworkLoader({ network });
-    provider = providers.getDefaultProvider(network);
+    provider = getInfuraProvider(network, infuraProjectId);
   }
 
   // Use EthersWrappedWallet if purser wallet

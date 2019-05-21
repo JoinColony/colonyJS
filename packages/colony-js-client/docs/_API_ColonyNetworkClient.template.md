@@ -6,62 +6,82 @@ order: 2
 
 The `ColonyNetworkClient` is a standard interface for interactions with methods and events described in `IColonyNetwork.sol`. These interactions are generally concerned with the colony network as a whole. This includes operations like getting a count of all colonies on the network, querying for information about a skill, or registering an ENS label for a user.
 
-See [Clients](/colonyjs/components-clients) for information about initializing `ColonyNetworkClient`.
+See [Clients](/colonyjs/components-clients) for more information about initializing `ColonyNetworkClient`.
 
-==TOC==
+See [ContractClient](/colonyjs/api-contractclient) for more information about the `ContractClient` superclass.
 
 ## Instance methods
 
-**All instance methods return promises.**
-
-### `getColonyAddress(id)`
+### `getColonyAddress`
 
 Get the address of a Colony for the specified id of a deployed colony contract.
 
-#### Arguments
+```js
 
-|Argument|Type|Description|
+await colonyNetwork.getColonyAddress(id);
+
+```
+
+**Input**
+
+|Property|Type|Description|
 |---|---|---|
-|key|string|Name of the Colony to get|
-|id|number|Integer number of the Colony|
+|id|number|The id of the colony|
 
-#### Response
+**Response**
 
 `Promise<Address>`. The address of the given Colony contract
 
-### `getColonyClient(id)`
+### `getColonyClient`
 
 Returns an initialized ColonyClient for the specified id of a deployed colony contract.
 
-#### Arguments
+```js
 
-|Argument|Type|Description|
+await colonyNetwork.getColonyClient(id);
+
+```
+
+**Input**
+
+|Property|Type|Description|
 |---|---|---|
-|key|string|Name of the Colony to get|
-|id|number|Integer number of the Colony|
+|id|number|The id of the colony|
 
-#### Response
+**Response**
 
 `Promise<ColonyClient>`. An instance of a `ColonyClient` associated with the given Colony contract
 
-### `getColonyClientByAddress(contractAddress)`
+### `getColonyClientByAddress`
 
 Returns an initialized ColonyClient for the contract at address `contractAddress`
 
-#### Arguments
+```js
 
-|Argument|Type|Description|
+await colonyNetwork.getColonyClientByAddress(contractAddress);
+
+```
+
+**Input**
+
+|Property|Type|Description|
 |---|---|---|
 |contractAddress|Adress|Address of a deployed Colony contract|
 
-#### Response
+**Response**
 
 `Promise<ColonyClient>`. An instance of a `ColonyClient` associated with the given Colony contract
 
-### `getMetaColonyClient()`
+### `getMetaColonyClient`
 
 Gets the Meta Colony as an initialized ColonyClient
 
-#### Response
+```js
+
+await colonyNetwork.getMetaColonyClient();
+
+```
+
+**Response**
 
 `Promise<ColonyClient>`. An instance of a `ColonyClient` associated with the MetaColony contract

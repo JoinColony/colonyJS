@@ -1,5 +1,5 @@
 /* eslint-env jest */
-/* eslint-disable no-underscore-dangle,no-console */
+/* eslint-disable no-underscore-dangle, no-console */
 
 import createSandbox from 'jest-sandbox';
 import ContractClient from '../classes/ContractClient';
@@ -24,7 +24,7 @@ describe('ContractEvent', () => {
   beforeEach(async done => {
     sandbox.clear();
 
-    contract = new class extends MockEmittingContract {
+    contract = new (class extends MockEmittingContract {
       interface = {
         events: {
           [eventName]: {
@@ -32,7 +32,7 @@ describe('ContractEvent', () => {
           },
         },
       };
-    }();
+    })();
     adapter = { getContract: sandbox.fn(() => contract) };
     client = new ContractClient({ adapter });
     await client.init();

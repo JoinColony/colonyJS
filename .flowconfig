@@ -1,6 +1,7 @@
 [ignore]
 <PROJECT_ROOT>/packages/colonyDapp/.*
 <PROJECT_ROOT>/node_modules/oboe/test/json/incomplete.json
+<PROJECT_ROOT>/lib/colonyNetwork/node_modules/oboe/test/json/incomplete.json
 
 [include]
 
@@ -11,4 +12,5 @@
 
 [options]
 module.ignore_non_literal_requires=true
+server.max_workers=1
 [strict]

@@ -2,11 +2,11 @@
 /* eslint-disable max-len */
 
 import NetworkLoader from '../NetworkLoader';
-import EtherRouter from '../../contracts/versioned/rinkeby-v3/EtherRouter.json';
+import EtherRouter from '../../contracts/versioned/goerli-v1/EtherRouter.json';
 
 describe('colony-contract-loader-network - NetworkLoader', () => {
-  const loader = new NetworkLoader({ network: 'rinkeby' });
-  const contractAddress = '0x7da82c7ab4771ff031b66538d2fb9b0b047f6cf9';
+  const loader = new NetworkLoader({ network: 'goerli' });
+  const contractAddress = '0x79073fc2117dD054FCEdaCad1E7018C9CbE3ec0B';
 
   // XXX static contracts are disabled for the moment
   // test('It should load a static contract that is defined', async () => {
@@ -32,7 +32,7 @@ describe('colony-contract-loader-network - NetworkLoader', () => {
     const contract = await loader.load({
       contractName: 'IColony',
       contractAddress,
-      version: '3',
+      version: '1',
     });
     expect(contract).toHaveProperty('abi', expect.any(Array));
     expect(contract).toHaveProperty('address', contractAddress);
@@ -46,7 +46,7 @@ describe('colony-contract-loader-network - NetworkLoader', () => {
     expect(contract).toHaveProperty('abi', expect.any(Array));
     expect(contract).toHaveProperty(
       'address',
-      EtherRouter.networks.rinkeby.address,
+      EtherRouter.networks.goerli.address,
     );
   });
 
@@ -60,7 +60,7 @@ describe('colony-contract-loader-network - NetworkLoader', () => {
       expect(false).toBe(true); // should be unreachable
     } catch (error) {
       expect(error.toString()).toMatch(
-        'Contract IColonyNetwork with version 3 not found in main',
+        'Contract IColonyNetwork with version 1 not found in main',
       );
     }
   });
@@ -71,7 +71,7 @@ describe('colony-contract-loader-network - NetworkLoader', () => {
       expect(false).toBe(true); // should be unreachable
     } catch (error) {
       expect(error.toString()).toMatch(
-        'Contract CryptoKitty with version 3 not found in rinkeby',
+        'Contract CryptoKitty with version 1 not found in goerli',
       );
     }
   });
@@ -86,7 +86,7 @@ describe('colony-contract-loader-network - NetworkLoader', () => {
       expect(false).toBe(true); // should be unreachable
     } catch (error) {
       expect(error.toString()).toMatch(
-        'Contract IColony with version 420 not found in rinkeby',
+        'Contract IColony with version 420 not found in goerli',
       );
     }
   });

@@ -10,7 +10,7 @@ import type { Params } from '../flowtypes';
 export function convertInputValues<InputTypes: Object>(
   inputValues: InputTypes,
   valuesSpec: Params,
-) {
+): Array<any> {
   return valuesSpec.map(([paramName, paramType]) =>
     convertInputValue(inputValues[paramName], paramType),
   );

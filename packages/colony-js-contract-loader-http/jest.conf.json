@@ -7,5 +7,6 @@
             "branches": 0
         }
     },
-    "setupFiles": ["../setup-jest.js"]
-  }
+    "setupFiles": ["../setup-jest.js"],
+    "testURL": "http://localhost/"
+}

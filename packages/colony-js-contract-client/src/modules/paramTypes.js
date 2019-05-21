@@ -1,4 +1,5 @@
 /* @flow */
+/* eslint-disable import/no-cycle */
 
 import bs58 from 'bs58';
 import BigNumber from 'bn.js';
@@ -50,6 +51,21 @@ const PARAM_TYPE_MAP: {
     },
     convertInput: passThrough,
   },
+  '[number]': {
+    validate(value: any) {
+      if (!Array.isArray(value)) return false;
+      return value.every(element => Number.isFinite(element));
+    },
+    convertOutput(value) {
+      if (!Array.isArray(value)) return [];
+      return value.map(element => {
+        // convert BN (ethers or bn.js)
+        const number = isBigNumber(element) ? element.toNumber() : element;
+        return Number.isFinite(number) ? number : null;
+      });
+    },
+    convertInput: passThrough,
+  },
   address: {
     validate: isValidAddress,
     convertOutput(value) {
@@ -57,12 +73,29 @@ const PARAM_TYPE_MAP: {
     },
     convertInput: passThrough,
   },
+  // Either a valid address, or an empty address
+  anyAddress: {
+    validate(value: any) {
+      return isValidAddress(value) || isEmptyHexString(value);
+    },
+    convertInput(value: string) {
+      // Expand `0x0` to a full-length address
+      return value.padEnd(42, '0');
+    },
+    convertOutput(value: any) {
+      // Expand `0x0` to a full-length address (for a valid address)
+      return isValidAddress(value) || isEmptyHexString(value)
+        ? value.padEnd(42, '0')
+        : null;
+    },
+  },
   bigNumber: {
     validate: isBigNumber,
     convertOutput(value: any) {
       if (isBigNumber(value)) {
         return value;
-      } else if (Number.isFinite(value)) {
+      }
+      if (Number.isFinite(value)) {
         return new BigNumber(value);
       }
       return null;
@@ -166,23 +199,6 @@ const PARAM_TYPE_MAP: {
         .decode(value)
         .slice(2)
         .toString('hex')}`;
-    },
-  },
-  // Either a valid address, or an empty address to indicate ether
-  // (0x0 or 0x0000000000000000000000000000000000000000)
-  tokenAddress: {
-    validate(value: any) {
-      return isValidAddress(value) || isEmptyHexString(value);
-    },
-    convertInput(value: string) {
-      // Expand `0x0` to a full-length address
-      return value.padEnd(42, '0');
-    },
-    convertOutput(value: any) {
-      // Expand `0x0` to a full-length address (for a valid address)
-      return isValidAddress(value) || isEmptyHexString(value)
-        ? value.padEnd(42, '0')
-        : null;
     },
   },
 };

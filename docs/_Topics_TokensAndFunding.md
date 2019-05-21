@@ -1,88 +1,87 @@
 ---
 title: Tokens and Funding
 section: Topics
-order: 6
+order: 2
 ---
 
-Whether you brought your own ERC20 token from an existing token contract or created a new token at the same time that you created a colony, you can use the [TokenClient](/colonyJS/api-tokenclient/) to call and send transactions associated with the token contract.
+Whether you brought your own token or created a new one, you can use an instance of [TokenClient](/colonyJS/api-tokenclient/) to call methods implemented in the ERC20 standard interface. If you set a colony contract address as the token contract owner, actions that you would normally be able to perform as the token owner can be performed by addresses assigned the `ROOT` colony role.
 
-`TokenClient` handles all the functions in the ERC20 standard interface, as well as `mint` and `burn`. Functions that you would ordinarily be able to perform as the contract owner may be performed by anyone in the colony with either `FOUNDER` or `ADMIN` authority. You can learn more about authority roles in [Managing Permissions](/colonyJS/topics-managing-permissions/).
-
-==TOC==
+Once tokens have been minted or transferred to your colony, or Ether has been transferred to your colony, you can claim those funds, making them available in a funding pot associated with the root domain of your colony, which can then be allocated to funding pots associated with domains, tasks, and payments throughout your colony.
 
 ## Token Methods
 
-The following methods are associated with the token contract.
-
 ### Create Token
 
-Creating a new token is simple using an instance of the [ColonyNetworkClient](/colonyjs/api-colonynetworkclient):
+You can create an ERC20 token using an instance of [ColonyNetworkClient](/colonyjs/api-colonynetworkclient):
 
 ```js
 
 // Create a token
 await networkClient.createToken.send({
-  name,
-  symbol,
+  name: 'Token',
+  symbol: 'TKN',
+  decimals: 18,
 });
-
-```
-
-### Get Token Info
-
-We can get the token info using an instance of the [TokenClient](/colonyjs/api-tokenclient):
-
-```js
-
-// View token
-await colonyClient.tokenClient.getTokenInfo.call()
 
 ```
 
 ### Set Token Owner
 
-If we want to call token contract methods such as `mint` and `burn` using the [ColonyClient](/colonyjs/api-colonyclient), we will need to set the `owner` of the token contract to the address of our colony contract. This is recommended if you created a new token specifically for your colony and you would like assigned `ADMIN` to have permission calling the token contract methods. This is not required and it will not be possible if you are using an existing token and you are not the `owner` of the token contract.
-
-We can set the `owner` of the token contract using an instance of the [TokenClient](/colonyjs/api-tokenclient):
+You can set the `owner` of the token contract using an instance of [TokenClient](/colonyjs/api-tokenclient):
 
 ```js
 
 // Set token owner
-await colonyClient.tokenClient.setOwner.send({ owner });
+await colonyClient.tokenClient.setOwner.send({
+  owner: '0x0...',
+});
+
+```
+
+*Note: You must be assigned the `owner` of the token contract to call this method.*
+
+### Mint Tokens
+
+If you have set the `owner` of the token contract to your colony contract address, you can mint tokens using an instance of [ColonyClient](/colonyjs/api-colonyclient):
+
+```js
+
+// Mint tokens
+await colonyClient.mintTokens.send({
+  amount: new BN('10000000000000000000'),
+});
+
+```
+
+*Note: You must be assigned the `ROOT` role to call this method.*
+
+Alternatively, if the colony contract is not the `owner` of the token contract, you can mint tokens using an instance of [TokenClient](/colonyjs/api-tokenclient):
+
+```js
+
+// Mint tokens
+await colonyClient.tokenClient.mint.send({
+  amount: new BN('10000000000000000000'),
+});
 
 ```
 
 *Note: You must be the `owner` of the token contract to call this method.*
 
-### Mint Tokens
+### Get Token Info
 
-We can mint tokens using an instance of the [ColonyClient](/colonyjs/api-colonyclient):
-
-```js
-
-// Mint tokens
-await colonyClient.mintTokens.send({ amount });
-
-```
-
-*Note: The colony must be the `owner` of the token contract and you must be a `FOUNDER` or `ADMIN` to call this method.*
-
-### Burn Tokens
-
-We can burn tokens using an instance of the [ColonyClient](/colonyjs/api-colonyclient):
+You can get information about the token using an instance of [TokenClient](/colonyjs/api-tokenclient):
 
 ```js
 
-// Burn tokens
-await colonyClient.burnTokens.send({ amount });
+// Get token information
+await colonyClient.tokenClient.getTokenInfo.call()
 
 ```
-
-*Note: The colony must be the `owner` of the token contract and you must be a `FOUNDER` or `ADMIN` to call this method.*
 
 ### Get Total Supply
 
-We can get the total supply of out token using an instance of the [TokenClient](/colonyjs/api-tokenclient):
+You can get the total supply of the token using an instance of [TokenClient](/colonyjs/api-tokenclient):
 
 ```js
 
@@ -91,49 +90,78 @@ await colonyClient.tokenClient.getTotalSupply.call();
 
 ```
 
-## Colony Methods
-
-The following methods are associated with the colony contract.
+## Funding Methods
 
 ### Claim Colony Funds
 
-We can claim colony funds using an instance of the [ColonyClient](/colonyjs/api-colonyclient):
+You can claim colony funds using an instance of [ColonyClient](/colonyjs/api-colonyclient):
 
 ```js
 
 // Claim colony funds
-await colonyClient.claimColonyFunds.send({ token })
+await colonyClient.claimColonyFunds.send({
+  token: '0x0...',
+});
 
 ```
 
+*Note: You must be assigned the `ROOT` role to call this method.*
+
 ### Move Funds Between Pots
 
-We can move funds between pots using an instance of the [ColonyClient](/colonyjs/api-colonyclient):
+You can move funds between pots using an instance of [ColonyClient](/colonyjs/api-colonyclient):
 
 ```js
 
 // Move funds between pots
 await colonyClient.moveFundsBetweenPots.send({
-  fromPot,
-  toPot,
-  amount,
-  token,
-})
+  fromPot: 1,
+  toPot: 2,
+  amount: new BN('1000000000000000000'),
+  token: '0x0...',
+});
 
 ```
 
-*Note: You must be a `FOUNDER` or `ADMIN` to call this method.*
+*Note: You must be assigned the `ROOT` or `FUNDING` role to call this method.*
 
-### Get Pot Balance
+### Get Funding Pot
 
-We can get the balance of a pot using an instance of the [ColonyClient](/colonyjs/api-colonyclient):
+You can get information about a funding pot using an instance of [ColonyClient](/colonyjs/api-colonyclient):
 
 ```js
 
-// Get pot balance
+// Get funding pot information
+await colonyClient.getFundingPot.call({
+  potId: 1,
+});
+
+```
+
+### Get Funding Pot Payout
+
+You can get the payout for a funding pot using an instance of [ColonyClient](/colonyjs/api-colonyclient):
+
+```js
+
+// Get funding pot information
+await colonyClient.getFundingPotPayout.call({
+  potId: 1,
+  token: '0x0...',
+});
+
+```
+
+### Get Funding Pot Balance
+
+You can get the balance of a funding pot using an instance of [ColonyClient](/colonyjs/api-colonyclient):
+
+```js
+
+// Get funding pot balance
 await colonyClient.getFundingPotBalance.call({
-  potId,
-  token,
-})
+  potId: 1,
+  token: '0x0...',
+});
 
 ```

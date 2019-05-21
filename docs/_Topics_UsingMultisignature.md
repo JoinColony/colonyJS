@@ -1,7 +1,7 @@
 ---
 title: Using Multisignature
 section: Topics
-order: 8
+order: 9
 ---
 
 Important changes to a task within a colony must be approved by multiple "task roles". Most of the methods that modify a task require multiple signatures before the modification will take affect and the transaction will be executed. We achieve this process with something known as "multisgnature".
@@ -10,7 +10,7 @@ Important changes to a task within a colony must be approved by multiple "task r
 
 ## Multisignature Example
 
-An example of a task method that uses multisignature is `setTaskBrief`. In order for this transaction to be executed, we will need signatures from both the `MANAGER` and the `WORKER` assigned to the task. Let's walk through an example using `setTaskBrief`.
+An example of a task method that uses multisignature is `setTaskBrief`. In order for this transaction to be executed, we need signatures from both the `MANAGER` and the `WORKER` assigned to the task.
 
 ### Start Operation
 
@@ -41,7 +41,7 @@ console.log(operation.missingSignees);
 
 ### Sign Operation
 
-Assuming that we are the first missing signature and the `MANAGER` of the task, we can simply sign the operation using the `sign` method, which is included in the instance of the multisgnature operation:
+Assuming that we are the first missing signature and the `MANAGER` of the task, we can simply sign the operation using the `sign` method, which is included in the operation instance:
 
 ```js
 
@@ -65,7 +65,7 @@ console.log(operation.missingSignees);
 
 ### Export Operation
 
-In order for the other wallet to sign it, we'll need to recreate the operation on another instance of your app.
+In order for another wallet to sign it, we'll need to store the operation and then restore it in another instance of your application or service.
 
 First, we'll need to format the multisgnature operation as JSON:
 
@@ -75,7 +75,7 @@ const operationJSON = operation.toJSON();
 
 ```
 
-At this point, we'll need to store the operation somewhere so that we can restore it from another app instance.
+Then, we'll need to store the operation somewhere so that we can restore it later.
 
 ### Restore Operation
 
@@ -89,7 +89,7 @@ const operation = await colonyClient.setTaskBrief.restoreOperation(operationJSON
 
 ### Sign Operation (Second Signature)
 
-Assuming that we are now the second missing signature, the `WORKER` of the task, we can sign the operation:
+Assuming that we are now using the wallet for the second missing signature, the `WORKER` of the task, we can sign the operation:
 
 ```js
 
@@ -123,14 +123,14 @@ await operation.send();
 
 ## Contract State Changes
 
-It's important to understand that the contract data used to create signed messages in these operations is related to the contract state at a particular point in time. While the required signatures are being collected, there are at least two things can happen that might cause the operation to fail:
+It's important to understand that the contract data used to create signed messages is related to the contract state at a particular point in time. While the required signatures are being collected, there are at least two things can happen that might cause the operation to fail:
 
 * The addresses assigned to the manager/worker/evaluator roles have changed.
-* Another multsignature operation is successfully sent on the given contract, increasing the nonce value.
+* Another operation is successfully sent on the given contract, increasing the nonce value.
 
 If one of the assigned roles for a task has changed, the new wallet will need to sign it and we no longer need the signature from the wallet that was previously assigned. If the nonce value changes, the operation will need to be signed again by both wallets.
 
-The multisignature operation can refresh these values to help prevent sending a transaction that will fail.
+These values can be refreshed to help prevent sending a transaction that will fail.
 
 ```js
 
@@ -138,4 +138,4 @@ await operation.refresh();
 
 ```
 
-This will update the nonce value if another multsignature operation was successfully sent before this operation was able to collect all the required signatures, preventing an error when attempting to send the transaction.
+The `refresh` method will update the nonce value if another operation was successfully sent before this operation was able to collect of all the required signatures, which can be used to prevent errors.

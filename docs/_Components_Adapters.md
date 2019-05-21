@@ -4,7 +4,7 @@ section: Components
 order: 3
 ---
 
-Adapters represent the colonyJS solution for the many different ways to access the Ethereum blockchain provided by various JavaScript libraries. Adapters provide a wrapper for such libraries that enforces a standard and predictable API for use with the colonyNetwork smart contracts.
+Adapters allow to access the Ethereum blockchain using different JavaScript libraries. Adapters wrap such libraries and enforce a standard for use with the colonyNetwork smart contracts.
 
 ## Parameters
 
@@ -20,9 +20,9 @@ Adapters require the following parameters:
 
 ```
 
-## Initialize an adapter
+## Initialization
 
-An example of initializing an adapter might look like this:
+Here is an example initializing an adapter using [ethers](https://github.com/ethers-io/ethers.js/):
 
 ```js
 
@@ -55,10 +55,6 @@ const adapter = new EthersAdapter({
 
 ```
 
-## Supported adapters
+## Future Adapters
 
-- [ethers](https://github.com/JoinColony/colony-js/tree/master/packages/colony-js-adapter-ethers)
-
-## Future adapters
-
-- Check out [tailor](/tailor/docs-overview/) to learn more about adapters we plan to support in the future.
+Check out [tailor](/tailor/docs-overview/) to learn more about adapters we plan to support in the future.

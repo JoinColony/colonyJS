@@ -6,27 +6,28 @@ order: 1
 
 Clients are aggregations of all the interactions possible with the colonyNetwork smart contracts that can be used to easily integrate Colony into your JavaScript application or service.
 
-## ColonyNetworkClient
+## Network Client
 
-Use `getNetworkClient` to get an instance of `ColonyNetworkClient`:
-
-```js
-
-// Get the network client using the rinkeby network
-const networkClient = getNetworkClient(`rinkeby`, wallet);
-
-```
+Use `getNetworkClient` to get an instance of [ColonyNetworkClient](/colonyjs/api-colonynetworkclient):
 
 ```js
 
 // Get the network client using the local network
-const networkClient = getNetworkClient(`local`, wallet);
+const networkClient = getNetworkClient('local', wallet);
 
 ```
 
-See [purser](/purser/docs-overview) to learn how to create a wallet instance. If you are using this method with the "local" option, you will need to have [TrufflePig](https://github.com/JoinColony/trufflepig) installed and running.
+```js
 
-Another way to create an instance of `ColonyNetworkClient` is by providing an adapter:
+// Get the network client using the goerli network
+const networkClient = getNetworkClient('goerli', wallet);
+
+```
+
+
+If you are using this method with the `local` option, you will need to have [trufflepig](https://github.com/JoinColony/trufflepig) installed and running. We recommend using [purser](/purser/docs-overview) to get a wallet instance but you can also use [ethers](https://github.com/ethers-io/ethers.js/).
+
+Alternatively, you can create an instance of [ColonyNetworkClient](/colonyjs/api-colonynetworkclient) by instantiating its class using an adapter and then initializing it using the `init` method:
 
 ```js
 
@@ -36,11 +37,11 @@ await networkClient.init();
 
 ```
 
-See [Adapters](/colonyjs/components-adapters) for more information about setting up an adapter.
+See [Adapters](/colonyjs/components-adapters) for more information about adapters.
 
-## ColonyClient
+## Colony Client
 
-Ask the `ColonyNetworkClient` for an instance of `ColonyClient`:
+Ask the [ColonyNetworkClient](/colonyjs/api-colonynetworkclient) for an instance of [ColonyClient](/colonyjs/api-colonyclient):
 
 ```js
 
@@ -48,7 +49,7 @@ const colonyClient = await networkClient.getColonyClient(colonyId);
 
 ```
 
-Or create an instance of `ColonyClient` by providing an adapter and the contract address:
+Alternatively, you can create an instance of [ColonyClient](/colonyjs/api-colonyclient) by instantiating the [ColonyClient](/colonyjs/api-colonyclient) class using an adapter and query and then initializing it using the `init` method:
 
 ```js
 
@@ -63,11 +64,11 @@ await colonyClient.init();
 
 ```
 
-See [Adapters](/colonyjs/components-adapters) for more information about setting up an adapter.
+See [Adapters](/colonyjs/components-adapters) for more information about adapters.
 
-## ColonyClient (Meta Colony)
+## Colony Client (Meta Colony)
 
-Ask the `ColonyNetworkClient` for an instance of `ColonyClient` for the Meta Colony:
+Ask the `NetworkClient` for an instance of [ColonyClient](/colonyjs/api-colonyclient) for the Meta Colony:
 
 ```js
 
@@ -75,7 +76,7 @@ const metaColonyClient = await networkClient.getMetaColonyClient();
 
 ```
 
-Or create an instance of `ColonyClient` by providing an adapter and the contract address:
+Alternatively, you can create an instance of [ColonyClient](/colonyjs/api-colonyclient) by instantiating the [ColonyClient](/colonyjs/api-colonyclient) class using an adapter and query and then initializing it using the `init` method:
 
 ```js
 
@@ -90,11 +91,11 @@ await metaColonyClient.init();
 
 ```
 
-See [Adapters](/colonyjs/components-adapters) for more information about setting up an adapter.
+See [Adapters](/colonyjs/components-adapters) for more information about adapters.
 
-## TokenClient
+## Token Client
 
-The `TokenClient` is initialized for you when you ask for a new instance of `ColonyClient`:
+The `TokenClient` is initialized for you when you ask for a new instance of [ColonyClient](/colonyjs/api-colonyclient):
 
 ```js
 
@@ -102,7 +103,7 @@ const tokenClient = colonyClient.tokenClient;
 
 ```
 
-Or create an instance of `TokenClient` by providing an adapter and the contract address:
+Alternatively, you can create an instance of `TokenClient` by instantiating the `TokenClient` class using an adapter and query and then initializing it using the `init` method:
 
 ```js
 
@@ -117,11 +118,11 @@ await tokenClient.init();
 
 ```
 
-See [Adapters](/colonyjs/components-adapters) for more information about setting up an adapter.
+See [Adapters](/colonyjs/components-adapters) for more information about adapters.
 
-## TokenLockingClient
+## Token Locking Client
 
-The `TokenLockingClient` is initialized for you when you ask for a new instance of `ColonyClient`:
+The `TokenLockingClient` is initialized for you when you ask for a new instance of [ColonyClient](/colonyjs/api-colonyclient):
 
 ```js
 
@@ -129,7 +130,7 @@ const tokenLockingClient = colonyClient.tokenLockingClient;
 
 ```
 
-Or create an instance of `TokenLockingClient` by providing an adapter and the contract address:
+Alternatively, you can create an instance of `TokenLockingClient` by instantiating the `TokenLockingClient` class using an adapter and query and then initializing it using the `init` method:
 
 ```js
 
@@ -144,4 +145,4 @@ await tokenLockingClient.init();
 
 ```
 
-See [Adapters](/colonyjs/components-adapters) for more information about setting up an adapter.
+See [Adapters](/colonyjs/components-adapters) for more information about adapters.

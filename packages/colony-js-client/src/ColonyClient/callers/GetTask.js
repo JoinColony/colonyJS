@@ -10,16 +10,14 @@ import type ColonyClient from '../index';
 
 type InputValues = { taskId: number };
 type CallResult = [
-  string,
-  string,
-  boolean,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  [number], // Currently just one item
+  string, // specificationHash
+  string, // deliverableHash
+  number, // status
+  number, // dueDate
+  number, // potId
+  number, // completionDate
+  number, // domainId
+  number, // skillId
 ];
 
 export default class GetTask extends ContractClient.Caller<
@@ -39,7 +37,6 @@ export default class GetTask extends ContractClient.Caller<
         ['deliverableHash', 'ipfsHash'],
         ['status', 'taskStatus'],
         ['dueDate', 'date'],
-        ['payoutsWeCannotMake', 'number'],
         ['potId', 'number'],
         ['completionDate', 'date'],
         ['domainId', 'number'],
@@ -56,6 +53,7 @@ export default class GetTask extends ContractClient.Caller<
       return true;
     };
   }
+
   // eslint-disable-next-line class-methods-use-this
   convertOutputValues(result: CallResult, { taskId }: *) {
     const task = super.convertOutputValues(result);

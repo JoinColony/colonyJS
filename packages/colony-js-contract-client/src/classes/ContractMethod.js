@@ -1,5 +1,5 @@
 /* @flow */
-/* eslint-disable no-underscore-dangle */
+/* eslint-disable import/no-cycle */
 
 import { makeAssert } from '@colony/colony-js-utils';
 
@@ -21,12 +21,19 @@ export default class ContractMethod<
   ContractData: { [dataValueName: string]: any },
 > {
   assertValid: Function;
+
   client: IContractClient;
+
   contractData: ContractData;
+
   defaultValues: DefaultValues;
+
   functionName: string;
+
   input: Params;
+
   name: string;
+
   output: Params;
 
   /**
@@ -89,6 +96,7 @@ export default class ContractMethod<
     params: Params = this.input,
     defaultValues: DefaultValues = this.defaultValues,
   ) {
+    // eslint-disable-next-line no-underscore-dangle
     const values = this.constructor._applyDefaultValues(
       inputValues,
       params,
@@ -137,6 +145,7 @@ export default class ContractMethod<
     params: Params = this.input,
     defaultValues: DefaultValues = this.defaultValues,
   ) {
+    // eslint-disable-next-line no-underscore-dangle
     const values = this.constructor._applyDefaultValues(
       inputValues,
       params,
