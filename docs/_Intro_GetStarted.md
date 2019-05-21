@@ -17,7 +17,7 @@ For this example, you will need the following:
 * Node `>=10.12.0`
 * Yarn `>=1.12.0`
 
-### Initial Setup
+### Project Directory
 
 First, open up your terminal and move to your project directory. You can create a new project or use an existing project. If you create a new project, you will need to run `yarn init`.
 
