@@ -11,10 +11,10 @@ yarn add @colony/colony-js-client
 
 ## Usage
 
-- [ColonyNetworkClient](https://joincolony.github.io/colonyjs/api-colonynetworkclient/)
-- [ColonyClient](https://joincolony.github.io/colonyjs/api-colonyclient/)
-- [TokenClient](https://joincolony.github.io/colonyjs/api-tokenclient/)
-- [TokenLockingClient](https://joincolony.github.io/colonyjs/api-tokenlockingclient/)
+- [ColonyNetworkClient](https://docs.colony.io/colonyjs/api-colonynetworkclient/)
+- [ColonyClient](https://docs.colony.io/colonyjs/api-colonyclient/)
+- [TokenClient](https://docs.colony.io/colonyjs/api-tokenclient/)
+- [TokenLockingClient](https://docs.colony.io/colonyjs/api-tokenlockingclient/)
 
 ## Contributing
 

@@ -10,18 +10,21 @@ See [Clients](/colonyjs/components-clients) for more information about initializ
 
 See [ContractClient](/colonyjs/api-contractclient) for more information about the `ContractClient` superclass.
 
-## Table of Contents
-
-==TOC==
-
   
 ## Callers
 
-**All callers return promises which resolve to an object containing the given return values.**
 
-### `getAllowance.call({ sourceAddress, user })`
+### `getAllowance`
 
 Get the token allowance of an address. The allowance is the amount of tokens that the `spender` is authorized to transfer using the `transferFrom` function.
+
+```js
+await tokenClient.getAllowance.call({
+  sourceAddress,
+  user,
+});
+```
+
 
 **Input**
 
@@ -47,9 +50,16 @@ Contract: [base.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5
   
   
 
-### `getBalanceOf.call({ sourceAddress })`
+### `getBalanceOf`
 
 Get the the token balance of an address.
+
+```js
+await tokenClient.getBalanceOf.call({
+  sourceAddress,
+});
+```
+
 
 **Input**
 
@@ -74,9 +84,14 @@ Contract: [base.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5
   
   
 
-### `getTokenInfo.call()`
+### `getTokenInfo`
 
 Get information about the token.
+
+```js
+await tokenClient.getTokenInfo.call();
+```
+
 
 
 **Response**
@@ -94,13 +109,18 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7cc7d6b5bf3e94e6d97cd65583e3da38a994753f/contracts/Token.sol)
+Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/59cf56f18c54c0bc749ddaa8b6d77ebfd0d0aaf4/contracts/Token.sol)
   
   
 
-### `getTotalSupply.call()`
+### `getTotalSupply`
 
 Get the total supply of the token.
+
+```js
+await tokenClient.getTotalSupply.call();
+```
+
 
 
 **Response**
@@ -120,9 +140,14 @@ Contract: [base.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5
   
   
 
-### `isLocked.call()`
+### `isLocked`
 
 Get whether the token is locked.
+
+```js
+await tokenClient.isLocked.call();
+```
+
 
 
 **Response**
@@ -145,10 +170,18 @@ Contract: [Token.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c
   
 ## Senders
 
-**All senders return an instance of a `ContractResponse`.** Every `send()` method takes an `options` object as the second argument.
-### `approve.send({ user, amount }, options)`
+
+### `approve`
 
 Approve a token allowance. This function can only be called by the token `owner`. The allowance is the amount of tokens that the `spender` is authorized to transfer using the `transferFrom` function.
+
+```js
+await tokenClient.approve.send({
+  user,
+  amount,
+}, options);
+```
+
 
 **Input**
 
@@ -183,9 +216,17 @@ Contract: [base.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5
   
   
 
-### `burn.send({ user, amount }, options)`
+### `burn`
 
 Burn tokens. This is a `DSToken` function that can only be called by the token `owner`. When a colony contract address is assigned as the token `owner`, this function can only be called by the user assigned the `FOUNDER` authority role.
+
+```js
+await tokenClient.burn.send({
+  user,
+  amount,
+}, options);
+```
+
 
 **Input**
 
@@ -215,13 +256,63 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7cc7d6b5bf3e94e6d97cd65583e3da38a994753f/contracts/Token.sol)
+Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/59cf56f18c54c0bc749ddaa8b6d77ebfd0d0aaf4/contracts/Token.sol)
   
   
 
-### `mint.send({ user, amount }, options)`
+### `createTokenAuthority`
+
+Deploy a TokenAuthority contract which can then be use to control the transfer of a token.
+
+```js
+await tokenClient.createTokenAuthority.send({
+  allowedToTransfer,
+  colonyAddress,
+  tokenAddress,
+}, options);
+```
+
+
+**Input**
+
+|Name|Type|Description|
+|---|---|---|
+|allowedToTransfer|undefined|Additional addresses which are allowed to transfer the token while locked.|
+|colonyAddress|address|The address of the colony which should be allowed control of the token.|
+|tokenAddress|address|The address of the token for which this contract will operate.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
+
+An instance of a `ContractResponse` which will receive a receipt with a `contractAddress` property.
+
+
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
+
+
+  
+  
+Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/59cf56f18c54c0bc749ddaa8b6d77ebfd0d0aaf4/contracts/Token.sol)
+  
+  
+
+### `mint`
 
 Mint new tokens. This is a `DSToken` function that can only be called by the token `owner`. When a colony contract address is assigned as the token `owner`, this function can only be called by the user assigned the `FOUNDER` authority role.
+
+```js
+await tokenClient.mint.send({
+  user,
+  amount,
+}, options);
+```
+
 
 **Input**
 
@@ -251,13 +342,20 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7cc7d6b5bf3e94e6d97cd65583e3da38a994753f/contracts/Token.sol)
+Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/59cf56f18c54c0bc749ddaa8b6d77ebfd0d0aaf4/contracts/Token.sol)
   
   
 
-### `setAuthority.send({ authority }, options)`
+### `setAuthority`
 
 Assign an account the `ADMIN` authority role within a colony.
+
+```js
+await tokenClient.setAuthority.send({
+  authority,
+}, options);
+```
+
 
 **Input**
 
@@ -289,9 +387,16 @@ Contract: [auth.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5
   
   
 
-### `setOwner.send({ owner }, options)`
+### `setOwner`
 
 Set the `owner` of a token contract. This function can only be called by the current `owner` of the contract. In order to call token contract methods from within a colony, the token `owner` must be the address of the colony contract.
+
+```js
+await tokenClient.setOwner.send({
+  owner,
+}, options);
+```
+
 
 **Input**
 
@@ -323,9 +428,17 @@ Contract: [auth.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5
   
   
 
-### `transfer.send({ destinationAddress, amount }, options)`
+### `transfer`
 
 Transfer tokens from the address calling the function to another address. The current address must have a sufficient token balance.
+
+```js
+await tokenClient.transfer.send({
+  destinationAddress,
+  amount,
+}, options);
+```
+
 
 **Input**
 
@@ -355,9 +468,18 @@ Contract: [base.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5
   
   
 
-### `transferFrom.send({ sourceAddress, destinationAddress, amount }, options)`
+### `transferFrom`
 
 Transfer tokens from one address to another address. The address the tokens are transferred from must have a sufficient token balance and it must have a sufficient token allowance approved by the token owner.
+
+```js
+await tokenClient.transferFrom.send({
+  sourceAddress,
+  destinationAddress,
+  amount,
+}, options);
+```
+
 
 **Input**
 
@@ -393,42 +515,14 @@ Contract: [base.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5
   
   
 
-### `createTokenAuthority.send({ allowedToTransfer, colonyAddress, tokenAddress }, options)`
-
-Deploy a TokenAuthority contract which can then be use to control the transfer of a token.
-
-**Input**
-
-|Name|Type|Description|
-|---|---|---|
-|allowedToTransfer|undefined|Additional addresses which are allowed to transfer the token while locked.|
-|colonyAddress|address|The address of the colony which should be allowed control of the token.|
-|tokenAddress|address|The address of the token for which this contract will operate.|
-
-**Options**
-
-See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
-
-**Response**
-
-An instance of a `ContractResponse` which will receive a receipt with a `contractAddress` property.
-
-
-
-See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
-
-**Contract Information**
-
-
-  
-  
-Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7cc7d6b5bf3e94e6d97cd65583e3da38a994753f/contracts/Token.sol)
-  
-  
-
-### `unlock.send(options)`
+### `unlock`
 
 Unlock the token.
+
+```js
+await tokenClient.unlock.send(options);
+```
+
 
 
 **Options**
@@ -448,7 +542,7 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7cc7d6b5bf3e94e6d97cd65583e3da38a994753f/contracts/Token.sol)
+Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/59cf56f18c54c0bc749ddaa8b6d77ebfd0d0aaf4/contracts/Token.sol)
   
   
 
@@ -457,13 +551,31 @@ Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7cc7d6b5bf3
 ## Events
 
 
-### `events.Approval`
+### `Approval`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ owner, spender, value }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  owner,
+  spender,
+  value,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ owner, spender, value }) => { /* ... */ })`
+**Add Listener**
+
+```js
+tokenClient.events.Approval.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+tokenClient.events.Approval.removeListener(eventHandler);
+```
 
 
 
@@ -477,13 +589,30 @@ Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7cc7d6b5bf3
 |value|big number|The amount of tokens that were approved (the amount `allowed`).|
 
 
-### `events.Burn`
+### `Burn`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ address, amount }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  address,
+  amount,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ address, amount }) => { /* ... */ })`
+**Add Listener**
+
+```js
+tokenClient.events.Burn.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+tokenClient.events.Burn.removeListener(eventHandler);
+```
 
 
 
@@ -496,13 +625,29 @@ Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7cc7d6b5bf3
 |amount|big number|The amount of tokens that were burned.|
 
 
-### `events.LogSetAuthority`
+### `LogSetAuthority`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ authority }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  authority,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ authority }) => { /* ... */ })`
+**Add Listener**
+
+```js
+tokenClient.events.LogSetAuthority.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+tokenClient.events.LogSetAuthority.removeListener(eventHandler);
+```
 
 
 
@@ -514,13 +659,29 @@ Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7cc7d6b5bf3
 |authority|address|The address that was assigned an authority role.|
 
 
-### `events.LogSetOwner`
+### `LogSetOwner`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ owner }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  owner,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ owner }) => { /* ... */ })`
+**Add Listener**
+
+```js
+tokenClient.events.LogSetOwner.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+tokenClient.events.LogSetOwner.removeListener(eventHandler);
+```
 
 
 
@@ -532,13 +693,30 @@ Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7cc7d6b5bf3
 |owner|address|The address that was assigned as the new owner.|
 
 
-### `events.Mint`
+### `Mint`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ address, amount }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  address,
+  amount,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ address, amount }) => { /* ... */ })`
+**Add Listener**
+
+```js
+tokenClient.events.Mint.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+tokenClient.events.Mint.removeListener(eventHandler);
+```
 
 
 
@@ -551,13 +729,31 @@ Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/7cc7d6b5bf3
 |amount|big number|The amount of tokens that were minted.|
 
 
-### `events.Transfer`
+### `Transfer`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ from, to, value }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  from,
+  to,
+  value,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ from, to, value }) => { /* ... */ })`
+**Add Listener**
+
+```js
+tokenClient.events.Transfer.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+tokenClient.events.Transfer.removeListener(eventHandler);
+```
 
 
 

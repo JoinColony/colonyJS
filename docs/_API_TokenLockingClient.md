@@ -10,18 +10,20 @@ See [Clients](/colonyjs/components-clients) for more information about initializ
 
 See [ContractClient](/colonyjs/api-contractclient) for more information about the `ContractClient` superclass.
 
-## Table of Contents
-
-==TOC==
-
   
 ## Callers
 
-**All callers return promises which resolve to an object containing the given return values.**
 
-### `getTotalLockCount.call({ token })`
+### `getTotalLockCount`
 
 Get the total number of locked tokens.
+
+```js
+await tokenLockingClient.getTotalLockCount.call({
+  token,
+});
+```
+
 
 **Input**
 
@@ -42,14 +44,22 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/TokenLocking.sol)
+Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/TokenLocking.sol)
   
-Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ITokenLocking.sol)
+Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ITokenLocking.sol)
   
 
-### `getUserLock.call({ token, user })`
+### `getUserLock`
 
 Get the total number of locked tokens for a given user.
+
+```js
+await tokenLockingClient.getUserLock.call({
+  token,
+  user,
+});
+```
+
 
 **Input**
 
@@ -71,18 +81,26 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/TokenLocking.sol)
+Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/TokenLocking.sol)
   
-Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ITokenLocking.sol)
+Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ITokenLocking.sol)
   
 
   
 ## Senders
 
-**All senders return an instance of a `ContractResponse`.** Every `send()` method takes an `options` object as the second argument.
-### `deposit.send({ token, amount }, options)`
+
+### `deposit`
 
 Deposit tokens. This function only be called if the tokens that the user is attempting to deposit are not locked and if the user has allowed the token locking contract to transfer the tokens.
+
+```js
+await tokenLockingClient.deposit.send({
+  token,
+  amount,
+}, options);
+```
+
 
 **Input**
 
@@ -114,14 +132,21 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/TokenLocking.sol)
+Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/TokenLocking.sol)
   
-Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ITokenLocking.sol)
+Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ITokenLocking.sol)
   
 
-### `lockToken.send({ token }, options)`
+### `lockToken`
 
 Lock all tokens for a given token contract.
+
+```js
+await tokenLockingClient.lockToken.send({
+  token,
+}, options);
+```
+
 
 **Input**
 
@@ -150,14 +175,22 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/TokenLocking.sol)
+Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/TokenLocking.sol)
   
-Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ITokenLocking.sol)
+Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ITokenLocking.sol)
   
 
-### `incrementLockCounterTo.send({ token, lockId }, options)`
+### `incrementLockCounterTo`
 
 Increment the token lock counter. This method allows users to waive reward payouts for past reward payout cycles, unlocking the tokens that were locked in previous reward payout cycles.
+
+```js
+await tokenLockingClient.incrementLockCounterTo.send({
+  token,
+  lockId,
+}, options);
+```
+
 
 **Input**
 
@@ -183,14 +216,23 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/TokenLocking.sol)
+Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/TokenLocking.sol)
   
-Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ITokenLocking.sol)
+Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ITokenLocking.sol)
   
 
-### `unlockTokenForUser.send({ token, user, lockId }, options)`
+### `unlockTokenForUser`
 
 Unlock all tokens for a user on a given token contract.
+
+```js
+await tokenLockingClient.unlockTokenForUser.send({
+  token,
+  user,
+  lockId,
+}, options);
+```
+
 
 **Input**
 
@@ -222,14 +264,22 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/TokenLocking.sol)
+Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/TokenLocking.sol)
   
-Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ITokenLocking.sol)
+Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ITokenLocking.sol)
   
 
-### `withdraw.send({ token, amount }, options)`
+### `withdraw`
 
 Withdraw tokens. This function only be called if the tokens that the user is attempting to withdraw are not locked.
+
+```js
+await tokenLockingClient.withdraw.send({
+  token,
+  amount,
+}, options);
+```
+
 
 **Input**
 
@@ -260,9 +310,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/TokenLocking.sol)
+Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/TokenLocking.sol)
   
-Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ITokenLocking.sol)
+Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ITokenLocking.sol)
   
 
   
@@ -270,13 +320,30 @@ Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/
 ## Events
 
 
-### `events.TokenLocked`
+### `TokenLocked`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ token, lockCount }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  token,
+  lockCount,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ token, lockCount }) => { /* ... */ })`
+**Add Listener**
+
+```js
+tokenLockingClient.events.TokenLocked.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+tokenLockingClient.events.TokenLocked.removeListener(eventHandler);
+```
 
 
 
@@ -289,13 +356,32 @@ Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/
 |lockCount|big number|The address of the token contract that was assigned.|
 
 
-### `events.UserTokenDeposited`
+### `UserTokenDeposited`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ token, user, amount, timestamp }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  token,
+  user,
+  amount,
+  timestamp,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ token, user, amount, timestamp }) => { /* ... */ })`
+**Add Listener**
+
+```js
+tokenLockingClient.events.UserTokenDeposited.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+tokenLockingClient.events.UserTokenDeposited.removeListener(eventHandler);
+```
 
 
 
@@ -310,13 +396,31 @@ Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/
 |timestamp|date|The timestamp when the tokens were deposited.|
 
 
-### `events.UserTokenUnlocked`
+### `UserTokenUnlocked`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ token, user, lockId }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  token,
+  user,
+  lockId,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ token, user, lockId }) => { /* ... */ })`
+**Add Listener**
+
+```js
+tokenLockingClient.events.UserTokenUnlocked.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+tokenLockingClient.events.UserTokenUnlocked.removeListener(eventHandler);
+```
 
 
 
@@ -330,13 +434,31 @@ Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/
 |lockId|number|The ID of the lock that the was set for the user.|
 
 
-### `events.UserTokenWithdrawn`
+### `UserTokenWithdrawn`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ token, user, amount }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  token,
+  user,
+  amount,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ token, user, amount }) => { /* ... */ })`
+**Add Listener**
+
+```js
+tokenLockingClient.events.UserTokenWithdrawn.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+tokenLockingClient.events.UserTokenWithdrawn.removeListener(eventHandler);
+```
 
 
 

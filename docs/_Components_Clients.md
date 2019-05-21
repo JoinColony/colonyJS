@@ -8,14 +8,7 @@ Clients are aggregations of all the interactions possible with the colonyNetwork
 
 ## Network Client
 
-Use `getNetworkClient` to get an instance of `ColonyNetworkClient`:
-
-```js
-
-// Get the network client using the rinkeby network
-const networkClient = getNetworkClient('rinkeby', wallet);
-
-```
+Use `getNetworkClient` to get an instance of [ColonyNetworkClient](/colonyjs/api-colonynetworkclient):
 
 ```js
 
@@ -24,9 +17,17 @@ const networkClient = getNetworkClient('local', wallet);
 
 ```
 
-If you are using this method with the `local` option, you will need to have [TrufflePig](https://github.com/JoinColony/trufflepig) installed and running. We recommend using [Purser](/purser/docs-overview) to create a wallet instance but you can also use `ethers` (see the example in [Adapters](/colonyjs/components-adapters)).
+```js
 
-Alternatively, you can create an instance of `ColonyNetworkClient` by instantiating the `ColonyNetworkClient` class using an adapter and then initializing it using the `init` method:
+// Get the network client using the goerli network
+const networkClient = getNetworkClient('goerli', wallet);
+
+```
+
+
+If you are using this method with the `local` option, you will need to have [trufflepig](https://github.com/JoinColony/trufflepig) installed and running. We recommend using [purser](/purser/docs-overview) to get a wallet instance but you can also use [ethers](https://github.com/ethers-io/ethers.js/).
+
+Alternatively, you can create an instance of [ColonyNetworkClient](/colonyjs/api-colonynetworkclient) by instantiating its class using an adapter and then initializing it using the `init` method:
 
 ```js
 
@@ -40,7 +41,7 @@ See [Adapters](/colonyjs/components-adapters) for more information about adapter
 
 ## Colony Client
 
-Ask the `ColonyNetworkClient` for an instance of `ColonyClient`:
+Ask the [ColonyNetworkClient](/colonyjs/api-colonynetworkclient) for an instance of [ColonyClient](/colonyjs/api-colonyclient):
 
 ```js
 
@@ -48,7 +49,7 @@ const colonyClient = await networkClient.getColonyClient(colonyId);
 
 ```
 
-Alternatively, you can create an instance of `ColonyClient` by instantiating the `ColonyClient` class using an adapter and query and then initializing it using the `init` method:
+Alternatively, you can create an instance of [ColonyClient](/colonyjs/api-colonyclient) by instantiating the [ColonyClient](/colonyjs/api-colonyclient) class using an adapter and query and then initializing it using the `init` method:
 
 ```js
 
@@ -65,9 +66,9 @@ await colonyClient.init();
 
 See [Adapters](/colonyjs/components-adapters) for more information about adapters.
 
-## Colony Client [ Meta Colony ]
+## Colony Client (Meta Colony)
 
-Ask the `NetworkClient` for an instance of `ColonyClient` for the Meta Colony:
+Ask the `NetworkClient` for an instance of [ColonyClient](/colonyjs/api-colonyclient) for the Meta Colony:
 
 ```js
 
@@ -75,7 +76,7 @@ const metaColonyClient = await networkClient.getMetaColonyClient();
 
 ```
 
-Alternatively, you can create an instance of `ColonyClient` by instantiating the `ColonyClient` class using an adapter and query and then initializing it using the `init` method:
+Alternatively, you can create an instance of [ColonyClient](/colonyjs/api-colonyclient) by instantiating the [ColonyClient](/colonyjs/api-colonyclient) class using an adapter and query and then initializing it using the `init` method:
 
 ```js
 
@@ -94,7 +95,7 @@ See [Adapters](/colonyjs/components-adapters) for more information about adapter
 
 ## Token Client
 
-The `TokenClient` is initialized for you when you ask for a new instance of `ColonyClient`:
+The `TokenClient` is initialized for you when you ask for a new instance of [ColonyClient](/colonyjs/api-colonyclient):
 
 ```js
 
@@ -121,7 +122,7 @@ See [Adapters](/colonyjs/components-adapters) for more information about adapter
 
 ## Token Locking Client
 
-The `TokenLockingClient` is initialized for you when you ask for a new instance of `ColonyClient`:
+The `TokenLockingClient` is initialized for you when you ask for a new instance of [ColonyClient](/colonyjs/api-colonyclient):
 
 ```js
 

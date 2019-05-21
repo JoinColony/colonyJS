@@ -4,24 +4,27 @@ section: API
 order: 1
 ---
 
-The `ColonyClient` class is a standard interface for interactions with the methods and events described in both `IColony.sol` and `IMetaColony.sol`. These interactions are generally concerned with actions within a colony, such as adding a new domain, creating a task, moving funds between pots, and managing permissions.
+The `ColonyClient` class is a standard interface for interactions with the methods and events described in `IColony.sol` and `IMetaColony.sol`. These interactions are generally concerned with actions within a colony, such as adding a new domain, creating a task, moving funds between pots, and managing permissions.
 
 See [Clients](/colonyjs/components-clients) for more information about initializing `ColonyClient`.
 
 See [ContractClient](/colonyjs/api-contractclient) for more information about the `ContractClient` superclass.
 
-## Table of Contents
-
-==TOC==
-
   
 ## Callers
 
-**All callers return promises which resolve to an object containing the given return values.**
 
-### `generateSecret.call({ salt, value })`
+### `generateSecret`
 
 Generate a secret for task ratings. This function returns a keccak256 hash created from the input parameters.
+
+```js
+await colonyClient.generateSecret.call({
+  salt,
+  value,
+});
+```
+
 
 **Input**
 
@@ -43,14 +46,19 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `getAuthorityAddress.call()`
+### `getAuthorityAddress`
 
 Get the address of the authority contract associated with the colony contract.
+
+```js
+await colonyClient.getAuthorityAddress.call();
+```
+
 
 
 **Response**
@@ -68,12 +76,17 @@ A promise which resolves to an object containing the following properties:
   
 Contract: [auth.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/auth.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `getColonyNetworkAddress.call()`
+### `getColonyNetworkAddress`
 
 Get the address of the Colony Network contract.
+
+```js
+await colonyClient.getColonyNetworkAddress.call();
+```
+
 
 
 **Response**
@@ -90,12 +103,19 @@ A promise which resolves to an object containing the following properties:
   Function: `getColonyNetwork`
   
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `getDomain.call({ domainId })`
+### `getDomain`
 
 Get information about a domain.
+
+```js
+await colonyClient.getDomain.call({
+  domainId,
+});
+```
+
 
 **Input**
 
@@ -117,14 +137,19 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/Colony.sol)
+Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/Colony.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `getDomainCount.call()`
+### `getDomainCount`
 
 Get the total number of domains in the colony. The return value is also the ID of the last domain created.
+
+```js
+await colonyClient.getDomainCount.call();
+```
+
 
 
 **Response**
@@ -140,14 +165,21 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/Colony.sol)
+Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/Colony.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `getExtensionAddress.call({ contractName })`
+### `getExtensionAddress`
 
 Get the address of an extension contract associated with the colony address.
+
+```js
+await colonyClient.getExtensionAddress.call({
+  contractName,
+});
+```
+
 
 **Input**
 
@@ -171,9 +203,16 @@ A promise which resolves to an object containing the following properties:
   
   
 
-### `getFundingPot.call({ potId })`
+### `getFundingPot`
 
 Get information about a funding pot.
+
+```js
+await colonyClient.getFundingPot.call({
+  potId,
+});
+```
+
 
 **Input**
 
@@ -196,14 +235,22 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyFunding.sol)
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyFunding.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `getFundingPotBalance.call({ potId, token })`
+### `getFundingPotBalance`
 
 Get the balance of a funding pot.
+
+```js
+await colonyClient.getFundingPotBalance.call({
+  potId,
+  token,
+});
+```
+
 
 **Input**
 
@@ -225,14 +272,19 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyFunding.sol)
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyFunding.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `getFundingPotCount.call()`
+### `getFundingPotCount`
 
 Get the total number of funding pots.
+
+```js
+await colonyClient.getFundingPotCount.call();
+```
+
 
 
 **Response**
@@ -248,14 +300,22 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyFunding.sol)
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyFunding.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `getFundingPotPayout.call({ potId, token })`
+### `getFundingPotPayout`
 
 Get the payout of a funding pot.
+
+```js
+await colonyClient.getFundingPotPayout.call({
+  potId,
+  token,
+});
+```
+
 
 **Input**
 
@@ -277,14 +337,21 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyFunding.sol)
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyFunding.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `getNonRewardPotsTotal.call({ token })`
+### `getNonRewardPotsTotal`
 
 Get the total amount of funds that are not in the colony rewards pot. This is a value that keeps track of the total assets a colony has to work with, which may be split among several distinct pots associated with various domains and tasks.
+
+```js
+await colonyClient.getNonRewardPotsTotal.call({
+  token,
+});
+```
+
 
 **Input**
 
@@ -305,14 +372,19 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyFunding.sol)
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyFunding.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `getOwnerAddress.call()`
+### `getOwnerAddress`
 
 Get the address of the owner of the colony contract.
+
+```js
+await colonyClient.getOwnerAddress.call();
+```
+
 
 
 **Response**
@@ -330,12 +402,19 @@ A promise which resolves to an object containing the following properties:
   
 Contract: [auth.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/auth.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `getPayment.call({ paymentId })`
+### `getPayment`
 
 Get information about a payment.
+
+```js
+await colonyClient.getPayment.call({
+  paymentId,
+});
+```
+
 
 **Input**
 
@@ -360,14 +439,19 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [ColonyPayment.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyPayment.sol)
+Contract: [ColonyPayment.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyPayment.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `getPaymentCount.call()`
+### `getPaymentCount`
 
 Get the total number of payments.
+
+```js
+await colonyClient.getPaymentCount.call();
+```
+
 
 
 **Response**
@@ -383,14 +467,19 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [ColonyPayment.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyPayment.sol)
+Contract: [ColonyPayment.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyPayment.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `getRecoveryRolesCount.call()`
+### `getRecoveryRolesCount`
 
 Get the total number of addresses that are assigned the colony `RECOVERY` role.
+
+```js
+await colonyClient.getRecoveryRolesCount.call();
+```
+
 
 
 **Response**
@@ -406,14 +495,19 @@ A promise which resolves to an object containing the following properties:
 
   Function: `numRecoveryRoles`
   
-Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ContractRecovery.sol)
+Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ContractRecovery.sol)
   
-Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IRecovery.sol)
+Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IRecovery.sol)
   
 
-### `getRewardInverse.call()`
+### `getRewardInverse`
 
 Get the inverse amount of the reward. If the fee is 1% (or 0.01), the inverse amount will be 100.
+
+```js
+await colonyClient.getRewardInverse.call();
+```
+
 
 
 **Response**
@@ -429,14 +523,21 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyFunding.sol)
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyFunding.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `getRewardPayoutInfo.call({ payoutId })`
+### `getRewardPayoutInfo`
 
 Get information about a reward payout cycle.
+
+```js
+await colonyClient.getRewardPayoutInfo.call({
+  payoutId,
+});
+```
+
 
 **Input**
 
@@ -462,14 +563,21 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyFunding.sol)
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyFunding.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `getTask.call({ taskId })`
+### `getTask`
 
 Get information about a task.
+
+```js
+await colonyClient.getTask.call({
+  taskId,
+});
+```
+
 
 **Input**
 
@@ -497,14 +605,19 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `getTaskCount.call()`
+### `getTaskCount`
 
 Get the total number of tasks in the colony. The return value is also the ID of the last task created.
+
+```js
+await colonyClient.getTaskCount.call();
+```
+
 
 
 **Response**
@@ -520,14 +633,23 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `getTaskPayout.call({ taskId, role, token })`
+### `getTaskPayout`
 
 Get the task payout amount assigned to a task role. Multiple tokens can be used for task payouts, therefore the token must be specified when calling this function. In order to get the task payout amount in Ether, `token` must be an empty address.
+
+```js
+await colonyClient.getTaskPayout.call({
+  taskId,
+  role,
+  token,
+});
+```
+
 
 **Input**
 
@@ -550,14 +672,22 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyFunding.sol)
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyFunding.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `getTaskRole.call({ taskId, role })`
+### `getTaskRole`
 
 Get information about a task role.
+
+```js
+await colonyClient.getTaskRole.call({
+  taskId,
+  role,
+});
+```
+
 
 **Input**
 
@@ -581,14 +711,22 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `getTaskWorkRatingSecret.call({ taskId, role })`
+### `getTaskWorkRatingSecret`
 
 Get the secret of a task work rating that has been submitted. If a task is in the commit period of the rating process, the work ratings are hidden in a keccak256 hash that was created from a `salt` and `value`. The rating secret can be retrieved but in order to reveal the secret, one would have to know both the `salt` and `value` used to generate the secret.
+
+```js
+await colonyClient.getTaskWorkRatingSecret.call({
+  taskId,
+  role,
+});
+```
+
 
 **Input**
 
@@ -610,14 +748,21 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `getTaskWorkRatingSecretsInfo.call({ taskId })`
+### `getTaskWorkRatingSecretsInfo`
 
 Get information about the secrets of the task work ratings.
+
+```js
+await colonyClient.getTaskWorkRatingSecretsInfo.call({
+  taskId,
+});
+```
+
 
 **Input**
 
@@ -639,14 +784,19 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `getTokenAddress.call()`
+### `getTokenAddress`
 
 Get the address of the token contract that is the native token assigned to the colony. The native token is the token used to calculate reputation scores, i.e. `1` token earned for completing a task with a satisfactory rating (`2`) will result in `1` reputation point earned.
+
+```js
+await colonyClient.getTokenAddress.call();
+```
+
 
 
 **Response**
@@ -662,14 +812,19 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/Colony.sol)
+Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/Colony.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `getVersion.call()`
+### `getVersion`
 
 Get the version number of the colony contract. The version number starts at `1` and is incremented by `1` with every new version.
+
+```js
+await colonyClient.getVersion.call();
+```
+
 
 
 **Response**
@@ -685,14 +840,23 @@ A promise which resolves to an object containing the following properties:
 
   Function: `version`
   
-Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/Colony.sol)
+Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/Colony.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `hasColonyRole.call({ address, domainId, role })`
+### `hasColonyRole`
 
 Check whether an address has a role assigned.
+
+```js
+await colonyClient.hasColonyRole.call({
+  address,
+  domainId,
+  role,
+});
+```
+
 
 **Input**
 
@@ -715,14 +879,19 @@ A promise which resolves to an object containing the following properties:
 
   Function: `hasUserRole`
   
-Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/Colony.sol)
+Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/Colony.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `isInRecoveryMode.call()`
+### `isInRecoveryMode`
 
 Check whether or not the colony is in recovery mode.
+
+```js
+await colonyClient.isInRecoveryMode.call();
+```
+
 
 
 **Response**
@@ -738,14 +907,24 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ContractRecovery.sol)
+Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ContractRecovery.sol)
   
-Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IRecovery.sol)
+Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IRecovery.sol)
   
 
-### `verifyReputationProof.call({ key, value, branchMask, siblings })`
+### `verifyReputationProof`
 
 Verify the correctness of a patricia proof associated with reputation.
+
+```js
+await colonyClient.verifyReputationProof.call({
+  key,
+  value,
+  branchMask,
+  siblings,
+});
+```
+
 
 **Input**
 
@@ -769,18 +948,26 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/Colony.sol)
+Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/Colony.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
   
 ## Senders
 
-**All senders return an instance of a `ContractResponse`.** Every `send()` method takes an `options` object as the second argument.
-### `addNetworkColonyVersion.send({ version, resolver }, options)`
+
+### `addNetworkColonyVersion`
 
 Add a colony contract version. This can only be called from the Meta Colony and only by the address assigned the colony `ROOT` role.
+
+```js
+await colonyClient.addNetworkColonyVersion.send({
+  version,
+  resolver,
+}, options);
+```
+
 
 **Input**
 
@@ -810,14 +997,21 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/Colony.sol)
+Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/Colony.sol)
   
-Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IMetaColony.sol)
+Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IMetaColony.sol)
   
 
-### `addDomain.send({ parentDomainId }, options)`
+### `addDomain`
 
 Add a domain to the colony.
+
+```js
+await colonyClient.addDomain.send({
+  parentDomainId,
+}, options);
+```
+
 
 **Input**
 
@@ -850,14 +1044,21 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/Colony.sol)
+Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/Colony.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `addExtension.send({ contractName }, options)`
+### `addExtension`
 
 Add an extension contract.
+
+```js
+await colonyClient.addExtension.send({
+  contractName,
+}, options);
+```
+
 
 **Input**
 
@@ -885,9 +1086,14 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
   
   
 
-### `addGlobalSkill.send(options)`
+### `addGlobalSkill`
 
 Add a global skill. This can only be called from the Meta Colony and only by the address assigned the colony `ROOT` role.
+
+```js
+await colonyClient.addGlobalSkill.send(options);
+```
+
 
 
 **Options**
@@ -911,14 +1117,25 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/Colony.sol)
+Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/Colony.sol)
   
-Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IMetaColony.sol)
+Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IMetaColony.sol)
   
 
-### `addPayment.send({ recipient, token, amount, domainId, skillId }, options)`
+### `addPayment`
 
 Add a payment to the colony.
+
+```js
+await colonyClient.addPayment.send({
+  recipient,
+  token,
+  amount,
+  domainId,
+  skillId,
+}, options);
+```
+
 
 **Input**
 
@@ -952,14 +1169,24 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ColonyPayment.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyPayment.sol)
+Contract: [ColonyPayment.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyPayment.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `addTask.send({ specificationHash, domainId, skillId, dueDate }, options)`
+### `addTask`
 
 Add a new task within the colony.
+
+```js
+await colonyClient.addTask.send({
+  specificationHash,
+  domainId,
+  skillId,
+  dueDate,
+}, options);
+```
+
 
 **Input**
 
@@ -996,14 +1223,19 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   Function: `makeTask`
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `approveExitRecovery.send(options)`
+### `approveExitRecovery`
 
 Indicate approval to exit colony recovery mode. This function can only be called by an address assigned the colony `RECOVERY` role.
+
+```js
+await colonyClient.approveExitRecovery.send(options);
+```
+
 
 
 **Options**
@@ -1023,14 +1255,22 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ContractRecovery.sol)
+Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ContractRecovery.sol)
   
-Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IRecovery.sol)
+Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IRecovery.sol)
   
 
-### `bootstrapColony.send({ addresses, amounts }, options)`
+### `bootstrapColony`
 
 Bootstrap the colony by giving an initial amount of tokens and reputation to selected addresses. This function can only be called by the address assigned the colony `ROOT` role when the `taskCount` for the colony is equal to `0`.
+
+```js
+await colonyClient.bootstrapColony.send({
+  addresses,
+  amounts,
+}, options);
+```
+
 
 **Input**
 
@@ -1064,14 +1304,21 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/Colony.sol)
+Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/Colony.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `claimColonyFunds.send({ token }, options)`
+### `claimColonyFunds`
 
 Claim funds that the colony has received by adding them to the funding pot of the root domain. A set fee is deducted from the funds claimed and added to the colony rewards pot. No fee is deducted when tokens native to the colony are claimed.
+
+```js
+await colonyClient.claimColonyFunds.send({
+  token,
+}, options);
+```
+
 
 **Input**
 
@@ -1101,14 +1348,22 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyFunding.sol)
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyFunding.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `claimPayment.send({ paymentId, token }, options)`
+### `claimPayment`
 
 Claim a payment.
+
+```js
+await colonyClient.claimPayment.send({
+  paymentId,
+  token,
+}, options);
+```
+
 
 **Input**
 
@@ -1143,14 +1398,26 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyFunding.sol)
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyFunding.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `claimRewardPayout.send({ payoutId, squareRoots, key, value, branchMask, siblings }, options)`
+### `claimRewardPayout`
 
 Claim a reward payout.
+
+```js
+await colonyClient.claimRewardPayout.send({
+  payoutId,
+  squareRoots,
+  key,
+  value,
+  branchMask,
+  siblings,
+}, options);
+```
+
 
 **Input**
 
@@ -1190,14 +1457,23 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyFunding.sol)
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyFunding.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `claimTaskPayout.send({ taskId, role, token }, options)`
+### `claimTaskPayout`
 
 Claim a payout assigned to a task role (`MANAGER`, `EVALUATOR`, or `WORKER`). This function can only be called by the address assigned the given task role after the task has been finalized.
+
+```js
+await colonyClient.claimTaskPayout.send({
+  taskId,
+  role,
+  token,
+}, options);
+```
+
 
 **Input**
 
@@ -1233,14 +1509,21 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyFunding.sol)
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyFunding.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `completeTask.send({ taskId }, options)`
+### `completeTask`
 
 Mark a task as complete. If the address assigned the task `WORKER` role fails to submit the task deliverable by the due date, this function must be called by the address assigned the task `MANAGER` role. This allows the task work to be rated and the task to be finalized.
+
+```js
+await colonyClient.completeTask.send({
+  taskId,
+}, options);
+```
+
 
 **Input**
 
@@ -1268,14 +1551,21 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `deprecateGlobalSkill.send({ skillId }, options)`
+### `deprecateGlobalSkill`
 
 Deprecate a global skill. This can only be called from the Meta Colony and only by the address assigned the colony `ROOT` role.
+
+```js
+await colonyClient.deprecateGlobalSkill.send({
+  skillId,
+}, options);
+```
+
 
 **Input**
 
@@ -1300,15 +1590,20 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/Colony.sol)
+Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/Colony.sol)
   
-Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IMetaColony.sol)
+Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IMetaColony.sol)
   
 
-### `enterRecoveryMode.send(options)`
+### `enterRecoveryMode`
 
 Enter colony recovery mode. This function can only be called by a user assigned the colony `RECOVERY` role.
 
+```js
+await colonyClient.enterRecoveryMode.send(options);
+```
+
+
 
 **Options**
 
@@ -1327,15 +1622,20 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ContractRecovery.sol)
+Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ContractRecovery.sol)
   
-Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IRecovery.sol)
+Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IRecovery.sol)
   
 
-### `exitRecoveryMode.send(options)`
+### `exitRecoveryMode`
 
 Exit colony recovery mode. This function can be called by anyone if enough whitelist approvals are given.
 
+```js
+await colonyClient.exitRecoveryMode.send(options);
+```
+
+
 
 **Options**
 
@@ -1354,14 +1654,21 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ContractRecovery.sol)
+Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ContractRecovery.sol)
   
-Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IRecovery.sol)
+Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IRecovery.sol)
   
 
-### `finalizePayment.send({ paymentId }, options)`
+### `finalizePayment`
 
 Finalize a payment. Once a payment is finalized, no further changes to the payment can be made and the address that is assigned the payment can claim the payment.
+
+```js
+await colonyClient.finalizePayment.send({
+  paymentId,
+}, options);
+```
+
 
 **Input**
 
@@ -1386,14 +1693,21 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ColonyPayment.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyPayment.sol)
+Contract: [ColonyPayment.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyPayment.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `finalizeRewardPayout.send({ payoutId }, options)`
+### `finalizeRewardPayout`
 
 Finalize a reward payout cycle. This function can only be called when the reward payout cycle has finished, i.e. 60 days have passed since the creation of the reward payout cycle.
+
+```js
+await colonyClient.finalizeRewardPayout.send({
+  payoutId,
+}, options);
+```
+
 
 **Input**
 
@@ -1421,14 +1735,21 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyFunding.sol)
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyFunding.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `finalizeTask.send({ taskId }, options)`
+### `finalizeTask`
 
 Finalize a task. Once a task is finalized, no further changes to the task can be made and each user assigned a task role can claim the payout assigned to their role.
+
+```js
+await colonyClient.finalizeTask.send({
+  taskId,
+}, options);
+```
+
 
 **Input**
 
@@ -1456,14 +1777,25 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `makePayment.send({ recipient, token, amount, domainId, skillId }, options)`
+### `makePayment`
 
 Make a payment in one transaction. This function is not included in the core contracts but instead it comes from the `OneTxPayment` extension contract. The `OneTxPayment` extension contract and the sender must both be assigned the colony `ADMINISTRATION` role.
+
+```js
+await colonyClient.makePayment.send({
+  recipient,
+  token,
+  amount,
+  domainId,
+  skillId,
+}, options);
+```
+
 
 **Input**
 
@@ -1507,13 +1839,20 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [OneTxPayment.sol](https://github.com/JoinColony/colonyNetwork/blob/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/extensions/OneTxPayment.sol/OneTxPayment.sol)
+Contract: [OneTxPayment.sol](https://github.com/JoinColony/colonyNetwork/blob/glider-rc.1/contracts/extensions/OneTxPayment.sol/OneTxPayment.sol)
   
   
 
-### `mintTokens.send({ amount }, options)`
+### `mintTokens`
 
 Mint new tokens. This function can only be called if the address of the colony contract is the owner of the token contract. If this is the case, then this function can only be called by the address assigned the colony `ROOT` role.
+
+```js
+await colonyClient.mintTokens.send({
+  amount,
+}, options);
+```
+
 
 **Input**
 
@@ -1542,14 +1881,21 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/Colony.sol)
+Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/Colony.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `mintTokensForColonyNetwork.send({ amount }, options)`
+### `mintTokensForColonyNetwork`
 
 Mint tokens for the Colony Network. This can only be called from the Meta Colony and only by the address assigned the colony `ROOT` role.
+
+```js
+await colonyClient.mintTokensForColonyNetwork.send({
+  amount,
+}, options);
+```
+
 
 **Input**
 
@@ -1582,14 +1928,24 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/Colony.sol)
+Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/Colony.sol)
   
-Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IMetaColony.sol)
+Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IMetaColony.sol)
   
 
-### `moveFundsBetweenPots.send({ fromPot, toPot, amount, token }, options)`
+### `moveFundsBetweenPots`
 
 Move funds from one pot to another.
+
+```js
+await colonyClient.moveFundsBetweenPots.send({
+  fromPot,
+  toPot,
+  amount,
+  token,
+}, options);
+```
+
 
 **Input**
 
@@ -1623,14 +1979,22 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyFunding.sol)
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyFunding.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `registerColonyLabel.send({ colonyName, orbitDBPath }, options)`
+### `registerColonyLabel`
 
 Register an ENS label for the colony.
+
+```js
+await colonyClient.registerColonyLabel.send({
+  colonyName,
+  orbitDBPath,
+}, options);
+```
+
 
 **Input**
 
@@ -1660,14 +2024,21 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/Colony.sol)
+Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/Colony.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `removeExtension.send({ contractName }, options)`
+### `removeExtension`
 
 Remove an extension contract.
+
+```js
+await colonyClient.removeExtension.send({
+  contractName,
+}, options);
+```
+
 
 **Input**
 
@@ -1695,9 +2066,16 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
   
   
 
-### `removeRecoveryRole.send({ address }, options)`
+### `removeRecoveryRole`
 
 Remove the colony `RECOVERY` role from an address. This function can only be called by the colony `ROOT` role.
+
+```js
+await colonyClient.removeRecoveryRole.send({
+  address,
+}, options);
+```
+
 
 **Input**
 
@@ -1722,14 +2100,24 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ContractRecovery.sol)
+Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ContractRecovery.sol)
   
-Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IRecovery.sol)
+Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IRecovery.sol)
   
 
-### `revealTaskWorkRating.send({ taskId, role, rating, salt }, options)`
+### `revealTaskWorkRating`
 
 Reveal a submitted work rating. In order to reveal a work rating, the same `salt` and `value` used to generate the `secret` when the task work rating was submitted must be provided again here to reveal the task work rating.
+
+```js
+await colonyClient.revealTaskWorkRating.send({
+  taskId,
+  role,
+  rating,
+  salt,
+}, options);
+```
+
 
 **Input**
 
@@ -1762,14 +2150,22 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `setAdminRole.send({ address, setTo }, options)`
+### `setAdminRole`
 
 Assign the colony `ADMIN` role to an address. This function is not included in the core contracts but instead it comes from the `OldRoles` extension contract. This function can only be called by an address assigned the colony `ROOT` (`FOUNDER`) role or an address assigned the colony `ADMIN` (`ARCHITECTURE`) role. There is no limit to the number of addresses that can be assigned the colony `ADMIN` role.
+
+```js
+await colonyClient.setAdminRole.send({
+  address,
+  setTo,
+}, options);
+```
+
 
 **Input**
 
@@ -1801,13 +2197,22 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [OldRoles.sol](https://github.com/JoinColony/colonyNetwork/blob/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/extensions/OldRoles.sol/OldRoles.sol)
+Contract: [OldRoles.sol](https://github.com/JoinColony/colonyNetwork/blob/glider-rc.1/contracts/extensions/OldRoles.sol/OldRoles.sol)
   
   
 
-### `setAdministrationRole.send({ address, domainId, setTo }, options)`
+### `setAdministrationRole`
 
 Assign the colony `ADMINISTRATION` role to an address. The address calling the method must have permission within the domain that permission is being granted or a parent domain to the domain that permission is being granted. The address calling the method must already be assigned either the colony `ROOT` or `ARCHITECTURE` role within the domain or parent domain.
+
+```js
+await colonyClient.setAdministrationRole.send({
+  address,
+  domainId,
+  setTo,
+}, options);
+```
+
 
 **Input**
 
@@ -1838,14 +2243,25 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/Colony.sol)
+Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/Colony.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `setAllTaskPayouts.send({ taskId, token, managerAmount, evaluatorAmount, workerAmount }, options)`
+### `setAllTaskPayouts`
 
 Set the payouts for all task roles. This can only be called by the address assigned the task `MANAGER` role and only if the task `EVALUATOR` role and `WORKER` task role are not assigned or they are assigned to the same address that is currently assigned the task `MANAGER` role.
+
+```js
+await colonyClient.setAllTaskPayouts.send({
+  taskId,
+  token,
+  managerAmount,
+  evaluatorAmount,
+  workerAmount,
+}, options);
+```
+
 
 **Input**
 
@@ -1880,14 +2296,23 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyFunding.sol)
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyFunding.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `setArchitectureRole.send({ address, domainId, setTo }, options)`
+### `setArchitectureRole`
 
 Assign the colony `ARCHITECTURE` role to an address. The address calling the method must have permission within the domain that permission is being granted or a parent domain to the domain that permission is being granted. The address calling the method must already be assigned either the colony `ROOT` or `ARCHITECTURE` role within the domain or parent domain.
+
+```js
+await colonyClient.setArchitectureRole.send({
+  address,
+  domainId,
+  setTo,
+}, options);
+```
+
 
 **Input**
 
@@ -1918,14 +2343,21 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/Colony.sol)
+Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/Colony.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `setFounderRole.send({ address }, options)`
+### `setFounderRole`
 
 Assign the colony `FOUNDER` role to an address. This function is not included in the core contracts but instead it comes from the `OldRoles` extension contract. This function can only be called by an address assigned the colony `ROOT` (`FOUNDER`) role. There can only be one address assigned to the colony `ROOT` (`FOUNDER`) role, therefore, the address currently assigned will forfeit the role.
+
+```js
+await colonyClient.setFounderRole.send({
+  address,
+}, options);
+```
+
 
 **Input**
 
@@ -1957,13 +2389,22 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [OldRoles.sol](https://github.com/JoinColony/colonyNetwork/blob/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/extensions/OldRoles.sol/OldRoles.sol)
+Contract: [OldRoles.sol](https://github.com/JoinColony/colonyNetwork/blob/glider-rc.1/contracts/extensions/OldRoles.sol/OldRoles.sol)
   
   
 
-### `setFundingRole.send({ address, domainId, setTo }, options)`
+### `setFundingRole`
 
 Assign the colony `FUNDING` role to an address. The address calling the method must have permission within the domain that permission is being granted or a parent domain to the domain that permission is being granted. The address calling the method must already be assigned either the colony `ROOT` or `ARCHITECTURE` role within the domain or parent domain.
+
+```js
+await colonyClient.setFundingRole.send({
+  address,
+  domainId,
+  setTo,
+}, options);
+```
+
 
 **Input**
 
@@ -1994,14 +2435,21 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/Colony.sol)
+Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/Colony.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `setNetworkFeeInverse.send({ feeInverse }, options)`
+### `setNetworkFeeInverse`
 
 Set the inverse amount of the reward. This can only be called from the Meta Colony and only by the address assigned the colony `ROOT` role. If the fee is 1% (or 0.01), the inverse amount will be 100.
+
+```js
+await colonyClient.setNetworkFeeInverse.send({
+  feeInverse,
+}, options);
+```
+
 
 **Input**
 
@@ -2026,14 +2474,22 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/Colony.sol)
+Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/Colony.sol)
   
-Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IMetaColony.sol)
+Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IMetaColony.sol)
   
 
-### `setPaymentDomain.send({ paymentId, domainId }, options)`
+### `setPaymentDomain`
 
 Set the payment domain.
+
+```js
+await colonyClient.setPaymentDomain.send({
+  paymentId,
+  domainId,
+}, options);
+```
+
 
 **Input**
 
@@ -2059,14 +2515,23 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ColonyPayment.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyPayment.sol)
+Contract: [ColonyPayment.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyPayment.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `setPaymentPayout.send({ paymentId, token, amount }, options)`
+### `setPaymentPayout`
 
 Set the payment payout.
+
+```js
+await colonyClient.setPaymentPayout.send({
+  paymentId,
+  token,
+  amount,
+}, options);
+```
+
 
 **Input**
 
@@ -2093,14 +2558,22 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyFunding.sol)
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyFunding.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `setPaymentRecipient.send({ paymentId, recipient }, options)`
+### `setPaymentRecipient`
 
 Set the payment recipient.
+
+```js
+await colonyClient.setPaymentRecipient.send({
+  paymentId,
+  recipient,
+}, options);
+```
+
 
 **Input**
 
@@ -2126,14 +2599,22 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ColonyPayment.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyPayment.sol)
+Contract: [ColonyPayment.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyPayment.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `setPaymentSkill.send({ paymentId, skillId }, options)`
+### `setPaymentSkill`
 
 Set the payment skill.
+
+```js
+await colonyClient.setPaymentSkill.send({
+  paymentId,
+  skillId,
+}, options);
+```
+
 
 **Input**
 
@@ -2159,14 +2640,21 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ColonyPayment.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyPayment.sol)
+Contract: [ColonyPayment.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyPayment.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `setRecoveryRole.send({ address }, options)`
+### `setRecoveryRole`
 
 Assign the colony `RECOVERY` role to an address. This function can only be called by the colony `ROOT` role.
+
+```js
+await colonyClient.setRecoveryRole.send({
+  address,
+}, options);
+```
+
 
 **Input**
 
@@ -2191,14 +2679,21 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ContractRecovery.sol)
+Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ContractRecovery.sol)
   
-Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IRecovery.sol)
+Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IRecovery.sol)
   
 
-### `setRewardInverse.send({ rewardInverse }, options)`
+### `setRewardInverse`
 
 Set the inverse amount of the reward. This function can only be called by the address currently assigned the colony `ROOT` role. If the fee is 1% (or 0.01), the inverse amount will be 100.
+
+```js
+await colonyClient.setRewardInverse.send({
+  rewardInverse,
+}, options);
+```
+
 
 **Input**
 
@@ -2226,14 +2721,22 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyFunding.sol)
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyFunding.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `setRootRole.send({ address, setTo }, options)`
+### `setRootRole`
 
-Assign the colony `ROOT` role to an address. This function can only be called by the address currently assigned the colony `ROOT` role. There can only be one address assigned to the colony `ROOT` role, therefore, the address currently assigned will forfeit the role.
+Assign the colony `ROOT` role to an address. This function can only be called by an address currently assigned the colony `ROOT` role.
+
+```js
+await colonyClient.setRootRole.send({
+  address,
+  setTo,
+}, options);
+```
+
 
 **Input**
 
@@ -2263,14 +2766,22 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/Colony.sol)
+Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/Colony.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `setStorageSlotRecovery.send({ slot, value }, options)`
+### `setStorageSlotRecovery`
 
 Set the value for a storage slot while in recovery mode. This can only be called by a user assigned the colony `RECOVERY` role.
+
+```js
+await colonyClient.setStorageSlotRecovery.send({
+  slot,
+  value,
+}, options);
+```
+
 
 **Input**
 
@@ -2296,14 +2807,25 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ContractRecovery.sol)
+Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ContractRecovery.sol)
   
-Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IRecovery.sol)
+Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IRecovery.sol)
   
 
-### `startNextRewardPayout.send({ token, key, value, branchMask, siblings }, options)`
+### `startNextRewardPayout`
 
 Start the next reward payout cycle. All the funds in the colony rewards pot for the given token will become locked until reputation holders have claimed their rewards payout using `claimRewardPayout`. Reputation holders can also waive their reward payout and unlock their tokens for past reward payout cycles by using `incrementLockCounterTo`.
+
+```js
+await colonyClient.startNextRewardPayout.send({
+  token,
+  key,
+  value,
+  branchMask,
+  siblings,
+}, options);
+```
+
 
 **Input**
 
@@ -2338,14 +2860,22 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyFunding.sol)
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyFunding.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `submitTaskDeliverable.send({ taskId, deliverableHash }, options)`
+### `submitTaskDeliverable`
 
 Submit the task deliverable. This function can only be called by the address assigned the task `WORKER` role on or before the task due date. The submission cannot be overwritten, which means the deliverable cannot be changed once it has been submitted.
+
+```js
+await colonyClient.submitTaskDeliverable.send({
+  taskId,
+  deliverableHash,
+}, options);
+```
+
 
 **Input**
 
@@ -2376,14 +2906,23 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `submitTaskDeliverableAndRating.send({ taskId, deliverableHash, secret }, options)`
+### `submitTaskDeliverableAndRating`
 
 Submit the task deliverable and the work rating for the address assigned the task `MANAGER` role. This function can only be called by the address assigned the task `WORKER` role on or before the task due date. The submission cannot be overwritten, which means the deliverable cannot be changed once it has been submitted. In order to submit a rating, a `secret` must be generated using the `generateSecret` method, which keeps the rating hidden until all ratings have been submitted and revealed.
+
+```js
+await colonyClient.submitTaskDeliverableAndRating.send({
+  taskId,
+  deliverableHash,
+  secret,
+}, options);
+```
+
 
 **Input**
 
@@ -2415,14 +2954,23 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `submitTaskWorkRating.send({ taskId, role, secret }, options)`
+### `submitTaskWorkRating`
 
 Submit a work rating for a task. This function can only be called by the address assigned the task `EVALUATOR` role, who is submitting a rating for the address assigned the task `WORKER` role, or the address assigned the task `WORKER` role, who is submitting a rating for the address assigned the task `MANAGER` role. In order to submit a rating, a `secret` must be generated using the `generateSecret` method, which keeps the rating hidden until all ratings have been submitted and revealed.
+
+```js
+await colonyClient.submitTaskWorkRating.send({
+  taskId,
+  role,
+  secret,
+}, options);
+```
+
 
 **Input**
 
@@ -2449,14 +2997,21 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `upgrade.send({ newVersion }, options)`
+### `upgrade`
 
 Upgrade the colony to a new colony contract version. The new version must be higher than the current version. Downgrading to old versions is not permitted.
+
+```js
+await colonyClient.upgrade.send({
+  newVersion,
+}, options);
+```
+
 
 **Input**
 
@@ -2485,18 +3040,25 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/Colony.sol)
+Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/Colony.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
   
 ## MultiSigSenders
 
-**All MultiSig functions return an instance of a `MultiSigOperation`.**
-### `cancelTask.startOperation({ taskId })`
+
+### `cancelTask`
 
 Cancel a task. Once a task is cancelled, no further changes to the task can be made.
+
+```js
+await colonyClient.cancelTask.startOperation({
+  taskId,
+});
+```
+
 
 **Input**
 
@@ -2520,15 +3082,22 @@ See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `removeTaskEvaluatorRole.startOperation({ taskId })`
+### `removeTaskEvaluatorRole`
 
 Remove the task `EVALUATOR` role from an address. This function can only be called before the task is complete, i.e. either before the deliverable has been submitted or the address assigned the task `WORKER` role has failed to meet the deadline and the address assigned the task `MANAGER` role has marked the task as complete.
 
+```js
+await colonyClient.removeTaskEvaluatorRole.startOperation({
+  taskId,
+});
+```
+
+
 **Input**
 
 |Name|Type|Description|
@@ -2553,15 +3122,22 @@ See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `removeTaskWorkerRole.startOperation({ taskId })`
+### `removeTaskWorkerRole`
 
 Remove the task `WORKER` role from an address. This function can only be called before the task is complete, i.e. either before the deliverable has been submitted or the address assigned the task `WORKER` role has failed to meet the deadline and the address assigned the task `MANAGER` role has marked the task as complete.
 
+```js
+await colonyClient.removeTaskWorkerRole.startOperation({
+  taskId,
+});
+```
+
+
 **Input**
 
 |Name|Type|Description|
@@ -2586,14 +3162,22 @@ See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `setTaskBrief.startOperation({ taskId, specificationHash })`
+### `setTaskBrief`
 
 Set the task specification. The task specification, or "task brief", is a description of the work that must be completed for the task. The description is hashed and stored with the task for future reference during the rating process or in the event of a dispute.
+
+```js
+await colonyClient.setTaskBrief.startOperation({
+  taskId,
+  specificationHash,
+});
+```
+
 
 **Input**
 
@@ -2619,14 +3203,22 @@ See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `setTaskDomain.startOperation({ taskId, domainId })`
+### `setTaskDomain`
 
 Set the domain of a task. Every task must belong to a domain. This function can only be called by the address assigned the task `MANAGER` role.
+
+```js
+await colonyClient.setTaskDomain.startOperation({
+  taskId,
+  domainId,
+});
+```
+
 
 **Input**
 
@@ -2652,14 +3244,22 @@ See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `setTaskDueDate.startOperation({ taskId, dueDate })`
+### `setTaskDueDate`
 
 Set the due date of a task. The due date is the last day that the address assigned the task `WORKER` role can submit the task deliverable.
+
+```js
+await colonyClient.setTaskDueDate.startOperation({
+  taskId,
+  dueDate,
+});
+```
+
 
 **Input**
 
@@ -2685,14 +3285,23 @@ See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `setTaskEvaluatorPayout.startOperation({ taskId, token, amount })`
+### `setTaskEvaluatorPayout`
 
 Set the payout amount for the task `EVALUATOR` role.
+
+```js
+await colonyClient.setTaskEvaluatorPayout.startOperation({
+  taskId,
+  token,
+  amount,
+});
+```
+
 
 **Input**
 
@@ -2721,14 +3330,22 @@ See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
 
   
   
-Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyFunding.sol)
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyFunding.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `setTaskEvaluatorRole.startOperation({ taskId, address })`
+### `setTaskEvaluatorRole`
 
 Assign the task `EVALUATOR` role to an address. This function can only be called before the task is finalized. The address assigned the task `MANAGER` role and the address being assigned the task `EVALUATOR` role must both sign the transaction before it can be executed.
+
+```js
+await colonyClient.setTaskEvaluatorRole.startOperation({
+  taskId,
+  address,
+});
+```
+
 
 **Input**
 
@@ -2755,14 +3372,23 @@ See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `setTaskManagerPayout.startOperation({ taskId, token, amount })`
+### `setTaskManagerPayout`
 
 Set the payout amount for the task `MANAGER` role.
+
+```js
+await colonyClient.setTaskManagerPayout.startOperation({
+  taskId,
+  token,
+  amount,
+});
+```
+
 
 **Input**
 
@@ -2791,14 +3417,22 @@ See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
 
   
   
-Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyFunding.sol)
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyFunding.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `setTaskManagerRole.startOperation({ taskId, address })`
+### `setTaskManagerRole`
 
 Assign the task `MANAGER` role to an address. This function can only be called before the task is finalized. The address currently assigned the task `MANAGER` role and the address being assigned the task `MANAGER` role must both sign the transaction before it can be executed.
+
+```js
+await colonyClient.setTaskManagerRole.startOperation({
+  taskId,
+  address,
+});
+```
+
 
 **Input**
 
@@ -2825,14 +3459,22 @@ See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `setTaskSkill.startOperation({ taskId, skillId })`
+### `setTaskSkill`
 
 Set the skill of a task. Only one skill can be assigned per task. The user assigned the task `MANAGER` role and the address assigned the task `WORKER` role must both sign this transaction before it can be executed.
+
+```js
+await colonyClient.setTaskSkill.startOperation({
+  taskId,
+  skillId,
+});
+```
+
 
 **Input**
 
@@ -2858,14 +3500,23 @@ See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `setTaskWorkerPayout.startOperation({ taskId, token, amount })`
+### `setTaskWorkerPayout`
 
 Set the payout amount for the task `WORKER` role.
+
+```js
+await colonyClient.setTaskWorkerPayout.startOperation({
+  taskId,
+  token,
+  amount,
+});
+```
+
 
 **Input**
 
@@ -2894,14 +3545,22 @@ See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
 
   
   
-Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyFunding.sol)
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyFunding.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
-### `setTaskWorkerRole.startOperation({ taskId, address })`
+### `setTaskWorkerRole`
 
 Assign the task `WORKER` role to an address. This function can only be called before the task is finalized. The address assigned the task `MANAGER` role and the address being assigned the task `WORKER` role must both sign the transaction before it can be executed.
+
+```js
+await colonyClient.setTaskWorkerRole.startOperation({
+  taskId,
+  address,
+});
+```
+
 
 **Input**
 
@@ -2928,22 +3587,39 @@ See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e2526ffdd9b9577b340f9c8dcf3c22df5ce/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
   
 
   
 ## Events
 
 
-### `events.ColonyAdministrationRoleSet`
+### `ColonyAdministrationRoleSet`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ address, setTo }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  address,
+  setTo,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ address, setTo }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyClient.events.ColonyAdministrationRoleSet.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.ColonyAdministrationRoleSet.removeListener(eventHandler);
+```
 
 
 
@@ -2956,13 +3632,30 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e
 |setTo|boolean|A boolean indicating whether the address was assigned or unassigned the colony `ADMINISTRATION` role.|
 
 
-### `events.ColonyArchitectureRoleSet`
+### `ColonyArchitectureRoleSet`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ address, setTo }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  address,
+  setTo,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ address, setTo }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyClient.events.ColonyArchitectureRoleSet.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.ColonyArchitectureRoleSet.removeListener(eventHandler);
+```
 
 
 
@@ -2975,13 +3668,30 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e
 |setTo|boolean|A boolean indicating whether the address was assigned or unassigned the colony `ARCHITECTURE` role.|
 
 
-### `events.ColonyBootstrapped`
+### `ColonyBootstrapped`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ addresses, amounts }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  addresses,
+  amounts,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ addresses, amounts }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyClient.events.ColonyBootstrapped.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.ColonyBootstrapped.removeListener(eventHandler);
+```
 
 
 
@@ -2994,13 +3704,30 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e
 |amounts|array|The array of corresponding token and reputation amounts each user recieved.|
 
 
-### `events.ColonyFundingRoleSet`
+### `ColonyFundingRoleSet`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ address, setTo }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  address,
+  setTo,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ address, setTo }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyClient.events.ColonyFundingRoleSet.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.ColonyFundingRoleSet.removeListener(eventHandler);
+```
 
 
 
@@ -3013,13 +3740,31 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e
 |setTo|boolean|A boolean indicating whether the address was assigned or unassigned the colony `FUNDING` role.|
 
 
-### `events.ColonyFundsClaimed`
+### `ColonyFundsClaimed`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ token, fee, payoutRemainder }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  token,
+  fee,
+  payoutRemainder,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ token, fee, payoutRemainder }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyClient.events.ColonyFundsClaimed.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.ColonyFundsClaimed.removeListener(eventHandler);
+```
 
 
 
@@ -3033,13 +3778,32 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e
 |payoutRemainder|big number|The remaining funds (after the fee) moved to the top-level domain pot.|
 
 
-### `events.ColonyFundsMovedBetweenFundingPots`
+### `ColonyFundsMovedBetweenFundingPots`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ fromPot, toPot, amount, token }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  fromPot,
+  toPot,
+  amount,
+  token,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ fromPot, toPot, amount, token }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyClient.events.ColonyFundsMovedBetweenFundingPots.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.ColonyFundsMovedBetweenFundingPots.removeListener(eventHandler);
+```
 
 
 
@@ -3054,13 +3818,30 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e
 |token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
 
 
-### `events.ColonyInitialised`
+### `ColonyInitialised`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ colonyNetwork, token }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  colonyNetwork,
+  token,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ colonyNetwork, token }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyClient.events.ColonyInitialised.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.ColonyInitialised.removeListener(eventHandler);
+```
 
 
 
@@ -3073,13 +3854,30 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e
 |token|address (0x0 included)|The address of the token contract.|
 
 
-### `events.ColonyLabelRegistered`
+### `ColonyLabelRegistered`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ colony, label }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  colony,
+  label,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ colony, label }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyClient.events.ColonyLabelRegistered.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.ColonyLabelRegistered.removeListener(eventHandler);
+```
 
 
 
@@ -3092,13 +3890,29 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e
 |label|string|The label that was registered for the colony.|
 
 
-### `events.ColonyRewardInverseSet`
+### `ColonyRewardInverseSet`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ rewardInverse }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  rewardInverse,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ rewardInverse }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyClient.events.ColonyRewardInverseSet.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.ColonyRewardInverseSet.removeListener(eventHandler);
+```
 
 
 
@@ -3110,13 +3924,30 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e
 |rewardInverse|big number|The reward inverse value that was set.|
 
 
-### `events.ColonyRootRoleSet`
+### `ColonyRootRoleSet`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ address, setTo }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  address,
+  setTo,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ address, setTo }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyClient.events.ColonyRootRoleSet.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.ColonyRootRoleSet.removeListener(eventHandler);
+```
 
 
 
@@ -3129,13 +3960,30 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e
 |setTo|boolean|A boolean indicating whether the address was assigned or unassigned the colony `ROOT` role.|
 
 
-### `events.ColonyUpgraded`
+### `ColonyUpgraded`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ oldVersion, newVersion }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  oldVersion,
+  newVersion,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ oldVersion, newVersion }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyClient.events.ColonyUpgraded.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.ColonyUpgraded.removeListener(eventHandler);
+```
 
 
 
@@ -3148,13 +3996,30 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e
 |newVersion|number|The new version number of the colony.|
 
 
-### `events.ColonyVersionAdded`
+### `ColonyVersionAdded`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ version, resolver }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  version,
+  resolver,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ version, resolver }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyClient.events.ColonyVersionAdded.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.ColonyVersionAdded.removeListener(eventHandler);
+```
 
 
 
@@ -3167,13 +4032,29 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e
 |resolver|address|The address of the `Resolver` contract which will be used with the underlying `EtherRouter` contract.|
 
 
-### `events.DomainAdded`
+### `DomainAdded`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ domainId }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  domainId,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ domainId }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyClient.events.DomainAdded.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.DomainAdded.removeListener(eventHandler);
+```
 
 
 
@@ -3185,13 +4066,29 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e
 |domainId|number|The ID of the domain that was added.|
 
 
-### `events.FundingPotAdded`
+### `FundingPotAdded`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ potId }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  potId,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ potId }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyClient.events.FundingPotAdded.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.FundingPotAdded.removeListener(eventHandler);
+```
 
 
 
@@ -3203,13 +4100,30 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e
 |potId|number|The ID of the pot that was added.|
 
 
-### `events.Mint`
+### `Mint`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ address, amount }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  address,
+  amount,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ address, amount }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyClient.events.Mint.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.Mint.removeListener(eventHandler);
+```
 
 
 
@@ -3222,13 +4136,29 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e
 |amount|big number|The amount of tokens that were minted.|
 
 
-### `events.PaymentAdded`
+### `PaymentAdded`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ paymentId }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  paymentId,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ paymentId }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyClient.events.PaymentAdded.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.PaymentAdded.removeListener(eventHandler);
+```
 
 
 
@@ -3240,13 +4170,31 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e
 |paymentId|number|The ID of the payment that was added.|
 
 
-### `events.PayoutClaimed`
+### `PayoutClaimed`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ potId, token, amount }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  potId,
+  token,
+  amount,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ potId, token, amount }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyClient.events.PayoutClaimed.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.PayoutClaimed.removeListener(eventHandler);
+```
 
 
 
@@ -3260,13 +4208,32 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e
 |amount|big number|The task payout amount that was claimed.|
 
 
-### `events.RewardPayoutClaimed`
+### `RewardPayoutClaimed`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ rewardPayoutId, user, fee, payoutRemainder }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  rewardPayoutId,
+  user,
+  fee,
+  payoutRemainder,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ rewardPayoutId, user, fee, payoutRemainder }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyClient.events.RewardPayoutClaimed.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.RewardPayoutClaimed.removeListener(eventHandler);
+```
 
 
 
@@ -3281,13 +4248,29 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e
 |payoutRemainder|big number|The remaining payout amount (after the fee) transferred to the user.|
 
 
-### `events.RewardPayoutCycleEnded`
+### `RewardPayoutCycleEnded`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ payoutId }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  payoutId,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ payoutId }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyClient.events.RewardPayoutCycleEnded.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.RewardPayoutCycleEnded.removeListener(eventHandler);
+```
 
 
 
@@ -3299,13 +4282,29 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e
 |payoutId|number|The ID of the payout cycle that ended.|
 
 
-### `events.RewardPayoutCycleStarted`
+### `RewardPayoutCycleStarted`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ payoutId }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  payoutId,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ payoutId }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyClient.events.RewardPayoutCycleStarted.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.RewardPayoutCycleStarted.removeListener(eventHandler);
+```
 
 
 
@@ -3317,13 +4316,30 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e
 |payoutId|number|The ID of the payout cycle that started.|
 
 
-### `events.SkillAdded`
+### `SkillAdded`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ skillId, parentSkillId }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  skillId,
+  parentSkillId,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ skillId, parentSkillId }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyClient.events.SkillAdded.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.SkillAdded.removeListener(eventHandler);
+```
 
 
 
@@ -3336,13 +4352,29 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e
 |parentSkillId|number|The ID of the parent skill.|
 
 
-### `events.TaskAdded`
+### `TaskAdded`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ taskId }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  taskId,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ taskId }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyClient.events.TaskAdded.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.TaskAdded.removeListener(eventHandler);
+```
 
 
 
@@ -3354,13 +4386,30 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e
 |taskId|number|The ID of the task that was added.|
 
 
-### `events.TaskBriefSet`
+### `TaskBriefSet`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ taskId, specificationHash }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  taskId,
+  specificationHash,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ taskId, specificationHash }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyClient.events.TaskBriefSet.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.TaskBriefSet.removeListener(eventHandler);
+```
 
 
 
@@ -3373,13 +4422,29 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e
 |specificationHash|IPFS hash|The specification hash that was set (an IPFS hash).|
 
 
-### `events.TaskCanceled`
+### `TaskCanceled`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ taskId }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  taskId,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ taskId }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyClient.events.TaskCanceled.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.TaskCanceled.removeListener(eventHandler);
+```
 
 
 
@@ -3391,13 +4456,29 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e
 |taskId|number|The ID of the task that was canceled.|
 
 
-### `events.TaskCompleted`
+### `TaskCompleted`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ taskId }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  taskId,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ taskId }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyClient.events.TaskCompleted.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.TaskCompleted.removeListener(eventHandler);
+```
 
 
 
@@ -3409,13 +4490,30 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e
 |taskId|number|The ID of the task that was completed.|
 
 
-### `events.TaskDeliverableSubmitted`
+### `TaskDeliverableSubmitted`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ taskId, deliverableHash }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  taskId,
+  deliverableHash,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ taskId, deliverableHash }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyClient.events.TaskDeliverableSubmitted.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.TaskDeliverableSubmitted.removeListener(eventHandler);
+```
 
 
 
@@ -3428,13 +4526,30 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e
 |deliverableHash|IPFS hash|The deliverable hash that was submitted (an IPFS hash).|
 
 
-### `events.TaskDomainSet`
+### `TaskDomainSet`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ taskId, domainId }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  taskId,
+  domainId,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ taskId, domainId }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyClient.events.TaskDomainSet.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.TaskDomainSet.removeListener(eventHandler);
+```
 
 
 
@@ -3447,13 +4562,30 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e
 |domainId|number|The ID of the domain that was set.|
 
 
-### `events.TaskDueDateSet`
+### `TaskDueDateSet`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ taskId, dueDate }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  taskId,
+  dueDate,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ taskId, dueDate }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyClient.events.TaskDueDateSet.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.TaskDueDateSet.removeListener(eventHandler);
+```
 
 
 
@@ -3466,13 +4598,29 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e
 |dueDate|date|The due date that was set.|
 
 
-### `events.TaskFinalized`
+### `TaskFinalized`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ taskId }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  taskId,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ taskId }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyClient.events.TaskFinalized.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.TaskFinalized.removeListener(eventHandler);
+```
 
 
 
@@ -3484,13 +4632,32 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e
 |taskId|number|The ID of the task that was finalized.|
 
 
-### `events.TaskPayoutSet`
+### `TaskPayoutSet`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ taskId, role, token, amount }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  taskId,
+  role,
+  token,
+  amount,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ taskId, role, token, amount }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyClient.events.TaskPayoutSet.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.TaskPayoutSet.removeListener(eventHandler);
+```
 
 
 
@@ -3505,13 +4672,31 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e
 |amount|big number|The task payout amount that was set.|
 
 
-### `events.TaskRoleUserSet`
+### `TaskRoleUserSet`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ taskId, role, user }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  taskId,
+  role,
+  user,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ taskId, role, user }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyClient.events.TaskRoleUserSet.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.TaskRoleUserSet.removeListener(eventHandler);
+```
 
 
 
@@ -3525,13 +4710,30 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e
 |user|address|The user that was assigned the task role.|
 
 
-### `events.TaskSkillSet`
+### `TaskSkillSet`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ taskId, skillId }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  taskId,
+  skillId,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ taskId, skillId }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyClient.events.TaskSkillSet.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.TaskSkillSet.removeListener(eventHandler);
+```
 
 
 
@@ -3544,13 +4746,31 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e
 |skillId|number|The ID of the skill that was set.|
 
 
-### `events.TaskWorkRatingRevealed`
+### `TaskWorkRatingRevealed`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ taskId, role, rating }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  taskId,
+  role,
+  rating,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ taskId, role, rating }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyClient.events.TaskWorkRatingRevealed.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.TaskWorkRatingRevealed.removeListener(eventHandler);
+```
 
 
 
@@ -3564,13 +4784,30 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e
 |rating|number|The value of the rating that was revealed (`1`, `2`, or `3`).|
 
 
-### `events.TokenLocked`
+### `TokenLocked`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ token, lockCount }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  token,
+  lockCount,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ token, lockCount }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyClient.events.TokenLocked.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.TokenLocked.removeListener(eventHandler);
+```
 
 
 
@@ -3583,13 +4820,31 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/5acd5e
 |lockCount|number|The total lock count for the token.|
 
 
-### `events.Transfer`
+### `Transfer`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ from, to, value }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  from,
+  to,
+  value,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ from, to, value }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyClient.events.Transfer.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.Transfer.removeListener(eventHandler);
+```
 
 
 

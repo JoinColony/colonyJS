@@ -6,10 +6,6 @@ order: 0
 
 `ContractClient` is a superclass for all implementations of [Clients](/colonyjs/components-clients/). Each client contains abstractions such as `Caller`, `Sender`, and `MulitisigSender` which are inherited from the `ContractClient` superclass. The `ContractClient` superclass also contains tools for listening to events and interacting with the reputation mining system.
 
-## Table of Contents
-
-==TOC==
-
 ## Caller
 
 The `Caller` class passively interacts with the blockchain and does not produce transactions. Each `Caller` method is associated with a single contract method. `Caller` methods may require certain input parameters and they always return a promise.
@@ -117,14 +113,14 @@ See [MultisigOperation](/api-multisigoperation/) for more information and [Using
 
 Each client instance created by the `ContractClient` superclass has an `events` property that contains all the events associated with the contract methods for the given client. Listeners can be added and removed from each event.
 
-### `addListener(input)`
+### `addListener(eventHandler)`
 
-**Input**
+**Event Handler**
 
 `function` - A callback function using the return values for the event as the input parameters.
 
-### `removeListener(input)`
+### `removeListener(eventHandler)`
 
-**Input**
+**Event Handler**
 
 `function` - A callback function using the return values for the event as the input parameters.

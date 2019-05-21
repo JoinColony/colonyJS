@@ -8,16 +8,14 @@ order: 1
 
 ## Get Started
 
-Everything you need to create your first colony and make your first payment is in [Get Started](/colonyjs/intro-get-started). If you need to set up a local development environment, check out [Local Setup](/colonyjs/intro-local-setup). If you have any questions, please don't hesitate to reach out to us on [Discourse](https://build.colony.io) or [Gitter](https://gitter.im/JoinColony/colonyJS)!
+Everything you need to create your first colony and make your first payment is in [Get Started](/colonyjs/intro-get-started). If you need to set up a local development environment, check out [Local Setup](/colonyjs/intro-local-setup). If you have any questions, please don't hesitate to reach out to us on [Discourse](https://build.colony.io) or [Gitter](https://gitter.im/JoinColony/colonyJS).
 
 ## Contribute
 
-colonyJS is under active development and new features are constantly being added. If you notice any discrepancies in the documentation or a bug in the code, please help us out by [creating an issue](https://github.com/JoinColony/colonyJS/issues).
-
-If you are a developer and would like to help us fix bugs or create new features, check out [Contributing](https://github.com/JoinColony/colonyJS/blob/master/CONTRIBUTING.md) and [Development](https://github.com/JoinColony/colonyJS#development) for more information and then reach out to us on [Gitter](https://gitter.im/JoinColony/colonyJS) if you have any questions.
+colonyJS is under active development. If you notice any discrepancies in the documentation or a bug in the code, please help us out by [creating an issue](https://github.com/JoinColony/colonyJS/issues). If you are a developer and you would like to help us fix bugs or add new features, check out [Contributing](https://github.com/JoinColony/colonyJS/blob/master/CONTRIBUTING.md) and [Development](https://github.com/JoinColony/colonyJS/blob/master/DEVELOPMENT.md).
 
 ## What's Next?
 
-* Create a token, create a colony, and make a payment in [Get Started](/colonyjs/intro-get-started).
+* Create a colony and make a payment in [Get Started](/colonyjs/intro-get-started).
 
-* Set up a local development environment for your project in [Local Setup](/colonyjs/intro-local-setup).
+* Set up a local development environment in [Local Setup](/colonyjs/intro-local-setup).

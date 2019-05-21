@@ -1,81 +1,119 @@
 ---
 title: Domains and Skills
 section: Topics
-order: 5
+order: 3
 ---
 
-As demonstrated in [Task Lifecycle](/colonyjs/topics-task-lifecycle/), a task must be assigned a domain. The domain is required when creating a task because reputation is earned within the context of domains. Upon the completion of a task, each role (assuming that the `MANAGER` and `WORKER` both received adequate ratings) will earn reputation within the domain that the task was assigned.
+Domains and skills help define the organizational structure of a colony, allowing for the division of labor without having a strict management hierarchy. Within a colony, reputation is rewarded within the context of domains and skills.
 
-We also have the option of assigning a skill to our task. When completing a task that is assigned a skill, reputation is also earned within the context of that skill (in addition to the reputation earned within the context of the assigned domain). Skills are "global", meaning they are shared across the Colony Network.
+How domains are used is up to the colony but domains can be analogous to the departments of a traditional company. Skills categorize the type of work done, independent of the domain or colony in which the work took place.
 
-Another way of looking at domains would be thinking of them as "local skills". This would be an oversimplification because each domain has a pot associated with it, which is used to receive and allocate funds to tasks that have been assigned to that domain, but domains can be thought of as "local skills" in the sense that reputation is earned within the context of domains like "skills".
+For more information, see [Domains and Skills](/colonynetwork/whitepaper-tldr-domains-and-skills) in the colonyNetwork documentation.
 
-Domains and skills can also have "sub-domains" and "sub-skills". When reputation is earned within a "sub-domain" or "sub-skill", reputation is also earned within the "parent domain" or "parent skill". As a matter of fact, each domain is already a "sub-domain" because the "parent domain" is the colony itself, also known as the "root domain".
+## Domain Methods
 
-Let's take a closer look at how to create and manage domains and skills using colonyJS. For more information about domains and skills, you can also check out [Domains and Skills](/colonynetwork/whitepaper-tldr-domains-and-skills) in the colonyNetwork documentation.
+### Add Domain
 
-## Domains
-
-In order to create a domain within a colony, you must be an `ADMIN` within the colony (in the future, this will either be based on reputation or a colony will have the option of making it based on reputation).
-
-Creating a domain is simple using an instance of the [ColonyClient](/colonyjs/api-colonyclient):
+You can add a domain using an instance of [ColonyClient](/colonyjs/api-colonyclient):
 
 ```js
 
-// Create a domain
+// Add a domain
 await colonyClient.addDomain.send({
   parentDomainId: 1,
 });
 
 ```
 
-All domains that you create within a colony must have a "parent domain" assigned to it. If you are creating a domain for the first time, the `parentDomainId` will need to be `1` because the colony only has one domain, the "root domain".
+*Note: You must be assigned the `ROOT` or `ARCHITECTURE` role to call this method.*
 
-## Skills
+### Get Domain
 
-Remember, skills are "global", meaning they are shared across the Colony Network, therefore, the action of creating a new skill is only allowed by the `FOUNDER` of the [Meta Colony](/colonynetwork/docs-the-meta-colony-and-clny).
-
-Creating a skill is simple using an instance of the [ColonyClient](/colonyjs/api-colonyclient):
+You can get information about a domain using an instance of [ColonyClient](/colonyjs/api-colonyclient):
 
 ```js
 
-// Create a skill
-await metaColonyClient.addGlobalSkill.send({
-  parentSkillId: 1,
+// Get domain info
+await colonyClient.getDomain.call({
+  domainId: 1,
 });
 
 ```
 
-When you are creating a skill for the first time, you will need to set the `parentSkillId` to be `1` because the network only has one skill, the "root skill". Unlike how tasks can be assigned to the "root domain", tasks cannot be assigned to the "root skill".
+### Get Domain Count
 
-### Parent Skill
-
-Looking up the parent skill of a global skill is simple:
+You can get the total number of domains within a colony using an instance of [ColonyClient](/colonyjs/api-colonyclient):
 
 ```js
 
-await networkClient.getParentSkillId.call({
+// Get domain count
+await colonyClient.getDomainCount.call();
+
+```
+
+## Skill Methods
+
+### Add Skill
+
+You can add a skill using an instance of [ColonyClient](/colonyjs/api-colonyclient) for the Meta Colony:
+
+```js
+
+// Add a global skill
+await metaColonyClient.addGlobalSkill.send();
+
+```
+
+*Note: You must be assigned the `ROOT` role within the Meta Colony to call this method.*
+
+Alternatively, you can add a skill using an instance of [ColonyNetworkClient](/colonyjs/api-colonynetworkclient):
+
+```js
+
+// Add a skill
+await networkClient.addSkill.send();
+
+```
+
+*Note: You must be assigned the `ROOT` role within the Meta Colony to call this method.*
+
+### Deprecate Skill
+
+You can deprecate a skill using an instance of [ColonyClient](/colonyjs/api-colonyclient) for the Meta Colony:
+
+```js
+
+// Deprecate a global skill
+await metaColonyClient.deprecateGlobalSkill.send({
   skillId: 1,
-  parentSkillIndex: 0,
 });
 
 ```
 
-The `parentSkillIndex` is the index of the parent skill in the array of parent skills associated with the given skill.
+*Note: You must be assigned the `ROOT` role within the Meta Colony to call this method.*
 
-### Child Skill
-
-Looking up the child skill of a global skill is simple:
+Alternatively, you can deprecate a skill using an instance of [ColonyNetworkClient](/colonyjs/api-colonynetworkclient):
 
 ```js
 
-await networkClient.getChildSkillId.call({
+// Deprecate a skill
+await networkClient.deprecateSkill.send({
   skillId: 1,
-  childSkillIndex: 0,
 });
 
 ```
 
-The `childSkillIndex` is the index of the child skill in the array of child skills associated with the given skill.
+*Note: You must be assigned the `ROOT` role within the Meta Colony to call this method.*
 
-*Note: It is not possible to look up the parent or child skill of a domain using the same methods introduced here. Even though domains have a `skillId` associated with them, they do not exist within the "skill tree", which only includes global skills.*
+### Get Skill
+
+You can get information about a skill using an instance of [ColonyNetworkClient](/colonyjs/api-colonynetworkclient):
+
+```js
+
+// Get skill info
+await networkClient.getSkill.call({
+  skillId: 1,
+});
+
+```

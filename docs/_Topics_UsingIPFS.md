@@ -6,8 +6,6 @@ order: 10
 
 A natural way to use the `specificationHash` and `deliverableHash` properties within a task is to point to a file hosted on IPFS. This leaves open the format for the task specification (the description of the work to be done) and the task deliverable (the work done) and provides the opportunity to use text files, PDFs, or other forms of media.
 
-==TOC==
-
 ## Installation
 
 Install the [ipfs](https://github.com/ipfs/ipfs) package with the following command:
@@ -16,46 +14,46 @@ Install the [ipfs](https://github.com/ipfs/ipfs) package with the following comm
 yarn add ipfs
 ```
 
-This will allow you to run a full IPFS node.
-
 Import the packages and create a new IPFS instance:
 
 ```js
+
 const IPFS = require('ipfs');
 
 const ipfs = new IPFS();
 
 ```
 
-
-
-## Storing objects
+## Storing Objects
 
 The IPFS hash is returned after adding the file to IPFS. IPFS requires that files be uploaded as a `Buffer` type, which is a binary representation of the data to host. To create a buffer, the object must first be converted to a JSON string.
 
 ```js
+
+// Use Buffer from IPFS
 const { Buffer } = IPFS;
-// Prepare our data by passing the object as a JSON string to `Buffer`
+
+// Convert the object to a Buffer type
 const data = Buffer.from(JSON.stringify(object));
 
-// Upload our file to IPFS
+// Upload the data to IPFS
 const files = await ipfs.add(data);
 
-// Set the hash after upload
+// Get the hash of the uploaded file
 const { hash } = files[0];
 
 ```
 
-## Restoring objects
+## Restoring Objects
 
-To get the hash, you will need to retrieve the buffer object and the parse the buffer object.
+To restore the object, you will need to retrieve and the parse the Buffer object.
 
 ```js
 
-// IPFS will provide a binary representation (buffer) of our spec given the hash from our task
+// Get the spec from IPFS using the hash
 const spec = await ipfs.cat(`/ipfs/${hash}`);
 
-// You likely will want to parse the file back into a regular data
-const contents = JSON.parse(spec.toString());
+// Parse the returned JSON to get the object
+const object = JSON.parse(spec.toString());
 
 ```
