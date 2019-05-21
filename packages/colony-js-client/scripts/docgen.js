@@ -8,21 +8,25 @@ const types = require('ast-types');
 
 const CONTRACT_CLIENTS = [
   {
+    client: 'colonyClient',
     file: path.resolve(__dirname, '..', 'src', 'ColonyClient', 'index.js'),
     templateFile: path.resolve(__dirname, '..', 'docs', '_API_ColonyClient.template.md'),
     output: path.resolve(__dirname, '..', '..', '..', 'docs', '_API_ColonyClient.md'),
   },
   {
+    client: 'colonyNetworkClient',
     file: path.resolve(__dirname, '..', 'src', 'ColonyNetworkClient', 'index.js'),
     templateFile: path.resolve(__dirname, '..', 'docs', '_API_ColonyNetworkClient.template.md'),
     output: path.resolve(__dirname, '..', '..', '..', 'docs', '_API_ColonyNetworkClient.md'),
   },
   {
+    client: 'tokenClient',
     file: path.resolve(__dirname, '..', 'src', 'TokenClient', 'index.js'),
     templateFile: path.resolve(__dirname, '..', 'docs', '_API_TokenClient.template.md'),
     output: path.resolve(__dirname, '..', '..', '..', 'docs', '_API_TokenClient.md'),
   },
   {
+    client: 'tokenLockingClient',
     file: path.resolve(__dirname, '..', 'src', 'TokenLockingClient', 'index.js'),
     templateFile: path.resolve(__dirname, '..', 'docs', '_API_TokenLockingClient.template.md'),
     output: path.resolve(__dirname, '..', '..', '..', 'docs', '_API_TokenLockingClient.md'),
@@ -45,7 +49,7 @@ const TYPES = {
   TaskStatus: 'task status',
 };
 
-const generateMarkdown = ({ file, templateFile, output }) => {
+const generateMarkdown = ({ client, file, templateFile, output }) => {
   const ast = parser.parse(fs.readFileSync(file).toString());
 
   const callers = [];
@@ -59,6 +63,7 @@ const generateMarkdown = ({ file, templateFile, output }) => {
         const { params } = p.parent.value.typeParameters;
 
         callers.push({
+          client,
           name: getName(p),
           description: getDescription(ast, p),
           args: mapObjectProps(ast, params[0]),
@@ -70,6 +75,7 @@ const generateMarkdown = ({ file, templateFile, output }) => {
         const { params } = p.parent.value.typeParameters;
 
         senders.push({
+          client,
           name: getName(p),
           description: getDescription(ast, p),
           args: mapObjectProps(ast, params[0]),
@@ -81,6 +87,7 @@ const generateMarkdown = ({ file, templateFile, output }) => {
         const { params } = p.parent.value.typeParameters;
 
         multisig.push({
+          client,
           name: getName(p),
           description: getDescription(ast, p),
           args: mapObjectProps(ast, params[0]),
@@ -92,6 +99,7 @@ const generateMarkdown = ({ file, templateFile, output }) => {
         const { params } = p.parent.value.typeParameters;
 
         events.push({
+          client,
           name: getEventName(p),
           description: getDescription(ast, p),
           args: mapObjectProps(ast, params[0]),
@@ -122,14 +130,18 @@ function printCallers(callers) {
   return `
 ## Callers
 
-**All callers return promises which resolve to an object containing the given return values.**
 ` +
     callers
       .map(
         caller => `
-### \`${caller.name}.call(${printArgs(caller.args, false)})\`
+### \`${caller.name}\`
 
 ${caller.description}
+
+\`\`\`js
+await ${caller.client}.${caller.name}.call(${printArgs(caller.args, false)});
+\`\`\`
+
 ${caller.args && caller.args.length ? '\n**Input**\n\n' : ''}${printProps(caller.args)}
 
 **Response**
@@ -152,13 +164,18 @@ function printSenders(senders, events) {
   return `
 ## Senders
 
-**All senders return an instance of a \`ContractResponse\`.** Every \`send()\` method takes an \`options\` object as the second argument.` +
+` +
     senders
       .map(
         sender => `
-### \`${sender.name}.send(${printArgs(sender.args, true)})\`
+### \`${sender.name}\`
 
 ${sender.description}
+
+\`\`\`js
+await ${sender.client}.${sender.name}.send(${printArgs(sender.args, true)});
+\`\`\`
+
 ${sender.args && sender.args.length ? '\n**Input**\n\n' : ''}${printProps(sender.args)}
 
 **Options**
@@ -190,41 +207,24 @@ ${printContractData(sender.contractData)}
     .join('');
 }
 
-
-function printEvents(events) {
-  if (!events.length) return '';
-  return `
-## Events
-
-` + events.map(event => `
-### \`events.${event.name}\`
-
-**Methods**
-
-\`.addListener((${printArgs(event.args)}) => { /* ... */ })\`
-
-\`.removeListener((${printArgs(event.args)}) => { /* ... */ })\`
-
-${event.description}
-
-${event.args && event.args.length ? '\n**Event Data**\n\n' : ''}${printProps(event.args)}
-
-`).join('');
-}
-
 function printMultiSig(multisig, events) {
   if (!multisig.length) return '';
   // TODO: use templates to properly place this text into the file
   return `
 ## MultiSigSenders
 
-**All MultiSig functions return an instance of a \`MultiSigOperation\`.**` +
+` +
     multisig
       .map(
         ms => `
-### \`${ms.name}.startOperation(${printArgs(ms.args, false)})\`
+### \`${ms.name}\`
 
 ${ms.description}
+
+\`\`\`js
+await ${ms.client}.${ms.name}.startOperation(${printArgs(ms.args, false)});
+\`\`\`
+
 ${ms.args && ms.args.length ? '\n**Input**\n\n' : ''}${printProps(ms.args)}
 
 **Response**
@@ -241,6 +241,41 @@ ${printContractData(ms.contractData)}
 `,
     )
     .join('');
+}
+
+function printEvents(events) {
+  if (!events.length) return '';
+  return `
+## Events
+
+` + events.map(event => `
+### \`${event.name}\`
+
+**Event Handler**
+
+\`\`\`js
+const eventHandler = (${printArgs(event.args)}) => {
+  // perform an action using the event data
+};
+\`\`\`
+
+**Add Listener**
+
+\`\`\`js
+${event.client}.events.${event.name}.addListener(eventHandler);
+\`\`\`
+
+**Remove Listener**
+
+\`\`\`js
+${event.client}.events.${event.name}.removeListener(eventHandler);
+\`\`\`
+
+${event.description}
+
+${event.args && event.args.length ? '\n**Event Data**\n\n' : ''}${printProps(event.args)}
+
+`).join('');
 }
 
 function printContractData(data) {
@@ -284,7 +319,10 @@ function getEventProps(contractEvents, methodEvents) {
 
 function printArgs(args, withOpts) {
   if (args && args.length) {
-    return `{ ${args.map(arg => arg.name).join(', ')} }${withOpts ? ', options' : ''}`;
+    return `{
+  ${args.map(arg => arg.name).join(`,
+  `)},
+}${withOpts ? ', options' : ''}`;
   }
   return withOpts ? 'options' : '';
 }

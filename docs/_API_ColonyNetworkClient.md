@@ -10,47 +10,57 @@ See [Clients](/colonyjs/components-clients) for more information about initializ
 
 See [ContractClient](/colonyjs/api-contractclient) for more information about the `ContractClient` superclass.
 
-## Table of Contents
-
-==TOC==
-
 ## Instance methods
 
-**All instance methods return promises.**
-
-### `getColonyAddress(id)`
+### `getColonyAddress`
 
 Get the address of a Colony for the specified id of a deployed colony contract.
+
+```js
+
+await colonyNetwork.getColonyAddress(id);
+
+```
 
 **Input**
 
 |Property|Type|Description|
 |---|---|---|
-|key|string|Name of the Colony to get|
-|id|number|Integer number of the Colony|
+|id|number|The id of the colony|
 
 **Response**
 
 `Promise<Address>`. The address of the given Colony contract
 
-### `getColonyClient(id)`
+### `getColonyClient`
 
 Returns an initialized ColonyClient for the specified id of a deployed colony contract.
+
+```js
+
+await colonyNetwork.getColonyClient(id);
+
+```
 
 **Input**
 
 |Property|Type|Description|
 |---|---|---|
-|key|string|Name of the Colony to get|
-|id|number|Integer number of the Colony|
+|id|number|The id of the colony|
 
 **Response**
 
 `Promise<ColonyClient>`. An instance of a `ColonyClient` associated with the given Colony contract
 
-### `getColonyClientByAddress(contractAddress)`
+### `getColonyClientByAddress`
 
 Returns an initialized ColonyClient for the contract at address `contractAddress`
+
+```js
+
+await colonyNetwork.getColonyClientByAddress(contractAddress);
+
+```
 
 **Input**
 
@@ -62,9 +72,15 @@ Returns an initialized ColonyClient for the contract at address `contractAddress
 
 `Promise<ColonyClient>`. An instance of a `ColonyClient` associated with the given Colony contract
 
-### `getMetaColonyClient()`
+### `getMetaColonyClient`
 
 Gets the Meta Colony as an initialized ColonyClient
+
+```js
+
+await colonyNetwork.getMetaColonyClient();
+
+```
 
 **Response**
 
@@ -73,11 +89,18 @@ Gets the Meta Colony as an initialized ColonyClient
   
 ## Callers
 
-**All callers return promises which resolve to an object containing the given return values.**
 
-### `calculateMinerWeight.call({ timeStaked, submissionIndexed })`
+### `calculateMinerWeight`
 
 Calculate the raw miner weight in WADs.
+
+```js
+await colonyNetworkClient.calculateMinerWeight.call({
+  timeStaked,
+  submissionIndexed,
+});
+```
+
 
 **Input**
 
@@ -104,9 +127,16 @@ Contract: [ColonyNetworkMining.sol](https://github.com/JoinColony/colonyNetwork/
 Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IRecovery.sol)
   
 
-### `ensSupportsInterface.call({ interfaceId })`
+### `ensSupportsInterface`
 
 Check whether an ENS interface is supported.
+
+```js
+await colonyNetworkClient.ensSupportsInterface.call({
+  interfaceId,
+});
+```
+
 
 **Input**
 
@@ -132,9 +162,16 @@ Contract: [ColonyNetworkENS.sol](https://github.com/JoinColony/colonyNetwork/tre
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColonyNetwork.sol)
   
 
-### `getAddressForENSHash.call({ nameHash })`
+### `getAddressForENSHash`
 
 Get the address of a registered ENS label. This function will return an empty address if an ENS label has not been registered.
+
+```js
+await colonyNetworkClient.getAddressForENSHash.call({
+  nameHash,
+});
+```
+
 
 **Input**
 
@@ -160,9 +197,17 @@ Contract: [ColonyNetworkENS.sol](https://github.com/JoinColony/colonyNetwork/tre
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColonyNetwork.sol)
   
 
-### `getChildSkillId.call({ skillId, childSkillIndex })`
+### `getChildSkillId`
 
 Get the ID of a child skill.
+
+```js
+await colonyNetworkClient.getChildSkillId.call({
+  skillId,
+  childSkillIndex,
+});
+```
+
 
 **Input**
 
@@ -189,9 +234,16 @@ Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/g
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColonyNetwork.sol)
   
 
-### `getColony.call({ id })`
+### `getColony`
 
 Get the colony contract address for a colony.
+
+```js
+await colonyNetworkClient.getColony.call({
+  id,
+});
+```
+
 
 **Input**
 
@@ -217,9 +269,14 @@ Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/g
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColonyNetwork.sol)
   
 
-### `getColonyCount.call()`
+### `getColonyCount`
 
 Get the total number of colonies on the network. The return value is also the ID of the last colony created.
+
+```js
+await colonyNetworkClient.getColonyCount.call();
+```
+
 
 
 **Response**
@@ -240,9 +297,16 @@ Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/g
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColonyNetwork.sol)
   
 
-### `getColonyVersionResolver.call({ version })`
+### `getColonyVersionResolver`
 
 Get the address of the resolver contract for a specific colony version.
+
+```js
+await colonyNetworkClient.getColonyVersionResolver.call({
+  version,
+});
+```
+
 
 **Input**
 
@@ -268,9 +332,14 @@ Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/g
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColonyNetwork.sol)
   
 
-### `getCurrentColonyVersion.call()`
+### `getCurrentColonyVersion`
 
 Get the latest colony contract version. This is the version used to create all new colonies.
+
+```js
+await colonyNetworkClient.getCurrentColonyVersion.call();
+```
+
 
 
 **Response**
@@ -291,9 +360,14 @@ Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/g
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColonyNetwork.sol)
   
 
-### `getENSRegistrarAddress.call()`
+### `getENSRegistrarAddress`
 
 Get the address of the ENS registrar.
+
+```js
+await colonyNetworkClient.getENSRegistrarAddress.call();
+```
+
 
 
 **Response**
@@ -314,9 +388,14 @@ Contract: [ColonyNetworkENS.sol](https://github.com/JoinColony/colonyNetwork/tre
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColonyNetwork.sol)
   
 
-### `getFeeInverse.call()`
+### `getFeeInverse`
 
 Get the inverse amount of the network fee. If the fee is 1% (or 0.01), the inverse amount will be 100.
+
+```js
+await colonyNetworkClient.getFeeInverse.call();
+```
+
 
 
 **Response**
@@ -337,9 +416,14 @@ Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/g
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColonyNetwork.sol)
   
 
-### `getMetaColonyAddress.call()`
+### `getMetaColonyAddress`
 
 Get the Meta Colony contract address.
+
+```js
+await colonyNetworkClient.getMetaColonyAddress.call();
+```
+
 
 
 **Response**
@@ -360,9 +444,14 @@ Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/g
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColonyNetwork.sol)
   
 
-### `getMiningResolverAddress.call()`
+### `getMiningResolverAddress`
 
 Get the address of the mining resolver.
+
+```js
+await colonyNetworkClient.getMiningResolverAddress.call();
+```
+
 
 
 **Response**
@@ -383,9 +472,17 @@ Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/g
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColonyNetwork.sol)
   
 
-### `getParentSkillId.call({ skillId, parentSkillIndex })`
+### `getParentSkillId`
 
 Get the ID of a parent skill.
+
+```js
+await colonyNetworkClient.getParentSkillId.call({
+  skillId,
+  parentSkillIndex,
+});
+```
+
 
 **Input**
 
@@ -412,9 +509,16 @@ Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/g
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColonyNetwork.sol)
   
 
-### `getProfileDBAddress.call({ nameHash })`
+### `getProfileDBAddress`
 
 Get the address of the OrbitDB database associaated with a user profile.
+
+```js
+await colonyNetworkClient.getProfileDBAddress.call({
+  nameHash,
+});
+```
+
 
 **Input**
 
@@ -440,9 +544,14 @@ Contract: [ColonyNetworkENS.sol](https://github.com/JoinColony/colonyNetwork/tre
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColonyNetwork.sol)
   
 
-### `getRecoveryRolesCount.call()`
+### `getRecoveryRolesCount`
 
 Get the total number of addresses that are assigned a `RECOVERY` role.
+
+```js
+await colonyNetworkClient.getRecoveryRolesCount.call();
+```
+
 
 
 **Response**
@@ -463,9 +572,17 @@ Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tre
 Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IRecovery.sol)
   
 
-### `getReplacementReputationUpdateLogEntry.call({ reputationMiningCycle, id })`
+### `getReplacementReputationUpdateLogEntry`
 
 Get replacement log entry that was set when the network was in recovery mode.
+
+```js
+await colonyNetworkClient.getReplacementReputationUpdateLogEntry.call({
+  reputationMiningCycle,
+  id,
+});
+```
+
 
 **Input**
 
@@ -497,9 +614,16 @@ Contract: [ColonyNetworkMining.sol](https://github.com/JoinColony/colonyNetwork/
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColonyNetwork.sol)
   
 
-### `getReplacementReputationUpdateLogsExist.call({ reputationMiningCycle })`
+### `getReplacementReputationUpdateLogsExist`
 
 Get whether any replacement log entries have been set for the supplied reputation mining cycle.
+
+```js
+await colonyNetworkClient.getReplacementReputationUpdateLogsExist.call({
+  reputationMiningCycle,
+});
+```
+
 
 **Input**
 
@@ -525,9 +649,16 @@ Contract: [ColonyNetworkMining.sol](https://github.com/JoinColony/colonyNetwork/
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColonyNetwork.sol)
   
 
-### `getReputationMiningCycle.call({ active })`
+### `getReputationMiningCycle`
 
 Get the address of either the active or inactive reputation mining cycle. The active reputation mining cycle is the one currently under consideration by reputation miners. The inactive reputation cycle is the one with the log that is being appended.
+
+```js
+await colonyNetworkClient.getReputationMiningCycle.call({
+  active,
+});
+```
+
 
 **Input**
 
@@ -553,9 +684,14 @@ Contract: [ColonyNetworkMining.sol](https://github.com/JoinColony/colonyNetwork/
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColonyNetwork.sol)
   
 
-### `getReputationMiningSkillId.call()`
+### `getReputationMiningSkillId`
 
 Get the ID of the skill associated with reputation mining.
+
+```js
+await colonyNetworkClient.getReputationMiningSkillId.call();
+```
+
 
 
 **Response**
@@ -576,9 +712,14 @@ Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/g
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColonyNetwork.sol)
   
 
-### `getReputationRootHash.call()`
+### `getReputationRootHash`
 
 Get the root hash of the current reputation state tree.
+
+```js
+await colonyNetworkClient.getReputationRootHash.call();
+```
+
 
 
 **Response**
@@ -599,9 +740,14 @@ Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/g
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColonyNetwork.sol)
   
 
-### `getReputationRootHashNodeCount.call()`
+### `getReputationRootHashNodeCount`
 
 Get the number of nodes in the current reputation state tree.
+
+```js
+await colonyNetworkClient.getReputationRootHashNodeCount.call();
+```
+
 
 
 **Response**
@@ -622,9 +768,16 @@ Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/g
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColonyNetwork.sol)
   
 
-### `getSkill.call({ skillId })`
+### `getSkill`
 
 Get information about a skill.
+
+```js
+await colonyNetworkClient.getSkill.call({
+  skillId,
+});
+```
+
 
 **Input**
 
@@ -654,9 +807,14 @@ Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/g
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColonyNetwork.sol)
   
 
-### `getSkillCount.call()`
+### `getSkillCount`
 
 Get the total number of global and local skills in the network.
+
+```js
+await colonyNetworkClient.getSkillCount.call();
+```
+
 
 
 **Response**
@@ -677,9 +835,14 @@ Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/g
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColonyNetwork.sol)
   
 
-### `getTokenLockingAddress.call()`
+### `getTokenLockingAddress`
 
 Get the token locking contract address.
+
+```js
+await colonyNetworkClient.getTokenLockingAddress.call();
+```
+
 
 
 **Response**
@@ -700,9 +863,16 @@ Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/g
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColonyNetwork.sol)
   
 
-### `isColony.call({ colony })`
+### `isColony`
 
 Check whether or not an address is a colony contract.
+
+```js
+await colonyNetworkClient.isColony.call({
+  colony,
+});
+```
+
 
 **Input**
 
@@ -728,9 +898,14 @@ Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/g
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColonyNetwork.sol)
   
 
-### `isInRecoveryMode.call()`
+### `isInRecoveryMode`
 
 Check whether or not the network is in recovery mode.
+
+```js
+await colonyNetworkClient.isInRecoveryMode.call();
+```
+
 
 
 **Response**
@@ -751,9 +926,16 @@ Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tre
 Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IRecovery.sol)
   
 
-### `lookupRegisteredENSDomain.call({ ensAddress })`
+### `lookupRegisteredENSDomain`
 
 Lookup the registed ENS label for an address. This function will return an empty string if the address does not have a registered ENS label.
+
+```js
+await colonyNetworkClient.lookupRegisteredENSDomain.call({
+  ensAddress,
+});
+```
+
 
 **Input**
 
@@ -782,10 +964,18 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
   
 ## Senders
 
-**All senders return an instance of a `ContractResponse`.** Every `send()` method takes an `options` object as the second argument.
-### `addColonyVersion.send({ version, resolver }, options)`
+
+### `addColonyVersion`
 
 Add a new colony contract version and set the address of the resolver contract.
+
+```js
+await colonyNetworkClient.addColonyVersion.send({
+  version,
+  resolver,
+}, options);
+```
+
 
 **Input**
 
@@ -820,9 +1010,16 @@ Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/g
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColonyNetwork.sol)
   
 
-### `addSkill.send({ parentSkillId }, options)`
+### `addSkill`
 
 Add a new global or local skill to the skills tree.
+
+```js
+await colonyNetworkClient.addSkill.send({
+  parentSkillId,
+}, options);
+```
+
 
 **Input**
 
@@ -856,9 +1053,18 @@ Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/g
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColonyNetwork.sol)
   
 
-### `appendReputationUpdateLog.send({ user, amount, skillId }, options)`
+### `appendReputationUpdateLog`
 
 Add a reputation update entry to the log.
+
+```js
+await colonyNetworkClient.appendReputationUpdateLog.send({
+  user,
+  amount,
+  skillId,
+}, options);
+```
+
 
 **Input**
 
@@ -890,9 +1096,14 @@ Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/g
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColonyNetwork.sol)
   
 
-### `approveExitRecovery.send(options)`
+### `approveExitRecovery`
 
 Indicate approval to exit network recovery mode. This function can only be called by an address assigned the `RECOVERY` role.
+
+```js
+await colonyNetworkClient.approveExitRecovery.send(options);
+```
+
 
 
 **Options**
@@ -917,9 +1128,16 @@ Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tre
 Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IRecovery.sol)
   
 
-### `createColony.send({ tokenAddress }, options)`
+### `createColony`
 
 Create a new colony on the network.
+
+```js
+await colonyNetworkClient.createColony.send({
+  tokenAddress,
+}, options);
+```
+
 
 **Input**
 
@@ -957,9 +1175,16 @@ Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/g
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColonyNetwork.sol)
   
 
-### `createMetaColony.send({ tokenAddress }, options)`
+### `createMetaColony`
 
 Create the Meta Colony.
+
+```js
+await colonyNetworkClient.createMetaColony.send({
+  tokenAddress,
+}, options);
+```
+
 
 **Input**
 
@@ -999,9 +1224,18 @@ Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/g
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColonyNetwork.sol)
   
 
-### `createToken.send({ name, symbol, decimals }, options)`
+### `createToken`
 
 Create a new ERC20 token contract.
+
+```js
+await colonyNetworkClient.createToken.send({
+  name,
+  symbol,
+  decimals,
+}, options);
+```
+
 
 **Input**
 
@@ -1032,9 +1266,16 @@ Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/59cf56f18c5
   
   
 
-### `deprecateSkill.send({ skillId }, options)`
+### `deprecateSkill`
 
 Deprecate a skill.
+
+```js
+await colonyNetworkClient.deprecateSkill.send({
+  skillId,
+}, options);
+```
+
 
 **Input**
 
@@ -1064,10 +1305,15 @@ Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/g
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColonyNetwork.sol)
   
 
-### `enterRecoveryMode.send(options)`
+### `enterRecoveryMode`
 
 Enter network recovery mode. This function can only be called by an address assigned the `RECOVERY` role.
 
+```js
+await colonyNetworkClient.enterRecoveryMode.send(options);
+```
+
+
 
 **Options**
 
@@ -1091,10 +1337,15 @@ Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tre
 Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IRecovery.sol)
   
 
-### `exitRecoveryMode.send(options)`
+### `exitRecoveryMode`
 
 Exit network recovery mode. This function can be called by anyone if enough whitelist approvals are given.
 
+```js
+await colonyNetworkClient.exitRecoveryMode.send(options);
+```
+
+
 
 **Options**
 
@@ -1118,9 +1369,14 @@ Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tre
 Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IRecovery.sol)
   
 
-### `initialiseReputationMining.send(options)`
+### `initialiseReputationMining`
 
 Create an initial inactive reputation mining cycle.
+
+```js
+await colonyNetworkClient.initialiseReputationMining.send(options);
+```
+
 
 
 **Options**
@@ -1145,9 +1401,17 @@ Contract: [ColonyNetworkMining.sol](https://github.com/JoinColony/colonyNetwork/
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColonyNetwork.sol)
   
 
-### `registerColonyLabel.send({ colonyName, orbitDBPath }, options)`
+### `registerColonyLabel`
 
 Register an ENS label for a colony.
+
+```js
+await colonyNetworkClient.registerColonyLabel.send({
+  colonyName,
+  orbitDBPath,
+}, options);
+```
+
 
 **Input**
 
@@ -1182,9 +1446,17 @@ Contract: [ColonyNetworkENS.sol](https://github.com/JoinColony/colonyNetwork/tre
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColonyNetwork.sol)
   
 
-### `registerUserLabel.send({ username, orbitDBPath }, options)`
+### `registerUserLabel`
 
 Register an ENS label for a user.
+
+```js
+await colonyNetworkClient.registerUserLabel.send({
+  username,
+  orbitDBPath,
+}, options);
+```
+
 
 **Input**
 
@@ -1219,9 +1491,16 @@ Contract: [ColonyNetworkENS.sol](https://github.com/JoinColony/colonyNetwork/tre
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColonyNetwork.sol)
   
 
-### `removeRecoveryRole.send({ address }, options)`
+### `removeRecoveryRole`
 
 Remove the `RECOVERY` role from an address. This function can only be called by an address assigned the `ROOT` role.
+
+```js
+await colonyNetworkClient.removeRecoveryRole.send({
+  address,
+}, options);
+```
+
 
 **Input**
 
@@ -1251,9 +1530,16 @@ Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tre
 Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IRecovery.sol)
   
 
-### `setFeeInverse.send({ feeInverse }, options)`
+### `setFeeInverse`
 
 Set the inverse amount of the network fee. If the fee is 1% (or 0.01), the inverse amount will be 100.
+
+```js
+await colonyNetworkClient.setFeeInverse.send({
+  feeInverse,
+}, options);
+```
+
 
 **Input**
 
@@ -1286,9 +1572,16 @@ Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/g
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColonyNetwork.sol)
   
 
-### `setMiningResolver.send({ miningResolverAddress }, options)`
+### `setMiningResolver`
 
 Set the address for the mining resolver.
+
+```js
+await colonyNetworkClient.setMiningResolver.send({
+  miningResolverAddress,
+}, options);
+```
+
 
 **Input**
 
@@ -1321,9 +1614,16 @@ Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/g
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColonyNetwork.sol)
   
 
-### `setRecoveryRole.send({ address }, options)`
+### `setRecoveryRole`
 
 Assign a `RECOVERY` role to an address. This function can only be called by an address assigned the `ROOT` role.
+
+```js
+await colonyNetworkClient.setRecoveryRole.send({
+  address,
+}, options);
+```
+
 
 **Input**
 
@@ -1353,9 +1653,23 @@ Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tre
 Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IRecovery.sol)
   
 
-### `setReplacementReputationUpdateLogEntry.send({ reputationMiningCycle, id, user, amount, skillId, colony, nUpdates, nPreviousUpdates }, options)`
+### `setReplacementReputationUpdateLogEntry`
 
 Set replacement log entry when the network is in recovery mode.
+
+```js
+await colonyNetworkClient.setReplacementReputationUpdateLogEntry.send({
+  reputationMiningCycle,
+  id,
+  user,
+  amount,
+  skillId,
+  colony,
+  nUpdates,
+  nPreviousUpdates,
+}, options);
+```
+
 
 **Input**
 
@@ -1392,9 +1706,19 @@ Contract: [ColonyNetworkMining.sol](https://github.com/JoinColony/colonyNetwork/
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColonyNetwork.sol)
   
 
-### `setReputationRootHash.send({ newHash, newNNodes, stakers, reward }, options)`
+### `setReputationRootHash`
 
 Set the root hash of the reputation mining cycle.
+
+```js
+await colonyNetworkClient.setReputationRootHash.send({
+  newHash,
+  newNNodes,
+  stakers,
+  reward,
+}, options);
+```
+
 
 **Input**
 
@@ -1427,9 +1751,17 @@ Contract: [ColonyNetworkMining.sol](https://github.com/JoinColony/colonyNetwork/
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColonyNetwork.sol)
   
 
-### `setStorageSlotRecovery.send({ slot, value }, options)`
+### `setStorageSlotRecovery`
 
 Set the value for a storage slot while in recovery mode. This can only be called by an address assigned the `RECOVERY` role.
+
+```js
+await colonyNetworkClient.setStorageSlotRecovery.send({
+  slot,
+  value,
+}, options);
+```
+
 
 **Input**
 
@@ -1460,9 +1792,16 @@ Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tre
 Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IRecovery.sol)
   
 
-### `setTokenLocking.send({ tokenLockingAddress }, options)`
+### `setTokenLocking`
 
 Set the token locking address.
+
+```js
+await colonyNetworkClient.setTokenLocking.send({
+  tokenLockingAddress,
+}, options);
+```
+
 
 **Input**
 
@@ -1495,9 +1834,17 @@ Contract: [ColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/g
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColonyNetwork.sol)
   
 
-### `setupRegistrar.send({ ens, rootNode }, options)`
+### `setupRegistrar`
 
 Set up the registrar.
+
+```js
+await colonyNetworkClient.setupRegistrar.send({
+  ens,
+  rootNode,
+}, options);
+```
+
 
 **Input**
 
@@ -1528,9 +1875,14 @@ Contract: [ColonyNetworkENS.sol](https://github.com/JoinColony/colonyNetwork/tre
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColonyNetwork.sol)
   
 
-### `startNextMiningCycle.send(options)`
+### `startNextMiningCycle`
 
 Start the next reputation mining cycle.
+
+```js
+await colonyNetworkClient.startNextMiningCycle.send(options);
+```
+
 
 
 **Options**
@@ -1555,9 +1907,16 @@ Contract: [ColonyNetworkMining.sol](https://github.com/JoinColony/colonyNetwork/
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColonyNetwork.sol)
   
 
-### `startTokenAuction.send({ tokenAddress }, options)`
+### `startTokenAuction`
 
 Create and start an auction for a token owned by the Colony Network. The auction will be for the total amount of the specificed tokens that are owned by the Colony Network.
+
+```js
+await colonyNetworkClient.startTokenAuction.send({
+  tokenAddress,
+}, options);
+```
+
 
 **Input**
 
@@ -1597,13 +1956,31 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 ## Events
 
 
-### `events.AuctionCreated`
+### `AuctionCreated`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ auction, token, quantity }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  auction,
+  token,
+  quantity,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ auction, token, quantity }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyNetworkClient.events.AuctionCreated.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyNetworkClient.events.AuctionCreated.removeListener(eventHandler);
+```
 
 
 
@@ -1617,13 +1994,31 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 |quantity|big number|The amount of tokens available for the auction.|
 
 
-### `events.ColonyAdded`
+### `ColonyAdded`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ colonyId, colonyAddress, tokenAddress }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  colonyId,
+  colonyAddress,
+  tokenAddress,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ colonyId, colonyAddress, tokenAddress }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyNetworkClient.events.ColonyAdded.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyNetworkClient.events.ColonyAdded.removeListener(eventHandler);
+```
 
 
 
@@ -1637,13 +2032,30 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 |tokenAddress|address|The address of the token contract that was assigned.|
 
 
-### `events.ColonyLabelRegistered`
+### `ColonyLabelRegistered`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ colony, label }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  colony,
+  label,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ colony, label }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyNetworkClient.events.ColonyLabelRegistered.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyNetworkClient.events.ColonyLabelRegistered.removeListener(eventHandler);
+```
 
 
 
@@ -1656,13 +2068,29 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 |label|string|The ENS label that was registered for the colony.|
 
 
-### `events.ColonyNetworkInitialised`
+### `ColonyNetworkInitialised`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ resolver }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  resolver,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ resolver }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyNetworkClient.events.ColonyNetworkInitialised.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyNetworkClient.events.ColonyNetworkInitialised.removeListener(eventHandler);
+```
 
 
 
@@ -1674,13 +2102,30 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 |resolver|address|The address of the resolver contract.|
 
 
-### `events.ColonyVersionAdded`
+### `ColonyVersionAdded`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ version, resolver }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  version,
+  resolver,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ version, resolver }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyNetworkClient.events.ColonyVersionAdded.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyNetworkClient.events.ColonyVersionAdded.removeListener(eventHandler);
+```
 
 
 
@@ -1693,13 +2138,31 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 |resolver|address|The address of the resolver contract.|
 
 
-### `events.MetaColonyCreated`
+### `MetaColonyCreated`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ colonyAddress, tokenAddress, rootSkillId }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  colonyAddress,
+  tokenAddress,
+  rootSkillId,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ colonyAddress, tokenAddress, rootSkillId }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyNetworkClient.events.MetaColonyCreated.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyNetworkClient.events.MetaColonyCreated.removeListener(eventHandler);
+```
 
 
 
@@ -1713,13 +2176,29 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 |rootSkillId|number|The ID of the root skill.|
 
 
-### `events.MiningCycleResolverSet`
+### `MiningCycleResolverSet`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ miningCycleResolver }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  miningCycleResolver,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ miningCycleResolver }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyNetworkClient.events.MiningCycleResolverSet.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyNetworkClient.events.MiningCycleResolverSet.removeListener(eventHandler);
+```
 
 
 
@@ -1731,13 +2210,29 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 |miningCycleResolver|address|The address of the resolver contract for the reputation mining cycle contract.|
 
 
-### `events.NetworkFeeInverseSet`
+### `NetworkFeeInverseSet`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ feeInverse }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  feeInverse,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ feeInverse }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyNetworkClient.events.NetworkFeeInverseSet.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyNetworkClient.events.NetworkFeeInverseSet.removeListener(eventHandler);
+```
 
 
 
@@ -1749,13 +2244,30 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 |feeInverse|big number|The inverse value of the network fee that was set.|
 
 
-### `events.ReputationMiningCycleComplete`
+### `ReputationMiningCycleComplete`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ hash, nNodes }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  hash,
+  nNodes,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ hash, nNodes }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyNetworkClient.events.ReputationMiningCycleComplete.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyNetworkClient.events.ReputationMiningCycleComplete.removeListener(eventHandler);
+```
 
 
 
@@ -1768,13 +2280,29 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 |nNodes|number|The total number of nodes in the reputation state.|
 
 
-### `events.ReputationMiningInitialised`
+### `ReputationMiningInitialised`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ inactiveReputationMiningCycle }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  inactiveReputationMiningCycle,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ inactiveReputationMiningCycle }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyNetworkClient.events.ReputationMiningInitialised.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyNetworkClient.events.ReputationMiningInitialised.removeListener(eventHandler);
+```
 
 
 
@@ -1786,13 +2314,32 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 |inactiveReputationMiningCycle|address|The address of the reputation mining cycle that was initialized.|
 
 
-### `events.ReputationRootHashSet`
+### `ReputationRootHashSet`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ newHash, newNNodes, stakers, reward }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  newHash,
+  newNNodes,
+  stakers,
+  reward,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ newHash, newNNodes, stakers, reward }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyNetworkClient.events.ReputationRootHashSet.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyNetworkClient.events.ReputationRootHashSet.removeListener(eventHandler);
+```
 
 
 
@@ -1807,13 +2354,30 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 |reward|array|The array of corresponding amounts of CLNY each user received.|
 
 
-### `events.SkillAdded`
+### `SkillAdded`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ skillId, parentSkillId }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  skillId,
+  parentSkillId,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ skillId, parentSkillId }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyNetworkClient.events.SkillAdded.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyNetworkClient.events.SkillAdded.removeListener(eventHandler);
+```
 
 
 
@@ -1826,13 +2390,29 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 |parentSkillId|number|The ID of the parent skill.|
 
 
-### `events.TokenLockingAddressSet`
+### `TokenLockingAddressSet`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ tokenLocking }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  tokenLocking,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ tokenLocking }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyNetworkClient.events.TokenLockingAddressSet.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyNetworkClient.events.TokenLockingAddressSet.removeListener(eventHandler);
+```
 
 
 
@@ -1844,13 +2424,30 @@ Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree
 |tokenLocking|address|The address of the token locking contract.|
 
 
-### `events.UserLabelRegistered`
+### `UserLabelRegistered`
 
-**Methods**
+**Event Handler**
 
-`.addListener(({ user, label }) => { /* ... */ })`
+```js
+const eventHandler = ({
+  user,
+  label,
+}) => {
+  // perform an action using the event data
+};
+```
 
-`.removeListener(({ user, label }) => { /* ... */ })`
+**Add Listener**
+
+```js
+colonyNetworkClient.events.UserLabelRegistered.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyNetworkClient.events.UserLabelRegistered.removeListener(eventHandler);
+```
 
 
 

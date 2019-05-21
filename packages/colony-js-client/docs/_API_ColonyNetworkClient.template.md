@@ -10,47 +10,57 @@ See [Clients](/colonyjs/components-clients) for more information about initializ
 
 See [ContractClient](/colonyjs/api-contractclient) for more information about the `ContractClient` superclass.
 
-## Table of Contents
-
-==TOC==
-
 ## Instance methods
 
-**All instance methods return promises.**
-
-### `getColonyAddress(id)`
+### `getColonyAddress`
 
 Get the address of a Colony for the specified id of a deployed colony contract.
+
+```js
+
+await colonyNetwork.getColonyAddress(id);
+
+```
 
 **Input**
 
 |Property|Type|Description|
 |---|---|---|
-|key|string|Name of the Colony to get|
-|id|number|Integer number of the Colony|
+|id|number|The id of the colony|
 
 **Response**
 
 `Promise<Address>`. The address of the given Colony contract
 
-### `getColonyClient(id)`
+### `getColonyClient`
 
 Returns an initialized ColonyClient for the specified id of a deployed colony contract.
+
+```js
+
+await colonyNetwork.getColonyClient(id);
+
+```
 
 **Input**
 
 |Property|Type|Description|
 |---|---|---|
-|key|string|Name of the Colony to get|
-|id|number|Integer number of the Colony|
+|id|number|The id of the colony|
 
 **Response**
 
 `Promise<ColonyClient>`. An instance of a `ColonyClient` associated with the given Colony contract
 
-### `getColonyClientByAddress(contractAddress)`
+### `getColonyClientByAddress`
 
 Returns an initialized ColonyClient for the contract at address `contractAddress`
+
+```js
+
+await colonyNetwork.getColonyClientByAddress(contractAddress);
+
+```
 
 **Input**
 
@@ -62,9 +72,15 @@ Returns an initialized ColonyClient for the contract at address `contractAddress
 
 `Promise<ColonyClient>`. An instance of a `ColonyClient` associated with the given Colony contract
 
-### `getMetaColonyClient()`
+### `getMetaColonyClient`
 
 Gets the Meta Colony as an initialized ColonyClient
+
+```js
+
+await colonyNetwork.getMetaColonyClient();
+
+```
 
 **Response**
 
