@@ -1,6 +1,6 @@
 {
     "name": "@colony/colony-js-adapter",
-    "version": "1.12.0-beta.4",
+    "version": "1.12.0",
     "description": "ColonyContract adapter interfaces",
     "keywords": [
         "ethers",
@@ -44,7 +44,7 @@
         ]
     },
     "dependencies": {
-        "@colony/colony-js-contract-loader": "^1.12.0-beta.4",
+        "@colony/colony-js-contract-loader": "^1.12.0",
         "bn.js": "^4.11.8"
     },
     "devDependencies": {
