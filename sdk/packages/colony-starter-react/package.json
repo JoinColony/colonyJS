@@ -1,6 +1,6 @@
 {
   "name": "@colony/colony-starter-react",
-  "version": "1.0.0-beta.10",
+  "version": "1.0.0-beta.11",
   "description": "A simple starter project for building with Colony",
   "keywords": [
     "colony",
@@ -30,7 +30,7 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
-    "@colony/colony-cli": "^1.0.0-beta.4",
+    "@colony/colony-cli": "^1.0.0-beta.6",
     "@colony/colony-js-client": "^1.12.0",
     "@colony/colony-js-contract-loader-http": "^1.12.0",
     "@colony/purser-metamask": "^2.2.0",

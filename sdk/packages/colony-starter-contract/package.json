@@ -1,6 +1,6 @@
 {
   "name": "@colony/colony-starter-contract",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0-beta.1",
   "description": "A simple starter project for building with Colony",
   "keywords": [
     "colony",
@@ -22,7 +22,7 @@
     "test": "colony service truffle test"
   },
   "dependencies": {
-    "@colony/colony-cli": "1.0.0-beta.4"
+    "@colony/colony-cli": "1.0.0-beta.6"
   },
   "engines": {
     "node": ">=10.12.0 <12.0.0"
