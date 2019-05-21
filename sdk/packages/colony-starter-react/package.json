@@ -31,8 +31,8 @@
   },
   "dependencies": {
     "@colony/colony-cli": "^1.0.0-beta.4",
-    "@colony/colony-js-client": "^1.12.0-beta.5",
-    "@colony/colony-js-contract-loader-http": "^1.10.0",
+    "@colony/colony-js-client": "^1.12.0",
+    "@colony/colony-js-contract-loader-http": "^1.12.0",
     "@colony/purser-metamask": "^2.2.0",
     "@colony/purser-software": "^1.2.4",
     "buffer": "^5.2.1",
