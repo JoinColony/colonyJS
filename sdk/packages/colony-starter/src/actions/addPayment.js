@@ -2,7 +2,7 @@
 module.exports = async (colonyClient, recipient, token, amount, domainId) => {
 
   // Add a payment
-  const paymentTransaction = await colonyClient.addPayment.send({
+  const addPaymentResponse = await colonyClient.addPayment.send({
     recipient,
     token,
     amount,
@@ -10,7 +10,7 @@ module.exports = async (colonyClient, recipient, token, amount, domainId) => {
   });
 
   // Set payment id
-  const { paymentId } = paymentTransaction.eventData;
+  const { paymentId } = addPaymentResponse.eventData;
 
   // Get a payment
   const payment = await colonyClient.getPayment.call({

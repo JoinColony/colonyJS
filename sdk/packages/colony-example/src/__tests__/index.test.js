@@ -6,7 +6,7 @@ const { BN } = require('web3-utils');
 const addDomain = require('../actions/addDomain');
 const addGlobalSkill = require('../actions/addGlobalSkill');
 const claimColonyFunds = require('../actions/claimColonyFunds');
-const claimPayout = require('../actions/claimPayout');
+const claimTaskPayout = require('../actions/claimTaskPayout');
 const createColony = require('../actions/createColony');
 const addTask = require('../actions/addTask');
 const createToken = require('../actions/createToken');
@@ -755,9 +755,9 @@ describe('colony-example [ local ]', () => {
     }));
   }, 5000);
 
-  // Test the claimPayout() action from account[0]
-  test('account[0] claimPayout() works [ token ]', async () => {
-    const taskPayout = await claimPayout(
+  // Test the claimTaskPayout() action from account[0]
+  test('account[0] claimTaskPayout() works [ token ]', async () => {
+    const taskPayout = await claimTaskPayout(
       state.colonyClient[0],          // colonyClient
       state.task.id,                  // taskId
       'MANAGER',                      // role
@@ -766,9 +766,9 @@ describe('colony-example [ local ]', () => {
     expect(taskPayout.amount.toString()).toEqual('0');
   }, 5000);
 
-  // Test the claimPayout() action from account[0]
-  test('account[0] claimPayout() works [ ether ]', async () => {
-    const taskPayout = await claimPayout(
+  // Test the claimTaskPayout() action from account[0]
+  test('account[0] claimTaskPayout() works [ ether ]', async () => {
+    const taskPayout = await claimTaskPayout(
       state.colonyClient[0],          // colonyClient
       state.task.id,                  // taskId
       'MANAGER',                      // role
@@ -777,9 +777,9 @@ describe('colony-example [ local ]', () => {
     expect(taskPayout.amount.toString()).toEqual('0');
   }, 5000);
 
-  // Test the claimPayout() action from account[1]
-  test('account[1] claimPayout() works [ token ]', async () => {
-    const taskPayout = await claimPayout(
+  // Test the claimTaskPayout() action from account[1]
+  test('account[1] claimTaskPayout() works [ token ]', async () => {
+    const taskPayout = await claimTaskPayout(
       state.colonyClient[1],          // colonyClient
       state.task.id,                  // taskId
       'EVALUATOR',                    // role
@@ -788,9 +788,9 @@ describe('colony-example [ local ]', () => {
     expect(taskPayout.amount.toString()).toEqual('0');
   }, 5000);
 
-  // Test the claimPayout() action from account[1]
-  test('account[1] claimPayout() works [ ether ]', async () => {
-    const taskPayout = await claimPayout(
+  // Test the claimTaskPayout() action from account[1]
+  test('account[1] claimTaskPayout() works [ ether ]', async () => {
+    const taskPayout = await claimTaskPayout(
       state.colonyClient[1],          // colonyClient
       state.task.id,                  // taskId
       'EVALUATOR',                    // role
@@ -799,9 +799,9 @@ describe('colony-example [ local ]', () => {
     expect(taskPayout.amount.toString()).toEqual('0');
   }, 5000);
 
-  // Test the claimPayout() action from account[2]
-  test('account[2] claimPayout() works [ token ]', async () => {
-    const taskPayout = await claimPayout(
+  // Test the claimTaskPayout() action from account[2]
+  test('account[2] claimTaskPayout() works [ token ]', async () => {
+    const taskPayout = await claimTaskPayout(
       state.colonyClient[2],          // colonyClient
       state.task.id,                  // taskId
       'WORKER',                       // role
@@ -810,9 +810,9 @@ describe('colony-example [ local ]', () => {
     expect(taskPayout.amount.toString()).toEqual('0');
   }, 5000);
 
-  // Test the claimPayout() action from account[2]
-  test('account[2] claimPayout() works [ ether ]', async () => {
-    const taskPayout = await claimPayout(
+  // Test the claimTaskPayout() action from account[2]
+  test('account[2] claimTaskPayout() works [ ether ]', async () => {
+    const taskPayout = await claimTaskPayout(
       state.colonyClient[2],          // colonyClient
       state.task.id,                  // taskId
       'WORKER',                       // role

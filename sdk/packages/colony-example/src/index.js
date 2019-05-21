@@ -6,7 +6,7 @@ const log = require('./helpers/log');
 const addDomain = require('./actions/addDomain');
 const addGlobalSkill = require('./actions/addGlobalSkill');
 const claimColonyFunds = require('./actions/claimColonyFunds');
-const claimPayout = require('./actions/claimPayout');
+const claimTaskPayout = require('./actions/claimTaskPayout');
 const createColony = require('./actions/createColony');
 const addTask = require('./actions/addTask');
 const createToken = require('./actions/createToken');
@@ -566,59 +566,59 @@ DATABASE = {
     state.task.id,                  // taskId
   );
 
-  log('account[0] claimPayout [ token ]:');
+  log('account[0] claimTaskPayout [ token ]:');
 
-  // Claim the manager payout using the "claimPayout" example action.
-  await claimPayout(
+  // Claim the manager payout using the "claimTaskPayout" example action.
+  await claimTaskPayout(
     state.colonyClient[0],          // colonyClient
     state.task.id,                  // taskId
     'MANAGER',                      // role
     state.tokenAddress,             // token
   );
 
-  log('account[0] claimPayout [ ether ]:');
+  log('account[0] claimTaskPayout [ ether ]:');
 
-  // Claim the manager payout using the "claimPayout" example action.
-  await claimPayout(
+  // Claim the manager payout using the "claimTaskPayout" example action.
+  await claimTaskPayout(
     state.colonyClient[0],          // colonyClient
     state.task.id,                  // taskId
     'MANAGER',                      // role
     EMPTY_ADDRESS,                  // token
   );
 
-  log('account[1] claimPayout [ token ]:');
+  log('account[1] claimTaskPayout [ token ]:');
 
-  // Claim the evaluator payout using the "claimPayout" example action.
-  await claimPayout(
+  // Claim the evaluator payout using the "claimTaskPayout" example action.
+  await claimTaskPayout(
     state.colonyClient[1],          // colonyClient
     state.task.id,                  // taskId
     'EVALUATOR',                    // role
     state.tokenAddress,             // token
   );
 
-  log('account[1] claimPayout [ ether ]:');
+  log('account[1] claimTaskPayout [ ether ]:');
 
-  // Claim the evaluator payout using the "claimPayout" example action.
-  await claimPayout(
+  // Claim the evaluator payout using the "claimTaskPayout" example action.
+  await claimTaskPayout(
     state.colonyClient[1],          // colonyClient
     state.task.id,                  // taskId
     'EVALUATOR',                    // role
     EMPTY_ADDRESS,                  // token
   );
 
-  log('account[2] claimPayout [ token ]:');
+  log('account[2] claimTaskPayout [ token ]:');
 
-  // Claim the worker payout using the "claimPayout" example action.
-  await claimPayout(
+  // Claim the worker payout using the "claimTaskPayout" example action.
+  await claimTaskPayout(
     state.colonyClient[2],          // colonyClient
     state.task.id,                  // taskId
     'WORKER',                       // role
     state.tokenAddress,             // token
   );
-  log('account[2] claimPayout [ ether ]:');
+  log('account[2] claimTaskPayout [ ether ]:');
 
-  // Claim the worker payout using the "claimPayout" example action.
-  await claimPayout(
+  // Claim the worker payout using the "claimTaskPayout" example action.
+  await claimTaskPayout(
     state.colonyClient[2],          // colonyClient
     state.task.id,                  // taskId
     'WORKER',                       // role
