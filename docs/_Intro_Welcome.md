@@ -12,7 +12,7 @@ Everything you need to create your first colony and make your first payment is i
 
 ## Contribute
 
-colonyJS is under active development. If you notice any discrepancies in the documentation or a bug in the code, please help us out by [creating an issue](https://github.com/JoinColony/colonyJS/issues). If you are a developer and you would like to help us fix bugs or add new features, check out [Contributing](https://github.com/JoinColony/colonyJS/blob/develop/.github/CONTRIBUTING.md) and [Development](https://github.com/JoinColony/colonyJS/blob/develop/.github/DEVELOPMENT.md).
+colonyJS is under active development. If you notice any discrepancies in the documentation or a bug in the code, please help us out by [creating an issue](https://github.com/JoinColony/colonyJS/issues). If you are a developer and you would like to help us fix bugs or add new features, check out [Contributing](https://github.com/JoinColony/colonyJS/blob/master/CONTRIBUTING.md) and [Development](https://github.com/JoinColony/colonyJS/blob/master/DEVELOPMENT.md).
 
 ## What's Next?
 

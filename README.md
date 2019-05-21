@@ -22,21 +22,14 @@ colonyJS is a JavaScript library with a simple and predictable interface for app
 
 ## Documentation
 
-See [colonyJS Documentation](https://joincolony.github.io/colonyjs/intro-welcome/) for detailed examples and explanations.
+See [colonyJS Documentation](https://docs.colony.io/colonyjs/intro-welcome/) for detailed examples and explanations.
 
-## colonyStarter
-
-Another helpful tool for learning how to use colonyJS is [colonyStarter](https://github.com/JoinColony/colonyNetwork), which provides boilerplates, examples, and a simple command line tool to make local development easier.
-
-## Example Usage
-
-Here is the complete example from the [Get Started](https://joincolony.github.io/colonyjs/intro-get-started/) documentation.
+## Get Started
 
 ```js
 
 const { getNetworkClient } = require('@colony/colony-js-client');
 const { open } = require('@colony/purser-software');
-const { BN } = require('web3-utils');
 
 (async () => {
 
@@ -54,101 +47,20 @@ const { BN } = require('web3-utils');
   // Check out the logs to see the network address
   console.log('Network Address:', networkClient.contract.address);
 
-  // Create a token
-  const createTokenTransaction = await networkClient.createToken.send({
-    name: 'Token',
-    symbol: 'TKN',
-    decimals: 18,
-  });
-
-  // Set the token address
-  const tokenAddress = createTokenTransaction.meta.receipt.contractAddress;
-
-  // Check out the logs to see the token address
-  console.log('Token Address: ', tokenAddress);
-
-  // Create a colony
-  const createColonyResponse = await networkClient.createColony.send({
-    tokenAddress,
-  });
-
-  // Set the colony address
-  const colonyAddress = createColonyResponse.eventData.colonyAddress;
-
-  // Check out the logs to see the colony address
-  console.log('Colony Address:', colonyAddress);
-
-  // Get a colony client instance
-  const colonyClient = await networkClient.getColonyClientByAddress(colonyAddress);
-
-  // Set the colony contract as the token owner
-  await colonyClient.tokenClient.setOwner.send({
-    owner: colonyAddress,
-  });
-
-  console.log('Token owner set!');
-
-  // Mint tokens
-  await colonyClient.mintTokens.send({
-    amount: new BN('1000000000000000000'),
-  });
-
-  console.log('Tokens minted!');
-
-  // Claim colony funds
-  await colonyClient.claimColonyFunds.send({
-    token: tokenAddress,
-  });
-
-  console.log('Colony funds claimed!');
-
-  // Add a payment
-  const addPaymentResponse = await colonyClient.addPayment.send({
-    recipient: wallet.address,
-    token: tokenAddress,
-    amount: new BN('1000000000000000000'),
-    domainId: 1,
-  });
-
-  // Set payment id and pot id
-  const { paymentId, potId } = addPaymentResponse.eventData;
-
-  // Check out the logs to see the payment data
-  console.log('Payment Data:', { paymentId, potId });
-
-  // Move funds  between funding pots
-  await colonyClient.moveFundsBetweenPots.send({
-    fromPot: 1,
-    toPot: potId,
-    amount: new BN('1000000000000000000'),
-    token: tokenAddress,
-  });
-
-  console.log('Funds moved to payment pot!');
-
-  // Finalize a payment
-  await colonyClient.finalizePayment.send({ paymentId });
-
-  console.log('Payment finalized!');
-
-  // Claim a payment
-  await colonyClient.claimPayment.send({
-    paymentId,
-    token: tokenAddress,
-  });
-
-  console.log('Payment claimed!');
-
 })()
   .then(() => process.exit())
   .catch(error => console.error(error));
 
 ```
 
+## colonyStarter
+
+Another helpful tool for learning how to use colonyJS is [colonyStarter](https://github.com/JoinColony/colonyNetwork), which provides boilerplates, examples, and a simple command line tool to make local development easier.
+
 ## Contributing
 
-We welcome all contributions to colonyJS! See [Contributing](https://github.com/JoinColony/colonyJS/blob/develop/.github/CONTRIBUTING.md) for more information.
+We welcome all contributions to colonyJS! See [Contributing](https://github.com/JoinColony/colonyJS/blob/master/CONTRIBUTING.md) for more information.
 
 ## Development
 
-If you are a developer contributing to colonyJS, see [Development](https://github.com/JoinColony/colonyJS/blob/develop/.github/DEVELOPMENT.md).
+If you are a developer contributing to colonyJS, see [Development](https://github.com/JoinColony/colonyJS/blob/master/DEVELOPMENT.md).

@@ -14,11 +14,11 @@ Maintaining the functionality of colonyJS:
 * Keeping clients in sync with [colonyNetwork](https://github.com/JoinColony/colonyNetwork)
 * Fixing bugs throughout the colonyJS packages
 
-When making a larger change, please consult with the team on [Gitter](http://gitter.im/JoinColony/colonyJS).
+When making a larger change, please consult with the team on [Gitter](https://gitter.im/JoinColony/colonyJS).
 
 ## Code of Conduct
 
-If you have not read our [Code of Conduct](CODE_OF_CONDUCT.md), please do so before submitting an issue or pull request.
+If you have not read our [Code of Conduct](https://github.com/JoinColony/colonyJS/blob/master/CODE_OF_CONDUCT.md), please do so before submitting an issue or pull request.
 
 ## Issues
 

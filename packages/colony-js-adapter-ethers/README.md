@@ -10,11 +10,10 @@ yarn add ethers @colony/colony-js-adapter-ethers
 
 ## Usage
 
-Please see [the full documentation](https://joincolony.github.io/colonyjs/components-adapters/).
-
+Please see [the full documentation](https://docs.colony.io/colonyjs/components-adapters/).
 
 ## Contributing
 
-This package is part of the [colonyJS monorepo](https://github.com/JoinColony/colonyJS).
+This package is part of [colonyJS](https://github.com/JoinColony/colonyJS).
 
 Please read our [contributing guidelines](https://github.com/JoinColony/colonyJS/blob/master/CONTRIBUTING.md).
