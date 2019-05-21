@@ -1,7 +1,13 @@
+// https://docs.cypress.io/api/introduction/api.html
 
-describe('Create view', () => {
-  it('visits the create view', () => {
-    cy.visit('/create')
-    cy.contains('h1', 'This is an about page')
+describe('Home view', () => {
+  it('Visit manage', () => {
+    cy.visit('/manage')
+  })
+  it('Set a colony', () => {
+    cy.get('form.manage-colony-form').within(() => {
+      cy.get('input.address').type('qwe')
+      cy.get('button').click()
+    })
   })
 })
