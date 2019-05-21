@@ -1,6 +1,6 @@
 # Changelog
 
-## next
+## v1.12.0
 
 This release implements significant changes and additions that enables support for the colonyNetwork [glider-rc.1](https://github.com/JoinColony/colonyNetwork/releases/tag/glider-rc.1) release. Please do not hesitate to reach out to us on [Discourse](https://build.colony.io/c/support) or [Gitter](https://gitter.im/JoinColony/colonyJS) if you are having any issues updating to this release.
 
