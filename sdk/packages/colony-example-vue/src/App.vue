@@ -40,4 +40,21 @@ export default {
     }
   }
 }
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.box {
+  background-color: #80808008;
+  border: 1px solid #00000038;
+  padding: 10px;
+  border-radius: 2px;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.field {
+  margin-bottom: 5px;
+}
 </style>

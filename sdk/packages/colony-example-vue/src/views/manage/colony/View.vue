@@ -7,7 +7,9 @@
       <router-link :to="{ name: 'colonyTasks' }">Tasks</router-link> |
       <router-link :to="{ name: 'colonyToken' }">Token</router-link>
     </div>
-    <router-view></router-view>
+    <div class="container">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 <script>
