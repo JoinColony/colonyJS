@@ -9,7 +9,7 @@ import Claim from '@/components/colony/funding/Claim.vue'
 
 export default {
   components: {
-    Claim
+    Claim,
   },
   data() {
     return {

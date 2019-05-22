@@ -2,7 +2,7 @@
   <div>8 pots</div>
 </template>
 <script>
-//import comp from './comp.vue'
+// import comp from './comp.vue'
 
 export default {
   components: {

@@ -7,13 +7,13 @@
   </div>
 </template>
 <script>
-import Pots from './Pots'
-import Claim from './Claim'
-import Move from './Move'
+import Pots from './Pots.vue'
+import Claim from './Claim.vue'
+import Move from './Move.vue'
 
 export default {
   components: {
-    Pots, Claim, Move
+    Pots, Claim, Move,
   },
 }
 </script>
