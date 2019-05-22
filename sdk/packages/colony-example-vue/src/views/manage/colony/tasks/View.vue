@@ -1,10 +1,21 @@
 <template>
-  <div>Tasks</div>
+  <div>
+    <h1>Tasks</h1>
+    <TasksList />
+    <CreateTask />
+    <FundTask />
+  </div>
 </template>
 <script>
-import addressMixin from '../address-mixin'
+import TasksList from './Tasks.vue'
+import CreateTask from './Create.vue'
+import FundTask from './Fund.vue'
 
 export default {
-  mixins: [addressMixin],
+  components: {
+    TasksList,
+    CreateTask,
+    FundTask,
+  },
 }
 </script>
