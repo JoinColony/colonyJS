@@ -1,7 +1,9 @@
 <template>
   <form @submit.prevent="$emit('submit', { address })">
-    <input id="address" placeholder="0x0 (token address)" type="text" v-model="address" />
-    <button type="submit">{{ submitLabel }}</button>
+    <div class="field">
+      <input id="address" placeholder="0x0 (token address)" type="text" v-model="address" />
+      <button type="submit">{{ submitLabel }}</button>
+    </div>
   </form>
 </template>
 <script>
