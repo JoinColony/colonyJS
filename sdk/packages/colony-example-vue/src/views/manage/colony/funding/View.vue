@@ -1,10 +1,19 @@
 <template>
-  <div>Funding</div>
+  <div>
+    <h1>Funding</h1>
+    <Pots />
+    <Claim />
+    <Move />
+  </div>
 </template>
 <script>
-import addressMixin from '../address-mixin'
+import Pots from './Pots'
+import Claim from './Claim'
+import Move from './Move'
 
 export default {
-  mixins: [addressMixin],
+  components: {
+    Pots, Claim, Move
+  },
 }
 </script>
