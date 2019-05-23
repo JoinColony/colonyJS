@@ -5,26 +5,16 @@ describe('Home view', () => {
     cy.visit('/')
   })
   it('Create a token', () => {
-    const stub = cy.stub()
-    cy.on('window:alert', stub)
     cy.get('form.create-token-form').within(() => {
-      cy.get('input.name').type('qwe')
+      cy.get('input.name').type('0xB711F5DD8401006C89D4a1CCa064c574f9774618')
       cy.get('input.symbol').type('qwe')
-      cy.get('button').click()
-        .then(() => {
-          expect(stub.getCall(0)).to.be.calledWith('tried to create token')
-        })
+      return cy.get('button').click()
     })
   })
   it('Create a colony', () => {
-    const stub = cy.stub()
-    cy.on('window:alert', stub)
     cy.get('form.create-colony-form').within(() => {
-      cy.get('input.address').type('qwe')
+      cy.get('input.address').type('0xB711F5DD8401006C89D4a1CCa064c574f9774618')
       cy.get('button').click()
-        .then(() => {
-          expect(stub.getCall(0)).to.be.calledWith('tried to create colony')
-        })
     })
   })
 })

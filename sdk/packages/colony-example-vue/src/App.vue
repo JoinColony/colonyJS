@@ -8,16 +8,17 @@
   </div>
 </template>
 <script>
-import { mapActions } from 'vuex'
+import { connect } from '@/api/network'
+import { setNetwork } from '@/lib/network-store'
+
+console.log('asd')
 
 export default {
   async created() {
-    await this.connectNetwork()
+    const network = await connect()
+    setNetwork(network)
   },
   methods: {
-    ...mapActions({
-      connectNetwork: 'network/connect',
-    }),
   },
 }
 </script>

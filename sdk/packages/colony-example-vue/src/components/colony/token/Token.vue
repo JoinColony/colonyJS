@@ -7,7 +7,7 @@
 export default {
   data() {
     return {
-      token: {}
+      token: {},
     }
   },
 }

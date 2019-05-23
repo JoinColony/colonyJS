@@ -5,6 +5,7 @@
   </div>
 </template>
 <script>
+import { createColony } from '@/api/colony'
 import CreateColonyForm from '@/components/colony/CreateColonyForm.vue'
 
 export default {
@@ -12,9 +13,7 @@ export default {
     CreateColonyForm,
   },
   methods: {
-    createColony() {
-      alert('tried to create colony')
-    },
+    createColony,
   },
 }
 </script>

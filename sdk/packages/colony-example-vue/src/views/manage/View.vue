@@ -2,6 +2,8 @@
   <router-view @submit="set"></router-view>
 </template>
 <script>
+import { getColonyClient } from '@/api/colony'
+import { setColony } from '@/lib/colony-store'
 
 export default {
   data() {
@@ -19,7 +21,9 @@ export default {
     return next()
   },
   methods: {
-    set({ address }) {
+    async set({ address }) {
+      const colony = await getColonyClient({ colonyAddress: address })
+      setColony(colony)
       const name = 'manageColony'
       const params = { address }
       this.$router.push({ name, params })

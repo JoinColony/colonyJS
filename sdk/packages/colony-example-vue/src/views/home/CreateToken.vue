@@ -1,10 +1,11 @@
 <template>
   <div>
     <h1>Create Token</h1>
-    <CreateTokenForm @submit="createToken"/>
+    <CreateTokenForm @submit="create"/>
   </div>
 </template>
 <script>
+import { createToken } from '@/api/token'
 import CreateTokenForm from '@/components/token/CreateTokenForm.vue'
 
 export default {
@@ -12,8 +13,8 @@ export default {
     CreateTokenForm,
   },
   methods: {
-    createToken() {
-      alert('tried to create token')
+    create({ name, symbol }) {
+      createToken({ name, symbol })
     },
   },
 }

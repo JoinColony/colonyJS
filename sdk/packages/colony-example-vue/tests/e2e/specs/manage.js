@@ -1,4 +1,7 @@
 // https://docs.cypress.io/api/introduction/api.html
+//
+const colonyAddress = '0xb291959D7CdC091b4702664D1809962f96B13d59'
+const userAddress = '0xb77d57f4959eafa0339424b83fcfaf9c15407461'
 
 describe('Home view', () => {
   it('Visit manage', () => {
@@ -6,7 +9,33 @@ describe('Home view', () => {
   })
   it('Set a colony', () => {
     cy.get('form.manage-colony-form').within(() => {
-      cy.get('input.address').type('qwe')
+      cy.get('input.address').type(colonyAddress)
+      cy.get('button').click()
+    })
+    cy.location().should((loc) => {
+      expect(loc.pathname).to.eq(`/manage/${colonyAddress}`)
+    })
+  })
+
+  // admin
+  it('Add an admin', () => {
+    cy.get('a').contains('Admins').click()
+    cy.get('form.add-admin-form').within(() => {
+      cy.get('input.address').type(userAddress)
+      cy.get('button').click()
+    })
+  })
+  it('Check an admin', () => {
+    cy.get('a').contains('Admins').click()
+    cy.get('form.check-admin-form').within(() => {
+      cy.get('input.address').type(userAddress)
+      cy.get('button').click()
+    })
+  })
+  it('Remove an admin', () => {
+    cy.get('a').contains('Admins').click()
+    cy.get('form.remove-admin-form').within(() => {
+      cy.get('input.address').type(userAddress)
       cy.get('button').click()
     })
   })

@@ -10,8 +10,8 @@ export default {
   data() {
     return {
       tasks: [{
-        title: 'New Task Title',                  // title
-        description: 'New Task Description',      // description
+        title: 'New Task Title', // title
+        description: 'New Task Description', // description
       }],
     }
   },
