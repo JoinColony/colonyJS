@@ -96,6 +96,7 @@ export const removeAdmin = (colonyClient, userAddress) => ({
     // Remove admin
     const tx = await colonyClient.setAdministrationRole.send({
       address: userAddress,
+      domainId: 1,
       setTo: false,
     })
 
