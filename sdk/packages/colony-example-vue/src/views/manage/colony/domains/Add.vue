@@ -1,10 +1,11 @@
 <template>
   <div class="box">
     <h3>Add</h3>
-    <AddDomain />
+    <AddDomain @submit="addDomain"/>
   </div>
 </template>
 <script>
+import { addDomain } from '@/api/domain'
 import AddDomain from '@/components/colony/domains/Add.vue'
 
 export default {
@@ -15,7 +16,8 @@ export default {
     return {
     }
   },
-  props: {
+  methods: {
+    addDomain,
   },
 }
 </script>

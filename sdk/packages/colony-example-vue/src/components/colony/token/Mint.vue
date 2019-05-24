@@ -1,5 +1,5 @@
 <template>
-  <form class="mint-token-form" @submit.prevent="$emit('submit')">
+  <form class="mint-tokens-form" @submit.prevent="$emit('submit', { amount })">
     <div class="field">
       <label>Amount: </label>
       <input class="amount" type="text" v-model="amount" />
@@ -15,12 +15,8 @@ export default {
   },
   data() {
     return {
-      task: null,
-      tasks: [],
       amount: 0,
     }
-  },
-  props: {
   },
 }
 </script>
