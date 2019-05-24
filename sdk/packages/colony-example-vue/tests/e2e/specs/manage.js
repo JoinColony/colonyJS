@@ -1,6 +1,6 @@
 // https://docs.cypress.io/api/introduction/api.html
 //
-const colonyAddress = '0xb291959D7CdC091b4702664D1809962f96B13d59'
+const colonyAddress = Cypress.env('VUE_APP_COLONY_ADDRESS')
 const userAddress = '0xb77d57f4959eafa0339424b83fcfaf9c15407461'
 
 describe('Home view', () => {
@@ -17,7 +17,6 @@ describe('Home view', () => {
     })
   })
 
-  // admin
   it('Add an admin', () => {
     cy.get('a').contains('Admins').click()
     cy.get('form.add-admin-form').within(() => {

@@ -5,7 +5,7 @@
            type="text"
            v-model="address"
            ref="input"/>
-    <button type="submit">Create Colony</button>
+    <button type="submit">Manage Colony</button>
   </form>
 </template>
 <script>

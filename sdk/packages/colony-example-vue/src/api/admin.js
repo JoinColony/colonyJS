@@ -1,25 +1,35 @@
 import { getColony, getColonyProxy } from '@/lib/colony-store'
 
 export async function checkAdmin({ colony = getColony(), address }) {
-  const { hasRole: owner } = await colony.hasUserRole.call({
-    user: address,
-    role: 'FOUNDER',
+  const { hasRole: root } = await colony.hasColonyRole.call({
+    address,
+    domainId: 1,
+    role: 'ROOT',
   })
-  const { hasRole: admin } = await colony.hasUserRole.call({
-    user: address,
-    role: 'ADMIN',
+
+  // Check admin
+  const { hasRole: admin } = await colony.hasColonyRole.call({
+    address,
+    domainId: 1,
+    role: 'ADMINISTRATION',
   })
-  return (owner || admin)
+
+  // Return root or admin
+  return (root || admin)
 }
 
 export function addAdmin({ colony = getColonyProxy(), address }) {
-  return colony.setAdminRole({
-    user: address,
+  return colony.setAdministrationRole({
+    address,
+    domainId: 1,
+    setTo: true,
   })
 }
 
 export function removeAdmin({ colony = getColonyProxy(), address }) {
-  return colony.removeAdminRole({
-    user: address,
+  return colony.setAdministrationRole({
+    address,
+    domainId: 1,
+    setTo: false,
   })
 }

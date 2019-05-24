@@ -11,8 +11,6 @@
 import { connect } from '@/api/network'
 import { setNetwork } from '@/lib/network-store'
 
-console.log('asd')
-
 export default {
   async created() {
     const network = await connect()
