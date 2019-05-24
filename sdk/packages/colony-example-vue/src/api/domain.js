@@ -1,6 +1,9 @@
-import { getColonyProxy } from '@/lib/colony-store'
+import { getColony } from '@/lib/colony-store'
+import colonyProxy from '@/lib/colony-proxy'
 
-export function addDomain({ colony = getColonyProxy() }) {
+export function addDomain({ colony = getColony() }) {
   const parentDomainId = 1
-  return colony.addDomain({ parentDomainId })
+  return colonyProxy(colony).addDomain({ parentDomainId })
 }
+
+export const asd = 'qwe'

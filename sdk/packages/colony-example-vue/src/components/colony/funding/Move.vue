@@ -1,12 +1,12 @@
 <template>
-  <form class="move-funding-form" @submit.prevent="$emit('submit', { address })">
+  <form class="move-funding-form" @submit.prevent="$emit('submit', { fromPot, toPot, amount })">
     <div class="field">
       <label>From Pot</label>
-      <input class="from" type="text" v-model="from" />
+      <input class="from" type="text" v-model="fromPot" />
     </div>
     <div class="field">
       <label>From To</label>
-      <input class="to" type="text" v-model="to" />
+      <input class="to" type="text" v-model="toPot" />
     </div>
     <div class="field">
       <label>From Amount</label>
@@ -19,8 +19,8 @@
 export default {
   data() {
     return {
-      from: 0,
-      to: 0,
+      fromPot: 0,
+      toPot: 0,
       amount: 0,
     }
   },

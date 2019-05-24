@@ -1,4 +1,5 @@
-import { getColony, getColonyProxy } from '@/lib/colony-store'
+import colonyProxy from '@/lib/colony-proxy'
+import { getColony } from '@/lib/colony-store'
 
 export async function checkAdmin({ colony = getColony(), address }) {
   const { hasRole: root } = await colony.hasColonyRole.call({
@@ -18,16 +19,16 @@ export async function checkAdmin({ colony = getColony(), address }) {
   return (root || admin)
 }
 
-export function addAdmin({ colony = getColonyProxy(), address }) {
-  return colony.setAdministrationRole({
+export function addAdmin({ colony = getColony(), address }) {
+  return colonyProxy(colony).setAdministrationRole({
     address,
     domainId: 1,
     setTo: true,
   })
 }
 
-export function removeAdmin({ colony = getColonyProxy(), address }) {
-  return colony.setAdministrationRole({
+export function removeAdmin({ colony = getColony(), address }) {
+  return colonyProxy(colony).setAdministrationRole({
     address,
     domainId: 1,
     setTo: false,
