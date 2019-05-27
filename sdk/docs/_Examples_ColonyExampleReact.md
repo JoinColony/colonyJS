@@ -38,9 +38,7 @@ Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and kickstar
 npx -p @colony/colony-starter colony build colony-example-react
 ```
 
-## Run Examples
-
-### Start Network
+## Start Network
 
 Open a new terminal window and start [Ganache](https://github.com/trufflesuite/ganache-cli):
 
@@ -48,7 +46,7 @@ Open a new terminal window and start [Ganache](https://github.com/trufflesuite/g
 yarn start-ganache
 ```
 
-### Deploy Contracts
+## Deploy Contracts
 
 Open a new terminal window and deploy the [colonyNetwork](https://github.com/JoinColony/colonyNetwork) contracts:
 
@@ -56,7 +54,7 @@ Open a new terminal window and deploy the [colonyNetwork](https://github.com/Joi
 yarn deploy-contracts
 ```
 
-### Start TrufflePig
+## Start TrufflePig
 
 Once the contracts have been deployed, start [TrufflePig](https://github.com/JoinColony/trufflepig):
 
@@ -64,7 +62,7 @@ Once the contracts have been deployed, start [TrufflePig](https://github.com/Joi
 yarn start-trufflepig
 ```
 
-### Seed Network
+## Seed Network
 
 Open a new terminal window and run the seed network script:
 
@@ -72,29 +70,21 @@ Open a new terminal window and run the seed network script:
 yarn seed-network
 ```
 
-### Colony Setup
+## Start Server
 
-Once the network has been seeded, run the colony setup script:
-
-```
-yarn colony-setup
-```
-
-### Start Server
-
-Once your colony has been set up, start the development server:
+Once the network has been seeded, start the development server:
 
 ```
 yarn start
 ```
 
-### Open Browser
+## Open Browser
 
-Open your browser and check out the example react app::
+Open your browser and check out the example react app:
 
 [localhost:8080](http://localhost:8080)
 
-### Run Tests
+## Run Tests
 
 Open a new terminal window and run the example tests:
 

@@ -23,7 +23,6 @@
     "deploy-contracts": "colony service deploy-contracts",
     "start-trufflepig": "colony service start-trufflepig",
     "seed-network": "colony service seed-network",
-    "colony-setup": "node scripts/colonySetup.js",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng lint && ng test --progress=false"
