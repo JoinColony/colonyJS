@@ -36,9 +36,7 @@ Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and kickstar
 npx -p @colony/colony-cli colony build colony-starter-contract
 ```
 
-## Development
-
-### Start Ganache
+## Start Ganache
 
 Open a new terminal window and start [Ganache](https://github.com/trufflesuite/ganache-cli):
 
@@ -46,7 +44,7 @@ Open a new terminal window and start [Ganache](https://github.com/trufflesuite/g
 yarn start-ganache
 ```
 
-### Deploy Contracts
+## Deploy Contracts
 
 Open a new terminal window and deploy the [colonyNetwork](https://github.com/JoinColony/colonyNetwork) contracts:
 
@@ -54,7 +52,7 @@ Open a new terminal window and deploy the [colonyNetwork](https://github.com/Joi
 yarn deploy-contracts
 ```
 
-### Start TrufflePig
+## Start TrufflePig
 
 Once the contracts have been deployed, start [TrufflePig](https://github.com/JoinColony/trufflepig):
 
@@ -62,7 +60,7 @@ Once the contracts have been deployed, start [TrufflePig](https://github.com/Joi
 yarn start-trufflepig
 ```
 
-### Colony Setup
+## Colony Setup
 
 Open a new terminal window and create a test colony:
 
@@ -70,7 +68,7 @@ Open a new terminal window and create a test colony:
 yarn colony-setup
 ```
 
-### Truffle Commands
+## Truffle Commands
 
 Run `truffle` commands using [colony-cli](https://github.com/JoinColony/colonyStarter/tree/master/packages/colony-cli):
 
