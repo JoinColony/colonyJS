@@ -72,17 +72,9 @@ Open a new terminal window and run the seed network script:
 yarn seed-network
 ```
 
-### Colony Setup
-
-Once the network has been seeded, run the colony setup script:
-
-```
-yarn colony-setup
-```
-
 ### Start Server
 
-Once your colony has been set up, start the development server:
+Once the network has been seeded, start the development server:
 
 ```
 yarn start
@@ -90,7 +82,7 @@ yarn start
 
 ### Open Browser
 
-Open your browser and check out the example react app::
+Open your browser and check out the example react app:
 
 [localhost:8080](http://localhost:8080)
 

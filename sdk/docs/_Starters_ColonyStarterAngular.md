@@ -80,7 +80,7 @@ yarn colony-setup
 
 ### Start Server
 
-Once your colony has been set up, start the development server:
+Once your test colony has been set up, start the development server:
 
 ```
 yarn start
@@ -88,7 +88,7 @@ yarn start
 
 ### Open Browser
 
-Open your browser and check out the example angular app::
+Open your browser and check out the example angular app:
 
 [localhost:8080](http://localhost:8080)
 

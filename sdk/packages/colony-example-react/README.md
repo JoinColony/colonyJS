@@ -84,7 +84,7 @@ yarn seed-network
 
 ### Start Server
 
-Once your colony has been set up, start the development server:
+Once the network has been seeded, start the development server:
 
 ```
 yarn start
@@ -109,5 +109,5 @@ yarn test
 If you do not want to use the default version of the [colonyNetwork](https://github.com/JoinColony/colonyNetwork) smart contracts defined by the [colony-cli](/packages/colony-cli) package, you can update the `"deploy-contracts"` scripts property in your `package.json` file to use a specific version. This can be a branch name, a commit hash, or a version tag.
 
 ```
-"deploy-contracts": "colony service deploy-contracts --specific develop",
+"deploy-contracts": "colony service deploy-contracts --specific goerli-rc.1",
 ```
