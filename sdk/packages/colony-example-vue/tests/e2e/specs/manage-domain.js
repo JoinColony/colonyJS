@@ -10,6 +10,12 @@ describe('Home view', () => {
       cy.get('button').click()
     })
   })
+  it('Fund domain', () => {
+    cy.get('form.fund-domain-form').within(() => {
+      cy.selectOption('select', 3)
+      cy.get('button').click()
+    })
+  })
   // it('Remove an admin', () => {
   //   cy.get('a').contains('Admins').click()
   //   cy.get('form.remove-admin-form').within(() => {

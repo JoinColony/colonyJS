@@ -35,3 +35,11 @@ Cypress.Commands.add('setColony', () => {
     expect(loc.pathname).to.eq(`/manage/${colonyAddress}`)
   })
 })
+
+Cypress.Commands.add('selectOption', (select, n) => {
+  cy.get(`${select}>option`)
+    .should('have.length.gt', 1)
+    .eq(n)
+    .then(e => cy.get(select)
+      .select(e.text()))
+})
