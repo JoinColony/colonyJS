@@ -93,8 +93,11 @@ export default class EthersAdapter implements IAdapter {
         throw error;
     }
 
-    // Wait until the transaction has been mined, then get the receipt.
-    await this.waitForTransaction(transactionHash, timeoutMs);
+    // If we didn't get the receipt, wait for the transaction and try again.
+    if (!receipt) {
+      await this.waitForTransaction(transactionHash, timeoutMs);
+    }
+
     receipt = this._getTransactionReceipt(transactionHash);
     return receipt;
   }
