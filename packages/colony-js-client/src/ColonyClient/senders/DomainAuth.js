@@ -91,11 +91,17 @@ export default class DomainAuth<
       throw new Error('Client not compatible with DomainAuth sender');
     }
 
+    // combine with default values
+    const inputValuesWithDefaults = {
+      ...(this.defaultValues || {}),
+      ...inputValues,
+    };
+
     // get proof input values
-    const proofs = await this.getPermissionProofs(inputValues);
+    const proofs = await this.getPermissionProofs(inputValuesWithDefaults);
 
     return super.estimate({
-      ...inputValues,
+      ...inputValuesWithDefaults,
       ...proofs,
     });
   }
@@ -112,12 +118,18 @@ export default class DomainAuth<
       throw new Error('Client not compatible with DomainAuth sender');
     }
 
+    // combine with default values
+    const inputValuesWithDefaults = {
+      ...(this.defaultValues || {}),
+      ...inputValues,
+    };
+
     // get proof input values
-    const proofs = await this.getPermissionProofs(inputValues);
+    const proofs = await this.getPermissionProofs(inputValuesWithDefaults);
 
     return super.send(
       {
-        ...inputValues,
+        ...inputValuesWithDefaults,
         ...proofs,
       },
       options,
