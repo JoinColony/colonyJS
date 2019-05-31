@@ -1,5 +1,11 @@
 # Changelog
 
+## next
+
+**Bug Fixes**
+
+* Fix `DomainAuth` sender to account for `defaultValues` (`@colony/colony-js-client`)
+
 ## v1.12.1
 
 **Bug Fixes**
