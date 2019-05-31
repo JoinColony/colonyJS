@@ -6,18 +6,19 @@ order: 1
 
 In the current implementation of the colonyNetwork smart contracts, certain actions within a colony can only be performed by addresses assigned specific "colony roles".
 
+*Note: In the future, colonyNetwork will support the option to mediate which addresses can perform which actions based on reputation as described in the [White Paper](https://colony.io/whitepaper.pdf).*
+
 There are seven colony roles:
 
-1. `RECOVERY`
-2. `ROOT`
-3. `ARBITRATION` (currently not in use)
-4. `ARCHITECTURE`
-5. `ARCHITECTURE_SUBDOMAIN`
-6. `FUNDING`
-7. `ADMINISTRATION`
+0. `RECOVERY`
+1. `ROOT`
+2. `ARBITRATION` (currently not in use)
+3. `ARCHITECTURE`
+4. `ARCHITECTURE_SUBDOMAIN`
+5. `FUNDING`
+6. `ADMINISTRATION`
 
-
-*Note: In the future, colonyNetwork will support the option to mediate which addresses can perform which actions based on reputation as described in the [White Paper](https://colony.io/whitepaper.pdf).*
+*Note: The colony roles are enumerated in the colonyNetwork smart contracts. The number value associated with each role corresponds with the value used in the colonyNetwork smart contracts.*
 
 ## Permissions
 
@@ -25,7 +26,7 @@ The permissions for calling client methods are as follows.
 
 ### Colony Client
 
-|                                   |  1  |  2  |  3  |  4  |  5  |  6  |  7  |
+|                                   |  0  |  1  |  2  |  3  |  4  |  5  |  6  |
 |-----------------------------------|-----|-----|-----|-----|-----|-----|-----|
 | addDomain                         |     |  X  |     |  X  |     |     |     |
 | addPayment                        |     |  X  |     |     |     |     |  X  |
@@ -58,7 +59,7 @@ The permissions for calling client methods are as follows.
 
 ### Colony Client (Meta Colony)
 
-|                                   |  1  |  2  |  3  |  4  |  5  |  6  |  7  |
+|                                   |  0  |  1  |  2  |  3  |  4  |  5  |  6  |
 |-----------------------------------|-----|-----|-----|-----|-----|-----|-----|
 | addGlobalSkill                    |     |  X  |     |     |     |     |     |
 | addNetworkColonyVersion           |     |  X  |     |     |     |     |     |
@@ -69,7 +70,7 @@ The permissions for calling client methods are as follows.
 
 ### Colony Network Client
 
-|                                   |  1  |  2  |  3  |  4  |  5  |  6  |  7  |
+|                                   |  0  |  1  |  2  |  3  |  4  |  5  |  6  |
 |-----------------------------------|-----|-----|-----|-----|-----|-----|-----|
 | approveExitRecovery               |  X  |  X  |     |     |     |     |     |
 | enterRecoveryMode                 |  X  |  X  |     |     |     |     |     |
