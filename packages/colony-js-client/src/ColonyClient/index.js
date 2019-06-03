@@ -2758,7 +2758,7 @@ export default class ColonyClient extends ContractClient {
       getRequiredSignees: (args: InputArgs) => Promise<any>,
     ) =>
       this.addMultisigSender(name, {
-        input: [['taskId', 'number'], ['user', 'address']],
+        input: [['taskId', 'number'], ['address', 'address']],
         getRequiredSignees: async (args: InputArgs) => {
           const { taskId, user } = args;
 
