@@ -5,6 +5,7 @@
 **Bug Fixes**
 
 * Fix `DomainAuth` sender to account for `defaultValues` (`@colony/colony-js-client`)
+* Fix `makeExecuteTaskRoleChange` input to use `address` (`@colony/colony-js-client`)
 
 ## v1.12.1
 
