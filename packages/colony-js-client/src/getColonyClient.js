@@ -1,6 +1,8 @@
 /* @flow */
 /* eslint-disable import/no-cycle */
 
+import type { WalletObjectType } from '@colony/purser-core';
+
 import getNetworkClient from './getNetworkClient';
 
 type Address = string;
@@ -8,7 +10,7 @@ type Address = string;
 const getColonyClient = async (
   address: Address,
   network: string,
-  wallet: any,
+  wallet: WalletObjectType,
   infuraProjectId?: string,
 ) => {
   const networkClient = await getNetworkClient(

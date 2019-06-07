@@ -1,6 +1,8 @@
 /* @flow */
 /* eslint-disable import/no-cycle */
 
+import type { WalletObjectType } from '@colony/purser-core';
+
 import { providers } from 'ethers';
 import EthersAdapter from '@colony/colony-js-adapter-ethers';
 import NetworkLoader from '@colony/colony-js-contract-loader-network';
@@ -43,7 +45,7 @@ const getInfuraProvider = (network: string, infuraProjectId?: string) => {
 // local testrpc network (TrufflePig must be installed and running).
 const getNetworkClient = async (
   network: string,
-  wallet: any,
+  wallet: WalletObjectType,
   infuraProjectId?: string,
 ) => {
   let loader;
