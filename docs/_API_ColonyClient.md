@@ -46,9 +46,9 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `getAuthorityAddress`
@@ -76,7 +76,7 @@ A promise which resolves to an object containing the following properties:
   
 Contract: [auth.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/auth.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `getColonyNetworkAddress`
@@ -103,7 +103,7 @@ A promise which resolves to an object containing the following properties:
   Function: `getColonyNetwork`
   
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `getDomain`
@@ -137,9 +137,9 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/Colony.sol)
+Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/Colony.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `getDomainCount`
@@ -165,9 +165,9 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/Colony.sol)
+Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/Colony.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `getExtensionAddress`
@@ -235,9 +235,9 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyFunding.sol)
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyFunding.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `getFundingPotBalance`
@@ -272,9 +272,9 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyFunding.sol)
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyFunding.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `getFundingPotCount`
@@ -300,9 +300,9 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyFunding.sol)
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyFunding.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `getFundingPotPayout`
@@ -337,9 +337,9 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyFunding.sol)
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyFunding.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `getNonRewardPotsTotal`
@@ -372,9 +372,9 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyFunding.sol)
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyFunding.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `getOwnerAddress`
@@ -402,7 +402,7 @@ A promise which resolves to an object containing the following properties:
   
 Contract: [auth.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361/auth.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `getPayment`
@@ -439,9 +439,9 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [ColonyPayment.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyPayment.sol)
+Contract: [ColonyPayment.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyPayment.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `getPaymentCount`
@@ -467,9 +467,9 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [ColonyPayment.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyPayment.sol)
+Contract: [ColonyPayment.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyPayment.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `getRecoveryRolesCount`
@@ -495,9 +495,9 @@ A promise which resolves to an object containing the following properties:
 
   Function: `numRecoveryRoles`
   
-Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ContractRecovery.sol)
+Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ContractRecovery.sol)
   
-Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IRecovery.sol)
+Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IRecovery.sol)
   
 
 ### `getRewardInverse`
@@ -523,9 +523,9 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyFunding.sol)
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyFunding.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `getRewardPayoutInfo`
@@ -563,9 +563,9 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyFunding.sol)
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyFunding.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `getTask`
@@ -605,9 +605,9 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `getTaskCount`
@@ -633,9 +633,9 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `getTaskPayout`
@@ -672,9 +672,9 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyFunding.sol)
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyFunding.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `getTaskRole`
@@ -711,9 +711,9 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `getTaskWorkRatingSecret`
@@ -748,9 +748,9 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `getTaskWorkRatingSecretsInfo`
@@ -784,9 +784,9 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `getTokenAddress`
@@ -812,9 +812,9 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/Colony.sol)
+Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/Colony.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `getVersion`
@@ -840,9 +840,9 @@ A promise which resolves to an object containing the following properties:
 
   Function: `version`
   
-Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/Colony.sol)
+Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/Colony.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `hasColonyRole`
@@ -879,9 +879,9 @@ A promise which resolves to an object containing the following properties:
 
   Function: `hasUserRole`
   
-Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/Colony.sol)
+Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/Colony.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `isInRecoveryMode`
@@ -907,9 +907,9 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ContractRecovery.sol)
+Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ContractRecovery.sol)
   
-Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IRecovery.sol)
+Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IRecovery.sol)
   
 
 ### `verifyReputationProof`
@@ -948,9 +948,9 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/Colony.sol)
+Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/Colony.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
   
@@ -997,9 +997,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/Colony.sol)
+Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/Colony.sol)
   
-Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IMetaColony.sol)
+Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IMetaColony.sol)
   
 
 ### `addDomain`
@@ -1044,9 +1044,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/Colony.sol)
+Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/Colony.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `addExtension`
@@ -1117,9 +1117,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/Colony.sol)
+Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/Colony.sol)
   
-Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IMetaColony.sol)
+Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IMetaColony.sol)
   
 
 ### `addPayment`
@@ -1169,9 +1169,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ColonyPayment.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyPayment.sol)
+Contract: [ColonyPayment.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyPayment.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `addTask`
@@ -1223,9 +1223,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   Function: `makeTask`
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `approveExitRecovery`
@@ -1255,9 +1255,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ContractRecovery.sol)
+Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ContractRecovery.sol)
   
-Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IRecovery.sol)
+Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IRecovery.sol)
   
 
 ### `bootstrapColony`
@@ -1304,9 +1304,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/Colony.sol)
+Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/Colony.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `claimColonyFunds`
@@ -1348,9 +1348,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyFunding.sol)
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyFunding.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `claimPayment`
@@ -1398,9 +1398,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyFunding.sol)
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyFunding.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `claimRewardPayout`
@@ -1457,9 +1457,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyFunding.sol)
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyFunding.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `claimTaskPayout`
@@ -1509,9 +1509,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyFunding.sol)
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyFunding.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `completeTask`
@@ -1551,9 +1551,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `deprecateGlobalSkill`
@@ -1590,9 +1590,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/Colony.sol)
+Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/Colony.sol)
   
-Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IMetaColony.sol)
+Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IMetaColony.sol)
   
 
 ### `enterRecoveryMode`
@@ -1622,9 +1622,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ContractRecovery.sol)
+Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ContractRecovery.sol)
   
-Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IRecovery.sol)
+Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IRecovery.sol)
   
 
 ### `exitRecoveryMode`
@@ -1654,9 +1654,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ContractRecovery.sol)
+Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ContractRecovery.sol)
   
-Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IRecovery.sol)
+Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IRecovery.sol)
   
 
 ### `finalizePayment`
@@ -1693,9 +1693,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ColonyPayment.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyPayment.sol)
+Contract: [ColonyPayment.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyPayment.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `finalizeRewardPayout`
@@ -1735,9 +1735,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyFunding.sol)
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyFunding.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `finalizeTask`
@@ -1777,9 +1777,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `makePayment`
@@ -1839,7 +1839,7 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [OneTxPayment.sol](https://github.com/JoinColony/colonyNetwork/blob/glider-rc.1/contracts/extensions/OneTxPayment.sol/OneTxPayment.sol)
+Contract: [OneTxPayment.sol](https://github.com/JoinColony/colonyNetwork/blob/glider-rc.3/contracts/extensions/OneTxPayment.sol/OneTxPayment.sol)
   
   
 
@@ -1881,9 +1881,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/Colony.sol)
+Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/Colony.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `mintTokensForColonyNetwork`
@@ -1928,9 +1928,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/Colony.sol)
+Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/Colony.sol)
   
-Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IMetaColony.sol)
+Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IMetaColony.sol)
   
 
 ### `moveFundsBetweenPots`
@@ -1979,9 +1979,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyFunding.sol)
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyFunding.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `registerColonyLabel`
@@ -2024,9 +2024,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/Colony.sol)
+Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/Colony.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `removeExtension`
@@ -2100,9 +2100,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ContractRecovery.sol)
+Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ContractRecovery.sol)
   
-Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IRecovery.sol)
+Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IRecovery.sol)
   
 
 ### `revealTaskWorkRating`
@@ -2150,9 +2150,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `setAdminRole`
@@ -2184,11 +2184,11 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Name|Type|Description|
 |---|---|---|
-|address|address|The address that was either assigned or unassigned the colony `ARCHITECTURE` role.|
-|setTo|boolean|A boolean indicating whether the address was assigned or unassigned the colony `ARCHITECTURE` role.|
-|ColonyArchitectureRoleSet|object|Contains the data defined in [ColonyArchitectureRoleSet](#eventscolonyarchitectureroleset)|
-|ColonyFundingRoleSet|object|Contains the data defined in [ColonyFundingRoleSet](#eventscolonyfundingroleset)|
-|ColonyAdministrationRoleSet|object|Contains the data defined in [ColonyAdministrationRoleSet](#eventscolonyadministrationroleset)|
+|address|address||
+|domainId|number||
+|role|undefined||
+|setTo|boolean||
+|ColonyRoleSet|object|Contains the data defined in [ColonyRoleSet](#eventscolonyroleset)|
 
 See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
@@ -2197,7 +2197,7 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [OldRoles.sol](https://github.com/JoinColony/colonyNetwork/blob/glider-rc.1/contracts/extensions/OldRoles.sol/OldRoles.sol)
+Contract: [OldRoles.sol](https://github.com/JoinColony/colonyNetwork/blob/glider-rc.3/contracts/extensions/OldRoles.sol/OldRoles.sol)
   
   
 
@@ -2232,9 +2232,11 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Name|Type|Description|
 |---|---|---|
-|address|address|The address that was either assigned or unassigned the colony `ADMINISTRATION` role.|
-|setTo|boolean|A boolean indicating whether the address was assigned or unassigned the colony `ADMINISTRATION` role.|
-|ColonyAdministrationRoleSet|object|Contains the data defined in [ColonyAdministrationRoleSet](#eventscolonyadministrationroleset)|
+|address|address||
+|domainId|number||
+|role|undefined||
+|setTo|boolean||
+|ColonyRoleSet|object|Contains the data defined in [ColonyRoleSet](#eventscolonyroleset)|
 
 See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
@@ -2243,9 +2245,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/Colony.sol)
+Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/Colony.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `setAllTaskPayouts`
@@ -2296,9 +2298,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyFunding.sol)
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyFunding.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `setArchitectureRole`
@@ -2332,9 +2334,11 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Name|Type|Description|
 |---|---|---|
-|address|address|The address that was either assigned or unassigned the colony `ARCHITECTURE` role.|
-|setTo|boolean|A boolean indicating whether the address was assigned or unassigned the colony `ARCHITECTURE` role.|
-|ColonyArchitectureRoleSet|object|Contains the data defined in [ColonyArchitectureRoleSet](#eventscolonyarchitectureroleset)|
+|address|address||
+|domainId|number||
+|role|undefined||
+|setTo|boolean||
+|ColonyRoleSet|object|Contains the data defined in [ColonyRoleSet](#eventscolonyroleset)|
 
 See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
@@ -2343,9 +2347,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/Colony.sol)
+Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/Colony.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `setFounderRole`
@@ -2375,12 +2379,11 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Name|Type|Description|
 |---|---|---|
-|address|address|The address that was either assigned or unassigned the colony `ROOT` role.|
-|setTo|boolean|A boolean indicating whether the address was assigned or unassigned the colony `ROOT` role.|
-|ColonyRootRoleSet|object|Contains the data defined in [ColonyRootRoleSet](#eventscolonyrootroleset)|
-|ColonyArchitectureRoleSet|object|Contains the data defined in [ColonyArchitectureRoleSet](#eventscolonyarchitectureroleset)|
-|ColonyFundingRoleSet|object|Contains the data defined in [ColonyFundingRoleSet](#eventscolonyfundingroleset)|
-|ColonyAdministrationRoleSet|object|Contains the data defined in [ColonyAdministrationRoleSet](#eventscolonyadministrationroleset)|
+|address|address||
+|domainId|number||
+|role|undefined||
+|setTo|boolean||
+|ColonyRoleSet|object|Contains the data defined in [ColonyRoleSet](#eventscolonyroleset)|
 
 See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
@@ -2389,7 +2392,7 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [OldRoles.sol](https://github.com/JoinColony/colonyNetwork/blob/glider-rc.1/contracts/extensions/OldRoles.sol/OldRoles.sol)
+Contract: [OldRoles.sol](https://github.com/JoinColony/colonyNetwork/blob/glider-rc.3/contracts/extensions/OldRoles.sol/OldRoles.sol)
   
   
 
@@ -2424,9 +2427,11 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Name|Type|Description|
 |---|---|---|
-|address|address|The address that was either assigned or unassigned the colony `FUNDING` role.|
-|setTo|boolean|A boolean indicating whether the address was assigned or unassigned the colony `FUNDING` role.|
-|ColonyFundingRoleSet|object|Contains the data defined in [ColonyFundingRoleSet](#eventscolonyfundingroleset)|
+|address|address||
+|domainId|number||
+|role|undefined||
+|setTo|boolean||
+|ColonyRoleSet|object|Contains the data defined in [ColonyRoleSet](#eventscolonyroleset)|
 
 See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
@@ -2435,9 +2440,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/Colony.sol)
+Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/Colony.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `setNetworkFeeInverse`
@@ -2474,9 +2479,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/Colony.sol)
+Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/Colony.sol)
   
-Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IMetaColony.sol)
+Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IMetaColony.sol)
   
 
 ### `setPaymentDomain`
@@ -2515,9 +2520,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ColonyPayment.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyPayment.sol)
+Contract: [ColonyPayment.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyPayment.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `setPaymentPayout`
@@ -2558,9 +2563,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyFunding.sol)
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyFunding.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `setPaymentRecipient`
@@ -2599,9 +2604,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ColonyPayment.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyPayment.sol)
+Contract: [ColonyPayment.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyPayment.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `setPaymentSkill`
@@ -2640,9 +2645,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ColonyPayment.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyPayment.sol)
+Contract: [ColonyPayment.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyPayment.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `setRecoveryRole`
@@ -2679,9 +2684,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ContractRecovery.sol)
+Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ContractRecovery.sol)
   
-Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IRecovery.sol)
+Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IRecovery.sol)
   
 
 ### `setRewardInverse`
@@ -2721,9 +2726,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyFunding.sol)
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyFunding.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `setRootRole`
@@ -2755,9 +2760,11 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Name|Type|Description|
 |---|---|---|
-|address|address|The address that was either assigned or unassigned the colony `ROOT` role.|
-|setTo|boolean|A boolean indicating whether the address was assigned or unassigned the colony `ROOT` role.|
-|ColonyRootRoleSet|object|Contains the data defined in [ColonyRootRoleSet](#eventscolonyrootroleset)|
+|address|address||
+|domainId|number||
+|role|undefined||
+|setTo|boolean||
+|ColonyRoleSet|object|Contains the data defined in [ColonyRoleSet](#eventscolonyroleset)|
 
 See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
@@ -2766,9 +2773,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/Colony.sol)
+Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/Colony.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `setStorageSlotRecovery`
@@ -2807,9 +2814,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ContractRecovery.sol)
+Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ContractRecovery.sol)
   
-Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IRecovery.sol)
+Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IRecovery.sol)
   
 
 ### `startNextRewardPayout`
@@ -2860,9 +2867,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyFunding.sol)
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyFunding.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `submitTaskDeliverable`
@@ -2906,9 +2913,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `submitTaskDeliverableAndRating`
@@ -2954,9 +2961,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `submitTaskWorkRating`
@@ -2997,9 +3004,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `upgrade`
@@ -3040,9 +3047,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/Colony.sol)
+Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/Colony.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
   
@@ -3082,9 +3089,9 @@ See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `removeTaskEvaluatorRole`
@@ -3122,9 +3129,9 @@ See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `removeTaskWorkerRole`
@@ -3162,9 +3169,9 @@ See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `setTaskBrief`
@@ -3203,9 +3210,9 @@ See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `setTaskDomain`
@@ -3244,9 +3251,9 @@ See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `setTaskDueDate`
@@ -3285,9 +3292,9 @@ See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `setTaskEvaluatorPayout`
@@ -3330,9 +3337,9 @@ See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
 
   
   
-Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyFunding.sol)
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyFunding.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `setTaskEvaluatorRole`
@@ -3372,9 +3379,9 @@ See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `setTaskManagerPayout`
@@ -3417,9 +3424,9 @@ See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
 
   
   
-Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyFunding.sol)
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyFunding.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `setTaskManagerRole`
@@ -3459,9 +3466,9 @@ See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `setTaskSkill`
@@ -3500,9 +3507,9 @@ See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `setTaskWorkerPayout`
@@ -3545,9 +3552,9 @@ See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
 
   
   
-Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyFunding.sol)
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyFunding.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
 ### `setTaskWorkerRole`
@@ -3587,9 +3594,9 @@ See [MutisigOperation](/colonyjs/api-multisigoperation/) for more information.
 
   
   
-Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ColonyTask.sol)
+Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ColonyTask.sol)
   
-Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/IColony.sol)
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/IColony.sol)
   
 
   
@@ -3922,6 +3929,46 @@ colonyClient.events.ColonyRewardInverseSet.removeListener(eventHandler);
 |Name|Type|Description|
 |---|---|---|
 |rewardInverse|big number|The reward inverse value that was set.|
+
+
+### `ColonyRoleSet`
+
+**Event Handler**
+
+```js
+const eventHandler = ({
+  address,
+  domainId,
+  role,
+  setTo,
+}) => {
+  // perform an action using the event data
+};
+```
+
+**Add Listener**
+
+```js
+colonyClient.events.ColonyRoleSet.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.ColonyRoleSet.removeListener(eventHandler);
+```
+
+
+
+
+**Event Data**
+
+|Name|Type|Description|
+|---|---|---|
+|address|address||
+|domainId|number||
+|role|undefined||
+|setTo|boolean||
 
 
 ### `ColonyRootRoleSet`
