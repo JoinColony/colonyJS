@@ -434,7 +434,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       feeInverse: BigNumber, // The inverse amount of the network fee.
     },
-    ColonyClient,
+    ColonyNetworkClient,
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
@@ -817,14 +817,14 @@ export default class ColonyNetworkClient extends ContractClient {
   /*
   Set the inverse amount of the network fee. If the fee is 1% (or 0.01), the inverse amount will be 100.
   */
-  setFeeInverse: ColonyClient.Sender<
+  setFeeInverse: ColonyNetworkClient.Sender<
     {
       feeInverse: BigNumber, // The inverse amount of the network fee.
     },
     {
       NetworkFeeInverseSet: NetworkFeeInverseSet,
     },
-    ColonyClient,
+    ColonyNetworkClient,
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
@@ -842,7 +842,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       MiningCycleResolverSet: MiningCycleResolverSet,
     },
-    ColonyClient,
+    ColonyNetworkClient,
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
