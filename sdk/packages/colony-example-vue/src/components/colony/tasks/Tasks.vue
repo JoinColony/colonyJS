@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="(task, i) in tasks" :key="i">
-      Title: "{{ task.title }}" Description: "{{ task.description }}"
+      Title: "{{ task.specification.title }}" Description: "{{ task.specification.description }}"
     </div>
   </div>
 </template>

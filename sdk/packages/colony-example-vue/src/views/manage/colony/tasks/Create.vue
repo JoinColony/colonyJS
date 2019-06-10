@@ -4,12 +4,12 @@
     <CreateTask class=""
                 :domains="domains"
                 :skills="skills"
-                @submit="createTask" />
+                @submit="create" />
   </div>
 </template>
 <script>
+import { mapGetters, mapActions } from 'vuex'
 import { createTask } from '@/api/task'
-import { mapGetters } from 'vuex'
 import CreateTask from '@/components/colony/tasks/Create.vue'
 
 export default {
@@ -23,7 +23,13 @@ export default {
     }),
   },
   methods: {
-    createTask,
+    async create(...args) {
+      await createTask(...args)
+      await this.hydrateTasks()
+    },
+    ...mapActions({
+      'hydrateTasks': 'tasks/hydrate',
+    }),
   },
 }
 </script>
