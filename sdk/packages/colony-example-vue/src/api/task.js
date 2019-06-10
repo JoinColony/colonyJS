@@ -11,7 +11,6 @@ export async function createTask({ colony = getColony(), task }) {
   if (task.domainId) newTask.domainId = task.domainId
   if (task.skillId) newTask.skillId = task.skillId
   if (task.dueDate) newTask.dueDate = new Date(task.dueDate)
-  debugger
   return proxy.addTask(newTask)
 }
 
