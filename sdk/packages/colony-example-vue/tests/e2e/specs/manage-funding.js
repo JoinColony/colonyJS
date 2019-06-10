@@ -13,6 +13,7 @@ describe('Home view', () => {
   })
   it('Claim funds', () => {
     cy.get('form.claim-funding-form').within(() => {
+      cy.selectOption('select', 2)
       cy.get('button').click()
     })
   })
