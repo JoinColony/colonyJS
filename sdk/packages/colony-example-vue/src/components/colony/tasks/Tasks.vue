@@ -7,15 +7,8 @@
 </template>
 <script>
 export default {
-  data() {
-    return {
-      tasks: [{
-        title: 'New Task Title', // title
-        description: 'New Task Description', // description
-      }],
-    }
-  },
   props: {
+    tasks: { type: Array, required: true },
   },
 }
 </script>

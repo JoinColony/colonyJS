@@ -1,20 +1,25 @@
 <template>
-  <form class="move-funding-form" @submit.prevent="$emit('submit', { address })">
+  <form class="create-task-form"
+        @submit.prevent="$emit('submit', { task })">
     <div class="field">
       <label>Domain:</label>
-      <select v-model="domain">
+      <select class="domain" v-model="domainId">
         <option :value="null">Select domain</option>
-        <option v-for="(option,i) in domains" v-bind:value="option.id" :key="i">
-          {{ option.id }}
+        <option v-for="(option,i) in domains"
+                v-bind:value="option.id"
+                v-text="option.id"
+                :key="i">
         </option>
       </select>
     </div>
     <div class="field">
       <label>Skill:</label>
-      <select v-model="domain">
-        <option :value="null">Select domain</option>
-        <option v-for="(option,i) in domains" v-bind:value="option.id" :key="i">
-          {{ option.id }}
+      <select class="skill" v-model="skillId">
+        <option :value="null">Select skill</option>
+        <option v-for="(option,i) in skills"
+                v-bind:value="option.id"
+                :key="i"
+                v-text="option.id">
         </option>
       </select>
     </div>
@@ -28,7 +33,7 @@
     </div>
     <div class="field">
       <label>Due date:</label>
-      <input class="date" type="date" v-model="date" />
+      <input class="date" type="date" v-model="dueDate" />
     </div>
     <button type="submit">Create Task</button>
   </form>
@@ -37,18 +42,26 @@
 export default {
   data() {
     return {
-      domain: null,
-      domains: [{
-        localSkillId: 7, potId: 1, id: 1,
-      }, {
-        localSkillId: 8, potId: 4, id: 2,
-      }],
-      skill: null,
-      skills: [],
+      domainId: null,
+      skillId: null,
       title: '',
       description: '',
-      date: null,
+      dueDate: null,
     }
+  },
+  computed: {
+    task: ({
+      domainId, skillId, title, description, dueDate,
+    }) => {
+      const specification = { title, description }
+      return {
+        domainId, skillId, specification, dueDate,
+      }
+    },
+  },
+  props: {
+    domains: { type: Array, required: true },
+    skills: { type: Array, required: true },
   },
 }
 </script>

@@ -1,21 +1,29 @@
 <template>
   <div class="box">
     <h3>Create</h3>
-    <CreateTask />
+    <CreateTask class=""
+                :domains="domains"
+                :skills="skills"
+                @submit="createTask" />
   </div>
 </template>
 <script>
+import { createTask } from '@/api/task'
+import { mapGetters } from 'vuex'
 import CreateTask from '@/components/colony/tasks/Create.vue'
 
 export default {
   components: {
     CreateTask,
   },
-  data() {
-    return {
-    }
+  computed: {
+    ...mapGetters({
+      domains: 'domains/all',
+      skills: 'skills/all',
+    }),
   },
-  props: {
+  methods: {
+    createTask,
   },
 }
 </script>

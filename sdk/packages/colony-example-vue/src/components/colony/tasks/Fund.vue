@@ -1,5 +1,5 @@
 <template>
-  <form class="move-funding-form" @submit.prevent="$emit('submit', { address })">
+  <form class="fund-task-form" @submit.prevent="$emit('submit', { task, amount })">
     <div class="field">
       <label>Task:</label>
       <select v-model="task">
@@ -25,11 +25,11 @@ export default {
   data() {
     return {
       task: null,
-      tasks: [],
       amount: 0,
     }
   },
   props: {
+    tasks: { type: Array, required: true },
   },
 }
 </script>

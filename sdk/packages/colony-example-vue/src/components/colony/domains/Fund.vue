@@ -3,7 +3,11 @@
     <div class="field">
       <select v-model="domain">
         <option :value="null">Select domain</option>
-        <option v-for="(option,i) in domains" v-bind:value="option" :key="i">{{ option.id }}</option>
+        <option v-for="(option,i) in domains"
+                v-bind:value="option"
+                v-text="option.id"
+                :key="i">
+        </option>
       </select>
     </div>
     <button type="submit">Fund Domain</button>

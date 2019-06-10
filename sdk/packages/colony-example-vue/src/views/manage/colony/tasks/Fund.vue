@@ -1,21 +1,21 @@
 <template>
   <div class="box">
     <h3>Fund</h3>
-    <FundTask />
+    <FundTask :tasks="tasks"/>
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import FundTask from '@/components/colony/tasks/Fund.vue'
 
 export default {
   components: {
     FundTask,
   },
-  data() {
-    return {
-    }
-  },
-  props: {
+  computed: {
+    ...mapGetters({
+      tasks: 'tasks/all',
+    }),
   },
 }
 </script>

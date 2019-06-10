@@ -27,6 +27,8 @@ export default {
       setColony(colony)
       await Promise.all([
         this.hydrateDomains(),
+        this.hydrateTasks(),
+        this.hydrateSkills(),
       ])
       const name = 'manageColony'
       const params = { address }
@@ -35,6 +37,8 @@ export default {
     },
     ...mapActions({
       hydrateDomains: 'domains/hydrate',
+      hydrateTasks: 'tasks/hydrate',
+      hydrateSkills: 'skills/hydrate',
     }),
   },
 }
