@@ -1,12 +1,12 @@
 import { BN } from 'web3-utils'
 import { getColony } from '@/lib/colony-store'
-import colonyProxy from '@/lib/colony-proxy'
+import sendProxy from '@/lib/send-proxy'
 
 export function moveFunds({
   colony = getColony(), fromPot, toPot, amount,
 }) {
   const token = colony.tokenClient.contract.address
-  const proxy = colonyProxy(colony)
+  const proxy = sendProxy(colony)
   return proxy.moveFundsBetweenPots({
     fromPot: Number(fromPot),
     toPot: Number(toPot),
@@ -37,5 +37,5 @@ export async function getPots({ colony = getColony() }) {
 
 export function claimFunds({ colony = getColony() }) {
   const token = colony.tokenClient.contract.address
-  return colony.claimColonyFunds.send({ token })
+  return sendProxy(colony).claimColonyFunds({ token })
 }

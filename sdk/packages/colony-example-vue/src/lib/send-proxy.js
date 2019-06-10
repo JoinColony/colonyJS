@@ -1,5 +1,5 @@
 
-export default function networkProxy(network) {
+export default function sendProxy(network) {
   const handler = {
     get(obj, prop) {
       return async function networkDelegate(...args) {

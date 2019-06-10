@@ -1,4 +1,4 @@
-import colonyProxy from '@/lib/colony-proxy'
+import sendProxy from '@/lib/send-proxy'
 import { getColony } from '@/lib/colony-store'
 
 export async function checkAdmin({ colony = getColony(), address }) {
@@ -20,7 +20,7 @@ export async function checkAdmin({ colony = getColony(), address }) {
 }
 
 export function addAdmin({ colony = getColony(), address }) {
-  return colonyProxy(colony).setAdministrationRole({
+  return sendProxy(colony).setAdministrationRole({
     address,
     domainId: 1,
     setTo: true,
@@ -28,7 +28,7 @@ export function addAdmin({ colony = getColony(), address }) {
 }
 
 export function removeAdmin({ colony = getColony(), address }) {
-  return colonyProxy(colony).setAdministrationRole({
+  return sendProxy(colony).setAdministrationRole({
     address,
     domainId: 1,
     setTo: false,

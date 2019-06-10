@@ -1,9 +1,9 @@
 import * as ecp from '@/lib/ecp'
 import { getColony } from '@/lib/colony-store'
-import colonyProxy from '@/lib/colony-proxy'
+import sendProxy from '@/lib/send-proxy'
 
 export async function createTask({ colony = getColony(), task }) {
-  const proxy = colonyProxy(colony)
+  const proxy = sendProxy(colony)
   const newTask = {}
   await ecp.init()
   newTask.specificationHash = await ecp.saveHash(task.specification)

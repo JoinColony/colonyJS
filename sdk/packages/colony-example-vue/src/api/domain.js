@@ -1,6 +1,6 @@
 import { BN } from 'web3-utils'
 import { getColony } from '@/lib/colony-store'
-import colonyProxy from '@/lib/colony-proxy'
+import sendProxy from '@/lib/send-proxy'
 
 export async function getDomains({ colony = getColony() }) {
   const { count: domainCount } = await colony.getDomainCount.call()
@@ -15,14 +15,14 @@ export async function getDomains({ colony = getColony() }) {
 
 export function addDomain({ colony = getColony() }) {
   const parentDomainId = 1
-  return colonyProxy(colony).addDomain({ parentDomainId })
+  return sendProxy(colony).addDomain({ parentDomainId })
 }
 
 export async function fundDomain({ colony = getColony(), domain }) {
   const { id: domainId, amount } = domain
   const token = colony.tokenClient.contract.address
   const { potId } = await colony.getDomain.call({ domainId })
-  return colony.moveFundsBetweenPots.send({
+  return sendProxy(colony).moveFundsBetweenPots({
     fromPot: 1,
     toPot: potId,
     amount: new BN(amount),
