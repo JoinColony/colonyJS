@@ -2,10 +2,6 @@
   <router-view @submit="set"></router-view>
 </template>
 <script>
-import { mapActions } from 'vuex'
-import { getColonyClient } from '@/api/colony'
-import { setColony } from '@/lib/colony-store'
-
 export default {
   data() {
     return {
@@ -23,23 +19,11 @@ export default {
   },
   methods: {
     async set({ address }) {
-      const colony = await getColonyClient({ colonyAddress: address })
-      setColony(colony)
-      await Promise.all([
-        this.hydrateDomains(),
-        this.hydrateTasks(),
-        this.hydrateSkills(),
-      ])
       const name = 'manageColony'
       const params = { address }
       this.$router.push({ name, params })
       this.address = address
     },
-    ...mapActions({
-      hydrateDomains: 'domains/hydrate',
-      hydrateTasks: 'tasks/hydrate',
-      hydrateSkills: 'skills/hydrate',
-    }),
   },
 }
 </script>

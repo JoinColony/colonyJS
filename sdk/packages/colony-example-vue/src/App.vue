@@ -8,16 +8,8 @@
   </div>
 </template>
 <script>
-import { connect } from '@/api/network'
-import { setNetwork } from '@/lib/network-store'
 
 export default {
-  async created() {
-    const network = await connect()
-    setNetwork(network)
-  },
-  methods: {
-  },
 }
 </script>
 

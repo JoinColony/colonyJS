@@ -13,9 +13,23 @@
   </div>
 </template>
 <script>
+import { getColonyClient } from '@/api/colony'
+import { setColony } from '@/lib/colony-store'
 import addressMixin from './address-mixin'
+import store from '@/store'
 
 export default {
   mixins: [addressMixin],
+  async beforeRouteEnter(to, from, next) {
+    const { params: { address } } = to
+    const colony = await getColonyClient({ colonyAddress: address })
+    setColony(colony)
+    await Promise.all([
+      store.dispatch('domains/hydrate'),
+      store.dispatch('tasks/hydrate'),
+      store.dispatch('skills/hydrate'),
+    ])
+    next()
+  },
 }
 </script>
