@@ -1,11 +1,12 @@
 <template>
   <div class="box">
     <h3>Set Owner</h3>
-    <SetOwner />
+    <SetOwner @submit="setTokenOwner"/>
   </div>
 </template>
 <script>
 import SetOwner from '@/components/colony/token/SetOwner.vue'
+import { setTokenOwner } from '@/api/token'
 
 export default {
   components: {
@@ -15,7 +16,8 @@ export default {
     return {
     }
   },
-  props: {
+  methods: {
+    setTokenOwner,
   },
 }
 </script>

@@ -10,7 +10,7 @@ describe('Home view', () => {
   })
   it('Fund domain', () => {
     cy.get('form.fund-domain-form').within(() => {
-      cy.selectOption('select', 3)
+      cy.selectOption('select', 2)
       cy.get('button').click()
     })
   })

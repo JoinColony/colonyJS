@@ -13,3 +13,9 @@ export async function createToken({ network = getNetwork(), name, symbol = 'TKN'
 export function mintTokens({ colony = getColony(), amount }) {
   return sendProxy(colony).mintTokens({ amount: new BN(amount) })
 }
+
+export async function setTokenOwner({ colony = getColony() }) {
+  sendProxy(colony.tokenClient).setOwner({
+    owner: colony.contract.address,
+  })
+}
