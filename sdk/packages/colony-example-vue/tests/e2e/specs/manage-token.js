@@ -1,5 +1,3 @@
-const userAddress = '0xb77d57f4959eafa0339424b83fcfaf9c15407461'
-
 describe('Home view', () => {
   before(() => {
     cy.setColony()
