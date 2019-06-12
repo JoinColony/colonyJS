@@ -108,7 +108,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -126,7 +126,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -144,7 +144,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -158,7 +158,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ContractRecovery.sol',
       interface: 'IRecovery.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -177,7 +177,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetworkMining.sol',
       interface: 'IRecovery.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -196,7 +196,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -216,7 +216,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -235,7 +235,7 @@ export default class ColonyNetworkClient extends ContractClient {
       contract: 'Token.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/JoinColony/colonyToken/blob/59cf56f18c54c0bc749ddaa8b6d77ebfd0d0aaf4/contracts',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -251,7 +251,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -270,7 +270,7 @@ export default class ColonyNetworkClient extends ContractClient {
       method: 'supportsInterface',
       contract: 'ColonyNetworkENS.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -284,7 +284,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ContractRecovery.sol',
       interface: 'IRecovery.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -298,7 +298,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ContractRecovery.sol',
       interface: 'IRecovery.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -317,7 +317,7 @@ export default class ColonyNetworkClient extends ContractClient {
       function: 'addr',
       contract: 'ColonyNetworkENS.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -336,7 +336,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -354,7 +354,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -370,7 +370,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -388,7 +388,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -404,7 +404,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -421,7 +421,7 @@ export default class ColonyNetworkClient extends ContractClient {
       method: 'getENSRegistrar',
       contract: 'ColonyNetworkENS.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -437,7 +437,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -454,7 +454,7 @@ export default class ColonyNetworkClient extends ContractClient {
       function: 'getMetaColony',
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -471,7 +471,7 @@ export default class ColonyNetworkClient extends ContractClient {
       function: 'getMiningResolver',
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -490,7 +490,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -508,7 +508,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetworkENS.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -525,7 +525,7 @@ export default class ColonyNetworkClient extends ContractClient {
       function: 'numRecoveryRoles',
       contract: 'ContractRecovery.sol',
       interface: 'IRecovery.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -549,7 +549,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetworkMining.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -567,7 +567,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetworkMining.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -585,7 +585,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetworkMining.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -601,7 +601,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -617,7 +617,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -634,7 +634,7 @@ export default class ColonyNetworkClient extends ContractClient {
       method: 'getReputationRootHashNNodes',
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -656,7 +656,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -672,7 +672,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -689,7 +689,7 @@ export default class ColonyNetworkClient extends ContractClient {
       method: 'getTokenLocking',
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -703,7 +703,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetworkMining.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -721,7 +721,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -737,7 +737,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ContractRecovery.sol',
       interface: 'IRecovery.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -755,7 +755,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetworkENS.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -774,7 +774,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetworkENS.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -793,7 +793,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetworkENS.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -809,7 +809,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ContractRecovery.sol',
       interface: 'IRecovery.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -827,7 +827,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -845,7 +845,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -861,7 +861,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ContractRecovery.sol',
       interface: 'IRecovery.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -884,7 +884,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetworkMining.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -903,7 +903,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetworkMining.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -920,7 +920,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ContractRecovery.sol',
       interface: 'IRecovery.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -938,7 +938,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -955,7 +955,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetworkENS.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -970,7 +970,7 @@ export default class ColonyNetworkClient extends ContractClient {
       method: 'startNextCycle',
       contract: 'ColonyNetworkMining.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 
@@ -988,7 +988,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetworkAuction.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'glider-rc.1',
+      version: 'glider-rc.3',
     },
   >;
 

@@ -44,9 +44,9 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/TokenLocking.sol)
+Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/TokenLocking.sol)
   
-Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ITokenLocking.sol)
+Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ITokenLocking.sol)
   
 
 ### `getUserLock`
@@ -81,9 +81,9 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/TokenLocking.sol)
+Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/TokenLocking.sol)
   
-Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ITokenLocking.sol)
+Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ITokenLocking.sol)
   
 
   
@@ -132,9 +132,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/TokenLocking.sol)
+Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/TokenLocking.sol)
   
-Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ITokenLocking.sol)
+Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ITokenLocking.sol)
   
 
 ### `lockToken`
@@ -175,9 +175,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/TokenLocking.sol)
+Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/TokenLocking.sol)
   
-Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ITokenLocking.sol)
+Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ITokenLocking.sol)
   
 
 ### `incrementLockCounterTo`
@@ -216,9 +216,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/TokenLocking.sol)
+Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/TokenLocking.sol)
   
-Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ITokenLocking.sol)
+Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ITokenLocking.sol)
   
 
 ### `unlockTokenForUser`
@@ -264,9 +264,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/TokenLocking.sol)
+Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/TokenLocking.sol)
   
-Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ITokenLocking.sol)
+Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ITokenLocking.sol)
   
 
 ### `withdraw`
@@ -310,9 +310,9 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/TokenLocking.sol)
+Contract: [TokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/TokenLocking.sol)
   
-Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.1/contracts/ITokenLocking.sol)
+Interface: [ITokenLocking.sol](https://github.com/JoinColony/colonyNetwork/tree/glider-rc.3/contracts/ITokenLocking.sol)
   
 
   
