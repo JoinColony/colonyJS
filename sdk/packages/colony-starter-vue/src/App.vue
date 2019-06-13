@@ -3,7 +3,7 @@
     <header class="header">
       <img alt="Colony logo" src="./assets/logo.png" class="logo">
       <span class="title">
-        colony-starter-react
+        colony-starter-vue
       </span>
     </header>
     <div class="content">
