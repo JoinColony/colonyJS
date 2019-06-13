@@ -26,8 +26,6 @@
     "buffer": "^5.2.1",
     "core-js": "^2.6.5",
     "ipfs": "^0.35.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
     "vue": "^2.6.10"
   },
   "devDependencies": {
