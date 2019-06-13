@@ -1,6 +1,8 @@
 /* @flow */
 /* eslint-disable import/no-cycle */
 
+import flatMap from 'lodash.flatmap';
+
 import type { Query } from '@colony/colony-js-contract-loader';
 import type {
   IAdapter,
@@ -138,6 +140,19 @@ export default class ContractClient {
 
   /**
    * Get logs from the contract with filter.
+   *
+   * The filter `topics` is an array, where each element is a string, array of
+   * strings, or null. In each position, these represent a filter which matches
+   * events including that single topic, one of any of the array of topics, or
+   * any topic in that position respectively.
+   *
+   * - String: match only this topic in this position
+   * - Array: match any of these topics in this position
+   * - Null: match any topic in this position
+   *
+   * The returned logs will match these filters in each position. Trailing null
+   * values will require a topic in that position (e.g. [null, null] will only
+   * match logs with at least two topics).
    */
   async getLogs(
     filter?: LogFilter & { eventNames?: Array<string> } = {},
@@ -145,11 +160,11 @@ export default class ContractClient {
     const { eventNames = [], topics = [] } = filter;
 
     // Get topics for the given eventNames
-    const extraTopics: Array<string> = eventNames.reduce((acc, eventName) => {
+    const extraTopics: Array<string> = flatMap(eventNames, eventName => {
       if (!this.events[eventName])
         throw new Error('Cannot get logs for unknown event');
-      return [...acc, ...this.events[eventName].interface.topics];
-    }, []);
+      return this.events[eventName].interface.topics;
+    });
 
     // Combine any existing topics with the extra ones
     if (!topics.length) {
@@ -157,7 +172,7 @@ export default class ContractClient {
     } else if (Array.isArray(topics[0])) {
       topics[0].push(...extraTopics);
     } else {
-      topics[0] = [...topics[0], ...extraTopics];
+      topics[0] = [topics[0], ...extraTopics];
     }
 
     // Fetch the logs and parse
@@ -253,18 +268,22 @@ export default class ContractClient {
       throw new Error(`An event named "${eventName}" already exists`);
     }
 
-    const event = new ContractEvent({
-      eventName,
-      client: this,
-      argsDef,
-    });
+    try {
+      const event = new ContractEvent({
+        eventName,
+        client: this,
+        argsDef,
+      });
 
-    Object.assign(this.events, {
-      [eventName]: event,
-    });
+      Object.assign(this.events, {
+        [eventName]: event,
+      });
 
-    Object.assign(this.eventSignatures, {
-      [event.interface.topics[0]]: event,
-    });
+      Object.assign(this.eventSignatures, {
+        [event.interface.topics[0]]: event,
+      });
+    } catch (error) {
+      console.info(error);
+    }
   }
 }
