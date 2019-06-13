@@ -12,6 +12,7 @@ import { isValidAddress } from '@colony/colony-js-utils';
 import ColonyClient from '../ColonyClient/index';
 import TokenLockingClient from '../TokenLockingClient/index';
 
+import LookupRegisteredENSDomain from './callers/LookupRegisteredENSDomain';
 import CreateToken from './senders/CreateToken';
 import addRecoveryMethods from '../addRecoveryMethods';
 
@@ -1099,6 +1100,15 @@ export default class ColonyNetworkClient extends ContractClient {
   initializeContractMethods() {
     addRecoveryMethods(this);
 
+    // Custom callers
+    this.lookupRegisteredENSDomain = new LookupRegisteredENSDomain({
+      client: this,
+      name: 'lookupRegisteredENSDomain',
+      functionName: 'lookupRegisteredENSDomain',
+      input: [['ensAddress', 'address']],
+      output: [['domain', 'string']],
+    });
+
     // Custom senders
     this.createToken = new CreateToken({ client: this });
 
@@ -1264,10 +1274,6 @@ export default class ColonyNetworkClient extends ContractClient {
     this.addCaller('isColony', {
       input: [['colony', 'address']],
       output: [['isColony', 'boolean']],
-    });
-    this.addCaller('lookupRegisteredENSDomain', {
-      input: [['ensAddress', 'address']],
-      output: [['domain', 'string']],
     });
 
     // Senders
