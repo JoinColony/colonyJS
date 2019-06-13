@@ -17,17 +17,8 @@ const getInfuraProvider = (network: string, infuraProjectId?: string) => {
     case 'homestead':
       host = 'mainnet.infura.io';
       break;
-    case 'ropsten':
-      host = 'ropsten.infura.io';
-      break;
-    case 'rinkeby':
-      host = 'rinkeby.infura.io';
-      break;
     case 'goerli':
       host = 'goerli.infura.io';
-      break;
-    case 'kovan':
-      host = 'kovan.infura.io';
       break;
     default:
       throw new Error(
