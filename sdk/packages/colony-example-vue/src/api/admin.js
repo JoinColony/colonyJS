@@ -1,5 +1,5 @@
-import sendProxy from '@/lib/send-proxy'
-import { getColony } from '@/lib/colony-store'
+import sendProxy from '@/helpers/send-proxy'
+import { getColony } from '@/helpers/colony-store'
 
 export async function checkAdmin({ colony = getColony(), address }) {
   const { hasRole: root } = await colony.hasColonyRole.call({

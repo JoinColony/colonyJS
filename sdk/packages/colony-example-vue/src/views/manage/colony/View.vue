@@ -14,7 +14,7 @@
 </template>
 <script>
 import { getColonyClient } from '@/api/colony'
-import { setColony } from '@/lib/colony-store'
+import { setColony } from '@/helpers/colony-store'
 import addressMixin from './address-mixin'
 import store from '@/store'
 

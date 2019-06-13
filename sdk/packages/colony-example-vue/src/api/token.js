@@ -1,7 +1,7 @@
 import { BN } from 'web3-utils'
-import { getNetwork } from '@/lib/network-store'
-import { getColony } from '@/lib/colony-store'
-import sendProxy from '@/lib/send-proxy'
+import { getNetwork } from '@/helpers/network-store'
+import { getColony } from '@/helpers/colony-store'
+import sendProxy from '@/helpers/send-proxy'
 
 export async function createToken({ network = getNetwork(), name, symbol = 'TKN' }) {
   const decimals = 18

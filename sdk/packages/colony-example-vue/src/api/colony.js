@@ -1,5 +1,5 @@
-import { getNetwork } from '@/lib/network-store'
-import sendProxy from '@/lib/send-proxy'
+import { getNetwork } from '@/helpers/network-store'
+import sendProxy from '@/helpers/send-proxy'
 
 export async function createColony({ network = getNetwork(), tokenAddress }) {
   const result = await sendProxy(network).createColony({ tokenAddress })

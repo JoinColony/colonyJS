@@ -1,6 +1,6 @@
 import { BN } from 'web3-utils'
-import { getColony } from '@/lib/colony-store'
-import sendProxy from '@/lib/send-proxy'
+import { getColony } from '@/helpers/colony-store'
+import sendProxy from '@/helpers/send-proxy'
 
 export async function getDomains({ colony = getColony() }) {
   const { count: domainCount } = await colony.getDomainCount.call()

@@ -1,5 +1,5 @@
 import { connect } from '@/api/network'
-import { setNetwork } from '@/lib/network-store'
+import { setNetwork } from '@/helpers/network-store'
 
 import './error-handler'
 import './components'

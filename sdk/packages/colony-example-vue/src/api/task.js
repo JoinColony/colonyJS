@@ -1,6 +1,6 @@
-import * as ecp from '@/lib/ecp'
-import { getColony } from '@/lib/colony-store'
-import sendProxy from '@/lib/send-proxy'
+import * as ecp from '@/helpers/ecp'
+import { getColony } from '@/helpers/colony-store'
+import sendProxy from '@/helpers/send-proxy'
 
 export async function createTask({ colony = getColony(), task }) {
   const proxy = sendProxy(colony)

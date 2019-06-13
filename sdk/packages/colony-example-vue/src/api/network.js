@@ -1,6 +1,6 @@
 import { getNetworkClient } from '@colony/colony-js-client'
-import { open } from '@/lib/purser'
-import { getNetwork } from '@/lib/network-store'
+import { open } from '@/helpers/purser'
+import { getNetwork } from '@/helpers/network-store'
 
 export async function connect(network = 'local') {
   const wallet = await open()

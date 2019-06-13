@@ -28,7 +28,7 @@ export default {
       await this.hydrateTasks()
     },
     ...mapActions({
-      'hydrateTasks': 'tasks/hydrate',
+      hydrateTasks: 'tasks/hydrate',
     }),
   },
 }
