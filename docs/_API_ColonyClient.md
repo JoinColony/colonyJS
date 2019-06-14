@@ -2184,10 +2184,10 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Name|Type|Description|
 |---|---|---|
-|address|address||
-|domainId|number||
-|role|undefined||
-|setTo|boolean||
+|address|address|The address for which the role was set.|
+|domainId|number|The domain in which the role was set.|
+|role|undefined|The role which was set, one of: `ADMINISTRATION`, `ARBITRATION`, `ARCHITECTURE`, `ARCHITECTURE_SUBDOMAIN`, `FUNDING`, `RECOVERY` or `ROOT`.|
+|setTo|boolean|Whether the role was assigned (`true`) on unassigned (`false`).|
 |ColonyRoleSet|object|Contains the data defined in [ColonyRoleSet](#eventscolonyroleset)|
 
 See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
@@ -2232,10 +2232,10 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Name|Type|Description|
 |---|---|---|
-|address|address||
-|domainId|number||
-|role|undefined||
-|setTo|boolean||
+|address|address|The address for which the role was set.|
+|domainId|number|The domain in which the role was set.|
+|role|undefined|The role which was set, one of: `ADMINISTRATION`, `ARBITRATION`, `ARCHITECTURE`, `ARCHITECTURE_SUBDOMAIN`, `FUNDING`, `RECOVERY` or `ROOT`.|
+|setTo|boolean|Whether the role was assigned (`true`) on unassigned (`false`).|
 |ColonyRoleSet|object|Contains the data defined in [ColonyRoleSet](#eventscolonyroleset)|
 
 See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
@@ -2334,10 +2334,10 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Name|Type|Description|
 |---|---|---|
-|address|address||
-|domainId|number||
-|role|undefined||
-|setTo|boolean||
+|address|address|The address for which the role was set.|
+|domainId|number|The domain in which the role was set.|
+|role|undefined|The role which was set, one of: `ADMINISTRATION`, `ARBITRATION`, `ARCHITECTURE`, `ARCHITECTURE_SUBDOMAIN`, `FUNDING`, `RECOVERY` or `ROOT`.|
+|setTo|boolean|Whether the role was assigned (`true`) on unassigned (`false`).|
 |ColonyRoleSet|object|Contains the data defined in [ColonyRoleSet](#eventscolonyroleset)|
 
 See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
@@ -2379,10 +2379,10 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Name|Type|Description|
 |---|---|---|
-|address|address||
-|domainId|number||
-|role|undefined||
-|setTo|boolean||
+|address|address|The address for which the role was set.|
+|domainId|number|The domain in which the role was set.|
+|role|undefined|The role which was set, one of: `ADMINISTRATION`, `ARBITRATION`, `ARCHITECTURE`, `ARCHITECTURE_SUBDOMAIN`, `FUNDING`, `RECOVERY` or `ROOT`.|
+|setTo|boolean|Whether the role was assigned (`true`) on unassigned (`false`).|
 |ColonyRoleSet|object|Contains the data defined in [ColonyRoleSet](#eventscolonyroleset)|
 
 See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
@@ -2427,10 +2427,10 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Name|Type|Description|
 |---|---|---|
-|address|address||
-|domainId|number||
-|role|undefined||
-|setTo|boolean||
+|address|address|The address for which the role was set.|
+|domainId|number|The domain in which the role was set.|
+|role|undefined|The role which was set, one of: `ADMINISTRATION`, `ARBITRATION`, `ARCHITECTURE`, `ARCHITECTURE_SUBDOMAIN`, `FUNDING`, `RECOVERY` or `ROOT`.|
+|setTo|boolean|Whether the role was assigned (`true`) on unassigned (`false`).|
 |ColonyRoleSet|object|Contains the data defined in [ColonyRoleSet](#eventscolonyroleset)|
 
 See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
@@ -2760,10 +2760,10 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Name|Type|Description|
 |---|---|---|
-|address|address||
-|domainId|number||
-|role|undefined||
-|setTo|boolean||
+|address|address|The address for which the role was set.|
+|domainId|number|The domain in which the role was set.|
+|role|undefined|The role which was set, one of: `ADMINISTRATION`, `ARBITRATION`, `ARCHITECTURE`, `ARCHITECTURE_SUBDOMAIN`, `FUNDING`, `RECOVERY` or `ROOT`.|
+|setTo|boolean|Whether the role was assigned (`true`) on unassigned (`false`).|
 |ColonyRoleSet|object|Contains the data defined in [ColonyRoleSet](#eventscolonyroleset)|
 
 See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
@@ -3965,10 +3965,10 @@ colonyClient.events.ColonyRoleSet.removeListener(eventHandler);
 
 |Name|Type|Description|
 |---|---|---|
-|address|address||
-|domainId|number||
-|role|undefined||
-|setTo|boolean||
+|address|address|The address for which the role was set.|
+|domainId|number|The domain in which the role was set.|
+|role|undefined|The role which was set, one of: `ADMINISTRATION`, `ARBITRATION`, `ARCHITECTURE`, `ARCHITECTURE_SUBDOMAIN`, `FUNDING`, `RECOVERY` or `ROOT`.|
+|setTo|boolean|Whether the role was assigned (`true`) on unassigned (`false`).|
 
 
 ### `ColonyRootRoleSet`

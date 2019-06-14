@@ -92,11 +92,12 @@ type ColonyLabelRegistered = ContractClient.Event<{
 type ColonyRewardInverseSet = ContractClient.Event<{
   rewardInverse: BigNumber, // The reward inverse value that was set.
 }>;
+// @note Introduced in glider-rc.3, replacing existing role set events
 type ColonyRoleSet = ContractClient.Event<{
-  address: Address,
-  domainId: number,
-  role: ColonyRole,
-  setTo: boolean,
+  address: Address, // The address for which the role was set.
+  domainId: number, // The domain in which the role was set.
+  role: ColonyRole, // The role which was set, one of: `ADMINISTRATION`, `ARBITRATION`, `ARCHITECTURE`, `ARCHITECTURE_SUBDOMAIN`, `FUNDING`, `RECOVERY` or `ROOT`.
+  setTo: boolean, // Whether the role was assigned (`true`) on unassigned (`false`).
 }>;
 // @note Deprecated in glider-rc.3, replaced with ColonyRoleSet
 type ColonyRootRoleSet = ContractClient.Event<{

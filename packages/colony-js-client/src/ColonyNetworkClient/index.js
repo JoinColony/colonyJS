@@ -235,7 +235,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'Token.sol',
       // eslint-disable-next-line max-len
-      contractPath: 'https://github.com/JoinColony/colonyToken/blob/59cf56f18c54c0bc749ddaa8b6d77ebfd0d0aaf4/contracts',
+      contractPath: 'https://github.com/JoinColony/colonyToken/blob/8e5139586018fbaa53e9cf971e040b3ae2a4bb92/contracts',
       version: 'glider-rc.3',
     },
   >;

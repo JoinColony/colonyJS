@@ -268,6 +268,8 @@ export default class ContractClient {
       throw new Error(`An event named "${eventName}" already exists`);
     }
 
+    // Allow initialising of clients where some events may be missing in the
+    // ABI, due to changing of events on the contract.
     try {
       const event = new ContractEvent({
         eventName,
