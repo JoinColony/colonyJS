@@ -123,6 +123,9 @@
   "networks": {
     "goerli": {
       "address": "0x79073fc2117dD054FCEdaCad1E7018C9CbE3ec0B"
+    },
+    "mainnet": {
+      "address": "0x5346D0f80e2816FaD329F2c140c870ffc3c3E2Ef"
     }
   },
   "schemaVersion": "3.0.9",
