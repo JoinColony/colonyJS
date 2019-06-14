@@ -59,7 +59,7 @@ export default class TokenClient extends ContractClient {
       contract: 'base.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
-      version: 'glider-rc.3',
+      version: 'glider',
     },
   >;
 
@@ -79,7 +79,7 @@ export default class TokenClient extends ContractClient {
       contract: 'Token.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/JoinColony/colonyToken/blob/8e5139586018fbaa53e9cf971e040b3ae2a4bb92/contracts',
-      version: 'glider-rc.3',
+      version: 'glider',
     },
   >;
 
@@ -98,7 +98,7 @@ export default class TokenClient extends ContractClient {
       contract: 'Token.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/JoinColony/colonyToken/blob/8e5139586018fbaa53e9cf971e040b3ae2a4bb92/contracts',
-      version: 'glider-rc.3',
+      version: 'glider',
     },
   >;
 
@@ -119,7 +119,7 @@ export default class TokenClient extends ContractClient {
       contract: 'base.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
-      version: 'glider-rc.3',
+      version: 'glider',
     },
   >;
 
@@ -139,7 +139,7 @@ export default class TokenClient extends ContractClient {
       contract: 'base.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
-      version: 'glider-rc.3',
+      version: 'glider',
     },
   >;
 
@@ -158,7 +158,7 @@ export default class TokenClient extends ContractClient {
       contract: 'Token.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/JoinColony/colonyToken/blob/8e5139586018fbaa53e9cf971e040b3ae2a4bb92/contracts',
-      version: 'glider-rc.3',
+      version: 'glider',
     },
   >;
 
@@ -176,7 +176,7 @@ export default class TokenClient extends ContractClient {
       contract: 'base.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
-      version: 'glider-rc.3',
+      version: 'glider',
     },
   >;
 
@@ -194,7 +194,7 @@ export default class TokenClient extends ContractClient {
       contract: 'Token.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
-      version: 'glider-rc.3',
+      version: 'glider',
     },
   >;
 
@@ -214,7 +214,7 @@ export default class TokenClient extends ContractClient {
       contract: 'Token.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/JoinColony/colonyToken/blob/8e5139586018fbaa53e9cf971e040b3ae2a4bb92/contracts',
-      version: 'glider-rc.3',
+      version: 'glider',
     },
   >;
 
@@ -233,7 +233,7 @@ export default class TokenClient extends ContractClient {
       contract: 'auth.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
-      version: 'glider-rc.3',
+      version: 'glider',
     },
   >;
 
@@ -252,7 +252,7 @@ export default class TokenClient extends ContractClient {
       contract: 'auth.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
-      version: 'glider-rc.3',
+      version: 'glider',
     },
   >;
 
@@ -270,7 +270,7 @@ export default class TokenClient extends ContractClient {
       contract: 'base.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
-      version: 'glider-rc.3',
+      version: 'glider',
     },
   >;
 
@@ -291,7 +291,7 @@ export default class TokenClient extends ContractClient {
       contract: 'base.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
-      version: 'glider-rc.3',
+      version: 'glider',
     },
   >;
 
@@ -306,7 +306,7 @@ export default class TokenClient extends ContractClient {
       contract: 'Token.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/JoinColony/colonyToken/blob/8e5139586018fbaa53e9cf971e040b3ae2a4bb92/contracts',
-      version: 'glider-rc.3',
+      version: 'glider',
     },
   >;
 
