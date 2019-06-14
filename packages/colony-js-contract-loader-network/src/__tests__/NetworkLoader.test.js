@@ -56,6 +56,7 @@ describe('colony-contract-loader-network - NetworkLoader', () => {
       await mainLoader.load({
         contractName: 'IColonyNetwork',
         routerName: 'EtherRouter',
+        version: 1,
       });
       expect(false).toBe(true); // should be unreachable
     } catch (error) {
@@ -67,7 +68,7 @@ describe('colony-contract-loader-network - NetworkLoader', () => {
 
   test('It should fail to load a contract that does not exist', async () => {
     try {
-      await loader.load({ contractName: 'CryptoKitty', contractAddress });
+      await loader.load({ contractName: 'CryptoKitty', contractAddress, version: 1 });
       expect(false).toBe(true); // should be unreachable
     } catch (error) {
       expect(error.toString()).toMatch(

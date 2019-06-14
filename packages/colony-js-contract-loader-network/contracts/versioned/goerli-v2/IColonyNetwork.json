@@ -8,8 +8,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x31292ba7"
+      "type": "function"
     },
     {
       "constant": false,
@@ -18,8 +17,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x38e5b7ae"
+      "type": "function"
     },
     {
       "constant": true,
@@ -33,8 +31,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x54584330"
+      "type": "function"
     },
     {
       "constant": false,
@@ -52,8 +49,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x55028923"
+      "type": "function"
     },
     {
       "constant": true,
@@ -67,8 +63,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x80d9fad3"
+      "type": "function"
     },
     {
       "constant": true,
@@ -82,8 +77,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x8831fa34"
+      "type": "function"
     },
     {
       "constant": false,
@@ -97,8 +91,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x99cf7cc7"
+      "type": "function"
     },
     {
       "constant": false,
@@ -112,8 +105,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xd24536a5"
+      "type": "function"
     },
     {
       "constant": false,
@@ -122,8 +114,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xe77aaee2"
+      "type": "function"
     },
     {
       "anonymous": false,
@@ -135,8 +126,7 @@
         }
       ],
       "name": "ColonyNetworkInitialised",
-      "type": "event",
-      "signature": "0xb359e28a27b6359e12b2a89378843d9900e4235acbbc05656ea06bf4c2064896"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -148,8 +138,7 @@
         }
       ],
       "name": "TokenLockingAddressSet",
-      "type": "event",
-      "signature": "0xae5c99e483b74f96e60231cd7e3460f8d8403205510ffdb7fe24b0d66ca7ec36"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -161,8 +150,7 @@
         }
       ],
       "name": "MiningCycleResolverSet",
-      "type": "event",
-      "signature": "0x1200d5181cf6b6a78c9b47af4a9217d46f4240add3629d168f6781e232b06e62"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -174,8 +162,7 @@
         }
       ],
       "name": "NetworkFeeInverseSet",
-      "type": "event",
-      "signature": "0x8c240c7dd895a1b58d8d303d8d83782acf54b1329592f70db2ee5a0497220cef"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -192,8 +179,7 @@
         }
       ],
       "name": "ColonyVersionAdded",
-      "type": "event",
-      "signature": "0x8200c0c16a44d6f048a2199def86b6dbd55664cab6c3f01ddd2ab43a1adf1676"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -215,8 +201,7 @@
         }
       ],
       "name": "MetaColonyCreated",
-      "type": "event",
-      "signature": "0x6b59832e92ce4e0a6a6908df30a543563ccabf542c8836e78a1c50b0cdfc5959"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -238,8 +223,7 @@
         }
       ],
       "name": "ColonyAdded",
-      "type": "event",
-      "signature": "0x1904953a6126b2f999ad2661494642bfc63346430965de35cdcd7b5d4e6787ae"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -256,8 +240,7 @@
         }
       ],
       "name": "SkillAdded",
-      "type": "event",
-      "signature": "0xafe765b392910efb92e8447f3571f7d46c9046cf149b438ccd40b473f4fb332e"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -279,8 +262,7 @@
         }
       ],
       "name": "AuctionCreated",
-      "type": "event",
-      "signature": "0x261f6e6830ed857876d5aa4eca876ccf116d09b91a6675e3e1a1920d53ef585e"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -292,8 +274,7 @@
         }
       ],
       "name": "ReputationMiningInitialised",
-      "type": "event",
-      "signature": "0x47b5df58a92479a9589bce437805f6eec45839c2bafd67d8635c2120c9cf5bff"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -310,8 +291,7 @@
         }
       ],
       "name": "ReputationMiningCycleComplete",
-      "type": "event",
-      "signature": "0x752ef39e1c821a8c89637d42bd3a0126ea4839ad4ce6f6a10bea30141c117260"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -338,8 +318,7 @@
         }
       ],
       "name": "ReputationRootHashSet",
-      "type": "event",
-      "signature": "0xf784e6b3e559bebd532257ff6eb5e044b4b59f3f9802eaca5dd04a44805ce04f"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -356,8 +335,7 @@
         }
       ],
       "name": "UserLabelRegistered",
-      "type": "event",
-      "signature": "0xb59bb806875ef5718727778ded48d6def0daadc637571c2265f9eaee20aaa024"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -374,8 +352,7 @@
         }
       ],
       "name": "ColonyLabelRegistered",
-      "type": "event",
-      "signature": "0x5eac6ea5170b50277715d82d48b59bc29df52d4433a20502217dfc779ccdfe73"
+      "type": "event"
     },
     {
       "constant": true,
@@ -394,8 +371,7 @@
       ],
       "payable": false,
       "stateMutability": "pure",
-      "type": "function",
-      "signature": "0x01ffc9a7"
+      "type": "function"
     },
     {
       "constant": false,
@@ -437,8 +413,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x23100714"
+      "type": "function"
     },
     {
       "constant": true,
@@ -487,8 +462,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0xe926f61c"
+      "type": "function"
     },
     {
       "constant": true,
@@ -501,14 +475,13 @@
       "name": "getReplacementReputationUpdateLogsExist",
       "outputs": [
         {
-          "name": "",
+          "name": "exists",
           "type": "bool"
         }
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x1d5b14e3"
+      "type": "function"
     },
     {
       "constant": true,
@@ -516,14 +489,13 @@
       "name": "getMetaColony",
       "outputs": [
         {
-          "name": "",
+          "name": "colonyAddress",
           "type": "address"
         }
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x731bc22f"
+      "type": "function"
     },
     {
       "constant": true,
@@ -537,8 +509,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x711a39be"
+      "type": "function"
     },
     {
       "constant": true,
@@ -557,8 +528,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0xdb0dd7ff"
+      "type": "function"
     },
     {
       "constant": false,
@@ -566,10 +536,6 @@
         {
           "name": "_parentSkillId",
           "type": "uint256"
-        },
-        {
-          "name": "_globalSkill",
-          "type": "bool"
         }
       ],
       "name": "addSkill",
@@ -581,8 +547,7 @@
       ],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x32b9cf33"
+      "type": "function"
     },
     {
       "constant": true,
@@ -615,6 +580,10 @@
             {
               "name": "globalSkill",
               "type": "bool"
+            },
+            {
+              "name": "deprecated",
+              "type": "bool"
             }
           ],
           "name": "skill",
@@ -623,28 +592,21 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0xbd880fae"
+      "type": "function"
     },
     {
-      "constant": true,
+      "constant": false,
       "inputs": [
         {
           "name": "_skillId",
           "type": "uint256"
         }
       ],
-      "name": "isGlobalSkill",
-      "outputs": [
-        {
-          "name": "isGlobalSkill",
-          "type": "bool"
-        }
-      ],
+      "name": "deprecateSkill",
+      "outputs": [],
       "payable": false,
-      "stateMutability": "view",
-      "type": "function",
-      "signature": "0x440d88e0"
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
       "constant": false,
@@ -666,8 +628,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x5a8adafa"
+      "type": "function"
     },
     {
       "constant": true,
@@ -681,13 +642,12 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x05f53b29"
+      "type": "function"
     },
     {
       "constant": true,
       "inputs": [],
-      "name": "getRootGlobalSkillId",
+      "name": "getReputationMiningSkillId",
       "outputs": [
         {
           "name": "skillId",
@@ -696,8 +656,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0xfd139958"
+      "type": "function"
     },
     {
       "constant": false,
@@ -711,8 +670,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x8fb6839a"
+      "type": "function"
     },
     {
       "constant": true,
@@ -726,8 +684,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0xb319902a"
+      "type": "function"
     },
     {
       "constant": false,
@@ -741,8 +698,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xa2f99b86"
+      "type": "function"
     },
     {
       "constant": false,
@@ -755,14 +711,13 @@
       "name": "createColony",
       "outputs": [
         {
-          "name": "",
+          "name": "colonyAddress",
           "type": "address"
         }
       ],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x08eb0d2c"
+      "type": "function"
     },
     {
       "constant": false,
@@ -780,8 +735,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xf07eb921"
+      "type": "function"
     },
     {
       "constant": false,
@@ -789,14 +743,17 @@
         {
           "name": "_resolver",
           "type": "address"
+        },
+        {
+          "name": "_version",
+          "type": "uint256"
         }
       ],
       "name": "initialise",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x9d6a890f"
+      "type": "function"
     },
     {
       "constant": true,
@@ -815,8 +772,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x6f92650d"
+      "type": "function"
     },
     {
       "constant": true,
@@ -830,8 +786,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0xbca1e4df"
+      "type": "function"
     },
     {
       "constant": true,
@@ -854,8 +809,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0xd987fc16"
+      "type": "function"
     },
     {
       "constant": true,
@@ -878,8 +832,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x09d10a5e"
+      "type": "function"
     },
     {
       "constant": true,
@@ -898,8 +851,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0xf2c8599c"
+      "type": "function"
     },
     {
       "constant": true,
@@ -922,8 +874,7 @@
       ],
       "payable": false,
       "stateMutability": "pure",
-      "type": "function",
-      "signature": "0x8e4544d7"
+      "type": "function"
     },
     {
       "constant": true,
@@ -942,8 +893,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x8f14c886"
+      "type": "function"
     },
     {
       "constant": false,
@@ -969,8 +919,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xba5f5b53"
+      "type": "function"
     },
     {
       "constant": false,
@@ -979,8 +928,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x450e2ed3"
+      "type": "function"
     },
     {
       "constant": false,
@@ -989,8 +937,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xee65786a"
+      "type": "function"
     },
     {
       "constant": true,
@@ -1004,8 +951,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x97824c3f"
+      "type": "function"
     },
     {
       "constant": true,
@@ -1019,8 +965,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x7680150d"
+      "type": "function"
     },
     {
       "constant": false,
@@ -1034,8 +979,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x55a8495a"
+      "type": "function"
     },
     {
       "constant": false,
@@ -1053,8 +997,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x6060c4aa"
+      "type": "function"
     },
     {
       "constant": false,
@@ -1072,8 +1015,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xb5e34fbf"
+      "type": "function"
     },
     {
       "constant": false,
@@ -1091,8 +1033,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xe2db777b"
+      "type": "function"
     },
     {
       "constant": true,
@@ -1111,8 +1052,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0xcd930b63"
+      "type": "function"
     },
     {
       "constant": true,
@@ -1131,8 +1071,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x60c64776"
+      "type": "function"
     },
     {
       "constant": true,
@@ -1151,8 +1090,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x3b3b57de"
+      "type": "function"
     },
     {
       "constant": true,
@@ -1166,8 +1104,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0xa5e42536"
+      "type": "function"
     },
     {
       "constant": false,
@@ -1181,8 +1118,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xe1636882"
+      "type": "function"
     },
     {
       "constant": true,
@@ -1196,8 +1132,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x749f15cd"
+      "type": "function"
     },
     {
       "constant": true,
@@ -1211,8 +1146,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0xef63c380"
+      "type": "function"
     },
     {
       "constant": false,
@@ -1226,15 +1160,14 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x3812b259"
+      "type": "function"
     }
   ],
   "compiler": {
     "name": "solc",
-    "version": "0.4.23+commit.124ca40d.Linux.g++"
+    "version": "0.5.8+commit.23d335f2.Linux.g++"
   },
   "networks": {},
-  "schemaVersion": "3.0.1",
-  "updatedAt": "2019-02-14T11:08:23.217Z"
+  "schemaVersion": "3.0.9",
+  "updatedAt": "2019-06-10T17:31:45.537Z"
 }

@@ -17,6 +17,7 @@ const colonyEvents = [
   'ColonyFundsMovedBetweenFundingPots',
   'ColonyInitialised',
   'ColonyRewardInverseSet',
+  'ColonyRoleSet',
   'ColonyRootRoleSet',
   'ColonyUpgraded',
   'DomainAdded',

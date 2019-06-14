@@ -9,7 +9,7 @@
           "type": "uint256"
         }
       ],
-      "name": "getTaskWorkRatings",
+      "name": "getTaskWorkRatingSecretsInfo",
       "outputs": [
         {
           "name": "nSecrets",
@@ -22,8 +22,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x00768254"
+      "type": "function"
     },
     {
       "constant": true,
@@ -50,8 +49,25 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x057dda2c"
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_id",
+          "type": "uint256"
+        },
+        {
+          "name": "_token",
+          "type": "address"
+        }
+      ],
+      "name": "claimPayment",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
       "constant": true,
@@ -65,8 +81,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x13e91f08"
+      "type": "function"
     },
     {
       "constant": false,
@@ -88,8 +103,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x194f523d"
+      "type": "function"
     },
     {
       "constant": true,
@@ -118,8 +132,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x1a7a98e2"
+      "type": "function"
     },
     {
       "constant": true,
@@ -142,23 +155,7 @@
       ],
       "payable": false,
       "stateMutability": "pure",
-      "type": "function",
-      "signature": "0x1ae3aaa4"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_parentDomainId",
-          "type": "uint256"
-        }
-      ],
-      "name": "addDomain",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x1c8151c9"
+      "type": "function"
     },
     {
       "constant": true,
@@ -187,10 +184,6 @@
           "type": "uint256"
         },
         {
-          "name": "payoutsWeCannotMake",
-          "type": "uint256"
-        },
-        {
           "name": "fundingPotId",
           "type": "uint256"
         },
@@ -209,8 +202,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x1d65e77e"
+      "type": "function"
     },
     {
       "constant": true,
@@ -247,8 +239,29 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x1e8954de"
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_permissionDomainId",
+          "type": "uint256"
+        },
+        {
+          "name": "_childSkillIndex",
+          "type": "uint256"
+        },
+        {
+          "name": "_parentDomainId",
+          "type": "uint256"
+        }
+      ],
+      "name": "addDomain",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
       "constant": true,
@@ -262,8 +275,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x21df0da7"
+      "type": "function"
     },
     {
       "constant": false,
@@ -297,8 +309,33 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x24aa4948"
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_permissionDomainId",
+          "type": "uint256"
+        },
+        {
+          "name": "_childSkillIndex",
+          "type": "uint256"
+        },
+        {
+          "name": "_id",
+          "type": "uint256"
+        },
+        {
+          "name": "_skillId",
+          "type": "uint256"
+        }
+      ],
+      "name": "setPaymentSkill",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
       "constant": true,
@@ -312,8 +349,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x25f759e3"
+      "type": "function"
     },
     {
       "constant": false,
@@ -327,23 +363,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x2b949c99"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_user",
-          "type": "address"
-        }
-      ],
-      "name": "setFounderRole",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x2bf57bd9"
+      "type": "function"
     },
     {
       "constant": false,
@@ -365,8 +385,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x2cf62b39"
+      "type": "function"
     },
     {
       "constant": false,
@@ -375,35 +394,48 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x31292ba7"
+      "type": "function"
     },
     {
-      "constant": false,
+      "constant": true,
       "inputs": [
         {
-          "name": "_specificationHash",
-          "type": "bytes32"
-        },
-        {
-          "name": "_domainId",
-          "type": "uint256"
-        },
-        {
-          "name": "_skillId",
-          "type": "uint256"
-        },
-        {
-          "name": "_dueDate",
+          "name": "_id",
           "type": "uint256"
         }
       ],
-      "name": "makeTask",
-      "outputs": [],
+      "name": "getPayment",
+      "outputs": [
+        {
+          "components": [
+            {
+              "name": "recipient",
+              "type": "address"
+            },
+            {
+              "name": "finalized",
+              "type": "bool"
+            },
+            {
+              "name": "fundingPotId",
+              "type": "uint256"
+            },
+            {
+              "name": "domainId",
+              "type": "uint256"
+            },
+            {
+              "name": "skills",
+              "type": "uint256[]"
+            }
+          ],
+          "name": "payment",
+          "type": "tuple"
+        }
+      ],
       "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x34029440"
+      "stateMutability": "view",
+      "type": "function"
     },
     {
       "constant": true,
@@ -422,8 +454,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x34fa7aa2"
+      "type": "function"
     },
     {
       "constant": true,
@@ -468,8 +499,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x3644a3fd"
+      "type": "function"
     },
     {
       "constant": false,
@@ -478,31 +508,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x38e5b7ae"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_id",
-          "type": "uint256"
-        },
-        {
-          "name": "_role",
-          "type": "uint8"
-        },
-        {
-          "name": "_token",
-          "type": "address"
-        }
-      ],
-      "name": "claimPayout",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x3da292e5"
+      "type": "function"
     },
     {
       "constant": false,
@@ -524,35 +530,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x3feb369c"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_fromPot",
-          "type": "uint256"
-        },
-        {
-          "name": "_toPot",
-          "type": "uint256"
-        },
-        {
-          "name": "_amount",
-          "type": "uint256"
-        },
-        {
-          "name": "_token",
-          "type": "address"
-        }
-      ],
-      "name": "moveFundsBetweenPots",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x440f4419"
+      "type": "function"
     },
     {
       "constant": false,
@@ -566,8 +544,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x45977d03"
+      "type": "function"
     },
     {
       "constant": false,
@@ -581,23 +558,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x46889ecb"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_user",
-          "type": "address"
-        }
-      ],
-      "name": "setAdminRole",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x4adc7cfd"
+      "type": "function"
     },
     {
       "constant": true,
@@ -611,8 +572,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x4cb164c7"
+      "type": "function"
     },
     {
       "constant": true,
@@ -626,8 +586,50 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x4e5e8395"
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_permissionDomainId",
+          "type": "uint256"
+        },
+        {
+          "name": "_childSkillIndex",
+          "type": "uint256"
+        },
+        {
+          "name": "_recipient",
+          "type": "address"
+        },
+        {
+          "name": "_token",
+          "type": "address"
+        },
+        {
+          "name": "_amount",
+          "type": "uint256"
+        },
+        {
+          "name": "_domainId",
+          "type": "uint256"
+        },
+        {
+          "name": "_skillId",
+          "type": "uint256"
+        }
+      ],
+      "name": "addPayment",
+      "outputs": [
+        {
+          "name": "paymentId",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
       "constant": false,
@@ -645,8 +647,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x50030964"
+      "type": "function"
     },
     {
       "constant": false,
@@ -660,8 +661,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x51c38cd9"
+      "type": "function"
     },
     {
       "constant": true,
@@ -675,8 +675,37 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x54584330"
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_permissionDomainId",
+          "type": "uint256"
+        },
+        {
+          "name": "_childSkillIndex",
+          "type": "uint256"
+        },
+        {
+          "name": "_id",
+          "type": "uint256"
+        },
+        {
+          "name": "_token",
+          "type": "address"
+        },
+        {
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "setPaymentPayout",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
       "constant": true,
@@ -690,8 +719,7 @@
       ],
       "payable": false,
       "stateMutability": "pure",
-      "type": "function",
-      "signature": "0x54fd4d50"
+      "type": "function"
     },
     {
       "constant": false,
@@ -709,8 +737,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x55028923"
+      "type": "function"
     },
     {
       "constant": false,
@@ -740,8 +767,71 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x5dbe69b4"
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_permissionDomainId",
+          "type": "uint256"
+        },
+        {
+          "name": "_childSkillIndex",
+          "type": "uint256"
+        },
+        {
+          "name": "_user",
+          "type": "address"
+        },
+        {
+          "name": "_domainId",
+          "type": "uint256"
+        },
+        {
+          "name": "_setTo",
+          "type": "bool"
+        }
+      ],
+      "name": "setAdministrationRole",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_permissionDomainId",
+          "type": "uint256"
+        },
+        {
+          "name": "_childSkillIndex",
+          "type": "uint256"
+        },
+        {
+          "name": "_specificationHash",
+          "type": "bytes32"
+        },
+        {
+          "name": "_domainId",
+          "type": "uint256"
+        },
+        {
+          "name": "_skillId",
+          "type": "uint256"
+        },
+        {
+          "name": "_dueDate",
+          "type": "uint256"
+        }
+      ],
+      "name": "makeTask",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
       "constant": false,
@@ -763,8 +853,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x6aaf4a77"
+      "type": "function"
     },
     {
       "constant": false,
@@ -786,8 +875,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x6fb0794f"
+      "type": "function"
     },
     {
       "constant": false,
@@ -821,8 +909,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x6fc14a90"
+      "type": "function"
     },
     {
       "constant": false,
@@ -840,8 +927,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x74773439"
+      "type": "function"
     },
     {
       "constant": false,
@@ -875,8 +961,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x74a2200e"
+      "type": "function"
     },
     {
       "constant": false,
@@ -894,8 +979,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x79d95b92"
+      "type": "function"
     },
     {
       "constant": true,
@@ -914,12 +998,37 @@
         {
           "name": "associatedTypeId",
           "type": "uint256"
+        },
+        {
+          "name": "payoutsWeCannotMake",
+          "type": "uint256"
         }
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x7c1735a8"
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_id",
+          "type": "uint256"
+        },
+        {
+          "name": "_role",
+          "type": "uint8"
+        },
+        {
+          "name": "_token",
+          "type": "address"
+        }
+      ],
+      "name": "claimTaskPayout",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
       "constant": false,
@@ -933,8 +1042,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x7eec20a8"
+      "type": "function"
     },
     {
       "constant": true,
@@ -948,8 +1056,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x80d9fad3"
+      "type": "function"
     },
     {
       "constant": true,
@@ -963,8 +1070,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x8831fa34"
+      "type": "function"
     },
     {
       "constant": false,
@@ -978,8 +1084,33 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x88488c33"
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_permissionDomainId",
+          "type": "uint256"
+        },
+        {
+          "name": "_childSkillIndex",
+          "type": "uint256"
+        },
+        {
+          "name": "_id",
+          "type": "uint256"
+        },
+        {
+          "name": "_recipient",
+          "type": "address"
+        }
+      ],
+      "name": "setPaymentRecipient",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
       "constant": false,
@@ -993,8 +1124,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x89224a1e"
+      "type": "function"
     },
     {
       "constant": true,
@@ -1008,8 +1138,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x8da5cb5b"
+      "type": "function"
     },
     {
       "constant": false,
@@ -1035,8 +1164,37 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x934a1dc7"
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_permissionDomainId",
+          "type": "uint256"
+        },
+        {
+          "name": "_childSkillIndex",
+          "type": "uint256"
+        },
+        {
+          "name": "_user",
+          "type": "address"
+        },
+        {
+          "name": "_domainId",
+          "type": "uint256"
+        },
+        {
+          "name": "_setTo",
+          "type": "bool"
+        }
+      ],
+      "name": "setFundingRole",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
       "constant": true,
@@ -1067,8 +1225,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x96d933e0"
+      "type": "function"
     },
     {
       "constant": false,
@@ -1082,32 +1239,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x97304ced"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "_id",
-          "type": "uint256"
-        },
-        {
-          "name": "_token",
-          "type": "address"
-        }
-      ],
-      "name": "getTotalTaskPayout",
-      "outputs": [
-        {
-          "name": "amount",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function",
-      "signature": "0x9886c6dd"
+      "type": "function"
     },
     {
       "constant": false,
@@ -1121,32 +1253,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x99cf7cc7"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "_user",
-          "type": "address"
-        },
-        {
-          "name": "_role",
-          "type": "uint8"
-        }
-      ],
-      "name": "hasUserRole",
-      "outputs": [
-        {
-          "name": "hasRole",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function",
-      "signature": "0xa078f737"
+      "type": "function"
     },
     {
       "constant": false,
@@ -1160,8 +1267,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xa1c60e63"
+      "type": "function"
     },
     {
       "constant": true,
@@ -1184,8 +1290,34 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0xaae3bddd"
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_user",
+          "type": "address"
+        },
+        {
+          "name": "_domainId",
+          "type": "uint256"
+        },
+        {
+          "name": "_role",
+          "type": "uint8"
+        }
+      ],
+      "name": "hasUserRole",
+      "outputs": [
+        {
+          "name": "hasRole",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
       "constant": true,
@@ -1208,8 +1340,47 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0xad4e908c"
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getPaymentCount",
+      "outputs": [
+        {
+          "name": "count",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_id",
+          "type": "uint256"
+        },
+        {
+          "name": "_user",
+          "type": "address"
+        },
+        {
+          "name": "_permissionDomainId",
+          "type": "uint256"
+        },
+        {
+          "name": "_childSkillIndex",
+          "type": "uint256"
+        }
+      ],
+      "name": "setTaskManagerRole",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
       "constant": false,
@@ -1227,8 +1398,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xb8984c5a"
+      "type": "function"
     },
     {
       "constant": true,
@@ -1242,8 +1412,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0xbf7e214f"
+      "type": "function"
     },
     {
       "constant": true,
@@ -1257,8 +1426,68 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0xc17a340e"
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_potId",
+          "type": "uint256"
+        },
+        {
+          "name": "_token",
+          "type": "address"
+        }
+      ],
+      "name": "getFundingPotPayout",
+      "outputs": [
+        {
+          "name": "payout",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_permissionDomainId",
+          "type": "uint256"
+        },
+        {
+          "name": "_fromChildSkillIndex",
+          "type": "uint256"
+        },
+        {
+          "name": "_toChildSkillIndex",
+          "type": "uint256"
+        },
+        {
+          "name": "_fromPot",
+          "type": "uint256"
+        },
+        {
+          "name": "_toPot",
+          "type": "uint256"
+        },
+        {
+          "name": "_amount",
+          "type": "uint256"
+        },
+        {
+          "name": "_token",
+          "type": "address"
+        }
+      ],
+      "name": "moveFundsBetweenPots",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
       "constant": false,
@@ -1276,27 +1505,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xcae960fe"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_id",
-          "type": "uint256"
-        },
-        {
-          "name": "_user",
-          "type": "address"
-        }
-      ],
-      "name": "setTaskManagerRole",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xcb1ddd41"
+      "type": "function"
     },
     {
       "constant": true,
@@ -1315,8 +1524,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0xce7cee49"
+      "type": "function"
     },
     {
       "constant": false,
@@ -1330,8 +1538,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xd24536a5"
+      "type": "function"
     },
     {
       "constant": false,
@@ -1349,8 +1556,29 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xd5d89d97"
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_permissionDomainId",
+          "type": "uint256"
+        },
+        {
+          "name": "_childSkillIndex",
+          "type": "uint256"
+        },
+        {
+          "name": "_id",
+          "type": "uint256"
+        }
+      ],
+      "name": "finalizePayment",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
       "constant": false,
@@ -1368,23 +1596,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xda4db249"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_user",
-          "type": "address"
-        }
-      ],
-      "name": "removeAdminRole",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xdccfe310"
+      "type": "function"
     },
     {
       "constant": false,
@@ -1402,8 +1614,25 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xe104695a"
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_user",
+          "type": "address"
+        },
+        {
+          "name": "_setTo",
+          "type": "bool"
+        }
+      ],
+      "name": "setRootRole",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
       "constant": false,
@@ -1417,8 +1646,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xe1e29558"
+      "type": "function"
     },
     {
       "constant": false,
@@ -1436,8 +1664,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xe2db777b"
+      "type": "function"
     },
     {
       "constant": false,
@@ -1467,8 +1694,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xe6f519ce"
+      "type": "function"
     },
     {
       "constant": false,
@@ -1486,8 +1712,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xe723d631"
+      "type": "function"
     },
     {
       "constant": false,
@@ -1496,8 +1721,63 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xe77aaee2"
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_permissionDomainId",
+          "type": "uint256"
+        },
+        {
+          "name": "_childSkillIndex",
+          "type": "uint256"
+        },
+        {
+          "name": "_user",
+          "type": "address"
+        },
+        {
+          "name": "_domainId",
+          "type": "uint256"
+        },
+        {
+          "name": "_setTo",
+          "type": "bool"
+        }
+      ],
+      "name": "setArchitectureRole",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_permissionDomainId",
+          "type": "uint256"
+        },
+        {
+          "name": "_childSkillIndex",
+          "type": "uint256"
+        },
+        {
+          "name": "_id",
+          "type": "uint256"
+        },
+        {
+          "name": "_domainId",
+          "type": "uint256"
+        }
+      ],
+      "name": "setPaymentDomain",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
       "anonymous": false,
@@ -1514,8 +1794,7 @@
         }
       ],
       "name": "ColonyInitialised",
-      "type": "event",
-      "signature": "0x7b4b87fc2f7a012d33086b285b1def5cd0ed055e2b03ff6b6b4c40bcb337427b"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -1532,8 +1811,7 @@
         }
       ],
       "name": "ColonyBootstrapped",
-      "type": "event",
-      "signature": "0xfc5048fa93e1233ebd07d6cfc31c38a67a0144550ebb5091b3754e989112e147"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -1550,52 +1828,34 @@
         }
       ],
       "name": "ColonyUpgraded",
-      "type": "event",
-      "signature": "0xfd869f9a4402635c0c48fdd41efd32f2959a4773bdd34157f4562eff3c8e1d94"
+      "type": "event"
     },
     {
       "anonymous": false,
       "inputs": [
         {
-          "indexed": false,
-          "name": "oldFounder",
+          "indexed": true,
+          "name": "user",
           "type": "address"
         },
         {
-          "indexed": false,
-          "name": "newFounder",
-          "type": "address"
-        }
-      ],
-      "name": "ColonyFounderRoleSet",
-      "type": "event",
-      "signature": "0xe87c6a4a65a63973caee860ac530c179e98d7bb005c89529a3e8ae9351b6f0c8"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
+          "indexed": true,
+          "name": "domainId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "name": "role",
+          "type": "uint8"
+        },
         {
           "indexed": false,
-          "name": "user",
-          "type": "address"
+          "name": "setTo",
+          "type": "bool"
         }
       ],
-      "name": "ColonyAdminRoleSet",
-      "type": "event",
-      "signature": "0x5d174430057b6b414195672c32e932ae5e901c451355341a3e559ecd5ade6320"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "name": "user",
-          "type": "address"
-        }
-      ],
-      "name": "ColonyAdminRoleRemoved",
-      "type": "event",
-      "signature": "0x944e6475beae92d665fd22dafa470b4aae7f9177b22daaf88df27bf26ef83d56"
+      "name": "ColonyRoleSet",
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -1622,8 +1882,7 @@
         }
       ],
       "name": "ColonyFundsMovedBetweenFundingPots",
-      "type": "event",
-      "signature": "0x2d0d1cd155cf710c9d335b5668c63cce7edd34b8d4fd60920d675ce3b25f485c"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -1645,8 +1904,7 @@
         }
       ],
       "name": "ColonyFundsClaimed",
-      "type": "event",
-      "signature": "0x8b099d4b2de6abb06b372bb2331912f04e6c9f57ca42f269fda0e8dd623bcc1d"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -1658,8 +1916,7 @@
         }
       ],
       "name": "RewardPayoutCycleStarted",
-      "type": "event",
-      "signature": "0x8d6b4c51eefb20b9dfd08426b6dda769b4e63a966eee3f221b93d602bb11249b"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -1671,8 +1928,7 @@
         }
       ],
       "name": "RewardPayoutCycleEnded",
-      "type": "event",
-      "signature": "0x8aa457dc24eb80b30e61923c2bf5419661d15e9bd79361de3aa7136606f8a550"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -1699,8 +1955,7 @@
         }
       ],
       "name": "RewardPayoutClaimed",
-      "type": "event",
-      "signature": "0x3bd758143863f95bfc1fbbc6882c58767c8f02979ede0b12aa6aaa26e7a44799"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -1712,8 +1967,19 @@
         }
       ],
       "name": "ColonyRewardInverseSet",
-      "type": "event",
-      "signature": "0xa42be192c6d5316ae1bedc899230f2b043b7133ed5a21879551a837a0230aad7"
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "paymentId",
+          "type": "uint256"
+        }
+      ],
+      "name": "PaymentAdded",
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -1725,8 +1991,7 @@
         }
       ],
       "name": "TaskAdded",
-      "type": "event",
-      "signature": "0x2f304925f4f66741b976d6f4f9a127315b8ef823c6e2a3b08895e5b11579bc78"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -1743,8 +2008,7 @@
         }
       ],
       "name": "TaskBriefSet",
-      "type": "event",
-      "signature": "0x019281e3423c38a1e2af4d4458d6591dcfa016042bdf05fb07a5e0337cdd4bee"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -1761,8 +2025,7 @@
         }
       ],
       "name": "TaskDueDateSet",
-      "type": "event",
-      "signature": "0xa37e375143b5e44516c1f4870dcc35a3bad596ffa24db0236255509f37ba518e"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -1779,8 +2042,7 @@
         }
       ],
       "name": "TaskDomainSet",
-      "type": "event",
-      "signature": "0xc97a6d886247889d24d70b7e2a1027e37d173fccea89cabae35fbb60f9344917"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -1797,8 +2059,7 @@
         }
       ],
       "name": "TaskSkillSet",
-      "type": "event",
-      "signature": "0x805061ac1bb50c97ac4649e42be645b37d3dbd0c14af49ca138a4650cd9699a5"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -1820,8 +2081,7 @@
         }
       ],
       "name": "TaskRoleUserSet",
-      "type": "event",
-      "signature": "0xdec5b0ff58168163a7bae93d6566869b43f0e2ce3e473ba50700c0731f47657b"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -1848,8 +2108,7 @@
         }
       ],
       "name": "TaskPayoutSet",
-      "type": "event",
-      "signature": "0xcf74f09bc8480e7ae54fc6292cf673e2ac13346412c8173759d6793370c90fac"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -1866,8 +2125,7 @@
         }
       ],
       "name": "TaskDeliverableSubmitted",
-      "type": "event",
-      "signature": "0x7f29b779aec5ba01774aa02611705a4a7a13c4732e015e28d53661b581e16527"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -1879,8 +2137,7 @@
         }
       ],
       "name": "TaskCompleted",
-      "type": "event",
-      "signature": "0xc1fa7142cfb933d0855114a3bffde296944c30b727f297c14d0db4d553d3a5c7"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -1902,8 +2159,7 @@
         }
       ],
       "name": "TaskWorkRatingRevealed",
-      "type": "event",
-      "signature": "0x1d948e48ee7eb574df4bb4f648f54a9f183845cfa733d1b3849e424052b1a60e"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -1915,20 +2171,14 @@
         }
       ],
       "name": "TaskFinalized",
-      "type": "event",
-      "signature": "0xc40773f63181c220f9ade90c8ecc57330e44f2ba91501608ac4c37cac84f96bd"
+      "type": "event"
     },
     {
       "anonymous": false,
       "inputs": [
         {
           "indexed": true,
-          "name": "taskId",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "name": "role",
+          "name": "fundingPotId",
           "type": "uint256"
         },
         {
@@ -1942,9 +2192,8 @@
           "type": "uint256"
         }
       ],
-      "name": "TaskPayoutClaimed",
-      "type": "event",
-      "signature": "0xd801906afa86b81fb33fa0eab9ba8b81c1a8d83cb8b94cbe9a592b19d432491b"
+      "name": "PayoutClaimed",
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -1956,8 +2205,7 @@
         }
       ],
       "name": "TaskCanceled",
-      "type": "event",
-      "signature": "0x1aa8a90c7d7a86bac690072d3f3d726bb8ebbe1989e158530440963f04c11eb2"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -1969,8 +2217,7 @@
         }
       ],
       "name": "DomainAdded",
-      "type": "event",
-      "signature": "0xdc725e59177226413e53f3af2d4ce462afe057a50f64a5cc1f4ba68995ee6e85"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -1982,8 +2229,7 @@
         }
       ],
       "name": "FundingPotAdded",
-      "type": "event",
-      "signature": "0x9024eafaee4bcbdf3af1f23bd5efd3ee4d269d3e5edb34589a9e406435c66ee5"
+      "type": "event"
     },
     {
       "constant": false,
@@ -1997,17 +2243,11 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x1e7b9cce"
+      "type": "function"
     },
     {
       "constant": false,
-      "inputs": [
-        {
-          "name": "_parentSkillId",
-          "type": "uint256"
-        }
-      ],
+      "inputs": [],
       "name": "addGlobalSkill",
       "outputs": [
         {
@@ -2017,8 +2257,21 @@
       ],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xeab9b8a6"
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_skillId",
+          "type": "uint256"
+        }
+      ],
+      "name": "deprecateGlobalSkill",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
       "constant": false,
@@ -2032,8 +2285,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x3424d1d7"
+      "type": "function"
     },
     {
       "constant": false,
@@ -2051,15 +2303,14 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x822514f9"
+      "type": "function"
     }
   ],
   "compiler": {
     "name": "solc",
-    "version": "0.4.23+commit.124ca40d.Linux.g++"
+    "version": "0.5.8+commit.23d335f2.Linux.g++"
   },
   "networks": {},
-  "schemaVersion": "3.0.1",
-  "updatedAt": "2019-02-14T11:08:23.199Z"
+  "schemaVersion": "3.0.9",
+  "updatedAt": "2019-06-10T17:31:15.705Z"
 }

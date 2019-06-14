@@ -11,8 +11,7 @@
         }
       ],
       "name": "ColonyNetworkSet",
-      "type": "event",
-      "signature": "0xaac08694cb36f6250aa0c27b058ab1542ec8a9289c0a3af21af36cdfaf1b46cc"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -29,8 +28,7 @@
         }
       ],
       "name": "TokenLocked",
-      "type": "event",
-      "signature": "0xf9626bca62c59d77fa45a204dc096874ee066a5c5e124aa9ce6c438dbdf7387a"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -52,8 +50,7 @@
         }
       ],
       "name": "UserTokenUnlocked",
-      "type": "event",
-      "signature": "0x66d1ba6a7bba8a64b1341777e1e7721371ab2824e4b50ec33c687036451fe7f0"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -80,8 +77,7 @@
         }
       ],
       "name": "UserTokenDeposited",
-      "type": "event",
-      "signature": "0xf55b0151d50819699161c8aded687da573680e059b1775eb51715a4e3100d9e9"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -103,8 +99,7 @@
         }
       ],
       "name": "UserTokenWithdrawn",
-      "type": "event",
-      "signature": "0x01e2c71b014f62b55400e8becdca80c6a907b5cc36c7a5789443c3ed5e579927"
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -126,8 +121,7 @@
         }
       ],
       "name": "ReputationMinerPenalised",
-      "type": "event",
-      "signature": "0x51cae99a709e7fb360c44b4b49079ac46304ab5b2322a2855a129811dafdefc3"
+      "type": "event"
     },
     {
       "constant": false,
@@ -141,8 +135,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x03e27b42"
+      "type": "function"
     },
     {
       "constant": true,
@@ -156,8 +149,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x4e5e8395"
+      "type": "function"
     },
     {
       "constant": false,
@@ -176,8 +168,7 @@
       ],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x10693fcd"
+      "type": "function"
     },
     {
       "constant": false,
@@ -199,8 +190,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x6d7bd889"
+      "type": "function"
     },
     {
       "constant": false,
@@ -218,8 +208,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xbf503823"
+      "type": "function"
     },
     {
       "constant": false,
@@ -237,8 +226,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x47e7ef24"
+      "type": "function"
     },
     {
       "constant": false,
@@ -256,8 +244,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xf3fef3a3"
+      "type": "function"
     },
     {
       "constant": false,
@@ -279,8 +266,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x1c20ed99"
+      "type": "function"
     },
     {
       "constant": true,
@@ -299,8 +285,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x1ca55574"
+      "type": "function"
     },
     {
       "constant": true,
@@ -337,15 +322,14 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x1cc17c52"
+      "type": "function"
     }
   ],
   "compiler": {
     "name": "solc",
-    "version": "0.4.23+commit.124ca40d.Linux.g++"
+    "version": "0.5.8+commit.23d335f2.Linux.g++"
   },
   "networks": {},
-  "schemaVersion": "3.0.1",
-  "updatedAt": "2019-02-14T11:08:23.181Z"
+  "schemaVersion": "3.0.9",
+  "updatedAt": "2019-06-10T17:31:15.713Z"
 }
