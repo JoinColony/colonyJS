@@ -22,6 +22,7 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "@colony/colony-cli": "^1.0.0-beta.6",
     "@colony/colony-js-client": "^1.11.2",
     "@colony/purser-metamask": "^2.2.0",
     "@colony/purser-software": "^1.2.4",

@@ -1312,7 +1312,7 @@
     lodash.isplainobject "^4.0.6"
     web3-utils "^1.0.0-beta.55"
 
-"@colony/colony-js-contract-loader-http@^1.10.0", "@colony/colony-js-contract-loader-http@^1.12.0":
+"@colony/colony-js-contract-loader-http@^1.12.0":
   version "1.12.0"
   resolved "https://registry.yarnpkg.com/@colony/colony-js-contract-loader-http/-/colony-js-contract-loader-http-1.12.0.tgz#ba3f6e735cd29649d6d86a6c67dbdad48ac7f26b"
   integrity sha512-2MlGNNsqj2twY3XCRxhDlVhN6XAZZE/Qs7mAiEjdC8K7YsyH1ggNBoS4LeSK7nGoiL67lo1sWXDNuFv532xRMQ==
@@ -5538,17 +5538,7 @@ concat-stream@1.6.2, concat-stream@^1.5.0, concat-stream@^1.6.0, concat-stream@^
     readable-stream "^2.2.2"
     typedarray "^0.0.6"
 
-concat-stream@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/concat-stream/-/concat-stream-2.0.0.tgz#414cf5af790a48c60ab9be4527d56d5e41133cb1"
-  integrity sha512-MWufYdFw53ccGjCA+Ol7XJYpAlW6/prSMzuPOTRnJGcGzuhLn4Scrz7qf6o8bROZ514ltazcIFJZevcfbo0x7A==
-  dependencies:
-    buffer-from "^1.0.0"
-    inherits "^2.0.3"
-    readable-stream "^3.0.2"
-    typedarray "^0.0.6"
-
-"concat-stream@github:hugomrdias/concat-stream#feat/smaller":
+concat-stream@^2.0.0, "concat-stream@github:hugomrdias/concat-stream#feat/smaller":
   version "2.0.0"
   resolved "https://codeload.github.com/hugomrdias/concat-stream/tar.gz/057bc7b5d6d8df26c8cf00a3f151b6721a0a8034"
   dependencies:
