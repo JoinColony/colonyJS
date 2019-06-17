@@ -2,6 +2,10 @@
 
 ## next
 
+**New Feature**
+
+* Add `getColonyClient` method (`@colony/colony-js-client`)
+
 **Bug Fixes**
 
 * Fix `DomainAuth` sender to account for `defaultValues` (`@colony/colony-js-client`)
