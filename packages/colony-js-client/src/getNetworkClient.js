@@ -17,6 +17,7 @@ const getInfuraProvider = (network: string, infuraProjectId?: string) => {
   let host;
   switch (network) {
     case 'homestead':
+    case 'mainnet':
       host = 'mainnet.infura.io';
       break;
     case 'goerli':

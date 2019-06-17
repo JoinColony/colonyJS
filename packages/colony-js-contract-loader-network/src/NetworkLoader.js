@@ -9,9 +9,10 @@ import type { RequiredContractProps } from '@colony/colony-js-contract-loader';
 
 const NETWORKS = {
   GOERLI: 'goerli',
+  MAINNET: 'mainnet',
 };
 
-const DEFAULT_NETWORK = NETWORKS.GOERLI;
+const DEFAULT_NETWORK = NETWORKS.MAINNET;
 
 type Network = $Values<typeof NETWORKS>;
 
@@ -19,61 +20,49 @@ const LATEST_VERSION = 2;
 
 const CONTRACTS_MANIFEST = {
   versioned: {
-    [NETWORKS.GOERLI]: {
-      '1': [
-        'EtherRouter',
-        'IColony',
-        'IColonyNetwork',
-        'IMetaColony',
-        'IRecovery',
-        'ITokenLocking',
-        'OldRoles',
-        'OldRolesFactory',
-        'OneTxPayment',
-        'OneTxPaymentFactory',
-        'Token',
-        'TokenAuthority',
-      ],
-      '2': [
-        'EtherRouter',
-        'IColony',
-        'IColonyNetwork',
-        'IMetaColony',
-        'IRecovery',
-        'ITokenLocking',
-        'OldRoles',
-        'OldRolesFactory',
-        'OneTxPayment',
-        'OneTxPaymentFactory',
-        'Token',
-        'TokenAuthority',
-      ],
-    },
+    '1': [
+      'EtherRouter',
+      'IColony',
+      'IColonyNetwork',
+      'IMetaColony',
+      'IRecovery',
+      'ITokenLocking',
+      'OldRoles',
+      'OldRolesFactory',
+      'OneTxPayment',
+      'OneTxPaymentFactory',
+      'Token',
+      'TokenAuthority',
+    ],
+    '2': [
+      'EtherRouter',
+      'IColony',
+      'IColonyNetwork',
+      'IMetaColony',
+      'IRecovery',
+      'ITokenLocking',
+      'OldRoles',
+      'OldRolesFactory',
+      'OneTxPayment',
+      'OneTxPaymentFactory',
+      'Token',
+      'TokenAuthority',
+    ],
   },
 };
 
 const VERSIONED_CONTRACTS = Object.entries(CONTRACTS_MANIFEST.versioned).reduce(
-  (networks, [network, versions]) =>
-    Object.assign(
-      networks,
-      {
-        [network]: Object.entries(versions).reduce(
-          (versionedContracts, [version, contractNames]) =>
-            Object.assign(versionedContracts, {
-              [version]: contractNames.reduce(
-                (contracts, contractName) =>
-                  Object.assign(contracts, {
-                    // eslint-disable-next-line global-require, import/no-dynamic-require, max-len
-                    [contractName]: require(`../contracts/versioned/${network}-v${version}/${contractName}.json`),
-                  }),
-                {},
-              ),
-            }),
-          {},
-        ),
-      },
-      {},
-    ),
+  (versionedContracts, [version, contractNames]) =>
+    Object.assign(versionedContracts, {
+      [version]: contractNames.reduce(
+        (contracts, contractName) =>
+          Object.assign(contracts, {
+            // eslint-disable-next-line global-require, import/no-dynamic-require, max-len
+            [contractName]: require(`../contracts/versioned/v${version}/${contractName}.json`),
+          }),
+        {},
+      ),
+    }),
   {},
 );
 
@@ -95,15 +84,14 @@ class NetworkLoader extends ContractLoader {
     assert(!!version, 'A valid `version` option must be provided');
 
     const contract =
-      VERSIONED_CONTRACTS[network] &&
-      VERSIONED_CONTRACTS[network][version] &&
-      VERSIONED_CONTRACTS[network][version][contractName];
+      VERSIONED_CONTRACTS[version] &&
+      VERSIONED_CONTRACTS[version][contractName];
 
     if (contract) return this._transform(contract, networkQuery, requiredProps);
 
     throw new Error(
       // eslint-disable-next-line max-len
-      `Contract ${contractName} with version ${version} not found in ${network}`,
+      `Contract ${contractName} with version ${version} not found on ${network}`,
     );
   }
 }

@@ -15,7 +15,9 @@
 
 **New Features**
 
-* Added `goerli` version 2 deployment to network loader (`@colony/colony-js-contract-loader-network`)
+* Added `mainnet` option to `getNetworkClient` (`@colony/colony-js-client`)
+* Added `mainnet` support to network loader (`@colony/colony-js-contract-loader-network`)
+* Added version 2 deployment to network loader (`@colony/colony-js-contract-loader-network`)
 
 **Maintenance**
 
