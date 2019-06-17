@@ -16,6 +16,7 @@ export const defaultInfuraProjectId = '7d0d81d0919f4f05b9ab6634be01ee73';
 const getInfuraProvider = (network: string, infuraProjectId?: string) => {
   let host;
   switch (network) {
+    case 'homestead':
     case 'mainnet':
       host = 'mainnet.infura.io';
       break;
