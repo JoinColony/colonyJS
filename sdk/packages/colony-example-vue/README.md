@@ -42,11 +42,12 @@ yarn seed-network
 ### Save purser private key
 
 `colony-example-vue` uses "@colony/purser-software" when running in `'development'` mode.  
-Pick a private key output by `ganache`, and include it in an [.env.local](https://cli.vuejs.org/guide/mode-and-env.html#environment-variables) file at the root of the project like this.
+Automatically, a private key from ganache is used.  
+
+In case you need to override it, pick a private key output by `ganache`, and include it in an [.env.local](https://cli.vuejs.org/guide/mode-and-env.html#environment-variables) file at the root of the project like this.
 ```
 VUE_APP_PURSER_PRIVATE_KEY=<ganache private key>
 ```
-(This will be used by `purser-software`)
 
 ## Testing
 
