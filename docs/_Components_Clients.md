@@ -12,6 +12,13 @@ Use `getNetworkClient` to get an instance of [ColonyNetworkClient](/colonyjs/api
 
 ```js
 
+// Import the getNetworkClient method
+const { getNetworkClient } = require('@colony/colony-js-client');
+
+```
+
+```js
+
 // Get the network client using the local network
 const networkClient = getNetworkClient('local', wallet);
 
@@ -48,6 +55,13 @@ See [Adapters](/colonyjs/components-adapters) for more information about adapter
 ## Colony Client
 
 Use `getColonyClient` to get an instance of [ColonyClient](/colonyjs/api-colonyclient):
+
+```js
+
+// Import the getColonyClient method
+const { getColonyClient } = require('@colony/colony-js-client');
+
+```
 
 ```js
 
