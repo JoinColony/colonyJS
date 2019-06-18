@@ -24,6 +24,13 @@ const networkClient = getNetworkClient('goerli', wallet);
 
 ```
 
+```js
+
+// Get the network client using the main network
+const networkClient = getNetworkClient('mainnet', wallet);
+
+```
+
 
 If you are using this method with the `local` option, you will need to have [trufflepig](https://github.com/JoinColony/trufflepig) installed and running. We recommend using [purser](/purser/docs-overview) to get a wallet instance but you can also use [ethers](https://github.com/ethers-io/ethers.js/).
 
