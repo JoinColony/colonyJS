@@ -48,4 +48,8 @@ export default {
 .field {
   margin-bottom: 5px;
 }
+
+pre {
+  background-color: #80808017;
+}
 </style>
