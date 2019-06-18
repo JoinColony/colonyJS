@@ -31,7 +31,6 @@ const networkClient = getNetworkClient('mainnet', wallet);
 
 ```
 
-
 If you are using this method with the `local` option, you will need to have [trufflepig](https://github.com/JoinColony/trufflepig) installed and running. We recommend using [purser](/purser/docs-overview) to get a wallet instance but you can also use [ethers](https://github.com/ethers-io/ethers.js/).
 
 Alternatively, you can create an instance of [ColonyNetworkClient](/colonyjs/api-colonynetworkclient) by instantiating its class using an adapter and then initializing it using the `init` method:
@@ -48,7 +47,32 @@ See [Adapters](/colonyjs/components-adapters) for more information about adapter
 
 ## Colony Client
 
-Ask the [ColonyNetworkClient](/colonyjs/api-colonynetworkclient) for an instance of [ColonyClient](/colonyjs/api-colonyclient):
+Use `getColonyClient` to get an instance of [ColonyClient](/colonyjs/api-colonyclient):
+
+```js
+
+// Get the colony client using the local network
+const colonyClient = getColonyClient(colonyAddress, 'local', wallet);
+
+```
+
+```js
+
+// Get the colony client using the goerli network
+const colonyClient = getColonyClient(colonyAddress, 'goerli', wallet);
+
+```
+
+```js
+
+// Get the colony client using the main network
+const colonyClient = getColonyClient(colonyAddress, 'mainnet', wallet);
+
+```
+
+If you are using this method with the `local` option, you will need to have [trufflepig](https://github.com/JoinColony/trufflepig) installed and running. We recommend using [purser](/purser/docs-overview) to get a wallet instance but you can also use [ethers](https://github.com/ethers-io/ethers.js/).
+
+Alternatively, you can get an instance of [ColonyClient](/colonyjs/api-colonyclient) from the [ColonyNetworkClient](/colonyjs/api-colonynetworkclient):
 
 ```js
 
@@ -56,7 +80,7 @@ const colonyClient = await networkClient.getColonyClient(colonyId);
 
 ```
 
-Alternatively, you can create an instance of [ColonyClient](/colonyjs/api-colonyclient) by instantiating the [ColonyClient](/colonyjs/api-colonyclient) class using an adapter and query and then initializing it using the `init` method:
+And like [ColonyNetworkClient](/colonyjs/api-colonynetworkclient), you can create an instance of [ColonyClient](/colonyjs/api-colonyclient) by instantiating the [ColonyClient](/colonyjs/api-colonyclient) class using an adapter and query and then initializing it using the `init` method:
 
 ```js
 
