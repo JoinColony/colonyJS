@@ -29,7 +29,7 @@ await tokenLockingClient.getTotalLockCount.call({
 
 |Name|Type|Description|
 |---|---|---|
-|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
+|token|any address|The address of the token contract (an empty address if Ether).|
 
 **Response**
 
@@ -65,7 +65,7 @@ await tokenLockingClient.getUserLock.call({
 
 |Name|Type|Description|
 |---|---|---|
-|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
+|token|any address|The address of the token contract (an empty address if Ether).|
 |user|address|The address of the user.|
 
 **Response**
@@ -106,7 +106,7 @@ await tokenLockingClient.deposit.send({
 
 |Name|Type|Description|
 |---|---|---|
-|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
+|token|any address|The address of the token contract (an empty address if Ether).|
 |amount|big number|The amount of tokens that will be deposited.|
 
 **Options**
@@ -119,7 +119,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Name|Type|Description|
 |---|---|---|
-|token|address (0x0 included)|The address of the token contract receiving the deposit.|
+|token|any address|The address of the token contract receiving the deposit.|
 |user|address|The address of the user that deposited tokens.|
 |amount|big number|The amount of tokens that were deposited.|
 |timestamp|date|The timestamp when the tokens were deposited.|
@@ -152,7 +152,7 @@ await tokenLockingClient.lockToken.send({
 
 |Name|Type|Description|
 |---|---|---|
-|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
+|token|any address|The address of the token contract (an empty address if Ether).|
 
 **Options**
 
@@ -164,7 +164,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Name|Type|Description|
 |---|---|---|
-|token|address (0x0 included)|The address of the token contract that was locked.|
+|token|any address|The address of the token contract that was locked.|
 |lockCount|big number|The address of the token contract that was assigned.|
 |TokenLocked|object|Contains the data defined in [TokenLocked](#eventstokenlocked)|
 
@@ -196,7 +196,7 @@ await tokenLockingClient.incrementLockCounterTo.send({
 
 |Name|Type|Description|
 |---|---|---|
-|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
+|token|any address|The address of the token contract (an empty address if Ether).|
 |lockId|number|The ID of the lock count that will be set.|
 
 **Options**
@@ -238,7 +238,7 @@ await tokenLockingClient.unlockTokenForUser.send({
 
 |Name|Type|Description|
 |---|---|---|
-|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
+|token|any address|The address of the token contract (an empty address if Ether).|
 |user|address|The address of the user.|
 |lockId|number|The ID of the lock count that will be set.|
 
@@ -252,7 +252,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Name|Type|Description|
 |---|---|---|
-|token|address (0x0 included)|The address of the token contract that was unlocked.|
+|token|any address|The address of the token contract that was unlocked.|
 |user|address|The address of the user that the tokens were unlocked for.|
 |lockId|number|The ID of the lock that the was set for the user.|
 |UserTokenUnlocked|object|Contains the data defined in [UserTokenUnlocked](#eventsusertokenunlocked)|
@@ -285,7 +285,7 @@ await tokenLockingClient.withdraw.send({
 
 |Name|Type|Description|
 |---|---|---|
-|token|address (0x0 included)|The address of the token contract (an empty address if Ether).|
+|token|any address|The address of the token contract (an empty address if Ether).|
 |amount|big number|The amount of tokens that will be deposited.|
 
 **Options**
@@ -298,7 +298,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 
 |Name|Type|Description|
 |---|---|---|
-|token|address (0x0 included)|The address of the token contract from which tokens were withdrawn.|
+|token|any address|The address of the token contract from which tokens were withdrawn.|
 |user|address|The address of the user that withdrew tokens.|
 |amount|big number|The amount of tokens that were withdrawn.|
 |UserTokenWithdrawn|object|Contains the data defined in [UserTokenWithdrawn](#eventsusertokenwithdrawn)|
@@ -352,7 +352,7 @@ tokenLockingClient.events.TokenLocked.removeListener(eventHandler);
 
 |Name|Type|Description|
 |---|---|---|
-|token|address (0x0 included)|The address of the token contract that was locked.|
+|token|any address|The address of the token contract that was locked.|
 |lockCount|big number|The address of the token contract that was assigned.|
 
 
@@ -390,7 +390,7 @@ tokenLockingClient.events.UserTokenDeposited.removeListener(eventHandler);
 
 |Name|Type|Description|
 |---|---|---|
-|token|address (0x0 included)|The address of the token contract receiving the deposit.|
+|token|any address|The address of the token contract receiving the deposit.|
 |user|address|The address of the user that deposited tokens.|
 |amount|big number|The amount of tokens that were deposited.|
 |timestamp|date|The timestamp when the tokens were deposited.|
@@ -429,7 +429,7 @@ tokenLockingClient.events.UserTokenUnlocked.removeListener(eventHandler);
 
 |Name|Type|Description|
 |---|---|---|
-|token|address (0x0 included)|The address of the token contract that was unlocked.|
+|token|any address|The address of the token contract that was unlocked.|
 |user|address|The address of the user that the tokens were unlocked for.|
 |lockId|number|The ID of the lock that the was set for the user.|
 
@@ -467,6 +467,6 @@ tokenLockingClient.events.UserTokenWithdrawn.removeListener(eventHandler);
 
 |Name|Type|Description|
 |---|---|---|
-|token|address (0x0 included)|The address of the token contract from which tokens were withdrawn.|
+|token|any address|The address of the token contract from which tokens were withdrawn.|
 |user|address|The address of the user that withdrew tokens.|
 |amount|big number|The amount of tokens that were withdrawn.|
