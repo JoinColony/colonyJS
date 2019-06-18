@@ -1401,51 +1401,6 @@ Contract: [ColonyNetworkMining.sol](https://github.com/JoinColony/colonyNetwork/
 Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/glider/contracts/IColonyNetwork.sol)
   
 
-### `registerColonyLabel`
-
-Register an ENS label for a colony.
-
-```js
-await colonyNetworkClient.registerColonyLabel.send({
-  colonyName,
-  orbitDBPath,
-}, options);
-```
-
-
-**Input**
-
-|Name|Type|Description|
-|---|---|---|
-|colonyName|string|The ENS label that will be registered for the colony.|
-|orbitDBPath|string|The path of the OrbitDB database associated with the colony.|
-
-**Options**
-
-See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
-
-**Response**
-
-An instance of a `ContractResponse` which will eventually receive the following event data:
-
-|Name|Type|Description|
-|---|---|---|
-|colony|address|The address of the colony that registered a label.|
-|label|string|The ENS label that was registered for the colony.|
-|ColonyLabelRegistered|object|Contains the data defined in [ColonyLabelRegistered](#eventscolonylabelregistered)|
-
-See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
-
-**Contract Information**
-
-
-  
-  
-Contract: [ColonyNetworkENS.sol](https://github.com/JoinColony/colonyNetwork/tree/glider/contracts/ColonyNetworkENS.sol)
-  
-Interface: [IColonyNetwork.sol](https://github.com/JoinColony/colonyNetwork/tree/glider/contracts/IColonyNetwork.sol)
-  
-
 ### `registerUserLabel`
 
 Register an ENS label for a user.
@@ -1463,7 +1418,7 @@ await colonyNetworkClient.registerUserLabel.send({
 |Name|Type|Description|
 |---|---|---|
 |username|string|The ENS label that will be registered for the user.|
-|orbitDBPath|string|The path of the OrbitDB database associated with the user.|
+|orbitDBPath|string (optional)|The path of the OrbitDB database associated with the user.|
 
 **Options**
 

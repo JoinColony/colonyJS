@@ -2001,7 +2001,7 @@ await colonyClient.registerColonyLabel.send({
 |Name|Type|Description|
 |---|---|---|
 |colonyName|string|The ENS label that will be registered for the colony.|
-|orbitDBPath|string|The path of the OrbitDB database associated with the colony.|
+|orbitDBPath|string (optional)|The path of the OrbitDB database associated with the colony.|
 
 **Options**
 
