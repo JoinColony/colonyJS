@@ -1208,7 +1208,7 @@ export default class ColonyClient extends ContractClient {
   registerColonyLabel: ColonyClient.Sender<
     {
       colonyName: string, // The ENS label that will be registered for the colony.
-      orbitDBPath: string, // The path of the OrbitDB database associated with the colony.
+      orbitDBPath: ?string, // The path of the OrbitDB database associated with the colony.
     },
     {
       ColonyLabelRegistered: ColonyLabelRegistered,
@@ -2625,6 +2625,9 @@ export default class ColonyClient extends ContractClient {
     });
     this.addSender('registerColonyLabel', {
       input: [['colonyName', 'string'], ['orbitDBPath', 'string']],
+      defaultValues: {
+        orbitDBPath: '',
+      },
     });
     this.addSender('removeAdminRole', {
       input: [['user', 'address']],

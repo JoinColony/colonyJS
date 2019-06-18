@@ -761,31 +761,12 @@ export default class ColonyNetworkClient extends ContractClient {
   >;
 
   /*
-  Register an ENS label for a colony.
-  */
-  registerColonyLabel: ColonyNetworkClient.Sender<
-    {
-      colonyName: string, // The ENS label that will be registered for the colony.
-      orbitDBPath: string, // The path of the OrbitDB database associated with the colony.
-    },
-    {
-      ColonyLabelRegistered: ColonyLabelRegistered,
-    },
-    ColonyNetworkClient,
-    {
-      contract: 'ColonyNetworkENS.sol',
-      interface: 'IColonyNetwork.sol',
-      version: 'glider',
-    },
-  >;
-
-  /*
   Register an ENS label for a user.
   */
   registerUserLabel: ColonyNetworkClient.Sender<
     {
       username: string, // The ENS label that will be registered for the user.
-      orbitDBPath: string, // The path of the OrbitDB database associated with the user.
+      orbitDBPath: ?string, // The path of the OrbitDB database associated with the user.
     },
     {
       UserLabelRegistered: UserLabelRegistered,
@@ -1300,11 +1281,11 @@ export default class ColonyNetworkClient extends ContractClient {
       input: [['skillId', 'number']],
     });
     this.addSender('initialiseReputationMining', {});
-    this.addSender('registerColonyLabel', {
-      input: [['colonyName', 'string'], ['orbitDBPath', 'string']],
-    });
     this.addSender('registerUserLabel', {
       input: [['username', 'string'], ['orbitDBPath', 'string']],
+      defaultValues: {
+        orbitDBPath: '',
+      },
     });
     this.addSender('setMiningResolver', {
       input: [['miningResolverAddress', 'address']],
