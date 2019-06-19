@@ -2,9 +2,12 @@
 
 ## next
 
-**New Feature**
+**New Features**
 
 * Add `getColonyClient` method (`@colony/colony-js-client`)
+* Add `mainnet` option to `getNetworkClient` (`@colony/colony-js-client`)
+* Add `mainnet` support to network loader (`@colony/colony-js-contract-loader-network`)
+* Add version 2 deployment to network loader (`@colony/colony-js-contract-loader-network`)
 
 **Bug Fixes**
 
@@ -13,14 +16,9 @@
 * Patch `lookupRegisteredENSDomain` for testnets. Domains were previously being returned ending in `.eth` on networks where the deployed ENS uses the `.test` TLD (`@colony/colony-js-client`)
 * Fix `getLogs` method to correctly format topic filters (`@colony/colony-js-contract-client`)
 
-**New Features**
-
-* Added `mainnet` option to `getNetworkClient` (`@colony/colony-js-client`)
-* Added `mainnet` support to network loader (`@colony/colony-js-contract-loader-network`)
-* Added version 2 deployment to network loader (`@colony/colony-js-contract-loader-network`)
-
 **Maintenance**
 
+* Update `getReputation` method for use with `mainnet` and `goerli` (`@colony/colony-js-client`)
 * Add `ColonyRoleSet` event, which replaces the existing role set events as the output of any methods which previously used them. The existing events remain in the client for the purpose of parsing logs which were created by previous versions of the contract (`@colony/colony-js-client`)
 * Improve thrown error for `DomainAuth` sender methods when the current address does not have permission (`@colony/colony-js-client`)
 * Remove `rinkeby` deployments from network loader, as they are no longer supported (`@colony/colony-js-contract-loader-network`)
