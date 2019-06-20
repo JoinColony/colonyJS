@@ -35,4 +35,4 @@ await networkClient.getReputation.send({
 
 ```
 
-*Note: Currently this method is only supported on goerli and mainnet.*
+*Note: This method will not work when connected to a local test network. This method will only work when connected to goerli or mainnet.*
