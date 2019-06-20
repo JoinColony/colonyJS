@@ -19,7 +19,7 @@ To get the reputation score for a given address within a particular domain or sk
 // Get reputation using colony client
 await colonyClient.getReputation.send({
   skillId: 1,
-  user: '0x0...',
+  address: '0x0...',
 });
 
 ```
@@ -30,9 +30,9 @@ await colonyClient.getReputation.send({
 await networkClient.getReputation.send({
   colonyAddress: '0x0...',
   skillId: 1,
-  user: '0x0...',
+  address: '0x0...',
 });
 
 ```
 
-*Note: Currently this method is only supported on rinkeby.*
+*Note: This method will not work when connected to a local test network. This method will only work when connected to goerli or mainnet.*

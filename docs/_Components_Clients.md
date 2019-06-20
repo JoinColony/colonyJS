@@ -12,6 +12,13 @@ Use `getNetworkClient` to get an instance of [ColonyNetworkClient](/colonyjs/api
 
 ```js
 
+// Import the getNetworkClient method
+const { getNetworkClient } = require('@colony/colony-js-client');
+
+```
+
+```js
+
 // Get the network client using the local network
 const networkClient = getNetworkClient('local', wallet);
 
@@ -24,6 +31,21 @@ const networkClient = getNetworkClient('goerli', wallet);
 
 ```
 
+```js
+
+// Get the network client using the main network
+const networkClient = getNetworkClient('mainnet', wallet);
+
+```
+
+If you would like to use a specific Infura Project ID, you can pass it in as a third parameter.
+
+```js
+
+// Get the network client using the main network using a Infura Project ID
+const networkClient = getNetworkClient('mainnet', wallet, infuraProjectId);
+
+```
 
 If you are using this method with the `local` option, you will need to have [trufflepig](https://github.com/JoinColony/trufflepig) installed and running. We recommend using [purser](/purser/docs-overview) to get a wallet instance but you can also use [ethers](https://github.com/ethers-io/ethers.js/).
 
@@ -41,7 +63,53 @@ See [Adapters](/colonyjs/components-adapters) for more information about adapter
 
 ## Colony Client
 
-Ask the [ColonyNetworkClient](/colonyjs/api-colonynetworkclient) for an instance of [ColonyClient](/colonyjs/api-colonyclient):
+Use `getColonyClient` to get an instance of [ColonyClient](/colonyjs/api-colonyclient):
+
+```js
+
+// Import the getColonyClient method
+const { getColonyClient } = require('@colony/colony-js-client');
+
+```
+
+```js
+
+// Get the colony client using the local network
+const colonyClient = getColonyClient(colonyAddress, 'local', wallet);
+
+```
+
+```js
+
+// Get the colony client using the goerli network
+const colonyClient = getColonyClient(colonyAddress, 'goerli', wallet);
+
+```
+
+```js
+
+// Get the colony client using the main network
+const colonyClient = getColonyClient(colonyAddress, 'mainnet', wallet);
+
+```
+
+If you would like to use a specific Infura Project ID, you can pass it in as a fourth parameter.
+
+```js
+
+// Get the network client using the main network using a specific Infura Project ID
+const networkClient = getColonyClient(
+  colonyAddress,
+  'mainnet',
+  wallet,
+  infuraProjectId,
+);
+
+```
+
+If you are using this method with the `local` option, you will need to have [trufflepig](https://github.com/JoinColony/trufflepig) installed and running. We recommend using [purser](/purser/docs-overview) to get a wallet instance but you can also use [ethers](https://github.com/ethers-io/ethers.js/).
+
+Alternatively, you can get an instance of [ColonyClient](/colonyjs/api-colonyclient) from the [ColonyNetworkClient](/colonyjs/api-colonynetworkclient):
 
 ```js
 
@@ -49,7 +117,7 @@ const colonyClient = await networkClient.getColonyClient(colonyId);
 
 ```
 
-Alternatively, you can create an instance of [ColonyClient](/colonyjs/api-colonyclient) by instantiating the [ColonyClient](/colonyjs/api-colonyclient) class using an adapter and query and then initializing it using the `init` method:
+And like [ColonyNetworkClient](/colonyjs/api-colonynetworkclient), you can create an instance of [ColonyClient](/colonyjs/api-colonyclient) by instantiating the [ColonyClient](/colonyjs/api-colonyclient) class using an adapter and query and then initializing it using the `init` method:
 
 ```js
 

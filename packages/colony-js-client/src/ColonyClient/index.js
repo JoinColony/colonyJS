@@ -1208,7 +1208,7 @@ export default class ColonyClient extends ContractClient {
   registerColonyLabel: ColonyClient.Sender<
     {
       colonyName: string, // The ENS label that will be registered for the colony.
-      orbitDBPath: string, // The path of the OrbitDB database associated with the colony.
+      orbitDBPath: ?string, // The path of the OrbitDB database associated with the colony.
     },
     {
       ColonyLabelRegistered: ColonyLabelRegistered,
@@ -2625,6 +2625,9 @@ export default class ColonyClient extends ContractClient {
     });
     this.addSender('registerColonyLabel', {
       input: [['colonyName', 'string'], ['orbitDBPath', 'string']],
+      defaultValues: {
+        orbitDBPath: '',
+      },
     });
     this.addSender('removeAdminRole', {
       input: [['user', 'address']],
@@ -2824,26 +2827,43 @@ export default class ColonyClient extends ContractClient {
     });
   }
 
+  /*
+  Get the reputation of an address within this colony for the given `skillId`.
+  */
   async getReputation({
-    skillId = 1,
-    user,
+    skillId,
+    address,
   }: {
     skillId: number,
-    user: Address,
+    address: Address,
   } = {}) {
     assert(Number.isFinite(skillId), 'skillId must be a number');
-    assert(isValidAddress(user), 'user must be an address');
+    assert(isValidAddress(address), 'address must be an address');
 
-    if (this.network !== 'rinkeby')
-      throw new Error(
-        'Reputation is currently only supported for contracts on Rinkeby',
-      );
+    // Throw error if private network
+    if (typeof this.network === 'undefined') {
+      throw new Error('This method is not supported on a private network');
+    }
 
+    // Throw error if not goerli or mainnet
+    if (
+      this.network !== 'goerli' &&
+      this.network !== 'mainnet' &&
+      this.network !== 'homestead'
+    ) {
+      throw new Error('This method is only supported on goerli or mainnet');
+    }
+
+    // Get the current reputation root hash
+    const { rootHash } = await this.networkClient.getReputationRootHash.call();
+
+    // Fetch current reputation
     const response = await fetch(
-      `https://colony.io/reputation/${this.network}/${
+      `https://colony.io/reputation/${this.network}/${rootHash}/${
         this.contract.address
-      }]/${skillId}/${user}`,
+      }/${skillId}/${address}`,
     );
+
     return response.json();
   }
 }

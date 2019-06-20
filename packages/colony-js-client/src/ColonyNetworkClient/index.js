@@ -761,31 +761,12 @@ export default class ColonyNetworkClient extends ContractClient {
   >;
 
   /*
-  Register an ENS label for a colony.
-  */
-  registerColonyLabel: ColonyNetworkClient.Sender<
-    {
-      colonyName: string, // The ENS label that will be registered for the colony.
-      orbitDBPath: string, // The path of the OrbitDB database associated with the colony.
-    },
-    {
-      ColonyLabelRegistered: ColonyLabelRegistered,
-    },
-    ColonyNetworkClient,
-    {
-      contract: 'ColonyNetworkENS.sol',
-      interface: 'IColonyNetwork.sol',
-      version: 'glider',
-    },
-  >;
-
-  /*
   Register an ENS label for a user.
   */
   registerUserLabel: ColonyNetworkClient.Sender<
     {
       username: string, // The ENS label that will be registered for the user.
-      orbitDBPath: string, // The path of the OrbitDB database associated with the user.
+      orbitDBPath: ?string, // The path of the OrbitDB database associated with the user.
     },
     {
       UserLabelRegistered: UserLabelRegistered,
@@ -1300,11 +1281,11 @@ export default class ColonyNetworkClient extends ContractClient {
       input: [['skillId', 'number']],
     });
     this.addSender('initialiseReputationMining', {});
-    this.addSender('registerColonyLabel', {
-      input: [['colonyName', 'string'], ['orbitDBPath', 'string']],
-    });
     this.addSender('registerUserLabel', {
       input: [['username', 'string'], ['orbitDBPath', 'string']],
+      defaultValues: {
+        orbitDBPath: '',
+      },
     });
     this.addSender('setMiningResolver', {
       input: [['miningResolverAddress', 'address']],
@@ -1345,31 +1326,45 @@ export default class ColonyNetworkClient extends ContractClient {
   }
 
   /*
-  Get the reputation of a user within a colony for the given `skillId`.
+  Get the reputation of an address within a colony for the given `skillId`.
   */
   async getReputation({
     colonyAddress,
-    skillId = 1,
-    user,
+    skillId,
+    address,
   }: {
-    skillId: number,
     colonyAddress: Address,
-    user: Address,
-  }) {
-    assert(Number.isFinite(skillId), 'skillId must be a number');
-    assert(isValidAddress(user), 'user must be an address');
+    skillId: number,
+    address: Address,
+  } = {}) {
     assert(isValidAddress(colonyAddress), 'colonyAddress must be an address');
+    assert(Number.isFinite(skillId), 'skillId must be a number');
+    assert(isValidAddress(address), 'address must be an address');
 
-    if (this.network !== 'rinkeby')
-      throw new Error(
-        'Reputation is currently only supported for contracts on Rinkeby',
-      );
+    // Throw error if private network
+    if (typeof this.network === 'undefined') {
+      throw new Error('This method is not supported on a private network');
+    }
 
+    // Throw error if not goerli or mainnet
+    if (
+      this.network !== 'goerli' &&
+      this.network !== 'mainnet' &&
+      this.network !== 'homestead'
+    ) {
+      throw new Error('This method is only supported on goerli or mainnet');
+    }
+
+    // Get the current reputation root hash
+    const { rootHash } = await this.getReputationRootHash.call();
+
+    // Fetch current reputation
     const response = await fetch(
       `https://colony.io/reputation/${
         this.network
-      }/${colonyAddress}]/${skillId}/${user}`,
+      }/${rootHash}/${colonyAddress}/${skillId}/${address}`,
     );
+
     return response.json();
   }
 }
