@@ -21,7 +21,7 @@ Get the token allowance of an address. The allowance is the amount of tokens tha
 ```js
 await tokenClient.getAllowance.call({
   sourceAddress,
-  user,
+  address,
 });
 ```
 
@@ -31,7 +31,7 @@ await tokenClient.getAllowance.call({
 |Name|Type|Description|
 |---|---|---|
 |sourceAddress|address|The address that approved the allowance (the token `owner`).|
-|user|address|The address that was approved for the allowance (the token `spender`).|
+|address|address|The address that was approved for the allowance (the token `spender`).|
 
 **Response**
 
@@ -109,7 +109,7 @@ A promise which resolves to an object containing the following properties:
 
   
   
-Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/59cf56f18c54c0bc749ddaa8b6d77ebfd0d0aaf4/contracts/Token.sol)
+Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/8e5139586018fbaa53e9cf971e040b3ae2a4bb92/contracts/Token.sol)
   
   
 
@@ -177,7 +177,7 @@ Approve a token allowance. This function can only be called by the token `owner`
 
 ```js
 await tokenClient.approve.send({
-  user,
+  address,
   amount,
 }, options);
 ```
@@ -187,7 +187,7 @@ await tokenClient.approve.send({
 
 |Name|Type|Description|
 |---|---|---|
-|user|address|The address that will be approved for the allowance (the token `spender`).|
+|address|address|The address that will be approved for the allowance (the token `spender`).|
 |amount|big number|The amount of tokens that will be approved (the amount `allowed`).|
 
 **Options**
@@ -218,11 +218,11 @@ Contract: [base.sol](https://github.com/dapphub/dappsys-monolithic/blob/de9114c5
 
 ### `burn`
 
-Burn tokens. This is a `DSToken` function that can only be called by the token `owner`. When a colony contract address is assigned as the token `owner`, this function can only be called by the user assigned the `FOUNDER` authority role.
+Burn tokens. This function can only be called by the token owner or an address with authority.
 
 ```js
 await tokenClient.burn.send({
-  user,
+  address,
   amount,
 }, options);
 ```
@@ -232,7 +232,7 @@ await tokenClient.burn.send({
 
 |Name|Type|Description|
 |---|---|---|
-|user|address|The address from which the tokens will be burned.|
+|address|address|The address from which the tokens will be burned.|
 |amount|big number|The amount of tokens that will be burned.|
 
 **Options**
@@ -256,7 +256,7 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/59cf56f18c54c0bc749ddaa8b6d77ebfd0d0aaf4/contracts/Token.sol)
+Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/8e5139586018fbaa53e9cf971e040b3ae2a4bb92/contracts/Token.sol)
   
   
 
@@ -298,17 +298,17 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/59cf56f18c54c0bc749ddaa8b6d77ebfd0d0aaf4/contracts/Token.sol)
+Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/8e5139586018fbaa53e9cf971e040b3ae2a4bb92/contracts/Token.sol)
   
   
 
 ### `mint`
 
-Mint new tokens. This is a `DSToken` function that can only be called by the token `owner`. When a colony contract address is assigned as the token `owner`, this function can only be called by the user assigned the `FOUNDER` authority role.
+Mint new tokens. This function can only be called by the token owner or an address with authority.
 
 ```js
 await tokenClient.mint.send({
-  user,
+  address,
   amount,
 }, options);
 ```
@@ -318,7 +318,7 @@ await tokenClient.mint.send({
 
 |Name|Type|Description|
 |---|---|---|
-|user|address|The address that will receive the minted tokens.|
+|address|address|The address that will receive the minted tokens.|
 |amount|big number|The amount of tokens that will be minted.|
 
 **Options**
@@ -342,13 +342,13 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/59cf56f18c54c0bc749ddaa8b6d77ebfd0d0aaf4/contracts/Token.sol)
+Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/8e5139586018fbaa53e9cf971e040b3ae2a4bb92/contracts/Token.sol)
   
   
 
 ### `setAuthority`
 
-Assign an account the `ADMIN` authority role within a colony.
+Assign an account the token authority role within a colony.
 
 ```js
 await tokenClient.setAuthority.send({
@@ -361,7 +361,7 @@ await tokenClient.setAuthority.send({
 
 |Name|Type|Description|
 |---|---|---|
-|authority|address|The address that will be assigned the `ADMIN` authority role.|
+|authority|address|The address that will be assigned the token authority role.|
 
 **Options**
 
@@ -542,7 +542,7 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 
   
   
-Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/59cf56f18c54c0bc749ddaa8b6d77ebfd0d0aaf4/contracts/Token.sol)
+Contract: [Token.sol](https://github.com/JoinColony/colonyToken/blob/8e5139586018fbaa53e9cf971e040b3ae2a4bb92/contracts/Token.sol)
   
   
 

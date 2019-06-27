@@ -1,6 +1,6 @@
 {
     "name": "@colony/colony-js-adapter-ethers",
-    "version": "1.12.0",
+    "version": "1.12.2",
     "description": "ColonyContract adapter for ethers.js",
     "keywords": [
         "ethers",

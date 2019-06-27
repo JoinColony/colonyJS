@@ -5,8 +5,33 @@ import DomainAuth from './DomainAuth';
 
 export default class MakePayment extends DomainAuth<*, *, *> {
   async estimate(inputValues: *) {
-    const args = this.getValidatedArgs(inputValues);
+    // if for some reason we don't have the required methods, then throw
+    if (
+      !(
+        this.client.networkClient &&
+        this.client.networkClient.getParentSkillId &&
+        this.client.hasColonyRole
+      )
+    ) {
+      throw new Error('Client not compatible with DomainAuth sender');
+    }
+
+    // combine with default values
+    const inputValuesWithDefaults = {
+      ...(this.defaultValues || {}),
+      ...inputValues,
+    };
+
+    // get proof input values
+    const proofs = await this.getPermissionProofs(inputValuesWithDefaults);
+
     const contract = await this._getContract();
+
+    const args = this.getValidatedArgs({
+      ...inputValuesWithDefaults,
+      ...proofs,
+    });
+
     return contract.callEstimate('makePayment', args);
   }
 

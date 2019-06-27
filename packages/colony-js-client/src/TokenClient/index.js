@@ -48,7 +48,7 @@ export default class TokenClient extends ContractClient {
   */
   approve: TokenClient.Sender<
     {
-      user: Address, // The address that will be approved for the allowance (the token `spender`).
+      address: Address, // The address that will be approved for the allowance (the token `spender`).
       amount: BigNumber, // The amount of tokens that will be approved (the amount `allowed`).
     },
     {
@@ -59,16 +59,16 @@ export default class TokenClient extends ContractClient {
       contract: 'base.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
-      version: 'glider-rc.1',
+      version: 'glider',
     },
   >;
 
   /*
-  Burn tokens. This is a `DSToken` function that can only be called by the token `owner`. When a colony contract address is assigned as the token `owner`, this function can only be called by the user assigned the `FOUNDER` authority role.
+  Burn tokens. This function can only be called by the token owner or an address with authority.
   */
   burn: TokenClient.Sender<
     {
-      user: Address, // The address from which the tokens will be burned.
+      address: Address, // The address from which the tokens will be burned.
       amount: BigNumber, // The amount of tokens that will be burned.
     },
     {
@@ -78,8 +78,8 @@ export default class TokenClient extends ContractClient {
     {
       contract: 'Token.sol',
       // eslint-disable-next-line max-len
-      contractPath: 'https://github.com/JoinColony/colonyToken/blob/59cf56f18c54c0bc749ddaa8b6d77ebfd0d0aaf4/contracts',
-      version: 'glider-rc.1',
+      contractPath: 'https://github.com/JoinColony/colonyToken/blob/8e5139586018fbaa53e9cf971e040b3ae2a4bb92/contracts',
+      version: 'glider',
     },
   >;
 
@@ -97,8 +97,8 @@ export default class TokenClient extends ContractClient {
     {
       contract: 'Token.sol',
       // eslint-disable-next-line max-len
-      contractPath: 'https://github.com/JoinColony/colonyToken/blob/59cf56f18c54c0bc749ddaa8b6d77ebfd0d0aaf4/contracts',
-      version: 'glider-rc.1',
+      contractPath: 'https://github.com/JoinColony/colonyToken/blob/8e5139586018fbaa53e9cf971e040b3ae2a4bb92/contracts',
+      version: 'glider',
     },
   >;
 
@@ -108,7 +108,7 @@ export default class TokenClient extends ContractClient {
   getAllowance: TokenClient.Caller<
     {
       sourceAddress: Address, // The address that approved the allowance (the token `owner`).
-      user: Address, // The address that was approved for the allowance (the token `spender`).
+      address: Address, // The address that was approved for the allowance (the token `spender`).
     },
     {
       amount: BigNumber, // The amount of tokens that were approved (the amount `allowed`).
@@ -119,7 +119,7 @@ export default class TokenClient extends ContractClient {
       contract: 'base.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
-      version: 'glider-rc.1',
+      version: 'glider',
     },
   >;
 
@@ -139,7 +139,7 @@ export default class TokenClient extends ContractClient {
       contract: 'base.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
-      version: 'glider-rc.1',
+      version: 'glider',
     },
   >;
 
@@ -157,8 +157,8 @@ export default class TokenClient extends ContractClient {
     {
       contract: 'Token.sol',
       // eslint-disable-next-line max-len
-      contractPath: 'https://github.com/JoinColony/colonyToken/blob/59cf56f18c54c0bc749ddaa8b6d77ebfd0d0aaf4/contracts',
-      version: 'glider-rc.1',
+      contractPath: 'https://github.com/JoinColony/colonyToken/blob/8e5139586018fbaa53e9cf971e040b3ae2a4bb92/contracts',
+      version: 'glider',
     },
   >;
 
@@ -176,7 +176,7 @@ export default class TokenClient extends ContractClient {
       contract: 'base.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
-      version: 'glider-rc.1',
+      version: 'glider',
     },
   >;
 
@@ -194,16 +194,16 @@ export default class TokenClient extends ContractClient {
       contract: 'Token.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
-      version: 'glider-rc.1',
+      version: 'glider',
     },
   >;
 
   /*
-  Mint new tokens. This is a `DSToken` function that can only be called by the token `owner`. When a colony contract address is assigned as the token `owner`, this function can only be called by the user assigned the `FOUNDER` authority role.
+  Mint new tokens. This function can only be called by the token owner or an address with authority.
   */
   mint: TokenClient.Sender<
     {
-      user: Address, // The address that will receive the minted tokens.
+      address: Address, // The address that will receive the minted tokens.
       amount: BigNumber, // The amount of tokens that will be minted.
     },
     {
@@ -213,17 +213,17 @@ export default class TokenClient extends ContractClient {
     {
       contract: 'Token.sol',
       // eslint-disable-next-line max-len
-      contractPath: 'https://github.com/JoinColony/colonyToken/blob/59cf56f18c54c0bc749ddaa8b6d77ebfd0d0aaf4/contracts',
-      version: 'glider-rc.1',
+      contractPath: 'https://github.com/JoinColony/colonyToken/blob/8e5139586018fbaa53e9cf971e040b3ae2a4bb92/contracts',
+      version: 'glider',
     },
   >;
 
   /*
-  Assign an account the `ADMIN` authority role within a colony.
+  Assign an account the token authority role within a colony.
   */
   setAuthority: TokenClient.Sender<
     {
-      authority: Address, // The address that will be assigned the `ADMIN` authority role.
+      authority: Address, // The address that will be assigned the token authority role.
     },
     {
       LogSetAuthority: LogSetAuthority,
@@ -233,7 +233,7 @@ export default class TokenClient extends ContractClient {
       contract: 'auth.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
-      version: 'glider-rc.1',
+      version: 'glider',
     },
   >;
 
@@ -252,7 +252,7 @@ export default class TokenClient extends ContractClient {
       contract: 'auth.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
-      version: 'glider-rc.1',
+      version: 'glider',
     },
   >;
 
@@ -270,7 +270,7 @@ export default class TokenClient extends ContractClient {
       contract: 'base.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
-      version: 'glider-rc.1',
+      version: 'glider',
     },
   >;
 
@@ -291,7 +291,7 @@ export default class TokenClient extends ContractClient {
       contract: 'base.sol',
       // eslint-disable-next-line max-len
       contractPath: 'https://github.com/dapphub/dappsys-monolithic/blob/de9114c5fa1b881bf16b1414e7ed90cd3cb2e361',
-      version: 'glider-rc.1',
+      version: 'glider',
     },
   >;
 
@@ -305,8 +305,8 @@ export default class TokenClient extends ContractClient {
     {
       contract: 'Token.sol',
       // eslint-disable-next-line max-len
-      contractPath: 'https://github.com/JoinColony/colonyToken/blob/59cf56f18c54c0bc749ddaa8b6d77ebfd0d0aaf4/contracts',
-      version: 'glider-rc.1',
+      contractPath: 'https://github.com/JoinColony/colonyToken/blob/8e5139586018fbaa53e9cf971e040b3ae2a4bb92/contracts',
+      version: 'glider',
     },
   >;
 
@@ -320,7 +320,7 @@ export default class TokenClient extends ContractClient {
     const amount = ['amount', 'bigNumber'];
     const sourceAddress = ['sourceAddress', 'address'];
     const destinationAddress = ['destinationAddress', 'address'];
-    const user = ['user', 'address'];
+    const address = ['address', 'address'];
 
     // Events
     this.addEvent('Transfer', [
@@ -351,7 +351,7 @@ export default class TokenClient extends ContractClient {
     });
     this.addCaller('getAllowance', {
       functionName: 'allowance',
-      input: [sourceAddress, user],
+      input: [sourceAddress, address],
       output: [amount],
     });
     this.addCaller('isLocked', {
@@ -368,13 +368,13 @@ export default class TokenClient extends ContractClient {
       input: [sourceAddress, destinationAddress, amount],
     });
     this.addSender('approve', {
-      input: [user, amount],
+      input: [address, amount],
     });
     this.addSender('mint', {
-      input: [user, amount],
+      input: [address, amount],
     });
     this.addSender('burn', {
-      input: [user, amount],
+      input: [address, amount],
     });
     this.addSender('setOwner', {
       input: [['owner', 'address']],

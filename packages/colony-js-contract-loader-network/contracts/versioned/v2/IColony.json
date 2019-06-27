@@ -5,8 +5,393 @@
       "anonymous": false,
       "inputs": [
         {
+          "indexed": false,
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "setTo",
+          "type": "bool"
+        }
+      ],
+      "name": "ColonyFundingRoleSet",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "setTo",
+          "type": "bool"
+        }
+      ],
+      "name": "ColonyAdministrationRoleSet",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "setTo",
+          "type": "bool"
+        }
+      ],
+      "name": "ColonyArchitectureRoleSet",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "setTo",
+          "type": "bool"
+        }
+      ],
+      "name": "ColonyRootRoleSet",
+      "type": "event"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "approveExitRecovery",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "exitRecoveryMode",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "numRecoveryRoles",
+      "outputs": [
+        {
+          "name": "numRoles",
+          "type": "uint64"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_slot",
+          "type": "uint256"
+        },
+        {
+          "name": "_value",
+          "type": "bytes32"
+        }
+      ],
+      "name": "setStorageSlotRecovery",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "isInRecoveryMode",
+      "outputs": [
+        {
+          "name": "inRecoveryMode",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_slot",
+          "type": "uint256"
+        }
+      ],
+      "name": "checkNotAdditionalProtectedVariable",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_user",
+          "type": "address"
+        }
+      ],
+      "name": "removeRecoveryRole",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_user",
+          "type": "address"
+        }
+      ],
+      "name": "setRecoveryRole",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "enterRecoveryMode",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "colonyNetwork",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "token",
+          "type": "address"
+        }
+      ],
+      "name": "ColonyInitialised",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "users",
+          "type": "address[]"
+        },
+        {
+          "indexed": false,
+          "name": "amounts",
+          "type": "int256[]"
+        }
+      ],
+      "name": "ColonyBootstrapped",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "oldVersion",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "newVersion",
+          "type": "uint256"
+        }
+      ],
+      "name": "ColonyUpgraded",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
           "indexed": true,
-          "name": "id",
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "domainId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "name": "role",
+          "type": "uint8"
+        },
+        {
+          "indexed": false,
+          "name": "setTo",
+          "type": "bool"
+        }
+      ],
+      "name": "ColonyRoleSet",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "fromPot",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "name": "toPot",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "token",
+          "type": "address"
+        }
+      ],
+      "name": "ColonyFundsMovedBetweenFundingPots",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "fee",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "payoutRemainder",
+          "type": "uint256"
+        }
+      ],
+      "name": "ColonyFundsClaimed",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "rewardPayoutId",
+          "type": "uint256"
+        }
+      ],
+      "name": "RewardPayoutCycleStarted",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "rewardPayoutId",
+          "type": "uint256"
+        }
+      ],
+      "name": "RewardPayoutCycleEnded",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "rewardPayoutId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "fee",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "rewardRemainder",
+          "type": "uint256"
+        }
+      ],
+      "name": "RewardPayoutClaimed",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "rewardInverse",
+          "type": "uint256"
+        }
+      ],
+      "name": "ColonyRewardInverseSet",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "paymentId",
+          "type": "uint256"
+        }
+      ],
+      "name": "PaymentAdded",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "taskId",
           "type": "uint256"
         }
       ],
@@ -18,7 +403,7 @@
       "inputs": [
         {
           "indexed": true,
-          "name": "id",
+          "name": "taskId",
           "type": "uint256"
         },
         {
@@ -27,7 +412,7 @@
           "type": "bytes32"
         }
       ],
-      "name": "TaskBriefChanged",
+      "name": "TaskBriefSet",
       "type": "event"
     },
     {
@@ -35,7 +420,7 @@
       "inputs": [
         {
           "indexed": true,
-          "name": "id",
+          "name": "taskId",
           "type": "uint256"
         },
         {
@@ -44,7 +429,7 @@
           "type": "uint256"
         }
       ],
-      "name": "TaskDueDateChanged",
+      "name": "TaskDueDateSet",
       "type": "event"
     },
     {
@@ -52,16 +437,16 @@
       "inputs": [
         {
           "indexed": true,
-          "name": "id",
+          "name": "taskId",
           "type": "uint256"
         },
         {
-          "indexed": false,
+          "indexed": true,
           "name": "domainId",
           "type": "uint256"
         }
       ],
-      "name": "TaskDomainChanged",
+      "name": "TaskDomainSet",
       "type": "event"
     },
     {
@@ -69,16 +454,16 @@
       "inputs": [
         {
           "indexed": true,
-          "name": "id",
+          "name": "taskId",
           "type": "uint256"
         },
         {
-          "indexed": false,
+          "indexed": true,
           "name": "skillId",
           "type": "uint256"
         }
       ],
-      "name": "TaskSkillChanged",
+      "name": "TaskSkillSet",
       "type": "event"
     },
     {
@@ -86,7 +471,7 @@
       "inputs": [
         {
           "indexed": true,
-          "name": "id",
+          "name": "taskId",
           "type": "uint256"
         },
         {
@@ -95,12 +480,12 @@
           "type": "uint8"
         },
         {
-          "indexed": false,
+          "indexed": true,
           "name": "user",
           "type": "address"
         }
       ],
-      "name": "TaskRoleUserChanged",
+      "name": "TaskRoleUserSet",
       "type": "event"
     },
     {
@@ -108,8 +493,13 @@
       "inputs": [
         {
           "indexed": true,
-          "name": "id",
+          "name": "taskId",
           "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "role",
+          "type": "uint8"
         },
         {
           "indexed": false,
@@ -122,7 +512,7 @@
           "type": "uint256"
         }
       ],
-      "name": "TaskWorkerPayoutChanged",
+      "name": "TaskPayoutSet",
       "type": "event"
     },
     {
@@ -130,7 +520,7 @@
       "inputs": [
         {
           "indexed": true,
-          "name": "id",
+          "name": "taskId",
           "type": "uint256"
         },
         {
@@ -147,7 +537,7 @@
       "inputs": [
         {
           "indexed": true,
-          "name": "id",
+          "name": "taskId",
           "type": "uint256"
         }
       ],
@@ -159,7 +549,7 @@
       "inputs": [
         {
           "indexed": true,
-          "name": "id",
+          "name": "taskId",
           "type": "uint256"
         },
         {
@@ -181,7 +571,7 @@
       "inputs": [
         {
           "indexed": true,
-          "name": "id",
+          "name": "taskId",
           "type": "uint256"
         }
       ],
@@ -193,7 +583,29 @@
       "inputs": [
         {
           "indexed": true,
-          "name": "id",
+          "name": "fundingPotId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "PayoutClaimed",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "taskId",
           "type": "uint256"
         }
       ],
@@ -204,20 +616,8 @@
       "anonymous": false,
       "inputs": [
         {
-          "indexed": true,
-          "name": "id",
-          "type": "uint256"
-        }
-      ],
-      "name": "RewardPayoutCycleStarted",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "name": "id",
+          "indexed": false,
+          "name": "domainId",
           "type": "uint256"
         }
       ],
@@ -228,12 +628,12 @@
       "anonymous": false,
       "inputs": [
         {
-          "indexed": true,
-          "name": "id",
+          "indexed": false,
+          "name": "fundingPotId",
           "type": "uint256"
         }
       ],
-      "name": "PotAdded",
+      "name": "FundingPotAdded",
       "type": "event"
     },
     {
@@ -242,7 +642,7 @@
       "name": "authority",
       "outputs": [
         {
-          "name": "authority",
+          "name": "colonyAuthority",
           "type": "address"
         }
       ],
@@ -256,7 +656,7 @@
       "name": "owner",
       "outputs": [
         {
-          "name": "owner",
+          "name": "colonyOwner",
           "type": "address"
         }
       ],
@@ -270,7 +670,7 @@
       "name": "version",
       "outputs": [
         {
-          "name": "version",
+          "name": "colonyVersion",
           "type": "uint256"
         }
       ],
@@ -293,97 +693,13 @@
       "type": "function"
     },
     {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_token",
-          "type": "address"
-        }
-      ],
-      "name": "setToken",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_user",
-          "type": "address"
-        }
-      ],
-      "name": "setOwnerRole",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_user",
-          "type": "address"
-        }
-      ],
-      "name": "setAdminRole",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_user",
-          "type": "address"
-        }
-      ],
-      "name": "removeAdminRole",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_user",
-          "type": "address"
-        }
-      ],
-      "name": "setRecoveryRole",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_user",
-          "type": "address"
-        }
-      ],
-      "name": "removeRecoveryRole",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
       "constant": true,
       "inputs": [],
-      "name": "numRecoveryRoles",
+      "name": "getColonyNetwork",
       "outputs": [
         {
-          "name": "numRoles",
-          "type": "uint64"
+          "name": "colonyNetwork",
+          "type": "address"
         }
       ],
       "payable": false,
@@ -408,7 +724,146 @@
       "constant": false,
       "inputs": [
         {
-          "name": "_network",
+          "name": "_user",
+          "type": "address"
+        },
+        {
+          "name": "_setTo",
+          "type": "bool"
+        }
+      ],
+      "name": "setRootRole",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_permissionDomainId",
+          "type": "uint256"
+        },
+        {
+          "name": "_childSkillIndex",
+          "type": "uint256"
+        },
+        {
+          "name": "_user",
+          "type": "address"
+        },
+        {
+          "name": "_domainId",
+          "type": "uint256"
+        },
+        {
+          "name": "_setTo",
+          "type": "bool"
+        }
+      ],
+      "name": "setArchitectureRole",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_permissionDomainId",
+          "type": "uint256"
+        },
+        {
+          "name": "_childSkillIndex",
+          "type": "uint256"
+        },
+        {
+          "name": "_user",
+          "type": "address"
+        },
+        {
+          "name": "_domainId",
+          "type": "uint256"
+        },
+        {
+          "name": "_setTo",
+          "type": "bool"
+        }
+      ],
+      "name": "setFundingRole",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_permissionDomainId",
+          "type": "uint256"
+        },
+        {
+          "name": "_childSkillIndex",
+          "type": "uint256"
+        },
+        {
+          "name": "_user",
+          "type": "address"
+        },
+        {
+          "name": "_domainId",
+          "type": "uint256"
+        },
+        {
+          "name": "_setTo",
+          "type": "bool"
+        }
+      ],
+      "name": "setAdministrationRole",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_user",
+          "type": "address"
+        },
+        {
+          "name": "_domainId",
+          "type": "uint256"
+        },
+        {
+          "name": "_role",
+          "type": "uint8"
+        }
+      ],
+      "name": "hasUserRole",
+      "outputs": [
+        {
+          "name": "hasRole",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_colonyNetworkAddress",
+          "type": "address"
+        },
+        {
+          "name": "_token",
           "type": "address"
         }
       ],
@@ -454,22 +909,12 @@
       "constant": false,
       "inputs": [
         {
-          "name": "_wad",
-          "type": "uint256"
-        }
-      ],
-      "name": "mintTokensForColonyNetwork",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
+          "name": "colonyName",
+          "type": "string"
+        },
         {
-          "name": "_subnode",
-          "type": "bytes32"
+          "name": "orbitdb",
+          "type": "string"
         }
       ],
       "name": "registerColonyLabel",
@@ -482,24 +927,13 @@
       "constant": false,
       "inputs": [
         {
-          "name": "_parentSkillId",
+          "name": "_permissionDomainId",
           "type": "uint256"
-        }
-      ],
-      "name": "addGlobalSkill",
-      "outputs": [
+        },
         {
-          "name": "skillId",
+          "name": "_childSkillIndex",
           "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
+        },
         {
           "name": "_parentDomainId",
           "type": "uint256"
@@ -522,12 +956,18 @@
       "name": "getDomain",
       "outputs": [
         {
-          "name": "skillId",
-          "type": "uint256"
-        },
-        {
-          "name": "potId",
-          "type": "uint256"
+          "components": [
+            {
+              "name": "skillId",
+              "type": "uint256"
+            },
+            {
+              "name": "fundingPotId",
+              "type": "uint256"
+            }
+          ],
+          "name": "domain",
+          "type": "tuple"
         }
       ],
       "payable": false,
@@ -581,35 +1021,64 @@
     },
     {
       "constant": false,
-      "inputs": [],
-      "name": "enterRecoveryMode",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
       "inputs": [
         {
-          "name": "_slot",
+          "name": "_permissionDomainId",
           "type": "uint256"
         },
         {
-          "name": "_value",
-          "type": "bytes32"
+          "name": "_childSkillIndex",
+          "type": "uint256"
+        },
+        {
+          "name": "_recipient",
+          "type": "address"
+        },
+        {
+          "name": "_token",
+          "type": "address"
+        },
+        {
+          "name": "_amount",
+          "type": "uint256"
+        },
+        {
+          "name": "_domainId",
+          "type": "uint256"
+        },
+        {
+          "name": "_skillId",
+          "type": "uint256"
         }
       ],
-      "name": "setStorageSlotRecovery",
-      "outputs": [],
+      "name": "addPayment",
+      "outputs": [
+        {
+          "name": "paymentId",
+          "type": "uint256"
+        }
+      ],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
     },
     {
       "constant": false,
-      "inputs": [],
-      "name": "approveExitRecovery",
+      "inputs": [
+        {
+          "name": "_permissionDomainId",
+          "type": "uint256"
+        },
+        {
+          "name": "_childSkillIndex",
+          "type": "uint256"
+        },
+        {
+          "name": "_id",
+          "type": "uint256"
+        }
+      ],
+      "name": "finalizePayment",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
@@ -619,11 +1088,23 @@
       "constant": false,
       "inputs": [
         {
-          "name": "_newVersion",
+          "name": "_permissionDomainId",
           "type": "uint256"
+        },
+        {
+          "name": "_childSkillIndex",
+          "type": "uint256"
+        },
+        {
+          "name": "_id",
+          "type": "uint256"
+        },
+        {
+          "name": "_recipient",
+          "type": "address"
         }
       ],
-      "name": "exitRecoveryMode",
+      "name": "setPaymentRecipient",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
@@ -632,6 +1113,169 @@
     {
       "constant": false,
       "inputs": [
+        {
+          "name": "_permissionDomainId",
+          "type": "uint256"
+        },
+        {
+          "name": "_childSkillIndex",
+          "type": "uint256"
+        },
+        {
+          "name": "_id",
+          "type": "uint256"
+        },
+        {
+          "name": "_domainId",
+          "type": "uint256"
+        }
+      ],
+      "name": "setPaymentDomain",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_permissionDomainId",
+          "type": "uint256"
+        },
+        {
+          "name": "_childSkillIndex",
+          "type": "uint256"
+        },
+        {
+          "name": "_id",
+          "type": "uint256"
+        },
+        {
+          "name": "_skillId",
+          "type": "uint256"
+        }
+      ],
+      "name": "setPaymentSkill",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_permissionDomainId",
+          "type": "uint256"
+        },
+        {
+          "name": "_childSkillIndex",
+          "type": "uint256"
+        },
+        {
+          "name": "_id",
+          "type": "uint256"
+        },
+        {
+          "name": "_token",
+          "type": "address"
+        },
+        {
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "setPaymentPayout",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_id",
+          "type": "uint256"
+        }
+      ],
+      "name": "getPayment",
+      "outputs": [
+        {
+          "components": [
+            {
+              "name": "recipient",
+              "type": "address"
+            },
+            {
+              "name": "finalized",
+              "type": "bool"
+            },
+            {
+              "name": "fundingPotId",
+              "type": "uint256"
+            },
+            {
+              "name": "domainId",
+              "type": "uint256"
+            },
+            {
+              "name": "skills",
+              "type": "uint256[]"
+            }
+          ],
+          "name": "payment",
+          "type": "tuple"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_id",
+          "type": "uint256"
+        },
+        {
+          "name": "_token",
+          "type": "address"
+        }
+      ],
+      "name": "claimPayment",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getPaymentCount",
+      "outputs": [
+        {
+          "name": "count",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_permissionDomainId",
+          "type": "uint256"
+        },
+        {
+          "name": "_childSkillIndex",
+          "type": "uint256"
+        },
         {
           "name": "_specificationHash",
           "type": "bytes32"
@@ -835,7 +1479,7 @@
           "type": "uint256"
         }
       ],
-      "name": "getTaskWorkRatings",
+      "name": "getTaskWorkRatingSecretsInfo",
       "outputs": [
         {
           "name": "nSecrets",
@@ -883,6 +1527,14 @@
         {
           "name": "_user",
           "type": "address"
+        },
+        {
+          "name": "_permissionDomainId",
+          "type": "uint256"
+        },
+        {
+          "name": "_childSkillIndex",
+          "type": "uint256"
         }
       ],
       "name": "setTaskManagerRole",
@@ -1136,11 +1788,7 @@
           "type": "uint256"
         },
         {
-          "name": "payoutsWeCannotMake",
-          "type": "uint256"
-        },
-        {
-          "name": "potId",
+          "name": "fundingPotId",
           "type": "uint256"
         },
         {
@@ -1175,16 +1823,22 @@
       "name": "getTaskRole",
       "outputs": [
         {
-          "name": "user",
-          "type": "address"
-        },
-        {
-          "name": "rateFail",
-          "type": "bool"
-        },
-        {
-          "name": "rating",
-          "type": "uint8"
+          "components": [
+            {
+              "name": "user",
+              "type": "address"
+            },
+            {
+              "name": "rateFail",
+              "type": "bool"
+            },
+            {
+              "name": "rating",
+              "type": "uint8"
+            }
+          ],
+          "name": "role",
+          "type": "tuple"
         }
       ],
       "payable": false,
@@ -1192,17 +1846,17 @@
       "type": "function"
     },
     {
-      "constant": true,
-      "inputs": [],
-      "name": "getFeeInverse",
-      "outputs": [
+      "constant": false,
+      "inputs": [
         {
-          "name": "feeInverse",
+          "name": "_rewardInverse",
           "type": "uint256"
         }
       ],
+      "name": "setRewardInverse",
+      "outputs": [],
       "payable": false,
-      "stateMutability": "pure",
+      "stateMutability": "nonpayable",
       "type": "function"
     },
     {
@@ -1216,33 +1870,6 @@
         }
       ],
       "payable": false,
-      "stateMutability": "pure",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "_id",
-          "type": "uint256"
-        },
-        {
-          "name": "_role",
-          "type": "uint256"
-        },
-        {
-          "name": "_token",
-          "type": "address"
-        }
-      ],
-      "name": "getTaskPayout",
-      "outputs": [
-        {
-          "name": "amount",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
       "stateMutability": "view",
       "type": "function"
     },
@@ -1254,11 +1881,15 @@
           "type": "uint256"
         },
         {
+          "name": "_role",
+          "type": "uint8"
+        },
+        {
           "name": "_token",
           "type": "address"
         }
       ],
-      "name": "getTotalTaskPayout",
+      "name": "getTaskPayout",
       "outputs": [
         {
           "name": "amount",
@@ -1374,14 +2005,14 @@
         },
         {
           "name": "_role",
-          "type": "uint256"
+          "type": "uint8"
         },
         {
           "name": "_token",
           "type": "address"
         }
       ],
-      "name": "claimPayout",
+      "name": "claimTaskPayout",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
@@ -1462,28 +2093,34 @@
       "name": "getRewardPayoutInfo",
       "outputs": [
         {
-          "name": "reputationState",
-          "type": "bytes32"
-        },
-        {
-          "name": "colonyWideReputation",
-          "type": "uint256"
-        },
-        {
-          "name": "totalTokens",
-          "type": "uint256"
-        },
-        {
-          "name": "amount",
-          "type": "uint256"
-        },
-        {
-          "name": "tokenAddress",
-          "type": "address"
-        },
-        {
-          "name": "blockTimestamp",
-          "type": "uint256"
+          "components": [
+            {
+              "name": "reputationState",
+              "type": "bytes32"
+            },
+            {
+              "name": "colonyWideReputation",
+              "type": "uint256"
+            },
+            {
+              "name": "totalTokens",
+              "type": "uint256"
+            },
+            {
+              "name": "amount",
+              "type": "uint256"
+            },
+            {
+              "name": "tokenAddress",
+              "type": "address"
+            },
+            {
+              "name": "blockTimestamp",
+              "type": "uint256"
+            }
+          ],
+          "name": "rewardPayoutCycle",
+          "type": "tuple"
         }
       ],
       "payable": false,
@@ -1508,6 +2145,47 @@
       "constant": true,
       "inputs": [
         {
+          "name": "_id",
+          "type": "uint256"
+        }
+      ],
+      "name": "getFundingPot",
+      "outputs": [
+        {
+          "name": "associatedType",
+          "type": "uint8"
+        },
+        {
+          "name": "associatedTypeId",
+          "type": "uint256"
+        },
+        {
+          "name": "payoutsWeCannotMake",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getFundingPotCount",
+      "outputs": [
+        {
+          "name": "count",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
           "name": "_potId",
           "type": "uint256"
         },
@@ -1516,7 +2194,7 @@
           "type": "address"
         }
       ],
-      "name": "getPotBalance",
+      "name": "getFundingPotBalance",
       "outputs": [
         {
           "name": "balance",
@@ -1528,8 +2206,43 @@
       "type": "function"
     },
     {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_potId",
+          "type": "uint256"
+        },
+        {
+          "name": "_token",
+          "type": "address"
+        }
+      ],
+      "name": "getFundingPotPayout",
+      "outputs": [
+        {
+          "name": "payout",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
       "constant": false,
       "inputs": [
+        {
+          "name": "_permissionDomainId",
+          "type": "uint256"
+        },
+        {
+          "name": "_fromChildSkillIndex",
+          "type": "uint256"
+        },
+        {
+          "name": "_toChildSkillIndex",
+          "type": "uint256"
+        },
         {
           "name": "_fromPot",
           "type": "uint256"
@@ -1589,9 +2302,9 @@
   ],
   "compiler": {
     "name": "solc",
-    "version": "0.4.23+commit.124ca40d.Linux.g++"
+    "version": "0.5.8+commit.23d335f2.Linux.g++"
   },
   "networks": {},
-  "schemaVersion": "2.0.1",
-  "updatedAt": "2018-09-08T13:06:59.638Z"
+  "schemaVersion": "3.0.9",
+  "updatedAt": "2019-06-10T17:31:15.689Z"
 }

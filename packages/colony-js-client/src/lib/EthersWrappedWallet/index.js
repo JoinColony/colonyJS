@@ -51,11 +51,11 @@ export default class EthersWrappedWallet {
       chainId: chainId || this.provider.chainId,
       data,
       // If no gas limit is provided, we need to get the estimate and multiply
-      // it by 1.1 (an amount that will prevent the transaction from failing)
+      // it by 1.2 (an amount that will prevent the transaction from failing)
       gasLimit: gasLimit
         ? new BigNumber(gasLimit)
         : (await this.estimateGas(tx))
-            .mul(new BigNumber('11'))
+            .mul(new BigNumber('12'))
             .div(new BigNumber('10')),
       gasPrice: gasPrice ? new BigNumber(gasPrice) : await this.getGasPrice(),
       nonce: nonce || (await this.getTransactionCount()),

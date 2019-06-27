@@ -91,11 +91,17 @@ export default class DomainAuth<
       throw new Error('Client not compatible with DomainAuth sender');
     }
 
+    // combine with default values
+    const inputValuesWithDefaults = {
+      ...(this.defaultValues || {}),
+      ...inputValues,
+    };
+
     // get proof input values
-    const proofs = await this.getPermissionProofs(inputValues);
+    const proofs = await this.getPermissionProofs(inputValuesWithDefaults);
 
     return super.estimate({
-      ...inputValues,
+      ...inputValuesWithDefaults,
       ...proofs,
     });
   }
@@ -112,12 +118,18 @@ export default class DomainAuth<
       throw new Error('Client not compatible with DomainAuth sender');
     }
 
+    // combine with default values
+    const inputValuesWithDefaults = {
+      ...(this.defaultValues || {}),
+      ...inputValues,
+    };
+
     // get proof input values
-    const proofs = await this.getPermissionProofs(inputValues);
+    const proofs = await this.getPermissionProofs(inputValuesWithDefaults);
 
     return super.send(
       {
-        ...inputValues,
+        ...inputValuesWithDefaults,
         ...proofs,
       },
       options,
@@ -171,7 +183,10 @@ export default class DomainAuth<
             ),
           );
 
-          const highestDomain = await this.getHighestDomain(permissionDomains);
+          const highestDomain = await this.getHighestDomain(
+            permissionDomains,
+            role,
+          );
 
           const childSkillIndexes = await Promise.all(
             domainIds.map(async domainId =>
@@ -192,7 +207,10 @@ export default class DomainAuth<
     return proofs.reduce((acc, proof) => ({ ...acc, ...proof }));
   }
 
-  async getHighestDomain(domainIds: number[]): Promise<number> {
+  async getHighestDomain(
+    domainIds: number[],
+    role: ColonyRole,
+  ): Promise<number> {
     const skills = await Promise.all(
       domainIds.map(async domainId => {
         if (domainId < 0) return [domainId, null];
@@ -208,12 +226,20 @@ export default class DomainAuth<
         return [domainId, skill];
       }),
     );
-    return skills
+    const filteredSkills = skills
       .filter(([, skill]) => skill !== null)
       .sort(
         // $FlowFixMe these will all be skills because of the filter
         ([, a], [, b]) => b.children.length - a.children.length,
-      )[0][0];
+      );
+    if (!filteredSkills.length) {
+      throw new Error(
+        `No permission for role ${role} in appropriate domain(s) for method ${
+          this.name
+        }`,
+      );
+    }
+    return filteredSkills[0][0];
   }
 
   async getChildSkillIndex(
@@ -225,7 +251,7 @@ export default class DomainAuth<
       throw new Error('Current wallet address does not have permission');
     } else if (permissionDomainId === childDomainId) {
       // if we have permission in immediate domain we know index will be zero
-      return 0; // TODO: is this correct?
+      return 0;
     }
 
     // get the permission and child domain skills

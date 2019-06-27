@@ -35,11 +35,11 @@ const CONTRACT_CLIENTS = [
 
 const TYPES = {
   Address: 'address',
-  AnyAddress: 'address (0x0 included)',
+  AnyAddress: 'any address',
   Array: 'array',
-  AuthorityRole: 'authority role',
   BigNumber: 'big number',
   BooleanTypeAnnotation: 'boolean',
+  ColonyRole: 'colony role',
   Date: 'date',
   HexString: 'hex string',
   IPFSHash: 'IPFS hash',

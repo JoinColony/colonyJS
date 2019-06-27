@@ -1,5 +1,46 @@
 # Changelog
 
+## v1.13.0
+
+**New Features**
+
+* Add `getColonyClient` method (`@colony/colony-js-client`)
+* Add `mainnet` option to `getNetworkClient` (`@colony/colony-js-client`)
+* Add `mainnet` support to network loader (`@colony/colony-js-contract-loader-network`)
+* Add version 2 deployment to network loader (`@colony/colony-js-contract-loader-network`)
+
+**Bug Fixes**
+
+* Fix `DomainAuth` sender to account for `defaultValues` (`@colony/colony-js-client`)
+* Fix `makeExecuteTaskRoleChange` input to use `address` (`@colony/colony-js-client`)
+* Patch `lookupRegisteredENSDomain` for testnets. Domains were previously being returned ending in `.eth` on networks where the deployed ENS uses the `.test` TLD (`@colony/colony-js-client`)
+* Fix `getLogs` method to correctly format topic filters (`@colony/colony-js-contract-client`)
+
+**Maintenance**
+
+* Update `getReputation` method for use with `mainnet` and `goerli` (`@colony/colony-js-client`)
+* Add `ColonyRoleSet` event, which replaces the existing role set events as the output of any methods which previously used them. The existing events remain in the client for the purpose of parsing logs which were created by previous versions of the contract (`@colony/colony-js-client`)
+* Improve thrown error for `DomainAuth` sender methods when the current address does not have permission (`@colony/colony-js-client`)
+* Remove `rinkeby` deployments from network loader, as they are no longer supported (`@colony/colony-js-contract-loader-network`)
+* Remove unused network support from `getNetworkClient` (`@colony/colony-js-client`)
+
+* Updated caller methods in `TokenClient` (`@colony/colony-js-client`)
+  * Updated `approve`
+    * Changed `user` input parameter to `address`
+  * Updated `burn`
+    * Changed `user` input parameter to `address`
+  * Updated `mint`
+    * Changed `user` input parameter to `address`
+* Updated sender methods in `TokenClient` (`@colony/colony-js-client`)
+  * Updated `getAllowance`
+    * Changed `user` input parameter to `address`
+
+## v1.12.1
+
+**Bug Fixes**
+
+* Fix fetching and waiting for transaction receipts (`@colony/colony-js-adapter-ethers`)
+
 ## v1.12.0
 
 This release implements significant changes and additions that enables support for the colonyNetwork [glider-rc.1](https://github.com/JoinColony/colonyNetwork/releases/tag/glider-rc.1) release. Please do not hesitate to reach out to us on [Discourse](https://build.colony.io/c/support) or [Gitter](https://gitter.im/JoinColony/colonyJS) if you are having any issues updating to this release.
