@@ -1,6 +1,6 @@
 # Changelog
 
-## next
+## v1.13.0
 
 **New Features**
 
