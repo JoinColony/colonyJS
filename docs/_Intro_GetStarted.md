@@ -214,7 +214,7 @@ console.log('Colony funds claimed!');
 
 Now that you have funds available in the root domain of your colony, you can fund domains, tasks, and payments within your colony. The goal within this example is to make a payment, so the next step will be adding a payment to your colony.
 
-You will use your wallet address as the recipient, which you can justify as your reward for all the hard work you put in to setting up your colony. You will also use the address of the token you assigned as the native token for your colony.
+You will use your wallet address as the recipient, which you can justify as your reward for all the hard work you put in to setting up your colony. You will also use the address of the token you assigned as the native token for your colony and the id of the root domain so that you will earn reputation at the root level of your colony.
 
 Add the following code below `// Step 8: Add Payment`:
 
@@ -225,6 +225,7 @@ const addPaymentResponse = await colonyClient.addPayment.send({
   recipient: wallet.address,
   token: tokenAddress,
   amount: new BN('1000000000000000000'),
+  domainId: 1,
 });
 
 // Set payment id and pot id
