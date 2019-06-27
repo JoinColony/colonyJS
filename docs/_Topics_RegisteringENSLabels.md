@@ -13,7 +13,7 @@ You can register a colony label using an instance of [ColonyClient](/colonyjs/ap
 ```js
 
 // Register a colony label
-const register = await colonyClient.registerColonyLabel.send({
+await colonyClient.registerColonyLabel.send({
   colonyName: 'mycolony',
 });
 
@@ -24,7 +24,7 @@ You can also set an OrbitDBPath when you register a colony label:
 ```js
 
 // Register a colony label
-const register = await colonyClient.registerColonyLabel.send({
+await colonyClient.registerColonyLabel.send({
   colonyName: 'mycolony',
   orbitDBPath: 'Qm...'
 });
@@ -40,7 +40,7 @@ You can register a user label using an instance of [ColonyNetworkClient](/colony
 ```js
 
 // Register a user label
-const register = await colonyClient.registerUserLabel.send({
+await networkClient.registerUserLabel.send({
   username: 'colonyuser',
 });
 
@@ -51,7 +51,7 @@ You can also set an OrbitDBPath when you register a user label:
 ```js
 
 // Register a user label
-const register = await colonyClient.registerUserLabel.send({
+await networkClient.registerUserLabel.send({
   username: 'colonyuser',
   orbitDBPath: 'Qm...'
 });
