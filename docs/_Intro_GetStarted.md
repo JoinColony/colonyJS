@@ -61,19 +61,17 @@ const { BN } = require('web3-utils');
 
   // Step 5: Get Colony Client
 
-  // Step 6: Set Token Owner
+  // Step 6: Mint Tokens
 
-  // Step 7: Mint Tokens
+  // Step 7: Claim Colony Funds
 
-  // Step 8: Claim Colony Funds
+  // Step 8: Add Payment
 
-  // Step 9: Add Payment
+  // Step 9: Move Funds
 
-  // Step 10: Move Funds
+  // Step 10: Finalize Payment
 
-  // Step 11: Finalize Payment
-
-  // Step 12: Claim Payment
+  // Step 11: Claim Payment
 
 })()
   .then(() => process.exit())
@@ -81,7 +79,7 @@ const { BN } = require('web3-utils');
 
 ```
 
-*Note: If you change the input values and encounter a bug, it is not necessary to call every method again. For example, if you provide an invalid `amount` when calling `mintTokens`, you will already have a token, a colony, and your colony will be set as the token owner, so you can comment out steps 3, 4, and 6 and use your colony address when calling `getColonyClientByAddress`.*
+*Note: If you change the input values and encounter a bug, it is not necessary to call every method again. For example, if you provide an invalid `amount` when minting tokens in step 6, you will already have a token and a colony, so you can comment out steps 3 and 4 and use your colony address when calling `getColonyClientByAddress`.*
 
 ### Step 1: Open Wallet
 
@@ -164,7 +162,7 @@ console.log('Colony Address:', colonyAddress);
 
 ### Step 5: Get Colony Client
 
-Great! You used an instance of the network client to create a token and a colony but now you need to call methods specific to your colony, which will require an instance of the colony client.
+In the previous step, you will use an instance of the network client to create a token and a colony but now you need to call methods specific to your colony, which will require the colony client.
 
 Add the following code below `// Step 5: Get Colony Client`:
 
@@ -177,33 +175,17 @@ const colonyClient = await networkClient.getColonyClientByAddress(colonyAddress)
 
 *Note: Just a friendly reminder. If you jumped ahead and started running the examples, you do not need to call `createToken` and `createColony` every time you run the script. You can use the token and colony you already created and update this method to use your colony address.*
 
-### Step 6: Set Token Owner
+### Step 6: Mint Tokens
 
-In order for you and permissioned colony members to call token methods such as `mint` and `burn` from within your colony, you will need to set the colony address as the token owner.
+In order to fund payments within your colony, you will first need to mint some tokens. If you did not change the input when calling `createToken`, which specified `18` decimals for your token, then the following `amount` will be equivalent to `1` token .
 
-Add the following code below `// Step 6: Set Token Owner`:
-
-```js
-
-// Set the colony contract as the token owner
-await colonyClient.tokenClient.setOwner.send({
-  owner: colonyAddress,
-});
-
-console.log('Token owner set!');
-
-```
-
-### Step 7: Mint Tokens
-
-In order to fund payments within your colony, you will first need to mint some tokens. If you did not change the input when calling `createToken`, which specified `18` decimals for your token, then the following `amount` will be equivalent to `1` token in the smallest unit of your token.
-
-Add the following code below `// Step 7: Mint Tokens`:
+Add the following code below `// Step 6: Mint Tokens`:
 
 ```js
 
 // Mint tokens
-await colonyClient.mintTokens.send({
+await colonyClient.tokenClient.mint.send({
+  address: colonyAddress,
   amount: new BN('1000000000000000000'),
 });
 
@@ -211,11 +193,11 @@ console.log('Tokens minted!');
 
 ```
 
-### Step 8: Claim Colony Funds
+### Step 7: Claim Colony Funds
 
 Great! You've minted your first token but before you can use it within your colony, you will need to claim it. Claiming colony funds will add any tokens owned by the colony contract to the funding pot associated with the root domain of the colony, which will also secure the availability of those funds.
 
-Add the following code below `// Step 8: Claim Colony Funds`:
+Add the following code below `// Step 7: Claim Colony Funds`:
 
 ```js
 
@@ -228,13 +210,13 @@ console.log('Colony funds claimed!');
 
 ```
 
-### Step 9: Add Payment
+### Step 8: Add Payment
 
 Now that you have funds available in the root domain of your colony, you can fund domains, tasks, and payments within your colony. The goal within this example is to make a payment, so the next step will be adding a payment to your colony.
 
 You will use your wallet address as the recipient, which you can justify as your reward for all the hard work you put in to setting up your colony. You will also use the address of the token you assigned as the native token for your colony and the id of the root domain so that you will earn reputation at the root level of your colony.
 
-Add the following code below `// Step 9: Add Payment`:
+Add the following code below `// Step 8: Add Payment`:
 
 ```js
 
@@ -254,11 +236,11 @@ console.log('Payment Data:', { paymentId, potId });
 
 ```
 
-### Step 10: Move Funds
+### Step 9: Move Funds
 
 Next, you will need to fund your payment by moving funds from the funding pot for the colony to the funding pot for the payment. Each payment within a colony has its own funding pot in order to ensure funds are secured for that payment.
 
-Add the following code below `// Step 10: Move Funds`:
+Add the following code below `// Step 9: Move Funds`:
 
 ```js
 
@@ -274,11 +256,11 @@ console.log('Funds moved to payment pot!');
 
 ```
 
-### Step 11: Finalize Payment
+### Step 10: Finalize Payment
 
 Now that your payment has been funded, you can finalize it. A payment can only be finalized if the payment amount is available in the funding pot associated with the payment. There are additional methods available to update your payment, but once a payment is finalized, you will no longer be able to update it and the recipient will be able to claim the payment.
 
-Add the following code below `// Step 11: Finalize Payment`:
+Add the following code below `// Step 10: Finalize Payment`:
 
 ```js
 
@@ -289,11 +271,11 @@ console.log('Payment finalized!');
 
 ```
 
-### Step 12: Claim Payment
+### Step 11: Claim Payment
 
 Wahoo! All your hard work has paid off. It's time to claim your payment! Claiming your payment will transfer the payment amount to your wallet and reward you with reputation within your colony.
 
-Add the following code below `// Step 12: Claim Payment`:
+Add the following code below `// Step 11: Claim Payment`:
 
 ```js
 

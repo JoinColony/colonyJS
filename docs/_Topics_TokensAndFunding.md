@@ -55,18 +55,19 @@ await colonyClient.mintTokens.send({
 
 *Note: You must be assigned the `ROOT` role to call this method.*
 
-Alternatively, if the colony contract is not the `owner` of the token contract, you can mint tokens using an instance of [TokenClient](/colonyjs/api-tokenclient):
+Alternatively, if the colony contract is not the `owner` of the token contract or assigned the token authority role, you can mint tokens using an instance of [TokenClient](/colonyjs/api-tokenclient):
 
 ```js
 
 // Mint tokens
 await colonyClient.tokenClient.mint.send({
+  address: '0x0...',
   amount: new BN('10000000000000000000'),
 });
 
 ```
 
-*Note: You must be the `owner` of the token contract to call this method.*
+*Note: You must be the `owner` of the token contract or assigned the token authority role to call this method. The `address` is the address that will receive the minted tokens, ie the colony address.*
 
 ### Get Token Info
 

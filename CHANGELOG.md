@@ -24,6 +24,17 @@
 * Remove `rinkeby` deployments from network loader, as they are no longer supported (`@colony/colony-js-contract-loader-network`)
 * Remove unused network support from `getNetworkClient` (`@colony/colony-js-client`)
 
+* Updated caller methods in `TokenClient` (`@colony/colony-js-client`)
+  * Updated `approve`
+    * Changed `user` input parameter to `address`
+  * Updated `burn`
+    * Changed `user` input parameter to `address`
+  * Updated `mint`
+    * Changed `user` input parameter to `address`
+* Updated sender methods in `TokenClient` (`@colony/colony-js-client`)
+  * Updated `getAllowance`
+    * Changed `user` input parameter to `address`
+
 ## v1.12.1
 
 **Bug Fixes**
