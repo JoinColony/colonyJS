@@ -40,6 +40,14 @@ export default class EthersWrappedWallet {
     return this.wallet.signMessage(payload);
   }
 
+  async getNonce(): Promise<number | void> {
+    // MetaMask logs a warning if the nonce is already set, so only set the
+    // nonce for other wallet types.
+    return this.wallet.subtype === 'metamask'
+      ? undefined
+      : this.getTransactionCount();
+  }
+
   /**
    * Given a partial transaction request, sets the remaining required fields,
    * signs the transaction with the Purser wallet and sends it using the
@@ -58,7 +66,7 @@ export default class EthersWrappedWallet {
             .mul(new BigNumber('12'))
             .div(new BigNumber('10')),
       gasPrice: gasPrice ? new BigNumber(gasPrice) : await this.getGasPrice(),
-      nonce: nonce || (await this.getTransactionCount()),
+      nonce: nonce || (await this.getNonce()),
       to,
       value,
     };
