@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.13.1
+
+**Bug fixes**
+
+* Do not supply a nonce value for outgoing transactions when using a MetaMask wallet (`@colony/colony-js-client`)
+
 ## v1.13.0
 
 **New Features**
