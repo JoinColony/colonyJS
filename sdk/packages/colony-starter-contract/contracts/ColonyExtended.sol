@@ -1,4 +1,4 @@
-pragma solidity >=0.4.24;
+pragma solidity 0.5.8;
 pragma experimental ABIEncoderV2;
 
 import "@colony/colony-cli/lib/colonyNetwork/contracts/IColony.sol";
@@ -22,7 +22,7 @@ contract ColonyExtended {
   }
 
   // Get colony hash
-  function getColonyHash() public constant returns (bytes32) {
+  function getColonyHash() public view returns (bytes32) {
     return colonyHash;
   }
 

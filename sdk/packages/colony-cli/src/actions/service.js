@@ -237,6 +237,8 @@ const service = async (commander, serviceName) => {
 
   } else if (serviceName === 'colony-setup') {
 
+    // TODO: Ignore the console warning messages from colonyJS
+
     // Log step
     console.log(chalk.cyan('Starting colony setup...'));
     console.log();
@@ -261,7 +263,7 @@ const service = async (commander, serviceName) => {
 
     // Run truffle command
     cp.execSync(
-      `${colonyNetworkPath}/node_modules/.bin/truffle ${truffleArgs.join(' ')}`,
+      `${colonyNetworkPath}/node_modules/truffle/build/cli.bundled.js ${truffleArgs.join(' ')}`,
       {
         stdio: 'inherit',
       },
