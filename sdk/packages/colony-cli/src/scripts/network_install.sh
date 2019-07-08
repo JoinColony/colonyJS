@@ -36,7 +36,7 @@ else
 
   # Set colonyNework to default version
   log "Checking out default version..."
-  git -c advice.detachedHead=false checkout glider-rc.1
+  git -c advice.detachedHead=false checkout glider
 
 fi
 

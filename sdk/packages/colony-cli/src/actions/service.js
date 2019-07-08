@@ -116,21 +116,42 @@ const service = async (commander, serviceName) => {
 
   } else {
 
-    let version = fs.readFileSync(path.join(colonyNetworkPath, '.git/HEAD'));
-    version = version.toString().trim();
+    let commit = fs.readFileSync(path.join(colonyNetworkPath, '.git/HEAD'));
+    commit = commit.toString().trim();
 
-    if (version === 'b43238a4d14a0b6e31190045db25caafdb85da4c') {
+    if (commit === 'b43238a4d14a0b6e31190045db25caafdb85da4c') {
 
       // Log version
       console.log();
       console.log(`  Using colonyNetwork version glider-rc.1`);
       console.log();
 
-    } else {
+    } else if (commit === '32c51c5cb43f565d64c93c2826a1589083ce92a0') {
 
       // Log version
       console.log();
-      console.log(`  Using colonyNetwork version ${version}`);
+      console.log(`  Using colonyNetwork version glider-rc.2`);
+      console.log();
+
+    } else if (commit === 'ccda3dd7f79b4803db3ae162b15ca98dd9c68129') {
+
+      // Log version
+      console.log();
+      console.log(`  Using colonyNetwork version glider-rc.3`);
+      console.log();
+
+    } else if (commit === 'b77c7ae0ebcdb69a0fd1513bdaa75a6b4832cf35') {
+
+      // Log version
+      console.log();
+      console.log(`  Using colonyNetwork version glider`);
+      console.log();
+
+    } else {
+
+      // Log commit
+      console.log();
+      console.log(`  Using colonyNetwork version ${commit}`);
       console.log();
 
     }
