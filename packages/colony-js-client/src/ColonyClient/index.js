@@ -2777,7 +2777,7 @@ export default class ColonyClient extends ContractClient {
       this.addMultisigSender(name, {
         input: [['taskId', 'number'], ['address', 'address']],
         getRequiredSignees: async (args: InputArgs) => {
-          const { taskId, user } = args;
+          const { taskId, address } = args;
 
           // The manager's sig is required for all role change operations
           const { address: manager } = await this.getTaskRole.call({
@@ -2786,7 +2786,7 @@ export default class ColonyClient extends ContractClient {
           });
 
           const requiredSignees = await getRequiredSignees(args);
-          const signees = [manager, user].concat(requiredSignees);
+          const signees = [manager, address].concat(requiredSignees);
 
           return filterRequiredSignees(signees);
         },

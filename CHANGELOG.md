@@ -1,5 +1,11 @@
 # Changelog
 
+## next
+
+**Bug Fixes**
+
+* Fix parameters in `makeExecuteTaskRoleChange` (`@colony/colony-js-client`)
+
 ## v1.13.1
 
 **Bug fixes**
