@@ -1,12 +1,22 @@
 {
-  "name": "colony-example-vue",
-  "version": "0.1.0",
-  "engines": {
-    "node": ">=10.12.0 <12.0.0"
-  },
+  "name": "@colony/colony-example-vue",
+  "version": "1.0.0-beta.0",
+  "description": "A simple example project built with Colony",
+  "keywords": [
+    "colony",
+    "example",
+    "react"
+  ],
+  "license": "MIT",
   "files": [
     "/",
     ".gitignore"
+  ],
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
   ],
   "scripts": {
     "start-ganache": "colony service start-ganache",
@@ -23,33 +33,39 @@
   },
   "dependencies": {
     "@colony/colony-cli": "^1.0.0-beta.6",
-    "@colony/colony-js-client": "^1.11.2",
+    "@colony/colony-js-client": "^1.13.1",
     "@colony/purser-metamask": "^2.2.0",
     "@colony/purser-software": "^1.2.4",
-    "bn.js": "^4.11.8",
-    "core-js": "^2.6.5",
-    "ipfs": "^0.35.0",
-    "ipfs-repo": "^0.26.6",
+    "core-js": "^3.1.4",
+    "ipfs": "^0.36.4",
+    "ipfs-repo": "^0.27.0",
     "vue": "^2.6.10",
-    "vue-router": "^3.0.3",
-    "vuex": "^3.0.1",
+    "vue-router": "^3.0.7",
+    "vuex": "^3.1.1",
+    "web3": "^1.0.0-beta.55",
     "web3-utils": "^1.0.0-beta.55"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.7.0",
-    "@vue/cli-plugin-e2e-cypress": "^3.7.0",
-    "@vue/cli-plugin-eslint": "^3.7.0",
-    "@vue/cli-plugin-unit-jest": "^3.7.0",
-    "@vue/cli-service": "^3.7.0",
+    "@vue/cli-plugin-babel": "^3.9.2",
+    "@vue/cli-plugin-e2e-cypress": "^3.9.0",
+    "@vue/cli-plugin-eslint": "^3.9.2",
+    "@vue/cli-plugin-unit-jest": "^3.9.0",
+    "@vue/cli-service": "^3.9.2",
     "@vue/eslint-config-airbnb": "^4.0.0",
     "@vue/test-utils": "1.0.0-beta.29",
     "babel-core": "7.0.0-bridge.0",
-    "babel-eslint": "^10.0.1",
-    "babel-jest": "^23.6.0",
-    "eslint": "^5.16.0",
-    "eslint-plugin-vue": "^5.0.0",
-    "sass": "^1.18.0",
+    "babel-eslint": "^10.0.2",
+    "babel-jest": "^24.8.0",
+    "eslint": "^6.0.0",
+    "eslint-plugin-vue": "^5.2.3",
+    "sass": "^1.22.3",
     "sass-loader": "^7.1.0",
-    "vue-template-compiler": "^2.5.21"
+    "vue-template-compiler": "^2.6.10"
+  },
+  "engines": {
+    "node": ">=10.13.0 <12.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

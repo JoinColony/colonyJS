@@ -39,17 +39,17 @@
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
     "@colony/colony-cli": "^1.0.0-beta.6",
-    "@colony/colony-js-client": "^1.12.0",
+    "@colony/colony-js-client": "^1.13.1",
     "@colony/colony-js-contract-loader-http": "^1.12.0",
     "@colony/purser-metamask": "^2.2.0",
     "@colony/purser-software": "^1.2.4",
     "buffer": "^5.2.1",
-    "ipfs": "^0.35.0",
-    "ipfs-repo": "^0.26.6",
-    "rxjs": "^6.0.0",
+    "ipfs": "^0.36.4",
+    "ipfs-repo": "^0.27.0",
+    "rxjs": "^6.5.2",
     "web3": "^1.0.0-beta.55",
     "web3-utils": "^1.0.0-beta.55",
-    "zone.js": "^0.8.28"
+    "zone.js": "^0.9.1"
   },
   "devDependencies": {
     "@angular-builders/dev-server": "~7.2.0",
@@ -61,19 +61,19 @@
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
-    "jasmine-core": "^3.3.0",
+    "jasmine-core": "^3.4.0",
     "jasmine-spec-reporter": "^4.2.1",
-    "karma": "^4.0.1",
+    "karma": "^4.1.0",
     "karma-chrome-launcher": "^2.2.0",
-    "karma-coverage-istanbul-reporter": "^2.0.4",
+    "karma-coverage-istanbul-reporter": "^2.0.5",
     "karma-jasmine": "^2.0.1",
-    "karma-jasmine-html-reporter": "^1.4.0",
-    "ts-node": "^7.0.1",
-    "tslint": "^5.12.1",
-    "typescript": "~3.2.2"
+    "karma-jasmine-html-reporter": "^1.4.2",
+    "ts-node": "^8.3.0",
+    "tslint": "^5.18.0",
+    "typescript": "^3.5.3"
   },
   "engines": {
-    "node": ">=10.12.0 <12.0.0"
+    "node": ">=10.13.0 <12.0.0"
   },
   "publishConfig": {
     "access": "public"
