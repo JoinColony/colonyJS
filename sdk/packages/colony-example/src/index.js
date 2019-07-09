@@ -389,7 +389,7 @@ DATABASE = {
   await setTaskEvaluatorRole(
     state.colonyClient[0],          // colonyClient
     state.task.id,                  // taskId
-    state.accounts[1][0],           // user
+    state.accounts[1][0],           // address
   );
 
   log('account[0] signSetTaskEvaluatorRole:');
@@ -437,7 +437,7 @@ DATABASE = {
   await setTaskWorkerRole(
     state.colonyClient[0],          // colonyClient
     state.task.id,                  // taskId
-    state.accounts[2][0],           // user
+    state.accounts[2][0],           // address
   );
 
   log('account[0] signSetTaskWorkerRole:');

@@ -189,8 +189,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(taskActions.setTaskRoleError(null))
     dispatch(taskActions.setTaskRoleSuccess(false))
   },
-  setTaskRole(colonyClient, taskId, role, user) {
-    dispatch(taskActions.setTaskRole(colonyClient, taskId, role, user))
+  setTaskRole(colonyClient, taskId, role, address) {
+    dispatch(taskActions.setTaskRole(colonyClient, taskId, role, address))
   },
 })
 
