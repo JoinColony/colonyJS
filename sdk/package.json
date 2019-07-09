@@ -10,7 +10,7 @@
     "start-trufflepig": "node scripts/colony.js service start-trufflepig",
     "seed-network": "node scripts/colony.js service seed-network",
     "colony-setup": "node scripts/colony.js service colony-setup",
-    "test": "sh scripts/test.sh"
+    "test": "yarn lerna run test --concurrency 1"
   },
   "devDependencies": {
     "chalk": "^2.4.2",
