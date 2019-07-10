@@ -2,7 +2,7 @@ import React from 'react'
 import { createStore } from 'redux'
 import { BrowserRouter, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import renderer from 'react-test-renderer'
+import ReactTestRenderer from 'react-test-renderer'
 import middleware from './middleware'
 import reducers from './reducers'
 import App from './containers/App'
@@ -22,14 +22,14 @@ describe('colony-example-react', () => {
 
   // Test if application renders
   test('Application renders', () => {
-    const app = renderer.create(
+    const renderer = ReactTestRenderer.create(
       <Provider store={store}>
         <BrowserRouter>
           <Route path="/" component={App} />
         </BrowserRouter>
       </Provider>,
     )
-    expect(app.toJSON()).toMatchSnapshot()
+    expect(renderer.toJSON()).toMatchSnapshot()
   })
 
 })
