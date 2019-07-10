@@ -1248,14 +1248,14 @@
     "@colony/colony-js-contract-loader" "^1.12.0"
     bn.js "^4.11.8"
 
-"@colony/colony-js-client@^1.13.1":
-  version "1.13.1"
-  resolved "https://registry.yarnpkg.com/@colony/colony-js-client/-/colony-js-client-1.13.1.tgz#cd355636a954994f874965a4a928f38a0e3eaabd"
-  integrity sha512-2Iy2n9kWeEMut+8kmi/4RNZXiTnTtKco4Vy9s2tiyoXEmtj18ksFsW800UxWvz3EoscqpKMsQo5L8nwHlp5IEw==
+"@colony/colony-js-client@^1.13.2":
+  version "1.13.2"
+  resolved "https://registry.yarnpkg.com/@colony/colony-js-client/-/colony-js-client-1.13.2.tgz#4093ac4c92dcee13b009d828dba51348f6c349f6"
+  integrity sha512-6RKXzv2/xOr9Xt/mq6Tihs9pxNQpAr+4F7HGOcPjmr1aQKlZlAriNX6dLQn4ak8BsUnuIyUz9l6y/ISiJ11KGw==
   dependencies:
     "@colony/colony-js-adapter" "^1.12.0"
     "@colony/colony-js-adapter-ethers" "^1.12.2"
-    "@colony/colony-js-contract-client" "^1.13.0"
+    "@colony/colony-js-contract-client" "^1.13.2"
     "@colony/colony-js-contract-loader" "^1.12.0"
     "@colony/colony-js-contract-loader-http" "^1.12.0"
     "@colony/colony-js-contract-loader-network" "^1.13.0"
@@ -1269,10 +1269,10 @@
     isomorphic-fetch "^2.2.1"
     web3-utils "^1.0.0-beta.55"
 
-"@colony/colony-js-contract-client@^1.13.0":
-  version "1.13.0"
-  resolved "https://registry.yarnpkg.com/@colony/colony-js-contract-client/-/colony-js-contract-client-1.13.0.tgz#30f5906b32132db61f7e37cc45e08e37a901f751"
-  integrity sha512-EX+JTU5L+sgK+YrRSdTOR/Z69OaH/V2Ua/kRLiS8Edpp1vKuFf1MKAGDmSRe5OivPQEYNy5SyswTic7yrmgiJg==
+"@colony/colony-js-contract-client@^1.13.2":
+  version "1.13.2"
+  resolved "https://registry.yarnpkg.com/@colony/colony-js-contract-client/-/colony-js-contract-client-1.13.2.tgz#25e7c75a172993346791d3ec32395ba3bbbe77cf"
+  integrity sha512-apIGTLjkm8n2+rEcAXpDssLGt2N8lS6n6jcVd2ivtzG96MygyfaLL+gToX71LAUDywrHX8RqFWXT7fs5nwLqLA==
   dependencies:
     "@colony/colony-js-adapter" "^1.12.0"
     "@colony/colony-js-contract-loader" "^1.12.0"
@@ -14575,9 +14575,9 @@ lodash@4.17.11:
   integrity sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg==
 
 lodash@4.x, "lodash@>=3.5 <5", lodash@^4.0.0, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.2.1, lodash@^4.3.0, lodash@~4.17.10:
-  version "4.17.13"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.13.tgz#0bdc3a6adc873d2f4e0c4bac285df91b64fc7b93"
-  integrity sha512-vm3/XWXfWtRua0FkUyEHBZy8kCPjErNBT9fJx8Zvs+U6zjqPbTUOpkaoum3O5uiA8sm+yNMHXfYkTUHFoMxFNA==
+  version "4.17.14"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.14.tgz#9ce487ae66c96254fe20b599f21b6816028078ba"
+  integrity sha512-mmKYbW3GLuJeX+iGP+Y7Gp1AiGHGbXHCOh/jZmrawMmsE7MS4znI3RL2FsjbqOyMayHInjOeykW7PEajUk1/xw==
 
 lodash@=3.10.1:
   version "3.10.1"
@@ -18767,9 +18767,9 @@ redux-logger@^3.0.6:
     deep-diff "^0.3.5"
 
 redux@^4.0.2:
-  version "4.0.3"
-  resolved "https://registry.yarnpkg.com/redux/-/redux-4.0.3.tgz#0ca18be085e6cf6ed50e445a125f85e8b26b266b"
-  integrity sha512-v/Iaw67Pe+na+cZvcKvPxAKT1ww5kM+M09fmaCndCQC4Lo434AYb5975HJgJlp0D7dJxfYaLxMD4VwfpLOZ1Rw==
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/redux/-/redux-4.0.4.tgz#4ee1aeb164b63d6a1bcc57ae4aa0b6e6fa7a3796"
+  integrity sha512-vKv4WdiJxOWKxK0yRoaK3Y4pxxB0ilzVx6dszU2W8wLxlb2yikRph4iV/ymtdJ6ZxpBLFbyrxklnT5yBbQSl3Q==
   dependencies:
     loose-envify "^1.4.0"
     symbol-observable "^1.2.0"

@@ -12,7 +12,7 @@
     "trufflepig": "node_modules/.bin/trufflepig"
   },
   "dependencies": {
-    "@colony/colony-js-client": "^1.13.1",
+    "@colony/colony-js-client": "^1.13.2",
     "@colony/purser-software": "^1.2.4",
     "chalk": "^2.4.2",
     "commander": "^2.20.0",

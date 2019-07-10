@@ -237,8 +237,6 @@ const service = async (commander, serviceName) => {
 
   } else if (serviceName === 'colony-setup') {
 
-    // TODO: Ignore the console warning messages from colonyJS
-
     // Log step
     console.log(chalk.cyan('Starting colony setup...'));
     console.log();
