@@ -25,6 +25,7 @@ const waitForIPFS = () => {
 };
 
 exports.init = async () => {
+  if (node) return node;
   await waitForIPFS();
   return node.start();
 }

@@ -25,6 +25,7 @@ const waitForIPFS = () => {
 };
 
 export const init = async () => {
+  if (node) return node;
   await waitForIPFS();
   return node.start();
 }
@@ -46,7 +47,7 @@ export const getHash = async (hash) => {
   return obj;
 }
 
-export const = async () => {
+export const stop = async () => {
   try {
     await node.stop();
   } catch (error) {

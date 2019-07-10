@@ -7,35 +7,37 @@
 // It helps developers building on the Colony Network provide a web 2.0 like
 // user experience, without compromising decentralisation.
 
-import IPFS from 'ipfs';
-import { Buffer } from 'buffer';
+const IPFS = require('ipfs');
+
+const { Buffer } = IPFS;
 
 let node;
 
 const waitForIPFS = () => {
   node = new IPFS({
-    start: false,
     repo: './tmp/ipfs/data',
+    start: false,
   });
   return new Promise((resolve, reject) => {
     node.on('ready', () => resolve(true));
     node.on('error', err => reject(err));
-  });
+  })
 };
 
 export const init = async () => {
+  if (node) return node;
   await waitForIPFS();
   return node.start();
-};
+}
 
 export const saveHash = async (obj) => {
   const data = Buffer.from(JSON.stringify(obj));
-  const result = await node.files.add(data);
+  const result = await node.add(data);
   return result[0].hash;
-};
+}
 
 export const getHash = async (hash) => {
-  const buf = await node.files.cat(`/ipfs/${hash}`);
+  const buf = await node.cat(`/ipfs/${hash}`);
   let obj;
   try {
     obj = JSON.parse(buf.toString());
@@ -43,6 +45,12 @@ export const getHash = async (hash) => {
     throw new Error(`Could not get hash ${hash}`);
   }
   return obj;
-};
+}
 
-export const stop = () => node.stop();
+export const stop = async () => {
+  try {
+    await node.stop();
+  } catch (error) {
+    console.error('IPFS failed a clean stop', error);
+  }
+}
