@@ -41,6 +41,9 @@ export default class ContractClient {
   // Mapping of event topics to ContractEvents
   eventSignatures = {};
 
+  // Show additional logs
+  verbose: ?boolean;
+
   // Static getters used in lieu of named exports; this package only has
   // one export.
   static get Caller(): typeof ContractMethodCaller {
@@ -68,9 +71,10 @@ export default class ContractClient {
     return {};
   }
 
-  constructor({ adapter, query }: ContractClientConstructorArgs) {
+  constructor({ adapter, query, verbose }: ContractClientConstructorArgs) {
     this.adapter = adapter;
     this._query = Object.assign({}, this.constructor.defaultQuery, query);
+    this.verbose = verbose;
   }
 
   get contract() {
@@ -269,7 +273,8 @@ export default class ContractClient {
     }
 
     // Allow initialising of clients where some events may be missing in the
-    // ABI, due to changing of events on the contract.
+    // ABI, due to changing of events on the contract and then log the error
+    // as a warning if the client is initialized in verbose mode.
     try {
       const event = new ContractEvent({
         eventName,
@@ -285,7 +290,9 @@ export default class ContractClient {
         [event.interface.topics[0]]: event,
       });
     } catch (error) {
-      console.info(error);
+      if (this.verbose) {
+        console.warn(`WARNING: ${error.message}`);
+      }
     }
   }
 }

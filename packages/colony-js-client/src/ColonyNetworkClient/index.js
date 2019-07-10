@@ -1021,6 +1021,7 @@ export default class ColonyNetworkClient extends ContractClient {
       networkClient: this,
       query: { contractAddress },
       tokenLockingClient,
+      verbose: this.verbose,
     });
     await colonyClient.init();
     return colonyClient;
@@ -1048,6 +1049,7 @@ export default class ColonyNetworkClient extends ContractClient {
       networkClient: this,
       query: { contractAddress, contractName: 'IMetaColony' },
       tokenLockingClient,
+      verbose: this.verbose,
     });
     await metaColonyClient.init();
     return metaColonyClient;
@@ -1073,6 +1075,7 @@ export default class ColonyNetworkClient extends ContractClient {
       adapter: this.adapter,
       networkClient: this,
       query: { contractAddress },
+      verbose: this.verbose,
     });
     await tokenLockingClient.init();
     return tokenLockingClient;

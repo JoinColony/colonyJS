@@ -48,6 +48,7 @@ const getNetworkClient = async (
   network: string,
   wallet: WalletObjectType,
   infuraProjectId?: string,
+  verbose?: boolean,
 ) => {
   let loader;
   let provider;
@@ -82,7 +83,11 @@ const getNetworkClient = async (
   });
 
   // Initialize network client using ethers adapter and default query
-  const networkClient = new ColonyNetworkClient({ adapter, query: {} });
+  const networkClient = new ColonyNetworkClient({
+    adapter,
+    query: {},
+    verbose,
+  });
   await networkClient.init();
 
   return networkClient;
