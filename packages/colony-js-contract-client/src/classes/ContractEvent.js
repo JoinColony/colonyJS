@@ -47,7 +47,7 @@ export default class ContractEvent<ParamTypes: Object> {
     this.argsDef = argsDef;
 
     if (!this.interface)
-      throw new Error(`No such event "${eventName}" on this contract`);
+      throw new Error(`No such event "${eventName}" in loaded ABI`);
 
     this._wrappedHandlers = new Map();
     this.assertValid = makeAssert(`Validation failed for event ${eventName}`);

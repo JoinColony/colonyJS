@@ -274,7 +274,7 @@ export default class ContractClient {
 
     // Allow initialising of clients where some events may be missing in the
     // ABI, due to changing of events on the contract and then log the error
-    // if the client is initialized in verbose mode.
+    // as a warning if the client is initialized in verbose mode.
     try {
       const event = new ContractEvent({
         eventName,
@@ -291,7 +291,7 @@ export default class ContractClient {
       });
     } catch (error) {
       if (this.verbose) {
-        console.info(error);
+        console.warn(`WARNING: ${error.message}`);
       }
     }
   }
