@@ -1918,12 +1918,13 @@ export default class ColonyClient extends ContractClient {
     query,
     tokenClient,
     tokenLockingClient,
+    verbose,
   }: {
     networkClient?: ColonyNetworkClient,
     tokenClient?: TokenClient,
     tokenLockingClient?: TokenLockingClient,
   } & ContractClientConstructorArgs) {
-    super({ adapter, query });
+    super({ adapter, query, verbose });
 
     if (!(networkClient instanceof ColonyNetworkClient))
       throw new Error(
@@ -1980,6 +1981,7 @@ export default class ColonyClient extends ContractClient {
     const tokenClient = new this.constructor.TokenClient({
       adapter: this.adapter,
       query: { contractAddress: tokenAddress },
+      verbose: this.verbose,
     });
     await tokenClient.init();
     return tokenClient;

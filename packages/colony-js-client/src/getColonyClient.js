@@ -12,11 +12,13 @@ const getColonyClient = async (
   network: string,
   wallet: WalletObjectType,
   infuraProjectId?: string,
+  verbose?: boolean,
 ) => {
   const networkClient = await getNetworkClient(
     network,
     wallet,
     infuraProjectId,
+    verbose,
   );
   return networkClient.getColonyClientByAddress(address);
 };

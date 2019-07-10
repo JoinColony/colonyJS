@@ -40,6 +40,7 @@ export type ContractResponse<EventData> = {
 export type ContractClientConstructorArgs = {
   adapter: IAdapter,
   query: ?Query,
+  verbose: ?boolean,
 };
 
 export type ValidateEmpty = (

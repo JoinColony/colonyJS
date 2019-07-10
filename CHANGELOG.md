@@ -2,6 +2,12 @@
 
 ## next
 
+**New Features**
+
+* Add `verbose` option to `ContractClient` (`@colony/colony-js-contract-client`)
+* Add `verbose` option to `getColonyClient` method (`@colony/colony-js-client`)
+* Add `verbose` option to `getNetworkClient` method (`@colony/colony-js-client`)
+
 **Bug Fixes**
 
 * Fix parameters in `makeExecuteTaskRoleChange` (`@colony/colony-js-client`)
