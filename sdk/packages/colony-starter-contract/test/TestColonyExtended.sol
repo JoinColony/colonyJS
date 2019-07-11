@@ -1,4 +1,4 @@
-pragma solidity >=0.4.24;
+pragma solidity 0.5.8;
 pragma experimental ABIEncoderV2;
 
 import "truffle/Assert.sol";
@@ -9,7 +9,7 @@ contract TestColonyExtended {
   function testColonyExtended() public {
 
     // The address of the first colony created with `yarn colony-setup`
-    address colonyAddress = 0xEc46E0d7208FF021CDb5B9D47196adb8bbe07a3D;
+    address colonyAddress = 0x0a0e9A5781B26D9450D5e1D53aBB3dA887a67d7F;
 
     // Create an instance of the extension contract
     ColonyExtended colonyExtended = new ColonyExtended(colonyAddress);

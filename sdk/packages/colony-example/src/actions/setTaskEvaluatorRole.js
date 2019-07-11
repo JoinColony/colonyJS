@@ -1,10 +1,10 @@
 // An example action using the "setTaskEvaluatorRole" method
-module.exports = async (colonyClient, taskId, user) => {
+module.exports = async (colonyClient, taskId, address) => {
 
   // Start the operation to set the task evaluator role
   const operation = await colonyClient.setTaskEvaluatorRole.startOperation({
     taskId,
-    user,
+    address,
   });
 
   // Check out the logs to see the missing signees

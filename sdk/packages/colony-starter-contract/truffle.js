@@ -2,6 +2,7 @@
 // to customize your Truffle configuration!
 
 module.exports = {
+  plugins: ["truffle-security"],
   networks: {
     development: {
       host: "localhost",
@@ -13,7 +14,7 @@ module.exports = {
   },
   compilers: {
     solc: {
-      version: "0.4.24",
+      version: "0.5.8",
     }
   }
 };

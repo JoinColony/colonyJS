@@ -1,12 +1,22 @@
 {
-  "name": "colony-starter-vue",
-  "version": "0.1.0",
-  "engines": {
-    "node": ">=10.12.0 <12.0.0"
-  },
+  "name": "@colony/colony-starter-vue",
+  "version": "1.0.0-beta.0",
+  "description": "A simple starter project for building with Colony",
+  "keywords": [
+    "colony",
+    "boilerplate",
+    "vue"
+  ],
+  "license": "MIT",
   "files": [
     "/",
     ".gitignore"
+  ],
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
   ],
   "scripts": {
     "start-ganache": "colony service start-ganache",
@@ -21,22 +31,27 @@
   },
   "dependencies": {
     "@colony/colony-cli": "^1.0.0-beta.5",
-    "@colony/colony-js-client": "^1.11.2",
+    "@colony/colony-js-client": "^1.13.2",
     "@colony/purser-metamask": "^2.2.0",
-    "buffer": "^5.2.1",
-    "core-js": "^2.6.5",
-    "ipfs": "^0.35.0",
+    "core-js": "^3.1.4",
+    "ipfs": "^0.36.4",
     "vue": "^2.6.10"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.7.0",
-    "@vue/cli-plugin-eslint": "^3.7.0",
-    "@vue/cli-service": "^3.7.0",
-    "babel-eslint": "^10.0.1",
-    "eslint": "^5.16.0",
-    "eslint-plugin-vue": "^5.0.0",
-    "sass": "^1.18.0",
+    "@vue/cli-plugin-babel": "^3.9.2",
+    "@vue/cli-plugin-eslint": "^3.9.2",
+    "@vue/cli-service": "^3.9.2",
+    "babel-eslint": "^10.0.2",
+    "eslint": "^6.0.0",
+    "eslint-plugin-vue": "^5.2.3",
+    "sass": "^1.22.3",
     "sass-loader": "^7.1.0",
-    "vue-template-compiler": "^2.5.21"
+    "vue-template-compiler": "^2.6.10"
+  },
+  "engines": {
+    "node": ">=10.13.0 <12.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

@@ -495,13 +495,13 @@ describe('colony-example [ local ]', () => {
     await setTaskEvaluatorRole(
       state.colonyClient[0],          // colonyClient
       state.task.id,                  // taskId
-      state.accounts[1][0],           // user
+      state.accounts[1][0],           // address
     );
     expect(JSON.parse(DATABASE.operations.setTaskEvaluatorRole)).toEqual(expect.objectContaining({
       payload: expect.objectContaining({
         inputValues: expect.objectContaining({
           taskId: state.task.id,
-          user: state.accounts[1][0],
+          address: state.accounts[1][0],
         }),
       }),
     }));
@@ -572,13 +572,13 @@ describe('colony-example [ local ]', () => {
     await setTaskWorkerRole(
       state.colonyClient[0],          // colonyClient
       state.task.id,                  // taskId
-      state.accounts[2][0],           // user
+      state.accounts[2][0],           // address
     );
     expect(JSON.parse(DATABASE.operations.setTaskWorkerRole)).toEqual(expect.objectContaining({
       payload: expect.objectContaining({
         inputValues: expect.objectContaining({
           taskId: state.task.id,
-          user: state.accounts[2][0],
+          address: state.accounts[2][0],
         }),
       }),
     }));

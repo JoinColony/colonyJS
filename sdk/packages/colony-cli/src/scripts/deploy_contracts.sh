@@ -7,14 +7,6 @@ log() {
   echo "${CYAN}$1${NONE}"
 }
 
-# Check ssh connection
-log "Checking ssh connection..."
-ssh -T git@github.com
-
-# Pull docker image
-log "Pulling docker images..."
-docker pull ethereum/solc:0.5.6
-
 # Update colonyNetwork submodules
 log "Updating colonyNetwork submodules..."
 git submodule update --init --recursive

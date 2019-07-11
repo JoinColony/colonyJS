@@ -7,6 +7,10 @@ log() {
   echo "${CYAN}$1${NONE}"
 }
 
+# Remove build directory
+log "Removing build directory..."
+rm -rf build
+
 # Check out specific version
 log "Checking out specific version..."
 git -c advice.detachedHead=false checkout $1

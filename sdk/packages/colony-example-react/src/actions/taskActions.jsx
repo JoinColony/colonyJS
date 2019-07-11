@@ -747,7 +747,7 @@ export const setTaskPayoutsSuccess = (success) => ({
 
 // setTaskRole
 
-export const setTaskRole = (colonyClient, taskId, role, user) => ({
+export const setTaskRole = (colonyClient, taskId, role, address) => ({
   type: actions.SET_TASK_ROLE,
   payload: (async () => {
 
@@ -760,7 +760,7 @@ export const setTaskRole = (colonyClient, taskId, role, user) => ({
       // Set task manager role
       const operation = await colonyClient.setTaskManagerRole.startOperation({
         taskId,
-        user,
+        address,
       })
 
       // Handle multisignature operation
@@ -774,7 +774,7 @@ export const setTaskRole = (colonyClient, taskId, role, user) => ({
       // Set task evaluator role
       const operation = await colonyClient.setTaskEvaluatorRole.startOperation({
         taskId,
-        user,
+        address,
       })
 
       // Handle multisignature operation
@@ -788,7 +788,7 @@ export const setTaskRole = (colonyClient, taskId, role, user) => ({
       // Set worker role
       const operation = await colonyClient.setTaskWorkerRole.startOperation({
         taskId,
-        user,
+        address,
       })
 
       // Handle multisignature operation

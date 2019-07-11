@@ -25,7 +25,7 @@
     "@colony/colony-cli": "1.0.0-beta.6"
   },
   "engines": {
-    "node": ">=10.12.0 <12.0.0"
+    "node": ">=10.13.0 <12.0.0"
   },
   "publishConfig": {
     "access": "public"
