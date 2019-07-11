@@ -7,10 +7,6 @@ log() {
   echo "${CYAN}$1${NONE}"
 }
 
-# Check ssh connection
-log "Checking ssh connection..."
-ssh -T git@github.com
-
 # Update colonyNetwork submodules
 log "Updating colonyNetwork submodules..."
 git submodule update --init --recursive
