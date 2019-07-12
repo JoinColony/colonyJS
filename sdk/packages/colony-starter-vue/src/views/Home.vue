@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div>
     <Addresses :colony-client="colonyClient" :loading="loading" v-if="!error"/>
     <p v-if="error">{{ error }}</p>
   </div>
@@ -8,11 +8,11 @@
 <script>
 import { getNetworkClient } from '@colony/colony-js-client';
 import { open } from '@colony/purser-metamask';
-// @ is an alias to /src
-import Addresses from '@/components/Addresses.vue';
+
+import Addresses from '../components/Addresses.vue';
 
 export default {
-  name: 'home',
+  name: 'Home',
   data() {
     return {
       colonyClient: {},
@@ -30,9 +30,9 @@ export default {
       const colonyClient = await networkClient.getColonyClient(1);
       this.loading = false;
       this.colonyClient = colonyClient;
-    } catch (err) {
+    } catch (error) {
       this.loading = false;
-      this.error = err;
+      this.error = error;
     }
   },
 };
