@@ -1,7 +1,7 @@
 <template>
-  <div class="main">
-    <header class="header">
-      <img class="logo" alt="Colony logo" src="./assets/logo.png">
+  <main>
+    <header>
+      <img class="logo" alt="Vue" src="../assets/logo.png">
       <span class="title">
         colony-starter-vue
       </span>
@@ -9,11 +9,11 @@
     <div class="content">
       <Home />
     </div>
-  </div>
+  </main>
 </template>
 
 <script>
-import Home from './views/Home.vue'
+import Home from './Home.vue'
 
 export default {
   components: {
@@ -22,16 +22,16 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style>
 body {
   margin: 0
 }
-.main {
+main {
   color: #2c3e50;
   font-family: 'Avenir', sans-serif;
   text-align: center;
 }
-.header {
+header {
   background-color: rgb(40, 44, 52);
   height: 12vmin;
   display: flex;
