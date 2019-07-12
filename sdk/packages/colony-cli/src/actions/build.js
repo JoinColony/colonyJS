@@ -15,10 +15,12 @@ const packages = [
   'colony-example',
   'colony-example-angular',
   'colony-example-react',
+  'colony-example-vue',
   'colony-starter',
   'colony-starter-angular',
   'colony-starter-contract',
   'colony-starter-react',
+  'colony-starter-vue',
 ];
 
 // Install and build a starter package
