@@ -25,7 +25,11 @@ const waitForIPFS = () => {
 };
 
 exports.init = async () => {
-  if (node) return node;
+  if (node) {
+    // eslint-disable-next-line no-console
+    console.warn('Using existing IPFS node');
+    return node;
+  }
   await waitForIPFS();
   return node.start();
 }
@@ -51,6 +55,7 @@ exports.stop = async () => {
   try {
     await node.stop();
   } catch (error) {
-    console.error('IPFS failed a clean stop', error);
+    // eslint-disable-next-line no-console
+    console.warn('IPFS failed a clean stop', error);
   }
 }
