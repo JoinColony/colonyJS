@@ -72,6 +72,9 @@
     "tslint": "^5.18.0",
     "typescript": "^3.5.3"
   },
+  "resolutions": {
+    "web3": "^1.0.0-beta.55"
+  },
   "engines": {
     "node": ">=10.13.0 <12.0.0"
   },

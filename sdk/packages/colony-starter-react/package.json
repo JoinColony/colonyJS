@@ -47,6 +47,9 @@
     "react-scripts": "^3.0.1",
     "react-test-renderer": "^16.8.6"
   },
+  "resolutions": {
+    "web3": "^1.0.0-beta.55"
+  },
   "engines": {
     "node": ">=10.13.0 <12.0.0"
   },
