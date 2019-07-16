@@ -23,3 +23,7 @@ yarn-error.log*
 
 # tmp
 /tmp
+
+# testing
+**/screenshots
+**/videos

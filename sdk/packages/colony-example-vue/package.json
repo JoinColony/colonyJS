@@ -25,11 +25,11 @@
     "seed-network": "colony service seed-network",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "fix": "vue-cli-service lint --fix",
     "lint": "vue-cli-service lint",
-    "test:e2e": "vue-cli-service test:e2e",
-    "test:e2e:dev": "vue-cli-service test:e2e --mode=development",
-    "test:unit": "vue-cli-service test:unit"
+    "lint:fix": "vue-cli-service lint --fix",
+    "test:e2e": "vue-cli-service test:e2e --headless",
+    "test:unit": "vue-cli-service test:unit",
+    "test": "yarn lint && yarn test:e2e && yarn test:unit"
   },
   "dependencies": {
     "@colony/colony-cli": "^1.0.0-beta.6",
@@ -50,15 +50,11 @@
     "@vue/cli-plugin-eslint": "^3.9.2",
     "@vue/cli-plugin-unit-jest": "^3.9.0",
     "@vue/cli-service": "^3.9.2",
-    "@vue/eslint-config-airbnb": "^4.0.0",
-    "@vue/test-utils": "1.0.0-beta.29",
-    "babel-core": "7.0.0-bridge.0",
+    "@vue/test-utils": "^1.0.0-beta.29",
     "babel-eslint": "^10.0.2",
     "babel-jest": "^24.8.0",
     "eslint": "^6.0.0",
     "eslint-plugin-vue": "^5.2.3",
-    "sass": "^1.22.3",
-    "sass-loader": "^7.1.0",
     "vue-template-compiler": "^2.6.10"
   },
   "engines": {
