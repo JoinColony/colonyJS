@@ -1,7 +1,7 @@
 <template>
   <main>
     <header>
-      <img class="logo" alt="Vue" src="../assets/logo.png">
+      <img class="logo" alt="Vue" src="./assets/logo.png">
       <span class="title">
         colony-starter-vue
       </span>
