@@ -1,21 +1,23 @@
 <template>
-  <div class="box">
+  <div>
     <h1>Admins</h1>
-    <AddressForm class="check-admin-form" submit-label="Check Admin" @submit="checkAdmin" />
-    <AddressForm class="add-admin-form" submit-label="Add Admin" @submit="addAdmin" />
-    <AddressForm class="remove-admin-form" submit-label="Remove Admin" @submit="removeAdmin" />
+    <AddAdmin />
+    <CheckAdmin />
+    <RemoveAdmin />
   </div>
 </template>
+
 <script>
-import { checkAdmin, addAdmin, removeAdmin } from '@/api/admin'
-import addressMixin from '../address-mixin'
+import AddAdmin from './Add.vue'
+import CheckAdmin from './Check.vue'
+import RemoveAdmin from './Remove.vue'
 
 export default {
-  mixins: [addressMixin],
-  methods: {
-    checkAdmin,
-    addAdmin,
-    removeAdmin,
+  name: 'Manage.Colony.Admins.View',
+  components: {
+    AddAdmin,
+    CheckAdmin,
+    RemoveAdmin,
   },
 }
 </script>

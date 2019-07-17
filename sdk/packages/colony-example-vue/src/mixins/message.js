@@ -1,4 +1,3 @@
-
 export default {
   data() {
     return {
@@ -7,6 +6,14 @@ export default {
     }
   },
   methods: {
+    async check(...args) {
+      try {
+        this.loading = true
+        this.result = await this.request(...args)
+      } finally {
+        this.loading = false
+      }
+    },
     async create(...args) {
       try {
         this.loading = true

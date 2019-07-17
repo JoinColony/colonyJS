@@ -1,4 +1,4 @@
-import { getSkills } from '@/api/skills'
+import { getPots } from '@/api/funding'
 
 export default {
   namespaced: true,
@@ -10,8 +10,8 @@ export default {
   },
   actions: {
     async hydrate({ commit }) {
-      const skills = await getSkills({})
-      commit('hydrate', skills)
+      const pots = await getPots({})
+      commit('hydrate', pots)
     },
   },
   getters: {

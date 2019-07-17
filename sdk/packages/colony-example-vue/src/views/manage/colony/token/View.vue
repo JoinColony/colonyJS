@@ -6,14 +6,14 @@
     <Mint />
   </div>
 </template>
+
 <script>
-import addressMixin from '../address-mixin'
 import Token from './Token.vue'
 import SetOwner from './SetOwner.vue'
 import Mint from './Mint.vue'
 
 export default {
-  mixins: [addressMixin],
+  name: 'Manage.Colony.Token.View',
   components: {
     Token,
     SetOwner,

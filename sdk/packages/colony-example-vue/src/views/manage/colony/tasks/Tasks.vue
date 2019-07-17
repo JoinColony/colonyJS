@@ -4,11 +4,13 @@
     <Tasks :tasks="tasks" />
   </div>
 </template>
+
 <script>
 import { mapGetters } from 'vuex'
 import Tasks from '@/components/colony/tasks/Tasks.vue'
 
 export default {
+  name: 'Manage.Colony.Tasks.Tasks',
   components: {
     Tasks,
   },

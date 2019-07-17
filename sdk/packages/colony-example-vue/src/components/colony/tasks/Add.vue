@@ -1,45 +1,49 @@
 <template>
-  <form class="create-task-form"
+  <form
         @submit.prevent="$emit('submit', { task })">
-    <div class="field">
+    <div>
       <label>Domain:</label>
-      <select class="domain" v-model="domainId">
+      <select v-model="domainId">
         <option :value="null">Select domain</option>
-        <option v-for="(option,i) in domains"
-                v-bind:value="option.id"
-                v-text="option.id"
-                :key="i">
-        </option>
+        <option
+          v-for="(option,i) in domains"
+          v-bind:value="option.id"
+          v-text="option.id"
+          :key="i"
+        />
       </select>
     </div>
-    <div class="field">
+    <div>
       <label>Skill:</label>
-      <select class="skill" v-model="skillId">
+      <select v-model="skillId">
         <option :value="null">Select skill</option>
-        <option v-for="(option,i) in skills"
-                v-bind:value="option.id"
-                :key="i"
-                v-text="option.id">
-        </option>
+        <option
+          v-for="(option,i) in skills"
+          v-bind:value="option.id"
+          :key="i"
+          v-text="option.id"
+        />
       </select>
     </div>
-    <div class="field">
+    <div>
       <label>Title: </label>
-      <input class="title" type="text" v-model="title" />
+      <input type="text" v-model="title" />
     </div>
-    <div class="field">
+    <div>
       <label>Description: </label>
-      <input class="description" type="text" v-model="description" />
+      <input type="text" v-model="description" />
     </div>
-    <div class="field">
+    <div>
       <label>Due date:</label>
-      <input class="date" type="date" v-model="dueDate" />
+      <input type="date" v-model="dueDate" />
     </div>
-    <button type="submit">Create Task</button>
+    <button type="submit">Add Task</button>
   </form>
 </template>
+
 <script>
 export default {
+  name: 'Colony.Tasks.Add',
   data() {
     return {
       domainId: null,

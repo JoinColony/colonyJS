@@ -4,11 +4,13 @@
     <DomainsList :domains="domains"/>
   </div>
 </template>
+
 <script>
 import { mapGetters } from 'vuex'
 import DomainsList from '@/components/colony/domains/Domains.vue'
 
 export default {
+  name: 'Manage.Colony.Domains.Domains',
   components: {
     DomainsList,
   },

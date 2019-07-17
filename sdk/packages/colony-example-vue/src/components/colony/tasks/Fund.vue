@@ -1,30 +1,33 @@
 <template>
-  <form class="fund-task-form" @submit.prevent="$emit('submit', { task, amount })">
-    <div class="field">
-      <label>Task:</label>
-      <select v-model="task">
+  <form @submit.prevent="$emit('submit', { taskId, amount })">
+    <div>
+      <label>Task: </label>
+      <select v-model="taskId">
         <option :value="null">Select task</option>
-        <option v-for="(option,i) in tasks" v-bind:value="option.id" :key="i">
-          {{ option.id }}
-        </option>
+        <option
+          v-for="(option, i) in tasks"
+          v-bind:value="option.id"
+          v-text="option.id"
+          :key="i"
+        />
       </select>
     </div>
-    <div class="field">
+    <div>
       <label>Amount: </label>
-      <input class="amount" type="text" v-model="amount" />
+      <input type="text" v-model="amount" />
     </div>
     <button type="submit">Fund Task</button>
   </form>
 </template>
-<script>
-// import comp from './comp.vue'
 
+<script>
 export default {
+  name: 'Colony.Tasks.Fund',
   components: {
   },
   data() {
     return {
-      task: null,
+      taskId: null,
       amount: 0,
     }
   },

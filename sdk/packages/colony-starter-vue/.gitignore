@@ -1,11 +1,8 @@
 # dependencies
 /node_modules
 
-# testing
-cypress
-
 # output
-/build
+/dist
 
 # misc
 .DS_Store
@@ -25,5 +22,5 @@ yarn-error.log*
 /tmp
 
 # testing
-**/screenshots
-**/videos
+/tests/**/screenshots
+/tests/**/videos

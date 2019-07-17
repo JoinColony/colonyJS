@@ -4,18 +4,14 @@
     <Token />
   </div>
 </template>
+
 <script>
 import Token from '@/components/colony/token/Token.vue'
 
 export default {
+  name: 'Manage.Colony.Token.Token',
   components: {
     Token,
-  },
-  data() {
-    return {
-    }
-  },
-  props: {
   },
 }
 </script>

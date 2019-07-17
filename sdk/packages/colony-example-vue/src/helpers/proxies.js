@@ -1,15 +1,15 @@
 
-export default function sendProxy(resource) {
+export const send = (resource) => {
   const handler = {
     get(obj, prop) {
       return async function networkDelegate(...args) {
         const result = await obj[prop].send(...args)
         const { successful } = result
         if (!successful) {
-          console.log(`${prop} error: `, 'font-weight: bold', result)
+          console.info(`${prop} error:`, result)
           throw new Error(`${prop} was not successful.`)
         }
-        console.log(`${prop} success: `, 'font-weight: bold', result)
+        console.info(`${prop} success:`, result)
         return result
       }
     },

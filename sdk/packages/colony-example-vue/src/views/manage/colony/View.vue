@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="nav">
+    <div>
       <router-link :to="{ name: 'colonyAdmins' }">Admins</router-link> |
       <router-link :to="{ name: 'colonyDomains' }">Domains</router-link> |
       <router-link :to="{ name: 'colonyFunding' }">Funding</router-link> |
@@ -12,20 +12,21 @@
     </div>
   </div>
 </template>
+
 <script>
 import { getColonyClient } from '@/api/colony'
-import { setColony } from '@/helpers/colony-store'
-import addressMixin from './address-mixin'
+import { setColonyClient } from '@/stores/colonyClient'
 import store from '@/store'
 
 export default {
-  mixins: [addressMixin],
+  name: 'Manage.Colony.View',
   async beforeRouteEnter(to, from, next) {
     const { params: { address } } = to
-    const colony = await getColonyClient({ colonyAddress: address })
-    setColony(colony)
+    const colonyClient = await getColonyClient({ colonyAddress: address })
+    setColonyClient(colonyClient)
     await Promise.all([
       store.dispatch('domains/hydrate'),
+      store.dispatch('pots/hydrate'),
       store.dispatch('tasks/hydrate'),
       store.dispatch('skills/hydrate'),
     ])

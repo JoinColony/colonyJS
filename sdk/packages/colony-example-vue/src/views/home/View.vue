@@ -9,6 +9,7 @@ import CreateToken from './CreateToken.vue'
 import CreateColony from './CreateColony.vue'
 
 export default {
+  name: 'Home.View',
   components: {
     CreateToken,
     CreateColony,

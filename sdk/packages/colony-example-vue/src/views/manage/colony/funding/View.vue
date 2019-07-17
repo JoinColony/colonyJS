@@ -6,14 +6,18 @@
     <Move />
   </div>
 </template>
+
 <script>
 import Pots from './Pots.vue'
 import Claim from './Claim.vue'
 import Move from './Move.vue'
 
 export default {
+  name: 'Manage.Colony.Funding.View',
   components: {
-    Pots, Claim, Move,
+    Pots,
+    Claim,
+    Move,
   },
 }
 </script>

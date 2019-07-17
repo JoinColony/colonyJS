@@ -1,20 +1,23 @@
 <template>
   <div class="box">
-    <h3>Create</h3>
-    <CreateTask class=""
-                :domains="domains"
-                :skills="skills"
-                @submit="create" />
+    <h3>Add</h3>
+    <AddTask
+      :domains="domains"
+      :skills="skills"
+      @submit="create"
+    />
   </div>
 </template>
+
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import { createTask } from '@/api/task'
-import CreateTask from '@/components/colony/tasks/Create.vue'
+import { addTask } from '@/api/task'
+import AddTask from '@/components/colony/tasks/Add.vue'
 
 export default {
+  name: 'Manage.Colony.Tasks.Add',
   components: {
-    CreateTask,
+    AddTask,
   },
   computed: {
     ...mapGetters({
@@ -24,7 +27,7 @@ export default {
   },
   methods: {
     async create(...args) {
-      await createTask(...args)
+      await addTask(...args)
       await this.hydrateTasks()
     },
     ...mapActions({

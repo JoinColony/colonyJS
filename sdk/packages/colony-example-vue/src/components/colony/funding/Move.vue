@@ -1,22 +1,24 @@
 <template>
-  <form class="move-funding-form" @submit.prevent="$emit('submit', { fromPot, toPot, amount })">
-    <div class="field">
+  <form @submit.prevent="$emit('submit', { fromPot, toPot, amount })">
+    <div>
       <label>From Pot</label>
-      <input class="from" type="text" v-model="fromPot" />
+      <input type="text" v-model="fromPot" />
     </div>
-    <div class="field">
+    <div>
       <label>From To</label>
-      <input class="to" type="text" v-model="toPot" />
+      <input type="text" v-model="toPot" />
     </div>
-    <div class="field">
+    <div>
       <label>From Amount</label>
-      <input class="amount" type="text" v-model="amount" />
+      <input type="text" v-model="amount" />
     </div>
     <button type="submit">Move Funds</button>
   </form>
 </template>
+
 <script>
 export default {
+  name: 'Colony.Funding.Move',
   data() {
     return {
       fromPot: 0,

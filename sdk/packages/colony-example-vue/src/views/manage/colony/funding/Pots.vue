@@ -4,21 +4,20 @@
     <Pots :pots="pots"/>
   </div>
 </template>
+
 <script>
-import { getPots } from '@/api/funding'
+import { mapGetters } from 'vuex'
 import Pots from '@/components/colony/funding/Pots.vue'
 
 export default {
+  name: 'Manage.Colony.Funding.Pots',
   components: {
     Pots,
   },
-  data() {
-    return {
-      pots: [],
-    }
-  },
-  async created() {
-    this.pots = await getPots({})
+  computed: {
+    ...mapGetters({
+      pots: 'pots/all',
+    }),
   },
 }
 </script>

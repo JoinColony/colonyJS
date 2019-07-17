@@ -1,17 +1,17 @@
 <template>
   <form @submit.prevent="$emit('submit', { address })">
     <input
-      placeholder="0x0 (colony address)"
+      placeholder="0x0"
       type="text"
       v-model="address"
     />
-    <button type="submit">Manage Colony</button>
+    <button type="submit">Remove Admin</button>
   </form>
 </template>
 
 <script>
 export default {
-  name: 'Colony.ManageColonyForm',
+  name: 'Colony.Admins.Remove',
   data() {
     return {
       address: '',

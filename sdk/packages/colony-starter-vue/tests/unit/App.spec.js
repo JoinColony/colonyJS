@@ -1,5 +1,5 @@
 const { mount } = require('@vue/test-utils');
-const App = require('../../src/components/App.vue').default;
+const App = require('@/App.vue').default;
 
 describe('colony-starter-vue', () => {
 
