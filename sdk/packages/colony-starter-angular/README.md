@@ -100,7 +100,7 @@ yarn start
 
 Open your browser and start building:
 
-[localhost:4200](http://localhost:4200)
+[http://localhost:4200](http://localhost:4200)
 
 ### Run Tests
 

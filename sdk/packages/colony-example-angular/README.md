@@ -94,7 +94,7 @@ yarn start
 
 Open your browser and check out the example:
 
-[localhost:4200](http://localhost:4200)
+[http://localhost:4200](http://localhost:4200)
 
 ### Run Tests
 

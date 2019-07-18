@@ -94,7 +94,7 @@ yarn serve
 
 Open your browser and check out the example:
 
-[localhost:8080](http://localhost:8080)
+[http://localhost:8080](http://localhost:8080)
 
 ### Run Tests
 

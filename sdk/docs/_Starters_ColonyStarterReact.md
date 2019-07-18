@@ -88,7 +88,7 @@ yarn start
 
 Open your browser and start building:
 
-[localhost:8080](http://localhost:8080)
+[http://localhost:3000](http://localhost:3000)
 
 ## Run Tests
 

@@ -82,7 +82,7 @@ yarn start
 
 Open your browser and check out the example:
 
-[localhost:8080](http://localhost:8080)
+[http://localhost:3000](http://localhost:3000)
 
 ## Run Tests
 
