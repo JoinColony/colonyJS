@@ -1330,10 +1330,10 @@
     bn.js "^4.11.8"
     web3-utils "^1.0.0-beta.55"
 
-"@colony/purser-core@2.1.1", "@colony/purser-core@^2.1.0":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@colony/purser-core/-/purser-core-2.1.1.tgz#9a39c4e137d28fad7db52966d9fbb5c0f0ed16cc"
-  integrity sha512-UEK/2Lbf1PMMwdHvqv7AHJ9oNOt5cjeB+46pMtfBdK5T8kMrARWrBv6dVzTR0gCYvSZ7IdbrT0ofXiYZufrA1g==
+"@colony/purser-core@2.1.2", "@colony/purser-core@^2.1.0":
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@colony/purser-core/-/purser-core-2.1.2.tgz#07274028677ee9bf66b124a10918127ee4f630fa"
+  integrity sha512-c7F9352Ph6BcGqJ+ELolkx8G3+8VFOjlhmKxm1BYFPc2Ozf0wV1hKX1skdJMomT1xJPDz8taSgzlO7JnUXdRuQ==
   dependencies:
     "@babel/runtime" "^7.1.2"
     bn.js "^5.0.0"
@@ -1341,25 +1341,25 @@
     ethers "^4.0.33"
     hdkey "^1.1.0"
 
-"@colony/purser-metamask@^2.2.0":
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/@colony/purser-metamask/-/purser-metamask-2.3.2.tgz#5b8305adcb6ab5235a3a3d9bdfa24227cb8db8e0"
-  integrity sha512-I3X+XD6mynITZB0KeW3euSXE70hwbHJfhFkpkzOb8SmxrxCQUTeAWroRzWxIHdz3sEGjfmxKlihuOp20rMtzKw==
+"@colony/purser-metamask@^2.3.3":
+  version "2.3.3"
+  resolved "https://registry.yarnpkg.com/@colony/purser-metamask/-/purser-metamask-2.3.3.tgz#bfd02e9299ebd49d4fe2472f38db7609f531f3ee"
+  integrity sha512-oeKDLWxVTsjCIjZjFNvfhsc3zzH8ig8Epof1wH3/4wdkG77DTHepw6/ZaM5U1xHoQfusLC90HNtB5Mn+kzgDeA==
   dependencies:
     "@babel/runtime" "^7.1.2"
-    "@colony/purser-core" "2.1.1"
+    "@colony/purser-core" "2.1.2"
     bn.js "^5.0.0"
     ethereumjs-tx "^2.1.0"
     lodash.isequal "^4.5.0"
     web3 "1.0.0-beta.36"
 
-"@colony/purser-software@^1.2.4":
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/@colony/purser-software/-/purser-software-1.2.5.tgz#fc276529a3184aa9962162d73b914320ec2c0d8d"
-  integrity sha512-A4VDMUlp/iw/wdpUBK6fOFbsboBTZoQ8YEoqu6FTjXGg7twYCnHLDo5GGUe9F7CjIO9xcUocvieETP+oxCCEHw==
+"@colony/purser-software@^1.2.6":
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/@colony/purser-software/-/purser-software-1.2.6.tgz#dd803c3e1eb969b2c0108f961158b3b54620c3c4"
+  integrity sha512-R9YXdbugBr59mLCD+d4eNRvw2Y0PcpzxHF4bk/uwHsor12MEYchdhYIyZUM5d6iK6pVQRProrlv2OIZLCR0N5Q==
   dependencies:
     "@babel/runtime" "^7.1.2"
-    "@colony/purser-core" "2.1.1"
+    "@colony/purser-core" "2.1.2"
     ethereumjs-util "^6.0.0"
     ethers "^4.0.33"
 
@@ -3140,9 +3140,9 @@
     vue-jest "^3.0.4"
 
 "@vue/cli-service@^3.9.2":
-  version "3.9.2"
-  resolved "https://registry.yarnpkg.com/@vue/cli-service/-/cli-service-3.9.2.tgz#59c95500f1f20ab1cd1905c28f6c3b17c04d6de8"
-  integrity sha512-R4L9tCMpJ4DzLgu/aU9CEtl5QYsj/FXRrtEgXSKm+71OVtA/o2rkLTC8SLB2Bu7wHP/HCYbaoy4NZqSEQzTuLw==
+  version "3.9.3"
+  resolved "https://registry.yarnpkg.com/@vue/cli-service/-/cli-service-3.9.3.tgz#4bd5786465afb8b608c5c7fc9661390e747ea756"
+  integrity sha512-CZE9PP4HH9bK4qAaLbTUB3tubggI+aRSbgB/QYSZrVlhtMpuVFZPj2QHbIvJQZTI2cG6LFQtLTZWXKeqo5lbAQ==
   dependencies:
     "@intervolga/optimize-cssnano-plugin" "^1.0.5"
     "@soda/friendly-errors-webpack-plugin" "^1.7.1"
@@ -3177,7 +3177,7 @@
     hash-sum "^1.0.2"
     html-webpack-plugin "^3.2.0"
     launch-editor-middleware "^2.2.1"
-    lodash.defaultsdeep "^4.6.0"
+    lodash.defaultsdeep "^4.6.1"
     lodash.mapvalues "^4.6.0"
     lodash.transform "^4.6.0"
     mini-css-extract-plugin "^0.6.0"
@@ -14110,7 +14110,7 @@ lodash.debounce@^4.0.8:
   resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
   integrity sha1-gteb/zCmfEAF/9XiUVMArZyk168=
 
-lodash.defaultsdeep@^4.6.0:
+lodash.defaultsdeep@^4.6.1:
   version "4.6.1"
   resolved "https://registry.yarnpkg.com/lodash.defaultsdeep/-/lodash.defaultsdeep-4.6.1.tgz#512e9bd721d272d94e3d3a63653fa17516741ca6"
   integrity sha512-3j8wdDzYuWO3lM3Reg03MuQR957t287Rpcxp1njpEa8oDrikb+FwGdW3n+FELh/A6qib6yPit0j/pv9G/yeAqA==
@@ -17899,9 +17899,9 @@ quick-lru@^1.0.0:
   integrity sha1-Q2CxfGETatOAeDl/8RQW4Ybc+7g=
 
 rabin-wasm@~0.0.4:
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/rabin-wasm/-/rabin-wasm-0.0.5.tgz#2d33935abe441069f3881dc2023c60b3f0851460"
-  integrity sha512-voiIYtZcmbTXUA7iQueN7m8LRjLSUJUWMtHPEa/hUkJPczV7l2itp2BPrQGtFN7npMcY/N/nTpUnSMMF/Ot+AQ==
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/rabin-wasm/-/rabin-wasm-0.0.6.tgz#b79bde52168868d9de848ffdb3249c0ba0bfe487"
+  integrity sha512-xsmWLqytkM6++UAzfa6OY7Pb41WvGFyPgwIgdHJlvjhOB5Ylun2L3CJTdwZtZ7rHLWGgoPP8ttcgK5HRptmutA==
   dependencies:
     assemblyscript "github:assemblyscript/assemblyscript#v0.6"
     bl "^1.0.0"
@@ -20996,11 +20996,6 @@ typescript@3.2.4:
   version "3.2.4"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.2.4.tgz#c585cb952912263d915b462726ce244ba510ef3d"
   integrity sha512-0RNDbSdEokBeEAkgNbxJ+BLwSManFy9TeXz8uW+48j/xhEXv1ePME60olyzw2XzUqUBNAYFeJadIqAgNqIACwg==
-
-typescript@^3.5.3:
-  version "3.5.3"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.5.3.tgz#c830f657f93f1ea846819e929092f5fe5983e977"
-  integrity sha512-ACzBtm/PhXBDId6a6sDJfroT2pOWt/oOnk4/dElG5G33ZL776N3Y6/6bKZJBFpd+b05F3Ct9qDjMeJmRWtE2/g==
 
 typical@^5.0.0:
   version "5.1.0"

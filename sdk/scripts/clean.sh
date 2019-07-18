@@ -1,3 +1,6 @@
+# Remove build
+rm -rf build
+
 # Remove node_modules
 rm -rf node_modules
 

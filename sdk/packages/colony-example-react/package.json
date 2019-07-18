@@ -32,7 +32,7 @@
     "@colony/colony-cli": "^1.0.0-beta.6",
     "@colony/colony-js-client": "^1.13.2",
     "@colony/colony-js-contract-loader-http": "^1.12.0",
-    "@colony/purser-metamask": "^2.2.0",
+    "@colony/purser-metamask": "^2.3.3", 
     "buffer": "^5.2.1",
     "ipfs": "^0.36.4",
     "react": "^16.8.6",

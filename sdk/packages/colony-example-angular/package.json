@@ -41,8 +41,8 @@
     "@colony/colony-cli": "^1.0.0-beta.6",
     "@colony/colony-js-client": "^1.13.2",
     "@colony/colony-js-contract-loader-http": "^1.12.0",
-    "@colony/purser-metamask": "^2.2.0",
-    "@colony/purser-software": "^1.2.4",
+    "@colony/purser-metamask": "^2.3.3", 
+    "@colony/purser-software": "^1.2.6",
     "buffer": "^5.2.1",
     "ipfs": "^0.36.4",
     "rxjs": "^6.5.2",
@@ -69,7 +69,7 @@
     "karma-jasmine-html-reporter": "^1.4.2",
     "ts-node": "^8.3.0",
     "tslint": "^5.18.0",
-    "typescript": "^3.5.3"
+    "typescript": "3.2.4"
   },
   "resolutions": {
     "web3": "^1.0.0-beta.55"
