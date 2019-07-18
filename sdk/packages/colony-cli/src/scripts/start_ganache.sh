@@ -5,8 +5,11 @@
 # colonyNetwork when colonyNetwork is using a version with an appropriate fix.
 # ./node_modules/ganache-cli/cli.js \
 
+# TODO Remove networkId option and set proper testnet chainId in colonyJS
+
 # Start Ganache
 ./node_modules/.bin/ganache-cli \
+  --networkId="1" \
   --gasLimit="6721975" \
   --acctKeys="./ganache-accounts.json" \
   --noVMErrorsOnRPCResponse=$(if [[ $* == *--noVMErrorsOnRPCResponse* ]]; then echo "true"; else echo "false"; fi) \
