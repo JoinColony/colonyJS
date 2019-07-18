@@ -19,8 +19,8 @@ export default class HttpLoader extends ContractLoader
 
   _endpoint: string;
 
-  constructor({ endpoint, transform }: ConstructorArgs = {}) {
-    super({ transform });
+  constructor({ endpoint, transform, network }: ConstructorArgs = {}) {
+    super({ transform, network });
     assert(
       typeof endpoint === 'string' && endpoint,
       'An `endpoint` option must be provided',
@@ -78,7 +78,11 @@ export default class HttpLoader extends ContractLoader
 
     let contractDef;
     try {
-      contractDef = this._transform(json, query, requiredProps);
+      contractDef = this._transform(
+        json,
+        { ...query, ...(this._network ? { network: this._network } : {}) },
+        requiredProps,
+      );
     } catch (error) {
       throwError('transform contract definition', error);
     }
