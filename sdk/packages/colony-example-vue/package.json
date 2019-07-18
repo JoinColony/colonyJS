@@ -35,7 +35,7 @@
     "test": "yarn lint && yarn test:e2e && yarn test:unit"
   },
   "dependencies": {
-    "@colony/colony-cli": "^1.0.0-beta.6",
+    "@colony/colony-cli": "^1.0.0-beta.7",
     "@colony/colony-js-client": "^1.13.2",
     "@colony/purser-metamask": "^2.3.3", 
     "@colony/purser-software": "^1.2.6",
