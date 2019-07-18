@@ -14,8 +14,8 @@ const DEFAULT_ENDPOINT = `${DEFAULT_HOST}/contracts?name=%%NAME%%&address=%%ADDR
 export default class TrufflepigLoader extends HttpLoader {
   _host: string;
 
-  constructor({ endpoint = DEFAULT_ENDPOINT }: ConstructorArgs = {}) {
-    super({ transform: truffleTransform, endpoint });
+  constructor({ endpoint = DEFAULT_ENDPOINT, network }: ConstructorArgs = {}) {
+    super({ transform: truffleTransform, endpoint, network });
     const [host] = this._endpoint.split('/contracts');
     this._host = host;
   }

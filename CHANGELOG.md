@@ -1,5 +1,11 @@
 # Changelog
 
+## NEXT
+
+**Bug fixes**
+
+* Supply an optional `network` property to HTTP loaders (`@colony/colony-js-contract-loader-http`)
+
 ## v1.13.2
 
 **New Features**
