@@ -1,8 +1,51 @@
 # colony-example-vue
 
-## Setup
+_An example project using [colonyJS](https://github.com/JoinColony/colonyJS) with Vue!_
+
+This is a built out version of the [colony-starter-vue](/starters-colony-starter-vue) package with more examples.
+
+## Prerequisites
+
+- Node `>=10.13.0`
+- Yarn `>=1.12.0`
+- Docker `>=18.09.0`
+
+_You may find it helpful to use Node Version Manager (`nvm`) to manage Node versions._
+
+_If you are using Linux, check out [Linux Setup](/.github/LINUX_SETUP.md) to ensure Yarn and Docker are set up accordingly._
+
+## Installation
+
+### Step 1
+
+Globally install the [colony-cli](/packages/colony-cli) package:
+
 ```
-yarn install
+yarn global add @colony/colony-cli
+```
+
+### Step 2
+
+Move to your working directory and unpack the [colony-example-vue](/packages/colony-example-vue) package:
+
+```
+colony build colony-example-vue
+```
+
+### Step 3
+
+Move to your new project directory and follow the instructions below:
+
+```
+cd colony-example-vue
+```
+
+### Using NPX
+
+Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and unpack the [colony-example-vue](/packages/colony-example-vue) package without installing the [colony-cli](/packages/colony-cli) package.
+
+```
+npx -p @colony/colony-cli colony build colony-example-vue
 ```
 
 ## Development
@@ -39,25 +82,32 @@ Open a new terminal window and run the seed network script:
 yarn seed-network
 ```
 
-### Save purser private key
+### Start Server
 
-`colony-example-vue` uses "@colony/purser-software" when running in `'development'` mode.  
-Automatically, a private key from ganache is used.  
+Once the network has been seeded, start the development server:
 
-In case you need to override it, pick a private key output by `ganache`, and include it in an [.env.local](https://cli.vuejs.org/guide/mode-and-env.html#environment-variables) file at the root of the project like this.
 ```
-VUE_APP_PURSER_PRIVATE_KEY=<ganache private key>
+yarn serve
 ```
 
-## Testing
+### Open Browser
 
-1) Follow all the steps in Development.
-2) Create a cypress.env.json in this format:
+Open your browser and check out the example:
 
-```json
-{
-  "VUE_APP_COLONY_ADDRESS": "<colony address>"
-}
+[localhost:8080](http://localhost:8080)
+
+### Run Tests
+
+Open a new terminal window and run the example tests:
+
 ```
-3) Run `yarn test:e2e:dev`
-(You might need to create a colony before hand, the `home` test creates one and logs it)
+yarn test
+```
+
+## Contract Versions
+
+If you do not want to use the default version of the [colonyNetwork](https://github.com/JoinColony/colonyNetwork) smart contracts defined by the [colony-cli](/packages/colony-cli) package, you can update the `"deploy-contracts"` scripts property in your `package.json` file to use a specific version. This can be a branch name, a commit hash, or a version tag.
+
+```
+"deploy-contracts": "colony service deploy-contracts --specific glider",
+```

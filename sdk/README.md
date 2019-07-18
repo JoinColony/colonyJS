@@ -21,7 +21,7 @@ _Get a head start on your next project!_ Colony Starter (formerly known as "Hack
 
 ### Prerequisites
 
-- Node `>=10.12.0`
+- Node `>=10.13.0`
 - Yarn `>=1.12.0`
 - Docker `>=18.09.0`
 
@@ -83,6 +83,10 @@ Check out some of the other starter packages by repeating steps 2 and 3 and subs
 
 - A boilerplate using [colonyJS](https://github.com/JoinColony/colonyJS) with Angular.
 
+[colony-starter-vue](/packages/colony-starter-vue)
+
+- A boilerplate using [colonyJS](https://github.com/JoinColony/colonyJS) with Vue.
+
 [colony-starter-contract](/packages/colony-starter-contract)
 
 - A boilerplate to start building extension contracts alongside [colonyNetwork](https://github.com/JoinColony/colonyNetwork).
@@ -102,6 +106,12 @@ We also have a couple example packages that you can unpack using the same `build
 [colony-example-angular](/packages/colony-example-angular)
 
 - A built out version of the [colony-starter-angular](/packages/colony-starter-angular) package with more examples.
+- _This package was built by the community! Special thanks to [@fuguefoundation](https://github.com/fuguefoundation)!_
+
+[colony-example-vue](/packages/colony-example-vue)
+
+- A built out version of the [colony-starter-vue](/packages/colony-starter-vue) package with more examples.
+- _This package was built by the community! Special thanks to [@zzyyxxww](https://github.com/zzyyxxww)!_
 
 ## Contribute
 

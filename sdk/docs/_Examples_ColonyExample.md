@@ -10,7 +10,7 @@ This is a built out version of the [colony-starter](/colonystarter/starters-colo
 
 ## Prerequisites
 
-- Node `>=10.12.0`
+- Node `>=10.13.0`
 - Yarn `>=1.12.0`
 - Docker `>=18.09.0`
 
@@ -64,7 +64,7 @@ yarn start-trufflepig
 
 ## Run Script
 
-Open a new terminal window and run the example script:
+Open a new terminal window and run the example:
 
 ```
 yarn start

@@ -1,10 +1,12 @@
 ---
-title: colony-starter-angular
-section: Starters
-order: 3
+title: colony-example-vue
+section: Examples
+order: 2
 ---
 
-_A boilerplate to get started with [colonyJS](https://github.com/JoinColony/colonyJS) using Angular!_
+_An example project using [colonyJS](https://github.com/JoinColony/colonyJS) with Vue!_
+
+This is a built out version of the [colony-starter-vue](/colonystarter/starters-colony-starter-vue) package with more examples.
 
 ## Prerequisites
 
@@ -24,16 +26,16 @@ Globally install the [colony-cli](/colonystarter/cli-colony-cli) package.
 yarn global add @colony/colony-cli
 ```
 
-Install the `colony-starter-angular` package.
+Install the `colony-example-vue` package.
 
 ```
-colony build colony-starter-angular
+colony build colony-example-vue
 ```
 
-Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and kickstart the `colony-starter-angular` package in one line without having to globally add the [colony-cli](/colonystarter/cli-colony-cli) package:
+Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and kickstart the `colony-example-vue` package in one line without having to add the [colony-cli](/cli-colony-cli) package:
 
 ```
-npx -p @colony/colony-cli colony build colony-starter-angular
+npx -p @colony/colony-starter colony build colony-example-vue
 ```
 
 ## Start Network
@@ -53,7 +55,7 @@ yarn deploy-contracts
 ```
 
 ## Start TrufflePig
-
+ee
 Once the contracts have been deployed, start [TrufflePig](https://github.com/JoinColony/trufflepig):
 
 ```
@@ -68,25 +70,17 @@ Open a new terminal window and run the seed network script:
 yarn seed-network
 ```
 
-## Colony Setup
-
-Once the network has been seeded, run the colony setup script:
-
-```
-yarn colony-setup
-```
-
 ## Start Server
 
-Once your test colony has been set up, start the development server:
+Once the network has been seeded, start the development server:
 
 ```
-yarn start
+yarn serve
 ```
 
 ## Open Browser
 
-Open your browser and start building:
+Open your browser and check out the example:
 
 [localhost:8080](http://localhost:8080)
 

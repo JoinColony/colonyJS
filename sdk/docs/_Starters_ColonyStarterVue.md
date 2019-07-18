@@ -1,10 +1,10 @@
 ---
-title: colony-starter-angular
+title: colony-starter-vue
 section: Starters
-order: 3
+order: 2
 ---
 
-_A boilerplate to get started with [colonyJS](https://github.com/JoinColony/colonyJS) using Angular!_
+_A boilerplate to get started with [colonyJS](https://github.com/JoinColony/colonyJS) using Vue!_
 
 ## Prerequisites
 
@@ -24,16 +24,16 @@ Globally install the [colony-cli](/colonystarter/cli-colony-cli) package.
 yarn global add @colony/colony-cli
 ```
 
-Install the `colony-starter-angular` package.
+Install the `colony-starter-vue` package.
 
 ```
-colony build colony-starter-angular
+colony build colony-starter-vue
 ```
 
-Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and kickstart the `colony-starter-angular` package in one line without having to globally add the [colony-cli](/colonystarter/cli-colony-cli) package:
+Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and kickstart the `colony-starter-vue` package in one line without having to globally add the [colony-cli](/colonystarter/cli-colony-cli) package:
 
 ```
-npx -p @colony/colony-cli colony build colony-starter-angular
+npx -p @colony/colony-starter colony build colony-starter-vue
 ```
 
 ## Start Network
@@ -81,7 +81,7 @@ yarn colony-setup
 Once your test colony has been set up, start the development server:
 
 ```
-yarn start
+yarn serve
 ```
 
 ## Open Browser

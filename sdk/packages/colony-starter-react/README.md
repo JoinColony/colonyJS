@@ -4,7 +4,7 @@ _A boilerplate to get started with [colonyJS](https://github.com/JoinColony/colo
 
 ## Prerequisites
 
-- Node `>=10.12.0`
+- Node `>=10.13.0`
 - Yarn `>=1.12.0`
 - Docker `>=18.09.0`
 
@@ -24,7 +24,7 @@ yarn global add @colony/colony-cli
 
 ### Step 2
 
-Move to your working directory and unpack the [colony-starter](/packages/colony-starter) package:
+Move to your working directory and unpack the [colony-starter-react](/packages/colony-starter-react) package:
 
 ```
 colony build colony-starter-react
@@ -98,7 +98,7 @@ yarn start
 
 ### Open Browser
 
-Open your browser and start building your app:
+Open your browser and start building:
 
 [localhost:8080](http://localhost:8080)
 
@@ -115,5 +115,5 @@ yarn test
 If you do not want to use the default version of the [colonyNetwork](https://github.com/JoinColony/colonyNetwork) smart contracts defined by the [colony-cli](/packages/colony-cli) package, you can update the `"deploy-contracts"` scripts property in your `package.json` file to use a specific version. This can be a branch name, a commit hash, or a version tag.
 
 ```
-"deploy-contracts": "colony service deploy-contracts --specific goerli-rc.1",
+"deploy-contracts": "colony service deploy-contracts --specific glider",
 ```

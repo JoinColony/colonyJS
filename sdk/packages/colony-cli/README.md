@@ -4,7 +4,7 @@ The [colony-cli](/packages/colony-cli) package is a command line tool for buildi
 
 ## Prerequisites
 
-- Node `>=10.12.0`
+- Node `>=10.13.0`
 - Yarn `>=1.12.0`
 - Docker `>=18.09.0`
 
