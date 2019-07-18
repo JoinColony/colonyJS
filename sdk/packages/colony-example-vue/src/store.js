@@ -1,24 +1,17 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import domains from '@/stores/domains'
-import tasks from '@/stores/tasks'
+import pots from '@/stores/pots'
 import skills from '@/stores/skills'
+import tasks from '@/stores/tasks'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
     domains,
-    tasks,
+    pots,
     skills,
-  },
-  state: {
-
-  },
-  mutations: {
-
-  },
-  actions: {
-
+    tasks,
   },
 })

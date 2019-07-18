@@ -10,7 +10,7 @@ This is a built out version of the [colony-starter-react](/colonystarter/starter
 
 ## Prerequisites
 
-- Node `>=10.12.0`
+- Node `>=10.13.0`
 - Yarn `>=1.12.0`
 - Docker `>=18.09.0`
 
@@ -80,9 +80,9 @@ yarn start
 
 ## Open Browser
 
-Open your browser and check out the example react app:
+Open your browser and check out the example:
 
-[localhost:8080](http://localhost:8080)
+[http://localhost:3000](http://localhost:3000)
 
 ## Run Tests
 

@@ -1,18 +1,16 @@
 <template>
-  <form class="mint-tokens-form" @submit.prevent="$emit('submit', { amount })">
-    <div class="field">
+  <form @submit.prevent="$emit('submit', { amount })">
+    <div>
       <label>Amount: </label>
-      <input class="amount" type="text" v-model="amount" />
+      <input type="text" v-model="amount" />
     </div>
     <button type="submit">Mint Token</button>
   </form>
 </template>
-<script>
-// import comp from './comp.vue'
 
+<script>
 export default {
-  components: {
-  },
+  name: 'Colony.Token.Mint',
   data() {
     return {
       amount: 0,

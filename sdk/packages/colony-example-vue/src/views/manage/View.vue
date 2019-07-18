@@ -1,8 +1,10 @@
 <template>
-  <router-view @submit="set"></router-view>
+  <router-view @submit="handleSubmit"></router-view>
 </template>
+
 <script>
 export default {
+  name: 'Manage.View',
   data() {
     return {
       address: null,
@@ -18,7 +20,7 @@ export default {
     return next()
   },
   methods: {
-    async set({ address }) {
+    async handleSubmit({ address }) {
       const name = 'manageColony'
       const params = { address }
       this.$router.push({ name, params })

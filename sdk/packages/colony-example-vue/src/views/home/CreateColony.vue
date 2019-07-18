@@ -5,16 +5,18 @@
     <pre>{{ msg }}</pre>
   </div>
 </template>
+
 <script>
 import { createColony } from '@/api/colony'
 import CreateColonyForm from '@/components/colony/CreateColonyForm.vue'
-import msgMixin from './msg-mixin'
+import messageMixin from '@/mixins/message'
 
 export default {
+  name: 'Home.CreateColony',
   components: {
     CreateColonyForm,
   },
-  mixins: [msgMixin],
+  mixins: [messageMixin],
   data() {
     return {
       loadingMsg: 'Creating Colony',

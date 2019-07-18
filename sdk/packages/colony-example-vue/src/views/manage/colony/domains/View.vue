@@ -1,23 +1,23 @@
 <template>
   <div>
-    <h3>Domains</h3>
+    <h1>Domains</h1>
     <DomainsList />
     <AddDomain />
     <FundDomain />
   </div>
 </template>
+
 <script>
 import DomainsList from './Domains.vue'
 import AddDomain from './Add.vue'
 import FundDomain from './Fund.vue'
-import addressMixin from '../address-mixin'
 
 export default {
+  name: 'Manage.Colony.Domains.View',
   components: {
     DomainsList,
     AddDomain,
     FundDomain,
   },
-  mixins: [addressMixin],
 }
 </script>

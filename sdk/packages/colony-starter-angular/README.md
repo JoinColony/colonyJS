@@ -2,11 +2,9 @@
 
 _A boilerplate to get started with [colonyJS](https://github.com/JoinColony/colonyJS) using Angular!_
 
-This package was bootstrapped with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.7.
-
 ## Prerequisites
 
-- Node `>=10.12.0`
+- Node `>=10.13.0`
 - Yarn `>=1.12.0`
 - Docker `>=18.09.0`
 
@@ -100,9 +98,9 @@ yarn start
 
 ### Open Browser
 
-Open your browser and start building your app:
+Open your browser and start building:
 
-[localhost:4200](http://localhost:4200)
+[http://localhost:4200](http://localhost:4200)
 
 ### Run Tests
 
@@ -117,5 +115,5 @@ yarn test
 If you do not want to use the default version of the [colonyNetwork](https://github.com/JoinColony/colonyNetwork) smart contracts defined by the [colony-cli](/packages/colony-cli) package, you can update the `"deploy-contracts"` scripts property in your `package.json` file to use a specific version. This can be a branch name, a commit hash, or a version tag.
 
 ```
-"deploy-contracts": "colony service deploy-contracts --specific goerli-rc.1",
+"deploy-contracts": "colony service deploy-contracts --specific glider",
 ```

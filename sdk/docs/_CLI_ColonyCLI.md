@@ -8,7 +8,7 @@ The `colony-cli` package is a command line tool for building [colonyStarter](htt
 
 ## Prerequisites
 
-- Node `>=10.12.0`
+- Node `>=10.13.0`
 - Yarn `>=1.12.0`
 - Docker `>=18.09.0`
 

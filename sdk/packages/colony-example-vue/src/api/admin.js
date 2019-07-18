@@ -1,34 +1,34 @@
-import sendProxy from '@/helpers/send-proxy'
-import { getColony } from '@/helpers/colony-store'
+import { send } from '@/helpers/proxies'
+import { getColonyClient } from '@/stores/colonyClient'
 
-export async function checkAdmin({ colony = getColony(), address }) {
-  const { hasRole: root } = await colony.hasColonyRole.call({
-    address,
-    domainId: 1,
-    role: 'ROOT',
-  })
-
-  // Check admin
-  const { hasRole: admin } = await colony.hasColonyRole.call({
-    address,
-    domainId: 1,
-    role: 'ADMINISTRATION',
-  })
-
-  // Return root or admin
-  return (root || admin)
-}
-
-export function addAdmin({ colony = getColony(), address }) {
-  return sendProxy(colony).setAdministrationRole({
+export function addAdmin({
+  colonyClient = getColonyClient(),
+  address,
+}) {
+  return send(colonyClient).setAdministrationRole({
     address,
     domainId: 1,
     setTo: true,
   })
 }
 
-export function removeAdmin({ colony = getColony(), address }) {
-  return sendProxy(colony).setAdministrationRole({
+export async function checkAdmin({
+  colonyClient = getColonyClient(),
+  address,
+}) {
+  const { hasRole } = await colonyClient.hasColonyRole.call({
+    address,
+    domainId: 1,
+    role: 'ADMINISTRATION',
+  })
+  return hasRole
+}
+
+export function removeAdmin({
+  colonyClient = getColonyClient(),
+  address,
+}) {
+  return send(colonyClient).setAdministrationRole({
     address,
     domainId: 1,
     setTo: false,

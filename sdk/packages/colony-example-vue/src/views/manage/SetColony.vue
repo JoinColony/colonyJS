@@ -4,15 +4,14 @@
     <ManageColonyForm ref="form" @submit="$emit('submit', $event)"/>
   </div>
 </template>
+
 <script>
 import ManageColonyForm from '@/components/colony/ManageColonyForm.vue'
 
 export default {
+  name: 'Manage.SetColony',
   components: {
     ManageColonyForm,
-  },
-  mounted() {
-    this.$refs.form.focus()
   },
 }
 </script>

@@ -121,37 +121,37 @@ const service = async (commander, serviceName) => {
 
     if (commit === 'b43238a4d14a0b6e31190045db25caafdb85da4c') {
 
-      // Log version
+      // Log release
       console.log();
-      console.log(`  Using colonyNetwork version glider-rc.1`);
+      console.log(`  Using colonyNetwork glider-rc.1 release`);
       console.log();
 
     } else if (commit === '32c51c5cb43f565d64c93c2826a1589083ce92a0') {
 
-      // Log version
+      // Log release
       console.log();
-      console.log(`  Using colonyNetwork version glider-rc.2`);
+      console.log(`  Using colonyNetwork glider-rc.2 release`);
       console.log();
 
     } else if (commit === 'ccda3dd7f79b4803db3ae162b15ca98dd9c68129') {
 
-      // Log version
+      // Log release
       console.log();
-      console.log(`  Using colonyNetwork version glider-rc.3`);
+      console.log(`  Using colonyNetwork glider-rc.3 release`);
       console.log();
 
     } else if (commit === 'b77c7ae0ebcdb69a0fd1513bdaa75a6b4832cf35') {
 
-      // Log version
+      // Log release
       console.log();
-      console.log(`  Using colonyNetwork version glider`);
+      console.log(`  Using colonyNetwork glider release`);
       console.log();
 
     } else {
 
       // Log commit
       console.log();
-      console.log(`  Using colonyNetwork version ${commit}`);
+      console.log(`  Using colonyNetwork commit ${commit}`);
       console.log();
 
     }

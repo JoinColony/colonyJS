@@ -5,10 +5,10 @@
     </div>
   </div>
 </template>
-<script>
-// import comp from './comp.vue'
 
+<script>
 export default {
+  name: 'Colony.Domains.Domains',
   props: {
     domains: { type: Array, required: true },
   },

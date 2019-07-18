@@ -1,8 +1,11 @@
-import { getNetwork } from '@/helpers/network-store'
-import sendProxy from '@/helpers/send-proxy'
+import { send } from '@/helpers/proxies'
+import { getNetworkClient } from '@/stores/networkClient'
 
-export async function createColony({ network = getNetwork(), tokenAddress }) {
-  const result = await sendProxy(network).createColony({ tokenAddress })
+export async function createColony({
+  networkClient = getNetworkClient(),
+  tokenAddress,
+}) {
+  const result = await send(networkClient).createColony({ tokenAddress })
   const {
     eventData: {
       colonyAddress: address,
@@ -12,6 +15,9 @@ export async function createColony({ network = getNetwork(), tokenAddress }) {
   return { address, id }
 }
 
-export function getColonyClient({ network = getNetwork(), colonyAddress }) {
-  return network.getColonyClientByAddress(colonyAddress)
+export function getColonyClient({
+  networkClient = getNetworkClient(),
+  colonyAddress,
+}) {
+  return networkClient.getColonyClientByAddress(colonyAddress)
 }

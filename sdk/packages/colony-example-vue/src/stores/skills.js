@@ -1,4 +1,4 @@
-import { getSkills } from '@/api/network'
+import { getSkills } from '@/api/skills'
 
 export default {
   namespaced: true,
@@ -10,8 +10,8 @@ export default {
   },
   actions: {
     async hydrate({ commit }) {
-      window.getSkills = getSkills
-      commit('hydrate', await getSkills({}))
+      const skills = await getSkills({})
+      commit('hydrate', skills)
     },
   },
   getters: {

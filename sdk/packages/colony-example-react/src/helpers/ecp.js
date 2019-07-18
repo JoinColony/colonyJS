@@ -15,7 +15,7 @@ let node;
 
 const waitForIPFS = () => {
   node = new IPFS({
-    repo: './tmp/ipfs/data',
+    repo: `./tmp/ipfs/data-${new Date()}`,
     start: false,
   });
   return new Promise((resolve, reject) => {
@@ -25,7 +25,6 @@ const waitForIPFS = () => {
 };
 
 export const init = async () => {
-  if (node) return node;
   await waitForIPFS();
   return node.start();
 }
@@ -51,6 +50,9 @@ export const stop = async () => {
   try {
     await node.stop();
   } catch (error) {
-    console.error('IPFS failed a clean stop', error);
+    // eslint-disable-next-line no-console
+    console.warn('IPFS failed a clean stop', error.message);
+    // Reset ipfs node
+    node = undefined;
   }
 }

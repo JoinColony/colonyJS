@@ -2,20 +2,22 @@
   <div>
     <h1>Tasks</h1>
     <TasksList />
-    <CreateTask />
+    <AddTask />
     <FundTask />
   </div>
 </template>
+
 <script>
-import TasksList from './Tasks.vue'
-import CreateTask from './Create.vue'
+import AddTask from './Add.vue'
 import FundTask from './Fund.vue'
+import TasksList from './Tasks.vue'
 
 export default {
+  name: 'Manage.Colony.Tasks.View',
   components: {
-    TasksList,
-    CreateTask,
+    AddTask,
     FundTask,
+    TasksList,
   },
 }
 </script>

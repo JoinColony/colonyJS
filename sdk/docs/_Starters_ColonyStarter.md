@@ -8,7 +8,7 @@ _A boilerplate to get started with [colonyJS](https://github.com/JoinColony/colo
 
 ## Prerequisites
 
-- Node `>=10.12.0`
+- Node `>=10.13.0`
 - Yarn `>=1.12.0`
 - Docker `>=18.09.0`
 
@@ -30,7 +30,7 @@ Install the `colony-starter` package.
 colony build colony-starter
 ```
 
-Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and kickstart the `colony-starter` package in one line without having to globally add the [colony-cli](/cli-colony-cli) package:
+Alternatively, you can use [npx](https://www.npmjs.com/package/npx) and kickstart the `colony-starter` package in one line without having to globally add the [colony-cli](/colonystarter/cli-colony-cli) package:
 
 ```
 npx -p @colony/colony-starter colony build colony-starter
@@ -62,7 +62,7 @@ yarn start-trufflepig
 
 ## Run Script
 
-Open a new terminal window and run the example script:
+Open a new terminal window and run the example:
 
 ```
 yarn start

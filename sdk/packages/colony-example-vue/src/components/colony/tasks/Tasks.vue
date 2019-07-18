@@ -5,8 +5,10 @@
     </div>
   </div>
 </template>
+
 <script>
 export default {
+  name: 'Colony.Tasks.Tasks',
   props: {
     tasks: { type: Array, required: true },
   },

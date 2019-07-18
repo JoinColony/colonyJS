@@ -5,16 +5,18 @@
     <pre>{{ msg }}</pre>
   </div>
 </template>
+
 <script>
 import { createToken } from '@/api/token'
 import CreateTokenForm from '@/components/token/CreateTokenForm.vue'
-import msgMixin from './msg-mixin'
+import messageMixin from '@/mixins/message'
 
 export default {
+  name: 'Home.CreateToken',
   components: {
     CreateTokenForm,
   },
-  mixins: [msgMixin],
+  mixins: [messageMixin],
   data() {
     return {
       loadingMsg: 'Creating Token',

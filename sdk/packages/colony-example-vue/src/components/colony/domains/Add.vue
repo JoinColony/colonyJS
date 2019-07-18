@@ -1,10 +1,11 @@
 <template>
-  <form class="add-domain-form" @submit.prevent="$emit('submit', {})">
+  <form @submit.prevent="$emit('submit', {})">
     <button type="submit">Add Domain</button>
   </form>
 </template>
-<script>
 
+<script>
 export default {
+  name: 'Colony.Domains.Add',
 }
 </script>

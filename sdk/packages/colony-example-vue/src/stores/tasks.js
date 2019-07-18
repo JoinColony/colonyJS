@@ -10,7 +10,8 @@ export default {
   },
   actions: {
     async hydrate({ commit }) {
-      commit('hydrate', await getTasks({}))
+      const tasks = await getTasks({})
+      commit('hydrate', tasks)
     },
   },
   getters: {

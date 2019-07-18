@@ -1,55 +1,75 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
+  <div class="app">
+    <div class="nav">
+      <router-link to="/">Home</router-link>
+      <span> | </span>
       <router-link to="/manage">Manage</router-link>
     </div>
     <router-view/>
   </div>
 </template>
+
 <script>
+import { connect } from '@/api/network'
+import { setNetworkClient } from '@/stores/networkClient'
 
 export default {
+  name: 'App',
+  async created() {
+    const networkClient = await connect()
+    setNetworkClient(networkClient)
+  },
 }
 </script>
 
-<style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+<style>
+.app {
+  color: #2C3E50;
+  font-family: 'Avenir', sans-serif;
   text-align: center;
-  color: #2c3e50;
 }
-#nav {
+
+.nav {
   padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
 }
+
+a {
+  color: #2C3E50;
+  font-weight: bold;
+}
+
+a.router-link-exact-active {
+  color: #42b983;
+}
+
 .container {
   display: flex;
   justify-content: center;
 }
 
 .box {
-  background-color: #80808008;
-  border: 1px solid #00000038;
-  padding: 10px;
+  background-color: #FBFBFB;
+  border: 1px solid #2C3E50;
   border-radius: 2px;
-  text-align: center;
   margin-bottom: 5px;
+  padding: 20px;
 }
 
-.field {
-  margin-bottom: 5px;
+h3 {
+  margin-bottom: 10px;
+  margin-top: 0;
 }
 
-pre {
-  background-color: #80808017;
+button {
+  margin: 10px 0;
 }
+
+label {
+  padding: 10px;
+}
+
+input, select {
+  margin: 10px auto;
+}
+
 </style>
