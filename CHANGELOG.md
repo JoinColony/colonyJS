@@ -6,6 +6,10 @@
 
 * Supply an optional `network` property to HTTP loaders (`@colony/colony-js-contract-loader-http`)
 
+**Maintenance**
+
+* Added `v3` (`auburn-glider`) contracts to `NetworkLoader` (`@colony/colony-js-contract-loader-network`)
+
 ## v1.13.2
 
 **New Features**
