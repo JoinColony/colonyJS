@@ -9,68 +9,7 @@ import NetworkLoader from '@colony/colony-js-contract-loader-network';
 import { TrufflepigLoader } from '@colony/colony-js-contract-loader-http';
 import ColonyNetworkClient from './ColonyNetworkClient/index';
 import EthersWrappedWallet from './lib/EthersWrappedWallet/index';
-
-export const defaultInfuraProjectId = '7d0d81d0919f4f05b9ab6634be01ee73';
-
-// Custom provider for use with Infura which retries query requests if the
-// result is unexpected data.
-// Related issue: https://github.com/INFURA/infura/issues/157
-class InfuraProvider extends providers.JsonRpcProvider {
-  constructor(
-    networkName: string,
-    infuraProjectId?: string,
-    verbose?: boolean,
-  ) {
-    let host;
-    switch (networkName) {
-      case 'homestead':
-      case 'mainnet':
-        host = 'mainnet.infura.io';
-        break;
-      case 'goerli':
-        host = 'goerli.infura.io';
-        break;
-      default:
-        throw new Error(
-          `Could not get provider, unsupported network: ${networkName}`,
-        );
-    }
-
-    const url = `https://${host}/v3/${infuraProjectId ||
-      defaultInfuraProjectId}`;
-    const network =
-      networkName === 'goerli'
-        ? {
-            chainId: 5,
-            ensAddress: '0x112234455c3a32fd11230c42e7bccd4a84e02010',
-            name: 'goerli',
-          }
-        : networkName;
-
-    super(url, network);
-    this._verbose = verbose;
-  }
-
-  async perform(method, params) {
-    const result = await super.perform(method, params);
-    if (
-      (method === 'call' ||
-        method === 'estimateGas' ||
-        method.startsWith('get')) &&
-      result === '0x'
-    ) {
-      if (this._verbose) {
-        console.info(`Bad Infura response for method "${method}"; retrying.`, {
-          method,
-          params,
-          result,
-        });
-      }
-      return super.perform(method, params);
-    }
-    return result;
-  }
-}
+import InfuraProvider from './lib/InfuraProvider/index';
 
 // This method provides a simple way of getting an initialized network client
 // that uses NetworkLoader for the remote network and TrufflePigLoader for a
@@ -96,7 +35,7 @@ const getNetworkClient = async (
     provider = new providers.JsonRpcProvider();
   } else {
     loader = new NetworkLoader({ network });
-    provider = new InfuraProvider(network, infuraProjectId);
+    provider = new InfuraProvider(network, infuraProjectId, verbose);
   }
 
   // Use EthersWrappedWallet if purser wallet
