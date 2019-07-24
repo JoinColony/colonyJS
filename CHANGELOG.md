@@ -1,5 +1,11 @@
 # Changelog
 
+## NEXT
+
+**Bug fixes**
+
+* Add custom Infura provider which retries queries when bad responses are received, which happens occasionally (`@colony/colony-js-client`)
+
 ## v1.13.3
 
 **Bug fixes**
