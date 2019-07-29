@@ -3,8 +3,6 @@
 import { providers } from 'ethers';
 import promiseRetry from 'promise-retry';
 
-import type { Params } from './types';
-
 export const defaultInfuraProjectId = '7d0d81d0919f4f05b9ab6634be01ee73';
 
 // Custom provider for use with Infura which retries query requests if the
@@ -46,49 +44,55 @@ export default class InfuraProvider extends providers.JsonRpcProvider {
     this._verbose = verbose;
   }
 
-  async perform(method: string, params: Params) {
-    const result = await super.perform(method, params);
-    if (
-      (method === 'call' ||
-        method === 'estimateGas' ||
-        method.startsWith('get')) &&
-      result === '0x'
-    ) {
-      // Set the number of retries. The time between retries will increase with
-      // a default exponential factor of 2.
-      const retries = 7;
+  async perform(method: string, params: *) {
+    if (method === 'call') {
+      // Perform eth_call as usual.
+      const latestResult = await super.perform(method, params);
 
-      // Retry if the result is '0x'. '0x' is an acceptable response if the
-      // method does not exist on the contract, therefore, the promise must
-      // eventually resolve with `0x` after the given number of retries.
-      return promiseRetry({ retries }, (retry, number) => {
-        if (this._verbose) {
-          console.warn(
-            // eslint-disable-next-line max-len
-            `Possibly invalid response for method "${method}"; retry ${number}.`,
-            {
-              method,
-              params,
-              result,
-            },
-          );
-        }
-        return new Promise((resolve, reject) => {
-          super
-            .perform(method, params)
-            .then(retryResult => {
-              if (number < retries && retryResult === '0x') {
-                retry();
-              } else {
-                resolve(retryResult);
-              }
-            })
-            .catch(error => {
-              reject(error);
+      if (latestResult === '0x') {
+        // If we got 0x then see if the pending block gives us any different.
+        const pendingResult = await super.send('eth_call', [
+          // eslint-disable-next-line no-underscore-dangle
+          super.constructor._hexlifyTransaction(params.transaction),
+          'pending',
+        ]);
+
+        // If results differ, retry a few times until latest is not null.
+        if (latestResult !== pendingResult) {
+          if (this._verbose) {
+            console.warn(
+              // eslint-disable-next-line max-len
+              'Infura returned invalid "0x" for "latest" block, got valid for "pending"',
+              { latest: latestResult, pending: pendingResult },
+            );
+          }
+
+          // Set the number of retries. The time between retries will increase with
+          // a default exponential factor of 2.
+          const retries = 7;
+          return promiseRetry({ retries }, (retry, number) => {
+            if (this._verbose) {
+              console.warn(`Retry ${number} at "latest" block`);
+            }
+            return new Promise((resolve, reject) => {
+              super
+                .perform(method, params)
+                .then(retryResult => {
+                  if (number < retries && retryResult === '0x') {
+                    retry();
+                  } else {
+                    resolve(retryResult);
+                  }
+                })
+                .catch(error => {
+                  reject(error);
+                });
             });
-        });
-      });
+          });
+        }
+      }
+      return latestResult;
     }
-    return result;
+    return super.perform(method, params);
   }
 }
