@@ -26,6 +26,15 @@ export type Transaction = {
   raw: string,
 };
 
+export type TransactionRequest = {
+  data?: $PropertyType<Transaction, 'data'>,
+  from?: $PropertyType<Transaction, 'from'>,
+  gasLimit?: $PropertyType<Transaction, 'gasLimit'>,
+  gasPrice?: $PropertyType<Transaction, 'gasPrice'>,
+  to?: $PropertyType<Transaction, 'to'>,
+  value?: $PropertyType<Transaction, 'value'>,
+}
+
 export type SignedTransaction = Transaction & {
   r: string,
   s: string,

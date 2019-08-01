@@ -30,7 +30,7 @@ export interface Contract {
   ): void;
   callConstant(functionName: string, args: Array<any>): Promise<any>;
   callEstimate(functionName: string, args: Array<any>): Promise<BigNumber>;
-  callTransaction(
+  sendTransaction(
     functionName: string,
     args: Array<any>,
     options: TransactionOptions,

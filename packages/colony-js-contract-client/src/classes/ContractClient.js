@@ -11,6 +11,7 @@ import type {
   LogFilter,
   TransactionOptions,
   TransactionReceipt,
+  TransactionRequest,
 } from '@colony/colony-js-adapter';
 
 import ContractEvent from './ContractEvent';
@@ -110,6 +111,10 @@ export default class ContractClient {
     return this.contract.callConstant(functionName, args);
   }
 
+  async callTransaction(transaction: TransactionRequest) {
+    return this.adapter.callTransaction(transaction);
+  }
+
   /**
    * Low-level method to estimate the gas cost of sending a transaction to
    * call a contract function with an array of arguments that have been
@@ -129,7 +134,7 @@ export default class ContractClient {
     args: Array<any>,
     options: TransactionOptions,
   ) {
-    return this.contract.callTransaction(functionName, args, options);
+    return this.contract.sendTransaction(functionName, args, options);
   }
 
   /**

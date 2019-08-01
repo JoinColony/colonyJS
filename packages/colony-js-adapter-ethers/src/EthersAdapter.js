@@ -9,6 +9,7 @@ import type {
   IWallet,
   Signature,
   Transaction,
+  TransactionRequest,
 } from '@colony/colony-js-adapter';
 import type { Query } from '@colony/colony-js-contract-loader';
 
@@ -18,6 +19,9 @@ import type { ConstructorArgs } from './flowtypes';
 import EthersContract from './EthersContract';
 
 import { DEFAULT_TRANSACTION_WAIT_TIMEOUT } from './defaults';
+
+// See https://solidity.readthedocs.io/en/v0.4.24/control-structures.html#error-handling-assert-require-revert-and-exceptions
+const SOLIDITY_ERROR = '0x08c379a0';
 
 export default class EthersAdapter implements IAdapter {
   loader: ContractLoader;
@@ -30,6 +34,27 @@ export default class EthersAdapter implements IAdapter {
     this.loader = loader;
     this.provider = provider;
     this.wallet = wallet;
+  }
+
+  async callTransaction(transaction: TransactionRequest): Promise<string> {
+    const result = await this.provider.call(transaction);
+
+    // Given an erroneous result, parse the revert reason and throw an error.
+    if (
+      ((result.length - 2) / 2) % 32 === 4 &&
+      result.slice(0, 10) === SOLIDITY_ERROR
+    ) {
+      const reason = ethers.utils.AbiCoder.defaultCoder.decode(
+        ['string'],
+        `0x${result.slice(10)}`,
+      );
+      const error = new Error(`Reverted: ${reason}`);
+      // $FlowFixMe
+      Object.assign(error, { reason });
+      throw error;
+    }
+
+    return result;
   }
 
   async getContract(query: Query): Promise<IContract> {

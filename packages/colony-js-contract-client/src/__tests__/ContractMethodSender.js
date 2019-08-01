@@ -28,6 +28,9 @@ describe('ContractMethodSender', () => {
           parse: sandbox.fn().mockReturnValue({ id: 1, '0': 1, length: 1 }),
         },
       },
+      functions: {
+        myFunction: sandbox.fn(() => ({ data: 'mock-tx-data' })),
+      },
     },
   };
   const functionName = 'myFunction';
@@ -86,6 +89,10 @@ describe('ContractMethodSender', () => {
     provider: {
       name: 'mainnet',
     },
+    wallet: {
+      getAddress: sandbox.fn(() => 'mock-wallet-address'),
+    },
+    callTransaction: sandbox.fn(),
   };
   const client = new ContractClient({ contract, adapter });
   client._contract = contract;

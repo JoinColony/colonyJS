@@ -24,7 +24,7 @@ export default class AddExtension extends ContractClient.Sender<
 
   async _sendTransaction(args: *, options: *) {
     const factoryContract = await this._getContract(args);
-    return factoryContract.callTransaction(
+    return factoryContract.sendTransaction(
       'deployExtension',
       [this.client.contract.address],
       options,
