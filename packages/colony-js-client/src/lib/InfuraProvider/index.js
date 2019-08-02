@@ -3,7 +3,7 @@
 import { providers } from 'ethers';
 import promiseRetry from 'promise-retry';
 
-import type { Params } from './types';
+import type { PerformParams } from './types';
 
 export const defaultInfuraProjectId = '7d0d81d0919f4f05b9ab6634be01ee73';
 
@@ -46,49 +46,72 @@ export default class InfuraProvider extends providers.JsonRpcProvider {
     this._verbose = verbose;
   }
 
-  async perform(method: string, params: Params) {
-    const result = await super.perform(method, params);
-    if (
-      (method === 'call' ||
-        method === 'estimateGas' ||
-        method.startsWith('get')) &&
-      result === '0x'
-    ) {
-      // Set the number of retries. The time between retries will increase with
-      // a default exponential factor of 2.
-      const retries = 7;
+  async perform(method: string, params: PerformParams) {
+    // Perform as usual.
+    const latestResult = await super.perform(method, params);
 
-      // Retry if the result is '0x'. '0x' is an acceptable response if the
-      // method does not exist on the contract, therefore, the promise must
-      // eventually resolve with `0x` after the given number of retries.
-      return promiseRetry({ retries }, (retry, number) => {
+    // If we got 0x then see if the pending block gives us any different.
+    if (latestResult === '0x') {
+      let pendingResult = latestResult;
+
+      if (method === 'call' || method === 'estimateGas') {
+        // We retry a call for estimate too, since if that succeeds then the
+        // estimate should have also, and estimate doesn't allow specifying a
+        // block.
+        pendingResult = await super.send('eth_call', [
+          // eslint-disable-next-line no-underscore-dangle
+          super.constructor._hexlifyTransaction(params.transaction),
+          'pending',
+        ]);
+      } else if (
+        (method === 'getCode' || method === 'getStorageAt') &&
+        (!params.blockTag || params.blockTag === 'latest')
+      ) {
+        // Don't retry if a non-latest blockTag was specified.
+        pendingResult = await super.perform(method, {
+          ...params,
+          blockTag: 'pending',
+        });
+      }
+
+      // If results differ, retry a few times until latest is not null.
+      if (latestResult !== pendingResult) {
         if (this._verbose) {
           console.warn(
             // eslint-disable-next-line max-len
-            `Possibly invalid response for method "${method}"; retry ${number}.`,
-            {
-              method,
-              params,
-              result,
-            },
+            'Infura returned invalid "0x" for "latest" block, got valid for "pending"',
+            { latest: latestResult, pending: pendingResult, method, params },
           );
         }
-        return new Promise((resolve, reject) => {
-          super
-            .perform(method, params)
-            .then(retryResult => {
-              if (number < retries && retryResult === '0x') {
-                retry();
-              } else {
-                resolve(retryResult);
-              }
-            })
-            .catch(error => {
-              reject(error);
-            });
-        });
-      });
+        return this._retry(method, params);
+      }
     }
-    return result;
+
+    return latestResult;
+  }
+
+  _retry(method: string, params: PerformParams) {
+    // Set the number of retries. The time between retries will increase with
+    // a default exponential factor of 2.
+    const retries = 7;
+    return promiseRetry({ retries }, (retry, number) => {
+      if (this._verbose) {
+        console.warn(`Retry ${number} at "latest" block`);
+      }
+      return new Promise((resolve, reject) => {
+        super
+          .perform(method, params)
+          .then(retryResult => {
+            if (number < retries && retryResult === '0x') {
+              retry();
+            } else {
+              resolve(retryResult);
+            }
+          })
+          .catch(error => {
+            reject(error);
+          });
+      });
+    });
   }
 }

@@ -1,7 +1,9 @@
 /* @flow */
 
-export type Params = {
-  data: string,
-  from: string,
-  to: string,
+export type PerformParams = {
+  data?: string,
+  from?: string,
+  to?: string,
+  transaction?: Object,
+  blockTag?: string | boolean,
 };
