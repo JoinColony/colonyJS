@@ -57,9 +57,9 @@
         "isomorphic-fetch": "^2.2.1"
     },
     "devDependencies": {
-        "flow-bin": "^0.98.1",
+        "flow-bin": "^0.104.0",
         "flow-copy-source": "^2.0.6",
-        "jest": "^22.4.0",
+        "jest": "^24.8.0",
         "jest-fetch-mock": "^2.1.2",
         "jest-sandbox": "^1.1.2",
         "webpack": "^4.31.0",
