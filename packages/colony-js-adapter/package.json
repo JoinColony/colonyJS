@@ -45,10 +45,10 @@
     },
     "dependencies": {
         "@colony/colony-js-contract-loader": "^1.12.0",
-        "bn.js": "^4.11.8"
+        "bn.js": "^5.0.0"
     },
     "devDependencies": {
-        "flow-bin": "^0.98.1"
+        "flow-bin": "^0.104.0"
     },
     "engines": {
         "node": ">=10.12.0 <12.0.0"
