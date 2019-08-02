@@ -41,11 +41,37 @@ export default class ContractMethodSender<
   }
 
   /**
+   * Given named input values, call the method's contract function
+   * with `eth_call` in order to simulate the transaction.
+   *
+   * The result will be parsed for a `revert` reason, which will throw
+   * an error with the parsed revert reason (if necessary).
+   */
+  async call(inputValues: InputValues): Promise<string> {
+    // Parse the transaction data for this function from the given values
+    const { data } = this.client.contract.interface.functions[
+      this.functionName
+    ].apply(this.client.contract.interface, this.getValidatedArgs(inputValues));
+
+    const from = await this.client.adapter.wallet.getAddress();
+
+    return this.client.callTransaction({
+      data,
+      from,
+      to: this.client.contract.address,
+    });
+  }
+
+  /**
    * Given named input values, call the method's contract function in
    * order to get a gas estimate for calling it with those values.
    */
   async estimate(inputValues: InputValues): Promise<BigNumber> {
     const args = this.getValidatedArgs(inputValues);
+
+    // Simulate the transaction before estimation; will throw if erroneous
+    await this.call(inputValues);
+
     return this.client.estimate(this.functionName, args);
   }
 
@@ -72,6 +98,24 @@ export default class ContractMethodSender<
       timeoutMs,
     );
     const eventData = this.client.getReceiptEventData(receipt);
+
+    // If the transaction failed, call it directly and add the revert
+    // reason to the receipt.
+    if (receipt && receipt.status === 0) {
+      try {
+        const { from, to, data, gasPrice, gasLimit, value } = transaction;
+        await this.client.callTransaction({
+          data,
+          from,
+          gasLimit,
+          gasPrice,
+          value,
+          ...(to != null ? { to } : {}),
+        });
+      } catch (caughtError) {
+        Object.assign(receipt, { reason: caughtError.reason });
+      }
+    }
 
     return {
       successful: receipt && receipt.status === 1,

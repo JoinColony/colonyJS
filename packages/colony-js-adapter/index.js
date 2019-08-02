@@ -15,7 +15,7 @@ export type {
   LogFilter,
 } from './interface/Provider';
 export type { Signature } from './interface/Signature';
-export type { Transaction } from './interface/Transaction';
+export type { Transaction, TransactionRequest } from './interface/Transaction';
 export type { TransactionReceipt } from './interface/TransactionReceipt';
 export type { TransactionOptions } from './interface/TransactionOptions';
 export type { Wallet as IWallet } from './interface/Wallet';

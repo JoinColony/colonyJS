@@ -18,6 +18,7 @@ export type Log = { data: string, topics: string[] };
 export interface Provider {
   name: string;
   chainId: string;
+  call(transaction: $Shape<Transaction>): Promise<string>;
   estimateGas(transaction: Transaction): Promise<number>;
   getAddress(): string | Promise<string>;
   getBalance(addressOrName: string, blockTag?: string): Promise<BigNumber>;

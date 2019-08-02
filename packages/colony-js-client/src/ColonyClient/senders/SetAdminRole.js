@@ -25,7 +25,7 @@ export default class SetAdminRole extends ContractClient.Sender<
 
   async _sendTransaction(args: *, options: *) {
     const contract = await this._getContract();
-    return contract.callTransaction('setAdminRole', args, options);
+    return contract.sendTransaction('setAdminRole', args, options);
   }
 
   async _getContract() {
@@ -38,10 +38,9 @@ export default class SetAdminRole extends ContractClient.Sender<
     );
     if (!contractAddress)
       throw new Error('OldRoles not deployed for this Colony');
-    const contract = await this.client.adapter.getContract({
+    return this.client.adapter.getContract({
       contractAddress,
       contractName: 'OldRoles',
     });
-    return contract;
   }
 }

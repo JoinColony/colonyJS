@@ -37,7 +37,7 @@ export default class MakePayment extends DomainAuth<*, *, *> {
 
   async _sendTransaction(args: *, options: *) {
     const contract = await this._getContract();
-    return contract.callTransaction('makePayment', args, options);
+    return contract.sendTransaction('makePayment', args, options);
   }
 
   async _getContract() {
@@ -50,10 +50,9 @@ export default class MakePayment extends DomainAuth<*, *, *> {
     );
     if (!contractAddress)
       throw new Error('OneTxPayment not deployed for this Colony');
-    const contract = await this.client.adapter.getContract({
+    return this.client.adapter.getContract({
       contractAddress,
       contractName: 'OneTxPayment',
     });
-    return contract;
   }
 }

@@ -29,7 +29,7 @@ describe('ContractClient', () => {
 
     callEstimate = sandbox.fn(async () => gasEstimate);
 
-    callTransaction = sandbox.fn(async () => transaction);
+    sendTransaction = sandbox.fn(async () => transaction);
 
     createTransactionData = sandbox.fn(async () => txData);
 
@@ -39,11 +39,18 @@ describe('ContractClient', () => {
           topics: ['0xabc'],
         },
       },
+      functions: {
+        myFunction: sandbox.fn(),
+      },
     };
   })();
   const query = { contractName: 'MyContract' };
   const adapter = {
     getContract: sandbox.fn(() => contract),
+    callTransaction: sandbox.fn(),
+    wallet: {
+      getAddress: sandbox.fn(() => 'mock-wallet-address'),
+    },
   };
   const options = {
     myOption: 123,
@@ -217,8 +224,8 @@ describe('ContractClient', () => {
     const result = await client.send(fnName, args, txOpts);
 
     expect(result).toEqual(transaction);
-    expect(client.contract.callTransaction).toHaveBeenCalledTimes(1);
-    expect(client.contract.callTransaction).toHaveBeenCalledWith(
+    expect(client.contract.sendTransaction).toHaveBeenCalledTimes(1);
+    expect(client.contract.sendTransaction).toHaveBeenCalledWith(
       fnName,
       args,
       txOpts,

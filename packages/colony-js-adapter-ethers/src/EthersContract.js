@@ -57,7 +57,7 @@ class EthersContract extends ethers.Contract implements IContract {
    * Given a function name, an array of arguments and optional transaction
    * options, apply the arguments and return the sent transaction
    */
-  async callTransaction(
+  async sendTransaction(
     functionName: string,
     args: Array<any>,
     options: TransactionOptions,

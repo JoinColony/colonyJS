@@ -7,6 +7,7 @@
      // XXX waiting on https://github.com/gajus/eslint-plugin-flowtype/pull/308
     "$PropertyType": false,
     "$Values": false,
+    "$Shape": false,
     "$Keys": false
   },
   "overrides": [

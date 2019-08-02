@@ -24,7 +24,7 @@ export default class RemoveExtension extends ContractClient.Sender<
 
   async _sendTransaction(args: *, options: *) {
     const factoryContract = await this._getContract(args);
-    return factoryContract.callTransaction(
+    return factoryContract.sendTransaction(
       'removeExtension',
       [this.client.contract.address],
       options,
