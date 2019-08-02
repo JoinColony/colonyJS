@@ -80,7 +80,7 @@ export default class InfuraProvider extends providers.JsonRpcProvider {
           console.warn(
             // eslint-disable-next-line max-len
             'Infura returned invalid "0x" for "latest" block, got valid for "pending"',
-            { latest: latestResult, pending: pendingResult },
+            { latest: latestResult, pending: pendingResult, method, params },
           );
         }
         return this._retry(method, params);
