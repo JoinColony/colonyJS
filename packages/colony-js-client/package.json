@@ -62,15 +62,15 @@
         "@colony/purser-core": "^2.1.0",
         "assert": "^2.0.0",
         "babel-runtime": "^6.26.0",
-        "bn.js": "^4.11.8",
-        "ethereumjs-tx": "^1.3.7",
-        "ethers": "3.0.27",
+        "bn.js": "^5.0.0",
+        "ethereumjs-tx": "^2.1.0",
+        "ethers": "4.0.33",
         "isomorphic-fetch": "^2.2.1",
         "promise-retry": "^1.1.1",
         "web3-utils": "^1.0.0-beta.55"
     },
     "devDependencies": {
-        "flow-bin": "^0.98.1",
+        "flow-bin": "^0.104.0",
         "jest-sandbox": "^1.1.2",
         "webpack": "^4.31.0",
         "webpack-cli": "^3.3.2"
