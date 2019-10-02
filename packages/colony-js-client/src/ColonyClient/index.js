@@ -2198,7 +2198,7 @@ export default class ColonyClient extends ContractClient {
           childSkillIndexNames: ['childSkillIndex'],
           domainIds: ['domainId'],
           permissionDomainIdName: 'permissionDomainId',
-          role: COLONY_ROLE_ARCHITECTURE_SUBDOMAIN, // TODO: also should allow COLONY_ROLE_ROOT
+          role: COLONY_ROLE_ARCHITECTURE_SUBDOMAIN,
         },
       ],
     });
@@ -2218,7 +2218,7 @@ export default class ColonyClient extends ContractClient {
           childSkillIndexNames: ['childSkillIndex'],
           domainIds: ['domainId'],
           permissionDomainIdName: 'permissionDomainId',
-          role: COLONY_ROLE_ARCHITECTURE_SUBDOMAIN, // TODO: also should allow COLONY_ROLE_ROOT
+          role: COLONY_ROLE_ARCHITECTURE_SUBDOMAIN,
         },
       ],
     });
@@ -2238,7 +2238,7 @@ export default class ColonyClient extends ContractClient {
           childSkillIndexNames: ['childSkillIndex'],
           domainIds: ['domainId'],
           permissionDomainIdName: 'permissionDomainId',
-          role: COLONY_ROLE_ARCHITECTURE_SUBDOMAIN, // TODO: also should allow COLONY_ROLE_ROOT
+          role: COLONY_ROLE_ARCHITECTURE_SUBDOMAIN,
         },
       ],
     });
