@@ -6,6 +6,7 @@ import ContractClient from '@colony/colony-js-contract-client';
 import type { ContractMethodSenderArgs } from '@colony/colony-js-contract-client';
 
 import {
+  COLONY_ROLE_ARCHITECTURE_SUBDOMAIN,
   COLONY_ROLES,
   FUNDING_POT_TYPE_DOMAIN,
   FUNDING_POT_TYPE_PAYMENT,
@@ -304,7 +305,11 @@ export default class DomainAuth<
       domainId,
       role,
     });
-    if (hasDomainPermission) return domainId;
+
+    // Architecture can only architect child domains
+    if (hasDomainPermission && role !== COLONY_ROLE_ARCHITECTURE_SUBDOMAIN) {
+      return domainId;
+    }
 
     // if we have permission in root domain, return that
     const { hasRole: hasRootPermission } = await this.client.hasColonyRole.call(
