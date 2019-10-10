@@ -179,6 +179,8 @@ const colonyClient = await networkClient.getColonyClientByAddress(colonyAddress)
 
 In order to fund payments within your colony, you will first need to mint some tokens. If you did not change the input when calling `createToken`, which specified `18` decimals for your token, then the following `amount` will be equivalent to `1` token .
 
+We also unlock the token here, allowing anyone to send tokens that they hold to anyone (which is the default behaviour for ERC20 contracts). If you wish to restrict who can send tokens, look at creating a [TokenAuthority](/colonyjs/api-tokenclient#createtokenauthority) which will let you do this.
+
 Add the following code below `// Step 6: Mint Tokens`:
 
 ```js
@@ -190,6 +192,11 @@ await colonyClient.tokenClient.mint.send({
 });
 
 console.log('Tokens minted!');
+
+// Unlock the token so users can send them to each other
+// This only needs to be done once, ever, but is irreversible.
+await colonyClient.tokenClient.unlock.send();
+console.log('Token unlocked!');
 
 ```
 
