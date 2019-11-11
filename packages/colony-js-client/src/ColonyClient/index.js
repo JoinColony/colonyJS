@@ -2028,7 +2028,7 @@ export default class ColonyClient extends ContractClient {
           childSkillIndexNames: ['childSkillIndex'],
           domainIds: ['domainId'],
           permissionDomainIdName: 'permissionDomainId',
-          role: COLONY_ROLE_ADMINISTRATION,
+          roles: [COLONY_ROLE_ADMINISTRATION],
         },
       ],
     });
@@ -2054,7 +2054,7 @@ export default class ColonyClient extends ContractClient {
           childSkillIndexNames: ['childSkillIndex'],
           domainIds: ['domainId'],
           permissionDomainIdName: 'permissionDomainId',
-          role: COLONY_ROLE_ADMINISTRATION,
+          roles: [COLONY_ROLE_ADMINISTRATION],
         },
       ],
     });
@@ -2066,7 +2066,7 @@ export default class ColonyClient extends ContractClient {
         // permission proof for OneTX contract
         ['permissionDomainId', 'number'],
         ['childSkillIndex', 'number'],
-        // permission proof for caller
+        // permission proof for caller (user who calls the extension)
         ['callerPermissionDomainId', 'number'],
         ['callerChildSkillIndex', 'number'],
         ['recipient', 'address'],
@@ -2090,13 +2090,13 @@ export default class ColonyClient extends ContractClient {
           childSkillIndexNames: ['childSkillIndex'],
           domainIds: ['domainId'],
           permissionDomainIdName: 'permissionDomainId',
-          role: COLONY_ROLE_ADMINISTRATION, // TODO: also need to have COLONY_ROLE_FUNDING
+          roles: [COLONY_ROLE_ADMINISTRATION, COLONY_ROLE_FUNDING],
         },
         {
           childSkillIndexNames: ['callerChildSkillIndex'],
           domainIds: ['domainId'],
           permissionDomainIdName: 'callerPermissionDomainId',
-          role: COLONY_ROLE_ADMINISTRATION, // TODO: also need to have COLONY_ROLE_FUNDING
+          roles: [COLONY_ROLE_ADMINISTRATION, COLONY_ROLE_FUNDING],
         },
       ],
     });
@@ -2132,7 +2132,7 @@ export default class ColonyClient extends ContractClient {
           childSkillIndexNames: ['childSkillIndex'],
           domainIds: ['parentDomainId'],
           permissionDomainIdName: 'permissionDomainId',
-          role: COLONY_ROLE_ARCHITECTURE,
+          roles: [COLONY_ROLE_ARCHITECTURE],
         },
       ],
     });
@@ -2153,7 +2153,7 @@ export default class ColonyClient extends ContractClient {
             return [domainId];
           },
           permissionDomainIdName: 'permissionDomainId',
-          role: COLONY_ROLE_ADMINISTRATION,
+          roles: [COLONY_ROLE_ADMINISTRATION],
         },
       ],
     });
@@ -2178,7 +2178,7 @@ export default class ColonyClient extends ContractClient {
             await getDomainIdFromPot(toPot, this),
           ],
           permissionDomainIdName: 'permissionDomainId',
-          role: COLONY_ROLE_FUNDING,
+          roles: [COLONY_ROLE_FUNDING],
         },
       ],
     });
@@ -2198,7 +2198,7 @@ export default class ColonyClient extends ContractClient {
           childSkillIndexNames: ['childSkillIndex'],
           domainIds: ['domainId'],
           permissionDomainIdName: 'permissionDomainId',
-          role: COLONY_ROLE_ARCHITECTURE_SUBDOMAIN,
+          roles: [COLONY_ROLE_ARCHITECTURE_SUBDOMAIN], // TODO: also should allow COLONY_ROLE_ROOT
         },
       ],
     });
@@ -2218,7 +2218,7 @@ export default class ColonyClient extends ContractClient {
           childSkillIndexNames: ['childSkillIndex'],
           domainIds: ['domainId'],
           permissionDomainIdName: 'permissionDomainId',
-          role: COLONY_ROLE_ARCHITECTURE_SUBDOMAIN,
+          roles: [COLONY_ROLE_ARCHITECTURE_SUBDOMAIN], // TODO: also should allow COLONY_ROLE_ROOT
         },
       ],
     });
@@ -2238,7 +2238,7 @@ export default class ColonyClient extends ContractClient {
           childSkillIndexNames: ['childSkillIndex'],
           domainIds: ['domainId'],
           permissionDomainIdName: 'permissionDomainId',
-          role: COLONY_ROLE_ARCHITECTURE_SUBDOMAIN,
+          roles: [COLONY_ROLE_ARCHITECTURE_SUBDOMAIN], // TODO: also should allow COLONY_ROLE_ROOT
         },
       ],
     });
@@ -2261,7 +2261,7 @@ export default class ColonyClient extends ContractClient {
             return [domainId];
           },
           permissionDomainIdName: 'permissionDomainId',
-          role: COLONY_ROLE_ADMINISTRATION,
+          roles: [COLONY_ROLE_ADMINISTRATION],
         },
       ],
     });
@@ -2283,7 +2283,7 @@ export default class ColonyClient extends ContractClient {
             return [domainId];
           },
           permissionDomainIdName: 'permissionDomainId',
-          role: COLONY_ROLE_ADMINISTRATION,
+          roles: [COLONY_ROLE_ADMINISTRATION],
         },
       ],
     });
@@ -2305,7 +2305,7 @@ export default class ColonyClient extends ContractClient {
             return [domainId];
           },
           permissionDomainIdName: 'permissionDomainId',
-          role: COLONY_ROLE_ADMINISTRATION,
+          roles: [COLONY_ROLE_ADMINISTRATION],
         },
       ],
     });
