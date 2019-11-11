@@ -196,7 +196,7 @@ export default class DomainAuth<
             otherRoles.map(async r => {
               const { hasRole } = await this.client.hasColonyRole.call({
                 address,
-                domain: highestDomain,
+                domainId: highestDomain,
                 role: r,
               });
               return hasRole;
