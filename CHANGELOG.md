@@ -2,10 +2,12 @@
 
 ## NEXT
 
+## v1.14.0
 **Features**
 
 * Add support for `eth_call` for Senders in order to simulate sending the transaction and receive a result or parsed revert error (`@colony/colony-js-client`, `@colony/colony-js-contract-client`, `@colony/colony-js-adapter`, `@colony/colony-js-adapter-ethers`)
 * Add `reason` property to transaction receipts (`@colony/colony-js-contract-client`)
+* Add support for `makePaymentFundedFromDomain` (`@colony/colony-js-client`)
 
 **Bug fixes**
 
