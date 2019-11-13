@@ -1843,6 +1843,67 @@ Contract: [OneTxPayment.sol](https://github.com/JoinColony/colonyNetwork/blob/gl
   
   
 
+### `makePaymentFundedFromDomain`
+
+Make a payment in one transaction. Like `makePayment` but just funded from the given domainId. This will throw if the given domain doesn't have enough funds
+
+```js
+await colonyClient.makePaymentFundedFromDomain.send({
+  recipient,
+  token,
+  amount,
+  domainId,
+  skillId,
+}, options);
+```
+
+
+**Input**
+
+|Name|Type|Description|
+|---|---|---|
+|recipient|address|The address that will receive the payment.|
+|token|any address|The address of the token contract (an empty address if Ether).|
+|amount|big number|The amount of tokens (or Ether) for the payment.|
+|domainId|number|The ID of the domain.|
+|skillId|number|The ID of the skill.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
+
+An instance of a `ContractResponse` which will eventually receive the following event data:
+
+|Name|Type|Description|
+|---|---|---|
+|potId|number|The ID of the pot that was added.|
+|paymentId|number|The ID of the payment that was added.|
+|fromPot|number|The ID of the pot from which the funds were moved.|
+|toPot|number|The ID of the pot to which the funds were moved.|
+|amount|big number|The amount of funds that were moved between pots.|
+|token|any address|The address of the token contract (an empty address if Ether).|
+|from|address|The address of the account that sent tokens.|
+|to|address|The address of the account that received tokens.|
+|value|big number|The amount of tokens that were transferred.|
+|FundingPotAdded|object|Contains the data defined in [FundingPotAdded](#eventsfundingpotadded)|
+|PaymentAdded|object|Contains the data defined in [PaymentAdded](#eventspaymentadded)|
+|ColonyFundsMovedBetweenFundingPots|object|Contains the data defined in [ColonyFundsMovedBetweenFundingPots](#eventscolonyfundsmovedbetweenfundingpots)|
+|Transfer|object|Contains the data defined in [Transfer](#eventstransfer)|
+|PayoutClaimed|object|Contains the data defined in [PayoutClaimed](#eventspayoutclaimed)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
+
+
+  
+  
+Contract: [OneTxPayment.sol](https://github.com/JoinColony/colonyNetwork/blob/glider-rc.3/contracts/extensions/OneTxPayment.sol/OneTxPayment.sol)
+  
+  
+
 ### `mintTokens`
 
 Mint new tokens. This function can only be called if the address of the colony contract is the owner of the token contract. If this is the case, then this function can only be called by the address assigned the colony `ROOT` role.
