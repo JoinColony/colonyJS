@@ -3,7 +3,7 @@
 
 import DomainAuth from './DomainAuth';
 
-export default class MakePayment extends DomainAuth<*, *, *> {
+export default class MakePaymentFundedFromDomain extends DomainAuth<*, *, *> {
   async estimate(inputValues: *) {
     // if for some reason we don't have the required methods, then throw
     if (
@@ -33,12 +33,16 @@ export default class MakePayment extends DomainAuth<*, *, *> {
     });
 
     // $FlowFixMe
-    return contract.callEstimate('makePayment', args);
+    return contract.callEstimate('makePaymentFundedFromDomain', args);
   }
 
   async _sendTransaction(args: *, options: *) {
     const contract = await this._getContract();
-    return contract.sendTransaction('makePayment', args, options);
+    return contract.callTransaction(
+      'makePaymentFundedFromDomain',
+      args,
+      options,
+    );
   }
 
   async _getContract() {
@@ -51,9 +55,10 @@ export default class MakePayment extends DomainAuth<*, *, *> {
     );
     if (!contractAddress)
       throw new Error('OneTxPayment not deployed for this Colony');
-    return this.client.adapter.getContract({
+    const contract = await this.client.adapter.getContract({
       contractAddress,
       contractName: 'OneTxPayment',
     });
+    return contract;
   }
 }

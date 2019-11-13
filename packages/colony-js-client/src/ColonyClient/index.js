@@ -21,6 +21,7 @@ import AddExtension from './senders/AddExtension';
 import AddPayment from './senders/AddPayment';
 import AddTask from './senders/AddTask';
 import MakePayment from './senders/MakePayment';
+import MakePaymentFundedFromDomain from './senders/MakePaymentFundedFromDomain';
 import RemoveExtension from './senders/RemoveExtension';
 import DomainAuth, { getDomainIdFromPot } from './senders/DomainAuth';
 import SetAdminRole from './senders/SetAdminRole';
@@ -1145,6 +1146,33 @@ export default class ColonyClient extends ContractClient {
   >;
 
   /*
+  Make a payment in one transaction. Like `makePayment` but just funded from the given domainId. This will throw if the given domain doesn't have enough funds
+  */
+  makePaymentFundedFromDomain: ColonyClient.Sender<
+    {
+      recipient: Address, // The address that will receive the payment.
+      token: AnyAddress, // The address of the token contract (an empty address if Ether).
+      amount: BigNumber, // The amount of tokens (or Ether) for the payment.
+      domainId: number, // The ID of the domain.
+      skillId: number, // The ID of the skill.
+    },
+    {
+      FundingPotAdded: FundingPotAdded,
+      PaymentAdded: PaymentAdded,
+      ColonyFundsMovedBetweenFundingPots: ColonyFundsMovedBetweenFundingPots,
+      Transfer: Transfer,
+      PayoutClaimed: PayoutClaimed,
+    },
+    ColonyClient,
+    {
+      contract: 'OneTxPayment.sol',
+      // eslint-disable-next-line max-len
+      contractPath: 'https://github.com/JoinColony/colonyNetwork/blob/glider-rc.3/contracts/extensions/OneTxPayment.sol',
+      version: 'glider',
+    },
+  >;
+
+  /*
   Mint new tokens. This function can only be called if the address of the colony contract is the owner of the token contract. If this is the case, then this function can only be called by the address assigned the colony `ROOT` role.
   */
   mintTokens: ColonyClient.Sender<
@@ -2028,7 +2056,7 @@ export default class ColonyClient extends ContractClient {
           childSkillIndexNames: ['childSkillIndex'],
           domainIds: ['domainId'],
           permissionDomainIdName: 'permissionDomainId',
-          role: COLONY_ROLE_ADMINISTRATION,
+          roles: [COLONY_ROLE_ADMINISTRATION],
         },
       ],
     });
@@ -2054,7 +2082,7 @@ export default class ColonyClient extends ContractClient {
           childSkillIndexNames: ['childSkillIndex'],
           domainIds: ['domainId'],
           permissionDomainIdName: 'permissionDomainId',
-          role: COLONY_ROLE_ADMINISTRATION,
+          roles: [COLONY_ROLE_ADMINISTRATION],
         },
       ],
     });
@@ -2066,7 +2094,7 @@ export default class ColonyClient extends ContractClient {
         // permission proof for OneTX contract
         ['permissionDomainId', 'number'],
         ['childSkillIndex', 'number'],
-        // permission proof for caller
+        // permission proof for caller (user who calls the extension)
         ['callerPermissionDomainId', 'number'],
         ['callerChildSkillIndex', 'number'],
         ['recipient', 'address'],
@@ -2090,13 +2118,55 @@ export default class ColonyClient extends ContractClient {
           childSkillIndexNames: ['childSkillIndex'],
           domainIds: ['domainId'],
           permissionDomainIdName: 'permissionDomainId',
-          role: COLONY_ROLE_ADMINISTRATION, // TODO: also need to have COLONY_ROLE_FUNDING
+          roles: [COLONY_ROLE_ADMINISTRATION, COLONY_ROLE_FUNDING],
         },
         {
           childSkillIndexNames: ['callerChildSkillIndex'],
           domainIds: ['domainId'],
           permissionDomainIdName: 'callerPermissionDomainId',
-          role: COLONY_ROLE_ADMINISTRATION, // TODO: also need to have COLONY_ROLE_FUNDING
+          roles: [COLONY_ROLE_ADMINISTRATION, COLONY_ROLE_FUNDING],
+        },
+      ],
+    });
+    this.makePaymentFundedFromDomain = new MakePaymentFundedFromDomain({
+      client: this,
+      name: 'makePaymentFundedFromDomain',
+      functionName: 'makePaymentFundedFromDomain',
+      input: [
+        // permission proof for OneTX contract
+        ['permissionDomainId', 'number'],
+        ['childSkillIndex', 'number'],
+        // permission proof for caller (user who calls the extension)
+        ['callerPermissionDomainId', 'number'],
+        ['callerChildSkillIndex', 'number'],
+        ['recipient', 'address'],
+        ['token', 'anyAddress'],
+        ['amount', 'bigNumber'],
+        ['domainId', 'number'],
+        ['skillId', 'number'],
+      ],
+      defaultValues: {
+        domainId: DEFAULT_DOMAIN_ID,
+        skillId: 0,
+      },
+      permissions: [
+        {
+          address: async () => {
+            const { address } = await this.getExtensionAddress.call({
+              contractName: 'OneTxPayment',
+            });
+            return address;
+          },
+          childSkillIndexNames: ['childSkillIndex'],
+          domainIds: ['domainId'],
+          permissionDomainIdName: 'permissionDomainId',
+          roles: [COLONY_ROLE_ADMINISTRATION, COLONY_ROLE_FUNDING],
+        },
+        {
+          childSkillIndexNames: ['callerChildSkillIndex'],
+          domainIds: ['domainId'],
+          permissionDomainIdName: 'callerPermissionDomainId',
+          roles: [COLONY_ROLE_ADMINISTRATION, COLONY_ROLE_FUNDING],
         },
       ],
     });
@@ -2132,7 +2202,7 @@ export default class ColonyClient extends ContractClient {
           childSkillIndexNames: ['childSkillIndex'],
           domainIds: ['parentDomainId'],
           permissionDomainIdName: 'permissionDomainId',
-          role: COLONY_ROLE_ARCHITECTURE,
+          roles: [COLONY_ROLE_ARCHITECTURE],
         },
       ],
     });
@@ -2153,7 +2223,7 @@ export default class ColonyClient extends ContractClient {
             return [domainId];
           },
           permissionDomainIdName: 'permissionDomainId',
-          role: COLONY_ROLE_ADMINISTRATION,
+          roles: [COLONY_ROLE_ADMINISTRATION],
         },
       ],
     });
@@ -2178,7 +2248,7 @@ export default class ColonyClient extends ContractClient {
             await getDomainIdFromPot(toPot, this),
           ],
           permissionDomainIdName: 'permissionDomainId',
-          role: COLONY_ROLE_FUNDING,
+          roles: [COLONY_ROLE_FUNDING],
         },
       ],
     });
@@ -2198,7 +2268,7 @@ export default class ColonyClient extends ContractClient {
           childSkillIndexNames: ['childSkillIndex'],
           domainIds: ['domainId'],
           permissionDomainIdName: 'permissionDomainId',
-          role: COLONY_ROLE_ARCHITECTURE_SUBDOMAIN,
+          roles: [COLONY_ROLE_ARCHITECTURE_SUBDOMAIN], // TODO: also should allow COLONY_ROLE_ROOT
         },
       ],
     });
@@ -2218,7 +2288,7 @@ export default class ColonyClient extends ContractClient {
           childSkillIndexNames: ['childSkillIndex'],
           domainIds: ['domainId'],
           permissionDomainIdName: 'permissionDomainId',
-          role: COLONY_ROLE_ARCHITECTURE_SUBDOMAIN,
+          roles: [COLONY_ROLE_ARCHITECTURE_SUBDOMAIN], // TODO: also should allow COLONY_ROLE_ROOT
         },
       ],
     });
@@ -2238,7 +2308,7 @@ export default class ColonyClient extends ContractClient {
           childSkillIndexNames: ['childSkillIndex'],
           domainIds: ['domainId'],
           permissionDomainIdName: 'permissionDomainId',
-          role: COLONY_ROLE_ARCHITECTURE_SUBDOMAIN,
+          roles: [COLONY_ROLE_ARCHITECTURE_SUBDOMAIN], // TODO: also should allow COLONY_ROLE_ROOT
         },
       ],
     });
@@ -2261,7 +2331,7 @@ export default class ColonyClient extends ContractClient {
             return [domainId];
           },
           permissionDomainIdName: 'permissionDomainId',
-          role: COLONY_ROLE_ADMINISTRATION,
+          roles: [COLONY_ROLE_ADMINISTRATION],
         },
       ],
     });
@@ -2283,7 +2353,7 @@ export default class ColonyClient extends ContractClient {
             return [domainId];
           },
           permissionDomainIdName: 'permissionDomainId',
-          role: COLONY_ROLE_ADMINISTRATION,
+          roles: [COLONY_ROLE_ADMINISTRATION],
         },
       ],
     });
@@ -2305,7 +2375,7 @@ export default class ColonyClient extends ContractClient {
             return [domainId];
           },
           permissionDomainIdName: 'permissionDomainId',
-          role: COLONY_ROLE_ADMINISTRATION,
+          roles: [COLONY_ROLE_ADMINISTRATION],
         },
       ],
     });

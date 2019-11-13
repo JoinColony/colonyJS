@@ -19,7 +19,7 @@ type ColonyRole = $Keys<typeof COLONY_ROLES>;
 
 type PermissionType = {|
   // the role required
-  role: ColonyRole,
+  roles: ColonyRole[],
   // name of the input value conatining the domainId, or function to get the domainId
   domainIds:
     | Array<string | ((inputValues: Object) => Promise<number>)>
@@ -146,12 +146,15 @@ export default class DomainAuth<
     const proofs = await Promise.all(
       this._permissions.map(
         async ({
-          role,
+          roles,
           domainIds: inputDomainIds,
           permissionDomainIdName,
           childSkillIndexNames,
           address: inputAddress,
         }) => {
+          // Just check the first role, initially
+          const [role, ...otherRoles] = roles;
+
           // resolve the functions or fetch from inputValues
           const domainIds =
             typeof inputDomainIds === 'function'
@@ -188,6 +191,25 @@ export default class DomainAuth<
             permissionDomains,
             role,
           );
+
+          const allHasRoles = await Promise.all(
+            otherRoles.map(async r => {
+              const { hasRole } = await this.client.hasColonyRole.call({
+                address,
+                domainId: highestDomain,
+                role: r,
+              });
+              return hasRole;
+            }),
+          );
+
+          if (!allHasRoles.every(Boolean)) {
+            throw new Error(
+              `We are missing one or more of the permissions ${JSON.stringify(
+                otherRoles,
+              )} in domain ${highestDomain}`,
+            );
+          }
 
           const childSkillIndexes = await Promise.all(
             domainIds.map(async domainId =>
