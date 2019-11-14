@@ -2,6 +2,11 @@
 
 ## NEXT
 
+## v1.14.1
+**Bug fixes**
+
+* Fix the call to `makePaymentFundedFromDomain` (`@colony/colony-js-client`)
+
 ## v1.14.0
 **Features**
 
