@@ -32,7 +32,6 @@ export default class MakePayment extends DomainAuth<*, *, *> {
       ...proofs,
     });
 
-    // $FlowFixMe
     return contract.callEstimate('makePayment', args);
   }
 
