@@ -7,12 +7,12 @@ import DomainAuth from './DomainAuth';
 // but since the underlying method functionality is due to change very soon,
 // we're opting to not make big changes to the Sender behaviour, and simply
 // extend the `send` method to perform this async validation.
-export default class AddPayment extends DomainAuth<*, *, *> {
+export default class SetExpenditurePayoutModifier extends DomainAuth<*, *, *> {
   async send(inputValues: *, options: *) {
-    // Validate that the domain exists before attempting to create a payment
-    if (Object.hasOwnProperty.call(inputValues, 'domainId')) {
-      const { count } = await this.client.getDomainCount.call();
-      if (count < inputValues.domainId)
+    // Validate that the expenditure exists before attempting to modify the payout
+    if (Object.hasOwnProperty.call(inputValues, 'expenditureId')) {
+      const { count } = await this.client.getExpenditureCount.call();
+      if (count < inputValues.expenditureId)
         throw new Error(`Domain ID ${inputValues.domainId} not found`);
     }
     return super.send(inputValues, options);

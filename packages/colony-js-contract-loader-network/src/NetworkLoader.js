@@ -16,7 +16,7 @@ const DEFAULT_NETWORK = NETWORKS.MAINNET;
 
 type Network = $Values<typeof NETWORKS>;
 
-const LATEST_VERSION = 3;
+const LATEST_VERSION = 4;
 
 const CONTRACTS_MANIFEST = {
   versioned: {
@@ -57,6 +57,18 @@ const CONTRACTS_MANIFEST = {
       'ITokenLocking',
       'OldRoles',
       'OldRolesFactory',
+      'OneTxPayment',
+      'OneTxPaymentFactory',
+      'Token',
+      'TokenAuthority',
+    ],
+    '4': [
+      'EtherRouter',
+      'IColony',
+      'IColonyNetwork',
+      'IMetaColony',
+      'IRecovery',
+      'ITokenLocking',
       'OneTxPayment',
       'OneTxPaymentFactory',
       'Token',

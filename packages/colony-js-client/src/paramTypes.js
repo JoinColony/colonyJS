@@ -10,6 +10,7 @@ import {
   TASK_RATINGS,
   TASK_ROLES,
   TASK_STATUSES,
+  EXPENDITURE_STATUSES
 } from './constants';
 
 const dictType = (dict: { [key: string]: number }) => ({
@@ -41,3 +42,5 @@ addParamType('taskRatings', dictType(TASK_RATINGS));
 addParamType('taskRole', dictType(TASK_ROLES));
 
 addParamType('taskStatus', dictType(TASK_STATUSES));
+
+addParamType('expenditureStatus', dictType(EXPENDITURE_STATUSES));

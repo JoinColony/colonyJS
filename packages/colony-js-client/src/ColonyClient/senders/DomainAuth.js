@@ -9,6 +9,7 @@ import {
   COLONY_ROLE_ARCHITECTURE_SUBDOMAIN,
   COLONY_ROLES,
   FUNDING_POT_TYPE_DOMAIN,
+  FUNDING_POT_TYPE_EXPENDITURE,
   FUNDING_POT_TYPE_PAYMENT,
   FUNDING_POT_TYPE_TASK,
 } from '../../constants';
@@ -44,6 +45,12 @@ export const getDomainIdFromPot = async (potId: number, colonyClient: *) => {
   if (type === FUNDING_POT_TYPE_PAYMENT) {
     const { domainId } = await colonyClient.getPayment.call({
       paymentId: typeId,
+    });
+    return domainId;
+  }
+  if (type === FUNDING_POT_TYPE_EXPENDITURE) {
+    const { domainId } = await colonyClient.getExpenditure.call({
+      expenditureId: typeId,
     });
     return domainId;
   }

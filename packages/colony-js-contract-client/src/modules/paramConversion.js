@@ -27,9 +27,9 @@ export function convertOutputValues<OutputTypes: Object>(
 ): OutputTypes {
   // If a length was provided (e.g. for event args), use that to find the value;
   // otherwise, use the supplied name
+
   const getValue = (name, index) =>
     outputValues.length ? outputValues[index] : outputValues[name];
-
   return valuesSpec && valuesSpec.length
     ? // $FlowFixMe
       valuesSpec

@@ -1,6 +1,5 @@
 /* @flow */
 /* eslint-disable import/no-cycle */
-
 import assert from 'assert';
 
 import type BigNumber from 'bn.js';
@@ -20,21 +19,27 @@ import GetExtensionAddress from './callers/GetExtensionAddress';
 import AddExtension from './senders/AddExtension';
 import AddPayment from './senders/AddPayment';
 import AddTask from './senders/AddTask';
+import AddExpenditure from './senders/AddExpenditure';
 import MakePayment from './senders/MakePayment';
 import MakePaymentFundedFromDomain from './senders/MakePaymentFundedFromDomain';
 import RemoveExtension from './senders/RemoveExtension';
+import TransferExpenditureViaArbitration from './senders/TransferExpenditureViaArbitration';
 import DomainAuth, { getDomainIdFromPot } from './senders/DomainAuth';
 import SetAdminRole from './senders/SetAdminRole';
 import SetFounderRole from './senders/SetFounderRole';
+import SetExpenditurePayoutModifier from './senders/SetExpenditurePayoutModifier';
+import SetExpenditureClaimDelay from './senders/SetExpenditureClaimDelay';
 import addRecoveryMethods from '../addRecoveryMethods';
 
 import {
   COLONY_ROLE_ADMINISTRATION,
   COLONY_ROLE_ARCHITECTURE_SUBDOMAIN,
   COLONY_ROLE_ARCHITECTURE,
+  COLONY_ROLE_ARBITRATION,
   COLONY_ROLE_FUNDING,
   COLONY_ROLES,
   DEFAULT_DOMAIN_ID,
+  EXPENDITURE_STATUSES,
   FUNDING_POT_TYPES,
   TASK_ROLE_EVALUATOR,
   TASK_ROLE_MANAGER,
@@ -50,6 +55,7 @@ type HexString = string;
 type IPFSHash = string;
 type TaskRole = $Keys<typeof TASK_ROLES>;
 type TaskStatus = $Keys<typeof TASK_STATUSES>;
+type ExpenditureStatus = $Keys<typeof EXPENDITURE_STATUSES>;
 type AnyAddress = string;
 
 // @note Deprecated in glider-rc.3, replaced with ColonyRoleSet
@@ -131,6 +137,10 @@ type PayoutClaimed = ContractClient.Event<{
   token: AnyAddress, // The address of the token contract (an empty address if Ether).
   amount: BigNumber, // The task payout amount that was claimed.
 }>;
+type RecoveryRoleSet = ContractClient.Event<{
+  user: AnyAddress, // The address having the recovery role set
+  setTo: boolean, // Bool representing whether they now have the skill or not
+}>;
 type RewardPayoutClaimed = ContractClient.Event<{
   rewardPayoutId: number, // The ID of the reward payout cycle.
   user: Address, // The address of the user who claimed the reward payout.
@@ -204,6 +214,35 @@ type Transfer = ContractClient.Event<{
   to: Address, // The address of the account that received tokens.
   value: BigNumber, // The amount of tokens that were transferred.
 }>;
+type ExpenditureAdded = ContractClient.Event<{
+  expenditureId: number, // The ID of the expenditure that was created
+}>;
+type ExpenditureTransferred = ContractClient.Event<{
+  expenditureId: number, // The ID of the expenditure that was transferred
+  owner: Address, // The address the expenditure was transferred to
+}>;
+type ExpenditureCancelled = ContractClient.Event<{
+  expenditureId: number, // The ID of the expenditure that was cancelled
+}>;
+type ExpenditureFinalized = ContractClient.Event<{
+  expenditureId: number, // The ID of the expenditure that was finalized
+}>;
+type ExpenditureRecipientSet = ContractClient.Event<{
+  expenditureId: number, // The ID of the expenditure that was modified
+  slot: BigNumber, // The slot of the expenditure being modified
+  recipient: AnyAddress, // The address that will receive the payout from this slot
+}>;
+type ExpenditureSkillSet = ContractClient.Event<{
+  expenditureId: number, // The ID of the expenditure that was modified
+  slot: BigNumber, // The slot of the expenditure being modified
+  skillId: BigNumber, // The skillId the slot will award upon payout
+}>;
+type ExpenditurePayoutSet = ContractClient.Event<{
+  expenditureId: number, // The ID of the expenditure that was modified
+  slot: BigNumber, // The slot of the expenditure being modified
+  token: Address, // The token the slot will pay out (NB a slot can have more than one token associated with it)
+  amount: BigNumber, // The amount of token that will be paid out
+}>;
 
 export default class ColonyClient extends ContractClient {
   networkClient: ColonyNetworkClient;
@@ -231,6 +270,7 @@ export default class ColonyClient extends ContractClient {
     Mint: Mint,
     PaymentAdded: PaymentAdded,
     PayoutClaimed: PayoutClaimed,
+    RecoveryRoleSet: RecoveryRoleSet,
     RewardPayoutClaimed: RewardPayoutClaimed,
     RewardPayoutCycleEnded: RewardPayoutCycleEnded,
     RewardPayoutCycleStarted: RewardPayoutCycleStarted,
@@ -249,6 +289,13 @@ export default class ColonyClient extends ContractClient {
     TaskWorkRatingRevealed: TaskWorkRatingRevealed,
     TokenLocked: TokenLocked,
     Transfer: Transfer,
+    ExpenditureAdded: ExpenditureAdded,
+    ExpenditureTransferred: ExpenditureTransferred,
+    ExpenditureCancelled: ExpenditureCancelled,
+    ExpenditureFinalized: ExpenditureFinalized,
+    ExpenditureRecipientSet: ExpenditureRecipientSet,
+    ExpenditureSkillSet: ExpenditureSkillSet,
+    ExpenditurePayoutSet: ExpenditurePayoutSet,
   };
 
   /*
@@ -285,6 +332,26 @@ export default class ColonyClient extends ContractClient {
     ColonyClient,
     {
       contract: 'Colony.sol',
+      interface: 'IColony.sol',
+      version: 'glider',
+    },
+  >;
+
+  /*
+  Add a new expenditure within the colony.
+  */
+  addExpenditure: ColonyClient.Sender<
+    {
+      domainId: ?number, // The ID of the domain (default value of `1`).
+    },
+    {
+      FundingPotAdded: FundingPotAdded,
+      ExpenditureAdded: ExpenditureAdded,
+    },
+    ColonyClient,
+    {
+      function: 'makeExpenditure',
+      contract: 'ColonyExpenditure.sol',
       interface: 'IColony.sol',
       version: 'glider',
     },
@@ -421,6 +488,24 @@ export default class ColonyClient extends ContractClient {
   >;
 
   /*
+  Cancel an expenditure. Once an expenditure is cancelled, no further changes to the task can be made.
+  */
+  cancelExpenditure: ColonyClient.Sender<
+    {
+      expenditureId: number, // The ID of the expenditure.
+    },
+    {
+      ExpenditureCancelled: ExpenditureCancelled,
+    },
+    ColonyClient,
+    {
+      contract: 'ColonyExpenditure.sol',
+      interface: 'IColony.sol',
+      version: 'burgundy-glider',
+    },
+  >;
+
+  /*
   Claim funds that the colony has received by adding them to the funding pot of the root domain. A set fee is deducted from the funds claimed and added to the colony rewards pot. No fee is deducted when tokens native to the colony are claimed.
   */
   claimColonyFunds: ColonyClient.Sender<
@@ -437,6 +522,28 @@ export default class ColonyClient extends ContractClient {
       version: 'glider',
     },
   >;
+
+  /*
+  Claim expenditure payout.
+  */
+  claimExpenditurePayout: ColonyClient.Sender<
+    {
+      expenditureId: number, // The ID of the expenditure.
+      slot: BigNumber, // The slot of the expenditure being claimed
+      token: AnyAddress, // The address of the token contract (an empty address if Ether).
+    },
+    {
+      PayoutClaimed: PayoutClaimed,
+      Transfer: Transfer,
+    },
+    ColonyClient,
+    {
+      contract: 'ColonyFunding.sol',
+      interface: 'IColony.sol',
+      version: 'burgundy-glider',
+    },
+  >;
+
 
   /*
   Claim a payment.
@@ -562,6 +669,22 @@ export default class ColonyClient extends ContractClient {
       contract: 'ContractRecovery.sol',
       interface: 'IRecovery.sol',
       version: 'glider',
+    },
+  >;
+
+  /*
+  Finalize an expenditure. Once an expenditure is finalized, no further changes to the payment can be made by the owner and the address that is assigned to the slots can claim the payments once the timeout has expired.
+  */
+  finalizeExpenditure: ColonyClient.Sender<
+    {
+      expenditureId: number, // The ID of the expenditure
+    },
+    { ExpenditureFinalized: ExpenditureFinalized },
+    ColonyClient,
+    {
+      contract: 'ColonyExpenditure.sol',
+      interface: 'IColony.sol',
+      version: 'burgundy-glider',
     },
   >;
 
@@ -703,6 +826,86 @@ export default class ColonyClient extends ContractClient {
       contract: 'Colony.sol',
       interface: 'IColony.sol',
       version: 'glider',
+    },
+  >;
+
+  /*
+  Get information about an expenditure.
+  */
+  getExpenditure: ColonyClient.Caller<
+    {
+      expenditureId: number, // The ID of the expenditure
+    },
+    {
+      status: ExpenditureStatus, // The expenditure status (`ACTIVE`, `CANCELLED` or `FINALIZED`).
+      owner: AnyAddress, // The owner of the expenditure.
+      potId: number, // The ID of the funding pot.
+      domainId: number, // The ID of the domain.
+      finalizedTimestamp: Date, // The date when the expenditure was finalized.
+    },
+    ColonyClient,
+    {
+      contract: 'ColonyExpenditure.sol',
+      interface: 'IColony.sol',
+      version: 'burgundy-glider',
+    },
+  >;
+
+  /*
+  Get the total number of expenditures.
+  */
+  getExpenditureCount: ColonyClient.Caller<
+    {},
+    {
+      count: number, // The total number of payments.
+    },
+    ColonyClient,
+    {
+      contract: 'ColonyExpenditure.sol',
+      interface: 'IColony.sol',
+      version: 'glider',
+    },
+  >;
+
+  /*
+  Get information about an expenditure's slot
+  */
+  getExpenditureSlot: ColonyClient.Caller<
+    {
+      expenditureId: number, // The ID of the expenditure
+      slot: BigNumber, // The number of the slot
+    },
+    {
+      recipient: AnyAddress, // The address of the recipient
+      claimDelay: BigNumber, // The time before the payout  can be claimed
+      payoutModifier: BigNumber, // The ID of the funding pot.
+      skills: Array<number>, // An array of skill IDs.
+    },
+    ColonyClient,
+    {
+      contract: 'ColonyExpenditure.sol',
+      interface: 'IColony.sol',
+      version: 'burgundy-glider',
+    },
+  >;
+
+  /*
+  Get information about an expenditure's slot
+  */
+  getExpenditureSlotPayout: ColonyClient.Caller<
+    {
+      expenditureId: number, // The ID of the expenditure
+      slot: BigNumber, // The number of the slot
+      token: AnyAddress, // The address of the token of the payout being queried
+    },
+    {
+      amount: BigNumber, // The amount being paid out
+    },
+    ColonyClient,
+    {
+      contract: 'ColonyExpenditure.sol',
+      interface: 'IColony.sol',
+      version: 'burgundy-glider',
     },
   >;
 
@@ -1419,6 +1622,97 @@ export default class ColonyClient extends ContractClient {
   >;
 
   /*
+  Set the claim delay of an expenditure's slot
+  */
+  setExpenditureClaimDelay: ColonyClient.Sender<
+    {
+      expenditureId: number, // The ID of the expenditure
+      slot: BigNumber, // The slot number to set the recipient for
+      claimDelay: BigNumber, // The delay to be applied to the payout
+    },
+    {},
+    ColonyClient,
+    {
+      contract: 'ColonyExpenditure.sol',
+      interface: 'IColony.sol',
+      version: 'burgundy-glider',
+    },
+  >;
+
+  /*
+  Set the payout of an expenditure.
+  */
+  setExpenditurePayout: ColonyClient.Sender<
+    {
+      expenditureId: number, // The ID of the expenditure
+      slot: BigNumber, // The slot number to set the recipient for
+      token: Address, // The address of the token
+      amount: BigNumber, // The amount of the token to be paid out
+    },
+    { ExpenditurePayoutSet: ExpenditurePayoutSet },
+    ColonyClient,
+    {
+      contract: 'ColonyExpenditure.sol',
+      interface: 'IColony.sol',
+      version: 'burgundy-glider',
+    },
+  >;
+
+  /*
+  Set the payout of an expenditure.
+  */
+  setExpenditurePayoutModifier: ColonyClient.Sender<
+    {
+      expenditureId: number, // The ID of the expenditure
+      slot: BigNumber, // The slot number to set the recipient for
+      payoutModifier: BigNumber, // The new payout modifier
+    },
+    {},
+    ColonyClient,
+    {
+      contract: 'ColonyExpenditure.sol',
+      interface: 'IColony.sol',
+      version: 'burgundy-glider',
+    },
+  >;
+
+  /*
+  Set the recipient of an expenditure.
+  */
+  setExpenditureRecipient: ColonyClient.Sender<
+    {
+      expenditureId: number, // The ID of the expenditure
+      slot: BigNumber, // The slot number to set the recipient for
+      recipient: AnyAddress, // The address to recieve the outputs from the slot of this expenditure
+    },
+    { ExpenditureRecipientSet: ExpenditureRecipientSet },
+    ColonyClient,
+    {
+      contract: 'ColonyExpenditure.sol',
+      interface: 'IColony.sol',
+      version: 'burgundy-glider',
+    },
+  >;
+
+  /*
+  Set the skill of an expenditure.
+  */
+  setExpenditureSkill: ColonyClient.Sender<
+    {
+      expenditureId: number, // The ID of the expenditure
+      slot: BigNumber, // The slot number to set the recipient for
+      skillId: number, // The skillId to associate with the expenditure
+    },
+    { ExpenditureSkillSet: ExpenditureSkillSet },
+    ColonyClient,
+    {
+      contract: 'ColonyExpenditure.sol',
+      interface: 'IColony.sol',
+      version: 'burgundy-glider',
+    },
+  >;
+
+  /*
   Assign the colony `FOUNDER` role to an address. This function is not included in the core contracts but instead it comes from the `OldRoles` extension contract. This function can only be called by an address assigned the colony `ROOT` (`FOUNDER`) role. There can only be one address assigned to the colony `ROOT` (`FOUNDER`) role, therefore, the address currently assigned will forfeit the role.
   */
   setFounderRole: ColonyClient.Sender<
@@ -1474,7 +1768,7 @@ export default class ColonyClient extends ContractClient {
   >;
 
   /*
-  Set the payment domain.
+  Set the payment domain. TODO: Make unavailable in v4 but present in v3
   */
   setPaymentDomain: ColonyClient.Sender<
     {
@@ -1549,7 +1843,7 @@ export default class ColonyClient extends ContractClient {
     {
       address: Address, // The address that will be assigned the colony `RECOVERY` role.
     },
-    {},
+    { RecoveryRoleSet: RecoveryRoleSet },
     ColonyClient,
     {
       contract: 'ContractRecovery.sol',
@@ -1632,7 +1926,7 @@ export default class ColonyClient extends ContractClient {
   >;
 
   /*
-  Set the domain of a task. Every task must belong to a domain. This function can only be called by the address assigned the task `MANAGER` role.
+  Set the domain of a task. Every task must belong to a domain. This function can only be called by the address assigned the task `MANAGER` role. TODO: Make unavailable in >v4 but present in <v3
   */
   setTaskDomain: ColonyClient.MultisigSender<
     {
@@ -1888,6 +2182,40 @@ export default class ColonyClient extends ContractClient {
   >;
 
   /*
+  Transfer Expenditure as the owner
+  */
+  transferExpenditure: ColonyClient.Sender<
+    {
+      expenditureId: number, // The ID of the expenditure to be transferred.
+      newOwner: AnyAddress, // The address that will become the owner
+    },
+    { ExpenditureTransferred: ExpenditureTransferred },
+    ColonyClient,
+    {
+      contract: 'ColonyExpenditure.sol',
+      interface: 'IColony.sol',
+      version: 'burgundy-glider',
+    },
+  >;
+
+  /*
+  Transfer Expenditure as via the arbitration permission
+  */
+  transferExpenditureViaArbitration: ColonyClient.Sender<
+    {
+      expenditureId: number, // The ID of the expenditure to be transferred.
+      newOwner: AnyAddress, // The address that will become the owner
+    },
+    { ExpenditureTransferred: ExpenditureTransferred },
+    ColonyClient,
+    {
+      contract: 'ColonyExpenditure.sol',
+      interface: 'IColony.sol',
+      version: 'burgundy-glider',
+    },
+  >;
+
+  /*
   Upgrade the colony to a new colony contract version. The new version must be higher than the current version. Downgrading to old versions is not permitted.
   */
   upgrade: ColonyClient.Sender<
@@ -2028,6 +2356,27 @@ export default class ColonyClient extends ContractClient {
     });
 
     // Custom senders
+    this.addExpenditure = new AddExpenditure({
+      client: this,
+      name: 'addExpenditure',
+      functionName: 'makeExpenditure',
+      input: [
+        ['permissionDomainId', 'number'],
+        ['childSkillIndex', 'number'],
+        ['domainId', 'number'],
+      ],
+      defaultValues: {
+        domainId: DEFAULT_DOMAIN_ID,
+      },
+      permissions: [
+        {
+          childSkillIndexNames: ['childSkillIndex'],
+          domainIds: ['domainId'],
+          permissionDomainIdName: 'permissionDomainId',
+          role: COLONY_ROLE_ADMINISTRATION,
+        },
+      ],
+    });
     this.addExtension = new AddExtension({
       client: this,
       name: 'addExtension',
@@ -2292,6 +2641,56 @@ export default class ColonyClient extends ContractClient {
         },
       ],
     });
+    this.setExpenditureClaimDelay = new SetExpenditureClaimDelay({
+      client: this,
+      name: 'SetExpenditureClaimDelay',
+      functionName: 'setExpenditureClaimDelay',
+      input: [
+        ['permissionDomainId', 'number'],
+        ['childSkillIndex', 'number'],
+        ['expenditureId', 'number'],
+        ['slot', 'bigNumber'],
+        ['claimDelay', 'bigNumber'],
+      ],
+      permissions: [
+        {
+          childSkillIndexNames: ['childSkillIndex'],
+          domainIds: async ({ expenditureId }) => {
+            const { domainId } = await this.getExpenditure.call({
+              expenditureId,
+            });
+            return [domainId];
+          },
+          permissionDomainIdName: 'permissionDomainId',
+          role: COLONY_ROLE_ARBITRATION,
+        },
+      ],
+    });
+    this.setExpenditurePayoutModifier = new SetExpenditurePayoutModifier({
+      client: this,
+      name: 'SetExpenditurePayoutModifier',
+      functionName: 'setExpenditurePayoutModifier',
+      input: [
+        ['permissionDomainId', 'number'],
+        ['childSkillIndex', 'number'],
+        ['expenditureId', 'number'],
+        ['slot', 'bigNumber'],
+        ['payoutModifier', 'bigNumber'],
+      ],
+      permissions: [
+        {
+          childSkillIndexNames: ['childSkillIndex'],
+          domainIds: async ({ expenditureId }) => {
+            const { domainId } = await this.getExpenditure.call({
+              expenditureId,
+            });
+            return [domainId];
+          },
+          permissionDomainIdName: 'permissionDomainId',
+          role: COLONY_ROLE_ARBITRATION,
+        },
+      ],
+    });
     this.setFundingRole = new DomainAuth({
       client: this,
       name: 'setFundingRole',
@@ -2320,7 +2719,7 @@ export default class ColonyClient extends ContractClient {
         ['permissionDomainId', 'number'],
         ['childSkillIndex', 'number'],
         ['paymentId', 'number'],
-        ['token', 'address'],
+        ['token', 'anyAddress'],
         ['amount', 'bigNumber'],
       ],
       permissions: [
@@ -2379,6 +2778,32 @@ export default class ColonyClient extends ContractClient {
         },
       ],
     });
+    this.transferExpenditureViaArbitration = new TransferExpenditureViaArbitration(
+      {
+        client: this,
+        name: 'transferExpenditureViaArbitration',
+        functionName: 'transferExpenditure(uint256,uint256,uint256,address)',
+        input: [
+          ['permissionDomainId', 'number'],
+          ['childSkillIndex', 'number'],
+          ['expenditureId', 'number'],
+          ['newOwner', 'anyAddress'],
+        ],
+        permissions: [
+          {
+            childSkillIndexNames: ['childSkillIndex'],
+            domainIds: async ({ expenditureId }) => {
+              const { domainId } = await this.getExpenditure.call({
+                expenditureId,
+              });
+              return [domainId];
+            },
+            permissionDomainIdName: 'permissionDomainId',
+            role: COLONY_ROLE_ARBITRATION,
+          },
+        ],
+      },
+    );
 
     // Task callers
     const makeTaskCaller = (
@@ -2440,6 +2865,36 @@ export default class ColonyClient extends ContractClient {
       },
     });
     this.addCaller('getDomainCount', {
+      output: [['count', 'number']],
+    });
+    this.addCaller('getExpenditure', {
+      input: [['expenditureId', 'number']],
+      output: [
+        ['status', 'expenditureStatus'],
+        ['owner', 'address'],
+        ['fundingPotId', 'number'],
+        ['domainId', 'number'],
+        ['finalizedTimestamp', 'number'],
+      ],
+    });
+    this.addCaller('getExpenditureSlot', {
+      input: [['expenditureId', 'number'], ['slot', 'bigNumber']],
+      output: [
+        ['recipient', 'address'],
+        ['claimDelay', 'number'],
+        ['payoutModifier', 'number'],
+        ['skills', '[number]'],
+      ],
+    });
+    this.addCaller('getExpenditureSlotPayout', {
+      input: [
+        ['expenditureId', 'number'],
+        ['slot', 'bigNumber'],
+        ['token', 'anyAddress'],
+      ],
+      output: [['amount', 'bigNumber']],
+    });
+    this.addCaller('getExpenditureCount', {
       output: [['count', 'number']],
     });
     this.addCaller('getNonRewardPotsTotal', {
@@ -2575,12 +3030,39 @@ export default class ColonyClient extends ContractClient {
       ['newVersion', 'number'],
     ]);
     this.addEvent('DomainAdded', [['domainId', 'number']]);
+    this.addEvent('ExpenditureAdded', [['expenditureId', 'number']]);
+    this.addEvent('ExpenditureCancelled', [['expenditureId', 'number']]);
+    this.addEvent('ExpenditureFinalized', [['expenditureId', 'number']]);
+    this.addEvent('ExpenditurePayoutSet', [
+      ['expenditureId', 'number'],
+      ['slot', 'bigNumber'],
+      ['token', 'anyAddress'],
+      ['amount', 'bigNumber'],
+    ]);
+    this.addEvent('ExpenditureRecipientSet', [
+      ['expenditureId', 'number'],
+      ['slot', 'bigNumber'],
+      ['recipient', 'anyAddress'],
+    ]);
+    this.addEvent('ExpenditureSkillSet', [
+      ['expenditureId', 'number'],
+      ['slot', 'bigNumber'],
+      ['skillId', 'number'],
+    ]);
+    this.addEvent('ExpenditureTransferred', [
+      ['expenditureId', 'number'],
+      ['owner', 'anyAddress'],
+    ]);
     this.addEvent('FundingPotAdded', [['potId', 'number']]);
     this.addEvent('PaymentAdded', [['paymentId', 'number']]);
     this.addEvent('PayoutClaimed', [
       ['potId', 'number'],
       ['token', 'anyAddress'],
       ['amount', 'bigNumber'],
+    ]);
+    this.addEvent('RecoveryRoleSet', [
+      ['address', 'anyAddress'],
+      ['setTo', 'boolean'],
     ]);
     this.addEvent('RewardPayoutCycleEnded', [['payoutId', 'number']]);
     this.addEvent('RewardPayoutCycleStarted', [['payoutId', 'number']]);
@@ -2657,8 +3139,14 @@ export default class ColonyClient extends ContractClient {
     this.addSender('bootstrapColony', {
       input: [['addresses', '[address]'], ['amounts', '[bigNumber]']],
     });
+    this.addSender('cancelExpenditure', {
+      input: [['expenditureId', 'number']],
+    });
     this.addSender('claimColonyFunds', {
       input: [['token', 'anyAddress']],
+    });
+    this.addSender('claimExpenditurePayout', {
+      input: [['expenditureId', 'number'], ['slot', 'bigNumber'], ['token', 'anyAddress']],
     });
     this.addSender('claimPayment', {
       input: [['paymentId', 'number'], ['token', 'anyAddress']],
@@ -2685,6 +3173,9 @@ export default class ColonyClient extends ContractClient {
     });
     this.addSender('deprecateGlobalSkill', {
       input: [['skillId', 'number']],
+    });
+    this.addSender('finalizeExpenditure', {
+      input: [['expenditureId', 'number']],
     });
     this.addSender('finalizeRewardPayout', {
       input: [['payoutId', 'number']],
@@ -2721,6 +3212,24 @@ export default class ColonyClient extends ContractClient {
         ['workerAmount', 'bigNumber'],
       ],
     });
+    this.addSender('setExpenditurePayout', {
+      input: [
+        ['expenditureId', 'number'],
+        ['slot', 'bigNumber'],
+        ['token', 'anyAddress'],
+        ['amount', 'bigNumber'],
+      ],
+    });
+    this.addSender('setExpenditureRecipient', {
+      input: [
+        ['expenditureId', 'number'],
+        ['slot', 'bigNumber'],
+        ['recipient', 'anyAddress'],
+      ],
+    });
+    this.addSender('setExpenditureSkill', {
+      input: [['expenditureId', 'number'], ['slot', 'bigNumber'], ['skillId', 'number']],
+    });
     this.addSender('setRewardInverse', {
       input: [['rewardInverse', 'bigNumber']],
     });
@@ -2752,6 +3261,13 @@ export default class ColonyClient extends ContractClient {
         ['role', 'taskRole'],
         ['secret', 'hexString'],
       ],
+    });
+    this.addSender('transferExpenditure', {
+      functionName: 'transferExpenditure(uint256,address)',
+      input: [
+        ['expenditureId', 'number'],
+        ['newOwner', 'anyAddress'],
+      ]
     });
     this.addSender('upgrade', {
       input: [['newVersion', 'number']],
