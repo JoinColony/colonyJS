@@ -1,11 +1,19 @@
 /* @flow */
 /* eslint-disable import/no-cycle */
-import DomainAuth from './DomainAuth';
+import ContractClient from '@colony/colony-js-contract-client';
 
- export default class TransferExpenditure extends DomainAuth<
-  *,
-  *,
-  *,
+import type { ColonyClient } from '../../index';
+
+export default class TransferExpenditure <
+  InputValues: *,
+  OutputValues: *,
+  ColonyClient: *,
+  ContractData: *,
+> extends ContractClient.Sender<
+  InputValues,
+  OutputValues,
+  ColonyClient,
+  ContractData,
 > {
 
   async owner(expenditureId: number) {
@@ -16,12 +24,7 @@ import DomainAuth from './DomainAuth';
     // Get the expenditure
     const { owner } = await this.client.getExpenditure.call({expenditureId: expenditureId});
     // resolve the  address of the owner
-    // TODO: I don't know where `inputAddress could come from, but DomainAuth checks for it, so I thought I'd do the same`
-    const address =
-      (typeof this._permissions.inputAddress === 'function'
-        ? await this._permissions.inputAddress()
-        : this._permissions.inputAddress) ||
-      (await this.client.adapter.wallet.getAddress());
+    const address = await this.client.adapter.wallet.getAddress();
     return address === owner;
   }
 
@@ -35,13 +38,13 @@ import DomainAuth from './DomainAuth';
     }
   }
 
-  async estimate(inputValues: *, options: *) {
+  async estimate(inputValues: *) {
     if (!Object.hasOwnProperty.call(inputValues, 'expenditureId')) throw new Error (`ExpenditureId is required`);
     const isOwner = await this.owner(inputValues.expenditureId)
     if (isOwner) {
-      return this.client.transferExpenditureViaOwnership.estimate(inputValues, options);
+      return this.client.transferExpenditureViaOwnership.estimate(inputValues);
     } else {
-      return this.client.transferExpenditureViaArbitration.estimate(inputValues, options);
+      return this.client.transferExpenditureViaArbitration.estimate(inputValues);
     }
   }
 

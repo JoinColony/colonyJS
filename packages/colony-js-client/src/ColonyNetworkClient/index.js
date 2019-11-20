@@ -17,6 +17,7 @@ import CreateToken from './senders/CreateToken';
 import addRecoveryMethods from '../addRecoveryMethods';
 
 type Address = string;
+type AnyAddress = string;
 type HexString = string;
 
 type AuctionCreated = ContractClient.Event<{

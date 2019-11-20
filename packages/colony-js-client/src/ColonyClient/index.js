@@ -2389,7 +2389,7 @@ export default class ColonyClient extends ContractClient {
           childSkillIndexNames: ['childSkillIndex'],
           domainIds: ['domainId'],
           permissionDomainIdName: 'permissionDomainId',
-          role: COLONY_ROLE_ADMINISTRATION,
+          roles: [COLONY_ROLE_ADMINISTRATION],
         },
       ],
     });
@@ -2678,7 +2678,7 @@ export default class ColonyClient extends ContractClient {
             return [domainId];
           },
           permissionDomainIdName: 'permissionDomainId',
-          role: COLONY_ROLE_ARBITRATION,
+          roles: [COLONY_ROLE_ARBITRATION],
         },
       ],
     });
@@ -2703,7 +2703,7 @@ export default class ColonyClient extends ContractClient {
             return [domainId];
           },
           permissionDomainIdName: 'permissionDomainId',
-          role: COLONY_ROLE_ARBITRATION,
+          roles: [COLONY_ROLE_ARBITRATION],
         },
       ],
     });
@@ -2797,7 +2797,8 @@ export default class ColonyClient extends ContractClient {
     this.transferExpenditure = new TransferExpenditure({
       client: this,
       name: 'transferExpenditure',
-      permissions: [],
+      input: [],
+      functionName: "",
     });
     this.transferExpenditureViaArbitration = new DomainAuth(
       {
@@ -2820,7 +2821,7 @@ export default class ColonyClient extends ContractClient {
               return [domainId];
             },
             permissionDomainIdName: 'permissionDomainId',
-            role: COLONY_ROLE_ARBITRATION,
+            roles: [COLONY_ROLE_ARBITRATION],
           },
         ],
       },
