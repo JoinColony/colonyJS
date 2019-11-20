@@ -216,6 +216,7 @@ export default class ContractClient {
         // Parse the event data and add it to a resulting object
         .reduce((acc, { eventInfo, topics, data }) => {
           const args = eventInfo.parse(topics, data);
+
           const event = this.events[eventInfo.name];
           if (!event) throw new Error(`Event ${eventInfo.name} not found`);
 

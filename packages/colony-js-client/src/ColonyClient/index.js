@@ -1,5 +1,6 @@
 /* @flow */
 /* eslint-disable import/no-cycle */
+
 import assert from 'assert';
 
 import type BigNumber from 'bn.js';
@@ -23,12 +24,10 @@ import AddExpenditure from './senders/AddExpenditure';
 import MakePayment from './senders/MakePayment';
 import MakePaymentFundedFromDomain from './senders/MakePaymentFundedFromDomain';
 import RemoveExtension from './senders/RemoveExtension';
-import TransferExpenditureViaArbitration from './senders/TransferExpenditureViaArbitration';
+import TransferExpenditure from './senders/TransferExpenditure';
 import DomainAuth, { getDomainIdFromPot } from './senders/DomainAuth';
 import SetAdminRole from './senders/SetAdminRole';
 import SetFounderRole from './senders/SetFounderRole';
-import SetExpenditurePayoutModifier from './senders/SetExpenditurePayoutModifier';
-import SetExpenditureClaimDelay from './senders/SetExpenditureClaimDelay';
 import addRecoveryMethods from '../addRecoveryMethods';
 
 import {
@@ -2215,6 +2214,23 @@ export default class ColonyClient extends ContractClient {
     },
   >;
 
+    /*
+  Transfer Expenditure as via the arbitration permission
+  */
+  transferExpenditureViaOwnership: ColonyClient.Sender<
+    {
+      expenditureId: number, // The ID of the expenditure to be transferred.
+      newOwner: AnyAddress, // The address that will become the owner
+    },
+    { ExpenditureTransferred: ExpenditureTransferred },
+    ColonyClient,
+    {
+      contract: 'ColonyExpenditure.sol',
+      interface: 'IColony.sol',
+      version: 'burgundy-glider',
+    },
+  >;
+
   /*
   Upgrade the colony to a new colony contract version. The new version must be higher than the current version. Downgrading to old versions is not permitted.
   */
@@ -2641,7 +2657,7 @@ export default class ColonyClient extends ContractClient {
         },
       ],
     });
-    this.setExpenditureClaimDelay = new SetExpenditureClaimDelay({
+    this.setExpenditureClaimDelay = new DomainAuth({
       client: this,
       name: 'SetExpenditureClaimDelay',
       functionName: 'setExpenditureClaimDelay',
@@ -2666,7 +2682,7 @@ export default class ColonyClient extends ContractClient {
         },
       ],
     });
-    this.setExpenditurePayoutModifier = new SetExpenditurePayoutModifier({
+    this.setExpenditurePayoutModifier = new DomainAuth({
       client: this,
       name: 'SetExpenditurePayoutModifier',
       functionName: 'setExpenditurePayoutModifier',
@@ -2778,10 +2794,15 @@ export default class ColonyClient extends ContractClient {
         },
       ],
     });
-    this.transferExpenditureViaArbitration = new TransferExpenditureViaArbitration(
+    this.transferExpenditure = new TransferExpenditure({
+      client: this,
+      name: 'transferExpenditure',
+      permissions: [],
+    });
+    this.transferExpenditureViaArbitration = new DomainAuth(
       {
         client: this,
-        name: 'transferExpenditureViaArbitration',
+        name: 'transferExpenditure',
         functionName: 'transferExpenditure(uint256,uint256,uint256,address)',
         input: [
           ['permissionDomainId', 'number'],
@@ -3262,7 +3283,7 @@ export default class ColonyClient extends ContractClient {
         ['secret', 'hexString'],
       ],
     });
-    this.addSender('transferExpenditure', {
+    this.addSender('transferExpenditureViaOwnership', {
       functionName: 'transferExpenditure(uint256,address)',
       input: [
         ['expenditureId', 'number'],
