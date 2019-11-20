@@ -10,7 +10,7 @@ import {
   TASK_RATINGS,
   TASK_ROLES,
   TASK_STATUSES,
-  EXPENDITURE_STATUSES
+  EXPENDITURE_STATUSES,
 } from './constants';
 
 const dictType = (dict: { [key: string]: number }) => ({

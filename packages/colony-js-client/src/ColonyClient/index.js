@@ -543,7 +543,6 @@ export default class ColonyClient extends ContractClient {
     },
   >;
 
-
   /*
   Claim a payment.
   */
@@ -2214,7 +2213,7 @@ export default class ColonyClient extends ContractClient {
     },
   >;
 
-    /*
+  /*
   Transfer Expenditure as via the arbitration permission
   */
   transferExpenditureViaOwnership: ColonyClient.Sender<
@@ -2798,34 +2797,32 @@ export default class ColonyClient extends ContractClient {
       client: this,
       name: 'transferExpenditure',
       input: [],
-      functionName: "",
+      functionName: '',
     });
-    this.transferExpenditureViaArbitration = new DomainAuth(
-      {
-        client: this,
-        name: 'transferExpenditure',
-        functionName: 'transferExpenditure(uint256,uint256,uint256,address)',
-        input: [
-          ['permissionDomainId', 'number'],
-          ['childSkillIndex', 'number'],
-          ['expenditureId', 'number'],
-          ['newOwner', 'anyAddress'],
-        ],
-        permissions: [
-          {
-            childSkillIndexNames: ['childSkillIndex'],
-            domainIds: async ({ expenditureId }) => {
-              const { domainId } = await this.getExpenditure.call({
-                expenditureId,
-              });
-              return [domainId];
-            },
-            permissionDomainIdName: 'permissionDomainId',
-            roles: [COLONY_ROLE_ARBITRATION],
+    this.transferExpenditureViaArbitration = new DomainAuth({
+      client: this,
+      name: 'transferExpenditure',
+      functionName: 'transferExpenditure(uint256,uint256,uint256,address)',
+      input: [
+        ['permissionDomainId', 'number'],
+        ['childSkillIndex', 'number'],
+        ['expenditureId', 'number'],
+        ['newOwner', 'anyAddress'],
+      ],
+      permissions: [
+        {
+          childSkillIndexNames: ['childSkillIndex'],
+          domainIds: async ({ expenditureId }) => {
+            const { domainId } = await this.getExpenditure.call({
+              expenditureId,
+            });
+            return [domainId];
           },
-        ],
-      },
-    );
+          permissionDomainIdName: 'permissionDomainId',
+          roles: [COLONY_ROLE_ARBITRATION],
+        },
+      ],
+    });
 
     // Task callers
     const makeTaskCaller = (
@@ -3168,7 +3165,11 @@ export default class ColonyClient extends ContractClient {
       input: [['token', 'anyAddress']],
     });
     this.addSender('claimExpenditurePayout', {
-      input: [['expenditureId', 'number'], ['slot', 'bigNumber'], ['token', 'anyAddress']],
+      input: [
+        ['expenditureId', 'number'],
+        ['slot', 'bigNumber'],
+        ['token', 'anyAddress'],
+      ],
     });
     this.addSender('claimPayment', {
       input: [['paymentId', 'number'], ['token', 'anyAddress']],
@@ -3250,7 +3251,11 @@ export default class ColonyClient extends ContractClient {
       ],
     });
     this.addSender('setExpenditureSkill', {
-      input: [['expenditureId', 'number'], ['slot', 'bigNumber'], ['skillId', 'number']],
+      input: [
+        ['expenditureId', 'number'],
+        ['slot', 'bigNumber'],
+        ['skillId', 'number'],
+      ],
     });
     this.addSender('setRewardInverse', {
       input: [['rewardInverse', 'bigNumber']],
@@ -3286,10 +3291,7 @@ export default class ColonyClient extends ContractClient {
     });
     this.addSender('transferExpenditureViaOwnership', {
       functionName: 'transferExpenditure(uint256,address)',
-      input: [
-        ['expenditureId', 'number'],
-        ['newOwner', 'anyAddress'],
-      ]
+      input: [['expenditureId', 'number'], ['newOwner', 'anyAddress']],
     });
     this.addSender('upgrade', {
       input: [['newVersion', 'number']],
