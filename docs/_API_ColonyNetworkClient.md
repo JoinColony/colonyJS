@@ -1160,8 +1160,11 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |colonyId|number|The ID of the colony that was added.|
 |colonyAddress|address|The address of the colony contract that was created.|
 |tokenAddress|address|The address of the token contract that was assigned.|
+|user|any address|The address having the recovery role set|
+|setTo|boolean|Bool representing whether they now have the skill or not|
 |SkillAdded|object|Contains the data defined in [SkillAdded](#eventsskilladded)|
 |ColonyAdded|object|Contains the data defined in [ColonyAdded](#eventscolonyadded)|
+|RecoveryRoleSet|object|Contains the data defined in [RecoveryRoleSet](#eventsrecoveryroleset)|
 
 See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
@@ -2197,6 +2200,42 @@ colonyNetworkClient.events.NetworkFeeInverseSet.removeListener(eventHandler);
 |Name|Type|Description|
 |---|---|---|
 |feeInverse|big number|The inverse value of the network fee that was set.|
+
+
+### `RecoveryRoleSet`
+
+**Event Handler**
+
+```js
+const eventHandler = ({
+  user,
+  setTo,
+}) => {
+  // perform an action using the event data
+};
+```
+
+**Add Listener**
+
+```js
+colonyNetworkClient.events.RecoveryRoleSet.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyNetworkClient.events.RecoveryRoleSet.removeListener(eventHandler);
+```
+
+
+
+
+**Event Data**
+
+|Name|Type|Description|
+|---|---|---|
+|user|any address|The address having the recovery role set|
+|setTo|boolean|Bool representing whether they now have the skill or not|
 
 
 ### `ReputationMiningCycleComplete`
