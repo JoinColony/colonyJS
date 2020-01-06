@@ -8,9 +8,11 @@ import type { ContractMethodSenderArgs } from '@colony/colony-js-contract-client
 import {
   COLONY_ROLE_ARCHITECTURE_SUBDOMAIN,
   COLONY_ROLES,
+  DEFAULT_DOMAIN_ID,
   FUNDING_POT_TYPE_DOMAIN,
   FUNDING_POT_TYPE_PAYMENT,
   FUNDING_POT_TYPE_TASK,
+  REWARDS_POT_ID
 } from '../../constants';
 
 import type { ColonyClient } from '../../index';
@@ -33,6 +35,9 @@ type PermissionType = {|
 |};
 
 export const getDomainIdFromPot = async (potId: number, colonyClient: *) => {
+  if (potId === REWARDS_POT_ID) {
+    return DEFAULT_DOMAIN_ID;
+  }
   const { type, typeId } = await colonyClient.getFundingPot.call({ potId });
   if (type === FUNDING_POT_TYPE_DOMAIN) {
     return typeId;
