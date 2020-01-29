@@ -290,6 +290,8 @@ Add the following code below `// Step 11: Claim Payment`:
 await colonyClient.claimPayment.send({
   paymentId,
   token: tokenAddress,
+}, {
+  gasLimit: 100000
 });
 
 console.log('Payment claimed!');
