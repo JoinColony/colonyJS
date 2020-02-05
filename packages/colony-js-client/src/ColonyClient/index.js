@@ -569,11 +569,11 @@ export default class ColonyClient extends ContractClient {
   claimRewardPayout: ColonyClient.Sender<
     {
       payoutId: number, // The ID of the payout.
-      squareRoots: Array<bigNumber>, // The square roots of values used in the equation.
+      squareRoots: Array<BigNumber>, // The square roots of values used in the equation.
       key: string, // The key of the element that the proof is for.
       value: string, // The value of the element that the proof is for.
-      branchMask: hexString, // The branchmask of the proof.
-      siblings: Array<hexString>, // The siblings of the proof.
+      branchMask: HexString, // The branchmask of the proof.
+      siblings: Array<HexString>, // The siblings of the proof.
     },
     {
       RewardPayoutClaimed: RewardPayoutClaimed,
@@ -2197,7 +2197,7 @@ export default class ColonyClient extends ContractClient {
   >;
 
   /*
-  Transfer Expenditure as via the arbitration permission
+  Transfer Expenditure via the arbitration permission
   */
   transferExpenditureViaArbitration: ColonyClient.Sender<
     {
@@ -2214,7 +2214,7 @@ export default class ColonyClient extends ContractClient {
   >;
 
   /*
-  Transfer Expenditure as via the arbitration permission
+  Transfer Expenditure via the ownership permission
   */
   transferExpenditureViaOwnership: ColonyClient.Sender<
     {
