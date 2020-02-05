@@ -35,6 +35,8 @@ export const FUNDING_POT_TYPES = {
   [FUNDING_POT_TYPE_PAYMENT]: 3,
 };
 
+export const REWARDS_POT_ID = 0;
+
 export const TASK_RATING_EXCELLENT = 'EXCELLENT';
 export const TASK_RATING_NONE = 'NONE';
 export const TASK_RATING_SATISFACTORY = 'SATISFACTORY';
