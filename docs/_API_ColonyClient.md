@@ -170,6 +170,152 @@ Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider/c
 Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider/contracts/IColony.sol)
   
 
+### `getExpenditure`
+
+Get information about an expenditure.
+
+```js
+await colonyClient.getExpenditure.call({
+  expenditureId,
+});
+```
+
+
+**Input**
+
+|Name|Type|Description|
+|---|---|---|
+|expenditureId|number|The ID of the expenditure|
+
+**Response**
+
+A promise which resolves to an object containing the following properties:
+
+|Name|Type|Description|
+|---|---|---|
+|status|undefined|The expenditure status (`ACTIVE`, `CANCELLED` or `FINALIZED`).|
+|owner|any address|The owner of the expenditure.|
+|potId|number|The ID of the funding pot.|
+|domainId|number|The ID of the domain.|
+|finalizedTimestamp|date|The date when the expenditure was finalized.|
+
+**Contract Information**
+
+
+  
+  
+Contract: [ColonyExpenditure.sol](https://github.com/JoinColony/colonyNetwork/tree/burgundy-glider/contracts/ColonyExpenditure.sol)
+  
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/burgundy-glider/contracts/IColony.sol)
+  
+
+### `getExpenditureCount`
+
+Get the total number of expenditures.
+
+```js
+await colonyClient.getExpenditureCount.call();
+```
+
+
+
+**Response**
+
+A promise which resolves to an object containing the following properties:
+
+|Name|Type|Description|
+|---|---|---|
+|count|number|The total number of payments.|
+
+**Contract Information**
+
+
+  
+  
+Contract: [ColonyExpenditure.sol](https://github.com/JoinColony/colonyNetwork/tree/glider/contracts/ColonyExpenditure.sol)
+  
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider/contracts/IColony.sol)
+  
+
+### `getExpenditureSlot`
+
+Get information about an expenditure's slot
+
+```js
+await colonyClient.getExpenditureSlot.call({
+  expenditureId,
+  slot,
+});
+```
+
+
+**Input**
+
+|Name|Type|Description|
+|---|---|---|
+|expenditureId|number|The ID of the expenditure|
+|slot|big number|The number of the slot|
+
+**Response**
+
+A promise which resolves to an object containing the following properties:
+
+|Name|Type|Description|
+|---|---|---|
+|recipient|any address|The address of the recipient|
+|claimDelay|big number|The time before the payout  can be claimed|
+|payoutModifier|big number|The ID of the funding pot.|
+|skills|array|An array of skill IDs.|
+
+**Contract Information**
+
+
+  
+  
+Contract: [ColonyExpenditure.sol](https://github.com/JoinColony/colonyNetwork/tree/burgundy-glider/contracts/ColonyExpenditure.sol)
+  
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/burgundy-glider/contracts/IColony.sol)
+  
+
+### `getExpenditureSlotPayout`
+
+Get information about an expenditure's slot
+
+```js
+await colonyClient.getExpenditureSlotPayout.call({
+  expenditureId,
+  slot,
+  token,
+});
+```
+
+
+**Input**
+
+|Name|Type|Description|
+|---|---|---|
+|expenditureId|number|The ID of the expenditure|
+|slot|big number|The number of the slot|
+|token|any address|The address of the token of the payout being queried|
+
+**Response**
+
+A promise which resolves to an object containing the following properties:
+
+|Name|Type|Description|
+|---|---|---|
+|amount|big number|The amount being paid out|
+
+**Contract Information**
+
+
+  
+  
+Contract: [ColonyExpenditure.sol](https://github.com/JoinColony/colonyNetwork/tree/burgundy-glider/contracts/ColonyExpenditure.sol)
+  
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/burgundy-glider/contracts/IColony.sol)
+  
+
 ### `getExtensionAddress`
 
 Get the address of an extension contract associated with the colony address.
@@ -1049,6 +1195,50 @@ Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider/c
 Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider/contracts/IColony.sol)
   
 
+### `addExpenditure`
+
+Add a new expenditure within the colony.
+
+```js
+await colonyClient.addExpenditure.send({
+  domainId,
+}, options);
+```
+
+
+**Input**
+
+|Name|Type|Description|
+|---|---|---|
+|domainId|number (optional)|The ID of the domain (default value of `1`).|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
+
+An instance of a `ContractResponse` which will eventually receive the following event data:
+
+|Name|Type|Description|
+|---|---|---|
+|potId|number|The ID of the pot that was added.|
+|expenditureId|number|The ID of the expenditure that was created|
+|FundingPotAdded|object|Contains the data defined in [FundingPotAdded](#eventsfundingpotadded)|
+|ExpenditureAdded|object|Contains the data defined in [ExpenditureAdded](#eventsexpenditureadded)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
+
+
+  Function: `makeExpenditure`
+  
+Contract: [ColonyExpenditure.sol](https://github.com/JoinColony/colonyNetwork/tree/glider/contracts/ColonyExpenditure.sol)
+  
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider/contracts/IColony.sol)
+  
+
 ### `addExtension`
 
 Add an extension contract.
@@ -1309,6 +1499,48 @@ Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider/c
 Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider/contracts/IColony.sol)
   
 
+### `cancelExpenditure`
+
+Cancel an expenditure. Once an expenditure is cancelled, no further changes to the task can be made.
+
+```js
+await colonyClient.cancelExpenditure.send({
+  expenditureId,
+}, options);
+```
+
+
+**Input**
+
+|Name|Type|Description|
+|---|---|---|
+|expenditureId|number|The ID of the expenditure.|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
+
+An instance of a `ContractResponse` which will eventually receive the following event data:
+
+|Name|Type|Description|
+|---|---|---|
+|expenditureId|number|The ID of the expenditure that was cancelled|
+|ExpenditureCancelled|object|Contains the data defined in [ExpenditureCancelled](#eventsexpenditurecancelled)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
+
+
+  
+  
+Contract: [ColonyExpenditure.sol](https://github.com/JoinColony/colonyNetwork/tree/burgundy-glider/contracts/ColonyExpenditure.sol)
+  
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/burgundy-glider/contracts/IColony.sol)
+  
+
 ### `claimColonyFunds`
 
 Claim funds that the colony has received by adding them to the funding pot of the root domain. A set fee is deducted from the funds claimed and added to the colony rewards pot. No fee is deducted when tokens native to the colony are claimed.
@@ -1351,6 +1583,58 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/glider/contracts/ColonyFunding.sol)
   
 Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider/contracts/IColony.sol)
+  
+
+### `claimExpenditurePayout`
+
+Claim expenditure payout.
+
+```js
+await colonyClient.claimExpenditurePayout.send({
+  expenditureId,
+  slot,
+  token,
+}, options);
+```
+
+
+**Input**
+
+|Name|Type|Description|
+|---|---|---|
+|expenditureId|number|The ID of the expenditure.|
+|slot|big number|The slot of the expenditure being claimed|
+|token|any address|The address of the token contract (an empty address if Ether).|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
+
+An instance of a `ContractResponse` which will eventually receive the following event data:
+
+|Name|Type|Description|
+|---|---|---|
+|potId|number|The ID of the pot that was modified.|
+|token|any address|The address of the token contract (an empty address if Ether).|
+|amount|big number|The task payout amount that was claimed.|
+|from|address|The address of the account that sent tokens.|
+|to|address|The address of the account that received tokens.|
+|value|big number|The amount of tokens that were transferred.|
+|PayoutClaimed|object|Contains the data defined in [PayoutClaimed](#eventspayoutclaimed)|
+|Transfer|object|Contains the data defined in [Transfer](#eventstransfer)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
+
+
+  
+  
+Contract: [ColonyFunding.sol](https://github.com/JoinColony/colonyNetwork/tree/burgundy-glider/contracts/ColonyFunding.sol)
+  
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/burgundy-glider/contracts/IColony.sol)
   
 
 ### `claimPayment`
@@ -1657,6 +1941,48 @@ See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more informati
 Contract: [ContractRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider/contracts/ContractRecovery.sol)
   
 Interface: [IRecovery.sol](https://github.com/JoinColony/colonyNetwork/tree/glider/contracts/IRecovery.sol)
+  
+
+### `finalizeExpenditure`
+
+Finalize an expenditure. Once an expenditure is finalized, no further changes to the payment can be made by the owner and the address that is assigned to the slots can claim the payments once the timeout has expired.
+
+```js
+await colonyClient.finalizeExpenditure.send({
+  expenditureId,
+}, options);
+```
+
+
+**Input**
+
+|Name|Type|Description|
+|---|---|---|
+|expenditureId|number|The ID of the expenditure|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
+
+An instance of a `ContractResponse` which will eventually receive the following event data:
+
+|Name|Type|Description|
+|---|---|---|
+|expenditureId|number|The ID of the expenditure that was finalized|
+|ExpenditureFinalized|object|Contains the data defined in [ExpenditureFinalized](#eventsexpenditurefinalized)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
+
+
+  
+  
+Contract: [ColonyExpenditure.sol](https://github.com/JoinColony/colonyNetwork/tree/burgundy-glider/contracts/ColonyExpenditure.sol)
+  
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/burgundy-glider/contracts/IColony.sol)
   
 
 ### `finalizePayment`
@@ -2413,6 +2739,239 @@ Contract: [Colony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider/c
 Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider/contracts/IColony.sol)
   
 
+### `setExpenditureClaimDelay`
+
+Set the claim delay of an expenditure's slot
+
+```js
+await colonyClient.setExpenditureClaimDelay.send({
+  expenditureId,
+  slot,
+  claimDelay,
+}, options);
+```
+
+
+**Input**
+
+|Name|Type|Description|
+|---|---|---|
+|expenditureId|number|The ID of the expenditure|
+|slot|big number|The slot number to set the recipient for|
+|claimDelay|big number|The delay to be applied to the payout|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
+
+An instance of a `ContractResponse`.
+
+
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
+
+
+  
+  
+Contract: [ColonyExpenditure.sol](https://github.com/JoinColony/colonyNetwork/tree/burgundy-glider/contracts/ColonyExpenditure.sol)
+  
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/burgundy-glider/contracts/IColony.sol)
+  
+
+### `setExpenditurePayout`
+
+Set the payout of an expenditure.
+
+```js
+await colonyClient.setExpenditurePayout.send({
+  expenditureId,
+  slot,
+  token,
+  amount,
+}, options);
+```
+
+
+**Input**
+
+|Name|Type|Description|
+|---|---|---|
+|expenditureId|number|The ID of the expenditure|
+|slot|big number|The slot number to set the recipient for|
+|token|address|The address of the token|
+|amount|big number|The amount of the token to be paid out|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
+
+An instance of a `ContractResponse` which will eventually receive the following event data:
+
+|Name|Type|Description|
+|---|---|---|
+|expenditureId|number|The ID of the expenditure that was modified|
+|slot|big number|The slot of the expenditure being modified|
+|token|address|The token the slot will pay out (NB a slot can have more than one token associated with it)|
+|amount|big number|The amount of token that will be paid out|
+|ExpenditurePayoutSet|object|Contains the data defined in [ExpenditurePayoutSet](#eventsexpenditurepayoutset)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
+
+
+  
+  
+Contract: [ColonyExpenditure.sol](https://github.com/JoinColony/colonyNetwork/tree/burgundy-glider/contracts/ColonyExpenditure.sol)
+  
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/burgundy-glider/contracts/IColony.sol)
+  
+
+### `setExpenditurePayoutModifier`
+
+Set the payout of an expenditure.
+
+```js
+await colonyClient.setExpenditurePayoutModifier.send({
+  expenditureId,
+  slot,
+  payoutModifier,
+}, options);
+```
+
+
+**Input**
+
+|Name|Type|Description|
+|---|---|---|
+|expenditureId|number|The ID of the expenditure|
+|slot|big number|The slot number to set the recipient for|
+|payoutModifier|big number|The new payout modifier|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
+
+An instance of a `ContractResponse`.
+
+
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
+
+
+  
+  
+Contract: [ColonyExpenditure.sol](https://github.com/JoinColony/colonyNetwork/tree/burgundy-glider/contracts/ColonyExpenditure.sol)
+  
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/burgundy-glider/contracts/IColony.sol)
+  
+
+### `setExpenditureRecipient`
+
+Set the recipient of an expenditure.
+
+```js
+await colonyClient.setExpenditureRecipient.send({
+  expenditureId,
+  slot,
+  recipient,
+}, options);
+```
+
+
+**Input**
+
+|Name|Type|Description|
+|---|---|---|
+|expenditureId|number|The ID of the expenditure|
+|slot|big number|The slot number to set the recipient for|
+|recipient|any address|The address to recieve the outputs from the slot of this expenditure|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
+
+An instance of a `ContractResponse` which will eventually receive the following event data:
+
+|Name|Type|Description|
+|---|---|---|
+|expenditureId|number|The ID of the expenditure that was modified|
+|slot|big number|The slot of the expenditure being modified|
+|recipient|any address|The address that will receive the payout from this slot|
+|ExpenditureRecipientSet|object|Contains the data defined in [ExpenditureRecipientSet](#eventsexpenditurerecipientset)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
+
+
+  
+  
+Contract: [ColonyExpenditure.sol](https://github.com/JoinColony/colonyNetwork/tree/burgundy-glider/contracts/ColonyExpenditure.sol)
+  
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/burgundy-glider/contracts/IColony.sol)
+  
+
+### `setExpenditureSkill`
+
+Set the skill of an expenditure.
+
+```js
+await colonyClient.setExpenditureSkill.send({
+  expenditureId,
+  slot,
+  skillId,
+}, options);
+```
+
+
+**Input**
+
+|Name|Type|Description|
+|---|---|---|
+|expenditureId|number|The ID of the expenditure|
+|slot|big number|The slot number to set the recipient for|
+|skillId|number|The skillId to associate with the expenditure|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
+
+An instance of a `ContractResponse` which will eventually receive the following event data:
+
+|Name|Type|Description|
+|---|---|---|
+|expenditureId|number|The ID of the expenditure that was modified|
+|slot|big number|The slot of the expenditure being modified|
+|skillId|big number|The skillId the slot will award upon payout|
+|ExpenditureSkillSet|object|Contains the data defined in [ExpenditureSkillSet](#eventsexpenditureskillset)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
+
+
+  
+  
+Contract: [ColonyExpenditure.sol](https://github.com/JoinColony/colonyNetwork/tree/burgundy-glider/contracts/ColonyExpenditure.sol)
+  
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/burgundy-glider/contracts/IColony.sol)
+  
+
 ### `setFounderRole`
 
 Assign the colony `FOUNDER` role to an address. This function is not included in the core contracts but instead it comes from the `OldRoles` extension contract. This function can only be called by an address assigned the colony `ROOT` (`FOUNDER`) role. There can only be one address assigned to the colony `ROOT` (`FOUNDER`) role, therefore, the address currently assigned will forfeit the role.
@@ -2547,7 +3106,7 @@ Interface: [IMetaColony.sol](https://github.com/JoinColony/colonyNetwork/tree/gl
 
 ### `setPaymentDomain`
 
-Set the payment domain.
+Set the payment domain. TODO: Make unavailable in v4 but present in v3
 
 ```js
 await colonyClient.setPaymentDomain.send({
@@ -2734,9 +3293,13 @@ See [Sender](/colonyjs/api-contractclient/#sender) for more information about op
 
 **Response**
 
-An instance of a `ContractResponse`.
+An instance of a `ContractResponse` which will eventually receive the following event data:
 
-
+|Name|Type|Description|
+|---|---|---|
+|user|any address|The address having the recovery role set|
+|setTo|boolean|Bool representing whether they now have the skill or not|
+|RecoveryRoleSet|object|Contains the data defined in [RecoveryRoleSet](#eventsrecoveryroleset)|
 
 See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
 
@@ -3070,6 +3633,141 @@ Contract: [ColonyTask.sol](https://github.com/JoinColony/colonyNetwork/tree/glid
 Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider/contracts/IColony.sol)
   
 
+### `transferExpenditure`
+
+Transfer Expenditure as the owner
+
+```js
+await colonyClient.transferExpenditure.send({
+  expenditureId,
+  newOwner,
+}, options);
+```
+
+
+**Input**
+
+|Name|Type|Description|
+|---|---|---|
+|expenditureId|number|The ID of the expenditure to be transferred.|
+|newOwner|any address|The address that will become the owner|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
+
+An instance of a `ContractResponse` which will eventually receive the following event data:
+
+|Name|Type|Description|
+|---|---|---|
+|expenditureId|number|The ID of the expenditure that was transferred|
+|owner|address|The address the expenditure was transferred to|
+|ExpenditureTransferred|object|Contains the data defined in [ExpenditureTransferred](#eventsexpendituretransferred)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
+
+
+  
+  
+Contract: [ColonyExpenditure.sol](https://github.com/JoinColony/colonyNetwork/tree/burgundy-glider/contracts/ColonyExpenditure.sol)
+  
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/burgundy-glider/contracts/IColony.sol)
+  
+
+### `transferExpenditureViaArbitration`
+
+Transfer Expenditure as via the arbitration permission
+
+```js
+await colonyClient.transferExpenditureViaArbitration.send({
+  expenditureId,
+  newOwner,
+}, options);
+```
+
+
+**Input**
+
+|Name|Type|Description|
+|---|---|---|
+|expenditureId|number|The ID of the expenditure to be transferred.|
+|newOwner|any address|The address that will become the owner|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
+
+An instance of a `ContractResponse` which will eventually receive the following event data:
+
+|Name|Type|Description|
+|---|---|---|
+|expenditureId|number|The ID of the expenditure that was transferred|
+|owner|address|The address the expenditure was transferred to|
+|ExpenditureTransferred|object|Contains the data defined in [ExpenditureTransferred](#eventsexpendituretransferred)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
+
+
+  
+  
+Contract: [ColonyExpenditure.sol](https://github.com/JoinColony/colonyNetwork/tree/burgundy-glider/contracts/ColonyExpenditure.sol)
+  
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/burgundy-glider/contracts/IColony.sol)
+  
+
+### `transferExpenditureViaOwnership`
+
+Transfer Expenditure as via the arbitration permission
+
+```js
+await colonyClient.transferExpenditureViaOwnership.send({
+  expenditureId,
+  newOwner,
+}, options);
+```
+
+
+**Input**
+
+|Name|Type|Description|
+|---|---|---|
+|expenditureId|number|The ID of the expenditure to be transferred.|
+|newOwner|any address|The address that will become the owner|
+
+**Options**
+
+See [Sender](/colonyjs/api-contractclient/#sender) for more information about options.
+
+**Response**
+
+An instance of a `ContractResponse` which will eventually receive the following event data:
+
+|Name|Type|Description|
+|---|---|---|
+|expenditureId|number|The ID of the expenditure that was transferred|
+|owner|address|The address the expenditure was transferred to|
+|ExpenditureTransferred|object|Contains the data defined in [ExpenditureTransferred](#eventsexpendituretransferred)|
+
+See [Sender](/colonyjs/api-contractclient/#sendinput-options) for more information about `ContractResponse`.
+
+**Contract Information**
+
+
+  
+  
+Contract: [ColonyExpenditure.sol](https://github.com/JoinColony/colonyNetwork/tree/burgundy-glider/contracts/ColonyExpenditure.sol)
+  
+Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/burgundy-glider/contracts/IColony.sol)
+  
+
 ### `upgrade`
 
 Upgrade the colony to a new colony contract version. The new version must be higher than the current version. Downgrading to old versions is not permitted.
@@ -3278,7 +3976,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/glider
 
 ### `setTaskDomain`
 
-Set the domain of a task. Every task must belong to a domain. This function can only be called by the address assigned the task `MANAGER` role.
+Set the domain of a task. Every task must belong to a domain. This function can only be called by the address assigned the task `MANAGER` role. TODO: Make unavailable in >v4 but present in <v3
 
 ```js
 await colonyClient.setTaskDomain.startOperation({
@@ -4316,6 +5014,42 @@ colonyClient.events.PayoutClaimed.removeListener(eventHandler);
 |amount|big number|The task payout amount that was claimed.|
 
 
+### `RecoveryRoleSet`
+
+**Event Handler**
+
+```js
+const eventHandler = ({
+  user,
+  setTo,
+}) => {
+  // perform an action using the event data
+};
+```
+
+**Add Listener**
+
+```js
+colonyClient.events.RecoveryRoleSet.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.RecoveryRoleSet.removeListener(eventHandler);
+```
+
+
+
+
+**Event Data**
+
+|Name|Type|Description|
+|---|---|---|
+|user|any address|The address having the recovery role set|
+|setTo|boolean|Bool representing whether they now have the skill or not|
+
+
 ### `RewardPayoutClaimed`
 
 **Event Handler**
@@ -4964,3 +5698,257 @@ colonyClient.events.Transfer.removeListener(eventHandler);
 |from|address|The address of the account that sent tokens.|
 |to|address|The address of the account that received tokens.|
 |value|big number|The amount of tokens that were transferred.|
+
+
+### `ExpenditureAdded`
+
+**Event Handler**
+
+```js
+const eventHandler = ({
+  expenditureId,
+}) => {
+  // perform an action using the event data
+};
+```
+
+**Add Listener**
+
+```js
+colonyClient.events.ExpenditureAdded.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.ExpenditureAdded.removeListener(eventHandler);
+```
+
+
+
+
+**Event Data**
+
+|Name|Type|Description|
+|---|---|---|
+|expenditureId|number|The ID of the expenditure that was created|
+
+
+### `ExpenditureTransferred`
+
+**Event Handler**
+
+```js
+const eventHandler = ({
+  expenditureId,
+  owner,
+}) => {
+  // perform an action using the event data
+};
+```
+
+**Add Listener**
+
+```js
+colonyClient.events.ExpenditureTransferred.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.ExpenditureTransferred.removeListener(eventHandler);
+```
+
+
+
+
+**Event Data**
+
+|Name|Type|Description|
+|---|---|---|
+|expenditureId|number|The ID of the expenditure that was transferred|
+|owner|address|The address the expenditure was transferred to|
+
+
+### `ExpenditureCancelled`
+
+**Event Handler**
+
+```js
+const eventHandler = ({
+  expenditureId,
+}) => {
+  // perform an action using the event data
+};
+```
+
+**Add Listener**
+
+```js
+colonyClient.events.ExpenditureCancelled.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.ExpenditureCancelled.removeListener(eventHandler);
+```
+
+
+
+
+**Event Data**
+
+|Name|Type|Description|
+|---|---|---|
+|expenditureId|number|The ID of the expenditure that was cancelled|
+
+
+### `ExpenditureFinalized`
+
+**Event Handler**
+
+```js
+const eventHandler = ({
+  expenditureId,
+}) => {
+  // perform an action using the event data
+};
+```
+
+**Add Listener**
+
+```js
+colonyClient.events.ExpenditureFinalized.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.ExpenditureFinalized.removeListener(eventHandler);
+```
+
+
+
+
+**Event Data**
+
+|Name|Type|Description|
+|---|---|---|
+|expenditureId|number|The ID of the expenditure that was finalized|
+
+
+### `ExpenditureRecipientSet`
+
+**Event Handler**
+
+```js
+const eventHandler = ({
+  expenditureId,
+  slot,
+  recipient,
+}) => {
+  // perform an action using the event data
+};
+```
+
+**Add Listener**
+
+```js
+colonyClient.events.ExpenditureRecipientSet.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.ExpenditureRecipientSet.removeListener(eventHandler);
+```
+
+
+
+
+**Event Data**
+
+|Name|Type|Description|
+|---|---|---|
+|expenditureId|number|The ID of the expenditure that was modified|
+|slot|big number|The slot of the expenditure being modified|
+|recipient|any address|The address that will receive the payout from this slot|
+
+
+### `ExpenditureSkillSet`
+
+**Event Handler**
+
+```js
+const eventHandler = ({
+  expenditureId,
+  slot,
+  skillId,
+}) => {
+  // perform an action using the event data
+};
+```
+
+**Add Listener**
+
+```js
+colonyClient.events.ExpenditureSkillSet.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.ExpenditureSkillSet.removeListener(eventHandler);
+```
+
+
+
+
+**Event Data**
+
+|Name|Type|Description|
+|---|---|---|
+|expenditureId|number|The ID of the expenditure that was modified|
+|slot|big number|The slot of the expenditure being modified|
+|skillId|big number|The skillId the slot will award upon payout|
+
+
+### `ExpenditurePayoutSet`
+
+**Event Handler**
+
+```js
+const eventHandler = ({
+  expenditureId,
+  slot,
+  token,
+  amount,
+}) => {
+  // perform an action using the event data
+};
+```
+
+**Add Listener**
+
+```js
+colonyClient.events.ExpenditurePayoutSet.addListener(eventHandler);
+```
+
+**Remove Listener**
+
+```js
+colonyClient.events.ExpenditurePayoutSet.removeListener(eventHandler);
+```
+
+
+
+
+**Event Data**
+
+|Name|Type|Description|
+|---|---|---|
+|expenditureId|number|The ID of the expenditure that was modified|
+|slot|big number|The slot of the expenditure being modified|
+|token|address|The token the slot will pay out (NB a slot can have more than one token associated with it)|
+|amount|big number|The amount of token that will be paid out|

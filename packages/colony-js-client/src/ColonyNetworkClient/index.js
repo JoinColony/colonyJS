@@ -17,6 +17,7 @@ import CreateToken from './senders/CreateToken';
 import addRecoveryMethods from '../addRecoveryMethods';
 
 type Address = string;
+type AnyAddress = string;
 type HexString = string;
 
 type AuctionCreated = ContractClient.Event<{
@@ -50,6 +51,10 @@ type MiningCycleResolverSet = ContractClient.Event<{
 }>;
 type NetworkFeeInverseSet = ContractClient.Event<{
   feeInverse: BigNumber, // The inverse value of the network fee that was set.
+}>;
+type RecoveryRoleSet = ContractClient.Event<{
+  user: AnyAddress, // The address having the recovery role set
+  setTo: boolean, // Bool representing whether they now have the skill or not
 }>;
 type ReputationMiningCycleComplete = ContractClient.Event<{
   hash: HexString, // The root hash of the reputation state that was accepted.
@@ -86,6 +91,7 @@ export default class ColonyNetworkClient extends ContractClient {
     MetaColonyCreated: MetaColonyCreated,
     MiningCycleResolverSet: MiningCycleResolverSet,
     NetworkFeeInverseSet: NetworkFeeInverseSet,
+    RecoveryRoleSet: RecoveryRoleSet,
     ReputationMiningCycleComplete: ReputationMiningCycleComplete,
     ReputationMiningInitialised: ReputationMiningInitialised,
     ReputationRootHashSet: ReputationRootHashSet,
@@ -192,6 +198,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       SkillAdded: SkillAdded,
       ColonyAdded: ColonyAdded,
+      RecoveryRoleSet: RecoveryRoleSet,
     },
     ColonyNetworkClient,
     {
@@ -1125,6 +1132,10 @@ export default class ColonyNetworkClient extends ContractClient {
       ['miningCycleResolver', 'address'],
     ]);
     this.addEvent('NetworkFeeInverseSet', [['feeInverse', 'number']]);
+    this.addEvent('RecoveryRoleSet', [
+      ['address', 'anyAddress'],
+      ['setTo', 'boolean'],
+    ]);
     this.addEvent('ReputationMiningCycleComplete', [
       ['hash', 'hexString'],
       ['nNodes', 'number'],
