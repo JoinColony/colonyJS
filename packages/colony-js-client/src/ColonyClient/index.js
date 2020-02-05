@@ -2105,8 +2105,8 @@ export default class ColonyClient extends ContractClient {
       token: AnyAddress, // The address of the token contract (an empty address if Ether).
       key: string, // The key of the element that the proof is for.
       value: string, // The value of the element that the proof is for.
-      branchMask: hexString, // The branchmask of the proof.
-      siblings: Array<hexString>, // The siblings of the proof.
+      branchMask: HexString, // The branchmask of the proof.
+      siblings: Array<HexString>, // The siblings of the proof.
     },
     {
       TokenLocked: TokenLocked,
