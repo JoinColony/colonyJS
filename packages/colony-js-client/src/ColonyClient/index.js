@@ -464,11 +464,11 @@ export default class ColonyClient extends ContractClient {
   claimRewardPayout: ColonyClient.Sender<
     {
       payoutId: number, // The ID of the payout.
-      squareRoots: Array<number>, // The square roots of values used in the equation.
+      squareRoots: Array<bigNumber>, // The square roots of values used in the equation.
       key: string, // The key of the element that the proof is for.
       value: string, // The value of the element that the proof is for.
-      branchMask: number, // The branchmask of the proof.
-      siblings: Array<string>, // The siblings of the proof.
+      branchMask: hexString, // The branchmask of the proof.
+      siblings: Array<hexString>, // The siblings of the proof.
     },
     {
       RewardPayoutClaimed: RewardPayoutClaimed,
@@ -1813,8 +1813,8 @@ export default class ColonyClient extends ContractClient {
       token: AnyAddress, // The address of the token contract (an empty address if Ether).
       key: string, // The key of the element that the proof is for.
       value: string, // The value of the element that the proof is for.
-      branchMask: number, // The branchmask of the proof.
-      siblings: Array<string>, // The siblings of the proof.
+      branchMask: hexString, // The branchmask of the proof.
+      siblings: Array<hexString>, // The siblings of the proof.
     },
     {
       TokenLocked: TokenLocked,
@@ -1912,8 +1912,8 @@ export default class ColonyClient extends ContractClient {
     {
       key: string, // The key of the element that the proof is for.
       value: string, // The value of the element that the proof is for.
-      branchMask: number, // The branchmask of the proof.
-      siblings: Array<string>, // The siblings of the proof.
+      branchMask: hexString, // The branchmask of the proof.
+      siblings: Array<hexString>, // The siblings of the proof.
     },
     {
       isValid: boolean, // A boolean indicating whether ot not the proof is valid.
@@ -2486,7 +2486,7 @@ export default class ColonyClient extends ContractClient {
       output: [['rewardInverse', 'bigNumber']],
     });
     this.addCaller('getRewardPayoutInfo', {
-      input: [['payoutId'], 'number'],
+      input: [['payoutId', 'number']],
       output: [
         ['reputationState', 'string'],
         ['colonyWideReputation', 'bigNumber'],
@@ -2520,8 +2520,8 @@ export default class ColonyClient extends ContractClient {
       input: [
         ['key', 'string'],
         ['value', 'string'],
-        ['branchMask', 'number'],
-        ['siblings', '[string]'],
+        ['branchMask', 'hexString'],
+        ['siblings', '[hexString]'],
       ],
       output: [['isValid', 'boolean']],
     });
@@ -2666,11 +2666,11 @@ export default class ColonyClient extends ContractClient {
     this.addSender('claimRewardPayout', {
       input: [
         ['payoutId', 'number'],
-        ['squareRoots', '[number]'],
+        ['squareRoots', '[bigNumber]'],
         ['key', 'string'],
         ['value', 'string'],
-        ['branchMask', 'number'],
-        ['siblings', '[string]'],
+        ['branchMask', 'hexString'],
+        ['siblings', '[hexString]'],
       ],
     });
     this.addSender('claimTaskPayout', {
@@ -2732,8 +2732,8 @@ export default class ColonyClient extends ContractClient {
         ['token', 'anyAddress'],
         ['key', 'string'],
         ['value', 'string'],
-        ['branchMask', 'number'],
-        ['siblings', '[string]'],
+        ['branchMask', 'hexString'],
+        ['siblings', '[hexString]'],
       ],
     });
     this.addSender('submitTaskDeliverable', {

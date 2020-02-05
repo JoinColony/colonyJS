@@ -3,6 +3,7 @@
 export type ParamTypes =
   | '[address]'
   | '[bigNumber]'
+  | '[hexString]'
   | '[number]'
   | '[string]'
   | 'address'

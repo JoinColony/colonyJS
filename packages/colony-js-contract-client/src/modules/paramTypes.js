@@ -51,6 +51,17 @@ const PARAM_TYPE_MAP: {
     },
     convertInput: passThrough,
   },
+  '[hexString]': {
+    validate(value: any) {
+      if (!Array.isArray(value)) return false;
+      return value.every(element => isHexStrict(element));
+    },
+    convertOutput(value: any) {
+      if (!Array.isArray(value)) return [];
+      return value.map(element => toHex(element));
+    },
+    convertInput: passThrough,
+  },
   '[number]': {
     validate(value: any) {
       if (!Array.isArray(value)) return false;
