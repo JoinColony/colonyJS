@@ -83,6 +83,7 @@ export default class TokenLockingClient extends ContractClient {
     },
     {
       count: BigNumber, // The total number of locked tokens.
+      balance: BigNumber, // The total balance of locked tokens.
     },
     TokenLockingClient,
     {
@@ -180,7 +181,7 @@ export default class TokenLockingClient extends ContractClient {
     });
     this.addCaller('getUserLock', {
       input: [['token', 'anyAddress'], ['user', 'address']],
-      output: [['count', 'number']],
+      output: [['count', 'number'], ['balance', 'bigNumber']],
     });
 
     // Events
