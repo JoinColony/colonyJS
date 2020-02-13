@@ -13,7 +13,7 @@ import {
   FUNDING_POT_TYPE_EXPENDITURE,
   FUNDING_POT_TYPE_PAYMENT,
   FUNDING_POT_TYPE_TASK,
-  REWARDS_POT_ID
+  REWARDS_POT_ID,
 } from '../../constants';
 
 import type { ColonyClient } from '../../index';
