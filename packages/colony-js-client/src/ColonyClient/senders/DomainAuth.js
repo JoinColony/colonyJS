@@ -6,7 +6,7 @@ import ContractClient from '@colony/colony-js-contract-client';
 import type { ContractMethodSenderArgs } from '@colony/colony-js-contract-client';
 
 import {
-  COLONY_ROLE_ARCHITECTURE_SUBDOMAIN,
+  COLONY_ROLE_ARCHITECTURE,
   COLONY_ROLES,
   DEFAULT_DOMAIN_ID,
   FUNDING_POT_TYPE_DOMAIN,
@@ -341,7 +341,7 @@ export default class DomainAuth<
     });
 
     // Architecture can only architect child domains
-    if (hasDomainPermission && role !== COLONY_ROLE_ARCHITECTURE_SUBDOMAIN) {
+    if (hasDomainPermission && role !== COLONY_ROLE_ARCHITECTURE) {
       return domainId;
     }
 
