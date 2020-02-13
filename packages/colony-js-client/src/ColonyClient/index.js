@@ -32,7 +32,6 @@ import addRecoveryMethods from '../addRecoveryMethods';
 
 import {
   COLONY_ROLE_ADMINISTRATION,
-  COLONY_ROLE_ARCHITECTURE_SUBDOMAIN,
   COLONY_ROLE_ARCHITECTURE,
   COLONY_ROLE_ARBITRATION,
   COLONY_ROLE_FUNDING,
@@ -102,7 +101,7 @@ type ColonyRewardInverseSet = ContractClient.Event<{
 type ColonyRoleSet = ContractClient.Event<{
   address: Address, // The address for which the role was set.
   domainId: number, // The domain in which the role was set.
-  role: ColonyRole, // The role which was set, one of: `ADMINISTRATION`, `ARBITRATION`, `ARCHITECTURE`, `ARCHITECTURE_SUBDOMAIN`, `FUNDING`, `RECOVERY` or `ROOT`.
+  role: ColonyRole, // The role which was set, one of: `ADMINISTRATION`, `ARBITRATION`, `ARCHITECTURE`, `FUNDING`, `RECOVERY` or `ROOT`.
   setTo: boolean, // Whether the role was assigned (`true`) on unassigned (`false`).
 }>;
 // @note Deprecated in glider-rc.3, replaced with ColonyRoleSet
@@ -1289,7 +1288,7 @@ export default class ColonyClient extends ContractClient {
     {
       address: Address, // The address that will be checked for the role.
       domainId: number, // The ID of the domain that the role is assigned.
-      role: ColonyRole, // The role that will be checked (`RECOVERY`, `ROOT`, `ARCHITECTURE`, `ARCHITECTURE_SUBDOMAIN`, `ADMINISTRATION`, `FUNDING`).
+      role: ColonyRole, // The role that will be checked (`RECOVERY`, `ROOT`, `ARCHITECTURE`, `ADMINISTRATION`, `FUNDING`).
     },
     {
       hasRole: boolean, // A boolean indicating whether or not the address has the role assigned.
@@ -2255,8 +2254,8 @@ export default class ColonyClient extends ContractClient {
     {
       key: string, // The key of the element that the proof is for.
       value: string, // The value of the element that the proof is for.
-      branchMask: hexString, // The branchmask of the proof.
-      siblings: Array<hexString>, // The siblings of the proof.
+      branchMask: HexString, // The branchmask of the proof.
+      siblings: Array<HexString>, // The siblings of the proof.
     },
     {
       isValid: boolean, // A boolean indicating whether ot not the proof is valid.
@@ -2632,7 +2631,7 @@ export default class ColonyClient extends ContractClient {
           childSkillIndexNames: ['childSkillIndex'],
           domainIds: ['domainId'],
           permissionDomainIdName: 'permissionDomainId',
-          roles: [COLONY_ROLE_ARCHITECTURE_SUBDOMAIN], // TODO: also should allow COLONY_ROLE_ROOT
+          roles: [COLONY_ROLE_ARCHITECTURE], // TODO: also should allow COLONY_ROLE_ROOT
         },
       ],
     });
@@ -2652,7 +2651,7 @@ export default class ColonyClient extends ContractClient {
           childSkillIndexNames: ['childSkillIndex'],
           domainIds: ['domainId'],
           permissionDomainIdName: 'permissionDomainId',
-          roles: [COLONY_ROLE_ARCHITECTURE_SUBDOMAIN], // TODO: also should allow COLONY_ROLE_ROOT
+          roles: [COLONY_ROLE_ARCHITECTURE], // TODO: also should allow COLONY_ROLE_ROOT
         },
       ],
     });
@@ -2722,7 +2721,7 @@ export default class ColonyClient extends ContractClient {
           childSkillIndexNames: ['childSkillIndex'],
           domainIds: ['domainId'],
           permissionDomainIdName: 'permissionDomainId',
-          roles: [COLONY_ROLE_ARCHITECTURE_SUBDOMAIN], // TODO: also should allow COLONY_ROLE_ROOT
+          roles: [COLONY_ROLE_ARCHITECTURE], // TODO: also should allow COLONY_ROLE_ROOT
         },
       ],
     });
