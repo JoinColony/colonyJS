@@ -134,6 +134,10 @@ describe('ColonyNetworkClient', () => {
     );
     expect(networkClient.createColony.input).toEqual([
       ['tokenAddress', 'address'],
+      ['version', 'number'],
+      ['colonyName', 'string'],
+      ['orbitdb', 'string'],
+      ['useExtensionManager', 'boolean'],
     ]);
 
     const response = {
