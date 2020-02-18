@@ -28,6 +28,7 @@ import TransferExpenditure from './senders/TransferExpenditure';
 import DomainAuth, { getDomainIdFromPot } from './senders/DomainAuth';
 import SetAdminRole from './senders/SetAdminRole';
 import SetFounderRole from './senders/SetFounderRole';
+import Upgrade from './senders/Upgrade';
 import addRecoveryMethods from '../addRecoveryMethods';
 
 import {
@@ -2822,6 +2823,12 @@ export default class ColonyClient extends ContractClient {
         },
       ],
     });
+    this.upgrade = new Upgrade({
+      client: this,
+      name: 'upgrade',
+      functionName: 'upgrade',
+      input: [['newVersion', 'number']],
+    });
 
     // Task callers
     const makeTaskCaller = (
@@ -3291,9 +3298,6 @@ export default class ColonyClient extends ContractClient {
     this.addSender('transferExpenditureViaOwnership', {
       functionName: 'transferExpenditure(uint256,address)',
       input: [['expenditureId', 'number'], ['newOwner', 'anyAddress']],
-    });
-    this.addSender('upgrade', {
-      input: [['newVersion', 'number']],
     });
 
     // Meta Colony senders
