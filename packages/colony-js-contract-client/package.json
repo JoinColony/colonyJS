@@ -58,7 +58,7 @@
         "babel-runtime": "^6.26.0",
         "bn.js": "^4.11.8",
         "bs58": "^4.0.1",
-        "ethers": "3.0.27",
+        "ethers": "JoinColony/ethers.js#v3-no-poll",
         "lodash.flatmap": "^4.5.0",
         "lodash.isequal": "^4.5.0",
         "lodash.isplainobject": "^4.0.6",
