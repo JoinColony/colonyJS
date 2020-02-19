@@ -1010,7 +1010,7 @@ await colonyClient.hasColonyRole.call({
 |---|---|---|
 |address|address|The address that will be checked for the role.|
 |domainId|number|The ID of the domain that the role is assigned.|
-|role|colony role|The role that will be checked (`RECOVERY`, `ROOT`, `ARCHITECTURE`, `ARCHITECTURE_SUBDOMAIN`, `ADMINISTRATION`, `FUNDING`).|
+|role|colony role|The role that will be checked (`RECOVERY`, `ROOT`, `ARCHITECTURE`, `ADMINISTRATION`, `FUNDING`).|
 
 **Response**
 
@@ -1078,7 +1078,7 @@ await colonyClient.verifyReputationProof.call({
 |---|---|---|
 |key|string|The key of the element that the proof is for.|
 |value|string|The value of the element that the proof is for.|
-|branchMask|number|The branchmask of the proof.|
+|branchMask|hex string|The branchmask of the proof.|
 |siblings|array|The siblings of the proof.|
 
 **Response**
@@ -1711,7 +1711,7 @@ await colonyClient.claimRewardPayout.send({
 |squareRoots|array|The square roots of values used in the equation.|
 |key|string|The key of the element that the proof is for.|
 |value|string|The value of the element that the proof is for.|
-|branchMask|number|The branchmask of the proof.|
+|branchMask|hex string|The branchmask of the proof.|
 |siblings|array|The siblings of the proof.|
 
 **Options**
@@ -2573,7 +2573,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |address|address|The address for which the role was set.|
 |domainId|number|The domain in which the role was set.|
-|role|colony role|The role which was set, one of: `ADMINISTRATION`, `ARBITRATION`, `ARCHITECTURE`, `ARCHITECTURE_SUBDOMAIN`, `FUNDING`, `RECOVERY` or `ROOT`.|
+|role|colony role|The role which was set, one of: `ADMINISTRATION`, `ARBITRATION`, `ARCHITECTURE`, `FUNDING`, `RECOVERY` or `ROOT`.|
 |setTo|boolean|Whether the role was assigned (`true`) on unassigned (`false`).|
 |ColonyRoleSet|object|Contains the data defined in [ColonyRoleSet](#eventscolonyroleset)|
 
@@ -2621,7 +2621,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |address|address|The address for which the role was set.|
 |domainId|number|The domain in which the role was set.|
-|role|colony role|The role which was set, one of: `ADMINISTRATION`, `ARBITRATION`, `ARCHITECTURE`, `ARCHITECTURE_SUBDOMAIN`, `FUNDING`, `RECOVERY` or `ROOT`.|
+|role|colony role|The role which was set, one of: `ADMINISTRATION`, `ARBITRATION`, `ARCHITECTURE`, `FUNDING`, `RECOVERY` or `ROOT`.|
 |setTo|boolean|Whether the role was assigned (`true`) on unassigned (`false`).|
 |ColonyRoleSet|object|Contains the data defined in [ColonyRoleSet](#eventscolonyroleset)|
 
@@ -2723,7 +2723,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |address|address|The address for which the role was set.|
 |domainId|number|The domain in which the role was set.|
-|role|colony role|The role which was set, one of: `ADMINISTRATION`, `ARBITRATION`, `ARCHITECTURE`, `ARCHITECTURE_SUBDOMAIN`, `FUNDING`, `RECOVERY` or `ROOT`.|
+|role|colony role|The role which was set, one of: `ADMINISTRATION`, `ARBITRATION`, `ARCHITECTURE`, `FUNDING`, `RECOVERY` or `ROOT`.|
 |setTo|boolean|Whether the role was assigned (`true`) on unassigned (`false`).|
 |ColonyRoleSet|object|Contains the data defined in [ColonyRoleSet](#eventscolonyroleset)|
 
@@ -3001,7 +3001,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |address|address|The address for which the role was set.|
 |domainId|number|The domain in which the role was set.|
-|role|colony role|The role which was set, one of: `ADMINISTRATION`, `ARBITRATION`, `ARCHITECTURE`, `ARCHITECTURE_SUBDOMAIN`, `FUNDING`, `RECOVERY` or `ROOT`.|
+|role|colony role|The role which was set, one of: `ADMINISTRATION`, `ARBITRATION`, `ARCHITECTURE`, `FUNDING`, `RECOVERY` or `ROOT`.|
 |setTo|boolean|Whether the role was assigned (`true`) on unassigned (`false`).|
 |ColonyRoleSet|object|Contains the data defined in [ColonyRoleSet](#eventscolonyroleset)|
 
@@ -3049,7 +3049,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |address|address|The address for which the role was set.|
 |domainId|number|The domain in which the role was set.|
-|role|colony role|The role which was set, one of: `ADMINISTRATION`, `ARBITRATION`, `ARCHITECTURE`, `ARCHITECTURE_SUBDOMAIN`, `FUNDING`, `RECOVERY` or `ROOT`.|
+|role|colony role|The role which was set, one of: `ADMINISTRATION`, `ARBITRATION`, `ARCHITECTURE`, `FUNDING`, `RECOVERY` or `ROOT`.|
 |setTo|boolean|Whether the role was assigned (`true`) on unassigned (`false`).|
 |ColonyRoleSet|object|Contains the data defined in [ColonyRoleSet](#eventscolonyroleset)|
 
@@ -3386,7 +3386,7 @@ An instance of a `ContractResponse` which will eventually receive the following 
 |---|---|---|
 |address|address|The address for which the role was set.|
 |domainId|number|The domain in which the role was set.|
-|role|colony role|The role which was set, one of: `ADMINISTRATION`, `ARBITRATION`, `ARCHITECTURE`, `ARCHITECTURE_SUBDOMAIN`, `FUNDING`, `RECOVERY` or `ROOT`.|
+|role|colony role|The role which was set, one of: `ADMINISTRATION`, `ARBITRATION`, `ARCHITECTURE`, `FUNDING`, `RECOVERY` or `ROOT`.|
 |setTo|boolean|Whether the role was assigned (`true`) on unassigned (`false`).|
 |ColonyRoleSet|object|Contains the data defined in [ColonyRoleSet](#eventscolonyroleset)|
 
@@ -3465,7 +3465,7 @@ await colonyClient.startNextRewardPayout.send({
 |token|any address|The address of the token contract (an empty address if Ether).|
 |key|string|The key of the element that the proof is for.|
 |value|string|The value of the element that the proof is for.|
-|branchMask|number|The branchmask of the proof.|
+|branchMask|hex string|The branchmask of the proof.|
 |siblings|array|The siblings of the proof.|
 
 **Options**
@@ -3680,7 +3680,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/burgun
 
 ### `transferExpenditureViaArbitration`
 
-Transfer Expenditure as via the arbitration permission
+Transfer Expenditure via the arbitration permission
 
 ```js
 await colonyClient.transferExpenditureViaArbitration.send({
@@ -3725,7 +3725,7 @@ Interface: [IColony.sol](https://github.com/JoinColony/colonyNetwork/tree/burgun
 
 ### `transferExpenditureViaOwnership`
 
-Transfer Expenditure as via the arbitration permission
+Transfer Expenditure via the ownership permission
 
 ```js
 await colonyClient.transferExpenditureViaOwnership.send({
@@ -4726,7 +4726,7 @@ colonyClient.events.ColonyRoleSet.removeListener(eventHandler);
 |---|---|---|
 |address|address|The address for which the role was set.|
 |domainId|number|The domain in which the role was set.|
-|role|colony role|The role which was set, one of: `ADMINISTRATION`, `ARBITRATION`, `ARCHITECTURE`, `ARCHITECTURE_SUBDOMAIN`, `FUNDING`, `RECOVERY` or `ROOT`.|
+|role|colony role|The role which was set, one of: `ADMINISTRATION`, `ARBITRATION`, `ARCHITECTURE`, `FUNDING`, `RECOVERY` or `ROOT`.|
 |setTo|boolean|Whether the role was assigned (`true`) on unassigned (`false`).|
 
 
