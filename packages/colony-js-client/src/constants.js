@@ -1,6 +1,6 @@
 /* @flow */
 
-export const MAX_VERSION = 3; // Auburn glider
+export const MAX_VERSION = 4; // Burgundy glider
 
 export const COLONY_ROLE_ADMINISTRATION = 'ADMINISTRATION';
 export const COLONY_ROLE_ARBITRATION = 'ARBITRATION';

@@ -16,6 +16,7 @@ import LookupRegisteredENSDomain from './callers/LookupRegisteredENSDomain';
 import CreateToken from './senders/CreateToken';
 import CreateColony from './senders/CreateColony';
 import addRecoveryMethods from '../addRecoveryMethods';
+import { MAX_VERSION } from '../constants';
 
 type Address = string;
 type AnyAddress = string;
@@ -210,7 +211,7 @@ export default class ColonyNetworkClient extends ContractClient {
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'burgandy-glider',
+      version: 'burgundy-glider',
     },
   >;
 
@@ -1121,7 +1122,7 @@ export default class ColonyNetworkClient extends ContractClient {
         ['useExtensionManager', 'boolean'],
       ],
       defaultValues: {
-        version: 0,
+        version: MAX_VERSION,
         colonyName: '',
         orbitdb: '',
         useExtensionManager: false,
