@@ -2,33 +2,9 @@
 
 import ethers from 'ethers';
 
-import type {
-  Event,
-  EventCallback,
-  IContract,
-  IWallet,
-  TransactionOptions,
-} from '@colony/colony-js-adapter';
+import type { IContract, TransactionOptions } from '@colony/colony-js-adapter';
 
 class EthersContract extends ethers.Contract implements IContract {
-  // A map of contract event names to callbacks
-  _listeners: Array<{
-    eventName: string,
-    callback: EventCallback,
-    transactionHash?: string,
-  }>;
-
-  /**
-   * EthersContract constructor
-   * Extends `ethers.Contract` with event handling that allows us to
-   * wait for event data and return it as the adapter interface specifies
-   */
-  constructor(address: string, abi: Array<any>, wallet: IWallet) {
-    super(address, abi, wallet);
-    this._listeners = [];
-    this._initialiseEvents();
-  }
-
   /**
    * Given a function name and an array of arguments, apply the arguments and
    * return the resulting value/s.
@@ -79,65 +55,6 @@ class EthersContract extends ethers.Contract implements IContract {
       throw new TypeError(`Function ${name} not found on contract interface`);
     const { data } = interfaceFn(...args);
     return data;
-  }
-
-  addListener(
-    eventName: string,
-    callback: EventCallback,
-    transactionHash?: string,
-  ) {
-    this._listeners.push({
-      eventName,
-      callback,
-      transactionHash,
-    });
-  }
-
-  removeListener(
-    eventName: string,
-    callback: Function,
-    transactionHash?: string,
-  ) {
-    const handlerIndex = this._listeners.findIndex(
-      eventHandler =>
-        eventName === eventHandler.eventName &&
-        callback === eventHandler.callback &&
-        (!transactionHash || transactionHash === eventHandler.transactionHash),
-    );
-
-    if (handlerIndex > -1) {
-      this._listeners.splice(handlerIndex, 1);
-    }
-  }
-
-  _initialiseEvents() {
-    Object.getOwnPropertyNames(this.events).forEach(eventName => {
-      const self = this;
-      this.events[eventName] = function eventDispatcher() {
-        // eslint-disable-next-line no-underscore-dangle
-        self._dispatchEvent(this);
-      };
-    });
-  }
-
-  _dispatchEvent(event: Event) {
-    const eventHandlers = this._listeners.filter(
-      ({ eventName, transactionHash }) =>
-        eventName === event.event &&
-        (!transactionHash || transactionHash === event.transactionHash),
-    );
-
-    eventHandlers.forEach(eventHandler => {
-      if (eventHandler.transactionHash) {
-        this.removeListener(
-          event.event,
-          eventHandler.callback,
-          event.transactionHash,
-        );
-      }
-
-      eventHandler.callback(event);
-    });
   }
 }
 
