@@ -3747,9 +3747,10 @@ ethereumjs-util@^6.0.0:
     safe-buffer "^5.1.1"
     secp256k1 "^3.0.1"
 
-ethers@JoinColony/ethers.js#v3-no-poll:
-  version "3.0.1"
-  resolved "https://codeload.github.com/JoinColony/ethers.js/tar.gz/0ec27e2d5ab52bfaa2cc8c0b47ed11af66d78996"
+ethers@^3.0.29:
+  version "3.0.29"
+  resolved "https://registry.yarnpkg.com/ethers/-/ethers-3.0.29.tgz#ce8139955b4ed44456eb6764b089bb117c86775d"
+  integrity sha512-OGyA5pW5xFC5o/ZV5MfIoVp/EdA1QMg2bMJFf7Kznsz8m7IzzbgsPHTCjzSfKQDs/XDphGyRcA7A6bkIeJL4gw==
   dependencies:
     aes-js "3.0.0"
     bn.js "^4.4.0"
