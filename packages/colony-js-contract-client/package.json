@@ -1,6 +1,6 @@
 {
     "name": "@colony/colony-js-contract-client",
-    "version": "1.14.1-no.poll",
+    "version": "1.14.2",
     "description": "Method-like interface for Smart Contracts",
     "keywords": [
         "ethers",
