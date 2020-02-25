@@ -1,6 +1,6 @@
 {
     "name": "@colony/colony-js-client",
-    "version": "1.14.3",
+    "version": "1.14.4",
     "description": "Reference implementation of the Colony API",
     "keywords": [
         "ethers",
@@ -57,7 +57,7 @@
         "@colony/colony-js-contract-client": "^1.14.2",
         "@colony/colony-js-contract-loader": "^1.12.0",
         "@colony/colony-js-contract-loader-http": "^1.14.0-beta.0",
-        "@colony/colony-js-contract-loader-network": "^1.14.2-no.poll",
+        "@colony/colony-js-contract-loader-network": "^1.14.4",
         "@colony/colony-js-utils": "^1.12.0",
         "@colony/purser-core": "^2.1.0",
         "assert": "^2.0.0",

@@ -1,6 +1,6 @@
 {
     "name": "@colony/colony-js-contract-loader-network",
-    "version": "1.14.2-no.poll",
+    "version": "1.14.4",
     "description": "Load the Colony contract ABIs directly from this package",
     "keywords": [
         "ethers",
