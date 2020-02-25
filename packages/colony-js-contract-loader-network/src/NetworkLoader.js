@@ -16,7 +16,7 @@ const DEFAULT_NETWORK = NETWORKS.MAINNET;
 
 type Network = $Values<typeof NETWORKS>;
 
-const LATEST_VERSION = 4;
+const LATEST_VERSION = 3;
 
 const CONTRACTS_MANIFEST = {
   versioned: {
