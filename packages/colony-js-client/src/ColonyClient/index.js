@@ -32,6 +32,7 @@ import Upgrade from './senders/Upgrade';
 import addRecoveryMethods from '../addRecoveryMethods';
 
 import {
+  MAX_VERSION,
   COLONY_ROLE_ADMINISTRATION,
   COLONY_ROLE_ARCHITECTURE,
   COLONY_ROLE_ARBITRATION,
@@ -2321,6 +2322,11 @@ export default class ColonyClient extends ContractClient {
 
     if (!(this.tokenClient instanceof TokenClient)) {
       this.tokenClient = await this.getTokenClient();
+    }
+
+    const { version } = await this.getVersion.call();
+    if (version > MAX_VERSION) {
+      throw new Error(`Only versions ${MAX_VERSION} and below are supported`);
     }
 
     return this;
