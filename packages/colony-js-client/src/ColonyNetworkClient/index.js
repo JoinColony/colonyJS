@@ -14,7 +14,9 @@ import TokenLockingClient from '../TokenLockingClient/index';
 
 import LookupRegisteredENSDomain from './callers/LookupRegisteredENSDomain';
 import CreateToken from './senders/CreateToken';
+import CreateColony from './senders/CreateColony';
 import addRecoveryMethods from '../addRecoveryMethods';
+import { MAX_VERSION } from '../constants';
 
 type Address = string;
 type AnyAddress = string;
@@ -194,17 +196,22 @@ export default class ColonyNetworkClient extends ContractClient {
   createColony: ColonyNetworkClient.Sender<
     {
       tokenAddress: Address, // The address of the token contract that will become the native token for the colony.
+      version: number, // The Colony version to deploy (`0` deploys the current version).
+      colonyName: string, // The ENS name to set for the colony ('' sets no name).
+      orbitdb: string, // The orbitdb address for the ENS name.
+      useExtensionManager: boolean, // Whether or not to give the ExtensionManager root permission.
     },
     {
       SkillAdded: SkillAdded,
       ColonyAdded: ColonyAdded,
       RecoveryRoleSet: RecoveryRoleSet,
+      ColonyLabelRegistered: ColonyLabelRegistered,
     },
     ColonyNetworkClient,
     {
       contract: 'ColonyNetwork.sol',
       interface: 'IColonyNetwork.sol',
-      version: 'glider',
+      version: 'burgundy-glider',
     },
   >;
 
@@ -1103,6 +1110,25 @@ export default class ColonyNetworkClient extends ContractClient {
     // Custom senders
     this.createToken = new CreateToken({ client: this });
 
+    this.createColony = new CreateColony({
+      client: this,
+      name: 'createColony',
+      functionName: 'createColony',
+      input: [
+        ['tokenAddress', 'address'],
+        ['version', 'number'],
+        ['colonyName', 'string'],
+        ['orbitdb', 'string'],
+        ['useExtensionManager', 'boolean'],
+      ],
+      defaultValues: {
+        version: MAX_VERSION,
+        colonyName: '',
+        orbitdb: '',
+        useExtensionManager: false,
+      },
+    });
+
     // Events
     this.addEvent('AuctionCreated', [
       ['auction', 'address'],
@@ -1284,9 +1310,6 @@ export default class ColonyNetworkClient extends ContractClient {
         ['amount', 'bigNumber'],
         ['skillId', 'number'],
       ],
-    });
-    this.addSender('createColony', {
-      input: [['tokenAddress', 'address']],
     });
     this.addSender('createMetaColony', {
       input: [['tokenAddress', 'address']],

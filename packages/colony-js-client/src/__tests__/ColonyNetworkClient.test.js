@@ -7,6 +7,7 @@ import ColonyClient from '../ColonyClient';
 import ColonyNetworkClient from '../ColonyNetworkClient';
 import TokenClient from '../TokenClient';
 import TokenLockingClient from '../TokenLockingClient';
+import { MAX_VERSION } from '../constants';
 
 const colonyNetworkEvents = [
   'AuctionCreated',
@@ -134,6 +135,10 @@ describe('ColonyNetworkClient', () => {
     );
     expect(networkClient.createColony.input).toEqual([
       ['tokenAddress', 'address'],
+      ['version', 'number'],
+      ['colonyName', 'string'],
+      ['orbitdb', 'string'],
+      ['useExtensionManager', 'boolean'],
     ]);
 
     const response = {
@@ -212,6 +217,11 @@ describe('ColonyNetworkClient', () => {
             address: 'token address',
           })),
         };
+        client.getVersion = {
+          call: sandbox.fn().mockImplementation(async () => ({
+            version: MAX_VERSION,
+          })),
+        };
       });
 
     const colonyClient = await networkClient.getColonyClientByAddress(
@@ -232,6 +242,7 @@ describe('ColonyNetworkClient', () => {
     expect(colonyClient.getTokenAddress.call).toHaveBeenCalled();
     expect(colonyClient).toHaveProperty('tokenClient', expect.any(TokenClient));
     expect(colonyClient.tokenClient.init).toHaveBeenCalled();
+    expect(colonyClient.getVersion.call).toHaveBeenCalled();
   });
 
   test('Getting a Colony address', async () => {
@@ -287,6 +298,11 @@ describe('ColonyNetworkClient', () => {
             address: 'token address',
           })),
         };
+        client.getVersion = {
+          call: sandbox.fn().mockImplementation(async () => ({
+            version: MAX_VERSION,
+          })),
+        };
       });
 
     const metaColonyClient = await networkClient.getMetaColonyClientByAddress(
@@ -305,5 +321,6 @@ describe('ColonyNetworkClient', () => {
       tokenLockingClient: expect.any(TokenLockingClient),
     });
     expect(metaColonyClient.init).toHaveBeenCalled();
+    expect(metaColonyClient.getVersion.call).toHaveBeenCalled();
   });
 });
