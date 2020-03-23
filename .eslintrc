@@ -1,25 +1,16 @@
 {
-  "extends": ["@colony/eslint-config-colony"],
-  "env": {
-    "browser": true
-  },
-  "globals": {
-     // XXX waiting on https://github.com/gajus/eslint-plugin-flowtype/pull/308
-    "$PropertyType": false,
-    "$Values": false,
-    "$Shape": false,
-    "$Keys": false
-  },
-  "overrides": [
-        {
-            "files": [
-              "**/__tests__/*.js",
-              "*.test.js",
-              "*.config.js"
-            ],
-            "rules": {
-                "flowtype/require-valid-file-annotation": "off"
-            }
-        }
-    ]
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "@colony/eslint-config-colony",
+    "prettier/@typescript-eslint"
+  ],
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "rules": {
+    "no-unused-vars": "off",
+    "import/extensions": "off",
+    "import/no-unresolved": "off"
+  }
 }
