@@ -7,7 +7,7 @@ import ColonyClientV4 from './clients/Colony/ColonyClientV4';
 
 export { ColonyVersions } from './clients/Colony/ColonyClient';
 
-export const ColonyClients = {
+export const colonyClients = {
   [ColonyVersions.GoerliGlider]: ColonyClientV1,
   [ColonyVersions.Glider]: ColonyClientV2,
   [ColonyVersions.AuburnGlider]: ColonyClientV3,
