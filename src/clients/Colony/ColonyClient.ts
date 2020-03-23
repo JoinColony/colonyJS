@@ -1,10 +1,6 @@
-// Versions of colonyNetwork. TS automatically increments from 1
-export enum ColonyVersions {
-  GoerliGlider = 1, // glider-rc.1
-  Glider,
-  AuburnGlider,
-  BurgundyGlider,
-}
+import ColonyVersions from '../../../versions';
+
+export { default as ColonyVersions } from '../../../versions';
 
 export interface ColonyClient {
   readonly version: ColonyVersions;

@@ -6,7 +6,8 @@
   "scripts": {
     "lint": "eslint src/**/*.ts scripts/**/*.ts",
     "typecheck": "tsc --noEmit",
-    "test": "npm run typecheck && npm run lint"
+    "test": "npm run typecheck && npm run lint",
+    "build-abis": "ts-node -P scripts/tsconfig-scripts.json scripts/build-abis.ts" 
   },
   "devDependencies": {
     "@colony/eslint-config-colony": "^8.0.1",
