@@ -1,4 +1,4 @@
-import { ColonyVersions } from '../src';
+import ColonyVersions from '../versions';
 
 // These are the corresponding git release tags for the deployed versions of the Colony Network
 export const releaseMap = {
