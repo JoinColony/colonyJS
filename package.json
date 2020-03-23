@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "lint": "eslint src/**/*.ts scripts/**/*.ts",
-    "test": "npm run lint"
+    "typecheck": "tsc --noEmit",
+    "test": "npm run typecheck && npm run lint"
   },
   "devDependencies": {
     "@colony/eslint-config-colony": "^8.0.1",
