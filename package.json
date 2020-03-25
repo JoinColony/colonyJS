@@ -7,10 +7,11 @@
     "lint": "eslint src/**/*.ts scripts/**/*.ts",
     "typecheck": "tsc --noEmit",
     "test": "npm run typecheck && npm run lint",
-    "build-abis": "ts-node -P scripts/tsconfig-scripts.json scripts/build-abis.ts"
+    "build-contracts": "ts-node -P scripts/tsconfig-scripts.json scripts/build-contracts.ts"
   },
   "devDependencies": {
     "@colony/eslint-config-colony": "^8.0.1",
+    "@types/rimraf": "^3.0.0",
     "@types/yargs": "^15.0.4",
     "@typescript-eslint/eslint-plugin": "^2.24.0",
     "@typescript-eslint/parser": "^2.24.0",
@@ -22,6 +23,7 @@
     "eslint-plugin-prettier": "^3.1.2",
     "execa": "^4.0.0",
     "prettier": "^1.19.1",
+    "rimraf": "^3.0.2",
     "ts-node": "^8.8.1",
     "typechain": "^1.0.5",
     "typechain-target-ethers": "^1.0.3",
