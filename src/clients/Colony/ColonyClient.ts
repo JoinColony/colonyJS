@@ -1,7 +1,13 @@
-import ColonyVersions from '../../../versions';
+import { Contract } from 'ethers';
 
-export { default as ColonyVersions } from '../../../versions';
+import { ColonyVersions } from '../../../versions';
 
-export interface ColonyClient {
+export { ColonyVersions } from '../../../versions';
+
+export interface ColonyClient<C extends Contract> {
+  readonly address: string;
+
+  readonly contract?: C;
+
   readonly version: ColonyVersions;
 }

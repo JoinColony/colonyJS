@@ -1,4 +1,4 @@
-import ColonyVersions from '../versions';
+import { ColonyVersions } from '../versions';
 
 import ColonyClientV1 from './clients/Colony/ColonyClientV1';
 import ColonyClientV2 from './clients/Colony/ColonyClientV2';
