@@ -2,6 +2,31 @@
 
 ## NEXT
 
+## v1.14.6
+**Features**
+
+* Support for Burgundy Glider, Colony's version 4 (`@colony/colony-js-client`, `@colony/colony-js-contract-loader-network`)
+
+**Maintenance**
+
+* Removed the redundant `ArchitectureSubdomain` role (`@colony/colony-js-client`)
+
+**Bug Fixes**
+
+* Various bugs related to the rewards payouts flow (`@colony/colony-js-client`)
+
+## v1.14.5
+No release notes
+
+## v1.14.4
+No release notes
+
+## v1.14.3
+No release notes
+
+## v1.14.2
+No release notes
+
 ## v1.14.1
 **Bug fixes**
 
