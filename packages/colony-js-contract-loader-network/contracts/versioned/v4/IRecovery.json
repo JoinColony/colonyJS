@@ -134,10 +134,11 @@
       "type": "function"
     }
   ],
+  "bytecode": "0x",
   "compiler": {
     "name": "solc",
     "version": "0.5.8+commit.23d335f2.Linux.g++"
   },
-  "schemaVersion": "3.0.16",
-  "updatedAt": "2019-11-11T12:29:12.541Z"
+  "schemaVersion": "3.0.23",
+  "updatedAt": "2020-03-31T17:51:49.497Z"
 }

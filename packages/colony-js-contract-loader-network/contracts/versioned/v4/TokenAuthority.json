@@ -67,7 +67,6 @@
     "name": "solc",
     "version": "0.5.8+commit.23d335f2.Linux.g++"
   },
-  "networks": {},
-  "schemaVersion": "3.0.6",
-  "updatedAt": "2019-05-23T10:20:55.922Z"
+  "schemaVersion": "3.0.23",
+  "updatedAt": "2020-03-31T17:52:32.841Z"
 }

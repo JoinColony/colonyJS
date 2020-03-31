@@ -432,6 +432,32 @@
       "constant": false,
       "inputs": [
         {
+          "name": "_permissionDomainId",
+          "type": "uint256"
+        },
+        {
+          "name": "_childSkillIndex",
+          "type": "uint256"
+        },
+        {
+          "name": "_id",
+          "type": "uint256"
+        },
+        {
+          "name": "_newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferExpenditureViaArbitration",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
           "name": "_id",
           "type": "uint256"
         },
@@ -620,6 +646,14 @@
             {
               "name": "blockTimestamp",
               "type": "uint256"
+            },
+            {
+              "name": "amountRemaining",
+              "type": "uint256"
+            },
+            {
+              "name": "finalized",
+              "type": "bool"
             }
           ],
           "name": "rewardPayoutCycle",
@@ -1677,15 +1711,6 @@
       "type": "function"
     },
     {
-      "constant": false,
-      "inputs": [],
-      "name": "finishUpgrade2To3",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
       "constant": true,
       "inputs": [],
       "name": "getPaymentCount",
@@ -1962,32 +1987,6 @@
         }
       ],
       "name": "setTaskBrief",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_permissionDomainId",
-          "type": "uint256"
-        },
-        {
-          "name": "_childSkillIndex",
-          "type": "uint256"
-        },
-        {
-          "name": "_id",
-          "type": "uint256"
-        },
-        {
-          "name": "_newOwner",
-          "type": "address"
-        }
-      ],
-      "name": "transferExpenditure",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
@@ -2756,7 +2755,7 @@
           "type": "uint256"
         },
         {
-          "indexed": true,
+          "indexed": false,
           "name": "token",
           "type": "address"
         },
@@ -2880,10 +2879,11 @@
       "type": "function"
     }
   ],
+  "bytecode": "0x",
   "compiler": {
     "name": "solc",
     "version": "0.5.8+commit.23d335f2.Linux.g++"
   },
-  "schemaVersion": "3.0.16",
-  "updatedAt": "2019-11-11T12:29:12.539Z"
+  "schemaVersion": "3.0.23",
+  "updatedAt": "2020-03-31T17:52:32.832Z"
 }
