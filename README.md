@@ -55,7 +55,7 @@ const { open } = require('@colony/purser-software');
 
 ## colonyStarter
 
-Another helpful tool for learning how to use colonyJS is [colonyStarter](https://github.com/JoinColony/colonyNetwork), which provides boilerplates, examples, and a simple command line tool to make local development easier.
+Another helpful tool for learning how to use colonyJS is [colonyStarter](https://github.com/JoinColony/colonyStarter), which provides boilerplates, examples, and a simple command line tool to make local development easier.
 
 ## Contributing
 
