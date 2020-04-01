@@ -643,7 +643,7 @@
           "type": "uint256"
         },
         {
-          "indexed": true,
+          "indexed": false,
           "name": "token",
           "type": "address"
         },
@@ -743,15 +743,6 @@
         }
       ],
       "name": "upgrade",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [],
-      "name": "finishUpgrade2To3",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
@@ -1226,14 +1217,6 @@
       "constant": false,
       "inputs": [
         {
-          "name": "_permissionDomainId",
-          "type": "uint256"
-        },
-        {
-          "name": "_childSkillIndex",
-          "type": "uint256"
-        },
-        {
           "name": "_id",
           "type": "uint256"
         },
@@ -1252,6 +1235,14 @@
       "constant": false,
       "inputs": [
         {
+          "name": "_permissionDomainId",
+          "type": "uint256"
+        },
+        {
+          "name": "_childSkillIndex",
+          "type": "uint256"
+        },
+        {
           "name": "_id",
           "type": "uint256"
         },
@@ -1260,7 +1251,7 @@
           "type": "address"
         }
       ],
-      "name": "transferExpenditure",
+      "name": "transferExpenditureViaArbitration",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
@@ -2623,6 +2614,14 @@
             {
               "name": "blockTimestamp",
               "type": "uint256"
+            },
+            {
+              "name": "amountRemaining",
+              "type": "uint256"
+            },
+            {
+              "name": "finalized",
+              "type": "bool"
             }
           ],
           "name": "rewardPayoutCycle",
@@ -2810,7 +2809,6 @@
     "name": "solc",
     "version": "0.5.8+commit.23d335f2.Linux.g++"
   },
-  "networks": {},
-  "schemaVersion": "3.0.16",
-  "updatedAt": "2019-11-11T12:29:12.525Z"
+  "schemaVersion": "3.0.23",
+  "updatedAt": "2020-04-01T16:16:52.752Z"
 }

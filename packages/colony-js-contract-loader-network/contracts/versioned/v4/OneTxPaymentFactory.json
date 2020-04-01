@@ -530,7 +530,7 @@
           "type": "uint256"
         },
         {
-          "indexed": true,
+          "indexed": false,
           "name": "token",
           "type": "address"
         },
@@ -651,6 +651,8 @@
     "name": "solc",
     "version": "0.5.8+commit.23d335f2.Linux.g++"
   },
+  "schemaVersion": "3.0.23",
+  "updatedAt": "2020-04-01T16:17:02.421Z",
   "networks": {
     "goerli": {
       "address": "0xe4aaf13b6a3d84d9d025ef1e8aa1873ecb027322"
@@ -661,7 +663,5 @@
     "mainnet": {
       "address": "0x6fb63009e3e03cbf6917647d64ad81939f267067"
     }
-  },
-  "schemaVersion": "3.0.16",
-  "updatedAt": "2019-11-11T12:29:12.653Z"
+  }
 }

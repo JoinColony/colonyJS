@@ -740,6 +740,41 @@
       "constant": false,
       "inputs": [
         {
+          "name": "_tokenAddress",
+          "type": "address"
+        },
+        {
+          "name": "_version",
+          "type": "uint256"
+        },
+        {
+          "name": "_colonyName",
+          "type": "string"
+        },
+        {
+          "name": "_orbitdb",
+          "type": "string"
+        },
+        {
+          "name": "_useExtensionManager",
+          "type": "bool"
+        }
+      ],
+      "name": "createColony",
+      "outputs": [
+        {
+          "name": "colonyAddress",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
           "name": "_version",
           "type": "uint256"
         },
@@ -1212,6 +1247,6 @@
     "name": "solc",
     "version": "0.5.8+commit.23d335f2.Linux.g++"
   },
-  "schemaVersion": "3.0.16",
-  "updatedAt": "2019-11-11T12:29:12.535Z"
+  "schemaVersion": "3.0.23",
+  "updatedAt": "2020-04-01T16:17:37.660Z"
 }
