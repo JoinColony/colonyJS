@@ -13,8 +13,6 @@ const attributes = [
 
 const bytecodeFiles = [
   "EtherRouter",
-  "OneTxPayment",
-  "OneTxPaymentFactory",
   "Token",
   "TokenAuthority"
 ]
