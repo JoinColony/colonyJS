@@ -15,5 +15,15 @@
     "import/no-unresolved": "off",
     "import/prefer-default-export": "off",
     "import/no-extraneous-dependencies": ["error", {"devDependencies": ["scripts/*.ts"]}]
-  }
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/__tests__/*.ts"
+      ],
+      "env": {
+        "jest": true
+      }
+    }
+  ]
 }
