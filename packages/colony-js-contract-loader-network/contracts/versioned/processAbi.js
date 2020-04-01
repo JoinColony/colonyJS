@@ -6,10 +6,22 @@ const path = require("path");
 const attributes = [
   "contractName",
   "abi",
-  "bytecode",
   "compiler",
   "schemaVersion",
   "updatedAt"
+]
+
+const bytecodeFiles = [
+  "EtherRouter",
+  "OneTxPayment",
+  "OneTxPaymentFactory",
+  "Token",
+  "TokenAuthority"
+]
+
+const networksFiles = [
+  "EtherRouter",
+  "OneTxPaymentFactory",
 ]
 
 process.argv.slice(2).forEach(abiPath => {
@@ -20,6 +32,18 @@ process.argv.slice(2).forEach(abiPath => {
 
   attributes.forEach(attribute => {
     newAbi[attribute] = abi[attribute];
+  })
+
+  bytecodeFiles.forEach(bytecodeFile => {
+    if (abiFullPath.indexOf(bytecodeFile) > 0) {
+      newAbi["bytecode"] = abi["bytecode"];
+    }
+  })
+
+  networksFiles.forEach(networkFile => {
+    if (abiFullPath.indexOf(networkFile) > 0) {
+      newAbi["networks"] = "REPLACE ME";
+    }
   })
 
   fs.writeFileSync(abiFullPath, JSON.stringify(newAbi, null, 2));
