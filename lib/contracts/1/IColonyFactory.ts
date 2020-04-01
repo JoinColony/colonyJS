@@ -6,12 +6,18 @@ import { Provider } from "ethers/providers";
 
 import { IColony } from "./IColony";
 
+export class ExtendedIColony extends IColony {
+  addDomainWithProofs(f: string): string {
+    return 'x'
+  }
+}
+
 export class IColonyFactory {
   static connect(
     address: string,
     signerOrProvider: Signer | Provider
-  ): IColony {
-    return new Contract(address, _abi, signerOrProvider) as IColony;
+  ): ExtendedIColony {
+    return new ExtendedIColony(address, _abi, signerOrProvider);
   }
 }
 

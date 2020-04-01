@@ -1,24 +1,20 @@
-import { Contract, Signer } from 'ethers';
+import { Signer } from 'ethers';
 import { Provider } from 'ethers/providers';
 
-import { _abi } from '../../../lib/contracts/1/IColonyFactory';
-import { IColony } from '../../../lib/contracts/1/IColony';
-import { ColonyClient, ColonyVersions } from './ColonyClient';
+import {
+  IColonyFactory,
+  ExtendedIColony,
+} from '../../../lib/contracts/1/IColonyFactory';
 
-class ColonyClientV1<C extends Contract = IColony> implements ColonyClient<C> {
-  readonly address: string;
+const getColonyClient = (
+  address: string,
+  signerOrProvider: Signer | Provider,
+): ExtendedIColony => {
+  const colonyClient = IColonyFactory.connect(address, signerOrProvider);
 
-  contract?: C;
+  colonyClient.addDomainWithProofs('foo');
 
-  version = ColonyVersions.GoerliGlider;
+  return colonyClient;
+};
 
-  constructor(address: string) {
-    this.address = address;
-  }
-
-  connect(signerOrProvider: Signer | Provider): void {
-    this.contract = new Contract(this.address, _abi, signerOrProvider) as C;
-  }
-}
-
-export default ColonyClientV1;
+export default getColonyClient;
