@@ -1,16 +1,17 @@
 import { Signer, ContractTransaction } from 'ethers';
-import { BigNumberish } from 'ethers/utils';
+import { BigNumber, BigNumberish } from 'ethers/utils';
 import { Provider } from 'ethers/providers';
 
 import { IColonyFactory } from '../../../lib/contracts/1/IColonyFactory';
 import { IColony } from '../../../lib/contracts/1/IColony';
 import { TransactionOverrides } from '../../../lib/contracts/1';
+import { ColonyRole } from '../../constants';
 
 type ExtensionRequiredMethods = 'hasUserRole';
 type ExtensionRequiredTransactions = 'addDomain';
 
 interface ExtendedEstimates {
-  addDomain(): string;
+  addDomain(_parentDomainId: BigNumberish): Promise<BigNumber>;
 }
 
 export interface ColonyExtensions {
@@ -29,7 +30,7 @@ type ExtensionRequiredIColony = Pick<IColony, ExtensionRequiredMethods> &
 const getPermissionProofs = (
   contract: ExtensionRequiredIColony,
   domainId: BigNumberish,
-  permission: string,
+  permission: ColonyRole,
 ): [number, number] => {
   // @TODO implement me
   // ALSO
@@ -39,20 +40,6 @@ const getPermissionProofs = (
   return [1, 1];
 };
 
-// const withProofsFactory = (methodName: ExtensionRequiredTransactions) => {
-//   return function<T extends ExtensionRequiredIColony>(
-//     this: T,
-//     ...args: any[]
-//   ) {
-//     const [permissionDomainId, childSkillIndex] = getPermissionProofs(
-//       this,
-//       _parentDomainId,
-//       // @TODO replace with correct role
-//       'ADMIN',
-//     );
-//   };
-// };
-
 function addDomainWithProofs<T extends ExtensionRequiredIColony>(
   this: T,
   _parentDomainId: BigNumberish,
@@ -61,14 +48,29 @@ function addDomainWithProofs<T extends ExtensionRequiredIColony>(
   const [permissionDomainId, childSkillIndex] = getPermissionProofs(
     this,
     _parentDomainId,
-    // @TODO replace with correct role
-    'ADMIN',
+    ColonyRole.Architecture,
   );
   return this.addDomain(
     permissionDomainId,
     childSkillIndex,
     _parentDomainId,
     overrides,
+  );
+}
+
+function estimateAddDomainWithProofs<T extends ExtensionRequiredIColony>(
+  this: T,
+  _parentDomainId: BigNumberish,
+): Promise<BigNumber> {
+  const [permissionDomainId, childSkillIndex] = getPermissionProofs(
+    this,
+    _parentDomainId,
+    ColonyRole.Architecture,
+  );
+  return this.estimate.addDomain(
+    permissionDomainId,
+    childSkillIndex,
+    _parentDomainId,
   );
 }
 
@@ -80,7 +82,7 @@ export const addExtensions = <
   /* eslint-disable no-param-reassign */
   instance.addDomainWithProofs = addDomainWithProofs.bind(instance);
   instance.estimateWithProofs = {
-    addDomain: (): string => 'x',
+    addDomain: estimateAddDomainWithProofs,
   };
   /* eslint-enable no-param-reassign */
 };
