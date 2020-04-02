@@ -15,7 +15,7 @@ export class IColonyFactory {
   }
 }
 
-export const _abi = [
+const _abi = [
   {
     constant: false,
     inputs: [],

@@ -7,6 +7,7 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
+    "strictBindCallApply": true,
     "target": "es6",
     "types": ["node", "jest"]
   },
