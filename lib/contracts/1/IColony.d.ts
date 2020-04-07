@@ -642,7 +642,7 @@ interface IColonyInterface extends Interface {
   };
 }
 
-export abstract class IColony extends Contract {
+export class IColony extends Contract {
   connect(signerOrProvider: Signer | Provider | string): IColony;
   attach(addressOrName: string): IColony;
   deployed(): Promise<IColony>;

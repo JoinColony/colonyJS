@@ -2,25 +2,28 @@ import { Signer } from 'ethers';
 import { Provider } from 'ethers/providers';
 
 import { IColonyFactory } from '../../../lib/contracts/2/IColonyFactory';
-
 import { IColony } from '../../../lib/contracts/2/IColony';
+import { ColonyVersions } from '../../../versions';
+import { ExtendedIColonyNetwork } from '../ColonyNetworkClient';
 
 import { addExtensions, ColonyExtensions } from './ColonyClientV1';
 
-interface ExtendedIColony extends IColony, ColonyExtensions {}
+export interface ExtendedIColonyV2 extends IColony, ColonyExtensions {
+  clientVersion: ColonyVersions.Glider;
+}
 
-const getColonyClient = (
+export default function getColonyClient(
+  this: ExtendedIColonyNetwork,
   address: string,
   signerOrProvider: Signer | Provider,
-): ExtendedIColony => {
+): ExtendedIColonyV2 {
   const colonyClient = IColonyFactory.connect(
     address,
     signerOrProvider,
-  ) as ExtendedIColony;
+  ) as ExtendedIColonyV2;
 
-  addExtensions(colonyClient);
+  colonyClient.clientVersion = ColonyVersions.Glider;
+  addExtensions(colonyClient, this);
 
-  return colonyClient as ExtendedIColony;
-};
-
-export default getColonyClient;
+  return colonyClient as ExtendedIColonyV2;
+}

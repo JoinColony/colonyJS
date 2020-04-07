@@ -5,7 +5,7 @@ import { options } from 'yargs';
 import * as execute from 'execa';
 import * as rimraf from 'rimraf';
 
-import { ColonyVersions, CurrentVersion } from '../versions';
+import { ColonyVersions } from '../versions';
 import { releaseMap } from './config';
 
 const rimrafPromise = promisify(rimraf);
@@ -46,17 +46,12 @@ const buildContracts = async (): Promise<void> => {
   if (truffle.stdout) truffle.stdout.pipe(process.stdout);
   await truffle;
 
-  const glob =
-    version === CurrentVersion
-      ? `${buildDir}/I*.json`
-      : `${buildDir}/IColony.json`;
-
   const typechain = execute('typechain', [
     '--target',
     'ethers',
     '--outDir',
     outDir,
-    glob,
+    `${buildDir}/I*.json`,
   ]);
   if (typechain.stdout) typechain.stdout.pipe(process.stdout);
   await typechain;

@@ -1,13 +1,16 @@
 import { Signer, ContractTransaction } from 'ethers';
 import { BigNumber, BigNumberish } from 'ethers/utils';
 import { Provider } from 'ethers/providers';
+import { MaxUint256 } from 'ethers/constants';
 
 import { IColonyFactory } from '../../../lib/contracts/1/IColonyFactory';
 import { IColony } from '../../../lib/contracts/1/IColony';
 import { TransactionOverrides } from '../../../lib/contracts/1';
-import { ColonyRole } from '../../constants';
+import { ColonyVersions } from '../../../versions';
+import { ColonyRole, ROOT_DOMAIN_ID } from '../../constants';
+import { ExtendedIColonyNetwork } from '../ColonyNetworkClient';
 
-type ExtensionRequiredMethods = 'hasUserRole';
+type ExtensionRequiredMethods = 'getDomain' | 'hasUserRole';
 type ExtensionRequiredTransactions = 'addDomain';
 
 interface ExtendedEstimates {
@@ -15,6 +18,7 @@ interface ExtendedEstimates {
 }
 
 export interface ColonyExtensions {
+  networkClient: ExtendedIColonyNetwork;
   addDomainWithProofs(
     _parentDomainId: BigNumberish,
     overrides?: TransactionOverrides,
@@ -22,30 +26,57 @@ export interface ColonyExtensions {
   estimateWithProofs: ExtendedEstimates;
 }
 
-type ExtensionRequiredIColony = Pick<IColony, ExtensionRequiredMethods> &
+type ExtensionRequiredIColony = Pick<ColonyExtensions, 'networkClient'> &
+  Pick<IColony, 'signer'> &
+  Pick<IColony, ExtensionRequiredMethods> &
   Pick<IColony, ExtensionRequiredTransactions> & {
     estimate: Pick<IColony['estimate'], ExtensionRequiredTransactions>;
   };
 
-const getPermissionProofs = (
+const getPermissionProofs = async (
   contract: ExtensionRequiredIColony,
   domainId: BigNumberish,
-  permission: ColonyRole,
-): [number, number] => {
-  // @TODO implement me
-  // ALSO
-  // (basically, if permissionDomaindID === childDomainId, set childSkillIndex to UINT256_MAX)
-  // contract.hasUserRole();
-  console.info(domainId, permission);
-  return [1, 1];
+  role: ColonyRole,
+): Promise<[BigNumberish, BigNumberish]> => {
+  const walletAddress = await contract.signer.getAddress();
+  const hasPermissionInDomain = await contract.hasUserRole(
+    walletAddress,
+    domainId,
+    role,
+  );
+  if (hasPermissionInDomain) {
+    return [domainId, MaxUint256];
+  }
+  // @TODO once we allow nested domains on the network level, this needs to traverse down the skill/domain tree. Use binary search
+  const foundDomainId = ROOT_DOMAIN_ID;
+  const hasPermissionInAParentDomain = await contract.hasUserRole(
+    walletAddress,
+    foundDomainId,
+    role,
+  );
+  if (!hasPermissionInAParentDomain) {
+    throw new Error(
+      `User does not have the permission ${role} in any parent domain`,
+    );
+  }
+  const { skillId: parentSkillId } = await contract.getDomain(foundDomainId);
+  const { skillId } = await contract.getDomain(domainId);
+  const { children } = await contract.networkClient.getSkill(parentSkillId);
+  const idx = children.findIndex(childSkillId => childSkillId.eq(skillId));
+  if (idx < 0) {
+    throw new Error(
+      `User does not have the permission ${role} in any parent domain`,
+    );
+  }
+  return [foundDomainId, idx];
 };
 
-function addDomainWithProofs<T extends ExtensionRequiredIColony>(
+async function addDomainWithProofs<T extends ExtensionRequiredIColony>(
   this: T,
   _parentDomainId: BigNumberish,
   overrides?: TransactionOverrides,
 ): Promise<ContractTransaction> {
-  const [permissionDomainId, childSkillIndex] = getPermissionProofs(
+  const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this,
     _parentDomainId,
     ColonyRole.Architecture,
@@ -58,11 +89,11 @@ function addDomainWithProofs<T extends ExtensionRequiredIColony>(
   );
 }
 
-function estimateAddDomainWithProofs<T extends ExtensionRequiredIColony>(
+async function estimateAddDomainWithProofs<T extends ExtensionRequiredIColony>(
   this: T,
   _parentDomainId: BigNumberish,
 ): Promise<BigNumber> {
-  const [permissionDomainId, childSkillIndex] = getPermissionProofs(
+  const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this,
     _parentDomainId,
     ColonyRole.Architecture,
@@ -78,8 +109,10 @@ export const addExtensions = <
   T extends ColonyExtensions & ExtensionRequiredIColony
 >(
   instance: T,
+  networkClient: ExtendedIColonyNetwork,
 ): void => {
   /* eslint-disable no-param-reassign */
+  instance.networkClient = networkClient;
   instance.addDomainWithProofs = addDomainWithProofs.bind(instance);
   instance.estimateWithProofs = {
     addDomain: estimateAddDomainWithProofs,
@@ -87,20 +120,22 @@ export const addExtensions = <
   /* eslint-enable no-param-reassign */
 };
 
-interface ExtendedIColony extends IColony, ColonyExtensions {}
+export interface ExtendedIColonyV1 extends IColony, ColonyExtensions {
+  clientVersion: ColonyVersions.GoerliGlider;
+}
 
-const getColonyClient = (
+export default function getColonyClient(
+  this: ExtendedIColonyNetwork,
   address: string,
   signerOrProvider: Signer | Provider,
-): ExtendedIColony => {
+): ExtendedIColonyV1 {
   const colonyClient = IColonyFactory.connect(
     address,
     signerOrProvider,
-  ) as ExtendedIColony;
+  ) as ExtendedIColonyV1;
 
-  addExtensions(colonyClient);
+  colonyClient.clientVersion = ColonyVersions.GoerliGlider;
+  addExtensions(colonyClient, this);
 
-  return colonyClient as ExtendedIColony;
-};
-
-export default getColonyClient;
+  return colonyClient as ExtendedIColonyV1;
+}
