@@ -33,10 +33,11 @@ type ExtensionRequiredIColony = Pick<ColonyExtensions, 'networkClient'> &
     estimate: Pick<IColony['estimate'], ExtensionRequiredTransactions>;
   };
 
-const getPermissionProofs = async (
+export const getPermissionProofs = async (
   contract: ExtensionRequiredIColony,
   domainId: BigNumberish,
   role: ColonyRole,
+  /* [permissionDomainId, childSkillIndex] */
 ): Promise<[BigNumberish, BigNumberish]> => {
   const walletAddress = await contract.signer.getAddress();
   const hasPermissionInDomain = await contract.hasUserRole(
