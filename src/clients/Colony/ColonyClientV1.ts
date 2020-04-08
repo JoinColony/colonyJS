@@ -6,7 +6,7 @@ import { MaxUint256 } from 'ethers/constants';
 import { IColonyFactory } from '../../../lib/contracts/1/IColonyFactory';
 import { IColony } from '../../../lib/contracts/1/IColony';
 import { TransactionOverrides } from '../../../lib/contracts/1';
-import { ColonyVersions } from '../../../versions';
+import { ColonyVersion } from '../../../versions';
 import { ColonyRole, ROOT_DOMAIN_ID } from '../../constants';
 import { ExtendedIColonyNetwork } from '../ColonyNetworkClient';
 
@@ -121,7 +121,7 @@ export const addExtensions = <
 };
 
 export interface ExtendedIColonyV1 extends IColony, ColonyExtensions {
-  clientVersion: ColonyVersions.GoerliGlider;
+  clientVersion: ColonyVersion.GoerliGlider;
 }
 
 export default function getColonyClient(
@@ -134,7 +134,7 @@ export default function getColonyClient(
     signerOrProvider,
   ) as ExtendedIColonyV1;
 
-  colonyClient.clientVersion = ColonyVersions.GoerliGlider;
+  colonyClient.clientVersion = ColonyVersion.GoerliGlider;
   addExtensions(colonyClient, this);
 
   return colonyClient as ExtendedIColonyV1;

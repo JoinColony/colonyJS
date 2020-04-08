@@ -9,7 +9,7 @@ import getColonyVersionClient from './Colony/ColonyVersionClient';
 import getColonyClientV1, { ExtendedIColonyV1 } from './Colony/ColonyClientV1';
 import getColonyClientV2, { ExtendedIColonyV2 } from './Colony/ColonyClientV2';
 
-import { ColonyVersions } from '../../versions';
+import { ColonyVersion } from '../../versions';
 import { colonyNetworkAddresses, Network } from '../constants';
 
 type AnyColonyClient = ExtendedIColonyV1 | ExtendedIColonyV2;
@@ -55,16 +55,16 @@ const getColonyNetworkClient = (
     // This is not typed and super hacky, but I have no better idea ¯\_(ツ)_/¯
     // We have to get the version somehow before instantiating the right contract version
     const versionBN = await colonyVersionClient.version();
-    const version = versionBN.toNumber() as ColonyVersions;
+    const version = versionBN.toNumber() as ColonyVersion;
     switch (version) {
-      case ColonyVersions.GoerliGlider: {
+      case ColonyVersion.GoerliGlider: {
         return getColonyClientV1.call(
           networkClient,
           colonyAddress,
           providerOrSigner,
         );
       }
-      case ColonyVersions.Glider: {
+      case ColonyVersion.Glider: {
         return getColonyClientV2.call(
           networkClient,
           colonyAddress,
