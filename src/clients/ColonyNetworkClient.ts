@@ -15,10 +15,7 @@ import { colonyNetworkAddresses, Network } from '../constants';
 type AnyColonyClient = ExtendedIColonyV1 | ExtendedIColonyV2;
 
 export interface ExtendedIColonyNetwork extends IColonyNetwork {
-  getColonyClient(
-    addressOrId: string | number,
-    signerOrProvider: Signer | Provider,
-  ): Promise<AnyColonyClient>;
+  getColonyClient(addressOrId: string | number): Promise<AnyColonyClient>;
 }
 
 const getColonyNetworkClient = (
@@ -40,7 +37,6 @@ const getColonyNetworkClient = (
 
   networkClient.getColonyClient = async (
     addressOrId: string | number,
-    providerOrSigner: Provider | Signer,
   ): Promise<AnyColonyClient> => {
     let colonyAddress: string;
     if (typeof addressOrId == 'number') {
@@ -61,14 +57,14 @@ const getColonyNetworkClient = (
         return getColonyClientV1.call(
           networkClient,
           colonyAddress,
-          providerOrSigner,
+          signerOrProvider,
         );
       }
       case ColonyVersion.Glider: {
         return getColonyClientV2.call(
           networkClient,
           colonyAddress,
-          providerOrSigner,
+          signerOrProvider,
         );
       }
       default: {
