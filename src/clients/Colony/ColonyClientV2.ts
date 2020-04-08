@@ -5,8 +5,7 @@ import { IColonyFactory } from '../../../lib/contracts/2/IColonyFactory';
 import { IColony } from '../../../lib/contracts/2/IColony';
 import { ColonyVersion } from '../../../versions';
 import { ExtendedIColonyNetwork } from '../ColonyNetworkClient';
-
-import { addExtensions, ColonyExtensions } from './ColonyClientV1';
+import { addExtensions, ColonyExtensions } from './extensions';
 
 export interface ExtendedIColonyV2 extends IColony, ColonyExtensions {
   clientVersion: ColonyVersion.Glider;
