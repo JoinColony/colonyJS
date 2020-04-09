@@ -1,11 +1,11 @@
 import { Signer } from 'ethers';
 import { Provider } from 'ethers/providers';
 
-import { IColonyFactory } from '../../../lib/contracts/1/IColonyFactory';
-import { IColony } from '../../../lib/contracts/1/IColony';
+import { IColonyFactory } from '../../../lib/contracts/3/IColonyFactory';
+import { IColony } from '../../../lib/contracts/3/IColony';
 import { ColonyVersion } from '../../../versions';
 import { ExtendedIColonyNetwork } from '../ColonyNetworkClient';
-import { ColonyExtensions, addExtensions } from './extensions';
+import { addExtensions, ColonyExtensionsV3 } from './extensionsV3';
 import {
   SetPaymentDomainExtensions,
   SetPaymentDomainEstimate,
@@ -13,12 +13,12 @@ import {
   estimateSetPaymentDomainWithProofs,
 } from './SetPaymentDomain';
 
-export interface ExtendedIColonyV1
+export interface ExtendedIColonyV3
   extends IColony,
-    ColonyExtensions,
+    ColonyExtensionsV3,
     SetPaymentDomainExtensions {
-  clientVersion: ColonyVersion.GoerliGlider;
-  estimateWithProofs: ColonyExtensions['estimateWithProofs'] &
+  clientVersion: ColonyVersion.AuburnGlider;
+  estimateWithProofs: ColonyExtensionsV3['estimateWithProofs'] &
     SetPaymentDomainEstimate;
 }
 
@@ -26,13 +26,13 @@ export default function getColonyClient(
   this: ExtendedIColonyNetwork,
   address: string,
   signerOrProvider: Signer | Provider,
-): ExtendedIColonyV1 {
+): ExtendedIColonyV3 {
   const colonyClient = IColonyFactory.connect(
     address,
     signerOrProvider,
-  ) as ExtendedIColonyV1;
+  ) as ExtendedIColonyV3;
 
-  colonyClient.clientVersion = ColonyVersion.GoerliGlider;
+  colonyClient.clientVersion = ColonyVersion.AuburnGlider;
   addExtensions(colonyClient, this);
 
   /* eslint-disable max-len */
@@ -44,5 +44,5 @@ export default function getColonyClient(
   );
   /* eslint-enable max-len */
 
-  return colonyClient as ExtendedIColonyV1;
+  return colonyClient as ExtendedIColonyV3;
 }
