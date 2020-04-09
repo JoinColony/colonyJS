@@ -7,6 +7,8 @@ import { ContractTransaction } from 'ethers';
 import { Arrayish, BigNumber, BigNumberish } from 'ethers/utils';
 import { MaxUint256 } from 'ethers/constants';
 
+// We're using v1 here as a base, but in fact in could be any interface that satisfies the requirements
+// (structural typing)
 import { IColony } from '../../../lib/contracts/1/IColony';
 import { TransactionOverrides } from '../../../lib/contracts/1';
 import {
@@ -16,13 +18,14 @@ import {
 } from '../../constants';
 import { ExtendedIColonyNetwork } from '../ColonyNetworkClient';
 
-type ExtensionRequiredMethods =
+export type CommonExtensionRequiredMethods =
   | 'getDomain'
   | 'getFundingPot'
   | 'getTask'
   | 'getPayment'
   | 'hasUserRole';
-type ExtensionRequiredTransactions =
+
+export type CommonExtensionRequiredTransactions =
   | 'setArchitectureRole'
   | 'setFundingRole'
   | 'setAdministrationRole'
@@ -30,13 +33,12 @@ type ExtensionRequiredTransactions =
   | 'addPayment'
   | 'finalizePayment'
   | 'setPaymentRecipient'
-  | 'setPaymentDomain'
   | 'setPaymentSkill'
   | 'setPaymentPayout'
   | 'makeTask'
   | 'moveFundsBetweenPots';
 
-interface ExtendedEstimates {
+export interface ExtendedEstimate {
   setArchitectureRole(
     _user: string,
     _domainId: BigNumberish,
@@ -67,10 +69,6 @@ interface ExtendedEstimates {
   setPaymentRecipient(
     _id: BigNumberish,
     _recipient: string,
-  ): Promise<BigNumber>;
-  setPaymentDomain(
-    _id: BigNumberish,
-    _domainId: BigNumberish,
   ): Promise<BigNumber>;
   setPaymentSkill(
     _id: BigNumberish,
@@ -136,11 +134,6 @@ export interface ColonyExtensions {
     _recipient: string,
     overrides?: TransactionOverrides,
   ): Promise<ContractTransaction>;
-  setPaymentDomainWithProofs(
-    _id: BigNumberish,
-    _domainId: BigNumberish,
-    overrides?: TransactionOverrides,
-  ): Promise<ContractTransaction>;
   setPaymentSkillWithProofs(
     _id: BigNumberish,
     _skillId: BigNumberish,
@@ -166,18 +159,21 @@ export interface ColonyExtensions {
     _token: string,
     overrides?: TransactionOverrides,
   ): Promise<ContractTransaction>;
-  estimateWithProofs: ExtendedEstimates;
+  estimateWithProofs: ExtendedEstimate;
 }
 
-type ExtensionRequiredIColony = Pick<ColonyExtensions, 'networkClient'> &
+// For all of our permission proof extensions, we need at least this interface
+export type ExtendableIColony = Pick<ColonyExtensions, 'networkClient'> &
   Pick<IColony, 'signer'> &
-  Pick<IColony, ExtensionRequiredMethods> &
-  Pick<IColony, ExtensionRequiredTransactions> & {
-    estimate: Pick<IColony['estimate'], ExtensionRequiredTransactions>;
+  Pick<IColony, CommonExtensionRequiredMethods>;
+
+export type CommonExtensionRequiredIColony = ExtendableIColony &
+  Pick<IColony, CommonExtensionRequiredTransactions> & {
+    estimate: Pick<IColony['estimate'], CommonExtensionRequiredTransactions>;
   };
 
 export const getPotDomain = async (
-  contract: ExtensionRequiredIColony,
+  contract: ExtendableIColony,
   potId: BigNumberish,
 ): Promise<BigNumberish> => {
   const { associatedType, associatedTypeId } = await contract.getFundingPot(
@@ -206,7 +202,7 @@ export const getPotDomain = async (
 };
 
 export const getChildIndex = async (
-  contract: ExtensionRequiredIColony,
+  contract: ExtendableIColony,
   parentDomainId: BigNumberish,
   domainId: BigNumberish,
 ): Promise<number> => {
@@ -217,7 +213,7 @@ export const getChildIndex = async (
 };
 
 export const getPermissionProofs = async (
-  contract: ExtensionRequiredIColony,
+  contract: ExtendableIColony,
   domainId: BigNumberish,
   role: ColonyRole,
   /* [permissionDomainId, childSkillIndex] */
@@ -253,7 +249,7 @@ export const getPermissionProofs = async (
 };
 
 const getMoveFundsPermissionProofs = async (
-  contract: ExtensionRequiredIColony,
+  contract: CommonExtensionRequiredIColony,
   fromtPotId: BigNumberish,
   toPotId: BigNumberish,
 ): Promise<[BigNumberish, BigNumberish, BigNumberish]> => {
@@ -315,7 +311,7 @@ const getMoveFundsPermissionProofs = async (
 };
 
 async function setArchitectureRoleWithProofs<
-  T extends ExtensionRequiredIColony
+  T extends CommonExtensionRequiredIColony
 >(
   this: T,
   _user: string,
@@ -345,7 +341,9 @@ async function setArchitectureRoleWithProofs<
   );
 }
 
-async function setFundingRoleWithProofs<T extends ExtensionRequiredIColony>(
+async function setFundingRoleWithProofs<
+  T extends CommonExtensionRequiredIColony
+>(
   this: T,
   _user: string,
   _domainId: BigNumberish,
@@ -375,7 +373,7 @@ async function setFundingRoleWithProofs<T extends ExtensionRequiredIColony>(
 }
 
 async function setAdministrationRoleWithProofs<
-  T extends ExtensionRequiredIColony
+  T extends CommonExtensionRequiredIColony
 >(
   this: T,
   _user: string,
@@ -405,7 +403,7 @@ async function setAdministrationRoleWithProofs<
   );
 }
 
-async function addDomainWithProofs<T extends ExtensionRequiredIColony>(
+async function addDomainWithProofs<T extends CommonExtensionRequiredIColony>(
   this: T,
   _parentDomainId: BigNumberish,
   overrides?: TransactionOverrides,
@@ -423,7 +421,7 @@ async function addDomainWithProofs<T extends ExtensionRequiredIColony>(
   );
 }
 
-async function addPaymentWithProofs<T extends ExtensionRequiredIColony>(
+async function addPaymentWithProofs<T extends CommonExtensionRequiredIColony>(
   this: T,
   _recipient: string,
   _token: string,
@@ -449,7 +447,9 @@ async function addPaymentWithProofs<T extends ExtensionRequiredIColony>(
   );
 }
 
-async function finalizePaymentWithProofs<T extends ExtensionRequiredIColony>(
+async function finalizePaymentWithProofs<
+  T extends CommonExtensionRequiredIColony
+>(
   this: T,
   _id: BigNumberish,
   overrides?: TransactionOverrides,
@@ -469,7 +469,7 @@ async function finalizePaymentWithProofs<T extends ExtensionRequiredIColony>(
 }
 
 async function setPaymentRecipientWithProofs<
-  T extends ExtensionRequiredIColony
+  T extends CommonExtensionRequiredIColony
 >(
   this: T,
   _id: BigNumberish,
@@ -491,28 +491,9 @@ async function setPaymentRecipientWithProofs<
   );
 }
 
-async function setPaymentDomainWithProofs<T extends ExtensionRequiredIColony>(
-  this: T,
-  _id: BigNumberish,
-  _domainId: string,
-  overrides?: TransactionOverrides,
-): Promise<ContractTransaction> {
-  const { domainId } = await this.getPayment(_id);
-  const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
-    this,
-    domainId,
-    ColonyRole.Administration,
-  );
-  return this.setPaymentDomain(
-    permissionDomainId,
-    childSkillIndex,
-    _id,
-    _domainId,
-    overrides,
-  );
-}
-
-async function setPaymentSkillWithProofs<T extends ExtensionRequiredIColony>(
+async function setPaymentSkillWithProofs<
+  T extends CommonExtensionRequiredIColony
+>(
   this: T,
   _id: BigNumberish,
   _skillId: string,
@@ -533,7 +514,9 @@ async function setPaymentSkillWithProofs<T extends ExtensionRequiredIColony>(
   );
 }
 
-async function setPaymentPayoutWithProofs<T extends ExtensionRequiredIColony>(
+async function setPaymentPayoutWithProofs<
+  T extends CommonExtensionRequiredIColony
+>(
   this: T,
   _id: BigNumberish,
   _token: string,
@@ -556,7 +539,7 @@ async function setPaymentPayoutWithProofs<T extends ExtensionRequiredIColony>(
   );
 }
 
-async function makeTaskWithProofs<T extends ExtensionRequiredIColony>(
+async function makeTaskWithProofs<T extends CommonExtensionRequiredIColony>(
   this: T,
   _specificationHash: Arrayish,
   _domainId: BigNumberish,
@@ -581,7 +564,7 @@ async function makeTaskWithProofs<T extends ExtensionRequiredIColony>(
 }
 
 async function moveFundsBetweenPotsWithProofs<
-  T extends ExtensionRequiredIColony
+  T extends CommonExtensionRequiredIColony
 >(
   this: T,
   _fromPot: BigNumberish,
@@ -609,7 +592,7 @@ async function moveFundsBetweenPotsWithProofs<
 }
 
 async function estimateSetArchitectureRoleWithProofs<
-  T extends ExtensionRequiredIColony
+  T extends CommonExtensionRequiredIColony
 >(
   this: T,
   _user: string,
@@ -631,7 +614,7 @@ async function estimateSetArchitectureRoleWithProofs<
 }
 
 async function estimateSetFundingRoleWithProofs<
-  T extends ExtensionRequiredIColony
+  T extends CommonExtensionRequiredIColony
 >(
   this: T,
   _user: string,
@@ -653,7 +636,7 @@ async function estimateSetFundingRoleWithProofs<
 }
 
 async function estimateSetAdministrationRoleWithProofs<
-  T extends ExtensionRequiredIColony
+  T extends CommonExtensionRequiredIColony
 >(
   this: T,
   _user: string,
@@ -674,10 +657,9 @@ async function estimateSetAdministrationRoleWithProofs<
   );
 }
 
-async function estimateAddDomainWithProofs<T extends ExtensionRequiredIColony>(
-  this: T,
-  _parentDomainId: BigNumberish,
-): Promise<BigNumber> {
+async function estimateAddDomainWithProofs<
+  T extends CommonExtensionRequiredIColony
+>(this: T, _parentDomainId: BigNumberish): Promise<BigNumber> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this,
     _parentDomainId,
@@ -690,7 +672,9 @@ async function estimateAddDomainWithProofs<T extends ExtensionRequiredIColony>(
   );
 }
 
-async function estimateAddPaymentWithProofs<T extends ExtensionRequiredIColony>(
+async function estimateAddPaymentWithProofs<
+  T extends CommonExtensionRequiredIColony
+>(
   this: T,
   _recipient: string,
   _token: string,
@@ -715,7 +699,7 @@ async function estimateAddPaymentWithProofs<T extends ExtensionRequiredIColony>(
 }
 
 async function estimateFinalizePaymentWithProofs<
-  T extends ExtensionRequiredIColony
+  T extends CommonExtensionRequiredIColony
 >(this: T, _id: BigNumberish): Promise<BigNumber> {
   const { domainId } = await this.getPayment(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
@@ -731,7 +715,7 @@ async function estimateFinalizePaymentWithProofs<
 }
 
 async function estimateSetPaymentRecipientWithProofs<
-  T extends ExtensionRequiredIColony
+  T extends CommonExtensionRequiredIColony
 >(this: T, _id: BigNumberish, _recipient: string): Promise<BigNumber> {
   const { domainId } = await this.getPayment(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
@@ -747,25 +731,8 @@ async function estimateSetPaymentRecipientWithProofs<
   );
 }
 
-async function estimateSetPaymentDomainWithProofs<
-  T extends ExtensionRequiredIColony
->(this: T, _id: BigNumberish, _domainId: BigNumberish): Promise<BigNumber> {
-  const { domainId } = await this.getPayment(_id);
-  const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
-    this,
-    domainId,
-    ColonyRole.Administration,
-  );
-  return this.estimate.setPaymentDomain(
-    permissionDomainId,
-    childSkillIndex,
-    _id,
-    _domainId,
-  );
-}
-
 async function estimateSetPaymentSkillWithProofs<
-  T extends ExtensionRequiredIColony
+  T extends CommonExtensionRequiredIColony
 >(this: T, _id: BigNumberish, _skillId: BigNumberish): Promise<BigNumber> {
   const { domainId } = await this.getPayment(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
@@ -773,7 +740,7 @@ async function estimateSetPaymentSkillWithProofs<
     domainId,
     ColonyRole.Administration,
   );
-  return this.estimate.setPaymentDomain(
+  return this.estimate.setPaymentSkill(
     permissionDomainId,
     childSkillIndex,
     _id,
@@ -782,7 +749,7 @@ async function estimateSetPaymentSkillWithProofs<
 }
 
 async function estimateSetPaymentPayoutWithProofs<
-  T extends ExtensionRequiredIColony
+  T extends CommonExtensionRequiredIColony
 >(
   this: T,
   _id: BigNumberish,
@@ -804,7 +771,9 @@ async function estimateSetPaymentPayoutWithProofs<
   );
 }
 
-async function estimateMakeTaskWithProofs<T extends ExtensionRequiredIColony>(
+async function estimateMakeTaskWithProofs<
+  T extends CommonExtensionRequiredIColony
+>(
   this: T,
   _specificationHash: Arrayish,
   _domainId: BigNumberish,
@@ -827,7 +796,7 @@ async function estimateMakeTaskWithProofs<T extends ExtensionRequiredIColony>(
 }
 
 async function estimateMoveFundsBetweenPotsWithProofs<
-  T extends ExtensionRequiredIColony
+  T extends CommonExtensionRequiredIColony
 >(
   this: T,
   _fromPot: BigNumberish,
@@ -853,7 +822,7 @@ async function estimateMoveFundsBetweenPotsWithProofs<
 }
 
 export const addExtensions = <
-  T extends ColonyExtensions & ExtensionRequiredIColony
+  T extends ColonyExtensions & CommonExtensionRequiredIColony
 >(
   instance: T,
   networkClient: ExtendedIColonyNetwork,
@@ -871,9 +840,6 @@ export const addExtensions = <
   instance.addPaymentWithProofs = addPaymentWithProofs.bind(instance);
   instance.finalizePaymentWithProofs = finalizePaymentWithProofs.bind(instance);
   instance.setPaymentRecipientWithProofs = setPaymentRecipientWithProofs.bind(
-    instance,
-  );
-  instance.setPaymentDomainWithProofs = setPaymentDomainWithProofs.bind(
     instance,
   );
   instance.setPaymentSkillWithProofs = setPaymentSkillWithProofs.bind(instance);
@@ -895,7 +861,6 @@ export const addExtensions = <
     addPayment: estimateAddPaymentWithProofs.bind(instance),
     finalizePayment: estimateFinalizePaymentWithProofs.bind(instance),
     setPaymentRecipient: estimateSetPaymentRecipientWithProofs.bind(instance),
-    setPaymentDomain: estimateSetPaymentDomainWithProofs.bind(instance),
     setPaymentSkill: estimateSetPaymentSkillWithProofs.bind(instance),
     setPaymentPayout: estimateSetPaymentPayoutWithProofs.bind(instance),
     makeTask: estimateMakeTaskWithProofs.bind(instance),
