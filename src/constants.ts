@@ -22,3 +22,11 @@ export const colonyNetworkAddresses = {
 };
 
 export const ROOT_DOMAIN_ID = 1;
+
+export enum FundingPotAssociatedType {
+  Unassigned, // 0
+  Domain, // 1
+  Task, // 2
+  Payment, // 3
+  Expenditure, // 4
+}
