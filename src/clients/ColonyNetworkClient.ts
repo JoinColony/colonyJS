@@ -48,7 +48,7 @@ const getColonyNetworkClient = (
       colonyAddress,
       signerOrProvider,
     );
-    // This is not typed and super hacky, but I have no better idea ¯\_(ツ)_/¯
+    // This is *kinda* hacky, but I have no better idea ¯\_(ツ)_/¯
     // We have to get the version somehow before instantiating the right contract version
     const versionBN = await colonyVersionClient.version();
     const version = versionBN.toNumber() as ColonyVersion;
