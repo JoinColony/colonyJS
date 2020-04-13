@@ -1,10 +1,10 @@
 import { BigNumber, BigNumberish } from 'ethers/utils';
 import { ContractTransaction } from 'ethers';
 
-import { TransactionOverrides } from '../../../lib/contracts/1';
-import { IColony } from '../../../lib/contracts/1/IColony';
-import { ColonyRole } from '../../constants';
-import { ExtendableIColony, getPermissionProofs } from './extensions';
+import { TransactionOverrides } from '../../../../lib/contracts/1';
+import { IColony } from '../../../../lib/contracts/1/IColony';
+import { ColonyRole } from '../../../constants';
+import { ExtendableIColony, getPermissionProofs } from './commonExtensions';
 
 type ExtensionRequiredTransactions = 'setPaymentDomain';
 

@@ -5,10 +5,11 @@ import { IColonyFactory } from '../../../lib/contracts/4/IColonyFactory';
 import { IColony } from '../../../lib/contracts/4/IColony';
 import { ColonyVersion } from '../../../versions';
 import { ExtendedIColonyNetwork } from '../ColonyNetworkClient';
-import { addExtensions, ColonyExtensionsV4 } from './extensionsV4';
+import { addExtensions, ColonyExtensionsV4 } from './extensions/extensionsV4';
 
 export interface ExtendedIColonyV4 extends IColony, ColonyExtensionsV4 {
   clientVersion: ColonyVersion.BurgundyGlider;
+  estimateWithProofs: ColonyExtensionsV4['estimateWithProofs'];
 }
 
 export default function getColonyClient(

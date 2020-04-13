@@ -5,13 +5,13 @@ import { IColonyFactory } from '../../../lib/contracts/3/IColonyFactory';
 import { IColony } from '../../../lib/contracts/3/IColony';
 import { ColonyVersion } from '../../../versions';
 import { ExtendedIColonyNetwork } from '../ColonyNetworkClient';
-import { addExtensions, ColonyExtensionsV3 } from './extensionsV3';
+import { addExtensions, ColonyExtensionsV3 } from './extensions/extensionsV3';
 import {
   SetPaymentDomainExtensions,
   SetPaymentDomainEstimate,
   setPaymentDomainWithProofs,
   estimateSetPaymentDomainWithProofs,
-} from './SetPaymentDomain';
+} from './extensions/SetPaymentDomain';
 
 export interface ExtendedIColonyV3
   extends IColony,
