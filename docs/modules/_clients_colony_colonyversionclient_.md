@@ -37,7 +37,7 @@
   },
 ]
 
-*Defined in [src/clients/Colony/ColonyVersionClient.ts:11](https://github.com/JoinColony/colonyJS/blob/8037c41/src/clients/Colony/ColonyVersionClient.ts#L11)*
+*Defined in [src/clients/Colony/ColonyVersionClient.ts:11](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/ColonyVersionClient.ts#L11)*
 
 ## Functions
 
@@ -45,7 +45,7 @@
 
 ▸ **getColonyVersionClient**(`address`: string, `signerOrProvider`: Signer | Provider): *[ColonyVersionClient](../interfaces/_clients_colony_colonyversionclient_.colonyversionclient.md)*
 
-*Defined in [src/clients/Colony/ColonyVersionClient.ts:28](https://github.com/JoinColony/colonyJS/blob/8037c41/src/clients/Colony/ColonyVersionClient.ts#L28)*
+*Defined in [src/clients/Colony/ColonyVersionClient.ts:28](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/ColonyVersionClient.ts#L28)*
 
 **Parameters:**
 
