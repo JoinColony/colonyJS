@@ -8,11 +8,17 @@ import { IColonyNetwork } from '../../lib/contracts/4/IColonyNetwork';
 import getColonyVersionClient from './Colony/ColonyVersionClient';
 import getColonyClientV1, { ExtendedIColonyV1 } from './Colony/ColonyClientV1';
 import getColonyClientV2, { ExtendedIColonyV2 } from './Colony/ColonyClientV2';
+import getColonyClientV3, { ExtendedIColonyV3 } from './Colony/ColonyClientV3';
+import getColonyClientV4, { ExtendedIColonyV4 } from './Colony/ColonyClientV4';
 
 import { ColonyVersion } from '../../versions';
 import { colonyNetworkAddresses, Network } from '../constants';
 
-type AnyColonyClient = ExtendedIColonyV1 | ExtendedIColonyV2;
+type AnyColonyClient =
+  | ExtendedIColonyV1
+  | ExtendedIColonyV2
+  | ExtendedIColonyV3
+  | ExtendedIColonyV4;
 
 export interface ExtendedIColonyNetwork extends IColonyNetwork {
   getColonyClient(addressOrId: string | number): Promise<AnyColonyClient>;
@@ -62,6 +68,20 @@ const getColonyNetworkClient = (
       }
       case ColonyVersion.Glider: {
         return getColonyClientV2.call(
+          networkClient,
+          colonyAddress,
+          signerOrProvider,
+        );
+      }
+      case ColonyVersion.AuburnGlider: {
+        return getColonyClientV3.call(
+          networkClient,
+          colonyAddress,
+          signerOrProvider,
+        );
+      }
+      case ColonyVersion.BurgundyGlider: {
+        return getColonyClientV4.call(
           networkClient,
           colonyAddress,
           signerOrProvider,
