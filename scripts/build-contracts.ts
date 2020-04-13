@@ -5,7 +5,7 @@ import { options } from 'yargs';
 import * as execute from 'execa';
 import * as rimraf from 'rimraf';
 
-import { ColonyVersion } from '../versions';
+import { ColonyVersion } from '../src/versions';
 import { releaseMap } from './config';
 
 const rimrafPromise = promisify(rimraf);
@@ -18,7 +18,7 @@ const args = options({
 }).argv;
 
 const version = args.V as ColonyVersion;
-const outDir = resolvePath(__dirname, `../lib/contracts/${version}/`);
+const outDir = resolvePath(__dirname, `../src/contracts/${version}/`);
 
 if (!releaseMap[version]) {
   throw new Error(`Version ${version} of colonyNetwork doesn't seem to exist`);
@@ -31,6 +31,12 @@ const buildContracts = async (): Promise<void> => {
   });
   if (git.stdout) git.stdout.pipe(process.stdout);
   await git;
+
+  const gitSubmodule = execute('git', ['submodule', 'update'], {
+    cwd: networkDir,
+  });
+  if (gitSubmodule.stdout) gitSubmodule.stdout.pipe(process.stdout);
+  await gitSubmodule;
 
   const yarn = execute('yarn', ['install'], {
     cwd: networkDir,

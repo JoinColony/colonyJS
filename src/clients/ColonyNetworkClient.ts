@@ -1,18 +1,15 @@
 import { Signer } from 'ethers';
 import { Provider } from 'ethers/providers';
 
+import { ColonyVersion, colonyNetworkAddresses, Network } from '../constants';
 // @TODO this _HAS_ to be the newest version _ALWAYS_. Let's try to figure out a way to make sure of this
-import { IColonyNetworkFactory } from '../../lib/contracts/4/IColonyNetworkFactory';
-import { IColonyNetwork } from '../../lib/contracts/4/IColonyNetwork';
-
+import { IColonyNetworkFactory } from '../contracts/4/IColonyNetworkFactory';
+import { IColonyNetwork } from '../contracts/4/IColonyNetwork';
 import getColonyVersionClient from './Colony/ColonyVersionClient';
 import getColonyClientV1, { ExtendedIColonyV1 } from './Colony/ColonyClientV1';
 import getColonyClientV2, { ExtendedIColonyV2 } from './Colony/ColonyClientV2';
 import getColonyClientV3, { ExtendedIColonyV3 } from './Colony/ColonyClientV3';
 import getColonyClientV4, { ExtendedIColonyV4 } from './Colony/ColonyClientV4';
-
-import { ColonyVersion } from '../../versions';
-import { colonyNetworkAddresses, Network } from '../constants';
 
 type AnyColonyClient =
   | ExtendedIColonyV1
