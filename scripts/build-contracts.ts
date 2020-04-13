@@ -5,7 +5,7 @@ import { options } from 'yargs';
 import * as execute from 'execa';
 import * as rimraf from 'rimraf';
 
-import { ColonyVersions } from '../versions';
+import { ColonyVersion } from '../versions';
 import { releaseMap } from './config';
 
 const rimrafPromise = promisify(rimraf);
@@ -17,7 +17,7 @@ const args = options({
   V: { type: 'number', alias: 'contract-version', demandOption: true },
 }).argv;
 
-const version = args.V as ColonyVersions;
+const version = args.V as ColonyVersion;
 const outDir = resolvePath(__dirname, `../lib/contracts/${version}/`);
 
 if (!releaseMap[version]) {

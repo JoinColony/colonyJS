@@ -175,12 +175,12 @@ interface IColonyInterface extends Interface {
       encode([_id, _newOwner]: [BigNumberish, string]): string;
     }>;
 
-    'transferExpenditure(uint256,uint256,uint256,address)': TypedFunctionDescription<{
+    transferExpenditureViaArbitration: TypedFunctionDescription<{
       encode([_permissionDomainId, _childSkillIndex, _id, _newOwner]: [
         BigNumberish,
         BigNumberish,
         BigNumberish,
-        string,
+        string
       ]): string;
     }>;
 
@@ -780,7 +780,7 @@ interface IColonyInterface extends Interface {
     PayoutClaimed: TypedEventDescription<{
       encodeTopics([fundingPotId, token, amount]: [
         BigNumberish | null,
-        string | null,
+        null,
         null
       ]): string[];
     }>;
@@ -985,11 +985,12 @@ export class IColony extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
-    'transferExpenditure(uint256,uint256,uint256,address)'(
+    transferExpenditureViaArbitration(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
       _id: BigNumberish,
       _newOwner: string,
+      overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
     cancelExpenditure(
@@ -1604,6 +1605,14 @@ export class IColony extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  transferExpenditureViaArbitration(
+    _permissionDomainId: BigNumberish,
+    _childSkillIndex: BigNumberish,
+    _id: BigNumberish,
+    _newOwner: string,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
   cancelExpenditure(
     _id: BigNumberish,
     overrides?: TransactionOverrides
@@ -2160,7 +2169,7 @@ export class IColony extends Contract {
 
     PayoutClaimed(
       fundingPotId: BigNumberish | null,
-      token: string | null,
+      token: null,
       amount: null
     ): EventFilter;
 
@@ -2302,6 +2311,13 @@ export class IColony extends Contract {
     ): Promise<BigNumber>;
 
     transferExpenditure(
+      _id: BigNumberish,
+      _newOwner: string
+    ): Promise<BigNumber>;
+
+    transferExpenditureViaArbitration(
+      _permissionDomainId: BigNumberish,
+      _childSkillIndex: BigNumberish,
       _id: BigNumberish,
       _newOwner: string
     ): Promise<BigNumber>;
