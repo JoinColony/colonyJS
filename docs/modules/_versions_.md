@@ -6,7 +6,7 @@
 
 ### Enumerations
 
-* [ColonyVersions](../enums/_versions_.colonyversions.md)
+* [ColonyVersion](../enums/_versions_.colonyversion.md)
 
 ### Variables
 
@@ -16,6 +16,6 @@
 
 ### `Const` CurrentVersion
 
-• **CurrentVersion**: *[BurgundyGlider](../enums/_versions_.colonyversions.md#burgundyglider)* = ColonyVersions.BurgundyGlider
+• **CurrentVersion**: *[BurgundyGlider](../enums/_versions_.colonyversion.md#burgundyglider)* = ColonyVersion.BurgundyGlider
 
-*Defined in [versions.ts:9](https://github.com/JoinColony/colonyJS/blob/c5d5ff4/versions.ts#L9)*
+*Defined in [versions.ts:9](https://github.com/JoinColony/colonyJS/blob/3e623ff/versions.ts#L9)*

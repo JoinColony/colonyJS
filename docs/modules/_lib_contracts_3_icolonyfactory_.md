@@ -1,16 +1,16 @@
-[@colony/colony-js](../README.md) › [Globals](../globals.md) › ["lib/contracts/2/IColonyFactory"](_lib_contracts_2_icolonyfactory_.md)
+[@colony/colony-js](../README.md) › [Globals](../globals.md) › ["lib/contracts/3/IColonyFactory"](_lib_contracts_3_icolonyfactory_.md)
 
-# Module: "lib/contracts/2/IColonyFactory"
+# Module: "lib/contracts/3/IColonyFactory"
 
 ## Index
 
 ### Classes
 
-* [IColonyFactory](../classes/_lib_contracts_2_icolonyfactory_.icolonyfactory.md)
+* [IColonyFactory](../classes/_lib_contracts_3_icolonyfactory_.icolonyfactory.md)
 
 ### Variables
 
-* [_abi](_lib_contracts_2_icolonyfactory_.md#const-_abi)
+* [_abi](_lib_contracts_3_icolonyfactory_.md#const-_abi)
 
 ## Variables
 
@@ -641,6 +641,24 @@
     type: "function"
   },
   {
+    constant: false,
+    inputs: [],
+    name: "finishUpgrade2To3",
+    outputs: [],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    constant: false,
+    inputs: [],
+    name: "finishUpgrade",
+    outputs: [],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
     constant: true,
     inputs: [],
     name: "getColonyNetwork",
@@ -681,6 +699,36 @@
       }
     ],
     name: "setRootRole",
+    outputs: [],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    constant: false,
+    inputs: [
+      {
+        name: "_permissionDomainId",
+        type: "uint256"
+      },
+      {
+        name: "_childSkillIndex",
+        type: "uint256"
+      },
+      {
+        name: "_user",
+        type: "address"
+      },
+      {
+        name: "_domainId",
+        type: "uint256"
+      },
+      {
+        name: "_setTo",
+        type: "bool"
+      }
+    ],
+    name: "setArbitrationRole",
     outputs: [],
     payable: false,
     stateMutability: "nonpayable",
@@ -866,6 +914,20 @@
       }
     ],
     name: "registerColonyLabel",
+    outputs: [],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    constant: false,
+    inputs: [
+      {
+        name: "orbitdb",
+        type: "string"
+      }
+    ],
+    name: "updateColonyOrbitDB",
     outputs: [],
     payable: false,
     stateMutability: "nonpayable",
@@ -2249,4 +2311,4 @@
   }
 ]
 
-*Defined in [lib/contracts/2/IColonyFactory.ts:18](https://github.com/JoinColony/colonyJS/blob/3e623ff/lib/contracts/2/IColonyFactory.ts#L18)*
+*Defined in [lib/contracts/3/IColonyFactory.ts:18](https://github.com/JoinColony/colonyJS/blob/3e623ff/lib/contracts/3/IColonyFactory.ts#L18)*

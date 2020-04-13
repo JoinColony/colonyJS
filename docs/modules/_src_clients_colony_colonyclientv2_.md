@@ -6,25 +6,26 @@
 
 ### Interfaces
 
-* [ExtendedIColony](../interfaces/_src_clients_colony_colonyclientv2_.extendedicolony.md)
+* [ExtendedIColonyV2](../interfaces/_src_clients_colony_colonyclientv2_.extendedicolonyv2.md)
 
 ### Functions
 
-* [getColonyClient](_src_clients_colony_colonyclientv2_.md#const-getcolonyclient)
+* [getColonyClient](_src_clients_colony_colonyclientv2_.md#getcolonyclient)
 
 ## Functions
 
-### `Const` getColonyClient
+###  getColonyClient
 
-▸ **getColonyClient**(`address`: string, `signerOrProvider`: Signer | Provider): *[ExtendedIColony](../interfaces/_src_clients_colony_colonyclientv1_.extendedicolony.md)*
+▸ **getColonyClient**(`this`: [ExtendedIColonyNetwork](../interfaces/_src_clients_colonynetworkclient_.extendedicolonynetwork.md), `address`: string, `signerOrProvider`: Signer | Provider): *[ExtendedIColonyV2](../interfaces/_src_clients_colony_colonyclientv2_.extendedicolonyv2.md)*
 
-*Defined in [src/clients/Colony/ColonyClientV2.ts:12](https://github.com/JoinColony/colonyJS/blob/c5d5ff4/src/clients/Colony/ColonyClientV2.ts#L12)*
+*Defined in [src/clients/Colony/ColonyClientV2.ts:25](https://github.com/JoinColony/colonyJS/blob/3e623ff/src/clients/Colony/ColonyClientV2.ts#L25)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
+`this` | [ExtendedIColonyNetwork](../interfaces/_src_clients_colonynetworkclient_.extendedicolonynetwork.md) |
 `address` | string |
 `signerOrProvider` | Signer &#124; Provider |
 
-**Returns:** *[ExtendedIColony](../interfaces/_src_clients_colony_colonyclientv1_.extendedicolony.md)*
+**Returns:** *[ExtendedIColonyV2](../interfaces/_src_clients_colony_colonyclientv2_.extendedicolonyv2.md)*
