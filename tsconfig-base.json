@@ -5,9 +5,7 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "noImplicitAny": true,
-    "strictNullChecks": true,
-    "strictPropertyInitialization": true,
-    "strictBindCallApply": true,
+    "strict": true,
     "target": "es6",
     "types": ["node", "jest"]
   },
