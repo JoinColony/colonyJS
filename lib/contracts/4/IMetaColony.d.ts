@@ -110,6 +110,15 @@ interface IMetaColonyInterface extends Interface {
       encode([_rewardInverse]: [BigNumberish]): string;
     }>;
 
+    transferExpenditureViaArbitration: TypedFunctionDescription<{
+      encode([_permissionDomainId, _childSkillIndex, _id, _newOwner]: [
+        BigNumberish,
+        BigNumberish,
+        BigNumberish,
+        string
+      ]): string;
+    }>;
+
     setTaskWorkerPayout: TypedFunctionDescription<{
       encode([_id, _token, _amount]: [
         BigNumberish,
@@ -539,15 +548,6 @@ interface IMetaColonyInterface extends Interface {
       encode([_id, _specificationHash]: [BigNumberish, Arrayish]): string;
     }>;
 
-    transferExpenditure: TypedFunctionDescription<{
-      encode([_permissionDomainId, _childSkillIndex, _id, _newOwner]: [
-        BigNumberish,
-        BigNumberish,
-        BigNumberish,
-        string
-      ]): string;
-    }>;
-
     setTaskEvaluatorRole: TypedFunctionDescription<{
       encode([_id, _user]: [BigNumberish, string]): string;
     }>;
@@ -600,6 +600,10 @@ interface IMetaColonyInterface extends Interface {
         BigNumberish,
         BigNumberish
       ]): string;
+    }>;
+
+    transferExpenditure: TypedFunctionDescription<{
+      encode([_id, _newOwner]: [BigNumberish, string]): string;
     }>;
 
     mintTokensForColonyNetwork: TypedFunctionDescription<{
@@ -794,7 +798,7 @@ interface IMetaColonyInterface extends Interface {
     PayoutClaimed: TypedEventDescription<{
       encodeTopics([fundingPotId, token, amount]: [
         BigNumberish | null,
-        string | null,
+        null,
         null
       ]): string[];
     }>;
@@ -938,6 +942,14 @@ export class IMetaColony extends Contract {
 
     setRewardInverse(
       _rewardInverse: BigNumberish,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    transferExpenditureViaArbitration(
+      _permissionDomainId: BigNumberish,
+      _childSkillIndex: BigNumberish,
+      _id: BigNumberish,
+      _newOwner: string,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
@@ -1366,14 +1378,6 @@ export class IMetaColony extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
-    transferExpenditure(
-      _permissionDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _id: BigNumberish,
-      _newOwner: string,
-      overrides?: TransactionOverrides
-    ): Promise<ContractTransaction>;
-
     setTaskEvaluatorRole(
       _id: BigNumberish,
       _user: string,
@@ -1439,6 +1443,12 @@ export class IMetaColony extends Contract {
       _id: BigNumberish,
       _slot: BigNumberish,
       _skillId: BigNumberish,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    transferExpenditure(
+      _id: BigNumberish,
+      _newOwner: string,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
@@ -1579,6 +1589,14 @@ export class IMetaColony extends Contract {
 
   setRewardInverse(
     _rewardInverse: BigNumberish,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  transferExpenditureViaArbitration(
+    _permissionDomainId: BigNumberish,
+    _childSkillIndex: BigNumberish,
+    _id: BigNumberish,
+    _newOwner: string,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
@@ -2002,14 +2020,6 @@ export class IMetaColony extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
-  transferExpenditure(
-    _permissionDomainId: BigNumberish,
-    _childSkillIndex: BigNumberish,
-    _id: BigNumberish,
-    _newOwner: string,
-    overrides?: TransactionOverrides
-  ): Promise<ContractTransaction>;
-
   setTaskEvaluatorRole(
     _id: BigNumberish,
     _user: string,
@@ -2075,6 +2085,12 @@ export class IMetaColony extends Contract {
     _id: BigNumberish,
     _slot: BigNumberish,
     _skillId: BigNumberish,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  transferExpenditure(
+    _id: BigNumberish,
+    _newOwner: string,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
@@ -2221,7 +2237,7 @@ export class IMetaColony extends Contract {
 
     PayoutClaimed(
       fundingPotId: BigNumberish | null,
-      token: string | null,
+      token: null,
       amount: null
     ): EventFilter;
 
@@ -2300,6 +2316,13 @@ export class IMetaColony extends Contract {
     ): Promise<BigNumber>;
 
     setRewardInverse(_rewardInverse: BigNumberish): Promise<BigNumber>;
+
+    transferExpenditureViaArbitration(
+      _permissionDomainId: BigNumberish,
+      _childSkillIndex: BigNumberish,
+      _id: BigNumberish,
+      _newOwner: string
+    ): Promise<BigNumber>;
 
     setTaskWorkerPayout(
       _id: BigNumberish,
@@ -2616,13 +2639,6 @@ export class IMetaColony extends Contract {
       _specificationHash: Arrayish
     ): Promise<BigNumber>;
 
-    transferExpenditure(
-      _permissionDomainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _id: BigNumberish,
-      _newOwner: string
-    ): Promise<BigNumber>;
-
     setTaskEvaluatorRole(_id: BigNumberish, _user: string): Promise<BigNumber>;
 
     setRootRole(_user: string, _setTo: boolean): Promise<BigNumber>;
@@ -2663,6 +2679,11 @@ export class IMetaColony extends Contract {
       _id: BigNumberish,
       _slot: BigNumberish,
       _skillId: BigNumberish
+    ): Promise<BigNumber>;
+
+    transferExpenditure(
+      _id: BigNumberish,
+      _newOwner: string
     ): Promise<BigNumber>;
 
     mintTokensForColonyNetwork(_wad: BigNumberish): Promise<BigNumber>;

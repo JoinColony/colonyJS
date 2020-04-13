@@ -118,16 +118,6 @@ interface IColonyNetworkInterface extends Interface {
       encode([_tokenAddress]: [string]): string;
     }>;
 
-    'createColony(address,uint256,string,string,bool)': TypedFunctionDescription<{
-      encode([_tokenAddress, _version, _colonyName, _orbitdb, _useExtensionManager]: [
-        string,
-        BigNumberish,
-        string,
-        string,
-        boolean,
-      ]): string;
-    }>;
-
     addColonyVersion: TypedFunctionDescription<{
       encode([_version, _resolver]: [BigNumberish, string]): string;
     }>;
@@ -452,15 +442,6 @@ export class IColonyNetwork extends Contract {
 
     createColony(
       _tokenAddress: string,
-      overrides?: TransactionOverrides
-    ): Promise<ContractTransaction>;
-
-    'createColony(address,uint256,string,string,bool)'(
-      _tokenAddress: string, 
-      _version: BigNumberish, 
-      _colonyName: string,
-      _orbitdb: string,
-      _useExtensionManager: boolean,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 

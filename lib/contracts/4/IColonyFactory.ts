@@ -658,7 +658,7 @@ const _abi = [
         type: "uint256"
       },
       {
-        indexed: true,
+        indexed: false,
         name: "token",
         type: "address"
       },
@@ -1266,7 +1266,7 @@ const _abi = [
         type: "address"
       }
     ],
-    name: "transferExpenditure",
+    name: "transferExpenditureViaArbitration",
     outputs: [],
     payable: false,
     stateMutability: "nonpayable",

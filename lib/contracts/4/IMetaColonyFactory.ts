@@ -447,6 +447,32 @@ const _abi = [
     constant: false,
     inputs: [
       {
+        name: "_permissionDomainId",
+        type: "uint256"
+      },
+      {
+        name: "_childSkillIndex",
+        type: "uint256"
+      },
+      {
+        name: "_id",
+        type: "uint256"
+      },
+      {
+        name: "_newOwner",
+        type: "address"
+      }
+    ],
+    name: "transferExpenditureViaArbitration",
+    outputs: [],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    constant: false,
+    inputs: [
+      {
         name: "_id",
         type: "uint256"
       },
@@ -1985,32 +2011,6 @@ const _abi = [
     constant: false,
     inputs: [
       {
-        name: "_permissionDomainId",
-        type: "uint256"
-      },
-      {
-        name: "_childSkillIndex",
-        type: "uint256"
-      },
-      {
-        name: "_id",
-        type: "uint256"
-      },
-      {
-        name: "_newOwner",
-        type: "address"
-      }
-    ],
-    name: "transferExpenditure",
-    outputs: [],
-    payable: false,
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    constant: false,
-    inputs: [
-      {
         name: "_id",
         type: "uint256"
       },
@@ -2770,7 +2770,7 @@ const _abi = [
         type: "uint256"
       },
       {
-        indexed: true,
+        indexed: false,
         name: "token",
         type: "address"
       },
