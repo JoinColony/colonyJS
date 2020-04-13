@@ -1,10 +1,10 @@
 import { ContractTransaction } from 'ethers';
 import { BigNumber, BigNumberish } from 'ethers/utils';
 
-import { TransactionOverrides } from '../../../lib/contracts/3';
-import { IColony } from '../../../lib/contracts/3/IColony';
-import { ColonyRole } from '../../constants';
-import { ExtendedIColonyNetwork } from '../ColonyNetworkClient';
+import { TransactionOverrides } from '../../../../lib/contracts/3';
+import { IColony } from '../../../../lib/contracts/3/IColony';
+import { ColonyRole } from '../../../constants';
+import { ExtendedIColonyNetwork } from '../../ColonyNetworkClient';
 import {
   addExtensions as addCommonExtensions,
   getPermissionProofs,
@@ -12,9 +12,9 @@ import {
   ExtendedEstimate,
   CommonExtensionRequiredIColony,
   CommonExtensionRequiredTransactions,
-} from './extensions';
+} from './commonExtensions';
 
-export interface ExtendedEstimatesV3 extends ExtendedEstimate {
+export interface ExtendedEstimateV3 extends ExtendedEstimate {
   setArbitrationRole(
     _user: string,
     _domainId: BigNumberish,
@@ -29,7 +29,7 @@ export interface ColonyExtensionsV3 extends ColonyExtensions {
     _setTo: boolean,
     overrides?: TransactionOverrides,
   ): Promise<ContractTransaction>;
-  estimateWithProofs: ExtendedEstimatesV3;
+  estimateWithProofs: ExtendedEstimateV3;
 }
 
 export type ExtensionRequiredTransactionsV3 =

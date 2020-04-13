@@ -9,14 +9,14 @@ import { MaxUint256 } from 'ethers/constants';
 
 // We're using v1 here as a base, but in fact in could be any interface that satisfies the requirements
 // (structural typing)
-import { IColony } from '../../../lib/contracts/1/IColony';
-import { TransactionOverrides } from '../../../lib/contracts/1';
+import { IColony } from '../../../../lib/contracts/1/IColony';
+import { TransactionOverrides } from '../../../../lib/contracts/1';
 import {
   ColonyRole,
   FundingPotAssociatedType,
   ROOT_DOMAIN_ID,
-} from '../../constants';
-import { ExtendedIColonyNetwork } from '../ColonyNetworkClient';
+} from '../../../constants';
+import { ExtendedIColonyNetwork } from '../../ColonyNetworkClient';
 
 export type CommonExtensionRequiredMethods =
   | 'getDomain'
@@ -216,9 +216,10 @@ export const getPermissionProofs = async (
   contract: ExtendableIColony,
   domainId: BigNumberish,
   role: ColonyRole,
+  customAddress?: string,
   /* [permissionDomainId, childSkillIndex] */
 ): Promise<[BigNumberish, BigNumberish]> => {
-  const walletAddress = await contract.signer.getAddress();
+  const walletAddress = customAddress || (await contract.signer.getAddress());
   const hasPermissionInDomain = await contract.hasUserRole(
     walletAddress,
     domainId,

@@ -1,10 +1,3 @@
-import { ColonyVersion } from '../versions';
+// @TODO export a few types here that we might need
 
-import getClientV1 from './clients/Colony/ColonyClientV1';
-
-export const colonyClientFactories = {
-  [ColonyVersion.GoerliGlider]: getClientV1,
-  // [ColonyVersion.Glider]: ColonyClientV2,
-  // [ColonyVersion.AuburnGlider]: ColonyClientV3,
-  // [ColonyVersion.BurgundyGlider]: ColonyClientV4,
-};
+export { default as ColonyNetworkClient } from './clients/ColonyNetworkClient';
