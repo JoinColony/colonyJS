@@ -3,7 +3,7 @@
   "version": "2.0.0-alpha.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "license": "MIT",
+  "license": "GPL-3.0-only",
   "scripts": {
     "lint": "eslint src/**/*.ts scripts/**/*.ts",
     "typecheck": "tsc --noEmit",
