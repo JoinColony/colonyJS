@@ -1,7 +1,8 @@
 {
   "name": "@colony/colony-js",
-  "version": "1.0.0",
-  "main": "index.js",
+  "version": "2.0.0-alpha.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "license": "MIT",
   "scripts": {
     "lint": "eslint src/**/*.ts scripts/**/*.ts",
@@ -9,7 +10,8 @@
     "jest": "jest",
     "test": "npm run typecheck && npm run lint",
     "build-contracts": "ts-node -P scripts/tsconfig-scripts.json scripts/build-contracts.ts",
-    "build-docs": "typedoc --plugin typedoc-plugin-markdown --out docs src"
+    "build-docs": "typedoc --plugin typedoc-plugin-markdown --out docs src",
+    "prepublish": "tsc"
   },
   "devDependencies": {
     "@colony/eslint-config-colony": "^8.0.1",

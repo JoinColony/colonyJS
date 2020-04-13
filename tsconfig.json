@@ -3,6 +3,8 @@
   "include": ["src/**/*", "contracts/**/*"],
   "exclude": ["node_modules", "__tests__/*.ts"],
   "compilerOptions": {
-    "outDir": "./dist"
+    "declaration": true,
+    "outDir": "./dist",
+    "rootDir": "./src"
   }
 }
