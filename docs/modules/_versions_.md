@@ -18,4 +18,4 @@
 
 • **CurrentVersion**: *[BurgundyGlider](../enums/_versions_.colonyversion.md#burgundyglider)* = ColonyVersion.BurgundyGlider
 
-*Defined in [versions.ts:9](https://github.com/JoinColony/colonyJS/blob/3e623ff/versions.ts#L9)*
+*Defined in [src/versions.ts:9](https://github.com/JoinColony/colonyJS/blob/8037c41/src/versions.ts#L9)*
