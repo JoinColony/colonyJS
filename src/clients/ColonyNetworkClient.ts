@@ -25,7 +25,7 @@ export interface ExtendedIColonyNetwork extends IColonyNetwork {
 }
 
 const getColonyNetworkClient = (
-  network: Network = Network.mainnet,
+  network: Network = Network.Mainnet,
   signerOrProvider: Signer | Provider,
   address?: string,
 ): ExtendedIColonyNetwork => {

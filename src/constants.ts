@@ -1,7 +1,7 @@
 export enum Network {
-  mainnet = 'mainnet',
-  goerli = 'goerli',
-  local = 'local',
+  Mainnet = 'mainnet',
+  Goerli = 'goerli',
+  Local = 'local',
 }
 
 export enum ColonyRole {
@@ -16,9 +16,9 @@ export enum ColonyRole {
 }
 
 export const colonyNetworkAddresses = {
-  [Network.mainnet]: '0x5346D0f80e2816FaD329F2c140c870ffc3c3E2Ef',
-  [Network.goerli]: '0x79073fc2117dD054FCEdaCad1E7018C9CbE3ec0B',
-  [Network.local]: undefined,
+  [Network.Mainnet]: '0x5346D0f80e2816FaD329F2c140c870ffc3c3E2Ef',
+  [Network.Goerli]: '0x79073fc2117dD054FCEdaCad1E7018C9CbE3ec0B',
+  [Network.Local]: undefined,
 };
 
 export const ROOT_DOMAIN_ID = 1;
