@@ -20,7 +20,7 @@
 
 • **Administration**:
 
-*Defined in [src/constants.ts:9](https://github.com/JoinColony/colonyJS/blob/c5d5ff4/src/constants.ts#L9)*
+*Defined in [src/constants.ts:15](https://github.com/JoinColony/colonyJS/blob/3e623ff/src/constants.ts#L15)*
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 • **Arbitration**:
 
-*Defined in [src/constants.ts:4](https://github.com/JoinColony/colonyJS/blob/c5d5ff4/src/constants.ts#L4)*
+*Defined in [src/constants.ts:10](https://github.com/JoinColony/colonyJS/blob/3e623ff/src/constants.ts#L10)*
 
 ___
 
@@ -36,7 +36,7 @@ ___
 
 • **Architecture**:
 
-*Defined in [src/constants.ts:5](https://github.com/JoinColony/colonyJS/blob/c5d5ff4/src/constants.ts#L5)*
+*Defined in [src/constants.ts:11](https://github.com/JoinColony/colonyJS/blob/3e623ff/src/constants.ts#L11)*
 
 ___
 
@@ -44,7 +44,7 @@ ___
 
 • **ArchitectureSubdomain_DEPRECATED**:
 
-*Defined in [src/constants.ts:7](https://github.com/JoinColony/colonyJS/blob/c5d5ff4/src/constants.ts#L7)*
+*Defined in [src/constants.ts:13](https://github.com/JoinColony/colonyJS/blob/3e623ff/src/constants.ts#L13)*
 
 ___
 
@@ -52,7 +52,7 @@ ___
 
 • **Funding**:
 
-*Defined in [src/constants.ts:8](https://github.com/JoinColony/colonyJS/blob/c5d5ff4/src/constants.ts#L8)*
+*Defined in [src/constants.ts:14](https://github.com/JoinColony/colonyJS/blob/3e623ff/src/constants.ts#L14)*
 
 ___
 
@@ -60,7 +60,7 @@ ___
 
 • **Recovery**:
 
-*Defined in [src/constants.ts:2](https://github.com/JoinColony/colonyJS/blob/c5d5ff4/src/constants.ts#L2)*
+*Defined in [src/constants.ts:8](https://github.com/JoinColony/colonyJS/blob/3e623ff/src/constants.ts#L8)*
 
 ___
 
@@ -68,4 +68,4 @@ ___
 
 • **Root**:
 
-*Defined in [src/constants.ts:3](https://github.com/JoinColony/colonyJS/blob/c5d5ff4/src/constants.ts#L3)*
+*Defined in [src/constants.ts:9](https://github.com/JoinColony/colonyJS/blob/3e623ff/src/constants.ts#L9)*

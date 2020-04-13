@@ -1,16 +1,16 @@
-[@colony/colony-js](../README.md) › [Globals](../globals.md) › ["lib/contracts/2/IColonyFactory"](_lib_contracts_2_icolonyfactory_.md)
+[@colony/colony-js](../README.md) › [Globals](../globals.md) › ["lib/contracts/4/IColonyFactory"](_lib_contracts_4_icolonyfactory_.md)
 
-# Module: "lib/contracts/2/IColonyFactory"
+# Module: "lib/contracts/4/IColonyFactory"
 
 ## Index
 
 ### Classes
 
-* [IColonyFactory](../classes/_lib_contracts_2_icolonyfactory_.icolonyfactory.md)
+* [IColonyFactory](../classes/_lib_contracts_4_icolonyfactory_.icolonyfactory.md)
 
 ### Variables
 
-* [_abi](_lib_contracts_2_icolonyfactory_.md#const-_abi)
+* [_abi](_lib_contracts_4_icolonyfactory_.md#const-_abi)
 
 ## Variables
 
@@ -131,6 +131,23 @@
     payable: false,
     stateMutability: "nonpayable",
     type: "function"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        name: "user",
+        type: "address"
+      },
+      {
+        indexed: false,
+        name: "setTo",
+        type: "bool"
+      }
+    ],
+    name: "RecoveryRoleSet",
+    type: "event"
   },
   {
     anonymous: false,
@@ -327,6 +344,130 @@
     inputs: [
       {
         indexed: false,
+        name: "expenditureId",
+        type: "uint256"
+      }
+    ],
+    name: "ExpenditureAdded",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        name: "expenditureId",
+        type: "uint256"
+      },
+      {
+        indexed: true,
+        name: "owner",
+        type: "address"
+      }
+    ],
+    name: "ExpenditureTransferred",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        name: "expenditureId",
+        type: "uint256"
+      }
+    ],
+    name: "ExpenditureCancelled",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        name: "expenditureId",
+        type: "uint256"
+      }
+    ],
+    name: "ExpenditureFinalized",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        name: "expenditureId",
+        type: "uint256"
+      },
+      {
+        indexed: true,
+        name: "slot",
+        type: "uint256"
+      },
+      {
+        indexed: true,
+        name: "recipient",
+        type: "address"
+      }
+    ],
+    name: "ExpenditureRecipientSet",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        name: "expenditureId",
+        type: "uint256"
+      },
+      {
+        indexed: true,
+        name: "slot",
+        type: "uint256"
+      },
+      {
+        indexed: true,
+        name: "skillId",
+        type: "uint256"
+      }
+    ],
+    name: "ExpenditureSkillSet",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        name: "expenditureId",
+        type: "uint256"
+      },
+      {
+        indexed: true,
+        name: "slot",
+        type: "uint256"
+      },
+      {
+        indexed: true,
+        name: "token",
+        type: "address"
+      },
+      {
+        indexed: false,
+        name: "amount",
+        type: "uint256"
+      }
+    ],
+    name: "ExpenditurePayoutSet",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
         name: "paymentId",
         type: "uint256"
       }
@@ -378,23 +519,6 @@
       }
     ],
     name: "TaskDueDateSet",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        name: "taskId",
-        type: "uint256"
-      },
-      {
-        indexed: true,
-        name: "domainId",
-        type: "uint256"
-      }
-    ],
-    name: "TaskDomainSet",
     type: "event"
   },
   {
@@ -641,6 +765,15 @@
     type: "function"
   },
   {
+    constant: false,
+    inputs: [],
+    name: "finishUpgrade",
+    outputs: [],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
     constant: true,
     inputs: [],
     name: "getColonyNetwork",
@@ -681,6 +814,36 @@
       }
     ],
     name: "setRootRole",
+    outputs: [],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    constant: false,
+    inputs: [
+      {
+        name: "_permissionDomainId",
+        type: "uint256"
+      },
+      {
+        name: "_childSkillIndex",
+        type: "uint256"
+      },
+      {
+        name: "_user",
+        type: "address"
+      },
+      {
+        name: "_domainId",
+        type: "uint256"
+      },
+      {
+        name: "_setTo",
+        type: "bool"
+      }
+    ],
+    name: "setArbitrationRole",
     outputs: [],
     payable: false,
     stateMutability: "nonpayable",
@@ -804,6 +967,64 @@
     type: "function"
   },
   {
+    constant: true,
+    inputs: [
+      {
+        name: "_user",
+        type: "address"
+      },
+      {
+        name: "_domainId",
+        type: "uint256"
+      },
+      {
+        name: "_role",
+        type: "uint8"
+      },
+      {
+        name: "_childSkillIndex",
+        type: "uint256"
+      },
+      {
+        name: "_childDomainId",
+        type: "uint256"
+      }
+    ],
+    name: "hasInheritedUserRole",
+    outputs: [
+      {
+        name: "hasRole",
+        type: "bool"
+      }
+    ],
+    payable: false,
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    constant: true,
+    inputs: [
+      {
+        name: "who",
+        type: "address"
+      },
+      {
+        name: "where",
+        type: "uint256"
+      }
+    ],
+    name: "getUserRoles",
+    outputs: [
+      {
+        name: "roles",
+        type: "bytes32"
+      }
+    ],
+    payable: false,
+    stateMutability: "view",
+    type: "function"
+  },
+  {
     constant: false,
     inputs: [
       {
@@ -866,6 +1087,20 @@
       }
     ],
     name: "registerColonyLabel",
+    outputs: [],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    constant: false,
+    inputs: [
+      {
+        name: "orbitdb",
+        type: "string"
+      }
+    ],
+    name: "updateColonyOrbitDB",
     outputs: [],
     payable: false,
     stateMutability: "nonpayable",
@@ -979,6 +1214,380 @@
         type: "uint256"
       },
       {
+        name: "_domainId",
+        type: "uint256"
+      }
+    ],
+    name: "makeExpenditure",
+    outputs: [
+      {
+        name: "expenditureId",
+        type: "uint256"
+      }
+    ],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    constant: false,
+    inputs: [
+      {
+        name: "_id",
+        type: "uint256"
+      },
+      {
+        name: "_newOwner",
+        type: "address"
+      }
+    ],
+    name: "transferExpenditure",
+    outputs: [],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    constant: false,
+    inputs: [
+      {
+        name: "_permissionDomainId",
+        type: "uint256"
+      },
+      {
+        name: "_childSkillIndex",
+        type: "uint256"
+      },
+      {
+        name: "_id",
+        type: "uint256"
+      },
+      {
+        name: "_newOwner",
+        type: "address"
+      }
+    ],
+    name: "transferExpenditureViaArbitration",
+    outputs: [],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    constant: false,
+    inputs: [
+      {
+        name: "_id",
+        type: "uint256"
+      }
+    ],
+    name: "cancelExpenditure",
+    outputs: [],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    constant: false,
+    inputs: [
+      {
+        name: "_id",
+        type: "uint256"
+      }
+    ],
+    name: "finalizeExpenditure",
+    outputs: [],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    constant: false,
+    inputs: [
+      {
+        name: "_id",
+        type: "uint256"
+      },
+      {
+        name: "_slot",
+        type: "uint256"
+      },
+      {
+        name: "_recipient",
+        type: "address"
+      }
+    ],
+    name: "setExpenditureRecipient",
+    outputs: [],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    constant: false,
+    inputs: [
+      {
+        name: "_id",
+        type: "uint256"
+      },
+      {
+        name: "_slot",
+        type: "uint256"
+      },
+      {
+        name: "_token",
+        type: "address"
+      },
+      {
+        name: "_amount",
+        type: "uint256"
+      }
+    ],
+    name: "setExpenditurePayout",
+    outputs: [],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    constant: false,
+    inputs: [
+      {
+        name: "_id",
+        type: "uint256"
+      },
+      {
+        name: "_slot",
+        type: "uint256"
+      },
+      {
+        name: "_skillId",
+        type: "uint256"
+      }
+    ],
+    name: "setExpenditureSkill",
+    outputs: [],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    constant: false,
+    inputs: [
+      {
+        name: "_permissionDomainId",
+        type: "uint256"
+      },
+      {
+        name: "_childSkillIndex",
+        type: "uint256"
+      },
+      {
+        name: "_id",
+        type: "uint256"
+      },
+      {
+        name: "_slot",
+        type: "uint256"
+      },
+      {
+        name: "_payoutModifier",
+        type: "int256"
+      }
+    ],
+    name: "setExpenditurePayoutModifier",
+    outputs: [],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    constant: false,
+    inputs: [
+      {
+        name: "_permissionDomainId",
+        type: "uint256"
+      },
+      {
+        name: "_childSkillIndex",
+        type: "uint256"
+      },
+      {
+        name: "_id",
+        type: "uint256"
+      },
+      {
+        name: "_slot",
+        type: "uint256"
+      },
+      {
+        name: "_claimDelay",
+        type: "uint256"
+      }
+    ],
+    name: "setExpenditureClaimDelay",
+    outputs: [],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    constant: false,
+    inputs: [
+      {
+        name: "_id",
+        type: "uint256"
+      },
+      {
+        name: "_slot",
+        type: "uint256"
+      },
+      {
+        name: "_token",
+        type: "address"
+      }
+    ],
+    name: "claimExpenditurePayout",
+    outputs: [],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: "getExpenditureCount",
+    outputs: [
+      {
+        name: "count",
+        type: "uint256"
+      }
+    ],
+    payable: false,
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    constant: true,
+    inputs: [
+      {
+        name: "_id",
+        type: "uint256"
+      }
+    ],
+    name: "getExpenditure",
+    outputs: [
+      {
+        components: [
+          {
+            name: "status",
+            type: "uint8"
+          },
+          {
+            name: "owner",
+            type: "address"
+          },
+          {
+            name: "fundingPotId",
+            type: "uint256"
+          },
+          {
+            name: "domainId",
+            type: "uint256"
+          },
+          {
+            name: "finalizedTimestamp",
+            type: "uint256"
+          }
+        ],
+        name: "expenditure",
+        type: "tuple"
+      }
+    ],
+    payable: false,
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    constant: true,
+    inputs: [
+      {
+        name: "_id",
+        type: "uint256"
+      },
+      {
+        name: "_slot",
+        type: "uint256"
+      }
+    ],
+    name: "getExpenditureSlot",
+    outputs: [
+      {
+        components: [
+          {
+            name: "recipient",
+            type: "address"
+          },
+          {
+            name: "claimDelay",
+            type: "uint256"
+          },
+          {
+            name: "payoutModifier",
+            type: "int256"
+          },
+          {
+            name: "skills",
+            type: "uint256[]"
+          }
+        ],
+        name: "expenditureSlot",
+        type: "tuple"
+      }
+    ],
+    payable: false,
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    constant: true,
+    inputs: [
+      {
+        name: "_id",
+        type: "uint256"
+      },
+      {
+        name: "_slot",
+        type: "uint256"
+      },
+      {
+        name: "_token",
+        type: "address"
+      }
+    ],
+    name: "getExpenditureSlotPayout",
+    outputs: [
+      {
+        name: "amount",
+        type: "uint256"
+      }
+    ],
+    payable: false,
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    constant: false,
+    inputs: [
+      {
+        name: "_permissionDomainId",
+        type: "uint256"
+      },
+      {
+        name: "_childSkillIndex",
+        type: "uint256"
+      },
+      {
         name: "_recipient",
         type: "address"
       },
@@ -1053,32 +1662,6 @@
       }
     ],
     name: "setPaymentRecipient",
-    outputs: [],
-    payable: false,
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        name: "_permissionDomainId",
-        type: "uint256"
-      },
-      {
-        name: "_childSkillIndex",
-        type: "uint256"
-      },
-      {
-        name: "_id",
-        type: "uint256"
-      },
-      {
-        name: "_domainId",
-        type: "uint256"
-      }
-    ],
-    name: "setPaymentDomain",
     outputs: [],
     payable: false,
     stateMutability: "nonpayable",
@@ -1581,24 +2164,6 @@
         type: "uint256"
       },
       {
-        name: "_domainId",
-        type: "uint256"
-      }
-    ],
-    name: "setTaskDomain",
-    outputs: [],
-    payable: false,
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        name: "_id",
-        type: "uint256"
-      },
-      {
         name: "_specificationHash",
         type: "bytes32"
       }
@@ -2065,6 +2630,14 @@
           {
             name: "blockTimestamp",
             type: "uint256"
+          },
+          {
+            name: "amountRemaining",
+            type: "uint256"
+          },
+          {
+            name: "finalized",
+            type: "bool"
           }
         ],
         name: "rewardPayoutCycle",
@@ -2249,4 +2822,4 @@
   }
 ]
 
-*Defined in [lib/contracts/2/IColonyFactory.ts:18](https://github.com/JoinColony/colonyJS/blob/3e623ff/lib/contracts/2/IColonyFactory.ts#L18)*
+*Defined in [lib/contracts/4/IColonyFactory.ts:18](https://github.com/JoinColony/colonyJS/blob/3e623ff/lib/contracts/4/IColonyFactory.ts#L18)*
