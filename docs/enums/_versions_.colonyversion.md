@@ -17,7 +17,7 @@
 
 • **AuburnGlider**:
 
-*Defined in [versions.ts:5](https://github.com/JoinColony/colonyJS/blob/3e623ff/versions.ts#L5)*
+*Defined in [src/versions.ts:5](https://github.com/JoinColony/colonyJS/blob/8037c41/src/versions.ts#L5)*
 
 ___
 
@@ -25,7 +25,7 @@ ___
 
 • **BurgundyGlider**:
 
-*Defined in [versions.ts:6](https://github.com/JoinColony/colonyJS/blob/3e623ff/versions.ts#L6)*
+*Defined in [src/versions.ts:6](https://github.com/JoinColony/colonyJS/blob/8037c41/src/versions.ts#L6)*
 
 ___
 
@@ -33,7 +33,7 @@ ___
 
 • **Glider**:
 
-*Defined in [versions.ts:4](https://github.com/JoinColony/colonyJS/blob/3e623ff/versions.ts#L4)*
+*Defined in [src/versions.ts:4](https://github.com/JoinColony/colonyJS/blob/8037c41/src/versions.ts#L4)*
 
 ___
 
@@ -41,4 +41,4 @@ ___
 
 • **GoerliGlider**: = 1
 
-*Defined in [versions.ts:3](https://github.com/JoinColony/colonyJS/blob/3e623ff/versions.ts#L3)*
+*Defined in [src/versions.ts:3](https://github.com/JoinColony/colonyJS/blob/8037c41/src/versions.ts#L3)*

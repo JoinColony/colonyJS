@@ -11,7 +11,7 @@
     "test": "npm run typecheck && npm run lint",
     "build-contracts": "ts-node -P scripts/tsconfig-scripts.json scripts/build-contracts.ts",
     "build-docs": "typedoc --plugin typedoc-plugin-markdown --out docs src",
-    "prepublish": "tsc"
+    "prepublish": "tsc && npm run build-docs"
   },
   "devDependencies": {
     "@colony/eslint-config-colony": "^8.0.1",
