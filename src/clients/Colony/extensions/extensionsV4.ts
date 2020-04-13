@@ -1,8 +1,8 @@
 import { ContractTransaction } from 'ethers';
 import { BigNumber, BigNumberish } from 'ethers/utils';
 
-import { TransactionOverrides } from '../../../../lib/contracts/4';
-import { IColony } from '../../../../lib/contracts/4/IColony';
+import { TransactionOverrides } from '../../../contracts/4';
+import { IColony } from '../../../contracts/4/IColony';
 import { ColonyRole } from '../../../constants';
 import { ExtendedIColonyNetwork } from '../../ColonyNetworkClient';
 import { getPermissionProofs } from './commonExtensions';

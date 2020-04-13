@@ -9,8 +9,8 @@ import { MaxUint256 } from 'ethers/constants';
 
 // We're using v1 here as a base, but in fact in could be any interface that satisfies the requirements
 // (structural typing)
-import { IColony } from '../../../../lib/contracts/1/IColony';
-import { TransactionOverrides } from '../../../../lib/contracts/1';
+import { IColony } from '../../../contracts/1/IColony';
+import { TransactionOverrides } from '../../../contracts/1';
 import {
   ColonyRole,
   FundingPotAssociatedType,

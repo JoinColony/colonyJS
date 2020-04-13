@@ -1,9 +1,9 @@
 import { Signer } from 'ethers';
 import { Provider } from 'ethers/providers';
 
-import { IColonyFactory } from '../../../lib/contracts/2/IColonyFactory';
-import { IColony } from '../../../lib/contracts/2/IColony';
-import { ColonyVersion } from '../../../versions';
+import { IColonyFactory } from '../../contracts/2/IColonyFactory';
+import { IColony } from '../../contracts/2/IColony';
+import { ColonyVersion } from '../../constants';
 import { ExtendedIColonyNetwork } from '../ColonyNetworkClient';
 import { addExtensions, ColonyExtensions } from './extensions/commonExtensions';
 import {
