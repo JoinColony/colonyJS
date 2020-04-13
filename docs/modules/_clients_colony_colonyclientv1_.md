@@ -18,7 +18,7 @@
 
 ▸ **getColonyClient**(`this`: [ExtendedIColonyNetwork](../interfaces/_clients_colonynetworkclient_.extendedicolonynetwork.md), `address`: string, `signerOrProvider`: Signer | Provider): *[ExtendedIColonyV1](../interfaces/_clients_colony_colonyclientv1_.extendedicolonyv1.md)*
 
-*Defined in [src/clients/Colony/ColonyClientV1.ts:25](https://github.com/JoinColony/colonyJS/blob/8037c41/src/clients/Colony/ColonyClientV1.ts#L25)*
+*Defined in [src/clients/Colony/ColonyClientV1.ts:25](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/ColonyClientV1.ts#L25)*
 
 **Parameters:**
 

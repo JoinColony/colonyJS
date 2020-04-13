@@ -26,7 +26,7 @@
 
 Ƭ **ExtensionRequiredIColonyV3**: *[CommonExtensionRequiredIColony](_clients_colony_extensions_commonextensions_.md#commonextensionrequiredicolony) & Pick‹IColony, "setArbitrationRole"› & object*
 
-*Defined in [src/clients/Colony/extensions/extensionsV3.ts:39](https://github.com/JoinColony/colonyJS/blob/8037c41/src/clients/Colony/extensions/extensionsV3.ts#L39)*
+*Defined in [src/clients/Colony/extensions/extensionsV3.ts:39](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/extensionsV3.ts#L39)*
 
 ___
 
@@ -34,7 +34,7 @@ ___
 
 Ƭ **ExtensionRequiredTransactionsV3**: *[CommonExtensionRequiredTransactions](_clients_colony_extensions_commonextensions_.md#commonextensionrequiredtransactions) | "setArbitrationRole"*
 
-*Defined in [src/clients/Colony/extensions/extensionsV3.ts:35](https://github.com/JoinColony/colonyJS/blob/8037c41/src/clients/Colony/extensions/extensionsV3.ts#L35)*
+*Defined in [src/clients/Colony/extensions/extensionsV3.ts:35](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/extensionsV3.ts#L35)*
 
 ## Functions
 
@@ -42,7 +42,7 @@ ___
 
 ▸ **addExtensions**<**T**>(`instance`: T, `networkClient`: [ExtendedIColonyNetwork](../interfaces/_clients_colonynetworkclient_.extendedicolonynetwork.md)): *void*
 
-*Defined in [src/clients/Colony/extensions/extensionsV3.ts:97](https://github.com/JoinColony/colonyJS/blob/8037c41/src/clients/Colony/extensions/extensionsV3.ts#L97)*
+*Defined in [src/clients/Colony/extensions/extensionsV3.ts:97](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/extensionsV3.ts#L97)*
 
 **Type parameters:**
 
@@ -63,7 +63,7 @@ ___
 
 ▸ **estimateSetArbitrationRoleWithProofs**<**T**>(`this`: T, `_user`: string, `_domainId`: BigNumberish, `_setTo`: boolean): *Promise‹BigNumber›*
 
-*Defined in [src/clients/Colony/extensions/extensionsV3.ts:75](https://github.com/JoinColony/colonyJS/blob/8037c41/src/clients/Colony/extensions/extensionsV3.ts#L75)*
+*Defined in [src/clients/Colony/extensions/extensionsV3.ts:75](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/extensionsV3.ts#L75)*
 
 **Type parameters:**
 
@@ -86,7 +86,7 @@ ___
 
 ▸ **setArbitrationRoleWithProofs**<**T**>(`this`: T, `_user`: string, `_domainId`: BigNumberish, `_setTo`: boolean, `overrides?`: TransactionOverrides): *Promise‹ContractTransaction›*
 
-*Defined in [src/clients/Colony/extensions/extensionsV3.ts:44](https://github.com/JoinColony/colonyJS/blob/8037c41/src/clients/Colony/extensions/extensionsV3.ts#L44)*
+*Defined in [src/clients/Colony/extensions/extensionsV3.ts:44](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/extensionsV3.ts#L44)*
 
 **Type parameters:**
 

@@ -37,7 +37,7 @@
 
 *Inherited from [ExtendedEstimate](_clients_colony_extensions_commonextensions_.extendedestimate.md).[addDomain](_clients_colony_extensions_commonextensions_.extendedestimate.md#adddomain)*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:57](https://github.com/JoinColony/colonyJS/blob/8037c41/src/clients/Colony/extensions/commonExtensions.ts#L57)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:57](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L57)*
 
 **Parameters:**
 
@@ -55,7 +55,7 @@ ___
 
 *Inherited from [ExtendedEstimate](_clients_colony_extensions_commonextensions_.extendedestimate.md).[addPayment](_clients_colony_extensions_commonextensions_.extendedestimate.md#addpayment)*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:58](https://github.com/JoinColony/colonyJS/blob/8037c41/src/clients/Colony/extensions/commonExtensions.ts#L58)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:58](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L58)*
 
 **Parameters:**
 
@@ -77,7 +77,7 @@ ___
 
 *Inherited from [ExtendedEstimate](_clients_colony_extensions_commonextensions_.extendedestimate.md).[finalizePayment](_clients_colony_extensions_commonextensions_.extendedestimate.md#finalizepayment)*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:65](https://github.com/JoinColony/colonyJS/blob/8037c41/src/clients/Colony/extensions/commonExtensions.ts#L65)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:65](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L65)*
 
 **Parameters:**
 
@@ -94,7 +94,7 @@ ___
 
 ▸ **makeExpenditure**(`_domainId`: BigNumberish): *Promise‹BigNumber›*
 
-*Defined in [src/clients/Colony/extensions/extensionsV4.ts:18](https://github.com/JoinColony/colonyJS/blob/8037c41/src/clients/Colony/extensions/extensionsV4.ts#L18)*
+*Defined in [src/clients/Colony/extensions/extensionsV4.ts:18](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/extensionsV4.ts#L18)*
 
 **Parameters:**
 
@@ -112,7 +112,7 @@ ___
 
 *Inherited from [ExtendedEstimate](_clients_colony_extensions_commonextensions_.extendedestimate.md).[makeTask](_clients_colony_extensions_commonextensions_.extendedestimate.md#maketask)*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:82](https://github.com/JoinColony/colonyJS/blob/8037c41/src/clients/Colony/extensions/commonExtensions.ts#L82)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:82](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L82)*
 
 **Parameters:**
 
@@ -133,7 +133,7 @@ ___
 
 *Inherited from [ExtendedEstimate](_clients_colony_extensions_commonextensions_.extendedestimate.md).[moveFundsBetweenPots](_clients_colony_extensions_commonextensions_.extendedestimate.md#movefundsbetweenpots)*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:88](https://github.com/JoinColony/colonyJS/blob/8037c41/src/clients/Colony/extensions/commonExtensions.ts#L88)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:88](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L88)*
 
 **Parameters:**
 
@@ -154,7 +154,7 @@ ___
 
 *Inherited from [ExtendedEstimate](_clients_colony_extensions_commonextensions_.extendedestimate.md).[setAdministrationRole](_clients_colony_extensions_commonextensions_.extendedestimate.md#setadministrationrole)*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:52](https://github.com/JoinColony/colonyJS/blob/8037c41/src/clients/Colony/extensions/commonExtensions.ts#L52)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:52](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L52)*
 
 **Parameters:**
 
@@ -174,7 +174,7 @@ ___
 
 *Inherited from [ExtendedEstimateV3](_clients_colony_extensions_extensionsv3_.extendedestimatev3.md).[setArbitrationRole](_clients_colony_extensions_extensionsv3_.extendedestimatev3.md#setarbitrationrole)*
 
-*Defined in [src/clients/Colony/extensions/extensionsV3.ts:18](https://github.com/JoinColony/colonyJS/blob/8037c41/src/clients/Colony/extensions/extensionsV3.ts#L18)*
+*Defined in [src/clients/Colony/extensions/extensionsV3.ts:18](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/extensionsV3.ts#L18)*
 
 **Parameters:**
 
@@ -194,7 +194,7 @@ ___
 
 *Inherited from [ExtendedEstimate](_clients_colony_extensions_commonextensions_.extendedestimate.md).[setArchitectureRole](_clients_colony_extensions_commonextensions_.extendedestimate.md#setarchitecturerole)*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:42](https://github.com/JoinColony/colonyJS/blob/8037c41/src/clients/Colony/extensions/commonExtensions.ts#L42)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:42](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L42)*
 
 **Parameters:**
 
@@ -212,7 +212,7 @@ ___
 
 ▸ **setExpenditureClaimDelay**(`_id`: BigNumberish, `_slot`: BigNumberish, `_claimDelay`: BigNumberish): *Promise‹BigNumber›*
 
-*Defined in [src/clients/Colony/extensions/extensionsV4.ts:19](https://github.com/JoinColony/colonyJS/blob/8037c41/src/clients/Colony/extensions/extensionsV4.ts#L19)*
+*Defined in [src/clients/Colony/extensions/extensionsV4.ts:19](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/extensionsV4.ts#L19)*
 
 **Parameters:**
 
@@ -230,7 +230,7 @@ ___
 
 ▸ **setExpenditurePayoutModifier**(`_id`: BigNumberish, `_slot`: BigNumberish, `_payoutModifier`: BigNumberish): *Promise‹BigNumber›*
 
-*Defined in [src/clients/Colony/extensions/extensionsV4.ts:24](https://github.com/JoinColony/colonyJS/blob/8037c41/src/clients/Colony/extensions/extensionsV4.ts#L24)*
+*Defined in [src/clients/Colony/extensions/extensionsV4.ts:24](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/extensionsV4.ts#L24)*
 
 **Parameters:**
 
@@ -250,7 +250,7 @@ ___
 
 *Inherited from [ExtendedEstimate](_clients_colony_extensions_commonextensions_.extendedestimate.md).[setFundingRole](_clients_colony_extensions_commonextensions_.extendedestimate.md#setfundingrole)*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:47](https://github.com/JoinColony/colonyJS/blob/8037c41/src/clients/Colony/extensions/commonExtensions.ts#L47)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:47](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L47)*
 
 **Parameters:**
 
@@ -270,7 +270,7 @@ ___
 
 *Inherited from [ExtendedEstimate](_clients_colony_extensions_commonextensions_.extendedestimate.md).[setPaymentPayout](_clients_colony_extensions_commonextensions_.extendedestimate.md#setpaymentpayout)*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:77](https://github.com/JoinColony/colonyJS/blob/8037c41/src/clients/Colony/extensions/commonExtensions.ts#L77)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:77](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L77)*
 
 **Parameters:**
 
@@ -290,7 +290,7 @@ ___
 
 *Inherited from [ExtendedEstimate](_clients_colony_extensions_commonextensions_.extendedestimate.md).[setPaymentRecipient](_clients_colony_extensions_commonextensions_.extendedestimate.md#setpaymentrecipient)*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:69](https://github.com/JoinColony/colonyJS/blob/8037c41/src/clients/Colony/extensions/commonExtensions.ts#L69)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:69](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L69)*
 
 **Parameters:**
 
@@ -309,7 +309,7 @@ ___
 
 *Inherited from [ExtendedEstimate](_clients_colony_extensions_commonextensions_.extendedestimate.md).[setPaymentSkill](_clients_colony_extensions_commonextensions_.extendedestimate.md#setpaymentskill)*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:73](https://github.com/JoinColony/colonyJS/blob/8037c41/src/clients/Colony/extensions/commonExtensions.ts#L73)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:73](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L73)*
 
 **Parameters:**
 
@@ -326,7 +326,7 @@ ___
 
 ▸ **transferExpenditureViaArbitration**(`_id`: BigNumberish, `_newOwner`: string): *Promise‹BigNumber›*
 
-*Defined in [src/clients/Colony/extensions/extensionsV4.ts:29](https://github.com/JoinColony/colonyJS/blob/8037c41/src/clients/Colony/extensions/extensionsV4.ts#L29)*
+*Defined in [src/clients/Colony/extensions/extensionsV4.ts:29](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/extensionsV4.ts#L29)*
 
 **Parameters:**
 

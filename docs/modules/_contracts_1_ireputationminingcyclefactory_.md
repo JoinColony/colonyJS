@@ -728,4 +728,4 @@
   }
 ]
 
-*Defined in [src/contracts/1/IReputationMiningCycleFactory.ts:22](https://github.com/JoinColony/colonyJS/blob/8037c41/src/contracts/1/IReputationMiningCycleFactory.ts#L22)*
+*Defined in [src/contracts/1/IReputationMiningCycleFactory.ts:22](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/1/IReputationMiningCycleFactory.ts#L22)*

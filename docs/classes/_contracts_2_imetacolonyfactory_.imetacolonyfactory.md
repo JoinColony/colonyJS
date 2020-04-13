@@ -18,7 +18,7 @@
 
 ▸ **connect**(`address`: string, `signerOrProvider`: Signer | Provider): *IMetaColony*
 
-*Defined in [src/contracts/2/IMetaColonyFactory.ts:10](https://github.com/JoinColony/colonyJS/blob/8037c41/src/contracts/2/IMetaColonyFactory.ts#L10)*
+*Defined in [src/contracts/2/IMetaColonyFactory.ts:10](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/2/IMetaColonyFactory.ts#L10)*
 
 **Parameters:**
 

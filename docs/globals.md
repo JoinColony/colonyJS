@@ -60,4 +60,3 @@
 * ["contracts/4/IReputationMiningCycleFactory"](modules/_contracts_4_ireputationminingcyclefactory_.md)
 * ["contracts/4/ITokenLockingFactory"](modules/_contracts_4_itokenlockingfactory_.md)
 * ["index"](modules/_index_.md)
-* ["versions"](modules/_versions_.md)

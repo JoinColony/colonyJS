@@ -2323,4 +2323,4 @@
   }
 ]
 
-*Defined in [src/contracts/2/IMetaColonyFactory.ts:18](https://github.com/JoinColony/colonyJS/blob/8037c41/src/contracts/2/IMetaColonyFactory.ts#L18)*
+*Defined in [src/contracts/2/IMetaColonyFactory.ts:18](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/2/IMetaColonyFactory.ts#L18)*

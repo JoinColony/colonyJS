@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="/docs/img/colonyJS_color.svg" width="600" />
+  <img src="colonyJS_color.svg" width="600" />
 </div>
 
 # colonyJS

@@ -25,7 +25,7 @@
 
 Ƭ **ExtensionRequiredTransactions**: *"setPaymentDomain"*
 
-*Defined in [src/clients/Colony/extensions/SetPaymentDomain.ts:9](https://github.com/JoinColony/colonyJS/blob/8037c41/src/clients/Colony/extensions/SetPaymentDomain.ts#L9)*
+*Defined in [src/clients/Colony/extensions/SetPaymentDomain.ts:9](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/SetPaymentDomain.ts#L9)*
 
 ___
 
@@ -33,7 +33,7 @@ ___
 
 Ƭ **SetPaymentDomainRequiredIColony**: *[ExtendableIColony](_clients_colony_extensions_commonextensions_.md#extendableicolony) & Pick‹IColony, [ExtensionRequiredTransactions](_clients_colony_extensions_setpaymentdomain_.md#extensionrequiredtransactions)› & object*
 
-*Defined in [src/clients/Colony/extensions/SetPaymentDomain.ts:26](https://github.com/JoinColony/colonyJS/blob/8037c41/src/clients/Colony/extensions/SetPaymentDomain.ts#L26)*
+*Defined in [src/clients/Colony/extensions/SetPaymentDomain.ts:26](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/SetPaymentDomain.ts#L26)*
 
 ## Functions
 
@@ -41,7 +41,7 @@ ___
 
 ▸ **estimateSetPaymentDomainWithProofs**<**T**>(`this`: T, `_id`: BigNumberish, `_domainId`: BigNumberish): *Promise‹BigNumber›*
 
-*Defined in [src/clients/Colony/extensions/SetPaymentDomain.ts:54](https://github.com/JoinColony/colonyJS/blob/8037c41/src/clients/Colony/extensions/SetPaymentDomain.ts#L54)*
+*Defined in [src/clients/Colony/extensions/SetPaymentDomain.ts:54](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/SetPaymentDomain.ts#L54)*
 
 **Type parameters:**
 
@@ -63,7 +63,7 @@ ___
 
 ▸ **setPaymentDomainWithProofs**<**T**>(`this`: T, `_id`: BigNumberish, `_domainId`: string, `overrides?`: TransactionOverrides): *Promise‹ContractTransaction›*
 
-*Defined in [src/clients/Colony/extensions/SetPaymentDomain.ts:31](https://github.com/JoinColony/colonyJS/blob/8037c41/src/clients/Colony/extensions/SetPaymentDomain.ts#L31)*
+*Defined in [src/clients/Colony/extensions/SetPaymentDomain.ts:31](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/SetPaymentDomain.ts#L31)*
 
 **Type parameters:**
 
