@@ -10,7 +10,7 @@
     "jest": "jest",
     "test": "npm run typecheck && npm run lint",
     "build-contracts": "ts-node -P scripts/tsconfig-scripts.json scripts/build-contracts.ts",
-    "build-docs": "typedoc --plugin typedoc-plugin-markdown --out docs src",
+    "build-docs": "typedoc --out docs src",
     "prepublish": "tsc && npm run build-docs"
   },
   "devDependencies": {
@@ -35,7 +35,6 @@
     "typechain": "^1.0.5",
     "typechain-target-ethers": "^1.0.3",
     "typedoc": "^0.17.3",
-    "typedoc-plugin-markdown": "^2.2.17",
     "typescript": "^3.8.3",
     "yargs": "^15.3.1"
   },
