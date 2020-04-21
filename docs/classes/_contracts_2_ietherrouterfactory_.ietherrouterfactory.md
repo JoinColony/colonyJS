@@ -18,7 +18,7 @@
 
 ▸ **connect**(`address`: string, `signerOrProvider`: Signer | Provider): *IEtherRouter*
 
-*Defined in [src/contracts/2/IEtherRouterFactory.ts:10](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/2/IEtherRouterFactory.ts#L10)*
+*Defined in [src/contracts/2/IEtherRouterFactory.ts:10](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/2/IEtherRouterFactory.ts#L10)*
 
 **Parameters:**
 

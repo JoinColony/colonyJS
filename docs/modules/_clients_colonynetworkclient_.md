@@ -22,7 +22,7 @@
 
 Ƭ **AnyColonyClient**: *[ExtendedIColonyV1](../interfaces/_clients_colony_colonyclientv1_.extendedicolonyv1.md) | [ExtendedIColonyV2](../interfaces/_clients_colony_colonyclientv2_.extendedicolonyv2.md) | [ExtendedIColonyV3](../interfaces/_clients_colony_colonyclientv3_.extendedicolonyv3.md) | [ExtendedIColonyV4](../interfaces/_clients_colony_colonyclientv4_.extendedicolonyv4.md)*
 
-*Defined in [src/clients/ColonyNetworkClient.ts:14](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/ColonyNetworkClient.ts#L14)*
+*Defined in [src/clients/ColonyNetworkClient.ts:14](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/ColonyNetworkClient.ts#L14)*
 
 ## Functions
 
@@ -30,7 +30,7 @@
 
 ▸ **getColonyNetworkClient**(`network`: [Network](../enums/_constants_.network.md), `signerOrProvider`: Signer | Provider, `address?`: undefined | string): *[ExtendedIColonyNetwork](../interfaces/_clients_colonynetworkclient_.extendedicolonynetwork.md)*
 
-*Defined in [src/clients/ColonyNetworkClient.ts:24](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/ColonyNetworkClient.ts#L24)*
+*Defined in [src/clients/ColonyNetworkClient.ts:24](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/ColonyNetworkClient.ts#L24)*
 
 **Parameters:**
 

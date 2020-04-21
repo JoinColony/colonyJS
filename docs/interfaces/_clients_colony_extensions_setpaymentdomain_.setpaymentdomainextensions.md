@@ -24,7 +24,7 @@
 
 ▸ **setPaymentDomainWithProofs**(`_id`: BigNumberish, `_domainId`: BigNumberish, `overrides?`: TransactionOverrides): *Promise‹ContractTransaction›*
 
-*Defined in [src/clients/Colony/extensions/SetPaymentDomain.ts:19](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/SetPaymentDomain.ts#L19)*
+*Defined in [src/clients/Colony/extensions/SetPaymentDomain.ts:19](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/SetPaymentDomain.ts#L19)*
 
 **Parameters:**
 

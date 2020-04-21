@@ -72,26 +72,53 @@ export class IRecovery extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Is colony network in recovery mode.
+     * @returns inRecoveryMode Return true if recovery mode is active, false otherwise
+     */
     isInRecoveryMode(): Promise<boolean>;
 
+    /**
+     * Set new colony recovery role. Can be called by root.
+     * @param _user User we want to give a recovery role to
+     */
     setRecoveryRole(
       _user: string,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Remove colony recovery role. Can only be called by root role.
+     * @param _user User we want to remove recovery role from
+     */
     removeRecoveryRole(
       _user: string,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Return number of recovery roles.
+     * @returns numRoles Number of users with the recovery role.
+     */
     numRecoveryRoles(): Promise<BigNumber>;
 
+    /**
+     * certain critical variables are protected from editing in this function
+     * Update value of arbitrary storage variable. Can only be called by user with recovery role.
+     * @param _slot Uint address of storage slot to be updated
+     * @param _value word of data to be set
+     */
     setStorageSlotRecovery(
       _slot: BigNumberish,
       _value: Arrayish,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * No return value, but should throw if protected.This is public, but is only expected to be called from ContractRecovery; no need toexpose this to any users.
+     * Check whether the supplied slot is a protected variable specific to this contract
+     * @param _slot The storage slot number to check.
+     */
     checkNotAdditionalProtectedVariable(_slot: BigNumberish): Promise<void>;
   };
 
@@ -107,26 +134,53 @@ export class IRecovery extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Is colony network in recovery mode.
+   * @returns inRecoveryMode Return true if recovery mode is active, false otherwise
+   */
   isInRecoveryMode(): Promise<boolean>;
 
+  /**
+   * Set new colony recovery role. Can be called by root.
+   * @param _user User we want to give a recovery role to
+   */
   setRecoveryRole(
     _user: string,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Remove colony recovery role. Can only be called by root role.
+   * @param _user User we want to remove recovery role from
+   */
   removeRecoveryRole(
     _user: string,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Return number of recovery roles.
+   * @returns numRoles Number of users with the recovery role.
+   */
   numRecoveryRoles(): Promise<BigNumber>;
 
+  /**
+   * certain critical variables are protected from editing in this function
+   * Update value of arbitrary storage variable. Can only be called by user with recovery role.
+   * @param _slot Uint address of storage slot to be updated
+   * @param _value word of data to be set
+   */
   setStorageSlotRecovery(
     _slot: BigNumberish,
     _value: Arrayish,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * No return value, but should throw if protected.This is public, but is only expected to be called from ContractRecovery; no need toexpose this to any users.
+   * Check whether the supplied slot is a protected variable specific to this contract
+   * @param _slot The storage slot number to check.
+   */
   checkNotAdditionalProtectedVariable(_slot: BigNumberish): Promise<void>;
 
   filters: {

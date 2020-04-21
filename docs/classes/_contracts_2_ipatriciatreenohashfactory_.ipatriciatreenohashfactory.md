@@ -18,7 +18,7 @@
 
 ▸ **connect**(`address`: string, `signerOrProvider`: Signer | Provider): *IPatriciaTreeNoHash*
 
-*Defined in [src/contracts/2/IPatriciaTreeNoHashFactory.ts:10](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/2/IPatriciaTreeNoHashFactory.ts#L10)*
+*Defined in [src/contracts/2/IPatriciaTreeNoHashFactory.ts:10](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/2/IPatriciaTreeNoHashFactory.ts#L10)*
 
 **Parameters:**
 

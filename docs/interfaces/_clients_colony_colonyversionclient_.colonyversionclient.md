@@ -397,7 +397,7 @@ ___
 
 ▸ **version**(): *Promise‹BigNumber›*
 
-*Defined in [src/clients/Colony/ColonyVersionClient.ts:8](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/ColonyVersionClient.ts#L8)*
+*Defined in [src/clients/Colony/ColonyVersionClient.ts:8](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/ColonyVersionClient.ts#L8)*
 
 **Returns:** *Promise‹BigNumber›*
 

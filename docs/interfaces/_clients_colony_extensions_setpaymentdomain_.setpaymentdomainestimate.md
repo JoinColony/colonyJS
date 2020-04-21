@@ -18,7 +18,7 @@
 
 ▸ **setPaymentDomain**(`_id`: BigNumberish, `_domainId`: BigNumberish): *Promise‹BigNumber›*
 
-*Defined in [src/clients/Colony/extensions/SetPaymentDomain.ts:12](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/SetPaymentDomain.ts#L12)*
+*Defined in [src/clients/Colony/extensions/SetPaymentDomain.ts:12](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/SetPaymentDomain.ts#L12)*
 
 **Parameters:**
 

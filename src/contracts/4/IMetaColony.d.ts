@@ -831,6 +831,11 @@ export class IMetaColony extends Contract {
   interface: IMetaColonyInterface;
 
   functions: {
+    /**
+     * Get the `ColonyStorage.RatingSecrets` information for task `_id`.
+     * @param _id Id of the task
+     * @returns nSecrets Number of secretslastSubmittedAt Timestamp of the last submitted rating secret
+     */
     getTaskWorkRatingSecretsInfo(
       _id: BigNumberish
     ): Promise<{
@@ -840,20 +845,42 @@ export class IMetaColony extends Contract {
       1: BigNumber;
     }>;
 
+    /**
+     * Get payout amount in `_token` denomination for role `_role` in task `_id`.
+     * @param _id Id of the task
+     * @param _role Id of the role, as defined in TaskRole enum
+     * @param _token Address of the token, `0x0` value indicates Ether
+     * @returns amount Payout amount
+     */
     getTaskPayout(
       _id: BigNumberish,
       _role: BigNumberish,
       _token: string
     ): Promise<BigNumber>;
 
+    /**
+     * Claim the payout in `_token` denomination for payment `_id`. Here the network receives its fee from each payout. Same as for tasks, ether fees go straight to the Meta Colony whereas Token fees go to the Network to be auctioned off.
+     * @param _id Payment identifier
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     claimPayment(
       _id: BigNumberish,
       _token: string,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Get the number of domains in the colony.
+     * @returns count The domain count. Min 1 as the root domain is created at the same time as the colony
+     */
     getDomainCount(): Promise<BigNumber>;
 
+    /**
+     * Sets the recipient on an expenditure slot. Can only be called by expenditure owner.
+     * @param _id Id of the expenditure
+     * @param _recipient Address of the recipient
+     * @param _slot Slot for the recipient address
+     */
     setExpenditureRecipient(
       _id: BigNumberish,
       _slot: BigNumberish,
@@ -861,6 +888,13 @@ export class IMetaColony extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Internally call `submitTaskDeliverable` and `submitTaskWorkRating` in sequence.
+     * Submit the task deliverable for Worker and rating for Manager.
+     * @param _deliverableHash Unique hash of the task deliverable content in ddb
+     * @param _id Id of the task
+     * @param _ratingSecret Rating secret for manager
+     */
     submitTaskDeliverableAndRating(
       _id: BigNumberish,
       _deliverableHash: Arrayish,
@@ -868,12 +902,33 @@ export class IMetaColony extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Get a domain by id.
+     * @param _id Id of the domain which details to get
+     * @returns domain The domain
+     */
     getDomain(
       _id: BigNumberish
-    ): Promise<{ skillId: BigNumber; fundingPotId: BigNumber }>;
+    ): Promise<{
+      skillId: BigNumber;
+      fundingPotId: BigNumber;
+      0: BigNumber;
+      1: BigNumber;
+    }>;
 
+    /**
+     * Helper function used to generage consistently the rating secret using salt value `_salt` and value to hide `_value`
+     * @param _salt Salt value
+     * @param _value Value to hide
+     * @returns secret `keccak256` hash of joint _salt and _value
+     */
     generateSecret(_salt: Arrayish, _value: BigNumberish): Promise<string>;
 
+    /**
+     * Get a task with id `_id`
+     * @param _id Id of the task
+     * @returns specificationHash Task brief hashdeliverableHash Task deliverable hashstatus TaskStatus property. 0 - Active. 1 - Cancelled. 2 - FinalizeddueDate Due datefundingPotId Id of funding pot for taskcompletionTimestamp Task completion timestampdomainId Task domain id, default is root colony domain with id 1skillIds Array of global skill ids assigned to task
+     */
     getTask(
       _id: BigNumberish
     ): Promise<{
@@ -895,11 +950,31 @@ export class IMetaColony extends Contract {
       7: BigNumber[];
     }>;
 
+    /**
+     * Get the `Role` properties back for role `_role` in task `_id`.
+     * @param _id Id of the task
+     * @param _role Id of the role, as defined in TaskRole enum
+     * @returns role The Role
+     */
     getTaskRole(
       _id: BigNumberish,
       _role: BigNumberish
-    ): Promise<{ user: string; rateFail: boolean; rating: number }>;
+    ): Promise<{
+      user: string;
+      rateFail: boolean;
+      rating: number;
+      0: string;
+      1: boolean;
+      2: number;
+    }>;
 
+    /**
+     * Adding new domains is currently retricted to one level only, i.e. `_parentDomainId` has to be the root domain id: `1`.
+     * Add a colony domain, and its respective local skill under skill with id `_parentSkillId`. New funding pot is created and associated with the domain here.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _parentDomainId Id of the domain under which the new one will be added
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     */
     addDomain(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -907,8 +982,21 @@ export class IMetaColony extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Get the colony token.
+     * @returns tokenAddress Address of the token contract
+     */
     getToken(): Promise<string>;
 
+    /**
+     * Executes a task role update transaction `_data` which is approved and signed by two of addresses. depending of which function we are calling. Allowed functions are `setTaskManagerRole`, `setTaskEvaluatorRole` and `setTaskWorkerRole`. Upon successful execution the `taskChangeNonces` entry for the task is incremented.
+     * @param _data The transaction data
+     * @param _mode How the signature was generated - 0 for Geth-style (usual), 1 for Trezor-style (only Trezor does this)
+     * @param _sigR r output of the ECDSA signature of the transaction
+     * @param _sigS s output of the ECDSA signature of the transaction
+     * @param _sigV recovery id
+     * @param _value The transaction value, i.e. number of wei to be sent when the transaction is executed Currently we only accept 0 value transactions but this is kept as a future option
+     */
     executeTaskRoleAssignment(
       _sigV: BigNumberish[],
       _sigR: Arrayish[],
@@ -919,6 +1007,13 @@ export class IMetaColony extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Sets the skill on an existing payment. Secured function to authorised members.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _id Payment identifier
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _skillId Id of the new skill to set
+     */
     setPaymentSkill(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -927,24 +1022,50 @@ export class IMetaColony extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Get the number of funding pots in the colony.
+     * @returns count The funding pots count
+     */
     getFundingPotCount(): Promise<BigNumber>;
 
+    /**
+     * Update a colony's orbitdb address. Can only be called by a colony with a registered subdomain
+     * @param orbitdb The path of the orbitDB database to be associated with the colony
+     */
     updateColonyOrbitDB(
       orbitdb: string,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Returns an existing expenditure slot's payout for a token.
+     * @param _id Expenditure identifier
+     * @param _slot Expenditure slot
+     * @param _token Token address
+     * @returns amount Amount of the payout for that slot/token.
+     */
     getExpenditureSlotPayout(
       _id: BigNumberish,
       _slot: BigNumberish,
       _token: string
     ): Promise<BigNumber>;
 
+    /**
+     * Set the reward inverse to pay out from revenue. e.g. if the fee is 1% (or 0.01), set 100.
+     * @param _rewardInverse The inverse of the reward
+     */
     setRewardInverse(
       _rewardInverse: BigNumberish,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Updates the expenditure owner. Can only be called by Arbitration role.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
+     * @param _id Expenditure identifier
+     * @param _newOwner New owner of expenditure
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     */
     transferExpenditureViaArbitration(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -953,6 +1074,12 @@ export class IMetaColony extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Set `_token` payout for worker in task `_id` to `_amount`.
+     * @param _amount Payout amount
+     * @param _id Id of the task
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     setTaskWorkerPayout(
       _id: BigNumberish,
       _token: string,
@@ -960,6 +1087,12 @@ export class IMetaColony extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Claim the payout for an expenditure slot. Here the network receives a fee from each payout.
+     * @param _id Expenditure identifier
+     * @param _slot Number of the slot
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     claimExpenditurePayout(
       _id: BigNumberish,
       _slot: BigNumberish,
@@ -971,6 +1104,11 @@ export class IMetaColony extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Returns an exiting payment.
+     * @param _id Payment identifier
+     * @returns payment The Payment data structure
+     */
     getPayment(
       _id: BigNumberish
     ): Promise<{
@@ -979,8 +1117,22 @@ export class IMetaColony extends Contract {
       fundingPotId: BigNumber;
       domainId: BigNumber;
       skills: BigNumber[];
+      0: string;
+      1: boolean;
+      2: BigNumber;
+      3: BigNumber;
+      4: BigNumber[];
     }>;
 
+    /**
+     * Check whether a given user has a given role for the colony, in a child domain. Calls the function of the same name on the colony's authority contract and an internal inheritence validator function
+     * @param _childDomainId The domain where we want to use the role
+     * @param _childSkillIndex The index that the `_childDomainId` is relative to `_domainId`
+     * @param _domainId Domain in which the caller has the role
+     * @param _role The role we want to check for
+     * @param _user The user whose role we want to check
+     * @returns hasRole Boolean indicating whether the given user has the given role in domain
+     */
     hasInheritedUserRole(
       _user: string,
       _domainId: BigNumberish,
@@ -989,12 +1141,26 @@ export class IMetaColony extends Contract {
       _childDomainId: BigNumberish
     ): Promise<boolean>;
 
+    /**
+     * Can only be called by the colony itself, and only expected to be called as part of the `upgrade()` call. Required to be public so it can be an external call.
+     * A function to be called after an upgrade has been done from v2 to v3.
+     */
     finishUpgrade(
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Get the total amount of tokens `_token` minus amount reserved to be paid to the reputation and token holders as rewards.
+     * @param _token Address of the token, `0x0` value indicates Ether
+     * @returns amount Total amount of tokens in funding pots other than the rewards pot (id 0)
+     */
     getNonRewardPotsTotal(_token: string): Promise<BigNumber>;
 
+    /**
+     * Get useful information about specific reward payout.
+     * @param _payoutId Id of the reward payout
+     * @returns rewardPayoutCycle RewardPayoutCycle, containing propertes:  `reputationState` Reputation root hash at the time of creation,  `colonyWideReputation` Colony wide reputation in `reputationState`,  `totalTokens` Total colony tokens at the time of creation,  `amount` Total amount of tokens taken aside for reward payout,  `tokenAddress` Token address,  `blockTimestamp` Block number at the time of creation.
+     */
     getRewardPayoutInfo(
       _payoutId: BigNumberish
     ): Promise<{
@@ -1006,17 +1172,35 @@ export class IMetaColony extends Contract {
       blockTimestamp: BigNumber;
       amountRemaining: BigNumber;
       finalized: boolean;
+      0: string;
+      1: BigNumber;
+      2: BigNumber;
+      3: BigNumber;
+      4: string;
+      5: BigNumber;
+      6: BigNumber;
+      7: boolean;
     }>;
 
     exitRecoveryMode(
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Cancels the expenditure and prevents further editing. Can only be called by expenditure owner.
+     * @param _id Expenditure identifier
+     */
     cancelExpenditure(
       _id: BigNumberish,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Submit a hashed secret of the rating for work in task `_id` which was performed by user with task role id `_role`. Allowed within 5 days period starting which whichever is first from either the deliverable being submitted or the dueDate been reached. Allowed only for evaluator to rate worker and for worker to rate manager performance. Once submitted ratings can not be changed or overwritten.
+     * @param _id Id of the task
+     * @param _ratingSecret `keccak256` hash of a salt and 0-50 rating score (in increments of 10, .e.g 0, 10, 20, 30, 40 or 50). Can be generated via `IColony.generateSecret` helper function.
+     * @param _role Id of the role, as defined in TaskRole enum
+     */
     submitTaskWorkRating(
       _id: BigNumberish,
       _role: BigNumberish,
@@ -1024,16 +1208,32 @@ export class IMetaColony extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Downgrades are not allowed, i.e. `_newVersion` should be higher than the currect colony version.
+     * Upgrades a colony to a new Colony contract version `_newVersion`.
+     * @param _newVersion The target version for the upgrade
+     */
     upgrade(
       _newVersion: BigNumberish,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Removing worker role. Agreed between manager and currently assigned worker.
+     * @param _id Id of the task
+     */
     removeTaskWorkerRole(
       _id: BigNumberish,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Set the token payout on an expenditure slot. Can only be called by expenditure owner.
+     * @param _amount Payout amount
+     * @param _id Id of the expenditure
+     * @param _slot Number of the slot
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     setExpenditurePayout(
       _id: BigNumberish,
       _slot: BigNumberish,
@@ -1042,10 +1242,30 @@ export class IMetaColony extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Return 1 / the reward to pay out from revenue. e.g. if the fee is 1% (or 0.01), return 100.
+     * @returns rewardInverse The inverse of the reward
+     */
     getRewardInverse(): Promise<BigNumber>;
 
+    /**
+     * The colonyNetworkAddress we read here is set once, during `initialiseColony`.
+     * Returns the colony network address set on the Colony.
+     * @returns colonyNetwork The address of Colony Network instance
+     */
     getColonyNetwork(): Promise<string>;
 
+    /**
+     * Add a new payment in the colony. Secured function to authorised members.
+     * @param _amount Payout amount
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
+     * @param _domainId The domain where the payment belongs
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _recipient Address of the payment recipient
+     * @param _skillId The skill associated with the payment
+     * @param _token Address of the token, `0x0` value indicates Ether
+     * @returns paymentId Identifier of the newly created payment
+     */
     addPayment(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -1057,19 +1277,41 @@ export class IMetaColony extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Set the `task.deliverableHash` and `task.completionTimestamp` properties.
+     * Submit the task deliverable, i.e. the output of the work performed for task `_id`. Submission is allowed only to the assigned worker before the task due date. Submissions cannot be overwritten.
+     * @param _deliverableHash Unique hash of the task deliverable content in ddb
+     * @param _id Id of the task
+     */
     submitTaskDeliverable(
       _id: BigNumberish,
       _deliverableHash: Arrayish,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Finalises the reward payout. Allows creation of next reward payouts for token that has been used in `_payoutId`. Can only be called when reward payout cycle is finished i.e when 60 days have passed from its creation.
+     * @param _payoutId Id of the reward payout
+     */
     finalizeRewardPayout(
       _payoutId: BigNumberish,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Return number of recovery roles.
+     * @returns numRoles Number of users with the recovery role.
+     */
     numRecoveryRoles(): Promise<BigNumber>;
 
+    /**
+     * Sets the payout for a given token on an existing payment. Secured function to authorised members.
+     * @param _amount Payout amount
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _id Payment identifier
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     setPaymentPayout(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -1079,6 +1321,14 @@ export class IMetaColony extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Set the claim delay on an expenditure slot. Can only be called by Arbitration role.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
+     * @param _claimDelay Time (in seconds) to delay claiming payout after finalization
+     * @param _id Expenditure identifier
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _slot Number of the slot
+     */
     setExpenditureClaimDelay(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -1088,16 +1338,41 @@ export class IMetaColony extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Get the Colony contract version. Starts from 1 and is incremented with every deployed contract change.
+     * @returns colonyVersion Version number
+     */
     version(): Promise<BigNumber>;
 
+    /**
+     * certain critical variables are protected from editing in this function
+     * Update value of arbitrary storage variable. Can only be called by user with recovery role.
+     * @param _slot Uint address of storage slot to be updated
+     * @param _value word of data to be set
+     */
     setStorageSlotRecovery(
       _slot: BigNumberish,
       _value: Arrayish,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Gets the bytes32 representation of the roles for a user in a given domain
+     * @param where The domain where we want to get roles for
+     * @param who The user whose roles we want to get
+     * @returns roles bytes32 representation of the roles
+     */
     getUserRoles(who: string, where: BigNumberish): Promise<string>;
 
+    /**
+     * Can only call if evaluator and worker are unassigned or manager, otherwise need signature.
+     * Set `_token` payout for all roles in task `_id` to the respective amounts.
+     * @param _evaluatorAmount Payout amount for evaluator
+     * @param _id Id of the task
+     * @param _managerAmount Payout amount for manager
+     * @param _token Address of the token, `0x0` value indicates Ether
+     * @param _workerAmount Payout amount for worker
+     */
     setAllTaskPayouts(
       _id: BigNumberish,
       _token: string,
@@ -1107,6 +1382,14 @@ export class IMetaColony extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Set new colony admin role. Can be called by root role or architecture role.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _domainId Domain in which we are giving user the role
+     * @param _permissionDomainId Domain in which the caller has root/architecture role
+     * @param _setTo The state of the role permission (true assign the permission, false revokes it)
+     * @param _user User we want to give an admin role to
+     */
     setAdministrationRole(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -1116,6 +1399,15 @@ export class IMetaColony extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Make a new task in the colony. Secured function to authorised members.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _domainId The domain where the task belongs
+     * @param _dueDate The due date of the task, can set to `0` for no-op
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _skillId The skill associated with the task, can set to `0` for no-op
+     * @param _specificationHash Database identifier where the task specification is stored
+     */
     makeTask(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -1126,6 +1418,12 @@ export class IMetaColony extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Set `_token` payout for manager in task `_id` to `_amount`.
+     * @param _amount Payout amount
+     * @param _id Id of the task
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     setTaskManagerPayout(
       _id: BigNumberish,
       _token: string,
@@ -1133,6 +1431,12 @@ export class IMetaColony extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Set `_token` payout for evaluator in task `_id` to `_amount`.
+     * @param _amount Payout amount
+     * @param _id Id of the task
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     setTaskEvaluatorPayout(
       _id: BigNumberish,
       _token: string,
@@ -1140,6 +1444,15 @@ export class IMetaColony extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Claim the reward payout at `_payoutId`. User needs to provide their reputation and colony-wide reputation which will be proven via Merkle proof inside this function. Can only be called if payout is active, i.e if 60 days have not passed from its creation. Can only be called if next in queue.
+     * @param _payoutId Id of the reward payout
+     * @param _squareRoots Square roots of values used in equation: `_squareRoots[0]` - square root of user reputation, `_squareRoots[1]` - square root of user tokens (deposited in TokenLocking), `_squareRoots[2]` - square root of total reputation, `_squareRoots[3]` - square root of total tokens, `_squareRoots[4]` - square root of numerator (user reputation * user tokens), `_squareRoots[5]` - square root of denominator (total reputation * total tokens), `_squareRoots[6]` - square root of payout amount.
+     * @param branchMask The branchmask of the proof
+     * @param key Some Reputation hash tree key
+     * @param siblings The siblings of the proof
+     * @param value Reputation value
+     */
     claimRewardPayout(
       _payoutId: BigNumberish,
       _squareRoots: BigNumberish[],
@@ -1150,12 +1463,28 @@ export class IMetaColony extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * This function can only be called through `executeTaskRoleAssignment`.
+     * Assigning worker role. Can only be set if there is no one currently assigned to be a worker. Manager of the task and user we want to assign role to both need to agree.
+     * @param _id Id of the task
+     * @param _user Address of the user we want to give a worker role to
+     */
     setTaskWorkerRole(
       _id: BigNumberish,
       _user: string,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * The Colony functions which require approval and the task roles to review these are set in `IColony.initialiseColony` at colony creation. Upon successful execution the `taskChangeNonces` entry for the task is incremented.
+     * Executes a task update transaction `_data` which is approved and signed by two of its roles (e.g. manager and worker) using the detached signatures for these users.
+     * @param _data The transaction data
+     * @param _mode How the signature was generated - 0 for Geth-style (usual), 1 for Trezor-style (only Trezor does this)
+     * @param _sigR r output of the ECDSA signature of the transaction
+     * @param _sigS s output of the ECDSA signature of the transaction
+     * @param _sigV recovery id
+     * @param _value The transaction value, i.e. number of wei to be sent when the transaction is executed Currently we only accept 0 value transactions but this is kept as a future option
+     */
     executeTaskChange(
       _sigV: BigNumberish[],
       _sigR: Arrayish[],
@@ -1166,14 +1495,30 @@ export class IMetaColony extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Sets the reward inverse to the uint max 2**256 - 1.
+     * Called once when the colony is created to initialise certain storage slot values.
+     * @param _colonyNetworkAddress Address of the colony network
+     * @param _token Address of the colony ERC20 Token
+     */
     initialiseColony(
       _colonyNetworkAddress: string,
       _token: string,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Get the number of expenditures in the colony.
+     * @returns count The expenditure count
+     */
     getExpenditureCount(): Promise<BigNumber>;
 
+    /**
+     * For the reward funding pot (e.g. id: 0) this returns (0, 0, 0).
+     * Get the non-mapping properties of a pot by id.
+     * @param _id Id of the pot which details to get
+     * @returns associatedType The FundingPotAssociatedType value of the current funding pot, e.g. Domain, Task, PayoutassociatedTypeId Id of the associated type, e.g. if associatedType = FundingPotAssociatedType.Domain, this refers to the domainIdpayoutsWeCannotMake Number of payouts that cannot be completed with the current funding
+     */
     getFundingPot(
       _id: BigNumberish
     ): Promise<{
@@ -1185,6 +1530,12 @@ export class IMetaColony extends Contract {
       2: BigNumber;
     }>;
 
+    /**
+     * Claim the payout in `_token` denomination for work completed in task `_id` by contributor with role `_role`. Allowed only after task is finalized. Here the network receives its fee from each payout. Ether fees go straight to the Meta Colony whereas Token fees go to the Network to be auctioned off.
+     * @param _id Id of the task
+     * @param _role Id of the role, as defined in TaskRole enum
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     claimTaskPayout(
       _id: BigNumberish,
       _role: BigNumberish,
@@ -1192,13 +1543,31 @@ export class IMetaColony extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Set the `task.status` property to `1`.
+     * Cancel a task at any point before it is finalized. Secured function to authorised members. Any funds assigned to its funding pot can be moved back to the domain via `IColony.moveFundsBetweenPots`.
+     * @param _id Id of the task
+     */
     cancelTask(
       _id: BigNumberish,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Is colony network in recovery mode.
+     * @returns inRecoveryMode Return true if recovery mode is active, false otherwise
+     */
     isInRecoveryMode(): Promise<boolean>;
 
+    /**
+     * Note that when determining payouts the payoutModifier is incremented by WAD and converted into payoutScalar
+     * Set the payout modifier on an expenditure slot. Can only be called by Arbitration role.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
+     * @param _id Expenditure identifier
+     * @param _payoutModifier Modifier to their payout (between -1 and 1, denominated in WADs, 0 means no modification)
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _slot Number of the slot
+     */
     setExpenditurePayoutModifier(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -1208,13 +1577,30 @@ export class IMetaColony extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * No return value, but should throw if protected.This is public, but is only expected to be called from ContractRecovery; no need toexpose this to any users.
+     * Check whether the supplied slot is a protected variable specific to this contract
+     * @param _slot The storage slot number to check.
+     */
     checkNotAdditionalProtectedVariable(_slot: BigNumberish): Promise<void>;
 
+    /**
+     * Set the `task.finalized` property to true
+     * Called after task work rating is complete which closes the task and logs the respective reputation log updates. Allowed to be called once per task. Secured function to authorised members.
+     * @param _id Id of the task
+     */
     finalizeTask(
       _id: BigNumberish,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Sets the recipient on an existing payment. Secured function to authorised members.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _id Payment identifier
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _recipient Address of the payment recipient
+     */
     setPaymentRecipient(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -1223,13 +1609,30 @@ export class IMetaColony extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Move any funds received by the colony in `_token` denomination to the top-level domain pot, siphoning off a small amount to the reward pot. If called against a colony's own token, no fee is taken.
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     claimColonyFunds(
       _token: string,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Used for testing.
+     * Get the colony `owner` address. This should be address(0x0) at all times.
+     * @returns colonyOwner Address of the colony owner
+     */
     owner(): Promise<string>;
 
+    /**
+     * Compares the `keccak256(_salt, _rating)` output with the previously submitted rating secret and if they match, sets the task role properties `rated` to `true` and `rating` to `_rating`.
+     * Reveal the secret rating submitted in `IColony.submitTaskWorkRating` for task `_id` and task role with id `_role`. Allowed within 5 days period starting which whichever is first from either both rating secrets being submitted (via `IColony.submitTaskWorkRating`) or the 5 day rating period expiring.
+     * @param _id Id of the task
+     * @param _rating 0-50 rating score (in increments of 10, .e.g 0, 10, 20, 30, 40 or 50)
+     * @param _role Id of the role, as defined in TaskRole enum
+     * @param _salt Salt value used to generate the rating secret
+     */
     revealTaskWorkRating(
       _id: BigNumberish,
       _role: BigNumberish,
@@ -1238,6 +1641,14 @@ export class IMetaColony extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Set new colony funding role. Can be called by root role or architecture role.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _domainId Domain in which we are giving user the role
+     * @param _permissionDomainId Domain in which the caller has root/architecture role
+     * @param _setTo The state of the role permission (true assign the permission, false revokes it)
+     * @param _user User we want to give an funding role to
+     */
     setFundingRole(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -1247,6 +1658,15 @@ export class IMetaColony extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * For more detail about branchMask and siblings, examine the PatriciaTree implementation. While public, likely only to be used by the Colony contracts, as it checks that the user is proving their own reputation in the current colony. The `verifyProof` function can be used to verify any proof, though this function is not currently exposed on the Colony's EtherRouter.
+     * Helper function that can be used by a client to verify the correctness of a patricia proof they have been supplied with.
+     * @param branchMask The branchmask of the proof
+     * @param key The key of the element the proof is for.
+     * @param siblings The siblings of the proof
+     * @param value The value of the element that the proof is for.
+     * @returns isValid True if the proof is valid, false otherwise.
+     */
     verifyReputationProof(
       key: Arrayish,
       value: Arrayish,
@@ -1254,11 +1674,21 @@ export class IMetaColony extends Contract {
       siblings: Arrayish[]
     ): Promise<boolean>;
 
+    /**
+     * Mint `_wad` amount of colony tokens. Secured function to authorised members.
+     * @param _wad Amount to mint
+     */
     mintTokens(
       _wad: BigNumberish,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Returns an existing expenditure slot.
+     * @param _id Expenditure identifier
+     * @param _slot Expenditure slot
+     * @returns expenditureSlot The expenditure slot
+     */
     getExpenditureSlot(
       _id: BigNumberish,
       _slot: BigNumberish
@@ -1267,18 +1697,37 @@ export class IMetaColony extends Contract {
       claimDelay: BigNumber;
       payoutModifier: BigNumber;
       skills: BigNumber[];
+      0: string;
+      1: BigNumber;
+      2: BigNumber;
+      3: BigNumber[];
     }>;
 
+    /**
+     * Remove colony recovery role. Can only be called by root role.
+     * @param _user User we want to remove recovery role from
+     */
     removeRecoveryRole(
       _user: string,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Removing evaluator role. Agreed between manager and currently assigned evaluator.
+     * @param _id Id of the task
+     */
     removeTaskEvaluatorRole(
       _id: BigNumberish,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Add a new expenditure in the colony. Secured function to authorised members.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
+     * @param _domainId The domain where the expenditure belongs
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @returns expenditureId Identifier of the newly created expenditure
+     */
     makeExpenditure(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -1286,24 +1735,55 @@ export class IMetaColony extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Get the `_token` balance of pot with id `_potId`.
+     * @param _potId Id of the funding pot
+     * @param _token Address of the token, `0x0` value indicates Ether
+     * @returns balance Funding pot supply balance
+     */
     getFundingPotBalance(
       _potId: BigNumberish,
       _token: string
     ): Promise<BigNumber>;
 
+    /**
+     * Check whether a given user has a given role for the colony. Calls the function of the same name on the colony's authority contract.
+     * @param _domainId The domain where we want to check for the role
+     * @param _role The role we want to check for
+     * @param _user The user whose role we want to check
+     * @returns hasRole Boolean indicating whether the given user has the given role in domain
+     */
     hasUserRole(
       _user: string,
       _domainId: BigNumberish,
       _role: BigNumberish
     ): Promise<boolean>;
 
+    /**
+     * Get the rating secret submitted for role `_role` in task `_id`
+     * @param _id Id of the task
+     * @param _role Id of the role, as defined in TaskRole enum
+     * @returns secret Rating secret `bytes32` value
+     */
     getTaskWorkRatingSecret(
       _id: BigNumberish,
       _role: BigNumberish
     ): Promise<string>;
 
+    /**
+     * Get the number of payments in the colony.
+     * @returns count The payment count
+     */
     getPaymentCount(): Promise<BigNumber>;
 
+    /**
+     * This function can only be called through `executeTaskRoleAssignment`.
+     * Assigning manager role. Current manager and user we want to assign role to both need to agree. User we want to set here also needs to be an admin. Note that the domain proof data comes at the end here to not interfere with the assembly argument unpacking.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _id Id of the task
+     * @param _permissionDomainId The domain ID in which _user has the Administration permission
+     * @param _user Address of the user we want to give a manager role to
+     */
     setTaskManagerRole(
       _id: BigNumberish,
       _user: string,
@@ -1312,11 +1792,23 @@ export class IMetaColony extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Finalizes the expenditure and prevents further editing. Can only be called by expenditure owner.
+     * @param _id Expenditure identifier
+     */
     finalizeExpenditure(
       _id: BigNumberish,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Set new colony arbitration role. Can be called by root role or architecture role.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _domainId Domain in which we are giving user the role
+     * @param _permissionDomainId Domain in which the caller has root role
+     * @param _setTo The state of the role permission (true assign the permission, false revokes it)
+     * @param _user User we want to give an arbitration role to
+     */
     setArbitrationRole(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -1326,21 +1818,51 @@ export class IMetaColony extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Currently we only allow one skill per task although we have provisioned for an array of skills in `Task` struct. Allowed before a task is finalized.
+     * Set the skill for task `_id`.
+     * @param _id Id of the task
+     * @param _skillId Id of the skill which has to be a global skill
+     */
     setTaskSkill(
       _id: BigNumberish,
       _skillId: BigNumberish,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Get the `ColonyAuthority` for the colony.
+     * @returns colonyAuthority The `ColonyAuthority` contract address
+     */
     authority(): Promise<string>;
 
+    /**
+     * Get the number of tasks in the colony.
+     * @returns count The task count
+     */
     getTaskCount(): Promise<BigNumber>;
 
+    /**
+     * Get the assigned `_token` payouts of pot with id `_potId`.
+     * @param _potId Id of the funding pot
+     * @param _token Address of the token, `0x0` value indicates Ether
+     * @returns payout Funding pot payout amount
+     */
     getFundingPotPayout(
       _potId: BigNumberish,
       _token: string
     ): Promise<BigNumber>;
 
+    /**
+     * Move a given amount: `_amount` of `_token` funds from funding pot with id `_fromPot` to one with id `_toPot`.
+     * @param _amount Amount of funds
+     * @param _fromChildSkillIndex The child index in `_permissionDomainId` where we can find the domain for `_fromPotId`
+     * @param _fromPot Funding pot id providing the funds
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _toChildSkillIndex The child index in `_permissionDomainId` where we can find the domain for `_toPotId`
+     * @param _toPot Funding pot id receiving the funds
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     moveFundsBetweenPots(
       _permissionDomainId: BigNumberish,
       _fromChildSkillIndex: BigNumberish,
@@ -1352,19 +1874,39 @@ export class IMetaColony extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Set the due date on task `_id`. Allowed before a task is finalized.
+     * @param _dueDate Due date as seconds since unix epoch
+     * @param _id Id of the task
+     */
     setTaskDueDate(
       _id: BigNumberish,
       _dueDate: BigNumberish,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Starts from 0 and is incremented on every co-reviewed task change via `executeTaskChange` call.
+     * @param _id Id of the task
+     * @returns nonce The current task change nonce value
+     */
     getTaskChangeNonce(_id: BigNumberish): Promise<BigNumber>;
 
+    /**
+     * Set new colony recovery role. Can be called by root.
+     * @param _user User we want to give a recovery role to
+     */
     setRecoveryRole(
       _user: string,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Finalizes the payment and logs the reputation log updates. Allowed to be called once after payment is fully funded. Secured function to authorised members.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _id Payment identifier
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     */
     finalizePayment(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -1372,35 +1914,68 @@ export class IMetaColony extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Set the hash for the task brief, aka task work specification, which identifies the task brief content in ddb. Allowed before a task is finalized.
+     * @param _id Id of the task
+     * @param _specificationHash Unique hash of the task brief in ddb
+     */
     setTaskBrief(
       _id: BigNumberish,
       _specificationHash: Arrayish,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * This function can only be called through `executeTaskRoleAssignment`.
+     * Assigning evaluator role. Can only be set if there is no one currently assigned to be an evaluator. Manager of the task and user we want to assign role to both need to agree. Managers can assign themselves to this role, if there is no one currently assigned to it.
+     * @param _id Id of the task
+     * @param _user Address of the user we want to give a evaluator role to
+     */
     setTaskEvaluatorRole(
       _id: BigNumberish,
       _user: string,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Set new colony root role. Can be called by root role only.
+     * @param _setTo The state of the role permission (true assign the permission, false revokes it)
+     * @param _user User we want to give an root role to
+     */
     setRootRole(
       _user: string,
       _setTo: boolean,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Mark a task as complete after the due date has passed. This allows the task to be rated and finalized (and funds recovered) even in the presence of a worker who has disappeared. Note that if the due date was not set, then this function will throw.
+     * @param _id Id of the task
+     */
     completeTask(
       _id: BigNumberish,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Register colony's ENS label.
+     * @param colonyName The label to register.
+     * @param orbitdb The path of the orbitDB database associated with the colony name
+     */
     registerColonyLabel(
       colonyName: string,
       orbitdb: string,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Start next reward payout for `_token`. All funds in the reward pot for `_token` will become unavailable.Add a new payment in the colony. Can only be called by users with root permission. All tokens will be locked, and can be unlocked by calling `waiveRewardPayout` or `claimRewardPayout`.
+     * @param _token Address of the token used for reward payout
+     * @param branchMask The branchmask of the proof
+     * @param key Some Reputation hash tree key
+     * @param siblings The siblings of the proof
+     * @param value Reputation value
+     */
     startNextRewardPayout(
       _token: string,
       key: Arrayish,
@@ -1410,6 +1985,12 @@ export class IMetaColony extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Only allowed to be called when `taskCount` is `0` by authorized addresses.
+     * Allows the colony to bootstrap itself by having initial reputation and token `_amount` assigned to `_users`. This reputation is assigned in the colony-wide domain. Secured function to authorised members.
+     * @param _amount Amount of reputation/tokens for every address
+     * @param _users Array of address to bootstrap with reputation
+     */
     bootstrapColony(
       _users: string[],
       _amount: BigNumberish[],
@@ -1420,6 +2001,11 @@ export class IMetaColony extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Returns an existing expenditure.
+     * @param _id Expenditure identifier
+     * @returns expenditure The expenditure
+     */
     getExpenditure(
       _id: BigNumberish
     ): Promise<{
@@ -1428,8 +2014,21 @@ export class IMetaColony extends Contract {
       fundingPotId: BigNumber;
       domainId: BigNumber;
       finalizedTimestamp: BigNumber;
+      0: number;
+      1: string;
+      2: BigNumber;
+      3: BigNumber;
+      4: BigNumber;
     }>;
 
+    /**
+     * Set new colony architecture role. Can be called by root role or architecture role.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _domainId Domain in which we are giving user the role
+     * @param _permissionDomainId Domain in which the caller has root/architecture role
+     * @param _setTo The state of the role permission (true assign the permission, false revokes it)
+     * @param _user User we want to give an architecture role to
+     */
     setArchitectureRole(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -1439,6 +2038,12 @@ export class IMetaColony extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Sets the skill on an expenditure slot. Can only be called by expenditure owner.
+     * @param _id Expenditure identifier
+     * @param _skillId Id of the new skill to set
+     * @param _slot Number of the slot
+     */
     setExpenditureSkill(
       _id: BigNumberish,
       _slot: BigNumberish,
@@ -1446,31 +2051,61 @@ export class IMetaColony extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Updates the expenditure owner. Can only be called by expenditure owner.
+     * @param _id Expenditure identifier
+     * @param _newOwner New owner of expenditure
+     */
     transferExpenditure(
       _id: BigNumberish,
       _newOwner: string,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Mints CLNY in the Meta Colony and transfers them to the colony network. Only allowed to be called on the Meta Colony by the colony network.
+     * @param _wad Amount to mint and transfer to the colony network
+     */
     mintTokensForColonyNetwork(
       _wad: BigNumberish,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Calls `IColonyNetwork.addSkill`.
+     * Add a new global skill.
+     * @returns skillId Id of the added skill
+     */
     addGlobalSkill(
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Calls `IColonyNetwork.deprecateSkill`.
+     * Mark a global skill as deprecated which stops new tasks and payments from using it.
+     * @param _skillId Id of the added skill
+     */
     deprecateGlobalSkill(
       _skillId: BigNumberish,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Calls `IColonyNetwork.setFeeInverse`.
+     * Set the Colony Network fee inverse amount.
+     * @param _feeInverse Nonzero amount for the fee inverse
+     */
     setNetworkFeeInverse(
       _feeInverse: BigNumberish,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Calls `IColonyNetwork.addColonyVersion`.
+     * Adds a new Colony contract version and the address of associated `_resolver` contract. Secured function to authorised members.
+     * @param _resolver Address of the `Resolver` contract which will be used with the underlying `EtherRouter` contract
+     * @param _version The new Colony contract version
+     */
     addNetworkColonyVersion(
       _version: BigNumberish,
       _resolver: string,
@@ -1478,6 +2113,11 @@ export class IMetaColony extends Contract {
     ): Promise<ContractTransaction>;
   };
 
+  /**
+   * Get the `ColonyStorage.RatingSecrets` information for task `_id`.
+   * @param _id Id of the task
+   * @returns nSecrets Number of secretslastSubmittedAt Timestamp of the last submitted rating secret
+   */
   getTaskWorkRatingSecretsInfo(
     _id: BigNumberish
   ): Promise<{
@@ -1487,20 +2127,42 @@ export class IMetaColony extends Contract {
     1: BigNumber;
   }>;
 
+  /**
+   * Get payout amount in `_token` denomination for role `_role` in task `_id`.
+   * @param _id Id of the task
+   * @param _role Id of the role, as defined in TaskRole enum
+   * @param _token Address of the token, `0x0` value indicates Ether
+   * @returns amount Payout amount
+   */
   getTaskPayout(
     _id: BigNumberish,
     _role: BigNumberish,
     _token: string
   ): Promise<BigNumber>;
 
+  /**
+   * Claim the payout in `_token` denomination for payment `_id`. Here the network receives its fee from each payout. Same as for tasks, ether fees go straight to the Meta Colony whereas Token fees go to the Network to be auctioned off.
+   * @param _id Payment identifier
+   * @param _token Address of the token, `0x0` value indicates Ether
+   */
   claimPayment(
     _id: BigNumberish,
     _token: string,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Get the number of domains in the colony.
+   * @returns count The domain count. Min 1 as the root domain is created at the same time as the colony
+   */
   getDomainCount(): Promise<BigNumber>;
 
+  /**
+   * Sets the recipient on an expenditure slot. Can only be called by expenditure owner.
+   * @param _id Id of the expenditure
+   * @param _recipient Address of the recipient
+   * @param _slot Slot for the recipient address
+   */
   setExpenditureRecipient(
     _id: BigNumberish,
     _slot: BigNumberish,
@@ -1508,6 +2170,13 @@ export class IMetaColony extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Internally call `submitTaskDeliverable` and `submitTaskWorkRating` in sequence.
+   * Submit the task deliverable for Worker and rating for Manager.
+   * @param _deliverableHash Unique hash of the task deliverable content in ddb
+   * @param _id Id of the task
+   * @param _ratingSecret Rating secret for manager
+   */
   submitTaskDeliverableAndRating(
     _id: BigNumberish,
     _deliverableHash: Arrayish,
@@ -1515,12 +2184,33 @@ export class IMetaColony extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Get a domain by id.
+   * @param _id Id of the domain which details to get
+   * @returns domain The domain
+   */
   getDomain(
     _id: BigNumberish
-  ): Promise<{ skillId: BigNumber; fundingPotId: BigNumber }>;
+  ): Promise<{
+    skillId: BigNumber;
+    fundingPotId: BigNumber;
+    0: BigNumber;
+    1: BigNumber;
+  }>;
 
+  /**
+   * Helper function used to generage consistently the rating secret using salt value `_salt` and value to hide `_value`
+   * @param _salt Salt value
+   * @param _value Value to hide
+   * @returns secret `keccak256` hash of joint _salt and _value
+   */
   generateSecret(_salt: Arrayish, _value: BigNumberish): Promise<string>;
 
+  /**
+   * Get a task with id `_id`
+   * @param _id Id of the task
+   * @returns specificationHash Task brief hashdeliverableHash Task deliverable hashstatus TaskStatus property. 0 - Active. 1 - Cancelled. 2 - FinalizeddueDate Due datefundingPotId Id of funding pot for taskcompletionTimestamp Task completion timestampdomainId Task domain id, default is root colony domain with id 1skillIds Array of global skill ids assigned to task
+   */
   getTask(
     _id: BigNumberish
   ): Promise<{
@@ -1542,11 +2232,31 @@ export class IMetaColony extends Contract {
     7: BigNumber[];
   }>;
 
+  /**
+   * Get the `Role` properties back for role `_role` in task `_id`.
+   * @param _id Id of the task
+   * @param _role Id of the role, as defined in TaskRole enum
+   * @returns role The Role
+   */
   getTaskRole(
     _id: BigNumberish,
     _role: BigNumberish
-  ): Promise<{ user: string; rateFail: boolean; rating: number }>;
+  ): Promise<{
+    user: string;
+    rateFail: boolean;
+    rating: number;
+    0: string;
+    1: boolean;
+    2: number;
+  }>;
 
+  /**
+   * Adding new domains is currently retricted to one level only, i.e. `_parentDomainId` has to be the root domain id: `1`.
+   * Add a colony domain, and its respective local skill under skill with id `_parentSkillId`. New funding pot is created and associated with the domain here.
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+   * @param _parentDomainId Id of the domain under which the new one will be added
+   * @param _permissionDomainId The domainId in which I have the permission to take this action
+   */
   addDomain(
     _permissionDomainId: BigNumberish,
     _childSkillIndex: BigNumberish,
@@ -1554,8 +2264,21 @@ export class IMetaColony extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Get the colony token.
+   * @returns tokenAddress Address of the token contract
+   */
   getToken(): Promise<string>;
 
+  /**
+   * Executes a task role update transaction `_data` which is approved and signed by two of addresses. depending of which function we are calling. Allowed functions are `setTaskManagerRole`, `setTaskEvaluatorRole` and `setTaskWorkerRole`. Upon successful execution the `taskChangeNonces` entry for the task is incremented.
+   * @param _data The transaction data
+   * @param _mode How the signature was generated - 0 for Geth-style (usual), 1 for Trezor-style (only Trezor does this)
+   * @param _sigR r output of the ECDSA signature of the transaction
+   * @param _sigS s output of the ECDSA signature of the transaction
+   * @param _sigV recovery id
+   * @param _value The transaction value, i.e. number of wei to be sent when the transaction is executed Currently we only accept 0 value transactions but this is kept as a future option
+   */
   executeTaskRoleAssignment(
     _sigV: BigNumberish[],
     _sigR: Arrayish[],
@@ -1566,6 +2289,13 @@ export class IMetaColony extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Sets the skill on an existing payment. Secured function to authorised members.
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+   * @param _id Payment identifier
+   * @param _permissionDomainId The domainId in which I have the permission to take this action
+   * @param _skillId Id of the new skill to set
+   */
   setPaymentSkill(
     _permissionDomainId: BigNumberish,
     _childSkillIndex: BigNumberish,
@@ -1574,24 +2304,50 @@ export class IMetaColony extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Get the number of funding pots in the colony.
+   * @returns count The funding pots count
+   */
   getFundingPotCount(): Promise<BigNumber>;
 
+  /**
+   * Update a colony's orbitdb address. Can only be called by a colony with a registered subdomain
+   * @param orbitdb The path of the orbitDB database to be associated with the colony
+   */
   updateColonyOrbitDB(
     orbitdb: string,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Returns an existing expenditure slot's payout for a token.
+   * @param _id Expenditure identifier
+   * @param _slot Expenditure slot
+   * @param _token Token address
+   * @returns amount Amount of the payout for that slot/token.
+   */
   getExpenditureSlotPayout(
     _id: BigNumberish,
     _slot: BigNumberish,
     _token: string
   ): Promise<BigNumber>;
 
+  /**
+   * Set the reward inverse to pay out from revenue. e.g. if the fee is 1% (or 0.01), set 100.
+   * @param _rewardInverse The inverse of the reward
+   */
   setRewardInverse(
     _rewardInverse: BigNumberish,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Updates the expenditure owner. Can only be called by Arbitration role.
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
+   * @param _id Expenditure identifier
+   * @param _newOwner New owner of expenditure
+   * @param _permissionDomainId The domainId in which I have the permission to take this action
+   */
   transferExpenditureViaArbitration(
     _permissionDomainId: BigNumberish,
     _childSkillIndex: BigNumberish,
@@ -1600,6 +2356,12 @@ export class IMetaColony extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Set `_token` payout for worker in task `_id` to `_amount`.
+   * @param _amount Payout amount
+   * @param _id Id of the task
+   * @param _token Address of the token, `0x0` value indicates Ether
+   */
   setTaskWorkerPayout(
     _id: BigNumberish,
     _token: string,
@@ -1607,6 +2369,12 @@ export class IMetaColony extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Claim the payout for an expenditure slot. Here the network receives a fee from each payout.
+   * @param _id Expenditure identifier
+   * @param _slot Number of the slot
+   * @param _token Address of the token, `0x0` value indicates Ether
+   */
   claimExpenditurePayout(
     _id: BigNumberish,
     _slot: BigNumberish,
@@ -1618,6 +2386,11 @@ export class IMetaColony extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Returns an exiting payment.
+   * @param _id Payment identifier
+   * @returns payment The Payment data structure
+   */
   getPayment(
     _id: BigNumberish
   ): Promise<{
@@ -1626,8 +2399,22 @@ export class IMetaColony extends Contract {
     fundingPotId: BigNumber;
     domainId: BigNumber;
     skills: BigNumber[];
+    0: string;
+    1: boolean;
+    2: BigNumber;
+    3: BigNumber;
+    4: BigNumber[];
   }>;
 
+  /**
+   * Check whether a given user has a given role for the colony, in a child domain. Calls the function of the same name on the colony's authority contract and an internal inheritence validator function
+   * @param _childDomainId The domain where we want to use the role
+   * @param _childSkillIndex The index that the `_childDomainId` is relative to `_domainId`
+   * @param _domainId Domain in which the caller has the role
+   * @param _role The role we want to check for
+   * @param _user The user whose role we want to check
+   * @returns hasRole Boolean indicating whether the given user has the given role in domain
+   */
   hasInheritedUserRole(
     _user: string,
     _domainId: BigNumberish,
@@ -1636,10 +2423,24 @@ export class IMetaColony extends Contract {
     _childDomainId: BigNumberish
   ): Promise<boolean>;
 
+  /**
+   * Can only be called by the colony itself, and only expected to be called as part of the `upgrade()` call. Required to be public so it can be an external call.
+   * A function to be called after an upgrade has been done from v2 to v3.
+   */
   finishUpgrade(overrides?: TransactionOverrides): Promise<ContractTransaction>;
 
+  /**
+   * Get the total amount of tokens `_token` minus amount reserved to be paid to the reputation and token holders as rewards.
+   * @param _token Address of the token, `0x0` value indicates Ether
+   * @returns amount Total amount of tokens in funding pots other than the rewards pot (id 0)
+   */
   getNonRewardPotsTotal(_token: string): Promise<BigNumber>;
 
+  /**
+   * Get useful information about specific reward payout.
+   * @param _payoutId Id of the reward payout
+   * @returns rewardPayoutCycle RewardPayoutCycle, containing propertes:  `reputationState` Reputation root hash at the time of creation,  `colonyWideReputation` Colony wide reputation in `reputationState`,  `totalTokens` Total colony tokens at the time of creation,  `amount` Total amount of tokens taken aside for reward payout,  `tokenAddress` Token address,  `blockTimestamp` Block number at the time of creation.
+   */
   getRewardPayoutInfo(
     _payoutId: BigNumberish
   ): Promise<{
@@ -1651,17 +2452,35 @@ export class IMetaColony extends Contract {
     blockTimestamp: BigNumber;
     amountRemaining: BigNumber;
     finalized: boolean;
+    0: string;
+    1: BigNumber;
+    2: BigNumber;
+    3: BigNumber;
+    4: string;
+    5: BigNumber;
+    6: BigNumber;
+    7: boolean;
   }>;
 
   exitRecoveryMode(
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Cancels the expenditure and prevents further editing. Can only be called by expenditure owner.
+   * @param _id Expenditure identifier
+   */
   cancelExpenditure(
     _id: BigNumberish,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Submit a hashed secret of the rating for work in task `_id` which was performed by user with task role id `_role`. Allowed within 5 days period starting which whichever is first from either the deliverable being submitted or the dueDate been reached. Allowed only for evaluator to rate worker and for worker to rate manager performance. Once submitted ratings can not be changed or overwritten.
+   * @param _id Id of the task
+   * @param _ratingSecret `keccak256` hash of a salt and 0-50 rating score (in increments of 10, .e.g 0, 10, 20, 30, 40 or 50). Can be generated via `IColony.generateSecret` helper function.
+   * @param _role Id of the role, as defined in TaskRole enum
+   */
   submitTaskWorkRating(
     _id: BigNumberish,
     _role: BigNumberish,
@@ -1669,16 +2488,32 @@ export class IMetaColony extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Downgrades are not allowed, i.e. `_newVersion` should be higher than the currect colony version.
+   * Upgrades a colony to a new Colony contract version `_newVersion`.
+   * @param _newVersion The target version for the upgrade
+   */
   upgrade(
     _newVersion: BigNumberish,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Removing worker role. Agreed between manager and currently assigned worker.
+   * @param _id Id of the task
+   */
   removeTaskWorkerRole(
     _id: BigNumberish,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Set the token payout on an expenditure slot. Can only be called by expenditure owner.
+   * @param _amount Payout amount
+   * @param _id Id of the expenditure
+   * @param _slot Number of the slot
+   * @param _token Address of the token, `0x0` value indicates Ether
+   */
   setExpenditurePayout(
     _id: BigNumberish,
     _slot: BigNumberish,
@@ -1687,10 +2522,30 @@ export class IMetaColony extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Return 1 / the reward to pay out from revenue. e.g. if the fee is 1% (or 0.01), return 100.
+   * @returns rewardInverse The inverse of the reward
+   */
   getRewardInverse(): Promise<BigNumber>;
 
+  /**
+   * The colonyNetworkAddress we read here is set once, during `initialiseColony`.
+   * Returns the colony network address set on the Colony.
+   * @returns colonyNetwork The address of Colony Network instance
+   */
   getColonyNetwork(): Promise<string>;
 
+  /**
+   * Add a new payment in the colony. Secured function to authorised members.
+   * @param _amount Payout amount
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
+   * @param _domainId The domain where the payment belongs
+   * @param _permissionDomainId The domainId in which I have the permission to take this action
+   * @param _recipient Address of the payment recipient
+   * @param _skillId The skill associated with the payment
+   * @param _token Address of the token, `0x0` value indicates Ether
+   * @returns paymentId Identifier of the newly created payment
+   */
   addPayment(
     _permissionDomainId: BigNumberish,
     _childSkillIndex: BigNumberish,
@@ -1702,19 +2557,41 @@ export class IMetaColony extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Set the `task.deliverableHash` and `task.completionTimestamp` properties.
+   * Submit the task deliverable, i.e. the output of the work performed for task `_id`. Submission is allowed only to the assigned worker before the task due date. Submissions cannot be overwritten.
+   * @param _deliverableHash Unique hash of the task deliverable content in ddb
+   * @param _id Id of the task
+   */
   submitTaskDeliverable(
     _id: BigNumberish,
     _deliverableHash: Arrayish,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Finalises the reward payout. Allows creation of next reward payouts for token that has been used in `_payoutId`. Can only be called when reward payout cycle is finished i.e when 60 days have passed from its creation.
+   * @param _payoutId Id of the reward payout
+   */
   finalizeRewardPayout(
     _payoutId: BigNumberish,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Return number of recovery roles.
+   * @returns numRoles Number of users with the recovery role.
+   */
   numRecoveryRoles(): Promise<BigNumber>;
 
+  /**
+   * Sets the payout for a given token on an existing payment. Secured function to authorised members.
+   * @param _amount Payout amount
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+   * @param _id Payment identifier
+   * @param _permissionDomainId The domainId in which I have the permission to take this action
+   * @param _token Address of the token, `0x0` value indicates Ether
+   */
   setPaymentPayout(
     _permissionDomainId: BigNumberish,
     _childSkillIndex: BigNumberish,
@@ -1724,6 +2601,14 @@ export class IMetaColony extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Set the claim delay on an expenditure slot. Can only be called by Arbitration role.
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
+   * @param _claimDelay Time (in seconds) to delay claiming payout after finalization
+   * @param _id Expenditure identifier
+   * @param _permissionDomainId The domainId in which I have the permission to take this action
+   * @param _slot Number of the slot
+   */
   setExpenditureClaimDelay(
     _permissionDomainId: BigNumberish,
     _childSkillIndex: BigNumberish,
@@ -1733,16 +2618,41 @@ export class IMetaColony extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Get the Colony contract version. Starts from 1 and is incremented with every deployed contract change.
+   * @returns colonyVersion Version number
+   */
   version(): Promise<BigNumber>;
 
+  /**
+   * certain critical variables are protected from editing in this function
+   * Update value of arbitrary storage variable. Can only be called by user with recovery role.
+   * @param _slot Uint address of storage slot to be updated
+   * @param _value word of data to be set
+   */
   setStorageSlotRecovery(
     _slot: BigNumberish,
     _value: Arrayish,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Gets the bytes32 representation of the roles for a user in a given domain
+   * @param where The domain where we want to get roles for
+   * @param who The user whose roles we want to get
+   * @returns roles bytes32 representation of the roles
+   */
   getUserRoles(who: string, where: BigNumberish): Promise<string>;
 
+  /**
+   * Can only call if evaluator and worker are unassigned or manager, otherwise need signature.
+   * Set `_token` payout for all roles in task `_id` to the respective amounts.
+   * @param _evaluatorAmount Payout amount for evaluator
+   * @param _id Id of the task
+   * @param _managerAmount Payout amount for manager
+   * @param _token Address of the token, `0x0` value indicates Ether
+   * @param _workerAmount Payout amount for worker
+   */
   setAllTaskPayouts(
     _id: BigNumberish,
     _token: string,
@@ -1752,6 +2662,14 @@ export class IMetaColony extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Set new colony admin role. Can be called by root role or architecture role.
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+   * @param _domainId Domain in which we are giving user the role
+   * @param _permissionDomainId Domain in which the caller has root/architecture role
+   * @param _setTo The state of the role permission (true assign the permission, false revokes it)
+   * @param _user User we want to give an admin role to
+   */
   setAdministrationRole(
     _permissionDomainId: BigNumberish,
     _childSkillIndex: BigNumberish,
@@ -1761,6 +2679,15 @@ export class IMetaColony extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Make a new task in the colony. Secured function to authorised members.
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+   * @param _domainId The domain where the task belongs
+   * @param _dueDate The due date of the task, can set to `0` for no-op
+   * @param _permissionDomainId The domainId in which I have the permission to take this action
+   * @param _skillId The skill associated with the task, can set to `0` for no-op
+   * @param _specificationHash Database identifier where the task specification is stored
+   */
   makeTask(
     _permissionDomainId: BigNumberish,
     _childSkillIndex: BigNumberish,
@@ -1771,6 +2698,12 @@ export class IMetaColony extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Set `_token` payout for manager in task `_id` to `_amount`.
+   * @param _amount Payout amount
+   * @param _id Id of the task
+   * @param _token Address of the token, `0x0` value indicates Ether
+   */
   setTaskManagerPayout(
     _id: BigNumberish,
     _token: string,
@@ -1778,6 +2711,12 @@ export class IMetaColony extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Set `_token` payout for evaluator in task `_id` to `_amount`.
+   * @param _amount Payout amount
+   * @param _id Id of the task
+   * @param _token Address of the token, `0x0` value indicates Ether
+   */
   setTaskEvaluatorPayout(
     _id: BigNumberish,
     _token: string,
@@ -1785,6 +2724,15 @@ export class IMetaColony extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Claim the reward payout at `_payoutId`. User needs to provide their reputation and colony-wide reputation which will be proven via Merkle proof inside this function. Can only be called if payout is active, i.e if 60 days have not passed from its creation. Can only be called if next in queue.
+   * @param _payoutId Id of the reward payout
+   * @param _squareRoots Square roots of values used in equation: `_squareRoots[0]` - square root of user reputation, `_squareRoots[1]` - square root of user tokens (deposited in TokenLocking), `_squareRoots[2]` - square root of total reputation, `_squareRoots[3]` - square root of total tokens, `_squareRoots[4]` - square root of numerator (user reputation * user tokens), `_squareRoots[5]` - square root of denominator (total reputation * total tokens), `_squareRoots[6]` - square root of payout amount.
+   * @param branchMask The branchmask of the proof
+   * @param key Some Reputation hash tree key
+   * @param siblings The siblings of the proof
+   * @param value Reputation value
+   */
   claimRewardPayout(
     _payoutId: BigNumberish,
     _squareRoots: BigNumberish[],
@@ -1795,12 +2743,28 @@ export class IMetaColony extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * This function can only be called through `executeTaskRoleAssignment`.
+   * Assigning worker role. Can only be set if there is no one currently assigned to be a worker. Manager of the task and user we want to assign role to both need to agree.
+   * @param _id Id of the task
+   * @param _user Address of the user we want to give a worker role to
+   */
   setTaskWorkerRole(
     _id: BigNumberish,
     _user: string,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * The Colony functions which require approval and the task roles to review these are set in `IColony.initialiseColony` at colony creation. Upon successful execution the `taskChangeNonces` entry for the task is incremented.
+   * Executes a task update transaction `_data` which is approved and signed by two of its roles (e.g. manager and worker) using the detached signatures for these users.
+   * @param _data The transaction data
+   * @param _mode How the signature was generated - 0 for Geth-style (usual), 1 for Trezor-style (only Trezor does this)
+   * @param _sigR r output of the ECDSA signature of the transaction
+   * @param _sigS s output of the ECDSA signature of the transaction
+   * @param _sigV recovery id
+   * @param _value The transaction value, i.e. number of wei to be sent when the transaction is executed Currently we only accept 0 value transactions but this is kept as a future option
+   */
   executeTaskChange(
     _sigV: BigNumberish[],
     _sigR: Arrayish[],
@@ -1811,14 +2775,30 @@ export class IMetaColony extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Sets the reward inverse to the uint max 2**256 - 1.
+   * Called once when the colony is created to initialise certain storage slot values.
+   * @param _colonyNetworkAddress Address of the colony network
+   * @param _token Address of the colony ERC20 Token
+   */
   initialiseColony(
     _colonyNetworkAddress: string,
     _token: string,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Get the number of expenditures in the colony.
+   * @returns count The expenditure count
+   */
   getExpenditureCount(): Promise<BigNumber>;
 
+  /**
+   * For the reward funding pot (e.g. id: 0) this returns (0, 0, 0).
+   * Get the non-mapping properties of a pot by id.
+   * @param _id Id of the pot which details to get
+   * @returns associatedType The FundingPotAssociatedType value of the current funding pot, e.g. Domain, Task, PayoutassociatedTypeId Id of the associated type, e.g. if associatedType = FundingPotAssociatedType.Domain, this refers to the domainIdpayoutsWeCannotMake Number of payouts that cannot be completed with the current funding
+   */
   getFundingPot(
     _id: BigNumberish
   ): Promise<{
@@ -1830,6 +2810,12 @@ export class IMetaColony extends Contract {
     2: BigNumber;
   }>;
 
+  /**
+   * Claim the payout in `_token` denomination for work completed in task `_id` by contributor with role `_role`. Allowed only after task is finalized. Here the network receives its fee from each payout. Ether fees go straight to the Meta Colony whereas Token fees go to the Network to be auctioned off.
+   * @param _id Id of the task
+   * @param _role Id of the role, as defined in TaskRole enum
+   * @param _token Address of the token, `0x0` value indicates Ether
+   */
   claimTaskPayout(
     _id: BigNumberish,
     _role: BigNumberish,
@@ -1837,13 +2823,31 @@ export class IMetaColony extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Set the `task.status` property to `1`.
+   * Cancel a task at any point before it is finalized. Secured function to authorised members. Any funds assigned to its funding pot can be moved back to the domain via `IColony.moveFundsBetweenPots`.
+   * @param _id Id of the task
+   */
   cancelTask(
     _id: BigNumberish,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Is colony network in recovery mode.
+   * @returns inRecoveryMode Return true if recovery mode is active, false otherwise
+   */
   isInRecoveryMode(): Promise<boolean>;
 
+  /**
+   * Note that when determining payouts the payoutModifier is incremented by WAD and converted into payoutScalar
+   * Set the payout modifier on an expenditure slot. Can only be called by Arbitration role.
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
+   * @param _id Expenditure identifier
+   * @param _payoutModifier Modifier to their payout (between -1 and 1, denominated in WADs, 0 means no modification)
+   * @param _permissionDomainId The domainId in which I have the permission to take this action
+   * @param _slot Number of the slot
+   */
   setExpenditurePayoutModifier(
     _permissionDomainId: BigNumberish,
     _childSkillIndex: BigNumberish,
@@ -1853,13 +2857,30 @@ export class IMetaColony extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * No return value, but should throw if protected.This is public, but is only expected to be called from ContractRecovery; no need toexpose this to any users.
+   * Check whether the supplied slot is a protected variable specific to this contract
+   * @param _slot The storage slot number to check.
+   */
   checkNotAdditionalProtectedVariable(_slot: BigNumberish): Promise<void>;
 
+  /**
+   * Set the `task.finalized` property to true
+   * Called after task work rating is complete which closes the task and logs the respective reputation log updates. Allowed to be called once per task. Secured function to authorised members.
+   * @param _id Id of the task
+   */
   finalizeTask(
     _id: BigNumberish,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Sets the recipient on an existing payment. Secured function to authorised members.
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+   * @param _id Payment identifier
+   * @param _permissionDomainId The domainId in which I have the permission to take this action
+   * @param _recipient Address of the payment recipient
+   */
   setPaymentRecipient(
     _permissionDomainId: BigNumberish,
     _childSkillIndex: BigNumberish,
@@ -1868,13 +2889,30 @@ export class IMetaColony extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Move any funds received by the colony in `_token` denomination to the top-level domain pot, siphoning off a small amount to the reward pot. If called against a colony's own token, no fee is taken.
+   * @param _token Address of the token, `0x0` value indicates Ether
+   */
   claimColonyFunds(
     _token: string,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Used for testing.
+   * Get the colony `owner` address. This should be address(0x0) at all times.
+   * @returns colonyOwner Address of the colony owner
+   */
   owner(): Promise<string>;
 
+  /**
+   * Compares the `keccak256(_salt, _rating)` output with the previously submitted rating secret and if they match, sets the task role properties `rated` to `true` and `rating` to `_rating`.
+   * Reveal the secret rating submitted in `IColony.submitTaskWorkRating` for task `_id` and task role with id `_role`. Allowed within 5 days period starting which whichever is first from either both rating secrets being submitted (via `IColony.submitTaskWorkRating`) or the 5 day rating period expiring.
+   * @param _id Id of the task
+   * @param _rating 0-50 rating score (in increments of 10, .e.g 0, 10, 20, 30, 40 or 50)
+   * @param _role Id of the role, as defined in TaskRole enum
+   * @param _salt Salt value used to generate the rating secret
+   */
   revealTaskWorkRating(
     _id: BigNumberish,
     _role: BigNumberish,
@@ -1883,6 +2921,14 @@ export class IMetaColony extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Set new colony funding role. Can be called by root role or architecture role.
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+   * @param _domainId Domain in which we are giving user the role
+   * @param _permissionDomainId Domain in which the caller has root/architecture role
+   * @param _setTo The state of the role permission (true assign the permission, false revokes it)
+   * @param _user User we want to give an funding role to
+   */
   setFundingRole(
     _permissionDomainId: BigNumberish,
     _childSkillIndex: BigNumberish,
@@ -1892,6 +2938,15 @@ export class IMetaColony extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * For more detail about branchMask and siblings, examine the PatriciaTree implementation. While public, likely only to be used by the Colony contracts, as it checks that the user is proving their own reputation in the current colony. The `verifyProof` function can be used to verify any proof, though this function is not currently exposed on the Colony's EtherRouter.
+   * Helper function that can be used by a client to verify the correctness of a patricia proof they have been supplied with.
+   * @param branchMask The branchmask of the proof
+   * @param key The key of the element the proof is for.
+   * @param siblings The siblings of the proof
+   * @param value The value of the element that the proof is for.
+   * @returns isValid True if the proof is valid, false otherwise.
+   */
   verifyReputationProof(
     key: Arrayish,
     value: Arrayish,
@@ -1899,11 +2954,21 @@ export class IMetaColony extends Contract {
     siblings: Arrayish[]
   ): Promise<boolean>;
 
+  /**
+   * Mint `_wad` amount of colony tokens. Secured function to authorised members.
+   * @param _wad Amount to mint
+   */
   mintTokens(
     _wad: BigNumberish,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Returns an existing expenditure slot.
+   * @param _id Expenditure identifier
+   * @param _slot Expenditure slot
+   * @returns expenditureSlot The expenditure slot
+   */
   getExpenditureSlot(
     _id: BigNumberish,
     _slot: BigNumberish
@@ -1912,18 +2977,37 @@ export class IMetaColony extends Contract {
     claimDelay: BigNumber;
     payoutModifier: BigNumber;
     skills: BigNumber[];
+    0: string;
+    1: BigNumber;
+    2: BigNumber;
+    3: BigNumber[];
   }>;
 
+  /**
+   * Remove colony recovery role. Can only be called by root role.
+   * @param _user User we want to remove recovery role from
+   */
   removeRecoveryRole(
     _user: string,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Removing evaluator role. Agreed between manager and currently assigned evaluator.
+   * @param _id Id of the task
+   */
   removeTaskEvaluatorRole(
     _id: BigNumberish,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Add a new expenditure in the colony. Secured function to authorised members.
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
+   * @param _domainId The domain where the expenditure belongs
+   * @param _permissionDomainId The domainId in which I have the permission to take this action
+   * @returns expenditureId Identifier of the newly created expenditure
+   */
   makeExpenditure(
     _permissionDomainId: BigNumberish,
     _childSkillIndex: BigNumberish,
@@ -1931,24 +3015,55 @@ export class IMetaColony extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Get the `_token` balance of pot with id `_potId`.
+   * @param _potId Id of the funding pot
+   * @param _token Address of the token, `0x0` value indicates Ether
+   * @returns balance Funding pot supply balance
+   */
   getFundingPotBalance(
     _potId: BigNumberish,
     _token: string
   ): Promise<BigNumber>;
 
+  /**
+   * Check whether a given user has a given role for the colony. Calls the function of the same name on the colony's authority contract.
+   * @param _domainId The domain where we want to check for the role
+   * @param _role The role we want to check for
+   * @param _user The user whose role we want to check
+   * @returns hasRole Boolean indicating whether the given user has the given role in domain
+   */
   hasUserRole(
     _user: string,
     _domainId: BigNumberish,
     _role: BigNumberish
   ): Promise<boolean>;
 
+  /**
+   * Get the rating secret submitted for role `_role` in task `_id`
+   * @param _id Id of the task
+   * @param _role Id of the role, as defined in TaskRole enum
+   * @returns secret Rating secret `bytes32` value
+   */
   getTaskWorkRatingSecret(
     _id: BigNumberish,
     _role: BigNumberish
   ): Promise<string>;
 
+  /**
+   * Get the number of payments in the colony.
+   * @returns count The payment count
+   */
   getPaymentCount(): Promise<BigNumber>;
 
+  /**
+   * This function can only be called through `executeTaskRoleAssignment`.
+   * Assigning manager role. Current manager and user we want to assign role to both need to agree. User we want to set here also needs to be an admin. Note that the domain proof data comes at the end here to not interfere with the assembly argument unpacking.
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+   * @param _id Id of the task
+   * @param _permissionDomainId The domain ID in which _user has the Administration permission
+   * @param _user Address of the user we want to give a manager role to
+   */
   setTaskManagerRole(
     _id: BigNumberish,
     _user: string,
@@ -1957,11 +3072,23 @@ export class IMetaColony extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Finalizes the expenditure and prevents further editing. Can only be called by expenditure owner.
+   * @param _id Expenditure identifier
+   */
   finalizeExpenditure(
     _id: BigNumberish,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Set new colony arbitration role. Can be called by root role or architecture role.
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+   * @param _domainId Domain in which we are giving user the role
+   * @param _permissionDomainId Domain in which the caller has root role
+   * @param _setTo The state of the role permission (true assign the permission, false revokes it)
+   * @param _user User we want to give an arbitration role to
+   */
   setArbitrationRole(
     _permissionDomainId: BigNumberish,
     _childSkillIndex: BigNumberish,
@@ -1971,18 +3098,48 @@ export class IMetaColony extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Currently we only allow one skill per task although we have provisioned for an array of skills in `Task` struct. Allowed before a task is finalized.
+   * Set the skill for task `_id`.
+   * @param _id Id of the task
+   * @param _skillId Id of the skill which has to be a global skill
+   */
   setTaskSkill(
     _id: BigNumberish,
     _skillId: BigNumberish,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Get the `ColonyAuthority` for the colony.
+   * @returns colonyAuthority The `ColonyAuthority` contract address
+   */
   authority(): Promise<string>;
 
+  /**
+   * Get the number of tasks in the colony.
+   * @returns count The task count
+   */
   getTaskCount(): Promise<BigNumber>;
 
+  /**
+   * Get the assigned `_token` payouts of pot with id `_potId`.
+   * @param _potId Id of the funding pot
+   * @param _token Address of the token, `0x0` value indicates Ether
+   * @returns payout Funding pot payout amount
+   */
   getFundingPotPayout(_potId: BigNumberish, _token: string): Promise<BigNumber>;
 
+  /**
+   * Move a given amount: `_amount` of `_token` funds from funding pot with id `_fromPot` to one with id `_toPot`.
+   * @param _amount Amount of funds
+   * @param _fromChildSkillIndex The child index in `_permissionDomainId` where we can find the domain for `_fromPotId`
+   * @param _fromPot Funding pot id providing the funds
+   * @param _permissionDomainId The domainId in which I have the permission to take this action
+   * @param _toChildSkillIndex The child index in `_permissionDomainId` where we can find the domain for `_toPotId`
+   * @param _toPot Funding pot id receiving the funds
+   * @param _token Address of the token, `0x0` value indicates Ether
+   */
   moveFundsBetweenPots(
     _permissionDomainId: BigNumberish,
     _fromChildSkillIndex: BigNumberish,
@@ -1994,19 +3151,39 @@ export class IMetaColony extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Set the due date on task `_id`. Allowed before a task is finalized.
+   * @param _dueDate Due date as seconds since unix epoch
+   * @param _id Id of the task
+   */
   setTaskDueDate(
     _id: BigNumberish,
     _dueDate: BigNumberish,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Starts from 0 and is incremented on every co-reviewed task change via `executeTaskChange` call.
+   * @param _id Id of the task
+   * @returns nonce The current task change nonce value
+   */
   getTaskChangeNonce(_id: BigNumberish): Promise<BigNumber>;
 
+  /**
+   * Set new colony recovery role. Can be called by root.
+   * @param _user User we want to give a recovery role to
+   */
   setRecoveryRole(
     _user: string,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Finalizes the payment and logs the reputation log updates. Allowed to be called once after payment is fully funded. Secured function to authorised members.
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+   * @param _id Payment identifier
+   * @param _permissionDomainId The domainId in which I have the permission to take this action
+   */
   finalizePayment(
     _permissionDomainId: BigNumberish,
     _childSkillIndex: BigNumberish,
@@ -2014,35 +3191,68 @@ export class IMetaColony extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Set the hash for the task brief, aka task work specification, which identifies the task brief content in ddb. Allowed before a task is finalized.
+   * @param _id Id of the task
+   * @param _specificationHash Unique hash of the task brief in ddb
+   */
   setTaskBrief(
     _id: BigNumberish,
     _specificationHash: Arrayish,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * This function can only be called through `executeTaskRoleAssignment`.
+   * Assigning evaluator role. Can only be set if there is no one currently assigned to be an evaluator. Manager of the task and user we want to assign role to both need to agree. Managers can assign themselves to this role, if there is no one currently assigned to it.
+   * @param _id Id of the task
+   * @param _user Address of the user we want to give a evaluator role to
+   */
   setTaskEvaluatorRole(
     _id: BigNumberish,
     _user: string,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Set new colony root role. Can be called by root role only.
+   * @param _setTo The state of the role permission (true assign the permission, false revokes it)
+   * @param _user User we want to give an root role to
+   */
   setRootRole(
     _user: string,
     _setTo: boolean,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Mark a task as complete after the due date has passed. This allows the task to be rated and finalized (and funds recovered) even in the presence of a worker who has disappeared. Note that if the due date was not set, then this function will throw.
+   * @param _id Id of the task
+   */
   completeTask(
     _id: BigNumberish,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Register colony's ENS label.
+   * @param colonyName The label to register.
+   * @param orbitdb The path of the orbitDB database associated with the colony name
+   */
   registerColonyLabel(
     colonyName: string,
     orbitdb: string,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Start next reward payout for `_token`. All funds in the reward pot for `_token` will become unavailable.Add a new payment in the colony. Can only be called by users with root permission. All tokens will be locked, and can be unlocked by calling `waiveRewardPayout` or `claimRewardPayout`.
+   * @param _token Address of the token used for reward payout
+   * @param branchMask The branchmask of the proof
+   * @param key Some Reputation hash tree key
+   * @param siblings The siblings of the proof
+   * @param value Reputation value
+   */
   startNextRewardPayout(
     _token: string,
     key: Arrayish,
@@ -2052,6 +3262,12 @@ export class IMetaColony extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Only allowed to be called when `taskCount` is `0` by authorized addresses.
+   * Allows the colony to bootstrap itself by having initial reputation and token `_amount` assigned to `_users`. This reputation is assigned in the colony-wide domain. Secured function to authorised members.
+   * @param _amount Amount of reputation/tokens for every address
+   * @param _users Array of address to bootstrap with reputation
+   */
   bootstrapColony(
     _users: string[],
     _amount: BigNumberish[],
@@ -2062,6 +3278,11 @@ export class IMetaColony extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Returns an existing expenditure.
+   * @param _id Expenditure identifier
+   * @returns expenditure The expenditure
+   */
   getExpenditure(
     _id: BigNumberish
   ): Promise<{
@@ -2070,8 +3291,21 @@ export class IMetaColony extends Contract {
     fundingPotId: BigNumber;
     domainId: BigNumber;
     finalizedTimestamp: BigNumber;
+    0: number;
+    1: string;
+    2: BigNumber;
+    3: BigNumber;
+    4: BigNumber;
   }>;
 
+  /**
+   * Set new colony architecture role. Can be called by root role or architecture role.
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+   * @param _domainId Domain in which we are giving user the role
+   * @param _permissionDomainId Domain in which the caller has root/architecture role
+   * @param _setTo The state of the role permission (true assign the permission, false revokes it)
+   * @param _user User we want to give an architecture role to
+   */
   setArchitectureRole(
     _permissionDomainId: BigNumberish,
     _childSkillIndex: BigNumberish,
@@ -2081,6 +3315,12 @@ export class IMetaColony extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Sets the skill on an expenditure slot. Can only be called by expenditure owner.
+   * @param _id Expenditure identifier
+   * @param _skillId Id of the new skill to set
+   * @param _slot Number of the slot
+   */
   setExpenditureSkill(
     _id: BigNumberish,
     _slot: BigNumberish,
@@ -2088,31 +3328,61 @@ export class IMetaColony extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Updates the expenditure owner. Can only be called by expenditure owner.
+   * @param _id Expenditure identifier
+   * @param _newOwner New owner of expenditure
+   */
   transferExpenditure(
     _id: BigNumberish,
     _newOwner: string,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Mints CLNY in the Meta Colony and transfers them to the colony network. Only allowed to be called on the Meta Colony by the colony network.
+   * @param _wad Amount to mint and transfer to the colony network
+   */
   mintTokensForColonyNetwork(
     _wad: BigNumberish,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Calls `IColonyNetwork.addSkill`.
+   * Add a new global skill.
+   * @returns skillId Id of the added skill
+   */
   addGlobalSkill(
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Calls `IColonyNetwork.deprecateSkill`.
+   * Mark a global skill as deprecated which stops new tasks and payments from using it.
+   * @param _skillId Id of the added skill
+   */
   deprecateGlobalSkill(
     _skillId: BigNumberish,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Calls `IColonyNetwork.setFeeInverse`.
+   * Set the Colony Network fee inverse amount.
+   * @param _feeInverse Nonzero amount for the fee inverse
+   */
   setNetworkFeeInverse(
     _feeInverse: BigNumberish,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Calls `IColonyNetwork.addColonyVersion`.
+   * Adds a new Colony contract version and the address of associated `_resolver` contract. Secured function to authorised members.
+   * @param _resolver Address of the `Resolver` contract which will be used with the underlying `EtherRouter` contract
+   * @param _version The new Colony contract version
+   */
   addNetworkColonyVersion(
     _version: BigNumberish,
     _resolver: string,

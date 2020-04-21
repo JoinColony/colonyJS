@@ -199,7 +199,7 @@ ___
 
 • **clientVersion**: *[AuburnGlider](../enums/_constants_.colonyversion.md#auburnglider)*
 
-*Defined in [src/clients/Colony/ColonyClientV3.ts:20](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/ColonyClientV3.ts#L20)*
+*Defined in [src/clients/Colony/ColonyClientV3.ts:20](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/ColonyClientV3.ts#L20)*
 
 ___
 
@@ -221,7 +221,7 @@ ___
 
 *Overrides [ColonyVersionClient](_clients_colony_colonyversionclient_.colonyversionclient.md).[estimate](_clients_colony_colonyversionclient_.colonyversionclient.md#estimate)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1810](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1810)*
+*Defined in [src/contracts/3/IColony.d.ts:1810](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1810)*
 
 #### Type declaration:
 
@@ -405,7 +405,7 @@ ___
 
 *Overrides [ColonyExtensionsV3](_clients_colony_extensions_extensionsv3_.colonyextensionsv3.md).[estimateWithProofs](_clients_colony_extensions_extensionsv3_.colonyextensionsv3.md#estimatewithproofs)*
 
-*Defined in [src/clients/Colony/ColonyClientV3.ts:21](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/ColonyClientV3.ts#L21)*
+*Defined in [src/clients/Colony/ColonyClientV3.ts:21](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/ColonyClientV3.ts#L21)*
 
 ___
 
@@ -417,7 +417,7 @@ ___
 
 *Overrides [ColonyVersionClient](_clients_colony_colonyversionclient_.colonyversionclient.md).[filters](_clients_colony_colonyversionclient_.colonyversionclient.md#filters)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1708](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1708)*
+*Defined in [src/contracts/3/IColony.d.ts:1708](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1708)*
 
 #### Type declaration:
 
@@ -483,7 +483,7 @@ ___
 
 *Overrides [ColonyVersionClient](_clients_colony_colonyversionclient_.colonyversionclient.md).[functions](_clients_colony_colonyversionclient_.colonyversionclient.md#functions)*
 
-*Defined in [src/contracts/3/IColony.d.ts:669](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L669)*
+*Defined in [src/contracts/3/IColony.d.ts:669](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L669)*
 
 #### Type declaration:
 
@@ -669,7 +669,7 @@ ___
 
 *Overrides [ColonyVersionClient](_clients_colony_colonyversionclient_.colonyversionclient.md).[interface](_clients_colony_colonyversionclient_.colonyversionclient.md#interface)*
 
-*Defined in [src/contracts/3/IColony.d.ts:667](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L667)*
+*Defined in [src/contracts/3/IColony.d.ts:667](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L667)*
 
 ___
 
@@ -679,7 +679,7 @@ ___
 
 *Inherited from [ColonyExtensions](_clients_colony_extensions_commonextensions_.colonyextensions.md).[networkClient](_clients_colony_extensions_commonextensions_.colonyextensions.md#networkclient)*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:97](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L97)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:97](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L97)*
 
 ___
 
@@ -727,7 +727,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[addDomain](_clients_colony_colonyclientv3_.extendedicolonyv3.md#adddomain)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1323](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1323)*
+*Defined in [src/contracts/3/IColony.d.ts:1323](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1323)*
 
 **Parameters:**
 
@@ -748,7 +748,7 @@ ___
 
 *Inherited from [ColonyExtensions](_clients_colony_extensions_commonextensions_.colonyextensions.md).[addDomainWithProofs](_clients_colony_extensions_commonextensions_.colonyextensions.md#adddomainwithproofs)*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:116](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L116)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:116](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L116)*
 
 **Parameters:**
 
@@ -769,7 +769,7 @@ ___
 
 *Overrides [ColonyVersionClient](_clients_colony_colonyversionclient_.colonyversionclient.md).[addListener](_clients_colony_colonyversionclient_.colonyversionclient.md#addlistener)*
 
-*Defined in [src/contracts/3/IColony.d.ts:663](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L663)*
+*Defined in [src/contracts/3/IColony.d.ts:663](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L663)*
 
 **Parameters:**
 
@@ -788,7 +788,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[addPayment](_clients_colony_colonyclientv3_.extendedicolonyv3.md#addpayment)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1343](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1343)*
+*Defined in [src/contracts/3/IColony.d.ts:1343](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1343)*
 
 **Parameters:**
 
@@ -813,7 +813,7 @@ ___
 
 *Inherited from [ColonyExtensions](_clients_colony_extensions_commonextensions_.colonyextensions.md).[addPaymentWithProofs](_clients_colony_extensions_commonextensions_.colonyextensions.md#addpaymentwithproofs)*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:120](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L120)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:120](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L120)*
 
 **Parameters:**
 
@@ -836,7 +836,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[approveExitRecovery](_clients_colony_colonyclientv3_.extendedicolonyv3.md#approveexitrecovery)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1192](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1192)*
+*Defined in [src/contracts/3/IColony.d.ts:1192](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1192)*
 
 **Parameters:**
 
@@ -856,7 +856,7 @@ ___
 
 *Overrides [ColonyVersionClient](_clients_colony_colonyversionclient_.colonyversionclient.md).[attach](_clients_colony_colonyversionclient_.colonyversionclient.md#attach)*
 
-*Defined in [src/contracts/3/IColony.d.ts:658](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L658)*
+*Defined in [src/contracts/3/IColony.d.ts:658](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L658)*
 
 **Parameters:**
 
@@ -874,7 +874,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[authority](_clients_colony_colonyclientv3_.extendedicolonyv3.md#authority)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1226](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1226)*
+*Defined in [src/contracts/3/IColony.d.ts:1226](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1226)*
 
 **Returns:** *Promise‹string›*
 
@@ -886,7 +886,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[bootstrapColony](_clients_colony_colonyclientv3_.extendedicolonyv3.md#bootstrapcolony)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1301](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1301)*
+*Defined in [src/contracts/3/IColony.d.ts:1301](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1301)*
 
 **Parameters:**
 
@@ -906,7 +906,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[cancelTask](_clients_colony_colonyclientv3_.extendedicolonyv3.md#canceltask)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1549](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1549)*
+*Defined in [src/contracts/3/IColony.d.ts:1549](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1549)*
 
 **Parameters:**
 
@@ -925,7 +925,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[checkNotAdditionalProtectedVariable](_clients_colony_colonyclientv3_.extendedicolonyv3.md#checknotadditionalprotectedvariable)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1210](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1210)*
+*Defined in [src/contracts/3/IColony.d.ts:1210](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1210)*
 
 **Parameters:**
 
@@ -943,7 +943,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[claimColonyFunds](_clients_colony_colonyclientv3_.extendedicolonyv3.md#claimcolonyfunds)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1701](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1701)*
+*Defined in [src/contracts/3/IColony.d.ts:1701](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1701)*
 
 **Parameters:**
 
@@ -962,7 +962,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[claimPayment](_clients_colony_colonyclientv3_.extendedicolonyv3.md#claimpayment)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1404](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1404)*
+*Defined in [src/contracts/3/IColony.d.ts:1404](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1404)*
 
 **Parameters:**
 
@@ -982,7 +982,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[claimRewardPayout](_clients_colony_colonyclientv3_.extendedicolonyv3.md#claimrewardpayout)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1644](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1644)*
+*Defined in [src/contracts/3/IColony.d.ts:1644](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1644)*
 
 **Parameters:**
 
@@ -1006,7 +1006,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[claimTaskPayout](_clients_colony_colonyclientv3_.extendedicolonyv3.md#claimtaskpayout)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1628](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1628)*
+*Defined in [src/contracts/3/IColony.d.ts:1628](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1628)*
 
 **Parameters:**
 
@@ -1027,7 +1027,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[completeTask](_clients_colony_colonyclientv3_.extendedicolonyv3.md#completetask)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1554](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1554)*
+*Defined in [src/contracts/3/IColony.d.ts:1554](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1554)*
 
 **Parameters:**
 
@@ -1048,7 +1048,7 @@ ___
 
 *Overrides [ColonyVersionClient](_clients_colony_colonyversionclient_.colonyversionclient.md).[connect](_clients_colony_colonyversionclient_.colonyversionclient.md#connect)*
 
-*Defined in [src/contracts/3/IColony.d.ts:657](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L657)*
+*Defined in [src/contracts/3/IColony.d.ts:657](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L657)*
 
 **Parameters:**
 
@@ -1068,7 +1068,7 @@ ___
 
 *Overrides [ColonyVersionClient](_clients_colony_colonyversionclient_.colonyversionclient.md).[deployed](_clients_colony_colonyversionclient_.colonyversionclient.md#deployed)*
 
-*Defined in [src/contracts/3/IColony.d.ts:659](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L659)*
+*Defined in [src/contracts/3/IColony.d.ts:659](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L659)*
 
 **Returns:** *Promise‹IColony›*
 
@@ -1099,7 +1099,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[enterRecoveryMode](_clients_colony_colonyclientv3_.extendedicolonyv3.md#enterrecoverymode)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1222](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1222)*
+*Defined in [src/contracts/3/IColony.d.ts:1222](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1222)*
 
 **Parameters:**
 
@@ -1117,7 +1117,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[executeTaskChange](_clients_colony_colonyclientv3_.extendedicolonyv3.md#executetaskchange)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1426](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1426)*
+*Defined in [src/contracts/3/IColony.d.ts:1426](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1426)*
 
 **Parameters:**
 
@@ -1141,7 +1141,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[executeTaskRoleAssignment](_clients_colony_colonyclientv3_.extendedicolonyv3.md#executetaskroleassignment)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1436](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1436)*
+*Defined in [src/contracts/3/IColony.d.ts:1436](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1436)*
 
 **Parameters:**
 
@@ -1165,7 +1165,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[exitRecoveryMode](_clients_colony_colonyclientv3_.extendedicolonyv3.md#exitrecoverymode)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1196](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1196)*
+*Defined in [src/contracts/3/IColony.d.ts:1196](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1196)*
 
 **Parameters:**
 
@@ -1201,7 +1201,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[finalizePayment](_clients_colony_colonyclientv3_.extendedicolonyv3.md#finalizepayment)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1354](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1354)*
+*Defined in [src/contracts/3/IColony.d.ts:1354](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1354)*
 
 **Parameters:**
 
@@ -1222,7 +1222,7 @@ ___
 
 *Inherited from [ColonyExtensions](_clients_colony_extensions_commonextensions_.colonyextensions.md).[finalizePaymentWithProofs](_clients_colony_extensions_commonextensions_.colonyextensions.md#finalizepaymentwithproofs)*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:128](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L128)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:128](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L128)*
 
 **Parameters:**
 
@@ -1241,7 +1241,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[finalizeRewardPayout](_clients_colony_colonyclientv3_.extendedicolonyv3.md#finalizerewardpayout)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1665](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1665)*
+*Defined in [src/contracts/3/IColony.d.ts:1665](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1665)*
 
 **Parameters:**
 
@@ -1260,7 +1260,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[finalizeTask](_clients_colony_colonyclientv3_.extendedicolonyv3.md#finalizetask)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1544](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1544)*
+*Defined in [src/contracts/3/IColony.d.ts:1544](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1544)*
 
 **Parameters:**
 
@@ -1279,7 +1279,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[finishUpgrade](_clients_colony_colonyclientv3_.extendedicolonyv3.md#finishupgrade)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1241](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1241)*
+*Defined in [src/contracts/3/IColony.d.ts:1241](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1241)*
 
 **Parameters:**
 
@@ -1297,7 +1297,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[finishUpgrade2To3](_clients_colony_colonyclientv3_.extendedicolonyv3.md#finishupgrade2to3)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1237](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1237)*
+*Defined in [src/contracts/3/IColony.d.ts:1237](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1237)*
 
 **Parameters:**
 
@@ -1315,7 +1315,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[generateSecret](_clients_colony_colonyclientv3_.extendedicolonyv3.md#generatesecret)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1461](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1461)*
+*Defined in [src/contracts/3/IColony.d.ts:1461](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1461)*
 
 **Parameters:**
 
@@ -1334,7 +1334,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[getColonyNetwork](_clients_colony_colonyclientv3_.extendedicolonyv3.md#getcolonynetwork)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1243](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1243)*
+*Defined in [src/contracts/3/IColony.d.ts:1243](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1243)*
 
 **Returns:** *Promise‹string›*
 
@@ -1346,7 +1346,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[getDomain](_clients_colony_colonyclientv3_.extendedicolonyv3.md#getdomain)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1330](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1330)*
+*Defined in [src/contracts/3/IColony.d.ts:1330](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1330)*
 
 **Parameters:**
 
@@ -1364,7 +1364,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[getDomainCount](_clients_colony_colonyclientv3_.extendedicolonyv3.md#getdomaincount)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1334](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1334)*
+*Defined in [src/contracts/3/IColony.d.ts:1334](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1334)*
 
 **Returns:** *Promise‹BigNumber›*
 
@@ -1376,7 +1376,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[getFundingPot](_clients_colony_colonyclientv3_.extendedicolonyv3.md#getfundingpot)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1670](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1670)*
+*Defined in [src/contracts/3/IColony.d.ts:1670](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1670)*
 
 **Parameters:**
 
@@ -1394,7 +1394,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[getFundingPotBalance](_clients_colony_colonyclientv3_.extendedicolonyv3.md#getfundingpotbalance)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1683](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1683)*
+*Defined in [src/contracts/3/IColony.d.ts:1683](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1683)*
 
 **Parameters:**
 
@@ -1413,7 +1413,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[getFundingPotCount](_clients_colony_colonyclientv3_.extendedicolonyv3.md#getfundingpotcount)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1681](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1681)*
+*Defined in [src/contracts/3/IColony.d.ts:1681](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1681)*
 
 **Returns:** *Promise‹BigNumber›*
 
@@ -1425,7 +1425,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[getFundingPotPayout](_clients_colony_colonyclientv3_.extendedicolonyv3.md#getfundingpotpayout)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1688](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1688)*
+*Defined in [src/contracts/3/IColony.d.ts:1688](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1688)*
 
 **Parameters:**
 
@@ -1444,7 +1444,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[getNonRewardPotsTotal](_clients_colony_colonyclientv3_.extendedicolonyv3.md#getnonrewardpotstotal)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1706](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1706)*
+*Defined in [src/contracts/3/IColony.d.ts:1706](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1706)*
 
 **Parameters:**
 
@@ -1462,7 +1462,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[getPayment](_clients_colony_colonyclientv3_.extendedicolonyv3.md#getpayment)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1394](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1394)*
+*Defined in [src/contracts/3/IColony.d.ts:1394](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1394)*
 
 **Parameters:**
 
@@ -1480,7 +1480,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[getPaymentCount](_clients_colony_colonyclientv3_.extendedicolonyv3.md#getpaymentcount)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1410](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1410)*
+*Defined in [src/contracts/3/IColony.d.ts:1410](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1410)*
 
 **Returns:** *Promise‹BigNumber›*
 
@@ -1492,7 +1492,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[getRewardInverse](_clients_colony_colonyclientv3_.extendedicolonyv3.md#getrewardinverse)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1590](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1590)*
+*Defined in [src/contracts/3/IColony.d.ts:1590](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1590)*
 
 **Returns:** *Promise‹BigNumber›*
 
@@ -1504,7 +1504,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[getRewardPayoutInfo](_clients_colony_colonyclientv3_.extendedicolonyv3.md#getrewardpayoutinfo)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1654](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1654)*
+*Defined in [src/contracts/3/IColony.d.ts:1654](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1654)*
 
 **Parameters:**
 
@@ -1522,7 +1522,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[getTask](_clients_colony_colonyclientv3_.extendedicolonyv3.md#gettask)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1559](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1559)*
+*Defined in [src/contracts/3/IColony.d.ts:1559](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1559)*
 
 **Parameters:**
 
@@ -1540,7 +1540,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[getTaskChangeNonce](_clients_colony_colonyclientv3_.extendedicolonyv3.md#gettaskchangenonce)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1424](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1424)*
+*Defined in [src/contracts/3/IColony.d.ts:1424](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1424)*
 
 **Parameters:**
 
@@ -1558,7 +1558,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[getTaskCount](_clients_colony_colonyclientv3_.extendedicolonyv3.md#gettaskcount)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1422](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1422)*
+*Defined in [src/contracts/3/IColony.d.ts:1422](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1422)*
 
 **Returns:** *Promise‹BigNumber›*
 
@@ -1570,7 +1570,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[getTaskPayout](_clients_colony_colonyclientv3_.extendedicolonyv3.md#gettaskpayout)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1592](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1592)*
+*Defined in [src/contracts/3/IColony.d.ts:1592](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1592)*
 
 **Parameters:**
 
@@ -1590,7 +1590,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[getTaskRole](_clients_colony_colonyclientv3_.extendedicolonyv3.md#gettaskrole)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1580](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1580)*
+*Defined in [src/contracts/3/IColony.d.ts:1580](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1580)*
 
 **Parameters:**
 
@@ -1609,7 +1609,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[getTaskWorkRatingSecret](_clients_colony_colonyclientv3_.extendedicolonyv3.md#gettaskworkratingsecret)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1472](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1472)*
+*Defined in [src/contracts/3/IColony.d.ts:1472](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1472)*
 
 **Parameters:**
 
@@ -1628,7 +1628,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[getTaskWorkRatingSecretsInfo](_clients_colony_colonyclientv3_.extendedicolonyv3.md#gettaskworkratingsecretsinfo)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1463](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1463)*
+*Defined in [src/contracts/3/IColony.d.ts:1463](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1463)*
 
 **Parameters:**
 
@@ -1646,7 +1646,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[getToken](_clients_colony_colonyclientv3_.extendedicolonyv3.md#gettoken)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1245](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1245)*
+*Defined in [src/contracts/3/IColony.d.ts:1245](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1245)*
 
 **Returns:** *Promise‹string›*
 
@@ -1658,7 +1658,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[hasUserRole](_clients_colony_colonyclientv3_.extendedicolonyv3.md#hasuserrole)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1289](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1289)*
+*Defined in [src/contracts/3/IColony.d.ts:1289](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1289)*
 
 **Parameters:**
 
@@ -1678,7 +1678,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[initialiseColony](_clients_colony_colonyclientv3_.extendedicolonyv3.md#initialisecolony)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1295](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1295)*
+*Defined in [src/contracts/3/IColony.d.ts:1295](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1295)*
 
 **Parameters:**
 
@@ -1698,7 +1698,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[isInRecoveryMode](_clients_colony_colonyclientv3_.extendedicolonyv3.md#isinrecoverymode)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1208](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1208)*
+*Defined in [src/contracts/3/IColony.d.ts:1208](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1208)*
 
 **Returns:** *Promise‹boolean›*
 
@@ -1746,7 +1746,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[makeTask](_clients_colony_colonyclientv3_.extendedicolonyv3.md#maketask)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1412](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1412)*
+*Defined in [src/contracts/3/IColony.d.ts:1412](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1412)*
 
 **Parameters:**
 
@@ -1770,7 +1770,7 @@ ___
 
 *Inherited from [ColonyExtensions](_clients_colony_extensions_commonextensions_.colonyextensions.md).[makeTaskWithProofs](_clients_colony_extensions_commonextensions_.colonyextensions.md#maketaskwithproofs)*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:148](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L148)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:148](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L148)*
 
 **Parameters:**
 
@@ -1792,7 +1792,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[mintTokens](_clients_colony_colonyclientv3_.extendedicolonyv3.md#minttokens)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1307](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1307)*
+*Defined in [src/contracts/3/IColony.d.ts:1307](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1307)*
 
 **Parameters:**
 
@@ -1811,7 +1811,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[moveFundsBetweenPots](_clients_colony_colonyclientv3_.extendedicolonyv3.md#movefundsbetweenpots)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1690](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1690)*
+*Defined in [src/contracts/3/IColony.d.ts:1690](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1690)*
 
 **Parameters:**
 
@@ -1836,7 +1836,7 @@ ___
 
 *Inherited from [ColonyExtensions](_clients_colony_extensions_commonextensions_.colonyextensions.md).[moveFundsBetweenPotsWithProofs](_clients_colony_extensions_commonextensions_.colonyextensions.md#movefundsbetweenpotswithproofs)*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:155](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L155)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:155](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L155)*
 
 **Parameters:**
 
@@ -1858,7 +1858,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[numRecoveryRoles](_clients_colony_colonyclientv3_.extendedicolonyv3.md#numrecoveryroles)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1200](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1200)*
+*Defined in [src/contracts/3/IColony.d.ts:1200](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1200)*
 
 **Returns:** *Promise‹BigNumber›*
 
@@ -1872,7 +1872,7 @@ ___
 
 *Overrides [ColonyVersionClient](_clients_colony_colonyversionclient_.colonyversionclient.md).[on](_clients_colony_colonyversionclient_.colonyversionclient.md#on)*
 
-*Defined in [src/contracts/3/IColony.d.ts:661](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L661)*
+*Defined in [src/contracts/3/IColony.d.ts:661](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L661)*
 
 **Parameters:**
 
@@ -1893,7 +1893,7 @@ ___
 
 *Overrides [ColonyVersionClient](_clients_colony_colonyversionclient_.colonyversionclient.md).[once](_clients_colony_colonyversionclient_.colonyversionclient.md#once)*
 
-*Defined in [src/contracts/3/IColony.d.ts:662](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L662)*
+*Defined in [src/contracts/3/IColony.d.ts:662](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L662)*
 
 **Parameters:**
 
@@ -1912,7 +1912,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[owner](_clients_colony_colonyclientv3_.extendedicolonyv3.md#owner)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1228](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1228)*
+*Defined in [src/contracts/3/IColony.d.ts:1228](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1228)*
 
 **Returns:** *Promise‹string›*
 
@@ -1924,7 +1924,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[registerColonyLabel](_clients_colony_colonyclientv3_.extendedicolonyv3.md#registercolonylabel)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1312](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1312)*
+*Defined in [src/contracts/3/IColony.d.ts:1312](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1312)*
 
 **Parameters:**
 
@@ -1946,7 +1946,7 @@ ___
 
 *Overrides [ColonyVersionClient](_clients_colony_colonyversionclient_.colonyversionclient.md).[removeAllListeners](_clients_colony_colonyversionclient_.colonyversionclient.md#removealllisteners)*
 
-*Defined in [src/contracts/3/IColony.d.ts:664](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L664)*
+*Defined in [src/contracts/3/IColony.d.ts:664](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L664)*
 
 **Parameters:**
 
@@ -1966,7 +1966,7 @@ ___
 
 *Overrides [ColonyVersionClient](_clients_colony_colonyversionclient_.colonyversionclient.md).[removeListener](_clients_colony_colonyversionclient_.colonyversionclient.md#removelistener)*
 
-*Defined in [src/contracts/3/IColony.d.ts:665](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L665)*
+*Defined in [src/contracts/3/IColony.d.ts:665](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L665)*
 
 **Parameters:**
 
@@ -1985,7 +1985,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[removeRecoveryRole](_clients_colony_colonyclientv3_.extendedicolonyv3.md#removerecoveryrole)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1212](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1212)*
+*Defined in [src/contracts/3/IColony.d.ts:1212](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1212)*
 
 **Parameters:**
 
@@ -2004,7 +2004,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[removeTaskEvaluatorRole](_clients_colony_colonyclientv3_.extendedicolonyv3.md#removetaskevaluatorrole)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1497](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1497)*
+*Defined in [src/contracts/3/IColony.d.ts:1497](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1497)*
 
 **Parameters:**
 
@@ -2023,7 +2023,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[removeTaskWorkerRole](_clients_colony_colonyclientv3_.extendedicolonyv3.md#removetaskworkerrole)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1502](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1502)*
+*Defined in [src/contracts/3/IColony.d.ts:1502](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1502)*
 
 **Parameters:**
 
@@ -2042,7 +2042,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[revealTaskWorkRating](_clients_colony_colonyclientv3_.extendedicolonyv3.md#revealtaskworkrating)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1453](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1453)*
+*Defined in [src/contracts/3/IColony.d.ts:1453](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1453)*
 
 **Parameters:**
 
@@ -2064,7 +2064,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[setAdministrationRole](_clients_colony_colonyclientv3_.extendedicolonyv3.md#setadministrationrole)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1280](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1280)*
+*Defined in [src/contracts/3/IColony.d.ts:1280](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1280)*
 
 **Parameters:**
 
@@ -2087,7 +2087,7 @@ ___
 
 *Inherited from [ColonyExtensions](_clients_colony_extensions_commonextensions_.colonyextensions.md).[setAdministrationRoleWithProofs](_clients_colony_extensions_commonextensions_.colonyextensions.md#setadministrationrolewithproofs)*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:110](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L110)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:110](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L110)*
 
 **Parameters:**
 
@@ -2108,7 +2108,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[setAllTaskPayouts](_clients_colony_colonyclientv3_.extendedicolonyv3.md#setalltaskpayouts)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1619](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1619)*
+*Defined in [src/contracts/3/IColony.d.ts:1619](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1619)*
 
 **Parameters:**
 
@@ -2131,7 +2131,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[setArbitrationRole](_clients_colony_colonyclientv3_.extendedicolonyv3.md#setarbitrationrole)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1253](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1253)*
+*Defined in [src/contracts/3/IColony.d.ts:1253](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1253)*
 
 **Parameters:**
 
@@ -2154,7 +2154,7 @@ ___
 
 *Inherited from [ColonyExtensionsV3](_clients_colony_extensions_extensionsv3_.colonyextensionsv3.md).[setArbitrationRoleWithProofs](_clients_colony_extensions_extensionsv3_.colonyextensionsv3.md#setarbitrationrolewithproofs)*
 
-*Defined in [src/clients/Colony/extensions/extensionsV3.ts:26](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/extensionsV3.ts#L26)*
+*Defined in [src/clients/Colony/extensions/extensionsV3.ts:26](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/extensionsV3.ts#L26)*
 
 **Parameters:**
 
@@ -2175,7 +2175,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[setArchitectureRole](_clients_colony_colonyclientv3_.extendedicolonyv3.md#setarchitecturerole)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1262](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1262)*
+*Defined in [src/contracts/3/IColony.d.ts:1262](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1262)*
 
 **Parameters:**
 
@@ -2198,7 +2198,7 @@ ___
 
 *Inherited from [ColonyExtensions](_clients_colony_extensions_commonextensions_.colonyextensions.md).[setArchitectureRoleWithProofs](_clients_colony_extensions_commonextensions_.colonyextensions.md#setarchitecturerolewithproofs)*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:98](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L98)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:98](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L98)*
 
 **Parameters:**
 
@@ -2219,7 +2219,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[setFundingRole](_clients_colony_colonyclientv3_.extendedicolonyv3.md#setfundingrole)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1271](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1271)*
+*Defined in [src/contracts/3/IColony.d.ts:1271](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1271)*
 
 **Parameters:**
 
@@ -2242,7 +2242,7 @@ ___
 
 *Inherited from [ColonyExtensions](_clients_colony_extensions_commonextensions_.colonyextensions.md).[setFundingRoleWithProofs](_clients_colony_extensions_commonextensions_.colonyextensions.md#setfundingrolewithproofs)*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:104](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L104)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:104](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L104)*
 
 **Parameters:**
 
@@ -2263,7 +2263,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[setPaymentDomain](_clients_colony_colonyclientv3_.extendedicolonyv3.md#setpaymentdomain)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1369](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1369)*
+*Defined in [src/contracts/3/IColony.d.ts:1369](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1369)*
 
 **Parameters:**
 
@@ -2285,7 +2285,7 @@ ___
 
 *Inherited from [SetPaymentDomainExtensions](_clients_colony_extensions_setpaymentdomain_.setpaymentdomainextensions.md).[setPaymentDomainWithProofs](_clients_colony_extensions_setpaymentdomain_.setpaymentdomainextensions.md#setpaymentdomainwithproofs)*
 
-*Defined in [src/clients/Colony/extensions/SetPaymentDomain.ts:19](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/SetPaymentDomain.ts#L19)*
+*Defined in [src/clients/Colony/extensions/SetPaymentDomain.ts:19](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/SetPaymentDomain.ts#L19)*
 
 **Parameters:**
 
@@ -2305,7 +2305,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[setPaymentPayout](_clients_colony_colonyclientv3_.extendedicolonyv3.md#setpaymentpayout)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1385](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1385)*
+*Defined in [src/contracts/3/IColony.d.ts:1385](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1385)*
 
 **Parameters:**
 
@@ -2328,7 +2328,7 @@ ___
 
 *Inherited from [ColonyExtensions](_clients_colony_extensions_commonextensions_.colonyextensions.md).[setPaymentPayoutWithProofs](_clients_colony_extensions_commonextensions_.colonyextensions.md#setpaymentpayoutwithproofs)*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:142](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L142)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:142](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L142)*
 
 **Parameters:**
 
@@ -2349,7 +2349,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[setPaymentRecipient](_clients_colony_colonyclientv3_.extendedicolonyv3.md#setpaymentrecipient)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1361](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1361)*
+*Defined in [src/contracts/3/IColony.d.ts:1361](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1361)*
 
 **Parameters:**
 
@@ -2371,7 +2371,7 @@ ___
 
 *Inherited from [ColonyExtensions](_clients_colony_extensions_commonextensions_.colonyextensions.md).[setPaymentRecipientWithProofs](_clients_colony_extensions_commonextensions_.colonyextensions.md#setpaymentrecipientwithproofs)*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:132](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L132)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:132](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L132)*
 
 **Parameters:**
 
@@ -2391,7 +2391,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[setPaymentSkill](_clients_colony_colonyclientv3_.extendedicolonyv3.md#setpaymentskill)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1377](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1377)*
+*Defined in [src/contracts/3/IColony.d.ts:1377](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1377)*
 
 **Parameters:**
 
@@ -2413,7 +2413,7 @@ ___
 
 *Inherited from [ColonyExtensions](_clients_colony_extensions_commonextensions_.colonyextensions.md).[setPaymentSkillWithProofs](_clients_colony_extensions_commonextensions_.colonyextensions.md#setpaymentskillwithproofs)*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:137](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L137)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:137](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L137)*
 
 **Parameters:**
 
@@ -2433,7 +2433,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[setRecoveryRole](_clients_colony_colonyclientv3_.extendedicolonyv3.md#setrecoveryrole)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1217](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1217)*
+*Defined in [src/contracts/3/IColony.d.ts:1217](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1217)*
 
 **Parameters:**
 
@@ -2452,7 +2452,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[setRewardInverse](_clients_colony_colonyclientv3_.extendedicolonyv3.md#setrewardinverse)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1585](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1585)*
+*Defined in [src/contracts/3/IColony.d.ts:1585](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1585)*
 
 **Parameters:**
 
@@ -2471,7 +2471,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[setRootRole](_clients_colony_colonyclientv3_.extendedicolonyv3.md#setrootrole)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1247](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1247)*
+*Defined in [src/contracts/3/IColony.d.ts:1247](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1247)*
 
 **Parameters:**
 
@@ -2491,7 +2491,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[setStorageSlotRecovery](_clients_colony_colonyclientv3_.extendedicolonyv3.md#setstorageslotrecovery)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1202](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1202)*
+*Defined in [src/contracts/3/IColony.d.ts:1202](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1202)*
 
 **Parameters:**
 
@@ -2511,7 +2511,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[setTaskBrief](_clients_colony_colonyclientv3_.extendedicolonyv3.md#settaskbrief)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1519](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1519)*
+*Defined in [src/contracts/3/IColony.d.ts:1519](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1519)*
 
 **Parameters:**
 
@@ -2531,7 +2531,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[setTaskDomain](_clients_colony_colonyclientv3_.extendedicolonyv3.md#settaskdomain)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1513](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1513)*
+*Defined in [src/contracts/3/IColony.d.ts:1513](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1513)*
 
 **Parameters:**
 
@@ -2551,7 +2551,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[setTaskDueDate](_clients_colony_colonyclientv3_.extendedicolonyv3.md#settaskduedate)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1525](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1525)*
+*Defined in [src/contracts/3/IColony.d.ts:1525](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1525)*
 
 **Parameters:**
 
@@ -2571,7 +2571,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[setTaskEvaluatorPayout](_clients_colony_colonyclientv3_.extendedicolonyv3.md#settaskevaluatorpayout)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1605](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1605)*
+*Defined in [src/contracts/3/IColony.d.ts:1605](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1605)*
 
 **Parameters:**
 
@@ -2592,7 +2592,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[setTaskEvaluatorRole](_clients_colony_colonyclientv3_.extendedicolonyv3.md#settaskevaluatorrole)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1485](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1485)*
+*Defined in [src/contracts/3/IColony.d.ts:1485](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1485)*
 
 **Parameters:**
 
@@ -2612,7 +2612,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[setTaskManagerPayout](_clients_colony_colonyclientv3_.extendedicolonyv3.md#settaskmanagerpayout)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1598](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1598)*
+*Defined in [src/contracts/3/IColony.d.ts:1598](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1598)*
 
 **Parameters:**
 
@@ -2633,7 +2633,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[setTaskManagerRole](_clients_colony_colonyclientv3_.extendedicolonyv3.md#settaskmanagerrole)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1477](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1477)*
+*Defined in [src/contracts/3/IColony.d.ts:1477](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1477)*
 
 **Parameters:**
 
@@ -2655,7 +2655,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[setTaskSkill](_clients_colony_colonyclientv3_.extendedicolonyv3.md#settaskskill)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1507](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1507)*
+*Defined in [src/contracts/3/IColony.d.ts:1507](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1507)*
 
 **Parameters:**
 
@@ -2675,7 +2675,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[setTaskWorkerPayout](_clients_colony_colonyclientv3_.extendedicolonyv3.md#settaskworkerpayout)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1612](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1612)*
+*Defined in [src/contracts/3/IColony.d.ts:1612](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1612)*
 
 **Parameters:**
 
@@ -2696,7 +2696,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[setTaskWorkerRole](_clients_colony_colonyclientv3_.extendedicolonyv3.md#settaskworkerrole)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1491](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1491)*
+*Defined in [src/contracts/3/IColony.d.ts:1491](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1491)*
 
 **Parameters:**
 
@@ -2716,7 +2716,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[startNextRewardPayout](_clients_colony_colonyclientv3_.extendedicolonyv3.md#startnextrewardpayout)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1635](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1635)*
+*Defined in [src/contracts/3/IColony.d.ts:1635](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1635)*
 
 **Parameters:**
 
@@ -2739,7 +2739,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[submitTaskDeliverable](_clients_colony_colonyclientv3_.extendedicolonyv3.md#submittaskdeliverable)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1531](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1531)*
+*Defined in [src/contracts/3/IColony.d.ts:1531](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1531)*
 
 **Parameters:**
 
@@ -2759,7 +2759,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[submitTaskDeliverableAndRating](_clients_colony_colonyclientv3_.extendedicolonyv3.md#submittaskdeliverableandrating)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1537](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1537)*
+*Defined in [src/contracts/3/IColony.d.ts:1537](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1537)*
 
 **Parameters:**
 
@@ -2780,7 +2780,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[submitTaskWorkRating](_clients_colony_colonyclientv3_.extendedicolonyv3.md#submittaskworkrating)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1446](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1446)*
+*Defined in [src/contracts/3/IColony.d.ts:1446](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1446)*
 
 **Parameters:**
 
@@ -2801,7 +2801,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[updateColonyOrbitDB](_clients_colony_colonyclientv3_.extendedicolonyv3.md#updatecolonyorbitdb)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1318](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1318)*
+*Defined in [src/contracts/3/IColony.d.ts:1318](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1318)*
 
 **Parameters:**
 
@@ -2820,7 +2820,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[upgrade](_clients_colony_colonyclientv3_.extendedicolonyv3.md#upgrade)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1232](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1232)*
+*Defined in [src/contracts/3/IColony.d.ts:1232](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1232)*
 
 **Parameters:**
 
@@ -2839,7 +2839,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[verifyReputationProof](_clients_colony_colonyclientv3_.extendedicolonyv3.md#verifyreputationproof)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1336](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1336)*
+*Defined in [src/contracts/3/IColony.d.ts:1336](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1336)*
 
 **Parameters:**
 
@@ -2860,7 +2860,7 @@ ___
 
 *Inherited from [ExtendedIColonyV3](_clients_colony_colonyclientv3_.extendedicolonyv3.md).[version](_clients_colony_colonyclientv3_.extendedicolonyv3.md#version)*
 
-*Defined in [src/contracts/3/IColony.d.ts:1230](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColony.d.ts#L1230)*
+*Defined in [src/contracts/3/IColony.d.ts:1230](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColony.d.ts#L1230)*
 
 **Returns:** *Promise‹BigNumber›*
 

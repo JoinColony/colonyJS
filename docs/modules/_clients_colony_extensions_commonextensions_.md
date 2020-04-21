@@ -52,7 +52,7 @@
 
 Ƭ **CommonExtensionRequiredIColony**: *[ExtendableIColony](_clients_colony_extensions_commonextensions_.md#extendableicolony) & Pick‹IColony, [CommonExtensionRequiredTransactions](_clients_colony_extensions_commonextensions_.md#commonextensionrequiredtransactions)› & object*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:170](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L170)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:170](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L170)*
 
 ___
 
@@ -60,7 +60,7 @@ ___
 
 Ƭ **CommonExtensionRequiredMethods**: *"getDomain" | "getFundingPot" | "getTask" | "getPayment" | "hasUserRole"*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:21](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L21)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:21](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L21)*
 
 ___
 
@@ -68,7 +68,7 @@ ___
 
 Ƭ **CommonExtensionRequiredTransactions**: *"setArchitectureRole" | "setFundingRole" | "setAdministrationRole" | "addDomain" | "addPayment" | "finalizePayment" | "setPaymentRecipient" | "setPaymentSkill" | "setPaymentPayout" | "makeTask" | "moveFundsBetweenPots"*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:28](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L28)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:28](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L28)*
 
 ___
 
@@ -76,7 +76,7 @@ ___
 
 Ƭ **ExtendableIColony**: *Pick‹[ColonyExtensions](../interfaces/_clients_colony_extensions_commonextensions_.colonyextensions.md), "networkClient"› & Pick‹IColony, "signer"› & Pick‹IColony, [CommonExtensionRequiredMethods](_clients_colony_extensions_commonextensions_.md#commonextensionrequiredmethods)›*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:166](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L166)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:166](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L166)*
 
 ## Functions
 
@@ -84,7 +84,7 @@ ___
 
 ▸ **addDomainWithProofs**<**T**>(`this`: T, `_parentDomainId`: BigNumberish, `overrides?`: TransactionOverrides): *Promise‹ContractTransaction›*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:407](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L407)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:407](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L407)*
 
 **Type parameters:**
 
@@ -106,7 +106,7 @@ ___
 
 ▸ **addExtensions**<**T**>(`instance`: T, `networkClient`: [ExtendedIColonyNetwork](../interfaces/_clients_colonynetworkclient_.extendedicolonynetwork.md)): *void*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:825](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L825)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:825](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L825)*
 
 **Type parameters:**
 
@@ -127,7 +127,7 @@ ___
 
 ▸ **addPaymentWithProofs**<**T**>(`this`: T, `_recipient`: string, `_token`: string, `_amount`: BigNumberish, `_domainId`: BigNumberish, `_skillId`: BigNumberish, `overrides?`: TransactionOverrides): *Promise‹ContractTransaction›*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:425](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L425)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:425](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L425)*
 
 **Type parameters:**
 
@@ -153,7 +153,7 @@ ___
 
 ▸ **estimateAddDomainWithProofs**<**T**>(`this`: T, `_parentDomainId`: BigNumberish): *Promise‹BigNumber›*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:661](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L661)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:661](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L661)*
 
 **Type parameters:**
 
@@ -174,7 +174,7 @@ ___
 
 ▸ **estimateAddPaymentWithProofs**<**T**>(`this`: T, `_recipient`: string, `_token`: string, `_amount`: BigNumberish, `_domainId`: BigNumberish, `_skillId`: BigNumberish): *Promise‹BigNumber›*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:676](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L676)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:676](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L676)*
 
 **Type parameters:**
 
@@ -199,7 +199,7 @@ ___
 
 ▸ **estimateFinalizePaymentWithProofs**<**T**>(`this`: T, `_id`: BigNumberish): *Promise‹BigNumber›*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:702](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L702)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:702](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L702)*
 
 **Type parameters:**
 
@@ -220,7 +220,7 @@ ___
 
 ▸ **estimateMakeTaskWithProofs**<**T**>(`this`: T, `_specificationHash`: Arrayish, `_domainId`: BigNumberish, `_skillId`: BigNumberish, `_dueDate`: BigNumberish): *Promise‹BigNumber›*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:775](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L775)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:775](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L775)*
 
 **Type parameters:**
 
@@ -244,7 +244,7 @@ ___
 
 ▸ **estimateMoveFundsBetweenPotsWithProofs**<**T**>(`this`: T, `_fromPot`: BigNumberish, `_toPot`: BigNumberish, `_amount`: BigNumberish, `_token`: string): *Promise‹BigNumber›*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:799](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L799)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:799](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L799)*
 
 **Type parameters:**
 
@@ -268,7 +268,7 @@ ___
 
 ▸ **estimateSetAdministrationRoleWithProofs**<**T**>(`this`: T, `_user`: string, `_domainId`: BigNumberish, `_setTo`: boolean): *Promise‹BigNumber›*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:639](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L639)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:639](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L639)*
 
 **Type parameters:**
 
@@ -291,7 +291,7 @@ ___
 
 ▸ **estimateSetArchitectureRoleWithProofs**<**T**>(`this`: T, `_user`: string, `_domainId`: BigNumberish, `_setTo`: boolean): *Promise‹BigNumber›*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:595](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L595)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:595](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L595)*
 
 **Type parameters:**
 
@@ -314,7 +314,7 @@ ___
 
 ▸ **estimateSetFundingRoleWithProofs**<**T**>(`this`: T, `_user`: string, `_domainId`: BigNumberish, `_setTo`: boolean): *Promise‹BigNumber›*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:617](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L617)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:617](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L617)*
 
 **Type parameters:**
 
@@ -337,7 +337,7 @@ ___
 
 ▸ **estimateSetPaymentPayoutWithProofs**<**T**>(`this`: T, `_id`: BigNumberish, `_token`: string, `_amount`: BigNumberish): *Promise‹BigNumber›*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:752](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L752)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:752](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L752)*
 
 **Type parameters:**
 
@@ -360,7 +360,7 @@ ___
 
 ▸ **estimateSetPaymentRecipientWithProofs**<**T**>(`this`: T, `_id`: BigNumberish, `_recipient`: string): *Promise‹BigNumber›*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:718](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L718)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:718](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L718)*
 
 **Type parameters:**
 
@@ -382,7 +382,7 @@ ___
 
 ▸ **estimateSetPaymentSkillWithProofs**<**T**>(`this`: T, `_id`: BigNumberish, `_skillId`: BigNumberish): *Promise‹BigNumber›*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:735](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L735)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:735](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L735)*
 
 **Type parameters:**
 
@@ -404,7 +404,7 @@ ___
 
 ▸ **finalizePaymentWithProofs**<**T**>(`this`: T, `_id`: BigNumberish, `overrides?`: TransactionOverrides): *Promise‹ContractTransaction›*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:451](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L451)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:451](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L451)*
 
 **Type parameters:**
 
@@ -426,7 +426,7 @@ ___
 
 ▸ **getChildIndex**(`contract`: [ExtendableIColony](_clients_colony_extensions_commonextensions_.md#extendableicolony), `parentDomainId`: BigNumberish, `domainId`: BigNumberish): *Promise‹number›*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:204](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L204)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:204](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L204)*
 
 **Parameters:**
 
@@ -444,7 +444,7 @@ ___
 
 ▸ **getMoveFundsPermissionProofs**(`contract`: [CommonExtensionRequiredIColony](_clients_colony_extensions_commonextensions_.md#commonextensionrequiredicolony), `fromtPotId`: BigNumberish, `toPotId`: BigNumberish): *Promise‹[BigNumberish, BigNumberish, BigNumberish]›*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:252](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L252)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:252](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L252)*
 
 **Parameters:**
 
@@ -462,7 +462,7 @@ ___
 
 ▸ **getPermissionProofs**(`contract`: [ExtendableIColony](_clients_colony_extensions_commonextensions_.md#extendableicolony), `domainId`: BigNumberish, `role`: [ColonyRole](../enums/_constants_.colonyrole.md), `customAddress?`: undefined | string): *Promise‹[BigNumberish, BigNumberish]›*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:215](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L215)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:215](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L215)*
 
 **Parameters:**
 
@@ -481,7 +481,7 @@ ___
 
 ▸ **getPotDomain**(`contract`: [ExtendableIColony](_clients_colony_extensions_commonextensions_.md#extendableicolony), `potId`: BigNumberish): *Promise‹BigNumberish›*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:175](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L175)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:175](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L175)*
 
 **Parameters:**
 
@@ -498,7 +498,7 @@ ___
 
 ▸ **makeTaskWithProofs**<**T**>(`this`: T, `_specificationHash`: Arrayish, `_domainId`: BigNumberish, `_skillId`: BigNumberish, `_dueDate`: BigNumberish, `overrides?`: TransactionOverrides): *Promise‹ContractTransaction›*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:543](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L543)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:543](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L543)*
 
 **Type parameters:**
 
@@ -523,7 +523,7 @@ ___
 
 ▸ **moveFundsBetweenPotsWithProofs**<**T**>(`this`: T, `_fromPot`: BigNumberish, `_toPot`: BigNumberish, `_amount`: BigNumberish, `_token`: string, `overrides?`: TransactionOverrides): *Promise‹ContractTransaction›*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:567](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L567)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:567](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L567)*
 
 **Type parameters:**
 
@@ -548,7 +548,7 @@ ___
 
 ▸ **setAdministrationRoleWithProofs**<**T**>(`this`: T, `_user`: string, `_domainId`: BigNumberish, `_setTo`: boolean, `overrides?`: TransactionOverrides): *Promise‹ContractTransaction›*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:376](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L376)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:376](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L376)*
 
 **Type parameters:**
 
@@ -572,7 +572,7 @@ ___
 
 ▸ **setArchitectureRoleWithProofs**<**T**>(`this`: T, `_user`: string, `_domainId`: BigNumberish, `_setTo`: boolean, `overrides?`: TransactionOverrides): *Promise‹ContractTransaction›*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:314](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L314)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:314](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L314)*
 
 **Type parameters:**
 
@@ -596,7 +596,7 @@ ___
 
 ▸ **setFundingRoleWithProofs**<**T**>(`this`: T, `_user`: string, `_domainId`: BigNumberish, `_setTo`: boolean, `overrides?`: TransactionOverrides): *Promise‹ContractTransaction›*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:345](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L345)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:345](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L345)*
 
 **Type parameters:**
 
@@ -620,7 +620,7 @@ ___
 
 ▸ **setPaymentPayoutWithProofs**<**T**>(`this`: T, `_id`: BigNumberish, `_token`: string, `_amount`: BigNumberish, `overrides?`: TransactionOverrides): *Promise‹ContractTransaction›*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:518](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L518)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:518](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L518)*
 
 **Type parameters:**
 
@@ -644,7 +644,7 @@ ___
 
 ▸ **setPaymentRecipientWithProofs**<**T**>(`this`: T, `_id`: BigNumberish, `_recipient`: string, `overrides?`: TransactionOverrides): *Promise‹ContractTransaction›*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:472](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L472)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:472](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L472)*
 
 **Type parameters:**
 
@@ -667,7 +667,7 @@ ___
 
 ▸ **setPaymentSkillWithProofs**<**T**>(`this`: T, `_id`: BigNumberish, `_skillId`: string, `overrides?`: TransactionOverrides): *Promise‹ContractTransaction›*
 
-*Defined in [src/clients/Colony/extensions/commonExtensions.ts:495](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/commonExtensions.ts#L495)*
+*Defined in [src/clients/Colony/extensions/commonExtensions.ts:495](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/commonExtensions.ts#L495)*
 
 **Type parameters:**
 

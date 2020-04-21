@@ -853,4 +853,4 @@
   }
 ]
 
-*Defined in [src/contracts/2/IReputationMiningCycleFactory.ts:22](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/2/IReputationMiningCycleFactory.ts#L22)*
+*Defined in [src/contracts/2/IReputationMiningCycleFactory.ts:22](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/2/IReputationMiningCycleFactory.ts#L22)*
