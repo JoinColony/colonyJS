@@ -2311,4 +2311,4 @@
   }
 ]
 
-*Defined in [src/contracts/3/IColonyFactory.ts:18](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/3/IColonyFactory.ts#L18)*
+*Defined in [src/contracts/3/IColonyFactory.ts:18](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/3/IColonyFactory.ts#L18)*

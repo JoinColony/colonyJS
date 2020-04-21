@@ -18,7 +18,7 @@
 
 • **Domain**:
 
-*Defined in [src/constants.ts:38](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/constants.ts#L38)*
+*Defined in [src/constants.ts:38](https://github.com/JoinColony/colonyJS/blob/2830301/src/constants.ts#L38)*
 
 ___
 
@@ -26,7 +26,7 @@ ___
 
 • **Expenditure**:
 
-*Defined in [src/constants.ts:41](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/constants.ts#L41)*
+*Defined in [src/constants.ts:41](https://github.com/JoinColony/colonyJS/blob/2830301/src/constants.ts#L41)*
 
 ___
 
@@ -34,7 +34,7 @@ ___
 
 • **Payment**:
 
-*Defined in [src/constants.ts:40](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/constants.ts#L40)*
+*Defined in [src/constants.ts:40](https://github.com/JoinColony/colonyJS/blob/2830301/src/constants.ts#L40)*
 
 ___
 
@@ -42,7 +42,7 @@ ___
 
 • **Task**:
 
-*Defined in [src/constants.ts:39](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/constants.ts#L39)*
+*Defined in [src/constants.ts:39](https://github.com/JoinColony/colonyJS/blob/2830301/src/constants.ts#L39)*
 
 ___
 
@@ -50,4 +50,4 @@ ___
 
 • **Unassigned**:
 
-*Defined in [src/constants.ts:37](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/constants.ts#L37)*
+*Defined in [src/constants.ts:37](https://github.com/JoinColony/colonyJS/blob/2830301/src/constants.ts#L37)*

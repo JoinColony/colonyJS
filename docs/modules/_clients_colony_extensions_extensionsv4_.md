@@ -33,7 +33,7 @@
 
 Ƭ **ExtensionRequiredIColonyV4**: *[ExtensionRequiredIColonyV3](_clients_colony_extensions_extensionsv3_.md#extensionrequiredicolonyv3) & Pick‹IColony, "getExpenditure" | "hasInheritedUserRole" | [ExtensionRequiredTransactionsV4](_clients_colony_extensions_extensionsv4_.md#extensionrequiredtransactionsv4)› & object*
 
-*Defined in [src/clients/Colony/extensions/extensionsV4.ts:72](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/extensionsV4.ts#L72)*
+*Defined in [src/clients/Colony/extensions/extensionsV4.ts:72](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/extensionsV4.ts#L72)*
 
 ___
 
@@ -41,7 +41,7 @@ ___
 
 Ƭ **ExtensionRequiredTransactionsV4**: *[ExtensionRequiredTransactionsV3](_clients_colony_extensions_extensionsv3_.md#extensionrequiredtransactionsv3) | "makeExpenditure" | "setExpenditureClaimDelay" | "setExpenditurePayoutModifier" | "transferExpenditureViaArbitration"*
 
-*Defined in [src/clients/Colony/extensions/extensionsV4.ts:65](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/extensionsV4.ts#L65)*
+*Defined in [src/clients/Colony/extensions/extensionsV4.ts:65](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/extensionsV4.ts#L65)*
 
 ## Functions
 
@@ -49,7 +49,7 @@ ___
 
 ▸ **addExtensions**<**T**>(`instance`: T, `networkClient`: [ExtendedIColonyNetwork](../interfaces/_clients_colonynetworkclient_.extendedicolonynetwork.md)): *void*
 
-*Defined in [src/clients/Colony/extensions/extensionsV4.ts:272](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/extensionsV4.ts#L272)*
+*Defined in [src/clients/Colony/extensions/extensionsV4.ts:272](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/extensionsV4.ts#L272)*
 
 **Type parameters:**
 
@@ -70,7 +70,7 @@ ___
 
 ▸ **estimateMakeExpenditureWithProofs**<**T**>(`this`: T, `_domainId`: BigNumberish): *Promise‹BigNumber›*
 
-*Defined in [src/clients/Colony/extensions/extensionsV4.ts:194](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/extensionsV4.ts#L194)*
+*Defined in [src/clients/Colony/extensions/extensionsV4.ts:194](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/extensionsV4.ts#L194)*
 
 **Type parameters:**
 
@@ -91,7 +91,7 @@ ___
 
 ▸ **estimateSetExpenditureClaimDelayWithProofs**<**T**>(`this`: T, `_id`: BigNumberish, `_slot`: BigNumberish, `_claimDelay`: BigNumberish): *Promise‹BigNumber›*
 
-*Defined in [src/clients/Colony/extensions/extensionsV4.ts:209](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/extensionsV4.ts#L209)*
+*Defined in [src/clients/Colony/extensions/extensionsV4.ts:209](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/extensionsV4.ts#L209)*
 
 **Type parameters:**
 
@@ -114,7 +114,7 @@ ___
 
 ▸ **estimateSetExpenditurePayoutModifierWithProofs**<**T**>(`this`: T, `_id`: BigNumberish, `_slot`: BigNumberish, `_payoutModifier`: BigNumberish): *Promise‹BigNumber›*
 
-*Defined in [src/clients/Colony/extensions/extensionsV4.ts:232](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/extensionsV4.ts#L232)*
+*Defined in [src/clients/Colony/extensions/extensionsV4.ts:232](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/extensionsV4.ts#L232)*
 
 **Type parameters:**
 
@@ -137,7 +137,7 @@ ___
 
 ▸ **estimateTransferExpenditureViaArbitrationWithProofs**<**T**>(`this`: T, `_newOwner`: string, `_id`: BigNumberish): *Promise‹BigNumber›*
 
-*Defined in [src/clients/Colony/extensions/extensionsV4.ts:255](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/extensionsV4.ts#L255)*
+*Defined in [src/clients/Colony/extensions/extensionsV4.ts:255](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/extensionsV4.ts#L255)*
 
 **Type parameters:**
 
@@ -159,7 +159,7 @@ ___
 
 ▸ **hasInheritedUserRoleWithProofs**<**T**>(`this`: T, `_user`: string, `_domainId`: BigNumberish, `_role`: [ColonyRole](../enums/_constants_.colonyrole.md)): *Promise‹boolean›*
 
-*Defined in [src/clients/Colony/extensions/extensionsV4.ts:80](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/extensionsV4.ts#L80)*
+*Defined in [src/clients/Colony/extensions/extensionsV4.ts:80](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/extensionsV4.ts#L80)*
 
 **Type parameters:**
 
@@ -182,7 +182,7 @@ ___
 
 ▸ **makeExpenditureWithProofs**<**T**>(`this`: T, `_domainId`: BigNumberish, `overrides?`: TransactionOverrides): *Promise‹ContractTransaction›*
 
-*Defined in [src/clients/Colony/extensions/extensionsV4.ts:103](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/extensionsV4.ts#L103)*
+*Defined in [src/clients/Colony/extensions/extensionsV4.ts:103](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/extensionsV4.ts#L103)*
 
 **Type parameters:**
 
@@ -204,7 +204,7 @@ ___
 
 ▸ **setExpenditureClaimDelayWithProofs**<**T**>(`this`: T, `_id`: BigNumberish, `_slot`: BigNumberish, `_claimDelay`: BigNumberish, `overrides?`: TransactionOverrides): *Promise‹ContractTransaction›*
 
-*Defined in [src/clients/Colony/extensions/extensionsV4.ts:121](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/extensionsV4.ts#L121)*
+*Defined in [src/clients/Colony/extensions/extensionsV4.ts:121](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/extensionsV4.ts#L121)*
 
 **Type parameters:**
 
@@ -228,7 +228,7 @@ ___
 
 ▸ **setExpenditurePayoutModifierWithProofs**<**T**>(`this`: T, `_id`: BigNumberish, `_slot`: BigNumberish, `_payoutModifier`: BigNumberish, `overrides?`: TransactionOverrides): *Promise‹ContractTransaction›*
 
-*Defined in [src/clients/Colony/extensions/extensionsV4.ts:146](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/extensionsV4.ts#L146)*
+*Defined in [src/clients/Colony/extensions/extensionsV4.ts:146](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/extensionsV4.ts#L146)*
 
 **Type parameters:**
 
@@ -252,7 +252,7 @@ ___
 
 ▸ **transferExpenditureViaArbitrationWithProofs**<**T**>(`this`: T, `_id`: BigNumberish, `_newOwner`: string, `overrides?`: TransactionOverrides): *Promise‹ContractTransaction›*
 
-*Defined in [src/clients/Colony/extensions/extensionsV4.ts:171](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/clients/Colony/extensions/extensionsV4.ts#L171)*
+*Defined in [src/clients/Colony/extensions/extensionsV4.ts:171](https://github.com/JoinColony/colonyJS/blob/2830301/src/clients/Colony/extensions/extensionsV4.ts#L171)*
 
 **Type parameters:**
 

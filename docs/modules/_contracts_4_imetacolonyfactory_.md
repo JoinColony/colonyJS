@@ -2896,4 +2896,4 @@
   }
 ]
 
-*Defined in [src/contracts/4/IMetaColonyFactory.ts:18](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/contracts/4/IMetaColonyFactory.ts#L18)*
+*Defined in [src/contracts/4/IMetaColonyFactory.ts:18](https://github.com/JoinColony/colonyJS/blob/2830301/src/contracts/4/IMetaColonyFactory.ts#L18)*

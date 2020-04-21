@@ -16,7 +16,7 @@
 
 • **Goerli**: = "goerli"
 
-*Defined in [src/constants.ts:13](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/constants.ts#L13)*
+*Defined in [src/constants.ts:13](https://github.com/JoinColony/colonyJS/blob/2830301/src/constants.ts#L13)*
 
 ___
 
@@ -24,7 +24,7 @@ ___
 
 • **Local**: = "local"
 
-*Defined in [src/constants.ts:14](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/constants.ts#L14)*
+*Defined in [src/constants.ts:14](https://github.com/JoinColony/colonyJS/blob/2830301/src/constants.ts#L14)*
 
 ___
 
@@ -32,4 +32,4 @@ ___
 
 • **Mainnet**: = "mainnet"
 
-*Defined in [src/constants.ts:12](https://github.com/JoinColony/colonyJS/blob/60b53ae/src/constants.ts#L12)*
+*Defined in [src/constants.ts:12](https://github.com/JoinColony/colonyJS/blob/2830301/src/constants.ts#L12)*
