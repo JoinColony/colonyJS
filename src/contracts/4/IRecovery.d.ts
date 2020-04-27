@@ -60,14 +60,23 @@ export class IRecovery extends Contract {
   interface: IRecoveryInterface;
 
   functions: {
+    /**
+     * Put colony network mining into recovery mode. Can only be called by user with recovery role.
+     */
     enterRecoveryMode(
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Exit recovery mode, can be called by anyone if enough whitelist approvals are given.
+     */
     exitRecoveryMode(
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Indicate approval to exit recovery mode. Can only be called by user with recovery role.
+     */
     approveExitRecovery(
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
@@ -122,14 +131,23 @@ export class IRecovery extends Contract {
     checkNotAdditionalProtectedVariable(_slot: BigNumberish): Promise<void>;
   };
 
+  /**
+   * Put colony network mining into recovery mode. Can only be called by user with recovery role.
+   */
   enterRecoveryMode(
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Exit recovery mode, can be called by anyone if enough whitelist approvals are given.
+   */
   exitRecoveryMode(
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Indicate approval to exit recovery mode. Can only be called by user with recovery role.
+   */
   approveExitRecovery(
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;

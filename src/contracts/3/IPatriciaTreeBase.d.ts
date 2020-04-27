@@ -39,31 +39,85 @@ export class IPatriciaTreeBase extends Contract {
   interface: IPatriciaTreeBaseInterface;
 
   functions: {
+    /**
+     * This value is a keccak256 hash of the rootEdge: `keccak256(Edge.node, Edge.label.length, Edge.label.data)`
+     * Get the root hash
+     * @returns rootHash The `bytes32` hash value
+     */
     getRootHash(): Promise<string>;
 
+    /**
+     * Get the root edge
+     * @returns e The root `Data.Edge`
+     */
     getRootEdge(): Promise<{
       node: string;
-      label: { data: string; length: BigNumber };
+      label: { data: string; length: BigNumber; 0: string; 1: BigNumber };
+      0: string;
+      1: { data: string; length: BigNumber; 0: string; 1: BigNumber };
     }>;
 
+    /**
+     * Get the node with the given key
+     * @param hash The `keccak256` hash of the actual key
+     * @returns n `Data.Node` for key `hash`
+     */
     getNode(
       hash: Arrayish
     ): Promise<{
-      children: { node: string; label: { data: string; length: BigNumber } }[];
+      children: {
+        node: string;
+        label: { data: string; length: BigNumber; 0: string; 1: BigNumber };
+        0: string;
+        1: { data: string; length: BigNumber; 0: string; 1: BigNumber };
+      }[];
+      0: {
+        node: string;
+        label: { data: string; length: BigNumber; 0: string; 1: BigNumber };
+        0: string;
+        1: { data: string; length: BigNumber; 0: string; 1: BigNumber };
+      }[];
     }>;
   };
 
+  /**
+   * This value is a keccak256 hash of the rootEdge: `keccak256(Edge.node, Edge.label.length, Edge.label.data)`
+   * Get the root hash
+   * @returns rootHash The `bytes32` hash value
+   */
   getRootHash(): Promise<string>;
 
+  /**
+   * Get the root edge
+   * @returns e The root `Data.Edge`
+   */
   getRootEdge(): Promise<{
     node: string;
-    label: { data: string; length: BigNumber };
+    label: { data: string; length: BigNumber; 0: string; 1: BigNumber };
+    0: string;
+    1: { data: string; length: BigNumber; 0: string; 1: BigNumber };
   }>;
 
+  /**
+   * Get the node with the given key
+   * @param hash The `keccak256` hash of the actual key
+   * @returns n `Data.Node` for key `hash`
+   */
   getNode(
     hash: Arrayish
   ): Promise<{
-    children: { node: string; label: { data: string; length: BigNumber } }[];
+    children: {
+      node: string;
+      label: { data: string; length: BigNumber; 0: string; 1: BigNumber };
+      0: string;
+      1: { data: string; length: BigNumber; 0: string; 1: BigNumber };
+    }[];
+    0: {
+      node: string;
+      label: { data: string; length: BigNumber; 0: string; 1: BigNumber };
+      0: string;
+      1: { data: string; length: BigNumber; 0: string; 1: BigNumber };
+    }[];
   }>;
 
   filters: {};

@@ -249,6 +249,11 @@ export class IReputationMiningCycle extends Contract {
   interface: IReputationMiningCycleInterface;
 
   functions: {
+    /**
+     * The getter for the disputeRounds mapping.
+     * @param _round The dispute round to query
+     * @returns submissions An array of DisputedEntrys struct for the round. See ReputationMiningCycleDataTypes for the full description of the properties.
+     */
     getDisputeRound(
       _round: BigNumberish
     ): Promise<
@@ -264,9 +269,25 @@ export class IReputationMiningCycle extends Contract {
         targetHashDuringSearch: string;
         hash1: string;
         hash2: string;
+        0: string;
+        1: BigNumber;
+        2: BigNumber;
+        3: string;
+        4: BigNumber;
+        5: BigNumber;
+        6: BigNumber;
+        7: BigNumber;
+        8: string;
+        9: string;
+        10: string;
       }[]
     >;
 
+    /**
+     * The getter for the hashSubmissions mapping, which keeps track of submissions by user.
+     * @param _user Address of the user
+     * @returns submission the Submission struct for the submission requested. See ReputationMiningCycleDataTypes.sol for the full description.
+     */
     getReputationHashSubmission(
       _user: string
     ): Promise<{
@@ -274,21 +295,49 @@ export class IReputationMiningCycle extends Contract {
       nNodes: BigNumber;
       jrh: string;
       jrhNNodes: BigNumber;
+      0: string;
+      1: BigNumber;
+      2: string;
+      3: BigNumber;
     }>;
 
+    /**
+     * Get the hash for the corresponding entry.
+     * @param entryIndex The index of the entry that they used to submit the hash
+     * @param newHash The hash that they submitted
+     * @param submitter The address that submitted the hash
+     * @returns entryHash The hash for the corresponding entry
+     */
     getEntryHash(
       submitter: string,
       entryIndex: BigNumberish,
       newHash: Arrayish
     ): Promise<string>;
 
+    /**
+     * Returns a boolean result of whether the miner has already submitted at this entry index.
+     * @param _index The index of the entry that they used to submit the hash
+     * @param _miner The address that submitted the hash
+     * @returns result Boolean whether the entryIndex was already submitted
+     */
     minerSubmittedEntryIndex(
       _miner: string,
       _index: BigNumberish
     ): Promise<boolean>;
 
+    /**
+     * only allowed to be called by ColonyNetwork.
+     * Resets the timestamp that the submission window opens to `now`.
+     */
     resetWindow(overrides?: TransactionOverrides): Promise<ContractTransaction>;
 
+    /**
+     * Submit a new reputation root hash.
+     * @param entryIndex The entry number for the given `newHash` and `nNodes`
+     * @param jrh The justifcation root hash for this submission
+     * @param nNodes Number of nodes in tree with root `newHash`
+     * @param newHash The proposed new reputation root hash
+     */
     submitRootHash(
       newHash: Arrayish,
       nNodes: BigNumberish,
@@ -297,19 +346,41 @@ export class IReputationMiningCycle extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Get whether a challenge round is complete.
+     * @param round The round number to check
+     * @returns complete Boolean indicating whether the given round challenge is complete
+     */
     challengeRoundComplete(round: BigNumberish): Promise<boolean>;
 
+    /**
+     * Confirm a new reputation hash. The hash in question is either the only one that was submitted this cycle, or the last one standing after all others have been proved wrong.
+     * @param roundNumber The round number that the hash being confirmed is in as the only contendender. If only one hash was submitted, then this is zero.
+     */
     confirmNewHash(
       roundNumber: BigNumberish,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Invalidate a hash that has timed out relative to its opponent its current challenge step. Note that this can be called to 'invalidate' a nonexistent hash, if the round has an odd number of entrants and so the last hash is being given a bye to the next round.
+     * @param idx The index in the round that the hash being invalidated is in
+     * @param round The round number the hash being invalidated is in
+     */
     invalidateHash(
       round: BigNumberish,
       idx: BigNumberish,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Respond to a binary search step, to eventually discover where two submitted hashes differ in their Justification trees.
+     * @param branchMask The branchMask of the Merkle proof that `jhIntermediateValue` is the value at key `targetNode`
+     * @param idx The index in the round that the hash we are responding on behalf of is in
+     * @param jhIntermediateValue The contents of the Justification Tree at the key given by `targetNode` (see function description). The value of `targetNode` is computed locally to establish what to submit to this function.
+     * @param round The round number the hash we are responding on behalf of is in
+     * @param siblings The siblings of the Merkle proof that `jhIntermediateValue` is the value at key `targetNode`
+     */
     respondToBinarySearchForChallenge(
       round: BigNumberish,
       idx: BigNumberish,
@@ -319,6 +390,14 @@ export class IReputationMiningCycle extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Confirm the result of a binary search - depending on how exactly the binary search finished, the saved binary search intermediate state might be incorrect.This function ensures that the intermediate hashes saved are correct.
+     * @param branchMask The branchMask of the Merkle proof that `jhIntermediateValue` is the value at key `targetNode`
+     * @param idx The index in the round that the hash we are responding on behalf of is in
+     * @param jhIntermediateValue The contents of the Justification Tree at the key given by `targetNode` (see function description). The value of `targetNode` is computed locally to establish what to submit to this function.
+     * @param round The round number the hash we are responding on behalf of is in
+     * @param siblings The siblings of the Merkle proof that `jhIntermediateValue` is the value at key `targetNode`
+     */
     confirmBinarySearchResult(
       round: BigNumberish,
       idx: BigNumberish,
@@ -328,6 +407,19 @@ export class IReputationMiningCycle extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * note that these are all bytes32; the address should be left padded from 20 bytes to 32 bytes. Strictly, I do not believe the padding matters, but you should use 0s for your own sanity!If you know that the disagreement doesn't involve a new reputation being added, the arguments corresponding to the previous new reputation can be zeroed, as they will not be used. You must be sure that this is the case, however, otherwise you risk being found incorrect. Zeroed arguments will result in a cheaper call to this function.
+     * Respond to challenge, to establish which (if either) of the two submissions facing off are correct.
+     * @param adjacentReputationSiblings Nonzero for updates involving insertion of a new skill. The siblings of the Merkle proof of a reputation in the agree state that ends adjacent to the new reputation
+     * @param agreeStateSiblings The siblings of the Merkle proof that the last reputation state the submitted hashes agreed on is in this submitted hash's justification tree
+     * @param b32 A `bytes32[8]` array. The elements of this array, in order are: * 1. The colony address in the key of the reputation being changed that the disagreement is over. * 2. The skillid in the key of the reputation being changed that the disagreement is over. * 3. The user address in the key of the reputation being changed that the disagreement is over. * 4. The keccak256 hash of the key of the reputation being changed that the disagreement is over. * 5. The keccak256 hash of the key of the newest reputation added to the reputation tree in the last reputation state the submitted hashes agree on * 6. The keccak256 hash of the key for a reputation already in the tree adjacent to the new reputation being inserted, if required. * 7. The keccak256 hash of the key of the reputation that would be origin-adjacent that proves that the origin reputation does not exist in the tree * 8. The keccak256 hash of the key of the reputation that would be child-adjacent that proves that the child reputation does not exist in the tree
+     * @param childReputationSiblings Nonzero for child updates of a colony-wide global skill. The siblings of the Merkle proof of the child skill reputation of the user in the same skill this global update is for
+     * @param disagreeStateSiblings The siblings of the Merkle proof that the first reputation state the submitted hashes disagreed on is in this submitted hash's justification tree
+     * @param previousNewReputationSiblings The siblings of the Merkle proof of the newest reputation added to the reputation tree in the last reputation state the submitted hashes agree on
+     * @param reputationSiblings The siblings of the Merkle proof that the reputation corresponding to `_reputationKey` is in the reputation state before and after the disagreement
+     * @param u A `uint256[27]` array. The elements of this array, in order are: * 1. The current round of the hash being responded on behalf of * 2. The current index in the round of the hash being responded on behalf of * 3. The branchMask of the proof that the reputation is in the reputation state tree for the reputation with the disputed change * 4. The number of nodes in the last reputation state that both submitted hashes agree on * 5. The branchMask of the proof that the last reputation state the submitted hashes agreed on is in this submitted hash's justification tree * 6. The number of nodes this hash considers to be present in the first reputation state the two hashes in this challenge disagree on * 7. The branchMask of the proof that reputation root hash of the first reputation state the two hashes in this challenge disagree on is in this submitted hash's justification tree * 8. The branchMask of the proof for the most recently added reputation state in this hash's state tree in the last reputation state the two hashes in this challenge agreed on * 9. The index of the log entry that the update in question was implied by. Each log entry can imply multiple reputation updates, and so we expect the clients to pass      the log entry index corresponding to the update to avoid us having to iterate over the log. * 10. A dummy variable that should be set to 0. If nonzero, transaction will still work but be slightly more expensive. For an explanation of why this is present, look at the corresponding solidity code. * 11. Origin skill reputation branch mask. Nonzero for child reputation updates.   /// * 12. The amount of reputation that the entry in the tree under dispute has in the agree state * 13. The UID that the entry in the tree under dispute has in the agree state * 14. The amount of reputation that the entry in the tree under dispute has in the disagree state * 15. The UID that the entry in the tree under dispute has in the disagree state * 16. The amount of reputation that the most recently added entry in the tree has in the state being disputed * 17. The UID that the most recently added entry in the tree has in the state being disputed * 18. The amount of reputation that the user's origin reputation entry in the tree has in the state being disputed * 19. The UID that the user's origin reputation entry in the tree has in the state being disputed * 20. The branchMask of the proof that the child reputation for the user being updated is in the agree state * 21. The amount of reputation that the child reputation for the user being updated is in the agree state * 22. The UID of the child reputation for the user being updated in the agree state * 23. A dummy variable that should be set to 0. If nonzero, transaction will still work but be slightly more expensive. For an explanation of why this is present, look at the corresponding solidity code. * 24. The branchMask of the proof that the reputation adjacent to the new reputation being inserted is in the agree state * 25. The amount of reputation that the reputation adjacent to a new reputation being inserted has in the agree state * 26. The UID of the reputation adjacent to the new reputation being inserted * 27. A dummy variable that should be set to 0. If nonzero, transaction will still work but be slightly more expensive. For an explanation of why this is present, look at the corresponding solidity code. * 28. The value of the reputation that would be origin-adjacent that proves that the origin reputation does not exist in the tree * 29. The value of the reputation that would be child-adjacent that proves that the child reputation does not exist in the tree
+     * @param userOriginReputationSiblings Nonzero for child updates only. The siblings of the Merkle proof of the user's origin skill reputation added to the reputation tree in the last reputation state the submitted hashes agree on
+     */
     respondToChallenge(
       u: BigNumberish[],
       b32: Arrayish[],
@@ -341,6 +433,16 @@ export class IReputationMiningCycle extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * The majority of calls to this function will have `round` equal to `0`. The exception to this is when a submitted hash is given a bye, in which case `round` will be nonzero.Note that it is possible for this function to be required to be called in every round - the hash getting the bye can wait until they will also be awarded the bye in the next round, if one is going to exist. There is an incentive to do so from a gas-cost perspective, but they don't know for sure there's going to be a bye until the submission window has expired, so I think this is okay.
+     * Verify the Justification Root Hash (JRH) for a submitted reputation hash is plausible.
+     * @param branchMask1 The branchmask for the Merkle proof that the currently accepted reputation state (given by `ColonyNetwork.getReputationRootHash()` + `ColonyNetwork.getReputationRootHashNNodes()`, where `+` is concatenation) is at key 0x000..000 in the submitted JRH
+     * @param branchMask2 The branchmask for the Merkle proof that the proposed new reputation state is at the key corresponding to the number of transactions expected in this update in the submitted JRH. This key should be the number of decay transactions plus the number of transactions the log indicates are to happen.
+     * @param index The index in the round that the hash is currently in
+     * @param round The round that the hash is currently in.
+     * @param siblings1 The siblings for the same Merkle proof
+     * @param siblings2 The siblings for the same Merkle proof
+     */
     confirmJustificationRootHash(
       round: BigNumberish,
       index: BigNumberish,
@@ -351,6 +453,15 @@ export class IReputationMiningCycle extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Add a new entry to the reputation update log.
+     * @param _amount The amount by which the user's reputation is going to change. Can be positive or negative.
+     * @param _colonyAddress The address of the colony the reputation is being affected in
+     * @param _nChildren The number of child skills the skill defined by the skillId has
+     * @param _nParents The number of parent skills the skill defined by the skillId has
+     * @param _skillId The skillId of the reputation being affected
+     * @param _user The address of the user having their reputation changed by this log entry
+     */
     appendReputationUpdateLog(
       _user: string,
       _amount: BigNumberish,
@@ -361,8 +472,17 @@ export class IReputationMiningCycle extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Get the length of the ReputationUpdateLog stored on this instance of the ReputationMiningCycle contract.
+     * @returns nUpdates
+     */
     getReputationUpdateLogLength(): Promise<BigNumber>;
 
+    /**
+     * Get the `ReputationLogEntry` at index `_id`.
+     * @param _id The reputation log members array index of the entry to get
+     * @returns reputationUpdateLogEntry The Reputation Update Log Entry
+     */
     getReputationUpdateLogEntry(
       _id: BigNumberish
     ): Promise<{
@@ -372,8 +492,23 @@ export class IReputationMiningCycle extends Contract {
       colony: string;
       nUpdates: BigNumber;
       nPreviousUpdates: BigNumber;
+      0: string;
+      1: BigNumber;
+      2: BigNumber;
+      3: string;
+      4: BigNumber;
+      5: BigNumber;
     }>;
 
+    /**
+     * Only callable by colonyNetwork. Note that the same address might be present multiple times in `stakers` - this is acceptable, and indicates the same address backed the same hash multiple times with different entries.
+     * Start the reputation log with the rewards for the stakers who backed the accepted new reputation root hash.
+     * @param metaColonyAddress The address of the meta colony, which the special mining skill is earned in
+     * @param miningSkillId Skill id of the special mining skill
+     * @param reward The amount of reputation to be rewarded to each staker
+     * @param stakers The array of stakers addresses to receive the reward.
+     * @param weights The array of weights determining the proportion of reward to go to each staker
+     */
     rewardStakersWithReputation(
       stakers: string[],
       weights: BigNumberish[],
@@ -383,22 +518,52 @@ export class IReputationMiningCycle extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Get the timestamp that the current reputation mining window opened.
+     * @returns timestamp The timestamp
+     */
     getReputationMiningWindowOpenTimestamp(): Promise<BigNumber>;
 
+    /**
+     * This will only be called once, by ColonyNetwork, in the same transaction that deploys this contract.
+     * Initialise this reputation mining cycle.
+     * @param clnyToken Address of the CLNY token
+     * @param tokenLocking Address of the TokenLocking contract
+     */
     initialise(
       tokenLocking: string,
       clnyToken: string,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Get the number of unique hash/nnodes/jrh sets that have been submitted this mining cycle.
+     * @returns nUniqueSubmittedHashes Number of unique hash/nnodes/jrh sets in this cycle
+     */
     getNUniqueSubmittedHashes(): Promise<BigNumber>;
 
+    /**
+     * Get the number of hashes that have been invalidated this mining cycle.
+     * @returns nInvalidatedHashes Number of invalidated hashes in this mining cycle
+     */
     getNInvalidatedHashes(): Promise<BigNumber>;
 
+    /**
+     * Get the minimum stake of CLNY required to mine.
+     * @returns minStake The minimum stake amount
+     */
     getMinStake(): Promise<BigNumber>;
 
+    /**
+     * Get the length of the mining window in seconds.
+     * @returns miningWindowDuration Duration of the reputation mining window in seconds
+     */
     getMiningWindowDuration(): Promise<BigNumber>;
 
+    /**
+     * Get the reputation decay constant.
+     * @returns numerator The numerator of the decay constantdenominator The denominator of the decay constant
+     */
     getDecayConstant(): Promise<{
       numerator: BigNumber;
       denominator: BigNumber;
@@ -406,6 +571,14 @@ export class IReputationMiningCycle extends Contract {
       1: BigNumber;
     }>;
 
+    /**
+     * Get the address that made a particular submission.
+     * @param hash The hash that was submitted
+     * @param index The index of the submission - should be 0-11, as up to twelve submissions can be made.
+     * @param jrh The JRH of that was submitted
+     * @param nNodes The number of nodes that was submitted
+     * @returns user Address of the user that submitted the hash / nNodes/ jrh at index
+     */
     getSubmissionUser(
       hash: Arrayish,
       nNodes: BigNumberish,
@@ -413,6 +586,13 @@ export class IReputationMiningCycle extends Contract {
       index: BigNumberish
     ): Promise<string>;
 
+    /**
+     * Get the number of submissions miners made of a particular hash / nNodes / jrh combination.
+     * @param hash The hash that was submitted
+     * @param jrh The JRH of that was submitted
+     * @param nNodes The number of nodes that was submitted
+     * @returns count The number of submissions - should be 0-12, as up to twelve submissions can be made
+     */
     getNSubmissionsForHash(
       hash: Arrayish,
       nNodes: BigNumberish,
@@ -420,6 +600,11 @@ export class IReputationMiningCycle extends Contract {
     ): Promise<BigNumber>;
   };
 
+  /**
+   * The getter for the disputeRounds mapping.
+   * @param _round The dispute round to query
+   * @returns submissions An array of DisputedEntrys struct for the round. See ReputationMiningCycleDataTypes for the full description of the properties.
+   */
   getDisputeRound(
     _round: BigNumberish
   ): Promise<
@@ -435,9 +620,25 @@ export class IReputationMiningCycle extends Contract {
       targetHashDuringSearch: string;
       hash1: string;
       hash2: string;
+      0: string;
+      1: BigNumber;
+      2: BigNumber;
+      3: string;
+      4: BigNumber;
+      5: BigNumber;
+      6: BigNumber;
+      7: BigNumber;
+      8: string;
+      9: string;
+      10: string;
     }[]
   >;
 
+  /**
+   * The getter for the hashSubmissions mapping, which keeps track of submissions by user.
+   * @param _user Address of the user
+   * @returns submission the Submission struct for the submission requested. See ReputationMiningCycleDataTypes.sol for the full description.
+   */
   getReputationHashSubmission(
     _user: string
   ): Promise<{
@@ -445,21 +646,49 @@ export class IReputationMiningCycle extends Contract {
     nNodes: BigNumber;
     jrh: string;
     jrhNNodes: BigNumber;
+    0: string;
+    1: BigNumber;
+    2: string;
+    3: BigNumber;
   }>;
 
+  /**
+   * Get the hash for the corresponding entry.
+   * @param entryIndex The index of the entry that they used to submit the hash
+   * @param newHash The hash that they submitted
+   * @param submitter The address that submitted the hash
+   * @returns entryHash The hash for the corresponding entry
+   */
   getEntryHash(
     submitter: string,
     entryIndex: BigNumberish,
     newHash: Arrayish
   ): Promise<string>;
 
+  /**
+   * Returns a boolean result of whether the miner has already submitted at this entry index.
+   * @param _index The index of the entry that they used to submit the hash
+   * @param _miner The address that submitted the hash
+   * @returns result Boolean whether the entryIndex was already submitted
+   */
   minerSubmittedEntryIndex(
     _miner: string,
     _index: BigNumberish
   ): Promise<boolean>;
 
+  /**
+   * only allowed to be called by ColonyNetwork.
+   * Resets the timestamp that the submission window opens to `now`.
+   */
   resetWindow(overrides?: TransactionOverrides): Promise<ContractTransaction>;
 
+  /**
+   * Submit a new reputation root hash.
+   * @param entryIndex The entry number for the given `newHash` and `nNodes`
+   * @param jrh The justifcation root hash for this submission
+   * @param nNodes Number of nodes in tree with root `newHash`
+   * @param newHash The proposed new reputation root hash
+   */
   submitRootHash(
     newHash: Arrayish,
     nNodes: BigNumberish,
@@ -468,19 +697,41 @@ export class IReputationMiningCycle extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Get whether a challenge round is complete.
+   * @param round The round number to check
+   * @returns complete Boolean indicating whether the given round challenge is complete
+   */
   challengeRoundComplete(round: BigNumberish): Promise<boolean>;
 
+  /**
+   * Confirm a new reputation hash. The hash in question is either the only one that was submitted this cycle, or the last one standing after all others have been proved wrong.
+   * @param roundNumber The round number that the hash being confirmed is in as the only contendender. If only one hash was submitted, then this is zero.
+   */
   confirmNewHash(
     roundNumber: BigNumberish,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Invalidate a hash that has timed out relative to its opponent its current challenge step. Note that this can be called to 'invalidate' a nonexistent hash, if the round has an odd number of entrants and so the last hash is being given a bye to the next round.
+   * @param idx The index in the round that the hash being invalidated is in
+   * @param round The round number the hash being invalidated is in
+   */
   invalidateHash(
     round: BigNumberish,
     idx: BigNumberish,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Respond to a binary search step, to eventually discover where two submitted hashes differ in their Justification trees.
+   * @param branchMask The branchMask of the Merkle proof that `jhIntermediateValue` is the value at key `targetNode`
+   * @param idx The index in the round that the hash we are responding on behalf of is in
+   * @param jhIntermediateValue The contents of the Justification Tree at the key given by `targetNode` (see function description). The value of `targetNode` is computed locally to establish what to submit to this function.
+   * @param round The round number the hash we are responding on behalf of is in
+   * @param siblings The siblings of the Merkle proof that `jhIntermediateValue` is the value at key `targetNode`
+   */
   respondToBinarySearchForChallenge(
     round: BigNumberish,
     idx: BigNumberish,
@@ -490,6 +741,14 @@ export class IReputationMiningCycle extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Confirm the result of a binary search - depending on how exactly the binary search finished, the saved binary search intermediate state might be incorrect.This function ensures that the intermediate hashes saved are correct.
+   * @param branchMask The branchMask of the Merkle proof that `jhIntermediateValue` is the value at key `targetNode`
+   * @param idx The index in the round that the hash we are responding on behalf of is in
+   * @param jhIntermediateValue The contents of the Justification Tree at the key given by `targetNode` (see function description). The value of `targetNode` is computed locally to establish what to submit to this function.
+   * @param round The round number the hash we are responding on behalf of is in
+   * @param siblings The siblings of the Merkle proof that `jhIntermediateValue` is the value at key `targetNode`
+   */
   confirmBinarySearchResult(
     round: BigNumberish,
     idx: BigNumberish,
@@ -499,6 +758,19 @@ export class IReputationMiningCycle extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * note that these are all bytes32; the address should be left padded from 20 bytes to 32 bytes. Strictly, I do not believe the padding matters, but you should use 0s for your own sanity!If you know that the disagreement doesn't involve a new reputation being added, the arguments corresponding to the previous new reputation can be zeroed, as they will not be used. You must be sure that this is the case, however, otherwise you risk being found incorrect. Zeroed arguments will result in a cheaper call to this function.
+   * Respond to challenge, to establish which (if either) of the two submissions facing off are correct.
+   * @param adjacentReputationSiblings Nonzero for updates involving insertion of a new skill. The siblings of the Merkle proof of a reputation in the agree state that ends adjacent to the new reputation
+   * @param agreeStateSiblings The siblings of the Merkle proof that the last reputation state the submitted hashes agreed on is in this submitted hash's justification tree
+   * @param b32 A `bytes32[8]` array. The elements of this array, in order are: * 1. The colony address in the key of the reputation being changed that the disagreement is over. * 2. The skillid in the key of the reputation being changed that the disagreement is over. * 3. The user address in the key of the reputation being changed that the disagreement is over. * 4. The keccak256 hash of the key of the reputation being changed that the disagreement is over. * 5. The keccak256 hash of the key of the newest reputation added to the reputation tree in the last reputation state the submitted hashes agree on * 6. The keccak256 hash of the key for a reputation already in the tree adjacent to the new reputation being inserted, if required. * 7. The keccak256 hash of the key of the reputation that would be origin-adjacent that proves that the origin reputation does not exist in the tree * 8. The keccak256 hash of the key of the reputation that would be child-adjacent that proves that the child reputation does not exist in the tree
+   * @param childReputationSiblings Nonzero for child updates of a colony-wide global skill. The siblings of the Merkle proof of the child skill reputation of the user in the same skill this global update is for
+   * @param disagreeStateSiblings The siblings of the Merkle proof that the first reputation state the submitted hashes disagreed on is in this submitted hash's justification tree
+   * @param previousNewReputationSiblings The siblings of the Merkle proof of the newest reputation added to the reputation tree in the last reputation state the submitted hashes agree on
+   * @param reputationSiblings The siblings of the Merkle proof that the reputation corresponding to `_reputationKey` is in the reputation state before and after the disagreement
+   * @param u A `uint256[27]` array. The elements of this array, in order are: * 1. The current round of the hash being responded on behalf of * 2. The current index in the round of the hash being responded on behalf of * 3. The branchMask of the proof that the reputation is in the reputation state tree for the reputation with the disputed change * 4. The number of nodes in the last reputation state that both submitted hashes agree on * 5. The branchMask of the proof that the last reputation state the submitted hashes agreed on is in this submitted hash's justification tree * 6. The number of nodes this hash considers to be present in the first reputation state the two hashes in this challenge disagree on * 7. The branchMask of the proof that reputation root hash of the first reputation state the two hashes in this challenge disagree on is in this submitted hash's justification tree * 8. The branchMask of the proof for the most recently added reputation state in this hash's state tree in the last reputation state the two hashes in this challenge agreed on * 9. The index of the log entry that the update in question was implied by. Each log entry can imply multiple reputation updates, and so we expect the clients to pass      the log entry index corresponding to the update to avoid us having to iterate over the log. * 10. A dummy variable that should be set to 0. If nonzero, transaction will still work but be slightly more expensive. For an explanation of why this is present, look at the corresponding solidity code. * 11. Origin skill reputation branch mask. Nonzero for child reputation updates.   /// * 12. The amount of reputation that the entry in the tree under dispute has in the agree state * 13. The UID that the entry in the tree under dispute has in the agree state * 14. The amount of reputation that the entry in the tree under dispute has in the disagree state * 15. The UID that the entry in the tree under dispute has in the disagree state * 16. The amount of reputation that the most recently added entry in the tree has in the state being disputed * 17. The UID that the most recently added entry in the tree has in the state being disputed * 18. The amount of reputation that the user's origin reputation entry in the tree has in the state being disputed * 19. The UID that the user's origin reputation entry in the tree has in the state being disputed * 20. The branchMask of the proof that the child reputation for the user being updated is in the agree state * 21. The amount of reputation that the child reputation for the user being updated is in the agree state * 22. The UID of the child reputation for the user being updated in the agree state * 23. A dummy variable that should be set to 0. If nonzero, transaction will still work but be slightly more expensive. For an explanation of why this is present, look at the corresponding solidity code. * 24. The branchMask of the proof that the reputation adjacent to the new reputation being inserted is in the agree state * 25. The amount of reputation that the reputation adjacent to a new reputation being inserted has in the agree state * 26. The UID of the reputation adjacent to the new reputation being inserted * 27. A dummy variable that should be set to 0. If nonzero, transaction will still work but be slightly more expensive. For an explanation of why this is present, look at the corresponding solidity code. * 28. The value of the reputation that would be origin-adjacent that proves that the origin reputation does not exist in the tree * 29. The value of the reputation that would be child-adjacent that proves that the child reputation does not exist in the tree
+   * @param userOriginReputationSiblings Nonzero for child updates only. The siblings of the Merkle proof of the user's origin skill reputation added to the reputation tree in the last reputation state the submitted hashes agree on
+   */
   respondToChallenge(
     u: BigNumberish[],
     b32: Arrayish[],
@@ -512,6 +784,16 @@ export class IReputationMiningCycle extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * The majority of calls to this function will have `round` equal to `0`. The exception to this is when a submitted hash is given a bye, in which case `round` will be nonzero.Note that it is possible for this function to be required to be called in every round - the hash getting the bye can wait until they will also be awarded the bye in the next round, if one is going to exist. There is an incentive to do so from a gas-cost perspective, but they don't know for sure there's going to be a bye until the submission window has expired, so I think this is okay.
+   * Verify the Justification Root Hash (JRH) for a submitted reputation hash is plausible.
+   * @param branchMask1 The branchmask for the Merkle proof that the currently accepted reputation state (given by `ColonyNetwork.getReputationRootHash()` + `ColonyNetwork.getReputationRootHashNNodes()`, where `+` is concatenation) is at key 0x000..000 in the submitted JRH
+   * @param branchMask2 The branchmask for the Merkle proof that the proposed new reputation state is at the key corresponding to the number of transactions expected in this update in the submitted JRH. This key should be the number of decay transactions plus the number of transactions the log indicates are to happen.
+   * @param index The index in the round that the hash is currently in
+   * @param round The round that the hash is currently in.
+   * @param siblings1 The siblings for the same Merkle proof
+   * @param siblings2 The siblings for the same Merkle proof
+   */
   confirmJustificationRootHash(
     round: BigNumberish,
     index: BigNumberish,
@@ -522,6 +804,15 @@ export class IReputationMiningCycle extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Add a new entry to the reputation update log.
+   * @param _amount The amount by which the user's reputation is going to change. Can be positive or negative.
+   * @param _colonyAddress The address of the colony the reputation is being affected in
+   * @param _nChildren The number of child skills the skill defined by the skillId has
+   * @param _nParents The number of parent skills the skill defined by the skillId has
+   * @param _skillId The skillId of the reputation being affected
+   * @param _user The address of the user having their reputation changed by this log entry
+   */
   appendReputationUpdateLog(
     _user: string,
     _amount: BigNumberish,
@@ -532,8 +823,17 @@ export class IReputationMiningCycle extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Get the length of the ReputationUpdateLog stored on this instance of the ReputationMiningCycle contract.
+   * @returns nUpdates
+   */
   getReputationUpdateLogLength(): Promise<BigNumber>;
 
+  /**
+   * Get the `ReputationLogEntry` at index `_id`.
+   * @param _id The reputation log members array index of the entry to get
+   * @returns reputationUpdateLogEntry The Reputation Update Log Entry
+   */
   getReputationUpdateLogEntry(
     _id: BigNumberish
   ): Promise<{
@@ -543,8 +843,23 @@ export class IReputationMiningCycle extends Contract {
     colony: string;
     nUpdates: BigNumber;
     nPreviousUpdates: BigNumber;
+    0: string;
+    1: BigNumber;
+    2: BigNumber;
+    3: string;
+    4: BigNumber;
+    5: BigNumber;
   }>;
 
+  /**
+   * Only callable by colonyNetwork. Note that the same address might be present multiple times in `stakers` - this is acceptable, and indicates the same address backed the same hash multiple times with different entries.
+   * Start the reputation log with the rewards for the stakers who backed the accepted new reputation root hash.
+   * @param metaColonyAddress The address of the meta colony, which the special mining skill is earned in
+   * @param miningSkillId Skill id of the special mining skill
+   * @param reward The amount of reputation to be rewarded to each staker
+   * @param stakers The array of stakers addresses to receive the reward.
+   * @param weights The array of weights determining the proportion of reward to go to each staker
+   */
   rewardStakersWithReputation(
     stakers: string[],
     weights: BigNumberish[],
@@ -554,22 +869,52 @@ export class IReputationMiningCycle extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Get the timestamp that the current reputation mining window opened.
+   * @returns timestamp The timestamp
+   */
   getReputationMiningWindowOpenTimestamp(): Promise<BigNumber>;
 
+  /**
+   * This will only be called once, by ColonyNetwork, in the same transaction that deploys this contract.
+   * Initialise this reputation mining cycle.
+   * @param clnyToken Address of the CLNY token
+   * @param tokenLocking Address of the TokenLocking contract
+   */
   initialise(
     tokenLocking: string,
     clnyToken: string,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Get the number of unique hash/nnodes/jrh sets that have been submitted this mining cycle.
+   * @returns nUniqueSubmittedHashes Number of unique hash/nnodes/jrh sets in this cycle
+   */
   getNUniqueSubmittedHashes(): Promise<BigNumber>;
 
+  /**
+   * Get the number of hashes that have been invalidated this mining cycle.
+   * @returns nInvalidatedHashes Number of invalidated hashes in this mining cycle
+   */
   getNInvalidatedHashes(): Promise<BigNumber>;
 
+  /**
+   * Get the minimum stake of CLNY required to mine.
+   * @returns minStake The minimum stake amount
+   */
   getMinStake(): Promise<BigNumber>;
 
+  /**
+   * Get the length of the mining window in seconds.
+   * @returns miningWindowDuration Duration of the reputation mining window in seconds
+   */
   getMiningWindowDuration(): Promise<BigNumber>;
 
+  /**
+   * Get the reputation decay constant.
+   * @returns numerator The numerator of the decay constantdenominator The denominator of the decay constant
+   */
   getDecayConstant(): Promise<{
     numerator: BigNumber;
     denominator: BigNumber;
@@ -577,6 +922,14 @@ export class IReputationMiningCycle extends Contract {
     1: BigNumber;
   }>;
 
+  /**
+   * Get the address that made a particular submission.
+   * @param hash The hash that was submitted
+   * @param index The index of the submission - should be 0-11, as up to twelve submissions can be made.
+   * @param jrh The JRH of that was submitted
+   * @param nNodes The number of nodes that was submitted
+   * @returns user Address of the user that submitted the hash / nNodes/ jrh at index
+   */
   getSubmissionUser(
     hash: Arrayish,
     nNodes: BigNumberish,
@@ -584,6 +937,13 @@ export class IReputationMiningCycle extends Contract {
     index: BigNumberish
   ): Promise<string>;
 
+  /**
+   * Get the number of submissions miners made of a particular hash / nNodes / jrh combination.
+   * @param hash The hash that was submitted
+   * @param jrh The JRH of that was submitted
+   * @param nNodes The number of nodes that was submitted
+   * @returns count The number of submissions - should be 0-12, as up to twelve submissions can be made
+   */
   getNSubmissionsForHash(
     hash: Arrayish,
     nNodes: BigNumberish,

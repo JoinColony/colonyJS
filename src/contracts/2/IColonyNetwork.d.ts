@@ -314,42 +314,96 @@ export class IColonyNetwork extends Contract {
   interface: IColonyNetworkInterface;
 
   functions: {
+    /**
+     * Indicate approval to exit recovery mode. Can only be called by user with recovery role.
+     */
     approveExitRecovery(
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Exit recovery mode, can be called by anyone if enough whitelist approvals are given.
+     */
     exitRecoveryMode(
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Return number of recovery roles.
+     * @returns numRoles Number of users with the recovery role.
+     */
     numRecoveryRoles(): Promise<BigNumber>;
 
+    /**
+     * certain critical variables are protected from editing in this function
+     * Update value of arbitrary storage variable. Can only be called by user with recovery role.
+     * @param _slot Uint address of storage slot to be updated
+     * @param _value word of data to be set
+     */
     setStorageSlotRecovery(
       _slot: BigNumberish,
       _value: Arrayish,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Is colony network in recovery mode.
+     * @returns inRecoveryMode Return true if recovery mode is active, false otherwise
+     */
     isInRecoveryMode(): Promise<boolean>;
 
+    /**
+     * No return value, but should throw if protected.This is public, but is only expected to be called from ContractRecovery; no need toexpose this to any users.
+     * Check whether the supplied slot is a protected variable specific to this contract
+     * @param _slot The storage slot number to check.
+     */
     checkNotAdditionalProtectedVariable(_slot: BigNumberish): Promise<void>;
 
+    /**
+     * Remove colony recovery role. Can only be called by root role.
+     * @param _user User we want to remove recovery role from
+     */
     removeRecoveryRole(
       _user: string,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Set new colony recovery role. Can be called by root.
+     * @param _user User we want to give a recovery role to
+     */
     setRecoveryRole(
       _user: string,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Put colony network mining into recovery mode. Can only be called by user with recovery role.
+     */
     enterRecoveryMode(
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Interface identification is specified in ERC-165.
+     * Query if a contract implements an interface
+     * @param interfaceID The interface identifier, as specified in ERC-165
+     * @returns `true` if the contract implements `interfaceID`
+     */
     supportsInterface(interfaceID: Arrayish): Promise<boolean>;
 
+    /**
+     * Note that strictly, `_nUpdates` and `_nPreviousUpdates` don't need to be set - they're only used during dispute resolution, which these replacement log entries are never used for. However, for ease of resyncing the client, we have decided to include them for now.
+     * Set a replacement log entry if we're in recovery mode.
+     * @param _amount The amount of reputation being earned / lost
+     * @param _colony The address of the colony being updated
+     * @param _id The number of the log entry in the reputation mining cycle in question.
+     * @param _nPreviousUpdates The number of updates in the log before this entry
+     * @param _nUpdates The number of updates the log entry corresponds to
+     * @param _reputationMiningCycle The address of the reputation mining cycle that the log was in.
+     * @param _skillId The id of the origin skill for the reputation update
+     * @param _user The address of the user earning / losing the reputation
+     */
     setReplacementReputationUpdateLogEntry(
       _reputationMiningCycle: string,
       _id: BigNumberish,
@@ -362,6 +416,12 @@ export class IColonyNetwork extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Get a replacement log entry (if set) for the log entry `_id` in the mining cycle that was at the address `_reputationMiningCycle`.
+     * @param _id The log entry number we wish to see if there is a replacement for
+     * @param _reputationMiningCycle The address of the reputation mining cycle we are asking about
+     * @returns reputationLogEntry ReputationLogEntry instance with the details of the log entry (if it exists)
+     */
     getReplacementReputationUpdateLogEntry(
       _reputationMiningCycle: string,
       _id: BigNumberish
@@ -372,23 +432,58 @@ export class IColonyNetwork extends Contract {
       colony: string;
       nUpdates: BigNumber;
       nPreviousUpdates: BigNumber;
+      0: string;
+      1: BigNumber;
+      2: BigNumber;
+      3: string;
+      4: BigNumber;
+      5: BigNumber;
     }>;
 
+    /**
+     * Get whether any replacement log entries have been set for the supplied reputation mining cycle.Used by the client to avoid doubling the number of RPC calls when syncing from scratch.
+     * @param _reputationMiningCycle The reputation mining cycle address we want to know if any entries have been replaced in.
+     * @returns exists Boolean indicating whether there is a replacement log
+     */
     getReplacementReputationUpdateLogsExist(
       _reputationMiningCycle: string
     ): Promise<boolean>;
 
+    /**
+     * Get the Meta Colony address.
+     * @returns colonyAddress The Meta colony address, if no colony was found, returns 0x0
+     */
     getMetaColony(): Promise<string>;
 
+    /**
+     * Get the number of colonies in the network.
+     * @returns count The colony count
+     */
     getColonyCount(): Promise<BigNumber>;
 
+    /**
+     * Check if specific address is a colony created on colony network.
+     * @param _colony Address of the colony
+     * @returns addressIsColony true if specified address is a colony, otherwise false
+     */
     isColony(_colony: string): Promise<boolean>;
 
+    /**
+     * Errors if the parent skill does not exist or if this is called by an unauthorised sender.
+     * Adds a new skill to the global or local skills tree, under skill `_parentSkillId`. Only the Meta Colony is allowed to add a global skill, called via `IColony.addGlobalSkill`. Any colony is allowed to add a local skill and which is associated with a new domain via `IColony.addDomain`.
+     * @param _parentSkillId Id of the skill under which the new skill will be added. If 0, a global skill is added with no parent.
+     * @returns skillId Id of the added skill
+     */
     addSkill(
       _parentSkillId: BigNumberish,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Get the `nParents` and `nChildren` of skill with id `_skillId`.
+     * @param _skillId Id of the skill
+     * @returns skill The Skill struct
+     */
     getSkill(
       _skillId: BigNumberish
     ): Promise<{
@@ -398,13 +493,30 @@ export class IColonyNetwork extends Contract {
       children: BigNumber[];
       globalSkill: boolean;
       deprecated: boolean;
+      0: BigNumber;
+      1: BigNumber;
+      2: BigNumber[];
+      3: BigNumber[];
+      4: boolean;
+      5: boolean;
     }>;
 
+    /**
+     * Mark a global skill as deprecated which stops new tasks and payments from using it.
+     * @param _skillId Id of the skill
+     */
     deprecateSkill(
       _skillId: BigNumberish,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Errors if it is called by anyone but a colony or if skill with id `_skillId` does not exist or.
+     * Adds a reputation update entry to log.
+     * @param _amount The amount of reputation change for the update, this can be a negative as well as a positive value
+     * @param _skillId The skill for the reputation update
+     * @param _user The address of the user for the reputation update
+     */
     appendReputationUpdateLog(
       _user: string,
       _amount: BigNumberish,
@@ -412,62 +524,142 @@ export class IColonyNetwork extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Get the number of skills in the network including both global and local skills.
+     * @returns count The skill count
+     */
     getSkillCount(): Promise<BigNumber>;
 
+    /**
+     * Get the `skillId` of the reputation mining skill. Only set once the metacolony is set up.
+     * @returns skillId The `skillId` of the reputation mining skill.
+     */
     getReputationMiningSkillId(): Promise<BigNumber>;
 
+    /**
+     * Sets the token locking address. This is only set once, and can't be changed afterwards.
+     * @param _tokenLockingAddress Address of the locking contract
+     */
     setTokenLocking(
       _tokenLockingAddress: string,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Get token locking contract address.
+     * @returns lockingAddress Token locking contract address
+     */
     getTokenLocking(): Promise<string>;
 
+    /**
+     * Create the Meta Colony, same as a normal colony plus the root skill.
+     * @param _tokenAddress Address of the CLNY token
+     */
     createMetaColony(
       _tokenAddress: string,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Creates a new colony in the network. Note that the token ownership (if there is one) has to be transferred to the newly created colony.
+     * @param _tokenAddress Address of an ERC20 token to serve as the colony token. Additionally token can optionally support `mint` as defined in `ERC20Extended`. Support for `mint` is mandatory only for the Meta Colony Token.
+     * @returns colonyAddress Address of the newly created colony
+     */
     createColony(
       _tokenAddress: string,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Adds a new Colony contract version and the address of associated `_resolver` contract. Secured function to authorised members. Allowed to be called by the Meta Colony only.
+     * @param _resolver Address of the `Resolver` contract which will be used with the underlying `EtherRouter` contract
+     * @param _version The new Colony contract version
+     */
     addColonyVersion(
       _version: BigNumberish,
       _resolver: string,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Only allowed to be run once, by the Network owner before any Colony versions are added.
+     * Initialises the colony network by setting the first Colony version resolver to `_resolver` address.
+     * @param _resolver Address of the resolver for Colony contract
+     * @param _version Version of the Colony contract the resolver represents
+     */
     initialise(
       _resolver: string,
       _version: BigNumberish,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Get a colony address by its Id in the network.
+     * @param _id Id of the colony to get
+     * @returns colonyAddress The colony address, if no colony was found, returns 0x0
+     */
     getColony(_id: BigNumberish): Promise<string>;
 
+    /**
+     * Returns the latest Colony contract version. This is the version used to create all new colonies.
+     * @returns version The current / latest Colony contract version
+     */
     getCurrentColonyVersion(): Promise<BigNumber>;
 
+    /**
+     * Get the id of the parent skill at index `_parentSkillIndex` for skill with Id `_skillId`.
+     * @param _parentSkillIndex Index of the `skill.parents` array to get Note that not all parent skill ids are stored here. See `Skill.parents` member for definition on which parents are stored
+     * @param _skillId Id of the skill
+     * @returns skillId Skill Id of the requested parent skill
+     */
     getParentSkillId(
       _skillId: BigNumberish,
       _parentSkillIndex: BigNumberish
     ): Promise<BigNumber>;
 
+    /**
+     * Get the id of the child skill at index `_childSkillIndex` for skill with Id `_skillId`.
+     * @param _childSkillIndex Index of the `skill.children` array to get
+     * @param _skillId Id of the skill
+     * @returns skillId Skill Id of the requested child skill
+     */
     getChildSkillId(
       _skillId: BigNumberish,
       _childSkillIndex: BigNumberish
     ): Promise<BigNumber>;
 
+    /**
+     * Get the address of either the active or inactive reputation mining cycle, based on `active`. The active reputation mining cycle is the one currently under consideration by reputation miners. The inactive reputation cycle is the one with the log that is being appended to.
+     * @param _active Whether the user wants the active or inactive reputation mining cycle
+     * @returns repMiningCycleAddress address of active or inactive ReputationMiningCycle
+     */
     getReputationMiningCycle(_active: boolean): Promise<string>;
 
+    /**
+     * Calculate raw miner weight in WADs.
+     * @param _submissonIndex Index of reputation hash submission (between 0 and 11)
+     * @param _timeStaked Amount of time (in seconds) that the miner has staked their CLNY
+     * @returns minerWeight The weight of miner reward
+     */
     calculateMinerWeight(
       _timeStaked: BigNumberish,
       _submissonIndex: BigNumberish
     ): Promise<BigNumber>;
 
+    /**
+     * Get the `Resolver` address for Colony contract version `_version`.
+     * @param _version The Colony contract version
+     * @returns resolverAddress Address of the `Resolver` contract
+     */
     getColonyVersionResolver(_version: BigNumberish): Promise<string>;
 
+    /**
+     * Set a new Reputation root hash and starts a new mining cycle. Can only be called by the ReputationMiningCycle contract.
+     * @param newHash The reputation root hash
+     * @param newNNodes The updated nodes count value
+     * @param reward Amount of CLNY to be distributed as reward to miners
+     * @param stakers Array of users who submitted or backed the hash, being accepted here as the new reputation root hash
+     */
     setReputationRootHash(
       newHash: Arrayish,
       newNNodes: BigNumberish,
@@ -476,100 +668,223 @@ export class IColonyNetwork extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Starts a new Reputation Mining cycle. Explicitly called only the first time, subsequently called from within `setReputationRootHash`.
+     */
     startNextCycle(
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Creates initial inactive reputation mining cycle.
+     */
     initialiseReputationMining(
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Get the root hash of the current reputation state tree.
+     * @returns rootHash The current Reputation Root Hash
+     */
     getReputationRootHash(): Promise<string>;
 
+    /**
+     * I cannot see a reason why a user's client would need to call this - only stored to help with some edge cases in reputation mining dispute resolution.
+     * Get the number of nodes in the current reputation state tree.
+     * @returns nNodes uint256 The number of nodes in the state tree
+     */
     getReputationRootHashNNodes(): Promise<BigNumber>;
 
+    /**
+     * Create and start a new `DutchAuction` for the entire amount of `_token` owned by the Colony Network.
+     * @param _token Address of the token held by the network to be auctioned
+     */
     startTokenAuction(
       _token: string,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Setup registrar with ENS and root node.
+     * @param _ens Address of ENS registrar
+     * @param _rootNode Namehash of the root node for the domain
+     */
     setupRegistrar(
       _ens: string,
       _rootNode: Arrayish,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Register a "user.joincolony.eth" label.
+     * @param orbitdb The path of the orbitDB database associated with the user profile
+     * @param username The label to register
+     */
     registerUserLabel(
       username: string,
       orbitdb: string,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Register a "colony.joincolony.eth" label. Can only be called by a Colony.
+     * @param colonyName The label to register.
+     * @param orbitdb The path of the orbitDB database associated with the colony name
+     */
     registerColonyLabel(
       colonyName: string,
       orbitdb: string,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Retrieve the orbitdb address corresponding to a registered account.
+     * @param node The Namehash of the account being queried.
+     * @returns orbitDB A string containing the address of the orbit database
+     */
     getProfileDBAddress(node: Arrayish): Promise<string>;
 
+    /**
+     * Reverse lookup a username from an address.
+     * @param addr The address we wish to find the corresponding ENS domain for (if any)
+     * @returns domain A string containing the colony-based ENS name corresponding to addr
+     */
     lookupRegisteredENSDomain(addr: string): Promise<string>;
 
+    /**
+     * Returns the address the supplied node resolves do, if we are the resolver.
+     * @param node The namehash of the ENS address being requested
+     * @returns address The address the supplied node resolves to
+     */
     addr(node: Arrayish): Promise<string>;
 
+    /**
+     * Returns the address of the ENSRegistrar for the Network.
+     * @returns address The address the ENSRegistrar resolves to
+     */
     getENSRegistrar(): Promise<string>;
 
+    /**
+     * Set the resolver to be used by new instances of ReputationMiningCycle.
+     * @param miningResolverAddress The address of the Resolver contract with the functions correctly wired.
+     */
     setMiningResolver(
       miningResolverAddress: string,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Get the resolver to be used by new instances of ReputationMiningCycle.
+     * @returns miningResolverAddress The address of the mining cycle resolver currently used by new instances
+     */
     getMiningResolver(): Promise<string>;
 
+    /**
+     * Return 1 / the fee to pay to the network. e.g. if the fee is 1% (or 0.01), return 100.
+     * @returns _feeInverse The inverse of the network fee
+     */
     getFeeInverse(): Promise<BigNumber>;
 
+    /**
+     * Set the colony network fee to pay. e.g. if the fee is 1% (or 0.01), pass 100 as `_feeInverse`.
+     * @param _feeInverse The inverse of the network fee to set
+     */
     setFeeInverse(
       _feeInverse: BigNumberish,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
   };
 
+  /**
+   * Indicate approval to exit recovery mode. Can only be called by user with recovery role.
+   */
   approveExitRecovery(
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Exit recovery mode, can be called by anyone if enough whitelist approvals are given.
+   */
   exitRecoveryMode(
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Return number of recovery roles.
+   * @returns numRoles Number of users with the recovery role.
+   */
   numRecoveryRoles(): Promise<BigNumber>;
 
+  /**
+   * certain critical variables are protected from editing in this function
+   * Update value of arbitrary storage variable. Can only be called by user with recovery role.
+   * @param _slot Uint address of storage slot to be updated
+   * @param _value word of data to be set
+   */
   setStorageSlotRecovery(
     _slot: BigNumberish,
     _value: Arrayish,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Is colony network in recovery mode.
+   * @returns inRecoveryMode Return true if recovery mode is active, false otherwise
+   */
   isInRecoveryMode(): Promise<boolean>;
 
+  /**
+   * No return value, but should throw if protected.This is public, but is only expected to be called from ContractRecovery; no need toexpose this to any users.
+   * Check whether the supplied slot is a protected variable specific to this contract
+   * @param _slot The storage slot number to check.
+   */
   checkNotAdditionalProtectedVariable(_slot: BigNumberish): Promise<void>;
 
+  /**
+   * Remove colony recovery role. Can only be called by root role.
+   * @param _user User we want to remove recovery role from
+   */
   removeRecoveryRole(
     _user: string,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Set new colony recovery role. Can be called by root.
+   * @param _user User we want to give a recovery role to
+   */
   setRecoveryRole(
     _user: string,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Put colony network mining into recovery mode. Can only be called by user with recovery role.
+   */
   enterRecoveryMode(
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Interface identification is specified in ERC-165.
+   * Query if a contract implements an interface
+   * @param interfaceID The interface identifier, as specified in ERC-165
+   * @returns `true` if the contract implements `interfaceID`
+   */
   supportsInterface(interfaceID: Arrayish): Promise<boolean>;
 
+  /**
+   * Note that strictly, `_nUpdates` and `_nPreviousUpdates` don't need to be set - they're only used during dispute resolution, which these replacement log entries are never used for. However, for ease of resyncing the client, we have decided to include them for now.
+   * Set a replacement log entry if we're in recovery mode.
+   * @param _amount The amount of reputation being earned / lost
+   * @param _colony The address of the colony being updated
+   * @param _id The number of the log entry in the reputation mining cycle in question.
+   * @param _nPreviousUpdates The number of updates in the log before this entry
+   * @param _nUpdates The number of updates the log entry corresponds to
+   * @param _reputationMiningCycle The address of the reputation mining cycle that the log was in.
+   * @param _skillId The id of the origin skill for the reputation update
+   * @param _user The address of the user earning / losing the reputation
+   */
   setReplacementReputationUpdateLogEntry(
     _reputationMiningCycle: string,
     _id: BigNumberish,
@@ -582,6 +897,12 @@ export class IColonyNetwork extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Get a replacement log entry (if set) for the log entry `_id` in the mining cycle that was at the address `_reputationMiningCycle`.
+   * @param _id The log entry number we wish to see if there is a replacement for
+   * @param _reputationMiningCycle The address of the reputation mining cycle we are asking about
+   * @returns reputationLogEntry ReputationLogEntry instance with the details of the log entry (if it exists)
+   */
   getReplacementReputationUpdateLogEntry(
     _reputationMiningCycle: string,
     _id: BigNumberish
@@ -592,23 +913,58 @@ export class IColonyNetwork extends Contract {
     colony: string;
     nUpdates: BigNumber;
     nPreviousUpdates: BigNumber;
+    0: string;
+    1: BigNumber;
+    2: BigNumber;
+    3: string;
+    4: BigNumber;
+    5: BigNumber;
   }>;
 
+  /**
+   * Get whether any replacement log entries have been set for the supplied reputation mining cycle.Used by the client to avoid doubling the number of RPC calls when syncing from scratch.
+   * @param _reputationMiningCycle The reputation mining cycle address we want to know if any entries have been replaced in.
+   * @returns exists Boolean indicating whether there is a replacement log
+   */
   getReplacementReputationUpdateLogsExist(
     _reputationMiningCycle: string
   ): Promise<boolean>;
 
+  /**
+   * Get the Meta Colony address.
+   * @returns colonyAddress The Meta colony address, if no colony was found, returns 0x0
+   */
   getMetaColony(): Promise<string>;
 
+  /**
+   * Get the number of colonies in the network.
+   * @returns count The colony count
+   */
   getColonyCount(): Promise<BigNumber>;
 
+  /**
+   * Check if specific address is a colony created on colony network.
+   * @param _colony Address of the colony
+   * @returns addressIsColony true if specified address is a colony, otherwise false
+   */
   isColony(_colony: string): Promise<boolean>;
 
+  /**
+   * Errors if the parent skill does not exist or if this is called by an unauthorised sender.
+   * Adds a new skill to the global or local skills tree, under skill `_parentSkillId`. Only the Meta Colony is allowed to add a global skill, called via `IColony.addGlobalSkill`. Any colony is allowed to add a local skill and which is associated with a new domain via `IColony.addDomain`.
+   * @param _parentSkillId Id of the skill under which the new skill will be added. If 0, a global skill is added with no parent.
+   * @returns skillId Id of the added skill
+   */
   addSkill(
     _parentSkillId: BigNumberish,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Get the `nParents` and `nChildren` of skill with id `_skillId`.
+   * @param _skillId Id of the skill
+   * @returns skill The Skill struct
+   */
   getSkill(
     _skillId: BigNumberish
   ): Promise<{
@@ -618,13 +974,30 @@ export class IColonyNetwork extends Contract {
     children: BigNumber[];
     globalSkill: boolean;
     deprecated: boolean;
+    0: BigNumber;
+    1: BigNumber;
+    2: BigNumber[];
+    3: BigNumber[];
+    4: boolean;
+    5: boolean;
   }>;
 
+  /**
+   * Mark a global skill as deprecated which stops new tasks and payments from using it.
+   * @param _skillId Id of the skill
+   */
   deprecateSkill(
     _skillId: BigNumberish,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Errors if it is called by anyone but a colony or if skill with id `_skillId` does not exist or.
+   * Adds a reputation update entry to log.
+   * @param _amount The amount of reputation change for the update, this can be a negative as well as a positive value
+   * @param _skillId The skill for the reputation update
+   * @param _user The address of the user for the reputation update
+   */
   appendReputationUpdateLog(
     _user: string,
     _amount: BigNumberish,
@@ -632,62 +1005,142 @@ export class IColonyNetwork extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Get the number of skills in the network including both global and local skills.
+   * @returns count The skill count
+   */
   getSkillCount(): Promise<BigNumber>;
 
+  /**
+   * Get the `skillId` of the reputation mining skill. Only set once the metacolony is set up.
+   * @returns skillId The `skillId` of the reputation mining skill.
+   */
   getReputationMiningSkillId(): Promise<BigNumber>;
 
+  /**
+   * Sets the token locking address. This is only set once, and can't be changed afterwards.
+   * @param _tokenLockingAddress Address of the locking contract
+   */
   setTokenLocking(
     _tokenLockingAddress: string,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Get token locking contract address.
+   * @returns lockingAddress Token locking contract address
+   */
   getTokenLocking(): Promise<string>;
 
+  /**
+   * Create the Meta Colony, same as a normal colony plus the root skill.
+   * @param _tokenAddress Address of the CLNY token
+   */
   createMetaColony(
     _tokenAddress: string,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Creates a new colony in the network. Note that the token ownership (if there is one) has to be transferred to the newly created colony.
+   * @param _tokenAddress Address of an ERC20 token to serve as the colony token. Additionally token can optionally support `mint` as defined in `ERC20Extended`. Support for `mint` is mandatory only for the Meta Colony Token.
+   * @returns colonyAddress Address of the newly created colony
+   */
   createColony(
     _tokenAddress: string,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Adds a new Colony contract version and the address of associated `_resolver` contract. Secured function to authorised members. Allowed to be called by the Meta Colony only.
+   * @param _resolver Address of the `Resolver` contract which will be used with the underlying `EtherRouter` contract
+   * @param _version The new Colony contract version
+   */
   addColonyVersion(
     _version: BigNumberish,
     _resolver: string,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Only allowed to be run once, by the Network owner before any Colony versions are added.
+   * Initialises the colony network by setting the first Colony version resolver to `_resolver` address.
+   * @param _resolver Address of the resolver for Colony contract
+   * @param _version Version of the Colony contract the resolver represents
+   */
   initialise(
     _resolver: string,
     _version: BigNumberish,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Get a colony address by its Id in the network.
+   * @param _id Id of the colony to get
+   * @returns colonyAddress The colony address, if no colony was found, returns 0x0
+   */
   getColony(_id: BigNumberish): Promise<string>;
 
+  /**
+   * Returns the latest Colony contract version. This is the version used to create all new colonies.
+   * @returns version The current / latest Colony contract version
+   */
   getCurrentColonyVersion(): Promise<BigNumber>;
 
+  /**
+   * Get the id of the parent skill at index `_parentSkillIndex` for skill with Id `_skillId`.
+   * @param _parentSkillIndex Index of the `skill.parents` array to get Note that not all parent skill ids are stored here. See `Skill.parents` member for definition on which parents are stored
+   * @param _skillId Id of the skill
+   * @returns skillId Skill Id of the requested parent skill
+   */
   getParentSkillId(
     _skillId: BigNumberish,
     _parentSkillIndex: BigNumberish
   ): Promise<BigNumber>;
 
+  /**
+   * Get the id of the child skill at index `_childSkillIndex` for skill with Id `_skillId`.
+   * @param _childSkillIndex Index of the `skill.children` array to get
+   * @param _skillId Id of the skill
+   * @returns skillId Skill Id of the requested child skill
+   */
   getChildSkillId(
     _skillId: BigNumberish,
     _childSkillIndex: BigNumberish
   ): Promise<BigNumber>;
 
+  /**
+   * Get the address of either the active or inactive reputation mining cycle, based on `active`. The active reputation mining cycle is the one currently under consideration by reputation miners. The inactive reputation cycle is the one with the log that is being appended to.
+   * @param _active Whether the user wants the active or inactive reputation mining cycle
+   * @returns repMiningCycleAddress address of active or inactive ReputationMiningCycle
+   */
   getReputationMiningCycle(_active: boolean): Promise<string>;
 
+  /**
+   * Calculate raw miner weight in WADs.
+   * @param _submissonIndex Index of reputation hash submission (between 0 and 11)
+   * @param _timeStaked Amount of time (in seconds) that the miner has staked their CLNY
+   * @returns minerWeight The weight of miner reward
+   */
   calculateMinerWeight(
     _timeStaked: BigNumberish,
     _submissonIndex: BigNumberish
   ): Promise<BigNumber>;
 
+  /**
+   * Get the `Resolver` address for Colony contract version `_version`.
+   * @param _version The Colony contract version
+   * @returns resolverAddress Address of the `Resolver` contract
+   */
   getColonyVersionResolver(_version: BigNumberish): Promise<string>;
 
+  /**
+   * Set a new Reputation root hash and starts a new mining cycle. Can only be called by the ReputationMiningCycle contract.
+   * @param newHash The reputation root hash
+   * @param newNNodes The updated nodes count value
+   * @param reward Amount of CLNY to be distributed as reward to miners
+   * @param stakers Array of users who submitted or backed the hash, being accepted here as the new reputation root hash
+   */
   setReputationRootHash(
     newHash: Arrayish,
     newNNodes: BigNumberish,
@@ -696,58 +1149,127 @@ export class IColonyNetwork extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Starts a new Reputation Mining cycle. Explicitly called only the first time, subsequently called from within `setReputationRootHash`.
+   */
   startNextCycle(
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Creates initial inactive reputation mining cycle.
+   */
   initialiseReputationMining(
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Get the root hash of the current reputation state tree.
+   * @returns rootHash The current Reputation Root Hash
+   */
   getReputationRootHash(): Promise<string>;
 
+  /**
+   * I cannot see a reason why a user's client would need to call this - only stored to help with some edge cases in reputation mining dispute resolution.
+   * Get the number of nodes in the current reputation state tree.
+   * @returns nNodes uint256 The number of nodes in the state tree
+   */
   getReputationRootHashNNodes(): Promise<BigNumber>;
 
+  /**
+   * Create and start a new `DutchAuction` for the entire amount of `_token` owned by the Colony Network.
+   * @param _token Address of the token held by the network to be auctioned
+   */
   startTokenAuction(
     _token: string,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Setup registrar with ENS and root node.
+   * @param _ens Address of ENS registrar
+   * @param _rootNode Namehash of the root node for the domain
+   */
   setupRegistrar(
     _ens: string,
     _rootNode: Arrayish,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Register a "user.joincolony.eth" label.
+   * @param orbitdb The path of the orbitDB database associated with the user profile
+   * @param username The label to register
+   */
   registerUserLabel(
     username: string,
     orbitdb: string,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Register a "colony.joincolony.eth" label. Can only be called by a Colony.
+   * @param colonyName The label to register.
+   * @param orbitdb The path of the orbitDB database associated with the colony name
+   */
   registerColonyLabel(
     colonyName: string,
     orbitdb: string,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Retrieve the orbitdb address corresponding to a registered account.
+   * @param node The Namehash of the account being queried.
+   * @returns orbitDB A string containing the address of the orbit database
+   */
   getProfileDBAddress(node: Arrayish): Promise<string>;
 
+  /**
+   * Reverse lookup a username from an address.
+   * @param addr The address we wish to find the corresponding ENS domain for (if any)
+   * @returns domain A string containing the colony-based ENS name corresponding to addr
+   */
   lookupRegisteredENSDomain(addr: string): Promise<string>;
 
+  /**
+   * Returns the address the supplied node resolves do, if we are the resolver.
+   * @param node The namehash of the ENS address being requested
+   * @returns address The address the supplied node resolves to
+   */
   addr(node: Arrayish): Promise<string>;
 
+  /**
+   * Returns the address of the ENSRegistrar for the Network.
+   * @returns address The address the ENSRegistrar resolves to
+   */
   getENSRegistrar(): Promise<string>;
 
+  /**
+   * Set the resolver to be used by new instances of ReputationMiningCycle.
+   * @param miningResolverAddress The address of the Resolver contract with the functions correctly wired.
+   */
   setMiningResolver(
     miningResolverAddress: string,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Get the resolver to be used by new instances of ReputationMiningCycle.
+   * @returns miningResolverAddress The address of the mining cycle resolver currently used by new instances
+   */
   getMiningResolver(): Promise<string>;
 
+  /**
+   * Return 1 / the fee to pay to the network. e.g. if the fee is 1% (or 0.01), return 100.
+   * @returns _feeInverse The inverse of the network fee
+   */
   getFeeInverse(): Promise<BigNumber>;
 
+  /**
+   * Set the colony network fee to pay. e.g. if the fee is 1% (or 0.01), pass 100 as `_feeInverse`.
+   * @param _feeInverse The inverse of the network fee to set
+   */
   setFeeInverse(
     _feeInverse: BigNumberish,
     overrides?: TransactionOverrides

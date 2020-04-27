@@ -5,7 +5,7 @@ import { options } from 'yargs';
 import * as execute from 'execa';
 import * as rimraf from 'rimraf';
 
-import { ColonyVersion } from '../src/versions';
+import { ColonyVersion } from '../src/constants';
 import { releaseMap } from './config';
 
 const rimrafPromise = promisify(rimraf);
@@ -54,7 +54,7 @@ const buildContracts = async (): Promise<void> => {
 
   const typechain = execute('typechain', [
     '--target',
-    'ethers',
+    'ethers-v4',
     '--outDir',
     outDir,
     `${buildDir}/I*.json`,
