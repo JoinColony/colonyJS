@@ -54,25 +54,59 @@ export class IPatriciaTreeNoHash extends Contract {
   interface: IPatriciaTreeNoHashInterface;
 
   functions: {
+    /**
+     * Get the node with the given key
+     * @param hash The `keccak256` hash of the actual key
+     * @returns n `Data.Node` for key `hash`
+     */
     getNode(
       hash: Arrayish
     ): Promise<{
-      children: { node: string; label: { data: string; length: BigNumber } }[];
+      children: {
+        node: string;
+        label: { data: string; length: BigNumber; 0: string; 1: BigNumber };
+        0: string;
+        1: { data: string; length: BigNumber; 0: string; 1: BigNumber };
+      }[];
+      0: {
+        node: string;
+        label: { data: string; length: BigNumber; 0: string; 1: BigNumber };
+        0: string;
+        1: { data: string; length: BigNumber; 0: string; 1: BigNumber };
+      }[];
     }>;
 
+    /**
+     * This value is a keccak256 hash of the rootEdge: `keccak256(Edge.node, Edge.label.length, Edge.label.data)`
+     * Get the root hash
+     * @returns rootHash The `bytes32` hash value
+     */
     getRootHash(): Promise<string>;
 
+    /**
+     * Get the root edge
+     * @returns e The root `Data.Edge`
+     */
     getRootEdge(): Promise<{
       node: string;
-      label: { data: string; length: BigNumber };
+      label: { data: string; length: BigNumber; 0: string; 1: BigNumber };
+      0: string;
+      1: { data: string; length: BigNumber; 0: string; 1: BigNumber };
     }>;
 
+    /**
+     * Insert the `key`/`value`in the appropriate place in the tree
+     */
     insert(
       key: Arrayish,
       value: Arrayish,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Returns the Merkle-proof for the given `key`
+     * @returns branchMask Bitmask with high bits at the positions in the `key` where we have branch nodes (bit in key denotes direction)_siblings Hashes of sibling edges
+     */
     getProof(
       key: Arrayish
     ): Promise<{
@@ -82,6 +116,10 @@ export class IPatriciaTreeNoHash extends Contract {
       1: string[];
     }>;
 
+    /**
+     * Calculates and returns a root hash for the `key`, `value`, `branchMask` and `siblings`
+     * @returns rootHash The calculated hash
+     */
     getImpliedRoot(
       key: Arrayish,
       value: Arrayish,
@@ -90,25 +128,59 @@ export class IPatriciaTreeNoHash extends Contract {
     ): Promise<string>;
   };
 
+  /**
+   * Get the node with the given key
+   * @param hash The `keccak256` hash of the actual key
+   * @returns n `Data.Node` for key `hash`
+   */
   getNode(
     hash: Arrayish
   ): Promise<{
-    children: { node: string; label: { data: string; length: BigNumber } }[];
+    children: {
+      node: string;
+      label: { data: string; length: BigNumber; 0: string; 1: BigNumber };
+      0: string;
+      1: { data: string; length: BigNumber; 0: string; 1: BigNumber };
+    }[];
+    0: {
+      node: string;
+      label: { data: string; length: BigNumber; 0: string; 1: BigNumber };
+      0: string;
+      1: { data: string; length: BigNumber; 0: string; 1: BigNumber };
+    }[];
   }>;
 
+  /**
+   * This value is a keccak256 hash of the rootEdge: `keccak256(Edge.node, Edge.label.length, Edge.label.data)`
+   * Get the root hash
+   * @returns rootHash The `bytes32` hash value
+   */
   getRootHash(): Promise<string>;
 
+  /**
+   * Get the root edge
+   * @returns e The root `Data.Edge`
+   */
   getRootEdge(): Promise<{
     node: string;
-    label: { data: string; length: BigNumber };
+    label: { data: string; length: BigNumber; 0: string; 1: BigNumber };
+    0: string;
+    1: { data: string; length: BigNumber; 0: string; 1: BigNumber };
   }>;
 
+  /**
+   * Insert the `key`/`value`in the appropriate place in the tree
+   */
   insert(
     key: Arrayish,
     value: Arrayish,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Returns the Merkle-proof for the given `key`
+   * @returns branchMask Bitmask with high bits at the positions in the `key` where we have branch nodes (bit in key denotes direction)_siblings Hashes of sibling edges
+   */
   getProof(
     key: Arrayish
   ): Promise<{
@@ -118,6 +190,10 @@ export class IPatriciaTreeNoHash extends Contract {
     1: string[];
   }>;
 
+  /**
+   * Calculates and returns a root hash for the `key`, `value`, `branchMask` and `siblings`
+   * @returns rootHash The calculated hash
+   */
   getImpliedRoot(
     key: Arrayish,
     value: Arrayish,

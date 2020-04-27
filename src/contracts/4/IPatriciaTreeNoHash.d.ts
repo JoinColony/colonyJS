@@ -94,6 +94,9 @@ export class IPatriciaTreeNoHash extends Contract {
       1: { data: string; length: BigNumber; 0: string; 1: BigNumber };
     }>;
 
+    /**
+     * Insert the `key`/`value`in the appropriate place in the tree
+     */
     insert(
       key: Arrayish,
       value: Arrayish,
@@ -165,6 +168,9 @@ export class IPatriciaTreeNoHash extends Contract {
     1: { data: string; length: BigNumber; 0: string; 1: BigNumber };
   }>;
 
+  /**
+   * Insert the `key`/`value`in the appropriate place in the tree
+   */
   insert(
     key: Arrayish,
     value: Arrayish,
