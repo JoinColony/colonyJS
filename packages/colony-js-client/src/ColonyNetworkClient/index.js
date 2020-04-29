@@ -1113,7 +1113,7 @@ export default class ColonyNetworkClient extends ContractClient {
     this.createColony = new CreateColony({
       client: this,
       name: 'createColony',
-      functionName: 'createColony',
+      functionName: 'createColony(address,uint256,string,string,bool)',
       input: [
         ['tokenAddress', 'address'],
         ['version', 'number'],
