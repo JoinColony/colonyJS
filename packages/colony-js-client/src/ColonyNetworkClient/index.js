@@ -196,6 +196,26 @@ export default class ColonyNetworkClient extends ContractClient {
   createColony: ColonyNetworkClient.Sender<
     {
       tokenAddress: Address, // The address of the token contract that will become the native token for the colony.
+    },
+    {
+      SkillAdded: SkillAdded,
+      ColonyAdded: ColonyAdded,
+      RecoveryRoleSet: RecoveryRoleSet,
+    },
+    ColonyNetworkClient,
+    {
+      contract: 'ColonyNetwork.sol',
+      interface: 'IColonyNetwork.sol',
+      version: 'glider',
+    },
+  >;
+
+  /*
+  Create a new colony on the network.
+  */
+  createColonyWithOptions: ColonyNetworkClient.Sender<
+    {
+      tokenAddress: Address, // The address of the token contract that will become the native token for the colony.
       version: number, // The Colony version to deploy (`0` deploys the current version).
       colonyName: string, // The ENS name to set for the colony ('' sets no name).
       orbitdb: string, // The orbitdb address for the ENS name.
@@ -1110,9 +1130,9 @@ export default class ColonyNetworkClient extends ContractClient {
     // Custom senders
     this.createToken = new CreateToken({ client: this });
 
-    this.createColony = new CreateColony({
+    this.createColonyWithOptions = new CreateColony({
       client: this,
-      name: 'createColony',
+      name: 'createColonyWithOptions',
       functionName: 'createColony(address,uint256,string,string,bool)',
       input: [
         ['tokenAddress', 'address'],
@@ -1310,6 +1330,9 @@ export default class ColonyNetworkClient extends ContractClient {
         ['amount', 'bigNumber'],
         ['skillId', 'number'],
       ],
+    });
+    this.addSender('createColony', {
+      input: [['tokenAddress', 'address']],
     });
     this.addSender('createMetaColony', {
       input: [['tokenAddress', 'address']],
