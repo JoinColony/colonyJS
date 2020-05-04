@@ -578,8 +578,27 @@ export class IColonyNetwork extends Contract {
      * @param _tokenAddress Address of an ERC20 token to serve as the colony token.
      * @returns colonyAddress Address of the newly created colony
      */
-    createColony(
+    "createColony(address)"(
       _tokenAddress: string,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * For the colony to mint tokens, token ownership must be transferred to the new colony
+     * Overload of the simpler `createColony` -- creates a new colony in the network with a variety of options
+     * @param _colonyName The label to register (if null, no label is registered)
+     * @param _orbitdb The path of the orbitDB database associated with the user profile
+     * @param _tokenAddress Address of an ERC20 token to serve as the colony token
+     * @param _useExtensionManager If true, give the ExtensionManager the root role in the colony
+     * @param _version The version of colony to deploy (pass 0 for the current version)
+     * @returns colonyAddress Address of the newly created colony
+     */
+    "createColony(address,uint256,string,string,bool)"(
+      _tokenAddress: string,
+      _version: BigNumberish,
+      _colonyName: string,
+      _orbitdb: string,
+      _useExtensionManager: boolean,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
@@ -1078,8 +1097,27 @@ export class IColonyNetwork extends Contract {
    * @param _tokenAddress Address of an ERC20 token to serve as the colony token.
    * @returns colonyAddress Address of the newly created colony
    */
-  createColony(
+  "createColony(address)"(
     _tokenAddress: string,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * For the colony to mint tokens, token ownership must be transferred to the new colony
+   * Overload of the simpler `createColony` -- creates a new colony in the network with a variety of options
+   * @param _colonyName The label to register (if null, no label is registered)
+   * @param _orbitdb The path of the orbitDB database associated with the user profile
+   * @param _tokenAddress Address of an ERC20 token to serve as the colony token
+   * @param _useExtensionManager If true, give the ExtensionManager the root role in the colony
+   * @param _version The version of colony to deploy (pass 0 for the current version)
+   * @returns colonyAddress Address of the newly created colony
+   */
+  "createColony(address,uint256,string,string,bool)"(
+    _tokenAddress: string,
+    _version: BigNumberish,
+    _colonyName: string,
+    _orbitdb: string,
+    _useExtensionManager: boolean,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
