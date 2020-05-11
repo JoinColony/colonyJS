@@ -10,7 +10,7 @@ import { releaseMap } from './config';
 
 const rimrafPromise = promisify(rimraf);
 
-const networkDir = resolvePath(__dirname, '../lib/colonyNetwork');
+const networkDir = resolvePath(__dirname, '../vendor/colonyNetwork');
 const buildDir = resolvePath(networkDir, 'build/contracts');
 
 const args = options({
