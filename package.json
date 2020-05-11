@@ -9,6 +9,7 @@
     "typecheck": "tsc --noEmit",
     "jest": "jest",
     "test": "npm run typecheck && npm run lint",
+    "build": "tsc && copyfiles -u 1 src/contracts/**/*.d.ts dist",
     "build-contracts": "ts-node -P scripts/tsconfig-scripts.json scripts/build-contracts.ts",
     "build-docs": "typedoc --out docs src",
     "prepublish": "tsc && npm run build-docs"
@@ -21,12 +22,14 @@
     "@types/yargs": "^15.0.4",
     "@typescript-eslint/eslint-plugin": "^2.24.0",
     "@typescript-eslint/parser": "^2.24.0",
+    "copyfiles": "^2.2.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-config-prettier": "^6.10.1",
     "eslint-plugin-eslint-comments": "^3.1.2",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-prettier": "^3.1.2",
+    "ethers": "^4.0.47",
     "execa": "^4.0.0",
     "jest": "^25.2.4",
     "prettier": "^1.19.1",
@@ -38,7 +41,7 @@
     "typescript": "^3.8.3",
     "yargs": "^15.3.1"
   },
-  "dependencies": {
-    "ethers": "^4.0.45"
+  "peerDependencies": {
+    "ethers": "^4.0.47"
   }
 }
