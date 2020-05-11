@@ -1,18 +1,21 @@
 {
   "name": "@colony/colony-js",
   "version": "2.0.0-alpha.1",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "lib/index.js",
+  "module": "lib-esm/index.js",
   "license": "GPL-3.0-only",
   "scripts": {
+    "clean": "rimraf ./lib && rimraf ./lib-esm",
+    "build": "npm run clean && npm run compile && npm run compile-esm && npm run copy-declarations && npm run build-docs",
+    "test": "npm run lint && npm run typecheck && jest",
     "lint": "eslint src/**/*.ts scripts/**/*.ts",
     "typecheck": "tsc --noEmit",
-    "jest": "jest",
-    "test": "npm run typecheck && npm run lint",
-    "build": "tsc && copyfiles -u 1 src/contracts/**/*.d.ts dist",
-    "build-contracts": "ts-node -P scripts/tsconfig-scripts.json scripts/build-contracts.ts",
+    "compile": "tsc -p tsconfig.build.json",
+    "compile-esm": "tsc -p tsconfig.build.json -m es6 --outDir lib-esm",
+    "copy-declarations": "copyfiles -u 1 src/contracts/**/*.d.ts lib && copyfiles -u 1 src/contracts/**/*.d.ts lib-esm",
     "build-docs": "typedoc --out docs src",
-    "prepublish": "tsc && npm run build-docs"
+    "build-contracts": "ts-node -P scripts/tsconfig-scripts.json scripts/build-contracts.ts",
+    "prepublishOnly": "npm test && npm run build"
   },
   "devDependencies": {
     "@colony/eslint-config-colony": "^8.0.1",

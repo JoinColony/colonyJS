@@ -2,3 +2,6 @@
 	path = lib/colonyNetwork
 	url = https://github.com/JoinColony/colonyNetwork.git
   ignore = all
+[submodule "vendor/colonyNetwork"]
+	path = vendor/colonyNetwork
+	url = https://github.com/JoinColony/colonyNetwork.git
