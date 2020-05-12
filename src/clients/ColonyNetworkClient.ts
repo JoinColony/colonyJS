@@ -20,6 +20,7 @@ export type AnyColonyClient =
 
 export interface ExtendedIColonyNetwork extends IColonyNetwork {
   getColonyClient(addressOrId: string | number): Promise<AnyColonyClient>;
+  getMetaColonyClient(): Promise<AnyColonyClient>;
 }
 
 const getColonyNetworkClient = (
@@ -100,6 +101,11 @@ const getColonyNetworkClient = (
       signerOrProvider,
     );
     return colonyClient;
+  };
+
+  networkClient.getMetaColonyClient = async (): Promise<AnyColonyClient> => {
+    const metaColonyAddress = await networkClient.getMetaColony();
+    return networkClient.getColonyClient(metaColonyAddress);
   };
 
   return networkClient;
