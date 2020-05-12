@@ -10,6 +10,7 @@ import getColonyClientV1, { ExtendedIColonyV1 } from './Colony/ColonyClientV1';
 import getColonyClientV2, { ExtendedIColonyV2 } from './Colony/ColonyClientV2';
 import getColonyClientV3, { ExtendedIColonyV3 } from './Colony/ColonyClientV3';
 import getColonyClientV4, { ExtendedIColonyV4 } from './Colony/ColonyClientV4';
+import getTokenClient from './TokenClient';
 
 export type AnyColonyClient =
   | ExtendedIColonyV1
@@ -55,39 +56,50 @@ const getColonyNetworkClient = (
     // We have to get the version somehow before instantiating the right contract version
     const versionBN = await colonyVersionClient.version();
     const version = versionBN.toNumber() as ColonyVersion;
+    let colonyClient;
     switch (version) {
       case ColonyVersion.GoerliGlider: {
-        return getColonyClientV1.call(
+        colonyClient = getColonyClientV1.call(
           networkClient,
           colonyAddress,
           signerOrProvider,
         );
+        break;
       }
       case ColonyVersion.Glider: {
-        return getColonyClientV2.call(
+        colonyClient = getColonyClientV2.call(
           networkClient,
           colonyAddress,
           signerOrProvider,
         );
+        break;
       }
       case ColonyVersion.AuburnGlider: {
-        return getColonyClientV3.call(
+        colonyClient = getColonyClientV3.call(
           networkClient,
           colonyAddress,
           signerOrProvider,
         );
+        break;
       }
       case ColonyVersion.BurgundyGlider: {
-        return getColonyClientV4.call(
+        colonyClient = getColonyClientV4.call(
           networkClient,
           colonyAddress,
           signerOrProvider,
         );
+        break;
       }
       default: {
         throw new Error('Colony version not supported');
       }
     }
+    const tokenAddress = await colonyClient.getToken();
+    colonyClient.tokenClient = await getTokenClient(
+      tokenAddress,
+      signerOrProvider,
+    );
+    return colonyClient;
   };
 
   return networkClient;

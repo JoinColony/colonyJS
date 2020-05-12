@@ -17,6 +17,7 @@ import {
   ROOT_DOMAIN_ID,
 } from '../../../constants';
 import { ExtendedIColonyNetwork } from '../../ColonyNetworkClient';
+import { Token } from '../../../contracts/Token/Token';
 
 export type CommonExtensionRequiredMethods =
   | 'getDomain'
@@ -94,6 +95,7 @@ export interface ExtendedEstimate {
 }
 
 export interface ColonyExtensions {
+  tokenClient: Token;
   networkClient: ExtendedIColonyNetwork;
   setArchitectureRoleWithProofs(
     _user: string,
@@ -209,7 +211,7 @@ export const getChildIndex = async (
   const { skillId: parentSkillId } = await contract.getDomain(parentDomainId);
   const { skillId } = await contract.getDomain(domainId);
   const { children } = await contract.networkClient.getSkill(parentSkillId);
-  return children.findIndex(childSkillId => childSkillId.eq(skillId));
+  return children.findIndex((childSkillId) => childSkillId.eq(skillId));
 };
 
 export const getPermissionProofs = async (
