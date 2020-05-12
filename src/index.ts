@@ -1,6 +1,7 @@
-// @TODO export a few types here that we might need
-
 export { default as getColonyNetworkClient } from './clients/ColonyNetworkClient';
 export * from './constants';
 
-export type { ExtendedIColonyNetwork } from './clients/ColonyNetworkClient';
+export type {
+  AnyColonyClient,
+  ExtendedIColonyNetwork,
+} from './clients/ColonyNetworkClient';

@@ -11,7 +11,7 @@ import getColonyClientV2, { ExtendedIColonyV2 } from './Colony/ColonyClientV2';
 import getColonyClientV3, { ExtendedIColonyV3 } from './Colony/ColonyClientV3';
 import getColonyClientV4, { ExtendedIColonyV4 } from './Colony/ColonyClientV4';
 
-type AnyColonyClient =
+export type AnyColonyClient =
   | ExtendedIColonyV1
   | ExtendedIColonyV2
   | ExtendedIColonyV3
