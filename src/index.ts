@@ -3,6 +3,7 @@ export { default as getTokenClient } from './clients/TokenClient';
 export * from './constants';
 
 export type {
-  AnyColonyClient,
-  ExtendedIColonyNetwork,
+  AnyColonyClient as ColonyClient,
+  ExtendedIColonyNetwork as ColonyNetworkClient,
 } from './clients/ColonyNetworkClient';
+export type { Token as TokenClient } from './contracts/Token/Token';
