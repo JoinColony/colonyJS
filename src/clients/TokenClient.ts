@@ -4,11 +4,37 @@ import { Provider } from 'ethers/providers';
 import { TokenFactory } from '../contracts/Token/TokenFactory';
 import { Token } from '../contracts/Token/Token';
 
+export interface TokenInfo {
+  name: string;
+  symbol: string;
+  decimals: number;
+}
+
+export interface ExtendedToken extends Token {
+  getTokenInfo(): Promise<TokenInfo>;
+}
+
 const getTokenClient = async (
   address: string,
   signerOrProvider: Signer | Provider,
-): Promise<Token> => {
-  return TokenFactory.connect(address, signerOrProvider);
+): Promise<ExtendedToken> => {
+  const tokenClient = TokenFactory.connect(
+    address,
+    signerOrProvider,
+  ) as ExtendedToken;
+
+  tokenClient.getTokenInfo = async (): Promise<TokenInfo> => {
+    const name = await tokenClient.name();
+    const symbol = await tokenClient.symbol();
+    const decimals = await tokenClient.decimals();
+    return {
+      name,
+      symbol,
+      decimals,
+    };
+  };
+
+  return tokenClient;
 };
 
 export default getTokenClient;
