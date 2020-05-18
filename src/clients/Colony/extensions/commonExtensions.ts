@@ -12,6 +12,7 @@ import { MaxUint256 } from 'ethers/constants';
 import { IColony } from '../../../contracts/1/IColony';
 import { TransactionOverrides } from '../../../contracts/1';
 import {
+  ClientType,
   ColonyRole,
   FundingPotAssociatedType,
   ROOT_DOMAIN_ID,
@@ -95,6 +96,8 @@ export interface ExtendedEstimate {
 }
 
 export interface ColonyExtensions {
+  clientType: ClientType.ColonyClient;
+
   tokenClient: Token;
   networkClient: ExtendedIColonyNetwork;
   setArchitectureRoleWithProofs(
@@ -831,6 +834,7 @@ export const addExtensions = <
   networkClient: ExtendedIColonyNetwork,
 ): void => {
   /* eslint-disable no-param-reassign, max-len */
+  instance.clientType = ClientType.ColonyClient;
   instance.networkClient = networkClient;
   instance.setArchitectureRoleWithProofs = setArchitectureRoleWithProofs.bind(
     instance,
