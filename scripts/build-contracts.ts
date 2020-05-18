@@ -1,11 +1,12 @@
 import { resolve as resolvePath } from 'path';
+import { copyFileSync } from 'fs';
 import { promisify } from 'util';
 
 import { options } from 'yargs';
 import * as execute from 'execa';
 import * as rimraf from 'rimraf';
 
-import { ColonyVersion } from '../src/constants';
+import { ColonyVersion, CurrentVersion } from '../src/constants';
 import { releaseMap } from './config';
 
 const rimrafPromise = promisify(rimraf);
@@ -18,7 +19,10 @@ const args = options({
 }).argv;
 
 const version = args.V as ColonyVersion;
-const outDir = resolvePath(__dirname, `../src/contracts/${version}/`);
+const outRoot = resolvePath(__dirname, '../src/contracts');
+const outDir = `${outRoot}/${version}`;
+const deployDir = `${outRoot}/deploy`;
+const isCurrentVersion = version === CurrentVersion;
 
 if (!releaseMap[version]) {
   throw new Error(`Version ${version} of colonyNetwork doesn't seem to exist`);
@@ -61,6 +65,11 @@ const buildContracts = async (): Promise<void> => {
   ]);
   if (typechain.stdout) typechain.stdout.pipe(process.stdout);
   await typechain;
+
+  // Copy contract json files of latest version for deployment purposes
+  if (isCurrentVersion) {
+    copyFileSync(`${buildDir}/Colony.json`, `${deployDir}/Colony.json`);
+  }
 };
 
 buildContracts();

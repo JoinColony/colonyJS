@@ -1,10 +1,19 @@
-import { Signer } from 'ethers';
+import { ContractFactory, ContractTransaction, Signer } from 'ethers';
 import { Provider } from 'ethers/providers';
+import { BigNumberish } from 'ethers/utils';
 
 import { ColonyVersion, colonyNetworkAddresses, Network } from '../constants';
 // @TODO this _HAS_ to be the newest version _ALWAYS_. Let's try to figure out a way to make sure of this
 import { IColonyNetworkFactory } from '../contracts/4/IColonyNetworkFactory';
 import { IColonyNetwork } from '../contracts/4/IColonyNetwork';
+import {
+  abi as tokenAbi,
+  bytecode as tokenBytecode,
+} from '../contracts/deploy/Token.json';
+import {
+  abi as colonyAbi,
+  bytecode as colonyBytecode,
+} from '../contracts/deploy/Colony.json';
 import getColonyVersionClient from './Colony/ColonyVersionClient';
 import getColonyClientV1, { ExtendedIColonyV1 } from './Colony/ColonyClientV1';
 import getColonyClientV2, { ExtendedIColonyV2 } from './Colony/ColonyClientV2';
@@ -21,6 +30,12 @@ export type AnyColonyClient =
 export interface ExtendedIColonyNetwork extends IColonyNetwork {
   getColonyClient(addressOrId: string | number): Promise<AnyColonyClient>;
   getMetaColonyClient(): Promise<AnyColonyClient>;
+  createToken(
+    name: string,
+    symbol: string,
+    decimals: BigNumberish,
+  ): Promise<ContractTransaction>;
+  createColony(tokenAddress: string): Promise<ContractTransaction>;
 }
 
 const getColonyNetworkClient = (
@@ -106,6 +121,26 @@ const getColonyNetworkClient = (
   networkClient.getMetaColonyClient = async (): Promise<AnyColonyClient> => {
     const metaColonyAddress = await networkClient.getMetaColony();
     return networkClient.getColonyClient(metaColonyAddress);
+  };
+
+  networkClient.createToken = async (
+    name: string,
+    symbol: string,
+    decimals: BigNumberish,
+  ): Promise<ContractTransaction> => {
+    const tokenFactory = new ContractFactory(tokenAbi, tokenBytecode);
+    const tokenContract = await tokenFactory.deploy(name, symbol, decimals);
+    await tokenContract.deployed();
+    return tokenContract.deployTransaction;
+  };
+
+  networkClient.createColony = async (
+    tokenAddress: string,
+  ): Promise<ContractTransaction> => {
+    const colonyFactory = new ContractFactory(colonyAbi, colonyBytecode);
+    const colonyContract = await colonyFactory.deploy(tokenAddress);
+    await colonyContract.deployed();
+    return colonyContract.deployTransaction;
   };
 
   return networkClient;
