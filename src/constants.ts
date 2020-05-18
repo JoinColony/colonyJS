@@ -25,6 +25,12 @@ export enum ColonyRole {
   Administration, // 6
 }
 
+export enum ClientType {
+  ColonyClient = 'ColonyClient',
+  NetworkClient = 'NetworkClient',
+  TokenClient = 'TokenClient',
+}
+
 export const colonyNetworkAddresses = {
   [Network.Mainnet]: '0x5346D0f80e2816FaD329F2c140c870ffc3c3E2Ef',
   [Network.Goerli]: '0x79073fc2117dD054FCEdaCad1E7018C9CbE3ec0B',

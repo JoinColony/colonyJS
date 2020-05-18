@@ -1,6 +1,7 @@
 import { Signer } from 'ethers';
 import { Provider } from 'ethers/providers';
 
+import { ClientType } from '../constants';
 import { TokenFactory } from '../contracts/Token/TokenFactory';
 import { Token } from '../contracts/Token/Token';
 
@@ -11,6 +12,8 @@ export interface TokenInfo {
 }
 
 export interface ExtendedToken extends Token {
+  clientType: ClientType.TokenClient;
+
   getTokenInfo(): Promise<TokenInfo>;
 }
 
@@ -22,6 +25,8 @@ const getTokenClient = async (
     address,
     signerOrProvider,
   ) as ExtendedToken;
+
+  tokenClient.clientType = ClientType.TokenClient;
 
   tokenClient.getTokenInfo = async (): Promise<TokenInfo> => {
     const name = await tokenClient.name();

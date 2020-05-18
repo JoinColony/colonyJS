@@ -2,7 +2,12 @@ import { ContractFactory, ContractTransaction, Signer } from 'ethers';
 import { Provider } from 'ethers/providers';
 import { BigNumberish } from 'ethers/utils';
 
-import { ColonyVersion, colonyNetworkAddresses, Network } from '../constants';
+import {
+  ColonyVersion,
+  ClientType,
+  colonyNetworkAddresses,
+  Network,
+} from '../constants';
 // @TODO this _HAS_ to be the newest version _ALWAYS_. Let's try to figure out a way to make sure of this
 import { IColonyNetworkFactory } from '../contracts/4/IColonyNetworkFactory';
 import { IColonyNetwork } from '../contracts/4/IColonyNetwork';
@@ -28,6 +33,8 @@ export type AnyColonyClient =
   | ExtendedIColonyV4;
 
 export interface ExtendedIColonyNetwork extends IColonyNetwork {
+  clientType: ClientType.NetworkClient;
+
   getColonyClient(addressOrId: string | number): Promise<AnyColonyClient>;
   getMetaColonyClient(): Promise<AnyColonyClient>;
   createToken(
@@ -54,6 +61,8 @@ const getColonyNetworkClient = (
     networkAddress,
     signerOrProvider,
   ) as ExtendedIColonyNetwork;
+
+  networkClient.clientType = ClientType.NetworkClient;
 
   networkClient.getColonyClient = async (
     addressOrId: string | number,
