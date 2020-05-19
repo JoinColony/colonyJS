@@ -4,8 +4,8 @@ import { Provider } from 'ethers/providers';
 import {
   ColonyVersion,
   ClientType,
-  colonyNetworkAddresses,
   Network,
+  colonyNetworkAddresses,
 } from '../constants';
 // @TODO this _HAS_ to be the newest version _ALWAYS_. Let's try to figure out a way to make sure of this
 import { IColonyNetworkFactory } from '../contracts/4/IColonyNetworkFactory';
@@ -24,6 +24,10 @@ import getColonyClientV2, { ExtendedIColonyV2 } from './Colony/ColonyClientV2';
 import getColonyClientV3, { ExtendedIColonyV3 } from './Colony/ColonyClientV3';
 import getColonyClientV4, { ExtendedIColonyV4 } from './Colony/ColonyClientV4';
 import getTokenClient from './TokenClient';
+import getOneTxPaymentDeployerClient, {
+  ExtendedOneTxPaymentDeployer,
+} from './OneTxPaymentDeployerClient';
+import getOneTxPaymentClient from './OneTxPaymentClient';
 
 export type AnyColonyClient =
   | ExtendedIColonyV1
@@ -33,6 +37,7 @@ export type AnyColonyClient =
 
 export interface ExtendedIColonyNetwork extends IColonyNetwork {
   clientType: ClientType.NetworkClient;
+  oneTxPaymentFactoryClient: ExtendedOneTxPaymentDeployer;
 
   getColonyClient(addressOrId: string | number): Promise<AnyColonyClient>;
   getMetaColonyClient(): Promise<AnyColonyClient>;
@@ -44,15 +49,23 @@ export interface ExtendedIColonyNetwork extends IColonyNetwork {
   createColony(tokenAddress: string): Promise<ContractTransaction>;
 }
 
+interface NetworkClientOptions {
+  networkAddress?: string;
+  oneTxPaymentFactoryAddress?: string;
+}
+
 const getColonyNetworkClient = (
   network: Network = Network.Mainnet,
   signerOrProvider: Signer | Provider,
-  address?: string,
+  options?: NetworkClientOptions,
 ): ExtendedIColonyNetwork => {
-  const networkAddress = address || colonyNetworkAddresses[network];
+  const networkAddress =
+    options && options.networkAddress
+      ? options.networkAddress
+      : colonyNetworkAddresses[network];
   if (!networkAddress) {
     throw new Error(
-      `Could not get network address for ${network}. Please specify`,
+      `Could not get ColonyNetwork address for ${network}. Please specify`,
     );
   }
 
@@ -62,6 +75,12 @@ const getColonyNetworkClient = (
   ) as ExtendedIColonyNetwork;
 
   networkClient.clientType = ClientType.NetworkClient;
+
+  networkClient.oneTxPaymentFactoryClient = getOneTxPaymentDeployerClient(
+    network,
+    signerOrProvider,
+    options && options.oneTxPaymentFactoryAddress,
+  );
 
   networkClient.getColonyClient = async (
     addressOrId: string | number,
@@ -118,11 +137,19 @@ const getColonyNetworkClient = (
         throw new Error('Colony version not supported');
       }
     }
+
     const tokenAddress = await colonyClient.getToken();
-    colonyClient.tokenClient = await getTokenClient(
-      tokenAddress,
-      signerOrProvider,
+    colonyClient.tokenClient = getTokenClient(tokenAddress, signerOrProvider);
+
+    // eslint-disable-next-line max-len
+    const oneTxPaymentAddress = await networkClient.oneTxPaymentFactoryClient.deployedExtensions(
+      colonyClient.address,
     );
+    colonyClient.oneTxPaymentClient = getOneTxPaymentClient(
+      oneTxPaymentAddress,
+      colonyClient,
+    );
+
     return colonyClient;
   };
 

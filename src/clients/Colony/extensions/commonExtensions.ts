@@ -18,7 +18,8 @@ import {
   ROOT_DOMAIN_ID,
 } from '../../../constants';
 import { ExtendedIColonyNetwork } from '../../ColonyNetworkClient';
-import { Token } from '../../../contracts/Token/Token';
+import { ExtendedToken } from '../../TokenClient';
+import { ExtendedOneTxPayment } from '../../OneTxPaymentClient';
 
 export type CommonExtensionRequiredMethods =
   | 'getDomain'
@@ -98,8 +99,9 @@ export interface ExtendedEstimate {
 export interface ColonyExtensions {
   clientType: ClientType.ColonyClient;
 
-  tokenClient: Token;
   networkClient: ExtendedIColonyNetwork;
+  oneTxPaymentClient: ExtendedOneTxPayment;
+  tokenClient: ExtendedToken;
   setArchitectureRoleWithProofs(
     _user: string,
     _domainId: BigNumberish,
