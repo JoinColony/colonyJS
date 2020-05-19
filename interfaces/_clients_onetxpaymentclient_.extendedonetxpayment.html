@@ -124,6 +124,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="_clients_onetxpaymentclient_.extendedonetxpayment.html#listenercount" class="tsd-kind-icon">listener<wbr>Count</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="_clients_onetxpaymentclient_.extendedonetxpayment.html#listeners" class="tsd-kind-icon">listeners</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="_clients_onetxpaymentclient_.extendedonetxpayment.html#makepayment-2" class="tsd-kind-icon">make<wbr>Payment</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="_clients_onetxpaymentclient_.extendedonetxpayment.html#makepaymentfundedfromdomain-2" class="tsd-kind-icon">make<wbr>Payment<wbr>Funded<wbr>From<wbr>Domain</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_clients_onetxpaymentclient_.extendedonetxpayment.html#makepaymentfundedfromdomainwithproofs" class="tsd-kind-icon">make<wbr>Payment<wbr>Funded<wbr>From<wbr>Domain<wbr>With<wbr>Proofs</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_clients_onetxpaymentclient_.extendedonetxpayment.html#makepaymentwithproofs" class="tsd-kind-icon">make<wbr>Payment<wbr>With<wbr>Proofs</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-overwrite tsd-is-inherited"><a href="_clients_onetxpaymentclient_.extendedonetxpayment.html#on" class="tsd-kind-icon">on</a></li>
@@ -199,7 +200,7 @@
 					<div class="tsd-signature tsd-kind-icon">client<wbr>Type<span class="tsd-signature-symbol">:</span> <a href="../enums/_constants_.clienttype.html#onetxpaymentclient" class="tsd-signature-type">OneTxPaymentClient</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/67d8961/src/clients/OneTxPaymentClient.ts#L9">src/clients/OneTxPaymentClient.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/clients/OneTxPaymentClient.ts#L11">src/clients/OneTxPaymentClient.ts:11</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -217,12 +218,12 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-overwrite tsd-is-inherited">
 					<a name="estimate" class="tsd-anchor"></a>
 					<h3>estimate</h3>
-					<div class="tsd-signature tsd-kind-icon">estimate<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>makePayment<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> }</span></div>
+					<div class="tsd-signature tsd-kind-icon">estimate<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>makePayment<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">; </span>makePaymentFundedFromDomain<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> }</span></div>
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_clients_onetxpaymentclient_.extendedonetxpayment.html">ExtendedOneTxPayment</a>.<a href="_clients_onetxpaymentclient_.extendedonetxpayment.html#estimate">estimate</a></p>
 						<p>Overrides <a href="_clients_colony_colonyversionclient_.colonyversionclient.html">ColonyVersionClient</a>.<a href="_clients_colony_colonyversionclient_.colonyversionclient.html#estimate">estimate</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/67d8961/src/contracts/1/OneTxPayment.d.ts#L89">src/contracts/1/OneTxPayment.d.ts:89</a></li>
+							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/contracts/4/OneTxPayment.d.ts#L191">src/contracts/4/OneTxPayment.d.ts:191</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -237,7 +238,53 @@
 									<li class="tsd-description">
 										<aside class="tsd-sources">
 											<ul>
-												<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/67d8961/src/contracts/1/OneTxPayment.d.ts#L90">src/contracts/1/OneTxPayment.d.ts:90</a></li>
+												<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/contracts/4/OneTxPayment.d.ts#L192">src/contracts/4/OneTxPayment.d.ts:192</a></li>
+											</ul>
+										</aside>
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>_permissionDomainId: <span class="tsd-signature-type">BigNumberish</span></h5>
+											</li>
+											<li>
+												<h5>_childSkillIndex: <span class="tsd-signature-type">BigNumberish</span></h5>
+											</li>
+											<li>
+												<h5>_callerPermissionDomainId: <span class="tsd-signature-type">BigNumberish</span></h5>
+											</li>
+											<li>
+												<h5>_callerChildSkillIndex: <span class="tsd-signature-type">BigNumberish</span></h5>
+											</li>
+											<li>
+												<h5>_worker: <span class="tsd-signature-type">string</span></h5>
+											</li>
+											<li>
+												<h5>_token: <span class="tsd-signature-type">string</span></h5>
+											</li>
+											<li>
+												<h5>_amount: <span class="tsd-signature-type">BigNumberish</span></h5>
+											</li>
+											<li>
+												<h5>_domainId: <span class="tsd-signature-type">BigNumberish</span></h5>
+											</li>
+											<li>
+												<h5>_skillId: <span class="tsd-signature-type">BigNumberish</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">BigNumber</span><span class="tsd-signature-symbol">&gt;</span></h4>
+									</li>
+								</ul>
+							</li>
+							<li class="tsd-parameter">
+								<h5>make<wbr>Payment<wbr>Funded<wbr>From<wbr>Domain<span class="tsd-signature-symbol">: </span>function</h5>
+								<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-type-literal">
+									<li class="tsd-signature tsd-kind-icon">make<wbr>Payment<wbr>Funded<wbr>From<wbr>Domain<span class="tsd-signature-symbol">(</span>_permissionDomainId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BigNumberish</span>, _childSkillIndex<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BigNumberish</span>, _callerPermissionDomainId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BigNumberish</span>, _callerChildSkillIndex<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BigNumberish</span>, _worker<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, _token<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, _amount<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BigNumberish</span>, _domainId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BigNumberish</span>, _skillId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BigNumberish</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">BigNumber</span><span class="tsd-signature-symbol">&gt;</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<aside class="tsd-sources">
+											<ul>
+												<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/contracts/4/OneTxPayment.d.ts#L204">src/contracts/4/OneTxPayment.d.ts:204</a></li>
 											</ul>
 										</aside>
 										<h4 class="tsd-parameters-title">Parameters</h4>
@@ -285,7 +332,7 @@
 						<p>Inherited from <a href="_clients_onetxpaymentclient_.extendedonetxpayment.html">ExtendedOneTxPayment</a>.<a href="_clients_onetxpaymentclient_.extendedonetxpayment.html#filters">filters</a></p>
 						<p>Overrides <a href="_clients_colony_colonyversionclient_.colonyversionclient.html">ColonyVersionClient</a>.<a href="_clients_colony_colonyversionclient_.colonyversionclient.html#filters">filters</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/67d8961/src/contracts/1/OneTxPayment.d.ts#L87">src/contracts/1/OneTxPayment.d.ts:87</a></li>
+							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/contracts/4/OneTxPayment.d.ts#L189">src/contracts/4/OneTxPayment.d.ts:189</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -297,12 +344,12 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-overwrite tsd-is-inherited">
 					<a name="functions" class="tsd-anchor"></a>
 					<h3>functions</h3>
-					<div class="tsd-signature tsd-kind-icon">functions<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>makePayment<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> }</span></div>
+					<div class="tsd-signature tsd-kind-icon">functions<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>makePayment<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">; </span>makePaymentFundedFromDomain<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> }</span></div>
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_clients_onetxpaymentclient_.extendedonetxpayment.html">ExtendedOneTxPayment</a>.<a href="_clients_onetxpaymentclient_.extendedonetxpayment.html#functions">functions</a></p>
 						<p>Overrides <a href="_clients_colony_colonyversionclient_.colonyversionclient.html">ColonyVersionClient</a>.<a href="_clients_colony_colonyversionclient_.colonyversionclient.html#functions">functions</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/67d8961/src/contracts/1/OneTxPayment.d.ts#L59">src/contracts/1/OneTxPayment.d.ts:59</a></li>
+							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/contracts/4/OneTxPayment.d.ts#L83">src/contracts/4/OneTxPayment.d.ts:83</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -317,37 +364,152 @@
 									<li class="tsd-description">
 										<aside class="tsd-sources">
 											<ul>
-												<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/67d8961/src/contracts/1/OneTxPayment.d.ts#L60">src/contracts/1/OneTxPayment.d.ts:60</a></li>
+												<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/contracts/4/OneTxPayment.d.ts#L97">src/contracts/4/OneTxPayment.d.ts:97</a></li>
 											</ul>
 										</aside>
+										<div class="tsd-comment tsd-typography">
+											<div class="lead">
+												<p>Assumes that each entity holds administration and funding roles in the same domain, although contract and caller can have the permissions in different domains. Payment is taken from root domain, and the caller must have funding permission explicitly in the root domain
+												Completes a colony payment in a single transaction</p>
+											</div>
+										</div>
 										<h4 class="tsd-parameters-title">Parameters</h4>
 										<ul class="tsd-parameters">
 											<li>
 												<h5>_permissionDomainId: <span class="tsd-signature-type">BigNumberish</span></h5>
+												<div class="tsd-comment tsd-typography">
+													<p>The domainId in which the <em>contract</em> has permissions to add a payment and fund it</p>
+												</div>
 											</li>
 											<li>
 												<h5>_childSkillIndex: <span class="tsd-signature-type">BigNumberish</span></h5>
+												<div class="tsd-comment tsd-typography">
+													<p>Index of the _permissionDomainId skill.children array to get</p>
+												</div>
 											</li>
 											<li>
 												<h5>_callerPermissionDomainId: <span class="tsd-signature-type">BigNumberish</span></h5>
+												<div class="tsd-comment tsd-typography">
+													<p>The domainId in which the <em>caller</em> has permissions to add a payment and fund it</p>
+												</div>
 											</li>
 											<li>
 												<h5>_callerChildSkillIndex: <span class="tsd-signature-type">BigNumberish</span></h5>
+												<div class="tsd-comment tsd-typography">
+													<p>Index of the _callerPermissionDomainId skill.children array to get</p>
+												</div>
 											</li>
 											<li>
 												<h5>_worker: <span class="tsd-signature-type">string</span></h5>
+												<div class="tsd-comment tsd-typography">
+													<p>The address of the recipient of the payment</p>
+												</div>
 											</li>
 											<li>
 												<h5>_token: <span class="tsd-signature-type">string</span></h5>
+												<div class="tsd-comment tsd-typography">
+													<p>The address of the token the payment is being made in. 0x00 for Ether.</p>
+												</div>
 											</li>
 											<li>
 												<h5>_amount: <span class="tsd-signature-type">BigNumberish</span></h5>
+												<div class="tsd-comment tsd-typography">
+													<p>The amount of the token being paid out</p>
+												</div>
 											</li>
 											<li>
 												<h5>_domainId: <span class="tsd-signature-type">BigNumberish</span></h5>
+												<div class="tsd-comment tsd-typography">
+													<p>The Id of the domain the payment should be coming from</p>
+												</div>
 											</li>
 											<li>
 												<h5>_skillId: <span class="tsd-signature-type">BigNumberish</span></h5>
+												<div class="tsd-comment tsd-typography">
+													<p>The Id of the skill that the payment should be marked with, possibly awarding reputation in this skill.</p>
+												</div>
+											</li>
+											<li>
+												<h5><span class="tsd-flag ts-flagOptional">Optional</span> overrides: <a href="../modules/_index_.html#transactionoverrides" class="tsd-signature-type">TransactionOverrides</a></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ContractTransaction</span><span class="tsd-signature-symbol">&gt;</span></h4>
+									</li>
+								</ul>
+							</li>
+							<li class="tsd-parameter">
+								<h5>make<wbr>Payment<wbr>Funded<wbr>From<wbr>Domain<span class="tsd-signature-symbol">: </span>function</h5>
+								<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-type-literal">
+									<li class="tsd-signature tsd-kind-icon">make<wbr>Payment<wbr>Funded<wbr>From<wbr>Domain<span class="tsd-signature-symbol">(</span>_permissionDomainId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BigNumberish</span>, _childSkillIndex<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BigNumberish</span>, _callerPermissionDomainId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BigNumberish</span>, _callerChildSkillIndex<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BigNumberish</span>, _worker<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, _token<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, _amount<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BigNumberish</span>, _domainId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BigNumberish</span>, _skillId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BigNumberish</span>, overrides<span class="tsd-signature-symbol">?: </span><a href="../modules/_index_.html#transactionoverrides" class="tsd-signature-type">TransactionOverrides</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ContractTransaction</span><span class="tsd-signature-symbol">&gt;</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<aside class="tsd-sources">
+											<ul>
+												<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/contracts/4/OneTxPayment.d.ts#L123">src/contracts/4/OneTxPayment.d.ts:123</a></li>
+											</ul>
+										</aside>
+										<div class="tsd-comment tsd-typography">
+											<div class="lead">
+												<p>Assumes that each entity holds administration and funding roles in the same domain, although contract and caller can have the permissions in different domains. Payment is taken from domain funds - if the domain does not have sufficient funds, call will fail.
+												Completes a colony payment in a single transaction</p>
+											</div>
+										</div>
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>_permissionDomainId: <span class="tsd-signature-type">BigNumberish</span></h5>
+												<div class="tsd-comment tsd-typography">
+													<p>The domainId in which the <em>contract</em> has permissions to add a payment and fund it</p>
+												</div>
+											</li>
+											<li>
+												<h5>_childSkillIndex: <span class="tsd-signature-type">BigNumberish</span></h5>
+												<div class="tsd-comment tsd-typography">
+													<p>Index of the _permissionDomainId skill.children array to get</p>
+												</div>
+											</li>
+											<li>
+												<h5>_callerPermissionDomainId: <span class="tsd-signature-type">BigNumberish</span></h5>
+												<div class="tsd-comment tsd-typography">
+													<p>The domainId in which the <em>caller</em> has permissions to add a payment and fund it</p>
+												</div>
+											</li>
+											<li>
+												<h5>_callerChildSkillIndex: <span class="tsd-signature-type">BigNumberish</span></h5>
+												<div class="tsd-comment tsd-typography">
+													<p>Index of the _callerPermissionDomainId skill.children array to get</p>
+												</div>
+											</li>
+											<li>
+												<h5>_worker: <span class="tsd-signature-type">string</span></h5>
+												<div class="tsd-comment tsd-typography">
+													<p>The address of the recipient of the payment</p>
+												</div>
+											</li>
+											<li>
+												<h5>_token: <span class="tsd-signature-type">string</span></h5>
+												<div class="tsd-comment tsd-typography">
+													<p>The address of the token the payment is being made in. 0x00 for Ether.</p>
+												</div>
+											</li>
+											<li>
+												<h5>_amount: <span class="tsd-signature-type">BigNumberish</span></h5>
+												<div class="tsd-comment tsd-typography">
+													<p>The amount of the token being paid out</p>
+												</div>
+											</li>
+											<li>
+												<h5>_domainId: <span class="tsd-signature-type">BigNumberish</span></h5>
+												<div class="tsd-comment tsd-typography">
+													<p>The Id of the domain the payment should be coming from</p>
+												</div>
+											</li>
+											<li>
+												<h5>_skillId: <span class="tsd-signature-type">BigNumberish</span></h5>
+												<div class="tsd-comment tsd-typography">
+													<p>The Id of the skill that the payment should be marked with, possibly awarding reputation in this skill.</p>
+												</div>
 											</li>
 											<li>
 												<h5><span class="tsd-flag ts-flagOptional">Optional</span> overrides: <a href="../modules/_index_.html#transactionoverrides" class="tsd-signature-type">TransactionOverrides</a></h5>
@@ -368,7 +530,7 @@
 						<p>Inherited from <a href="_clients_onetxpaymentclient_.extendedonetxpayment.html">ExtendedOneTxPayment</a>.<a href="_clients_onetxpaymentclient_.extendedonetxpayment.html#interface">interface</a></p>
 						<p>Overrides <a href="_clients_colony_colonyversionclient_.colonyversionclient.html">ColonyVersionClient</a>.<a href="_clients_colony_colonyversionclient_.colonyversionclient.html#interface">interface</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/67d8961/src/contracts/1/OneTxPayment.d.ts#L57">src/contracts/1/OneTxPayment.d.ts:57</a></li>
+							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/contracts/4/OneTxPayment.d.ts#L81">src/contracts/4/OneTxPayment.d.ts:81</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -433,7 +595,7 @@
 								<p>Inherited from <a href="_clients_onetxpaymentclient_.extendedonetxpayment.html">ExtendedOneTxPayment</a>.<a href="_clients_onetxpaymentclient_.extendedonetxpayment.html#addlistener">addListener</a></p>
 								<p>Overrides <a href="_clients_colony_colonyversionclient_.colonyversionclient.html">ColonyVersionClient</a>.<a href="_clients_colony_colonyversionclient_.colonyversionclient.html#addlistener">addListener</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/67d8961/src/contracts/1/OneTxPayment.d.ts#L50">src/contracts/1/OneTxPayment.d.ts:50</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/contracts/4/OneTxPayment.d.ts#L74">src/contracts/4/OneTxPayment.d.ts:74</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -461,7 +623,7 @@
 								<p>Inherited from <a href="_clients_onetxpaymentclient_.extendedonetxpayment.html">ExtendedOneTxPayment</a>.<a href="_clients_onetxpaymentclient_.extendedonetxpayment.html#attach">attach</a></p>
 								<p>Overrides <a href="_clients_colony_colonyversionclient_.colonyversionclient.html">ColonyVersionClient</a>.<a href="_clients_colony_colonyversionclient_.colonyversionclient.html#attach">attach</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/67d8961/src/contracts/1/OneTxPayment.d.ts#L45">src/contracts/1/OneTxPayment.d.ts:45</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/contracts/4/OneTxPayment.d.ts#L69">src/contracts/4/OneTxPayment.d.ts:69</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -486,7 +648,7 @@
 								<p>Inherited from <a href="_clients_onetxpaymentclient_.extendedonetxpayment.html">ExtendedOneTxPayment</a>.<a href="_clients_onetxpaymentclient_.extendedonetxpayment.html#connect">connect</a></p>
 								<p>Overrides <a href="_clients_colony_colonyversionclient_.colonyversionclient.html">ColonyVersionClient</a>.<a href="_clients_colony_colonyversionclient_.colonyversionclient.html#connect">connect</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/67d8961/src/contracts/1/OneTxPayment.d.ts#L44">src/contracts/1/OneTxPayment.d.ts:44</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/contracts/4/OneTxPayment.d.ts#L68">src/contracts/4/OneTxPayment.d.ts:68</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -511,7 +673,7 @@
 								<p>Inherited from <a href="_clients_onetxpaymentclient_.extendedonetxpayment.html">ExtendedOneTxPayment</a>.<a href="_clients_onetxpaymentclient_.extendedonetxpayment.html#deployed">deployed</a></p>
 								<p>Overrides <a href="_clients_colony_colonyversionclient_.colonyversionclient.html">ColonyVersionClient</a>.<a href="_clients_colony_colonyversionclient_.colonyversionclient.html#deployed">deployed</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/67d8961/src/contracts/1/OneTxPayment.d.ts#L46">src/contracts/1/OneTxPayment.d.ts:46</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/contracts/4/OneTxPayment.d.ts#L70">src/contracts/4/OneTxPayment.d.ts:70</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">OneTxPayment</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -628,23 +790,178 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_clients_onetxpaymentclient_.extendedonetxpayment.html">ExtendedOneTxPayment</a>.<a href="_clients_onetxpaymentclient_.extendedonetxpayment.html#makepayment-2">makePayment</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/67d8961/src/contracts/1/OneTxPayment.d.ts#L74">src/contracts/1/OneTxPayment.d.ts:74</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/contracts/4/OneTxPayment.d.ts#L150">src/contracts/4/OneTxPayment.d.ts:150</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Assumes that each entity holds administration and funding roles in the same domain, although contract and caller can have the permissions in different domains. Payment is taken from root domain, and the caller must have funding permission explicitly in the root domain
+									Completes a colony payment in a single transaction</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>_permissionDomainId: <span class="tsd-signature-type">BigNumberish</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The domainId in which the <em>contract</em> has permissions to add a payment and fund it</p>
+									</div>
 								</li>
 								<li>
 									<h5>_childSkillIndex: <span class="tsd-signature-type">BigNumberish</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Index of the _permissionDomainId skill.children array to get</p>
+									</div>
 								</li>
 								<li>
 									<h5>_callerPermissionDomainId: <span class="tsd-signature-type">BigNumberish</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The domainId in which the <em>caller</em> has permissions to add a payment and fund it</p>
+									</div>
 								</li>
 								<li>
 									<h5>_callerChildSkillIndex: <span class="tsd-signature-type">BigNumberish</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Index of the _callerPermissionDomainId skill.children array to get</p>
+									</div>
 								</li>
+								<li>
+									<h5>_worker: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The address of the recipient of the payment</p>
+									</div>
+								</li>
+								<li>
+									<h5>_token: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The address of the token the payment is being made in. 0x00 for Ether.</p>
+									</div>
+								</li>
+								<li>
+									<h5>_amount: <span class="tsd-signature-type">BigNumberish</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The amount of the token being paid out</p>
+									</div>
+								</li>
+								<li>
+									<h5>_domainId: <span class="tsd-signature-type">BigNumberish</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The Id of the domain the payment should be coming from</p>
+									</div>
+								</li>
+								<li>
+									<h5>_skillId: <span class="tsd-signature-type">BigNumberish</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The Id of the skill that the payment should be marked with, possibly awarding reputation in this skill.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> overrides: <a href="../modules/_index_.html#transactionoverrides" class="tsd-signature-type">TransactionOverrides</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ContractTransaction</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<a name="makepaymentfundedfromdomain-2" class="tsd-anchor"></a>
+					<h3>make<wbr>Payment<wbr>Funded<wbr>From<wbr>Domain</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">make<wbr>Payment<wbr>Funded<wbr>From<wbr>Domain<span class="tsd-signature-symbol">(</span>_permissionDomainId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BigNumberish</span>, _childSkillIndex<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BigNumberish</span>, _callerPermissionDomainId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BigNumberish</span>, _callerChildSkillIndex<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BigNumberish</span>, _worker<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, _token<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, _amount<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BigNumberish</span>, _domainId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BigNumberish</span>, _skillId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BigNumberish</span>, overrides<span class="tsd-signature-symbol">?: </span><a href="../modules/_index_.html#transactionoverrides" class="tsd-signature-type">TransactionOverrides</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ContractTransaction</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_clients_onetxpaymentclient_.extendedonetxpayment.html">ExtendedOneTxPayment</a>.<a href="_clients_onetxpaymentclient_.extendedonetxpayment.html#makepaymentfundedfromdomain-2">makePaymentFundedFromDomain</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/contracts/4/OneTxPayment.d.ts#L176">src/contracts/4/OneTxPayment.d.ts:176</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Assumes that each entity holds administration and funding roles in the same domain, although contract and caller can have the permissions in different domains. Payment is taken from domain funds - if the domain does not have sufficient funds, call will fail.
+									Completes a colony payment in a single transaction</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>_permissionDomainId: <span class="tsd-signature-type">BigNumberish</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The domainId in which the <em>contract</em> has permissions to add a payment and fund it</p>
+									</div>
+								</li>
+								<li>
+									<h5>_childSkillIndex: <span class="tsd-signature-type">BigNumberish</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Index of the _permissionDomainId skill.children array to get</p>
+									</div>
+								</li>
+								<li>
+									<h5>_callerPermissionDomainId: <span class="tsd-signature-type">BigNumberish</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The domainId in which the <em>caller</em> has permissions to add a payment and fund it</p>
+									</div>
+								</li>
+								<li>
+									<h5>_callerChildSkillIndex: <span class="tsd-signature-type">BigNumberish</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Index of the _callerPermissionDomainId skill.children array to get</p>
+									</div>
+								</li>
+								<li>
+									<h5>_worker: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The address of the recipient of the payment</p>
+									</div>
+								</li>
+								<li>
+									<h5>_token: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The address of the token the payment is being made in. 0x00 for Ether.</p>
+									</div>
+								</li>
+								<li>
+									<h5>_amount: <span class="tsd-signature-type">BigNumberish</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The amount of the token being paid out</p>
+									</div>
+								</li>
+								<li>
+									<h5>_domainId: <span class="tsd-signature-type">BigNumberish</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The Id of the domain the payment should be coming from</p>
+									</div>
+								</li>
+								<li>
+									<h5>_skillId: <span class="tsd-signature-type">BigNumberish</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The Id of the skill that the payment should be marked with, possibly awarding reputation in this skill.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> overrides: <a href="../modules/_index_.html#transactionoverrides" class="tsd-signature-type">TransactionOverrides</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ContractTransaction</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="makepaymentfundedfromdomainwithproofs" class="tsd-anchor"></a>
+					<h3>make<wbr>Payment<wbr>Funded<wbr>From<wbr>Domain<wbr>With<wbr>Proofs</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">make<wbr>Payment<wbr>Funded<wbr>From<wbr>Domain<wbr>With<wbr>Proofs<span class="tsd-signature-symbol">(</span>_worker<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, _token<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, _amount<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BigNumberish</span>, _domainId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BigNumberish</span>, _skillId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BigNumberish</span>, overrides<span class="tsd-signature-symbol">?: </span><a href="../modules/_index_.html#transactionoverrides" class="tsd-signature-type">TransactionOverrides</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ContractTransaction</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/clients/OneTxPaymentClient.ts#L21">src/clients/OneTxPaymentClient.ts:21</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
 								<li>
 									<h5>_worker: <span class="tsd-signature-type">string</span></h5>
 								</li>
@@ -669,35 +986,39 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
-					<a name="makepaymentfundedfromdomainwithproofs" class="tsd-anchor"></a>
-					<h3>make<wbr>Payment<wbr>Funded<wbr>From<wbr>Domain<wbr>With<wbr>Proofs</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">make<wbr>Payment<wbr>Funded<wbr>From<wbr>Domain<wbr>With<wbr>Proofs<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ContractTransaction</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/67d8961/src/clients/OneTxPaymentClient.ts#L12">src/clients/OneTxPaymentClient.ts:12</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ContractTransaction</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
 					<a name="makepaymentwithproofs" class="tsd-anchor"></a>
 					<h3>make<wbr>Payment<wbr>With<wbr>Proofs</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">make<wbr>Payment<wbr>With<wbr>Proofs<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ContractTransaction</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">make<wbr>Payment<wbr>With<wbr>Proofs<span class="tsd-signature-symbol">(</span>_worker<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, _token<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, _amount<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BigNumberish</span>, _domainId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BigNumberish</span>, _skillId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BigNumberish</span>, overrides<span class="tsd-signature-symbol">?: </span><a href="../modules/_index_.html#transactionoverrides" class="tsd-signature-type">TransactionOverrides</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ContractTransaction</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/67d8961/src/clients/OneTxPaymentClient.ts#L11">src/clients/OneTxPaymentClient.ts:11</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/clients/OneTxPaymentClient.ts#L13">src/clients/OneTxPaymentClient.ts:13</a></li>
 								</ul>
 							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>_worker: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>_token: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>_amount: <span class="tsd-signature-type">BigNumberish</span></h5>
+								</li>
+								<li>
+									<h5>_domainId: <span class="tsd-signature-type">BigNumberish</span></h5>
+								</li>
+								<li>
+									<h5>_skillId: <span class="tsd-signature-type">BigNumberish</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> overrides: <a href="../modules/_index_.html#transactionoverrides" class="tsd-signature-type">TransactionOverrides</a></h5>
+								</li>
+							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ContractTransaction</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
@@ -714,7 +1035,7 @@
 								<p>Inherited from <a href="_clients_onetxpaymentclient_.extendedonetxpayment.html">ExtendedOneTxPayment</a>.<a href="_clients_onetxpaymentclient_.extendedonetxpayment.html#on">on</a></p>
 								<p>Overrides <a href="_clients_colony_colonyversionclient_.colonyversionclient.html">ColonyVersionClient</a>.<a href="_clients_colony_colonyversionclient_.colonyversionclient.html#on">on</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/67d8961/src/contracts/1/OneTxPayment.d.ts#L48">src/contracts/1/OneTxPayment.d.ts:48</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/contracts/4/OneTxPayment.d.ts#L72">src/contracts/4/OneTxPayment.d.ts:72</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -742,7 +1063,7 @@
 								<p>Inherited from <a href="_clients_onetxpaymentclient_.extendedonetxpayment.html">ExtendedOneTxPayment</a>.<a href="_clients_onetxpaymentclient_.extendedonetxpayment.html#once">once</a></p>
 								<p>Overrides <a href="_clients_colony_colonyversionclient_.colonyversionclient.html">ColonyVersionClient</a>.<a href="_clients_colony_colonyversionclient_.colonyversionclient.html#once">once</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/67d8961/src/contracts/1/OneTxPayment.d.ts#L49">src/contracts/1/OneTxPayment.d.ts:49</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/contracts/4/OneTxPayment.d.ts#L73">src/contracts/4/OneTxPayment.d.ts:73</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -770,7 +1091,7 @@
 								<p>Inherited from <a href="_clients_onetxpaymentclient_.extendedonetxpayment.html">ExtendedOneTxPayment</a>.<a href="_clients_onetxpaymentclient_.extendedonetxpayment.html#removealllisteners">removeAllListeners</a></p>
 								<p>Overrides <a href="_clients_colony_colonyversionclient_.colonyversionclient.html">ColonyVersionClient</a>.<a href="_clients_colony_colonyversionclient_.colonyversionclient.html#removealllisteners">removeAllListeners</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/67d8961/src/contracts/1/OneTxPayment.d.ts#L54">src/contracts/1/OneTxPayment.d.ts:54</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/contracts/4/OneTxPayment.d.ts#L78">src/contracts/4/OneTxPayment.d.ts:78</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -795,7 +1116,7 @@
 								<p>Inherited from <a href="_clients_onetxpaymentclient_.extendedonetxpayment.html">ExtendedOneTxPayment</a>.<a href="_clients_onetxpaymentclient_.extendedonetxpayment.html#removelistener">removeListener</a></p>
 								<p>Overrides <a href="_clients_colony_colonyversionclient_.colonyversionclient.html">ColonyVersionClient</a>.<a href="_clients_colony_colonyversionclient_.colonyversionclient.html#removelistener">removeListener</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/67d8961/src/contracts/1/OneTxPayment.d.ts#L55">src/contracts/1/OneTxPayment.d.ts:55</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/contracts/4/OneTxPayment.d.ts#L79">src/contracts/4/OneTxPayment.d.ts:79</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -918,6 +1239,9 @@
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
 								<a href="_clients_onetxpaymentclient_.extendedonetxpayment.html#makepayment-2" class="tsd-kind-icon">make<wbr>Payment</a>
 							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+								<a href="_clients_onetxpaymentclient_.extendedonetxpayment.html#makepaymentfundedfromdomain-2" class="tsd-kind-icon">make<wbr>Payment<wbr>Funded<wbr>From<wbr>Domain</a>
+							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
 								<a href="_clients_onetxpaymentclient_.extendedonetxpayment.html#makepaymentfundedfromdomainwithproofs" class="tsd-kind-icon">make<wbr>Payment<wbr>Funded<wbr>From<wbr>Domain<wbr>With<wbr>Proofs</a>
 							</li>
@@ -943,6 +1267,9 @@
 					</li>
 				</ul>
 				<ul class="after-current">
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../modules/_clients_onetxpaymentclient_.html#getextensionpermissionproofs" class="tsd-kind-icon">get<wbr>Extension<wbr>Permission<wbr>Proofs</a>
+					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="../modules/_clients_onetxpaymentclient_.html#getonetxpaymentclient" class="tsd-kind-icon">get<wbr>One<wbr>TxPayment<wbr>Client</a>
 					</li>
