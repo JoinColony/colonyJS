@@ -2,8 +2,8 @@ import { Signer } from 'ethers';
 import { Provider } from 'ethers/providers';
 
 import { ClientType } from '../constants';
-import { TokenFactory } from '../contracts/Token/TokenFactory';
-import { Token } from '../contracts/Token/Token';
+import { TokenFactory } from '../contracts/1/TokenFactory';
+import { Token } from '../contracts/1/Token';
 
 export interface TokenInfo {
   name: string;
@@ -17,10 +17,10 @@ export interface ExtendedToken extends Token {
   getTokenInfo(): Promise<TokenInfo>;
 }
 
-const getTokenClient = async (
+const getTokenClient = (
   address: string,
   signerOrProvider: Signer | Provider,
-): Promise<ExtendedToken> => {
+): ExtendedToken => {
   const tokenClient = TokenFactory.connect(
     address,
     signerOrProvider,
