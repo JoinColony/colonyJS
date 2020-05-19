@@ -1,5 +1,5 @@
 import { resolve as resolvePath } from 'path';
-import { copyFileSync } from 'fs';
+import { copyFileSync, renameSync } from 'fs';
 import { promisify } from 'util';
 
 import { options } from 'yargs';
@@ -12,7 +12,19 @@ import { releaseMap } from './config';
 const rimrafPromise = promisify(rimraf);
 
 const networkDir = resolvePath(__dirname, '../vendor/colonyNetwork');
-const buildDir = resolvePath(networkDir, 'build/contracts');
+const relativeBuildDir = 'build/contracts';
+const relativeTokenDir = 'lib/colonyToken/build/contracts';
+const buildDir = resolvePath(networkDir, relativeBuildDir);
+const tokenBuildDir = resolvePath(networkDir, relativeTokenDir);
+
+const contractsToBuild = [
+  'IColony',
+  'IColonyNetwork',
+  'OneTxPayment',
+  // Renamed due to naming conflicts in typechain
+  'OneTxPaymentDeployer',
+  'Token',
+];
 
 const args = options({
   V: { type: 'number', alias: 'contract-version', demandOption: true },
@@ -22,11 +34,12 @@ const version = args.V as ColonyVersion;
 const outRoot = resolvePath(__dirname, '../src/contracts');
 const outDir = `${outRoot}/${version}`;
 const deployDir = `${outRoot}/deploy`;
-const isCurrentVersion = version === CurrentVersion;
 
 if (!releaseMap[version]) {
   throw new Error(`Version ${version} of colonyNetwork doesn't seem to exist`);
 }
+
+const contractGlobs = `{${contractsToBuild.map((c) => `${c}.json`).join(',')}}`;
 
 const buildContracts = async (): Promise<void> => {
   console.info(`Checking out network tag ${releaseMap[version]}`);
@@ -56,19 +69,36 @@ const buildContracts = async (): Promise<void> => {
   if (truffle.stdout) truffle.stdout.pipe(process.stdout);
   await truffle;
 
+  // This needs to be renamed before TypeChain generation due to naming conflicts
+  renameSync(
+    `${buildDir}/OneTxPaymentFactory.json`,
+    `${buildDir}/OneTxPaymentDeployer.json`,
+  );
+
   const typechain = execute('typechain', [
     '--target',
     'ethers-v4',
     '--outDir',
     outDir,
-    `${buildDir}/I*.json`,
+    `${networkDir}/{${relativeBuildDir},${relativeTokenDir}}/${contractGlobs}`,
   ]);
   if (typechain.stdout) typechain.stdout.pipe(process.stdout);
   await typechain;
 
+  // const typechainToken = execute('typechain', [
+  //   '--target',
+  //   'ethers-v4',
+  //   '--outDir',
+  //   outDir,
+  //   `${tokenBuildDir}/Token.json`,
+  // ]);
+  // if (typechainToken.stdout) typechainToken.stdout.pipe(process.stdout);
+  // await typechainToken;
+
   // Copy contract json files of latest version for deployment purposes
-  if (isCurrentVersion) {
+  if (version === CurrentVersion) {
     copyFileSync(`${buildDir}/Colony.json`, `${deployDir}/Colony.json`);
+    copyFileSync(`${tokenBuildDir}/Token.json`, `${deployDir}/Token.json`);
   }
 };
 

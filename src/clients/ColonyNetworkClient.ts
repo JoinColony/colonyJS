@@ -1,6 +1,5 @@
 import { ContractFactory, ContractTransaction, Signer } from 'ethers';
 import { Provider } from 'ethers/providers';
-import { BigNumberish } from 'ethers/utils';
 
 import {
   ColonyVersion,
@@ -40,7 +39,7 @@ export interface ExtendedIColonyNetwork extends IColonyNetwork {
   createToken(
     name: string,
     symbol: string,
-    decimals: BigNumberish,
+    decimals?: number,
   ): Promise<ContractTransaction>;
   createColony(tokenAddress: string): Promise<ContractTransaction>;
 }
@@ -135,7 +134,7 @@ const getColonyNetworkClient = (
   networkClient.createToken = async (
     name: string,
     symbol: string,
-    decimals: BigNumberish,
+    decimals = 18,
   ): Promise<ContractTransaction> => {
     const tokenFactory = new ContractFactory(tokenAbi, tokenBytecode);
     const tokenContract = await tokenFactory.deploy(name, symbol, decimals);
