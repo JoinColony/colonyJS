@@ -85,20 +85,13 @@ const buildContracts = async (): Promise<void> => {
   if (typechain.stdout) typechain.stdout.pipe(process.stdout);
   await typechain;
 
-  // const typechainToken = execute('typechain', [
-  //   '--target',
-  //   'ethers-v4',
-  //   '--outDir',
-  //   outDir,
-  //   `${tokenBuildDir}/Token.json`,
-  // ]);
-  // if (typechainToken.stdout) typechainToken.stdout.pipe(process.stdout);
-  // await typechainToken;
-
   // Copy contract json files of latest version for deployment purposes
   if (version === CurrentVersion) {
-    copyFileSync(`${buildDir}/Colony.json`, `${deployDir}/Colony.json`);
     copyFileSync(`${tokenBuildDir}/Token.json`, `${deployDir}/Token.json`);
+    copyFileSync(
+      `${tokenBuildDir}/TokenAuthority.json`,
+      `${deployDir}/TokenAuthority.json`,
+    );
   }
 };
 

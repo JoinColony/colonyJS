@@ -15,6 +15,11 @@ export interface ExtendedToken extends Token {
   clientType: ClientType.TokenClient;
 
   getTokenInfo(): Promise<TokenInfo>;
+  deployTokenAuthority(
+    colonyAddress: string,
+    tokenAddress: string,
+    allowedToTransfer: boolean,
+  ): Promise<ContractTransaction>;
 }
 
 const getTokenClient = (
@@ -37,6 +42,24 @@ const getTokenClient = (
       symbol,
       decimals,
     };
+  };
+
+  tokenClient.deployTokenAuthority = async (
+    colonyAddress: string,
+    tokenAddress: string,
+    allowedToTransfer: boolean,
+  ): Promise<ContractTransaction> => {
+    const tokenAuthorityFactory = new ContractFactory(
+      tokenAuthorityAbi,
+      tokenAuthorityBytecode,
+    );
+    const tokenAuthorityContract = await tokenAuthorityFactory.deploy(
+      colonyAddress,
+      tokenAddress,
+      allowedToTransfer,
+    );
+    await tokenAuthorityContract.deployed();
+    return tokenAuthorityContract.deployTransaction;
   };
 
   return tokenClient;
