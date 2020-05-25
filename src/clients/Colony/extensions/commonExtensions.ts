@@ -22,6 +22,7 @@ import { ExtendedToken } from '../../TokenClient';
 import { ExtendedOneTxPayment } from '../../OneTxPaymentClient';
 
 export type CommonExtensionRequiredMethods =
+  | 'address'
   | 'getDomain'
   | 'getFundingPot'
   | 'getTask'
@@ -94,14 +95,18 @@ export interface ExtendedEstimate {
     _amount: BigNumberish,
     _token: string,
   ): Promise<BigNumber>;
+  deployOneTxPayment(): Promise<BigNumber>;
 }
 
 export interface ColonyExtensions {
   clientType: ClientType.ColonyClient;
-
   networkClient: ExtendedIColonyNetwork;
   oneTxPaymentClient: ExtendedOneTxPayment;
   tokenClient: ExtendedToken;
+
+  deployOneTxPayment(
+    overrides?: TransactionOverrides,
+  ): Promise<ContractTransaction>;
   setArchitectureRoleWithProofs(
     _user: string,
     _domainId: BigNumberish,
@@ -599,6 +604,16 @@ async function moveFundsBetweenPotsWithProofs<
   );
 }
 
+async function deployOneTxPayment<T extends CommonExtensionRequiredIColony>(
+  this: T,
+  overrides?: TransactionOverrides,
+): Promise<ContractTransaction> {
+  return this.networkClient.oneTxPaymentFactoryClient.deployExtension(
+    this.address,
+    overrides,
+  );
+}
+
 async function estimateSetArchitectureRoleWithProofs<
   T extends CommonExtensionRequiredIColony
 >(
@@ -829,6 +844,14 @@ async function estimateMoveFundsBetweenPotsWithProofs<
   );
 }
 
+async function estimateDeployOneTxPayment<
+  T extends CommonExtensionRequiredIColony
+>(this: T): Promise<BigNumber> {
+  return this.networkClient.oneTxPaymentFactoryClient.estimate.deployExtension(
+    this.address,
+  );
+}
+
 export const addExtensions = <
   T extends ColonyExtensions & CommonExtensionRequiredIColony
 >(
@@ -859,6 +882,7 @@ export const addExtensions = <
   instance.moveFundsBetweenPotsWithProofs = moveFundsBetweenPotsWithProofs.bind(
     instance,
   );
+  instance.deployOneTxPayment = deployOneTxPayment.bind(instance);
 
   instance.estimateWithProofs = {
     setArchitectureRole: estimateSetArchitectureRoleWithProofs.bind(instance),
@@ -874,6 +898,7 @@ export const addExtensions = <
     setPaymentPayout: estimateSetPaymentPayoutWithProofs.bind(instance),
     makeTask: estimateMakeTaskWithProofs.bind(instance),
     moveFundsBetweenPots: estimateMoveFundsBetweenPotsWithProofs.bind(instance),
+    deployOneTxPayment: estimateDeployOneTxPayment.bind(instance),
   };
   /* eslint-enable no-param-reassign, max-len */
 };

@@ -1,9 +1,13 @@
-import { Signer } from 'ethers';
+import { ContractFactory, ContractTransaction, Signer } from 'ethers';
 import { Provider } from 'ethers/providers';
 
+import {
+  abi as tokenAuthorityAbi,
+  bytecode as tokenAuthorityBytecode,
+} from '../contracts/deploy/TokenAuthority.json';
 import { ClientType } from '../constants';
-import { TokenFactory } from '../contracts/1/TokenFactory';
-import { Token } from '../contracts/1/Token';
+import { TokenFactory } from '../contracts/4/TokenFactory';
+import { Token } from '../contracts/4/Token';
 
 export interface TokenInfo {
   name: string;

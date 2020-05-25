@@ -14,10 +14,6 @@ import {
   abi as tokenAbi,
   bytecode as tokenBytecode,
 } from '../contracts/deploy/Token.json';
-import {
-  abi as colonyAbi,
-  bytecode as colonyBytecode,
-} from '../contracts/deploy/Colony.json';
 import getColonyVersionClient from './Colony/ColonyVersionClient';
 import getColonyClientV1, { ExtendedIColonyV1 } from './Colony/ColonyClientV1';
 import getColonyClientV2, { ExtendedIColonyV2 } from './Colony/ColonyClientV2';
@@ -41,12 +37,11 @@ export interface ExtendedIColonyNetwork extends IColonyNetwork {
 
   getColonyClient(addressOrId: string | number): Promise<AnyColonyClient>;
   getMetaColonyClient(): Promise<AnyColonyClient>;
-  createToken(
+  deployToken(
     name: string,
     symbol: string,
     decimals?: number,
   ): Promise<ContractTransaction>;
-  createColony(tokenAddress: string): Promise<ContractTransaction>;
 }
 
 interface NetworkClientOptions {
@@ -158,7 +153,7 @@ const getColonyNetworkClient = (
     return networkClient.getColonyClient(metaColonyAddress);
   };
 
-  networkClient.createToken = async (
+  networkClient.deployToken = async (
     name: string,
     symbol: string,
     decimals = 18,
@@ -167,15 +162,6 @@ const getColonyNetworkClient = (
     const tokenContract = await tokenFactory.deploy(name, symbol, decimals);
     await tokenContract.deployed();
     return tokenContract.deployTransaction;
-  };
-
-  networkClient.createColony = async (
-    tokenAddress: string,
-  ): Promise<ContractTransaction> => {
-    const colonyFactory = new ContractFactory(colonyAbi, colonyBytecode);
-    const colonyContract = await colonyFactory.deploy(tokenAddress);
-    await colonyContract.deployed();
-    return colonyContract.deployTransaction;
   };
 
   return networkClient;
