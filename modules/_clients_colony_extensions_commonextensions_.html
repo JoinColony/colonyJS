@@ -92,8 +92,10 @@
 								<li class="tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter tsd-is-not-exported"><a href="_clients_colony_extensions_commonextensions_.html#adddomainwithproofs" class="tsd-kind-icon">add<wbr>Domain<wbr>With<wbr>Proofs</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter"><a href="_clients_colony_extensions_commonextensions_.html#addextensions" class="tsd-kind-icon">add<wbr>Extensions</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter tsd-is-not-exported"><a href="_clients_colony_extensions_commonextensions_.html#addpaymentwithproofs" class="tsd-kind-icon">add<wbr>Payment<wbr>With<wbr>Proofs</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter tsd-is-not-exported"><a href="_clients_colony_extensions_commonextensions_.html#deployonetxpayment" class="tsd-kind-icon">deploy<wbr>One<wbr>TxPayment</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter tsd-is-not-exported"><a href="_clients_colony_extensions_commonextensions_.html#estimateadddomainwithproofs" class="tsd-kind-icon">estimate<wbr>Add<wbr>Domain<wbr>With<wbr>Proofs</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter tsd-is-not-exported"><a href="_clients_colony_extensions_commonextensions_.html#estimateaddpaymentwithproofs" class="tsd-kind-icon">estimate<wbr>Add<wbr>Payment<wbr>With<wbr>Proofs</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter tsd-is-not-exported"><a href="_clients_colony_extensions_commonextensions_.html#estimatedeployonetxpayment" class="tsd-kind-icon">estimate<wbr>Deploy<wbr>One<wbr>TxPayment</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter tsd-is-not-exported"><a href="_clients_colony_extensions_commonextensions_.html#estimatefinalizepaymentwithproofs" class="tsd-kind-icon">estimate<wbr>Finalize<wbr>Payment<wbr>With<wbr>Proofs</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter tsd-is-not-exported"><a href="_clients_colony_extensions_commonextensions_.html#estimatemaketaskwithproofs" class="tsd-kind-icon">estimate<wbr>Make<wbr>Task<wbr>With<wbr>Proofs</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter tsd-is-not-exported"><a href="_clients_colony_extensions_commonextensions_.html#estimatemovefundsbetweenpotswithproofs" class="tsd-kind-icon">estimate<wbr>Move<wbr>Funds<wbr>Between<wbr>Pots<wbr>With<wbr>Proofs</a></li>
@@ -129,17 +131,17 @@
 					<div class="tsd-signature tsd-kind-icon">Common<wbr>Extension<wbr>RequiredIColony<span class="tsd-signature-symbol">:</span> <a href="_clients_colony_extensions_commonextensions_.html#extendableicolony" class="tsd-signature-type">ExtendableIColony</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">Pick</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">IColony</span><span class="tsd-signature-symbol">, </span><a href="_clients_colony_extensions_commonextensions_.html#commonextensionrequiredtransactions" class="tsd-signature-type">CommonExtensionRequiredTransactions</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>estimate<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Pick</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">IColony</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">"estimate"</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">, </span><a href="_clients_colony_extensions_commonextensions_.html#commonextensionrequiredtransactions" class="tsd-signature-type">CommonExtensionRequiredTransactions</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> }</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/clients/Colony/extensions/commonExtensions.ts#L177">src/clients/Colony/extensions/commonExtensions.ts:177</a></li>
+							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/129cbb1/src/clients/Colony/extensions/commonExtensions.ts#L182">src/clients/Colony/extensions/commonExtensions.ts:182</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module">
 					<a name="commonextensionrequiredmethods" class="tsd-anchor"></a>
 					<h3>Common<wbr>Extension<wbr>Required<wbr>Methods</h3>
-					<div class="tsd-signature tsd-kind-icon">Common<wbr>Extension<wbr>Required<wbr>Methods<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"getDomain"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"getFundingPot"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"getTask"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"getPayment"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"hasUserRole"</span></div>
+					<div class="tsd-signature tsd-kind-icon">Common<wbr>Extension<wbr>Required<wbr>Methods<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"address"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"getDomain"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"getFundingPot"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"getTask"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"getPayment"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"hasUserRole"</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/clients/Colony/extensions/commonExtensions.ts#L24">src/clients/Colony/extensions/commonExtensions.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/129cbb1/src/clients/Colony/extensions/commonExtensions.ts#L24">src/clients/Colony/extensions/commonExtensions.ts:24</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -149,7 +151,7 @@
 					<div class="tsd-signature tsd-kind-icon">Common<wbr>Extension<wbr>Required<wbr>Transactions<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"setArchitectureRole"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"setFundingRole"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"setAdministrationRole"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"addDomain"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"addPayment"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"finalizePayment"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"setPaymentRecipient"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"setPaymentSkill"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"setPaymentPayout"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"makeTask"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"moveFundsBetweenPots"</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/clients/Colony/extensions/commonExtensions.ts#L31">src/clients/Colony/extensions/commonExtensions.ts:31</a></li>
+							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/129cbb1/src/clients/Colony/extensions/commonExtensions.ts#L32">src/clients/Colony/extensions/commonExtensions.ts:32</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -159,7 +161,7 @@
 					<div class="tsd-signature tsd-kind-icon">ExtendableIColony<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Pick</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_clients_colony_extensions_commonextensions_.colonyextensions.html" class="tsd-signature-type">ColonyExtensions</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">"networkClient"</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">Pick</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">IColony</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">"signer"</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">Pick</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">IColony</span><span class="tsd-signature-symbol">, </span><a href="_clients_colony_extensions_commonextensions_.html#commonextensionrequiredmethods" class="tsd-signature-type">CommonExtensionRequiredMethods</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/clients/Colony/extensions/commonExtensions.ts#L173">src/clients/Colony/extensions/commonExtensions.ts:173</a></li>
+							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/129cbb1/src/clients/Colony/extensions/commonExtensions.ts#L178">src/clients/Colony/extensions/commonExtensions.ts:178</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -176,7 +178,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/clients/Colony/extensions/commonExtensions.ts#L414">src/clients/Colony/extensions/commonExtensions.ts:414</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/129cbb1/src/clients/Colony/extensions/commonExtensions.ts#L419">src/clients/Colony/extensions/commonExtensions.ts:419</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -211,7 +213,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/clients/Colony/extensions/commonExtensions.ts#L832">src/clients/Colony/extensions/commonExtensions.ts:832</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/129cbb1/src/clients/Colony/extensions/commonExtensions.ts#L855">src/clients/Colony/extensions/commonExtensions.ts:855</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -243,7 +245,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/clients/Colony/extensions/commonExtensions.ts#L432">src/clients/Colony/extensions/commonExtensions.ts:432</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/129cbb1/src/clients/Colony/extensions/commonExtensions.ts#L437">src/clients/Colony/extensions/commonExtensions.ts:437</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -281,6 +283,38 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter tsd-is-not-exported">
+					<a name="deployonetxpayment" class="tsd-anchor"></a>
+					<h3>deploy<wbr>One<wbr>TxPayment</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">deploy<wbr>One<wbr>TxPayment&lt;T&gt;<span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, overrides<span class="tsd-signature-symbol">?: </span><a href="_index_.html#transactionoverrides" class="tsd-signature-type">TransactionOverrides</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ContractTransaction</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/129cbb1/src/clients/Colony/extensions/commonExtensions.ts#L607">src/clients/Colony/extensions/commonExtensions.ts:607</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>T<span class="tsd-signature-symbol">: </span><a href="_clients_colony_extensions_commonextensions_.html#commonextensionrequiredicolony" class="tsd-signature-type">CommonExtensionRequiredIColony</a></h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>this: <span class="tsd-signature-type">T</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> overrides: <a href="_index_.html#transactionoverrides" class="tsd-signature-type">TransactionOverrides</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ContractTransaction</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter tsd-is-not-exported">
 					<a name="estimateadddomainwithproofs" class="tsd-anchor"></a>
 					<h3>estimate<wbr>Add<wbr>Domain<wbr>With<wbr>Proofs</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter tsd-is-not-exported">
@@ -290,7 +324,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/clients/Colony/extensions/commonExtensions.ts#L668">src/clients/Colony/extensions/commonExtensions.ts:668</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/129cbb1/src/clients/Colony/extensions/commonExtensions.ts#L683">src/clients/Colony/extensions/commonExtensions.ts:683</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -322,7 +356,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/clients/Colony/extensions/commonExtensions.ts#L683">src/clients/Colony/extensions/commonExtensions.ts:683</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/129cbb1/src/clients/Colony/extensions/commonExtensions.ts#L698">src/clients/Colony/extensions/commonExtensions.ts:698</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -357,6 +391,35 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter tsd-is-not-exported">
+					<a name="estimatedeployonetxpayment" class="tsd-anchor"></a>
+					<h3>estimate<wbr>Deploy<wbr>One<wbr>TxPayment</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">estimate<wbr>Deploy<wbr>One<wbr>TxPayment&lt;T&gt;<span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">BigNumber</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/129cbb1/src/clients/Colony/extensions/commonExtensions.ts#L847">src/clients/Colony/extensions/commonExtensions.ts:847</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>T<span class="tsd-signature-symbol">: </span><a href="_clients_colony_extensions_commonextensions_.html#commonextensionrequiredicolony" class="tsd-signature-type">CommonExtensionRequiredIColony</a></h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>this: <span class="tsd-signature-type">T</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">BigNumber</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter tsd-is-not-exported">
 					<a name="estimatefinalizepaymentwithproofs" class="tsd-anchor"></a>
 					<h3>estimate<wbr>Finalize<wbr>Payment<wbr>With<wbr>Proofs</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter tsd-is-not-exported">
@@ -366,7 +429,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/clients/Colony/extensions/commonExtensions.ts#L709">src/clients/Colony/extensions/commonExtensions.ts:709</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/129cbb1/src/clients/Colony/extensions/commonExtensions.ts#L724">src/clients/Colony/extensions/commonExtensions.ts:724</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -398,7 +461,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/clients/Colony/extensions/commonExtensions.ts#L782">src/clients/Colony/extensions/commonExtensions.ts:782</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/129cbb1/src/clients/Colony/extensions/commonExtensions.ts#L797">src/clients/Colony/extensions/commonExtensions.ts:797</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -439,7 +502,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/clients/Colony/extensions/commonExtensions.ts#L806">src/clients/Colony/extensions/commonExtensions.ts:806</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/129cbb1/src/clients/Colony/extensions/commonExtensions.ts#L821">src/clients/Colony/extensions/commonExtensions.ts:821</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -480,7 +543,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/clients/Colony/extensions/commonExtensions.ts#L646">src/clients/Colony/extensions/commonExtensions.ts:646</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/129cbb1/src/clients/Colony/extensions/commonExtensions.ts#L661">src/clients/Colony/extensions/commonExtensions.ts:661</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -518,7 +581,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/clients/Colony/extensions/commonExtensions.ts#L602">src/clients/Colony/extensions/commonExtensions.ts:602</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/129cbb1/src/clients/Colony/extensions/commonExtensions.ts#L617">src/clients/Colony/extensions/commonExtensions.ts:617</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -556,7 +619,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/clients/Colony/extensions/commonExtensions.ts#L624">src/clients/Colony/extensions/commonExtensions.ts:624</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/129cbb1/src/clients/Colony/extensions/commonExtensions.ts#L639">src/clients/Colony/extensions/commonExtensions.ts:639</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -594,7 +657,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/clients/Colony/extensions/commonExtensions.ts#L759">src/clients/Colony/extensions/commonExtensions.ts:759</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/129cbb1/src/clients/Colony/extensions/commonExtensions.ts#L774">src/clients/Colony/extensions/commonExtensions.ts:774</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -632,7 +695,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/clients/Colony/extensions/commonExtensions.ts#L725">src/clients/Colony/extensions/commonExtensions.ts:725</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/129cbb1/src/clients/Colony/extensions/commonExtensions.ts#L740">src/clients/Colony/extensions/commonExtensions.ts:740</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -667,7 +730,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/clients/Colony/extensions/commonExtensions.ts#L742">src/clients/Colony/extensions/commonExtensions.ts:742</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/129cbb1/src/clients/Colony/extensions/commonExtensions.ts#L757">src/clients/Colony/extensions/commonExtensions.ts:757</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -702,7 +765,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/clients/Colony/extensions/commonExtensions.ts#L458">src/clients/Colony/extensions/commonExtensions.ts:458</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/129cbb1/src/clients/Colony/extensions/commonExtensions.ts#L463">src/clients/Colony/extensions/commonExtensions.ts:463</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -737,7 +800,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/clients/Colony/extensions/commonExtensions.ts#L211">src/clients/Colony/extensions/commonExtensions.ts:211</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/129cbb1/src/clients/Colony/extensions/commonExtensions.ts#L216">src/clients/Colony/extensions/commonExtensions.ts:216</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -766,7 +829,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/clients/Colony/extensions/commonExtensions.ts#L259">src/clients/Colony/extensions/commonExtensions.ts:259</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/129cbb1/src/clients/Colony/extensions/commonExtensions.ts#L264">src/clients/Colony/extensions/commonExtensions.ts:264</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -795,7 +858,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/clients/Colony/extensions/commonExtensions.ts#L222">src/clients/Colony/extensions/commonExtensions.ts:222</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/129cbb1/src/clients/Colony/extensions/commonExtensions.ts#L227">src/clients/Colony/extensions/commonExtensions.ts:227</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -827,7 +890,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/clients/Colony/extensions/commonExtensions.ts#L182">src/clients/Colony/extensions/commonExtensions.ts:182</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/129cbb1/src/clients/Colony/extensions/commonExtensions.ts#L187">src/clients/Colony/extensions/commonExtensions.ts:187</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -853,7 +916,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/clients/Colony/extensions/commonExtensions.ts#L550">src/clients/Colony/extensions/commonExtensions.ts:550</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/129cbb1/src/clients/Colony/extensions/commonExtensions.ts#L555">src/clients/Colony/extensions/commonExtensions.ts:555</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -897,7 +960,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/clients/Colony/extensions/commonExtensions.ts#L574">src/clients/Colony/extensions/commonExtensions.ts:574</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/129cbb1/src/clients/Colony/extensions/commonExtensions.ts#L579">src/clients/Colony/extensions/commonExtensions.ts:579</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -941,7 +1004,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/clients/Colony/extensions/commonExtensions.ts#L383">src/clients/Colony/extensions/commonExtensions.ts:383</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/129cbb1/src/clients/Colony/extensions/commonExtensions.ts#L388">src/clients/Colony/extensions/commonExtensions.ts:388</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -982,7 +1045,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/clients/Colony/extensions/commonExtensions.ts#L321">src/clients/Colony/extensions/commonExtensions.ts:321</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/129cbb1/src/clients/Colony/extensions/commonExtensions.ts#L326">src/clients/Colony/extensions/commonExtensions.ts:326</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1023,7 +1086,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/clients/Colony/extensions/commonExtensions.ts#L352">src/clients/Colony/extensions/commonExtensions.ts:352</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/129cbb1/src/clients/Colony/extensions/commonExtensions.ts#L357">src/clients/Colony/extensions/commonExtensions.ts:357</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1064,7 +1127,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/clients/Colony/extensions/commonExtensions.ts#L525">src/clients/Colony/extensions/commonExtensions.ts:525</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/129cbb1/src/clients/Colony/extensions/commonExtensions.ts#L530">src/clients/Colony/extensions/commonExtensions.ts:530</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1105,7 +1168,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/clients/Colony/extensions/commonExtensions.ts#L479">src/clients/Colony/extensions/commonExtensions.ts:479</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/129cbb1/src/clients/Colony/extensions/commonExtensions.ts#L484">src/clients/Colony/extensions/commonExtensions.ts:484</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1143,7 +1206,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/e7a884d/src/clients/Colony/extensions/commonExtensions.ts#L502">src/clients/Colony/extensions/commonExtensions.ts:502</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/129cbb1/src/clients/Colony/extensions/commonExtensions.ts#L507">src/clients/Colony/extensions/commonExtensions.ts:507</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1214,10 +1277,16 @@
 						<a href="_clients_colony_extensions_commonextensions_.html#addpaymentwithproofs" class="tsd-kind-icon">add<wbr>Payment<wbr>With<wbr>Proofs</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter tsd-is-not-exported">
+						<a href="_clients_colony_extensions_commonextensions_.html#deployonetxpayment" class="tsd-kind-icon">deploy<wbr>One<wbr>TxPayment</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter tsd-is-not-exported">
 						<a href="_clients_colony_extensions_commonextensions_.html#estimateadddomainwithproofs" class="tsd-kind-icon">estimate<wbr>Add<wbr>Domain<wbr>With<wbr>Proofs</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter tsd-is-not-exported">
 						<a href="_clients_colony_extensions_commonextensions_.html#estimateaddpaymentwithproofs" class="tsd-kind-icon">estimate<wbr>Add<wbr>Payment<wbr>With<wbr>Proofs</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter tsd-is-not-exported">
+						<a href="_clients_colony_extensions_commonextensions_.html#estimatedeployonetxpayment" class="tsd-kind-icon">estimate<wbr>Deploy<wbr>One<wbr>TxPayment</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter tsd-is-not-exported">
 						<a href="_clients_colony_extensions_commonextensions_.html#estimatefinalizepaymentwithproofs" class="tsd-kind-icon">estimate<wbr>Finalize<wbr>Payment<wbr>With<wbr>Proofs</a>
