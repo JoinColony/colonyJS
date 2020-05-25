@@ -29,7 +29,7 @@ export enum ClientType {
   ColonyClient = 'ColonyClient',
   NetworkClient = 'NetworkClient',
   OneTxPaymentClient = 'OneTxPaymentClient',
-  OneTxPaymentDeployer = 'OneTxPaymentDeployer',
+  OneTxPaymentFactoryClient = 'OneTxPaymentFactoryClient',
   TokenClient = 'TokenClient',
 }
 
