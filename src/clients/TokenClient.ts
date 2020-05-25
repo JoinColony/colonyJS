@@ -1,5 +1,6 @@
 import { ContractFactory, ContractTransaction, Signer } from 'ethers';
 import { Provider } from 'ethers/providers';
+import { BigNumber } from 'ethers/utils';
 
 import {
   abi as tokenAuthorityAbi,
@@ -15,8 +16,19 @@ export interface TokenInfo {
   decimals: number;
 }
 
+type TokenEstimate = Token['estimate'];
+
+interface ExtendedEstimate extends TokenEstimate {
+  deployTokenAuthority(
+    colonyAddress: string,
+    tokenAddress: string,
+    allowedToTransfer: boolean,
+  ): Promise<BigNumber>;
+}
+
 export interface ExtendedToken extends Token {
   clientType: ClientType.TokenClient;
+  estimate: ExtendedEstimate;
 
   getTokenInfo(): Promise<TokenInfo>;
   deployTokenAuthority(
@@ -56,6 +68,7 @@ const getTokenClient = (
     const tokenAuthorityFactory = new ContractFactory(
       tokenAuthorityAbi,
       tokenAuthorityBytecode,
+      tokenClient.signer,
     );
     const tokenAuthorityContract = await tokenAuthorityFactory.deploy(
       colonyAddress,
@@ -64,6 +77,23 @@ const getTokenClient = (
     );
     await tokenAuthorityContract.deployed();
     return tokenAuthorityContract.deployTransaction;
+  };
+
+  tokenClient.estimate.deployTokenAuthority = async (
+    colonyAddress: string,
+    tokenAddress: string,
+    allowedToTransfer: boolean,
+  ): Promise<BigNumber> => {
+    const tokenAuthorityFactory = new ContractFactory(
+      tokenAuthorityAbi,
+      tokenAuthorityBytecode,
+    );
+    const deployTx = tokenAuthorityFactory.getDeployTransaction(
+      colonyAddress,
+      tokenAddress,
+      allowedToTransfer,
+    );
+    return tokenClient.provider.estimateGas(deployTx);
   };
 
   return tokenClient;

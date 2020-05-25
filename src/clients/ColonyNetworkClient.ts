@@ -1,5 +1,6 @@
 import { ContractFactory, ContractTransaction, Signer } from 'ethers';
 import { Provider } from 'ethers/providers';
+import { BigNumber } from 'ethers/utils';
 
 import {
   ColonyVersion,
@@ -31,9 +32,20 @@ export type AnyColonyClient =
   | ExtendedIColonyV3
   | ExtendedIColonyV4;
 
+type NetworkEstimate = IColonyNetwork['estimate'];
+
+interface ExtendedEstimate extends NetworkEstimate {
+  deployToken(
+    name: string,
+    symbol: string,
+    decimals?: number,
+  ): Promise<BigNumber>;
+}
+
 export interface ExtendedIColonyNetwork extends IColonyNetwork {
   clientType: ClientType.NetworkClient;
   oneTxPaymentFactoryClient: ExtendedOneTxPaymentDeployer;
+  estimate: ExtendedEstimate;
 
   getColonyClient(addressOrId: string | number): Promise<AnyColonyClient>;
   getMetaColonyClient(): Promise<AnyColonyClient>;
@@ -158,10 +170,24 @@ const getColonyNetworkClient = (
     symbol: string,
     decimals = 18,
   ): Promise<ContractTransaction> => {
-    const tokenFactory = new ContractFactory(tokenAbi, tokenBytecode);
+    const tokenFactory = new ContractFactory(
+      tokenAbi,
+      tokenBytecode,
+      networkClient.signer,
+    );
     const tokenContract = await tokenFactory.deploy(name, symbol, decimals);
     await tokenContract.deployed();
     return tokenContract.deployTransaction;
+  };
+
+  networkClient.estimate.deployToken = async (
+    name: string,
+    symbol: string,
+    decimals = 18,
+  ): Promise<BigNumber> => {
+    const tokenFactory = new ContractFactory(tokenAbi, tokenBytecode);
+    const deployTx = tokenFactory.getDeployTransaction(name, symbol, decimals);
+    return networkClient.provider.estimateGas(deployTx);
   };
 
   return networkClient;
