@@ -5,7 +5,12 @@ import { IColonyFactory } from '../../contracts/3/IColonyFactory';
 import { IColony } from '../../contracts/3/IColony';
 import { ColonyVersion } from '../../constants';
 import { ExtendedIColonyNetwork } from '../ColonyNetworkClient';
-import { addExtensions, ColonyExtensionsV3 } from './extensions/extensionsV3';
+import { ExtendedIColony } from './extensions/commonExtensions';
+import {
+  addExtensions,
+  ColonyExtensionsV3,
+  ExtendedEstimateV3,
+} from './extensions/extensionsV3';
 import {
   SetPaymentDomainExtensions,
   SetPaymentDomainEstimate,
@@ -13,24 +18,25 @@ import {
   estimateSetPaymentDomainWithProofs,
 } from './extensions/SetPaymentDomain';
 
-export interface ExtendedIColonyV3
-  extends IColony,
-    ColonyExtensionsV3,
-    SetPaymentDomainExtensions {
+export interface ColonyClientV3
+  extends ExtendedIColony<IColony>,
+    ColonyExtensionsV3<IColony>,
+    SetPaymentDomainExtensions<IColony> {
   clientVersion: ColonyVersion.AuburnGlider;
-  estimateWithProofs: ColonyExtensionsV3['estimateWithProofs'] &
-    SetPaymentDomainEstimate;
+  estimate: ExtendedIColony<IColony>['estimate'] &
+    SetPaymentDomainEstimate &
+    ExtendedEstimateV3;
 }
 
 export default function getColonyClient(
   this: ExtendedIColonyNetwork,
   address: string,
   signerOrProvider: Signer | Provider,
-): ExtendedIColonyV3 {
+): ColonyClientV3 {
   const colonyClient = IColonyFactory.connect(
     address,
     signerOrProvider,
-  ) as ExtendedIColonyV3;
+  ) as ColonyClientV3;
 
   colonyClient.clientVersion = ColonyVersion.AuburnGlider;
   addExtensions(colonyClient, this);
@@ -39,10 +45,10 @@ export default function getColonyClient(
   colonyClient.setPaymentDomainWithProofs = setPaymentDomainWithProofs.bind(
     colonyClient,
   );
-  colonyClient.estimateWithProofs.setPaymentDomain = estimateSetPaymentDomainWithProofs.bind(
+  colonyClient.estimate.setPaymentDomainWithProofs = estimateSetPaymentDomainWithProofs.bind(
     colonyClient,
   );
   /* eslint-enable max-len */
 
-  return colonyClient as ExtendedIColonyV3;
+  return colonyClient as ColonyClientV3;
 }

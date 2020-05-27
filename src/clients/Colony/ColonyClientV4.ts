@@ -5,25 +5,34 @@ import { IColonyFactory } from '../../contracts/4/IColonyFactory';
 import { IColony } from '../../contracts/4/IColony';
 import { ColonyVersion } from '../../constants';
 import { ExtendedIColonyNetwork } from '../ColonyNetworkClient';
-import { addExtensions, ColonyExtensionsV4 } from './extensions/extensionsV4';
+import { ExtendedIColony } from './extensions/commonExtensions';
+import { ColonyExtensionsV3 } from './extensions/extensionsV3';
+import {
+  addExtensions,
+  ColonyExtensionsV4,
+  ExtendedEstimateV4,
+} from './extensions/extensionsV4';
 
-export interface ExtendedIColonyV4 extends IColony, ColonyExtensionsV4 {
+export interface ColonyClientV4
+  extends ExtendedIColony<IColony>,
+    ColonyExtensionsV3<IColony>,
+    ColonyExtensionsV4<IColony> {
   clientVersion: ColonyVersion.BurgundyGlider;
-  estimateWithProofs: ColonyExtensionsV4['estimateWithProofs'];
+  estimate: ExtendedIColony<IColony>['estimate'] & ExtendedEstimateV4;
 }
 
 export default function getColonyClient(
   this: ExtendedIColonyNetwork,
   address: string,
   signerOrProvider: Signer | Provider,
-): ExtendedIColonyV4 {
+): ColonyClientV4 {
   const colonyClient = IColonyFactory.connect(
     address,
     signerOrProvider,
-  ) as ExtendedIColonyV4;
+  ) as ColonyClientV4;
 
   colonyClient.clientVersion = ColonyVersion.BurgundyGlider;
   addExtensions(colonyClient, this);
 
-  return colonyClient as ExtendedIColonyV4;
+  return colonyClient as ColonyClientV4;
 }

@@ -2,49 +2,38 @@ import { ContractTransaction } from 'ethers';
 import { BigNumber, BigNumberish } from 'ethers/utils';
 
 import { TransactionOverrides } from '../../../contracts/3';
-import { IColony } from '../../../contracts/3/IColony';
+import { IColony as IColonyV3 } from '../../../contracts/3/IColony';
+import { IColony as IColonyV4 } from '../../../contracts/4/IColony';
 import { ColonyRole } from '../../../constants';
 import { ExtendedIColonyNetwork } from '../../ColonyNetworkClient';
 import {
   addExtensions as addCommonExtensions,
+  ExtendedIColony,
   getPermissionProofs,
-  ColonyExtensions,
-  ExtendedEstimate,
-  CommonExtensionRequiredIColony,
-  CommonExtensionRequiredTransactions,
 } from './commonExtensions';
 
-export interface ExtendedEstimateV3 extends ExtendedEstimate {
-  setArbitrationRole(
+type ValidColony = IColonyV3 | IColonyV4;
+
+export interface ExtendedEstimateV3 {
+  setArbitrationRoleWithProofs(
     _user: string,
     _domainId: BigNumberish,
     _setTo: boolean,
   ): Promise<BigNumber>;
 }
 
-export interface ColonyExtensionsV3 extends ColonyExtensions {
+export type ColonyExtensionsV3<T extends ValidColony> = {
   setArbitrationRoleWithProofs(
     _user: string,
     _domainId: BigNumberish,
     _setTo: boolean,
     overrides?: TransactionOverrides,
   ): Promise<ContractTransaction>;
-  estimateWithProofs: ExtendedEstimateV3;
-}
+  estimate: T['estimate'] & ExtendedEstimateV3;
+};
 
-export type ExtensionRequiredTransactionsV3 =
-  | CommonExtensionRequiredTransactions
-  | 'setArbitrationRole';
-
-export type ExtensionRequiredIColonyV3 = CommonExtensionRequiredIColony &
-  Pick<IColony, 'setArbitrationRole'> & {
-    estimate: Pick<IColony['estimate'], ExtensionRequiredTransactionsV3>;
-  };
-
-async function setArbitrationRoleWithProofs<
-  T extends ExtensionRequiredIColonyV3
->(
-  this: T,
+async function setArbitrationRoleWithProofs(
+  this: ExtendedIColony<ValidColony> & ColonyExtensionsV3<ValidColony>,
   _user: string,
   _domainId: BigNumberish,
   _setTo: boolean,
@@ -72,10 +61,8 @@ async function setArbitrationRoleWithProofs<
   );
 }
 
-async function estimateSetArbitrationRoleWithProofs<
-  T extends ExtensionRequiredIColonyV3
->(
-  this: T,
+async function estimateSetArbitrationRoleWithProofs(
+  this: ExtendedIColony<ValidColony> & ColonyExtensionsV3<ValidColony>,
   _user: string,
   _domainId: BigNumberish,
   _setTo: boolean,
@@ -94,19 +81,21 @@ async function estimateSetArbitrationRoleWithProofs<
   );
 }
 
-export const addExtensions = <
-  T extends ColonyExtensionsV3 & ExtensionRequiredIColonyV3
->(
-  instance: T,
+export const addExtensions = (
+  instance: ExtendedIColony<ValidColony>,
   networkClient: ExtendedIColonyNetwork,
-): void => {
-  addCommonExtensions(instance, networkClient);
+): ExtendedIColony<ValidColony> & ColonyExtensionsV3<ValidColony> => {
+  const extendedInstance = addCommonExtensions(
+    instance,
+    networkClient,
+  ) as ExtendedIColony<ValidColony> & ColonyExtensionsV3<ValidColony>;
   /* eslint-disable no-param-reassign, max-len */
-  instance.setArbitrationRoleWithProofs = setArbitrationRoleWithProofs.bind(
-    instance,
+  extendedInstance.setArbitrationRoleWithProofs = setArbitrationRoleWithProofs.bind(
+    extendedInstance,
   );
-  instance.estimateWithProofs.setArbitrationRole = estimateSetArbitrationRoleWithProofs.bind(
-    instance,
+  extendedInstance.estimate.setArbitrationRoleWithProofs = estimateSetArbitrationRoleWithProofs.bind(
+    extendedInstance,
   );
   /* eslint-enable no-param-reassign, max-len */
+  return extendedInstance;
 };

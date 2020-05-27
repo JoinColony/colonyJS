@@ -5,7 +5,7 @@ import { IColonyFactory } from '../../contracts/2/IColonyFactory';
 import { IColony } from '../../contracts/2/IColony';
 import { ColonyVersion } from '../../constants';
 import { ExtendedIColonyNetwork } from '../ColonyNetworkClient';
-import { addExtensions, ColonyExtensions } from './extensions/commonExtensions';
+import { addExtensions, ExtendedIColony } from './extensions/commonExtensions';
 import {
   SetPaymentDomainExtensions,
   SetPaymentDomainEstimate,
@@ -13,24 +13,22 @@ import {
   estimateSetPaymentDomainWithProofs,
 } from './extensions/SetPaymentDomain';
 
-export interface ExtendedIColonyV2
-  extends IColony,
-    ColonyExtensions,
-    SetPaymentDomainExtensions {
+export interface ColonyClientV2
+  extends ExtendedIColony<IColony>,
+    SetPaymentDomainExtensions<IColony> {
   clientVersion: ColonyVersion.Glider;
-  estimateWithProofs: ColonyExtensions['estimateWithProofs'] &
-    SetPaymentDomainEstimate;
+  estimate: ExtendedIColony<IColony>['estimate'] & SetPaymentDomainEstimate;
 }
 
 export default function getColonyClient(
   this: ExtendedIColonyNetwork,
   address: string,
   signerOrProvider: Signer | Provider,
-): ExtendedIColonyV2 {
+): ColonyClientV2 {
   const colonyClient = IColonyFactory.connect(
     address,
     signerOrProvider,
-  ) as ExtendedIColonyV2;
+  ) as ColonyClientV2;
 
   colonyClient.clientVersion = ColonyVersion.Glider;
   addExtensions(colonyClient, this);
@@ -44,5 +42,5 @@ export default function getColonyClient(
   );
   /* eslint-enable max-len */
 
-  return colonyClient as ExtendedIColonyV2;
+  return colonyClient as ColonyClientV2;
 }
