@@ -4,7 +4,8 @@ import { BigNumberish } from 'ethers/utils';
 import { ClientType, ColonyRole } from '../constants';
 import { OneTxPaymentFactory } from '../contracts/4/OneTxPaymentFactory';
 import { OneTxPayment } from '../contracts/4/OneTxPayment';
-import { ColonyClient, TransactionOverrides } from '../index';
+import { TransactionOverrides } from '../contracts/4';
+import { ColonyClient } from '../index';
 import { getPermissionProofs } from '../clients/Colony/extensions/commonExtensions';
 
 export interface ExtendedOneTxPayment extends OneTxPayment {

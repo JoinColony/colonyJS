@@ -2,36 +2,33 @@ import { BigNumber, BigNumberish } from 'ethers/utils';
 import { ContractTransaction } from 'ethers';
 
 import { TransactionOverrides } from '../../../contracts/1';
-import { IColony } from '../../../contracts/1/IColony';
+import { IColony as IColonyV1 } from '../../../contracts/1/IColony';
+import { IColony as IColonyV2 } from '../../../contracts/2/IColony';
+import { IColony as IColonyV3 } from '../../../contracts/3/IColony';
 import { ColonyRole } from '../../../constants';
-import { ExtendableIColony, getPermissionProofs } from './commonExtensions';
+import { ExtendedIColony, getPermissionProofs } from './commonExtensions';
 
-type ExtensionRequiredTransactions = 'setPaymentDomain';
+// Colonies that support this method
+type ValidColony = IColonyV1 | IColonyV2 | IColonyV3;
 
 export interface SetPaymentDomainEstimate {
-  setPaymentDomain(
+  setPaymentDomainWithProofs(
     _id: BigNumberish,
     _domainId: BigNumberish,
   ): Promise<BigNumber>;
 }
 
-export interface SetPaymentDomainExtensions {
+export type SetPaymentDomainExtensions<T extends ValidColony> = {
   setPaymentDomainWithProofs(
     _id: BigNumberish,
     _domainId: BigNumberish,
     overrides?: TransactionOverrides,
   ): Promise<ContractTransaction>;
-}
+  estimate: T['estimate'] & SetPaymentDomainEstimate;
+};
 
-export type SetPaymentDomainRequiredIColony = ExtendableIColony &
-  Pick<IColony, ExtensionRequiredTransactions> & {
-    estimate: Pick<IColony['estimate'], ExtensionRequiredTransactions>;
-  };
-
-export async function setPaymentDomainWithProofs<
-  T extends SetPaymentDomainRequiredIColony
->(
-  this: T,
+export async function setPaymentDomainWithProofs(
+  this: ExtendedIColony<ValidColony> & SetPaymentDomainExtensions<ValidColony>,
   _id: BigNumberish,
   _domainId: string,
   overrides?: TransactionOverrides,
@@ -51,9 +48,11 @@ export async function setPaymentDomainWithProofs<
   );
 }
 
-export async function estimateSetPaymentDomainWithProofs<
-  T extends SetPaymentDomainRequiredIColony
->(this: T, _id: BigNumberish, _domainId: BigNumberish): Promise<BigNumber> {
+export async function estimateSetPaymentDomainWithProofs(
+  this: ExtendedIColony<ValidColony> & SetPaymentDomainExtensions<ValidColony>,
+  _id: BigNumberish,
+  _domainId: BigNumberish,
+): Promise<BigNumber> {
   const { domainId } = await this.getPayment(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this,

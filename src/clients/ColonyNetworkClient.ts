@@ -16,10 +16,10 @@ import {
   bytecode as tokenBytecode,
 } from '../contracts/deploy/Token.json';
 import getColonyVersionClient from './Colony/ColonyVersionClient';
-import getColonyClientV1, { ExtendedIColonyV1 } from './Colony/ColonyClientV1';
-import getColonyClientV2, { ExtendedIColonyV2 } from './Colony/ColonyClientV2';
-import getColonyClientV3, { ExtendedIColonyV3 } from './Colony/ColonyClientV3';
-import getColonyClientV4, { ExtendedIColonyV4 } from './Colony/ColonyClientV4';
+import getColonyClientV1, { ColonyClientV1 } from './Colony/ColonyClientV1';
+import getColonyClientV2, { ColonyClientV2 } from './Colony/ColonyClientV2';
+import getColonyClientV3, { ColonyClientV3 } from './Colony/ColonyClientV3';
+import getColonyClientV4, { ColonyClientV4 } from './Colony/ColonyClientV4';
 import getTokenClient from './TokenClient';
 import getOneTxPaymentDeployerClient, {
   ExtendedOneTxPaymentDeployer,
@@ -27,10 +27,10 @@ import getOneTxPaymentDeployerClient, {
 import getOneTxPaymentClient from './OneTxPaymentClient';
 
 export type AnyColonyClient =
-  | ExtendedIColonyV1
-  | ExtendedIColonyV2
-  | ExtendedIColonyV3
-  | ExtendedIColonyV4;
+  | ColonyClientV1
+  | ColonyClientV2
+  | ColonyClientV3
+  | ColonyClientV4;
 
 type NetworkEstimate = IColonyNetwork['estimate'];
 

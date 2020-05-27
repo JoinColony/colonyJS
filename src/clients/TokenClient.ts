@@ -22,7 +22,7 @@ interface ExtendedEstimate extends TokenEstimate {
   deployTokenAuthority(
     colonyAddress: string,
     tokenAddress: string,
-    allowedToTransfer: boolean,
+    allowedToTransfer: string[],
   ): Promise<BigNumber>;
 }
 
@@ -34,7 +34,7 @@ export interface ExtendedToken extends Token {
   deployTokenAuthority(
     colonyAddress: string,
     tokenAddress: string,
-    allowedToTransfer: boolean,
+    allowedToTransfer: string[],
   ): Promise<ContractTransaction>;
 }
 
@@ -63,7 +63,7 @@ const getTokenClient = (
   tokenClient.deployTokenAuthority = async (
     colonyAddress: string,
     tokenAddress: string,
-    allowedToTransfer: boolean,
+    allowedToTransfer: string[],
   ): Promise<ContractTransaction> => {
     const tokenAuthorityFactory = new ContractFactory(
       tokenAuthorityAbi,
@@ -82,7 +82,7 @@ const getTokenClient = (
   tokenClient.estimate.deployTokenAuthority = async (
     colonyAddress: string,
     tokenAddress: string,
-    allowedToTransfer: boolean,
+    allowedToTransfer: string[],
   ): Promise<BigNumber> => {
     const tokenAuthorityFactory = new ContractFactory(
       tokenAuthorityAbi,

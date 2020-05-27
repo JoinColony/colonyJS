@@ -1,20 +1,20 @@
 import { ContractTransaction } from 'ethers';
 import { BigNumber, BigNumberish } from 'ethers/utils';
 
-import { TransactionOverrides } from '../../../contracts/4';
-import { IColony } from '../../../contracts/4/IColony';
+import { TransactionOverrides } from '../../../contracts/3';
+import { IColony as IColonyV4 } from '../../../contracts/4/IColony';
 import { ColonyRole } from '../../../constants';
 import { ExtendedIColonyNetwork } from '../../ColonyNetworkClient';
-import { getPermissionProofs } from './commonExtensions';
+import { getPermissionProofs, ExtendedIColony } from './commonExtensions';
 import {
   addExtensions as addExtensionsV3,
   ColonyExtensionsV3,
   ExtendedEstimateV3,
-  ExtensionRequiredTransactionsV3,
-  ExtensionRequiredIColonyV3,
 } from './extensionsV3';
 
-export interface ExtendedEstimatesV4 extends ExtendedEstimateV3 {
+type ValidColony = IColonyV4;
+
+export interface ExtendedEstimateV4 extends ExtendedEstimateV3 {
   makeExpenditure(_domainId: BigNumberish): Promise<BigNumber>;
   setExpenditureClaimDelay(
     _id: BigNumberish,
@@ -32,7 +32,7 @@ export interface ExtendedEstimatesV4 extends ExtendedEstimateV3 {
   ): Promise<BigNumber>;
 }
 
-export interface ColonyExtensionsV4 extends ColonyExtensionsV3 {
+export type ColonyExtensionsV4<T extends ValidColony> = {
   hasInheritedUserRoleWithProofs(
     _user: string,
     _domainId: BigNumberish,
@@ -59,28 +59,11 @@ export interface ColonyExtensionsV4 extends ColonyExtensionsV3 {
     _newOwner: string,
     overrides?: TransactionOverrides,
   ): Promise<ContractTransaction>;
-  estimateWithProofs: ExtendedEstimatesV4;
-}
+  estimate: T['estimate'] & ExtendedEstimateV4;
+};
 
-export type ExtensionRequiredTransactionsV4 =
-  | ExtensionRequiredTransactionsV3
-  | 'makeExpenditure'
-  | 'setExpenditureClaimDelay'
-  | 'setExpenditurePayoutModifier'
-  | 'transferExpenditureViaArbitration';
-
-export type ExtensionRequiredIColonyV4 = ExtensionRequiredIColonyV3 &
-  Pick<
-    IColony,
-    'getExpenditure' | 'hasInheritedUserRole' | ExtensionRequiredTransactionsV4
-  > & {
-    estimate: Pick<IColony['estimate'], ExtensionRequiredTransactionsV4>;
-  };
-
-async function hasInheritedUserRoleWithProofs<
-  T extends ExtensionRequiredIColonyV4
->(
-  this: T,
+async function hasInheritedUserRoleWithProofs(
+  this: ExtendedIColony<ValidColony> & ColonyExtensionsV3<ValidColony>,
   _user: string,
   _domainId: BigNumberish,
   _role: ColonyRole,
@@ -100,8 +83,8 @@ async function hasInheritedUserRoleWithProofs<
   );
 }
 
-async function makeExpenditureWithProofs<T extends ExtensionRequiredIColonyV4>(
-  this: T,
+async function makeExpenditureWithProofs(
+  this: ExtendedIColony<ValidColony> & ColonyExtensionsV4<ValidColony>,
   _domainId: BigNumberish,
   overrides?: TransactionOverrides,
 ): Promise<ContractTransaction> {
@@ -118,10 +101,8 @@ async function makeExpenditureWithProofs<T extends ExtensionRequiredIColonyV4>(
   );
 }
 
-async function setExpenditureClaimDelayWithProofs<
-  T extends ExtensionRequiredIColonyV4
->(
-  this: T,
+async function setExpenditureClaimDelayWithProofs(
+  this: ExtendedIColony<ValidColony> & ColonyExtensionsV4<ValidColony>,
   _id: BigNumberish,
   _slot: BigNumberish,
   _claimDelay: BigNumberish,
@@ -143,10 +124,8 @@ async function setExpenditureClaimDelayWithProofs<
   );
 }
 
-async function setExpenditurePayoutModifierWithProofs<
-  T extends ExtensionRequiredIColonyV4
->(
-  this: T,
+async function setExpenditurePayoutModifierWithProofs(
+  this: ExtendedIColony<ValidColony> & ColonyExtensionsV4<ValidColony>,
   _id: BigNumberish,
   _slot: BigNumberish,
   _payoutModifier: BigNumberish,
@@ -168,10 +147,8 @@ async function setExpenditurePayoutModifierWithProofs<
   );
 }
 
-async function transferExpenditureViaArbitrationWithProofs<
-  T extends ExtensionRequiredIColonyV4
->(
-  this: T,
+async function transferExpenditureViaArbitrationWithProofs(
+  this: ExtendedIColony<ValidColony> & ColonyExtensionsV4<ValidColony>,
   _id: BigNumberish,
   _newOwner: string,
   overrides?: TransactionOverrides,
@@ -191,9 +168,10 @@ async function transferExpenditureViaArbitrationWithProofs<
   );
 }
 
-async function estimateMakeExpenditureWithProofs<
-  T extends ExtensionRequiredIColonyV4
->(this: T, _domainId: BigNumberish): Promise<BigNumber> {
+async function estimateMakeExpenditureWithProofs(
+  this: ExtendedIColony<ValidColony> & ColonyExtensionsV4<ValidColony>,
+  _domainId: BigNumberish,
+): Promise<BigNumber> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this,
     _domainId,
@@ -206,10 +184,8 @@ async function estimateMakeExpenditureWithProofs<
   );
 }
 
-async function estimateSetExpenditureClaimDelayWithProofs<
-  T extends ExtensionRequiredIColonyV4
->(
-  this: T,
+async function estimateSetExpenditureClaimDelayWithProofs(
+  this: ExtendedIColony<ValidColony> & ColonyExtensionsV4<ValidColony>,
   _id: BigNumberish,
   _slot: BigNumberish,
   _claimDelay: BigNumberish,
@@ -229,10 +205,8 @@ async function estimateSetExpenditureClaimDelayWithProofs<
   );
 }
 
-async function estimateSetExpenditurePayoutModifierWithProofs<
-  T extends ExtensionRequiredIColonyV4
->(
-  this: T,
+async function estimateSetExpenditurePayoutModifierWithProofs(
+  this: ExtendedIColony<ValidColony> & ColonyExtensionsV4<ValidColony>,
   _id: BigNumberish,
   _slot: BigNumberish,
   _payoutModifier: BigNumberish,
@@ -252,9 +226,11 @@ async function estimateSetExpenditurePayoutModifierWithProofs<
   );
 }
 
-async function estimateTransferExpenditureViaArbitrationWithProofs<
-  T extends ExtensionRequiredIColonyV4
->(this: T, _newOwner: string, _id: BigNumberish): Promise<BigNumber> {
+async function estimateTransferExpenditureViaArbitrationWithProofs(
+  this: ExtendedIColony<ValidColony> & ColonyExtensionsV4<ValidColony>,
+  _newOwner: string,
+  _id: BigNumberish,
+): Promise<BigNumber> {
   const { domainId } = await this.getExpenditure(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this,
@@ -269,39 +245,47 @@ async function estimateTransferExpenditureViaArbitrationWithProofs<
   );
 }
 
-export const addExtensions = <
-  T extends ColonyExtensionsV4 & ExtensionRequiredIColonyV4
->(
-  instance: T,
+export const addExtensions = (
+  instance: ExtendedIColony<ValidColony>,
   networkClient: ExtendedIColonyNetwork,
-): void => {
+): ExtendedIColony<ValidColony> &
+  ColonyExtensionsV3<ValidColony> &
+  ColonyExtensionsV4<ValidColony> => {
   // Add all extensions from v3, because these are also still valid
-  addExtensionsV3(instance, networkClient);
+  const extendedInstance = addExtensionsV3(
+    instance,
+    networkClient,
+  ) as ExtendedIColony<ValidColony> &
+    ColonyExtensionsV3<ValidColony> &
+    ColonyExtensionsV4<ValidColony>;
   /* eslint-disable no-param-reassign, max-len */
-  instance.hasInheritedUserRoleWithProofs = hasInheritedUserRoleWithProofs.bind(
-    instance,
+  extendedInstance.hasInheritedUserRoleWithProofs = hasInheritedUserRoleWithProofs.bind(
+    extendedInstance,
   );
-  instance.makeExpenditureWithProofs = makeExpenditureWithProofs.bind(instance);
-  instance.setExpenditureClaimDelayWithProofs = setExpenditureClaimDelayWithProofs.bind(
-    instance,
+  extendedInstance.makeExpenditureWithProofs = makeExpenditureWithProofs.bind(
+    extendedInstance,
   );
-  instance.setExpenditurePayoutModifierWithProofs = setExpenditurePayoutModifierWithProofs.bind(
-    instance,
+  extendedInstance.setExpenditureClaimDelayWithProofs = setExpenditureClaimDelayWithProofs.bind(
+    extendedInstance,
   );
-  instance.transferExpenditureViaArbitrationWithProofs = transferExpenditureViaArbitrationWithProofs.bind(
-    instance,
+  extendedInstance.setExpenditurePayoutModifierWithProofs = setExpenditurePayoutModifierWithProofs.bind(
+    extendedInstance,
   );
-  instance.estimateWithProofs.makeExpenditure = estimateMakeExpenditureWithProofs.bind(
-    instance,
+  extendedInstance.transferExpenditureViaArbitrationWithProofs = transferExpenditureViaArbitrationWithProofs.bind(
+    extendedInstance,
   );
-  instance.estimateWithProofs.setExpenditureClaimDelay = estimateSetExpenditureClaimDelayWithProofs.bind(
-    instance,
+  extendedInstance.estimate.makeExpenditure = estimateMakeExpenditureWithProofs.bind(
+    extendedInstance,
   );
-  instance.estimateWithProofs.setExpenditurePayoutModifier = estimateSetExpenditurePayoutModifierWithProofs.bind(
-    instance,
+  extendedInstance.estimate.setExpenditureClaimDelay = estimateSetExpenditureClaimDelayWithProofs.bind(
+    extendedInstance,
   );
-  instance.estimateWithProofs.transferExpenditureViaArbitration = estimateTransferExpenditureViaArbitrationWithProofs.bind(
-    instance,
+  extendedInstance.estimate.setExpenditurePayoutModifier = estimateSetExpenditurePayoutModifierWithProofs.bind(
+    extendedInstance,
+  );
+  extendedInstance.estimate.transferExpenditureViaArbitration = estimateTransferExpenditureViaArbitrationWithProofs.bind(
+    extendedInstance,
   );
   /* eslint-enable no-param-reassign, max-len */
+  return extendedInstance;
 };
