@@ -15,18 +15,18 @@ import {
 type ValidColony = IColonyV4;
 
 export interface ExtendedEstimateV4 extends ExtendedEstimateV3 {
-  makeExpenditure(_domainId: BigNumberish): Promise<BigNumber>;
-  setExpenditureClaimDelay(
+  makeExpenditureWithProofs(_domainId: BigNumberish): Promise<BigNumber>;
+  setExpenditureClaimDelayWithProofs(
     _id: BigNumberish,
     _slot: BigNumberish,
     _claimDelay: BigNumberish,
   ): Promise<BigNumber>;
-  setExpenditurePayoutModifier(
+  setExpenditurePayoutModifierWithProofs(
     _id: BigNumberish,
     _slot: BigNumberish,
     _payoutModifier: BigNumberish,
   ): Promise<BigNumber>;
-  transferExpenditureViaArbitration(
+  transferExpenditureViaArbitrationWithProofs(
     _id: BigNumberish,
     _newOwner: string,
   ): Promise<BigNumber>;
@@ -274,16 +274,16 @@ export const addExtensions = (
   extendedInstance.transferExpenditureViaArbitrationWithProofs = transferExpenditureViaArbitrationWithProofs.bind(
     extendedInstance,
   );
-  extendedInstance.estimate.makeExpenditure = estimateMakeExpenditureWithProofs.bind(
+  extendedInstance.estimate.makeExpenditureWithProofs = estimateMakeExpenditureWithProofs.bind(
     extendedInstance,
   );
-  extendedInstance.estimate.setExpenditureClaimDelay = estimateSetExpenditureClaimDelayWithProofs.bind(
+  extendedInstance.estimate.setExpenditureClaimDelayWithProofs = estimateSetExpenditureClaimDelayWithProofs.bind(
     extendedInstance,
   );
-  extendedInstance.estimate.setExpenditurePayoutModifier = estimateSetExpenditurePayoutModifierWithProofs.bind(
+  extendedInstance.estimate.setExpenditurePayoutModifierWithProofs = estimateSetExpenditurePayoutModifierWithProofs.bind(
     extendedInstance,
   );
-  extendedInstance.estimate.transferExpenditureViaArbitration = estimateTransferExpenditureViaArbitrationWithProofs.bind(
+  extendedInstance.estimate.transferExpenditureViaArbitrationWithProofs = estimateTransferExpenditureViaArbitrationWithProofs.bind(
     extendedInstance,
   );
   /* eslint-enable no-param-reassign, max-len */
