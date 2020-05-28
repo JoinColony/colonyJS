@@ -1,4 +1,4 @@
-// Versions of colonyNetwork. TS automatically increments from 1
+// Versions of colonyNetwork
 export enum ColonyVersion {
   GoerliGlider = 1, // glider-rc.1
   Glider,
@@ -24,6 +24,16 @@ export enum ColonyRole {
   Funding, // 5
   Administration, // 6
 }
+
+export interface DomainRoles {
+  domainId: number;
+  roles: ColonyRole[];
+}
+export interface UserRoles {
+  address: string;
+  domains: DomainRoles[];
+}
+export type ColonyRoles = UserRoles[];
 
 export enum ClientType {
   ColonyClient = 'ColonyClient',
