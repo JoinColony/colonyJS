@@ -1,4 +1,4 @@
-import { BigNumber, id } from 'ethers/utils';
+import { BigNumber } from 'ethers/utils';
 
 import {
   ColonyClient,
@@ -39,35 +39,43 @@ export const getColonyRoles = async (
       `Not supported by colony version ${ColonyVersion.GoerliGlider}`,
     );
   }
-  const { address: colonyAddress, topics = [] } = client.filters.ColonyRoleSet(
+  const { topics: colonyRoleTopics = [] } = client.filters.ColonyRoleSet(
     null,
     null,
     null,
     null,
   );
-
-  // This event is emitted by all versions but doesn't exist on the IColony interface
-  // on all versions, so we manually create the topic
-  topics.push(id('RecoveryRoleSet(address,bool)'));
-
-  const filter = {
-    address: colonyAddress,
+  const colonyRoleFilter = {
+    address: client.address,
     fromBlock: 1,
-    topics,
+    topics: colonyRoleTopics,
   };
-  const logs = await client.provider.getLogs(filter);
+  const colonyRoleLogs = await client.provider.getLogs(colonyRoleFilter);
+
+  const {
+    topics: recoveryRoleTopics = [],
+  } = client.awkwardRecoveryRoleEventClient.filters.RecoveryRoleSet(null, null);
+
+  const recoveryRoleFilter = {
+    address: client.address,
+    fromBlock: 1,
+    topics: recoveryRoleTopics,
+  };
+  // @TODO: when ethers v5, we can combine topics
+  const recoveryRoleLogs = await client.provider.getLogs(recoveryRoleFilter);
+
   const oneTxAddress = await oneTxPaymentFactoryClient.deployedExtensions(
     client.address,
   );
-  const events = logs
+
+  const colonyRoleEvents = colonyRoleLogs
     .map((log) => client.interface.parseLog(log))
     // Don't show roles of OneTxPayment contracts
     .filter((event) => event.values.user !== oneTxAddress);
 
   // We construct a map that holds all users with all domains and the roles as Sets
-  const rolesMap: ColonyRolesMap = events
-    .filter((event) => event.name === 'ColonyRoleSet')
-    .reduce((colonyRolesMap: ColonyRolesMap, { values }) => {
+  const rolesMap: ColonyRolesMap = colonyRoleEvents.reduce(
+    (colonyRolesMap: ColonyRolesMap, { values }) => {
       const { user, domainId, role, setTo }: ColonyRoleSetValues = values;
       const domainKey = domainId.toString();
       if (!colonyRolesMap[user] && setTo) {
@@ -84,25 +92,28 @@ export const getColonyRoles = async (
         colonyRolesMap[user][domainKey].delete(role);
       }
       return colonyRolesMap;
-    }, {});
+    },
+    {},
+  );
+
+  const recoveryRoleEvents = recoveryRoleLogs
+    .map((log) => client.awkwardRecoveryRoleEventClient.interface.parseLog(log))
+    // Don't show roles of OneTxPayment contracts
+    .filter((event) => event.values.user !== oneTxAddress);
 
   // OK, now we also collect all the RecoveryRoleSet events for this colony
-  console.log(events);
-  events
-    .filter((event) => event.name === 'RecoveryRoleSet')
-    .forEach(({ values }) => {
-      const { user, setTo }: RecoveryRoleSetValues = values;
-      if (rolesMap[user][ROOT_DOMAIN]) {
-        if (setTo) {
-          rolesMap[user][ROOT_DOMAIN].add(ColonyRole.Recovery);
-        } else {
-          rolesMap[user][ROOT_DOMAIN].delete(ColonyRole.Recovery);
-        }
-      }
+  recoveryRoleEvents.forEach(({ values }) => {
+    const { user, setTo }: RecoveryRoleSetValues = values;
+    if (rolesMap[user][ROOT_DOMAIN]) {
       if (setTo) {
-        rolesMap[user][ROOT_DOMAIN] = new Set([ColonyRole.Recovery]);
+        rolesMap[user][ROOT_DOMAIN].add(ColonyRole.Recovery);
+      } else {
+        rolesMap[user][ROOT_DOMAIN].delete(ColonyRole.Recovery);
       }
-    });
+    } else if (setTo) {
+      rolesMap[user][ROOT_DOMAIN] = new Set([ColonyRole.Recovery]);
+    }
+  });
   return Object.entries(rolesMap).map(([address, userRoles]) => {
     const domains = Object.entries(userRoles).map(
       ([domainId, domainRoles]) => ({
