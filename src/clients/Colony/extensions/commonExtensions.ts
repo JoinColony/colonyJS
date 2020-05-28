@@ -7,6 +7,7 @@ import { IColony as IColonyV2 } from '../../../contracts/2/IColony';
 import { IColony as IColonyV3 } from '../../../contracts/3/IColony';
 import { IColony as IColonyV4 } from '../../../contracts/4/IColony';
 import { TransactionOverrides } from '../../../contracts/1';
+import { IColonyFactory } from '../../../contracts/4/IColonyFactory';
 import {
   ClientType,
   ColonyRole,
@@ -81,6 +82,8 @@ export type ExtendedIColony<T extends AnyIColony = AnyIColony> = T & {
   networkClient: ExtendedIColonyNetwork;
   oneTxPaymentClient: ExtendedOneTxPayment;
   tokenClient: ExtendedToken;
+
+  awkwardRecoveryRoleEventClient: IColonyV4;
 
   setArchitectureRoleWithProofs(
     _user: string,
@@ -836,6 +839,13 @@ export const addExtensions = <T extends ExtendedIColony>(
   );
   instance.estimate.moveFundsBetweenPotsWithProofs = estimateMoveFundsBetweenPotsWithProofs.bind(
     instance,
+  );
+
+  // This is awkward and just used to get the RecoveryRoleSet event which is missing (but emitted)
+  // in other colonies. We can remove this once all of the active colonies are at version 4
+  instance.awkwardRecoveryRoleEventClient = IColonyFactory.connect(
+    instance.address,
+    instance.provider,
   );
   /* eslint-enable no-param-reassign, max-len */
   return instance;
