@@ -1,5 +1,5 @@
 import { EventFilter } from 'ethers';
-import { Log, Provider } from 'ethers/providers';
+import { Filter, Log, Provider } from 'ethers/providers';
 import { BigNumber, LogDescription } from 'ethers/utils';
 
 import {
@@ -37,6 +37,8 @@ interface LogOptions {
   blockHash?: string;
 }
 
+type TopicsArray = string[][];
+
 const ROOT_DOMAIN = ROOT_DOMAIN_ID.toString();
 
 export const getBlockTime = async (
@@ -51,7 +53,7 @@ export const getBlockTime = async (
 /* Get raw (unparsed logs) from filter */
 export const getLogs = async (
   client: ContractClient,
-  filter: EventFilter,
+  filter: Filter,
   options: LogOptions = {
     fromBlock: 1,
   },
@@ -65,11 +67,41 @@ export const getLogs = async (
 /* Get parsed event data from filter */
 export const getEvents = async (
   client: ContractClient,
-  filter: EventFilter,
+  filter: Filter,
   options?: LogOptions,
 ): Promise<LogDescription[]> => {
   const logs = await getLogs(client, filter, options);
   return logs.map((log: Log) => client.interface.parseLog(log));
+};
+
+/* Get multiple events from multiple filters (only works for the same contract!) */
+export const getMultipleEvents = async (
+  client: ContractClient,
+  filters: EventFilter[],
+  options?: LogOptions,
+): Promise<LogDescription[]> => {
+  // Turns
+  // [{ topics: [1, 2, 3] }, { topics: [5, 7] }
+  // into
+  // [[1, 5], [2, 7], [3]]
+  const multipleTopics = filters.reduce<TopicsArray>((topicsArray, filter) => {
+    if (filter.topics) {
+      filter.topics.forEach((topic, i) => {
+        if (topicsArray[i]) {
+          topicsArray[i].push(topic);
+        } else {
+          // eslint-disable-next-line no-param-reassign
+          topicsArray[i] = [topic];
+        }
+      });
+    }
+    return topicsArray;
+  }, []);
+  const filter = {
+    ...filters[0],
+    topics: multipleTopics,
+  };
+  return getEvents(client, filter, options);
 };
 
 export const getColonyRoles = async (
