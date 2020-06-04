@@ -7,6 +7,7 @@ import {
   ClientType,
   Network,
   colonyNetworkAddresses,
+  REPUTATION_ORACLE_ENDPOINT,
 } from '../constants';
 // @TODO this _HAS_ to be the newest version _ALWAYS_. Let's try to figure out a way to make sure of this
 import { IColonyNetworkFactory } from '../contracts/4/IColonyNetworkFactory';
@@ -44,6 +45,9 @@ interface ExtendedEstimate extends NetworkEstimate {
 
 export interface ExtendedIColonyNetwork extends IColonyNetwork {
   clientType: ClientType.NetworkClient;
+  network: Network;
+  reputationOracleEndpoint: string;
+
   oneTxPaymentFactoryClient: ExtendedOneTxPaymentDeployer;
   estimate: ExtendedEstimate;
 
@@ -59,6 +63,7 @@ export interface ExtendedIColonyNetwork extends IColonyNetwork {
 interface NetworkClientOptions {
   networkAddress?: string;
   oneTxPaymentFactoryAddress?: string;
+  reputationOracleEndpoint?: string;
 }
 
 const getColonyNetworkClient = (
@@ -82,6 +87,9 @@ const getColonyNetworkClient = (
   ) as ExtendedIColonyNetwork;
 
   networkClient.clientType = ClientType.NetworkClient;
+  networkClient.network = network;
+  networkClient.reputationOracleEndpoint =
+    (options && options.reputationOracleEndpoint) || REPUTATION_ORACLE_ENDPOINT;
 
   networkClient.oneTxPaymentFactoryClient = getOneTxPaymentDeployerClient(
     network,

@@ -47,5 +47,8 @@
   },
   "peerDependencies": {
     "ethers": "^4.0.47"
+  },
+  "dependencies": {
+    "isomorphic-fetch": "^2.2.1"
   }
 }

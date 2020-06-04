@@ -1,3 +1,6 @@
+/* eslint-disable import/first */
+require('isomorphic-fetch');
+
 import type { Token } from './contracts/1/Token';
 import type {
   AnyColonyClient,
@@ -15,3 +18,5 @@ export type NetworkClient = ExtendedIColonyNetwork;
 export type TokenClient = Token;
 export type ContractClient = ColonyClient | NetworkClient | TokenClient;
 export type TransactionOverrides = TxOverrides;
+
+/* eslint-enable import/first */

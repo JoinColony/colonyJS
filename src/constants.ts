@@ -64,3 +64,5 @@ export enum FundingPotAssociatedType {
   Payment, // 3
   Expenditure, // 4
 }
+
+export const REPUTATION_ORACLE_ENDPOINT = 'https://colony.io/reputation';

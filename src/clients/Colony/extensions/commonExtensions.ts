@@ -1,7 +1,9 @@
 import { ContractTransaction } from 'ethers';
-import { Arrayish, BigNumber, BigNumberish } from 'ethers/utils';
+import { Arrayish, BigNumber, BigNumberish, bigNumberify } from 'ethers/utils';
 import { MaxUint256 } from 'ethers/constants';
 
+import { isAddress } from '../../../utils';
+import { Network } from '../../../constants';
 import { IColony as IColonyV1 } from '../../../contracts/1/IColony';
 import { IColony as IColonyV2 } from '../../../contracts/2/IColony';
 import { IColony as IColonyV3 } from '../../../contracts/3/IColony';
@@ -17,6 +19,7 @@ import {
 import { ExtendedIColonyNetwork } from '../../ColonyNetworkClient';
 import { ExtendedToken } from '../../TokenClient';
 import { ExtendedOneTxPayment } from '../../OneTxPaymentClient';
+import type { ReputationOracleResponse } from '../types';
 
 type AnyIColony = IColonyV1 | IColonyV2 | IColonyV3 | IColonyV4;
 
@@ -150,6 +153,11 @@ export type ExtendedIColony<T extends AnyIColony = AnyIColony> = T & {
     overrides?: TransactionOverrides,
   ): Promise<ContractTransaction>;
   estimate: ExtendedEstimate<T>;
+
+  getReputation(
+    skillId: BigNumberish,
+    address: string,
+  ): Promise<ReputationOracleResponse>;
 };
 
 export const getPotDomain = async (
@@ -778,6 +786,41 @@ async function estimateMoveFundsBetweenPotsWithProofs(
   );
 }
 
+async function getReputation (
+    this: ExtendedIColony,
+    skillId: BigNumberish,
+    address: string,
+  ): Promise<ReputationOracleResponse> {
+    if (!isAddress(address)) {
+      throw new Error('Please provide a valid address');
+    }
+
+    const { network, reputationOracleEndpoint } = this.networkClient;
+
+    if (network !== Network.Mainnet && network !== Network.Goerli) {
+      throw new Error('This method is only supported on mainnet and goerli');
+    }
+
+    const skillIdString = bigNumberify(skillId).toString();
+
+    const rootHash = await this.networkClient.getReputationRootHash();
+
+    const response = await fetch(
+      `${reputationOracleEndpoint}/${network}/${rootHash}/${
+        this.address
+      }/${skillIdString}/${address}`,
+    );
+
+    const result = await response.json();
+
+    return {
+      ...result,
+      reputationAmount: bigNumberify(result.reputationAmount || 0),
+    }
+
+    return response.json() as Promise<ReputationOracleResponse>;
+  };
+
 export const addExtensions = <T extends ExtendedIColony>(
   instance: T,
   networkClient: ExtendedIColonyNetwork,
@@ -847,6 +890,9 @@ export const addExtensions = <T extends ExtendedIColony>(
     instance.address,
     instance.provider,
   );
+
+  instance.getReputation = getReputation.bind(instance);
+
   /* eslint-enable no-param-reassign, max-len */
   return instance;
 };
