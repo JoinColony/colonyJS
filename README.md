@@ -15,7 +15,7 @@ The documentation is autmatically generated using [TypeDoc](https://github.com/T
 ## Get Started
 
 ```ts
-import { getColonyNetworkClient, Network } = from '@colony/colony-js';
+import { getColonyNetworkClient, Network } from '@colony/colony-js';
 import { Wallet } from 'ethers';
 import { JsonRpcProvider } from 'ethers/providers';
 
