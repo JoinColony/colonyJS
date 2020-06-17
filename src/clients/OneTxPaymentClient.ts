@@ -1,5 +1,5 @@
 import { ContractTransaction } from 'ethers';
-import { BigNumberish } from 'ethers/utils';
+import { BigNumberish, BigNumber } from 'ethers/utils';
 
 import { ClientType, ColonyRole } from '../constants';
 import { OneTxPaymentFactory } from '../contracts/4/OneTxPaymentFactory';
@@ -8,8 +8,28 @@ import { TransactionOverrides } from '../contracts/4';
 import { ColonyClient } from '../index';
 import { getPermissionProofs } from '../clients/Colony/extensions/commonExtensions';
 
+type OneTxPaymentEstimate = OneTxPayment['estimate'];
+
+interface ExtendedEstimate extends OneTxPaymentEstimate {
+  makePaymentWithProofs(
+    _worker: string,
+    _token: string,
+    _amount: BigNumberish,
+    _domainId: BigNumberish,
+    _skillId: BigNumberish,
+  ): Promise<BigNumber>;
+  makePaymentFundedFromDomainWithProofs(
+    _worker: string,
+    _token: string,
+    _amount: BigNumberish,
+    _domainId: BigNumberish,
+    _skillId: BigNumberish,
+  ): Promise<BigNumber>;
+}
+
 export interface ExtendedOneTxPayment extends OneTxPayment {
   clientType: ClientType.OneTxPaymentClient;
+  estimate: ExtendedEstimate;
 
   makePaymentWithProofs(
     _worker: string,
@@ -132,6 +152,66 @@ const getOneTxPaymentClient = (
       _domainId,
       _skillId,
       overrides,
+    );
+  };
+
+  oneTxPaymentClient.estimate.makePaymentWithProofs = async (
+    _worker: string,
+    _token: string,
+    _amount: BigNumberish,
+    _domainId: BigNumberish,
+    _skillId: BigNumberish,
+  ): Promise<BigNumber> => {
+    const [extensionPDID, extensionCSI] = await getExtensionPermissionProofs(
+      colonyClient,
+      _domainId,
+      oneTxPaymentClient.address,
+    );
+    const [userPDID, userCSI] = await getExtensionPermissionProofs(
+      colonyClient,
+      _domainId,
+    );
+
+    return oneTxPaymentClient.estimate.makePayment(
+      extensionPDID,
+      extensionCSI,
+      userPDID,
+      userCSI,
+      _worker,
+      _token,
+      _amount,
+      _domainId,
+      _skillId,
+    );
+  };
+
+  oneTxPaymentClient.estimate.makePaymentFundedFromDomainWithProofs = async (
+    _worker: string,
+    _token: string,
+    _amount: BigNumberish,
+    _domainId: BigNumberish,
+    _skillId: BigNumberish,
+  ): Promise<BigNumber> => {
+    const [extensionPDID, extensionCSI] = await getExtensionPermissionProofs(
+      colonyClient,
+      _domainId,
+      oneTxPaymentClient.address,
+    );
+    const [userPDID, userCSI] = await getExtensionPermissionProofs(
+      colonyClient,
+      _domainId,
+    );
+
+    return oneTxPaymentClient.estimate.makePaymentFundedFromDomain(
+      extensionPDID,
+      extensionCSI,
+      userPDID,
+      userCSI,
+      _worker,
+      _token,
+      _amount,
+      _domainId,
+      _skillId,
     );
   };
 
