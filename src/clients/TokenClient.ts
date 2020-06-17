@@ -20,8 +20,8 @@ type TokenEstimate = Token['estimate'];
 
 interface ExtendedEstimate extends TokenEstimate {
   deployTokenAuthority(
-    colonyAddress: string,
     tokenAddress: string,
+    colonyAddress: string,
     allowedToTransfer: string[],
   ): Promise<BigNumber>;
 }
@@ -32,8 +32,8 @@ export interface ExtendedToken extends Token {
 
   getTokenInfo(): Promise<TokenInfo>;
   deployTokenAuthority(
-    colonyAddress: string,
     tokenAddress: string,
+    colonyAddress: string,
     allowedToTransfer: string[],
   ): Promise<ContractTransaction>;
 }
@@ -61,8 +61,8 @@ const getTokenClient = (
   };
 
   tokenClient.deployTokenAuthority = async (
-    colonyAddress: string,
     tokenAddress: string,
+    colonyAddress: string,
     allowedToTransfer: string[],
   ): Promise<ContractTransaction> => {
     const tokenAuthorityFactory = new ContractFactory(
@@ -71,8 +71,8 @@ const getTokenClient = (
       tokenClient.signer,
     );
     const tokenAuthorityContract = await tokenAuthorityFactory.deploy(
-      colonyAddress,
       tokenAddress,
+      colonyAddress,
       allowedToTransfer,
     );
     await tokenAuthorityContract.deployed();
@@ -80,8 +80,8 @@ const getTokenClient = (
   };
 
   tokenClient.estimate.deployTokenAuthority = async (
-    colonyAddress: string,
     tokenAddress: string,
+    colonyAddress: string,
     allowedToTransfer: string[],
   ): Promise<BigNumber> => {
     const tokenAuthorityFactory = new ContractFactory(
@@ -89,8 +89,8 @@ const getTokenClient = (
       tokenAuthorityBytecode,
     );
     const deployTx = tokenAuthorityFactory.getDeployTransaction(
-      colonyAddress,
       tokenAddress,
+      colonyAddress,
       allowedToTransfer,
     );
     return tokenClient.provider.estimateGas(deployTx);
