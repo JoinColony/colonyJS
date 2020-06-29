@@ -84,16 +84,16 @@ export interface ExtendedIColonyNetwork extends IColonyNetwork {
   ): Promise<ContractTransaction>;
 
   /**
-   * Like lookupRegisteredENSDomain, but also working on the Goerli testnet
+   * Like [[`lookupRegisteredENSDomain`]], but also working on the Goerli testnet
    *
    * @remarks
-   * On Goerli, all ens domains have the .test suffix. The contracts return .eth anyways.
+   * On Goerli, all ens domains have the `.test` suffix. The contracts return `.eth` anyways.
    * We patch the original function to fix this problem. On any other network it will return the
    * original function
    *
    * @param addr - Address we want to look up
    *
-   * @returns an ENS name in the form of [username].user.joincolony.eth or [colony name].colony.joincolony.eth
+   * @returns an ENS name in the form of `[username].user.joincolony.eth` or `[colonyName].colony.joincolony.eth`
    */
   lookupRegisteredENSDomainWithGoerliPatch(address: string): Promise<string>;
 }
