@@ -51,8 +51,32 @@ export interface ExtendedIColonyNetwork extends IColonyNetwork {
   oneTxPaymentFactoryClient: ExtendedOneTxPaymentDeployer;
   estimate: ExtendedEstimate;
 
+  /**
+   * Get a ColonyClient instance for the currently deployed version of that Colony by providing the address or the integer colony number
+   *
+   * @param addressOrId - The colony address (string) or the auto-incremented Colony id (integer)
+   *
+   * @returns The corresponding initialized ColonyClient instance
+   */
   getColonyClient(addressOrId: string | number): Promise<AnyColonyClient>;
+  /**
+   * Get the initialized MetaColony client
+   *
+   * @returns a ColonyClient instance of the MetaColony (id: 1)
+   */
   getMetaColonyClient(): Promise<AnyColonyClient>;
+  /**
+   * Deploy an ERC20 token contract, compatible with Colony
+   *
+   * @remarks
+   * For valid values see the spec here: https://eips.ethereum.org/EIPS/eip-20
+   *
+   * @param name - The token name. Can be any string. Be creative
+   * @param symbol - The symbol of the token (e.g. CLNY)
+   * @param decimals - The number of token decimals
+   *
+   * @returns ethers compatible ContractTransaction
+   */
   deployToken(
     name: string,
     symbol: string,
@@ -167,6 +191,7 @@ const getColonyNetworkClient = (
       }
     }
 
+    // @TODO move these to the common extensions?
     const tokenAddress = await colonyClient.getToken();
     colonyClient.tokenClient = getTokenClient(tokenAddress, signerOrProvider);
 
