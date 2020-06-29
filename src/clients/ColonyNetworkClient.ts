@@ -58,6 +58,20 @@ export interface ExtendedIColonyNetwork extends IColonyNetwork {
     symbol: string,
     decimals?: number,
   ): Promise<ContractTransaction>;
+
+  /**
+   * Like lookupRegisteredENSDomain, but also working on the Goerli testnet
+   *
+   * @remarks
+   * On Goerli, all ens domains have the .test suffix. The contracts return .eth anyways.
+   * We patch the original function to fix this problem. On any other network it will return the
+   * original function
+   *
+   * @param addr - Address we want to look up
+   *
+   * @returns an ENS name in the form of [username].user.joincolony.eth or [colony name].colony.joincolony.eth
+   */
+  lookupRegisteredENSDomainWithGoerliPatch(address: string): Promise<string>;
 }
 
 interface NetworkClientOptions {
@@ -171,6 +185,17 @@ const getColonyNetworkClient = (
   networkClient.getMetaColonyClient = async (): Promise<AnyColonyClient> => {
     const metaColonyAddress = await networkClient.getMetaColony();
     return networkClient.getColonyClient(metaColonyAddress);
+  };
+
+  networkClient.lookupRegisteredENSDomainWithGoerliPatch = async (
+    addr: string,
+  ): Promise<string> => {
+    const domain = await networkClient.lookupRegisteredENSDomain(addr);
+    if (networkClient.network === Network.Goerli) {
+      const [name, scope] = domain.split('.');
+      return `${name}.${scope}.joincolony.test`;
+    }
+    return domain;
   };
 
   networkClient.deployToken = async (
