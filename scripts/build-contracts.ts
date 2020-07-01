@@ -24,6 +24,7 @@ const contractsToBuild = [
   // Renamed due to naming conflicts in typechain
   'OneTxPaymentDeployer',
   'Token',
+  'TokenLocking',
 ];
 
 const args = options({
