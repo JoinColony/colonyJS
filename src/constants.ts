@@ -41,6 +41,7 @@ export enum ClientType {
   OneTxPaymentClient = 'OneTxPaymentClient',
   OneTxPaymentFactoryClient = 'OneTxPaymentFactoryClient',
   TokenClient = 'TokenClient',
+  TokenLockingClient = 'TokenLockingClient',
 }
 
 export const colonyNetworkAddresses = {

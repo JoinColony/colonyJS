@@ -22,6 +22,9 @@ import getColonyClientV2, { ColonyClientV2 } from './Colony/ColonyClientV2';
 import getColonyClientV3, { ColonyClientV3 } from './Colony/ColonyClientV3';
 import getColonyClientV4, { ColonyClientV4 } from './Colony/ColonyClientV4';
 import getTokenClient from './TokenClient';
+import getTokenLockingClient, {
+  ExtendedTokenLocking,
+} from './TokenLockingClient';
 import getOneTxPaymentDeployerClient, {
   ExtendedOneTxPaymentDeployer,
 } from './OneTxPaymentDeployerClient';
@@ -82,7 +85,12 @@ export interface ExtendedIColonyNetwork extends IColonyNetwork {
     symbol: string,
     decimals?: number,
   ): Promise<ContractTransaction>;
-
+  /**
+   * Gets the TokenLockingClient
+   *
+   * @returns an initialized version of the TokenLockingClient
+   */
+  getTokenLockingClient(): Promise<ExtendedTokenLocking>;
   /**
    * Like [[`lookupRegisteredENSDomain`]], but also working on the Goerli testnet
    *
@@ -129,11 +137,19 @@ const getColonyNetworkClient = (
   networkClient.reputationOracleEndpoint =
     (options && options.reputationOracleEndpoint) || REPUTATION_ORACLE_ENDPOINT;
 
+  // @TODO move to getter function `getOneTxPaymentFactorylient` as we do with all the others
   networkClient.oneTxPaymentFactoryClient = getOneTxPaymentDeployerClient(
     network,
     signerOrProvider,
     options && options.oneTxPaymentFactoryAddress,
   );
+
+  networkClient.getTokenLockingClient = async (): Promise<
+    ExtendedTokenLocking
+  > => {
+    const tokenLockingAddress = await networkClient.getTokenLocking();
+    return getTokenLockingClient(tokenLockingAddress, signerOrProvider);
+  };
 
   networkClient.getColonyClient = async (
     addressOrId: string | number,
