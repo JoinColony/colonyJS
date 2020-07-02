@@ -3,19 +3,20 @@ import { Arrayish, BigNumber, BigNumberish, bigNumberify } from 'ethers/utils';
 import { MaxUint256 } from 'ethers/constants';
 
 import { isAddress } from '../../../utils';
-import { Network } from '../../../constants';
+import {
+  Network,
+  ClientType,
+  ColonyRole,
+  FundingPotAssociatedType,
+  ROOT_DOMAIN_ID,
+} from '../../../constants';
 import { IColony as IColonyV1 } from '../../../contracts/1/IColony';
 import { IColony as IColonyV2 } from '../../../contracts/2/IColony';
 import { IColony as IColonyV3 } from '../../../contracts/3/IColony';
 import { IColony as IColonyV4 } from '../../../contracts/4/IColony';
 import { TransactionOverrides } from '../../../contracts/1';
 import { IColonyFactory } from '../../../contracts/4/IColonyFactory';
-import {
-  ClientType,
-  ColonyRole,
-  FundingPotAssociatedType,
-  ROOT_DOMAIN_ID,
-} from '../../../constants';
+
 import { ExtendedIColonyNetwork } from '../../ColonyNetworkClient';
 import { ExtendedToken } from '../../TokenClient';
 import { ExtendedOneTxPayment } from '../../OneTxPaymentClient';
@@ -193,11 +194,12 @@ export const getChildIndex = async (
   contract: ExtendedIColony,
   parentDomainId: BigNumberish,
   domainId: BigNumberish,
-): Promise<number> => {
+): Promise<BigNumber> => {
   const { skillId: parentSkillId } = await contract.getDomain(parentDomainId);
   const { skillId } = await contract.getDomain(domainId);
   const { children } = await contract.networkClient.getSkill(parentSkillId);
-  return children.findIndex((childSkillId) => childSkillId.eq(skillId));
+  const idx = children.findIndex((childSkillId) => childSkillId.eq(skillId));
+  return bigNumberify(idx);
 };
 
 export const getPermissionProofs = async (
@@ -206,7 +208,7 @@ export const getPermissionProofs = async (
   role: ColonyRole,
   customAddress?: string,
   /* [permissionDomainId, childSkillIndex] */
-): Promise<[BigNumberish, BigNumberish]> => {
+): Promise<[BigNumber, BigNumber]> => {
   const walletAddress = customAddress || (await contract.signer.getAddress());
   const hasPermissionInDomain = await contract.hasUserRole(
     walletAddress,
@@ -214,10 +216,10 @@ export const getPermissionProofs = async (
     role,
   );
   if (hasPermissionInDomain) {
-    return [domainId, MaxUint256];
+    return [bigNumberify(domainId), MaxUint256];
   }
   // @TODO once we allow nested domains on the network level, this needs to traverse down the skill/domain tree. Use binary search
-  const foundDomainId = ROOT_DOMAIN_ID;
+  const foundDomainId = bigNumberify(ROOT_DOMAIN_ID);
   const hasPermissionInAParentDomain = await contract.hasUserRole(
     walletAddress,
     foundDomainId,
@@ -229,7 +231,7 @@ export const getPermissionProofs = async (
     );
   }
   const idx = await getChildIndex(contract, foundDomainId, domainId);
-  if (idx < 0) {
+  if (idx.lt(0)) {
     throw new Error(
       `User does not have the permission ${role} in any parent domain`,
     );
@@ -241,7 +243,8 @@ const getMoveFundsPermissionProofs = async (
   contract: ExtendedIColony,
   fromtPotId: BigNumberish,
   toPotId: BigNumberish,
-): Promise<[BigNumberish, BigNumberish, BigNumberish]> => {
+  /* [fromPermissionDomainId, fromChildSkillIndex, toChildSkillIndex] */
+): Promise<[BigNumber, BigNumber, BigNumber]> => {
   const fromDomainId = await getPotDomain(contract, fromtPotId);
   const toDomainId = await getPotDomain(contract, toPotId);
   const [
@@ -258,7 +261,7 @@ const getMoveFundsPermissionProofs = async (
   // Here's a weird case. We have found permissions for these domains but they don't share
   // a parent domain with that permission. We can still find a common parent domain that
   // has the funding permission
-  if (fromPermissionDomainId !== toPermissionDomainId) {
+  if (!fromPermissionDomainId.eq(toPermissionDomainId)) {
     const walletAddress = await contract.signer.getAddress();
     const hasFundingInRoot = await contract.hasUserRole(
       walletAddress,
@@ -279,7 +282,7 @@ const getMoveFundsPermissionProofs = async (
         toDomainId,
       );
       // This shouldn't really happen as we have already checked whether the user has funding
-      if (rootFromChildSkillIndex < 0 || rootToChildSkillIndex < 0) {
+      if (rootFromChildSkillIndex.lt(0) || rootToChildSkillIndex.lt(0)) {
         throw new Error(
           `User does not have the funding permission in any parent domain`,
         );
@@ -786,40 +789,36 @@ async function estimateMoveFundsBetweenPotsWithProofs(
   );
 }
 
-async function getReputation (
-    this: ExtendedIColony,
-    skillId: BigNumberish,
-    address: string,
-  ): Promise<ReputationOracleResponse> {
-    if (!isAddress(address)) {
-      throw new Error('Please provide a valid address');
-    }
+async function getReputation(
+  this: ExtendedIColony,
+  skillId: BigNumberish,
+  address: string,
+): Promise<ReputationOracleResponse> {
+  if (!isAddress(address)) {
+    throw new Error('Please provide a valid address');
+  }
 
-    const { network, reputationOracleEndpoint } = this.networkClient;
+  const { network, reputationOracleEndpoint } = this.networkClient;
 
-    if (network !== Network.Mainnet && network !== Network.Goerli) {
-      throw new Error('This method is only supported on mainnet and goerli');
-    }
+  if (network !== Network.Mainnet && network !== Network.Goerli) {
+    throw new Error('This method is only supported on mainnet and goerli');
+  }
 
-    const skillIdString = bigNumberify(skillId).toString();
+  const skillIdString = bigNumberify(skillId).toString();
 
-    const rootHash = await this.networkClient.getReputationRootHash();
+  const rootHash = await this.networkClient.getReputationRootHash();
 
-    const response = await fetch(
-      `${reputationOracleEndpoint}/${network}/${rootHash}/${
-        this.address
-      }/${skillIdString}/${address}`,
-    );
+  const response = await fetch(
+    `${reputationOracleEndpoint}/${network}/${rootHash}/${this.address}/${skillIdString}/${address}`,
+  );
 
-    const result = await response.json();
+  const result = await response.json();
 
-    return {
-      ...result,
-      reputationAmount: bigNumberify(result.reputationAmount || 0),
-    }
-
-    return response.json() as Promise<ReputationOracleResponse>;
+  return {
+    ...result,
+    reputationAmount: bigNumberify(result.reputationAmount || 0),
   };
+}
 
 export const addExtensions = <T extends ExtendedIColony>(
   instance: T,
