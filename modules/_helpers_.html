@@ -95,10 +95,14 @@
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_helpers_.html#getblocktime" class="tsd-kind-icon">get<wbr>Block<wbr>Time</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_helpers_.html#getchildindex" class="tsd-kind-icon">get<wbr>Child<wbr>Index</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_helpers_.html#getcolonyroles" class="tsd-kind-icon">get<wbr>Colony<wbr>Roles</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_helpers_.html#getevents" class="tsd-kind-icon">get<wbr>Events</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_helpers_.html#getlogs" class="tsd-kind-icon">get<wbr>Logs</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_helpers_.html#getmovefundspermissionproofs" class="tsd-kind-icon">get<wbr>Move<wbr>Funds<wbr>Permission<wbr>Proofs</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_helpers_.html#getmultipleevents" class="tsd-kind-icon">get<wbr>Multiple<wbr>Events</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_helpers_.html#getpermissionproofs" class="tsd-kind-icon">get<wbr>Permission<wbr>Proofs</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_helpers_.html#getpotdomain" class="tsd-kind-icon">get<wbr>Pot<wbr>Domain</a></li>
 							</ul>
 						</section>
 					</div>
@@ -112,7 +116,7 @@
 					<div class="tsd-signature tsd-kind-icon">Topics<wbr>Array<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/3be6838/src/helpers.ts#L40">src/helpers.ts:40</a></li>
+							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/38c0603/src/helpers.ts#L47">src/helpers.ts:47</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -125,7 +129,7 @@
 					<div class="tsd-signature tsd-kind-icon">ROOT_<wbr>DOMAIN<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = ROOT_DOMAIN_ID.toString()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/3be6838/src/helpers.ts#L42">src/helpers.ts:42</a></li>
+							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/38c0603/src/helpers.ts#L49">src/helpers.ts:49</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -142,19 +146,93 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/3be6838/src/helpers.ts#L44">src/helpers.ts:44</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/38c0603/src/helpers.ts#L59">src/helpers.ts:59</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the JavaScript timestamp for a block</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>provider: <span class="tsd-signature-type">Provider</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>ethers compatible Provider</p>
+										</div>
+									</div>
 								</li>
 								<li>
 									<h5>blockHash: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>Hash of block to get time for</p>
+										</div>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>block timestamp in ms</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="getchildindex" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> get<wbr>Child<wbr>Index</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Child<wbr>Index<span class="tsd-signature-symbol">(</span>client<span class="tsd-signature-symbol">: </span><a href="../enums/_constants_.clienttype.html#colonyclient" class="tsd-signature-type">ColonyClient</a>, parentDomainId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BigNumberish</span>, domainId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BigNumberish</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">BigNumber</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/38c0603/src/helpers.ts#L199">src/helpers.ts:199</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the child index for a domain inside its corresponding skills parent children array</p>
+								</div>
+								<p>E.g. (the values <em>will</em> differ for you!):
+									domainId = 1
+									corresponding skillId = 2
+								parent of skillId 2:</p>
+								<pre><code>{
+ <span class="hljs-comment">// ...</span>
+ children: [<span class="hljs-number">2</span>]
+}</code></pre><p>childSkillIndex would be 0 in this case (0-position in children array)</p>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>client: <a href="../enums/_constants_.clienttype.html#colonyclient" class="tsd-signature-type">ColonyClient</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>Any ColonyClient</p>
+										</div>
+									</div>
+								</li>
+								<li>
+									<h5>parentDomainId: <span class="tsd-signature-type">BigNumberish</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>id of parent domain</p>
+										</div>
+									</div>
+								</li>
+								<li>
+									<h5>domainId: <span class="tsd-signature-type">BigNumberish</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>id of the domain</p>
+										</div>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">BigNumber</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>Index in the <code>children</code> array (see above)</p>
 						</li>
 					</ul>
 				</section>
@@ -168,16 +246,35 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/3be6838/src/helpers.ts#L107">src/helpers.ts:107</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/38c0603/src/helpers.ts#L223">src/helpers.ts:223</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get an array of all roles in the colony</p>
+								</div>
+								<p>E.g.:</p>
+								<pre><code class="language-typescript">[{
+ address: <span class="hljs-number">0x5346D0f80e2816FaD329F2c140c870ffc3c3E2Ef</span> <span class="hljs-comment">// user address</span>
+ domains: [{                                         <span class="hljs-comment">// all domains the user has a role in</span>
+   domainId: <span class="hljs-number">1</span>,                                      <span class="hljs-comment">// domainId for the roles</span>
+   roles: [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]                                  <span class="hljs-comment">// Array of `ColonyRole`</span>
+ }]
+}]</code></pre>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>client: <a href="../enums/_constants_.clienttype.html#colonyclient" class="tsd-signature-type">ColonyClient</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>Any ColonyClient</p>
+										</div>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_constants_.html#colonyroles" class="tsd-signature-type">ColonyRoles</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>Array of user roles in a colony (see above)</p>
 						</li>
 					</ul>
 				</section>
@@ -191,22 +288,47 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/3be6838/src/helpers.ts#L68">src/helpers.ts:68</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/38c0603/src/helpers.ts#L113">src/helpers.ts:113</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get parsed event data from filter</p>
+								</div>
+								<p>Example:</p>
+								<pre><code class="language-typescript"><span class="hljs-comment">// Gets the logs for the `ColonyFundsClaimed` event (not filtered)</span>
+<span class="hljs-keyword">const</span> filter = colonyClient.filters.ColonyFundsClaimed(<span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>);
+<span class="hljs-keyword">const</span> events = <span class="hljs-keyword">await</span> getEvents(colonyClient, filter);</code></pre>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>client: <a href="_index_.html#contractclient" class="tsd-signature-type">ContractClient</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>Any of the intantiated contract clients</p>
+										</div>
+									</div>
 								</li>
 								<li>
 									<h5>filter: <span class="tsd-signature-type">Filter</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>ethers compatible Filter object</p>
+										</div>
+									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/_helpers_.logoptions.html" class="tsd-signature-type">LogOptions</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>Configuration options to filter logs</p>
+										</div>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">LogDescription</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>Parsed ethers LogDescription array (events)</p>
 						</li>
 					</ul>
 				</section>
@@ -220,22 +342,115 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/3be6838/src/helpers.ts#L54">src/helpers.ts:54</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/38c0603/src/helpers.ts#L84">src/helpers.ts:84</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get raw (unparsed logs) from filter</p>
+								</div>
+								<p>Example:</p>
+								<pre><code class="language-typescript"><span class="hljs-comment">// Gets the logs for the `ColonyFundsClaimed` event (not filtered)</span>
+<span class="hljs-keyword">const</span> filter = colonyClient.filters.ColonyFundsClaimed(<span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>);
+<span class="hljs-keyword">const</span> logs = <span class="hljs-keyword">await</span> getLogs(colonyClient, filter);</code></pre>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>client: <a href="_index_.html#contractclient" class="tsd-signature-type">ContractClient</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>Any of the intantiated contract clients</p>
+										</div>
+									</div>
 								</li>
 								<li>
 									<h5>filter: <span class="tsd-signature-type">Filter</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>ethers compatible Filter object</p>
+										</div>
+									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> options: <a href="../interfaces/_helpers_.logoptions.html" class="tsd-signature-type">LogOptions</a><span class="tsd-signature-symbol"> = {fromBlock: 1,}</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>Configuration options to filter logs</p>
+										</div>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Log</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>ethers Log array</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="getmovefundspermissionproofs" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> get<wbr>Move<wbr>Funds<wbr>Permission<wbr>Proofs</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Move<wbr>Funds<wbr>Permission<wbr>Proofs<span class="tsd-signature-symbol">(</span>client<span class="tsd-signature-symbol">: </span><a href="../enums/_constants_.clienttype.html#colonyclient" class="tsd-signature-type">ColonyClient</a>, fromtPotId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BigNumberish</span>, toPotId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BigNumberish</span>, customAddress<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">BigNumber</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">BigNumber</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">BigNumber</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/38c0603/src/helpers.ts#L359">src/helpers.ts:359</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the permission proofs for a user address and the <code>moveFundsBetweenPots</code> method</p>
+								</div>
+								<p>The <a href="../interfaces/_clients_colony_colonyclientv1_.colonyclientv1.html#movefundsbetweenpots-1"><code>ColonyClientV1.moveFundsBetweenPots</code></a> method is a special case as it requires the permission proofs for
+									not only one but two domains (source and target domain pots). This helper will call the <a href="_helpers_.html#getpermissionproofs"><code>getPermissionProofs</code></a>
+								helper internally and apply the correct roles required.</p>
+								<dl class="tsd-comment-tags">
+									<dt>remarks</dt>
+									<dd><p>It is required for the <code>moveFundsBetweenPots</code> method to work that both the source and the target domain
+											have the same parent domain which provides the role permissions (<code>Funding</code> role). That&#39;s why we&#39;re only returning one
+										<code>permissionDomainId</code>.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>client: <a href="../enums/_constants_.clienttype.html#colonyclient" class="tsd-signature-type">ColonyClient</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>Any ColonyClient</p>
+										</div>
+									</div>
+								</li>
+								<li>
+									<h5>fromtPotId: <span class="tsd-signature-type">BigNumberish</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>Source pot id</p>
+										</div>
+									</div>
+								</li>
+								<li>
+									<h5>toPotId: <span class="tsd-signature-type">BigNumberish</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>Target pot id</p>
+										</div>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> customAddress: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>A custom address to get the permission proofs for (defaults to the signer&#39;s address)</p>
+										</div>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">BigNumber</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">BigNumber</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">BigNumber</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>Tuple of <code>[permissionDomainId, fromChildSkillIndex, toChildSkillIndex]</code></p>
 						</li>
 					</ul>
 				</section>
@@ -249,22 +464,164 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/3be6838/src/helpers.ts#L78">src/helpers.ts:78</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/38c0603/src/helpers.ts#L133">src/helpers.ts:133</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get multiple events from multiple filters</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>remarks</dt>
+									<dd><p>only works when all events are emitted by the same contract!</p>
+									</dd>
+								</dl>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>client: <a href="_index_.html#contractclient" class="tsd-signature-type">ContractClient</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>Any of the intantiated contract clients</p>
+										</div>
+									</div>
 								</li>
 								<li>
 									<h5>filters: <span class="tsd-signature-type">EventFilter</span><span class="tsd-signature-symbol">[]</span></h5>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/_helpers_.logoptions.html" class="tsd-signature-type">LogOptions</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>Configuration options to filter logs</p>
+										</div>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">LogDescription</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>Parsed ethers LogDescription array (events)</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="getpermissionproofs" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> get<wbr>Permission<wbr>Proofs</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Permission<wbr>Proofs<span class="tsd-signature-symbol">(</span>client<span class="tsd-signature-symbol">: </span><a href="../enums/_constants_.clienttype.html#colonyclient" class="tsd-signature-type">ColonyClient</a>, domainId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BigNumberish</span>, role<span class="tsd-signature-symbol">: </span><a href="../enums/_constants_.colonyrole.html" class="tsd-signature-type">ColonyRole</a>, customAddress<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">BigNumber</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">BigNumber</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/38c0603/src/helpers.ts#L333">src/helpers.ts:333</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the permission proofs for a user address and a certain role</p>
+								</div>
+								<p>Certain methods on Colony contracts require so called &quot;permission proofs&quot;. These are made up by
+								the <code>permissionDomainId</code> and the <code>childSkillIndex</code>. We shall attempt an explanation here.</p>
+								<p>Domains within a colony can be nested and all the permissions in a parent domain apply for all child domains.
+									Yet at the time of calling a domain-permissioned method the contracts are unaware of the parent domain
+									a certain user has the required permission in. So when we these methods are called we have to supply them
+									the id of the parent domain the user has the permission in (it could also be the very same domain id they
+									want to act in!). Furthermore for the contracts the unidirectional chain downwards we have to supply
+									the method wuth the index of the domains associated skill in its parents children array
+									(<code>childSkillIndex</code>, see <a href="_helpers_.html#getchildindex"><code>getChildIndex</code></a>).
+								The contracts are then able to verify the permissions (the role) claimed by the caller.</p>
+								<p>tl;dr:</p>
+								<ul>
+									<li><code>permissionDomainId</code>: id of the parent domain of the required domain the user has the required permission in</li>
+									<li><code>childSkillIndex</code>: the child index for a domain inside its corresponding skills parent children array</li>
+								</ul>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>client: <a href="../enums/_constants_.clienttype.html#colonyclient" class="tsd-signature-type">ColonyClient</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>Any ColonyClient</p>
+										</div>
+									</div>
+								</li>
+								<li>
+									<h5>domainId: <span class="tsd-signature-type">BigNumberish</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>Domain id the method needs to act in</p>
+										</div>
+									</div>
+								</li>
+								<li>
+									<h5>role: <a href="../enums/_constants_.colonyrole.html" class="tsd-signature-type">ColonyRole</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>Permissioning role that the methods needs to function</p>
+										</div>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> customAddress: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>A custom address to get the permission proofs for (defaults to the signer&#39;s address)</p>
+										</div>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">BigNumber</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">BigNumber</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>Tuple of <code>[permissionDomainId, childSkillIndex]</code></p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="getpotdomain" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> get<wbr>Pot<wbr>Domain</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Pot<wbr>Domain<span class="tsd-signature-symbol">(</span>client<span class="tsd-signature-symbol">: </span><a href="../enums/_constants_.clienttype.html#colonyclient" class="tsd-signature-type">ColonyClient</a>, potId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BigNumberish</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">BigNumberish</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/38c0603/src/helpers.ts#L173">src/helpers.ts:173</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the associated domain for a pot id</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>remarks</dt>
+									<dd><p>pots can be associated with different types, like domains, payments or tasks
+										See <a href="../enums/_constants_.fundingpotassociatedtype.html"><code>FundingPotAssociatedType</code></a> for details</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>client: <a href="../enums/_constants_.clienttype.html#colonyclient" class="tsd-signature-type">ColonyClient</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>Any ColonyClient</p>
+										</div>
+									</div>
+								</li>
+								<li>
+									<h5>potId: <span class="tsd-signature-type">BigNumberish</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>The funding pot id</p>
+										</div>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">BigNumberish</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>The associated domainId</p>
 						</li>
 					</ul>
 				</section>
@@ -305,6 +662,9 @@
 						<a href="_helpers_.html#getblocktime" class="tsd-kind-icon">get<wbr>Block<wbr>Time</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_helpers_.html#getchildindex" class="tsd-kind-icon">get<wbr>Child<wbr>Index</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="_helpers_.html#getcolonyroles" class="tsd-kind-icon">get<wbr>Colony<wbr>Roles</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
@@ -314,7 +674,16 @@
 						<a href="_helpers_.html#getlogs" class="tsd-kind-icon">get<wbr>Logs</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_helpers_.html#getmovefundspermissionproofs" class="tsd-kind-icon">get<wbr>Move<wbr>Funds<wbr>Permission<wbr>Proofs</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="_helpers_.html#getmultipleevents" class="tsd-kind-icon">get<wbr>Multiple<wbr>Events</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_helpers_.html#getpermissionproofs" class="tsd-kind-icon">get<wbr>Permission<wbr>Proofs</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_helpers_.html#getpotdomain" class="tsd-kind-icon">get<wbr>Pot<wbr>Domain</a>
 					</li>
 				</ul>
 			</nav>
