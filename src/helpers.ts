@@ -1,6 +1,6 @@
 import { EventFilter } from 'ethers';
 import { Filter, Log, Provider } from 'ethers/providers';
-import { BigNumber, LogDescription } from 'ethers/utils';
+import { BigNumber, BigNumberish, LogDescription } from 'ethers/utils';
 
 import {
   ColonyClient,
@@ -10,6 +10,13 @@ import {
   ContractClient,
   ROOT_DOMAIN_ID,
 } from './index';
+
+import {
+  getChildIndex as exGetChildIndex,
+  getPotDomain as exGetPotDomain,
+  getPermissionProofs as exGetPermissionProofs,
+  getMoveFundsPermissionProofs as exGetMoveFundsPermissionProofs,
+} from './clients/Colony/extensions/commonExtensions';
 
 interface ColonyRolesMap {
   [userAddress: string]: {
@@ -41,6 +48,14 @@ type TopicsArray = string[][];
 
 const ROOT_DOMAIN = ROOT_DOMAIN_ID.toString();
 
+/**
+ * Get the JavaScript timestamp for a block
+ *
+ * @param provider ethers compatible Provider
+ * @param blockHash Hash of block to get time for
+ *
+ * @returns block timestamp in ms
+ */
 export const getBlockTime = async (
   provider: Provider,
   blockHash: string,
@@ -50,7 +65,22 @@ export const getBlockTime = async (
   return timestamp * 1000;
 };
 
-/* Get raw (unparsed logs) from filter */
+/**
+ * Get raw (unparsed logs) from filter
+ *
+ * Example:
+ * ```typescript
+ * // Gets the logs for the `ColonyFundsClaimed` event (not filtered)
+ * const filter = colonyClient.filters.ColonyFundsClaimed(null, null, null);
+ * const logs = await getLogs(colonyClient, filter);
+ * ```
+ *
+ * @param client Any of the intantiated contract clients
+ * @param filter ethers compatible Filter object
+ * @param options Configuration options to filter logs
+ *
+ * @returns ethers Log array
+ */
 export const getLogs = async (
   client: ContractClient,
   filter: Filter,
@@ -64,7 +94,22 @@ export const getLogs = async (
     ...options,
   });
 
-/* Get parsed event data from filter */
+/**
+ * Get parsed event data from filter
+ *
+ * Example:
+ * ```typescript
+ * // Gets the logs for the `ColonyFundsClaimed` event (not filtered)
+ * const filter = colonyClient.filters.ColonyFundsClaimed(null, null, null);
+ * const events = await getEvents(colonyClient, filter);
+ * ```
+ *
+ * @param client Any of the intantiated contract clients
+ * @param filter ethers compatible Filter object
+ * @param options Configuration options to filter logs
+ *
+ * @returns Parsed ethers LogDescription array (events)
+ */
 export const getEvents = async (
   client: ContractClient,
   filter: Filter,
@@ -74,7 +119,17 @@ export const getEvents = async (
   return logs.map((log: Log) => client.interface.parseLog(log));
 };
 
-/* Get multiple events from multiple filters (only works for the same contract!) */
+/**
+ * Get multiple events from multiple filters
+ *
+ * @remarks only works when all events are emitted by the same contract!
+ *
+ * @param client Any of the intantiated contract clients
+ * @param filter Array of ethers compatible Filter objects
+ * @param options Configuration options to filter logs
+ *
+ * @returns Parsed ethers LogDescription array (events)
+ */
 export const getMultipleEvents = async (
   client: ContractClient,
   filters: EventFilter[],
@@ -104,6 +159,67 @@ export const getMultipleEvents = async (
   return getEvents(client, filter, options);
 };
 
+/**
+ * Get the associated domain for a pot id
+ *
+ * @remarks pots can be associated with different types, like domains, payments or tasks
+ * See [[`FundingPotAssociatedType`]] for details
+ *
+ * @param client Any ColonyClient
+ * @param potId The funding pot id
+ *
+ * @returns The associated domainId
+ */
+export const getPotDomain = async (
+  client: ColonyClient,
+  potId: BigNumberish,
+): Promise<BigNumberish> => exGetPotDomain(client, potId);
+
+/**
+ * Get the child index for a domain inside its corresponding skills parent children array
+ *
+ * E.g. (the values *will* differ for you!):
+ * domainId = 1
+ * corresponding skillId = 2
+ * parent of skillId 2:
+ * ```
+ * {
+ *  // ...
+ *  children: [2]
+ * }
+ * ```
+ * childSkillIndex would be 0 in this case (0-position in children array)
+ *
+ * @param client Any ColonyClient
+ * @param parentDomainId id of parent domain
+ * @param domainId id of the domain
+ *
+ * @returns Index in the `children` array (see above)
+ */
+export const getChildIndex = async (
+  client: ColonyClient,
+  parentDomainId: BigNumberish,
+  domainId: BigNumberish,
+): Promise<BigNumber> => exGetChildIndex(client, parentDomainId, domainId);
+
+/**
+ * Get an array of all roles in the colony
+ *
+ * E.g.:
+ * ```typescript
+ * [{
+ *  address: 0x5346D0f80e2816FaD329F2c140c870ffc3c3E2Ef // user address
+ *  domains: [{                                         // all domains the user has a role in
+ *    domainId: 1,                                      // domainId for the roles
+ *    roles: [1, 2, 3]                                  // Array of `ColonyRole`
+ *  }]
+ * }]
+ * ```
+ *
+ * @param client Any ColonyClient
+ *
+ * @returns Array of user roles in a colony (see above)
+ */
 export const getColonyRoles = async (
   client: ColonyClient,
 ): Promise<ColonyRoles> => {
@@ -186,3 +302,64 @@ export const getColonyRoles = async (
     };
   });
 };
+
+/**
+ * Get the permission proofs for a user address and a certain role
+ *
+ * Certain methods on Colony contracts require so called "permission proofs". These are made up by
+ * the `permissionDomainId` and the `childSkillIndex`. We shall attempt an explanation here.
+ *
+ * Domains within a colony can be nested and all the permissions in a parent domain apply for all child domains.
+ * Yet at the time of calling a domain-permissioned method the contracts are unaware of the parent domain
+ * a certain user has the required permission in. So when we these methods are called we have to supply them
+ * the id of the parent domain the user has the permission in (it could also be the very same domain id they
+ * want to act in!). Furthermore for the contracts the unidirectional chain downwards we have to supply
+ * the method wuth the index of the domains associated skill in its parents children array
+ * (`childSkillIndex`, see [[`getChildIndex`]]).
+ * The contracts are then able to verify the permissions (the role) claimed by the caller.
+ *
+ * tl;dr:
+ *
+ * * `permissionDomainId`: id of the parent domain of the required domain the user has the required permission in
+ * * `childSkillIndex`: the child index for a domain inside its corresponding skills parent children array
+ *
+ * @param client Any ColonyClient
+ * @param domainId Domain id the method needs to act in
+ * @param role Permissioning role that the methods needs to function
+ * @param customAddress A custom address to get the permission proofs for (defaults to the signer's address)
+ *
+ * @returns Tuple of `[permissionDomainId, childSkillIndex]`
+ */
+export const getPermissionProofs = async (
+  client: ColonyClient,
+  domainId: BigNumberish,
+  role: ColonyRole,
+  customAddress?: string,
+): Promise<[BigNumber, BigNumber]> =>
+  exGetPermissionProofs(client, domainId, role, customAddress);
+
+/**
+ * Get the permission proofs for a user address and the `moveFundsBetweenPots` method
+ *
+ * The [[`ColonyClientV1.moveFundsBetweenPots`]] method is a special case as it requires the permission proofs for
+ * not only one but two domains (source and target domain pots). This helper will call the [[`getPermissionProofs`]]
+ * helper internally and apply the correct roles required.
+ *
+ * @remarks It is required for the `moveFundsBetweenPots` method to work that both the source and the target domain
+ * have the same parent domain which provides the role permissions (`Funding` role). That's why we're only returning one
+ * `permissionDomainId`.
+ *
+ * @param client Any ColonyClient
+ * @param fromtPotId Source pot id
+ * @param toPotId Target pot id
+ * @param customAddress A custom address to get the permission proofs for (defaults to the signer's address)
+ *
+ * @returns Tuple of `[permissionDomainId, fromChildSkillIndex, toChildSkillIndex]`
+ */
+export const getMoveFundsPermissionProofs = async (
+  client: ColonyClient,
+  fromtPotId: BigNumberish,
+  toPotId: BigNumberish,
+  customAddress?: string,
+): Promise<[BigNumber, BigNumber, BigNumber]> =>
+  exGetMoveFundsPermissionProofs(client, fromtPotId, toPotId, customAddress);
