@@ -239,30 +239,37 @@ export const getPermissionProofs = async (
   return [foundDomainId, idx];
 };
 
-const getMoveFundsPermissionProofs = async (
+export const getMoveFundsPermissionProofs = async (
   contract: ExtendedIColony,
   fromtPotId: BigNumberish,
   toPotId: BigNumberish,
+  customAddress?: string,
   /* [fromPermissionDomainId, fromChildSkillIndex, toChildSkillIndex] */
 ): Promise<[BigNumber, BigNumber, BigNumber]> => {
+  const walletAddress = customAddress || (await contract.signer.getAddress());
   const fromDomainId = await getPotDomain(contract, fromtPotId);
   const toDomainId = await getPotDomain(contract, toPotId);
   const [
     fromPermissionDomainId,
     fromChildSkillIndex,
-  ] = await getPermissionProofs(contract, fromDomainId, ColonyRole.Funding);
+  ] = await getPermissionProofs(
+    contract,
+    fromDomainId,
+    ColonyRole.Funding,
+    walletAddress,
+  );
   // @TODO: once getPermissionProofs is more expensive we can just check the domain here
   // with userHasRole and then immediately get the permission proofs
   const [toPermissionDomainId, toChildSkillIndex] = await getPermissionProofs(
     contract,
     toDomainId,
     ColonyRole.Funding,
+    walletAddress,
   );
   // Here's a weird case. We have found permissions for these domains but they don't share
   // a parent domain with that permission. We can still find a common parent domain that
   // has the funding permission
   if (!fromPermissionDomainId.eq(toPermissionDomainId)) {
-    const walletAddress = await contract.signer.getAddress();
     const hasFundingInRoot = await contract.hasUserRole(
       walletAddress,
       ROOT_DOMAIN_ID,
