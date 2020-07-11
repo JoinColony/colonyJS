@@ -158,6 +158,7 @@ export type ExtendedIColony<T extends AnyIColony = AnyIColony> = T & {
   getReputation(
     skillId: BigNumberish,
     address: string,
+    customRootHash?: string,
   ): Promise<ReputationOracleResponse>;
 };
 
@@ -800,6 +801,7 @@ async function getReputation(
   this: ExtendedIColony,
   skillId: BigNumberish,
   address: string,
+  customRootHash?: string,
 ): Promise<ReputationOracleResponse> {
   if (!isAddress(address)) {
     throw new Error('Please provide a valid address');
@@ -813,7 +815,8 @@ async function getReputation(
 
   const skillIdString = bigNumberify(skillId).toString();
 
-  const rootHash = await this.networkClient.getReputationRootHash();
+  const rootHash =
+    customRootHash || (await this.networkClient.getReputationRootHash());
 
   const response = await fetch(
     `${reputationOracleEndpoint}/${network}/${rootHash}/${this.address}/${skillIdString}/${address}`,
