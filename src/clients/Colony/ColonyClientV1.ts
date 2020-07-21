@@ -4,7 +4,7 @@ import { Provider } from 'ethers/providers';
 import { IColonyFactory } from '../../contracts/1/IColonyFactory';
 import { IColony } from '../../contracts/1/IColony';
 import { ColonyVersion } from '../../constants';
-import { ExtendedIColonyNetwork } from '../ColonyNetworkClient';
+import { ColonyNetworkClient } from '../ColonyNetworkClient';
 import { addExtensions, ExtendedIColony } from './extensions/commonExtensions';
 import {
   SetPaymentDomainExtensions,
@@ -21,7 +21,7 @@ export interface ColonyClientV1
 }
 
 export default function getColonyClient(
-  this: ExtendedIColonyNetwork,
+  this: ColonyNetworkClient,
   address: string,
   signerOrProvider: Signer | Provider,
 ): ColonyClientV1 {

@@ -5,7 +5,7 @@ import { TransactionOverrides } from '../../../contracts/3';
 import { IColony as IColonyV3 } from '../../../contracts/3/IColony';
 import { IColony as IColonyV4 } from '../../../contracts/4/IColony';
 import { ColonyRole } from '../../../constants';
-import { ExtendedIColonyNetwork } from '../../ColonyNetworkClient';
+import { ColonyNetworkClient } from '../../ColonyNetworkClient';
 import {
   addExtensions as addCommonExtensions,
   ExtendedIColony,
@@ -83,7 +83,7 @@ async function estimateSetArbitrationRoleWithProofs(
 
 export const addExtensions = (
   instance: ExtendedIColony<ValidColony>,
-  networkClient: ExtendedIColonyNetwork,
+  networkClient: ColonyNetworkClient,
 ): ExtendedIColony<ValidColony> & ColonyExtensionsV3<ValidColony> => {
   const extendedInstance = addCommonExtensions(
     instance,

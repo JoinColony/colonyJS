@@ -26,7 +26,8 @@ interface ExtendedEstimate extends TokenEstimate {
   ): Promise<BigNumber>;
 }
 
-export interface ExtendedToken extends Token {
+/** The TokenClient is a good client that does awesome things */
+export interface TokenClient extends Token {
   clientType: ClientType.TokenClient;
   estimate: ExtendedEstimate;
 
@@ -41,11 +42,11 @@ export interface ExtendedToken extends Token {
 const getTokenClient = (
   address: string,
   signerOrProvider: Signer | Provider,
-): ExtendedToken => {
+): TokenClient => {
   const tokenClient = TokenFactory.connect(
     address,
     signerOrProvider,
-  ) as ExtendedToken;
+  ) as TokenClient;
 
   tokenClient.clientType = ClientType.TokenClient;
 

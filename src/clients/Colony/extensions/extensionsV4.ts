@@ -4,7 +4,7 @@ import { BigNumber, BigNumberish } from 'ethers/utils';
 import { TransactionOverrides } from '../../../contracts/3';
 import { IColony as IColonyV4 } from '../../../contracts/4/IColony';
 import { ColonyRole } from '../../../constants';
-import { ExtendedIColonyNetwork } from '../../ColonyNetworkClient';
+import { ColonyNetworkClient } from '../../ColonyNetworkClient';
 import { getPermissionProofs, ExtendedIColony } from './commonExtensions';
 import {
   addExtensions as addExtensionsV3,
@@ -247,7 +247,7 @@ async function estimateTransferExpenditureViaArbitrationWithProofs(
 
 export const addExtensions = (
   instance: ExtendedIColony<ValidColony>,
-  networkClient: ExtendedIColonyNetwork,
+  networkClient: ColonyNetworkClient,
 ): ExtendedIColony<ValidColony> &
   ColonyExtensionsV3<ValidColony> &
   ColonyExtensionsV4<ValidColony> => {

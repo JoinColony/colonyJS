@@ -9,15 +9,15 @@ import {
 import { OneTxPaymentDeployerFactory } from '../contracts/1/OneTxPaymentDeployerFactory';
 import { OneTxPaymentDeployer } from '../contracts/1/OneTxPaymentDeployer';
 
-export interface ExtendedOneTxPaymentDeployer extends OneTxPaymentDeployer {
+export interface OneTxPaymentFactoryClient extends OneTxPaymentDeployer {
   clientType: ClientType.OneTxPaymentClient;
 }
 
-const getOneTxPaymentDeployerClient = (
+const getOneTxPaymentFactoryClient = (
   network: Network,
   signerOrProvider: Signer | Provider,
   address?: string,
-): ExtendedOneTxPaymentDeployer => {
+): OneTxPaymentFactoryClient => {
   const oneTxPaymentFactoryAddress =
     address || oneTxPaymentFactoryAddresses[network];
 
@@ -30,11 +30,11 @@ const getOneTxPaymentDeployerClient = (
   const oneTxPaymentClient = OneTxPaymentDeployerFactory.connect(
     oneTxPaymentFactoryAddress,
     signerOrProvider,
-  ) as ExtendedOneTxPaymentDeployer;
+  ) as OneTxPaymentFactoryClient;
 
   oneTxPaymentClient.clientType = ClientType.OneTxPaymentClient;
 
   return oneTxPaymentClient;
 };
 
-export default getOneTxPaymentDeployerClient;
+export default getOneTxPaymentFactoryClient;
