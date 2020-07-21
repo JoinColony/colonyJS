@@ -5,18 +5,18 @@ import { ClientType } from '../constants';
 import { TokenLockingFactory } from '../contracts/4/TokenLockingFactory';
 import { TokenLocking } from '../contracts/4/TokenLocking';
 
-export interface ExtendedTokenLocking extends TokenLocking {
+export interface TokenLockingClient extends TokenLocking {
   clientType: ClientType.TokenLockingClient;
 }
 
 const getTokenLockingClient = (
   address: string,
   signerOrProvider: Signer | Provider,
-): ExtendedTokenLocking => {
+): TokenLockingClient => {
   const tokenLockingClient = TokenLockingFactory.connect(
     address,
     signerOrProvider,
-  ) as ExtendedTokenLocking;
+  ) as TokenLockingClient;
 
   tokenLockingClient.clientType = ClientType.TokenLockingClient;
 

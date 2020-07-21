@@ -2,6 +2,8 @@ import { ContractFactory, ContractTransaction, Signer } from 'ethers';
 import { Provider } from 'ethers/providers';
 import { BigNumber } from 'ethers/utils';
 
+import { ColonyClient } from '../index';
+
 import {
   ColonyVersion,
   ClientType,
@@ -17,24 +19,18 @@ import {
   bytecode as tokenBytecode,
 } from '../contracts/deploy/Token.json';
 import getColonyVersionClient from './Colony/ColonyVersionClient';
-import getColonyClientV1, { ColonyClientV1 } from './Colony/ColonyClientV1';
-import getColonyClientV2, { ColonyClientV2 } from './Colony/ColonyClientV2';
-import getColonyClientV3, { ColonyClientV3 } from './Colony/ColonyClientV3';
-import getColonyClientV4, { ColonyClientV4 } from './Colony/ColonyClientV4';
+import getColonyClientV1 from './Colony/ColonyClientV1';
+import getColonyClientV2 from './Colony/ColonyClientV2';
+import getColonyClientV3 from './Colony/ColonyClientV3';
+import getColonyClientV4 from './Colony/ColonyClientV4';
 import getTokenClient from './TokenClient';
 import getTokenLockingClient, {
-  ExtendedTokenLocking,
+  TokenLockingClient,
 } from './TokenLockingClient';
-import getOneTxPaymentDeployerClient, {
-  ExtendedOneTxPaymentDeployer,
+import getOneTxPaymentFactoryClient, {
+  OneTxPaymentFactoryClient,
 } from './OneTxPaymentDeployerClient';
 import getOneTxPaymentClient from './OneTxPaymentClient';
-
-export type AnyColonyClient =
-  | ColonyClientV1
-  | ColonyClientV2
-  | ColonyClientV3
-  | ColonyClientV4;
 
 type NetworkEstimate = IColonyNetwork['estimate'];
 
@@ -46,12 +42,12 @@ interface ExtendedEstimate extends NetworkEstimate {
   ): Promise<BigNumber>;
 }
 
-export interface ExtendedIColonyNetwork extends IColonyNetwork {
+export interface ColonyNetworkClient extends IColonyNetwork {
   clientType: ClientType.NetworkClient;
   network: Network;
   reputationOracleEndpoint: string;
 
-  oneTxPaymentFactoryClient: ExtendedOneTxPaymentDeployer;
+  oneTxPaymentFactoryClient: OneTxPaymentFactoryClient;
   estimate: ExtendedEstimate;
 
   /**
@@ -61,13 +57,13 @@ export interface ExtendedIColonyNetwork extends IColonyNetwork {
    *
    * @returns The corresponding initialized ColonyClient instance
    */
-  getColonyClient(addressOrId: string | number): Promise<AnyColonyClient>;
+  getColonyClient(addressOrId: string | number): Promise<ColonyClient>;
   /**
    * Get the initialized MetaColony client
    *
    * @returns a ColonyClient instance of the MetaColony (id: 1)
    */
-  getMetaColonyClient(): Promise<AnyColonyClient>;
+  getMetaColonyClient(): Promise<ColonyClient>;
   /**
    * Deploy an ERC20 token contract, compatible with Colony
    *
@@ -90,7 +86,7 @@ export interface ExtendedIColonyNetwork extends IColonyNetwork {
    *
    * @returns an initialized version of the TokenLockingClient
    */
-  getTokenLockingClient(): Promise<ExtendedTokenLocking>;
+  getTokenLockingClient(): Promise<TokenLockingClient>;
   /**
    * Like [[`lookupRegisteredENSDomain`]], but also working on the Goerli testnet
    *
@@ -116,7 +112,7 @@ const getColonyNetworkClient = (
   network: Network = Network.Mainnet,
   signerOrProvider: Signer | Provider,
   options?: NetworkClientOptions,
-): ExtendedIColonyNetwork => {
+): ColonyNetworkClient => {
   const networkAddress =
     options && options.networkAddress
       ? options.networkAddress
@@ -130,7 +126,7 @@ const getColonyNetworkClient = (
   const networkClient = IColonyNetworkFactory.connect(
     networkAddress,
     signerOrProvider,
-  ) as ExtendedIColonyNetwork;
+  ) as ColonyNetworkClient;
 
   networkClient.clientType = ClientType.NetworkClient;
   networkClient.network = network;
@@ -138,14 +134,14 @@ const getColonyNetworkClient = (
     (options && options.reputationOracleEndpoint) || REPUTATION_ORACLE_ENDPOINT;
 
   // @TODO move to getter function `getOneTxPaymentFactorylient` as we do with all the others
-  networkClient.oneTxPaymentFactoryClient = getOneTxPaymentDeployerClient(
+  networkClient.oneTxPaymentFactoryClient = getOneTxPaymentFactoryClient(
     network,
     signerOrProvider,
     options && options.oneTxPaymentFactoryAddress,
   );
 
   networkClient.getTokenLockingClient = async (): Promise<
-    ExtendedTokenLocking
+    TokenLockingClient
   > => {
     const tokenLockingAddress = await networkClient.getTokenLocking();
     return getTokenLockingClient(tokenLockingAddress, signerOrProvider);
@@ -153,14 +149,14 @@ const getColonyNetworkClient = (
 
   networkClient.getColonyClient = async (
     addressOrId: string | number,
-  ): Promise<AnyColonyClient> => {
+  ): Promise<ColonyClient> => {
     let colonyAddress: string;
     if (typeof addressOrId == 'number') {
       colonyAddress = await networkClient.getColony(addressOrId);
     } else {
       colonyAddress = addressOrId;
     }
-    const colonyVersionClient = await getColonyVersionClient(
+    const colonyVersionClient = getColonyVersionClient(
       colonyAddress,
       signerOrProvider,
     );
@@ -223,7 +219,7 @@ const getColonyNetworkClient = (
     return colonyClient;
   };
 
-  networkClient.getMetaColonyClient = async (): Promise<AnyColonyClient> => {
+  networkClient.getMetaColonyClient = async (): Promise<ColonyClient> => {
     const metaColonyAddress = await networkClient.getMetaColony();
     return networkClient.getColonyClient(metaColonyAddress);
   };

@@ -17,9 +17,9 @@ import { IColony as IColonyV4 } from '../../../contracts/4/IColony';
 import { TransactionOverrides } from '../../../contracts/1';
 import { IColonyFactory } from '../../../contracts/4/IColonyFactory';
 
-import { ExtendedIColonyNetwork } from '../../ColonyNetworkClient';
-import { ExtendedToken } from '../../TokenClient';
-import { ExtendedOneTxPayment } from '../../OneTxPaymentClient';
+import { ColonyNetworkClient } from '../../ColonyNetworkClient';
+import { TokenClient } from '../../TokenClient';
+import { OneTxPaymentClient } from '../../OneTxPaymentClient';
 import type { ReputationOracleResponse } from '../types';
 
 type AnyIColony = IColonyV1 | IColonyV2 | IColonyV3 | IColonyV4;
@@ -83,9 +83,9 @@ export type ExtendedEstimate<
 
 export type ExtendedIColony<T extends AnyIColony = AnyIColony> = T & {
   clientType: ClientType.ColonyClient;
-  networkClient: ExtendedIColonyNetwork;
-  oneTxPaymentClient: ExtendedOneTxPayment;
-  tokenClient: ExtendedToken;
+  networkClient: ColonyNetworkClient;
+  oneTxPaymentClient: OneTxPaymentClient;
+  tokenClient: TokenClient;
 
   awkwardRecoveryRoleEventClient: IColonyV4;
 
@@ -829,7 +829,7 @@ async function getReputation(
 
 export const addExtensions = <T extends ExtendedIColony>(
   instance: T,
-  networkClient: ExtendedIColonyNetwork,
+  networkClient: ColonyNetworkClient,
 ): T => {
   /* eslint-disable no-param-reassign, max-len */
   instance.clientType = ClientType.ColonyClient;

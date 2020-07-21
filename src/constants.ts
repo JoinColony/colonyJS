@@ -1,9 +1,9 @@
 // Versions of colonyNetwork
 export enum ColonyVersion {
   GoerliGlider = 1, // glider-rc.1
-  Glider,
-  AuburnGlider,
-  BurgundyGlider,
+  Glider = 2,
+  AuburnGlider = 3,
+  BurgundyGlider = 4,
 }
 
 export const CurrentVersion = ColonyVersion.BurgundyGlider;
@@ -15,24 +15,24 @@ export enum Network {
 }
 
 export enum ColonyRole {
-  Recovery, // 0
-  Root, // 1
-  Arbitration, // 2
-  Architecture, // 3
+  Recovery = 0,
+  Root = 1,
+  Arbitration = 2,
+  Architecture = 3,
   // eslint-disable-next-line @typescript-eslint/camelcase
-  ArchitectureSubdomain_DEPRECATED, // 4
-  Funding, // 5
-  Administration, // 6
+  ArchitectureSubdomain_DEPRECATED = 4,
+  Funding = 5,
+  Administration = 6,
 }
 
-export interface DomainRoles {
+export type DomainRoles = {
   domainId: number;
   roles: ColonyRole[];
-}
-export interface UserRoles {
+};
+export type UserRoles = {
   address: string;
   domains: DomainRoles[];
-}
+};
 export type ColonyRoles = UserRoles[];
 
 export enum ClientType {
@@ -59,11 +59,11 @@ export const oneTxPaymentFactoryAddresses = {
 export const ROOT_DOMAIN_ID = 1;
 
 export enum FundingPotAssociatedType {
-  Unassigned, // 0
-  Domain, // 1
-  Task, // 2
-  Payment, // 3
-  Expenditure, // 4
+  Unassigned = 0,
+  Domain = 1,
+  Task = 2,
+  Payment = 3,
+  Expenditure = 4,
 }
 
 export const REPUTATION_ORACLE_ENDPOINT = 'https://colony.io/reputation';

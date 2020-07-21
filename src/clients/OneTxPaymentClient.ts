@@ -27,7 +27,7 @@ interface ExtendedEstimate extends OneTxPaymentEstimate {
   ): Promise<BigNumber>;
 }
 
-export interface ExtendedOneTxPayment extends OneTxPayment {
+export interface OneTxPaymentClient extends OneTxPayment {
   clientType: ClientType.OneTxPaymentClient;
   estimate: ExtendedEstimate;
 
@@ -83,11 +83,11 @@ const getExtensionPermissionProofs = async (
 const getOneTxPaymentClient = (
   address: string,
   colonyClient: ColonyClient,
-): ExtendedOneTxPayment => {
+): OneTxPaymentClient => {
   const oneTxPaymentClient = OneTxPaymentFactory.connect(
     address,
     colonyClient.signer || colonyClient.provider,
-  ) as ExtendedOneTxPayment;
+  ) as OneTxPaymentClient;
 
   oneTxPaymentClient.clientType = ClientType.OneTxPaymentClient;
 
