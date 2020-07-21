@@ -116,7 +116,7 @@
 					<div class="tsd-signature tsd-kind-icon">Topics<wbr>Array<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/2a3c817/src/helpers.ts#L47">src/helpers.ts:47</a></li>
+							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/c98d265/src/helpers.ts#L47">src/helpers.ts:47</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -129,7 +129,7 @@
 					<div class="tsd-signature tsd-kind-icon">ROOT_<wbr>DOMAIN<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = ROOT_DOMAIN_ID.toString()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/2a3c817/src/helpers.ts#L49">src/helpers.ts:49</a></li>
+							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/c98d265/src/helpers.ts#L49">src/helpers.ts:49</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -146,7 +146,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/2a3c817/src/helpers.ts#L59">src/helpers.ts:59</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/c98d265/src/helpers.ts#L59">src/helpers.ts:59</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -188,7 +188,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/2a3c817/src/helpers.ts#L199">src/helpers.ts:199</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/c98d265/src/helpers.ts#L199">src/helpers.ts:199</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -246,7 +246,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/2a3c817/src/helpers.ts#L223">src/helpers.ts:223</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/c98d265/src/helpers.ts#L223">src/helpers.ts:223</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -288,7 +288,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/2a3c817/src/helpers.ts#L113">src/helpers.ts:113</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/c98d265/src/helpers.ts#L113">src/helpers.ts:113</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -342,7 +342,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/2a3c817/src/helpers.ts#L84">src/helpers.ts:84</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/c98d265/src/helpers.ts#L84">src/helpers.ts:84</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -396,7 +396,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/2a3c817/src/helpers.ts#L359">src/helpers.ts:359</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/c98d265/src/helpers.ts#L359">src/helpers.ts:359</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -406,13 +406,6 @@
 								<p>The <a href="../interfaces/_clients_colony_colonyclientv1_.colonyclientv1.html#movefundsbetweenpots-1"><code>ColonyClientV1.moveFundsBetweenPots</code></a> method is a special case as it requires the permission proofs for
 									not only one but two domains (source and target domain pots). This helper will call the <a href="_helpers_.html#getpermissionproofs"><code>getPermissionProofs</code></a>
 								helper internally and apply the correct roles required.</p>
-								<dl class="tsd-comment-tags">
-									<dt>remarks</dt>
-									<dd><p>It is required for the <code>moveFundsBetweenPots</code> method to work that both the source and the target domain
-											have the same parent domain which provides the role permissions (<code>Funding</code> role). That&#39;s why we&#39;re only returning one
-										<code>permissionDomainId</code>.</p>
-									</dd>
-								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -464,18 +457,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/2a3c817/src/helpers.ts#L133">src/helpers.ts:133</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/c98d265/src/helpers.ts#L133">src/helpers.ts:133</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Get multiple events from multiple filters</p>
 								</div>
-								<dl class="tsd-comment-tags">
-									<dt>remarks</dt>
-									<dd><p>only works when all events are emitted by the same contract!</p>
-									</dd>
-								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -514,7 +502,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/2a3c817/src/helpers.ts#L333">src/helpers.ts:333</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/c98d265/src/helpers.ts#L333">src/helpers.ts:333</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -587,19 +575,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/2a3c817/src/helpers.ts#L173">src/helpers.ts:173</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/c98d265/src/helpers.ts#L173">src/helpers.ts:173</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Get the associated domain for a pot id</p>
 								</div>
-								<dl class="tsd-comment-tags">
-									<dt>remarks</dt>
-									<dd><p>pots can be associated with different types, like domains, payments or tasks
-										See <a href="../enums/_constants_.fundingpotassociatedtype.html"><code>FundingPotAssociatedType</code></a> for details</p>
-									</dd>
-								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -695,21 +677,57 @@
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
 				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
 				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
 				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
 				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
 				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
 			</ul>
 		</div>
 	</div>
