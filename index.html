@@ -121,7 +121,23 @@
 				<a href="#development" id="development" style="color: inherit; text-decoration: none;">
 					<h2>Development</h2>
 				</a>
-				<p>THIS IS IN ALPHA. Use at your own Risk.</p>
+				<a href="#to-release-a-new-version" id="to-release-a-new-version" style="color: inherit; text-decoration: none;">
+					<h3>To release a new version</h3>
+				</a>
+				<p>1) First, commit all your changes. Then run the tests:</p>
+				<pre><code class="language-bash">npm <span class="hljs-built_in">test</span> <span class="hljs-comment">#just to be sure</span></code></pre>
+				<p>2) Adjust the version in <code>package.json</code></p>
+				<p>3) Let npm adjust the version in <code>package-lock.json</code>:</p>
+				<pre><code class="language-bash">npm install</code></pre>
+				<p>4) Commit the npm package files. Use the version set in the package.json (<strong>make sure to follow the version pattern</strong>):</p>
+				<pre><code class="language-bash">git add pack*
+git commit -m <span class="hljs-string">'2.0.1'</span> <span class="hljs-comment"># no `v`!</span></code></pre>
+				<p>5) Tag the commit:</p>
+				<pre><code class="language-bash">git tag v2.0.1 <span class="hljs-comment"># here we use the `v`!</span></code></pre>
+				<p>6) Push the changes and tags:</p>
+				<pre><code class="language-bash">git push &amp;&amp; git push --tags</code></pre>
+				<p>7) Publish on npm:</p>
+				<pre><code>npm publish --<span class="hljs-keyword">access</span>=<span class="hljs-keyword">public</span> </code></pre><p>Done 🎊</p>
 				<a href="#license" id="license" style="color: inherit; text-decoration: none;">
 					<h2>License</h2>
 				</a>
