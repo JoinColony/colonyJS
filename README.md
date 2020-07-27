@@ -58,7 +58,48 @@ We welcome all contributions to colonyJS! See [Contributing](https://github.com/
 
 ## Development
 
-THIS IS IN ALPHA. Use at your own Risk.
+### To release a new version
+
+1) First, commit all your changes. Then run the tests:
+
+```bash
+npm test #just to be sure
+```
+
+2) Adjust the version in `package.json`
+
+3) Let npm adjust the version in `package-lock.json`:
+
+```bash
+npm install
+```
+
+4) Commit the npm package files. Use the version set in the package.json (**make sure to follow the version pattern**):
+
+```bash
+git add pack*
+git commit -m '2.0.1' # no `v`!
+```
+
+5) Tag the commit:
+
+```bash
+git tag v2.0.1 # here we use the `v`!
+```
+
+6) Push the changes and tags:
+
+```bash
+git push && git push --tags
+```
+
+7) Publish on npm:
+
+```
+npm publish --access=public 
+```
+
+Done 🎊
 
 ## License
 
