@@ -24,16 +24,14 @@ export { TokenLockingClient } from './clients/TokenLockingClient';
 export { default as getColonyNetworkClient } from './clients/ColonyNetworkClient';
 export { default as getTokenClient } from './clients/TokenClient';
 
-export { TransactionOverrides } from './contracts/1';
+export * from './constants';
+export * from './helpers';
 
 export type ColonyClient =
   | ColonyClientV1
   | ColonyClientV2
   | ColonyClientV3
   | ColonyClientV4;
-
-export * from './constants';
-export * from './helpers';
 
 export type ContractClient =
   | ColonyClient
@@ -42,5 +40,7 @@ export type ContractClient =
   | OneTxPaymentFactoryClient
   | TokenClient
   | TokenLockingClient;
+
+export type { TransactionOverrides } from './contracts/1';
 
 /* eslint-enable import/first */
