@@ -253,7 +253,7 @@ export const getColonyRoles = async (
   // We construct a map that holds all users with all domains and the roles as Sets
   const rolesMap: ColonyRolesMap = colonyRoleEvents
     // Don't show roles of OneTxPayment contracts
-    .filter((event) => event.values.user !== oneTxAddress)
+    .filter((event) => event && event.values.user !== oneTxAddress)
     .reduce((colonyRolesMap: ColonyRolesMap, { values }) => {
       const { user, domainId, role, setTo }: ColonyRoleSetValues = values;
       const domainKey = domainId.toString();
@@ -276,7 +276,7 @@ export const getColonyRoles = async (
   // OK, now we also collect all the RecoveryRoleSet events for this colony
   recoveryRoleEvents
     // Don't show roles of OneTxPayment contracts
-    .filter((event) => event.values.user !== oneTxAddress)
+    .filter((event) => event && event.values.user !== oneTxAddress)
     .forEach(({ values }) => {
       const { user, setTo }: RecoveryRoleSetValues = values;
       if (rolesMap[user][ROOT_DOMAIN]) {
