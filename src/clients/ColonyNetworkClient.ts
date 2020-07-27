@@ -228,7 +228,7 @@ const getColonyNetworkClient = (
     addr: string,
   ): Promise<string> => {
     const domain = await networkClient.lookupRegisteredENSDomain(addr);
-    if (networkClient.network === Network.Goerli) {
+    if (domain && networkClient.network === Network.Goerli) {
       const [name, scope] = domain.split('.');
       return `${name}.${scope}.joincolony.test`;
     }
