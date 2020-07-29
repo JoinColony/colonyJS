@@ -10,7 +10,7 @@ import {
   TypedFunctionDescription
 } from ".";
 
-interface TokenDaiInterface extends Interface {
+interface TokenSaiInterface extends Interface {
   functions: {
     name: TypedFunctionDescription<{ encode([]: []): string }>;
 
@@ -58,18 +58,18 @@ interface TokenDaiInterface extends Interface {
   };
 }
 
-export class TokenDai extends Contract {
-  connect(signerOrProvider: Signer | Provider | string): TokenDai;
-  attach(addressOrName: string): TokenDai;
-  deployed(): Promise<TokenDai>;
+export class TokenSai extends Contract {
+  connect(signerOrProvider: Signer | Provider | string): TokenSai;
+  attach(addressOrName: string): TokenSai;
+  deployed(): Promise<TokenSai>;
 
-  on(event: EventFilter | string, listener: Listener): TokenDai;
-  once(event: EventFilter | string, listener: Listener): TokenDai;
-  addListener(eventName: EventFilter | string, listener: Listener): TokenDai;
-  removeAllListeners(eventName: EventFilter | string): TokenDai;
-  removeListener(eventName: any, listener: Listener): TokenDai;
+  on(event: EventFilter | string, listener: Listener): TokenSai;
+  once(event: EventFilter | string, listener: Listener): TokenSai;
+  addListener(eventName: EventFilter | string, listener: Listener): TokenSai;
+  removeAllListeners(eventName: EventFilter | string): TokenSai;
+  removeListener(eventName: any, listener: Listener): TokenSai;
 
-  interface: TokenDaiInterface;
+  interface: TokenSaiInterface;
 
   functions: {
     name(): Promise<string>;

@@ -4,14 +4,14 @@
 import { Contract, Signer } from "ethers";
 import { Provider } from "ethers/providers";
 
-import { TokenDai } from "./TokenDai";
+import { TokenSai } from "./TokenSai";
 
-export class TokenDaiFactory {
+export class TokenSaiFactory {
   static connect(
     address: string,
     signerOrProvider: Signer | Provider
-  ): TokenDai {
-    return new Contract(address, _abi, signerOrProvider) as TokenDai;
+  ): TokenSai {
+    return new Contract(address, _abi, signerOrProvider) as TokenSai;
   }
 }
 
