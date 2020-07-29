@@ -74,7 +74,7 @@ const getTokenClient = async (
   tokenColonyAddress?: string,
 ): Promise<TokenClient> => {
   let tokenClient: TokenClient;
-  let isColonyToken = true;
+  let isColonyToken = false;
 
   if (tokenColonyAddress) {
     tokenClient = TokenFactory.connect(
@@ -85,9 +85,10 @@ const getTokenClient = async (
     try {
       // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
       // @ts-ignore https://github.com/ethereum-ts/TypeChain/pull/255
-      tokenClient.estimate.mint(tokenColonyAddress, 1, {
+      await tokenClient.estimate.mint(tokenColonyAddress, 1, {
         from: tokenColonyAddress,
       });
+      isColonyToken = true;
     } catch {
       isColonyToken = false;
     }
