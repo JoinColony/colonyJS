@@ -75,6 +75,7 @@
 								<li class="tsd-kind-enum"><a href="enums/colonyversion.html" class="tsd-kind-icon">Colony<wbr>Version</a></li>
 								<li class="tsd-kind-enum"><a href="enums/fundingpotassociatedtype.html" class="tsd-kind-icon">Funding<wbr>Pot<wbr>Associated<wbr>Type</a></li>
 								<li class="tsd-kind-enum"><a href="enums/network.html" class="tsd-kind-icon">Network</a></li>
+								<li class="tsd-kind-enum"><a href="enums/tokenclienttype.html" class="tsd-kind-icon">Token<wbr>Client<wbr>Type</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -91,9 +92,11 @@
 								<li class="tsd-kind-interface"><a href="interfaces/colonyclientv3.html" class="tsd-kind-icon">Colony<wbr>Client<wbr>V3</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/colonyclientv4.html" class="tsd-kind-icon">Colony<wbr>Client<wbr>V4</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/colonynetworkclient.html" class="tsd-kind-icon">Colony<wbr>Network<wbr>Client</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/colonytokenclient.html" class="tsd-kind-icon">Colony<wbr>Token<wbr>Client</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/daitokenclient.html" class="tsd-kind-icon">Dai<wbr>Token<wbr>Client</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/erc20tokenclient.html" class="tsd-kind-icon">Erc20<wbr>Token<wbr>Client</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/onetxpaymentclient.html" class="tsd-kind-icon">One<wbr>TxPayment<wbr>Client</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/onetxpaymentfactoryclient.html" class="tsd-kind-icon">One<wbr>TxPayment<wbr>Factory<wbr>Client</a></li>
-								<li class="tsd-kind-interface"><a href="interfaces/tokenclient.html" class="tsd-kind-icon">Token<wbr>Client</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/tokenlockingclient.html" class="tsd-kind-icon">Token<wbr>Locking<wbr>Client</a></li>
 							</ul>
 						</section>
@@ -104,6 +107,7 @@
 								<li class="tsd-kind-type-alias"><a href="globals.html#colonyroles" class="tsd-kind-icon">Colony<wbr>Roles</a></li>
 								<li class="tsd-kind-type-alias"><a href="globals.html#contractclient" class="tsd-kind-icon">Contract<wbr>Client</a></li>
 								<li class="tsd-kind-type-alias"><a href="globals.html#domainroles" class="tsd-kind-icon">Domain<wbr>Roles</a></li>
+								<li class="tsd-kind-type-alias"><a href="globals.html#tokenclient" class="tsd-kind-icon">Token<wbr>Client</a></li>
 								<li class="tsd-kind-type-alias"><a href="globals.html#userroles" class="tsd-kind-icon">User<wbr>Roles</a></li>
 							</ul>
 						</section>
@@ -136,6 +140,7 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-object-literal"><a href="globals.html#colonynetworkaddresses" class="tsd-kind-icon">colony<wbr>Network<wbr>Addresses</a></li>
 								<li class="tsd-kind-object-literal"><a href="globals.html#onetxpaymentfactoryaddresses" class="tsd-kind-icon">one<wbr>TxPayment<wbr>Factory<wbr>Addresses</a></li>
+								<li class="tsd-kind-object-literal"><a href="globals.html#tokenaddresses" class="tsd-kind-icon">token<wbr>Addresses</a></li>
 							</ul>
 						</section>
 					</div>
@@ -149,7 +154,7 @@
 					<div class="tsd-signature tsd-kind-icon">Colony<wbr>Client<span class="tsd-signature-symbol">:</span> <a href="interfaces/colonyclientv1.html" class="tsd-signature-type">ColonyClientV1</a><span class="tsd-signature-symbol"> | </span><a href="interfaces/colonyclientv2.html" class="tsd-signature-type">ColonyClientV2</a><span class="tsd-signature-symbol"> | </span><a href="interfaces/colonyclientv3.html" class="tsd-signature-type">ColonyClientV3</a><span class="tsd-signature-symbol"> | </span><a href="interfaces/colonyclientv4.html" class="tsd-signature-type">ColonyClientV4</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/d0489dc/src/index.ts#L30">src/index.ts:30</a></li>
+							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/cfa3a5e/src/index.ts#L35">src/index.ts:35</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -159,17 +164,17 @@
 					<div class="tsd-signature tsd-kind-icon">Colony<wbr>Roles<span class="tsd-signature-symbol">:</span> <a href="globals.html#userroles" class="tsd-signature-type">UserRoles</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/d0489dc/src/constants.ts#L36">src/constants.ts:36</a></li>
+							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/cfa3a5e/src/constants.ts#L36">src/constants.ts:36</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias">
 					<a name="contractclient" class="tsd-anchor"></a>
 					<h3>Contract<wbr>Client</h3>
-					<div class="tsd-signature tsd-kind-icon">Contract<wbr>Client<span class="tsd-signature-symbol">:</span> <a href="globals.html#colonyclient" class="tsd-signature-type">ColonyClient</a><span class="tsd-signature-symbol"> | </span><a href="interfaces/colonynetworkclient.html" class="tsd-signature-type">ColonyNetworkClient</a><span class="tsd-signature-symbol"> | </span><a href="interfaces/onetxpaymentclient.html" class="tsd-signature-type">OneTxPaymentClient</a><span class="tsd-signature-symbol"> | </span><a href="interfaces/onetxpaymentfactoryclient.html" class="tsd-signature-type">OneTxPaymentFactoryClient</a><span class="tsd-signature-symbol"> | </span><a href="interfaces/tokenclient.html" class="tsd-signature-type">TokenClient</a><span class="tsd-signature-symbol"> | </span><a href="interfaces/tokenlockingclient.html" class="tsd-signature-type">TokenLockingClient</a></div>
+					<div class="tsd-signature tsd-kind-icon">Contract<wbr>Client<span class="tsd-signature-symbol">:</span> <a href="globals.html#colonyclient" class="tsd-signature-type">ColonyClient</a><span class="tsd-signature-symbol"> | </span><a href="interfaces/colonynetworkclient.html" class="tsd-signature-type">ColonyNetworkClient</a><span class="tsd-signature-symbol"> | </span><a href="interfaces/onetxpaymentclient.html" class="tsd-signature-type">OneTxPaymentClient</a><span class="tsd-signature-symbol"> | </span><a href="interfaces/onetxpaymentfactoryclient.html" class="tsd-signature-type">OneTxPaymentFactoryClient</a><span class="tsd-signature-symbol"> | </span><a href="globals.html#tokenclient" class="tsd-signature-type">TokenClient</a><span class="tsd-signature-symbol"> | </span><a href="interfaces/tokenlockingclient.html" class="tsd-signature-type">TokenLockingClient</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/d0489dc/src/index.ts#L36">src/index.ts:36</a></li>
+							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/cfa3a5e/src/index.ts#L41">src/index.ts:41</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -179,7 +184,7 @@
 					<div class="tsd-signature tsd-kind-icon">Domain<wbr>Roles<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>domainId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>roles<span class="tsd-signature-symbol">: </span><a href="enums/colonyrole.html" class="tsd-signature-type">ColonyRole</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> }</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/d0489dc/src/constants.ts#L28">src/constants.ts:28</a></li>
+							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/cfa3a5e/src/constants.ts#L28">src/constants.ts:28</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -195,12 +200,22 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="tokenclient" class="tsd-anchor"></a>
+					<h3>Token<wbr>Client</h3>
+					<div class="tsd-signature tsd-kind-icon">Token<wbr>Client<span class="tsd-signature-symbol">:</span> <a href="interfaces/colonytokenclient.html" class="tsd-signature-type">ColonyTokenClient</a><span class="tsd-signature-symbol"> | </span><a href="interfaces/erc20tokenclient.html" class="tsd-signature-type">Erc20TokenClient</a><span class="tsd-signature-symbol"> | </span><a href="interfaces/daitokenclient.html" class="tsd-signature-type">DaiTokenClient</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/cfa3a5e/src/clients/TokenClient.ts#L69">src/clients/TokenClient.ts:69</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
 					<a name="userroles" class="tsd-anchor"></a>
 					<h3>User<wbr>Roles</h3>
 					<div class="tsd-signature tsd-kind-icon">User<wbr>Roles<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>address<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>domains<span class="tsd-signature-symbol">: </span><a href="globals.html#domainroles" class="tsd-signature-type">DomainRoles</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> }</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/d0489dc/src/constants.ts#L32">src/constants.ts:32</a></li>
+							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/cfa3a5e/src/constants.ts#L32">src/constants.ts:32</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -224,7 +239,7 @@
 					<div class="tsd-signature tsd-kind-icon">Current<wbr>Version<span class="tsd-signature-symbol">:</span> <a href="enums/colonyversion.html#burgundyglider" class="tsd-signature-type">BurgundyGlider</a><span class="tsd-signature-symbol"> = ColonyVersion.BurgundyGlider</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/d0489dc/src/constants.ts#L9">src/constants.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/cfa3a5e/src/constants.ts#L9">src/constants.ts:9</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -234,7 +249,7 @@
 					<div class="tsd-signature tsd-kind-icon">REPUTATION_<wbr>ORACLE_<wbr>ENDPOINT<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"https://colony.io/reputation"</span><span class="tsd-signature-symbol"> = &quot;https://colony.io/reputation&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/d0489dc/src/constants.ts#L69">src/constants.ts:69</a></li>
+							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/cfa3a5e/src/constants.ts#L75">src/constants.ts:75</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -244,7 +259,7 @@
 					<div class="tsd-signature tsd-kind-icon">ROOT_<wbr>DOMAIN_<wbr>ID<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">1</span><span class="tsd-signature-symbol"> = 1</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/d0489dc/src/constants.ts#L59">src/constants.ts:59</a></li>
+							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/cfa3a5e/src/constants.ts#L65">src/constants.ts:65</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -261,7 +276,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/d0489dc/src/helpers.ts#L59">src/helpers.ts:59</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/cfa3a5e/src/helpers.ts#L59">src/helpers.ts:59</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -303,7 +318,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/d0489dc/src/helpers.ts#L199">src/helpers.ts:199</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/cfa3a5e/src/helpers.ts#L199">src/helpers.ts:199</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -361,7 +376,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/d0489dc/src/clients/ColonyNetworkClient.ts#L111">src/clients/ColonyNetworkClient.ts:111</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/cfa3a5e/src/clients/ColonyNetworkClient.ts#L111">src/clients/ColonyNetworkClient.ts:111</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -390,7 +405,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/d0489dc/src/helpers.ts#L223">src/helpers.ts:223</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/cfa3a5e/src/helpers.ts#L223">src/helpers.ts:223</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -432,7 +447,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/d0489dc/src/helpers.ts#L113">src/helpers.ts:113</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/cfa3a5e/src/helpers.ts#L113">src/helpers.ts:113</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -486,7 +501,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/d0489dc/src/helpers.ts#L84">src/helpers.ts:84</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/cfa3a5e/src/helpers.ts#L84">src/helpers.ts:84</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -540,7 +555,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/d0489dc/src/helpers.ts#L359">src/helpers.ts:359</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/cfa3a5e/src/helpers.ts#L359">src/helpers.ts:359</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -601,7 +616,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/d0489dc/src/helpers.ts#L133">src/helpers.ts:133</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/cfa3a5e/src/helpers.ts#L133">src/helpers.ts:133</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -646,7 +661,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/d0489dc/src/helpers.ts#L333">src/helpers.ts:333</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/cfa3a5e/src/helpers.ts#L333">src/helpers.ts:333</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -719,7 +734,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/d0489dc/src/helpers.ts#L173">src/helpers.ts:173</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/cfa3a5e/src/helpers.ts#L173">src/helpers.ts:173</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -755,13 +770,13 @@
 					<a name="gettokenclient" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> get<wbr>Token<wbr>Client</h3>
 					<ul class="tsd-signatures tsd-kind-function">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Token<wbr>Client<span class="tsd-signature-symbol">(</span>address<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, signerOrProvider<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Signer</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Provider</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="interfaces/tokenclient.html" class="tsd-signature-type">TokenClient</a></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Token<wbr>Client<span class="tsd-signature-symbol">(</span>address<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, signerOrProvider<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Signer</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Provider</span>, tokenColonyAddress<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="globals.html#tokenclient" class="tsd-signature-type">TokenClient</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/d0489dc/src/clients/TokenClient.ts#L42">src/clients/TokenClient.ts:42</a></li>
+									<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/cfa3a5e/src/clients/TokenClient.ts#L71">src/clients/TokenClient.ts:71</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -772,8 +787,11 @@
 								<li>
 									<h5>signerOrProvider: <span class="tsd-signature-type">Signer</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Provider</span></h5>
 								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> tokenColonyAddress: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
+								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="interfaces/tokenclient.html" class="tsd-signature-type">TokenClient</a></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="globals.html#tokenclient" class="tsd-signature-type">TokenClient</a><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -786,7 +804,7 @@
 					<div class="tsd-signature tsd-kind-icon">colony<wbr>Network<wbr>Addresses<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/d0489dc/src/constants.ts#L47">src/constants.ts:47</a></li>
+							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/cfa3a5e/src/constants.ts#L53">src/constants.ts:53</a></li>
 						</ul>
 					</aside>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
@@ -795,9 +813,9 @@
 						<div class="tsd-signature tsd-kind-icon">__computed<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> = undefined</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/d0489dc/src/constants.ts#L48">src/constants.ts:48</a></li>
-								<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/d0489dc/src/constants.ts#L49">src/constants.ts:49</a></li>
-								<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/d0489dc/src/constants.ts#L50">src/constants.ts:50</a></li>
+								<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/cfa3a5e/src/constants.ts#L54">src/constants.ts:54</a></li>
+								<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/cfa3a5e/src/constants.ts#L55">src/constants.ts:55</a></li>
+								<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/cfa3a5e/src/constants.ts#L56">src/constants.ts:56</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -808,7 +826,7 @@
 					<div class="tsd-signature tsd-kind-icon">one<wbr>TxPayment<wbr>Factory<wbr>Addresses<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/d0489dc/src/constants.ts#L53">src/constants.ts:53</a></li>
+							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/cfa3a5e/src/constants.ts#L59">src/constants.ts:59</a></li>
 						</ul>
 					</aside>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
@@ -817,9 +835,29 @@
 						<div class="tsd-signature tsd-kind-icon">__computed<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> = undefined</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/d0489dc/src/constants.ts#L54">src/constants.ts:54</a></li>
-								<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/d0489dc/src/constants.ts#L55">src/constants.ts:55</a></li>
-								<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/d0489dc/src/constants.ts#L56">src/constants.ts:56</a></li>
+								<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/cfa3a5e/src/constants.ts#L60">src/constants.ts:60</a></li>
+								<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/cfa3a5e/src/constants.ts#L61">src/constants.ts:61</a></li>
+								<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/cfa3a5e/src/constants.ts#L62">src/constants.ts:62</a></li>
+							</ul>
+						</aside>
+					</section>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-object-literal">
+					<a name="tokenaddresses" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> token<wbr>Addresses</h3>
+					<div class="tsd-signature tsd-kind-icon">token<wbr>Addresses<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/cfa3a5e/src/constants.ts#L77">src/constants.ts:77</a></li>
+						</ul>
+					</aside>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+						<a name="tokenaddresses.dai" class="tsd-anchor"></a>
+						<h3>DAI</h3>
+						<div class="tsd-signature tsd-kind-icon">DAI<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;0x6B175474E89094C44Da98b954EedeAC495271d0F&quot;</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/cfa3a5e/src/constants.ts#L78">src/constants.ts:78</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -851,6 +889,9 @@
 					<li class=" tsd-kind-enum">
 						<a href="enums/network.html" class="tsd-kind-icon">Network</a>
 					</li>
+					<li class=" tsd-kind-enum">
+						<a href="enums/tokenclienttype.html" class="tsd-kind-icon">Token<wbr>Client<wbr>Type</a>
+					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/transactionoverrides.html" class="tsd-kind-icon">Transaction<wbr>Overrides</a>
 					</li>
@@ -870,13 +911,19 @@
 						<a href="interfaces/colonynetworkclient.html" class="tsd-kind-icon">Colony<wbr>Network<wbr>Client</a>
 					</li>
 					<li class=" tsd-kind-interface">
+						<a href="interfaces/colonytokenclient.html" class="tsd-kind-icon">Colony<wbr>Token<wbr>Client</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/daitokenclient.html" class="tsd-kind-icon">Dai<wbr>Token<wbr>Client</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/erc20tokenclient.html" class="tsd-kind-icon">Erc20<wbr>Token<wbr>Client</a>
+					</li>
+					<li class=" tsd-kind-interface">
 						<a href="interfaces/onetxpaymentclient.html" class="tsd-kind-icon">One<wbr>TxPayment<wbr>Client</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/onetxpaymentfactoryclient.html" class="tsd-kind-icon">One<wbr>TxPayment<wbr>Factory<wbr>Client</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="interfaces/tokenclient.html" class="tsd-kind-icon">Token<wbr>Client</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/tokenlockingclient.html" class="tsd-kind-icon">Token<wbr>Locking<wbr>Client</a>
@@ -892,6 +939,9 @@
 					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#domainroles" class="tsd-kind-icon">Domain<wbr>Roles</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#tokenclient" class="tsd-kind-icon">Token<wbr>Client</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#userroles" class="tsd-kind-icon">User<wbr>Roles</a>
@@ -943,6 +993,9 @@
 					</li>
 					<li class=" tsd-kind-object-literal">
 						<a href="globals.html#onetxpaymentfactoryaddresses" class="tsd-kind-icon">one<wbr>TxPayment<wbr>Factory<wbr>Addresses</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#tokenaddresses" class="tsd-kind-icon">token<wbr>Addresses</a>
 					</li>
 				</ul>
 			</nav>
