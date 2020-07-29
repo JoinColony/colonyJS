@@ -205,7 +205,11 @@ const getColonyNetworkClient = (
 
     // @TODO move these to the common extensions?
     const tokenAddress = await colonyClient.getToken();
-    colonyClient.tokenClient = getTokenClient(tokenAddress, signerOrProvider);
+    colonyClient.tokenClient = await getTokenClient(
+      tokenAddress,
+      signerOrProvider,
+      colonyAddress,
+    );
 
     // eslint-disable-next-line max-len
     const oneTxPaymentAddress = await networkClient.oneTxPaymentFactoryClient.deployedExtensions(

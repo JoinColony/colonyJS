@@ -16,6 +16,7 @@ const relativeBuildDir = 'build/contracts';
 const relativeTokenDir = 'lib/colonyToken/build/contracts';
 const buildDir = resolvePath(networkDir, relativeBuildDir);
 const tokenBuildDir = resolvePath(networkDir, relativeTokenDir);
+const vendorTokenDir = resolvePath(__dirname, '../vendor/tokens');
 
 const contractsToBuild = [
   'IColony',
@@ -23,7 +24,6 @@ const contractsToBuild = [
   'OneTxPayment',
   // Renamed due to naming conflicts in typechain
   'OneTxPaymentDeployer',
-  'Token',
   'TokenLocking',
 ];
 
@@ -39,8 +39,6 @@ const deployDir = `${outRoot}/deploy`;
 if (!releaseMap[version]) {
   throw new Error(`Version ${version} of colonyNetwork doesn't seem to exist`);
 }
-
-const contractGlobs = `{${contractsToBuild.map((c) => `${c}.json`).join(',')}}`;
 
 const buildContracts = async (): Promise<void> => {
   console.info(`Checking out network tag ${releaseMap[version]}`);
@@ -76,24 +74,35 @@ const buildContracts = async (): Promise<void> => {
     `${buildDir}/OneTxPaymentDeployer.json`,
   );
 
-  const typechain = execute('typechain', [
-    '--target',
-    'ethers-v4',
-    '--outDir',
-    outDir,
-    `${networkDir}/{${relativeBuildDir},${relativeTokenDir}}/${contractGlobs}`,
-  ]);
-  if (typechain.stdout) typechain.stdout.pipe(process.stdout);
-  await typechain;
-
-  // Copy contract json files of latest version for deployment purposes
   if (version === CurrentVersion) {
+    // Copy contract json files of latest version for deployment purposes
     copyFileSync(`${tokenBuildDir}/Token.json`, `${deployDir}/Token.json`);
     copyFileSync(
       `${tokenBuildDir}/TokenAuthority.json`,
       `${deployDir}/TokenAuthority.json`,
     );
+
+    // Just build token contracts for the latest version
+    contractsToBuild.push(
+      // ERC20 tokens
+      'Token',
+      'TokenERC20',
+      'TokenDAI',
+    );
   }
+  const contractGlobs = `{${contractsToBuild
+    .map((c) => `${c}.json`)
+    .join(',')}}`;
+
+  const typechain = execute('typechain', [
+    '--target',
+    'ethers-v4',
+    '--outDir',
+    outDir,
+    `{${networkDir}/{${relativeBuildDir},${relativeTokenDir}}/${contractGlobs},${vendorTokenDir}/${contractGlobs}}`,
+  ]);
+  if (typechain.stdout) typechain.stdout.pipe(process.stdout);
+  await typechain;
 };
 
 buildContracts();

@@ -1,14 +1,26 @@
 import { ContractFactory, ContractTransaction, Signer } from 'ethers';
 import { Provider } from 'ethers/providers';
-import { BigNumber } from 'ethers/utils';
+import {
+  BigNumber,
+  getAddress,
+  isHexString,
+  parseBytes32String,
+} from 'ethers/utils';
 
 import {
   abi as tokenAuthorityAbi,
   bytecode as tokenAuthorityBytecode,
 } from '../contracts/deploy/TokenAuthority.json';
-import { ClientType } from '../constants';
+import { ClientType, TokenClientType, tokenAddresses } from '../constants';
 import { TokenFactory } from '../contracts/4/TokenFactory';
 import { Token } from '../contracts/4/Token';
+import { TokenErc20Factory } from '../contracts/4/TokenErc20Factory';
+import { TokenErc20 } from '../contracts/4/TokenErc20';
+import { TokenDaiFactory } from '../contracts/4/TokenDaiFactory';
+import { TokenDai } from '../contracts/4/TokenDai';
+
+const isDai = (address: string): boolean =>
+  getAddress(address) === tokenAddresses.DAI;
 
 export interface TokenInfo {
   name: string;
@@ -27,8 +39,9 @@ interface ExtendedEstimate extends TokenEstimate {
 }
 
 /** The TokenClient is a good client that does awesome things */
-export interface TokenClient extends Token {
+export interface ColonyTokenClient extends Token {
   clientType: ClientType.TokenClient;
+  tokenClientType: TokenClientType.Colony;
   estimate: ExtendedEstimate;
 
   getTokenInfo(): Promise<TokenInfo>;
@@ -39,62 +52,124 @@ export interface TokenClient extends Token {
   ): Promise<ContractTransaction>;
 }
 
-const getTokenClient = (
+export interface Erc20TokenClient extends TokenErc20 {
+  clientType: ClientType.TokenClient;
+  tokenClientType: TokenClientType.Erc20;
+
+  getTokenInfo(): Promise<TokenInfo>;
+}
+
+export interface DaiTokenClient extends TokenDai {
+  clientType: ClientType.TokenClient;
+  tokenClientType: TokenClientType.Dai;
+
+  getTokenInfo(): Promise<TokenInfo>;
+}
+
+export type TokenClient = ColonyTokenClient | Erc20TokenClient | DaiTokenClient;
+
+const getTokenClient = async (
   address: string,
   signerOrProvider: Signer | Provider,
-): TokenClient => {
-  const tokenClient = TokenFactory.connect(
-    address,
-    signerOrProvider,
-  ) as TokenClient;
+  tokenColonyAddress?: string,
+): Promise<TokenClient> => {
+  let tokenClient: TokenClient;
+  let isColonyToken = true;
+
+  if (tokenColonyAddress) {
+    tokenClient = TokenFactory.connect(
+      address,
+      signerOrProvider,
+    ) as ColonyTokenClient;
+
+    try {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+      // @ts-ignore https://github.com/ethereum-ts/TypeChain/pull/255
+      tokenClient.estimate.mint(tokenColonyAddress, 1, {
+        from: tokenColonyAddress,
+      });
+    } catch {
+      isColonyToken = false;
+    }
+  }
+
+  if (isColonyToken) {
+    tokenClient = TokenFactory.connect(
+      address,
+      signerOrProvider,
+    ) as ColonyTokenClient;
+
+    tokenClient.tokenClientType = TokenClientType.Colony;
+
+    tokenClient.deployTokenAuthority = async (
+      tokenAddress: string,
+      colonyAddress: string,
+      allowedToTransfer: string[],
+    ): Promise<ContractTransaction> => {
+      const tokenAuthorityFactory = new ContractFactory(
+        tokenAuthorityAbi,
+        tokenAuthorityBytecode,
+        tokenClient.signer,
+      );
+      const tokenAuthorityContract = await tokenAuthorityFactory.deploy(
+        tokenAddress,
+        colonyAddress,
+        allowedToTransfer,
+      );
+      await tokenAuthorityContract.deployed();
+      return tokenAuthorityContract.deployTransaction;
+    };
+
+    tokenClient.estimate.deployTokenAuthority = async (
+      tokenAddress: string,
+      colonyAddress: string,
+      allowedToTransfer: string[],
+    ): Promise<BigNumber> => {
+      const tokenAuthorityFactory = new ContractFactory(
+        tokenAuthorityAbi,
+        tokenAuthorityBytecode,
+      );
+      const deployTx = tokenAuthorityFactory.getDeployTransaction(
+        tokenAddress,
+        colonyAddress,
+        allowedToTransfer,
+      );
+      return tokenClient.provider.estimateGas(deployTx);
+    };
+  } else if (isDai(address)) {
+    tokenClient = TokenDaiFactory.connect(
+      address,
+      signerOrProvider,
+    ) as DaiTokenClient;
+
+    tokenClient.tokenClientType = TokenClientType.Dai;
+  } else {
+    tokenClient = TokenErc20Factory.connect(
+      address,
+      signerOrProvider,
+    ) as Erc20TokenClient;
+
+    tokenClient.tokenClientType = TokenClientType.Erc20;
+  }
 
   tokenClient.clientType = ClientType.TokenClient;
 
   tokenClient.getTokenInfo = async (): Promise<TokenInfo> => {
-    const name = await tokenClient.name();
-    const symbol = await tokenClient.symbol();
+    let name = await tokenClient.name();
+    // Special case for contracts with bytes32 strings (I'm looking at you, DAI)
+    if (isHexString(name)) {
+      name = parseBytes32String(name);
+    }
+    let symbol = await tokenClient.symbol();
+    if (isHexString(symbol)) {
+      symbol = parseBytes32String(symbol);
+    }
     const decimals = await tokenClient.decimals();
     return {
       name,
       symbol,
       decimals,
     };
-  };
-
-  tokenClient.deployTokenAuthority = async (
-    tokenAddress: string,
-    colonyAddress: string,
-    allowedToTransfer: string[],
-  ): Promise<ContractTransaction> => {
-    const tokenAuthorityFactory = new ContractFactory(
-      tokenAuthorityAbi,
-      tokenAuthorityBytecode,
-      tokenClient.signer,
-    );
-    const tokenAuthorityContract = await tokenAuthorityFactory.deploy(
-      tokenAddress,
-      colonyAddress,
-      allowedToTransfer,
-    );
-    await tokenAuthorityContract.deployed();
-    return tokenAuthorityContract.deployTransaction;
-  };
-
-  tokenClient.estimate.deployTokenAuthority = async (
-    tokenAddress: string,
-    colonyAddress: string,
-    allowedToTransfer: string[],
-  ): Promise<BigNumber> => {
-    const tokenAuthorityFactory = new ContractFactory(
-      tokenAuthorityAbi,
-      tokenAuthorityBytecode,
-    );
-    const deployTx = tokenAuthorityFactory.getDeployTransaction(
-      tokenAddress,
-      colonyAddress,
-      allowedToTransfer,
-    );
-    return tokenClient.provider.estimateGas(deployTx);
   };
 
   return tokenClient;
