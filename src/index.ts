@@ -18,7 +18,12 @@ export { ColonyClientV3 } from './clients/Colony/ColonyClientV3';
 export { ColonyClientV4 } from './clients/Colony/ColonyClientV4';
 export { OneTxPaymentFactoryClient } from './clients/OneTxPaymentDeployerClient';
 export { OneTxPaymentClient } from './clients/OneTxPaymentClient';
-export { TokenClient } from './clients/TokenClient';
+export {
+  TokenClient,
+  ColonyTokenClient,
+  Erc20TokenClient,
+  DaiTokenClient,
+} from './clients/TokenClient';
 export { TokenLockingClient } from './clients/TokenLockingClient';
 
 export { default as getColonyNetworkClient } from './clients/ColonyNetworkClient';

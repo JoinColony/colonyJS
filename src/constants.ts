@@ -44,6 +44,12 @@ export enum ClientType {
   TokenLockingClient = 'TokenLockingClient',
 }
 
+export enum TokenClientType {
+  Colony = 'Colony',
+  Erc20 = 'Erc20',
+  Dai = 'Dai',
+}
+
 export const colonyNetworkAddresses = {
   [Network.Mainnet]: '0x5346D0f80e2816FaD329F2c140c870ffc3c3E2Ef',
   [Network.Goerli]: '0x79073fc2117dD054FCEdaCad1E7018C9CbE3ec0B',
@@ -67,3 +73,7 @@ export enum FundingPotAssociatedType {
 }
 
 export const REPUTATION_ORACLE_ENDPOINT = 'https://colony.io/reputation';
+
+export const tokenAddresses = {
+  DAI: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
+};
