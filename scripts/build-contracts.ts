@@ -27,6 +27,13 @@ const contractsToBuild = [
   'TokenLocking',
 ];
 
+const tokenContracts = [
+  // ERC20 tokens
+  'Token',
+  'TokenERC20',
+  'TokenSAI',
+];
+
 const args = options({
   V: { type: 'number', alias: 'contract-version', demandOption: true },
 }).argv;
@@ -83,12 +90,7 @@ const buildContracts = async (): Promise<void> => {
     );
 
     // Just build token contracts for the latest version
-    contractsToBuild.push(
-      // ERC20 tokens
-      'Token',
-      'TokenERC20',
-      'TokenDAI',
-    );
+    contractsToBuild.push(...tokenContracts);
   }
   const contractGlobs = `{${contractsToBuild
     .map((c) => `${c}.json`)

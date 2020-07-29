@@ -16,11 +16,11 @@ import { TokenFactory } from '../contracts/4/TokenFactory';
 import { Token } from '../contracts/4/Token';
 import { TokenErc20Factory } from '../contracts/4/TokenErc20Factory';
 import { TokenErc20 } from '../contracts/4/TokenErc20';
-import { TokenDaiFactory } from '../contracts/4/TokenDaiFactory';
-import { TokenDai } from '../contracts/4/TokenDai';
+import { TokenSaiFactory } from '../contracts/4/TokenSaiFactory';
+import { TokenSai } from '../contracts/4/TokenSai';
 
-const isDai = (address: string): boolean =>
-  getAddress(address) === tokenAddresses.DAI;
+const isSai = (address: string): boolean =>
+  getAddress(address) === tokenAddresses.SAI;
 
 export interface TokenInfo {
   name: string;
@@ -59,7 +59,7 @@ export interface Erc20TokenClient extends TokenErc20 {
   getTokenInfo(): Promise<TokenInfo>;
 }
 
-export interface DaiTokenClient extends TokenDai {
+export interface DaiTokenClient extends TokenSai {
   clientType: ClientType.TokenClient;
   tokenClientType: TokenClientType.Dai;
 
@@ -137,8 +137,8 @@ const getTokenClient = async (
       );
       return tokenClient.provider.estimateGas(deployTx);
     };
-  } else if (isDai(address)) {
-    tokenClient = TokenDaiFactory.connect(
+  } else if (isSai(address)) {
+    tokenClient = TokenSaiFactory.connect(
       address,
       signerOrProvider,
     ) as DaiTokenClient;
