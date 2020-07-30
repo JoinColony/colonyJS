@@ -4,9 +4,10 @@ export enum ColonyVersion {
   Glider = 2,
   AuburnGlider = 3,
   BurgundyGlider = 4,
+  CeruleanLightweightSpaceship = 5,
 }
 
-export const CurrentVersion = ColonyVersion.BurgundyGlider;
+export const CurrentVersion = ColonyVersion.CeruleanLightweightSpaceship;
 
 export enum Network {
   Mainnet = 'mainnet',

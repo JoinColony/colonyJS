@@ -19,6 +19,9 @@ const tokenBuildDir = resolvePath(networkDir, relativeTokenDir);
 const vendorTokenDir = resolvePath(__dirname, '../vendor/tokens');
 
 const contractsToBuild = [
+  'CoinMachine',
+  // Renamed due to naming conflicts in typechain
+  'CoinMachineDeployer',
   'IColony',
   'IColonyNetwork',
   'OneTxPayment',
@@ -76,6 +79,10 @@ const buildContracts = async (): Promise<void> => {
   await truffle;
 
   // This needs to be renamed before TypeChain generation due to naming conflicts
+  renameSync(
+    `${buildDir}/CoinMachineFactory.json`,
+    `${buildDir}/CoinMachineDeployer.json`,
+  );
   renameSync(
     `${buildDir}/OneTxPaymentFactory.json`,
     `${buildDir}/OneTxPaymentDeployer.json`,

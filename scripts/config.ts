@@ -6,4 +6,6 @@ export const releaseMap = {
   [ColonyVersion.Glider]: 'glider',
   [ColonyVersion.AuburnGlider]: 'auburn-glider',
   [ColonyVersion.BurgundyGlider]: 'burgundy-glider',
+  // @TODO replace with proper tag once released
+  [ColonyVersion.CeruleanLightweightSpaceship]: 'ee25040d',
 };
