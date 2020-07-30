@@ -3,12 +3,12 @@ import { Provider } from 'ethers/providers';
 import { getAddress, isHexString, parseBytes32String } from 'ethers/utils';
 
 import { ClientType, TokenClientType, tokenAddresses } from '../constants';
-import { TokenFactory } from '../contracts/4/TokenFactory';
-import { Token } from '../contracts/4/Token';
-import { TokenErc20Factory } from '../contracts/4/TokenErc20Factory';
-import { TokenErc20 } from '../contracts/4/TokenErc20';
-import { TokenSaiFactory } from '../contracts/4/TokenSaiFactory';
-import { TokenSai } from '../contracts/4/TokenSai';
+import { TokenFactory } from '../contracts/5/TokenFactory';
+import { Token } from '../contracts/5/Token';
+import { TokenErc20Factory } from '../contracts/5/TokenErc20Factory';
+import { TokenErc20 } from '../contracts/5/TokenErc20';
+import { TokenSaiFactory } from '../contracts/5/TokenSaiFactory';
+import { TokenSai } from '../contracts/5/TokenSai';
 
 const isSai = (address: string): boolean =>
   getAddress(address) === tokenAddresses.SAI;

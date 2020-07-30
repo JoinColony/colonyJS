@@ -6,8 +6,8 @@ import {
   Network,
   oneTxPaymentFactoryAddresses,
 } from '../constants';
-import { OneTxPaymentDeployerFactory } from '../contracts/1/OneTxPaymentDeployerFactory';
-import { OneTxPaymentDeployer } from '../contracts/1/OneTxPaymentDeployer';
+import { OneTxPaymentDeployerFactory } from '../contracts/5/OneTxPaymentDeployerFactory';
+import { OneTxPaymentDeployer } from '../contracts/5/OneTxPaymentDeployer';
 
 export interface OneTxPaymentFactoryClient extends OneTxPaymentDeployer {
   clientType: ClientType.OneTxPaymentClient;

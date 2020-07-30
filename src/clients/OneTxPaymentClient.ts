@@ -2,9 +2,9 @@ import { ContractTransaction } from 'ethers';
 import { BigNumberish, BigNumber } from 'ethers/utils';
 
 import { ClientType, ColonyRole } from '../constants';
-import { OneTxPaymentFactory } from '../contracts/4/OneTxPaymentFactory';
-import { OneTxPayment } from '../contracts/4/OneTxPayment';
-import { TransactionOverrides } from '../contracts/4';
+import { OneTxPaymentFactory } from '../contracts/5/OneTxPaymentFactory';
+import { OneTxPayment } from '../contracts/5/OneTxPayment';
+import { TransactionOverrides } from '../contracts/5';
 import { ColonyClient } from '../index';
 import { getPermissionProofs } from '../clients/Colony/extensions/commonExtensions';
 
@@ -12,16 +12,16 @@ type OneTxPaymentEstimate = OneTxPayment['estimate'];
 
 interface ExtendedEstimate extends OneTxPaymentEstimate {
   makePaymentWithProofs(
-    _worker: string,
-    _token: string,
-    _amount: BigNumberish,
+    _workers: string[],
+    _tokens: string[],
+    _amounts: BigNumberish[],
     _domainId: BigNumberish,
     _skillId: BigNumberish,
   ): Promise<BigNumber>;
   makePaymentFundedFromDomainWithProofs(
-    _worker: string,
-    _token: string,
-    _amount: BigNumberish,
+    _workers: string[],
+    _tokens: string[],
+    _amounts: BigNumberish[],
     _domainId: BigNumberish,
     _skillId: BigNumberish,
   ): Promise<BigNumber>;
@@ -32,17 +32,17 @@ export interface OneTxPaymentClient extends OneTxPayment {
   estimate: ExtendedEstimate;
 
   makePaymentWithProofs(
-    _worker: string,
-    _token: string,
-    _amount: BigNumberish,
+    _workers: string[],
+    _tokens: string[],
+    _amounts: BigNumberish[],
     _domainId: BigNumberish,
     _skillId: BigNumberish,
     overrides?: TransactionOverrides,
   ): Promise<ContractTransaction>;
   makePaymentFundedFromDomainWithProofs(
-    _worker: string,
-    _token: string,
-    _amount: BigNumberish,
+    _workers: string[],
+    _tokens: string[],
+    _amounts: BigNumberish[],
     _domainId: BigNumberish,
     _skillId: BigNumberish,
     overrides?: TransactionOverrides,
@@ -92,9 +92,9 @@ const getOneTxPaymentClient = (
   oneTxPaymentClient.clientType = ClientType.OneTxPaymentClient;
 
   oneTxPaymentClient.makePaymentWithProofs = async (
-    _worker: string,
-    _token: string,
-    _amount: BigNumberish,
+    _workers: string[],
+    _tokens: string[],
+    _amounts: BigNumberish[],
     _domainId: BigNumberish,
     _skillId: BigNumberish,
     overrides?: TransactionOverrides,
@@ -114,9 +114,9 @@ const getOneTxPaymentClient = (
       extensionCSI,
       userPDID,
       userCSI,
-      _worker,
-      _token,
-      _amount,
+      _workers,
+      _tokens,
+      _amounts,
       _domainId,
       _skillId,
       overrides,
@@ -124,9 +124,9 @@ const getOneTxPaymentClient = (
   };
 
   oneTxPaymentClient.makePaymentFundedFromDomainWithProofs = async (
-    _worker: string,
-    _token: string,
-    _amount: BigNumberish,
+    _workers: string[],
+    _tokens: string[],
+    _amounts: BigNumberish[],
     _domainId: BigNumberish,
     _skillId: BigNumberish,
     overrides?: TransactionOverrides,
@@ -146,9 +146,9 @@ const getOneTxPaymentClient = (
       extensionCSI,
       userPDID,
       userCSI,
-      _worker,
-      _token,
-      _amount,
+      _workers,
+      _tokens,
+      _amounts,
       _domainId,
       _skillId,
       overrides,
@@ -156,9 +156,9 @@ const getOneTxPaymentClient = (
   };
 
   oneTxPaymentClient.estimate.makePaymentWithProofs = async (
-    _worker: string,
-    _token: string,
-    _amount: BigNumberish,
+    _workers: string[],
+    _tokens: string[],
+    _amounts: BigNumberish[],
     _domainId: BigNumberish,
     _skillId: BigNumberish,
   ): Promise<BigNumber> => {
@@ -177,18 +177,18 @@ const getOneTxPaymentClient = (
       extensionCSI,
       userPDID,
       userCSI,
-      _worker,
-      _token,
-      _amount,
+      _workers,
+      _tokens,
+      _amounts,
       _domainId,
       _skillId,
     );
   };
 
   oneTxPaymentClient.estimate.makePaymentFundedFromDomainWithProofs = async (
-    _worker: string,
-    _token: string,
-    _amount: BigNumberish,
+    _workers: string[],
+    _tokens: string[],
+    _amounts: BigNumberish[],
     _domainId: BigNumberish,
     _skillId: BigNumberish,
   ): Promise<BigNumber> => {
@@ -207,9 +207,9 @@ const getOneTxPaymentClient = (
       extensionCSI,
       userPDID,
       userCSI,
-      _worker,
-      _token,
-      _amount,
+      _workers,
+      _tokens,
+      _amounts,
       _domainId,
       _skillId,
     );
