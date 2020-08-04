@@ -101,6 +101,31 @@ npm publish --access=public
 
 Done 🎊
 
+### To upgrade to a new colonyNetwork version
+
+1) Add the version to `constants.ts` in `ColonyVersion`
+2) Change the `CurrentVersion` variable to the one you just added
+3) Add the git tag to `scripts/config.ts`
+4) If needed: add new contracts that need clients to the `contractsToBuild` array in `scripts/build-contracts.ts`
+5) Run
+```bash
+DISABLE_DOCKER=true npm run build-contracts -- -V=X
+```
+
+where `X` is the version number you just added (the incremental integer of the `ColonyVersion` enum).
+
+This will create a new folder: `src/contracts/X` containing all the type definitions you'll need to implement the new colony client.
+
+6) Update the following lines in `ColonyNetworkClient.ts` to reflect the new version:
+
+```ts
+import { IColonyNetworkFactory } from '../contracts/X/IColonyNetworkFactory';
+import { IColonyNetwork } from '../contracts/X/IColonyNetwork';
+```
+
+7) Update all the other contract imports in the non-colony clients, even if they haven't been upgraded (just in case). Then make adjustments to the clients to reflect the contract changes (typescript will tell you, where to make changes). Also add necessary helper functions (e.g. `withProofs` functions) for newly added methods.
+
+
 ## License
 
 GPL-3.0
