@@ -46,36 +46,26 @@ export type TokenClient = ColonyTokenClient | Erc20TokenClient | DaiTokenClient;
 const getTokenClient = async (
   address: string,
   signerOrProvider: Signer | Provider,
-  tokenColonyAddress?: string,
 ): Promise<TokenClient> => {
   let tokenClient: TokenClient;
   let isColonyToken = false;
 
-  if (tokenColonyAddress) {
-    tokenClient = TokenFactory.connect(
-      address,
-      signerOrProvider,
-    ) as ColonyTokenClient;
+  tokenClient = TokenFactory.connect(
+    address,
+    signerOrProvider,
+  ) as ColonyTokenClient;
 
-    // When a token can `.mint` for a colony we know it's a colony deployed token
-    try {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-      // @ts-ignore https://github.com/ethereum-ts/TypeChain/pull/255
-      await tokenClient.estimate.mint(tokenColonyAddress, 1, {
-        from: tokenColonyAddress,
-      });
-      isColonyToken = true;
-    } catch {
-      isColonyToken = false;
-    }
+  // Colony tokens have the `locked()` method. We assume that when it exists on
+  // the contract we have a ColonyToken 🦆. This might not be true though, so can't rely
+  // on this 100% when trying to call contract methods
+  try {
+    await tokenClient.locked();
+    isColonyToken = true;
+  } catch {
+    isColonyToken = false;
   }
 
   if (isColonyToken) {
-    tokenClient = TokenFactory.connect(
-      address,
-      signerOrProvider,
-    ) as ColonyTokenClient;
-
     tokenClient.tokenClientType = TokenClientType.Colony;
   } else if (isSai(address)) {
     tokenClient = TokenSaiFactory.connect(
@@ -91,6 +81,13 @@ const getTokenClient = async (
     ) as Erc20TokenClient;
 
     tokenClient.tokenClientType = TokenClientType.Erc20;
+  }
+
+  // Before we go, let's check if this resembles a valid ERC20 token, for good measure
+  try {
+    await tokenClient.estimate.transfer(address, 0);
+  } catch (err) {
+    throw new Error(`Token is probably not a valid ERC20 token, got ${err}`);
   }
 
   tokenClient.clientType = ClientType.TokenClient;
