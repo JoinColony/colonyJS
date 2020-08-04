@@ -1,4 +1,4 @@
-import { ContractTransaction } from 'ethers';
+import { ContractFactory, ContractTransaction } from 'ethers';
 import { Arrayish, BigNumber, BigNumberish, bigNumberify } from 'ethers/utils';
 import { MaxUint256 } from 'ethers/constants';
 
@@ -22,11 +22,21 @@ import { TokenClient } from '../../TokenClient';
 import { OneTxPaymentClient } from '../../OneTxPaymentClient';
 import type { ReputationOracleResponse } from '../types';
 
+import {
+  abi as tokenAuthorityAbi,
+  bytecode as tokenAuthorityBytecode,
+} from '../../../contracts/deploy/TokenAuthority.json';
+
 type AnyIColony = IColonyV1 | IColonyV2 | IColonyV3 | IColonyV4;
 
 export type ExtendedEstimate<
   T extends AnyIColony = AnyIColony
 > = T['estimate'] & {
+  deployTokenAuthority(
+    tokenAddress: string,
+    allowedToTransfer: string[],
+  ): Promise<BigNumber>;
+
   setArchitectureRoleWithProofs(
     _user: string,
     _domainId: BigNumberish,
@@ -88,6 +98,11 @@ export type ExtendedIColony<T extends AnyIColony = AnyIColony> = T & {
   tokenClient: TokenClient;
 
   awkwardRecoveryRoleEventClient: IColonyV4;
+
+  deployTokenAuthority(
+    tokenAddress: string,
+    allowedToTransfer: string[],
+  ): Promise<ContractTransaction>;
 
   setArchitectureRoleWithProofs(
     _user: string,
@@ -827,6 +842,42 @@ async function getReputation(
   };
 }
 
+async function deployTokenAuthority(
+  this: ExtendedIColony,
+  tokenAddress: string,
+  allowedToTransfer: string[],
+): Promise<ContractTransaction> {
+  const tokenAuthorityFactory = new ContractFactory(
+    tokenAuthorityAbi,
+    tokenAuthorityBytecode,
+    this.signer,
+  );
+  const tokenAuthorityContract = await tokenAuthorityFactory.deploy(
+    tokenAddress,
+    this.address,
+    allowedToTransfer,
+  );
+  await tokenAuthorityContract.deployed();
+  return tokenAuthorityContract.deployTransaction;
+}
+
+async function estimateDeployTokenAuthority(
+  this: ExtendedIColony,
+  tokenAddress: string,
+  allowedToTransfer: string[],
+): Promise<BigNumber> {
+  const tokenAuthorityFactory = new ContractFactory(
+    tokenAuthorityAbi,
+    tokenAuthorityBytecode,
+  );
+  const deployTx = tokenAuthorityFactory.getDeployTransaction(
+    tokenAddress,
+    this.address,
+    allowedToTransfer,
+  );
+  return this.provider.estimateGas(deployTx);
+}
+
 export const addExtensions = <T extends ExtendedIColony>(
   instance: T,
   networkClient: ColonyNetworkClient,
@@ -834,6 +885,9 @@ export const addExtensions = <T extends ExtendedIColony>(
   /* eslint-disable no-param-reassign, max-len */
   instance.clientType = ClientType.ColonyClient;
   instance.networkClient = networkClient;
+
+  instance.deployTokenAuthority = deployTokenAuthority.bind(instance);
+
   instance.setArchitectureRoleWithProofs = setArchitectureRoleWithProofs.bind(
     instance,
   );
@@ -853,6 +907,10 @@ export const addExtensions = <T extends ExtendedIColony>(
   );
   instance.makeTaskWithProofs = makeTaskWithProofs.bind(instance);
   instance.moveFundsBetweenPotsWithProofs = moveFundsBetweenPotsWithProofs.bind(
+    instance,
+  );
+
+  instance.estimate.deployTokenAuthority = estimateDeployTokenAuthority.bind(
     instance,
   );
 

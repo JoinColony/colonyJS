@@ -1,16 +1,7 @@
-import { ContractFactory, ContractTransaction, Signer } from 'ethers';
+import { Signer } from 'ethers';
 import { Provider } from 'ethers/providers';
-import {
-  BigNumber,
-  getAddress,
-  isHexString,
-  parseBytes32String,
-} from 'ethers/utils';
+import { getAddress, isHexString, parseBytes32String } from 'ethers/utils';
 
-import {
-  abi as tokenAuthorityAbi,
-  bytecode as tokenAuthorityBytecode,
-} from '../contracts/deploy/TokenAuthority.json';
 import { ClientType, TokenClientType, tokenAddresses } from '../constants';
 import { TokenFactory } from '../contracts/4/TokenFactory';
 import { Token } from '../contracts/4/Token';
@@ -28,28 +19,12 @@ export interface TokenInfo {
   decimals: number;
 }
 
-type TokenEstimate = Token['estimate'];
-
-interface ExtendedEstimate extends TokenEstimate {
-  deployTokenAuthority(
-    tokenAddress: string,
-    colonyAddress: string,
-    allowedToTransfer: string[],
-  ): Promise<BigNumber>;
-}
-
 /** The TokenClient is a good client that does awesome things */
 export interface ColonyTokenClient extends Token {
   clientType: ClientType.TokenClient;
   tokenClientType: TokenClientType.Colony;
-  estimate: ExtendedEstimate;
 
   getTokenInfo(): Promise<TokenInfo>;
-  deployTokenAuthority(
-    tokenAddress: string,
-    colonyAddress: string,
-    allowedToTransfer: string[],
-  ): Promise<ContractTransaction>;
 }
 
 export interface Erc20TokenClient extends TokenErc20 {
@@ -82,6 +57,7 @@ const getTokenClient = async (
       signerOrProvider,
     ) as ColonyTokenClient;
 
+    // When a token can `.mint` for a colony we know it's a colony deployed token
     try {
       // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
       // @ts-ignore https://github.com/ethereum-ts/TypeChain/pull/255
@@ -101,42 +77,6 @@ const getTokenClient = async (
     ) as ColonyTokenClient;
 
     tokenClient.tokenClientType = TokenClientType.Colony;
-
-    tokenClient.deployTokenAuthority = async (
-      tokenAddress: string,
-      colonyAddress: string,
-      allowedToTransfer: string[],
-    ): Promise<ContractTransaction> => {
-      const tokenAuthorityFactory = new ContractFactory(
-        tokenAuthorityAbi,
-        tokenAuthorityBytecode,
-        tokenClient.signer,
-      );
-      const tokenAuthorityContract = await tokenAuthorityFactory.deploy(
-        tokenAddress,
-        colonyAddress,
-        allowedToTransfer,
-      );
-      await tokenAuthorityContract.deployed();
-      return tokenAuthorityContract.deployTransaction;
-    };
-
-    tokenClient.estimate.deployTokenAuthority = async (
-      tokenAddress: string,
-      colonyAddress: string,
-      allowedToTransfer: string[],
-    ): Promise<BigNumber> => {
-      const tokenAuthorityFactory = new ContractFactory(
-        tokenAuthorityAbi,
-        tokenAuthorityBytecode,
-      );
-      const deployTx = tokenAuthorityFactory.getDeployTransaction(
-        tokenAddress,
-        colonyAddress,
-        allowedToTransfer,
-      );
-      return tokenClient.provider.estimateGas(deployTx);
-    };
   } else if (isSai(address)) {
     tokenClient = TokenSaiFactory.connect(
       address,
