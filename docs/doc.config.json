@@ -1,6 +1,0 @@
-{
-    "logo": "img/colonyJS_color.svg",
-    "logoSmall": "img/logomark_colonyJS_red.svg",
-    "sectionOrder": ["Intro", "Topics", "Components", "API"],
-    "description": "A JavaScript library with a simple and predictable interface for application-layer integrations with the colonyNetwork smart contracts."
-}
