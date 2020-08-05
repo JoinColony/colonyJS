@@ -10,7 +10,7 @@ This software is in ALPHA state. The API is subject to change (but shouldn't rea
 
 ## Documentation
 
-The documentation is autmatically generated using [TypeDoc](https://github.com/TypeStrong/typedoc). It's pretty alpha right now. You should check out the `getColonyNetworkClient` function in `ColonyNetworkClient` and the docs for the extended colony contracts `clients/Colony/ColonyClientVX`.
+The documentation is automatically generated using [TypeDoc](https://github.com/TypeStrong/typedoc). It's pretty alpha right now. You should check out the `getColonyNetworkClient` function in `ColonyNetworkClient` and the docs for the extended colony contracts `clients/Colony/ColonyClientVX`.
 
 ## Get Started
 
@@ -23,7 +23,7 @@ import { JsonRpcProvider } from 'ethers/providers';
 const provider = new JsonRpcProvider();
 
 // Put in your local network address here (deployed ether router address)
-const networkAddress = '0xdeadbeef';
+const networkAddress = '0xdabbad00';
 
 (async () => {
   // Get a wallet instance
