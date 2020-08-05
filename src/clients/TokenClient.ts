@@ -85,7 +85,11 @@ const getTokenClient = async (
 
   // Before we go, let's check if this resembles a valid ERC20 token, for good measure
   try {
-    await tokenClient.estimate.transfer(address, 0);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore https://github.com/ethereum-ts/TypeChain/pull/255
+    await tokenClient.estimate.transfer(address, 0, {
+      from: address,
+    });
   } catch (err) {
     throw new Error(`Token is probably not a valid ERC20 token, got ${err}`);
   }
