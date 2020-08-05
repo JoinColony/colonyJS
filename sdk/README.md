@@ -1,3 +1,8 @@
+# DEPRECATION NOTICE
+
+This project has been retired. Please use [colonyJS](https://github.com/JoinColony/colonyJS) directly. Thank you.
+
+
 <div align="center">
   <img src="/docs/img/colonyStarter_color.svg" width="600" />
 </div>
