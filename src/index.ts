@@ -6,6 +6,7 @@ import { ColonyClientV1 } from './clients/Colony/ColonyClientV1';
 import { ColonyClientV2 } from './clients/Colony/ColonyClientV2';
 import { ColonyClientV3 } from './clients/Colony/ColonyClientV3';
 import { ColonyClientV4 } from './clients/Colony/ColonyClientV4';
+import { ColonyClientV5 } from './clients/Colony/ColonyClientV5';
 import { OneTxPaymentFactoryClient } from './clients/OneTxPaymentDeployerClient';
 import { OneTxPaymentClient } from './clients/OneTxPaymentClient';
 import { TokenClient } from './clients/TokenClient';
@@ -36,7 +37,8 @@ export type ColonyClient =
   | ColonyClientV1
   | ColonyClientV2
   | ColonyClientV3
-  | ColonyClientV4;
+  | ColonyClientV4
+  | ColonyClientV5;
 
 export type ContractClient =
   | ColonyClient

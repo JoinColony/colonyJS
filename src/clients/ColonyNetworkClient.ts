@@ -24,6 +24,7 @@ import getColonyClientV1 from './Colony/ColonyClientV1';
 import getColonyClientV2 from './Colony/ColonyClientV2';
 import getColonyClientV3 from './Colony/ColonyClientV3';
 import getColonyClientV4 from './Colony/ColonyClientV4';
+import getColonyClientV5 from './Colony/ColonyClientV5';
 import getTokenClient from './TokenClient';
 import getTokenLockingClient, {
   TokenLockingClient,
@@ -32,6 +33,10 @@ import getOneTxPaymentFactoryClient, {
   OneTxPaymentFactoryClient,
 } from './OneTxPaymentDeployerClient';
 import getOneTxPaymentClient from './OneTxPaymentClient';
+import getCoinMachineFactoryClient, {
+  CoinMachineFactoryClient,
+} from './CoinMachineDeployerClient';
+import getCoinMachineClient from './CoinMachineClient';
 
 type NetworkEstimate = IColonyNetwork['estimate'];
 
@@ -49,6 +54,7 @@ export interface ColonyNetworkClient extends IColonyNetwork {
   reputationOracleEndpoint: string;
 
   oneTxPaymentFactoryClient: OneTxPaymentFactoryClient;
+  coinMachineFactoryClient: CoinMachineFactoryClient;
   estimate: ExtendedEstimate;
 
   /**
@@ -105,6 +111,7 @@ export interface ColonyNetworkClient extends IColonyNetwork {
 
 interface NetworkClientOptions {
   networkAddress?: string;
+  coinMachineFactoryAddress?: string;
   oneTxPaymentFactoryAddress?: string;
   reputationOracleEndpoint?: string;
 }
@@ -141,6 +148,12 @@ const getColonyNetworkClient = (
     options && options.oneTxPaymentFactoryAddress,
   );
 
+  networkClient.coinMachineFactoryClient = getCoinMachineFactoryClient(
+    network,
+    signerOrProvider,
+    options && options.coinMachineFactoryAddress,
+  );
+
   networkClient.getTokenLockingClient = async (): Promise<
     TokenLockingClient
   > => {
@@ -165,7 +178,7 @@ const getColonyNetworkClient = (
     // We have to get the version somehow before instantiating the right contract version
     const versionBN = await colonyVersionClient.version();
     const version = versionBN.toNumber() as ColonyVersion;
-    let colonyClient;
+    let colonyClient: ColonyClient;
     switch (version) {
       case ColonyVersion.GoerliGlider: {
         colonyClient = getColonyClientV1.call(
@@ -199,6 +212,14 @@ const getColonyNetworkClient = (
         );
         break;
       }
+      case ColonyVersion.CeruleanLightweightSpaceship: {
+        colonyClient = getColonyClientV5.call(
+          networkClient,
+          colonyAddress,
+          signerOrProvider,
+        );
+        break;
+      }
       default: {
         throw new Error('Colony version not supported');
       }
@@ -210,6 +231,7 @@ const getColonyNetworkClient = (
       signerOrProvider,
     );
 
+    // ONE TRANSACTION PAYMENT EXTENSTION
     // eslint-disable-next-line max-len
     const oneTxPaymentAddress = await networkClient.oneTxPaymentFactoryClient.deployedExtensions(
       colonyClient.address,
@@ -218,6 +240,23 @@ const getColonyNetworkClient = (
     if (oneTxPaymentAddress !== AddressZero) {
       colonyClient.oneTxPaymentClient = getOneTxPaymentClient(
         oneTxPaymentAddress,
+        colonyClient,
+      );
+    }
+
+    // COIN MACHINE EXTENSION
+    // eslint-disable-next-line max-len
+    const coinMachineAddress = await networkClient.coinMachineFactoryClient.deployedExtensions(
+      colonyClient.address,
+    );
+
+    if (
+      coinMachineAddress &&
+      // In the future we might need to add future versions of colony as well
+      colonyClient.clientVersion === ColonyVersion.CeruleanLightweightSpaceship
+    ) {
+      colonyClient.coinMachineClient = getCoinMachineClient(
+        coinMachineAddress,
         colonyClient,
       );
     }

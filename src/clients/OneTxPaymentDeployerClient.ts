@@ -10,7 +10,7 @@ import { OneTxPaymentDeployerFactory } from '../contracts/5/OneTxPaymentDeployer
 import { OneTxPaymentDeployer } from '../contracts/5/OneTxPaymentDeployer';
 
 export interface OneTxPaymentFactoryClient extends OneTxPaymentDeployer {
-  clientType: ClientType.OneTxPaymentClient;
+  clientType: ClientType.OneTxPaymentFactoryClient;
 }
 
 const getOneTxPaymentFactoryClient = (
@@ -32,7 +32,7 @@ const getOneTxPaymentFactoryClient = (
     signerOrProvider,
   ) as OneTxPaymentFactoryClient;
 
-  oneTxPaymentClient.clientType = ClientType.OneTxPaymentClient;
+  oneTxPaymentClient.clientType = ClientType.OneTxPaymentFactoryClient;
 
   return oneTxPaymentClient;
 };
