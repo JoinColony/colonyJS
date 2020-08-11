@@ -67,7 +67,7 @@ const getExtensionPermissionProofs = async (
     address,
   );
 
-  if (fundingPDID !== adminPDID || fundingCSI !== adminCSI) {
+  if (!fundingPDID.eq(adminPDID) || !fundingCSI.eq(adminCSI)) {
     // @TODO: this can surely be improved
     throw new Error(
       // eslint-disable-next-line max-len
