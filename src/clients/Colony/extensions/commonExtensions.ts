@@ -94,7 +94,7 @@ export type ExtendedEstimate<
 export type ExtendedIColony<T extends AnyIColony = AnyIColony> = T & {
   clientType: ClientType.ColonyClient;
   networkClient: ColonyNetworkClient;
-  oneTxPaymentClient: OneTxPaymentClient;
+  oneTxPaymentClient?: OneTxPaymentClient;
   tokenClient: TokenClient;
 
   awkwardRecoveryRoleEventClient: IColonyV4;
