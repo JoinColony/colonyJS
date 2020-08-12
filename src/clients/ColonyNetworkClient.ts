@@ -1,6 +1,7 @@
 import { ContractFactory, ContractTransaction, Signer } from 'ethers';
 import { Provider } from 'ethers/providers';
 import { BigNumber } from 'ethers/utils';
+import { AddressZero } from 'ethers/constants';
 
 import { ColonyClient } from '../index';
 
@@ -213,10 +214,13 @@ const getColonyNetworkClient = (
     const oneTxPaymentAddress = await networkClient.oneTxPaymentFactoryClient.deployedExtensions(
       colonyClient.address,
     );
-    colonyClient.oneTxPaymentClient = getOneTxPaymentClient(
-      oneTxPaymentAddress,
-      colonyClient,
-    );
+
+    if (oneTxPaymentAddress !== AddressZero) {
+      colonyClient.oneTxPaymentClient = getOneTxPaymentClient(
+        oneTxPaymentAddress,
+        colonyClient,
+      );
+    }
 
     return colonyClient;
   };
