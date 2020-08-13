@@ -5,8 +5,7 @@ name: Build docs and deploy
 
 on:
   push:
-    # Remove v2 once version 2 is merged
-    branches: [ master, v2 ]
+    branches: [ develop ]
 
 jobs:
   build-and-deploy:
