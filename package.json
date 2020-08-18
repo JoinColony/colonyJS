@@ -13,7 +13,7 @@
     "compile": "tsc -p tsconfig.build.json",
     "compile-esm": "tsc -p tsconfig.build.json -m es6 --outDir lib-esm",
     "copy-declarations": "copyfiles -u 1 src/contracts/**/*.d.ts lib && copyfiles -u 1 src/contracts/**/*.d.ts lib-esm",
-    "build-docs": "typedoc --mode library --out docs src/index.ts",
+    "build-docs": "typedoc --out docs src/index.ts",
     "build-contracts": "ts-node -P scripts/tsconfig-scripts.json scripts/build-contracts.ts",
     "prepublishOnly": "npm test && npm run build"
   },
