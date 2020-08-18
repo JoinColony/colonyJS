@@ -123,7 +123,7 @@ import { IColonyNetworkFactory } from '../contracts/X/IColonyNetworkFactory';
 import { IColonyNetwork } from '../contracts/X/IColonyNetwork';
 ```
 
-7) Update all the other contract imports in the non-colony clients, even if they haven't been upgraded (just in case). Then make adjustments to the clients to reflect the contract changes (typescript will tell you, where to make changes). Also add necessary helper functions (e.g. `withProofs` functions) for newly added methods.
+7) Update all the other contract imports in the non-colony clients, even if they haven't been upgraded (just in case). Then make adjustments to the clients to reflect the contract changes (typescript will tell you, where to make changes). Also add necessary helper functions (e.g. `withProofs` functions) for newly added methods. The newly added methods and their required roles can be found in [this file](https://github.com/JoinColony/colonyNetwork/blob/develop/contracts/colony/ColonyAuthority.sol) (and by diffing the generated interface files).
 
 
 ## License

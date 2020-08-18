@@ -7,6 +7,7 @@ import {
   Network,
   ClientType,
   ColonyRole,
+  ColonyVersion,
   FundingPotAssociatedType,
   ROOT_DOMAIN_ID,
 } from '../../../constants';
@@ -14,6 +15,7 @@ import { IColony as IColonyV1 } from '../../../contracts/1/IColony';
 import { IColony as IColonyV2 } from '../../../contracts/2/IColony';
 import { IColony as IColonyV3 } from '../../../contracts/3/IColony';
 import { IColony as IColonyV4 } from '../../../contracts/4/IColony';
+import { IColony as IColonyV5 } from '../../../contracts/5/IColony';
 import { TransactionOverrides } from '../../../contracts/1';
 import { IColonyFactory } from '../../../contracts/4/IColonyFactory';
 
@@ -27,7 +29,7 @@ import {
   bytecode as tokenAuthorityBytecode,
 } from '../../../contracts/deploy/TokenAuthority.json';
 
-type AnyIColony = IColonyV1 | IColonyV2 | IColonyV3 | IColonyV4;
+type AnyIColony = IColonyV1 | IColonyV2 | IColonyV3 | IColonyV4 | IColonyV5;
 
 export type ExtendedEstimate<
   T extends AnyIColony = AnyIColony
@@ -93,6 +95,7 @@ export type ExtendedEstimate<
 
 export type ExtendedIColony<T extends AnyIColony = AnyIColony> = T & {
   clientType: ClientType.ColonyClient;
+  clientVersion: ColonyVersion;
   networkClient: ColonyNetworkClient;
   oneTxPaymentClient?: OneTxPaymentClient;
   tokenClient: TokenClient;
@@ -183,6 +186,11 @@ export const getPotDomain = async (
   const { associatedType, associatedTypeId } = await contract.getFundingPot(
     potId,
   );
+  // In case we add types to this later, we use the official colonyNetwork
+  // function available in v5+
+  if (contract.clientVersion === ColonyVersion.CeruleanLightweightSpaceship) {
+    return contract.getDomainFromFundingPot(potId);
+  }
   switch (associatedType) {
     case FundingPotAssociatedType.Unassigned: {
       // This is probably the reward pot

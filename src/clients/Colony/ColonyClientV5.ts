@@ -7,11 +7,12 @@ import { ColonyVersion } from '../../constants';
 import { ColonyNetworkClient } from '../ColonyNetworkClient';
 import { ExtendedIColony } from './extensions/commonExtensions';
 import { ColonyExtensionsV3 } from './extensions/extensionsV3';
+import { ColonyExtensionsV4 } from './extensions/extensionsV4';
 import {
-  ColonyExtensionsV4,
-  ExtendedEstimateV4,
-} from './extensions/extensionsV4';
-import { addExtensions, ColonyExtensionsV5 } from './extensions/extensionsV5';
+  addExtensions,
+  ColonyExtensionsV5,
+  ExtendedEstimateV5,
+} from './extensions/extensionsV5';
 
 export interface ColonyClientV5
   extends ExtendedIColony<IColony>,
@@ -19,7 +20,7 @@ export interface ColonyClientV5
     ColonyExtensionsV4<IColony>,
     ColonyExtensionsV5<IColony> {
   clientVersion: ColonyVersion.CeruleanLightweightSpaceship;
-  estimate: ExtendedIColony<IColony>['estimate'] & ExtendedEstimateV4;
+  estimate: ExtendedIColony<IColony>['estimate'] & ExtendedEstimateV5;
 }
 
 export default function getColonyClient(
