@@ -36,7 +36,7 @@ export interface Erc20TokenClient extends TokenErc20 {
 
 export interface DaiTokenClient extends TokenSai {
   clientType: ClientType.TokenClient;
-  tokenClientType: TokenClientType.Dai;
+  tokenClientType: TokenClientType.Sai;
 
   getTokenInfo(): Promise<TokenInfo>;
 }
@@ -73,7 +73,7 @@ const getTokenClient = async (
       signerOrProvider,
     ) as DaiTokenClient;
 
-    tokenClient.tokenClientType = TokenClientType.Dai;
+    tokenClient.tokenClientType = TokenClientType.Sai;
   } else {
     tokenClient = TokenErc20Factory.connect(
       address,

@@ -50,7 +50,7 @@ export enum ClientType {
 export enum TokenClientType {
   Colony = 'Colony',
   Erc20 = 'Erc20',
-  Dai = 'Dai',
+  Sai = 'Sai',
 }
 
 export const colonyNetworkAddresses = {
