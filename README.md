@@ -58,11 +58,51 @@ We welcome all contributions to colonyJS! See [Contributing](https://github.com/
 
 ## Development
 
+### Local development
+
+Using just `npm` you can _link_ the built colonyJS files to your Dapp when developing new features in colonyJS while trying them out immediately in your dev-environment.
+
+To do that:
+
+1) Make sure you are using **the exact same node version in colonyJS and the Dapp**. Use nvm if possible
+
+2) Build colonyJS. In the colonyJS directory do:
+
+```shell
+npm run build
+```
+
+3) Create an `npm link` in the colonyJS directory:
+
+```shell
+npm link
+```
+
+4) Link to it in the **Dapp** directory:
+
+```shell
+npm link @colony/colony-js
+```
+
+5) Then do a regular install in the Dapp directory:
+
+```shell
+npm install
+```
+
+To overwrite the link again just specify a version that exists on npm:
+
+```shell
+npm install @colony/colony-js@^3.0.0
+```
+
+If that doesn't remove it, just remove the folder in `node_modules`
+
 ### To release a new version
 
 1) First, commit all your changes. Then run the tests:
 
-```bash
+```shell
 npm test #just to be sure
 ```
 
@@ -70,26 +110,26 @@ npm test #just to be sure
 
 3) Let npm adjust the version in `package-lock.json`:
 
-```bash
+```shell
 npm install
 ```
 
 4) Commit the npm package files. Use the version set in the package.json (**make sure to follow the version pattern**):
 
-```bash
+```shell
 git add pack*
 git commit -m '2.0.1' # no `v`!
 ```
 
 5) Tag the commit:
 
-```bash
+```shell
 git tag v2.0.1 # here we use the `v`!
 ```
 
 6) Push the changes and tags:
 
-```bash
+```shell
 git push && git push --tags
 ```
 
@@ -108,7 +148,7 @@ Done 🎊
 3) Add the git tag to `scripts/config.ts`
 4) If needed: add new contracts that need clients to the `contractsToBuild` array in `scripts/build-contracts.ts`
 5) Run
-```bash
+```shell
 DISABLE_DOCKER=true npm run build-contracts -- -V=X
 ```
 
