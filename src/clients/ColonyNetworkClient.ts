@@ -100,7 +100,7 @@ export interface ColonyNetworkClient extends IColonyNetwork {
    *
    * @returns an ENS name in the form of `[username].user.joincolony.eth` or `[colonyName].colony.joincolony.eth`
    */
-  lookupRegisteredENSDomainWithGoerliPatch(address: string): Promise<string>;
+  lookupRegisteredENSDomainWithNetworkPatches(address: string): Promise<string>;
 }
 
 interface NetworkClientOptions {
@@ -230,13 +230,17 @@ const getColonyNetworkClient = (
     return networkClient.getColonyClient(metaColonyAddress);
   };
 
-  networkClient.lookupRegisteredENSDomainWithGoerliPatch = async (
+  networkClient.lookupRegisteredENSDomainWithNetworkPatches = async (
     addr: string,
   ): Promise<string> => {
     const domain = await networkClient.lookupRegisteredENSDomain(addr);
     if (domain && networkClient.network === Network.Goerli) {
       const [name, scope] = domain.split('.');
       return `${name}.${scope}.joincolony.test`;
+    }
+    if (domain && networkClient.network === Network.Xdai) {
+      const [name, scope] = domain.split('.');
+      return `${name}.${scope}.joincolony.colonyxdai`;
     }
     return domain;
   };
