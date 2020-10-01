@@ -238,7 +238,11 @@ const getColonyNetworkClient = (
       const [name, scope] = domain.split('.');
       return `${name}.${scope}.joincolony.test`;
     }
-    if (domain && networkClient.network === Network.Xdai) {
+    if (
+      domain &&
+      (networkClient.network === Network.Xdai ||
+        networkClient.network === Network.XdaiFork)
+    ) {
       const [name, scope] = domain.split('.');
       return `${name}.${scope}.joincolony.colonyxdai`;
     }
