@@ -115,6 +115,8 @@ export const oneTxPaymentFactoryAddresses = {
 export const coinMachineFactoryAddresses = {
   [Network.Mainnet]: '0xbab00',
   [Network.Goerli]: '0xbab0',
+  [Network.Xdai]: '0xbab000',
+  [Network.XdaiFork]: '0xbaffff',
   [Network.Local]: undefined,
 };
 
