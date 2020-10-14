@@ -37,7 +37,12 @@ const networkAddress = '0xdabbad00';
   console.log('Wallet Address:', wallet.address);
 
   // Get a network client instance
-  const networkClient = await getColonyNetworkClient(Network.Local, wallet, networkAddress)
+  const networkClient = await getColonyNetworkClient(
+    Network.Local,
+    wallet,
+    // The address of the locally deployed EtherRouter!
+    { networkAddress: '0xdabbad00' }
+  );
 
   // Check out the logs to see the network address
   console.log('Network Address:', networkClient.address);
