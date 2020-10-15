@@ -12,6 +12,28 @@ import {
 
 interface CoinMachineInterface extends Interface {
   functions: {
+    setOwner: TypedFunctionDescription<{ encode([owner_]: [string]): string }>;
+
+    setAuthority: TypedFunctionDescription<{
+      encode([authority_]: [string]): string;
+    }>;
+
+    owner: TypedFunctionDescription<{ encode([]: []): string }>;
+
+    authority: TypedFunctionDescription<{ encode([]: []): string }>;
+
+    version: TypedFunctionDescription<{ encode([]: []): string }>;
+
+    install: TypedFunctionDescription<{ encode([_colony]: [string]): string }>;
+
+    finishUpgrade: TypedFunctionDescription<{ encode([]: []): string }>;
+
+    deprecate: TypedFunctionDescription<{
+      encode([_deprecated]: [boolean]): string;
+    }>;
+
+    uninstall: TypedFunctionDescription<{ encode([]: []): string }>;
+
     initialise: TypedFunctionDescription<{
       encode([
         _purchaseToken,
@@ -57,6 +79,14 @@ interface CoinMachineInterface extends Interface {
     PeriodUpdated: TypedEventDescription<{
       encodeTopics([activePeriod, currentPeriod]: [null, null]): string[];
     }>;
+
+    LogSetAuthority: TypedEventDescription<{
+      encodeTopics([authority]: [string | null]): string[];
+    }>;
+
+    LogSetOwner: TypedEventDescription<{
+      encodeTopics([owner]: [string | null]): string[];
+    }>;
   };
 }
 
@@ -74,6 +104,54 @@ export class CoinMachine extends Contract {
   interface: CoinMachineInterface;
 
   functions: {
+    setOwner(
+      owner_: string,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    setAuthority(
+      authority_: string,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    owner(): Promise<string>;
+
+    authority(): Promise<string>;
+
+    /**
+     * Returns the version of the extension
+     */
+    version(): Promise<BigNumber>;
+
+    /**
+     * Configures the extension
+     * @param _colony The colony in which the extension holds permissions
+     */
+    install(
+      _colony: string,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Called when upgrading the extension
+     */
+    finishUpgrade(
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Called when deprecating (or undeprecating) the extension
+     */
+    deprecate(
+      _deprecated: boolean,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Called when uninstalling the extension
+     */
+    uninstall(overrides?: TransactionOverrides): Promise<ContractTransaction>;
+
     /**
      * Must be called before any sales can be made
      * @param _maxPerPeriod The maximum number of tokens that can be sold per period
@@ -139,6 +217,52 @@ export class CoinMachine extends Contract {
      */
     getNumAvailable(): Promise<BigNumber>;
   };
+
+  setOwner(
+    owner_: string,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  setAuthority(
+    authority_: string,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  owner(): Promise<string>;
+
+  authority(): Promise<string>;
+
+  /**
+   * Returns the version of the extension
+   */
+  version(): Promise<BigNumber>;
+
+  /**
+   * Configures the extension
+   * @param _colony The colony in which the extension holds permissions
+   */
+  install(
+    _colony: string,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * Called when upgrading the extension
+   */
+  finishUpgrade(overrides?: TransactionOverrides): Promise<ContractTransaction>;
+
+  /**
+   * Called when deprecating (or undeprecating) the extension
+   */
+  deprecate(
+    _deprecated: boolean,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * Called when uninstalling the extension
+   */
+  uninstall(overrides?: TransactionOverrides): Promise<ContractTransaction>;
 
   /**
    * Must be called before any sales can be made
@@ -207,9 +331,31 @@ export class CoinMachine extends Contract {
     TokensBought(buyer: null, numTokens: null, totalCost: null): EventFilter;
 
     PeriodUpdated(activePeriod: null, currentPeriod: null): EventFilter;
+
+    LogSetAuthority(authority: string | null): EventFilter;
+
+    LogSetOwner(owner: string | null): EventFilter;
   };
 
   estimate: {
+    setOwner(owner_: string): Promise<BigNumber>;
+
+    setAuthority(authority_: string): Promise<BigNumber>;
+
+    owner(): Promise<BigNumber>;
+
+    authority(): Promise<BigNumber>;
+
+    version(): Promise<BigNumber>;
+
+    install(_colony: string): Promise<BigNumber>;
+
+    finishUpgrade(): Promise<BigNumber>;
+
+    deprecate(_deprecated: boolean): Promise<BigNumber>;
+
+    uninstall(): Promise<BigNumber>;
+
     initialise(
       _purchaseToken: string,
       _periodLength: BigNumberish,

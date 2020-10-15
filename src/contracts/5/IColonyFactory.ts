@@ -939,6 +939,36 @@ const _abi = [
     type: "function"
   },
   {
+    constant: false,
+    inputs: [
+      {
+        name: "_permissionDomainId",
+        type: "uint256"
+      },
+      {
+        name: "_childSkillIndex",
+        type: "uint256"
+      },
+      {
+        name: "_user",
+        type: "address"
+      },
+      {
+        name: "_domainId",
+        type: "uint256"
+      },
+      {
+        name: "_roles",
+        type: "bytes32"
+      }
+    ],
+    name: "setUserRoles",
+    outputs: [],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
     constant: true,
     inputs: [
       {
@@ -1004,15 +1034,65 @@ const _abi = [
     constant: true,
     inputs: [
       {
-        name: "who",
+        name: "_user",
         type: "address"
       },
       {
-        name: "where",
+        name: "_domainId",
+        type: "uint256"
+      },
+      {
+        name: "_childSkillIndex",
+        type: "uint256"
+      },
+      {
+        name: "_childDomainId",
+        type: "uint256"
+      }
+    ],
+    name: "userCanSetRoles",
+    outputs: [
+      {
+        name: "canSet",
+        type: "bool"
+      }
+    ],
+    payable: false,
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    constant: true,
+    inputs: [
+      {
+        name: "_user",
+        type: "address"
+      },
+      {
+        name: "_domain",
         type: "uint256"
       }
     ],
     name: "getUserRoles",
+    outputs: [
+      {
+        name: "roles",
+        type: "bytes32"
+      }
+    ],
+    payable: false,
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    constant: true,
+    inputs: [
+      {
+        name: "_sig",
+        type: "bytes4"
+      }
+    ],
+    name: "getCapabilityRoles",
     outputs: [
       {
         name: "roles",
@@ -1170,6 +1250,74 @@ const _abi = [
       }
     ],
     name: "updateColonyOrbitDB",
+    outputs: [],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    constant: false,
+    inputs: [
+      {
+        name: "extensionId",
+        type: "bytes32"
+      },
+      {
+        name: "version",
+        type: "uint256"
+      }
+    ],
+    name: "installExtension",
+    outputs: [],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    constant: false,
+    inputs: [
+      {
+        name: "extensionId",
+        type: "bytes32"
+      },
+      {
+        name: "newVersion",
+        type: "uint256"
+      }
+    ],
+    name: "upgradeExtension",
+    outputs: [],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    constant: false,
+    inputs: [
+      {
+        name: "extensionId",
+        type: "bytes32"
+      },
+      {
+        name: "deprecated",
+        type: "bool"
+      }
+    ],
+    name: "deprecateExtension",
+    outputs: [],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    constant: false,
+    inputs: [
+      {
+        name: "extensionId",
+        type: "bytes32"
+      }
+    ],
+    name: "uninstallExtension",
     outputs: [],
     payable: false,
     stateMutability: "nonpayable",
@@ -1504,6 +1652,44 @@ const _abi = [
     constant: false,
     inputs: [
       {
+        name: "_permissionDomainId",
+        type: "uint256"
+      },
+      {
+        name: "_childSkillIndex",
+        type: "uint256"
+      },
+      {
+        name: "_id",
+        type: "uint256"
+      },
+      {
+        name: "_storageSlot",
+        type: "uint256"
+      },
+      {
+        name: "_mask",
+        type: "bool[]"
+      },
+      {
+        name: "_keys",
+        type: "bytes32[]"
+      },
+      {
+        name: "_value",
+        type: "bytes32"
+      }
+    ],
+    name: "setExpenditureState",
+    outputs: [],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    constant: false,
+    inputs: [
+      {
         name: "_id",
         type: "uint256"
       },
@@ -1566,6 +1752,10 @@ const _abi = [
           },
           {
             name: "finalizedTimestamp",
+            type: "uint256"
+          },
+          {
+            name: "globalClaimDelay",
             type: "uint256"
           }
         ],

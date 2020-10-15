@@ -98,6 +98,16 @@ interface IColonyInterface extends Interface {
       ]: [BigNumberish, BigNumberish, string, BigNumberish, boolean]): string;
     }>;
 
+    setUserRoles: TypedFunctionDescription<{
+      encode([
+        _permissionDomainId,
+        _childSkillIndex,
+        _user,
+        _domainId,
+        _roles
+      ]: [BigNumberish, BigNumberish, string, BigNumberish, Arrayish]): string;
+    }>;
+
     hasUserRole: TypedFunctionDescription<{
       encode([_user, _domainId, _role]: [
         string,
@@ -116,8 +126,21 @@ interface IColonyInterface extends Interface {
       ]): string;
     }>;
 
+    userCanSetRoles: TypedFunctionDescription<{
+      encode([_user, _domainId, _childSkillIndex, _childDomainId]: [
+        string,
+        BigNumberish,
+        BigNumberish,
+        BigNumberish
+      ]): string;
+    }>;
+
     getUserRoles: TypedFunctionDescription<{
-      encode([who, where]: [string, BigNumberish]): string;
+      encode([_user, _domain]: [string, BigNumberish]): string;
+    }>;
+
+    getCapabilityRoles: TypedFunctionDescription<{
+      encode([_sig]: [Arrayish]): string;
     }>;
 
     emitDomainReputationPenalty: TypedFunctionDescription<{
@@ -166,6 +189,22 @@ interface IColonyInterface extends Interface {
 
     updateColonyOrbitDB: TypedFunctionDescription<{
       encode([orbitdb]: [string]): string;
+    }>;
+
+    installExtension: TypedFunctionDescription<{
+      encode([extensionId, version]: [Arrayish, BigNumberish]): string;
+    }>;
+
+    upgradeExtension: TypedFunctionDescription<{
+      encode([extensionId, newVersion]: [Arrayish, BigNumberish]): string;
+    }>;
+
+    deprecateExtension: TypedFunctionDescription<{
+      encode([extensionId, deprecated]: [Arrayish, boolean]): string;
+    }>;
+
+    uninstallExtension: TypedFunctionDescription<{
+      encode([extensionId]: [Arrayish]): string;
     }>;
 
     addDomain: TypedFunctionDescription<{
@@ -268,6 +307,26 @@ interface IColonyInterface extends Interface {
         BigNumberish,
         BigNumberish,
         BigNumberish
+      ]): string;
+    }>;
+
+    setExpenditureState: TypedFunctionDescription<{
+      encode([
+        _permissionDomainId,
+        _childSkillIndex,
+        _id,
+        _storageSlot,
+        _mask,
+        _keys,
+        _value
+      ]: [
+        BigNumberish,
+        BigNumberish,
+        BigNumberish,
+        BigNumberish,
+        boolean[],
+        Arrayish[],
+        Arrayish
       ]): string;
     }>;
 
@@ -1105,6 +1164,23 @@ export class IColony extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
+     * Set several roles in one transaction. Can be called by root role or architecture role.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _domainId Domain in which we are giving user the role
+     * @param _permissionDomainId Domain in which the caller has root/architecture role
+     * @param _roles Byte array representing the desired role setting (1 for on, 0 for off)
+     * @param _user User we want to give a role to
+     */
+    setUserRoles(
+      _permissionDomainId: BigNumberish,
+      _childSkillIndex: BigNumberish,
+      _user: string,
+      _domainId: BigNumberish,
+      _roles: Arrayish,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
      * Check whether a given user has a given role for the colony. Calls the function of the same name on the colony's authority contract.
      * @param _domainId The domain where we want to check for the role
      * @param _role The role we want to check for
@@ -1135,12 +1211,34 @@ export class IColony extends Contract {
     ): Promise<boolean>;
 
     /**
-     * Gets the bytes32 representation of the roles for a user in a given domain
-     * @param where The domain where we want to get roles for
-     * @param who The user whose roles we want to get
-     * @returns roles bytes32 representation of the roles
+     * Check whether a given user can modify roles in the target domain `_childDomainId`. Mostly a convenience function to provide a uniform interface for extension contracts validating permissions
+     * @param _childDomainId The domain where we want to edit roles
+     * @param _childSkillIndex The index that the `_childDomainId` is relative to `_domainId`
+     * @param _domainId Domain in which the caller has the role (currently Root or Architecture)
+     * @param _user The user whose permissions we want to check
+     * @returns canSet Boolean indicating whether the given user is allowed to edit roles in the target domain.
      */
-    getUserRoles(who: string, where: BigNumberish): Promise<string>;
+    userCanSetRoles(
+      _user: string,
+      _domainId: BigNumberish,
+      _childSkillIndex: BigNumberish,
+      _childDomainId: BigNumberish
+    ): Promise<boolean>;
+
+    /**
+     * Gets the bytes32 representation of the roles for a user in a given domain
+     * @param _domain The domain we want to get roles in
+     * @param _user The user whose roles we want to get
+     * @returns roles bytes32 representation of the held roles
+     */
+    getUserRoles(_user: string, _domain: BigNumberish): Promise<string>;
+
+    /**
+     * Gets the bytes32 representation of the roles authorized to call a function
+     * @param _sig The function signature
+     * @returns roles bytes32 representation of the authorized roles
+     */
+    getCapabilityRoles(_sig: Arrayish): Promise<string>;
 
     /**
      * Emit a negative domain reputation update. Available only to Arbitration role holders
@@ -1237,6 +1335,49 @@ export class IColony extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
+     * Install an extension to the colony. Secured function to authorised members.
+     * @param extensionId keccak256 hash of the extension name, used as an indentifier
+     * @param version The new extension version to install
+     */
+    installExtension(
+      extensionId: Arrayish,
+      version: BigNumberish,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Upgrade an extension in a colony. Secured function to authorised members.
+     * @param extensionId keccak256 hash of the extension name, used as an indentifier
+     * @param newVersion The version to upgrade to (must be one larger than the current version)
+     */
+    upgradeExtension(
+      extensionId: Arrayish,
+      newVersion: BigNumberish,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Set the deprecation of an extension in a colony. Secured function to authorised members.
+     * @param deprecated Whether to deprecate the extension or not
+     * @param extensionId keccak256 hash of the extension name, used as an indentifier
+     */
+    deprecateExtension(
+      extensionId: Arrayish,
+      deprecated: boolean,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * This is a permanent action -- re-installing the extension will deploy a new contractIt is recommended to deprecate an extension before uninstalling to allow active objects to be resolved
+     * Uninstall an extension from a colony. Secured function to authorised members.
+     * @param extensionId keccak256 hash of the extension name, used as an indentifier
+     */
+    uninstallExtension(
+      extensionId: Arrayish,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
      * Adding new domains is currently retricted to one level only, i.e. `_parentDomainId` has to be the root domain id: `1`.
      * Add a colony domain, and its respective local skill under skill with id `_parentSkillId`. New funding pot is created and associated with the domain here.
      * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
@@ -1312,7 +1453,8 @@ export class IColony extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
-     * Updates the expenditure owner. Can only be called by Arbitration role.
+     * This is now deprecated and will be removed in a future version
+     * DEPRECATED Updates the expenditure owner. Can only be called by Arbitration role.
      * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
      * @param _id Expenditure identifier
      * @param _newOwner New owner of expenditure
@@ -1386,8 +1528,8 @@ export class IColony extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
-     * Note that when determining payouts the payoutModifier is incremented by WAD and converted into payoutScalar
-     * Set the payout modifier on an expenditure slot. Can only be called by Arbitration role.
+     * This is now deprecated and will be removed in a future versionNote that when determining payouts the payoutModifier is incremented by WAD and converted into payoutScalar
+     * DEPRECATED Set the payout modifier on an expenditure slot. Can only be called by Arbitration role.
      * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
      * @param _id Expenditure identifier
      * @param _payoutModifier Modifier to their payout (between -1 and 1, denominated in WADs, 0 means no modification)
@@ -1404,7 +1546,8 @@ export class IColony extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
-     * Set the claim delay on an expenditure slot. Can only be called by Arbitration role.
+     * This is now deprecated and will be removed in a future version
+     * DEPRECATED Set the claim delay on an expenditure slot. Can only be called by Arbitration role.
      * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
      * @param _claimDelay Time (in seconds) to delay claiming payout after finalization
      * @param _id Expenditure identifier
@@ -1417,6 +1560,27 @@ export class IColony extends Contract {
       _id: BigNumberish,
       _slot: BigNumberish,
       _claimDelay: BigNumberish,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Set arbitrary state on an expenditure slot. Can only be called by Arbitration role.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
+     * @param _id Expenditure identifier
+     * @param _keys Array of additional keys (for mappings & arrays)
+     * @param _mask Array of booleans indicated whether a key is a mapping (F) or an array index (T).
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _storageSlot Number of the top-level storage slot (25, 26, or 27)
+     * @param _value Value to set at location
+     */
+    setExpenditureState(
+      _permissionDomainId: BigNumberish,
+      _childSkillIndex: BigNumberish,
+      _id: BigNumberish,
+      _storageSlot: BigNumberish,
+      _mask: boolean[],
+      _keys: Arrayish[],
+      _value: Arrayish,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
@@ -1452,11 +1616,13 @@ export class IColony extends Contract {
       fundingPotId: BigNumber;
       domainId: BigNumber;
       finalizedTimestamp: BigNumber;
+      globalClaimDelay: BigNumber;
       0: number;
       1: string;
       2: BigNumber;
       3: BigNumber;
       4: BigNumber;
+      5: BigNumber;
     }>;
 
     /**
@@ -2251,6 +2417,7 @@ export class IColony extends Contract {
      * @param _domainId Domain in which we are willing to be obligated.
      * @param _obligator Address of the account we are willing to let obligate us.
      * @param _user User allowing their tokens to be obligated.
+     * @returns approval The amount the user has approved
      */
     getApproval(
       _user: string,
@@ -2263,6 +2430,7 @@ export class IColony extends Contract {
      * @param _domainId Domain in which we are obligated.
      * @param _obligator Address of the account who obligated us.
      * @param _user User whose tokens are obligated.
+     * @returns obligation The amount that is currently obligated
      */
     getObligation(
       _user: string,
@@ -2476,6 +2644,23 @@ export class IColony extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
+   * Set several roles in one transaction. Can be called by root role or architecture role.
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+   * @param _domainId Domain in which we are giving user the role
+   * @param _permissionDomainId Domain in which the caller has root/architecture role
+   * @param _roles Byte array representing the desired role setting (1 for on, 0 for off)
+   * @param _user User we want to give a role to
+   */
+  setUserRoles(
+    _permissionDomainId: BigNumberish,
+    _childSkillIndex: BigNumberish,
+    _user: string,
+    _domainId: BigNumberish,
+    _roles: Arrayish,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
    * Check whether a given user has a given role for the colony. Calls the function of the same name on the colony's authority contract.
    * @param _domainId The domain where we want to check for the role
    * @param _role The role we want to check for
@@ -2506,12 +2691,34 @@ export class IColony extends Contract {
   ): Promise<boolean>;
 
   /**
-   * Gets the bytes32 representation of the roles for a user in a given domain
-   * @param where The domain where we want to get roles for
-   * @param who The user whose roles we want to get
-   * @returns roles bytes32 representation of the roles
+   * Check whether a given user can modify roles in the target domain `_childDomainId`. Mostly a convenience function to provide a uniform interface for extension contracts validating permissions
+   * @param _childDomainId The domain where we want to edit roles
+   * @param _childSkillIndex The index that the `_childDomainId` is relative to `_domainId`
+   * @param _domainId Domain in which the caller has the role (currently Root or Architecture)
+   * @param _user The user whose permissions we want to check
+   * @returns canSet Boolean indicating whether the given user is allowed to edit roles in the target domain.
    */
-  getUserRoles(who: string, where: BigNumberish): Promise<string>;
+  userCanSetRoles(
+    _user: string,
+    _domainId: BigNumberish,
+    _childSkillIndex: BigNumberish,
+    _childDomainId: BigNumberish
+  ): Promise<boolean>;
+
+  /**
+   * Gets the bytes32 representation of the roles for a user in a given domain
+   * @param _domain The domain we want to get roles in
+   * @param _user The user whose roles we want to get
+   * @returns roles bytes32 representation of the held roles
+   */
+  getUserRoles(_user: string, _domain: BigNumberish): Promise<string>;
+
+  /**
+   * Gets the bytes32 representation of the roles authorized to call a function
+   * @param _sig The function signature
+   * @returns roles bytes32 representation of the authorized roles
+   */
+  getCapabilityRoles(_sig: Arrayish): Promise<string>;
 
   /**
    * Emit a negative domain reputation update. Available only to Arbitration role holders
@@ -2608,6 +2815,49 @@ export class IColony extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
+   * Install an extension to the colony. Secured function to authorised members.
+   * @param extensionId keccak256 hash of the extension name, used as an indentifier
+   * @param version The new extension version to install
+   */
+  installExtension(
+    extensionId: Arrayish,
+    version: BigNumberish,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * Upgrade an extension in a colony. Secured function to authorised members.
+   * @param extensionId keccak256 hash of the extension name, used as an indentifier
+   * @param newVersion The version to upgrade to (must be one larger than the current version)
+   */
+  upgradeExtension(
+    extensionId: Arrayish,
+    newVersion: BigNumberish,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * Set the deprecation of an extension in a colony. Secured function to authorised members.
+   * @param deprecated Whether to deprecate the extension or not
+   * @param extensionId keccak256 hash of the extension name, used as an indentifier
+   */
+  deprecateExtension(
+    extensionId: Arrayish,
+    deprecated: boolean,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * This is a permanent action -- re-installing the extension will deploy a new contractIt is recommended to deprecate an extension before uninstalling to allow active objects to be resolved
+   * Uninstall an extension from a colony. Secured function to authorised members.
+   * @param extensionId keccak256 hash of the extension name, used as an indentifier
+   */
+  uninstallExtension(
+    extensionId: Arrayish,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
    * Adding new domains is currently retricted to one level only, i.e. `_parentDomainId` has to be the root domain id: `1`.
    * Add a colony domain, and its respective local skill under skill with id `_parentSkillId`. New funding pot is created and associated with the domain here.
    * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
@@ -2683,7 +2933,8 @@ export class IColony extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
-   * Updates the expenditure owner. Can only be called by Arbitration role.
+   * This is now deprecated and will be removed in a future version
+   * DEPRECATED Updates the expenditure owner. Can only be called by Arbitration role.
    * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
    * @param _id Expenditure identifier
    * @param _newOwner New owner of expenditure
@@ -2757,8 +3008,8 @@ export class IColony extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
-   * Note that when determining payouts the payoutModifier is incremented by WAD and converted into payoutScalar
-   * Set the payout modifier on an expenditure slot. Can only be called by Arbitration role.
+   * This is now deprecated and will be removed in a future versionNote that when determining payouts the payoutModifier is incremented by WAD and converted into payoutScalar
+   * DEPRECATED Set the payout modifier on an expenditure slot. Can only be called by Arbitration role.
    * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
    * @param _id Expenditure identifier
    * @param _payoutModifier Modifier to their payout (between -1 and 1, denominated in WADs, 0 means no modification)
@@ -2775,7 +3026,8 @@ export class IColony extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
-   * Set the claim delay on an expenditure slot. Can only be called by Arbitration role.
+   * This is now deprecated and will be removed in a future version
+   * DEPRECATED Set the claim delay on an expenditure slot. Can only be called by Arbitration role.
    * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
    * @param _claimDelay Time (in seconds) to delay claiming payout after finalization
    * @param _id Expenditure identifier
@@ -2788,6 +3040,27 @@ export class IColony extends Contract {
     _id: BigNumberish,
     _slot: BigNumberish,
     _claimDelay: BigNumberish,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * Set arbitrary state on an expenditure slot. Can only be called by Arbitration role.
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
+   * @param _id Expenditure identifier
+   * @param _keys Array of additional keys (for mappings & arrays)
+   * @param _mask Array of booleans indicated whether a key is a mapping (F) or an array index (T).
+   * @param _permissionDomainId The domainId in which I have the permission to take this action
+   * @param _storageSlot Number of the top-level storage slot (25, 26, or 27)
+   * @param _value Value to set at location
+   */
+  setExpenditureState(
+    _permissionDomainId: BigNumberish,
+    _childSkillIndex: BigNumberish,
+    _id: BigNumberish,
+    _storageSlot: BigNumberish,
+    _mask: boolean[],
+    _keys: Arrayish[],
+    _value: Arrayish,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
@@ -2823,11 +3096,13 @@ export class IColony extends Contract {
     fundingPotId: BigNumber;
     domainId: BigNumber;
     finalizedTimestamp: BigNumber;
+    globalClaimDelay: BigNumber;
     0: number;
     1: string;
     2: BigNumber;
     3: BigNumber;
     4: BigNumber;
+    5: BigNumber;
   }>;
 
   /**
@@ -3619,6 +3894,7 @@ export class IColony extends Contract {
    * @param _domainId Domain in which we are willing to be obligated.
    * @param _obligator Address of the account we are willing to let obligate us.
    * @param _user User allowing their tokens to be obligated.
+   * @returns approval The amount the user has approved
    */
   getApproval(
     _user: string,
@@ -3631,6 +3907,7 @@ export class IColony extends Contract {
    * @param _domainId Domain in which we are obligated.
    * @param _obligator Address of the account who obligated us.
    * @param _user User whose tokens are obligated.
+   * @returns obligation The amount that is currently obligated
    */
   getObligation(
     _user: string,
@@ -3846,6 +4123,14 @@ export class IColony extends Contract {
       _setTo: boolean
     ): Promise<BigNumber>;
 
+    setUserRoles(
+      _permissionDomainId: BigNumberish,
+      _childSkillIndex: BigNumberish,
+      _user: string,
+      _domainId: BigNumberish,
+      _roles: Arrayish
+    ): Promise<BigNumber>;
+
     hasUserRole(
       _user: string,
       _domainId: BigNumberish,
@@ -3860,7 +4145,16 @@ export class IColony extends Contract {
       _childDomainId: BigNumberish
     ): Promise<BigNumber>;
 
-    getUserRoles(who: string, where: BigNumberish): Promise<BigNumber>;
+    userCanSetRoles(
+      _user: string,
+      _domainId: BigNumberish,
+      _childSkillIndex: BigNumberish,
+      _childDomainId: BigNumberish
+    ): Promise<BigNumber>;
+
+    getUserRoles(_user: string, _domain: BigNumberish): Promise<BigNumber>;
+
+    getCapabilityRoles(_sig: Arrayish): Promise<BigNumber>;
 
     emitDomainReputationPenalty(
       _permissionDomainId: BigNumberish,
@@ -3896,6 +4190,23 @@ export class IColony extends Contract {
     ): Promise<BigNumber>;
 
     updateColonyOrbitDB(orbitdb: string): Promise<BigNumber>;
+
+    installExtension(
+      extensionId: Arrayish,
+      version: BigNumberish
+    ): Promise<BigNumber>;
+
+    upgradeExtension(
+      extensionId: Arrayish,
+      newVersion: BigNumberish
+    ): Promise<BigNumber>;
+
+    deprecateExtension(
+      extensionId: Arrayish,
+      deprecated: boolean
+    ): Promise<BigNumber>;
+
+    uninstallExtension(extensionId: Arrayish): Promise<BigNumber>;
 
     addDomain(
       _permissionDomainId: BigNumberish,
@@ -3969,6 +4280,16 @@ export class IColony extends Contract {
       _id: BigNumberish,
       _slot: BigNumberish,
       _claimDelay: BigNumberish
+    ): Promise<BigNumber>;
+
+    setExpenditureState(
+      _permissionDomainId: BigNumberish,
+      _childSkillIndex: BigNumberish,
+      _id: BigNumberish,
+      _storageSlot: BigNumberish,
+      _mask: boolean[],
+      _keys: Arrayish[],
+      _value: Arrayish
     ): Promise<BigNumber>;
 
     claimExpenditurePayout(

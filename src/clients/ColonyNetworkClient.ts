@@ -1,7 +1,6 @@
 import { ContractFactory, ContractTransaction, Signer } from 'ethers';
 import { Provider } from 'ethers/providers';
 import { BigNumber } from 'ethers/utils';
-import { AddressZero } from 'ethers/constants';
 
 import { ColonyClient } from '../index';
 
@@ -29,14 +28,6 @@ import getTokenClient from './TokenClient';
 import getTokenLockingClient, {
   TokenLockingClient,
 } from './TokenLockingClient';
-import getOneTxPaymentFactoryClient, {
-  OneTxPaymentFactoryClient,
-} from './OneTxPaymentDeployerClient';
-import getOneTxPaymentClient from './OneTxPaymentClient';
-import getCoinMachineFactoryClient, {
-  CoinMachineFactoryClient,
-} from './CoinMachineDeployerClient';
-import getCoinMachineClient from './CoinMachineClient';
 
 type NetworkEstimate = IColonyNetwork['estimate'];
 
@@ -53,8 +44,6 @@ export interface ColonyNetworkClient extends IColonyNetwork {
   network: Network;
   reputationOracleEndpoint: string;
 
-  oneTxPaymentFactoryClient: OneTxPaymentFactoryClient;
-  coinMachineFactoryClient: CoinMachineFactoryClient;
   estimate: ExtendedEstimate;
 
   /**
@@ -111,8 +100,6 @@ export interface ColonyNetworkClient extends IColonyNetwork {
 
 interface NetworkClientOptions {
   networkAddress?: string;
-  coinMachineFactoryAddress?: string;
-  oneTxPaymentFactoryAddress?: string;
   reputationOracleEndpoint?: string;
 }
 
@@ -165,19 +152,6 @@ const getColonyNetworkClient = (
   networkClient.network = network;
   networkClient.reputationOracleEndpoint =
     (options && options.reputationOracleEndpoint) || REPUTATION_ORACLE_ENDPOINT;
-
-  // @TODO move to getter function `getOneTxPaymentFactorylient` as we do with all the others
-  networkClient.oneTxPaymentFactoryClient = getOneTxPaymentFactoryClient(
-    network,
-    signerOrProvider,
-    options && options.oneTxPaymentFactoryAddress,
-  );
-
-  networkClient.coinMachineFactoryClient = getCoinMachineFactoryClient(
-    network,
-    signerOrProvider,
-    options && options.coinMachineFactoryAddress,
-  );
 
   networkClient.getTokenLockingClient = async (): Promise<
     TokenLockingClient
@@ -256,35 +230,7 @@ const getColonyNetworkClient = (
       signerOrProvider,
     );
 
-    // ONE TRANSACTION PAYMENT EXTENSTION
-    // eslint-disable-next-line max-len
-    const oneTxPaymentAddress = await networkClient.oneTxPaymentFactoryClient.deployedExtensions(
-      colonyClient.address,
-    );
-
-    if (oneTxPaymentAddress !== AddressZero) {
-      colonyClient.oneTxPaymentClient = getOneTxPaymentClient(
-        oneTxPaymentAddress,
-        colonyClient,
-      );
-    }
-
-    // COIN MACHINE EXTENSION
-    // eslint-disable-next-line max-len
-    const coinMachineAddress = await networkClient.coinMachineFactoryClient.deployedExtensions(
-      colonyClient.address,
-    );
-
-    if (
-      coinMachineAddress &&
-      // In the future we might need to add future versions of colony as well
-      colonyClient.clientVersion === ColonyVersion.CeruleanLightweightSpaceship
-    ) {
-      colonyClient.coinMachineClient = getCoinMachineClient(
-        coinMachineAddress,
-        colonyClient,
-      );
-    }
+    // @TODO where to put the extensions?
 
     return colonyClient;
   };

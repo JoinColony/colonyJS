@@ -229,6 +229,34 @@ interface IColonyNetworkInterface extends Interface {
 
     getMiningResolver: TypedFunctionDescription<{ encode([]: []): string }>;
 
+    addExtensionToNetwork: TypedFunctionDescription<{
+      encode([extensionId, resolver]: [Arrayish, string]): string;
+    }>;
+
+    installExtension: TypedFunctionDescription<{
+      encode([extensionId, version]: [Arrayish, BigNumberish]): string;
+    }>;
+
+    upgradeExtension: TypedFunctionDescription<{
+      encode([extensionId, newVersion]: [Arrayish, BigNumberish]): string;
+    }>;
+
+    deprecateExtension: TypedFunctionDescription<{
+      encode([extensionId, deprecated]: [Arrayish, boolean]): string;
+    }>;
+
+    uninstallExtension: TypedFunctionDescription<{
+      encode([extensionId]: [Arrayish]): string;
+    }>;
+
+    getExtensionResolver: TypedFunctionDescription<{
+      encode([extensionId, version]: [Arrayish, BigNumberish]): string;
+    }>;
+
+    getExtensionInstallation: TypedFunctionDescription<{
+      encode([extensionId, colony]: [Arrayish, string]): string;
+    }>;
+
     getFeeInverse: TypedFunctionDescription<{ encode([]: []): string }>;
 
     setFeeInverse: TypedFunctionDescription<{
@@ -360,6 +388,41 @@ interface IColonyNetworkInterface extends Interface {
 
     ReputationMinerPenalised: TypedEventDescription<{
       encodeTopics([miner, tokensLost]: [null, null]): string[];
+    }>;
+
+    ExtensionAddedToNetwork: TypedEventDescription<{
+      encodeTopics([extensionId, version]: [Arrayish | null, null]): string[];
+    }>;
+
+    ExtensionInstalled: TypedEventDescription<{
+      encodeTopics([extensionId, colony, version]: [
+        Arrayish | null,
+        string | null,
+        null
+      ]): string[];
+    }>;
+
+    ExtensionUpgraded: TypedEventDescription<{
+      encodeTopics([extensionId, colony, version]: [
+        Arrayish | null,
+        string | null,
+        null
+      ]): string[];
+    }>;
+
+    ExtensionDeprecated: TypedEventDescription<{
+      encodeTopics([extensionId, colony, deprecated]: [
+        Arrayish | null,
+        string | null,
+        null
+      ]): string[];
+    }>;
+
+    ExtensionUninstalled: TypedEventDescription<{
+      encodeTopics([extensionId, colony]: [
+        Arrayish | null,
+        string | null
+      ]): string[];
     }>;
   };
 }
@@ -640,11 +703,26 @@ export class IColonyNetwork extends Contract {
 
     /**
      * For the colony to mint tokens, token ownership must be transferred to the new colony
-     * Overload of the simpler `createColony` -- creates a new colony in the network with a variety of options
+     * Creates a new colony in the network, with an optional ENS name
      * @param _colonyName The label to register (if null, no label is registered)
-     * @param _orbitdb The path of the orbitDB database associated with the user profile
      * @param _tokenAddress Address of an ERC20 token to serve as the colony token
-     * @param _useExtensionManager If true, give the ExtensionManager the root role in the colony
+     * @param _version The version of colony to deploy (pass 0 for the current version)
+     * @returns colonyAddress Address of the newly created colony
+     */
+    "createColony(address,uint256,string)"(
+      _tokenAddress: string,
+      _version: BigNumberish,
+      _colonyName: string,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * This is now deprecated and will be removed in a future versionFor the colony to mint tokens, token ownership must be transferred to the new colony
+     * Overload of the simpler `createColony` -- creates a new colony in the network with a variety of options, at version 4
+     * @param _colonyName The label to register (if null, no label is registered)
+     * @param _orbitdb DEPRECATED Currently a no-op
+     * @param _tokenAddress Address of an ERC20 token to serve as the colony token
+     * @param _useExtensionManager DEPRECATED Currently a no-op
      * @param _version The version of colony to deploy (pass 0 for the current version)
      * @returns colonyAddress Address of the newly created colony
      */
@@ -903,6 +981,82 @@ export class IColonyNetwork extends Contract {
      * @returns miningResolverAddress The address of the mining cycle resolver currently used by new instances
      */
     getMiningResolver(): Promise<string>;
+
+    /**
+     * Can only be called by the MetaColony.The extension version is queried from the resolver itself.
+     * Add a new extension resolver to the Extensions repository.
+     * @param extensionId keccak256 hash of the extension name, used as an indentifier
+     * @param resolver The deployed resolver containing the extension contract logic
+     */
+    addExtensionToNetwork(
+      extensionId: Arrayish,
+      resolver: string,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Install an extension in a colony. Can only be called by a Colony.
+     * @param extensionId keccak256 hash of the extension name, used as an indentifier
+     * @param version Version of the extension to install
+     */
+    installExtension(
+      extensionId: Arrayish,
+      version: BigNumberish,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Upgrade an extension in a colony. Can only be called by a Colony.
+     * @param extensionId keccak256 hash of the extension name, used as an indentifier
+     * @param newVersion Version of the extension to upgrade to (must be one greater than current)
+     */
+    upgradeExtension(
+      extensionId: Arrayish,
+      newVersion: BigNumberish,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Set the deprecation of an extension in a colony. Can only be called by a Colony.
+     * @param deprecated Whether to deprecate the extension or not
+     * @param extensionId keccak256 hash of the extension name, used as an indentifier
+     */
+    deprecateExtension(
+      extensionId: Arrayish,
+      deprecated: boolean,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Uninstall an extension in a colony. Can only be called by a Colony.
+     * @param extensionId keccak256 hash of the extension name, used as an indentifier
+     */
+    uninstallExtension(
+      extensionId: Arrayish,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Get an extension's resolver.
+     * @param extensionId keccak256 hash of the extension name, used as an indentifier
+     * @param version Version of the extension
+     * @returns resolver The address of the deployed resolver
+     */
+    getExtensionResolver(
+      extensionId: Arrayish,
+      version: BigNumberish
+    ): Promise<string>;
+
+    /**
+     * Get an extension's installation.
+     * @param colony Address of the colony the extension is installed in
+     * @param extensionId keccak256 hash of the extension name, used as an indentifier
+     * @returns installation The address of the installed extension
+     */
+    getExtensionInstallation(
+      extensionId: Arrayish,
+      colony: string
+    ): Promise<string>;
 
     /**
      * Return 1 / the fee to pay to the network. e.g. if the fee is 1% (or 0.01), return 100.
@@ -1293,11 +1447,26 @@ export class IColonyNetwork extends Contract {
 
   /**
    * For the colony to mint tokens, token ownership must be transferred to the new colony
-   * Overload of the simpler `createColony` -- creates a new colony in the network with a variety of options
+   * Creates a new colony in the network, with an optional ENS name
    * @param _colonyName The label to register (if null, no label is registered)
-   * @param _orbitdb The path of the orbitDB database associated with the user profile
    * @param _tokenAddress Address of an ERC20 token to serve as the colony token
-   * @param _useExtensionManager If true, give the ExtensionManager the root role in the colony
+   * @param _version The version of colony to deploy (pass 0 for the current version)
+   * @returns colonyAddress Address of the newly created colony
+   */
+  "createColony(address,uint256,string)"(
+    _tokenAddress: string,
+    _version: BigNumberish,
+    _colonyName: string,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * This is now deprecated and will be removed in a future versionFor the colony to mint tokens, token ownership must be transferred to the new colony
+   * Overload of the simpler `createColony` -- creates a new colony in the network with a variety of options, at version 4
+   * @param _colonyName The label to register (if null, no label is registered)
+   * @param _orbitdb DEPRECATED Currently a no-op
+   * @param _tokenAddress Address of an ERC20 token to serve as the colony token
+   * @param _useExtensionManager DEPRECATED Currently a no-op
    * @param _version The version of colony to deploy (pass 0 for the current version)
    * @returns colonyAddress Address of the newly created colony
    */
@@ -1558,6 +1727,82 @@ export class IColonyNetwork extends Contract {
   getMiningResolver(): Promise<string>;
 
   /**
+   * Can only be called by the MetaColony.The extension version is queried from the resolver itself.
+   * Add a new extension resolver to the Extensions repository.
+   * @param extensionId keccak256 hash of the extension name, used as an indentifier
+   * @param resolver The deployed resolver containing the extension contract logic
+   */
+  addExtensionToNetwork(
+    extensionId: Arrayish,
+    resolver: string,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * Install an extension in a colony. Can only be called by a Colony.
+   * @param extensionId keccak256 hash of the extension name, used as an indentifier
+   * @param version Version of the extension to install
+   */
+  installExtension(
+    extensionId: Arrayish,
+    version: BigNumberish,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * Upgrade an extension in a colony. Can only be called by a Colony.
+   * @param extensionId keccak256 hash of the extension name, used as an indentifier
+   * @param newVersion Version of the extension to upgrade to (must be one greater than current)
+   */
+  upgradeExtension(
+    extensionId: Arrayish,
+    newVersion: BigNumberish,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * Set the deprecation of an extension in a colony. Can only be called by a Colony.
+   * @param deprecated Whether to deprecate the extension or not
+   * @param extensionId keccak256 hash of the extension name, used as an indentifier
+   */
+  deprecateExtension(
+    extensionId: Arrayish,
+    deprecated: boolean,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * Uninstall an extension in a colony. Can only be called by a Colony.
+   * @param extensionId keccak256 hash of the extension name, used as an indentifier
+   */
+  uninstallExtension(
+    extensionId: Arrayish,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * Get an extension's resolver.
+   * @param extensionId keccak256 hash of the extension name, used as an indentifier
+   * @param version Version of the extension
+   * @returns resolver The address of the deployed resolver
+   */
+  getExtensionResolver(
+    extensionId: Arrayish,
+    version: BigNumberish
+  ): Promise<string>;
+
+  /**
+   * Get an extension's installation.
+   * @param colony Address of the colony the extension is installed in
+   * @param extensionId keccak256 hash of the extension name, used as an indentifier
+   * @returns installation The address of the installed extension
+   */
+  getExtensionInstallation(
+    extensionId: Arrayish,
+    colony: string
+  ): Promise<string>;
+
+  /**
    * Return 1 / the fee to pay to the network. e.g. if the fee is 1% (or 0.01), return 100.
    * @returns _feeInverse The inverse of the network fee
    */
@@ -1733,6 +1978,34 @@ export class IColonyNetwork extends Contract {
     ColonyLabelRegistered(colony: string | null, label: null): EventFilter;
 
     ReputationMinerPenalised(miner: null, tokensLost: null): EventFilter;
+
+    ExtensionAddedToNetwork(
+      extensionId: Arrayish | null,
+      version: null
+    ): EventFilter;
+
+    ExtensionInstalled(
+      extensionId: Arrayish | null,
+      colony: string | null,
+      version: null
+    ): EventFilter;
+
+    ExtensionUpgraded(
+      extensionId: Arrayish | null,
+      colony: string | null,
+      version: null
+    ): EventFilter;
+
+    ExtensionDeprecated(
+      extensionId: Arrayish | null,
+      colony: string | null,
+      deprecated: null
+    ): EventFilter;
+
+    ExtensionUninstalled(
+      extensionId: Arrayish | null,
+      colony: string | null
+    ): EventFilter;
   };
 
   estimate: {
@@ -1883,6 +2156,38 @@ export class IColonyNetwork extends Contract {
     setMiningResolver(miningResolverAddress: string): Promise<BigNumber>;
 
     getMiningResolver(): Promise<BigNumber>;
+
+    addExtensionToNetwork(
+      extensionId: Arrayish,
+      resolver: string
+    ): Promise<BigNumber>;
+
+    installExtension(
+      extensionId: Arrayish,
+      version: BigNumberish
+    ): Promise<BigNumber>;
+
+    upgradeExtension(
+      extensionId: Arrayish,
+      newVersion: BigNumberish
+    ): Promise<BigNumber>;
+
+    deprecateExtension(
+      extensionId: Arrayish,
+      deprecated: boolean
+    ): Promise<BigNumber>;
+
+    uninstallExtension(extensionId: Arrayish): Promise<BigNumber>;
+
+    getExtensionResolver(
+      extensionId: Arrayish,
+      version: BigNumberish
+    ): Promise<BigNumber>;
+
+    getExtensionInstallation(
+      extensionId: Arrayish,
+      colony: string
+    ): Promise<BigNumber>;
 
     getFeeInverse(): Promise<BigNumber>;
 

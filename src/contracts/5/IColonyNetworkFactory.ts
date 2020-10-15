@@ -404,6 +404,106 @@ const _abi = [
     type: "event"
   },
   {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        name: "extensionId",
+        type: "bytes32"
+      },
+      {
+        indexed: false,
+        name: "version",
+        type: "uint256"
+      }
+    ],
+    name: "ExtensionAddedToNetwork",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        name: "extensionId",
+        type: "bytes32"
+      },
+      {
+        indexed: true,
+        name: "colony",
+        type: "address"
+      },
+      {
+        indexed: false,
+        name: "version",
+        type: "uint256"
+      }
+    ],
+    name: "ExtensionInstalled",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        name: "extensionId",
+        type: "bytes32"
+      },
+      {
+        indexed: true,
+        name: "colony",
+        type: "address"
+      },
+      {
+        indexed: false,
+        name: "version",
+        type: "uint256"
+      }
+    ],
+    name: "ExtensionUpgraded",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        name: "extensionId",
+        type: "bytes32"
+      },
+      {
+        indexed: true,
+        name: "colony",
+        type: "address"
+      },
+      {
+        indexed: false,
+        name: "deprecated",
+        type: "bool"
+      }
+    ],
+    name: "ExtensionDeprecated",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        name: "extensionId",
+        type: "bytes32"
+      },
+      {
+        indexed: true,
+        name: "colony",
+        type: "address"
+      }
+    ],
+    name: "ExtensionUninstalled",
+    type: "event"
+  },
+  {
     constant: true,
     inputs: [
       {
@@ -755,6 +855,33 @@ const _abi = [
       {
         name: "_tokenAddress",
         type: "address"
+      }
+    ],
+    name: "createColony",
+    outputs: [
+      {
+        name: "colonyAddress",
+        type: "address"
+      }
+    ],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    constant: false,
+    inputs: [
+      {
+        name: "_tokenAddress",
+        type: "address"
+      },
+      {
+        name: "_version",
+        type: "uint256"
+      },
+      {
+        name: "_colonyName",
+        type: "string"
       }
     ],
     name: "createColony",
@@ -1275,6 +1402,138 @@ const _abi = [
     outputs: [
       {
         name: "miningResolverAddress",
+        type: "address"
+      }
+    ],
+    payable: false,
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    constant: false,
+    inputs: [
+      {
+        name: "extensionId",
+        type: "bytes32"
+      },
+      {
+        name: "resolver",
+        type: "address"
+      }
+    ],
+    name: "addExtensionToNetwork",
+    outputs: [],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    constant: false,
+    inputs: [
+      {
+        name: "extensionId",
+        type: "bytes32"
+      },
+      {
+        name: "version",
+        type: "uint256"
+      }
+    ],
+    name: "installExtension",
+    outputs: [],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    constant: false,
+    inputs: [
+      {
+        name: "extensionId",
+        type: "bytes32"
+      },
+      {
+        name: "newVersion",
+        type: "uint256"
+      }
+    ],
+    name: "upgradeExtension",
+    outputs: [],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    constant: false,
+    inputs: [
+      {
+        name: "extensionId",
+        type: "bytes32"
+      },
+      {
+        name: "deprecated",
+        type: "bool"
+      }
+    ],
+    name: "deprecateExtension",
+    outputs: [],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    constant: false,
+    inputs: [
+      {
+        name: "extensionId",
+        type: "bytes32"
+      }
+    ],
+    name: "uninstallExtension",
+    outputs: [],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    constant: true,
+    inputs: [
+      {
+        name: "extensionId",
+        type: "bytes32"
+      },
+      {
+        name: "version",
+        type: "uint256"
+      }
+    ],
+    name: "getExtensionResolver",
+    outputs: [
+      {
+        name: "resolver",
+        type: "address"
+      }
+    ],
+    payable: false,
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    constant: true,
+    inputs: [
+      {
+        name: "extensionId",
+        type: "bytes32"
+      },
+      {
+        name: "colony",
+        type: "address"
+      }
+    ],
+    name: "getExtensionInstallation",
+    outputs: [
+      {
+        name: "installation",
         type: "address"
       }
     ],

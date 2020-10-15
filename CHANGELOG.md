@@ -2,6 +2,12 @@
 
 ## NEXT
 
+* Extensions
+  * Coin Machine
+  * FundingQueue
+  * OneTxPayment
+  * VotingReputation
+
 ## v1.14.6
 **Features**
 

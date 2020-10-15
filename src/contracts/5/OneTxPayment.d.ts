@@ -12,6 +12,28 @@ import {
 
 interface OneTxPaymentInterface extends Interface {
   functions: {
+    setOwner: TypedFunctionDescription<{ encode([owner_]: [string]): string }>;
+
+    setAuthority: TypedFunctionDescription<{
+      encode([authority_]: [string]): string;
+    }>;
+
+    owner: TypedFunctionDescription<{ encode([]: []): string }>;
+
+    authority: TypedFunctionDescription<{ encode([]: []): string }>;
+
+    version: TypedFunctionDescription<{ encode([]: []): string }>;
+
+    install: TypedFunctionDescription<{ encode([_colony]: [string]): string }>;
+
+    finishUpgrade: TypedFunctionDescription<{ encode([]: []): string }>;
+
+    deprecate: TypedFunctionDescription<{
+      encode([_deprecated]: [boolean]): string;
+    }>;
+
+    uninstall: TypedFunctionDescription<{ encode([]: []): string }>;
+
     makePayment: TypedFunctionDescription<{
       encode([
         _permissionDomainId,
@@ -61,7 +83,15 @@ interface OneTxPaymentInterface extends Interface {
     }>;
   };
 
-  events: {};
+  events: {
+    LogSetAuthority: TypedEventDescription<{
+      encodeTopics([authority]: [string | null]): string[];
+    }>;
+
+    LogSetOwner: TypedEventDescription<{
+      encodeTopics([owner]: [string | null]): string[];
+    }>;
+  };
 }
 
 export class OneTxPayment extends Contract {
@@ -81,6 +111,54 @@ export class OneTxPayment extends Contract {
   interface: OneTxPaymentInterface;
 
   functions: {
+    setOwner(
+      owner_: string,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    setAuthority(
+      authority_: string,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    owner(): Promise<string>;
+
+    authority(): Promise<string>;
+
+    /**
+     * Returns the version of the extension
+     */
+    version(): Promise<BigNumber>;
+
+    /**
+     * Configures the extension
+     * @param _colony The colony in which the extension holds permissions
+     */
+    install(
+      _colony: string,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Called when upgrading the extension (currently a no-op since this OneTxPayment does not support upgrading)
+     */
+    finishUpgrade(
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Called when deprecating (or undeprecating) the extension (currently a no-op since OneTxPayment is stateless)
+     */
+    deprecate(
+      _deprecated: boolean,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Called when uninstalling the extension
+     */
+    uninstall(overrides?: TransactionOverrides): Promise<ContractTransaction>;
+
     /**
      * Assumes that each entity holds administration and funding roles in the same domain, although contract and caller can have the permissions in different domains. Payment is taken from root domain, and the caller must have funding permission explicitly in the root domain
      * Completes a colony payment in a single transaction
@@ -134,6 +212,52 @@ export class OneTxPayment extends Contract {
     ): Promise<ContractTransaction>;
   };
 
+  setOwner(
+    owner_: string,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  setAuthority(
+    authority_: string,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  owner(): Promise<string>;
+
+  authority(): Promise<string>;
+
+  /**
+   * Returns the version of the extension
+   */
+  version(): Promise<BigNumber>;
+
+  /**
+   * Configures the extension
+   * @param _colony The colony in which the extension holds permissions
+   */
+  install(
+    _colony: string,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * Called when upgrading the extension (currently a no-op since this OneTxPayment does not support upgrading)
+   */
+  finishUpgrade(overrides?: TransactionOverrides): Promise<ContractTransaction>;
+
+  /**
+   * Called when deprecating (or undeprecating) the extension (currently a no-op since OneTxPayment is stateless)
+   */
+  deprecate(
+    _deprecated: boolean,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * Called when uninstalling the extension
+   */
+  uninstall(overrides?: TransactionOverrides): Promise<ContractTransaction>;
+
   /**
    * Assumes that each entity holds administration and funding roles in the same domain, although contract and caller can have the permissions in different domains. Payment is taken from root domain, and the caller must have funding permission explicitly in the root domain
    * Completes a colony payment in a single transaction
@@ -186,9 +310,31 @@ export class OneTxPayment extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
-  filters: {};
+  filters: {
+    LogSetAuthority(authority: string | null): EventFilter;
+
+    LogSetOwner(owner: string | null): EventFilter;
+  };
 
   estimate: {
+    setOwner(owner_: string): Promise<BigNumber>;
+
+    setAuthority(authority_: string): Promise<BigNumber>;
+
+    owner(): Promise<BigNumber>;
+
+    authority(): Promise<BigNumber>;
+
+    version(): Promise<BigNumber>;
+
+    install(_colony: string): Promise<BigNumber>;
+
+    finishUpgrade(): Promise<BigNumber>;
+
+    deprecate(_deprecated: boolean): Promise<BigNumber>;
+
+    uninstall(): Promise<BigNumber>;
+
     makePayment(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
