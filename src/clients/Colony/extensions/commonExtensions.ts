@@ -1,16 +1,19 @@
 import { ContractFactory, ContractTransaction } from 'ethers';
 import { Arrayish, BigNumber, BigNumberish, bigNumberify } from 'ethers/utils';
-import { MaxUint256 } from 'ethers/constants';
+import { MaxUint256, AddressZero } from 'ethers/constants';
 
 import { isAddress } from '../../../utils';
 import {
-  Network,
   ClientType,
   ColonyRole,
   ColonyVersion,
+  Extension,
   FundingPotAssociatedType,
+  Network,
   ROOT_DOMAIN_ID,
 } from '../../../constants';
+import { ExtensionClient, ReputationOracleResponse } from '../../../types';
+
 import { IColony as IColonyV1 } from '../../../contracts/1/IColony';
 import { IColony as IColonyV2 } from '../../../contracts/2/IColony';
 import { IColony as IColonyV3 } from '../../../contracts/3/IColony';
@@ -21,15 +24,22 @@ import { IColonyFactory } from '../../../contracts/4/IColonyFactory';
 
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
 import { TokenClient } from '../../TokenClient';
-import { OneTxPaymentClient } from '../../OneTxPaymentClient';
-import type { ReputationOracleResponse } from '../types';
 
 import {
   abi as tokenAuthorityAbi,
   bytecode as tokenAuthorityBytecode,
 } from '../../../contracts/deploy/TokenAuthority.json';
+import { getExtensionHash } from '../../../helpers';
+import getCoinMachineClient from '../../CoinMachineClient';
+import getOneTxPaymentClient from '../../OneTxPaymentClient';
 
 type AnyIColony = IColonyV1 | IColonyV2 | IColonyV3 | IColonyV4 | IColonyV5;
+
+// Provide all factory funcitons to valid colony extensions
+const extensionFactoryMap = {
+  [Extension.CoinMachine]: getCoinMachineClient,
+  [Extension.OneTxPayment]: getOneTxPaymentClient,
+};
 
 export type ExtendedEstimate<
   T extends AnyIColony = AnyIColony
@@ -97,10 +107,14 @@ export type ExtendedIColony<T extends AnyIColony = AnyIColony> = T & {
   clientType: ClientType.ColonyClient;
   clientVersion: ColonyVersion;
   networkClient: ColonyNetworkClient;
-  oneTxPaymentClient?: OneTxPaymentClient;
   tokenClient: TokenClient;
 
-  awkwardRecoveryRoleEventClient: IColonyV4;
+  awkwardRecoveryRoleEventClient: IColonyV4 | IColonyV5;
+
+  getExtensionClient(
+    this: ExtendedIColony,
+    extensionName: keyof typeof extensionFactoryMap,
+  ): Promise<ExtensionClient>;
 
   deployTokenAuthority(
     tokenAddress: string,
@@ -331,6 +345,22 @@ export const getMoveFundsPermissionProofs = async (
 
   return [fromPermissionDomainId, fromChildSkillIndex, toChildSkillIndex];
 };
+
+async function getExtensionClient(
+  this: ExtendedIColony,
+  extensionName: keyof typeof extensionFactoryMap,
+): Promise<ExtensionClient> {
+  const extensionAddress = await this.networkClient.getExtensionInstallation(
+    getExtensionHash(extensionName),
+    this.address,
+  );
+  if (extensionAddress === AddressZero) {
+    throw new Error(
+      `${extensionName} extension is not installed for this colony`,
+    );
+  }
+  return extensionFactoryMap[extensionName](extensionAddress, this);
+}
 
 async function setArchitectureRoleWithProofs(
   this: ExtendedIColony,
@@ -895,6 +925,7 @@ export const addExtensions = <T extends ExtendedIColony>(
   instance.networkClient = networkClient;
 
   instance.deployTokenAuthority = deployTokenAuthority.bind(instance);
+  instance.getExtensionClient = getExtensionClient.bind(instance);
 
   instance.setArchitectureRoleWithProofs = setArchitectureRoleWithProofs.bind(
     instance,

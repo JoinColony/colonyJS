@@ -1,17 +1,6 @@
 /* eslint-disable import/first */
 require('isomorphic-fetch');
 
-import { ColonyNetworkClient } from './clients/ColonyNetworkClient';
-import { ColonyClientV1 } from './clients/Colony/ColonyClientV1';
-import { ColonyClientV2 } from './clients/Colony/ColonyClientV2';
-import { ColonyClientV3 } from './clients/Colony/ColonyClientV3';
-import { ColonyClientV4 } from './clients/Colony/ColonyClientV4';
-import { ColonyClientV5 } from './clients/Colony/ColonyClientV5';
-import { OneTxPaymentClient } from './clients/OneTxPaymentClient';
-import { CoinMachineClient } from './clients/CoinMachineClient';
-import { TokenClient } from './clients/TokenClient';
-import { TokenLockingClient } from './clients/TokenLockingClient';
-
 export { ColonyNetworkClient } from './clients/ColonyNetworkClient';
 export { ColonyClientV1 } from './clients/Colony/ColonyClientV1';
 export { ColonyClientV2 } from './clients/Colony/ColonyClientV2';
@@ -32,22 +21,6 @@ export { default as getTokenClient } from './clients/TokenClient';
 
 export * from './constants';
 export * from './helpers';
-
-export type ColonyClient =
-  | ColonyClientV1
-  | ColonyClientV2
-  | ColonyClientV3
-  | ColonyClientV4
-  | ColonyClientV5;
-
-export type ContractClient =
-  | CoinMachineClient
-  | ColonyClient
-  | ColonyNetworkClient
-  | OneTxPaymentClient
-  | TokenClient
-  | TokenLockingClient;
-
-export type { TransactionOverrides } from './contracts/1';
+export * from './types';
 
 /* eslint-enable import/first */

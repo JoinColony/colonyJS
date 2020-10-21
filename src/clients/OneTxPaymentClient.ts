@@ -5,8 +5,10 @@ import { ClientType, ColonyRole } from '../constants';
 import { OneTxPaymentFactory } from '../contracts/5/OneTxPaymentFactory';
 import { OneTxPayment } from '../contracts/5/OneTxPayment';
 import { TransactionOverrides } from '../contracts/5';
-import { ColonyClient } from '../index';
-import { getPermissionProofs } from '../clients/Colony/extensions/commonExtensions';
+import {
+  getPermissionProofs,
+  ExtendedIColony,
+} from '../clients/Colony/extensions/commonExtensions';
 
 type OneTxPaymentEstimate = OneTxPayment['estimate'];
 
@@ -50,7 +52,7 @@ export interface OneTxPaymentClient extends OneTxPayment {
 }
 
 const getExtensionPermissionProofs = async (
-  colonyClient: ColonyClient,
+  colonyClient: ExtendedIColony,
   domainId: BigNumberish,
   address?: string,
 ): Promise<[BigNumberish, BigNumberish]> => {
@@ -82,7 +84,7 @@ const getExtensionPermissionProofs = async (
 
 const getOneTxPaymentClient = (
   address: string,
-  colonyClient: ColonyClient,
+  colonyClient: ExtendedIColony,
 ): OneTxPaymentClient => {
   const oneTxPaymentClient = OneTxPaymentFactory.connect(
     address,

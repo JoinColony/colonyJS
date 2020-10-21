@@ -22,6 +22,8 @@ interface OneTxPaymentInterface extends Interface {
 
     authority: TypedFunctionDescription<{ encode([]: []): string }>;
 
+    getDeprecated: TypedFunctionDescription<{ encode([]: []): string }>;
+
     version: TypedFunctionDescription<{ encode([]: []): string }>;
 
     install: TypedFunctionDescription<{ encode([_colony]: [string]): string }>;
@@ -125,6 +127,10 @@ export class OneTxPayment extends Contract {
 
     authority(): Promise<string>;
 
+    getDeprecated(
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
     /**
      * Returns the version of the extension
      */
@@ -226,6 +232,8 @@ export class OneTxPayment extends Contract {
 
   authority(): Promise<string>;
 
+  getDeprecated(overrides?: TransactionOverrides): Promise<ContractTransaction>;
+
   /**
    * Returns the version of the extension
    */
@@ -324,6 +332,8 @@ export class OneTxPayment extends Contract {
     owner(): Promise<BigNumber>;
 
     authority(): Promise<BigNumber>;
+
+    getDeprecated(): Promise<BigNumber>;
 
     version(): Promise<BigNumber>;
 

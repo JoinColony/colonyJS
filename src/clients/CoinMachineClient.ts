@@ -1,7 +1,7 @@
 import { ClientType } from '../constants';
 import { CoinMachineFactory } from '../contracts/5/CoinMachineFactory';
 import { CoinMachine } from '../contracts/5/CoinMachine';
-import { ColonyClient } from '../index';
+import { ExtendedIColony } from './Colony/extensions/commonExtensions';
 
 export interface CoinMachineClient extends CoinMachine {
   clientType: ClientType.CoinMachineClient;
@@ -9,7 +9,7 @@ export interface CoinMachineClient extends CoinMachine {
 
 const getCoinMachineClient = (
   address: string,
-  colonyClient: ColonyClient,
+  colonyClient: ExtendedIColony,
 ): CoinMachineClient => {
   const coinMachineClient = CoinMachineFactory.connect(
     address,

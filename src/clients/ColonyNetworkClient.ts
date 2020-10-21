@@ -2,7 +2,7 @@ import { ContractFactory, ContractTransaction, Signer } from 'ethers';
 import { Provider } from 'ethers/providers';
 import { BigNumber } from 'ethers/utils';
 
-import { ColonyClient } from '../index';
+import { ColonyClient } from '../types';
 
 import {
   ColonyVersion,

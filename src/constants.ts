@@ -67,11 +67,9 @@ export type ColonyRoles = UserRoles[];
  */
 export enum ClientType {
   CoinMachineClient = 'CoinMachineClient',
-  CoinMachineFactoryClient = 'CoinMachineFactoryClient',
   ColonyClient = 'ColonyClient',
   NetworkClient = 'NetworkClient',
   OneTxPaymentClient = 'OneTxPaymentClient',
-  OneTxPaymentFactoryClient = 'OneTxPaymentFactoryClient',
   TokenClient = 'TokenClient',
   TokenLockingClient = 'TokenLockingClient',
 }
@@ -148,3 +146,10 @@ export const REPUTATION_ORACLE_ENDPOINT = 'https://colony.io/reputation';
 export const tokenAddresses = {
   SAI: '0x89d24A6b4CcB1B6fAA2625fE562bDD9a23260359',
 };
+
+export enum Extension {
+  CoinMachine = 'CoinMachine',
+  FundingQueue = 'FundingQueue',
+  OneTxPayment = 'OneTxPayment',
+  VotingReputation = 'VotingReputation',
+}

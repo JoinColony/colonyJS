@@ -1,15 +1,21 @@
 import { EventFilter } from 'ethers';
 import { Filter, Log, Provider } from 'ethers/providers';
-import { BigNumber, BigNumberish, LogDescription } from 'ethers/utils';
+import {
+  BigNumber,
+  BigNumberish,
+  LogDescription,
+  keccak256,
+  toUtf8Bytes,
+} from 'ethers/utils';
 
 import {
-  ColonyClient,
+  Extension,
   ColonyRole,
   ColonyRoles,
   ColonyVersion,
-  ContractClient,
   ROOT_DOMAIN_ID,
-} from './index';
+} from './constants';
+import { ColonyClient, ContractClient } from './types';
 
 import {
   getChildIndex as exGetChildIndex,
@@ -47,6 +53,12 @@ interface LogOptions {
 type TopicsArray = string[][];
 
 const ROOT_DOMAIN = ROOT_DOMAIN_ID.toString();
+
+/**
+ * Hashes to identify the colony extension contracts
+ */
+export const getExtensionHash = (extensionName: string): string =>
+  keccak256(toUtf8Bytes(extensionName));
 
 /**
  * Get the JavaScript timestamp for a block
@@ -223,11 +235,8 @@ export const getChildIndex = async (
 export const getColonyRoles = async (
   client: ColonyClient,
 ): Promise<ColonyRoles> => {
-  const { oneTxPaymentFactoryClient } = client.networkClient;
   if (client.clientVersion === ColonyVersion.GoerliGlider) {
-    throw new Error(
-      `Not supported by colony version ${ColonyVersion.GoerliGlider}`,
-    );
+    throw new Error(`Not supported by colony version ${client.clientVersion}`);
   }
   const colonyRoleSetFilter = client.filters.ColonyRoleSet(
     null,
@@ -246,7 +255,8 @@ export const getColonyRoles = async (
 
   const recoveryRoleEvents = await getEvents(client, recoveryRoleSetFilter);
 
-  const oneTxAddress = await oneTxPaymentFactoryClient.deployedExtensions(
+  const oneTxAddress = await client.networkClient.getExtensionInstallation(
+    getExtensionHash(Extension.OneTxPayment),
     client.address,
   );
 
