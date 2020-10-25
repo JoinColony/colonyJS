@@ -1,6 +1,10 @@
 /* eslint-disable import/first */
 require('isomorphic-fetch');
 
+export * from './constants';
+export * from './helpers';
+export * from './types';
+
 export { ColonyNetworkClient } from './clients/ColonyNetworkClient';
 export { ColonyClientV1 } from './clients/Colony/ColonyClientV1';
 export { ColonyClientV2 } from './clients/Colony/ColonyClientV2';
@@ -19,8 +23,10 @@ export { TokenLockingClient } from './clients/TokenLockingClient';
 export { default as getColonyNetworkClient } from './clients/ColonyNetworkClient';
 export { default as getTokenClient } from './clients/TokenClient';
 
-export * from './constants';
-export * from './helpers';
-export * from './types';
+export {
+  Extension,
+  ExtensionClient,
+  extensions,
+} from './clients/Colony/colonyContractExtensions';
 
 /* eslint-enable import/first */

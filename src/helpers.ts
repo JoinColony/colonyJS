@@ -52,8 +52,6 @@ interface LogOptions {
 
 type TopicsArray = string[][];
 
-const ROOT_DOMAIN = ROOT_DOMAIN_ID.toString();
-
 /**
  * Hashes to identify the colony extension contracts
  */
@@ -235,6 +233,7 @@ export const getChildIndex = async (
 export const getColonyRoles = async (
   client: ColonyClient,
 ): Promise<ColonyRoles> => {
+  const ROOT_DOMAIN = ROOT_DOMAIN_ID.toString();
   if (client.clientVersion === ColonyVersion.GoerliGlider) {
     throw new Error(`Not supported by colony version ${client.clientVersion}`);
   }

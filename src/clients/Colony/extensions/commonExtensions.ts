@@ -7,12 +7,11 @@ import {
   ClientType,
   ColonyRole,
   ColonyVersion,
-  Extension,
   FundingPotAssociatedType,
   Network,
   ROOT_DOMAIN_ID,
 } from '../../../constants';
-import { ExtensionClient, ReputationOracleResponse } from '../../../types';
+import { ReputationOracleResponse } from '../../../types';
 
 import { IColony as IColonyV1 } from '../../../contracts/1/IColony';
 import { IColony as IColonyV2 } from '../../../contracts/2/IColony';
@@ -22,6 +21,10 @@ import { IColony as IColonyV5 } from '../../../contracts/5/IColony';
 import { TransactionOverrides } from '../../../contracts/1';
 import { IColonyFactory } from '../../../contracts/4/IColonyFactory';
 
+import {
+  extensionFactoryMap,
+  ExtensionClient,
+} from '../colonyContractExtensions';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
 import { TokenClient } from '../../TokenClient';
 
@@ -30,16 +33,8 @@ import {
   bytecode as tokenAuthorityBytecode,
 } from '../../../contracts/deploy/TokenAuthority.json';
 import { getExtensionHash } from '../../../helpers';
-import getCoinMachineClient from '../../CoinMachineClient';
-import getOneTxPaymentClient from '../../OneTxPaymentClient';
 
 type AnyIColony = IColonyV1 | IColonyV2 | IColonyV3 | IColonyV4 | IColonyV5;
-
-// Provide all factory funcitons to valid colony extensions
-const extensionFactoryMap = {
-  [Extension.CoinMachine]: getCoinMachineClient,
-  [Extension.OneTxPayment]: getOneTxPaymentClient,
-};
 
 export type ExtendedEstimate<
   T extends AnyIColony = AnyIColony

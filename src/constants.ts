@@ -1,3 +1,8 @@
+export {
+  extensions,
+  Extension,
+} from './clients/Colony/colonyContractExtensions';
+
 /**
  * Available versions for colonies that could be deployed. When a new version for a colony needs to be supported, it should be added here. The versions are incremented integers.
  */
@@ -146,10 +151,3 @@ export const REPUTATION_ORACLE_ENDPOINT = 'https://colony.io/reputation';
 export const tokenAddresses = {
   SAI: '0x89d24A6b4CcB1B6fAA2625fE562bDD9a23260359',
 };
-
-export enum Extension {
-  CoinMachine = 'CoinMachine',
-  FundingQueue = 'FundingQueue',
-  OneTxPayment = 'OneTxPayment',
-  VotingReputation = 'VotingReputation',
-}
