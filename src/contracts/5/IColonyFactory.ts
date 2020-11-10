@@ -17,164 +17,17 @@ export class IColonyFactory {
 
 const _abi = [
   {
-    constant: false,
-    inputs: [],
-    name: "approveExitRecovery",
-    outputs: [],
-    payable: false,
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    constant: false,
-    inputs: [],
-    name: "exitRecoveryMode",
-    outputs: [],
-    payable: false,
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    constant: true,
-    inputs: [],
-    name: "numRecoveryRoles",
-    outputs: [
-      {
-        name: "numRoles",
-        type: "uint64"
-      }
-    ],
-    payable: false,
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        name: "_slot",
-        type: "uint256"
-      },
-      {
-        name: "_value",
-        type: "bytes32"
-      }
-    ],
-    name: "setStorageSlotRecovery",
-    outputs: [],
-    payable: false,
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    constant: true,
-    inputs: [],
-    name: "isInRecoveryMode",
-    outputs: [
-      {
-        name: "inRecoveryMode",
-        type: "bool"
-      }
-    ],
-    payable: false,
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    constant: true,
-    inputs: [
-      {
-        name: "_slot",
-        type: "uint256"
-      }
-    ],
-    name: "checkNotAdditionalProtectedVariable",
-    outputs: [],
-    payable: false,
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        name: "_user",
-        type: "address"
-      }
-    ],
-    name: "removeRecoveryRole",
-    outputs: [],
-    payable: false,
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        name: "_user",
-        type: "address"
-      }
-    ],
-    name: "setRecoveryRole",
-    outputs: [],
-    payable: false,
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    constant: false,
-    inputs: [],
-    name: "enterRecoveryMode",
-    outputs: [],
-    payable: false,
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        name: "user",
-        type: "address"
-      },
-      {
-        indexed: false,
-        name: "setTo",
-        type: "bool"
-      }
-    ],
-    name: "RecoveryRoleSet",
-    type: "event"
-  },
-  {
     anonymous: false,
     inputs: [
       {
         indexed: false,
-        name: "colonyNetwork",
-        type: "address"
-      },
-      {
-        indexed: false,
-        name: "token",
-        type: "address"
-      }
-    ],
-    name: "ColonyInitialised",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
+        internalType: "address[]",
         name: "users",
         type: "address[]"
       },
       {
         indexed: false,
+        internalType: "int256[]",
         name: "amounts",
         type: "int256[]"
       }
@@ -187,43 +40,24 @@ const _abi = [
     inputs: [
       {
         indexed: false,
-        name: "oldVersion",
-        type: "uint256"
-      },
-      {
-        indexed: false,
-        name: "newVersion",
-        type: "uint256"
-      }
-    ],
-    name: "ColonyUpgraded",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        name: "user",
+        internalType: "address",
+        name: "token",
         type: "address"
       },
       {
-        indexed: true,
-        name: "domainId",
+        indexed: false,
+        internalType: "uint256",
+        name: "fee",
         type: "uint256"
       },
       {
-        indexed: true,
-        name: "role",
-        type: "uint8"
-      },
-      {
         indexed: false,
-        name: "setTo",
-        type: "bool"
+        internalType: "uint256",
+        name: "payoutRemainder",
+        type: "uint256"
       }
     ],
-    name: "ColonyRoleSet",
+    name: "ColonyFundsClaimed",
     type: "event"
   },
   {
@@ -231,21 +65,25 @@ const _abi = [
     inputs: [
       {
         indexed: true,
+        internalType: "uint256",
         name: "fromPot",
         type: "uint256"
       },
       {
         indexed: true,
+        internalType: "uint256",
         name: "toPot",
         type: "uint256"
       },
       {
         indexed: false,
+        internalType: "uint256",
         name: "amount",
         type: "uint256"
       },
       {
         indexed: false,
+        internalType: "address",
         name: "token",
         type: "address"
       }
@@ -258,21 +96,18 @@ const _abi = [
     inputs: [
       {
         indexed: false,
+        internalType: "address",
+        name: "colonyNetwork",
+        type: "address"
+      },
+      {
+        indexed: false,
+        internalType: "address",
         name: "token",
         type: "address"
-      },
-      {
-        indexed: false,
-        name: "fee",
-        type: "uint256"
-      },
-      {
-        indexed: false,
-        name: "payoutRemainder",
-        type: "uint256"
       }
     ],
-    name: "ColonyFundsClaimed",
+    name: "ColonyInitialised",
     type: "event"
   },
   {
@@ -280,57 +115,7 @@ const _abi = [
     inputs: [
       {
         indexed: false,
-        name: "rewardPayoutId",
-        type: "uint256"
-      }
-    ],
-    name: "RewardPayoutCycleStarted",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        name: "rewardPayoutId",
-        type: "uint256"
-      }
-    ],
-    name: "RewardPayoutCycleEnded",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        name: "rewardPayoutId",
-        type: "uint256"
-      },
-      {
-        indexed: false,
-        name: "user",
-        type: "address"
-      },
-      {
-        indexed: false,
-        name: "fee",
-        type: "uint256"
-      },
-      {
-        indexed: false,
-        name: "rewardRemainder",
-        type: "uint256"
-      }
-    ],
-    name: "RewardPayoutClaimed",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
+        internalType: "uint256",
         name: "rewardInverse",
         type: "uint256"
       }
@@ -342,345 +127,50 @@ const _abi = [
     anonymous: false,
     inputs: [
       {
-        indexed: false,
-        name: "expenditureId",
-        type: "uint256"
-      }
-    ],
-    name: "ExpenditureAdded",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
         indexed: true,
-        name: "expenditureId",
-        type: "uint256"
-      },
-      {
-        indexed: true,
-        name: "owner",
-        type: "address"
-      }
-    ],
-    name: "ExpenditureTransferred",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        name: "expenditureId",
-        type: "uint256"
-      }
-    ],
-    name: "ExpenditureCancelled",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        name: "expenditureId",
-        type: "uint256"
-      }
-    ],
-    name: "ExpenditureFinalized",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        name: "expenditureId",
-        type: "uint256"
-      },
-      {
-        indexed: true,
-        name: "slot",
-        type: "uint256"
-      },
-      {
-        indexed: true,
-        name: "recipient",
-        type: "address"
-      }
-    ],
-    name: "ExpenditureRecipientSet",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        name: "expenditureId",
-        type: "uint256"
-      },
-      {
-        indexed: true,
-        name: "slot",
-        type: "uint256"
-      },
-      {
-        indexed: true,
-        name: "skillId",
-        type: "uint256"
-      }
-    ],
-    name: "ExpenditureSkillSet",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        name: "expenditureId",
-        type: "uint256"
-      },
-      {
-        indexed: true,
-        name: "slot",
-        type: "uint256"
-      },
-      {
-        indexed: true,
-        name: "token",
-        type: "address"
-      },
-      {
-        indexed: false,
-        name: "amount",
-        type: "uint256"
-      }
-    ],
-    name: "ExpenditurePayoutSet",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        name: "paymentId",
-        type: "uint256"
-      }
-    ],
-    name: "PaymentAdded",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        name: "taskId",
-        type: "uint256"
-      }
-    ],
-    name: "TaskAdded",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        name: "taskId",
-        type: "uint256"
-      },
-      {
-        indexed: false,
-        name: "specificationHash",
-        type: "bytes32"
-      }
-    ],
-    name: "TaskBriefSet",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        name: "taskId",
-        type: "uint256"
-      },
-      {
-        indexed: false,
-        name: "dueDate",
-        type: "uint256"
-      }
-    ],
-    name: "TaskDueDateSet",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        name: "taskId",
-        type: "uint256"
-      },
-      {
-        indexed: true,
-        name: "skillId",
-        type: "uint256"
-      }
-    ],
-    name: "TaskSkillSet",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        name: "taskId",
-        type: "uint256"
-      },
-      {
-        indexed: false,
-        name: "role",
-        type: "uint8"
-      },
-      {
-        indexed: true,
+        internalType: "address",
         name: "user",
         type: "address"
-      }
-    ],
-    name: "TaskRoleUserSet",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
+      },
       {
         indexed: true,
-        name: "taskId",
+        internalType: "uint256",
+        name: "domainId",
         type: "uint256"
       },
       {
-        indexed: false,
+        indexed: true,
+        internalType: "uint8",
         name: "role",
         type: "uint8"
       },
       {
         indexed: false,
-        name: "token",
-        type: "address"
-      },
+        internalType: "bool",
+        name: "setTo",
+        type: "bool"
+      }
+    ],
+    name: "ColonyRoleSet",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
       {
         indexed: false,
-        name: "amount",
-        type: "uint256"
-      }
-    ],
-    name: "TaskPayoutSet",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        name: "taskId",
-        type: "uint256"
-      },
-      {
-        indexed: false,
-        name: "deliverableHash",
-        type: "bytes32"
-      }
-    ],
-    name: "TaskDeliverableSubmitted",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        name: "taskId",
-        type: "uint256"
-      }
-    ],
-    name: "TaskCompleted",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        name: "taskId",
+        internalType: "uint256",
+        name: "oldVersion",
         type: "uint256"
       },
       {
         indexed: false,
-        name: "role",
-        type: "uint8"
-      },
-      {
-        indexed: false,
-        name: "rating",
-        type: "uint8"
-      }
-    ],
-    name: "TaskWorkRatingRevealed",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        name: "taskId",
+        internalType: "uint256",
+        name: "newVersion",
         type: "uint256"
       }
     ],
-    name: "TaskFinalized",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        name: "fundingPotId",
-        type: "uint256"
-      },
-      {
-        indexed: false,
-        name: "token",
-        type: "address"
-      },
-      {
-        indexed: false,
-        name: "amount",
-        type: "uint256"
-      }
-    ],
-    name: "PayoutClaimed",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        name: "taskId",
-        type: "uint256"
-      }
-    ],
-    name: "TaskCanceled",
+    name: "ColonyUpgraded",
     type: "event"
   },
   {
@@ -688,6 +178,7 @@ const _abi = [
     inputs: [
       {
         indexed: false,
+        internalType: "uint256",
         name: "domainId",
         type: "uint256"
       }
@@ -700,6 +191,146 @@ const _abi = [
     inputs: [
       {
         indexed: false,
+        internalType: "uint256",
+        name: "expenditureId",
+        type: "uint256"
+      }
+    ],
+    name: "ExpenditureAdded",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "expenditureId",
+        type: "uint256"
+      }
+    ],
+    name: "ExpenditureCancelled",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "expenditureId",
+        type: "uint256"
+      }
+    ],
+    name: "ExpenditureFinalized",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "expenditureId",
+        type: "uint256"
+      },
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "slot",
+        type: "uint256"
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "token",
+        type: "address"
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256"
+      }
+    ],
+    name: "ExpenditurePayoutSet",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "expenditureId",
+        type: "uint256"
+      },
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "slot",
+        type: "uint256"
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "recipient",
+        type: "address"
+      }
+    ],
+    name: "ExpenditureRecipientSet",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "expenditureId",
+        type: "uint256"
+      },
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "slot",
+        type: "uint256"
+      },
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "skillId",
+        type: "uint256"
+      }
+    ],
+    name: "ExpenditureSkillSet",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "expenditureId",
+        type: "uint256"
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "owner",
+        type: "address"
+      }
+    ],
+    name: "ExpenditureTransferred",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint256",
         name: "fundingPotId",
         type: "uint256"
       }
@@ -708,278 +339,738 @@ const _abi = [
     type: "event"
   },
   {
-    constant: true,
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "paymentId",
+        type: "uint256"
+      }
+    ],
+    name: "PaymentAdded",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "fundingPotId",
+        type: "uint256"
+      },
+      {
+        indexed: false,
+        internalType: "address",
+        name: "token",
+        type: "address"
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256"
+      }
+    ],
+    name: "PayoutClaimed",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "user",
+        type: "address"
+      },
+      {
+        indexed: false,
+        internalType: "bool",
+        name: "setTo",
+        type: "bool"
+      }
+    ],
+    name: "RecoveryRoleSet",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "rewardPayoutId",
+        type: "uint256"
+      },
+      {
+        indexed: false,
+        internalType: "address",
+        name: "user",
+        type: "address"
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "fee",
+        type: "uint256"
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "rewardRemainder",
+        type: "uint256"
+      }
+    ],
+    name: "RewardPayoutClaimed",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "rewardPayoutId",
+        type: "uint256"
+      }
+    ],
+    name: "RewardPayoutCycleEnded",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "rewardPayoutId",
+        type: "uint256"
+      }
+    ],
+    name: "RewardPayoutCycleStarted",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "taskId",
+        type: "uint256"
+      }
+    ],
+    name: "TaskAdded",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "taskId",
+        type: "uint256"
+      },
+      {
+        indexed: false,
+        internalType: "bytes32",
+        name: "specificationHash",
+        type: "bytes32"
+      }
+    ],
+    name: "TaskBriefSet",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "taskId",
+        type: "uint256"
+      }
+    ],
+    name: "TaskCanceled",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "taskId",
+        type: "uint256"
+      }
+    ],
+    name: "TaskCompleted",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "taskId",
+        type: "uint256"
+      },
+      {
+        indexed: false,
+        internalType: "bytes32",
+        name: "deliverableHash",
+        type: "bytes32"
+      }
+    ],
+    name: "TaskDeliverableSubmitted",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "taskId",
+        type: "uint256"
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "dueDate",
+        type: "uint256"
+      }
+    ],
+    name: "TaskDueDateSet",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "taskId",
+        type: "uint256"
+      }
+    ],
+    name: "TaskFinalized",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "taskId",
+        type: "uint256"
+      },
+      {
+        indexed: false,
+        internalType: "enum ColonyDataTypes.TaskRole",
+        name: "role",
+        type: "uint8"
+      },
+      {
+        indexed: false,
+        internalType: "address",
+        name: "token",
+        type: "address"
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256"
+      }
+    ],
+    name: "TaskPayoutSet",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "taskId",
+        type: "uint256"
+      },
+      {
+        indexed: false,
+        internalType: "enum ColonyDataTypes.TaskRole",
+        name: "role",
+        type: "uint8"
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "user",
+        type: "address"
+      }
+    ],
+    name: "TaskRoleUserSet",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "taskId",
+        type: "uint256"
+      },
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "skillId",
+        type: "uint256"
+      }
+    ],
+    name: "TaskSkillSet",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "taskId",
+        type: "uint256"
+      },
+      {
+        indexed: false,
+        internalType: "enum ColonyDataTypes.TaskRole",
+        name: "role",
+        type: "uint8"
+      },
+      {
+        indexed: false,
+        internalType: "uint8",
+        name: "rating",
+        type: "uint8"
+      }
+    ],
+    name: "TaskWorkRatingRevealed",
+    type: "event"
+  },
+  {
+    inputs: [],
+    name: "approveExitRecovery",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_slot",
+        type: "uint256"
+      }
+    ],
+    name: "checkNotAdditionalProtectedVariable",
+    outputs: [],
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    inputs: [],
+    name: "enterRecoveryMode",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [],
+    name: "exitRecoveryMode",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [],
+    name: "isInRecoveryMode",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "inRecoveryMode",
+        type: "bool"
+      }
+    ],
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    inputs: [],
+    name: "numRecoveryRoles",
+    outputs: [
+      {
+        internalType: "uint64",
+        name: "numRoles",
+        type: "uint64"
+      }
+    ],
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_user",
+        type: "address"
+      }
+    ],
+    name: "removeRecoveryRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_user",
+        type: "address"
+      }
+    ],
+    name: "setRecoveryRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_slot",
+        type: "uint256"
+      },
+      {
+        internalType: "bytes32",
+        name: "_value",
+        type: "bytes32"
+      }
+    ],
+    name: "setStorageSlotRecovery",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
     inputs: [],
     name: "authority",
     outputs: [
       {
+        internalType: "address",
         name: "colonyAuthority",
         type: "address"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: true,
     inputs: [],
     name: "owner",
     outputs: [
       {
+        internalType: "address",
         name: "colonyOwner",
         type: "address"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: true,
     inputs: [],
     name: "version",
     outputs: [
       {
+        internalType: "uint256",
         name: "colonyVersion",
         type: "uint256"
       }
     ],
-    payable: false,
     stateMutability: "pure",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_newVersion",
         type: "uint256"
       }
     ],
     name: "upgrade",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [],
     name: "finishUpgrade",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: true,
     inputs: [],
     name: "getColonyNetwork",
     outputs: [
       {
+        internalType: "address",
         name: "colonyNetwork",
         type: "address"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: true,
     inputs: [],
     name: "getToken",
     outputs: [
       {
+        internalType: "address",
         name: "tokenAddress",
         type: "address"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "address",
+        name: "_to",
+        type: "address"
+      },
+      {
+        internalType: "bytes",
+        name: "_action",
+        type: "bytes"
+      }
+    ],
+    name: "makeArbitraryTransaction",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "success",
+        type: "bool"
+      }
+    ],
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
         name: "_user",
         type: "address"
       },
       {
+        internalType: "bool",
         name: "_setTo",
         type: "bool"
       }
     ],
     name: "setRootRole",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_permissionDomainId",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_childSkillIndex",
         type: "uint256"
       },
       {
+        internalType: "address",
         name: "_user",
         type: "address"
       },
       {
+        internalType: "uint256",
         name: "_domainId",
         type: "uint256"
       },
       {
+        internalType: "bool",
         name: "_setTo",
         type: "bool"
       }
     ],
     name: "setArbitrationRole",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_permissionDomainId",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_childSkillIndex",
         type: "uint256"
       },
       {
+        internalType: "address",
         name: "_user",
         type: "address"
       },
       {
+        internalType: "uint256",
         name: "_domainId",
         type: "uint256"
       },
       {
+        internalType: "bool",
         name: "_setTo",
         type: "bool"
       }
     ],
     name: "setArchitectureRole",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_permissionDomainId",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_childSkillIndex",
         type: "uint256"
       },
       {
+        internalType: "address",
         name: "_user",
         type: "address"
       },
       {
+        internalType: "uint256",
         name: "_domainId",
         type: "uint256"
       },
       {
+        internalType: "bool",
         name: "_setTo",
         type: "bool"
       }
     ],
     name: "setFundingRole",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_permissionDomainId",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_childSkillIndex",
         type: "uint256"
       },
       {
+        internalType: "address",
         name: "_user",
         type: "address"
       },
       {
+        internalType: "uint256",
         name: "_domainId",
         type: "uint256"
       },
       {
+        internalType: "bool",
         name: "_setTo",
         type: "bool"
       }
     ],
     name: "setAdministrationRole",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_permissionDomainId",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_childSkillIndex",
         type: "uint256"
       },
       {
+        internalType: "address",
         name: "_user",
         type: "address"
       },
       {
+        internalType: "uint256",
         name: "_domainId",
         type: "uint256"
       },
       {
+        internalType: "bytes32",
         name: "_roles",
         type: "bytes32"
       }
     ],
     name: "setUserRoles",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: true,
     inputs: [
       {
+        internalType: "address",
         name: "_user",
         type: "address"
       },
       {
+        internalType: "uint256",
         name: "_domainId",
         type: "uint256"
       },
       {
+        internalType: "enum ColonyDataTypes.ColonyRole",
         name: "_role",
         type: "uint8"
       }
@@ -987,34 +1078,38 @@ const _abi = [
     name: "hasUserRole",
     outputs: [
       {
+        internalType: "bool",
         name: "hasRole",
         type: "bool"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: true,
     inputs: [
       {
+        internalType: "address",
         name: "_user",
         type: "address"
       },
       {
+        internalType: "uint256",
         name: "_domainId",
         type: "uint256"
       },
       {
+        internalType: "enum ColonyDataTypes.ColonyRole",
         name: "_role",
         type: "uint8"
       },
       {
+        internalType: "uint256",
         name: "_childSkillIndex",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_childDomainId",
         type: "uint256"
       }
@@ -1022,30 +1117,33 @@ const _abi = [
     name: "hasInheritedUserRole",
     outputs: [
       {
+        internalType: "bool",
         name: "hasRole",
         type: "bool"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: true,
     inputs: [
       {
+        internalType: "address",
         name: "_user",
         type: "address"
       },
       {
+        internalType: "uint256",
         name: "_domainId",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_childSkillIndex",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_childDomainId",
         type: "uint256"
       }
@@ -1053,22 +1151,23 @@ const _abi = [
     name: "userCanSetRoles",
     outputs: [
       {
+        internalType: "bool",
         name: "canSet",
         type: "bool"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: true,
     inputs: [
       {
+        internalType: "address",
         name: "_user",
         type: "address"
       },
       {
+        internalType: "uint256",
         name: "_domain",
         type: "uint256"
       }
@@ -1076,18 +1175,18 @@ const _abi = [
     name: "getUserRoles",
     outputs: [
       {
+        internalType: "bytes32",
         name: "roles",
         type: "bytes32"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: true,
     inputs: [
       {
+        internalType: "bytes4",
         name: "_sig",
         type: "bytes4"
       }
@@ -1095,260 +1194,262 @@ const _abi = [
     name: "getCapabilityRoles",
     outputs: [
       {
+        internalType: "bytes32",
         name: "roles",
         type: "bytes32"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_permissionDomainId",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_childSkillIndex",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_domainId",
         type: "uint256"
       },
       {
+        internalType: "address",
         name: "_user",
         type: "address"
       },
       {
+        internalType: "int256",
         name: "_amount",
         type: "int256"
       }
     ],
     name: "emitDomainReputationPenalty",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_skillId",
         type: "uint256"
       },
       {
+        internalType: "address",
         name: "_user",
         type: "address"
       },
       {
+        internalType: "int256",
         name: "_amount",
         type: "int256"
       }
     ],
     name: "emitSkillReputationPenalty",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "address",
         name: "_colonyNetworkAddress",
         type: "address"
       },
       {
+        internalType: "address",
         name: "_token",
         type: "address"
       }
     ],
     name: "initialiseColony",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "address[]",
         name: "_users",
         type: "address[]"
       },
       {
+        internalType: "int256[]",
         name: "_amount",
         type: "int256[]"
       }
     ],
     name: "bootstrapColony",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_wad",
         type: "uint256"
       }
     ],
     name: "mintTokens",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "address",
         name: "_guy",
         type: "address"
       },
       {
+        internalType: "uint256",
         name: "_wad",
         type: "uint256"
       }
     ],
     name: "mintTokensFor",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "string",
         name: "colonyName",
         type: "string"
       },
       {
+        internalType: "string",
         name: "orbitdb",
         type: "string"
       }
     ],
     name: "registerColonyLabel",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "string",
         name: "orbitdb",
         type: "string"
       }
     ],
     name: "updateColonyOrbitDB",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "bytes32",
         name: "extensionId",
         type: "bytes32"
       },
       {
+        internalType: "uint256",
         name: "version",
         type: "uint256"
       }
     ],
     name: "installExtension",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "bytes32",
         name: "extensionId",
         type: "bytes32"
       },
       {
+        internalType: "uint256",
         name: "newVersion",
         type: "uint256"
       }
     ],
     name: "upgradeExtension",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "bytes32",
         name: "extensionId",
         type: "bytes32"
       },
       {
+        internalType: "bool",
         name: "deprecated",
         type: "bool"
       }
     ],
     name: "deprecateExtension",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "bytes32",
         name: "extensionId",
         type: "bytes32"
       }
     ],
     name: "uninstallExtension",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_permissionDomainId",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_childSkillIndex",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_parentDomainId",
         type: "uint256"
       }
     ],
     name: "addDomain",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: true,
     inputs: [
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       }
@@ -1358,52 +1459,56 @@ const _abi = [
       {
         components: [
           {
+            internalType: "uint256",
             name: "skillId",
             type: "uint256"
           },
           {
+            internalType: "uint256",
             name: "fundingPotId",
             type: "uint256"
           }
         ],
+        internalType: "struct ColonyDataTypes.Domain",
         name: "domain",
         type: "tuple"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: true,
     inputs: [],
     name: "getDomainCount",
     outputs: [
       {
+        internalType: "uint256",
         name: "count",
         type: "uint256"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: true,
     inputs: [
       {
+        internalType: "bytes",
         name: "key",
         type: "bytes"
       },
       {
+        internalType: "bytes",
         name: "value",
         type: "bytes"
       },
       {
+        internalType: "uint256",
         name: "branchMask",
         type: "uint256"
       },
       {
+        internalType: "bytes32[]",
         name: "siblings",
         type: "bytes32[]"
       }
@@ -1411,26 +1516,28 @@ const _abi = [
     name: "verifyReputationProof",
     outputs: [
       {
+        internalType: "bool",
         name: "isValid",
         type: "bool"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_permissionDomainId",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_childSkillIndex",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_domainId",
         type: "uint256"
       }
@@ -1438,294 +1545,309 @@ const _abi = [
     name: "makeExpenditure",
     outputs: [
       {
+        internalType: "uint256",
         name: "expenditureId",
         type: "uint256"
       }
     ],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       },
       {
+        internalType: "address",
         name: "_newOwner",
         type: "address"
       }
     ],
     name: "transferExpenditure",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_permissionDomainId",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_childSkillIndex",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       },
       {
+        internalType: "address",
         name: "_newOwner",
         type: "address"
       }
     ],
     name: "transferExpenditureViaArbitration",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       }
     ],
     name: "cancelExpenditure",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       }
     ],
     name: "finalizeExpenditure",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_slot",
         type: "uint256"
       },
       {
+        internalType: "address payable",
         name: "_recipient",
         type: "address"
       }
     ],
     name: "setExpenditureRecipient",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_slot",
         type: "uint256"
       },
       {
+        internalType: "address",
         name: "_token",
         type: "address"
       },
       {
+        internalType: "uint256",
         name: "_amount",
         type: "uint256"
       }
     ],
     name: "setExpenditurePayout",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_slot",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_skillId",
         type: "uint256"
       }
     ],
     name: "setExpenditureSkill",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_permissionDomainId",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_childSkillIndex",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_slot",
         type: "uint256"
       },
       {
+        internalType: "int256",
         name: "_payoutModifier",
         type: "int256"
       }
     ],
     name: "setExpenditurePayoutModifier",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_permissionDomainId",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_childSkillIndex",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_slot",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_claimDelay",
         type: "uint256"
       }
     ],
     name: "setExpenditureClaimDelay",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_permissionDomainId",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_childSkillIndex",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_storageSlot",
         type: "uint256"
       },
       {
+        internalType: "bool[]",
         name: "_mask",
         type: "bool[]"
       },
       {
+        internalType: "bytes32[]",
         name: "_keys",
         type: "bytes32[]"
       },
       {
+        internalType: "bytes32",
         name: "_value",
         type: "bytes32"
       }
     ],
     name: "setExpenditureState",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_slot",
         type: "uint256"
       },
       {
+        internalType: "address",
         name: "_token",
         type: "address"
       }
     ],
     name: "claimExpenditurePayout",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: true,
     inputs: [],
     name: "getExpenditureCount",
     outputs: [
       {
+        internalType: "uint256",
         name: "count",
         type: "uint256"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: true,
     inputs: [
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       }
@@ -1735,46 +1857,53 @@ const _abi = [
       {
         components: [
           {
+            internalType: "enum ColonyDataTypes.ExpenditureStatus",
             name: "status",
             type: "uint8"
           },
           {
+            internalType: "address",
             name: "owner",
             type: "address"
           },
           {
+            internalType: "uint256",
             name: "fundingPotId",
             type: "uint256"
           },
           {
+            internalType: "uint256",
             name: "domainId",
             type: "uint256"
           },
           {
+            internalType: "uint256",
             name: "finalizedTimestamp",
             type: "uint256"
           },
           {
+            internalType: "uint256",
             name: "globalClaimDelay",
             type: "uint256"
           }
         ],
+        internalType: "struct ColonyDataTypes.Expenditure",
         name: "expenditure",
         type: "tuple"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: true,
     inputs: [
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_slot",
         type: "uint256"
       }
@@ -1784,42 +1913,48 @@ const _abi = [
       {
         components: [
           {
+            internalType: "address payable",
             name: "recipient",
             type: "address"
           },
           {
+            internalType: "uint256",
             name: "claimDelay",
             type: "uint256"
           },
           {
+            internalType: "int256",
             name: "payoutModifier",
             type: "int256"
           },
           {
+            internalType: "uint256[]",
             name: "skills",
             type: "uint256[]"
           }
         ],
+        internalType: "struct ColonyDataTypes.ExpenditureSlot",
         name: "expenditureSlot",
         type: "tuple"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: true,
     inputs: [
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_slot",
         type: "uint256"
       },
       {
+        internalType: "address",
         name: "_token",
         type: "address"
       }
@@ -1827,42 +1962,48 @@ const _abi = [
     name: "getExpenditureSlotPayout",
     outputs: [
       {
+        internalType: "uint256",
         name: "amount",
         type: "uint256"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_permissionDomainId",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_childSkillIndex",
         type: "uint256"
       },
       {
+        internalType: "address payable",
         name: "_recipient",
         type: "address"
       },
       {
+        internalType: "address",
         name: "_token",
         type: "address"
       },
       {
+        internalType: "uint256",
         name: "_amount",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_domainId",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_skillId",
         type: "uint256"
       }
@@ -1870,122 +2011,130 @@ const _abi = [
     name: "addPayment",
     outputs: [
       {
+        internalType: "uint256",
         name: "paymentId",
         type: "uint256"
       }
     ],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_permissionDomainId",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_childSkillIndex",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       }
     ],
     name: "finalizePayment",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_permissionDomainId",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_childSkillIndex",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       },
       {
+        internalType: "address payable",
         name: "_recipient",
         type: "address"
       }
     ],
     name: "setPaymentRecipient",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_permissionDomainId",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_childSkillIndex",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_skillId",
         type: "uint256"
       }
     ],
     name: "setPaymentSkill",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_permissionDomainId",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_childSkillIndex",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       },
       {
+        internalType: "address",
         name: "_token",
         type: "address"
       },
       {
+        internalType: "uint256",
         name: "_amount",
         type: "uint256"
       }
     ],
     name: "setPaymentPayout",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: true,
     inputs: [
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       }
@@ -1995,118 +2144,125 @@ const _abi = [
       {
         components: [
           {
+            internalType: "address payable",
             name: "recipient",
             type: "address"
           },
           {
+            internalType: "bool",
             name: "finalized",
             type: "bool"
           },
           {
+            internalType: "uint256",
             name: "fundingPotId",
             type: "uint256"
           },
           {
+            internalType: "uint256",
             name: "domainId",
             type: "uint256"
           },
           {
+            internalType: "uint256[]",
             name: "skills",
             type: "uint256[]"
           }
         ],
+        internalType: "struct ColonyDataTypes.Payment",
         name: "payment",
         type: "tuple"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       },
       {
+        internalType: "address",
         name: "_token",
         type: "address"
       }
     ],
     name: "claimPayment",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: true,
     inputs: [],
     name: "getPaymentCount",
     outputs: [
       {
+        internalType: "uint256",
         name: "count",
         type: "uint256"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_permissionDomainId",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_childSkillIndex",
         type: "uint256"
       },
       {
+        internalType: "bytes32",
         name: "_specificationHash",
         type: "bytes32"
       },
       {
+        internalType: "uint256",
         name: "_domainId",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_skillId",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_dueDate",
         type: "uint256"
       }
     ],
     name: "makeTask",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: true,
     inputs: [],
     name: "getTaskCount",
     outputs: [
       {
+        internalType: "uint256",
         name: "count",
         type: "uint256"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: true,
     inputs: [
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       }
@@ -2114,138 +2270,150 @@ const _abi = [
     name: "getTaskChangeNonce",
     outputs: [
       {
+        internalType: "uint256",
         name: "nonce",
         type: "uint256"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint8[]",
         name: "_sigV",
         type: "uint8[]"
       },
       {
+        internalType: "bytes32[]",
         name: "_sigR",
         type: "bytes32[]"
       },
       {
+        internalType: "bytes32[]",
         name: "_sigS",
         type: "bytes32[]"
       },
       {
+        internalType: "uint8[]",
         name: "_mode",
         type: "uint8[]"
       },
       {
+        internalType: "uint256",
         name: "_value",
         type: "uint256"
       },
       {
+        internalType: "bytes",
         name: "_data",
         type: "bytes"
       }
     ],
     name: "executeTaskChange",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint8[]",
         name: "_sigV",
         type: "uint8[]"
       },
       {
+        internalType: "bytes32[]",
         name: "_sigR",
         type: "bytes32[]"
       },
       {
+        internalType: "bytes32[]",
         name: "_sigS",
         type: "bytes32[]"
       },
       {
+        internalType: "uint8[]",
         name: "_mode",
         type: "uint8[]"
       },
       {
+        internalType: "uint256",
         name: "_value",
         type: "uint256"
       },
       {
+        internalType: "bytes",
         name: "_data",
         type: "bytes"
       }
     ],
     name: "executeTaskRoleAssignment",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       },
       {
+        internalType: "uint8",
         name: "_role",
         type: "uint8"
       },
       {
+        internalType: "bytes32",
         name: "_ratingSecret",
         type: "bytes32"
       }
     ],
     name: "submitTaskWorkRating",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       },
       {
+        internalType: "uint8",
         name: "_role",
         type: "uint8"
       },
       {
+        internalType: "uint8",
         name: "_rating",
         type: "uint8"
       },
       {
+        internalType: "bytes32",
         name: "_salt",
         type: "bytes32"
       }
     ],
     name: "revealTaskWorkRating",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: true,
     inputs: [
       {
+        internalType: "bytes32",
         name: "_salt",
         type: "bytes32"
       },
       {
+        internalType: "uint256",
         name: "_value",
         type: "uint256"
       }
@@ -2253,18 +2421,18 @@ const _abi = [
     name: "generateSecret",
     outputs: [
       {
+        internalType: "bytes32",
         name: "secret",
         type: "bytes32"
       }
     ],
-    payable: false,
     stateMutability: "pure",
     type: "function"
   },
   {
-    constant: true,
     inputs: [
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       }
@@ -2272,26 +2440,28 @@ const _abi = [
     name: "getTaskWorkRatingSecretsInfo",
     outputs: [
       {
+        internalType: "uint256",
         name: "nSecrets",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "lastSubmittedAt",
         type: "uint256"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: true,
     inputs: [
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       },
       {
+        internalType: "uint8",
         name: "_role",
         type: "uint8"
       }
@@ -2299,244 +2469,242 @@ const _abi = [
     name: "getTaskWorkRatingSecret",
     outputs: [
       {
+        internalType: "bytes32",
         name: "secret",
         type: "bytes32"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       },
       {
+        internalType: "address payable",
         name: "_user",
         type: "address"
       },
       {
+        internalType: "uint256",
         name: "_permissionDomainId",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_childSkillIndex",
         type: "uint256"
       }
     ],
     name: "setTaskManagerRole",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       },
       {
+        internalType: "address payable",
         name: "_user",
         type: "address"
       }
     ],
     name: "setTaskEvaluatorRole",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       },
       {
+        internalType: "address payable",
         name: "_user",
         type: "address"
       }
     ],
     name: "setTaskWorkerRole",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       }
     ],
     name: "removeTaskEvaluatorRole",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       }
     ],
     name: "removeTaskWorkerRole",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_skillId",
         type: "uint256"
       }
     ],
     name: "setTaskSkill",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       },
       {
+        internalType: "bytes32",
         name: "_specificationHash",
         type: "bytes32"
       }
     ],
     name: "setTaskBrief",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_dueDate",
         type: "uint256"
       }
     ],
     name: "setTaskDueDate",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       },
       {
+        internalType: "bytes32",
         name: "_deliverableHash",
         type: "bytes32"
       }
     ],
     name: "submitTaskDeliverable",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       },
       {
+        internalType: "bytes32",
         name: "_deliverableHash",
         type: "bytes32"
       },
       {
+        internalType: "bytes32",
         name: "_ratingSecret",
         type: "bytes32"
       }
     ],
     name: "submitTaskDeliverableAndRating",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       }
     ],
     name: "finalizeTask",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       }
     ],
     name: "cancelTask",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       }
     ],
     name: "completeTask",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: true,
     inputs: [
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       }
@@ -2544,50 +2712,58 @@ const _abi = [
     name: "getTask",
     outputs: [
       {
+        internalType: "bytes32",
         name: "specificationHash",
         type: "bytes32"
       },
       {
+        internalType: "bytes32",
         name: "deliverableHash",
         type: "bytes32"
       },
       {
+        internalType: "enum ColonyDataTypes.TaskStatus",
         name: "status",
         type: "uint8"
       },
       {
+        internalType: "uint256",
         name: "dueDate",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "fundingPotId",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "completionTimestamp",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "domainId",
         type: "uint256"
       },
       {
+        internalType: "uint256[]",
         name: "skillIds",
         type: "uint256[]"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: true,
     inputs: [
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       },
       {
+        internalType: "uint8",
         name: "_role",
         type: "uint8"
       }
@@ -2597,66 +2773,69 @@ const _abi = [
       {
         components: [
           {
+            internalType: "address payable",
             name: "user",
             type: "address"
           },
           {
+            internalType: "bool",
             name: "rateFail",
             type: "bool"
           },
           {
+            internalType: "enum ColonyDataTypes.TaskRatings",
             name: "rating",
             type: "uint8"
           }
         ],
+        internalType: "struct ColonyDataTypes.Role",
         name: "role",
         type: "tuple"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_rewardInverse",
         type: "uint256"
       }
     ],
     name: "setRewardInverse",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: true,
     inputs: [],
     name: "getRewardInverse",
     outputs: [
       {
+        internalType: "uint256",
         name: "rewardInverse",
         type: "uint256"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: true,
     inputs: [
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       },
       {
+        internalType: "uint8",
         name: "_role",
         type: "uint8"
       },
       {
+        internalType: "address",
         name: "_token",
         type: "address"
       }
@@ -2664,200 +2843,214 @@ const _abi = [
     name: "getTaskPayout",
     outputs: [
       {
+        internalType: "uint256",
         name: "amount",
         type: "uint256"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       },
       {
+        internalType: "address",
         name: "_token",
         type: "address"
       },
       {
+        internalType: "uint256",
         name: "_amount",
         type: "uint256"
       }
     ],
     name: "setTaskManagerPayout",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       },
       {
+        internalType: "address",
         name: "_token",
         type: "address"
       },
       {
+        internalType: "uint256",
         name: "_amount",
         type: "uint256"
       }
     ],
     name: "setTaskEvaluatorPayout",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       },
       {
+        internalType: "address",
         name: "_token",
         type: "address"
       },
       {
+        internalType: "uint256",
         name: "_amount",
         type: "uint256"
       }
     ],
     name: "setTaskWorkerPayout",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       },
       {
+        internalType: "address",
         name: "_token",
         type: "address"
       },
       {
+        internalType: "uint256",
         name: "_managerAmount",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_evaluatorAmount",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_workerAmount",
         type: "uint256"
       }
     ],
     name: "setAllTaskPayouts",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       },
       {
+        internalType: "uint8",
         name: "_role",
         type: "uint8"
       },
       {
+        internalType: "address",
         name: "_token",
         type: "address"
       }
     ],
     name: "claimTaskPayout",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "address",
         name: "_token",
         type: "address"
       },
       {
+        internalType: "bytes",
         name: "key",
         type: "bytes"
       },
       {
+        internalType: "bytes",
         name: "value",
         type: "bytes"
       },
       {
+        internalType: "uint256",
         name: "branchMask",
         type: "uint256"
       },
       {
+        internalType: "bytes32[]",
         name: "siblings",
         type: "bytes32[]"
       }
     ],
     name: "startNextRewardPayout",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_payoutId",
         type: "uint256"
       },
       {
+        internalType: "uint256[7]",
         name: "_squareRoots",
         type: "uint256[7]"
       },
       {
+        internalType: "bytes",
         name: "key",
         type: "bytes"
       },
       {
+        internalType: "bytes",
         name: "value",
         type: "bytes"
       },
       {
+        internalType: "uint256",
         name: "branchMask",
         type: "uint256"
       },
       {
+        internalType: "bytes32[]",
         name: "siblings",
         type: "bytes32[]"
       }
     ],
     name: "claimRewardPayout",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: true,
     inputs: [
       {
+        internalType: "uint256",
         name: "_payoutId",
         type: "uint256"
       }
@@ -2867,64 +3060,71 @@ const _abi = [
       {
         components: [
           {
+            internalType: "bytes32",
             name: "reputationState",
             type: "bytes32"
           },
           {
+            internalType: "uint256",
             name: "colonyWideReputation",
             type: "uint256"
           },
           {
+            internalType: "uint256",
             name: "totalTokens",
             type: "uint256"
           },
           {
+            internalType: "uint256",
             name: "amount",
             type: "uint256"
           },
           {
+            internalType: "address",
             name: "tokenAddress",
             type: "address"
           },
           {
+            internalType: "uint256",
             name: "blockTimestamp",
             type: "uint256"
           },
           {
+            internalType: "uint256",
             name: "amountRemaining",
             type: "uint256"
           },
           {
+            internalType: "bool",
             name: "finalized",
             type: "bool"
           }
         ],
+        internalType: "struct ColonyDataTypes.RewardPayoutCycle",
         name: "rewardPayoutCycle",
         type: "tuple"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_payoutId",
         type: "uint256"
       }
     ],
     name: "finalizeRewardPayout",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: true,
     inputs: [
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       }
@@ -2932,44 +3132,46 @@ const _abi = [
     name: "getFundingPot",
     outputs: [
       {
+        internalType: "enum ColonyDataTypes.FundingPotAssociatedType",
         name: "associatedType",
         type: "uint8"
       },
       {
+        internalType: "uint256",
         name: "associatedTypeId",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "payoutsWeCannotMake",
         type: "uint256"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: true,
     inputs: [],
     name: "getFundingPotCount",
     outputs: [
       {
+        internalType: "uint256",
         name: "count",
         type: "uint256"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: true,
     inputs: [
       {
+        internalType: "uint256",
         name: "_potId",
         type: "uint256"
       },
       {
+        internalType: "address",
         name: "_token",
         type: "address"
       }
@@ -2977,22 +3179,23 @@ const _abi = [
     name: "getFundingPotBalance",
     outputs: [
       {
+        internalType: "uint256",
         name: "balance",
         type: "uint256"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: true,
     inputs: [
       {
+        internalType: "uint256",
         name: "_potId",
         type: "uint256"
       },
       {
+        internalType: "address",
         name: "_token",
         type: "address"
       }
@@ -3000,70 +3203,74 @@ const _abi = [
     name: "getFundingPotPayout",
     outputs: [
       {
+        internalType: "uint256",
         name: "payout",
         type: "uint256"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_permissionDomainId",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_fromChildSkillIndex",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_toChildSkillIndex",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_fromPot",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_toPot",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_amount",
         type: "uint256"
       },
       {
+        internalType: "address",
         name: "_token",
         type: "address"
       }
     ],
     name: "moveFundsBetweenPots",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "address",
         name: "_token",
         type: "address"
       }
     ],
     name: "claimColonyFunds",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: true,
     inputs: [
       {
+        internalType: "address",
         name: "_token",
         type: "address"
       }
@@ -3071,130 +3278,140 @@ const _abi = [
     name: "getNonRewardPotsTotal",
     outputs: [
       {
+        internalType: "uint256",
         name: "amount",
         type: "uint256"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "address",
         name: "_approvee",
         type: "address"
       },
       {
+        internalType: "uint256",
         name: "_domainId",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_amount",
         type: "uint256"
       }
     ],
     name: "approveStake",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "address",
         name: "_user",
         type: "address"
       },
       {
+        internalType: "uint256",
         name: "_domainId",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_amount",
         type: "uint256"
       }
     ],
     name: "obligateStake",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "address",
         name: "_user",
         type: "address"
       },
       {
+        internalType: "uint256",
         name: "_domainId",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_amount",
         type: "uint256"
       }
     ],
     name: "deobligateStake",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_permissionDomainId",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_childSkillIndex",
         type: "uint256"
       },
       {
+        internalType: "address",
         name: "_obligator",
         type: "address"
       },
       {
+        internalType: "address",
         name: "_user",
         type: "address"
       },
       {
+        internalType: "uint256",
         name: "_domainId",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_amount",
         type: "uint256"
       },
       {
+        internalType: "address",
         name: "_recipient",
         type: "address"
       }
     ],
     name: "transferStake",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: true,
     inputs: [
       {
+        internalType: "address",
         name: "_user",
         type: "address"
       },
       {
+        internalType: "address",
         name: "_obligator",
         type: "address"
       },
       {
+        internalType: "uint256",
         name: "_domainId",
         type: "uint256"
       }
@@ -3202,26 +3419,28 @@ const _abi = [
     name: "getApproval",
     outputs: [
       {
+        internalType: "uint256",
         name: "approval",
         type: "uint256"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: true,
     inputs: [
       {
+        internalType: "address",
         name: "_user",
         type: "address"
       },
       {
+        internalType: "address",
         name: "_obligator",
         type: "address"
       },
       {
+        internalType: "uint256",
         name: "_domainId",
         type: "uint256"
       }
@@ -3229,18 +3448,18 @@ const _abi = [
     name: "getObligation",
     outputs: [
       {
+        internalType: "uint256",
         name: "obligation",
         type: "uint256"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: true,
     inputs: [
       {
+        internalType: "uint256",
         name: "_fundingPotId",
         type: "uint256"
       }
@@ -3248,11 +3467,11 @@ const _abi = [
     name: "getDomainFromFundingPot",
     outputs: [
       {
+        internalType: "uint256",
         name: "domainId",
         type: "uint256"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   }

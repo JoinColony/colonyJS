@@ -14,19 +14,17 @@ interface IColonyInterface extends Interface {
   functions: {
     approveExitRecovery: TypedFunctionDescription<{ encode([]: []): string }>;
 
-    exitRecoveryMode: TypedFunctionDescription<{ encode([]: []): string }>;
-
-    numRecoveryRoles: TypedFunctionDescription<{ encode([]: []): string }>;
-
-    setStorageSlotRecovery: TypedFunctionDescription<{
-      encode([_slot, _value]: [BigNumberish, Arrayish]): string;
-    }>;
-
-    isInRecoveryMode: TypedFunctionDescription<{ encode([]: []): string }>;
-
     checkNotAdditionalProtectedVariable: TypedFunctionDescription<{
       encode([_slot]: [BigNumberish]): string;
     }>;
+
+    enterRecoveryMode: TypedFunctionDescription<{ encode([]: []): string }>;
+
+    exitRecoveryMode: TypedFunctionDescription<{ encode([]: []): string }>;
+
+    isInRecoveryMode: TypedFunctionDescription<{ encode([]: []): string }>;
+
+    numRecoveryRoles: TypedFunctionDescription<{ encode([]: []): string }>;
 
     removeRecoveryRole: TypedFunctionDescription<{
       encode([_user]: [string]): string;
@@ -36,7 +34,9 @@ interface IColonyInterface extends Interface {
       encode([_user]: [string]): string;
     }>;
 
-    enterRecoveryMode: TypedFunctionDescription<{ encode([]: []): string }>;
+    setStorageSlotRecovery: TypedFunctionDescription<{
+      encode([_slot, _value]: [BigNumberish, Arrayish]): string;
+    }>;
 
     authority: TypedFunctionDescription<{ encode([]: []): string }>;
 
@@ -53,6 +53,10 @@ interface IColonyInterface extends Interface {
     getColonyNetwork: TypedFunctionDescription<{ encode([]: []): string }>;
 
     getToken: TypedFunctionDescription<{ encode([]: []): string }>;
+
+    makeArbitraryTransaction: TypedFunctionDescription<{
+      encode([_to, _action]: [string, Arrayish]): string;
+    }>;
 
     setRootRole: TypedFunctionDescription<{
       encode([_user, _setTo]: [string, boolean]): string;
@@ -759,29 +763,12 @@ interface IColonyInterface extends Interface {
   };
 
   events: {
-    RecoveryRoleSet: TypedEventDescription<{
-      encodeTopics([user, setTo]: [string | null, null]): string[];
-    }>;
-
-    ColonyInitialised: TypedEventDescription<{
-      encodeTopics([colonyNetwork, token]: [null, null]): string[];
-    }>;
-
     ColonyBootstrapped: TypedEventDescription<{
       encodeTopics([users, amounts]: [null, null]): string[];
     }>;
 
-    ColonyUpgraded: TypedEventDescription<{
-      encodeTopics([oldVersion, newVersion]: [null, null]): string[];
-    }>;
-
-    ColonyRoleSet: TypedEventDescription<{
-      encodeTopics([user, domainId, role, setTo]: [
-        string | null,
-        BigNumberish | null,
-        BigNumberish | null,
-        null
-      ]): string[];
+    ColonyFundsClaimed: TypedEventDescription<{
+      encodeTopics([token, fee, payoutRemainder]: [null, null, null]): string[];
     }>;
 
     ColonyFundsMovedBetweenFundingPots: TypedEventDescription<{
@@ -793,40 +780,33 @@ interface IColonyInterface extends Interface {
       ]): string[];
     }>;
 
-    ColonyFundsClaimed: TypedEventDescription<{
-      encodeTopics([token, fee, payoutRemainder]: [null, null, null]): string[];
-    }>;
-
-    RewardPayoutCycleStarted: TypedEventDescription<{
-      encodeTopics([rewardPayoutId]: [null]): string[];
-    }>;
-
-    RewardPayoutCycleEnded: TypedEventDescription<{
-      encodeTopics([rewardPayoutId]: [null]): string[];
-    }>;
-
-    RewardPayoutClaimed: TypedEventDescription<{
-      encodeTopics([rewardPayoutId, user, fee, rewardRemainder]: [
-        null,
-        null,
-        null,
-        null
-      ]): string[];
+    ColonyInitialised: TypedEventDescription<{
+      encodeTopics([colonyNetwork, token]: [null, null]): string[];
     }>;
 
     ColonyRewardInverseSet: TypedEventDescription<{
       encodeTopics([rewardInverse]: [null]): string[];
     }>;
 
-    ExpenditureAdded: TypedEventDescription<{
-      encodeTopics([expenditureId]: [null]): string[];
+    ColonyRoleSet: TypedEventDescription<{
+      encodeTopics([user, domainId, role, setTo]: [
+        string | null,
+        BigNumberish | null,
+        BigNumberish | null,
+        null
+      ]): string[];
     }>;
 
-    ExpenditureTransferred: TypedEventDescription<{
-      encodeTopics([expenditureId, owner]: [
-        BigNumberish | null,
-        string | null
-      ]): string[];
+    ColonyUpgraded: TypedEventDescription<{
+      encodeTopics([oldVersion, newVersion]: [null, null]): string[];
+    }>;
+
+    DomainAdded: TypedEventDescription<{
+      encodeTopics([domainId]: [null]): string[];
+    }>;
+
+    ExpenditureAdded: TypedEventDescription<{
+      encodeTopics([expenditureId]: [null]): string[];
     }>;
 
     ExpenditureCancelled: TypedEventDescription<{
@@ -835,6 +815,15 @@ interface IColonyInterface extends Interface {
 
     ExpenditureFinalized: TypedEventDescription<{
       encodeTopics([expenditureId]: [BigNumberish | null]): string[];
+    }>;
+
+    ExpenditurePayoutSet: TypedEventDescription<{
+      encodeTopics([expenditureId, slot, token, amount]: [
+        BigNumberish | null,
+        BigNumberish | null,
+        string | null,
+        null
+      ]): string[];
     }>;
 
     ExpenditureRecipientSet: TypedEventDescription<{
@@ -853,17 +842,48 @@ interface IColonyInterface extends Interface {
       ]): string[];
     }>;
 
-    ExpenditurePayoutSet: TypedEventDescription<{
-      encodeTopics([expenditureId, slot, token, amount]: [
+    ExpenditureTransferred: TypedEventDescription<{
+      encodeTopics([expenditureId, owner]: [
         BigNumberish | null,
-        BigNumberish | null,
-        string | null,
-        null
+        string | null
       ]): string[];
+    }>;
+
+    FundingPotAdded: TypedEventDescription<{
+      encodeTopics([fundingPotId]: [null]): string[];
     }>;
 
     PaymentAdded: TypedEventDescription<{
       encodeTopics([paymentId]: [null]): string[];
+    }>;
+
+    PayoutClaimed: TypedEventDescription<{
+      encodeTopics([fundingPotId, token, amount]: [
+        BigNumberish | null,
+        null,
+        null
+      ]): string[];
+    }>;
+
+    RecoveryRoleSet: TypedEventDescription<{
+      encodeTopics([user, setTo]: [string | null, null]): string[];
+    }>;
+
+    RewardPayoutClaimed: TypedEventDescription<{
+      encodeTopics([rewardPayoutId, user, fee, rewardRemainder]: [
+        null,
+        null,
+        null,
+        null
+      ]): string[];
+    }>;
+
+    RewardPayoutCycleEnded: TypedEventDescription<{
+      encodeTopics([rewardPayoutId]: [null]): string[];
+    }>;
+
+    RewardPayoutCycleStarted: TypedEventDescription<{
+      encodeTopics([rewardPayoutId]: [null]): string[];
     }>;
 
     TaskAdded: TypedEventDescription<{
@@ -877,23 +897,27 @@ interface IColonyInterface extends Interface {
       ]): string[];
     }>;
 
+    TaskCanceled: TypedEventDescription<{
+      encodeTopics([taskId]: [BigNumberish | null]): string[];
+    }>;
+
+    TaskCompleted: TypedEventDescription<{
+      encodeTopics([taskId]: [BigNumberish | null]): string[];
+    }>;
+
+    TaskDeliverableSubmitted: TypedEventDescription<{
+      encodeTopics([taskId, deliverableHash]: [
+        BigNumberish | null,
+        null
+      ]): string[];
+    }>;
+
     TaskDueDateSet: TypedEventDescription<{
       encodeTopics([taskId, dueDate]: [BigNumberish | null, null]): string[];
     }>;
 
-    TaskSkillSet: TypedEventDescription<{
-      encodeTopics([taskId, skillId]: [
-        BigNumberish | null,
-        BigNumberish | null
-      ]): string[];
-    }>;
-
-    TaskRoleUserSet: TypedEventDescription<{
-      encodeTopics([taskId, role, user]: [
-        BigNumberish | null,
-        null,
-        string | null
-      ]): string[];
+    TaskFinalized: TypedEventDescription<{
+      encodeTopics([taskId]: [BigNumberish | null]): string[];
     }>;
 
     TaskPayoutSet: TypedEventDescription<{
@@ -905,15 +929,19 @@ interface IColonyInterface extends Interface {
       ]): string[];
     }>;
 
-    TaskDeliverableSubmitted: TypedEventDescription<{
-      encodeTopics([taskId, deliverableHash]: [
+    TaskRoleUserSet: TypedEventDescription<{
+      encodeTopics([taskId, role, user]: [
         BigNumberish | null,
-        null
+        null,
+        string | null
       ]): string[];
     }>;
 
-    TaskCompleted: TypedEventDescription<{
-      encodeTopics([taskId]: [BigNumberish | null]): string[];
+    TaskSkillSet: TypedEventDescription<{
+      encodeTopics([taskId, skillId]: [
+        BigNumberish | null,
+        BigNumberish | null
+      ]): string[];
     }>;
 
     TaskWorkRatingRevealed: TypedEventDescription<{
@@ -922,30 +950,6 @@ interface IColonyInterface extends Interface {
         null,
         null
       ]): string[];
-    }>;
-
-    TaskFinalized: TypedEventDescription<{
-      encodeTopics([taskId]: [BigNumberish | null]): string[];
-    }>;
-
-    PayoutClaimed: TypedEventDescription<{
-      encodeTopics([fundingPotId, token, amount]: [
-        BigNumberish | null,
-        null,
-        null
-      ]): string[];
-    }>;
-
-    TaskCanceled: TypedEventDescription<{
-      encodeTopics([taskId]: [BigNumberish | null]): string[];
-    }>;
-
-    DomainAdded: TypedEventDescription<{
-      encodeTopics([domainId]: [null]): string[];
-    }>;
-
-    FundingPotAdded: TypedEventDescription<{
-      encodeTopics([fundingPotId]: [null]): string[];
     }>;
   };
 }
@@ -972,6 +976,20 @@ export class IColony extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
+     * No return value, but should throw if protected.This is external, but is only expected to be called from ContractRecovery; no need toexpose this to any users.
+     * Check whether the supplied slot is a protected variable specific to this contract
+     * @param _slot The storage slot number to check.
+     */
+    checkNotAdditionalProtectedVariable(_slot: BigNumberish): Promise<void>;
+
+    /**
+     * Put colony network mining into recovery mode. Can only be called by user with recovery role.
+     */
+    enterRecoveryMode(
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
      * Exit recovery mode, can be called by anyone if enough whitelist approvals are given.
      */
     exitRecoveryMode(
@@ -979,35 +997,14 @@ export class IColony extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
-     * Return number of recovery roles.
-     * @returns numRoles Number of users with the recovery role.
-     */
-    numRecoveryRoles(): Promise<BigNumber>;
-
-    /**
-     * certain critical variables are protected from editing in this function
-     * Update value of arbitrary storage variable. Can only be called by user with recovery role.
-     * @param _slot Uint address of storage slot to be updated
-     * @param _value word of data to be set
-     */
-    setStorageSlotRecovery(
-      _slot: BigNumberish,
-      _value: Arrayish,
-      overrides?: TransactionOverrides
-    ): Promise<ContractTransaction>;
-
-    /**
      * Is colony network in recovery mode.
-     * @returns inRecoveryMode Return true if recovery mode is active, false otherwise
      */
     isInRecoveryMode(): Promise<boolean>;
 
     /**
-     * No return value, but should throw if protected.This is public, but is only expected to be called from ContractRecovery; no need toexpose this to any users.
-     * Check whether the supplied slot is a protected variable specific to this contract
-     * @param _slot The storage slot number to check.
+     * Return number of recovery roles.
      */
-    checkNotAdditionalProtectedVariable(_slot: BigNumberish): Promise<void>;
+    numRecoveryRoles(): Promise<BigNumber>;
 
     /**
      * Remove colony recovery role. Can only be called by root role.
@@ -1028,28 +1025,30 @@ export class IColony extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
-     * Put colony network mining into recovery mode. Can only be called by user with recovery role.
+     * certain critical variables are protected from editing in this function
+     * Update value of arbitrary storage variable. Can only be called by user with recovery role.
+     * @param _slot Uint address of storage slot to be updated
+     * @param _value word of data to be set
      */
-    enterRecoveryMode(
+    setStorageSlotRecovery(
+      _slot: BigNumberish,
+      _value: Arrayish,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
     /**
      * Get the `ColonyAuthority` for the colony.
-     * @returns colonyAuthority The `ColonyAuthority` contract address
      */
     authority(): Promise<string>;
 
     /**
      * Used for testing.
      * Get the colony `owner` address. This should be address(0x0) at all times.
-     * @returns colonyOwner Address of the colony owner
      */
     owner(): Promise<string>;
 
     /**
      * Get the Colony contract version. Starts from 1 and is incremented with every deployed contract change.
-     * @returns colonyVersion Version number
      */
     version(): Promise<BigNumber>;
 
@@ -1064,7 +1063,7 @@ export class IColony extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
-     * Can only be called by the colony itself, and only expected to be called as part of the `upgrade()` call. Required to be public so it can be an external call.
+     * Can only be called by the colony itself, and only expected to be called as part of the `upgrade()` call. Required to be external so it can be an external call.
      * A function to be called after an upgrade has been done from v2 to v3.
      */
     finishUpgrade(
@@ -1074,15 +1073,24 @@ export class IColony extends Contract {
     /**
      * The colonyNetworkAddress we read here is set once, during `initialiseColony`.
      * Returns the colony network address set on the Colony.
-     * @returns colonyNetwork The address of Colony Network instance
      */
     getColonyNetwork(): Promise<string>;
 
     /**
      * Get the colony token.
-     * @returns tokenAddress Address of the token contract
      */
     getToken(): Promise<string>;
+
+    /**
+     * Execute arbitrary transaction on behalf of the Colony
+     * @param _action Bytes array encoding the function call and arguments
+     * @param _to Contract to receive the function call (cannot be network or token locking)
+     */
+    makeArbitraryTransaction(
+      _to: string,
+      _action: Arrayish,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
 
     /**
      * Set new colony root role. Can be called by root role only.
@@ -1185,7 +1193,6 @@ export class IColony extends Contract {
      * @param _domainId The domain where we want to check for the role
      * @param _role The role we want to check for
      * @param _user The user whose role we want to check
-     * @returns hasRole Boolean indicating whether the given user has the given role in domain
      */
     hasUserRole(
       _user: string,
@@ -1200,7 +1207,6 @@ export class IColony extends Contract {
      * @param _domainId Domain in which the caller has the role
      * @param _role The role we want to check for
      * @param _user The user whose role we want to check
-     * @returns hasRole Boolean indicating whether the given user has the given role in domain
      */
     hasInheritedUserRole(
       _user: string,
@@ -1216,7 +1222,6 @@ export class IColony extends Contract {
      * @param _childSkillIndex The index that the `_childDomainId` is relative to `_domainId`
      * @param _domainId Domain in which the caller has the role (currently Root or Architecture)
      * @param _user The user whose permissions we want to check
-     * @returns canSet Boolean indicating whether the given user is allowed to edit roles in the target domain.
      */
     userCanSetRoles(
       _user: string,
@@ -1229,14 +1234,12 @@ export class IColony extends Contract {
      * Gets the bytes32 representation of the roles for a user in a given domain
      * @param _domain The domain we want to get roles in
      * @param _user The user whose roles we want to get
-     * @returns roles bytes32 representation of the held roles
      */
     getUserRoles(_user: string, _domain: BigNumberish): Promise<string>;
 
     /**
      * Gets the bytes32 representation of the roles authorized to call a function
      * @param _sig The function signature
-     * @returns roles bytes32 representation of the authorized roles
      */
     getCapabilityRoles(_sig: Arrayish): Promise<string>;
 
@@ -1394,7 +1397,6 @@ export class IColony extends Contract {
     /**
      * Get a domain by id.
      * @param _id Id of the domain which details to get
-     * @returns domain The domain
      */
     getDomain(
       _id: BigNumberish
@@ -1407,18 +1409,16 @@ export class IColony extends Contract {
 
     /**
      * Get the number of domains in the colony.
-     * @returns count The domain count. Min 1 as the root domain is created at the same time as the colony
      */
     getDomainCount(): Promise<BigNumber>;
 
     /**
-     * For more detail about branchMask and siblings, examine the PatriciaTree implementation. While public, likely only to be used by the Colony contracts, as it checks that the user is proving their own reputation in the current colony. The `verifyProof` function can be used to verify any proof, though this function is not currently exposed on the Colony's EtherRouter.
+     * For more detail about branchMask and siblings, examine the PatriciaTree implementation. While external, likely only to be used by the Colony contracts, as it checks that the user is proving their own reputation in the current colony. The `verifyProof` function can be used to verify any proof, though this function is not currently exposed on the Colony's EtherRouter.
      * Helper function that can be used by a client to verify the correctness of a patricia proof they have been supplied with.
      * @param branchMask The branchmask of the proof
      * @param key The key of the element the proof is for.
      * @param siblings The siblings of the proof
      * @param value The value of the element that the proof is for.
-     * @returns isValid True if the proof is valid, false otherwise.
      */
     verifyReputationProof(
       key: Arrayish,
@@ -1432,7 +1432,6 @@ export class IColony extends Contract {
      * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
      * @param _domainId The domain where the expenditure belongs
      * @param _permissionDomainId The domainId in which I have the permission to take this action
-     * @returns expenditureId Identifier of the newly created expenditure
      */
     makeExpenditure(
       _permissionDomainId: BigNumberish,
@@ -1599,14 +1598,12 @@ export class IColony extends Contract {
 
     /**
      * Get the number of expenditures in the colony.
-     * @returns count The expenditure count
      */
     getExpenditureCount(): Promise<BigNumber>;
 
     /**
      * Returns an existing expenditure.
      * @param _id Expenditure identifier
-     * @returns expenditure The expenditure
      */
     getExpenditure(
       _id: BigNumberish
@@ -1629,7 +1626,6 @@ export class IColony extends Contract {
      * Returns an existing expenditure slot.
      * @param _id Expenditure identifier
      * @param _slot Expenditure slot
-     * @returns expenditureSlot The expenditure slot
      */
     getExpenditureSlot(
       _id: BigNumberish,
@@ -1650,7 +1646,6 @@ export class IColony extends Contract {
      * @param _id Expenditure identifier
      * @param _slot Expenditure slot
      * @param _token Token address
-     * @returns amount Amount of the payout for that slot/token.
      */
     getExpenditureSlotPayout(
       _id: BigNumberish,
@@ -1667,7 +1662,6 @@ export class IColony extends Contract {
      * @param _recipient Address of the payment recipient
      * @param _skillId The skill associated with the payment
      * @param _token Address of the token, `0x0` value indicates Ether
-     * @returns paymentId Identifier of the newly created payment
      */
     addPayment(
       _permissionDomainId: BigNumberish,
@@ -1743,7 +1737,6 @@ export class IColony extends Contract {
     /**
      * Returns an exiting payment.
      * @param _id Payment identifier
-     * @returns payment The Payment data structure
      */
     getPayment(
       _id: BigNumberish
@@ -1773,7 +1766,6 @@ export class IColony extends Contract {
 
     /**
      * Get the number of payments in the colony.
-     * @returns count The payment count
      */
     getPaymentCount(): Promise<BigNumber>;
 
@@ -1798,14 +1790,12 @@ export class IColony extends Contract {
 
     /**
      * Get the number of tasks in the colony.
-     * @returns count The task count
      */
     getTaskCount(): Promise<BigNumber>;
 
     /**
      * Starts from 0 and is incremented on every co-reviewed task change via `executeTaskChange` call.
      * @param _id Id of the task
-     * @returns nonce The current task change nonce value
      */
     getTaskChangeNonce(_id: BigNumberish): Promise<BigNumber>;
 
@@ -1881,14 +1871,12 @@ export class IColony extends Contract {
      * Helper function used to generage consistently the rating secret using salt value `_salt` and value to hide `_value`
      * @param _salt Salt value
      * @param _value Value to hide
-     * @returns secret `keccak256` hash of joint _salt and _value
      */
     generateSecret(_salt: Arrayish, _value: BigNumberish): Promise<string>;
 
     /**
      * Get the `ColonyStorage.RatingSecrets` information for task `_id`.
      * @param _id Id of the task
-     * @returns nSecrets Number of secretslastSubmittedAt Timestamp of the last submitted rating secret
      */
     getTaskWorkRatingSecretsInfo(
       _id: BigNumberish
@@ -1903,7 +1891,6 @@ export class IColony extends Contract {
      * Get the rating secret submitted for role `_role` in task `_id`
      * @param _id Id of the task
      * @param _role Id of the role, as defined in TaskRole enum
-     * @returns secret Rating secret `bytes32` value
      */
     getTaskWorkRatingSecret(
       _id: BigNumberish,
@@ -2060,7 +2047,6 @@ export class IColony extends Contract {
     /**
      * Get a task with id `_id`
      * @param _id Id of the task
-     * @returns specificationHash Task brief hashdeliverableHash Task deliverable hashstatus TaskStatus property. 0 - Active. 1 - Cancelled. 2 - FinalizeddueDate Due datefundingPotId Id of funding pot for taskcompletionTimestamp Task completion timestampdomainId Task domain id, default is root colony domain with id 1skillIds Array of global skill ids assigned to task
      */
     getTask(
       _id: BigNumberish
@@ -2087,7 +2073,6 @@ export class IColony extends Contract {
      * Get the `Role` properties back for role `_role` in task `_id`.
      * @param _id Id of the task
      * @param _role Id of the role, as defined in TaskRole enum
-     * @returns role The Role
      */
     getTaskRole(
       _id: BigNumberish,
@@ -2112,7 +2097,6 @@ export class IColony extends Contract {
 
     /**
      * Return 1 / the reward to pay out from revenue. e.g. if the fee is 1% (or 0.01), return 100.
-     * @returns rewardInverse The inverse of the reward
      */
     getRewardInverse(): Promise<BigNumber>;
 
@@ -2121,7 +2105,6 @@ export class IColony extends Contract {
      * @param _id Id of the task
      * @param _role Id of the role, as defined in TaskRole enum
      * @param _token Address of the token, `0x0` value indicates Ether
-     * @returns amount Payout amount
      */
     getTaskPayout(
       _id: BigNumberish,
@@ -2238,7 +2221,6 @@ export class IColony extends Contract {
     /**
      * Get useful information about specific reward payout.
      * @param _payoutId Id of the reward payout
-     * @returns rewardPayoutCycle RewardPayoutCycle, containing propertes:  `reputationState` Reputation root hash at the time of creation,  `colonyWideReputation` Colony wide reputation in `reputationState`,  `totalTokens` Total colony tokens at the time of creation,  `amount` Total amount of tokens taken aside for reward payout,  `tokenAddress` Token address,  `blockTimestamp` Block number at the time of creation.
      */
     getRewardPayoutInfo(
       _payoutId: BigNumberish
@@ -2274,7 +2256,6 @@ export class IColony extends Contract {
      * For the reward funding pot (e.g. id: 0) this returns (0, 0, 0).
      * Get the non-mapping properties of a pot by id.
      * @param _id Id of the pot which details to get
-     * @returns associatedType The FundingPotAssociatedType value of the current funding pot, e.g. Domain, Task, PayoutassociatedTypeId Id of the associated type, e.g. if associatedType = FundingPotAssociatedType.Domain, this refers to the domainIdpayoutsWeCannotMake Number of payouts that cannot be completed with the current funding
      */
     getFundingPot(
       _id: BigNumberish
@@ -2289,7 +2270,6 @@ export class IColony extends Contract {
 
     /**
      * Get the number of funding pots in the colony.
-     * @returns count The funding pots count
      */
     getFundingPotCount(): Promise<BigNumber>;
 
@@ -2297,7 +2277,6 @@ export class IColony extends Contract {
      * Get the `_token` balance of pot with id `_potId`.
      * @param _potId Id of the funding pot
      * @param _token Address of the token, `0x0` value indicates Ether
-     * @returns balance Funding pot supply balance
      */
     getFundingPotBalance(
       _potId: BigNumberish,
@@ -2308,7 +2287,6 @@ export class IColony extends Contract {
      * Get the assigned `_token` payouts of pot with id `_potId`.
      * @param _potId Id of the funding pot
      * @param _token Address of the token, `0x0` value indicates Ether
-     * @returns payout Funding pot payout amount
      */
     getFundingPotPayout(
       _potId: BigNumberish,
@@ -2348,7 +2326,6 @@ export class IColony extends Contract {
     /**
      * Get the total amount of tokens `_token` minus amount reserved to be paid to the reputation and token holders as rewards.
      * @param _token Address of the token, `0x0` value indicates Ether
-     * @returns amount Total amount of tokens in funding pots other than the rewards pot (id 0)
      */
     getNonRewardPotsTotal(_token: string): Promise<BigNumber>;
 
@@ -2417,7 +2394,6 @@ export class IColony extends Contract {
      * @param _domainId Domain in which we are willing to be obligated.
      * @param _obligator Address of the account we are willing to let obligate us.
      * @param _user User allowing their tokens to be obligated.
-     * @returns approval The amount the user has approved
      */
     getApproval(
       _user: string,
@@ -2430,7 +2406,6 @@ export class IColony extends Contract {
      * @param _domainId Domain in which we are obligated.
      * @param _obligator Address of the account who obligated us.
      * @param _user User whose tokens are obligated.
-     * @returns obligation The amount that is currently obligated
      */
     getObligation(
       _user: string,
@@ -2441,7 +2416,6 @@ export class IColony extends Contract {
     /**
      * Get the domain corresponding to a funding pot
      * @param _fundingPotId Id of the funding pot
-     * @returns domainId Id of the corresponding domain
      */
     getDomainFromFundingPot(_fundingPotId: BigNumberish): Promise<BigNumber>;
   };
@@ -2454,6 +2428,20 @@ export class IColony extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
+   * No return value, but should throw if protected.This is external, but is only expected to be called from ContractRecovery; no need toexpose this to any users.
+   * Check whether the supplied slot is a protected variable specific to this contract
+   * @param _slot The storage slot number to check.
+   */
+  checkNotAdditionalProtectedVariable(_slot: BigNumberish): Promise<void>;
+
+  /**
+   * Put colony network mining into recovery mode. Can only be called by user with recovery role.
+   */
+  enterRecoveryMode(
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
    * Exit recovery mode, can be called by anyone if enough whitelist approvals are given.
    */
   exitRecoveryMode(
@@ -2461,35 +2449,14 @@ export class IColony extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
-   * Return number of recovery roles.
-   * @returns numRoles Number of users with the recovery role.
-   */
-  numRecoveryRoles(): Promise<BigNumber>;
-
-  /**
-   * certain critical variables are protected from editing in this function
-   * Update value of arbitrary storage variable. Can only be called by user with recovery role.
-   * @param _slot Uint address of storage slot to be updated
-   * @param _value word of data to be set
-   */
-  setStorageSlotRecovery(
-    _slot: BigNumberish,
-    _value: Arrayish,
-    overrides?: TransactionOverrides
-  ): Promise<ContractTransaction>;
-
-  /**
    * Is colony network in recovery mode.
-   * @returns inRecoveryMode Return true if recovery mode is active, false otherwise
    */
   isInRecoveryMode(): Promise<boolean>;
 
   /**
-   * No return value, but should throw if protected.This is public, but is only expected to be called from ContractRecovery; no need toexpose this to any users.
-   * Check whether the supplied slot is a protected variable specific to this contract
-   * @param _slot The storage slot number to check.
+   * Return number of recovery roles.
    */
-  checkNotAdditionalProtectedVariable(_slot: BigNumberish): Promise<void>;
+  numRecoveryRoles(): Promise<BigNumber>;
 
   /**
    * Remove colony recovery role. Can only be called by root role.
@@ -2510,28 +2477,30 @@ export class IColony extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
-   * Put colony network mining into recovery mode. Can only be called by user with recovery role.
+   * certain critical variables are protected from editing in this function
+   * Update value of arbitrary storage variable. Can only be called by user with recovery role.
+   * @param _slot Uint address of storage slot to be updated
+   * @param _value word of data to be set
    */
-  enterRecoveryMode(
+  setStorageSlotRecovery(
+    _slot: BigNumberish,
+    _value: Arrayish,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
   /**
    * Get the `ColonyAuthority` for the colony.
-   * @returns colonyAuthority The `ColonyAuthority` contract address
    */
   authority(): Promise<string>;
 
   /**
    * Used for testing.
    * Get the colony `owner` address. This should be address(0x0) at all times.
-   * @returns colonyOwner Address of the colony owner
    */
   owner(): Promise<string>;
 
   /**
    * Get the Colony contract version. Starts from 1 and is incremented with every deployed contract change.
-   * @returns colonyVersion Version number
    */
   version(): Promise<BigNumber>;
 
@@ -2546,7 +2515,7 @@ export class IColony extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
-   * Can only be called by the colony itself, and only expected to be called as part of the `upgrade()` call. Required to be public so it can be an external call.
+   * Can only be called by the colony itself, and only expected to be called as part of the `upgrade()` call. Required to be external so it can be an external call.
    * A function to be called after an upgrade has been done from v2 to v3.
    */
   finishUpgrade(overrides?: TransactionOverrides): Promise<ContractTransaction>;
@@ -2554,15 +2523,24 @@ export class IColony extends Contract {
   /**
    * The colonyNetworkAddress we read here is set once, during `initialiseColony`.
    * Returns the colony network address set on the Colony.
-   * @returns colonyNetwork The address of Colony Network instance
    */
   getColonyNetwork(): Promise<string>;
 
   /**
    * Get the colony token.
-   * @returns tokenAddress Address of the token contract
    */
   getToken(): Promise<string>;
+
+  /**
+   * Execute arbitrary transaction on behalf of the Colony
+   * @param _action Bytes array encoding the function call and arguments
+   * @param _to Contract to receive the function call (cannot be network or token locking)
+   */
+  makeArbitraryTransaction(
+    _to: string,
+    _action: Arrayish,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
 
   /**
    * Set new colony root role. Can be called by root role only.
@@ -2665,7 +2643,6 @@ export class IColony extends Contract {
    * @param _domainId The domain where we want to check for the role
    * @param _role The role we want to check for
    * @param _user The user whose role we want to check
-   * @returns hasRole Boolean indicating whether the given user has the given role in domain
    */
   hasUserRole(
     _user: string,
@@ -2680,7 +2657,6 @@ export class IColony extends Contract {
    * @param _domainId Domain in which the caller has the role
    * @param _role The role we want to check for
    * @param _user The user whose role we want to check
-   * @returns hasRole Boolean indicating whether the given user has the given role in domain
    */
   hasInheritedUserRole(
     _user: string,
@@ -2696,7 +2672,6 @@ export class IColony extends Contract {
    * @param _childSkillIndex The index that the `_childDomainId` is relative to `_domainId`
    * @param _domainId Domain in which the caller has the role (currently Root or Architecture)
    * @param _user The user whose permissions we want to check
-   * @returns canSet Boolean indicating whether the given user is allowed to edit roles in the target domain.
    */
   userCanSetRoles(
     _user: string,
@@ -2709,14 +2684,12 @@ export class IColony extends Contract {
    * Gets the bytes32 representation of the roles for a user in a given domain
    * @param _domain The domain we want to get roles in
    * @param _user The user whose roles we want to get
-   * @returns roles bytes32 representation of the held roles
    */
   getUserRoles(_user: string, _domain: BigNumberish): Promise<string>;
 
   /**
    * Gets the bytes32 representation of the roles authorized to call a function
    * @param _sig The function signature
-   * @returns roles bytes32 representation of the authorized roles
    */
   getCapabilityRoles(_sig: Arrayish): Promise<string>;
 
@@ -2874,7 +2847,6 @@ export class IColony extends Contract {
   /**
    * Get a domain by id.
    * @param _id Id of the domain which details to get
-   * @returns domain The domain
    */
   getDomain(
     _id: BigNumberish
@@ -2887,18 +2859,16 @@ export class IColony extends Contract {
 
   /**
    * Get the number of domains in the colony.
-   * @returns count The domain count. Min 1 as the root domain is created at the same time as the colony
    */
   getDomainCount(): Promise<BigNumber>;
 
   /**
-   * For more detail about branchMask and siblings, examine the PatriciaTree implementation. While public, likely only to be used by the Colony contracts, as it checks that the user is proving their own reputation in the current colony. The `verifyProof` function can be used to verify any proof, though this function is not currently exposed on the Colony's EtherRouter.
+   * For more detail about branchMask and siblings, examine the PatriciaTree implementation. While external, likely only to be used by the Colony contracts, as it checks that the user is proving their own reputation in the current colony. The `verifyProof` function can be used to verify any proof, though this function is not currently exposed on the Colony's EtherRouter.
    * Helper function that can be used by a client to verify the correctness of a patricia proof they have been supplied with.
    * @param branchMask The branchmask of the proof
    * @param key The key of the element the proof is for.
    * @param siblings The siblings of the proof
    * @param value The value of the element that the proof is for.
-   * @returns isValid True if the proof is valid, false otherwise.
    */
   verifyReputationProof(
     key: Arrayish,
@@ -2912,7 +2882,6 @@ export class IColony extends Contract {
    * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
    * @param _domainId The domain where the expenditure belongs
    * @param _permissionDomainId The domainId in which I have the permission to take this action
-   * @returns expenditureId Identifier of the newly created expenditure
    */
   makeExpenditure(
     _permissionDomainId: BigNumberish,
@@ -3079,14 +3048,12 @@ export class IColony extends Contract {
 
   /**
    * Get the number of expenditures in the colony.
-   * @returns count The expenditure count
    */
   getExpenditureCount(): Promise<BigNumber>;
 
   /**
    * Returns an existing expenditure.
    * @param _id Expenditure identifier
-   * @returns expenditure The expenditure
    */
   getExpenditure(
     _id: BigNumberish
@@ -3109,7 +3076,6 @@ export class IColony extends Contract {
    * Returns an existing expenditure slot.
    * @param _id Expenditure identifier
    * @param _slot Expenditure slot
-   * @returns expenditureSlot The expenditure slot
    */
   getExpenditureSlot(
     _id: BigNumberish,
@@ -3130,7 +3096,6 @@ export class IColony extends Contract {
    * @param _id Expenditure identifier
    * @param _slot Expenditure slot
    * @param _token Token address
-   * @returns amount Amount of the payout for that slot/token.
    */
   getExpenditureSlotPayout(
     _id: BigNumberish,
@@ -3147,7 +3112,6 @@ export class IColony extends Contract {
    * @param _recipient Address of the payment recipient
    * @param _skillId The skill associated with the payment
    * @param _token Address of the token, `0x0` value indicates Ether
-   * @returns paymentId Identifier of the newly created payment
    */
   addPayment(
     _permissionDomainId: BigNumberish,
@@ -3223,7 +3187,6 @@ export class IColony extends Contract {
   /**
    * Returns an exiting payment.
    * @param _id Payment identifier
-   * @returns payment The Payment data structure
    */
   getPayment(
     _id: BigNumberish
@@ -3253,7 +3216,6 @@ export class IColony extends Contract {
 
   /**
    * Get the number of payments in the colony.
-   * @returns count The payment count
    */
   getPaymentCount(): Promise<BigNumber>;
 
@@ -3278,14 +3240,12 @@ export class IColony extends Contract {
 
   /**
    * Get the number of tasks in the colony.
-   * @returns count The task count
    */
   getTaskCount(): Promise<BigNumber>;
 
   /**
    * Starts from 0 and is incremented on every co-reviewed task change via `executeTaskChange` call.
    * @param _id Id of the task
-   * @returns nonce The current task change nonce value
    */
   getTaskChangeNonce(_id: BigNumberish): Promise<BigNumber>;
 
@@ -3361,14 +3321,12 @@ export class IColony extends Contract {
    * Helper function used to generage consistently the rating secret using salt value `_salt` and value to hide `_value`
    * @param _salt Salt value
    * @param _value Value to hide
-   * @returns secret `keccak256` hash of joint _salt and _value
    */
   generateSecret(_salt: Arrayish, _value: BigNumberish): Promise<string>;
 
   /**
    * Get the `ColonyStorage.RatingSecrets` information for task `_id`.
    * @param _id Id of the task
-   * @returns nSecrets Number of secretslastSubmittedAt Timestamp of the last submitted rating secret
    */
   getTaskWorkRatingSecretsInfo(
     _id: BigNumberish
@@ -3383,7 +3341,6 @@ export class IColony extends Contract {
    * Get the rating secret submitted for role `_role` in task `_id`
    * @param _id Id of the task
    * @param _role Id of the role, as defined in TaskRole enum
-   * @returns secret Rating secret `bytes32` value
    */
   getTaskWorkRatingSecret(
     _id: BigNumberish,
@@ -3540,7 +3497,6 @@ export class IColony extends Contract {
   /**
    * Get a task with id `_id`
    * @param _id Id of the task
-   * @returns specificationHash Task brief hashdeliverableHash Task deliverable hashstatus TaskStatus property. 0 - Active. 1 - Cancelled. 2 - FinalizeddueDate Due datefundingPotId Id of funding pot for taskcompletionTimestamp Task completion timestampdomainId Task domain id, default is root colony domain with id 1skillIds Array of global skill ids assigned to task
    */
   getTask(
     _id: BigNumberish
@@ -3567,7 +3523,6 @@ export class IColony extends Contract {
    * Get the `Role` properties back for role `_role` in task `_id`.
    * @param _id Id of the task
    * @param _role Id of the role, as defined in TaskRole enum
-   * @returns role The Role
    */
   getTaskRole(
     _id: BigNumberish,
@@ -3592,7 +3547,6 @@ export class IColony extends Contract {
 
   /**
    * Return 1 / the reward to pay out from revenue. e.g. if the fee is 1% (or 0.01), return 100.
-   * @returns rewardInverse The inverse of the reward
    */
   getRewardInverse(): Promise<BigNumber>;
 
@@ -3601,7 +3555,6 @@ export class IColony extends Contract {
    * @param _id Id of the task
    * @param _role Id of the role, as defined in TaskRole enum
    * @param _token Address of the token, `0x0` value indicates Ether
-   * @returns amount Payout amount
    */
   getTaskPayout(
     _id: BigNumberish,
@@ -3718,7 +3671,6 @@ export class IColony extends Contract {
   /**
    * Get useful information about specific reward payout.
    * @param _payoutId Id of the reward payout
-   * @returns rewardPayoutCycle RewardPayoutCycle, containing propertes:  `reputationState` Reputation root hash at the time of creation,  `colonyWideReputation` Colony wide reputation in `reputationState`,  `totalTokens` Total colony tokens at the time of creation,  `amount` Total amount of tokens taken aside for reward payout,  `tokenAddress` Token address,  `blockTimestamp` Block number at the time of creation.
    */
   getRewardPayoutInfo(
     _payoutId: BigNumberish
@@ -3754,7 +3706,6 @@ export class IColony extends Contract {
    * For the reward funding pot (e.g. id: 0) this returns (0, 0, 0).
    * Get the non-mapping properties of a pot by id.
    * @param _id Id of the pot which details to get
-   * @returns associatedType The FundingPotAssociatedType value of the current funding pot, e.g. Domain, Task, PayoutassociatedTypeId Id of the associated type, e.g. if associatedType = FundingPotAssociatedType.Domain, this refers to the domainIdpayoutsWeCannotMake Number of payouts that cannot be completed with the current funding
    */
   getFundingPot(
     _id: BigNumberish
@@ -3769,7 +3720,6 @@ export class IColony extends Contract {
 
   /**
    * Get the number of funding pots in the colony.
-   * @returns count The funding pots count
    */
   getFundingPotCount(): Promise<BigNumber>;
 
@@ -3777,7 +3727,6 @@ export class IColony extends Contract {
    * Get the `_token` balance of pot with id `_potId`.
    * @param _potId Id of the funding pot
    * @param _token Address of the token, `0x0` value indicates Ether
-   * @returns balance Funding pot supply balance
    */
   getFundingPotBalance(
     _potId: BigNumberish,
@@ -3788,7 +3737,6 @@ export class IColony extends Contract {
    * Get the assigned `_token` payouts of pot with id `_potId`.
    * @param _potId Id of the funding pot
    * @param _token Address of the token, `0x0` value indicates Ether
-   * @returns payout Funding pot payout amount
    */
   getFundingPotPayout(_potId: BigNumberish, _token: string): Promise<BigNumber>;
 
@@ -3825,7 +3773,6 @@ export class IColony extends Contract {
   /**
    * Get the total amount of tokens `_token` minus amount reserved to be paid to the reputation and token holders as rewards.
    * @param _token Address of the token, `0x0` value indicates Ether
-   * @returns amount Total amount of tokens in funding pots other than the rewards pot (id 0)
    */
   getNonRewardPotsTotal(_token: string): Promise<BigNumber>;
 
@@ -3894,7 +3841,6 @@ export class IColony extends Contract {
    * @param _domainId Domain in which we are willing to be obligated.
    * @param _obligator Address of the account we are willing to let obligate us.
    * @param _user User allowing their tokens to be obligated.
-   * @returns approval The amount the user has approved
    */
   getApproval(
     _user: string,
@@ -3907,7 +3853,6 @@ export class IColony extends Contract {
    * @param _domainId Domain in which we are obligated.
    * @param _obligator Address of the account who obligated us.
    * @param _user User whose tokens are obligated.
-   * @returns obligation The amount that is currently obligated
    */
   getObligation(
     _user: string,
@@ -3918,24 +3863,16 @@ export class IColony extends Contract {
   /**
    * Get the domain corresponding to a funding pot
    * @param _fundingPotId Id of the funding pot
-   * @returns domainId Id of the corresponding domain
    */
   getDomainFromFundingPot(_fundingPotId: BigNumberish): Promise<BigNumber>;
 
   filters: {
-    RecoveryRoleSet(user: string | null, setTo: null): EventFilter;
-
-    ColonyInitialised(colonyNetwork: null, token: null): EventFilter;
-
     ColonyBootstrapped(users: null, amounts: null): EventFilter;
 
-    ColonyUpgraded(oldVersion: null, newVersion: null): EventFilter;
-
-    ColonyRoleSet(
-      user: string | null,
-      domainId: BigNumberish | null,
-      role: BigNumberish | null,
-      setTo: null
+    ColonyFundsClaimed(
+      token: null,
+      fee: null,
+      payoutRemainder: null
     ): EventFilter;
 
     ColonyFundsMovedBetweenFundingPots(
@@ -3945,35 +3882,33 @@ export class IColony extends Contract {
       token: null
     ): EventFilter;
 
-    ColonyFundsClaimed(
-      token: null,
-      fee: null,
-      payoutRemainder: null
-    ): EventFilter;
-
-    RewardPayoutCycleStarted(rewardPayoutId: null): EventFilter;
-
-    RewardPayoutCycleEnded(rewardPayoutId: null): EventFilter;
-
-    RewardPayoutClaimed(
-      rewardPayoutId: null,
-      user: null,
-      fee: null,
-      rewardRemainder: null
-    ): EventFilter;
+    ColonyInitialised(colonyNetwork: null, token: null): EventFilter;
 
     ColonyRewardInverseSet(rewardInverse: null): EventFilter;
 
-    ExpenditureAdded(expenditureId: null): EventFilter;
-
-    ExpenditureTransferred(
-      expenditureId: BigNumberish | null,
-      owner: string | null
+    ColonyRoleSet(
+      user: string | null,
+      domainId: BigNumberish | null,
+      role: BigNumberish | null,
+      setTo: null
     ): EventFilter;
+
+    ColonyUpgraded(oldVersion: null, newVersion: null): EventFilter;
+
+    DomainAdded(domainId: null): EventFilter;
+
+    ExpenditureAdded(expenditureId: null): EventFilter;
 
     ExpenditureCancelled(expenditureId: BigNumberish | null): EventFilter;
 
     ExpenditureFinalized(expenditureId: BigNumberish | null): EventFilter;
+
+    ExpenditurePayoutSet(
+      expenditureId: BigNumberish | null,
+      slot: BigNumberish | null,
+      token: string | null,
+      amount: null
+    ): EventFilter;
 
     ExpenditureRecipientSet(
       expenditureId: BigNumberish | null,
@@ -3987,14 +3922,33 @@ export class IColony extends Contract {
       skillId: BigNumberish | null
     ): EventFilter;
 
-    ExpenditurePayoutSet(
+    ExpenditureTransferred(
       expenditureId: BigNumberish | null,
-      slot: BigNumberish | null,
-      token: string | null,
+      owner: string | null
+    ): EventFilter;
+
+    FundingPotAdded(fundingPotId: null): EventFilter;
+
+    PaymentAdded(paymentId: null): EventFilter;
+
+    PayoutClaimed(
+      fundingPotId: BigNumberish | null,
+      token: null,
       amount: null
     ): EventFilter;
 
-    PaymentAdded(paymentId: null): EventFilter;
+    RecoveryRoleSet(user: string | null, setTo: null): EventFilter;
+
+    RewardPayoutClaimed(
+      rewardPayoutId: null,
+      user: null,
+      fee: null,
+      rewardRemainder: null
+    ): EventFilter;
+
+    RewardPayoutCycleEnded(rewardPayoutId: null): EventFilter;
+
+    RewardPayoutCycleStarted(rewardPayoutId: null): EventFilter;
 
     TaskAdded(taskId: null): EventFilter;
 
@@ -4003,18 +3957,18 @@ export class IColony extends Contract {
       specificationHash: null
     ): EventFilter;
 
+    TaskCanceled(taskId: BigNumberish | null): EventFilter;
+
+    TaskCompleted(taskId: BigNumberish | null): EventFilter;
+
+    TaskDeliverableSubmitted(
+      taskId: BigNumberish | null,
+      deliverableHash: null
+    ): EventFilter;
+
     TaskDueDateSet(taskId: BigNumberish | null, dueDate: null): EventFilter;
 
-    TaskSkillSet(
-      taskId: BigNumberish | null,
-      skillId: BigNumberish | null
-    ): EventFilter;
-
-    TaskRoleUserSet(
-      taskId: BigNumberish | null,
-      role: null,
-      user: string | null
-    ): EventFilter;
+    TaskFinalized(taskId: BigNumberish | null): EventFilter;
 
     TaskPayoutSet(
       taskId: BigNumberish | null,
@@ -4023,57 +3977,47 @@ export class IColony extends Contract {
       amount: null
     ): EventFilter;
 
-    TaskDeliverableSubmitted(
+    TaskRoleUserSet(
       taskId: BigNumberish | null,
-      deliverableHash: null
+      role: null,
+      user: string | null
     ): EventFilter;
 
-    TaskCompleted(taskId: BigNumberish | null): EventFilter;
+    TaskSkillSet(
+      taskId: BigNumberish | null,
+      skillId: BigNumberish | null
+    ): EventFilter;
 
     TaskWorkRatingRevealed(
       taskId: BigNumberish | null,
       role: null,
       rating: null
     ): EventFilter;
-
-    TaskFinalized(taskId: BigNumberish | null): EventFilter;
-
-    PayoutClaimed(
-      fundingPotId: BigNumberish | null,
-      token: null,
-      amount: null
-    ): EventFilter;
-
-    TaskCanceled(taskId: BigNumberish | null): EventFilter;
-
-    DomainAdded(domainId: null): EventFilter;
-
-    FundingPotAdded(fundingPotId: null): EventFilter;
   };
 
   estimate: {
     approveExitRecovery(): Promise<BigNumber>;
 
-    exitRecoveryMode(): Promise<BigNumber>;
-
-    numRecoveryRoles(): Promise<BigNumber>;
-
-    setStorageSlotRecovery(
-      _slot: BigNumberish,
-      _value: Arrayish
-    ): Promise<BigNumber>;
-
-    isInRecoveryMode(): Promise<BigNumber>;
-
     checkNotAdditionalProtectedVariable(
       _slot: BigNumberish
     ): Promise<BigNumber>;
+
+    enterRecoveryMode(): Promise<BigNumber>;
+
+    exitRecoveryMode(): Promise<BigNumber>;
+
+    isInRecoveryMode(): Promise<BigNumber>;
+
+    numRecoveryRoles(): Promise<BigNumber>;
 
     removeRecoveryRole(_user: string): Promise<BigNumber>;
 
     setRecoveryRole(_user: string): Promise<BigNumber>;
 
-    enterRecoveryMode(): Promise<BigNumber>;
+    setStorageSlotRecovery(
+      _slot: BigNumberish,
+      _value: Arrayish
+    ): Promise<BigNumber>;
 
     authority(): Promise<BigNumber>;
 
@@ -4088,6 +4032,11 @@ export class IColony extends Contract {
     getColonyNetwork(): Promise<BigNumber>;
 
     getToken(): Promise<BigNumber>;
+
+    makeArbitraryTransaction(
+      _to: string,
+      _action: Arrayish
+    ): Promise<BigNumber>;
 
     setRootRole(_user: string, _setTo: boolean): Promise<BigNumber>;
 

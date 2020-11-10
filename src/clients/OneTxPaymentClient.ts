@@ -2,7 +2,6 @@ import { ContractTransaction } from 'ethers';
 import { BigNumberish, BigNumber } from 'ethers/utils';
 
 import { ClientType, ColonyRole } from '../constants';
-// FIXME use the colonyNetwork for this
 import { OneTxPaymentFactory } from '../contracts/5/OneTxPaymentFactory';
 import { OneTxPayment } from '../contracts/5/OneTxPayment';
 import { TransactionOverrides } from '../contracts/5';

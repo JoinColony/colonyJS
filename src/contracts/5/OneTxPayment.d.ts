@@ -12,17 +12,19 @@ import {
 
 interface OneTxPaymentInterface extends Interface {
   functions: {
-    setOwner: TypedFunctionDescription<{ encode([owner_]: [string]): string }>;
+    authority: TypedFunctionDescription<{ encode([]: []): string }>;
+
+    getDeprecated: TypedFunctionDescription<{ encode([]: []): string }>;
+
+    owner: TypedFunctionDescription<{ encode([]: []): string }>;
 
     setAuthority: TypedFunctionDescription<{
       encode([authority_]: [string]): string;
     }>;
 
-    owner: TypedFunctionDescription<{ encode([]: []): string }>;
+    setOwner: TypedFunctionDescription<{ encode([owner_]: [string]): string }>;
 
-    authority: TypedFunctionDescription<{ encode([]: []): string }>;
-
-    getDeprecated: TypedFunctionDescription<{ encode([]: []): string }>;
+    identifier: TypedFunctionDescription<{ encode([]: []): string }>;
 
     version: TypedFunctionDescription<{ encode([]: []): string }>;
 
@@ -86,6 +88,10 @@ interface OneTxPaymentInterface extends Interface {
   };
 
   events: {
+    ExtensionInitialised: TypedEventDescription<{
+      encodeTopics([]: []): string[];
+    }>;
+
     LogSetAuthority: TypedEventDescription<{
       encodeTopics([authority]: [string | null]): string[];
     }>;
@@ -113,23 +119,26 @@ export class OneTxPayment extends Contract {
   interface: OneTxPaymentInterface;
 
   functions: {
-    setOwner(
-      owner_: string,
-      overrides?: TransactionOverrides
-    ): Promise<ContractTransaction>;
+    authority(): Promise<string>;
+
+    getDeprecated(): Promise<boolean>;
+
+    owner(): Promise<string>;
 
     setAuthority(
       authority_: string,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
-    owner(): Promise<string>;
-
-    authority(): Promise<string>;
-
-    getDeprecated(
+    setOwner(
+      owner_: string,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
+
+    /**
+     * Returns the identifier of the extension
+     */
+    identifier(): Promise<string>;
 
     /**
      * Returns the version of the extension
@@ -146,14 +155,14 @@ export class OneTxPayment extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
-     * Called when upgrading the extension (currently a no-op since this OneTxPayment does not support upgrading)
+     * Called when upgrading the extension
      */
     finishUpgrade(
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
     /**
-     * Called when deprecating (or undeprecating) the extension (currently a no-op since OneTxPayment is stateless)
+     * Called when deprecating (or undeprecating) the extension
      */
     deprecate(
       _deprecated: boolean,
@@ -166,15 +175,15 @@ export class OneTxPayment extends Contract {
     uninstall(overrides?: TransactionOverrides): Promise<ContractTransaction>;
 
     /**
-     * Assumes that each entity holds administration and funding roles in the same domain, although contract and caller can have the permissions in different domains. Payment is taken from root domain, and the caller must have funding permission explicitly in the root domain
+     * Assumes that each entity holds administration and funding roles in the root domain
      * Completes a colony payment in a single transaction
      * @param _amounts amounts of the tokens being paid out
      * @param _callerChildSkillIndex Index of the _callerPermissionDomainId skill.children array to get
-     * @param _callerPermissionDomainId The domainId in which the _caller_ has permissions to add a payment and fund it
+     * @param _callerPermissionDomainId The domainId in which the _caller_ has the administration permission (must have funding in root)
      * @param _childSkillIndex Index of the _permissionDomainId skill.children array to get
-     * @param _domainId The Id of the domain the payment should be coming from
+     * @param _domainId The domainId the payment should be coming from
      * @param _permissionDomainId The domainId in which the _contract_ has permissions to add a payment and fund it
-     * @param _skillId The Id of the skill that the payment should be marked with, possibly awarding reputation in this skill.
+     * @param _skillId The skillId that the payment should be marked with, possibly awarding reputation in this skill.
      * @param _tokens Addresses of the tokens the payments are being made in. 0x00 for Ether.
      * @param _workers The addresses of the recipients of the payment
      */
@@ -192,15 +201,15 @@ export class OneTxPayment extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
-     * Assumes that each entity holds administration and funding roles in the same domain, although contract and caller can have the permissions in different domains. Payment is taken from domain funds - if the domain does not have sufficient funds, call will fail.
+     * Assumes that each entity holds administration and funding roles in the same domain,   although contract and caller can have the permissions in different domains. Payment is taken from domain funds - if the domain does not have sufficient funds, call will fail.
      * Completes a colony payment in a single transaction
      * @param _amounts The amounts of the tokens being paid out
      * @param _callerChildSkillIndex Index of the _callerPermissionDomainId skill.children array to get
      * @param _callerPermissionDomainId The domainId in which the _caller_ has permissions to add a payment and fund it
      * @param _childSkillIndex Index of the _permissionDomainId skill.children array to get
-     * @param _domainId The Id of the domain the payment should be coming from
+     * @param _domainId The domainId the payment should be coming from
      * @param _permissionDomainId The domainId in which the _contract_ has permissions to add a payment and fund it
-     * @param _skillId The Id of the skill that the payment should be marked with, possibly awarding reputation in this skill.
+     * @param _skillId The skillId that the payment should be marked with, possibly awarding reputation in this skill.
      * @param _tokens The addresses of the token the payments are being made in. 0x00 for Ether.
      * @param _workers The addresses of the recipients of the payment
      */
@@ -218,21 +227,26 @@ export class OneTxPayment extends Contract {
     ): Promise<ContractTransaction>;
   };
 
-  setOwner(
-    owner_: string,
-    overrides?: TransactionOverrides
-  ): Promise<ContractTransaction>;
+  authority(): Promise<string>;
+
+  getDeprecated(): Promise<boolean>;
+
+  owner(): Promise<string>;
 
   setAuthority(
     authority_: string,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
-  owner(): Promise<string>;
+  setOwner(
+    owner_: string,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
 
-  authority(): Promise<string>;
-
-  getDeprecated(overrides?: TransactionOverrides): Promise<ContractTransaction>;
+  /**
+   * Returns the identifier of the extension
+   */
+  identifier(): Promise<string>;
 
   /**
    * Returns the version of the extension
@@ -249,12 +263,12 @@ export class OneTxPayment extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
-   * Called when upgrading the extension (currently a no-op since this OneTxPayment does not support upgrading)
+   * Called when upgrading the extension
    */
   finishUpgrade(overrides?: TransactionOverrides): Promise<ContractTransaction>;
 
   /**
-   * Called when deprecating (or undeprecating) the extension (currently a no-op since OneTxPayment is stateless)
+   * Called when deprecating (or undeprecating) the extension
    */
   deprecate(
     _deprecated: boolean,
@@ -267,15 +281,15 @@ export class OneTxPayment extends Contract {
   uninstall(overrides?: TransactionOverrides): Promise<ContractTransaction>;
 
   /**
-   * Assumes that each entity holds administration and funding roles in the same domain, although contract and caller can have the permissions in different domains. Payment is taken from root domain, and the caller must have funding permission explicitly in the root domain
+   * Assumes that each entity holds administration and funding roles in the root domain
    * Completes a colony payment in a single transaction
    * @param _amounts amounts of the tokens being paid out
    * @param _callerChildSkillIndex Index of the _callerPermissionDomainId skill.children array to get
-   * @param _callerPermissionDomainId The domainId in which the _caller_ has permissions to add a payment and fund it
+   * @param _callerPermissionDomainId The domainId in which the _caller_ has the administration permission (must have funding in root)
    * @param _childSkillIndex Index of the _permissionDomainId skill.children array to get
-   * @param _domainId The Id of the domain the payment should be coming from
+   * @param _domainId The domainId the payment should be coming from
    * @param _permissionDomainId The domainId in which the _contract_ has permissions to add a payment and fund it
-   * @param _skillId The Id of the skill that the payment should be marked with, possibly awarding reputation in this skill.
+   * @param _skillId The skillId that the payment should be marked with, possibly awarding reputation in this skill.
    * @param _tokens Addresses of the tokens the payments are being made in. 0x00 for Ether.
    * @param _workers The addresses of the recipients of the payment
    */
@@ -293,15 +307,15 @@ export class OneTxPayment extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
-   * Assumes that each entity holds administration and funding roles in the same domain, although contract and caller can have the permissions in different domains. Payment is taken from domain funds - if the domain does not have sufficient funds, call will fail.
+   * Assumes that each entity holds administration and funding roles in the same domain,   although contract and caller can have the permissions in different domains. Payment is taken from domain funds - if the domain does not have sufficient funds, call will fail.
    * Completes a colony payment in a single transaction
    * @param _amounts The amounts of the tokens being paid out
    * @param _callerChildSkillIndex Index of the _callerPermissionDomainId skill.children array to get
    * @param _callerPermissionDomainId The domainId in which the _caller_ has permissions to add a payment and fund it
    * @param _childSkillIndex Index of the _permissionDomainId skill.children array to get
-   * @param _domainId The Id of the domain the payment should be coming from
+   * @param _domainId The domainId the payment should be coming from
    * @param _permissionDomainId The domainId in which the _contract_ has permissions to add a payment and fund it
-   * @param _skillId The Id of the skill that the payment should be marked with, possibly awarding reputation in this skill.
+   * @param _skillId The skillId that the payment should be marked with, possibly awarding reputation in this skill.
    * @param _tokens The addresses of the token the payments are being made in. 0x00 for Ether.
    * @param _workers The addresses of the recipients of the payment
    */
@@ -319,21 +333,25 @@ export class OneTxPayment extends Contract {
   ): Promise<ContractTransaction>;
 
   filters: {
+    ExtensionInitialised(): EventFilter;
+
     LogSetAuthority(authority: string | null): EventFilter;
 
     LogSetOwner(owner: string | null): EventFilter;
   };
 
   estimate: {
-    setOwner(owner_: string): Promise<BigNumber>;
-
-    setAuthority(authority_: string): Promise<BigNumber>;
-
-    owner(): Promise<BigNumber>;
-
     authority(): Promise<BigNumber>;
 
     getDeprecated(): Promise<BigNumber>;
+
+    owner(): Promise<BigNumber>;
+
+    setAuthority(authority_: string): Promise<BigNumber>;
+
+    setOwner(owner_: string): Promise<BigNumber>;
+
+    identifier(): Promise<BigNumber>;
 
     version(): Promise<BigNumber>;
 

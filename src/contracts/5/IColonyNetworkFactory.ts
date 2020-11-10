@@ -17,278 +17,23 @@ export class IColonyNetworkFactory {
 
 const _abi = [
   {
-    constant: false,
-    inputs: [],
-    name: "approveExitRecovery",
-    outputs: [],
-    payable: false,
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    constant: false,
-    inputs: [],
-    name: "exitRecoveryMode",
-    outputs: [],
-    payable: false,
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    constant: true,
-    inputs: [],
-    name: "numRecoveryRoles",
-    outputs: [
-      {
-        name: "numRoles",
-        type: "uint64"
-      }
-    ],
-    payable: false,
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        name: "_slot",
-        type: "uint256"
-      },
-      {
-        name: "_value",
-        type: "bytes32"
-      }
-    ],
-    name: "setStorageSlotRecovery",
-    outputs: [],
-    payable: false,
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    constant: true,
-    inputs: [],
-    name: "isInRecoveryMode",
-    outputs: [
-      {
-        name: "inRecoveryMode",
-        type: "bool"
-      }
-    ],
-    payable: false,
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    constant: true,
-    inputs: [
-      {
-        name: "_slot",
-        type: "uint256"
-      }
-    ],
-    name: "checkNotAdditionalProtectedVariable",
-    outputs: [],
-    payable: false,
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        name: "_user",
-        type: "address"
-      }
-    ],
-    name: "removeRecoveryRole",
-    outputs: [],
-    payable: false,
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        name: "_user",
-        type: "address"
-      }
-    ],
-    name: "setRecoveryRole",
-    outputs: [],
-    payable: false,
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    constant: false,
-    inputs: [],
-    name: "enterRecoveryMode",
-    outputs: [],
-    payable: false,
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        name: "user",
-        type: "address"
-      },
-      {
-        indexed: false,
-        name: "setTo",
-        type: "bool"
-      }
-    ],
-    name: "RecoveryRoleSet",
-    type: "event"
-  },
-  {
     anonymous: false,
     inputs: [
       {
         indexed: false,
-        name: "resolver",
-        type: "address"
-      }
-    ],
-    name: "ColonyNetworkInitialised",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        name: "tokenLocking",
-        type: "address"
-      }
-    ],
-    name: "TokenLockingAddressSet",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        name: "miningCycleResolver",
-        type: "address"
-      }
-    ],
-    name: "MiningCycleResolverSet",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        name: "feeInverse",
-        type: "uint256"
-      }
-    ],
-    name: "NetworkFeeInverseSet",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        name: "version",
-        type: "uint256"
-      },
-      {
-        indexed: false,
-        name: "resolver",
-        type: "address"
-      }
-    ],
-    name: "ColonyVersionAdded",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        name: "metaColony",
-        type: "address"
-      },
-      {
-        indexed: false,
-        name: "token",
-        type: "address"
-      },
-      {
-        indexed: false,
-        name: "rootSkillId",
-        type: "uint256"
-      }
-    ],
-    name: "MetaColonyCreated",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        name: "colonyId",
-        type: "uint256"
-      },
-      {
-        indexed: true,
-        name: "colonyAddress",
-        type: "address"
-      },
-      {
-        indexed: false,
-        name: "token",
-        type: "address"
-      }
-    ],
-    name: "ColonyAdded",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        name: "skillId",
-        type: "uint256"
-      },
-      {
-        indexed: false,
-        name: "parentSkillId",
-        type: "uint256"
-      }
-    ],
-    name: "SkillAdded",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
+        internalType: "address",
         name: "auction",
         type: "address"
       },
       {
         indexed: false,
+        internalType: "address",
         name: "token",
         type: "address"
       },
       {
         indexed: false,
+        internalType: "uint256",
         name: "quantity",
         type: "uint256"
       }
@@ -300,56 +45,25 @@ const _abi = [
     anonymous: false,
     inputs: [
       {
+        indexed: true,
+        internalType: "uint256",
+        name: "colonyId",
+        type: "uint256"
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "colonyAddress",
+        type: "address"
+      },
+      {
         indexed: false,
-        name: "inactiveReputationMiningCycle",
+        internalType: "address",
+        name: "token",
         type: "address"
       }
     ],
-    name: "ReputationMiningInitialised",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        name: "hash",
-        type: "bytes32"
-      },
-      {
-        indexed: false,
-        name: "nLeaves",
-        type: "uint256"
-      }
-    ],
-    name: "ReputationMiningCycleComplete",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        name: "newHash",
-        type: "bytes32"
-      },
-      {
-        indexed: false,
-        name: "newNLeaves",
-        type: "uint256"
-      },
-      {
-        indexed: false,
-        name: "stakers",
-        type: "address[]"
-      },
-      {
-        indexed: false,
-        name: "reward",
-        type: "uint256"
-      }
-    ],
-    name: "ReputationRootHashSet",
+    name: "ColonyAdded",
     type: "event"
   },
   {
@@ -357,28 +71,13 @@ const _abi = [
     inputs: [
       {
         indexed: true,
-        name: "user",
-        type: "address"
-      },
-      {
-        indexed: false,
-        name: "label",
-        type: "bytes32"
-      }
-    ],
-    name: "UserLabelRegistered",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
+        internalType: "address",
         name: "colony",
         type: "address"
       },
       {
         indexed: false,
+        internalType: "bytes32",
         name: "label",
         type: "bytes32"
       }
@@ -391,16 +90,31 @@ const _abi = [
     inputs: [
       {
         indexed: false,
-        name: "miner",
+        internalType: "address",
+        name: "resolver",
         type: "address"
+      }
+    ],
+    name: "ColonyNetworkInitialised",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "version",
+        type: "uint256"
       },
       {
         indexed: false,
-        name: "tokensLost",
-        type: "uint256"
+        internalType: "address",
+        name: "resolver",
+        type: "address"
       }
     ],
-    name: "ReputationMinerPenalised",
+    name: "ColonyVersionAdded",
     type: "event"
   },
   {
@@ -408,11 +122,13 @@ const _abi = [
     inputs: [
       {
         indexed: true,
+        internalType: "bytes32",
         name: "extensionId",
         type: "bytes32"
       },
       {
         indexed: false,
+        internalType: "uint256",
         name: "version",
         type: "uint256"
       }
@@ -425,60 +141,19 @@ const _abi = [
     inputs: [
       {
         indexed: true,
+        internalType: "bytes32",
         name: "extensionId",
         type: "bytes32"
       },
       {
         indexed: true,
+        internalType: "address",
         name: "colony",
         type: "address"
       },
       {
         indexed: false,
-        name: "version",
-        type: "uint256"
-      }
-    ],
-    name: "ExtensionInstalled",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        name: "extensionId",
-        type: "bytes32"
-      },
-      {
-        indexed: true,
-        name: "colony",
-        type: "address"
-      },
-      {
-        indexed: false,
-        name: "version",
-        type: "uint256"
-      }
-    ],
-    name: "ExtensionUpgraded",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        name: "extensionId",
-        type: "bytes32"
-      },
-      {
-        indexed: true,
-        name: "colony",
-        type: "address"
-      },
-      {
-        indexed: false,
+        internalType: "bool",
         name: "deprecated",
         type: "bool"
       }
@@ -491,11 +166,38 @@ const _abi = [
     inputs: [
       {
         indexed: true,
+        internalType: "bytes32",
         name: "extensionId",
         type: "bytes32"
       },
       {
         indexed: true,
+        internalType: "address",
+        name: "colony",
+        type: "address"
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "version",
+        type: "uint256"
+      }
+    ],
+    name: "ExtensionInstalled",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "extensionId",
+        type: "bytes32"
+      },
+      {
+        indexed: true,
+        internalType: "address",
         name: "colony",
         type: "address"
       }
@@ -504,9 +206,341 @@ const _abi = [
     type: "event"
   },
   {
-    constant: true,
+    anonymous: false,
     inputs: [
       {
+        indexed: true,
+        internalType: "bytes32",
+        name: "extensionId",
+        type: "bytes32"
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "colony",
+        type: "address"
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "version",
+        type: "uint256"
+      }
+    ],
+    name: "ExtensionUpgraded",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "metaColony",
+        type: "address"
+      },
+      {
+        indexed: false,
+        internalType: "address",
+        name: "token",
+        type: "address"
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "rootSkillId",
+        type: "uint256"
+      }
+    ],
+    name: "MetaColonyCreated",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "miningCycleResolver",
+        type: "address"
+      }
+    ],
+    name: "MiningCycleResolverSet",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "feeInverse",
+        type: "uint256"
+      }
+    ],
+    name: "NetworkFeeInverseSet",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "user",
+        type: "address"
+      },
+      {
+        indexed: false,
+        internalType: "bool",
+        name: "setTo",
+        type: "bool"
+      }
+    ],
+    name: "RecoveryRoleSet",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "miner",
+        type: "address"
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "tokensLost",
+        type: "uint256"
+      }
+    ],
+    name: "ReputationMinerPenalised",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "bytes32",
+        name: "hash",
+        type: "bytes32"
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "nLeaves",
+        type: "uint256"
+      }
+    ],
+    name: "ReputationMiningCycleComplete",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "inactiveReputationMiningCycle",
+        type: "address"
+      }
+    ],
+    name: "ReputationMiningInitialised",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "bytes32",
+        name: "newHash",
+        type: "bytes32"
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "newNLeaves",
+        type: "uint256"
+      },
+      {
+        indexed: false,
+        internalType: "address[]",
+        name: "stakers",
+        type: "address[]"
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "reward",
+        type: "uint256"
+      }
+    ],
+    name: "ReputationRootHashSet",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "skillId",
+        type: "uint256"
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "parentSkillId",
+        type: "uint256"
+      }
+    ],
+    name: "SkillAdded",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "tokenLocking",
+        type: "address"
+      }
+    ],
+    name: "TokenLockingAddressSet",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "user",
+        type: "address"
+      },
+      {
+        indexed: false,
+        internalType: "bytes32",
+        name: "label",
+        type: "bytes32"
+      }
+    ],
+    name: "UserLabelRegistered",
+    type: "event"
+  },
+  {
+    inputs: [],
+    name: "approveExitRecovery",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_slot",
+        type: "uint256"
+      }
+    ],
+    name: "checkNotAdditionalProtectedVariable",
+    outputs: [],
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    inputs: [],
+    name: "enterRecoveryMode",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [],
+    name: "exitRecoveryMode",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [],
+    name: "isInRecoveryMode",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "inRecoveryMode",
+        type: "bool"
+      }
+    ],
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    inputs: [],
+    name: "numRecoveryRoles",
+    outputs: [
+      {
+        internalType: "uint64",
+        name: "numRoles",
+        type: "uint64"
+      }
+    ],
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_user",
+        type: "address"
+      }
+    ],
+    name: "removeRecoveryRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_user",
+        type: "address"
+      }
+    ],
+    name: "setRecoveryRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_slot",
+        type: "uint256"
+      },
+      {
+        internalType: "bytes32",
+        name: "_value",
+        type: "bytes32"
+      }
+    ],
+    name: "setStorageSlotRecovery",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes4",
         name: "interfaceID",
         type: "bytes4"
       }
@@ -514,64 +548,71 @@ const _abi = [
     name: "supportsInterface",
     outputs: [
       {
+        internalType: "bool",
         name: "status",
         type: "bool"
       }
     ],
-    payable: false,
     stateMutability: "pure",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "address",
         name: "_reputationMiningCycle",
         type: "address"
       },
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       },
       {
+        internalType: "address",
         name: "_user",
         type: "address"
       },
       {
+        internalType: "int256",
         name: "_amount",
         type: "int256"
       },
       {
+        internalType: "uint256",
         name: "_skillId",
         type: "uint256"
       },
       {
+        internalType: "address",
         name: "_colony",
         type: "address"
       },
       {
+        internalType: "uint128",
         name: "_nUpdates",
         type: "uint128"
       },
       {
+        internalType: "uint128",
         name: "_nPreviousUpdates",
         type: "uint128"
       }
     ],
     name: "setReplacementReputationUpdateLogEntry",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: true,
     inputs: [
       {
+        internalType: "address",
         name: "_reputationMiningCycle",
         type: "address"
       },
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       }
@@ -581,42 +622,48 @@ const _abi = [
       {
         components: [
           {
+            internalType: "address",
             name: "user",
             type: "address"
           },
           {
+            internalType: "int256",
             name: "amount",
             type: "int256"
           },
           {
+            internalType: "uint256",
             name: "skillId",
             type: "uint256"
           },
           {
+            internalType: "address",
             name: "colony",
             type: "address"
           },
           {
+            internalType: "uint128",
             name: "nUpdates",
             type: "uint128"
           },
           {
+            internalType: "uint128",
             name: "nPreviousUpdates",
             type: "uint128"
           }
         ],
+        internalType: "struct ColonyNetworkDataTypes.ReputationLogEntry",
         name: "reputationLogEntry",
         type: "tuple"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: true,
     inputs: [
       {
+        internalType: "address",
         name: "_reputationMiningCycle",
         type: "address"
       }
@@ -624,46 +671,44 @@ const _abi = [
     name: "getReplacementReputationUpdateLogsExist",
     outputs: [
       {
+        internalType: "bool",
         name: "exists",
         type: "bool"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: true,
     inputs: [],
     name: "getMetaColony",
     outputs: [
       {
+        internalType: "address payable",
         name: "colonyAddress",
         type: "address"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: true,
     inputs: [],
     name: "getColonyCount",
     outputs: [
       {
+        internalType: "uint256",
         name: "count",
         type: "uint256"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: true,
     inputs: [
       {
+        internalType: "address",
         name: "_colony",
         type: "address"
       }
@@ -671,18 +716,18 @@ const _abi = [
     name: "isColony",
     outputs: [
       {
+        internalType: "bool",
         name: "addressIsColony",
         type: "bool"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_parentSkillId",
         type: "uint256"
       }
@@ -690,18 +735,18 @@ const _abi = [
     name: "addSkill",
     outputs: [
       {
+        internalType: "uint256",
         name: "skillId",
         type: "uint256"
       }
     ],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: true,
     inputs: [
       {
+        internalType: "uint256",
         name: "_skillId",
         type: "uint256"
       }
@@ -711,148 +756,149 @@ const _abi = [
       {
         components: [
           {
+            internalType: "uint128",
             name: "nParents",
             type: "uint128"
           },
           {
+            internalType: "uint128",
             name: "nChildren",
             type: "uint128"
           },
           {
+            internalType: "uint256[]",
             name: "parents",
             type: "uint256[]"
           },
           {
+            internalType: "uint256[]",
             name: "children",
             type: "uint256[]"
           },
           {
+            internalType: "bool",
             name: "globalSkill",
             type: "bool"
           },
           {
+            internalType: "bool",
             name: "deprecated",
             type: "bool"
           }
         ],
+        internalType: "struct ColonyNetworkDataTypes.Skill",
         name: "skill",
         type: "tuple"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_skillId",
         type: "uint256"
       }
     ],
     name: "deprecateSkill",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "address",
         name: "_user",
         type: "address"
       },
       {
+        internalType: "int256",
         name: "_amount",
         type: "int256"
       },
       {
+        internalType: "uint256",
         name: "_skillId",
         type: "uint256"
       }
     ],
     name: "appendReputationUpdateLog",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: true,
     inputs: [],
     name: "getSkillCount",
     outputs: [
       {
+        internalType: "uint256",
         name: "count",
         type: "uint256"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: true,
     inputs: [],
     name: "getReputationMiningSkillId",
     outputs: [
       {
+        internalType: "uint256",
         name: "skillId",
         type: "uint256"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "address",
         name: "_tokenLockingAddress",
         type: "address"
       }
     ],
     name: "setTokenLocking",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: true,
     inputs: [],
     name: "getTokenLocking",
     outputs: [
       {
+        internalType: "address",
         name: "lockingAddress",
         type: "address"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "address",
         name: "_tokenAddress",
         type: "address"
       }
     ],
     name: "createMetaColony",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "address",
         name: "_tokenAddress",
         type: "address"
       }
@@ -860,26 +906,28 @@ const _abi = [
     name: "createColony",
     outputs: [
       {
+        internalType: "address",
         name: "colonyAddress",
         type: "address"
       }
     ],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "address",
         name: "_tokenAddress",
         type: "address"
       },
       {
+        internalType: "uint256",
         name: "_version",
         type: "uint256"
       },
       {
+        internalType: "string",
         name: "_colonyName",
         type: "string"
       }
@@ -887,34 +935,38 @@ const _abi = [
     name: "createColony",
     outputs: [
       {
+        internalType: "address",
         name: "colonyAddress",
         type: "address"
       }
     ],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "address",
         name: "_tokenAddress",
         type: "address"
       },
       {
+        internalType: "uint256",
         name: "_version",
         type: "uint256"
       },
       {
+        internalType: "string",
         name: "_colonyName",
         type: "string"
       },
       {
+        internalType: "string",
         name: "_orbitdb",
         type: "string"
       },
       {
+        internalType: "bool",
         name: "_useExtensionManager",
         type: "bool"
       }
@@ -922,54 +974,54 @@ const _abi = [
     name: "createColony",
     outputs: [
       {
+        internalType: "address",
         name: "colonyAddress",
         type: "address"
       }
     ],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_version",
         type: "uint256"
       },
       {
+        internalType: "address",
         name: "_resolver",
         type: "address"
       }
     ],
     name: "addColonyVersion",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "address",
         name: "_resolver",
         type: "address"
       },
       {
+        internalType: "uint256",
         name: "_version",
         type: "uint256"
       }
     ],
     name: "initialise",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: true,
     inputs: [
       {
+        internalType: "uint256",
         name: "_id",
         type: "uint256"
       }
@@ -977,36 +1029,36 @@ const _abi = [
     name: "getColony",
     outputs: [
       {
+        internalType: "address",
         name: "colonyAddress",
         type: "address"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: true,
     inputs: [],
     name: "getCurrentColonyVersion",
     outputs: [
       {
+        internalType: "uint256",
         name: "version",
         type: "uint256"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: true,
     inputs: [
       {
+        internalType: "uint256",
         name: "_skillId",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_parentSkillIndex",
         type: "uint256"
       }
@@ -1014,22 +1066,23 @@ const _abi = [
     name: "getParentSkillId",
     outputs: [
       {
+        internalType: "uint256",
         name: "skillId",
         type: "uint256"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: true,
     inputs: [
       {
+        internalType: "uint256",
         name: "_skillId",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_childSkillIndex",
         type: "uint256"
       }
@@ -1037,18 +1090,18 @@ const _abi = [
     name: "getChildSkillId",
     outputs: [
       {
+        internalType: "uint256",
         name: "skillId",
         type: "uint256"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: true,
     inputs: [
       {
+        internalType: "bool",
         name: "_active",
         type: "bool"
       }
@@ -1056,22 +1109,23 @@ const _abi = [
     name: "getReputationMiningCycle",
     outputs: [
       {
+        internalType: "address",
         name: "repMiningCycleAddress",
         type: "address"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: true,
     inputs: [
       {
+        internalType: "uint256",
         name: "_timeStaked",
         type: "uint256"
       },
       {
+        internalType: "uint256",
         name: "_submissonIndex",
         type: "uint256"
       }
@@ -1079,18 +1133,18 @@ const _abi = [
     name: "calculateMinerWeight",
     outputs: [
       {
+        internalType: "uint256",
         name: "minerWeight",
         type: "uint256"
       }
     ],
-    payable: false,
     stateMutability: "pure",
     type: "function"
   },
   {
-    constant: true,
     inputs: [
       {
+        internalType: "uint256",
         name: "_version",
         type: "uint256"
       }
@@ -1098,222 +1152,215 @@ const _abi = [
     name: "getColonyVersionResolver",
     outputs: [
       {
+        internalType: "address",
         name: "resolverAddress",
         type: "address"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "bytes32",
         name: "newHash",
         type: "bytes32"
       },
       {
+        internalType: "uint256",
         name: "newNLeaves",
         type: "uint256"
       },
       {
+        internalType: "address[]",
         name: "stakers",
         type: "address[]"
       }
     ],
     name: "setReputationRootHash",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "bytes32",
         name: "newHash",
         type: "bytes32"
       },
       {
+        internalType: "uint256",
         name: "newNLeaves",
         type: "uint256"
       },
       {
+        internalType: "address[]",
         name: "stakers",
         type: "address[]"
       },
       {
+        internalType: "uint256",
         name: "reward",
         type: "uint256"
       }
     ],
     name: "setReputationRootHash",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [],
     name: "startNextCycle",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [],
     name: "initialiseReputationMining",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: true,
     inputs: [],
     name: "getReputationRootHash",
     outputs: [
       {
+        internalType: "bytes32",
         name: "rootHash",
         type: "bytes32"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: true,
     inputs: [],
     name: "getReputationRootHashNLeaves",
     outputs: [
       {
+        internalType: "uint256",
         name: "nLeaves",
         type: "uint256"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: true,
     inputs: [],
     name: "getReputationRootHashNNodes",
     outputs: [
       {
+        internalType: "uint256",
         name: "nNodes",
         type: "uint256"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "address",
         name: "_token",
         type: "address"
       }
     ],
     name: "startTokenAuction",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "address",
         name: "_ens",
         type: "address"
       },
       {
+        internalType: "bytes32",
         name: "_rootNode",
         type: "bytes32"
       }
     ],
     name: "setupRegistrar",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "string",
         name: "username",
         type: "string"
       },
       {
+        internalType: "string",
         name: "orbitdb",
         type: "string"
       }
     ],
     name: "registerUserLabel",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "string",
         name: "colonyName",
         type: "string"
       },
       {
+        internalType: "string",
         name: "orbitdb",
         type: "string"
       }
     ],
     name: "registerColonyLabel",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "string",
         name: "orbitdb",
         type: "string"
       }
     ],
     name: "updateColonyOrbitDB",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "string",
         name: "orbitdb",
         type: "string"
       }
     ],
     name: "updateUserOrbitDB",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: true,
     inputs: [
       {
+        internalType: "bytes32",
         name: "node",
         type: "bytes32"
       }
@@ -1321,18 +1368,18 @@ const _abi = [
     name: "getProfileDBAddress",
     outputs: [
       {
+        internalType: "string",
         name: "orbitDB",
         type: "string"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: true,
     inputs: [
       {
+        internalType: "address",
         name: "addr",
         type: "address"
       }
@@ -1340,18 +1387,18 @@ const _abi = [
     name: "lookupRegisteredENSDomain",
     outputs: [
       {
+        internalType: "string",
         name: "domain",
         type: "string"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: true,
     inputs: [
       {
+        internalType: "bytes32",
         name: "node",
         type: "bytes32"
       }
@@ -1359,150 +1406,147 @@ const _abi = [
     name: "addr",
     outputs: [
       {
+        internalType: "address",
         name: "",
         type: "address"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: true,
     inputs: [],
     name: "getENSRegistrar",
     outputs: [
       {
+        internalType: "address",
         name: "",
         type: "address"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "address",
         name: "miningResolverAddress",
         type: "address"
       }
     ],
     name: "setMiningResolver",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: true,
     inputs: [],
     name: "getMiningResolver",
     outputs: [
       {
+        internalType: "address",
         name: "miningResolverAddress",
         type: "address"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "bytes32",
         name: "extensionId",
         type: "bytes32"
       },
       {
+        internalType: "address",
         name: "resolver",
         type: "address"
       }
     ],
     name: "addExtensionToNetwork",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "bytes32",
         name: "extensionId",
         type: "bytes32"
       },
       {
+        internalType: "uint256",
         name: "version",
         type: "uint256"
       }
     ],
     name: "installExtension",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "bytes32",
         name: "extensionId",
         type: "bytes32"
       },
       {
+        internalType: "uint256",
         name: "newVersion",
         type: "uint256"
       }
     ],
     name: "upgradeExtension",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "bytes32",
         name: "extensionId",
         type: "bytes32"
       },
       {
+        internalType: "bool",
         name: "deprecated",
         type: "bool"
       }
     ],
     name: "deprecateExtension",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "bytes32",
         name: "extensionId",
         type: "bytes32"
       }
     ],
     name: "uninstallExtension",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: true,
     inputs: [
       {
+        internalType: "bytes32",
         name: "extensionId",
         type: "bytes32"
       },
       {
+        internalType: "uint256",
         name: "version",
         type: "uint256"
       }
@@ -1510,22 +1554,23 @@ const _abi = [
     name: "getExtensionResolver",
     outputs: [
       {
+        internalType: "address",
         name: "resolver",
         type: "address"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: true,
     inputs: [
       {
+        internalType: "bytes32",
         name: "extensionId",
         type: "bytes32"
       },
       {
+        internalType: "address",
         name: "colony",
         type: "address"
       }
@@ -1533,92 +1578,88 @@ const _abi = [
     name: "getExtensionInstallation",
     outputs: [
       {
+        internalType: "address",
         name: "installation",
         type: "address"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: true,
     inputs: [],
     name: "getFeeInverse",
     outputs: [
       {
+        internalType: "uint256",
         name: "_feeInverse",
         type: "uint256"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_feeInverse",
         type: "uint256"
       }
     ],
     name: "setFeeInverse",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "address[]",
         name: "_stakers",
         type: "address[]"
       },
       {
+        internalType: "uint256",
         name: "_amount",
         type: "uint256"
       }
     ],
     name: "punishStakers",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_amount",
         type: "uint256"
       }
     ],
     name: "stakeForMining",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_amount",
         type: "uint256"
       }
     ],
     name: "unstakeForMining",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: true,
     inputs: [
       {
+        internalType: "address",
         name: "_user",
         type: "address"
       }
@@ -1628,130 +1669,124 @@ const _abi = [
       {
         components: [
           {
+            internalType: "uint256",
             name: "amount",
             type: "uint256"
           },
           {
+            internalType: "uint256",
             name: "timestamp",
             type: "uint256"
           }
         ],
+        internalType: "struct ColonyNetworkDataTypes.MiningStake",
         name: "_info",
         type: "tuple"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "address",
         name: "_recipient",
         type: "address"
       },
       {
+        internalType: "uint256",
         name: "_amount",
         type: "uint256"
       }
     ],
     name: "reward",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_amount",
         type: "uint256"
       }
     ],
     name: "burnUnneededRewards",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "address",
         name: "_recipient",
         type: "address"
       }
     ],
     name: "claimMiningReward",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_amount",
         type: "uint256"
       }
     ],
     name: "setAnnualMetaColonyStipend",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [],
     name: "issueMetaColonyStipend",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: false,
     inputs: [
       {
+        internalType: "uint256",
         name: "_amount",
         type: "uint256"
       }
     ],
     name: "setReputationMiningCycleReward",
     outputs: [],
-    payable: false,
     stateMutability: "nonpayable",
     type: "function"
   },
   {
-    constant: true,
     inputs: [],
     name: "getReputationMiningCycleReward",
     outputs: [
       {
+        internalType: "uint256",
         name: "",
         type: "uint256"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   },
   {
-    constant: true,
     inputs: [],
     name: "getAnnualMetaColonyStipend",
     outputs: [
       {
+        internalType: "uint256",
         name: "",
         type: "uint256"
       }
     ],
-    payable: false,
     stateMutability: "view",
     type: "function"
   }

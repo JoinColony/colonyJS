@@ -12,15 +12,15 @@ import {
 
 interface TokenLockingInterface extends Interface {
   functions: {
-    setOwner: TypedFunctionDescription<{ encode([owner_]: [string]): string }>;
+    authority: TypedFunctionDescription<{ encode([]: []): string }>;
+
+    owner: TypedFunctionDescription<{ encode([]: []): string }>;
 
     setAuthority: TypedFunctionDescription<{
       encode([authority_]: [string]): string;
     }>;
 
-    owner: TypedFunctionDescription<{ encode([]: []): string }>;
-
-    authority: TypedFunctionDescription<{ encode([]: []): string }>;
+    setOwner: TypedFunctionDescription<{ encode([owner_]: [string]): string }>;
 
     setColonyNetwork: TypedFunctionDescription<{
       encode([_colonyNetwork]: [string]): string;
@@ -122,6 +122,10 @@ interface TokenLockingInterface extends Interface {
   };
 
   events: {
+    ColonyNetworkSet: TypedEventDescription<{
+      encodeTopics([colonyNetwork]: [null]): string[];
+    }>;
+
     LogSetAuthority: TypedEventDescription<{
       encodeTopics([authority]: [string | null]): string[];
     }>;
@@ -130,23 +134,15 @@ interface TokenLockingInterface extends Interface {
       encodeTopics([owner]: [string | null]): string[];
     }>;
 
-    ColonyNetworkSet: TypedEventDescription<{
-      encodeTopics([colonyNetwork]: [null]): string[];
-    }>;
-
     TokenLocked: TypedEventDescription<{
       encodeTopics([token, lockCount]: [null, null]): string[];
     }>;
 
-    UserTokenUnlocked: TypedEventDescription<{
-      encodeTopics([token, user, lockId]: [null, null, null]): string[];
-    }>;
-
-    UserTokenDeposited: TypedEventDescription<{
+    UserTokenClaimed: TypedEventDescription<{
       encodeTopics([token, user, amount]: [null, null, null]): string[];
     }>;
 
-    UserTokenClaimed: TypedEventDescription<{
+    UserTokenDeposited: TypedEventDescription<{
       encodeTopics([token, user, amount]: [null, null, null]): string[];
     }>;
 
@@ -157,6 +153,10 @@ interface TokenLockingInterface extends Interface {
         null,
         null
       ]): string[];
+    }>;
+
+    UserTokenUnlocked: TypedEventDescription<{
+      encodeTopics([token, user, lockId]: [null, null, null]): string[];
     }>;
 
     UserTokenWithdrawn: TypedEventDescription<{
@@ -182,19 +182,19 @@ export class TokenLocking extends Contract {
   interface: TokenLockingInterface;
 
   functions: {
-    setOwner(
-      owner_: string,
-      overrides?: TransactionOverrides
-    ): Promise<ContractTransaction>;
+    authority(): Promise<string>;
+
+    owner(): Promise<string>;
 
     setAuthority(
       authority_: string,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
-    owner(): Promise<string>;
-
-    authority(): Promise<string>;
+    setOwner(
+      owner_: string,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
 
     setColonyNetwork(
       _colonyNetwork: string,
@@ -328,19 +328,19 @@ export class TokenLocking extends Contract {
     ): Promise<BigNumber>;
   };
 
-  setOwner(
-    owner_: string,
-    overrides?: TransactionOverrides
-  ): Promise<ContractTransaction>;
+  authority(): Promise<string>;
+
+  owner(): Promise<string>;
 
   setAuthority(
     authority_: string,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
-  owner(): Promise<string>;
-
-  authority(): Promise<string>;
+  setOwner(
+    owner_: string,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
 
   setColonyNetwork(
     _colonyNetwork: string,
@@ -474,19 +474,17 @@ export class TokenLocking extends Contract {
   ): Promise<BigNumber>;
 
   filters: {
+    ColonyNetworkSet(colonyNetwork: null): EventFilter;
+
     LogSetAuthority(authority: string | null): EventFilter;
 
     LogSetOwner(owner: string | null): EventFilter;
 
-    ColonyNetworkSet(colonyNetwork: null): EventFilter;
-
     TokenLocked(token: null, lockCount: null): EventFilter;
 
-    UserTokenUnlocked(token: null, user: null, lockId: null): EventFilter;
+    UserTokenClaimed(token: null, user: null, amount: null): EventFilter;
 
     UserTokenDeposited(token: null, user: null, amount: null): EventFilter;
-
-    UserTokenClaimed(token: null, user: null, amount: null): EventFilter;
 
     UserTokenTransferred(
       token: null,
@@ -495,17 +493,19 @@ export class TokenLocking extends Contract {
       amount: null
     ): EventFilter;
 
+    UserTokenUnlocked(token: null, user: null, lockId: null): EventFilter;
+
     UserTokenWithdrawn(token: null, user: null, amount: null): EventFilter;
   };
 
   estimate: {
-    setOwner(owner_: string): Promise<BigNumber>;
-
-    setAuthority(authority_: string): Promise<BigNumber>;
+    authority(): Promise<BigNumber>;
 
     owner(): Promise<BigNumber>;
 
-    authority(): Promise<BigNumber>;
+    setAuthority(authority_: string): Promise<BigNumber>;
+
+    setOwner(owner_: string): Promise<BigNumber>;
 
     setColonyNetwork(_colonyNetwork: string): Promise<BigNumber>;
 

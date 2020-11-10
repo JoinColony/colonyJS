@@ -12,17 +12,19 @@ import {
 
 interface CoinMachineInterface extends Interface {
   functions: {
-    setOwner: TypedFunctionDescription<{ encode([owner_]: [string]): string }>;
+    authority: TypedFunctionDescription<{ encode([]: []): string }>;
+
+    getDeprecated: TypedFunctionDescription<{ encode([]: []): string }>;
+
+    owner: TypedFunctionDescription<{ encode([]: []): string }>;
 
     setAuthority: TypedFunctionDescription<{
       encode([authority_]: [string]): string;
     }>;
 
-    owner: TypedFunctionDescription<{ encode([]: []): string }>;
+    setOwner: TypedFunctionDescription<{ encode([owner_]: [string]): string }>;
 
-    authority: TypedFunctionDescription<{ encode([]: []): string }>;
-
-    getDeprecated: TypedFunctionDescription<{ encode([]: []): string }>;
+    identifier: TypedFunctionDescription<{ encode([]: []): string }>;
 
     version: TypedFunctionDescription<{ encode([]: []): string }>;
 
@@ -74,12 +76,8 @@ interface CoinMachineInterface extends Interface {
   };
 
   events: {
-    TokensBought: TypedEventDescription<{
-      encodeTopics([buyer, numTokens, totalCost]: [null, null, null]): string[];
-    }>;
-
-    PeriodUpdated: TypedEventDescription<{
-      encodeTopics([activePeriod, currentPeriod]: [null, null]): string[];
+    ExtensionInitialised: TypedEventDescription<{
+      encodeTopics([]: []): string[];
     }>;
 
     LogSetAuthority: TypedEventDescription<{
@@ -88,6 +86,14 @@ interface CoinMachineInterface extends Interface {
 
     LogSetOwner: TypedEventDescription<{
       encodeTopics([owner]: [string | null]): string[];
+    }>;
+
+    PeriodUpdated: TypedEventDescription<{
+      encodeTopics([activePeriod, currentPeriod]: [null, null]): string[];
+    }>;
+
+    TokensBought: TypedEventDescription<{
+      encodeTopics([buyer, numTokens, totalCost]: [null, null, null]): string[];
     }>;
   };
 }
@@ -106,23 +112,26 @@ export class CoinMachine extends Contract {
   interface: CoinMachineInterface;
 
   functions: {
-    setOwner(
-      owner_: string,
-      overrides?: TransactionOverrides
-    ): Promise<ContractTransaction>;
+    authority(): Promise<string>;
+
+    getDeprecated(): Promise<boolean>;
+
+    owner(): Promise<string>;
 
     setAuthority(
       authority_: string,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
-    owner(): Promise<string>;
-
-    authority(): Promise<string>;
-
-    getDeprecated(
+    setOwner(
+      owner_: string,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
+
+    /**
+     * Returns the identifier of the extension
+     */
+    identifier(): Promise<string>;
 
     /**
      * Returns the version of the extension
@@ -224,21 +233,26 @@ export class CoinMachine extends Contract {
     getNumAvailable(): Promise<BigNumber>;
   };
 
-  setOwner(
-    owner_: string,
-    overrides?: TransactionOverrides
-  ): Promise<ContractTransaction>;
+  authority(): Promise<string>;
+
+  getDeprecated(): Promise<boolean>;
+
+  owner(): Promise<string>;
 
   setAuthority(
     authority_: string,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
-  owner(): Promise<string>;
+  setOwner(
+    owner_: string,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
 
-  authority(): Promise<string>;
-
-  getDeprecated(overrides?: TransactionOverrides): Promise<ContractTransaction>;
+  /**
+   * Returns the identifier of the extension
+   */
+  identifier(): Promise<string>;
 
   /**
    * Returns the version of the extension
@@ -336,25 +350,29 @@ export class CoinMachine extends Contract {
   getNumAvailable(): Promise<BigNumber>;
 
   filters: {
-    TokensBought(buyer: null, numTokens: null, totalCost: null): EventFilter;
-
-    PeriodUpdated(activePeriod: null, currentPeriod: null): EventFilter;
+    ExtensionInitialised(): EventFilter;
 
     LogSetAuthority(authority: string | null): EventFilter;
 
     LogSetOwner(owner: string | null): EventFilter;
+
+    PeriodUpdated(activePeriod: null, currentPeriod: null): EventFilter;
+
+    TokensBought(buyer: null, numTokens: null, totalCost: null): EventFilter;
   };
 
   estimate: {
-    setOwner(owner_: string): Promise<BigNumber>;
-
-    setAuthority(authority_: string): Promise<BigNumber>;
-
-    owner(): Promise<BigNumber>;
-
     authority(): Promise<BigNumber>;
 
     getDeprecated(): Promise<BigNumber>;
+
+    owner(): Promise<BigNumber>;
+
+    setAuthority(authority_: string): Promise<BigNumber>;
+
+    setOwner(owner_: string): Promise<BigNumber>;
+
+    identifier(): Promise<BigNumber>;
 
     version(): Promise<BigNumber>;
 

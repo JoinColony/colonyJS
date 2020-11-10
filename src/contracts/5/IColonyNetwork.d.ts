@@ -14,19 +14,17 @@ interface IColonyNetworkInterface extends Interface {
   functions: {
     approveExitRecovery: TypedFunctionDescription<{ encode([]: []): string }>;
 
-    exitRecoveryMode: TypedFunctionDescription<{ encode([]: []): string }>;
-
-    numRecoveryRoles: TypedFunctionDescription<{ encode([]: []): string }>;
-
-    setStorageSlotRecovery: TypedFunctionDescription<{
-      encode([_slot, _value]: [BigNumberish, Arrayish]): string;
-    }>;
-
-    isInRecoveryMode: TypedFunctionDescription<{ encode([]: []): string }>;
-
     checkNotAdditionalProtectedVariable: TypedFunctionDescription<{
       encode([_slot]: [BigNumberish]): string;
     }>;
+
+    enterRecoveryMode: TypedFunctionDescription<{ encode([]: []): string }>;
+
+    exitRecoveryMode: TypedFunctionDescription<{ encode([]: []): string }>;
+
+    isInRecoveryMode: TypedFunctionDescription<{ encode([]: []): string }>;
+
+    numRecoveryRoles: TypedFunctionDescription<{ encode([]: []): string }>;
 
     removeRecoveryRole: TypedFunctionDescription<{
       encode([_user]: [string]): string;
@@ -36,7 +34,9 @@ interface IColonyNetworkInterface extends Interface {
       encode([_user]: [string]): string;
     }>;
 
-    enterRecoveryMode: TypedFunctionDescription<{ encode([]: []): string }>;
+    setStorageSlotRecovery: TypedFunctionDescription<{
+      encode([_slot, _value]: [BigNumberish, Arrayish]): string;
+    }>;
 
     supportsInterface: TypedFunctionDescription<{
       encode([interfaceID]: [Arrayish]): string;
@@ -313,36 +313,8 @@ interface IColonyNetworkInterface extends Interface {
   };
 
   events: {
-    RecoveryRoleSet: TypedEventDescription<{
-      encodeTopics([user, setTo]: [string | null, null]): string[];
-    }>;
-
-    ColonyNetworkInitialised: TypedEventDescription<{
-      encodeTopics([resolver]: [null]): string[];
-    }>;
-
-    TokenLockingAddressSet: TypedEventDescription<{
-      encodeTopics([tokenLocking]: [null]): string[];
-    }>;
-
-    MiningCycleResolverSet: TypedEventDescription<{
-      encodeTopics([miningCycleResolver]: [null]): string[];
-    }>;
-
-    NetworkFeeInverseSet: TypedEventDescription<{
-      encodeTopics([feeInverse]: [null]): string[];
-    }>;
-
-    ColonyVersionAdded: TypedEventDescription<{
-      encodeTopics([version, resolver]: [null, null]): string[];
-    }>;
-
-    MetaColonyCreated: TypedEventDescription<{
-      encodeTopics([metaColony, token, rootSkillId]: [
-        null,
-        null,
-        null
-      ]): string[];
+    AuctionCreated: TypedEventDescription<{
+      encodeTopics([auction, token, quantity]: [null, null, null]): string[];
     }>;
 
     ColonyAdded: TypedEventDescription<{
@@ -353,65 +325,32 @@ interface IColonyNetworkInterface extends Interface {
       ]): string[];
     }>;
 
-    SkillAdded: TypedEventDescription<{
-      encodeTopics([skillId, parentSkillId]: [null, null]): string[];
-    }>;
-
-    AuctionCreated: TypedEventDescription<{
-      encodeTopics([auction, token, quantity]: [null, null, null]): string[];
-    }>;
-
-    ReputationMiningInitialised: TypedEventDescription<{
-      encodeTopics([inactiveReputationMiningCycle]: [null]): string[];
-    }>;
-
-    ReputationMiningCycleComplete: TypedEventDescription<{
-      encodeTopics([hash, nLeaves]: [null, null]): string[];
-    }>;
-
-    ReputationRootHashSet: TypedEventDescription<{
-      encodeTopics([newHash, newNLeaves, stakers, reward]: [
-        null,
-        null,
-        null,
-        null
-      ]): string[];
-    }>;
-
-    UserLabelRegistered: TypedEventDescription<{
-      encodeTopics([user, label]: [string | null, null]): string[];
-    }>;
-
     ColonyLabelRegistered: TypedEventDescription<{
       encodeTopics([colony, label]: [string | null, null]): string[];
     }>;
 
-    ReputationMinerPenalised: TypedEventDescription<{
-      encodeTopics([miner, tokensLost]: [null, null]): string[];
+    ColonyNetworkInitialised: TypedEventDescription<{
+      encodeTopics([resolver]: [null]): string[];
+    }>;
+
+    ColonyVersionAdded: TypedEventDescription<{
+      encodeTopics([version, resolver]: [null, null]): string[];
     }>;
 
     ExtensionAddedToNetwork: TypedEventDescription<{
       encodeTopics([extensionId, version]: [Arrayish | null, null]): string[];
     }>;
 
-    ExtensionInstalled: TypedEventDescription<{
-      encodeTopics([extensionId, colony, version]: [
-        Arrayish | null,
-        string | null,
-        null
-      ]): string[];
-    }>;
-
-    ExtensionUpgraded: TypedEventDescription<{
-      encodeTopics([extensionId, colony, version]: [
-        Arrayish | null,
-        string | null,
-        null
-      ]): string[];
-    }>;
-
     ExtensionDeprecated: TypedEventDescription<{
       encodeTopics([extensionId, colony, deprecated]: [
+        Arrayish | null,
+        string | null,
+        null
+      ]): string[];
+    }>;
+
+    ExtensionInstalled: TypedEventDescription<{
+      encodeTopics([extensionId, colony, version]: [
         Arrayish | null,
         string | null,
         null
@@ -423,6 +362,67 @@ interface IColonyNetworkInterface extends Interface {
         Arrayish | null,
         string | null
       ]): string[];
+    }>;
+
+    ExtensionUpgraded: TypedEventDescription<{
+      encodeTopics([extensionId, colony, version]: [
+        Arrayish | null,
+        string | null,
+        null
+      ]): string[];
+    }>;
+
+    MetaColonyCreated: TypedEventDescription<{
+      encodeTopics([metaColony, token, rootSkillId]: [
+        null,
+        null,
+        null
+      ]): string[];
+    }>;
+
+    MiningCycleResolverSet: TypedEventDescription<{
+      encodeTopics([miningCycleResolver]: [null]): string[];
+    }>;
+
+    NetworkFeeInverseSet: TypedEventDescription<{
+      encodeTopics([feeInverse]: [null]): string[];
+    }>;
+
+    RecoveryRoleSet: TypedEventDescription<{
+      encodeTopics([user, setTo]: [string | null, null]): string[];
+    }>;
+
+    ReputationMinerPenalised: TypedEventDescription<{
+      encodeTopics([miner, tokensLost]: [null, null]): string[];
+    }>;
+
+    ReputationMiningCycleComplete: TypedEventDescription<{
+      encodeTopics([hash, nLeaves]: [null, null]): string[];
+    }>;
+
+    ReputationMiningInitialised: TypedEventDescription<{
+      encodeTopics([inactiveReputationMiningCycle]: [null]): string[];
+    }>;
+
+    ReputationRootHashSet: TypedEventDescription<{
+      encodeTopics([newHash, newNLeaves, stakers, reward]: [
+        null,
+        null,
+        null,
+        null
+      ]): string[];
+    }>;
+
+    SkillAdded: TypedEventDescription<{
+      encodeTopics([skillId, parentSkillId]: [null, null]): string[];
+    }>;
+
+    TokenLockingAddressSet: TypedEventDescription<{
+      encodeTopics([tokenLocking]: [null]): string[];
+    }>;
+
+    UserLabelRegistered: TypedEventDescription<{
+      encodeTopics([user, label]: [string | null, null]): string[];
     }>;
   };
 }
@@ -452,6 +452,20 @@ export class IColonyNetwork extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
+     * No return value, but should throw if protected.This is external, but is only expected to be called from ContractRecovery; no need toexpose this to any users.
+     * Check whether the supplied slot is a protected variable specific to this contract
+     * @param _slot The storage slot number to check.
+     */
+    checkNotAdditionalProtectedVariable(_slot: BigNumberish): Promise<void>;
+
+    /**
+     * Put colony network mining into recovery mode. Can only be called by user with recovery role.
+     */
+    enterRecoveryMode(
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
      * Exit recovery mode, can be called by anyone if enough whitelist approvals are given.
      */
     exitRecoveryMode(
@@ -459,35 +473,14 @@ export class IColonyNetwork extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
-     * Return number of recovery roles.
-     * @returns numRoles Number of users with the recovery role.
-     */
-    numRecoveryRoles(): Promise<BigNumber>;
-
-    /**
-     * certain critical variables are protected from editing in this function
-     * Update value of arbitrary storage variable. Can only be called by user with recovery role.
-     * @param _slot Uint address of storage slot to be updated
-     * @param _value word of data to be set
-     */
-    setStorageSlotRecovery(
-      _slot: BigNumberish,
-      _value: Arrayish,
-      overrides?: TransactionOverrides
-    ): Promise<ContractTransaction>;
-
-    /**
      * Is colony network in recovery mode.
-     * @returns inRecoveryMode Return true if recovery mode is active, false otherwise
      */
     isInRecoveryMode(): Promise<boolean>;
 
     /**
-     * No return value, but should throw if protected.This is public, but is only expected to be called from ContractRecovery; no need toexpose this to any users.
-     * Check whether the supplied slot is a protected variable specific to this contract
-     * @param _slot The storage slot number to check.
+     * Return number of recovery roles.
      */
-    checkNotAdditionalProtectedVariable(_slot: BigNumberish): Promise<void>;
+    numRecoveryRoles(): Promise<BigNumber>;
 
     /**
      * Remove colony recovery role. Can only be called by root role.
@@ -508,9 +501,14 @@ export class IColonyNetwork extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
-     * Put colony network mining into recovery mode. Can only be called by user with recovery role.
+     * certain critical variables are protected from editing in this function
+     * Update value of arbitrary storage variable. Can only be called by user with recovery role.
+     * @param _slot Uint address of storage slot to be updated
+     * @param _value word of data to be set
      */
-    enterRecoveryMode(
+    setStorageSlotRecovery(
+      _slot: BigNumberish,
+      _value: Arrayish,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
@@ -518,7 +516,6 @@ export class IColonyNetwork extends Contract {
      * Interface identification is specified in ERC-165.
      * Query if a contract implements an interface
      * @param interfaceID The interface identifier, as specified in ERC-165
-     * @returns status `true` if the contract implements `interfaceID`
      */
     supportsInterface(interfaceID: Arrayish): Promise<boolean>;
 
@@ -550,7 +547,6 @@ export class IColonyNetwork extends Contract {
      * Get a replacement log entry (if set) for the log entry `_id` in the mining cycle that was at the address `_reputationMiningCycle`.
      * @param _id The log entry number we wish to see if there is a replacement for
      * @param _reputationMiningCycle The address of the reputation mining cycle we are asking about
-     * @returns reputationLogEntry ReputationLogEntry instance with the details of the log entry (if it exists)
      */
     getReplacementReputationUpdateLogEntry(
       _reputationMiningCycle: string,
@@ -573,7 +569,6 @@ export class IColonyNetwork extends Contract {
     /**
      * Get whether any replacement log entries have been set for the supplied reputation mining cycle.Used by the client to avoid doubling the number of RPC calls when syncing from scratch.
      * @param _reputationMiningCycle The reputation mining cycle address we want to know if any entries have been replaced in.
-     * @returns exists Boolean indicating whether there is a replacement log
      */
     getReplacementReputationUpdateLogsExist(
       _reputationMiningCycle: string
@@ -581,20 +576,17 @@ export class IColonyNetwork extends Contract {
 
     /**
      * Get the Meta Colony address.
-     * @returns colonyAddress The Meta colony address, if no colony was found, returns 0x0
      */
     getMetaColony(): Promise<string>;
 
     /**
      * Get the number of colonies in the network.
-     * @returns count The colony count
      */
     getColonyCount(): Promise<BigNumber>;
 
     /**
      * Check if specific address is a colony created on colony network.
      * @param _colony Address of the colony
-     * @returns addressIsColony true if specified address is a colony, otherwise false
      */
     isColony(_colony: string): Promise<boolean>;
 
@@ -602,7 +594,6 @@ export class IColonyNetwork extends Contract {
      * Errors if the parent skill does not exist or if this is called by an unauthorised sender.
      * Adds a new skill to the global or local skills tree, under skill `_parentSkillId`. Only the Meta Colony is allowed to add a global skill, called via `IColony.addGlobalSkill`. Any colony is allowed to add a local skill and which is associated with a new domain via `IColony.addDomain`.
      * @param _parentSkillId Id of the skill under which the new skill will be added. If 0, a global skill is added with no parent.
-     * @returns skillId Id of the added skill
      */
     addSkill(
       _parentSkillId: BigNumberish,
@@ -612,7 +603,6 @@ export class IColonyNetwork extends Contract {
     /**
      * Get the `nParents` and `nChildren` of skill with id `_skillId`.
      * @param _skillId Id of the skill
-     * @returns skill The Skill struct
      */
     getSkill(
       _skillId: BigNumberish
@@ -656,13 +646,11 @@ export class IColonyNetwork extends Contract {
 
     /**
      * Get the number of skills in the network including both global and local skills.
-     * @returns count The skill count
      */
     getSkillCount(): Promise<BigNumber>;
 
     /**
      * Get the `skillId` of the reputation mining skill. Only set once the metacolony is set up.
-     * @returns skillId The `skillId` of the reputation mining skill.
      */
     getReputationMiningSkillId(): Promise<BigNumber>;
 
@@ -677,7 +665,6 @@ export class IColonyNetwork extends Contract {
 
     /**
      * Get token locking contract address.
-     * @returns lockingAddress Token locking contract address
      */
     getTokenLocking(): Promise<string>;
 
@@ -694,7 +681,6 @@ export class IColonyNetwork extends Contract {
      * This is now deprecated and will be removed in a future versionFor the colony to mint tokens, token ownership must be transferred to the new colony
      * Creates a new colony in the network, at version 3
      * @param _tokenAddress Address of an ERC20 token to serve as the colony token.
-     * @returns colonyAddress Address of the newly created colony
      */
     "createColony(address)"(
       _tokenAddress: string,
@@ -707,7 +693,6 @@ export class IColonyNetwork extends Contract {
      * @param _colonyName The label to register (if null, no label is registered)
      * @param _tokenAddress Address of an ERC20 token to serve as the colony token
      * @param _version The version of colony to deploy (pass 0 for the current version)
-     * @returns colonyAddress Address of the newly created colony
      */
     "createColony(address,uint256,string)"(
       _tokenAddress: string,
@@ -724,7 +709,6 @@ export class IColonyNetwork extends Contract {
      * @param _tokenAddress Address of an ERC20 token to serve as the colony token
      * @param _useExtensionManager DEPRECATED Currently a no-op
      * @param _version The version of colony to deploy (pass 0 for the current version)
-     * @returns colonyAddress Address of the newly created colony
      */
     "createColony(address,uint256,string,string,bool)"(
       _tokenAddress: string,
@@ -761,13 +745,11 @@ export class IColonyNetwork extends Contract {
     /**
      * Get a colony address by its Id in the network.
      * @param _id Id of the colony to get
-     * @returns colonyAddress The colony address, if no colony was found, returns 0x0
      */
     getColony(_id: BigNumberish): Promise<string>;
 
     /**
      * Returns the latest Colony contract version. This is the version used to create all new colonies.
-     * @returns version The current / latest Colony contract version
      */
     getCurrentColonyVersion(): Promise<BigNumber>;
 
@@ -775,7 +757,6 @@ export class IColonyNetwork extends Contract {
      * Get the id of the parent skill at index `_parentSkillIndex` for skill with Id `_skillId`.
      * @param _parentSkillIndex Index of the `skill.parents` array to get Note that not all parent skill ids are stored here. See `Skill.parents` member for definition on which parents are stored
      * @param _skillId Id of the skill
-     * @returns skillId Skill Id of the requested parent skill
      */
     getParentSkillId(
       _skillId: BigNumberish,
@@ -786,7 +767,6 @@ export class IColonyNetwork extends Contract {
      * Get the id of the child skill at index `_childSkillIndex` for skill with Id `_skillId`.
      * @param _childSkillIndex Index of the `skill.children` array to get
      * @param _skillId Id of the skill
-     * @returns skillId Skill Id of the requested child skill
      */
     getChildSkillId(
       _skillId: BigNumberish,
@@ -796,7 +776,6 @@ export class IColonyNetwork extends Contract {
     /**
      * Get the address of either the active or inactive reputation mining cycle, based on `active`. The active reputation mining cycle is the one currently under consideration by reputation miners. The inactive reputation cycle is the one with the log that is being appended to.
      * @param _active Whether the user wants the active or inactive reputation mining cycle
-     * @returns repMiningCycleAddress address of active or inactive ReputationMiningCycle
      */
     getReputationMiningCycle(_active: boolean): Promise<string>;
 
@@ -804,7 +783,6 @@ export class IColonyNetwork extends Contract {
      * Calculate raw miner weight in WADs.
      * @param _submissonIndex Index of reputation hash submission (between 0 and 11)
      * @param _timeStaked Amount of time (in seconds) that the miner has staked their CLNY
-     * @returns minerWeight The weight of miner reward
      */
     calculateMinerWeight(
       _timeStaked: BigNumberish,
@@ -814,7 +792,6 @@ export class IColonyNetwork extends Contract {
     /**
      * Get the `Resolver` address for Colony contract version `_version`.
      * @param _version The Colony contract version
-     * @returns resolverAddress Address of the `Resolver` contract
      */
     getColonyVersionResolver(_version: BigNumberish): Promise<string>;
 
@@ -862,21 +839,18 @@ export class IColonyNetwork extends Contract {
 
     /**
      * Get the root hash of the current reputation state tree.
-     * @returns rootHash The current Reputation Root Hash
      */
     getReputationRootHash(): Promise<string>;
 
     /**
      * I cannot see a reason why a user's client would need to call this - only stored to help with some edge cases in reputation mining dispute resolution.
      * Get the number of leaves in the current reputation state tree.
-     * @returns nLeaves uint256 The number of leaves in the state tree
      */
     getReputationRootHashNLeaves(): Promise<BigNumber>;
 
     /**
      * Deprecated, replaced by getReputationRootHashNLeaves which does the same thing but is more accurately named.will be removed in a later version.
      * Get the number of leaves in the current reputation state tree.
-     * @returns nNodes uint256 The number of leaves in the state tree
      */
     getReputationRootHashNNodes(): Promise<BigNumber>;
 
@@ -943,27 +917,23 @@ export class IColonyNetwork extends Contract {
     /**
      * Retrieve the orbitdb address corresponding to a registered account.
      * @param node The Namehash of the account being queried.
-     * @returns orbitDB A string containing the address of the orbit database
      */
     getProfileDBAddress(node: Arrayish): Promise<string>;
 
     /**
      * Reverse lookup a username from an address.
      * @param addr The address we wish to find the corresponding ENS domain for (if any)
-     * @returns domain A string containing the colony-based ENS name corresponding to addr
      */
     lookupRegisteredENSDomain(addr: string): Promise<string>;
 
     /**
      * Returns the address the supplied node resolves do, if we are the resolver.
      * @param node The namehash of the ENS address being requested
-     * @returns address The address the supplied node resolves to
      */
     addr(node: Arrayish): Promise<string>;
 
     /**
      * Returns the address of the ENSRegistrar for the Network.
-     * @returns address The address the ENSRegistrar resolves to
      */
     getENSRegistrar(): Promise<string>;
 
@@ -978,7 +948,6 @@ export class IColonyNetwork extends Contract {
 
     /**
      * Get the resolver to be used by new instances of ReputationMiningCycle.
-     * @returns miningResolverAddress The address of the mining cycle resolver currently used by new instances
      */
     getMiningResolver(): Promise<string>;
 
@@ -1040,7 +1009,6 @@ export class IColonyNetwork extends Contract {
      * Get an extension's resolver.
      * @param extensionId keccak256 hash of the extension name, used as an indentifier
      * @param version Version of the extension
-     * @returns resolver The address of the deployed resolver
      */
     getExtensionResolver(
       extensionId: Arrayish,
@@ -1051,7 +1019,6 @@ export class IColonyNetwork extends Contract {
      * Get an extension's installation.
      * @param colony Address of the colony the extension is installed in
      * @param extensionId keccak256 hash of the extension name, used as an indentifier
-     * @returns installation The address of the installed extension
      */
     getExtensionInstallation(
       extensionId: Arrayish,
@@ -1060,7 +1027,6 @@ export class IColonyNetwork extends Contract {
 
     /**
      * Return 1 / the fee to pay to the network. e.g. if the fee is 1% (or 0.01), return 100.
-     * @returns _feeInverse The inverse of the network fee
      */
     getFeeInverse(): Promise<BigNumber>;
 
@@ -1074,7 +1040,7 @@ export class IColonyNetwork extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
-     * While public, it can only be called successfully by the current ReputationMiningCycle.
+     * While external, it can only be called successfully by the current ReputationMiningCycle.
      * Function called to punish people who staked against a new reputation root hash that turned out to be incorrect.
      * @param _amount Amount of stake to slash
      * @param _stakers Array of the addresses of stakers to punish
@@ -1106,7 +1072,6 @@ export class IColonyNetwork extends Contract {
     /**
      * returns how much CLNY _user has staked for the purposes of reputation mining
      * @param _user The user to query
-     * @returns _info The amount staked and the timestamp the stake was made at.
      */
     getMiningStake(
       _user: string
@@ -1160,7 +1125,7 @@ export class IColonyNetwork extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
-     * Called to issue the metaColony stipend. This public function can be called by anyone at any interval, and an appropriate amount of CLNY will be minted based on the time since the last time it was called.
+     * Called to issue the metaColony stipend. This external function can be called by anyone at any interval, and an appropriate amount of CLNY will be minted based on the time since the last time it was called.
      */
     issueMetaColonyStipend(
       overrides?: TransactionOverrides
@@ -1177,13 +1142,11 @@ export class IColonyNetwork extends Contract {
 
     /**
      * Called to get the total per-cycle reputation mining reward.
-     * @returns The CLNY awarded per mining cycle to the miners.
      */
     getReputationMiningCycleReward(): Promise<BigNumber>;
 
     /**
      * Called to get the total per-cycle reputation mining reward.
-     * @returns The CLNY awarded per year to the metacolony.
      */
     getAnnualMetaColonyStipend(): Promise<BigNumber>;
   };
@@ -1196,6 +1159,20 @@ export class IColonyNetwork extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
+   * No return value, but should throw if protected.This is external, but is only expected to be called from ContractRecovery; no need toexpose this to any users.
+   * Check whether the supplied slot is a protected variable specific to this contract
+   * @param _slot The storage slot number to check.
+   */
+  checkNotAdditionalProtectedVariable(_slot: BigNumberish): Promise<void>;
+
+  /**
+   * Put colony network mining into recovery mode. Can only be called by user with recovery role.
+   */
+  enterRecoveryMode(
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
    * Exit recovery mode, can be called by anyone if enough whitelist approvals are given.
    */
   exitRecoveryMode(
@@ -1203,35 +1180,14 @@ export class IColonyNetwork extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
-   * Return number of recovery roles.
-   * @returns numRoles Number of users with the recovery role.
-   */
-  numRecoveryRoles(): Promise<BigNumber>;
-
-  /**
-   * certain critical variables are protected from editing in this function
-   * Update value of arbitrary storage variable. Can only be called by user with recovery role.
-   * @param _slot Uint address of storage slot to be updated
-   * @param _value word of data to be set
-   */
-  setStorageSlotRecovery(
-    _slot: BigNumberish,
-    _value: Arrayish,
-    overrides?: TransactionOverrides
-  ): Promise<ContractTransaction>;
-
-  /**
    * Is colony network in recovery mode.
-   * @returns inRecoveryMode Return true if recovery mode is active, false otherwise
    */
   isInRecoveryMode(): Promise<boolean>;
 
   /**
-   * No return value, but should throw if protected.This is public, but is only expected to be called from ContractRecovery; no need toexpose this to any users.
-   * Check whether the supplied slot is a protected variable specific to this contract
-   * @param _slot The storage slot number to check.
+   * Return number of recovery roles.
    */
-  checkNotAdditionalProtectedVariable(_slot: BigNumberish): Promise<void>;
+  numRecoveryRoles(): Promise<BigNumber>;
 
   /**
    * Remove colony recovery role. Can only be called by root role.
@@ -1252,9 +1208,14 @@ export class IColonyNetwork extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
-   * Put colony network mining into recovery mode. Can only be called by user with recovery role.
+   * certain critical variables are protected from editing in this function
+   * Update value of arbitrary storage variable. Can only be called by user with recovery role.
+   * @param _slot Uint address of storage slot to be updated
+   * @param _value word of data to be set
    */
-  enterRecoveryMode(
+  setStorageSlotRecovery(
+    _slot: BigNumberish,
+    _value: Arrayish,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
@@ -1262,7 +1223,6 @@ export class IColonyNetwork extends Contract {
    * Interface identification is specified in ERC-165.
    * Query if a contract implements an interface
    * @param interfaceID The interface identifier, as specified in ERC-165
-   * @returns status `true` if the contract implements `interfaceID`
    */
   supportsInterface(interfaceID: Arrayish): Promise<boolean>;
 
@@ -1294,7 +1254,6 @@ export class IColonyNetwork extends Contract {
    * Get a replacement log entry (if set) for the log entry `_id` in the mining cycle that was at the address `_reputationMiningCycle`.
    * @param _id The log entry number we wish to see if there is a replacement for
    * @param _reputationMiningCycle The address of the reputation mining cycle we are asking about
-   * @returns reputationLogEntry ReputationLogEntry instance with the details of the log entry (if it exists)
    */
   getReplacementReputationUpdateLogEntry(
     _reputationMiningCycle: string,
@@ -1317,7 +1276,6 @@ export class IColonyNetwork extends Contract {
   /**
    * Get whether any replacement log entries have been set for the supplied reputation mining cycle.Used by the client to avoid doubling the number of RPC calls when syncing from scratch.
    * @param _reputationMiningCycle The reputation mining cycle address we want to know if any entries have been replaced in.
-   * @returns exists Boolean indicating whether there is a replacement log
    */
   getReplacementReputationUpdateLogsExist(
     _reputationMiningCycle: string
@@ -1325,20 +1283,17 @@ export class IColonyNetwork extends Contract {
 
   /**
    * Get the Meta Colony address.
-   * @returns colonyAddress The Meta colony address, if no colony was found, returns 0x0
    */
   getMetaColony(): Promise<string>;
 
   /**
    * Get the number of colonies in the network.
-   * @returns count The colony count
    */
   getColonyCount(): Promise<BigNumber>;
 
   /**
    * Check if specific address is a colony created on colony network.
    * @param _colony Address of the colony
-   * @returns addressIsColony true if specified address is a colony, otherwise false
    */
   isColony(_colony: string): Promise<boolean>;
 
@@ -1346,7 +1301,6 @@ export class IColonyNetwork extends Contract {
    * Errors if the parent skill does not exist or if this is called by an unauthorised sender.
    * Adds a new skill to the global or local skills tree, under skill `_parentSkillId`. Only the Meta Colony is allowed to add a global skill, called via `IColony.addGlobalSkill`. Any colony is allowed to add a local skill and which is associated with a new domain via `IColony.addDomain`.
    * @param _parentSkillId Id of the skill under which the new skill will be added. If 0, a global skill is added with no parent.
-   * @returns skillId Id of the added skill
    */
   addSkill(
     _parentSkillId: BigNumberish,
@@ -1356,7 +1310,6 @@ export class IColonyNetwork extends Contract {
   /**
    * Get the `nParents` and `nChildren` of skill with id `_skillId`.
    * @param _skillId Id of the skill
-   * @returns skill The Skill struct
    */
   getSkill(
     _skillId: BigNumberish
@@ -1400,13 +1353,11 @@ export class IColonyNetwork extends Contract {
 
   /**
    * Get the number of skills in the network including both global and local skills.
-   * @returns count The skill count
    */
   getSkillCount(): Promise<BigNumber>;
 
   /**
    * Get the `skillId` of the reputation mining skill. Only set once the metacolony is set up.
-   * @returns skillId The `skillId` of the reputation mining skill.
    */
   getReputationMiningSkillId(): Promise<BigNumber>;
 
@@ -1421,7 +1372,6 @@ export class IColonyNetwork extends Contract {
 
   /**
    * Get token locking contract address.
-   * @returns lockingAddress Token locking contract address
    */
   getTokenLocking(): Promise<string>;
 
@@ -1438,7 +1388,6 @@ export class IColonyNetwork extends Contract {
    * This is now deprecated and will be removed in a future versionFor the colony to mint tokens, token ownership must be transferred to the new colony
    * Creates a new colony in the network, at version 3
    * @param _tokenAddress Address of an ERC20 token to serve as the colony token.
-   * @returns colonyAddress Address of the newly created colony
    */
   "createColony(address)"(
     _tokenAddress: string,
@@ -1451,7 +1400,6 @@ export class IColonyNetwork extends Contract {
    * @param _colonyName The label to register (if null, no label is registered)
    * @param _tokenAddress Address of an ERC20 token to serve as the colony token
    * @param _version The version of colony to deploy (pass 0 for the current version)
-   * @returns colonyAddress Address of the newly created colony
    */
   "createColony(address,uint256,string)"(
     _tokenAddress: string,
@@ -1468,7 +1416,6 @@ export class IColonyNetwork extends Contract {
    * @param _tokenAddress Address of an ERC20 token to serve as the colony token
    * @param _useExtensionManager DEPRECATED Currently a no-op
    * @param _version The version of colony to deploy (pass 0 for the current version)
-   * @returns colonyAddress Address of the newly created colony
    */
   "createColony(address,uint256,string,string,bool)"(
     _tokenAddress: string,
@@ -1505,13 +1452,11 @@ export class IColonyNetwork extends Contract {
   /**
    * Get a colony address by its Id in the network.
    * @param _id Id of the colony to get
-   * @returns colonyAddress The colony address, if no colony was found, returns 0x0
    */
   getColony(_id: BigNumberish): Promise<string>;
 
   /**
    * Returns the latest Colony contract version. This is the version used to create all new colonies.
-   * @returns version The current / latest Colony contract version
    */
   getCurrentColonyVersion(): Promise<BigNumber>;
 
@@ -1519,7 +1464,6 @@ export class IColonyNetwork extends Contract {
    * Get the id of the parent skill at index `_parentSkillIndex` for skill with Id `_skillId`.
    * @param _parentSkillIndex Index of the `skill.parents` array to get Note that not all parent skill ids are stored here. See `Skill.parents` member for definition on which parents are stored
    * @param _skillId Id of the skill
-   * @returns skillId Skill Id of the requested parent skill
    */
   getParentSkillId(
     _skillId: BigNumberish,
@@ -1530,7 +1474,6 @@ export class IColonyNetwork extends Contract {
    * Get the id of the child skill at index `_childSkillIndex` for skill with Id `_skillId`.
    * @param _childSkillIndex Index of the `skill.children` array to get
    * @param _skillId Id of the skill
-   * @returns skillId Skill Id of the requested child skill
    */
   getChildSkillId(
     _skillId: BigNumberish,
@@ -1540,7 +1483,6 @@ export class IColonyNetwork extends Contract {
   /**
    * Get the address of either the active or inactive reputation mining cycle, based on `active`. The active reputation mining cycle is the one currently under consideration by reputation miners. The inactive reputation cycle is the one with the log that is being appended to.
    * @param _active Whether the user wants the active or inactive reputation mining cycle
-   * @returns repMiningCycleAddress address of active or inactive ReputationMiningCycle
    */
   getReputationMiningCycle(_active: boolean): Promise<string>;
 
@@ -1548,7 +1490,6 @@ export class IColonyNetwork extends Contract {
    * Calculate raw miner weight in WADs.
    * @param _submissonIndex Index of reputation hash submission (between 0 and 11)
    * @param _timeStaked Amount of time (in seconds) that the miner has staked their CLNY
-   * @returns minerWeight The weight of miner reward
    */
   calculateMinerWeight(
     _timeStaked: BigNumberish,
@@ -1558,7 +1499,6 @@ export class IColonyNetwork extends Contract {
   /**
    * Get the `Resolver` address for Colony contract version `_version`.
    * @param _version The Colony contract version
-   * @returns resolverAddress Address of the `Resolver` contract
    */
   getColonyVersionResolver(_version: BigNumberish): Promise<string>;
 
@@ -1606,21 +1546,18 @@ export class IColonyNetwork extends Contract {
 
   /**
    * Get the root hash of the current reputation state tree.
-   * @returns rootHash The current Reputation Root Hash
    */
   getReputationRootHash(): Promise<string>;
 
   /**
    * I cannot see a reason why a user's client would need to call this - only stored to help with some edge cases in reputation mining dispute resolution.
    * Get the number of leaves in the current reputation state tree.
-   * @returns nLeaves uint256 The number of leaves in the state tree
    */
   getReputationRootHashNLeaves(): Promise<BigNumber>;
 
   /**
    * Deprecated, replaced by getReputationRootHashNLeaves which does the same thing but is more accurately named.will be removed in a later version.
    * Get the number of leaves in the current reputation state tree.
-   * @returns nNodes uint256 The number of leaves in the state tree
    */
   getReputationRootHashNNodes(): Promise<BigNumber>;
 
@@ -1687,27 +1624,23 @@ export class IColonyNetwork extends Contract {
   /**
    * Retrieve the orbitdb address corresponding to a registered account.
    * @param node The Namehash of the account being queried.
-   * @returns orbitDB A string containing the address of the orbit database
    */
   getProfileDBAddress(node: Arrayish): Promise<string>;
 
   /**
    * Reverse lookup a username from an address.
    * @param addr The address we wish to find the corresponding ENS domain for (if any)
-   * @returns domain A string containing the colony-based ENS name corresponding to addr
    */
   lookupRegisteredENSDomain(addr: string): Promise<string>;
 
   /**
    * Returns the address the supplied node resolves do, if we are the resolver.
    * @param node The namehash of the ENS address being requested
-   * @returns address The address the supplied node resolves to
    */
   addr(node: Arrayish): Promise<string>;
 
   /**
    * Returns the address of the ENSRegistrar for the Network.
-   * @returns address The address the ENSRegistrar resolves to
    */
   getENSRegistrar(): Promise<string>;
 
@@ -1722,7 +1655,6 @@ export class IColonyNetwork extends Contract {
 
   /**
    * Get the resolver to be used by new instances of ReputationMiningCycle.
-   * @returns miningResolverAddress The address of the mining cycle resolver currently used by new instances
    */
   getMiningResolver(): Promise<string>;
 
@@ -1784,7 +1716,6 @@ export class IColonyNetwork extends Contract {
    * Get an extension's resolver.
    * @param extensionId keccak256 hash of the extension name, used as an indentifier
    * @param version Version of the extension
-   * @returns resolver The address of the deployed resolver
    */
   getExtensionResolver(
     extensionId: Arrayish,
@@ -1795,7 +1726,6 @@ export class IColonyNetwork extends Contract {
    * Get an extension's installation.
    * @param colony Address of the colony the extension is installed in
    * @param extensionId keccak256 hash of the extension name, used as an indentifier
-   * @returns installation The address of the installed extension
    */
   getExtensionInstallation(
     extensionId: Arrayish,
@@ -1804,7 +1734,6 @@ export class IColonyNetwork extends Contract {
 
   /**
    * Return 1 / the fee to pay to the network. e.g. if the fee is 1% (or 0.01), return 100.
-   * @returns _feeInverse The inverse of the network fee
    */
   getFeeInverse(): Promise<BigNumber>;
 
@@ -1818,7 +1747,7 @@ export class IColonyNetwork extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
-   * While public, it can only be called successfully by the current ReputationMiningCycle.
+   * While external, it can only be called successfully by the current ReputationMiningCycle.
    * Function called to punish people who staked against a new reputation root hash that turned out to be incorrect.
    * @param _amount Amount of stake to slash
    * @param _stakers Array of the addresses of stakers to punish
@@ -1850,7 +1779,6 @@ export class IColonyNetwork extends Contract {
   /**
    * returns how much CLNY _user has staked for the purposes of reputation mining
    * @param _user The user to query
-   * @returns _info The amount staked and the timestamp the stake was made at.
    */
   getMiningStake(
     _user: string
@@ -1904,7 +1832,7 @@ export class IColonyNetwork extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
-   * Called to issue the metaColony stipend. This public function can be called by anyone at any interval, and an appropriate amount of CLNY will be minted based on the time since the last time it was called.
+   * Called to issue the metaColony stipend. This external function can be called by anyone at any interval, and an appropriate amount of CLNY will be minted based on the time since the last time it was called.
    */
   issueMetaColonyStipend(
     overrides?: TransactionOverrides
@@ -1921,34 +1849,16 @@ export class IColonyNetwork extends Contract {
 
   /**
    * Called to get the total per-cycle reputation mining reward.
-   * @returns The CLNY awarded per mining cycle to the miners.
    */
   getReputationMiningCycleReward(): Promise<BigNumber>;
 
   /**
    * Called to get the total per-cycle reputation mining reward.
-   * @returns The CLNY awarded per year to the metacolony.
    */
   getAnnualMetaColonyStipend(): Promise<BigNumber>;
 
   filters: {
-    RecoveryRoleSet(user: string | null, setTo: null): EventFilter;
-
-    ColonyNetworkInitialised(resolver: null): EventFilter;
-
-    TokenLockingAddressSet(tokenLocking: null): EventFilter;
-
-    MiningCycleResolverSet(miningCycleResolver: null): EventFilter;
-
-    NetworkFeeInverseSet(feeInverse: null): EventFilter;
-
-    ColonyVersionAdded(version: null, resolver: null): EventFilter;
-
-    MetaColonyCreated(
-      metaColony: null,
-      token: null,
-      rootSkillId: null
-    ): EventFilter;
+    AuctionCreated(auction: null, token: null, quantity: null): EventFilter;
 
     ColonyAdded(
       colonyId: BigNumberish | null,
@@ -1956,43 +1866,14 @@ export class IColonyNetwork extends Contract {
       token: null
     ): EventFilter;
 
-    SkillAdded(skillId: null, parentSkillId: null): EventFilter;
-
-    AuctionCreated(auction: null, token: null, quantity: null): EventFilter;
-
-    ReputationMiningInitialised(
-      inactiveReputationMiningCycle: null
-    ): EventFilter;
-
-    ReputationMiningCycleComplete(hash: null, nLeaves: null): EventFilter;
-
-    ReputationRootHashSet(
-      newHash: null,
-      newNLeaves: null,
-      stakers: null,
-      reward: null
-    ): EventFilter;
-
-    UserLabelRegistered(user: string | null, label: null): EventFilter;
-
     ColonyLabelRegistered(colony: string | null, label: null): EventFilter;
 
-    ReputationMinerPenalised(miner: null, tokensLost: null): EventFilter;
+    ColonyNetworkInitialised(resolver: null): EventFilter;
+
+    ColonyVersionAdded(version: null, resolver: null): EventFilter;
 
     ExtensionAddedToNetwork(
       extensionId: Arrayish | null,
-      version: null
-    ): EventFilter;
-
-    ExtensionInstalled(
-      extensionId: Arrayish | null,
-      colony: string | null,
-      version: null
-    ): EventFilter;
-
-    ExtensionUpgraded(
-      extensionId: Arrayish | null,
-      colony: string | null,
       version: null
     ): EventFilter;
 
@@ -2002,35 +1883,80 @@ export class IColonyNetwork extends Contract {
       deprecated: null
     ): EventFilter;
 
+    ExtensionInstalled(
+      extensionId: Arrayish | null,
+      colony: string | null,
+      version: null
+    ): EventFilter;
+
     ExtensionUninstalled(
       extensionId: Arrayish | null,
       colony: string | null
     ): EventFilter;
+
+    ExtensionUpgraded(
+      extensionId: Arrayish | null,
+      colony: string | null,
+      version: null
+    ): EventFilter;
+
+    MetaColonyCreated(
+      metaColony: null,
+      token: null,
+      rootSkillId: null
+    ): EventFilter;
+
+    MiningCycleResolverSet(miningCycleResolver: null): EventFilter;
+
+    NetworkFeeInverseSet(feeInverse: null): EventFilter;
+
+    RecoveryRoleSet(user: string | null, setTo: null): EventFilter;
+
+    ReputationMinerPenalised(miner: null, tokensLost: null): EventFilter;
+
+    ReputationMiningCycleComplete(hash: null, nLeaves: null): EventFilter;
+
+    ReputationMiningInitialised(
+      inactiveReputationMiningCycle: null
+    ): EventFilter;
+
+    ReputationRootHashSet(
+      newHash: null,
+      newNLeaves: null,
+      stakers: null,
+      reward: null
+    ): EventFilter;
+
+    SkillAdded(skillId: null, parentSkillId: null): EventFilter;
+
+    TokenLockingAddressSet(tokenLocking: null): EventFilter;
+
+    UserLabelRegistered(user: string | null, label: null): EventFilter;
   };
 
   estimate: {
     approveExitRecovery(): Promise<BigNumber>;
 
-    exitRecoveryMode(): Promise<BigNumber>;
-
-    numRecoveryRoles(): Promise<BigNumber>;
-
-    setStorageSlotRecovery(
-      _slot: BigNumberish,
-      _value: Arrayish
-    ): Promise<BigNumber>;
-
-    isInRecoveryMode(): Promise<BigNumber>;
-
     checkNotAdditionalProtectedVariable(
       _slot: BigNumberish
     ): Promise<BigNumber>;
+
+    enterRecoveryMode(): Promise<BigNumber>;
+
+    exitRecoveryMode(): Promise<BigNumber>;
+
+    isInRecoveryMode(): Promise<BigNumber>;
+
+    numRecoveryRoles(): Promise<BigNumber>;
 
     removeRecoveryRole(_user: string): Promise<BigNumber>;
 
     setRecoveryRole(_user: string): Promise<BigNumber>;
 
-    enterRecoveryMode(): Promise<BigNumber>;
+    setStorageSlotRecovery(
+      _slot: BigNumberish,
+      _value: Arrayish
+    ): Promise<BigNumber>;
 
     supportsInterface(interfaceID: Arrayish): Promise<BigNumber>;
 
