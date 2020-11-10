@@ -186,6 +186,10 @@ export type ExtendedIColony<T extends AnyIColony = AnyIColony> = T & {
     skillId: BigNumberish,
     address: string,
   ): Promise<ReputationOracleResponse>;
+
+  getMembersReputation(
+    skillId: BigNumberish,
+  ): Promise<ReputationOracleResponse>;
 };
 
 export const getPotDomain = async (
