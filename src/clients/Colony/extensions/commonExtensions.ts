@@ -879,6 +879,28 @@ async function getReputation(
   };
 }
 
+async function getMembersReputation(
+  this: ExtendedIColony,
+  skillId: BigNumberish,
+): Promise<ReputationOracleResponse> {
+  const { network, reputationOracleEndpoint } = this.networkClient;
+
+  const skillIdString = bigNumberify(skillId).toString();
+
+  const rootHash = await this.networkClient.getReputationRootHash();
+
+  const response = await fetch(
+    `${reputationOracleEndpoint}/${network}/${rootHash}/${this.address}/${skillIdString}`,
+  );
+
+  const result = await response.json();
+
+  return {
+    ...result,
+    reputationAmount: bigNumberify(result.reputationAmount || 0),
+  };
+}
+
 async function deployTokenAuthority(
   this: ExtendedIColony,
   tokenAddress: string,
@@ -994,6 +1016,7 @@ export const addExtensions = <T extends ExtendedIColony>(
   );
 
   instance.getReputation = getReputation.bind(instance);
+  instance.getMembersReputation = getMembersReputation.bind(instance);
 
   /* eslint-enable no-param-reassign, max-len */
   return instance;
