@@ -859,10 +859,6 @@ async function getReputation(
 
   const { network, reputationOracleEndpoint } = this.networkClient;
 
-  if (network !== Network.Mainnet && network !== Network.Goerli) {
-    throw new Error('This method is only supported on mainnet and goerli');
-  }
-
   const skillIdString = bigNumberify(skillId).toString();
 
   const rootHash = await this.networkClient.getReputationRootHash();
