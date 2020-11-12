@@ -1,10 +1,9 @@
 import { ContractTransaction } from 'ethers';
-import { BigNumber, BigNumberish } from 'ethers/utils';
+import { BigNumber, BigNumberish, Arrayish } from 'ethers/utils';
 
 import { TransactionOverrides } from '../../../contracts/3';
 import { ColonyRole } from '../../../constants';
 import { IColony as IColonyV5 } from '../../../contracts/5/IColony';
-import { CoinMachineClient } from '../../CoinMachineClient';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
 import { ExtendedIColony, getPermissionProofs } from './commonExtensions';
 import { ColonyExtensionsV3 } from './extensionsV3';
@@ -22,6 +21,11 @@ export interface ExtendedEstimateV5 extends ExtendedEstimateV4 {
     _user: string,
     _amount: BigNumberish,
   ): Promise<BigNumber>;
+  setUserRolesWithProofs(
+    _user: string,
+    _domainId: BigNumberish,
+    _roles: Arrayish,
+  ): Promise<BigNumber>;
   transferStakeWithProofs(
     _obligator: string,
     _user: string,
@@ -32,11 +36,16 @@ export interface ExtendedEstimateV5 extends ExtendedEstimateV4 {
 }
 
 export type ColonyExtensionsV5<T extends ValidColony> = {
-  coinMachineClient?: CoinMachineClient;
   emitDomainReputationPenaltyWithProofs(
     _domainId: BigNumberish,
     _user: string,
     _amount: BigNumberish,
+    overrides?: TransactionOverrides,
+  ): Promise<ContractTransaction>;
+  setUserRolesWithProofs(
+    _user: string,
+    _domainId: BigNumberish,
+    _roles: Arrayish,
     overrides?: TransactionOverrides,
   ): Promise<ContractTransaction>;
   transferStakeWithProofs(
@@ -68,6 +77,28 @@ async function emitDomainReputationPenaltyWithProofs(
     _domainId,
     _user,
     _amount,
+    overrides,
+  );
+}
+
+async function setUserRolesWithProofs(
+  this: ExtendedIColony<ValidColony> & ColonyExtensionsV5<ValidColony>,
+  _user: string,
+  _domainId: BigNumberish,
+  _roles: Arrayish,
+  overrides?: TransactionOverrides,
+): Promise<ContractTransaction> {
+  const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this,
+    _domainId,
+    ColonyRole.Architecture,
+  );
+  return this.setUserRoles(
+    permissionDomainId,
+    childSkillIndex,
+    _user,
+    _domainId,
+    _roles,
     overrides,
   );
 }
@@ -118,6 +149,26 @@ async function estimateEmitDomainReputationPenaltyWithProofs(
   );
 }
 
+async function estimateSetUserRolesWithProofs(
+  this: ExtendedIColony<ValidColony> & ColonyExtensionsV5<ValidColony>,
+  _user: string,
+  _domainId: BigNumberish,
+  _roles: Arrayish,
+): Promise<BigNumber> {
+  const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this,
+    _domainId,
+    ColonyRole.Arbitration,
+  );
+  return this.estimate.setUserRoles(
+    permissionDomainId,
+    childSkillIndex,
+    _user,
+    _domainId,
+    _roles,
+  );
+}
+
 async function estimateTransferStakeWithProofs(
   this: ExtendedIColony<ValidColony> & ColonyExtensionsV5<ValidColony>,
   _obligator: string,
@@ -159,9 +210,10 @@ export const addExtensions = (
     ColonyExtensionsV5<ValidColony>;
 
   /* eslint-disable no-param-reassign, max-len */
-  extendedInstance.coinMachineClient = undefined;
-
   extendedInstance.emitDomainReputationPenaltyWithProofs = emitDomainReputationPenaltyWithProofs.bind(
+    extendedInstance,
+  );
+  extendedInstance.setUserRolesWithProofs = setUserRolesWithProofs.bind(
     extendedInstance,
   );
   extendedInstance.transferStakeWithProofs = transferStakeWithProofs.bind(
@@ -169,6 +221,9 @@ export const addExtensions = (
   );
 
   extendedInstance.estimate.emitDomainReputationPenaltyWithProofs = estimateEmitDomainReputationPenaltyWithProofs.bind(
+    extendedInstance,
+  );
+  extendedInstance.estimate.setUserRolesWithProofs = estimateSetUserRolesWithProofs.bind(
     extendedInstance,
   );
   extendedInstance.estimate.transferStakeWithProofs = estimateTransferStakeWithProofs.bind(
