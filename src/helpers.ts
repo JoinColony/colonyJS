@@ -254,21 +254,15 @@ export const getColonyRoles = async (
 
   const recoveryRoleEvents = await getEvents(client, recoveryRoleSetFilter);
 
-  const oneTxAddress = await client.networkClient.getExtensionInstallation(
-    getExtensionHash(Extension.OneTxPayment),
-    client.address,
-  );
-
   // We construct a map that holds all users with all domains and the roles as Sets
-  const rolesMap: ColonyRolesMap = colonyRoleEvents
-    // Don't show roles of OneTxPayment contracts
-    .filter((event) => event && event.values.user !== oneTxAddress)
-    .reduce((colonyRolesMap: ColonyRolesMap, { values }) => {
+  const rolesMap: ColonyRolesMap = colonyRoleEvents.reduce(
+    (colonyRolesMap: ColonyRolesMap, { values }) => {
       const { user, domainId, role, setTo }: ColonyRoleSetValues = values;
       const domainKey = domainId.toString();
-      if (!colonyRolesMap[user] && setTo) {
+      if (!colonyRolesMap[user]) {
+        const roleSet: Set<ColonyRole> = setTo ? new Set([role]) : new Set();
         // eslint-disable-next-line no-param-reassign
-        colonyRolesMap[user] = { [domainKey]: new Set([role]) };
+        colonyRolesMap[user] = { [domainKey]: roleSet };
       }
       if (!colonyRolesMap[user][domainKey] && setTo) {
         // eslint-disable-next-line no-param-reassign
@@ -280,24 +274,26 @@ export const getColonyRoles = async (
         colonyRolesMap[user][domainKey].delete(role);
       }
       return colonyRolesMap;
-    }, {});
+    },
+    {},
+  );
 
   // OK, now we also collect all the RecoveryRoleSet events for this colony
-  recoveryRoleEvents
-    // Don't show roles of OneTxPayment contracts
-    .filter((event) => event && event.values.user !== oneTxAddress)
-    .forEach(({ values }) => {
-      const { user, setTo }: RecoveryRoleSetValues = values;
-      if (rolesMap[user][ROOT_DOMAIN]) {
-        if (setTo) {
-          rolesMap[user][ROOT_DOMAIN].add(ColonyRole.Recovery);
-        } else {
-          rolesMap[user][ROOT_DOMAIN].delete(ColonyRole.Recovery);
-        }
-      } else if (setTo) {
-        rolesMap[user][ROOT_DOMAIN] = new Set([ColonyRole.Recovery]);
+  recoveryRoleEvents.forEach(({ values }) => {
+    const { user, setTo }: RecoveryRoleSetValues = values;
+    if (rolesMap[user][ROOT_DOMAIN]) {
+      if (setTo) {
+        rolesMap[user][ROOT_DOMAIN].add(ColonyRole.Recovery);
+      } else {
+        rolesMap[user][ROOT_DOMAIN].delete(ColonyRole.Recovery);
       }
-    });
+    } else {
+      const roleSet: Set<ColonyRole> = setTo
+        ? new Set([ColonyRole.Recovery])
+        : new Set();
+      rolesMap[user][ROOT_DOMAIN] = roleSet;
+    }
+  });
   return Object.entries(rolesMap).map(([address, userRoles]) => {
     const domains = Object.entries(userRoles).map(
       ([domainId, domainRoles]) => ({
