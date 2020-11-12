@@ -189,7 +189,7 @@ export type ExtendedIColony<T extends AnyIColony = AnyIColony> = T & {
 
   getMembersReputation(
     skillId: BigNumberish,
-  ): Promise<ReputationOracleResponse>;
+  ): Promise<Omit<ReputationOracleResponse, 'reputationAmount'>>;
 };
 
 export const getPotDomain = async (
@@ -878,8 +878,18 @@ async function getReputation(
 async function getMembersReputation(
   this: ExtendedIColony,
   skillId: BigNumberish,
-): Promise<ReputationOracleResponse> {
-  return this.getReputation(skillId, '');
+): Promise<Omit<ReputationOracleResponse, 'reputationAmount'>> {
+  const { network, reputationOracleEndpoint } = this.networkClient;
+
+  const skillIdString = bigNumberify(skillId).toString();
+
+  const rootHash = await this.networkClient.getReputationRootHash();
+
+  const response = await fetch(
+    `${reputationOracleEndpoint}/${network}/${rootHash}/${this.address}/${skillIdString}`,
+  );
+
+  return response.json();
 };
 
 async function deployTokenAuthority(
