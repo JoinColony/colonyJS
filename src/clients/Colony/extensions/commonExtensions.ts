@@ -186,6 +186,10 @@ export type ExtendedIColony<T extends AnyIColony = AnyIColony> = T & {
     skillId: BigNumberish,
     address: string,
   ): Promise<ReputationOracleResponse>;
+
+  getMembersReputation(
+    skillId: BigNumberish,
+  ): Promise<Omit<ReputationOracleResponse, 'reputationAmount'>>;
 };
 
 export const getPotDomain = async (
@@ -855,10 +859,6 @@ async function getReputation(
 
   const { network, reputationOracleEndpoint } = this.networkClient;
 
-  if (network !== Network.Mainnet && network !== Network.Goerli) {
-    throw new Error('This method is only supported on mainnet and goerli');
-  }
-
   const skillIdString = bigNumberify(skillId).toString();
 
   const rootHash = await this.networkClient.getReputationRootHash();
@@ -874,6 +874,23 @@ async function getReputation(
     reputationAmount: bigNumberify(result.reputationAmount || 0),
   };
 }
+
+async function getMembersReputation(
+  this: ExtendedIColony,
+  skillId: BigNumberish,
+): Promise<Omit<ReputationOracleResponse, 'reputationAmount'>> {
+  const { network, reputationOracleEndpoint } = this.networkClient;
+
+  const skillIdString = bigNumberify(skillId).toString();
+
+  const rootHash = await this.networkClient.getReputationRootHash();
+
+  const response = await fetch(
+    `${reputationOracleEndpoint}/${network}/${rootHash}/${this.address}/${skillIdString}`,
+  );
+
+  return response.json();
+};
 
 async function deployTokenAuthority(
   this: ExtendedIColony,
@@ -990,6 +1007,7 @@ export const addExtensions = <T extends ExtendedIColony>(
   );
 
   instance.getReputation = getReputation.bind(instance);
+  instance.getMembersReputation = getMembersReputation.bind(instance);
 
   /* eslint-enable no-param-reassign, max-len */
   return instance;
