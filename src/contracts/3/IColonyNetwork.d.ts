@@ -234,6 +234,10 @@ interface IColonyNetworkInterface extends Interface {
   };
 
   events: {
+    RecoveryRoleSet: TypedEventDescription<{
+      encodeTopics([user, setTo]: [string | null, null]): string[];
+    }>;
+
     ColonyNetworkInitialised: TypedEventDescription<{
       encodeTopics([resolver]: [null]): string[];
     }>;

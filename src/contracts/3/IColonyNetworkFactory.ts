@@ -135,6 +135,23 @@ const _abi = [
     anonymous: false,
     inputs: [
       {
+        indexed: true,
+        name: "user",
+        type: "address"
+      },
+      {
+        indexed: false,
+        name: "setTo",
+        type: "bool"
+      }
+    ],
+    name: "RecoveryRoleSet",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
         indexed: false,
         name: "resolver",
         type: "address"

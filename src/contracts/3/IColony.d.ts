@@ -503,6 +503,10 @@ interface IColonyInterface extends Interface {
   };
 
   events: {
+    RecoveryRoleSet: TypedEventDescription<{
+      encodeTopics([user, setTo]: [string | null, null]): string[];
+    }>;
+
     ColonyInitialised: TypedEventDescription<{
       encodeTopics([colonyNetwork, token]: [null, null]): string[];
     }>;
