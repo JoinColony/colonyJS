@@ -8,7 +8,6 @@ import {
   ColonyRole,
   ColonyVersion,
   FundingPotAssociatedType,
-  Network,
   ROOT_DOMAIN_ID,
 } from '../../../constants';
 import { ReputationOracleResponse } from '../../../types';
@@ -34,7 +33,12 @@ import {
 } from '../../../contracts/deploy/TokenAuthority.json';
 import { getExtensionHash } from '../../../helpers';
 
-type AnyIColony = IColonyV1 | IColonyV2 | IColonyV3 | IColonyV4 | IColonyV5;
+export type AnyIColony =
+  | IColonyV1
+  | IColonyV2
+  | IColonyV3
+  | IColonyV4
+  | IColonyV5;
 
 export type ExtendedEstimate<
   T extends AnyIColony = AnyIColony
@@ -890,7 +894,7 @@ async function getMembersReputation(
   );
 
   return response.json();
-};
+}
 
 async function deployTokenAuthority(
   this: ExtendedIColony,

@@ -9,7 +9,6 @@ import {
 } from 'ethers/utils';
 
 import {
-  Extension,
   ColonyRole,
   ColonyRoles,
   ColonyVersion,
@@ -22,6 +21,7 @@ import {
   getPotDomain as exGetPotDomain,
   getPermissionProofs as exGetPermissionProofs,
   getMoveFundsPermissionProofs as exGetMoveFundsPermissionProofs,
+  AnyIColony,
 } from './clients/Colony/extensions/commonExtensions';
 
 interface ColonyRolesMap {
@@ -92,7 +92,7 @@ export const getBlockTime = async (
  * @returns ethers Log array
  */
 export const getLogs = async (
-  client: ContractClient,
+  client: ContractClient | AnyIColony,
   filter: Filter,
   options: LogOptions = {
     fromBlock: 1,
@@ -121,7 +121,7 @@ export const getLogs = async (
  * @returns Parsed ethers LogDescription array (events)
  */
 export const getEvents = async (
-  client: ContractClient,
+  client: ContractClient | AnyIColony,
   filter: Filter,
   options?: LogOptions,
 ): Promise<LogDescription[]> => {
@@ -252,7 +252,10 @@ export const getColonyRoles = async (
     null,
   );
 
-  const recoveryRoleEvents = await getEvents(client, recoveryRoleSetFilter);
+  const recoveryRoleEvents = await getEvents(
+    client.awkwardRecoveryRoleEventClient,
+    recoveryRoleSetFilter,
+  );
 
   // We construct a map that holds all users with all domains and the roles as Sets
   const rolesMap: ColonyRolesMap = colonyRoleEvents.reduce(
