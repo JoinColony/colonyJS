@@ -8,7 +8,6 @@ import {
   ColonyRole,
   ColonyVersion,
   FundingPotAssociatedType,
-  Network,
   ROOT_DOMAIN_ID,
 } from '../../../constants';
 import { ReputationOracleResponse } from '../../../types';
@@ -35,6 +34,10 @@ import {
 import { getExtensionHash } from '../../../helpers';
 
 type AnyIColony = IColonyV1 | IColonyV2 | IColonyV3 | IColonyV4 | IColonyV5;
+
+// This is exposed to type the awkward recovery event client which is basically
+// just an IColonyV4
+export type AwkwardRecoveryRoleEventClient = IColonyV4;
 
 export type ExtendedEstimate<
   T extends AnyIColony = AnyIColony
@@ -890,7 +893,7 @@ async function getMembersReputation(
   );
 
   return response.json();
-};
+}
 
 async function deployTokenAuthority(
   this: ExtendedIColony,
