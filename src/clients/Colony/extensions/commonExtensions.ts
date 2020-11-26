@@ -33,12 +33,11 @@ import {
 } from '../../../contracts/deploy/TokenAuthority.json';
 import { getExtensionHash } from '../../../helpers';
 
-export type AnyIColony =
-  | IColonyV1
-  | IColonyV2
-  | IColonyV3
-  | IColonyV4
-  | IColonyV5;
+type AnyIColony = IColonyV1 | IColonyV2 | IColonyV3 | IColonyV4 | IColonyV5;
+
+// This is exposed to type the awkward recovery event client which is basically
+// just an IColonyV4
+export type AwkwardRecoveryRoleEventClient = IColonyV4;
 
 export type ExtendedEstimate<
   T extends AnyIColony = AnyIColony

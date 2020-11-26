@@ -21,7 +21,7 @@ import {
   getPotDomain as exGetPotDomain,
   getPermissionProofs as exGetPermissionProofs,
   getMoveFundsPermissionProofs as exGetMoveFundsPermissionProofs,
-  AnyIColony,
+  AwkwardRecoveryRoleEventClient,
 } from './clients/Colony/extensions/commonExtensions';
 
 interface ColonyRolesMap {
@@ -92,7 +92,7 @@ export const getBlockTime = async (
  * @returns ethers Log array
  */
 export const getLogs = async (
-  client: ContractClient | AnyIColony,
+  client: ContractClient | AwkwardRecoveryRoleEventClient,
   filter: Filter,
   options: LogOptions = {
     fromBlock: 1,
@@ -121,7 +121,7 @@ export const getLogs = async (
  * @returns Parsed ethers LogDescription array (events)
  */
 export const getEvents = async (
-  client: ContractClient | AnyIColony,
+  client: ContractClient | AwkwardRecoveryRoleEventClient,
   filter: Filter,
   options?: LogOptions,
 ): Promise<LogDescription[]> => {
