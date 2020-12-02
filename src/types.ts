@@ -33,3 +33,7 @@ export interface ReputationOracleResponse {
   value: string;
   reputationAmount: BigNumber;
 }
+
+export interface ReputationOracleAllMembersResponse {
+  addresses: string[];
+}

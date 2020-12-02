@@ -10,7 +10,10 @@ import {
   FundingPotAssociatedType,
   ROOT_DOMAIN_ID,
 } from '../../../constants';
-import { ReputationOracleResponse } from '../../../types';
+import {
+  ReputationOracleResponse,
+  ReputationOracleAllMembersResponse,
+} from '../../../types';
 
 import { IColony as IColonyV1 } from '../../../contracts/1/IColony';
 import { IColony as IColonyV2 } from '../../../contracts/2/IColony';
@@ -192,7 +195,7 @@ export type ExtendedIColony<T extends AnyIColony = AnyIColony> = T & {
 
   getMembersReputation(
     skillId: BigNumberish,
-  ): Promise<Omit<ReputationOracleResponse, 'reputationAmount'>>;
+  ): Promise<ReputationOracleAllMembersResponse>;
 };
 
 export const getPotDomain = async (
@@ -881,7 +884,7 @@ async function getReputation(
 async function getMembersReputation(
   this: ExtendedIColony,
   skillId: BigNumberish,
-): Promise<Omit<ReputationOracleResponse, 'reputationAmount'>> {
+): Promise<ReputationOracleAllMembersResponse> {
   const { network, reputationOracleEndpoint } = this.networkClient;
 
   const skillIdString = bigNumberify(skillId).toString();
