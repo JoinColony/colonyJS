@@ -71,25 +71,31 @@ To do that:
 
 1) Make sure you are using **the exact same node version in colonyJS and the Dapp**. Use nvm if possible
 
-2) Build colonyJS. In the colonyJS directory do:
+2) Update the required submodules:
+
+```shell
+git submodule update --init --recursive
+```
+
+3) Build colonyJS. In the colonyJS directory do:
 
 ```shell
 npm run build
 ```
 
-3) Create an `npm link` in the colonyJS directory:
+4) Create an `npm link` in the colonyJS directory:
 
 ```shell
 npm link
 ```
 
-4) Link to it in the **Dapp** directory:
+5) Link to it in the **Dapp** directory:
 
 ```shell
 npm link @colony/colony-js
 ```
 
-5) Then do a regular install in the Dapp directory:
+6) Then do a regular install in the Dapp directory:
 
 ```shell
 npm install
@@ -141,7 +147,7 @@ git push && git push --tags
 7) Publish on npm:
 
 ```
-npm publish --access=public 
+npm publish --access=public
 ```
 
 Done 🎊
