@@ -99,6 +99,8 @@ interface OneTxPaymentInterface extends Interface {
     LogSetOwner: TypedEventDescription<{
       encodeTopics([owner]: [string | null]): string[];
     }>;
+
+    OneTxPaymentMade: TypedEventDescription<{ encodeTopics([]: []): string[] }>;
   };
 }
 
@@ -338,6 +340,8 @@ export class OneTxPayment extends Contract {
     LogSetAuthority(authority: string | null): EventFilter;
 
     LogSetOwner(owner: string | null): EventFilter;
+
+    OneTxPaymentMade(): EventFilter;
   };
 
   estimate: {

@@ -285,6 +285,45 @@ const _abi = [
     anonymous: false,
     inputs: [
       {
+        indexed: false,
+        internalType: "address",
+        name: "user",
+        type: "address"
+      }
+    ],
+    name: "RecoveryModeEntered",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "user",
+        type: "address"
+      }
+    ],
+    name: "RecoveryModeExitApproved",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "user",
+        type: "address"
+      }
+    ],
+    name: "RecoveryModeExited",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
         indexed: true,
         internalType: "address",
         name: "user",
@@ -298,6 +337,31 @@ const _abi = [
       }
     ],
     name: "RecoveryRoleSet",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "slot",
+        type: "uint256"
+      },
+      {
+        indexed: false,
+        internalType: "bytes32",
+        name: "fromValue",
+        type: "bytes32"
+      },
+      {
+        indexed: false,
+        internalType: "bytes32",
+        name: "toValue",
+        type: "bytes32"
+      }
+    ],
+    name: "RecoveryStorageSlotSet",
     type: "event"
   },
   {
@@ -412,6 +476,25 @@ const _abi = [
       }
     ],
     name: "TokenLockingAddressSet",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "token",
+        type: "address"
+      },
+      {
+        indexed: false,
+        internalType: "bool",
+        name: "status",
+        type: "bool"
+      }
+    ],
+    name: "TokenWhitelisted",
     type: "event"
   },
   {
@@ -901,6 +984,40 @@ const _abi = [
         internalType: "address",
         name: "_tokenAddress",
         type: "address"
+      }
+    ],
+    name: "createColony",
+    outputs: [
+      {
+        internalType: "address",
+        name: "colonyAddress",
+        type: "address"
+      }
+    ],
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_tokenAddress",
+        type: "address"
+      },
+      {
+        internalType: "uint256",
+        name: "_version",
+        type: "uint256"
+      },
+      {
+        internalType: "string",
+        name: "_colonyName",
+        type: "string"
+      },
+      {
+        internalType: "string",
+        name: "_metadata",
+        type: "string"
       }
     ],
     name: "createColony",
@@ -1608,6 +1725,43 @@ const _abi = [
       }
     ],
     name: "setFeeInverse",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_token",
+        type: "address"
+      }
+    ],
+    name: "getPayoutWhitelist",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "status",
+        type: "bool"
+      }
+    ],
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_token",
+        type: "address"
+      },
+      {
+        internalType: "bool",
+        name: "_status",
+        type: "bool"
+      }
+    ],
+    name: "setPayoutWhitelist",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function"

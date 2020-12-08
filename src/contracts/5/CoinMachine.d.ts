@@ -45,9 +45,11 @@ interface CoinMachineInterface extends Interface {
         _windowSize,
         _targetPerPeriod,
         _maxPerPeriod,
+        _tokensToSell,
         _startingPrice
       ]: [
         string,
+        BigNumberish,
         BigNumberish,
         BigNumberish,
         BigNumberish,
@@ -69,6 +71,8 @@ interface CoinMachineInterface extends Interface {
     getTargetPerPeriod: TypedFunctionDescription<{ encode([]: []): string }>;
 
     getMaxPerPeriod: TypedFunctionDescription<{ encode([]: []): string }>;
+
+    getTokensToSell: TypedFunctionDescription<{ encode([]: []): string }>;
 
     getCurrentPrice: TypedFunctionDescription<{ encode([]: []): string }>;
 
@@ -182,6 +186,7 @@ export class CoinMachine extends Contract {
       _windowSize: BigNumberish,
       _targetPerPeriod: BigNumberish,
       _maxPerPeriod: BigNumberish,
+      _tokensToSell: BigNumberish,
       _startingPrice: BigNumberish,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
@@ -221,6 +226,11 @@ export class CoinMachine extends Contract {
      * Get the maximum number of tokens to sell per period
      */
     getMaxPerPeriod(): Promise<BigNumber>;
+
+    /**
+     * Get the total number of tokens remaining for sale
+     */
+    getTokensToSell(): Promise<BigNumber>;
 
     /**
      * Get the current price per token
@@ -301,6 +311,7 @@ export class CoinMachine extends Contract {
     _windowSize: BigNumberish,
     _targetPerPeriod: BigNumberish,
     _maxPerPeriod: BigNumberish,
+    _tokensToSell: BigNumberish,
     _startingPrice: BigNumberish,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
@@ -338,6 +349,11 @@ export class CoinMachine extends Contract {
    * Get the maximum number of tokens to sell per period
    */
   getMaxPerPeriod(): Promise<BigNumber>;
+
+  /**
+   * Get the total number of tokens remaining for sale
+   */
+  getTokensToSell(): Promise<BigNumber>;
 
   /**
    * Get the current price per token
@@ -390,6 +406,7 @@ export class CoinMachine extends Contract {
       _windowSize: BigNumberish,
       _targetPerPeriod: BigNumberish,
       _maxPerPeriod: BigNumberish,
+      _tokensToSell: BigNumberish,
       _startingPrice: BigNumberish
     ): Promise<BigNumber>;
 
@@ -404,6 +421,8 @@ export class CoinMachine extends Contract {
     getTargetPerPeriod(): Promise<BigNumber>;
 
     getMaxPerPeriod(): Promise<BigNumber>;
+
+    getTokensToSell(): Promise<BigNumber>;
 
     getCurrentPrice(): Promise<BigNumber>;
 

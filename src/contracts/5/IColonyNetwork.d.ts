@@ -263,6 +263,14 @@ interface IColonyNetworkInterface extends Interface {
       encode([_feeInverse]: [BigNumberish]): string;
     }>;
 
+    getPayoutWhitelist: TypedFunctionDescription<{
+      encode([_token]: [string]): string;
+    }>;
+
+    setPayoutWhitelist: TypedFunctionDescription<{
+      encode([_token, _status]: [string, boolean]): string;
+    }>;
+
     punishStakers: TypedFunctionDescription<{
       encode([_stakers, _amount]: [string[], BigNumberish]): string;
     }>;
@@ -388,8 +396,24 @@ interface IColonyNetworkInterface extends Interface {
       encodeTopics([feeInverse]: [null]): string[];
     }>;
 
+    RecoveryModeEntered: TypedEventDescription<{
+      encodeTopics([user]: [null]): string[];
+    }>;
+
+    RecoveryModeExitApproved: TypedEventDescription<{
+      encodeTopics([user]: [null]): string[];
+    }>;
+
+    RecoveryModeExited: TypedEventDescription<{
+      encodeTopics([user]: [null]): string[];
+    }>;
+
     RecoveryRoleSet: TypedEventDescription<{
       encodeTopics([user, setTo]: [string | null, null]): string[];
+    }>;
+
+    RecoveryStorageSlotSet: TypedEventDescription<{
+      encodeTopics([slot, fromValue, toValue]: [null, null, null]): string[];
     }>;
 
     ReputationMinerPenalised: TypedEventDescription<{
@@ -419,6 +443,10 @@ interface IColonyNetworkInterface extends Interface {
 
     TokenLockingAddressSet: TypedEventDescription<{
       encodeTopics([tokenLocking]: [null]): string[];
+    }>;
+
+    TokenWhitelisted: TypedEventDescription<{
+      encodeTopics([token, status]: [null, null]): string[];
     }>;
 
     UserLabelRegistered: TypedEventDescription<{
@@ -684,6 +712,22 @@ export class IColonyNetwork extends Contract {
      */
     "createColony(address)"(
       _tokenAddress: string,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * For the colony to mint tokens, token ownership must be transferred to the new colonyWe expect this function to only be used by the dapp
+     * Creates a new colony in the network, with an optional ENS name
+     * @param _colonyName The label to register (if null, no label is registered)
+     * @param _metadata The metadata associated with the new colony
+     * @param _tokenAddress Address of an ERC20 token to serve as the colony token
+     * @param _version The version of colony to deploy (pass 0 for the current version)
+     */
+    "createColony(address,uint256,string,string)"(
+      _tokenAddress: string,
+      _version: BigNumberish,
+      _colonyName: string,
+      _metadata: string,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
@@ -1036,6 +1080,23 @@ export class IColonyNetwork extends Contract {
      */
     setFeeInverse(
       _feeInverse: BigNumberish,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Get a token's status in the payout whitelist
+     * @param _token The token being queried
+     */
+    getPayoutWhitelist(_token: string): Promise<boolean>;
+
+    /**
+     * Set a token's status in the payout whitelist
+     * @param _status The whitelist status
+     * @param _token The token being set
+     */
+    setPayoutWhitelist(
+      _token: string,
+      _status: boolean,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
@@ -1395,6 +1456,22 @@ export class IColonyNetwork extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
+   * For the colony to mint tokens, token ownership must be transferred to the new colonyWe expect this function to only be used by the dapp
+   * Creates a new colony in the network, with an optional ENS name
+   * @param _colonyName The label to register (if null, no label is registered)
+   * @param _metadata The metadata associated with the new colony
+   * @param _tokenAddress Address of an ERC20 token to serve as the colony token
+   * @param _version The version of colony to deploy (pass 0 for the current version)
+   */
+  "createColony(address,uint256,string,string)"(
+    _tokenAddress: string,
+    _version: BigNumberish,
+    _colonyName: string,
+    _metadata: string,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
    * For the colony to mint tokens, token ownership must be transferred to the new colony
    * Creates a new colony in the network, with an optional ENS name
    * @param _colonyName The label to register (if null, no label is registered)
@@ -1747,6 +1824,23 @@ export class IColonyNetwork extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
+   * Get a token's status in the payout whitelist
+   * @param _token The token being queried
+   */
+  getPayoutWhitelist(_token: string): Promise<boolean>;
+
+  /**
+   * Set a token's status in the payout whitelist
+   * @param _status The whitelist status
+   * @param _token The token being set
+   */
+  setPayoutWhitelist(
+    _token: string,
+    _status: boolean,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
    * While external, it can only be called successfully by the current ReputationMiningCycle.
    * Function called to punish people who staked against a new reputation root hash that turned out to be incorrect.
    * @param _amount Amount of stake to slash
@@ -1910,7 +2004,19 @@ export class IColonyNetwork extends Contract {
 
     NetworkFeeInverseSet(feeInverse: null): EventFilter;
 
+    RecoveryModeEntered(user: null): EventFilter;
+
+    RecoveryModeExitApproved(user: null): EventFilter;
+
+    RecoveryModeExited(user: null): EventFilter;
+
     RecoveryRoleSet(user: string | null, setTo: null): EventFilter;
+
+    RecoveryStorageSlotSet(
+      slot: null,
+      fromValue: null,
+      toValue: null
+    ): EventFilter;
 
     ReputationMinerPenalised(miner: null, tokensLost: null): EventFilter;
 
@@ -1930,6 +2036,8 @@ export class IColonyNetwork extends Contract {
     SkillAdded(skillId: null, parentSkillId: null): EventFilter;
 
     TokenLockingAddressSet(tokenLocking: null): EventFilter;
+
+    TokenWhitelisted(token: null, status: null): EventFilter;
 
     UserLabelRegistered(user: string | null, label: null): EventFilter;
   };
@@ -2118,6 +2226,10 @@ export class IColonyNetwork extends Contract {
     getFeeInverse(): Promise<BigNumber>;
 
     setFeeInverse(_feeInverse: BigNumberish): Promise<BigNumber>;
+
+    getPayoutWhitelist(_token: string): Promise<BigNumber>;
+
+    setPayoutWhitelist(_token: string, _status: boolean): Promise<BigNumber>;
 
     punishStakers(
       _stakers: string[],

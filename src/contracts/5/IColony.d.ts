@@ -175,6 +175,10 @@ interface IColonyInterface extends Interface {
       encode([_colonyNetworkAddress, _token]: [string, string]): string;
     }>;
 
+    editColony: TypedFunctionDescription<{
+      encode([_metadata]: [string]): string;
+    }>;
+
     bootstrapColony: TypedFunctionDescription<{
       encode([_users, _amount]: [string[], BigNumberish[]]): string;
     }>;
@@ -216,6 +220,15 @@ interface IColonyInterface extends Interface {
         BigNumberish,
         BigNumberish,
         BigNumberish
+      ]): string;
+    }>;
+
+    editDomain: TypedFunctionDescription<{
+      encode([_permissionDomainId, _childSkillIndex, _domainId, _metadata]: [
+        BigNumberish,
+        BigNumberish,
+        BigNumberish,
+        string
       ]): string;
     }>;
 
@@ -784,6 +797,10 @@ interface IColonyInterface extends Interface {
       encodeTopics([colonyNetwork, token]: [null, null]): string[];
     }>;
 
+    ColonyMetadata: TypedEventDescription<{
+      encodeTopics([metadata]: [null]): string[];
+    }>;
+
     ColonyRewardInverseSet: TypedEventDescription<{
       encodeTopics([rewardInverse]: [null]): string[];
     }>;
@@ -803,6 +820,10 @@ interface IColonyInterface extends Interface {
 
     DomainAdded: TypedEventDescription<{
       encodeTopics([domainId]: [null]): string[];
+    }>;
+
+    DomainMetadata: TypedEventDescription<{
+      encodeTopics([domainId, metadata]: [BigNumberish | null, null]): string[];
     }>;
 
     ExpenditureAdded: TypedEventDescription<{
@@ -865,8 +886,24 @@ interface IColonyInterface extends Interface {
       ]): string[];
     }>;
 
+    RecoveryModeEntered: TypedEventDescription<{
+      encodeTopics([user]: [null]): string[];
+    }>;
+
+    RecoveryModeExitApproved: TypedEventDescription<{
+      encodeTopics([user]: [null]): string[];
+    }>;
+
+    RecoveryModeExited: TypedEventDescription<{
+      encodeTopics([user]: [null]): string[];
+    }>;
+
     RecoveryRoleSet: TypedEventDescription<{
       encodeTopics([user, setTo]: [string | null, null]): string[];
+    }>;
+
+    RecoveryStorageSlotSet: TypedEventDescription<{
+      encodeTopics([slot, fromValue, toValue]: [null, null, null]): string[];
     }>;
 
     RewardPayoutClaimed: TypedEventDescription<{
@@ -950,6 +987,10 @@ interface IColonyInterface extends Interface {
         null,
         null
       ]): string[];
+    }>;
+
+    TokensMinted: TypedEventDescription<{
+      encodeTopics([who, amount]: [null, null]): string[];
     }>;
   };
 }
@@ -1286,6 +1327,15 @@ export class IColony extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
+     * Called to change the metadata associated with a colony. Expected to be a IPFS hash of a JSON blob, but not enforced to any degree by the contracts
+     * @param _metadata IPFS hash of the metadata
+     */
+    editColony(
+      _metadata: string,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
      * Only allowed to be called when `taskCount` is `0` by authorized addresses.
      * Allows the colony to bootstrap itself by having initial reputation and token `_amount` assigned to `_users`. This reputation is assigned in the colony-wide domain. Secured function to authorised members.
      * @param _amount Amount of reputation/tokens for every address
@@ -1387,10 +1437,41 @@ export class IColony extends Contract {
      * @param _parentDomainId Id of the domain under which the new one will be added
      * @param _permissionDomainId The domainId in which I have the permission to take this action
      */
-    addDomain(
+    "addDomain(uint256,uint256,uint256)"(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
       _parentDomainId: BigNumberish,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Adding new domains is currently retricted to one level only, i.e. `_parentDomainId` has to be the root domain id: `1`.We expect this function to only be used by the dapp
+     * Add a colony domain, and its respective local skill under skill with id `_parentSkillId`. New funding pot is created and associated with the domain here.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _metadata Metadata relating to the domain. Expected to be the IPFS hash of a JSON blob, but not enforced by the contracts.
+     * @param _parentDomainId Id of the domain under which the new one will be added
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     */
+    "addDomain(uint256,uint256,uint256,string)"(
+      _permissionDomainId: BigNumberish,
+      _childSkillIndex: BigNumberish,
+      _parentDomainId: BigNumberish,
+      _metadata: string,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Add a colony domain, and its respective local skill under skill with id `_parentSkillId`. New funding pot is created and associated with the domain here.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _domainId Id of the domain being edited
+     * @param _metadata Metadata relating to the domain. Expected to be the IPFS hash of a JSON blob, but not enforced by the contracts.
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     */
+    editDomain(
+      _permissionDomainId: BigNumberish,
+      _childSkillIndex: BigNumberish,
+      _domainId: BigNumberish,
+      _metadata: string,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
@@ -2736,6 +2817,15 @@ export class IColony extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
+   * Called to change the metadata associated with a colony. Expected to be a IPFS hash of a JSON blob, but not enforced to any degree by the contracts
+   * @param _metadata IPFS hash of the metadata
+   */
+  editColony(
+    _metadata: string,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
    * Only allowed to be called when `taskCount` is `0` by authorized addresses.
    * Allows the colony to bootstrap itself by having initial reputation and token `_amount` assigned to `_users`. This reputation is assigned in the colony-wide domain. Secured function to authorised members.
    * @param _amount Amount of reputation/tokens for every address
@@ -2837,10 +2927,41 @@ export class IColony extends Contract {
    * @param _parentDomainId Id of the domain under which the new one will be added
    * @param _permissionDomainId The domainId in which I have the permission to take this action
    */
-  addDomain(
+  "addDomain(uint256,uint256,uint256)"(
     _permissionDomainId: BigNumberish,
     _childSkillIndex: BigNumberish,
     _parentDomainId: BigNumberish,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * Adding new domains is currently retricted to one level only, i.e. `_parentDomainId` has to be the root domain id: `1`.We expect this function to only be used by the dapp
+   * Add a colony domain, and its respective local skill under skill with id `_parentSkillId`. New funding pot is created and associated with the domain here.
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+   * @param _metadata Metadata relating to the domain. Expected to be the IPFS hash of a JSON blob, but not enforced by the contracts.
+   * @param _parentDomainId Id of the domain under which the new one will be added
+   * @param _permissionDomainId The domainId in which I have the permission to take this action
+   */
+  "addDomain(uint256,uint256,uint256,string)"(
+    _permissionDomainId: BigNumberish,
+    _childSkillIndex: BigNumberish,
+    _parentDomainId: BigNumberish,
+    _metadata: string,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * Add a colony domain, and its respective local skill under skill with id `_parentSkillId`. New funding pot is created and associated with the domain here.
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+   * @param _domainId Id of the domain being edited
+   * @param _metadata Metadata relating to the domain. Expected to be the IPFS hash of a JSON blob, but not enforced by the contracts.
+   * @param _permissionDomainId The domainId in which I have the permission to take this action
+   */
+  editDomain(
+    _permissionDomainId: BigNumberish,
+    _childSkillIndex: BigNumberish,
+    _domainId: BigNumberish,
+    _metadata: string,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
@@ -3884,6 +4005,8 @@ export class IColony extends Contract {
 
     ColonyInitialised(colonyNetwork: null, token: null): EventFilter;
 
+    ColonyMetadata(metadata: null): EventFilter;
+
     ColonyRewardInverseSet(rewardInverse: null): EventFilter;
 
     ColonyRoleSet(
@@ -3896,6 +4019,8 @@ export class IColony extends Contract {
     ColonyUpgraded(oldVersion: null, newVersion: null): EventFilter;
 
     DomainAdded(domainId: null): EventFilter;
+
+    DomainMetadata(domainId: BigNumberish | null, metadata: null): EventFilter;
 
     ExpenditureAdded(expenditureId: null): EventFilter;
 
@@ -3937,7 +4062,19 @@ export class IColony extends Contract {
       amount: null
     ): EventFilter;
 
+    RecoveryModeEntered(user: null): EventFilter;
+
+    RecoveryModeExitApproved(user: null): EventFilter;
+
+    RecoveryModeExited(user: null): EventFilter;
+
     RecoveryRoleSet(user: string | null, setTo: null): EventFilter;
+
+    RecoveryStorageSlotSet(
+      slot: null,
+      fromValue: null,
+      toValue: null
+    ): EventFilter;
 
     RewardPayoutClaimed(
       rewardPayoutId: null,
@@ -3993,6 +4130,8 @@ export class IColony extends Contract {
       role: null,
       rating: null
     ): EventFilter;
+
+    TokensMinted(who: null, amount: null): EventFilter;
   };
 
   estimate: {
@@ -4124,6 +4263,8 @@ export class IColony extends Contract {
       _token: string
     ): Promise<BigNumber>;
 
+    editColony(_metadata: string): Promise<BigNumber>;
+
     bootstrapColony(
       _users: string[],
       _amount: BigNumberish[]
@@ -4161,6 +4302,13 @@ export class IColony extends Contract {
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
       _parentDomainId: BigNumberish
+    ): Promise<BigNumber>;
+
+    editDomain(
+      _permissionDomainId: BigNumberish,
+      _childSkillIndex: BigNumberish,
+      _domainId: BigNumberish,
+      _metadata: string
     ): Promise<BigNumber>;
 
     getDomain(_id: BigNumberish): Promise<BigNumber>;

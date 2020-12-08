@@ -115,6 +115,19 @@ const _abi = [
     inputs: [
       {
         indexed: false,
+        internalType: "string",
+        name: "metadata",
+        type: "string"
+      }
+    ],
+    name: "ColonyMetadata",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
         internalType: "uint256",
         name: "rewardInverse",
         type: "uint256"
@@ -184,6 +197,25 @@ const _abi = [
       }
     ],
     name: "DomainAdded",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "domainId",
+        type: "uint256"
+      },
+      {
+        indexed: false,
+        internalType: "string",
+        name: "metadata",
+        type: "string"
+      }
+    ],
+    name: "DomainMetadata",
     type: "event"
   },
   {
@@ -380,6 +412,45 @@ const _abi = [
     anonymous: false,
     inputs: [
       {
+        indexed: false,
+        internalType: "address",
+        name: "user",
+        type: "address"
+      }
+    ],
+    name: "RecoveryModeEntered",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "user",
+        type: "address"
+      }
+    ],
+    name: "RecoveryModeExitApproved",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "user",
+        type: "address"
+      }
+    ],
+    name: "RecoveryModeExited",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
         indexed: true,
         internalType: "address",
         name: "user",
@@ -393,6 +464,31 @@ const _abi = [
       }
     ],
     name: "RecoveryRoleSet",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "slot",
+        type: "uint256"
+      },
+      {
+        indexed: false,
+        internalType: "bytes32",
+        name: "fromValue",
+        type: "bytes32"
+      },
+      {
+        indexed: false,
+        internalType: "bytes32",
+        name: "toValue",
+        type: "bytes32"
+      }
+    ],
+    name: "RecoveryStorageSlotSet",
     type: "event"
   },
   {
@@ -659,6 +755,25 @@ const _abi = [
       }
     ],
     name: "TaskWorkRatingRevealed",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "who",
+        type: "address"
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256"
+      }
+    ],
+    name: "TokensMinted",
     type: "event"
   },
   {
@@ -1279,6 +1394,19 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: "string",
+        name: "_metadata",
+        type: "string"
+      }
+    ],
+    name: "editColony",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
         internalType: "address[]",
         name: "_users",
         type: "address[]"
@@ -1442,6 +1570,62 @@ const _abi = [
       }
     ],
     name: "addDomain",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_permissionDomainId",
+        type: "uint256"
+      },
+      {
+        internalType: "uint256",
+        name: "_childSkillIndex",
+        type: "uint256"
+      },
+      {
+        internalType: "uint256",
+        name: "_parentDomainId",
+        type: "uint256"
+      },
+      {
+        internalType: "string",
+        name: "_metadata",
+        type: "string"
+      }
+    ],
+    name: "addDomain",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_permissionDomainId",
+        type: "uint256"
+      },
+      {
+        internalType: "uint256",
+        name: "_childSkillIndex",
+        type: "uint256"
+      },
+      {
+        internalType: "uint256",
+        name: "_domainId",
+        type: "uint256"
+      },
+      {
+        internalType: "string",
+        name: "_metadata",
+        type: "string"
+      }
+    ],
+    name: "editDomain",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function"
