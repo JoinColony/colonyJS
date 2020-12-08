@@ -110,7 +110,7 @@ export type ExtendedIColony<T extends AnyIColony = AnyIColony> = T & {
   networkClient: ColonyNetworkClient;
   tokenClient: TokenClient;
 
-  awkwardRecoveryRoleEventClient: IColonyV4 | IColonyV5;
+  awkwardRecoveryRoleEventClient: AwkwardRecoveryRoleEventClient;
 
   getExtensionClient(
     this: ExtendedIColony,
