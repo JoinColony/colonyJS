@@ -14,6 +14,8 @@ interface CoinMachineInterface extends Interface {
   functions: {
     authority: TypedFunctionDescription<{ encode([]: []): string }>;
 
+    getColony: TypedFunctionDescription<{ encode([]: []): string }>;
+
     getDeprecated: TypedFunctionDescription<{ encode([]: []): string }>;
 
     owner: TypedFunctionDescription<{ encode([]: []): string }>;
@@ -117,6 +119,8 @@ export class CoinMachine extends Contract {
 
   functions: {
     authority(): Promise<string>;
+
+    getColony(): Promise<string>;
 
     getDeprecated(): Promise<boolean>;
 
@@ -244,6 +248,8 @@ export class CoinMachine extends Contract {
   };
 
   authority(): Promise<string>;
+
+  getColony(): Promise<string>;
 
   getDeprecated(): Promise<boolean>;
 
@@ -379,6 +385,8 @@ export class CoinMachine extends Contract {
 
   estimate: {
     authority(): Promise<BigNumber>;
+
+    getColony(): Promise<BigNumber>;
 
     getDeprecated(): Promise<BigNumber>;
 

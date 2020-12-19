@@ -58,6 +58,10 @@ interface IColonyInterface extends Interface {
       encode([_to, _action]: [string, Arrayish]): string;
     }>;
 
+    annotateTransaction: TypedFunctionDescription<{
+      encode([_txHash, _metadata]: [Arrayish, string]): string;
+    }>;
+
     setRootRole: TypedFunctionDescription<{
       encode([_user, _setTo]: [string, boolean]): string;
     }>;
@@ -776,6 +780,14 @@ interface IColonyInterface extends Interface {
   };
 
   events: {
+    Annotation: TypedEventDescription<{
+      encodeTopics([agent, txHash, metadata]: [
+        string | null,
+        Arrayish | null,
+        null
+      ]): string[];
+    }>;
+
     ColonyBootstrapped: TypedEventDescription<{
       encodeTopics([users, amounts]: [null, null]): string[];
     }>;
@@ -876,6 +888,29 @@ interface IColonyInterface extends Interface {
 
     PaymentAdded: TypedEventDescription<{
       encodeTopics([paymentId]: [null]): string[];
+    }>;
+
+    PaymentFinalized: TypedEventDescription<{
+      encodeTopics([paymentId]: [BigNumberish | null]): string[];
+    }>;
+
+    PaymentPayoutSet: TypedEventDescription<{
+      encodeTopics([paymentId, token, amount]: [
+        BigNumberish | null,
+        null,
+        null
+      ]): string[];
+    }>;
+
+    PaymentRecipientSet: TypedEventDescription<{
+      encodeTopics([paymentId, recipient]: [
+        BigNumberish | null,
+        null
+      ]): string[];
+    }>;
+
+    PaymentSkillSet: TypedEventDescription<{
+      encodeTopics([paymentId, skillId]: [BigNumberish | null, null]): string[];
     }>;
 
     PayoutClaimed: TypedEventDescription<{
@@ -1130,6 +1165,17 @@ export class IColony extends Contract {
     makeArbitraryTransaction(
       _to: string,
       _action: Arrayish,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Emit a metadata string for a transaction
+     * @param _metadata String of metadata for tx
+     * @param _txHash Hash of transaction being annotated (0x0 for current tx)
+     */
+    annotateTransaction(
+      _txHash: Arrayish,
+      _metadata: string,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
@@ -2624,6 +2670,17 @@ export class IColony extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
+   * Emit a metadata string for a transaction
+   * @param _metadata String of metadata for tx
+   * @param _txHash Hash of transaction being annotated (0x0 for current tx)
+   */
+  annotateTransaction(
+    _txHash: Arrayish,
+    _metadata: string,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
    * Set new colony root role. Can be called by root role only.
    * @param _setTo The state of the role permission (true assign the permission, false revokes it)
    * @param _user User we want to give an root role to
@@ -3988,6 +4045,12 @@ export class IColony extends Contract {
   getDomainFromFundingPot(_fundingPotId: BigNumberish): Promise<BigNumber>;
 
   filters: {
+    Annotation(
+      agent: string | null,
+      txHash: Arrayish | null,
+      metadata: null
+    ): EventFilter;
+
     ColonyBootstrapped(users: null, amounts: null): EventFilter;
 
     ColonyFundsClaimed(
@@ -4055,6 +4118,21 @@ export class IColony extends Contract {
     FundingPotAdded(fundingPotId: null): EventFilter;
 
     PaymentAdded(paymentId: null): EventFilter;
+
+    PaymentFinalized(paymentId: BigNumberish | null): EventFilter;
+
+    PaymentPayoutSet(
+      paymentId: BigNumberish | null,
+      token: null,
+      amount: null
+    ): EventFilter;
+
+    PaymentRecipientSet(
+      paymentId: BigNumberish | null,
+      recipient: null
+    ): EventFilter;
+
+    PaymentSkillSet(paymentId: BigNumberish | null, skillId: null): EventFilter;
 
     PayoutClaimed(
       fundingPotId: BigNumberish | null,
@@ -4175,6 +4253,11 @@ export class IColony extends Contract {
     makeArbitraryTransaction(
       _to: string,
       _action: Arrayish
+    ): Promise<BigNumber>;
+
+    annotateTransaction(
+      _txHash: Arrayish,
+      _metadata: string
     ): Promise<BigNumber>;
 
     setRootRole(_user: string, _setTo: boolean): Promise<BigNumber>;

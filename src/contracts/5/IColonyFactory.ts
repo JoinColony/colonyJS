@@ -20,6 +20,31 @@ const _abi = [
     anonymous: false,
     inputs: [
       {
+        indexed: true,
+        internalType: "address",
+        name: "agent",
+        type: "address"
+      },
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "txHash",
+        type: "bytes32"
+      },
+      {
+        indexed: false,
+        internalType: "string",
+        name: "metadata",
+        type: "string"
+      }
+    ],
+    name: "Annotation",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
         indexed: false,
         internalType: "address[]",
         name: "users",
@@ -381,6 +406,82 @@ const _abi = [
       }
     ],
     name: "PaymentAdded",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "paymentId",
+        type: "uint256"
+      }
+    ],
+    name: "PaymentFinalized",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "paymentId",
+        type: "uint256"
+      },
+      {
+        indexed: false,
+        internalType: "address",
+        name: "token",
+        type: "address"
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256"
+      }
+    ],
+    name: "PaymentPayoutSet",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "paymentId",
+        type: "uint256"
+      },
+      {
+        indexed: false,
+        internalType: "address",
+        name: "recipient",
+        type: "address"
+      }
+    ],
+    name: "PaymentRecipientSet",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "paymentId",
+        type: "uint256"
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "skillId",
+        type: "uint256"
+      }
+    ],
+    name: "PaymentSkillSet",
     type: "event"
   },
   {
@@ -986,6 +1087,24 @@ const _abi = [
         type: "bool"
       }
     ],
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "_txHash",
+        type: "bytes32"
+      },
+      {
+        internalType: "string",
+        name: "_metadata",
+        type: "string"
+      }
+    ],
+    name: "annotateTransaction",
+    outputs: [],
     stateMutability: "nonpayable",
     type: "function"
   },

@@ -14,6 +14,8 @@ interface OneTxPaymentInterface extends Interface {
   functions: {
     authority: TypedFunctionDescription<{ encode([]: []): string }>;
 
+    getColony: TypedFunctionDescription<{ encode([]: []): string }>;
+
     getDeprecated: TypedFunctionDescription<{ encode([]: []): string }>;
 
     owner: TypedFunctionDescription<{ encode([]: []): string }>;
@@ -100,7 +102,13 @@ interface OneTxPaymentInterface extends Interface {
       encodeTopics([owner]: [string | null]): string[];
     }>;
 
-    OneTxPaymentMade: TypedEventDescription<{ encodeTopics([]: []): string[] }>;
+    OneTxPaymentMade: TypedEventDescription<{
+      encodeTopics([agent, fundamentalId, nPayouts]: [
+        null,
+        null,
+        null
+      ]): string[];
+    }>;
   };
 }
 
@@ -122,6 +130,8 @@ export class OneTxPayment extends Contract {
 
   functions: {
     authority(): Promise<string>;
+
+    getColony(): Promise<string>;
 
     getDeprecated(): Promise<boolean>;
 
@@ -230,6 +240,8 @@ export class OneTxPayment extends Contract {
   };
 
   authority(): Promise<string>;
+
+  getColony(): Promise<string>;
 
   getDeprecated(): Promise<boolean>;
 
@@ -341,11 +353,17 @@ export class OneTxPayment extends Contract {
 
     LogSetOwner(owner: string | null): EventFilter;
 
-    OneTxPaymentMade(): EventFilter;
+    OneTxPaymentMade(
+      agent: null,
+      fundamentalId: null,
+      nPayouts: null
+    ): EventFilter;
   };
 
   estimate: {
     authority(): Promise<BigNumber>;
+
+    getColony(): Promise<BigNumber>;
 
     getDeprecated(): Promise<BigNumber>;
 
