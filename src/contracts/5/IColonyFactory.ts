@@ -46,6 +46,12 @@ const _abi = [
     inputs: [
       {
         indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address"
+      },
+      {
+        indexed: false,
         internalType: "address[]",
         name: "users",
         type: "address[]"
@@ -63,6 +69,12 @@ const _abi = [
   {
     anonymous: false,
     inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address"
+      },
       {
         indexed: false,
         internalType: "address",
@@ -88,6 +100,12 @@ const _abi = [
   {
     anonymous: false,
     inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address"
+      },
       {
         indexed: true,
         internalType: "uint256",
@@ -122,6 +140,12 @@ const _abi = [
       {
         indexed: false,
         internalType: "address",
+        name: "agent",
+        type: "address"
+      },
+      {
+        indexed: false,
+        internalType: "address",
         name: "colonyNetwork",
         type: "address"
       },
@@ -140,6 +164,12 @@ const _abi = [
     inputs: [
       {
         indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address"
+      },
+      {
+        indexed: false,
         internalType: "string",
         name: "metadata",
         type: "string"
@@ -153,6 +183,12 @@ const _abi = [
     inputs: [
       {
         indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address"
+      },
+      {
+        indexed: false,
         internalType: "uint256",
         name: "rewardInverse",
         type: "uint256"
@@ -164,6 +200,12 @@ const _abi = [
   {
     anonymous: false,
     inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address"
+      },
       {
         indexed: true,
         internalType: "address",
@@ -197,6 +239,12 @@ const _abi = [
     inputs: [
       {
         indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address"
+      },
+      {
+        indexed: false,
         internalType: "uint256",
         name: "oldVersion",
         type: "uint256"
@@ -216,6 +264,12 @@ const _abi = [
     inputs: [
       {
         indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address"
+      },
+      {
+        indexed: false,
         internalType: "uint256",
         name: "domainId",
         type: "uint256"
@@ -227,6 +281,12 @@ const _abi = [
   {
     anonymous: false,
     inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address"
+      },
       {
         indexed: true,
         internalType: "uint256",
@@ -248,6 +308,12 @@ const _abi = [
     inputs: [
       {
         indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address"
+      },
+      {
+        indexed: false,
         internalType: "uint256",
         name: "expenditureId",
         type: "uint256"
@@ -259,6 +325,12 @@ const _abi = [
   {
     anonymous: false,
     inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address"
+      },
       {
         indexed: true,
         internalType: "uint256",
@@ -273,6 +345,12 @@ const _abi = [
     anonymous: false,
     inputs: [
       {
+        indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address"
+      },
+      {
         indexed: true,
         internalType: "uint256",
         name: "expenditureId",
@@ -285,6 +363,12 @@ const _abi = [
   {
     anonymous: false,
     inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address"
+      },
       {
         indexed: true,
         internalType: "uint256",
@@ -317,6 +401,12 @@ const _abi = [
     anonymous: false,
     inputs: [
       {
+        indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address"
+      },
+      {
         indexed: true,
         internalType: "uint256",
         name: "expenditureId",
@@ -342,6 +432,12 @@ const _abi = [
     anonymous: false,
     inputs: [
       {
+        indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address"
+      },
+      {
         indexed: true,
         internalType: "uint256",
         name: "expenditureId",
@@ -366,6 +462,12 @@ const _abi = [
   {
     anonymous: false,
     inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address"
+      },
       {
         indexed: true,
         internalType: "uint256",
@@ -400,6 +502,12 @@ const _abi = [
     inputs: [
       {
         indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address"
+      },
+      {
+        indexed: false,
         internalType: "uint256",
         name: "paymentId",
         type: "uint256"
@@ -411,6 +519,12 @@ const _abi = [
   {
     anonymous: false,
     inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address"
+      },
       {
         indexed: true,
         internalType: "uint256",
@@ -424,6 +538,12 @@ const _abi = [
   {
     anonymous: false,
     inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address"
+      },
       {
         indexed: true,
         internalType: "uint256",
@@ -450,6 +570,12 @@ const _abi = [
     anonymous: false,
     inputs: [
       {
+        indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address"
+      },
+      {
         indexed: true,
         internalType: "uint256",
         name: "paymentId",
@@ -469,6 +595,12 @@ const _abi = [
     anonymous: false,
     inputs: [
       {
+        indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address"
+      },
+      {
         indexed: true,
         internalType: "uint256",
         name: "paymentId",
@@ -487,6 +619,12 @@ const _abi = [
   {
     anonymous: false,
     inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address"
+      },
       {
         indexed: true,
         internalType: "uint256",
@@ -628,6 +766,12 @@ const _abi = [
     inputs: [
       {
         indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address"
+      },
+      {
+        indexed: false,
         internalType: "uint256",
         name: "rewardPayoutId",
         type: "uint256"
@@ -641,6 +785,12 @@ const _abi = [
     inputs: [
       {
         indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address"
+      },
+      {
+        indexed: false,
         internalType: "uint256",
         name: "rewardPayoutId",
         type: "uint256"
@@ -652,6 +802,12 @@ const _abi = [
   {
     anonymous: false,
     inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address"
+      },
       {
         indexed: false,
         internalType: "uint256",
@@ -698,6 +854,25 @@ const _abi = [
     anonymous: false,
     inputs: [
       {
+        indexed: false,
+        internalType: "address[]",
+        name: "reviewerAddresses",
+        type: "address[]"
+      }
+    ],
+    name: "TaskChangedViaSignatures",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address"
+      },
+      {
         indexed: true,
         internalType: "uint256",
         name: "taskId",
@@ -710,6 +885,12 @@ const _abi = [
   {
     anonymous: false,
     inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address"
+      },
       {
         indexed: true,
         internalType: "uint256",
@@ -748,6 +929,12 @@ const _abi = [
   {
     anonymous: false,
     inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address"
+      },
       {
         indexed: true,
         internalType: "uint256",
@@ -837,6 +1024,12 @@ const _abi = [
     anonymous: false,
     inputs: [
       {
+        indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address"
+      },
+      {
         indexed: true,
         internalType: "uint256",
         name: "taskId",
@@ -861,6 +1054,31 @@ const _abi = [
   {
     anonymous: false,
     inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "token",
+        type: "address"
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256"
+      }
+    ],
+    name: "TokensBurned",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address"
+      },
       {
         indexed: false,
         internalType: "address",
@@ -3776,6 +3994,24 @@ const _abi = [
       }
     ],
     stateMutability: "view",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "token",
+        type: "address"
+      },
+      {
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256"
+      }
+    ],
+    name: "burnTokens",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function"
   }
 ];
