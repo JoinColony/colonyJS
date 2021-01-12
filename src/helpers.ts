@@ -242,7 +242,6 @@ export const getColonyRoles = async (
     null,
     null,
     null,
-    null,
   );
 
   const colonyRoleEvents = await getEvents(client, colonyRoleSetFilter);
