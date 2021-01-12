@@ -777,10 +777,6 @@ interface IColonyInterface extends Interface {
     getDomainFromFundingPot: TypedFunctionDescription<{
       encode([_fundingPotId]: [BigNumberish]): string;
     }>;
-
-    burnTokens: TypedFunctionDescription<{
-      encode([token, amount]: [string, BigNumberish]): string;
-    }>;
   };
 
   events: {
@@ -793,21 +789,15 @@ interface IColonyInterface extends Interface {
     }>;
 
     ColonyBootstrapped: TypedEventDescription<{
-      encodeTopics([agent, users, amounts]: [null, null, null]): string[];
+      encodeTopics([users, amounts]: [null, null]): string[];
     }>;
 
     ColonyFundsClaimed: TypedEventDescription<{
-      encodeTopics([agent, token, fee, payoutRemainder]: [
-        null,
-        null,
-        null,
-        null
-      ]): string[];
+      encodeTopics([token, fee, payoutRemainder]: [null, null, null]): string[];
     }>;
 
     ColonyFundsMovedBetweenFundingPots: TypedEventDescription<{
-      encodeTopics([agent, fromPot, toPot, amount, token]: [
-        null,
+      encodeTopics([fromPot, toPot, amount, token]: [
         BigNumberish | null,
         BigNumberish | null,
         null,
@@ -816,20 +806,19 @@ interface IColonyInterface extends Interface {
     }>;
 
     ColonyInitialised: TypedEventDescription<{
-      encodeTopics([agent, colonyNetwork, token]: [null, null, null]): string[];
+      encodeTopics([colonyNetwork, token]: [null, null]): string[];
     }>;
 
     ColonyMetadata: TypedEventDescription<{
-      encodeTopics([agent, metadata]: [null, null]): string[];
+      encodeTopics([metadata]: [null]): string[];
     }>;
 
     ColonyRewardInverseSet: TypedEventDescription<{
-      encodeTopics([agent, rewardInverse]: [null, null]): string[];
+      encodeTopics([rewardInverse]: [null]): string[];
     }>;
 
     ColonyRoleSet: TypedEventDescription<{
-      encodeTopics([agent, user, domainId, role, setTo]: [
-        null,
+      encodeTopics([user, domainId, role, setTo]: [
         string | null,
         BigNumberish | null,
         BigNumberish | null,
@@ -838,46 +827,31 @@ interface IColonyInterface extends Interface {
     }>;
 
     ColonyUpgraded: TypedEventDescription<{
-      encodeTopics([agent, oldVersion, newVersion]: [
-        null,
-        null,
-        null
-      ]): string[];
+      encodeTopics([oldVersion, newVersion]: [null, null]): string[];
     }>;
 
     DomainAdded: TypedEventDescription<{
-      encodeTopics([agent, domainId]: [null, null]): string[];
+      encodeTopics([domainId]: [null]): string[];
     }>;
 
     DomainMetadata: TypedEventDescription<{
-      encodeTopics([agent, domainId, metadata]: [
-        null,
-        BigNumberish | null,
-        null
-      ]): string[];
+      encodeTopics([domainId, metadata]: [BigNumberish | null, null]): string[];
     }>;
 
     ExpenditureAdded: TypedEventDescription<{
-      encodeTopics([agent, expenditureId]: [null, null]): string[];
+      encodeTopics([expenditureId]: [null]): string[];
     }>;
 
     ExpenditureCancelled: TypedEventDescription<{
-      encodeTopics([agent, expenditureId]: [
-        null,
-        BigNumberish | null
-      ]): string[];
+      encodeTopics([expenditureId]: [BigNumberish | null]): string[];
     }>;
 
     ExpenditureFinalized: TypedEventDescription<{
-      encodeTopics([agent, expenditureId]: [
-        null,
-        BigNumberish | null
-      ]): string[];
+      encodeTopics([expenditureId]: [BigNumberish | null]): string[];
     }>;
 
     ExpenditurePayoutSet: TypedEventDescription<{
-      encodeTopics([agent, expenditureId, slot, token, amount]: [
-        null,
+      encodeTopics([expenditureId, slot, token, amount]: [
         BigNumberish | null,
         BigNumberish | null,
         string | null,
@@ -886,8 +860,7 @@ interface IColonyInterface extends Interface {
     }>;
 
     ExpenditureRecipientSet: TypedEventDescription<{
-      encodeTopics([agent, expenditureId, slot, recipient]: [
-        null,
+      encodeTopics([expenditureId, slot, recipient]: [
         BigNumberish | null,
         BigNumberish | null,
         string | null
@@ -895,8 +868,7 @@ interface IColonyInterface extends Interface {
     }>;
 
     ExpenditureSkillSet: TypedEventDescription<{
-      encodeTopics([agent, expenditureId, slot, skillId]: [
-        null,
+      encodeTopics([expenditureId, slot, skillId]: [
         BigNumberish | null,
         BigNumberish | null,
         BigNumberish | null
@@ -904,8 +876,7 @@ interface IColonyInterface extends Interface {
     }>;
 
     ExpenditureTransferred: TypedEventDescription<{
-      encodeTopics([agent, expenditureId, owner]: [
-        null,
+      encodeTopics([expenditureId, owner]: [
         BigNumberish | null,
         string | null
       ]): string[];
@@ -916,16 +887,15 @@ interface IColonyInterface extends Interface {
     }>;
 
     PaymentAdded: TypedEventDescription<{
-      encodeTopics([agent, paymentId]: [null, null]): string[];
+      encodeTopics([paymentId]: [null]): string[];
     }>;
 
     PaymentFinalized: TypedEventDescription<{
-      encodeTopics([agent, paymentId]: [null, BigNumberish | null]): string[];
+      encodeTopics([paymentId]: [BigNumberish | null]): string[];
     }>;
 
     PaymentPayoutSet: TypedEventDescription<{
-      encodeTopics([agent, paymentId, token, amount]: [
-        null,
+      encodeTopics([paymentId, token, amount]: [
         BigNumberish | null,
         null,
         null
@@ -933,24 +903,18 @@ interface IColonyInterface extends Interface {
     }>;
 
     PaymentRecipientSet: TypedEventDescription<{
-      encodeTopics([agent, paymentId, recipient]: [
-        null,
+      encodeTopics([paymentId, recipient]: [
         BigNumberish | null,
         null
       ]): string[];
     }>;
 
     PaymentSkillSet: TypedEventDescription<{
-      encodeTopics([agent, paymentId, skillId]: [
-        null,
-        BigNumberish | null,
-        null
-      ]): string[];
+      encodeTopics([paymentId, skillId]: [BigNumberish | null, null]): string[];
     }>;
 
     PayoutClaimed: TypedEventDescription<{
-      encodeTopics([agent, fundingPotId, token, amount]: [
-        null,
+      encodeTopics([fundingPotId, token, amount]: [
         BigNumberish | null,
         null,
         null
@@ -987,15 +951,15 @@ interface IColonyInterface extends Interface {
     }>;
 
     RewardPayoutCycleEnded: TypedEventDescription<{
-      encodeTopics([agent, rewardPayoutId]: [null, null]): string[];
+      encodeTopics([rewardPayoutId]: [null]): string[];
     }>;
 
     RewardPayoutCycleStarted: TypedEventDescription<{
-      encodeTopics([agent, rewardPayoutId]: [null, null]): string[];
+      encodeTopics([rewardPayoutId]: [null]): string[];
     }>;
 
     TaskAdded: TypedEventDescription<{
-      encodeTopics([agent, taskId]: [null, null]): string[];
+      encodeTopics([taskId]: [null]): string[];
     }>;
 
     TaskBriefSet: TypedEventDescription<{
@@ -1009,17 +973,12 @@ interface IColonyInterface extends Interface {
       encodeTopics([taskId]: [BigNumberish | null]): string[];
     }>;
 
-    TaskChangedViaSignatures: TypedEventDescription<{
-      encodeTopics([reviewerAddresses]: [null]): string[];
-    }>;
-
     TaskCompleted: TypedEventDescription<{
-      encodeTopics([agent, taskId]: [null, BigNumberish | null]): string[];
+      encodeTopics([taskId]: [BigNumberish | null]): string[];
     }>;
 
     TaskDeliverableSubmitted: TypedEventDescription<{
-      encodeTopics([agent, taskId, deliverableHash]: [
-        null,
+      encodeTopics([taskId, deliverableHash]: [
         BigNumberish | null,
         null
       ]): string[];
@@ -1030,7 +989,7 @@ interface IColonyInterface extends Interface {
     }>;
 
     TaskFinalized: TypedEventDescription<{
-      encodeTopics([agent, taskId]: [null, BigNumberish | null]): string[];
+      encodeTopics([taskId]: [BigNumberish | null]): string[];
     }>;
 
     TaskPayoutSet: TypedEventDescription<{
@@ -1058,20 +1017,15 @@ interface IColonyInterface extends Interface {
     }>;
 
     TaskWorkRatingRevealed: TypedEventDescription<{
-      encodeTopics([agent, taskId, role, rating]: [
-        null,
+      encodeTopics([taskId, role, rating]: [
         BigNumberish | null,
         null,
         null
       ]): string[];
     }>;
 
-    TokensBurned: TypedEventDescription<{
-      encodeTopics([token, amount]: [null, null]): string[];
-    }>;
-
     TokensMinted: TypedEventDescription<{
-      encodeTopics([agent, who, amount]: [null, null, null]): string[];
+      encodeTopics([who, amount]: [null, null]): string[];
     }>;
   };
 }
@@ -2591,17 +2545,6 @@ export class IColony extends Contract {
      * @param _fundingPotId Id of the funding pot
      */
     getDomainFromFundingPot(_fundingPotId: BigNumberish): Promise<BigNumber>;
-
-    /**
-     * Burn tokens held by the colony. Can only burn tokens held in the root funding pot.
-     * @param amount The amount of tokens to burn
-     * @param token The address of the token to burn
-     */
-    burnTokens(
-      token: string,
-      amount: BigNumberish,
-      overrides?: TransactionOverrides
-    ): Promise<ContractTransaction>;
   };
 
   /**
@@ -4101,17 +4044,6 @@ export class IColony extends Contract {
    */
   getDomainFromFundingPot(_fundingPotId: BigNumberish): Promise<BigNumber>;
 
-  /**
-   * Burn tokens held by the colony. Can only burn tokens held in the root funding pot.
-   * @param amount The amount of tokens to burn
-   * @param token The address of the token to burn
-   */
-  burnTokens(
-    token: string,
-    amount: BigNumberish,
-    overrides?: TransactionOverrides
-  ): Promise<ContractTransaction>;
-
   filters: {
     Annotation(
       agent: string | null,
@@ -4119,69 +4051,47 @@ export class IColony extends Contract {
       metadata: null
     ): EventFilter;
 
-    ColonyBootstrapped(agent: null, users: null, amounts: null): EventFilter;
+    ColonyBootstrapped(users: null, amounts: null): EventFilter;
 
     ColonyFundsClaimed(
-      agent: null,
       token: null,
       fee: null,
       payoutRemainder: null
     ): EventFilter;
 
     ColonyFundsMovedBetweenFundingPots(
-      agent: null,
       fromPot: BigNumberish | null,
       toPot: BigNumberish | null,
       amount: null,
       token: null
     ): EventFilter;
 
-    ColonyInitialised(
-      agent: null,
-      colonyNetwork: null,
-      token: null
-    ): EventFilter;
+    ColonyInitialised(colonyNetwork: null, token: null): EventFilter;
 
-    ColonyMetadata(agent: null, metadata: null): EventFilter;
+    ColonyMetadata(metadata: null): EventFilter;
 
-    ColonyRewardInverseSet(agent: null, rewardInverse: null): EventFilter;
+    ColonyRewardInverseSet(rewardInverse: null): EventFilter;
 
     ColonyRoleSet(
-      agent: null,
       user: string | null,
       domainId: BigNumberish | null,
       role: BigNumberish | null,
       setTo: null
     ): EventFilter;
 
-    ColonyUpgraded(
-      agent: null,
-      oldVersion: null,
-      newVersion: null
-    ): EventFilter;
+    ColonyUpgraded(oldVersion: null, newVersion: null): EventFilter;
 
-    DomainAdded(agent: null, domainId: null): EventFilter;
+    DomainAdded(domainId: null): EventFilter;
 
-    DomainMetadata(
-      agent: null,
-      domainId: BigNumberish | null,
-      metadata: null
-    ): EventFilter;
+    DomainMetadata(domainId: BigNumberish | null, metadata: null): EventFilter;
 
-    ExpenditureAdded(agent: null, expenditureId: null): EventFilter;
+    ExpenditureAdded(expenditureId: null): EventFilter;
 
-    ExpenditureCancelled(
-      agent: null,
-      expenditureId: BigNumberish | null
-    ): EventFilter;
+    ExpenditureCancelled(expenditureId: BigNumberish | null): EventFilter;
 
-    ExpenditureFinalized(
-      agent: null,
-      expenditureId: BigNumberish | null
-    ): EventFilter;
+    ExpenditureFinalized(expenditureId: BigNumberish | null): EventFilter;
 
     ExpenditurePayoutSet(
-      agent: null,
       expenditureId: BigNumberish | null,
       slot: BigNumberish | null,
       token: string | null,
@@ -4189,52 +4099,42 @@ export class IColony extends Contract {
     ): EventFilter;
 
     ExpenditureRecipientSet(
-      agent: null,
       expenditureId: BigNumberish | null,
       slot: BigNumberish | null,
       recipient: string | null
     ): EventFilter;
 
     ExpenditureSkillSet(
-      agent: null,
       expenditureId: BigNumberish | null,
       slot: BigNumberish | null,
       skillId: BigNumberish | null
     ): EventFilter;
 
     ExpenditureTransferred(
-      agent: null,
       expenditureId: BigNumberish | null,
       owner: string | null
     ): EventFilter;
 
     FundingPotAdded(fundingPotId: null): EventFilter;
 
-    PaymentAdded(agent: null, paymentId: null): EventFilter;
+    PaymentAdded(paymentId: null): EventFilter;
 
-    PaymentFinalized(agent: null, paymentId: BigNumberish | null): EventFilter;
+    PaymentFinalized(paymentId: BigNumberish | null): EventFilter;
 
     PaymentPayoutSet(
-      agent: null,
       paymentId: BigNumberish | null,
       token: null,
       amount: null
     ): EventFilter;
 
     PaymentRecipientSet(
-      agent: null,
       paymentId: BigNumberish | null,
       recipient: null
     ): EventFilter;
 
-    PaymentSkillSet(
-      agent: null,
-      paymentId: BigNumberish | null,
-      skillId: null
-    ): EventFilter;
+    PaymentSkillSet(paymentId: BigNumberish | null, skillId: null): EventFilter;
 
     PayoutClaimed(
-      agent: null,
       fundingPotId: BigNumberish | null,
       token: null,
       amount: null
@@ -4261,11 +4161,11 @@ export class IColony extends Contract {
       rewardRemainder: null
     ): EventFilter;
 
-    RewardPayoutCycleEnded(agent: null, rewardPayoutId: null): EventFilter;
+    RewardPayoutCycleEnded(rewardPayoutId: null): EventFilter;
 
-    RewardPayoutCycleStarted(agent: null, rewardPayoutId: null): EventFilter;
+    RewardPayoutCycleStarted(rewardPayoutId: null): EventFilter;
 
-    TaskAdded(agent: null, taskId: null): EventFilter;
+    TaskAdded(taskId: null): EventFilter;
 
     TaskBriefSet(
       taskId: BigNumberish | null,
@@ -4274,19 +4174,16 @@ export class IColony extends Contract {
 
     TaskCanceled(taskId: BigNumberish | null): EventFilter;
 
-    TaskChangedViaSignatures(reviewerAddresses: null): EventFilter;
-
-    TaskCompleted(agent: null, taskId: BigNumberish | null): EventFilter;
+    TaskCompleted(taskId: BigNumberish | null): EventFilter;
 
     TaskDeliverableSubmitted(
-      agent: null,
       taskId: BigNumberish | null,
       deliverableHash: null
     ): EventFilter;
 
     TaskDueDateSet(taskId: BigNumberish | null, dueDate: null): EventFilter;
 
-    TaskFinalized(agent: null, taskId: BigNumberish | null): EventFilter;
+    TaskFinalized(taskId: BigNumberish | null): EventFilter;
 
     TaskPayoutSet(
       taskId: BigNumberish | null,
@@ -4307,15 +4204,12 @@ export class IColony extends Contract {
     ): EventFilter;
 
     TaskWorkRatingRevealed(
-      agent: null,
       taskId: BigNumberish | null,
       role: null,
       rating: null
     ): EventFilter;
 
-    TokensBurned(token: null, amount: null): EventFilter;
-
-    TokensMinted(agent: null, who: null, amount: null): EventFilter;
+    TokensMinted(who: null, amount: null): EventFilter;
   };
 
   estimate: {
@@ -4876,7 +4770,5 @@ export class IColony extends Contract {
     ): Promise<BigNumber>;
 
     getDomainFromFundingPot(_fundingPotId: BigNumberish): Promise<BigNumber>;
-
-    burnTokens(token: string, amount: BigNumberish): Promise<BigNumber>;
   };
 }
