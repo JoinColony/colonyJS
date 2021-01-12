@@ -777,6 +777,10 @@ interface IColonyInterface extends Interface {
     getDomainFromFundingPot: TypedFunctionDescription<{
       encode([_fundingPotId]: [BigNumberish]): string;
     }>;
+
+    burnTokens: TypedFunctionDescription<{
+      encode([token, amount]: [string, BigNumberish]): string;
+    }>;
   };
 
   events: {
@@ -1022,6 +1026,10 @@ interface IColonyInterface extends Interface {
         null,
         null
       ]): string[];
+    }>;
+
+    TokensBurned: TypedEventDescription<{
+      encodeTopics([token, amount]: [null, null]): string[];
     }>;
 
     TokensMinted: TypedEventDescription<{
@@ -2545,6 +2553,17 @@ export class IColony extends Contract {
      * @param _fundingPotId Id of the funding pot
      */
     getDomainFromFundingPot(_fundingPotId: BigNumberish): Promise<BigNumber>;
+
+    /**
+     * Burn tokens held by the colony. Can only burn tokens held in the root funding pot.
+     * @param amount The amount of tokens to burn
+     * @param token The address of the token to burn
+     */
+    burnTokens(
+      token: string,
+      amount: BigNumberish,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
   };
 
   /**
@@ -4044,6 +4063,17 @@ export class IColony extends Contract {
    */
   getDomainFromFundingPot(_fundingPotId: BigNumberish): Promise<BigNumber>;
 
+  /**
+   * Burn tokens held by the colony. Can only burn tokens held in the root funding pot.
+   * @param amount The amount of tokens to burn
+   * @param token The address of the token to burn
+   */
+  burnTokens(
+    token: string,
+    amount: BigNumberish,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
   filters: {
     Annotation(
       agent: string | null,
@@ -4208,6 +4238,8 @@ export class IColony extends Contract {
       role: null,
       rating: null
     ): EventFilter;
+
+    TokensBurned(token: null, amount: null): EventFilter;
 
     TokensMinted(who: null, amount: null): EventFilter;
   };
@@ -4770,5 +4802,7 @@ export class IColony extends Contract {
     ): Promise<BigNumber>;
 
     getDomainFromFundingPot(_fundingPotId: BigNumberish): Promise<BigNumber>;
+
+    burnTokens(token: string, amount: BigNumberish): Promise<BigNumber>;
   };
 }

@@ -864,6 +864,25 @@ const _abi = [
       {
         indexed: false,
         internalType: "address",
+        name: "token",
+        type: "address"
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256"
+      }
+    ],
+    name: "TokensBurned",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
         name: "who",
         type: "address"
       },
@@ -3776,6 +3795,24 @@ const _abi = [
       }
     ],
     stateMutability: "view",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "token",
+        type: "address"
+      },
+      {
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256"
+      }
+    ],
+    name: "burnTokens",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function"
   }
 ];
