@@ -15,6 +15,10 @@ import {
 
 type ValidColony = IColonyV5;
 
+type PreviousVersionsExtensions = ExtendedIColony<ValidColony> &
+  ColonyExtensionsV3<ValidColony> &
+  ColonyExtensionsV4<ValidColony>;
+
 export interface ExtendedEstimateV5 extends ExtendedEstimateV4 {
   emitDomainReputationPenaltyWithProofs(
     _domainId: BigNumberish,
@@ -32,6 +36,29 @@ export interface ExtendedEstimateV5 extends ExtendedEstimateV4 {
     _domainId: BigNumberish,
     _amount: BigNumberish,
     _recipient: string,
+  ): Promise<BigNumber>;
+  /*
+   * We overwrite the `addDomainWithProofs` interface in order to provide
+   * function overloads for the V5 contract
+   */
+  addDomainWithProofs(
+    _parentDomainId: BigNumberish,
+    _metadata?: string,
+  ): Promise<BigNumber>;
+  /*
+   * Need to manually add the overloaded estimate signatures since TS doesn't
+   * pick them up from the auto-generated contract definitions file
+   */
+  'addDomain(uint256,uint256,uint256)'(
+    _permissionDomainId: BigNumberish,
+    _childSkillIndex: BigNumberish,
+    _parentDomainId: BigNumberish,
+  ): Promise<BigNumber>;
+  'addDomain(uint256,uint256,uint256,string)'(
+    _permissionDomainId: BigNumberish,
+    _childSkillIndex: BigNumberish,
+    _parentDomainId: BigNumberish,
+    _metadata?: string,
   ): Promise<BigNumber>;
 }
 
@@ -55,12 +82,21 @@ export type ColonyExtensionsV5<T extends ValidColony> = {
     _amount: BigNumberish,
     _recipient: string,
   ): Promise<ContractTransaction>;
+  /*
+   * We overwrite the `addDomainWithProofs` interface in order to provide
+   * function overloads for the V5 contract
+   */
+  addDomainWithProofs(
+    _parentDomainId: BigNumberish,
+    _metadata?: string,
+    overrides?: TransactionOverrides,
+  ): Promise<ContractTransaction>;
 
   estimate: T['estimate'] & ExtendedEstimateV5;
-};
+} & PreviousVersionsExtensions;
 
 async function emitDomainReputationPenaltyWithProofs(
-  this: ExtendedIColony<ValidColony> & ColonyExtensionsV5<ValidColony>,
+  this: ColonyExtensionsV5<ValidColony>,
   _domainId: BigNumberish,
   _user: string,
   _amount: BigNumberish,
@@ -82,7 +118,7 @@ async function emitDomainReputationPenaltyWithProofs(
 }
 
 async function setUserRolesWithProofs(
-  this: ExtendedIColony<ValidColony> & ColonyExtensionsV5<ValidColony>,
+  this: ColonyExtensionsV5<ValidColony>,
   _user: string,
   _domainId: BigNumberish,
   _roles: Arrayish,
@@ -104,7 +140,7 @@ async function setUserRolesWithProofs(
 }
 
 async function transferStakeWithProofs(
-  this: ExtendedIColony<ValidColony> & ColonyExtensionsV5<ValidColony>,
+  this: ColonyExtensionsV5<ValidColony>,
   _obligator: string,
   _user: string,
   _domainId: BigNumberish,
@@ -129,8 +165,47 @@ async function transferStakeWithProofs(
   );
 }
 
+async function addDomainWithProofs(
+  this: ColonyExtensionsV5<ValidColony>,
+  _parentDomainId: BigNumberish,
+  _metadata?: string,
+  overrides?: TransactionOverrides,
+): Promise<ContractTransaction> {
+  let overrideOverload = overrides;
+  const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this,
+    _parentDomainId,
+    ColonyRole.Architecture,
+  );
+  /*
+   * Otherwise, because of the positioning of `overrides`, it might get confused
+   * with it
+   */
+  if (typeof _metadata === 'string') {
+    return this['addDomain(uint256,uint256,uint256,string)'](
+      permissionDomainId,
+      childSkillIndex,
+      _parentDomainId,
+      _metadata,
+      overrideOverload,
+    );
+  }
+  /*
+   * Since we're not calling the overloaded version, which has the metadata string,
+   * the `_metadata` argument now stands place for the `overrides` and contains
+   * it's values
+   */
+  overrideOverload = _metadata;
+  return this['addDomain(uint256,uint256,uint256)'](
+    permissionDomainId,
+    childSkillIndex,
+    _parentDomainId,
+    overrideOverload,
+  );
+}
+
 async function estimateEmitDomainReputationPenaltyWithProofs(
-  this: ExtendedIColony<ValidColony> & ColonyExtensionsV5<ValidColony>,
+  this: ColonyExtensionsV5<ValidColony>,
   _domainId: BigNumberish,
   _user: string,
   _amount: BigNumberish,
@@ -150,7 +225,7 @@ async function estimateEmitDomainReputationPenaltyWithProofs(
 }
 
 async function estimateSetUserRolesWithProofs(
-  this: ExtendedIColony<ValidColony> & ColonyExtensionsV5<ValidColony>,
+  this: ColonyExtensionsV5<ValidColony>,
   _user: string,
   _domainId: BigNumberish,
   _roles: Arrayish,
@@ -170,7 +245,7 @@ async function estimateSetUserRolesWithProofs(
 }
 
 async function estimateTransferStakeWithProofs(
-  this: ExtendedIColony<ValidColony> & ColonyExtensionsV5<ValidColony>,
+  this: ColonyExtensionsV5<ValidColony>,
   _obligator: string,
   _user: string,
   _domainId: BigNumberish,
@@ -193,23 +268,42 @@ async function estimateTransferStakeWithProofs(
   );
 }
 
+async function estimateAddDomainWithProofs(
+  this: ColonyExtensionsV5<ValidColony>,
+  _parentDomainId: BigNumberish,
+  _metadata?: string,
+): Promise<BigNumber> {
+  const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this,
+    _parentDomainId,
+    ColonyRole.Architecture,
+  );
+  if (_metadata) {
+    return this.estimate['addDomain(uint256,uint256,uint256,string)'](
+      permissionDomainId,
+      childSkillIndex,
+      _parentDomainId,
+      _metadata,
+    );
+  }
+  return this.estimate['addDomain(uint256,uint256,uint256)'](
+    permissionDomainId,
+    childSkillIndex,
+    _parentDomainId,
+  );
+}
+
 export const addExtensions = (
   instance: ExtendedIColony<ValidColony>,
   networkClient: ColonyNetworkClient,
-): ExtendedIColony<ValidColony> &
-  ColonyExtensionsV3<ValidColony> &
-  ColonyExtensionsV4<ValidColony> &
-  ColonyExtensionsV5<ValidColony> => {
+): ColonyExtensionsV5<ValidColony> => {
   // Add all extensions from v4, because these are also still valid
   const extendedInstance = addExtensionsV4(
     instance,
     networkClient,
-  ) as ExtendedIColony<ValidColony> &
-    ColonyExtensionsV3<ValidColony> &
-    ColonyExtensionsV4<ValidColony> &
-    ColonyExtensionsV5<ValidColony>;
+  ) as ColonyExtensionsV5<ValidColony>;
 
-  /* eslint-disable no-param-reassign, max-len */
+  /* eslint-disable max-len */
   extendedInstance.emitDomainReputationPenaltyWithProofs = emitDomainReputationPenaltyWithProofs.bind(
     extendedInstance,
   );
@@ -217,6 +311,15 @@ export const addExtensions = (
     extendedInstance,
   );
   extendedInstance.transferStakeWithProofs = transferStakeWithProofs.bind(
+    extendedInstance,
+  );
+  /*
+   * We basically disable the signature type of the initial (pre V3) method
+   *
+   * This is because we overload the method, but not in a way that TS likes, as we
+   * add the overloaded argument in the middle, and not at the end.
+   */
+  (extendedInstance.addDomainWithProofs as unknown) = addDomainWithProofs.bind(
     extendedInstance,
   );
 
@@ -229,7 +332,10 @@ export const addExtensions = (
   extendedInstance.estimate.transferStakeWithProofs = estimateTransferStakeWithProofs.bind(
     extendedInstance,
   );
-  /* eslint-enable no-param-reassign, max-len */
+  extendedInstance.estimate.addDomainWithProofs = estimateAddDomainWithProofs.bind(
+    extendedInstance,
+  );
+  /* eslint-enable max-len */
 
   return extendedInstance;
 };

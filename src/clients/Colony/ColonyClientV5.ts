@@ -14,8 +14,12 @@ import {
   ExtendedEstimateV5,
 } from './extensions/extensionsV5';
 
+/*
+ * We overwrite the `addDomainWithProofs` interface in order to provide
+ * function overloads for the V5 contract
+ */
 export interface ColonyClientV5
-  extends ExtendedIColony<IColony>,
+  extends Omit<ExtendedIColony<IColony>, 'addDomainWithProofs'>,
     ColonyExtensionsV3<IColony>,
     ColonyExtensionsV4<IColony>,
     ColonyExtensionsV5<IColony> {
@@ -28,13 +32,13 @@ export default function getColonyClient(
   address: string,
   signerOrProvider: Signer | Provider,
 ): ColonyClientV5 {
-  const colonyClient = IColonyFactory.connect(
+  const colonyClient = (IColonyFactory.connect(
     address,
     signerOrProvider,
-  ) as ColonyClientV5;
+  ) as unknown) as ColonyClientV5;
 
   colonyClient.clientVersion = ColonyVersion.CeruleanLightweightSpaceship;
   addExtensions(colonyClient, this);
 
-  return colonyClient as ColonyClientV5;
+  return (colonyClient as unknown) as ColonyClientV5;
 }
