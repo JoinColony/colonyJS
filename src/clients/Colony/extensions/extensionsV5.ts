@@ -19,6 +19,9 @@ type PreviousVersionsExtensions = ExtendedIColony<ValidColony> &
   ColonyExtensionsV3<ValidColony> &
   ColonyExtensionsV4<ValidColony>;
 
+/*
+ * Estimates
+ */
 export interface ExtendedEstimateV5 extends ExtendedEstimateV4 {
   emitDomainReputationPenaltyWithProofs(
     _domainId: BigNumberish,
@@ -73,6 +76,9 @@ export interface ExtendedEstimateV5 extends ExtendedEstimateV4 {
   ): Promise<BigNumber>;
 }
 
+/*
+ * Extension Methods
+ */
 export type ColonyExtensionsV5<T extends ValidColony> = {
   emitDomainReputationPenaltyWithProofs(
     _domainId: BigNumberish,
@@ -119,6 +125,10 @@ export type ColonyExtensionsV5<T extends ValidColony> = {
 
   estimate: T['estimate'] & ExtendedEstimateV5;
 } & PreviousVersionsExtensions;
+
+/*
+ * Extension Methods
+ */
 
 async function emitDomainReputationPenaltyWithProofs(
   this: ColonyExtensionsV5<ValidColony>,
@@ -276,6 +286,9 @@ async function setExpenditureStateWithProofs(
   );
 }
 
+/*
+ * Estimates
+ */
 async function estimateEmitDomainReputationPenaltyWithProofs(
   this: ColonyExtensionsV5<ValidColony>,
   _domainId: BigNumberish,
@@ -408,6 +421,9 @@ async function estimateSetExpenditureStateWithProofs(
   );
 }
 
+/*
+ * Bindings
+ */
 export const addExtensions = (
   instance: ExtendedIColony<ValidColony>,
   networkClient: ColonyNetworkClient,
@@ -469,6 +485,7 @@ export const addExtensions = (
   extendedInstance.estimate.setExpenditureStateWithProofs = estimateSetExpenditureStateWithProofs.bind(
     extendedInstance,
   );
+
   /* eslint-enable max-len */
 
   return extendedInstance;
