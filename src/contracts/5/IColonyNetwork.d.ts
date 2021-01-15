@@ -413,7 +413,12 @@ interface IColonyNetworkInterface extends Interface {
     }>;
 
     RecoveryStorageSlotSet: TypedEventDescription<{
-      encodeTopics([slot, fromValue, toValue]: [null, null, null]): string[];
+      encodeTopics([user, slot, fromValue, toValue]: [
+        null,
+        null,
+        null,
+        null
+      ]): string[];
     }>;
 
     ReputationMinerPenalised: TypedEventDescription<{
@@ -2013,6 +2018,7 @@ export class IColonyNetwork extends Contract {
     RecoveryRoleSet(user: string | null, setTo: null): EventFilter;
 
     RecoveryStorageSlotSet(
+      user: null,
       slot: null,
       fromValue: null,
       toValue: null

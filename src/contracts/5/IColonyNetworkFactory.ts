@@ -344,6 +344,12 @@ const _abi = [
     inputs: [
       {
         indexed: false,
+        internalType: "address",
+        name: "user",
+        type: "address"
+      },
+      {
+        indexed: false,
         internalType: "uint256",
         name: "slot",
         type: "uint256"
