@@ -64,6 +64,13 @@ export interface ExtendedEstimateV5 extends ExtendedEstimateV4 {
     _domainId: BigNumberish,
     _metadata: string,
   ): Promise<BigNumber>;
+  setExpenditureStateWithProofs(
+    _id: BigNumberish,
+    _storageSlot: BigNumberish,
+    _mask: boolean[],
+    _keys: Arrayish[],
+    _value: Arrayish,
+  ): Promise<BigNumber>;
 }
 
 export type ColonyExtensionsV5<T extends ValidColony> = {
@@ -99,6 +106,14 @@ export type ColonyExtensionsV5<T extends ValidColony> = {
   editDomainWithProofs(
     _domainId: BigNumberish,
     _metadata: string,
+    overrides?: TransactionOverrides,
+  ): Promise<ContractTransaction>;
+  setExpenditureStateWithProofs(
+    _id: BigNumberish,
+    _storageSlot: BigNumberish,
+    _mask: boolean[],
+    _keys: Arrayish[],
+    _value: Arrayish,
     overrides?: TransactionOverrides,
   ): Promise<ContractTransaction>;
 
@@ -234,6 +249,33 @@ async function editDomainWithProofs(
   );
 }
 
+async function setExpenditureStateWithProofs(
+  this: ColonyExtensionsV5<ValidColony>,
+  _id: BigNumberish,
+  _storageSlot: BigNumberish,
+  _mask: boolean[],
+  _keys: Arrayish[],
+  _value: Arrayish,
+  overrides?: TransactionOverrides,
+): Promise<ContractTransaction> {
+  const { domainId } = await this.getExpenditure(_id);
+  const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this,
+    domainId,
+    ColonyRole.Arbitration,
+  );
+  return this.setExpenditureState(
+    permissionDomainId,
+    childSkillIndex,
+    _id,
+    _storageSlot,
+    _mask,
+    _keys,
+    _value,
+    overrides,
+  );
+}
+
 async function estimateEmitDomainReputationPenaltyWithProofs(
   this: ColonyExtensionsV5<ValidColony>,
   _domainId: BigNumberish,
@@ -323,6 +365,49 @@ async function estimateAddDomainWithProofs(
   );
 }
 
+async function estimateEditDomainWithProofs(
+  this: ColonyExtensionsV5<ValidColony>,
+  _domainId: BigNumberish,
+  _metadata: string,
+): Promise<BigNumber> {
+  const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this,
+    _domainId,
+    ColonyRole.Architecture,
+  );
+  return this.estimate.editDomain(
+    permissionDomainId,
+    childSkillIndex,
+    _domainId,
+    _metadata,
+  );
+}
+
+async function estimateSetExpenditureStateWithProofs(
+  this: ColonyExtensionsV5<ValidColony>,
+  _id: BigNumberish,
+  _storageSlot: BigNumberish,
+  _mask: boolean[],
+  _keys: Arrayish[],
+  _value: Arrayish,
+): Promise<BigNumber> {
+  const { domainId } = await this.getExpenditure(_id);
+  const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this,
+    domainId,
+    ColonyRole.Arbitration,
+  );
+  return this.estimate.setExpenditureState(
+    permissionDomainId,
+    childSkillIndex,
+    _id,
+    _storageSlot,
+    _mask,
+    _keys,
+    _value,
+  );
+}
+
 export const addExtensions = (
   instance: ExtendedIColony<ValidColony>,
   networkClient: ColonyNetworkClient,
@@ -355,6 +440,9 @@ export const addExtensions = (
   extendedInstance.editDomainWithProofs = editDomainWithProofs.bind(
     extendedInstance,
   );
+  extendedInstance.setExpenditureStateWithProofs = setExpenditureStateWithProofs.bind(
+    extendedInstance,
+  );
 
   extendedInstance.estimate.emitDomainReputationPenaltyWithProofs = estimateEmitDomainReputationPenaltyWithProofs.bind(
     extendedInstance,
@@ -373,6 +461,12 @@ export const addExtensions = (
    */
   (extendedInstance.estimate
     .addDomainWithProofs as unknown) = estimateAddDomainWithProofs.bind(
+    extendedInstance,
+  );
+  extendedInstance.estimate.editDomainWithProofs = estimateEditDomainWithProofs.bind(
+    extendedInstance,
+  );
+  extendedInstance.estimate.setExpenditureStateWithProofs = estimateSetExpenditureStateWithProofs.bind(
     extendedInstance,
   );
   /* eslint-enable max-len */
