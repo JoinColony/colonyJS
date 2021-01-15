@@ -43,7 +43,7 @@ export interface ExtendedEstimateV5 extends ExtendedEstimateV4 {
    */
   addDomainWithProofs(
     _parentDomainId: BigNumberish,
-    _metadata?: string,
+    _metadata: string,
   ): Promise<BigNumber>;
   /*
    * Need to manually add the overloaded estimate signatures since TS doesn't
@@ -58,7 +58,11 @@ export interface ExtendedEstimateV5 extends ExtendedEstimateV4 {
     _permissionDomainId: BigNumberish,
     _childSkillIndex: BigNumberish,
     _parentDomainId: BigNumberish,
-    _metadata?: string,
+    _metadata: string,
+  ): Promise<BigNumber>;
+  editDomainWithProofs(
+    _domainId: BigNumberish,
+    _metadata: string,
   ): Promise<BigNumber>;
 }
 
@@ -81,6 +85,7 @@ export type ColonyExtensionsV5<T extends ValidColony> = {
     _domainId: BigNumberish,
     _amount: BigNumberish,
     _recipient: string,
+    overrides?: TransactionOverrides,
   ): Promise<ContractTransaction>;
   /*
    * We overwrite the `addDomainWithProofs` interface in order to provide
@@ -88,7 +93,12 @@ export type ColonyExtensionsV5<T extends ValidColony> = {
    */
   addDomainWithProofs(
     _parentDomainId: BigNumberish,
-    _metadata?: string,
+    _metadata: string,
+    overrides?: TransactionOverrides,
+  ): Promise<ContractTransaction>;
+  editDomainWithProofs(
+    _domainId: BigNumberish,
+    _metadata: string,
     overrides?: TransactionOverrides,
   ): Promise<ContractTransaction>;
 
@@ -168,7 +178,7 @@ async function transferStakeWithProofs(
 async function addDomainWithProofs(
   this: ColonyExtensionsV5<ValidColony>,
   _parentDomainId: BigNumberish,
-  _metadata?: string,
+  _metadata: string,
   overrides?: TransactionOverrides,
 ): Promise<ContractTransaction> {
   let overrideOverload = overrides;
@@ -201,6 +211,26 @@ async function addDomainWithProofs(
     childSkillIndex,
     _parentDomainId,
     overrideOverload,
+  );
+}
+
+async function editDomainWithProofs(
+  this: ColonyExtensionsV5<ValidColony>,
+  _domainId: BigNumberish,
+  _metadata: string,
+  overrides?: TransactionOverrides,
+): Promise<ContractTransaction> {
+  const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this,
+    _domainId,
+    ColonyRole.Architecture,
+  );
+  return this.editDomain(
+    permissionDomainId,
+    childSkillIndex,
+    _domainId,
+    _metadata,
+    overrides,
   );
 }
 
@@ -271,7 +301,7 @@ async function estimateTransferStakeWithProofs(
 async function estimateAddDomainWithProofs(
   this: ColonyExtensionsV5<ValidColony>,
   _parentDomainId: BigNumberish,
-  _metadata?: string,
+  _metadata: string,
 ): Promise<BigNumber> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this,
@@ -322,6 +352,9 @@ export const addExtensions = (
   (extendedInstance.addDomainWithProofs as unknown) = addDomainWithProofs.bind(
     extendedInstance,
   );
+  extendedInstance.editDomainWithProofs = editDomainWithProofs.bind(
+    extendedInstance,
+  );
 
   extendedInstance.estimate.emitDomainReputationPenaltyWithProofs = estimateEmitDomainReputationPenaltyWithProofs.bind(
     extendedInstance,
@@ -332,7 +365,14 @@ export const addExtensions = (
   extendedInstance.estimate.transferStakeWithProofs = estimateTransferStakeWithProofs.bind(
     extendedInstance,
   );
-  extendedInstance.estimate.addDomainWithProofs = estimateAddDomainWithProofs.bind(
+  /*
+   * We basically disable the signature type of the initial (pre V3) method
+   *
+   * This is because we overload the method, but not in a way that TS likes, as we
+   * add the overloaded argument in the middle, and not at the end.
+   */
+  (extendedInstance.estimate
+    .addDomainWithProofs as unknown) = estimateAddDomainWithProofs.bind(
     extendedInstance,
   );
   /* eslint-enable max-len */
