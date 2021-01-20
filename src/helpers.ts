@@ -259,32 +259,32 @@ export const getColonyRoles = async (
   );
 
   // We construct a map that holds all users with all domains and the roles as Sets
-  const rolesMap: ColonyRolesMap = colonyRoleEvents.reduce(
-    (colonyRolesMap: ColonyRolesMap, { values }) => {
-      const { user, domainId, role, setTo }: ColonyRoleSetValues = values;
-      const domainKey = domainId.toString();
-      if (!colonyRolesMap[user]) {
-        const roleSet: Set<ColonyRole> = setTo ? new Set([role]) : new Set();
-        // eslint-disable-next-line no-param-reassign
-        colonyRolesMap[user] = { [domainKey]: roleSet };
-      }
-      if (!colonyRolesMap[user][domainKey] && setTo) {
-        // eslint-disable-next-line no-param-reassign
-        colonyRolesMap[user][domainKey] = new Set([role]);
-      }
-      if (setTo) {
-        colonyRolesMap[user][domainKey].add(role);
-      } else {
-        colonyRolesMap[user][domainKey].delete(role);
-      }
-      return colonyRolesMap;
-    },
-    {},
-  );
+  const rolesMap: ColonyRolesMap = colonyRoleEvents.length
+    ? colonyRoleEvents.reduce((colonyRolesMap: ColonyRolesMap, { values }) => {
+        const { user, domainId, role, setTo }: ColonyRoleSetValues = values;
+        const domainKey = domainId.toString();
+        if (!colonyRolesMap[user]) {
+          const roleSet: Set<ColonyRole> = setTo ? new Set([role]) : new Set();
+          // eslint-disable-next-line no-param-reassign
+          colonyRolesMap[user] = { [domainKey]: roleSet };
+        }
+        if (!colonyRolesMap[user][domainKey] && setTo) {
+          // eslint-disable-next-line no-param-reassign
+          colonyRolesMap[user][domainKey] = new Set([role]);
+        }
+        if (setTo) {
+          colonyRolesMap[user][domainKey].add(role);
+        } else {
+          colonyRolesMap[user][domainKey].delete(role);
+        }
+        return colonyRolesMap;
+      }, {})
+    : {};
 
   // OK, now we also collect all the RecoveryRoleSet events for this colony
   recoveryRoleEvents.forEach(({ values }) => {
     const { user, setTo }: RecoveryRoleSetValues = values;
+    rolesMap[user] = rolesMap[user] || {};
     if (rolesMap[user][ROOT_DOMAIN]) {
       if (setTo) {
         rolesMap[user][ROOT_DOMAIN].add(ColonyRole.Recovery);
