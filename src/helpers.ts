@@ -237,21 +237,30 @@ export const getColonyRoles = async (
   if (client.clientVersion === ColonyVersion.GoerliGlider) {
     throw new Error(`Not supported by colony version ${client.clientVersion}`);
   }
-  const colonyRoleSetFilter = client.filters.ColonyRoleSet(
-    null,
-    null,
-    null,
-    null,
-    null,
-  );
+  /*
+   * @NOTE Argument number changes between colony contract versions, and since
+   * we are always passing `null` to all of them, it's the same effect as not
+   * passing in them at all
+   *
+   * This suppreses errors on clients
+   */
+  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+  // @ts-ignore
+  const colonyRoleSetFilter = client.filters.ColonyRoleSet();
 
   const colonyRoleEvents = await getEvents(client, colonyRoleSetFilter);
 
-  // eslint-disable-next-line max-len
-  const recoveryRoleSetFilter = client.awkwardRecoveryRoleEventClient.filters.RecoveryRoleSet(
-    null,
-    null,
-  );
+  const recoveryRoleSetFilter =
+    /*
+     * @NOTE Argument number changes between colony contract versions, and since
+     * we are always passing `null` to all of them, it's the same effect as not
+     * passing in them at all
+     *
+     * This suppreses errors on clients
+     */
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
+    client.awkwardRecoveryRoleEventClient.filters.RecoveryRoleSet();
 
   const recoveryRoleEvents = await getEvents(
     client.awkwardRecoveryRoleEventClient,
