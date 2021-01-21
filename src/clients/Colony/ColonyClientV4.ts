@@ -1,9 +1,9 @@
-import { Signer } from 'ethers';
+import { Contract, Signer } from 'ethers';
 import { Provider } from 'ethers/providers';
 
-import { IColonyFactory } from '../../contracts/4/IColonyFactory';
+import { IColonyFactory as IColonyFactoryV3 } from '../../contracts/3/IColonyFactory';
+import { IColonyFactory as IColonyFactoryV4 } from '../../contracts/4/IColonyFactory';
 import { IColony } from '../../contracts/4/IColony';
-import { ColonyVersion } from '../../constants';
 import { ColonyNetworkClient } from '../ColonyNetworkClient';
 import { ExtendedIColony } from './extensions/commonExtensions';
 import { ColonyExtensionsV3 } from './extensions/extensionsV3';
@@ -12,6 +12,8 @@ import {
   ColonyExtensionsV4,
   ExtendedEstimateV4,
 } from './extensions/extensionsV4';
+import { getAllAbiEvents, getAbiFunctions } from '../../utils';
+import { ColonyVersion } from '../../constants';
 
 export interface ColonyClientV4
   extends ExtendedIColony<IColony>,
@@ -26,13 +28,32 @@ export default function getColonyClient(
   address: string,
   signerOrProvider: Signer | Provider,
 ): ColonyClientV4 {
-  const colonyClient = IColonyFactory.connect(
+  const abiFunctions = getAbiFunctions(
+    IColonyFactoryV4,
     address,
     signerOrProvider,
-  ) as ColonyClientV4;
+  );
+  /*
+   * Get all events, including the ones from v3 and v4, as well as the current ones
+   */
+  const abiEvents = getAllAbiEvents(
+    [IColonyFactoryV3, IColonyFactoryV4],
+    address,
+    signerOrProvider,
+  );
 
-  colonyClient.clientVersion = ColonyVersion.BurgundyGlider;
-  addExtensions(colonyClient, this);
+  /*
+   * For this to work we have to create our own instance of the contract, so
+   * that we can pass in the merged abi events
+   */
+  const colonyClientV4 = (new Contract(
+    address,
+    [...abiFunctions, ...abiEvents],
+    signerOrProvider,
+  ) as unknown) as ColonyClientV4;
 
-  return colonyClient as ColonyClientV4;
+  colonyClientV4.clientVersion = ColonyVersion.BurgundyGlider;
+  addExtensions(colonyClientV4, this);
+
+  return colonyClientV4 as ColonyClientV4;
 }
