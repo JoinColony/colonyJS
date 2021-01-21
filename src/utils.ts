@@ -48,3 +48,25 @@ export const getUniqueAbiEvents = (
   eventsAbi.filter(
     (event) => !baseEventsAbi.find((baseEvent) => isEqual(baseEvent, event)),
   );
+
+export const getAllAbiEvents = (
+  factories: IColonyFactory[],
+  address: string,
+  signerOrProvider: Signer | Provider,
+): EventFragment[] => {
+  let abiEvents: EventFragment[] = [];
+  factories.map((factory) => {
+    const currentFactoryAbiEvents = getAbiEvents(
+      factory,
+      address,
+      signerOrProvider,
+    );
+    const currentUniqueAbiEvents = getUniqueAbiEvents(
+      abiEvents,
+      currentFactoryAbiEvents,
+    );
+    abiEvents = [...abiEvents, ...currentUniqueAbiEvents];
+    return null;
+  });
+  return abiEvents;
+};
