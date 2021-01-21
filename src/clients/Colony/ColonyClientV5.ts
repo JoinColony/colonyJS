@@ -1,9 +1,10 @@
-import { Signer } from 'ethers';
+import { Contract, Signer } from 'ethers';
 import { Provider } from 'ethers/providers';
 
-import { IColonyFactory } from '../../contracts/5/IColonyFactory';
+import { IColonyFactory as IColonyFactoryV3 } from '../../contracts/3/IColonyFactory';
+import { IColonyFactory as IColonyFactoryV4 } from '../../contracts/4/IColonyFactory';
+import { IColonyFactory as IColonyFactoryV5 } from '../../contracts/5/IColonyFactory';
 import { IColony } from '../../contracts/5/IColony';
-import { ColonyVersion } from '../../constants';
 import { ColonyNetworkClient } from '../ColonyNetworkClient';
 import { ExtendedIColony } from './extensions/commonExtensions';
 import { ColonyExtensionsV3 } from './extensions/extensionsV3';
@@ -13,6 +14,8 @@ import {
   ColonyExtensionsV5,
   ExtendedEstimateV5,
 } from './extensions/extensionsV5';
+import { getAllAbiEvents, getAbiFunctions } from '../../utils';
+import { ColonyVersion } from '../../constants';
 
 /*
  * We overwrite the `addDomainWithProofs` interface in order to provide
@@ -32,13 +35,32 @@ export default function getColonyClient(
   address: string,
   signerOrProvider: Signer | Provider,
 ): ColonyClientV5 {
-  const colonyClient = (IColonyFactory.connect(
+  const abiFunctions = getAbiFunctions(
+    IColonyFactoryV5,
     address,
+    signerOrProvider,
+  );
+  /*
+   * Get all events, including the ones from v3 and v4, as well as the current ones
+   */
+  const abiEvents = getAllAbiEvents(
+    [IColonyFactoryV3, IColonyFactoryV4, IColonyFactoryV5],
+    address,
+    signerOrProvider,
+  );
+
+  /*
+   * For this to work we have to create our own instance of the contract, so
+   * that we can pass in the merged abi events
+   */
+  const colonyClientV5 = (new Contract(
+    address,
+    [...abiFunctions, ...abiEvents],
     signerOrProvider,
   ) as unknown) as ColonyClientV5;
 
-  colonyClient.clientVersion = ColonyVersion.CeruleanLightweightSpaceship;
-  addExtensions(colonyClient, this);
+  colonyClientV5.clientVersion = ColonyVersion.CeruleanLightweightSpaceship;
+  addExtensions(colonyClientV5, this);
 
-  return (colonyClient as unknown) as ColonyClientV5;
+  return (colonyClientV5 as unknown) as ColonyClientV5;
 }
