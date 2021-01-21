@@ -40,3 +40,11 @@ export const getAbiFunctions = (
   } = factory.connect(address, signerOrProvider);
   return abi.filter(({ type }: EventFragment) => type !== 'event');
 };
+
+export const getUniqueAbiEvents = (
+  baseEventsAbi: EventFragment[],
+  eventsAbi: EventFragment[],
+): EventFragment[] =>
+  eventsAbi.filter(
+    (event) => !baseEventsAbi.find((baseEvent) => isEqual(baseEvent, event)),
+  );
