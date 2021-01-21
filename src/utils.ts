@@ -28,3 +28,15 @@ export const getAbiEvents = (
   } = factory.connect(address, signerOrProvider);
   return abi.filter(({ type }: EventFragment) => type === 'event');
 };
+
+export const getAbiFunctions = (
+  factory: IColonyFactory,
+  address: string,
+  signerOrProvider: Signer | Provider,
+): EventFragment[] => {
+  const {
+    interface: { abi },
+    // @ts-ignore
+  } = factory.connect(address, signerOrProvider);
+  return abi.filter(({ type }: EventFragment) => type !== 'event');
+};
