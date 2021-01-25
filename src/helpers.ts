@@ -234,7 +234,14 @@ export const getColonyRoles = async (
   client: ColonyClient,
 ): Promise<ColonyRoles> => {
   const ROOT_DOMAIN = ROOT_DOMAIN_ID.toString();
-  if (client.clientVersion === ColonyVersion.GoerliGlider) {
+
+  /*
+   * Supported only for versions greater or equal to 3
+   */
+  if (
+    client.clientVersion === ColonyVersion.GoerliGlider ||
+    client.clientVersion === ColonyVersion.Glider
+  ) {
     throw new Error(`Not supported by colony version ${client.clientVersion}`);
   }
   /*

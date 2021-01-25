@@ -37,7 +37,7 @@ export default function getColonyClient(
    * Get all events, including the ones from v3 and v4, as well as the current ones
    */
   const abiEvents = getAllAbiEvents(
-    [IColonyFactoryV3, IColonyFactoryV4],
+    [IColonyFactoryV4, IColonyFactoryV3],
     address,
     signerOrProvider,
   );
