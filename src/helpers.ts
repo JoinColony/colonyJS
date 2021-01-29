@@ -244,18 +244,24 @@ export const getColonyRoles = async (
   ) {
     throw new Error(`Not supported by colony version ${client.clientVersion}`);
   }
-  /*
-   * @NOTE Argument number changes between colony contract versions, and since
-   * we are always passing `null` to all of them, it's the same effect as not
-   * passing in them at all
-   *
-   * This suppreses errors on clients
-   */
-  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-  // @ts-ignore
-  const colonyRoleSetFilter = client.filters.ColonyRoleSet();
 
-  const colonyRoleEvents = await getEvents(client, colonyRoleSetFilter);
+  const colonyRoleEvents = await getMultipleEvents(client, [
+    /*
+     * @NOTE Argument number changes between colony contract versions, and since
+     * we are always passing `null` to all of them, it's the same effect as not
+     * passing in them at all
+     *
+     * This suppreses errors on clients
+     */
+    // @ts-ignore
+    client.filters.ColonyRoleSet(),
+    /*
+     * @NOTE We also need fetch the role set events for colonies prior to V5
+     * But TS doesn't like us calling the function name using the auto-generated string
+     */
+    // @ts-ignore
+    client.filters['ColonyRoleSet(address,uint256,uint8,bool)'](),
+  ]);
 
   const recoveryRoleSetFilter =
     /*
