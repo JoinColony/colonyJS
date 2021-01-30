@@ -245,23 +245,25 @@ export const getColonyRoles = async (
     throw new Error(`Not supported by colony version ${client.clientVersion}`);
   }
 
-  const colonyRoleEvents = await getMultipleEvents(client, [
+  const colonyRoleEvents = await getMultipleEvents(
+    client,
     /*
-     * @NOTE Argument number changes between colony contract versions, and since
-     * we are always passing `null` to all of them, it's the same effect as not
-     * passing in them at all
-     *
-     * This suppreses errors on clients
+     * Get all "ColonyRoleSet" events that were emmited for the colony,
+     * from all contract versions
      */
-    // @ts-ignore
-    client.filters.ColonyRoleSet(),
-    /*
-     * @NOTE We also need fetch the role set events for colonies prior to V5
-     * But TS doesn't like us calling the function name using the auto-generated string
-     */
-    // @ts-ignore
-    client.filters['ColonyRoleSet(address,uint256,uint8,bool)'](),
-  ]);
+    Object.keys(client.filters)
+      .filter((filterName) => filterName.match(/ColonyRoleSet\(.+\)/))
+      .map((filterName) =>
+        /*
+         * Note that TS doesn't know about the overloaded filters since
+         * they get added at compile time, so they don't really exist
+         * as currently existing types
+         */
+        ((client.filters as unknown) as Record<string, () => EventFilter>)[
+          filterName
+        ](),
+      ),
+  );
 
   const recoveryRoleSetFilter =
     /*
