@@ -152,6 +152,22 @@ interface IColonyInterface extends Interface {
       encode([_sig]: [Arrayish]): string;
     }>;
 
+    emitDomainReputationReward: TypedFunctionDescription<{
+      encode([_domainId, _user, _amount]: [
+        BigNumberish,
+        string,
+        BigNumberish
+      ]): string;
+    }>;
+
+    emitSkillReputationReward: TypedFunctionDescription<{
+      encode([_skillId, _user, _amount]: [
+        BigNumberish,
+        string,
+        BigNumberish
+      ]): string;
+    }>;
+
     emitDomainReputationPenalty: TypedFunctionDescription<{
       encode([
         _permissionDomainId,
@@ -782,6 +798,8 @@ interface IColonyInterface extends Interface {
     burnTokens: TypedFunctionDescription<{
       encode([token, amount]: [string, BigNumberish]): string;
     }>;
+
+    unlockToken: TypedFunctionDescription<{ encode([]: []): string }>;
   };
 
   events: {
@@ -1071,6 +1089,8 @@ interface IColonyInterface extends Interface {
         null
       ]): string[];
     }>;
+
+    TokenUnlocked: TypedEventDescription<{ encodeTopics([]: []): string[] }>;
 
     TokensBurned: TypedEventDescription<{
       encodeTopics([agent, token, amount]: [null, null, null]): string[];
@@ -1693,6 +1713,58 @@ export class IColony extends Contract {
       _sig: Arrayish,
       overrides?: TransactionOverrides
     ): Promise<string>;
+
+    /**
+     * Emit a positive domain reputation update. Available only to Root role holders
+     * @param _amount The (positive) amount of reputation to gain
+     * @param _domainId The domain where the user will gain reputation
+     * @param _user The user who will gain reputation
+     */
+    emitDomainReputationReward(
+      _domainId: BigNumberish,
+      _user: string,
+      _amount: BigNumberish,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Emit a positive domain reputation update. Available only to Root role holders
+     * @param _amount The (positive) amount of reputation to gain
+     * @param _domainId The domain where the user will gain reputation
+     * @param _user The user who will gain reputation
+     */
+    "emitDomainReputationReward(uint256,address,int256)"(
+      _domainId: BigNumberish,
+      _user: string,
+      _amount: BigNumberish,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Emit a positive skill reputation update. Available only to Root role holders
+     * @param _amount The (positive) amount of reputation to gain
+     * @param _skillId The skill where the user will gain reputation
+     * @param _user The user who will gain reputation
+     */
+    emitSkillReputationReward(
+      _skillId: BigNumberish,
+      _user: string,
+      _amount: BigNumberish,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Emit a positive skill reputation update. Available only to Root role holders
+     * @param _amount The (positive) amount of reputation to gain
+     * @param _skillId The skill where the user will gain reputation
+     * @param _user The user who will gain reputation
+     */
+    "emitSkillReputationReward(uint256,address,int256)"(
+      _skillId: BigNumberish,
+      _user: string,
+      _amount: BigNumberish,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
 
     /**
      * Emit a negative domain reputation update. Available only to Arbitration role holders
@@ -4179,6 +4251,18 @@ export class IColony extends Contract {
       amount: BigNumberish,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
+
+    /**
+     * unlock the native colony token, if possible
+     */
+    unlockToken(overrides?: TransactionOverrides): Promise<ContractTransaction>;
+
+    /**
+     * unlock the native colony token, if possible
+     */
+    "unlockToken()"(
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
   };
 
   /**
@@ -4776,6 +4860,58 @@ export class IColony extends Contract {
     _sig: Arrayish,
     overrides?: TransactionOverrides
   ): Promise<string>;
+
+  /**
+   * Emit a positive domain reputation update. Available only to Root role holders
+   * @param _amount The (positive) amount of reputation to gain
+   * @param _domainId The domain where the user will gain reputation
+   * @param _user The user who will gain reputation
+   */
+  emitDomainReputationReward(
+    _domainId: BigNumberish,
+    _user: string,
+    _amount: BigNumberish,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * Emit a positive domain reputation update. Available only to Root role holders
+   * @param _amount The (positive) amount of reputation to gain
+   * @param _domainId The domain where the user will gain reputation
+   * @param _user The user who will gain reputation
+   */
+  "emitDomainReputationReward(uint256,address,int256)"(
+    _domainId: BigNumberish,
+    _user: string,
+    _amount: BigNumberish,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * Emit a positive skill reputation update. Available only to Root role holders
+   * @param _amount The (positive) amount of reputation to gain
+   * @param _skillId The skill where the user will gain reputation
+   * @param _user The user who will gain reputation
+   */
+  emitSkillReputationReward(
+    _skillId: BigNumberish,
+    _user: string,
+    _amount: BigNumberish,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * Emit a positive skill reputation update. Available only to Root role holders
+   * @param _amount The (positive) amount of reputation to gain
+   * @param _skillId The skill where the user will gain reputation
+   * @param _user The user who will gain reputation
+   */
+  "emitSkillReputationReward(uint256,address,int256)"(
+    _skillId: BigNumberish,
+    _user: string,
+    _amount: BigNumberish,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
 
   /**
    * Emit a negative domain reputation update. Available only to Arbitration role holders
@@ -7253,6 +7389,18 @@ export class IColony extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * unlock the native colony token, if possible
+   */
+  unlockToken(overrides?: TransactionOverrides): Promise<ContractTransaction>;
+
+  /**
+   * unlock the native colony token, if possible
+   */
+  "unlockToken()"(
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
   filters: {
     Annotation(
       agent: string | null,
@@ -7454,6 +7602,8 @@ export class IColony extends Contract {
       role: null,
       rating: null
     ): EventFilter;
+
+    TokenUnlocked(): EventFilter;
 
     TokensBurned(agent: null, token: null, amount: null): EventFilter;
 
@@ -8042,6 +8192,58 @@ export class IColony extends Contract {
      */
     "getCapabilityRoles(bytes4)"(
       _sig: Arrayish,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * Emit a positive domain reputation update. Available only to Root role holders
+     * @param _amount The (positive) amount of reputation to gain
+     * @param _domainId The domain where the user will gain reputation
+     * @param _user The user who will gain reputation
+     */
+    emitDomainReputationReward(
+      _domainId: BigNumberish,
+      _user: string,
+      _amount: BigNumberish,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * Emit a positive domain reputation update. Available only to Root role holders
+     * @param _amount The (positive) amount of reputation to gain
+     * @param _domainId The domain where the user will gain reputation
+     * @param _user The user who will gain reputation
+     */
+    "emitDomainReputationReward(uint256,address,int256)"(
+      _domainId: BigNumberish,
+      _user: string,
+      _amount: BigNumberish,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * Emit a positive skill reputation update. Available only to Root role holders
+     * @param _amount The (positive) amount of reputation to gain
+     * @param _skillId The skill where the user will gain reputation
+     * @param _user The user who will gain reputation
+     */
+    emitSkillReputationReward(
+      _skillId: BigNumberish,
+      _user: string,
+      _amount: BigNumberish,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * Emit a positive skill reputation update. Available only to Root role holders
+     * @param _amount The (positive) amount of reputation to gain
+     * @param _skillId The skill where the user will gain reputation
+     * @param _user The user who will gain reputation
+     */
+    "emitSkillReputationReward(uint256,address,int256)"(
+      _skillId: BigNumberish,
+      _user: string,
+      _amount: BigNumberish,
       overrides?: TransactionOverrides
     ): Promise<BigNumber>;
 
@@ -10364,5 +10566,15 @@ export class IColony extends Contract {
       amount: BigNumberish,
       overrides?: TransactionOverrides
     ): Promise<BigNumber>;
+
+    /**
+     * unlock the native colony token, if possible
+     */
+    unlockToken(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    /**
+     * unlock the native colony token, if possible
+     */
+    "unlockToken()"(overrides?: TransactionOverrides): Promise<BigNumber>;
   };
 }

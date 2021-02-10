@@ -1060,6 +1060,12 @@ const _abi = [
   },
   {
     anonymous: false,
+    inputs: [],
+    name: "TokenUnlocked",
+    type: "event",
+  },
+  {
+    anonymous: false,
     inputs: [
       {
         indexed: false,
@@ -1665,6 +1671,52 @@ const _abi = [
       },
     ],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_domainId",
+        type: "uint256",
+      },
+      {
+        internalType: "address",
+        name: "_user",
+        type: "address",
+      },
+      {
+        internalType: "int256",
+        name: "_amount",
+        type: "int256",
+      },
+    ],
+    name: "emitDomainReputationReward",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_skillId",
+        type: "uint256",
+      },
+      {
+        internalType: "address",
+        name: "_user",
+        type: "address",
+      },
+      {
+        internalType: "int256",
+        name: "_amount",
+        type: "int256",
+      },
+    ],
+    name: "emitSkillReputationReward",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -4023,6 +4075,13 @@ const _abi = [
       },
     ],
     name: "burnTokens",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "unlockToken",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
