@@ -12,7 +12,7 @@ import {
   REPUTATION_ORACLE_ENDPOINT,
 } from '../constants';
 // @TODO this _HAS_ to be the newest version _ALWAYS_. Let's try to figure out a way to make sure of this
-import { IColonyNetworkFactory } from '../contracts/5/IColonyNetworkFactory';
+import { IColonyNetwork__factory as IColonyNetworkFactory } from '../contracts/5/factories/IColonyNetwork__factory';
 import { IColonyNetwork } from '../contracts/5/IColonyNetwork';
 import {
   abi as tokenAbi,

@@ -3,7 +3,7 @@ import { Provider } from 'ethers/providers';
 import { getAddress, isHexString, parseBytes32String } from 'ethers/utils';
 
 import { ClientType, TokenClientType, tokenAddresses } from '../constants';
-import { TokenFactory } from '../contracts/5/TokenFactory';
+import { Token__factory as TokenFactory } from '../contracts/5/factories/Token__factory';
 import { Token } from '../contracts/5/Token';
 import { TokenErc20Factory } from '../contracts/5/TokenErc20Factory';
 import { TokenErc20 } from '../contracts/5/TokenErc20';

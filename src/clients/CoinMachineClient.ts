@@ -1,5 +1,5 @@
 import { ClientType } from '../constants';
-import { CoinMachineFactory } from '../contracts/5/CoinMachineFactory';
+import { CoinMachine__factory as CoinMachineFactory } from '../contracts/5/factories/CoinMachine__factory';
 import { CoinMachine } from '../contracts/5/CoinMachine';
 import { ExtendedIColony } from './Colony/extensions/commonExtensions';
 

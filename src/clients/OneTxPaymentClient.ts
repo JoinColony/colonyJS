@@ -2,7 +2,7 @@ import { ContractTransaction } from 'ethers';
 import { BigNumberish, BigNumber } from 'ethers/utils';
 
 import { ClientType, ColonyRole } from '../constants';
-import { OneTxPaymentFactory } from '../contracts/5/OneTxPaymentFactory';
+import { OneTxPayment__factory as OneTxPaymentFactory } from '../contracts/5/factories/OneTxPayment__factory';
 import { OneTxPayment } from '../contracts/5/OneTxPayment';
 import { TransactionOverrides } from '../contracts/5';
 import {
