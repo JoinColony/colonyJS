@@ -3,12 +3,12 @@ import { Provider } from 'ethers/providers';
 import { getAddress, isHexString, parseBytes32String } from 'ethers/utils';
 
 import { ClientType, TokenClientType, tokenAddresses } from '../constants';
-import { TokenFactory } from '../contracts/4/TokenFactory';
-import { Token } from '../contracts/4/Token';
-import { TokenErc20Factory } from '../contracts/4/TokenErc20Factory';
-import { TokenErc20 } from '../contracts/4/TokenErc20';
-import { TokenSaiFactory } from '../contracts/4/TokenSaiFactory';
-import { TokenSai } from '../contracts/4/TokenSai';
+import { Token__factory as TokenFactory } from '../contracts/5/factories/Token__factory';
+import { Token } from '../contracts/5/Token';
+import { TokenErc20Factory } from '../contracts/5/TokenErc20Factory';
+import { TokenErc20 } from '../contracts/5/TokenErc20';
+import { TokenSaiFactory } from '../contracts/5/TokenSaiFactory';
+import { TokenSai } from '../contracts/5/TokenSai';
 
 const isSai = (address: string): boolean =>
   getAddress(address) === tokenAddresses.SAI;
@@ -36,7 +36,7 @@ export interface Erc20TokenClient extends TokenErc20 {
 
 export interface DaiTokenClient extends TokenSai {
   clientType: ClientType.TokenClient;
-  tokenClientType: TokenClientType.Dai;
+  tokenClientType: TokenClientType.Sai;
 
   getTokenInfo(): Promise<TokenInfo>;
 }
@@ -73,7 +73,7 @@ const getTokenClient = async (
       signerOrProvider,
     ) as DaiTokenClient;
 
-    tokenClient.tokenClientType = TokenClientType.Dai;
+    tokenClient.tokenClientType = TokenClientType.Sai;
   } else {
     tokenClient = TokenErc20Factory.connect(
       address,

@@ -1,9 +1,8 @@
 import { ContractFactory, ContractTransaction, Signer } from 'ethers';
 import { Provider } from 'ethers/providers';
 import { BigNumber } from 'ethers/utils';
-import { AddressZero } from 'ethers/constants';
 
-import { ColonyClient } from '../index';
+import { ColonyClient } from '../types';
 
 import {
   ColonyVersion,
@@ -13,8 +12,8 @@ import {
   REPUTATION_ORACLE_ENDPOINT,
 } from '../constants';
 // @TODO this _HAS_ to be the newest version _ALWAYS_. Let's try to figure out a way to make sure of this
-import { IColonyNetworkFactory } from '../contracts/4/IColonyNetworkFactory';
-import { IColonyNetwork } from '../contracts/4/IColonyNetwork';
+import { IColonyNetwork__factory as IColonyNetworkFactory } from '../contracts/5/factories/IColonyNetwork__factory';
+import { IColonyNetwork } from '../contracts/5/IColonyNetwork';
 import {
   abi as tokenAbi,
   bytecode as tokenBytecode,
@@ -24,14 +23,11 @@ import getColonyClientV1 from './Colony/ColonyClientV1';
 import getColonyClientV2 from './Colony/ColonyClientV2';
 import getColonyClientV3 from './Colony/ColonyClientV3';
 import getColonyClientV4 from './Colony/ColonyClientV4';
+import getColonyClientV5 from './Colony/ColonyClientV5';
 import getTokenClient from './TokenClient';
 import getTokenLockingClient, {
   TokenLockingClient,
 } from './TokenLockingClient';
-import getOneTxPaymentFactoryClient, {
-  OneTxPaymentFactoryClient,
-} from './OneTxPaymentDeployerClient';
-import getOneTxPaymentClient from './OneTxPaymentClient';
 
 type NetworkEstimate = IColonyNetwork['estimate'];
 
@@ -48,7 +44,6 @@ export interface ColonyNetworkClient extends IColonyNetwork {
   network: Network;
   reputationOracleEndpoint: string;
 
-  oneTxPaymentFactoryClient: OneTxPaymentFactoryClient;
   estimate: ExtendedEstimate;
 
   /**
@@ -100,15 +95,39 @@ export interface ColonyNetworkClient extends IColonyNetwork {
    *
    * @returns an ENS name in the form of `[username].user.joincolony.eth` or `[colonyName].colony.joincolony.eth`
    */
-  lookupRegisteredENSDomainWithGoerliPatch(address: string): Promise<string>;
+  lookupRegisteredENSDomainWithNetworkPatches(address: string): Promise<string>;
 }
 
 interface NetworkClientOptions {
   networkAddress?: string;
-  oneTxPaymentFactoryAddress?: string;
   reputationOracleEndpoint?: string;
 }
 
+/**
+ * The main entry point for accessing the deployed colonyNetwork contracts
+ *
+ * Specify a network and an ethers compatible singer or provider to get back an
+ * initialized and extended (ethers) contract client for the colonyNetwork. From
+ * here you can access different colonies, extensions, ENS and other features of Colony.
+ *
+ * Example
+ * ```ts
+ * import { getColonyNetworkClient, Network } = from '@colony/colony-js';
+ * import { JsonRpcProvider } from 'ethers/providers';
+ *
+ * // For local connections (run an Ethereum node on port 8545);
+ * const provider = new JsonRpcProvider();
+ *
+ * // Just for reading data - to sign transactions we need to pass in a signer.
+ * const networkClient = await getColonyNetworkClient(Network.Mainnet, provider);
+ * ```
+ *
+ * @param network One of the available options. See [[Network]].
+ * @param signerOrProvider An [ethers](https://github.com/ethers-io/ethers.js/)
+ * compatible signer or provider instance
+ * @param options Here you can supply options for accessing certain contracts
+ * (mostly used in local/dev environments)
+ */
 const getColonyNetworkClient = (
   network: Network = Network.Mainnet,
   signerOrProvider: Signer | Provider,
@@ -134,13 +153,6 @@ const getColonyNetworkClient = (
   networkClient.reputationOracleEndpoint =
     (options && options.reputationOracleEndpoint) || REPUTATION_ORACLE_ENDPOINT;
 
-  // @TODO move to getter function `getOneTxPaymentFactorylient` as we do with all the others
-  networkClient.oneTxPaymentFactoryClient = getOneTxPaymentFactoryClient(
-    network,
-    signerOrProvider,
-    options && options.oneTxPaymentFactoryAddress,
-  );
-
   networkClient.getTokenLockingClient = async (): Promise<
     TokenLockingClient
   > => {
@@ -165,7 +177,7 @@ const getColonyNetworkClient = (
     // We have to get the version somehow before instantiating the right contract version
     const versionBN = await colonyVersionClient.version();
     const version = versionBN.toNumber() as ColonyVersion;
-    let colonyClient;
+    let colonyClient: ColonyClient;
     switch (version) {
       case ColonyVersion.GoerliGlider: {
         colonyClient = getColonyClientV1.call(
@@ -199,6 +211,14 @@ const getColonyNetworkClient = (
         );
         break;
       }
+      case ColonyVersion.CeruleanLightweightSpaceship: {
+        colonyClient = getColonyClientV5.call(
+          networkClient,
+          colonyAddress,
+          signerOrProvider,
+        );
+        break;
+      }
       default: {
         throw new Error('Colony version not supported');
       }
@@ -210,17 +230,7 @@ const getColonyNetworkClient = (
       signerOrProvider,
     );
 
-    // eslint-disable-next-line max-len
-    const oneTxPaymentAddress = await networkClient.oneTxPaymentFactoryClient.deployedExtensions(
-      colonyClient.address,
-    );
-
-    if (oneTxPaymentAddress !== AddressZero) {
-      colonyClient.oneTxPaymentClient = getOneTxPaymentClient(
-        oneTxPaymentAddress,
-        colonyClient,
-      );
-    }
+    // @TODO where to put the extensions?
 
     return colonyClient;
   };
@@ -230,13 +240,21 @@ const getColonyNetworkClient = (
     return networkClient.getColonyClient(metaColonyAddress);
   };
 
-  networkClient.lookupRegisteredENSDomainWithGoerliPatch = async (
+  networkClient.lookupRegisteredENSDomainWithNetworkPatches = async (
     addr: string,
   ): Promise<string> => {
     const domain = await networkClient.lookupRegisteredENSDomain(addr);
     if (domain && networkClient.network === Network.Goerli) {
       const [name, scope] = domain.split('.');
       return `${name}.${scope}.joincolony.test`;
+    }
+    if (
+      domain &&
+      (networkClient.network === Network.Xdai ||
+        networkClient.network === Network.XdaiFork)
+    ) {
+      const [name, scope] = domain.split('.');
+      return `${name}.${scope}.joincolony.colonyxdai`;
     }
     return domain;
   };

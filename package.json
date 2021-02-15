@@ -1,6 +1,6 @@
 {
   "name": "@colony/colony-js",
-  "version": "2.0.2",
+  "version": "3.0.0-rc.3",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
   "license": "GPL-3.0-only",
@@ -13,14 +13,15 @@
     "compile": "tsc -p tsconfig.build.json",
     "compile-esm": "tsc -p tsconfig.build.json -m es6 --outDir lib-esm",
     "copy-declarations": "copyfiles -u 1 src/contracts/**/*.d.ts lib && copyfiles -u 1 src/contracts/**/*.d.ts lib-esm",
-    "build-docs": "typedoc --mode library --out docs src/index.ts",
+    "build-docs": "typedoc --out docs src/index.ts",
     "build-contracts": "ts-node -P scripts/tsconfig-scripts.json scripts/build-contracts.ts",
     "prepublishOnly": "npm test && npm run build"
   },
   "devDependencies": {
     "@colony/eslint-config-colony": "^8.0.1",
-    "@typechain/ethers-v4": "^1.0.0",
+    "@typechain/ethers-v4": "^4.0.0",
     "@types/jest": "^25.1.4",
+    "@types/lodash.isequal": "^4.5.5",
     "@types/rimraf": "^3.0.0",
     "@types/yargs": "^15.0.4",
     "@typescript-eslint/eslint-plugin": "^2.24.0",
@@ -40,7 +41,7 @@
     "rimraf": "^3.0.2",
     "ts-jest": "^25.3.0",
     "ts-node": "^8.8.1",
-    "typechain": "^2.0.0",
+    "typechain": "^4.0.1",
     "typedoc": "^0.17.0-3",
     "typescript": "^3.8.3",
     "yargs": "^15.3.1"
@@ -49,6 +50,7 @@
     "ethers": "^4.0.47"
   },
   "dependencies": {
-    "isomorphic-fetch": "^2.2.1"
+    "isomorphic-fetch": "^2.2.1",
+    "lodash.isequal": "^4.5.0"
   }
 }

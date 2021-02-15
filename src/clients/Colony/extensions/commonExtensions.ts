@@ -1,33 +1,46 @@
 import { ContractFactory, ContractTransaction } from 'ethers';
 import { Arrayish, BigNumber, BigNumberish, bigNumberify } from 'ethers/utils';
-import { MaxUint256 } from 'ethers/constants';
+import { MaxUint256, AddressZero } from 'ethers/constants';
 
 import { isAddress } from '../../../utils';
 import {
-  Network,
   ClientType,
   ColonyRole,
+  ColonyVersion,
   FundingPotAssociatedType,
   ROOT_DOMAIN_ID,
 } from '../../../constants';
+import {
+  ReputationOracleResponse,
+  ReputationOracleAllMembersResponse,
+} from '../../../types';
+
 import { IColony as IColonyV1 } from '../../../contracts/1/IColony';
 import { IColony as IColonyV2 } from '../../../contracts/2/IColony';
 import { IColony as IColonyV3 } from '../../../contracts/3/IColony';
 import { IColony as IColonyV4 } from '../../../contracts/4/IColony';
+import { IColony as IColonyV5 } from '../../../contracts/5/IColony';
 import { TransactionOverrides } from '../../../contracts/1';
 import { IColonyFactory } from '../../../contracts/4/IColonyFactory';
 
+import {
+  extensionFactoryMap,
+  ExtensionClient,
+} from '../colonyContractExtensions';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
 import { TokenClient } from '../../TokenClient';
-import { OneTxPaymentClient } from '../../OneTxPaymentClient';
-import type { ReputationOracleResponse } from '../types';
 
 import {
   abi as tokenAuthorityAbi,
   bytecode as tokenAuthorityBytecode,
 } from '../../../contracts/deploy/TokenAuthority.json';
+import { getExtensionHash } from '../../../helpers';
 
-type AnyIColony = IColonyV1 | IColonyV2 | IColonyV3 | IColonyV4;
+type AnyIColony = IColonyV1 | IColonyV2 | IColonyV3 | IColonyV4 | IColonyV5;
+
+// This is exposed to type the awkward recovery event client which is basically
+// just an IColonyV4
+export type AwkwardRecoveryRoleEventClient = IColonyV4;
 
 export type ExtendedEstimate<
   T extends AnyIColony = AnyIColony
@@ -93,11 +106,16 @@ export type ExtendedEstimate<
 
 export type ExtendedIColony<T extends AnyIColony = AnyIColony> = T & {
   clientType: ClientType.ColonyClient;
+  clientVersion: ColonyVersion;
   networkClient: ColonyNetworkClient;
-  oneTxPaymentClient?: OneTxPaymentClient;
   tokenClient: TokenClient;
 
-  awkwardRecoveryRoleEventClient: IColonyV4;
+  awkwardRecoveryRoleEventClient: AwkwardRecoveryRoleEventClient;
+
+  getExtensionClient(
+    this: ExtendedIColony,
+    extensionName: keyof typeof extensionFactoryMap,
+  ): Promise<ExtensionClient>;
 
   deployTokenAuthority(
     tokenAddress: string,
@@ -174,6 +192,10 @@ export type ExtendedIColony<T extends AnyIColony = AnyIColony> = T & {
     skillId: BigNumberish,
     address: string,
   ): Promise<ReputationOracleResponse>;
+
+  getMembersReputation(
+    skillId: BigNumberish,
+  ): Promise<ReputationOracleAllMembersResponse>;
 };
 
 export const getPotDomain = async (
@@ -183,6 +205,11 @@ export const getPotDomain = async (
   const { associatedType, associatedTypeId } = await contract.getFundingPot(
     potId,
   );
+  // In case we add types to this later, we use the official colonyNetwork
+  // function available in v5+
+  if (contract.clientVersion === ColonyVersion.CeruleanLightweightSpaceship) {
+    return contract.getDomainFromFundingPot(potId);
+  }
   switch (associatedType) {
     case FundingPotAssociatedType.Unassigned: {
       // This is probably the reward pot
@@ -323,6 +350,22 @@ export const getMoveFundsPermissionProofs = async (
 
   return [fromPermissionDomainId, fromChildSkillIndex, toChildSkillIndex];
 };
+
+async function getExtensionClient(
+  this: ExtendedIColony,
+  extensionName: keyof typeof extensionFactoryMap,
+): Promise<ExtensionClient> {
+  const extensionAddress = await this.networkClient.getExtensionInstallation(
+    getExtensionHash(extensionName),
+    this.address,
+  );
+  if (extensionAddress === AddressZero) {
+    throw new Error(
+      `${extensionName} extension is not installed for this colony`,
+    );
+  }
+  return extensionFactoryMap[extensionName](extensionAddress, this);
+}
 
 async function setArchitectureRoleWithProofs(
   this: ExtendedIColony,
@@ -822,10 +865,6 @@ async function getReputation(
 
   const { network, reputationOracleEndpoint } = this.networkClient;
 
-  if (network !== Network.Mainnet && network !== Network.Goerli) {
-    throw new Error('This method is only supported on mainnet and goerli');
-  }
-
   const skillIdString = bigNumberify(skillId).toString();
 
   const rootHash = await this.networkClient.getReputationRootHash();
@@ -840,6 +879,23 @@ async function getReputation(
     ...result,
     reputationAmount: bigNumberify(result.reputationAmount || 0),
   };
+}
+
+async function getMembersReputation(
+  this: ExtendedIColony,
+  skillId: BigNumberish,
+): Promise<ReputationOracleAllMembersResponse> {
+  const { network, reputationOracleEndpoint } = this.networkClient;
+
+  const skillIdString = bigNumberify(skillId).toString();
+
+  const rootHash = await this.networkClient.getReputationRootHash();
+
+  const response = await fetch(
+    `${reputationOracleEndpoint}/${network}/${rootHash}/${this.address}/${skillIdString}`,
+  );
+
+  return response.json();
 }
 
 async function deployTokenAuthority(
@@ -887,6 +943,7 @@ export const addExtensions = <T extends ExtendedIColony>(
   instance.networkClient = networkClient;
 
   instance.deployTokenAuthority = deployTokenAuthority.bind(instance);
+  instance.getExtensionClient = getExtensionClient.bind(instance);
 
   instance.setArchitectureRoleWithProofs = setArchitectureRoleWithProofs.bind(
     instance,
@@ -956,6 +1013,7 @@ export const addExtensions = <T extends ExtendedIColony>(
   );
 
   instance.getReputation = getReputation.bind(instance);
+  instance.getMembersReputation = getMembersReputation.bind(instance);
 
   /* eslint-enable no-param-reassign, max-len */
   return instance;

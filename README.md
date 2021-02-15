@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="colonyJS_color.svg" width="600" />
+  <img src="media/colonyJS_color.svg" width="600" />
 </div>
 
 # colonyJS
@@ -37,7 +37,12 @@ const networkAddress = '0xdabbad00';
   console.log('Wallet Address:', wallet.address);
 
   // Get a network client instance
-  const networkClient = await getColonyNetworkClient(Network.Local, wallet, networkAddress)
+  const networkClient = await getColonyNetworkClient(
+    Network.Local,
+    wallet,
+    // The address of the locally deployed EtherRouter!
+    { networkAddress: '0xdabbad00' }
+  );
 
   // Check out the logs to see the network address
   console.log('Network Address:', networkClient.address);
@@ -58,11 +63,57 @@ We welcome all contributions to colonyJS! See [Contributing](https://github.com/
 
 ## Development
 
+### Local development
+
+Using just `npm` you can _link_ the built colonyJS files to your Dapp when developing new features in colonyJS while trying them out immediately in your dev-environment.
+
+To do that:
+
+1) Make sure you are using **the exact same node version in colonyJS and the Dapp**. Use nvm if possible
+
+2) Update the required submodules:
+
+```shell
+git submodule update --init --recursive
+```
+
+3) Build colonyJS. In the colonyJS directory do:
+
+```shell
+npm run build
+```
+
+4) Create an `npm link` in the colonyJS directory:
+
+```shell
+npm link
+```
+
+5) Link to it in the **Dapp** directory:
+
+```shell
+npm link @colony/colony-js
+```
+
+6) Then do a regular install in the Dapp directory:
+
+```shell
+npm install
+```
+
+To overwrite the link again just specify a version that exists on npm:
+
+```shell
+npm install @colony/colony-js@^3.0.0
+```
+
+If that doesn't remove it, just remove the folder in `node_modules`
+
 ### To release a new version
 
 1) First, commit all your changes. Then run the tests:
 
-```bash
+```shell
 npm test #just to be sure
 ```
 
@@ -70,36 +121,62 @@ npm test #just to be sure
 
 3) Let npm adjust the version in `package-lock.json`:
 
-```bash
+```shell
 npm install
 ```
 
 4) Commit the npm package files. Use the version set in the package.json (**make sure to follow the version pattern**):
 
-```bash
+```shell
 git add pack*
 git commit -m '2.0.1' # no `v`!
 ```
 
 5) Tag the commit:
 
-```bash
+```shell
 git tag v2.0.1 # here we use the `v`!
 ```
 
 6) Push the changes and tags:
 
-```bash
+```shell
 git push && git push --tags
 ```
 
 7) Publish on npm:
 
 ```
-npm publish --access=public 
+npm publish --access=public
 ```
 
 Done 🎊
+
+### To upgrade to a new colonyNetwork version
+
+1) Add the version to `constants.ts` in `ColonyVersion`
+2) Change the `CurrentVersion` variable to the one you just added
+3) Add the git tag to `scripts/config.ts`
+4) _Optional:_ If you are tracking a development branch instead of a static tag or commit, make sure to pull the latest changes, otherwise the contracts generated will be exactly the same as your last ones -- _this is a step often forgotten when using a dev version_
+5) If needed: add new contracts that need clients to the `contractsToBuild` array in `scripts/build-contracts.ts`
+6) Run
+```shell
+DISABLE_DOCKER=true npm run build-contracts -- -V=X
+```
+
+where `X` is the version number you just added (the incremental integer of the `ColonyVersion` enum).
+
+This will create a new folder: `src/contracts/X` containing all the type definitions you'll need to implement the new colony client.
+
+7) Update the following lines in `ColonyNetworkClient.ts` to reflect the new version:
+
+```ts
+import { IColonyNetworkFactory } from '../contracts/X/IColonyNetworkFactory';
+import { IColonyNetwork } from '../contracts/X/IColonyNetwork';
+```
+
+8) Update all the other contract imports in the non-colony clients, even if they haven't been upgraded (just in case). Then make adjustments to the clients to reflect the contract changes (typescript will tell you, where to make changes). Also add necessary helper functions (e.g. `withProofs` functions) for newly added methods. The newly added methods and their required roles can be found in [this file](https://github.com/JoinColony/colonyNetwork/blob/develop/contracts/colony/ColonyAuthority.sol) (and by diffing the generated interface files).
+
 
 ## License
 

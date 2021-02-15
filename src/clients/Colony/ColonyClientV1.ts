@@ -37,7 +37,7 @@ export default function getColonyClient(
   colonyClient.setPaymentDomainWithProofs = setPaymentDomainWithProofs.bind(
     colonyClient,
   );
-  colonyClient.estimate.setPaymentDomain = estimateSetPaymentDomainWithProofs.bind(
+  colonyClient.estimate.setPaymentDomainWithProofs = estimateSetPaymentDomainWithProofs.bind(
     colonyClient,
   );
   /* eslint-enable max-len */

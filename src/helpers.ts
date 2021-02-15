@@ -1,21 +1,27 @@
 import { EventFilter } from 'ethers';
 import { Filter, Log, Provider } from 'ethers/providers';
-import { BigNumber, BigNumberish, LogDescription } from 'ethers/utils';
+import {
+  BigNumber,
+  BigNumberish,
+  LogDescription,
+  keccak256,
+  toUtf8Bytes,
+} from 'ethers/utils';
 
 import {
-  ColonyClient,
   ColonyRole,
   ColonyRoles,
   ColonyVersion,
-  ContractClient,
   ROOT_DOMAIN_ID,
-} from './index';
+} from './constants';
+import { ColonyClient, ContractClient } from './types';
 
 import {
   getChildIndex as exGetChildIndex,
   getPotDomain as exGetPotDomain,
   getPermissionProofs as exGetPermissionProofs,
   getMoveFundsPermissionProofs as exGetMoveFundsPermissionProofs,
+  AwkwardRecoveryRoleEventClient,
 } from './clients/Colony/extensions/commonExtensions';
 
 interface ColonyRolesMap {
@@ -46,7 +52,11 @@ interface LogOptions {
 
 type TopicsArray = string[][];
 
-const ROOT_DOMAIN = ROOT_DOMAIN_ID.toString();
+/**
+ * Hashes to identify the colony extension contracts
+ */
+export const getExtensionHash = (extensionName: string): string =>
+  keccak256(toUtf8Bytes(extensionName));
 
 /**
  * Get the JavaScript timestamp for a block
@@ -82,7 +92,7 @@ export const getBlockTime = async (
  * @returns ethers Log array
  */
 export const getLogs = async (
-  client: ContractClient,
+  client: ContractClient | AwkwardRecoveryRoleEventClient,
   filter: Filter,
   options: LogOptions = {
     fromBlock: 1,
@@ -111,7 +121,7 @@ export const getLogs = async (
  * @returns Parsed ethers LogDescription array (events)
  */
 export const getEvents = async (
-  client: ContractClient,
+  client: ContractClient | AwkwardRecoveryRoleEventClient,
   filter: Filter,
   options?: LogOptions,
 ): Promise<LogDescription[]> => {
@@ -223,72 +233,95 @@ export const getChildIndex = async (
 export const getColonyRoles = async (
   client: ColonyClient,
 ): Promise<ColonyRoles> => {
-  const { oneTxPaymentFactoryClient } = client.networkClient;
-  if (client.clientVersion === ColonyVersion.GoerliGlider) {
-    throw new Error(
-      `Not supported by colony version ${ColonyVersion.GoerliGlider}`,
-    );
+  const ROOT_DOMAIN = ROOT_DOMAIN_ID.toString();
+
+  /*
+   * Supported only for versions greater or equal to 3
+   */
+  if (
+    client.clientVersion === ColonyVersion.GoerliGlider ||
+    client.clientVersion === ColonyVersion.Glider
+  ) {
+    throw new Error(`Not supported by colony version ${client.clientVersion}`);
   }
-  const colonyRoleSetFilter = client.filters.ColonyRoleSet(
-    null,
-    null,
-    null,
-    null,
+
+  const colonyRoleEvents = await getMultipleEvents(
+    client,
+    /*
+     * Get all "ColonyRoleSet" events that were emmited for the colony,
+     * from all contract versions
+     */
+    Object.keys(client.filters)
+      .filter((filterName) => filterName.match(/ColonyRoleSet\(.+\)/))
+      .map((filterName) =>
+        /*
+         * Note that TS doesn't know about the overloaded filters since
+         * they get added at compile time, so they don't really exist
+         * as currently existing types
+         */
+        ((client.filters as unknown) as Record<string, () => EventFilter>)[
+          filterName
+        ](),
+      ),
   );
 
-  const colonyRoleEvents = await getEvents(client, colonyRoleSetFilter);
+  const recoveryRoleSetFilter =
+    /*
+     * @NOTE Argument number changes between colony contract versions, and since
+     * we are always passing `null` to all of them, it's the same effect as not
+     * passing in them at all
+     *
+     * This suppreses errors on clients
+     */
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
+    client.awkwardRecoveryRoleEventClient.filters.RecoveryRoleSet();
 
-  // eslint-disable-next-line max-len
-  const recoveryRoleSetFilter = client.awkwardRecoveryRoleEventClient.filters.RecoveryRoleSet(
-    null,
-    null,
-  );
-
-  const recoveryRoleEvents = await getEvents(client, recoveryRoleSetFilter);
-
-  const oneTxAddress = await oneTxPaymentFactoryClient.deployedExtensions(
-    client.address,
+  const recoveryRoleEvents = await getEvents(
+    client.awkwardRecoveryRoleEventClient,
+    recoveryRoleSetFilter,
   );
 
   // We construct a map that holds all users with all domains and the roles as Sets
-  const rolesMap: ColonyRolesMap = colonyRoleEvents
-    // Don't show roles of OneTxPayment contracts
-    .filter((event) => event && event.values.user !== oneTxAddress)
-    .reduce((colonyRolesMap: ColonyRolesMap, { values }) => {
-      const { user, domainId, role, setTo }: ColonyRoleSetValues = values;
-      const domainKey = domainId.toString();
-      if (!colonyRolesMap[user] && setTo) {
-        // eslint-disable-next-line no-param-reassign
-        colonyRolesMap[user] = { [domainKey]: new Set([role]) };
-      }
-      if (!colonyRolesMap[user][domainKey] && setTo) {
-        // eslint-disable-next-line no-param-reassign
-        colonyRolesMap[user][domainKey] = new Set([role]);
-      }
-      if (setTo) {
-        colonyRolesMap[user][domainKey].add(role);
-      } else {
-        colonyRolesMap[user][domainKey].delete(role);
-      }
-      return colonyRolesMap;
-    }, {});
+  const rolesMap: ColonyRolesMap = colonyRoleEvents.length
+    ? colonyRoleEvents.reduce((colonyRolesMap: ColonyRolesMap, { values }) => {
+        const { user, domainId, role, setTo }: ColonyRoleSetValues = values;
+        const domainKey = domainId.toString();
+        if (!colonyRolesMap[user]) {
+          const roleSet: Set<ColonyRole> = setTo ? new Set([role]) : new Set();
+          // eslint-disable-next-line no-param-reassign
+          colonyRolesMap[user] = { [domainKey]: roleSet };
+        }
+        if (!colonyRolesMap[user][domainKey] && setTo) {
+          // eslint-disable-next-line no-param-reassign
+          colonyRolesMap[user][domainKey] = new Set([role]);
+        }
+        if (setTo) {
+          colonyRolesMap[user][domainKey].add(role);
+        } else {
+          colonyRolesMap[user][domainKey].delete(role);
+        }
+        return colonyRolesMap;
+      }, {})
+    : {};
 
   // OK, now we also collect all the RecoveryRoleSet events for this colony
-  recoveryRoleEvents
-    // Don't show roles of OneTxPayment contracts
-    .filter((event) => event && event.values.user !== oneTxAddress)
-    .forEach(({ values }) => {
-      const { user, setTo }: RecoveryRoleSetValues = values;
-      if (rolesMap[user][ROOT_DOMAIN]) {
-        if (setTo) {
-          rolesMap[user][ROOT_DOMAIN].add(ColonyRole.Recovery);
-        } else {
-          rolesMap[user][ROOT_DOMAIN].delete(ColonyRole.Recovery);
-        }
-      } else if (setTo) {
-        rolesMap[user][ROOT_DOMAIN] = new Set([ColonyRole.Recovery]);
+  recoveryRoleEvents.forEach(({ values }) => {
+    const { user, setTo }: RecoveryRoleSetValues = values;
+    rolesMap[user] = rolesMap[user] || {};
+    if (rolesMap[user][ROOT_DOMAIN]) {
+      if (setTo) {
+        rolesMap[user][ROOT_DOMAIN].add(ColonyRole.Recovery);
+      } else {
+        rolesMap[user][ROOT_DOMAIN].delete(ColonyRole.Recovery);
       }
-    });
+    } else {
+      const roleSet: Set<ColonyRole> = setTo
+        ? new Set([ColonyRole.Recovery])
+        : new Set();
+      rolesMap[user][ROOT_DOMAIN] = roleSet;
+    }
+  });
   return Object.entries(rolesMap).map(([address, userRoles]) => {
     const domains = Object.entries(userRoles).map(
       ([domainId, domainRoles]) => ({

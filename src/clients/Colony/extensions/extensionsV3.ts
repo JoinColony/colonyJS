@@ -4,6 +4,7 @@ import { BigNumber, BigNumberish } from 'ethers/utils';
 import { TransactionOverrides } from '../../../contracts/3';
 import { IColony as IColonyV3 } from '../../../contracts/3/IColony';
 import { IColony as IColonyV4 } from '../../../contracts/4/IColony';
+import { IColony as IColonyV5 } from '../../../contracts/5/IColony';
 import { ColonyRole } from '../../../constants';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
 import {
@@ -12,7 +13,7 @@ import {
   getPermissionProofs,
 } from './commonExtensions';
 
-type ValidColony = IColonyV3 | IColonyV4;
+type ValidColony = IColonyV3 | IColonyV4 | IColonyV5;
 
 export interface ExtendedEstimateV3 {
   setArbitrationRoleWithProofs(

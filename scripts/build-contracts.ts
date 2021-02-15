@@ -1,5 +1,5 @@
 import { resolve as resolvePath } from 'path';
-import { copyFileSync, renameSync } from 'fs';
+import { copyFileSync } from 'fs';
 import { promisify } from 'util';
 
 import { options } from 'yargs';
@@ -19,11 +19,10 @@ const tokenBuildDir = resolvePath(networkDir, relativeTokenDir);
 const vendorTokenDir = resolvePath(__dirname, '../vendor/tokens');
 
 const contractsToBuild = [
+  'CoinMachine',
   'IColony',
   'IColonyNetwork',
   'OneTxPayment',
-  // Renamed due to naming conflicts in typechain
-  'OneTxPaymentDeployer',
   'TokenLocking',
 ];
 
@@ -74,12 +73,6 @@ const buildContracts = async (): Promise<void> => {
   });
   if (truffle.stdout) truffle.stdout.pipe(process.stdout);
   await truffle;
-
-  // This needs to be renamed before TypeChain generation due to naming conflicts
-  renameSync(
-    `${buildDir}/OneTxPaymentFactory.json`,
-    `${buildDir}/OneTxPaymentDeployer.json`,
-  );
 
   if (version === CurrentVersion) {
     // Copy contract json files of latest version for deployment purposes
