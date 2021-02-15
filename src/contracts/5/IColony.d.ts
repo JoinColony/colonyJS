@@ -212,6 +212,12 @@ interface IColonyInterface extends Interface {
       encode([_guy, _wad]: [string, BigNumberish]): string;
     }>;
 
+    lockToken: TypedFunctionDescription<{ encode([]: []): string }>;
+
+    unlockTokenForUser: TypedFunctionDescription<{
+      encode([user, lockId]: [string, BigNumberish]): string;
+    }>;
+
     registerColonyLabel: TypedFunctionDescription<{
       encode([colonyName, orbitdb]: [string, string]): string;
     }>;
@@ -1929,6 +1935,40 @@ export class IColony extends Contract {
     "mintTokensFor(address,uint256)"(
       _guy: string,
       _wad: BigNumberish,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Lock the colony's token. Can only be called by a network-managed extension.
+     */
+    lockToken(overrides?: TransactionOverrides): Promise<ContractTransaction>;
+
+    /**
+     * Lock the colony's token. Can only be called by a network-managed extension.
+     */
+    "lockToken()"(
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Unlock the colony's token for a user. Can only be called by a network-managed extension.
+     * @param lockId The specific lock to unlock
+     * @param user The user to unlock
+     */
+    unlockTokenForUser(
+      user: string,
+      lockId: BigNumberish,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Unlock the colony's token for a user. Can only be called by a network-managed extension.
+     * @param lockId The specific lock to unlock
+     * @param user The user to unlock
+     */
+    "unlockTokenForUser(address,uint256)"(
+      user: string,
+      lockId: BigNumberish,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
@@ -5076,6 +5116,38 @@ export class IColony extends Contract {
   "mintTokensFor(address,uint256)"(
     _guy: string,
     _wad: BigNumberish,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * Lock the colony's token. Can only be called by a network-managed extension.
+   */
+  lockToken(overrides?: TransactionOverrides): Promise<ContractTransaction>;
+
+  /**
+   * Lock the colony's token. Can only be called by a network-managed extension.
+   */
+  "lockToken()"(overrides?: TransactionOverrides): Promise<ContractTransaction>;
+
+  /**
+   * Unlock the colony's token for a user. Can only be called by a network-managed extension.
+   * @param lockId The specific lock to unlock
+   * @param user The user to unlock
+   */
+  unlockTokenForUser(
+    user: string,
+    lockId: BigNumberish,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * Unlock the colony's token for a user. Can only be called by a network-managed extension.
+   * @param lockId The specific lock to unlock
+   * @param user The user to unlock
+   */
+  "unlockTokenForUser(address,uint256)"(
+    user: string,
+    lockId: BigNumberish,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
@@ -8410,6 +8482,38 @@ export class IColony extends Contract {
     "mintTokensFor(address,uint256)"(
       _guy: string,
       _wad: BigNumberish,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * Lock the colony's token. Can only be called by a network-managed extension.
+     */
+    lockToken(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    /**
+     * Lock the colony's token. Can only be called by a network-managed extension.
+     */
+    "lockToken()"(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    /**
+     * Unlock the colony's token for a user. Can only be called by a network-managed extension.
+     * @param lockId The specific lock to unlock
+     * @param user The user to unlock
+     */
+    unlockTokenForUser(
+      user: string,
+      lockId: BigNumberish,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * Unlock the colony's token for a user. Can only be called by a network-managed extension.
+     * @param lockId The specific lock to unlock
+     * @param user The user to unlock
+     */
+    "unlockTokenForUser(address,uint256)"(
+      user: string,
+      lockId: BigNumberish,
       overrides?: TransactionOverrides
     ): Promise<BigNumber>;
 

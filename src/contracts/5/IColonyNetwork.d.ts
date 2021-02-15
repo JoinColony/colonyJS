@@ -300,23 +300,11 @@ interface IColonyNetworkInterface extends Interface {
       encode([_recipient]: [string]): string;
     }>;
 
-    setAnnualMetaColonyStipend: TypedFunctionDescription<{
-      encode([_amount]: [BigNumberish]): string;
-    }>;
-
-    issueMetaColonyStipend: TypedFunctionDescription<{
-      encode([]: []): string;
-    }>;
-
     setReputationMiningCycleReward: TypedFunctionDescription<{
       encode([_amount]: [BigNumberish]): string;
     }>;
 
     getReputationMiningCycleReward: TypedFunctionDescription<{
-      encode([]: []): string;
-    }>;
-
-    getAnnualMetaColonyStipend: TypedFunctionDescription<{
       encode([]: []): string;
     }>;
   };
@@ -1894,40 +1882,6 @@ export class IColonyNetwork extends Contract {
 
     /**
      * Can only be called by the MetaColony.
-     * Called to set the metaColony stipend. This value will be the total amount of CLNY created for the metacolony in a single year. The corresponding `issueMetaColonyStipend` function can be called at any interval.
-     * @param _amount The amount of CLNY to issue to the metacolony every year
-     */
-    setAnnualMetaColonyStipend(
-      _amount: BigNumberish,
-      overrides?: TransactionOverrides
-    ): Promise<ContractTransaction>;
-
-    /**
-     * Can only be called by the MetaColony.
-     * Called to set the metaColony stipend. This value will be the total amount of CLNY created for the metacolony in a single year. The corresponding `issueMetaColonyStipend` function can be called at any interval.
-     * @param _amount The amount of CLNY to issue to the metacolony every year
-     */
-    "setAnnualMetaColonyStipend(uint256)"(
-      _amount: BigNumberish,
-      overrides?: TransactionOverrides
-    ): Promise<ContractTransaction>;
-
-    /**
-     * Called to issue the metaColony stipend. This external function can be called by anyone at any interval, and an appropriate amount of CLNY will be minted based on the time since the last time it was called.
-     */
-    issueMetaColonyStipend(
-      overrides?: TransactionOverrides
-    ): Promise<ContractTransaction>;
-
-    /**
-     * Called to issue the metaColony stipend. This external function can be called by anyone at any interval, and an appropriate amount of CLNY will be minted based on the time since the last time it was called.
-     */
-    "issueMetaColonyStipend()"(
-      overrides?: TransactionOverrides
-    ): Promise<ContractTransaction>;
-
-    /**
-     * Can only be called by the MetaColony.
      * Called to set the total per-cycle reputation reward, which will be split between all miners.
      */
     setReputationMiningCycleReward(
@@ -1955,20 +1909,6 @@ export class IColonyNetwork extends Contract {
      * Called to get the total per-cycle reputation mining reward.
      */
     "getReputationMiningCycleReward()"(
-      overrides?: TransactionOverrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Called to get the total per-cycle reputation mining reward.
-     */
-    getAnnualMetaColonyStipend(
-      overrides?: TransactionOverrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Called to get the total per-cycle reputation mining reward.
-     */
-    "getAnnualMetaColonyStipend()"(
       overrides?: TransactionOverrides
     ): Promise<BigNumber>;
   };
@@ -3382,40 +3322,6 @@ export class IColonyNetwork extends Contract {
 
   /**
    * Can only be called by the MetaColony.
-   * Called to set the metaColony stipend. This value will be the total amount of CLNY created for the metacolony in a single year. The corresponding `issueMetaColonyStipend` function can be called at any interval.
-   * @param _amount The amount of CLNY to issue to the metacolony every year
-   */
-  setAnnualMetaColonyStipend(
-    _amount: BigNumberish,
-    overrides?: TransactionOverrides
-  ): Promise<ContractTransaction>;
-
-  /**
-   * Can only be called by the MetaColony.
-   * Called to set the metaColony stipend. This value will be the total amount of CLNY created for the metacolony in a single year. The corresponding `issueMetaColonyStipend` function can be called at any interval.
-   * @param _amount The amount of CLNY to issue to the metacolony every year
-   */
-  "setAnnualMetaColonyStipend(uint256)"(
-    _amount: BigNumberish,
-    overrides?: TransactionOverrides
-  ): Promise<ContractTransaction>;
-
-  /**
-   * Called to issue the metaColony stipend. This external function can be called by anyone at any interval, and an appropriate amount of CLNY will be minted based on the time since the last time it was called.
-   */
-  issueMetaColonyStipend(
-    overrides?: TransactionOverrides
-  ): Promise<ContractTransaction>;
-
-  /**
-   * Called to issue the metaColony stipend. This external function can be called by anyone at any interval, and an appropriate amount of CLNY will be minted based on the time since the last time it was called.
-   */
-  "issueMetaColonyStipend()"(
-    overrides?: TransactionOverrides
-  ): Promise<ContractTransaction>;
-
-  /**
-   * Can only be called by the MetaColony.
    * Called to set the total per-cycle reputation reward, which will be split between all miners.
    */
   setReputationMiningCycleReward(
@@ -3443,20 +3349,6 @@ export class IColonyNetwork extends Contract {
    * Called to get the total per-cycle reputation mining reward.
    */
   "getReputationMiningCycleReward()"(
-    overrides?: TransactionOverrides
-  ): Promise<BigNumber>;
-
-  /**
-   * Called to get the total per-cycle reputation mining reward.
-   */
-  getAnnualMetaColonyStipend(
-    overrides?: TransactionOverrides
-  ): Promise<BigNumber>;
-
-  /**
-   * Called to get the total per-cycle reputation mining reward.
-   */
-  "getAnnualMetaColonyStipend()"(
     overrides?: TransactionOverrides
   ): Promise<BigNumber>;
 
@@ -4915,40 +4807,6 @@ export class IColonyNetwork extends Contract {
 
     /**
      * Can only be called by the MetaColony.
-     * Called to set the metaColony stipend. This value will be the total amount of CLNY created for the metacolony in a single year. The corresponding `issueMetaColonyStipend` function can be called at any interval.
-     * @param _amount The amount of CLNY to issue to the metacolony every year
-     */
-    setAnnualMetaColonyStipend(
-      _amount: BigNumberish,
-      overrides?: TransactionOverrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Can only be called by the MetaColony.
-     * Called to set the metaColony stipend. This value will be the total amount of CLNY created for the metacolony in a single year. The corresponding `issueMetaColonyStipend` function can be called at any interval.
-     * @param _amount The amount of CLNY to issue to the metacolony every year
-     */
-    "setAnnualMetaColonyStipend(uint256)"(
-      _amount: BigNumberish,
-      overrides?: TransactionOverrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Called to issue the metaColony stipend. This external function can be called by anyone at any interval, and an appropriate amount of CLNY will be minted based on the time since the last time it was called.
-     */
-    issueMetaColonyStipend(
-      overrides?: TransactionOverrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Called to issue the metaColony stipend. This external function can be called by anyone at any interval, and an appropriate amount of CLNY will be minted based on the time since the last time it was called.
-     */
-    "issueMetaColonyStipend()"(
-      overrides?: TransactionOverrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Can only be called by the MetaColony.
      * Called to set the total per-cycle reputation reward, which will be split between all miners.
      */
     setReputationMiningCycleReward(
@@ -4976,20 +4834,6 @@ export class IColonyNetwork extends Contract {
      * Called to get the total per-cycle reputation mining reward.
      */
     "getReputationMiningCycleReward()"(
-      overrides?: TransactionOverrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Called to get the total per-cycle reputation mining reward.
-     */
-    getAnnualMetaColonyStipend(
-      overrides?: TransactionOverrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Called to get the total per-cycle reputation mining reward.
-     */
-    "getAnnualMetaColonyStipend()"(
       overrides?: TransactionOverrides
     ): Promise<BigNumber>;
   };

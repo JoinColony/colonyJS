@@ -1900,26 +1900,6 @@ const _abi = [
         type: "uint256",
       },
     ],
-    name: "setAnnualMetaColonyStipend",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "issueMetaColonyStipend",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_amount",
-        type: "uint256",
-      },
-    ],
     name: "setReputationMiningCycleReward",
     outputs: [],
     stateMutability: "nonpayable",
@@ -1928,19 +1908,6 @@ const _abi = [
   {
     inputs: [],
     name: "getReputationMiningCycleReward",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "getAnnualMetaColonyStipend",
     outputs: [
       {
         internalType: "uint256",

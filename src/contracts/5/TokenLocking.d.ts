@@ -40,7 +40,11 @@ interface TokenLockingInterface extends Interface {
     }>;
 
     deposit: TypedFunctionDescription<{
-      encode([_token, _amount]: [string, BigNumberish]): string;
+      encode([_token, _amount, _force]: [
+        string,
+        BigNumberish,
+        boolean
+      ]): string;
     }>;
 
     depositFor: TypedFunctionDescription<{
@@ -49,10 +53,6 @@ interface TokenLockingInterface extends Interface {
         BigNumberish,
         string
       ]): string;
-    }>;
-
-    claim: TypedFunctionDescription<{
-      encode([_token, _force]: [string, boolean]): string;
     }>;
 
     transfer: TypedFunctionDescription<{
@@ -97,10 +97,6 @@ interface TokenLockingInterface extends Interface {
       encode([_recipient, _amount]: [string, BigNumberish]): string;
     }>;
 
-    burn: TypedFunctionDescription<{
-      encode([_amount]: [BigNumberish]): string;
-    }>;
-
     getTotalLockCount: TypedFunctionDescription<{
       encode([_token]: [string]): string;
     }>;
@@ -136,7 +132,11 @@ interface TokenLockingInterface extends Interface {
     }>;
 
     TokenLocked: TypedEventDescription<{
-      encodeTopics([token, lockCount]: [null, null]): string[];
+      encodeTopics([token, lockedBy, lockCount]: [
+        string | null,
+        string | null,
+        null
+      ]): string[];
     }>;
 
     UserTokenClaimed: TypedEventDescription<{
@@ -264,6 +264,14 @@ export class TokenLocking extends Contract {
     deposit(
       _token: string,
       _amount: BigNumberish,
+      _force: boolean,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    "deposit(address,uint256,bool)"(
+      _token: string,
+      _amount: BigNumberish,
+      _force: boolean,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
@@ -284,18 +292,6 @@ export class TokenLocking extends Contract {
       _token: string,
       _amount: BigNumberish,
       _recipient: string,
-      overrides?: TransactionOverrides
-    ): Promise<ContractTransaction>;
-
-    claim(
-      _token: string,
-      _force: boolean,
-      overrides?: TransactionOverrides
-    ): Promise<ContractTransaction>;
-
-    "claim(address,bool)"(
-      _token: string,
-      _force: boolean,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
@@ -404,16 +400,6 @@ export class TokenLocking extends Contract {
       _amount: BigNumberish,
       overrides?: TransactionOverrides
     ): Promise<void>;
-
-    burn(
-      _amount: BigNumberish,
-      overrides?: TransactionOverrides
-    ): Promise<ContractTransaction>;
-
-    "burn(uint256)"(
-      _amount: BigNumberish,
-      overrides?: TransactionOverrides
-    ): Promise<ContractTransaction>;
 
     getTotalLockCount(
       _token: string,
@@ -573,6 +559,14 @@ export class TokenLocking extends Contract {
   deposit(
     _token: string,
     _amount: BigNumberish,
+    _force: boolean,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  "deposit(address,uint256,bool)"(
+    _token: string,
+    _amount: BigNumberish,
+    _force: boolean,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
@@ -593,18 +587,6 @@ export class TokenLocking extends Contract {
     _token: string,
     _amount: BigNumberish,
     _recipient: string,
-    overrides?: TransactionOverrides
-  ): Promise<ContractTransaction>;
-
-  claim(
-    _token: string,
-    _force: boolean,
-    overrides?: TransactionOverrides
-  ): Promise<ContractTransaction>;
-
-  "claim(address,bool)"(
-    _token: string,
-    _force: boolean,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
@@ -714,16 +696,6 @@ export class TokenLocking extends Contract {
     overrides?: TransactionOverrides
   ): Promise<void>;
 
-  burn(
-    _amount: BigNumberish,
-    overrides?: TransactionOverrides
-  ): Promise<ContractTransaction>;
-
-  "burn(uint256)"(
-    _amount: BigNumberish,
-    overrides?: TransactionOverrides
-  ): Promise<ContractTransaction>;
-
   getTotalLockCount(
     _token: string,
     overrides?: TransactionOverrides
@@ -807,7 +779,11 @@ export class TokenLocking extends Contract {
 
     LogSetOwner(owner: string | null): EventFilter;
 
-    TokenLocked(token: null, lockCount: null): EventFilter;
+    TokenLocked(
+      token: string | null,
+      lockedBy: string | null,
+      lockCount: null
+    ): EventFilter;
 
     UserTokenClaimed(token: null, user: null, amount: null): EventFilter;
 
@@ -907,6 +883,14 @@ export class TokenLocking extends Contract {
     deposit(
       _token: string,
       _amount: BigNumberish,
+      _force: boolean,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    "deposit(address,uint256,bool)"(
+      _token: string,
+      _amount: BigNumberish,
+      _force: boolean,
       overrides?: TransactionOverrides
     ): Promise<BigNumber>;
 
@@ -927,18 +911,6 @@ export class TokenLocking extends Contract {
       _token: string,
       _amount: BigNumberish,
       _recipient: string,
-      overrides?: TransactionOverrides
-    ): Promise<BigNumber>;
-
-    claim(
-      _token: string,
-      _force: boolean,
-      overrides?: TransactionOverrides
-    ): Promise<BigNumber>;
-
-    "claim(address,bool)"(
-      _token: string,
-      _force: boolean,
       overrides?: TransactionOverrides
     ): Promise<BigNumber>;
 
@@ -1044,16 +1016,6 @@ export class TokenLocking extends Contract {
 
     "reward(address,uint256)"(
       _recipient: string,
-      _amount: BigNumberish,
-      overrides?: TransactionOverrides
-    ): Promise<BigNumber>;
-
-    burn(
-      _amount: BigNumberish,
-      overrides?: TransactionOverrides
-    ): Promise<BigNumber>;
-
-    "burn(uint256)"(
       _amount: BigNumberish,
       overrides?: TransactionOverrides
     ): Promise<BigNumber>;

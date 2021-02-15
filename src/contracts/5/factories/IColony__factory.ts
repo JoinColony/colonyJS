@@ -1856,6 +1856,37 @@ const _abi = [
     type: "function",
   },
   {
+    inputs: [],
+    name: "lockToken",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "user",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "lockId",
+        type: "uint256",
+      },
+    ],
+    name: "unlockTokenForUser",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
     inputs: [
       {
         internalType: "string",
