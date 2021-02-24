@@ -20,6 +20,7 @@ import { IColony as IColonyV2 } from '../../../contracts/2/IColony';
 import { IColony as IColonyV3 } from '../../../contracts/3/IColony';
 import { IColony as IColonyV4 } from '../../../contracts/4/IColony';
 import { IColony as IColonyV5 } from '../../../contracts/5/IColony';
+import { IColony as IColonyV6 } from '../../../contracts/6/IColony';
 import { TransactionOverrides } from '../../../contracts/1';
 import { IColonyFactory } from '../../../contracts/4/IColonyFactory';
 
@@ -36,7 +37,13 @@ import {
 } from '../../../contracts/deploy/TokenAuthority.json';
 import { getExtensionHash } from '../../../helpers';
 
-type AnyIColony = IColonyV1 | IColonyV2 | IColonyV3 | IColonyV4 | IColonyV5;
+type AnyIColony =
+  | IColonyV1
+  | IColonyV2
+  | IColonyV3
+  | IColonyV4
+  | IColonyV5
+  | IColonyV6;
 
 // This is exposed to type the awkward recovery event client which is basically
 // just an IColonyV4

@@ -1,6 +1,6 @@
 import { ClientType } from '../constants';
-import { CoinMachine__factory as CoinMachineFactory } from '../contracts/5/factories/CoinMachine__factory';
-import { CoinMachine } from '../contracts/5/CoinMachine';
+import { CoinMachine__factory as CoinMachineFactory } from '../contracts/6/factories/CoinMachine__factory';
+import { CoinMachine } from '../contracts/6/CoinMachine';
 import { ExtendedIColony } from './Colony/extensions/commonExtensions';
 
 export interface CoinMachineClient extends CoinMachine {
