@@ -17,18 +17,19 @@ import {
 import { getAllAbiEvents, getAbiFunctions } from '../../utils';
 import { ColonyVersion } from '../../constants';
 
+type ColonyExtensions = Omit<ExtendedIColony<IColony>, 'addDomainWithProofs'> &
+  ColonyExtensionsV3<IColony> &
+  ColonyExtensionsV4<IColony> &
+  ColonyExtensionsV5<IColony>;
+
 /*
  * We overwrite the `addDomainWithProofs` interface in order to provide
  * function overloads for the V5 contract
  */
-export interface ColonyClientV5
-  extends Omit<ExtendedIColony<IColony>, 'addDomainWithProofs'>,
-    ColonyExtensionsV3<IColony>,
-    ColonyExtensionsV4<IColony>,
-    ColonyExtensionsV5<IColony> {
+export type ColonyClientV5 = ColonyExtensions & {
   clientVersion: ColonyVersion.LightweightSpaceship;
   estimate: ExtendedIColony<IColony>['estimate'] & ExtendedEstimateV5;
-}
+};
 
 export default function getColonyClient(
   this: ColonyNetworkClient,
@@ -62,5 +63,5 @@ export default function getColonyClient(
   colonyClientV5.clientVersion = ColonyVersion.LightweightSpaceship;
   addExtensions(colonyClientV5, this);
 
-  return (colonyClientV5 as unknown) as ColonyClientV5;
+  return colonyClientV5 as ColonyClientV5;
 }
