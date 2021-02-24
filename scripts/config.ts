@@ -6,5 +6,5 @@ export const releaseMap = {
   [ColonyVersion.Glider]: 'glider',
   [ColonyVersion.AuburnGlider]: 'auburn-glider',
   [ColonyVersion.BurgundyGlider]: 'burgundy-glider',
-  [ColonyVersion.CeruleanLightweightSpaceship]: 'lwss',
+  [ColonyVersion.LightweightSpaceship]: 'lwss',
 };

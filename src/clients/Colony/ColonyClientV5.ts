@@ -26,7 +26,7 @@ export interface ColonyClientV5
     ColonyExtensionsV3<IColony>,
     ColonyExtensionsV4<IColony>,
     ColonyExtensionsV5<IColony> {
-  clientVersion: ColonyVersion.CeruleanLightweightSpaceship;
+  clientVersion: ColonyVersion.LightweightSpaceship;
   estimate: ExtendedIColony<IColony>['estimate'] & ExtendedEstimateV5;
 }
 
@@ -59,7 +59,7 @@ export default function getColonyClient(
     signerOrProvider,
   ) as unknown) as ColonyClientV5;
 
-  colonyClientV5.clientVersion = ColonyVersion.CeruleanLightweightSpaceship;
+  colonyClientV5.clientVersion = ColonyVersion.LightweightSpaceship;
   addExtensions(colonyClientV5, this);
 
   return (colonyClientV5 as unknown) as ColonyClientV5;

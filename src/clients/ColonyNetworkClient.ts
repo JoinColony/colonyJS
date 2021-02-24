@@ -211,7 +211,7 @@ const getColonyNetworkClient = (
         );
         break;
       }
-      case ColonyVersion.CeruleanLightweightSpaceship: {
+      case ColonyVersion.LightweightSpaceship: {
         colonyClient = getColonyClientV5.call(
           networkClient,
           colonyAddress,
