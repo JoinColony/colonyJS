@@ -13,11 +13,12 @@ export enum ColonyVersion {
   AuburnGlider = 3,
   BurgundyGlider = 4,
   LightweightSpaceship = 5,
+  CeruleanLightweightSpaceship = 6,
 }
 
 /**
  * The newest colony version. This will be used when deploying new colonies */
-export const CurrentVersion = ColonyVersion.LightweightSpaceship;
+export const CurrentVersion = ColonyVersion.CeruleanLightweightSpaceship;
 
 /**
  * Supported Ethereum networks. Local refers to the locally deployed contracts when developing.

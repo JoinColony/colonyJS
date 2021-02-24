@@ -7,4 +7,5 @@ export const releaseMap = {
   [ColonyVersion.AuburnGlider]: 'auburn-glider',
   [ColonyVersion.BurgundyGlider]: 'burgundy-glider',
   [ColonyVersion.LightweightSpaceship]: 'lwss',
+  [ColonyVersion.CeruleanLightweightSpaceship]: `5acb79d6e441a2ca14330b9419cbfdaa9c5b56f3`,
 };
