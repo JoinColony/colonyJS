@@ -7,7 +7,7 @@ import { IColony__factory as IColonyFactoryV5 } from '../../contracts/5/factorie
 import { IColony__factory as IColonyFactoryV6 } from '../../contracts/6/factories/IColony__factory';
 import { IColony } from '../../contracts/6/IColony';
 import { ColonyNetworkClient } from '../ColonyNetworkClient';
-import { ExtendedIColony } from './extensions/commonExtensions';
+import { addExtensions, ExtendedIColony } from './extensions/commonExtensions';
 import { ColonyExtensionsV3 } from './extensions/extensionsV3';
 import { ColonyExtensionsV4 } from './extensions/extensionsV4';
 import { ColonyExtensionsV5 } from './extensions/extensionsV5';
@@ -54,6 +54,7 @@ export default function getColonyClient(
   ) as unknown) as ColonyClientV6;
 
   colonyClientV6.clientVersion = ColonyVersion.CeruleanLightweightSpaceship;
+  addExtensions(colonyClientV6, this);
 
   return colonyClientV6 as ColonyClientV6;
 }
