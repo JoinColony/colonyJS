@@ -11,6 +11,7 @@ export { ColonyClientV2 } from './clients/Colony/ColonyClientV2';
 export { ColonyClientV3 } from './clients/Colony/ColonyClientV3';
 export { ColonyClientV4 } from './clients/Colony/ColonyClientV4';
 export { ColonyClientV5 } from './clients/Colony/ColonyClientV5';
+export { ColonyClientV6 } from './clients/Colony/ColonyClientV6';
 export { OneTxPaymentClient } from './clients/OneTxPaymentClient';
 export { CoinMachineClient } from './clients/CoinMachineClient';
 export {

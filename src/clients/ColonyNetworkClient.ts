@@ -24,6 +24,7 @@ import getColonyClientV2 from './Colony/ColonyClientV2';
 import getColonyClientV3 from './Colony/ColonyClientV3';
 import getColonyClientV4 from './Colony/ColonyClientV4';
 import getColonyClientV5 from './Colony/ColonyClientV5';
+import getColonyClientV6 from './Colony/ColonyClientV6';
 import getTokenClient from './TokenClient';
 import getTokenLockingClient, {
   TokenLockingClient,
@@ -213,6 +214,14 @@ const getColonyNetworkClient = (
       }
       case ColonyVersion.LightweightSpaceship: {
         colonyClient = getColonyClientV5.call(
+          networkClient,
+          colonyAddress,
+          signerOrProvider,
+        );
+        break;
+      }
+      case ColonyVersion.CeruleanLightweightSpaceship: {
+        colonyClient = getColonyClientV6.call(
           networkClient,
           colonyAddress,
           signerOrProvider,
