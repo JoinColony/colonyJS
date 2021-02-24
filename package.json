@@ -1,12 +1,12 @@
 {
   "name": "@colony/colony-js",
-  "version": "3.0.0",
+  "version": "3.1.0-rc.0",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
   "license": "GPL-3.0-only",
   "scripts": {
     "clean": "rimraf ./lib && rimraf ./lib-esm",
-    "build": "npm run clean && npm run compile && npm run compile-esm && npm run copy-declarations && npm run build-docs",
+    "build": "npm run compile && npm run compile-esm && npm run copy-declarations && npm run build-docs",
     "test": "npm run lint && npm run typecheck && jest",
     "lint": "eslint src/**/*.ts scripts/**/*.ts",
     "typecheck": "tsc --noEmit",
