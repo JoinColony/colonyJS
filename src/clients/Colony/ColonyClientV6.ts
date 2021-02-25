@@ -7,21 +7,27 @@ import { IColony__factory as IColonyFactoryV5 } from '../../contracts/5/factorie
 import { IColony__factory as IColonyFactoryV6 } from '../../contracts/6/factories/IColony__factory';
 import { IColony } from '../../contracts/6/IColony';
 import { ColonyNetworkClient } from '../ColonyNetworkClient';
-import { addExtensions, ExtendedIColony } from './extensions/commonExtensions';
+import { ExtendedIColony } from './extensions/commonExtensions';
 import { ColonyExtensionsV3 } from './extensions/extensionsV3';
 import { ColonyExtensionsV4 } from './extensions/extensionsV4';
 import { ColonyExtensionsV5 } from './extensions/extensionsV5';
+import {
+  addExtensions,
+  ColonyExtensionsV6,
+  ExtendedEstimateV6,
+} from './extensions/extensionsV6';
 import { getAllAbiEvents, getAbiFunctions } from '../../utils';
 import { ColonyVersion } from '../../constants';
 
 type ColonyExtensions = ExtendedIColony<IColony> &
   ColonyExtensionsV3<IColony> &
   ColonyExtensionsV4<IColony> &
-  ColonyExtensionsV5<IColony>;
+  ColonyExtensionsV5<IColony> &
+  ColonyExtensionsV6<IColony>;
 
 export type ColonyClientV6 = ColonyExtensions & {
   clientVersion: ColonyVersion.CeruleanLightweightSpaceship;
-  estimate: ExtendedIColony<IColony>['estimate'];
+  estimate: ExtendedIColony<IColony>['estimate'] & ExtendedEstimateV6;
 };
 
 export default function getColonyClient(
