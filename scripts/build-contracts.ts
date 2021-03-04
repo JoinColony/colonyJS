@@ -7,7 +7,7 @@ import * as execute from 'execa';
 import * as rimraf from 'rimraf';
 
 import { ColonyVersion, CurrentVersion } from '../src/constants';
-import { releaseMap } from './config';
+import { releaseMap } from '../src/constants';
 
 const rimrafPromise = promisify(rimraf);
 
