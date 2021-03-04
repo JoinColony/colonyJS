@@ -6,8 +6,7 @@ import { options } from 'yargs';
 import * as execute from 'execa';
 import * as rimraf from 'rimraf';
 
-import { ColonyVersion, CurrentVersion } from '../src/constants';
-import { releaseMap } from '../src/constants';
+import { ColonyVersion, CurrentVersion, releaseMap } from '../src/constants';
 
 const rimrafPromise = promisify(rimraf);
 
