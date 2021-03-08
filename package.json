@@ -1,6 +1,6 @@
 {
   "name": "@colony/colony-js",
-  "version": "3.1.0-rc.2",
+  "version": "3.1.0",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
   "license": "GPL-3.0-only",
