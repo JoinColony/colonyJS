@@ -2,7 +2,7 @@ import { Signer } from 'ethers';
 import { getAddress, EventFragment } from 'ethers/utils';
 import { Provider } from 'ethers/providers';
 
-import { IColonyFactory } from '../src/contracts/5/IColonyFactory';
+import { IColony__factory as IColonyFactory } from '../src/contracts/6/factories/IColony__factory';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const isEqual = require('lodash.isequal');

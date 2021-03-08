@@ -2,8 +2,8 @@ import { Signer } from 'ethers';
 import { Provider } from 'ethers/providers';
 
 import { ClientType } from '../constants';
-import { TokenLocking__factory as TokenLockingFactory } from '../contracts/5/factories/TokenLocking__factory';
-import { TokenLocking } from '../contracts/5/TokenLocking';
+import { TokenLocking__factory as TokenLockingFactory } from '../contracts/6/factories/TokenLocking__factory';
+import { TokenLocking } from '../contracts/6/TokenLocking';
 
 export interface TokenLockingClient extends TokenLocking {
   clientType: ClientType.TokenLockingClient;

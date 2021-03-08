@@ -4,6 +4,7 @@ import { BigNumber, BigNumberish } from 'ethers/utils';
 import { TransactionOverrides } from '../../../contracts/3';
 import { IColony as IColonyV4 } from '../../../contracts/4/IColony';
 import { IColony as IColonyV5 } from '../../../contracts/5/IColony';
+import { IColony as IColonyV6 } from '../../../contracts/6/IColony';
 import { ColonyRole } from '../../../constants';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
 import { getPermissionProofs, ExtendedIColony } from './commonExtensions';
@@ -13,7 +14,7 @@ import {
   ExtendedEstimateV3,
 } from './extensionsV3';
 
-type ValidColony = IColonyV4 | IColonyV5;
+type ValidColony = IColonyV4 | IColonyV5 | IColonyV6;
 
 export interface ExtendedEstimateV4 extends ExtendedEstimateV3 {
   makeExpenditureWithProofs(_domainId: BigNumberish): Promise<BigNumber>;

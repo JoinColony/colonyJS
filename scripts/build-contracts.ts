@@ -6,8 +6,7 @@ import { options } from 'yargs';
 import * as execute from 'execa';
 import * as rimraf from 'rimraf';
 
-import { ColonyVersion, CurrentVersion } from '../src/constants';
-import { releaseMap } from './config';
+import { ColonyVersion, CurrentVersion, releaseMap } from '../src/constants';
 
 const rimrafPromise = promisify(rimraf);
 
@@ -18,13 +17,9 @@ const buildDir = resolvePath(networkDir, relativeBuildDir);
 const tokenBuildDir = resolvePath(networkDir, relativeTokenDir);
 const vendorTokenDir = resolvePath(__dirname, '../vendor/tokens');
 
-const contractsToBuild = [
-  'CoinMachine',
-  'IColony',
-  'IColonyNetwork',
-  'OneTxPayment',
-  'TokenLocking',
-];
+const contractsToBuild = ['IColony', 'IColonyNetwork', 'TokenLocking'];
+
+const extensionContracts = ['OneTxPayment', 'CoinMachine'];
 
 const tokenContracts = [
   // ERC20 tokens
@@ -81,6 +76,11 @@ const buildContracts = async (): Promise<void> => {
       `${tokenBuildDir}/TokenAuthority.json`,
       `${deployDir}/TokenAuthority.json`,
     );
+
+    /*
+     * Add extensions contracts to be built
+     */
+    contractsToBuild.push(...extensionContracts);
 
     // Just build token contracts for the latest version
     contractsToBuild.push(...tokenContracts);

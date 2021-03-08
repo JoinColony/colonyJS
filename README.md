@@ -156,7 +156,7 @@ Done 🎊
 
 1) Add the version to `constants.ts` in `ColonyVersion`
 2) Change the `CurrentVersion` variable to the one you just added
-3) Add the git tag to `scripts/config.ts`
+3) Add the git tag to `src/constants.ts` release map
 4) _Optional:_ If you are tracking a development branch instead of a static tag or commit, make sure to pull the latest changes, otherwise the contracts generated will be exactly the same as your last ones -- _this is a step often forgotten when using a dev version_
 5) If needed: add new contracts that need clients to the `contractsToBuild` array in `scripts/build-contracts.ts`
 6) Run

@@ -12,8 +12,8 @@ import {
   REPUTATION_ORACLE_ENDPOINT,
 } from '../constants';
 // @TODO this _HAS_ to be the newest version _ALWAYS_. Let's try to figure out a way to make sure of this
-import { IColonyNetwork__factory as IColonyNetworkFactory } from '../contracts/5/factories/IColonyNetwork__factory';
-import { IColonyNetwork } from '../contracts/5/IColonyNetwork';
+import { IColonyNetwork__factory as IColonyNetworkFactory } from '../contracts/6/factories/IColonyNetwork__factory';
+import { IColonyNetwork } from '../contracts/6/IColonyNetwork';
 import {
   abi as tokenAbi,
   bytecode as tokenBytecode,
@@ -24,6 +24,7 @@ import getColonyClientV2 from './Colony/ColonyClientV2';
 import getColonyClientV3 from './Colony/ColonyClientV3';
 import getColonyClientV4 from './Colony/ColonyClientV4';
 import getColonyClientV5 from './Colony/ColonyClientV5';
+import getColonyClientV6 from './Colony/ColonyClientV6';
 import getTokenClient from './TokenClient';
 import getTokenLockingClient, {
   TokenLockingClient,
@@ -211,8 +212,16 @@ const getColonyNetworkClient = (
         );
         break;
       }
-      case ColonyVersion.CeruleanLightweightSpaceship: {
+      case ColonyVersion.LightweightSpaceship: {
         colonyClient = getColonyClientV5.call(
+          networkClient,
+          colonyAddress,
+          signerOrProvider,
+        );
+        break;
+      }
+      case ColonyVersion.CeruleanLightweightSpaceship: {
+        colonyClient = getColonyClientV6.call(
           networkClient,
           colonyAddress,
           signerOrProvider,
