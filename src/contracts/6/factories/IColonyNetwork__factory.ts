@@ -377,6 +377,25 @@ const _abi = [
       {
         indexed: false,
         internalType: "address",
+        name: "ens",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "bytes32",
+        name: "rootNode",
+        type: "bytes32",
+      },
+    ],
+    name: "RegistrarInitialised",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
         name: "miner",
         type: "address",
       },
@@ -420,6 +439,19 @@ const _abi = [
       },
     ],
     name: "ReputationMiningInitialised",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+    ],
+    name: "ReputationMiningRewardSet",
     type: "event",
   },
   {

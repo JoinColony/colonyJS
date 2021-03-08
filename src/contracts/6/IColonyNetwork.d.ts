@@ -410,6 +410,10 @@ interface IColonyNetworkInterface extends Interface {
       ]): string[];
     }>;
 
+    RegistrarInitialised: TypedEventDescription<{
+      encodeTopics([ens, rootNode]: [null, null]): string[];
+    }>;
+
     ReputationMinerPenalised: TypedEventDescription<{
       encodeTopics([miner, tokensLost]: [null, null]): string[];
     }>;
@@ -420,6 +424,10 @@ interface IColonyNetworkInterface extends Interface {
 
     ReputationMiningInitialised: TypedEventDescription<{
       encodeTopics([inactiveReputationMiningCycle]: [null]): string[];
+    }>;
+
+    ReputationMiningRewardSet: TypedEventDescription<{
+      encodeTopics([amount]: [null]): string[];
     }>;
 
     ReputationRootHashSet: TypedEventDescription<{
@@ -3420,6 +3428,8 @@ export class IColonyNetwork extends Contract {
       toValue: null
     ): EventFilter;
 
+    RegistrarInitialised(ens: null, rootNode: null): EventFilter;
+
     ReputationMinerPenalised(miner: null, tokensLost: null): EventFilter;
 
     ReputationMiningCycleComplete(hash: null, nLeaves: null): EventFilter;
@@ -3427,6 +3437,8 @@ export class IColonyNetwork extends Contract {
     ReputationMiningInitialised(
       inactiveReputationMiningCycle: null
     ): EventFilter;
+
+    ReputationMiningRewardSet(amount: null): EventFilter;
 
     ReputationRootHashSet(
       newHash: null,
