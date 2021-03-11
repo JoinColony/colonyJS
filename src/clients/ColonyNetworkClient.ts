@@ -5,12 +5,12 @@ import { BigNumber } from 'ethers/utils';
 import { ColonyClient } from '../types';
 
 import {
-  ColonyVersion,
   ClientType,
   Network,
   colonyNetworkAddresses,
   REPUTATION_ORACLE_ENDPOINT,
 } from '../constants';
+import { ColonyVersion } from '../versions';
 // @TODO this _HAS_ to be the newest version _ALWAYS_. Let's try to figure out a way to make sure of this
 import { IColonyNetwork__factory as IColonyNetworkFactory } from '../contracts/6/factories/IColonyNetwork__factory';
 import { IColonyNetwork } from '../contracts/6/IColonyNetwork';

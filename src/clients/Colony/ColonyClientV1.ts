@@ -3,7 +3,7 @@ import { Provider } from 'ethers/providers';
 
 import { IColonyFactory } from '../../contracts/1/IColonyFactory';
 import { IColony } from '../../contracts/1/IColony';
-import { ColonyVersion } from '../../constants';
+import { ColonyVersion } from '../../versions';
 import { ColonyNetworkClient } from '../ColonyNetworkClient';
 import { addExtensions, ExtendedIColony } from './extensions/commonExtensions';
 import {

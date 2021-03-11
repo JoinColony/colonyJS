@@ -13,7 +13,7 @@ import {
   ExtendedEstimateV4,
 } from './extensions/extensionsV4';
 import { getAllAbiEvents, getAbiFunctions } from '../../utils';
-import { ColonyVersion } from '../../constants';
+import { ColonyVersion } from '../../versions';
 
 export interface ColonyClientV4
   extends ExtendedIColony<IColony>,

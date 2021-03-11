@@ -6,10 +6,10 @@ import { isAddress } from '../../../utils';
 import {
   ClientType,
   ColonyRole,
-  ColonyVersion,
   FundingPotAssociatedType,
   ROOT_DOMAIN_ID,
 } from '../../../constants';
+import { ColonyVersion } from '../../../versions';
 import {
   ReputationOracleResponse,
   ReputationOracleAllMembersResponse,
