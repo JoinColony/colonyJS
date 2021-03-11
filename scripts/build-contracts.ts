@@ -6,7 +6,7 @@ import { options } from 'yargs';
 import * as execute from 'execa';
 import * as rimraf from 'rimraf';
 
-import { ColonyVersion, CurrentVersion, releaseMap } from '../src/constants';
+import { ColonyVersion, CurrentVersion, releaseMap } from '../src/versions';
 
 const rimrafPromise = promisify(rimraf);
 
@@ -19,7 +19,7 @@ const vendorTokenDir = resolvePath(__dirname, '../vendor/tokens');
 
 const contractsToBuild = ['IColony', 'IColonyNetwork', 'TokenLocking'];
 
-const extensionContracts = ['OneTxPayment', 'CoinMachine'];
+const extensionContracts = ['OneTxPayment', 'CoinMachine', 'VotingReputation'];
 
 const tokenContracts = [
   // ERC20 tokens
