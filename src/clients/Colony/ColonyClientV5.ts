@@ -15,7 +15,7 @@ import {
   ExtendedEstimateV5,
 } from './extensions/extensionsV5';
 import { getAllAbiEvents, getAbiFunctions } from '../../utils';
-import { ColonyVersion } from '../../constants';
+import { ColonyVersion } from '../../versions';
 
 type ColonyExtensions = Omit<ExtendedIColony<IColony>, 'addDomainWithProofs'> &
   ColonyExtensionsV3<IColony> &

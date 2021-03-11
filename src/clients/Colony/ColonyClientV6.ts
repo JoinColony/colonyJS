@@ -17,7 +17,7 @@ import {
   ExtendedEstimateV6,
 } from './extensions/extensionsV6';
 import { getAllAbiEvents, getAbiFunctions } from '../../utils';
-import { ColonyVersion } from '../../constants';
+import { ColonyVersion } from '../../versions';
 
 type ColonyExtensions = ExtendedIColony<IColony> &
   ColonyExtensionsV3<IColony> &

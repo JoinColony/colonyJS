@@ -8,12 +8,8 @@ import {
   toUtf8Bytes,
 } from 'ethers/utils';
 
-import {
-  ColonyRole,
-  ColonyRoles,
-  ColonyVersion,
-  ROOT_DOMAIN_ID,
-} from './constants';
+import { ColonyRole, ColonyRoles, ROOT_DOMAIN_ID } from './constants';
+import { ColonyVersion } from './versions';
 import { ColonyClient, ContractClient } from './types';
 
 import {

@@ -2,6 +2,7 @@
 require('isomorphic-fetch');
 
 export * from './constants';
+export * from './versions';
 export * from './helpers';
 export * from './types';
 
