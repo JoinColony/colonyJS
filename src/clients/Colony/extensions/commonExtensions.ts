@@ -27,7 +27,7 @@ import { IColonyFactory } from '../../../contracts/4/IColonyFactory';
 import {
   extensionFactoryMap,
   ExtensionClient,
-} from '../colonyContractExtensions';
+} from '../../Extensions/colonyContractExtensions';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
 import { TokenClient } from '../../TokenClient';
 
