@@ -1,7 +1,7 @@
 export {
   extensions,
   Extension,
-} from './clients/Colony/colonyContractExtensions';
+} from './clients/Extensions/colonyContractExtensions';
 
 /**
  * Supported Ethereum networks. Local refers to the locally deployed contracts when developing.

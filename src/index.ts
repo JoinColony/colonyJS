@@ -13,8 +13,9 @@ export { ColonyClientV3 } from './clients/Colony/ColonyClientV3';
 export { ColonyClientV4 } from './clients/Colony/ColonyClientV4';
 export { ColonyClientV5 } from './clients/Colony/ColonyClientV5';
 export { ColonyClientV6 } from './clients/Colony/ColonyClientV6';
-export { OneTxPaymentClient } from './clients/OneTxPaymentClient';
-export { CoinMachineClient } from './clients/CoinMachineClient';
+export { OneTxPaymentClient } from './clients/Extensions/OneTxPaymentClient';
+export { CoinMachineClient } from './clients/Extensions/CoinMachineClient';
+export { VotingReputationClient } from './clients/Extensions/VotingReputationClient';
 export {
   TokenClient,
   ColonyTokenClient,
@@ -30,6 +31,6 @@ export {
   Extension,
   ExtensionClient,
   extensions,
-} from './clients/Colony/colonyContractExtensions';
+} from './clients/Extensions/colonyContractExtensions';
 
 /* eslint-enable import/first */
