@@ -1,3 +1,7 @@
+/*
+ * Colony / Network Versioning
+ */
+
 /**
  * Available versions for colonies that could be deployed. When a new version for a colony needs to be supported, it should be added here. The versions are incremented integers.
  */
@@ -12,7 +16,7 @@ export enum ColonyVersion {
 }
 
 // These are the corresponding git release tags for the deployed versions of the Colony Network
-export const releaseMap = {
+const colonyReleaseMap = {
   [ColonyVersion.GoerliGlider]: 'glider-rc.1',
   [ColonyVersion.Glider]: 'glider',
   [ColonyVersion.AuburnGlider]: 'auburn-glider',
@@ -23,4 +27,82 @@ export const releaseMap = {
 
 /**
  * The newest colony version. This will be used when deploying new colonies */
-export const CurrentVersion = ColonyVersion.CeruleanLightweightSpaceship;
+export const CurrentColonyVersion =
+  ColonyVersion[(Object.keys(ColonyVersion).slice(-1)[0] as unknown) as number];
+/*
+ * kept for legacy purposes
+ */
+export const CurrentVersion = CurrentColonyVersion;
+
+/*
+ * One Transaction Payment Extension Versioning
+ */
+
+export enum OneTxPaymentExtensionVersion {
+  CeruleanLightweightSpaceship = 1,
+}
+
+const oneTxPaymentReleaseMap = {
+  [OneTxPaymentExtensionVersion.CeruleanLightweightSpaceship]: `clwss`,
+};
+
+export const CurrentOneTxPaymentVersion =
+  OneTxPaymentExtensionVersion[
+    (Object.keys(OneTxPaymentExtensionVersion).slice(
+      -1,
+    )[0] as unknown) as number
+  ];
+
+/*
+ * Coin Machine Extension Versioning
+ */
+
+export enum CoinMachineExtensionVersion {
+  CeruleanLightweightSpaceship = 1,
+}
+
+const coinMachineReleaseMap = {
+  [OneTxPaymentExtensionVersion.CeruleanLightweightSpaceship]: `clwss`,
+};
+
+export const CurrentCoinMachineVersion =
+  CoinMachineExtensionVersion[
+    (Object.keys(CoinMachineExtensionVersion).slice(-1)[0] as unknown) as number
+  ];
+
+/*
+ * Voting Reputation Extension Versioning
+ */
+
+export enum VotingReputationExtensionVersion {
+  CeruleanLightweightSpaceship = 1,
+}
+
+const votingReputationReleaseMap = {
+  [OneTxPaymentExtensionVersion.CeruleanLightweightSpaceship]: `clwss`,
+};
+
+export const CurrentVotingReputationVersion =
+  VotingReputationExtensionVersion[
+    (Object.keys(VotingReputationExtensionVersion).slice(
+      -1,
+    )[0] as unknown) as number
+  ];
+
+/*
+ * Release Map
+ */
+export const releaseMap = {
+  /*
+   * kept for legacy purposes
+   */
+  ...colonyReleaseMap,
+  colony: {
+    ...colonyReleaseMap,
+  },
+  extension: {
+    oneTxPayment: { ...oneTxPaymentReleaseMap },
+    coinMachine: { ...coinMachineReleaseMap },
+    votinReputation: { ...votingReputationReleaseMap },
+  },
+};
