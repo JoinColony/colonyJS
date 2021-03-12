@@ -1,3 +1,5 @@
+import { Extension } from '../src/clients/Extensions/colonyContractExtensions';
+
 /*
  * Colony / Network Versioning
  */
@@ -96,6 +98,12 @@ export const CurrentVotingReputationVersion = parseInt(
   ],
   10,
 );
+
+export const CurrentExtensionsVersions = {
+  [Extension.OneTxPayment]: CurrentOneTxPaymentVersion,
+  [Extension.CoinMachine]: CurrentCoinMachineVersion,
+  [Extension.VotingReputation]: CurrentVotingReputationVersion,
+};
 
 /*
  * Release Map
