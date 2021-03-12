@@ -27,8 +27,10 @@ const colonyReleaseMap = {
 
 /**
  * The newest colony version. This will be used when deploying new colonies */
-export const CurrentColonyVersion =
-  ColonyVersion[(Object.keys(ColonyVersion).slice(-1)[0] as unknown) as number];
+export const CurrentColonyVersion = parseInt(
+  ColonyVersion[(Object.keys(ColonyVersion).slice(-1)[0] as unknown) as number],
+  10,
+);
 /*
  * kept for legacy purposes
  */
@@ -46,12 +48,14 @@ const oneTxPaymentReleaseMap = {
   [OneTxPaymentExtensionVersion.CeruleanLightweightSpaceship]: `clwss`,
 };
 
-export const CurrentOneTxPaymentVersion =
+export const CurrentOneTxPaymentVersion = parseInt(
   OneTxPaymentExtensionVersion[
     (Object.keys(OneTxPaymentExtensionVersion).slice(
       -1,
     )[0] as unknown) as number
-  ];
+  ],
+  10,
+);
 
 /*
  * Coin Machine Extension Versioning
@@ -65,10 +69,12 @@ const coinMachineReleaseMap = {
   [OneTxPaymentExtensionVersion.CeruleanLightweightSpaceship]: `clwss`,
 };
 
-export const CurrentCoinMachineVersion =
+export const CurrentCoinMachineVersion = parseInt(
   CoinMachineExtensionVersion[
     (Object.keys(CoinMachineExtensionVersion).slice(-1)[0] as unknown) as number
-  ];
+  ],
+  10,
+);
 
 /*
  * Voting Reputation Extension Versioning
@@ -82,12 +88,14 @@ const votingReputationReleaseMap = {
   [OneTxPaymentExtensionVersion.CeruleanLightweightSpaceship]: `clwss`,
 };
 
-export const CurrentVotingReputationVersion =
+export const CurrentVotingReputationVersion = parseInt(
   VotingReputationExtensionVersion[
     (Object.keys(VotingReputationExtensionVersion).slice(
       -1,
     )[0] as unknown) as number
-  ];
+  ],
+  10,
+);
 
 /*
  * Release Map
