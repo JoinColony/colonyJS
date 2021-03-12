@@ -6,7 +6,11 @@ import { options } from 'yargs';
 import * as execute from 'execa';
 import * as rimraf from 'rimraf';
 
-import { ColonyVersion, CurrentVersion, releaseMap } from '../src/versions';
+import {
+  ColonyVersion,
+  CurrentColonyVersion,
+  releaseMap,
+} from '../src/versions';
 
 const rimrafPromise = promisify(rimraf);
 
@@ -69,7 +73,7 @@ const buildContracts = async (): Promise<void> => {
   if (truffle.stdout) truffle.stdout.pipe(process.stdout);
   await truffle;
 
-  if (version === CurrentVersion) {
+  if (version === CurrentColonyVersion) {
     // Copy contract json files of latest version for deployment purposes
     copyFileSync(`${tokenBuildDir}/Token.json`, `${deployDir}/Token.json`);
     copyFileSync(
