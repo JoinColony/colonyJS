@@ -1,7 +1,7 @@
-import { ClientType } from '../constants';
-import { VotingReputation__factory as VotingReputationFactory } from '../contracts/6/factories/VotingReputation__factory';
-import { VotingReputation } from '../contracts/6/VotingReputation';
-import { ExtendedIColony } from './Colony/extensions/commonExtensions';
+import { ClientType } from '../../constants';
+import { VotingReputation__factory as VotingReputationFactory } from '../../contracts/6/factories/VotingReputation__factory';
+import { VotingReputation } from '../../contracts/6/VotingReputation';
+import { ExtendedIColony } from '../Colony/extensions/commonExtensions';
 
 export interface VotingReputationClient extends VotingReputation {
   clientType: ClientType.VotingReputationClient;
