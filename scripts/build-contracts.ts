@@ -8,9 +8,16 @@ import * as rimraf from 'rimraf';
 import {
   CurrentColonyVersion,
   releaseMap,
-  CurrentExtensionsVersions,
+  CurrentCoinMachineVersion,
+  CurrentOneTxPaymentVersion,
+  CurrentVotingReputationVersion,
 } from '../src/versions';
 import { Extension } from '../src/clients/Extensions/colonyContractExtensions';
+
+/*
+ * State Vars
+ */
+let currentNetworkTag: string;
 
 const rimrafPromise = promisify(rimraf);
 
@@ -29,30 +36,32 @@ const extensionContracts = [
   Extension.VotingReputation,
 ];
 
+const currentExtensionsVersions = {
+  [Extension.OneTxPayment]: CurrentOneTxPaymentVersion,
+  [Extension.CoinMachine]: CurrentCoinMachineVersion,
+  [Extension.VotingReputation]: CurrentVotingReputationVersion,
+};
+
 const tokenContracts = [
   // ERC20 tokens
   'Token',
   'TokenERC20',
   'TokenSAI',
 ];
-
 const version = CurrentColonyVersion;
 const outRoot = resolvePath(__dirname, '../src/contracts');
 const colonyContractsOutDir = `${outRoot}/colony/${version}`;
 const deployDir = `${outRoot}/deploy`;
 
-// @ts-ignore
-const releaseTag: string = releaseMap.colony[version];
-
-const provisionNetworkVendor = async (): Promise<void> => {
-  if (!releaseTag) {
+const provisionNetworkVendor = async (tag: string): Promise<void> => {
+  if (!tag) {
     throw new Error(
       `Version ${version} of colonyNetwork doesn't seem to exist`,
     );
   }
 
-  console.info(`Checking out network tag ${releaseTag}`);
-  const git = execute('git', ['checkout', releaseTag], {
+  console.info(`Checking out network tag ${tag}`);
+  const git = execute('git', ['checkout', tag], {
     cwd: networkDir,
   });
   if (git.stdout) git.stdout.pipe(process.stdout);
@@ -80,6 +89,14 @@ const provisionNetworkVendor = async (): Promise<void> => {
 };
 
 const buildColonyContracts = async (): Promise<void> => {
+  // @ts-ignore
+  const releaseTag: string = releaseMap.colony[version];
+
+  if (currentNetworkTag !== releaseTag) {
+    await provisionNetworkVendor(releaseTag);
+    currentNetworkTag = releaseTag;
+  }
+
   // Copy contract json files of latest version for deployment purposes
   copyFileSync(`${tokenBuildDir}/Token.json`, `${deployDir}/Token.json`);
   copyFileSync(
@@ -105,24 +122,35 @@ const buildColonyContracts = async (): Promise<void> => {
 };
 
 const buildExtensionContracts = async (): Promise<void> => {
-  extensionContracts.map(async (extensionContract) => {
-    const extensionOutDir = `${outRoot}/extensions/${camelcase(
-      extensionContract,
-    )}/${CurrentExtensionsVersions[extensionContract]}`;
-    const typechain = execute('typechain', [
-      '--target',
-      'ethers-v4',
-      '--outDir',
-      extensionOutDir,
-      `${networkDir}/${relativeBuildDir}/${extensionContract}.json`,
-    ]);
-    if (typechain.stdout) typechain.stdout.pipe(process.stdout);
-    await typechain;
-  });
+  await Promise.all(
+    extensionContracts.map(async (extensionContract) => {
+      const extensionVersion = currentExtensionsVersions[extensionContract];
+      const releaseTag: string =
+        // @ts-ignore
+        releaseMap.extension[camelcase(extensionContract)][extensionVersion];
+
+      if (currentNetworkTag !== releaseTag) {
+        await provisionNetworkVendor(releaseTag);
+        currentNetworkTag = releaseTag;
+      }
+
+      const extensionOutDir = `${outRoot}/extensions/${camelcase(
+        extensionContract,
+      )}/${currentExtensionsVersions[extensionContract]}`;
+      const typechain = execute('typechain', [
+        '--target',
+        'ethers-v4',
+        '--outDir',
+        extensionOutDir,
+        `${networkDir}/${relativeBuildDir}/${extensionContract}.json`,
+      ]);
+      if (typechain.stdout) typechain.stdout.pipe(process.stdout);
+      await typechain;
+    }),
+  );
 };
 
 const orchestrateBuild = async (): Promise<void> => {
-  await provisionNetworkVendor();
   await buildColonyContracts();
   await buildExtensionContracts();
 };
