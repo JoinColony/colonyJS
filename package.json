@@ -16,6 +16,7 @@
     "build-docs": "typedoc --out docs src/index.ts",
     "build-contracts": "DISABLE_DOCKER=true npm run build-contracts:docker",
     "build-contracts:docker": "ts-node -P scripts/tsconfig-scripts.json scripts/build-contracts.ts",
+    "build-clients": "ts-node -P scripts/tsconfig-scripts.json scripts/build-clients.ts",
     "prepublishOnly": "npm test && npm run build"
   },
   "devDependencies": {

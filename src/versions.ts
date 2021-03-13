@@ -1,5 +1,3 @@
-import { Extension } from './clients/Extensions/colonyContractExtensions';
-
 /*
  * Colony / Network Versioning
  */
@@ -113,6 +111,6 @@ export const releaseMap = {
   extension: {
     oneTxPayment: { ...oneTxPaymentReleaseMap },
     coinMachine: { ...coinMachineReleaseMap },
-    votinReputation: { ...votingReputationReleaseMap },
+    votingReputation: { ...votingReputationReleaseMap },
   },
 };
