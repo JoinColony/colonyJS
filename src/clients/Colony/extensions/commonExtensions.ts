@@ -25,9 +25,10 @@ import { TransactionOverrides } from '../../../contracts/1';
 import { IColonyFactory } from '../../../contracts/4/IColonyFactory';
 
 import {
-  extensionFactoryMap,
   ExtensionClient,
+  Extension,
 } from '../../Extensions/colonyContractExtensions';
+import getExtensionVersionClient from '../../Extensions/ExtensionVersionClient';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
 import { TokenClient } from '../../TokenClient';
 
@@ -121,7 +122,7 @@ export type ExtendedIColony<T extends AnyIColony = AnyIColony> = T & {
 
   getExtensionClient(
     this: ExtendedIColony,
-    extensionName: keyof typeof extensionFactoryMap,
+    extensionName: Extension,
   ): Promise<ExtensionClient>;
 
   deployTokenAuthority(
@@ -360,7 +361,7 @@ export const getMoveFundsPermissionProofs = async (
 
 async function getExtensionClient(
   this: ExtendedIColony,
-  extensionName: keyof typeof extensionFactoryMap,
+  extensionName: Extension,
 ): Promise<ExtensionClient> {
   const extensionAddress = await this.networkClient.getExtensionInstallation(
     getExtensionHash(extensionName),
@@ -371,7 +372,17 @@ async function getExtensionClient(
       `${extensionName} extension is not installed for this colony`,
     );
   }
-  return extensionFactoryMap[extensionName](extensionAddress, this);
+  const extensionVersionClient = getExtensionVersionClient(
+    extensionAddress,
+    this.signer || this.provider,
+  );
+  const versionBN = await extensionVersionClient.version();
+  const version = versionBN.toNumber() as ColonyVersion;
+  const {
+    default: getVersionedExtensionClient,
+    // eslint-disable-next-line import/no-dynamic-require, global-require, @typescript-eslint/no-var-requires, max-len
+  } = require(`../../Extensions/${extensionName}/${version}/${extensionName}Client`);
+  return getVersionedExtensionClient(extensionAddress, this);
 }
 
 async function setArchitectureRoleWithProofs(
