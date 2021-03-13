@@ -18,20 +18,20 @@ export const getExtensionClientRelativePaths = (
 ): RelativePaths => {
   return {
     base: extensionsBasePath,
-    constants: relativePath(extensionsBasePath, 'src/constants'),
+    constants: relativePath(extensionsBasePath, '../constants'),
     commonExtensions: relativePath(
       extensionsBasePath,
-      'src/clients/Colony/extensions/commonExtensions',
+      '../clients/Colony/extensions/commonExtensions',
     ),
     contracts: relativePath(
       extensionsBasePath,
-      `src/contracts/extensions/${camelcase(
+      `../contracts/extensions/${camelcase(
         extensionName,
       )}/${extensionVersion}/${camelcase(extensionName, { pascalCase: true })}`,
     ),
     factories: relativePath(
       extensionsBasePath,
-      `src/contracts/extensions/${camelcase(
+      `../contracts/extensions/${camelcase(
         extensionName,
       )}/${extensionVersion}/factories/${extensionName}__factory`,
     ),
