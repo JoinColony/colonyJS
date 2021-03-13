@@ -117,7 +117,9 @@ const get${camelcase(extensionName, { pascalCase: true })}Client = (
   });
 
   Object.keys(addonsEstimate).map((addonName) => {
-    ${camelcase(extensionName)}Client.estimate[addonName] = addons[addonName];
+    ${camelcase(
+      extensionName,
+    )}Client.estimate[addonName] = addonsEstimate[addonName];
     return null;
   });
 
