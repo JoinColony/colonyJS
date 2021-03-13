@@ -154,18 +154,14 @@ Done 🎊
 
 ### To upgrade to a new colonyNetwork version
 
-1) Add the version to `constants.ts` in `ColonyVersion`
-2) Change the `CurrentVersion` variable to the one you just added
+1) Add the version to `versions.ts` in `ColonyVersion` as well as the network git tag to `releaseMaps`
 3) Add the git tag to `src/constants.ts` release map
 4) _Optional:_ If you are tracking a development branch instead of a static tag or commit, make sure to pull the latest changes, otherwise the contracts generated will be exactly the same as your last ones -- _this is a step often forgotten when using a dev version_
 5) If needed: add new contracts that need clients to the `contractsToBuild` array in `scripts/build-contracts.ts`
 6) Run
 ```shell
-DISABLE_DOCKER=true npm run build-contracts -- -V=X
+npm run build-contracts
 ```
-
-where `X` is the version number you just added (the incremental integer of the `ColonyVersion` enum).
-
 This will create a new folder: `src/contracts/X` containing all the type definitions you'll need to implement the new colony client.
 
 7) Update the following lines in `ColonyNetworkClient.ts` to reflect the new version:
@@ -177,6 +173,18 @@ import { IColonyNetwork } from '../contracts/X/IColonyNetwork';
 
 8) Update all the other contract imports in the non-colony clients, even if they haven't been upgraded (just in case). Then make adjustments to the clients to reflect the contract changes (typescript will tell you, where to make changes). Also add necessary helper functions (e.g. `withProofs` functions) for newly added methods. The newly added methods and their required roles can be found in [this file](https://github.com/JoinColony/colonyNetwork/blob/develop/contracts/colony/ColonyAuthority.sol) (and by diffing the generated interface files).
 
+
+### To add new extension contract versions:
+1. Add the new version and corresponding git tag for one or more extesions inside `versions.ts`
+2. Run `npm run build-contracts` _-- this will build the network contracts for the extensions using `typechain`_
+3. Run `npm run build-clients` _-- this will build basic clients and addon files for your new extension versions_
+4. If you need extra methods added to your client _(helpers like `withProofs`)_, add them inside the `Addon` file that you'll find in the client's folder _(don't forget to also add the estimate method)_
+
+Eg:
+```js
+'/src/clients/Extensions/OneTxPayment/1/OneTxPaymentClient.ts' // the OneTxPayment extension client
+'/src/clients/Extensions/OneTxPayment/1/OneTxPaymentClientAddons.ts' // the OneTxPayment extension client addons
+```
 
 ## License
 
