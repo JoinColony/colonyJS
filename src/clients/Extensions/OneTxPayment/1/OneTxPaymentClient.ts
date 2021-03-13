@@ -58,7 +58,7 @@ const getOneTxPaymentClient = (
   });
 
   Object.keys(addonsEstimate).map((addonName) => {
-    oneTxPaymentClient.estimate[addonName] = addons[addonName];
+    oneTxPaymentClient.estimate[addonName] = addonsEstimate[addonName];
     return null;
   });
 

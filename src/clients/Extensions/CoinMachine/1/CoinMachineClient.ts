@@ -58,7 +58,7 @@ const getCoinMachineClient = (
   });
 
   Object.keys(addonsEstimate).map((addonName) => {
-    coinMachineClient.estimate[addonName] = addons[addonName];
+    coinMachineClient.estimate[addonName] = addonsEstimate[addonName];
     return null;
   });
 

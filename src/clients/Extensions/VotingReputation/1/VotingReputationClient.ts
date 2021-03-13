@@ -46,7 +46,10 @@ const getVotingReputationClient = (
   ) as VotingReputationClient;
   votingReputationClient.clientType = ClientType.VotingReputationClient;
 
-  const addons = getVotingReputationClientAddons(votingReputationClient, colonyClient);
+  const addons = getVotingReputationClientAddons(
+    votingReputationClient,
+    colonyClient,
+  );
   const addonsEstimate = getVotingReputationClientEstimateAddons(
     votingReputationClient,
     colonyClient,
@@ -58,7 +61,7 @@ const getVotingReputationClient = (
   });
 
   Object.keys(addonsEstimate).map((addonName) => {
-    votingReputationClient.estimate[addonName] = addons[addonName];
+    votingReputationClient.estimate[addonName] = addonsEstimate[addonName];
     return null;
   });
 
