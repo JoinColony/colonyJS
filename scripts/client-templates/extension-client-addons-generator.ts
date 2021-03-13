@@ -106,7 +106,7 @@ export const get${camelcase(extensionName, {
    */
 });`;
 
-export const getTemplate = (
+const getTemplate = (
   extensionName: Extension,
   extensionVersion: number,
 ): string => {
@@ -125,5 +125,7 @@ ${content}
 /* eslint-enable */
 `;
 };
+
+export default getTemplate;
 
 /* eslint-enable */
