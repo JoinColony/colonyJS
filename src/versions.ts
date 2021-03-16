@@ -63,10 +63,15 @@ export const CurrentOneTxPaymentVersion = parseInt(
 
 export enum CoinMachineExtensionVersion {
   CeruleanLightweightSpaceship = 1,
+  DandelionLightweightSpaceship = 2,
 }
 
 const coinMachineReleaseMap = {
-  [OneTxPaymentExtensionVersion.CeruleanLightweightSpaceship]: `clwss`,
+  [CoinMachineExtensionVersion.CeruleanLightweightSpaceship]: `clwss`,
+  /*
+   * @NOTE Temporary until the actual network tag is pushed
+   */
+  [CoinMachineExtensionVersion.DandelionLightweightSpaceship]: `840e378cf098469c277fcc1540f2a5ad9701efe3`,
 };
 
 export const CurrentCoinMachineVersion = parseInt(
@@ -82,10 +87,15 @@ export const CurrentCoinMachineVersion = parseInt(
 
 export enum VotingReputationExtensionVersion {
   CeruleanLightweightSpaceship = 1,
+  DandelionLightweightSpaceship = 2,
 }
 
 const votingReputationReleaseMap = {
-  [OneTxPaymentExtensionVersion.CeruleanLightweightSpaceship]: `clwss`,
+  [VotingReputationExtensionVersion.CeruleanLightweightSpaceship]: `clwss`,
+  /*
+   * @NOTE Temporary until the actual network tag is pushed
+   */
+  [VotingReputationExtensionVersion.DandelionLightweightSpaceship]: `840e378cf098469c277fcc1540f2a5ad9701efe3`,
 };
 
 export const CurrentVotingReputationVersion = parseInt(
