@@ -2,7 +2,7 @@ import { ContractTransaction } from 'ethers';
 import { BigNumber, BigNumberish, Arrayish } from 'ethers/utils';
 
 import { TransactionOverrides } from '../../../contracts/3';
-import { ColonyRole } from '../../../constants';
+import { ColonyRole, ROOT_DOMAIN_ID } from '../../../constants';
 import { IColony as IColonyV5 } from '../../../contracts/5/IColony';
 import { IColony as IColonyV6 } from '../../../contracts/6/IColony';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
@@ -160,10 +160,11 @@ async function setUserRolesWithProofs(
   _roles: Arrayish,
   overrides?: TransactionOverrides,
 ): Promise<ContractTransaction> {
+  const isRootDomain = _domainId === ROOT_DOMAIN_ID.toString();
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this,
     _domainId,
-    ColonyRole.Architecture,
+    isRootDomain ? ColonyRole.Root : ColonyRole.Architecture,
   );
   return this.setUserRoles(
     permissionDomainId,
