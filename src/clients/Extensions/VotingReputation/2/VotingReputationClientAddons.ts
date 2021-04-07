@@ -7,7 +7,11 @@
 
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any */
 
+import { ContractTransaction } from 'ethers';
+import { BigNumberish, BigNumber, Arrayish } from 'ethers/utils';
+
 import { ExtendedIColony } from '../../../../clients/Colony/extensions/commonExtensions';
+import { ROOT_DOMAIN_ID } from '../../../../constants';
 
 import { VotingReputationClient } from './VotingReputationClient';
 
@@ -19,20 +23,41 @@ export const getVotingReputationClientAddons = (
   colonyClient: ExtendedIColony,
 ): Record<string, any> => ({
   /*
-   * Example withProofs method
-   *
-   * contractCallWithProofs: async (
-   *  _domainId: BigNumberish,
-   *  overrides?: TransactionOverrides,
-   * ): Promise<ContractTransaction> => {
-   *   const [extensionPDID, extensionCSI] = await getExtensionPermissionProofs(
-   *     colonyClient,
-   *     _domainId,
-   *     votingReputationClient.address,
-   *   );
-   *   return votingReputationClient.contractCall(extensionPDID, extensionCSI, _domainId, overrides);
-   * },
+   * @NOTE That this assumes that the domain is **always** as descendent of ROOT
+   * This means that once we introduce multi-nested domains, this will have to change
    */
+  createDomainMotionWithProofs: async (
+    _domainId: BigNumberish,
+    _action: Arrayish,
+    _key: Arrayish,
+    _value: Arrayish,
+    _branchMask: BigNumberish,
+    _siblings: Arrayish[],
+  ): Promise<ContractTransaction> => {
+    const { networkClient } = colonyClient;
+    const { skillId: rootSkillId } = await colonyClient.getDomain(
+      ROOT_DOMAIN_ID,
+    );
+    const { skillId } = await colonyClient.getDomain(_domainId);
+    const { children: childrenSkills } = await networkClient.getSkill(
+      rootSkillId,
+    );
+    const domainSkillIdIndex = childrenSkills.findIndex(
+      (childSkill) => childSkill.toNumber() === skillId.toNumber(),
+    );
+    if (domainSkillIdIndex === -1) {
+      throw new Error();
+    }
+    return votingReputationClient.createDomainMotion(
+      _domainId,
+      new BigNumber(domainSkillIdIndex),
+      _action,
+      _key,
+      _value,
+      _branchMask,
+      _siblings,
+    );
+  },
 });
 
 /*
@@ -44,22 +69,38 @@ export const getVotingReputationClientEstimateAddons = (
   votingReputationClient: VotingReputationClient,
   colonyClient: ExtendedIColony,
 ): Record<string, any> => ({
-  /*
-   * Example withProofs estimate method
-   * (Mostly the same as the actual method, just that it calls the client
-   * estimate contract call and doesn't pass in the transaction overrides)
-   *
-   * contractCallWithProofs: async (
-   *  _domainId: BigNumberish,
-   * ): Promise<ContractTransaction> => {
-   *   const [extensionPDID, extensionCSI] = await getExtensionPermissionProofs(
-   *     colonyClient,
-   *     _domainId,
-   *     votingReputationClient.address,
-   *   );
-   *   return votingReputationClient.estimate.contractCall(extensionPDID, extensionCSI, _domainId);
-   * },
-   */
+  createDomainMotionWithProofs: async (
+    _domainId: BigNumberish,
+    _action: Arrayish,
+    _key: Arrayish,
+    _value: Arrayish,
+    _branchMask: BigNumberish,
+    _siblings: Arrayish[],
+  ): Promise<BigNumber> => {
+    const { networkClient } = colonyClient;
+    const { skillId: rootSkillId } = await colonyClient.getDomain(
+      ROOT_DOMAIN_ID,
+    );
+    const { skillId } = await colonyClient.getDomain(_domainId);
+    const { children: childrenSkills } = await networkClient.getSkill(
+      rootSkillId,
+    );
+    const domainSkillIdIndex = childrenSkills.findIndex(
+      (childSkill) => childSkill.toNumber() === skillId.toNumber(),
+    );
+    if (domainSkillIdIndex === -1) {
+      throw new Error();
+    }
+    return votingReputationClient.estimate.createDomainMotion(
+      _domainId,
+      new BigNumber(domainSkillIdIndex),
+      _action,
+      _key,
+      _value,
+      _branchMask,
+      _siblings,
+    );
+  },
 });
 
 /* eslint-enable */

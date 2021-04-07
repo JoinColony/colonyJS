@@ -46,7 +46,10 @@ const getVotingReputationClient = (
   ) as VotingReputationClient;
   votingReputationClient.clientType = ClientType.VotingReputationClient;
 
-  const addons = getVotingReputationClientAddons(votingReputationClient, colonyClient);
+  const addons = getVotingReputationClientAddons(
+    votingReputationClient,
+    colonyClient,
+  );
   const addonsEstimate = getVotingReputationClientEstimateAddons(
     votingReputationClient,
     colonyClient,
