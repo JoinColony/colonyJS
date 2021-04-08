@@ -11,7 +11,10 @@ import { ContractTransaction } from 'ethers';
 import { BigNumberish, BigNumber, Arrayish, bigNumberify } from 'ethers/utils';
 import { MaxUint256 } from 'ethers/constants';
 
-import { ExtendedIColony } from '../../../Colony/extensions/commonExtensions';
+import {
+  ExtendedIColony,
+  getChildIndex,
+} from '../../../Colony/extensions/commonExtensions';
 import { TransactionOverrides } from '../../../../contracts/6';
 
 import { VotingReputationClient } from './VotingReputationClient';
@@ -35,21 +38,12 @@ export const getVotingReputationClientAddons = (
     let childSkillIdex = MaxUint256;
     const decodedDomain = bigNumberify(_action.toString().slice(10, 74)); // Domain in which the action is going to take place;
     if (decodedDomain.toNumber() !== _domainId) {
-      const { networkClient } = colonyClient;
-      const { skillId: voteDomainSkillId } = await colonyClient.getDomain(
+      const domainSkillIdIndex = await getChildIndex(
+        colonyClient,
         _domainId,
-      );
-      const { skillId: actionDomainSkillId } = await colonyClient.getDomain(
         decodedDomain.toNumber(),
       );
-      const {
-        children: voteDomainchildrenSkills,
-      } = await networkClient.getSkill(voteDomainSkillId);
-      const domainSkillIdIndex = voteDomainchildrenSkills.findIndex(
-        (childSkill) =>
-          childSkill.toNumber() === actionDomainSkillId.toNumber(),
-      );
-      if (domainSkillIdIndex !== -1) {
+      if (domainSkillIdIndex.toNumber() !== -1) {
         childSkillIdex = bigNumberify(domainSkillIdIndex);
       } else {
         throw new Error('Child skill index could not be found');
@@ -88,21 +82,12 @@ export const getVotingReputationClientEstimateAddons = (
     let childSkillIdex = MaxUint256;
     const decodedDomain = bigNumberify(_action.toString().slice(10, 74)); // Domain in which the action is going to take place;
     if (decodedDomain.toNumber() !== _domainId) {
-      const { networkClient } = colonyClient;
-      const { skillId: voteDomainSkillId } = await colonyClient.getDomain(
+      const domainSkillIdIndex = await getChildIndex(
+        colonyClient,
         _domainId,
-      );
-      const { skillId: actionDomainSkillId } = await colonyClient.getDomain(
         decodedDomain.toNumber(),
       );
-      const {
-        children: voteDomainchildrenSkills,
-      } = await networkClient.getSkill(voteDomainSkillId);
-      const domainSkillIdIndex = voteDomainchildrenSkills.findIndex(
-        (childSkill) =>
-          childSkill.toNumber() === actionDomainSkillId.toNumber(),
-      );
-      if (domainSkillIdIndex !== -1) {
+      if (domainSkillIdIndex.toNumber() !== -1) {
         childSkillIdex = bigNumberify(domainSkillIdIndex);
       } else {
         throw new Error('Child skill index could not be found');
