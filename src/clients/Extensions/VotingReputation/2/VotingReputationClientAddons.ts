@@ -8,10 +8,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any */
 
 import { ContractTransaction } from 'ethers';
-import { BigNumberish, BigNumber, Arrayish } from 'ethers/utils';
+import { BigNumberish, BigNumber, Arrayish, bigNumberify } from 'ethers/utils';
+import { MaxUint256 } from 'ethers/constants';
 
-import { ExtendedIColony } from '../../../../clients/Colony/extensions/commonExtensions';
-import { ROOT_DOMAIN_ID } from '../../../../constants';
+import { ExtendedIColony } from '../../../Colony/extensions/commonExtensions';
 
 import { VotingReputationClient } from './VotingReputationClient';
 
@@ -22,35 +22,40 @@ export const getVotingReputationClientAddons = (
   votingReputationClient: VotingReputationClient,
   colonyClient: ExtendedIColony,
 ): Record<string, any> => ({
-  /*
-   * @NOTE That this assumes that the domain is **always** as descendent of ROOT
-   * This means that once we introduce multi-nested domains, this will have to change
-   */
   createDomainMotionWithProofs: async (
-    _domainId: BigNumberish,
+    _domainId: BigNumberish, // Domain in which the voting will take place in
     _action: Arrayish,
     _key: Arrayish,
     _value: Arrayish,
     _branchMask: BigNumberish,
     _siblings: Arrayish[],
   ): Promise<ContractTransaction> => {
-    const { networkClient } = colonyClient;
-    const { skillId: rootSkillId } = await colonyClient.getDomain(
-      ROOT_DOMAIN_ID,
-    );
-    const { skillId } = await colonyClient.getDomain(_domainId);
-    const { children: childrenSkills } = await networkClient.getSkill(
-      rootSkillId,
-    );
-    const domainSkillIdIndex = childrenSkills.findIndex(
-      (childSkill) => childSkill.toNumber() === skillId.toNumber(),
-    );
-    if (domainSkillIdIndex === -1) {
-      throw new Error();
+    let childSkillIdex = MaxUint256;
+    const decodedDomain = bigNumberify(_action.toString().slice(10, 74)); // Domain in which the action is going to take place;
+    if (decodedDomain.toNumber() !== _domainId) {
+      const { networkClient } = colonyClient;
+      const { skillId: voteDomainSkillId } = await colonyClient.getDomain(
+        _domainId,
+      );
+      const { skillId: actionDomainSkillId } = await colonyClient.getDomain(
+        decodedDomain.toNumber(),
+      );
+      const {
+        children: voteDomainchildrenSkills,
+      } = await networkClient.getSkill(voteDomainSkillId);
+      const domainSkillIdIndex = voteDomainchildrenSkills.findIndex(
+        (childSkill) =>
+          childSkill.toNumber() === actionDomainSkillId.toNumber(),
+      );
+      if (domainSkillIdIndex !== -1) {
+        childSkillIdex = bigNumberify(domainSkillIdIndex);
+      } else {
+        throw new Error('Child skill index could not be found');
+      }
     }
     return votingReputationClient.createDomainMotion(
       _domainId,
-      new BigNumber(domainSkillIdIndex),
+      childSkillIdex,
       _action,
       _key,
       _value,
@@ -70,30 +75,39 @@ export const getVotingReputationClientEstimateAddons = (
   colonyClient: ExtendedIColony,
 ): Record<string, any> => ({
   createDomainMotionWithProofs: async (
-    _domainId: BigNumberish,
+    _domainId: BigNumberish, // Domain in which the voting will take place in
     _action: Arrayish,
     _key: Arrayish,
     _value: Arrayish,
     _branchMask: BigNumberish,
     _siblings: Arrayish[],
   ): Promise<BigNumber> => {
-    const { networkClient } = colonyClient;
-    const { skillId: rootSkillId } = await colonyClient.getDomain(
-      ROOT_DOMAIN_ID,
-    );
-    const { skillId } = await colonyClient.getDomain(_domainId);
-    const { children: childrenSkills } = await networkClient.getSkill(
-      rootSkillId,
-    );
-    const domainSkillIdIndex = childrenSkills.findIndex(
-      (childSkill) => childSkill.toNumber() === skillId.toNumber(),
-    );
-    if (domainSkillIdIndex === -1) {
-      throw new Error();
+    let childSkillIdex = MaxUint256;
+    const decodedDomain = bigNumberify(_action.toString().slice(10, 74)); // Domain in which the action is going to take place;
+    if (decodedDomain.toNumber() !== _domainId) {
+      const { networkClient } = colonyClient;
+      const { skillId: voteDomainSkillId } = await colonyClient.getDomain(
+        _domainId,
+      );
+      const { skillId: actionDomainSkillId } = await colonyClient.getDomain(
+        decodedDomain.toNumber(),
+      );
+      const {
+        children: voteDomainchildrenSkills,
+      } = await networkClient.getSkill(voteDomainSkillId);
+      const domainSkillIdIndex = voteDomainchildrenSkills.findIndex(
+        (childSkill) =>
+          childSkill.toNumber() === actionDomainSkillId.toNumber(),
+      );
+      if (domainSkillIdIndex !== -1) {
+        childSkillIdex = bigNumberify(domainSkillIdIndex);
+      } else {
+        throw new Error('Child skill index could not be found');
+      }
     }
     return votingReputationClient.estimate.createDomainMotion(
       _domainId,
-      new BigNumber(domainSkillIdIndex),
+      childSkillIdex,
       _action,
       _key,
       _value,
