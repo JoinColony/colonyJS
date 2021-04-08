@@ -12,6 +12,7 @@ import { BigNumberish, BigNumber, Arrayish, bigNumberify } from 'ethers/utils';
 import { MaxUint256 } from 'ethers/constants';
 
 import { ExtendedIColony } from '../../../Colony/extensions/commonExtensions';
+import { TransactionOverrides } from '../../../../contracts/6';
 
 import { VotingReputationClient } from './VotingReputationClient';
 
@@ -29,6 +30,7 @@ export const getVotingReputationClientAddons = (
     _value: Arrayish,
     _branchMask: BigNumberish,
     _siblings: Arrayish[],
+    overrides?: TransactionOverrides,
   ): Promise<ContractTransaction> => {
     let childSkillIdex = MaxUint256;
     const decodedDomain = bigNumberify(_action.toString().slice(10, 74)); // Domain in which the action is going to take place;
@@ -61,6 +63,7 @@ export const getVotingReputationClientAddons = (
       _value,
       _branchMask,
       _siblings,
+      overrides,
     );
   },
 });
