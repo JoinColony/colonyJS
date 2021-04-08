@@ -13,9 +13,11 @@ import { MaxUint256 } from 'ethers/constants';
 
 import {
   ExtendedIColony,
+  getPermissionProofs,
   getChildIndex,
 } from '../../../Colony/extensions/commonExtensions';
 import { TransactionOverrides } from '../../../../contracts/6';
+import { ColonyRole } from '../../../../constants';
 
 import { VotingReputationClient } from './VotingReputationClient';
 
@@ -37,7 +39,7 @@ export const getVotingReputationClientAddons = (
   ): Promise<ContractTransaction> => {
     let childSkillIdex = MaxUint256;
     const decodedDomain = bigNumberify(_action.toString().slice(10, 74)); // Domain in which the action is going to take place;
-    if (decodedDomain.toNumber() !== _domainId) {
+    if (decodedDomain.toNumber() !== bigNumberify(_domainId).toNumber()) {
       const domainSkillIdIndex = await getChildIndex(
         colonyClient,
         _domainId,
@@ -53,6 +55,36 @@ export const getVotingReputationClientAddons = (
       _domainId,
       childSkillIdex,
       _action,
+      _key,
+      _value,
+      _branchMask,
+      _siblings,
+      overrides,
+    );
+  },
+  stakeMotionWithProofs: async (
+    _motionId: BigNumberish,
+    _vote: BigNumberish,
+    _amount: BigNumberish,
+    _key: Arrayish,
+    _value: Arrayish,
+    _branchMask: BigNumberish,
+    _siblings: Arrayish[],
+    overrides?: TransactionOverrides,
+  ): Promise<ContractTransaction> => {
+    const { domainId } = await votingReputationClient.getMotion(_motionId);
+    const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+      colonyClient,
+      domainId,
+      ColonyRole.Arbitration,
+      votingReputationClient.address,
+    );
+    return votingReputationClient.stakeMotion(
+      _motionId,
+      permissionDomainId,
+      childSkillIndex,
+      _vote,
+      _amount,
       _key,
       _value,
       _branchMask,
@@ -81,7 +113,7 @@ export const getVotingReputationClientEstimateAddons = (
   ): Promise<BigNumber> => {
     let childSkillIdex = MaxUint256;
     const decodedDomain = bigNumberify(_action.toString().slice(10, 74)); // Domain in which the action is going to take place;
-    if (decodedDomain.toNumber() !== _domainId) {
+    if (decodedDomain.toNumber() !== bigNumberify(_domainId).toNumber()) {
       const domainSkillIdIndex = await getChildIndex(
         colonyClient,
         _domainId,
@@ -97,6 +129,34 @@ export const getVotingReputationClientEstimateAddons = (
       _domainId,
       childSkillIdex,
       _action,
+      _key,
+      _value,
+      _branchMask,
+      _siblings,
+    );
+  },
+  stakeMotionWithProofs: async (
+    _motionId: BigNumberish,
+    _vote: BigNumberish,
+    _amount: BigNumberish,
+    _key: Arrayish,
+    _value: Arrayish,
+    _branchMask: BigNumberish,
+    _siblings: Arrayish[],
+  ): Promise<BigNumber> => {
+    const { domainId } = await votingReputationClient.getMotion(_motionId);
+    const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+      colonyClient,
+      domainId,
+      ColonyRole.Arbitration,
+      votingReputationClient.address,
+    );
+    return votingReputationClient.estimate.stakeMotion(
+      _motionId,
+      permissionDomainId,
+      childSkillIndex,
+      _vote,
+      _amount,
       _key,
       _value,
       _branchMask,
