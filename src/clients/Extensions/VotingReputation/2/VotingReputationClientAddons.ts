@@ -122,6 +122,28 @@ export const getVotingReputationClientAddons = (
       overrides,
     );
   },
+  claimRewardWithProofs: async (
+    _motionId: BigNumberish,
+    _staker: string,
+    _vote: BigNumberish,
+    overrides?: TransactionOverrides,
+  ): Promise<ContractTransaction> => {
+    const { domainId } = await votingReputationClient.getMotion(_motionId);
+    const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+      colonyClient,
+      domainId,
+      ColonyRole.Arbitration,
+      votingReputationClient.address,
+    );
+    return votingReputationClient.claimReward(
+      _motionId,
+      permissionDomainId,
+      childSkillIndex,
+      _staker,
+      _vote,
+      overrides,
+    );
+  },
 });
 
 /*
@@ -219,6 +241,26 @@ export const getVotingReputationClientEstimateAddons = (
       _value,
       _branchMask,
       _siblings,
+    );
+  },
+  claimRewardWithProofs: async (
+    _motionId: BigNumberish,
+    _staker: string,
+    _vote: BigNumberish,
+  ): Promise<BigNumber> => {
+    const { domainId } = await votingReputationClient.getMotion(_motionId);
+    const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+      colonyClient,
+      domainId,
+      ColonyRole.Arbitration,
+      votingReputationClient.address,
+    );
+    return votingReputationClient.estimate.claimReward(
+      _motionId,
+      permissionDomainId,
+      childSkillIndex,
+      _staker,
+      _vote,
     );
   },
 });
