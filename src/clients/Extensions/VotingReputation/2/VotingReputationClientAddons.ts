@@ -36,23 +36,24 @@ export const getVotingReputationClientAddons = (
     _branchMask: BigNumberish,
     _siblings: Arrayish[],
     overrides?: TransactionOverrides,
-  ): Promise<ContractTransaction> => {
+  ): Promise<any> => {
     let childSkillIdex = MaxUint256;
-    const decodedDomain = bigNumberify(_action.toString().slice(10, 74)); // Domain in which the action is going to take place;
-    if (decodedDomain.toNumber() !== bigNumberify(_domainId).toNumber()) {
+    const votingDomain = bigNumberify(_domainId);
+    const decodedDomain = bigNumberify(`0x${_action.toString().slice(10, 74)}`); // Domain in which we have permissions
+    if (!decodedDomain.eq(votingDomain)) {
       const domainSkillIdIndex = await getChildIndex(
         colonyClient,
-        _domainId,
-        decodedDomain.toNumber(),
+        decodedDomain,
+        votingDomain,
       );
-      if (domainSkillIdIndex.toNumber() !== -1) {
+      if (!domainSkillIdIndex.eq(bigNumberify(-1))) {
         childSkillIdex = bigNumberify(domainSkillIdIndex);
       } else {
         throw new Error('Child skill index could not be found');
       }
     }
     return votingReputationClient.createDomainMotion(
-      _domainId,
+      votingDomain,
       childSkillIdex,
       _action,
       _key,
@@ -92,6 +93,35 @@ export const getVotingReputationClientAddons = (
       overrides,
     );
   },
+  escalateMotionWithProofs: async (
+    _motionId: BigNumberish,
+    _newDomainId: BigNumberish, // parent, or ancestor, domain id
+    _key: Arrayish,
+    _value: Arrayish,
+    _branchMask: BigNumberish,
+    _siblings: Arrayish[],
+    overrides?: TransactionOverrides,
+  ): Promise<ContractTransaction> => {
+    const { domainId } = await votingReputationClient.getMotion(_motionId);
+    const motionDomainChildSkillIdIndex = await getChildIndex(
+      colonyClient,
+      bigNumberify(_newDomainId),
+      domainId,
+    );
+    if (motionDomainChildSkillIdIndex.toNumber() === -1) {
+      throw new Error('Child skill index could not be found');
+    }
+    return votingReputationClient.escalateMotion(
+      _motionId,
+      _newDomainId,
+      motionDomainChildSkillIdIndex,
+      _key,
+      _value,
+      _branchMask,
+      _siblings,
+      overrides,
+    );
+  },
 });
 
 /*
@@ -112,21 +142,22 @@ export const getVotingReputationClientEstimateAddons = (
     _siblings: Arrayish[],
   ): Promise<BigNumber> => {
     let childSkillIdex = MaxUint256;
-    const decodedDomain = bigNumberify(_action.toString().slice(10, 74)); // Domain in which the action is going to take place;
-    if (decodedDomain.toNumber() !== bigNumberify(_domainId).toNumber()) {
+    const votingDomain = bigNumberify(_domainId);
+    const decodedDomain = bigNumberify(`0x${_action.toString().slice(10, 74)}`); // Domain in which we have permissions
+    if (!decodedDomain.eq(votingDomain)) {
       const domainSkillIdIndex = await getChildIndex(
         colonyClient,
-        _domainId,
-        decodedDomain.toNumber(),
+        decodedDomain,
+        votingDomain,
       );
-      if (domainSkillIdIndex.toNumber() !== -1) {
+      if (!domainSkillIdIndex.eq(bigNumberify(-1))) {
         childSkillIdex = bigNumberify(domainSkillIdIndex);
       } else {
         throw new Error('Child skill index could not be found');
       }
     }
     return votingReputationClient.estimate.createDomainMotion(
-      _domainId,
+      votingDomain,
       childSkillIdex,
       _action,
       _key,
@@ -157,6 +188,33 @@ export const getVotingReputationClientEstimateAddons = (
       childSkillIndex,
       _vote,
       _amount,
+      _key,
+      _value,
+      _branchMask,
+      _siblings,
+    );
+  },
+  escalateMotionWithProofs: async (
+    _motionId: BigNumberish,
+    _newDomainId: BigNumberish, // parent, or ancestor, domain id
+    _key: Arrayish,
+    _value: Arrayish,
+    _branchMask: BigNumberish,
+    _siblings: Arrayish[],
+  ): Promise<BigNumber> => {
+    const { domainId } = await votingReputationClient.getMotion(_motionId);
+    const motionDomainChildSkillIdIndex = await getChildIndex(
+      colonyClient,
+      bigNumberify(_newDomainId),
+      domainId,
+    );
+    if (motionDomainChildSkillIdIndex.toNumber() === -1) {
+      throw new Error('Child skill index could not be found');
+    }
+    return votingReputationClient.estimate.escalateMotion(
+      _motionId,
+      _newDomainId,
+      motionDomainChildSkillIdIndex,
       _key,
       _value,
       _branchMask,
