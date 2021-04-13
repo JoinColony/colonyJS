@@ -131,3 +131,17 @@ export const REPUTATION_ORACLE_ENDPOINT = 'https://colony.io/reputation';
 export const tokenAddresses = {
   SAI: '0x89d24A6b4CcB1B6fAA2625fE562bDD9a23260359',
 };
+
+/*
+ * The various states a Motion might find itself in
+ */
+export enum MotionState {
+  Null = 0,
+  Staking = 1,
+  Submit = 2,
+  Reveal = 3,
+  Closed = 4,
+  Finalizable = 5,
+  Finalized = 6,
+  Failed = 7,
+}
