@@ -12,10 +12,8 @@ import { VotingReputation__factory as VotingReputationFactory } from '../../../.
 import { VotingReputation } from '../../../../contracts/extensions/votingReputation/2/VotingReputation';
 import { ExtendedIColony } from '../../../../clients/Colony/extensions/commonExtensions';
 
-import {
-  getVotingReputationClientAddons,
-  getVotingReputationClientEstimateAddons,
-} from './VotingReputationClientAddons';
+import * as currentVersion from './VotingReputationClientAddons';
+import * as version1 from '../1/VotingReputationClientAddons';
 
 type VotingReputationEstimate = VotingReputation['estimate'];
 interface VotingReputationEstimateWithAddons extends VotingReputationEstimate {
@@ -46,14 +44,26 @@ const getVotingReputationClient = (
   ) as VotingReputationClient;
   votingReputationClient.clientType = ClientType.VotingReputationClient;
 
-  const addons = getVotingReputationClientAddons(
-    votingReputationClient,
-    colonyClient,
-  );
-  const addonsEstimate = getVotingReputationClientEstimateAddons(
-    votingReputationClient,
-    colonyClient,
-  );
+  const addons = {
+    ...currentVersion.getVotingReputationClientAddons(
+      votingReputationClient,
+      colonyClient,
+    ),
+    ...version1.getVotingReputationClientAddons(
+      votingReputationClient,
+      colonyClient,
+    ),
+  };
+  const addonsEstimate = {
+    ...currentVersion.getVotingReputationClientEstimateAddons(
+      votingReputationClient,
+      colonyClient,
+    ),
+    ...version1.getVotingReputationClientEstimateAddons(
+      votingReputationClient,
+      colonyClient,
+    ),
+  };
 
   Object.keys(addons).map((addonName) => {
     votingReputationClient[addonName] = addons[addonName];
