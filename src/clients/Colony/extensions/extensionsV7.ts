@@ -1,30 +1,32 @@
-import { IColony as IColonyV6 } from '../../../contracts/colony/6/IColony';
+import { IColony as IColonyV7 } from '../../../contracts/colony/7/IColony';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
 import { ExtendedIColony } from './commonExtensions';
 import { ColonyExtensionsV3 } from './extensionsV3';
 import { ColonyExtensionsV4 } from './extensionsV4';
+import { ColonyExtensionsV5 } from './extensionsV5';
 import {
-  addExtensions as addExtensionsV5,
-  ColonyExtensionsV5,
-  ExtendedEstimateV5,
-} from './extensionsV5';
+  addExtensions as addExtensionsV6,
+  ColonyExtensionsV6,
+  ExtendedEstimateV6,
+} from './extensionsV6';
 
-type ValidColony = IColonyV6;
+type ValidColony = IColonyV7;
 
 type PreviousVersionsExtensions = ExtendedIColony<ValidColony> &
   ColonyExtensionsV3<ValidColony> &
   ColonyExtensionsV4<ValidColony> &
-  ColonyExtensionsV5<ValidColony>;
+  ColonyExtensionsV5<ValidColony> &
+  ColonyExtensionsV6<ValidColony>;
 
 /*
  * Estimates
  */
-export type ExtendedEstimateV6 = ExtendedEstimateV5;
+export type ExtendedEstimateV7 = ExtendedEstimateV6;
 
 /*
  * Extension Methods
  */
-export type ColonyExtensionsV6<
+export type ColonyExtensionsV7<
   T extends ValidColony
 > = {} & PreviousVersionsExtensions;
 
@@ -34,11 +36,11 @@ export type ColonyExtensionsV6<
 export const addExtensions = (
   instance: ExtendedIColony<ValidColony>,
   networkClient: ColonyNetworkClient,
-): ColonyExtensionsV6<ValidColony> => {
-  // Add all extensions from v5, because these are also still valid
-  const extendedInstance = addExtensionsV5(
+): ColonyExtensionsV7<ValidColony> => {
+  // Add all extensions from v6, because these are also still valid
+  const extendedInstance = addExtensionsV6(
     instance,
     networkClient,
-  ) as ColonyExtensionsV6<ValidColony>;
+  ) as ColonyExtensionsV7<ValidColony>;
   return extendedInstance;
 };
