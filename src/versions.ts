@@ -13,6 +13,7 @@ export enum ColonyVersion {
   BurgundyGlider = 4,
   LightweightSpaceship = 5,
   CeruleanLightweightSpaceship = 6,
+  DandelionLightweightSpaceship = 7,
 }
 
 // These are the corresponding git release tags for the deployed versions of the Colony Network
@@ -23,6 +24,7 @@ const colonyReleaseMap = {
   [ColonyVersion.BurgundyGlider]: 'burgundy-glider',
   [ColonyVersion.LightweightSpaceship]: 'lwss',
   [ColonyVersion.CeruleanLightweightSpaceship]: `clwss`,
+  [ColonyVersion.DandelionLightweightSpaceship]: `1a881919fad80b96fcd30f417bc2025968d4132b`,
 };
 
 /**
