@@ -71,7 +71,7 @@ const coinMachineReleaseMap = {
   /*
    * @NOTE Temporary until the actual network tag is pushed
    */
-  [CoinMachineExtensionVersion.DandelionLightweightSpaceship]: `840e378cf098469c277fcc1540f2a5ad9701efe3`,
+  [CoinMachineExtensionVersion.DandelionLightweightSpaceship]: `1a881919fad80b96fcd30f417bc2025968d4132b`,
 };
 
 export const CurrentCoinMachineVersion = parseInt(
@@ -95,7 +95,7 @@ const votingReputationReleaseMap = {
   /*
    * @NOTE Temporary until the actual network tag is pushed
    */
-  [VotingReputationExtensionVersion.DandelionLightweightSpaceship]: `840e378cf098469c277fcc1540f2a5ad9701efe3`,
+  [VotingReputationExtensionVersion.DandelionLightweightSpaceship]: `1a881919fad80b96fcd30f417bc2025968d4132b`,
 };
 
 export const CurrentVotingReputationVersion = parseInt(
