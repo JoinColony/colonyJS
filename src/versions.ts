@@ -24,7 +24,7 @@ const colonyReleaseMap = {
   [ColonyVersion.BurgundyGlider]: 'burgundy-glider',
   [ColonyVersion.LightweightSpaceship]: 'lwss',
   [ColonyVersion.CeruleanLightweightSpaceship]: `clwss`,
-  [ColonyVersion.DandelionLightweightSpaceship]: `1a881919fad80b96fcd30f417bc2025968d4132b`,
+  [ColonyVersion.DandelionLightweightSpaceship]: `97adabb5c0bc3b736e28db6f82254947c091c6e8`,
 };
 
 /**
@@ -73,7 +73,7 @@ const coinMachineReleaseMap = {
   /*
    * @NOTE Temporary until the actual network tag is pushed
    */
-  [CoinMachineExtensionVersion.DandelionLightweightSpaceship]: `1a881919fad80b96fcd30f417bc2025968d4132b`,
+  [CoinMachineExtensionVersion.DandelionLightweightSpaceship]: `97adabb5c0bc3b736e28db6f82254947c091c6e8`,
 };
 
 export const CurrentCoinMachineVersion = parseInt(
@@ -97,7 +97,7 @@ const votingReputationReleaseMap = {
   /*
    * @NOTE Temporary until the actual network tag is pushed
    */
-  [VotingReputationExtensionVersion.DandelionLightweightSpaceship]: `1a881919fad80b96fcd30f417bc2025968d4132b`,
+  [VotingReputationExtensionVersion.DandelionLightweightSpaceship]: `97adabb5c0bc3b736e28db6f82254947c091c6e8`,
 };
 
 export const CurrentVotingReputationVersion = parseInt(
