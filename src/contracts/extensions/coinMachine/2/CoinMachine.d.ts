@@ -15,6 +15,10 @@ interface CoinMachineInterface extends Interface {
   functions: {
     authority: TypedFunctionDescription<{ encode([]: []): string }>;
 
+    getCapabilityRoles: TypedFunctionDescription<{
+      encode([_sig]: [Arrayish]): string;
+    }>;
+
     getColony: TypedFunctionDescription<{ encode([]: []): string }>;
 
     getDeprecated: TypedFunctionDescription<{ encode([]: []): string }>;
@@ -43,22 +47,28 @@ interface CoinMachineInterface extends Interface {
 
     initialise: TypedFunctionDescription<{
       encode([
+        _token,
         _purchaseToken,
         _periodLength,
         _windowSize,
         _targetPerPeriod,
         _maxPerPeriod,
-        _tokensToSell,
         _startingPrice,
+        _whitelist,
       ]: [
+        string,
         string,
         BigNumberish,
         BigNumberish,
         BigNumberish,
         BigNumberish,
         BigNumberish,
-        BigNumberish
+        string
       ]): string;
+    }>;
+
+    setWhitelist: TypedFunctionDescription<{
+      encode([_whitelist]: [string]): string;
     }>;
 
     buyTokens: TypedFunctionDescription<{
@@ -66,6 +76,20 @@ interface CoinMachineInterface extends Interface {
     }>;
 
     updatePeriod: TypedFunctionDescription<{ encode([]: []): string }>;
+
+    getPurchaseToken: TypedFunctionDescription<{ encode([]: []): string }>;
+
+    getToken: TypedFunctionDescription<{ encode([]: []): string }>;
+
+    getActivePeriod: TypedFunctionDescription<{ encode([]: []): string }>;
+
+    getActiveSold: TypedFunctionDescription<{ encode([]: []): string }>;
+
+    getActiveIntake: TypedFunctionDescription<{ encode([]: []): string }>;
+
+    getEMAIntake: TypedFunctionDescription<{ encode([]: []): string }>;
+
+    getTokenBalance: TypedFunctionDescription<{ encode([]: []): string }>;
 
     getPeriodLength: TypedFunctionDescription<{ encode([]: []): string }>;
 
@@ -75,11 +99,13 @@ interface CoinMachineInterface extends Interface {
 
     getMaxPerPeriod: TypedFunctionDescription<{ encode([]: []): string }>;
 
-    getTokensToSell: TypedFunctionDescription<{ encode([]: []): string }>;
-
     getCurrentPrice: TypedFunctionDescription<{ encode([]: []): string }>;
 
     getNumAvailable: TypedFunctionDescription<{ encode([]: []): string }>;
+
+    getWhitelist: TypedFunctionDescription<{ encode([]: []): string }>;
+
+    getEvolvePrice: TypedFunctionDescription<{ encode([]: []): string }>;
   };
 
   events: {
@@ -99,8 +125,16 @@ interface CoinMachineInterface extends Interface {
       encodeTopics([activePeriod, currentPeriod]: [null, null]): string[];
     }>;
 
+    PriceEvolutionSet: TypedEventDescription<{
+      encodeTopics([evolvePrice]: [null]): string[];
+    }>;
+
     TokensBought: TypedEventDescription<{
       encodeTopics([buyer, numTokens, totalCost]: [null, null, null]): string[];
+    }>;
+
+    WhitelistSet: TypedEventDescription<{
+      encodeTopics([whitelist]: [null]): string[];
     }>;
   };
 }
@@ -122,6 +156,16 @@ export class CoinMachine extends Contract {
     authority(overrides?: TransactionOverrides): Promise<string>;
 
     "authority()"(overrides?: TransactionOverrides): Promise<string>;
+
+    getCapabilityRoles(
+      _sig: Arrayish,
+      overrides?: TransactionOverrides
+    ): Promise<string>;
+
+    "getCapabilityRoles(bytes4)"(
+      _sig: Arrayish,
+      overrides?: TransactionOverrides
+    ): Promise<string>;
 
     getColony(overrides?: TransactionOverrides): Promise<string>;
 
@@ -242,16 +286,19 @@ export class CoinMachine extends Contract {
      * @param _purchaseToken The token to receive payments in. Use 0x0 for ether
      * @param _startingPrice The sale price to start at, expressed in units of _purchaseToken per token being sold, as a WAD
      * @param _targetPerPeriod The number of tokens to aim to sell per period
+     * @param _token The token we are selling. Cannot be ether
+     * @param _whitelist Optionally an address of a whitelist contract to use can be provided. Pass 0x0 if no whitelist being used
      * @param _windowSize Characteristic number of periods that should be used for the moving average. In the long-term, 86% of the weighting will be in this window size. The higher the number, the slower the price will be to adjust
      */
     initialise(
+      _token: string,
       _purchaseToken: string,
       _periodLength: BigNumberish,
       _windowSize: BigNumberish,
       _targetPerPeriod: BigNumberish,
       _maxPerPeriod: BigNumberish,
-      _tokensToSell: BigNumberish,
       _startingPrice: BigNumberish,
+      _whitelist: string,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
@@ -262,16 +309,37 @@ export class CoinMachine extends Contract {
      * @param _purchaseToken The token to receive payments in. Use 0x0 for ether
      * @param _startingPrice The sale price to start at, expressed in units of _purchaseToken per token being sold, as a WAD
      * @param _targetPerPeriod The number of tokens to aim to sell per period
+     * @param _token The token we are selling. Cannot be ether
+     * @param _whitelist Optionally an address of a whitelist contract to use can be provided. Pass 0x0 if no whitelist being used
      * @param _windowSize Characteristic number of periods that should be used for the moving average. In the long-term, 86% of the weighting will be in this window size. The higher the number, the slower the price will be to adjust
      */
-    "initialise(address,uint256,uint256,uint256,uint256,uint256,uint256)"(
+    "initialise(address,address,uint256,uint256,uint256,uint256,uint256,address)"(
+      _token: string,
       _purchaseToken: string,
       _periodLength: BigNumberish,
       _windowSize: BigNumberish,
       _targetPerPeriod: BigNumberish,
       _maxPerPeriod: BigNumberish,
-      _tokensToSell: BigNumberish,
       _startingPrice: BigNumberish,
+      _whitelist: string,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Set the address for an (optional) whitelist
+     * @param _whitelist The address of the whitelist
+     */
+    setWhitelist(
+      _whitelist: string,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Set the address for an (optional) whitelist
+     * @param _whitelist The address of the whitelist
+     */
+    "setWhitelist(address)"(
+      _whitelist: string,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
@@ -306,6 +374,76 @@ export class CoinMachine extends Contract {
     "updatePeriod()"(
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
+
+    /**
+     * Get the address of the token being used to make purchases
+     */
+    getPurchaseToken(overrides?: TransactionOverrides): Promise<string>;
+
+    /**
+     * Get the address of the token being used to make purchases
+     */
+    "getPurchaseToken()"(overrides?: TransactionOverrides): Promise<string>;
+
+    /**
+     * Get the address of the token being sold
+     */
+    getToken(overrides?: TransactionOverrides): Promise<string>;
+
+    /**
+     * Get the address of the token being sold
+     */
+    "getToken()"(overrides?: TransactionOverrides): Promise<string>;
+
+    /**
+     * Get the period that the price was last updated for or a purchase was made
+     */
+    getActivePeriod(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    /**
+     * Get the period that the price was last updated for or a purchase was made
+     */
+    "getActivePeriod()"(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    /**
+     * Get the number of tokens sold in the period that the price was last updated for or a purchase was made
+     */
+    getActiveSold(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    /**
+     * Get the number of tokens sold in the period that the price was last updated for or a purchase was made
+     */
+    "getActiveSold()"(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    /**
+     * Get the number of tokens received in the period that the price was last updated for or a purchase was made
+     */
+    getActiveIntake(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    /**
+     * Get the number of tokens received in the period that the price was last updated for or a purchase was made
+     */
+    "getActiveIntake()"(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    /**
+     * Get the EMA of the number of tokens received each period
+     */
+    getEMAIntake(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    /**
+     * Get the EMA of the number of tokens received each period
+     */
+    "getEMAIntake()"(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    /**
+     * Get the remaining balance of tokens
+     */
+    getTokenBalance(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    /**
+     * Get the remaining balance of tokens
+     */
+    "getTokenBalance()"(overrides?: TransactionOverrides): Promise<BigNumber>;
 
     /**
      * Get the length of the sale period
@@ -350,16 +488,6 @@ export class CoinMachine extends Contract {
     "getMaxPerPeriod()"(overrides?: TransactionOverrides): Promise<BigNumber>;
 
     /**
-     * Get the total number of tokens remaining for sale
-     */
-    getTokensToSell(overrides?: TransactionOverrides): Promise<BigNumber>;
-
-    /**
-     * Get the total number of tokens remaining for sale
-     */
-    "getTokensToSell()"(overrides?: TransactionOverrides): Promise<BigNumber>;
-
-    /**
      * Get the current price per token
      */
     getCurrentPrice(overrides?: TransactionOverrides): Promise<BigNumber>;
@@ -378,11 +506,41 @@ export class CoinMachine extends Contract {
      * Get the number of remaining tokens for sale this period
      */
     "getNumAvailable()"(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    /**
+     * Get the address of the whitelist (if exists)
+     */
+    getWhitelist(overrides?: TransactionOverrides): Promise<string>;
+
+    /**
+     * Get the address of the whitelist (if exists)
+     */
+    "getWhitelist()"(overrides?: TransactionOverrides): Promise<string>;
+
+    /**
+     * Get the evolvePrice boolean
+     */
+    getEvolvePrice(overrides?: TransactionOverrides): Promise<boolean>;
+
+    /**
+     * Get the evolvePrice boolean
+     */
+    "getEvolvePrice()"(overrides?: TransactionOverrides): Promise<boolean>;
   };
 
   authority(overrides?: TransactionOverrides): Promise<string>;
 
   "authority()"(overrides?: TransactionOverrides): Promise<string>;
+
+  getCapabilityRoles(
+    _sig: Arrayish,
+    overrides?: TransactionOverrides
+  ): Promise<string>;
+
+  "getCapabilityRoles(bytes4)"(
+    _sig: Arrayish,
+    overrides?: TransactionOverrides
+  ): Promise<string>;
 
   getColony(overrides?: TransactionOverrides): Promise<string>;
 
@@ -499,16 +657,19 @@ export class CoinMachine extends Contract {
    * @param _purchaseToken The token to receive payments in. Use 0x0 for ether
    * @param _startingPrice The sale price to start at, expressed in units of _purchaseToken per token being sold, as a WAD
    * @param _targetPerPeriod The number of tokens to aim to sell per period
+   * @param _token The token we are selling. Cannot be ether
+   * @param _whitelist Optionally an address of a whitelist contract to use can be provided. Pass 0x0 if no whitelist being used
    * @param _windowSize Characteristic number of periods that should be used for the moving average. In the long-term, 86% of the weighting will be in this window size. The higher the number, the slower the price will be to adjust
    */
   initialise(
+    _token: string,
     _purchaseToken: string,
     _periodLength: BigNumberish,
     _windowSize: BigNumberish,
     _targetPerPeriod: BigNumberish,
     _maxPerPeriod: BigNumberish,
-    _tokensToSell: BigNumberish,
     _startingPrice: BigNumberish,
+    _whitelist: string,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
@@ -519,16 +680,37 @@ export class CoinMachine extends Contract {
    * @param _purchaseToken The token to receive payments in. Use 0x0 for ether
    * @param _startingPrice The sale price to start at, expressed in units of _purchaseToken per token being sold, as a WAD
    * @param _targetPerPeriod The number of tokens to aim to sell per period
+   * @param _token The token we are selling. Cannot be ether
+   * @param _whitelist Optionally an address of a whitelist contract to use can be provided. Pass 0x0 if no whitelist being used
    * @param _windowSize Characteristic number of periods that should be used for the moving average. In the long-term, 86% of the weighting will be in this window size. The higher the number, the slower the price will be to adjust
    */
-  "initialise(address,uint256,uint256,uint256,uint256,uint256,uint256)"(
+  "initialise(address,address,uint256,uint256,uint256,uint256,uint256,address)"(
+    _token: string,
     _purchaseToken: string,
     _periodLength: BigNumberish,
     _windowSize: BigNumberish,
     _targetPerPeriod: BigNumberish,
     _maxPerPeriod: BigNumberish,
-    _tokensToSell: BigNumberish,
     _startingPrice: BigNumberish,
+    _whitelist: string,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * Set the address for an (optional) whitelist
+   * @param _whitelist The address of the whitelist
+   */
+  setWhitelist(
+    _whitelist: string,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * Set the address for an (optional) whitelist
+   * @param _whitelist The address of the whitelist
+   */
+  "setWhitelist(address)"(
+    _whitelist: string,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
@@ -561,6 +743,76 @@ export class CoinMachine extends Contract {
   "updatePeriod()"(
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
+
+  /**
+   * Get the address of the token being used to make purchases
+   */
+  getPurchaseToken(overrides?: TransactionOverrides): Promise<string>;
+
+  /**
+   * Get the address of the token being used to make purchases
+   */
+  "getPurchaseToken()"(overrides?: TransactionOverrides): Promise<string>;
+
+  /**
+   * Get the address of the token being sold
+   */
+  getToken(overrides?: TransactionOverrides): Promise<string>;
+
+  /**
+   * Get the address of the token being sold
+   */
+  "getToken()"(overrides?: TransactionOverrides): Promise<string>;
+
+  /**
+   * Get the period that the price was last updated for or a purchase was made
+   */
+  getActivePeriod(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+  /**
+   * Get the period that the price was last updated for or a purchase was made
+   */
+  "getActivePeriod()"(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+  /**
+   * Get the number of tokens sold in the period that the price was last updated for or a purchase was made
+   */
+  getActiveSold(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+  /**
+   * Get the number of tokens sold in the period that the price was last updated for or a purchase was made
+   */
+  "getActiveSold()"(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+  /**
+   * Get the number of tokens received in the period that the price was last updated for or a purchase was made
+   */
+  getActiveIntake(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+  /**
+   * Get the number of tokens received in the period that the price was last updated for or a purchase was made
+   */
+  "getActiveIntake()"(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+  /**
+   * Get the EMA of the number of tokens received each period
+   */
+  getEMAIntake(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+  /**
+   * Get the EMA of the number of tokens received each period
+   */
+  "getEMAIntake()"(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+  /**
+   * Get the remaining balance of tokens
+   */
+  getTokenBalance(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+  /**
+   * Get the remaining balance of tokens
+   */
+  "getTokenBalance()"(overrides?: TransactionOverrides): Promise<BigNumber>;
 
   /**
    * Get the length of the sale period
@@ -603,16 +855,6 @@ export class CoinMachine extends Contract {
   "getMaxPerPeriod()"(overrides?: TransactionOverrides): Promise<BigNumber>;
 
   /**
-   * Get the total number of tokens remaining for sale
-   */
-  getTokensToSell(overrides?: TransactionOverrides): Promise<BigNumber>;
-
-  /**
-   * Get the total number of tokens remaining for sale
-   */
-  "getTokensToSell()"(overrides?: TransactionOverrides): Promise<BigNumber>;
-
-  /**
    * Get the current price per token
    */
   getCurrentPrice(overrides?: TransactionOverrides): Promise<BigNumber>;
@@ -632,6 +874,26 @@ export class CoinMachine extends Contract {
    */
   "getNumAvailable()"(overrides?: TransactionOverrides): Promise<BigNumber>;
 
+  /**
+   * Get the address of the whitelist (if exists)
+   */
+  getWhitelist(overrides?: TransactionOverrides): Promise<string>;
+
+  /**
+   * Get the address of the whitelist (if exists)
+   */
+  "getWhitelist()"(overrides?: TransactionOverrides): Promise<string>;
+
+  /**
+   * Get the evolvePrice boolean
+   */
+  getEvolvePrice(overrides?: TransactionOverrides): Promise<boolean>;
+
+  /**
+   * Get the evolvePrice boolean
+   */
+  "getEvolvePrice()"(overrides?: TransactionOverrides): Promise<boolean>;
+
   filters: {
     ExtensionInitialised(): EventFilter;
 
@@ -641,13 +903,27 @@ export class CoinMachine extends Contract {
 
     PeriodUpdated(activePeriod: null, currentPeriod: null): EventFilter;
 
+    PriceEvolutionSet(evolvePrice: null): EventFilter;
+
     TokensBought(buyer: null, numTokens: null, totalCost: null): EventFilter;
+
+    WhitelistSet(whitelist: null): EventFilter;
   };
 
   estimate: {
     authority(overrides?: TransactionOverrides): Promise<BigNumber>;
 
     "authority()"(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    getCapabilityRoles(
+      _sig: Arrayish,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    "getCapabilityRoles(bytes4)"(
+      _sig: Arrayish,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
 
     getColony(overrides?: TransactionOverrides): Promise<BigNumber>;
 
@@ -762,16 +1038,19 @@ export class CoinMachine extends Contract {
      * @param _purchaseToken The token to receive payments in. Use 0x0 for ether
      * @param _startingPrice The sale price to start at, expressed in units of _purchaseToken per token being sold, as a WAD
      * @param _targetPerPeriod The number of tokens to aim to sell per period
+     * @param _token The token we are selling. Cannot be ether
+     * @param _whitelist Optionally an address of a whitelist contract to use can be provided. Pass 0x0 if no whitelist being used
      * @param _windowSize Characteristic number of periods that should be used for the moving average. In the long-term, 86% of the weighting will be in this window size. The higher the number, the slower the price will be to adjust
      */
     initialise(
+      _token: string,
       _purchaseToken: string,
       _periodLength: BigNumberish,
       _windowSize: BigNumberish,
       _targetPerPeriod: BigNumberish,
       _maxPerPeriod: BigNumberish,
-      _tokensToSell: BigNumberish,
       _startingPrice: BigNumberish,
+      _whitelist: string,
       overrides?: TransactionOverrides
     ): Promise<BigNumber>;
 
@@ -782,16 +1061,37 @@ export class CoinMachine extends Contract {
      * @param _purchaseToken The token to receive payments in. Use 0x0 for ether
      * @param _startingPrice The sale price to start at, expressed in units of _purchaseToken per token being sold, as a WAD
      * @param _targetPerPeriod The number of tokens to aim to sell per period
+     * @param _token The token we are selling. Cannot be ether
+     * @param _whitelist Optionally an address of a whitelist contract to use can be provided. Pass 0x0 if no whitelist being used
      * @param _windowSize Characteristic number of periods that should be used for the moving average. In the long-term, 86% of the weighting will be in this window size. The higher the number, the slower the price will be to adjust
      */
-    "initialise(address,uint256,uint256,uint256,uint256,uint256,uint256)"(
+    "initialise(address,address,uint256,uint256,uint256,uint256,uint256,address)"(
+      _token: string,
       _purchaseToken: string,
       _periodLength: BigNumberish,
       _windowSize: BigNumberish,
       _targetPerPeriod: BigNumberish,
       _maxPerPeriod: BigNumberish,
-      _tokensToSell: BigNumberish,
       _startingPrice: BigNumberish,
+      _whitelist: string,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * Set the address for an (optional) whitelist
+     * @param _whitelist The address of the whitelist
+     */
+    setWhitelist(
+      _whitelist: string,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * Set the address for an (optional) whitelist
+     * @param _whitelist The address of the whitelist
+     */
+    "setWhitelist(address)"(
+      _whitelist: string,
       overrides?: TransactionOverrides
     ): Promise<BigNumber>;
 
@@ -822,6 +1122,76 @@ export class CoinMachine extends Contract {
      * Bring the token accounting current
      */
     "updatePeriod()"(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    /**
+     * Get the address of the token being used to make purchases
+     */
+    getPurchaseToken(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    /**
+     * Get the address of the token being used to make purchases
+     */
+    "getPurchaseToken()"(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    /**
+     * Get the address of the token being sold
+     */
+    getToken(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    /**
+     * Get the address of the token being sold
+     */
+    "getToken()"(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    /**
+     * Get the period that the price was last updated for or a purchase was made
+     */
+    getActivePeriod(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    /**
+     * Get the period that the price was last updated for or a purchase was made
+     */
+    "getActivePeriod()"(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    /**
+     * Get the number of tokens sold in the period that the price was last updated for or a purchase was made
+     */
+    getActiveSold(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    /**
+     * Get the number of tokens sold in the period that the price was last updated for or a purchase was made
+     */
+    "getActiveSold()"(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    /**
+     * Get the number of tokens received in the period that the price was last updated for or a purchase was made
+     */
+    getActiveIntake(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    /**
+     * Get the number of tokens received in the period that the price was last updated for or a purchase was made
+     */
+    "getActiveIntake()"(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    /**
+     * Get the EMA of the number of tokens received each period
+     */
+    getEMAIntake(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    /**
+     * Get the EMA of the number of tokens received each period
+     */
+    "getEMAIntake()"(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    /**
+     * Get the remaining balance of tokens
+     */
+    getTokenBalance(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    /**
+     * Get the remaining balance of tokens
+     */
+    "getTokenBalance()"(overrides?: TransactionOverrides): Promise<BigNumber>;
 
     /**
      * Get the length of the sale period
@@ -866,16 +1236,6 @@ export class CoinMachine extends Contract {
     "getMaxPerPeriod()"(overrides?: TransactionOverrides): Promise<BigNumber>;
 
     /**
-     * Get the total number of tokens remaining for sale
-     */
-    getTokensToSell(overrides?: TransactionOverrides): Promise<BigNumber>;
-
-    /**
-     * Get the total number of tokens remaining for sale
-     */
-    "getTokensToSell()"(overrides?: TransactionOverrides): Promise<BigNumber>;
-
-    /**
      * Get the current price per token
      */
     getCurrentPrice(overrides?: TransactionOverrides): Promise<BigNumber>;
@@ -894,5 +1254,25 @@ export class CoinMachine extends Contract {
      * Get the number of remaining tokens for sale this period
      */
     "getNumAvailable()"(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    /**
+     * Get the address of the whitelist (if exists)
+     */
+    getWhitelist(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    /**
+     * Get the address of the whitelist (if exists)
+     */
+    "getWhitelist()"(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    /**
+     * Get the evolvePrice boolean
+     */
+    getEvolvePrice(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    /**
+     * Get the evolvePrice boolean
+     */
+    "getEvolvePrice()"(overrides?: TransactionOverrides): Promise<BigNumber>;
   };
 }

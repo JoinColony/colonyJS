@@ -15,6 +15,10 @@ interface VotingReputationInterface extends Interface {
   functions: {
     authority: TypedFunctionDescription<{ encode([]: []): string }>;
 
+    getCapabilityRoles: TypedFunctionDescription<{
+      encode([_sig]: [Arrayish]): string;
+    }>;
+
     getColony: TypedFunctionDescription<{ encode([]: []): string }>;
 
     getDeprecated: TypedFunctionDescription<{ encode([]: []): string }>;
@@ -62,6 +66,28 @@ interface VotingReputationInterface extends Interface {
     }>;
 
     uninstall: TypedFunctionDescription<{ encode([]: []): string }>;
+
+    createMotion: TypedFunctionDescription<{
+      encode([
+        _domainId,
+        _childSkillIndex,
+        _altTarget,
+        _action,
+        _key,
+        _value,
+        _branchMask,
+        _siblings,
+      ]: [
+        BigNumberish,
+        BigNumberish,
+        string,
+        Arrayish,
+        Arrayish,
+        Arrayish,
+        BigNumberish,
+        Arrayish[]
+      ]): string;
+    }>;
 
     createRootMotion: TypedFunctionDescription<{
       encode([_altTarget, _action, _key, _value, _branchMask, _siblings]: [
@@ -345,6 +371,16 @@ export class VotingReputation extends Contract {
 
     "authority()"(overrides?: TransactionOverrides): Promise<string>;
 
+    getCapabilityRoles(
+      _sig: Arrayish,
+      overrides?: TransactionOverrides
+    ): Promise<string>;
+
+    "getCapabilityRoles(bytes4)"(
+      _sig: Arrayish,
+      overrides?: TransactionOverrides
+    ): Promise<string>;
+
     getColony(overrides?: TransactionOverrides): Promise<string>;
 
     "getColony()"(overrides?: TransactionOverrides): Promise<string>;
@@ -503,8 +539,32 @@ export class VotingReputation extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    createMotion(
+      _domainId: BigNumberish,
+      _childSkillIndex: BigNumberish,
+      _altTarget: string,
+      _action: Arrayish,
+      _key: Arrayish,
+      _value: Arrayish,
+      _branchMask: BigNumberish,
+      _siblings: Arrayish[],
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    "createMotion(uint256,uint256,address,bytes,bytes,bytes,uint256,bytes32[])"(
+      _domainId: BigNumberish,
+      _childSkillIndex: BigNumberish,
+      _altTarget: string,
+      _action: Arrayish,
+      _key: Arrayish,
+      _value: Arrayish,
+      _branchMask: BigNumberish,
+      _siblings: Arrayish[],
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
     /**
-     * Create a motion in the root domain
+     * Create a motion in the root domain (DEPRECATED)
      * @param _action A bytes array encoding a function call
      * @param _altTarget The contract to which we send the action (0x0 for the colony)
      * @param _branchMask The branchmask of the proof
@@ -523,7 +583,7 @@ export class VotingReputation extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
-     * Create a motion in the root domain
+     * Create a motion in the root domain (DEPRECATED)
      * @param _action A bytes array encoding a function call
      * @param _altTarget The contract to which we send the action (0x0 for the colony)
      * @param _branchMask The branchmask of the proof
@@ -542,7 +602,7 @@ export class VotingReputation extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
-     * Create a motion in any domain
+     * Create a motion in any domain (DEPRECATED)
      * @param _action A bytes array encoding a function call
      * @param _branchMask The branchmask of the proof
      * @param _childSkillIndex The childSkillIndex pointing to the domain of the action
@@ -563,7 +623,7 @@ export class VotingReputation extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
-     * Create a motion in any domain
+     * Create a motion in any domain (DEPRECATED)
      * @param _action A bytes array encoding a function call
      * @param _branchMask The branchmask of the proof
      * @param _childSkillIndex The childSkillIndex pointing to the domain of the action
@@ -575,6 +635,29 @@ export class VotingReputation extends Contract {
     "createDomainMotion(uint256,uint256,bytes,bytes,bytes,uint256,bytes32[])"(
       _domainId: BigNumberish,
       _childSkillIndex: BigNumberish,
+      _action: Arrayish,
+      _key: Arrayish,
+      _value: Arrayish,
+      _branchMask: BigNumberish,
+      _siblings: Arrayish[],
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Create a motion in any domain (DEPRECATED)
+     * @param _action A bytes array encoding a function call
+     * @param _altTarget The contract to which we send the action (0x0 for the colony)
+     * @param _branchMask The branchmask of the proof
+     * @param _childSkillIndex The childSkillIndex pointing to the domain of the action
+     * @param _domainId The domain where we vote on the motion
+     * @param _key Reputation tree key for the domain
+     * @param _siblings The siblings of the proof
+     * @param _value Reputation tree value for the domain
+     */
+    "createDomainMotion(uint256,uint256,address,bytes,bytes,bytes,uint256,bytes32[])"(
+      _domainId: BigNumberish,
+      _childSkillIndex: BigNumberish,
+      _altTarget: string,
       _action: Arrayish,
       _key: Arrayish,
       _value: Arrayish,
@@ -1128,6 +1211,16 @@ export class VotingReputation extends Contract {
 
   "authority()"(overrides?: TransactionOverrides): Promise<string>;
 
+  getCapabilityRoles(
+    _sig: Arrayish,
+    overrides?: TransactionOverrides
+  ): Promise<string>;
+
+  "getCapabilityRoles(bytes4)"(
+    _sig: Arrayish,
+    overrides?: TransactionOverrides
+  ): Promise<string>;
+
   getColony(overrides?: TransactionOverrides): Promise<string>;
 
   "getColony()"(overrides?: TransactionOverrides): Promise<string>;
@@ -1282,8 +1375,32 @@ export class VotingReputation extends Contract {
    */
   "uninstall()"(overrides?: TransactionOverrides): Promise<ContractTransaction>;
 
+  createMotion(
+    _domainId: BigNumberish,
+    _childSkillIndex: BigNumberish,
+    _altTarget: string,
+    _action: Arrayish,
+    _key: Arrayish,
+    _value: Arrayish,
+    _branchMask: BigNumberish,
+    _siblings: Arrayish[],
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  "createMotion(uint256,uint256,address,bytes,bytes,bytes,uint256,bytes32[])"(
+    _domainId: BigNumberish,
+    _childSkillIndex: BigNumberish,
+    _altTarget: string,
+    _action: Arrayish,
+    _key: Arrayish,
+    _value: Arrayish,
+    _branchMask: BigNumberish,
+    _siblings: Arrayish[],
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
   /**
-   * Create a motion in the root domain
+   * Create a motion in the root domain (DEPRECATED)
    * @param _action A bytes array encoding a function call
    * @param _altTarget The contract to which we send the action (0x0 for the colony)
    * @param _branchMask The branchmask of the proof
@@ -1302,7 +1419,7 @@ export class VotingReputation extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
-   * Create a motion in the root domain
+   * Create a motion in the root domain (DEPRECATED)
    * @param _action A bytes array encoding a function call
    * @param _altTarget The contract to which we send the action (0x0 for the colony)
    * @param _branchMask The branchmask of the proof
@@ -1321,7 +1438,7 @@ export class VotingReputation extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
-   * Create a motion in any domain
+   * Create a motion in any domain (DEPRECATED)
    * @param _action A bytes array encoding a function call
    * @param _branchMask The branchmask of the proof
    * @param _childSkillIndex The childSkillIndex pointing to the domain of the action
@@ -1342,7 +1459,7 @@ export class VotingReputation extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
-   * Create a motion in any domain
+   * Create a motion in any domain (DEPRECATED)
    * @param _action A bytes array encoding a function call
    * @param _branchMask The branchmask of the proof
    * @param _childSkillIndex The childSkillIndex pointing to the domain of the action
@@ -1354,6 +1471,29 @@ export class VotingReputation extends Contract {
   "createDomainMotion(uint256,uint256,bytes,bytes,bytes,uint256,bytes32[])"(
     _domainId: BigNumberish,
     _childSkillIndex: BigNumberish,
+    _action: Arrayish,
+    _key: Arrayish,
+    _value: Arrayish,
+    _branchMask: BigNumberish,
+    _siblings: Arrayish[],
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * Create a motion in any domain (DEPRECATED)
+   * @param _action A bytes array encoding a function call
+   * @param _altTarget The contract to which we send the action (0x0 for the colony)
+   * @param _branchMask The branchmask of the proof
+   * @param _childSkillIndex The childSkillIndex pointing to the domain of the action
+   * @param _domainId The domain where we vote on the motion
+   * @param _key Reputation tree key for the domain
+   * @param _siblings The siblings of the proof
+   * @param _value Reputation tree value for the domain
+   */
+  "createDomainMotion(uint256,uint256,address,bytes,bytes,bytes,uint256,bytes32[])"(
+    _domainId: BigNumberish,
+    _childSkillIndex: BigNumberish,
+    _altTarget: string,
     _action: Arrayish,
     _key: Arrayish,
     _value: Arrayish,
@@ -1956,6 +2096,16 @@ export class VotingReputation extends Contract {
 
     "authority()"(overrides?: TransactionOverrides): Promise<BigNumber>;
 
+    getCapabilityRoles(
+      _sig: Arrayish,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    "getCapabilityRoles(bytes4)"(
+      _sig: Arrayish,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
     getColony(overrides?: TransactionOverrides): Promise<BigNumber>;
 
     "getColony()"(overrides?: TransactionOverrides): Promise<BigNumber>;
@@ -2108,8 +2258,32 @@ export class VotingReputation extends Contract {
      */
     "uninstall()"(overrides?: TransactionOverrides): Promise<BigNumber>;
 
+    createMotion(
+      _domainId: BigNumberish,
+      _childSkillIndex: BigNumberish,
+      _altTarget: string,
+      _action: Arrayish,
+      _key: Arrayish,
+      _value: Arrayish,
+      _branchMask: BigNumberish,
+      _siblings: Arrayish[],
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    "createMotion(uint256,uint256,address,bytes,bytes,bytes,uint256,bytes32[])"(
+      _domainId: BigNumberish,
+      _childSkillIndex: BigNumberish,
+      _altTarget: string,
+      _action: Arrayish,
+      _key: Arrayish,
+      _value: Arrayish,
+      _branchMask: BigNumberish,
+      _siblings: Arrayish[],
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
     /**
-     * Create a motion in the root domain
+     * Create a motion in the root domain (DEPRECATED)
      * @param _action A bytes array encoding a function call
      * @param _altTarget The contract to which we send the action (0x0 for the colony)
      * @param _branchMask The branchmask of the proof
@@ -2128,7 +2302,7 @@ export class VotingReputation extends Contract {
     ): Promise<BigNumber>;
 
     /**
-     * Create a motion in the root domain
+     * Create a motion in the root domain (DEPRECATED)
      * @param _action A bytes array encoding a function call
      * @param _altTarget The contract to which we send the action (0x0 for the colony)
      * @param _branchMask The branchmask of the proof
@@ -2147,7 +2321,7 @@ export class VotingReputation extends Contract {
     ): Promise<BigNumber>;
 
     /**
-     * Create a motion in any domain
+     * Create a motion in any domain (DEPRECATED)
      * @param _action A bytes array encoding a function call
      * @param _branchMask The branchmask of the proof
      * @param _childSkillIndex The childSkillIndex pointing to the domain of the action
@@ -2168,7 +2342,7 @@ export class VotingReputation extends Contract {
     ): Promise<BigNumber>;
 
     /**
-     * Create a motion in any domain
+     * Create a motion in any domain (DEPRECATED)
      * @param _action A bytes array encoding a function call
      * @param _branchMask The branchmask of the proof
      * @param _childSkillIndex The childSkillIndex pointing to the domain of the action
@@ -2180,6 +2354,29 @@ export class VotingReputation extends Contract {
     "createDomainMotion(uint256,uint256,bytes,bytes,bytes,uint256,bytes32[])"(
       _domainId: BigNumberish,
       _childSkillIndex: BigNumberish,
+      _action: Arrayish,
+      _key: Arrayish,
+      _value: Arrayish,
+      _branchMask: BigNumberish,
+      _siblings: Arrayish[],
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * Create a motion in any domain (DEPRECATED)
+     * @param _action A bytes array encoding a function call
+     * @param _altTarget The contract to which we send the action (0x0 for the colony)
+     * @param _branchMask The branchmask of the proof
+     * @param _childSkillIndex The childSkillIndex pointing to the domain of the action
+     * @param _domainId The domain where we vote on the motion
+     * @param _key Reputation tree key for the domain
+     * @param _siblings The siblings of the proof
+     * @param _value Reputation tree value for the domain
+     */
+    "createDomainMotion(uint256,uint256,address,bytes,bytes,bytes,uint256,bytes32[])"(
+      _domainId: BigNumberish,
+      _childSkillIndex: BigNumberish,
+      _altTarget: string,
       _action: Arrayish,
       _key: Arrayish,
       _value: Arrayish,
