@@ -20,7 +20,8 @@ import { IColony as IColonyV2 } from '../../../contracts/2/IColony';
 import { IColony as IColonyV3 } from '../../../contracts/3/IColony';
 import { IColony as IColonyV4 } from '../../../contracts/4/IColony';
 import { IColony as IColonyV5 } from '../../../contracts/5/IColony';
-import { IColony as IColonyV6 } from '../../../contracts/6/IColony';
+import { IColony as IColonyV6 } from '../../../contracts/colony/6/IColony';
+import { IColony as IColonyV7 } from '../../../contracts/colony/7/IColony';
 import { TransactionOverrides } from '../../../contracts/1';
 import { IColonyFactory } from '../../../contracts/4/IColonyFactory';
 
@@ -44,7 +45,8 @@ type AnyIColony =
   | IColonyV3
   | IColonyV4
   | IColonyV5
-  | IColonyV6;
+  | IColonyV6
+  | IColonyV7;
 
 // This is exposed to type the awkward recovery event client which is basically
 // just an IColonyV4
@@ -669,7 +671,10 @@ async function moveFundsBetweenPotsWithProofs(
     toChildSkillIndex,
   ] = await getMoveFundsPermissionProofs(this, _fromPot, _toPot);
 
-  return this.moveFundsBetweenPots(
+  return this[
+    // eslint-disable-next-line max-len
+    'moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,address)'
+  ](
     permissionDomainId,
     fromChildSkillIndex,
     toChildSkillIndex,
@@ -892,7 +897,11 @@ async function estimateMoveFundsBetweenPotsWithProofs(
     toChildSkillIndex,
   ] = await getMoveFundsPermissionProofs(this, _fromPot, _toPot);
 
-  return this.estimate.moveFundsBetweenPots(
+  // @ts-ignore
+  return this.estimate[
+    // eslint-disable-next-line max-len
+    'moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,address)'
+  ](
     permissionDomainId,
     fromChildSkillIndex,
     toChildSkillIndex,

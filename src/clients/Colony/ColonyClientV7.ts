@@ -7,6 +7,7 @@ import { IColony__factory as IColonyFactoryV5 } from '../../contracts/5/factorie
 import { IColony__factory as IColonyFactoryV6 } from '../../contracts/colony/6/factories/IColony__factory';
 import { IColony__factory as IColonyFactoryV7 } from '../../contracts/colony/7/factories/IColony__factory';
 import { IColony } from '../../contracts/colony/7/IColony';
+import { IColony as PreviousIColony } from '../../contracts/colony/6/IColony';
 import { ColonyNetworkClient } from '../ColonyNetworkClient';
 import { ExtendedIColony } from './extensions/commonExtensions';
 import { ColonyExtensionsV3 } from './extensions/extensionsV3';
@@ -21,15 +22,18 @@ import {
 import { getAllAbiEvents, getAbiFunctions } from '../../utils';
 import { ColonyVersion } from '../../versions';
 
-type ColonyExtensions = ExtendedIColony<IColony> &
-  ColonyExtensionsV3<IColony> &
-  ColonyExtensionsV4<IColony> &
-  ColonyExtensionsV5<IColony> &
-  ColonyExtensionsV6<IColony> &
+type ColonyExtensions = Omit<
+  ExtendedIColony<IColony>,
+  'moveFundsBetweenPotsWithProofs'
+> &
+  ColonyExtensionsV3<PreviousIColony> &
+  ColonyExtensionsV4<PreviousIColony> &
+  ColonyExtensionsV5<PreviousIColony> &
+  ColonyExtensionsV6<PreviousIColony> &
   ColonyExtensionsV7<IColony>;
 
 export type ColonyClientV7 = ColonyExtensions & {
-  clientVersion: ColonyVersion.CeruleanLightweightSpaceship;
+  clientVersion: ColonyVersion.DandelionLightweightSpaceship;
   estimate: ExtendedIColony<IColony>['estimate'] & ExtendedEstimateV7;
 };
 
@@ -68,7 +72,7 @@ export default function getColonyClient(
     signerOrProvider,
   ) as unknown) as ColonyClientV7;
 
-  colonyClientV7.clientVersion = ColonyVersion.CeruleanLightweightSpaceship;
+  colonyClientV7.clientVersion = ColonyVersion.DandelionLightweightSpaceship;
   addExtensions(colonyClientV7, this);
 
   return colonyClientV7 as ColonyClientV7;
