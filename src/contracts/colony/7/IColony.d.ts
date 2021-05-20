@@ -712,6 +712,8 @@ interface IColonyInterface extends Interface {
     moveFundsBetweenPots: TypedFunctionDescription<{
       encode([
         _permissionDomainId,
+        _childSkillIndex,
+        _domainId,
         _fromChildSkillIndex,
         _toChildSkillIndex,
         _fromPot,
@@ -719,6 +721,8 @@ interface IColonyInterface extends Interface {
         _amount,
         _token,
       ]: [
+        BigNumberish,
+        BigNumberish,
         BigNumberish,
         BigNumberish,
         BigNumberish,
@@ -4017,15 +4021,19 @@ export class IColony extends Contract {
     /**
      * Move a given amount: `_amount` of `_token` funds from funding pot with id `_fromPot` to one with id `_toPot`.
      * @param _amount Amount of funds
-     * @param _fromChildSkillIndex The child index in `_permissionDomainId` where we can find the domain for `_fromPotId`
+     * @param _childSkillIndex The child index in _permissionDomainId where I will be taking this action
+     * @param _domainId The domain where I am taking this action, pointed to by _permissionDomainId and _childSkillIndex
+     * @param _fromChildSkillIndex In the array of child skills for the skill associated with the domain pointed to by _permissionDomainId + _childSkillIndex,         the index of the skill associated with the domain that contains _fromPot
      * @param _fromPot Funding pot id providing the funds
      * @param _permissionDomainId The domainId in which I have the permission to take this action
-     * @param _toChildSkillIndex The child index in `_permissionDomainId` where we can find the domain for `_toPotId`
+     * @param _toChildSkillIndex The same, but for the _toPot which the funds are being moved to
      * @param _toPot Funding pot id receiving the funds
      * @param _token Address of the token, `0x0` value indicates Ether
      */
     moveFundsBetweenPots(
       _permissionDomainId: BigNumberish,
+      _childSkillIndex: BigNumberish,
+      _domainId: BigNumberish,
       _fromChildSkillIndex: BigNumberish,
       _toChildSkillIndex: BigNumberish,
       _fromPot: BigNumberish,
@@ -4037,6 +4045,31 @@ export class IColony extends Contract {
 
     /**
      * Move a given amount: `_amount` of `_token` funds from funding pot with id `_fromPot` to one with id `_toPot`.
+     * @param _amount Amount of funds
+     * @param _childSkillIndex The child index in _permissionDomainId where I will be taking this action
+     * @param _domainId The domain where I am taking this action, pointed to by _permissionDomainId and _childSkillIndex
+     * @param _fromChildSkillIndex In the array of child skills for the skill associated with the domain pointed to by _permissionDomainId + _childSkillIndex,         the index of the skill associated with the domain that contains _fromPot
+     * @param _fromPot Funding pot id providing the funds
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _toChildSkillIndex The same, but for the _toPot which the funds are being moved to
+     * @param _toPot Funding pot id receiving the funds
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
+    "moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)"(
+      _permissionDomainId: BigNumberish,
+      _childSkillIndex: BigNumberish,
+      _domainId: BigNumberish,
+      _fromChildSkillIndex: BigNumberish,
+      _toChildSkillIndex: BigNumberish,
+      _fromPot: BigNumberish,
+      _toPot: BigNumberish,
+      _amount: BigNumberish,
+      _token: string,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * DEPRECATEDMove a given amount: `_amount` of `_token` funds from funding pot with id `_fromPot` to one with id `_toPot`.
      * @param _amount Amount of funds
      * @param _fromChildSkillIndex The child index in `_permissionDomainId` where we can find the domain for `_fromPotId`
      * @param _fromPot Funding pot id providing the funds
@@ -7248,15 +7281,19 @@ export class IColony extends Contract {
   /**
    * Move a given amount: `_amount` of `_token` funds from funding pot with id `_fromPot` to one with id `_toPot`.
    * @param _amount Amount of funds
-   * @param _fromChildSkillIndex The child index in `_permissionDomainId` where we can find the domain for `_fromPotId`
+   * @param _childSkillIndex The child index in _permissionDomainId where I will be taking this action
+   * @param _domainId The domain where I am taking this action, pointed to by _permissionDomainId and _childSkillIndex
+   * @param _fromChildSkillIndex In the array of child skills for the skill associated with the domain pointed to by _permissionDomainId + _childSkillIndex,         the index of the skill associated with the domain that contains _fromPot
    * @param _fromPot Funding pot id providing the funds
    * @param _permissionDomainId The domainId in which I have the permission to take this action
-   * @param _toChildSkillIndex The child index in `_permissionDomainId` where we can find the domain for `_toPotId`
+   * @param _toChildSkillIndex The same, but for the _toPot which the funds are being moved to
    * @param _toPot Funding pot id receiving the funds
    * @param _token Address of the token, `0x0` value indicates Ether
    */
   moveFundsBetweenPots(
     _permissionDomainId: BigNumberish,
+    _childSkillIndex: BigNumberish,
+    _domainId: BigNumberish,
     _fromChildSkillIndex: BigNumberish,
     _toChildSkillIndex: BigNumberish,
     _fromPot: BigNumberish,
@@ -7268,6 +7305,31 @@ export class IColony extends Contract {
 
   /**
    * Move a given amount: `_amount` of `_token` funds from funding pot with id `_fromPot` to one with id `_toPot`.
+   * @param _amount Amount of funds
+   * @param _childSkillIndex The child index in _permissionDomainId where I will be taking this action
+   * @param _domainId The domain where I am taking this action, pointed to by _permissionDomainId and _childSkillIndex
+   * @param _fromChildSkillIndex In the array of child skills for the skill associated with the domain pointed to by _permissionDomainId + _childSkillIndex,         the index of the skill associated with the domain that contains _fromPot
+   * @param _fromPot Funding pot id providing the funds
+   * @param _permissionDomainId The domainId in which I have the permission to take this action
+   * @param _toChildSkillIndex The same, but for the _toPot which the funds are being moved to
+   * @param _toPot Funding pot id receiving the funds
+   * @param _token Address of the token, `0x0` value indicates Ether
+   */
+  "moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)"(
+    _permissionDomainId: BigNumberish,
+    _childSkillIndex: BigNumberish,
+    _domainId: BigNumberish,
+    _fromChildSkillIndex: BigNumberish,
+    _toChildSkillIndex: BigNumberish,
+    _fromPot: BigNumberish,
+    _toPot: BigNumberish,
+    _amount: BigNumberish,
+    _token: string,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * DEPRECATEDMove a given amount: `_amount` of `_token` funds from funding pot with id `_fromPot` to one with id `_toPot`.
    * @param _amount Amount of funds
    * @param _fromChildSkillIndex The child index in `_permissionDomainId` where we can find the domain for `_fromPotId`
    * @param _fromPot Funding pot id providing the funds
@@ -10520,15 +10582,19 @@ export class IColony extends Contract {
     /**
      * Move a given amount: `_amount` of `_token` funds from funding pot with id `_fromPot` to one with id `_toPot`.
      * @param _amount Amount of funds
-     * @param _fromChildSkillIndex The child index in `_permissionDomainId` where we can find the domain for `_fromPotId`
+     * @param _childSkillIndex The child index in _permissionDomainId where I will be taking this action
+     * @param _domainId The domain where I am taking this action, pointed to by _permissionDomainId and _childSkillIndex
+     * @param _fromChildSkillIndex In the array of child skills for the skill associated with the domain pointed to by _permissionDomainId + _childSkillIndex,         the index of the skill associated with the domain that contains _fromPot
      * @param _fromPot Funding pot id providing the funds
      * @param _permissionDomainId The domainId in which I have the permission to take this action
-     * @param _toChildSkillIndex The child index in `_permissionDomainId` where we can find the domain for `_toPotId`
+     * @param _toChildSkillIndex The same, but for the _toPot which the funds are being moved to
      * @param _toPot Funding pot id receiving the funds
      * @param _token Address of the token, `0x0` value indicates Ether
      */
     moveFundsBetweenPots(
       _permissionDomainId: BigNumberish,
+      _childSkillIndex: BigNumberish,
+      _domainId: BigNumberish,
       _fromChildSkillIndex: BigNumberish,
       _toChildSkillIndex: BigNumberish,
       _fromPot: BigNumberish,
@@ -10540,6 +10606,31 @@ export class IColony extends Contract {
 
     /**
      * Move a given amount: `_amount` of `_token` funds from funding pot with id `_fromPot` to one with id `_toPot`.
+     * @param _amount Amount of funds
+     * @param _childSkillIndex The child index in _permissionDomainId where I will be taking this action
+     * @param _domainId The domain where I am taking this action, pointed to by _permissionDomainId and _childSkillIndex
+     * @param _fromChildSkillIndex In the array of child skills for the skill associated with the domain pointed to by _permissionDomainId + _childSkillIndex,         the index of the skill associated with the domain that contains _fromPot
+     * @param _fromPot Funding pot id providing the funds
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _toChildSkillIndex The same, but for the _toPot which the funds are being moved to
+     * @param _toPot Funding pot id receiving the funds
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
+    "moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)"(
+      _permissionDomainId: BigNumberish,
+      _childSkillIndex: BigNumberish,
+      _domainId: BigNumberish,
+      _fromChildSkillIndex: BigNumberish,
+      _toChildSkillIndex: BigNumberish,
+      _fromPot: BigNumberish,
+      _toPot: BigNumberish,
+      _amount: BigNumberish,
+      _token: string,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * DEPRECATEDMove a given amount: `_amount` of `_token` funds from funding pot with id `_fromPot` to one with id `_toPot`.
      * @param _amount Amount of funds
      * @param _fromChildSkillIndex The child index in `_permissionDomainId` where we can find the domain for `_fromPotId`
      * @param _fromPot Funding pot id providing the funds

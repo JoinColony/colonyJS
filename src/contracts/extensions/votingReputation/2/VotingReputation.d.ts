@@ -257,6 +257,14 @@ interface VotingReputationInterface extends Interface {
       encode([_motionId, _voterRep]: [BigNumberish, BigNumberish]): string;
     }>;
 
+    getVoterRewardRange: TypedFunctionDescription<{
+      encode([_motionId, _voterRep, _voterAddress]: [
+        BigNumberish,
+        BigNumberish,
+        string
+      ]): string;
+    }>;
+
     getStakerReward: TypedFunctionDescription<{
       encode([_motionId, _staker, _vote]: [
         BigNumberish,
@@ -539,6 +547,17 @@ export class VotingReputation extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Create a motion
+     * @param _action A bytes array encoding a function call
+     * @param _altTarget The contract to which we send the action (0x0 for the colony)
+     * @param _branchMask The branchmask of the proof
+     * @param _childSkillIndex The childSkillIndex pointing to the domain of the action
+     * @param _domainId The domain where we vote on the motion
+     * @param _key Reputation tree key for the root domain
+     * @param _siblings The siblings of the proof
+     * @param _value Reputation tree value for the root domain
+     */
     createMotion(
       _domainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -551,6 +570,17 @@ export class VotingReputation extends Contract {
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
+    /**
+     * Create a motion
+     * @param _action A bytes array encoding a function call
+     * @param _altTarget The contract to which we send the action (0x0 for the colony)
+     * @param _branchMask The branchmask of the proof
+     * @param _childSkillIndex The childSkillIndex pointing to the domain of the action
+     * @param _domainId The domain where we vote on the motion
+     * @param _key Reputation tree key for the root domain
+     * @param _siblings The siblings of the proof
+     * @param _value Reputation tree value for the root domain
+     */
     "createMotion(uint256,uint256,address,bytes,bytes,bytes,uint256,bytes32[])"(
       _domainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -635,29 +665,6 @@ export class VotingReputation extends Contract {
     "createDomainMotion(uint256,uint256,bytes,bytes,bytes,uint256,bytes32[])"(
       _domainId: BigNumberish,
       _childSkillIndex: BigNumberish,
-      _action: Arrayish,
-      _key: Arrayish,
-      _value: Arrayish,
-      _branchMask: BigNumberish,
-      _siblings: Arrayish[],
-      overrides?: TransactionOverrides
-    ): Promise<ContractTransaction>;
-
-    /**
-     * Create a motion in any domain (DEPRECATED)
-     * @param _action A bytes array encoding a function call
-     * @param _altTarget The contract to which we send the action (0x0 for the colony)
-     * @param _branchMask The branchmask of the proof
-     * @param _childSkillIndex The childSkillIndex pointing to the domain of the action
-     * @param _domainId The domain where we vote on the motion
-     * @param _key Reputation tree key for the domain
-     * @param _siblings The siblings of the proof
-     * @param _value Reputation tree value for the domain
-     */
-    "createDomainMotion(uint256,uint256,address,bytes,bytes,bytes,uint256,bytes32[])"(
-      _domainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _altTarget: string,
       _action: Arrayish,
       _key: Arrayish,
       _value: Arrayish,
@@ -1147,7 +1154,7 @@ export class VotingReputation extends Contract {
     ): Promise<number>;
 
     /**
-     * Get the voter reward
+     * Get the voter reward NB This function will only return a meaningful value if in the reveal state. Prior to the reveal state, getVoterRewardRange should be used.
      * @param _motionId The id of the motion
      * @param _voterRep The reputation the voter has in the domain
      */
@@ -1158,7 +1165,7 @@ export class VotingReputation extends Contract {
     ): Promise<BigNumber>;
 
     /**
-     * Get the voter reward
+     * Get the voter reward NB This function will only return a meaningful value if in the reveal state. Prior to the reveal state, getVoterRewardRange should be used.
      * @param _motionId The id of the motion
      * @param _voterRep The reputation the voter has in the domain
      */
@@ -1167,6 +1174,32 @@ export class VotingReputation extends Contract {
       _voterRep: BigNumberish,
       overrides?: TransactionOverrides
     ): Promise<BigNumber>;
+
+    /**
+     * Get the range of potential rewards for a voter on a specific motion, intended to be used when the motion is in the reveal state. Once a motion is in the reveal state the reward is known, and getVoterRewardRange should be used.
+     * @param _motionId The id of the motion
+     * @param _voterAddress The address the user will be voting as
+     * @param _voterRep The reputation the voter has in the domain
+     */
+    getVoterRewardRange(
+      _motionId: BigNumberish,
+      _voterRep: BigNumberish,
+      _voterAddress: string,
+      overrides?: TransactionOverrides
+    ): Promise<[BigNumber, BigNumber]>;
+
+    /**
+     * Get the range of potential rewards for a voter on a specific motion, intended to be used when the motion is in the reveal state. Once a motion is in the reveal state the reward is known, and getVoterRewardRange should be used.
+     * @param _motionId The id of the motion
+     * @param _voterAddress The address the user will be voting as
+     * @param _voterRep The reputation the voter has in the domain
+     */
+    "getVoterRewardRange(uint256,uint256,address)"(
+      _motionId: BigNumberish,
+      _voterRep: BigNumberish,
+      _voterAddress: string,
+      overrides?: TransactionOverrides
+    ): Promise<[BigNumber, BigNumber]>;
 
     /**
      * Get the staker reward
@@ -1375,6 +1408,17 @@ export class VotingReputation extends Contract {
    */
   "uninstall()"(overrides?: TransactionOverrides): Promise<ContractTransaction>;
 
+  /**
+   * Create a motion
+   * @param _action A bytes array encoding a function call
+   * @param _altTarget The contract to which we send the action (0x0 for the colony)
+   * @param _branchMask The branchmask of the proof
+   * @param _childSkillIndex The childSkillIndex pointing to the domain of the action
+   * @param _domainId The domain where we vote on the motion
+   * @param _key Reputation tree key for the root domain
+   * @param _siblings The siblings of the proof
+   * @param _value Reputation tree value for the root domain
+   */
   createMotion(
     _domainId: BigNumberish,
     _childSkillIndex: BigNumberish,
@@ -1387,6 +1431,17 @@ export class VotingReputation extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Create a motion
+   * @param _action A bytes array encoding a function call
+   * @param _altTarget The contract to which we send the action (0x0 for the colony)
+   * @param _branchMask The branchmask of the proof
+   * @param _childSkillIndex The childSkillIndex pointing to the domain of the action
+   * @param _domainId The domain where we vote on the motion
+   * @param _key Reputation tree key for the root domain
+   * @param _siblings The siblings of the proof
+   * @param _value Reputation tree value for the root domain
+   */
   "createMotion(uint256,uint256,address,bytes,bytes,bytes,uint256,bytes32[])"(
     _domainId: BigNumberish,
     _childSkillIndex: BigNumberish,
@@ -1471,29 +1526,6 @@ export class VotingReputation extends Contract {
   "createDomainMotion(uint256,uint256,bytes,bytes,bytes,uint256,bytes32[])"(
     _domainId: BigNumberish,
     _childSkillIndex: BigNumberish,
-    _action: Arrayish,
-    _key: Arrayish,
-    _value: Arrayish,
-    _branchMask: BigNumberish,
-    _siblings: Arrayish[],
-    overrides?: TransactionOverrides
-  ): Promise<ContractTransaction>;
-
-  /**
-   * Create a motion in any domain (DEPRECATED)
-   * @param _action A bytes array encoding a function call
-   * @param _altTarget The contract to which we send the action (0x0 for the colony)
-   * @param _branchMask The branchmask of the proof
-   * @param _childSkillIndex The childSkillIndex pointing to the domain of the action
-   * @param _domainId The domain where we vote on the motion
-   * @param _key Reputation tree key for the domain
-   * @param _siblings The siblings of the proof
-   * @param _value Reputation tree value for the domain
-   */
-  "createDomainMotion(uint256,uint256,address,bytes,bytes,bytes,uint256,bytes32[])"(
-    _domainId: BigNumberish,
-    _childSkillIndex: BigNumberish,
-    _altTarget: string,
     _action: Arrayish,
     _key: Arrayish,
     _value: Arrayish,
@@ -1975,7 +2007,7 @@ export class VotingReputation extends Contract {
   ): Promise<number>;
 
   /**
-   * Get the voter reward
+   * Get the voter reward NB This function will only return a meaningful value if in the reveal state. Prior to the reveal state, getVoterRewardRange should be used.
    * @param _motionId The id of the motion
    * @param _voterRep The reputation the voter has in the domain
    */
@@ -1986,7 +2018,7 @@ export class VotingReputation extends Contract {
   ): Promise<BigNumber>;
 
   /**
-   * Get the voter reward
+   * Get the voter reward NB This function will only return a meaningful value if in the reveal state. Prior to the reveal state, getVoterRewardRange should be used.
    * @param _motionId The id of the motion
    * @param _voterRep The reputation the voter has in the domain
    */
@@ -1995,6 +2027,32 @@ export class VotingReputation extends Contract {
     _voterRep: BigNumberish,
     overrides?: TransactionOverrides
   ): Promise<BigNumber>;
+
+  /**
+   * Get the range of potential rewards for a voter on a specific motion, intended to be used when the motion is in the reveal state. Once a motion is in the reveal state the reward is known, and getVoterRewardRange should be used.
+   * @param _motionId The id of the motion
+   * @param _voterAddress The address the user will be voting as
+   * @param _voterRep The reputation the voter has in the domain
+   */
+  getVoterRewardRange(
+    _motionId: BigNumberish,
+    _voterRep: BigNumberish,
+    _voterAddress: string,
+    overrides?: TransactionOverrides
+  ): Promise<[BigNumber, BigNumber]>;
+
+  /**
+   * Get the range of potential rewards for a voter on a specific motion, intended to be used when the motion is in the reveal state. Once a motion is in the reveal state the reward is known, and getVoterRewardRange should be used.
+   * @param _motionId The id of the motion
+   * @param _voterAddress The address the user will be voting as
+   * @param _voterRep The reputation the voter has in the domain
+   */
+  "getVoterRewardRange(uint256,uint256,address)"(
+    _motionId: BigNumberish,
+    _voterRep: BigNumberish,
+    _voterAddress: string,
+    overrides?: TransactionOverrides
+  ): Promise<[BigNumber, BigNumber]>;
 
   /**
    * Get the staker reward
@@ -2258,6 +2316,17 @@ export class VotingReputation extends Contract {
      */
     "uninstall()"(overrides?: TransactionOverrides): Promise<BigNumber>;
 
+    /**
+     * Create a motion
+     * @param _action A bytes array encoding a function call
+     * @param _altTarget The contract to which we send the action (0x0 for the colony)
+     * @param _branchMask The branchmask of the proof
+     * @param _childSkillIndex The childSkillIndex pointing to the domain of the action
+     * @param _domainId The domain where we vote on the motion
+     * @param _key Reputation tree key for the root domain
+     * @param _siblings The siblings of the proof
+     * @param _value Reputation tree value for the root domain
+     */
     createMotion(
       _domainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -2270,6 +2339,17 @@ export class VotingReputation extends Contract {
       overrides?: TransactionOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Create a motion
+     * @param _action A bytes array encoding a function call
+     * @param _altTarget The contract to which we send the action (0x0 for the colony)
+     * @param _branchMask The branchmask of the proof
+     * @param _childSkillIndex The childSkillIndex pointing to the domain of the action
+     * @param _domainId The domain where we vote on the motion
+     * @param _key Reputation tree key for the root domain
+     * @param _siblings The siblings of the proof
+     * @param _value Reputation tree value for the root domain
+     */
     "createMotion(uint256,uint256,address,bytes,bytes,bytes,uint256,bytes32[])"(
       _domainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -2354,29 +2434,6 @@ export class VotingReputation extends Contract {
     "createDomainMotion(uint256,uint256,bytes,bytes,bytes,uint256,bytes32[])"(
       _domainId: BigNumberish,
       _childSkillIndex: BigNumberish,
-      _action: Arrayish,
-      _key: Arrayish,
-      _value: Arrayish,
-      _branchMask: BigNumberish,
-      _siblings: Arrayish[],
-      overrides?: TransactionOverrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Create a motion in any domain (DEPRECATED)
-     * @param _action A bytes array encoding a function call
-     * @param _altTarget The contract to which we send the action (0x0 for the colony)
-     * @param _branchMask The branchmask of the proof
-     * @param _childSkillIndex The childSkillIndex pointing to the domain of the action
-     * @param _domainId The domain where we vote on the motion
-     * @param _key Reputation tree key for the domain
-     * @param _siblings The siblings of the proof
-     * @param _value Reputation tree value for the domain
-     */
-    "createDomainMotion(uint256,uint256,address,bytes,bytes,bytes,uint256,bytes32[])"(
-      _domainId: BigNumberish,
-      _childSkillIndex: BigNumberish,
-      _altTarget: string,
       _action: Arrayish,
       _key: Arrayish,
       _value: Arrayish,
@@ -2802,7 +2859,7 @@ export class VotingReputation extends Contract {
     ): Promise<BigNumber>;
 
     /**
-     * Get the voter reward
+     * Get the voter reward NB This function will only return a meaningful value if in the reveal state. Prior to the reveal state, getVoterRewardRange should be used.
      * @param _motionId The id of the motion
      * @param _voterRep The reputation the voter has in the domain
      */
@@ -2813,13 +2870,39 @@ export class VotingReputation extends Contract {
     ): Promise<BigNumber>;
 
     /**
-     * Get the voter reward
+     * Get the voter reward NB This function will only return a meaningful value if in the reveal state. Prior to the reveal state, getVoterRewardRange should be used.
      * @param _motionId The id of the motion
      * @param _voterRep The reputation the voter has in the domain
      */
     "getVoterReward(uint256,uint256)"(
       _motionId: BigNumberish,
       _voterRep: BigNumberish,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * Get the range of potential rewards for a voter on a specific motion, intended to be used when the motion is in the reveal state. Once a motion is in the reveal state the reward is known, and getVoterRewardRange should be used.
+     * @param _motionId The id of the motion
+     * @param _voterAddress The address the user will be voting as
+     * @param _voterRep The reputation the voter has in the domain
+     */
+    getVoterRewardRange(
+      _motionId: BigNumberish,
+      _voterRep: BigNumberish,
+      _voterAddress: string,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * Get the range of potential rewards for a voter on a specific motion, intended to be used when the motion is in the reveal state. Once a motion is in the reveal state the reward is known, and getVoterRewardRange should be used.
+     * @param _motionId The id of the motion
+     * @param _voterAddress The address the user will be voting as
+     * @param _voterRep The reputation the voter has in the domain
+     */
+    "getVoterRewardRange(uint256,uint256,address)"(
+      _motionId: BigNumberish,
+      _voterRep: BigNumberish,
+      _voterAddress: string,
       overrides?: TransactionOverrides
     ): Promise<BigNumber>;
 

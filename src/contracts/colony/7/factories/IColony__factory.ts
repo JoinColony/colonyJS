@@ -3837,6 +3837,59 @@ const _abi = [
       },
       {
         internalType: "uint256",
+        name: "_childSkillIndex",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_domainId",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_fromChildSkillIndex",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_toChildSkillIndex",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_fromPot",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_toPot",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_amount",
+        type: "uint256",
+      },
+      {
+        internalType: "address",
+        name: "_token",
+        type: "address",
+      },
+    ],
+    name: "moveFundsBetweenPots",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_permissionDomainId",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
         name: "_fromChildSkillIndex",
         type: "uint256",
       },
