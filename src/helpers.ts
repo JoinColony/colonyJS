@@ -17,7 +17,9 @@ import {
   getPotDomain as exGetPotDomain,
   getPermissionProofs as exGetPermissionProofs,
   getMoveFundsPermissionProofs as exGetMoveFundsPermissionProofs,
+  getExtensionPermissionProofs as exGetExtensionPermissionProofs,
   AwkwardRecoveryRoleEventClient,
+  ExtendedIColony,
 } from './clients/Colony/extensions/commonExtensions';
 
 interface ColonyRolesMap {
@@ -392,3 +394,20 @@ export const getMoveFundsPermissionProofs = async (
   customAddress?: string,
 ): Promise<[BigNumber, BigNumber, BigNumber]> =>
   exGetMoveFundsPermissionProofs(client, fromtPotId, toPotId, customAddress);
+
+/**
+ * Wrapper around `getPermissionProofs` to check two types of permissions: Funding and Administration
+ * To be used for checking an extension's permission in said colony
+ *
+ * @param colonyClient Any ColonyClient
+ * @param domainId Domain id the method needs to act in
+ * @param address Address of the extension
+ *
+ * @returns Tuple of `[permissionDomainId, childSkillIndex]`
+ */
+export const getExtensionPermissionProofs = async (
+  colonyClient: ExtendedIColony,
+  domainId: BigNumberish,
+  address?: string,
+): Promise<[BigNumberish, BigNumberish]> =>
+  exGetExtensionPermissionProofs(colonyClient, domainId, address);
