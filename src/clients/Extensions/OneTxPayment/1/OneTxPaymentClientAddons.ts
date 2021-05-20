@@ -12,43 +12,11 @@ import { ContractTransaction } from 'ethers';
 
 import {
   ExtendedIColony,
-  getPermissionProofs,
+  getExtensionPermissionProofs,
 } from '../../../../clients/Colony/extensions/commonExtensions';
-import { ColonyRole } from '../../../../constants';
 import { TransactionOverrides } from '../../../../contracts/6';
 
 import { OneTxPaymentClient } from './OneTxPaymentClient';
-
-const getExtensionPermissionProofs = async (
-  colonyClient: ExtendedIColony,
-  domainId: BigNumberish,
-  address?: string,
-): Promise<[BigNumberish, BigNumberish]> => {
-  const [fundingPDID, fundingCSI] = await getPermissionProofs(
-    colonyClient,
-    domainId,
-    ColonyRole.Funding,
-    address,
-  );
-  const [adminPDID, adminCSI] = await getPermissionProofs(
-    colonyClient,
-    domainId,
-    ColonyRole.Administration,
-    address,
-  );
-
-  if (!fundingPDID.eq(adminPDID) || !fundingCSI.eq(adminCSI)) {
-    // @TODO: this can surely be improved
-    throw new Error(
-      // eslint-disable-next-line max-len
-      `${
-        address || 'User'
-      } has to have the funding and administration role in the same domain`,
-    );
-  }
-
-  return [adminPDID, adminCSI];
-};
 
 /*
  * Extra client methods

@@ -360,6 +360,36 @@ export const getMoveFundsPermissionProofs = async (
   return [fromPermissionDomainId, fromChildSkillIndex, toChildSkillIndex];
 };
 
+export const getExtensionPermissionProofs = async (
+  colonyClient: ExtendedIColony,
+  domainId: BigNumberish,
+  address?: string,
+): Promise<[BigNumberish, BigNumberish]> => {
+  const [fundingPDID, fundingCSI] = await getPermissionProofs(
+    colonyClient,
+    domainId,
+    ColonyRole.Funding,
+    address,
+  );
+  const [adminPDID, adminCSI] = await getPermissionProofs(
+    colonyClient,
+    domainId,
+    ColonyRole.Administration,
+    address,
+  );
+
+  if (!fundingPDID.eq(adminPDID) || !fundingCSI.eq(adminCSI)) {
+    // @TODO: this can surely be improved
+    throw new Error(
+      `${
+        address || 'User'
+      } has to have the funding and administration role in the same domain`,
+    );
+  }
+
+  return [adminPDID, adminCSI];
+};
+
 async function getExtensionClient(
   this: ExtendedIColony,
   extensionName: Extension,
@@ -887,7 +917,8 @@ async function getReputation(
 
   const skillIdString = bigNumberify(skillId).toString();
 
-  const rootHash = customRootHash ? customRootHash : await this.networkClient.getReputationRootHash();
+  const rootHash =
+    customRootHash || (await this.networkClient.getReputationRootHash());
 
   const response = await fetch(
     `${reputationOracleEndpoint}/${network}/${rootHash}/${this.address}/${skillIdString}/${address}`,
