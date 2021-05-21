@@ -672,8 +672,7 @@ async function moveFundsBetweenPotsWithProofs(
   ] = await getMoveFundsPermissionProofs(this, _fromPot, _toPot);
 
   return this[
-    // eslint-disable-next-line max-len
-    'moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,address)'
+    `moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,address)`
   ](
     permissionDomainId,
     fromChildSkillIndex,
@@ -897,10 +896,8 @@ async function estimateMoveFundsBetweenPotsWithProofs(
     toChildSkillIndex,
   ] = await getMoveFundsPermissionProofs(this, _fromPot, _toPot);
 
-  // @ts-ignore
-  return this.estimate[
-    // eslint-disable-next-line max-len
-    'moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,address)'
+  return (this as IColonyV5).estimate[
+    `moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,address)`
   ](
     permissionDomainId,
     fromChildSkillIndex,

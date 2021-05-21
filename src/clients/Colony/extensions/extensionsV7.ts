@@ -1,11 +1,15 @@
 import { ContractTransaction } from 'ethers';
 import { BigNumber, BigNumberish } from 'ethers/utils';
+import { MaxUint256 } from 'ethers/constants';
 
 import { TransactionOverrides } from '../../../contracts/3';
 import { IColony as IColonyV7 } from '../../../contracts/colony/7/IColony';
 import { IColony as PreviousIColony } from '../../../contracts/colony/6/IColony';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
-import { ExtendedIColony } from './commonExtensions';
+import {
+  ExtendedIColony,
+  getMoveFundsPermissionProofs,
+} from './commonExtensions';
 import { ColonyExtensionsV3 } from './extensionsV3';
 import { ColonyExtensionsV4 } from './extensionsV4';
 import { ColonyExtensionsV5 } from './extensionsV5';
@@ -112,15 +116,61 @@ export type ColonyExtensionsV7<T extends ValidColony> = {
 /*
  * Extension Methods
  */
-async function moveFundsBetweenPotsWithProofs(): Promise<null> {
-  return null;
+async function moveFundsBetweenPotsWithProofs(
+  this: ExtendedIColony,
+  _fromPot: BigNumberish,
+  _toPot: BigNumberish,
+  _amount: BigNumberish,
+  _token: string,
+  overrides?: TransactionOverrides,
+): Promise<ContractTransaction> {
+  const [
+    permissionDomainId,
+    fromChildSkillIndex,
+    toChildSkillIndex,
+  ] = await getMoveFundsPermissionProofs(this, _fromPot, _toPot);
+
+  return this.moveFundsBetweenPots(
+    permissionDomainId,
+    MaxUint256,
+    permissionDomainId,
+    fromChildSkillIndex,
+    toChildSkillIndex,
+    _fromPot,
+    _toPot as string,
+    _amount,
+    _token,
+    overrides,
+  );
 }
 
 /*
  * Estimates
  */
-async function estimateMoveFundsBetweenPotsWithProofs(): Promise<null> {
-  return null;
+async function estimateMoveFundsBetweenPotsWithProofs(
+  this: ExtendedIColony,
+  _fromPot: BigNumberish,
+  _toPot: BigNumberish,
+  _amount: BigNumberish,
+  _token: string,
+): Promise<BigNumber> {
+  const [
+    permissionDomainId,
+    fromChildSkillIndex,
+    toChildSkillIndex,
+  ] = await getMoveFundsPermissionProofs(this, _fromPot, _toPot);
+
+  return (this as IColonyV7).estimate.moveFundsBetweenPots(
+    permissionDomainId,
+    MaxUint256,
+    permissionDomainId,
+    fromChildSkillIndex,
+    toChildSkillIndex,
+    _fromPot,
+    _toPot as string,
+    _amount,
+    _token,
+  );
 }
 
 /*
