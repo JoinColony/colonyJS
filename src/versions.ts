@@ -1,3 +1,5 @@
+import { getExtensionCompatibilityMap } from './utils';
+import { Extension } from './clients/Extensions/colonyContractExtensions';
 /*
  * Colony / Network Versioning
  */
@@ -59,6 +61,21 @@ export const CurrentOneTxPaymentVersion = parseInt(
   10,
 );
 
+const OneTxPaymentExtensionVersionIncompatibilityMap: Record<
+  OneTxPaymentExtensionVersion,
+  Array<ColonyVersion>
+> = {
+  [OneTxPaymentExtensionVersion.CeruleanLightweightSpaceship]: [],
+};
+
+const OneTxPaymentExtensionVersionCompatibilityMap: Record<
+  OneTxPaymentExtensionVersion,
+  Array<ColonyVersion>
+> = getExtensionCompatibilityMap(
+  OneTxPaymentExtensionVersionIncompatibilityMap,
+  ColonyVersion,
+);
+
 /*
  * Coin Machine Extension Versioning
  */
@@ -81,6 +98,22 @@ export const CurrentCoinMachineVersion = parseInt(
     (Object.keys(CoinMachineExtensionVersion).slice(-1)[0] as unknown) as number
   ],
   10,
+);
+
+const CoinMachineExtensionVersionIncompatibilityMap: Record<
+  CoinMachineExtensionVersion,
+  Array<ColonyVersion>
+> = {
+  [CoinMachineExtensionVersion.CeruleanLightweightSpaceship]: [],
+  [CoinMachineExtensionVersion.DandelionLightweightSpaceship]: [],
+};
+
+const CoinMachineExtensionVersionCompatibilityMap: Record<
+  CoinMachineExtensionVersion,
+  Array<ColonyVersion>
+> = getExtensionCompatibilityMap(
+  CoinMachineExtensionVersionIncompatibilityMap,
+  ColonyVersion,
 );
 
 /*
@@ -108,6 +141,47 @@ export const CurrentVotingReputationVersion = parseInt(
   ],
   10,
 );
+
+const VotingReputationExtensionVersionIncompatibilityMap: Record<
+  VotingReputationExtensionVersion,
+  Array<ColonyVersion>
+> = {
+  [VotingReputationExtensionVersion.CeruleanLightweightSpaceship]: [],
+  [VotingReputationExtensionVersion.DandelionLightweightSpaceship]: [
+    ColonyVersion.GoerliGlider,
+    ColonyVersion.Glider,
+    ColonyVersion.AuburnGlider,
+    ColonyVersion.BurgundyGlider,
+    ColonyVersion.LightweightSpaceship,
+    ColonyVersion.CeruleanLightweightSpaceship,
+  ],
+};
+
+const VotingReputationExtensionVersionCompatibilityMap: Record<
+  VotingReputationExtensionVersion,
+  Array<ColonyVersion>
+> = getExtensionCompatibilityMap(
+  VotingReputationExtensionVersionIncompatibilityMap,
+  ColonyVersion,
+);
+
+/*
+ * Extensions Compatibility and Incompatibility Map
+ * (Aggregates from the various extensions ones)
+ */
+export const extensionsIncompatibilityMap = {
+  [Extension.OneTxPayment]: OneTxPaymentExtensionVersionIncompatibilityMap,
+  [Extension.CoinMachine]: CoinMachineExtensionVersionIncompatibilityMap,
+  // eslint-disable-next-line max-len
+  [Extension.VotingReputation]: VotingReputationExtensionVersionIncompatibilityMap,
+};
+
+export const extensionsCompatibilityMap = {
+  [Extension.OneTxPayment]: OneTxPaymentExtensionVersionCompatibilityMap,
+  [Extension.CoinMachine]: CoinMachineExtensionVersionCompatibilityMap,
+  // eslint-disable-next-line max-len
+  [Extension.VotingReputation]: VotingReputationExtensionVersionCompatibilityMap,
+};
 
 /*
  * Release Map
