@@ -248,6 +248,9 @@ export const getChildIndex = async (
   parentDomainId: BigNumberish,
   domainId: BigNumberish,
 ): Promise<BigNumber> => {
+  if (bigNumberify(parentDomainId).eq(bigNumberify(domainId))) {
+    return MaxUint256;
+  }
   const { skillId: parentSkillId } = await contract.getDomain(parentDomainId);
   const { skillId } = await contract.getDomain(domainId);
   const { children } = await contract.networkClient.getSkill(parentSkillId);
