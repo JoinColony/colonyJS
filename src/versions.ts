@@ -1,5 +1,11 @@
 import { getExtensionCompatibilityMap } from './utils';
-import { Extension } from './clients/Extensions/colonyContractExtensions';
+
+enum Extension {
+  OneTxPayment = 'OneTxPayment',
+  CoinMachine = 'CoinMachine',
+  VotingReputation = 'VotingReputation',
+}
+
 /*
  * Colony / Network Versioning
  */
@@ -46,10 +52,12 @@ export const CurrentVersion = CurrentColonyVersion;
 
 export enum OneTxPaymentExtensionVersion {
   CeruleanLightweightSpaceship = 1,
+  DandelionLightweightSpaceship = 2,
 }
 
 const oneTxPaymentReleaseMap = {
   [OneTxPaymentExtensionVersion.CeruleanLightweightSpaceship]: `clwss`,
+  [OneTxPaymentExtensionVersion.DandelionLightweightSpaceship]: `b39461e5954479de54b4affcd717a840071c4210`,
 };
 
 export const CurrentOneTxPaymentVersion = parseInt(
@@ -66,6 +74,7 @@ const OneTxPaymentExtensionVersionIncompatibilityMap: Record<
   Array<ColonyVersion>
 > = {
   [OneTxPaymentExtensionVersion.CeruleanLightweightSpaceship]: [],
+  [OneTxPaymentExtensionVersion.DandelionLightweightSpaceship]: [],
 };
 
 const OneTxPaymentExtensionVersionCompatibilityMap: Record<
