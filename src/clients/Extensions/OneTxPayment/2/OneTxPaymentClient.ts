@@ -12,10 +12,8 @@ import { OneTxPayment__factory as OneTxPaymentFactory } from '../../../../contra
 import { OneTxPayment } from '../../../../contracts/extensions/oneTxPayment/2/OneTxPayment';
 import { ExtendedIColony } from '../../../../clients/Colony/extensions/commonExtensions';
 
-import {
-  getOneTxPaymentClientAddons,
-  getOneTxPaymentClientEstimateAddons,
-} from './OneTxPaymentClientAddons';
+import * as currentVersion from './OneTxPaymentClientAddons';
+import * as version1 from '../1/OneTxPaymentClientAddons';
 
 type OneTxPaymentEstimate = OneTxPayment['estimate'];
 interface OneTxPaymentEstimateWithAddons extends OneTxPaymentEstimate {
@@ -46,11 +44,23 @@ const getOneTxPaymentClient = (
   ) as OneTxPaymentClient;
   oneTxPaymentClient.clientType = ClientType.OneTxPaymentClient;
 
-  const addons = getOneTxPaymentClientAddons(oneTxPaymentClient, colonyClient);
-  const addonsEstimate = getOneTxPaymentClientEstimateAddons(
-    oneTxPaymentClient,
-    colonyClient,
-  );
+  const addons = {
+    ...currentVersion.getOneTxPaymentClientAddons(
+      oneTxPaymentClient,
+      colonyClient,
+    ),
+    ...version1.getOneTxPaymentClientAddons(oneTxPaymentClient, colonyClient),
+  };
+  const addonsEstimate = {
+    ...currentVersion.getOneTxPaymentClientEstimateAddons(
+      oneTxPaymentClient,
+      colonyClient,
+    ),
+    ...version1.getOneTxPaymentClientEstimateAddons(
+      oneTxPaymentClient,
+      colonyClient,
+    ),
+  };
 
   Object.keys(addons).map((addonName) => {
     oneTxPaymentClient[addonName] = addons[addonName];
