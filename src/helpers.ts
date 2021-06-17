@@ -230,6 +230,7 @@ export const getChildIndex = async (
  */
 export const getColonyRoles = async (
   client: ColonyClient,
+  options?: LogOptions,
 ): Promise<ColonyRoles> => {
   const ROOT_DOMAIN = ROOT_DOMAIN_ID.toString();
 
@@ -261,6 +262,7 @@ export const getColonyRoles = async (
           filterName
         ](),
       ),
+    options,
   );
 
   const recoveryRoleSetFilter =
@@ -333,6 +335,16 @@ export const getColonyRoles = async (
     };
   });
 };
+
+/*
+ * Wrapper method around `getColonyRoles` that will get historic user roles based on
+ * events, from a certain block number, up to a certain block number
+ */
+export const getHistoricColonyRoles = async (
+  client: ColonyClient,
+  fromBlock?: number,
+  toBlock?: number,
+): Promise<ColonyRoles> => getColonyRoles(client, { fromBlock, toBlock });
 
 /**
  * Get the permission proofs for a user address and a certain role
