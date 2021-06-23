@@ -280,6 +280,7 @@ export const getColonyRoles = async (
   const recoveryRoleEvents = await getEvents(
     client.awkwardRecoveryRoleEventClient,
     recoveryRoleSetFilter,
+    options,
   );
 
   // We construct a map that holds all users with all domains and the roles as Sets
