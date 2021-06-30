@@ -97,13 +97,6 @@ const buildColonyContracts = async (): Promise<void> => {
     currentNetworkTag = releaseTag;
   }
 
-  // Copy contract json files of latest version for deployment purposes
-  copyFileSync(`${tokenBuildDir}/Token.json`, `${deployDir}/Token.json`);
-  copyFileSync(
-    `${tokenBuildDir}/TokenAuthority.json`,
-    `${deployDir}/TokenAuthority.json`,
-  );
-
   // Just build token contracts for the latest version
   contractsToBuild.push(...tokenContracts);
   const contractGlobs = `{${contractsToBuild
