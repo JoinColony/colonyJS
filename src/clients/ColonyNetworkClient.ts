@@ -17,7 +17,7 @@ import { IColonyNetwork } from '../contracts/6/IColonyNetwork';
 import {
   abi as tokenAbi,
   bytecode as tokenBytecode,
-} from '../contracts/deploy/Token.json';
+} from '../contracts/deploy/MetaTxToken.json';
 import getColonyVersionClient from './Colony/ColonyVersionClient';
 import getColonyClientV1 from './Colony/ColonyClientV1';
 import getColonyClientV2 from './Colony/ColonyClientV2';
