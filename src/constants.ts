@@ -57,6 +57,7 @@ export enum ClientType {
   TokenClient = 'TokenClient',
   TokenLockingClient = 'TokenLockingClient',
   VotingReputationClient = 'VotingReputationClient',
+  WhitelistClient = 'WhitelistClient',
 }
 
 /**
