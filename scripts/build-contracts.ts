@@ -10,6 +10,7 @@ import {
   CurrentCoinMachineVersion,
   CurrentOneTxPaymentVersion,
   CurrentVotingReputationVersion,
+  CurrentWhitelistVersion,
 } from '../src/versions';
 import { Extension } from '../src/clients/Extensions/colonyContractExtensions';
 
@@ -32,12 +33,14 @@ const extensionContracts = [
   Extension.OneTxPayment,
   Extension.CoinMachine,
   Extension.VotingReputation,
+  Extension.Whitelist,
 ];
 
 const currentExtensionsVersions = {
   [Extension.OneTxPayment]: CurrentOneTxPaymentVersion,
   [Extension.CoinMachine]: CurrentCoinMachineVersion,
   [Extension.VotingReputation]: CurrentVotingReputationVersion,
+  [Extension.Whitelist]: CurrentWhitelistVersion,
 };
 
 const tokenContracts = [
