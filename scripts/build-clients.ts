@@ -11,6 +11,7 @@ import {
   CurrentCoinMachineVersion,
   CurrentOneTxPaymentVersion,
   CurrentVotingReputationVersion,
+  CurrentWhitelistVersion,
 } from '../src/versions';
 import getClientTemplate from './client-templates/extension-client-generator';
 import getClientAddonTemplate from './client-templates/extension-client-addons-generator';
@@ -19,12 +20,14 @@ const extensionContracts = [
   Extension.OneTxPayment,
   Extension.CoinMachine,
   Extension.VotingReputation,
+  Extension.Whitelist,
 ];
 
 const currentExtensionsVersions = {
   [Extension.OneTxPayment]: CurrentOneTxPaymentVersion,
   [Extension.CoinMachine]: CurrentCoinMachineVersion,
   [Extension.VotingReputation]: CurrentVotingReputationVersion,
+  [Extension.Whitelist]: CurrentWhitelistVersion,
 };
 
 const getExtensionVersionedPath = (
