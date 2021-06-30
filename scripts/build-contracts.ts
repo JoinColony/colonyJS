@@ -1,5 +1,4 @@
 import { resolve as resolvePath } from 'path';
-import { copyFileSync } from 'fs';
 import { promisify } from 'util';
 import * as camelcase from 'camelcase';
 import * as execute from 'execa';
@@ -25,7 +24,6 @@ const networkDir = resolvePath(__dirname, '../vendor/colonyNetwork');
 const relativeBuildDir = 'build/contracts';
 const relativeTokenDir = 'lib/colonyToken/build/contracts';
 const buildDir = resolvePath(networkDir, relativeBuildDir);
-const tokenBuildDir = resolvePath(networkDir, relativeTokenDir);
 const vendorTokenDir = resolvePath(__dirname, '../vendor/tokens');
 
 const contractsToBuild = ['IColony', 'IColonyNetwork', 'TokenLocking'];
@@ -51,7 +49,6 @@ const tokenContracts = [
 const version = CurrentColonyVersion;
 const outRoot = resolvePath(__dirname, '../src/contracts');
 const colonyContractsOutDir = `${outRoot}/colony/${version}`;
-const deployDir = `${outRoot}/deploy`;
 
 const provisionNetworkVendor = async (tag: string): Promise<void> => {
   if (!tag) {

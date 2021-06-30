@@ -11,6 +11,7 @@ export enum Extension {
   // FundingQueue = 'FundingQueue',
   OneTxPayment = 'OneTxPayment',
   VotingReputation = 'VotingReputation',
+  Whitelist = 'Whitelist',
 }
 
 // All of the valid extensions

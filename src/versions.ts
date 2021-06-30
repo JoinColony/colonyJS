@@ -4,6 +4,7 @@ enum Extension {
   OneTxPayment = 'OneTxPayment',
   CoinMachine = 'CoinMachine',
   VotingReputation = 'VotingReputation',
+  Whitelist = 'Whitelist',
 }
 
 /*
@@ -169,6 +170,40 @@ const VotingReputationExtensionVersionCompatibilityMap: Record<
 );
 
 /*
+ * One Transaction Payment Extension Versioning
+ */
+
+export enum WhitelistExtensionVersion {
+  UnnamedReleaseVersion = 1,
+}
+
+const whitelistReleaseMap = {
+  [WhitelistExtensionVersion.UnnamedReleaseVersion]: `fffe3ab227398ef2f3ba359e0b996b7b75ea5591`,
+};
+
+export const CurrentWhitelistVersion = parseInt(
+  WhitelistExtensionVersion[
+    (Object.keys(WhitelistExtensionVersion).slice(-1)[0] as unknown) as number
+  ],
+  10,
+);
+
+const WhitelistExtensionVersionIncompatibilityMap: Record<
+  WhitelistExtensionVersion,
+  Array<ColonyVersion>
+> = {
+  [WhitelistExtensionVersion.UnnamedReleaseVersion]: [],
+};
+
+const WhitelistExtensionVersionCompatibilityMap: Record<
+  WhitelistExtensionVersion,
+  Array<ColonyVersion>
+> = getExtensionCompatibilityMap(
+  WhitelistExtensionVersionIncompatibilityMap,
+  ColonyVersion,
+);
+
+/*
  * Extensions Compatibility and Incompatibility Map
  * (Aggregates from the various extensions ones)
  */
@@ -177,6 +212,7 @@ export const extensionsIncompatibilityMap = {
   [Extension.CoinMachine]: CoinMachineExtensionVersionIncompatibilityMap,
   // eslint-disable-next-line max-len
   [Extension.VotingReputation]: VotingReputationExtensionVersionIncompatibilityMap,
+  [Extension.Whitelist]: WhitelistExtensionVersionIncompatibilityMap,
 };
 
 export const extensionsCompatibilityMap = {
@@ -184,6 +220,7 @@ export const extensionsCompatibilityMap = {
   [Extension.CoinMachine]: CoinMachineExtensionVersionCompatibilityMap,
   // eslint-disable-next-line max-len
   [Extension.VotingReputation]: VotingReputationExtensionVersionCompatibilityMap,
+  [Extension.Whitelist]: WhitelistExtensionVersionCompatibilityMap,
 };
 
 /*
@@ -201,5 +238,6 @@ export const releaseMap = {
     oneTxPayment: { ...oneTxPaymentReleaseMap },
     coinMachine: { ...coinMachineReleaseMap },
     votingReputation: { ...votingReputationReleaseMap },
+    whitelist: { ...whitelistReleaseMap },
   },
 };
