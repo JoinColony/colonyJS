@@ -32,7 +32,7 @@ const colonyReleaseMap = {
   [ColonyVersion.BurgundyGlider]: 'burgundy-glider',
   [ColonyVersion.LightweightSpaceship]: 'lwss',
   [ColonyVersion.CeruleanLightweightSpaceship]: `clwss`,
-  [ColonyVersion.DandelionLightweightSpaceship]: `b39461e5954479de54b4affcd717a840071c4210`,
+  [ColonyVersion.DandelionLightweightSpaceship]: `dlwss`,
 };
 
 /**
@@ -57,7 +57,7 @@ export enum OneTxPaymentExtensionVersion {
 
 const oneTxPaymentReleaseMap = {
   [OneTxPaymentExtensionVersion.CeruleanLightweightSpaceship]: `clwss`,
-  [OneTxPaymentExtensionVersion.DandelionLightweightSpaceship]: `b39461e5954479de54b4affcd717a840071c4210`,
+  [OneTxPaymentExtensionVersion.DandelionLightweightSpaceship]: `dlwss`,
 };
 
 export const CurrentOneTxPaymentVersion = parseInt(
@@ -96,10 +96,7 @@ export enum CoinMachineExtensionVersion {
 
 const coinMachineReleaseMap = {
   [CoinMachineExtensionVersion.CeruleanLightweightSpaceship]: `clwss`,
-  /*
-   * @NOTE Temporary until the actual network tag is pushed
-   */
-  [CoinMachineExtensionVersion.DandelionLightweightSpaceship]: `b39461e5954479de54b4affcd717a840071c4210`,
+  [CoinMachineExtensionVersion.DandelionLightweightSpaceship]: `dlwss`,
 };
 
 export const CurrentCoinMachineVersion = parseInt(
@@ -136,10 +133,7 @@ export enum VotingReputationExtensionVersion {
 
 const votingReputationReleaseMap = {
   [VotingReputationExtensionVersion.CeruleanLightweightSpaceship]: `clwss`,
-  /*
-   * @NOTE Temporary until the actual network tag is pushed
-   */
-  [VotingReputationExtensionVersion.DandelionLightweightSpaceship]: `b39461e5954479de54b4affcd717a840071c4210`,
+  [VotingReputationExtensionVersion.DandelionLightweightSpaceship]: `dlwss`,
 };
 
 export const CurrentVotingReputationVersion = parseInt(
