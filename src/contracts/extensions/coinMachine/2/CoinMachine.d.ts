@@ -53,11 +53,13 @@ interface CoinMachineInterface extends Interface {
         _windowSize,
         _targetPerPeriod,
         _maxPerPeriod,
+        _userLimitFraction,
         _startingPrice,
         _whitelist,
       ]: [
         string,
         string,
+        BigNumberish,
         BigNumberish,
         BigNumberish,
         BigNumberish,
@@ -101,7 +103,15 @@ interface CoinMachineInterface extends Interface {
 
     getCurrentPrice: TypedFunctionDescription<{ encode([]: []): string }>;
 
-    getNumAvailable: TypedFunctionDescription<{ encode([]: []): string }>;
+    getSellableTokens: TypedFunctionDescription<{ encode([]: []): string }>;
+
+    getUserLimit: TypedFunctionDescription<{
+      encode([_user]: [string]): string;
+    }>;
+
+    getMaxPurchase: TypedFunctionDescription<{
+      encode([_user]: [string]): string;
+    }>;
 
     getWhitelist: TypedFunctionDescription<{ encode([]: []): string }>;
 
@@ -297,6 +307,7 @@ export class CoinMachine extends Contract {
       _windowSize: BigNumberish,
       _targetPerPeriod: BigNumberish,
       _maxPerPeriod: BigNumberish,
+      _userLimitFraction: BigNumberish,
       _startingPrice: BigNumberish,
       _whitelist: string,
       overrides?: TransactionOverrides
@@ -313,13 +324,14 @@ export class CoinMachine extends Contract {
      * @param _whitelist Optionally an address of a whitelist contract to use can be provided. Pass 0x0 if no whitelist being used
      * @param _windowSize Characteristic number of periods that should be used for the moving average. In the long-term, 86% of the weighting will be in this window size. The higher the number, the slower the price will be to adjust
      */
-    "initialise(address,address,uint256,uint256,uint256,uint256,uint256,address)"(
+    "initialise(address,address,uint256,uint256,uint256,uint256,uint256,uint256,address)"(
       _token: string,
       _purchaseToken: string,
       _periodLength: BigNumberish,
       _windowSize: BigNumberish,
       _targetPerPeriod: BigNumberish,
       _maxPerPeriod: BigNumberish,
+      _userLimitFraction: BigNumberish,
       _startingPrice: BigNumberish,
       _whitelist: string,
       overrides?: TransactionOverrides
@@ -500,12 +512,44 @@ export class CoinMachine extends Contract {
     /**
      * Get the number of remaining tokens for sale this period
      */
-    getNumAvailable(overrides?: TransactionOverrides): Promise<BigNumber>;
+    getSellableTokens(overrides?: TransactionOverrides): Promise<BigNumber>;
 
     /**
      * Get the number of remaining tokens for sale this period
      */
-    "getNumAvailable()"(overrides?: TransactionOverrides): Promise<BigNumber>;
+    "getSellableTokens()"(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    /**
+     * Get the maximum amount of tokens a user can purchase in total
+     */
+    getUserLimit(
+      _user: string,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * Get the maximum amount of tokens a user can purchase in total
+     */
+    "getUserLimit(address)"(
+      _user: string,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * Get the maximum amount of tokens a user can purchase in a period
+     */
+    getMaxPurchase(
+      _user: string,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * Get the maximum amount of tokens a user can purchase in a period
+     */
+    "getMaxPurchase(address)"(
+      _user: string,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
 
     /**
      * Get the address of the whitelist (if exists)
@@ -668,6 +712,7 @@ export class CoinMachine extends Contract {
     _windowSize: BigNumberish,
     _targetPerPeriod: BigNumberish,
     _maxPerPeriod: BigNumberish,
+    _userLimitFraction: BigNumberish,
     _startingPrice: BigNumberish,
     _whitelist: string,
     overrides?: TransactionOverrides
@@ -684,13 +729,14 @@ export class CoinMachine extends Contract {
    * @param _whitelist Optionally an address of a whitelist contract to use can be provided. Pass 0x0 if no whitelist being used
    * @param _windowSize Characteristic number of periods that should be used for the moving average. In the long-term, 86% of the weighting will be in this window size. The higher the number, the slower the price will be to adjust
    */
-  "initialise(address,address,uint256,uint256,uint256,uint256,uint256,address)"(
+  "initialise(address,address,uint256,uint256,uint256,uint256,uint256,uint256,address)"(
     _token: string,
     _purchaseToken: string,
     _periodLength: BigNumberish,
     _windowSize: BigNumberish,
     _targetPerPeriod: BigNumberish,
     _maxPerPeriod: BigNumberish,
+    _userLimitFraction: BigNumberish,
     _startingPrice: BigNumberish,
     _whitelist: string,
     overrides?: TransactionOverrides
@@ -867,12 +913,44 @@ export class CoinMachine extends Contract {
   /**
    * Get the number of remaining tokens for sale this period
    */
-  getNumAvailable(overrides?: TransactionOverrides): Promise<BigNumber>;
+  getSellableTokens(overrides?: TransactionOverrides): Promise<BigNumber>;
 
   /**
    * Get the number of remaining tokens for sale this period
    */
-  "getNumAvailable()"(overrides?: TransactionOverrides): Promise<BigNumber>;
+  "getSellableTokens()"(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+  /**
+   * Get the maximum amount of tokens a user can purchase in total
+   */
+  getUserLimit(
+    _user: string,
+    overrides?: TransactionOverrides
+  ): Promise<BigNumber>;
+
+  /**
+   * Get the maximum amount of tokens a user can purchase in total
+   */
+  "getUserLimit(address)"(
+    _user: string,
+    overrides?: TransactionOverrides
+  ): Promise<BigNumber>;
+
+  /**
+   * Get the maximum amount of tokens a user can purchase in a period
+   */
+  getMaxPurchase(
+    _user: string,
+    overrides?: TransactionOverrides
+  ): Promise<BigNumber>;
+
+  /**
+   * Get the maximum amount of tokens a user can purchase in a period
+   */
+  "getMaxPurchase(address)"(
+    _user: string,
+    overrides?: TransactionOverrides
+  ): Promise<BigNumber>;
 
   /**
    * Get the address of the whitelist (if exists)
@@ -1049,6 +1127,7 @@ export class CoinMachine extends Contract {
       _windowSize: BigNumberish,
       _targetPerPeriod: BigNumberish,
       _maxPerPeriod: BigNumberish,
+      _userLimitFraction: BigNumberish,
       _startingPrice: BigNumberish,
       _whitelist: string,
       overrides?: TransactionOverrides
@@ -1065,13 +1144,14 @@ export class CoinMachine extends Contract {
      * @param _whitelist Optionally an address of a whitelist contract to use can be provided. Pass 0x0 if no whitelist being used
      * @param _windowSize Characteristic number of periods that should be used for the moving average. In the long-term, 86% of the weighting will be in this window size. The higher the number, the slower the price will be to adjust
      */
-    "initialise(address,address,uint256,uint256,uint256,uint256,uint256,address)"(
+    "initialise(address,address,uint256,uint256,uint256,uint256,uint256,uint256,address)"(
       _token: string,
       _purchaseToken: string,
       _periodLength: BigNumberish,
       _windowSize: BigNumberish,
       _targetPerPeriod: BigNumberish,
       _maxPerPeriod: BigNumberish,
+      _userLimitFraction: BigNumberish,
       _startingPrice: BigNumberish,
       _whitelist: string,
       overrides?: TransactionOverrides
@@ -1248,12 +1328,44 @@ export class CoinMachine extends Contract {
     /**
      * Get the number of remaining tokens for sale this period
      */
-    getNumAvailable(overrides?: TransactionOverrides): Promise<BigNumber>;
+    getSellableTokens(overrides?: TransactionOverrides): Promise<BigNumber>;
 
     /**
      * Get the number of remaining tokens for sale this period
      */
-    "getNumAvailable()"(overrides?: TransactionOverrides): Promise<BigNumber>;
+    "getSellableTokens()"(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    /**
+     * Get the maximum amount of tokens a user can purchase in total
+     */
+    getUserLimit(
+      _user: string,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * Get the maximum amount of tokens a user can purchase in total
+     */
+    "getUserLimit(address)"(
+      _user: string,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * Get the maximum amount of tokens a user can purchase in a period
+     */
+    getMaxPurchase(
+      _user: string,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * Get the maximum amount of tokens a user can purchase in a period
+     */
+    "getMaxPurchase(address)"(
+      _user: string,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
 
     /**
      * Get the address of the whitelist (if exists)
