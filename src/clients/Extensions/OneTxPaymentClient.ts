@@ -1,14 +1,14 @@
 import { ContractTransaction } from 'ethers';
 import { BigNumberish, BigNumber } from 'ethers/utils';
 
-import { ClientType, ColonyRole } from '../constants';
-import { OneTxPayment__factory as OneTxPaymentFactory } from '../contracts/6/factories/OneTxPayment__factory';
-import { OneTxPayment } from '../contracts/6/OneTxPayment';
-import { TransactionOverrides } from '../contracts/6';
+import { ClientType, ColonyRole } from '../../constants';
+import { OneTxPayment__factory as OneTxPaymentFactory } from '../../contracts/6/factories/OneTxPayment__factory';
+import { OneTxPayment } from '../../contracts/6/OneTxPayment';
+import { TransactionOverrides } from '../../contracts/6';
 import {
   getPermissionProofs,
   ExtendedIColony,
-} from '../clients/Colony/extensions/commonExtensions';
+} from '../../clients/Colony/extensions/commonExtensions';
 
 type OneTxPaymentEstimate = OneTxPayment['estimate'];
 

@@ -8,12 +8,8 @@ import {
   toUtf8Bytes,
 } from 'ethers/utils';
 
-import {
-  ColonyRole,
-  ColonyRoles,
-  ColonyVersion,
-  ROOT_DOMAIN_ID,
-} from './constants';
+import { ColonyRole, ColonyRoles, ROOT_DOMAIN_ID } from './constants';
+import { ColonyVersion } from './versions';
 import { ColonyClient, ContractClient } from './types';
 
 import {
@@ -21,7 +17,9 @@ import {
   getPotDomain as exGetPotDomain,
   getPermissionProofs as exGetPermissionProofs,
   getMoveFundsPermissionProofs as exGetMoveFundsPermissionProofs,
+  getExtensionPermissionProofs as exGetExtensionPermissionProofs,
   AwkwardRecoveryRoleEventClient,
+  ExtendedIColony,
 } from './clients/Colony/extensions/commonExtensions';
 
 interface ColonyRolesMap {
@@ -232,6 +230,7 @@ export const getChildIndex = async (
  */
 export const getColonyRoles = async (
   client: ColonyClient,
+  options?: LogOptions,
 ): Promise<ColonyRoles> => {
   const ROOT_DOMAIN = ROOT_DOMAIN_ID.toString();
 
@@ -263,6 +262,7 @@ export const getColonyRoles = async (
           filterName
         ](),
       ),
+    options,
   );
 
   const recoveryRoleSetFilter =
@@ -280,6 +280,7 @@ export const getColonyRoles = async (
   const recoveryRoleEvents = await getEvents(
     client.awkwardRecoveryRoleEventClient,
     recoveryRoleSetFilter,
+    options,
   );
 
   // We construct a map that holds all users with all domains and the roles as Sets
@@ -335,6 +336,16 @@ export const getColonyRoles = async (
     };
   });
 };
+
+/*
+ * Wrapper method around `getColonyRoles` that will get historic user roles based on
+ * events, from a certain block number, up to a certain block number
+ */
+export const getHistoricColonyRoles = async (
+  client: ColonyClient,
+  fromBlock?: number,
+  toBlock?: number,
+): Promise<ColonyRoles> => getColonyRoles(client, { fromBlock, toBlock });
 
 /**
  * Get the permission proofs for a user address and a certain role
@@ -396,3 +407,20 @@ export const getMoveFundsPermissionProofs = async (
   customAddress?: string,
 ): Promise<[BigNumber, BigNumber, BigNumber]> =>
   exGetMoveFundsPermissionProofs(client, fromtPotId, toPotId, customAddress);
+
+/**
+ * Wrapper around `getPermissionProofs` to check two types of permissions: Funding and Administration
+ * To be used for checking an extension's permission in said colony
+ *
+ * @param colonyClient Any ColonyClient
+ * @param domainId Domain id the method needs to act in
+ * @param address Address of the extension
+ *
+ * @returns Tuple of `[permissionDomainId, childSkillIndex]`
+ */
+export const getExtensionPermissionProofs = async (
+  colonyClient: ExtendedIColony,
+  domainId: BigNumberish,
+  address?: string,
+): Promise<[BigNumberish, BigNumberish]> =>
+  exGetExtensionPermissionProofs(colonyClient, domainId, address);

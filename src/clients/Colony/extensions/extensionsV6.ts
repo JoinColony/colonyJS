@@ -1,4 +1,4 @@
-import { IColony as IColonyV6 } from '../../../contracts/6/IColony';
+import { IColony as IColonyV6 } from '../../../contracts/colony/6/IColony';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
 import { ExtendedIColony } from './commonExtensions';
 import { ColonyExtensionsV3 } from './extensionsV3';

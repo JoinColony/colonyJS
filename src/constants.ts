@@ -1,35 +1,3 @@
-export {
-  extensions,
-  Extension,
-} from './clients/Colony/colonyContractExtensions';
-
-/**
- * Available versions for colonies that could be deployed. When a new version for a colony needs to be supported, it should be added here. The versions are incremented integers.
- */
-export enum ColonyVersion {
-  /** Only deployed to Goerli, hence not present on mainnet deployments */
-  GoerliGlider = 1, // glider-rc.1
-  Glider = 2,
-  AuburnGlider = 3,
-  BurgundyGlider = 4,
-  LightweightSpaceship = 5,
-  CeruleanLightweightSpaceship = 6,
-}
-
-// These are the corresponding git release tags for the deployed versions of the Colony Network
-export const releaseMap = {
-  [ColonyVersion.GoerliGlider]: 'glider-rc.1',
-  [ColonyVersion.Glider]: 'glider',
-  [ColonyVersion.AuburnGlider]: 'auburn-glider',
-  [ColonyVersion.BurgundyGlider]: 'burgundy-glider',
-  [ColonyVersion.LightweightSpaceship]: 'lwss',
-  [ColonyVersion.CeruleanLightweightSpaceship]: `clwss`,
-};
-
-/**
- * The newest colony version. This will be used when deploying new colonies */
-export const CurrentVersion = ColonyVersion.CeruleanLightweightSpaceship;
-
 /**
  * Supported Ethereum networks. Local refers to the locally deployed contracts when developing.
  */
@@ -88,6 +56,7 @@ export enum ClientType {
   OneTxPaymentClient = 'OneTxPaymentClient',
   TokenClient = 'TokenClient',
   TokenLockingClient = 'TokenLockingClient',
+  VotingReputationClient = 'VotingReputationClient',
 }
 
 /**
@@ -162,3 +131,17 @@ export const REPUTATION_ORACLE_ENDPOINT = 'https://colony.io/reputation';
 export const tokenAddresses = {
   SAI: '0x89d24A6b4CcB1B6fAA2625fE562bDD9a23260359',
 };
+
+/*
+ * The various states a Motion might find itself in
+ */
+export enum MotionState {
+  Null = 0,
+  Staking = 1,
+  Submit = 2,
+  Reveal = 3,
+  Closed = 4,
+  Finalizable = 5,
+  Finalized = 6,
+  Failed = 7,
+}

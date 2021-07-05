@@ -6,10 +6,10 @@ import { isAddress } from '../../../utils';
 import {
   ClientType,
   ColonyRole,
-  ColonyVersion,
   FundingPotAssociatedType,
   ROOT_DOMAIN_ID,
 } from '../../../constants';
+import { ColonyVersion } from '../../../versions';
 import {
   ReputationOracleResponse,
   ReputationOracleAllMembersResponse,
@@ -20,14 +20,16 @@ import { IColony as IColonyV2 } from '../../../contracts/2/IColony';
 import { IColony as IColonyV3 } from '../../../contracts/3/IColony';
 import { IColony as IColonyV4 } from '../../../contracts/4/IColony';
 import { IColony as IColonyV5 } from '../../../contracts/5/IColony';
-import { IColony as IColonyV6 } from '../../../contracts/6/IColony';
+import { IColony as IColonyV6 } from '../../../contracts/colony/6/IColony';
+import { IColony as IColonyV7 } from '../../../contracts/colony/7/IColony';
 import { TransactionOverrides } from '../../../contracts/1';
 import { IColonyFactory } from '../../../contracts/4/IColonyFactory';
 
 import {
-  extensionFactoryMap,
   ExtensionClient,
-} from '../colonyContractExtensions';
+  Extension,
+} from '../../Extensions/colonyContractExtensions';
+import getExtensionVersionClient from '../../Extensions/ExtensionVersionClient';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
 import { TokenClient } from '../../TokenClient';
 
@@ -43,7 +45,8 @@ type AnyIColony =
   | IColonyV3
   | IColonyV4
   | IColonyV5
-  | IColonyV6;
+  | IColonyV6
+  | IColonyV7;
 
 // This is exposed to type the awkward recovery event client which is basically
 // just an IColonyV4
@@ -121,7 +124,7 @@ export type ExtendedIColony<T extends AnyIColony = AnyIColony> = T & {
 
   getExtensionClient(
     this: ExtendedIColony,
-    extensionName: keyof typeof extensionFactoryMap,
+    extensionName: Extension,
   ): Promise<ExtensionClient>;
 
   deployTokenAuthority(
@@ -245,6 +248,9 @@ export const getChildIndex = async (
   parentDomainId: BigNumberish,
   domainId: BigNumberish,
 ): Promise<BigNumber> => {
+  if (bigNumberify(parentDomainId).eq(bigNumberify(domainId))) {
+    return MaxUint256;
+  }
   const { skillId: parentSkillId } = await contract.getDomain(parentDomainId);
   const { skillId } = await contract.getDomain(domainId);
   const { children } = await contract.networkClient.getSkill(parentSkillId);
@@ -359,9 +365,39 @@ export const getMoveFundsPermissionProofs = async (
   return [fromPermissionDomainId, fromChildSkillIndex, toChildSkillIndex];
 };
 
+export const getExtensionPermissionProofs = async (
+  colonyClient: ExtendedIColony,
+  domainId: BigNumberish,
+  address?: string,
+): Promise<[BigNumberish, BigNumberish]> => {
+  const [fundingPDID, fundingCSI] = await getPermissionProofs(
+    colonyClient,
+    domainId,
+    ColonyRole.Funding,
+    address,
+  );
+  const [adminPDID, adminCSI] = await getPermissionProofs(
+    colonyClient,
+    domainId,
+    ColonyRole.Administration,
+    address,
+  );
+
+  if (!fundingPDID.eq(adminPDID) || !fundingCSI.eq(adminCSI)) {
+    // @TODO: this can surely be improved
+    throw new Error(
+      `${
+        address || 'User'
+      } has to have the funding and administration role in the same domain`,
+    );
+  }
+
+  return [adminPDID, adminCSI];
+};
+
 async function getExtensionClient(
   this: ExtendedIColony,
-  extensionName: keyof typeof extensionFactoryMap,
+  extensionName: Extension,
 ): Promise<ExtensionClient> {
   const extensionAddress = await this.networkClient.getExtensionInstallation(
     getExtensionHash(extensionName),
@@ -372,7 +408,17 @@ async function getExtensionClient(
       `${extensionName} extension is not installed for this colony`,
     );
   }
-  return extensionFactoryMap[extensionName](extensionAddress, this);
+  const extensionVersionClient = getExtensionVersionClient(
+    extensionAddress,
+    this.signer || this.provider,
+  );
+  const versionBN = await extensionVersionClient.version();
+  const version = versionBN.toNumber() as ColonyVersion;
+  const {
+    default: getVersionedExtensionClient,
+    // eslint-disable-next-line import/no-dynamic-require, global-require, @typescript-eslint/no-var-requires, max-len
+  } = require(`../../Extensions/${extensionName}/${version}/${extensionName}Client`);
+  return getVersionedExtensionClient(extensionAddress, this);
 }
 
 async function setArchitectureRoleWithProofs(
@@ -628,7 +674,9 @@ async function moveFundsBetweenPotsWithProofs(
     toChildSkillIndex,
   ] = await getMoveFundsPermissionProofs(this, _fromPot, _toPot);
 
-  return this.moveFundsBetweenPots(
+  return this[
+    `moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,address)`
+  ](
     permissionDomainId,
     fromChildSkillIndex,
     toChildSkillIndex,
@@ -851,7 +899,9 @@ async function estimateMoveFundsBetweenPotsWithProofs(
     toChildSkillIndex,
   ] = await getMoveFundsPermissionProofs(this, _fromPot, _toPot);
 
-  return this.estimate.moveFundsBetweenPots(
+  return (this as IColonyV5).estimate[
+    `moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,address)`
+  ](
     permissionDomainId,
     fromChildSkillIndex,
     toChildSkillIndex,
@@ -876,7 +926,8 @@ async function getReputation(
 
   const skillIdString = bigNumberify(skillId).toString();
 
-  const rootHash = customRootHash ? customRootHash : await this.networkClient.getReputationRootHash();
+  const rootHash =
+    customRootHash || (await this.networkClient.getReputationRootHash());
 
   const response = await fetch(
     `${reputationOracleEndpoint}/${network}/${rootHash}/${this.address}/${skillIdString}/${address}`,

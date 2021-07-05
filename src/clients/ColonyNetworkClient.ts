@@ -5,19 +5,19 @@ import { BigNumber } from 'ethers/utils';
 import { ColonyClient } from '../types';
 
 import {
-  ColonyVersion,
   ClientType,
   Network,
   colonyNetworkAddresses,
   REPUTATION_ORACLE_ENDPOINT,
 } from '../constants';
+import { ColonyVersion } from '../versions';
 // @TODO this _HAS_ to be the newest version _ALWAYS_. Let's try to figure out a way to make sure of this
 import { IColonyNetwork__factory as IColonyNetworkFactory } from '../contracts/6/factories/IColonyNetwork__factory';
 import { IColonyNetwork } from '../contracts/6/IColonyNetwork';
 import {
   abi as tokenAbi,
   bytecode as tokenBytecode,
-} from '../contracts/deploy/Token.json';
+} from '../contracts/deploy/MetaTxToken.json';
 import getColonyVersionClient from './Colony/ColonyVersionClient';
 import getColonyClientV1 from './Colony/ColonyClientV1';
 import getColonyClientV2 from './Colony/ColonyClientV2';
@@ -25,6 +25,7 @@ import getColonyClientV3 from './Colony/ColonyClientV3';
 import getColonyClientV4 from './Colony/ColonyClientV4';
 import getColonyClientV5 from './Colony/ColonyClientV5';
 import getColonyClientV6 from './Colony/ColonyClientV6';
+import getColonyClientV7 from './Colony/ColonyClientV7';
 import getTokenClient from './TokenClient';
 import getTokenLockingClient, {
   TokenLockingClient,
@@ -222,6 +223,14 @@ const getColonyNetworkClient = (
       }
       case ColonyVersion.CeruleanLightweightSpaceship: {
         colonyClient = getColonyClientV6.call(
+          networkClient,
+          colonyAddress,
+          signerOrProvider,
+        );
+        break;
+      }
+      case ColonyVersion.DandelionLightweightSpaceship: {
+        colonyClient = getColonyClientV7.call(
           networkClient,
           colonyAddress,
           signerOrProvider,

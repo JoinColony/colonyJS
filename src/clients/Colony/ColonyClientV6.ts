@@ -4,8 +4,8 @@ import { Provider } from 'ethers/providers';
 import { IColonyFactory as IColonyFactoryV3 } from '../../contracts/3/IColonyFactory';
 import { IColonyFactory as IColonyFactoryV4 } from '../../contracts/4/IColonyFactory';
 import { IColony__factory as IColonyFactoryV5 } from '../../contracts/5/factories/IColony__factory';
-import { IColony__factory as IColonyFactoryV6 } from '../../contracts/6/factories/IColony__factory';
-import { IColony } from '../../contracts/6/IColony';
+import { IColony__factory as IColonyFactoryV6 } from '../../contracts/colony/6/factories/IColony__factory';
+import { IColony } from '../../contracts/colony/6/IColony';
 import { ColonyNetworkClient } from '../ColonyNetworkClient';
 import { ExtendedIColony } from './extensions/commonExtensions';
 import { ColonyExtensionsV3 } from './extensions/extensionsV3';
@@ -17,7 +17,7 @@ import {
   ExtendedEstimateV6,
 } from './extensions/extensionsV6';
 import { getAllAbiEvents, getAbiFunctions } from '../../utils';
-import { ColonyVersion } from '../../constants';
+import { ColonyVersion } from '../../versions';
 
 type ColonyExtensions = ExtendedIColony<IColony> &
   ColonyExtensionsV3<IColony> &

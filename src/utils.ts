@@ -3,6 +3,7 @@ import { getAddress, EventFragment } from 'ethers/utils';
 import { Provider } from 'ethers/providers';
 
 import { IColony__factory as IColonyFactory } from '../src/contracts/6/factories/IColony__factory';
+import { ColonyVersion } from './versions';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const isEqual = require('lodash.isequal');
@@ -69,4 +70,23 @@ export const getAllAbiEvents = (
     return null;
   });
   return abiEvents;
+};
+
+export const getExtensionCompatibilityMap = (
+  incompatibilityMap: Record<string, number[]>,
+  colonyVersions: typeof ColonyVersion,
+): Record<number, number[]> => {
+  const compatibilityMap: Record<number, number[]> = {};
+  const allColonyVersions = Object.keys(colonyVersions)
+    .map((version) => parseInt(version, 10))
+    .filter((version) => !!version);
+  const extensionVersions = Object.keys(incompatibilityMap);
+  extensionVersions.map((version) => {
+    const currentCompatibleVersions = allColonyVersions.filter(
+      (colonyVersion) => !incompatibilityMap[version].includes(colonyVersion),
+    );
+    compatibilityMap[parseInt(version, 10)] = currentCompatibleVersions;
+    return null;
+  });
+  return compatibilityMap;
 };
