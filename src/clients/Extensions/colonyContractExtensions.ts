@@ -7,6 +7,9 @@ import getOneTxPaymentClient, {
 import getVotingReputationClient, {
   VotingReputationClient,
 } from './VotingReputation/2/VotingReputationClient';
+import getWhitelistClient, {
+  WhitelistClient,
+} from './Whitelist/1/WhitelistClient';
 
 export enum Extension {
   CoinMachine = 'CoinMachine',
@@ -21,6 +24,7 @@ export type ExtensionClients = {
   [Extension.CoinMachine]: CoinMachineClient;
   [Extension.OneTxPayment]: OneTxPaymentClient;
   [Extension.VotingReputation]: VotingReputationClient;
+  [Extension.Whitelist]: WhitelistClient;
 };
 
 export type ExtensionClient = ExtensionClients[keyof ExtensionClients];
@@ -30,6 +34,7 @@ export const extensionFactoryMap = {
   [Extension.CoinMachine]: getCoinMachineClient,
   [Extension.OneTxPayment]: getOneTxPaymentClient,
   [Extension.VotingReputation]: getVotingReputationClient,
+  [Extension.Whitelist]: getWhitelistClient,
 };
 
 export const extensions = Object.keys(extensionFactoryMap);
