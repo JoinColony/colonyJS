@@ -2,7 +2,7 @@ import { Signer } from 'ethers';
 import { getAddress, EventFragment } from 'ethers/utils';
 import { Provider } from 'ethers/providers';
 
-import { IColony__factory as IColonyFactory } from '../src/contracts/6/factories/IColony__factory';
+import { IColony__factory as IColonyFactory } from '../src/contracts/colony/7/factories/IColony__factory';
 import { ColonyVersion } from './versions';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
