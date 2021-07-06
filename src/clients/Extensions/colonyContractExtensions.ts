@@ -1,10 +1,12 @@
-import getCoinMachineClient, { CoinMachineClient } from './CoinMachineClient';
+import getCoinMachineClient, {
+  CoinMachineClient,
+} from './CoinMachine/2/CoinMachineClient';
 import getOneTxPaymentClient, {
   OneTxPaymentClient,
-} from './OneTxPaymentClient';
+} from './OneTxPayment/2/OneTxPaymentClient';
 import getVotingReputationClient, {
   VotingReputationClient,
-} from './VotingReputationClient';
+} from './VotingReputation/2/VotingReputationClient';
 
 export enum Extension {
   CoinMachine = 'CoinMachine',
