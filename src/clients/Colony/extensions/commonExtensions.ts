@@ -22,7 +22,7 @@ import { IColony as IColonyV4 } from '../../../contracts/4/IColony';
 import { IColony as IColonyV5 } from '../../../contracts/5/IColony';
 import { IColony as IColonyV6 } from '../../../contracts/colony/6/IColony';
 import { IColony as IColonyV7 } from '../../../contracts/colony/7/IColony';
-import { TransactionOverrides } from '../../../contracts/1';
+import { TransactionOverrides } from '../../../contracts/6';
 import { IColonyFactory } from '../../../contracts/4/IColonyFactory';
 
 import {
@@ -130,6 +130,7 @@ export type ExtendedIColony<T extends AnyIColony = AnyIColony> = T & {
   deployTokenAuthority(
     tokenAddress: string,
     allowedToTransfer: string[],
+    overrides?: TransactionOverrides,
   ): Promise<ContractTransaction>;
 
   setArchitectureRoleWithProofs(
@@ -962,6 +963,7 @@ async function deployTokenAuthority(
   this: ExtendedIColony,
   tokenAddress: string,
   allowedToTransfer: string[],
+  overrides?: TransactionOverrides,
 ): Promise<ContractTransaction> {
   const tokenAuthorityFactory = new ContractFactory(
     tokenAuthorityAbi,
@@ -972,6 +974,7 @@ async function deployTokenAuthority(
     tokenAddress,
     this.address,
     allowedToTransfer,
+    overrides,
   );
   await tokenAuthorityContract.deployed();
   return tokenAuthorityContract.deployTransaction;
