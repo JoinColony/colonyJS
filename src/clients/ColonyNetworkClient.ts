@@ -14,6 +14,7 @@ import { ColonyVersion } from '../versions';
 // @TODO this _HAS_ to be the newest version _ALWAYS_. Let's try to figure out a way to make sure of this
 import { IColonyNetwork__factory as IColonyNetworkFactory } from '../contracts/6/factories/IColonyNetwork__factory';
 import { IColonyNetwork } from '../contracts/6/IColonyNetwork';
+import { TransactionOverrides } from '../contracts/6';
 import {
   abi as tokenAbi,
   bytecode as tokenBytecode,
@@ -78,6 +79,7 @@ export interface ColonyNetworkClient extends IColonyNetwork {
     name: string,
     symbol: string,
     decimals?: number,
+    overrides?: TransactionOverrides,
   ): Promise<ContractTransaction>;
   /**
    * Gets the TokenLockingClient
@@ -281,13 +283,19 @@ const getColonyNetworkClient = (
     name: string,
     symbol: string,
     decimals = 18,
+    overrides?: TransactionOverrides,
   ): Promise<ContractTransaction> => {
     const tokenFactory = new ContractFactory(
       tokenAbi,
       tokenBytecode,
       networkClient.signer,
     );
-    const tokenContract = await tokenFactory.deploy(name, symbol, decimals);
+    const tokenContract = await tokenFactory.deploy(
+      name,
+      symbol,
+      decimals,
+      overrides,
+    );
     await tokenContract.deployed();
     return tokenContract.deployTransaction;
   };
