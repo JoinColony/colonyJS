@@ -174,11 +174,11 @@ const VotingReputationExtensionVersionCompatibilityMap: Record<
  */
 
 export enum WhitelistExtensionVersion {
-  UnnamedReleaseVersion = 1,
+  EbonyLightweightSpaceship = 1,
 }
 
 const whitelistReleaseMap = {
-  [WhitelistExtensionVersion.UnnamedReleaseVersion]: `fffe3ab227398ef2f3ba359e0b996b7b75ea5591`,
+  [WhitelistExtensionVersion.EbonyLightweightSpaceship]: `fffe3ab227398ef2f3ba359e0b996b7b75ea5591`,
 };
 
 export const CurrentWhitelistVersion = parseInt(
@@ -192,7 +192,7 @@ const WhitelistExtensionVersionIncompatibilityMap: Record<
   WhitelistExtensionVersion,
   Array<ColonyVersion>
 > = {
-  [WhitelistExtensionVersion.UnnamedReleaseVersion]: [],
+  [WhitelistExtensionVersion.EbonyLightweightSpaceship]: [],
 };
 
 const WhitelistExtensionVersionCompatibilityMap: Record<
