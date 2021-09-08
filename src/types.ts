@@ -40,6 +40,15 @@ export interface ReputationOracleResponse {
   reputationAmount: BigNumber;
 }
 
+export interface ReputationOracleSkillsResponse {
+  skill_id: number;
+  reputationAmount: string;
+}
+
+export interface ReputationOracleAllSkillsResponse {
+  reputations: ReputationOracleSkillsResponse[];
+}
+
 export interface ReputationOracleAllMembersResponse {
   addresses: string[];
 }
