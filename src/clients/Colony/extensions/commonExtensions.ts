@@ -13,6 +13,7 @@ import { ColonyVersion } from '../../../versions';
 import {
   ReputationOracleResponse,
   ReputationOracleAllMembersResponse,
+  ReputationOracleAllSkillsResponse,
 } from '../../../types';
 
 import { IColony as IColonyV1 } from '../../../contracts/1/IColony';
@@ -206,6 +207,17 @@ export type ExtendedIColony<T extends AnyIColony = AnyIColony> = T & {
     address: string,
     customRootHash?: string,
   ): Promise<ReputationOracleResponse>;
+
+  getReputationAcrossDomains(
+    address: string,
+    customRootHash?: string,
+  ): Promise<
+    {
+      domainId: number;
+      skillId: number;
+      reputationAmount?: BigNumberish;
+    }[]
+  >;
 
   getMembersReputation(
     skillId: BigNumberish,
@@ -944,6 +956,61 @@ async function getReputation(
   };
 }
 
+async function getReputationAcrossDomains(
+  this: ExtendedIColony,
+  address: string,
+  customRootHash?: string,
+): Promise<
+  {
+    domainId: number;
+    skillId: number;
+    reputationAmount?: BigNumberish;
+  }[]
+> {
+  if (!isAddress(address)) {
+    throw new Error('Please provide a valid address');
+  }
+
+  const { network, reputationOracleEndpoint } = this.networkClient;
+
+  const rootHash =
+    customRootHash || (await this.networkClient.getReputationRootHash());
+
+  const response = await fetch(
+    `${reputationOracleEndpoint}/${network}/${rootHash}/${this.address}/${address}/all`,
+  );
+  const result: ReputationOracleAllSkillsResponse = await response.json();
+
+  const domainCount = await this.getDomainCount();
+  const allColonyDomains =
+    (await Promise.all(
+      Array.from(new Array(domainCount.toNumber())).map(async (_, index) => {
+        const domainId = index + 1;
+        const domain = await this.getDomain(domainId);
+        return {
+          domainId,
+          skillId: domain.skillId.toNumber(),
+        };
+      }),
+    )) || [];
+
+  return allColonyDomains.map((domain) => {
+    let reputationAmount;
+    const skillAssignedToDomain = (result?.reputations || []).find(
+      ({ skill_id: skillId }) => skillId === domain.skillId,
+    );
+    if (skillAssignedToDomain) {
+      reputationAmount = skillAssignedToDomain?.reputationAmount;
+    }
+    return {
+      ...domain,
+      reputationAmount: reputationAmount
+        ? bigNumberify(reputationAmount)
+        : undefined,
+    };
+  });
+}
+
 async function getMembersReputation(
   this: ExtendedIColony,
   skillId: BigNumberish,
@@ -1078,6 +1145,9 @@ export const addExtensions = <T extends ExtendedIColony>(
   );
 
   instance.getReputation = getReputation.bind(instance);
+  instance.getReputationAcrossDomains = getReputationAcrossDomains.bind(
+    instance,
+  );
   instance.getMembersReputation = getMembersReputation.bind(instance);
 
   /* eslint-enable no-param-reassign, max-len */
