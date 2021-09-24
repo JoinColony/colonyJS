@@ -132,11 +132,13 @@ const CoinMachineExtensionVersionCompatibilityMap: Record<
 export enum VotingReputationExtensionVersion {
   CeruleanLightweightSpaceship = 1,
   DandelionLightweightSpaceship = 2,
+  EbonyLightweightSpaceship = 3,
 }
 
 const votingReputationReleaseMap = {
   [VotingReputationExtensionVersion.CeruleanLightweightSpaceship]: `clwss`,
   [VotingReputationExtensionVersion.DandelionLightweightSpaceship]: `dlwss`,
+  [VotingReputationExtensionVersion.EbonyLightweightSpaceship]: `elwss`,
 };
 
 export const CurrentVotingReputationVersion = parseInt(
@@ -154,6 +156,14 @@ const VotingReputationExtensionVersionIncompatibilityMap: Record<
 > = {
   [VotingReputationExtensionVersion.CeruleanLightweightSpaceship]: [],
   [VotingReputationExtensionVersion.DandelionLightweightSpaceship]: [
+    ColonyVersion.GoerliGlider,
+    ColonyVersion.Glider,
+    ColonyVersion.AuburnGlider,
+    ColonyVersion.BurgundyGlider,
+    ColonyVersion.LightweightSpaceship,
+    ColonyVersion.CeruleanLightweightSpaceship,
+  ],
+  [VotingReputationExtensionVersion.EbonyLightweightSpaceship]: [
     ColonyVersion.GoerliGlider,
     ColonyVersion.Glider,
     ColonyVersion.AuburnGlider,
