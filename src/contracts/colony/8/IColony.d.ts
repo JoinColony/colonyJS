@@ -885,6 +885,15 @@ interface IColonyInterface extends Interface {
       ]): string[];
     }>;
 
+    ArbitraryReputationUpdate: TypedEventDescription<{
+      encodeTopics([agent, user, skillId, amount]: [
+        null,
+        null,
+        null,
+        null
+      ]): string[];
+    }>;
+
     ColonyBootstrapped: TypedEventDescription<{
       encodeTopics([agent, users, amounts]: [null, null, null]): string[];
     }>;
@@ -8195,6 +8204,13 @@ export class IColony extends Contract {
       agent: string | null,
       txHash: Arrayish | null,
       metadata: null
+    ): EventFilter;
+
+    ArbitraryReputationUpdate(
+      agent: null,
+      user: null,
+      skillId: null,
+      amount: null
     ): EventFilter;
 
     ColonyBootstrapped(agent: null, users: null, amounts: null): EventFilter;
