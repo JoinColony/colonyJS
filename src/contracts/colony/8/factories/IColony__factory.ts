@@ -53,6 +53,37 @@ const _abi = [
       },
       {
         indexed: false,
+        internalType: "address",
+        name: "user",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "skillId",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "int256",
+        name: "amount",
+        type: "int256",
+      },
+    ],
+    name: "ArbitraryReputationUpdate",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address",
+      },
+      {
+        indexed: false,
         internalType: "address[]",
         name: "users",
         type: "address[]",
