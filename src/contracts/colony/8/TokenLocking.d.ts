@@ -15,6 +15,18 @@ interface TokenLockingInterface extends Interface {
   functions: {
     authority: TypedFunctionDescription<{ encode([]: []): string }>;
 
+    executeMetaTransaction: TypedFunctionDescription<{
+      encode([_user, _payload, _sigR, _sigS, _sigV]: [
+        string,
+        Arrayish,
+        Arrayish,
+        Arrayish,
+        BigNumberish
+      ]): string;
+    }>;
+
+    getChainId: TypedFunctionDescription<{ encode([]: []): string }>;
+
     owner: TypedFunctionDescription<{ encode([]: []): string }>;
 
     setAuthority: TypedFunctionDescription<{
@@ -22,6 +34,22 @@ interface TokenLockingInterface extends Interface {
     }>;
 
     setOwner: TypedFunctionDescription<{ encode([owner_]: [string]): string }>;
+
+    verify: TypedFunctionDescription<{
+      encode([_owner, _nonce, _chainId, _payload, _sigR, _sigS, _sigV]: [
+        string,
+        BigNumberish,
+        BigNumberish,
+        Arrayish,
+        Arrayish,
+        Arrayish,
+        BigNumberish
+      ]): string;
+    }>;
+
+    getMetatransactionNonce: TypedFunctionDescription<{
+      encode([userAddress]: [string]): string;
+    }>;
 
     setColonyNetwork: TypedFunctionDescription<{
       encode([_colonyNetwork]: [string]): string;
@@ -131,6 +159,14 @@ interface TokenLockingInterface extends Interface {
       encodeTopics([owner]: [string | null]): string[];
     }>;
 
+    MetaTransactionExecuted: TypedEventDescription<{
+      encodeTopics([user, relayerAddress, functionSignature]: [
+        null,
+        null,
+        null
+      ]): string[];
+    }>;
+
     StakeTransferred: TypedEventDescription<{
       encodeTopics([token, by, from, to, amount]: [
         null,
@@ -224,6 +260,44 @@ export class TokenLocking extends Contract {
 
     "authority()"(overrides?: TransactionOverrides): Promise<string>;
 
+    /**
+     * Main function to be called when user wants to execute meta transaction. The actual function to be called should be passed as param with name functionSignature Here the basic signature recovery is being used. Signature is expected to be generated using personal_sign method.
+     * @param _payload Function call to make via meta transaction
+     * @param _sigR R part of the signature
+     * @param _sigS S part of the signature
+     * @param _sigV V part of the signature
+     * @param _user Address of user trying to do meta transaction
+     */
+    executeMetaTransaction(
+      _user: string,
+      _payload: Arrayish,
+      _sigR: Arrayish,
+      _sigS: Arrayish,
+      _sigV: BigNumberish,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Main function to be called when user wants to execute meta transaction. The actual function to be called should be passed as param with name functionSignature Here the basic signature recovery is being used. Signature is expected to be generated using personal_sign method.
+     * @param _payload Function call to make via meta transaction
+     * @param _sigR R part of the signature
+     * @param _sigS S part of the signature
+     * @param _sigV V part of the signature
+     * @param _user Address of user trying to do meta transaction
+     */
+    "executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)"(
+      _user: string,
+      _payload: Arrayish,
+      _sigR: Arrayish,
+      _sigS: Arrayish,
+      _sigV: BigNumberish,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    getChainId(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    "getChainId()"(overrides?: TransactionOverrides): Promise<BigNumber>;
+
     owner(overrides?: TransactionOverrides): Promise<string>;
 
     "owner()"(overrides?: TransactionOverrides): Promise<string>;
@@ -247,6 +321,38 @@ export class TokenLocking extends Contract {
       owner_: string,
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
+
+    verify(
+      _owner: string,
+      _nonce: BigNumberish,
+      _chainId: BigNumberish,
+      _payload: Arrayish,
+      _sigR: Arrayish,
+      _sigS: Arrayish,
+      _sigV: BigNumberish,
+      overrides?: TransactionOverrides
+    ): Promise<boolean>;
+
+    "verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)"(
+      _owner: string,
+      _nonce: BigNumberish,
+      _chainId: BigNumberish,
+      _payload: Arrayish,
+      _sigR: Arrayish,
+      _sigS: Arrayish,
+      _sigV: BigNumberish,
+      overrides?: TransactionOverrides
+    ): Promise<boolean>;
+
+    getMetatransactionNonce(
+      userAddress: string,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    "getMetatransactionNonce(address)"(
+      userAddress: string,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
 
     setColonyNetwork(
       _colonyNetwork: string,
@@ -519,6 +625,44 @@ export class TokenLocking extends Contract {
 
   "authority()"(overrides?: TransactionOverrides): Promise<string>;
 
+  /**
+   * Main function to be called when user wants to execute meta transaction. The actual function to be called should be passed as param with name functionSignature Here the basic signature recovery is being used. Signature is expected to be generated using personal_sign method.
+   * @param _payload Function call to make via meta transaction
+   * @param _sigR R part of the signature
+   * @param _sigS S part of the signature
+   * @param _sigV V part of the signature
+   * @param _user Address of user trying to do meta transaction
+   */
+  executeMetaTransaction(
+    _user: string,
+    _payload: Arrayish,
+    _sigR: Arrayish,
+    _sigS: Arrayish,
+    _sigV: BigNumberish,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * Main function to be called when user wants to execute meta transaction. The actual function to be called should be passed as param with name functionSignature Here the basic signature recovery is being used. Signature is expected to be generated using personal_sign method.
+   * @param _payload Function call to make via meta transaction
+   * @param _sigR R part of the signature
+   * @param _sigS S part of the signature
+   * @param _sigV V part of the signature
+   * @param _user Address of user trying to do meta transaction
+   */
+  "executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)"(
+    _user: string,
+    _payload: Arrayish,
+    _sigR: Arrayish,
+    _sigS: Arrayish,
+    _sigV: BigNumberish,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  getChainId(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+  "getChainId()"(overrides?: TransactionOverrides): Promise<BigNumber>;
+
   owner(overrides?: TransactionOverrides): Promise<string>;
 
   "owner()"(overrides?: TransactionOverrides): Promise<string>;
@@ -542,6 +686,38 @@ export class TokenLocking extends Contract {
     owner_: string,
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
+
+  verify(
+    _owner: string,
+    _nonce: BigNumberish,
+    _chainId: BigNumberish,
+    _payload: Arrayish,
+    _sigR: Arrayish,
+    _sigS: Arrayish,
+    _sigV: BigNumberish,
+    overrides?: TransactionOverrides
+  ): Promise<boolean>;
+
+  "verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)"(
+    _owner: string,
+    _nonce: BigNumberish,
+    _chainId: BigNumberish,
+    _payload: Arrayish,
+    _sigR: Arrayish,
+    _sigS: Arrayish,
+    _sigV: BigNumberish,
+    overrides?: TransactionOverrides
+  ): Promise<boolean>;
+
+  getMetatransactionNonce(
+    userAddress: string,
+    overrides?: TransactionOverrides
+  ): Promise<BigNumber>;
+
+  "getMetatransactionNonce(address)"(
+    userAddress: string,
+    overrides?: TransactionOverrides
+  ): Promise<BigNumber>;
 
   setColonyNetwork(
     _colonyNetwork: string,
@@ -816,6 +992,12 @@ export class TokenLocking extends Contract {
 
     LogSetOwner(owner: string | null): EventFilter;
 
+    MetaTransactionExecuted(
+      user: null,
+      relayerAddress: null,
+      functionSignature: null
+    ): EventFilter;
+
     StakeTransferred(
       token: null,
       by: null,
@@ -872,6 +1054,44 @@ export class TokenLocking extends Contract {
 
     "authority()"(overrides?: TransactionOverrides): Promise<BigNumber>;
 
+    /**
+     * Main function to be called when user wants to execute meta transaction. The actual function to be called should be passed as param with name functionSignature Here the basic signature recovery is being used. Signature is expected to be generated using personal_sign method.
+     * @param _payload Function call to make via meta transaction
+     * @param _sigR R part of the signature
+     * @param _sigS S part of the signature
+     * @param _sigV V part of the signature
+     * @param _user Address of user trying to do meta transaction
+     */
+    executeMetaTransaction(
+      _user: string,
+      _payload: Arrayish,
+      _sigR: Arrayish,
+      _sigS: Arrayish,
+      _sigV: BigNumberish,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * Main function to be called when user wants to execute meta transaction. The actual function to be called should be passed as param with name functionSignature Here the basic signature recovery is being used. Signature is expected to be generated using personal_sign method.
+     * @param _payload Function call to make via meta transaction
+     * @param _sigR R part of the signature
+     * @param _sigS S part of the signature
+     * @param _sigV V part of the signature
+     * @param _user Address of user trying to do meta transaction
+     */
+    "executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)"(
+      _user: string,
+      _payload: Arrayish,
+      _sigR: Arrayish,
+      _sigS: Arrayish,
+      _sigV: BigNumberish,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    getChainId(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    "getChainId()"(overrides?: TransactionOverrides): Promise<BigNumber>;
+
     owner(overrides?: TransactionOverrides): Promise<BigNumber>;
 
     "owner()"(overrides?: TransactionOverrides): Promise<BigNumber>;
@@ -893,6 +1113,38 @@ export class TokenLocking extends Contract {
 
     "setOwner(address)"(
       owner_: string,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    verify(
+      _owner: string,
+      _nonce: BigNumberish,
+      _chainId: BigNumberish,
+      _payload: Arrayish,
+      _sigR: Arrayish,
+      _sigS: Arrayish,
+      _sigV: BigNumberish,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    "verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)"(
+      _owner: string,
+      _nonce: BigNumberish,
+      _chainId: BigNumberish,
+      _payload: Arrayish,
+      _sigR: Arrayish,
+      _sigS: Arrayish,
+      _sigV: BigNumberish,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    getMetatransactionNonce(
+      userAddress: string,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    "getMetatransactionNonce(address)"(
+      userAddress: string,
       overrides?: TransactionOverrides
     ): Promise<BigNumber>;
 
