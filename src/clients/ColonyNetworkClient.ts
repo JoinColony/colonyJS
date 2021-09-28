@@ -1,6 +1,6 @@
 import { ContractFactory, ContractTransaction, Signer } from 'ethers';
 import { Provider } from 'ethers/providers';
-import { BigNumber } from 'ethers/utils';
+import { BigNumber, BigNumberish } from 'ethers/utils';
 
 import { ColonyClient } from '../types';
 
@@ -40,7 +40,7 @@ interface ExtendedEstimate extends NetworkEstimate {
   deployToken(
     name: string,
     symbol: string,
-    decimals?: number,
+    decimals?: BigNumberish,
   ): Promise<BigNumber>;
 }
 
@@ -80,7 +80,7 @@ export interface ColonyNetworkClient extends IColonyNetwork {
   deployToken(
     name: string,
     symbol: string,
-    decimals?: number,
+    decimals?: BigNumberish,
     overrides?: TransactionOverrides,
   ): Promise<ContractTransaction>;
   /**
