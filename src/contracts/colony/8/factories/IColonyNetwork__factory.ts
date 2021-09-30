@@ -535,6 +535,19 @@ const _abi = [
       {
         indexed: false,
         internalType: "address",
+        name: "tokenAuthorityAddress",
+        type: "address",
+      },
+    ],
+    name: "TokenAuthorityDeployed",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
         name: "tokenAddress",
         type: "address",
       },
@@ -2064,7 +2077,36 @@ const _abi = [
         type: "uint8",
       },
     ],
-    name: "deployToken",
+    name: "deployTokenViaNetwork",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_token",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "_colony",
+        type: "address",
+      },
+      {
+        internalType: "address[]",
+        name: "allowedToTransfer",
+        type: "address[]",
+      },
+    ],
+    name: "deployTokenAuthority",
     outputs: [
       {
         internalType: "address",
