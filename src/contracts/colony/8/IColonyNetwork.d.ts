@@ -322,11 +322,19 @@ interface IColonyNetworkInterface extends Interface {
       encode([]: []): string;
     }>;
 
-    deployToken: TypedFunctionDescription<{
+    deployTokenViaNetwork: TypedFunctionDescription<{
       encode([_name, _symbol, _decimals]: [
         string,
         string,
         BigNumberish
+      ]): string;
+    }>;
+
+    deployTokenAuthority: TypedFunctionDescription<{
+      encode([_token, _colony, allowedToTransfer]: [
+        string,
+        string,
+        string[]
       ]): string;
     }>;
   };
@@ -471,6 +479,10 @@ interface IColonyNetworkInterface extends Interface {
 
     SkillAdded: TypedEventDescription<{
       encodeTopics([skillId, parentSkillId]: [null, null]): string[];
+    }>;
+
+    TokenAuthorityDeployed: TypedEventDescription<{
+      encodeTopics([tokenAuthorityAddress]: [null]): string[];
     }>;
 
     TokenDeployed: TypedEventDescription<{
@@ -2013,7 +2025,7 @@ export class IColonyNetwork extends Contract {
      * @param _name The name of the token
      * @param _symbol The short 'ticket' symbol for the token
      */
-    deployToken(
+    deployTokenViaNetwork(
       _name: string,
       _symbol: string,
       _decimals: BigNumberish,
@@ -2027,10 +2039,38 @@ export class IColonyNetwork extends Contract {
      * @param _name The name of the token
      * @param _symbol The short 'ticket' symbol for the token
      */
-    "deployToken(string,string,uint8)"(
+    "deployTokenViaNetwork(string,string,uint8)"(
       _name: string,
       _symbol: string,
       _decimals: BigNumberish,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * This is more expensive than deploying a token directly, but is able to be done via a metatransaction
+     * Called to deploy a token authority
+     * @param _colony The address of the colony in control of the token
+     * @param _token The address of the otken
+     * @param allowedToTransfer An array of addresses that are allowed to transfer the token even if it's locked
+     */
+    deployTokenAuthority(
+      _token: string,
+      _colony: string,
+      allowedToTransfer: string[],
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * This is more expensive than deploying a token directly, but is able to be done via a metatransaction
+     * Called to deploy a token authority
+     * @param _colony The address of the colony in control of the token
+     * @param _token The address of the otken
+     * @param allowedToTransfer An array of addresses that are allowed to transfer the token even if it's locked
+     */
+    "deployTokenAuthority(address,address,address[])"(
+      _token: string,
+      _colony: string,
+      allowedToTransfer: string[],
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
   };
@@ -3533,7 +3573,7 @@ export class IColonyNetwork extends Contract {
    * @param _name The name of the token
    * @param _symbol The short 'ticket' symbol for the token
    */
-  deployToken(
+  deployTokenViaNetwork(
     _name: string,
     _symbol: string,
     _decimals: BigNumberish,
@@ -3547,10 +3587,38 @@ export class IColonyNetwork extends Contract {
    * @param _name The name of the token
    * @param _symbol The short 'ticket' symbol for the token
    */
-  "deployToken(string,string,uint8)"(
+  "deployTokenViaNetwork(string,string,uint8)"(
     _name: string,
     _symbol: string,
     _decimals: BigNumberish,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * This is more expensive than deploying a token directly, but is able to be done via a metatransaction
+   * Called to deploy a token authority
+   * @param _colony The address of the colony in control of the token
+   * @param _token The address of the otken
+   * @param allowedToTransfer An array of addresses that are allowed to transfer the token even if it's locked
+   */
+  deployTokenAuthority(
+    _token: string,
+    _colony: string,
+    allowedToTransfer: string[],
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * This is more expensive than deploying a token directly, but is able to be done via a metatransaction
+   * Called to deploy a token authority
+   * @param _colony The address of the colony in control of the token
+   * @param _token The address of the otken
+   * @param allowedToTransfer An array of addresses that are allowed to transfer the token even if it's locked
+   */
+  "deployTokenAuthority(address,address,address[])"(
+    _token: string,
+    _colony: string,
+    allowedToTransfer: string[],
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
@@ -3648,6 +3716,8 @@ export class IColonyNetwork extends Contract {
     ): EventFilter;
 
     SkillAdded(skillId: null, parentSkillId: null): EventFilter;
+
+    TokenAuthorityDeployed(tokenAuthorityAddress: null): EventFilter;
 
     TokenDeployed(tokenAddress: null): EventFilter;
 
@@ -5110,7 +5180,7 @@ export class IColonyNetwork extends Contract {
      * @param _name The name of the token
      * @param _symbol The short 'ticket' symbol for the token
      */
-    deployToken(
+    deployTokenViaNetwork(
       _name: string,
       _symbol: string,
       _decimals: BigNumberish,
@@ -5124,10 +5194,38 @@ export class IColonyNetwork extends Contract {
      * @param _name The name of the token
      * @param _symbol The short 'ticket' symbol for the token
      */
-    "deployToken(string,string,uint8)"(
+    "deployTokenViaNetwork(string,string,uint8)"(
       _name: string,
       _symbol: string,
       _decimals: BigNumberish,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * This is more expensive than deploying a token directly, but is able to be done via a metatransaction
+     * Called to deploy a token authority
+     * @param _colony The address of the colony in control of the token
+     * @param _token The address of the otken
+     * @param allowedToTransfer An array of addresses that are allowed to transfer the token even if it's locked
+     */
+    deployTokenAuthority(
+      _token: string,
+      _colony: string,
+      allowedToTransfer: string[],
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * This is more expensive than deploying a token directly, but is able to be done via a metatransaction
+     * Called to deploy a token authority
+     * @param _colony The address of the colony in control of the token
+     * @param _token The address of the otken
+     * @param allowedToTransfer An array of addresses that are allowed to transfer the token even if it's locked
+     */
+    "deployTokenAuthority(address,address,address[])"(
+      _token: string,
+      _colony: string,
+      allowedToTransfer: string[],
       overrides?: TransactionOverrides
     ): Promise<BigNumber>;
   };
