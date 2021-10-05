@@ -21,21 +21,7 @@ interface IColonyNetworkInterface extends Interface {
 
     enterRecoveryMode: TypedFunctionDescription<{ encode([]: []): string }>;
 
-    executeMetaTransaction: TypedFunctionDescription<{
-      encode([userAddress, payload, sigR, sigS, sigV]: [
-        string,
-        Arrayish,
-        Arrayish,
-        Arrayish,
-        BigNumberish
-      ]): string;
-    }>;
-
     exitRecoveryMode: TypedFunctionDescription<{ encode([]: []): string }>;
-
-    getMetatransactionNonce: TypedFunctionDescription<{
-      encode([userAddress]: [string]): string;
-    }>;
 
     isInRecoveryMode: TypedFunctionDescription<{ encode([]: []): string }>;
 
@@ -321,22 +307,6 @@ interface IColonyNetworkInterface extends Interface {
     getReputationMiningCycleReward: TypedFunctionDescription<{
       encode([]: []): string;
     }>;
-
-    deployTokenViaNetwork: TypedFunctionDescription<{
-      encode([_name, _symbol, _decimals]: [
-        string,
-        string,
-        BigNumberish
-      ]): string;
-    }>;
-
-    deployTokenAuthority: TypedFunctionDescription<{
-      encode([_token, _colony, allowedToTransfer]: [
-        string,
-        string,
-        string[]
-      ]): string;
-    }>;
   };
 
   events: {
@@ -407,14 +377,6 @@ interface IColonyNetworkInterface extends Interface {
       ]): string[];
     }>;
 
-    MetaTransactionExecuted: TypedEventDescription<{
-      encodeTopics([userAddress, relayerAddress, payload]: [
-        null,
-        null,
-        null
-      ]): string[];
-    }>;
-
     MiningCycleResolverSet: TypedEventDescription<{
       encodeTopics([miningCycleResolver]: [null]): string[];
     }>;
@@ -479,14 +441,6 @@ interface IColonyNetworkInterface extends Interface {
 
     SkillAdded: TypedEventDescription<{
       encodeTopics([skillId, parentSkillId]: [null, null]): string[];
-    }>;
-
-    TokenAuthorityDeployed: TypedEventDescription<{
-      encodeTopics([tokenAuthorityAddress]: [null]): string[];
-    }>;
-
-    TokenDeployed: TypedEventDescription<{
-      encodeTopics([tokenAddress]: [null]): string[];
     }>;
 
     TokenLockingAddressSet: TypedEventDescription<{
@@ -569,40 +523,6 @@ export class IColonyNetwork extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
-     * Executes a metatransaction targeting this contract
-     * @param payload The transaction data that will be executed if signature valid
-     * @param sigR The 'r' part of the signature
-     * @param sigS The 's' part of the signature
-     * @param sigV The 'v' part of the signature
-     * @param userAddress The address of the user that signed the metatransaction
-     */
-    executeMetaTransaction(
-      userAddress: string,
-      payload: Arrayish,
-      sigR: Arrayish,
-      sigS: Arrayish,
-      sigV: BigNumberish,
-      overrides?: TransactionOverrides
-    ): Promise<ContractTransaction>;
-
-    /**
-     * Executes a metatransaction targeting this contract
-     * @param payload The transaction data that will be executed if signature valid
-     * @param sigR The 'r' part of the signature
-     * @param sigS The 's' part of the signature
-     * @param sigV The 'v' part of the signature
-     * @param userAddress The address of the user that signed the metatransaction
-     */
-    "executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)"(
-      userAddress: string,
-      payload: Arrayish,
-      sigR: Arrayish,
-      sigS: Arrayish,
-      sigV: BigNumberish,
-      overrides?: TransactionOverrides
-    ): Promise<ContractTransaction>;
-
-    /**
      * Exit recovery mode, can be called by anyone if enough whitelist approvals are given.
      */
     exitRecoveryMode(
@@ -615,24 +535,6 @@ export class IColonyNetwork extends Contract {
     "exitRecoveryMode()"(
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
-
-    /**
-     * Gets the next metatransaction nonce for user that should be used targeting this contract
-     * @param userAddress The address of the user that will sign the metatransaction
-     */
-    getMetatransactionNonce(
-      userAddress: string,
-      overrides?: TransactionOverrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Gets the next metatransaction nonce for user that should be used targeting this contract
-     * @param userAddress The address of the user that will sign the metatransaction
-     */
-    "getMetatransactionNonce(address)"(
-      userAddress: string,
-      overrides?: TransactionOverrides
-    ): Promise<BigNumber>;
 
     /**
      * Is colony network in recovery mode.
@@ -2017,62 +1919,6 @@ export class IColonyNetwork extends Contract {
     "getReputationMiningCycleReward()"(
       overrides?: TransactionOverrides
     ): Promise<BigNumber>;
-
-    /**
-     * This is more expensive than deploying a token directly, but is able to be done via a metatransaction
-     * Called to deploy a token.
-     * @param _decimals The number of decimal places that 1 user-facing token can be divided up in to In the case of ETH, and most tokens, this is 18.
-     * @param _name The name of the token
-     * @param _symbol The short 'ticket' symbol for the token
-     */
-    deployTokenViaNetwork(
-      _name: string,
-      _symbol: string,
-      _decimals: BigNumberish,
-      overrides?: TransactionOverrides
-    ): Promise<ContractTransaction>;
-
-    /**
-     * This is more expensive than deploying a token directly, but is able to be done via a metatransaction
-     * Called to deploy a token.
-     * @param _decimals The number of decimal places that 1 user-facing token can be divided up in to In the case of ETH, and most tokens, this is 18.
-     * @param _name The name of the token
-     * @param _symbol The short 'ticket' symbol for the token
-     */
-    "deployTokenViaNetwork(string,string,uint8)"(
-      _name: string,
-      _symbol: string,
-      _decimals: BigNumberish,
-      overrides?: TransactionOverrides
-    ): Promise<ContractTransaction>;
-
-    /**
-     * This is more expensive than deploying a token directly, but is able to be done via a metatransaction
-     * Called to deploy a token authority
-     * @param _colony The address of the colony in control of the token
-     * @param _token The address of the otken
-     * @param allowedToTransfer An array of addresses that are allowed to transfer the token even if it's locked
-     */
-    deployTokenAuthority(
-      _token: string,
-      _colony: string,
-      allowedToTransfer: string[],
-      overrides?: TransactionOverrides
-    ): Promise<ContractTransaction>;
-
-    /**
-     * This is more expensive than deploying a token directly, but is able to be done via a metatransaction
-     * Called to deploy a token authority
-     * @param _colony The address of the colony in control of the token
-     * @param _token The address of the otken
-     * @param allowedToTransfer An array of addresses that are allowed to transfer the token even if it's locked
-     */
-    "deployTokenAuthority(address,address,address[])"(
-      _token: string,
-      _colony: string,
-      allowedToTransfer: string[],
-      overrides?: TransactionOverrides
-    ): Promise<ContractTransaction>;
   };
 
   /**
@@ -2124,40 +1970,6 @@ export class IColonyNetwork extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
-   * Executes a metatransaction targeting this contract
-   * @param payload The transaction data that will be executed if signature valid
-   * @param sigR The 'r' part of the signature
-   * @param sigS The 's' part of the signature
-   * @param sigV The 'v' part of the signature
-   * @param userAddress The address of the user that signed the metatransaction
-   */
-  executeMetaTransaction(
-    userAddress: string,
-    payload: Arrayish,
-    sigR: Arrayish,
-    sigS: Arrayish,
-    sigV: BigNumberish,
-    overrides?: TransactionOverrides
-  ): Promise<ContractTransaction>;
-
-  /**
-   * Executes a metatransaction targeting this contract
-   * @param payload The transaction data that will be executed if signature valid
-   * @param sigR The 'r' part of the signature
-   * @param sigS The 's' part of the signature
-   * @param sigV The 'v' part of the signature
-   * @param userAddress The address of the user that signed the metatransaction
-   */
-  "executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)"(
-    userAddress: string,
-    payload: Arrayish,
-    sigR: Arrayish,
-    sigS: Arrayish,
-    sigV: BigNumberish,
-    overrides?: TransactionOverrides
-  ): Promise<ContractTransaction>;
-
-  /**
    * Exit recovery mode, can be called by anyone if enough whitelist approvals are given.
    */
   exitRecoveryMode(
@@ -2170,24 +1982,6 @@ export class IColonyNetwork extends Contract {
   "exitRecoveryMode()"(
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
-
-  /**
-   * Gets the next metatransaction nonce for user that should be used targeting this contract
-   * @param userAddress The address of the user that will sign the metatransaction
-   */
-  getMetatransactionNonce(
-    userAddress: string,
-    overrides?: TransactionOverrides
-  ): Promise<BigNumber>;
-
-  /**
-   * Gets the next metatransaction nonce for user that should be used targeting this contract
-   * @param userAddress The address of the user that will sign the metatransaction
-   */
-  "getMetatransactionNonce(address)"(
-    userAddress: string,
-    overrides?: TransactionOverrides
-  ): Promise<BigNumber>;
 
   /**
    * Is colony network in recovery mode.
@@ -3566,62 +3360,6 @@ export class IColonyNetwork extends Contract {
     overrides?: TransactionOverrides
   ): Promise<BigNumber>;
 
-  /**
-   * This is more expensive than deploying a token directly, but is able to be done via a metatransaction
-   * Called to deploy a token.
-   * @param _decimals The number of decimal places that 1 user-facing token can be divided up in to In the case of ETH, and most tokens, this is 18.
-   * @param _name The name of the token
-   * @param _symbol The short 'ticket' symbol for the token
-   */
-  deployTokenViaNetwork(
-    _name: string,
-    _symbol: string,
-    _decimals: BigNumberish,
-    overrides?: TransactionOverrides
-  ): Promise<ContractTransaction>;
-
-  /**
-   * This is more expensive than deploying a token directly, but is able to be done via a metatransaction
-   * Called to deploy a token.
-   * @param _decimals The number of decimal places that 1 user-facing token can be divided up in to In the case of ETH, and most tokens, this is 18.
-   * @param _name The name of the token
-   * @param _symbol The short 'ticket' symbol for the token
-   */
-  "deployTokenViaNetwork(string,string,uint8)"(
-    _name: string,
-    _symbol: string,
-    _decimals: BigNumberish,
-    overrides?: TransactionOverrides
-  ): Promise<ContractTransaction>;
-
-  /**
-   * This is more expensive than deploying a token directly, but is able to be done via a metatransaction
-   * Called to deploy a token authority
-   * @param _colony The address of the colony in control of the token
-   * @param _token The address of the otken
-   * @param allowedToTransfer An array of addresses that are allowed to transfer the token even if it's locked
-   */
-  deployTokenAuthority(
-    _token: string,
-    _colony: string,
-    allowedToTransfer: string[],
-    overrides?: TransactionOverrides
-  ): Promise<ContractTransaction>;
-
-  /**
-   * This is more expensive than deploying a token directly, but is able to be done via a metatransaction
-   * Called to deploy a token authority
-   * @param _colony The address of the colony in control of the token
-   * @param _token The address of the otken
-   * @param allowedToTransfer An array of addresses that are allowed to transfer the token even if it's locked
-   */
-  "deployTokenAuthority(address,address,address[])"(
-    _token: string,
-    _colony: string,
-    allowedToTransfer: string[],
-    overrides?: TransactionOverrides
-  ): Promise<ContractTransaction>;
-
   filters: {
     AuctionCreated(auction: null, token: null, quantity: null): EventFilter;
 
@@ -3671,12 +3409,6 @@ export class IColonyNetwork extends Contract {
       rootSkillId: null
     ): EventFilter;
 
-    MetaTransactionExecuted(
-      userAddress: null,
-      relayerAddress: null,
-      payload: null
-    ): EventFilter;
-
     MiningCycleResolverSet(miningCycleResolver: null): EventFilter;
 
     NetworkFeeInverseSet(feeInverse: null): EventFilter;
@@ -3716,10 +3448,6 @@ export class IColonyNetwork extends Contract {
     ): EventFilter;
 
     SkillAdded(skillId: null, parentSkillId: null): EventFilter;
-
-    TokenAuthorityDeployed(tokenAuthorityAddress: null): EventFilter;
-
-    TokenDeployed(tokenAddress: null): EventFilter;
 
     TokenLockingAddressSet(tokenLocking: null): EventFilter;
 
@@ -3772,40 +3500,6 @@ export class IColonyNetwork extends Contract {
     "enterRecoveryMode()"(overrides?: TransactionOverrides): Promise<BigNumber>;
 
     /**
-     * Executes a metatransaction targeting this contract
-     * @param payload The transaction data that will be executed if signature valid
-     * @param sigR The 'r' part of the signature
-     * @param sigS The 's' part of the signature
-     * @param sigV The 'v' part of the signature
-     * @param userAddress The address of the user that signed the metatransaction
-     */
-    executeMetaTransaction(
-      userAddress: string,
-      payload: Arrayish,
-      sigR: Arrayish,
-      sigS: Arrayish,
-      sigV: BigNumberish,
-      overrides?: TransactionOverrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Executes a metatransaction targeting this contract
-     * @param payload The transaction data that will be executed if signature valid
-     * @param sigR The 'r' part of the signature
-     * @param sigS The 's' part of the signature
-     * @param sigV The 'v' part of the signature
-     * @param userAddress The address of the user that signed the metatransaction
-     */
-    "executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)"(
-      userAddress: string,
-      payload: Arrayish,
-      sigR: Arrayish,
-      sigS: Arrayish,
-      sigV: BigNumberish,
-      overrides?: TransactionOverrides
-    ): Promise<BigNumber>;
-
-    /**
      * Exit recovery mode, can be called by anyone if enough whitelist approvals are given.
      */
     exitRecoveryMode(overrides?: TransactionOverrides): Promise<BigNumber>;
@@ -3814,24 +3508,6 @@ export class IColonyNetwork extends Contract {
      * Exit recovery mode, can be called by anyone if enough whitelist approvals are given.
      */
     "exitRecoveryMode()"(overrides?: TransactionOverrides): Promise<BigNumber>;
-
-    /**
-     * Gets the next metatransaction nonce for user that should be used targeting this contract
-     * @param userAddress The address of the user that will sign the metatransaction
-     */
-    getMetatransactionNonce(
-      userAddress: string,
-      overrides?: TransactionOverrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Gets the next metatransaction nonce for user that should be used targeting this contract
-     * @param userAddress The address of the user that will sign the metatransaction
-     */
-    "getMetatransactionNonce(address)"(
-      userAddress: string,
-      overrides?: TransactionOverrides
-    ): Promise<BigNumber>;
 
     /**
      * Is colony network in recovery mode.
@@ -5170,62 +4846,6 @@ export class IColonyNetwork extends Contract {
      * Called to get the total per-cycle reputation mining reward.
      */
     "getReputationMiningCycleReward()"(
-      overrides?: TransactionOverrides
-    ): Promise<BigNumber>;
-
-    /**
-     * This is more expensive than deploying a token directly, but is able to be done via a metatransaction
-     * Called to deploy a token.
-     * @param _decimals The number of decimal places that 1 user-facing token can be divided up in to In the case of ETH, and most tokens, this is 18.
-     * @param _name The name of the token
-     * @param _symbol The short 'ticket' symbol for the token
-     */
-    deployTokenViaNetwork(
-      _name: string,
-      _symbol: string,
-      _decimals: BigNumberish,
-      overrides?: TransactionOverrides
-    ): Promise<BigNumber>;
-
-    /**
-     * This is more expensive than deploying a token directly, but is able to be done via a metatransaction
-     * Called to deploy a token.
-     * @param _decimals The number of decimal places that 1 user-facing token can be divided up in to In the case of ETH, and most tokens, this is 18.
-     * @param _name The name of the token
-     * @param _symbol The short 'ticket' symbol for the token
-     */
-    "deployTokenViaNetwork(string,string,uint8)"(
-      _name: string,
-      _symbol: string,
-      _decimals: BigNumberish,
-      overrides?: TransactionOverrides
-    ): Promise<BigNumber>;
-
-    /**
-     * This is more expensive than deploying a token directly, but is able to be done via a metatransaction
-     * Called to deploy a token authority
-     * @param _colony The address of the colony in control of the token
-     * @param _token The address of the otken
-     * @param allowedToTransfer An array of addresses that are allowed to transfer the token even if it's locked
-     */
-    deployTokenAuthority(
-      _token: string,
-      _colony: string,
-      allowedToTransfer: string[],
-      overrides?: TransactionOverrides
-    ): Promise<BigNumber>;
-
-    /**
-     * This is more expensive than deploying a token directly, but is able to be done via a metatransaction
-     * Called to deploy a token authority
-     * @param _colony The address of the colony in control of the token
-     * @param _token The address of the otken
-     * @param allowedToTransfer An array of addresses that are allowed to transfer the token even if it's locked
-     */
-    "deployTokenAuthority(address,address,address[])"(
-      _token: string,
-      _colony: string,
-      allowedToTransfer: string[],
       overrides?: TransactionOverrides
     ): Promise<BigNumber>;
   };
