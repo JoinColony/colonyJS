@@ -7,7 +7,7 @@ import {
 } from 'ethers/utils';
 import { Provider } from 'ethers/providers';
 
-import { IColony__factory as IColonyFactory } from '../src/contracts/colony/8/factories/IColony__factory';
+import { IColony__factory as IColonyFactory } from '../src/contracts/colony/9/factories/IColony__factory';
 import { ColonyRole, ColonyRoles, ROOT_DOMAIN_ID } from './constants';
 import { ColonyVersion } from './versions';
 import { IColonyEvents } from './types';
