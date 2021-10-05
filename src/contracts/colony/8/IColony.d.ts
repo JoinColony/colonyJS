@@ -21,21 +21,7 @@ interface IColonyInterface extends Interface {
 
     enterRecoveryMode: TypedFunctionDescription<{ encode([]: []): string }>;
 
-    executeMetaTransaction: TypedFunctionDescription<{
-      encode([userAddress, payload, sigR, sigS, sigV]: [
-        string,
-        Arrayish,
-        Arrayish,
-        Arrayish,
-        BigNumberish
-      ]): string;
-    }>;
-
     exitRecoveryMode: TypedFunctionDescription<{ encode([]: []): string }>;
-
-    getMetatransactionNonce: TypedFunctionDescription<{
-      encode([userAddress]: [string]): string;
-    }>;
 
     isInRecoveryMode: TypedFunctionDescription<{ encode([]: []): string }>;
 
@@ -1068,14 +1054,6 @@ interface IColonyInterface extends Interface {
       encodeTopics([fundingPotId]: [null]): string[];
     }>;
 
-    MetaTransactionExecuted: TypedEventDescription<{
-      encodeTopics([userAddress, relayerAddress, payload]: [
-        null,
-        null,
-        null
-      ]): string[];
-    }>;
-
     PaymentAdded: TypedEventDescription<{
       encodeTopics([agent, paymentId]: [null, null]): string[];
     }>;
@@ -1307,40 +1285,6 @@ export class IColony extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
-     * Executes a metatransaction targeting this contract
-     * @param payload The transaction data that will be executed if signature valid
-     * @param sigR The 'r' part of the signature
-     * @param sigS The 's' part of the signature
-     * @param sigV The 'v' part of the signature
-     * @param userAddress The address of the user that signed the metatransaction
-     */
-    executeMetaTransaction(
-      userAddress: string,
-      payload: Arrayish,
-      sigR: Arrayish,
-      sigS: Arrayish,
-      sigV: BigNumberish,
-      overrides?: TransactionOverrides
-    ): Promise<ContractTransaction>;
-
-    /**
-     * Executes a metatransaction targeting this contract
-     * @param payload The transaction data that will be executed if signature valid
-     * @param sigR The 'r' part of the signature
-     * @param sigS The 's' part of the signature
-     * @param sigV The 'v' part of the signature
-     * @param userAddress The address of the user that signed the metatransaction
-     */
-    "executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)"(
-      userAddress: string,
-      payload: Arrayish,
-      sigR: Arrayish,
-      sigS: Arrayish,
-      sigV: BigNumberish,
-      overrides?: TransactionOverrides
-    ): Promise<ContractTransaction>;
-
-    /**
      * Exit recovery mode, can be called by anyone if enough whitelist approvals are given.
      */
     exitRecoveryMode(
@@ -1353,24 +1297,6 @@ export class IColony extends Contract {
     "exitRecoveryMode()"(
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
-
-    /**
-     * Gets the next metatransaction nonce for user that should be used targeting this contract
-     * @param userAddress The address of the user that will sign the metatransaction
-     */
-    getMetatransactionNonce(
-      userAddress: string,
-      overrides?: TransactionOverrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Gets the next metatransaction nonce for user that should be used targeting this contract
-     * @param userAddress The address of the user that will sign the metatransaction
-     */
-    "getMetatransactionNonce(address)"(
-      userAddress: string,
-      overrides?: TransactionOverrides
-    ): Promise<BigNumber>;
 
     /**
      * Is colony network in recovery mode.
@@ -4848,40 +4774,6 @@ export class IColony extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
-   * Executes a metatransaction targeting this contract
-   * @param payload The transaction data that will be executed if signature valid
-   * @param sigR The 'r' part of the signature
-   * @param sigS The 's' part of the signature
-   * @param sigV The 'v' part of the signature
-   * @param userAddress The address of the user that signed the metatransaction
-   */
-  executeMetaTransaction(
-    userAddress: string,
-    payload: Arrayish,
-    sigR: Arrayish,
-    sigS: Arrayish,
-    sigV: BigNumberish,
-    overrides?: TransactionOverrides
-  ): Promise<ContractTransaction>;
-
-  /**
-   * Executes a metatransaction targeting this contract
-   * @param payload The transaction data that will be executed if signature valid
-   * @param sigR The 'r' part of the signature
-   * @param sigS The 's' part of the signature
-   * @param sigV The 'v' part of the signature
-   * @param userAddress The address of the user that signed the metatransaction
-   */
-  "executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)"(
-    userAddress: string,
-    payload: Arrayish,
-    sigR: Arrayish,
-    sigS: Arrayish,
-    sigV: BigNumberish,
-    overrides?: TransactionOverrides
-  ): Promise<ContractTransaction>;
-
-  /**
    * Exit recovery mode, can be called by anyone if enough whitelist approvals are given.
    */
   exitRecoveryMode(
@@ -4894,24 +4786,6 @@ export class IColony extends Contract {
   "exitRecoveryMode()"(
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
-
-  /**
-   * Gets the next metatransaction nonce for user that should be used targeting this contract
-   * @param userAddress The address of the user that will sign the metatransaction
-   */
-  getMetatransactionNonce(
-    userAddress: string,
-    overrides?: TransactionOverrides
-  ): Promise<BigNumber>;
-
-  /**
-   * Gets the next metatransaction nonce for user that should be used targeting this contract
-   * @param userAddress The address of the user that will sign the metatransaction
-   */
-  "getMetatransactionNonce(address)"(
-    userAddress: string,
-    overrides?: TransactionOverrides
-  ): Promise<BigNumber>;
 
   /**
    * Is colony network in recovery mode.
@@ -8460,12 +8334,6 @@ export class IColony extends Contract {
 
     FundingPotAdded(fundingPotId: null): EventFilter;
 
-    MetaTransactionExecuted(
-      userAddress: null,
-      relayerAddress: null,
-      payload: null
-    ): EventFilter;
-
     PaymentAdded(agent: null, paymentId: null): EventFilter;
 
     PaymentFinalized(agent: null, paymentId: BigNumberish | null): EventFilter;
@@ -8621,40 +8489,6 @@ export class IColony extends Contract {
     "enterRecoveryMode()"(overrides?: TransactionOverrides): Promise<BigNumber>;
 
     /**
-     * Executes a metatransaction targeting this contract
-     * @param payload The transaction data that will be executed if signature valid
-     * @param sigR The 'r' part of the signature
-     * @param sigS The 's' part of the signature
-     * @param sigV The 'v' part of the signature
-     * @param userAddress The address of the user that signed the metatransaction
-     */
-    executeMetaTransaction(
-      userAddress: string,
-      payload: Arrayish,
-      sigR: Arrayish,
-      sigS: Arrayish,
-      sigV: BigNumberish,
-      overrides?: TransactionOverrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Executes a metatransaction targeting this contract
-     * @param payload The transaction data that will be executed if signature valid
-     * @param sigR The 'r' part of the signature
-     * @param sigS The 's' part of the signature
-     * @param sigV The 'v' part of the signature
-     * @param userAddress The address of the user that signed the metatransaction
-     */
-    "executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)"(
-      userAddress: string,
-      payload: Arrayish,
-      sigR: Arrayish,
-      sigS: Arrayish,
-      sigV: BigNumberish,
-      overrides?: TransactionOverrides
-    ): Promise<BigNumber>;
-
-    /**
      * Exit recovery mode, can be called by anyone if enough whitelist approvals are given.
      */
     exitRecoveryMode(overrides?: TransactionOverrides): Promise<BigNumber>;
@@ -8663,24 +8497,6 @@ export class IColony extends Contract {
      * Exit recovery mode, can be called by anyone if enough whitelist approvals are given.
      */
     "exitRecoveryMode()"(overrides?: TransactionOverrides): Promise<BigNumber>;
-
-    /**
-     * Gets the next metatransaction nonce for user that should be used targeting this contract
-     * @param userAddress The address of the user that will sign the metatransaction
-     */
-    getMetatransactionNonce(
-      userAddress: string,
-      overrides?: TransactionOverrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Gets the next metatransaction nonce for user that should be used targeting this contract
-     * @param userAddress The address of the user that will sign the metatransaction
-     */
-    "getMetatransactionNonce(address)"(
-      userAddress: string,
-      overrides?: TransactionOverrides
-    ): Promise<BigNumber>;
 
     /**
      * Is colony network in recovery mode.

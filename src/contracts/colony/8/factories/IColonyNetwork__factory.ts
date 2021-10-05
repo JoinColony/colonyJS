@@ -262,31 +262,6 @@ const _abi = [
       {
         indexed: false,
         internalType: "address",
-        name: "userAddress",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "address payable",
-        name: "relayerAddress",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "bytes",
-        name: "payload",
-        type: "bytes",
-      },
-    ],
-    name: "MetaTransactionExecuted",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "address",
         name: "miningCycleResolver",
         type: "address",
       },
@@ -535,32 +510,6 @@ const _abi = [
       {
         indexed: false,
         internalType: "address",
-        name: "tokenAuthorityAddress",
-        type: "address",
-      },
-    ],
-    name: "TokenAuthorityDeployed",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "address",
-        name: "tokenAddress",
-        type: "address",
-      },
-    ],
-    name: "TokenDeployed",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "address",
         name: "tokenLocking",
         type: "address",
       },
@@ -634,68 +583,10 @@ const _abi = [
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "address",
-        name: "userAddress",
-        type: "address",
-      },
-      {
-        internalType: "bytes",
-        name: "payload",
-        type: "bytes",
-      },
-      {
-        internalType: "bytes32",
-        name: "sigR",
-        type: "bytes32",
-      },
-      {
-        internalType: "bytes32",
-        name: "sigS",
-        type: "bytes32",
-      },
-      {
-        internalType: "uint8",
-        name: "sigV",
-        type: "uint8",
-      },
-    ],
-    name: "executeMetaTransaction",
-    outputs: [
-      {
-        internalType: "bytes",
-        name: "",
-        type: "bytes",
-      },
-    ],
-    stateMutability: "payable",
-    type: "function",
-  },
-  {
     inputs: [],
     name: "exitRecoveryMode",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "userAddress",
-        type: "address",
-      },
-    ],
-    name: "getMetatransactionNonce",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "nonce",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
     type: "function",
   },
   {
@@ -2057,64 +1948,6 @@ const _abi = [
       },
     ],
     stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "string",
-        name: "_name",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "_symbol",
-        type: "string",
-      },
-      {
-        internalType: "uint8",
-        name: "_decimals",
-        type: "uint8",
-      },
-    ],
-    name: "deployTokenViaNetwork",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_token",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "_colony",
-        type: "address",
-      },
-      {
-        internalType: "address[]",
-        name: "allowedToTransfer",
-        type: "address[]",
-      },
-    ],
-    name: "deployTokenAuthority",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "nonpayable",
     type: "function",
   },
 ];
