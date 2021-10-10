@@ -1,9 +1,22 @@
 {
   "name": "@colony/colony-js",
-  "version": "v4.0.1",
+  "version": "v4.0.2-rc.0",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
+  "files": [
+    "lib",
+    "lib-esm",
+    "docs",
+    "LICENSE",
+    "package.json",
+    "package-lock.json",
+    "README.md"
+  ],
   "license": "GPL-3.0-only",
+  "engines": {
+    "node": "14.18",
+    "npm": "^8"
+  },
   "scripts": {
     "clean": "rimraf ./lib && rimraf ./lib-esm",
     "build": "npm run clean && npm run compile && npm run compile-esm && npm run copy-declarations && npm run build-docs",
