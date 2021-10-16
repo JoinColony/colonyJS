@@ -5,6 +5,7 @@ export * from './constants';
 export * from './versions';
 export * from './helpers';
 export * from './types';
+export { formatColonyRoles } from './utils';
 
 export { ColonyNetworkClient } from './clients/ColonyNetworkClient';
 export { ColonyClientV1 } from './clients/Colony/ColonyClientV1';
