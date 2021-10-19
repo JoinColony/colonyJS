@@ -1,5 +1,3 @@
-import { BigNumber } from 'ethers/utils';
-
 import { ColonyNetworkClient } from './clients/ColonyNetworkClient';
 import { ColonyClientV1 } from './clients/Colony/ColonyClientV1';
 import { ColonyClientV2 } from './clients/Colony/ColonyClientV2';
@@ -34,25 +32,11 @@ export type ContractClient =
 
 export type { TransactionOverrides } from './contracts/1';
 
-export interface ReputationOracleResponse {
-  branchMask: string;
-  siblings: string[];
-  key: string;
-  value: string;
-  reputationAmount: BigNumber;
-}
-
-export interface ReputationOracleSkillsResponse {
-  skill_id: number;
-  reputationAmount: string;
-}
-
-export interface ReputationOracleAllSkillsResponse {
-  reputations: ReputationOracleSkillsResponse[];
-}
-
-export interface ReputationOracleAllMembersResponse {
-  addresses: string[];
+export enum ReputationMinerEndpoints {
+  UserReputationInSingleDomainWithoutProofs = `UserReputationInSingleDomainWithoutProofs`,
+  UserReputationInSingleDomainWithProofs = `UserReputationInSingleDomainWithProofs`,
+  UserReputationInAllDomains = 'UserReputationInAllDomains',
+  UsersWithReputationInColony = 'UsersWithReputationInColony',
 }
 
 /*

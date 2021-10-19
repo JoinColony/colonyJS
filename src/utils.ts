@@ -4,13 +4,16 @@ import {
   EventFragment,
   LogDescription,
   BigNumber,
+  BigNumberish,
+  bigNumberify,
 } from 'ethers/utils';
 import { Provider } from 'ethers/providers';
 
 import { IColony__factory as IColonyFactory } from '../src/contracts/colony/9/factories/IColony__factory';
 import { ColonyRole, ColonyRoles, ROOT_DOMAIN_ID } from './constants';
 import { ColonyVersion } from './versions';
-import { IColonyEvents } from './types';
+import { IColonyEvents, ReputationMinerEndpoints } from './types';
+import { ColonyNetworkClient } from './clients/ColonyNetworkClient';
 
 interface ColonyRolesMap {
   [userAddress: string]: {
@@ -31,6 +34,41 @@ interface RecoveryRoleSetValues {
   role: ColonyRole;
   setTo: boolean;
 }
+
+interface ReputationOracleSingleDomainWithoutProofsResponse {
+  key: string;
+  value: string;
+  reputationAmount: string;
+}
+
+interface ReputationOracleSingleDomainWithProofsResponse
+  extends ReputationOracleSingleDomainWithoutProofsResponse {
+  branchMask: string;
+  siblings: string[];
+}
+
+interface ReputationOracleAllDomainsResponse {
+  reputations: {
+    skill_id: number;
+    reputationAmount: string;
+  }[];
+}
+
+interface ReputationOracleColonyResponse {
+  addresses: string[];
+}
+
+type ReputationOracleResponseType<
+  R
+> = R extends ReputationMinerEndpoints.UserReputationInSingleDomainWithoutProofs
+  ? ReputationOracleSingleDomainWithoutProofsResponse
+  : R extends ReputationMinerEndpoints.UserReputationInSingleDomainWithProofs
+  ? ReputationOracleSingleDomainWithProofsResponse
+  : R extends ReputationMinerEndpoints.UserReputationInAllDomains
+  ? ReputationOracleAllDomainsResponse
+  : R extends ReputationMinerEndpoints.UsersWithReputationInColony
+  ? ReputationOracleColonyResponse
+  : never;
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const isEqual = require('lodash.isequal');
@@ -204,4 +242,75 @@ export const formatColonyRoles = async (
       domains,
     };
   });
+};
+
+export const fetchReputationOracleData = async <
+  E extends ReputationMinerEndpoints
+>(
+  endpoint: E,
+  networkClient: ColonyNetworkClient,
+  colonyAddress: string,
+  userAddress?: string,
+  skillId?: BigNumberish,
+  customRootHash?: string,
+): Promise<ReputationOracleResponseType<E>> => {
+  if (!isAddress(colonyAddress)) {
+    throw new Error(
+      `Invalid colony address provided to fetch reputation for: ${colonyAddress}`,
+    );
+  }
+  if (
+    endpoint !== ReputationMinerEndpoints.UsersWithReputationInColony &&
+    !isAddress(userAddress || '')
+  ) {
+    throw new Error(
+      `Invalid user address provided to fetch reputation for: ${userAddress}`,
+    );
+  }
+  if (
+    endpoint !== ReputationMinerEndpoints.UserReputationInAllDomains &&
+    !skillId
+  ) {
+    throw new Error(
+      `Invalid skillId provided to fetch reputation for: ${skillId}`,
+    );
+  }
+  const {
+    network: networkName,
+    reputationOracleEndpoint: reputationOracleHostname,
+  } = networkClient;
+
+  const skillIdString = bigNumberify(skillId || '').toString();
+
+  const rootHash =
+    customRootHash || (await networkClient.getReputationRootHash());
+
+  const baseEndpoint = `${reputationOracleHostname}/${networkName}/${rootHash}/${colonyAddress}`;
+
+  switch (endpoint) {
+    case ReputationMinerEndpoints.UserReputationInSingleDomainWithoutProofs: {
+      const response = await fetch(
+        `${baseEndpoint}/${skillIdString}/${userAddress}/noProof`,
+      );
+      return response.json();
+    }
+    case ReputationMinerEndpoints.UserReputationInSingleDomainWithProofs: {
+      const response = await fetch(
+        `${baseEndpoint}/${skillIdString}/${userAddress}`,
+      );
+      return response.json();
+    }
+    case ReputationMinerEndpoints.UserReputationInAllDomains: {
+      const response = await fetch(`${baseEndpoint}/${userAddress}/all`);
+      return response.json();
+    }
+    case ReputationMinerEndpoints.UsersWithReputationInColony: {
+      const response = await fetch(`${baseEndpoint}/${skillIdString}`);
+      return response.json();
+    }
+    default: {
+      const response = await fetch(baseEndpoint);
+      return response.json();
+    }
+  }
 };
