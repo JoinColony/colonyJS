@@ -212,6 +212,16 @@ export type ExtendedIColony<T extends AnyIColony = AnyIColony> = T & {
     reputationAmount: BigNumber;
   }>;
 
+  getReputationWithoutProofs(
+    skillId: BigNumberish,
+    address: string,
+    customRootHash?: string,
+  ): Promise<{
+    key: string;
+    value: string;
+    reputationAmount: BigNumber;
+  }>;
+
   getReputationAcrossDomains(
     address: string,
     customRootHash?: string,
@@ -956,6 +966,30 @@ async function getReputation(
   };
 }
 
+async function getReputationWithoutProofs(
+  this: ExtendedIColony,
+  skillId: BigNumberish,
+  address: string,
+  customRootHash?: string,
+): Promise<{
+  key: string;
+  value: string;
+  reputationAmount: BigNumber;
+}> {
+  const result = await fetchReputationOracleData(
+    ReputationMinerEndpoints.UserReputationInSingleDomainWithoutProofs,
+    this.networkClient,
+    this.address,
+    address,
+    skillId,
+    customRootHash,
+  );
+  return {
+    ...result,
+    reputationAmount: bigNumberify(result.reputationAmount || 0),
+  };
+}
+
 async function getReputationAcrossDomains(
   this: ExtendedIColony,
   address: string,
@@ -1137,6 +1171,9 @@ export const addExtensions = <T extends ExtendedIColony>(
   );
 
   instance.getReputation = getReputation.bind(instance);
+  instance.getReputationWithoutProofs = getReputationWithoutProofs.bind(
+    instance,
+  );
   instance.getReputationAcrossDomains = getReputationAcrossDomains.bind(
     instance,
   );
