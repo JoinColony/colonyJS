@@ -2,7 +2,7 @@ import { ContractFactory, ContractTransaction } from 'ethers';
 import { Arrayish, BigNumber, BigNumberish, bigNumberify } from 'ethers/utils';
 import { MaxUint256, AddressZero } from 'ethers/constants';
 
-import { isAddress } from '../../../utils';
+import { fetchReputationOracleData } from '../../../utils';
 import {
   ClientType,
   ColonyRole,
@@ -10,11 +10,7 @@ import {
   ROOT_DOMAIN_ID,
 } from '../../../constants';
 import { ColonyVersion } from '../../../versions';
-import {
-  ReputationOracleResponse,
-  ReputationOracleAllMembersResponse,
-  ReputationOracleAllSkillsResponse,
-} from '../../../types';
+import { ReputationMinerEndpoints } from '../../../types';
 
 import { IColony as IColonyV1 } from '../../../contracts/1/IColony';
 import { IColony as IColonyV2 } from '../../../contracts/2/IColony';
@@ -208,7 +204,13 @@ export type ExtendedIColony<T extends AnyIColony = AnyIColony> = T & {
     skillId: BigNumberish,
     address: string,
     customRootHash?: string,
-  ): Promise<ReputationOracleResponse>;
+  ): Promise<{
+    key: string;
+    value: string;
+    branchMask: string;
+    siblings: string[];
+    reputationAmount: BigNumber;
+  }>;
 
   getReputationAcrossDomains(
     address: string,
@@ -221,9 +223,7 @@ export type ExtendedIColony<T extends AnyIColony = AnyIColony> = T & {
     }[]
   >;
 
-  getMembersReputation(
-    skillId: BigNumberish,
-  ): Promise<ReputationOracleAllMembersResponse>;
+  getMembersReputation(skillId: BigNumberish): Promise<{ addresses: string[] }>;
 };
 
 export const getPotDomain = async (
@@ -934,23 +934,21 @@ async function getReputation(
   skillId: BigNumberish,
   address: string,
   customRootHash?: string,
-): Promise<ReputationOracleResponse> {
-  if (!isAddress(address)) {
-    throw new Error('Please provide a valid address');
-  }
-
-  const { network, reputationOracleEndpoint } = this.networkClient;
-
-  const skillIdString = bigNumberify(skillId).toString();
-
-  const rootHash =
-    customRootHash || (await this.networkClient.getReputationRootHash());
-
-  const response = await fetch(
-    `${reputationOracleEndpoint}/${network}/${rootHash}/${this.address}/${skillIdString}/${address}`,
+): Promise<{
+  key: string;
+  value: string;
+  branchMask: string;
+  siblings: string[];
+  reputationAmount: BigNumber;
+}> {
+  const result = await fetchReputationOracleData(
+    ReputationMinerEndpoints.UserReputationInSingleDomainWithProofs,
+    this.networkClient,
+    this.address,
+    address,
+    skillId,
+    customRootHash,
   );
-
-  const result = await response.json();
 
   return {
     ...result,
@@ -969,19 +967,14 @@ async function getReputationAcrossDomains(
     reputationAmount?: BigNumberish;
   }[]
 > {
-  if (!isAddress(address)) {
-    throw new Error('Please provide a valid address');
-  }
-
-  const { network, reputationOracleEndpoint } = this.networkClient;
-
-  const rootHash =
-    customRootHash || (await this.networkClient.getReputationRootHash());
-
-  const response = await fetch(
-    `${reputationOracleEndpoint}/${network}/${rootHash}/${this.address}/${address}/all`,
+  const result = await fetchReputationOracleData(
+    ReputationMinerEndpoints.UserReputationInAllDomains,
+    this.networkClient,
+    this.address,
+    address,
+    undefined,
+    customRootHash,
   );
-  const result: ReputationOracleAllSkillsResponse = await response.json();
 
   const domainCount = await this.getDomainCount();
   const allColonyDomains =
@@ -1016,18 +1009,15 @@ async function getReputationAcrossDomains(
 async function getMembersReputation(
   this: ExtendedIColony,
   skillId: BigNumberish,
-): Promise<ReputationOracleAllMembersResponse> {
-  const { network, reputationOracleEndpoint } = this.networkClient;
-
-  const skillIdString = bigNumberify(skillId).toString();
-
-  const rootHash = await this.networkClient.getReputationRootHash();
-
-  const response = await fetch(
-    `${reputationOracleEndpoint}/${network}/${rootHash}/${this.address}/${skillIdString}`,
+): Promise<{ addresses: string[] }> {
+  return fetchReputationOracleData(
+    ReputationMinerEndpoints.UsersWithReputationInColony,
+    this.networkClient,
+    this.address,
+    undefined,
+    skillId,
+    undefined,
   );
-
-  return response.json();
 }
 
 async function deployTokenAuthority(
