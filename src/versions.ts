@@ -24,6 +24,7 @@ export enum ColonyVersion {
   CeruleanLightweightSpaceship = 6,
   DandelionLightweightSpaceship = 7,
   EbonyLightweightSpaceship = 8,
+  UnnamedLightweightSpaceship = 9,
 }
 
 // These are the corresponding git release tags for the deployed versions of the Colony Network

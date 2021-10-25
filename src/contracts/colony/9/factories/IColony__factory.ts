@@ -327,31 +327,6 @@ const _abi = [
       },
       {
         indexed: false,
-        internalType: "bool",
-        name: "deprecated",
-        type: "bool",
-      },
-    ],
-    name: "DomainDeprecated",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "address",
-        name: "agent",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "domainId",
-        type: "uint256",
-      },
-      {
-        indexed: false,
         internalType: "string",
         name: "metadata",
         type: "string",
@@ -2384,34 +2359,6 @@ const _abi = [
     inputs: [
       {
         internalType: "uint256",
-        name: "_permissionDomainId",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "_childSkillIndex",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "_domainId",
-        type: "uint256",
-      },
-      {
-        internalType: "bool",
-        name: "_deprecated",
-        type: "bool",
-      },
-    ],
-    name: "deprecateDomain",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
         name: "_id",
         type: "uint256",
       },
@@ -2429,11 +2376,6 @@ const _abi = [
             internalType: "uint256",
             name: "fundingPotId",
             type: "uint256",
-          },
-          {
-            internalType: "bool",
-            name: "deprecated",
-            type: "bool",
           },
         ],
         internalType: "struct ColonyDataTypes.Domain",
