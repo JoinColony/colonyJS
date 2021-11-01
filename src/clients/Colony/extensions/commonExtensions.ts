@@ -448,7 +448,7 @@ async function getExtensionClient(
   return getVersionedExtensionClient(extensionAddress, this);
 }
 
-export const getMethodSetArchitectureRoleProofs = async (
+export const getRoleSettingProofs = async (
   colonyClient: ExtendedIColony,
   _user: string,
   _domainId: BigNumberish,
@@ -470,6 +470,7 @@ export const getMethodSetArchitectureRoleProofs = async (
   }
   return proofs;
 };
+
 async function setArchitectureRoleWithProofs(
   this: ExtendedIColony,
   _user: string,
@@ -477,10 +478,11 @@ async function setArchitectureRoleWithProofs(
   _setTo: boolean,
   overrides?: TransactionOverrides,
 ): Promise<ContractTransaction> {
-  const [
-    permissionDomainId,
-    childSkillIndex,
-  ] = await getMethodSetArchitectureRoleProofs(this, _user, _domainId);
+  const [permissionDomainId, childSkillIndex] = await getRoleSettingProofs(
+    this,
+    _user,
+    _domainId,
+  );
   return this.setArchitectureRole(
     permissionDomainId,
     childSkillIndex,
@@ -498,18 +500,11 @@ async function setFundingRoleWithProofs(
   _setTo: boolean,
   overrides?: TransactionOverrides,
 ): Promise<ContractTransaction> {
-  let proofs: [BigNumberish, BigNumberish];
-  // This method has two potential permissions, so we try both of them
-  try {
-    proofs = await getPermissionProofs(
-      this,
-      _domainId,
-      ColonyRole.Architecture,
-    );
-  } catch (err) {
-    proofs = await getPermissionProofs(this, _domainId, ColonyRole.Root);
-  }
-  const [permissionDomainId, childSkillIndex] = proofs;
+  const [permissionDomainId, childSkillIndex] = await getRoleSettingProofs(
+    this,
+    _user,
+    _domainId,
+  );
   return this.setFundingRole(
     permissionDomainId,
     childSkillIndex,
@@ -527,18 +522,11 @@ async function setAdministrationRoleWithProofs(
   _setTo: boolean,
   overrides?: TransactionOverrides,
 ): Promise<ContractTransaction> {
-  let proofs: [BigNumberish, BigNumberish];
-  // This method has two potential permissions, so we try both of them
-  try {
-    proofs = await getPermissionProofs(
-      this,
-      _domainId,
-      ColonyRole.Architecture,
-    );
-  } catch (err) {
-    proofs = await getPermissionProofs(this, _domainId, ColonyRole.Root);
-  }
-  const [permissionDomainId, childSkillIndex] = proofs;
+  const [permissionDomainId, childSkillIndex] = await getRoleSettingProofs(
+    this,
+    _user,
+    _domainId,
+  );
   return this.setAdministrationRole(
     permissionDomainId,
     childSkillIndex,
