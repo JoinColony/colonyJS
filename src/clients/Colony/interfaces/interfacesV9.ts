@@ -1,6 +1,6 @@
 import { Arrayish, BigNumberish, Interface } from 'ethers/utils';
 
-import { ColonyRole } from '../../../constants';
+import { ColonyRole, ROOT_DOMAIN_ID } from '../../../constants';
 import { IColony as IColonyV5 } from '../../../contracts/5/IColony';
 import { IColony as IColonyV9 } from '../../../contracts/colony/9/IColony';
 import {
@@ -98,6 +98,10 @@ export type Interfaces = {
   makeExpenditureWithProofs: {
     encode: ([_domainId]: [BigNumberish]) => Promise<string>;
   };
+  /*
+   * @TODO Find out what's going on with this one, as apparently, the method
+   * call requires proofs, while the encode signature does not
+   */
   // setExpenditureClaimDelayWithProofs: {
   //   encode: ([_id, _slot, _claimDelay]: [
   //     BigNumberish,
@@ -108,6 +112,29 @@ export type Interfaces = {
   transferExpenditureViaArbitrationWithProofs: {
     encode: ([_id, _newOwner]: [BigNumberish, string]) => Promise<string>;
   };
+  emitDomainReputationPenaltyWithProofs: {
+    encode: ([_domainId, _user, _amount]: [
+      BigNumberish,
+      string,
+      BigNumberish,
+    ]) => Promise<string>;
+  };
+  setUserRolesWithProofs: {
+    encode: ([_user, _domainId, _roles]: [
+      string,
+      BigNumberish,
+      Arrayish,
+    ]) => Promise<string>;
+  };
+  transferStakeWithProofs: {
+    encode: ([_obligator, _user, _domainId, _amount, _recipient]: [
+      string,
+      string,
+      BigNumberish,
+      BigNumberish,
+      string,
+    ]) => Promise<string>;
+  };
   addDomainWithProofs: {
     encode: ([_parentDomainId, _metadata]: [BigNumberish, string]) => Promise<
       string
@@ -115,6 +142,15 @@ export type Interfaces = {
   };
   editDomainWithProofs: {
     encode: ([_domainId, _metadata]: [BigNumberish, string]) => Promise<string>;
+  };
+  setExpenditureStateWithProofs: {
+    encode: ([_id, _storageSlot, _mask, _keys, _value]: [
+      BigNumberish,
+      BigNumberish,
+      boolean[],
+      Arrayish[],
+      Arrayish,
+    ]) => Promise<string>;
   };
 } & PreviousVersionsInterfaces;
 
@@ -363,6 +399,10 @@ async function makeExpenditureWithProofs(
     _domainId,
   ]);
 }
+/*
+ * @TODO Find out what's going on with this one, as apparently, the method
+ * call requires proofs, while the encode signature does not
+ */
 // async function setExpenditureClaimDelayWithProofs(
 //   this: ValidColony,
 //   [_id, _slot, _claimDelay]: [BigNumberish, BigNumberish, BigNumberish],
@@ -396,6 +436,66 @@ async function transferExpenditureViaArbitrationWithProofs(
     childSkillIndex,
     _id,
     _newOwner,
+  ]);
+}
+async function emitDomainReputationPenaltyWithProofs(
+  this: ValidColony,
+  [_domainId, _user, _amount]: [BigNumberish, string, BigNumberish],
+): Promise<string> {
+  const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this as ExtendedIColony<ValidColony>,
+    _domainId,
+    ColonyRole.Arbitration,
+  );
+  return this.interface.functions.emitDomainReputationPenalty.encode([
+    permissionDomainId,
+    childSkillIndex,
+    _domainId,
+    _user,
+    _amount,
+  ]);
+}
+async function setUserRolesWithProofs(
+  this: ValidColony,
+  [_user, _domainId, _roles]: [string, BigNumberish, Arrayish],
+): Promise<string> {
+  const isRootDomain = _domainId === ROOT_DOMAIN_ID.toString();
+  const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this as ExtendedIColony<ValidColony>,
+    _domainId,
+    isRootDomain ? ColonyRole.Root : ColonyRole.Architecture,
+  );
+  return this.interface.functions.setUserRoles.encode([
+    permissionDomainId,
+    childSkillIndex,
+    _user,
+    _domainId,
+    _roles,
+  ]);
+}
+async function transferStakeWithProofs(
+  this: ValidColony,
+  [_obligator, _user, _domainId, _amount, _recipient]: [
+    string,
+    string,
+    BigNumberish,
+    BigNumberish,
+    string,
+  ],
+): Promise<string> {
+  const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this as ExtendedIColony<ValidColony>,
+    _domainId,
+    ColonyRole.Arbitration,
+  );
+  return this.interface.functions.transferStake.encode([
+    permissionDomainId,
+    childSkillIndex,
+    _obligator,
+    _user,
+    _domainId,
+    _amount,
+    _recipient,
   ]);
 }
 async function addDomainWithProofs(
@@ -449,6 +549,32 @@ async function editDomainWithProofs(
     childSkillIndex,
     _domainId,
     _metadata,
+  ]);
+}
+async function setExpenditureStateWithProofs(
+  this: ValidColony,
+  [_id, _storageSlot, _mask, _keys, _value]: [
+    BigNumberish,
+    BigNumberish,
+    boolean[],
+    Arrayish[],
+    Arrayish,
+  ],
+): Promise<string> {
+  const { domainId } = await this.getExpenditure(_id);
+  const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this as ExtendedIColony<ValidColony>,
+    domainId,
+    ColonyRole.Arbitration,
+  );
+  return this.interface.functions.setExpenditureState.encode([
+    permissionDomainId,
+    childSkillIndex,
+    _id,
+    _storageSlot,
+    _mask,
+    _keys,
+    _value,
   ]);
 }
 /*
@@ -508,11 +634,24 @@ export const addInterfaces = (
   updateColonyClient.interface.functions.transferExpenditureViaArbitrationWithProofs = {
     encode: transferExpenditureViaArbitrationWithProofs.bind(colonyClient),
   };
+  // eslint-disable-next-line max-len
+  updateColonyClient.interface.functions.emitDomainReputationPenaltyWithProofs = {
+    encode: emitDomainReputationPenaltyWithProofs.bind(colonyClient),
+  };
+  updateColonyClient.interface.functions.setUserRolesWithProofs = {
+    encode: setUserRolesWithProofs.bind(colonyClient),
+  };
+  updateColonyClient.interface.functions.transferStakeWithProofs = {
+    encode: transferStakeWithProofs.bind(colonyClient),
+  };
   updateColonyClient.interface.functions.addDomainWithProofs = {
     encode: addDomainWithProofs.bind(colonyClient),
   };
   updateColonyClient.interface.functions.editDomainWithProofs = {
     encode: editDomainWithProofs.bind(colonyClient),
+  };
+  updateColonyClient.interface.functions.setExpenditureStateWithProofs = {
+    encode: setExpenditureStateWithProofs.bind(colonyClient),
   };
   return updateColonyClient as ColonyWithInterfacesV9;
 };
