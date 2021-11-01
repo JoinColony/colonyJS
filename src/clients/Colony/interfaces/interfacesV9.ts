@@ -1,11 +1,6 @@
 import { Arrayish, BigNumberish, Interface } from 'ethers/utils';
 
-import {
-  ClientType,
-  ColonyRole,
-  FundingPotAssociatedType,
-  ROOT_DOMAIN_ID,
-} from '../../../constants';
+import { ColonyRole } from '../../../constants';
 import { IColony as IColonyV5 } from '../../../contracts/5/IColony';
 import { IColony as IColonyV9 } from '../../../contracts/colony/9/IColony';
 import {
@@ -99,6 +94,19 @@ export type Interfaces = {
       BigNumberish,
       boolean,
     ]) => Promise<string>;
+  };
+  makeExpenditureWithProofs: {
+    encode: ([_domainId]: [BigNumberish]) => Promise<string>;
+  };
+  // setExpenditureClaimDelayWithProofs: {
+  //   encode: ([_id, _slot, _claimDelay]: [
+  //     BigNumberish,
+  //     BigNumberish,
+  //     BigNumberish,
+  //   ]) => Promise<string>;
+  // };
+  transferExpenditureViaArbitrationWithProofs: {
+    encode: ([_id, _newOwner]: [BigNumberish, string]) => Promise<string>;
   };
   addDomainWithProofs: {
     encode: ([_parentDomainId, _metadata]: [BigNumberish, string]) => Promise<
@@ -340,6 +348,56 @@ async function setArbitrationRoleWithProofs(
     _setTo,
   ]);
 }
+async function makeExpenditureWithProofs(
+  this: ValidColony,
+  [_domainId]: [BigNumberish],
+): Promise<string> {
+  const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this as ExtendedIColony<ValidColony>,
+    _domainId,
+    ColonyRole.Administration,
+  );
+  return this.interface.functions.makeExpenditure.encode([
+    permissionDomainId,
+    childSkillIndex,
+    _domainId,
+  ]);
+}
+// async function setExpenditureClaimDelayWithProofs(
+//   this: ValidColony,
+//   [_id, _slot, _claimDelay]: [BigNumberish, BigNumberish, BigNumberish],
+// ): Promise<string> {
+//   const { domainId } = await this.getExpenditure(_id);
+//   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+//     this as ExtendedIColony<ValidColony>,
+//     domainId,
+//     ColonyRole.Arbitration,
+//   );
+//   return this.interface.functions.setExpenditureClaimDelay.encode([
+//     permissionDomainId,
+//     childSkillIndex,
+//     _id,
+//     _slot,
+//     _claimDelay,
+//   ]);
+// }
+async function transferExpenditureViaArbitrationWithProofs(
+  this: ValidColony,
+  [_id, _newOwner]: [BigNumberish, string],
+): Promise<string> {
+  const { domainId } = await this.getExpenditure(_id);
+  const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+    this as ExtendedIColony<ValidColony>,
+    domainId,
+    ColonyRole.Arbitration,
+  );
+  return this.interface.functions.transferExpenditureViaArbitration.encode([
+    permissionDomainId,
+    childSkillIndex,
+    _id,
+    _newOwner,
+  ]);
+}
 async function addDomainWithProofs(
   this: ValidColony,
   [_parentDomainId, _metadata]: [BigNumberish, string],
@@ -442,6 +500,13 @@ export const addInterfaces = (
   };
   updateColonyClient.interface.functions.setArbitrationRoleWithProofs = {
     encode: setArbitrationRoleWithProofs.bind(colonyClient),
+  };
+  updateColonyClient.interface.functions.makeExpenditureWithProofs = {
+    encode: makeExpenditureWithProofs.bind(colonyClient),
+  };
+  // eslint-disable-next-line max-len
+  updateColonyClient.interface.functions.transferExpenditureViaArbitrationWithProofs = {
+    encode: transferExpenditureViaArbitrationWithProofs.bind(colonyClient),
   };
   updateColonyClient.interface.functions.addDomainWithProofs = {
     encode: addDomainWithProofs.bind(colonyClient),
