@@ -202,6 +202,11 @@ async function transferStakeWithProofs(
   );
 }
 
+export const getMethodDomainProofs = async (
+  colonyClient: ColonyExtensionsV5<ValidColony>,
+  _parentDomainId: BigNumberish,
+): Promise<[BigNumber, BigNumber]> =>
+  getPermissionProofs(colonyClient, _parentDomainId, ColonyRole.Architecture);
 async function addDomainWithProofs(
   this: ColonyExtensionsV5<ValidColony>,
   _parentDomainId: BigNumberish,
@@ -209,10 +214,9 @@ async function addDomainWithProofs(
   overrides?: TransactionOverrides,
 ): Promise<ContractTransaction> {
   let overrideOverload = overrides;
-  const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+  const [permissionDomainId, childSkillIndex] = await getMethodDomainProofs(
     this,
     _parentDomainId,
-    ColonyRole.Architecture,
   );
   /*
    * Otherwise, because of the positioning of `overrides`, it might get confused
@@ -247,10 +251,9 @@ async function editDomainWithProofs(
   _metadata: string,
   overrides?: TransactionOverrides,
 ): Promise<ContractTransaction> {
-  const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
+  const [permissionDomainId, childSkillIndex] = await getMethodDomainProofs(
     this,
     _domainId,
-    ColonyRole.Architecture,
   );
   return this.editDomain(
     permissionDomainId,

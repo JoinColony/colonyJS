@@ -448,7 +448,7 @@ async function getExtensionClient(
   return getVersionedExtensionClient(extensionAddress, this);
 }
 
-export const getMethodsetArchitectureRoleProofs = async (
+export const getMethodSetArchitectureRoleProofs = async (
   colonyClient: ExtendedIColony,
   _user: string,
   _domainId: BigNumberish,
@@ -480,7 +480,7 @@ async function setArchitectureRoleWithProofs(
   const [
     permissionDomainId,
     childSkillIndex,
-  ] = await getMethodsetArchitectureRoleProofs(this, _user, _domainId);
+  ] = await getMethodSetArchitectureRoleProofs(this, _user, _domainId);
   return this.setArchitectureRole(
     permissionDomainId,
     childSkillIndex,
