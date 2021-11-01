@@ -301,6 +301,15 @@ interface IColonyInterface extends Interface {
       ]): string;
     }>;
 
+    deprecateDomain: TypedFunctionDescription<{
+      encode([_permissionDomainId, _childSkillIndex, _domainId, _deprecated]: [
+        BigNumberish,
+        BigNumberish,
+        BigNumberish,
+        boolean
+      ]): string;
+    }>;
+
     getDomain: TypedFunctionDescription<{
       encode([_id]: [BigNumberish]): string;
     }>;
@@ -983,6 +992,14 @@ interface IColonyInterface extends Interface {
 
     DomainAdded: TypedEventDescription<{
       encodeTopics([agent, domainId]: [null, null]): string[];
+    }>;
+
+    DomainDeprecated: TypedEventDescription<{
+      encodeTopics([agent, domainId, deprecated]: [
+        null,
+        BigNumberish | null,
+        null
+      ]): string[];
     }>;
 
     DomainMetadata: TypedEventDescription<{
@@ -2523,6 +2540,36 @@ export class IColony extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
+     * Deprecate a domain, preventing certain actions from happening there
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _deprecated Whether or not the domain is deprecated
+     * @param _domainId Id of the domain being deprecated
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     */
+    deprecateDomain(
+      _permissionDomainId: BigNumberish,
+      _childSkillIndex: BigNumberish,
+      _domainId: BigNumberish,
+      _deprecated: boolean,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Deprecate a domain, preventing certain actions from happening there
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _deprecated Whether or not the domain is deprecated
+     * @param _domainId Id of the domain being deprecated
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     */
+    "deprecateDomain(uint256,uint256,uint256,bool)"(
+      _permissionDomainId: BigNumberish,
+      _childSkillIndex: BigNumberish,
+      _domainId: BigNumberish,
+      _deprecated: boolean,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
      * Get a domain by id.
      * @param _id Id of the domain which details to get
      */
@@ -2530,7 +2577,11 @@ export class IColony extends Contract {
       _id: BigNumberish,
       overrides?: TransactionOverrides
     ): Promise<
-      [BigNumber, BigNumber] & { skillId: BigNumber; fundingPotId: BigNumber }
+      [BigNumber, BigNumber, boolean] & {
+        skillId: BigNumber;
+        fundingPotId: BigNumber;
+        deprecated: boolean;
+      }
     >;
 
     /**
@@ -2541,7 +2592,11 @@ export class IColony extends Contract {
       _id: BigNumberish,
       overrides?: TransactionOverrides
     ): Promise<
-      [BigNumber, BigNumber] & { skillId: BigNumber; fundingPotId: BigNumber }
+      [BigNumber, BigNumber, boolean] & {
+        skillId: BigNumber;
+        fundingPotId: BigNumber;
+        deprecated: boolean;
+      }
     >;
 
     /**
@@ -6136,6 +6191,36 @@ export class IColony extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
+   * Deprecate a domain, preventing certain actions from happening there
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+   * @param _deprecated Whether or not the domain is deprecated
+   * @param _domainId Id of the domain being deprecated
+   * @param _permissionDomainId The domainId in which I have the permission to take this action
+   */
+  deprecateDomain(
+    _permissionDomainId: BigNumberish,
+    _childSkillIndex: BigNumberish,
+    _domainId: BigNumberish,
+    _deprecated: boolean,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * Deprecate a domain, preventing certain actions from happening there
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+   * @param _deprecated Whether or not the domain is deprecated
+   * @param _domainId Id of the domain being deprecated
+   * @param _permissionDomainId The domainId in which I have the permission to take this action
+   */
+  "deprecateDomain(uint256,uint256,uint256,bool)"(
+    _permissionDomainId: BigNumberish,
+    _childSkillIndex: BigNumberish,
+    _domainId: BigNumberish,
+    _deprecated: boolean,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
    * Get a domain by id.
    * @param _id Id of the domain which details to get
    */
@@ -6143,7 +6228,11 @@ export class IColony extends Contract {
     _id: BigNumberish,
     overrides?: TransactionOverrides
   ): Promise<
-    [BigNumber, BigNumber] & { skillId: BigNumber; fundingPotId: BigNumber }
+    [BigNumber, BigNumber, boolean] & {
+      skillId: BigNumber;
+      fundingPotId: BigNumber;
+      deprecated: boolean;
+    }
   >;
 
   /**
@@ -6154,7 +6243,11 @@ export class IColony extends Contract {
     _id: BigNumberish,
     overrides?: TransactionOverrides
   ): Promise<
-    [BigNumber, BigNumber] & { skillId: BigNumber; fundingPotId: BigNumber }
+    [BigNumber, BigNumber, boolean] & {
+      skillId: BigNumber;
+      fundingPotId: BigNumber;
+      deprecated: boolean;
+    }
   >;
 
   /**
@@ -8572,6 +8665,12 @@ export class IColony extends Contract {
 
     DomainAdded(agent: null, domainId: null): EventFilter;
 
+    DomainDeprecated(
+      agent: null,
+      domainId: BigNumberish | null,
+      deprecated: null
+    ): EventFilter;
+
     DomainMetadata(
       agent: null,
       domainId: BigNumberish | null,
@@ -9983,6 +10082,36 @@ export class IColony extends Contract {
       _childSkillIndex: BigNumberish,
       _domainId: BigNumberish,
       _metadata: string,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * Deprecate a domain, preventing certain actions from happening there
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _deprecated Whether or not the domain is deprecated
+     * @param _domainId Id of the domain being deprecated
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     */
+    deprecateDomain(
+      _permissionDomainId: BigNumberish,
+      _childSkillIndex: BigNumberish,
+      _domainId: BigNumberish,
+      _deprecated: boolean,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * Deprecate a domain, preventing certain actions from happening there
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _deprecated Whether or not the domain is deprecated
+     * @param _domainId Id of the domain being deprecated
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     */
+    "deprecateDomain(uint256,uint256,uint256,bool)"(
+      _permissionDomainId: BigNumberish,
+      _childSkillIndex: BigNumberish,
+      _domainId: BigNumberish,
+      _deprecated: boolean,
       overrides?: TransactionOverrides
     ): Promise<BigNumber>;
 
