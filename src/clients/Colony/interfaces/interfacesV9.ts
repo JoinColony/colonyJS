@@ -1,4 +1,5 @@
 import { Arrayish, BigNumberish, Interface } from 'ethers/utils';
+import { MaxUint256 } from 'ethers/constants';
 
 import { ColonyRole, ROOT_DOMAIN_ID } from '../../../constants';
 import { IColony as IColonyV5 } from '../../../contracts/5/IColony';
@@ -80,14 +81,6 @@ export type Interfaces = {
       BigNumberish,
     ]) => Promise<string>;
   };
-  moveFundsBetweenPotsWithProofs: {
-    encode: ([_fromPot, _toPot, _amount, _token]: [
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      string,
-    ]) => Promise<string>;
-  };
   setArbitrationRoleWithProofs: {
     encode: ([_user, _domainId, _setTo]: [
       string,
@@ -150,6 +143,29 @@ export type Interfaces = {
       boolean[],
       Arrayish[],
       Arrayish,
+    ]) => Promise<string>;
+  };
+  moveFundsBetweenPotsWithProofs: {
+    encode: ([
+      _permissionDomainId,
+      _childSkillIndex,
+      _domainId,
+      _fromChildSkillIndex,
+      _toChildSkillIndex,
+      _fromPot,
+      _toPot,
+      _amount,
+      _token,
+    ]: [
+      BigNumberish,
+      BigNumberish,
+      BigNumberish,
+      BigNumberish,
+      BigNumberish,
+      BigNumberish,
+      BigNumberish,
+      BigNumberish,
+      string,
     ]) => Promise<string>;
   };
 } & PreviousVersionsInterfaces;
@@ -329,41 +345,6 @@ async function makeTaskWithProofs(
     _domainId,
     _skillId,
     _dueDate,
-  ]);
-}
-async function moveFundsBetweenPotsWithProofs(
-  this: ValidColony,
-  [_fromPot, _toPot, _amount, _token]: [
-    BigNumberish,
-    BigNumberish,
-    BigNumberish,
-    string,
-  ],
-): Promise<string> {
-  const [
-    permissionDomainId,
-    fromChildSkillIndex,
-    toChildSkillIndex,
-  ] = await getMoveFundsPermissionProofs(
-    this as ExtendedIColony<ValidColony>,
-    _fromPot,
-    _toPot,
-  );
-  /*
-   * @NOTE We're calling the method names directly by their string signature,
-   * so we need to disable TS as it doesn't know about them
-   */
-  // @ts-ignore
-  return this.interface.functions[
-    `moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,address)`
-  ].encode([
-    permissionDomainId,
-    fromChildSkillIndex,
-    toChildSkillIndex,
-    _fromPot,
-    _toPot,
-    _amount,
-    _token,
   ]);
 }
 async function setArbitrationRoleWithProofs(
@@ -577,6 +558,36 @@ async function setExpenditureStateWithProofs(
     _value,
   ]);
 }
+async function moveFundsBetweenPotsWithProofs(
+  this: ValidColony,
+  [_fromPot, _toPot, _amount, _token]: [
+    BigNumberish,
+    BigNumberish,
+    BigNumberish,
+    string,
+  ],
+): Promise<string> {
+  const [
+    permissionDomainId,
+    fromChildSkillIndex,
+    toChildSkillIndex,
+  ] = await getMoveFundsPermissionProofs(
+    this as ExtendedIColony<ValidColony>,
+    _fromPot,
+    _toPot,
+  );
+  return this.interface.functions.moveFundsBetweenPots.encode([
+    permissionDomainId,
+    MaxUint256,
+    permissionDomainId,
+    fromChildSkillIndex,
+    toChildSkillIndex,
+    _fromPot,
+    _toPot,
+    _amount,
+    _token,
+  ]);
+}
 /*
  * Bindings
  */
@@ -621,9 +632,6 @@ export const addInterfaces = (
   updateColonyClient.interface.functions.makeTaskWithProofs = {
     encode: makeTaskWithProofs.bind(colonyClient),
   };
-  updateColonyClient.interface.functions.moveFundsBetweenPotsWithProofs = {
-    encode: moveFundsBetweenPotsWithProofs.bind(colonyClient),
-  };
   updateColonyClient.interface.functions.setArbitrationRoleWithProofs = {
     encode: setArbitrationRoleWithProofs.bind(colonyClient),
   };
@@ -652,6 +660,9 @@ export const addInterfaces = (
   };
   updateColonyClient.interface.functions.setExpenditureStateWithProofs = {
     encode: setExpenditureStateWithProofs.bind(colonyClient),
+  };
+  updateColonyClient.interface.functions.moveFundsBetweenPotsWithProofs = {
+    encode: moveFundsBetweenPotsWithProofs.bind(colonyClient),
   };
   return updateColonyClient as ColonyWithInterfacesV9;
 };
