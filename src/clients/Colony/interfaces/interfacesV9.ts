@@ -93,6 +93,13 @@ export type Interfaces = {
       string,
     ]) => Promise<string>;
   };
+  setArbitrationRoleWithProofs: {
+    encode: ([_user, _domainId, _setTo]: [
+      string,
+      BigNumberish,
+      boolean,
+    ]) => Promise<string>;
+  };
   addDomainWithProofs: {
     encode: ([_parentDomainId, _metadata]: [BigNumberish, string]) => Promise<
       string
@@ -315,6 +322,24 @@ async function moveFundsBetweenPotsWithProofs(
     _token,
   ]);
 }
+async function setArbitrationRoleWithProofs(
+  this: ValidColony,
+  [_user, _domainId, _setTo]: [string, BigNumberish, boolean],
+): Promise<string> {
+  const [permissionDomainId, childSkillIndex] = await getRoleSettingProofs(
+    this as ExtendedIColony<ValidColony>,
+    _user,
+    _domainId,
+    ColonyRole.ArchitectureSubdomain_DEPRECATED,
+  );
+  return this.interface.functions.setArbitrationRole.encode([
+    permissionDomainId,
+    childSkillIndex,
+    _user,
+    _domainId,
+    _setTo,
+  ]);
+}
 async function addDomainWithProofs(
   this: ValidColony,
   [_parentDomainId, _metadata]: [BigNumberish, string],
@@ -414,6 +439,9 @@ export const addInterfaces = (
   };
   updateColonyClient.interface.functions.moveFundsBetweenPotsWithProofs = {
     encode: moveFundsBetweenPotsWithProofs.bind(colonyClient),
+  };
+  updateColonyClient.interface.functions.setArbitrationRoleWithProofs = {
+    encode: setArbitrationRoleWithProofs.bind(colonyClient),
   };
   updateColonyClient.interface.functions.addDomainWithProofs = {
     encode: addDomainWithProofs.bind(colonyClient),
