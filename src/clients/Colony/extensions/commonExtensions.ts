@@ -452,15 +452,12 @@ export const getRoleSettingProofs = async (
   colonyClient: ExtendedIColony,
   _user: string,
   _domainId: BigNumberish,
+  requiredRole = ColonyRole.Architecture,
 ): Promise<[BigNumberish, BigNumberish]> => {
   let proofs: [BigNumberish, BigNumberish];
   // This method has two potential permissions, so we try both of them
   try {
-    proofs = await getPermissionProofs(
-      colonyClient,
-      _domainId,
-      ColonyRole.Architecture,
-    );
+    proofs = await getPermissionProofs(colonyClient, _domainId, requiredRole);
   } catch (err) {
     proofs = await getPermissionProofs(
       colonyClient,
