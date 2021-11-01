@@ -448,6 +448,28 @@ async function getExtensionClient(
   return getVersionedExtensionClient(extensionAddress, this);
 }
 
+export const getMethodsetArchitectureRoleProofs = async (
+  colonyClient: ExtendedIColony,
+  _user: string,
+  _domainId: BigNumberish,
+): Promise<[BigNumberish, BigNumberish]> => {
+  let proofs: [BigNumberish, BigNumberish];
+  // This method has two potential permissions, so we try both of them
+  try {
+    proofs = await getPermissionProofs(
+      colonyClient,
+      _domainId,
+      ColonyRole.Architecture,
+    );
+  } catch (err) {
+    proofs = await getPermissionProofs(
+      colonyClient,
+      _domainId,
+      ColonyRole.Root,
+    );
+  }
+  return proofs;
+};
 async function setArchitectureRoleWithProofs(
   this: ExtendedIColony,
   _user: string,
@@ -455,18 +477,10 @@ async function setArchitectureRoleWithProofs(
   _setTo: boolean,
   overrides?: TransactionOverrides,
 ): Promise<ContractTransaction> {
-  let proofs: [BigNumberish, BigNumberish];
-  // This method has two potential permissions, so we try both of them
-  try {
-    proofs = await getPermissionProofs(
-      this,
-      _domainId,
-      ColonyRole.Architecture,
-    );
-  } catch (err) {
-    proofs = await getPermissionProofs(this, _domainId, ColonyRole.Root);
-  }
-  const [permissionDomainId, childSkillIndex] = proofs;
+  const [
+    permissionDomainId,
+    childSkillIndex,
+  ] = await getMethodsetArchitectureRoleProofs(this, _user, _domainId);
   return this.setArchitectureRole(
     permissionDomainId,
     childSkillIndex,
