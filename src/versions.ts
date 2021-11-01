@@ -37,7 +37,7 @@ const colonyReleaseMap = {
   [ColonyVersion.CeruleanLightweightSpaceship]: `clwss`,
   [ColonyVersion.DandelionLightweightSpaceship]: `dlwss`,
   [ColonyVersion.EbonyLightweightSpaceship]: `elwss`,
-  [ColonyVersion.UnnamedLightweightSpaceship]: `6c40484f68185fc6dc329d6ad3144b9242b98352`,
+  [ColonyVersion.UnnamedLightweightSpaceship]: `a205d704d8d7a56faae3d5784761cb80ce16c779`,
 };
 
 /**
