@@ -42,7 +42,7 @@ type ColonyExtensions = Omit<
   ColonyExtensionsV9<IColony>;
 
 export type ColonyClientV9 = ColonyExtensions & {
-  clientVersion: ColonyVersion.UnnamedLightweightSpaceship;
+  clientVersion: ColonyVersion.FuchsiaLightweightSpaceship;
   estimate: ExtendedIColony<IColony>['estimate'] & ExtendedEstimateV9;
 };
 
@@ -83,7 +83,7 @@ export default function getColonyClient(
     signerOrProvider,
   ) as unknown) as ColonyClientV9;
 
-  colonyClientV9.clientVersion = ColonyVersion.UnnamedLightweightSpaceship;
+  colonyClientV9.clientVersion = ColonyVersion.FuchsiaLightweightSpaceship;
   addExtensions(colonyClientV9, this);
   /*
    * @NOTE We need to reassign the whole instance since we can't just modify
