@@ -1,5 +1,4 @@
 import { resolve as resolvePath } from 'path';
-import { copyFileSync } from 'fs';
 import { promisify } from 'util';
 import * as camelcase from 'camelcase';
 import * as execute from 'execa';
@@ -11,6 +10,7 @@ import {
   CurrentCoinMachineVersion,
   CurrentOneTxPaymentVersion,
   CurrentVotingReputationVersion,
+  CurrentWhitelistVersion,
 } from '../src/versions';
 import { Extension } from '../src/clients/Extensions/colonyContractExtensions';
 
@@ -25,7 +25,6 @@ const networkDir = resolvePath(__dirname, '../vendor/colonyNetwork');
 const relativeBuildDir = 'build/contracts';
 const relativeTokenDir = 'lib/colonyToken/build/contracts';
 const buildDir = resolvePath(networkDir, relativeBuildDir);
-const tokenBuildDir = resolvePath(networkDir, relativeTokenDir);
 const vendorTokenDir = resolvePath(__dirname, '../vendor/tokens');
 
 const contractsToBuild = ['IColony', 'IColonyNetwork', 'TokenLocking'];
@@ -34,12 +33,14 @@ const extensionContracts = [
   Extension.OneTxPayment,
   Extension.CoinMachine,
   Extension.VotingReputation,
+  Extension.Whitelist,
 ];
 
 const currentExtensionsVersions = {
   [Extension.OneTxPayment]: CurrentOneTxPaymentVersion,
   [Extension.CoinMachine]: CurrentCoinMachineVersion,
   [Extension.VotingReputation]: CurrentVotingReputationVersion,
+  [Extension.Whitelist]: CurrentWhitelistVersion,
 };
 
 const tokenContracts = [
@@ -51,7 +52,6 @@ const tokenContracts = [
 const version = CurrentColonyVersion;
 const outRoot = resolvePath(__dirname, '../src/contracts');
 const colonyContractsOutDir = `${outRoot}/colony/${version}`;
-const deployDir = `${outRoot}/deploy`;
 
 const provisionNetworkVendor = async (tag: string): Promise<void> => {
   if (!tag) {

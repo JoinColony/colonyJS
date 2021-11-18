@@ -2,7 +2,7 @@ import { ContractFactory, ContractTransaction } from 'ethers';
 import { Arrayish, BigNumber, BigNumberish, bigNumberify } from 'ethers/utils';
 import { MaxUint256, AddressZero } from 'ethers/constants';
 
-import { isAddress } from '../../../utils';
+import { fetchReputationOracleData } from '../../../utils';
 import {
   ClientType,
   ColonyRole,
@@ -10,10 +10,7 @@ import {
   ROOT_DOMAIN_ID,
 } from '../../../constants';
 import { ColonyVersion } from '../../../versions';
-import {
-  ReputationOracleResponse,
-  ReputationOracleAllMembersResponse,
-} from '../../../types';
+import { ReputationMinerEndpoints } from '../../../types';
 
 import { IColony as IColonyV1 } from '../../../contracts/1/IColony';
 import { IColony as IColonyV2 } from '../../../contracts/2/IColony';
@@ -22,6 +19,8 @@ import { IColony as IColonyV4 } from '../../../contracts/4/IColony';
 import { IColony as IColonyV5 } from '../../../contracts/5/IColony';
 import { IColony as IColonyV6 } from '../../../contracts/colony/6/IColony';
 import { IColony as IColonyV7 } from '../../../contracts/colony/7/IColony';
+import { IColony as IColonyV8 } from '../../../contracts/colony/8/IColony';
+import { IColony as IColonyV9 } from '../../../contracts/colony/9/IColony';
 import { TransactionOverrides } from '../../../contracts/6';
 import { IColonyFactory } from '../../../contracts/4/IColonyFactory';
 
@@ -46,7 +45,9 @@ type AnyIColony =
   | IColonyV4
   | IColonyV5
   | IColonyV6
-  | IColonyV7;
+  | IColonyV7
+  | IColonyV8
+  | IColonyV9;
 
 // This is exposed to type the awkward recovery event client which is basically
 // just an IColonyV4
@@ -203,11 +204,36 @@ export type ExtendedIColony<T extends AnyIColony = AnyIColony> = T & {
     skillId: BigNumberish,
     address: string,
     customRootHash?: string,
-  ): Promise<ReputationOracleResponse>;
+  ): Promise<{
+    key: string;
+    value: string;
+    branchMask: string;
+    siblings: string[];
+    reputationAmount: BigNumber;
+  }>;
 
-  getMembersReputation(
+  getReputationWithoutProofs(
     skillId: BigNumberish,
-  ): Promise<ReputationOracleAllMembersResponse>;
+    address: string,
+    customRootHash?: string,
+  ): Promise<{
+    key: string;
+    value: string;
+    reputationAmount: BigNumber;
+  }>;
+
+  getReputationAcrossDomains(
+    address: string,
+    customRootHash?: string,
+  ): Promise<
+    {
+      domainId: number;
+      skillId: number;
+      reputationAmount?: BigNumberish;
+    }[]
+  >;
+
+  getMembersReputation(skillId: BigNumberish): Promise<{ addresses: string[] }>;
 };
 
 export const getPotDomain = async (
@@ -918,23 +944,21 @@ async function getReputation(
   skillId: BigNumberish,
   address: string,
   customRootHash?: string,
-): Promise<ReputationOracleResponse> {
-  if (!isAddress(address)) {
-    throw new Error('Please provide a valid address');
-  }
-
-  const { network, reputationOracleEndpoint } = this.networkClient;
-
-  const skillIdString = bigNumberify(skillId).toString();
-
-  const rootHash =
-    customRootHash || (await this.networkClient.getReputationRootHash());
-
-  const response = await fetch(
-    `${reputationOracleEndpoint}/${network}/${rootHash}/${this.address}/${skillIdString}/${address}`,
+): Promise<{
+  key: string;
+  value: string;
+  branchMask: string;
+  siblings: string[];
+  reputationAmount: BigNumber;
+}> {
+  const result = await fetchReputationOracleData(
+    ReputationMinerEndpoints.UserReputationInSingleDomainWithProofs,
+    this.networkClient,
+    this.address,
+    address,
+    skillId,
+    customRootHash,
   );
-
-  const result = await response.json();
 
   return {
     ...result,
@@ -942,21 +966,92 @@ async function getReputation(
   };
 }
 
+async function getReputationWithoutProofs(
+  this: ExtendedIColony,
+  skillId: BigNumberish,
+  address: string,
+  customRootHash?: string,
+): Promise<{
+  key: string;
+  value: string;
+  reputationAmount: BigNumber;
+}> {
+  const result = await fetchReputationOracleData(
+    ReputationMinerEndpoints.UserReputationInSingleDomainWithoutProofs,
+    this.networkClient,
+    this.address,
+    address,
+    skillId,
+    customRootHash,
+  );
+  return {
+    ...result,
+    reputationAmount: bigNumberify(result.reputationAmount || 0),
+  };
+}
+
+async function getReputationAcrossDomains(
+  this: ExtendedIColony,
+  address: string,
+  customRootHash?: string,
+): Promise<
+  {
+    domainId: number;
+    skillId: number;
+    reputationAmount?: BigNumberish;
+  }[]
+> {
+  const result = await fetchReputationOracleData(
+    ReputationMinerEndpoints.UserReputationInAllDomains,
+    this.networkClient,
+    this.address,
+    address,
+    undefined,
+    customRootHash,
+  );
+
+  const domainCount = await this.getDomainCount();
+  const allColonyDomains =
+    (await Promise.all(
+      Array.from(new Array(domainCount.toNumber())).map(async (_, index) => {
+        const domainId = index + 1;
+        const domain = await this.getDomain(domainId);
+        return {
+          domainId,
+          skillId: domain.skillId.toNumber(),
+        };
+      }),
+    )) || [];
+
+  return allColonyDomains.map((domain) => {
+    let reputationAmount;
+    const skillAssignedToDomain = (result?.reputations || []).find(
+      ({ skill_id: skillId }) => skillId === domain.skillId,
+    );
+    if (skillAssignedToDomain) {
+      reputationAmount = skillAssignedToDomain?.reputationAmount;
+    }
+    return {
+      ...domain,
+      reputationAmount: reputationAmount
+        ? bigNumberify(reputationAmount)
+        : undefined,
+    };
+  });
+}
+
 async function getMembersReputation(
   this: ExtendedIColony,
   skillId: BigNumberish,
-): Promise<ReputationOracleAllMembersResponse> {
-  const { network, reputationOracleEndpoint } = this.networkClient;
-
-  const skillIdString = bigNumberify(skillId).toString();
-
-  const rootHash = await this.networkClient.getReputationRootHash();
-
-  const response = await fetch(
-    `${reputationOracleEndpoint}/${network}/${rootHash}/${this.address}/${skillIdString}`,
+): Promise<{ addresses: string[] }> {
+  return fetchReputationOracleData(
+    ReputationMinerEndpoints.UsersWithReputationInColony,
+    this.networkClient,
+    this.address,
+    undefined,
+    skillId,
+    undefined,
   );
-
-  return response.json();
 }
 
 async function deployTokenAuthority(
@@ -1076,6 +1171,12 @@ export const addExtensions = <T extends ExtendedIColony>(
   );
 
   instance.getReputation = getReputation.bind(instance);
+  instance.getReputationWithoutProofs = getReputationWithoutProofs.bind(
+    instance,
+  );
+  instance.getReputationAcrossDomains = getReputationAcrossDomains.bind(
+    instance,
+  );
   instance.getMembersReputation = getMembersReputation.bind(instance);
 
   /* eslint-enable no-param-reassign, max-len */

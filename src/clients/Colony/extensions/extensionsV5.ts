@@ -320,7 +320,7 @@ async function estimateSetUserRolesWithProofs(
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this,
     _domainId,
-    ColonyRole.Arbitration,
+    ColonyRole.Architecture,
   );
   return this.estimate.setUserRoles(
     permissionDomainId,

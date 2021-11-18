@@ -1,6 +1,6 @@
 {
   "name": "@colony/colony-js",
-  "version": "v4.0.2",
+  "version": "v4.1.0-beta.8",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
   "files": [
@@ -19,13 +19,16 @@
   },
   "scripts": {
     "clean": "rimraf ./lib && rimraf ./lib-esm",
-    "build": "npm run clean && npm run compile && npm run compile-esm && npm run copy-declarations && npm run build-docs",
+    "build": "npm run clean && npm run compile && npm run compile-esm && OUT=lib npm run copy-declarations && OUT=lib-esm npm run copy-declarations && npm run build-docs",
     "test": "npm run lint && npm run typecheck && jest",
     "lint": "eslint src/**/*.ts scripts/**/*.ts",
     "typecheck": "tsc --noEmit",
     "compile": "tsc -p tsconfig.build.json",
     "compile-esm": "tsc -p tsconfig.build.json -m es6 --outDir lib-esm",
-    "copy-declarations": "copyfiles -u 1 src/contracts/**/*.d.ts lib && copyfiles -u 1 src/contracts/**/*.d.ts lib-esm",
+    "copy-declarations": "OUT=lib npm run copy-declarations:colony && npm run copy-declarations:extensions",
+    "copy-declarations:colony": "copyfiles -u 1 src/contracts/colony/**/*.d.ts $OUT",
+    "copy-declarations:extensions": "copyfiles -u 1 src/contracts/extensions/**/*.d.ts $OUT",
+    "copy-declarations:legacy": "copyfiles -u 1 src/contracts/**/*.d.ts $OUT",
     "build-docs": "typedoc --out docs src/index.ts",
     "build-contracts": "DISABLE_DOCKER=true npm run build-contracts:docker",
     "build-contracts:docker": "ts-node -P scripts/tsconfig-scripts.json scripts/build-contracts.ts",

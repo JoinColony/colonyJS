@@ -8,9 +8,10 @@ import {
   toUtf8Bytes,
 } from 'ethers/utils';
 
-import { ColonyRole, ColonyRoles, ROOT_DOMAIN_ID } from './constants';
+import { ColonyRole, ColonyRoles } from './constants';
 import { ColonyVersion } from './versions';
 import { ColonyClient, ContractClient } from './types';
+import { formatColonyRoles } from './utils';
 
 import {
   getChildIndex as exGetChildIndex,
@@ -21,26 +22,6 @@ import {
   AwkwardRecoveryRoleEventClient,
   ExtendedIColony,
 } from './clients/Colony/extensions/commonExtensions';
-
-interface ColonyRolesMap {
-  [userAddress: string]: {
-    [domainId: string]: Set<ColonyRole>;
-  };
-}
-
-interface ColonyRoleSetValues {
-  user: string;
-  domainId: BigNumber;
-  role: ColonyRole;
-  setTo: boolean;
-}
-
-interface RecoveryRoleSetValues {
-  user: string;
-  domainId: BigNumber;
-  role: ColonyRole;
-  setTo: boolean;
-}
 
 interface LogOptions {
   fromBlock?: number;
@@ -213,27 +194,14 @@ export const getChildIndex = async (
 /**
  * Get an array of all roles in the colony
  *
- * E.g.:
- * ```typescript
- * [{
- *  address: 0x5346D0f80e2816FaD329F2c140c870ffc3c3E2Ef // user address
- *  domains: [{                                         // all domains the user has a role in
- *    domainId: 1,                                      // domainId for the roles
- *    roles: [1, 2, 3]                                  // Array of `ColonyRole`
- *  }]
- * }]
- * ```
- *
  * @param client Any ColonyClient
  *
- * @returns Array of user roles in a colony (see above)
+ * @returns Array of user roles in a colony (see above) fetching it's own network events
  */
 export const getColonyRoles = async (
   client: ColonyClient,
   options?: LogOptions,
 ): Promise<ColonyRoles> => {
-  const ROOT_DOMAIN = ROOT_DOMAIN_ID.toString();
-
   /*
    * Supported only for versions greater or equal to 3
    */
@@ -283,58 +251,7 @@ export const getColonyRoles = async (
     options,
   );
 
-  // We construct a map that holds all users with all domains and the roles as Sets
-  const rolesMap: ColonyRolesMap = colonyRoleEvents.length
-    ? colonyRoleEvents.reduce((colonyRolesMap: ColonyRolesMap, { values }) => {
-        const { user, domainId, role, setTo }: ColonyRoleSetValues = values;
-        const domainKey = domainId.toString();
-        if (!colonyRolesMap[user]) {
-          const roleSet: Set<ColonyRole> = setTo ? new Set([role]) : new Set();
-          // eslint-disable-next-line no-param-reassign
-          colonyRolesMap[user] = { [domainKey]: roleSet };
-        }
-        if (!colonyRolesMap[user][domainKey] && setTo) {
-          // eslint-disable-next-line no-param-reassign
-          colonyRolesMap[user][domainKey] = new Set([role]);
-        }
-        if (setTo) {
-          colonyRolesMap[user][domainKey].add(role);
-        } else {
-          colonyRolesMap[user][domainKey].delete(role);
-        }
-        return colonyRolesMap;
-      }, {})
-    : {};
-
-  // OK, now we also collect all the RecoveryRoleSet events for this colony
-  recoveryRoleEvents.forEach(({ values }) => {
-    const { user, setTo }: RecoveryRoleSetValues = values;
-    rolesMap[user] = rolesMap[user] || {};
-    if (rolesMap[user][ROOT_DOMAIN]) {
-      if (setTo) {
-        rolesMap[user][ROOT_DOMAIN].add(ColonyRole.Recovery);
-      } else {
-        rolesMap[user][ROOT_DOMAIN].delete(ColonyRole.Recovery);
-      }
-    } else {
-      const roleSet: Set<ColonyRole> = setTo
-        ? new Set([ColonyRole.Recovery])
-        : new Set();
-      rolesMap[user][ROOT_DOMAIN] = roleSet;
-    }
-  });
-  return Object.entries(rolesMap).map(([address, userRoles]) => {
-    const domains = Object.entries(userRoles).map(
-      ([domainId, domainRoles]) => ({
-        domainId: parseInt(domainId, 10),
-        roles: Array.from(domainRoles),
-      }),
-    );
-    return {
-      address,
-      domains,
-    };
-  });
+  return formatColonyRoles(colonyRoleEvents, recoveryRoleEvents);
 };
 
 /*
