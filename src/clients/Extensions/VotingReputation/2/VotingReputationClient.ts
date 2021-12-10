@@ -45,21 +45,21 @@ const getVotingReputationClient = (
   votingReputationClient.clientType = ClientType.VotingReputationClient;
 
   const addons = {
-    ...currentVersion.getVotingReputationClientAddons(
+    ...version1.getVotingReputationClientAddons(
       votingReputationClient,
       colonyClient,
     ),
-    ...version1.getVotingReputationClientAddons(
+    ...currentVersion.getVotingReputationClientAddons(
       votingReputationClient,
       colonyClient,
     ),
   };
   const addonsEstimate = {
-    ...currentVersion.getVotingReputationClientEstimateAddons(
+    ...version1.getVotingReputationClientEstimateAddons(
       votingReputationClient,
       colonyClient,
     ),
-    ...version1.getVotingReputationClientEstimateAddons(
+    ...currentVersion.getVotingReputationClientEstimateAddons(
       votingReputationClient,
       colonyClient,
     ),

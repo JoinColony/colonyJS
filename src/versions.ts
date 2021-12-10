@@ -97,11 +97,13 @@ const OneTxPaymentExtensionVersionCompatibilityMap: Record<
 export enum CoinMachineExtensionVersion {
   CeruleanLightweightSpaceship = 1,
   DandelionLightweightSpaceship = 2,
+  EbonyLightweightSpaceshipTwo = 3,
 }
 
 const coinMachineReleaseMap = {
   [CoinMachineExtensionVersion.CeruleanLightweightSpaceship]: `clwss`,
   [CoinMachineExtensionVersion.DandelionLightweightSpaceship]: `dlwss`,
+  [CoinMachineExtensionVersion.EbonyLightweightSpaceshipTwo]: `elwss2`,
 };
 
 export const CurrentCoinMachineVersion = parseInt(
@@ -117,6 +119,7 @@ const CoinMachineExtensionVersionIncompatibilityMap: Record<
 > = {
   [CoinMachineExtensionVersion.CeruleanLightweightSpaceship]: [],
   [CoinMachineExtensionVersion.DandelionLightweightSpaceship]: [],
+  [CoinMachineExtensionVersion.EbonyLightweightSpaceshipTwo]: [],
 };
 
 const CoinMachineExtensionVersionCompatibilityMap: Record<

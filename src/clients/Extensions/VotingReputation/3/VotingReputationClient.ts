@@ -46,10 +46,6 @@ const getVotingReputationClient = (
   votingReputationClient.clientType = ClientType.VotingReputationClient;
 
   const addons = {
-    ...currentVersion.getVotingReputationClientAddons(
-      votingReputationClient,
-      colonyClient,
-    ),
     ...version1.getVotingReputationClientAddons(
       votingReputationClient,
       colonyClient,
@@ -58,17 +54,21 @@ const getVotingReputationClient = (
       votingReputationClient,
       colonyClient,
     ),
-  };
-  const addonsEstimate = {
-    ...currentVersion.getVotingReputationClientEstimateAddons(
+    ...currentVersion.getVotingReputationClientAddons(
       votingReputationClient,
       colonyClient,
     ),
+  };
+  const addonsEstimate = {
     ...version1.getVotingReputationClientEstimateAddons(
       votingReputationClient,
       colonyClient,
     ),
     ...version2.getVotingReputationClientEstimateAddons(
+      votingReputationClient,
+      colonyClient,
+    ),
+    ...currentVersion.getVotingReputationClientEstimateAddons(
       votingReputationClient,
       colonyClient,
     ),
