@@ -45,18 +45,18 @@ const getOneTxPaymentClient = (
   oneTxPaymentClient.clientType = ClientType.OneTxPaymentClient;
 
   const addons = {
+    ...version1.getOneTxPaymentClientAddons(oneTxPaymentClient, colonyClient),
     ...currentVersion.getOneTxPaymentClientAddons(
       oneTxPaymentClient,
       colonyClient,
     ),
-    ...version1.getOneTxPaymentClientAddons(oneTxPaymentClient, colonyClient),
   };
   const addonsEstimate = {
-    ...currentVersion.getOneTxPaymentClientEstimateAddons(
+    ...version1.getOneTxPaymentClientEstimateAddons(
       oneTxPaymentClient,
       colonyClient,
     ),
-    ...version1.getOneTxPaymentClientEstimateAddons(
+    ...currentVersion.getOneTxPaymentClientEstimateAddons(
       oneTxPaymentClient,
       colonyClient,
     ),
