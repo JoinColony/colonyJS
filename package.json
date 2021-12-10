@@ -1,6 +1,6 @@
 {
   "name": "@colony/colony-js",
-  "version": "v4.1.0",
+  "version": "v4.1.1-rc.0",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
   "files": [
