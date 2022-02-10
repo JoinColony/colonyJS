@@ -5,6 +5,8 @@ export * from './constants';
 export * from './versions';
 export * from './helpers';
 export * from './types';
+export * from './abis';
+
 export { formatColonyRoles } from './utils';
 
 export { ColonyNetworkClient } from './clients/ColonyNetworkClient';
