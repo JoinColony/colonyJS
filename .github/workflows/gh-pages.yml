@@ -12,23 +12,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v2 # If you're using actions/checkout@v2 you must set persist-credentials to false in most cases for the deployment to work correctly.
-        with:
-          persist-credentials: false
-
-      - name: Install SSH Client 🔑
-        uses: webfactory/ssh-agent@v0.2.0
-        with:
-          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+        uses: actions/checkout@v2
 
       - name: Install and Build 🔧 
         run: |
-          npm install
+          npm ci
           npm run build-docs
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
-          SSH: true
-          BRANCH: gh-pages # The branch the action should deploy to.
-          FOLDER: docs # The folder the action should deploy.
+          branch: gh-pages # The branch the action should deploy to.
+          clean: true
+          folder: docs # The folder the action should deploy.
+          ssh-key: ${{ secrets.DEPLOY_KEY }}
