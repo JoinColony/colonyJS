@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>TokenClientType | @colony/colony-js</title>
+	<title>TokenClientType | colonyJS</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">@colony/colony-js</a>
+					<a href="../index.html" class="title">colonyJS</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -66,6 +66,15 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>We support different TokenClients, especially the ColonyToken client with
+							its advanced functionality (to <code>.mint()</code> tokens for example). Other tokens
+						require certain adjustments (like the original Dai (SAI))</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
@@ -74,8 +83,8 @@
 							<h3>Enumeration members</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="tokenclienttype.html#colony" class="tsd-kind-icon">Colony</a></li>
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="tokenclienttype.html#dai" class="tsd-kind-icon">Dai</a></li>
 								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="tokenclienttype.html#erc20" class="tsd-kind-icon">Erc20</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="tokenclienttype.html#sai" class="tsd-kind-icon">Sai</a></li>
 							</ul>
 						</section>
 					</div>
@@ -89,17 +98,7 @@
 					<div class="tsd-signature tsd-kind-icon">Colony<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;Colony&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/af6853c/src/constants.ts#L48">src/constants.ts:48</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="dai" class="tsd-anchor"></a>
-					<h3>Dai</h3>
-					<div class="tsd-signature tsd-kind-icon">Dai<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;Dai&quot;</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/af6853c/src/constants.ts#L50">src/constants.ts:50</a></li>
+							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/6ce2e25/src/constants.ts#L69">src/constants.ts:69</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -109,7 +108,17 @@
 					<div class="tsd-signature tsd-kind-icon">Erc20<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;Erc20&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/af6853c/src/constants.ts#L49">src/constants.ts:49</a></li>
+							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/6ce2e25/src/constants.ts#L70">src/constants.ts:70</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
+					<a name="sai" class="tsd-anchor"></a>
+					<h3>Sai</h3>
+					<div class="tsd-signature tsd-kind-icon">Sai<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;Sai&quot;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/JoinColony/colonyJS/blob/6ce2e25/src/constants.ts#L71">src/constants.ts:71</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -134,10 +143,10 @@
 								<a href="tokenclienttype.html#colony" class="tsd-kind-icon">Colony</a>
 							</li>
 							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="tokenclienttype.html#dai" class="tsd-kind-icon">Dai</a>
+								<a href="tokenclienttype.html#erc20" class="tsd-kind-icon">Erc20</a>
 							</li>
 							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="tokenclienttype.html#erc20" class="tsd-kind-icon">Erc20</a>
+								<a href="tokenclienttype.html#sai" class="tsd-kind-icon">Sai</a>
 							</li>
 						</ul>
 					</li>
