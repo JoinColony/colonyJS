@@ -14,7 +14,7 @@
   ],
   "license": "GPL-3.0-only",
   "engines": {
-    "node": "14.18",
+    "node": "^16.14",
     "npm": "^8"
   },
   "scripts": {
