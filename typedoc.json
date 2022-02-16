@@ -2,6 +2,5 @@
   "name": "colonyJS",
   "readme": "README.md",
   "out": "docs",
-  "mode": "library",
   "media": "./media"
 }
