@@ -2,20 +2,20 @@
   "parser": "@typescript-eslint/parser",
   "extends": [
     "plugin:@typescript-eslint/recommended",
-    "@colony/eslint-config-colony",
-    "prettier/@typescript-eslint"
+    "@colony/eslint-config-colony"
   ],
   "plugins": [
     "@typescript-eslint"
   ],
   "env": {
     "browser": true,
-    "node": true,
+    "node": true
   },
   "rules": {
     "no-unused-vars": "off",
-    "camelcase": "off",
     "@typescript-eslint/no-unused-vars": "error",
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": ["error"],
     "import/extensions": "off",
     "import/no-unresolved": "off",
     "import/prefer-default-export": "off",

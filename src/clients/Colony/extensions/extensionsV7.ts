@@ -124,11 +124,8 @@ async function moveFundsBetweenPotsWithProofs(
   _token: string,
   overrides?: TransactionOverrides,
 ): Promise<ContractTransaction> {
-  const [
-    permissionDomainId,
-    fromChildSkillIndex,
-    toChildSkillIndex,
-  ] = await getMoveFundsPermissionProofs(this, _fromPot, _toPot);
+  const [permissionDomainId, fromChildSkillIndex, toChildSkillIndex] =
+    await getMoveFundsPermissionProofs(this, _fromPot, _toPot);
 
   return this.moveFundsBetweenPots(
     permissionDomainId,
@@ -154,11 +151,8 @@ async function estimateMoveFundsBetweenPotsWithProofs(
   _amount: BigNumberish,
   _token: string,
 ): Promise<BigNumber> {
-  const [
-    permissionDomainId,
-    fromChildSkillIndex,
-    toChildSkillIndex,
-  ] = await getMoveFundsPermissionProofs(this, _fromPot, _toPot);
+  const [permissionDomainId, fromChildSkillIndex, toChildSkillIndex] =
+    await getMoveFundsPermissionProofs(this, _fromPot, _toPot);
 
   return (this as IColonyV7).estimate.moveFundsBetweenPots(
     permissionDomainId,
@@ -191,21 +185,15 @@ export const addExtensions = (
    * This is because we overload the method, but not in a way that TS likes, as we
    * add the overloaded argument in the middle, and not at the end.
    */
-  // eslint-disable-next-line max-len
-  (extendedInstance.moveFundsBetweenPotsWithProofs as unknown) = moveFundsBetweenPotsWithProofs.bind(
-    extendedInstance,
-  );
+  (extendedInstance.moveFundsBetweenPotsWithProofs as unknown) =
+    moveFundsBetweenPotsWithProofs.bind(extendedInstance);
   /*
    * We basically disable the signature type of the initial (pre V7) method
    *
    * This is because we overload the method, but not in a way that TS likes, as we
    * add the overloaded argument in the middle, and not at the end.
    */
-  // eslint-disable-next-line prettier/prettier
-  (extendedInstance.estimate
-    // eslint-disable-next-line max-len
-    .moveFundsBetweenPotsWithProofs as unknown) = estimateMoveFundsBetweenPotsWithProofs.bind(
-    extendedInstance,
-  );
+  (extendedInstance.estimate.moveFundsBetweenPotsWithProofs as unknown) =
+    estimateMoveFundsBetweenPotsWithProofs.bind(extendedInstance);
   return extendedInstance;
 };

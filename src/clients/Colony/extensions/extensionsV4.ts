@@ -260,34 +260,25 @@ export const addExtensions = (
   ) as ExtendedIColony<ValidColony> &
     ColonyExtensionsV3<ValidColony> &
     ColonyExtensionsV4<ValidColony>;
-  /* eslint-disable no-param-reassign, max-len */
-  extendedInstance.hasInheritedUserRoleWithProofs = hasInheritedUserRoleWithProofs.bind(
-    extendedInstance,
-  );
-  extendedInstance.makeExpenditureWithProofs = makeExpenditureWithProofs.bind(
-    extendedInstance,
-  );
-  extendedInstance.setExpenditureClaimDelayWithProofs = setExpenditureClaimDelayWithProofs.bind(
-    extendedInstance,
-  );
-  extendedInstance.setExpenditurePayoutModifierWithProofs = setExpenditurePayoutModifierWithProofs.bind(
-    extendedInstance,
-  );
-  extendedInstance.transferExpenditureViaArbitrationWithProofs = transferExpenditureViaArbitrationWithProofs.bind(
-    extendedInstance,
-  );
-  extendedInstance.estimate.makeExpenditureWithProofs = estimateMakeExpenditureWithProofs.bind(
-    extendedInstance,
-  );
-  extendedInstance.estimate.setExpenditureClaimDelayWithProofs = estimateSetExpenditureClaimDelayWithProofs.bind(
-    extendedInstance,
-  );
-  extendedInstance.estimate.setExpenditurePayoutModifierWithProofs = estimateSetExpenditurePayoutModifierWithProofs.bind(
-    extendedInstance,
-  );
-  extendedInstance.estimate.transferExpenditureViaArbitrationWithProofs = estimateTransferExpenditureViaArbitrationWithProofs.bind(
-    extendedInstance,
-  );
-  /* eslint-enable no-param-reassign, max-len */
+
+  extendedInstance.hasInheritedUserRoleWithProofs =
+    hasInheritedUserRoleWithProofs.bind(extendedInstance);
+  extendedInstance.makeExpenditureWithProofs =
+    makeExpenditureWithProofs.bind(extendedInstance);
+  extendedInstance.setExpenditureClaimDelayWithProofs =
+    setExpenditureClaimDelayWithProofs.bind(extendedInstance);
+  extendedInstance.setExpenditurePayoutModifierWithProofs =
+    setExpenditurePayoutModifierWithProofs.bind(extendedInstance);
+  extendedInstance.transferExpenditureViaArbitrationWithProofs =
+    transferExpenditureViaArbitrationWithProofs.bind(extendedInstance);
+  extendedInstance.estimate.makeExpenditureWithProofs =
+    estimateMakeExpenditureWithProofs.bind(extendedInstance);
+  extendedInstance.estimate.setExpenditureClaimDelayWithProofs =
+    estimateSetExpenditureClaimDelayWithProofs.bind(extendedInstance);
+  extendedInstance.estimate.setExpenditurePayoutModifierWithProofs =
+    estimateSetExpenditurePayoutModifierWithProofs.bind(extendedInstance);
+  extendedInstance.estimate.transferExpenditureViaArbitrationWithProofs =
+    estimateTransferExpenditureViaArbitrationWithProofs.bind(extendedInstance);
+
   return extendedInstance;
 };

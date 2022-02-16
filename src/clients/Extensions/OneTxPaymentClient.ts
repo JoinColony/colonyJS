@@ -72,7 +72,6 @@ const getExtensionPermissionProofs = async (
   if (!fundingPDID.eq(adminPDID) || !fundingCSI.eq(adminCSI)) {
     // @TODO: this can surely be improved
     throw new Error(
-      // eslint-disable-next-line max-len
       `${
         address || 'User'
       } has to have the funding and administration role in the same domain`,

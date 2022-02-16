@@ -43,7 +43,7 @@ const colonyReleaseMap = {
 /**
  * The newest colony version. This will be used when deploying new colonies */
 export const CurrentColonyVersion = parseInt(
-  ColonyVersion[(Object.keys(ColonyVersion).slice(-1)[0] as unknown) as number],
+  ColonyVersion[Object.keys(ColonyVersion).slice(-1)[0] as unknown as number],
   10,
 );
 /*
@@ -67,9 +67,7 @@ const oneTxPaymentReleaseMap = {
 
 export const CurrentOneTxPaymentVersion = parseInt(
   OneTxPaymentExtensionVersion[
-    (Object.keys(OneTxPaymentExtensionVersion).slice(
-      -1,
-    )[0] as unknown) as number
+    Object.keys(OneTxPaymentExtensionVersion).slice(-1)[0] as unknown as number
   ],
   10,
 );
@@ -108,7 +106,7 @@ const coinMachineReleaseMap = {
 
 export const CurrentCoinMachineVersion = parseInt(
   CoinMachineExtensionVersion[
-    (Object.keys(CoinMachineExtensionVersion).slice(-1)[0] as unknown) as number
+    Object.keys(CoinMachineExtensionVersion).slice(-1)[0] as unknown as number
   ],
   10,
 );
@@ -148,9 +146,9 @@ const votingReputationReleaseMap = {
 
 export const CurrentVotingReputationVersion = parseInt(
   VotingReputationExtensionVersion[
-    (Object.keys(VotingReputationExtensionVersion).slice(
+    Object.keys(VotingReputationExtensionVersion).slice(
       -1,
-    )[0] as unknown) as number
+    )[0] as unknown as number
   ],
   10,
 );
@@ -200,7 +198,7 @@ const whitelistReleaseMap = {
 
 export const CurrentWhitelistVersion = parseInt(
   WhitelistExtensionVersion[
-    (Object.keys(WhitelistExtensionVersion).slice(-1)[0] as unknown) as number
+    Object.keys(WhitelistExtensionVersion).slice(-1)[0] as unknown as number
   ],
   10,
 );
@@ -227,16 +225,16 @@ const WhitelistExtensionVersionCompatibilityMap: Record<
 export const extensionsIncompatibilityMap = {
   [Extension.OneTxPayment]: OneTxPaymentExtensionVersionIncompatibilityMap,
   [Extension.CoinMachine]: CoinMachineExtensionVersionIncompatibilityMap,
-  // eslint-disable-next-line max-len
-  [Extension.VotingReputation]: VotingReputationExtensionVersionIncompatibilityMap,
+  [Extension.VotingReputation]:
+    VotingReputationExtensionVersionIncompatibilityMap,
   [Extension.Whitelist]: WhitelistExtensionVersionIncompatibilityMap,
 };
 
 export const extensionsCompatibilityMap = {
   [Extension.OneTxPayment]: OneTxPaymentExtensionVersionCompatibilityMap,
   [Extension.CoinMachine]: CoinMachineExtensionVersionCompatibilityMap,
-  // eslint-disable-next-line max-len
-  [Extension.VotingReputation]: VotingReputationExtensionVersionCompatibilityMap,
+  [Extension.VotingReputation]:
+    VotingReputationExtensionVersionCompatibilityMap,
   [Extension.Whitelist]: WhitelistExtensionVersionCompatibilityMap,
 };
 

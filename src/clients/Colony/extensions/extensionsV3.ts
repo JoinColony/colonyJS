@@ -91,13 +91,11 @@ export const addExtensions = (
     instance,
     networkClient,
   ) as ExtendedIColony<ValidColony> & ColonyExtensionsV3<ValidColony>;
-  /* eslint-disable no-param-reassign, max-len */
-  extendedInstance.setArbitrationRoleWithProofs = setArbitrationRoleWithProofs.bind(
-    extendedInstance,
-  );
-  extendedInstance.estimate.setArbitrationRoleWithProofs = estimateSetArbitrationRoleWithProofs.bind(
-    extendedInstance,
-  );
-  /* eslint-enable no-param-reassign, max-len */
+
+  extendedInstance.setArbitrationRoleWithProofs =
+    setArbitrationRoleWithProofs.bind(extendedInstance);
+  extendedInstance.estimate.setArbitrationRoleWithProofs =
+    estimateSetArbitrationRoleWithProofs.bind(extendedInstance);
+
   return extendedInstance;
 };

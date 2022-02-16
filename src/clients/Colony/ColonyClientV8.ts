@@ -71,11 +71,11 @@ export default function getColonyClient(
    * For this to work we have to create our own instance of the contract, so
    * that we can pass in the merged abi events
    */
-  const colonyClientV8 = (new Contract(
+  const colonyClientV8 = new Contract(
     address,
     [...abiFunctions, ...abiEvents],
     signerOrProvider,
-  ) as unknown) as ColonyClientV8;
+  ) as unknown as ColonyClientV8;
 
   colonyClientV8.clientVersion = ColonyVersion.EbonyLightweightSpaceship;
   addExtensions(colonyClientV8, this);

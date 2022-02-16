@@ -1,6 +1,3 @@
-/* eslint-disable import/first */
-require('isomorphic-fetch');
-
 export * from './constants';
 export * from './versions';
 export * from './helpers';
@@ -46,5 +43,3 @@ export {
   ExtensionClient,
   extensions,
 } from './clients/Extensions/colonyContractExtensions';
-
-/* eslint-enable import/first */
