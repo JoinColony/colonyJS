@@ -33,9 +33,9 @@ export type ExtendedEstimateV9 = ExtendedEstimateV8;
 /*
  * Extension Methods
  */
-export type ColonyExtensionsV9<
-  T extends ValidColony
-> = {} & PreviousVersionsExtensions;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export type ColonyExtensionsV9<T extends ValidColony> =
+  PreviousVersionsExtensions;
 
 /*
  * Bindings
@@ -44,7 +44,7 @@ export const addExtensions = (
   instance: ExtendedIColony<ValidColony>,
   networkClient: ColonyNetworkClient,
 ): ColonyExtensionsV9<ValidColony> => {
-  // Add all extensions from v7, because these are also still valid
+  // Add all extensions from v8, because these are also still valid
   const extendedInstance = addExtensionsV8(
     instance as PreviousVersionsExtensions,
     networkClient,

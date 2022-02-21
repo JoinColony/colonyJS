@@ -436,59 +436,43 @@ export const addExtensions = (
     networkClient,
   ) as ColonyExtensionsV5<ValidColony>;
 
-  /* eslint-disable max-len */
-  extendedInstance.emitDomainReputationPenaltyWithProofs = emitDomainReputationPenaltyWithProofs.bind(
-    extendedInstance,
-  );
-  extendedInstance.setUserRolesWithProofs = setUserRolesWithProofs.bind(
-    extendedInstance,
-  );
-  extendedInstance.transferStakeWithProofs = transferStakeWithProofs.bind(
-    extendedInstance,
-  );
+  extendedInstance.emitDomainReputationPenaltyWithProofs =
+    emitDomainReputationPenaltyWithProofs.bind(extendedInstance);
+  extendedInstance.setUserRolesWithProofs =
+    setUserRolesWithProofs.bind(extendedInstance);
+  extendedInstance.transferStakeWithProofs =
+    transferStakeWithProofs.bind(extendedInstance);
   /*
    * We basically disable the signature type of the initial (pre V3) method
    *
    * This is because we overload the method, but not in a way that TS likes, as we
    * add the overloaded argument in the middle, and not at the end.
    */
-  (extendedInstance.addDomainWithProofs as unknown) = addDomainWithProofs.bind(
-    extendedInstance,
-  );
-  extendedInstance.editDomainWithProofs = editDomainWithProofs.bind(
-    extendedInstance,
-  );
-  extendedInstance.setExpenditureStateWithProofs = setExpenditureStateWithProofs.bind(
-    extendedInstance,
-  );
+  (extendedInstance.addDomainWithProofs as unknown) =
+    addDomainWithProofs.bind(extendedInstance);
+  extendedInstance.editDomainWithProofs =
+    editDomainWithProofs.bind(extendedInstance);
+  extendedInstance.setExpenditureStateWithProofs =
+    setExpenditureStateWithProofs.bind(extendedInstance);
 
-  extendedInstance.estimate.emitDomainReputationPenaltyWithProofs = estimateEmitDomainReputationPenaltyWithProofs.bind(
-    extendedInstance,
-  );
-  extendedInstance.estimate.setUserRolesWithProofs = estimateSetUserRolesWithProofs.bind(
-    extendedInstance,
-  );
-  extendedInstance.estimate.transferStakeWithProofs = estimateTransferStakeWithProofs.bind(
-    extendedInstance,
-  );
+  extendedInstance.estimate.emitDomainReputationPenaltyWithProofs =
+    estimateEmitDomainReputationPenaltyWithProofs.bind(extendedInstance);
+  extendedInstance.estimate.setUserRolesWithProofs =
+    estimateSetUserRolesWithProofs.bind(extendedInstance);
+  extendedInstance.estimate.transferStakeWithProofs =
+    estimateTransferStakeWithProofs.bind(extendedInstance);
   /*
    * We basically disable the signature type of the initial (pre V3) method
    *
    * This is because we overload the method, but not in a way that TS likes, as we
    * add the overloaded argument in the middle, and not at the end.
    */
-  (extendedInstance.estimate
-    .addDomainWithProofs as unknown) = estimateAddDomainWithProofs.bind(
-    extendedInstance,
-  );
-  extendedInstance.estimate.editDomainWithProofs = estimateEditDomainWithProofs.bind(
-    extendedInstance,
-  );
-  extendedInstance.estimate.setExpenditureStateWithProofs = estimateSetExpenditureStateWithProofs.bind(
-    extendedInstance,
-  );
-
-  /* eslint-enable max-len */
+  (extendedInstance.estimate.addDomainWithProofs as unknown) =
+    estimateAddDomainWithProofs.bind(extendedInstance);
+  extendedInstance.estimate.editDomainWithProofs =
+    estimateEditDomainWithProofs.bind(extendedInstance);
+  extendedInstance.estimate.setExpenditureStateWithProofs =
+    estimateSetExpenditureStateWithProofs.bind(extendedInstance);
 
   return extendedInstance;
 };

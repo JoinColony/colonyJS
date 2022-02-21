@@ -24,9 +24,9 @@ export type ExtendedEstimateV6 = ExtendedEstimateV5;
 /*
  * Extension Methods
  */
-export type ColonyExtensionsV6<
-  T extends ValidColony
-> = {} & PreviousVersionsExtensions;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export type ColonyExtensionsV6<T extends ValidColony> =
+  PreviousVersionsExtensions;
 
 /*
  * Bindings

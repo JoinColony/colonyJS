@@ -53,67 +53,66 @@ type AnyIColony =
 // just an IColonyV4
 export type AwkwardRecoveryRoleEventClient = IColonyV4;
 
-export type ExtendedEstimate<
-  T extends AnyIColony = AnyIColony
-> = T['estimate'] & {
-  deployTokenAuthority(
-    tokenAddress: string,
-    allowedToTransfer: string[],
-  ): Promise<BigNumber>;
+export type ExtendedEstimate<T extends AnyIColony = AnyIColony> =
+  T['estimate'] & {
+    deployTokenAuthority(
+      tokenAddress: string,
+      allowedToTransfer: string[],
+    ): Promise<BigNumber>;
 
-  setArchitectureRoleWithProofs(
-    _user: string,
-    _domainId: BigNumberish,
-    _setTo: boolean,
-  ): Promise<BigNumber>;
-  setFundingRoleWithProofs(
-    _user: string,
-    _domainId: BigNumberish,
-    _setTo: boolean,
-  ): Promise<BigNumber>;
-  setAdministrationRoleWithProofs(
-    _user: string,
-    _domainId: BigNumberish,
-    _setTo: boolean,
-  ): Promise<BigNumber>;
-  addDomainWithProofs(_parentDomainId: BigNumberish): Promise<BigNumber>;
-  addPaymentWithProofs(
-    _recipient: string,
-    _token: string,
-    _amount: BigNumberish,
-    _domainId: BigNumberish,
-    _skillId: BigNumberish,
-  ): Promise<BigNumber>;
-  finalizePaymentWithProofs(
-    _id: BigNumberish,
-    overrides?: TransactionOverrides,
-  ): Promise<BigNumber>;
-  setPaymentRecipientWithProofs(
-    _id: BigNumberish,
-    _recipient: string,
-  ): Promise<BigNumber>;
-  setPaymentSkillWithProofs(
-    _id: BigNumberish,
-    _skillId: BigNumberish,
-  ): Promise<BigNumber>;
-  setPaymentPayoutWithProofs(
-    _id: BigNumberish,
-    _token: BigNumberish,
-    _amount: BigNumberish,
-  ): Promise<BigNumber>;
-  makeTaskWithProofs(
-    _specificationHash: Arrayish,
-    _domainId: BigNumberish,
-    _skillId: BigNumberish,
-    _dueDate: BigNumberish,
-  ): Promise<BigNumber>;
-  moveFundsBetweenPotsWithProofs(
-    _fromPot: BigNumberish,
-    _toPot: BigNumberish,
-    _amount: BigNumberish,
-    _token: string,
-  ): Promise<BigNumber>;
-};
+    setArchitectureRoleWithProofs(
+      _user: string,
+      _domainId: BigNumberish,
+      _setTo: boolean,
+    ): Promise<BigNumber>;
+    setFundingRoleWithProofs(
+      _user: string,
+      _domainId: BigNumberish,
+      _setTo: boolean,
+    ): Promise<BigNumber>;
+    setAdministrationRoleWithProofs(
+      _user: string,
+      _domainId: BigNumberish,
+      _setTo: boolean,
+    ): Promise<BigNumber>;
+    addDomainWithProofs(_parentDomainId: BigNumberish): Promise<BigNumber>;
+    addPaymentWithProofs(
+      _recipient: string,
+      _token: string,
+      _amount: BigNumberish,
+      _domainId: BigNumberish,
+      _skillId: BigNumberish,
+    ): Promise<BigNumber>;
+    finalizePaymentWithProofs(
+      _id: BigNumberish,
+      overrides?: TransactionOverrides,
+    ): Promise<BigNumber>;
+    setPaymentRecipientWithProofs(
+      _id: BigNumberish,
+      _recipient: string,
+    ): Promise<BigNumber>;
+    setPaymentSkillWithProofs(
+      _id: BigNumberish,
+      _skillId: BigNumberish,
+    ): Promise<BigNumber>;
+    setPaymentPayoutWithProofs(
+      _id: BigNumberish,
+      _token: BigNumberish,
+      _amount: BigNumberish,
+    ): Promise<BigNumber>;
+    makeTaskWithProofs(
+      _specificationHash: Arrayish,
+      _domainId: BigNumberish,
+      _skillId: BigNumberish,
+      _dueDate: BigNumberish,
+    ): Promise<BigNumber>;
+    moveFundsBetweenPotsWithProofs(
+      _fromPot: BigNumberish,
+      _toPot: BigNumberish,
+      _amount: BigNumberish,
+      _token: string,
+    ): Promise<BigNumber>;
+  };
 
 export type ExtendedIColony<T extends AnyIColony = AnyIColony> = T & {
   clientType: ClientType.ColonyClient;
@@ -332,15 +331,13 @@ export const getMoveFundsPermissionProofs = async (
   const walletAddress = customAddress || (await contract.signer.getAddress());
   const fromDomainId = await getPotDomain(contract, fromtPotId);
   const toDomainId = await getPotDomain(contract, toPotId);
-  const [
-    fromPermissionDomainId,
-    fromChildSkillIndex,
-  ] = await getPermissionProofs(
-    contract,
-    fromDomainId,
-    ColonyRole.Funding,
-    walletAddress,
-  );
+  const [fromPermissionDomainId, fromChildSkillIndex] =
+    await getPermissionProofs(
+      contract,
+      fromDomainId,
+      ColonyRole.Funding,
+      walletAddress,
+    );
   // @TODO: once getPermissionProofs is more expensive we can just check the domain here
   // with userHasRole and then immediately get the permission proofs
   const [toPermissionDomainId, toChildSkillIndex] = await getPermissionProofs(
@@ -695,11 +692,8 @@ async function moveFundsBetweenPotsWithProofs(
   _token: string,
   overrides?: TransactionOverrides,
 ): Promise<ContractTransaction> {
-  const [
-    permissionDomainId,
-    fromChildSkillIndex,
-    toChildSkillIndex,
-  ] = await getMoveFundsPermissionProofs(this, _fromPot, _toPot);
+  const [permissionDomainId, fromChildSkillIndex, toChildSkillIndex] =
+    await getMoveFundsPermissionProofs(this, _fromPot, _toPot);
 
   return this[
     `moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,address)`
@@ -920,11 +914,8 @@ async function estimateMoveFundsBetweenPotsWithProofs(
   _amount: BigNumberish,
   _token: string,
 ): Promise<BigNumber> {
-  const [
-    permissionDomainId,
-    fromChildSkillIndex,
-    toChildSkillIndex,
-  ] = await getMoveFundsPermissionProofs(this, _fromPot, _toPot);
+  const [permissionDomainId, fromChildSkillIndex, toChildSkillIndex] =
+    await getMoveFundsPermissionProofs(this, _fromPot, _toPot);
 
   return (this as IColonyV5).estimate[
     `moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,address)`
@@ -1103,65 +1094,48 @@ export const addExtensions = <T extends ExtendedIColony>(
   instance.deployTokenAuthority = deployTokenAuthority.bind(instance);
   instance.getExtensionClient = getExtensionClient.bind(instance);
 
-  instance.setArchitectureRoleWithProofs = setArchitectureRoleWithProofs.bind(
-    instance,
-  );
+  instance.setArchitectureRoleWithProofs =
+    setArchitectureRoleWithProofs.bind(instance);
   instance.setFundingRoleWithProofs = setFundingRoleWithProofs.bind(instance);
-  instance.setAdministrationRoleWithProofs = setAdministrationRoleWithProofs.bind(
-    instance,
-  );
+  instance.setAdministrationRoleWithProofs =
+    setAdministrationRoleWithProofs.bind(instance);
   instance.addDomainWithProofs = addDomainWithProofs.bind(instance);
   instance.addPaymentWithProofs = addPaymentWithProofs.bind(instance);
   instance.finalizePaymentWithProofs = finalizePaymentWithProofs.bind(instance);
-  instance.setPaymentRecipientWithProofs = setPaymentRecipientWithProofs.bind(
-    instance,
-  );
+  instance.setPaymentRecipientWithProofs =
+    setPaymentRecipientWithProofs.bind(instance);
   instance.setPaymentSkillWithProofs = setPaymentSkillWithProofs.bind(instance);
-  instance.setPaymentPayoutWithProofs = setPaymentPayoutWithProofs.bind(
-    instance,
-  );
+  instance.setPaymentPayoutWithProofs =
+    setPaymentPayoutWithProofs.bind(instance);
   instance.makeTaskWithProofs = makeTaskWithProofs.bind(instance);
-  instance.moveFundsBetweenPotsWithProofs = moveFundsBetweenPotsWithProofs.bind(
-    instance,
-  );
+  instance.moveFundsBetweenPotsWithProofs =
+    moveFundsBetweenPotsWithProofs.bind(instance);
 
-  instance.estimate.deployTokenAuthority = estimateDeployTokenAuthority.bind(
-    instance,
-  );
+  instance.estimate.deployTokenAuthority =
+    estimateDeployTokenAuthority.bind(instance);
 
-  instance.estimate.setArchitectureRoleWithProofs = estimateSetArchitectureRoleWithProofs.bind(
-    instance,
-  );
-  instance.estimate.setFundingRoleWithProofs = estimateSetFundingRoleWithProofs.bind(
-    instance,
-  );
-  instance.estimate.setAdministrationRoleWithProofs = estimateSetAdministrationRoleWithProofs.bind(
-    instance,
-  );
-  instance.estimate.addDomainWithProofs = estimateAddDomainWithProofs.bind(
-    instance,
-  );
-  instance.estimate.addPaymentWithProofs = estimateAddPaymentWithProofs.bind(
-    instance,
-  );
-  instance.estimate.finalizePaymentWithProofs = estimateFinalizePaymentWithProofs.bind(
-    instance,
-  );
-  instance.estimate.setPaymentRecipientWithProofs = estimateSetPaymentRecipientWithProofs.bind(
-    instance,
-  );
-  instance.estimate.setPaymentSkillWithProofs = estimateSetPaymentSkillWithProofs.bind(
-    instance,
-  );
-  instance.estimate.setPaymentPayoutWithProofs = estimateSetPaymentPayoutWithProofs.bind(
-    instance,
-  );
-  instance.estimate.makeTaskWithProofs = estimateMakeTaskWithProofs.bind(
-    instance,
-  );
-  instance.estimate.moveFundsBetweenPotsWithProofs = estimateMoveFundsBetweenPotsWithProofs.bind(
-    instance,
-  );
+  instance.estimate.setArchitectureRoleWithProofs =
+    estimateSetArchitectureRoleWithProofs.bind(instance);
+  instance.estimate.setFundingRoleWithProofs =
+    estimateSetFundingRoleWithProofs.bind(instance);
+  instance.estimate.setAdministrationRoleWithProofs =
+    estimateSetAdministrationRoleWithProofs.bind(instance);
+  instance.estimate.addDomainWithProofs =
+    estimateAddDomainWithProofs.bind(instance);
+  instance.estimate.addPaymentWithProofs =
+    estimateAddPaymentWithProofs.bind(instance);
+  instance.estimate.finalizePaymentWithProofs =
+    estimateFinalizePaymentWithProofs.bind(instance);
+  instance.estimate.setPaymentRecipientWithProofs =
+    estimateSetPaymentRecipientWithProofs.bind(instance);
+  instance.estimate.setPaymentSkillWithProofs =
+    estimateSetPaymentSkillWithProofs.bind(instance);
+  instance.estimate.setPaymentPayoutWithProofs =
+    estimateSetPaymentPayoutWithProofs.bind(instance);
+  instance.estimate.makeTaskWithProofs =
+    estimateMakeTaskWithProofs.bind(instance);
+  instance.estimate.moveFundsBetweenPotsWithProofs =
+    estimateMoveFundsBetweenPotsWithProofs.bind(instance);
 
   // This is awkward and just used to get the RecoveryRoleSet event which is missing (but emitted)
   // in other colonies. We can remove this once all of the active colonies are at version 4
@@ -1171,12 +1145,10 @@ export const addExtensions = <T extends ExtendedIColony>(
   );
 
   instance.getReputation = getReputation.bind(instance);
-  instance.getReputationWithoutProofs = getReputationWithoutProofs.bind(
-    instance,
-  );
-  instance.getReputationAcrossDomains = getReputationAcrossDomains.bind(
-    instance,
-  );
+  instance.getReputationWithoutProofs =
+    getReputationWithoutProofs.bind(instance);
+  instance.getReputationAcrossDomains =
+    getReputationAcrossDomains.bind(instance);
   instance.getMembersReputation = getMembersReputation.bind(instance);
 
   /* eslint-enable no-param-reassign, max-len */

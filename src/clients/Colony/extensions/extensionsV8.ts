@@ -30,9 +30,9 @@ export type ExtendedEstimateV8 = ExtendedEstimateV7;
 /*
  * Extension Methods
  */
-export type ColonyExtensionsV8<
-  T extends ValidColony
-> = {} & PreviousVersionsExtensions;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export type ColonyExtensionsV8<T extends ValidColony> =
+  PreviousVersionsExtensions;
 
 /*
  * Bindings

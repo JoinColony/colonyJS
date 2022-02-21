@@ -33,14 +33,10 @@ export default function getColonyClient(
   colonyClient.clientVersion = ColonyVersion.Glider;
   addExtensions(colonyClient, this);
 
-  /* eslint-disable max-len */
-  colonyClient.setPaymentDomainWithProofs = setPaymentDomainWithProofs.bind(
-    colonyClient,
-  );
-  colonyClient.estimateWithProofs.setPaymentDomain = estimateSetPaymentDomainWithProofs.bind(
-    colonyClient,
-  );
-  /* eslint-enable max-len */
+  colonyClient.setPaymentDomainWithProofs =
+    setPaymentDomainWithProofs.bind(colonyClient);
+  colonyClient.estimateWithProofs.setPaymentDomain =
+    estimateSetPaymentDomainWithProofs.bind(colonyClient);
 
   return colonyClient as ColonyClientV2;
 }

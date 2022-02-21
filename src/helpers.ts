@@ -226,7 +226,7 @@ export const getColonyRoles = async (
          * they get added at compile time, so they don't really exist
          * as currently existing types
          */
-        ((client.filters as unknown) as Record<string, () => EventFilter>)[
+        (client.filters as unknown as Record<string, () => EventFilter>)[
           filterName
         ](),
       ),
@@ -241,7 +241,6 @@ export const getColonyRoles = async (
      *
      * This suppreses errors on clients
      */
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     client.awkwardRecoveryRoleEventClient.filters.RecoveryRoleSet();
 

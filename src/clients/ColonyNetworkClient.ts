@@ -135,14 +135,14 @@ interface NetworkClientOptions {
  * (mostly used in local/dev environments)
  */
 const getColonyNetworkClient = (
-  network: Network = Network.Mainnet,
+  network: Network,
   signerOrProvider: Signer | Provider,
   options?: NetworkClientOptions,
 ): ColonyNetworkClient => {
   const networkAddress =
     options && options.networkAddress
       ? options.networkAddress
-      : colonyNetworkAddresses[network];
+      : colonyNetworkAddresses[network || Network.Mainnet];
   if (!networkAddress) {
     throw new Error(
       `Could not get ColonyNetwork address for ${network}. Please specify`,
@@ -159,12 +159,11 @@ const getColonyNetworkClient = (
   networkClient.reputationOracleEndpoint =
     (options && options.reputationOracleEndpoint) || REPUTATION_ORACLE_ENDPOINT;
 
-  networkClient.getTokenLockingClient = async (): Promise<
-    TokenLockingClient
-  > => {
-    const tokenLockingAddress = await networkClient.getTokenLocking();
-    return getTokenLockingClient(tokenLockingAddress, signerOrProvider);
-  };
+  networkClient.getTokenLockingClient =
+    async (): Promise<TokenLockingClient> => {
+      const tokenLockingAddress = await networkClient.getTokenLocking();
+      return getTokenLockingClient(tokenLockingAddress, signerOrProvider);
+    };
 
   networkClient.getColonyClient = async (
     addressOrId: string | number,
@@ -300,7 +299,7 @@ const getColonyNetworkClient = (
   networkClient.deployToken = async (
     name: string,
     symbol: string,
-    decimals = 18,
+    decimals?: number,
     overrides?: TransactionOverrides,
   ): Promise<ContractTransaction> => {
     const tokenFactory = new ContractFactory(
@@ -311,7 +310,7 @@ const getColonyNetworkClient = (
     const tokenContract = await tokenFactory.deploy(
       name,
       symbol,
-      decimals,
+      decimals || 18,
       overrides,
     );
     await tokenContract.deployed();

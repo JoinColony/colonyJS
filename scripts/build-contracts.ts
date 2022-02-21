@@ -1,7 +1,7 @@
 import { resolve as resolvePath } from 'path';
 import { promisify } from 'util';
 import * as camelcase from 'camelcase';
-import * as execute from 'execa';
+import { execa as execute } from 'execa';
 import * as rimraf from 'rimraf';
 
 import {

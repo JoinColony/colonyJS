@@ -1,7 +1,6 @@
 // A minimal version of the ColonyClient contract that only supports the `version` method
 import { Contract, Signer } from 'ethers';
 import { Provider } from 'ethers/providers';
-
 import { BigNumber } from 'ethers/utils';
 
 interface ColonyVersionClient extends Contract {

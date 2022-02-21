@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
-import * as camelcase from 'camelcase';
+import camelcase from 'camelcase';
 import { execSync } from 'child_process';
 
 import { name, version } from '../../package.json';
@@ -30,12 +30,8 @@ const getClientImports = (
   extensionName: Extension,
   extensionVersion: number,
 ): string => {
-  const {
-    constants,
-    contracts,
-    commonExtensions,
-    factories,
-  } = getExtensionClientRelativePaths(extensionName, extensionVersion);
+  const { constants, contracts, commonExtensions, factories } =
+    getExtensionClientRelativePaths(extensionName, extensionVersion);
   return `import { ClientType } from '${constants}';
 import { ${camelcase(extensionName, {
     pascalCase: true,

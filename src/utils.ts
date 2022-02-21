@@ -1,3 +1,5 @@
+import { isEqual } from 'lodash-es';
+import fetch from 'cross-fetch';
 import { Signer } from 'ethers';
 import {
   getAddress,
@@ -58,20 +60,16 @@ interface ReputationOracleColonyResponse {
   addresses: string[];
 }
 
-type ReputationOracleResponseType<
-  R
-> = R extends ReputationMinerEndpoints.UserReputationInSingleDomainWithoutProofs
-  ? ReputationOracleSingleDomainWithoutProofsResponse
-  : R extends ReputationMinerEndpoints.UserReputationInSingleDomainWithProofs
-  ? ReputationOracleSingleDomainWithProofsResponse
-  : R extends ReputationMinerEndpoints.UserReputationInAllDomains
-  ? ReputationOracleAllDomainsResponse
-  : R extends ReputationMinerEndpoints.UsersWithReputationInColony
-  ? ReputationOracleColonyResponse
-  : never;
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const isEqual = require('lodash.isequal');
+type ReputationOracleResponseType<R> =
+  R extends ReputationMinerEndpoints.UserReputationInSingleDomainWithoutProofs
+    ? ReputationOracleSingleDomainWithoutProofsResponse
+    : R extends ReputationMinerEndpoints.UserReputationInSingleDomainWithProofs
+    ? ReputationOracleSingleDomainWithProofsResponse
+    : R extends ReputationMinerEndpoints.UserReputationInAllDomains
+    ? ReputationOracleAllDomainsResponse
+    : R extends ReputationMinerEndpoints.UsersWithReputationInColony
+    ? ReputationOracleColonyResponse
+    : never;
 
 // @TODO ethers v5 has an isAddress function
 export const isAddress = (address: string): boolean => {
@@ -245,7 +243,7 @@ export const formatColonyRoles = async (
 };
 
 export const fetchReputationOracleData = async <
-  E extends ReputationMinerEndpoints
+  E extends ReputationMinerEndpoints,
 >(
   endpoint: E,
   networkClient: ColonyNetworkClient,
