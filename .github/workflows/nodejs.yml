@@ -3,11 +3,16 @@
 
 name: Node.js CI
 
-on: [pull_request]
+on:
+  pull_request:
+    branches:
+      - 'develop'
+  push:
+    branches:
+      - 'develop'
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
