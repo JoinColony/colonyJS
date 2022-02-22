@@ -109,25 +109,20 @@
   <h3>To upgrade to a new colonyNetwork version</h3>
 </a>
 <ol>
-<li><p>Add the version to <code>versions.ts</code> in <code>ColonyVersion</code> as well as the network git tag to <code>releaseMaps</code></p>
-</li>
-<li><p>Add the git tag to <code>src/constants.ts</code> release map</p>
-</li>
-<li><p><em>Optional:</em> If you are tracking a development branch instead of a static tag or commit, make sure to pull the latest changes, otherwise the contracts generated will be exactly the same as your last ones -- <em>this is a step often forgotten when using a dev version</em></p>
-</li>
-<li><p>If needed: add new contracts that need clients to the <code>contractsToBuild</code> array in <code>scripts/build-contracts.ts</code></p>
-</li>
-<li><p>Run</p>
-<pre><code class="language-shell"><span class="hl-0">npm run build-contracts</span>
+<li>Add the version to <code>versions.ts</code> in <code>ColonyVersion</code> as well as the network git tag to <code>releaseMaps</code></li>
+<li>Add the git tag to <code>src/constants.ts</code> release map</li>
+<li><em>Optional:</em> If you are tracking a development branch instead of a static tag or commit, make sure to pull the latest changes, otherwise the contracts generated will be exactly the same as your last ones -- <em>this is a step often forgotten when using a dev version</em></li>
+<li>In the <code>vendor/colonyNetwork</code> directory, check out the correct git tag and build the contracts (according to the docs - most likely it&#39;ll be <code>yarn provision:token:contracts</code> and <code>yarn truffle compile</code>)</li>
+<li>Run<pre><code class="language-shell"><span class="hl-0">npm run extact-contract-abis -- -t=[GIT_TAG]</span>
 </code></pre>
-<p>This will create a new folder: <code>src/contracts/X</code> containing all the type definitions you&#39;ll need to implement the new colony client.</p>
-</li>
-<li><p>Update the following lines in <code>ColonyNetworkClient.ts</code> to reflect the new version:</p>
-</li>
-</ol>
-<pre><code class="language-ts"><span class="hl-4">import</span><span class="hl-0"> { </span><span class="hl-5">IColonyNetworkFactory</span><span class="hl-0"> } </span><span class="hl-4">from</span><span class="hl-0"> </span><span class="hl-6">&#39;../contracts/X/IColonyNetworkFactory&#39;</span><span class="hl-0">;</span><br/><span class="hl-4">import</span><span class="hl-0"> { </span><span class="hl-5">IColonyNetwork</span><span class="hl-0"> } </span><span class="hl-4">from</span><span class="hl-0"> </span><span class="hl-6">&#39;../contracts/X/IColonyNetwork&#39;</span><span class="hl-0">;</span>
+to extract the contract ABIs and store them in the colonyJS repository</li>
+<li>If needed: add new contracts that need clients to the <code>contractsToBuild</code> array in <code>scripts/build-contracts.ts</code></li>
+<li>Run<pre><code class="language-shell"><span class="hl-0">npm run build-contracts</span>
 </code></pre>
-<ol start="8">
+This will create a new folder: <code>src/contracts/X</code> containing all the type definitions you&#39;ll need to implement the new colony client.</li>
+<li>Update the following lines in <code>ColonyNetworkClient.ts</code> to reflect the new version:<pre><code class="language-ts"><span class="hl-4">import</span><span class="hl-0"> { </span><span class="hl-5">IColonyNetworkFactory</span><span class="hl-0"> } </span><span class="hl-4">from</span><span class="hl-0"> </span><span class="hl-6">&#39;../contracts/X/IColonyNetworkFactory&#39;</span><span class="hl-0">;</span><br/><span class="hl-4">import</span><span class="hl-0"> { </span><span class="hl-5">IColonyNetwork</span><span class="hl-0"> } </span><span class="hl-4">from</span><span class="hl-0"> </span><span class="hl-6">&#39;../contracts/X/IColonyNetwork&#39;</span><span class="hl-0">;</span>
+</code></pre>
+</li>
 <li>Update all the other contract imports in the non-colony clients, even if they haven&#39;t been upgraded (just in case). Then make adjustments to the clients to reflect the contract changes (typescript will tell you, where to make changes). Also add necessary helper functions (e.g. <code>withProofs</code> functions) for newly added methods. The newly added methods and their required roles can be found in <a href="https://github.com/JoinColony/colonyNetwork/blob/develop/contracts/colony/ColonyAuthority.sol">this file</a> (and by diffing the generated interface files).</li>
 </ol>
 
