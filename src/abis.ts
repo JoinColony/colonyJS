@@ -1,12 +1,12 @@
-import * as metatransactionsToken from './contracts/deploy/MetaTxToken.json';
-import * as tokenAuthority from './contracts/deploy/TokenAuthority.json';
-import * as vestingSimple from './contracts/vesting/VestingSimple.json';
-import * as WrappedToken from './contracts/vesting/WrappedToken.json';
+import * as MetaTxToken from './abis/__develop__/MetaTxToken.json';
+import * as TokenAuthority from './abis/elwss3/TokenAuthority.json';
+import * as VestingSimple from './abis/elwss3/VestingSimple.json';
+import * as WrappedToken from './abis/elwss3/WrappedToken.json';
 
 const abis = {
-  metatransactionsToken,
-  tokenAuthority,
-  vestingSimple,
+  MetaTxToken,
+  TokenAuthority,
+  VestingSimple,
   WrappedToken,
 };
 
