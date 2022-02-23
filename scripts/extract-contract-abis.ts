@@ -27,11 +27,18 @@ const extract = async () => {
   if (inputDir !== ARTIFACTS_DIR) {
     inputDir = resolvePath(process.cwd(), inputDir);
   }
+  const inputDirToken = resolvePath(
+    inputDir,
+    '../../lib/colonyToken/build/contracts',
+  );
+
   const outputDir = resolvePath(OUTPUT_DIR, tag);
   await promisify(rimraf)(outputDir);
   mkdirp.sync(outputDir);
 
-  const inputFiles = await fg(`${inputDir}/*.json`);
+  const inputArtifacts = await fg(`${inputDir}/*.json`);
+  const inputTokenArtifacts = await fg(`${inputDirToken}/*.json`);
+  const inputFiles = inputArtifacts.concat(inputTokenArtifacts);
   inputFiles.forEach((file) => {
     const { contractName, abi, bytecode } = JSON.parse(
       readFileSync(file).toString(),
