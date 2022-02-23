@@ -1,3 +1,5 @@
+import { Extension } from '../../versions';
+
 import getCoinMachineClient, {
   CoinMachineClient,
 } from './CoinMachine/2/CoinMachineClient';
@@ -10,14 +12,6 @@ import getVotingReputationClient, {
 import getWhitelistClient, {
   WhitelistClient,
 } from './Whitelist/1/WhitelistClient';
-
-export enum Extension {
-  CoinMachine = 'CoinMachine',
-  // FundingQueue = 'FundingQueue',
-  OneTxPayment = 'OneTxPayment',
-  VotingReputation = 'VotingReputation',
-  Whitelist = 'Whitelist',
-}
 
 // All of the valid extensions
 export type ExtensionClients = {

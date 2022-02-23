@@ -9,7 +9,7 @@ import {
   FundingPotAssociatedType,
   ROOT_DOMAIN_ID,
 } from '../../../constants';
-import { ColonyVersion } from '../../../versions';
+import { ColonyVersion, Extension } from '../../../versions';
 import { ReputationMinerEndpoints } from '../../../types';
 
 import { IColony as IColonyV1 } from '../../../contracts/1/IColony';
@@ -24,10 +24,7 @@ import { IColony as IColonyV9 } from '../../../contracts/colony/9/IColony';
 import { TransactionOverrides } from '../../../contracts/6';
 import { IColonyFactory } from '../../../contracts/4/IColonyFactory';
 
-import {
-  ExtensionClient,
-  Extension,
-} from '../../Extensions/colonyContractExtensions';
+import { ExtensionClient } from '../../Extensions/colonyContractExtensions';
 import getExtensionVersionClient from '../../Extensions/ExtensionVersionClient';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
 import { TokenClient } from '../../TokenClient';

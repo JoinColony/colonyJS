@@ -135,25 +135,6 @@ export const getAllAbiEvents = (
   return abiEvents;
 };
 
-export const getExtensionCompatibilityMap = (
-  incompatibilityMap: Record<string, number[]>,
-  colonyVersions: typeof ColonyVersion,
-): Record<number, number[]> => {
-  const compatibilityMap: Record<number, number[]> = {};
-  const allColonyVersions = Object.keys(colonyVersions)
-    .map((version) => parseInt(version, 10))
-    .filter((version) => !!version);
-  const extensionVersions = Object.keys(incompatibilityMap);
-  extensionVersions.map((version) => {
-    const currentCompatibleVersions = allColonyVersions.filter(
-      (colonyVersion) => !incompatibilityMap[version].includes(colonyVersion),
-    );
-    compatibilityMap[parseInt(version, 10)] = currentCompatibleVersions;
-    return null;
-  });
-  return compatibilityMap;
-};
-
 /*
  * Format role events into an Array of all roles in the colony
  *
