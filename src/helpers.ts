@@ -9,7 +9,6 @@ import {
 } from 'ethers/utils';
 
 import { ColonyRole, ColonyRoles } from './constants';
-import { ColonyVersion } from './versions';
 import { ColonyClient, ContractClient } from './types';
 import { formatColonyRoles } from './utils';
 
@@ -21,7 +20,7 @@ import {
   getExtensionPermissionProofs as exGetExtensionPermissionProofs,
   AwkwardRecoveryRoleEventClient,
   ExtendedIColony,
-} from './clients/Colony/extensions/commonExtensions';
+} from './clients/Core/extensions/commonExtensions';
 
 interface LogOptions {
   fromBlock?: number;
@@ -230,17 +229,8 @@ export const getColonyRoles = async (
     options,
   );
 
-  // FIXME: this is what the client Numbers are for
   const recoveryRoleSetFilter =
-    /*
-     * @NOTE Argument number changes between colony contract versions, and since
-     * we are always passing `null` to all of them, it's the same effect as not
-     * passing in them at all
-     *
-     * This suppreses errors on clients
-     */
-    // @ts-ignore
-    client.awkwardRecoveryRoleEventClient.filters.RecoveryRoleSet();
+    client.awkwardRecoveryRoleEventClient.filters.RecoveryRoleSet(null, null);
 
   const recoveryRoleEvents = await getEvents(
     client.awkwardRecoveryRoleEventClient,

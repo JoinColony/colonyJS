@@ -8,9 +8,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { ClientType } from '../../../../constants';
-import { VotingReputation__factory as VotingReputationFactory } from '../../../../contracts/extensions/votingReputation/2/factories/VotingReputation__factory';
-import { VotingReputation } from '../../../../contracts/extensions/votingReputation/2/VotingReputation';
-import { ExtendedIColony } from '../../../../clients/Colony/extensions/commonExtensions';
+import { VotingReputation__factory as VotingReputationFactory } from '../../../../contracts/VotingReputation/2/factories/VotingReputation__factory';
+import { VotingReputation } from '../../../../contracts/VotingReputation/2/VotingReputation';
+import { ExtendedIColony } from '../../../../clients/Core/extensions/commonExtensions';
 
 import * as currentVersion from './VotingReputationClientAddons';
 import * as version1 from '../1/VotingReputationClientAddons';

@@ -8,9 +8,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { ClientType } from '../../../../constants';
-import { CoinMachine__factory as CoinMachineFactory } from '../../../../contracts/extensions/coinMachine/1/factories/CoinMachine__factory';
-import { CoinMachine } from '../../../../contracts/extensions/coinMachine/1/CoinMachine';
-import { ExtendedIColony } from '../../../../clients/Colony/extensions/commonExtensions';
+import { CoinMachine__factory as CoinMachineFactory } from '../../../../contracts/CoinMachine/1/factories/CoinMachine__factory';
+import { CoinMachine } from '../../../../contracts/CoinMachine/1/CoinMachine';
+import { ExtendedIColony } from '../../../../clients/Core/extensions/commonExtensions';
 
 import {
   getCoinMachineClientAddons,

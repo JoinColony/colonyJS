@@ -8,15 +8,20 @@
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any */
 
 import { ContractTransaction } from 'ethers';
-import { BigNumberish, BigNumber, Arrayish, bigNumberify } from 'ethers/utils';
+import {
+  BigNumberish,
+  BigNumber,
+  Arrayish,
+  UnsignedTransaction,
+  bigNumberify,
+} from 'ethers/utils';
 import { MaxUint256 } from 'ethers/constants';
 
 import {
   ExtendedIColony,
   getPermissionProofs,
   getChildIndex,
-} from '../../../Colony/extensions/commonExtensions';
-import { TransactionOverrides } from '../../../../contracts/6';
+} from '../../../Core/extensions/commonExtensions';
 import { ColonyRole } from '../../../../constants';
 
 import { VotingReputationClient } from './VotingReputationClient';
@@ -35,7 +40,7 @@ export const getVotingReputationClientAddons = (
     _value: Arrayish,
     _branchMask: BigNumberish,
     _siblings: Arrayish[],
-    overrides?: TransactionOverrides,
+    overrides?: UnsignedTransaction,
   ): Promise<any> => {
     let childSkillIdex = MaxUint256;
     const votingDomain = bigNumberify(_domainId);
@@ -71,7 +76,7 @@ export const getVotingReputationClientAddons = (
     _value: Arrayish,
     _branchMask: BigNumberish,
     _siblings: Arrayish[],
-    overrides?: TransactionOverrides,
+    overrides?: UnsignedTransaction,
   ): Promise<ContractTransaction> => {
     const { domainId } = await votingReputationClient.getMotion(_motionId);
     const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
@@ -100,7 +105,7 @@ export const getVotingReputationClientAddons = (
     _value: Arrayish,
     _branchMask: BigNumberish,
     _siblings: Arrayish[],
-    overrides?: TransactionOverrides,
+    overrides?: UnsignedTransaction,
   ): Promise<ContractTransaction> => {
     const { domainId } = await votingReputationClient.getMotion(_motionId);
     const motionDomainChildSkillIdIndex = await getChildIndex(
@@ -126,7 +131,7 @@ export const getVotingReputationClientAddons = (
     _motionId: BigNumberish,
     _staker: string,
     _vote: BigNumberish,
-    overrides?: TransactionOverrides,
+    overrides?: UnsignedTransaction,
   ): Promise<ContractTransaction> => {
     const { domainId } = await votingReputationClient.getMotion(_motionId);
     const [permissionDomainId, childSkillIndex] = await getPermissionProofs(

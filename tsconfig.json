@@ -6,6 +6,7 @@
     "noEmit": true,
     "noImplicitAny": true,
     "resolveJsonModule": true,
+    "esModuleInterop": true,
     "strict": true,
     "target": "es6",
     "types": ["node", "jest"],

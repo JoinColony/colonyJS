@@ -5,21 +5,26 @@ import * as execa from 'execa';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
-import { LatestReleaseTag, Core, Extension, releaseMap } from '../src/versions';
+import {
+  LatestReleaseTag,
+  Core,
+  Extensions,
+  releaseMap,
+} from '../src/versions';
 
 const NETWORK_BUILD_DIR = resolvePath(
   __dirname,
   '../vendor/colonyNetwork/build/contracts',
 );
 const STATIC_DIR = resolvePath(__dirname, '../src/abis/static');
-const OUT_ROOT_DIR = resolvePath(__dirname, '../src/contracts__new');
+const OUT_ROOT_DIR = resolvePath(__dirname, '../src/contracts');
 
 const VERSIONED_CONTRACTS = [
   Core.Colony,
-  Extension.CoinMachine,
-  Extension.OneTxPayment,
-  Extension.VotingReputation,
-  Extension.Whitelist,
+  Extensions.CoinMachine,
+  Extensions.OneTxPayment,
+  Extensions.VotingReputation,
+  Extensions.Whitelist,
 ];
 
 const UNVERSIONED_CONTRACTS = [
@@ -45,7 +50,6 @@ const buildVersionedContracts = async (
       const outDir = resolvePath(
         OUT_ROOT_DIR,
         contractName,
-        // @ts-ignore
         String(availableContracts[versionTag]),
       );
 

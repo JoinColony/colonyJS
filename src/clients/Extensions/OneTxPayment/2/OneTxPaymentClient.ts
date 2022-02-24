@@ -8,9 +8,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { ClientType } from '../../../../constants';
-import { OneTxPayment__factory as OneTxPaymentFactory } from '../../../../contracts/extensions/oneTxPayment/2/factories/OneTxPayment__factory';
-import { OneTxPayment } from '../../../../contracts/extensions/oneTxPayment/2/OneTxPayment';
-import { ExtendedIColony } from '../../../../clients/Colony/extensions/commonExtensions';
+import { OneTxPayment__factory as OneTxPaymentFactory } from '../../../../contracts/OneTxPayment/2/factories/OneTxPayment__factory';
+import { OneTxPayment } from '../../../../contracts/OneTxPayment/2/OneTxPayment';
+import { ExtendedIColony } from '../../../../clients/Core/extensions/commonExtensions';
 
 import * as currentVersion from './OneTxPaymentClientAddons';
 import * as version1 from '../1/OneTxPaymentClientAddons';

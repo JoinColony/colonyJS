@@ -100,7 +100,7 @@ export enum Core {
 }
 
 /// Versioned extension contract names
-export enum Extension {
+export enum Extensions {
   CoinMachine = 'CoinMachine',
   // FundingQueue = 'FundingQueue',
   OneTxPayment = 'OneTxPayment',
@@ -121,24 +121,24 @@ export const releaseMap = {
     elwss3: 8,
     DEV: 9,
   },
-  [Extension.CoinMachine]: {
+  [Extensions.CoinMachine]: {
     clwss: 1,
     dlwss: 2,
     elwss2: 3,
     DEV: 3,
   },
-  [Extension.OneTxPayment]: {
+  [Extensions.OneTxPayment]: {
     clwss: 1,
     dlwss: 2,
     DEV: 3,
   },
-  [Extension.VotingReputation]: {
+  [Extensions.VotingReputation]: {
     clwss: 1,
     dlwss: 2,
     elwss: 3,
     DEV: 3,
   },
-  [Extension.Whitelist]: {
+  [Extensions.Whitelist]: {
     elwss: 1,
     DEV: 1,
   },
@@ -164,17 +164,17 @@ function getExtensionCompatibilityMap(
  * (Aggregates from the various extensions ones)
  */
 export const extensionsIncompatibilityMap = {
-  [Extension.OneTxPayment]: OneTxPaymentExtensionVersionIncompatibilityMap,
-  [Extension.CoinMachine]: CoinMachineExtensionVersionIncompatibilityMap,
-  [Extension.VotingReputation]:
+  [Extensions.OneTxPayment]: OneTxPaymentExtensionVersionIncompatibilityMap,
+  [Extensions.CoinMachine]: CoinMachineExtensionVersionIncompatibilityMap,
+  [Extensions.VotingReputation]:
     VotingReputationExtensionVersionIncompatibilityMap,
-  [Extension.Whitelist]: WhitelistExtensionVersionIncompatibilityMap,
+  [Extensions.Whitelist]: WhitelistExtensionVersionIncompatibilityMap,
 };
 
 export const extensionsCompatibilityMap = {
-  [Extension.OneTxPayment]: OneTxPaymentExtensionVersionCompatibilityMap,
-  [Extension.CoinMachine]: CoinMachineExtensionVersionCompatibilityMap,
-  [Extension.VotingReputation]:
+  [Extensions.OneTxPayment]: OneTxPaymentExtensionVersionCompatibilityMap,
+  [Extensions.CoinMachine]: CoinMachineExtensionVersionCompatibilityMap,
+  [Extensions.VotingReputation]:
     VotingReputationExtensionVersionCompatibilityMap,
-  [Extension.Whitelist]: WhitelistExtensionVersionCompatibilityMap,
+  [Extensions.Whitelist]: WhitelistExtensionVersionCompatibilityMap,
 };

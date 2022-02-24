@@ -7,14 +7,13 @@
 
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any */
 
-import { BigNumberish, BigNumber } from 'ethers/utils';
+import { BigNumberish, BigNumber, UnsignedTransaction } from 'ethers/utils';
 import { ContractTransaction } from 'ethers';
 
 import {
   ExtendedIColony,
   getExtensionPermissionProofs,
-} from '../../../../clients/Colony/extensions/commonExtensions';
-import { TransactionOverrides } from '../../../../contracts/6';
+} from '../../../../clients/Core/extensions/commonExtensions';
 
 import { OneTxPaymentClient } from './OneTxPaymentClient';
 
@@ -31,7 +30,7 @@ export const getOneTxPaymentClientAddons = (
     _amounts: BigNumberish[],
     _domainId: BigNumberish,
     _skillId: BigNumberish,
-    overrides?: TransactionOverrides,
+    overrides?: UnsignedTransaction,
   ): Promise<ContractTransaction> => {
     const [extensionPDID, extensionCSI] = await getExtensionPermissionProofs(
       colonyClient,
@@ -62,7 +61,7 @@ export const getOneTxPaymentClientAddons = (
     _amounts: BigNumberish[],
     _domainId: BigNumberish,
     _skillId: BigNumberish,
-    overrides?: TransactionOverrides,
+    overrides?: UnsignedTransaction,
   ): Promise<ContractTransaction> => {
     const [extensionPDID, extensionCSI] = await getExtensionPermissionProofs(
       colonyClient,

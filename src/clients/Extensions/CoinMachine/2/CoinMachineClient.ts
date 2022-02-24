@@ -8,9 +8,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { ClientType } from '../../../../constants';
-import { CoinMachine__factory as CoinMachineFactory } from '../../../../contracts/extensions/coinMachine/2/factories/CoinMachine__factory';
-import { CoinMachine } from '../../../../contracts/extensions/coinMachine/2/CoinMachine';
-import { ExtendedIColony } from '../../../../clients/Colony/extensions/commonExtensions';
+import { CoinMachine__factory as CoinMachineFactory } from '../../../../contracts/CoinMachine/2/factories/CoinMachine__factory';
+import { CoinMachine } from '../../../../contracts/CoinMachine/2/CoinMachine';
+import { ExtendedIColony } from '../../../../clients/Core/extensions/commonExtensions';
 
 import * as currentVersion from './CoinMachineClientAddons';
 import * as version1 from '../1/CoinMachineClientAddons';
@@ -47,7 +47,7 @@ const getCoinMachineClient = (
 
   const addons = {
     ...version1.getCoinMachineClientAddons(
-      (coinMachineClient as unknown) as CoinMachineClientV1,
+      coinMachineClient as unknown as CoinMachineClientV1,
       colonyClient,
     ),
     ...currentVersion.getCoinMachineClientAddons(
@@ -57,7 +57,7 @@ const getCoinMachineClient = (
   };
   const addonsEstimate = {
     ...version1.getCoinMachineClientEstimateAddons(
-      (coinMachineClient as unknown) as CoinMachineClientV1,
+      coinMachineClient as unknown as CoinMachineClientV1,
       colonyClient,
     ),
     ...currentVersion.getCoinMachineClientEstimateAddons(

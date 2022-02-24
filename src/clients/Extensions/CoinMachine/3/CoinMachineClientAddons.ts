@@ -7,7 +7,7 @@
 
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any */
 
-import { ExtendedIColony } from '../../../../clients/Colony/extensions/commonExtensions';
+import { ExtendedIColony } from '../../../../clients/Core/extensions/commonExtensions';
 
 import { CoinMachineClient } from './CoinMachineClient';
 

@@ -8,9 +8,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { ClientType } from '../../../../constants';
-import { Whitelist__factory as WhitelistFactory } from '../../../../contracts/extensions/whitelist/1/factories/Whitelist__factory';
-import { Whitelist } from '../../../../contracts/extensions/whitelist/1/Whitelist';
-import { ExtendedIColony } from '../../../../clients/Colony/extensions/commonExtensions';
+import { Whitelist__factory as WhitelistFactory } from '../../../../contracts/Whitelist/1/factories/Whitelist__factory';
+import { Whitelist } from '../../../../contracts/Whitelist/1/Whitelist';
+import { ExtendedIColony } from '../../../../clients/Core/extensions/commonExtensions';
 
 import {
   getWhitelistClientAddons,

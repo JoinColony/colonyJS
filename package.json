@@ -30,7 +30,7 @@
     "copy-declarations:extensions": "copyfiles -u 1 src/contracts/extensions/**/*.d.ts $OUT",
     "copy-declarations:legacy": "copyfiles -u 1 src/contracts/**/*.d.ts $OUT",
     "extract-contract-abis": "ts-node -P scripts/tsconfig-scripts.json scripts/extract-contract-abis.ts",
-    "lint": "eslint src/**/*.ts scripts/**/*.ts",
+    "lint": "eslint --ext .ts src scripts",
     "prepublishOnly": "npm test && npm run build",
     "test": "npm run lint && npm run typecheck && jest",
     "typecheck": "tsc --noEmit"
@@ -40,6 +40,7 @@
     "@typechain/ethers-v4": "^7.0.0",
     "@types/jest": "^27.4.0",
     "@types/lodash-es": "^4.17.6",
+    "@types/mkdirp": "^1.0.2",
     "@types/rimraf": "^3.0.2",
     "@types/yargs": "^17.0.8",
     "@typescript-eslint/eslint-plugin": "^5.12.0",

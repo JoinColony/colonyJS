@@ -1,14 +1,17 @@
 import { Signer } from 'ethers';
+import { AddressZero } from 'ethers/constants';
 import { Provider } from 'ethers/providers';
 import { getAddress, isHexString, parseBytes32String } from 'ethers/utils';
 
 import { ClientType, TokenClientType, tokenAddresses } from '../constants';
-import { Token__factory as TokenFactory } from '../contracts/colony/9/factories/Token__factory';
-import { Token } from '../contracts/colony/9/Token';
-import { TokenERC20__factory as TokenErc20Factory } from '../contracts/colony/9/factories/TokenERC20__factory';
-import { TokenERC20 as TokenErc20 } from '../contracts/colony/9/TokenERC20';
-import { TokenSAI__factory as TokenSaiFactory } from '../contracts/colony/9/factories/TokenSAI__factory';
-import { TokenSAI as TokenSai } from '../contracts/colony/9/TokenSAI';
+import {
+  TokenFactory,
+  Token,
+  TokenErc20Factory,
+  TokenErc20,
+  TokenSaiFactory,
+  TokenSai,
+} from '../exports';
 
 const isSai = (address: string): boolean =>
   getAddress(address) === tokenAddresses.SAI;
@@ -86,7 +89,7 @@ const getTokenClient = async (
   // Before we go, let's check if this resembles a valid ERC20 token, for good measure
   try {
     await tokenClient.estimate.transfer(address, 0, {
-      from: address,
+      to: AddressZero,
     });
   } catch (err) {
     throw new Error(`Token is probably not a valid ERC20 token, got ${err}`);

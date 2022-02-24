@@ -2,17 +2,17 @@ export * from './constants';
 export * from './versions';
 export * from './helpers';
 export * from './types';
-export * from './abis';
+export * from './exports';
 
 export { formatColonyRoles } from './utils';
 
 export { ColonyNetworkClient } from './clients/ColonyNetworkClient';
-export { ColonyClientV1 } from './clients/Colony/ColonyClientV1';
-export { ColonyClientV2 } from './clients/Colony/ColonyClientV2';
-export { ColonyClientV3 } from './clients/Colony/ColonyClientV3';
-export { ColonyClientV4 } from './clients/Colony/ColonyClientV4';
-export { ColonyClientV5 } from './clients/Colony/ColonyClientV5';
-export { ColonyClientV6 } from './clients/Colony/ColonyClientV6';
+export { ColonyClientV1 } from './clients/Core/ColonyClientV1';
+export { ColonyClientV2 } from './clients/Core/ColonyClientV2';
+export { ColonyClientV3 } from './clients/Core/ColonyClientV3';
+export { ColonyClientV4 } from './clients/Core/ColonyClientV4';
+export { ColonyClientV5 } from './clients/Core/ColonyClientV5';
+export { ColonyClientV6 } from './clients/Core/ColonyClientV6';
 export {
   OneTxPaymentClient,
   OneTxPaymentClient as OneTxPaymentClientV1,
