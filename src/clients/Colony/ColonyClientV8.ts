@@ -23,7 +23,6 @@ import {
   ExtendedEstimateV8,
 } from './extensions/extensionsV8';
 import { getAllAbiEvents, getAbiFunctions } from '../../utils';
-import { ColonyVersion } from '../../versions';
 
 type ColonyExtensions = Omit<
   ExtendedIColony<IColony>,
@@ -37,7 +36,7 @@ type ColonyExtensions = Omit<
   ColonyExtensionsV8<IColony>;
 
 export type ColonyClientV8 = ColonyExtensions & {
-  clientVersion: ColonyVersion.EbonyLightweightSpaceship;
+  clientVersion: 8;
   estimate: ExtendedIColony<IColony>['estimate'] & ExtendedEstimateV8;
 };
 
@@ -77,7 +76,7 @@ export default function getColonyClient(
     signerOrProvider,
   ) as unknown as ColonyClientV8;
 
-  colonyClientV8.clientVersion = ColonyVersion.EbonyLightweightSpaceship;
+  colonyClientV8.clientVersion = 8;
   addExtensions(colonyClientV8, this);
 
   return colonyClientV8 as ColonyClientV8;

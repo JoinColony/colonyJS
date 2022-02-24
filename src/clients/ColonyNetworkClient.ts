@@ -184,7 +184,7 @@ const getColonyNetworkClient = (
     const version = versionBN.toNumber() as ColonyVersion;
     let colonyClient: ColonyClient;
     switch (version) {
-      case ColonyVersion.GoerliGlider: {
+      case 1: {
         colonyClient = getColonyClientV1.call(
           networkClient,
           colonyAddress,
@@ -192,7 +192,7 @@ const getColonyNetworkClient = (
         );
         break;
       }
-      case ColonyVersion.Glider: {
+      case 2: {
         colonyClient = getColonyClientV2.call(
           networkClient,
           colonyAddress,
@@ -200,7 +200,7 @@ const getColonyNetworkClient = (
         );
         break;
       }
-      case ColonyVersion.AuburnGlider: {
+      case 3: {
         colonyClient = getColonyClientV3.call(
           networkClient,
           colonyAddress,
@@ -208,7 +208,7 @@ const getColonyNetworkClient = (
         );
         break;
       }
-      case ColonyVersion.BurgundyGlider: {
+      case 4: {
         colonyClient = getColonyClientV4.call(
           networkClient,
           colonyAddress,
@@ -216,7 +216,7 @@ const getColonyNetworkClient = (
         );
         break;
       }
-      case ColonyVersion.LightweightSpaceship: {
+      case 5: {
         colonyClient = getColonyClientV5.call(
           networkClient,
           colonyAddress,
@@ -224,7 +224,7 @@ const getColonyNetworkClient = (
         );
         break;
       }
-      case ColonyVersion.CeruleanLightweightSpaceship: {
+      case 6: {
         colonyClient = getColonyClientV6.call(
           networkClient,
           colonyAddress,
@@ -232,7 +232,7 @@ const getColonyNetworkClient = (
         );
         break;
       }
-      case ColonyVersion.DandelionLightweightSpaceship: {
+      case 7: {
         colonyClient = getColonyClientV7.call(
           networkClient,
           colonyAddress,
@@ -240,7 +240,7 @@ const getColonyNetworkClient = (
         );
         break;
       }
-      case ColonyVersion.EbonyLightweightSpaceship: {
+      case 8: {
         colonyClient = getColonyClientV8.call(
           networkClient,
           colonyAddress,
@@ -248,7 +248,7 @@ const getColonyNetworkClient = (
         );
         break;
       }
-      case ColonyVersion.UnnamedLightweightSpaceship: {
+      case 9: {
         colonyClient = getColonyClientV9.call(
           networkClient,
           colonyAddress,

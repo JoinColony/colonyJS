@@ -17,7 +17,6 @@ import {
   ExtendedEstimateV6,
 } from './extensions/extensionsV6';
 import { getAllAbiEvents, getAbiFunctions } from '../../utils';
-import { ColonyVersion } from '../../versions';
 
 type ColonyExtensions = ExtendedIColony<IColony> &
   ColonyExtensionsV3<IColony> &
@@ -26,7 +25,7 @@ type ColonyExtensions = ExtendedIColony<IColony> &
   ColonyExtensionsV6<IColony>;
 
 export type ColonyClientV6 = ColonyExtensions & {
-  clientVersion: ColonyVersion.CeruleanLightweightSpaceship;
+  clientVersion: 6;
   estimate: ExtendedIColony<IColony>['estimate'] & ExtendedEstimateV6;
 };
 
@@ -59,7 +58,7 @@ export default function getColonyClient(
     signerOrProvider,
   ) as unknown as ColonyClientV6;
 
-  colonyClientV6.clientVersion = ColonyVersion.CeruleanLightweightSpaceship;
+  colonyClientV6.clientVersion = 6;
   addExtensions(colonyClientV6, this);
 
   return colonyClientV6 as ColonyClientV6;

@@ -3,7 +3,6 @@ import { Provider } from 'ethers/providers';
 
 import { IColonyFactory } from '../../contracts/3/IColonyFactory';
 import { IColony } from '../../contracts/3/IColony';
-import { ColonyVersion } from '../../versions';
 import { ColonyNetworkClient } from '../ColonyNetworkClient';
 import { ExtendedIColony } from './extensions/commonExtensions';
 import {
@@ -22,7 +21,7 @@ export interface ColonyClientV3
   extends ExtendedIColony<IColony>,
     ColonyExtensionsV3<IColony>,
     SetPaymentDomainExtensions<IColony> {
-  clientVersion: ColonyVersion.AuburnGlider;
+  clientVersion: 3;
   estimate: ExtendedIColony<IColony>['estimate'] &
     SetPaymentDomainEstimate &
     ExtendedEstimateV3;
@@ -38,7 +37,7 @@ export default function getColonyClient(
     signerOrProvider,
   ) as ColonyClientV3;
 
-  colonyClient.clientVersion = ColonyVersion.AuburnGlider;
+  colonyClient.clientVersion = 3;
   addExtensions(colonyClient, this);
 
   colonyClient.setPaymentDomainWithProofs =

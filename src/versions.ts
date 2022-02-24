@@ -2,24 +2,97 @@
  * Colony / Network Versioning
  */
 
-/**
- * Available versions for colonies that could be deployed. When a new version for a colony needs to be supported, it should be added here. The versions are incremented integers.
-// FIXME: put the actual number in the clients, not this release tag, then remove and use only the release map with actual numbers
- */
-export enum ColonyVersion {
-  /** Only deployed to Goerli, hence not present on mainnet deployments */
-  GoerliGlider = 1, // glider-rc.1
-  Glider = 2,
-  AuburnGlider = 3,
-  BurgundyGlider = 4,
-  LightweightSpaceship = 5,
-  CeruleanLightweightSpaceship = 6,
-  DandelionLightweightSpaceship = 7,
-  EbonyLightweightSpaceship = 8,
-  Develop = 9,
-}
-
 export const LatestReleaseTag = 'elwss3';
+
+/*
+ * Core IColony versioning
+ */
+const CORE_COLONY_VERSIONS = [1, 2, 4, 5, 6, 7, 8, 9];
+export type ColonyVersion = typeof CORE_COLONY_VERSIONS[number];
+
+/*
+ * One Transaction Payment Extension Versioning
+ */
+const EX_ONE_TX_PAYMENT_VERSIONS = [1, 2];
+export type OneTxPaymentExtensionVersion =
+  typeof EX_ONE_TX_PAYMENT_VERSIONS[number];
+
+const OneTxPaymentExtensionVersionIncompatibilityMap: Record<
+  OneTxPaymentExtensionVersion,
+  Array<ColonyVersion>
+> = {
+  1: [],
+  2: [],
+};
+
+const OneTxPaymentExtensionVersionCompatibilityMap: Record<
+  OneTxPaymentExtensionVersion,
+  Array<ColonyVersion>
+> = getExtensionCompatibilityMap(
+  OneTxPaymentExtensionVersionIncompatibilityMap,
+);
+
+/*
+ * Coin Machine Extension Versioning
+ */
+const EX_COIN_MACHINE_VERSIONS = [1, 2, 3];
+export type CoinMachineExtensionVersion =
+  typeof EX_COIN_MACHINE_VERSIONS[number];
+
+const CoinMachineExtensionVersionIncompatibilityMap: Record<
+  CoinMachineExtensionVersion,
+  Array<ColonyVersion>
+> = {
+  1: [],
+  2: [],
+  3: [],
+};
+
+const CoinMachineExtensionVersionCompatibilityMap: Record<
+  CoinMachineExtensionVersion,
+  Array<ColonyVersion>
+> = getExtensionCompatibilityMap(CoinMachineExtensionVersionIncompatibilityMap);
+
+/*
+ * Voting Reputation Extension Versioning
+ */
+const EX_VOTING_REPUTATION_VERSIONS = [1, 2, 3];
+export type VotingReputationExtensionVersion =
+  typeof EX_VOTING_REPUTATION_VERSIONS[number];
+
+const VotingReputationExtensionVersionIncompatibilityMap: Record<
+  VotingReputationExtensionVersion,
+  Array<ColonyVersion>
+> = {
+  1: [],
+  2: [1, 2, 3, 4, 5, 6],
+  3: [1, 2, 3, 4, 5, 6],
+};
+
+const VotingReputationExtensionVersionCompatibilityMap: Record<
+  VotingReputationExtensionVersion,
+  Array<ColonyVersion>
+> = getExtensionCompatibilityMap(
+  VotingReputationExtensionVersionIncompatibilityMap,
+);
+
+/*
+ * Whitelist Extension Versioning
+ */
+const EX_WHITELIST_VERSIONS = [1];
+export type WhitelistExtensionVersion = typeof EX_WHITELIST_VERSIONS[number];
+
+const WhitelistExtensionVersionIncompatibilityMap: Record<
+  WhitelistExtensionVersion,
+  Array<ColonyVersion>
+> = {
+  1: [],
+};
+
+const WhitelistExtensionVersionCompatibilityMap: Record<
+  WhitelistExtensionVersion,
+  Array<ColonyVersion>
+> = getExtensionCompatibilityMap(WhitelistExtensionVersionIncompatibilityMap);
 
 /// Versioned core contract names
 export enum Core {
@@ -71,146 +144,20 @@ export const releaseMap = {
   },
 };
 
-const getExtensionCompatibilityMap = (
+function getExtensionCompatibilityMap(
   incompatibilityMap: Record<string, number[]>,
-  colonyVersions: typeof ColonyVersion,
-): Record<number, number[]> => {
+): Record<number, number[]> {
   const compatibilityMap: Record<number, number[]> = {};
-  const allColonyVersions = Object.keys(colonyVersions)
-    .map((version) => parseInt(version, 10))
-    .filter((version) => !!version);
   const extensionVersions = Object.keys(incompatibilityMap);
   extensionVersions.map((version) => {
-    const currentCompatibleVersions = allColonyVersions.filter(
+    const currentCompatibleVersions = CORE_COLONY_VERSIONS.filter(
       (colonyVersion) => !incompatibilityMap[version].includes(colonyVersion),
     );
     compatibilityMap[parseInt(version, 10)] = currentCompatibleVersions;
     return null;
   });
   return compatibilityMap;
-};
-
-// FIXME: remove these version enums
-/*
- * One Transaction Payment Extension Versioning
- */
-export enum OneTxPaymentExtensionVersion {
-  CeruleanLightweightSpaceship = 1,
-  DandelionLightweightSpaceship = 2,
 }
-
-const OneTxPaymentExtensionVersionIncompatibilityMap: Record<
-  OneTxPaymentExtensionVersion,
-  Array<ColonyVersion>
-> = {
-  1: [],
-  2: [],
-};
-
-const OneTxPaymentExtensionVersionCompatibilityMap: Record<
-  OneTxPaymentExtensionVersion,
-  Array<ColonyVersion>
-> = getExtensionCompatibilityMap(
-  OneTxPaymentExtensionVersionIncompatibilityMap,
-  ColonyVersion,
-);
-
-/*
- * Coin Machine Extension Versioning
- */
-export enum CoinMachineExtensionVersion {
-  CeruleanLightweightSpaceship = 1,
-  DandelionLightweightSpaceship = 2,
-  EbonyLightweightSpaceship2 = 3,
-}
-
-const CoinMachineExtensionVersionIncompatibilityMap: Record<
-  CoinMachineExtensionVersion,
-  Array<ColonyVersion>
-> = {
-  [CoinMachineExtensionVersion.CeruleanLightweightSpaceship]: [],
-  [CoinMachineExtensionVersion.DandelionLightweightSpaceship]: [],
-  [CoinMachineExtensionVersion.EbonyLightweightSpaceship2]: [],
-};
-
-const CoinMachineExtensionVersionCompatibilityMap: Record<
-  CoinMachineExtensionVersion,
-  Array<ColonyVersion>
-> = getExtensionCompatibilityMap(
-  CoinMachineExtensionVersionIncompatibilityMap,
-  ColonyVersion,
-);
-
-/*
- * Voting Reputation Extension Versioning
- */
-
-export enum VotingReputationExtensionVersion {
-  CeruleanLightweightSpaceship = 1,
-  DandelionLightweightSpaceship = 2,
-  EbonyLightweightSpaceship = 3,
-}
-
-const VotingReputationExtensionVersionIncompatibilityMap: Record<
-  VotingReputationExtensionVersion,
-  Array<ColonyVersion>
-> = {
-  [VotingReputationExtensionVersion.CeruleanLightweightSpaceship]: [],
-  [VotingReputationExtensionVersion.DandelionLightweightSpaceship]: [
-    ColonyVersion.GoerliGlider,
-    ColonyVersion.Glider,
-    ColonyVersion.AuburnGlider,
-    ColonyVersion.BurgundyGlider,
-    ColonyVersion.LightweightSpaceship,
-    ColonyVersion.CeruleanLightweightSpaceship,
-  ],
-  [VotingReputationExtensionVersion.EbonyLightweightSpaceship]: [
-    ColonyVersion.GoerliGlider,
-    ColonyVersion.Glider,
-    ColonyVersion.AuburnGlider,
-    ColonyVersion.BurgundyGlider,
-    ColonyVersion.LightweightSpaceship,
-    ColonyVersion.CeruleanLightweightSpaceship,
-  ],
-};
-
-const VotingReputationExtensionVersionCompatibilityMap: Record<
-  VotingReputationExtensionVersion,
-  Array<ColonyVersion>
-> = getExtensionCompatibilityMap(
-  VotingReputationExtensionVersionIncompatibilityMap,
-  ColonyVersion,
-);
-
-/*
- * One Transaction Payment Extension Versioning
- */
-
-export enum WhitelistExtensionVersion {
-  EbonyLightweightSpaceship = 1,
-}
-
-export const CurrentWhitelistVersion = parseInt(
-  WhitelistExtensionVersion[
-    Object.keys(WhitelistExtensionVersion).slice(-1)[0] as unknown as number
-  ],
-  10,
-);
-
-const WhitelistExtensionVersionIncompatibilityMap: Record<
-  WhitelistExtensionVersion,
-  Array<ColonyVersion>
-> = {
-  [WhitelistExtensionVersion.EbonyLightweightSpaceship]: [],
-};
-
-const WhitelistExtensionVersionCompatibilityMap: Record<
-  WhitelistExtensionVersion,
-  Array<ColonyVersion>
-> = getExtensionCompatibilityMap(
-  WhitelistExtensionVersionIncompatibilityMap,
-  ColonyVersion,
-);
 
 /*
  * Extensions Compatibility and Incompatibility Map

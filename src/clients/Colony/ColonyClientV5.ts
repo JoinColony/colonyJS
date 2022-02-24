@@ -15,7 +15,6 @@ import {
   ExtendedEstimateV5,
 } from './extensions/extensionsV5';
 import { getAllAbiEvents, getAbiFunctions } from '../../utils';
-import { ColonyVersion } from '../../versions';
 
 type ColonyExtensions = Omit<ExtendedIColony<IColony>, 'addDomainWithProofs'> &
   ColonyExtensionsV3<IColony> &
@@ -27,7 +26,7 @@ type ColonyExtensions = Omit<ExtendedIColony<IColony>, 'addDomainWithProofs'> &
  * function overloads for the V5 contract
  */
 export type ColonyClientV5 = ColonyExtensions & {
-  clientVersion: ColonyVersion.LightweightSpaceship;
+  clientVersion: 5;
   estimate: ExtendedIColony<IColony>['estimate'] & ExtendedEstimateV5;
 };
 
@@ -60,7 +59,7 @@ export default function getColonyClient(
     signerOrProvider,
   ) as unknown as ColonyClientV5;
 
-  colonyClientV5.clientVersion = ColonyVersion.LightweightSpaceship;
+  colonyClientV5.clientVersion = 5;
   addExtensions(colonyClientV5, this);
 
   return colonyClientV5 as ColonyClientV5;

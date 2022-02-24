@@ -205,10 +205,7 @@ export const getColonyRoles = async (
   /*
    * Supported only for versions greater or equal to 3
    */
-  if (
-    client.clientVersion === ColonyVersion.GoerliGlider ||
-    client.clientVersion === ColonyVersion.Glider
-  ) {
+  if (client.clientVersion < 3) {
     throw new Error(`Not supported by colony version ${client.clientVersion}`);
   }
 
@@ -233,6 +230,7 @@ export const getColonyRoles = async (
     options,
   );
 
+  // FIXME: this is what the client Numbers are for
   const recoveryRoleSetFilter =
     /*
      * @NOTE Argument number changes between colony contract versions, and since

@@ -13,13 +13,12 @@ import {
   ExtendedEstimateV4,
 } from './extensions/extensionsV4';
 import { getAllAbiEvents, getAbiFunctions } from '../../utils';
-import { ColonyVersion } from '../../versions';
 
 export interface ColonyClientV4
   extends ExtendedIColony<IColony>,
     ColonyExtensionsV3<IColony>,
     ColonyExtensionsV4<IColony> {
-  clientVersion: ColonyVersion.BurgundyGlider;
+  clientVersion: 4;
   estimate: ExtendedIColony<IColony>['estimate'] & ExtendedEstimateV4;
 }
 
@@ -52,7 +51,7 @@ export default function getColonyClient(
     signerOrProvider,
   ) as unknown as ColonyClientV4;
 
-  colonyClientV4.clientVersion = ColonyVersion.BurgundyGlider;
+  colonyClientV4.clientVersion = 4;
   addExtensions(colonyClientV4, this);
 
   return colonyClientV4 as ColonyClientV4;

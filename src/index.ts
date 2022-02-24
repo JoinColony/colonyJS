@@ -39,7 +39,6 @@ export { default as getColonyNetworkClient } from './clients/ColonyNetworkClient
 export { default as getTokenClient } from './clients/TokenClient';
 
 export {
-  Extension,
   ExtensionClient,
   extensions,
 } from './clients/Extensions/colonyContractExtensions';

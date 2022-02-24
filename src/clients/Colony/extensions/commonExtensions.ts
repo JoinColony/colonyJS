@@ -242,7 +242,7 @@ export const getPotDomain = async (
   );
   // In case we add types to this later, we use the official colonyNetwork
   // function available in v5+
-  if (contract.clientVersion === ColonyVersion.LightweightSpaceship) {
+  if (contract.clientVersion >= 5) {
     return contract.getDomainFromFundingPot(potId);
   }
   switch (associatedType) {
