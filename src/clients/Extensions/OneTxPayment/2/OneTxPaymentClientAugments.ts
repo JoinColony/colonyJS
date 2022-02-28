@@ -7,16 +7,16 @@
 
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any */
 
-import { ExtendedIColony } from '../../../../clients/Core/extensions/commonExtensions';
+import { AugmentedIColony } from '../../../../clients/Core/augments/commonAugments';
 
 import { OneTxPaymentClient } from './OneTxPaymentClient';
 
 /*
  * Extra client methods
  */
-export const getOneTxPaymentClientAddons = (
+export const getOneTxPaymentClientAugments = (
   oneTxPaymentClient: OneTxPaymentClient,
-  colonyClient: ExtendedIColony,
+  colonyClient: AugmentedIColony,
 ): Record<string, any> => ({
   /*
    * Example withProofs method
@@ -40,9 +40,9 @@ export const getOneTxPaymentClientAddons = (
  *
  * These are needed! Don't skip them!
  */
-export const getOneTxPaymentClientEstimateAddons = (
+export const getOneTxPaymentClientEstimateAugments = (
   oneTxPaymentClient: OneTxPaymentClient,
-  colonyClient: ExtendedIColony,
+  colonyClient: AugmentedIColony,
 ): Record<string, any> => ({
   /*
    * Example withProofs estimate method

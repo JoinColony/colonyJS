@@ -56,7 +56,7 @@ type AnyIColony =
 // just an IColonyV4
 export type AwkwardRecoveryRoleEventClient = IColonyV4;
 
-export type ExtendedEstimate<T extends AnyIColony = AnyIColony> =
+export type AugmentedEstimate<T extends AnyIColony = AnyIColony> =
   T['estimate'] & {
     deployTokenAuthority(
       tokenAddress: string,
@@ -117,7 +117,7 @@ export type ExtendedEstimate<T extends AnyIColony = AnyIColony> =
     ): Promise<BigNumber>;
   };
 
-export type ExtendedIColony<T extends AnyIColony = AnyIColony> = T & {
+export type AugmentedIColony<T extends AnyIColony = AnyIColony> = T & {
   clientType: ClientType.ColonyClient;
   clientVersion: ColonyVersion;
   networkClient: ColonyNetworkClient;
@@ -126,7 +126,7 @@ export type ExtendedIColony<T extends AnyIColony = AnyIColony> = T & {
   awkwardRecoveryRoleEventClient: AwkwardRecoveryRoleEventClient;
 
   getExtensionClient(
-    this: ExtendedIColony,
+    this: AugmentedIColony,
     extensionName: Extensions,
   ): Promise<ExtensionClient>;
 
@@ -200,7 +200,7 @@ export type ExtendedIColony<T extends AnyIColony = AnyIColony> = T & {
     _token: string,
     overrides?: UnsignedTransaction,
   ): Promise<ContractTransaction>;
-  estimate: ExtendedEstimate<T>;
+  estimate: AugmentedEstimate<T>;
 
   getReputation(
     skillId: BigNumberish,
@@ -239,7 +239,7 @@ export type ExtendedIColony<T extends AnyIColony = AnyIColony> = T & {
 };
 
 export const getPotDomain = async (
-  contract: ExtendedIColony,
+  contract: AugmentedIColony,
   potId: BigNumberish,
 ): Promise<BigNumberish> => {
   const { associatedType, associatedTypeId } = await contract.getFundingPot(
@@ -273,7 +273,7 @@ export const getPotDomain = async (
 };
 
 export const getChildIndex = async (
-  contract: ExtendedIColony,
+  contract: AugmentedIColony,
   parentDomainId: BigNumberish,
   domainId: BigNumberish,
 ): Promise<BigNumber> => {
@@ -288,7 +288,7 @@ export const getChildIndex = async (
 };
 
 export const getPermissionProofs = async (
-  contract: ExtendedIColony,
+  contract: AugmentedIColony,
   domainId: BigNumberish,
   role: ColonyRole,
   customAddress?: string,
@@ -325,7 +325,7 @@ export const getPermissionProofs = async (
 };
 
 export const getMoveFundsPermissionProofs = async (
-  contract: ExtendedIColony,
+  contract: AugmentedIColony,
   fromtPotId: BigNumberish,
   toPotId: BigNumberish,
   customAddress?: string,
@@ -393,7 +393,7 @@ export const getMoveFundsPermissionProofs = async (
 };
 
 export const getExtensionPermissionProofs = async (
-  colonyClient: ExtendedIColony,
+  colonyClient: AugmentedIColony,
   domainId: BigNumberish,
   address?: string,
 ): Promise<[BigNumberish, BigNumberish]> => {
@@ -423,7 +423,7 @@ export const getExtensionPermissionProofs = async (
 };
 
 async function getExtensionClient(
-  this: ExtendedIColony,
+  this: AugmentedIColony,
   extensionName: Extensions,
 ): Promise<ExtensionClient> {
   const extensionAddress = await this.networkClient.getExtensionInstallation(
@@ -449,7 +449,7 @@ async function getExtensionClient(
 }
 
 async function setArchitectureRoleWithProofs(
-  this: ExtendedIColony,
+  this: AugmentedIColony,
   _user: string,
   _domainId: BigNumberish,
   _setTo: boolean,
@@ -478,7 +478,7 @@ async function setArchitectureRoleWithProofs(
 }
 
 async function setFundingRoleWithProofs(
-  this: ExtendedIColony,
+  this: AugmentedIColony,
   _user: string,
   _domainId: BigNumberish,
   _setTo: boolean,
@@ -507,7 +507,7 @@ async function setFundingRoleWithProofs(
 }
 
 async function setAdministrationRoleWithProofs(
-  this: ExtendedIColony,
+  this: AugmentedIColony,
   _user: string,
   _domainId: BigNumberish,
   _setTo: boolean,
@@ -536,7 +536,7 @@ async function setAdministrationRoleWithProofs(
 }
 
 async function addDomainWithProofs(
-  this: ExtendedIColony,
+  this: AugmentedIColony,
   _parentDomainId: BigNumberish,
   overrides?: UnsignedTransaction,
 ): Promise<ContractTransaction> {
@@ -554,7 +554,7 @@ async function addDomainWithProofs(
 }
 
 async function addPaymentWithProofs(
-  this: ExtendedIColony,
+  this: AugmentedIColony,
   _recipient: string,
   _token: string,
   _amount: BigNumberish,
@@ -580,7 +580,7 @@ async function addPaymentWithProofs(
 }
 
 async function finalizePaymentWithProofs(
-  this: ExtendedIColony,
+  this: AugmentedIColony,
   _id: BigNumberish,
   overrides?: UnsignedTransaction,
 ): Promise<ContractTransaction> {
@@ -599,7 +599,7 @@ async function finalizePaymentWithProofs(
 }
 
 async function setPaymentRecipientWithProofs(
-  this: ExtendedIColony,
+  this: AugmentedIColony,
   _id: BigNumberish,
   _recipient: string,
   overrides?: UnsignedTransaction,
@@ -620,7 +620,7 @@ async function setPaymentRecipientWithProofs(
 }
 
 async function setPaymentSkillWithProofs(
-  this: ExtendedIColony,
+  this: AugmentedIColony,
   _id: BigNumberish,
   _skillId: string,
   overrides?: UnsignedTransaction,
@@ -641,7 +641,7 @@ async function setPaymentSkillWithProofs(
 }
 
 async function setPaymentPayoutWithProofs(
-  this: ExtendedIColony,
+  this: AugmentedIColony,
   _id: BigNumberish,
   _token: string,
   _amount: BigNumberish,
@@ -664,7 +664,7 @@ async function setPaymentPayoutWithProofs(
 }
 
 async function makeTaskWithProofs(
-  this: ExtendedIColony,
+  this: AugmentedIColony,
   _specificationHash: Arrayish,
   _domainId: BigNumberish,
   _skillId: BigNumberish,
@@ -688,7 +688,7 @@ async function makeTaskWithProofs(
 }
 
 async function moveFundsBetweenPotsWithProofs(
-  this: ExtendedIColony,
+  this: AugmentedIColony,
   _fromPot: BigNumberish,
   _toPot: BigNumberish,
   _amount: BigNumberish,
@@ -713,7 +713,7 @@ async function moveFundsBetweenPotsWithProofs(
 }
 
 async function estimateSetArchitectureRoleWithProofs(
-  this: ExtendedIColony,
+  this: AugmentedIColony,
   _user: string,
   _domainId: BigNumberish,
   _setTo: boolean,
@@ -733,7 +733,7 @@ async function estimateSetArchitectureRoleWithProofs(
 }
 
 async function estimateSetFundingRoleWithProofs(
-  this: ExtendedIColony,
+  this: AugmentedIColony,
   _user: string,
   _domainId: BigNumberish,
   _setTo: boolean,
@@ -753,7 +753,7 @@ async function estimateSetFundingRoleWithProofs(
 }
 
 async function estimateSetAdministrationRoleWithProofs(
-  this: ExtendedIColony,
+  this: AugmentedIColony,
   _user: string,
   _domainId: BigNumberish,
   _setTo: boolean,
@@ -773,7 +773,7 @@ async function estimateSetAdministrationRoleWithProofs(
 }
 
 async function estimateAddDomainWithProofs(
-  this: ExtendedIColony,
+  this: AugmentedIColony,
   _parentDomainId: BigNumberish,
 ): Promise<BigNumber> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
@@ -789,7 +789,7 @@ async function estimateAddDomainWithProofs(
 }
 
 async function estimateAddPaymentWithProofs(
-  this: ExtendedIColony,
+  this: AugmentedIColony,
   _recipient: string,
   _token: string,
   _amount: BigNumberish,
@@ -813,7 +813,7 @@ async function estimateAddPaymentWithProofs(
 }
 
 async function estimateFinalizePaymentWithProofs(
-  this: ExtendedIColony,
+  this: AugmentedIColony,
   _id: BigNumberish,
 ): Promise<BigNumber> {
   const { domainId } = await this.getPayment(_id);
@@ -830,7 +830,7 @@ async function estimateFinalizePaymentWithProofs(
 }
 
 async function estimateSetPaymentRecipientWithProofs(
-  this: ExtendedIColony,
+  this: AugmentedIColony,
   _id: BigNumberish,
   _recipient: string,
 ): Promise<BigNumber> {
@@ -849,7 +849,7 @@ async function estimateSetPaymentRecipientWithProofs(
 }
 
 async function estimateSetPaymentSkillWithProofs(
-  this: ExtendedIColony,
+  this: AugmentedIColony,
   _id: BigNumberish,
   _skillId: BigNumberish,
 ): Promise<BigNumber> {
@@ -868,7 +868,7 @@ async function estimateSetPaymentSkillWithProofs(
 }
 
 async function estimateSetPaymentPayoutWithProofs(
-  this: ExtendedIColony,
+  this: AugmentedIColony,
   _id: BigNumberish,
   _token: string,
   _amount: BigNumberish,
@@ -889,7 +889,7 @@ async function estimateSetPaymentPayoutWithProofs(
 }
 
 async function estimateMakeTaskWithProofs(
-  this: ExtendedIColony,
+  this: AugmentedIColony,
   _specificationHash: Arrayish,
   _domainId: BigNumberish,
   _skillId: BigNumberish,
@@ -911,7 +911,7 @@ async function estimateMakeTaskWithProofs(
 }
 
 async function estimateMoveFundsBetweenPotsWithProofs(
-  this: ExtendedIColony,
+  this: AugmentedIColony,
   _fromPot: BigNumberish,
   _toPot: BigNumberish,
   _amount: BigNumberish,
@@ -934,7 +934,7 @@ async function estimateMoveFundsBetweenPotsWithProofs(
 }
 
 async function getReputation(
-  this: ExtendedIColony,
+  this: AugmentedIColony,
   skillId: BigNumberish,
   address: string,
   customRootHash?: string,
@@ -961,7 +961,7 @@ async function getReputation(
 }
 
 async function getReputationWithoutProofs(
-  this: ExtendedIColony,
+  this: AugmentedIColony,
   skillId: BigNumberish,
   address: string,
   customRootHash?: string,
@@ -985,7 +985,7 @@ async function getReputationWithoutProofs(
 }
 
 async function getReputationAcrossDomains(
-  this: ExtendedIColony,
+  this: AugmentedIColony,
   address: string,
   customRootHash?: string,
 ): Promise<
@@ -1035,7 +1035,7 @@ async function getReputationAcrossDomains(
 }
 
 async function getMembersReputation(
-  this: ExtendedIColony,
+  this: AugmentedIColony,
   skillId: BigNumberish,
 ): Promise<{ addresses: string[] }> {
   return fetchReputationOracleData(
@@ -1049,7 +1049,7 @@ async function getMembersReputation(
 }
 
 async function deployTokenAuthority(
-  this: ExtendedIColony,
+  this: AugmentedIColony,
   tokenAddress: string,
   allowedToTransfer: string[],
   overrides?: UnsignedTransaction,
@@ -1070,7 +1070,7 @@ async function deployTokenAuthority(
 }
 
 async function estimateDeployTokenAuthority(
-  this: ExtendedIColony,
+  this: AugmentedIColony,
   tokenAddress: string,
   allowedToTransfer: string[],
 ): Promise<BigNumber> {
@@ -1086,7 +1086,7 @@ async function estimateDeployTokenAuthority(
   return this.provider.estimateGas(deployTx);
 }
 
-export const addExtensions = <T extends ExtendedIColony>(
+export const addAugments = <T extends AugmentedIColony>(
   instance: T,
   networkClient: ColonyNetworkClient,
 ): T => {

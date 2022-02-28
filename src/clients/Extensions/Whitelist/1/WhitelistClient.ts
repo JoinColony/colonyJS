@@ -10,12 +10,12 @@
 import { ClientType } from '../../../../constants';
 import { Whitelist__factory as WhitelistFactory } from '../../../../contracts/Whitelist/1/factories/Whitelist__factory';
 import { Whitelist } from '../../../../contracts/Whitelist/1/Whitelist';
-import { ExtendedIColony } from '../../../../clients/Core/extensions/commonExtensions';
+import { AugmentedIColony } from '../../../../clients/Core/augments/commonAugments';
 
 import {
-  getWhitelistClientAddons,
-  getWhitelistClientEstimateAddons,
-} from './WhitelistClientAddons';
+  getWhitelistClientAugments,
+  getWhitelistClientEstimateAugments,
+} from './WhitelistClientAugments';
 
 type WhitelistEstimate = Whitelist['estimate'];
 interface WhitelistEstimateWithAddons extends WhitelistEstimate {
@@ -38,7 +38,7 @@ export interface WhitelistClient extends Whitelist {
 
 const getWhitelistClient = (
   address: string,
-  colonyClient: ExtendedIColony,
+  colonyClient: AugmentedIColony,
 ): WhitelistClient => {
   const whitelistClient = WhitelistFactory.connect(
     address,
@@ -46,8 +46,8 @@ const getWhitelistClient = (
   ) as WhitelistClient;
   whitelistClient.clientType = ClientType.WhitelistClient;
 
-  const addons = getWhitelistClientAddons(whitelistClient, colonyClient);
-  const addonsEstimate = getWhitelistClientEstimateAddons(
+  const addons = getWhitelistClientAugments(whitelistClient, colonyClient);
+  const addonsEstimate = getWhitelistClientEstimateAugments(
     whitelistClient,
     colonyClient,
   );

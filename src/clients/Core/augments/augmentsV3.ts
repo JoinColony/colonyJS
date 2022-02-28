@@ -8,14 +8,14 @@ import { IColony as IColonyV6 } from '../../../contracts/IColony/6/IColony';
 import { ColonyRole } from '../../../constants';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
 import {
-  addExtensions as addCommonExtensions,
-  ExtendedIColony,
+  addAugments as addCommonAugments,
+  AugmentedIColony,
   getPermissionProofs,
-} from './commonExtensions';
+} from './commonAugments';
 
 type ValidColony = IColonyV3 | IColonyV4 | IColonyV5 | IColonyV6;
 
-export interface ExtendedEstimateV3 {
+export interface AugmentedEstimateV3 {
   setArbitrationRoleWithProofs(
     _user: string,
     _domainId: BigNumberish,
@@ -23,18 +23,18 @@ export interface ExtendedEstimateV3 {
   ): Promise<BigNumber>;
 }
 
-export type ColonyExtensionsV3<T extends ValidColony> = {
+export type ColonyAugmentsV3<T extends ValidColony> = {
   setArbitrationRoleWithProofs(
     _user: string,
     _domainId: BigNumberish,
     _setTo: boolean,
     overrides?: UnsignedTransaction,
   ): Promise<ContractTransaction>;
-  estimate: T['estimate'] & ExtendedEstimateV3;
+  estimate: T['estimate'] & AugmentedEstimateV3;
 };
 
 async function setArbitrationRoleWithProofs(
-  this: ExtendedIColony<ValidColony> & ColonyExtensionsV3<ValidColony>,
+  this: AugmentedIColony<ValidColony> & ColonyAugmentsV3<ValidColony>,
   _user: string,
   _domainId: BigNumberish,
   _setTo: boolean,
@@ -63,7 +63,7 @@ async function setArbitrationRoleWithProofs(
 }
 
 async function estimateSetArbitrationRoleWithProofs(
-  this: ExtendedIColony<ValidColony> & ColonyExtensionsV3<ValidColony>,
+  this: AugmentedIColony<ValidColony> & ColonyAugmentsV3<ValidColony>,
   _user: string,
   _domainId: BigNumberish,
   _setTo: boolean,
@@ -82,19 +82,19 @@ async function estimateSetArbitrationRoleWithProofs(
   );
 }
 
-export const addExtensions = (
-  instance: ExtendedIColony<ValidColony>,
+export const addAugments = (
+  instance: AugmentedIColony<ValidColony>,
   networkClient: ColonyNetworkClient,
-): ExtendedIColony<ValidColony> & ColonyExtensionsV3<ValidColony> => {
-  const extendedInstance = addCommonExtensions(
+): AugmentedIColony<ValidColony> & ColonyAugmentsV3<ValidColony> => {
+  const augmentedInstance = addCommonAugments(
     instance,
     networkClient,
-  ) as ExtendedIColony<ValidColony> & ColonyExtensionsV3<ValidColony>;
+  ) as AugmentedIColony<ValidColony> & ColonyAugmentsV3<ValidColony>;
 
-  extendedInstance.setArbitrationRoleWithProofs =
-    setArbitrationRoleWithProofs.bind(extendedInstance);
-  extendedInstance.estimate.setArbitrationRoleWithProofs =
-    estimateSetArbitrationRoleWithProofs.bind(extendedInstance);
+  augmentedInstance.setArbitrationRoleWithProofs =
+    setArbitrationRoleWithProofs.bind(augmentedInstance);
+  augmentedInstance.estimate.setArbitrationRoleWithProofs =
+    estimateSetArbitrationRoleWithProofs.bind(augmentedInstance);
 
-  return extendedInstance;
+  return augmentedInstance;
 };

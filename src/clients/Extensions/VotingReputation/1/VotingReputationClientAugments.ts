@@ -18,10 +18,10 @@ import {
 import { MaxUint256 } from 'ethers/constants';
 
 import {
-  ExtendedIColony,
+  AugmentedIColony,
   getPermissionProofs,
   getChildIndex,
-} from '../../../Core/extensions/commonExtensions';
+} from '../../../Core/augments/commonAugments';
 import { ColonyRole } from '../../../../constants';
 
 import { VotingReputationClient } from './VotingReputationClient';
@@ -29,9 +29,9 @@ import { VotingReputationClient } from './VotingReputationClient';
 /*
  * Extra client methods
  */
-export const getVotingReputationClientAddons = (
+export const getVotingReputationClientAugments = (
   votingReputationClient: VotingReputationClient,
-  colonyClient: ExtendedIColony,
+  colonyClient: AugmentedIColony,
 ): Record<string, any> => ({
   createDomainMotionWithProofs: async (
     _domainId: BigNumberish, // Domain in which the voting will take place in
@@ -156,9 +156,9 @@ export const getVotingReputationClientAddons = (
  *
  * These are needed! Don't skip them!
  */
-export const getVotingReputationClientEstimateAddons = (
+export const getVotingReputationClientEstimateAugments = (
   votingReputationClient: VotingReputationClient,
-  colonyClient: ExtendedIColony,
+  colonyClient: AugmentedIColony,
 ): Record<string, any> => ({
   createDomainMotionWithProofs: async (
     _domainId: BigNumberish, // Domain in which the voting will take place in

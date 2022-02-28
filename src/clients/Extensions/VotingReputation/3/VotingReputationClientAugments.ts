@@ -7,16 +7,16 @@
 
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any */
 
-import { ExtendedIColony } from '../../../../clients/Core/extensions/commonExtensions';
+import { AugmentedIColony } from '../../../../clients/Core/augments/commonAugments';
 
 import { VotingReputationClient } from './VotingReputationClient';
 
 /*
  * Extra client methods
  */
-export const getVotingReputationClientAddons = (
+export const getVotingReputationClientAugments = (
   votingReputationClient: VotingReputationClient,
-  colonyClient: ExtendedIColony,
+  colonyClient: AugmentedIColony,
 ): Record<string, any> => ({
   /*
    * Example withProofs method
@@ -40,9 +40,9 @@ export const getVotingReputationClientAddons = (
  *
  * These are needed! Don't skip them!
  */
-export const getVotingReputationClientEstimateAddons = (
+export const getVotingReputationClientEstimateAugments = (
   votingReputationClient: VotingReputationClient,
-  colonyClient: ExtendedIColony,
+  colonyClient: AugmentedIColony,
 ): Record<string, any> => ({
   /*
    * Example withProofs estimate method

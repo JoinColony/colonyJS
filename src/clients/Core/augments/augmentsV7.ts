@@ -6,33 +6,33 @@ import { IColony as IColonyV7 } from '../../../contracts/IColony/7/IColony';
 import { IColony as PreviousIColony } from '../../../contracts/IColony/6/IColony';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
 import {
-  ExtendedIColony,
+  AugmentedIColony,
   getMoveFundsPermissionProofs,
-} from './commonExtensions';
-import { ColonyExtensionsV3 } from './extensionsV3';
-import { ColonyExtensionsV4 } from './extensionsV4';
-import { ColonyExtensionsV5 } from './extensionsV5';
+} from './commonAugments';
+import { ColonyAugmentsV3 } from './augmentsV3';
+import { ColonyAugmentsV4 } from './augmentsV4';
+import { ColonyAugmentsV5 } from './augmentsV5';
 import {
-  addExtensions as addExtensionsV6,
-  ColonyExtensionsV6,
-  ExtendedEstimateV6,
-} from './extensionsV6';
+  addExtensions as addAugmentsV6,
+  ColonyAugmentsV6,
+  AugmentedEstimateV6,
+} from './augmentsV6';
 
 type ValidColony = IColonyV7;
 
-type PreviousVersionsExtensions = Omit<
-  ExtendedIColony<ValidColony>,
+type PreviousVersionsAugments = Omit<
+  AugmentedIColony<ValidColony>,
   'moveFundsBetweenPotsWithProofs'
 > &
-  ColonyExtensionsV3<PreviousIColony> &
-  ColonyExtensionsV4<PreviousIColony> &
-  ColonyExtensionsV5<PreviousIColony> &
-  ColonyExtensionsV6<PreviousIColony>;
+  ColonyAugmentsV3<PreviousIColony> &
+  ColonyAugmentsV4<PreviousIColony> &
+  ColonyAugmentsV5<PreviousIColony> &
+  ColonyAugmentsV6<PreviousIColony>;
 
 /*
  * Estimates
  */
-export interface ExtendedEstimateV7 extends ExtendedEstimateV6 {
+export interface AugmentedEstimateV7 extends AugmentedEstimateV6 {
   moveFundsBetweenPotsWithProofs(
     _permissionDomainId: BigNumberish,
     _childSkillIndex: BigNumberish,
@@ -71,7 +71,7 @@ export interface ExtendedEstimateV7 extends ExtendedEstimateV6 {
 /*
  * Extension Methods
  */
-export type ColonyExtensionsV7<T extends ValidColony> = {
+export type ColonyAugmentsV7<T extends ValidColony> = {
   moveFundsBetweenPotsWithProofs(
     _permissionDomainId: BigNumberish,
     _childSkillIndex: BigNumberish,
@@ -109,14 +109,14 @@ export type ColonyExtensionsV7<T extends ValidColony> = {
     overrides?: UnsignedTransaction,
   ): Promise<ContractTransaction>;
 
-  estimate: T['estimate'] & ExtendedEstimateV7;
-} & PreviousVersionsExtensions;
+  estimate: T['estimate'] & AugmentedEstimateV7;
+} & PreviousVersionsAugments;
 
 /*
  * Extension Methods
  */
 async function moveFundsBetweenPotsWithProofs(
-  this: ExtendedIColony,
+  this: AugmentedIColony,
   _fromPot: BigNumberish,
   _toPot: BigNumberish,
   _amount: BigNumberish,
@@ -144,7 +144,7 @@ async function moveFundsBetweenPotsWithProofs(
  * Estimates
  */
 async function estimateMoveFundsBetweenPotsWithProofs(
-  this: ExtendedIColony,
+  this: AugmentedIColony,
   _fromPot: BigNumberish,
   _toPot: BigNumberish,
   _amount: BigNumberish,
@@ -169,30 +169,30 @@ async function estimateMoveFundsBetweenPotsWithProofs(
 /*
  * Bindings
  */
-export const addExtensions = (
-  instance: PreviousVersionsExtensions,
+export const addAugments = (
+  instance: PreviousVersionsAugments,
   networkClient: ColonyNetworkClient,
-): ColonyExtensionsV7<ValidColony> => {
+): ColonyAugmentsV7<ValidColony> => {
   // Add all extensions from v6, because these are also still valid
-  const extendedInstance = addExtensionsV6(
+  const augmentedInstance = addAugmentsV6(
     instance,
     networkClient,
-  ) as ColonyExtensionsV7<ValidColony>;
+  ) as ColonyAugmentsV7<ValidColony>;
   /*
    * We basically disable the signature type of the initial (pre V7) method
    *
    * This is because we overload the method, but not in a way that TS likes, as we
    * add the overloaded argument in the middle, and not at the end.
    */
-  (extendedInstance.moveFundsBetweenPotsWithProofs as unknown) =
-    moveFundsBetweenPotsWithProofs.bind(extendedInstance);
+  (augmentedInstance.moveFundsBetweenPotsWithProofs as unknown) =
+    moveFundsBetweenPotsWithProofs.bind(augmentedInstance);
   /*
    * We basically disable the signature type of the initial (pre V7) method
    *
    * This is because we overload the method, but not in a way that TS likes, as we
    * add the overloaded argument in the middle, and not at the end.
    */
-  (extendedInstance.estimate.moveFundsBetweenPotsWithProofs as unknown) =
-    estimateMoveFundsBetweenPotsWithProofs.bind(extendedInstance);
-  return extendedInstance;
+  (augmentedInstance.estimate.moveFundsBetweenPotsWithProofs as unknown) =
+    estimateMoveFundsBetweenPotsWithProofs.bind(augmentedInstance);
+  return augmentedInstance;
 };

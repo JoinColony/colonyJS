@@ -19,8 +19,8 @@ import {
   getMoveFundsPermissionProofs as exGetMoveFundsPermissionProofs,
   getExtensionPermissionProofs as exGetExtensionPermissionProofs,
   AwkwardRecoveryRoleEventClient,
-  ExtendedIColony,
-} from './clients/Core/extensions/commonExtensions';
+  AugmentedIColony,
+} from './clients/Core/augments/commonAugments';
 
 interface LogOptions {
   fromBlock?: number;
@@ -323,7 +323,7 @@ export const getMoveFundsPermissionProofs = async (
  * @returns Tuple of `[permissionDomainId, childSkillIndex]`
  */
 export const getExtensionPermissionProofs = async (
-  colonyClient: ExtendedIColony,
+  colonyClient: AugmentedIColony,
   domainId: BigNumberish,
   address?: string,
 ): Promise<[BigNumberish, BigNumberish]> =>

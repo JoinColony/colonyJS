@@ -11,18 +11,18 @@ import { BigNumberish, BigNumber, UnsignedTransaction } from 'ethers/utils';
 import { ContractTransaction } from 'ethers';
 
 import {
-  ExtendedIColony,
+  AugmentedIColony,
   getExtensionPermissionProofs,
-} from '../../../../clients/Core/extensions/commonExtensions';
+} from '../../../../clients/Core/augments/commonAugments';
 
 import { OneTxPaymentClient } from './OneTxPaymentClient';
 
 /*
  * Extra client methods
  */
-export const getOneTxPaymentClientAddons = (
+export const getOneTxPaymentClientAugments = (
   oneTxPaymentClient: OneTxPaymentClient,
-  colonyClient: ExtendedIColony,
+  colonyClient: AugmentedIColony,
 ): Record<string, any> => ({
   makePaymentWithProofs: async (
     _workers: string[],
@@ -93,9 +93,9 @@ export const getOneTxPaymentClientAddons = (
  *
  * These are needed! Don't skip them!
  */
-export const getOneTxPaymentClientEstimateAddons = (
+export const getOneTxPaymentClientEstimateAugments = (
   oneTxPaymentClient: OneTxPaymentClient,
-  colonyClient: ExtendedIColony,
+  colonyClient: AugmentedIColony,
 ): Record<string, any> => ({
   makePaymentWithProofs: async (
     _workers: string[],

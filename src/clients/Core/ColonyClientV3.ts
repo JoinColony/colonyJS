@@ -4,27 +4,27 @@ import { Provider } from 'ethers/providers';
 import { IColony__factory as IColonyFactory } from '../../contracts/IColony/3/factories/IColony__factory';
 import { IColony } from '../../contracts/IColony/3/IColony';
 import { ColonyNetworkClient } from '../ColonyNetworkClient';
-import { ExtendedIColony } from './extensions/commonExtensions';
+import { AugmentedIColony } from './augments/commonAugments';
 import {
-  addExtensions,
-  ColonyExtensionsV3,
-  ExtendedEstimateV3,
-} from './extensions/extensionsV3';
+  addAugments,
+  ColonyAugmentsV3,
+  AugmentedEstimateV3,
+} from './augments/augmentsV3';
 import {
-  SetPaymentDomainExtensions,
+  SetPaymentDomainAugments,
   SetPaymentDomainEstimate,
   setPaymentDomainWithProofs,
   estimateSetPaymentDomainWithProofs,
-} from './extensions/SetPaymentDomain';
+} from './augments/SetPaymentDomain';
 
 export interface ColonyClientV3
-  extends ExtendedIColony<IColony>,
-    ColonyExtensionsV3<IColony>,
-    SetPaymentDomainExtensions<IColony> {
+  extends AugmentedIColony<IColony>,
+    ColonyAugmentsV3<IColony>,
+    SetPaymentDomainAugments<IColony> {
   clientVersion: 3;
-  estimate: ExtendedIColony<IColony>['estimate'] &
+  estimate: AugmentedIColony<IColony>['estimate'] &
     SetPaymentDomainEstimate &
-    ExtendedEstimateV3;
+    AugmentedEstimateV3;
 }
 
 export default function getColonyClient(
@@ -38,7 +38,7 @@ export default function getColonyClient(
   ) as ColonyClientV3;
 
   colonyClient.clientVersion = 3;
-  addExtensions(colonyClient, this);
+  addAugments(colonyClient, this);
 
   colonyClient.setPaymentDomainWithProofs =
     setPaymentDomainWithProofs.bind(colonyClient);

@@ -10,24 +10,24 @@ import { ColonyRole, ROOT_DOMAIN_ID } from '../../../constants';
 import { IColony as IColonyV5 } from '../../../contracts/IColony/5/IColony';
 import { IColony as IColonyV6 } from '../../../contracts/IColony/6/IColony';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
-import { ExtendedIColony, getPermissionProofs } from './commonExtensions';
-import { ColonyExtensionsV3 } from './extensionsV3';
+import { AugmentedIColony, getPermissionProofs } from './commonAugments';
+import { ColonyAugmentsV3 } from './augmentsV3';
 import {
-  addExtensions as addExtensionsV4,
-  ColonyExtensionsV4,
-  ExtendedEstimateV4,
-} from './extensionsV4';
+  addAugments as addAugmentsV4,
+  ColonyAugmentsV4,
+  AugmentedEstimateV4,
+} from './augmentsV4';
 
 type ValidColony = IColonyV5 | IColonyV6;
 
-type PreviousVersionsExtensions = ExtendedIColony<ValidColony> &
-  ColonyExtensionsV3<ValidColony> &
-  ColonyExtensionsV4<ValidColony>;
+type PreviousVersionsAugments = AugmentedIColony<ValidColony> &
+  ColonyAugmentsV3<ValidColony> &
+  ColonyAugmentsV4<ValidColony>;
 
 /*
  * Estimates
  */
-export interface ExtendedEstimateV5 extends ExtendedEstimateV4 {
+export interface AugmentedEstimateV5 extends AugmentedEstimateV4 {
   emitDomainReputationPenaltyWithProofs(
     _domainId: BigNumberish,
     _user: string,
@@ -84,7 +84,7 @@ export interface ExtendedEstimateV5 extends ExtendedEstimateV4 {
 /*
  * Extension Methods
  */
-export type ColonyExtensionsV5<T extends ValidColony> = {
+export type ColonyAugmentsV5<T extends ValidColony> = {
   emitDomainReputationPenaltyWithProofs(
     _domainId: BigNumberish,
     _user: string,
@@ -128,15 +128,15 @@ export type ColonyExtensionsV5<T extends ValidColony> = {
     overrides?: UnsignedTransaction,
   ): Promise<ContractTransaction>;
 
-  estimate: T['estimate'] & ExtendedEstimateV5;
-} & PreviousVersionsExtensions;
+  estimate: T['estimate'] & AugmentedEstimateV5;
+} & PreviousVersionsAugments;
 
 /*
  * Extension Methods
  */
 
 async function emitDomainReputationPenaltyWithProofs(
-  this: ColonyExtensionsV5<ValidColony>,
+  this: ColonyAugmentsV5<ValidColony>,
   _domainId: BigNumberish,
   _user: string,
   _amount: BigNumberish,
@@ -158,7 +158,7 @@ async function emitDomainReputationPenaltyWithProofs(
 }
 
 async function setUserRolesWithProofs(
-  this: ColonyExtensionsV5<ValidColony>,
+  this: ColonyAugmentsV5<ValidColony>,
   _user: string,
   _domainId: BigNumberish,
   _roles: Arrayish,
@@ -181,7 +181,7 @@ async function setUserRolesWithProofs(
 }
 
 async function transferStakeWithProofs(
-  this: ColonyExtensionsV5<ValidColony>,
+  this: ColonyAugmentsV5<ValidColony>,
   _obligator: string,
   _user: string,
   _domainId: BigNumberish,
@@ -207,7 +207,7 @@ async function transferStakeWithProofs(
 }
 
 async function addDomainWithProofs(
-  this: ColonyExtensionsV5<ValidColony>,
+  this: ColonyAugmentsV5<ValidColony>,
   _parentDomainId: BigNumberish,
   _metadata: string,
   overrides?: UnsignedTransaction,
@@ -246,7 +246,7 @@ async function addDomainWithProofs(
 }
 
 async function editDomainWithProofs(
-  this: ColonyExtensionsV5<ValidColony>,
+  this: ColonyAugmentsV5<ValidColony>,
   _domainId: BigNumberish,
   _metadata: string,
   overrides?: UnsignedTransaction,
@@ -266,7 +266,7 @@ async function editDomainWithProofs(
 }
 
 async function setExpenditureStateWithProofs(
-  this: ColonyExtensionsV5<ValidColony>,
+  this: ColonyAugmentsV5<ValidColony>,
   _id: BigNumberish,
   _storageSlot: BigNumberish,
   _mask: boolean[],
@@ -296,7 +296,7 @@ async function setExpenditureStateWithProofs(
  * Estimates
  */
 async function estimateEmitDomainReputationPenaltyWithProofs(
-  this: ColonyExtensionsV5<ValidColony>,
+  this: ColonyAugmentsV5<ValidColony>,
   _domainId: BigNumberish,
   _user: string,
   _amount: BigNumberish,
@@ -316,7 +316,7 @@ async function estimateEmitDomainReputationPenaltyWithProofs(
 }
 
 async function estimateSetUserRolesWithProofs(
-  this: ColonyExtensionsV5<ValidColony>,
+  this: ColonyAugmentsV5<ValidColony>,
   _user: string,
   _domainId: BigNumberish,
   _roles: Arrayish,
@@ -336,7 +336,7 @@ async function estimateSetUserRolesWithProofs(
 }
 
 async function estimateTransferStakeWithProofs(
-  this: ColonyExtensionsV5<ValidColony>,
+  this: ColonyAugmentsV5<ValidColony>,
   _obligator: string,
   _user: string,
   _domainId: BigNumberish,
@@ -360,7 +360,7 @@ async function estimateTransferStakeWithProofs(
 }
 
 async function estimateAddDomainWithProofs(
-  this: ColonyExtensionsV5<ValidColony>,
+  this: ColonyAugmentsV5<ValidColony>,
   _parentDomainId: BigNumberish,
   _metadata: string,
 ): Promise<BigNumber> {
@@ -385,7 +385,7 @@ async function estimateAddDomainWithProofs(
 }
 
 async function estimateEditDomainWithProofs(
-  this: ColonyExtensionsV5<ValidColony>,
+  this: ColonyAugmentsV5<ValidColony>,
   _domainId: BigNumberish,
   _metadata: string,
 ): Promise<BigNumber> {
@@ -403,7 +403,7 @@ async function estimateEditDomainWithProofs(
 }
 
 async function estimateSetExpenditureStateWithProofs(
-  this: ColonyExtensionsV5<ValidColony>,
+  this: ColonyAugmentsV5<ValidColony>,
   _id: BigNumberish,
   _storageSlot: BigNumberish,
   _mask: boolean[],
@@ -430,53 +430,53 @@ async function estimateSetExpenditureStateWithProofs(
 /*
  * Bindings
  */
-export const addExtensions = (
-  instance: ExtendedIColony<ValidColony>,
+export const addAugments = (
+  instance: AugmentedIColony<ValidColony>,
   networkClient: ColonyNetworkClient,
-): ColonyExtensionsV5<ValidColony> => {
-  // Add all extensions from v4, because these are also still valid
-  const extendedInstance = addExtensionsV4(
+): ColonyAugmentsV5<ValidColony> => {
+  // Add all augments from v4, because these are also still valid
+  const augmentedInstance = addAugmentsV4(
     instance,
     networkClient,
-  ) as ColonyExtensionsV5<ValidColony>;
+  ) as ColonyAugmentsV5<ValidColony>;
 
-  extendedInstance.emitDomainReputationPenaltyWithProofs =
-    emitDomainReputationPenaltyWithProofs.bind(extendedInstance);
-  extendedInstance.setUserRolesWithProofs =
-    setUserRolesWithProofs.bind(extendedInstance);
-  extendedInstance.transferStakeWithProofs =
-    transferStakeWithProofs.bind(extendedInstance);
+  augmentedInstance.emitDomainReputationPenaltyWithProofs =
+    emitDomainReputationPenaltyWithProofs.bind(augmentedInstance);
+  augmentedInstance.setUserRolesWithProofs =
+    setUserRolesWithProofs.bind(augmentedInstance);
+  augmentedInstance.transferStakeWithProofs =
+    transferStakeWithProofs.bind(augmentedInstance);
   /*
    * We basically disable the signature type of the initial (pre V3) method
    *
    * This is because we overload the method, but not in a way that TS likes, as we
    * add the overloaded argument in the middle, and not at the end.
    */
-  (extendedInstance.addDomainWithProofs as unknown) =
-    addDomainWithProofs.bind(extendedInstance);
-  extendedInstance.editDomainWithProofs =
-    editDomainWithProofs.bind(extendedInstance);
-  extendedInstance.setExpenditureStateWithProofs =
-    setExpenditureStateWithProofs.bind(extendedInstance);
+  (augmentedInstance.addDomainWithProofs as unknown) =
+    addDomainWithProofs.bind(augmentedInstance);
+  augmentedInstance.editDomainWithProofs =
+    editDomainWithProofs.bind(augmentedInstance);
+  augmentedInstance.setExpenditureStateWithProofs =
+    setExpenditureStateWithProofs.bind(augmentedInstance);
 
-  extendedInstance.estimate.emitDomainReputationPenaltyWithProofs =
-    estimateEmitDomainReputationPenaltyWithProofs.bind(extendedInstance);
-  extendedInstance.estimate.setUserRolesWithProofs =
-    estimateSetUserRolesWithProofs.bind(extendedInstance);
-  extendedInstance.estimate.transferStakeWithProofs =
-    estimateTransferStakeWithProofs.bind(extendedInstance);
+  augmentedInstance.estimate.emitDomainReputationPenaltyWithProofs =
+    estimateEmitDomainReputationPenaltyWithProofs.bind(augmentedInstance);
+  augmentedInstance.estimate.setUserRolesWithProofs =
+    estimateSetUserRolesWithProofs.bind(augmentedInstance);
+  augmentedInstance.estimate.transferStakeWithProofs =
+    estimateTransferStakeWithProofs.bind(augmentedInstance);
   /*
    * We basically disable the signature type of the initial (pre V3) method
    *
    * This is because we overload the method, but not in a way that TS likes, as we
    * add the overloaded argument in the middle, and not at the end.
    */
-  (extendedInstance.estimate.addDomainWithProofs as unknown) =
-    estimateAddDomainWithProofs.bind(extendedInstance);
-  extendedInstance.estimate.editDomainWithProofs =
-    estimateEditDomainWithProofs.bind(extendedInstance);
-  extendedInstance.estimate.setExpenditureStateWithProofs =
-    estimateSetExpenditureStateWithProofs.bind(extendedInstance);
+  (augmentedInstance.estimate.addDomainWithProofs as unknown) =
+    estimateAddDomainWithProofs.bind(augmentedInstance);
+  augmentedInstance.estimate.editDomainWithProofs =
+    estimateEditDomainWithProofs.bind(augmentedInstance);
+  augmentedInstance.estimate.setExpenditureStateWithProofs =
+    estimateSetExpenditureStateWithProofs.bind(augmentedInstance);
 
-  return extendedInstance;
+  return augmentedInstance;
 };

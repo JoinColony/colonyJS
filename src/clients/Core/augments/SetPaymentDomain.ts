@@ -5,7 +5,7 @@ import { IColony as IColonyV1 } from '../../../contracts/IColony/1/IColony';
 import { IColony as IColonyV2 } from '../../../contracts/IColony/2/IColony';
 import { IColony as IColonyV3 } from '../../../contracts/IColony/3/IColony';
 import { ColonyRole } from '../../../constants';
-import { ExtendedIColony, getPermissionProofs } from './commonExtensions';
+import { AugmentedIColony, getPermissionProofs } from './commonAugments';
 
 // Colonies that support this method
 type ValidColony = IColonyV1 | IColonyV2 | IColonyV3;
@@ -17,7 +17,7 @@ export interface SetPaymentDomainEstimate {
   ): Promise<BigNumber>;
 }
 
-export type SetPaymentDomainExtensions<T extends ValidColony> = {
+export type SetPaymentDomainAugments<T extends ValidColony> = {
   setPaymentDomainWithProofs(
     _id: BigNumberish,
     _domainId: BigNumberish,
@@ -27,7 +27,7 @@ export type SetPaymentDomainExtensions<T extends ValidColony> = {
 };
 
 export async function setPaymentDomainWithProofs(
-  this: ExtendedIColony<ValidColony> & SetPaymentDomainExtensions<ValidColony>,
+  this: AugmentedIColony<ValidColony> & SetPaymentDomainAugments<ValidColony>,
   _id: BigNumberish,
   _domainId: string,
   overrides?: UnsignedTransaction,
@@ -48,7 +48,7 @@ export async function setPaymentDomainWithProofs(
 }
 
 export async function estimateSetPaymentDomainWithProofs(
-  this: ExtendedIColony<ValidColony> & SetPaymentDomainExtensions<ValidColony>,
+  this: AugmentedIColony<ValidColony> & SetPaymentDomainAugments<ValidColony>,
   _id: BigNumberish,
   _domainId: BigNumberish,
 ): Promise<BigNumber> {

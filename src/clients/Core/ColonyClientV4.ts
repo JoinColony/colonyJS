@@ -5,21 +5,21 @@ import { IColony__factory as IColonyFactoryV3 } from '../../contracts/IColony/3/
 import { IColony__factory as IColonyFactoryV4 } from '../../contracts/IColony/4/factories/IColony__factory';
 import { IColony } from '../../contracts/IColony/4/IColony';
 import { ColonyNetworkClient } from '../ColonyNetworkClient';
-import { ExtendedIColony } from './extensions/commonExtensions';
-import { ColonyExtensionsV3 } from './extensions/extensionsV3';
+import { AugmentedIColony } from './augments/commonAugments';
+import { ColonyAugmentsV3 } from './augments/augmentsV3';
 import {
-  addExtensions,
-  ColonyExtensionsV4,
-  ExtendedEstimateV4,
-} from './extensions/extensionsV4';
+  addAugments,
+  ColonyAugmentsV4,
+  AugmentedEstimateV4,
+} from './augments/augmentsV4';
 import { getAllAbiEvents, getAbiFunctions } from '../../utils';
 
 export interface ColonyClientV4
-  extends ExtendedIColony<IColony>,
-    ColonyExtensionsV3<IColony>,
-    ColonyExtensionsV4<IColony> {
+  extends AugmentedIColony<IColony>,
+    ColonyAugmentsV3<IColony>,
+    ColonyAugmentsV4<IColony> {
   clientVersion: 4;
-  estimate: ExtendedIColony<IColony>['estimate'] & ExtendedEstimateV4;
+  estimate: AugmentedIColony<IColony>['estimate'] & AugmentedEstimateV4;
 }
 
 export default function getColonyClient(
@@ -52,7 +52,7 @@ export default function getColonyClient(
   ) as unknown as ColonyClientV4;
 
   colonyClientV4.clientVersion = 4;
-  addExtensions(colonyClientV4, this);
+  addAugments(colonyClientV4, this);
 
   return colonyClientV4 as ColonyClientV4;
 }

@@ -7,26 +7,26 @@ import { IColony__factory as IColonyFactoryV5 } from '../../contracts/IColony/5/
 import { IColony__factory as IColonyFactoryV6 } from '../../contracts/IColony/6/factories/IColony__factory';
 import { IColony } from '../../contracts/IColony/6/IColony';
 import { ColonyNetworkClient } from '../ColonyNetworkClient';
-import { ExtendedIColony } from './extensions/commonExtensions';
-import { ColonyExtensionsV3 } from './extensions/extensionsV3';
-import { ColonyExtensionsV4 } from './extensions/extensionsV4';
-import { ColonyExtensionsV5 } from './extensions/extensionsV5';
+import { AugmentedIColony } from './augments/commonAugments';
+import { ColonyAugmentsV3 } from './augments/augmentsV3';
+import { ColonyAugmentsV4 } from './augments/augmentsV4';
+import { ColonyAugmentsV5 } from './augments/augmentsV5';
 import {
   addExtensions,
-  ColonyExtensionsV6,
-  ExtendedEstimateV6,
-} from './extensions/extensionsV6';
+  ColonyAugmentsV6,
+  AugmentedEstimateV6,
+} from './augments/augmentsV6';
 import { getAllAbiEvents, getAbiFunctions } from '../../utils';
 
-type ColonyExtensions = ExtendedIColony<IColony> &
-  ColonyExtensionsV3<IColony> &
-  ColonyExtensionsV4<IColony> &
-  ColonyExtensionsV5<IColony> &
-  ColonyExtensionsV6<IColony>;
+type ColonyAugments = AugmentedIColony<IColony> &
+  ColonyAugmentsV3<IColony> &
+  ColonyAugmentsV4<IColony> &
+  ColonyAugmentsV5<IColony> &
+  ColonyAugmentsV6<IColony>;
 
-export type ColonyClientV6 = ColonyExtensions & {
+export type ColonyClientV6 = ColonyAugments & {
   clientVersion: 6;
-  estimate: ExtendedIColony<IColony>['estimate'] & ExtendedEstimateV6;
+  estimate: AugmentedIColony<IColony>['estimate'] & AugmentedEstimateV6;
 };
 
 export default function getColonyClient(

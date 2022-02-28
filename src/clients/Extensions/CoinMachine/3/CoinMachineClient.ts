@@ -10,15 +10,15 @@
 import { ClientType } from '../../../../constants';
 import { CoinMachine__factory as CoinMachineFactory } from '../../../../contracts/CoinMachine/3/factories/CoinMachine__factory';
 import { CoinMachine } from '../../../../contracts/CoinMachine/3/CoinMachine';
-import { ExtendedIColony } from '../../../../clients/Core/extensions/commonExtensions';
+import { AugmentedIColony } from '../../../../clients/Core/augments/commonAugments';
 
-import * as currentVersion from './CoinMachineClientAddons';
-import * as version1 from '../1/CoinMachineClientAddons';
-import * as version2 from '../2/CoinMachineClientAddons';
+import * as currentVersion from './CoinMachineClientAugments';
+import * as version1 from '../1/CoinMachineClientAugments';
+import * as version2 from '../2/CoinMachineClientAugments';
 import { CoinMachineClient as CoinMachineClientV1 } from '../1/CoinMachineClient';
 
 type CoinMachineEstimate = CoinMachine['estimate'];
-interface CoinMachineEstimateWithAddons extends CoinMachineEstimate {
+interface AugmentedCoinMachineEstimate extends CoinMachineEstimate {
   /*
    * @TODO These needs to be specifically determined once we can integrate
    * static code analysis into this lib
@@ -28,7 +28,7 @@ interface CoinMachineEstimateWithAddons extends CoinMachineEstimate {
 
 export interface CoinMachineClient extends CoinMachine {
   clientType: ClientType.CoinMachineClient;
-  estimate: CoinMachineEstimateWithAddons;
+  estimate: AugmentedCoinMachineEstimate;
   /*
    * @TODO These needs to be specifically determined once we can integrate
    * static code analysis into this lib
@@ -38,7 +38,7 @@ export interface CoinMachineClient extends CoinMachine {
 
 const getCoinMachineClient = (
   address: string,
-  colonyClient: ExtendedIColony,
+  colonyClient: AugmentedIColony,
 ): CoinMachineClient => {
   const coinMachineClient = CoinMachineFactory.connect(
     address,
@@ -47,26 +47,26 @@ const getCoinMachineClient = (
   coinMachineClient.clientType = ClientType.CoinMachineClient;
 
   const addons = {
-    ...version1.getCoinMachineClientAddons(
+    ...version1.getCoinMachineClientAugments(
       coinMachineClient as unknown as CoinMachineClientV1,
       colonyClient,
     ),
-    ...version2.getCoinMachineClientAddons(coinMachineClient, colonyClient),
-    ...currentVersion.getCoinMachineClientAddons(
+    ...version2.getCoinMachineClientAugments(coinMachineClient, colonyClient),
+    ...currentVersion.getCoinMachineClientAugments(
       coinMachineClient,
       colonyClient,
     ),
   };
   const addonsEstimate = {
-    ...version1.getCoinMachineClientEstimateAddons(
+    ...version1.getCoinMachineClientEstimateAugments(
       coinMachineClient as unknown as CoinMachineClientV1,
       colonyClient,
     ),
-    ...version2.getCoinMachineClientEstimateAddons(
+    ...version2.getCoinMachineClientEstimateAugments(
       coinMachineClient,
       colonyClient,
     ),
-    ...currentVersion.getCoinMachineClientEstimateAddons(
+    ...currentVersion.getCoinMachineClientEstimateAugments(
       coinMachineClient,
       colonyClient,
     ),

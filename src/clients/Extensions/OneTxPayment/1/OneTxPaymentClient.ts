@@ -10,15 +10,15 @@
 import { ClientType } from '../../../../constants';
 import { OneTxPayment__factory as OneTxPaymentFactory } from '../../../../contracts/OneTxPayment/1/factories/OneTxPayment__factory';
 import { OneTxPayment } from '../../../../contracts/OneTxPayment/1/OneTxPayment';
-import { ExtendedIColony } from '../../../../clients/Core/extensions/commonExtensions';
+import { AugmentedIColony } from '../../../../clients/Core/augments/commonAugments';
 
 import {
-  getOneTxPaymentClientAddons,
-  getOneTxPaymentClientEstimateAddons,
-} from './OneTxPaymentClientAddons';
+  getOneTxPaymentClientAugments,
+  getOneTxPaymentClientEstimateAugments,
+} from './OneTxPaymentClientAugments';
 
 type OneTxPaymentEstimate = OneTxPayment['estimate'];
-interface OneTxPaymentEstimateWithAddons extends OneTxPaymentEstimate {
+interface AugmentedOneTxPaymentEstimate extends OneTxPaymentEstimate {
   /*
    * @TODO These needs to be specifically determined once we can integrate
    * static code analysis into this lib
@@ -28,7 +28,7 @@ interface OneTxPaymentEstimateWithAddons extends OneTxPaymentEstimate {
 
 export interface OneTxPaymentClient extends OneTxPayment {
   clientType: ClientType.OneTxPaymentClient;
-  estimate: OneTxPaymentEstimateWithAddons;
+  estimate: AugmentedOneTxPaymentEstimate;
   /*
    * @TODO These needs to be specifically determined once we can integrate
    * static code analysis into this lib
@@ -38,7 +38,7 @@ export interface OneTxPaymentClient extends OneTxPayment {
 
 const getOneTxPaymentClient = (
   address: string,
-  colonyClient: ExtendedIColony,
+  colonyClient: AugmentedIColony,
 ): OneTxPaymentClient => {
   const oneTxPaymentClient = OneTxPaymentFactory.connect(
     address,
@@ -46,8 +46,11 @@ const getOneTxPaymentClient = (
   ) as OneTxPaymentClient;
   oneTxPaymentClient.clientType = ClientType.OneTxPaymentClient;
 
-  const addons = getOneTxPaymentClientAddons(oneTxPaymentClient, colonyClient);
-  const addonsEstimate = getOneTxPaymentClientEstimateAddons(
+  const addons = getOneTxPaymentClientAugments(
+    oneTxPaymentClient,
+    colonyClient,
+  );
+  const addonsEstimate = getOneTxPaymentClientEstimateAugments(
     oneTxPaymentClient,
     colonyClient,
   );

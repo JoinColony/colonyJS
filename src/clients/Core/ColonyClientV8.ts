@@ -11,33 +11,33 @@ import { IColony } from '../../contracts/IColony/8/IColony';
 import { IColony as IColonyV6 } from '../../contracts/IColony/6/IColony';
 import { IColony as PreviousIColony } from '../../contracts/IColony/7/IColony';
 import { ColonyNetworkClient } from '../ColonyNetworkClient';
-import { ExtendedIColony } from './extensions/commonExtensions';
-import { ColonyExtensionsV3 } from './extensions/extensionsV3';
-import { ColonyExtensionsV4 } from './extensions/extensionsV4';
-import { ColonyExtensionsV5 } from './extensions/extensionsV5';
-import { ColonyExtensionsV6 } from './extensions/extensionsV6';
-import { ColonyExtensionsV7 } from './extensions/extensionsV7';
+import { AugmentedIColony } from './augments/commonAugments';
+import { ColonyAugmentsV3 } from './augments/augmentsV3';
+import { ColonyAugmentsV4 } from './augments/augmentsV4';
+import { ColonyAugmentsV5 } from './augments/augmentsV5';
+import { ColonyAugmentsV6 } from './augments/augmentsV6';
+import { ColonyAugmentsV7 } from './augments/augmentsV7';
 import {
-  addExtensions,
-  ColonyExtensionsV8,
-  ExtendedEstimateV8,
-} from './extensions/extensionsV8';
+  addAugments,
+  ColonyAugmentsV8,
+  AugmentedEstimateV8,
+} from './augments/augmentsV8';
 import { getAllAbiEvents, getAbiFunctions } from '../../utils';
 
-type ColonyExtensions = Omit<
-  ExtendedIColony<IColony>,
+type ColonyAugments = Omit<
+  AugmentedIColony<IColony>,
   'moveFundsBetweenPotsWithProofs'
 > &
-  ColonyExtensionsV3<IColonyV6> &
-  ColonyExtensionsV4<IColonyV6> &
-  ColonyExtensionsV5<IColonyV6> &
-  ColonyExtensionsV6<IColonyV6> &
-  ColonyExtensionsV7<PreviousIColony> &
-  ColonyExtensionsV8<IColony>;
+  ColonyAugmentsV3<IColonyV6> &
+  ColonyAugmentsV4<IColonyV6> &
+  ColonyAugmentsV5<IColonyV6> &
+  ColonyAugmentsV6<IColonyV6> &
+  ColonyAugmentsV7<PreviousIColony> &
+  ColonyAugmentsV8<IColony>;
 
-export type ColonyClientV8 = ColonyExtensions & {
+export type ColonyClientV8 = ColonyAugments & {
   clientVersion: 8;
-  estimate: ExtendedIColony<IColony>['estimate'] & ExtendedEstimateV8;
+  estimate: AugmentedIColony<IColony>['estimate'] & AugmentedEstimateV8;
 };
 
 export default function getColonyClient(
@@ -77,7 +77,7 @@ export default function getColonyClient(
   ) as unknown as ColonyClientV8;
 
   colonyClientV8.clientVersion = 8;
-  addExtensions(colonyClientV8, this);
+  addAugments(colonyClientV8, this);
 
   return colonyClientV8 as ColonyClientV8;
 }

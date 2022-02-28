@@ -6,28 +6,28 @@ import { IColony__factory as IColonyFactoryV4 } from '../../contracts/IColony/4/
 import { IColony__factory as IColonyFactoryV5 } from '../../contracts/IColony/5/factories/IColony__factory';
 import { IColony } from '../../contracts/IColony/5/IColony';
 import { ColonyNetworkClient } from '../ColonyNetworkClient';
-import { ExtendedIColony } from './extensions/commonExtensions';
-import { ColonyExtensionsV3 } from './extensions/extensionsV3';
-import { ColonyExtensionsV4 } from './extensions/extensionsV4';
+import { AugmentedIColony } from './augments/commonAugments';
+import { ColonyAugmentsV3 } from './augments/augmentsV3';
+import { ColonyAugmentsV4 } from './augments/augmentsV4';
 import {
-  addExtensions,
-  ColonyExtensionsV5,
-  ExtendedEstimateV5,
-} from './extensions/extensionsV5';
+  addAugments,
+  ColonyAugmentsV5,
+  AugmentedEstimateV5,
+} from './augments/augmentsV5';
 import { getAllAbiEvents, getAbiFunctions } from '../../utils';
 
-type ColonyExtensions = Omit<ExtendedIColony<IColony>, 'addDomainWithProofs'> &
-  ColonyExtensionsV3<IColony> &
-  ColonyExtensionsV4<IColony> &
-  ColonyExtensionsV5<IColony>;
+type ColonyAugments = Omit<AugmentedIColony<IColony>, 'addDomainWithProofs'> &
+  ColonyAugmentsV3<IColony> &
+  ColonyAugmentsV4<IColony> &
+  ColonyAugmentsV5<IColony>;
 
 /*
  * We overwrite the `addDomainWithProofs` interface in order to provide
  * function overloads for the V5 contract
  */
-export type ColonyClientV5 = ColonyExtensions & {
+export type ColonyClientV5 = ColonyAugments & {
   clientVersion: 5;
-  estimate: ExtendedIColony<IColony>['estimate'] & ExtendedEstimateV5;
+  estimate: AugmentedIColony<IColony>['estimate'] & AugmentedEstimateV5;
 };
 
 export default function getColonyClient(
@@ -60,7 +60,7 @@ export default function getColonyClient(
   ) as unknown as ColonyClientV5;
 
   colonyClientV5.clientVersion = 5;
-  addExtensions(colonyClientV5, this);
+  addAugments(colonyClientV5, this);
 
   return colonyClientV5 as ColonyClientV5;
 }

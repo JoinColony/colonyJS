@@ -9,31 +9,31 @@ import { IColony__factory as IColonyFactoryV7 } from '../../contracts/IColony/7/
 import { IColony } from '../../contracts/IColony/7/IColony';
 import { IColony as PreviousIColony } from '../../contracts/IColony/6/IColony';
 import { ColonyNetworkClient } from '../ColonyNetworkClient';
-import { ExtendedIColony } from './extensions/commonExtensions';
-import { ColonyExtensionsV3 } from './extensions/extensionsV3';
-import { ColonyExtensionsV4 } from './extensions/extensionsV4';
-import { ColonyExtensionsV5 } from './extensions/extensionsV5';
-import { ColonyExtensionsV6 } from './extensions/extensionsV6';
+import { AugmentedIColony } from './augments/commonAugments';
+import { ColonyAugmentsV3 } from './augments/augmentsV3';
+import { ColonyAugmentsV4 } from './augments/augmentsV4';
+import { ColonyAugmentsV5 } from './augments/augmentsV5';
+import { ColonyAugmentsV6 } from './augments/augmentsV6';
 import {
-  addExtensions,
-  ColonyExtensionsV7,
-  ExtendedEstimateV7,
-} from './extensions/extensionsV7';
+  addAugments,
+  ColonyAugmentsV7,
+  AugmentedEstimateV7,
+} from './augments/augmentsV7';
 import { getAllAbiEvents, getAbiFunctions } from '../../utils';
 
-type ColonyExtensions = Omit<
-  ExtendedIColony<IColony>,
+type ColonyAugments = Omit<
+  AugmentedIColony<IColony>,
   'moveFundsBetweenPotsWithProofs'
 > &
-  ColonyExtensionsV3<PreviousIColony> &
-  ColonyExtensionsV4<PreviousIColony> &
-  ColonyExtensionsV5<PreviousIColony> &
-  ColonyExtensionsV6<PreviousIColony> &
-  ColonyExtensionsV7<IColony>;
+  ColonyAugmentsV3<PreviousIColony> &
+  ColonyAugmentsV4<PreviousIColony> &
+  ColonyAugmentsV5<PreviousIColony> &
+  ColonyAugmentsV6<PreviousIColony> &
+  ColonyAugmentsV7<IColony>;
 
-export type ColonyClientV7 = ColonyExtensions & {
+export type ColonyClientV7 = ColonyAugments & {
   clientVersion: 7;
-  estimate: ExtendedIColony<IColony>['estimate'] & ExtendedEstimateV7;
+  estimate: AugmentedIColony<IColony>['estimate'] & AugmentedEstimateV7;
 };
 
 export default function getColonyClient(
@@ -72,7 +72,7 @@ export default function getColonyClient(
   ) as unknown as ColonyClientV7;
 
   colonyClientV7.clientVersion = 7;
-  addExtensions(colonyClientV7, this);
+  addAugments(colonyClientV7, this);
 
   return colonyClientV7 as ColonyClientV7;
 }

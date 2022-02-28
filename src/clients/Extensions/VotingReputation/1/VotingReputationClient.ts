@@ -10,12 +10,12 @@
 import { ClientType } from '../../../../constants';
 import { VotingReputation__factory as VotingReputationFactory } from '../../../../contracts/VotingReputation/1/factories/VotingReputation__factory';
 import { VotingReputation } from '../../../../contracts/VotingReputation/1/VotingReputation';
-import { ExtendedIColony } from '../../../../clients/Core/extensions/commonExtensions';
+import { AugmentedIColony } from '../../../../clients/Core/augments/commonAugments';
 
 import {
-  getVotingReputationClientAddons,
-  getVotingReputationClientEstimateAddons,
-} from './VotingReputationClientAddons';
+  getVotingReputationClientAugments,
+  getVotingReputationClientEstimateAugments,
+} from './VotingReputationClientAugments';
 
 type VotingReputationEstimate = VotingReputation['estimate'];
 interface VotingReputationEstimateWithAddons extends VotingReputationEstimate {
@@ -38,7 +38,7 @@ export interface VotingReputationClient extends VotingReputation {
 
 const getVotingReputationClient = (
   address: string,
-  colonyClient: ExtendedIColony,
+  colonyClient: AugmentedIColony,
 ): VotingReputationClient => {
   const votingReputationClient = VotingReputationFactory.connect(
     address,
@@ -46,11 +46,11 @@ const getVotingReputationClient = (
   ) as VotingReputationClient;
   votingReputationClient.clientType = ClientType.VotingReputationClient;
 
-  const addons = getVotingReputationClientAddons(
+  const addons = getVotingReputationClientAugments(
     votingReputationClient,
     colonyClient,
   );
-  const addonsEstimate = getVotingReputationClientEstimateAddons(
+  const addonsEstimate = getVotingReputationClientEstimateAugments(
     votingReputationClient,
     colonyClient,
   );
