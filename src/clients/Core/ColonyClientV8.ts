@@ -1,83 +1,57 @@
-import { Contract, Signer } from 'ethers';
-import { Provider } from 'ethers/providers';
-
-import { IColony__factory as IColonyFactoryV3 } from '../../contracts/IColony/3/factories/IColony__factory';
-import { IColony__factory as IColonyFactoryV4 } from '../../contracts/IColony/4/factories/IColony__factory';
-import { IColony__factory as IColonyFactoryV5 } from '../../contracts/IColony/5/factories/IColony__factory';
-import { IColony__factory as IColonyFactoryV6 } from '../../contracts/IColony/6/factories/IColony__factory';
-import { IColony__factory as IColonyFactoryV7 } from '../../contracts/IColony/7/factories/IColony__factory';
-import { IColony__factory as IColonyFactoryV8 } from '../../contracts/IColony/8/factories/IColony__factory';
+import { IColony__factory as IColonyFactory } from '../../contracts/IColony/8/factories/IColony__factory';
 import { IColony } from '../../contracts/IColony/8/IColony';
-import { IColony as IColonyV6 } from '../../contracts/IColony/6/IColony';
-import { IColony as PreviousIColony } from '../../contracts/IColony/7/IColony';
 import { ColonyNetworkClient } from '../ColonyNetworkClient';
-import { AugmentedIColony } from './augments/commonAugments';
+import { AugmentedIColony, AugmentedEstimate } from './augments/commonAugments';
 import { ColonyAugmentsV3 } from './augments/augmentsV3';
 import { ColonyAugmentsV4 } from './augments/augmentsV4';
-import { ColonyAugmentsV5 } from './augments/augmentsV5';
-import { ColonyAugmentsV6 } from './augments/augmentsV6';
-import { ColonyAugmentsV7 } from './augments/augmentsV7';
 import {
   addAugments,
-  ColonyAugmentsV8,
-  AugmentedEstimateV8,
-} from './augments/augmentsV8';
-import { getAllAbiEvents, getAbiFunctions } from '../../utils';
+  ColonyAugmentsV5,
+  AugmentedEstimateV5,
+} from './augments/augmentsV5';
+import {
+  AddDomainAugmentsB,
+  AddDomainEstimateGasB,
+  addAugmentsB as addAddDomainAugments,
+} from './augments/AddDomain';
+import {
+  MoveFundsBetweenPotsAugmentsB,
+  MoveFundsBetweenPotsEstimateGasB,
+  addAugmentsB as addMoveFundsBetweenPotsAugments,
+} from './augments/MoveFundsBetweenPots';
+import { SignerOrProvider } from '../../types';
 
-type ColonyAugments = Omit<
-  AugmentedIColony<IColony>,
-  'moveFundsBetweenPotsWithProofs'
-> &
-  ColonyAugmentsV3<IColonyV6> &
-  ColonyAugmentsV4<IColonyV6> &
-  ColonyAugmentsV5<IColonyV6> &
-  ColonyAugmentsV6<IColonyV6> &
-  ColonyAugmentsV7<PreviousIColony> &
-  ColonyAugmentsV8<IColony>;
+interface ColonyClientV8Estimate
+  extends AugmentedEstimate<IColony>,
+    AugmentedEstimateV5,
+    AddDomainEstimateGasB,
+    MoveFundsBetweenPotsEstimateGasB {}
 
-export type ColonyClientV8 = ColonyAugments & {
+export interface ColonyClientV8
+  extends AugmentedIColony<IColony>,
+    ColonyAugmentsV3<IColony>,
+    ColonyAugmentsV4<IColony>,
+    ColonyAugmentsV5<IColony>,
+    AddDomainAugmentsB<IColony>,
+    MoveFundsBetweenPotsAugmentsB<IColony> {
   clientVersion: 8;
-  estimate: AugmentedIColony<IColony>['estimate'] & AugmentedEstimateV8;
-};
+  estimateGas: ColonyClientV8Estimate;
+}
 
 export default function getColonyClient(
   this: ColonyNetworkClient,
   address: string,
-  signerOrProvider: Signer | Provider,
+  signerOrProvider: SignerOrProvider,
 ): ColonyClientV8 {
-  const abiFunctions = getAbiFunctions(
-    IColonyFactoryV8,
+  const colonyClient = IColonyFactory.connect(
     address,
     signerOrProvider,
-  );
-  /*
-   * Get all events, including the ones from v3, as well as the current ones
-   */
-  const abiEvents = getAllAbiEvents(
-    [
-      IColonyFactoryV8,
-      IColonyFactoryV7,
-      IColonyFactoryV6,
-      IColonyFactoryV5,
-      IColonyFactoryV4,
-      IColonyFactoryV3,
-    ],
-    address,
-    signerOrProvider,
-  );
+  ) as ColonyClientV8;
 
-  /*
-   * For this to work we have to create our own instance of the contract, so
-   * that we can pass in the merged abi events
-   */
-  const colonyClientV8 = new Contract(
-    address,
-    [...abiFunctions, ...abiEvents],
-    signerOrProvider,
-  ) as unknown as ColonyClientV8;
+  colonyClient.clientVersion = 8;
+  addAugments(colonyClient, this);
+  addAddDomainAugments(colonyClient);
+  addMoveFundsBetweenPotsAugments(colonyClient);
 
-  colonyClientV8.clientVersion = 8;
-  addAugments(colonyClientV8, this);
-
-  return colonyClientV8 as ColonyClientV8;
+  return colonyClient as ColonyClientV8;
 }

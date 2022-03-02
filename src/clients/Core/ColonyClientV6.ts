@@ -1,65 +1,73 @@
-import { Contract, Signer } from 'ethers';
-import { Provider } from 'ethers/providers';
-
-import { IColony__factory as IColonyFactoryV3 } from '../../contracts/IColony/3/factories/IColony__factory';
-import { IColony__factory as IColonyFactoryV4 } from '../../contracts/IColony/4/factories/IColony__factory';
-import { IColony__factory as IColonyFactoryV5 } from '../../contracts/IColony/5/factories/IColony__factory';
-import { IColony__factory as IColonyFactoryV6 } from '../../contracts/IColony/6/factories/IColony__factory';
+import { IColony__factory as IColonyFactory } from '../../contracts/IColony/6/factories/IColony__factory';
 import { IColony } from '../../contracts/IColony/6/IColony';
 import { ColonyNetworkClient } from '../ColonyNetworkClient';
-import { AugmentedIColony } from './augments/commonAugments';
+import { AugmentedIColony, AugmentedEstimate } from './augments/commonAugments';
 import { ColonyAugmentsV3 } from './augments/augmentsV3';
 import { ColonyAugmentsV4 } from './augments/augmentsV4';
-import { ColonyAugmentsV5 } from './augments/augmentsV5';
 import {
-  addExtensions,
-  ColonyAugmentsV6,
-  AugmentedEstimateV6,
-} from './augments/augmentsV6';
-import { getAllAbiEvents, getAbiFunctions } from '../../utils';
+  addAugments,
+  ColonyAugmentsV5,
+  AugmentedEstimateV5,
+} from './augments/augmentsV5';
+import {
+  AddDomainAugmentsB,
+  AddDomainEstimateGasB,
+  addAugmentsB as addAddDomainAugments,
+} from './augments/AddDomain';
+import {
+  MoveFundsBetweenPotsAugmentsA,
+  MoveFundsBetweenPotsEstimateGasA,
+  addAugmentsA as addMoveFundsBetweenPotsAugments,
+} from './augments/MoveFundsBetweenPots';
+import {
+  SetExpenditureClaimDelayAugments,
+  SetExpenditureClaimDelayEstimateGas,
+  addAugments as addSetExpenditureClaimDelayAugments,
+} from './augments/SetExpenditureClaimDelay';
+import {
+  SetExpenditurePayoutModifierAugments,
+  SetExpenditurePayoutModifierEstimateGas,
+  addAugments as addSetExpenditurePayoutModifierAugments,
+} from './augments/SetExpenditurePayoutModifier';
+import { SignerOrProvider } from '../../types';
 
-type ColonyAugments = AugmentedIColony<IColony> &
-  ColonyAugmentsV3<IColony> &
-  ColonyAugmentsV4<IColony> &
-  ColonyAugmentsV5<IColony> &
-  ColonyAugmentsV6<IColony>;
+interface ColonyClientV6Estimate
+  extends AugmentedEstimate<IColony>,
+    AugmentedEstimateV5,
+    AddDomainEstimateGasB,
+    MoveFundsBetweenPotsEstimateGasA,
+    SetExpenditureClaimDelayEstimateGas,
+    SetExpenditurePayoutModifierEstimateGas {}
 
-export type ColonyClientV6 = ColonyAugments & {
+export interface ColonyClientV6
+  extends AugmentedIColony<IColony>,
+    ColonyAugmentsV3<IColony>,
+    ColonyAugmentsV4<IColony>,
+    ColonyAugmentsV5<IColony>,
+    AddDomainAugmentsB<IColony>,
+    MoveFundsBetweenPotsAugmentsA<IColony>,
+    SetExpenditureClaimDelayAugments<IColony>,
+    SetExpenditurePayoutModifierAugments<IColony> {
   clientVersion: 6;
-  estimate: AugmentedIColony<IColony>['estimate'] & AugmentedEstimateV6;
-};
+  estimateGas: ColonyClientV6Estimate;
+}
 
 export default function getColonyClient(
   this: ColonyNetworkClient,
   address: string,
-  signerOrProvider: Signer | Provider,
+  signerOrProvider: SignerOrProvider,
 ): ColonyClientV6 {
-  const abiFunctions = getAbiFunctions(
-    IColonyFactoryV6,
+  const colonyClient = IColonyFactory.connect(
     address,
     signerOrProvider,
-  );
-  /*
-   * Get all events, including the ones from v3, as well as the current ones
-   */
-  const abiEvents = getAllAbiEvents(
-    [IColonyFactoryV6, IColonyFactoryV5, IColonyFactoryV4, IColonyFactoryV3],
-    address,
-    signerOrProvider,
-  );
+  ) as ColonyClientV6;
 
-  /*
-   * For this to work we have to create our own instance of the contract, so
-   * that we can pass in the merged abi events
-   */
-  const colonyClientV6 = new Contract(
-    address,
-    [...abiFunctions, ...abiEvents],
-    signerOrProvider,
-  ) as unknown as ColonyClientV6;
+  colonyClient.clientVersion = 6;
+  addAugments(colonyClient, this);
+  addAddDomainAugments(colonyClient);
+  addMoveFundsBetweenPotsAugments(colonyClient);
+  addSetExpenditurePayoutModifierAugments(colonyClient);
+  addSetExpenditureClaimDelayAugments(colonyClient);
 
-  colonyClientV6.clientVersion = 6;
-  addExtensions(colonyClientV6, this);
-
-  return colonyClientV6 as ColonyClientV6;
+  return colonyClient as ColonyClientV6;
 }

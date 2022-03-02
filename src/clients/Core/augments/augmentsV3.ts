@@ -1,11 +1,20 @@
-import { ContractTransaction } from 'ethers';
-import { BigNumber, BigNumberish, UnsignedTransaction } from 'ethers/utils';
+import {
+  ContractTransaction,
+  BigNumber,
+  BigNumberish,
+  Overrides,
+} from 'ethers';
 
-import { IColony as IColonyV3 } from '../../../contracts/IColony/3/IColony';
-import { IColony as IColonyV4 } from '../../../contracts/IColony/4/IColony';
-import { IColony as IColonyV5 } from '../../../contracts/IColony/5/IColony';
-import { IColony as IColonyV6 } from '../../../contracts/IColony/6/IColony';
-import { ColonyRole } from '../../../constants';
+import {
+  IColonyV3,
+  IColonyV4,
+  IColonyV5,
+  IColonyV6,
+  IColonyV7,
+  IColonyV8,
+  IColonyV9,
+} from '../../../exports';
+import { ColonyRole } from '../../../types';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
 import {
   addAugments as addCommonAugments,
@@ -13,7 +22,14 @@ import {
   getPermissionProofs,
 } from './commonAugments';
 
-type ValidColony = IColonyV3 | IColonyV4 | IColonyV5 | IColonyV6;
+type ValidColony =
+  | IColonyV3
+  | IColonyV4
+  | IColonyV5
+  | IColonyV6
+  | IColonyV7
+  | IColonyV8
+  | IColonyV9;
 
 export interface AugmentedEstimateV3 {
   setArbitrationRoleWithProofs(
@@ -28,17 +44,20 @@ export type ColonyAugmentsV3<T extends ValidColony> = {
     _user: string,
     _domainId: BigNumberish,
     _setTo: boolean,
-    overrides?: UnsignedTransaction,
+    overrides?: Overrides,
   ): Promise<ContractTransaction>;
-  estimate: T['estimate'] & AugmentedEstimateV3;
+  estimateGas: T['estimateGas'] & AugmentedEstimateV3;
 };
 
+type AugmentedColony = AugmentedIColony<ValidColony> &
+  ColonyAugmentsV3<ValidColony>;
+
 async function setArbitrationRoleWithProofs(
-  this: AugmentedIColony<ValidColony> & ColonyAugmentsV3<ValidColony>,
+  this: AugmentedColony,
   _user: string,
   _domainId: BigNumberish,
   _setTo: boolean,
-  overrides?: UnsignedTransaction,
+  overrides?: Overrides,
 ): Promise<ContractTransaction> {
   let proofs: [BigNumberish, BigNumberish];
   // This method has two potential permissions, so we try both of them
@@ -63,7 +82,7 @@ async function setArbitrationRoleWithProofs(
 }
 
 async function estimateSetArbitrationRoleWithProofs(
-  this: AugmentedIColony<ValidColony> & ColonyAugmentsV3<ValidColony>,
+  this: AugmentedColony,
   _user: string,
   _domainId: BigNumberish,
   _setTo: boolean,
@@ -73,7 +92,7 @@ async function estimateSetArbitrationRoleWithProofs(
     _domainId,
     ColonyRole.Architecture,
   );
-  return this.estimate.setArbitrationRole(
+  return this.estimateGas.setArbitrationRole(
     permissionDomainId,
     childSkillIndex,
     _user,
@@ -93,7 +112,7 @@ export const addAugments = (
 
   augmentedInstance.setArbitrationRoleWithProofs =
     setArbitrationRoleWithProofs.bind(augmentedInstance);
-  augmentedInstance.estimate.setArbitrationRoleWithProofs =
+  augmentedInstance.estimateGas.setArbitrationRoleWithProofs =
     estimateSetArbitrationRoleWithProofs.bind(augmentedInstance);
 
   return augmentedInstance;

@@ -2,7 +2,6 @@ export * from './constants';
 export * from './versions';
 export * from './helpers';
 export * from './types';
-export * from './exports';
 
 export { formatColonyRoles } from './utils';
 

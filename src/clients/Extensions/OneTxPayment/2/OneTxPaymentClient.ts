@@ -7,7 +7,7 @@
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { ClientType } from '../../../../constants';
+import { ClientType } from '../../../../types';
 import { OneTxPayment__factory as OneTxPaymentFactory } from '../../../../contracts/OneTxPayment/2/factories/OneTxPayment__factory';
 import { OneTxPayment } from '../../../../contracts/OneTxPayment/2/OneTxPayment';
 import { AugmentedIColony } from '../../../../clients/Core/augments/commonAugments';
@@ -15,7 +15,7 @@ import { AugmentedIColony } from '../../../../clients/Core/augments/commonAugmen
 import * as currentVersion from './OneTxPaymentClientAugments';
 import * as version1 from '../1/OneTxPaymentClientAugments';
 
-type OneTxPaymentEstimate = OneTxPayment['estimate'];
+type OneTxPaymentEstimate = OneTxPayment['estimateGas'];
 interface AugmentedOneTxPaymentEstimate extends OneTxPaymentEstimate {
   /*
    * @TODO These needs to be specifically determined once we can integrate

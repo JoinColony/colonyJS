@@ -1,14 +1,20 @@
-import { ContractTransaction } from 'ethers';
 import {
+  ContractTransaction,
   BigNumber,
   BigNumberish,
-  Arrayish,
-  UnsignedTransaction,
-} from 'ethers/utils';
+  BytesLike,
+  Overrides,
+} from 'ethers';
 
-import { ColonyRole, ROOT_DOMAIN_ID } from '../../../constants';
-import { IColony as IColonyV5 } from '../../../contracts/IColony/5/IColony';
-import { IColony as IColonyV6 } from '../../../contracts/IColony/6/IColony';
+import { ROOT_DOMAIN_ID } from '../../../constants';
+import { ColonyRole } from '../../../types';
+import {
+  IColonyV5,
+  IColonyV6,
+  IColonyV7,
+  IColonyV8,
+  IColonyV9,
+} from '../../../exports';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
 import { AugmentedIColony, getPermissionProofs } from './commonAugments';
 import { ColonyAugmentsV3 } from './augmentsV3';
@@ -18,11 +24,7 @@ import {
   AugmentedEstimateV4,
 } from './augmentsV4';
 
-type ValidColony = IColonyV5 | IColonyV6;
-
-type PreviousVersionsAugments = AugmentedIColony<ValidColony> &
-  ColonyAugmentsV3<ValidColony> &
-  ColonyAugmentsV4<ValidColony>;
+type ValidColony = IColonyV5 | IColonyV6 | IColonyV7 | IColonyV8 | IColonyV9;
 
 /*
  * Estimates
@@ -36,7 +38,7 @@ export interface AugmentedEstimateV5 extends AugmentedEstimateV4 {
   setUserRolesWithProofs(
     _user: string,
     _domainId: BigNumberish,
-    _roles: Arrayish,
+    _roles: BytesLike,
   ): Promise<BigNumber>;
   transferStakeWithProofs(
     _obligator: string,
@@ -44,29 +46,6 @@ export interface AugmentedEstimateV5 extends AugmentedEstimateV4 {
     _domainId: BigNumberish,
     _amount: BigNumberish,
     _recipient: string,
-  ): Promise<BigNumber>;
-  /*
-   * We overwrite the `addDomainWithProofs` interface in order to provide
-   * function overloads for the V5 contract
-   */
-  addDomainWithProofs(
-    _parentDomainId: BigNumberish,
-    _metadata: string,
-  ): Promise<BigNumber>;
-  /*
-   * Need to manually add the overloaded estimate signatures since TS doesn't
-   * pick them up from the auto-generated contract definitions file
-   */
-  'addDomain(uint256,uint256,uint256)'(
-    _permissionDomainId: BigNumberish,
-    _childSkillIndex: BigNumberish,
-    _parentDomainId: BigNumberish,
-  ): Promise<BigNumber>;
-  'addDomain(uint256,uint256,uint256,string)'(
-    _permissionDomainId: BigNumberish,
-    _childSkillIndex: BigNumberish,
-    _parentDomainId: BigNumberish,
-    _metadata: string,
   ): Promise<BigNumber>;
   editDomainWithProofs(
     _domainId: BigNumberish,
@@ -76,8 +55,8 @@ export interface AugmentedEstimateV5 extends AugmentedEstimateV4 {
     _id: BigNumberish,
     _storageSlot: BigNumberish,
     _mask: boolean[],
-    _keys: Arrayish[],
-    _value: Arrayish,
+    _keys: BytesLike[],
+    _value: BytesLike,
   ): Promise<BigNumber>;
 }
 
@@ -89,13 +68,13 @@ export type ColonyAugmentsV5<T extends ValidColony> = {
     _domainId: BigNumberish,
     _user: string,
     _amount: BigNumberish,
-    overrides?: UnsignedTransaction,
+    overrides?: Overrides,
   ): Promise<ContractTransaction>;
   setUserRolesWithProofs(
     _user: string,
     _domainId: BigNumberish,
-    _roles: Arrayish,
-    overrides?: UnsignedTransaction,
+    _roles: BytesLike,
+    overrides?: Overrides,
   ): Promise<ContractTransaction>;
   transferStakeWithProofs(
     _obligator: string,
@@ -103,44 +82,38 @@ export type ColonyAugmentsV5<T extends ValidColony> = {
     _domainId: BigNumberish,
     _amount: BigNumberish,
     _recipient: string,
-    overrides?: UnsignedTransaction,
-  ): Promise<ContractTransaction>;
-  /*
-   * We overwrite the `addDomainWithProofs` interface in order to provide
-   * function overloads for the V5 contract
-   */
-  addDomainWithProofs(
-    _parentDomainId: BigNumberish,
-    _metadata: string,
-    overrides?: UnsignedTransaction,
+    overrides?: Overrides,
   ): Promise<ContractTransaction>;
   editDomainWithProofs(
     _domainId: BigNumberish,
     _metadata: string,
-    overrides?: UnsignedTransaction,
+    overrides?: Overrides,
   ): Promise<ContractTransaction>;
   setExpenditureStateWithProofs(
     _id: BigNumberish,
     _storageSlot: BigNumberish,
     _mask: boolean[],
-    _keys: Arrayish[],
-    _value: Arrayish,
-    overrides?: UnsignedTransaction,
+    _keys: BytesLike[],
+    _value: BytesLike,
+    overrides?: Overrides,
   ): Promise<ContractTransaction>;
 
-  estimate: T['estimate'] & AugmentedEstimateV5;
-} & PreviousVersionsAugments;
+  estimateGas: T['estimateGas'] & AugmentedEstimateV5;
+};
+
+type AugmentedColony = AugmentedIColony<ValidColony> &
+  ColonyAugmentsV5<ValidColony>;
 
 /*
  * Extension Methods
  */
 
 async function emitDomainReputationPenaltyWithProofs(
-  this: ColonyAugmentsV5<ValidColony>,
+  this: AugmentedColony,
   _domainId: BigNumberish,
   _user: string,
   _amount: BigNumberish,
-  overrides?: UnsignedTransaction,
+  overrides?: Overrides,
 ): Promise<ContractTransaction> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this,
@@ -158,11 +131,11 @@ async function emitDomainReputationPenaltyWithProofs(
 }
 
 async function setUserRolesWithProofs(
-  this: ColonyAugmentsV5<ValidColony>,
+  this: AugmentedColony,
   _user: string,
   _domainId: BigNumberish,
-  _roles: Arrayish,
-  overrides?: UnsignedTransaction,
+  _roles: BytesLike,
+  overrides?: Overrides,
 ): Promise<ContractTransaction> {
   const isRootDomain = _domainId === ROOT_DOMAIN_ID.toString();
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
@@ -181,13 +154,13 @@ async function setUserRolesWithProofs(
 }
 
 async function transferStakeWithProofs(
-  this: ColonyAugmentsV5<ValidColony>,
+  this: AugmentedColony,
   _obligator: string,
   _user: string,
   _domainId: BigNumberish,
   _amount: BigNumberish,
   _recipient: string,
-  overrides?: UnsignedTransaction,
+  overrides?: Overrides,
 ): Promise<ContractTransaction> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this,
@@ -206,50 +179,11 @@ async function transferStakeWithProofs(
   );
 }
 
-async function addDomainWithProofs(
-  this: ColonyAugmentsV5<ValidColony>,
-  _parentDomainId: BigNumberish,
-  _metadata: string,
-  overrides?: UnsignedTransaction,
-): Promise<ContractTransaction> {
-  let overrideOverload = overrides;
-  const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
-    this,
-    _parentDomainId,
-    ColonyRole.Architecture,
-  );
-  /*
-   * Otherwise, because of the positioning of `overrides`, it might get confused
-   * with it
-   */
-  if (typeof _metadata === 'string') {
-    return this['addDomain(uint256,uint256,uint256,string)'](
-      permissionDomainId,
-      childSkillIndex,
-      _parentDomainId,
-      _metadata,
-      overrideOverload,
-    );
-  }
-  /*
-   * Since we're not calling the overloaded version, which has the metadata string,
-   * the `_metadata` argument now stands place for the `overrides` and contains
-   * it's values
-   */
-  overrideOverload = _metadata;
-  return this['addDomain(uint256,uint256,uint256)'](
-    permissionDomainId,
-    childSkillIndex,
-    _parentDomainId,
-    overrideOverload,
-  );
-}
-
 async function editDomainWithProofs(
-  this: ColonyAugmentsV5<ValidColony>,
+  this: AugmentedColony,
   _domainId: BigNumberish,
   _metadata: string,
-  overrides?: UnsignedTransaction,
+  overrides?: Overrides,
 ): Promise<ContractTransaction> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this,
@@ -266,13 +200,13 @@ async function editDomainWithProofs(
 }
 
 async function setExpenditureStateWithProofs(
-  this: ColonyAugmentsV5<ValidColony>,
+  this: AugmentedColony,
   _id: BigNumberish,
   _storageSlot: BigNumberish,
   _mask: boolean[],
-  _keys: Arrayish[],
-  _value: Arrayish,
-  overrides?: UnsignedTransaction,
+  _keys: BytesLike[],
+  _value: BytesLike,
+  overrides?: Overrides,
 ): Promise<ContractTransaction> {
   const { domainId } = await this.getExpenditure(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
@@ -296,7 +230,7 @@ async function setExpenditureStateWithProofs(
  * Estimates
  */
 async function estimateEmitDomainReputationPenaltyWithProofs(
-  this: ColonyAugmentsV5<ValidColony>,
+  this: AugmentedColony,
   _domainId: BigNumberish,
   _user: string,
   _amount: BigNumberish,
@@ -306,7 +240,7 @@ async function estimateEmitDomainReputationPenaltyWithProofs(
     _domainId,
     ColonyRole.Arbitration,
   );
-  return this.estimate.emitDomainReputationPenalty(
+  return this.estimateGas.emitDomainReputationPenalty(
     permissionDomainId,
     childSkillIndex,
     _domainId,
@@ -316,17 +250,17 @@ async function estimateEmitDomainReputationPenaltyWithProofs(
 }
 
 async function estimateSetUserRolesWithProofs(
-  this: ColonyAugmentsV5<ValidColony>,
+  this: AugmentedColony,
   _user: string,
   _domainId: BigNumberish,
-  _roles: Arrayish,
+  _roles: BytesLike,
 ): Promise<BigNumber> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this,
     _domainId,
     ColonyRole.Architecture,
   );
-  return this.estimate.setUserRoles(
+  return this.estimateGas.setUserRoles(
     permissionDomainId,
     childSkillIndex,
     _user,
@@ -336,7 +270,7 @@ async function estimateSetUserRolesWithProofs(
 }
 
 async function estimateTransferStakeWithProofs(
-  this: ColonyAugmentsV5<ValidColony>,
+  this: AugmentedColony,
   _obligator: string,
   _user: string,
   _domainId: BigNumberish,
@@ -348,7 +282,7 @@ async function estimateTransferStakeWithProofs(
     _domainId,
     ColonyRole.Arbitration,
   );
-  return this.estimate.transferStake(
+  return this.estimateGas.transferStake(
     permissionDomainId,
     childSkillIndex,
     _obligator,
@@ -359,33 +293,8 @@ async function estimateTransferStakeWithProofs(
   );
 }
 
-async function estimateAddDomainWithProofs(
-  this: ColonyAugmentsV5<ValidColony>,
-  _parentDomainId: BigNumberish,
-  _metadata: string,
-): Promise<BigNumber> {
-  const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
-    this,
-    _parentDomainId,
-    ColonyRole.Architecture,
-  );
-  if (_metadata) {
-    return this.estimate['addDomain(uint256,uint256,uint256,string)'](
-      permissionDomainId,
-      childSkillIndex,
-      _parentDomainId,
-      _metadata,
-    );
-  }
-  return this.estimate['addDomain(uint256,uint256,uint256)'](
-    permissionDomainId,
-    childSkillIndex,
-    _parentDomainId,
-  );
-}
-
 async function estimateEditDomainWithProofs(
-  this: ColonyAugmentsV5<ValidColony>,
+  this: AugmentedColony,
   _domainId: BigNumberish,
   _metadata: string,
 ): Promise<BigNumber> {
@@ -394,7 +303,7 @@ async function estimateEditDomainWithProofs(
     _domainId,
     ColonyRole.Architecture,
   );
-  return this.estimate.editDomain(
+  return this.estimateGas.editDomain(
     permissionDomainId,
     childSkillIndex,
     _domainId,
@@ -403,12 +312,12 @@ async function estimateEditDomainWithProofs(
 }
 
 async function estimateSetExpenditureStateWithProofs(
-  this: ColonyAugmentsV5<ValidColony>,
+  this: AugmentedColony,
   _id: BigNumberish,
   _storageSlot: BigNumberish,
   _mask: boolean[],
-  _keys: Arrayish[],
-  _value: Arrayish,
+  _keys: BytesLike[],
+  _value: BytesLike,
 ): Promise<BigNumber> {
   const { domainId } = await this.getExpenditure(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
@@ -416,7 +325,7 @@ async function estimateSetExpenditureStateWithProofs(
     domainId,
     ColonyRole.Arbitration,
   );
-  return this.estimate.setExpenditureState(
+  return this.estimateGas.setExpenditureState(
     permissionDomainId,
     childSkillIndex,
     _id,
@@ -438,7 +347,10 @@ export const addAugments = (
   const augmentedInstance = addAugmentsV4(
     instance,
     networkClient,
-  ) as ColonyAugmentsV5<ValidColony>;
+  ) as AugmentedIColony<ValidColony> &
+    ColonyAugmentsV3<ValidColony> &
+    ColonyAugmentsV4<ValidColony> &
+    ColonyAugmentsV5<ValidColony>;
 
   augmentedInstance.emitDomainReputationPenaltyWithProofs =
     emitDomainReputationPenaltyWithProofs.bind(augmentedInstance);
@@ -446,36 +358,20 @@ export const addAugments = (
     setUserRolesWithProofs.bind(augmentedInstance);
   augmentedInstance.transferStakeWithProofs =
     transferStakeWithProofs.bind(augmentedInstance);
-  /*
-   * We basically disable the signature type of the initial (pre V3) method
-   *
-   * This is because we overload the method, but not in a way that TS likes, as we
-   * add the overloaded argument in the middle, and not at the end.
-   */
-  (augmentedInstance.addDomainWithProofs as unknown) =
-    addDomainWithProofs.bind(augmentedInstance);
   augmentedInstance.editDomainWithProofs =
     editDomainWithProofs.bind(augmentedInstance);
   augmentedInstance.setExpenditureStateWithProofs =
     setExpenditureStateWithProofs.bind(augmentedInstance);
 
-  augmentedInstance.estimate.emitDomainReputationPenaltyWithProofs =
+  augmentedInstance.estimateGas.emitDomainReputationPenaltyWithProofs =
     estimateEmitDomainReputationPenaltyWithProofs.bind(augmentedInstance);
-  augmentedInstance.estimate.setUserRolesWithProofs =
+  augmentedInstance.estimateGas.setUserRolesWithProofs =
     estimateSetUserRolesWithProofs.bind(augmentedInstance);
-  augmentedInstance.estimate.transferStakeWithProofs =
+  augmentedInstance.estimateGas.transferStakeWithProofs =
     estimateTransferStakeWithProofs.bind(augmentedInstance);
-  /*
-   * We basically disable the signature type of the initial (pre V3) method
-   *
-   * This is because we overload the method, but not in a way that TS likes, as we
-   * add the overloaded argument in the middle, and not at the end.
-   */
-  (augmentedInstance.estimate.addDomainWithProofs as unknown) =
-    estimateAddDomainWithProofs.bind(augmentedInstance);
-  augmentedInstance.estimate.editDomainWithProofs =
+  augmentedInstance.estimateGas.editDomainWithProofs =
     estimateEditDomainWithProofs.bind(augmentedInstance);
-  augmentedInstance.estimate.setExpenditureStateWithProofs =
+  augmentedInstance.estimateGas.setExpenditureStateWithProofs =
     estimateSetExpenditureStateWithProofs.bind(augmentedInstance);
 
   return augmentedInstance;

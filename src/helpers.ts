@@ -1,26 +1,21 @@
-import { EventFilter } from 'ethers';
-import { Filter, Log, Provider } from 'ethers/providers';
-import {
-  BigNumber,
-  BigNumberish,
-  LogDescription,
-  keccak256,
-  toUtf8Bytes,
-} from 'ethers/utils';
+import { EventFilter, BigNumber, BigNumberish, utils } from 'ethers';
 
-import { ColonyRole, ColonyRoles } from './constants';
-import { ColonyClient, ContractClient } from './types';
+import type { Filter, Log, Provider } from '@ethersproject/abstract-provider';
+import type { LogDescription } from '@ethersproject/abi';
+
+import { ColonyClient, ContractClient, ColonyRole, ColonyRoles } from './types';
 import { formatColonyRoles } from './utils';
 
 import {
   getChildIndex as exGetChildIndex,
   getPotDomain as exGetPotDomain,
   getPermissionProofs as exGetPermissionProofs,
-  getMoveFundsPermissionProofs as exGetMoveFundsPermissionProofs,
   getExtensionPermissionProofs as exGetExtensionPermissionProofs,
   AwkwardRecoveryRoleEventClient,
   AugmentedIColony,
 } from './clients/Core/augments/commonAugments';
+
+const { keccak256, toUtf8Bytes } = utils;
 
 interface LogOptions {
   fromBlock?: number;
@@ -124,17 +119,18 @@ export const getMultipleEvents = async (
   options?: LogOptions,
 ): Promise<LogDescription[]> => {
   // Turns
-  // [{ topics: [1, 2, 3] }, { topics: [5, 7] }
+  // [{ topics: [1, 2, 3] }, { topics: [5, 7] }]
   // into
   // [[1, 5], [2, 7], [3]]
   const multipleTopics = filters.reduce<TopicsArray>((topicsArray, filter) => {
     if (filter.topics) {
       filter.topics.forEach((topic, i) => {
         if (topicsArray[i]) {
-          topicsArray[i].push(topic);
+          // NOTE: we assume that topics are only simple strings for now
+          topicsArray[i].push(topic as string);
         } else {
           // eslint-disable-next-line no-param-reassign
-          topicsArray[i] = [topic];
+          topicsArray[i] = [topic as string];
         }
       });
     }
@@ -285,32 +281,6 @@ export const getPermissionProofs = async (
   customAddress?: string,
 ): Promise<[BigNumber, BigNumber]> =>
   exGetPermissionProofs(client, domainId, role, customAddress);
-
-/**
- * Get the permission proofs for a user address and the `moveFundsBetweenPots` method
- *
- * The [[`ColonyClientV1.moveFundsBetweenPots`]] method is a special case as it requires the permission proofs for
- * not only one but two domains (source and target domain pots). This helper will call the [[`getPermissionProofs`]]
- * helper internally and apply the correct roles required.
- *
- * @remarks It is required for the `moveFundsBetweenPots` method to work that both the source and the target domain
- * have the same parent domain which provides the role permissions (`Funding` role). That's why we're only returning one
- * `permissionDomainId`.
- *
- * @param client Any ColonyClient
- * @param fromtPotId Source pot id
- * @param toPotId Target pot id
- * @param customAddress A custom address to get the permission proofs for (defaults to the signer's address)
- *
- * @returns Tuple of `[permissionDomainId, fromChildSkillIndex, toChildSkillIndex]`
- */
-export const getMoveFundsPermissionProofs = async (
-  client: ColonyClient,
-  fromtPotId: BigNumberish,
-  toPotId: BigNumberish,
-  customAddress?: string,
-): Promise<[BigNumber, BigNumber, BigNumber]> =>
-  exGetMoveFundsPermissionProofs(client, fromtPotId, toPotId, customAddress);
 
 /**
  * Wrapper around `getPermissionProofs` to check two types of permissions: Funding and Administration
