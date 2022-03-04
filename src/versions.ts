@@ -1,11 +1,5 @@
 /*
- * Colony / Network Versioning
- */
-
-export const LatestReleaseTag = 'elwss3';
-
-/*
- * Core IColony versioning
+ * Core IColony Versioning
  */
 const CORE_COLONY_VERSIONS = [1, 2, 4, 5, 6, 7, 8, 9];
 export type ColonyVersion = typeof CORE_COLONY_VERSIONS[number];
