@@ -418,6 +418,14 @@ export interface TokenLocking extends BaseContract {
   functions: {
     authority(overrides?: CallOverrides): Promise<[string]>;
 
+    /**
+     * Main function to be called when user wants to execute meta transaction. The actual function to be called should be passed as param with name functionSignature Here the basic signature recovery is being used. Signature is expected to be generated using personal_sign method.
+     * @param _payload Function call to make via meta transaction
+     * @param _sigR R part of the signature
+     * @param _sigS S part of the signature
+     * @param _sigV V part of the signature
+     * @param _user Address of user trying to do meta transaction
+     */
     executeMetaTransaction(
       _user: string,
       _payload: BytesLike,
@@ -596,6 +604,14 @@ export interface TokenLocking extends BaseContract {
 
   authority(overrides?: CallOverrides): Promise<string>;
 
+  /**
+   * Main function to be called when user wants to execute meta transaction. The actual function to be called should be passed as param with name functionSignature Here the basic signature recovery is being used. Signature is expected to be generated using personal_sign method.
+   * @param _payload Function call to make via meta transaction
+   * @param _sigR R part of the signature
+   * @param _sigS S part of the signature
+   * @param _sigV V part of the signature
+   * @param _user Address of user trying to do meta transaction
+   */
   executeMetaTransaction(
     _user: string,
     _payload: BytesLike,
@@ -770,6 +786,14 @@ export interface TokenLocking extends BaseContract {
   callStatic: {
     authority(overrides?: CallOverrides): Promise<string>;
 
+    /**
+     * Main function to be called when user wants to execute meta transaction. The actual function to be called should be passed as param with name functionSignature Here the basic signature recovery is being used. Signature is expected to be generated using personal_sign method.
+     * @param _payload Function call to make via meta transaction
+     * @param _sigR R part of the signature
+     * @param _sigS S part of the signature
+     * @param _sigV V part of the signature
+     * @param _user Address of user trying to do meta transaction
+     */
     executeMetaTransaction(
       _user: string,
       _payload: BytesLike,
@@ -1084,6 +1108,14 @@ export interface TokenLocking extends BaseContract {
   estimateGas: {
     authority(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Main function to be called when user wants to execute meta transaction. The actual function to be called should be passed as param with name functionSignature Here the basic signature recovery is being used. Signature is expected to be generated using personal_sign method.
+     * @param _payload Function call to make via meta transaction
+     * @param _sigR R part of the signature
+     * @param _sigS S part of the signature
+     * @param _sigV V part of the signature
+     * @param _user Address of user trying to do meta transaction
+     */
     executeMetaTransaction(
       _user: string,
       _payload: BytesLike,
@@ -1259,6 +1291,14 @@ export interface TokenLocking extends BaseContract {
   populateTransaction: {
     authority(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    /**
+     * Main function to be called when user wants to execute meta transaction. The actual function to be called should be passed as param with name functionSignature Here the basic signature recovery is being used. Signature is expected to be generated using personal_sign method.
+     * @param _payload Function call to make via meta transaction
+     * @param _sigR R part of the signature
+     * @param _sigS S part of the signature
+     * @param _sigV V part of the signature
+     * @param _user Address of user trying to do meta transaction
+     */
     executeMetaTransaction(
       _user: string,
       _payload: BytesLike,

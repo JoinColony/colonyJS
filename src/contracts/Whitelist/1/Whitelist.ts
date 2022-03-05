@@ -268,6 +268,14 @@ export interface Whitelist extends BaseContract {
   functions: {
     authority(overrides?: CallOverrides): Promise<[string]>;
 
+    /**
+     * Main function to be called when user wants to execute meta transaction. The actual function to be called should be passed as param with name functionSignature Here the basic signature recovery is being used. Signature is expected to be generated using personal_sign method.
+     * @param _payload Function call to make via meta transaction
+     * @param _sigR R part of the signature
+     * @param _sigS S part of the signature
+     * @param _sigV V part of the signature
+     * @param _user Address of user trying to do meta transaction
+     */
     executeMetaTransaction(
       _user: string,
       _payload: BytesLike,
@@ -316,58 +324,117 @@ export interface Whitelist extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { nonce: BigNumber }>;
 
+    /**
+     * Returns the identifier of the extension
+     */
     identifier(overrides?: CallOverrides): Promise<[string]>;
 
+    /**
+     * Returns the version of the extension
+     */
     version(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    /**
+     * Configures the extension
+     * @param _colony The colony in which the extension holds permissions
+     */
     install(
       _colony: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Called when upgrading the extension
+     */
     finishUpgrade(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Called when deprecating (or undeprecating) the extension
+     */
     deprecate(
       _deprecated: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Called when uninstalling the extension
+     */
     uninstall(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Initialise the extension
+     * @param _agreementHash An agreement hash (such as an IPFS URI)
+     * @param _useApprovals Whether or not to require administrative approval
+     */
     initialise(
       _useApprovals: boolean,
       _agreementHash: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Sets user statuses in the whitelist
+     * @param _status The whitelist status to set
+     * @param _users An array of user addresses
+     */
     approveUsers(
       _users: string[],
       _status: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * The user's signature on the agreement
+     * @param _agreementHash The agreement hash being signed
+     */
     signAgreement(
       _agreementHash: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Get the user's overall whitelist status
+     * @param _user The address of the user
+     */
     isApproved(_user: string, overrides?: CallOverrides): Promise<[boolean]>;
 
+    /**
+     * Get the useApprovals boolean
+     */
     getUseApprovals(overrides?: CallOverrides): Promise<[boolean]>;
 
+    /**
+     * Get the agreementHash
+     */
     getAgreementHash(overrides?: CallOverrides): Promise<[string]>;
 
+    /**
+     * Get the user's approval status
+     * @param _user The address of the user
+     */
     getApproval(_user: string, overrides?: CallOverrides): Promise<[boolean]>;
 
+    /**
+     * Get the user's signature status
+     * @param _user The address of the user
+     */
     getSignature(_user: string, overrides?: CallOverrides): Promise<[boolean]>;
   };
 
   authority(overrides?: CallOverrides): Promise<string>;
 
+  /**
+   * Main function to be called when user wants to execute meta transaction. The actual function to be called should be passed as param with name functionSignature Here the basic signature recovery is being used. Signature is expected to be generated using personal_sign method.
+   * @param _payload Function call to make via meta transaction
+   * @param _sigR R part of the signature
+   * @param _sigS S part of the signature
+   * @param _sigV V part of the signature
+   * @param _user Address of user trying to do meta transaction
+   */
   executeMetaTransaction(
     _user: string,
     _payload: BytesLike,
@@ -416,58 +483,117 @@ export interface Whitelist extends BaseContract {
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
+  /**
+   * Returns the identifier of the extension
+   */
   identifier(overrides?: CallOverrides): Promise<string>;
 
+  /**
+   * Returns the version of the extension
+   */
   version(overrides?: CallOverrides): Promise<BigNumber>;
 
+  /**
+   * Configures the extension
+   * @param _colony The colony in which the extension holds permissions
+   */
   install(
     _colony: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Called when upgrading the extension
+   */
   finishUpgrade(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Called when deprecating (or undeprecating) the extension
+   */
   deprecate(
     _deprecated: boolean,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Called when uninstalling the extension
+   */
   uninstall(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Initialise the extension
+   * @param _agreementHash An agreement hash (such as an IPFS URI)
+   * @param _useApprovals Whether or not to require administrative approval
+   */
   initialise(
     _useApprovals: boolean,
     _agreementHash: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Sets user statuses in the whitelist
+   * @param _status The whitelist status to set
+   * @param _users An array of user addresses
+   */
   approveUsers(
     _users: string[],
     _status: boolean,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * The user's signature on the agreement
+   * @param _agreementHash The agreement hash being signed
+   */
   signAgreement(
     _agreementHash: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Get the user's overall whitelist status
+   * @param _user The address of the user
+   */
   isApproved(_user: string, overrides?: CallOverrides): Promise<boolean>;
 
+  /**
+   * Get the useApprovals boolean
+   */
   getUseApprovals(overrides?: CallOverrides): Promise<boolean>;
 
+  /**
+   * Get the agreementHash
+   */
   getAgreementHash(overrides?: CallOverrides): Promise<string>;
 
+  /**
+   * Get the user's approval status
+   * @param _user The address of the user
+   */
   getApproval(_user: string, overrides?: CallOverrides): Promise<boolean>;
 
+  /**
+   * Get the user's signature status
+   * @param _user The address of the user
+   */
   getSignature(_user: string, overrides?: CallOverrides): Promise<boolean>;
 
   callStatic: {
     authority(overrides?: CallOverrides): Promise<string>;
 
+    /**
+     * Main function to be called when user wants to execute meta transaction. The actual function to be called should be passed as param with name functionSignature Here the basic signature recovery is being used. Signature is expected to be generated using personal_sign method.
+     * @param _payload Function call to make via meta transaction
+     * @param _sigR R part of the signature
+     * @param _sigS S part of the signature
+     * @param _sigV V part of the signature
+     * @param _user Address of user trying to do meta transaction
+     */
     executeMetaTransaction(
       _user: string,
       _payload: BytesLike,
@@ -510,43 +636,94 @@ export interface Whitelist extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Returns the identifier of the extension
+     */
     identifier(overrides?: CallOverrides): Promise<string>;
 
+    /**
+     * Returns the version of the extension
+     */
     version(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Configures the extension
+     * @param _colony The colony in which the extension holds permissions
+     */
     install(_colony: string, overrides?: CallOverrides): Promise<void>;
 
+    /**
+     * Called when upgrading the extension
+     */
     finishUpgrade(overrides?: CallOverrides): Promise<void>;
 
+    /**
+     * Called when deprecating (or undeprecating) the extension
+     */
     deprecate(_deprecated: boolean, overrides?: CallOverrides): Promise<void>;
 
+    /**
+     * Called when uninstalling the extension
+     */
     uninstall(overrides?: CallOverrides): Promise<void>;
 
+    /**
+     * Initialise the extension
+     * @param _agreementHash An agreement hash (such as an IPFS URI)
+     * @param _useApprovals Whether or not to require administrative approval
+     */
     initialise(
       _useApprovals: boolean,
       _agreementHash: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Sets user statuses in the whitelist
+     * @param _status The whitelist status to set
+     * @param _users An array of user addresses
+     */
     approveUsers(
       _users: string[],
       _status: boolean,
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * The user's signature on the agreement
+     * @param _agreementHash The agreement hash being signed
+     */
     signAgreement(
       _agreementHash: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Get the user's overall whitelist status
+     * @param _user The address of the user
+     */
     isApproved(_user: string, overrides?: CallOverrides): Promise<boolean>;
 
+    /**
+     * Get the useApprovals boolean
+     */
     getUseApprovals(overrides?: CallOverrides): Promise<boolean>;
 
+    /**
+     * Get the agreementHash
+     */
     getAgreementHash(overrides?: CallOverrides): Promise<string>;
 
+    /**
+     * Get the user's approval status
+     * @param _user The address of the user
+     */
     getApproval(_user: string, overrides?: CallOverrides): Promise<boolean>;
 
+    /**
+     * Get the user's signature status
+     * @param _user The address of the user
+     */
     getSignature(_user: string, overrides?: CallOverrides): Promise<boolean>;
   };
 
@@ -591,6 +768,14 @@ export interface Whitelist extends BaseContract {
   estimateGas: {
     authority(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Main function to be called when user wants to execute meta transaction. The actual function to be called should be passed as param with name functionSignature Here the basic signature recovery is being used. Signature is expected to be generated using personal_sign method.
+     * @param _payload Function call to make via meta transaction
+     * @param _sigR R part of the signature
+     * @param _sigS S part of the signature
+     * @param _sigV V part of the signature
+     * @param _user Address of user trying to do meta transaction
+     */
     executeMetaTransaction(
       _user: string,
       _payload: BytesLike,
@@ -639,59 +824,118 @@ export interface Whitelist extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Returns the identifier of the extension
+     */
     identifier(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Returns the version of the extension
+     */
     version(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Configures the extension
+     * @param _colony The colony in which the extension holds permissions
+     */
     install(
       _colony: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Called when upgrading the extension
+     */
     finishUpgrade(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Called when deprecating (or undeprecating) the extension
+     */
     deprecate(
       _deprecated: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Called when uninstalling the extension
+     */
     uninstall(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Initialise the extension
+     * @param _agreementHash An agreement hash (such as an IPFS URI)
+     * @param _useApprovals Whether or not to require administrative approval
+     */
     initialise(
       _useApprovals: boolean,
       _agreementHash: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Sets user statuses in the whitelist
+     * @param _status The whitelist status to set
+     * @param _users An array of user addresses
+     */
     approveUsers(
       _users: string[],
       _status: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * The user's signature on the agreement
+     * @param _agreementHash The agreement hash being signed
+     */
     signAgreement(
       _agreementHash: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Get the user's overall whitelist status
+     * @param _user The address of the user
+     */
     isApproved(_user: string, overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the useApprovals boolean
+     */
     getUseApprovals(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the agreementHash
+     */
     getAgreementHash(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the user's approval status
+     * @param _user The address of the user
+     */
     getApproval(_user: string, overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the user's signature status
+     * @param _user The address of the user
+     */
     getSignature(_user: string, overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
     authority(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    /**
+     * Main function to be called when user wants to execute meta transaction. The actual function to be called should be passed as param with name functionSignature Here the basic signature recovery is being used. Signature is expected to be generated using personal_sign method.
+     * @param _payload Function call to make via meta transaction
+     * @param _sigR R part of the signature
+     * @param _sigS S part of the signature
+     * @param _sigV V part of the signature
+     * @param _user Address of user trying to do meta transaction
+     */
     executeMetaTransaction(
       _user: string,
       _payload: BytesLike,
@@ -740,59 +984,110 @@ export interface Whitelist extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Returns the identifier of the extension
+     */
     identifier(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    /**
+     * Returns the version of the extension
+     */
     version(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    /**
+     * Configures the extension
+     * @param _colony The colony in which the extension holds permissions
+     */
     install(
       _colony: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Called when upgrading the extension
+     */
     finishUpgrade(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Called when deprecating (or undeprecating) the extension
+     */
     deprecate(
       _deprecated: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Called when uninstalling the extension
+     */
     uninstall(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Initialise the extension
+     * @param _agreementHash An agreement hash (such as an IPFS URI)
+     * @param _useApprovals Whether or not to require administrative approval
+     */
     initialise(
       _useApprovals: boolean,
       _agreementHash: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Sets user statuses in the whitelist
+     * @param _status The whitelist status to set
+     * @param _users An array of user addresses
+     */
     approveUsers(
       _users: string[],
       _status: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * The user's signature on the agreement
+     * @param _agreementHash The agreement hash being signed
+     */
     signAgreement(
       _agreementHash: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the user's overall whitelist status
+     * @param _user The address of the user
+     */
     isApproved(
       _user: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the useApprovals boolean
+     */
     getUseApprovals(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the agreementHash
+     */
     getAgreementHash(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the user's approval status
+     * @param _user The address of the user
+     */
     getApproval(
       _user: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the user's signature status
+     * @param _user The address of the user
+     */
     getSignature(
       _user: string,
       overrides?: CallOverrides

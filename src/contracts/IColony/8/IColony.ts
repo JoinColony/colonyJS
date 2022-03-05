@@ -1985,82 +1985,153 @@ export interface IColony extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
+    /**
+     * Indicate approval to exit recovery mode. Can only be called by user with recovery role.
+     */
     approveExitRecovery(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * No return value, but should throw if protected.This is external, but is only expected to be called from ContractRecovery; no need toexpose this to any users.
+     * Check whether the supplied slot is a protected variable specific to this contract
+     * @param _slot The storage slot number to check.
+     */
     checkNotAdditionalProtectedVariable(
       _slot: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[void]>;
 
+    /**
+     * Put colony network mining into recovery mode. Can only be called by user with recovery role.
+     */
     enterRecoveryMode(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Exit recovery mode, can be called by anyone if enough whitelist approvals are given.
+     */
     exitRecoveryMode(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Is colony network in recovery mode.
+     */
     isInRecoveryMode(
       overrides?: CallOverrides
     ): Promise<[boolean] & { inRecoveryMode: boolean }>;
 
+    /**
+     * Return number of recovery roles.
+     */
     numRecoveryRoles(
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { numRoles: BigNumber }>;
 
+    /**
+     * Remove colony recovery role. Can only be called by root role.
+     * @param _user User we want to remove recovery role from
+     */
     removeRecoveryRole(
       _user: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Set new colony recovery role. Can be called by root.
+     * @param _user User we want to give a recovery role to
+     */
     setRecoveryRole(
       _user: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * certain critical variables are protected from editing in this function
+     * Update value of arbitrary storage variable. Can only be called by user with recovery role.
+     * @param _slot Uint address of storage slot to be updated
+     * @param _value word of data to be set
+     */
     setStorageSlotRecovery(
       _slot: BigNumberish,
       _value: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Get the `ColonyAuthority` for the colony.
+     */
     authority(
       overrides?: CallOverrides
     ): Promise<[string] & { colonyAuthority: string }>;
 
+    /**
+     * Used for testing.
+     * Get the colony `owner` address. This should be address(0x0) at all times.
+     */
     owner(
       overrides?: CallOverrides
     ): Promise<[string] & { colonyOwner: string }>;
 
+    /**
+     * Get the Colony contract version. Starts from 1 and is incremented with every deployed contract change.
+     */
     version(
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { colonyVersion: BigNumber }>;
 
+    /**
+     * Downgrades are not allowed, i.e. `_newVersion` should be higher than the currect colony version.
+     * Upgrades a colony to a new Colony contract version `_newVersion`.
+     * @param _newVersion The target version for the upgrade
+     */
     upgrade(
       _newVersion: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Can only be called by the colony itself, and only expected to be called as part of the `upgrade()` call. Required to be external so it can be an external call.
+     * A function to be called after an upgrade has been done from v2 to v3.
+     */
     finishUpgrade(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * The colonyNetworkAddress we read here is set once, during `initialiseColony`.
+     * Returns the colony network address set on the Colony.
+     */
     getColonyNetwork(
       overrides?: CallOverrides
     ): Promise<[string] & { colonyNetwork: string }>;
 
+    /**
+     * Get the colony token.
+     */
     getToken(
       overrides?: CallOverrides
     ): Promise<[string] & { tokenAddress: string }>;
 
+    /**
+     * Execute arbitrary transaction on behalf of the Colony DEPRECATED
+     * @param _action Bytes array encoding the function call and arguments
+     * @param _to Contract to receive the function call (cannot be this contract, network or token locking)
+     */
     makeArbitraryTransaction(
       _to: string,
       _action: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Execute arbitrary transactions on behalf of the Colony in series
+     * @param _actions Array of Bytes arrays encoding the function calls and arguments
+     * @param _strict Boolean indicating whether if one transaction fails, the whole call to this function should fail.
+     * @param _targets Array of addressed to be targeted
+     */
     makeArbitraryTransactions(
       _targets: string[],
       _actions: BytesLike[],
@@ -2068,24 +2139,48 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Only callable by the colony itself. If you wish to use this functionality, you should use the makeAbitraryTransactions function
+     * Executes a single arbitrary transaction
+     * @param _action Bytes array encoding the function call and arguments
+     * @param _target Contract to receive the function call
+     */
     makeSingleArbitraryTransaction(
       _target: string,
       _action: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Emit a metadata string for a transaction
+     * @param _metadata String of metadata for tx
+     * @param _txHash Hash of transaction being annotated (0x0 for current tx)
+     */
     annotateTransaction(
       _txHash: BytesLike,
       _metadata: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Set new colony root role. Can be called by root role only.
+     * @param _setTo The state of the role permission (true assign the permission, false revokes it)
+     * @param _user User we want to give an root role to
+     */
     setRootRole(
       _user: string,
       _setTo: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Set new colony arbitration role. Can be called by root role or architecture role.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _domainId Domain in which we are giving user the role
+     * @param _permissionDomainId Domain in which the caller has root role
+     * @param _setTo The state of the role permission (true assign the permission, false revokes it)
+     * @param _user User we want to give an arbitration role to
+     */
     setArbitrationRole(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -2095,6 +2190,14 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Set new colony architecture role. Can be called by root role or architecture role.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _domainId Domain in which we are giving user the role
+     * @param _permissionDomainId Domain in which the caller has root/architecture role
+     * @param _setTo The state of the role permission (true assign the permission, false revokes it)
+     * @param _user User we want to give an architecture role to
+     */
     setArchitectureRole(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -2104,6 +2207,14 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Set new colony funding role. Can be called by root role or architecture role.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _domainId Domain in which we are giving user the role
+     * @param _permissionDomainId Domain in which the caller has root/architecture role
+     * @param _setTo The state of the role permission (true assign the permission, false revokes it)
+     * @param _user User we want to give an funding role to
+     */
     setFundingRole(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -2113,6 +2224,14 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Set new colony admin role. Can be called by root role or architecture role.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _domainId Domain in which we are giving user the role
+     * @param _permissionDomainId Domain in which the caller has root/architecture role
+     * @param _setTo The state of the role permission (true assign the permission, false revokes it)
+     * @param _user User we want to give an admin role to
+     */
     setAdministrationRole(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -2122,6 +2241,14 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Set several roles in one transaction. Can be called by root role or architecture role.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _domainId Domain in which we are giving user the role
+     * @param _permissionDomainId Domain in which the caller has root/architecture role
+     * @param _roles Byte array representing the desired role setting (1 for on, 0 for off)
+     * @param _user User we want to give a role to
+     */
     setUserRoles(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -2131,6 +2258,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Check whether a given user has a given role for the colony. Calls the function of the same name on the colony's authority contract.
+     * @param _domainId The domain where we want to check for the role
+     * @param _role The role we want to check for
+     * @param _user The user whose role we want to check
+     */
     hasUserRole(
       _user: string,
       _domainId: BigNumberish,
@@ -2138,6 +2271,14 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[boolean] & { hasRole: boolean }>;
 
+    /**
+     * Check whether a given user has a given role for the colony, in a child domain. Calls the function of the same name on the colony's authority contract and an internal inheritence validator function
+     * @param _childDomainId The domain where we want to use the role
+     * @param _childSkillIndex The index that the `_childDomainId` is relative to `_domainId`
+     * @param _domainId Domain in which the caller has the role
+     * @param _role The role we want to check for
+     * @param _user The user whose role we want to check
+     */
     hasInheritedUserRole(
       _user: string,
       _domainId: BigNumberish,
@@ -2147,6 +2288,13 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[boolean] & { hasRole: boolean }>;
 
+    /**
+     * Check whether a given user can modify roles in the target domain `_childDomainId`. Mostly a convenience function to provide a uniform interface for extension contracts validating permissions
+     * @param _childDomainId The domain where we want to edit roles
+     * @param _childSkillIndex The index that the `_childDomainId` is relative to `_domainId`
+     * @param _domainId Domain in which the caller has the role (currently Root or Architecture)
+     * @param _user The user whose permissions we want to check
+     */
     userCanSetRoles(
       _user: string,
       _domainId: BigNumberish,
@@ -2155,17 +2303,32 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[boolean] & { canSet: boolean }>;
 
+    /**
+     * Gets the bytes32 representation of the roles for a user in a given domain
+     * @param _domain The domain we want to get roles in
+     * @param _user The user whose roles we want to get
+     */
     getUserRoles(
       _user: string,
       _domain: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[string] & { roles: string }>;
 
+    /**
+     * Gets the bytes32 representation of the roles authorized to call a function
+     * @param _sig The function signature
+     */
     getCapabilityRoles(
       _sig: BytesLike,
       overrides?: CallOverrides
     ): Promise<[string] & { roles: string }>;
 
+    /**
+     * Emit a positive domain reputation update. Available only to Root role holders
+     * @param _amount The (positive) amount of reputation to gain
+     * @param _domainId The domain where the user will gain reputation
+     * @param _user The user who will gain reputation
+     */
     emitDomainReputationReward(
       _domainId: BigNumberish,
       _user: string,
@@ -2173,6 +2336,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Emit a positive skill reputation update. Available only to Root role holders
+     * @param _amount The (positive) amount of reputation to gain
+     * @param _skillId The skill where the user will gain reputation
+     * @param _user The user who will gain reputation
+     */
     emitSkillReputationReward(
       _skillId: BigNumberish,
       _user: string,
@@ -2180,6 +2349,14 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Emit a negative domain reputation update. Available only to Arbitration role holders
+     * @param _amount The (negative) amount of reputation to lose
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _domainId The domain where the user will lose reputation
+     * @param _permissionDomainId The domainId in which I hold the Arbitration role
+     * @param _user The user who will lose reputation
+     */
     emitDomainReputationPenalty(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -2189,6 +2366,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Emit a negative skill reputation update. Available only to Arbitration role holders in the root domain
+     * @param _amount The (negative) amount of reputation to lose
+     * @param _skillId The skill where the user will lose reputation
+     * @param _user The user who will lose reputation
+     */
     emitSkillReputationPenalty(
       _skillId: BigNumberish,
       _user: string,
@@ -2196,78 +2379,147 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Sets the reward inverse to the uint max 2**256 - 1.
+     * Called once when the colony is created to initialise certain storage slot values.
+     * @param _colonyNetworkAddress Address of the colony network
+     * @param _token Address of the colony ERC20 Token
+     */
     initialiseColony(
       _colonyNetworkAddress: string,
       _token: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Called to change the metadata associated with a colony. Expected to be a IPFS hash of a JSON blob, but not enforced to any degree by the contracts
+     * @param _metadata IPFS hash of the metadata
+     */
     editColony(
       _metadata: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Only allowed to be called when `taskCount` is `0` by authorized addresses.
+     * Allows the colony to bootstrap itself by having initial reputation and token `_amount` assigned to `_users`. This reputation is assigned in the colony-wide domain. Secured function to authorised members.
+     * @param _amount Amount of reputation/tokens for every address
+     * @param _users Array of address to bootstrap with reputation
+     */
     bootstrapColony(
       _users: string[],
       _amount: BigNumberish[],
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Mint `_wad` amount of colony tokens. Secured function to authorised members.
+     * @param _wad Amount to mint
+     */
     mintTokens(
       _wad: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Mint `_wad` amount of colony tokens and send to `_guy`. Secured function to authorised members.
+     * @param _guy Recipient of new tokens
+     * @param _wad Amount to mint
+     */
     mintTokensFor(
       _guy: string,
       _wad: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Lock the colony's token. Can only be called by a network-managed extension.
+     */
     lockToken(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Unlock the colony's token for a user. Can only be called by a network-managed extension.
+     * @param lockId The specific lock to unlock
+     * @param user The user to unlock
+     */
     unlockTokenForUser(
       user: string,
       lockId: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Register colony's ENS label.
+     * @param colonyName The label to register.
+     * @param orbitdb The path of the orbitDB database associated with the colony name
+     */
     registerColonyLabel(
       colonyName: string,
       orbitdb: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Update a colony's orbitdb address. Can only be called by a colony with a registered subdomain
+     * @param orbitdb The path of the orbitDB database to be associated with the colony
+     */
     updateColonyOrbitDB(
       orbitdb: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Install an extension to the colony. Secured function to authorised members.
+     * @param extensionId keccak256 hash of the extension name, used as an indentifier
+     * @param version The new extension version to install
+     */
     installExtension(
       extensionId: BytesLike,
       version: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Upgrade an extension in a colony. Secured function to authorised members.
+     * @param extensionId keccak256 hash of the extension name, used as an indentifier
+     * @param newVersion The version to upgrade to (must be one larger than the current version)
+     */
     upgradeExtension(
       extensionId: BytesLike,
       newVersion: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Set the deprecation of an extension in a colony. Secured function to authorised members.
+     * @param deprecated Whether to deprecate the extension or not
+     * @param extensionId keccak256 hash of the extension name, used as an indentifier
+     */
     deprecateExtension(
       extensionId: BytesLike,
       deprecated: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * This is a permanent action -- re-installing the extension will deploy a new contractIt is recommended to deprecate an extension before uninstalling to allow active objects to be resolved
+     * Uninstall an extension from a colony. Secured function to authorised members.
+     * @param extensionId keccak256 hash of the extension name, used as an indentifier
+     */
     uninstallExtension(
       extensionId: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Adding new domains is currently retricted to one level only, i.e. `_parentDomainId` has to be the root domain id: `1`.
+     * Add a colony domain, and its respective local skill under skill with id `_parentSkillId`. New funding pot is created and associated with the domain here.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _parentDomainId Id of the domain under which the new one will be added
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     */
     "addDomain(uint256,uint256,uint256)"(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -2275,6 +2527,14 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Adding new domains is currently retricted to one level only, i.e. `_parentDomainId` has to be the root domain id: `1`.We expect this function to only be used by the dapp
+     * Add a colony domain, and its respective local skill under skill with id `_parentSkillId`. New funding pot is created and associated with the domain here.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _metadata Metadata relating to the domain. Expected to be the IPFS hash of a JSON blob, but not enforced by the contracts.
+     * @param _parentDomainId Id of the domain under which the new one will be added
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     */
     "addDomain(uint256,uint256,uint256,string)"(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -2283,6 +2543,13 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Add a colony domain, and its respective local skill under skill with id `_parentSkillId`. New funding pot is created and associated with the domain here.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _domainId Id of the domain being edited
+     * @param _metadata Metadata relating to the domain. Expected to be the IPFS hash of a JSON blob, but not enforced by the contracts.
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     */
     editDomain(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -2291,6 +2558,10 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Get a domain by id.
+     * @param _id Id of the domain which details to get
+     */
     getDomain(
       _id: BigNumberish,
       overrides?: CallOverrides
@@ -2300,10 +2571,21 @@ export interface IColony extends BaseContract {
       }
     >;
 
+    /**
+     * Get the number of domains in the colony.
+     */
     getDomainCount(
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { count: BigNumber }>;
 
+    /**
+     * For more detail about branchMask and siblings, examine the PatriciaTree implementation. While external, likely only to be used by the Colony contracts, as it checks that the user is proving their own reputation in the current colony. The `verifyProof` function can be used to verify any proof, though this function is not currently exposed on the Colony's EtherRouter.
+     * Helper function that can be used by a client to verify the correctness of a patricia proof they have been supplied with.
+     * @param branchMask The branchmask of the proof
+     * @param key The key of the element the proof is for.
+     * @param siblings The siblings of the proof
+     * @param value The value of the element that the proof is for.
+     */
     verifyReputationProof(
       key: BytesLike,
       value: BytesLike,
@@ -2312,11 +2594,21 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[boolean] & { isValid: boolean }>;
 
+    /**
+     * Update the default global claim delay for expenditures
+     * @param _globalClaimDelay The new default global claim delay
+     */
     setDefaultGlobalClaimDelay(
       _globalClaimDelay: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Add a new expenditure in the colony. Secured function to authorised members.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
+     * @param _domainId The domain where the expenditure belongs
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     */
     makeExpenditure(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -2324,12 +2616,25 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Updates the expenditure owner. Can only be called by expenditure owner.
+     * @param _id Expenditure identifier
+     * @param _newOwner New owner of expenditure
+     */
     transferExpenditure(
       _id: BigNumberish,
       _newOwner: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * This is now deprecated and will be removed in a future version
+     * DEPRECATED Updates the expenditure owner. Can only be called by Arbitration role.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
+     * @param _id Expenditure identifier
+     * @param _newOwner New owner of expenditure
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     */
     transferExpenditureViaArbitration(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -2338,21 +2643,40 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Cancels the expenditure and prevents further editing. Can only be called by expenditure owner.
+     * @param _id Expenditure identifier
+     */
     cancelExpenditure(
       _id: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Locks the expenditure and prevents further editing. Can only be called by expenditure owner.
+     * @param _id Expenditure identifier
+     */
     lockExpenditure(
       _id: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Finalizes the expenditure and allows for funds to be claimed. Can only be called by expenditure owner.
+     * @param _id Expenditure identifier
+     */
     finalizeExpenditure(
       _id: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Sets the metadata for an expenditure. Can only be called by Arbitration role.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`,
+     * @param _id Id of the expenditure
+     * @param _metadata IPFS hash of the metadata
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     */
     "setExpenditureMetadata(uint256,uint256,uint256,string)"(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -2361,12 +2685,23 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Sets the metadata for an expenditure. Can only be called by expenditure owner.
+     * @param _id Id of the expenditure
+     * @param _metadata IPFS hash of the metadata
+     */
     "setExpenditureMetadata(uint256,string)"(
       _id: BigNumberish,
       _metadata: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * DeprecatedSets the recipient on an expenditure slot. Can only be called by expenditure owner.
+     * @param _id Id of the expenditure
+     * @param _recipient Address of the recipient
+     * @param _slot Slot for the recipient address
+     */
     setExpenditureRecipient(
       _id: BigNumberish,
       _slot: BigNumberish,
@@ -2374,6 +2709,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Sets the recipients in given expenditure slots. Can only be called by expenditure owner.
+     * @param _id Id of the expenditure
+     * @param _recipients Addresses of the recipients
+     * @param _slots Array of slots to set recipients
+     */
     setExpenditureRecipients(
       _id: BigNumberish,
       _slots: BigNumberish[],
@@ -2381,6 +2722,13 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * DeprecatedSet the token payout on an expenditure slot. Can only be called by expenditure owner.
+     * @param _amount Payout amount
+     * @param _id Id of the expenditure
+     * @param _slot Number of the slot
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     setExpenditurePayout(
       _id: BigNumberish,
       _slot: BigNumberish,
@@ -2389,6 +2737,13 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Set the token payouts in given expenditure slots. Can only be called by expenditure owner.
+     * @param _amounts Payout amounts
+     * @param _id Id of the expenditure
+     * @param _slots Array of slots to set payouts
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     setExpenditurePayouts(
       _id: BigNumberish,
       _slots: BigNumberish[],
@@ -2397,6 +2752,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * DeprecatedSets the skill on an expenditure slot. Can only be called by expenditure owner.
+     * @param _id Expenditure identifier
+     * @param _skillId Id of the new skill to set
+     * @param _slot Number of the slot
+     */
     setExpenditureSkill(
       _id: BigNumberish,
       _slot: BigNumberish,
@@ -2404,6 +2765,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Sets the skill on an expenditure slot. Can only be called by expenditure owner.
+     * @param _id Expenditure identifier
+     * @param _skillIds Ids of the new skills to set
+     * @param _slots Array of slots to set skills
+     */
     setExpenditureSkills(
       _id: BigNumberish,
       _slots: BigNumberish[],
@@ -2411,6 +2778,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * DeprecatedSets the claim delay on an expenditure slot. Can only be called by expenditure owner.
+     * @param _claimDelay Duration of time (in seconds) to delay
+     * @param _id Expenditure identifier
+     * @param _slot Number of the slot
+     */
     setExpenditureClaimDelay(
       _id: BigNumberish,
       _slot: BigNumberish,
@@ -2418,6 +2791,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Sets the claim delays in given expenditure slots. Can only be called by expenditure owner.
+     * @param _claimDelays Durations of time (in seconds) to delay
+     * @param _id Expenditure identifier
+     * @param _slots Array of slots to set claim delays
+     */
     setExpenditureClaimDelays(
       _id: BigNumberish,
       _slots: BigNumberish[],
@@ -2425,6 +2804,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Sets the payout modifiers in given expenditure slots. Can only be called by expenditure owner.
+     * @param _id Expenditure identifier
+     * @param _payoutModifiers Values (between +/- WAD) to modify the payout & reputation bonus
+     * @param _slots Array of slots to set payout modifiers
+     */
     setExpenditurePayoutModifiers(
       _id: BigNumberish,
       _slots: BigNumberish[],
@@ -2432,6 +2817,16 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Set arbitrary state on an expenditure slot. Can only be called by Arbitration role.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
+     * @param _id Expenditure identifier
+     * @param _keys Array of additional keys (for mappings & arrays)
+     * @param _mask Array of booleans indicated whether a key is a mapping (F) or an array index (T).
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _storageSlot Number of the top-level storage slot (25, 26, or 27)
+     * @param _value Value to set at location
+     */
     setExpenditureState(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -2443,6 +2838,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Claim the payout for an expenditure slot. Here the network receives a fee from each payout.
+     * @param _id Expenditure identifier
+     * @param _slot Number of the slot
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     claimExpenditurePayout(
       _id: BigNumberish,
       _slot: BigNumberish,
@@ -2450,10 +2851,17 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Get the number of expenditures in the colony.
+     */
     getExpenditureCount(
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { count: BigNumber }>;
 
+    /**
+     * Returns an existing expenditure.
+     * @param _id Expenditure identifier
+     */
     getExpenditure(
       _id: BigNumberish,
       overrides?: CallOverrides
@@ -2463,6 +2871,11 @@ export interface IColony extends BaseContract {
       }
     >;
 
+    /**
+     * Returns an existing expenditure slot.
+     * @param _id Expenditure identifier
+     * @param _slot Expenditure slot
+     */
     getExpenditureSlot(
       _id: BigNumberish,
       _slot: BigNumberish,
@@ -2473,6 +2886,12 @@ export interface IColony extends BaseContract {
       }
     >;
 
+    /**
+     * Returns an existing expenditure slot's payout for a token.
+     * @param _id Expenditure identifier
+     * @param _slot Expenditure slot
+     * @param _token Token address
+     */
     getExpenditureSlotPayout(
       _id: BigNumberish,
       _slot: BigNumberish,
@@ -2480,6 +2899,16 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { amount: BigNumber }>;
 
+    /**
+     * Add a new payment in the colony. Secured function to authorised members.
+     * @param _amount Payout amount
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
+     * @param _domainId The domain where the payment belongs
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _recipient Address of the payment recipient
+     * @param _skillId The skill associated with the payment
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     addPayment(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -2491,6 +2920,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Finalizes the payment and logs the reputation log updates. Allowed to be called once after payment is fully funded. Secured function to authorised members.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _id Payment identifier
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     */
     finalizePayment(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -2498,6 +2933,13 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Sets the recipient on an existing payment. Secured function to authorised members.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _id Payment identifier
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _recipient Address of the payment recipient
+     */
     setPaymentRecipient(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -2506,6 +2948,13 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Sets the skill on an existing payment. Secured function to authorised members.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _id Payment identifier
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _skillId Id of the new skill to set
+     */
     setPaymentSkill(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -2514,6 +2963,14 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Sets the payout for a given token on an existing payment. Secured function to authorised members.
+     * @param _amount Payout amount
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _id Payment identifier
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     setPaymentPayout(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -2523,6 +2980,10 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Returns an exiting payment.
+     * @param _id Payment identifier
+     */
     getPayment(
       _id: BigNumberish,
       overrides?: CallOverrides
@@ -2532,16 +2993,33 @@ export interface IColony extends BaseContract {
       }
     >;
 
+    /**
+     * Claim the payout in `_token` denomination for payment `_id`. Here the network receives its fee from each payout. Same as for tasks, ether fees go straight to the Meta Colony whereas Token fees go to the Network to be auctioned off.
+     * @param _id Payment identifier
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     claimPayment(
       _id: BigNumberish,
       _token: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Get the number of payments in the colony.
+     */
     getPaymentCount(
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { count: BigNumber }>;
 
+    /**
+     * Make a new task in the colony. Secured function to authorised members.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _domainId The domain where the task belongs
+     * @param _dueDate The due date of the task, can set to `0` for no-op
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _skillId The skill associated with the task, can set to `0` for no-op
+     * @param _specificationHash Database identifier where the task specification is stored
+     */
     makeTask(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -2552,15 +3030,32 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Get the number of tasks in the colony.
+     */
     getTaskCount(
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { count: BigNumber }>;
 
+    /**
+     * Starts from 0 and is incremented on every co-reviewed task change via `executeTaskChange` call.
+     * @param _id Id of the task
+     */
     getTaskChangeNonce(
       _id: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { nonce: BigNumber }>;
 
+    /**
+     * The Colony functions which require approval and the task roles to review these are set in `IColony.initialiseColony` at colony creation. Upon successful execution the `taskChangeNonces` entry for the task is incremented.
+     * Executes a task update transaction `_data` which is approved and signed by two of its roles (e.g. manager and worker) using the detached signatures for these users.
+     * @param _data The transaction data
+     * @param _mode How the signature was generated - 0 for Geth-style (usual), 1 for Trezor-style (only Trezor does this)
+     * @param _sigR r output of the ECDSA signature of the transaction
+     * @param _sigS s output of the ECDSA signature of the transaction
+     * @param _sigV recovery id
+     * @param _value The transaction value, i.e. number of wei to be sent when the transaction is executed Currently we only accept 0 value transactions but this is kept as a future option
+     */
     executeTaskChange(
       _sigV: BigNumberish[],
       _sigR: BytesLike[],
@@ -2571,6 +3066,15 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Executes a task role update transaction `_data` which is approved and signed by two of addresses. depending of which function we are calling. Allowed functions are `setTaskManagerRole`, `setTaskEvaluatorRole` and `setTaskWorkerRole`. Upon successful execution the `taskChangeNonces` entry for the task is incremented.
+     * @param _data The transaction data
+     * @param _mode How the signature was generated - 0 for Geth-style (usual), 1 for Trezor-style (only Trezor does this)
+     * @param _sigR r output of the ECDSA signature of the transaction
+     * @param _sigS s output of the ECDSA signature of the transaction
+     * @param _sigV recovery id
+     * @param _value The transaction value, i.e. number of wei to be sent when the transaction is executed Currently we only accept 0 value transactions but this is kept as a future option
+     */
     executeTaskRoleAssignment(
       _sigV: BigNumberish[],
       _sigR: BytesLike[],
@@ -2581,6 +3085,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Submit a hashed secret of the rating for work in task `_id` which was performed by user with task role id `_role`. Allowed within 5 days period starting which whichever is first from either the deliverable being submitted or the dueDate been reached. Allowed only for evaluator to rate worker and for worker to rate manager performance. Once submitted ratings can not be changed or overwritten.
+     * @param _id Id of the task
+     * @param _ratingSecret `keccak256` hash of a salt and 0-50 rating score (in increments of 10, .e.g 0, 10, 20, 30, 40 or 50). Can be generated via `IColony.generateSecret` helper function.
+     * @param _role Id of the role, as defined in TaskRole enum
+     */
     submitTaskWorkRating(
       _id: BigNumberish,
       _role: BigNumberish,
@@ -2588,6 +3098,14 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Compares the `keccak256(_salt, _rating)` output with the previously submitted rating secret and if they match, sets the task role properties `rated` to `true` and `rating` to `_rating`.
+     * Reveal the secret rating submitted in `IColony.submitTaskWorkRating` for task `_id` and task role with id `_role`. Allowed within 5 days period starting which whichever is first from either both rating secrets being submitted (via `IColony.submitTaskWorkRating`) or the 5 day rating period expiring.
+     * @param _id Id of the task
+     * @param _rating 0-50 rating score (in increments of 10, .e.g 0, 10, 20, 30, 40 or 50)
+     * @param _role Id of the role, as defined in TaskRole enum
+     * @param _salt Salt value used to generate the rating secret
+     */
     revealTaskWorkRating(
       _id: BigNumberish,
       _role: BigNumberish,
@@ -2596,12 +3114,21 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Helper function used to generage consistently the rating secret using salt value `_salt` and value to hide `_value`
+     * @param _salt Salt value
+     * @param _value Value to hide
+     */
     generateSecret(
       _salt: BytesLike,
       _value: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[string] & { secret: string }>;
 
+    /**
+     * Get the `ColonyStorage.RatingSecrets` information for task `_id`.
+     * @param _id Id of the task
+     */
     getTaskWorkRatingSecretsInfo(
       _id: BigNumberish,
       overrides?: CallOverrides
@@ -2612,12 +3139,25 @@ export interface IColony extends BaseContract {
       }
     >;
 
+    /**
+     * Get the rating secret submitted for role `_role` in task `_id`
+     * @param _id Id of the task
+     * @param _role Id of the role, as defined in TaskRole enum
+     */
     getTaskWorkRatingSecret(
       _id: BigNumberish,
       _role: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[string] & { secret: string }>;
 
+    /**
+     * This function can only be called through `executeTaskRoleAssignment`.
+     * Assigning manager role. Current manager and user we want to assign role to both need to agree. User we want to set here also needs to be an admin. Note that the domain proof data comes at the end here to not interfere with the assembly argument unpacking.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _id Id of the task
+     * @param _permissionDomainId The domain ID in which _user has the Administration permission
+     * @param _user Address of the user we want to give a manager role to
+     */
     setTaskManagerRole(
       _id: BigNumberish,
       _user: string,
@@ -2626,52 +3166,101 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * This function can only be called through `executeTaskRoleAssignment`.
+     * Assigning evaluator role. Can only be set if there is no one currently assigned to be an evaluator. Manager of the task and user we want to assign role to both need to agree. Managers can assign themselves to this role, if there is no one currently assigned to it.
+     * @param _id Id of the task
+     * @param _user Address of the user we want to give a evaluator role to
+     */
     setTaskEvaluatorRole(
       _id: BigNumberish,
       _user: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * This function can only be called through `executeTaskRoleAssignment`.
+     * Assigning worker role. Can only be set if there is no one currently assigned to be a worker. Manager of the task and user we want to assign role to both need to agree.
+     * @param _id Id of the task
+     * @param _user Address of the user we want to give a worker role to
+     */
     setTaskWorkerRole(
       _id: BigNumberish,
       _user: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Removing evaluator role. Agreed between manager and currently assigned evaluator.
+     * @param _id Id of the task
+     */
     removeTaskEvaluatorRole(
       _id: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Removing worker role. Agreed between manager and currently assigned worker.
+     * @param _id Id of the task
+     */
     removeTaskWorkerRole(
       _id: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Currently we only allow one skill per task although we have provisioned for an array of skills in `Task` struct. Allowed before a task is finalized.
+     * Set the skill for task `_id`.
+     * @param _id Id of the task
+     * @param _skillId Id of the skill which has to be a global skill
+     */
     setTaskSkill(
       _id: BigNumberish,
       _skillId: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Set the hash for the task brief, aka task work specification, which identifies the task brief content in ddb. Allowed before a task is finalized.
+     * @param _id Id of the task
+     * @param _specificationHash Unique hash of the task brief in ddb
+     */
     setTaskBrief(
       _id: BigNumberish,
       _specificationHash: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Set the due date on task `_id`. Allowed before a task is finalized.
+     * @param _dueDate Due date as seconds since unix epoch
+     * @param _id Id of the task
+     */
     setTaskDueDate(
       _id: BigNumberish,
       _dueDate: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Set the `task.deliverableHash` and `task.completionTimestamp` properties.
+     * Submit the task deliverable, i.e. the output of the work performed for task `_id`. Submission is allowed only to the assigned worker before the task due date. Submissions cannot be overwritten.
+     * @param _deliverableHash Unique hash of the task deliverable content in ddb
+     * @param _id Id of the task
+     */
     submitTaskDeliverable(
       _id: BigNumberish,
       _deliverableHash: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Internally call `submitTaskDeliverable` and `submitTaskWorkRating` in sequence.
+     * Submit the task deliverable for Worker and rating for Manager.
+     * @param _deliverableHash Unique hash of the task deliverable content in ddb
+     * @param _id Id of the task
+     * @param _ratingSecret Rating secret for manager
+     */
     submitTaskDeliverableAndRating(
       _id: BigNumberish,
       _deliverableHash: BytesLike,
@@ -2679,21 +3268,39 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Set the `task.finalized` property to true
+     * Called after task work rating is complete which closes the task and logs the respective reputation log updates. Allowed to be called once per task. Secured function to authorised members.
+     * @param _id Id of the task
+     */
     finalizeTask(
       _id: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Set the `task.status` property to `1`.
+     * Cancel a task at any point before it is finalized. Secured function to authorised members. Any funds assigned to its funding pot can be moved back to the domain via `IColony.moveFundsBetweenPots`.
+     * @param _id Id of the task
+     */
     cancelTask(
       _id: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Mark a task as complete after the due date has passed. This allows the task to be rated and finalized (and funds recovered) even in the presence of a worker who has disappeared. Note that if the due date was not set, then this function will throw.
+     * @param _id Id of the task
+     */
     completeTask(
       _id: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Get a task with id `_id`
+     * @param _id Id of the task
+     */
     getTask(
       _id: BigNumberish,
       overrides?: CallOverrides
@@ -2719,6 +3326,11 @@ export interface IColony extends BaseContract {
       }
     >;
 
+    /**
+     * Get the `Role` properties back for role `_role` in task `_id`.
+     * @param _id Id of the task
+     * @param _role Id of the role, as defined in TaskRole enum
+     */
     getTaskRole(
       _id: BigNumberish,
       _role: BigNumberish,
@@ -2729,15 +3341,28 @@ export interface IColony extends BaseContract {
       }
     >;
 
+    /**
+     * Set the reward inverse to pay out from revenue. e.g. if the fee is 1% (or 0.01), set 100.
+     * @param _rewardInverse The inverse of the reward
+     */
     setRewardInverse(
       _rewardInverse: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Return 1 / the reward to pay out from revenue. e.g. if the fee is 1% (or 0.01), return 100.
+     */
     getRewardInverse(
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { rewardInverse: BigNumber }>;
 
+    /**
+     * Get payout amount in `_token` denomination for role `_role` in task `_id`.
+     * @param _id Id of the task
+     * @param _role Id of the role, as defined in TaskRole enum
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     getTaskPayout(
       _id: BigNumberish,
       _role: BigNumberish,
@@ -2745,6 +3370,12 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { amount: BigNumber }>;
 
+    /**
+     * Set `_token` payout for manager in task `_id` to `_amount`.
+     * @param _amount Payout amount
+     * @param _id Id of the task
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     setTaskManagerPayout(
       _id: BigNumberish,
       _token: string,
@@ -2752,6 +3383,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Set `_token` payout for evaluator in task `_id` to `_amount`.
+     * @param _amount Payout amount
+     * @param _id Id of the task
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     setTaskEvaluatorPayout(
       _id: BigNumberish,
       _token: string,
@@ -2759,6 +3396,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Set `_token` payout for worker in task `_id` to `_amount`.
+     * @param _amount Payout amount
+     * @param _id Id of the task
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     setTaskWorkerPayout(
       _id: BigNumberish,
       _token: string,
@@ -2766,6 +3409,15 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Can only call if evaluator and worker are unassigned or manager, otherwise need signature.
+     * Set `_token` payout for all roles in task `_id` to the respective amounts.
+     * @param _evaluatorAmount Payout amount for evaluator
+     * @param _id Id of the task
+     * @param _managerAmount Payout amount for manager
+     * @param _token Address of the token, `0x0` value indicates Ether
+     * @param _workerAmount Payout amount for worker
+     */
     setAllTaskPayouts(
       _id: BigNumberish,
       _token: string,
@@ -2775,6 +3427,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Claim the payout in `_token` denomination for work completed in task `_id` by contributor with role `_role`. Allowed only after task is finalized. Here the network receives its fee from each payout. Ether fees go straight to the Meta Colony whereas Token fees go to the Network to be auctioned off.
+     * @param _id Id of the task
+     * @param _role Id of the role, as defined in TaskRole enum
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     claimTaskPayout(
       _id: BigNumberish,
       _role: BigNumberish,
@@ -2782,6 +3440,14 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Start next reward payout for `_token`. All funds in the reward pot for `_token` will become unavailable.Add a new payment in the colony. Can only be called by users with root permission. All tokens will be locked, and can be unlocked by calling `waiveRewardPayout` or `claimRewardPayout`.
+     * @param _token Address of the token used for reward payout
+     * @param branchMask The branchmask of the proof
+     * @param key Some Reputation hash tree key
+     * @param siblings The siblings of the proof
+     * @param value Reputation value
+     */
     startNextRewardPayout(
       _token: string,
       key: BytesLike,
@@ -2791,6 +3457,15 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Claim the reward payout at `_payoutId`. User needs to provide their reputation and colony-wide reputation which will be proven via Merkle proof inside this function. Can only be called if payout is active, i.e if 60 days have not passed from its creation. Can only be called if next in queue.
+     * @param _payoutId Id of the reward payout
+     * @param _squareRoots Square roots of values used in equation: `_squareRoots[0]` - square root of user reputation, `_squareRoots[1]` - square root of user tokens (deposited in TokenLocking), `_squareRoots[2]` - square root of total reputation, `_squareRoots[3]` - square root of total tokens, `_squareRoots[4]` - square root of numerator (user reputation * user tokens), `_squareRoots[5]` - square root of denominator (total reputation * total tokens), `_squareRoots[6]` - square root of payout amount.
+     * @param branchMask The branchmask of the proof
+     * @param key Some Reputation hash tree key
+     * @param siblings The siblings of the proof
+     * @param value Reputation value
+     */
     claimRewardPayout(
       _payoutId: BigNumberish,
       _squareRoots: BigNumberish[],
@@ -2801,6 +3476,10 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Get useful information about specific reward payout.
+     * @param _payoutId Id of the reward payout
+     */
     getRewardPayoutInfo(
       _payoutId: BigNumberish,
       overrides?: CallOverrides
@@ -2810,11 +3489,20 @@ export interface IColony extends BaseContract {
       }
     >;
 
+    /**
+     * Finalises the reward payout. Allows creation of next reward payouts for token that has been used in `_payoutId`. Can only be called when reward payout cycle is finished i.e when 60 days have passed from its creation.
+     * @param _payoutId Id of the reward payout
+     */
     finalizeRewardPayout(
       _payoutId: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * For the reward funding pot (e.g. id: 0) this returns (0, 0, 0).
+     * Get the non-mapping properties of a pot by id.
+     * @param _id Id of the pot which details to get
+     */
     getFundingPot(
       _id: BigNumberish,
       overrides?: CallOverrides
@@ -2826,22 +3514,47 @@ export interface IColony extends BaseContract {
       }
     >;
 
+    /**
+     * Get the number of funding pots in the colony.
+     */
     getFundingPotCount(
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { count: BigNumber }>;
 
+    /**
+     * Get the `_token` balance of pot with id `_potId`.
+     * @param _potId Id of the funding pot
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     getFundingPotBalance(
       _potId: BigNumberish,
       _token: string,
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { balance: BigNumber }>;
 
+    /**
+     * Get the assigned `_token` payouts of pot with id `_potId`.
+     * @param _potId Id of the funding pot
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     getFundingPotPayout(
       _potId: BigNumberish,
       _token: string,
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { payout: BigNumber }>;
 
+    /**
+     * Move a given amount: `_amount` of `_token` funds from funding pot with id `_fromPot` to one with id `_toPot`.
+     * @param _amount Amount of funds
+     * @param _childSkillIndex The child index in _permissionDomainId where I will be taking this action
+     * @param _domainId The domain where I am taking this action, pointed to by _permissionDomainId and _childSkillIndex
+     * @param _fromChildSkillIndex In the array of child skills for the skill associated with the domain pointed to by _permissionDomainId + _childSkillIndex,         the index of the skill associated with the domain that contains _fromPot
+     * @param _fromPot Funding pot id providing the funds
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _toChildSkillIndex The same, but for the _toPot which the funds are being moved to
+     * @param _toPot Funding pot id receiving the funds
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     "moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)"(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -2855,6 +3568,16 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * DEPRECATEDMove a given amount: `_amount` of `_token` funds from funding pot with id `_fromPot` to one with id `_toPot`.
+     * @param _amount Amount of funds
+     * @param _fromChildSkillIndex The child index in `_permissionDomainId` where we can find the domain for `_fromPotId`
+     * @param _fromPot Funding pot id providing the funds
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _toChildSkillIndex The child index in `_permissionDomainId` where we can find the domain for `_toPotId`
+     * @param _toPot Funding pot id receiving the funds
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     "moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,address)"(
       _permissionDomainId: BigNumberish,
       _fromChildSkillIndex: BigNumberish,
@@ -2866,16 +3589,30 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Move any funds received by the colony in `_token` denomination to the top-level domain pot, siphoning off a small amount to the reward pot. If called against a colony's own token, no fee is taken.
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     claimColonyFunds(
       _token: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Get the total amount of tokens `_token` minus amount reserved to be paid to the reputation and token holders as rewards.
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     getNonRewardPotsTotal(
       _token: string,
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { amount: BigNumber }>;
 
+    /**
+     * Allow the _approvee to obligate some amount of tokens as a stake.
+     * @param _amount Amount of internal token up to which we are willing to be obligated.
+     * @param _approvee Address of the account we are willing to let obligate us.
+     * @param _domainId Domain in which we are willing to be obligated.
+     */
     approveStake(
       _approvee: string,
       _domainId: BigNumberish,
@@ -2883,6 +3620,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Obligate the user some amount of tokens as a stake.
+     * @param _amount Amount of internal token we are obligating.
+     * @param _domainId Domain in which we are obligating the user.
+     * @param _user Address of the account we are obligating.
+     */
     obligateStake(
       _user: string,
       _domainId: BigNumberish,
@@ -2890,6 +3633,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Deobligate the user some amount of tokens, releasing the stake.
+     * @param _amount Amount of internal token we are deobligating.
+     * @param _domainId Domain in which we are deobligating the user.
+     * @param _user Address of the account we are deobligating.
+     */
     deobligateStake(
       _user: string,
       _domainId: BigNumberish,
@@ -2897,6 +3646,16 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Transfer some amount of obligated tokens. Can be called by the arbitration role.
+     * @param _amount Amount of internal token we are transferring.
+     * @param _childSkillIndex The child index in `_permissionDomainId` where we can find `_domainId`.
+     * @param _domainId Domain in which we are transferring the tokens.
+     * @param _obligator Address of the account who set the obligation.
+     * @param _permissionDomainId The domainId in which I have the permission to take this action.
+     * @param _recipient Recipient of the transferred tokens.
+     * @param _user Address of the account we are transferring.
+     */
     transferStake(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -2908,6 +3667,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * View an approval to obligate tokens.
+     * @param _domainId Domain in which we are willing to be obligated.
+     * @param _obligator Address of the account we are willing to let obligate us.
+     * @param _user User allowing their tokens to be obligated.
+     */
     getApproval(
       _user: string,
       _obligator: string,
@@ -2915,6 +3680,12 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { approval: BigNumber }>;
 
+    /**
+     * View an obligation of tokens.
+     * @param _domainId Domain in which we are obligated.
+     * @param _obligator Address of the account who obligated us.
+     * @param _user User whose tokens are obligated.
+     */
     getObligation(
       _user: string,
       _obligator: string,
@@ -2922,101 +3693,198 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { obligation: BigNumber }>;
 
+    /**
+     * Get the domain corresponding to a funding pot
+     * @param _fundingPotId Id of the funding pot
+     */
     getDomainFromFundingPot(
       _fundingPotId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { domainId: BigNumber }>;
 
+    /**
+     * Burn tokens held by the colony. Can only burn tokens held in the root funding pot.
+     * @param amount The amount of tokens to burn
+     * @param token The address of the token to burn
+     */
     burnTokens(
       token: string,
       amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * unlock the native colony token, if possible
+     */
     unlockToken(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Update the internal bookkeeping around external ERC20 approvals
+     * @param spender The account we have approved
+     * @param token The address of the token which was approved
+     */
     updateApprovalAmount(
       token: string,
       spender: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Get the current approval amount
+     * @param spender The account we have approved
+     * @param token The address of the token which was approved
+     */
     getTokenApproval(
       token: string,
       spender: string,
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { amount: BigNumber }>;
 
+    /**
+     * Get the current total approval amount across all spenders
+     * @param token The address of the token which was approved
+     */
     getTotalTokenApproval(
       token: string,
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { amount: BigNumber }>;
   };
 
+  /**
+   * Indicate approval to exit recovery mode. Can only be called by user with recovery role.
+   */
   approveExitRecovery(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * No return value, but should throw if protected.This is external, but is only expected to be called from ContractRecovery; no need toexpose this to any users.
+   * Check whether the supplied slot is a protected variable specific to this contract
+   * @param _slot The storage slot number to check.
+   */
   checkNotAdditionalProtectedVariable(
     _slot: BigNumberish,
     overrides?: CallOverrides
   ): Promise<void>;
 
+  /**
+   * Put colony network mining into recovery mode. Can only be called by user with recovery role.
+   */
   enterRecoveryMode(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Exit recovery mode, can be called by anyone if enough whitelist approvals are given.
+   */
   exitRecoveryMode(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Is colony network in recovery mode.
+   */
   isInRecoveryMode(overrides?: CallOverrides): Promise<boolean>;
 
+  /**
+   * Return number of recovery roles.
+   */
   numRecoveryRoles(overrides?: CallOverrides): Promise<BigNumber>;
 
+  /**
+   * Remove colony recovery role. Can only be called by root role.
+   * @param _user User we want to remove recovery role from
+   */
   removeRecoveryRole(
     _user: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Set new colony recovery role. Can be called by root.
+   * @param _user User we want to give a recovery role to
+   */
   setRecoveryRole(
     _user: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * certain critical variables are protected from editing in this function
+   * Update value of arbitrary storage variable. Can only be called by user with recovery role.
+   * @param _slot Uint address of storage slot to be updated
+   * @param _value word of data to be set
+   */
   setStorageSlotRecovery(
     _slot: BigNumberish,
     _value: BytesLike,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Get the `ColonyAuthority` for the colony.
+   */
   authority(overrides?: CallOverrides): Promise<string>;
 
+  /**
+   * Used for testing.
+   * Get the colony `owner` address. This should be address(0x0) at all times.
+   */
   owner(overrides?: CallOverrides): Promise<string>;
 
+  /**
+   * Get the Colony contract version. Starts from 1 and is incremented with every deployed contract change.
+   */
   version(overrides?: CallOverrides): Promise<BigNumber>;
 
+  /**
+   * Downgrades are not allowed, i.e. `_newVersion` should be higher than the currect colony version.
+   * Upgrades a colony to a new Colony contract version `_newVersion`.
+   * @param _newVersion The target version for the upgrade
+   */
   upgrade(
     _newVersion: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Can only be called by the colony itself, and only expected to be called as part of the `upgrade()` call. Required to be external so it can be an external call.
+   * A function to be called after an upgrade has been done from v2 to v3.
+   */
   finishUpgrade(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * The colonyNetworkAddress we read here is set once, during `initialiseColony`.
+   * Returns the colony network address set on the Colony.
+   */
   getColonyNetwork(overrides?: CallOverrides): Promise<string>;
 
+  /**
+   * Get the colony token.
+   */
   getToken(overrides?: CallOverrides): Promise<string>;
 
+  /**
+   * Execute arbitrary transaction on behalf of the Colony DEPRECATED
+   * @param _action Bytes array encoding the function call and arguments
+   * @param _to Contract to receive the function call (cannot be this contract, network or token locking)
+   */
   makeArbitraryTransaction(
     _to: string,
     _action: BytesLike,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Execute arbitrary transactions on behalf of the Colony in series
+   * @param _actions Array of Bytes arrays encoding the function calls and arguments
+   * @param _strict Boolean indicating whether if one transaction fails, the whole call to this function should fail.
+   * @param _targets Array of addressed to be targeted
+   */
   makeArbitraryTransactions(
     _targets: string[],
     _actions: BytesLike[],
@@ -3024,24 +3892,48 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Only callable by the colony itself. If you wish to use this functionality, you should use the makeAbitraryTransactions function
+   * Executes a single arbitrary transaction
+   * @param _action Bytes array encoding the function call and arguments
+   * @param _target Contract to receive the function call
+   */
   makeSingleArbitraryTransaction(
     _target: string,
     _action: BytesLike,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Emit a metadata string for a transaction
+   * @param _metadata String of metadata for tx
+   * @param _txHash Hash of transaction being annotated (0x0 for current tx)
+   */
   annotateTransaction(
     _txHash: BytesLike,
     _metadata: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Set new colony root role. Can be called by root role only.
+   * @param _setTo The state of the role permission (true assign the permission, false revokes it)
+   * @param _user User we want to give an root role to
+   */
   setRootRole(
     _user: string,
     _setTo: boolean,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Set new colony arbitration role. Can be called by root role or architecture role.
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+   * @param _domainId Domain in which we are giving user the role
+   * @param _permissionDomainId Domain in which the caller has root role
+   * @param _setTo The state of the role permission (true assign the permission, false revokes it)
+   * @param _user User we want to give an arbitration role to
+   */
   setArbitrationRole(
     _permissionDomainId: BigNumberish,
     _childSkillIndex: BigNumberish,
@@ -3051,6 +3943,14 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Set new colony architecture role. Can be called by root role or architecture role.
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+   * @param _domainId Domain in which we are giving user the role
+   * @param _permissionDomainId Domain in which the caller has root/architecture role
+   * @param _setTo The state of the role permission (true assign the permission, false revokes it)
+   * @param _user User we want to give an architecture role to
+   */
   setArchitectureRole(
     _permissionDomainId: BigNumberish,
     _childSkillIndex: BigNumberish,
@@ -3060,6 +3960,14 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Set new colony funding role. Can be called by root role or architecture role.
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+   * @param _domainId Domain in which we are giving user the role
+   * @param _permissionDomainId Domain in which the caller has root/architecture role
+   * @param _setTo The state of the role permission (true assign the permission, false revokes it)
+   * @param _user User we want to give an funding role to
+   */
   setFundingRole(
     _permissionDomainId: BigNumberish,
     _childSkillIndex: BigNumberish,
@@ -3069,6 +3977,14 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Set new colony admin role. Can be called by root role or architecture role.
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+   * @param _domainId Domain in which we are giving user the role
+   * @param _permissionDomainId Domain in which the caller has root/architecture role
+   * @param _setTo The state of the role permission (true assign the permission, false revokes it)
+   * @param _user User we want to give an admin role to
+   */
   setAdministrationRole(
     _permissionDomainId: BigNumberish,
     _childSkillIndex: BigNumberish,
@@ -3078,6 +3994,14 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Set several roles in one transaction. Can be called by root role or architecture role.
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+   * @param _domainId Domain in which we are giving user the role
+   * @param _permissionDomainId Domain in which the caller has root/architecture role
+   * @param _roles Byte array representing the desired role setting (1 for on, 0 for off)
+   * @param _user User we want to give a role to
+   */
   setUserRoles(
     _permissionDomainId: BigNumberish,
     _childSkillIndex: BigNumberish,
@@ -3087,6 +4011,12 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Check whether a given user has a given role for the colony. Calls the function of the same name on the colony's authority contract.
+   * @param _domainId The domain where we want to check for the role
+   * @param _role The role we want to check for
+   * @param _user The user whose role we want to check
+   */
   hasUserRole(
     _user: string,
     _domainId: BigNumberish,
@@ -3094,6 +4024,14 @@ export interface IColony extends BaseContract {
     overrides?: CallOverrides
   ): Promise<boolean>;
 
+  /**
+   * Check whether a given user has a given role for the colony, in a child domain. Calls the function of the same name on the colony's authority contract and an internal inheritence validator function
+   * @param _childDomainId The domain where we want to use the role
+   * @param _childSkillIndex The index that the `_childDomainId` is relative to `_domainId`
+   * @param _domainId Domain in which the caller has the role
+   * @param _role The role we want to check for
+   * @param _user The user whose role we want to check
+   */
   hasInheritedUserRole(
     _user: string,
     _domainId: BigNumberish,
@@ -3103,6 +4041,13 @@ export interface IColony extends BaseContract {
     overrides?: CallOverrides
   ): Promise<boolean>;
 
+  /**
+   * Check whether a given user can modify roles in the target domain `_childDomainId`. Mostly a convenience function to provide a uniform interface for extension contracts validating permissions
+   * @param _childDomainId The domain where we want to edit roles
+   * @param _childSkillIndex The index that the `_childDomainId` is relative to `_domainId`
+   * @param _domainId Domain in which the caller has the role (currently Root or Architecture)
+   * @param _user The user whose permissions we want to check
+   */
   userCanSetRoles(
     _user: string,
     _domainId: BigNumberish,
@@ -3111,17 +4056,32 @@ export interface IColony extends BaseContract {
     overrides?: CallOverrides
   ): Promise<boolean>;
 
+  /**
+   * Gets the bytes32 representation of the roles for a user in a given domain
+   * @param _domain The domain we want to get roles in
+   * @param _user The user whose roles we want to get
+   */
   getUserRoles(
     _user: string,
     _domain: BigNumberish,
     overrides?: CallOverrides
   ): Promise<string>;
 
+  /**
+   * Gets the bytes32 representation of the roles authorized to call a function
+   * @param _sig The function signature
+   */
   getCapabilityRoles(
     _sig: BytesLike,
     overrides?: CallOverrides
   ): Promise<string>;
 
+  /**
+   * Emit a positive domain reputation update. Available only to Root role holders
+   * @param _amount The (positive) amount of reputation to gain
+   * @param _domainId The domain where the user will gain reputation
+   * @param _user The user who will gain reputation
+   */
   emitDomainReputationReward(
     _domainId: BigNumberish,
     _user: string,
@@ -3129,6 +4089,12 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Emit a positive skill reputation update. Available only to Root role holders
+   * @param _amount The (positive) amount of reputation to gain
+   * @param _skillId The skill where the user will gain reputation
+   * @param _user The user who will gain reputation
+   */
   emitSkillReputationReward(
     _skillId: BigNumberish,
     _user: string,
@@ -3136,6 +4102,14 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Emit a negative domain reputation update. Available only to Arbitration role holders
+   * @param _amount The (negative) amount of reputation to lose
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+   * @param _domainId The domain where the user will lose reputation
+   * @param _permissionDomainId The domainId in which I hold the Arbitration role
+   * @param _user The user who will lose reputation
+   */
   emitDomainReputationPenalty(
     _permissionDomainId: BigNumberish,
     _childSkillIndex: BigNumberish,
@@ -3145,6 +4119,12 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Emit a negative skill reputation update. Available only to Arbitration role holders in the root domain
+   * @param _amount The (negative) amount of reputation to lose
+   * @param _skillId The skill where the user will lose reputation
+   * @param _user The user who will lose reputation
+   */
   emitSkillReputationPenalty(
     _skillId: BigNumberish,
     _user: string,
@@ -3152,78 +4132,147 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Sets the reward inverse to the uint max 2**256 - 1.
+   * Called once when the colony is created to initialise certain storage slot values.
+   * @param _colonyNetworkAddress Address of the colony network
+   * @param _token Address of the colony ERC20 Token
+   */
   initialiseColony(
     _colonyNetworkAddress: string,
     _token: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Called to change the metadata associated with a colony. Expected to be a IPFS hash of a JSON blob, but not enforced to any degree by the contracts
+   * @param _metadata IPFS hash of the metadata
+   */
   editColony(
     _metadata: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Only allowed to be called when `taskCount` is `0` by authorized addresses.
+   * Allows the colony to bootstrap itself by having initial reputation and token `_amount` assigned to `_users`. This reputation is assigned in the colony-wide domain. Secured function to authorised members.
+   * @param _amount Amount of reputation/tokens for every address
+   * @param _users Array of address to bootstrap with reputation
+   */
   bootstrapColony(
     _users: string[],
     _amount: BigNumberish[],
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Mint `_wad` amount of colony tokens. Secured function to authorised members.
+   * @param _wad Amount to mint
+   */
   mintTokens(
     _wad: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Mint `_wad` amount of colony tokens and send to `_guy`. Secured function to authorised members.
+   * @param _guy Recipient of new tokens
+   * @param _wad Amount to mint
+   */
   mintTokensFor(
     _guy: string,
     _wad: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Lock the colony's token. Can only be called by a network-managed extension.
+   */
   lockToken(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Unlock the colony's token for a user. Can only be called by a network-managed extension.
+   * @param lockId The specific lock to unlock
+   * @param user The user to unlock
+   */
   unlockTokenForUser(
     user: string,
     lockId: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Register colony's ENS label.
+   * @param colonyName The label to register.
+   * @param orbitdb The path of the orbitDB database associated with the colony name
+   */
   registerColonyLabel(
     colonyName: string,
     orbitdb: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Update a colony's orbitdb address. Can only be called by a colony with a registered subdomain
+   * @param orbitdb The path of the orbitDB database to be associated with the colony
+   */
   updateColonyOrbitDB(
     orbitdb: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Install an extension to the colony. Secured function to authorised members.
+   * @param extensionId keccak256 hash of the extension name, used as an indentifier
+   * @param version The new extension version to install
+   */
   installExtension(
     extensionId: BytesLike,
     version: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Upgrade an extension in a colony. Secured function to authorised members.
+   * @param extensionId keccak256 hash of the extension name, used as an indentifier
+   * @param newVersion The version to upgrade to (must be one larger than the current version)
+   */
   upgradeExtension(
     extensionId: BytesLike,
     newVersion: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Set the deprecation of an extension in a colony. Secured function to authorised members.
+   * @param deprecated Whether to deprecate the extension or not
+   * @param extensionId keccak256 hash of the extension name, used as an indentifier
+   */
   deprecateExtension(
     extensionId: BytesLike,
     deprecated: boolean,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * This is a permanent action -- re-installing the extension will deploy a new contractIt is recommended to deprecate an extension before uninstalling to allow active objects to be resolved
+   * Uninstall an extension from a colony. Secured function to authorised members.
+   * @param extensionId keccak256 hash of the extension name, used as an indentifier
+   */
   uninstallExtension(
     extensionId: BytesLike,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Adding new domains is currently retricted to one level only, i.e. `_parentDomainId` has to be the root domain id: `1`.
+   * Add a colony domain, and its respective local skill under skill with id `_parentSkillId`. New funding pot is created and associated with the domain here.
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+   * @param _parentDomainId Id of the domain under which the new one will be added
+   * @param _permissionDomainId The domainId in which I have the permission to take this action
+   */
   "addDomain(uint256,uint256,uint256)"(
     _permissionDomainId: BigNumberish,
     _childSkillIndex: BigNumberish,
@@ -3231,6 +4280,14 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Adding new domains is currently retricted to one level only, i.e. `_parentDomainId` has to be the root domain id: `1`.We expect this function to only be used by the dapp
+   * Add a colony domain, and its respective local skill under skill with id `_parentSkillId`. New funding pot is created and associated with the domain here.
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+   * @param _metadata Metadata relating to the domain. Expected to be the IPFS hash of a JSON blob, but not enforced by the contracts.
+   * @param _parentDomainId Id of the domain under which the new one will be added
+   * @param _permissionDomainId The domainId in which I have the permission to take this action
+   */
   "addDomain(uint256,uint256,uint256,string)"(
     _permissionDomainId: BigNumberish,
     _childSkillIndex: BigNumberish,
@@ -3239,6 +4296,13 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Add a colony domain, and its respective local skill under skill with id `_parentSkillId`. New funding pot is created and associated with the domain here.
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+   * @param _domainId Id of the domain being edited
+   * @param _metadata Metadata relating to the domain. Expected to be the IPFS hash of a JSON blob, but not enforced by the contracts.
+   * @param _permissionDomainId The domainId in which I have the permission to take this action
+   */
   editDomain(
     _permissionDomainId: BigNumberish,
     _childSkillIndex: BigNumberish,
@@ -3247,13 +4311,28 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Get a domain by id.
+   * @param _id Id of the domain which details to get
+   */
   getDomain(
     _id: BigNumberish,
     overrides?: CallOverrides
   ): Promise<ColonyDataTypes.DomainStructOutput>;
 
+  /**
+   * Get the number of domains in the colony.
+   */
   getDomainCount(overrides?: CallOverrides): Promise<BigNumber>;
 
+  /**
+   * For more detail about branchMask and siblings, examine the PatriciaTree implementation. While external, likely only to be used by the Colony contracts, as it checks that the user is proving their own reputation in the current colony. The `verifyProof` function can be used to verify any proof, though this function is not currently exposed on the Colony's EtherRouter.
+   * Helper function that can be used by a client to verify the correctness of a patricia proof they have been supplied with.
+   * @param branchMask The branchmask of the proof
+   * @param key The key of the element the proof is for.
+   * @param siblings The siblings of the proof
+   * @param value The value of the element that the proof is for.
+   */
   verifyReputationProof(
     key: BytesLike,
     value: BytesLike,
@@ -3262,11 +4341,21 @@ export interface IColony extends BaseContract {
     overrides?: CallOverrides
   ): Promise<boolean>;
 
+  /**
+   * Update the default global claim delay for expenditures
+   * @param _globalClaimDelay The new default global claim delay
+   */
   setDefaultGlobalClaimDelay(
     _globalClaimDelay: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Add a new expenditure in the colony. Secured function to authorised members.
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
+   * @param _domainId The domain where the expenditure belongs
+   * @param _permissionDomainId The domainId in which I have the permission to take this action
+   */
   makeExpenditure(
     _permissionDomainId: BigNumberish,
     _childSkillIndex: BigNumberish,
@@ -3274,12 +4363,25 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Updates the expenditure owner. Can only be called by expenditure owner.
+   * @param _id Expenditure identifier
+   * @param _newOwner New owner of expenditure
+   */
   transferExpenditure(
     _id: BigNumberish,
     _newOwner: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * This is now deprecated and will be removed in a future version
+   * DEPRECATED Updates the expenditure owner. Can only be called by Arbitration role.
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
+   * @param _id Expenditure identifier
+   * @param _newOwner New owner of expenditure
+   * @param _permissionDomainId The domainId in which I have the permission to take this action
+   */
   transferExpenditureViaArbitration(
     _permissionDomainId: BigNumberish,
     _childSkillIndex: BigNumberish,
@@ -3288,21 +4390,40 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Cancels the expenditure and prevents further editing. Can only be called by expenditure owner.
+   * @param _id Expenditure identifier
+   */
   cancelExpenditure(
     _id: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Locks the expenditure and prevents further editing. Can only be called by expenditure owner.
+   * @param _id Expenditure identifier
+   */
   lockExpenditure(
     _id: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Finalizes the expenditure and allows for funds to be claimed. Can only be called by expenditure owner.
+   * @param _id Expenditure identifier
+   */
   finalizeExpenditure(
     _id: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Sets the metadata for an expenditure. Can only be called by Arbitration role.
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`,
+   * @param _id Id of the expenditure
+   * @param _metadata IPFS hash of the metadata
+   * @param _permissionDomainId The domainId in which I have the permission to take this action
+   */
   "setExpenditureMetadata(uint256,uint256,uint256,string)"(
     _permissionDomainId: BigNumberish,
     _childSkillIndex: BigNumberish,
@@ -3311,12 +4432,23 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Sets the metadata for an expenditure. Can only be called by expenditure owner.
+   * @param _id Id of the expenditure
+   * @param _metadata IPFS hash of the metadata
+   */
   "setExpenditureMetadata(uint256,string)"(
     _id: BigNumberish,
     _metadata: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * DeprecatedSets the recipient on an expenditure slot. Can only be called by expenditure owner.
+   * @param _id Id of the expenditure
+   * @param _recipient Address of the recipient
+   * @param _slot Slot for the recipient address
+   */
   setExpenditureRecipient(
     _id: BigNumberish,
     _slot: BigNumberish,
@@ -3324,6 +4456,12 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Sets the recipients in given expenditure slots. Can only be called by expenditure owner.
+   * @param _id Id of the expenditure
+   * @param _recipients Addresses of the recipients
+   * @param _slots Array of slots to set recipients
+   */
   setExpenditureRecipients(
     _id: BigNumberish,
     _slots: BigNumberish[],
@@ -3331,6 +4469,13 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * DeprecatedSet the token payout on an expenditure slot. Can only be called by expenditure owner.
+   * @param _amount Payout amount
+   * @param _id Id of the expenditure
+   * @param _slot Number of the slot
+   * @param _token Address of the token, `0x0` value indicates Ether
+   */
   setExpenditurePayout(
     _id: BigNumberish,
     _slot: BigNumberish,
@@ -3339,6 +4484,13 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Set the token payouts in given expenditure slots. Can only be called by expenditure owner.
+   * @param _amounts Payout amounts
+   * @param _id Id of the expenditure
+   * @param _slots Array of slots to set payouts
+   * @param _token Address of the token, `0x0` value indicates Ether
+   */
   setExpenditurePayouts(
     _id: BigNumberish,
     _slots: BigNumberish[],
@@ -3347,6 +4499,12 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * DeprecatedSets the skill on an expenditure slot. Can only be called by expenditure owner.
+   * @param _id Expenditure identifier
+   * @param _skillId Id of the new skill to set
+   * @param _slot Number of the slot
+   */
   setExpenditureSkill(
     _id: BigNumberish,
     _slot: BigNumberish,
@@ -3354,6 +4512,12 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Sets the skill on an expenditure slot. Can only be called by expenditure owner.
+   * @param _id Expenditure identifier
+   * @param _skillIds Ids of the new skills to set
+   * @param _slots Array of slots to set skills
+   */
   setExpenditureSkills(
     _id: BigNumberish,
     _slots: BigNumberish[],
@@ -3361,6 +4525,12 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * DeprecatedSets the claim delay on an expenditure slot. Can only be called by expenditure owner.
+   * @param _claimDelay Duration of time (in seconds) to delay
+   * @param _id Expenditure identifier
+   * @param _slot Number of the slot
+   */
   setExpenditureClaimDelay(
     _id: BigNumberish,
     _slot: BigNumberish,
@@ -3368,6 +4538,12 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Sets the claim delays in given expenditure slots. Can only be called by expenditure owner.
+   * @param _claimDelays Durations of time (in seconds) to delay
+   * @param _id Expenditure identifier
+   * @param _slots Array of slots to set claim delays
+   */
   setExpenditureClaimDelays(
     _id: BigNumberish,
     _slots: BigNumberish[],
@@ -3375,6 +4551,12 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Sets the payout modifiers in given expenditure slots. Can only be called by expenditure owner.
+   * @param _id Expenditure identifier
+   * @param _payoutModifiers Values (between +/- WAD) to modify the payout & reputation bonus
+   * @param _slots Array of slots to set payout modifiers
+   */
   setExpenditurePayoutModifiers(
     _id: BigNumberish,
     _slots: BigNumberish[],
@@ -3382,6 +4564,16 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Set arbitrary state on an expenditure slot. Can only be called by Arbitration role.
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
+   * @param _id Expenditure identifier
+   * @param _keys Array of additional keys (for mappings & arrays)
+   * @param _mask Array of booleans indicated whether a key is a mapping (F) or an array index (T).
+   * @param _permissionDomainId The domainId in which I have the permission to take this action
+   * @param _storageSlot Number of the top-level storage slot (25, 26, or 27)
+   * @param _value Value to set at location
+   */
   setExpenditureState(
     _permissionDomainId: BigNumberish,
     _childSkillIndex: BigNumberish,
@@ -3393,6 +4585,12 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Claim the payout for an expenditure slot. Here the network receives a fee from each payout.
+   * @param _id Expenditure identifier
+   * @param _slot Number of the slot
+   * @param _token Address of the token, `0x0` value indicates Ether
+   */
   claimExpenditurePayout(
     _id: BigNumberish,
     _slot: BigNumberish,
@@ -3400,19 +4598,37 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Get the number of expenditures in the colony.
+   */
   getExpenditureCount(overrides?: CallOverrides): Promise<BigNumber>;
 
+  /**
+   * Returns an existing expenditure.
+   * @param _id Expenditure identifier
+   */
   getExpenditure(
     _id: BigNumberish,
     overrides?: CallOverrides
   ): Promise<ColonyDataTypes.ExpenditureStructOutput>;
 
+  /**
+   * Returns an existing expenditure slot.
+   * @param _id Expenditure identifier
+   * @param _slot Expenditure slot
+   */
   getExpenditureSlot(
     _id: BigNumberish,
     _slot: BigNumberish,
     overrides?: CallOverrides
   ): Promise<ColonyDataTypes.ExpenditureSlotStructOutput>;
 
+  /**
+   * Returns an existing expenditure slot's payout for a token.
+   * @param _id Expenditure identifier
+   * @param _slot Expenditure slot
+   * @param _token Token address
+   */
   getExpenditureSlotPayout(
     _id: BigNumberish,
     _slot: BigNumberish,
@@ -3420,6 +4636,16 @@ export interface IColony extends BaseContract {
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
+  /**
+   * Add a new payment in the colony. Secured function to authorised members.
+   * @param _amount Payout amount
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
+   * @param _domainId The domain where the payment belongs
+   * @param _permissionDomainId The domainId in which I have the permission to take this action
+   * @param _recipient Address of the payment recipient
+   * @param _skillId The skill associated with the payment
+   * @param _token Address of the token, `0x0` value indicates Ether
+   */
   addPayment(
     _permissionDomainId: BigNumberish,
     _childSkillIndex: BigNumberish,
@@ -3431,6 +4657,12 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Finalizes the payment and logs the reputation log updates. Allowed to be called once after payment is fully funded. Secured function to authorised members.
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+   * @param _id Payment identifier
+   * @param _permissionDomainId The domainId in which I have the permission to take this action
+   */
   finalizePayment(
     _permissionDomainId: BigNumberish,
     _childSkillIndex: BigNumberish,
@@ -3438,6 +4670,13 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Sets the recipient on an existing payment. Secured function to authorised members.
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+   * @param _id Payment identifier
+   * @param _permissionDomainId The domainId in which I have the permission to take this action
+   * @param _recipient Address of the payment recipient
+   */
   setPaymentRecipient(
     _permissionDomainId: BigNumberish,
     _childSkillIndex: BigNumberish,
@@ -3446,6 +4685,13 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Sets the skill on an existing payment. Secured function to authorised members.
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+   * @param _id Payment identifier
+   * @param _permissionDomainId The domainId in which I have the permission to take this action
+   * @param _skillId Id of the new skill to set
+   */
   setPaymentSkill(
     _permissionDomainId: BigNumberish,
     _childSkillIndex: BigNumberish,
@@ -3454,6 +4700,14 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Sets the payout for a given token on an existing payment. Secured function to authorised members.
+   * @param _amount Payout amount
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+   * @param _id Payment identifier
+   * @param _permissionDomainId The domainId in which I have the permission to take this action
+   * @param _token Address of the token, `0x0` value indicates Ether
+   */
   setPaymentPayout(
     _permissionDomainId: BigNumberish,
     _childSkillIndex: BigNumberish,
@@ -3463,19 +4717,40 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Returns an exiting payment.
+   * @param _id Payment identifier
+   */
   getPayment(
     _id: BigNumberish,
     overrides?: CallOverrides
   ): Promise<ColonyDataTypes.PaymentStructOutput>;
 
+  /**
+   * Claim the payout in `_token` denomination for payment `_id`. Here the network receives its fee from each payout. Same as for tasks, ether fees go straight to the Meta Colony whereas Token fees go to the Network to be auctioned off.
+   * @param _id Payment identifier
+   * @param _token Address of the token, `0x0` value indicates Ether
+   */
   claimPayment(
     _id: BigNumberish,
     _token: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Get the number of payments in the colony.
+   */
   getPaymentCount(overrides?: CallOverrides): Promise<BigNumber>;
 
+  /**
+   * Make a new task in the colony. Secured function to authorised members.
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+   * @param _domainId The domain where the task belongs
+   * @param _dueDate The due date of the task, can set to `0` for no-op
+   * @param _permissionDomainId The domainId in which I have the permission to take this action
+   * @param _skillId The skill associated with the task, can set to `0` for no-op
+   * @param _specificationHash Database identifier where the task specification is stored
+   */
   makeTask(
     _permissionDomainId: BigNumberish,
     _childSkillIndex: BigNumberish,
@@ -3486,13 +4761,30 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Get the number of tasks in the colony.
+   */
   getTaskCount(overrides?: CallOverrides): Promise<BigNumber>;
 
+  /**
+   * Starts from 0 and is incremented on every co-reviewed task change via `executeTaskChange` call.
+   * @param _id Id of the task
+   */
   getTaskChangeNonce(
     _id: BigNumberish,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
+  /**
+   * The Colony functions which require approval and the task roles to review these are set in `IColony.initialiseColony` at colony creation. Upon successful execution the `taskChangeNonces` entry for the task is incremented.
+   * Executes a task update transaction `_data` which is approved and signed by two of its roles (e.g. manager and worker) using the detached signatures for these users.
+   * @param _data The transaction data
+   * @param _mode How the signature was generated - 0 for Geth-style (usual), 1 for Trezor-style (only Trezor does this)
+   * @param _sigR r output of the ECDSA signature of the transaction
+   * @param _sigS s output of the ECDSA signature of the transaction
+   * @param _sigV recovery id
+   * @param _value The transaction value, i.e. number of wei to be sent when the transaction is executed Currently we only accept 0 value transactions but this is kept as a future option
+   */
   executeTaskChange(
     _sigV: BigNumberish[],
     _sigR: BytesLike[],
@@ -3503,6 +4795,15 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Executes a task role update transaction `_data` which is approved and signed by two of addresses. depending of which function we are calling. Allowed functions are `setTaskManagerRole`, `setTaskEvaluatorRole` and `setTaskWorkerRole`. Upon successful execution the `taskChangeNonces` entry for the task is incremented.
+   * @param _data The transaction data
+   * @param _mode How the signature was generated - 0 for Geth-style (usual), 1 for Trezor-style (only Trezor does this)
+   * @param _sigR r output of the ECDSA signature of the transaction
+   * @param _sigS s output of the ECDSA signature of the transaction
+   * @param _sigV recovery id
+   * @param _value The transaction value, i.e. number of wei to be sent when the transaction is executed Currently we only accept 0 value transactions but this is kept as a future option
+   */
   executeTaskRoleAssignment(
     _sigV: BigNumberish[],
     _sigR: BytesLike[],
@@ -3513,6 +4814,12 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Submit a hashed secret of the rating for work in task `_id` which was performed by user with task role id `_role`. Allowed within 5 days period starting which whichever is first from either the deliverable being submitted or the dueDate been reached. Allowed only for evaluator to rate worker and for worker to rate manager performance. Once submitted ratings can not be changed or overwritten.
+   * @param _id Id of the task
+   * @param _ratingSecret `keccak256` hash of a salt and 0-50 rating score (in increments of 10, .e.g 0, 10, 20, 30, 40 or 50). Can be generated via `IColony.generateSecret` helper function.
+   * @param _role Id of the role, as defined in TaskRole enum
+   */
   submitTaskWorkRating(
     _id: BigNumberish,
     _role: BigNumberish,
@@ -3520,6 +4827,14 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Compares the `keccak256(_salt, _rating)` output with the previously submitted rating secret and if they match, sets the task role properties `rated` to `true` and `rating` to `_rating`.
+   * Reveal the secret rating submitted in `IColony.submitTaskWorkRating` for task `_id` and task role with id `_role`. Allowed within 5 days period starting which whichever is first from either both rating secrets being submitted (via `IColony.submitTaskWorkRating`) or the 5 day rating period expiring.
+   * @param _id Id of the task
+   * @param _rating 0-50 rating score (in increments of 10, .e.g 0, 10, 20, 30, 40 or 50)
+   * @param _role Id of the role, as defined in TaskRole enum
+   * @param _salt Salt value used to generate the rating secret
+   */
   revealTaskWorkRating(
     _id: BigNumberish,
     _role: BigNumberish,
@@ -3528,12 +4843,21 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Helper function used to generage consistently the rating secret using salt value `_salt` and value to hide `_value`
+   * @param _salt Salt value
+   * @param _value Value to hide
+   */
   generateSecret(
     _salt: BytesLike,
     _value: BigNumberish,
     overrides?: CallOverrides
   ): Promise<string>;
 
+  /**
+   * Get the `ColonyStorage.RatingSecrets` information for task `_id`.
+   * @param _id Id of the task
+   */
   getTaskWorkRatingSecretsInfo(
     _id: BigNumberish,
     overrides?: CallOverrides
@@ -3541,12 +4865,25 @@ export interface IColony extends BaseContract {
     [BigNumber, BigNumber] & { nSecrets: BigNumber; lastSubmittedAt: BigNumber }
   >;
 
+  /**
+   * Get the rating secret submitted for role `_role` in task `_id`
+   * @param _id Id of the task
+   * @param _role Id of the role, as defined in TaskRole enum
+   */
   getTaskWorkRatingSecret(
     _id: BigNumberish,
     _role: BigNumberish,
     overrides?: CallOverrides
   ): Promise<string>;
 
+  /**
+   * This function can only be called through `executeTaskRoleAssignment`.
+   * Assigning manager role. Current manager and user we want to assign role to both need to agree. User we want to set here also needs to be an admin. Note that the domain proof data comes at the end here to not interfere with the assembly argument unpacking.
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+   * @param _id Id of the task
+   * @param _permissionDomainId The domain ID in which _user has the Administration permission
+   * @param _user Address of the user we want to give a manager role to
+   */
   setTaskManagerRole(
     _id: BigNumberish,
     _user: string,
@@ -3555,52 +4892,101 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * This function can only be called through `executeTaskRoleAssignment`.
+   * Assigning evaluator role. Can only be set if there is no one currently assigned to be an evaluator. Manager of the task and user we want to assign role to both need to agree. Managers can assign themselves to this role, if there is no one currently assigned to it.
+   * @param _id Id of the task
+   * @param _user Address of the user we want to give a evaluator role to
+   */
   setTaskEvaluatorRole(
     _id: BigNumberish,
     _user: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * This function can only be called through `executeTaskRoleAssignment`.
+   * Assigning worker role. Can only be set if there is no one currently assigned to be a worker. Manager of the task and user we want to assign role to both need to agree.
+   * @param _id Id of the task
+   * @param _user Address of the user we want to give a worker role to
+   */
   setTaskWorkerRole(
     _id: BigNumberish,
     _user: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Removing evaluator role. Agreed between manager and currently assigned evaluator.
+   * @param _id Id of the task
+   */
   removeTaskEvaluatorRole(
     _id: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Removing worker role. Agreed between manager and currently assigned worker.
+   * @param _id Id of the task
+   */
   removeTaskWorkerRole(
     _id: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Currently we only allow one skill per task although we have provisioned for an array of skills in `Task` struct. Allowed before a task is finalized.
+   * Set the skill for task `_id`.
+   * @param _id Id of the task
+   * @param _skillId Id of the skill which has to be a global skill
+   */
   setTaskSkill(
     _id: BigNumberish,
     _skillId: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Set the hash for the task brief, aka task work specification, which identifies the task brief content in ddb. Allowed before a task is finalized.
+   * @param _id Id of the task
+   * @param _specificationHash Unique hash of the task brief in ddb
+   */
   setTaskBrief(
     _id: BigNumberish,
     _specificationHash: BytesLike,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Set the due date on task `_id`. Allowed before a task is finalized.
+   * @param _dueDate Due date as seconds since unix epoch
+   * @param _id Id of the task
+   */
   setTaskDueDate(
     _id: BigNumberish,
     _dueDate: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Set the `task.deliverableHash` and `task.completionTimestamp` properties.
+   * Submit the task deliverable, i.e. the output of the work performed for task `_id`. Submission is allowed only to the assigned worker before the task due date. Submissions cannot be overwritten.
+   * @param _deliverableHash Unique hash of the task deliverable content in ddb
+   * @param _id Id of the task
+   */
   submitTaskDeliverable(
     _id: BigNumberish,
     _deliverableHash: BytesLike,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Internally call `submitTaskDeliverable` and `submitTaskWorkRating` in sequence.
+   * Submit the task deliverable for Worker and rating for Manager.
+   * @param _deliverableHash Unique hash of the task deliverable content in ddb
+   * @param _id Id of the task
+   * @param _ratingSecret Rating secret for manager
+   */
   submitTaskDeliverableAndRating(
     _id: BigNumberish,
     _deliverableHash: BytesLike,
@@ -3608,21 +4994,39 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Set the `task.finalized` property to true
+   * Called after task work rating is complete which closes the task and logs the respective reputation log updates. Allowed to be called once per task. Secured function to authorised members.
+   * @param _id Id of the task
+   */
   finalizeTask(
     _id: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Set the `task.status` property to `1`.
+   * Cancel a task at any point before it is finalized. Secured function to authorised members. Any funds assigned to its funding pot can be moved back to the domain via `IColony.moveFundsBetweenPots`.
+   * @param _id Id of the task
+   */
   cancelTask(
     _id: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Mark a task as complete after the due date has passed. This allows the task to be rated and finalized (and funds recovered) even in the presence of a worker who has disappeared. Note that if the due date was not set, then this function will throw.
+   * @param _id Id of the task
+   */
   completeTask(
     _id: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Get a task with id `_id`
+   * @param _id Id of the task
+   */
   getTask(
     _id: BigNumberish,
     overrides?: CallOverrides
@@ -3648,19 +5052,37 @@ export interface IColony extends BaseContract {
     }
   >;
 
+  /**
+   * Get the `Role` properties back for role `_role` in task `_id`.
+   * @param _id Id of the task
+   * @param _role Id of the role, as defined in TaskRole enum
+   */
   getTaskRole(
     _id: BigNumberish,
     _role: BigNumberish,
     overrides?: CallOverrides
   ): Promise<ColonyDataTypes.RoleStructOutput>;
 
+  /**
+   * Set the reward inverse to pay out from revenue. e.g. if the fee is 1% (or 0.01), set 100.
+   * @param _rewardInverse The inverse of the reward
+   */
   setRewardInverse(
     _rewardInverse: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Return 1 / the reward to pay out from revenue. e.g. if the fee is 1% (or 0.01), return 100.
+   */
   getRewardInverse(overrides?: CallOverrides): Promise<BigNumber>;
 
+  /**
+   * Get payout amount in `_token` denomination for role `_role` in task `_id`.
+   * @param _id Id of the task
+   * @param _role Id of the role, as defined in TaskRole enum
+   * @param _token Address of the token, `0x0` value indicates Ether
+   */
   getTaskPayout(
     _id: BigNumberish,
     _role: BigNumberish,
@@ -3668,6 +5090,12 @@ export interface IColony extends BaseContract {
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
+  /**
+   * Set `_token` payout for manager in task `_id` to `_amount`.
+   * @param _amount Payout amount
+   * @param _id Id of the task
+   * @param _token Address of the token, `0x0` value indicates Ether
+   */
   setTaskManagerPayout(
     _id: BigNumberish,
     _token: string,
@@ -3675,6 +5103,12 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Set `_token` payout for evaluator in task `_id` to `_amount`.
+   * @param _amount Payout amount
+   * @param _id Id of the task
+   * @param _token Address of the token, `0x0` value indicates Ether
+   */
   setTaskEvaluatorPayout(
     _id: BigNumberish,
     _token: string,
@@ -3682,6 +5116,12 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Set `_token` payout for worker in task `_id` to `_amount`.
+   * @param _amount Payout amount
+   * @param _id Id of the task
+   * @param _token Address of the token, `0x0` value indicates Ether
+   */
   setTaskWorkerPayout(
     _id: BigNumberish,
     _token: string,
@@ -3689,6 +5129,15 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Can only call if evaluator and worker are unassigned or manager, otherwise need signature.
+   * Set `_token` payout for all roles in task `_id` to the respective amounts.
+   * @param _evaluatorAmount Payout amount for evaluator
+   * @param _id Id of the task
+   * @param _managerAmount Payout amount for manager
+   * @param _token Address of the token, `0x0` value indicates Ether
+   * @param _workerAmount Payout amount for worker
+   */
   setAllTaskPayouts(
     _id: BigNumberish,
     _token: string,
@@ -3698,6 +5147,12 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Claim the payout in `_token` denomination for work completed in task `_id` by contributor with role `_role`. Allowed only after task is finalized. Here the network receives its fee from each payout. Ether fees go straight to the Meta Colony whereas Token fees go to the Network to be auctioned off.
+   * @param _id Id of the task
+   * @param _role Id of the role, as defined in TaskRole enum
+   * @param _token Address of the token, `0x0` value indicates Ether
+   */
   claimTaskPayout(
     _id: BigNumberish,
     _role: BigNumberish,
@@ -3705,6 +5160,14 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Start next reward payout for `_token`. All funds in the reward pot for `_token` will become unavailable.Add a new payment in the colony. Can only be called by users with root permission. All tokens will be locked, and can be unlocked by calling `waiveRewardPayout` or `claimRewardPayout`.
+   * @param _token Address of the token used for reward payout
+   * @param branchMask The branchmask of the proof
+   * @param key Some Reputation hash tree key
+   * @param siblings The siblings of the proof
+   * @param value Reputation value
+   */
   startNextRewardPayout(
     _token: string,
     key: BytesLike,
@@ -3714,6 +5177,15 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Claim the reward payout at `_payoutId`. User needs to provide their reputation and colony-wide reputation which will be proven via Merkle proof inside this function. Can only be called if payout is active, i.e if 60 days have not passed from its creation. Can only be called if next in queue.
+   * @param _payoutId Id of the reward payout
+   * @param _squareRoots Square roots of values used in equation: `_squareRoots[0]` - square root of user reputation, `_squareRoots[1]` - square root of user tokens (deposited in TokenLocking), `_squareRoots[2]` - square root of total reputation, `_squareRoots[3]` - square root of total tokens, `_squareRoots[4]` - square root of numerator (user reputation * user tokens), `_squareRoots[5]` - square root of denominator (total reputation * total tokens), `_squareRoots[6]` - square root of payout amount.
+   * @param branchMask The branchmask of the proof
+   * @param key Some Reputation hash tree key
+   * @param siblings The siblings of the proof
+   * @param value Reputation value
+   */
   claimRewardPayout(
     _payoutId: BigNumberish,
     _squareRoots: BigNumberish[],
@@ -3724,16 +5196,29 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Get useful information about specific reward payout.
+   * @param _payoutId Id of the reward payout
+   */
   getRewardPayoutInfo(
     _payoutId: BigNumberish,
     overrides?: CallOverrides
   ): Promise<ColonyDataTypes.RewardPayoutCycleStructOutput>;
 
+  /**
+   * Finalises the reward payout. Allows creation of next reward payouts for token that has been used in `_payoutId`. Can only be called when reward payout cycle is finished i.e when 60 days have passed from its creation.
+   * @param _payoutId Id of the reward payout
+   */
   finalizeRewardPayout(
     _payoutId: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * For the reward funding pot (e.g. id: 0) this returns (0, 0, 0).
+   * Get the non-mapping properties of a pot by id.
+   * @param _id Id of the pot which details to get
+   */
   getFundingPot(
     _id: BigNumberish,
     overrides?: CallOverrides
@@ -3745,20 +5230,45 @@ export interface IColony extends BaseContract {
     }
   >;
 
+  /**
+   * Get the number of funding pots in the colony.
+   */
   getFundingPotCount(overrides?: CallOverrides): Promise<BigNumber>;
 
+  /**
+   * Get the `_token` balance of pot with id `_potId`.
+   * @param _potId Id of the funding pot
+   * @param _token Address of the token, `0x0` value indicates Ether
+   */
   getFundingPotBalance(
     _potId: BigNumberish,
     _token: string,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
+  /**
+   * Get the assigned `_token` payouts of pot with id `_potId`.
+   * @param _potId Id of the funding pot
+   * @param _token Address of the token, `0x0` value indicates Ether
+   */
   getFundingPotPayout(
     _potId: BigNumberish,
     _token: string,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
+  /**
+   * Move a given amount: `_amount` of `_token` funds from funding pot with id `_fromPot` to one with id `_toPot`.
+   * @param _amount Amount of funds
+   * @param _childSkillIndex The child index in _permissionDomainId where I will be taking this action
+   * @param _domainId The domain where I am taking this action, pointed to by _permissionDomainId and _childSkillIndex
+   * @param _fromChildSkillIndex In the array of child skills for the skill associated with the domain pointed to by _permissionDomainId + _childSkillIndex,         the index of the skill associated with the domain that contains _fromPot
+   * @param _fromPot Funding pot id providing the funds
+   * @param _permissionDomainId The domainId in which I have the permission to take this action
+   * @param _toChildSkillIndex The same, but for the _toPot which the funds are being moved to
+   * @param _toPot Funding pot id receiving the funds
+   * @param _token Address of the token, `0x0` value indicates Ether
+   */
   "moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)"(
     _permissionDomainId: BigNumberish,
     _childSkillIndex: BigNumberish,
@@ -3772,6 +5282,16 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * DEPRECATEDMove a given amount: `_amount` of `_token` funds from funding pot with id `_fromPot` to one with id `_toPot`.
+   * @param _amount Amount of funds
+   * @param _fromChildSkillIndex The child index in `_permissionDomainId` where we can find the domain for `_fromPotId`
+   * @param _fromPot Funding pot id providing the funds
+   * @param _permissionDomainId The domainId in which I have the permission to take this action
+   * @param _toChildSkillIndex The child index in `_permissionDomainId` where we can find the domain for `_toPotId`
+   * @param _toPot Funding pot id receiving the funds
+   * @param _token Address of the token, `0x0` value indicates Ether
+   */
   "moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,address)"(
     _permissionDomainId: BigNumberish,
     _fromChildSkillIndex: BigNumberish,
@@ -3783,16 +5303,30 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Move any funds received by the colony in `_token` denomination to the top-level domain pot, siphoning off a small amount to the reward pot. If called against a colony's own token, no fee is taken.
+   * @param _token Address of the token, `0x0` value indicates Ether
+   */
   claimColonyFunds(
     _token: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Get the total amount of tokens `_token` minus amount reserved to be paid to the reputation and token holders as rewards.
+   * @param _token Address of the token, `0x0` value indicates Ether
+   */
   getNonRewardPotsTotal(
     _token: string,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
+  /**
+   * Allow the _approvee to obligate some amount of tokens as a stake.
+   * @param _amount Amount of internal token up to which we are willing to be obligated.
+   * @param _approvee Address of the account we are willing to let obligate us.
+   * @param _domainId Domain in which we are willing to be obligated.
+   */
   approveStake(
     _approvee: string,
     _domainId: BigNumberish,
@@ -3800,6 +5334,12 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Obligate the user some amount of tokens as a stake.
+   * @param _amount Amount of internal token we are obligating.
+   * @param _domainId Domain in which we are obligating the user.
+   * @param _user Address of the account we are obligating.
+   */
   obligateStake(
     _user: string,
     _domainId: BigNumberish,
@@ -3807,6 +5347,12 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Deobligate the user some amount of tokens, releasing the stake.
+   * @param _amount Amount of internal token we are deobligating.
+   * @param _domainId Domain in which we are deobligating the user.
+   * @param _user Address of the account we are deobligating.
+   */
   deobligateStake(
     _user: string,
     _domainId: BigNumberish,
@@ -3814,6 +5360,16 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Transfer some amount of obligated tokens. Can be called by the arbitration role.
+   * @param _amount Amount of internal token we are transferring.
+   * @param _childSkillIndex The child index in `_permissionDomainId` where we can find `_domainId`.
+   * @param _domainId Domain in which we are transferring the tokens.
+   * @param _obligator Address of the account who set the obligation.
+   * @param _permissionDomainId The domainId in which I have the permission to take this action.
+   * @param _recipient Recipient of the transferred tokens.
+   * @param _user Address of the account we are transferring.
+   */
   transferStake(
     _permissionDomainId: BigNumberish,
     _childSkillIndex: BigNumberish,
@@ -3825,6 +5381,12 @@ export interface IColony extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * View an approval to obligate tokens.
+   * @param _domainId Domain in which we are willing to be obligated.
+   * @param _obligator Address of the account we are willing to let obligate us.
+   * @param _user User allowing their tokens to be obligated.
+   */
   getApproval(
     _user: string,
     _obligator: string,
@@ -3832,6 +5394,12 @@ export interface IColony extends BaseContract {
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
+  /**
+   * View an obligation of tokens.
+   * @param _domainId Domain in which we are obligated.
+   * @param _obligator Address of the account who obligated us.
+   * @param _user User whose tokens are obligated.
+   */
   getObligation(
     _user: string,
     _obligator: string,
@@ -3839,87 +5407,184 @@ export interface IColony extends BaseContract {
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
+  /**
+   * Get the domain corresponding to a funding pot
+   * @param _fundingPotId Id of the funding pot
+   */
   getDomainFromFundingPot(
     _fundingPotId: BigNumberish,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
+  /**
+   * Burn tokens held by the colony. Can only burn tokens held in the root funding pot.
+   * @param amount The amount of tokens to burn
+   * @param token The address of the token to burn
+   */
   burnTokens(
     token: string,
     amount: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * unlock the native colony token, if possible
+   */
   unlockToken(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Update the internal bookkeeping around external ERC20 approvals
+   * @param spender The account we have approved
+   * @param token The address of the token which was approved
+   */
   updateApprovalAmount(
     token: string,
     spender: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Get the current approval amount
+   * @param spender The account we have approved
+   * @param token The address of the token which was approved
+   */
   getTokenApproval(
     token: string,
     spender: string,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
+  /**
+   * Get the current total approval amount across all spenders
+   * @param token The address of the token which was approved
+   */
   getTotalTokenApproval(
     token: string,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   callStatic: {
+    /**
+     * Indicate approval to exit recovery mode. Can only be called by user with recovery role.
+     */
     approveExitRecovery(overrides?: CallOverrides): Promise<void>;
 
+    /**
+     * No return value, but should throw if protected.This is external, but is only expected to be called from ContractRecovery; no need toexpose this to any users.
+     * Check whether the supplied slot is a protected variable specific to this contract
+     * @param _slot The storage slot number to check.
+     */
     checkNotAdditionalProtectedVariable(
       _slot: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Put colony network mining into recovery mode. Can only be called by user with recovery role.
+     */
     enterRecoveryMode(overrides?: CallOverrides): Promise<void>;
 
+    /**
+     * Exit recovery mode, can be called by anyone if enough whitelist approvals are given.
+     */
     exitRecoveryMode(overrides?: CallOverrides): Promise<void>;
 
+    /**
+     * Is colony network in recovery mode.
+     */
     isInRecoveryMode(overrides?: CallOverrides): Promise<boolean>;
 
+    /**
+     * Return number of recovery roles.
+     */
     numRecoveryRoles(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Remove colony recovery role. Can only be called by root role.
+     * @param _user User we want to remove recovery role from
+     */
     removeRecoveryRole(_user: string, overrides?: CallOverrides): Promise<void>;
 
+    /**
+     * Set new colony recovery role. Can be called by root.
+     * @param _user User we want to give a recovery role to
+     */
     setRecoveryRole(_user: string, overrides?: CallOverrides): Promise<void>;
 
+    /**
+     * certain critical variables are protected from editing in this function
+     * Update value of arbitrary storage variable. Can only be called by user with recovery role.
+     * @param _slot Uint address of storage slot to be updated
+     * @param _value word of data to be set
+     */
     setStorageSlotRecovery(
       _slot: BigNumberish,
       _value: BytesLike,
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Get the `ColonyAuthority` for the colony.
+     */
     authority(overrides?: CallOverrides): Promise<string>;
 
+    /**
+     * Used for testing.
+     * Get the colony `owner` address. This should be address(0x0) at all times.
+     */
     owner(overrides?: CallOverrides): Promise<string>;
 
+    /**
+     * Get the Colony contract version. Starts from 1 and is incremented with every deployed contract change.
+     */
     version(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Downgrades are not allowed, i.e. `_newVersion` should be higher than the currect colony version.
+     * Upgrades a colony to a new Colony contract version `_newVersion`.
+     * @param _newVersion The target version for the upgrade
+     */
     upgrade(
       _newVersion: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Can only be called by the colony itself, and only expected to be called as part of the `upgrade()` call. Required to be external so it can be an external call.
+     * A function to be called after an upgrade has been done from v2 to v3.
+     */
     finishUpgrade(overrides?: CallOverrides): Promise<void>;
 
+    /**
+     * The colonyNetworkAddress we read here is set once, during `initialiseColony`.
+     * Returns the colony network address set on the Colony.
+     */
     getColonyNetwork(overrides?: CallOverrides): Promise<string>;
 
+    /**
+     * Get the colony token.
+     */
     getToken(overrides?: CallOverrides): Promise<string>;
 
+    /**
+     * Execute arbitrary transaction on behalf of the Colony DEPRECATED
+     * @param _action Bytes array encoding the function call and arguments
+     * @param _to Contract to receive the function call (cannot be this contract, network or token locking)
+     */
     makeArbitraryTransaction(
       _to: string,
       _action: BytesLike,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
+    /**
+     * Execute arbitrary transactions on behalf of the Colony in series
+     * @param _actions Array of Bytes arrays encoding the function calls and arguments
+     * @param _strict Boolean indicating whether if one transaction fails, the whole call to this function should fail.
+     * @param _targets Array of addressed to be targeted
+     */
     makeArbitraryTransactions(
       _targets: string[],
       _actions: BytesLike[],
@@ -3927,24 +5592,48 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<boolean>;
 
+    /**
+     * Only callable by the colony itself. If you wish to use this functionality, you should use the makeAbitraryTransactions function
+     * Executes a single arbitrary transaction
+     * @param _action Bytes array encoding the function call and arguments
+     * @param _target Contract to receive the function call
+     */
     makeSingleArbitraryTransaction(
       _target: string,
       _action: BytesLike,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
+    /**
+     * Emit a metadata string for a transaction
+     * @param _metadata String of metadata for tx
+     * @param _txHash Hash of transaction being annotated (0x0 for current tx)
+     */
     annotateTransaction(
       _txHash: BytesLike,
       _metadata: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Set new colony root role. Can be called by root role only.
+     * @param _setTo The state of the role permission (true assign the permission, false revokes it)
+     * @param _user User we want to give an root role to
+     */
     setRootRole(
       _user: string,
       _setTo: boolean,
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Set new colony arbitration role. Can be called by root role or architecture role.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _domainId Domain in which we are giving user the role
+     * @param _permissionDomainId Domain in which the caller has root role
+     * @param _setTo The state of the role permission (true assign the permission, false revokes it)
+     * @param _user User we want to give an arbitration role to
+     */
     setArbitrationRole(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -3954,6 +5643,14 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Set new colony architecture role. Can be called by root role or architecture role.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _domainId Domain in which we are giving user the role
+     * @param _permissionDomainId Domain in which the caller has root/architecture role
+     * @param _setTo The state of the role permission (true assign the permission, false revokes it)
+     * @param _user User we want to give an architecture role to
+     */
     setArchitectureRole(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -3963,6 +5660,14 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Set new colony funding role. Can be called by root role or architecture role.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _domainId Domain in which we are giving user the role
+     * @param _permissionDomainId Domain in which the caller has root/architecture role
+     * @param _setTo The state of the role permission (true assign the permission, false revokes it)
+     * @param _user User we want to give an funding role to
+     */
     setFundingRole(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -3972,6 +5677,14 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Set new colony admin role. Can be called by root role or architecture role.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _domainId Domain in which we are giving user the role
+     * @param _permissionDomainId Domain in which the caller has root/architecture role
+     * @param _setTo The state of the role permission (true assign the permission, false revokes it)
+     * @param _user User we want to give an admin role to
+     */
     setAdministrationRole(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -3981,6 +5694,14 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Set several roles in one transaction. Can be called by root role or architecture role.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _domainId Domain in which we are giving user the role
+     * @param _permissionDomainId Domain in which the caller has root/architecture role
+     * @param _roles Byte array representing the desired role setting (1 for on, 0 for off)
+     * @param _user User we want to give a role to
+     */
     setUserRoles(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -3990,6 +5711,12 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Check whether a given user has a given role for the colony. Calls the function of the same name on the colony's authority contract.
+     * @param _domainId The domain where we want to check for the role
+     * @param _role The role we want to check for
+     * @param _user The user whose role we want to check
+     */
     hasUserRole(
       _user: string,
       _domainId: BigNumberish,
@@ -3997,6 +5724,14 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<boolean>;
 
+    /**
+     * Check whether a given user has a given role for the colony, in a child domain. Calls the function of the same name on the colony's authority contract and an internal inheritence validator function
+     * @param _childDomainId The domain where we want to use the role
+     * @param _childSkillIndex The index that the `_childDomainId` is relative to `_domainId`
+     * @param _domainId Domain in which the caller has the role
+     * @param _role The role we want to check for
+     * @param _user The user whose role we want to check
+     */
     hasInheritedUserRole(
       _user: string,
       _domainId: BigNumberish,
@@ -4006,6 +5741,13 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<boolean>;
 
+    /**
+     * Check whether a given user can modify roles in the target domain `_childDomainId`. Mostly a convenience function to provide a uniform interface for extension contracts validating permissions
+     * @param _childDomainId The domain where we want to edit roles
+     * @param _childSkillIndex The index that the `_childDomainId` is relative to `_domainId`
+     * @param _domainId Domain in which the caller has the role (currently Root or Architecture)
+     * @param _user The user whose permissions we want to check
+     */
     userCanSetRoles(
       _user: string,
       _domainId: BigNumberish,
@@ -4014,17 +5756,32 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<boolean>;
 
+    /**
+     * Gets the bytes32 representation of the roles for a user in a given domain
+     * @param _domain The domain we want to get roles in
+     * @param _user The user whose roles we want to get
+     */
     getUserRoles(
       _user: string,
       _domain: BigNumberish,
       overrides?: CallOverrides
     ): Promise<string>;
 
+    /**
+     * Gets the bytes32 representation of the roles authorized to call a function
+     * @param _sig The function signature
+     */
     getCapabilityRoles(
       _sig: BytesLike,
       overrides?: CallOverrides
     ): Promise<string>;
 
+    /**
+     * Emit a positive domain reputation update. Available only to Root role holders
+     * @param _amount The (positive) amount of reputation to gain
+     * @param _domainId The domain where the user will gain reputation
+     * @param _user The user who will gain reputation
+     */
     emitDomainReputationReward(
       _domainId: BigNumberish,
       _user: string,
@@ -4032,6 +5789,12 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Emit a positive skill reputation update. Available only to Root role holders
+     * @param _amount The (positive) amount of reputation to gain
+     * @param _skillId The skill where the user will gain reputation
+     * @param _user The user who will gain reputation
+     */
     emitSkillReputationReward(
       _skillId: BigNumberish,
       _user: string,
@@ -4039,6 +5802,14 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Emit a negative domain reputation update. Available only to Arbitration role holders
+     * @param _amount The (negative) amount of reputation to lose
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _domainId The domain where the user will lose reputation
+     * @param _permissionDomainId The domainId in which I hold the Arbitration role
+     * @param _user The user who will lose reputation
+     */
     emitDomainReputationPenalty(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -4048,6 +5819,12 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Emit a negative skill reputation update. Available only to Arbitration role holders in the root domain
+     * @param _amount The (negative) amount of reputation to lose
+     * @param _skillId The skill where the user will lose reputation
+     * @param _user The user who will lose reputation
+     */
     emitSkillReputationPenalty(
       _skillId: BigNumberish,
       _user: string,
@@ -4055,70 +5832,139 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Sets the reward inverse to the uint max 2**256 - 1.
+     * Called once when the colony is created to initialise certain storage slot values.
+     * @param _colonyNetworkAddress Address of the colony network
+     * @param _token Address of the colony ERC20 Token
+     */
     initialiseColony(
       _colonyNetworkAddress: string,
       _token: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Called to change the metadata associated with a colony. Expected to be a IPFS hash of a JSON blob, but not enforced to any degree by the contracts
+     * @param _metadata IPFS hash of the metadata
+     */
     editColony(_metadata: string, overrides?: CallOverrides): Promise<void>;
 
+    /**
+     * Only allowed to be called when `taskCount` is `0` by authorized addresses.
+     * Allows the colony to bootstrap itself by having initial reputation and token `_amount` assigned to `_users`. This reputation is assigned in the colony-wide domain. Secured function to authorised members.
+     * @param _amount Amount of reputation/tokens for every address
+     * @param _users Array of address to bootstrap with reputation
+     */
     bootstrapColony(
       _users: string[],
       _amount: BigNumberish[],
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Mint `_wad` amount of colony tokens. Secured function to authorised members.
+     * @param _wad Amount to mint
+     */
     mintTokens(_wad: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
+    /**
+     * Mint `_wad` amount of colony tokens and send to `_guy`. Secured function to authorised members.
+     * @param _guy Recipient of new tokens
+     * @param _wad Amount to mint
+     */
     mintTokensFor(
       _guy: string,
       _wad: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Lock the colony's token. Can only be called by a network-managed extension.
+     */
     lockToken(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Unlock the colony's token for a user. Can only be called by a network-managed extension.
+     * @param lockId The specific lock to unlock
+     * @param user The user to unlock
+     */
     unlockTokenForUser(
       user: string,
       lockId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Register colony's ENS label.
+     * @param colonyName The label to register.
+     * @param orbitdb The path of the orbitDB database associated with the colony name
+     */
     registerColonyLabel(
       colonyName: string,
       orbitdb: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Update a colony's orbitdb address. Can only be called by a colony with a registered subdomain
+     * @param orbitdb The path of the orbitDB database to be associated with the colony
+     */
     updateColonyOrbitDB(
       orbitdb: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Install an extension to the colony. Secured function to authorised members.
+     * @param extensionId keccak256 hash of the extension name, used as an indentifier
+     * @param version The new extension version to install
+     */
     installExtension(
       extensionId: BytesLike,
       version: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Upgrade an extension in a colony. Secured function to authorised members.
+     * @param extensionId keccak256 hash of the extension name, used as an indentifier
+     * @param newVersion The version to upgrade to (must be one larger than the current version)
+     */
     upgradeExtension(
       extensionId: BytesLike,
       newVersion: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Set the deprecation of an extension in a colony. Secured function to authorised members.
+     * @param deprecated Whether to deprecate the extension or not
+     * @param extensionId keccak256 hash of the extension name, used as an indentifier
+     */
     deprecateExtension(
       extensionId: BytesLike,
       deprecated: boolean,
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * This is a permanent action -- re-installing the extension will deploy a new contractIt is recommended to deprecate an extension before uninstalling to allow active objects to be resolved
+     * Uninstall an extension from a colony. Secured function to authorised members.
+     * @param extensionId keccak256 hash of the extension name, used as an indentifier
+     */
     uninstallExtension(
       extensionId: BytesLike,
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Adding new domains is currently retricted to one level only, i.e. `_parentDomainId` has to be the root domain id: `1`.
+     * Add a colony domain, and its respective local skill under skill with id `_parentSkillId`. New funding pot is created and associated with the domain here.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _parentDomainId Id of the domain under which the new one will be added
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     */
     "addDomain(uint256,uint256,uint256)"(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -4126,6 +5972,14 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Adding new domains is currently retricted to one level only, i.e. `_parentDomainId` has to be the root domain id: `1`.We expect this function to only be used by the dapp
+     * Add a colony domain, and its respective local skill under skill with id `_parentSkillId`. New funding pot is created and associated with the domain here.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _metadata Metadata relating to the domain. Expected to be the IPFS hash of a JSON blob, but not enforced by the contracts.
+     * @param _parentDomainId Id of the domain under which the new one will be added
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     */
     "addDomain(uint256,uint256,uint256,string)"(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -4134,6 +5988,13 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Add a colony domain, and its respective local skill under skill with id `_parentSkillId`. New funding pot is created and associated with the domain here.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _domainId Id of the domain being edited
+     * @param _metadata Metadata relating to the domain. Expected to be the IPFS hash of a JSON blob, but not enforced by the contracts.
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     */
     editDomain(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -4142,13 +6003,28 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Get a domain by id.
+     * @param _id Id of the domain which details to get
+     */
     getDomain(
       _id: BigNumberish,
       overrides?: CallOverrides
     ): Promise<ColonyDataTypes.DomainStructOutput>;
 
+    /**
+     * Get the number of domains in the colony.
+     */
     getDomainCount(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * For more detail about branchMask and siblings, examine the PatriciaTree implementation. While external, likely only to be used by the Colony contracts, as it checks that the user is proving their own reputation in the current colony. The `verifyProof` function can be used to verify any proof, though this function is not currently exposed on the Colony's EtherRouter.
+     * Helper function that can be used by a client to verify the correctness of a patricia proof they have been supplied with.
+     * @param branchMask The branchmask of the proof
+     * @param key The key of the element the proof is for.
+     * @param siblings The siblings of the proof
+     * @param value The value of the element that the proof is for.
+     */
     verifyReputationProof(
       key: BytesLike,
       value: BytesLike,
@@ -4157,11 +6033,21 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<boolean>;
 
+    /**
+     * Update the default global claim delay for expenditures
+     * @param _globalClaimDelay The new default global claim delay
+     */
     setDefaultGlobalClaimDelay(
       _globalClaimDelay: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Add a new expenditure in the colony. Secured function to authorised members.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
+     * @param _domainId The domain where the expenditure belongs
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     */
     makeExpenditure(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -4169,12 +6055,25 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Updates the expenditure owner. Can only be called by expenditure owner.
+     * @param _id Expenditure identifier
+     * @param _newOwner New owner of expenditure
+     */
     transferExpenditure(
       _id: BigNumberish,
       _newOwner: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * This is now deprecated and will be removed in a future version
+     * DEPRECATED Updates the expenditure owner. Can only be called by Arbitration role.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
+     * @param _id Expenditure identifier
+     * @param _newOwner New owner of expenditure
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     */
     transferExpenditureViaArbitration(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -4183,21 +6082,40 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Cancels the expenditure and prevents further editing. Can only be called by expenditure owner.
+     * @param _id Expenditure identifier
+     */
     cancelExpenditure(
       _id: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Locks the expenditure and prevents further editing. Can only be called by expenditure owner.
+     * @param _id Expenditure identifier
+     */
     lockExpenditure(
       _id: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Finalizes the expenditure and allows for funds to be claimed. Can only be called by expenditure owner.
+     * @param _id Expenditure identifier
+     */
     finalizeExpenditure(
       _id: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Sets the metadata for an expenditure. Can only be called by Arbitration role.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`,
+     * @param _id Id of the expenditure
+     * @param _metadata IPFS hash of the metadata
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     */
     "setExpenditureMetadata(uint256,uint256,uint256,string)"(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -4206,12 +6124,23 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Sets the metadata for an expenditure. Can only be called by expenditure owner.
+     * @param _id Id of the expenditure
+     * @param _metadata IPFS hash of the metadata
+     */
     "setExpenditureMetadata(uint256,string)"(
       _id: BigNumberish,
       _metadata: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * DeprecatedSets the recipient on an expenditure slot. Can only be called by expenditure owner.
+     * @param _id Id of the expenditure
+     * @param _recipient Address of the recipient
+     * @param _slot Slot for the recipient address
+     */
     setExpenditureRecipient(
       _id: BigNumberish,
       _slot: BigNumberish,
@@ -4219,6 +6148,12 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Sets the recipients in given expenditure slots. Can only be called by expenditure owner.
+     * @param _id Id of the expenditure
+     * @param _recipients Addresses of the recipients
+     * @param _slots Array of slots to set recipients
+     */
     setExpenditureRecipients(
       _id: BigNumberish,
       _slots: BigNumberish[],
@@ -4226,6 +6161,13 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * DeprecatedSet the token payout on an expenditure slot. Can only be called by expenditure owner.
+     * @param _amount Payout amount
+     * @param _id Id of the expenditure
+     * @param _slot Number of the slot
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     setExpenditurePayout(
       _id: BigNumberish,
       _slot: BigNumberish,
@@ -4234,6 +6176,13 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Set the token payouts in given expenditure slots. Can only be called by expenditure owner.
+     * @param _amounts Payout amounts
+     * @param _id Id of the expenditure
+     * @param _slots Array of slots to set payouts
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     setExpenditurePayouts(
       _id: BigNumberish,
       _slots: BigNumberish[],
@@ -4242,6 +6191,12 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * DeprecatedSets the skill on an expenditure slot. Can only be called by expenditure owner.
+     * @param _id Expenditure identifier
+     * @param _skillId Id of the new skill to set
+     * @param _slot Number of the slot
+     */
     setExpenditureSkill(
       _id: BigNumberish,
       _slot: BigNumberish,
@@ -4249,6 +6204,12 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Sets the skill on an expenditure slot. Can only be called by expenditure owner.
+     * @param _id Expenditure identifier
+     * @param _skillIds Ids of the new skills to set
+     * @param _slots Array of slots to set skills
+     */
     setExpenditureSkills(
       _id: BigNumberish,
       _slots: BigNumberish[],
@@ -4256,6 +6217,12 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * DeprecatedSets the claim delay on an expenditure slot. Can only be called by expenditure owner.
+     * @param _claimDelay Duration of time (in seconds) to delay
+     * @param _id Expenditure identifier
+     * @param _slot Number of the slot
+     */
     setExpenditureClaimDelay(
       _id: BigNumberish,
       _slot: BigNumberish,
@@ -4263,6 +6230,12 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Sets the claim delays in given expenditure slots. Can only be called by expenditure owner.
+     * @param _claimDelays Durations of time (in seconds) to delay
+     * @param _id Expenditure identifier
+     * @param _slots Array of slots to set claim delays
+     */
     setExpenditureClaimDelays(
       _id: BigNumberish,
       _slots: BigNumberish[],
@@ -4270,6 +6243,12 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Sets the payout modifiers in given expenditure slots. Can only be called by expenditure owner.
+     * @param _id Expenditure identifier
+     * @param _payoutModifiers Values (between +/- WAD) to modify the payout & reputation bonus
+     * @param _slots Array of slots to set payout modifiers
+     */
     setExpenditurePayoutModifiers(
       _id: BigNumberish,
       _slots: BigNumberish[],
@@ -4277,6 +6256,16 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Set arbitrary state on an expenditure slot. Can only be called by Arbitration role.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
+     * @param _id Expenditure identifier
+     * @param _keys Array of additional keys (for mappings & arrays)
+     * @param _mask Array of booleans indicated whether a key is a mapping (F) or an array index (T).
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _storageSlot Number of the top-level storage slot (25, 26, or 27)
+     * @param _value Value to set at location
+     */
     setExpenditureState(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -4288,6 +6277,12 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Claim the payout for an expenditure slot. Here the network receives a fee from each payout.
+     * @param _id Expenditure identifier
+     * @param _slot Number of the slot
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     claimExpenditurePayout(
       _id: BigNumberish,
       _slot: BigNumberish,
@@ -4295,19 +6290,37 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Get the number of expenditures in the colony.
+     */
     getExpenditureCount(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Returns an existing expenditure.
+     * @param _id Expenditure identifier
+     */
     getExpenditure(
       _id: BigNumberish,
       overrides?: CallOverrides
     ): Promise<ColonyDataTypes.ExpenditureStructOutput>;
 
+    /**
+     * Returns an existing expenditure slot.
+     * @param _id Expenditure identifier
+     * @param _slot Expenditure slot
+     */
     getExpenditureSlot(
       _id: BigNumberish,
       _slot: BigNumberish,
       overrides?: CallOverrides
     ): Promise<ColonyDataTypes.ExpenditureSlotStructOutput>;
 
+    /**
+     * Returns an existing expenditure slot's payout for a token.
+     * @param _id Expenditure identifier
+     * @param _slot Expenditure slot
+     * @param _token Token address
+     */
     getExpenditureSlotPayout(
       _id: BigNumberish,
       _slot: BigNumberish,
@@ -4315,6 +6328,16 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Add a new payment in the colony. Secured function to authorised members.
+     * @param _amount Payout amount
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
+     * @param _domainId The domain where the payment belongs
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _recipient Address of the payment recipient
+     * @param _skillId The skill associated with the payment
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     addPayment(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -4326,6 +6349,12 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Finalizes the payment and logs the reputation log updates. Allowed to be called once after payment is fully funded. Secured function to authorised members.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _id Payment identifier
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     */
     finalizePayment(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -4333,6 +6362,13 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Sets the recipient on an existing payment. Secured function to authorised members.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _id Payment identifier
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _recipient Address of the payment recipient
+     */
     setPaymentRecipient(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -4341,6 +6377,13 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Sets the skill on an existing payment. Secured function to authorised members.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _id Payment identifier
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _skillId Id of the new skill to set
+     */
     setPaymentSkill(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -4349,6 +6392,14 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Sets the payout for a given token on an existing payment. Secured function to authorised members.
+     * @param _amount Payout amount
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _id Payment identifier
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     setPaymentPayout(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -4358,19 +6409,40 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Returns an exiting payment.
+     * @param _id Payment identifier
+     */
     getPayment(
       _id: BigNumberish,
       overrides?: CallOverrides
     ): Promise<ColonyDataTypes.PaymentStructOutput>;
 
+    /**
+     * Claim the payout in `_token` denomination for payment `_id`. Here the network receives its fee from each payout. Same as for tasks, ether fees go straight to the Meta Colony whereas Token fees go to the Network to be auctioned off.
+     * @param _id Payment identifier
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     claimPayment(
       _id: BigNumberish,
       _token: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Get the number of payments in the colony.
+     */
     getPaymentCount(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Make a new task in the colony. Secured function to authorised members.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _domainId The domain where the task belongs
+     * @param _dueDate The due date of the task, can set to `0` for no-op
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _skillId The skill associated with the task, can set to `0` for no-op
+     * @param _specificationHash Database identifier where the task specification is stored
+     */
     makeTask(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -4381,13 +6453,30 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Get the number of tasks in the colony.
+     */
     getTaskCount(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Starts from 0 and is incremented on every co-reviewed task change via `executeTaskChange` call.
+     * @param _id Id of the task
+     */
     getTaskChangeNonce(
       _id: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * The Colony functions which require approval and the task roles to review these are set in `IColony.initialiseColony` at colony creation. Upon successful execution the `taskChangeNonces` entry for the task is incremented.
+     * Executes a task update transaction `_data` which is approved and signed by two of its roles (e.g. manager and worker) using the detached signatures for these users.
+     * @param _data The transaction data
+     * @param _mode How the signature was generated - 0 for Geth-style (usual), 1 for Trezor-style (only Trezor does this)
+     * @param _sigR r output of the ECDSA signature of the transaction
+     * @param _sigS s output of the ECDSA signature of the transaction
+     * @param _sigV recovery id
+     * @param _value The transaction value, i.e. number of wei to be sent when the transaction is executed Currently we only accept 0 value transactions but this is kept as a future option
+     */
     executeTaskChange(
       _sigV: BigNumberish[],
       _sigR: BytesLike[],
@@ -4398,6 +6487,15 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Executes a task role update transaction `_data` which is approved and signed by two of addresses. depending of which function we are calling. Allowed functions are `setTaskManagerRole`, `setTaskEvaluatorRole` and `setTaskWorkerRole`. Upon successful execution the `taskChangeNonces` entry for the task is incremented.
+     * @param _data The transaction data
+     * @param _mode How the signature was generated - 0 for Geth-style (usual), 1 for Trezor-style (only Trezor does this)
+     * @param _sigR r output of the ECDSA signature of the transaction
+     * @param _sigS s output of the ECDSA signature of the transaction
+     * @param _sigV recovery id
+     * @param _value The transaction value, i.e. number of wei to be sent when the transaction is executed Currently we only accept 0 value transactions but this is kept as a future option
+     */
     executeTaskRoleAssignment(
       _sigV: BigNumberish[],
       _sigR: BytesLike[],
@@ -4408,6 +6506,12 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Submit a hashed secret of the rating for work in task `_id` which was performed by user with task role id `_role`. Allowed within 5 days period starting which whichever is first from either the deliverable being submitted or the dueDate been reached. Allowed only for evaluator to rate worker and for worker to rate manager performance. Once submitted ratings can not be changed or overwritten.
+     * @param _id Id of the task
+     * @param _ratingSecret `keccak256` hash of a salt and 0-50 rating score (in increments of 10, .e.g 0, 10, 20, 30, 40 or 50). Can be generated via `IColony.generateSecret` helper function.
+     * @param _role Id of the role, as defined in TaskRole enum
+     */
     submitTaskWorkRating(
       _id: BigNumberish,
       _role: BigNumberish,
@@ -4415,6 +6519,14 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Compares the `keccak256(_salt, _rating)` output with the previously submitted rating secret and if they match, sets the task role properties `rated` to `true` and `rating` to `_rating`.
+     * Reveal the secret rating submitted in `IColony.submitTaskWorkRating` for task `_id` and task role with id `_role`. Allowed within 5 days period starting which whichever is first from either both rating secrets being submitted (via `IColony.submitTaskWorkRating`) or the 5 day rating period expiring.
+     * @param _id Id of the task
+     * @param _rating 0-50 rating score (in increments of 10, .e.g 0, 10, 20, 30, 40 or 50)
+     * @param _role Id of the role, as defined in TaskRole enum
+     * @param _salt Salt value used to generate the rating secret
+     */
     revealTaskWorkRating(
       _id: BigNumberish,
       _role: BigNumberish,
@@ -4423,12 +6535,21 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Helper function used to generage consistently the rating secret using salt value `_salt` and value to hide `_value`
+     * @param _salt Salt value
+     * @param _value Value to hide
+     */
     generateSecret(
       _salt: BytesLike,
       _value: BigNumberish,
       overrides?: CallOverrides
     ): Promise<string>;
 
+    /**
+     * Get the `ColonyStorage.RatingSecrets` information for task `_id`.
+     * @param _id Id of the task
+     */
     getTaskWorkRatingSecretsInfo(
       _id: BigNumberish,
       overrides?: CallOverrides
@@ -4439,12 +6560,25 @@ export interface IColony extends BaseContract {
       }
     >;
 
+    /**
+     * Get the rating secret submitted for role `_role` in task `_id`
+     * @param _id Id of the task
+     * @param _role Id of the role, as defined in TaskRole enum
+     */
     getTaskWorkRatingSecret(
       _id: BigNumberish,
       _role: BigNumberish,
       overrides?: CallOverrides
     ): Promise<string>;
 
+    /**
+     * This function can only be called through `executeTaskRoleAssignment`.
+     * Assigning manager role. Current manager and user we want to assign role to both need to agree. User we want to set here also needs to be an admin. Note that the domain proof data comes at the end here to not interfere with the assembly argument unpacking.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _id Id of the task
+     * @param _permissionDomainId The domain ID in which _user has the Administration permission
+     * @param _user Address of the user we want to give a manager role to
+     */
     setTaskManagerRole(
       _id: BigNumberish,
       _user: string,
@@ -4453,52 +6587,101 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * This function can only be called through `executeTaskRoleAssignment`.
+     * Assigning evaluator role. Can only be set if there is no one currently assigned to be an evaluator. Manager of the task and user we want to assign role to both need to agree. Managers can assign themselves to this role, if there is no one currently assigned to it.
+     * @param _id Id of the task
+     * @param _user Address of the user we want to give a evaluator role to
+     */
     setTaskEvaluatorRole(
       _id: BigNumberish,
       _user: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * This function can only be called through `executeTaskRoleAssignment`.
+     * Assigning worker role. Can only be set if there is no one currently assigned to be a worker. Manager of the task and user we want to assign role to both need to agree.
+     * @param _id Id of the task
+     * @param _user Address of the user we want to give a worker role to
+     */
     setTaskWorkerRole(
       _id: BigNumberish,
       _user: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Removing evaluator role. Agreed between manager and currently assigned evaluator.
+     * @param _id Id of the task
+     */
     removeTaskEvaluatorRole(
       _id: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Removing worker role. Agreed between manager and currently assigned worker.
+     * @param _id Id of the task
+     */
     removeTaskWorkerRole(
       _id: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Currently we only allow one skill per task although we have provisioned for an array of skills in `Task` struct. Allowed before a task is finalized.
+     * Set the skill for task `_id`.
+     * @param _id Id of the task
+     * @param _skillId Id of the skill which has to be a global skill
+     */
     setTaskSkill(
       _id: BigNumberish,
       _skillId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Set the hash for the task brief, aka task work specification, which identifies the task brief content in ddb. Allowed before a task is finalized.
+     * @param _id Id of the task
+     * @param _specificationHash Unique hash of the task brief in ddb
+     */
     setTaskBrief(
       _id: BigNumberish,
       _specificationHash: BytesLike,
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Set the due date on task `_id`. Allowed before a task is finalized.
+     * @param _dueDate Due date as seconds since unix epoch
+     * @param _id Id of the task
+     */
     setTaskDueDate(
       _id: BigNumberish,
       _dueDate: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Set the `task.deliverableHash` and `task.completionTimestamp` properties.
+     * Submit the task deliverable, i.e. the output of the work performed for task `_id`. Submission is allowed only to the assigned worker before the task due date. Submissions cannot be overwritten.
+     * @param _deliverableHash Unique hash of the task deliverable content in ddb
+     * @param _id Id of the task
+     */
     submitTaskDeliverable(
       _id: BigNumberish,
       _deliverableHash: BytesLike,
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Internally call `submitTaskDeliverable` and `submitTaskWorkRating` in sequence.
+     * Submit the task deliverable for Worker and rating for Manager.
+     * @param _deliverableHash Unique hash of the task deliverable content in ddb
+     * @param _id Id of the task
+     * @param _ratingSecret Rating secret for manager
+     */
     submitTaskDeliverableAndRating(
       _id: BigNumberish,
       _deliverableHash: BytesLike,
@@ -4506,12 +6689,30 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Set the `task.finalized` property to true
+     * Called after task work rating is complete which closes the task and logs the respective reputation log updates. Allowed to be called once per task. Secured function to authorised members.
+     * @param _id Id of the task
+     */
     finalizeTask(_id: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
+    /**
+     * Set the `task.status` property to `1`.
+     * Cancel a task at any point before it is finalized. Secured function to authorised members. Any funds assigned to its funding pot can be moved back to the domain via `IColony.moveFundsBetweenPots`.
+     * @param _id Id of the task
+     */
     cancelTask(_id: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
+    /**
+     * Mark a task as complete after the due date has passed. This allows the task to be rated and finalized (and funds recovered) even in the presence of a worker who has disappeared. Note that if the due date was not set, then this function will throw.
+     * @param _id Id of the task
+     */
     completeTask(_id: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
+    /**
+     * Get a task with id `_id`
+     * @param _id Id of the task
+     */
     getTask(
       _id: BigNumberish,
       overrides?: CallOverrides
@@ -4537,19 +6738,37 @@ export interface IColony extends BaseContract {
       }
     >;
 
+    /**
+     * Get the `Role` properties back for role `_role` in task `_id`.
+     * @param _id Id of the task
+     * @param _role Id of the role, as defined in TaskRole enum
+     */
     getTaskRole(
       _id: BigNumberish,
       _role: BigNumberish,
       overrides?: CallOverrides
     ): Promise<ColonyDataTypes.RoleStructOutput>;
 
+    /**
+     * Set the reward inverse to pay out from revenue. e.g. if the fee is 1% (or 0.01), set 100.
+     * @param _rewardInverse The inverse of the reward
+     */
     setRewardInverse(
       _rewardInverse: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Return 1 / the reward to pay out from revenue. e.g. if the fee is 1% (or 0.01), return 100.
+     */
     getRewardInverse(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get payout amount in `_token` denomination for role `_role` in task `_id`.
+     * @param _id Id of the task
+     * @param _role Id of the role, as defined in TaskRole enum
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     getTaskPayout(
       _id: BigNumberish,
       _role: BigNumberish,
@@ -4557,6 +6776,12 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Set `_token` payout for manager in task `_id` to `_amount`.
+     * @param _amount Payout amount
+     * @param _id Id of the task
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     setTaskManagerPayout(
       _id: BigNumberish,
       _token: string,
@@ -4564,6 +6789,12 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Set `_token` payout for evaluator in task `_id` to `_amount`.
+     * @param _amount Payout amount
+     * @param _id Id of the task
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     setTaskEvaluatorPayout(
       _id: BigNumberish,
       _token: string,
@@ -4571,6 +6802,12 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Set `_token` payout for worker in task `_id` to `_amount`.
+     * @param _amount Payout amount
+     * @param _id Id of the task
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     setTaskWorkerPayout(
       _id: BigNumberish,
       _token: string,
@@ -4578,6 +6815,15 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Can only call if evaluator and worker are unassigned or manager, otherwise need signature.
+     * Set `_token` payout for all roles in task `_id` to the respective amounts.
+     * @param _evaluatorAmount Payout amount for evaluator
+     * @param _id Id of the task
+     * @param _managerAmount Payout amount for manager
+     * @param _token Address of the token, `0x0` value indicates Ether
+     * @param _workerAmount Payout amount for worker
+     */
     setAllTaskPayouts(
       _id: BigNumberish,
       _token: string,
@@ -4587,6 +6833,12 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Claim the payout in `_token` denomination for work completed in task `_id` by contributor with role `_role`. Allowed only after task is finalized. Here the network receives its fee from each payout. Ether fees go straight to the Meta Colony whereas Token fees go to the Network to be auctioned off.
+     * @param _id Id of the task
+     * @param _role Id of the role, as defined in TaskRole enum
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     claimTaskPayout(
       _id: BigNumberish,
       _role: BigNumberish,
@@ -4594,6 +6846,14 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Start next reward payout for `_token`. All funds in the reward pot for `_token` will become unavailable.Add a new payment in the colony. Can only be called by users with root permission. All tokens will be locked, and can be unlocked by calling `waiveRewardPayout` or `claimRewardPayout`.
+     * @param _token Address of the token used for reward payout
+     * @param branchMask The branchmask of the proof
+     * @param key Some Reputation hash tree key
+     * @param siblings The siblings of the proof
+     * @param value Reputation value
+     */
     startNextRewardPayout(
       _token: string,
       key: BytesLike,
@@ -4603,6 +6863,15 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Claim the reward payout at `_payoutId`. User needs to provide their reputation and colony-wide reputation which will be proven via Merkle proof inside this function. Can only be called if payout is active, i.e if 60 days have not passed from its creation. Can only be called if next in queue.
+     * @param _payoutId Id of the reward payout
+     * @param _squareRoots Square roots of values used in equation: `_squareRoots[0]` - square root of user reputation, `_squareRoots[1]` - square root of user tokens (deposited in TokenLocking), `_squareRoots[2]` - square root of total reputation, `_squareRoots[3]` - square root of total tokens, `_squareRoots[4]` - square root of numerator (user reputation * user tokens), `_squareRoots[5]` - square root of denominator (total reputation * total tokens), `_squareRoots[6]` - square root of payout amount.
+     * @param branchMask The branchmask of the proof
+     * @param key Some Reputation hash tree key
+     * @param siblings The siblings of the proof
+     * @param value Reputation value
+     */
     claimRewardPayout(
       _payoutId: BigNumberish,
       _squareRoots: BigNumberish[],
@@ -4613,16 +6882,29 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Get useful information about specific reward payout.
+     * @param _payoutId Id of the reward payout
+     */
     getRewardPayoutInfo(
       _payoutId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<ColonyDataTypes.RewardPayoutCycleStructOutput>;
 
+    /**
+     * Finalises the reward payout. Allows creation of next reward payouts for token that has been used in `_payoutId`. Can only be called when reward payout cycle is finished i.e when 60 days have passed from its creation.
+     * @param _payoutId Id of the reward payout
+     */
     finalizeRewardPayout(
       _payoutId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * For the reward funding pot (e.g. id: 0) this returns (0, 0, 0).
+     * Get the non-mapping properties of a pot by id.
+     * @param _id Id of the pot which details to get
+     */
     getFundingPot(
       _id: BigNumberish,
       overrides?: CallOverrides
@@ -4634,20 +6916,45 @@ export interface IColony extends BaseContract {
       }
     >;
 
+    /**
+     * Get the number of funding pots in the colony.
+     */
     getFundingPotCount(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the `_token` balance of pot with id `_potId`.
+     * @param _potId Id of the funding pot
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     getFundingPotBalance(
       _potId: BigNumberish,
       _token: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Get the assigned `_token` payouts of pot with id `_potId`.
+     * @param _potId Id of the funding pot
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     getFundingPotPayout(
       _potId: BigNumberish,
       _token: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Move a given amount: `_amount` of `_token` funds from funding pot with id `_fromPot` to one with id `_toPot`.
+     * @param _amount Amount of funds
+     * @param _childSkillIndex The child index in _permissionDomainId where I will be taking this action
+     * @param _domainId The domain where I am taking this action, pointed to by _permissionDomainId and _childSkillIndex
+     * @param _fromChildSkillIndex In the array of child skills for the skill associated with the domain pointed to by _permissionDomainId + _childSkillIndex,         the index of the skill associated with the domain that contains _fromPot
+     * @param _fromPot Funding pot id providing the funds
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _toChildSkillIndex The same, but for the _toPot which the funds are being moved to
+     * @param _toPot Funding pot id receiving the funds
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     "moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)"(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -4661,6 +6968,16 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * DEPRECATEDMove a given amount: `_amount` of `_token` funds from funding pot with id `_fromPot` to one with id `_toPot`.
+     * @param _amount Amount of funds
+     * @param _fromChildSkillIndex The child index in `_permissionDomainId` where we can find the domain for `_fromPotId`
+     * @param _fromPot Funding pot id providing the funds
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _toChildSkillIndex The child index in `_permissionDomainId` where we can find the domain for `_toPotId`
+     * @param _toPot Funding pot id receiving the funds
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     "moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,address)"(
       _permissionDomainId: BigNumberish,
       _fromChildSkillIndex: BigNumberish,
@@ -4672,13 +6989,27 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Move any funds received by the colony in `_token` denomination to the top-level domain pot, siphoning off a small amount to the reward pot. If called against a colony's own token, no fee is taken.
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     claimColonyFunds(_token: string, overrides?: CallOverrides): Promise<void>;
 
+    /**
+     * Get the total amount of tokens `_token` minus amount reserved to be paid to the reputation and token holders as rewards.
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     getNonRewardPotsTotal(
       _token: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Allow the _approvee to obligate some amount of tokens as a stake.
+     * @param _amount Amount of internal token up to which we are willing to be obligated.
+     * @param _approvee Address of the account we are willing to let obligate us.
+     * @param _domainId Domain in which we are willing to be obligated.
+     */
     approveStake(
       _approvee: string,
       _domainId: BigNumberish,
@@ -4686,6 +7017,12 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Obligate the user some amount of tokens as a stake.
+     * @param _amount Amount of internal token we are obligating.
+     * @param _domainId Domain in which we are obligating the user.
+     * @param _user Address of the account we are obligating.
+     */
     obligateStake(
       _user: string,
       _domainId: BigNumberish,
@@ -4693,6 +7030,12 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Deobligate the user some amount of tokens, releasing the stake.
+     * @param _amount Amount of internal token we are deobligating.
+     * @param _domainId Domain in which we are deobligating the user.
+     * @param _user Address of the account we are deobligating.
+     */
     deobligateStake(
       _user: string,
       _domainId: BigNumberish,
@@ -4700,6 +7043,16 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Transfer some amount of obligated tokens. Can be called by the arbitration role.
+     * @param _amount Amount of internal token we are transferring.
+     * @param _childSkillIndex The child index in `_permissionDomainId` where we can find `_domainId`.
+     * @param _domainId Domain in which we are transferring the tokens.
+     * @param _obligator Address of the account who set the obligation.
+     * @param _permissionDomainId The domainId in which I have the permission to take this action.
+     * @param _recipient Recipient of the transferred tokens.
+     * @param _user Address of the account we are transferring.
+     */
     transferStake(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -4711,6 +7064,12 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * View an approval to obligate tokens.
+     * @param _domainId Domain in which we are willing to be obligated.
+     * @param _obligator Address of the account we are willing to let obligate us.
+     * @param _user User allowing their tokens to be obligated.
+     */
     getApproval(
       _user: string,
       _obligator: string,
@@ -4718,6 +7077,12 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * View an obligation of tokens.
+     * @param _domainId Domain in which we are obligated.
+     * @param _obligator Address of the account who obligated us.
+     * @param _user User whose tokens are obligated.
+     */
     getObligation(
       _user: string,
       _obligator: string,
@@ -4725,31 +7090,57 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Get the domain corresponding to a funding pot
+     * @param _fundingPotId Id of the funding pot
+     */
     getDomainFromFundingPot(
       _fundingPotId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Burn tokens held by the colony. Can only burn tokens held in the root funding pot.
+     * @param amount The amount of tokens to burn
+     * @param token The address of the token to burn
+     */
     burnTokens(
       token: string,
       amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * unlock the native colony token, if possible
+     */
     unlockToken(overrides?: CallOverrides): Promise<void>;
 
+    /**
+     * Update the internal bookkeeping around external ERC20 approvals
+     * @param spender The account we have approved
+     * @param token The address of the token which was approved
+     */
     updateApprovalAmount(
       token: string,
       spender: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Get the current approval amount
+     * @param spender The account we have approved
+     * @param token The address of the token which was approved
+     */
     getTokenApproval(
       token: string,
       spender: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Get the current total approval amount across all spenders
+     * @param token The address of the token which was approved
+     */
     getTotalTokenApproval(
       token: string,
       overrides?: CallOverrides
@@ -5291,68 +7682,139 @@ export interface IColony extends BaseContract {
   };
 
   estimateGas: {
+    /**
+     * Indicate approval to exit recovery mode. Can only be called by user with recovery role.
+     */
     approveExitRecovery(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * No return value, but should throw if protected.This is external, but is only expected to be called from ContractRecovery; no need toexpose this to any users.
+     * Check whether the supplied slot is a protected variable specific to this contract
+     * @param _slot The storage slot number to check.
+     */
     checkNotAdditionalProtectedVariable(
       _slot: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Put colony network mining into recovery mode. Can only be called by user with recovery role.
+     */
     enterRecoveryMode(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Exit recovery mode, can be called by anyone if enough whitelist approvals are given.
+     */
     exitRecoveryMode(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Is colony network in recovery mode.
+     */
     isInRecoveryMode(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Return number of recovery roles.
+     */
     numRecoveryRoles(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Remove colony recovery role. Can only be called by root role.
+     * @param _user User we want to remove recovery role from
+     */
     removeRecoveryRole(
       _user: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Set new colony recovery role. Can be called by root.
+     * @param _user User we want to give a recovery role to
+     */
     setRecoveryRole(
       _user: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * certain critical variables are protected from editing in this function
+     * Update value of arbitrary storage variable. Can only be called by user with recovery role.
+     * @param _slot Uint address of storage slot to be updated
+     * @param _value word of data to be set
+     */
     setStorageSlotRecovery(
       _slot: BigNumberish,
       _value: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Get the `ColonyAuthority` for the colony.
+     */
     authority(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Used for testing.
+     * Get the colony `owner` address. This should be address(0x0) at all times.
+     */
     owner(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the Colony contract version. Starts from 1 and is incremented with every deployed contract change.
+     */
     version(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Downgrades are not allowed, i.e. `_newVersion` should be higher than the currect colony version.
+     * Upgrades a colony to a new Colony contract version `_newVersion`.
+     * @param _newVersion The target version for the upgrade
+     */
     upgrade(
       _newVersion: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Can only be called by the colony itself, and only expected to be called as part of the `upgrade()` call. Required to be external so it can be an external call.
+     * A function to be called after an upgrade has been done from v2 to v3.
+     */
     finishUpgrade(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * The colonyNetworkAddress we read here is set once, during `initialiseColony`.
+     * Returns the colony network address set on the Colony.
+     */
     getColonyNetwork(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the colony token.
+     */
     getToken(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Execute arbitrary transaction on behalf of the Colony DEPRECATED
+     * @param _action Bytes array encoding the function call and arguments
+     * @param _to Contract to receive the function call (cannot be this contract, network or token locking)
+     */
     makeArbitraryTransaction(
       _to: string,
       _action: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Execute arbitrary transactions on behalf of the Colony in series
+     * @param _actions Array of Bytes arrays encoding the function calls and arguments
+     * @param _strict Boolean indicating whether if one transaction fails, the whole call to this function should fail.
+     * @param _targets Array of addressed to be targeted
+     */
     makeArbitraryTransactions(
       _targets: string[],
       _actions: BytesLike[],
@@ -5360,24 +7822,48 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Only callable by the colony itself. If you wish to use this functionality, you should use the makeAbitraryTransactions function
+     * Executes a single arbitrary transaction
+     * @param _action Bytes array encoding the function call and arguments
+     * @param _target Contract to receive the function call
+     */
     makeSingleArbitraryTransaction(
       _target: string,
       _action: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Emit a metadata string for a transaction
+     * @param _metadata String of metadata for tx
+     * @param _txHash Hash of transaction being annotated (0x0 for current tx)
+     */
     annotateTransaction(
       _txHash: BytesLike,
       _metadata: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Set new colony root role. Can be called by root role only.
+     * @param _setTo The state of the role permission (true assign the permission, false revokes it)
+     * @param _user User we want to give an root role to
+     */
     setRootRole(
       _user: string,
       _setTo: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Set new colony arbitration role. Can be called by root role or architecture role.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _domainId Domain in which we are giving user the role
+     * @param _permissionDomainId Domain in which the caller has root role
+     * @param _setTo The state of the role permission (true assign the permission, false revokes it)
+     * @param _user User we want to give an arbitration role to
+     */
     setArbitrationRole(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -5387,6 +7873,14 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Set new colony architecture role. Can be called by root role or architecture role.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _domainId Domain in which we are giving user the role
+     * @param _permissionDomainId Domain in which the caller has root/architecture role
+     * @param _setTo The state of the role permission (true assign the permission, false revokes it)
+     * @param _user User we want to give an architecture role to
+     */
     setArchitectureRole(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -5396,6 +7890,14 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Set new colony funding role. Can be called by root role or architecture role.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _domainId Domain in which we are giving user the role
+     * @param _permissionDomainId Domain in which the caller has root/architecture role
+     * @param _setTo The state of the role permission (true assign the permission, false revokes it)
+     * @param _user User we want to give an funding role to
+     */
     setFundingRole(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -5405,6 +7907,14 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Set new colony admin role. Can be called by root role or architecture role.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _domainId Domain in which we are giving user the role
+     * @param _permissionDomainId Domain in which the caller has root/architecture role
+     * @param _setTo The state of the role permission (true assign the permission, false revokes it)
+     * @param _user User we want to give an admin role to
+     */
     setAdministrationRole(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -5414,6 +7924,14 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Set several roles in one transaction. Can be called by root role or architecture role.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _domainId Domain in which we are giving user the role
+     * @param _permissionDomainId Domain in which the caller has root/architecture role
+     * @param _roles Byte array representing the desired role setting (1 for on, 0 for off)
+     * @param _user User we want to give a role to
+     */
     setUserRoles(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -5423,6 +7941,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Check whether a given user has a given role for the colony. Calls the function of the same name on the colony's authority contract.
+     * @param _domainId The domain where we want to check for the role
+     * @param _role The role we want to check for
+     * @param _user The user whose role we want to check
+     */
     hasUserRole(
       _user: string,
       _domainId: BigNumberish,
@@ -5430,6 +7954,14 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Check whether a given user has a given role for the colony, in a child domain. Calls the function of the same name on the colony's authority contract and an internal inheritence validator function
+     * @param _childDomainId The domain where we want to use the role
+     * @param _childSkillIndex The index that the `_childDomainId` is relative to `_domainId`
+     * @param _domainId Domain in which the caller has the role
+     * @param _role The role we want to check for
+     * @param _user The user whose role we want to check
+     */
     hasInheritedUserRole(
       _user: string,
       _domainId: BigNumberish,
@@ -5439,6 +7971,13 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Check whether a given user can modify roles in the target domain `_childDomainId`. Mostly a convenience function to provide a uniform interface for extension contracts validating permissions
+     * @param _childDomainId The domain where we want to edit roles
+     * @param _childSkillIndex The index that the `_childDomainId` is relative to `_domainId`
+     * @param _domainId Domain in which the caller has the role (currently Root or Architecture)
+     * @param _user The user whose permissions we want to check
+     */
     userCanSetRoles(
       _user: string,
       _domainId: BigNumberish,
@@ -5447,17 +7986,32 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Gets the bytes32 representation of the roles for a user in a given domain
+     * @param _domain The domain we want to get roles in
+     * @param _user The user whose roles we want to get
+     */
     getUserRoles(
       _user: string,
       _domain: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Gets the bytes32 representation of the roles authorized to call a function
+     * @param _sig The function signature
+     */
     getCapabilityRoles(
       _sig: BytesLike,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Emit a positive domain reputation update. Available only to Root role holders
+     * @param _amount The (positive) amount of reputation to gain
+     * @param _domainId The domain where the user will gain reputation
+     * @param _user The user who will gain reputation
+     */
     emitDomainReputationReward(
       _domainId: BigNumberish,
       _user: string,
@@ -5465,6 +8019,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Emit a positive skill reputation update. Available only to Root role holders
+     * @param _amount The (positive) amount of reputation to gain
+     * @param _skillId The skill where the user will gain reputation
+     * @param _user The user who will gain reputation
+     */
     emitSkillReputationReward(
       _skillId: BigNumberish,
       _user: string,
@@ -5472,6 +8032,14 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Emit a negative domain reputation update. Available only to Arbitration role holders
+     * @param _amount The (negative) amount of reputation to lose
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _domainId The domain where the user will lose reputation
+     * @param _permissionDomainId The domainId in which I hold the Arbitration role
+     * @param _user The user who will lose reputation
+     */
     emitDomainReputationPenalty(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -5481,6 +8049,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Emit a negative skill reputation update. Available only to Arbitration role holders in the root domain
+     * @param _amount The (negative) amount of reputation to lose
+     * @param _skillId The skill where the user will lose reputation
+     * @param _user The user who will lose reputation
+     */
     emitSkillReputationPenalty(
       _skillId: BigNumberish,
       _user: string,
@@ -5488,78 +8062,147 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Sets the reward inverse to the uint max 2**256 - 1.
+     * Called once when the colony is created to initialise certain storage slot values.
+     * @param _colonyNetworkAddress Address of the colony network
+     * @param _token Address of the colony ERC20 Token
+     */
     initialiseColony(
       _colonyNetworkAddress: string,
       _token: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Called to change the metadata associated with a colony. Expected to be a IPFS hash of a JSON blob, but not enforced to any degree by the contracts
+     * @param _metadata IPFS hash of the metadata
+     */
     editColony(
       _metadata: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Only allowed to be called when `taskCount` is `0` by authorized addresses.
+     * Allows the colony to bootstrap itself by having initial reputation and token `_amount` assigned to `_users`. This reputation is assigned in the colony-wide domain. Secured function to authorised members.
+     * @param _amount Amount of reputation/tokens for every address
+     * @param _users Array of address to bootstrap with reputation
+     */
     bootstrapColony(
       _users: string[],
       _amount: BigNumberish[],
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Mint `_wad` amount of colony tokens. Secured function to authorised members.
+     * @param _wad Amount to mint
+     */
     mintTokens(
       _wad: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Mint `_wad` amount of colony tokens and send to `_guy`. Secured function to authorised members.
+     * @param _guy Recipient of new tokens
+     * @param _wad Amount to mint
+     */
     mintTokensFor(
       _guy: string,
       _wad: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Lock the colony's token. Can only be called by a network-managed extension.
+     */
     lockToken(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Unlock the colony's token for a user. Can only be called by a network-managed extension.
+     * @param lockId The specific lock to unlock
+     * @param user The user to unlock
+     */
     unlockTokenForUser(
       user: string,
       lockId: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Register colony's ENS label.
+     * @param colonyName The label to register.
+     * @param orbitdb The path of the orbitDB database associated with the colony name
+     */
     registerColonyLabel(
       colonyName: string,
       orbitdb: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Update a colony's orbitdb address. Can only be called by a colony with a registered subdomain
+     * @param orbitdb The path of the orbitDB database to be associated with the colony
+     */
     updateColonyOrbitDB(
       orbitdb: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Install an extension to the colony. Secured function to authorised members.
+     * @param extensionId keccak256 hash of the extension name, used as an indentifier
+     * @param version The new extension version to install
+     */
     installExtension(
       extensionId: BytesLike,
       version: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Upgrade an extension in a colony. Secured function to authorised members.
+     * @param extensionId keccak256 hash of the extension name, used as an indentifier
+     * @param newVersion The version to upgrade to (must be one larger than the current version)
+     */
     upgradeExtension(
       extensionId: BytesLike,
       newVersion: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Set the deprecation of an extension in a colony. Secured function to authorised members.
+     * @param deprecated Whether to deprecate the extension or not
+     * @param extensionId keccak256 hash of the extension name, used as an indentifier
+     */
     deprecateExtension(
       extensionId: BytesLike,
       deprecated: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * This is a permanent action -- re-installing the extension will deploy a new contractIt is recommended to deprecate an extension before uninstalling to allow active objects to be resolved
+     * Uninstall an extension from a colony. Secured function to authorised members.
+     * @param extensionId keccak256 hash of the extension name, used as an indentifier
+     */
     uninstallExtension(
       extensionId: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Adding new domains is currently retricted to one level only, i.e. `_parentDomainId` has to be the root domain id: `1`.
+     * Add a colony domain, and its respective local skill under skill with id `_parentSkillId`. New funding pot is created and associated with the domain here.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _parentDomainId Id of the domain under which the new one will be added
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     */
     "addDomain(uint256,uint256,uint256)"(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -5567,6 +8210,14 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Adding new domains is currently retricted to one level only, i.e. `_parentDomainId` has to be the root domain id: `1`.We expect this function to only be used by the dapp
+     * Add a colony domain, and its respective local skill under skill with id `_parentSkillId`. New funding pot is created and associated with the domain here.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _metadata Metadata relating to the domain. Expected to be the IPFS hash of a JSON blob, but not enforced by the contracts.
+     * @param _parentDomainId Id of the domain under which the new one will be added
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     */
     "addDomain(uint256,uint256,uint256,string)"(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -5575,6 +8226,13 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Add a colony domain, and its respective local skill under skill with id `_parentSkillId`. New funding pot is created and associated with the domain here.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _domainId Id of the domain being edited
+     * @param _metadata Metadata relating to the domain. Expected to be the IPFS hash of a JSON blob, but not enforced by the contracts.
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     */
     editDomain(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -5583,10 +8241,25 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Get a domain by id.
+     * @param _id Id of the domain which details to get
+     */
     getDomain(_id: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the number of domains in the colony.
+     */
     getDomainCount(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * For more detail about branchMask and siblings, examine the PatriciaTree implementation. While external, likely only to be used by the Colony contracts, as it checks that the user is proving their own reputation in the current colony. The `verifyProof` function can be used to verify any proof, though this function is not currently exposed on the Colony's EtherRouter.
+     * Helper function that can be used by a client to verify the correctness of a patricia proof they have been supplied with.
+     * @param branchMask The branchmask of the proof
+     * @param key The key of the element the proof is for.
+     * @param siblings The siblings of the proof
+     * @param value The value of the element that the proof is for.
+     */
     verifyReputationProof(
       key: BytesLike,
       value: BytesLike,
@@ -5595,11 +8268,21 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Update the default global claim delay for expenditures
+     * @param _globalClaimDelay The new default global claim delay
+     */
     setDefaultGlobalClaimDelay(
       _globalClaimDelay: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Add a new expenditure in the colony. Secured function to authorised members.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
+     * @param _domainId The domain where the expenditure belongs
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     */
     makeExpenditure(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -5607,12 +8290,25 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Updates the expenditure owner. Can only be called by expenditure owner.
+     * @param _id Expenditure identifier
+     * @param _newOwner New owner of expenditure
+     */
     transferExpenditure(
       _id: BigNumberish,
       _newOwner: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * This is now deprecated and will be removed in a future version
+     * DEPRECATED Updates the expenditure owner. Can only be called by Arbitration role.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
+     * @param _id Expenditure identifier
+     * @param _newOwner New owner of expenditure
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     */
     transferExpenditureViaArbitration(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -5621,21 +8317,40 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Cancels the expenditure and prevents further editing. Can only be called by expenditure owner.
+     * @param _id Expenditure identifier
+     */
     cancelExpenditure(
       _id: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Locks the expenditure and prevents further editing. Can only be called by expenditure owner.
+     * @param _id Expenditure identifier
+     */
     lockExpenditure(
       _id: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Finalizes the expenditure and allows for funds to be claimed. Can only be called by expenditure owner.
+     * @param _id Expenditure identifier
+     */
     finalizeExpenditure(
       _id: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Sets the metadata for an expenditure. Can only be called by Arbitration role.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`,
+     * @param _id Id of the expenditure
+     * @param _metadata IPFS hash of the metadata
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     */
     "setExpenditureMetadata(uint256,uint256,uint256,string)"(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -5644,12 +8359,23 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Sets the metadata for an expenditure. Can only be called by expenditure owner.
+     * @param _id Id of the expenditure
+     * @param _metadata IPFS hash of the metadata
+     */
     "setExpenditureMetadata(uint256,string)"(
       _id: BigNumberish,
       _metadata: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * DeprecatedSets the recipient on an expenditure slot. Can only be called by expenditure owner.
+     * @param _id Id of the expenditure
+     * @param _recipient Address of the recipient
+     * @param _slot Slot for the recipient address
+     */
     setExpenditureRecipient(
       _id: BigNumberish,
       _slot: BigNumberish,
@@ -5657,6 +8383,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Sets the recipients in given expenditure slots. Can only be called by expenditure owner.
+     * @param _id Id of the expenditure
+     * @param _recipients Addresses of the recipients
+     * @param _slots Array of slots to set recipients
+     */
     setExpenditureRecipients(
       _id: BigNumberish,
       _slots: BigNumberish[],
@@ -5664,6 +8396,13 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * DeprecatedSet the token payout on an expenditure slot. Can only be called by expenditure owner.
+     * @param _amount Payout amount
+     * @param _id Id of the expenditure
+     * @param _slot Number of the slot
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     setExpenditurePayout(
       _id: BigNumberish,
       _slot: BigNumberish,
@@ -5672,6 +8411,13 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Set the token payouts in given expenditure slots. Can only be called by expenditure owner.
+     * @param _amounts Payout amounts
+     * @param _id Id of the expenditure
+     * @param _slots Array of slots to set payouts
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     setExpenditurePayouts(
       _id: BigNumberish,
       _slots: BigNumberish[],
@@ -5680,6 +8426,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * DeprecatedSets the skill on an expenditure slot. Can only be called by expenditure owner.
+     * @param _id Expenditure identifier
+     * @param _skillId Id of the new skill to set
+     * @param _slot Number of the slot
+     */
     setExpenditureSkill(
       _id: BigNumberish,
       _slot: BigNumberish,
@@ -5687,6 +8439,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Sets the skill on an expenditure slot. Can only be called by expenditure owner.
+     * @param _id Expenditure identifier
+     * @param _skillIds Ids of the new skills to set
+     * @param _slots Array of slots to set skills
+     */
     setExpenditureSkills(
       _id: BigNumberish,
       _slots: BigNumberish[],
@@ -5694,6 +8452,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * DeprecatedSets the claim delay on an expenditure slot. Can only be called by expenditure owner.
+     * @param _claimDelay Duration of time (in seconds) to delay
+     * @param _id Expenditure identifier
+     * @param _slot Number of the slot
+     */
     setExpenditureClaimDelay(
       _id: BigNumberish,
       _slot: BigNumberish,
@@ -5701,6 +8465,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Sets the claim delays in given expenditure slots. Can only be called by expenditure owner.
+     * @param _claimDelays Durations of time (in seconds) to delay
+     * @param _id Expenditure identifier
+     * @param _slots Array of slots to set claim delays
+     */
     setExpenditureClaimDelays(
       _id: BigNumberish,
       _slots: BigNumberish[],
@@ -5708,6 +8478,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Sets the payout modifiers in given expenditure slots. Can only be called by expenditure owner.
+     * @param _id Expenditure identifier
+     * @param _payoutModifiers Values (between +/- WAD) to modify the payout & reputation bonus
+     * @param _slots Array of slots to set payout modifiers
+     */
     setExpenditurePayoutModifiers(
       _id: BigNumberish,
       _slots: BigNumberish[],
@@ -5715,6 +8491,16 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Set arbitrary state on an expenditure slot. Can only be called by Arbitration role.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
+     * @param _id Expenditure identifier
+     * @param _keys Array of additional keys (for mappings & arrays)
+     * @param _mask Array of booleans indicated whether a key is a mapping (F) or an array index (T).
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _storageSlot Number of the top-level storage slot (25, 26, or 27)
+     * @param _value Value to set at location
+     */
     setExpenditureState(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -5726,6 +8512,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Claim the payout for an expenditure slot. Here the network receives a fee from each payout.
+     * @param _id Expenditure identifier
+     * @param _slot Number of the slot
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     claimExpenditurePayout(
       _id: BigNumberish,
       _slot: BigNumberish,
@@ -5733,19 +8525,37 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Get the number of expenditures in the colony.
+     */
     getExpenditureCount(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Returns an existing expenditure.
+     * @param _id Expenditure identifier
+     */
     getExpenditure(
       _id: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Returns an existing expenditure slot.
+     * @param _id Expenditure identifier
+     * @param _slot Expenditure slot
+     */
     getExpenditureSlot(
       _id: BigNumberish,
       _slot: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Returns an existing expenditure slot's payout for a token.
+     * @param _id Expenditure identifier
+     * @param _slot Expenditure slot
+     * @param _token Token address
+     */
     getExpenditureSlotPayout(
       _id: BigNumberish,
       _slot: BigNumberish,
@@ -5753,6 +8563,16 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Add a new payment in the colony. Secured function to authorised members.
+     * @param _amount Payout amount
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
+     * @param _domainId The domain where the payment belongs
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _recipient Address of the payment recipient
+     * @param _skillId The skill associated with the payment
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     addPayment(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -5764,6 +8584,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Finalizes the payment and logs the reputation log updates. Allowed to be called once after payment is fully funded. Secured function to authorised members.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _id Payment identifier
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     */
     finalizePayment(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -5771,6 +8597,13 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Sets the recipient on an existing payment. Secured function to authorised members.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _id Payment identifier
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _recipient Address of the payment recipient
+     */
     setPaymentRecipient(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -5779,6 +8612,13 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Sets the skill on an existing payment. Secured function to authorised members.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _id Payment identifier
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _skillId Id of the new skill to set
+     */
     setPaymentSkill(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -5787,6 +8627,14 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Sets the payout for a given token on an existing payment. Secured function to authorised members.
+     * @param _amount Payout amount
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _id Payment identifier
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     setPaymentPayout(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -5796,19 +8644,40 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Returns an exiting payment.
+     * @param _id Payment identifier
+     */
     getPayment(
       _id: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Claim the payout in `_token` denomination for payment `_id`. Here the network receives its fee from each payout. Same as for tasks, ether fees go straight to the Meta Colony whereas Token fees go to the Network to be auctioned off.
+     * @param _id Payment identifier
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     claimPayment(
       _id: BigNumberish,
       _token: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Get the number of payments in the colony.
+     */
     getPaymentCount(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Make a new task in the colony. Secured function to authorised members.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _domainId The domain where the task belongs
+     * @param _dueDate The due date of the task, can set to `0` for no-op
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _skillId The skill associated with the task, can set to `0` for no-op
+     * @param _specificationHash Database identifier where the task specification is stored
+     */
     makeTask(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -5819,13 +8688,30 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Get the number of tasks in the colony.
+     */
     getTaskCount(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Starts from 0 and is incremented on every co-reviewed task change via `executeTaskChange` call.
+     * @param _id Id of the task
+     */
     getTaskChangeNonce(
       _id: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * The Colony functions which require approval and the task roles to review these are set in `IColony.initialiseColony` at colony creation. Upon successful execution the `taskChangeNonces` entry for the task is incremented.
+     * Executes a task update transaction `_data` which is approved and signed by two of its roles (e.g. manager and worker) using the detached signatures for these users.
+     * @param _data The transaction data
+     * @param _mode How the signature was generated - 0 for Geth-style (usual), 1 for Trezor-style (only Trezor does this)
+     * @param _sigR r output of the ECDSA signature of the transaction
+     * @param _sigS s output of the ECDSA signature of the transaction
+     * @param _sigV recovery id
+     * @param _value The transaction value, i.e. number of wei to be sent when the transaction is executed Currently we only accept 0 value transactions but this is kept as a future option
+     */
     executeTaskChange(
       _sigV: BigNumberish[],
       _sigR: BytesLike[],
@@ -5836,6 +8722,15 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Executes a task role update transaction `_data` which is approved and signed by two of addresses. depending of which function we are calling. Allowed functions are `setTaskManagerRole`, `setTaskEvaluatorRole` and `setTaskWorkerRole`. Upon successful execution the `taskChangeNonces` entry for the task is incremented.
+     * @param _data The transaction data
+     * @param _mode How the signature was generated - 0 for Geth-style (usual), 1 for Trezor-style (only Trezor does this)
+     * @param _sigR r output of the ECDSA signature of the transaction
+     * @param _sigS s output of the ECDSA signature of the transaction
+     * @param _sigV recovery id
+     * @param _value The transaction value, i.e. number of wei to be sent when the transaction is executed Currently we only accept 0 value transactions but this is kept as a future option
+     */
     executeTaskRoleAssignment(
       _sigV: BigNumberish[],
       _sigR: BytesLike[],
@@ -5846,6 +8741,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Submit a hashed secret of the rating for work in task `_id` which was performed by user with task role id `_role`. Allowed within 5 days period starting which whichever is first from either the deliverable being submitted or the dueDate been reached. Allowed only for evaluator to rate worker and for worker to rate manager performance. Once submitted ratings can not be changed or overwritten.
+     * @param _id Id of the task
+     * @param _ratingSecret `keccak256` hash of a salt and 0-50 rating score (in increments of 10, .e.g 0, 10, 20, 30, 40 or 50). Can be generated via `IColony.generateSecret` helper function.
+     * @param _role Id of the role, as defined in TaskRole enum
+     */
     submitTaskWorkRating(
       _id: BigNumberish,
       _role: BigNumberish,
@@ -5853,6 +8754,14 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Compares the `keccak256(_salt, _rating)` output with the previously submitted rating secret and if they match, sets the task role properties `rated` to `true` and `rating` to `_rating`.
+     * Reveal the secret rating submitted in `IColony.submitTaskWorkRating` for task `_id` and task role with id `_role`. Allowed within 5 days period starting which whichever is first from either both rating secrets being submitted (via `IColony.submitTaskWorkRating`) or the 5 day rating period expiring.
+     * @param _id Id of the task
+     * @param _rating 0-50 rating score (in increments of 10, .e.g 0, 10, 20, 30, 40 or 50)
+     * @param _role Id of the role, as defined in TaskRole enum
+     * @param _salt Salt value used to generate the rating secret
+     */
     revealTaskWorkRating(
       _id: BigNumberish,
       _role: BigNumberish,
@@ -5861,23 +8770,45 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Helper function used to generage consistently the rating secret using salt value `_salt` and value to hide `_value`
+     * @param _salt Salt value
+     * @param _value Value to hide
+     */
     generateSecret(
       _salt: BytesLike,
       _value: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Get the `ColonyStorage.RatingSecrets` information for task `_id`.
+     * @param _id Id of the task
+     */
     getTaskWorkRatingSecretsInfo(
       _id: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Get the rating secret submitted for role `_role` in task `_id`
+     * @param _id Id of the task
+     * @param _role Id of the role, as defined in TaskRole enum
+     */
     getTaskWorkRatingSecret(
       _id: BigNumberish,
       _role: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * This function can only be called through `executeTaskRoleAssignment`.
+     * Assigning manager role. Current manager and user we want to assign role to both need to agree. User we want to set here also needs to be an admin. Note that the domain proof data comes at the end here to not interfere with the assembly argument unpacking.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _id Id of the task
+     * @param _permissionDomainId The domain ID in which _user has the Administration permission
+     * @param _user Address of the user we want to give a manager role to
+     */
     setTaskManagerRole(
       _id: BigNumberish,
       _user: string,
@@ -5886,52 +8817,101 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * This function can only be called through `executeTaskRoleAssignment`.
+     * Assigning evaluator role. Can only be set if there is no one currently assigned to be an evaluator. Manager of the task and user we want to assign role to both need to agree. Managers can assign themselves to this role, if there is no one currently assigned to it.
+     * @param _id Id of the task
+     * @param _user Address of the user we want to give a evaluator role to
+     */
     setTaskEvaluatorRole(
       _id: BigNumberish,
       _user: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * This function can only be called through `executeTaskRoleAssignment`.
+     * Assigning worker role. Can only be set if there is no one currently assigned to be a worker. Manager of the task and user we want to assign role to both need to agree.
+     * @param _id Id of the task
+     * @param _user Address of the user we want to give a worker role to
+     */
     setTaskWorkerRole(
       _id: BigNumberish,
       _user: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Removing evaluator role. Agreed between manager and currently assigned evaluator.
+     * @param _id Id of the task
+     */
     removeTaskEvaluatorRole(
       _id: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Removing worker role. Agreed between manager and currently assigned worker.
+     * @param _id Id of the task
+     */
     removeTaskWorkerRole(
       _id: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Currently we only allow one skill per task although we have provisioned for an array of skills in `Task` struct. Allowed before a task is finalized.
+     * Set the skill for task `_id`.
+     * @param _id Id of the task
+     * @param _skillId Id of the skill which has to be a global skill
+     */
     setTaskSkill(
       _id: BigNumberish,
       _skillId: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Set the hash for the task brief, aka task work specification, which identifies the task brief content in ddb. Allowed before a task is finalized.
+     * @param _id Id of the task
+     * @param _specificationHash Unique hash of the task brief in ddb
+     */
     setTaskBrief(
       _id: BigNumberish,
       _specificationHash: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Set the due date on task `_id`. Allowed before a task is finalized.
+     * @param _dueDate Due date as seconds since unix epoch
+     * @param _id Id of the task
+     */
     setTaskDueDate(
       _id: BigNumberish,
       _dueDate: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Set the `task.deliverableHash` and `task.completionTimestamp` properties.
+     * Submit the task deliverable, i.e. the output of the work performed for task `_id`. Submission is allowed only to the assigned worker before the task due date. Submissions cannot be overwritten.
+     * @param _deliverableHash Unique hash of the task deliverable content in ddb
+     * @param _id Id of the task
+     */
     submitTaskDeliverable(
       _id: BigNumberish,
       _deliverableHash: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Internally call `submitTaskDeliverable` and `submitTaskWorkRating` in sequence.
+     * Submit the task deliverable for Worker and rating for Manager.
+     * @param _deliverableHash Unique hash of the task deliverable content in ddb
+     * @param _id Id of the task
+     * @param _ratingSecret Rating secret for manager
+     */
     submitTaskDeliverableAndRating(
       _id: BigNumberish,
       _deliverableHash: BytesLike,
@@ -5939,36 +8919,72 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Set the `task.finalized` property to true
+     * Called after task work rating is complete which closes the task and logs the respective reputation log updates. Allowed to be called once per task. Secured function to authorised members.
+     * @param _id Id of the task
+     */
     finalizeTask(
       _id: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Set the `task.status` property to `1`.
+     * Cancel a task at any point before it is finalized. Secured function to authorised members. Any funds assigned to its funding pot can be moved back to the domain via `IColony.moveFundsBetweenPots`.
+     * @param _id Id of the task
+     */
     cancelTask(
       _id: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Mark a task as complete after the due date has passed. This allows the task to be rated and finalized (and funds recovered) even in the presence of a worker who has disappeared. Note that if the due date was not set, then this function will throw.
+     * @param _id Id of the task
+     */
     completeTask(
       _id: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Get a task with id `_id`
+     * @param _id Id of the task
+     */
     getTask(_id: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the `Role` properties back for role `_role` in task `_id`.
+     * @param _id Id of the task
+     * @param _role Id of the role, as defined in TaskRole enum
+     */
     getTaskRole(
       _id: BigNumberish,
       _role: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Set the reward inverse to pay out from revenue. e.g. if the fee is 1% (or 0.01), set 100.
+     * @param _rewardInverse The inverse of the reward
+     */
     setRewardInverse(
       _rewardInverse: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Return 1 / the reward to pay out from revenue. e.g. if the fee is 1% (or 0.01), return 100.
+     */
     getRewardInverse(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get payout amount in `_token` denomination for role `_role` in task `_id`.
+     * @param _id Id of the task
+     * @param _role Id of the role, as defined in TaskRole enum
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     getTaskPayout(
       _id: BigNumberish,
       _role: BigNumberish,
@@ -5976,6 +8992,12 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Set `_token` payout for manager in task `_id` to `_amount`.
+     * @param _amount Payout amount
+     * @param _id Id of the task
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     setTaskManagerPayout(
       _id: BigNumberish,
       _token: string,
@@ -5983,6 +9005,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Set `_token` payout for evaluator in task `_id` to `_amount`.
+     * @param _amount Payout amount
+     * @param _id Id of the task
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     setTaskEvaluatorPayout(
       _id: BigNumberish,
       _token: string,
@@ -5990,6 +9018,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Set `_token` payout for worker in task `_id` to `_amount`.
+     * @param _amount Payout amount
+     * @param _id Id of the task
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     setTaskWorkerPayout(
       _id: BigNumberish,
       _token: string,
@@ -5997,6 +9031,15 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Can only call if evaluator and worker are unassigned or manager, otherwise need signature.
+     * Set `_token` payout for all roles in task `_id` to the respective amounts.
+     * @param _evaluatorAmount Payout amount for evaluator
+     * @param _id Id of the task
+     * @param _managerAmount Payout amount for manager
+     * @param _token Address of the token, `0x0` value indicates Ether
+     * @param _workerAmount Payout amount for worker
+     */
     setAllTaskPayouts(
       _id: BigNumberish,
       _token: string,
@@ -6006,6 +9049,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Claim the payout in `_token` denomination for work completed in task `_id` by contributor with role `_role`. Allowed only after task is finalized. Here the network receives its fee from each payout. Ether fees go straight to the Meta Colony whereas Token fees go to the Network to be auctioned off.
+     * @param _id Id of the task
+     * @param _role Id of the role, as defined in TaskRole enum
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     claimTaskPayout(
       _id: BigNumberish,
       _role: BigNumberish,
@@ -6013,6 +9062,14 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Start next reward payout for `_token`. All funds in the reward pot for `_token` will become unavailable.Add a new payment in the colony. Can only be called by users with root permission. All tokens will be locked, and can be unlocked by calling `waiveRewardPayout` or `claimRewardPayout`.
+     * @param _token Address of the token used for reward payout
+     * @param branchMask The branchmask of the proof
+     * @param key Some Reputation hash tree key
+     * @param siblings The siblings of the proof
+     * @param value Reputation value
+     */
     startNextRewardPayout(
       _token: string,
       key: BytesLike,
@@ -6022,6 +9079,15 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Claim the reward payout at `_payoutId`. User needs to provide their reputation and colony-wide reputation which will be proven via Merkle proof inside this function. Can only be called if payout is active, i.e if 60 days have not passed from its creation. Can only be called if next in queue.
+     * @param _payoutId Id of the reward payout
+     * @param _squareRoots Square roots of values used in equation: `_squareRoots[0]` - square root of user reputation, `_squareRoots[1]` - square root of user tokens (deposited in TokenLocking), `_squareRoots[2]` - square root of total reputation, `_squareRoots[3]` - square root of total tokens, `_squareRoots[4]` - square root of numerator (user reputation * user tokens), `_squareRoots[5]` - square root of denominator (total reputation * total tokens), `_squareRoots[6]` - square root of payout amount.
+     * @param branchMask The branchmask of the proof
+     * @param key Some Reputation hash tree key
+     * @param siblings The siblings of the proof
+     * @param value Reputation value
+     */
     claimRewardPayout(
       _payoutId: BigNumberish,
       _squareRoots: BigNumberish[],
@@ -6032,35 +9098,73 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Get useful information about specific reward payout.
+     * @param _payoutId Id of the reward payout
+     */
     getRewardPayoutInfo(
       _payoutId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Finalises the reward payout. Allows creation of next reward payouts for token that has been used in `_payoutId`. Can only be called when reward payout cycle is finished i.e when 60 days have passed from its creation.
+     * @param _payoutId Id of the reward payout
+     */
     finalizeRewardPayout(
       _payoutId: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * For the reward funding pot (e.g. id: 0) this returns (0, 0, 0).
+     * Get the non-mapping properties of a pot by id.
+     * @param _id Id of the pot which details to get
+     */
     getFundingPot(
       _id: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Get the number of funding pots in the colony.
+     */
     getFundingPotCount(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the `_token` balance of pot with id `_potId`.
+     * @param _potId Id of the funding pot
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     getFundingPotBalance(
       _potId: BigNumberish,
       _token: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Get the assigned `_token` payouts of pot with id `_potId`.
+     * @param _potId Id of the funding pot
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     getFundingPotPayout(
       _potId: BigNumberish,
       _token: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Move a given amount: `_amount` of `_token` funds from funding pot with id `_fromPot` to one with id `_toPot`.
+     * @param _amount Amount of funds
+     * @param _childSkillIndex The child index in _permissionDomainId where I will be taking this action
+     * @param _domainId The domain where I am taking this action, pointed to by _permissionDomainId and _childSkillIndex
+     * @param _fromChildSkillIndex In the array of child skills for the skill associated with the domain pointed to by _permissionDomainId + _childSkillIndex,         the index of the skill associated with the domain that contains _fromPot
+     * @param _fromPot Funding pot id providing the funds
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _toChildSkillIndex The same, but for the _toPot which the funds are being moved to
+     * @param _toPot Funding pot id receiving the funds
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     "moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)"(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -6074,6 +9178,16 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * DEPRECATEDMove a given amount: `_amount` of `_token` funds from funding pot with id `_fromPot` to one with id `_toPot`.
+     * @param _amount Amount of funds
+     * @param _fromChildSkillIndex The child index in `_permissionDomainId` where we can find the domain for `_fromPotId`
+     * @param _fromPot Funding pot id providing the funds
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _toChildSkillIndex The child index in `_permissionDomainId` where we can find the domain for `_toPotId`
+     * @param _toPot Funding pot id receiving the funds
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     "moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,address)"(
       _permissionDomainId: BigNumberish,
       _fromChildSkillIndex: BigNumberish,
@@ -6085,16 +9199,30 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Move any funds received by the colony in `_token` denomination to the top-level domain pot, siphoning off a small amount to the reward pot. If called against a colony's own token, no fee is taken.
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     claimColonyFunds(
       _token: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Get the total amount of tokens `_token` minus amount reserved to be paid to the reputation and token holders as rewards.
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     getNonRewardPotsTotal(
       _token: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Allow the _approvee to obligate some amount of tokens as a stake.
+     * @param _amount Amount of internal token up to which we are willing to be obligated.
+     * @param _approvee Address of the account we are willing to let obligate us.
+     * @param _domainId Domain in which we are willing to be obligated.
+     */
     approveStake(
       _approvee: string,
       _domainId: BigNumberish,
@@ -6102,6 +9230,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Obligate the user some amount of tokens as a stake.
+     * @param _amount Amount of internal token we are obligating.
+     * @param _domainId Domain in which we are obligating the user.
+     * @param _user Address of the account we are obligating.
+     */
     obligateStake(
       _user: string,
       _domainId: BigNumberish,
@@ -6109,6 +9243,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Deobligate the user some amount of tokens, releasing the stake.
+     * @param _amount Amount of internal token we are deobligating.
+     * @param _domainId Domain in which we are deobligating the user.
+     * @param _user Address of the account we are deobligating.
+     */
     deobligateStake(
       _user: string,
       _domainId: BigNumberish,
@@ -6116,6 +9256,16 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Transfer some amount of obligated tokens. Can be called by the arbitration role.
+     * @param _amount Amount of internal token we are transferring.
+     * @param _childSkillIndex The child index in `_permissionDomainId` where we can find `_domainId`.
+     * @param _domainId Domain in which we are transferring the tokens.
+     * @param _obligator Address of the account who set the obligation.
+     * @param _permissionDomainId The domainId in which I have the permission to take this action.
+     * @param _recipient Recipient of the transferred tokens.
+     * @param _user Address of the account we are transferring.
+     */
     transferStake(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -6127,6 +9277,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * View an approval to obligate tokens.
+     * @param _domainId Domain in which we are willing to be obligated.
+     * @param _obligator Address of the account we are willing to let obligate us.
+     * @param _user User allowing their tokens to be obligated.
+     */
     getApproval(
       _user: string,
       _obligator: string,
@@ -6134,6 +9290,12 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * View an obligation of tokens.
+     * @param _domainId Domain in which we are obligated.
+     * @param _obligator Address of the account who obligated us.
+     * @param _user User whose tokens are obligated.
+     */
     getObligation(
       _user: string,
       _obligator: string,
@@ -6141,33 +9303,59 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Get the domain corresponding to a funding pot
+     * @param _fundingPotId Id of the funding pot
+     */
     getDomainFromFundingPot(
       _fundingPotId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Burn tokens held by the colony. Can only burn tokens held in the root funding pot.
+     * @param amount The amount of tokens to burn
+     * @param token The address of the token to burn
+     */
     burnTokens(
       token: string,
       amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * unlock the native colony token, if possible
+     */
     unlockToken(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Update the internal bookkeeping around external ERC20 approvals
+     * @param spender The account we have approved
+     * @param token The address of the token which was approved
+     */
     updateApprovalAmount(
       token: string,
       spender: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Get the current approval amount
+     * @param spender The account we have approved
+     * @param token The address of the token which was approved
+     */
     getTokenApproval(
       token: string,
       spender: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Get the current total approval amount across all spenders
+     * @param token The address of the token which was approved
+     */
     getTotalTokenApproval(
       token: string,
       overrides?: CallOverrides
@@ -6175,68 +9363,139 @@ export interface IColony extends BaseContract {
   };
 
   populateTransaction: {
+    /**
+     * Indicate approval to exit recovery mode. Can only be called by user with recovery role.
+     */
     approveExitRecovery(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * No return value, but should throw if protected.This is external, but is only expected to be called from ContractRecovery; no need toexpose this to any users.
+     * Check whether the supplied slot is a protected variable specific to this contract
+     * @param _slot The storage slot number to check.
+     */
     checkNotAdditionalProtectedVariable(
       _slot: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Put colony network mining into recovery mode. Can only be called by user with recovery role.
+     */
     enterRecoveryMode(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Exit recovery mode, can be called by anyone if enough whitelist approvals are given.
+     */
     exitRecoveryMode(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Is colony network in recovery mode.
+     */
     isInRecoveryMode(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    /**
+     * Return number of recovery roles.
+     */
     numRecoveryRoles(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    /**
+     * Remove colony recovery role. Can only be called by root role.
+     * @param _user User we want to remove recovery role from
+     */
     removeRecoveryRole(
       _user: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Set new colony recovery role. Can be called by root.
+     * @param _user User we want to give a recovery role to
+     */
     setRecoveryRole(
       _user: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * certain critical variables are protected from editing in this function
+     * Update value of arbitrary storage variable. Can only be called by user with recovery role.
+     * @param _slot Uint address of storage slot to be updated
+     * @param _value word of data to be set
+     */
     setStorageSlotRecovery(
       _slot: BigNumberish,
       _value: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the `ColonyAuthority` for the colony.
+     */
     authority(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    /**
+     * Used for testing.
+     * Get the colony `owner` address. This should be address(0x0) at all times.
+     */
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the Colony contract version. Starts from 1 and is incremented with every deployed contract change.
+     */
     version(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    /**
+     * Downgrades are not allowed, i.e. `_newVersion` should be higher than the currect colony version.
+     * Upgrades a colony to a new Colony contract version `_newVersion`.
+     * @param _newVersion The target version for the upgrade
+     */
     upgrade(
       _newVersion: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Can only be called by the colony itself, and only expected to be called as part of the `upgrade()` call. Required to be external so it can be an external call.
+     * A function to be called after an upgrade has been done from v2 to v3.
+     */
     finishUpgrade(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * The colonyNetworkAddress we read here is set once, during `initialiseColony`.
+     * Returns the colony network address set on the Colony.
+     */
     getColonyNetwork(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the colony token.
+     */
     getToken(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    /**
+     * Execute arbitrary transaction on behalf of the Colony DEPRECATED
+     * @param _action Bytes array encoding the function call and arguments
+     * @param _to Contract to receive the function call (cannot be this contract, network or token locking)
+     */
     makeArbitraryTransaction(
       _to: string,
       _action: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Execute arbitrary transactions on behalf of the Colony in series
+     * @param _actions Array of Bytes arrays encoding the function calls and arguments
+     * @param _strict Boolean indicating whether if one transaction fails, the whole call to this function should fail.
+     * @param _targets Array of addressed to be targeted
+     */
     makeArbitraryTransactions(
       _targets: string[],
       _actions: BytesLike[],
@@ -6244,24 +9503,48 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Only callable by the colony itself. If you wish to use this functionality, you should use the makeAbitraryTransactions function
+     * Executes a single arbitrary transaction
+     * @param _action Bytes array encoding the function call and arguments
+     * @param _target Contract to receive the function call
+     */
     makeSingleArbitraryTransaction(
       _target: string,
       _action: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Emit a metadata string for a transaction
+     * @param _metadata String of metadata for tx
+     * @param _txHash Hash of transaction being annotated (0x0 for current tx)
+     */
     annotateTransaction(
       _txHash: BytesLike,
       _metadata: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Set new colony root role. Can be called by root role only.
+     * @param _setTo The state of the role permission (true assign the permission, false revokes it)
+     * @param _user User we want to give an root role to
+     */
     setRootRole(
       _user: string,
       _setTo: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Set new colony arbitration role. Can be called by root role or architecture role.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _domainId Domain in which we are giving user the role
+     * @param _permissionDomainId Domain in which the caller has root role
+     * @param _setTo The state of the role permission (true assign the permission, false revokes it)
+     * @param _user User we want to give an arbitration role to
+     */
     setArbitrationRole(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -6271,6 +9554,14 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Set new colony architecture role. Can be called by root role or architecture role.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _domainId Domain in which we are giving user the role
+     * @param _permissionDomainId Domain in which the caller has root/architecture role
+     * @param _setTo The state of the role permission (true assign the permission, false revokes it)
+     * @param _user User we want to give an architecture role to
+     */
     setArchitectureRole(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -6280,6 +9571,14 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Set new colony funding role. Can be called by root role or architecture role.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _domainId Domain in which we are giving user the role
+     * @param _permissionDomainId Domain in which the caller has root/architecture role
+     * @param _setTo The state of the role permission (true assign the permission, false revokes it)
+     * @param _user User we want to give an funding role to
+     */
     setFundingRole(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -6289,6 +9588,14 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Set new colony admin role. Can be called by root role or architecture role.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _domainId Domain in which we are giving user the role
+     * @param _permissionDomainId Domain in which the caller has root/architecture role
+     * @param _setTo The state of the role permission (true assign the permission, false revokes it)
+     * @param _user User we want to give an admin role to
+     */
     setAdministrationRole(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -6298,6 +9605,14 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Set several roles in one transaction. Can be called by root role or architecture role.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _domainId Domain in which we are giving user the role
+     * @param _permissionDomainId Domain in which the caller has root/architecture role
+     * @param _roles Byte array representing the desired role setting (1 for on, 0 for off)
+     * @param _user User we want to give a role to
+     */
     setUserRoles(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -6307,6 +9622,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Check whether a given user has a given role for the colony. Calls the function of the same name on the colony's authority contract.
+     * @param _domainId The domain where we want to check for the role
+     * @param _role The role we want to check for
+     * @param _user The user whose role we want to check
+     */
     hasUserRole(
       _user: string,
       _domainId: BigNumberish,
@@ -6314,6 +9635,14 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Check whether a given user has a given role for the colony, in a child domain. Calls the function of the same name on the colony's authority contract and an internal inheritence validator function
+     * @param _childDomainId The domain where we want to use the role
+     * @param _childSkillIndex The index that the `_childDomainId` is relative to `_domainId`
+     * @param _domainId Domain in which the caller has the role
+     * @param _role The role we want to check for
+     * @param _user The user whose role we want to check
+     */
     hasInheritedUserRole(
       _user: string,
       _domainId: BigNumberish,
@@ -6323,6 +9652,13 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Check whether a given user can modify roles in the target domain `_childDomainId`. Mostly a convenience function to provide a uniform interface for extension contracts validating permissions
+     * @param _childDomainId The domain where we want to edit roles
+     * @param _childSkillIndex The index that the `_childDomainId` is relative to `_domainId`
+     * @param _domainId Domain in which the caller has the role (currently Root or Architecture)
+     * @param _user The user whose permissions we want to check
+     */
     userCanSetRoles(
       _user: string,
       _domainId: BigNumberish,
@@ -6331,17 +9667,32 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Gets the bytes32 representation of the roles for a user in a given domain
+     * @param _domain The domain we want to get roles in
+     * @param _user The user whose roles we want to get
+     */
     getUserRoles(
       _user: string,
       _domain: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Gets the bytes32 representation of the roles authorized to call a function
+     * @param _sig The function signature
+     */
     getCapabilityRoles(
       _sig: BytesLike,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Emit a positive domain reputation update. Available only to Root role holders
+     * @param _amount The (positive) amount of reputation to gain
+     * @param _domainId The domain where the user will gain reputation
+     * @param _user The user who will gain reputation
+     */
     emitDomainReputationReward(
       _domainId: BigNumberish,
       _user: string,
@@ -6349,6 +9700,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Emit a positive skill reputation update. Available only to Root role holders
+     * @param _amount The (positive) amount of reputation to gain
+     * @param _skillId The skill where the user will gain reputation
+     * @param _user The user who will gain reputation
+     */
     emitSkillReputationReward(
       _skillId: BigNumberish,
       _user: string,
@@ -6356,6 +9713,14 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Emit a negative domain reputation update. Available only to Arbitration role holders
+     * @param _amount The (negative) amount of reputation to lose
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _domainId The domain where the user will lose reputation
+     * @param _permissionDomainId The domainId in which I hold the Arbitration role
+     * @param _user The user who will lose reputation
+     */
     emitDomainReputationPenalty(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -6365,6 +9730,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Emit a negative skill reputation update. Available only to Arbitration role holders in the root domain
+     * @param _amount The (negative) amount of reputation to lose
+     * @param _skillId The skill where the user will lose reputation
+     * @param _user The user who will lose reputation
+     */
     emitSkillReputationPenalty(
       _skillId: BigNumberish,
       _user: string,
@@ -6372,78 +9743,147 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Sets the reward inverse to the uint max 2**256 - 1.
+     * Called once when the colony is created to initialise certain storage slot values.
+     * @param _colonyNetworkAddress Address of the colony network
+     * @param _token Address of the colony ERC20 Token
+     */
     initialiseColony(
       _colonyNetworkAddress: string,
       _token: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Called to change the metadata associated with a colony. Expected to be a IPFS hash of a JSON blob, but not enforced to any degree by the contracts
+     * @param _metadata IPFS hash of the metadata
+     */
     editColony(
       _metadata: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Only allowed to be called when `taskCount` is `0` by authorized addresses.
+     * Allows the colony to bootstrap itself by having initial reputation and token `_amount` assigned to `_users`. This reputation is assigned in the colony-wide domain. Secured function to authorised members.
+     * @param _amount Amount of reputation/tokens for every address
+     * @param _users Array of address to bootstrap with reputation
+     */
     bootstrapColony(
       _users: string[],
       _amount: BigNumberish[],
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Mint `_wad` amount of colony tokens. Secured function to authorised members.
+     * @param _wad Amount to mint
+     */
     mintTokens(
       _wad: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Mint `_wad` amount of colony tokens and send to `_guy`. Secured function to authorised members.
+     * @param _guy Recipient of new tokens
+     * @param _wad Amount to mint
+     */
     mintTokensFor(
       _guy: string,
       _wad: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Lock the colony's token. Can only be called by a network-managed extension.
+     */
     lockToken(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Unlock the colony's token for a user. Can only be called by a network-managed extension.
+     * @param lockId The specific lock to unlock
+     * @param user The user to unlock
+     */
     unlockTokenForUser(
       user: string,
       lockId: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Register colony's ENS label.
+     * @param colonyName The label to register.
+     * @param orbitdb The path of the orbitDB database associated with the colony name
+     */
     registerColonyLabel(
       colonyName: string,
       orbitdb: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Update a colony's orbitdb address. Can only be called by a colony with a registered subdomain
+     * @param orbitdb The path of the orbitDB database to be associated with the colony
+     */
     updateColonyOrbitDB(
       orbitdb: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Install an extension to the colony. Secured function to authorised members.
+     * @param extensionId keccak256 hash of the extension name, used as an indentifier
+     * @param version The new extension version to install
+     */
     installExtension(
       extensionId: BytesLike,
       version: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Upgrade an extension in a colony. Secured function to authorised members.
+     * @param extensionId keccak256 hash of the extension name, used as an indentifier
+     * @param newVersion The version to upgrade to (must be one larger than the current version)
+     */
     upgradeExtension(
       extensionId: BytesLike,
       newVersion: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Set the deprecation of an extension in a colony. Secured function to authorised members.
+     * @param deprecated Whether to deprecate the extension or not
+     * @param extensionId keccak256 hash of the extension name, used as an indentifier
+     */
     deprecateExtension(
       extensionId: BytesLike,
       deprecated: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * This is a permanent action -- re-installing the extension will deploy a new contractIt is recommended to deprecate an extension before uninstalling to allow active objects to be resolved
+     * Uninstall an extension from a colony. Secured function to authorised members.
+     * @param extensionId keccak256 hash of the extension name, used as an indentifier
+     */
     uninstallExtension(
       extensionId: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Adding new domains is currently retricted to one level only, i.e. `_parentDomainId` has to be the root domain id: `1`.
+     * Add a colony domain, and its respective local skill under skill with id `_parentSkillId`. New funding pot is created and associated with the domain here.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _parentDomainId Id of the domain under which the new one will be added
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     */
     "addDomain(uint256,uint256,uint256)"(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -6451,6 +9891,14 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Adding new domains is currently retricted to one level only, i.e. `_parentDomainId` has to be the root domain id: `1`.We expect this function to only be used by the dapp
+     * Add a colony domain, and its respective local skill under skill with id `_parentSkillId`. New funding pot is created and associated with the domain here.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _metadata Metadata relating to the domain. Expected to be the IPFS hash of a JSON blob, but not enforced by the contracts.
+     * @param _parentDomainId Id of the domain under which the new one will be added
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     */
     "addDomain(uint256,uint256,uint256,string)"(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -6459,6 +9907,13 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Add a colony domain, and its respective local skill under skill with id `_parentSkillId`. New funding pot is created and associated with the domain here.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _domainId Id of the domain being edited
+     * @param _metadata Metadata relating to the domain. Expected to be the IPFS hash of a JSON blob, but not enforced by the contracts.
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     */
     editDomain(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -6467,13 +9922,28 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Get a domain by id.
+     * @param _id Id of the domain which details to get
+     */
     getDomain(
       _id: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the number of domains in the colony.
+     */
     getDomainCount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    /**
+     * For more detail about branchMask and siblings, examine the PatriciaTree implementation. While external, likely only to be used by the Colony contracts, as it checks that the user is proving their own reputation in the current colony. The `verifyProof` function can be used to verify any proof, though this function is not currently exposed on the Colony's EtherRouter.
+     * Helper function that can be used by a client to verify the correctness of a patricia proof they have been supplied with.
+     * @param branchMask The branchmask of the proof
+     * @param key The key of the element the proof is for.
+     * @param siblings The siblings of the proof
+     * @param value The value of the element that the proof is for.
+     */
     verifyReputationProof(
       key: BytesLike,
       value: BytesLike,
@@ -6482,11 +9952,21 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Update the default global claim delay for expenditures
+     * @param _globalClaimDelay The new default global claim delay
+     */
     setDefaultGlobalClaimDelay(
       _globalClaimDelay: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Add a new expenditure in the colony. Secured function to authorised members.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
+     * @param _domainId The domain where the expenditure belongs
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     */
     makeExpenditure(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -6494,12 +9974,25 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Updates the expenditure owner. Can only be called by expenditure owner.
+     * @param _id Expenditure identifier
+     * @param _newOwner New owner of expenditure
+     */
     transferExpenditure(
       _id: BigNumberish,
       _newOwner: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * This is now deprecated and will be removed in a future version
+     * DEPRECATED Updates the expenditure owner. Can only be called by Arbitration role.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
+     * @param _id Expenditure identifier
+     * @param _newOwner New owner of expenditure
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     */
     transferExpenditureViaArbitration(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -6508,21 +10001,40 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Cancels the expenditure and prevents further editing. Can only be called by expenditure owner.
+     * @param _id Expenditure identifier
+     */
     cancelExpenditure(
       _id: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Locks the expenditure and prevents further editing. Can only be called by expenditure owner.
+     * @param _id Expenditure identifier
+     */
     lockExpenditure(
       _id: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Finalizes the expenditure and allows for funds to be claimed. Can only be called by expenditure owner.
+     * @param _id Expenditure identifier
+     */
     finalizeExpenditure(
       _id: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Sets the metadata for an expenditure. Can only be called by Arbitration role.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`,
+     * @param _id Id of the expenditure
+     * @param _metadata IPFS hash of the metadata
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     */
     "setExpenditureMetadata(uint256,uint256,uint256,string)"(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -6531,12 +10043,23 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Sets the metadata for an expenditure. Can only be called by expenditure owner.
+     * @param _id Id of the expenditure
+     * @param _metadata IPFS hash of the metadata
+     */
     "setExpenditureMetadata(uint256,string)"(
       _id: BigNumberish,
       _metadata: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * DeprecatedSets the recipient on an expenditure slot. Can only be called by expenditure owner.
+     * @param _id Id of the expenditure
+     * @param _recipient Address of the recipient
+     * @param _slot Slot for the recipient address
+     */
     setExpenditureRecipient(
       _id: BigNumberish,
       _slot: BigNumberish,
@@ -6544,6 +10067,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Sets the recipients in given expenditure slots. Can only be called by expenditure owner.
+     * @param _id Id of the expenditure
+     * @param _recipients Addresses of the recipients
+     * @param _slots Array of slots to set recipients
+     */
     setExpenditureRecipients(
       _id: BigNumberish,
       _slots: BigNumberish[],
@@ -6551,6 +10080,13 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * DeprecatedSet the token payout on an expenditure slot. Can only be called by expenditure owner.
+     * @param _amount Payout amount
+     * @param _id Id of the expenditure
+     * @param _slot Number of the slot
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     setExpenditurePayout(
       _id: BigNumberish,
       _slot: BigNumberish,
@@ -6559,6 +10095,13 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Set the token payouts in given expenditure slots. Can only be called by expenditure owner.
+     * @param _amounts Payout amounts
+     * @param _id Id of the expenditure
+     * @param _slots Array of slots to set payouts
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     setExpenditurePayouts(
       _id: BigNumberish,
       _slots: BigNumberish[],
@@ -6567,6 +10110,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * DeprecatedSets the skill on an expenditure slot. Can only be called by expenditure owner.
+     * @param _id Expenditure identifier
+     * @param _skillId Id of the new skill to set
+     * @param _slot Number of the slot
+     */
     setExpenditureSkill(
       _id: BigNumberish,
       _slot: BigNumberish,
@@ -6574,6 +10123,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Sets the skill on an expenditure slot. Can only be called by expenditure owner.
+     * @param _id Expenditure identifier
+     * @param _skillIds Ids of the new skills to set
+     * @param _slots Array of slots to set skills
+     */
     setExpenditureSkills(
       _id: BigNumberish,
       _slots: BigNumberish[],
@@ -6581,6 +10136,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * DeprecatedSets the claim delay on an expenditure slot. Can only be called by expenditure owner.
+     * @param _claimDelay Duration of time (in seconds) to delay
+     * @param _id Expenditure identifier
+     * @param _slot Number of the slot
+     */
     setExpenditureClaimDelay(
       _id: BigNumberish,
       _slot: BigNumberish,
@@ -6588,6 +10149,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Sets the claim delays in given expenditure slots. Can only be called by expenditure owner.
+     * @param _claimDelays Durations of time (in seconds) to delay
+     * @param _id Expenditure identifier
+     * @param _slots Array of slots to set claim delays
+     */
     setExpenditureClaimDelays(
       _id: BigNumberish,
       _slots: BigNumberish[],
@@ -6595,6 +10162,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Sets the payout modifiers in given expenditure slots. Can only be called by expenditure owner.
+     * @param _id Expenditure identifier
+     * @param _payoutModifiers Values (between +/- WAD) to modify the payout & reputation bonus
+     * @param _slots Array of slots to set payout modifiers
+     */
     setExpenditurePayoutModifiers(
       _id: BigNumberish,
       _slots: BigNumberish[],
@@ -6602,6 +10175,16 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Set arbitrary state on an expenditure slot. Can only be called by Arbitration role.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
+     * @param _id Expenditure identifier
+     * @param _keys Array of additional keys (for mappings & arrays)
+     * @param _mask Array of booleans indicated whether a key is a mapping (F) or an array index (T).
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _storageSlot Number of the top-level storage slot (25, 26, or 27)
+     * @param _value Value to set at location
+     */
     setExpenditureState(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -6613,6 +10196,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Claim the payout for an expenditure slot. Here the network receives a fee from each payout.
+     * @param _id Expenditure identifier
+     * @param _slot Number of the slot
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     claimExpenditurePayout(
       _id: BigNumberish,
       _slot: BigNumberish,
@@ -6620,21 +10209,39 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the number of expenditures in the colony.
+     */
     getExpenditureCount(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Returns an existing expenditure.
+     * @param _id Expenditure identifier
+     */
     getExpenditure(
       _id: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Returns an existing expenditure slot.
+     * @param _id Expenditure identifier
+     * @param _slot Expenditure slot
+     */
     getExpenditureSlot(
       _id: BigNumberish,
       _slot: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Returns an existing expenditure slot's payout for a token.
+     * @param _id Expenditure identifier
+     * @param _slot Expenditure slot
+     * @param _token Token address
+     */
     getExpenditureSlotPayout(
       _id: BigNumberish,
       _slot: BigNumberish,
@@ -6642,6 +10249,16 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Add a new payment in the colony. Secured function to authorised members.
+     * @param _amount Payout amount
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
+     * @param _domainId The domain where the payment belongs
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _recipient Address of the payment recipient
+     * @param _skillId The skill associated with the payment
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     addPayment(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -6653,6 +10270,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Finalizes the payment and logs the reputation log updates. Allowed to be called once after payment is fully funded. Secured function to authorised members.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _id Payment identifier
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     */
     finalizePayment(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -6660,6 +10283,13 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Sets the recipient on an existing payment. Secured function to authorised members.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _id Payment identifier
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _recipient Address of the payment recipient
+     */
     setPaymentRecipient(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -6668,6 +10298,13 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Sets the skill on an existing payment. Secured function to authorised members.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _id Payment identifier
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _skillId Id of the new skill to set
+     */
     setPaymentSkill(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -6676,6 +10313,14 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Sets the payout for a given token on an existing payment. Secured function to authorised members.
+     * @param _amount Payout amount
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _id Payment identifier
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     setPaymentPayout(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -6685,19 +10330,40 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Returns an exiting payment.
+     * @param _id Payment identifier
+     */
     getPayment(
       _id: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Claim the payout in `_token` denomination for payment `_id`. Here the network receives its fee from each payout. Same as for tasks, ether fees go straight to the Meta Colony whereas Token fees go to the Network to be auctioned off.
+     * @param _id Payment identifier
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     claimPayment(
       _id: BigNumberish,
       _token: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the number of payments in the colony.
+     */
     getPaymentCount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    /**
+     * Make a new task in the colony. Secured function to authorised members.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _domainId The domain where the task belongs
+     * @param _dueDate The due date of the task, can set to `0` for no-op
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _skillId The skill associated with the task, can set to `0` for no-op
+     * @param _specificationHash Database identifier where the task specification is stored
+     */
     makeTask(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -6708,13 +10374,30 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the number of tasks in the colony.
+     */
     getTaskCount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    /**
+     * Starts from 0 and is incremented on every co-reviewed task change via `executeTaskChange` call.
+     * @param _id Id of the task
+     */
     getTaskChangeNonce(
       _id: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * The Colony functions which require approval and the task roles to review these are set in `IColony.initialiseColony` at colony creation. Upon successful execution the `taskChangeNonces` entry for the task is incremented.
+     * Executes a task update transaction `_data` which is approved and signed by two of its roles (e.g. manager and worker) using the detached signatures for these users.
+     * @param _data The transaction data
+     * @param _mode How the signature was generated - 0 for Geth-style (usual), 1 for Trezor-style (only Trezor does this)
+     * @param _sigR r output of the ECDSA signature of the transaction
+     * @param _sigS s output of the ECDSA signature of the transaction
+     * @param _sigV recovery id
+     * @param _value The transaction value, i.e. number of wei to be sent when the transaction is executed Currently we only accept 0 value transactions but this is kept as a future option
+     */
     executeTaskChange(
       _sigV: BigNumberish[],
       _sigR: BytesLike[],
@@ -6725,6 +10408,15 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Executes a task role update transaction `_data` which is approved and signed by two of addresses. depending of which function we are calling. Allowed functions are `setTaskManagerRole`, `setTaskEvaluatorRole` and `setTaskWorkerRole`. Upon successful execution the `taskChangeNonces` entry for the task is incremented.
+     * @param _data The transaction data
+     * @param _mode How the signature was generated - 0 for Geth-style (usual), 1 for Trezor-style (only Trezor does this)
+     * @param _sigR r output of the ECDSA signature of the transaction
+     * @param _sigS s output of the ECDSA signature of the transaction
+     * @param _sigV recovery id
+     * @param _value The transaction value, i.e. number of wei to be sent when the transaction is executed Currently we only accept 0 value transactions but this is kept as a future option
+     */
     executeTaskRoleAssignment(
       _sigV: BigNumberish[],
       _sigR: BytesLike[],
@@ -6735,6 +10427,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Submit a hashed secret of the rating for work in task `_id` which was performed by user with task role id `_role`. Allowed within 5 days period starting which whichever is first from either the deliverable being submitted or the dueDate been reached. Allowed only for evaluator to rate worker and for worker to rate manager performance. Once submitted ratings can not be changed or overwritten.
+     * @param _id Id of the task
+     * @param _ratingSecret `keccak256` hash of a salt and 0-50 rating score (in increments of 10, .e.g 0, 10, 20, 30, 40 or 50). Can be generated via `IColony.generateSecret` helper function.
+     * @param _role Id of the role, as defined in TaskRole enum
+     */
     submitTaskWorkRating(
       _id: BigNumberish,
       _role: BigNumberish,
@@ -6742,6 +10440,14 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Compares the `keccak256(_salt, _rating)` output with the previously submitted rating secret and if they match, sets the task role properties `rated` to `true` and `rating` to `_rating`.
+     * Reveal the secret rating submitted in `IColony.submitTaskWorkRating` for task `_id` and task role with id `_role`. Allowed within 5 days period starting which whichever is first from either both rating secrets being submitted (via `IColony.submitTaskWorkRating`) or the 5 day rating period expiring.
+     * @param _id Id of the task
+     * @param _rating 0-50 rating score (in increments of 10, .e.g 0, 10, 20, 30, 40 or 50)
+     * @param _role Id of the role, as defined in TaskRole enum
+     * @param _salt Salt value used to generate the rating secret
+     */
     revealTaskWorkRating(
       _id: BigNumberish,
       _role: BigNumberish,
@@ -6750,23 +10456,45 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Helper function used to generage consistently the rating secret using salt value `_salt` and value to hide `_value`
+     * @param _salt Salt value
+     * @param _value Value to hide
+     */
     generateSecret(
       _salt: BytesLike,
       _value: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the `ColonyStorage.RatingSecrets` information for task `_id`.
+     * @param _id Id of the task
+     */
     getTaskWorkRatingSecretsInfo(
       _id: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the rating secret submitted for role `_role` in task `_id`
+     * @param _id Id of the task
+     * @param _role Id of the role, as defined in TaskRole enum
+     */
     getTaskWorkRatingSecret(
       _id: BigNumberish,
       _role: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * This function can only be called through `executeTaskRoleAssignment`.
+     * Assigning manager role. Current manager and user we want to assign role to both need to agree. User we want to set here also needs to be an admin. Note that the domain proof data comes at the end here to not interfere with the assembly argument unpacking.
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _id Id of the task
+     * @param _permissionDomainId The domain ID in which _user has the Administration permission
+     * @param _user Address of the user we want to give a manager role to
+     */
     setTaskManagerRole(
       _id: BigNumberish,
       _user: string,
@@ -6775,52 +10503,101 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * This function can only be called through `executeTaskRoleAssignment`.
+     * Assigning evaluator role. Can only be set if there is no one currently assigned to be an evaluator. Manager of the task and user we want to assign role to both need to agree. Managers can assign themselves to this role, if there is no one currently assigned to it.
+     * @param _id Id of the task
+     * @param _user Address of the user we want to give a evaluator role to
+     */
     setTaskEvaluatorRole(
       _id: BigNumberish,
       _user: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * This function can only be called through `executeTaskRoleAssignment`.
+     * Assigning worker role. Can only be set if there is no one currently assigned to be a worker. Manager of the task and user we want to assign role to both need to agree.
+     * @param _id Id of the task
+     * @param _user Address of the user we want to give a worker role to
+     */
     setTaskWorkerRole(
       _id: BigNumberish,
       _user: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Removing evaluator role. Agreed between manager and currently assigned evaluator.
+     * @param _id Id of the task
+     */
     removeTaskEvaluatorRole(
       _id: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Removing worker role. Agreed between manager and currently assigned worker.
+     * @param _id Id of the task
+     */
     removeTaskWorkerRole(
       _id: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Currently we only allow one skill per task although we have provisioned for an array of skills in `Task` struct. Allowed before a task is finalized.
+     * Set the skill for task `_id`.
+     * @param _id Id of the task
+     * @param _skillId Id of the skill which has to be a global skill
+     */
     setTaskSkill(
       _id: BigNumberish,
       _skillId: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Set the hash for the task brief, aka task work specification, which identifies the task brief content in ddb. Allowed before a task is finalized.
+     * @param _id Id of the task
+     * @param _specificationHash Unique hash of the task brief in ddb
+     */
     setTaskBrief(
       _id: BigNumberish,
       _specificationHash: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Set the due date on task `_id`. Allowed before a task is finalized.
+     * @param _dueDate Due date as seconds since unix epoch
+     * @param _id Id of the task
+     */
     setTaskDueDate(
       _id: BigNumberish,
       _dueDate: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Set the `task.deliverableHash` and `task.completionTimestamp` properties.
+     * Submit the task deliverable, i.e. the output of the work performed for task `_id`. Submission is allowed only to the assigned worker before the task due date. Submissions cannot be overwritten.
+     * @param _deliverableHash Unique hash of the task deliverable content in ddb
+     * @param _id Id of the task
+     */
     submitTaskDeliverable(
       _id: BigNumberish,
       _deliverableHash: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Internally call `submitTaskDeliverable` and `submitTaskWorkRating` in sequence.
+     * Submit the task deliverable for Worker and rating for Manager.
+     * @param _deliverableHash Unique hash of the task deliverable content in ddb
+     * @param _id Id of the task
+     * @param _ratingSecret Rating secret for manager
+     */
     submitTaskDeliverableAndRating(
       _id: BigNumberish,
       _deliverableHash: BytesLike,
@@ -6828,39 +10605,75 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Set the `task.finalized` property to true
+     * Called after task work rating is complete which closes the task and logs the respective reputation log updates. Allowed to be called once per task. Secured function to authorised members.
+     * @param _id Id of the task
+     */
     finalizeTask(
       _id: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Set the `task.status` property to `1`.
+     * Cancel a task at any point before it is finalized. Secured function to authorised members. Any funds assigned to its funding pot can be moved back to the domain via `IColony.moveFundsBetweenPots`.
+     * @param _id Id of the task
+     */
     cancelTask(
       _id: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Mark a task as complete after the due date has passed. This allows the task to be rated and finalized (and funds recovered) even in the presence of a worker who has disappeared. Note that if the due date was not set, then this function will throw.
+     * @param _id Id of the task
+     */
     completeTask(
       _id: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Get a task with id `_id`
+     * @param _id Id of the task
+     */
     getTask(
       _id: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the `Role` properties back for role `_role` in task `_id`.
+     * @param _id Id of the task
+     * @param _role Id of the role, as defined in TaskRole enum
+     */
     getTaskRole(
       _id: BigNumberish,
       _role: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Set the reward inverse to pay out from revenue. e.g. if the fee is 1% (or 0.01), set 100.
+     * @param _rewardInverse The inverse of the reward
+     */
     setRewardInverse(
       _rewardInverse: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Return 1 / the reward to pay out from revenue. e.g. if the fee is 1% (or 0.01), return 100.
+     */
     getRewardInverse(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    /**
+     * Get payout amount in `_token` denomination for role `_role` in task `_id`.
+     * @param _id Id of the task
+     * @param _role Id of the role, as defined in TaskRole enum
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     getTaskPayout(
       _id: BigNumberish,
       _role: BigNumberish,
@@ -6868,6 +10681,12 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Set `_token` payout for manager in task `_id` to `_amount`.
+     * @param _amount Payout amount
+     * @param _id Id of the task
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     setTaskManagerPayout(
       _id: BigNumberish,
       _token: string,
@@ -6875,6 +10694,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Set `_token` payout for evaluator in task `_id` to `_amount`.
+     * @param _amount Payout amount
+     * @param _id Id of the task
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     setTaskEvaluatorPayout(
       _id: BigNumberish,
       _token: string,
@@ -6882,6 +10707,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Set `_token` payout for worker in task `_id` to `_amount`.
+     * @param _amount Payout amount
+     * @param _id Id of the task
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     setTaskWorkerPayout(
       _id: BigNumberish,
       _token: string,
@@ -6889,6 +10720,15 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Can only call if evaluator and worker are unassigned or manager, otherwise need signature.
+     * Set `_token` payout for all roles in task `_id` to the respective amounts.
+     * @param _evaluatorAmount Payout amount for evaluator
+     * @param _id Id of the task
+     * @param _managerAmount Payout amount for manager
+     * @param _token Address of the token, `0x0` value indicates Ether
+     * @param _workerAmount Payout amount for worker
+     */
     setAllTaskPayouts(
       _id: BigNumberish,
       _token: string,
@@ -6898,6 +10738,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Claim the payout in `_token` denomination for work completed in task `_id` by contributor with role `_role`. Allowed only after task is finalized. Here the network receives its fee from each payout. Ether fees go straight to the Meta Colony whereas Token fees go to the Network to be auctioned off.
+     * @param _id Id of the task
+     * @param _role Id of the role, as defined in TaskRole enum
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     claimTaskPayout(
       _id: BigNumberish,
       _role: BigNumberish,
@@ -6905,6 +10751,14 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Start next reward payout for `_token`. All funds in the reward pot for `_token` will become unavailable.Add a new payment in the colony. Can only be called by users with root permission. All tokens will be locked, and can be unlocked by calling `waiveRewardPayout` or `claimRewardPayout`.
+     * @param _token Address of the token used for reward payout
+     * @param branchMask The branchmask of the proof
+     * @param key Some Reputation hash tree key
+     * @param siblings The siblings of the proof
+     * @param value Reputation value
+     */
     startNextRewardPayout(
       _token: string,
       key: BytesLike,
@@ -6914,6 +10768,15 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Claim the reward payout at `_payoutId`. User needs to provide their reputation and colony-wide reputation which will be proven via Merkle proof inside this function. Can only be called if payout is active, i.e if 60 days have not passed from its creation. Can only be called if next in queue.
+     * @param _payoutId Id of the reward payout
+     * @param _squareRoots Square roots of values used in equation: `_squareRoots[0]` - square root of user reputation, `_squareRoots[1]` - square root of user tokens (deposited in TokenLocking), `_squareRoots[2]` - square root of total reputation, `_squareRoots[3]` - square root of total tokens, `_squareRoots[4]` - square root of numerator (user reputation * user tokens), `_squareRoots[5]` - square root of denominator (total reputation * total tokens), `_squareRoots[6]` - square root of payout amount.
+     * @param branchMask The branchmask of the proof
+     * @param key Some Reputation hash tree key
+     * @param siblings The siblings of the proof
+     * @param value Reputation value
+     */
     claimRewardPayout(
       _payoutId: BigNumberish,
       _squareRoots: BigNumberish[],
@@ -6924,37 +10787,75 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Get useful information about specific reward payout.
+     * @param _payoutId Id of the reward payout
+     */
     getRewardPayoutInfo(
       _payoutId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Finalises the reward payout. Allows creation of next reward payouts for token that has been used in `_payoutId`. Can only be called when reward payout cycle is finished i.e when 60 days have passed from its creation.
+     * @param _payoutId Id of the reward payout
+     */
     finalizeRewardPayout(
       _payoutId: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * For the reward funding pot (e.g. id: 0) this returns (0, 0, 0).
+     * Get the non-mapping properties of a pot by id.
+     * @param _id Id of the pot which details to get
+     */
     getFundingPot(
       _id: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the number of funding pots in the colony.
+     */
     getFundingPotCount(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the `_token` balance of pot with id `_potId`.
+     * @param _potId Id of the funding pot
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     getFundingPotBalance(
       _potId: BigNumberish,
       _token: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the assigned `_token` payouts of pot with id `_potId`.
+     * @param _potId Id of the funding pot
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     getFundingPotPayout(
       _potId: BigNumberish,
       _token: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Move a given amount: `_amount` of `_token` funds from funding pot with id `_fromPot` to one with id `_toPot`.
+     * @param _amount Amount of funds
+     * @param _childSkillIndex The child index in _permissionDomainId where I will be taking this action
+     * @param _domainId The domain where I am taking this action, pointed to by _permissionDomainId and _childSkillIndex
+     * @param _fromChildSkillIndex In the array of child skills for the skill associated with the domain pointed to by _permissionDomainId + _childSkillIndex,         the index of the skill associated with the domain that contains _fromPot
+     * @param _fromPot Funding pot id providing the funds
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _toChildSkillIndex The same, but for the _toPot which the funds are being moved to
+     * @param _toPot Funding pot id receiving the funds
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     "moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)"(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -6968,6 +10869,16 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * DEPRECATEDMove a given amount: `_amount` of `_token` funds from funding pot with id `_fromPot` to one with id `_toPot`.
+     * @param _amount Amount of funds
+     * @param _fromChildSkillIndex The child index in `_permissionDomainId` where we can find the domain for `_fromPotId`
+     * @param _fromPot Funding pot id providing the funds
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _toChildSkillIndex The child index in `_permissionDomainId` where we can find the domain for `_toPotId`
+     * @param _toPot Funding pot id receiving the funds
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     "moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,address)"(
       _permissionDomainId: BigNumberish,
       _fromChildSkillIndex: BigNumberish,
@@ -6979,16 +10890,30 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Move any funds received by the colony in `_token` denomination to the top-level domain pot, siphoning off a small amount to the reward pot. If called against a colony's own token, no fee is taken.
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     claimColonyFunds(
       _token: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the total amount of tokens `_token` minus amount reserved to be paid to the reputation and token holders as rewards.
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     getNonRewardPotsTotal(
       _token: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Allow the _approvee to obligate some amount of tokens as a stake.
+     * @param _amount Amount of internal token up to which we are willing to be obligated.
+     * @param _approvee Address of the account we are willing to let obligate us.
+     * @param _domainId Domain in which we are willing to be obligated.
+     */
     approveStake(
       _approvee: string,
       _domainId: BigNumberish,
@@ -6996,6 +10921,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Obligate the user some amount of tokens as a stake.
+     * @param _amount Amount of internal token we are obligating.
+     * @param _domainId Domain in which we are obligating the user.
+     * @param _user Address of the account we are obligating.
+     */
     obligateStake(
       _user: string,
       _domainId: BigNumberish,
@@ -7003,6 +10934,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Deobligate the user some amount of tokens, releasing the stake.
+     * @param _amount Amount of internal token we are deobligating.
+     * @param _domainId Domain in which we are deobligating the user.
+     * @param _user Address of the account we are deobligating.
+     */
     deobligateStake(
       _user: string,
       _domainId: BigNumberish,
@@ -7010,6 +10947,16 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Transfer some amount of obligated tokens. Can be called by the arbitration role.
+     * @param _amount Amount of internal token we are transferring.
+     * @param _childSkillIndex The child index in `_permissionDomainId` where we can find `_domainId`.
+     * @param _domainId Domain in which we are transferring the tokens.
+     * @param _obligator Address of the account who set the obligation.
+     * @param _permissionDomainId The domainId in which I have the permission to take this action.
+     * @param _recipient Recipient of the transferred tokens.
+     * @param _user Address of the account we are transferring.
+     */
     transferStake(
       _permissionDomainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -7021,6 +10968,12 @@ export interface IColony extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * View an approval to obligate tokens.
+     * @param _domainId Domain in which we are willing to be obligated.
+     * @param _obligator Address of the account we are willing to let obligate us.
+     * @param _user User allowing their tokens to be obligated.
+     */
     getApproval(
       _user: string,
       _obligator: string,
@@ -7028,6 +10981,12 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * View an obligation of tokens.
+     * @param _domainId Domain in which we are obligated.
+     * @param _obligator Address of the account who obligated us.
+     * @param _user User whose tokens are obligated.
+     */
     getObligation(
       _user: string,
       _obligator: string,
@@ -7035,33 +10994,59 @@ export interface IColony extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the domain corresponding to a funding pot
+     * @param _fundingPotId Id of the funding pot
+     */
     getDomainFromFundingPot(
       _fundingPotId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Burn tokens held by the colony. Can only burn tokens held in the root funding pot.
+     * @param amount The amount of tokens to burn
+     * @param token The address of the token to burn
+     */
     burnTokens(
       token: string,
       amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * unlock the native colony token, if possible
+     */
     unlockToken(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Update the internal bookkeeping around external ERC20 approvals
+     * @param spender The account we have approved
+     * @param token The address of the token which was approved
+     */
     updateApprovalAmount(
       token: string,
       spender: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the current approval amount
+     * @param spender The account we have approved
+     * @param token The address of the token which was approved
+     */
     getTokenApproval(
       token: string,
       spender: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the current total approval amount across all spenders
+     * @param token The address of the token which was approved
+     */
     getTotalTokenApproval(
       token: string,
       overrides?: CallOverrides
