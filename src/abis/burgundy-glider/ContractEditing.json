@@ -1,1 +1,30 @@
-{"contractName":"ContractEditing","abi":[{"constant":false,"inputs":[{"name":"_slot","type":"uint256"},{"name":"_value","type":"bytes32"}],"name":"setStorageSlot","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"}],"bytecode":"0x6080604052348015600f57600080fd5b50607f8061001e6000396000f3fe6080604052348015600f57600080fd5b506004361060285760003560e01c806319748acc14602d575b600080fd5b604d60048036036040811015604157600080fd5b5080359060200135604f565b005b905556fea165627a7a72305820bd48adbdf922f8aa262a7865154c2009705108f4a81d79f7d8c6c4547c4e82850029"}
+{
+    "contractName": "ContractEditing",
+    "abi": [
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_slot",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_value",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "setStorageSlot",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ],
+    "bytecode": "0x6080604052348015600f57600080fd5b50607f8061001e6000396000f3fe6080604052348015600f57600080fd5b506004361060285760003560e01c806319748acc14602d575b600080fd5b604d60048036036040811015604157600080fd5b5080359060200135604f565b005b905556fea165627a7a7230582095bc8191f5f50762b023830ea90cba1fadef5839ceaace1c91d15a0eeda447880029",
+    "devdoc": {
+        "methods": {}
+    },
+    "userdoc": {
+        "methods": {}
+    }
+}

@@ -37,6 +37,7 @@ const EVENTS_CONTRACTS = VERSIONED_CONTRACTS.map(
 
 const rm = promisify(rimraf);
 
+// Simplified event ABI node
 type Event = {
   inputs: { name: string; type: string }[];
   name: string;

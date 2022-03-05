@@ -1,1 +1,17 @@
-{"contractName":"Data","abi":[],"bytecode":"0x60566023600b82828239805160001a607314601657fe5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea2646970667358221220f95de2aac8d9c40d7fed9888480c48f4a7902e32d8e3249060e10840062f64da64736f6c63430007030033"}
+{
+    "contractName": "Data",
+    "abi": [],
+    "bytecode": "0x60566023600b82828239805160001a607314601657fe5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea2646970667358221220f95de2aac8d9c40d7fed9888480c48f4a7902e32d8e3249060e10840062f64da64736f6c63430007030033",
+    "devdoc": {
+        "kind": "dev",
+        "methods": {},
+        "title": "Patricia tree Data library",
+        "version": 1
+    },
+    "userdoc": {
+        "kind": "user",
+        "methods": {},
+        "notice": "Data structures and utilities used in the Patricia Tree More info at: https://github.com/chriseth/patricia-trie",
+        "version": 1
+    }
+}

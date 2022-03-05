@@ -1,1 +1,744 @@
-{"contractName":"ColonyNetworkExtensions","abi":[{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"auction","type":"address"},{"indexed":false,"internalType":"address","name":"token","type":"address"},{"indexed":false,"internalType":"uint256","name":"quantity","type":"uint256"}],"name":"AuctionCreated","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"uint256","name":"colonyId","type":"uint256"},{"indexed":true,"internalType":"address","name":"colonyAddress","type":"address"},{"indexed":false,"internalType":"address","name":"token","type":"address"}],"name":"ColonyAdded","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"colony","type":"address"},{"indexed":false,"internalType":"bytes32","name":"label","type":"bytes32"}],"name":"ColonyLabelRegistered","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"resolver","type":"address"}],"name":"ColonyNetworkInitialised","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"version","type":"uint256"},{"indexed":false,"internalType":"address","name":"resolver","type":"address"}],"name":"ColonyVersionAdded","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"extensionId","type":"bytes32"},{"indexed":false,"internalType":"uint256","name":"version","type":"uint256"}],"name":"ExtensionAddedToNetwork","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"extensionId","type":"bytes32"},{"indexed":true,"internalType":"address","name":"colony","type":"address"},{"indexed":false,"internalType":"bool","name":"deprecated","type":"bool"}],"name":"ExtensionDeprecated","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"extensionId","type":"bytes32"},{"indexed":true,"internalType":"address","name":"colony","type":"address"},{"indexed":false,"internalType":"uint256","name":"version","type":"uint256"}],"name":"ExtensionInstalled","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"extensionId","type":"bytes32"},{"indexed":true,"internalType":"address","name":"colony","type":"address"}],"name":"ExtensionUninstalled","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"extensionId","type":"bytes32"},{"indexed":true,"internalType":"address","name":"colony","type":"address"},{"indexed":false,"internalType":"uint256","name":"version","type":"uint256"}],"name":"ExtensionUpgraded","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"authority","type":"address"}],"name":"LogSetAuthority","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"}],"name":"LogSetOwner","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"metaColony","type":"address"},{"indexed":false,"internalType":"address","name":"token","type":"address"},{"indexed":false,"internalType":"uint256","name":"rootSkillId","type":"uint256"}],"name":"MetaColonyCreated","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"miningCycleResolver","type":"address"}],"name":"MiningCycleResolverSet","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"feeInverse","type":"uint256"}],"name":"NetworkFeeInverseSet","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"ens","type":"address"},{"indexed":false,"internalType":"bytes32","name":"rootNode","type":"bytes32"}],"name":"RegistrarInitialised","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"miner","type":"address"},{"indexed":false,"internalType":"uint256","name":"tokensLost","type":"uint256"}],"name":"ReputationMinerPenalised","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"bytes32","name":"hash","type":"bytes32"},{"indexed":false,"internalType":"uint256","name":"nLeaves","type":"uint256"}],"name":"ReputationMiningCycleComplete","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"inactiveReputationMiningCycle","type":"address"}],"name":"ReputationMiningInitialised","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"ReputationMiningRewardSet","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"bytes32","name":"newHash","type":"bytes32"},{"indexed":false,"internalType":"uint256","name":"newNLeaves","type":"uint256"},{"indexed":false,"internalType":"address[]","name":"stakers","type":"address[]"},{"indexed":false,"internalType":"uint256","name":"reward","type":"uint256"}],"name":"ReputationRootHashSet","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"skillId","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"parentSkillId","type":"uint256"}],"name":"SkillAdded","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"tokenLocking","type":"address"}],"name":"TokenLockingAddressSet","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"token","type":"address"},{"indexed":false,"internalType":"bool","name":"status","type":"bool"}],"name":"TokenWhitelisted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"user","type":"address"},{"indexed":false,"internalType":"bytes32","name":"label","type":"bytes32"}],"name":"UserLabelRegistered","type":"event"},{"inputs":[],"name":"authority","outputs":[{"internalType":"contract DSAuthority","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"contract DSAuthority","name":"authority_","type":"address"}],"name":"setAuthority","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"owner_","type":"address"}],"name":"setOwner","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes32","name":"_extensionId","type":"bytes32"},{"internalType":"address","name":"_resolver","type":"address"}],"name":"addExtensionToNetwork","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes32","name":"_extensionId","type":"bytes32"},{"internalType":"uint256","name":"_version","type":"uint256"}],"name":"installExtension","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes32","name":"_extensionId","type":"bytes32"},{"internalType":"uint256","name":"_newVersion","type":"uint256"}],"name":"upgradeExtension","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes32","name":"_extensionId","type":"bytes32"},{"internalType":"bool","name":"_deprecated","type":"bool"}],"name":"deprecateExtension","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes32","name":"_extensionId","type":"bytes32"}],"name":"uninstallExtension","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes32","name":"_extensionId","type":"bytes32"},{"internalType":"uint256","name":"_version","type":"uint256"}],"name":"getExtensionResolver","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bytes32","name":"_extensionId","type":"bytes32"},{"internalType":"address","name":"_colony","type":"address"}],"name":"getExtensionInstallation","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"}],"bytecode":"0x608060405234801561001057600080fd5b50600180546001600160a01b031916339081179091556040517fce241d7ca1f669fee44b6fc00b8eba2df3bb514eed0f6f668f8f89096e81ed9490600090a261191b8061005e6000396000f3fe608060405234801561001057600080fd5b50600436106100a95760003560e01c80638da5cb5b116100715780638da5cb5b146101255780639dec09101461012d578063bf7e214f14610140578063c2308c4914610148578063d9bd780b1461015b578063dc6095ae1461016e576100a9565b806304eaa104146100ae57806313af4035146100c357806371be7b25146100d65780637a9e5e4b146100ff578063886484f714610112575b600080fd5b6100c16100bc366004610fa4565b610181565b005b6100c16100d1366004610ef1565b6102a3565b6100e96100e4366004610fc8565b610325565b6040516100f69190610fe9565b60405180910390f35b6100c161010d366004610ef1565b61034f565b6100c1610120366004610f75565b6103cd565b6100e9610533565b6100c161013b366004610fc8565b610542565b6100e961078c565b6100c1610156366004610f45565b61079b565b6100c1610169366004610fc8565b6108e3565b6100e961017c366004610f75565b610bec565b600254600160a01b900460ff16156101b45760405162461bcd60e51b81526004016101ab906111c0565b60405180910390fd5b3360009081526013602052604090205460ff166101e35760405162461bcd60e51b81526004016101ab90611103565b60008281526027602090815260408083203384529091529081902054905163249473fd60e21b81526001600160a01b0390911690639251cff49061022b90849060040161102a565b600060405180830381600087803b15801561024557600080fd5b505af1158015610259573d6000803e3d6000fd5b50505050336001600160a01b0316827fd9d35b85883f360d0e1ee37027c61473175414ffded7abcbfb19221a1a20e52083604051610297919061102a565b60405180910390a35050565b6102b9336000356001600160e01b031916610c15565b6102d55760405162461bcd60e51b81526004016101ab9061104a565b600180546001600160a01b0319166001600160a01b0383811691909117918290556040519116907fce241d7ca1f669fee44b6fc00b8eba2df3bb514eed0f6f668f8f89096e81ed9490600090a250565b60008281526026602090815260408083208484529091529020546001600160a01b03165b92915050565b610365336000356001600160e01b031916610c15565b6103815760405162461bcd60e51b81526004016101ab9061104a565b600080546001600160a01b0319166001600160a01b03838116919091178083556040519116917f1abebea81bfa2637f28358c371278fb15ede7ea8dd28d2e03b112ff6d936ada491a250565b600254600160a01b900460ff16156103f75760405162461bcd60e51b81526004016101ab906111c0565b6008546001600160a01b031633146104215760405162461bcd60e51b81526004016101ab9061113a565b6001600160a01b0381166104475760405162461bcd60e51b81526004016101ab9061117b565b600061045282610cf1565b90508083146104735760405162461bcd60e51b81526004016101ab906110bc565b600061047e83610e0a565b60008581526026602090815260408083208484529091529020549091506001600160a01b0316156104c15760405162461bcd60e51b81526004016101ab90611078565b60008481526026602090815260408083208484529091529081902080546001600160a01b0319166001600160a01b0386161790555184907f613016754b671babf288fba239886b59cf4997ac3aa3ee3f4f8b5f98158b096090610525908490611311565b60405180910390a250505050565b6001546001600160a01b031681565b600254600160a01b900460ff161561056c5760405162461bcd60e51b81526004016101ab906111c0565b3360009081526013602052604090205460ff1661059b5760405162461bcd60e51b81526004016101ab90611103565b60008281526026602090815260408083208484529091529020546001600160a01b03166105da5760405162461bcd60e51b81526004016101ab906111f7565b60008281526027602090815260408083203384529091529020546001600160a01b03161561061a5760405162461bcd60e51b81526004016101ab9061123b565b600060405161062890610ee4565b604051809103906000f080158015610644573d6000803e3d6000fd5b506000848152602760209081526040808320338452825280832080546001600160a01b0319166001600160a01b03868116918217909255888552602684528285208886529093529281902054905163272a1d9360e11b81529394509092634e543b26926106b5921690600401610fe9565b600060405180830381600087803b1580156106cf57600080fd5b505af11580156106e3573d6000803e3d6000fd5b5050604051632a1b8f9b60e01b81526001600160a01b0384169250632a1b8f9b9150610713903390600401610fe9565b600060405180830381600087803b15801561072d57600080fd5b505af1158015610741573d6000803e3d6000fd5b50505050336001600160a01b0316837f378d8d9f432c0ed5e6df6c347552e51721c219f576993190c176d1dbafa8099d8460405161077f9190611311565b60405180910390a3505050565b6000546001600160a01b031681565b600254600160a01b900460ff16156107c55760405162461bcd60e51b81526004016101ab906111c0565b3360009081526013602052604090205460ff166107f45760405162461bcd60e51b81526004016101ab90611103565b60008181526027602090815260408083203384529091529020546001600160a01b03166108335760405162461bcd60e51b81526004016101ab906112cb565b600081815260276020908152604080832033845290915280822080546001600160a01b03198116909155815162d638f360e41b815291516001600160a01b03909116928392630d638f30926004808301939282900301818387803b15801561089a57600080fd5b505af11580156108ae573d6000803e3d6000fd5b50506040513392508491507fd2c2232148c2f32f7bf723d3bcdf061b47fd5ce29270ca9aebe5785a0032a65590600090a35050565b600254600160a01b900460ff161561090d5760405162461bcd60e51b81526004016101ab906111c0565b3360009081526013602052604090205460ff1661093c5760405162461bcd60e51b81526004016101ab90611103565b60008281526027602090815260408083203384529091529020546001600160a01b031661097b5760405162461bcd60e51b81526004016101ab906112cb565b600082815260276020908152604080832033845282529182902054825163054fd4d560e41b815292516001600160a01b039091169283926354fd4d5092600480840193829003018186803b1580156109d257600080fd5b505afa1580156109e6573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610a0a9190610f5d565b6001018214610a2b5760405162461bcd60e51b81526004016101ab90611285565b60008381526026602090815260408083208584529091529020546001600160a01b0316610a6a5760405162461bcd60e51b81526004016101ab906111f7565b60008381526026602090815260408083208584529091529081902054905163272a1d9360e11b81526001600160a01b0383811692634e543b2692610ab49290911690600401610fe9565b600060405180830381600087803b158015610ace57600080fd5b505af1158015610ae2573d6000803e3d6000fd5b50505050806001600160a01b031663340df28f6040518163ffffffff1660e01b8152600401600060405180830381600087803b158015610b2157600080fd5b505af1158015610b35573d6000803e3d6000fd5b5050505081816001600160a01b03166354fd4d506040518163ffffffff1660e01b815260040160206040518083038186803b158015610b7357600080fd5b505afa158015610b87573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610bab9190610f5d565b14610bb257fe5b336001600160a01b0316837fef0bd723d8719f69c250a3f14a17a46b9474f8b1a068ca73c21ead71665ea8bf8460405161077f9190611311565b60009182526027602090815260408084206001600160a01b039384168552909152909120541690565b60006001600160a01b038316301415610c3057506001610349565b6001546001600160a01b0384811691161415610c4e57506001610349565b6000546001600160a01b0316610c6657506000610349565b60005460405163b700961360e01b81526001600160a01b039091169063b700961390610c9a90869030908790600401610ffd565b60206040518083038186803b158015610cb257600080fd5b505afa158015610cc6573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610cea9190610f29565b9050610349565b600080826001600160a01b0316636f68e8d27f7998a1c4a35aea2e3793121b50d175aea96f8c6d7b60c8057a00f3f0faf142a66040518263ffffffff1660e01b8152600401610d409190611035565b60206040518083038186803b158015610d5857600080fd5b505afa158015610d6c573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610d909190610f0d565b9050806001600160a01b0316637998a1c46040518163ffffffff1660e01b815260040160206040518083038186803b158015610dcb57600080fd5b505afa158015610ddf573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610e039190610f5d565b9392505050565b600080826001600160a01b0316636f68e8d27f54fd4d50fce680dbc2593d9e893064bfa880e5642d0036394e1a1849f7fc07496040518263ffffffff1660e01b8152600401610e599190611035565b60206040518083038186803b158015610e7157600080fd5b505afa158015610e85573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610ea99190610f0d565b9050806001600160a01b03166354fd4d506040518163ffffffff1660e01b815260040160206040518083038186803b158015610dcb57600080fd5b6105a58061134183390190565b600060208284031215610f02578081fd5b8135610e038161131a565b600060208284031215610f1e578081fd5b8151610e038161131a565b600060208284031215610f3a578081fd5b8151610e0381611332565b600060208284031215610f56578081fd5b5035919050565b600060208284031215610f6e578081fd5b5051919050565b60008060408385031215610f87578081fd5b823591506020830135610f998161131a565b809150509250929050565b60008060408385031215610fb6578182fd5b823591506020830135610f9981611332565b60008060408385031215610fda578182fd5b50508035926020909101359150565b6001600160a01b0391909116815260200190565b6001600160a01b0393841681529190921660208201526001600160e01b0319909116604082015260600190565b901515815260200190565b6001600160e01b031991909116815260200190565b602080825260149082015273191ccb585d5d1a0b5d5b985d5d1a1bdc9a5e995960621b604082015260600190565b60208082526024908201527f636f6c6f6e792d6e6574776f726b2d657874656e73696f6e2d616c72656164796040820152630b5cd95d60e21b606082015260800190565b60208082526027908201527f636f6c6f6e792d6e6574776f726b2d657874656e73696f6e2d6261642d696465604082015266373a34b334b2b960c91b606082015260800190565b6020808252601c908201527f636f6c6f6e792d63616c6c65722d6d7573742d62652d636f6c6f6e7900000000604082015260600190565b60208082526021908201527f636f6c6f6e792d63616c6c65722d6d7573742d62652d6d6574612d636f6c6f6e6040820152607960f81b606082015260800190565b60208082526025908201527f636f6c6f6e792d6e6574776f726b2d657874656e73696f6e2d6261642d72657360408201526437b63b32b960d91b606082015260800190565b60208082526017908201527f636f6c6f6e792d696e2d7265636f766572792d6d6f6465000000000000000000604082015260600190565b60208082526024908201527f636f6c6f6e792d6e6574776f726b2d657874656e73696f6e2d6261642d76657260408201526339b4b7b760e11b606082015260800190565b6020808252602a908201527f636f6c6f6e792d6e6574776f726b2d657874656e73696f6e2d616c72656164796040820152690b5a5b9cdd185b1b195960b21b606082015260800190565b60208082526026908201527f636f6c6f6e792d6e6574776f726b2d657874656e73696f6e2d6261642d696e636040820152651c995b595b9d60d21b606082015260800190565b60208082526026908201527f636f6c6f6e792d6e6574776f726b2d657874656e73696f6e2d6e6f742d696e736040820152651d185b1b195960d21b606082015260800190565b90815260200190565b6001600160a01b038116811461132f57600080fd5b50565b801515811461132f57600080fdfe608060405234801561001057600080fd5b50600180546001600160a01b031916339081179091556040517fce241d7ca1f669fee44b6fc00b8eba2df3bb514eed0f6f668f8f89096e81ed9490600090a26105478061005e6000396000f3fe6080604052600436106100555760003560e01c806304f3bcec1461012f57806313af4035146101605780634e543b26146101935780637a9e5e4b146101c65780638da5cb5b146101f9578063bf7e214f1461020e575b6001600160e01b03196000351661006b5761012d565b600254604080516337b4746960e11b8152600080356001600160e01b0319166004830152915191926001600160a01b031691636f68e8d291602480820192602092909190829003018186803b1580156100c357600080fd5b505afa1580156100d7573d6000803e3d6000fd5b505050506040513d60208110156100ed57600080fd5b50519050803b806100fd57600080fd5b5036600060405137600060405136604051845af43d60006040513e8060018114610127573d604051fd5b3d604051f35b005b34801561013b57600080fd5b50610144610223565b604080516001600160a01b039092168252519081900360200190f35b34801561016c57600080fd5b5061012d6004803603602081101561018357600080fd5b50356001600160a01b0316610232565b34801561019f57600080fd5b5061012d600480360360208110156101b657600080fd5b50356001600160a01b03166102e0565b3480156101d257600080fd5b5061012d600480360360208110156101e957600080fd5b50356001600160a01b0316610360565b34801561020557600080fd5b5061014461040a565b34801561021a57600080fd5b50610144610419565b6002546001600160a01b031681565b610248336000356001600160e01b031916610428565b610290576040805162461bcd60e51b8152602060048201526014602482015273191ccb585d5d1a0b5d5b985d5d1a1bdc9a5e995960621b604482015290519081900360640190fd5b600180546001600160a01b0319166001600160a01b0383811691909117918290556040519116907fce241d7ca1f669fee44b6fc00b8eba2df3bb514eed0f6f668f8f89096e81ed9490600090a250565b6102f6336000356001600160e01b031916610428565b61033e576040805162461bcd60e51b8152602060048201526014602482015273191ccb585d5d1a0b5d5b985d5d1a1bdc9a5e995960621b604482015290519081900360640190fd5b600280546001600160a01b0319166001600160a01b0392909216919091179055565b610376336000356001600160e01b031916610428565b6103be576040805162461bcd60e51b8152602060048201526014602482015273191ccb585d5d1a0b5d5b985d5d1a1bdc9a5e995960621b604482015290519081900360640190fd5b600080546001600160a01b0319166001600160a01b03838116919091178083556040519116917f1abebea81bfa2637f28358c371278fb15ede7ea8dd28d2e03b112ff6d936ada491a250565b6001546001600160a01b031681565b6000546001600160a01b031681565b60006001600160a01b0383163014156104435750600161050b565b6001546001600160a01b03848116911614156104615750600161050b565b6000546001600160a01b03166104795750600061050b565b6000546040805163b700961360e01b81526001600160a01b0386811660048301523060248301526001600160e01b0319861660448301529151919092169163b7009613916064808301926020929190829003018186803b1580156104dc57600080fd5b505afa1580156104f0573d6000803e3d6000fd5b505050506040513d602081101561050657600080fd5b505190505b9291505056fea2646970667358221220417d111c51a69b566a2ddfd77b042442d40840bba5be0cd296790ed7778c7ef664736f6c63430007030033a26469706673582212204562b01af81f735909d2663d0fe7da00021efedc449fc1b673185d19099a87d764736f6c63430007030033"}
+{
+    "contractName": "ColonyNetworkExtensions",
+    "abi": [
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "auction",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "quantity",
+                    "type": "uint256"
+                }
+            ],
+            "name": "AuctionCreated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "colonyId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "colonyAddress",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                }
+            ],
+            "name": "ColonyAdded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "colony",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "label",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "ColonyLabelRegistered",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "resolver",
+                    "type": "address"
+                }
+            ],
+            "name": "ColonyNetworkInitialised",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "version",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "resolver",
+                    "type": "address"
+                }
+            ],
+            "name": "ColonyVersionAdded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "extensionId",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "version",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ExtensionAddedToNetwork",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "extensionId",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "colony",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "deprecated",
+                    "type": "bool"
+                }
+            ],
+            "name": "ExtensionDeprecated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "extensionId",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "colony",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "version",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ExtensionInstalled",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "extensionId",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "colony",
+                    "type": "address"
+                }
+            ],
+            "name": "ExtensionUninstalled",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "extensionId",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "colony",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "version",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ExtensionUpgraded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "authority",
+                    "type": "address"
+                }
+            ],
+            "name": "LogSetAuthority",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "owner",
+                    "type": "address"
+                }
+            ],
+            "name": "LogSetOwner",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "metaColony",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "rootSkillId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "MetaColonyCreated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "miningCycleResolver",
+                    "type": "address"
+                }
+            ],
+            "name": "MiningCycleResolverSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "feeInverse",
+                    "type": "uint256"
+                }
+            ],
+            "name": "NetworkFeeInverseSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "ens",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "rootNode",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "RegistrarInitialised",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "miner",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "tokensLost",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ReputationMinerPenalised",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "hash",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "nLeaves",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ReputationMiningCycleComplete",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "inactiveReputationMiningCycle",
+                    "type": "address"
+                }
+            ],
+            "name": "ReputationMiningInitialised",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ReputationMiningRewardSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "newHash",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "newNLeaves",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address[]",
+                    "name": "stakers",
+                    "type": "address[]"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "reward",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ReputationRootHashSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "skillId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "parentSkillId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "SkillAdded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "tokenLocking",
+                    "type": "address"
+                }
+            ],
+            "name": "TokenLockingAddressSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "status",
+                    "type": "bool"
+                }
+            ],
+            "name": "TokenWhitelisted",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "label",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "UserLabelRegistered",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "authority",
+            "outputs": [
+                {
+                    "internalType": "contract DSAuthority",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract DSAuthority",
+                    "name": "authority_",
+                    "type": "address"
+                }
+            ],
+            "name": "setAuthority",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "owner_",
+                    "type": "address"
+                }
+            ],
+            "name": "setOwner",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "_extensionId",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_resolver",
+                    "type": "address"
+                }
+            ],
+            "name": "addExtensionToNetwork",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "_extensionId",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_version",
+                    "type": "uint256"
+                }
+            ],
+            "name": "installExtension",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "_extensionId",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_newVersion",
+                    "type": "uint256"
+                }
+            ],
+            "name": "upgradeExtension",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "_extensionId",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "_deprecated",
+                    "type": "bool"
+                }
+            ],
+            "name": "deprecateExtension",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "_extensionId",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "uninstallExtension",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "_extensionId",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_version",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getExtensionResolver",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "_extensionId",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_colony",
+                    "type": "address"
+                }
+            ],
+            "name": "getExtensionInstallation",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        }
+    ],
+    "bytecode": "0x608060405234801561001057600080fd5b50600180546001600160a01b031916339081179091556040517fce241d7ca1f669fee44b6fc00b8eba2df3bb514eed0f6f668f8f89096e81ed9490600090a261191b8061005e6000396000f3fe608060405234801561001057600080fd5b50600436106100a95760003560e01c80638da5cb5b116100715780638da5cb5b146101255780639dec09101461012d578063bf7e214f14610140578063c2308c4914610148578063d9bd780b1461015b578063dc6095ae1461016e576100a9565b806304eaa104146100ae57806313af4035146100c357806371be7b25146100d65780637a9e5e4b146100ff578063886484f714610112575b600080fd5b6100c16100bc366004610fa4565b610181565b005b6100c16100d1366004610ef1565b6102a3565b6100e96100e4366004610fc8565b610325565b6040516100f69190610fe9565b60405180910390f35b6100c161010d366004610ef1565b61034f565b6100c1610120366004610f75565b6103cd565b6100e9610533565b6100c161013b366004610fc8565b610542565b6100e961078c565b6100c1610156366004610f45565b61079b565b6100c1610169366004610fc8565b6108e3565b6100e961017c366004610f75565b610bec565b600254600160a01b900460ff16156101b45760405162461bcd60e51b81526004016101ab906111c0565b60405180910390fd5b3360009081526013602052604090205460ff166101e35760405162461bcd60e51b81526004016101ab90611103565b60008281526027602090815260408083203384529091529081902054905163249473fd60e21b81526001600160a01b0390911690639251cff49061022b90849060040161102a565b600060405180830381600087803b15801561024557600080fd5b505af1158015610259573d6000803e3d6000fd5b50505050336001600160a01b0316827fd9d35b85883f360d0e1ee37027c61473175414ffded7abcbfb19221a1a20e52083604051610297919061102a565b60405180910390a35050565b6102b9336000356001600160e01b031916610c15565b6102d55760405162461bcd60e51b81526004016101ab9061104a565b600180546001600160a01b0319166001600160a01b0383811691909117918290556040519116907fce241d7ca1f669fee44b6fc00b8eba2df3bb514eed0f6f668f8f89096e81ed9490600090a250565b60008281526026602090815260408083208484529091529020546001600160a01b03165b92915050565b610365336000356001600160e01b031916610c15565b6103815760405162461bcd60e51b81526004016101ab9061104a565b600080546001600160a01b0319166001600160a01b03838116919091178083556040519116917f1abebea81bfa2637f28358c371278fb15ede7ea8dd28d2e03b112ff6d936ada491a250565b600254600160a01b900460ff16156103f75760405162461bcd60e51b81526004016101ab906111c0565b6008546001600160a01b031633146104215760405162461bcd60e51b81526004016101ab9061113a565b6001600160a01b0381166104475760405162461bcd60e51b81526004016101ab9061117b565b600061045282610cf1565b90508083146104735760405162461bcd60e51b81526004016101ab906110bc565b600061047e83610e0a565b60008581526026602090815260408083208484529091529020549091506001600160a01b0316156104c15760405162461bcd60e51b81526004016101ab90611078565b60008481526026602090815260408083208484529091529081902080546001600160a01b0319166001600160a01b0386161790555184907f613016754b671babf288fba239886b59cf4997ac3aa3ee3f4f8b5f98158b096090610525908490611311565b60405180910390a250505050565b6001546001600160a01b031681565b600254600160a01b900460ff161561056c5760405162461bcd60e51b81526004016101ab906111c0565b3360009081526013602052604090205460ff1661059b5760405162461bcd60e51b81526004016101ab90611103565b60008281526026602090815260408083208484529091529020546001600160a01b03166105da5760405162461bcd60e51b81526004016101ab906111f7565b60008281526027602090815260408083203384529091529020546001600160a01b03161561061a5760405162461bcd60e51b81526004016101ab9061123b565b600060405161062890610ee4565b604051809103906000f080158015610644573d6000803e3d6000fd5b506000848152602760209081526040808320338452825280832080546001600160a01b0319166001600160a01b03868116918217909255888552602684528285208886529093529281902054905163272a1d9360e11b81529394509092634e543b26926106b5921690600401610fe9565b600060405180830381600087803b1580156106cf57600080fd5b505af11580156106e3573d6000803e3d6000fd5b5050604051632a1b8f9b60e01b81526001600160a01b0384169250632a1b8f9b9150610713903390600401610fe9565b600060405180830381600087803b15801561072d57600080fd5b505af1158015610741573d6000803e3d6000fd5b50505050336001600160a01b0316837f378d8d9f432c0ed5e6df6c347552e51721c219f576993190c176d1dbafa8099d8460405161077f9190611311565b60405180910390a3505050565b6000546001600160a01b031681565b600254600160a01b900460ff16156107c55760405162461bcd60e51b81526004016101ab906111c0565b3360009081526013602052604090205460ff166107f45760405162461bcd60e51b81526004016101ab90611103565b60008181526027602090815260408083203384529091529020546001600160a01b03166108335760405162461bcd60e51b81526004016101ab906112cb565b600081815260276020908152604080832033845290915280822080546001600160a01b03198116909155815162d638f360e41b815291516001600160a01b03909116928392630d638f30926004808301939282900301818387803b15801561089a57600080fd5b505af11580156108ae573d6000803e3d6000fd5b50506040513392508491507fd2c2232148c2f32f7bf723d3bcdf061b47fd5ce29270ca9aebe5785a0032a65590600090a35050565b600254600160a01b900460ff161561090d5760405162461bcd60e51b81526004016101ab906111c0565b3360009081526013602052604090205460ff1661093c5760405162461bcd60e51b81526004016101ab90611103565b60008281526027602090815260408083203384529091529020546001600160a01b031661097b5760405162461bcd60e51b81526004016101ab906112cb565b600082815260276020908152604080832033845282529182902054825163054fd4d560e41b815292516001600160a01b039091169283926354fd4d5092600480840193829003018186803b1580156109d257600080fd5b505afa1580156109e6573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610a0a9190610f5d565b6001018214610a2b5760405162461bcd60e51b81526004016101ab90611285565b60008381526026602090815260408083208584529091529020546001600160a01b0316610a6a5760405162461bcd60e51b81526004016101ab906111f7565b60008381526026602090815260408083208584529091529081902054905163272a1d9360e11b81526001600160a01b0383811692634e543b2692610ab49290911690600401610fe9565b600060405180830381600087803b158015610ace57600080fd5b505af1158015610ae2573d6000803e3d6000fd5b50505050806001600160a01b031663340df28f6040518163ffffffff1660e01b8152600401600060405180830381600087803b158015610b2157600080fd5b505af1158015610b35573d6000803e3d6000fd5b5050505081816001600160a01b03166354fd4d506040518163ffffffff1660e01b815260040160206040518083038186803b158015610b7357600080fd5b505afa158015610b87573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610bab9190610f5d565b14610bb257fe5b336001600160a01b0316837fef0bd723d8719f69c250a3f14a17a46b9474f8b1a068ca73c21ead71665ea8bf8460405161077f9190611311565b60009182526027602090815260408084206001600160a01b039384168552909152909120541690565b60006001600160a01b038316301415610c3057506001610349565b6001546001600160a01b0384811691161415610c4e57506001610349565b6000546001600160a01b0316610c6657506000610349565b60005460405163b700961360e01b81526001600160a01b039091169063b700961390610c9a90869030908790600401610ffd565b60206040518083038186803b158015610cb257600080fd5b505afa158015610cc6573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610cea9190610f29565b9050610349565b600080826001600160a01b0316636f68e8d27f7998a1c4a35aea2e3793121b50d175aea96f8c6d7b60c8057a00f3f0faf142a66040518263ffffffff1660e01b8152600401610d409190611035565b60206040518083038186803b158015610d5857600080fd5b505afa158015610d6c573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610d909190610f0d565b9050806001600160a01b0316637998a1c46040518163ffffffff1660e01b815260040160206040518083038186803b158015610dcb57600080fd5b505afa158015610ddf573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610e039190610f5d565b9392505050565b600080826001600160a01b0316636f68e8d27f54fd4d50fce680dbc2593d9e893064bfa880e5642d0036394e1a1849f7fc07496040518263ffffffff1660e01b8152600401610e599190611035565b60206040518083038186803b158015610e7157600080fd5b505afa158015610e85573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610ea99190610f0d565b9050806001600160a01b03166354fd4d506040518163ffffffff1660e01b815260040160206040518083038186803b158015610dcb57600080fd5b6105a58061134183390190565b600060208284031215610f02578081fd5b8135610e038161131a565b600060208284031215610f1e578081fd5b8151610e038161131a565b600060208284031215610f3a578081fd5b8151610e0381611332565b600060208284031215610f56578081fd5b5035919050565b600060208284031215610f6e578081fd5b5051919050565b60008060408385031215610f87578081fd5b823591506020830135610f998161131a565b809150509250929050565b60008060408385031215610fb6578182fd5b823591506020830135610f9981611332565b60008060408385031215610fda578182fd5b50508035926020909101359150565b6001600160a01b0391909116815260200190565b6001600160a01b0393841681529190921660208201526001600160e01b0319909116604082015260600190565b901515815260200190565b6001600160e01b031991909116815260200190565b602080825260149082015273191ccb585d5d1a0b5d5b985d5d1a1bdc9a5e995960621b604082015260600190565b60208082526024908201527f636f6c6f6e792d6e6574776f726b2d657874656e73696f6e2d616c72656164796040820152630b5cd95d60e21b606082015260800190565b60208082526027908201527f636f6c6f6e792d6e6574776f726b2d657874656e73696f6e2d6261642d696465604082015266373a34b334b2b960c91b606082015260800190565b6020808252601c908201527f636f6c6f6e792d63616c6c65722d6d7573742d62652d636f6c6f6e7900000000604082015260600190565b60208082526021908201527f636f6c6f6e792d63616c6c65722d6d7573742d62652d6d6574612d636f6c6f6e6040820152607960f81b606082015260800190565b60208082526025908201527f636f6c6f6e792d6e6574776f726b2d657874656e73696f6e2d6261642d72657360408201526437b63b32b960d91b606082015260800190565b60208082526017908201527f636f6c6f6e792d696e2d7265636f766572792d6d6f6465000000000000000000604082015260600190565b60208082526024908201527f636f6c6f6e792d6e6574776f726b2d657874656e73696f6e2d6261642d76657260408201526339b4b7b760e11b606082015260800190565b6020808252602a908201527f636f6c6f6e792d6e6574776f726b2d657874656e73696f6e2d616c72656164796040820152690b5a5b9cdd185b1b195960b21b606082015260800190565b60208082526026908201527f636f6c6f6e792d6e6574776f726b2d657874656e73696f6e2d6261642d696e636040820152651c995b595b9d60d21b606082015260800190565b60208082526026908201527f636f6c6f6e792d6e6574776f726b2d657874656e73696f6e2d6e6f742d696e736040820152651d185b1b195960d21b606082015260800190565b90815260200190565b6001600160a01b038116811461132f57600080fd5b50565b801515811461132f57600080fdfe608060405234801561001057600080fd5b50600180546001600160a01b031916339081179091556040517fce241d7ca1f669fee44b6fc00b8eba2df3bb514eed0f6f668f8f89096e81ed9490600090a26105478061005e6000396000f3fe6080604052600436106100555760003560e01c806304f3bcec1461012f57806313af4035146101605780634e543b26146101935780637a9e5e4b146101c65780638da5cb5b146101f9578063bf7e214f1461020e575b6001600160e01b03196000351661006b5761012d565b600254604080516337b4746960e11b8152600080356001600160e01b0319166004830152915191926001600160a01b031691636f68e8d291602480820192602092909190829003018186803b1580156100c357600080fd5b505afa1580156100d7573d6000803e3d6000fd5b505050506040513d60208110156100ed57600080fd5b50519050803b806100fd57600080fd5b5036600060405137600060405136604051845af43d60006040513e8060018114610127573d604051fd5b3d604051f35b005b34801561013b57600080fd5b50610144610223565b604080516001600160a01b039092168252519081900360200190f35b34801561016c57600080fd5b5061012d6004803603602081101561018357600080fd5b50356001600160a01b0316610232565b34801561019f57600080fd5b5061012d600480360360208110156101b657600080fd5b50356001600160a01b03166102e0565b3480156101d257600080fd5b5061012d600480360360208110156101e957600080fd5b50356001600160a01b0316610360565b34801561020557600080fd5b5061014461040a565b34801561021a57600080fd5b50610144610419565b6002546001600160a01b031681565b610248336000356001600160e01b031916610428565b610290576040805162461bcd60e51b8152602060048201526014602482015273191ccb585d5d1a0b5d5b985d5d1a1bdc9a5e995960621b604482015290519081900360640190fd5b600180546001600160a01b0319166001600160a01b0383811691909117918290556040519116907fce241d7ca1f669fee44b6fc00b8eba2df3bb514eed0f6f668f8f89096e81ed9490600090a250565b6102f6336000356001600160e01b031916610428565b61033e576040805162461bcd60e51b8152602060048201526014602482015273191ccb585d5d1a0b5d5b985d5d1a1bdc9a5e995960621b604482015290519081900360640190fd5b600280546001600160a01b0319166001600160a01b0392909216919091179055565b610376336000356001600160e01b031916610428565b6103be576040805162461bcd60e51b8152602060048201526014602482015273191ccb585d5d1a0b5d5b985d5d1a1bdc9a5e995960621b604482015290519081900360640190fd5b600080546001600160a01b0319166001600160a01b03838116919091178083556040519116917f1abebea81bfa2637f28358c371278fb15ede7ea8dd28d2e03b112ff6d936ada491a250565b6001546001600160a01b031681565b6000546001600160a01b031681565b60006001600160a01b0383163014156104435750600161050b565b6001546001600160a01b03848116911614156104615750600161050b565b6000546001600160a01b03166104795750600061050b565b6000546040805163b700961360e01b81526001600160a01b0386811660048301523060248301526001600160e01b0319861660448301529151919092169163b7009613916064808301926020929190829003018186803b1580156104dc57600080fd5b505afa1580156104f0573d6000803e3d6000fd5b505050506040513d602081101561050657600080fd5b505190505b9291505056fea264697066735822122062693e580ba2209c2d2295f8149cf9d00b2c95b5f722876cd1a3b1b8bdceba4464736f6c63430007030033a2646970667358221220871ead4549d649bc7d7fa79f54317a19d1ac3d6c79be3089207b5b8411d97ef664736f6c63430007030033",
+    "devdoc": {
+        "kind": "dev",
+        "methods": {},
+        "version": 1
+    },
+    "userdoc": {
+        "events": {
+            "AuctionCreated(address,address,uint256)": {
+                "notice": "Event logged when a new auction is created and started"
+            },
+            "ColonyAdded(uint256,address,address)": {
+                "notice": "Event logged when a new colony is added"
+            },
+            "ColonyLabelRegistered(address,bytes32)": {
+                "notice": "Event logged when a \"colony.joincolony.eth\" label is registered"
+            },
+            "ColonyNetworkInitialised(address)": {
+                "notice": "Event logged when the colony network is intialised. This is only ever emitted once in a network's lifetime"
+            },
+            "ColonyVersionAdded(uint256,address)": {
+                "notice": "Event logged when a new colony contract version is set"
+            },
+            "ExtensionAddedToNetwork(bytes32,uint256)": {
+                "notice": "Event logged when a new extension resolver is added to the network"
+            },
+            "ExtensionDeprecated(bytes32,address,bool)": {
+                "notice": "Event logged when an extension is (un)deprecated in a colony"
+            },
+            "ExtensionInstalled(bytes32,address,uint256)": {
+                "notice": "Event logged when an extension is installed in a colony"
+            },
+            "ExtensionUninstalled(bytes32,address)": {
+                "notice": "Event logged when an extension is uninstalled from a colony"
+            },
+            "ExtensionUpgraded(bytes32,address,uint256)": {
+                "notice": "Event logged when an extension is upgraded in a colony"
+            },
+            "MetaColonyCreated(address,address,uint256)": {
+                "notice": "Event logged when the MetaColony is created"
+            },
+            "MiningCycleResolverSet(address)": {
+                "notice": "Event logged when the Colony Network ReputationMiningCycleResolver contract address is set"
+            },
+            "NetworkFeeInverseSet(uint256)": {
+                "notice": "Event logged when the network fee inverse is set"
+            },
+            "RegistrarInitialised(address,bytes32)": {
+                "notice": "Event logged when the ENS registrar is initialised"
+            },
+            "ReputationMiningCycleComplete(bytes32,uint256)": {
+                "notice": "Event logged when a reputation mining cycle completes"
+            },
+            "ReputationMiningInitialised(address)": {
+                "notice": "Event logged when the Reputation mining process is initialised"
+            },
+            "ReputationMiningRewardSet(uint256)": {
+                "notice": "Event logged when the mining reward is set"
+            },
+            "ReputationRootHashSet(bytes32,uint256,address[],uint256)": {
+                "notice": "Event logged when a new reputation root hash is set by the reputation mining process"
+            },
+            "SkillAdded(uint256,uint256)": {
+                "notice": "Event logged when a new skill is added"
+            },
+            "TokenLockingAddressSet(address)": {
+                "notice": "Event logged when the Colony Network TokenLocking contract address is set"
+            },
+            "TokenWhitelisted(address,bool)": {
+                "notice": "Event logged when the payout whitelist is updated"
+            },
+            "UserLabelRegistered(address,bytes32)": {
+                "notice": "Event logged when a \"user.joincolony.eth\" label is registered"
+            }
+        },
+        "kind": "user",
+        "methods": {},
+        "version": 1
+    }
+}

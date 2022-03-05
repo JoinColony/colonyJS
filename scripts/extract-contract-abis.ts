@@ -1,11 +1,11 @@
 import { readFileSync, writeFileSync } from 'fs';
 import { resolve as resolvePath, basename } from 'path';
 import { promisify } from 'util';
-import * as rimraf from 'rimraf';
+import rimraf from 'rimraf';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
-import * as fg from 'fast-glob';
-import * as mkdirp from 'mkdirp';
+import fg from 'fast-glob';
+import { sync as mkdirpSync } from 'mkdirp';
 
 const ARTIFACTS_DIR = resolvePath(
   __dirname,
@@ -35,18 +35,18 @@ const extract = async () => {
   const outputTag = tag === 'develop' ? '__develop__' : tag;
   const outputDir = resolvePath(OUTPUT_DIR, outputTag);
   await promisify(rimraf)(outputDir);
-  mkdirp.sync(outputDir);
+  mkdirpSync(outputDir);
 
   const inputArtifacts = await fg(`${inputDir}/*.json`);
   const inputTokenArtifacts = await fg(`${inputDirToken}/*.json`);
   const inputFiles = inputArtifacts.concat(inputTokenArtifacts);
   inputFiles.forEach((file) => {
-    const { contractName, abi, bytecode } = JSON.parse(
+    const { abi, contractName, bytecode, devdoc, userdoc } = JSON.parse(
       readFileSync(file).toString(),
     );
     writeFileSync(
       resolvePath(outputDir, basename(file)),
-      JSON.stringify({ contractName, abi, bytecode }),
+      JSON.stringify({ contractName, abi, bytecode, devdoc, userdoc }, null, 4),
     );
   });
 };

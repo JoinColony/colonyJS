@@ -1,1 +1,218 @@
-{"contractName":"IPatriciaTree","abi":[{"constant":true,"inputs":[{"name":"hash","type":"bytes32"}],"name":"getNode","outputs":[{"components":[{"components":[{"name":"node","type":"bytes32"},{"components":[{"name":"data","type":"bytes32"},{"name":"length","type":"uint256"}],"name":"label","type":"tuple"}],"name":"children","type":"tuple[2]"}],"name":"n","type":"tuple"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getRootHash","outputs":[{"name":"rootHash","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getRootEdge","outputs":[{"components":[{"name":"node","type":"bytes32"},{"components":[{"name":"data","type":"bytes32"},{"name":"length","type":"uint256"}],"name":"label","type":"tuple"}],"name":"e","type":"tuple"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"key","type":"bytes"},{"name":"value","type":"bytes"}],"name":"insert","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"key","type":"bytes"}],"name":"getProof","outputs":[{"name":"branchMask","type":"uint256"},{"name":"_siblings","type":"bytes32[]"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"key","type":"bytes"},{"name":"value","type":"bytes"},{"name":"branchMask","type":"uint256"},{"name":"siblings","type":"bytes32[]"}],"name":"getImpliedRoot","outputs":[{"name":"rootHash","type":"bytes32"}],"payable":false,"stateMutability":"pure","type":"function"}],"bytecode":"0x"}
+{
+    "contractName": "IPatriciaTree",
+    "abi": [
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "hash",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "getNode",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "components": [
+                                {
+                                    "name": "node",
+                                    "type": "bytes32"
+                                },
+                                {
+                                    "components": [
+                                        {
+                                            "name": "data",
+                                            "type": "bytes32"
+                                        },
+                                        {
+                                            "name": "length",
+                                            "type": "uint256"
+                                        }
+                                    ],
+                                    "name": "label",
+                                    "type": "tuple"
+                                }
+                            ],
+                            "name": "children",
+                            "type": "tuple[2]"
+                        }
+                    ],
+                    "name": "n",
+                    "type": "tuple"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "getRootHash",
+            "outputs": [
+                {
+                    "name": "rootHash",
+                    "type": "bytes32"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "getRootEdge",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "name": "node",
+                            "type": "bytes32"
+                        },
+                        {
+                            "components": [
+                                {
+                                    "name": "data",
+                                    "type": "bytes32"
+                                },
+                                {
+                                    "name": "length",
+                                    "type": "uint256"
+                                }
+                            ],
+                            "name": "label",
+                            "type": "tuple"
+                        }
+                    ],
+                    "name": "e",
+                    "type": "tuple"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "key",
+                    "type": "bytes"
+                },
+                {
+                    "name": "value",
+                    "type": "bytes"
+                }
+            ],
+            "name": "insert",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "key",
+                    "type": "bytes"
+                }
+            ],
+            "name": "getProof",
+            "outputs": [
+                {
+                    "name": "branchMask",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_siblings",
+                    "type": "bytes32[]"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "key",
+                    "type": "bytes"
+                },
+                {
+                    "name": "value",
+                    "type": "bytes"
+                },
+                {
+                    "name": "branchMask",
+                    "type": "uint256"
+                },
+                {
+                    "name": "siblings",
+                    "type": "bytes32[]"
+                }
+            ],
+            "name": "getImpliedRoot",
+            "outputs": [
+                {
+                    "name": "rootHash",
+                    "type": "bytes32"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "pure",
+            "type": "function"
+        }
+    ],
+    "bytecode": "0x",
+    "devdoc": {
+        "methods": {
+            "getImpliedRoot(bytes,bytes,uint256,bytes32[])": {
+                "return": "rootHash The calculated hash"
+            },
+            "getNode(bytes32)": {
+                "params": {
+                    "hash": "The `keccak256` hash of the actual key"
+                },
+                "return": "n `Data.Node` for key `hash`"
+            },
+            "getProof(bytes)": {
+                "return": "branchMask Bitmask with high bits at the positions in the `key` where we have branch nodes (bit in key denotes direction)_siblings Hashes of sibling edges"
+            },
+            "getRootEdge()": {
+                "return": "e The root `Data.Edge`"
+            },
+            "getRootHash()": {
+                "details": "This value is a keccak256 hash of the rootEdge: `keccak256(Edge.node, Edge.label.length, Edge.label.data)`",
+                "return": "rootHash The `bytes32` hash value"
+            }
+        },
+        "title": "Interface for Patricia trees"
+    },
+    "userdoc": {
+        "methods": {
+            "getImpliedRoot(bytes,bytes,uint256,bytes32[])": {
+                "notice": "Calculates and returns a root hash for the `key`, `value`, `branchMask` and `siblings`"
+            },
+            "getNode(bytes32)": {
+                "notice": "Get the node with the given key"
+            },
+            "getProof(bytes)": {
+                "notice": "Returns the Merkle-proof for the given `key`"
+            },
+            "getRootEdge()": {
+                "notice": "Get the root edge"
+            },
+            "getRootHash()": {
+                "notice": "Get the root hash"
+            },
+            "insert(bytes,bytes)": {
+                "notice": "Insert the `key`/`value`in the appropriate place in the tree"
+            }
+        },
+        "notice": "More info at: https://github.com/chriseth/patricia-trie"
+    }
+}

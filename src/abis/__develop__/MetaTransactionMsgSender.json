@@ -1,1 +1,15 @@
-{"contractName":"MetaTransactionMsgSender","abi":[],"bytecode":"0x"}
+{
+    "contractName": "MetaTransactionMsgSender",
+    "abi": [],
+    "bytecode": "0x",
+    "devdoc": {
+        "kind": "dev",
+        "methods": {},
+        "version": 1
+    },
+    "userdoc": {
+        "kind": "user",
+        "methods": {},
+        "version": 1
+    }
+}

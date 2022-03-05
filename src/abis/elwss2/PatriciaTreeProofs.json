@@ -1,1 +1,17 @@
-{"contractName":"PatriciaTreeProofs","abi":[],"bytecode":"0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea2646970667358221220a7746266e2f1b51f0e1ba53701c16a8673163b23c5888c692e42026cbf95bd5364736f6c63430007030033"}
+{
+    "contractName": "PatriciaTreeProofs",
+    "abi": [],
+    "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea2646970667358221220c16a841b6cf5b4f6cfa0b70e6b675d6101be5d141e651dd2c447117caaf9ddb164736f6c63430007030033",
+    "devdoc": {
+        "kind": "dev",
+        "methods": {},
+        "title": "Functions related to checking Patricia Tree proofs",
+        "version": 1
+    },
+    "userdoc": {
+        "kind": "user",
+        "methods": {},
+        "notice": "More info at: https://github.com/chriseth/patricia-trie",
+        "version": 1
+    }
+}

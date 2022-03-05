@@ -1,1 +1,80 @@
-{"contractName":"IEtherRouter","abi":[{"constant":false,"inputs":[{"name":"_resolver","type":"address"}],"name":"setResolver","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"owner_","type":"address"}],"name":"setOwner","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"authority_","type":"address"}],"name":"setAuthority","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"}],"bytecode":"0x"}
+{
+    "contractName": "IEtherRouter",
+    "abi": [
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_resolver",
+                    "type": "address"
+                }
+            ],
+            "name": "setResolver",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "owner_",
+                    "type": "address"
+                }
+            ],
+            "name": "setOwner",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "authority_",
+                    "type": "address"
+                }
+            ],
+            "name": "setAuthority",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ],
+    "bytecode": "0x",
+    "devdoc": {
+        "methods": {
+            "setAuthority(address)": {
+                "params": {
+                    "authority_": "Address of the new DSAuthority instance"
+                }
+            },
+            "setOwner(address)": {
+                "params": {
+                    "owner_": "Address of the new owner"
+                }
+            },
+            "setResolver(address)": {
+                "params": {
+                    "_resolver": "Address of the new Resolver"
+                }
+            }
+        }
+    },
+    "userdoc": {
+        "methods": {
+            "setAuthority(address)": {
+                "notice": "Sets the EtherRouter authority. Inherited from DSAuth."
+            },
+            "setOwner(address)": {
+                "notice": "Sets the EtherRouter owner. Inherited from DSAuth."
+            },
+            "setResolver(address)": {
+                "notice": "Sets the resolver address. This is used in the routing of all delegatecalls by the EtherRouter."
+            }
+        }
+    }
+}
