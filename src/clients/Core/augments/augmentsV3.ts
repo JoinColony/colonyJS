@@ -13,7 +13,7 @@ import {
   IColonyV7,
   IColonyV8,
   IColonyV9,
-} from '../../../exports';
+} from '../../../contracts/IColony/exports';
 import { ColonyRole } from '../../../types';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
 import {
@@ -49,11 +49,11 @@ export type ColonyAugmentsV3<T extends ValidColony> = {
   estimateGas: T['estimateGas'] & AugmentedEstimateV3;
 };
 
-type AugmentedColony = AugmentedIColony<ValidColony> &
+type FullAugmentedIColony = AugmentedIColony<ValidColony> &
   ColonyAugmentsV3<ValidColony>;
 
 async function setArbitrationRoleWithProofs(
-  this: AugmentedColony,
+  this: FullAugmentedIColony,
   _user: string,
   _domainId: BigNumberish,
   _setTo: boolean,
@@ -82,7 +82,7 @@ async function setArbitrationRoleWithProofs(
 }
 
 async function estimateSetArbitrationRoleWithProofs(
-  this: AugmentedColony,
+  this: FullAugmentedIColony,
   _user: string,
   _domainId: BigNumberish,
   _setTo: boolean,
@@ -104,7 +104,7 @@ async function estimateSetArbitrationRoleWithProofs(
 export const addAugments = (
   instance: AugmentedIColony<ValidColony>,
   networkClient: ColonyNetworkClient,
-): AugmentedIColony<ValidColony> & ColonyAugmentsV3<ValidColony> => {
+): FullAugmentedIColony => {
   const augmentedInstance = addCommonAugments(
     instance,
     networkClient,

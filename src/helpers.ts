@@ -3,7 +3,8 @@ import { EventFilter, BigNumber, BigNumberish, utils } from 'ethers';
 import type { Filter, Log, Provider } from '@ethersproject/abstract-provider';
 import type { LogDescription } from '@ethersproject/abi';
 
-import { ColonyClient, ContractClient, ColonyRole, ColonyRoles } from './types';
+import { AnyColonyClient } from './clients/Core/exports';
+import { ContractClient, ColonyRole, ColonyRoles } from './types';
 import { formatColonyRoles } from './utils';
 
 import {
@@ -155,7 +156,7 @@ export const getMultipleEvents = async (
  * @returns The associated domainId
  */
 export const getPotDomain = async (
-  client: ColonyClient,
+  client: AnyColonyClient,
   potId: BigNumberish,
 ): Promise<BigNumberish> => exGetPotDomain(client, potId);
 
@@ -181,7 +182,7 @@ export const getPotDomain = async (
  * @returns Index in the `children` array (see above)
  */
 export const getChildIndex = async (
-  client: ColonyClient,
+  client: AnyColonyClient,
   parentDomainId: BigNumberish,
   domainId: BigNumberish,
 ): Promise<BigNumber> => exGetChildIndex(client, parentDomainId, domainId);
@@ -194,7 +195,7 @@ export const getChildIndex = async (
  * @returns Array of user roles in a colony (see above) fetching it's own network events
  */
 export const getColonyRoles = async (
-  client: ColonyClient,
+  client: AnyColonyClient,
   options?: LogOptions,
 ): Promise<ColonyRoles> => {
   /*
@@ -242,7 +243,7 @@ export const getColonyRoles = async (
  * events, from a certain block number, up to a certain block number
  */
 export const getHistoricColonyRoles = async (
-  client: ColonyClient,
+  client: AnyColonyClient,
   fromBlock?: number,
   toBlock?: number,
 ): Promise<ColonyRoles> => getColonyRoles(client, { fromBlock, toBlock });
@@ -275,7 +276,7 @@ export const getHistoricColonyRoles = async (
  * @returns Tuple of `[permissionDomainId, childSkillIndex]`
  */
 export const getPermissionProofs = async (
-  client: ColonyClient,
+  client: AnyColonyClient,
   domainId: BigNumberish,
   role: ColonyRole,
   customAddress?: string,
