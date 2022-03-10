@@ -16,7 +16,7 @@ import {
   IColonyV7,
   IColonyV8,
   IColonyV9,
-} from '../../../exports';
+} from '../../../contracts/IColony/exports';
 import { ColonyRole } from '../../../types';
 import {
   AugmentedIColony,

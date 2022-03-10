@@ -14,7 +14,7 @@ import {
   IColonyV7,
   IColonyV8,
   IColonyV9,
-} from '../../../exports';
+} from '../../../contracts/IColony/exports';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
 import { AugmentedIColony, getPermissionProofs } from './commonAugments';
 import { ColonyAugmentsV3 } from './augmentsV3';
@@ -101,7 +101,7 @@ export type ColonyAugmentsV5<T extends ValidColony> = {
   estimateGas: T['estimateGas'] & AugmentedEstimateV5;
 };
 
-type AugmentedColony = AugmentedIColony<ValidColony> &
+type AllAugments = AugmentedIColony<ValidColony> &
   ColonyAugmentsV5<ValidColony>;
 
 /*
@@ -109,7 +109,7 @@ type AugmentedColony = AugmentedIColony<ValidColony> &
  */
 
 async function emitDomainReputationPenaltyWithProofs(
-  this: AugmentedColony,
+  this: AllAugments,
   _domainId: BigNumberish,
   _user: string,
   _amount: BigNumberish,
@@ -131,7 +131,7 @@ async function emitDomainReputationPenaltyWithProofs(
 }
 
 async function setUserRolesWithProofs(
-  this: AugmentedColony,
+  this: AllAugments,
   _user: string,
   _domainId: BigNumberish,
   _roles: BytesLike,
@@ -154,7 +154,7 @@ async function setUserRolesWithProofs(
 }
 
 async function transferStakeWithProofs(
-  this: AugmentedColony,
+  this: AllAugments,
   _obligator: string,
   _user: string,
   _domainId: BigNumberish,
@@ -180,7 +180,7 @@ async function transferStakeWithProofs(
 }
 
 async function editDomainWithProofs(
-  this: AugmentedColony,
+  this: AllAugments,
   _domainId: BigNumberish,
   _metadata: string,
   overrides?: Overrides,
@@ -200,7 +200,7 @@ async function editDomainWithProofs(
 }
 
 async function setExpenditureStateWithProofs(
-  this: AugmentedColony,
+  this: AllAugments,
   _id: BigNumberish,
   _storageSlot: BigNumberish,
   _mask: boolean[],
@@ -230,7 +230,7 @@ async function setExpenditureStateWithProofs(
  * Estimates
  */
 async function estimateEmitDomainReputationPenaltyWithProofs(
-  this: AugmentedColony,
+  this: AllAugments,
   _domainId: BigNumberish,
   _user: string,
   _amount: BigNumberish,
@@ -250,7 +250,7 @@ async function estimateEmitDomainReputationPenaltyWithProofs(
 }
 
 async function estimateSetUserRolesWithProofs(
-  this: AugmentedColony,
+  this: AllAugments,
   _user: string,
   _domainId: BigNumberish,
   _roles: BytesLike,
@@ -270,7 +270,7 @@ async function estimateSetUserRolesWithProofs(
 }
 
 async function estimateTransferStakeWithProofs(
-  this: AugmentedColony,
+  this: AllAugments,
   _obligator: string,
   _user: string,
   _domainId: BigNumberish,
@@ -294,7 +294,7 @@ async function estimateTransferStakeWithProofs(
 }
 
 async function estimateEditDomainWithProofs(
-  this: AugmentedColony,
+  this: AllAugments,
   _domainId: BigNumberish,
   _metadata: string,
 ): Promise<BigNumber> {
@@ -312,7 +312,7 @@ async function estimateEditDomainWithProofs(
 }
 
 async function estimateSetExpenditureStateWithProofs(
-  this: AugmentedColony,
+  this: AllAugments,
   _id: BigNumberish,
   _storageSlot: BigNumberish,
   _mask: boolean[],

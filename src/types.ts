@@ -1,35 +1,16 @@
 import type { Signer } from 'ethers';
 import type { Provider } from '@ethersproject/abstract-provider';
 
+import { AnyColonyClient } from './clients/Core/exports';
+import { ExtensionClient } from './clients/Extensions/exports';
 import { ColonyNetworkClient } from './clients/ColonyNetworkClient';
-import { ColonyClientV1 } from './clients/Core/ColonyClientV1';
-import { ColonyClientV2 } from './clients/Core/ColonyClientV2';
-import { ColonyClientV3 } from './clients/Core/ColonyClientV3';
-import { ColonyClientV4 } from './clients/Core/ColonyClientV4';
-import { ColonyClientV5 } from './clients/Core/ColonyClientV5';
-import { ColonyClientV6 } from './clients/Core/ColonyClientV6';
-import { ColonyClientV7 } from './clients/Core/ColonyClientV7';
-import { ColonyClientV8 } from './clients/Core/ColonyClientV8';
-import { ColonyClientV9 } from './clients/Core/ColonyClientV9';
 import { TokenClient as TokenContractClient } from './clients/TokenClient';
 import { TokenLockingClient as TokenLockingContractClient } from './clients/TokenLockingClient';
-import { ExtensionClient } from './clients/Extensions/colonyContractExtensions';
 
 export type SignerOrProvider = Signer | Provider;
 
-export type ColonyClient =
-  | ColonyClientV1
-  | ColonyClientV2
-  | ColonyClientV3
-  | ColonyClientV4
-  | ColonyClientV5
-  | ColonyClientV6
-  | ColonyClientV7
-  | ColonyClientV8
-  | ColonyClientV9;
-
 export type ContractClient =
-  | ColonyClient
+  | AnyColonyClient
   | ColonyNetworkClient
   | ExtensionClient
   | TokenContractClient

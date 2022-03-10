@@ -1,10 +1,7 @@
-import { isEqual } from 'lodash-es';
 import fetch from 'cross-fetch';
-import { Signer, utils, BigNumber, BigNumberish } from 'ethers';
-import type { Provider } from '@ethersproject/abstract-provider';
-import type { EventFragment, LogDescription, Result } from '@ethersproject/abi';
+import { utils, BigNumber, BigNumberish } from 'ethers';
+import type { LogDescription, Result } from '@ethersproject/abi';
 
-import { IColonyFactory } from './exports';
 import { ROOT_DOMAIN_ID } from './constants';
 import {
   IColonyEvents,
@@ -78,62 +75,6 @@ export const isAddress = (address: string): boolean => {
     return false;
   }
   return true;
-};
-
-export const getAbiEvents = (
-  factory: IColonyFactory,
-  address: string,
-  signerOrProvider: Signer | Provider,
-): EventFragment[] => {
-  const {
-    interface: { abi },
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-  } = factory.connect(address, signerOrProvider);
-  return abi.filter(({ type }: EventFragment) => type === 'event');
-};
-
-export const getAbiFunctions = (
-  factory: IColonyFactory,
-  address: string,
-  signerOrProvider: Signer | Provider,
-): EventFragment[] => {
-  const {
-    interface: { abi },
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-  } = factory.connect(address, signerOrProvider);
-  return abi.filter(({ type }: EventFragment) => type !== 'event');
-};
-
-export const getUniqueAbiEvents = (
-  baseEventsAbi: EventFragment[],
-  eventsAbi: EventFragment[],
-): EventFragment[] =>
-  eventsAbi.filter(
-    (event) => !baseEventsAbi.find((baseEvent) => isEqual(baseEvent, event)),
-  );
-
-export const getAllAbiEvents = (
-  factories: IColonyFactory[],
-  address: string,
-  signerOrProvider: Signer | Provider,
-): EventFragment[] => {
-  let abiEvents: EventFragment[] = [];
-  factories.map((factory) => {
-    const currentFactoryAbiEvents = getAbiEvents(
-      factory,
-      address,
-      signerOrProvider,
-    );
-    const currentUniqueAbiEvents = getUniqueAbiEvents(
-      abiEvents,
-      currentFactoryAbiEvents,
-    );
-    abiEvents = [...abiEvents, ...currentUniqueAbiEvents];
-    return null;
-  });
-  return abiEvents;
 };
 
 /*
@@ -293,4 +234,8 @@ export const fetchReputationOracleData = async <
       return response.json();
     }
   }
+};
+
+export const assertExhaustiveSwitch = (x: never): never => {
+  throw new Error(`Unexpected object: ${x}`);
 };

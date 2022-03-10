@@ -13,6 +13,7 @@
   },
   "rules": {
     "no-unused-vars": "off",
+    "no-redeclare": "off",
     "@typescript-eslint/no-unused-vars": "error",
     "no-shadow": "off",
     "@typescript-eslint/no-shadow": ["error"],
