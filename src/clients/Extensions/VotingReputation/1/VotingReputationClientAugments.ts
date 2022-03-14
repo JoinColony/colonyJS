@@ -7,24 +7,25 @@
 
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any */
 
-import { ContractTransaction } from 'ethers';
 import {
+  constants,
+  ContractTransaction,
   BigNumberish,
   BigNumber,
-  Arrayish,
-  UnsignedTransaction,
-  bigNumberify,
-} from 'ethers/utils';
-import { MaxUint256 } from 'ethers/constants';
+  BytesLike,
+  Overrides,
+} from 'ethers';
 
 import {
   AugmentedIColony,
   getPermissionProofs,
   getChildIndex,
 } from '../../../Core/augments/commonAugments';
-import { ColonyRole } from '../../../../constants';
+import { ColonyRole } from '../../../../types';
 
 import { VotingReputationClient } from './VotingReputationClient';
+
+const { MaxUint256 } = constants;
 
 /*
  * Extra client methods
@@ -35,24 +36,26 @@ export const getVotingReputationClientAugments = (
 ): Record<string, any> => ({
   createDomainMotionWithProofs: async (
     _domainId: BigNumberish, // Domain in which the voting will take place in
-    _action: Arrayish,
-    _key: Arrayish,
-    _value: Arrayish,
+    _action: BytesLike,
+    _key: BytesLike,
+    _value: BytesLike,
     _branchMask: BigNumberish,
-    _siblings: Arrayish[],
-    overrides?: UnsignedTransaction,
+    _siblings: BytesLike[],
+    overrides?: Overrides,
   ): Promise<any> => {
     let childSkillIdex = MaxUint256;
-    const votingDomain = bigNumberify(_domainId);
-    const decodedDomain = bigNumberify(`0x${_action.toString().slice(10, 74)}`); // Domain in which we have permissions
+    const votingDomain = BigNumber.from(_domainId);
+    const decodedDomain = BigNumber.from(
+      `0x${_action.toString().slice(10, 74)}`,
+    ); // Domain in which we have permissions
     if (!decodedDomain.eq(votingDomain)) {
       const domainSkillIdIndex = await getChildIndex(
         colonyClient,
         decodedDomain,
         votingDomain,
       );
-      if (!domainSkillIdIndex.eq(bigNumberify(-1))) {
-        childSkillIdex = bigNumberify(domainSkillIdIndex);
+      if (!domainSkillIdIndex.eq(BigNumber.from(-1))) {
+        childSkillIdex = BigNumber.from(domainSkillIdIndex);
       } else {
         throw new Error('Child skill index could not be found');
       }
@@ -72,11 +75,11 @@ export const getVotingReputationClientAugments = (
     _motionId: BigNumberish,
     _vote: BigNumberish,
     _amount: BigNumberish,
-    _key: Arrayish,
-    _value: Arrayish,
+    _key: BytesLike,
+    _value: BytesLike,
     _branchMask: BigNumberish,
-    _siblings: Arrayish[],
-    overrides?: UnsignedTransaction,
+    _siblings: BytesLike[],
+    overrides?: Overrides,
   ): Promise<ContractTransaction> => {
     const { domainId } = await votingReputationClient.getMotion(_motionId);
     const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
@@ -101,16 +104,16 @@ export const getVotingReputationClientAugments = (
   escalateMotionWithProofs: async (
     _motionId: BigNumberish,
     _newDomainId: BigNumberish, // parent, or ancestor, domain id
-    _key: Arrayish,
-    _value: Arrayish,
+    _key: BytesLike,
+    _value: BytesLike,
     _branchMask: BigNumberish,
-    _siblings: Arrayish[],
-    overrides?: UnsignedTransaction,
+    _siblings: BytesLike[],
+    overrides?: Overrides,
   ): Promise<ContractTransaction> => {
     const { domainId } = await votingReputationClient.getMotion(_motionId);
     const motionDomainChildSkillIdIndex = await getChildIndex(
       colonyClient,
-      bigNumberify(_newDomainId),
+      BigNumber.from(_newDomainId),
       domainId,
     );
     if (motionDomainChildSkillIdIndex.toNumber() === -1) {
@@ -131,7 +134,7 @@ export const getVotingReputationClientAugments = (
     _motionId: BigNumberish,
     _staker: string,
     _vote: BigNumberish,
-    overrides?: UnsignedTransaction,
+    overrides?: Overrides,
   ): Promise<ContractTransaction> => {
     const { domainId } = await votingReputationClient.getMotion(_motionId);
     const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
@@ -162,28 +165,30 @@ export const getVotingReputationClientEstimateAugments = (
 ): Record<string, any> => ({
   createDomainMotionWithProofs: async (
     _domainId: BigNumberish, // Domain in which the voting will take place in
-    _action: Arrayish,
-    _key: Arrayish,
-    _value: Arrayish,
+    _action: BytesLike,
+    _key: BytesLike,
+    _value: BytesLike,
     _branchMask: BigNumberish,
-    _siblings: Arrayish[],
+    _siblings: BytesLike[],
   ): Promise<BigNumber> => {
     let childSkillIdex = MaxUint256;
-    const votingDomain = bigNumberify(_domainId);
-    const decodedDomain = bigNumberify(`0x${_action.toString().slice(10, 74)}`); // Domain in which we have permissions
+    const votingDomain = BigNumber.from(_domainId);
+    const decodedDomain = BigNumber.from(
+      `0x${_action.toString().slice(10, 74)}`,
+    ); // Domain in which we have permissions
     if (!decodedDomain.eq(votingDomain)) {
       const domainSkillIdIndex = await getChildIndex(
         colonyClient,
         decodedDomain,
         votingDomain,
       );
-      if (!domainSkillIdIndex.eq(bigNumberify(-1))) {
-        childSkillIdex = bigNumberify(domainSkillIdIndex);
+      if (!domainSkillIdIndex.eq(BigNumber.from(-1))) {
+        childSkillIdex = BigNumber.from(domainSkillIdIndex);
       } else {
         throw new Error('Child skill index could not be found');
       }
     }
-    return votingReputationClient.estimate.createDomainMotion(
+    return votingReputationClient.estimateGas.createDomainMotion(
       votingDomain,
       childSkillIdex,
       _action,
@@ -197,10 +202,10 @@ export const getVotingReputationClientEstimateAugments = (
     _motionId: BigNumberish,
     _vote: BigNumberish,
     _amount: BigNumberish,
-    _key: Arrayish,
-    _value: Arrayish,
+    _key: BytesLike,
+    _value: BytesLike,
     _branchMask: BigNumberish,
-    _siblings: Arrayish[],
+    _siblings: BytesLike[],
   ): Promise<BigNumber> => {
     const { domainId } = await votingReputationClient.getMotion(_motionId);
     const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
@@ -209,7 +214,7 @@ export const getVotingReputationClientEstimateAugments = (
       ColonyRole.Arbitration,
       votingReputationClient.address,
     );
-    return votingReputationClient.estimate.stakeMotion(
+    return votingReputationClient.estimateGas.stakeMotion(
       _motionId,
       permissionDomainId,
       childSkillIndex,
@@ -224,21 +229,21 @@ export const getVotingReputationClientEstimateAugments = (
   escalateMotionWithProofs: async (
     _motionId: BigNumberish,
     _newDomainId: BigNumberish, // parent, or ancestor, domain id
-    _key: Arrayish,
-    _value: Arrayish,
+    _key: BytesLike,
+    _value: BytesLike,
     _branchMask: BigNumberish,
-    _siblings: Arrayish[],
+    _siblings: BytesLike[],
   ): Promise<BigNumber> => {
     const { domainId } = await votingReputationClient.getMotion(_motionId);
     const motionDomainChildSkillIdIndex = await getChildIndex(
       colonyClient,
-      bigNumberify(_newDomainId),
+      BigNumber.from(_newDomainId),
       domainId,
     );
     if (motionDomainChildSkillIdIndex.toNumber() === -1) {
       throw new Error('Child skill index could not be found');
     }
-    return votingReputationClient.estimate.escalateMotion(
+    return votingReputationClient.estimateGas.escalateMotion(
       _motionId,
       _newDomainId,
       motionDomainChildSkillIdIndex,
@@ -260,7 +265,7 @@ export const getVotingReputationClientEstimateAugments = (
       ColonyRole.Arbitration,
       votingReputationClient.address,
     );
-    return votingReputationClient.estimate.claimReward(
+    return votingReputationClient.estimateGas.claimReward(
       _motionId,
       permissionDomainId,
       childSkillIndex,

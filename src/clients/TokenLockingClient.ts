@@ -1,7 +1,5 @@
-import { Signer } from 'ethers';
-import { Provider } from 'ethers/providers';
+import { ClientType, SignerOrProvider } from '..';
 
-import { ClientType } from '../constants';
 import { TokenLocking, TokenLockingFactory } from '../exports';
 
 export interface TokenLockingClient extends TokenLocking {
@@ -10,7 +8,7 @@ export interface TokenLockingClient extends TokenLocking {
 
 const getTokenLockingClient = (
   address: string,
-  signerOrProvider: Signer | Provider,
+  signerOrProvider: SignerOrProvider,
 ): TokenLockingClient => {
   const tokenLockingClient = TokenLockingFactory.connect(
     address,

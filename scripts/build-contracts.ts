@@ -1,7 +1,7 @@
 import { resolve as resolvePath } from 'path';
 import { promisify } from 'util';
-import * as rimraf from 'rimraf';
-import * as execa from 'execa';
+import rimraf from 'rimraf';
+import execa from 'execa';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
@@ -50,6 +50,8 @@ const buildVersionedContracts = async (
       const outDir = resolvePath(
         OUT_ROOT_DIR,
         contractName,
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         String(availableContracts[versionTag]),
       );
 
@@ -57,7 +59,7 @@ const buildVersionedContracts = async (
 
       const typechain = execa('typechain', [
         '--target',
-        'ethers-v4',
+        'ethers-v5',
         '--out-dir',
         outDir,
         `${inputDir}/${contractName}.json`,
@@ -75,7 +77,7 @@ const buildUnversionedContracts = async (inputDir: string) => {
   )}}`;
   const typechain = execa('typechain', [
     '--target',
-    'ethers-v4',
+    'ethers-v5',
     '--out-dir',
     OUT_ROOT_DIR,
     `{${inputDir},${STATIC_DIR}}/${contractGlobs}`,

@@ -7,8 +7,12 @@
 
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any */
 
-import { BigNumberish, BigNumber, UnsignedTransaction } from 'ethers/utils';
-import { ContractTransaction } from 'ethers';
+import {
+  BigNumberish,
+  BigNumber,
+  Overrides,
+  ContractTransaction,
+} from 'ethers';
 
 import {
   AugmentedIColony,
@@ -30,7 +34,7 @@ export const getOneTxPaymentClientAugments = (
     _amounts: BigNumberish[],
     _domainId: BigNumberish,
     _skillId: BigNumberish,
-    overrides?: UnsignedTransaction,
+    overrides?: Overrides,
   ): Promise<ContractTransaction> => {
     const [extensionPDID, extensionCSI] = await getExtensionPermissionProofs(
       colonyClient,
@@ -61,7 +65,7 @@ export const getOneTxPaymentClientAugments = (
     _amounts: BigNumberish[],
     _domainId: BigNumberish,
     _skillId: BigNumberish,
-    overrides?: UnsignedTransaction,
+    overrides?: Overrides,
   ): Promise<ContractTransaction> => {
     const [extensionPDID, extensionCSI] = await getExtensionPermissionProofs(
       colonyClient,
@@ -114,7 +118,7 @@ export const getOneTxPaymentClientEstimateAugments = (
       _domainId,
     );
 
-    return oneTxPaymentClient.estimate.makePayment(
+    return oneTxPaymentClient.estimateGas.makePayment(
       extensionPDID,
       extensionCSI,
       userPDID,
@@ -143,7 +147,7 @@ export const getOneTxPaymentClientEstimateAugments = (
       _domainId,
     );
 
-    return oneTxPaymentClient.estimate.makePaymentFundedFromDomain(
+    return oneTxPaymentClient.estimateGas.makePaymentFundedFromDomain(
       extensionPDID,
       extensionCSI,
       userPDID,

@@ -1,32 +1,24 @@
-import { ContractFactory, ContractTransaction } from 'ethers';
 import {
-  Arrayish,
+  ContractFactory,
+  ContractTransaction,
+  BytesLike,
   BigNumber,
   BigNumberish,
-  UnsignedTransaction,
-  bigNumberify,
-} from 'ethers/utils';
-import { MaxUint256, AddressZero } from 'ethers/constants';
+  Overrides,
+  constants,
+} from 'ethers';
 
+import { ROOT_DOMAIN_ID } from '../../../constants';
+import { abis, AnyIColony, IColonyV4 } from '../../../exports';
 import { fetchReputationOracleData } from '../../../utils';
 import {
   ClientType,
   ColonyRole,
   FundingPotAssociatedType,
-  ROOT_DOMAIN_ID,
-} from '../../../constants';
+  ReputationMinerEndpoints,
+} from '../../../types';
 import { ColonyVersion, Extensions } from '../../../versions';
-import { ReputationMinerEndpoints } from '../../../types';
 
-import { IColony as IColonyV1 } from '../../../contracts/IColony/1/IColony';
-import { IColony as IColonyV2 } from '../../../contracts/IColony/2/IColony';
-import { IColony as IColonyV3 } from '../../../contracts/IColony/3/IColony';
-import { IColony as IColonyV4 } from '../../../contracts/IColony/4/IColony';
-import { IColony as IColonyV5 } from '../../../contracts/IColony/5/IColony';
-import { IColony as IColonyV6 } from '../../../contracts/IColony/6/IColony';
-import { IColony as IColonyV7 } from '../../../contracts/IColony/7/IColony';
-import { IColony as IColonyV8 } from '../../../contracts/IColony/8/IColony';
-import { IColony as IColonyV9 } from '../../../contracts/IColony/9/IColony';
 import { IColony__factory as AwkwardRecoveryRoleEventIColony } from '../../../contracts/IColony/4/factories/IColony__factory';
 
 import { ExtensionClient } from '../../Extensions/colonyContractExtensions';
@@ -34,30 +26,19 @@ import getExtensionVersionClient from '../../Extensions/ExtensionVersionClient';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
 import { TokenClient } from '../../TokenClient';
 
-import { abis } from '../../../exports';
-
 import { getExtensionHash } from '../../../helpers';
+
+const { MaxUint256, AddressZero } = constants;
 
 const { abi: tokenAuthorityAbi, bytecode: tokenAuthorityBytecode } =
   abis.TokenAuthority;
-
-type AnyIColony =
-  | IColonyV1
-  | IColonyV2
-  | IColonyV3
-  | IColonyV4
-  | IColonyV5
-  | IColonyV6
-  | IColonyV7
-  | IColonyV8
-  | IColonyV9;
 
 // This is exposed to type the awkward recovery event client which is basically
 // just an IColonyV4
 export type AwkwardRecoveryRoleEventClient = IColonyV4;
 
 export type AugmentedEstimate<T extends AnyIColony = AnyIColony> =
-  T['estimate'] & {
+  T['estimateGas'] & {
     deployTokenAuthority(
       tokenAddress: string,
       allowedToTransfer: string[],
@@ -78,7 +59,6 @@ export type AugmentedEstimate<T extends AnyIColony = AnyIColony> =
       _domainId: BigNumberish,
       _setTo: boolean,
     ): Promise<BigNumber>;
-    addDomainWithProofs(_parentDomainId: BigNumberish): Promise<BigNumber>;
     addPaymentWithProofs(
       _recipient: string,
       _token: string,
@@ -88,7 +68,7 @@ export type AugmentedEstimate<T extends AnyIColony = AnyIColony> =
     ): Promise<BigNumber>;
     finalizePaymentWithProofs(
       _id: BigNumberish,
-      overrides?: UnsignedTransaction,
+      overrides?: Overrides,
     ): Promise<BigNumber>;
     setPaymentRecipientWithProofs(
       _id: BigNumberish,
@@ -104,16 +84,10 @@ export type AugmentedEstimate<T extends AnyIColony = AnyIColony> =
       _amount: BigNumberish,
     ): Promise<BigNumber>;
     makeTaskWithProofs(
-      _specificationHash: Arrayish,
+      _specificationHash: BytesLike,
       _domainId: BigNumberish,
       _skillId: BigNumberish,
       _dueDate: BigNumberish,
-    ): Promise<BigNumber>;
-    moveFundsBetweenPotsWithProofs(
-      _fromPot: BigNumberish,
-      _toPot: BigNumberish,
-      _amount: BigNumberish,
-      _token: string,
     ): Promise<BigNumber>;
   };
 
@@ -133,30 +107,26 @@ export type AugmentedIColony<T extends AnyIColony = AnyIColony> = T & {
   deployTokenAuthority(
     tokenAddress: string,
     allowedToTransfer: string[],
-    overrides?: UnsignedTransaction,
+    overrides?: Overrides,
   ): Promise<ContractTransaction>;
 
   setArchitectureRoleWithProofs(
     _user: string,
     _domainId: BigNumberish,
     _setTo: boolean,
-    overrides?: UnsignedTransaction,
+    overrides?: Overrides,
   ): Promise<ContractTransaction>;
   setFundingRoleWithProofs(
     _user: string,
     _domainId: BigNumberish,
     _setTo: boolean,
-    overrides?: UnsignedTransaction,
+    overrides?: Overrides,
   ): Promise<ContractTransaction>;
   setAdministrationRoleWithProofs(
     _user: string,
     _domainId: BigNumberish,
     _setTo: boolean,
-    overrides?: UnsignedTransaction,
-  ): Promise<ContractTransaction>;
-  addDomainWithProofs(
-    _parentDomainId: BigNumberish,
-    overrides?: UnsignedTransaction,
+    overrides?: Overrides,
   ): Promise<ContractTransaction>;
   addPaymentWithProofs(
     _recipient: string,
@@ -164,43 +134,36 @@ export type AugmentedIColony<T extends AnyIColony = AnyIColony> = T & {
     _amount: BigNumberish,
     _domainId: BigNumberish,
     _skillId: BigNumberish,
-    overrides?: UnsignedTransaction,
+    overrides?: Overrides,
   ): Promise<ContractTransaction>;
   finalizePaymentWithProofs(
     _id: BigNumberish,
-    overrides?: UnsignedTransaction,
+    overrides?: Overrides,
   ): Promise<ContractTransaction>;
   setPaymentRecipientWithProofs(
     _id: BigNumberish,
     _recipient: string,
-    overrides?: UnsignedTransaction,
+    overrides?: Overrides,
   ): Promise<ContractTransaction>;
   setPaymentSkillWithProofs(
     _id: BigNumberish,
     _skillId: BigNumberish,
-    overrides?: UnsignedTransaction,
+    overrides?: Overrides,
   ): Promise<ContractTransaction>;
   setPaymentPayoutWithProofs(
     _id: BigNumberish,
     _token: BigNumberish,
     _amount: BigNumberish,
-    overrides?: UnsignedTransaction,
+    overrides?: Overrides,
   ): Promise<ContractTransaction>;
   makeTaskWithProofs(
-    _specificationHash: Arrayish,
+    _specificationHash: BytesLike,
     _domainId: BigNumberish,
     _skillId: BigNumberish,
     _dueDate: BigNumberish,
-    overrides?: UnsignedTransaction,
+    overrides?: Overrides,
   ): Promise<ContractTransaction>;
-  moveFundsBetweenPotsWithProofs(
-    _fromPot: BigNumberish,
-    _toPot: BigNumberish,
-    _amount: BigNumberish,
-    _token: string,
-    overrides?: UnsignedTransaction,
-  ): Promise<ContractTransaction>;
-  estimate: AugmentedEstimate<T>;
+  estimateGas: AugmentedEstimate<T>;
 
   getReputation(
     skillId: BigNumberish,
@@ -247,7 +210,7 @@ export const getPotDomain = async (
   );
   // In case we add types to this later, we use the official colonyNetwork
   // function available in v5+
-  if (contract.clientVersion >= 5) {
+  if ('getDomainFromFundingPot' in contract) {
     return contract.getDomainFromFundingPot(potId);
   }
   switch (associatedType) {
@@ -277,15 +240,24 @@ export const getChildIndex = async (
   parentDomainId: BigNumberish,
   domainId: BigNumberish,
 ): Promise<BigNumber> => {
-  if (bigNumberify(parentDomainId).eq(bigNumberify(domainId))) {
+  if (BigNumber.from(parentDomainId).eq(BigNumber.from(domainId))) {
     return MaxUint256;
   }
   const { skillId: parentSkillId } = await contract.getDomain(parentDomainId);
   const { skillId } = await contract.getDomain(domainId);
   const { children } = await contract.networkClient.getSkill(parentSkillId);
   const idx = children.findIndex((childSkillId) => childSkillId.eq(skillId));
-  return bigNumberify(idx);
+  if (idx < 0) {
+    throw new Error(
+      `Could not find ${domainId} as a child of ${parentDomainId}`,
+    );
+  }
+  return BigNumber.from(idx);
 };
+
+// Call getPermissionProofs once for domainId and role
+// Find domains for pots
+// Find childSkillIndeces for from and to domain in domain we're acting in (domainId)
 
 export const getPermissionProofs = async (
   contract: AugmentedIColony,
@@ -301,10 +273,10 @@ export const getPermissionProofs = async (
     role,
   );
   if (hasPermissionInDomain) {
-    return [bigNumberify(domainId), MaxUint256];
+    return [BigNumber.from(domainId), MaxUint256];
   }
   // @TODO once we allow nested domains on the network level, this needs to traverse down the skill/domain tree. Use binary search
-  const foundDomainId = bigNumberify(ROOT_DOMAIN_ID);
+  const foundDomainId = BigNumber.from(ROOT_DOMAIN_ID);
   const hasPermissionInAParentDomain = await contract.hasUserRole(
     walletAddress,
     foundDomainId,
@@ -322,74 +294,6 @@ export const getPermissionProofs = async (
     );
   }
   return [foundDomainId, idx];
-};
-
-export const getMoveFundsPermissionProofs = async (
-  contract: AugmentedIColony,
-  fromtPotId: BigNumberish,
-  toPotId: BigNumberish,
-  customAddress?: string,
-  /* [fromPermissionDomainId, fromChildSkillIndex, toChildSkillIndex] */
-): Promise<[BigNumber, BigNumber, BigNumber]> => {
-  const walletAddress = customAddress || (await contract.signer.getAddress());
-  const fromDomainId = await getPotDomain(contract, fromtPotId);
-  const toDomainId = await getPotDomain(contract, toPotId);
-  const [fromPermissionDomainId, fromChildSkillIndex] =
-    await getPermissionProofs(
-      contract,
-      fromDomainId,
-      ColonyRole.Funding,
-      walletAddress,
-    );
-  // @TODO: once getPermissionProofs is more expensive we can just check the domain here
-  // with userHasRole and then immediately get the permission proofs
-  const [toPermissionDomainId, toChildSkillIndex] = await getPermissionProofs(
-    contract,
-    toDomainId,
-    ColonyRole.Funding,
-    walletAddress,
-  );
-  // Here's a weird case. We have found permissions for these domains but they don't share
-  // a parent domain with that permission. We can still find a common parent domain that
-  // has the funding permission
-  if (!fromPermissionDomainId.eq(toPermissionDomainId)) {
-    const hasFundingInRoot = await contract.hasUserRole(
-      walletAddress,
-      ROOT_DOMAIN_ID,
-      ColonyRole.Funding,
-    );
-    // @TODO: In the future we have to not only check the ROOT domain but traverse the tree
-    // (binary search) to find a common parent domain with funding permission
-    if (hasFundingInRoot) {
-      const rootFromChildSkillIndex = await getChildIndex(
-        contract,
-        ROOT_DOMAIN_ID,
-        fromDomainId,
-      );
-      const rootToChildSkillIndex = await getChildIndex(
-        contract,
-        ROOT_DOMAIN_ID,
-        toDomainId,
-      );
-      // This shouldn't really happen as we have already checked whether the user has funding
-      if (rootFromChildSkillIndex.lt(0) || rootToChildSkillIndex.lt(0)) {
-        throw new Error(
-          `User does not have the funding permission in any parent domain`,
-        );
-      }
-      return [
-        fromPermissionDomainId,
-        rootFromChildSkillIndex,
-        rootToChildSkillIndex,
-      ];
-    }
-    throw new Error(
-      // eslint-disable-next-line max-len
-      'User has to have the funding role in a domain that both associated pots a children of',
-    );
-  }
-
-  return [fromPermissionDomainId, fromChildSkillIndex, toChildSkillIndex];
 };
 
 export const getExtensionPermissionProofs = async (
@@ -453,7 +357,7 @@ async function setArchitectureRoleWithProofs(
   _user: string,
   _domainId: BigNumberish,
   _setTo: boolean,
-  overrides?: UnsignedTransaction,
+  overrides?: Overrides,
 ): Promise<ContractTransaction> {
   let proofs: [BigNumberish, BigNumberish];
   // This method has two potential permissions, so we try both of them
@@ -482,7 +386,7 @@ async function setFundingRoleWithProofs(
   _user: string,
   _domainId: BigNumberish,
   _setTo: boolean,
-  overrides?: UnsignedTransaction,
+  overrides?: Overrides,
 ): Promise<ContractTransaction> {
   let proofs: [BigNumberish, BigNumberish];
   // This method has two potential permissions, so we try both of them
@@ -511,7 +415,7 @@ async function setAdministrationRoleWithProofs(
   _user: string,
   _domainId: BigNumberish,
   _setTo: boolean,
-  overrides?: UnsignedTransaction,
+  overrides?: Overrides,
 ): Promise<ContractTransaction> {
   let proofs: [BigNumberish, BigNumberish];
   // This method has two potential permissions, so we try both of them
@@ -535,24 +439,6 @@ async function setAdministrationRoleWithProofs(
   );
 }
 
-async function addDomainWithProofs(
-  this: AugmentedIColony,
-  _parentDomainId: BigNumberish,
-  overrides?: UnsignedTransaction,
-): Promise<ContractTransaction> {
-  const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
-    this,
-    _parentDomainId,
-    ColonyRole.Architecture,
-  );
-  return this.addDomain(
-    permissionDomainId,
-    childSkillIndex,
-    _parentDomainId,
-    overrides,
-  );
-}
-
 async function addPaymentWithProofs(
   this: AugmentedIColony,
   _recipient: string,
@@ -560,7 +446,7 @@ async function addPaymentWithProofs(
   _amount: BigNumberish,
   _domainId: BigNumberish,
   _skillId: BigNumberish,
-  overrides?: UnsignedTransaction,
+  overrides?: Overrides,
 ): Promise<ContractTransaction> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this,
@@ -582,7 +468,7 @@ async function addPaymentWithProofs(
 async function finalizePaymentWithProofs(
   this: AugmentedIColony,
   _id: BigNumberish,
-  overrides?: UnsignedTransaction,
+  overrides?: Overrides,
 ): Promise<ContractTransaction> {
   const { domainId } = await this.getPayment(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
@@ -602,7 +488,7 @@ async function setPaymentRecipientWithProofs(
   this: AugmentedIColony,
   _id: BigNumberish,
   _recipient: string,
-  overrides?: UnsignedTransaction,
+  overrides?: Overrides,
 ): Promise<ContractTransaction> {
   const { domainId } = await this.getPayment(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
@@ -623,7 +509,7 @@ async function setPaymentSkillWithProofs(
   this: AugmentedIColony,
   _id: BigNumberish,
   _skillId: string,
-  overrides?: UnsignedTransaction,
+  overrides?: Overrides,
 ): Promise<ContractTransaction> {
   const { domainId } = await this.getPayment(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
@@ -645,7 +531,7 @@ async function setPaymentPayoutWithProofs(
   _id: BigNumberish,
   _token: string,
   _amount: BigNumberish,
-  overrides?: UnsignedTransaction,
+  overrides?: Overrides,
 ): Promise<ContractTransaction> {
   const { domainId } = await this.getPayment(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
@@ -665,11 +551,11 @@ async function setPaymentPayoutWithProofs(
 
 async function makeTaskWithProofs(
   this: AugmentedIColony,
-  _specificationHash: Arrayish,
+  _specificationHash: BytesLike,
   _domainId: BigNumberish,
   _skillId: BigNumberish,
   _dueDate: BigNumberish,
-  overrides?: UnsignedTransaction,
+  overrides?: Overrides,
 ): Promise<ContractTransaction> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this,
@@ -687,31 +573,6 @@ async function makeTaskWithProofs(
   );
 }
 
-async function moveFundsBetweenPotsWithProofs(
-  this: AugmentedIColony,
-  _fromPot: BigNumberish,
-  _toPot: BigNumberish,
-  _amount: BigNumberish,
-  _token: string,
-  overrides?: UnsignedTransaction,
-): Promise<ContractTransaction> {
-  const [permissionDomainId, fromChildSkillIndex, toChildSkillIndex] =
-    await getMoveFundsPermissionProofs(this, _fromPot, _toPot);
-
-  return this[
-    `moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,address)`
-  ](
-    permissionDomainId,
-    fromChildSkillIndex,
-    toChildSkillIndex,
-    _fromPot,
-    _toPot,
-    _amount,
-    _token,
-    overrides,
-  );
-}
-
 async function estimateSetArchitectureRoleWithProofs(
   this: AugmentedIColony,
   _user: string,
@@ -723,7 +584,7 @@ async function estimateSetArchitectureRoleWithProofs(
     _domainId,
     ColonyRole.Architecture,
   );
-  return this.estimate.setArchitectureRole(
+  return this.estimateGas.setArchitectureRole(
     permissionDomainId,
     childSkillIndex,
     _user,
@@ -743,7 +604,7 @@ async function estimateSetFundingRoleWithProofs(
     _domainId,
     ColonyRole.Architecture,
   );
-  return this.estimate.setFundingRole(
+  return this.estimateGas.setFundingRole(
     permissionDomainId,
     childSkillIndex,
     _user,
@@ -763,28 +624,12 @@ async function estimateSetAdministrationRoleWithProofs(
     _domainId,
     ColonyRole.Architecture,
   );
-  return this.estimate.setAdministrationRole(
+  return this.estimateGas.setAdministrationRole(
     permissionDomainId,
     childSkillIndex,
     _user,
     _domainId,
     _setTo,
-  );
-}
-
-async function estimateAddDomainWithProofs(
-  this: AugmentedIColony,
-  _parentDomainId: BigNumberish,
-): Promise<BigNumber> {
-  const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
-    this,
-    _parentDomainId,
-    ColonyRole.Architecture,
-  );
-  return this.estimate.addDomain(
-    permissionDomainId,
-    childSkillIndex,
-    _parentDomainId,
   );
 }
 
@@ -801,7 +646,7 @@ async function estimateAddPaymentWithProofs(
     _domainId,
     ColonyRole.Administration,
   );
-  return this.estimate.addPayment(
+  return this.estimateGas.addPayment(
     permissionDomainId,
     childSkillIndex,
     _recipient,
@@ -822,7 +667,7 @@ async function estimateFinalizePaymentWithProofs(
     domainId,
     ColonyRole.Administration,
   );
-  return this.estimate.finalizePayment(
+  return this.estimateGas.finalizePayment(
     permissionDomainId,
     childSkillIndex,
     _id,
@@ -840,7 +685,7 @@ async function estimateSetPaymentRecipientWithProofs(
     domainId,
     ColonyRole.Administration,
   );
-  return this.estimate.setPaymentRecipient(
+  return this.estimateGas.setPaymentRecipient(
     permissionDomainId,
     childSkillIndex,
     _id,
@@ -859,7 +704,7 @@ async function estimateSetPaymentSkillWithProofs(
     domainId,
     ColonyRole.Administration,
   );
-  return this.estimate.setPaymentSkill(
+  return this.estimateGas.setPaymentSkill(
     permissionDomainId,
     childSkillIndex,
     _id,
@@ -879,7 +724,7 @@ async function estimateSetPaymentPayoutWithProofs(
     domainId,
     ColonyRole.Administration,
   );
-  return this.estimate.setPaymentPayout(
+  return this.estimateGas.setPaymentPayout(
     permissionDomainId,
     childSkillIndex,
     _id,
@@ -890,7 +735,7 @@ async function estimateSetPaymentPayoutWithProofs(
 
 async function estimateMakeTaskWithProofs(
   this: AugmentedIColony,
-  _specificationHash: Arrayish,
+  _specificationHash: BytesLike,
   _domainId: BigNumberish,
   _skillId: BigNumberish,
   _dueDate: BigNumberish,
@@ -900,36 +745,13 @@ async function estimateMakeTaskWithProofs(
     _domainId,
     ColonyRole.Administration,
   );
-  return this.estimate.makeTask(
+  return this.estimateGas.makeTask(
     permissionDomainId,
     childSkillIndex,
     _specificationHash,
     _domainId,
     _skillId,
     _dueDate,
-  );
-}
-
-async function estimateMoveFundsBetweenPotsWithProofs(
-  this: AugmentedIColony,
-  _fromPot: BigNumberish,
-  _toPot: BigNumberish,
-  _amount: BigNumberish,
-  _token: string,
-): Promise<BigNumber> {
-  const [permissionDomainId, fromChildSkillIndex, toChildSkillIndex] =
-    await getMoveFundsPermissionProofs(this, _fromPot, _toPot);
-
-  return (this as IColonyV5).estimate[
-    `moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,address)`
-  ](
-    permissionDomainId,
-    fromChildSkillIndex,
-    toChildSkillIndex,
-    _fromPot,
-    _toPot,
-    _amount,
-    _token,
   );
 }
 
@@ -956,7 +778,7 @@ async function getReputation(
 
   return {
     ...result,
-    reputationAmount: bigNumberify(result.reputationAmount || 0),
+    reputationAmount: BigNumber.from(result.reputationAmount || 0),
   };
 }
 
@@ -980,7 +802,7 @@ async function getReputationWithoutProofs(
   );
   return {
     ...result,
-    reputationAmount: bigNumberify(result.reputationAmount || 0),
+    reputationAmount: BigNumber.from(result.reputationAmount || 0),
   };
 }
 
@@ -1028,7 +850,7 @@ async function getReputationAcrossDomains(
     return {
       ...domain,
       reputationAmount: reputationAmount
-        ? bigNumberify(reputationAmount)
+        ? BigNumber.from(reputationAmount)
         : undefined,
     };
   });
@@ -1052,7 +874,7 @@ async function deployTokenAuthority(
   this: AugmentedIColony,
   tokenAddress: string,
   allowedToTransfer: string[],
-  overrides?: UnsignedTransaction,
+  overrides?: Overrides,
 ): Promise<ContractTransaction> {
   const tokenAuthorityFactory = new ContractFactory(
     tokenAuthorityAbi,
@@ -1090,7 +912,7 @@ export const addAugments = <T extends AugmentedIColony>(
   instance: T,
   networkClient: ColonyNetworkClient,
 ): T => {
-  /* eslint-disable no-param-reassign, max-len */
+  /* eslint-disable no-param-reassign */
   instance.clientType = ClientType.ColonyClient;
   instance.networkClient = networkClient;
 
@@ -1102,7 +924,6 @@ export const addAugments = <T extends AugmentedIColony>(
   instance.setFundingRoleWithProofs = setFundingRoleWithProofs.bind(instance);
   instance.setAdministrationRoleWithProofs =
     setAdministrationRoleWithProofs.bind(instance);
-  instance.addDomainWithProofs = addDomainWithProofs.bind(instance);
   instance.addPaymentWithProofs = addPaymentWithProofs.bind(instance);
   instance.finalizePaymentWithProofs = finalizePaymentWithProofs.bind(instance);
   instance.setPaymentRecipientWithProofs =
@@ -1111,34 +932,28 @@ export const addAugments = <T extends AugmentedIColony>(
   instance.setPaymentPayoutWithProofs =
     setPaymentPayoutWithProofs.bind(instance);
   instance.makeTaskWithProofs = makeTaskWithProofs.bind(instance);
-  instance.moveFundsBetweenPotsWithProofs =
-    moveFundsBetweenPotsWithProofs.bind(instance);
 
-  instance.estimate.deployTokenAuthority =
+  instance.estimateGas.deployTokenAuthority =
     estimateDeployTokenAuthority.bind(instance);
 
-  instance.estimate.setArchitectureRoleWithProofs =
+  instance.estimateGas.setArchitectureRoleWithProofs =
     estimateSetArchitectureRoleWithProofs.bind(instance);
-  instance.estimate.setFundingRoleWithProofs =
+  instance.estimateGas.setFundingRoleWithProofs =
     estimateSetFundingRoleWithProofs.bind(instance);
-  instance.estimate.setAdministrationRoleWithProofs =
+  instance.estimateGas.setAdministrationRoleWithProofs =
     estimateSetAdministrationRoleWithProofs.bind(instance);
-  instance.estimate.addDomainWithProofs =
-    estimateAddDomainWithProofs.bind(instance);
-  instance.estimate.addPaymentWithProofs =
+  instance.estimateGas.addPaymentWithProofs =
     estimateAddPaymentWithProofs.bind(instance);
-  instance.estimate.finalizePaymentWithProofs =
+  instance.estimateGas.finalizePaymentWithProofs =
     estimateFinalizePaymentWithProofs.bind(instance);
-  instance.estimate.setPaymentRecipientWithProofs =
+  instance.estimateGas.setPaymentRecipientWithProofs =
     estimateSetPaymentRecipientWithProofs.bind(instance);
-  instance.estimate.setPaymentSkillWithProofs =
+  instance.estimateGas.setPaymentSkillWithProofs =
     estimateSetPaymentSkillWithProofs.bind(instance);
-  instance.estimate.setPaymentPayoutWithProofs =
+  instance.estimateGas.setPaymentPayoutWithProofs =
     estimateSetPaymentPayoutWithProofs.bind(instance);
-  instance.estimate.makeTaskWithProofs =
+  instance.estimateGas.makeTaskWithProofs =
     estimateMakeTaskWithProofs.bind(instance);
-  instance.estimate.moveFundsBetweenPotsWithProofs =
-    estimateMoveFundsBetweenPotsWithProofs.bind(instance);
 
   // This is awkward and just used to get the RecoveryRoleSet event which is missing (but emitted)
   // in other colonies. We can remove this once all of the active colonies are at version 4
@@ -1155,6 +970,6 @@ export const addAugments = <T extends AugmentedIColony>(
     getReputationAcrossDomains.bind(instance);
   instance.getMembersReputation = getMembersReputation.bind(instance);
 
-  /* eslint-enable no-param-reassign, max-len */
+  /* eslint-enable no-param-reassign */
   return instance;
 };

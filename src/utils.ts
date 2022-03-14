@@ -1,20 +1,20 @@
 import { isEqual } from 'lodash-es';
 import fetch from 'cross-fetch';
-import { Signer } from 'ethers';
-import {
-  getAddress,
-  EventFragment,
-  LogDescription,
-  BigNumber,
-  BigNumberish,
-  bigNumberify,
-} from 'ethers/utils';
-import { Provider } from 'ethers/providers';
+import { Signer, utils, BigNumber, BigNumberish } from 'ethers';
+import type { Provider } from '@ethersproject/abstract-provider';
+import type { EventFragment, LogDescription, Result } from '@ethersproject/abi';
 
 import { IColonyFactory } from './exports';
-import { ColonyRole, ColonyRoles, ROOT_DOMAIN_ID } from './constants';
-import { IColonyEvents, ReputationMinerEndpoints } from './types';
+import { ROOT_DOMAIN_ID } from './constants';
+import {
+  IColonyEvents,
+  ReputationMinerEndpoints,
+  ColonyRole,
+  ColonyRoles,
+} from './types';
 import { ColonyNetworkClient } from './clients/ColonyNetworkClient';
+
+const { getAddress } = utils;
 
 interface ColonyRolesMap {
   [userAddress: string]: {
@@ -22,14 +22,14 @@ interface ColonyRolesMap {
   };
 }
 
-interface ColonyRoleSetValues {
+interface ColonyRoleSetValues extends Result {
   user: string;
   domainId: BigNumber;
   role: ColonyRole;
   setTo: boolean;
 }
 
-interface RecoveryRoleSetValues {
+interface RecoveryRoleSetValues extends Result {
   user: string;
   domainId: BigNumber;
   role: ColonyRole;
@@ -163,8 +163,8 @@ export const formatColonyRoles = async (
          * them to be.
          */
         .filter(({ name }) => name.includes(IColonyEvents.ColonyRoleSet))
-        .reduce((colonyRolesMap: ColonyRolesMap, { values }) => {
-          const { user, domainId, role, setTo }: ColonyRoleSetValues = values;
+        .reduce((colonyRolesMap: ColonyRolesMap, { args }) => {
+          const { user, domainId, role, setTo } = args as ColonyRoleSetValues;
           const domainKey = domainId.toString();
           if (!colonyRolesMap[user]) {
             const roleSet: Set<ColonyRole> = setTo
@@ -194,8 +194,8 @@ export const formatColonyRoles = async (
      * them to be.
      */
     .filter(({ name }) => name.includes(IColonyEvents.RecoveryRoleSet))
-    .forEach(({ values }) => {
-      const { user, setTo }: RecoveryRoleSetValues = values;
+    .forEach(({ args }) => {
+      const { user, setTo } = args as RecoveryRoleSetValues;
       rolesMap[user] = rolesMap[user] || {};
       if (rolesMap[user][ROOT_DOMAIN]) {
         if (setTo) {
@@ -260,7 +260,7 @@ export const fetchReputationOracleData = async <
     reputationOracleEndpoint: reputationOracleHostname,
   } = networkClient;
 
-  const skillIdString = bigNumberify(skillId || '').toString();
+  const skillIdString = BigNumber.from(skillId || '').toString();
 
   const rootHash =
     customRootHash || (await networkClient.getReputationRootHash());

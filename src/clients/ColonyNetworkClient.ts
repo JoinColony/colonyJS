@@ -1,13 +1,14 @@
-import { ContractFactory, ContractTransaction, Signer } from 'ethers';
-import { Provider } from 'ethers/providers';
-import { BigNumber, UnsignedTransaction } from 'ethers/utils';
+import {
+  ContractFactory,
+  ContractTransaction,
+  BigNumber,
+  Overrides,
+} from 'ethers';
 
-import { ColonyClient } from '../types';
+import { ColonyClient, ClientType, Network } from '../types';
 
 import {
-  ClientType,
-  Network,
-  colonyNetworkAddresses,
+  COLONY_NETWORK_ADDRESSES,
   REPUTATION_ORACLE_ENDPOINT,
 } from '../constants';
 import { ColonyVersion } from '../versions';
@@ -26,10 +27,11 @@ import getTokenClient from './TokenClient';
 import getTokenLockingClient, {
   TokenLockingClient,
 } from './TokenLockingClient';
+import { SignerOrProvider } from '..';
 
 const { abi: tokenAbi, bytecode: tokenBytecode } = abis.MetaTxToken;
 
-type NetworkEstimate = IColonyNetwork['estimate'];
+type NetworkEstimate = IColonyNetwork['estimateGas'];
 
 interface ExtendedEstimate extends NetworkEstimate {
   deployToken(
@@ -44,7 +46,7 @@ export interface ColonyNetworkClient extends IColonyNetwork {
   network: Network;
   reputationOracleEndpoint: string;
 
-  estimate: ExtendedEstimate;
+  estimateGas: ExtendedEstimate;
 
   /**
    * Get a ColonyClient instance for the currently deployed version of that Colony by providing the address or the integer colony number
@@ -76,7 +78,7 @@ export interface ColonyNetworkClient extends IColonyNetwork {
     name: string,
     symbol: string,
     decimals?: number,
-    overrides?: UnsignedTransaction,
+    overrides?: Overrides,
   ): Promise<ContractTransaction>;
   /**
    * Gets the TokenLockingClient
@@ -131,13 +133,13 @@ interface NetworkClientOptions {
  */
 const getColonyNetworkClient = (
   network: Network,
-  signerOrProvider: Signer | Provider,
+  signerOrProvider: SignerOrProvider,
   options?: NetworkClientOptions,
 ): ColonyNetworkClient => {
   const networkAddress =
     options && options.networkAddress
       ? options.networkAddress
-      : colonyNetworkAddresses[network || Network.Mainnet];
+      : COLONY_NETWORK_ADDRESSES[network || Network.Mainnet];
   if (!networkAddress) {
     throw new Error(
       `Could not get ColonyNetwork address for ${network}. Please specify`,
@@ -295,7 +297,7 @@ const getColonyNetworkClient = (
     name: string,
     symbol: string,
     decimals?: number,
-    overrides?: UnsignedTransaction,
+    overrides?: Overrides,
   ): Promise<ContractTransaction> => {
     const tokenFactory = new ContractFactory(
       tokenAbi,
@@ -312,7 +314,7 @@ const getColonyNetworkClient = (
     return tokenContract.deployTransaction;
   };
 
-  networkClient.estimate.deployToken = async (
+  networkClient.estimateGas.deployToken = async (
     name: string,
     symbol: string,
     decimals = 18,

@@ -1,7 +1,6 @@
 // A minimal version of the ColonyClient contract that only supports the `version` method
-import { Contract, Signer } from 'ethers';
-import { Provider } from 'ethers/providers';
-import { BigNumber } from 'ethers/utils';
+import { BigNumber, Contract } from 'ethers';
+import { SignerOrProvider } from '../..';
 
 interface ColonyVersionClient extends Contract {
   version(): Promise<BigNumber>;
@@ -26,7 +25,7 @@ const abi = [
 
 export default function getColonyVersionClient(
   address: string,
-  signerOrProvider: Signer | Provider,
+  signerOrProvider: SignerOrProvider,
 ): ColonyVersionClient {
   return new Contract(address, abi, signerOrProvider) as ColonyVersionClient;
 }

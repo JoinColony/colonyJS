@@ -1,16 +1,18 @@
-import { BigNumber, BigNumberish, UnsignedTransaction } from 'ethers/utils';
-import { ContractTransaction } from 'ethers';
+import {
+  BigNumber,
+  BigNumberish,
+  Overrides,
+  ContractTransaction,
+} from 'ethers';
 
-import { IColony as IColonyV1 } from '../../../contracts/IColony/1/IColony';
-import { IColony as IColonyV2 } from '../../../contracts/IColony/2/IColony';
-import { IColony as IColonyV3 } from '../../../contracts/IColony/3/IColony';
-import { ColonyRole } from '../../../constants';
+import { IColonyV1, IColonyV2, IColonyV3 } from '../../../exports';
+import { ColonyRole } from '../../../types';
 import { AugmentedIColony, getPermissionProofs } from './commonAugments';
 
 // Colonies that support this method
 type ValidColony = IColonyV1 | IColonyV2 | IColonyV3;
 
-export interface SetPaymentDomainEstimate {
+export interface SetPaymentDomainEstimateGas {
   setPaymentDomainWithProofs(
     _id: BigNumberish,
     _domainId: BigNumberish,
@@ -21,16 +23,16 @@ export type SetPaymentDomainAugments<T extends ValidColony> = {
   setPaymentDomainWithProofs(
     _id: BigNumberish,
     _domainId: BigNumberish,
-    overrides?: UnsignedTransaction,
+    overrides?: Overrides,
   ): Promise<ContractTransaction>;
-  estimate: T['estimate'] & SetPaymentDomainEstimate;
+  estimateGas: T['estimateGas'] & SetPaymentDomainEstimateGas;
 };
 
-export async function setPaymentDomainWithProofs(
+async function setPaymentDomainWithProofs(
   this: AugmentedIColony<ValidColony> & SetPaymentDomainAugments<ValidColony>,
   _id: BigNumberish,
   _domainId: string,
-  overrides?: UnsignedTransaction,
+  overrides?: Overrides,
 ): Promise<ContractTransaction> {
   const { domainId } = await this.getPayment(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
@@ -47,7 +49,7 @@ export async function setPaymentDomainWithProofs(
   );
 }
 
-export async function estimateSetPaymentDomainWithProofs(
+async function estimateSetPaymentDomainWithProofs(
   this: AugmentedIColony<ValidColony> & SetPaymentDomainAugments<ValidColony>,
   _id: BigNumberish,
   _domainId: BigNumberish,
@@ -58,10 +60,21 @@ export async function estimateSetPaymentDomainWithProofs(
     domainId,
     ColonyRole.Administration,
   );
-  return this.estimate.setPaymentDomain(
+  return this.estimateGas.setPaymentDomain(
     permissionDomainId,
     childSkillIndex,
     _id,
     _domainId,
   );
 }
+export const addAugments = (
+  contract: AugmentedIColony<ValidColony> &
+    SetPaymentDomainAugments<ValidColony>,
+) => {
+  /* eslint-disable no-param-reassign */
+  contract.setPaymentDomainWithProofs =
+    setPaymentDomainWithProofs.bind(contract);
+  contract.estimateGas.setPaymentDomainWithProofs =
+    estimateSetPaymentDomainWithProofs.bind(contract);
+  /* eslint-enable no-param-reassign */
+};

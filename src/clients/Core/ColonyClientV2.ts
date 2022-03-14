@@ -1,28 +1,47 @@
-import { Signer } from 'ethers';
-import { Provider } from 'ethers/providers';
-
+import { SignerOrProvider } from '../..';
 import { IColony__factory as IColonyFactory } from '../../contracts/IColony/2/factories/IColony__factory';
 import { IColony } from '../../contracts/IColony/2/IColony';
 import { ColonyNetworkClient } from '../ColonyNetworkClient';
-import { addAugments, AugmentedIColony } from './augments/commonAugments';
+import {
+  addAugments,
+  AugmentedIColony,
+  AugmentedEstimate,
+} from './augments/commonAugments';
+import {
+  AddDomainAugmentsA,
+  AddDomainEstimateGasA,
+  addAugmentsA as addAddDomainAugments,
+} from './augments/AddDomain';
+import {
+  MoveFundsBetweenPotsAugmentsA,
+  MoveFundsBetweenPotsEstimateGasA,
+  addAugmentsA as addMoveFundsBetweenPotsAugments,
+} from './augments/MoveFundsBetweenPots';
 import {
   SetPaymentDomainAugments,
-  SetPaymentDomainEstimate,
-  setPaymentDomainWithProofs,
-  estimateSetPaymentDomainWithProofs,
+  SetPaymentDomainEstimateGas,
+  addAugments as addSetPaymentDomainAugments,
 } from './augments/SetPaymentDomain';
+
+interface ColonyClientV2Estimate
+  extends AugmentedEstimate<IColony>,
+    AddDomainEstimateGasA,
+    SetPaymentDomainEstimateGas,
+    MoveFundsBetweenPotsEstimateGasA {}
 
 export interface ColonyClientV2
   extends AugmentedIColony<IColony>,
-    SetPaymentDomainAugments<IColony> {
+    AddDomainAugmentsA<IColony>,
+    SetPaymentDomainAugments<IColony>,
+    MoveFundsBetweenPotsAugmentsA<IColony> {
   clientVersion: 2;
-  estimate: AugmentedIColony<IColony>['estimate'] & SetPaymentDomainEstimate;
+  estimateGas: ColonyClientV2Estimate;
 }
 
 export default function getColonyClient(
   this: ColonyNetworkClient,
   address: string,
-  signerOrProvider: Signer | Provider,
+  signerOrProvider: SignerOrProvider,
 ): ColonyClientV2 {
   const colonyClient = IColonyFactory.connect(
     address,
@@ -31,11 +50,9 @@ export default function getColonyClient(
 
   colonyClient.clientVersion = 2;
   addAugments(colonyClient, this);
-
-  colonyClient.setPaymentDomainWithProofs =
-    setPaymentDomainWithProofs.bind(colonyClient);
-  colonyClient.estimateWithProofs.setPaymentDomain =
-    estimateSetPaymentDomainWithProofs.bind(colonyClient);
+  addAddDomainAugments(colonyClient);
+  addMoveFundsBetweenPotsAugments(colonyClient);
+  addSetPaymentDomainAugments(colonyClient);
 
   return colonyClient as ColonyClientV2;
 }

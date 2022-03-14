@@ -2,19 +2,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Signer } from "ethers";
-import { Provider } from "ethers/providers";
-
-import { IColony } from "../IColony";
-
-export class IColony__factory {
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): IColony {
-    return new Contract(address, _abi, signerOrProvider) as IColony;
-  }
-}
+import { Contract, Signer, utils } from "ethers";
+import { Provider } from "@ethersproject/providers";
+import type { IColony, IColonyInterface } from "../IColony";
 
 const _abi = [
   {
@@ -2248,3 +2238,16 @@ const _abi = [
     type: "function",
   },
 ];
+
+export class IColony__factory {
+  static readonly abi = _abi;
+  static createInterface(): IColonyInterface {
+    return new utils.Interface(_abi) as IColonyInterface;
+  }
+  static connect(
+    address: string,
+    signerOrProvider: Signer | Provider
+  ): IColony {
+    return new Contract(address, _abi, signerOrProvider) as IColony;
+  }
+}

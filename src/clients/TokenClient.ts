@@ -1,9 +1,6 @@
-import { Signer } from 'ethers';
-import { AddressZero } from 'ethers/constants';
-import { Provider } from 'ethers/providers';
-import { getAddress, isHexString, parseBytes32String } from 'ethers/utils';
+import { constants, utils } from 'ethers';
 
-import { ClientType, TokenClientType, tokenAddresses } from '../constants';
+import { tokenAddresses } from '../constants';
 import {
   TokenFactory,
   Token,
@@ -12,6 +9,10 @@ import {
   TokenSaiFactory,
   TokenSai,
 } from '../exports';
+import { ClientType, SignerOrProvider, TokenClientType } from '../types';
+
+const { AddressZero } = constants;
+const { getAddress, isHexString, parseBytes32String } = utils;
 
 const isSai = (address: string): boolean =>
   getAddress(address) === tokenAddresses.SAI;
@@ -48,7 +49,7 @@ export type TokenClient = ColonyTokenClient | Erc20TokenClient | DaiTokenClient;
 
 const getTokenClient = async (
   address: string,
-  signerOrProvider: Signer | Provider,
+  signerOrProvider: SignerOrProvider,
 ): Promise<TokenClient> => {
   let tokenClient: TokenClient;
   let isColonyToken = false;
@@ -88,8 +89,8 @@ const getTokenClient = async (
 
   // Before we go, let's check if this resembles a valid ERC20 token, for good measure
   try {
-    await tokenClient.estimate.transfer(address, 0, {
-      to: AddressZero,
+    await tokenClient.estimateGas.transfer(address, 0, {
+      from: AddressZero,
     });
   } catch (err) {
     throw new Error(`Token is probably not a valid ERC20 token, got ${err}`);

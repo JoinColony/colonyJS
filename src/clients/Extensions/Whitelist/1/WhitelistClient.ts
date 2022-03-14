@@ -7,7 +7,7 @@
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { ClientType } from '../../../../constants';
+import { ClientType } from '../../../../types';
 import { Whitelist__factory as WhitelistFactory } from '../../../../contracts/Whitelist/1/factories/Whitelist__factory';
 import { Whitelist } from '../../../../contracts/Whitelist/1/Whitelist';
 import { AugmentedIColony } from '../../../../clients/Core/augments/commonAugments';
@@ -17,7 +17,7 @@ import {
   getWhitelistClientEstimateAugments,
 } from './WhitelistClientAugments';
 
-type WhitelistEstimate = Whitelist['estimate'];
+type WhitelistEstimate = Whitelist['estimateGas'];
 interface WhitelistEstimateWithAddons extends WhitelistEstimate {
   /*
    * @TODO These needs to be specifically determined once we can integrate

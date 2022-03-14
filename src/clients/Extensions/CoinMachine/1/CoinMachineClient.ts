@@ -7,7 +7,7 @@
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { ClientType } from '../../../../constants';
+import { ClientType } from '../../../../types';
 import { CoinMachine__factory as CoinMachineFactory } from '../../../../contracts/CoinMachine/1/factories/CoinMachine__factory';
 import { CoinMachine } from '../../../../contracts/CoinMachine/1/CoinMachine';
 import { AugmentedIColony } from '../../../../clients/Core/augments/commonAugments';
@@ -17,7 +17,7 @@ import {
   getCoinMachineClientEstimateAugments,
 } from './CoinMachineClientAugments';
 
-type CoinMachineEstimate = CoinMachine['estimate'];
+type CoinMachineEstimate = CoinMachine['estimateGas'];
 interface AugmentedCoinMachineEstimate extends CoinMachineEstimate {
   /*
    * @TODO These needs to be specifically determined once we can integrate

@@ -7,7 +7,7 @@
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { ClientType } from '../../../../constants';
+import { ClientType } from '../../../../types';
 import { VotingReputation__factory as VotingReputationFactory } from '../../../../contracts/VotingReputation/3/factories/VotingReputation__factory';
 import { VotingReputation } from '../../../../contracts/VotingReputation/3/VotingReputation';
 import { AugmentedIColony } from '../../../../clients/Core/augments/commonAugments';
@@ -16,7 +16,7 @@ import * as currentVersion from './VotingReputationClientAugments';
 import * as version1 from '../1/VotingReputationClientAugments';
 import * as version2 from '../2/VotingReputationClientAugments';
 
-type VotingReputationEstimate = VotingReputation['estimate'];
+type VotingReputationEstimate = VotingReputation['estimateGas'];
 interface AugmentedVotingReputationEstimate extends VotingReputationEstimate {
   /*
    * @TODO These needs to be specifically determined once we can integrate
