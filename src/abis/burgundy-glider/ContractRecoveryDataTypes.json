@@ -1,1 +1,29 @@
-{"contractName":"ContractRecoveryDataTypes","abi":[{"anonymous":false,"inputs":[{"indexed":true,"name":"user","type":"address"},{"indexed":false,"name":"setTo","type":"bool"}],"name":"RecoveryRoleSet","type":"event"}],"bytecode":"0x6080604052348015600f57600080fd5b50603580601d6000396000f3fe6080604052600080fdfea165627a7a723058206e8116472424c0905bc1377446073d6f1b021bd51fb625239e3fd0ac0a505a9f0029"}
+{
+    "contractName": "ContractRecoveryDataTypes",
+    "abi": [
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "name": "setTo",
+                    "type": "bool"
+                }
+            ],
+            "name": "RecoveryRoleSet",
+            "type": "event"
+        }
+    ],
+    "bytecode": "0x6080604052348015600f57600080fd5b50603580601d6000396000f3fe6080604052600080fdfea165627a7a7230582084b46e052f90053a4b50cf417e2df289536c27a79589adcd38f70b6fc500422e0029",
+    "devdoc": {
+        "methods": {}
+    },
+    "userdoc": {
+        "methods": {}
+    }
+}

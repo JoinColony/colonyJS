@@ -1,1 +1,3130 @@
-{"contractName":"IMetaColony","abi":[{"constant":true,"inputs":[{"name":"_id","type":"uint256"}],"name":"getTaskWorkRatingSecretsInfo","outputs":[{"name":"nSecrets","type":"uint256"},{"name":"lastSubmittedAt","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_id","type":"uint256"},{"name":"_role","type":"uint8"},{"name":"_token","type":"address"}],"name":"getTaskPayout","outputs":[{"name":"amount","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_id","type":"uint256"},{"name":"_token","type":"address"}],"name":"claimPayment","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"getDomainCount","outputs":[{"name":"count","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_id","type":"uint256"},{"name":"_deliverableHash","type":"bytes32"},{"name":"_ratingSecret","type":"bytes32"}],"name":"submitTaskDeliverableAndRating","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_id","type":"uint256"}],"name":"getDomain","outputs":[{"components":[{"name":"skillId","type":"uint256"},{"name":"fundingPotId","type":"uint256"}],"name":"domain","type":"tuple"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_salt","type":"bytes32"},{"name":"_value","type":"uint256"}],"name":"generateSecret","outputs":[{"name":"secret","type":"bytes32"}],"payable":false,"stateMutability":"pure","type":"function"},{"constant":true,"inputs":[{"name":"_id","type":"uint256"}],"name":"getTask","outputs":[{"name":"specificationHash","type":"bytes32"},{"name":"deliverableHash","type":"bytes32"},{"name":"status","type":"uint8"},{"name":"dueDate","type":"uint256"},{"name":"fundingPotId","type":"uint256"},{"name":"completionTimestamp","type":"uint256"},{"name":"domainId","type":"uint256"},{"name":"skillIds","type":"uint256[]"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_id","type":"uint256"},{"name":"_role","type":"uint8"}],"name":"getTaskRole","outputs":[{"components":[{"name":"user","type":"address"},{"name":"rateFail","type":"bool"},{"name":"rating","type":"uint8"}],"name":"role","type":"tuple"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_permissionDomainId","type":"uint256"},{"name":"_childSkillIndex","type":"uint256"},{"name":"_parentDomainId","type":"uint256"}],"name":"addDomain","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"getToken","outputs":[{"name":"tokenAddress","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_sigV","type":"uint8[]"},{"name":"_sigR","type":"bytes32[]"},{"name":"_sigS","type":"bytes32[]"},{"name":"_mode","type":"uint8[]"},{"name":"_value","type":"uint256"},{"name":"_data","type":"bytes"}],"name":"executeTaskRoleAssignment","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_permissionDomainId","type":"uint256"},{"name":"_childSkillIndex","type":"uint256"},{"name":"_id","type":"uint256"},{"name":"_skillId","type":"uint256"}],"name":"setPaymentSkill","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"getFundingPotCount","outputs":[{"name":"count","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_rewardInverse","type":"uint256"}],"name":"setRewardInverse","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_id","type":"uint256"},{"name":"_token","type":"address"},{"name":"_amount","type":"uint256"}],"name":"setTaskWorkerPayout","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"approveExitRecovery","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_id","type":"uint256"}],"name":"getPayment","outputs":[{"components":[{"name":"recipient","type":"address"},{"name":"finalized","type":"bool"},{"name":"fundingPotId","type":"uint256"},{"name":"domainId","type":"uint256"},{"name":"skills","type":"uint256[]"}],"name":"payment","type":"tuple"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_token","type":"address"}],"name":"getNonRewardPotsTotal","outputs":[{"name":"amount","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_payoutId","type":"uint256"}],"name":"getRewardPayoutInfo","outputs":[{"components":[{"name":"reputationState","type":"bytes32"},{"name":"colonyWideReputation","type":"uint256"},{"name":"totalTokens","type":"uint256"},{"name":"amount","type":"uint256"},{"name":"tokenAddress","type":"address"},{"name":"blockTimestamp","type":"uint256"}],"name":"rewardPayoutCycle","type":"tuple"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"exitRecoveryMode","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_id","type":"uint256"},{"name":"_role","type":"uint8"},{"name":"_ratingSecret","type":"bytes32"}],"name":"submitTaskWorkRating","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_newVersion","type":"uint256"}],"name":"upgrade","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_id","type":"uint256"}],"name":"removeTaskWorkerRole","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"getRewardInverse","outputs":[{"name":"rewardInverse","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getColonyNetwork","outputs":[{"name":"colonyNetwork","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_permissionDomainId","type":"uint256"},{"name":"_childSkillIndex","type":"uint256"},{"name":"_recipient","type":"address"},{"name":"_token","type":"address"},{"name":"_amount","type":"uint256"},{"name":"_domainId","type":"uint256"},{"name":"_skillId","type":"uint256"}],"name":"addPayment","outputs":[{"name":"paymentId","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_id","type":"uint256"},{"name":"_deliverableHash","type":"bytes32"}],"name":"submitTaskDeliverable","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_payoutId","type":"uint256"}],"name":"finalizeRewardPayout","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"numRecoveryRoles","outputs":[{"name":"numRoles","type":"uint64"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_permissionDomainId","type":"uint256"},{"name":"_childSkillIndex","type":"uint256"},{"name":"_id","type":"uint256"},{"name":"_token","type":"address"},{"name":"_amount","type":"uint256"}],"name":"setPaymentPayout","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"version","outputs":[{"name":"colonyVersion","type":"uint256"}],"payable":false,"stateMutability":"pure","type":"function"},{"constant":false,"inputs":[{"name":"_slot","type":"uint256"},{"name":"_value","type":"bytes32"}],"name":"setStorageSlotRecovery","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_id","type":"uint256"},{"name":"_token","type":"address"},{"name":"_managerAmount","type":"uint256"},{"name":"_evaluatorAmount","type":"uint256"},{"name":"_workerAmount","type":"uint256"}],"name":"setAllTaskPayouts","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_permissionDomainId","type":"uint256"},{"name":"_childSkillIndex","type":"uint256"},{"name":"_user","type":"address"},{"name":"_domainId","type":"uint256"},{"name":"_setTo","type":"bool"}],"name":"setAdministrationRole","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_permissionDomainId","type":"uint256"},{"name":"_childSkillIndex","type":"uint256"},{"name":"_specificationHash","type":"bytes32"},{"name":"_domainId","type":"uint256"},{"name":"_skillId","type":"uint256"},{"name":"_dueDate","type":"uint256"}],"name":"makeTask","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_id","type":"uint256"},{"name":"_token","type":"address"},{"name":"_amount","type":"uint256"}],"name":"setTaskManagerPayout","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_id","type":"uint256"},{"name":"_token","type":"address"},{"name":"_amount","type":"uint256"}],"name":"setTaskEvaluatorPayout","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_payoutId","type":"uint256"},{"name":"_squareRoots","type":"uint256[7]"},{"name":"key","type":"bytes"},{"name":"value","type":"bytes"},{"name":"branchMask","type":"uint256"},{"name":"siblings","type":"bytes32[]"}],"name":"claimRewardPayout","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_id","type":"uint256"},{"name":"_user","type":"address"}],"name":"setTaskWorkerRole","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_sigV","type":"uint8[]"},{"name":"_sigR","type":"bytes32[]"},{"name":"_sigS","type":"bytes32[]"},{"name":"_mode","type":"uint8[]"},{"name":"_value","type":"uint256"},{"name":"_data","type":"bytes"}],"name":"executeTaskChange","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_colonyNetworkAddress","type":"address"},{"name":"_token","type":"address"}],"name":"initialiseColony","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_id","type":"uint256"}],"name":"getFundingPot","outputs":[{"name":"associatedType","type":"uint8"},{"name":"associatedTypeId","type":"uint256"},{"name":"payoutsWeCannotMake","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_id","type":"uint256"},{"name":"_role","type":"uint8"},{"name":"_token","type":"address"}],"name":"claimTaskPayout","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_id","type":"uint256"}],"name":"cancelTask","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"isInRecoveryMode","outputs":[{"name":"inRecoveryMode","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_slot","type":"uint256"}],"name":"checkNotAdditionalProtectedVariable","outputs":[],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_id","type":"uint256"}],"name":"finalizeTask","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_permissionDomainId","type":"uint256"},{"name":"_childSkillIndex","type":"uint256"},{"name":"_id","type":"uint256"},{"name":"_recipient","type":"address"}],"name":"setPaymentRecipient","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_token","type":"address"}],"name":"claimColonyFunds","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"colonyOwner","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_id","type":"uint256"},{"name":"_role","type":"uint8"},{"name":"_rating","type":"uint8"},{"name":"_salt","type":"bytes32"}],"name":"revealTaskWorkRating","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_permissionDomainId","type":"uint256"},{"name":"_childSkillIndex","type":"uint256"},{"name":"_user","type":"address"},{"name":"_domainId","type":"uint256"},{"name":"_setTo","type":"bool"}],"name":"setFundingRole","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"key","type":"bytes"},{"name":"value","type":"bytes"},{"name":"branchMask","type":"uint256"},{"name":"siblings","type":"bytes32[]"}],"name":"verifyReputationProof","outputs":[{"name":"isValid","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_wad","type":"uint256"}],"name":"mintTokens","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_user","type":"address"}],"name":"removeRecoveryRole","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_id","type":"uint256"}],"name":"removeTaskEvaluatorRole","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_potId","type":"uint256"},{"name":"_token","type":"address"}],"name":"getFundingPotBalance","outputs":[{"name":"balance","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_user","type":"address"},{"name":"_domainId","type":"uint256"},{"name":"_role","type":"uint8"}],"name":"hasUserRole","outputs":[{"name":"hasRole","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_id","type":"uint256"},{"name":"_role","type":"uint8"}],"name":"getTaskWorkRatingSecret","outputs":[{"name":"secret","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getPaymentCount","outputs":[{"name":"count","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_id","type":"uint256"},{"name":"_user","type":"address"},{"name":"_permissionDomainId","type":"uint256"},{"name":"_childSkillIndex","type":"uint256"}],"name":"setTaskManagerRole","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_id","type":"uint256"},{"name":"_skillId","type":"uint256"}],"name":"setTaskSkill","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"authority","outputs":[{"name":"colonyAuthority","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getTaskCount","outputs":[{"name":"count","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_potId","type":"uint256"},{"name":"_token","type":"address"}],"name":"getFundingPotPayout","outputs":[{"name":"payout","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_permissionDomainId","type":"uint256"},{"name":"_fromChildSkillIndex","type":"uint256"},{"name":"_toChildSkillIndex","type":"uint256"},{"name":"_fromPot","type":"uint256"},{"name":"_toPot","type":"uint256"},{"name":"_amount","type":"uint256"},{"name":"_token","type":"address"}],"name":"moveFundsBetweenPots","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_id","type":"uint256"},{"name":"_dueDate","type":"uint256"}],"name":"setTaskDueDate","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_id","type":"uint256"}],"name":"getTaskChangeNonce","outputs":[{"name":"nonce","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_user","type":"address"}],"name":"setRecoveryRole","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_id","type":"uint256"},{"name":"_domainId","type":"uint256"}],"name":"setTaskDomain","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_permissionDomainId","type":"uint256"},{"name":"_childSkillIndex","type":"uint256"},{"name":"_id","type":"uint256"}],"name":"finalizePayment","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_id","type":"uint256"},{"name":"_specificationHash","type":"bytes32"}],"name":"setTaskBrief","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_id","type":"uint256"},{"name":"_user","type":"address"}],"name":"setTaskEvaluatorRole","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_user","type":"address"},{"name":"_setTo","type":"bool"}],"name":"setRootRole","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_id","type":"uint256"}],"name":"completeTask","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"colonyName","type":"string"},{"name":"orbitdb","type":"string"}],"name":"registerColonyLabel","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_token","type":"address"},{"name":"key","type":"bytes"},{"name":"value","type":"bytes"},{"name":"branchMask","type":"uint256"},{"name":"siblings","type":"bytes32[]"}],"name":"startNextRewardPayout","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_users","type":"address[]"},{"name":"_amount","type":"int256[]"}],"name":"bootstrapColony","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"enterRecoveryMode","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_permissionDomainId","type":"uint256"},{"name":"_childSkillIndex","type":"uint256"},{"name":"_user","type":"address"},{"name":"_domainId","type":"uint256"},{"name":"_setTo","type":"bool"}],"name":"setArchitectureRole","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_permissionDomainId","type":"uint256"},{"name":"_childSkillIndex","type":"uint256"},{"name":"_id","type":"uint256"},{"name":"_domainId","type":"uint256"}],"name":"setPaymentDomain","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"anonymous":false,"inputs":[{"indexed":false,"name":"colonyNetwork","type":"address"},{"indexed":false,"name":"token","type":"address"}],"name":"ColonyInitialised","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"users","type":"address[]"},{"indexed":false,"name":"amounts","type":"int256[]"}],"name":"ColonyBootstrapped","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"oldVersion","type":"uint256"},{"indexed":false,"name":"newVersion","type":"uint256"}],"name":"ColonyUpgraded","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"user","type":"address"},{"indexed":true,"name":"domainId","type":"uint256"},{"indexed":true,"name":"role","type":"uint8"},{"indexed":false,"name":"setTo","type":"bool"}],"name":"ColonyRoleSet","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"fromPot","type":"uint256"},{"indexed":true,"name":"toPot","type":"uint256"},{"indexed":false,"name":"amount","type":"uint256"},{"indexed":false,"name":"token","type":"address"}],"name":"ColonyFundsMovedBetweenFundingPots","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"token","type":"address"},{"indexed":false,"name":"fee","type":"uint256"},{"indexed":false,"name":"payoutRemainder","type":"uint256"}],"name":"ColonyFundsClaimed","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"rewardPayoutId","type":"uint256"}],"name":"RewardPayoutCycleStarted","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"rewardPayoutId","type":"uint256"}],"name":"RewardPayoutCycleEnded","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"rewardPayoutId","type":"uint256"},{"indexed":false,"name":"user","type":"address"},{"indexed":false,"name":"fee","type":"uint256"},{"indexed":false,"name":"rewardRemainder","type":"uint256"}],"name":"RewardPayoutClaimed","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"rewardInverse","type":"uint256"}],"name":"ColonyRewardInverseSet","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"paymentId","type":"uint256"}],"name":"PaymentAdded","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"taskId","type":"uint256"}],"name":"TaskAdded","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"taskId","type":"uint256"},{"indexed":false,"name":"specificationHash","type":"bytes32"}],"name":"TaskBriefSet","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"taskId","type":"uint256"},{"indexed":false,"name":"dueDate","type":"uint256"}],"name":"TaskDueDateSet","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"taskId","type":"uint256"},{"indexed":true,"name":"domainId","type":"uint256"}],"name":"TaskDomainSet","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"taskId","type":"uint256"},{"indexed":true,"name":"skillId","type":"uint256"}],"name":"TaskSkillSet","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"taskId","type":"uint256"},{"indexed":false,"name":"role","type":"uint8"},{"indexed":true,"name":"user","type":"address"}],"name":"TaskRoleUserSet","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"taskId","type":"uint256"},{"indexed":false,"name":"role","type":"uint8"},{"indexed":false,"name":"token","type":"address"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"TaskPayoutSet","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"taskId","type":"uint256"},{"indexed":false,"name":"deliverableHash","type":"bytes32"}],"name":"TaskDeliverableSubmitted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"taskId","type":"uint256"}],"name":"TaskCompleted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"taskId","type":"uint256"},{"indexed":false,"name":"role","type":"uint8"},{"indexed":false,"name":"rating","type":"uint8"}],"name":"TaskWorkRatingRevealed","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"taskId","type":"uint256"}],"name":"TaskFinalized","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"fundingPotId","type":"uint256"},{"indexed":false,"name":"token","type":"address"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"PayoutClaimed","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"taskId","type":"uint256"}],"name":"TaskCanceled","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"domainId","type":"uint256"}],"name":"DomainAdded","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"fundingPotId","type":"uint256"}],"name":"FundingPotAdded","type":"event"},{"constant":false,"inputs":[{"name":"_wad","type":"uint256"}],"name":"mintTokensForColonyNetwork","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"addGlobalSkill","outputs":[{"name":"skillId","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_skillId","type":"uint256"}],"name":"deprecateGlobalSkill","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_feeInverse","type":"uint256"}],"name":"setNetworkFeeInverse","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_version","type":"uint256"},{"name":"_resolver","type":"address"}],"name":"addNetworkColonyVersion","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"}],"bytecode":"0x"}
+{
+    "contractName": "IMetaColony",
+    "abi": [
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "_id",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getTaskWorkRatingSecretsInfo",
+            "outputs": [
+                {
+                    "name": "nSecrets",
+                    "type": "uint256"
+                },
+                {
+                    "name": "lastSubmittedAt",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "_id",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_role",
+                    "type": "uint8"
+                },
+                {
+                    "name": "_token",
+                    "type": "address"
+                }
+            ],
+            "name": "getTaskPayout",
+            "outputs": [
+                {
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_id",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_token",
+                    "type": "address"
+                }
+            ],
+            "name": "claimPayment",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "getDomainCount",
+            "outputs": [
+                {
+                    "name": "count",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_id",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_deliverableHash",
+                    "type": "bytes32"
+                },
+                {
+                    "name": "_ratingSecret",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "submitTaskDeliverableAndRating",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "_id",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getDomain",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "name": "skillId",
+                            "type": "uint256"
+                        },
+                        {
+                            "name": "fundingPotId",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "domain",
+                    "type": "tuple"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "_salt",
+                    "type": "bytes32"
+                },
+                {
+                    "name": "_value",
+                    "type": "uint256"
+                }
+            ],
+            "name": "generateSecret",
+            "outputs": [
+                {
+                    "name": "secret",
+                    "type": "bytes32"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "pure",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "_id",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getTask",
+            "outputs": [
+                {
+                    "name": "specificationHash",
+                    "type": "bytes32"
+                },
+                {
+                    "name": "deliverableHash",
+                    "type": "bytes32"
+                },
+                {
+                    "name": "status",
+                    "type": "uint8"
+                },
+                {
+                    "name": "dueDate",
+                    "type": "uint256"
+                },
+                {
+                    "name": "fundingPotId",
+                    "type": "uint256"
+                },
+                {
+                    "name": "completionTimestamp",
+                    "type": "uint256"
+                },
+                {
+                    "name": "domainId",
+                    "type": "uint256"
+                },
+                {
+                    "name": "skillIds",
+                    "type": "uint256[]"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "_id",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_role",
+                    "type": "uint8"
+                }
+            ],
+            "name": "getTaskRole",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "name": "user",
+                            "type": "address"
+                        },
+                        {
+                            "name": "rateFail",
+                            "type": "bool"
+                        },
+                        {
+                            "name": "rating",
+                            "type": "uint8"
+                        }
+                    ],
+                    "name": "role",
+                    "type": "tuple"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_permissionDomainId",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_childSkillIndex",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_parentDomainId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "addDomain",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "getToken",
+            "outputs": [
+                {
+                    "name": "tokenAddress",
+                    "type": "address"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_sigV",
+                    "type": "uint8[]"
+                },
+                {
+                    "name": "_sigR",
+                    "type": "bytes32[]"
+                },
+                {
+                    "name": "_sigS",
+                    "type": "bytes32[]"
+                },
+                {
+                    "name": "_mode",
+                    "type": "uint8[]"
+                },
+                {
+                    "name": "_value",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_data",
+                    "type": "bytes"
+                }
+            ],
+            "name": "executeTaskRoleAssignment",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_permissionDomainId",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_childSkillIndex",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_id",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_skillId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setPaymentSkill",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "getFundingPotCount",
+            "outputs": [
+                {
+                    "name": "count",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_rewardInverse",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setRewardInverse",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_id",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_token",
+                    "type": "address"
+                },
+                {
+                    "name": "_amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setTaskWorkerPayout",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [],
+            "name": "approveExitRecovery",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "_id",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getPayment",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "name": "recipient",
+                            "type": "address"
+                        },
+                        {
+                            "name": "finalized",
+                            "type": "bool"
+                        },
+                        {
+                            "name": "fundingPotId",
+                            "type": "uint256"
+                        },
+                        {
+                            "name": "domainId",
+                            "type": "uint256"
+                        },
+                        {
+                            "name": "skills",
+                            "type": "uint256[]"
+                        }
+                    ],
+                    "name": "payment",
+                    "type": "tuple"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "_token",
+                    "type": "address"
+                }
+            ],
+            "name": "getNonRewardPotsTotal",
+            "outputs": [
+                {
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "_payoutId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getRewardPayoutInfo",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "name": "reputationState",
+                            "type": "bytes32"
+                        },
+                        {
+                            "name": "colonyWideReputation",
+                            "type": "uint256"
+                        },
+                        {
+                            "name": "totalTokens",
+                            "type": "uint256"
+                        },
+                        {
+                            "name": "amount",
+                            "type": "uint256"
+                        },
+                        {
+                            "name": "tokenAddress",
+                            "type": "address"
+                        },
+                        {
+                            "name": "blockTimestamp",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "rewardPayoutCycle",
+                    "type": "tuple"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [],
+            "name": "exitRecoveryMode",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_id",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_role",
+                    "type": "uint8"
+                },
+                {
+                    "name": "_ratingSecret",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "submitTaskWorkRating",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_newVersion",
+                    "type": "uint256"
+                }
+            ],
+            "name": "upgrade",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_id",
+                    "type": "uint256"
+                }
+            ],
+            "name": "removeTaskWorkerRole",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "getRewardInverse",
+            "outputs": [
+                {
+                    "name": "rewardInverse",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "getColonyNetwork",
+            "outputs": [
+                {
+                    "name": "colonyNetwork",
+                    "type": "address"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_permissionDomainId",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_childSkillIndex",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_recipient",
+                    "type": "address"
+                },
+                {
+                    "name": "_token",
+                    "type": "address"
+                },
+                {
+                    "name": "_amount",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_domainId",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_skillId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "addPayment",
+            "outputs": [
+                {
+                    "name": "paymentId",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_id",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_deliverableHash",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "submitTaskDeliverable",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_payoutId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "finalizeRewardPayout",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "numRecoveryRoles",
+            "outputs": [
+                {
+                    "name": "numRoles",
+                    "type": "uint64"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_permissionDomainId",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_childSkillIndex",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_id",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_token",
+                    "type": "address"
+                },
+                {
+                    "name": "_amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setPaymentPayout",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "version",
+            "outputs": [
+                {
+                    "name": "colonyVersion",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "pure",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_slot",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_value",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "setStorageSlotRecovery",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_id",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_token",
+                    "type": "address"
+                },
+                {
+                    "name": "_managerAmount",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_evaluatorAmount",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_workerAmount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setAllTaskPayouts",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_permissionDomainId",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_childSkillIndex",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_user",
+                    "type": "address"
+                },
+                {
+                    "name": "_domainId",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_setTo",
+                    "type": "bool"
+                }
+            ],
+            "name": "setAdministrationRole",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_permissionDomainId",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_childSkillIndex",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_specificationHash",
+                    "type": "bytes32"
+                },
+                {
+                    "name": "_domainId",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_skillId",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_dueDate",
+                    "type": "uint256"
+                }
+            ],
+            "name": "makeTask",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_id",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_token",
+                    "type": "address"
+                },
+                {
+                    "name": "_amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setTaskManagerPayout",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_id",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_token",
+                    "type": "address"
+                },
+                {
+                    "name": "_amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setTaskEvaluatorPayout",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_payoutId",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_squareRoots",
+                    "type": "uint256[7]"
+                },
+                {
+                    "name": "key",
+                    "type": "bytes"
+                },
+                {
+                    "name": "value",
+                    "type": "bytes"
+                },
+                {
+                    "name": "branchMask",
+                    "type": "uint256"
+                },
+                {
+                    "name": "siblings",
+                    "type": "bytes32[]"
+                }
+            ],
+            "name": "claimRewardPayout",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_id",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_user",
+                    "type": "address"
+                }
+            ],
+            "name": "setTaskWorkerRole",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_sigV",
+                    "type": "uint8[]"
+                },
+                {
+                    "name": "_sigR",
+                    "type": "bytes32[]"
+                },
+                {
+                    "name": "_sigS",
+                    "type": "bytes32[]"
+                },
+                {
+                    "name": "_mode",
+                    "type": "uint8[]"
+                },
+                {
+                    "name": "_value",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_data",
+                    "type": "bytes"
+                }
+            ],
+            "name": "executeTaskChange",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_colonyNetworkAddress",
+                    "type": "address"
+                },
+                {
+                    "name": "_token",
+                    "type": "address"
+                }
+            ],
+            "name": "initialiseColony",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "_id",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getFundingPot",
+            "outputs": [
+                {
+                    "name": "associatedType",
+                    "type": "uint8"
+                },
+                {
+                    "name": "associatedTypeId",
+                    "type": "uint256"
+                },
+                {
+                    "name": "payoutsWeCannotMake",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_id",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_role",
+                    "type": "uint8"
+                },
+                {
+                    "name": "_token",
+                    "type": "address"
+                }
+            ],
+            "name": "claimTaskPayout",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_id",
+                    "type": "uint256"
+                }
+            ],
+            "name": "cancelTask",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "isInRecoveryMode",
+            "outputs": [
+                {
+                    "name": "inRecoveryMode",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "_slot",
+                    "type": "uint256"
+                }
+            ],
+            "name": "checkNotAdditionalProtectedVariable",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_id",
+                    "type": "uint256"
+                }
+            ],
+            "name": "finalizeTask",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_permissionDomainId",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_childSkillIndex",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_id",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_recipient",
+                    "type": "address"
+                }
+            ],
+            "name": "setPaymentRecipient",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_token",
+                    "type": "address"
+                }
+            ],
+            "name": "claimColonyFunds",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "name": "colonyOwner",
+                    "type": "address"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_id",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_role",
+                    "type": "uint8"
+                },
+                {
+                    "name": "_rating",
+                    "type": "uint8"
+                },
+                {
+                    "name": "_salt",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "revealTaskWorkRating",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_permissionDomainId",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_childSkillIndex",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_user",
+                    "type": "address"
+                },
+                {
+                    "name": "_domainId",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_setTo",
+                    "type": "bool"
+                }
+            ],
+            "name": "setFundingRole",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "key",
+                    "type": "bytes"
+                },
+                {
+                    "name": "value",
+                    "type": "bytes"
+                },
+                {
+                    "name": "branchMask",
+                    "type": "uint256"
+                },
+                {
+                    "name": "siblings",
+                    "type": "bytes32[]"
+                }
+            ],
+            "name": "verifyReputationProof",
+            "outputs": [
+                {
+                    "name": "isValid",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_wad",
+                    "type": "uint256"
+                }
+            ],
+            "name": "mintTokens",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_user",
+                    "type": "address"
+                }
+            ],
+            "name": "removeRecoveryRole",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_id",
+                    "type": "uint256"
+                }
+            ],
+            "name": "removeTaskEvaluatorRole",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "_potId",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_token",
+                    "type": "address"
+                }
+            ],
+            "name": "getFundingPotBalance",
+            "outputs": [
+                {
+                    "name": "balance",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "_user",
+                    "type": "address"
+                },
+                {
+                    "name": "_domainId",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_role",
+                    "type": "uint8"
+                }
+            ],
+            "name": "hasUserRole",
+            "outputs": [
+                {
+                    "name": "hasRole",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "_id",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_role",
+                    "type": "uint8"
+                }
+            ],
+            "name": "getTaskWorkRatingSecret",
+            "outputs": [
+                {
+                    "name": "secret",
+                    "type": "bytes32"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "getPaymentCount",
+            "outputs": [
+                {
+                    "name": "count",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_id",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_user",
+                    "type": "address"
+                },
+                {
+                    "name": "_permissionDomainId",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_childSkillIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setTaskManagerRole",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_id",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_skillId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setTaskSkill",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "authority",
+            "outputs": [
+                {
+                    "name": "colonyAuthority",
+                    "type": "address"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "getTaskCount",
+            "outputs": [
+                {
+                    "name": "count",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "_potId",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_token",
+                    "type": "address"
+                }
+            ],
+            "name": "getFundingPotPayout",
+            "outputs": [
+                {
+                    "name": "payout",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_permissionDomainId",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_fromChildSkillIndex",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_toChildSkillIndex",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_fromPot",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_toPot",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_amount",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_token",
+                    "type": "address"
+                }
+            ],
+            "name": "moveFundsBetweenPots",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_id",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_dueDate",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setTaskDueDate",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "_id",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getTaskChangeNonce",
+            "outputs": [
+                {
+                    "name": "nonce",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_user",
+                    "type": "address"
+                }
+            ],
+            "name": "setRecoveryRole",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_id",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_domainId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setTaskDomain",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_permissionDomainId",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_childSkillIndex",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_id",
+                    "type": "uint256"
+                }
+            ],
+            "name": "finalizePayment",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_id",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_specificationHash",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "setTaskBrief",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_id",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_user",
+                    "type": "address"
+                }
+            ],
+            "name": "setTaskEvaluatorRole",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_user",
+                    "type": "address"
+                },
+                {
+                    "name": "_setTo",
+                    "type": "bool"
+                }
+            ],
+            "name": "setRootRole",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_id",
+                    "type": "uint256"
+                }
+            ],
+            "name": "completeTask",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "colonyName",
+                    "type": "string"
+                },
+                {
+                    "name": "orbitdb",
+                    "type": "string"
+                }
+            ],
+            "name": "registerColonyLabel",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_token",
+                    "type": "address"
+                },
+                {
+                    "name": "key",
+                    "type": "bytes"
+                },
+                {
+                    "name": "value",
+                    "type": "bytes"
+                },
+                {
+                    "name": "branchMask",
+                    "type": "uint256"
+                },
+                {
+                    "name": "siblings",
+                    "type": "bytes32[]"
+                }
+            ],
+            "name": "startNextRewardPayout",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_users",
+                    "type": "address[]"
+                },
+                {
+                    "name": "_amount",
+                    "type": "int256[]"
+                }
+            ],
+            "name": "bootstrapColony",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [],
+            "name": "enterRecoveryMode",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_permissionDomainId",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_childSkillIndex",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_user",
+                    "type": "address"
+                },
+                {
+                    "name": "_domainId",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_setTo",
+                    "type": "bool"
+                }
+            ],
+            "name": "setArchitectureRole",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_permissionDomainId",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_childSkillIndex",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_id",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_domainId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setPaymentDomain",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "name": "colonyNetwork",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "name": "token",
+                    "type": "address"
+                }
+            ],
+            "name": "ColonyInitialised",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "name": "users",
+                    "type": "address[]"
+                },
+                {
+                    "indexed": false,
+                    "name": "amounts",
+                    "type": "int256[]"
+                }
+            ],
+            "name": "ColonyBootstrapped",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "name": "oldVersion",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "name": "newVersion",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ColonyUpgraded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "name": "domainId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "name": "role",
+                    "type": "uint8"
+                },
+                {
+                    "indexed": false,
+                    "name": "setTo",
+                    "type": "bool"
+                }
+            ],
+            "name": "ColonyRoleSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "name": "fromPot",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "name": "toPot",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "name": "amount",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "name": "token",
+                    "type": "address"
+                }
+            ],
+            "name": "ColonyFundsMovedBetweenFundingPots",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "name": "fee",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "name": "payoutRemainder",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ColonyFundsClaimed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "name": "rewardPayoutId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "RewardPayoutCycleStarted",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "name": "rewardPayoutId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "RewardPayoutCycleEnded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "name": "rewardPayoutId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "name": "fee",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "name": "rewardRemainder",
+                    "type": "uint256"
+                }
+            ],
+            "name": "RewardPayoutClaimed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "name": "rewardInverse",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ColonyRewardInverseSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "name": "paymentId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "PaymentAdded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "name": "taskId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "TaskAdded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "name": "taskId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "name": "specificationHash",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "TaskBriefSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "name": "taskId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "name": "dueDate",
+                    "type": "uint256"
+                }
+            ],
+            "name": "TaskDueDateSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "name": "taskId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "name": "domainId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "TaskDomainSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "name": "taskId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "name": "skillId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "TaskSkillSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "name": "taskId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "name": "role",
+                    "type": "uint8"
+                },
+                {
+                    "indexed": true,
+                    "name": "user",
+                    "type": "address"
+                }
+            ],
+            "name": "TaskRoleUserSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "name": "taskId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "name": "role",
+                    "type": "uint8"
+                },
+                {
+                    "indexed": false,
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "TaskPayoutSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "name": "taskId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "name": "deliverableHash",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "TaskDeliverableSubmitted",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "name": "taskId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "TaskCompleted",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "name": "taskId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "name": "role",
+                    "type": "uint8"
+                },
+                {
+                    "indexed": false,
+                    "name": "rating",
+                    "type": "uint8"
+                }
+            ],
+            "name": "TaskWorkRatingRevealed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "name": "taskId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "TaskFinalized",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "name": "fundingPotId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "PayoutClaimed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "name": "taskId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "TaskCanceled",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "name": "domainId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "DomainAdded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "name": "fundingPotId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "FundingPotAdded",
+            "type": "event"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_wad",
+                    "type": "uint256"
+                }
+            ],
+            "name": "mintTokensForColonyNetwork",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [],
+            "name": "addGlobalSkill",
+            "outputs": [
+                {
+                    "name": "skillId",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_skillId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "deprecateGlobalSkill",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_feeInverse",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setNetworkFeeInverse",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_version",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_resolver",
+                    "type": "address"
+                }
+            ],
+            "name": "addNetworkColonyVersion",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ],
+    "bytecode": "0x",
+    "devdoc": {
+        "methods": {
+            "addDomain(uint256,uint256,uint256)": {
+                "details": "Adding new domains is currently retricted to one level only, i.e. `_parentDomainId` has to be the root domain id: `1`.",
+                "params": {
+                    "_childSkillIndex": "The index that the `_domainId` is relative to `_permissionDomainId`",
+                    "_parentDomainId": "Id of the domain under which the new one will be added",
+                    "_permissionDomainId": "The domainId in which I have the permission to take this action"
+                }
+            },
+            "addGlobalSkill()": {
+                "details": "Calls `IColonyNetwork.addSkill`.",
+                "return": "skillId Id of the added skill"
+            },
+            "addNetworkColonyVersion(uint256,address)": {
+                "details": "Calls `IColonyNetwork.addColonyVersion`.",
+                "params": {
+                    "_resolver": "Address of the `Resolver` contract which will be used with the underlying `EtherRouter` contract",
+                    "_version": "The new Colony contract version"
+                }
+            },
+            "addPayment(uint256,uint256,address,address,uint256,uint256,uint256)": {
+                "params": {
+                    "_amount": "Payout amount",
+                    "_childSkillIndex": "The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)",
+                    "_domainId": "The domain where the payment belongs",
+                    "_permissionDomainId": "The domainId in which I have the permission to take this action",
+                    "_recipient": "Address of the payment recipient",
+                    "_skillId": "The skill associated with the payment",
+                    "_token": "Address of the token, `0x0` value indicates Ether"
+                },
+                "return": "paymentId Identifier of the newly created payment"
+            },
+            "authority()": {
+                "return": "colonyAuthority The `ColonyAuthority` contract address"
+            },
+            "bootstrapColony(address[],int256[])": {
+                "details": "Only allowed to be called when `taskCount` is `0` by authorized addresses.",
+                "params": {
+                    "_amount": "Amount of reputation/tokens for every address",
+                    "_users": "Array of address to bootstrap with reputation"
+                }
+            },
+            "cancelTask(uint256)": {
+                "details": "Set the `task.status` property to `1`.",
+                "params": {
+                    "_id": "Id of the task"
+                }
+            },
+            "checkNotAdditionalProtectedVariable(uint256)": {
+                "details": "No return value, but should throw if protected.This is public, but is only expected to be called from ContractRecovery; no need toexpose this to any users.",
+                "params": {
+                    "_slot": "The storage slot number to check."
+                }
+            },
+            "claimColonyFunds(address)": {
+                "params": {
+                    "_token": "Address of the token, `0x0` value indicates Ether"
+                }
+            },
+            "claimPayment(uint256,address)": {
+                "params": {
+                    "_id": "Payment identifier",
+                    "_token": "Address of the token, `0x0` value indicates Ether"
+                }
+            },
+            "claimRewardPayout(uint256,uint256[7],bytes,bytes,uint256,bytes32[])": {
+                "params": {
+                    "_payoutId": "Id of the reward payout",
+                    "_squareRoots": "Square roots of values used in equation: `_squareRoots[0]` - square root of user reputation, `_squareRoots[1]` - square root of user tokens, `_squareRoots[2]` - square root of total reputation, `_squareRoots[3]` - square root of total tokens, `_squareRoots[4]` - square root of numerator (user reputation * user tokens), `_squareRoots[5]` - square root of denominator (total reputation * total tokens), `_squareRoots[6]` - square root of payout amount.",
+                    "branchMask": "The branchmask of the proof",
+                    "key": "Some Reputation hash tree key",
+                    "siblings": "The siblings of the proof",
+                    "value": "Reputation value"
+                }
+            },
+            "claimTaskPayout(uint256,uint8,address)": {
+                "params": {
+                    "_id": "Id of the task",
+                    "_role": "Id of the role, as defined in TaskRole enum",
+                    "_token": "Address of the token, `0x0` value indicates Ether"
+                }
+            },
+            "completeTask(uint256)": {
+                "params": {
+                    "_id": "Id of the task"
+                }
+            },
+            "deprecateGlobalSkill(uint256)": {
+                "details": "Calls `IColonyNetwork.deprecateSkill`.",
+                "params": {
+                    "_skillId": "Id of the added skill"
+                }
+            },
+            "executeTaskChange(uint8[],bytes32[],bytes32[],uint8[],uint256,bytes)": {
+                "details": "The Colony functions which require approval and the task roles to review these are set in `IColony.initialiseColony` at colony creation. Upon successful execution the `taskChangeNonces` entry for the task is incremented.",
+                "params": {
+                    "_data": "The transaction data",
+                    "_mode": "How the signature was generated - 0 for Geth-style (usual), 1 for Trezor-style (only Trezor does this)",
+                    "_sigR": "r output of the ECDSA signature of the transaction",
+                    "_sigS": "s output of the ECDSA signature of the transaction",
+                    "_sigV": "recovery id",
+                    "_value": "The transaction value, i.e. number of wei to be sent when the transaction is executed Currently we only accept 0 value transactions but this is kept as a future option"
+                }
+            },
+            "executeTaskRoleAssignment(uint8[],bytes32[],bytes32[],uint8[],uint256,bytes)": {
+                "params": {
+                    "_data": "The transaction data",
+                    "_mode": "How the signature was generated - 0 for Geth-style (usual), 1 for Trezor-style (only Trezor does this)",
+                    "_sigR": "r output of the ECDSA signature of the transaction",
+                    "_sigS": "s output of the ECDSA signature of the transaction",
+                    "_sigV": "recovery id",
+                    "_value": "The transaction value, i.e. number of wei to be sent when the transaction is executed Currently we only accept 0 value transactions but this is kept as a future option"
+                }
+            },
+            "finalizePayment(uint256,uint256,uint256)": {
+                "params": {
+                    "_childSkillIndex": "The index that the `_domainId` is relative to `_permissionDomainId`",
+                    "_id": "Payment identifier",
+                    "_permissionDomainId": "The domainId in which I have the permission to take this action"
+                }
+            },
+            "finalizeRewardPayout(uint256)": {
+                "params": {
+                    "_payoutId": "Id of the reward payout"
+                }
+            },
+            "finalizeTask(uint256)": {
+                "details": "Set the `task.finalized` property to true",
+                "params": {
+                    "_id": "Id of the task"
+                }
+            },
+            "generateSecret(bytes32,uint256)": {
+                "params": {
+                    "_salt": "Salt value",
+                    "_value": "Value to hide"
+                },
+                "return": "secret `keccak256` hash of joint _salt and _value"
+            },
+            "getColonyNetwork()": {
+                "details": "The colonyNetworkAddress we read here is set once, during `initialiseColony`.",
+                "return": "colonyNetwork The address of Colony Network instance"
+            },
+            "getDomain(uint256)": {
+                "params": {
+                    "_id": "Id of the domain which details to get"
+                },
+                "return": "domain The domain"
+            },
+            "getDomainCount()": {
+                "return": "count The domain count. Min 1 as the root domain is created at the same time as the colony"
+            },
+            "getFundingPot(uint256)": {
+                "details": "For the reward funding pot (e.g. id: 0) this returns (0, 0, 0).",
+                "params": {
+                    "_id": "Id of the pot which details to get"
+                },
+                "return": "associatedType The FundingPotAssociatedType value of the current funding pot, e.g. Domain, Task, PayoutassociatedTypeId Id of the associated type, e.g. if associatedType = FundingPotAssociatedType.Domain, this refers to the domainIdpayoutsWeCannotMake Number of payouts that cannot be completed with the current funding"
+            },
+            "getFundingPotBalance(uint256,address)": {
+                "params": {
+                    "_potId": "Id of the funding pot",
+                    "_token": "Address of the token, `0x0` value indicates Ether"
+                },
+                "return": "balance Funding pot supply balance"
+            },
+            "getFundingPotCount()": {
+                "return": "count The funding pots count"
+            },
+            "getFundingPotPayout(uint256,address)": {
+                "params": {
+                    "_potId": "Id of the funding pot",
+                    "_token": "Address of the token, `0x0` value indicates Ether"
+                },
+                "return": "payout Funding pot payout amount"
+            },
+            "getNonRewardPotsTotal(address)": {
+                "params": {
+                    "_token": "Address of the token, `0x0` value indicates Ether"
+                },
+                "return": "amount Total amount of tokens in funding pots other than the rewards pot (id 0)"
+            },
+            "getPayment(uint256)": {
+                "params": {
+                    "_id": "Payment identifier"
+                },
+                "return": "payment The Payment data structure"
+            },
+            "getPaymentCount()": {
+                "return": "count The payment count"
+            },
+            "getRewardInverse()": {
+                "return": "rewardInverse The inverse of the reward"
+            },
+            "getRewardPayoutInfo(uint256)": {
+                "params": {
+                    "_payoutId": "Id of the reward payout"
+                },
+                "return": "rewardPayoutCycle RewardPayoutCycle, containing propertes:  `reputationState` Reputation root hash at the time of creation,  `colonyWideReputation` Colony wide reputation in `reputationState`,  `totalTokens` Total colony tokens at the time of creation,  `amount` Total amount of tokens taken aside for reward payout,  `tokenAddress` Token address,  `blockTimestamp` Block number at the time of creation."
+            },
+            "getTask(uint256)": {
+                "params": {
+                    "_id": "Id of the task"
+                },
+                "return": "specificationHash Task brief hashdeliverableHash Task deliverable hashstatus TaskStatus property. 0 - Active. 1 - Cancelled. 2 - FinalizeddueDate Due datefundingPotId Id of funding pot for taskcompletionTimestamp Task completion timestampdomainId Task domain id, default is root colony domain with id 1skillIds Array of global skill ids assigned to task"
+            },
+            "getTaskChangeNonce(uint256)": {
+                "params": {
+                    "_id": "Id of the task"
+                },
+                "return": "nonce The current task change nonce value"
+            },
+            "getTaskCount()": {
+                "return": "count The task count"
+            },
+            "getTaskPayout(uint256,uint8,address)": {
+                "params": {
+                    "_id": "Id of the task",
+                    "_role": "Id of the role, as defined in TaskRole enum",
+                    "_token": "Address of the token, `0x0` value indicates Ether"
+                },
+                "return": "amount Payout amount"
+            },
+            "getTaskRole(uint256,uint8)": {
+                "params": {
+                    "_id": "Id of the task",
+                    "_role": "Id of the role, as defined in TaskRole enum"
+                },
+                "return": "role The Role"
+            },
+            "getTaskWorkRatingSecret(uint256,uint8)": {
+                "params": {
+                    "_id": "Id of the task",
+                    "_role": "Id of the role, as defined in TaskRole enum"
+                },
+                "return": "secret Rating secret `bytes32` value"
+            },
+            "getTaskWorkRatingSecretsInfo(uint256)": {
+                "params": {
+                    "_id": "Id of the task"
+                },
+                "return": "nSecrets Number of secretslastSubmittedAt Timestamp of the last submitted rating secret"
+            },
+            "getToken()": {
+                "return": "tokenAddress Address of the token contract"
+            },
+            "hasUserRole(address,uint256,uint8)": {
+                "params": {
+                    "_domainId": "The domain where we want to check for the role",
+                    "_role": "The role we want to check for",
+                    "_user": "The user whose role we want to check"
+                },
+                "return": "hasRole Boolean indicating whether the given user has the given role in domain"
+            },
+            "initialiseColony(address,address)": {
+                "details": "Sets the reward inverse to the uint max 2**256 - 1.",
+                "params": {
+                    "_colonyNetworkAddress": "Address of the colony network",
+                    "_token": "Address of the colony ERC20 Token"
+                }
+            },
+            "isInRecoveryMode()": {
+                "return": "inRecoveryMode Return true if recovery mode is active, false otherwise"
+            },
+            "makeTask(uint256,uint256,bytes32,uint256,uint256,uint256)": {
+                "params": {
+                    "_childSkillIndex": "The index that the `_domainId` is relative to `_permissionDomainId`",
+                    "_domainId": "The domain where the task belongs",
+                    "_dueDate": "The due date of the task, can set to `0` for no-op",
+                    "_permissionDomainId": "The domainId in which I have the permission to take this action",
+                    "_skillId": "The skill associated with the task, can set to `0` for no-op",
+                    "_specificationHash": "Database identifier where the task specification is stored"
+                }
+            },
+            "mintTokens(uint256)": {
+                "params": {
+                    "_wad": "Amount to mint"
+                }
+            },
+            "mintTokensForColonyNetwork(uint256)": {
+                "params": {
+                    "_wad": "Amount to mint and transfer to the colony network"
+                }
+            },
+            "moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,address)": {
+                "params": {
+                    "_amount": "Amount of funds",
+                    "_fromChildSkillIndex": "The child index in `_permissionDomainId` where we can find the domain for `_fromPotId`",
+                    "_fromPot": "Funding pot id providing the funds",
+                    "_permissionDomainId": "The domainId in which I have the permission to take this action",
+                    "_toChildSkillIndex": "The child index in `_permissionDomainId` where we can find the domain for `_toPotId`",
+                    "_toPot": "Funding pot id receiving the funds",
+                    "_token": "Address of the token, `0x0` value indicates Ether"
+                }
+            },
+            "numRecoveryRoles()": {
+                "return": "numRoles Number of users with the recovery role."
+            },
+            "owner()": {
+                "details": "Used for testing.",
+                "return": "colonyOwner Address of the colony owner"
+            },
+            "registerColonyLabel(string,string)": {
+                "params": {
+                    "colonyName": "The label to register.",
+                    "orbitdb": "The path of the orbitDB database associated with the colony name"
+                }
+            },
+            "removeRecoveryRole(address)": {
+                "params": {
+                    "_user": "User we want to remove recovery role from"
+                }
+            },
+            "removeTaskEvaluatorRole(uint256)": {
+                "params": {
+                    "_id": "Id of the task"
+                }
+            },
+            "removeTaskWorkerRole(uint256)": {
+                "params": {
+                    "_id": "Id of the task"
+                }
+            },
+            "revealTaskWorkRating(uint256,uint8,uint8,bytes32)": {
+                "details": "Compares the `keccak256(_salt, _rating)` output with the previously submitted rating secret and if they match, sets the task role properties `rated` to `true` and `rating` to `_rating`.",
+                "params": {
+                    "_id": "Id of the task",
+                    "_rating": "0-50 rating score (in increments of 10, .e.g 0, 10, 20, 30, 40 or 50)",
+                    "_role": "Id of the role, as defined in TaskRole enum",
+                    "_salt": "Salt value used to generate the rating secret"
+                }
+            },
+            "setAdministrationRole(uint256,uint256,address,uint256,bool)": {
+                "params": {
+                    "_childSkillIndex": "The index that the `_domainId` is relative to `_permissionDomainId`",
+                    "_domainId": "Domain in which we are giving user the role",
+                    "_permissionDomainId": "Domain in which the caller has root/architecture role",
+                    "_setTo": "The state of the role permission (true assign the permission, false revokes it)",
+                    "_user": "User we want to give an admin role to"
+                }
+            },
+            "setAllTaskPayouts(uint256,address,uint256,uint256,uint256)": {
+                "details": "Can only call if evaluator and worker are unassigned or manager, otherwise need signature.",
+                "params": {
+                    "_evaluatorAmount": "Payout amount for evaluator",
+                    "_id": "Id of the task",
+                    "_managerAmount": "Payout amount for manager",
+                    "_token": "Address of the token, `0x0` value indicates Ether",
+                    "_workerAmount": "Payout amount for worker"
+                }
+            },
+            "setArchitectureRole(uint256,uint256,address,uint256,bool)": {
+                "params": {
+                    "_childSkillIndex": "The index that the `_domainId` is relative to `_permissionDomainId`",
+                    "_domainId": "Domain in which we are giving user the role",
+                    "_permissionDomainId": "Domain in which the caller has root/architecture role",
+                    "_setTo": "The state of the role permission (true assign the permission, false revokes it)",
+                    "_user": "User we want to give an architecture role to"
+                }
+            },
+            "setFundingRole(uint256,uint256,address,uint256,bool)": {
+                "params": {
+                    "_childSkillIndex": "The index that the `_domainId` is relative to `_permissionDomainId`",
+                    "_domainId": "Domain in which we are giving user the role",
+                    "_permissionDomainId": "Domain in which the caller has root/architecture role",
+                    "_setTo": "The state of the role permission (true assign the permission, false revokes it)",
+                    "_user": "User we want to give an funding role to"
+                }
+            },
+            "setNetworkFeeInverse(uint256)": {
+                "details": "Calls `IColonyNetwork.setFeeInverse`.",
+                "params": {
+                    "_feeInverse": "Nonzero amount for the fee inverse"
+                }
+            },
+            "setPaymentDomain(uint256,uint256,uint256,uint256)": {
+                "params": {
+                    "_childSkillIndex": "The index that the `_domainId` is relative to `_permissionDomainId`",
+                    "_domainId": "Id of the new domain to set",
+                    "_id": "Payment identifier",
+                    "_permissionDomainId": "The domainId in which I have the permission to take this action."
+                }
+            },
+            "setPaymentPayout(uint256,uint256,uint256,address,uint256)": {
+                "params": {
+                    "_amount": "Payout amount",
+                    "_childSkillIndex": "The index that the `_domainId` is relative to `_permissionDomainId`",
+                    "_id": "Payment identifier",
+                    "_permissionDomainId": "The domainId in which I have the permission to take this action",
+                    "_token": "Address of the token, `0x0` value indicates Ether"
+                }
+            },
+            "setPaymentRecipient(uint256,uint256,uint256,address)": {
+                "params": {
+                    "_childSkillIndex": "The index that the `_domainId` is relative to `_permissionDomainId`",
+                    "_id": "Payment identifier",
+                    "_permissionDomainId": "The domainId in which I have the permission to take this action",
+                    "_recipient": "Address of the payment recipient"
+                }
+            },
+            "setPaymentSkill(uint256,uint256,uint256,uint256)": {
+                "params": {
+                    "_childSkillIndex": "The index that the `_domainId` is relative to `_permissionDomainId`",
+                    "_id": "Payment identifier",
+                    "_permissionDomainId": "The domainId in which I have the permission to take this action",
+                    "_skillId": "Id of the new skill to set"
+                }
+            },
+            "setRecoveryRole(address)": {
+                "params": {
+                    "_user": "User we want to give a recovery role to"
+                }
+            },
+            "setRewardInverse(uint256)": {
+                "params": {
+                    "_rewardInverse": "The inverse of the reward"
+                }
+            },
+            "setRootRole(address,bool)": {
+                "params": {
+                    "_setTo": "The state of the role permission (true assign the permission, false revokes it)",
+                    "_user": "User we want to give an root role to"
+                }
+            },
+            "setStorageSlotRecovery(uint256,bytes32)": {
+                "details": "certain critical variables are protected from editing in this function",
+                "params": {
+                    "_slot": "Uint address of storage slot to be updated",
+                    "_value": "word of data to be set"
+                }
+            },
+            "setTaskBrief(uint256,bytes32)": {
+                "params": {
+                    "_id": "Id of the task",
+                    "_specificationHash": "Unique hash of the task brief in ddb"
+                }
+            },
+            "setTaskDomain(uint256,uint256)": {
+                "params": {
+                    "_domainId": "Id of the domain",
+                    "_id": "Id of the task"
+                }
+            },
+            "setTaskDueDate(uint256,uint256)": {
+                "params": {
+                    "_dueDate": "Due date as seconds since unix epoch",
+                    "_id": "Id of the task"
+                }
+            },
+            "setTaskEvaluatorPayout(uint256,address,uint256)": {
+                "params": {
+                    "_amount": "Payout amount",
+                    "_id": "Id of the task",
+                    "_token": "Address of the token, `0x0` value indicates Ether"
+                }
+            },
+            "setTaskEvaluatorRole(uint256,address)": {
+                "details": "This function can only be called through `executeTaskRoleAssignment`.",
+                "params": {
+                    "_id": "Id of the task",
+                    "_user": "Address of the user we want to give a evaluator role to"
+                }
+            },
+            "setTaskManagerPayout(uint256,address,uint256)": {
+                "params": {
+                    "_amount": "Payout amount",
+                    "_id": "Id of the task",
+                    "_token": "Address of the token, `0x0` value indicates Ether"
+                }
+            },
+            "setTaskManagerRole(uint256,address,uint256,uint256)": {
+                "details": "This function can only be called through `executeTaskRoleAssignment`.",
+                "params": {
+                    "_childSkillIndex": "The index that the `_domainId` is relative to `_permissionDomainId`",
+                    "_id": "Id of the task",
+                    "_permissionDomainId": "The domain ID in which _user has the Administration permission",
+                    "_user": "Address of the user we want to give a manager role to"
+                }
+            },
+            "setTaskSkill(uint256,uint256)": {
+                "details": "Currently we only allow one skill per task although we have provisioned for an array of skills in `Task` struct. Allowed before a task is finalized.",
+                "params": {
+                    "_id": "Id of the task",
+                    "_skillId": "Id of the skill which has to be a global skill"
+                }
+            },
+            "setTaskWorkerPayout(uint256,address,uint256)": {
+                "params": {
+                    "_amount": "Payout amount",
+                    "_id": "Id of the task",
+                    "_token": "Address of the token, `0x0` value indicates Ether"
+                }
+            },
+            "setTaskWorkerRole(uint256,address)": {
+                "details": "This function can only be called through `executeTaskRoleAssignment`.",
+                "params": {
+                    "_id": "Id of the task",
+                    "_user": "Address of the user we want to give a worker role to"
+                }
+            },
+            "startNextRewardPayout(address,bytes,bytes,uint256,bytes32[])": {
+                "params": {
+                    "_token": "Address of the token used for reward payout",
+                    "branchMask": "The branchmask of the proof",
+                    "key": "Some Reputation hash tree key",
+                    "siblings": "The siblings of the proof",
+                    "value": "Reputation value"
+                }
+            },
+            "submitTaskDeliverable(uint256,bytes32)": {
+                "details": "Set the `task.deliverableHash` and `task.completionTimestamp` properties.",
+                "params": {
+                    "_deliverableHash": "Unique hash of the task deliverable content in ddb",
+                    "_id": "Id of the task"
+                }
+            },
+            "submitTaskDeliverableAndRating(uint256,bytes32,bytes32)": {
+                "details": "Internally call `submitTaskDeliverable` and `submitTaskWorkRating` in sequence.",
+                "params": {
+                    "_deliverableHash": "Unique hash of the task deliverable content in ddb",
+                    "_id": "Id of the task",
+                    "_ratingSecret": "Rating secret for manager"
+                }
+            },
+            "submitTaskWorkRating(uint256,uint8,bytes32)": {
+                "params": {
+                    "_id": "Id of the task",
+                    "_ratingSecret": "`keccak256` hash of a salt and 0-50 rating score (in increments of 10, .e.g 0, 10, 20, 30, 40 or 50). Can be generated via `IColony.generateSecret` helper function.",
+                    "_role": "Id of the role, as defined in TaskRole enum"
+                }
+            },
+            "upgrade(uint256)": {
+                "details": "Downgrades are not allowed, i.e. `_newVersion` should be higher than the currect colony version.",
+                "params": {
+                    "_newVersion": "The target version for the upgrade"
+                }
+            },
+            "verifyReputationProof(bytes,bytes,uint256,bytes32[])": {
+                "details": "For more detail about branchMask and siblings, examine the PatriciaTree implementation. While public, likely only to be used by the Colony contracts, as it checks that the user is proving their own reputation in the current colony. The `verifyProof` function can be used to verify any proof, though this function is not currently exposed on the Colony's EtherRouter.",
+                "params": {
+                    "branchMask": "The branchmask of the proof",
+                    "key": "The key of the element the proof is for.",
+                    "siblings": "The siblings of the proof",
+                    "value": "The value of the element that the proof is for."
+                },
+                "return": "isValid True if the proof is valid, false otherwise."
+            },
+            "version()": {
+                "return": "colonyVersion Version number"
+            }
+        },
+        "title": "MetaColony interface"
+    },
+    "userdoc": {
+        "methods": {
+            "addDomain(uint256,uint256,uint256)": {
+                "notice": "Add a colony domain, and its respective local skill under skill with id `_parentSkillId`. New funding pot is created and associated with the domain here."
+            },
+            "addGlobalSkill()": {
+                "notice": "Add a new global skill."
+            },
+            "addNetworkColonyVersion(uint256,address)": {
+                "notice": "Adds a new Colony contract version and the address of associated `_resolver` contract. Secured function to authorised members."
+            },
+            "addPayment(uint256,uint256,address,address,uint256,uint256,uint256)": {
+                "notice": "Add a new payment in the colony. Secured function to authorised members."
+            },
+            "approveExitRecovery()": {
+                "notice": "Indicate approval to exit recovery mode. Can only be called by user with recovery role."
+            },
+            "authority()": {
+                "notice": "Get the `ColonyAuthority` for the colony."
+            },
+            "bootstrapColony(address[],int256[])": {
+                "notice": "Allows the colony to bootstrap itself by having initial reputation and token `_amount` assigned to `_users`. This reputation is assigned in the colony-wide domain. Secured function to authorised members."
+            },
+            "cancelTask(uint256)": {
+                "notice": "Cancel a task at any point before it is finalized. Secured function to authorised members. Any funds assigned to its funding pot can be moved back to the domain via `IColony.moveFundsBetweenPots`."
+            },
+            "checkNotAdditionalProtectedVariable(uint256)": {
+                "notice": "Check whether the supplied slot is a protected variable specific to this contract"
+            },
+            "claimColonyFunds(address)": {
+                "notice": "Move any funds received by the colony in `_token` denomination to the top-level domain pot, siphoning off a small amount to the reward pot. If called against a colony's own token, no fee is taken."
+            },
+            "claimPayment(uint256,address)": {
+                "notice": "Claim the payout in `_token` denomination for payment `_id`. Here the network receives its fee from each payout. Same as for tasks, ether fees go straight to the Meta Colony whereas Token fees go to the Network to be auctioned off."
+            },
+            "claimRewardPayout(uint256,uint256[7],bytes,bytes,uint256,bytes32[])": {
+                "notice": "Claim the reward payout at `_payoutId`. User needs to provide their reputation and colony-wide reputation which will be proven via Merkle proof inside this function. Can only be called if payout is active, i.e if 60 days have not passed from its creation. Can only be called if next in queue."
+            },
+            "claimTaskPayout(uint256,uint8,address)": {
+                "notice": "Claim the payout in `_token` denomination for work completed in task `_id` by contributor with role `_role`. Allowed only after task is finalized. Here the network receives its fee from each payout. Ether fees go straight to the Meta Colony whereas Token fees go to the Network to be auctioned off."
+            },
+            "completeTask(uint256)": {
+                "notice": "Mark a task as complete after the due date has passed. This allows the task to be rated and finalized (and funds recovered) even in the presence of a worker who has disappeared. Note that if the due date was not set, then this function will throw."
+            },
+            "deprecateGlobalSkill(uint256)": {
+                "notice": "Mark a global skill as deprecated which stops new tasks and payments from using it."
+            },
+            "enterRecoveryMode()": {
+                "notice": "Put colony network mining into recovery mode. Can only be called by user with recovery role."
+            },
+            "executeTaskChange(uint8[],bytes32[],bytes32[],uint8[],uint256,bytes)": {
+                "notice": "Executes a task update transaction `_data` which is approved and signed by two of its roles (e.g. manager and worker) using the detached signatures for these users."
+            },
+            "executeTaskRoleAssignment(uint8[],bytes32[],bytes32[],uint8[],uint256,bytes)": {
+                "notice": "Executes a task role update transaction `_data` which is approved and signed by two of addresses. depending of which function we are calling. Allowed functions are `setTaskManagerRole`, `setTaskEvaluatorRole` and `setTaskWorkerRole`. Upon successful execution the `taskChangeNonces` entry for the task is incremented."
+            },
+            "exitRecoveryMode()": {
+                "notice": "Exit recovery mode, can be called by anyone if enough whitelist approvals are given."
+            },
+            "finalizePayment(uint256,uint256,uint256)": {
+                "notice": "Finalizes the payment and logs the reputation log updates. Allowed to be called once after payment is fully funded. Secured function to authorised members."
+            },
+            "finalizeRewardPayout(uint256)": {
+                "notice": "Finalises the reward payout. Allows creation of next reward payouts for token that has been used in `_payoutId`. Can only be called when reward payout cycle is finished i.e when 60 days have passed from its creation."
+            },
+            "finalizeTask(uint256)": {
+                "notice": "Called after task work rating is complete which closes the task and logs the respective reputation log updates. Allowed to be called once per task. Secured function to authorised members."
+            },
+            "generateSecret(bytes32,uint256)": {
+                "notice": "Helper function used to generage consistently the rating secret using salt value `_salt` and value to hide `_value`"
+            },
+            "getColonyNetwork()": {
+                "notice": "Returns the colony network address set on the Colony."
+            },
+            "getDomain(uint256)": {
+                "notice": "Get a domain by id."
+            },
+            "getDomainCount()": {
+                "notice": "Get the number of domains in the colony."
+            },
+            "getFundingPot(uint256)": {
+                "notice": "Get the non-mapping properties of a pot by id."
+            },
+            "getFundingPotBalance(uint256,address)": {
+                "notice": "Get the `_token` balance of pot with id `_potId`."
+            },
+            "getFundingPotCount()": {
+                "notice": "Get the number of funding pots in the colony."
+            },
+            "getFundingPotPayout(uint256,address)": {
+                "notice": "Get the assigned `_token` payouts of pot with id `_potId`."
+            },
+            "getNonRewardPotsTotal(address)": {
+                "notice": "Get the total amount of tokens `_token` minus amount reserved to be paid to the reputation and token holders as rewards."
+            },
+            "getPayment(uint256)": {
+                "notice": "Returns an exiting payment."
+            },
+            "getPaymentCount()": {
+                "notice": "Get the number of payments in the colony."
+            },
+            "getRewardInverse()": {
+                "notice": "Return 1 / the reward to pay out from revenue. e.g. if the fee is 1% (or 0.01), return 100."
+            },
+            "getRewardPayoutInfo(uint256)": {
+                "notice": "Get useful information about specific reward payout."
+            },
+            "getTask(uint256)": {
+                "notice": "Get a task with id `_id`"
+            },
+            "getTaskChangeNonce(uint256)": {
+                "notice": "Starts from 0 and is incremented on every co-reviewed task change via `executeTaskChange` call."
+            },
+            "getTaskCount()": {
+                "notice": "Get the number of tasks in the colony."
+            },
+            "getTaskPayout(uint256,uint8,address)": {
+                "notice": "Get payout amount in `_token` denomination for role `_role` in task `_id`."
+            },
+            "getTaskRole(uint256,uint8)": {
+                "notice": "Get the `Role` properties back for role `_role` in task `_id`."
+            },
+            "getTaskWorkRatingSecret(uint256,uint8)": {
+                "notice": "Get the rating secret submitted for role `_role` in task `_id`"
+            },
+            "getTaskWorkRatingSecretsInfo(uint256)": {
+                "notice": "Get the `ColonyStorage.RatingSecrets` information for task `_id`."
+            },
+            "getToken()": {
+                "notice": "Get the colony token."
+            },
+            "hasUserRole(address,uint256,uint8)": {
+                "notice": "Check whether a given user has a given role for the colony. Calls the function of the same name on the colony's authority contract."
+            },
+            "initialiseColony(address,address)": {
+                "notice": "Called once when the colony is created to initialise certain storage slot values."
+            },
+            "isInRecoveryMode()": {
+                "notice": "Is colony network in recovery mode."
+            },
+            "makeTask(uint256,uint256,bytes32,uint256,uint256,uint256)": {
+                "notice": "Make a new task in the colony. Secured function to authorised members."
+            },
+            "mintTokens(uint256)": {
+                "notice": "Mint `_wad` amount of colony tokens. Secured function to authorised members."
+            },
+            "mintTokensForColonyNetwork(uint256)": {
+                "notice": "Mints CLNY in the Meta Colony and transfers them to the colony network. Only allowed to be called on the Meta Colony by the colony network."
+            },
+            "moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,address)": {
+                "notice": "Move a given amount: `_amount` of `_token` funds from funding pot with id `_fromPot` to one with id `_toPot`."
+            },
+            "numRecoveryRoles()": {
+                "notice": "Return number of recovery roles."
+            },
+            "owner()": {
+                "notice": "Get the colony `owner` address. This should be address(0x0) at all times."
+            },
+            "registerColonyLabel(string,string)": {
+                "notice": "Register colony's ENS label."
+            },
+            "removeRecoveryRole(address)": {
+                "notice": "Remove colony recovery role. Can only be called by root role."
+            },
+            "removeTaskEvaluatorRole(uint256)": {
+                "notice": "Removing evaluator role. Agreed between manager and currently assigned evaluator."
+            },
+            "removeTaskWorkerRole(uint256)": {
+                "notice": "Removing worker role. Agreed between manager and currently assigned worker."
+            },
+            "revealTaskWorkRating(uint256,uint8,uint8,bytes32)": {
+                "notice": "Reveal the secret rating submitted in `IColony.submitTaskWorkRating` for task `_id` and task role with id `_role`. Allowed within 5 days period starting which whichever is first from either both rating secrets being submitted (via `IColony.submitTaskWorkRating`) or the 5 day rating period expiring."
+            },
+            "setAdministrationRole(uint256,uint256,address,uint256,bool)": {
+                "notice": "Set new colony admin role. Can be called by root role or architecture role."
+            },
+            "setAllTaskPayouts(uint256,address,uint256,uint256,uint256)": {
+                "notice": "Set `_token` payout for all roles in task `_id` to the respective amounts."
+            },
+            "setArchitectureRole(uint256,uint256,address,uint256,bool)": {
+                "notice": "Set new colony architecture role. Can be called by root role or architecture role."
+            },
+            "setFundingRole(uint256,uint256,address,uint256,bool)": {
+                "notice": "Set new colony funding role. Can be called by root role or architecture role."
+            },
+            "setNetworkFeeInverse(uint256)": {
+                "notice": "Set the Colony Network fee inverse amount."
+            },
+            "setPaymentDomain(uint256,uint256,uint256,uint256)": {
+                "notice": "Sets the domain on an existing payment. Secured function to authorised members"
+            },
+            "setPaymentPayout(uint256,uint256,uint256,address,uint256)": {
+                "notice": "Sets the payout for a given token on an existing payment. Secured function to authorised members."
+            },
+            "setPaymentRecipient(uint256,uint256,uint256,address)": {
+                "notice": "Sets the recipient on an existing payment. Secured function to authorised members."
+            },
+            "setPaymentSkill(uint256,uint256,uint256,uint256)": {
+                "notice": "Sets the skill on an existing payment. Secured function to authorised members."
+            },
+            "setRecoveryRole(address)": {
+                "notice": "Set new colony recovery role. Can be called by root."
+            },
+            "setRewardInverse(uint256)": {
+                "notice": "Set the reward inverse to pay out from revenue. e.g. if the fee is 1% (or 0.01), set 100."
+            },
+            "setRootRole(address,bool)": {
+                "notice": "Set new colony root role. Can be called by root role only."
+            },
+            "setStorageSlotRecovery(uint256,bytes32)": {
+                "notice": "Update value of arbitrary storage variable. Can only be called by user with recovery role."
+            },
+            "setTaskBrief(uint256,bytes32)": {
+                "notice": "Set the hash for the task brief, aka task work specification, which identifies the task brief content in ddb. Allowed before a task is finalized."
+            },
+            "setTaskDomain(uint256,uint256)": {
+                "notice": "Set the domain for task `_id`."
+            },
+            "setTaskDueDate(uint256,uint256)": {
+                "notice": "Set the due date on task `_id`. Allowed before a task is finalized."
+            },
+            "setTaskEvaluatorPayout(uint256,address,uint256)": {
+                "notice": "Set `_token` payout for evaluator in task `_id` to `_amount`."
+            },
+            "setTaskEvaluatorRole(uint256,address)": {
+                "notice": "Assigning evaluator role. Can only be set if there is no one currently assigned to be an evaluator. Manager of the task and user we want to assign role to both need to agree. Managers can assign themselves to this role, if there is no one currently assigned to it."
+            },
+            "setTaskManagerPayout(uint256,address,uint256)": {
+                "notice": "Set `_token` payout for manager in task `_id` to `_amount`."
+            },
+            "setTaskManagerRole(uint256,address,uint256,uint256)": {
+                "notice": "Assigning manager role. Current manager and user we want to assign role to both need to agree. User we want to set here also needs to be an admin. Note that the domain proof data comes at the end here to not interfere with the assembly argument unpacking."
+            },
+            "setTaskSkill(uint256,uint256)": {
+                "notice": "Set the skill for task `_id`."
+            },
+            "setTaskWorkerPayout(uint256,address,uint256)": {
+                "notice": "Set `_token` payout for worker in task `_id` to `_amount`."
+            },
+            "setTaskWorkerRole(uint256,address)": {
+                "notice": "Assigning worker role. Can only be set if there is no one currently assigned to be a worker. Manager of the task and user we want to assign role to both need to agree."
+            },
+            "startNextRewardPayout(address,bytes,bytes,uint256,bytes32[])": {
+                "notice": "Start next reward payout for `_token`. All funds in the reward pot for `_token` will become unavailable.Add a new payment in the colony. Can only be called by users with root permission. All tokens will be locked, and can be unlocked by calling `waiveRewardPayout` or `claimRewardPayout`."
+            },
+            "submitTaskDeliverable(uint256,bytes32)": {
+                "notice": "Submit the task deliverable, i.e. the output of the work performed for task `_id`. Submission is allowed only to the assigned worker before the task due date. Submissions cannot be overwritten."
+            },
+            "submitTaskDeliverableAndRating(uint256,bytes32,bytes32)": {
+                "notice": "Submit the task deliverable for Worker and rating for Manager."
+            },
+            "submitTaskWorkRating(uint256,uint8,bytes32)": {
+                "notice": "Submit a hashed secret of the rating for work in task `_id` which was performed by user with task role id `_role`. Allowed within 5 days period starting which whichever is first from either the deliverable being submitted or the dueDate been reached. Allowed only for evaluator to rate worker and for worker to rate manager performance. Once submitted ratings can not be changed or overwritten."
+            },
+            "upgrade(uint256)": {
+                "notice": "Upgrades a colony to a new Colony contract version `_newVersion`."
+            },
+            "verifyReputationProof(bytes,bytes,uint256,bytes32[])": {
+                "notice": "Helper function that can be used by a client to verify the correctness of a patricia proof they have been supplied with."
+            },
+            "version()": {
+                "notice": "Get the Colony contract version. Starts from 1 and is incremented with every deployed contract change."
+            }
+        },
+        "notice": "All publicly available functions are available here and registered to work with EtherRouter Network contract"
+    }
+}

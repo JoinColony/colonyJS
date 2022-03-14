@@ -1,1 +1,29 @@
-{"contractName":"Version3","abi":[{"inputs":[],"name":"version","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"pure","type":"function"}],"bytecode":"0x6080604052348015600f57600080fd5b5060808061001e6000396000f3fe6080604052348015600f57600080fd5b506004361060285760003560e01c806354fd4d5014602d575b600080fd5b60336045565b60408051918252519081900360200190f35b60039056fea2646970667358221220113903f209a2543ad0df26aeaf9669f1fa7b3b23727c45de1f8fc5467f3729d064736f6c63430007030033"}
+{
+    "contractName": "Version3",
+    "abi": [
+        {
+            "inputs": [],
+            "name": "version",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "pure",
+            "type": "function"
+        }
+    ],
+    "bytecode": "0x6080604052348015600f57600080fd5b5060808061001e6000396000f3fe6080604052348015600f57600080fd5b506004361060285760003560e01c806354fd4d5014602d575b600080fd5b60336045565b60408051918252519081900360200190f35b60039056fea2646970667358221220bdfd2259d2a3fab5e259ad2a7f524cfec4efd54e9abc2cb6b1523f812bfc5d5564736f6c63430007030033",
+    "devdoc": {
+        "kind": "dev",
+        "methods": {},
+        "version": 1
+    },
+    "userdoc": {
+        "kind": "user",
+        "methods": {},
+        "version": 1
+    }
+}

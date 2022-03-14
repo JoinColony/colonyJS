@@ -1,1 +1,56 @@
-{"contractName":"ReputationMiningCycleDataTypes","abi":[{"anonymous":false,"inputs":[{"indexed":false,"name":"previousNewReputationUID","type":"uint256"},{"indexed":false,"name":"_disagreeStateReputationUID","type":"uint256"},{"indexed":false,"name":"existingUID","type":"bool"}],"name":"ProveUIDSuccess","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"_agreeStateReputationValue","type":"int256"},{"indexed":false,"name":"_disagreeStateReputationValue","type":"int256"},{"indexed":false,"name":"_originReputationValue","type":"int256"}],"name":"ProveValueSuccess","type":"event"}],"bytecode":"0x6080604052348015600f57600080fd5b50603580601d6000396000f3fe6080604052600080fdfea165627a7a723058200e66bd1953ae90d3d3aeb1e08b7e1404447575b4d3756ab5961368cdaefc43f00029"}
+{
+    "contractName": "ReputationMiningCycleDataTypes",
+    "abi": [
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "name": "previousNewReputationUID",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "name": "_disagreeStateReputationUID",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "name": "existingUID",
+                    "type": "bool"
+                }
+            ],
+            "name": "ProveUIDSuccess",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "name": "_agreeStateReputationValue",
+                    "type": "int256"
+                },
+                {
+                    "indexed": false,
+                    "name": "_disagreeStateReputationValue",
+                    "type": "int256"
+                },
+                {
+                    "indexed": false,
+                    "name": "_originReputationValue",
+                    "type": "int256"
+                }
+            ],
+            "name": "ProveValueSuccess",
+            "type": "event"
+        }
+    ],
+    "bytecode": "0x6080604052348015600f57600080fd5b50603580601d6000396000f3fe6080604052600080fdfea165627a7a7230582056185dec4e1d174b499ccdb401e36e8afb0ca5346e577c86168a019247922a850029",
+    "devdoc": {
+        "methods": {}
+    },
+    "userdoc": {
+        "methods": {}
+    }
+}

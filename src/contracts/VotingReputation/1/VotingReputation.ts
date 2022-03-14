@@ -551,15 +551,36 @@ export interface VotingReputation extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Returns the identifier of the extension
+     */
     identifier(overrides?: CallOverrides): Promise<[string]>;
 
+    /**
+     * Return the version number
+     */
     version(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    /**
+     * Install the extension
+     * @param _colony Base colony for the installation
+     */
     install(
       _colony: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Initialise the extension
+     * @param _escalationPeriod The length of the escalation period in seconds
+     * @param _maxVoteFraction The fraction of the domain's reputation which must submit for quick-end
+     * @param _revealPeriod The length of the reveal period in seconds
+     * @param _stakePeriod The length of the staking period in seconds
+     * @param _submitPeriod The length of the submit period in seconds
+     * @param _totalStakeFraction The fraction of the domain's reputation we need to stake
+     * @param _userMinStakeFraction The minimum per-user stake as fraction of total stake
+     * @param _voterRewardFraction The fraction of the total stake paid out to voters as rewards
+     */
     initialise(
       _totalStakeFraction: BigNumberish,
       _voterRewardFraction: BigNumberish,
@@ -572,19 +593,37 @@ export interface VotingReputation extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Called when upgrading the extension
+     */
     finishUpgrade(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Called when deprecating (or undeprecating) the extension
+     */
     deprecate(
       _deprecated: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Called when uninstalling the extension
+     */
     uninstall(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Create a motion in the root domain
+     * @param _action A bytes array encoding a function call
+     * @param _altTarget The contract to which we send the action (0x0 for the colony)
+     * @param _branchMask The branchmask of the proof
+     * @param _key Reputation tree key for the root domain
+     * @param _siblings The siblings of the proof
+     * @param _value Reputation tree value for the root domain
+     */
     createRootMotion(
       _altTarget: string,
       _action: BytesLike,
@@ -595,6 +634,16 @@ export interface VotingReputation extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Create a motion in any domain
+     * @param _action A bytes array encoding a function call
+     * @param _branchMask The branchmask of the proof
+     * @param _childSkillIndex The childSkillIndex pointing to the domain of the action
+     * @param _domainId The domain where we vote on the motion
+     * @param _key Reputation tree key for the domain
+     * @param _siblings The siblings of the proof
+     * @param _value Reputation tree value for the domain
+     */
     createDomainMotion(
       _domainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -606,6 +655,18 @@ export interface VotingReputation extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Stake on a motion
+     * @param _amount The amount of tokens being staked
+     * @param _branchMask The branchmask of the proof
+     * @param _childSkillIndex For the domain in which the motion is occurring
+     * @param _key Reputation tree key for the staker/domain
+     * @param _motionId The id of the motion
+     * @param _permissionDomainId The domain where the extension has the arbitration permission
+     * @param _siblings The siblings of the proof
+     * @param _value Reputation tree value for the staker/domain
+     * @param _vote The side being supported (0 = NAY, 1 = YAY)
+     */
     stakeMotion(
       _motionId: BigNumberish,
       _permissionDomainId: BigNumberish,
@@ -619,6 +680,15 @@ export interface VotingReputation extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Submit a vote secret for a motion
+     * @param _branchMask The branchmask of the proof
+     * @param _key Reputation tree key for the staker/domain
+     * @param _motionId The id of the motion
+     * @param _siblings The siblings of the proof
+     * @param _value Reputation tree value for the staker/domain
+     * @param _voteSecret The hashed vote secret
+     */
     submitVote(
       _motionId: BigNumberish,
       _voteSecret: BytesLike,
@@ -629,6 +699,16 @@ export interface VotingReputation extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Reveal a vote secret for a motion
+     * @param _branchMask The branchmask of the proof
+     * @param _key Reputation tree key for the staker/domain
+     * @param _motionId The id of the motion
+     * @param _salt The salt used to hash the vote
+     * @param _siblings The siblings of the proof
+     * @param _value Reputation tree value for the staker/domain
+     * @param _vote The side being supported (0 = NAY, 1 = YAY)
+     */
     revealVote(
       _motionId: BigNumberish,
       _salt: BytesLike,
@@ -640,6 +720,16 @@ export interface VotingReputation extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Escalate a motion to a higher domain
+     * @param _branchMask The branchmask of the proof
+     * @param _childSkillIndex For the current domain, relative to the escalated domain
+     * @param _key Reputation tree key for the new domain
+     * @param _motionId The id of the motion
+     * @param _newDomainId The desired domain of escalation
+     * @param _siblings The siblings of the proof
+     * @param _value Reputation tree value for the new domain
+     */
     escalateMotion(
       _motionId: BigNumberish,
       _newDomainId: BigNumberish,
@@ -656,6 +746,14 @@ export interface VotingReputation extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Claim the staker's reward
+     * @param _childSkillIndex For the domain in which the motion is occurring
+     * @param _motionId The id of the motion
+     * @param _permissionDomainId The domain where the extension has the arbitration permission
+     * @param _staker The staker whose reward is being claimed
+     * @param _vote The side being supported (0 = NAY, 1 = YAY)
+     */
     claimReward(
       _motionId: BigNumberish,
       _permissionDomainId: BigNumberish,
@@ -665,24 +763,55 @@ export interface VotingReputation extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Get the total stake fraction
+     */
     getTotalStakeFraction(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    /**
+     * Get the voter reward fraction
+     */
     getVoterRewardFraction(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    /**
+     * Get the user min stake fraction
+     */
     getUserMinStakeFraction(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    /**
+     * Get the max vote fraction
+     */
     getMaxVoteFraction(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    /**
+     * Get the stake period
+     */
     getStakePeriod(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    /**
+     * Get the submit period
+     */
     getSubmitPeriod(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    /**
+     * Get the reveal period
+     */
     getRevealPeriod(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    /**
+     * Get the escalation period
+     */
     getEscalationPeriod(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    /**
+     * Get the total motion count
+     */
     getMotionCount(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    /**
+     * Get the data for a single motion
+     * @param _motionId The id of the motion
+     */
     getMotion(
       _motionId: BigNumberish,
       overrides?: CallOverrides
@@ -692,6 +821,12 @@ export interface VotingReputation extends BaseContract {
       }
     >;
 
+    /**
+     * Get a user's stake on a motion
+     * @param _motionId The id of the motion
+     * @param _staker The staker address
+     * @param _vote The side being supported (0 = NAY, 1 = YAY)
+     */
     getStake(
       _motionId: BigNumberish,
       _staker: string,
@@ -699,27 +834,49 @@ export interface VotingReputation extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
+    /**
+     * Get the number of ongoing motions for a single expenditure / expenditure slot
+     * @param _structHash The hash of the expenditureId or expenditureId*expenditureSlot
+     */
     getExpenditureMotionCount(
       _structHash: BytesLike,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
+    /**
+     * Get the largest past vote on a single expenditure variable
+     * @param _actionHash The hash of the particular expenditure action
+     */
     getExpenditurePastVote(
       _actionHash: BytesLike,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
+    /**
+     * Get the current state of the motion
+     */
     getMotionState(
       _motionId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[number]>;
 
+    /**
+     * Get the voter reward
+     * @param _motionId The id of the motion
+     * @param _voterRep The reputation the voter has in the domain
+     */
     getVoterReward(
       _motionId: BigNumberish,
       _voterRep: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
+    /**
+     * Get the staker reward
+     * @param _motionId The id of the motion
+     * @param _staker The staker's address
+     * @param _vote The vote (0 = NAY, 1 = YAY)
+     */
     getStakerReward(
       _motionId: BigNumberish,
       _staker: string,
@@ -752,15 +909,36 @@ export interface VotingReputation extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Returns the identifier of the extension
+   */
   identifier(overrides?: CallOverrides): Promise<string>;
 
+  /**
+   * Return the version number
+   */
   version(overrides?: CallOverrides): Promise<BigNumber>;
 
+  /**
+   * Install the extension
+   * @param _colony Base colony for the installation
+   */
   install(
     _colony: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Initialise the extension
+   * @param _escalationPeriod The length of the escalation period in seconds
+   * @param _maxVoteFraction The fraction of the domain's reputation which must submit for quick-end
+   * @param _revealPeriod The length of the reveal period in seconds
+   * @param _stakePeriod The length of the staking period in seconds
+   * @param _submitPeriod The length of the submit period in seconds
+   * @param _totalStakeFraction The fraction of the domain's reputation we need to stake
+   * @param _userMinStakeFraction The minimum per-user stake as fraction of total stake
+   * @param _voterRewardFraction The fraction of the total stake paid out to voters as rewards
+   */
   initialise(
     _totalStakeFraction: BigNumberish,
     _voterRewardFraction: BigNumberish,
@@ -773,19 +951,37 @@ export interface VotingReputation extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Called when upgrading the extension
+   */
   finishUpgrade(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Called when deprecating (or undeprecating) the extension
+   */
   deprecate(
     _deprecated: boolean,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Called when uninstalling the extension
+   */
   uninstall(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Create a motion in the root domain
+   * @param _action A bytes array encoding a function call
+   * @param _altTarget The contract to which we send the action (0x0 for the colony)
+   * @param _branchMask The branchmask of the proof
+   * @param _key Reputation tree key for the root domain
+   * @param _siblings The siblings of the proof
+   * @param _value Reputation tree value for the root domain
+   */
   createRootMotion(
     _altTarget: string,
     _action: BytesLike,
@@ -796,6 +992,16 @@ export interface VotingReputation extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Create a motion in any domain
+   * @param _action A bytes array encoding a function call
+   * @param _branchMask The branchmask of the proof
+   * @param _childSkillIndex The childSkillIndex pointing to the domain of the action
+   * @param _domainId The domain where we vote on the motion
+   * @param _key Reputation tree key for the domain
+   * @param _siblings The siblings of the proof
+   * @param _value Reputation tree value for the domain
+   */
   createDomainMotion(
     _domainId: BigNumberish,
     _childSkillIndex: BigNumberish,
@@ -807,6 +1013,18 @@ export interface VotingReputation extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Stake on a motion
+   * @param _amount The amount of tokens being staked
+   * @param _branchMask The branchmask of the proof
+   * @param _childSkillIndex For the domain in which the motion is occurring
+   * @param _key Reputation tree key for the staker/domain
+   * @param _motionId The id of the motion
+   * @param _permissionDomainId The domain where the extension has the arbitration permission
+   * @param _siblings The siblings of the proof
+   * @param _value Reputation tree value for the staker/domain
+   * @param _vote The side being supported (0 = NAY, 1 = YAY)
+   */
   stakeMotion(
     _motionId: BigNumberish,
     _permissionDomainId: BigNumberish,
@@ -820,6 +1038,15 @@ export interface VotingReputation extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Submit a vote secret for a motion
+   * @param _branchMask The branchmask of the proof
+   * @param _key Reputation tree key for the staker/domain
+   * @param _motionId The id of the motion
+   * @param _siblings The siblings of the proof
+   * @param _value Reputation tree value for the staker/domain
+   * @param _voteSecret The hashed vote secret
+   */
   submitVote(
     _motionId: BigNumberish,
     _voteSecret: BytesLike,
@@ -830,6 +1057,16 @@ export interface VotingReputation extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Reveal a vote secret for a motion
+   * @param _branchMask The branchmask of the proof
+   * @param _key Reputation tree key for the staker/domain
+   * @param _motionId The id of the motion
+   * @param _salt The salt used to hash the vote
+   * @param _siblings The siblings of the proof
+   * @param _value Reputation tree value for the staker/domain
+   * @param _vote The side being supported (0 = NAY, 1 = YAY)
+   */
   revealVote(
     _motionId: BigNumberish,
     _salt: BytesLike,
@@ -841,6 +1078,16 @@ export interface VotingReputation extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Escalate a motion to a higher domain
+   * @param _branchMask The branchmask of the proof
+   * @param _childSkillIndex For the current domain, relative to the escalated domain
+   * @param _key Reputation tree key for the new domain
+   * @param _motionId The id of the motion
+   * @param _newDomainId The desired domain of escalation
+   * @param _siblings The siblings of the proof
+   * @param _value Reputation tree value for the new domain
+   */
   escalateMotion(
     _motionId: BigNumberish,
     _newDomainId: BigNumberish,
@@ -857,6 +1104,14 @@ export interface VotingReputation extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Claim the staker's reward
+   * @param _childSkillIndex For the domain in which the motion is occurring
+   * @param _motionId The id of the motion
+   * @param _permissionDomainId The domain where the extension has the arbitration permission
+   * @param _staker The staker whose reward is being claimed
+   * @param _vote The side being supported (0 = NAY, 1 = YAY)
+   */
   claimReward(
     _motionId: BigNumberish,
     _permissionDomainId: BigNumberish,
@@ -866,29 +1121,66 @@ export interface VotingReputation extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Get the total stake fraction
+   */
   getTotalStakeFraction(overrides?: CallOverrides): Promise<BigNumber>;
 
+  /**
+   * Get the voter reward fraction
+   */
   getVoterRewardFraction(overrides?: CallOverrides): Promise<BigNumber>;
 
+  /**
+   * Get the user min stake fraction
+   */
   getUserMinStakeFraction(overrides?: CallOverrides): Promise<BigNumber>;
 
+  /**
+   * Get the max vote fraction
+   */
   getMaxVoteFraction(overrides?: CallOverrides): Promise<BigNumber>;
 
+  /**
+   * Get the stake period
+   */
   getStakePeriod(overrides?: CallOverrides): Promise<BigNumber>;
 
+  /**
+   * Get the submit period
+   */
   getSubmitPeriod(overrides?: CallOverrides): Promise<BigNumber>;
 
+  /**
+   * Get the reveal period
+   */
   getRevealPeriod(overrides?: CallOverrides): Promise<BigNumber>;
 
+  /**
+   * Get the escalation period
+   */
   getEscalationPeriod(overrides?: CallOverrides): Promise<BigNumber>;
 
+  /**
+   * Get the total motion count
+   */
   getMotionCount(overrides?: CallOverrides): Promise<BigNumber>;
 
+  /**
+   * Get the data for a single motion
+   * @param _motionId The id of the motion
+   */
   getMotion(
     _motionId: BigNumberish,
     overrides?: CallOverrides
   ): Promise<VotingReputation.MotionStructOutput>;
 
+  /**
+   * Get a user's stake on a motion
+   * @param _motionId The id of the motion
+   * @param _staker The staker address
+   * @param _vote The side being supported (0 = NAY, 1 = YAY)
+   */
   getStake(
     _motionId: BigNumberish,
     _staker: string,
@@ -896,27 +1188,49 @@ export interface VotingReputation extends BaseContract {
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
+  /**
+   * Get the number of ongoing motions for a single expenditure / expenditure slot
+   * @param _structHash The hash of the expenditureId or expenditureId*expenditureSlot
+   */
   getExpenditureMotionCount(
     _structHash: BytesLike,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
+  /**
+   * Get the largest past vote on a single expenditure variable
+   * @param _actionHash The hash of the particular expenditure action
+   */
   getExpenditurePastVote(
     _actionHash: BytesLike,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
+  /**
+   * Get the current state of the motion
+   */
   getMotionState(
     _motionId: BigNumberish,
     overrides?: CallOverrides
   ): Promise<number>;
 
+  /**
+   * Get the voter reward
+   * @param _motionId The id of the motion
+   * @param _voterRep The reputation the voter has in the domain
+   */
   getVoterReward(
     _motionId: BigNumberish,
     _voterRep: BigNumberish,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
+  /**
+   * Get the staker reward
+   * @param _motionId The id of the motion
+   * @param _staker The staker's address
+   * @param _vote The vote (0 = NAY, 1 = YAY)
+   */
   getStakerReward(
     _motionId: BigNumberish,
     _staker: string,
@@ -943,12 +1257,33 @@ export interface VotingReputation extends BaseContract {
 
     setOwner(owner_: string, overrides?: CallOverrides): Promise<void>;
 
+    /**
+     * Returns the identifier of the extension
+     */
     identifier(overrides?: CallOverrides): Promise<string>;
 
+    /**
+     * Return the version number
+     */
     version(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Install the extension
+     * @param _colony Base colony for the installation
+     */
     install(_colony: string, overrides?: CallOverrides): Promise<void>;
 
+    /**
+     * Initialise the extension
+     * @param _escalationPeriod The length of the escalation period in seconds
+     * @param _maxVoteFraction The fraction of the domain's reputation which must submit for quick-end
+     * @param _revealPeriod The length of the reveal period in seconds
+     * @param _stakePeriod The length of the staking period in seconds
+     * @param _submitPeriod The length of the submit period in seconds
+     * @param _totalStakeFraction The fraction of the domain's reputation we need to stake
+     * @param _userMinStakeFraction The minimum per-user stake as fraction of total stake
+     * @param _voterRewardFraction The fraction of the total stake paid out to voters as rewards
+     */
     initialise(
       _totalStakeFraction: BigNumberish,
       _voterRewardFraction: BigNumberish,
@@ -961,12 +1296,30 @@ export interface VotingReputation extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Called when upgrading the extension
+     */
     finishUpgrade(overrides?: CallOverrides): Promise<void>;
 
+    /**
+     * Called when deprecating (or undeprecating) the extension
+     */
     deprecate(_deprecated: boolean, overrides?: CallOverrides): Promise<void>;
 
+    /**
+     * Called when uninstalling the extension
+     */
     uninstall(overrides?: CallOverrides): Promise<void>;
 
+    /**
+     * Create a motion in the root domain
+     * @param _action A bytes array encoding a function call
+     * @param _altTarget The contract to which we send the action (0x0 for the colony)
+     * @param _branchMask The branchmask of the proof
+     * @param _key Reputation tree key for the root domain
+     * @param _siblings The siblings of the proof
+     * @param _value Reputation tree value for the root domain
+     */
     createRootMotion(
       _altTarget: string,
       _action: BytesLike,
@@ -977,6 +1330,16 @@ export interface VotingReputation extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Create a motion in any domain
+     * @param _action A bytes array encoding a function call
+     * @param _branchMask The branchmask of the proof
+     * @param _childSkillIndex The childSkillIndex pointing to the domain of the action
+     * @param _domainId The domain where we vote on the motion
+     * @param _key Reputation tree key for the domain
+     * @param _siblings The siblings of the proof
+     * @param _value Reputation tree value for the domain
+     */
     createDomainMotion(
       _domainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -988,6 +1351,18 @@ export interface VotingReputation extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Stake on a motion
+     * @param _amount The amount of tokens being staked
+     * @param _branchMask The branchmask of the proof
+     * @param _childSkillIndex For the domain in which the motion is occurring
+     * @param _key Reputation tree key for the staker/domain
+     * @param _motionId The id of the motion
+     * @param _permissionDomainId The domain where the extension has the arbitration permission
+     * @param _siblings The siblings of the proof
+     * @param _value Reputation tree value for the staker/domain
+     * @param _vote The side being supported (0 = NAY, 1 = YAY)
+     */
     stakeMotion(
       _motionId: BigNumberish,
       _permissionDomainId: BigNumberish,
@@ -1001,6 +1376,15 @@ export interface VotingReputation extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Submit a vote secret for a motion
+     * @param _branchMask The branchmask of the proof
+     * @param _key Reputation tree key for the staker/domain
+     * @param _motionId The id of the motion
+     * @param _siblings The siblings of the proof
+     * @param _value Reputation tree value for the staker/domain
+     * @param _voteSecret The hashed vote secret
+     */
     submitVote(
       _motionId: BigNumberish,
       _voteSecret: BytesLike,
@@ -1011,6 +1395,16 @@ export interface VotingReputation extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Reveal a vote secret for a motion
+     * @param _branchMask The branchmask of the proof
+     * @param _key Reputation tree key for the staker/domain
+     * @param _motionId The id of the motion
+     * @param _salt The salt used to hash the vote
+     * @param _siblings The siblings of the proof
+     * @param _value Reputation tree value for the staker/domain
+     * @param _vote The side being supported (0 = NAY, 1 = YAY)
+     */
     revealVote(
       _motionId: BigNumberish,
       _salt: BytesLike,
@@ -1022,6 +1416,16 @@ export interface VotingReputation extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Escalate a motion to a higher domain
+     * @param _branchMask The branchmask of the proof
+     * @param _childSkillIndex For the current domain, relative to the escalated domain
+     * @param _key Reputation tree key for the new domain
+     * @param _motionId The id of the motion
+     * @param _newDomainId The desired domain of escalation
+     * @param _siblings The siblings of the proof
+     * @param _value Reputation tree value for the new domain
+     */
     escalateMotion(
       _motionId: BigNumberish,
       _newDomainId: BigNumberish,
@@ -1038,6 +1442,14 @@ export interface VotingReputation extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Claim the staker's reward
+     * @param _childSkillIndex For the domain in which the motion is occurring
+     * @param _motionId The id of the motion
+     * @param _permissionDomainId The domain where the extension has the arbitration permission
+     * @param _staker The staker whose reward is being claimed
+     * @param _vote The side being supported (0 = NAY, 1 = YAY)
+     */
     claimReward(
       _motionId: BigNumberish,
       _permissionDomainId: BigNumberish,
@@ -1047,29 +1459,66 @@ export interface VotingReputation extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Get the total stake fraction
+     */
     getTotalStakeFraction(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the voter reward fraction
+     */
     getVoterRewardFraction(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the user min stake fraction
+     */
     getUserMinStakeFraction(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the max vote fraction
+     */
     getMaxVoteFraction(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the stake period
+     */
     getStakePeriod(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the submit period
+     */
     getSubmitPeriod(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the reveal period
+     */
     getRevealPeriod(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the escalation period
+     */
     getEscalationPeriod(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the total motion count
+     */
     getMotionCount(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the data for a single motion
+     * @param _motionId The id of the motion
+     */
     getMotion(
       _motionId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<VotingReputation.MotionStructOutput>;
 
+    /**
+     * Get a user's stake on a motion
+     * @param _motionId The id of the motion
+     * @param _staker The staker address
+     * @param _vote The side being supported (0 = NAY, 1 = YAY)
+     */
     getStake(
       _motionId: BigNumberish,
       _staker: string,
@@ -1077,27 +1526,49 @@ export interface VotingReputation extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Get the number of ongoing motions for a single expenditure / expenditure slot
+     * @param _structHash The hash of the expenditureId or expenditureId*expenditureSlot
+     */
     getExpenditureMotionCount(
       _structHash: BytesLike,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Get the largest past vote on a single expenditure variable
+     * @param _actionHash The hash of the particular expenditure action
+     */
     getExpenditurePastVote(
       _actionHash: BytesLike,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Get the current state of the motion
+     */
     getMotionState(
       _motionId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<number>;
 
+    /**
+     * Get the voter reward
+     * @param _motionId The id of the motion
+     * @param _voterRep The reputation the voter has in the domain
+     */
     getVoterReward(
       _motionId: BigNumberish,
       _voterRep: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Get the staker reward
+     * @param _motionId The id of the motion
+     * @param _staker The staker's address
+     * @param _vote The vote (0 = NAY, 1 = YAY)
+     */
     getStakerReward(
       _motionId: BigNumberish,
       _staker: string,
@@ -1234,15 +1705,36 @@ export interface VotingReputation extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Returns the identifier of the extension
+     */
     identifier(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Return the version number
+     */
     version(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Install the extension
+     * @param _colony Base colony for the installation
+     */
     install(
       _colony: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Initialise the extension
+     * @param _escalationPeriod The length of the escalation period in seconds
+     * @param _maxVoteFraction The fraction of the domain's reputation which must submit for quick-end
+     * @param _revealPeriod The length of the reveal period in seconds
+     * @param _stakePeriod The length of the staking period in seconds
+     * @param _submitPeriod The length of the submit period in seconds
+     * @param _totalStakeFraction The fraction of the domain's reputation we need to stake
+     * @param _userMinStakeFraction The minimum per-user stake as fraction of total stake
+     * @param _voterRewardFraction The fraction of the total stake paid out to voters as rewards
+     */
     initialise(
       _totalStakeFraction: BigNumberish,
       _voterRewardFraction: BigNumberish,
@@ -1255,19 +1747,37 @@ export interface VotingReputation extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Called when upgrading the extension
+     */
     finishUpgrade(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Called when deprecating (or undeprecating) the extension
+     */
     deprecate(
       _deprecated: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Called when uninstalling the extension
+     */
     uninstall(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Create a motion in the root domain
+     * @param _action A bytes array encoding a function call
+     * @param _altTarget The contract to which we send the action (0x0 for the colony)
+     * @param _branchMask The branchmask of the proof
+     * @param _key Reputation tree key for the root domain
+     * @param _siblings The siblings of the proof
+     * @param _value Reputation tree value for the root domain
+     */
     createRootMotion(
       _altTarget: string,
       _action: BytesLike,
@@ -1278,6 +1788,16 @@ export interface VotingReputation extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Create a motion in any domain
+     * @param _action A bytes array encoding a function call
+     * @param _branchMask The branchmask of the proof
+     * @param _childSkillIndex The childSkillIndex pointing to the domain of the action
+     * @param _domainId The domain where we vote on the motion
+     * @param _key Reputation tree key for the domain
+     * @param _siblings The siblings of the proof
+     * @param _value Reputation tree value for the domain
+     */
     createDomainMotion(
       _domainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -1289,6 +1809,18 @@ export interface VotingReputation extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Stake on a motion
+     * @param _amount The amount of tokens being staked
+     * @param _branchMask The branchmask of the proof
+     * @param _childSkillIndex For the domain in which the motion is occurring
+     * @param _key Reputation tree key for the staker/domain
+     * @param _motionId The id of the motion
+     * @param _permissionDomainId The domain where the extension has the arbitration permission
+     * @param _siblings The siblings of the proof
+     * @param _value Reputation tree value for the staker/domain
+     * @param _vote The side being supported (0 = NAY, 1 = YAY)
+     */
     stakeMotion(
       _motionId: BigNumberish,
       _permissionDomainId: BigNumberish,
@@ -1302,6 +1834,15 @@ export interface VotingReputation extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Submit a vote secret for a motion
+     * @param _branchMask The branchmask of the proof
+     * @param _key Reputation tree key for the staker/domain
+     * @param _motionId The id of the motion
+     * @param _siblings The siblings of the proof
+     * @param _value Reputation tree value for the staker/domain
+     * @param _voteSecret The hashed vote secret
+     */
     submitVote(
       _motionId: BigNumberish,
       _voteSecret: BytesLike,
@@ -1312,6 +1853,16 @@ export interface VotingReputation extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Reveal a vote secret for a motion
+     * @param _branchMask The branchmask of the proof
+     * @param _key Reputation tree key for the staker/domain
+     * @param _motionId The id of the motion
+     * @param _salt The salt used to hash the vote
+     * @param _siblings The siblings of the proof
+     * @param _value Reputation tree value for the staker/domain
+     * @param _vote The side being supported (0 = NAY, 1 = YAY)
+     */
     revealVote(
       _motionId: BigNumberish,
       _salt: BytesLike,
@@ -1323,6 +1874,16 @@ export interface VotingReputation extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Escalate a motion to a higher domain
+     * @param _branchMask The branchmask of the proof
+     * @param _childSkillIndex For the current domain, relative to the escalated domain
+     * @param _key Reputation tree key for the new domain
+     * @param _motionId The id of the motion
+     * @param _newDomainId The desired domain of escalation
+     * @param _siblings The siblings of the proof
+     * @param _value Reputation tree value for the new domain
+     */
     escalateMotion(
       _motionId: BigNumberish,
       _newDomainId: BigNumberish,
@@ -1339,6 +1900,14 @@ export interface VotingReputation extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Claim the staker's reward
+     * @param _childSkillIndex For the domain in which the motion is occurring
+     * @param _motionId The id of the motion
+     * @param _permissionDomainId The domain where the extension has the arbitration permission
+     * @param _staker The staker whose reward is being claimed
+     * @param _vote The side being supported (0 = NAY, 1 = YAY)
+     */
     claimReward(
       _motionId: BigNumberish,
       _permissionDomainId: BigNumberish,
@@ -1348,29 +1917,66 @@ export interface VotingReputation extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Get the total stake fraction
+     */
     getTotalStakeFraction(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the voter reward fraction
+     */
     getVoterRewardFraction(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the user min stake fraction
+     */
     getUserMinStakeFraction(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the max vote fraction
+     */
     getMaxVoteFraction(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the stake period
+     */
     getStakePeriod(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the submit period
+     */
     getSubmitPeriod(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the reveal period
+     */
     getRevealPeriod(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the escalation period
+     */
     getEscalationPeriod(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the total motion count
+     */
     getMotionCount(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the data for a single motion
+     * @param _motionId The id of the motion
+     */
     getMotion(
       _motionId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Get a user's stake on a motion
+     * @param _motionId The id of the motion
+     * @param _staker The staker address
+     * @param _vote The side being supported (0 = NAY, 1 = YAY)
+     */
     getStake(
       _motionId: BigNumberish,
       _staker: string,
@@ -1378,27 +1984,49 @@ export interface VotingReputation extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Get the number of ongoing motions for a single expenditure / expenditure slot
+     * @param _structHash The hash of the expenditureId or expenditureId*expenditureSlot
+     */
     getExpenditureMotionCount(
       _structHash: BytesLike,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Get the largest past vote on a single expenditure variable
+     * @param _actionHash The hash of the particular expenditure action
+     */
     getExpenditurePastVote(
       _actionHash: BytesLike,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Get the current state of the motion
+     */
     getMotionState(
       _motionId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Get the voter reward
+     * @param _motionId The id of the motion
+     * @param _voterRep The reputation the voter has in the domain
+     */
     getVoterReward(
       _motionId: BigNumberish,
       _voterRep: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Get the staker reward
+     * @param _motionId The id of the motion
+     * @param _staker The staker's address
+     * @param _vote The vote (0 = NAY, 1 = YAY)
+     */
     getStakerReward(
       _motionId: BigNumberish,
       _staker: string,
@@ -1432,15 +2060,36 @@ export interface VotingReputation extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Returns the identifier of the extension
+     */
     identifier(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    /**
+     * Return the version number
+     */
     version(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    /**
+     * Install the extension
+     * @param _colony Base colony for the installation
+     */
     install(
       _colony: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Initialise the extension
+     * @param _escalationPeriod The length of the escalation period in seconds
+     * @param _maxVoteFraction The fraction of the domain's reputation which must submit for quick-end
+     * @param _revealPeriod The length of the reveal period in seconds
+     * @param _stakePeriod The length of the staking period in seconds
+     * @param _submitPeriod The length of the submit period in seconds
+     * @param _totalStakeFraction The fraction of the domain's reputation we need to stake
+     * @param _userMinStakeFraction The minimum per-user stake as fraction of total stake
+     * @param _voterRewardFraction The fraction of the total stake paid out to voters as rewards
+     */
     initialise(
       _totalStakeFraction: BigNumberish,
       _voterRewardFraction: BigNumberish,
@@ -1453,19 +2102,37 @@ export interface VotingReputation extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Called when upgrading the extension
+     */
     finishUpgrade(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Called when deprecating (or undeprecating) the extension
+     */
     deprecate(
       _deprecated: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Called when uninstalling the extension
+     */
     uninstall(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Create a motion in the root domain
+     * @param _action A bytes array encoding a function call
+     * @param _altTarget The contract to which we send the action (0x0 for the colony)
+     * @param _branchMask The branchmask of the proof
+     * @param _key Reputation tree key for the root domain
+     * @param _siblings The siblings of the proof
+     * @param _value Reputation tree value for the root domain
+     */
     createRootMotion(
       _altTarget: string,
       _action: BytesLike,
@@ -1476,6 +2143,16 @@ export interface VotingReputation extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Create a motion in any domain
+     * @param _action A bytes array encoding a function call
+     * @param _branchMask The branchmask of the proof
+     * @param _childSkillIndex The childSkillIndex pointing to the domain of the action
+     * @param _domainId The domain where we vote on the motion
+     * @param _key Reputation tree key for the domain
+     * @param _siblings The siblings of the proof
+     * @param _value Reputation tree value for the domain
+     */
     createDomainMotion(
       _domainId: BigNumberish,
       _childSkillIndex: BigNumberish,
@@ -1487,6 +2164,18 @@ export interface VotingReputation extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Stake on a motion
+     * @param _amount The amount of tokens being staked
+     * @param _branchMask The branchmask of the proof
+     * @param _childSkillIndex For the domain in which the motion is occurring
+     * @param _key Reputation tree key for the staker/domain
+     * @param _motionId The id of the motion
+     * @param _permissionDomainId The domain where the extension has the arbitration permission
+     * @param _siblings The siblings of the proof
+     * @param _value Reputation tree value for the staker/domain
+     * @param _vote The side being supported (0 = NAY, 1 = YAY)
+     */
     stakeMotion(
       _motionId: BigNumberish,
       _permissionDomainId: BigNumberish,
@@ -1500,6 +2189,15 @@ export interface VotingReputation extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Submit a vote secret for a motion
+     * @param _branchMask The branchmask of the proof
+     * @param _key Reputation tree key for the staker/domain
+     * @param _motionId The id of the motion
+     * @param _siblings The siblings of the proof
+     * @param _value Reputation tree value for the staker/domain
+     * @param _voteSecret The hashed vote secret
+     */
     submitVote(
       _motionId: BigNumberish,
       _voteSecret: BytesLike,
@@ -1510,6 +2208,16 @@ export interface VotingReputation extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Reveal a vote secret for a motion
+     * @param _branchMask The branchmask of the proof
+     * @param _key Reputation tree key for the staker/domain
+     * @param _motionId The id of the motion
+     * @param _salt The salt used to hash the vote
+     * @param _siblings The siblings of the proof
+     * @param _value Reputation tree value for the staker/domain
+     * @param _vote The side being supported (0 = NAY, 1 = YAY)
+     */
     revealVote(
       _motionId: BigNumberish,
       _salt: BytesLike,
@@ -1521,6 +2229,16 @@ export interface VotingReputation extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Escalate a motion to a higher domain
+     * @param _branchMask The branchmask of the proof
+     * @param _childSkillIndex For the current domain, relative to the escalated domain
+     * @param _key Reputation tree key for the new domain
+     * @param _motionId The id of the motion
+     * @param _newDomainId The desired domain of escalation
+     * @param _siblings The siblings of the proof
+     * @param _value Reputation tree value for the new domain
+     */
     escalateMotion(
       _motionId: BigNumberish,
       _newDomainId: BigNumberish,
@@ -1537,6 +2255,14 @@ export interface VotingReputation extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Claim the staker's reward
+     * @param _childSkillIndex For the domain in which the motion is occurring
+     * @param _motionId The id of the motion
+     * @param _permissionDomainId The domain where the extension has the arbitration permission
+     * @param _staker The staker whose reward is being claimed
+     * @param _vote The side being supported (0 = NAY, 1 = YAY)
+     */
     claimReward(
       _motionId: BigNumberish,
       _permissionDomainId: BigNumberish,
@@ -1546,39 +2272,76 @@ export interface VotingReputation extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the total stake fraction
+     */
     getTotalStakeFraction(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the voter reward fraction
+     */
     getVoterRewardFraction(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the user min stake fraction
+     */
     getUserMinStakeFraction(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the max vote fraction
+     */
     getMaxVoteFraction(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the stake period
+     */
     getStakePeriod(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the submit period
+     */
     getSubmitPeriod(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the reveal period
+     */
     getRevealPeriod(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the escalation period
+     */
     getEscalationPeriod(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the total motion count
+     */
     getMotionCount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the data for a single motion
+     * @param _motionId The id of the motion
+     */
     getMotion(
       _motionId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Get a user's stake on a motion
+     * @param _motionId The id of the motion
+     * @param _staker The staker address
+     * @param _vote The side being supported (0 = NAY, 1 = YAY)
+     */
     getStake(
       _motionId: BigNumberish,
       _staker: string,
@@ -1586,27 +2349,49 @@ export interface VotingReputation extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the number of ongoing motions for a single expenditure / expenditure slot
+     * @param _structHash The hash of the expenditureId or expenditureId*expenditureSlot
+     */
     getExpenditureMotionCount(
       _structHash: BytesLike,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the largest past vote on a single expenditure variable
+     * @param _actionHash The hash of the particular expenditure action
+     */
     getExpenditurePastVote(
       _actionHash: BytesLike,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the current state of the motion
+     */
     getMotionState(
       _motionId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the voter reward
+     * @param _motionId The id of the motion
+     * @param _voterRep The reputation the voter has in the domain
+     */
     getVoterReward(
       _motionId: BigNumberish,
       _voterRep: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the staker reward
+     * @param _motionId The id of the motion
+     * @param _staker The staker's address
+     * @param _vote The vote (0 = NAY, 1 = YAY)
+     */
     getStakerReward(
       _motionId: BigNumberish,
       _staker: string,

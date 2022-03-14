@@ -1,1 +1,611 @@
-{"contractName":"ColonyNetworkStorage","abi":[{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"auction","type":"address"},{"indexed":false,"internalType":"address","name":"token","type":"address"},{"indexed":false,"internalType":"uint256","name":"quantity","type":"uint256"}],"name":"AuctionCreated","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"uint256","name":"colonyId","type":"uint256"},{"indexed":true,"internalType":"address","name":"colonyAddress","type":"address"},{"indexed":false,"internalType":"address","name":"token","type":"address"}],"name":"ColonyAdded","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"colony","type":"address"},{"indexed":false,"internalType":"bytes32","name":"label","type":"bytes32"}],"name":"ColonyLabelRegistered","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"resolver","type":"address"}],"name":"ColonyNetworkInitialised","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"version","type":"uint256"},{"indexed":false,"internalType":"address","name":"resolver","type":"address"}],"name":"ColonyVersionAdded","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"extensionId","type":"bytes32"},{"indexed":false,"internalType":"uint256","name":"version","type":"uint256"}],"name":"ExtensionAddedToNetwork","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"extensionId","type":"bytes32"},{"indexed":true,"internalType":"address","name":"colony","type":"address"},{"indexed":false,"internalType":"bool","name":"deprecated","type":"bool"}],"name":"ExtensionDeprecated","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"extensionId","type":"bytes32"},{"indexed":true,"internalType":"address","name":"colony","type":"address"},{"indexed":false,"internalType":"uint256","name":"version","type":"uint256"}],"name":"ExtensionInstalled","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"extensionId","type":"bytes32"},{"indexed":true,"internalType":"address","name":"colony","type":"address"}],"name":"ExtensionUninstalled","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"extensionId","type":"bytes32"},{"indexed":true,"internalType":"address","name":"colony","type":"address"},{"indexed":false,"internalType":"uint256","name":"version","type":"uint256"}],"name":"ExtensionUpgraded","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"authority","type":"address"}],"name":"LogSetAuthority","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"}],"name":"LogSetOwner","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"metaColony","type":"address"},{"indexed":false,"internalType":"address","name":"token","type":"address"},{"indexed":false,"internalType":"uint256","name":"rootSkillId","type":"uint256"}],"name":"MetaColonyCreated","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"miningCycleResolver","type":"address"}],"name":"MiningCycleResolverSet","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"feeInverse","type":"uint256"}],"name":"NetworkFeeInverseSet","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"ens","type":"address"},{"indexed":false,"internalType":"bytes32","name":"rootNode","type":"bytes32"}],"name":"RegistrarInitialised","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"miner","type":"address"},{"indexed":false,"internalType":"uint256","name":"tokensLost","type":"uint256"}],"name":"ReputationMinerPenalised","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"bytes32","name":"hash","type":"bytes32"},{"indexed":false,"internalType":"uint256","name":"nLeaves","type":"uint256"}],"name":"ReputationMiningCycleComplete","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"inactiveReputationMiningCycle","type":"address"}],"name":"ReputationMiningInitialised","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"ReputationMiningRewardSet","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"bytes32","name":"newHash","type":"bytes32"},{"indexed":false,"internalType":"uint256","name":"newNLeaves","type":"uint256"},{"indexed":false,"internalType":"address[]","name":"stakers","type":"address[]"},{"indexed":false,"internalType":"uint256","name":"reward","type":"uint256"}],"name":"ReputationRootHashSet","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"skillId","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"parentSkillId","type":"uint256"}],"name":"SkillAdded","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"tokenLocking","type":"address"}],"name":"TokenLockingAddressSet","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"token","type":"address"},{"indexed":false,"internalType":"bool","name":"status","type":"bool"}],"name":"TokenWhitelisted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"user","type":"address"},{"indexed":false,"internalType":"bytes32","name":"label","type":"bytes32"}],"name":"UserLabelRegistered","type":"event"},{"inputs":[],"name":"authority","outputs":[{"internalType":"contract DSAuthority","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"contract DSAuthority","name":"authority_","type":"address"}],"name":"setAuthority","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"owner_","type":"address"}],"name":"setOwner","outputs":[],"stateMutability":"nonpayable","type":"function"}],"bytecode":"0x608060405234801561001057600080fd5b50600180546001600160a01b031916339081179091556040517fce241d7ca1f669fee44b6fc00b8eba2df3bb514eed0f6f668f8f89096e81ed9490600090a26103608061005e6000396000f3fe608060405234801561001057600080fd5b506004361061004c5760003560e01c806313af4035146100515780637a9e5e4b146100795780638da5cb5b1461009f578063bf7e214f146100c3575b600080fd5b6100776004803603602081101561006757600080fd5b50356001600160a01b03166100cb565b005b6100776004803603602081101561008f57600080fd5b50356001600160a01b0316610179565b6100a7610223565b604080516001600160a01b039092168252519081900360200190f35b6100a7610232565b6100e1336000356001600160e01b031916610241565b610129576040805162461bcd60e51b8152602060048201526014602482015273191ccb585d5d1a0b5d5b985d5d1a1bdc9a5e995960621b604482015290519081900360640190fd5b600180546001600160a01b0319166001600160a01b0383811691909117918290556040519116907fce241d7ca1f669fee44b6fc00b8eba2df3bb514eed0f6f668f8f89096e81ed9490600090a250565b61018f336000356001600160e01b031916610241565b6101d7576040805162461bcd60e51b8152602060048201526014602482015273191ccb585d5d1a0b5d5b985d5d1a1bdc9a5e995960621b604482015290519081900360640190fd5b600080546001600160a01b0319166001600160a01b03838116919091178083556040519116917f1abebea81bfa2637f28358c371278fb15ede7ea8dd28d2e03b112ff6d936ada491a250565b6001546001600160a01b031681565b6000546001600160a01b031681565b60006001600160a01b03831630141561025c57506001610324565b6001546001600160a01b038481169116141561027a57506001610324565b6000546001600160a01b031661029257506000610324565b6000546040805163b700961360e01b81526001600160a01b0386811660048301523060248301526001600160e01b0319861660448301529151919092169163b7009613916064808301926020929190829003018186803b1580156102f557600080fd5b505afa158015610309573d6000803e3d6000fd5b505050506040513d602081101561031f57600080fd5b505190505b9291505056fea26469706673582212204d76b464ee36cc1b3caedd2b2f96a3bcc72f12f7be4662fd638f0f63e67e0ac164736f6c63430007030033"}
+{
+    "contractName": "ColonyNetworkStorage",
+    "abi": [
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "auction",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "quantity",
+                    "type": "uint256"
+                }
+            ],
+            "name": "AuctionCreated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "colonyId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "colonyAddress",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                }
+            ],
+            "name": "ColonyAdded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "colony",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "label",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "ColonyLabelRegistered",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "resolver",
+                    "type": "address"
+                }
+            ],
+            "name": "ColonyNetworkInitialised",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "version",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "resolver",
+                    "type": "address"
+                }
+            ],
+            "name": "ColonyVersionAdded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "extensionId",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "version",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ExtensionAddedToNetwork",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "extensionId",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "colony",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "deprecated",
+                    "type": "bool"
+                }
+            ],
+            "name": "ExtensionDeprecated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "extensionId",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "colony",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "version",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ExtensionInstalled",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "extensionId",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "colony",
+                    "type": "address"
+                }
+            ],
+            "name": "ExtensionUninstalled",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "extensionId",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "colony",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "version",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ExtensionUpgraded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "authority",
+                    "type": "address"
+                }
+            ],
+            "name": "LogSetAuthority",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "owner",
+                    "type": "address"
+                }
+            ],
+            "name": "LogSetOwner",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "metaColony",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "rootSkillId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "MetaColonyCreated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "miningCycleResolver",
+                    "type": "address"
+                }
+            ],
+            "name": "MiningCycleResolverSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "feeInverse",
+                    "type": "uint256"
+                }
+            ],
+            "name": "NetworkFeeInverseSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "ens",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "rootNode",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "RegistrarInitialised",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "miner",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "tokensLost",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ReputationMinerPenalised",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "hash",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "nLeaves",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ReputationMiningCycleComplete",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "inactiveReputationMiningCycle",
+                    "type": "address"
+                }
+            ],
+            "name": "ReputationMiningInitialised",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ReputationMiningRewardSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "newHash",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "newNLeaves",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address[]",
+                    "name": "stakers",
+                    "type": "address[]"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "reward",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ReputationRootHashSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "skillId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "parentSkillId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "SkillAdded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "tokenLocking",
+                    "type": "address"
+                }
+            ],
+            "name": "TokenLockingAddressSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "status",
+                    "type": "bool"
+                }
+            ],
+            "name": "TokenWhitelisted",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "label",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "UserLabelRegistered",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "authority",
+            "outputs": [
+                {
+                    "internalType": "contract DSAuthority",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract DSAuthority",
+                    "name": "authority_",
+                    "type": "address"
+                }
+            ],
+            "name": "setAuthority",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "owner_",
+                    "type": "address"
+                }
+            ],
+            "name": "setOwner",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ],
+    "bytecode": "0x608060405234801561001057600080fd5b50600180546001600160a01b031916339081179091556040517fce241d7ca1f669fee44b6fc00b8eba2df3bb514eed0f6f668f8f89096e81ed9490600090a26103608061005e6000396000f3fe608060405234801561001057600080fd5b506004361061004c5760003560e01c806313af4035146100515780637a9e5e4b146100795780638da5cb5b1461009f578063bf7e214f146100c3575b600080fd5b6100776004803603602081101561006757600080fd5b50356001600160a01b03166100cb565b005b6100776004803603602081101561008f57600080fd5b50356001600160a01b0316610179565b6100a7610223565b604080516001600160a01b039092168252519081900360200190f35b6100a7610232565b6100e1336000356001600160e01b031916610241565b610129576040805162461bcd60e51b8152602060048201526014602482015273191ccb585d5d1a0b5d5b985d5d1a1bdc9a5e995960621b604482015290519081900360640190fd5b600180546001600160a01b0319166001600160a01b0383811691909117918290556040519116907fce241d7ca1f669fee44b6fc00b8eba2df3bb514eed0f6f668f8f89096e81ed9490600090a250565b61018f336000356001600160e01b031916610241565b6101d7576040805162461bcd60e51b8152602060048201526014602482015273191ccb585d5d1a0b5d5b985d5d1a1bdc9a5e995960621b604482015290519081900360640190fd5b600080546001600160a01b0319166001600160a01b03838116919091178083556040519116917f1abebea81bfa2637f28358c371278fb15ede7ea8dd28d2e03b112ff6d936ada491a250565b6001546001600160a01b031681565b6000546001600160a01b031681565b60006001600160a01b03831630141561025c57506001610324565b6001546001600160a01b038481169116141561027a57506001610324565b6000546001600160a01b031661029257506000610324565b6000546040805163b700961360e01b81526001600160a01b0386811660048301523060248301526001600160e01b0319861660448301529151919092169163b7009613916064808301926020929190829003018186803b1580156102f557600080fd5b505afa158015610309573d6000803e3d6000fd5b505050506040513d602081101561031f57600080fd5b505190505b9291505056fea2646970667358221220bfe6093127b04be69b57650270e26247936e490d8a63a673126fdd7df446709564736f6c63430007030033",
+    "devdoc": {
+        "kind": "dev",
+        "methods": {},
+        "version": 1
+    },
+    "userdoc": {
+        "events": {
+            "AuctionCreated(address,address,uint256)": {
+                "notice": "Event logged when a new auction is created and started"
+            },
+            "ColonyAdded(uint256,address,address)": {
+                "notice": "Event logged when a new colony is added"
+            },
+            "ColonyLabelRegistered(address,bytes32)": {
+                "notice": "Event logged when a \"colony.joincolony.eth\" label is registered"
+            },
+            "ColonyNetworkInitialised(address)": {
+                "notice": "Event logged when the colony network is intialised. This is only ever emitted once in a network's lifetime"
+            },
+            "ColonyVersionAdded(uint256,address)": {
+                "notice": "Event logged when a new colony contract version is set"
+            },
+            "ExtensionAddedToNetwork(bytes32,uint256)": {
+                "notice": "Event logged when a new extension resolver is added to the network"
+            },
+            "ExtensionDeprecated(bytes32,address,bool)": {
+                "notice": "Event logged when an extension is (un)deprecated in a colony"
+            },
+            "ExtensionInstalled(bytes32,address,uint256)": {
+                "notice": "Event logged when an extension is installed in a colony"
+            },
+            "ExtensionUninstalled(bytes32,address)": {
+                "notice": "Event logged when an extension is uninstalled from a colony"
+            },
+            "ExtensionUpgraded(bytes32,address,uint256)": {
+                "notice": "Event logged when an extension is upgraded in a colony"
+            },
+            "MetaColonyCreated(address,address,uint256)": {
+                "notice": "Event logged when the MetaColony is created"
+            },
+            "MiningCycleResolverSet(address)": {
+                "notice": "Event logged when the Colony Network ReputationMiningCycleResolver contract address is set"
+            },
+            "NetworkFeeInverseSet(uint256)": {
+                "notice": "Event logged when the network fee inverse is set"
+            },
+            "RegistrarInitialised(address,bytes32)": {
+                "notice": "Event logged when the ENS registrar is initialised"
+            },
+            "ReputationMiningCycleComplete(bytes32,uint256)": {
+                "notice": "Event logged when a reputation mining cycle completes"
+            },
+            "ReputationMiningInitialised(address)": {
+                "notice": "Event logged when the Reputation mining process is initialised"
+            },
+            "ReputationMiningRewardSet(uint256)": {
+                "notice": "Event logged when the mining reward is set"
+            },
+            "ReputationRootHashSet(bytes32,uint256,address[],uint256)": {
+                "notice": "Event logged when a new reputation root hash is set by the reputation mining process"
+            },
+            "SkillAdded(uint256,uint256)": {
+                "notice": "Event logged when a new skill is added"
+            },
+            "TokenLockingAddressSet(address)": {
+                "notice": "Event logged when the Colony Network TokenLocking contract address is set"
+            },
+            "TokenWhitelisted(address,bool)": {
+                "notice": "Event logged when the payout whitelist is updated"
+            },
+            "UserLabelRegistered(address,bytes32)": {
+                "notice": "Event logged when a \"user.joincolony.eth\" label is registered"
+            }
+        },
+        "kind": "user",
+        "methods": {},
+        "version": 1
+    }
+}

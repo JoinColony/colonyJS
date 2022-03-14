@@ -1,1 +1,56 @@
-{"contractName":"ERC20Events","abi":[{"anonymous":false,"inputs":[{"indexed":true,"name":"src","type":"address"},{"indexed":true,"name":"guy","type":"address"},{"indexed":false,"name":"wad","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"src","type":"address"},{"indexed":true,"name":"dst","type":"address"},{"indexed":false,"name":"wad","type":"uint256"}],"name":"Transfer","type":"event"}],"bytecode":"0x6080604052348015600f57600080fd5b50603580601d6000396000f3fe6080604052600080fdfea165627a7a72305820913bfc81d32d54dd630278d29456f74dfc3f30eee851e41df4b7661cbca899d50029"}
+{
+    "contractName": "ERC20Events",
+    "abi": [
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "name": "src",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "name": "guy",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "name": "wad",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Approval",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "name": "src",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "name": "dst",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "name": "wad",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Transfer",
+            "type": "event"
+        }
+    ],
+    "bytecode": "0x6080604052348015600f57600080fd5b50603580601d6000396000f3fe6080604052600080fdfea165627a7a72305820a827d629fda1f7bc33357e78a17155dc37a09e6210e986929436693a08c552f60029",
+    "devdoc": {
+        "methods": {}
+    },
+    "userdoc": {
+        "methods": {}
+    }
+}

@@ -1,1 +1,79 @@
-{"contractName":"ExtensionFactory","abi":[{"anonymous":false,"inputs":[{"indexed":false,"name":"_name","type":"string"},{"indexed":false,"name":"_colony","type":"address"},{"indexed":false,"name":"_extension","type":"address"}],"name":"ExtensionDeployed","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"_name","type":"string"},{"indexed":false,"name":"_colony","type":"address"}],"name":"ExtensionRemoved","type":"event"},{"constant":false,"inputs":[{"name":"_colony","type":"address"}],"name":"deployExtension","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_colony","type":"address"}],"name":"removeExtension","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"}],"bytecode":"0x"}
+{
+    "contractName": "ExtensionFactory",
+    "abi": [
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "name": "_name",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "name": "_colony",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "name": "_extension",
+                    "type": "address"
+                }
+            ],
+            "name": "ExtensionDeployed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "name": "_name",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "name": "_colony",
+                    "type": "address"
+                }
+            ],
+            "name": "ExtensionRemoved",
+            "type": "event"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_colony",
+                    "type": "address"
+                }
+            ],
+            "name": "deployExtension",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_colony",
+                    "type": "address"
+                }
+            ],
+            "name": "removeExtension",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ],
+    "bytecode": "0x",
+    "devdoc": {
+        "methods": {}
+    },
+    "userdoc": {
+        "methods": {}
+    }
+}

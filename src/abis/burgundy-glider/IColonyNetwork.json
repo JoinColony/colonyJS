@@ -1,1 +1,1699 @@
-{"contractName":"IColonyNetwork","abi":[{"constant":false,"inputs":[],"name":"approveExitRecovery","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"exitRecoveryMode","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"numRecoveryRoles","outputs":[{"name":"numRoles","type":"uint64"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_slot","type":"uint256"},{"name":"_value","type":"bytes32"}],"name":"setStorageSlotRecovery","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"isInRecoveryMode","outputs":[{"name":"inRecoveryMode","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_slot","type":"uint256"}],"name":"checkNotAdditionalProtectedVariable","outputs":[],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_user","type":"address"}],"name":"removeRecoveryRole","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_user","type":"address"}],"name":"setRecoveryRole","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"enterRecoveryMode","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"anonymous":false,"inputs":[{"indexed":true,"name":"user","type":"address"},{"indexed":false,"name":"setTo","type":"bool"}],"name":"RecoveryRoleSet","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"resolver","type":"address"}],"name":"ColonyNetworkInitialised","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"tokenLocking","type":"address"}],"name":"TokenLockingAddressSet","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"miningCycleResolver","type":"address"}],"name":"MiningCycleResolverSet","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"feeInverse","type":"uint256"}],"name":"NetworkFeeInverseSet","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"version","type":"uint256"},{"indexed":false,"name":"resolver","type":"address"}],"name":"ColonyVersionAdded","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"metaColony","type":"address"},{"indexed":false,"name":"token","type":"address"},{"indexed":false,"name":"rootSkillId","type":"uint256"}],"name":"MetaColonyCreated","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"colonyId","type":"uint256"},{"indexed":true,"name":"colonyAddress","type":"address"},{"indexed":false,"name":"token","type":"address"}],"name":"ColonyAdded","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"skillId","type":"uint256"},{"indexed":false,"name":"parentSkillId","type":"uint256"}],"name":"SkillAdded","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"auction","type":"address"},{"indexed":false,"name":"token","type":"address"},{"indexed":false,"name":"quantity","type":"uint256"}],"name":"AuctionCreated","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"inactiveReputationMiningCycle","type":"address"}],"name":"ReputationMiningInitialised","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"hash","type":"bytes32"},{"indexed":false,"name":"nNodes","type":"uint256"}],"name":"ReputationMiningCycleComplete","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"newHash","type":"bytes32"},{"indexed":false,"name":"newNNodes","type":"uint256"},{"indexed":false,"name":"stakers","type":"address[]"},{"indexed":false,"name":"reward","type":"uint256"}],"name":"ReputationRootHashSet","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"user","type":"address"},{"indexed":false,"name":"label","type":"bytes32"}],"name":"UserLabelRegistered","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"colony","type":"address"},{"indexed":false,"name":"label","type":"bytes32"}],"name":"ColonyLabelRegistered","type":"event"},{"constant":true,"inputs":[{"name":"interfaceID","type":"bytes4"}],"name":"supportsInterface","outputs":[{"name":"status","type":"bool"}],"payable":false,"stateMutability":"pure","type":"function"},{"constant":false,"inputs":[{"name":"_reputationMiningCycle","type":"address"},{"name":"_id","type":"uint256"},{"name":"_user","type":"address"},{"name":"_amount","type":"int256"},{"name":"_skillId","type":"uint256"},{"name":"_colony","type":"address"},{"name":"_nUpdates","type":"uint128"},{"name":"_nPreviousUpdates","type":"uint128"}],"name":"setReplacementReputationUpdateLogEntry","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_reputationMiningCycle","type":"address"},{"name":"_id","type":"uint256"}],"name":"getReplacementReputationUpdateLogEntry","outputs":[{"components":[{"name":"user","type":"address"},{"name":"amount","type":"int256"},{"name":"skillId","type":"uint256"},{"name":"colony","type":"address"},{"name":"nUpdates","type":"uint128"},{"name":"nPreviousUpdates","type":"uint128"}],"name":"reputationLogEntry","type":"tuple"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_reputationMiningCycle","type":"address"}],"name":"getReplacementReputationUpdateLogsExist","outputs":[{"name":"exists","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getMetaColony","outputs":[{"name":"colonyAddress","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getColonyCount","outputs":[{"name":"count","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_colony","type":"address"}],"name":"isColony","outputs":[{"name":"addressIsColony","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_parentSkillId","type":"uint256"}],"name":"addSkill","outputs":[{"name":"skillId","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_skillId","type":"uint256"}],"name":"getSkill","outputs":[{"components":[{"name":"nParents","type":"uint128"},{"name":"nChildren","type":"uint128"},{"name":"parents","type":"uint256[]"},{"name":"children","type":"uint256[]"},{"name":"globalSkill","type":"bool"},{"name":"deprecated","type":"bool"}],"name":"skill","type":"tuple"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_skillId","type":"uint256"}],"name":"deprecateSkill","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_user","type":"address"},{"name":"_amount","type":"int256"},{"name":"_skillId","type":"uint256"}],"name":"appendReputationUpdateLog","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"getSkillCount","outputs":[{"name":"count","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getReputationMiningSkillId","outputs":[{"name":"skillId","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_tokenLockingAddress","type":"address"}],"name":"setTokenLocking","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"getTokenLocking","outputs":[{"name":"lockingAddress","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_tokenAddress","type":"address"}],"name":"createMetaColony","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_tokenAddress","type":"address"}],"name":"createColony","outputs":[{"name":"colonyAddress","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_tokenAddress","type":"address"},{"name":"_version","type":"uint256"},{"name":"_colonyName","type":"string"},{"name":"_orbitdb","type":"string"},{"name":"_useExtensionManager","type":"bool"}],"name":"createColony","outputs":[{"name":"colonyAddress","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_version","type":"uint256"},{"name":"_resolver","type":"address"}],"name":"addColonyVersion","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_resolver","type":"address"},{"name":"_version","type":"uint256"}],"name":"initialise","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_id","type":"uint256"}],"name":"getColony","outputs":[{"name":"colonyAddress","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getCurrentColonyVersion","outputs":[{"name":"version","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_skillId","type":"uint256"},{"name":"_parentSkillIndex","type":"uint256"}],"name":"getParentSkillId","outputs":[{"name":"skillId","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_skillId","type":"uint256"},{"name":"_childSkillIndex","type":"uint256"}],"name":"getChildSkillId","outputs":[{"name":"skillId","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_active","type":"bool"}],"name":"getReputationMiningCycle","outputs":[{"name":"repMiningCycleAddress","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_timeStaked","type":"uint256"},{"name":"_submissonIndex","type":"uint256"}],"name":"calculateMinerWeight","outputs":[{"name":"minerWeight","type":"uint256"}],"payable":false,"stateMutability":"pure","type":"function"},{"constant":true,"inputs":[{"name":"_version","type":"uint256"}],"name":"getColonyVersionResolver","outputs":[{"name":"resolverAddress","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"newHash","type":"bytes32"},{"name":"newNNodes","type":"uint256"},{"name":"stakers","type":"address[]"},{"name":"reward","type":"uint256"}],"name":"setReputationRootHash","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"startNextCycle","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"initialiseReputationMining","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"getReputationRootHash","outputs":[{"name":"rootHash","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getReputationRootHashNNodes","outputs":[{"name":"nNodes","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_token","type":"address"}],"name":"startTokenAuction","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_ens","type":"address"},{"name":"_rootNode","type":"bytes32"}],"name":"setupRegistrar","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"username","type":"string"},{"name":"orbitdb","type":"string"}],"name":"registerUserLabel","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"colonyName","type":"string"},{"name":"orbitdb","type":"string"}],"name":"registerColonyLabel","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"orbitdb","type":"string"}],"name":"updateColonyOrbitDB","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"orbitdb","type":"string"}],"name":"updateUserOrbitDB","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"node","type":"bytes32"}],"name":"getProfileDBAddress","outputs":[{"name":"orbitDB","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"addr","type":"address"}],"name":"lookupRegisteredENSDomain","outputs":[{"name":"domain","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"node","type":"bytes32"}],"name":"addr","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getENSRegistrar","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"miningResolverAddress","type":"address"}],"name":"setMiningResolver","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"getMiningResolver","outputs":[{"name":"miningResolverAddress","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getFeeInverse","outputs":[{"name":"_feeInverse","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_feeInverse","type":"uint256"}],"name":"setFeeInverse","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"}],"bytecode":"0x"}
+{
+    "contractName": "IColonyNetwork",
+    "abi": [
+        {
+            "constant": false,
+            "inputs": [],
+            "name": "approveExitRecovery",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [],
+            "name": "exitRecoveryMode",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "numRecoveryRoles",
+            "outputs": [
+                {
+                    "name": "numRoles",
+                    "type": "uint64"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_slot",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_value",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "setStorageSlotRecovery",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "isInRecoveryMode",
+            "outputs": [
+                {
+                    "name": "inRecoveryMode",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "_slot",
+                    "type": "uint256"
+                }
+            ],
+            "name": "checkNotAdditionalProtectedVariable",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_user",
+                    "type": "address"
+                }
+            ],
+            "name": "removeRecoveryRole",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_user",
+                    "type": "address"
+                }
+            ],
+            "name": "setRecoveryRole",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [],
+            "name": "enterRecoveryMode",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "name": "setTo",
+                    "type": "bool"
+                }
+            ],
+            "name": "RecoveryRoleSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "name": "resolver",
+                    "type": "address"
+                }
+            ],
+            "name": "ColonyNetworkInitialised",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "name": "tokenLocking",
+                    "type": "address"
+                }
+            ],
+            "name": "TokenLockingAddressSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "name": "miningCycleResolver",
+                    "type": "address"
+                }
+            ],
+            "name": "MiningCycleResolverSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "name": "feeInverse",
+                    "type": "uint256"
+                }
+            ],
+            "name": "NetworkFeeInverseSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "name": "version",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "name": "resolver",
+                    "type": "address"
+                }
+            ],
+            "name": "ColonyVersionAdded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "name": "metaColony",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "name": "rootSkillId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "MetaColonyCreated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "name": "colonyId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": true,
+                    "name": "colonyAddress",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "name": "token",
+                    "type": "address"
+                }
+            ],
+            "name": "ColonyAdded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "name": "skillId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "name": "parentSkillId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "SkillAdded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "name": "auction",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "name": "token",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "name": "quantity",
+                    "type": "uint256"
+                }
+            ],
+            "name": "AuctionCreated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "name": "inactiveReputationMiningCycle",
+                    "type": "address"
+                }
+            ],
+            "name": "ReputationMiningInitialised",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "name": "hash",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "name": "nNodes",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ReputationMiningCycleComplete",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "name": "newHash",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "name": "newNNodes",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "name": "stakers",
+                    "type": "address[]"
+                },
+                {
+                    "indexed": false,
+                    "name": "reward",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ReputationRootHashSet",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "name": "label",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "UserLabelRegistered",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "name": "colony",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "name": "label",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "ColonyLabelRegistered",
+            "type": "event"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "interfaceID",
+                    "type": "bytes4"
+                }
+            ],
+            "name": "supportsInterface",
+            "outputs": [
+                {
+                    "name": "status",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "pure",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_reputationMiningCycle",
+                    "type": "address"
+                },
+                {
+                    "name": "_id",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_user",
+                    "type": "address"
+                },
+                {
+                    "name": "_amount",
+                    "type": "int256"
+                },
+                {
+                    "name": "_skillId",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_colony",
+                    "type": "address"
+                },
+                {
+                    "name": "_nUpdates",
+                    "type": "uint128"
+                },
+                {
+                    "name": "_nPreviousUpdates",
+                    "type": "uint128"
+                }
+            ],
+            "name": "setReplacementReputationUpdateLogEntry",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "_reputationMiningCycle",
+                    "type": "address"
+                },
+                {
+                    "name": "_id",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getReplacementReputationUpdateLogEntry",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "name": "user",
+                            "type": "address"
+                        },
+                        {
+                            "name": "amount",
+                            "type": "int256"
+                        },
+                        {
+                            "name": "skillId",
+                            "type": "uint256"
+                        },
+                        {
+                            "name": "colony",
+                            "type": "address"
+                        },
+                        {
+                            "name": "nUpdates",
+                            "type": "uint128"
+                        },
+                        {
+                            "name": "nPreviousUpdates",
+                            "type": "uint128"
+                        }
+                    ],
+                    "name": "reputationLogEntry",
+                    "type": "tuple"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "_reputationMiningCycle",
+                    "type": "address"
+                }
+            ],
+            "name": "getReplacementReputationUpdateLogsExist",
+            "outputs": [
+                {
+                    "name": "exists",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "getMetaColony",
+            "outputs": [
+                {
+                    "name": "colonyAddress",
+                    "type": "address"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "getColonyCount",
+            "outputs": [
+                {
+                    "name": "count",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "_colony",
+                    "type": "address"
+                }
+            ],
+            "name": "isColony",
+            "outputs": [
+                {
+                    "name": "addressIsColony",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_parentSkillId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "addSkill",
+            "outputs": [
+                {
+                    "name": "skillId",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "_skillId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getSkill",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "name": "nParents",
+                            "type": "uint128"
+                        },
+                        {
+                            "name": "nChildren",
+                            "type": "uint128"
+                        },
+                        {
+                            "name": "parents",
+                            "type": "uint256[]"
+                        },
+                        {
+                            "name": "children",
+                            "type": "uint256[]"
+                        },
+                        {
+                            "name": "globalSkill",
+                            "type": "bool"
+                        },
+                        {
+                            "name": "deprecated",
+                            "type": "bool"
+                        }
+                    ],
+                    "name": "skill",
+                    "type": "tuple"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_skillId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "deprecateSkill",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_user",
+                    "type": "address"
+                },
+                {
+                    "name": "_amount",
+                    "type": "int256"
+                },
+                {
+                    "name": "_skillId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "appendReputationUpdateLog",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "getSkillCount",
+            "outputs": [
+                {
+                    "name": "count",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "getReputationMiningSkillId",
+            "outputs": [
+                {
+                    "name": "skillId",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_tokenLockingAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "setTokenLocking",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "getTokenLocking",
+            "outputs": [
+                {
+                    "name": "lockingAddress",
+                    "type": "address"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_tokenAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "createMetaColony",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_tokenAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "createColony",
+            "outputs": [
+                {
+                    "name": "colonyAddress",
+                    "type": "address"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_tokenAddress",
+                    "type": "address"
+                },
+                {
+                    "name": "_version",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_colonyName",
+                    "type": "string"
+                },
+                {
+                    "name": "_orbitdb",
+                    "type": "string"
+                },
+                {
+                    "name": "_useExtensionManager",
+                    "type": "bool"
+                }
+            ],
+            "name": "createColony",
+            "outputs": [
+                {
+                    "name": "colonyAddress",
+                    "type": "address"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_version",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_resolver",
+                    "type": "address"
+                }
+            ],
+            "name": "addColonyVersion",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_resolver",
+                    "type": "address"
+                },
+                {
+                    "name": "_version",
+                    "type": "uint256"
+                }
+            ],
+            "name": "initialise",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "_id",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getColony",
+            "outputs": [
+                {
+                    "name": "colonyAddress",
+                    "type": "address"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "getCurrentColonyVersion",
+            "outputs": [
+                {
+                    "name": "version",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "_skillId",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_parentSkillIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getParentSkillId",
+            "outputs": [
+                {
+                    "name": "skillId",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "_skillId",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_childSkillIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getChildSkillId",
+            "outputs": [
+                {
+                    "name": "skillId",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "_active",
+                    "type": "bool"
+                }
+            ],
+            "name": "getReputationMiningCycle",
+            "outputs": [
+                {
+                    "name": "repMiningCycleAddress",
+                    "type": "address"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "_timeStaked",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_submissonIndex",
+                    "type": "uint256"
+                }
+            ],
+            "name": "calculateMinerWeight",
+            "outputs": [
+                {
+                    "name": "minerWeight",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "pure",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "_version",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getColonyVersionResolver",
+            "outputs": [
+                {
+                    "name": "resolverAddress",
+                    "type": "address"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "newHash",
+                    "type": "bytes32"
+                },
+                {
+                    "name": "newNNodes",
+                    "type": "uint256"
+                },
+                {
+                    "name": "stakers",
+                    "type": "address[]"
+                },
+                {
+                    "name": "reward",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setReputationRootHash",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [],
+            "name": "startNextCycle",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [],
+            "name": "initialiseReputationMining",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "getReputationRootHash",
+            "outputs": [
+                {
+                    "name": "rootHash",
+                    "type": "bytes32"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "getReputationRootHashNNodes",
+            "outputs": [
+                {
+                    "name": "nNodes",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_token",
+                    "type": "address"
+                }
+            ],
+            "name": "startTokenAuction",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_ens",
+                    "type": "address"
+                },
+                {
+                    "name": "_rootNode",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "setupRegistrar",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "username",
+                    "type": "string"
+                },
+                {
+                    "name": "orbitdb",
+                    "type": "string"
+                }
+            ],
+            "name": "registerUserLabel",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "colonyName",
+                    "type": "string"
+                },
+                {
+                    "name": "orbitdb",
+                    "type": "string"
+                }
+            ],
+            "name": "registerColonyLabel",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "orbitdb",
+                    "type": "string"
+                }
+            ],
+            "name": "updateColonyOrbitDB",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "orbitdb",
+                    "type": "string"
+                }
+            ],
+            "name": "updateUserOrbitDB",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "node",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "getProfileDBAddress",
+            "outputs": [
+                {
+                    "name": "orbitDB",
+                    "type": "string"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "addr",
+                    "type": "address"
+                }
+            ],
+            "name": "lookupRegisteredENSDomain",
+            "outputs": [
+                {
+                    "name": "domain",
+                    "type": "string"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "node",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "addr",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "getENSRegistrar",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "miningResolverAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "setMiningResolver",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "getMiningResolver",
+            "outputs": [
+                {
+                    "name": "miningResolverAddress",
+                    "type": "address"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "getFeeInverse",
+            "outputs": [
+                {
+                    "name": "_feeInverse",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_feeInverse",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setFeeInverse",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ],
+    "bytecode": "0x",
+    "devdoc": {
+        "methods": {
+            "addColonyVersion(uint256,address)": {
+                "params": {
+                    "_resolver": "Address of the `Resolver` contract which will be used with the underlying `EtherRouter` contract",
+                    "_version": "The new Colony contract version"
+                }
+            },
+            "addSkill(uint256)": {
+                "details": "Errors if the parent skill does not exist or if this is called by an unauthorised sender.",
+                "params": {
+                    "_parentSkillId": "Id of the skill under which the new skill will be added. If 0, a global skill is added with no parent."
+                },
+                "return": "skillId Id of the added skill"
+            },
+            "addr(bytes32)": {
+                "params": {
+                    "node": "The namehash of the ENS address being requested"
+                },
+                "return": "address The address the supplied node resolves to"
+            },
+            "appendReputationUpdateLog(address,int256,uint256)": {
+                "details": "Errors if it is called by anyone but a colony or if skill with id `_skillId` does not exist or.",
+                "params": {
+                    "_amount": "The amount of reputation change for the update, this can be a negative as well as a positive value",
+                    "_skillId": "The skill for the reputation update",
+                    "_user": "The address of the user for the reputation update"
+                }
+            },
+            "calculateMinerWeight(uint256,uint256)": {
+                "params": {
+                    "_submissonIndex": "Index of reputation hash submission (between 0 and 11)",
+                    "_timeStaked": "Amount of time (in seconds) that the miner has staked their CLNY"
+                },
+                "return": "minerWeight The weight of miner reward"
+            },
+            "checkNotAdditionalProtectedVariable(uint256)": {
+                "details": "No return value, but should throw if protected.This is public, but is only expected to be called from ContractRecovery; no need toexpose this to any users.",
+                "params": {
+                    "_slot": "The storage slot number to check."
+                }
+            },
+            "createColony(address)": {
+                "details": "This is now deprecated and will be removed in a future versionFor the colony to mint tokens, token ownership must be transferred to the new colony",
+                "params": {
+                    "_tokenAddress": "Address of an ERC20 token to serve as the colony token."
+                },
+                "return": "colonyAddress Address of the newly created colony"
+            },
+            "createColony(address,uint256,string,string,bool)": {
+                "details": "For the colony to mint tokens, token ownership must be transferred to the new colony",
+                "params": {
+                    "_colonyName": "The label to register (if null, no label is registered)",
+                    "_orbitdb": "The path of the orbitDB database associated with the user profile",
+                    "_tokenAddress": "Address of an ERC20 token to serve as the colony token",
+                    "_useExtensionManager": "If true, give the ExtensionManager the root role in the colony",
+                    "_version": "The version of colony to deploy (pass 0 for the current version)"
+                },
+                "return": "colonyAddress Address of the newly created colony"
+            },
+            "createMetaColony(address)": {
+                "params": {
+                    "_tokenAddress": "Address of the CLNY token"
+                }
+            },
+            "deprecateSkill(uint256)": {
+                "params": {
+                    "_skillId": "Id of the skill"
+                }
+            },
+            "getChildSkillId(uint256,uint256)": {
+                "params": {
+                    "_childSkillIndex": "Index of the `skill.children` array to get",
+                    "_skillId": "Id of the skill"
+                },
+                "return": "skillId Skill Id of the requested child skill"
+            },
+            "getColony(uint256)": {
+                "params": {
+                    "_id": "Id of the colony to get"
+                },
+                "return": "colonyAddress The colony address, if no colony was found, returns 0x0"
+            },
+            "getColonyCount()": {
+                "return": "count The colony count"
+            },
+            "getColonyVersionResolver(uint256)": {
+                "params": {
+                    "_version": "The Colony contract version"
+                },
+                "return": "resolverAddress Address of the `Resolver` contract"
+            },
+            "getCurrentColonyVersion()": {
+                "return": "version The current / latest Colony contract version"
+            },
+            "getENSRegistrar()": {
+                "return": "address The address the ENSRegistrar resolves to"
+            },
+            "getFeeInverse()": {
+                "return": "_feeInverse The inverse of the network fee"
+            },
+            "getMetaColony()": {
+                "return": "colonyAddress The Meta colony address, if no colony was found, returns 0x0"
+            },
+            "getMiningResolver()": {
+                "return": "miningResolverAddress The address of the mining cycle resolver currently used by new instances"
+            },
+            "getParentSkillId(uint256,uint256)": {
+                "params": {
+                    "_parentSkillIndex": "Index of the `skill.parents` array to get Note that not all parent skill ids are stored here. See `Skill.parents` member for definition on which parents are stored",
+                    "_skillId": "Id of the skill"
+                },
+                "return": "skillId Skill Id of the requested parent skill"
+            },
+            "getProfileDBAddress(bytes32)": {
+                "params": {
+                    "node": "The Namehash of the account being queried."
+                },
+                "return": "orbitDB A string containing the address of the orbit database"
+            },
+            "getReplacementReputationUpdateLogEntry(address,uint256)": {
+                "params": {
+                    "_id": "The log entry number we wish to see if there is a replacement for",
+                    "_reputationMiningCycle": "The address of the reputation mining cycle we are asking about"
+                },
+                "return": "reputationLogEntry ReputationLogEntry instance with the details of the log entry (if it exists)"
+            },
+            "getReplacementReputationUpdateLogsExist(address)": {
+                "params": {
+                    "_reputationMiningCycle": "The reputation mining cycle address we want to know if any entries have been replaced in."
+                },
+                "return": "exists Boolean indicating whether there is a replacement log"
+            },
+            "getReputationMiningCycle(bool)": {
+                "params": {
+                    "_active": "Whether the user wants the active or inactive reputation mining cycle"
+                },
+                "return": "repMiningCycleAddress address of active or inactive ReputationMiningCycle"
+            },
+            "getReputationMiningSkillId()": {
+                "return": "skillId The `skillId` of the reputation mining skill."
+            },
+            "getReputationRootHash()": {
+                "return": "rootHash The current Reputation Root Hash"
+            },
+            "getReputationRootHashNNodes()": {
+                "details": "I cannot see a reason why a user's client would need to call this - only stored to help with some edge cases in reputation mining dispute resolution.",
+                "return": "nNodes uint256 The number of nodes in the state tree"
+            },
+            "getSkill(uint256)": {
+                "params": {
+                    "_skillId": "Id of the skill"
+                },
+                "return": "skill The Skill struct"
+            },
+            "getSkillCount()": {
+                "return": "count The skill count"
+            },
+            "getTokenLocking()": {
+                "return": "lockingAddress Token locking contract address"
+            },
+            "initialise(address,uint256)": {
+                "details": "Only allowed to be run once, by the Network owner before any Colony versions are added.",
+                "params": {
+                    "_resolver": "Address of the resolver for Colony contract",
+                    "_version": "Version of the Colony contract the resolver represents"
+                }
+            },
+            "isColony(address)": {
+                "params": {
+                    "_colony": "Address of the colony"
+                },
+                "return": "addressIsColony true if specified address is a colony, otherwise false"
+            },
+            "isInRecoveryMode()": {
+                "return": "inRecoveryMode Return true if recovery mode is active, false otherwise"
+            },
+            "lookupRegisteredENSDomain(address)": {
+                "params": {
+                    "addr": "The address we wish to find the corresponding ENS domain for (if any)"
+                },
+                "return": "domain A string containing the colony-based ENS name corresponding to addr"
+            },
+            "numRecoveryRoles()": {
+                "return": "numRoles Number of users with the recovery role."
+            },
+            "registerColonyLabel(string,string)": {
+                "params": {
+                    "colonyName": "The label to register.",
+                    "orbitdb": "The path of the orbitDB database associated with the colony name"
+                }
+            },
+            "registerUserLabel(string,string)": {
+                "params": {
+                    "orbitdb": "The path of the orbitDB database associated with the user profile",
+                    "username": "The label to register"
+                }
+            },
+            "removeRecoveryRole(address)": {
+                "params": {
+                    "_user": "User we want to remove recovery role from"
+                }
+            },
+            "setFeeInverse(uint256)": {
+                "params": {
+                    "_feeInverse": "The inverse of the network fee to set"
+                }
+            },
+            "setMiningResolver(address)": {
+                "params": {
+                    "miningResolverAddress": "The address of the Resolver contract with the functions correctly wired."
+                }
+            },
+            "setRecoveryRole(address)": {
+                "params": {
+                    "_user": "User we want to give a recovery role to"
+                }
+            },
+            "setReplacementReputationUpdateLogEntry(address,uint256,address,int256,uint256,address,uint128,uint128)": {
+                "details": "Note that strictly, `_nUpdates` and `_nPreviousUpdates` don't need to be set - they're only used during dispute resolution, which these replacement log entries are never used for. However, for ease of resyncing the client, we have decided to include them for now.",
+                "params": {
+                    "_amount": "The amount of reputation being earned / lost",
+                    "_colony": "The address of the colony being updated",
+                    "_id": "The number of the log entry in the reputation mining cycle in question.",
+                    "_nPreviousUpdates": "The number of updates in the log before this entry",
+                    "_nUpdates": "The number of updates the log entry corresponds to",
+                    "_reputationMiningCycle": "The address of the reputation mining cycle that the log was in.",
+                    "_skillId": "The id of the origin skill for the reputation update",
+                    "_user": "The address of the user earning / losing the reputation"
+                }
+            },
+            "setReputationRootHash(bytes32,uint256,address[],uint256)": {
+                "params": {
+                    "newHash": "The reputation root hash",
+                    "newNNodes": "The updated nodes count value",
+                    "reward": "Amount of CLNY to be distributed as reward to miners",
+                    "stakers": "Array of users who submitted or backed the hash, being accepted here as the new reputation root hash"
+                }
+            },
+            "setStorageSlotRecovery(uint256,bytes32)": {
+                "details": "certain critical variables are protected from editing in this function",
+                "params": {
+                    "_slot": "Uint address of storage slot to be updated",
+                    "_value": "word of data to be set"
+                }
+            },
+            "setTokenLocking(address)": {
+                "params": {
+                    "_tokenLockingAddress": "Address of the locking contract"
+                }
+            },
+            "setupRegistrar(address,bytes32)": {
+                "params": {
+                    "_ens": "Address of ENS registrar",
+                    "_rootNode": "Namehash of the root node for the domain"
+                }
+            },
+            "startTokenAuction(address)": {
+                "params": {
+                    "_token": "Address of the token held by the network to be auctioned"
+                }
+            },
+            "supportsInterface(bytes4)": {
+                "details": "Interface identification is specified in ERC-165.",
+                "params": {
+                    "interfaceID": "The interface identifier, as specified in ERC-165"
+                },
+                "return": "status `true` if the contract implements `interfaceID`"
+            },
+            "updateColonyOrbitDB(string)": {
+                "params": {
+                    "orbitdb": "The path of the orbitDB database to be associated with the colony"
+                }
+            },
+            "updateUserOrbitDB(string)": {
+                "params": {
+                    "orbitdb": "The path of the orbitDB database to be associated with the user"
+                }
+            }
+        },
+        "title": "Colony Network interface"
+    },
+    "userdoc": {
+        "methods": {
+            "addColonyVersion(uint256,address)": {
+                "notice": "Adds a new Colony contract version and the address of associated `_resolver` contract. Secured function to authorised members. Allowed to be called by the Meta Colony only."
+            },
+            "addSkill(uint256)": {
+                "notice": "Adds a new skill to the global or local skills tree, under skill `_parentSkillId`. Only the Meta Colony is allowed to add a global skill, called via `IColony.addGlobalSkill`. Any colony is allowed to add a local skill and which is associated with a new domain via `IColony.addDomain`."
+            },
+            "addr(bytes32)": {
+                "notice": "Returns the address the supplied node resolves do, if we are the resolver."
+            },
+            "appendReputationUpdateLog(address,int256,uint256)": {
+                "notice": "Adds a reputation update entry to log."
+            },
+            "approveExitRecovery()": {
+                "notice": "Indicate approval to exit recovery mode. Can only be called by user with recovery role."
+            },
+            "calculateMinerWeight(uint256,uint256)": {
+                "notice": "Calculate raw miner weight in WADs."
+            },
+            "checkNotAdditionalProtectedVariable(uint256)": {
+                "notice": "Check whether the supplied slot is a protected variable specific to this contract"
+            },
+            "createColony(address)": {
+                "notice": "Creates a new colony in the network, at version 3"
+            },
+            "createColony(address,uint256,string,string,bool)": {
+                "notice": "Overload of the simpler `createColony` -- creates a new colony in the network with a variety of options"
+            },
+            "createMetaColony(address)": {
+                "notice": "Create the Meta Colony, same as a normal colony plus the root skill."
+            },
+            "deprecateSkill(uint256)": {
+                "notice": "Mark a global skill as deprecated which stops new tasks and payments from using it."
+            },
+            "enterRecoveryMode()": {
+                "notice": "Put colony network mining into recovery mode. Can only be called by user with recovery role."
+            },
+            "exitRecoveryMode()": {
+                "notice": "Exit recovery mode, can be called by anyone if enough whitelist approvals are given."
+            },
+            "getChildSkillId(uint256,uint256)": {
+                "notice": "Get the id of the child skill at index `_childSkillIndex` for skill with Id `_skillId`."
+            },
+            "getColony(uint256)": {
+                "notice": "Get a colony address by its Id in the network."
+            },
+            "getColonyCount()": {
+                "notice": "Get the number of colonies in the network."
+            },
+            "getColonyVersionResolver(uint256)": {
+                "notice": "Get the `Resolver` address for Colony contract version `_version`."
+            },
+            "getCurrentColonyVersion()": {
+                "notice": "Returns the latest Colony contract version. This is the version used to create all new colonies."
+            },
+            "getENSRegistrar()": {
+                "notice": "Returns the address of the ENSRegistrar for the Network."
+            },
+            "getFeeInverse()": {
+                "notice": "Return 1 / the fee to pay to the network. e.g. if the fee is 1% (or 0.01), return 100."
+            },
+            "getMetaColony()": {
+                "notice": "Get the Meta Colony address."
+            },
+            "getMiningResolver()": {
+                "notice": "Get the resolver to be used by new instances of ReputationMiningCycle."
+            },
+            "getParentSkillId(uint256,uint256)": {
+                "notice": "Get the id of the parent skill at index `_parentSkillIndex` for skill with Id `_skillId`."
+            },
+            "getProfileDBAddress(bytes32)": {
+                "notice": "Retrieve the orbitdb address corresponding to a registered account."
+            },
+            "getReplacementReputationUpdateLogEntry(address,uint256)": {
+                "notice": "Get a replacement log entry (if set) for the log entry `_id` in the mining cycle that was at the address `_reputationMiningCycle`."
+            },
+            "getReplacementReputationUpdateLogsExist(address)": {
+                "notice": "Get whether any replacement log entries have been set for the supplied reputation mining cycle.Used by the client to avoid doubling the number of RPC calls when syncing from scratch."
+            },
+            "getReputationMiningCycle(bool)": {
+                "notice": "Get the address of either the active or inactive reputation mining cycle, based on `active`. The active reputation mining cycle is the one currently under consideration by reputation miners. The inactive reputation cycle is the one with the log that is being appended to."
+            },
+            "getReputationMiningSkillId()": {
+                "notice": "Get the `skillId` of the reputation mining skill. Only set once the metacolony is set up."
+            },
+            "getReputationRootHash()": {
+                "notice": "Get the root hash of the current reputation state tree."
+            },
+            "getReputationRootHashNNodes()": {
+                "notice": "Get the number of nodes in the current reputation state tree."
+            },
+            "getSkill(uint256)": {
+                "notice": "Get the `nParents` and `nChildren` of skill with id `_skillId`."
+            },
+            "getSkillCount()": {
+                "notice": "Get the number of skills in the network including both global and local skills."
+            },
+            "getTokenLocking()": {
+                "notice": "Get token locking contract address."
+            },
+            "initialise(address,uint256)": {
+                "notice": "Initialises the colony network by setting the first Colony version resolver to `_resolver` address."
+            },
+            "initialiseReputationMining()": {
+                "notice": "Creates initial inactive reputation mining cycle."
+            },
+            "isColony(address)": {
+                "notice": "Check if specific address is a colony created on colony network."
+            },
+            "isInRecoveryMode()": {
+                "notice": "Is colony network in recovery mode."
+            },
+            "lookupRegisteredENSDomain(address)": {
+                "notice": "Reverse lookup a username from an address."
+            },
+            "numRecoveryRoles()": {
+                "notice": "Return number of recovery roles."
+            },
+            "registerColonyLabel(string,string)": {
+                "notice": "Register a \"colony.joincolony.eth\" label. Can only be called by a Colony."
+            },
+            "registerUserLabel(string,string)": {
+                "notice": "Register a \"user.joincolony.eth\" label."
+            },
+            "removeRecoveryRole(address)": {
+                "notice": "Remove colony recovery role. Can only be called by root role."
+            },
+            "setFeeInverse(uint256)": {
+                "notice": "Set the colony network fee to pay. e.g. if the fee is 1% (or 0.01), pass 100 as `_feeInverse`."
+            },
+            "setMiningResolver(address)": {
+                "notice": "Set the resolver to be used by new instances of ReputationMiningCycle."
+            },
+            "setRecoveryRole(address)": {
+                "notice": "Set new colony recovery role. Can be called by root."
+            },
+            "setReplacementReputationUpdateLogEntry(address,uint256,address,int256,uint256,address,uint128,uint128)": {
+                "notice": "Set a replacement log entry if we're in recovery mode."
+            },
+            "setReputationRootHash(bytes32,uint256,address[],uint256)": {
+                "notice": "Set a new Reputation root hash and starts a new mining cycle. Can only be called by the ReputationMiningCycle contract."
+            },
+            "setStorageSlotRecovery(uint256,bytes32)": {
+                "notice": "Update value of arbitrary storage variable. Can only be called by user with recovery role."
+            },
+            "setTokenLocking(address)": {
+                "notice": "Sets the token locking address. This is only set once, and can't be changed afterwards."
+            },
+            "setupRegistrar(address,bytes32)": {
+                "notice": "Setup registrar with ENS and root node."
+            },
+            "startNextCycle()": {
+                "notice": "Starts a new Reputation Mining cycle. Explicitly called only the first time, subsequently called from within `setReputationRootHash`."
+            },
+            "startTokenAuction(address)": {
+                "notice": "Create and start a new `DutchAuction` for the entire amount of `_token` owned by the Colony Network."
+            },
+            "supportsInterface(bytes4)": {
+                "notice": "Query if a contract implements an interface"
+            },
+            "updateColonyOrbitDB(string)": {
+                "notice": "Update a colony's orbitdb address. Can only be called by a colony with a registered subdomain"
+            },
+            "updateUserOrbitDB(string)": {
+                "notice": "Update a user's orbitdb address. Can only be called by a user with a registered subdomain"
+            }
+        },
+        "notice": "All publicly available functions are available here and registered to work with EtherRouter Network contract"
+    }
+}

@@ -387,28 +387,58 @@ export interface CoinMachine extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Returns the identifier of the extension
+     */
     identifier(overrides?: CallOverrides): Promise<[string]>;
 
+    /**
+     * Returns the version of the extension
+     */
     version(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    /**
+     * Configures the extension
+     * @param _colony The colony in which the extension holds permissions
+     */
     install(
       _colony: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Called when upgrading the extension
+     */
     finishUpgrade(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Called when deprecating (or undeprecating) the extension
+     */
     deprecate(
       _deprecated: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Called when uninstalling the extension
+     */
     uninstall(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Must be called before any sales can be made
+     * @param _maxPerPeriod The maximum number of tokens that can be sold per period
+     * @param _periodLength How long in seconds each period of the sale should last
+     * @param _purchaseToken The token to receive payments in. Use 0x0 for ether
+     * @param _startingPrice The sale price to start at, expressed in units of _purchaseToken per token being sold, as a WAD
+     * @param _targetPerPeriod The number of tokens to aim to sell per period
+     * @param _token The token we are selling. Cannot be ether
+     * @param _whitelist Optionally an address of a whitelist contract to use can be provided. Pass 0x0 if no whitelist being used
+     * @param _windowSize Characteristic number of periods that should be used for the moving average. In the long-term, 86% of the weighting will be in this window size. The higher the number, the slower the price will be to adjust
+     */
     initialise(
       _token: string,
       _purchaseToken: string,
@@ -422,58 +452,120 @@ export interface CoinMachine extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Set the address for an (optional) whitelist
+     * @param _whitelist The address of the whitelist
+     */
     setWhitelist(
       _whitelist: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Purchase tokens from Coin Machine.
+     * @param _numTokens The number of tokens to purchase
+     */
     buyTokens(
       _numTokens: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Bring the token accounting current
+     */
     updatePeriod(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    /**
+     * Get the address of the token being used to make purchases
+     */
     getPurchaseToken(overrides?: CallOverrides): Promise<[string]>;
 
+    /**
+     * Get the address of the token being sold
+     */
     getToken(overrides?: CallOverrides): Promise<[string]>;
 
+    /**
+     * Get the period that the price was last updated for or a purchase was made
+     */
     getActivePeriod(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    /**
+     * Get the number of tokens sold in the period that the price was last updated for or a purchase was made
+     */
     getActiveSold(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    /**
+     * Get the number of tokens received in the period that the price was last updated for or a purchase was made
+     */
     getActiveIntake(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    /**
+     * Get the EMA of the number of tokens received each period
+     */
     getEMAIntake(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    /**
+     * Get the remaining balance of tokens
+     */
     getTokenBalance(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    /**
+     * Get the length of the sale period
+     */
     getPeriodLength(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    /**
+     * Get the size of the averaging window
+     */
     getWindowSize(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    /**
+     * Get the target number of tokens to sell per period
+     */
     getTargetPerPeriod(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    /**
+     * Get the maximum number of tokens to sell per period
+     */
     getMaxPerPeriod(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    /**
+     * Get the current price per token
+     */
     getCurrentPrice(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    /**
+     * Get the number of remaining tokens for sale this period
+     */
     getSellableTokens(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    /**
+     * Get the maximum amount of tokens a user can purchase in total
+     */
     getUserLimit(
       _user: string,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
+    /**
+     * Get the maximum amount of tokens a user can purchase in a period
+     */
     getMaxPurchase(
       _user: string,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
+    /**
+     * Get the address of the whitelist (if exists)
+     */
     getWhitelist(overrides?: CallOverrides): Promise<[string]>;
 
+    /**
+     * Get the evolvePrice boolean
+     */
     getEvolvePrice(overrides?: CallOverrides): Promise<[boolean]>;
   };
 
@@ -500,28 +592,58 @@ export interface CoinMachine extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Returns the identifier of the extension
+   */
   identifier(overrides?: CallOverrides): Promise<string>;
 
+  /**
+   * Returns the version of the extension
+   */
   version(overrides?: CallOverrides): Promise<BigNumber>;
 
+  /**
+   * Configures the extension
+   * @param _colony The colony in which the extension holds permissions
+   */
   install(
     _colony: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Called when upgrading the extension
+   */
   finishUpgrade(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Called when deprecating (or undeprecating) the extension
+   */
   deprecate(
     _deprecated: boolean,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Called when uninstalling the extension
+   */
   uninstall(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Must be called before any sales can be made
+   * @param _maxPerPeriod The maximum number of tokens that can be sold per period
+   * @param _periodLength How long in seconds each period of the sale should last
+   * @param _purchaseToken The token to receive payments in. Use 0x0 for ether
+   * @param _startingPrice The sale price to start at, expressed in units of _purchaseToken per token being sold, as a WAD
+   * @param _targetPerPeriod The number of tokens to aim to sell per period
+   * @param _token The token we are selling. Cannot be ether
+   * @param _whitelist Optionally an address of a whitelist contract to use can be provided. Pass 0x0 if no whitelist being used
+   * @param _windowSize Characteristic number of periods that should be used for the moving average. In the long-term, 86% of the weighting will be in this window size. The higher the number, the slower the price will be to adjust
+   */
   initialise(
     _token: string,
     _purchaseToken: string,
@@ -535,52 +657,114 @@ export interface CoinMachine extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Set the address for an (optional) whitelist
+   * @param _whitelist The address of the whitelist
+   */
   setWhitelist(
     _whitelist: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Purchase tokens from Coin Machine.
+   * @param _numTokens The number of tokens to purchase
+   */
   buyTokens(
     _numTokens: BigNumberish,
     overrides?: PayableOverrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Bring the token accounting current
+   */
   updatePeriod(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  /**
+   * Get the address of the token being used to make purchases
+   */
   getPurchaseToken(overrides?: CallOverrides): Promise<string>;
 
+  /**
+   * Get the address of the token being sold
+   */
   getToken(overrides?: CallOverrides): Promise<string>;
 
+  /**
+   * Get the period that the price was last updated for or a purchase was made
+   */
   getActivePeriod(overrides?: CallOverrides): Promise<BigNumber>;
 
+  /**
+   * Get the number of tokens sold in the period that the price was last updated for or a purchase was made
+   */
   getActiveSold(overrides?: CallOverrides): Promise<BigNumber>;
 
+  /**
+   * Get the number of tokens received in the period that the price was last updated for or a purchase was made
+   */
   getActiveIntake(overrides?: CallOverrides): Promise<BigNumber>;
 
+  /**
+   * Get the EMA of the number of tokens received each period
+   */
   getEMAIntake(overrides?: CallOverrides): Promise<BigNumber>;
 
+  /**
+   * Get the remaining balance of tokens
+   */
   getTokenBalance(overrides?: CallOverrides): Promise<BigNumber>;
 
+  /**
+   * Get the length of the sale period
+   */
   getPeriodLength(overrides?: CallOverrides): Promise<BigNumber>;
 
+  /**
+   * Get the size of the averaging window
+   */
   getWindowSize(overrides?: CallOverrides): Promise<BigNumber>;
 
+  /**
+   * Get the target number of tokens to sell per period
+   */
   getTargetPerPeriod(overrides?: CallOverrides): Promise<BigNumber>;
 
+  /**
+   * Get the maximum number of tokens to sell per period
+   */
   getMaxPerPeriod(overrides?: CallOverrides): Promise<BigNumber>;
 
+  /**
+   * Get the current price per token
+   */
   getCurrentPrice(overrides?: CallOverrides): Promise<BigNumber>;
 
+  /**
+   * Get the number of remaining tokens for sale this period
+   */
   getSellableTokens(overrides?: CallOverrides): Promise<BigNumber>;
 
+  /**
+   * Get the maximum amount of tokens a user can purchase in total
+   */
   getUserLimit(_user: string, overrides?: CallOverrides): Promise<BigNumber>;
 
+  /**
+   * Get the maximum amount of tokens a user can purchase in a period
+   */
   getMaxPurchase(_user: string, overrides?: CallOverrides): Promise<BigNumber>;
 
+  /**
+   * Get the address of the whitelist (if exists)
+   */
   getWhitelist(overrides?: CallOverrides): Promise<string>;
 
+  /**
+   * Get the evolvePrice boolean
+   */
   getEvolvePrice(overrides?: CallOverrides): Promise<boolean>;
 
   callStatic: {
@@ -601,18 +785,48 @@ export interface CoinMachine extends BaseContract {
 
     setOwner(owner_: string, overrides?: CallOverrides): Promise<void>;
 
+    /**
+     * Returns the identifier of the extension
+     */
     identifier(overrides?: CallOverrides): Promise<string>;
 
+    /**
+     * Returns the version of the extension
+     */
     version(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Configures the extension
+     * @param _colony The colony in which the extension holds permissions
+     */
     install(_colony: string, overrides?: CallOverrides): Promise<void>;
 
+    /**
+     * Called when upgrading the extension
+     */
     finishUpgrade(overrides?: CallOverrides): Promise<void>;
 
+    /**
+     * Called when deprecating (or undeprecating) the extension
+     */
     deprecate(_deprecated: boolean, overrides?: CallOverrides): Promise<void>;
 
+    /**
+     * Called when uninstalling the extension
+     */
     uninstall(overrides?: CallOverrides): Promise<void>;
 
+    /**
+     * Must be called before any sales can be made
+     * @param _maxPerPeriod The maximum number of tokens that can be sold per period
+     * @param _periodLength How long in seconds each period of the sale should last
+     * @param _purchaseToken The token to receive payments in. Use 0x0 for ether
+     * @param _startingPrice The sale price to start at, expressed in units of _purchaseToken per token being sold, as a WAD
+     * @param _targetPerPeriod The number of tokens to aim to sell per period
+     * @param _token The token we are selling. Cannot be ether
+     * @param _whitelist Optionally an address of a whitelist contract to use can be provided. Pass 0x0 if no whitelist being used
+     * @param _windowSize Characteristic number of periods that should be used for the moving average. In the long-term, 86% of the weighting will be in this window size. The higher the number, the slower the price will be to adjust
+     */
     initialise(
       _token: string,
       _purchaseToken: string,
@@ -626,50 +840,112 @@ export interface CoinMachine extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Set the address for an (optional) whitelist
+     * @param _whitelist The address of the whitelist
+     */
     setWhitelist(_whitelist: string, overrides?: CallOverrides): Promise<void>;
 
+    /**
+     * Purchase tokens from Coin Machine.
+     * @param _numTokens The number of tokens to purchase
+     */
     buyTokens(
       _numTokens: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
+    /**
+     * Bring the token accounting current
+     */
     updatePeriod(overrides?: CallOverrides): Promise<void>;
 
+    /**
+     * Get the address of the token being used to make purchases
+     */
     getPurchaseToken(overrides?: CallOverrides): Promise<string>;
 
+    /**
+     * Get the address of the token being sold
+     */
     getToken(overrides?: CallOverrides): Promise<string>;
 
+    /**
+     * Get the period that the price was last updated for or a purchase was made
+     */
     getActivePeriod(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the number of tokens sold in the period that the price was last updated for or a purchase was made
+     */
     getActiveSold(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the number of tokens received in the period that the price was last updated for or a purchase was made
+     */
     getActiveIntake(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the EMA of the number of tokens received each period
+     */
     getEMAIntake(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the remaining balance of tokens
+     */
     getTokenBalance(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the length of the sale period
+     */
     getPeriodLength(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the size of the averaging window
+     */
     getWindowSize(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the target number of tokens to sell per period
+     */
     getTargetPerPeriod(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the maximum number of tokens to sell per period
+     */
     getMaxPerPeriod(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the current price per token
+     */
     getCurrentPrice(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the number of remaining tokens for sale this period
+     */
     getSellableTokens(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the maximum amount of tokens a user can purchase in total
+     */
     getUserLimit(_user: string, overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the maximum amount of tokens a user can purchase in a period
+     */
     getMaxPurchase(
       _user: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Get the address of the whitelist (if exists)
+     */
     getWhitelist(overrides?: CallOverrides): Promise<string>;
 
+    /**
+     * Get the evolvePrice boolean
+     */
     getEvolvePrice(overrides?: CallOverrides): Promise<boolean>;
   };
 
@@ -736,28 +1012,58 @@ export interface CoinMachine extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Returns the identifier of the extension
+     */
     identifier(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Returns the version of the extension
+     */
     version(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Configures the extension
+     * @param _colony The colony in which the extension holds permissions
+     */
     install(
       _colony: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Called when upgrading the extension
+     */
     finishUpgrade(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Called when deprecating (or undeprecating) the extension
+     */
     deprecate(
       _deprecated: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Called when uninstalling the extension
+     */
     uninstall(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Must be called before any sales can be made
+     * @param _maxPerPeriod The maximum number of tokens that can be sold per period
+     * @param _periodLength How long in seconds each period of the sale should last
+     * @param _purchaseToken The token to receive payments in. Use 0x0 for ether
+     * @param _startingPrice The sale price to start at, expressed in units of _purchaseToken per token being sold, as a WAD
+     * @param _targetPerPeriod The number of tokens to aim to sell per period
+     * @param _token The token we are selling. Cannot be ether
+     * @param _whitelist Optionally an address of a whitelist contract to use can be provided. Pass 0x0 if no whitelist being used
+     * @param _windowSize Characteristic number of periods that should be used for the moving average. In the long-term, 86% of the weighting will be in this window size. The higher the number, the slower the price will be to adjust
+     */
     initialise(
       _token: string,
       _purchaseToken: string,
@@ -771,55 +1077,117 @@ export interface CoinMachine extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Set the address for an (optional) whitelist
+     * @param _whitelist The address of the whitelist
+     */
     setWhitelist(
       _whitelist: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Purchase tokens from Coin Machine.
+     * @param _numTokens The number of tokens to purchase
+     */
     buyTokens(
       _numTokens: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Bring the token accounting current
+     */
     updatePeriod(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    /**
+     * Get the address of the token being used to make purchases
+     */
     getPurchaseToken(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the address of the token being sold
+     */
     getToken(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the period that the price was last updated for or a purchase was made
+     */
     getActivePeriod(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the number of tokens sold in the period that the price was last updated for or a purchase was made
+     */
     getActiveSold(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the number of tokens received in the period that the price was last updated for or a purchase was made
+     */
     getActiveIntake(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the EMA of the number of tokens received each period
+     */
     getEMAIntake(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the remaining balance of tokens
+     */
     getTokenBalance(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the length of the sale period
+     */
     getPeriodLength(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the size of the averaging window
+     */
     getWindowSize(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the target number of tokens to sell per period
+     */
     getTargetPerPeriod(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the maximum number of tokens to sell per period
+     */
     getMaxPerPeriod(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the current price per token
+     */
     getCurrentPrice(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the number of remaining tokens for sale this period
+     */
     getSellableTokens(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the maximum amount of tokens a user can purchase in total
+     */
     getUserLimit(_user: string, overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the maximum amount of tokens a user can purchase in a period
+     */
     getMaxPurchase(
       _user: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    /**
+     * Get the address of the whitelist (if exists)
+     */
     getWhitelist(overrides?: CallOverrides): Promise<BigNumber>;
 
+    /**
+     * Get the evolvePrice boolean
+     */
     getEvolvePrice(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
@@ -847,28 +1215,58 @@ export interface CoinMachine extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Returns the identifier of the extension
+     */
     identifier(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    /**
+     * Returns the version of the extension
+     */
     version(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    /**
+     * Configures the extension
+     * @param _colony The colony in which the extension holds permissions
+     */
     install(
       _colony: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Called when upgrading the extension
+     */
     finishUpgrade(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Called when deprecating (or undeprecating) the extension
+     */
     deprecate(
       _deprecated: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Called when uninstalling the extension
+     */
     uninstall(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Must be called before any sales can be made
+     * @param _maxPerPeriod The maximum number of tokens that can be sold per period
+     * @param _periodLength How long in seconds each period of the sale should last
+     * @param _purchaseToken The token to receive payments in. Use 0x0 for ether
+     * @param _startingPrice The sale price to start at, expressed in units of _purchaseToken per token being sold, as a WAD
+     * @param _targetPerPeriod The number of tokens to aim to sell per period
+     * @param _token The token we are selling. Cannot be ether
+     * @param _whitelist Optionally an address of a whitelist contract to use can be provided. Pass 0x0 if no whitelist being used
+     * @param _windowSize Characteristic number of periods that should be used for the moving average. In the long-term, 86% of the weighting will be in this window size. The higher the number, the slower the price will be to adjust
+     */
     initialise(
       _token: string,
       _purchaseToken: string,
@@ -882,60 +1280,122 @@ export interface CoinMachine extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Set the address for an (optional) whitelist
+     * @param _whitelist The address of the whitelist
+     */
     setWhitelist(
       _whitelist: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Purchase tokens from Coin Machine.
+     * @param _numTokens The number of tokens to purchase
+     */
     buyTokens(
       _numTokens: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Bring the token accounting current
+     */
     updatePeriod(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the address of the token being used to make purchases
+     */
     getPurchaseToken(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the address of the token being sold
+     */
     getToken(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the period that the price was last updated for or a purchase was made
+     */
     getActivePeriod(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the number of tokens sold in the period that the price was last updated for or a purchase was made
+     */
     getActiveSold(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the number of tokens received in the period that the price was last updated for or a purchase was made
+     */
     getActiveIntake(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the EMA of the number of tokens received each period
+     */
     getEMAIntake(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the remaining balance of tokens
+     */
     getTokenBalance(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the length of the sale period
+     */
     getPeriodLength(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the size of the averaging window
+     */
     getWindowSize(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the target number of tokens to sell per period
+     */
     getTargetPerPeriod(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the maximum number of tokens to sell per period
+     */
     getMaxPerPeriod(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the current price per token
+     */
     getCurrentPrice(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the number of remaining tokens for sale this period
+     */
     getSellableTokens(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the maximum amount of tokens a user can purchase in total
+     */
     getUserLimit(
       _user: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the maximum amount of tokens a user can purchase in a period
+     */
     getMaxPurchase(
       _user: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the address of the whitelist (if exists)
+     */
     getWhitelist(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    /**
+     * Get the evolvePrice boolean
+     */
     getEvolvePrice(overrides?: CallOverrides): Promise<PopulatedTransaction>;
   };
 }

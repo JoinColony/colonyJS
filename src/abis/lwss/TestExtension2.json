@@ -1,1 +1,192 @@
-{"contractName":"TestExtension2","abi":[{"anonymous":false,"inputs":[],"name":"ExtensionInitialised","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"authority","type":"address"}],"name":"LogSetAuthority","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"}],"name":"LogSetOwner","type":"event"},{"inputs":[],"name":"authority","outputs":[{"internalType":"contract DSAuthority","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bool","name":"_deprecated","type":"bool"}],"name":"deprecate","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"finishUpgrade","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"getColony","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getDeprecated","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_colony","type":"address"}],"name":"install","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"contract DSAuthority","name":"authority_","type":"address"}],"name":"setAuthority","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"owner_","type":"address"}],"name":"setOwner","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"uninstall","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"identifier","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"stateMutability":"pure","type":"function"},{"inputs":[],"name":"version","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"pure","type":"function"}],"bytecode":"0x608060405234801561001057600080fd5b50600180546001600160a01b031916339081179091556040517fce241d7ca1f669fee44b6fc00b8eba2df3bb514eed0f6f668f8f89096e81ed9490600090a26106768061005e6000396000f3fe608060405234801561001057600080fd5b50600436106100b45760003560e01c80637a9e5e4b116100715780637a9e5e4b146101175780638da5cb5b1461012a5780639251cff41461013f578063bf7e214f14610152578063bfd68ab71461015a578063fcf6ba9314610162576100b4565b80630d638f30146100b957806313af4035146100c35780632a1b8f9b146100d6578063340df28f146100e957806354fd4d50146100f15780637998a1c41461010f575b600080fd5b6100c1610177565b005b6100c16100d1366004610505565b6101c0565b6100c16100e4366004610505565b610242565b6100c16102bf565b6100f96102f3565b60405161010691906105ac565b60405180910390f35b6100f96102f8565b6100c1610125366004610505565b61031c565b61013261039a565b6040516101069190610560565b6100c161014d366004610528565b6103a9565b6101326103f9565b610132610408565b61016a610417565b60405161010691906105a1565b61018d336000356001600160e01b031916610427565b6101b25760405162461bcd60e51b81526004016101a9906105b5565b60405180910390fd5b6003546001600160a01b0316ff5b6101d6336000356001600160e01b031916610427565b6101f25760405162461bcd60e51b81526004016101a9906105b5565b600180546001600160a01b0319166001600160a01b0383811691909117918290556040519116907fce241d7ca1f669fee44b6fc00b8eba2df3bb514eed0f6f668f8f89096e81ed9490600090a250565b610258336000356001600160e01b031916610427565b6102745760405162461bcd60e51b81526004016101a9906105b5565b6003546001600160a01b03161561029d5760405162461bcd60e51b81526004016101a9906105e3565b600380546001600160a01b0319166001600160a01b0392909216919091179055565b6102d5336000356001600160e01b031916610427565b6102f15760405162461bcd60e51b81526004016101a9906105b5565b565b600290565b7f85ffbcc0c67199b55150d223b3a8b552343f7d321b458f45082f9d8f1b6415b890565b610332336000356001600160e01b031916610427565b61034e5760405162461bcd60e51b81526004016101a9906105b5565b600080546001600160a01b0319166001600160a01b03838116919091178083556040519116917f1abebea81bfa2637f28358c371278fb15ede7ea8dd28d2e03b112ff6d936ada491a250565b6001546001600160a01b031681565b6103bf336000356001600160e01b031916610427565b6103db5760405162461bcd60e51b81526004016101a9906105b5565b60038054911515600160a01b0260ff60a01b19909216919091179055565b6000546001600160a01b031681565b6003546001600160a01b031690565b600354600160a01b900460ff1690565b60006001600160a01b038316301415610442575060016104ff565b6001546001600160a01b0384811691161415610460575060016104ff565b6000546001600160a01b0316610478575060006104ff565b60005460405163b700961360e01b81526001600160a01b039091169063b7009613906104ac90869030908790600401610574565b60206040518083038186803b1580156104c457600080fd5b505afa1580156104d8573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906104fc9190610544565b90505b92915050565b600060208284031215610516578081fd5b81356105218161061a565b9392505050565b600060208284031215610539578081fd5b813561052181610632565b600060208284031215610555578081fd5b815161052181610632565b6001600160a01b0391909116815260200190565b6001600160a01b0393841681529190921660208201526001600160e01b0319909116604082015260600190565b901515815260200190565b90815260200190565b602080825260149082015273191ccb585d5d1a0b5d5b985d5d1a1bdc9a5e995960621b604082015260600190565b6020808252601b908201527f657874656e73696f6e2d616c72656164792d696e7374616c6c65640000000000604082015260600190565b6001600160a01b038116811461062f57600080fd5b50565b801515811461062f57600080fdfea2646970667358221220508771b57494731a2d254e13e77dad7a49ae7438782c854cba054c43dcd7eda264736f6c63430007030033"}
+{
+    "contractName": "TestExtension2",
+    "abi": [
+        {
+            "anonymous": false,
+            "inputs": [],
+            "name": "ExtensionInitialised",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "authority",
+                    "type": "address"
+                }
+            ],
+            "name": "LogSetAuthority",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "owner",
+                    "type": "address"
+                }
+            ],
+            "name": "LogSetOwner",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "authority",
+            "outputs": [
+                {
+                    "internalType": "contract DSAuthority",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bool",
+                    "name": "_deprecated",
+                    "type": "bool"
+                }
+            ],
+            "name": "deprecate",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "finishUpgrade",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getColony",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getDeprecated",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_colony",
+                    "type": "address"
+                }
+            ],
+            "name": "install",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract DSAuthority",
+                    "name": "authority_",
+                    "type": "address"
+                }
+            ],
+            "name": "setAuthority",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "owner_",
+                    "type": "address"
+                }
+            ],
+            "name": "setOwner",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "uninstall",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "identifier",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "pure",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "version",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "pure",
+            "type": "function"
+        }
+    ],
+    "bytecode": "0x608060405234801561001057600080fd5b50600180546001600160a01b031916339081179091556040517fce241d7ca1f669fee44b6fc00b8eba2df3bb514eed0f6f668f8f89096e81ed9490600090a26106768061005e6000396000f3fe608060405234801561001057600080fd5b50600436106100b45760003560e01c80637a9e5e4b116100715780637a9e5e4b146101175780638da5cb5b1461012a5780639251cff41461013f578063bf7e214f14610152578063bfd68ab71461015a578063fcf6ba9314610162576100b4565b80630d638f30146100b957806313af4035146100c35780632a1b8f9b146100d6578063340df28f146100e957806354fd4d50146100f15780637998a1c41461010f575b600080fd5b6100c1610177565b005b6100c16100d1366004610505565b6101c0565b6100c16100e4366004610505565b610242565b6100c16102bf565b6100f96102f3565b60405161010691906105ac565b60405180910390f35b6100f96102f8565b6100c1610125366004610505565b61031c565b61013261039a565b6040516101069190610560565b6100c161014d366004610528565b6103a9565b6101326103f9565b610132610408565b61016a610417565b60405161010691906105a1565b61018d336000356001600160e01b031916610427565b6101b25760405162461bcd60e51b81526004016101a9906105b5565b60405180910390fd5b6003546001600160a01b0316ff5b6101d6336000356001600160e01b031916610427565b6101f25760405162461bcd60e51b81526004016101a9906105b5565b600180546001600160a01b0319166001600160a01b0383811691909117918290556040519116907fce241d7ca1f669fee44b6fc00b8eba2df3bb514eed0f6f668f8f89096e81ed9490600090a250565b610258336000356001600160e01b031916610427565b6102745760405162461bcd60e51b81526004016101a9906105b5565b6003546001600160a01b03161561029d5760405162461bcd60e51b81526004016101a9906105e3565b600380546001600160a01b0319166001600160a01b0392909216919091179055565b6102d5336000356001600160e01b031916610427565b6102f15760405162461bcd60e51b81526004016101a9906105b5565b565b600290565b7f85ffbcc0c67199b55150d223b3a8b552343f7d321b458f45082f9d8f1b6415b890565b610332336000356001600160e01b031916610427565b61034e5760405162461bcd60e51b81526004016101a9906105b5565b600080546001600160a01b0319166001600160a01b03838116919091178083556040519116917f1abebea81bfa2637f28358c371278fb15ede7ea8dd28d2e03b112ff6d936ada491a250565b6001546001600160a01b031681565b6103bf336000356001600160e01b031916610427565b6103db5760405162461bcd60e51b81526004016101a9906105b5565b60038054911515600160a01b0260ff60a01b19909216919091179055565b6000546001600160a01b031681565b6003546001600160a01b031690565b600354600160a01b900460ff1690565b60006001600160a01b038316301415610442575060016104ff565b6001546001600160a01b0384811691161415610460575060016104ff565b6000546001600160a01b0316610478575060006104ff565b60005460405163b700961360e01b81526001600160a01b039091169063b7009613906104ac90869030908790600401610574565b60206040518083038186803b1580156104c457600080fd5b505afa1580156104d8573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906104fc9190610544565b90505b92915050565b600060208284031215610516578081fd5b81356105218161061a565b9392505050565b600060208284031215610539578081fd5b813561052181610632565b600060208284031215610555578081fd5b815161052181610632565b6001600160a01b0391909116815260200190565b6001600160a01b0393841681529190921660208201526001600160e01b0319909116604082015260600190565b901515815260200190565b90815260200190565b602080825260149082015273191ccb585d5d1a0b5d5b985d5d1a1bdc9a5e995960621b604082015260600190565b6020808252601b908201527f657874656e73696f6e2d616c72656164792d696e7374616c6c65640000000000604082015260600190565b6001600160a01b038116811461062f57600080fd5b50565b801515811461062f57600080fdfea2646970667358221220850b608e725a5cb790e6064b0664c73a9e81a6418f21abecc333ea2d30bc8fed64736f6c63430007030033",
+    "devdoc": {
+        "kind": "dev",
+        "methods": {},
+        "version": 1
+    },
+    "userdoc": {
+        "kind": "user",
+        "methods": {},
+        "version": 1
+    }
+}
