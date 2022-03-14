@@ -112,8 +112,13 @@
 <li>Add the version to <code>versions.ts</code> in <code>ColonyVersion</code> as well as the network git tag to <code>releaseMaps</code></li>
 <li>Add the git tag to <code>src/constants.ts</code> release map</li>
 <li><em>Optional:</em> If you are tracking a development branch instead of a static tag or commit, make sure to pull the latest changes, otherwise the contracts generated will be exactly the same as your last ones -- <em>this is a step often forgotten when using a dev version</em></li>
-<li>In the <code>vendor/colonyNetwork</code> directory, check out the correct git tag and build the contracts (according to the docs - most likely it&#39;ll be <code>yarn provision:token:contracts</code> and <code>yarn truffle compile</code>)</li>
-<li>Run<pre><code class="language-shell"><span class="hl-0">npm run extact-contract-abis -- -t=[GIT_TAG]</span>
+<li>In the <code>vendor/colonyNetwork</code> directory, check out the correct git tag and build the contracts according to the docs - most likely it&#39;ll be:<pre><code class="language-shell"><span class="hl-0">git checkout [GIT_TAG] </span><span class="hl-1"># e.g lwss</span><br/><span class="hl-0">git submodule update --recursive</span><br/><span class="hl-0">rm -rf build/contracts/*.json </span><span class="hl-1"># to remove any prior builds</span><br/><span class="hl-0">yarn </span><span class="hl-1"># make sure you&#39;re running the correct node version (with nvm)</span><br/><span class="hl-0">yarn truffle compile</span>
+</code></pre>
+</li>
+<li>In the <code>vendor/colonyNetwork/lib/colonyToken</code> directory, do the following:<pre><code class="language-shell"><span class="hl-0">rm -rf build/contracts/*.json </span><span class="hl-1"># to remove any prior builds</span><br/><span class="hl-0">git reset --hard </span><span class="hl-1"># to recover the pinned (checked in) contracts</span><br/><span class="hl-0">yarn </span><span class="hl-1"># make sure you&#39;re running the correct node version (with nvm)</span><br/><span class="hl-0">yarn truffle compile</span>
+</code></pre>
+</li>
+<li>Back in the <code>colonyJS</code> main directory run<pre><code class="language-shell"><span class="hl-0">npm run extact-contract-abis -- -t=[GIT_TAG]</span>
 </code></pre>
 to extract the contract ABIs and store them in the colonyJS repository</li>
 <li>If needed: add new contracts that need clients to the <code>contractsToBuild</code> array in <code>scripts/build-contracts.ts</code></li>
