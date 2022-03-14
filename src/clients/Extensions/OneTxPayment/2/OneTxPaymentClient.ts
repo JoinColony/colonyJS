@@ -8,15 +8,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { ClientType } from '../../../../constants';
-import { OneTxPayment__factory as OneTxPaymentFactory } from '../../../../contracts/extensions/oneTxPayment/2/factories/OneTxPayment__factory';
-import { OneTxPayment } from '../../../../contracts/extensions/oneTxPayment/2/OneTxPayment';
-import { ExtendedIColony } from '../../../../clients/Colony/extensions/commonExtensions';
+import { OneTxPayment__factory as OneTxPaymentFactory } from '../../../../contracts/OneTxPayment/2/factories/OneTxPayment__factory';
+import { OneTxPayment } from '../../../../contracts/OneTxPayment/2/OneTxPayment';
+import { AugmentedIColony } from '../../../../clients/Core/augments/commonAugments';
 
-import * as currentVersion from './OneTxPaymentClientAddons';
-import * as version1 from '../1/OneTxPaymentClientAddons';
+import * as currentVersion from './OneTxPaymentClientAugments';
+import * as version1 from '../1/OneTxPaymentClientAugments';
 
 type OneTxPaymentEstimate = OneTxPayment['estimate'];
-interface OneTxPaymentEstimateWithAddons extends OneTxPaymentEstimate {
+interface AugmentedOneTxPaymentEstimate extends OneTxPaymentEstimate {
   /*
    * @TODO These needs to be specifically determined once we can integrate
    * static code analysis into this lib
@@ -26,7 +26,7 @@ interface OneTxPaymentEstimateWithAddons extends OneTxPaymentEstimate {
 
 export interface OneTxPaymentClient extends OneTxPayment {
   clientType: ClientType.OneTxPaymentClient;
-  estimate: OneTxPaymentEstimateWithAddons;
+  estimate: AugmentedOneTxPaymentEstimate;
   /*
    * @TODO These needs to be specifically determined once we can integrate
    * static code analysis into this lib
@@ -36,7 +36,7 @@ export interface OneTxPaymentClient extends OneTxPayment {
 
 const getOneTxPaymentClient = (
   address: string,
-  colonyClient: ExtendedIColony,
+  colonyClient: AugmentedIColony,
 ): OneTxPaymentClient => {
   const oneTxPaymentClient = OneTxPaymentFactory.connect(
     address,
@@ -45,18 +45,18 @@ const getOneTxPaymentClient = (
   oneTxPaymentClient.clientType = ClientType.OneTxPaymentClient;
 
   const addons = {
-    ...version1.getOneTxPaymentClientAddons(oneTxPaymentClient, colonyClient),
-    ...currentVersion.getOneTxPaymentClientAddons(
+    ...version1.getOneTxPaymentClientAugments(oneTxPaymentClient, colonyClient),
+    ...currentVersion.getOneTxPaymentClientAugments(
       oneTxPaymentClient,
       colonyClient,
     ),
   };
   const addonsEstimate = {
-    ...version1.getOneTxPaymentClientEstimateAddons(
+    ...version1.getOneTxPaymentClientEstimateAugments(
       oneTxPaymentClient,
       colonyClient,
     ),
-    ...currentVersion.getOneTxPaymentClientEstimateAddons(
+    ...currentVersion.getOneTxPaymentClientEstimateAugments(
       oneTxPaymentClient,
       colonyClient,
     ),

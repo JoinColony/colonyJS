@@ -1,6 +1,6 @@
 import { ContractFactory, ContractTransaction, Signer } from 'ethers';
 import { Provider } from 'ethers/providers';
-import { BigNumber } from 'ethers/utils';
+import { BigNumber, UnsignedTransaction } from 'ethers/utils';
 
 import { ColonyClient } from '../types';
 
@@ -11,26 +11,21 @@ import {
   REPUTATION_ORACLE_ENDPOINT,
 } from '../constants';
 import { ColonyVersion } from '../versions';
-// @TODO this _HAS_ to be the newest version _ALWAYS_. Let's try to figure out a way to make sure of this
-import { IColonyNetwork__factory as IColonyNetworkFactory } from '../contracts/colony/9/factories/IColonyNetwork__factory';
-import { IColonyNetwork } from '../contracts/colony/9/IColonyNetwork';
-import { TransactionOverrides } from '../contracts/6';
-import getColonyVersionClient from './Colony/ColonyVersionClient';
-import getColonyClientV1 from './Colony/ColonyClientV1';
-import getColonyClientV2 from './Colony/ColonyClientV2';
-import getColonyClientV3 from './Colony/ColonyClientV3';
-import getColonyClientV4 from './Colony/ColonyClientV4';
-import getColonyClientV5 from './Colony/ColonyClientV5';
-import getColonyClientV6 from './Colony/ColonyClientV6';
-import getColonyClientV7 from './Colony/ColonyClientV7';
-import getColonyClientV8 from './Colony/ColonyClientV8';
-import getColonyClientV9 from './Colony/ColonyClientV9';
+import { IColonyNetwork, IColonyNetworkFactory, abis } from '../exports';
+import getColonyVersionClient from './Core/ColonyVersionClient';
+import getColonyClientV1 from './Core/ColonyClientV1';
+import getColonyClientV2 from './Core/ColonyClientV2';
+import getColonyClientV3 from './Core/ColonyClientV3';
+import getColonyClientV4 from './Core/ColonyClientV4';
+import getColonyClientV5 from './Core/ColonyClientV5';
+import getColonyClientV6 from './Core/ColonyClientV6';
+import getColonyClientV7 from './Core/ColonyClientV7';
+import getColonyClientV8 from './Core/ColonyClientV8';
+import getColonyClientV9 from './Core/ColonyClientV9';
 import getTokenClient from './TokenClient';
 import getTokenLockingClient, {
   TokenLockingClient,
 } from './TokenLockingClient';
-
-import abis from '../abis';
 
 const { abi: tokenAbi, bytecode: tokenBytecode } = abis.MetaTxToken;
 
@@ -81,7 +76,7 @@ export interface ColonyNetworkClient extends IColonyNetwork {
     name: string,
     symbol: string,
     decimals?: number,
-    overrides?: TransactionOverrides,
+    overrides?: UnsignedTransaction,
   ): Promise<ContractTransaction>;
   /**
    * Gets the TokenLockingClient
@@ -184,7 +179,7 @@ const getColonyNetworkClient = (
     const version = versionBN.toNumber() as ColonyVersion;
     let colonyClient: ColonyClient;
     switch (version) {
-      case ColonyVersion.GoerliGlider: {
+      case 1: {
         colonyClient = getColonyClientV1.call(
           networkClient,
           colonyAddress,
@@ -192,7 +187,7 @@ const getColonyNetworkClient = (
         );
         break;
       }
-      case ColonyVersion.Glider: {
+      case 2: {
         colonyClient = getColonyClientV2.call(
           networkClient,
           colonyAddress,
@@ -200,7 +195,7 @@ const getColonyNetworkClient = (
         );
         break;
       }
-      case ColonyVersion.AuburnGlider: {
+      case 3: {
         colonyClient = getColonyClientV3.call(
           networkClient,
           colonyAddress,
@@ -208,7 +203,7 @@ const getColonyNetworkClient = (
         );
         break;
       }
-      case ColonyVersion.BurgundyGlider: {
+      case 4: {
         colonyClient = getColonyClientV4.call(
           networkClient,
           colonyAddress,
@@ -216,7 +211,7 @@ const getColonyNetworkClient = (
         );
         break;
       }
-      case ColonyVersion.LightweightSpaceship: {
+      case 5: {
         colonyClient = getColonyClientV5.call(
           networkClient,
           colonyAddress,
@@ -224,7 +219,7 @@ const getColonyNetworkClient = (
         );
         break;
       }
-      case ColonyVersion.CeruleanLightweightSpaceship: {
+      case 6: {
         colonyClient = getColonyClientV6.call(
           networkClient,
           colonyAddress,
@@ -232,7 +227,7 @@ const getColonyNetworkClient = (
         );
         break;
       }
-      case ColonyVersion.DandelionLightweightSpaceship: {
+      case 7: {
         colonyClient = getColonyClientV7.call(
           networkClient,
           colonyAddress,
@@ -240,7 +235,7 @@ const getColonyNetworkClient = (
         );
         break;
       }
-      case ColonyVersion.EbonyLightweightSpaceship: {
+      case 8: {
         colonyClient = getColonyClientV8.call(
           networkClient,
           colonyAddress,
@@ -248,7 +243,7 @@ const getColonyNetworkClient = (
         );
         break;
       }
-      case ColonyVersion.UnnamedLightweightSpaceship: {
+      case 9: {
         colonyClient = getColonyClientV9.call(
           networkClient,
           colonyAddress,
@@ -300,7 +295,7 @@ const getColonyNetworkClient = (
     name: string,
     symbol: string,
     decimals?: number,
-    overrides?: TransactionOverrides,
+    overrides?: UnsignedTransaction,
   ): Promise<ContractTransaction> => {
     const tokenFactory = new ContractFactory(
       tokenAbi,

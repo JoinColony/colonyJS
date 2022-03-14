@@ -1,151 +1,107 @@
 import { resolve as resolvePath } from 'path';
 import { promisify } from 'util';
-import * as camelcase from 'camelcase';
-import { execa as execute } from 'execa';
 import * as rimraf from 'rimraf';
+import * as execa from 'execa';
+import yargs from 'yargs';
+import { hideBin } from 'yargs/helpers';
 
 import {
-  CurrentColonyVersion,
+  LatestReleaseTag,
+  Core,
+  Extensions,
   releaseMap,
-  CurrentCoinMachineVersion,
-  CurrentOneTxPaymentVersion,
-  CurrentVotingReputationVersion,
-  CurrentWhitelistVersion,
 } from '../src/versions';
-import { Extension } from '../src/clients/Extensions/colonyContractExtensions';
 
-/*
- * State Vars
- */
-let currentNetworkTag: string;
+const NETWORK_BUILD_DIR = resolvePath(
+  __dirname,
+  '../vendor/colonyNetwork/build/contracts',
+);
+const STATIC_DIR = resolvePath(__dirname, '../src/abis/static');
+const OUT_ROOT_DIR = resolvePath(__dirname, '../src/contracts');
 
-const rimrafPromise = promisify(rimraf);
-
-const networkDir = resolvePath(__dirname, '../vendor/colonyNetwork');
-const relativeBuildDir = 'build/contracts';
-const relativeTokenDir = 'lib/colonyToken/build/contracts';
-const buildDir = resolvePath(networkDir, relativeBuildDir);
-const vendorTokenDir = resolvePath(__dirname, '../vendor/tokens');
-
-const contractsToBuild = ['IColony', 'IColonyNetwork', 'TokenLocking'];
-
-const extensionContracts = [
-  Extension.OneTxPayment,
-  Extension.CoinMachine,
-  Extension.VotingReputation,
-  Extension.Whitelist,
+const VERSIONED_CONTRACTS = [
+  Core.Colony,
+  Extensions.CoinMachine,
+  Extensions.OneTxPayment,
+  Extensions.VotingReputation,
+  Extensions.Whitelist,
 ];
 
-const currentExtensionsVersions = {
-  [Extension.OneTxPayment]: CurrentOneTxPaymentVersion,
-  [Extension.CoinMachine]: CurrentCoinMachineVersion,
-  [Extension.VotingReputation]: CurrentVotingReputationVersion,
-  [Extension.Whitelist]: CurrentWhitelistVersion,
-};
-
-const tokenContracts = [
+const UNVERSIONED_CONTRACTS = [
+  // Colony Network Interface ABIs
+  'IColonyNetwork',
+  'TokenLocking',
   // ERC20 tokens
   'Token',
   'TokenERC20',
   'TokenSAI',
 ];
-const version = CurrentColonyVersion;
-const outRoot = resolvePath(__dirname, '../src/contracts');
-const colonyContractsOutDir = `${outRoot}/colony/${version}`;
 
-const provisionNetworkVendor = async (tag: string): Promise<void> => {
-  if (!tag) {
-    throw new Error(
-      `Version ${version} of colonyNetwork doesn't seem to exist`,
-    );
-  }
+const rm = promisify(rimraf);
 
-  console.info(`Checking out network tag ${tag}`);
-  const git = execute('git', ['checkout', tag], {
-    cwd: networkDir,
+const buildVersionedContracts = async (
+  releaseTag: string,
+  inputDir: string,
+): Promise<void[]> => {
+  const promises = VERSIONED_CONTRACTS.map(async (contractName) => {
+    const availableContracts = releaseMap[contractName];
+    const versionTag = releaseTag === 'develop' ? 'DEV' : releaseTag;
+    if (versionTag in availableContracts) {
+      const outDir = resolvePath(
+        OUT_ROOT_DIR,
+        contractName,
+        String(availableContracts[versionTag]),
+      );
+
+      await rm(outDir);
+
+      const typechain = execa('typechain', [
+        '--target',
+        'ethers-v4',
+        '--out-dir',
+        outDir,
+        `${inputDir}/${contractName}.json`,
+      ]);
+      if (typechain.stdout) typechain.stdout.pipe(process.stdout);
+      await typechain;
+    }
   });
-  if (git.stdout) git.stdout.pipe(process.stdout);
-  await git;
-
-  const gitSubmodule = execute('git', ['submodule', 'update'], {
-    cwd: networkDir,
-  });
-  if (gitSubmodule.stdout) gitSubmodule.stdout.pipe(process.stdout);
-  await gitSubmodule;
-
-  const yarn = execute('yarn', ['install'], {
-    cwd: networkDir,
-  });
-  if (yarn.stdout) yarn.stdout.pipe(process.stdout);
-  await yarn;
-
-  await rimrafPromise(buildDir);
-
-  const truffle = execute('yarn', ['truffle', 'compile'], {
-    cwd: networkDir,
-  });
-  if (truffle.stdout) truffle.stdout.pipe(process.stdout);
-  await truffle;
+  return Promise.all(promises);
 };
 
-const buildColonyContracts = async (): Promise<void> => {
-  // @ts-ignore
-  const releaseTag: string = releaseMap.colony[version];
-
-  if (currentNetworkTag !== releaseTag) {
-    await provisionNetworkVendor(releaseTag);
-    currentNetworkTag = releaseTag;
-  }
-
-  // Just build token contracts for the latest version
-  contractsToBuild.push(...tokenContracts);
-  const contractGlobs = `{${contractsToBuild
-    .map((c) => `${c}.json`)
-    .join(',')}}`;
-
-  const typechain = execute('typechain', [
+const buildUnversionedContracts = async (inputDir: string) => {
+  const contractGlobs = `{${UNVERSIONED_CONTRACTS.map((c) => `${c}.json`).join(
+    ',',
+  )}}`;
+  const typechain = execa('typechain', [
     '--target',
     'ethers-v4',
-    '--outDir',
-    colonyContractsOutDir,
-    `{${networkDir}/{${relativeBuildDir},${relativeTokenDir}}/${contractGlobs},${vendorTokenDir}/${contractGlobs}}`,
+    '--out-dir',
+    OUT_ROOT_DIR,
+    `{${inputDir},${STATIC_DIR}}/${contractGlobs}`,
   ]);
+
   if (typechain.stdout) typechain.stdout.pipe(process.stdout);
   await typechain;
 };
 
-const buildExtensionContracts = async (): Promise<void> => {
-  await Promise.all(
-    extensionContracts.map(async (extensionContract) => {
-      const extensionVersion = currentExtensionsVersions[extensionContract];
-      const releaseTag: string =
-        // @ts-ignore
-        releaseMap.extension[camelcase(extensionContract)][extensionVersion];
+const build = async () => {
+  const { argv } = yargs(hideBin(process.argv)).options({
+    tag: { alias: 't', type: 'string', default: 'develop' },
+  });
+  const args = await argv;
+  const { tag } = args;
 
-      if (currentNetworkTag !== releaseTag) {
-        await provisionNetworkVendor(releaseTag);
-        currentNetworkTag = releaseTag;
-      }
+  const abiDir = resolvePath(__dirname, `../src/abis/${tag}`);
+  const inputDir = tag === 'develop' ? NETWORK_BUILD_DIR : abiDir;
 
-      const extensionOutDir = `${outRoot}/extensions/${camelcase(
-        extensionContract,
-      )}/${currentExtensionsVersions[extensionContract]}`;
-      const typechain = execute('typechain', [
-        '--target',
-        'ethers-v4',
-        '--outDir',
-        extensionOutDir,
-        `${networkDir}/${relativeBuildDir}/${extensionContract}.json`,
-      ]);
-      if (typechain.stdout) typechain.stdout.pipe(process.stdout);
-      await typechain;
-    }),
-  );
+  console.info(`Building release tag ${tag}...`);
+
+  await buildVersionedContracts(tag, inputDir);
+
+  if (tag === 'develop' || tag === LatestReleaseTag) {
+    await buildUnversionedContracts(inputDir);
+  }
 };
 
-const orchestrateBuild = async (): Promise<void> => {
-  await buildColonyContracts();
-  await buildExtensionContracts();
-};
-
-orchestrateBuild();
+build();

@@ -9,7 +9,6 @@ import {
 } from 'ethers/utils';
 
 import { ColonyRole, ColonyRoles } from './constants';
-import { ColonyVersion } from './versions';
 import { ColonyClient, ContractClient } from './types';
 import { formatColonyRoles } from './utils';
 
@@ -20,8 +19,8 @@ import {
   getMoveFundsPermissionProofs as exGetMoveFundsPermissionProofs,
   getExtensionPermissionProofs as exGetExtensionPermissionProofs,
   AwkwardRecoveryRoleEventClient,
-  ExtendedIColony,
-} from './clients/Colony/extensions/commonExtensions';
+  AugmentedIColony,
+} from './clients/Core/augments/commonAugments';
 
 interface LogOptions {
   fromBlock?: number;
@@ -205,10 +204,7 @@ export const getColonyRoles = async (
   /*
    * Supported only for versions greater or equal to 3
    */
-  if (
-    client.clientVersion === ColonyVersion.GoerliGlider ||
-    client.clientVersion === ColonyVersion.Glider
-  ) {
+  if (client.clientVersion < 3) {
     throw new Error(`Not supported by colony version ${client.clientVersion}`);
   }
 
@@ -234,15 +230,7 @@ export const getColonyRoles = async (
   );
 
   const recoveryRoleSetFilter =
-    /*
-     * @NOTE Argument number changes between colony contract versions, and since
-     * we are always passing `null` to all of them, it's the same effect as not
-     * passing in them at all
-     *
-     * This suppreses errors on clients
-     */
-    // @ts-ignore
-    client.awkwardRecoveryRoleEventClient.filters.RecoveryRoleSet();
+    client.awkwardRecoveryRoleEventClient.filters.RecoveryRoleSet(null, null);
 
   const recoveryRoleEvents = await getEvents(
     client.awkwardRecoveryRoleEventClient,
@@ -335,7 +323,7 @@ export const getMoveFundsPermissionProofs = async (
  * @returns Tuple of `[permissionDomainId, childSkillIndex]`
  */
 export const getExtensionPermissionProofs = async (
-  colonyClient: ExtendedIColony,
+  colonyClient: AugmentedIColony,
   domainId: BigNumberish,
   address?: string,
 ): Promise<[BigNumberish, BigNumberish]> =>

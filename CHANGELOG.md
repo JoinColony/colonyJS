@@ -2,13 +2,126 @@
 
 ## NEXT
 
-* Extensions
-  * Coin Machine
-  * FundingQueue
-  * OneTxPayment
-  * VotingReputation
+**BREAKING**
+
+// FIXME: better description
+* Something with all events not sitting on the ColonyClient anymore
+
+**Changes**
+
+**Maintenance**
+
+* Upgraded all dependencies and dev-dependencies
+* Especially Typescript to v4.5.5 and typechain to v7.0.0
+* Moved directories around and rewrote build script
+* All the colonyNetwork ABIs are now bundled for each of its versions
+
+## v4.1.2
+
+**Release Highlights**
+
+This `colonyJS` release adds to `abi`s to the codebase, `VestingSimple` and `WrappedToken` which are used to aid in instantiating previously deployed contracts and _(manually)_ interacting with them
+
+## v4.1.1
+
+**Release Highlights**
+
+This colonyJS release adds support for version `3` of the Coin Machine extension
+
+**New Clients**
+- `CoinMachine` version `3` client
+
+**Fixes**
+
+- Extension Addons are now applied in proper chronological order _(useful when doing overwrites)_
+
+## v4.1.0
+
+**Release Highlights**
+
+This colonyJS release adds support for the _Whitelist_ extension by adding it's own client and  integrating it in the release mapping, versioning, and clients exports.
+
+**New Clients**
+- `Whitelist` extension, version `1` client
+- `VotingReputation` version `3` client
+- `Colony` version `8` client _(Also includes version `9`, but that is still experimental)_
+
+**Fixes**
+
+- `compile-declarations` build script
+- correctly import the colony `v7` factory
+- `estimateSetUserRolesWithProofs` roles
+
+## v4.0.2
+
+**Fixes**
+
+* #501 Ship both `lib` and `lib-esm` version of the package
+
+## v4.0.1
+
+**Fixes**
+
+* #496 `deployToken` and `deployTokenAuthority` accept transaction overrides
+
+## v4.0.0
+
+**Release Highlights**
+
+This colonyJS release adds support for _Extension Clients Versioning_ allowing for extensions themselves to be separated from the colony client all whilst having their own versions and upgrade paths.
+
+The version work independently of the colony contract clients as long as the extension's version is supported by the current colony contract version, will work as expected.
+
+As with the colony clients, the extensions have support for add-on methods that will help in cases where the method calls need permissioning proofs, in order to make development live easier.
+
+As an example for this, you can look up `createDomainMotionWithProofs`, `stakeMotionWithProofs`, `escalateMotionWithProofs` and `claimRewardWithProofs` from the `VotingReputation` extension.
+
+**New Clients**
+
+* `Colony` version 7 client
+* `CoinMachine` extension, version 2 client
+* `VotingReputation` extension, version 2 client
+* `OneTxPayment` extension, version 2 client
+
+**Fixes**
+
+* #483 Fixed to the `setUserRolesWithProofs` helper -- by @alicjakujawa
+* #485 `getReputation` helper now has a `customRootHash` prop -- by @ArmandoGraterol
+
+**Maintenance**
+
+* #482 Automatically create versioned extension client files/folders based on the latest version(s)
+
+## v3.0.0
+This release update the colony-js library to be able to use the latest lwss release of colonyNetwork.
+
+Alongside the above, we have a couple of minor fixes and improvements:
+
+* updated the way typechain generates the interfaces and factories
+* v5 client now has access to all historic events
+* minor fixes to the v2 colony client
+* fixed the getColonyRoles helper function
+
+## v2.0.0
+
+🎊 The TypeScript release 🎊
+Please welcome our biggest release yet! After months of effort and a total rewrite of colonyJS we are proud to announce the next version: v2.0.0!
+
+It almost doesn't make any sense to post a changelog as virtually everything has changed.
+
+Expect the following features:
+
+* Everything is TypeScript now 🎉
+* Versioned Colony clients (for all of the versions colonies can have)
+* Just one package: npm install @colony/colony-js and you're done!
+* All of the clients are just extended ethers contracts now
+* Automatically generated documentation available under https://joincolony.github.io/colonyJS
+* Convenient helper and utility functions
+
+We hope you'll enjoy using it in your project when building with Colony.
 
 ## v1.14.6
+
 **Features**
 
 * Support for Burgundy Glider, Colony's version 4 (`@colony/colony-js-client`, `@colony/colony-js-contract-loader-network`)

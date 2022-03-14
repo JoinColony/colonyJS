@@ -1,13 +1,13 @@
 import { ColonyNetworkClient } from './clients/ColonyNetworkClient';
-import { ColonyClientV1 } from './clients/Colony/ColonyClientV1';
-import { ColonyClientV2 } from './clients/Colony/ColonyClientV2';
-import { ColonyClientV3 } from './clients/Colony/ColonyClientV3';
-import { ColonyClientV4 } from './clients/Colony/ColonyClientV4';
-import { ColonyClientV5 } from './clients/Colony/ColonyClientV5';
-import { ColonyClientV6 } from './clients/Colony/ColonyClientV6';
-import { ColonyClientV7 } from './clients/Colony/ColonyClientV7';
-import { ColonyClientV8 } from './clients/Colony/ColonyClientV8';
-import { ColonyClientV9 } from './clients/Colony/ColonyClientV9';
+import { ColonyClientV1 } from './clients/Core/ColonyClientV1';
+import { ColonyClientV2 } from './clients/Core/ColonyClientV2';
+import { ColonyClientV3 } from './clients/Core/ColonyClientV3';
+import { ColonyClientV4 } from './clients/Core/ColonyClientV4';
+import { ColonyClientV5 } from './clients/Core/ColonyClientV5';
+import { ColonyClientV6 } from './clients/Core/ColonyClientV6';
+import { ColonyClientV7 } from './clients/Core/ColonyClientV7';
+import { ColonyClientV8 } from './clients/Core/ColonyClientV8';
+import { ColonyClientV9 } from './clients/Core/ColonyClientV9';
 import { TokenClient } from './clients/TokenClient';
 import { TokenLockingClient } from './clients/TokenLockingClient';
 import { ExtensionClient } from './clients/Extensions/colonyContractExtensions';
@@ -29,8 +29,6 @@ export type ContractClient =
   | ExtensionClient
   | TokenClient
   | TokenLockingClient;
-
-export type { TransactionOverrides } from './contracts/1';
 
 export enum ReputationMinerEndpoints {
   UserReputationInSingleDomainWithoutProofs = `UserReputationInSingleDomainWithoutProofs`,

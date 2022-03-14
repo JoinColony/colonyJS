@@ -8,16 +8,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { ClientType } from '../../../../constants';
-import { VotingReputation__factory as VotingReputationFactory } from '../../../../contracts/extensions/votingReputation/3/factories/VotingReputation__factory';
-import { VotingReputation } from '../../../../contracts/extensions/votingReputation/3/VotingReputation';
-import { ExtendedIColony } from '../../../../clients/Colony/extensions/commonExtensions';
+import { VotingReputation__factory as VotingReputationFactory } from '../../../../contracts/VotingReputation/3/factories/VotingReputation__factory';
+import { VotingReputation } from '../../../../contracts/VotingReputation/3/VotingReputation';
+import { AugmentedIColony } from '../../../../clients/Core/augments/commonAugments';
 
-import * as currentVersion from './VotingReputationClientAddons';
-import * as version1 from '../1/VotingReputationClientAddons';
-import * as version2 from '../2/VotingReputationClientAddons';
+import * as currentVersion from './VotingReputationClientAugments';
+import * as version1 from '../1/VotingReputationClientAugments';
+import * as version2 from '../2/VotingReputationClientAugments';
 
 type VotingReputationEstimate = VotingReputation['estimate'];
-interface VotingReputationEstimateWithAddons extends VotingReputationEstimate {
+interface AugmentedVotingReputationEstimate extends VotingReputationEstimate {
   /*
    * @TODO These needs to be specifically determined once we can integrate
    * static code analysis into this lib
@@ -27,7 +27,7 @@ interface VotingReputationEstimateWithAddons extends VotingReputationEstimate {
 
 export interface VotingReputationClient extends VotingReputation {
   clientType: ClientType.VotingReputationClient;
-  estimate: VotingReputationEstimateWithAddons;
+  estimate: AugmentedVotingReputationEstimate;
   /*
    * @TODO These needs to be specifically determined once we can integrate
    * static code analysis into this lib
@@ -37,7 +37,7 @@ export interface VotingReputationClient extends VotingReputation {
 
 const getVotingReputationClient = (
   address: string,
-  colonyClient: ExtendedIColony,
+  colonyClient: AugmentedIColony,
 ): VotingReputationClient => {
   const votingReputationClient = VotingReputationFactory.connect(
     address,
@@ -46,7 +46,7 @@ const getVotingReputationClient = (
   votingReputationClient.clientType = ClientType.VotingReputationClient;
 
   const addons = {
-    ...version1.getVotingReputationClientAddons(
+    ...version1.getVotingReputationClientAugments(
       votingReputationClient,
       colonyClient,
     ),
@@ -54,13 +54,13 @@ const getVotingReputationClient = (
       votingReputationClient,
       colonyClient,
     ),
-    ...currentVersion.getVotingReputationClientAddons(
+    ...currentVersion.getVotingReputationClientAugments(
       votingReputationClient,
       colonyClient,
     ),
   };
   const addonsEstimate = {
-    ...version1.getVotingReputationClientEstimateAddons(
+    ...version1.getVotingReputationClientEstimateAugments(
       votingReputationClient,
       colonyClient,
     ),
@@ -68,7 +68,7 @@ const getVotingReputationClient = (
       votingReputationClient,
       colonyClient,
     ),
-    ...currentVersion.getVotingReputationClientEstimateAddons(
+    ...currentVersion.getVotingReputationClientEstimateAugments(
       votingReputationClient,
       colonyClient,
     ),

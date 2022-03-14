@@ -6,7 +6,7 @@
 import { resolve as resolvePath } from 'path';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 
-import { Extension } from '../src/clients/Extensions/colonyContractExtensions';
+import { Extensions } from '../src/clients/Extensions/colonyContractExtensions';
 import {
   CurrentCoinMachineVersion,
   CurrentOneTxPaymentVersion,
@@ -17,21 +17,21 @@ import getClientTemplate from './client-templates/extension-client-generator';
 import getClientAddonTemplate from './client-templates/extension-client-addons-generator';
 
 const extensionContracts = [
-  Extension.OneTxPayment,
-  Extension.CoinMachine,
-  Extension.VotingReputation,
-  Extension.Whitelist,
+  Extensions.OneTxPayment,
+  Extensions.CoinMachine,
+  Extensions.VotingReputation,
+  Extensions.Whitelist,
 ];
 
 const currentExtensionsVersions = {
-  [Extension.OneTxPayment]: CurrentOneTxPaymentVersion,
-  [Extension.CoinMachine]: CurrentCoinMachineVersion,
-  [Extension.VotingReputation]: CurrentVotingReputationVersion,
-  [Extension.Whitelist]: CurrentWhitelistVersion,
+  [Extensions.OneTxPayment]: CurrentOneTxPaymentVersion,
+  [Extensions.CoinMachine]: CurrentCoinMachineVersion,
+  [Extensions.VotingReputation]: CurrentVotingReputationVersion,
+  [Extensions.Whitelist]: CurrentWhitelistVersion,
 };
 
 const getExtensionVersionedPath = (
-  extensionName: Extension,
+  extensionName: Extensions,
   extensionVersion: number,
 ): string =>
   resolvePath(
@@ -42,7 +42,7 @@ const getExtensionVersionedPath = (
   );
 
 const checkClientVersionExistance = (
-  extensionName: Extension,
+  extensionName: Extensions,
   extensionVersion: number,
 ): boolean => {
   const extensionPath = getExtensionVersionedPath(
@@ -53,7 +53,7 @@ const checkClientVersionExistance = (
 };
 
 const generateExtensionClient = async (
-  extensionName: Extension,
+  extensionName: Extensions,
   extensionVersion: number,
 ): Promise<void> => {
   const extensionPath = getExtensionVersionedPath(

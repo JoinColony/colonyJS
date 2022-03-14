@@ -11,9 +11,8 @@ import {
 } from 'ethers/utils';
 import { Provider } from 'ethers/providers';
 
-import { IColony__factory as IColonyFactory } from '../src/contracts/colony/9/factories/IColony__factory';
+import { IColonyFactory } from './exports';
 import { ColonyRole, ColonyRoles, ROOT_DOMAIN_ID } from './constants';
-import { ColonyVersion } from './versions';
 import { IColonyEvents, ReputationMinerEndpoints } from './types';
 import { ColonyNetworkClient } from './clients/ColonyNetworkClient';
 
@@ -88,6 +87,7 @@ export const getAbiEvents = (
 ): EventFragment[] => {
   const {
     interface: { abi },
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
   } = factory.connect(address, signerOrProvider);
   return abi.filter(({ type }: EventFragment) => type === 'event');
@@ -100,6 +100,7 @@ export const getAbiFunctions = (
 ): EventFragment[] => {
   const {
     interface: { abi },
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
   } = factory.connect(address, signerOrProvider);
   return abi.filter(({ type }: EventFragment) => type !== 'event');
@@ -133,25 +134,6 @@ export const getAllAbiEvents = (
     return null;
   });
   return abiEvents;
-};
-
-export const getExtensionCompatibilityMap = (
-  incompatibilityMap: Record<string, number[]>,
-  colonyVersions: typeof ColonyVersion,
-): Record<number, number[]> => {
-  const compatibilityMap: Record<number, number[]> = {};
-  const allColonyVersions = Object.keys(colonyVersions)
-    .map((version) => parseInt(version, 10))
-    .filter((version) => !!version);
-  const extensionVersions = Object.keys(incompatibilityMap);
-  extensionVersions.map((version) => {
-    const currentCompatibleVersions = allColonyVersions.filter(
-      (colonyVersion) => !incompatibilityMap[version].includes(colonyVersion),
-    );
-    compatibilityMap[parseInt(version, 10)] = currentCompatibleVersions;
-    return null;
-  });
-  return compatibilityMap;
 };
 
 /*
