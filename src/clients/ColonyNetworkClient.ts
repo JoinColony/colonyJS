@@ -15,10 +15,6 @@ import { ColonyVersion } from '../versions';
 import { IColonyNetwork__factory as IColonyNetworkFactory } from '../contracts/colony/9/factories/IColonyNetwork__factory';
 import { IColonyNetwork } from '../contracts/colony/9/IColonyNetwork';
 import { TransactionOverrides } from '../contracts/6';
-import {
-  abi as tokenAbi,
-  bytecode as tokenBytecode,
-} from '../contracts/deploy/MetaTxToken.json';
 import getColonyVersionClient from './Colony/ColonyVersionClient';
 import getColonyClientV1 from './Colony/ColonyClientV1';
 import getColonyClientV2 from './Colony/ColonyClientV2';
@@ -33,6 +29,10 @@ import getTokenClient from './TokenClient';
 import getTokenLockingClient, {
   TokenLockingClient,
 } from './TokenLockingClient';
+
+import abis from '../abis';
+
+const { abi: tokenAbi, bytecode: tokenBytecode } = abis.MetaTxToken;
 
 type NetworkEstimate = IColonyNetwork['estimate'];
 

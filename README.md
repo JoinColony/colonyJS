@@ -157,24 +157,38 @@ Done 🎊
 1) Add the version to `versions.ts` in `ColonyVersion` as well as the network git tag to `releaseMaps`
 3) Add the git tag to `src/constants.ts` release map
 4) _Optional:_ If you are tracking a development branch instead of a static tag or commit, make sure to pull the latest changes, otherwise the contracts generated will be exactly the same as your last ones -- _this is a step often forgotten when using a dev version_
-5) In the `vendor/colonyNetwork` directory, check out the correct git tag and build the contracts (according to the docs - most likely it'll be `yarn provision:token:contracts` and `yarn truffle compile`)
-6) Run
+5) In the `vendor/colonyNetwork` directory, check out the correct git tag and build the contracts according to the docs - most likely it'll be:
+```shell
+git checkout [GIT_TAG] # e.g lwss
+git submodule update --recursive
+rm -rf build/contracts/*.json # to remove any prior builds
+yarn # make sure you're running the correct node version (with nvm)
+yarn truffle compile
+```
+6) In the `vendor/colonyNetwork/lib/colonyToken` directory, do the following:
+```shell
+rm -rf build/contracts/*.json # to remove any prior builds
+git reset --hard # to recover the pinned (checked in) contracts
+yarn # make sure you're running the correct node version (with nvm)
+yarn truffle compile
+```
+7) Back in the `colonyJS` main directory run
 ```shell
 npm run extact-contract-abis -- -t=[GIT_TAG]
 ```
 to extract the contract ABIs and store them in the colonyJS repository
-7) If needed: add new contracts that need clients to the `contractsToBuild` array in `scripts/build-contracts.ts`
-8) Run
+8) If needed: add new contracts that need clients to the `contractsToBuild` array in `scripts/build-contracts.ts`
+9) Run
 ```shell
 npm run build-contracts
 ```
 This will create a new folder: `src/contracts/X` containing all the type definitions you'll need to implement the new colony client.
-9) Update the following lines in `ColonyNetworkClient.ts` to reflect the new version:
+10) Update the following lines in `ColonyNetworkClient.ts` to reflect the new version:
 ```ts
 import { IColonyNetworkFactory } from '../contracts/X/IColonyNetworkFactory';
 import { IColonyNetwork } from '../contracts/X/IColonyNetwork';
 ```
-10) Update all the other contract imports in the non-colony clients, even if they haven't been upgraded (just in case). Then make adjustments to the clients to reflect the contract changes (typescript will tell you, where to make changes). Also add necessary helper functions (e.g. `withProofs` functions) for newly added methods. The newly added methods and their required roles can be found in [this file](https://github.com/JoinColony/colonyNetwork/blob/develop/contracts/colony/ColonyAuthority.sol) (and by diffing the generated interface files).
+11) Update all the other contract imports in the non-colony clients, even if they haven't been upgraded (just in case). Then make adjustments to the clients to reflect the contract changes (typescript will tell you, where to make changes). Also add necessary helper functions (e.g. `withProofs` functions) for newly added methods. The newly added methods and their required roles can be found in [this file](https://github.com/JoinColony/colonyNetwork/blob/develop/contracts/colony/ColonyAuthority.sol) (and by diffing the generated interface files).
 
 
 ### To add new extension contract versions:

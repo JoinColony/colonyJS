@@ -32,11 +32,12 @@ import getExtensionVersionClient from '../../Extensions/ExtensionVersionClient';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
 import { TokenClient } from '../../TokenClient';
 
-import {
-  abi as tokenAuthorityAbi,
-  bytecode as tokenAuthorityBytecode,
-} from '../../../contracts/deploy/TokenAuthority.json';
+import abis from '../../../abis';
+
 import { getExtensionHash } from '../../../helpers';
+
+const { abi: tokenAuthorityAbi, bytecode: tokenAuthorityBytecode } =
+  abis.TokenAuthority;
 
 type AnyIColony =
   | IColonyV1
