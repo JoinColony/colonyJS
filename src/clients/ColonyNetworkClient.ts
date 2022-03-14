@@ -5,7 +5,7 @@ import {
   Overrides,
 } from 'ethers';
 
-import { ColonyClient, ClientType, Network } from '../types';
+import { ColonyClient, ClientType, Network, SignerOrProvider } from '../types';
 
 import {
   COLONY_NETWORK_ADDRESSES,
@@ -27,7 +27,6 @@ import getTokenClient from './TokenClient';
 import getTokenLockingClient, {
   TokenLockingClient,
 } from './TokenLockingClient';
-import { SignerOrProvider } from '..';
 
 const { abi: tokenAbi, bytecode: tokenBytecode } = abis.MetaTxToken;
 
@@ -263,8 +262,6 @@ const getColonyNetworkClient = (
       tokenAddress,
       signerOrProvider,
     );
-
-    // @TODO where to put the extensions?
 
     return colonyClient;
   };

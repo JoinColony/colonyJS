@@ -1,4 +1,4 @@
-import { ClientType, SignerOrProvider } from '..';
+import { ClientType, SignerOrProvider } from '../types';
 
 import { TokenLocking, TokenLockingFactory } from '../exports';
 
