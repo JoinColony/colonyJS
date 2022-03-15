@@ -3,10 +3,9 @@ import { Extensions } from './clients/Extensions/exports';
 /*
  * Core IColony Versioning
  */
-// FIXME: this does not work
-// FIXME move this to colony exports file
+// TODO: this does not work. Refactor compatibility maps
 const CORE_COLONY_VERSIONS = [1, 2, 4, 5, 6, 7, 8, 9];
-export type ColonyVersion = typeof CORE_COLONY_VERSIONS[number];
+type ColonyVersion = typeof CORE_COLONY_VERSIONS[number];
 
 /*
  * One Transaction Payment Extension Versioning
@@ -152,7 +151,7 @@ function getExtensionCompatibilityMap(
  * Extensions Compatibility and Incompatibility Map
  * (Aggregates from the various extensions ones)
  */
-// FIXME: I guess we have to improve this
+// TODO: I guess we have to improve this
 export const extensionsIncompatibilityMap = {
   [Extensions.OneTxPayment]: OneTxPaymentExtensionVersionIncompatibilityMap,
   [Extensions.CoinMachine]: CoinMachineExtensionVersionIncompatibilityMap,

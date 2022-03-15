@@ -48,8 +48,7 @@ export type ExtensionClient =
   | AnyVotingReputationClient
   | AnyWhitelistClient;
 
-// FIXME: check compatibility here
-// FIXME: and at the place where it's deployed
+// TODO: check compatibility here and at the place where it's deployed
 export async function getExtensionClient(
   this: AugmentedIColony,
   name: Extensions.CoinMachine,

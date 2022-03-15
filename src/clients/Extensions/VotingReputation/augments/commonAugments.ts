@@ -69,7 +69,6 @@ export type AugmentedVotingReputation<
   clientType: ClientType.VotingReputationClient;
   clientVersion: VotingReputationVersion;
   colonyClient: AugmentedIColony;
-  // FIXME: test if this is working, then maybe apply to other clients
   estimateGas: T['estimateGas'] & AugmentedEstimate;
 
   createDomainMotionWithProofs(
