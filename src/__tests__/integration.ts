@@ -1,23 +1,43 @@
-// @TODO This file can't be considered to be a proper test suite (yet).
-// Eventually we only want to test the newest version of the network and also in an automatic way.
-// For now this will entail some manual work:
-// 1) Start a ganache instance with deployed contracts for this
-// 2) Copy the EtherRouter address into the right spot below
-// 3) Wallet private key something something
+import { resolve as resolvePath } from 'path';
+import execa, { ExecaChildProcess } from 'execa';
 
-// import { Wallet } from 'ethers';
-// import { JsonRpcProvider } from 'ethers/providers';
-// import { bigNumberify } from 'ethers/utils';
+const NETWORK_PATH = resolvePath(__dirname, '../../vendor/colonyNetwork');
 
-// import { ColonyRole, Network } from '../constants';
-// import getColonyNetworkClient from '../clients/ColonyNetworkClient';
-// import { getPermissionProofs } from '../clients/Colony/ColonyClientV1';
+let ganache: ExecaChildProcess;
 
-// const provider = new JsonRpcProvider();
-// const wallet = new Wallet(
-//   '0x0355596cdb5e5242ad082c4fe3f8bbe48c9dba843fe1f99dd8272f487e70efae',
-//   provider,
-// );
+beforeAll(async () => {
+  ganache = execa('bash', ['./scripts/start-blockchain-client.sh'], {
+    cwd: NETWORK_PATH,
+  });
+  await new Promise((resolve, reject) => {
+    if (ganache.stdout && ganache.stderr) {
+      ganache.stderr.on('data', (err) => reject(new Error(err)));
+      ganache.stdout.on('data', (data) => {
+        if (data.toString().includes('ganache-cli')) {
+          resolve(data);
+        }
+      });
+    } else {
+      reject(new Error('Something went wrong'));
+    }
+  });
+
+  await execa('npm', ['run', 'provision:token:contracts'], {
+    cwd: NETWORK_PATH,
+  });
+
+  return execa('truffle', ['deploy'], {
+    cwd: NETWORK_PATH,
+    preferLocal: true,
+    localDir: NETWORK_PATH,
+  });
+}, 2 * 60 * 1000);
+
+afterAll(() => {
+  ganache.kill('SIGTERM', {
+    forceKillAfterTimeout: 2000,
+  });
+});
 
 describe('ColonyNetwork', () => {
   it('Can create domain proofs', async () => {
