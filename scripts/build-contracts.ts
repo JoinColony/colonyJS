@@ -7,7 +7,8 @@ import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 import _ from 'lodash';
 
-import { Core, Extensions, releaseMap } from '../src/versions';
+import { Core, releaseMap } from '../src/versions';
+import { Extensions } from '../src';
 
 const STATIC_DIR = resolvePath(__dirname, '../src/abis/__static__');
 const DYNAMIC_DIR = resolvePath(__dirname, '../src/abis/__dynamic__');

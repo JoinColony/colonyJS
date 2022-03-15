@@ -10,6 +10,7 @@ import {
 
 import { ROOT_DOMAIN_ID } from '../../../constants';
 import { abis } from '../../../exports';
+import { ColonyVersion } from '../exports';
 import { AnyIColony, IColonyV4 } from '../../../contracts/IColony/exports';
 import { fetchReputationOracleData } from '../../../utils';
 import {
@@ -18,7 +19,6 @@ import {
   FundingPotAssociatedType,
   ReputationMinerEndpoints,
 } from '../../../types';
-import { ColonyVersion } from '../../../versions';
 
 import { IColony__factory as AwkwardRecoveryRoleEventIColony } from '../../../contracts/IColony/4/factories/IColony__factory';
 
@@ -203,7 +203,6 @@ export type AugmentedIColony<T extends AnyIColony = AnyIColony> = T & {
   getMembersReputation(skillId: BigNumberish): Promise<{ addresses: string[] }>;
 };
 
-// FIXME: maybe put this somewhere else
 export const getPotDomain = async (
   contract: AugmentedIColony,
   potId: BigNumberish,
@@ -238,7 +237,6 @@ export const getPotDomain = async (
   }
 };
 
-// FIXME: maybe put this somewhere else
 export const getChildIndex = async (
   contract: AugmentedIColony,
   parentDomainId: BigNumberish,
@@ -262,8 +260,6 @@ export const getChildIndex = async (
 // Call getPermissionProofs once for domainId and role
 // Find domains for pots
 // Find childSkillIndeces for from and to domain in domain we're acting in (domainId)
-
-// FIXME: maybe put this somewhere else
 export const getPermissionProofs = async (
   contract: AugmentedIColony,
   domainId: BigNumberish,

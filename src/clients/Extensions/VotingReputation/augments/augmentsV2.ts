@@ -69,6 +69,7 @@ async function createMotionWithProofs(
   _siblings: BytesLike[],
   overrides?: Overrides,
 ): Promise<ContractTransaction> {
+  // TODO: this should be implemented
   // const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
   //   this.colonyClient,
   //   _domainId,
@@ -76,7 +77,6 @@ async function createMotionWithProofs(
   //   this.address,
   // );
 
-  // FIXME: implement me
   return this.createMotion(
     _domainId,
     _childSkillIndex,
@@ -102,6 +102,7 @@ async function estimateCreateMotionWithProofs(
   _siblings: BytesLike[],
   overrides?: Overrides,
 ): Promise<BigNumber> {
+  // TODO: this should be implemented
   // const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
   //   this.colonyClient,
   //   _domainId,
@@ -109,7 +110,6 @@ async function estimateCreateMotionWithProofs(
   //   this.address,
   // );
 
-  // FIXME: implement me
   return this.estimateGas.createMotion(
     _domainId,
     _childSkillIndex,
