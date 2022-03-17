@@ -7,16 +7,20 @@ import * as VestingSimple from './abis/elwss3/VestingSimple.json';
 import * as WrappedToken from './abis/elwss3/WrappedToken.json';
 
 // These ones pretty much stay the same all the time
-export { IColonyNetwork__factory as IColonyNetworkFactory } from './contracts/factories/IColonyNetwork__factory';
-export { IColonyNetwork } from './contracts/IColonyNetwork';
-export { Token__factory as TokenFactory } from './contracts/factories/Token__factory';
-export { Token } from './contracts/Token';
-export { TokenERC20__factory as TokenErc20Factory } from './contracts/factories/TokenERC20__factory';
-export { TokenERC20 as TokenErc20 } from './contracts/TokenERC20';
-export { TokenSAI__factory as TokenSaiFactory } from './contracts/factories/TokenSAI__factory';
-export { TokenSAI as TokenSai } from './contracts/TokenSAI';
-export { TokenLocking__factory as TokenLockingFactory } from './contracts/factories/TokenLocking__factory';
-export { TokenLocking } from './contracts/TokenLocking';
+export {
+  IColonyNetwork,
+  IColonyNetwork__factory as IColonyNetworkFactory,
+  Token,
+  Token__factory as TokenFactory,
+  TokenERC20 as TokenErc20,
+  TokenERC20__factory as TokenErc20Factory,
+  TokenSAI as TokenSai,
+  TokenSAI__factory as TokenSaiFactory,
+  TokenLocking,
+  TokenLocking__factory as TokenLockingFactory,
+  Utils,
+  Utils__factory as UtilsFactory,
+} from './contracts';
 
 export const abis = {
   MetaTxToken,
