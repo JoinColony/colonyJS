@@ -29,7 +29,7 @@ export enum ReputationMinerEndpoints {
 export enum Network {
   Mainnet = 'mainnet',
   Goerli = 'goerli',
-  Local = 'local',
+  Custom = 'custom',
   Xdai = 'xdai',
   XdaiFork = 'xdaiFork',
 }
