@@ -22,6 +22,7 @@ export type AnyVotingReputationClient =
   | VotingReputationClient2
   | VotingReputationClient3;
 
+/** @internal */
 export function getVotingReputationClient(
   colonyClient: AugmentedIColony,
   address: string,

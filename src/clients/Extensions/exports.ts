@@ -36,7 +36,6 @@ export * from './Whitelist/exports';
 /// Extension contract names
 export enum Extensions {
   CoinMachine = 'CoinMachine',
-  // FundingQueue = 'FundingQueue',
   OneTxPayment = 'OneTxPayment',
   VotingReputation = 'VotingReputation',
   Whitelist = 'Whitelist',
@@ -49,22 +48,27 @@ export type ExtensionClient =
   | AnyWhitelistClient;
 
 // TODO: check compatibility here and at the place where it's deployed
+/** @internal */
 export async function getExtensionClient(
   this: AugmentedIColony,
   name: Extensions.CoinMachine,
 ): Promise<AnyCoinMachineClient>;
+/** @internal */
 export async function getExtensionClient(
   this: AugmentedIColony,
   name: Extensions.OneTxPayment,
 ): Promise<AnyOneTxPaymentClient>;
+/** @internal */
 export async function getExtensionClient(
   this: AugmentedIColony,
   name: Extensions.VotingReputation,
 ): Promise<AnyVotingReputationClient>;
+/** @internal */
 export async function getExtensionClient(
   this: AugmentedIColony,
   name: Extensions.Whitelist,
 ): Promise<AnyWhitelistClient>;
+/** @internal */
 export async function getExtensionClient(
   this: AugmentedIColony,
   name: Extensions,
