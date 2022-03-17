@@ -1,5 +1,5 @@
 import fetch from 'cross-fetch';
-import { utils, BigNumber, BigNumberish } from 'ethers';
+import { utils, BigNumber, BigNumberish, BytesLike } from 'ethers';
 import type { LogDescription, Result } from '@ethersproject/abi';
 
 import { ROOT_DOMAIN_ID } from './constants';
@@ -236,6 +236,19 @@ export const fetchReputationOracleData = async <
   }
 };
 
+export const parsePermissionedAction = (action: BytesLike) => {
+  const sig = utils.hexDataSlice(action, 0, 3);
+  const permissionDomainId = BigNumber.from(utils.hexDataSlice(action, 4, 35));
+  const childSkillIndex = BigNumber.from(utils.hexDataSlice(action, 36, 67));
+  return { sig, permissionDomainId, childSkillIndex };
+};
+
+// Type helpers
+
 export const assertExhaustiveSwitch = (x: never): never => {
   throw new Error(`Unexpected object: ${x}`);
+};
+
+export const nonNullable = <T>(value: T): value is NonNullable<T> => {
+  return value !== null && value !== undefined;
 };

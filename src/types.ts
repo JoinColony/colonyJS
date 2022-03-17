@@ -38,13 +38,14 @@ export enum Network {
  * Available roles in the colonyNetwork. Find out more here: https://colony.io/dev/docs/colonynetwork/docs-modular-permissions
  */
 export enum ColonyRole {
-  Recovery = 0,
-  Root = 1,
-  Arbitration = 2,
-  Architecture = 3,
-  ArchitectureSubdomain_DEPRECATED = 4,
-  Funding = 5,
-  Administration = 6,
+  Recovery,
+  Root,
+  Arbitration,
+  Architecture,
+  ArchitectureSubdomain_DEPRECATED,
+  Funding,
+  Administration,
+  LAST_ROLE,
 }
 
 /**
@@ -80,6 +81,7 @@ export enum ClientType {
   OneTxPaymentClient = 'OneTxPaymentClient',
   TokenClient = 'TokenClient',
   TokenLockingClient = 'TokenLockingClient',
+  UtilsClient = 'UtilsClient',
   VotingReputationClient = 'VotingReputationClient',
   WhitelistClient = 'WhitelistClient',
 }
@@ -123,14 +125,14 @@ export enum IColonyEvents {
  * The various states a Motion might find itself in
  */
 export enum MotionState {
-  Null = 0,
-  Staking = 1,
-  Submit = 2,
-  Reveal = 3,
-  Closed = 4,
-  Finalizable = 5,
-  Finalized = 6,
-  Failed = 7,
+  Null,
+  Staking,
+  Submit,
+  Reveal,
+  Closed,
+  Finalizable,
+  Finalized,
+  Failed,
 }
 
 /**
@@ -138,9 +140,9 @@ export enum MotionState {
  * See [here](https://colony.io/dev/docs/colonynetwork/whitepaper-tldr-pots-and-funding) for more details
  */
 export enum FundingPotAssociatedType {
-  Unassigned = 0,
-  Domain = 1,
-  Task = 2,
-  Payment = 3,
-  Expenditure = 4,
+  Unassigned,
+  Domain,
+  Task,
+  Payment,
+  Expenditure,
 }
