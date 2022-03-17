@@ -15,6 +15,7 @@ export type OneTxPaymentClientV2 = OneTxPaymentClient2;
 
 export type AnyOneTxPaymentClient = OneTxPaymentClient1 | OneTxPaymentClient2;
 
+/** @internal */
 export const getOneTxPaymentClient = (
   colonyClient: AugmentedIColony,
   address: string,

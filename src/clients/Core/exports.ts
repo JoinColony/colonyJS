@@ -35,6 +35,7 @@ export type AnyColonyClient =
   | ColonyClientV8
   | ColonyClientV9;
 
+/** @internal */
 export async function getColonyClient(
   this: ColonyNetworkClient,
   addressOrId: string | number,
@@ -142,4 +143,5 @@ export async function getColonyClient(
   return colonyClient;
 }
 
+/** @internal */
 export { default as getUtilsClient } from '../UtilsClient';

@@ -11,6 +11,7 @@ export type WhitelistClientV1 = WhitelistClient1;
 
 export type AnyWhitelistClient = WhitelistClient1;
 
+/** @internal */
 export const getWhitelistClient = (
   colonyClient: AugmentedIColony,
   address: string,

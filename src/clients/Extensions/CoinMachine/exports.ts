@@ -22,6 +22,7 @@ export type AnyCoinMachineClient =
   | CoinMachineClient2
   | CoinMachineClient3;
 
+/** @internal */
 export const getCoinMachineClient = (
   colonyClient: AugmentedIColony,
   address: string,
