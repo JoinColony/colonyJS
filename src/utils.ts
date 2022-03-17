@@ -11,7 +11,7 @@ import {
 } from './types';
 import { ColonyNetworkClient } from './clients/ColonyNetworkClient';
 
-const { getAddress } = utils;
+const { isAddress } = utils;
 
 interface ColonyRolesMap {
   [userAddress: string]: {
@@ -66,16 +66,6 @@ type ReputationOracleResponseType<R> =
     : R extends ReputationMinerEndpoints.UsersWithReputationInColony
     ? ReputationOracleColonyResponse
     : never;
-
-// @TODO ethers v5 has an isAddress function
-export const isAddress = (address: string): boolean => {
-  try {
-    getAddress(address);
-  } catch {
-    return false;
-  }
-  return true;
-};
 
 /*
  * Format role events into an Array of all roles in the colony
