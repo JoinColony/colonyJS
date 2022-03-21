@@ -18,7 +18,7 @@
     "npm": "^8"
   },
   "scripts": {
-    "build": "npm run clean && npm run compile && npm run compile-esm && OUT=lib npm run copy-declarations && OUT=lib-esm npm run copy-declarations && npm run build-docs",
+    "build": "npm run clean && npm run compile && npm run compile-esm && npm run build-docs",
     "build-contracts": "ts-node -P scripts/tsconfig-scripts.json scripts/build-contracts.ts",
     "build-docs": "typedoc --out docs src/index.ts",
     "clean": "rimraf ./lib && rimraf ./lib-esm",
