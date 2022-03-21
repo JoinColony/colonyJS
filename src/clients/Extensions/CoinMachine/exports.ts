@@ -1,3 +1,4 @@
+import { ColonyVersion } from '../../../clients/Core/exports';
 import {
   assertExhaustiveSwitch,
   createContractVersionArray,
@@ -30,6 +31,16 @@ export const COIN_MACHINE_VERSIONS = createContractVersionArray(
   COIN_MACHINE_VERSION_NEXT,
 );
 export type CoinMachineVersion = typeof COIN_MACHINE_VERSIONS[number];
+
+/** @internal */
+export const coinMachineIncompatibilityMap: Record<
+  CoinMachineVersion,
+  Array<ColonyVersion>
+> = {
+  1: [],
+  2: [],
+  3: [],
+};
 
 /** @internal */
 export const getCoinMachineClient = (

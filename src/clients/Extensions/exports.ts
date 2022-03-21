@@ -1,27 +1,31 @@
 import { constants } from 'ethers';
 
-import { getExtensionHash } from '../..';
+import { ColonyVersion, getExtensionHash } from '../..';
 import { assertExhaustiveSwitch } from '../../utils';
 import { AugmentedIColony } from '../Core/augments/commonAugments';
 
 import {
   getCoinMachineClient,
+  coinMachineIncompatibilityMap,
   CoinMachineVersion,
   AnyCoinMachineClient,
 } from './CoinMachine/exports';
 import {
-  AnyOneTxPaymentClient,
   getOneTxPaymentClient,
+  oneTxPaymentIncompatibilityMap,
+  AnyOneTxPaymentClient,
   OneTxPaymentVersion,
 } from './OneTxPayment/exports';
 import {
-  AnyVotingReputationClient,
   getVotingReputationClient,
+  votingReputationIncompatibilityMap,
+  AnyVotingReputationClient,
   VotingReputationVersion,
 } from './VotingReputation/exports';
 import {
-  AnyWhitelistClient,
   getWhitelistClient,
+  whitelistIncompatibilityMap,
+  AnyWhitelistClient,
   WhitelistVersion,
 } from './Whitelist/exports';
 import getExtensionVersionClient from './ExtensionVersionClient';
