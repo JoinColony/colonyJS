@@ -1,3 +1,4 @@
+import { ColonyVersion } from '../../../clients/Core/exports';
 import {
   assertExhaustiveSwitch,
   createContractVersionArray,
@@ -29,6 +30,16 @@ export const VOTING_REPUTATION_VERSIONS = createContractVersionArray(
   VOTING_REPUTATION_VERSION_NEXT,
 );
 export type VotingReputationVersion = typeof VOTING_REPUTATION_VERSIONS[number];
+
+/** @internal */
+export const votingReputationIncompatibilityMap: Record<
+  VotingReputationVersion,
+  Array<ColonyVersion>
+> = {
+  1: [],
+  2: [1, 2, 3, 4, 5, 6],
+  3: [1, 2, 3, 4, 5, 6],
+};
 
 /** @internal */
 export function getVotingReputationClient(

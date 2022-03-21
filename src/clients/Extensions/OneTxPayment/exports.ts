@@ -1,3 +1,4 @@
+import { ColonyVersion } from '../../../clients/Core/exports';
 import {
   assertExhaustiveSwitch,
   createContractVersionArray,
@@ -22,6 +23,15 @@ export const ONE_TX_PAYMENT_VERSIONS = createContractVersionArray(
   ONE_TX_PAYMENT_VERSION_NEXT,
 );
 export type OneTxPaymentVersion = typeof ONE_TX_PAYMENT_VERSIONS[number];
+
+/** @internal */
+export const oneTxPaymentIncompatibilityMap: Record<
+  OneTxPaymentVersion,
+  Array<ColonyVersion>
+> = {
+  1: [],
+  2: [],
+};
 
 /** @internal */
 export const getOneTxPaymentClient = (

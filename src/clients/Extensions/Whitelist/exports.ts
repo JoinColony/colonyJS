@@ -1,3 +1,4 @@
+import { ColonyVersion } from '../../../clients/Core/exports';
 import {
   assertExhaustiveSwitch,
   createContractVersionArray,
@@ -18,6 +19,14 @@ export const WHITELIST_VERSIONS = createContractVersionArray(
   WHITELIST_VERSION_NEXT,
 );
 export type WhitelistVersion = typeof WHITELIST_VERSIONS[number];
+
+/** @internal */
+export const whitelistIncompatibilityMap: Record<
+  WhitelistVersion,
+  Array<ColonyVersion>
+> = {
+  1: [],
+};
 
 /** @internal */
 export const getWhitelistClient = (
