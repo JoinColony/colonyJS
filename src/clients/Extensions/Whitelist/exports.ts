@@ -29,6 +29,9 @@ export const getWhitelistClient = (
     case 1:
       return getWhitelistClientV1(colonyClient, address);
     default:
-      return assertExhaustiveSwitch(version);
+      return assertExhaustiveSwitch(
+        version,
+        'Could not find Whitelist version',
+      );
   }
 };

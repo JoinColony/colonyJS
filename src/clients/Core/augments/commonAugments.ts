@@ -24,7 +24,7 @@ import { IColony__factory as AwkwardRecoveryRoleEventIColony } from '../../../co
 
 import {
   ExtensionClient,
-  Extensions,
+  Extension,
   getExtensionClient,
 } from '../../Extensions/exports';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
@@ -103,7 +103,7 @@ export type AugmentedIColony<T extends AnyIColony = AnyIColony> = T & {
 
   getExtensionClient(
     this: AugmentedIColony,
-    extensionName: Extensions,
+    extensionName: Extension,
   ): Promise<ExtensionClient>;
 
   deployTokenAuthority(

@@ -45,6 +45,9 @@ export const getCoinMachineClient = (
     case 3:
       return getCoinMachineClientV3(colonyClient, address);
     default:
-      return assertExhaustiveSwitch(version);
+      return assertExhaustiveSwitch(
+        version,
+        'Could not find CoinMachine version',
+      );
   }
 };

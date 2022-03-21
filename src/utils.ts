@@ -235,8 +235,8 @@ export const parsePermissionedAction = (action: BytesLike) => {
 
 // Type helpers
 
-export const assertExhaustiveSwitch = (x: never): never => {
-  throw new Error(`Unexpected object: ${x}`);
+export const assertExhaustiveSwitch = (x: never, msg: string): never => {
+  throw new Error(`${msg}: ${x}`);
 };
 
 export const nonNullable = <T>(value: T): value is NonNullable<T> => {

@@ -35,6 +35,9 @@ export const getOneTxPaymentClient = (
     case 2:
       return getOneTxPaymentClientV2(colonyClient, address);
     default:
-      return assertExhaustiveSwitch(version);
+      return assertExhaustiveSwitch(
+        version,
+        'Could not find OneTxPayment version',
+      );
   }
 };
