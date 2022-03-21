@@ -24,7 +24,7 @@ export enum ReputationMinerEndpoints {
 }
 
 /**
- * Supported Ethereum networks. Local refers to the locally deployed contracts when developing.
+ * Supported Ethereum networks. Use `Custom` if you'd like to bring your own deployment (e.g. local)
  */
 export enum Network {
   Mainnet = 'mainnet',
