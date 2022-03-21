@@ -1,3 +1,5 @@
+import { createContractVersionArray } from '../../utils';
+
 import { ColonyNetworkClient } from '../ColonyNetworkClient';
 import getColonyVersionClient from './ColonyVersionClient';
 import getTokenClient from '../TokenClient';
@@ -11,8 +13,6 @@ import getColonyClientV6, { ColonyClientV6 } from './ColonyClientV6';
 import getColonyClientV7, { ColonyClientV7 } from './ColonyClientV7';
 import getColonyClientV8, { ColonyClientV8 } from './ColonyClientV8';
 import getColonyClientV9, { ColonyClientV9 } from './ColonyClientV9';
-
-export type ColonyVersion = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 
 export { ColonyClientV1 } from './ColonyClientV1';
 export { ColonyClientV2 } from './ColonyClientV2';
@@ -34,6 +34,12 @@ export type AnyColonyClient =
   | ColonyClientV7
   | ColonyClientV8
   | ColonyClientV9;
+
+// This is the latest colony version + 1. It's for generating types and compatibility maps
+const COLONY_VERSION_NEXT = 10;
+
+export const COLONY_VERSIONS = createContractVersionArray(COLONY_VERSION_NEXT);
+export type ColonyVersion = typeof COLONY_VERSIONS[number];
 
 /** @internal */
 export async function getColonyClient(

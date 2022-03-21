@@ -1,4 +1,7 @@
-import { assertExhaustiveSwitch } from '../../../utils';
+import {
+  assertExhaustiveSwitch,
+  createContractVersionArray,
+} from '../../../utils';
 import { AugmentedIColony } from '../../Core/augments/commonAugments';
 
 import getVotingReputationClientV1, {
@@ -11,7 +14,7 @@ import getVotingReputationClientV3, {
   VotingReputationClient as VotingReputationClient3,
 } from './VotingReputationClientV3';
 
-export type VotingReputationVersion = 1 | 2 | 3;
+const VOTING_REPUTATION_VERSION_NEXT = 4;
 
 export type VotingReputationClientV1 = VotingReputationClient1;
 export type VotingReputationClientV2 = VotingReputationClient2;
@@ -21,6 +24,11 @@ export type AnyVotingReputationClient =
   | VotingReputationClient1
   | VotingReputationClient2
   | VotingReputationClient3;
+
+export const VOTING_REPUTATION_VERSIONS = createContractVersionArray(
+  VOTING_REPUTATION_VERSION_NEXT,
+);
+export type VotingReputationVersion = typeof VOTING_REPUTATION_VERSIONS[number];
 
 /** @internal */
 export function getVotingReputationClient(

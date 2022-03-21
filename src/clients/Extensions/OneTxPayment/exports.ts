@@ -1,4 +1,7 @@
-import { assertExhaustiveSwitch } from '../../../utils';
+import {
+  assertExhaustiveSwitch,
+  createContractVersionArray,
+} from '../../../utils';
 import { AugmentedIColony } from '../../Core/augments/commonAugments';
 
 import getOneTxPaymentClientV1, {
@@ -8,12 +11,17 @@ import getOneTxPaymentClientV2, {
   OneTxPaymentClient as OneTxPaymentClient2,
 } from './OneTxPaymentClientV2';
 
-export type OneTxPaymentVersion = 1 | 2;
+const ONE_TX_PAYMENT_VERSION_NEXT = 3;
 
 export type OneTxPaymentClientV1 = OneTxPaymentClient1;
 export type OneTxPaymentClientV2 = OneTxPaymentClient2;
 
 export type AnyOneTxPaymentClient = OneTxPaymentClient1 | OneTxPaymentClient2;
+
+export const ONE_TX_PAYMENT_VERSIONS = createContractVersionArray(
+  ONE_TX_PAYMENT_VERSION_NEXT,
+);
+export type OneTxPaymentVersion = typeof ONE_TX_PAYMENT_VERSIONS[number];
 
 /** @internal */
 export const getOneTxPaymentClient = (

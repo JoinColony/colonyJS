@@ -1,4 +1,7 @@
-import { assertExhaustiveSwitch } from '../../../utils';
+import {
+  assertExhaustiveSwitch,
+  createContractVersionArray,
+} from '../../../utils';
 import { AugmentedIColony } from '../../Core/augments/commonAugments';
 
 import getCoinMachineClientV1, {
@@ -11,7 +14,8 @@ import getCoinMachineClientV3, {
   CoinMachineClient as CoinMachineClient3,
 } from './CoinMachineClientV3';
 
-export type CoinMachineVersion = 1 | 2 | 3;
+// This is the latest colony version + 1. It's for generating types and compatibility maps
+const COIN_MACHINE_VERSION_NEXT = 4;
 
 export type CoinMachineClientV1 = CoinMachineClient1;
 export type CoinMachineClientV2 = CoinMachineClient2;
@@ -21,6 +25,11 @@ export type AnyCoinMachineClient =
   | CoinMachineClient1
   | CoinMachineClient2
   | CoinMachineClient3;
+
+export const COIN_MACHINE_VERSIONS = createContractVersionArray(
+  COIN_MACHINE_VERSION_NEXT,
+);
+export type CoinMachineVersion = typeof COIN_MACHINE_VERSIONS[number];
 
 /** @internal */
 export const getCoinMachineClient = (
