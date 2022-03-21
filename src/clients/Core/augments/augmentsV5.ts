@@ -23,6 +23,12 @@ import {
   ColonyAugmentsV4,
   AugmentedEstimateV4,
 } from './augmentsV4';
+import {
+  Extension,
+  ExtensionVersion,
+  isExtensionCompatible,
+} from '../../../clients/Extensions/exports';
+import { getExtensionHash } from '../../../helpers';
 
 type ValidColony = IColonyV5 | IColonyV6 | IColonyV7 | IColonyV8 | IColonyV9;
 
@@ -57,6 +63,14 @@ export interface AugmentedEstimateV5 extends AugmentedEstimateV4 {
     _mask: boolean[],
     _keys: BytesLike[],
     _value: BytesLike,
+  ): Promise<BigNumber>;
+  installExtensionChecked(
+    extension: Extension,
+    version: ExtensionVersion,
+  ): Promise<BigNumber>;
+  upgradeExtensionChecked(
+    extension: Extension,
+    newVersion: ExtensionVersion,
   ): Promise<BigNumber>;
 }
 
@@ -95,6 +109,16 @@ export type ColonyAugmentsV5<T extends ValidColony> = {
     _mask: boolean[],
     _keys: BytesLike[],
     _value: BytesLike,
+    overrides?: Overrides,
+  ): Promise<ContractTransaction>;
+  installExtensionChecked(
+    extension: Extension,
+    version: ExtensionVersion,
+    overrides?: Overrides,
+  ): Promise<ContractTransaction>;
+  upgradeExtensionChecked(
+    extension: Extension,
+    newVersion: ExtensionVersion,
     overrides?: Overrides,
   ): Promise<ContractTransaction>;
 
@@ -226,6 +250,42 @@ async function setExpenditureStateWithProofs(
   );
 }
 
+async function installExtensionChecked(
+  this: AllAugments,
+  extension: Extension,
+  version: ExtensionVersion,
+  overrides?: Overrides,
+): Promise<ContractTransaction> {
+  if (!isExtensionCompatible(extension, version, this.clientVersion)) {
+    throw new Error(
+      `${extension} extension with version ${version} is not compatible with the current Colony version ${this.clientVersion}`,
+    );
+  }
+  return this.installExtension(
+    getExtensionHash(extension),
+    BigNumber.from(version),
+    overrides,
+  );
+}
+
+async function upgradeExtensionChecked(
+  this: AllAugments,
+  extension: Extension,
+  newVersion: ExtensionVersion,
+  overrides?: Overrides,
+): Promise<ContractTransaction> {
+  if (!isExtensionCompatible(extension, newVersion, this.clientVersion)) {
+    throw new Error(
+      `${extension} extension with version ${newVersion} is not compatible with the current Colony version ${this.clientVersion}`,
+    );
+  }
+  return this.upgradeExtension(
+    getExtensionHash(extension),
+    BigNumber.from(newVersion),
+    overrides,
+  );
+}
+
 /*
  * Estimates
  */
@@ -336,6 +396,38 @@ async function estimateSetExpenditureStateWithProofs(
   );
 }
 
+async function estimateInstallExtensionChecked(
+  this: AllAugments,
+  extension: Extension,
+  version: ExtensionVersion,
+): Promise<BigNumber> {
+  if (!isExtensionCompatible(extension, version, this.clientVersion)) {
+    throw new Error(
+      `${extension} extension with version ${version} is not compatible with the current Colony version ${this.clientVersion}`,
+    );
+  }
+  return this.estimateGas.installExtension(
+    getExtensionHash(extension),
+    BigNumber.from(version),
+  );
+}
+
+async function estimateUpgradeExtensionChecked(
+  this: AllAugments,
+  extension: Extension,
+  newVersion: ExtensionVersion,
+): Promise<BigNumber> {
+  if (!isExtensionCompatible(extension, newVersion, this.clientVersion)) {
+    throw new Error(
+      `${extension} extension with version ${newVersion} is not compatible with the current Colony version ${this.clientVersion}`,
+    );
+  }
+  return this.estimateGas.upgradeExtension(
+    getExtensionHash(extension),
+    BigNumber.from(newVersion),
+  );
+}
+
 /*
  * Bindings
  */
@@ -362,6 +454,10 @@ export const addAugments = (
     editDomainWithProofs.bind(augmentedInstance);
   augmentedInstance.setExpenditureStateWithProofs =
     setExpenditureStateWithProofs.bind(augmentedInstance);
+  augmentedInstance.installExtensionChecked =
+    installExtensionChecked.bind(augmentedInstance);
+  augmentedInstance.upgradeExtensionChecked =
+    upgradeExtensionChecked.bind(augmentedInstance);
 
   augmentedInstance.estimateGas.emitDomainReputationPenaltyWithProofs =
     estimateEmitDomainReputationPenaltyWithProofs.bind(augmentedInstance);
@@ -373,6 +469,10 @@ export const addAugments = (
     estimateEditDomainWithProofs.bind(augmentedInstance);
   augmentedInstance.estimateGas.setExpenditureStateWithProofs =
     estimateSetExpenditureStateWithProofs.bind(augmentedInstance);
+  augmentedInstance.estimateGas.installExtensionChecked =
+    estimateInstallExtensionChecked.bind(augmentedInstance);
+  augmentedInstance.estimateGas.upgradeExtensionChecked =
+    estimateUpgradeExtensionChecked.bind(augmentedInstance);
 
   return augmentedInstance;
 };

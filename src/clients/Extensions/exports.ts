@@ -51,7 +51,8 @@ export type ExtensionClient =
   | AnyVotingReputationClient
   | AnyWhitelistClient;
 
-type ExtensionVersion =
+/** @internal */
+export type ExtensionVersion =
   | CoinMachineVersion
   | OneTxPaymentVersion
   | VotingReputationVersion
