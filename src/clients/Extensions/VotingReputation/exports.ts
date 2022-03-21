@@ -44,6 +44,9 @@ export function getVotingReputationClient(
     case 3:
       return getVotingReputationClientV3(colonyClient, address);
     default:
-      return assertExhaustiveSwitch(version);
+      return assertExhaustiveSwitch(
+        version,
+        'Could not find VotingReputation version',
+      );
   }
 }

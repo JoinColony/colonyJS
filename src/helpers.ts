@@ -15,6 +15,7 @@ import {
   AwkwardRecoveryRoleEventClient,
   AugmentedIColony,
 } from './clients/Core/augments/commonAugments';
+import { Extension } from '.';
 
 const { keccak256, toUtf8Bytes } = utils;
 

@@ -35,6 +35,11 @@ export type AnyColonyClient =
   | ColonyClientV8
   | ColonyClientV9;
 
+/// Versioned core contract names
+export enum Core {
+  Colony = 'IColony',
+}
+
 // This is the latest colony version + 1. It's for generating types and compatibility maps
 const COLONY_VERSION_NEXT = 10;
 
