@@ -1,9 +1,8 @@
 <div align="center">
   <img src="/docs/img/colonyStarter_color.svg" width="600" />
 </div>
-<div align="center">
-  [![Discord](https://img.shields.io/discord/562263648173555742)](https://discord.gg/feVZWwysqM)
-</div>
+
+[![Discord](https://img.shields.io/discord/562263648173555742)](https://discord.gg/feVZWwysqM)
 
 # Colony Starter
 
@@ -21,11 +20,9 @@ _You may find it helpful to use [Node Version Manager (`nvm`)](https://github.co
 
 ### Running the examples
 
-First, use this repo as a [template](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template) (**RECOMMENDED**) or clone this repo:
+First, [use this repo as a template](https://github.com/JoinColony/colonyStarter/generate) (**recommended**), then clone it to your machine.
 
-```bash
-git clone https://github.com/JoinColony/colonyStarter.git
-```
+Or clone this repo: `git clone https://github.com/JoinColony/colonyStarter.git`
 
 Then install all the required dependencies (this will install [ethers.js](https://docs.ethers.io/v5/) and [colonyJS](https://github.com/JoinColony/colonyJS) as well as some required development dependencies):
 
