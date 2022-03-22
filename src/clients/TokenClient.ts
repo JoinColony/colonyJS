@@ -1,6 +1,5 @@
 import { constants, utils } from 'ethers';
 
-import { tokenAddresses } from '../constants';
 import {
   TokenFactory,
   Token,
@@ -13,6 +12,11 @@ import { ClientType, SignerOrProvider, TokenClientType } from '../types';
 
 const { AddressZero } = constants;
 const { getAddress, isHexString, parseBytes32String } = utils;
+
+// Token addresses to identify tokens that need special treatment
+const tokenAddresses = {
+  SAI: '0x89d24A6b4CcB1B6fAA2625fE562bDD9a23260359',
+};
 
 const isSai = (address: string): boolean =>
   getAddress(address) === tokenAddresses.SAI;

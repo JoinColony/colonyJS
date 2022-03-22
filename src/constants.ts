@@ -17,13 +17,19 @@ export const COLONY_NETWORK_ADDRESSES = {
 export const ROOT_DOMAIN_ID = 1;
 
 /**
+ * The id of the root fundig pot in all colonies
+ */
+export const ROOT_POT_ID = 1;
+
+/**
  * HTTP endpoint of the official colony reputation oracle
  */
 export const REPUTATION_ORACLE_ENDPOINT = 'https://colony.io/reputation';
 
 /**
- * Token addresses to identify tokens that need special treatment
+ * Shortcut to CLNY token addresses
  */
-export const tokenAddresses = {
-  SAI: '0x89d24A6b4CcB1B6fAA2625fE562bDD9a23260359',
-};
+export enum CLNY {
+  Xdai = '0xc9B6218AffE8Aba68a13899Cbf7cF7f14DDd304C',
+  Mainnet = '0x3E828ac5C480069D4765654Fb4b8733b910b13b2',
+}
