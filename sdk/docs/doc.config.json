@@ -1,6 +1,0 @@
-{
-    "logo": "img/colonyStarter_color.svg",
-    "logoSmall": "img/logomark_colonyStarter_blue.svg",
-    "sectionOrder": ["Docs", "CLI", "Starters", "Examples"],
-    "description": "Boilerplates and examples to get started. Spin up an application in minutes or create an extension for the Colony Network smart contracts."
-}
