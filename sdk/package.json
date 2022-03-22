@@ -1,28 +1,16 @@
 {
-  "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
   "scripts": {
-    "colony": "node scripts/colony.js",
-    "start-ganache": "node scripts/colony.js service start-ganache",
-    "deploy-contracts": "node scripts/colony.js service deploy-contracts",
-    "start-trufflepig": "node scripts/colony.js service start-trufflepig",
-    "seed-network": "node scripts/colony.js service seed-network",
-    "colony-setup": "node scripts/colony.js service colony-setup",
-    "test": "yarn lerna run test --concurrency 1 --stream",
-    "clean": "scripts/clean.sh"
-  },
-  "devDependencies": {
-    "chalk": "^2.4.2",
-    "fs-extra": "^8.1.0",
-    "husky": "^3.0.0",
-    "lerna": "^3.15.0"
-  },
-  "resolutions": {
-    "web3": "^1.0.0-beta.55"
+      "example:node": "ts-node src/index.ts"
   },
   "engines": {
-    "node": ">=10.13.0 <12.0.0"
+    "node": "^16.0.0"
+  },
+  "dependencies": {
+    "@colony/colony-js": "file:../colonyJS",
+    "ethers": "^5.6.1"
+  },
+  "devDependencies": {
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.2"
   }
 }
