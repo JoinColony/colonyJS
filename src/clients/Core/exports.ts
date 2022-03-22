@@ -64,8 +64,16 @@ export async function getColonyClient(
   );
   // This is *kinda* hacky, but I have no better idea ¯\_(ツ)_/¯
   // We have to get the version somehow before instantiating the right contract version
-  const versionBN = await colonyVersionClient.version();
-  const version = versionBN.toNumber() as ColonyVersion;
+  let version;
+  try {
+    const versionBN = await colonyVersionClient.version();
+    version = versionBN.toNumber() as ColonyVersion;
+  } catch (e) {
+    console.error(e);
+    throw new Error(
+      'Could not read Colony version. Is this a valid Colony address?',
+    );
+  }
   let colonyClient: AnyColonyClient;
   switch (version) {
     case 1: {
