@@ -9,7 +9,9 @@ import {
 } from 'ethers';
 
 import { ROOT_DOMAIN_ID } from '../../../constants';
-import { abis, AnyIColony, IColonyV4 } from '../../../exports';
+import { abis } from '../../../exports';
+import { ColonyVersion } from '../exports';
+import { AnyIColony, IColonyV4 } from '../../../contracts/IColony/exports';
 import { fetchReputationOracleData } from '../../../utils';
 import {
   ClientType,
@@ -17,18 +19,18 @@ import {
   FundingPotAssociatedType,
   ReputationMinerEndpoints,
 } from '../../../types';
-import { ColonyVersion, Extensions } from '../../../versions';
 
 import { IColony__factory as AwkwardRecoveryRoleEventIColony } from '../../../contracts/IColony/4/factories/IColony__factory';
 
-import { ExtensionClient } from '../../Extensions/colonyContractExtensions';
-import getExtensionVersionClient from '../../Extensions/ExtensionVersionClient';
+import {
+  ExtensionClient,
+  Extensions,
+  getExtensionClient,
+} from '../../Extensions/exports';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
 import { TokenClient } from '../../TokenClient';
 
-import { getExtensionHash } from '../../../helpers';
-
-const { MaxUint256, AddressZero } = constants;
+const { MaxUint256 } = constants;
 
 const { abi: tokenAuthorityAbi, bytecode: tokenAuthorityBytecode } =
   abis.TokenAuthority;
@@ -258,7 +260,6 @@ export const getChildIndex = async (
 // Call getPermissionProofs once for domainId and role
 // Find domains for pots
 // Find childSkillIndeces for from and to domain in domain we're acting in (domainId)
-
 export const getPermissionProofs = async (
   contract: AugmentedIColony,
   domainId: BigNumberish,
@@ -325,32 +326,6 @@ export const getExtensionPermissionProofs = async (
 
   return [adminPDID, adminCSI];
 };
-
-async function getExtensionClient(
-  this: AugmentedIColony,
-  extensionName: Extensions,
-): Promise<ExtensionClient> {
-  const extensionAddress = await this.networkClient.getExtensionInstallation(
-    getExtensionHash(extensionName),
-    this.address,
-  );
-  if (extensionAddress === AddressZero) {
-    throw new Error(
-      `${extensionName} extension is not installed for this colony`,
-    );
-  }
-  const extensionVersionClient = getExtensionVersionClient(
-    extensionAddress,
-    this.signer || this.provider,
-  );
-  const versionBN = await extensionVersionClient.version();
-  const version = versionBN.toNumber() as ColonyVersion;
-  const {
-    default: getVersionedExtensionClient,
-    // eslint-disable-next-line import/no-dynamic-require, global-require, @typescript-eslint/no-var-requires, max-len
-  } = require(`../../Extensions/${extensionName}/${version}/${extensionName}Client`);
-  return getVersionedExtensionClient(extensionAddress, this);
-}
 
 async function setArchitectureRoleWithProofs(
   this: AugmentedIColony,

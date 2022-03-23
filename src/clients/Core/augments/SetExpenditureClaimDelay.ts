@@ -5,7 +5,12 @@ import {
   ContractTransaction,
 } from 'ethers';
 
-import { IColonyV4, IColonyV5, IColonyV6, IColonyV7 } from '../../../exports';
+import {
+  IColonyV4,
+  IColonyV5,
+  IColonyV6,
+  IColonyV7,
+} from '../../../contracts/IColony/exports';
 import { ColonyRole } from '../../../types';
 import { AugmentedIColony, getPermissionProofs } from './commonAugments';
 

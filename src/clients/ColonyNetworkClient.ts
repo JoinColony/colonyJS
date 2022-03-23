@@ -5,25 +5,15 @@ import {
   Overrides,
 } from 'ethers';
 
-import { ColonyClient, ClientType, Network, SignerOrProvider } from '../types';
+import { ClientType, Network, SignerOrProvider } from '../types';
+import { AnyColonyClient } from '../clients/Core/exports';
 
 import {
   COLONY_NETWORK_ADDRESSES,
   REPUTATION_ORACLE_ENDPOINT,
 } from '../constants';
-import { ColonyVersion } from '../versions';
 import { IColonyNetwork, IColonyNetworkFactory, abis } from '../exports';
-import getColonyVersionClient from './Core/ColonyVersionClient';
-import getColonyClientV1 from './Core/ColonyClientV1';
-import getColonyClientV2 from './Core/ColonyClientV2';
-import getColonyClientV3 from './Core/ColonyClientV3';
-import getColonyClientV4 from './Core/ColonyClientV4';
-import getColonyClientV5 from './Core/ColonyClientV5';
-import getColonyClientV6 from './Core/ColonyClientV6';
-import getColonyClientV7 from './Core/ColonyClientV7';
-import getColonyClientV8 from './Core/ColonyClientV8';
-import getColonyClientV9 from './Core/ColonyClientV9';
-import getTokenClient from './TokenClient';
+import { getColonyClient } from './Core/exports';
 import getTokenLockingClient, {
   TokenLockingClient,
 } from './TokenLockingClient';
@@ -54,13 +44,13 @@ export interface ColonyNetworkClient extends IColonyNetwork {
    *
    * @returns The corresponding initialized ColonyClient instance
    */
-  getColonyClient(addressOrId: string | number): Promise<ColonyClient>;
+  getColonyClient(addressOrId: string | number): Promise<AnyColonyClient>;
   /**
    * Get the initialized MetaColony client
    *
    * @returns a ColonyClient instance of the MetaColony (id: 1)
    */
-  getMetaColonyClient(): Promise<ColonyClient>;
+  getMetaColonyClient(): Promise<AnyColonyClient>;
   /**
    * Deploy an ERC20 token contract, compatible with Colony
    *
@@ -161,112 +151,9 @@ const getColonyNetworkClient = (
       return getTokenLockingClient(tokenLockingAddress, signerOrProvider);
     };
 
-  networkClient.getColonyClient = async (
-    addressOrId: string | number,
-  ): Promise<ColonyClient> => {
-    let colonyAddress: string;
-    if (typeof addressOrId == 'number') {
-      colonyAddress = await networkClient.getColony(addressOrId);
-    } else {
-      colonyAddress = addressOrId;
-    }
-    const colonyVersionClient = getColonyVersionClient(
-      colonyAddress,
-      signerOrProvider,
-    );
-    // This is *kinda* hacky, but I have no better idea ¯\_(ツ)_/¯
-    // We have to get the version somehow before instantiating the right contract version
-    const versionBN = await colonyVersionClient.version();
-    const version = versionBN.toNumber() as ColonyVersion;
-    let colonyClient: ColonyClient;
-    switch (version) {
-      case 1: {
-        colonyClient = getColonyClientV1.call(
-          networkClient,
-          colonyAddress,
-          signerOrProvider,
-        );
-        break;
-      }
-      case 2: {
-        colonyClient = getColonyClientV2.call(
-          networkClient,
-          colonyAddress,
-          signerOrProvider,
-        );
-        break;
-      }
-      case 3: {
-        colonyClient = getColonyClientV3.call(
-          networkClient,
-          colonyAddress,
-          signerOrProvider,
-        );
-        break;
-      }
-      case 4: {
-        colonyClient = getColonyClientV4.call(
-          networkClient,
-          colonyAddress,
-          signerOrProvider,
-        );
-        break;
-      }
-      case 5: {
-        colonyClient = getColonyClientV5.call(
-          networkClient,
-          colonyAddress,
-          signerOrProvider,
-        );
-        break;
-      }
-      case 6: {
-        colonyClient = getColonyClientV6.call(
-          networkClient,
-          colonyAddress,
-          signerOrProvider,
-        );
-        break;
-      }
-      case 7: {
-        colonyClient = getColonyClientV7.call(
-          networkClient,
-          colonyAddress,
-          signerOrProvider,
-        );
-        break;
-      }
-      case 8: {
-        colonyClient = getColonyClientV8.call(
-          networkClient,
-          colonyAddress,
-          signerOrProvider,
-        );
-        break;
-      }
-      case 9: {
-        colonyClient = getColonyClientV9.call(
-          networkClient,
-          colonyAddress,
-          signerOrProvider,
-        );
-        break;
-      }
-      default: {
-        throw new Error('Colony version not supported');
-      }
-    }
+  networkClient.getColonyClient = getColonyClient.bind(networkClient);
 
-    const tokenAddress = await colonyClient.getToken();
-    colonyClient.tokenClient = await getTokenClient(
-      tokenAddress,
-      signerOrProvider,
-    );
-
-    return colonyClient;
-  };
-
-  networkClient.getMetaColonyClient = async (): Promise<ColonyClient> => {
+  networkClient.getMetaColonyClient = async (): Promise<AnyColonyClient> => {
     const metaColonyAddress = await networkClient.getMetaColony();
     return networkClient.getColonyClient(metaColonyAddress);
   };

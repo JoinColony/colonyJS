@@ -1,8 +1,11 @@
+import { Extensions } from './clients/Extensions/exports';
+
 /*
  * Core IColony Versioning
  */
+// TODO: this does not work. Refactor compatibility maps
 const CORE_COLONY_VERSIONS = [1, 2, 4, 5, 6, 7, 8, 9];
-export type ColonyVersion = typeof CORE_COLONY_VERSIONS[number];
+type ColonyVersion = typeof CORE_COLONY_VERSIONS[number];
 
 /*
  * One Transaction Payment Extension Versioning
@@ -93,15 +96,6 @@ export enum Core {
   Colony = 'IColony',
 }
 
-/// Versioned extension contract names
-export enum Extensions {
-  CoinMachine = 'CoinMachine',
-  // FundingQueue = 'FundingQueue',
-  OneTxPayment = 'OneTxPayment',
-  VotingReputation = 'VotingReputation',
-  Whitelist = 'Whitelist',
-}
-
 // Map versioned contracts to network release tags
 export const releaseMap = {
   [Core.Colony]: {
@@ -157,6 +151,7 @@ function getExtensionCompatibilityMap(
  * Extensions Compatibility and Incompatibility Map
  * (Aggregates from the various extensions ones)
  */
+// TODO: I guess we have to improve this
 export const extensionsIncompatibilityMap = {
   [Extensions.OneTxPayment]: OneTxPaymentExtensionVersionIncompatibilityMap,
   [Extensions.CoinMachine]: CoinMachineExtensionVersionIncompatibilityMap,

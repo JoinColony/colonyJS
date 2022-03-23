@@ -12,7 +12,7 @@ import {
   IColonyV7,
   IColonyV8,
   IColonyV9,
-} from '../../../exports';
+} from '../../../contracts/IColony/exports';
 import { ColonyRole } from '../../../types';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
 import { getPermissionProofs, AugmentedIColony } from './commonAugments';
@@ -56,11 +56,11 @@ export type ColonyAugmentsV4<T extends ValidColony> = {
   estimateGas: T['estimateGas'] & AugmentedEstimateV4;
 };
 
-type AugmentedColony = AugmentedIColony<ValidColony> &
+type AllAugments = AugmentedIColony<ValidColony> &
   ColonyAugmentsV4<ValidColony>;
 
 async function hasInheritedUserRoleWithProofs(
-  this: AugmentedColony,
+  this: AllAugments,
   _user: string,
   _domainId: BigNumberish,
   _role: ColonyRole,
@@ -81,7 +81,7 @@ async function hasInheritedUserRoleWithProofs(
 }
 
 async function makeExpenditureWithProofs(
-  this: AugmentedColony,
+  this: AllAugments,
   _domainId: BigNumberish,
   overrides?: Overrides,
 ): Promise<ContractTransaction> {
@@ -99,7 +99,7 @@ async function makeExpenditureWithProofs(
 }
 
 async function transferExpenditureViaArbitrationWithProofs(
-  this: AugmentedColony,
+  this: AllAugments,
   _id: BigNumberish,
   _newOwner: string,
   overrides?: Overrides,
@@ -120,7 +120,7 @@ async function transferExpenditureViaArbitrationWithProofs(
 }
 
 async function estimateMakeExpenditureWithProofs(
-  this: AugmentedColony,
+  this: AllAugments,
   _domainId: BigNumberish,
 ): Promise<BigNumber> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
@@ -136,7 +136,7 @@ async function estimateMakeExpenditureWithProofs(
 }
 
 async function estimateTransferExpenditureViaArbitrationWithProofs(
-  this: AugmentedColony,
+  this: AllAugments,
   _newOwner: string,
   _id: BigNumberish,
 ): Promise<BigNumber> {
