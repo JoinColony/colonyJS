@@ -3,16 +3,7 @@
 
 name: Node.js CI
 
-on:
-  pull_request:
-    types:
-      - opened
-      - synchronize
-    branches:
-      - develop
-  push:
-    branches:
-      - develop
+on: [pull_request, push]
 
 jobs:
   build:
