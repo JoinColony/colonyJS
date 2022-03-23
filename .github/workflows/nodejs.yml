@@ -5,11 +5,14 @@ name: Node.js CI
 
 on:
   pull_request:
+    types:
+      - opened
+      - synchronize
     branches:
-      - 'develop'
+      - develop
   push:
     branches:
-      - 'develop'
+      - develop
 
 jobs:
   build:
