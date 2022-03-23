@@ -141,3 +141,5 @@ export async function getColonyClient(
 
   return colonyClient;
 }
+
+export { default as getUtilsClient } from '../UtilsClient';

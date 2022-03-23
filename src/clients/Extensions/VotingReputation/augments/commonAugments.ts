@@ -17,6 +17,7 @@ import { ColonyRole } from '../../../../types';
 import { VotingReputationVersion } from '../exports';
 import { AnyVotingReputation } from '../../../../contracts/VotingReputation/exports';
 import { ClientType } from '../../../..';
+import { parsePermissionedAction } from '../../../../utils';
 
 const { MaxUint256 } = constants;
 
@@ -27,10 +28,6 @@ export type AugmentedEstimate<
     /// Domain in which the voting will take place in
     _domainId: BigNumberish,
     _action: BytesLike,
-    _key: BytesLike,
-    _value: BytesLike,
-    _branchMask: BigNumberish,
-    _siblings: BytesLike[],
     overrides?: Overrides,
   ): Promise<BigNumber>;
 
@@ -38,20 +35,12 @@ export type AugmentedEstimate<
     _motionId: BigNumberish,
     _vote: BigNumberish,
     _amount: BigNumberish,
-    _key: BytesLike,
-    _value: BytesLike,
-    _branchMask: BigNumberish,
-    _siblings: BytesLike[],
     overrides?: Overrides,
   ): Promise<BigNumber>;
 
   escalateMotionWithProofs(
     _motionId: BigNumberish,
     _newDomainId: BigNumberish, // parent, or ancestor, domain id
-    _key: BytesLike,
-    _value: BytesLike,
-    _branchMask: BigNumberish,
-    _siblings: BytesLike[],
     overrides?: Overrides,
   ): Promise<BigNumber>;
 
@@ -75,10 +64,6 @@ export type AugmentedVotingReputation<
     /// Domain in which the voting will take place in
     _domainId: BigNumberish,
     _action: BytesLike,
-    _key: BytesLike,
-    _value: BytesLike,
-    _branchMask: BigNumberish,
-    _siblings: BytesLike[],
     overrides?: Overrides,
   ): Promise<ContractTransaction>;
 
@@ -86,10 +71,6 @@ export type AugmentedVotingReputation<
     _motionId: BigNumberish,
     _vote: BigNumberish,
     _amount: BigNumberish,
-    _key: BytesLike,
-    _value: BytesLike,
-    _branchMask: BigNumberish,
-    _siblings: BytesLike[],
     overrides?: Overrides,
   ): Promise<ContractTransaction>;
 
@@ -97,10 +78,6 @@ export type AugmentedVotingReputation<
     _motionId: BigNumberish,
     /// Parent, or ancestor, domain id
     _newDomainId: BigNumberish,
-    _key: BytesLike,
-    _value: BytesLike,
-    _branchMask: BigNumberish,
-    _siblings: BytesLike[],
     overrides?: Overrides,
   ): Promise<ContractTransaction>;
 
@@ -116,20 +93,16 @@ async function createDomainMotionWithProofs(
   this: AugmentedVotingReputation,
   _domainId: BigNumberish, // Domain in which the voting will take place in
   _action: BytesLike,
-  _key: BytesLike,
-  _value: BytesLike,
-  _branchMask: BigNumberish,
-  _siblings: BytesLike[],
   overrides?: Overrides,
 ): Promise<ContractTransaction> {
   let childSkillIdex = MaxUint256;
-  const votingDomain = BigNumber.from(_domainId);
-  const decodedDomain = BigNumber.from(`0x${_action.toString().slice(10, 74)}`); // Domain in which we have permissions
-  if (!decodedDomain.eq(votingDomain)) {
+  const { permissionDomainId } = parsePermissionedAction(_action);
+  // Domain in which we have permissions
+  if (!permissionDomainId.eq(_domainId)) {
     const domainSkillIdIndex = await getChildIndex(
       this.colonyClient,
-      decodedDomain,
-      votingDomain,
+      permissionDomainId,
+      _domainId,
     );
     if (!domainSkillIdIndex.eq(BigNumber.from(-1))) {
       childSkillIdex = BigNumber.from(domainSkillIdIndex);
@@ -137,14 +110,20 @@ async function createDomainMotionWithProofs(
       throw new Error('Child skill index could not be found');
     }
   }
+
+  const { skillId } = await this.colonyClient.getDomain(permissionDomainId);
+  const walletAddress = await this.signer.getAddress();
+  const { key, value, branchMask, siblings } =
+    await this.colonyClient.getReputation(skillId, walletAddress);
+
   return this.createDomainMotion(
-    votingDomain,
+    _domainId,
     childSkillIdex,
     _action,
-    _key,
-    _value,
-    _branchMask,
-    _siblings,
+    key,
+    value,
+    branchMask,
+    siblings,
     overrides,
   );
 }
@@ -154,29 +133,31 @@ async function stakeMotionWithProofs(
   _motionId: BigNumberish,
   _vote: BigNumberish,
   _amount: BigNumberish,
-  _key: BytesLike,
-  _value: BytesLike,
-  _branchMask: BigNumberish,
-  _siblings: BytesLike[],
   overrides?: Overrides,
 ): Promise<ContractTransaction> {
-  const { domainId } = await this.getMotion(_motionId);
+  const { domainId, rootHash } = await this.getMotion(_motionId);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this.colonyClient,
     domainId,
     ColonyRole.Arbitration,
     this.address,
   );
+
+  const { skillId } = await this.colonyClient.getDomain(domainId);
+  const walletAddress = await this.signer.getAddress();
+  const { key, value, branchMask, siblings } =
+    await this.colonyClient.getReputation(skillId, walletAddress, rootHash);
+
   return this.stakeMotion(
     _motionId,
     permissionDomainId,
     childSkillIndex,
     _vote,
     _amount,
-    _key,
-    _value,
-    _branchMask,
-    _siblings,
+    key,
+    value,
+    branchMask,
+    siblings,
     overrides,
   );
 }
@@ -185,13 +166,9 @@ async function escalateMotionWithProofs(
   this: AugmentedVotingReputation,
   _motionId: BigNumberish,
   _newDomainId: BigNumberish, // parent, or ancestor, domain id
-  _key: BytesLike,
-  _value: BytesLike,
-  _branchMask: BigNumberish,
-  _siblings: BytesLike[],
   overrides?: Overrides,
 ): Promise<ContractTransaction> {
-  const { domainId } = await this.getMotion(_motionId);
+  const { domainId, rootHash } = await this.getMotion(_motionId);
   const motionDomainChildSkillIdIndex = await getChildIndex(
     this.colonyClient,
     BigNumber.from(_newDomainId),
@@ -200,14 +177,20 @@ async function escalateMotionWithProofs(
   if (motionDomainChildSkillIdIndex.toNumber() === -1) {
     throw new Error('Child skill index could not be found');
   }
+
+  const { skillId } = await this.colonyClient.getDomain(domainId);
+  const walletAddress = await this.signer.getAddress();
+  const { key, value, branchMask, siblings } =
+    await this.colonyClient.getReputation(skillId, walletAddress, rootHash);
+
   return this.escalateMotion(
     _motionId,
     _newDomainId,
     motionDomainChildSkillIdIndex,
-    _key,
-    _value,
-    _branchMask,
-    _siblings,
+    key,
+    value,
+    branchMask,
+    siblings,
     overrides,
   );
 }
@@ -226,6 +209,7 @@ async function claimRewardWithProofs(
     ColonyRole.Arbitration,
     this.address,
   );
+
   return this.claimReward(
     _motionId,
     permissionDomainId,
@@ -240,19 +224,14 @@ async function estimateCreateDomainMotionWithProofs(
   this: AugmentedVotingReputation,
   _domainId: BigNumberish, // Domain in which the voting will take place in
   _action: BytesLike,
-  _key: BytesLike,
-  _value: BytesLike,
-  _branchMask: BigNumberish,
-  _siblings: BytesLike[],
 ): Promise<BigNumber> {
   let childSkillIdex = MaxUint256;
-  const votingDomain = BigNumber.from(_domainId);
-  const decodedDomain = BigNumber.from(`0x${_action.toString().slice(10, 74)}`); // Domain in which we have permissions
-  if (!decodedDomain.eq(votingDomain)) {
+  const { permissionDomainId } = parsePermissionedAction(_action);
+  if (!permissionDomainId.eq(_domainId)) {
     const domainSkillIdIndex = await getChildIndex(
       this.colonyClient,
-      decodedDomain,
-      votingDomain,
+      permissionDomainId,
+      _domainId,
     );
     if (!domainSkillIdIndex.eq(BigNumber.from(-1))) {
       childSkillIdex = BigNumber.from(domainSkillIdIndex);
@@ -260,14 +239,20 @@ async function estimateCreateDomainMotionWithProofs(
       throw new Error('Child skill index could not be found');
     }
   }
+
+  const { skillId } = await this.colonyClient.getDomain(permissionDomainId);
+  const walletAddress = await this.signer.getAddress();
+  const { key, value, branchMask, siblings } =
+    await this.colonyClient.getReputation(skillId, walletAddress);
+
   return this.estimateGas.createDomainMotion(
-    votingDomain,
+    _domainId,
     childSkillIdex,
     _action,
-    _key,
-    _value,
-    _branchMask,
-    _siblings,
+    key,
+    value,
+    branchMask,
+    siblings,
   );
 }
 
@@ -276,28 +261,30 @@ async function estimateStakeMotionWithProofs(
   _motionId: BigNumberish,
   _vote: BigNumberish,
   _amount: BigNumberish,
-  _key: BytesLike,
-  _value: BytesLike,
-  _branchMask: BigNumberish,
-  _siblings: BytesLike[],
 ): Promise<BigNumber> {
-  const { domainId } = await this.getMotion(_motionId);
+  const { domainId, rootHash } = await this.getMotion(_motionId);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this.colonyClient,
     domainId,
     ColonyRole.Arbitration,
     this.address,
   );
+
+  const { skillId } = await this.colonyClient.getDomain(domainId);
+  const walletAddress = await this.signer.getAddress();
+  const { key, value, branchMask, siblings } =
+    await this.colonyClient.getReputation(skillId, walletAddress, rootHash);
+
   return this.estimateGas.stakeMotion(
     _motionId,
     permissionDomainId,
     childSkillIndex,
     _vote,
     _amount,
-    _key,
-    _value,
-    _branchMask,
-    _siblings,
+    key,
+    value,
+    branchMask,
+    siblings,
   );
 }
 
@@ -305,12 +292,8 @@ async function estimateEscalateMotionWithProofs(
   this: AugmentedVotingReputation,
   _motionId: BigNumberish,
   _newDomainId: BigNumberish, // parent, or ancestor, domain id
-  _key: BytesLike,
-  _value: BytesLike,
-  _branchMask: BigNumberish,
-  _siblings: BytesLike[],
 ): Promise<BigNumber> {
-  const { domainId } = await this.getMotion(_motionId);
+  const { domainId, rootHash } = await this.getMotion(_motionId);
   const motionDomainChildSkillIdIndex = await getChildIndex(
     this.colonyClient,
     BigNumber.from(_newDomainId),
@@ -319,14 +302,20 @@ async function estimateEscalateMotionWithProofs(
   if (motionDomainChildSkillIdIndex.toNumber() === -1) {
     throw new Error('Child skill index could not be found');
   }
+
+  const { skillId } = await this.colonyClient.getDomain(domainId);
+  const walletAddress = await this.signer.getAddress();
+  const { key, value, branchMask, siblings } =
+    await this.colonyClient.getReputation(skillId, walletAddress, rootHash);
+
   return this.estimateGas.escalateMotion(
     _motionId,
     _newDomainId,
     motionDomainChildSkillIdIndex,
-    _key,
-    _value,
-    _branchMask,
-    _siblings,
+    key,
+    value,
+    branchMask,
+    siblings,
   );
 }
 

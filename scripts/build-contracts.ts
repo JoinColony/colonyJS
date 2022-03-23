@@ -26,6 +26,7 @@ const UNVERSIONED_CONTRACTS = [
   // Colony Network Interface ABIs
   'IColonyNetwork',
   'TokenLocking',
+  'Utils',
   // ERC20 tokens
   'Token',
   'TokenERC20',
