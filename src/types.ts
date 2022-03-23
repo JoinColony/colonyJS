@@ -1,4 +1,4 @@
-import type { Signer } from 'ethers';
+import type { Overrides, Signer } from 'ethers';
 import type { Provider } from '@ethersproject/abstract-provider';
 
 import { AnyColonyClient } from './clients/Core/exports';
@@ -146,3 +146,6 @@ export enum FundingPotAssociatedType {
   Payment,
   Expenditure,
 }
+
+/** @internal */
+export type TxOverrides = Overrides & { from?: string | Promise<string> };

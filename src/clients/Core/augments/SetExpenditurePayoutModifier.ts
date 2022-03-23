@@ -1,9 +1,4 @@
-import {
-  BigNumber,
-  BigNumberish,
-  Overrides,
-  ContractTransaction,
-} from 'ethers';
+import { BigNumber, BigNumberish, ContractTransaction } from 'ethers';
 
 import {
   IColonyV4,
@@ -11,7 +6,7 @@ import {
   IColonyV6,
   IColonyV7,
 } from '../../../contracts/IColony/exports';
-import { ColonyRole } from '../../../types';
+import { ColonyRole, TxOverrides } from '../../../types';
 import { AugmentedIColony, getPermissionProofs } from './commonAugments';
 
 // Colonies that support this method
@@ -22,6 +17,7 @@ export interface SetExpenditurePayoutModifierEstimateGas {
     _id: BigNumberish,
     _slot: BigNumberish,
     _payoutModifier: BigNumberish,
+    overrides?: TxOverrides,
   ): Promise<BigNumber>;
 }
 
@@ -30,7 +26,7 @@ export type SetExpenditurePayoutModifierAugments<T extends ValidColony> = {
     _id: BigNumberish,
     _slot: BigNumberish,
     _payoutModifier: BigNumberish,
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
   estimateGas: T['estimateGas'] & SetExpenditurePayoutModifierEstimateGas;
 };
@@ -41,7 +37,7 @@ async function setExpenditurePayoutModifierWithProofs(
   _id: BigNumberish,
   _slot: BigNumberish,
   _payoutModifier: BigNumberish,
-  overrides?: Overrides,
+  overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const { domainId } = await this.getExpenditure(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
@@ -65,6 +61,7 @@ async function estimateSetExpenditurePayoutModifierWithProofs(
   _id: BigNumberish,
   _slot: BigNumberish,
   _payoutModifier: BigNumberish,
+  overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const { domainId } = await this.getExpenditure(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
@@ -78,6 +75,7 @@ async function estimateSetExpenditurePayoutModifierWithProofs(
     _id,
     _slot,
     _payoutModifier,
+    overrides,
   );
 }
 

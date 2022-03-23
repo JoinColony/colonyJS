@@ -1,9 +1,4 @@
-import {
-  ContractTransaction,
-  BigNumber,
-  BigNumberish,
-  Overrides,
-} from 'ethers';
+import { ContractTransaction, BigNumber, BigNumberish } from 'ethers';
 
 import {
   IColonyV3,
@@ -14,7 +9,7 @@ import {
   IColonyV8,
   IColonyV9,
 } from '../../../contracts/IColony/exports';
-import { ColonyRole } from '../../../types';
+import { ColonyRole, TxOverrides } from '../../../types';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
 import {
   addAugments as addCommonAugments,
@@ -36,6 +31,7 @@ export interface AugmentedEstimateV3 {
     _user: string,
     _domainId: BigNumberish,
     _setTo: boolean,
+    overrides?: TxOverrides,
   ): Promise<BigNumber>;
 }
 
@@ -44,7 +40,7 @@ export type ColonyAugmentsV3<T extends ValidColony> = {
     _user: string,
     _domainId: BigNumberish,
     _setTo: boolean,
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
   estimateGas: T['estimateGas'] & AugmentedEstimateV3;
 };
@@ -57,7 +53,7 @@ async function setArbitrationRoleWithProofs(
   _user: string,
   _domainId: BigNumberish,
   _setTo: boolean,
-  overrides?: Overrides,
+  overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   let proofs: [BigNumberish, BigNumberish];
   // This method has two potential permissions, so we try both of them
@@ -86,6 +82,7 @@ async function estimateSetArbitrationRoleWithProofs(
   _user: string,
   _domainId: BigNumberish,
   _setTo: boolean,
+  overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this,
@@ -98,6 +95,7 @@ async function estimateSetArbitrationRoleWithProofs(
     _user,
     _domainId,
     _setTo,
+    overrides,
   );
 }
 

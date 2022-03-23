@@ -1,16 +1,11 @@
-import {
-  BigNumber,
-  BigNumberish,
-  Overrides,
-  ContractTransaction,
-} from 'ethers';
+import { BigNumber, BigNumberish, ContractTransaction } from 'ethers';
 
 import {
   IColonyV1,
   IColonyV2,
   IColonyV3,
 } from '../../../contracts/IColony/exports';
-import { ColonyRole } from '../../../types';
+import { ColonyRole, TxOverrides } from '../../../types';
 import { AugmentedIColony, getPermissionProofs } from './commonAugments';
 
 // Colonies that support this method
@@ -20,6 +15,7 @@ export interface SetPaymentDomainEstimateGas {
   setPaymentDomainWithProofs(
     _id: BigNumberish,
     _domainId: BigNumberish,
+    overrides?: TxOverrides,
   ): Promise<BigNumber>;
 }
 
@@ -27,7 +23,7 @@ export type SetPaymentDomainAugments<T extends ValidColony> = {
   setPaymentDomainWithProofs(
     _id: BigNumberish,
     _domainId: BigNumberish,
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
   estimateGas: T['estimateGas'] & SetPaymentDomainEstimateGas;
 };
@@ -36,7 +32,7 @@ async function setPaymentDomainWithProofs(
   this: AugmentedIColony<ValidColony> & SetPaymentDomainAugments<ValidColony>,
   _id: BigNumberish,
   _domainId: string,
-  overrides?: Overrides,
+  overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const { domainId } = await this.getPayment(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
@@ -57,6 +53,7 @@ async function estimateSetPaymentDomainWithProofs(
   this: AugmentedIColony<ValidColony> & SetPaymentDomainAugments<ValidColony>,
   _id: BigNumberish,
   _domainId: BigNumberish,
+  overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const { domainId } = await this.getPayment(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
@@ -69,6 +66,7 @@ async function estimateSetPaymentDomainWithProofs(
     childSkillIndex,
     _id,
     _domainId,
+    overrides,
   );
 }
 export const addAugments = (

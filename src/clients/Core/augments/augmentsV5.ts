@@ -3,11 +3,10 @@ import {
   BigNumber,
   BigNumberish,
   BytesLike,
-  Overrides,
 } from 'ethers';
 
 import { ROOT_DOMAIN_ID } from '../../../constants';
-import { ColonyRole } from '../../../types';
+import { ColonyRole, TxOverrides } from '../../../types';
 import {
   IColonyV5,
   IColonyV6,
@@ -40,11 +39,13 @@ export interface AugmentedEstimateV5 extends AugmentedEstimateV4 {
     _domainId: BigNumberish,
     _user: string,
     _amount: BigNumberish,
+    overrides?: TxOverrides,
   ): Promise<BigNumber>;
   setUserRolesWithProofs(
     _user: string,
     _domainId: BigNumberish,
     _roles: BytesLike,
+    overrides?: TxOverrides,
   ): Promise<BigNumber>;
   transferStakeWithProofs(
     _obligator: string,
@@ -52,10 +53,12 @@ export interface AugmentedEstimateV5 extends AugmentedEstimateV4 {
     _domainId: BigNumberish,
     _amount: BigNumberish,
     _recipient: string,
+    overrides?: TxOverrides,
   ): Promise<BigNumber>;
   editDomainWithProofs(
     _domainId: BigNumberish,
     _metadata: string,
+    overrides?: TxOverrides,
   ): Promise<BigNumber>;
   setExpenditureStateWithProofs(
     _id: BigNumberish,
@@ -63,14 +66,17 @@ export interface AugmentedEstimateV5 extends AugmentedEstimateV4 {
     _mask: boolean[],
     _keys: BytesLike[],
     _value: BytesLike,
+    overrides?: TxOverrides,
   ): Promise<BigNumber>;
   installExtensionChecked(
     extension: Extension,
     version: ExtensionVersion,
+    overrides?: TxOverrides,
   ): Promise<BigNumber>;
   upgradeExtensionChecked(
     extension: Extension,
     newVersion: ExtensionVersion,
+    overrides?: TxOverrides,
   ): Promise<BigNumber>;
 }
 
@@ -82,13 +88,13 @@ export type ColonyAugmentsV5<T extends ValidColony> = {
     _domainId: BigNumberish,
     _user: string,
     _amount: BigNumberish,
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
   setUserRolesWithProofs(
     _user: string,
     _domainId: BigNumberish,
     _roles: BytesLike,
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
   transferStakeWithProofs(
     _obligator: string,
@@ -96,12 +102,12 @@ export type ColonyAugmentsV5<T extends ValidColony> = {
     _domainId: BigNumberish,
     _amount: BigNumberish,
     _recipient: string,
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
   editDomainWithProofs(
     _domainId: BigNumberish,
     _metadata: string,
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
   setExpenditureStateWithProofs(
     _id: BigNumberish,
@@ -109,17 +115,17 @@ export type ColonyAugmentsV5<T extends ValidColony> = {
     _mask: boolean[],
     _keys: BytesLike[],
     _value: BytesLike,
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
   installExtensionChecked(
     extension: Extension,
     version: ExtensionVersion,
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
   upgradeExtensionChecked(
     extension: Extension,
     newVersion: ExtensionVersion,
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
 
   estimateGas: T['estimateGas'] & AugmentedEstimateV5;
@@ -137,7 +143,7 @@ async function emitDomainReputationPenaltyWithProofs(
   _domainId: BigNumberish,
   _user: string,
   _amount: BigNumberish,
-  overrides?: Overrides,
+  overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this,
@@ -159,7 +165,7 @@ async function setUserRolesWithProofs(
   _user: string,
   _domainId: BigNumberish,
   _roles: BytesLike,
-  overrides?: Overrides,
+  overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const isRootDomain = _domainId === ROOT_DOMAIN_ID.toString();
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
@@ -184,7 +190,7 @@ async function transferStakeWithProofs(
   _domainId: BigNumberish,
   _amount: BigNumberish,
   _recipient: string,
-  overrides?: Overrides,
+  overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this,
@@ -207,7 +213,7 @@ async function editDomainWithProofs(
   this: AllAugments,
   _domainId: BigNumberish,
   _metadata: string,
-  overrides?: Overrides,
+  overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this,
@@ -230,7 +236,7 @@ async function setExpenditureStateWithProofs(
   _mask: boolean[],
   _keys: BytesLike[],
   _value: BytesLike,
-  overrides?: Overrides,
+  overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const { domainId } = await this.getExpenditure(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
@@ -254,7 +260,7 @@ async function installExtensionChecked(
   this: AllAugments,
   extension: Extension,
   version: ExtensionVersion,
-  overrides?: Overrides,
+  overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   if (!isExtensionCompatible(extension, version, this.clientVersion)) {
     throw new Error(
@@ -272,7 +278,7 @@ async function upgradeExtensionChecked(
   this: AllAugments,
   extension: Extension,
   newVersion: ExtensionVersion,
-  overrides?: Overrides,
+  overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   if (!isExtensionCompatible(extension, newVersion, this.clientVersion)) {
     throw new Error(
@@ -294,6 +300,7 @@ async function estimateEmitDomainReputationPenaltyWithProofs(
   _domainId: BigNumberish,
   _user: string,
   _amount: BigNumberish,
+  overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this,
@@ -306,6 +313,7 @@ async function estimateEmitDomainReputationPenaltyWithProofs(
     _domainId,
     _user,
     _amount,
+    overrides,
   );
 }
 
@@ -314,6 +322,7 @@ async function estimateSetUserRolesWithProofs(
   _user: string,
   _domainId: BigNumberish,
   _roles: BytesLike,
+  overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this,
@@ -326,6 +335,7 @@ async function estimateSetUserRolesWithProofs(
     _user,
     _domainId,
     _roles,
+    overrides,
   );
 }
 
@@ -336,6 +346,7 @@ async function estimateTransferStakeWithProofs(
   _domainId: BigNumberish,
   _amount: BigNumberish,
   _recipient: string,
+  overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this,
@@ -350,6 +361,7 @@ async function estimateTransferStakeWithProofs(
     _domainId,
     _amount,
     _recipient,
+    overrides,
   );
 }
 
@@ -357,6 +369,7 @@ async function estimateEditDomainWithProofs(
   this: AllAugments,
   _domainId: BigNumberish,
   _metadata: string,
+  overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this,
@@ -368,6 +381,7 @@ async function estimateEditDomainWithProofs(
     childSkillIndex,
     _domainId,
     _metadata,
+    overrides,
   );
 }
 
@@ -378,6 +392,7 @@ async function estimateSetExpenditureStateWithProofs(
   _mask: boolean[],
   _keys: BytesLike[],
   _value: BytesLike,
+  overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const { domainId } = await this.getExpenditure(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
@@ -393,6 +408,7 @@ async function estimateSetExpenditureStateWithProofs(
     _mask,
     _keys,
     _value,
+    overrides,
   );
 }
 
@@ -400,6 +416,7 @@ async function estimateInstallExtensionChecked(
   this: AllAugments,
   extension: Extension,
   version: ExtensionVersion,
+  overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   if (!isExtensionCompatible(extension, version, this.clientVersion)) {
     throw new Error(
@@ -409,6 +426,7 @@ async function estimateInstallExtensionChecked(
   return this.estimateGas.installExtension(
     getExtensionHash(extension),
     BigNumber.from(version),
+    overrides,
   );
 }
 
@@ -416,6 +434,7 @@ async function estimateUpgradeExtensionChecked(
   this: AllAugments,
   extension: Extension,
   newVersion: ExtensionVersion,
+  overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   if (!isExtensionCompatible(extension, newVersion, this.clientVersion)) {
     throw new Error(
@@ -425,6 +444,7 @@ async function estimateUpgradeExtensionChecked(
   return this.estimateGas.upgradeExtension(
     getExtensionHash(extension),
     BigNumber.from(newVersion),
+    overrides,
   );
 }
 
