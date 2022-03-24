@@ -3,12 +3,7 @@ import { utils, BigNumber, BigNumberish, BytesLike } from 'ethers';
 import type { LogDescription, Result } from '@ethersproject/abi';
 
 import { ROOT_DOMAIN_ID } from './constants';
-import {
-  IColonyEvents,
-  ReputationMinerEndpoints,
-  ColonyRole,
-  ColonyRoles,
-} from './types';
+import { ReputationMinerEndpoints, ColonyRole, ColonyRoles } from './types';
 import { ColonyNetworkClient } from './clients/ColonyNetworkClient';
 
 const { isAddress } = utils;
@@ -93,7 +88,7 @@ export const formatColonyRoles = async (
          * have to ensure that the events we're dealing with are what we expect
          * them to be.
          */
-        .filter(({ name }) => name.includes(IColonyEvents.ColonyRoleSet))
+        .filter(({ name }) => name.includes('ColonyRoleSet'))
         .reduce((colonyRolesMap: ColonyRolesMap, { args }) => {
           const { user, domainId, role, setTo } = args as ColonyRoleSetValues;
           const domainKey = domainId.toString();
@@ -124,7 +119,7 @@ export const formatColonyRoles = async (
      * have to ensure that the events we're dealing with are what we expect
      * them to be.
      */
-    .filter(({ name }) => name.includes(IColonyEvents.RecoveryRoleSet))
+    .filter(({ name }) => name.includes('RecoveryRoleSet'))
     .forEach(({ args }) => {
       const { user, setTo } = args as RecoveryRoleSetValues;
       rolesMap[user] = rolesMap[user] || {};

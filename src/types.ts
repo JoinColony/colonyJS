@@ -97,32 +97,8 @@ export enum TokenClientType {
   Sai = 'Sai',
 }
 
-/*
- * @TODO Complete this list of events enum
- *
- * A good idea would be type it dynamically from the latest IColony ABI
- * Something like this:
- * ```
- * function strEnum<T extends string>(o: Array<T>): {[K in T]: K} {
- *   return o.reduce((res, key) => {
- *     res[key] = key;
- *     return res;
- *   }, Object.create(null));
- * }
- * let dynamicArrayJSON = [ 'RED', 'BLUE', 'GREEN' ]
- * const Colors = strEnum( dynamicArrayJSON )
- * ```
- * To make this work properly you'll need to do the same thing we do with Colony
- * Clients and use the `getAllAbiEvents` function to get events from all versions
- * of the contracts
- */
-export enum IColonyEvents {
-  ColonyRoleSet = 'ColonyRoleSet',
-  RecoveryRoleSet = 'RecoveryRoleSet',
-}
-
-/*
- * The various states a Motion might find itself in
+/**
+ * These are the various states a Motion might find itself in
  */
 export enum MotionState {
   Null,
