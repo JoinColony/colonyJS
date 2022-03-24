@@ -1,9 +1,4 @@
-import {
-  BigNumber,
-  BigNumberish,
-  Overrides,
-  ContractTransaction,
-} from 'ethers';
+import { BigNumber, BigNumberish, ContractTransaction } from 'ethers';
 
 import { ROOT_DOMAIN_ID } from '../../../constants';
 import {
@@ -17,7 +12,7 @@ import {
   IColonyV8,
   IColonyV9,
 } from '../../../contracts/IColony/exports';
-import { ColonyRole } from '../../../types';
+import { ColonyRole, TxOverrides } from '../../../types';
 import {
   AugmentedIColony,
   getChildIndex,
@@ -113,7 +108,7 @@ export interface MoveFundsBetweenPotsEstimateGasA {
     _toPot: BigNumberish,
     _amount: BigNumberish,
     _token: string,
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<BigNumber>;
 }
 
@@ -123,7 +118,7 @@ export type MoveFundsBetweenPotsAugmentsA<T extends ValidColonyA> = {
     _toPot: BigNumberish,
     _amount: BigNumberish,
     _token: string,
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
   estimateGas: T['estimateGas'] & MoveFundsBetweenPotsEstimateGasA;
 };
@@ -135,7 +130,7 @@ async function moveFundsBetweenPotsWithProofsA(
   _toPot: BigNumberish,
   _amount: BigNumberish,
   _token: string,
-  overrides?: Overrides,
+  overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const [permissionDomainId, fromChildSkillIndex, toChildSkillIndex] =
     await getMoveFundsPermissionProofsA(this, _fromPot, _toPot);
@@ -159,7 +154,7 @@ async function estimateMoveFundsBetweenPotsWithProofsA(
   _toPot: BigNumberish,
   _amount: BigNumberish,
   _token: string,
-  overrides?: Overrides,
+  overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const [permissionDomainId, fromChildSkillIndex, toChildSkillIndex] =
     await getMoveFundsPermissionProofsA(this, _fromPot, _toPot);
@@ -195,14 +190,14 @@ export interface MoveFundsBetweenPotsEstimateGasB {
     _toPot: BigNumberish,
     _amount: BigNumberish,
     _token: string,
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<BigNumber>;
   'moveFundsBetweenPotsWithProofs(uint256,uint256,uint256,address)'(
     _fromPot: BigNumberish,
     _toPot: BigNumberish,
     _amount: BigNumberish,
     _token: string,
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<BigNumber>;
 }
 
@@ -213,14 +208,14 @@ export type MoveFundsBetweenPotsAugmentsB<T extends ValidColonyB> = {
     _toPot: BigNumberish,
     _amount: BigNumberish,
     _token: string,
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
   'moveFundsBetweenPotsWithProofs(uint256,uint256,uint256,address)'(
     _fromPot: BigNumberish,
     _toPot: BigNumberish,
     _amount: BigNumberish,
     _token: string,
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
   estimateGas: T['estimateGas'] & MoveFundsBetweenPotsEstimateGasB;
 };
@@ -233,7 +228,7 @@ async function moveFundsBetweenPotsWithProofsB__DEPRECATED(
   _toPot: BigNumberish,
   _amount: BigNumberish,
   _token: string,
-  overrides?: Overrides,
+  overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const [permissionDomainId, fromChildSkillIndex, toChildSkillIndex] =
     await getMoveFundsPermissionProofsA(this, _fromPot, _toPot);
@@ -261,7 +256,7 @@ async function estimateMoveFundsBetweenPotsWithProofsB__DEPRECATED(
   _toPot: BigNumberish,
   _amount: BigNumberish,
   _token: string,
-  overrides?: Overrides,
+  overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const [permissionDomainId, fromChildSkillIndex, toChildSkillIndex] =
     await getMoveFundsPermissionProofsA(this, _fromPot, _toPot);
@@ -289,7 +284,7 @@ async function moveFundsBetweenPotsWithProofsB(
   _toPot: BigNumberish,
   _amount: BigNumberish,
   _token: string,
-  overrides?: Overrides,
+  overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this,
@@ -332,7 +327,7 @@ async function estimateMoveFundsBetweenPotsWithProofsB(
   _toPot: BigNumberish,
   _amount: BigNumberish,
   _token: string,
-  overrides?: Overrides,
+  overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this,

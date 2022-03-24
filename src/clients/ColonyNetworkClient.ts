@@ -131,7 +131,7 @@ const getColonyNetworkClient = (
       : COLONY_NETWORK_ADDRESSES[network || Network.Mainnet];
   if (!networkAddress) {
     throw new Error(
-      `Could not get ColonyNetwork address for ${network}. Please specify`,
+      `Could not get ColonyNetwork address for ${network}. Please specify using the 'networkAddress' option`,
     );
   }
 

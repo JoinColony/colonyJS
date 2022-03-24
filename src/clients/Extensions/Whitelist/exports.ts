@@ -1,16 +1,34 @@
-import { assertExhaustiveSwitch } from '../../../utils';
+import { ColonyVersion } from '../../../clients/Core/exports';
+import {
+  assertExhaustiveSwitch,
+  createContractVersionArray,
+} from '../../../utils';
 import { AugmentedIColony } from '../../Core/augments/commonAugments';
 
 import getWhitelistClientV1, {
   WhitelistClient as WhitelistClient1,
 } from './WhitelistClientV1';
 
-export type WhitelistVersion = 1;
+const WHITELIST_VERSION_NEXT = 2;
 
 export type WhitelistClientV1 = WhitelistClient1;
 
 export type AnyWhitelistClient = WhitelistClient1;
 
+export const WHITELIST_VERSIONS = createContractVersionArray(
+  WHITELIST_VERSION_NEXT,
+);
+export type WhitelistVersion = typeof WHITELIST_VERSIONS[number];
+
+/** @internal */
+export const whitelistIncompatibilityMap: Record<
+  WhitelistVersion,
+  Array<ColonyVersion>
+> = {
+  1: [],
+};
+
+/** @internal */
 export const getWhitelistClient = (
   colonyClient: AugmentedIColony,
   address: string,
@@ -20,6 +38,9 @@ export const getWhitelistClient = (
     case 1:
       return getWhitelistClientV1(colonyClient, address);
     default:
-      return assertExhaustiveSwitch(version);
+      return assertExhaustiveSwitch(
+        version,
+        'Could not find Whitelist version',
+      );
   }
 };

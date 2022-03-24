@@ -1,6 +1,5 @@
-import { constants, utils } from 'ethers';
+import { utils } from 'ethers';
 
-import { tokenAddresses } from '../constants';
 import {
   TokenFactory,
   Token,
@@ -11,8 +10,12 @@ import {
 } from '../exports';
 import { ClientType, SignerOrProvider, TokenClientType } from '../types';
 
-const { AddressZero } = constants;
 const { getAddress, isHexString, parseBytes32String } = utils;
+
+// Token addresses to identify tokens that need special treatment
+const tokenAddresses = {
+  SAI: '0x89d24A6b4CcB1B6fAA2625fE562bDD9a23260359',
+};
 
 const isSai = (address: string): boolean =>
   getAddress(address) === tokenAddresses.SAI;
@@ -59,6 +62,16 @@ const getTokenClient = async (
     signerOrProvider,
   ) as ColonyTokenClient;
 
+  try {
+    await tokenClient.totalSupply();
+  } catch (err) {
+    throw new Error(
+      `Token is probably not a valid ERC20 token, got ${
+        (err as Error).message
+      }`,
+    );
+  }
+
   // Colony tokens have the `locked()` method. We assume that when it exists on
   // the contract we have a ColonyToken 🦆. This might not be true though, so can't rely
   // on this 100% when trying to call contract methods
@@ -85,15 +98,6 @@ const getTokenClient = async (
     ) as Erc20TokenClient;
 
     tokenClient.tokenClientType = TokenClientType.Erc20;
-  }
-
-  // Before we go, let's check if this resembles a valid ERC20 token, for good measure
-  try {
-    await tokenClient.estimateGas.transfer(address, 0, {
-      from: AddressZero,
-    });
-  } catch (err) {
-    throw new Error(`Token is probably not a valid ERC20 token, got ${err}`);
   }
 
   tokenClient.clientType = ClientType.TokenClient;

@@ -65,9 +65,13 @@ afterAll(() => {
 
 describe('ColonyNetwork', () => {
   it('Can get the colony network', async () => {
-    const colonyNetworkClient = getColonyNetworkClient(Network.Local, wallet1, {
-      networkAddress: deployed.etherRouterAddress,
-    });
+    const colonyNetworkClient = getColonyNetworkClient(
+      Network.Custom,
+      wallet1,
+      {
+        networkAddress: deployed.etherRouterAddress,
+      },
+    );
     const colonyCount = await colonyNetworkClient.getColonyCount();
     expect(colonyCount.toNumber()).toEqual(1);
   });

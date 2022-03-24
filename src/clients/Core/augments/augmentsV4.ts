@@ -1,9 +1,4 @@
-import {
-  ContractTransaction,
-  BigNumber,
-  BigNumberish,
-  Overrides,
-} from 'ethers';
+import { ContractTransaction, BigNumber, BigNumberish } from 'ethers';
 
 import {
   IColonyV4,
@@ -13,7 +8,7 @@ import {
   IColonyV8,
   IColonyV9,
 } from '../../../contracts/IColony/exports';
-import { ColonyRole } from '../../../types';
+import { ColonyRole, TxOverrides } from '../../../types';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
 import { getPermissionProofs, AugmentedIColony } from './commonAugments';
 import {
@@ -31,10 +26,14 @@ type ValidColony =
   | IColonyV9;
 
 export interface AugmentedEstimateV4 extends AugmentedEstimateV3 {
-  makeExpenditureWithProofs(_domainId: BigNumberish): Promise<BigNumber>;
+  makeExpenditureWithProofs(
+    _domainId: BigNumberish,
+    overrides?: TxOverrides,
+  ): Promise<BigNumber>;
   transferExpenditureViaArbitrationWithProofs(
     _id: BigNumberish,
     _newOwner: string,
+    overrides: TxOverrides,
   ): Promise<BigNumber>;
 }
 
@@ -43,15 +42,16 @@ export type ColonyAugmentsV4<T extends ValidColony> = {
     _user: string,
     _domainId: BigNumberish,
     _role: BigNumberish,
+    overrides?: TxOverrides,
   ): Promise<boolean>;
   makeExpenditureWithProofs(
     _domainId: BigNumberish,
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
   transferExpenditureViaArbitrationWithProofs(
     _id: BigNumberish,
     _newOwner: string,
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
   estimateGas: T['estimateGas'] & AugmentedEstimateV4;
 };
@@ -64,6 +64,7 @@ async function hasInheritedUserRoleWithProofs(
   _user: string,
   _domainId: BigNumberish,
   _role: ColonyRole,
+  overrides: TxOverrides = {},
 ): Promise<boolean> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this,
@@ -77,13 +78,14 @@ async function hasInheritedUserRoleWithProofs(
     _role,
     childSkillIndex,
     _domainId,
+    overrides,
   );
 }
 
 async function makeExpenditureWithProofs(
   this: AllAugments,
   _domainId: BigNumberish,
-  overrides?: Overrides,
+  overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this,
@@ -102,7 +104,7 @@ async function transferExpenditureViaArbitrationWithProofs(
   this: AllAugments,
   _id: BigNumberish,
   _newOwner: string,
-  overrides?: Overrides,
+  overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const { domainId } = await this.getExpenditure(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
@@ -122,6 +124,7 @@ async function transferExpenditureViaArbitrationWithProofs(
 async function estimateMakeExpenditureWithProofs(
   this: AllAugments,
   _domainId: BigNumberish,
+  overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this,
@@ -132,6 +135,7 @@ async function estimateMakeExpenditureWithProofs(
     permissionDomainId,
     childSkillIndex,
     _domainId,
+    overrides,
   );
 }
 
@@ -139,6 +143,7 @@ async function estimateTransferExpenditureViaArbitrationWithProofs(
   this: AllAugments,
   _newOwner: string,
   _id: BigNumberish,
+  overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const { domainId } = await this.getExpenditure(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
@@ -151,6 +156,7 @@ async function estimateTransferExpenditureViaArbitrationWithProofs(
     childSkillIndex,
     _id,
     _newOwner,
+    overrides,
   );
 }
 

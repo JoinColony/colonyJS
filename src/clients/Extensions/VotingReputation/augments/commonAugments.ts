@@ -4,7 +4,6 @@ import {
   BigNumberish,
   BigNumber,
   BytesLike,
-  Overrides,
 } from 'ethers';
 
 import {
@@ -12,7 +11,7 @@ import {
   getPermissionProofs,
   getChildIndex,
 } from '../../../Core/augments/commonAugments';
-import { ColonyRole } from '../../../../types';
+import { ColonyRole, TxOverrides } from '../../../../types';
 
 import { VotingReputationVersion } from '../exports';
 import { AnyVotingReputation } from '../../../../contracts/VotingReputation/exports';
@@ -28,27 +27,27 @@ export type AugmentedEstimate<
     /// Domain in which the voting will take place in
     _domainId: BigNumberish,
     _action: BytesLike,
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<BigNumber>;
 
   stakeMotionWithProofs(
     _motionId: BigNumberish,
     _vote: BigNumberish,
     _amount: BigNumberish,
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<BigNumber>;
 
   escalateMotionWithProofs(
     _motionId: BigNumberish,
     _newDomainId: BigNumberish, // parent, or ancestor, domain id
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<BigNumber>;
 
   claimRewardWithProofs(
     _motionId: BigNumberish,
     _staker: string,
     _vote: BigNumberish,
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<BigNumber>;
 };
 
@@ -64,28 +63,28 @@ export type AugmentedVotingReputation<
     /// Domain in which the voting will take place in
     _domainId: BigNumberish,
     _action: BytesLike,
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
 
   stakeMotionWithProofs(
     _motionId: BigNumberish,
     _vote: BigNumberish,
     _amount: BigNumberish,
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
 
   escalateMotionWithProofs(
     _motionId: BigNumberish,
     /// Parent, or ancestor, domain id
     _newDomainId: BigNumberish,
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
 
   claimRewardWithProofs(
     _motionId: BigNumberish,
     _staker: string,
     _vote: BigNumberish,
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
 };
 
@@ -93,7 +92,7 @@ async function createDomainMotionWithProofs(
   this: AugmentedVotingReputation,
   _domainId: BigNumberish, // Domain in which the voting will take place in
   _action: BytesLike,
-  overrides?: Overrides,
+  overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   let childSkillIdex = MaxUint256;
   const { permissionDomainId } = parsePermissionedAction(_action);
@@ -133,7 +132,7 @@ async function stakeMotionWithProofs(
   _motionId: BigNumberish,
   _vote: BigNumberish,
   _amount: BigNumberish,
-  overrides?: Overrides,
+  overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const { domainId, rootHash } = await this.getMotion(_motionId);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
@@ -166,7 +165,7 @@ async function escalateMotionWithProofs(
   this: AugmentedVotingReputation,
   _motionId: BigNumberish,
   _newDomainId: BigNumberish, // parent, or ancestor, domain id
-  overrides?: Overrides,
+  overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const { domainId, rootHash } = await this.getMotion(_motionId);
   const motionDomainChildSkillIdIndex = await getChildIndex(
@@ -200,7 +199,7 @@ async function claimRewardWithProofs(
   _motionId: BigNumberish,
   _staker: string,
   _vote: BigNumberish,
-  overrides?: Overrides,
+  overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const { domainId } = await this.getMotion(_motionId);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
@@ -224,6 +223,7 @@ async function estimateCreateDomainMotionWithProofs(
   this: AugmentedVotingReputation,
   _domainId: BigNumberish, // Domain in which the voting will take place in
   _action: BytesLike,
+  overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   let childSkillIdex = MaxUint256;
   const { permissionDomainId } = parsePermissionedAction(_action);
@@ -253,6 +253,7 @@ async function estimateCreateDomainMotionWithProofs(
     value,
     branchMask,
     siblings,
+    overrides,
   );
 }
 
@@ -261,6 +262,7 @@ async function estimateStakeMotionWithProofs(
   _motionId: BigNumberish,
   _vote: BigNumberish,
   _amount: BigNumberish,
+  overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const { domainId, rootHash } = await this.getMotion(_motionId);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
@@ -285,6 +287,7 @@ async function estimateStakeMotionWithProofs(
     value,
     branchMask,
     siblings,
+    overrides,
   );
 }
 
@@ -292,6 +295,7 @@ async function estimateEscalateMotionWithProofs(
   this: AugmentedVotingReputation,
   _motionId: BigNumberish,
   _newDomainId: BigNumberish, // parent, or ancestor, domain id
+  overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const { domainId, rootHash } = await this.getMotion(_motionId);
   const motionDomainChildSkillIdIndex = await getChildIndex(
@@ -316,6 +320,7 @@ async function estimateEscalateMotionWithProofs(
     value,
     branchMask,
     siblings,
+    overrides,
   );
 }
 
@@ -324,6 +329,7 @@ async function estimateClaimRewardWithProofs(
   _motionId: BigNumberish,
   _staker: string,
   _vote: BigNumberish,
+  overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const { domainId } = await this.getMotion(_motionId);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
@@ -338,6 +344,7 @@ async function estimateClaimRewardWithProofs(
     childSkillIndex,
     _staker,
     _vote,
+    overrides,
   );
 }
 

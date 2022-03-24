@@ -1,9 +1,4 @@
-import {
-  ContractTransaction,
-  BigNumberish,
-  BigNumber,
-  Overrides,
-} from 'ethers';
+import { ContractTransaction, BigNumberish, BigNumber } from 'ethers';
 
 import {
   AugmentedIColony,
@@ -12,7 +7,7 @@ import {
 
 import { OneTxPaymentVersion } from '../exports';
 import { AnyOneTxPayment } from '../../../../contracts/OneTxPayment/exports';
-import { ClientType } from '../../../..';
+import { ClientType, TxOverrides } from '../../../../types';
 
 export type AugmentedEstimate<T extends AnyOneTxPayment = AnyOneTxPayment> =
   T['estimateGas'] & {
@@ -22,7 +17,7 @@ export type AugmentedEstimate<T extends AnyOneTxPayment = AnyOneTxPayment> =
       _amounts: BigNumberish[],
       _domainId: BigNumberish,
       _skillId: BigNumberish,
-      overrides?: Overrides,
+      overrides?: TxOverrides,
     ): Promise<BigNumber>;
 
     makePaymentFundedFromDomainWithProofs(
@@ -31,7 +26,7 @@ export type AugmentedEstimate<T extends AnyOneTxPayment = AnyOneTxPayment> =
       _amounts: BigNumberish[],
       _domainId: BigNumberish,
       _skillId: BigNumberish,
-      overrides?: Overrides,
+      overrides?: TxOverrides,
     ): Promise<BigNumber>;
   };
 
@@ -48,7 +43,7 @@ export type AugmentedOneTxPayment<T extends AnyOneTxPayment = AnyOneTxPayment> =
       _amounts: BigNumberish[],
       _domainId: BigNumberish,
       _skillId: BigNumberish,
-      overrides?: Overrides,
+      overrides?: TxOverrides,
     ): Promise<ContractTransaction>;
 
     makePaymentFundedFromDomainWithProofs(
@@ -57,7 +52,7 @@ export type AugmentedOneTxPayment<T extends AnyOneTxPayment = AnyOneTxPayment> =
       _amounts: BigNumberish[],
       _domainId: BigNumberish,
       _skillId: BigNumberish,
-      overrides?: Overrides,
+      overrides?: TxOverrides,
     ): Promise<ContractTransaction>;
   };
 
@@ -68,7 +63,7 @@ async function makePaymentWithProofs(
   _amounts: BigNumberish[],
   _domainId: BigNumberish,
   _skillId: BigNumberish,
-  overrides?: Overrides,
+  overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const [extensionPDID, extensionCSI] = await getExtensionPermissionProofs(
     this.colonyClient,
@@ -101,7 +96,7 @@ async function makePaymentFundedFromDomainWithProofs(
   _amounts: BigNumberish[],
   _domainId: BigNumberish,
   _skillId: BigNumberish,
-  overrides?: Overrides,
+  overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const [extensionPDID, extensionCSI] = await getExtensionPermissionProofs(
     this.colonyClient,
@@ -134,6 +129,7 @@ async function estimateMakePaymentWithProofs(
   _amounts: BigNumberish[],
   _domainId: BigNumberish,
   _skillId: BigNumberish,
+  overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const [extensionPDID, extensionCSI] = await getExtensionPermissionProofs(
     this.colonyClient,
@@ -155,6 +151,7 @@ async function estimateMakePaymentWithProofs(
     _amounts,
     _domainId,
     _skillId,
+    overrides,
   );
 }
 
@@ -165,6 +162,7 @@ async function estimateMakePaymentFundedFromDomainWithProofs(
   _amounts: BigNumberish[],
   _domainId: BigNumberish,
   _skillId: BigNumberish,
+  overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const [extensionPDID, extensionCSI] = await getExtensionPermissionProofs(
     this.colonyClient,
@@ -186,6 +184,7 @@ async function estimateMakePaymentFundedFromDomainWithProofs(
     _amounts,
     _domainId,
     _skillId,
+    overrides,
   );
 }
 

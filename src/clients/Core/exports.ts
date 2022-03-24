@@ -1,3 +1,5 @@
+import { createContractVersionArray } from '../../utils';
+
 import { ColonyNetworkClient } from '../ColonyNetworkClient';
 import getColonyVersionClient from './ColonyVersionClient';
 import getTokenClient from '../TokenClient';
@@ -11,8 +13,6 @@ import getColonyClientV6, { ColonyClientV6 } from './ColonyClientV6';
 import getColonyClientV7, { ColonyClientV7 } from './ColonyClientV7';
 import getColonyClientV8, { ColonyClientV8 } from './ColonyClientV8';
 import getColonyClientV9, { ColonyClientV9 } from './ColonyClientV9';
-
-export type ColonyVersion = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 
 export { ColonyClientV1 } from './ColonyClientV1';
 export { ColonyClientV2 } from './ColonyClientV2';
@@ -35,6 +35,18 @@ export type AnyColonyClient =
   | ColonyClientV8
   | ColonyClientV9;
 
+/// Versioned core contract names
+export enum Core {
+  Colony = 'IColony',
+}
+
+// This is the latest colony version + 1. It's for generating types and compatibility maps
+const COLONY_VERSION_NEXT = 10;
+
+export const COLONY_VERSIONS = createContractVersionArray(COLONY_VERSION_NEXT);
+export type ColonyVersion = typeof COLONY_VERSIONS[number];
+
+/** @internal */
 export async function getColonyClient(
   this: ColonyNetworkClient,
   addressOrId: string | number,
@@ -52,8 +64,16 @@ export async function getColonyClient(
   );
   // This is *kinda* hacky, but I have no better idea ¯\_(ツ)_/¯
   // We have to get the version somehow before instantiating the right contract version
-  const versionBN = await colonyVersionClient.version();
-  const version = versionBN.toNumber() as ColonyVersion;
+  let version;
+  try {
+    const versionBN = await colonyVersionClient.version();
+    version = versionBN.toNumber() as ColonyVersion;
+  } catch (e) {
+    console.error(e);
+    throw new Error(
+      'Could not read Colony version. Is this a valid Colony address?',
+    );
+  }
   let colonyClient: AnyColonyClient;
   switch (version) {
     case 1: {
@@ -142,4 +162,5 @@ export async function getColonyClient(
   return colonyClient;
 }
 
+/** @internal */
 export { default as getUtilsClient } from '../UtilsClient';

@@ -1,9 +1,4 @@
-import {
-  BigNumber,
-  BigNumberish,
-  Overrides,
-  ContractTransaction,
-} from 'ethers';
+import { BigNumber, BigNumberish, ContractTransaction } from 'ethers';
 
 import {
   IColonyV1,
@@ -17,7 +12,7 @@ import {
   IColonyV9,
 } from '../../../contracts/IColony/exports';
 
-import { ColonyRole } from '../../../types';
+import { ColonyRole, TxOverrides } from '../../../types';
 import { AugmentedIColony, getPermissionProofs } from './commonAugments';
 
 // Colonies that support the early (not-overloaded) method
@@ -33,7 +28,7 @@ export interface AddDomainEstimateGasA {
 export type AddDomainAugmentsA<T extends ValidColonyA> = {
   addDomainWithProofs(
     _parentDomainId: BigNumberish,
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
   estimateGas: T['estimateGas'] & AddDomainEstimateGasA;
 };
@@ -41,7 +36,7 @@ export type AddDomainAugmentsA<T extends ValidColonyA> = {
 async function addDomainWithProofsA(
   this: AugmentedIColony<ValidColonyA>,
   _parentDomainId: BigNumberish,
-  overrides?: Overrides,
+  overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this,
@@ -59,6 +54,7 @@ async function addDomainWithProofsA(
 async function estimateAddDomainWithProofsA(
   this: AugmentedIColony<ValidColonyA>,
   _parentDomainId: BigNumberish,
+  overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this,
@@ -69,6 +65,7 @@ async function estimateAddDomainWithProofsA(
     permissionDomainId,
     childSkillIndex,
     _parentDomainId,
+    overrides,
   );
 }
 
@@ -85,25 +82,25 @@ export const addAugmentsA = (
 export interface AddDomainEstimateGasB {
   'addDomainWithProofs(uint256)'(
     _parentDomainId: BigNumberish,
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<BigNumber>;
   'addDomainWithProofs(uint256,string)'(
     _parentDomainId: BigNumberish,
     _metadata: string,
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<BigNumber>;
 }
 
 export type AddDomainAugmentsB<T extends ValidColonyB> = {
   'addDomainWithProofs(uint256)'(
     _parentDomainId: BigNumberish,
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
 
   'addDomainWithProofs(uint256,string)'(
     _parentDomainId: BigNumberish,
     _metadata: string,
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
   estimateGas: T['estimateGas'] & AddDomainEstimateGasB;
 };
@@ -111,7 +108,7 @@ export type AddDomainAugmentsB<T extends ValidColonyB> = {
 async function estimateAddDomainWithProofsB0(
   this: AugmentedIColony<ValidColonyB>,
   _parentDomainId: BigNumberish,
-  overrides?: Overrides,
+  overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this,
@@ -130,7 +127,7 @@ async function estimateAddDomainWithProofsB1(
   this: AugmentedIColony<ValidColonyB>,
   _parentDomainId: BigNumberish,
   _metadata: string,
-  overrides?: Overrides,
+  overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this,
@@ -149,7 +146,7 @@ async function estimateAddDomainWithProofsB1(
 async function addDomainWithProofsB0(
   this: AugmentedIColony<ValidColonyB>,
   _parentDomainId: BigNumberish,
-  overrides?: Overrides,
+  overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this,
@@ -168,7 +165,7 @@ async function addDomainWithProofsB1(
   this: AugmentedIColony<ValidColonyB>,
   _parentDomainId: BigNumberish,
   _metadata: string,
-  overrides?: Overrides,
+  overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this,

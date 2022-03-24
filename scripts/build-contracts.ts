@@ -7,21 +7,54 @@ import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 import _ from 'lodash';
 
-import { Core, releaseMap } from '../src/versions';
-import { Extensions } from '../src';
+import { Core, Extension } from '../src';
 
-const STATIC_DIR = resolvePath(__dirname, '../src/abis/__static__');
-const DYNAMIC_DIR = resolvePath(__dirname, '../src/abis/__dynamic__');
-const OUT_ROOT_DIR = resolvePath(__dirname, '../src/contracts');
+// Map versioned contracts to network release tags
+const RELEASE_MAP = {
+  [Core.Colony]: {
+    'glider-rc.1': 1,
+    glider: 2,
+    'auburn-glider': 3,
+    'burgundy-glider': 4,
+    lwss: 5,
+    clwss: 6,
+    dlwss: 7,
+    elwss3: 8,
+    DEV: 9,
+  },
+  [Extension.CoinMachine]: {
+    clwss: 1,
+    dlwss: 2,
+    elwss2: 3,
+    DEV: 3,
+  },
+  [Extension.OneTxPayment]: {
+    clwss: 1,
+    dlwss: 2,
+    DEV: 3,
+  },
+  [Extension.VotingReputation]: {
+    clwss: 1,
+    dlwss: 2,
+    elwss: 3,
+    DEV: 3,
+  },
+  [Extension.Whitelist]: {
+    elwss: 1,
+    DEV: 1,
+  },
+};
 
+// Upgradable contract names that will be generated
 const VERSIONED_CONTRACTS = [
   Core.Colony,
-  Extensions.CoinMachine,
-  Extensions.OneTxPayment,
-  Extensions.VotingReputation,
-  Extensions.Whitelist,
+  Extension.CoinMachine,
+  Extension.OneTxPayment,
+  Extension.VotingReputation,
+  Extension.Whitelist,
 ];
 
+// Names of non-upgradable contracts that will be generated
 const UNVERSIONED_CONTRACTS = [
   // Colony Network Interface ABIs
   'IColonyNetwork',
@@ -32,6 +65,10 @@ const UNVERSIONED_CONTRACTS = [
   'TokenERC20',
   'TokenSAI',
 ];
+
+const STATIC_DIR = resolvePath(__dirname, '../src/abis/__static__');
+const DYNAMIC_DIR = resolvePath(__dirname, '../src/abis/__dynamic__');
+const OUT_ROOT_DIR = resolvePath(__dirname, '../src/contracts');
 
 const EVENTS_CONTRACTS = VERSIONED_CONTRACTS.map(
   (contractName) => `${contractName}Events`,
@@ -95,7 +132,7 @@ const buildVersionedContracts = async (
   inputDir: string,
 ): Promise<void[]> => {
   const promises = VERSIONED_CONTRACTS.map(async (contractName) => {
-    const availableContracts = releaseMap[contractName];
+    const availableContracts = RELEASE_MAP[contractName];
     const versionTag = releaseTag === 'develop' ? 'DEV' : releaseTag;
     if (versionTag in availableContracts) {
       const outDir = resolvePath(

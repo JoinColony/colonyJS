@@ -1,6 +1,6 @@
 {
   "name": "@colony/colony-js",
-  "version": "v4.1.2",
+  "version": "v5.0.0-beta.2",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
   "files": [
@@ -18,17 +18,12 @@
     "npm": "^8"
   },
   "scripts": {
-    "build": "npm run clean && npm run compile && npm run compile-esm && OUT=lib npm run copy-declarations && OUT=lib-esm npm run copy-declarations && npm run build-docs",
-    "build-clients": "ts-node -P scripts/tsconfig-scripts.json scripts/build-clients.ts",
+    "build": "npm run clean && npm run compile && npm run compile-esm && npm run build-docs",
     "build-contracts": "ts-node -P scripts/tsconfig-scripts.json scripts/build-contracts.ts",
     "build-docs": "typedoc --out docs src/index.ts",
     "clean": "rimraf ./lib && rimraf ./lib-esm",
     "compile": "tsc -p tsconfig.build.json",
     "compile-esm": "tsc -p tsconfig.build.json -m es6 --outDir lib-esm",
-    "copy-declarations": "OUT=lib npm run copy-declarations:colony && npm run copy-declarations:extensions",
-    "copy-declarations:colony": "copyfiles -u 1 src/contracts/colony/**/*.d.ts $OUT",
-    "copy-declarations:extensions": "copyfiles -u 1 src/contracts/extensions/**/*.d.ts $OUT",
-    "copy-declarations:legacy": "copyfiles -u 1 src/contracts/**/*.d.ts $OUT",
     "extract-contract-abis": "ts-node -P scripts/tsconfig-scripts.json scripts/extract-contract-abis.ts",
     "lint": "eslint --ext .ts src scripts",
     "prepublishOnly": "npm test && npm run build",
@@ -48,7 +43,6 @@
     "@typescript-eslint/eslint-plugin": "^5.12.0",
     "@typescript-eslint/parser": "^5.12.0",
     "camelcase": "^6.3.0",
-    "copyfiles": "^2.4.1",
     "eslint": "^8.9.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.3.0",

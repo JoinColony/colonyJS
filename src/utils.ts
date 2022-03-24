@@ -3,15 +3,10 @@ import { utils, BigNumber, BigNumberish, BytesLike } from 'ethers';
 import type { LogDescription, Result } from '@ethersproject/abi';
 
 import { ROOT_DOMAIN_ID } from './constants';
-import {
-  IColonyEvents,
-  ReputationMinerEndpoints,
-  ColonyRole,
-  ColonyRoles,
-} from './types';
+import { ReputationMinerEndpoints, ColonyRole, ColonyRoles } from './types';
 import { ColonyNetworkClient } from './clients/ColonyNetworkClient';
 
-const { getAddress } = utils;
+const { isAddress } = utils;
 
 interface ColonyRolesMap {
   [userAddress: string]: {
@@ -67,16 +62,6 @@ type ReputationOracleResponseType<R> =
     ? ReputationOracleColonyResponse
     : never;
 
-// @TODO ethers v5 has an isAddress function
-export const isAddress = (address: string): boolean => {
-  try {
-    getAddress(address);
-  } catch {
-    return false;
-  }
-  return true;
-};
-
 /*
  * Format role events into an Array of all roles in the colony
  *
@@ -103,7 +88,7 @@ export const formatColonyRoles = async (
          * have to ensure that the events we're dealing with are what we expect
          * them to be.
          */
-        .filter(({ name }) => name.includes(IColonyEvents.ColonyRoleSet))
+        .filter(({ name }) => name.includes('ColonyRoleSet'))
         .reduce((colonyRolesMap: ColonyRolesMap, { args }) => {
           const { user, domainId, role, setTo } = args as ColonyRoleSetValues;
           const domainKey = domainId.toString();
@@ -134,7 +119,7 @@ export const formatColonyRoles = async (
      * have to ensure that the events we're dealing with are what we expect
      * them to be.
      */
-    .filter(({ name }) => name.includes(IColonyEvents.RecoveryRoleSet))
+    .filter(({ name }) => name.includes('RecoveryRoleSet'))
     .forEach(({ args }) => {
       const { user, setTo } = args as RecoveryRoleSetValues;
       rolesMap[user] = rolesMap[user] || {};
@@ -245,10 +230,28 @@ export const parsePermissionedAction = (action: BytesLike) => {
 
 // Type helpers
 
-export const assertExhaustiveSwitch = (x: never): never => {
-  throw new Error(`Unexpected object: ${x}`);
+export const assertExhaustiveSwitch = (x: never, msg: string): never => {
+  throw new Error(`${msg}: ${x}`);
 };
 
 export const nonNullable = <T>(value: T): value is NonNullable<T> => {
   return value !== null && value !== undefined;
+};
+
+type Enumerate<
+  N extends number,
+  Acc extends number[] = [],
+> = Acc['length'] extends N
+  ? Acc[number]
+  : Enumerate<N, [...Acc, Acc['length']]>;
+
+type Range<F extends number, T extends number> = Exclude<
+  Enumerate<T>,
+  Enumerate<F>
+>;
+
+export const createContractVersionArray = <T extends number>(last: T) => {
+  return Array.from(Array(last - 1)).map(
+    (i) => (i + 1) as Range<1, typeof last>,
+  );
 };

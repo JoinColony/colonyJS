@@ -2,12 +2,11 @@ import {
   ContractTransaction,
   BigNumber,
   BigNumberish,
-  Overrides,
   BytesLike,
   constants,
 } from 'ethers';
 
-import { ColonyRole } from '../../../../types';
+import { ColonyRole, TxOverrides } from '../../../../types';
 import { getUtilsClient } from '../../../Core/exports';
 import {
   VotingReputationV2,
@@ -29,7 +28,7 @@ export interface AugmentedEstimateV2 {
     _domainId: BigNumberish,
     _altTarget: string,
     _action: BytesLike,
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<BigNumber>;
 }
 
@@ -38,7 +37,7 @@ export type AugmentsV2<T extends ValidVotingReputation> = {
     _domainId: BigNumberish,
     _altTarget: string,
     _action: BytesLike,
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
   estimateGas: T['estimateGas'] & AugmentedEstimateV2;
 };
@@ -124,7 +123,7 @@ async function createMotionWithProofs(
   _domainId: BigNumberish,
   _altTarget: string,
   _action: BytesLike,
-  overrides?: Overrides,
+  overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const { actionCid, key, value, branchMask, siblings } =
     await getCreateMotionProofs(this, _domainId, _altTarget, _action);
@@ -147,7 +146,7 @@ async function estimateCreateMotionWithProofs(
   _domainId: BigNumberish,
   _altTarget: string,
   _action: BytesLike,
-  overrides?: Overrides,
+  overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const { actionCid, key, value, branchMask, siblings } =
     await getCreateMotionProofs(this, _domainId, _altTarget, _action);

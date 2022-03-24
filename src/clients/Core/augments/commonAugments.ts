@@ -4,7 +4,6 @@ import {
   BytesLike,
   BigNumber,
   BigNumberish,
-  Overrides,
   constants,
 } from 'ethers';
 
@@ -18,13 +17,14 @@ import {
   ColonyRole,
   FundingPotAssociatedType,
   ReputationMinerEndpoints,
+  TxOverrides,
 } from '../../../types';
 
 import { IColony__factory as AwkwardRecoveryRoleEventIColony } from '../../../contracts/IColony/4/factories/IColony__factory';
 
 import {
   ExtensionClient,
-  Extensions,
+  Extension,
   getExtensionClient,
 } from '../../Extensions/exports';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
@@ -44,22 +44,26 @@ export type AugmentedEstimate<T extends AnyIColony = AnyIColony> =
     deployTokenAuthority(
       tokenAddress: string,
       allowedToTransfer: string[],
+      overrides?: TxOverrides,
     ): Promise<BigNumber>;
 
     setArchitectureRoleWithProofs(
       _user: string,
       _domainId: BigNumberish,
       _setTo: boolean,
+      overrides?: TxOverrides,
     ): Promise<BigNumber>;
     setFundingRoleWithProofs(
       _user: string,
       _domainId: BigNumberish,
       _setTo: boolean,
+      overrides?: TxOverrides,
     ): Promise<BigNumber>;
     setAdministrationRoleWithProofs(
       _user: string,
       _domainId: BigNumberish,
       _setTo: boolean,
+      overrides?: TxOverrides,
     ): Promise<BigNumber>;
     addPaymentWithProofs(
       _recipient: string,
@@ -67,29 +71,34 @@ export type AugmentedEstimate<T extends AnyIColony = AnyIColony> =
       _amount: BigNumberish,
       _domainId: BigNumberish,
       _skillId: BigNumberish,
+      overrides?: TxOverrides,
     ): Promise<BigNumber>;
     finalizePaymentWithProofs(
       _id: BigNumberish,
-      overrides?: Overrides,
+      overrides?: TxOverrides,
     ): Promise<BigNumber>;
     setPaymentRecipientWithProofs(
       _id: BigNumberish,
       _recipient: string,
+      overrides?: TxOverrides,
     ): Promise<BigNumber>;
     setPaymentSkillWithProofs(
       _id: BigNumberish,
       _skillId: BigNumberish,
+      overrides?: TxOverrides,
     ): Promise<BigNumber>;
     setPaymentPayoutWithProofs(
       _id: BigNumberish,
       _token: BigNumberish,
       _amount: BigNumberish,
+      overrides?: TxOverrides,
     ): Promise<BigNumber>;
     makeTaskWithProofs(
       _specificationHash: BytesLike,
       _domainId: BigNumberish,
       _skillId: BigNumberish,
       _dueDate: BigNumberish,
+      overrides?: TxOverrides,
     ): Promise<BigNumber>;
   };
 
@@ -103,32 +112,32 @@ export type AugmentedIColony<T extends AnyIColony = AnyIColony> = T & {
 
   getExtensionClient(
     this: AugmentedIColony,
-    extensionName: Extensions,
+    extensionName: Extension,
   ): Promise<ExtensionClient>;
 
   deployTokenAuthority(
     tokenAddress: string,
     allowedToTransfer: string[],
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
 
   setArchitectureRoleWithProofs(
     _user: string,
     _domainId: BigNumberish,
     _setTo: boolean,
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
   setFundingRoleWithProofs(
     _user: string,
     _domainId: BigNumberish,
     _setTo: boolean,
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
   setAdministrationRoleWithProofs(
     _user: string,
     _domainId: BigNumberish,
     _setTo: boolean,
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
   addPaymentWithProofs(
     _recipient: string,
@@ -136,34 +145,34 @@ export type AugmentedIColony<T extends AnyIColony = AnyIColony> = T & {
     _amount: BigNumberish,
     _domainId: BigNumberish,
     _skillId: BigNumberish,
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
   finalizePaymentWithProofs(
     _id: BigNumberish,
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
   setPaymentRecipientWithProofs(
     _id: BigNumberish,
     _recipient: string,
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
   setPaymentSkillWithProofs(
     _id: BigNumberish,
     _skillId: BigNumberish,
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
   setPaymentPayoutWithProofs(
     _id: BigNumberish,
     _token: BigNumberish,
     _amount: BigNumberish,
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
   makeTaskWithProofs(
     _specificationHash: BytesLike,
     _domainId: BigNumberish,
     _skillId: BigNumberish,
     _dueDate: BigNumberish,
-    overrides?: Overrides,
+    overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
   estimateGas: AugmentedEstimate<T>;
 
@@ -332,7 +341,7 @@ async function setArchitectureRoleWithProofs(
   _user: string,
   _domainId: BigNumberish,
   _setTo: boolean,
-  overrides?: Overrides,
+  overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   let proofs: [BigNumberish, BigNumberish];
   // This method has two potential permissions, so we try both of them
@@ -361,7 +370,7 @@ async function setFundingRoleWithProofs(
   _user: string,
   _domainId: BigNumberish,
   _setTo: boolean,
-  overrides?: Overrides,
+  overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   let proofs: [BigNumberish, BigNumberish];
   // This method has two potential permissions, so we try both of them
@@ -390,7 +399,7 @@ async function setAdministrationRoleWithProofs(
   _user: string,
   _domainId: BigNumberish,
   _setTo: boolean,
-  overrides?: Overrides,
+  overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   let proofs: [BigNumberish, BigNumberish];
   // This method has two potential permissions, so we try both of them
@@ -421,7 +430,7 @@ async function addPaymentWithProofs(
   _amount: BigNumberish,
   _domainId: BigNumberish,
   _skillId: BigNumberish,
-  overrides?: Overrides,
+  overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this,
@@ -443,7 +452,7 @@ async function addPaymentWithProofs(
 async function finalizePaymentWithProofs(
   this: AugmentedIColony,
   _id: BigNumberish,
-  overrides?: Overrides,
+  overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const { domainId } = await this.getPayment(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
@@ -463,7 +472,7 @@ async function setPaymentRecipientWithProofs(
   this: AugmentedIColony,
   _id: BigNumberish,
   _recipient: string,
-  overrides?: Overrides,
+  overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const { domainId } = await this.getPayment(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
@@ -484,7 +493,7 @@ async function setPaymentSkillWithProofs(
   this: AugmentedIColony,
   _id: BigNumberish,
   _skillId: string,
-  overrides?: Overrides,
+  overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const { domainId } = await this.getPayment(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
@@ -506,7 +515,7 @@ async function setPaymentPayoutWithProofs(
   _id: BigNumberish,
   _token: string,
   _amount: BigNumberish,
-  overrides?: Overrides,
+  overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const { domainId } = await this.getPayment(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
@@ -530,7 +539,7 @@ async function makeTaskWithProofs(
   _domainId: BigNumberish,
   _skillId: BigNumberish,
   _dueDate: BigNumberish,
-  overrides?: Overrides,
+  overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this,
@@ -573,6 +582,7 @@ async function estimateSetFundingRoleWithProofs(
   _user: string,
   _domainId: BigNumberish,
   _setTo: boolean,
+  overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this,
@@ -585,6 +595,7 @@ async function estimateSetFundingRoleWithProofs(
     _user,
     _domainId,
     _setTo,
+    overrides,
   );
 }
 
@@ -593,6 +604,7 @@ async function estimateSetAdministrationRoleWithProofs(
   _user: string,
   _domainId: BigNumberish,
   _setTo: boolean,
+  overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this,
@@ -605,6 +617,7 @@ async function estimateSetAdministrationRoleWithProofs(
     _user,
     _domainId,
     _setTo,
+    overrides,
   );
 }
 
@@ -635,6 +648,7 @@ async function estimateAddPaymentWithProofs(
 async function estimateFinalizePaymentWithProofs(
   this: AugmentedIColony,
   _id: BigNumberish,
+  overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const { domainId } = await this.getPayment(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
@@ -646,6 +660,7 @@ async function estimateFinalizePaymentWithProofs(
     permissionDomainId,
     childSkillIndex,
     _id,
+    overrides,
   );
 }
 
@@ -653,6 +668,7 @@ async function estimateSetPaymentRecipientWithProofs(
   this: AugmentedIColony,
   _id: BigNumberish,
   _recipient: string,
+  overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const { domainId } = await this.getPayment(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
@@ -665,6 +681,7 @@ async function estimateSetPaymentRecipientWithProofs(
     childSkillIndex,
     _id,
     _recipient,
+    overrides,
   );
 }
 
@@ -672,6 +689,7 @@ async function estimateSetPaymentSkillWithProofs(
   this: AugmentedIColony,
   _id: BigNumberish,
   _skillId: BigNumberish,
+  overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const { domainId } = await this.getPayment(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
@@ -684,6 +702,7 @@ async function estimateSetPaymentSkillWithProofs(
     childSkillIndex,
     _id,
     _skillId,
+    overrides,
   );
 }
 
@@ -692,6 +711,7 @@ async function estimateSetPaymentPayoutWithProofs(
   _id: BigNumberish,
   _token: string,
   _amount: BigNumberish,
+  overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const { domainId } = await this.getPayment(_id);
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
@@ -705,6 +725,7 @@ async function estimateSetPaymentPayoutWithProofs(
     _id,
     _token,
     _amount,
+    overrides,
   );
 }
 
@@ -714,6 +735,7 @@ async function estimateMakeTaskWithProofs(
   _domainId: BigNumberish,
   _skillId: BigNumberish,
   _dueDate: BigNumberish,
+  overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this,
@@ -727,6 +749,7 @@ async function estimateMakeTaskWithProofs(
     _domainId,
     _skillId,
     _dueDate,
+    overrides,
   );
 }
 
@@ -849,7 +872,7 @@ async function deployTokenAuthority(
   this: AugmentedIColony,
   tokenAddress: string,
   allowedToTransfer: string[],
-  overrides?: Overrides,
+  overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const tokenAuthorityFactory = new ContractFactory(
     tokenAuthorityAbi,
@@ -870,6 +893,7 @@ async function estimateDeployTokenAuthority(
   this: AugmentedIColony,
   tokenAddress: string,
   allowedToTransfer: string[],
+  overrides: TxOverrides = {},
 ): Promise<BigNumber> {
   const tokenAuthorityFactory = new ContractFactory(
     tokenAuthorityAbi,
@@ -879,6 +903,7 @@ async function estimateDeployTokenAuthority(
     tokenAddress,
     this.address,
     allowedToTransfer,
+    overrides,
   );
   return this.provider.estimateGas(deployTx);
 }
