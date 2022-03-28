@@ -6,7 +6,6 @@
   "files": [
     "lib",
     "lib-esm",
-    "docs",
     "LICENSE",
     "package.json",
     "package-lock.json",
