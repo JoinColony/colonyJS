@@ -27,7 +27,8 @@
     "extract-contract-abis": "ts-node -P scripts/tsconfig-scripts.json scripts/extract-contract-abis.ts",
     "lint": "eslint --ext .ts src scripts",
     "prepublishOnly": "npm test && npm run build",
-    "test": "npm run lint && npm run typecheck && jest",
+    "test": "npm run lint && npm run typecheck && jest '[^integration].ts'",
+    "test:ci": "npm run lint && npm run typecheck && jest",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
