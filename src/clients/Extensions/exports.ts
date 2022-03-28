@@ -103,30 +103,25 @@ export const isExtensionCompatible = (
 };
 
 /** @internal */
-export async function getExtensionClient(
-  this: AugmentedIColony,
-  extension: Extension.CoinMachine,
-): Promise<AnyCoinMachineClient>;
+export type GetExtensionClientReturns = {
+  [Extension.CoinMachine]: AnyCoinMachineClient;
+  [Extension.OneTxPayment]: AnyOneTxPaymentClient;
+  [Extension.VotingReputation]: AnyVotingReputationClient;
+  [Extension.Whitelist]: AnyWhitelistClient;
+};
+
+// NOTE: TypeScript has a problem with narrowing down this distinction.
+// See this SO anwer: https://stackoverflow.com/a/60469213/1525722
+// WARN: So make sure you'll get the return type right in your switch arms!
 /** @internal */
-export async function getExtensionClient(
-  this: AugmentedIColony,
-  extension: Extension.OneTxPayment,
-): Promise<AnyOneTxPaymentClient>;
-/** @internal */
-export async function getExtensionClient(
-  this: AugmentedIColony,
-  extension: Extension.VotingReputation,
-): Promise<AnyVotingReputationClient>;
-/** @internal */
-export async function getExtensionClient(
-  this: AugmentedIColony,
-  extension: Extension.Whitelist,
-): Promise<AnyWhitelistClient>;
+export async function getExtensionClient<T extends Extension>(
+  extension: T,
+): Promise<GetExtensionClientReturns[T]>;
 /** @internal */
 export async function getExtensionClient(
   this: AugmentedIColony,
   extension: Extension,
-) {
+): Promise<GetExtensionClientReturns[Extension]> {
   const address = await this.networkClient.getExtensionInstallation(
     getExtensionHash(extension),
     this.address,

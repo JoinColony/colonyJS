@@ -23,9 +23,9 @@ import {
 import { IColony__factory as AwkwardRecoveryRoleEventIColony } from '../../../contracts/IColony/4/factories/IColony__factory';
 
 import {
-  ExtensionClient,
   Extension,
   getExtensionClient,
+  GetExtensionClientReturns,
 } from '../../Extensions/exports';
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
 import { TokenClient } from '../../TokenClient';
@@ -110,10 +110,9 @@ export type AugmentedIColony<T extends AnyIColony = AnyIColony> = T & {
 
   awkwardRecoveryRoleEventClient: AwkwardRecoveryRoleEventClient;
 
-  getExtensionClient(
-    this: AugmentedIColony,
-    extensionName: Extension,
-  ): Promise<ExtensionClient>;
+  getExtensionClient<E extends Extension>(
+    extension: E,
+  ): Promise<GetExtensionClientReturns[E]>;
 
   deployTokenAuthority(
     tokenAddress: string,
@@ -917,6 +916,8 @@ export const addAugments = <T extends AugmentedIColony>(
   instance.networkClient = networkClient;
 
   instance.deployTokenAuthority = deployTokenAuthority.bind(instance);
+
+  // TypeScript's .bind doesn't like overloads, so we do casts all around
   instance.getExtensionClient = getExtensionClient.bind(instance);
 
   instance.setArchitectureRoleWithProofs =
