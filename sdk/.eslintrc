@@ -1,0 +1,23 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "@colony/eslint-config-colony"
+  ],
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "rules": {
+    "no-unused-vars": "off",
+    "no-redeclare": "off",
+    "no-shadow": "off",
+    "import/extensions": "off",
+    "import/no-unresolved": "off",
+    "import/prefer-default-export": "off",
+    "import/no-extraneous-dependencies": "off"
+  }
+}
