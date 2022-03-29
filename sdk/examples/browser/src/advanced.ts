@@ -8,7 +8,7 @@ import {
 } from '@colony/colony-js';
 import { formatEther } from 'ethers/lib/utils';
 
-const { isAddress } = utils;
+const { isAddress, parseEther } = utils;
 const provider = new providers.Web3Provider((window as any).ethereum);
 
 let colonyClient: ColonyClientV8;
@@ -64,7 +64,7 @@ const moveFunds = async (): Promise<ContractReceipt> => {
     Id.RootDomain,
     Id.RootPot,
     domainData.fundingPotId,
-    1,
+    parseEther('0.66'),
     colonyClient.tokenClient.address,
   );
   return tx.wait();
@@ -80,7 +80,7 @@ const makePayment = async (to: string): Promise<ContractReceipt> => {
   const tx = await oneTxClient.makePaymentFundedFromDomainWithProofs(
     [to],
     [tokenClient.address],
-    [BigNumber.from(1)],
+    [parseEther('0.42')],
     domainData.domainId,
     Id.SkillIgnore,
   );
