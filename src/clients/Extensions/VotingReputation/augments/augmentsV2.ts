@@ -18,7 +18,7 @@ import {
   addAugments as addCommonAugments,
   AugmentedVotingReputation,
 } from './commonAugments';
-import { ROOT_DOMAIN_ID } from '../../../..';
+import { Id } from '../../../../constants';
 import { parsePermissionedAction } from '../../../../utils';
 
 type ValidVotingReputation = VotingReputationV2 | VotingReputationV3;
@@ -71,7 +71,7 @@ async function getCreateMotionProofs(
   ) {
     if (!BigNumber.from(domainId).eq(1)) {
       throw new Error(
-        `On root or not permissioned actions, the domainId needs to be ${ROOT_DOMAIN_ID}`,
+        `On root or not permissioned actions, the domainId needs to be ${Id.RootDomain}`,
       );
     }
     // No permission proof needed

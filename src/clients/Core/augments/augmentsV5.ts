@@ -5,7 +5,7 @@ import {
   BytesLike,
 } from 'ethers';
 
-import { ROOT_DOMAIN_ID } from '../../../constants';
+import { Id } from '../../../constants';
 import { ColonyRole, TxOverrides } from '../../../types';
 import {
   IColonyV5,
@@ -167,7 +167,7 @@ async function setUserRolesWithProofs(
   _roles: BytesLike,
   overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
-  const isRootDomain = _domainId === ROOT_DOMAIN_ID.toString();
+  const isRootDomain = _domainId === Id.RootDomain.toString();
   const [permissionDomainId, childSkillIndex] = await getPermissionProofs(
     this,
     _domainId,

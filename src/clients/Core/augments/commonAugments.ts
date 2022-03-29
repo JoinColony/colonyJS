@@ -7,7 +7,7 @@ import {
   constants,
 } from 'ethers';
 
-import { ROOT_DOMAIN_ID } from '../../../constants';
+import { Id } from '../../../constants';
 import { abis } from '../../../exports';
 import { ColonyVersion } from '../exports';
 import { AnyIColony, IColonyV4 } from '../../../contracts/IColony/exports';
@@ -226,7 +226,7 @@ export const getPotDomain = async (
   switch (associatedType) {
     case FundingPotAssociatedType.Unassigned: {
       // This is probably the reward pot
-      return ROOT_DOMAIN_ID;
+      return Id.RootDomain;
     }
     case FundingPotAssociatedType.Domain: {
       return associatedTypeId;
@@ -284,8 +284,8 @@ export const getPermissionProofs = async (
   if (hasPermissionInDomain) {
     return [BigNumber.from(domainId), MaxUint256];
   }
-  // @TODO once we allow nested domains on the network level, this needs to traverse down the skill/domain tree. Use binary search
-  const foundDomainId = BigNumber.from(ROOT_DOMAIN_ID);
+  // TODO: once we allow nested domains on the network level, this needs to traverse down the skill/domain tree. Use binary search
+  const foundDomainId = BigNumber.from(Id.RootDomain);
   const hasPermissionInAParentDomain = await contract.hasUserRole(
     walletAddress,
     foundDomainId,
@@ -917,7 +917,6 @@ export const addAugments = <T extends AugmentedIColony>(
 
   instance.deployTokenAuthority = deployTokenAuthority.bind(instance);
 
-  // TypeScript's .bind doesn't like overloads, so we do casts all around
   instance.getExtensionClient = getExtensionClient.bind(instance);
 
   instance.setArchitectureRoleWithProofs =

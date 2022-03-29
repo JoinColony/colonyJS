@@ -11,15 +11,14 @@ export const COLONY_NETWORK_ADDRESSES = {
   [Network.Custom]: undefined,
 };
 
-/**
- * The id of the root-domain in all colonies
- */
-export const ROOT_DOMAIN_ID = 1;
-
-/**
- * The id of the root fundig pot in all colonies
- */
-export const ROOT_POT_ID = 1;
+export enum Id {
+  /// The id of the root-domain in all colonies
+  RootDomain = 1,
+  /// The id of the root fundig pot in all colonies
+  RootPot = 1,
+  /// Ignore the skill id for this method (global skill 0)
+  SkillIgnore = 0,
+}
 
 /**
  * HTTP endpoint of the official colony reputation oracle

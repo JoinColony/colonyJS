@@ -1,6 +1,6 @@
 import { BigNumber, BigNumberish, ContractTransaction } from 'ethers';
 
-import { ROOT_DOMAIN_ID } from '../../../constants';
+import { Id } from '../../../constants';
 import {
   IColonyV1,
   IColonyV2,
@@ -63,7 +63,7 @@ const getMoveFundsPermissionProofsA = async (
   if (!fromPermissionDomainId.eq(toPermissionDomainId)) {
     const hasFundingInRoot = await contract.hasUserRole(
       walletAddress,
-      ROOT_DOMAIN_ID,
+      Id.RootDomain,
       ColonyRole.Funding,
     );
     // @TODO: In the future we have to not only check the ROOT domain but traverse the tree
@@ -73,12 +73,12 @@ const getMoveFundsPermissionProofsA = async (
     if (hasFundingInRoot) {
       const rootFromChildSkillIndex = await getChildIndex(
         contract,
-        ROOT_DOMAIN_ID,
+        Id.RootDomain,
         fromDomainId,
       );
       const rootToChildSkillIndex = await getChildIndex(
         contract,
-        ROOT_DOMAIN_ID,
+        Id.RootDomain,
         toDomainId,
       );
       // This shouldn't really happen as we have already checked whether the user has funding

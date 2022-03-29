@@ -2,7 +2,7 @@ import fetch from 'cross-fetch';
 import { utils, BigNumber, BigNumberish, BytesLike } from 'ethers';
 import type { LogDescription, Result } from '@ethersproject/abi';
 
-import { ROOT_DOMAIN_ID } from './constants';
+import { Id } from './constants';
 import { ReputationMinerEndpoints, ColonyRole, ColonyRoles } from './types';
 import { ColonyNetworkClient } from './clients/ColonyNetworkClient';
 
@@ -79,7 +79,7 @@ export const formatColonyRoles = async (
   roleSetEvents: LogDescription[],
   recoveryRoleSetEvents: LogDescription[],
 ): Promise<ColonyRoles> => {
-  const ROOT_DOMAIN = ROOT_DOMAIN_ID.toString();
+  const ROOT_DOMAIN = Id.RootDomain.toString();
   // We construct a map that holds all users with all domains and the roles as Sets
   const rolesMap: ColonyRolesMap = roleSetEvents.length
     ? roleSetEvents
