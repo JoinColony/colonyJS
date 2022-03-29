@@ -40,7 +40,9 @@ const createDomain = async (
   fundingPotId: BigNumber;
 }> => {
   const tx = await colonyClient['addDomainWithProofs(uint256,string)'](
+    // Parent domain of the newly created one
     Id.RootDomain,
+    // Domain name of the new domain. It's stored as 'metadata'. Can be any string (e.g. also an IPFS hash)
     domainName,
   );
   // Wait until transaction is mined, then get its receipt
@@ -61,10 +63,15 @@ const moveFunds = async (): Promise<ContractReceipt> => {
   const tx = await colonyClient[
     'moveFundsBetweenPotsWithProofs(uint256,uint256,uint256,uint256,address)'
   ](
+    // Domain id in which the move occurs (ideally a parent domain of both pot-domains that the user has the FUNDING permission in)
     Id.RootDomain,
+    // Pot from which the funds should come from (here the pot associated with the root domain)
     Id.RootPot,
+    // Pot that should be funded. Here it's the pot associated with the newly created team
     domainData.fundingPotId,
+    // Fund pot with this amount of the token. It's in wei, so we use ether's `parseEther` function
     parseEther('0.66'),
+    // Token address of the token that should be transferred bewtween the pots, here the Colony's native token
     colonyClient.tokenClient.address,
   );
   return tx.wait();
@@ -78,10 +85,15 @@ const makePayment = async (to: string): Promise<ContractReceipt> => {
   const { tokenClient } = colonyClient;
   // Create payment in newly created domain
   const tx = await oneTxClient.makePaymentFundedFromDomainWithProofs(
+    // Addresses to which to send the payment (here it's only one)
     [to],
+    // Token which should be sent
     [tokenClient.address],
+    // Amount to send (in wei)
     [parseEther('0.42')],
+    // Domain from which to take the funding
     domainData.domainId,
+    // Skill associated with this payment. Ignore for now
     Id.SkillIgnore,
   );
   return tx.wait();
