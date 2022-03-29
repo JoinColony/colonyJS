@@ -1,7 +1,8 @@
 {
   "scripts": {
     "example:node": "ts-node src/index.ts",
-    "example:browser": "esbuild --bundle examples/browser/src/*.ts --servedir=examples/browser/web"
+    "example:browser": "esbuild --bundle examples/browser/src/*.ts --servedir=examples/browser/web",
+    "build:browser": "esbuild --bundle examples/browser/src/*.ts --outdir=examples/browser/web"
   },
   "engines": {
     "node": "^16.0.0"
