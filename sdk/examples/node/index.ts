@@ -1,5 +1,5 @@
 import { providers, utils } from 'ethers';
-import { CLNY, getColonyNetworkClient, Network, ROOT_POT_ID } from '@colony/colony-js';
+import { CLNY, getColonyNetworkClient, Network, Id } from '@colony/colony-js';
 
 const { formatEther } = utils;
 
@@ -9,7 +9,7 @@ const provider = new providers.JsonRpcProvider('https://rpc.gnosischain.com/');
 const start = async () => {
     const colonyNetworkClient = getColonyNetworkClient(Network.Xdai, provider);
     const metaColonyClient = await colonyNetworkClient.getMetaColonyClient()
-    const funding = await metaColonyClient.getFundingPotBalance(ROOT_POT_ID, CLNY.Xdai);
+    const funding = await metaColonyClient.getFundingPotBalance(Id.RootPot, CLNY.Xdai);
     const { address } = metaColonyClient;
     console.info(`${formatEther(funding)} XDAI in root domain of MetaColony with address: ${address}`);
 }

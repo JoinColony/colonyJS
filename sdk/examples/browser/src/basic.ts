@@ -1,15 +1,15 @@
 import { providers, utils } from 'ethers';
-import { CLNY, getColonyNetworkClient, Network, ROOT_POT_ID } from '@colony/colony-js';
+import { CLNY, getColonyNetworkClient, Network, Id } from '@colony/colony-js';
 
 const { formatEther, isAddress } = utils;
 
-const provider = new providers.JsonRpcProvider('https://rpc.gnosischain.com/');
+const provider = new providers.JsonRpcProvider('https://xdai.colony.io/rpc2/');
 
 // Get the Colony's XDAI funding in the ROOT pot (id 1)
 const getColonyFunding = async (colonyAddress: string) => {
     const colonyNetworkClient = getColonyNetworkClient(Network.Xdai, provider);
     const colonyClient = await colonyNetworkClient.getColonyClient(colonyAddress);
-    const funding = await colonyClient.getFundingPotBalance(ROOT_POT_ID, CLNY.Xdai);
+    const funding = await colonyClient.getFundingPotBalance(Id.RootPot, CLNY.Xdai);
     return formatEther(funding);
 }
 
