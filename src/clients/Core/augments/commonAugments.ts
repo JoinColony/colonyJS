@@ -1,5 +1,4 @@
 import {
-  ContractFactory,
   ContractTransaction,
   BytesLike,
   BigNumber,
@@ -31,17 +30,8 @@ import { IColonyEventsFactory, IColonyEventsClient } from '../../..';
 
 const { MaxUint256 } = constants;
 
-const { abi: tokenAuthorityAbi, bytecode: tokenAuthorityBytecode } =
-  abis.TokenAuthority;
-
 export type AugmentedEstimate<T extends AnyIColony = AnyIColony> =
   T['estimateGas'] & {
-    deployTokenAuthority(
-      tokenAddress: string,
-      allowedToTransfer: string[],
-      overrides?: TxOverrides,
-    ): Promise<BigNumber>;
-
     setArchitectureRoleWithProofs(
       _user: string,
       _domainId: BigNumberish,
@@ -862,46 +852,6 @@ async function getMembersReputation(
   );
 }
 
-async function deployTokenAuthority(
-  this: AugmentedIColony,
-  tokenAddress: string,
-  allowedToTransfer: string[],
-  overrides: TxOverrides = {},
-): Promise<ContractTransaction> {
-  const tokenAuthorityFactory = new ContractFactory(
-    tokenAuthorityAbi,
-    tokenAuthorityBytecode,
-    this.signer,
-  );
-  const tokenAuthorityContract = await tokenAuthorityFactory.deploy(
-    tokenAddress,
-    this.address,
-    allowedToTransfer,
-    overrides,
-  );
-  await tokenAuthorityContract.deployed();
-  return tokenAuthorityContract.deployTransaction;
-}
-
-async function estimateDeployTokenAuthority(
-  this: AugmentedIColony,
-  tokenAddress: string,
-  allowedToTransfer: string[],
-  overrides: TxOverrides = {},
-): Promise<BigNumber> {
-  const tokenAuthorityFactory = new ContractFactory(
-    tokenAuthorityAbi,
-    tokenAuthorityBytecode,
-  );
-  const deployTx = tokenAuthorityFactory.getDeployTransaction(
-    tokenAddress,
-    this.address,
-    allowedToTransfer,
-    overrides,
-  );
-  return this.provider.estimateGas(deployTx);
-}
-
 export const addAugments = <T extends AugmentedIColony>(
   instance: T,
   networkClient: ColonyNetworkClient,
@@ -909,8 +859,6 @@ export const addAugments = <T extends AugmentedIColony>(
   /* eslint-disable no-param-reassign */
   instance.clientType = ClientType.ColonyClient;
   instance.networkClient = networkClient;
-
-  instance.deployTokenAuthority = deployTokenAuthority.bind(instance);
 
   instance.getExtensionClient = getExtensionClient.bind(instance);
 
@@ -927,9 +875,6 @@ export const addAugments = <T extends AugmentedIColony>(
   instance.setPaymentPayoutWithProofs =
     setPaymentPayoutWithProofs.bind(instance);
   instance.makeTaskWithProofs = makeTaskWithProofs.bind(instance);
-
-  instance.estimateGas.deployTokenAuthority =
-    estimateDeployTokenAuthority.bind(instance);
 
   instance.estimateGas.setArchitectureRoleWithProofs =
     estimateSetArchitectureRoleWithProofs.bind(instance);
