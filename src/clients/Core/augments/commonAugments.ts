@@ -8,9 +8,8 @@ import {
 } from 'ethers';
 
 import { Id } from '../../../constants';
-import { abis } from '../../../exports';
 import { ColonyVersion } from '../exports';
-import { AnyIColony, IColonyV4 } from '../../../contracts/IColony/exports';
+import { AnyIColony } from '../../../contracts/IColony/exports';
 import { fetchReputationOracleData } from '../../../utils';
 import {
   ClientType,
@@ -20,8 +19,6 @@ import {
   TxOverrides,
 } from '../../../types';
 
-import { IColony__factory as AwkwardRecoveryRoleEventIColony } from '../../../contracts/IColony/4/factories/IColony__factory';
-
 import {
   Extension,
   getExtensionClient,
@@ -30,14 +27,12 @@ import {
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
 import { TokenClient } from '../../TokenClient';
 
+import { IColonyEventsFactory, IColonyEventsClient } from '../../..';
+
 const { MaxUint256 } = constants;
 
 const { abi: tokenAuthorityAbi, bytecode: tokenAuthorityBytecode } =
   abis.TokenAuthority;
-
-// This is exposed to type the awkward recovery event client which is basically
-// just an IColonyV4
-export type AwkwardRecoveryRoleEventClient = IColonyV4;
 
 export type AugmentedEstimate<T extends AnyIColony = AnyIColony> =
   T['estimateGas'] & {
@@ -955,13 +950,11 @@ export const addAugments = <T extends AugmentedIColony>(
   instance.estimateGas.makeTaskWithProofs =
     estimateMakeTaskWithProofs.bind(instance);
 
-  // This is awkward and just used to get the RecoveryRoleSet event which is missing (but emitted)
-  // in other colonies. We can remove this once all of the active colonies are at version 4
-  instance.awkwardRecoveryRoleEventClient =
-    AwkwardRecoveryRoleEventIColony.connect(
-      instance.address,
-      instance.provider,
-    );
+  const colonyEvents = IColonyEventsFactory.connect(
+    instance.address,
+    instance.signer || instance.provider,
+  );
+  instance.colonyEvents = colonyEvents;
 
   instance.getReputation = getReputation.bind(instance);
   instance.getReputationWithoutProofs =

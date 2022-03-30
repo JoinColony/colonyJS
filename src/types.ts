@@ -6,12 +6,14 @@ import { ExtensionClient } from './clients/Extensions/exports';
 import { ColonyNetworkClient } from './clients/ColonyNetworkClient';
 import { TokenClient as TokenContractClient } from './clients/TokenClient';
 import { TokenLockingClient as TokenLockingContractClient } from './clients/TokenLockingClient';
+import { EventsClient } from '.';
 
 export type SignerOrProvider = Signer | Provider;
 
 export type ContractClient =
   | AnyColonyClient
   | ColonyNetworkClient
+  | EventsClient
   | ExtensionClient
   | TokenContractClient
   | TokenLockingContractClient;
