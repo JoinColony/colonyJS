@@ -13,6 +13,15 @@ import { AugmentedIColony, getPermissionProofs } from './commonAugments';
 type ValidColony = IColonyV4 | IColonyV5 | IColonyV6 | IColonyV7;
 
 export interface SetExpenditurePayoutModifierEstimateGas {
+  /**
+   * @deprecated
+   *
+   * Same as [[setExpenditurePayoutModifier]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _id Expenditure identifier
+   * @param _payoutModifier Modifier to their payout (between -1 and 1, denominated in WADs, 0 means no modification)
+   * @param _slot Number of the slot
+   */
   setExpenditurePayoutModifierWithProofs(
     _id: BigNumberish,
     _slot: BigNumberish,
@@ -22,6 +31,15 @@ export interface SetExpenditurePayoutModifierEstimateGas {
 }
 
 export type SetExpenditurePayoutModifierAugments<T extends ValidColony> = {
+  /**
+   * @deprecated
+   *
+   * Same as [[setExpenditurePayoutModifier]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _id Expenditure identifier
+   * @param _payoutModifier Modifier to their payout (between -1 and 1, denominated in WADs, 0 means no modification)
+   * @param _slot Number of the slot
+   */
   setExpenditurePayoutModifierWithProofs(
     _id: BigNumberish,
     _slot: BigNumberish,

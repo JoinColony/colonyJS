@@ -38,18 +38,41 @@ export type AugmentedEstimate<T extends AnyIColony = AnyIColony> =
       _setTo: boolean,
       overrides?: TxOverrides,
     ): Promise<BigNumber>;
+    /**
+     * Same as [[setFundingRole]], but let colonyJS figure out the permission proofs for you.
+     * Always prefer this method, except when you have good reason not to.
+     * @param _domainId Domain in which we are giving user the role
+     * @param _setTo The state of the role permission (true assign the permission, false revokes it)
+     * @param _user User we want to give an funding role to
+     */
     setFundingRoleWithProofs(
       _user: string,
       _domainId: BigNumberish,
       _setTo: boolean,
       overrides?: TxOverrides,
     ): Promise<BigNumber>;
+    /**
+     * Same as [[setAdministrationRole]], but let colonyJS figure out the permission proofs for you.
+     * Always prefer this method, except when you have good reason not to.
+     * @param _domainId Domain in which we are giving user the role
+     * @param _setTo The state of the role permission (true assign the permission, false revokes it)
+     * @param _user User we want to give an admin role to
+     */
     setAdministrationRoleWithProofs(
       _user: string,
       _domainId: BigNumberish,
       _setTo: boolean,
       overrides?: TxOverrides,
     ): Promise<BigNumber>;
+    /**
+     * Same as [[addPayment]], but let colonyJS figure out the permission proofs for you.
+     * Always prefer this method, except when you have good reason not to.
+     * @param _amount Payout amount
+     * @param _domainId The domain where the payment belongs
+     * @param _recipient Address of the payment recipient
+     * @param _skillId The skill associated with the payment
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     addPaymentWithProofs(
       _recipient: string,
       _token: string,
@@ -58,26 +81,58 @@ export type AugmentedEstimate<T extends AnyIColony = AnyIColony> =
       _skillId: BigNumberish,
       overrides?: TxOverrides,
     ): Promise<BigNumber>;
+    /**
+     * Same as [[finalizePayment]], but let colonyJS figure out the permission proofs for you.
+     * Always prefer this method, except when you have good reason not to.
+     * @param _id Payment identifier
+     */
     finalizePaymentWithProofs(
       _id: BigNumberish,
       overrides?: TxOverrides,
     ): Promise<BigNumber>;
+    /**
+     * Same as [[setPaymentRecipient]], but let colonyJS figure out the permission proofs for you.
+     * Always prefer this method, except when you have good reason not to.
+     * @param _id Payment identifier
+     * @param _recipient Address of the payment recipient
+     */
     setPaymentRecipientWithProofs(
       _id: BigNumberish,
       _recipient: string,
       overrides?: TxOverrides,
     ): Promise<BigNumber>;
+    /**
+     * Same as [[setPaymentSkill]], but let colonyJS figure out the permission proofs for you.
+     * Always prefer this method, except when you have good reason not to.
+     * @param _id Payment identifier
+     * @param _skillId Id of the new skill to set
+     */
     setPaymentSkillWithProofs(
       _id: BigNumberish,
       _skillId: BigNumberish,
       overrides?: TxOverrides,
     ): Promise<BigNumber>;
+    /**
+     * Same as [[setPaymentPayout]], but let colonyJS figure out the permission proofs for you.
+     * Always prefer this method, except when you have good reason not to.
+     * @param _amount Payout amount
+     * @param _id Payment identifier
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
     setPaymentPayoutWithProofs(
       _id: BigNumberish,
       _token: BigNumberish,
       _amount: BigNumberish,
       overrides?: TxOverrides,
     ): Promise<BigNumber>;
+    /**
+     * Same as [[makeTask]], but let colonyJS figure out the permission proofs for you.
+     * Always prefer this method, except when you have good reason not to.
+     * @param _domainId The domain where the task belongs
+     * @param _dueDate The due date of the task, can set to `0` for no-op
+     * @param _skillId The skill associated with the task, can set to `0` for no-op
+     * @param _specificationHash Database identifier where the task specification is stored
+     */
     makeTaskWithProofs(
       _specificationHash: BytesLike,
       _domainId: BigNumberish,
@@ -89,40 +144,77 @@ export type AugmentedEstimate<T extends AnyIColony = AnyIColony> =
 
 export type AugmentedIColony<T extends AnyIColony = AnyIColony> = T & {
   clientType: ClientType.ColonyClient;
+  /** The version of the Colony the client is attached to */
   clientVersion: ColonyVersion;
+  /** An instance of the ColonyNetworkClient */
   networkClient: ColonyNetworkClient;
+  /** An instance of the TokenClient for the Colony's native token */
   tokenClient: TokenClient;
 
-  awkwardRecoveryRoleEventClient: AwkwardRecoveryRoleEventClient;
+  /**
+   * The colonyEvents contract supports all events across all colony versions.
+   * Isn't that amazing?
+   * It's an ethers contract with only events to filter
+   */
+  colonyEvents: IColonyEventsClient;
 
+  /**
+   * Get an instance of an extension client associated with this Colony.
+   * @param extension An [[Extension]]
+   * @returns An instance of an intialized extension client for the desired extension
+   */
   getExtensionClient<E extends Extension>(
     extension: E,
   ): Promise<GetExtensionClientReturns[E]>;
 
-  deployTokenAuthority(
-    tokenAddress: string,
-    allowedToTransfer: string[],
-    overrides?: TxOverrides,
-  ): Promise<ContractTransaction>;
-
+  /**
+   * Same as [[setArchitectureRole]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _domainId Domain in which we are giving user the role
+   * @param _setTo The state of the role permission (true assign the permission, false revokes it)
+   * @param _user User we want to give an architecture role to
+   */
   setArchitectureRoleWithProofs(
     _user: string,
     _domainId: BigNumberish,
     _setTo: boolean,
     overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
+  /**
+   * Same as [[setFundingRole]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _domainId Domain in which we are giving user the role
+   * @param _setTo The state of the role permission (true assign the permission, false revokes it)
+   * @param _user User we want to give an funding role to
+   */
   setFundingRoleWithProofs(
     _user: string,
     _domainId: BigNumberish,
     _setTo: boolean,
     overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
+  /**
+   * Same as [[setAdministrationRole]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _domainId Domain in which we are giving user the role
+   * @param _setTo The state of the role permission (true assign the permission, false revokes it)
+   * @param _user User we want to give an admin role to
+   */
   setAdministrationRoleWithProofs(
     _user: string,
     _domainId: BigNumberish,
     _setTo: boolean,
     overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
+  /**
+   * Same as [[addPayment]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _amount Payout amount
+   * @param _domainId The domain where the payment belongs
+   * @param _recipient Address of the payment recipient
+   * @param _skillId The skill associated with the payment
+   * @param _token Address of the token, `0x0` value indicates Ether
+   */
   addPaymentWithProofs(
     _recipient: string,
     _token: string,
@@ -131,26 +223,58 @@ export type AugmentedIColony<T extends AnyIColony = AnyIColony> = T & {
     _skillId: BigNumberish,
     overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
+  /**
+   * Same as [[finalizePayment]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _id Payment identifier
+   */
   finalizePaymentWithProofs(
     _id: BigNumberish,
     overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
+  /**
+   * Same as [[setPaymentRecipient]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _id Payment identifier
+   * @param _recipient Address of the payment recipient
+   */
   setPaymentRecipientWithProofs(
     _id: BigNumberish,
     _recipient: string,
     overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
+  /**
+   * Same as [[setPaymentSkill]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _id Payment identifier
+   * @param _skillId Id of the new skill to set
+   */
   setPaymentSkillWithProofs(
     _id: BigNumberish,
     _skillId: BigNumberish,
     overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
+  /**
+   * Same as [[setPaymentPayout]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _amount Payout amount
+   * @param _id Payment identifier
+   * @param _token Address of the token, `0x0` value indicates Ether
+   */
   setPaymentPayoutWithProofs(
     _id: BigNumberish,
     _token: BigNumberish,
     _amount: BigNumberish,
     overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
+  /**
+   * Same as [[makeTask]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _domainId The domain where the task belongs
+   * @param _dueDate The due date of the task, can set to `0` for no-op
+   * @param _skillId The skill associated with the task, can set to `0` for no-op
+   * @param _specificationHash Database identifier where the task specification is stored
+   */
   makeTaskWithProofs(
     _specificationHash: BytesLike,
     _domainId: BigNumberish,
@@ -158,8 +282,21 @@ export type AugmentedIColony<T extends AnyIColony = AnyIColony> = T & {
     _dueDate: BigNumberish,
     overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
+
   estimateGas: AugmentedEstimate<T>;
 
+  /**
+   * Get the reputation for an address and a certain skill.
+   * If you need the skillId for a certain domain you can use the [[getDomain]] function.
+   * @remarks
+   * This function also retrieves the proofs (`branchMask`, `siblings`) that are needed to verify the reputation on chain.
+   * If you don't need to do that (e.g. in order to proof the reputation when calling a contract method), you should probably just use
+   * the [[getReputationWithoutProofs]] method as it requires fewer computations
+   * @param skillId The skill id to get the addresses reputation in
+   * @param address Wallet address to retrieve the reputation of
+   * @param customRootHash The `customRootHash` can be set to retrieve the reputation at a certain block time in the past
+   * @returns The reputation amount as well as the two proofs that are needed to verify the reputation on chain
+   */
   getReputation(
     skillId: BigNumberish,
     address: string,
@@ -171,7 +308,14 @@ export type AugmentedIColony<T extends AnyIColony = AnyIColony> = T & {
     siblings: string[];
     reputationAmount: BigNumber;
   }>;
-
+  /**
+   * Get the reputation for an address and a certain skill.
+   * If you need the skillId for a certain domain you can use the [[getDomain]] function.
+   * @param skillId The skill id to get the addresses reputation in
+   * @param address Wallet address to retrieve the reputation of
+   * @param customRootHash The `customRootHash` can be set to retrieve the reputation at a certain block time in the past
+   * @returns The reputation amount
+   */
   getReputationWithoutProofs(
     skillId: BigNumberish,
     address: string,
@@ -181,7 +325,12 @@ export type AugmentedIColony<T extends AnyIColony = AnyIColony> = T & {
     value: string;
     reputationAmount: BigNumber;
   }>;
-
+  /**
+   * Get the reputation for an address across all domains in a Colony.
+   * @param address Wallet address to retrieve the reputation of
+   * @param customRootHash The `customRootHash` can be set to retrieve the reputation at a certain block time in the past
+   * @returns The reputation amount
+   */
   getReputationAcrossDomains(
     address: string,
     customRootHash?: string,
@@ -192,7 +341,12 @@ export type AugmentedIColony<T extends AnyIColony = AnyIColony> = T & {
       reputationAmount?: BigNumberish;
     }[]
   >;
-
+  /**
+   * Get all addresses that have reputation for a given skill.
+   * If you need the skillId for a certain domain you can use the [[getDomain]] function.
+   * @param skillId The skill id to get the reputation in
+   * @returns All addresses that have a non-zero reputation for the given skill
+   */
   getMembersReputation(skillId: BigNumberish): Promise<{ addresses: string[] }>;
 };
 

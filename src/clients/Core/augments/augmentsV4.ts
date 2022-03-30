@@ -26,28 +26,61 @@ type ValidColony =
   | IColonyV9;
 
 export interface AugmentedEstimateV4 extends AugmentedEstimateV3 {
+  /**
+   * Same as [[makeExpenditure]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _domainId The domain where the expenditure belongs
+   */
   makeExpenditureWithProofs(
     _domainId: BigNumberish,
     overrides?: TxOverrides,
   ): Promise<BigNumber>;
+  /**
+   * @deprecated
+   *
+   * Same as [[transferExpenditureViaArbitration]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _id Expenditure identifier
+   * @param _newOwner New owner of expenditure
+   */
   transferExpenditureViaArbitrationWithProofs(
     _id: BigNumberish,
     _newOwner: string,
-    overrides: TxOverrides,
+    overrides?: TxOverrides,
   ): Promise<BigNumber>;
 }
 
 export type ColonyAugmentsV4<T extends ValidColony> = {
+  /**
+   * Same as [[hasInheritedUserRole]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _domainId Domain in which the caller has the role
+   * @param _role The role we want to check for
+   * @param _user The user whose role we want to check
+   */
   hasInheritedUserRoleWithProofs(
     _user: string,
     _domainId: BigNumberish,
     _role: BigNumberish,
     overrides?: TxOverrides,
   ): Promise<boolean>;
+  /**
+   * Same as [[makeExpenditure]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _domainId The domain where the expenditure belongs
+   */
   makeExpenditureWithProofs(
     _domainId: BigNumberish,
     overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
+  /**
+   * @deprecated
+   *
+   * Same as [[transferExpenditureViaArbitration]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _id Expenditure identifier
+   * @param _newOwner New owner of expenditure
+   */
   transferExpenditureViaArbitrationWithProofs(
     _id: BigNumberish,
     _newOwner: string,

@@ -115,7 +115,7 @@ export enum MotionState {
 
 /**
  * Funding pots can have different types in a colony.
- * See [here](https://colony.io/dev/docs/colonynetwork/whitepaper-tldr-pots-and-funding) for more details
+ * See [here](https://github.com/JoinColony/colonyNetwork/blob/develop/docs/_TLDR_Pots.md#types-of-pots) for more details
  */
 export enum FundingPotAssociatedType {
   Unassigned,

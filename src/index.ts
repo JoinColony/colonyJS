@@ -13,6 +13,8 @@ import {
 } from './contracts';
 /* eslint-enable camelcase */
 
+export type { ColonyDataTypes } from './contracts/IColony/exports';
+
 export * from './constants';
 export * from './helpers';
 export * from './types';
