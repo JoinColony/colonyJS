@@ -6,6 +6,8 @@ import { AugmentedIColony } from '../../Core/augments/commonAugments';
 export interface WhitelistClient extends Whitelist {
   clientType: ClientType.WhitelistClient;
   clientVersion: 1;
+  /** An instance of the corresponding ColonyClient */
+  colonyClient: AugmentedIColony;
 }
 
 export default function getWhitelistClient(
@@ -19,6 +21,7 @@ export default function getWhitelistClient(
 
   whitelistClient.clientType = ClientType.WhitelistClient;
   whitelistClient.clientVersion = 1;
+  whitelistClient.colonyClient = colonyClient;
 
   return whitelistClient;
 }

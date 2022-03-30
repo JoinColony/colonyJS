@@ -23,13 +23,25 @@ const { MaxUint256 } = constants;
 export type AugmentedEstimate<
   T extends AnyVotingReputation = AnyVotingReputation,
 > = T['estimateGas'] & {
+  /**
+   * Same as [[createDomainMotion]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _action A bytes array encoding a function call
+   * @param _domainId The domain where we vote on the motion
+   */
   createDomainMotionWithProofs(
-    /// Domain in which the voting will take place in
     _domainId: BigNumberish,
     _action: BytesLike,
     overrides?: TxOverrides,
   ): Promise<BigNumber>;
 
+  /**
+   * Same as [[stakeMotion]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _amount The amount of tokens being staked
+   * @param _motionId The id of the motion
+   * @param _vote The side being supported (0 = NAY, 1 = YAY)
+   */
   stakeMotionWithProofs(
     _motionId: BigNumberish,
     _vote: BigNumberish,
@@ -37,12 +49,25 @@ export type AugmentedEstimate<
     overrides?: TxOverrides,
   ): Promise<BigNumber>;
 
+  /**
+   * Same as [[escalateMotion]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _motionId The id of the motion
+   * @param _newDomainId The desired domain of escalation
+   */
   escalateMotionWithProofs(
     _motionId: BigNumberish,
     _newDomainId: BigNumberish, // parent, or ancestor, domain id
     overrides?: TxOverrides,
   ): Promise<BigNumber>;
 
+  /**
+   * Same as [[claimReward]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _motionId The id of the motion
+   * @param _staker The staker whose reward is being claimed
+   * @param _vote The side being supported (0 = NAY, 1 = YAY)
+   */
   claimRewardWithProofs(
     _motionId: BigNumberish,
     _staker: string,
@@ -56,16 +81,29 @@ export type AugmentedVotingReputation<
 > = T & {
   clientType: ClientType.VotingReputationClient;
   clientVersion: VotingReputationVersion;
+  /** An instance of the corresponding ColonyClient */
   colonyClient: AugmentedIColony;
   estimateGas: T['estimateGas'] & AugmentedEstimate;
 
+  /**
+   * Same as [[createDomainMotion]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _action A bytes array encoding a function call
+   * @param _domainId The domain where we vote on the motion
+   */
   createDomainMotionWithProofs(
-    /// Domain in which the voting will take place in
     _domainId: BigNumberish,
     _action: BytesLike,
     overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
 
+  /**
+   * Same as [[stakeMotion]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _amount The amount of tokens being staked
+   * @param _motionId The id of the motion
+   * @param _vote The side being supported (0 = NAY, 1 = YAY)
+   */
   stakeMotionWithProofs(
     _motionId: BigNumberish,
     _vote: BigNumberish,
@@ -73,13 +111,25 @@ export type AugmentedVotingReputation<
     overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
 
+  /**
+   * Same as [[escalateMotion]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _motionId The id of the motion
+   * @param _newDomainId The desired domain of escalation
+   */
   escalateMotionWithProofs(
     _motionId: BigNumberish,
-    /// Parent, or ancestor, domain id
     _newDomainId: BigNumberish,
     overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
 
+  /**
+   * Same as [[claimReward]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _motionId The id of the motion
+   * @param _staker The staker whose reward is being claimed
+   * @param _vote The side being supported (0 = NAY, 1 = YAY)
+   */
   claimRewardWithProofs(
     _motionId: BigNumberish,
     _staker: string,
