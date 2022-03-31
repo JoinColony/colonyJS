@@ -17,6 +17,10 @@ import { VotingReputationVersion } from '../exports';
 import { AnyVotingReputation } from '../../../../contracts/VotingReputation/exports';
 import { ClientType } from '../../../..';
 import { parsePermissionedAction } from '../../../../utils';
+import {
+  VotingReputationEvents,
+  VotingReputationEvents__factory as VotingReputationEventsFactory,
+} from '../../../../contracts';
 
 const { MaxUint256 } = constants;
 
@@ -83,6 +87,14 @@ export type AugmentedVotingReputation<
   clientVersion: VotingReputationVersion;
   /** An instance of the corresponding ColonyClient */
   colonyClient: AugmentedIColony;
+
+  /**
+   * The votingReputationsEvents contract supports all events across all versions.
+   * Isn't that amazing?
+   * It's an ethers contract with only events to filter
+   */
+  votingReputationEvents: VotingReputationEvents;
+
   estimateGas: T['estimateGas'] & AugmentedEstimate;
 
   /**
@@ -421,6 +433,11 @@ export const addAugments = <T extends AugmentedVotingReputation>(
     estimateEscalateMotionWithProofs.bind(instance);
   instance.estimateGas.claimRewardWithProofs =
     estimateClaimRewardWithProofs.bind(instance);
+
+  instance.votingReputationEvents = VotingReputationEventsFactory.connect(
+    instance.address,
+    instance.signer || instance.provider,
+  );
 
   return instance;
   /* eslint-enable no-param-reassign */

@@ -1,4 +1,3 @@
-import { ClientType } from '../../../types';
 import { VotingReputation__factory as VotingReputationFactory } from '../../../contracts/VotingReputation/2/factories/VotingReputation__factory';
 import { VotingReputation } from '../../../contracts/VotingReputation/2/VotingReputation';
 import {
@@ -32,7 +31,6 @@ export default function getVotingReputationClient(
     colonyClient.signer || colonyClient.provider,
   ) as VotingReputationClient;
 
-  votingReputationClient.clientType = ClientType.VotingReputationClient;
   votingReputationClient.clientVersion = 2;
   addAugments(votingReputationClient, colonyClient);
 
