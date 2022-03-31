@@ -6,25 +6,25 @@ import {
 import { AugmentedIColony } from '../../Core/augments/commonAugments';
 
 import getVotingReputationClientV1, {
-  VotingReputationClient as VotingReputationClient1,
+  VotingReputationClientV1,
 } from './VotingReputationClientV1';
 import getVotingReputationClientV2, {
-  VotingReputationClient as VotingReputationClient2,
+  VotingReputationClientV2,
 } from './VotingReputationClientV2';
 import getVotingReputationClientV3, {
-  VotingReputationClient as VotingReputationClient3,
+  VotingReputationClientV3,
 } from './VotingReputationClientV3';
 
 const VOTING_REPUTATION_VERSION_NEXT = 4;
 
-export type VotingReputationClientV1 = VotingReputationClient1;
-export type VotingReputationClientV2 = VotingReputationClient2;
-export type VotingReputationClientV3 = VotingReputationClient3;
+export { VotingReputationClientV1 } from './VotingReputationClientV1';
+export { VotingReputationClientV2 } from './VotingReputationClientV2';
+export { VotingReputationClientV3 } from './VotingReputationClientV3';
 
 export type AnyVotingReputationClient =
-  | VotingReputationClient1
-  | VotingReputationClient2
-  | VotingReputationClient3;
+  | VotingReputationClientV1
+  | VotingReputationClientV2
+  | VotingReputationClientV3;
 
 export const VOTING_REPUTATION_VERSIONS = createContractVersionArray(
   VOTING_REPUTATION_VERSION_NEXT,

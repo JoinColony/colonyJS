@@ -11,7 +11,7 @@ import { Core, Extension } from '../src';
 
 // Map versioned contracts to network release tags
 const RELEASE_MAP = {
-  [Core.Colony]: {
+  [Core.IColony]: {
     'glider-rc.1': 1,
     glider: 2,
     'auburn-glider': 3,
@@ -47,7 +47,7 @@ const RELEASE_MAP = {
 
 // Upgradable contract names that will be generated
 const VERSIONED_CONTRACTS = [
-  Core.Colony,
+  Core.IColony,
   Extension.CoinMachine,
   Extension.OneTxPayment,
   Extension.VotingReputation,

@@ -15,7 +15,7 @@ interface VotingReputationEstimate
   extends AugmentedEstimate<VotingReputation>,
     AugmentedEstimateV2 {}
 
-export interface VotingReputationClient
+export interface VotingReputationClientV2
   extends AugmentedVotingReputation<VotingReputation>,
     AugmentsV2<VotingReputation> {
   clientVersion: 2;
@@ -25,11 +25,11 @@ export interface VotingReputationClient
 export default function getVotingReputationClient(
   colonyClient: AugmentedIColony,
   address: string,
-): VotingReputationClient {
+): VotingReputationClientV2 {
   const votingReputationClient = VotingReputationFactory.connect(
     address,
     colonyClient.signer || colonyClient.provider,
-  ) as VotingReputationClient;
+  ) as VotingReputationClientV2;
 
   votingReputationClient.clientVersion = 2;
   addAugments(votingReputationClient, colonyClient);

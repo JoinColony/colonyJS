@@ -5,15 +5,13 @@ import {
 } from '../../../utils';
 import { AugmentedIColony } from '../../Core/augments/commonAugments';
 
-import getWhitelistClientV1, {
-  WhitelistClient as WhitelistClient1,
-} from './WhitelistClientV1';
+import getWhitelistClientV1, { WhitelistClientV1 } from './WhitelistClientV1';
 
 const WHITELIST_VERSION_NEXT = 2;
 
-export type WhitelistClientV1 = WhitelistClient1;
+export { WhitelistClientV1 } from './WhitelistClientV1';
 
-export type AnyWhitelistClient = WhitelistClient1;
+export type AnyWhitelistClient = WhitelistClientV1;
 
 export const WHITELIST_VERSIONS = createContractVersionArray(
   WHITELIST_VERSION_NEXT,
