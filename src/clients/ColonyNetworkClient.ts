@@ -8,10 +8,7 @@ import {
 import { ClientType, Network, SignerOrProvider } from '../types';
 import { AnyColonyClient } from '../clients/Core/exports';
 
-import {
-  COLONY_NETWORK_ADDRESSES,
-  REPUTATION_ORACLE_ENDPOINT,
-} from '../constants';
+import { ColonyNetworkAddress, ReputationOracleEndpoint } from '../constants';
 import { IColonyNetwork, IColonyNetworkFactory, abis } from '../exports';
 import { getColonyClient } from './Core/exports';
 import getTokenLockingClient, {
@@ -128,7 +125,7 @@ const getColonyNetworkClient = (
   const networkAddress =
     options && options.networkAddress
       ? options.networkAddress
-      : COLONY_NETWORK_ADDRESSES[network || Network.Mainnet];
+      : ColonyNetworkAddress[network || Network.Mainnet];
   if (!networkAddress) {
     throw new Error(
       `Could not get ColonyNetwork address for ${network}. Please specify using the 'networkAddress' option`,
@@ -143,7 +140,8 @@ const getColonyNetworkClient = (
   networkClient.clientType = ClientType.NetworkClient;
   networkClient.network = network;
   networkClient.reputationOracleEndpoint =
-    (options && options.reputationOracleEndpoint) || REPUTATION_ORACLE_ENDPOINT;
+    (options && options.reputationOracleEndpoint) ||
+    ReputationOracleEndpoint[network];
 
   networkClient.getTokenLockingClient =
     async (): Promise<TokenLockingClient> => {

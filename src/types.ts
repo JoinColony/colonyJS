@@ -43,11 +43,11 @@ export enum ReputationMinerEndpoints {
  * Supported Ethereum networks. Use `Custom` if you'd like to bring your own deployment (e.g. local)
  */
 export enum Network {
-  Mainnet = 'mainnet',
-  Goerli = 'goerli',
-  Custom = 'custom',
-  Xdai = 'xdai',
-  XdaiFork = 'xdaiFork',
+  Mainnet = 'Mainnet',
+  Goerli = 'Goerli',
+  Custom = 'Custom',
+  Xdai = 'Xdai',
+  XdaiFork = 'XdaiFork',
 }
 
 /**
