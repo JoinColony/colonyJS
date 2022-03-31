@@ -3,18 +3,18 @@ import { CoinMachine } from '../../../contracts/CoinMachine/3/CoinMachine';
 import { AugmentedIColony } from '../../Core/augments/commonAugments';
 import { addAugments, AugmentedCoinMachine } from './augments/commonAugments';
 
-export interface CoinMachineClient extends AugmentedCoinMachine<CoinMachine> {
+export interface CoinMachineClientV3 extends AugmentedCoinMachine<CoinMachine> {
   clientVersion: 3;
 }
 
 export default function getCoinMachineClient(
   colonyClient: AugmentedIColony,
   address: string,
-): CoinMachineClient {
+): CoinMachineClientV3 {
   const coinMachineClient = CoinMachineFactory.connect(
     address,
     colonyClient.signer || colonyClient.provider,
-  ) as CoinMachineClient;
+  ) as CoinMachineClientV3;
 
   coinMachineClient.clientVersion = 3;
   addAugments(coinMachineClient, colonyClient);

@@ -6,7 +6,7 @@ import {
 } from './augments/commonAugments';
 import { AugmentedIColony } from '../../Core/augments/commonAugments';
 
-export interface VotingReputationClient
+export interface VotingReputationClientV1
   extends AugmentedVotingReputation<VotingReputation> {
   clientVersion: 1;
 }
@@ -14,11 +14,11 @@ export interface VotingReputationClient
 export default function getVotingReputationClient(
   colonyClient: AugmentedIColony,
   address: string,
-): VotingReputationClient {
+): VotingReputationClientV1 {
   const votingReputationClient = VotingReputationFactory.connect(
     address,
     colonyClient.signer || colonyClient.provider,
-  ) as VotingReputationClient;
+  ) as VotingReputationClientV1;
 
   votingReputationClient.clientVersion = 1;
   addAugments(votingReputationClient, colonyClient);

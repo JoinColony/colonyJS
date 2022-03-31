@@ -3,18 +3,18 @@ import { Whitelist } from '../../../contracts/Whitelist/1/Whitelist';
 import { AugmentedIColony } from '../../Core/augments/commonAugments';
 import { addAugments, AugmentedWhitelst } from './augments/commonAugments';
 
-export interface WhitelistClient extends AugmentedWhitelst<Whitelist> {
+export interface WhitelistClientV1 extends AugmentedWhitelst<Whitelist> {
   clientVersion: 1;
 }
 
 export default function getWhitelistClient(
   colonyClient: AugmentedIColony,
   address: string,
-): WhitelistClient {
+): WhitelistClientV1 {
   const whitelistClient = WhitelistFactory.connect(
     address,
     colonyClient.signer || colonyClient.provider,
-  ) as WhitelistClient;
+  ) as WhitelistClientV1;
 
   whitelistClient.clientVersion = 1;
   addAugments(whitelistClient, colonyClient);
