@@ -1,13 +1,10 @@
-import { ClientType } from '../../../types';
 import { Whitelist__factory as WhitelistFactory } from '../../../contracts/Whitelist/1/factories/Whitelist__factory';
 import { Whitelist } from '../../../contracts/Whitelist/1/Whitelist';
 import { AugmentedIColony } from '../../Core/augments/commonAugments';
+import { addAugments, AugmentedWhitelst } from './augments/commonAugments';
 
-export interface WhitelistClient extends Whitelist {
-  clientType: ClientType.WhitelistClient;
+export interface WhitelistClient extends AugmentedWhitelst<Whitelist> {
   clientVersion: 1;
-  /** An instance of the corresponding ColonyClient */
-  colonyClient: AugmentedIColony;
 }
 
 export default function getWhitelistClient(
@@ -19,9 +16,8 @@ export default function getWhitelistClient(
     colonyClient.signer || colonyClient.provider,
   ) as WhitelistClient;
 
-  whitelistClient.clientType = ClientType.WhitelistClient;
   whitelistClient.clientVersion = 1;
-  whitelistClient.colonyClient = colonyClient;
+  addAugments(whitelistClient, colonyClient);
 
   return whitelistClient;
 }

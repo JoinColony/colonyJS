@@ -6,9 +6,23 @@ import { ExtensionClient } from './clients/Extensions/exports';
 import { ColonyNetworkClient } from './clients/ColonyNetworkClient';
 import { TokenClient as TokenContractClient } from './clients/TokenClient';
 import { TokenLockingClient as TokenLockingContractClient } from './clients/TokenLockingClient';
-import { EventsClient } from '.';
+
+import {
+  CoinMachineEvents,
+  IColonyEvents,
+  OneTxPaymentEvents,
+  VotingReputationEvents,
+  WhitelistEvents,
+} from './contracts';
 
 export type SignerOrProvider = Signer | Provider;
+
+export type EventsClient =
+  | CoinMachineEvents
+  | IColonyEvents
+  | OneTxPaymentEvents
+  | VotingReputationEvents
+  | WhitelistEvents;
 
 export type ContractClient =
   | AnyColonyClient

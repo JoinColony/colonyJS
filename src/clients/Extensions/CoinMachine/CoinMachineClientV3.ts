@@ -1,13 +1,10 @@
-import { ClientType } from '../../../types';
 import { CoinMachine__factory as CoinMachineFactory } from '../../../contracts/CoinMachine/3/factories/CoinMachine__factory';
 import { CoinMachine } from '../../../contracts/CoinMachine/3/CoinMachine';
 import { AugmentedIColony } from '../../Core/augments/commonAugments';
+import { addAugments, AugmentedCoinMachine } from './augments/commonAugments';
 
-export interface CoinMachineClient extends CoinMachine {
-  clientType: ClientType.CoinMachineClient;
+export interface CoinMachineClient extends AugmentedCoinMachine<CoinMachine> {
   clientVersion: 3;
-  /** An instance of the corresponding ColonyClient */
-  colonyClient: AugmentedIColony;
 }
 
 export default function getCoinMachineClient(
@@ -19,9 +16,8 @@ export default function getCoinMachineClient(
     colonyClient.signer || colonyClient.provider,
   ) as CoinMachineClient;
 
-  coinMachineClient.clientType = ClientType.CoinMachineClient;
   coinMachineClient.clientVersion = 3;
-  coinMachineClient.colonyClient = colonyClient;
+  addAugments(coinMachineClient, colonyClient);
 
   return coinMachineClient;
 }
