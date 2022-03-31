@@ -51,16 +51,20 @@ export enum Network {
 }
 
 /**
- * Available roles in the colonyNetwork. Find out more here: https://colony.io/dev/docs/colonynetwork/docs-modular-permissions
+ * Available roles in the colonyNetwork. Find out more here: https://github.com/JoinColony/colonyNetwork/blob/develop/docs/_Docs_Permissions.md
  */
 export enum ColonyRole {
   Recovery,
   Root,
   Arbitration,
   Architecture,
-  ArchitectureSubdomain_DEPRECATED,
+  /**
+   * @deprecated
+   * The `ArchitectureSubdomain` role has been deprecated and should not be used */
+  ArchitectureSubdomain,
   Funding,
   Administration,
+  /** @internal */
   LAST_ROLE,
 }
 

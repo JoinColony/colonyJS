@@ -6,11 +6,9 @@
 
 colonyJS is a JavaScript library with a simple and predictable interface for application-layer integrations with the [colonyNetwork](https://github.com/JoinColony/colonyNetwork) smart contracts. To learn more about Colony, you can visit [colony.io](https://colony.io/) or read the [White Paper](https://colony.io/whitepaper.pdf).
 
-This software is currently in BETA state. The v5 API should be pretty stable.
-
 ## Documentation
 
-The documentation is automatically generated using [TypeDoc](https://github.com/TypeStrong/typedoc) and can be found [here](https://joincolony.github.io/colonyJS/v5/). You should check out the `getColonyNetworkClient` function in `ColonyNetworkClient` and the docs for the extended colony contracts `clients/Colony/ColonyClientVX`.
+The documentation is automatically generated using [TypeDoc](https://github.com/TypeStrong/typedoc) and can be found [here](https://joincolony.github.io/colonyJS). You should check out the `getColonyNetworkClient` function in `ColonyNetworkClient` and the docs for the extended colony contracts `clients/Colony/ColonyClientVX`.
 
 ## Get Started
 
