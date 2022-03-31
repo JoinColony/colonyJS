@@ -75,7 +75,7 @@ async function setArbitrationRoleWithProofs(
     proofs = await getPermissionProofs(
       this,
       _domainId,
-      ColonyRole.ArchitectureSubdomain_DEPRECATED,
+      ColonyRole.ArchitectureSubdomain,
     );
   } catch (err) {
     proofs = await getPermissionProofs(this, _domainId, ColonyRole.Root);
