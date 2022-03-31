@@ -27,7 +27,7 @@ export type AnyCoinMachineClient =
   | CoinMachineClientV2
   | CoinMachineClientV3;
 
-export const COIN_MACHINE_VERSIONS = createContractVersionArray(
+const COIN_MACHINE_VERSIONS = createContractVersionArray(
   COIN_MACHINE_VERSION_NEXT,
 );
 export type CoinMachineVersion = typeof COIN_MACHINE_VERSIONS[number];
