@@ -1,14 +1,29 @@
 {
   "name": "@colony/colony-js",
   "version": "5.0.0-rc.0",
-  "main": "lib/index.js",
-  "module": "lib-esm/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    },
+    "./extras": {
+      "import": "./dist/esm/extras/index.js",
+      "require": "./dist/cjs/extras/index.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/types/index.d.ts"
+      ],
+      "extras": [
+        "dist/types/extras/index.d.ts"
+      ]
+    }
+  },
   "files": [
-    "lib",
-    "lib-esm",
+    "dist",
     "LICENSE",
-    "package.json",
-    "package-lock.json",
     "README.md"
   ],
   "license": "GPL-3.0-only",
@@ -17,17 +32,18 @@
     "npm": "^8"
   },
   "scripts": {
-    "build": "npm run clean && npm run compile && npm run compile-esm && npm run build-docs",
+    "build": "npm run clean && npm run compile-cjs && npm run compile-esm && npm run compile-types && npm run build-docs",
     "build-contracts": "ts-node -P scripts/tsconfig-scripts.json scripts/build-contracts.ts",
     "build-docs": "typedoc --out docs --excludeInternal src/index.ts",
-    "clean": "rimraf ./lib && rimraf ./lib-esm",
-    "compile": "tsc -p tsconfig.build.json",
-    "compile-esm": "tsc -p tsconfig.build.json -m es6 --outDir lib-esm",
+    "clean": "rimraf ./dist",
+    "compile-cjs": "tsc -p tsconfig.build.json --module commonjs --outDir dist/cjs",
+    "compile-esm": "tsc -p tsconfig.build.json --module es2015 --outDir dist/esm",
+    "compile-types": "tsc -p tsconfig.build.json --declaration --emitDeclarationOnly --outDir dist/types",
     "extract-contract-abis": "ts-node -P scripts/tsconfig-scripts.json scripts/extract-contract-abis.ts",
     "lint": "eslint --ext .ts src scripts",
     "prepublishOnly": "npm test && npm run build",
     "test": "npm run lint && npm run typecheck && jest '[^integration].ts'",
-    "test:ci": "npm run lint && npm run typecheck && jest",
+    "test-ci": "npm run lint && npm run typecheck && jest",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {

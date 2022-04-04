@@ -27,7 +27,7 @@ jobs:
     - name: install npm
       run: npm i -g npm@8 --registry=https://registry.npmjs.org
     - run: npm ci
-    - run: npm run test:ci
+    - run: npm run test-ci
       env:
         CI: true
     - run: npm run build
