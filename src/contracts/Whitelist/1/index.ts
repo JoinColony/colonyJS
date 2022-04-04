@@ -2,5 +2,5 @@
 /* tslint:disable */
 /* eslint-disable */
 export type { Whitelist } from "./Whitelist";
-
+export * as factories from "./factories";
 export { Whitelist__factory } from "./factories/Whitelist__factory";
