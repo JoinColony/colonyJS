@@ -20,28 +20,28 @@ const RELEASE_MAP = {
     clwss: 6,
     dlwss: 7,
     elwss3: 8,
-    DEV: 9,
+    latest: 9,
   },
   [Extension.CoinMachine]: {
     clwss: 1,
     dlwss: 2,
     elwss2: 3,
-    DEV: 3,
+    latest: 3,
   },
   [Extension.OneTxPayment]: {
     clwss: 1,
     dlwss: 2,
-    DEV: 3,
+    latest: 3,
   },
   [Extension.VotingReputation]: {
     clwss: 1,
     dlwss: 2,
     elwss: 3,
-    DEV: 3,
+    latest: 3,
   },
   [Extension.Whitelist]: {
     elwss: 1,
-    DEV: 1,
+    latest: 1,
   },
 };
 
@@ -66,7 +66,7 @@ const UNVERSIONED_CONTRACTS = [
   'TokenSAI',
 ];
 
-const STATIC_DIR = resolvePath(__dirname, '../src/abis/__static__');
+const FIXED_DIR = resolvePath(__dirname, '../src/abis/__fixed__');
 const DYNAMIC_DIR = resolvePath(__dirname, '../src/abis/__dynamic__');
 const OUT_ROOT_DIR = resolvePath(__dirname, '../src/contracts');
 
@@ -133,7 +133,7 @@ const buildVersionedContracts = async (
 ): Promise<void[]> => {
   const promises = VERSIONED_CONTRACTS.map(async (contractName) => {
     const availableContracts = RELEASE_MAP[contractName];
-    const versionTag = releaseTag === 'develop' ? 'DEV' : releaseTag;
+    const versionTag = releaseTag === 'develop' ? 'latest' : releaseTag;
     if (versionTag in availableContracts) {
       const outDir = resolvePath(
         OUT_ROOT_DIR,
@@ -168,7 +168,7 @@ const buildUnversionedContracts = async (inputDir: string) => {
     'ethers-v5',
     '--out-dir',
     OUT_ROOT_DIR,
-    `{${inputDir},${STATIC_DIR},${DYNAMIC_DIR}}/${contractGlobs}`,
+    `{${inputDir},${FIXED_DIR},${DYNAMIC_DIR}}/${contractGlobs}`,
   ]);
 
   if (typechain.stdout) typechain.stdout.pipe(process.stdout);
@@ -182,7 +182,7 @@ const build = async () => {
   const args = await argv;
   const { tag } = args;
 
-  const inputTag = tag === 'develop' ? '__develop__' : tag;
+  const inputTag = tag === 'develop' ? 'latest' : tag;
   const abiDir = resolvePath(__dirname, `../src/abis`);
   const inputDir = resolvePath(abiDir, inputTag);
 

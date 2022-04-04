@@ -1,7 +1,7 @@
 // exports used internally. Do not expose to the outside world
 
 // Always adjust to the latest version here
-import * as MetaTxToken from './abis/__develop__/MetaTxToken.json';
+import * as MetaTxToken from './abis/latest/MetaTxToken.json';
 import * as TokenAuthority from './abis/elwss3/TokenAuthority.json';
 import * as VestingSimple from './abis/elwss3/VestingSimple.json';
 import * as WrappedToken from './abis/elwss3/WrappedToken.json';
