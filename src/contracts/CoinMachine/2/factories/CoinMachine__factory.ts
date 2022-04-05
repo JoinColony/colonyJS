@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import { Signer, utils, Contract, ContractFactory, Overrides } from "ethers";
-import { Provider, TransactionRequest } from "@ethersproject/providers";
+import type { Provider, TransactionRequest } from "@ethersproject/providers";
 import type { CoinMachine, CoinMachineInterface } from "../CoinMachine";
 
 const _abi = [
@@ -610,27 +610,25 @@ export class CoinMachine__factory extends ContractFactory {
     } else {
       super(_abi, _bytecode, args[0]);
     }
-    this.contractName = "CoinMachine";
   }
 
-  deploy(
+  override deploy(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<CoinMachine> {
     return super.deploy(overrides || {}) as Promise<CoinMachine>;
   }
-  getDeployTransaction(
+  override getDeployTransaction(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): TransactionRequest {
     return super.getDeployTransaction(overrides || {});
   }
-  attach(address: string): CoinMachine {
+  override attach(address: string): CoinMachine {
     return super.attach(address) as CoinMachine;
   }
-  connect(signer: Signer): CoinMachine__factory {
+  override connect(signer: Signer): CoinMachine__factory {
     return super.connect(signer) as CoinMachine__factory;
   }
-  static readonly contractName: "CoinMachine";
-  public readonly contractName: "CoinMachine";
+
   static readonly bytecode = _bytecode;
   static readonly abi = _abi;
   static createInterface(): CoinMachineInterface {

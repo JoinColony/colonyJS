@@ -2,5 +2,5 @@
 /* tslint:disable */
 /* eslint-disable */
 export type { IColony } from "./IColony";
-
+export * as factories from "./factories";
 export { IColony__factory } from "./factories/IColony__factory";

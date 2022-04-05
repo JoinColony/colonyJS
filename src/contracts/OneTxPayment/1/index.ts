@@ -2,5 +2,5 @@
 /* tslint:disable */
 /* eslint-disable */
 export type { OneTxPayment } from "./OneTxPayment";
-
+export * as factories from "./factories";
 export { OneTxPayment__factory } from "./factories/OneTxPayment__factory";

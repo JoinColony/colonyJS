@@ -2,5 +2,5 @@
 /* tslint:disable */
 /* eslint-disable */
 export type { CoinMachine } from "./CoinMachine";
-
+export * as factories from "./factories";
 export { CoinMachine__factory } from "./factories/CoinMachine__factory";

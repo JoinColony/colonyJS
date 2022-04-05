@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import { Signer, utils, Contract, ContractFactory, Overrides } from "ethers";
-import { Provider, TransactionRequest } from "@ethersproject/providers";
+import type { Provider, TransactionRequest } from "@ethersproject/providers";
 import type { OneTxPayment, OneTxPaymentInterface } from "../OneTxPayment";
 
 const _abi = [
@@ -497,27 +497,25 @@ export class OneTxPayment__factory extends ContractFactory {
     } else {
       super(_abi, _bytecode, args[0]);
     }
-    this.contractName = "OneTxPayment";
   }
 
-  deploy(
+  override deploy(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<OneTxPayment> {
     return super.deploy(overrides || {}) as Promise<OneTxPayment>;
   }
-  getDeployTransaction(
+  override getDeployTransaction(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): TransactionRequest {
     return super.getDeployTransaction(overrides || {});
   }
-  attach(address: string): OneTxPayment {
+  override attach(address: string): OneTxPayment {
     return super.attach(address) as OneTxPayment;
   }
-  connect(signer: Signer): OneTxPayment__factory {
+  override connect(signer: Signer): OneTxPayment__factory {
     return super.connect(signer) as OneTxPayment__factory;
   }
-  static readonly contractName: "OneTxPayment";
-  public readonly contractName: "OneTxPayment";
+
   static readonly bytecode = _bytecode;
   static readonly abi = _abi;
   static createInterface(): OneTxPaymentInterface {

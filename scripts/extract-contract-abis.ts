@@ -32,7 +32,7 @@ const extract = async () => {
     '../../lib/colonyToken/build/contracts',
   );
 
-  const outputTag = tag === 'develop' ? '__develop__' : tag;
+  const outputTag = tag === 'develop' ? 'latest' : tag;
   const outputDir = resolvePath(OUTPUT_DIR, outputTag);
   await promisify(rimraf)(outputDir);
   mkdirpSync(outputDir);

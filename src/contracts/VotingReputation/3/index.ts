@@ -2,5 +2,5 @@
 /* tslint:disable */
 /* eslint-disable */
 export type { VotingReputation } from "./VotingReputation";
-
+export * as factories from "./factories";
 export { VotingReputation__factory } from "./factories/VotingReputation__factory";

@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import { Signer, utils, Contract, ContractFactory, Overrides } from "ethers";
-import { Provider, TransactionRequest } from "@ethersproject/providers";
+import type { Provider, TransactionRequest } from "@ethersproject/providers";
 import type {
   VotingReputation,
   VotingReputationInterface,
@@ -1240,27 +1240,25 @@ export class VotingReputation__factory extends ContractFactory {
     } else {
       super(_abi, _bytecode, args[0]);
     }
-    this.contractName = "VotingReputation";
   }
 
-  deploy(
+  override deploy(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<VotingReputation> {
     return super.deploy(overrides || {}) as Promise<VotingReputation>;
   }
-  getDeployTransaction(
+  override getDeployTransaction(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): TransactionRequest {
     return super.getDeployTransaction(overrides || {});
   }
-  attach(address: string): VotingReputation {
+  override attach(address: string): VotingReputation {
     return super.attach(address) as VotingReputation;
   }
-  connect(signer: Signer): VotingReputation__factory {
+  override connect(signer: Signer): VotingReputation__factory {
     return super.connect(signer) as VotingReputation__factory;
   }
-  static readonly contractName: "VotingReputation";
-  public readonly contractName: "VotingReputation";
+
   static readonly bytecode = _bytecode;
   static readonly abi = _abi;
   static createInterface(): VotingReputationInterface {
