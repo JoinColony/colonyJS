@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="/img/colonyStarter_color.svg" width="600" />
+  <img src="/img/colonySDK_color.svg" width="600" />
 </div>
 
 [![Discord](https://img.shields.io/discord/562263648173555742)](https://discord.gg/feVZWwysqM)
@@ -20,7 +20,7 @@ _You may find it helpful to use [Node Version Manager (`nvm`)](https://github.co
 
 First, clone this repo: 
 ```bash
-git clone https://github.com/JoinColony/colonyStarter.git`
+git clone https://github.com/JoinColony/colonySDK.git`
 ```
 
 Then install all the required dependencies (this will install [ethers.js](https://docs.ethers.io/v5/) and [colonyJS](https://github.com/JoinColony/colonyJS) as well as some required development dependencies):
