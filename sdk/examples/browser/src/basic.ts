@@ -1,18 +1,16 @@
 import { providers, utils } from 'ethers';
-import { CLNY, getColonyNetworkClient, Network, Id } from '@colony/colony-js';
+
+import { ColonyNetwork, Tokens } from '../../../dist/esm';
 
 const { formatEther, isAddress } = utils;
 
 const provider = new providers.JsonRpcProvider('https://xdai.colony.io/rpc2/');
 
-// Get the Colony's XDAI funding in the ROOT pot (id 1)
+// Get the Colony's CLNY funding in the root domain (on Gnosis chain)
 const getColonyFunding = async (colonyAddress: string) => {
-  const colonyNetworkClient = getColonyNetworkClient(Network.Xdai, provider);
-  const colonyClient = await colonyNetworkClient.getColonyClient(colonyAddress);
-  const funding = await colonyClient.getFundingPotBalance(
-    Id.RootPot,
-    CLNY.Xdai,
-  );
+  const colonyNetwork = new ColonyNetwork(provider);
+  const colony = await colonyNetwork.getColony(colonyAddress);
+  const funding = await colony.getBalance(Tokens.Gnosis.CLNY);
   return formatEther(funding);
 };
 
@@ -44,7 +42,7 @@ button.addEventListener('click', async () => {
   try {
     funding = await getColonyFunding(colonyAddress);
     speak(
-      `${funding} XDAI in root domain of Colony with address: ${colonyAddress}`,
+      `${funding} CLNY in root domain of Colony with address: ${colonyAddress}`,
     );
   } catch (e) {
     panik(`Found an error: ${e.message}`);
