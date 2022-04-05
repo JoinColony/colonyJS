@@ -4,7 +4,7 @@ Please read [Code of Conduct](CODE_OF_CONDUCT.md) before contributing.
 
 ## Report Issues
 
-Report an issue using [GitHub Issues](https://github.com/JoinColony/colonyStarter/issues). _Please fill out the template with as much detail as possible._
+Report an issue using [GitHub Issues](https://github.com/JoinColony/colonySDK/issues). _Please fill out the template with as much detail as possible._
 
 ## GitHub Workflow
 
