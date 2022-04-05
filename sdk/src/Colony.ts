@@ -5,10 +5,11 @@ import {
   Id,
 } from '@colony/colony-js';
 
-import {
+import type {
   DomainAddedEventObject,
   FundingPotAddedEventObject,
 } from '@colony/colony-js/extras';
+import type { BigNumberish } from 'ethers';
 
 import { extractEvent } from './utils';
 
@@ -29,7 +30,17 @@ export class Colony {
     this.signerOrProvider = colonyClient.signer || colonyClient.provider;
   }
 
-  async addTeam() {
+  async getBalance(tokenAddress?: string, teamId?: BigNumberish) {
+    let potId: BigNumberish = Id.RootPot;
+    if (teamId) {
+      const { fundingPotId } = await this.colonyClient.getDomain(teamId);
+      potId = fundingPotId;
+    }
+    const token = tokenAddress || this.colonyClient.tokenClient.address;
+    return this.colonyClient.getFundingPotBalance(potId, token);
+  }
+
+  async createTeam() {
     const tx = await this.colonyClient['addDomainWithProofs(uint256)'](
       Id.RootDomain,
     );
