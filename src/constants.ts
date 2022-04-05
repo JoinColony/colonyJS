@@ -31,10 +31,21 @@ export enum ReputationOracleEndpoint {
   Custom = 'https://colony.io/reputation',
 }
 
-/** Shortcut to CLNY token addresses */
-export enum CLNY {
-  /// CLNY on mainnet
-  Mainnet = '0x3E828ac5C480069D4765654Fb4b8733b910b13b2',
-  /// CLNY on Gnosis Chain
-  Xdai = '0xc9B6218AffE8Aba68a13899Cbf7cF7f14DDd304C',
+/** Shortcut to common token addresses */
+// eslint-disable-next-line @typescript-eslint/no-namespace
+export namespace Tokens {
+  /** Tokens deployed on Mainnet */
+  export enum Mainnet {
+    /// ETH on Mainnet
+    ETH = '0x0000000000000000000000000000000000000000',
+    /// CLNY on Mainnet
+    Mainnet = '0x3E828ac5C480069D4765654Fb4b8733b910b13b2',
+  }
+  /** Tokens deployed on Gnosis Chain */
+  export enum Gnosis {
+    /// XDAI on Gnosis Chain
+    XDAI = '0x0000000000000000000000000000000000000000',
+    /// CLNY on Gnosis Chain
+    CLNY = '0xc9B6218AffE8Aba68a13899Cbf7cF7f14DDd304C',
+  }
 }
