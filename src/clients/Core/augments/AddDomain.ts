@@ -22,10 +22,24 @@ type ValidColonyA = IColonyV1 | IColonyV2 | IColonyV3 | IColonyV4;
 type ValidColonyB = IColonyV5 | IColonyV6 | IColonyV7 | IColonyV8 | IColonyV9;
 
 export interface AddDomainEstimateGasA {
+  /**
+   * @deprecated
+   *
+   * Same as [[addDomain]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _parentDomainId Id of the domain under which the new one will be added
+   */
   addDomainWithProofs(_parentDomainId: BigNumberish): Promise<BigNumber>;
 }
 
 export type AddDomainAugmentsA<T extends ValidColonyA> = {
+  /**
+   * @deprecated
+   *
+   * Same as [[addDomain]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _parentDomainId Id of the domain under which the new one will be added
+   */
   addDomainWithProofs(
     _parentDomainId: BigNumberish,
     overrides?: TxOverrides,
@@ -80,10 +94,21 @@ export const addAugmentsA = (
 };
 
 export interface AddDomainEstimateGasB {
+  /**
+   * Same as [[addDomain(uint256)]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _parentDomainId Id of the domain under which the new one will be added
+   */
   'addDomainWithProofs(uint256)'(
     _parentDomainId: BigNumberish,
     overrides?: TxOverrides,
   ): Promise<BigNumber>;
+  /**
+   * Same as [[addDomain(uint256,string)]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _parentDomainId Id of the domain under which the new one will be added
+   * @param _metadata Metadata relating to the domain. Expected to be the IPFS hash of a JSON blob, but not enforced by the contracts.
+   */
   'addDomainWithProofs(uint256,string)'(
     _parentDomainId: BigNumberish,
     _metadata: string,
@@ -92,11 +117,21 @@ export interface AddDomainEstimateGasB {
 }
 
 export type AddDomainAugmentsB<T extends ValidColonyB> = {
+  /**
+   * Same as [[addDomain(uint256,uint256,uint256)]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _parentDomainId Id of the domain under which the new one will be added
+   */
   'addDomainWithProofs(uint256)'(
     _parentDomainId: BigNumberish,
     overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
-
+  /**
+   * Same as [[addDomain(uint256,uint256,uint256,string)]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _parentDomainId Id of the domain under which the new one will be added
+   * @param _metadata Metadata relating to the domain. Expected to be the IPFS hash of a JSON blob, but not enforced by the contracts.
+   */
   'addDomainWithProofs(uint256,string)'(
     _parentDomainId: BigNumberish,
     _metadata: string,

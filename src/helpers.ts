@@ -12,7 +12,6 @@ import {
   getPotDomain as exGetPotDomain,
   getPermissionProofs as exGetPermissionProofs,
   getExtensionPermissionProofs as exGetExtensionPermissionProofs,
-  AwkwardRecoveryRoleEventClient,
   AugmentedIColony,
 } from './clients/Core/augments/commonAugments';
 
@@ -66,7 +65,7 @@ export const getBlockTime = async (
  * @returns ethers Log array
  */
 export const getLogs = async (
-  client: ContractClient | AwkwardRecoveryRoleEventClient,
+  client: ContractClient,
   filter: Filter,
   options: LogOptions = {
     fromBlock: 1,
@@ -95,7 +94,7 @@ export const getLogs = async (
  * @returns Parsed ethers LogDescription array (events)
  */
 export const getEvents = async (
-  client: ContractClient | AwkwardRecoveryRoleEventClient,
+  client: ContractClient,
   filter: Filter,
   options?: LogOptions,
 ): Promise<LogDescription[]> => {
@@ -226,11 +225,13 @@ export const getColonyRoles = async (
     options,
   );
 
-  const recoveryRoleSetFilter =
-    client.awkwardRecoveryRoleEventClient.filters.RecoveryRoleSet(null, null);
+  const recoveryRoleSetFilter = client.colonyEvents.filters.RecoveryRoleSet(
+    null,
+    null,
+  );
 
   const recoveryRoleEvents = await getEvents(
-    client.awkwardRecoveryRoleEventClient,
+    client.colonyEvents,
     recoveryRoleSetFilter,
     options,
   );

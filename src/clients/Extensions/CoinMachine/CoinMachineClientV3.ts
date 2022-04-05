@@ -6,6 +6,8 @@ import { AugmentedIColony } from '../../Core/augments/commonAugments';
 export interface CoinMachineClient extends CoinMachine {
   clientType: ClientType.CoinMachineClient;
   clientVersion: 3;
+  /** An instance of the corresponding ColonyClient */
+  colonyClient: AugmentedIColony;
 }
 
 export default function getCoinMachineClient(
@@ -19,6 +21,7 @@ export default function getCoinMachineClient(
 
   coinMachineClient.clientType = ClientType.CoinMachineClient;
   coinMachineClient.clientVersion = 3;
+  coinMachineClient.colonyClient = colonyClient;
 
   return coinMachineClient;
 }

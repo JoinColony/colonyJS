@@ -35,18 +35,41 @@ type ValidColony = IColonyV5 | IColonyV6 | IColonyV7 | IColonyV8 | IColonyV9;
  * Estimates
  */
 export interface AugmentedEstimateV5 extends AugmentedEstimateV4 {
+  /**
+   * Same as [[emitDomainReputationPenalty]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _amount The (negative) amount of reputation to lose
+   * @param _domainId The domain where the user will lose reputation
+   * @param _user The user who will lose reputation
+   */
   emitDomainReputationPenaltyWithProofs(
     _domainId: BigNumberish,
     _user: string,
     _amount: BigNumberish,
     overrides?: TxOverrides,
   ): Promise<BigNumber>;
+  /**
+   * Same as [[setUserRoles]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _domainId Domain in which we are giving user the role
+   * @param _roles Byte array representing the desired role setting (1 for on, 0 for off)
+   * @param _user User we want to give a role to
+   */
   setUserRolesWithProofs(
     _user: string,
     _domainId: BigNumberish,
     _roles: BytesLike,
     overrides?: TxOverrides,
   ): Promise<BigNumber>;
+  /**
+   * Same as [[transferStake]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _amount Amount of internal token we are transferring.
+   * @param _domainId Domain in which we are transferring the tokens.
+   * @param _obligator Address of the account who set the obligation.
+   * @param _recipient Recipient of the transferred tokens.
+   * @param _user Address of the account we are transferring.
+   */
   transferStakeWithProofs(
     _obligator: string,
     _user: string,
@@ -55,11 +78,26 @@ export interface AugmentedEstimateV5 extends AugmentedEstimateV4 {
     _recipient: string,
     overrides?: TxOverrides,
   ): Promise<BigNumber>;
+  /**
+   * Same as [[editDomain]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _domainId Id of the domain being edited
+   * @param _metadata Metadata relating to the domain. Expected to be the IPFS hash of a JSON blob, but not enforced by the contracts.
+   */
   editDomainWithProofs(
     _domainId: BigNumberish,
     _metadata: string,
     overrides?: TxOverrides,
   ): Promise<BigNumber>;
+  /**
+   * Same as [[editDomain]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _id Expenditure identifier
+   * @param _keys Array of additional keys (for mappings & arrays)
+   * @param _mask Array of booleans indicated whether a key is a mapping (F) or an array index (T).
+   * @param _storageSlot Number of the top-level storage slot (25, 26, or 27)
+   * @param _value Value to set at location
+   */
   setExpenditureStateWithProofs(
     _id: BigNumberish,
     _storageSlot: BigNumberish,
@@ -68,14 +106,26 @@ export interface AugmentedEstimateV5 extends AugmentedEstimateV4 {
     _value: BytesLike,
     overrides?: TxOverrides,
   ): Promise<BigNumber>;
+  /**
+   * Similar to [[installExtension]], but first check whether the desired extension can be installed in this Colony
+   * Always prefer this method, except when you have good reason not to.
+   * @param extension A [[Extension]] name
+   * @param version The desired version number of the extension you wish to install
+   */
   installExtensionChecked(
     extension: Extension,
-    version: ExtensionVersion,
+    version: number,
     overrides?: TxOverrides,
   ): Promise<BigNumber>;
+  /**
+   * Similar to [[upgradeExtension]], but first check whether the desired extension can be upgraded to the desired version in this Colony
+   * Always prefer this method, except when you have good reason not to.
+   * @param extension A [[Extension]] name
+   * @param newVersion The desired version number of the extension you wish to upgrade
+   */
   upgradeExtensionChecked(
     extension: Extension,
-    newVersion: ExtensionVersion,
+    newVersion: number,
     overrides?: TxOverrides,
   ): Promise<BigNumber>;
 }
@@ -84,18 +134,41 @@ export interface AugmentedEstimateV5 extends AugmentedEstimateV4 {
  * Extension Methods
  */
 export type ColonyAugmentsV5<T extends ValidColony> = {
+  /**
+   * Same as [[emitDomainReputationPenalty]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _amount The (negative) amount of reputation to lose
+   * @param _domainId The domain where the user will lose reputation
+   * @param _user The user who will lose reputation
+   */
   emitDomainReputationPenaltyWithProofs(
     _domainId: BigNumberish,
     _user: string,
     _amount: BigNumberish,
     overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
+  /**
+   * Same as [[setUserRoles]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _domainId Domain in which we are giving user the role
+   * @param _roles Byte array representing the desired role setting (1 for on, 0 for off)
+   * @param _user User we want to give a role to
+   */
   setUserRolesWithProofs(
     _user: string,
     _domainId: BigNumberish,
     _roles: BytesLike,
     overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
+  /**
+   * Same as [[transferStake]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _amount Amount of internal token we are transferring.
+   * @param _domainId Domain in which we are transferring the tokens.
+   * @param _obligator Address of the account who set the obligation.
+   * @param _recipient Recipient of the transferred tokens.
+   * @param _user Address of the account we are transferring.
+   */
   transferStakeWithProofs(
     _obligator: string,
     _user: string,
@@ -104,11 +177,26 @@ export type ColonyAugmentsV5<T extends ValidColony> = {
     _recipient: string,
     overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
+  /**
+   * Same as [[editDomain]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _domainId Id of the domain being edited
+   * @param _metadata Metadata relating to the domain. Expected to be the IPFS hash of a JSON blob, but not enforced by the contracts.
+   */
   editDomainWithProofs(
     _domainId: BigNumberish,
     _metadata: string,
     overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
+  /**
+   * Same as [[editDomain]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _id Expenditure identifier
+   * @param _keys Array of additional keys (for mappings & arrays)
+   * @param _mask Array of booleans indicated whether a key is a mapping (F) or an array index (T).
+   * @param _storageSlot Number of the top-level storage slot (25, 26, or 27)
+   * @param _value Value to set at location
+   */
   setExpenditureStateWithProofs(
     _id: BigNumberish,
     _storageSlot: BigNumberish,
@@ -117,14 +205,26 @@ export type ColonyAugmentsV5<T extends ValidColony> = {
     _value: BytesLike,
     overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
+  /**
+   * Similar to [[installExtension]], but first check whether the desired extension can be installed in this Colony
+   * Always prefer this method, except when you have good reason not to.
+   * @param extension A [[Extension]] name
+   * @param version The desired version number of the extension you wish to install
+   */
   installExtensionChecked(
     extension: Extension,
-    version: ExtensionVersion,
+    version: number,
     overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
+  /**
+   * Similar to [[upgradeExtension]], but first check whether the desired extension can be upgraded to the desired version in this Colony
+   * Always prefer this method, except when you have good reason not to.
+   * @param extension A [[Extension]] name
+   * @param newVersion The desired version number of the extension you wish to upgrade
+   */
   upgradeExtensionChecked(
     extension: Extension,
-    newVersion: ExtensionVersion,
+    newVersion: number,
     overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
 
@@ -259,10 +359,16 @@ async function setExpenditureStateWithProofs(
 async function installExtensionChecked(
   this: AllAugments,
   extension: Extension,
-  version: ExtensionVersion,
+  version: number,
   overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
-  if (!isExtensionCompatible(extension, version, this.clientVersion)) {
+  if (
+    !isExtensionCompatible(
+      extension,
+      version as ExtensionVersion,
+      this.clientVersion,
+    )
+  ) {
     throw new Error(
       `${extension} extension with version ${version} is not compatible with the current Colony version ${this.clientVersion}`,
     );
@@ -277,10 +383,16 @@ async function installExtensionChecked(
 async function upgradeExtensionChecked(
   this: AllAugments,
   extension: Extension,
-  newVersion: ExtensionVersion,
+  newVersion: number,
   overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
-  if (!isExtensionCompatible(extension, newVersion, this.clientVersion)) {
+  if (
+    !isExtensionCompatible(
+      extension,
+      newVersion as ExtensionVersion,
+      this.clientVersion,
+    )
+  ) {
     throw new Error(
       `${extension} extension with version ${newVersion} is not compatible with the current Colony version ${this.clientVersion}`,
     );
@@ -415,10 +527,16 @@ async function estimateSetExpenditureStateWithProofs(
 async function estimateInstallExtensionChecked(
   this: AllAugments,
   extension: Extension,
-  version: ExtensionVersion,
+  version: number,
   overrides: TxOverrides = {},
 ): Promise<BigNumber> {
-  if (!isExtensionCompatible(extension, version, this.clientVersion)) {
+  if (
+    !isExtensionCompatible(
+      extension,
+      version as ExtensionVersion,
+      this.clientVersion,
+    )
+  ) {
     throw new Error(
       `${extension} extension with version ${version} is not compatible with the current Colony version ${this.clientVersion}`,
     );
@@ -433,10 +551,16 @@ async function estimateInstallExtensionChecked(
 async function estimateUpgradeExtensionChecked(
   this: AllAugments,
   extension: Extension,
-  newVersion: ExtensionVersion,
+  newVersion: number,
   overrides: TxOverrides = {},
 ): Promise<BigNumber> {
-  if (!isExtensionCompatible(extension, newVersion, this.clientVersion)) {
+  if (
+    !isExtensionCompatible(
+      extension,
+      newVersion as ExtensionVersion,
+      this.clientVersion,
+    )
+  ) {
     throw new Error(
       `${extension} extension with version ${newVersion} is not compatible with the current Colony version ${this.clientVersion}`,
     );

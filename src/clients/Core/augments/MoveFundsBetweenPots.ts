@@ -103,6 +103,16 @@ const getMoveFundsPermissionProofsA = async (
 };
 
 export interface MoveFundsBetweenPotsEstimateGasA {
+  /**
+   * @deprecated
+   *
+   * Same as [[moveFundsBetweenPots]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _fromPot Funding pot id providing the funds
+   * @param _toPot Funding pot id receiving the funds
+   * @param _amount Amount of funds
+   * @param _token Address of the token, `0x0` value indicates Ether
+   */
   moveFundsBetweenPotsWithProofs(
     _fromPot: BigNumberish,
     _toPot: BigNumberish,
@@ -113,6 +123,16 @@ export interface MoveFundsBetweenPotsEstimateGasA {
 }
 
 export type MoveFundsBetweenPotsAugmentsA<T extends ValidColonyA> = {
+  /**
+   * @deprecated
+   *
+   * Same as [[moveFundsBetweenPots]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _fromPot Funding pot id providing the funds
+   * @param _toPot Funding pot id receiving the funds
+   * @param _amount Amount of funds
+   * @param _token Address of the token, `0x0` value indicates Ether
+   */
   moveFundsBetweenPotsWithProofs(
     _fromPot: BigNumberish,
     _toPot: BigNumberish,
@@ -182,8 +202,16 @@ export const addAugmentsA = (
     estimateMoveFundsBetweenPotsWithProofsA.bind(contract);
   /* eslint-enable no-param-reassign */
 };
-
 export interface MoveFundsBetweenPotsEstimateGasB {
+  /**
+   * Same as [[moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _domainId The domain where I am taking this action, pointed to by _permissionDomainId and _childSkillIndex
+   * @param _fromPot Funding pot id providing the funds
+   * @param _toPot Funding pot id receiving the funds
+   * @param _amount Amount of funds
+   * @param _token Address of the token, `0x0` value indicates Ether
+   */
   'moveFundsBetweenPotsWithProofs(uint256,uint256,uint256,uint256,address)'(
     _domainId: BigNumberish,
     _fromPot: BigNumberish,
@@ -192,6 +220,16 @@ export interface MoveFundsBetweenPotsEstimateGasB {
     _token: string,
     overrides?: TxOverrides,
   ): Promise<BigNumber>;
+  /**
+   * @deprecated
+   *
+   * Same as [[moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,address)]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _fromPot Funding pot id providing the funds
+   * @param _toPot Funding pot id receiving the funds
+   * @param _amount Amount of funds
+   * @param _token Address of the token, `0x0` value indicates Ether
+   */
   'moveFundsBetweenPotsWithProofs(uint256,uint256,uint256,address)'(
     _fromPot: BigNumberish,
     _toPot: BigNumberish,
@@ -202,6 +240,15 @@ export interface MoveFundsBetweenPotsEstimateGasB {
 }
 
 export type MoveFundsBetweenPotsAugmentsB<T extends ValidColonyB> = {
+  /**
+   * Same as [[moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,address)]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _domainId The domain where I am taking this action, pointed to by _permissionDomainId and _childSkillIndex
+   * @param _fromPot Funding pot id providing the funds
+   * @param _toPot Funding pot id receiving the funds
+   * @param _amount Amount of funds
+   * @param _token Address of the token, `0x0` value indicates Ether
+   */
   'moveFundsBetweenPotsWithProofs(uint256,uint256,uint256,uint256,address)'(
     _domainId: BigNumberish,
     _fromPot: BigNumberish,
@@ -210,6 +257,16 @@ export type MoveFundsBetweenPotsAugmentsB<T extends ValidColonyB> = {
     _token: string,
     overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
+  /**
+   * @deprecated
+   *
+   * Same as [[moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,address)]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _fromPot Funding pot id providing the funds
+   * @param _toPot Funding pot id receiving the funds
+   * @param _amount Amount of funds
+   * @param _token Address of the token, `0x0` value indicates Ether
+   */
   'moveFundsBetweenPotsWithProofs(uint256,uint256,uint256,address)'(
     _fromPot: BigNumberish,
     _toPot: BigNumberish,

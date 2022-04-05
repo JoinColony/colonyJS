@@ -24,6 +24,13 @@ import { parsePermissionedAction } from '../../../../utils';
 type ValidVotingReputation = VotingReputationV2 | VotingReputationV3;
 
 export interface AugmentedEstimateV2 {
+  /**
+   * Same as [[createMotion]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _action A bytes array encoding a function call
+   * @param _altTarget The contract to which we send the action (0x0 for the colony)
+   * @param _domainId The domain where we vote on the motion
+   */
   createMotionWithProofs(
     _domainId: BigNumberish,
     _altTarget: string,
@@ -33,6 +40,13 @@ export interface AugmentedEstimateV2 {
 }
 
 export type AugmentsV2<T extends ValidVotingReputation> = {
+  /**
+   * Same as [[createMotion]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _action A bytes array encoding a function call
+   * @param _altTarget The contract to which we send the action (0x0 for the colony)
+   * @param _domainId The domain where we vote on the motion
+   */
   createMotionWithProofs(
     _domainId: BigNumberish,
     _altTarget: string,

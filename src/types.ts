@@ -6,12 +6,14 @@ import { ExtensionClient } from './clients/Extensions/exports';
 import { ColonyNetworkClient } from './clients/ColonyNetworkClient';
 import { TokenClient as TokenContractClient } from './clients/TokenClient';
 import { TokenLockingClient as TokenLockingContractClient } from './clients/TokenLockingClient';
+import { EventsClient } from '.';
 
 export type SignerOrProvider = Signer | Provider;
 
 export type ContractClient =
   | AnyColonyClient
   | ColonyNetworkClient
+  | EventsClient
   | ExtensionClient
   | TokenContractClient
   | TokenLockingContractClient;
@@ -113,7 +115,7 @@ export enum MotionState {
 
 /**
  * Funding pots can have different types in a colony.
- * See [here](https://colony.io/dev/docs/colonynetwork/whitepaper-tldr-pots-and-funding) for more details
+ * See [here](https://github.com/JoinColony/colonyNetwork/blob/develop/docs/_TLDR_Pots.md#types-of-pots) for more details
  */
 export enum FundingPotAssociatedType {
   Unassigned,

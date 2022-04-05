@@ -1,6 +1,13 @@
-import { utils } from 'ethers';
+import { utils, BigNumber, ContractTransaction, ContractFactory } from 'ethers';
+import {
+  TxOverrides,
+  ClientType,
+  SignerOrProvider,
+  TokenClientType,
+} from '../types';
 
 import {
+  abis,
   TokenFactory,
   Token,
   TokenErc20Factory,
@@ -8,9 +15,11 @@ import {
   TokenSaiFactory,
   TokenSai,
 } from '../exports';
-import { ClientType, SignerOrProvider, TokenClientType } from '../types';
 
 const { getAddress, isHexString, parseBytes32String } = utils;
+
+const { abi: tokenAuthorityAbi, bytecode: tokenAuthorityBytecode } =
+  abis.TokenAuthority;
 
 // Token addresses to identify tokens that need special treatment
 const tokenAddresses = {
@@ -20,35 +29,127 @@ const tokenAddresses = {
 const isSai = (address: string): boolean =>
   getAddress(address) === tokenAddresses.SAI;
 
+/** Standard information about an ERC20 token */
 export interface TokenInfo {
   name: string;
   symbol: string;
   decimals: number;
 }
 
-/** The TokenClient is a good client that does awesome things */
+/** A ColonyToken has special abilities that go beyond the capabilities of an ERC20 token */
 export interface ColonyTokenClient extends Token {
   clientType: ClientType.TokenClient;
   tokenClientType: TokenClientType.Colony;
 
+  /**
+   * Deploy a TokenAuthority contract for this Colony for a specific token
+   * The TokenAuthority enables certain addresses to transfer the tokens, even if it's locked
+   * It also enables the assigned Colony to mint tokens
+   *
+   * @remarks
+   * Only works with tokens that allow for an authority to be set (e.g. tokens deployed with Colony)
+   *
+   * @param tokenAddress The token to install the token authority for
+   * @param allowedToTransfer Addresses that are allowed to transfer the token, even if it's locked
+   */
+  deployTokenAuthority(
+    colonyAddress: string,
+    allowedToTransfer: string[],
+    overrides?: TxOverrides,
+  ): Promise<ContractTransaction>;
+  /** Get the standard ERC20 token information */
   getTokenInfo(): Promise<TokenInfo>;
+
+  estimateGas: Token['estimateGas'] & {
+    /**
+     * Deploy a TokenAuthority contract for this Colony for a specific token
+     * The TokenAuthority enables certain addresses to transfer the tokens, even if it's locked
+     * It also enables the assigned Colony to mint tokens
+     *
+     * @remarks
+     * Only works with tokens that allow for an authority to be set (e.g. tokens deployed with Colony)
+     *
+     * @param tokenAddress The token to install the token authority for
+     * @param allowedToTransfer Addresses that are allowed to transfer the token, even if it's locked
+     */
+    deployTokenAuthority(
+      colonyAddress: string,
+      allowedToTransfer: string[],
+      overrides?: TxOverrides,
+    ): Promise<BigNumber>;
+  };
 }
 
+/** A standard ERC20 token */
 export interface Erc20TokenClient extends TokenErc20 {
   clientType: ClientType.TokenClient;
   tokenClientType: TokenClientType.Erc20;
 
+  /** Get the standard ERC20 token information */
   getTokenInfo(): Promise<TokenInfo>;
 }
 
+/** The SAI token. It requires special treatment as it's deprecated */
 export interface DaiTokenClient extends TokenSai {
   clientType: ClientType.TokenClient;
   tokenClientType: TokenClientType.Sai;
 
+  /** Get the standard ERC20 token information */
   getTokenInfo(): Promise<TokenInfo>;
 }
 
 export type TokenClient = ColonyTokenClient | Erc20TokenClient | DaiTokenClient;
+
+async function checkTokenAuthorityCompatibility(
+  tokenClient: ColonyTokenClient,
+): Promise<void> {
+  try {
+    await tokenClient.authority();
+    return;
+  } catch (e) {
+    throw new Error('Token can not be assigned a TokenAuthority');
+  }
+}
+
+async function deployTokenAuthority(
+  this: ColonyTokenClient,
+  colonyAddress: string,
+  allowedToTransfer: string[],
+  overrides: TxOverrides = {},
+): Promise<ContractTransaction> {
+  const tokenAuthorityFactory = new ContractFactory(
+    tokenAuthorityAbi,
+    tokenAuthorityBytecode,
+    this.signer,
+  );
+  const tokenAuthorityContract = await tokenAuthorityFactory.deploy(
+    this.address,
+    colonyAddress,
+    allowedToTransfer,
+    overrides,
+  );
+  await tokenAuthorityContract.deployed();
+  return tokenAuthorityContract.deployTransaction;
+}
+
+async function estimateDeployTokenAuthority(
+  this: ColonyTokenClient,
+  colonyAddress: string,
+  allowedToTransfer: string[],
+  overrides: TxOverrides = {},
+): Promise<BigNumber> {
+  const tokenAuthorityFactory = new ContractFactory(
+    tokenAuthorityAbi,
+    tokenAuthorityBytecode,
+  );
+  const deployTx = tokenAuthorityFactory.getDeployTransaction(
+    this.address,
+    colonyAddress,
+    allowedToTransfer,
+    overrides,
+  );
+  return this.provider.estimateGas(deployTx);
+}
 
 const getTokenClient = async (
   address: string,
@@ -72,11 +173,12 @@ const getTokenClient = async (
     );
   }
 
-  // Colony tokens have the `locked()` method. We assume that when it exists on
+  // Colony tokens have the `locked()` and `authority()` methods. We assume that when it exists on
   // the contract we have a ColonyToken 🦆. This might not be true though, so can't rely
   // on this 100% when trying to call contract methods
   try {
     await tokenClient.locked();
+    await checkTokenAuthorityCompatibility(tokenClient);
     isColonyToken = true;
   } catch {
     isColonyToken = false;
@@ -84,6 +186,10 @@ const getTokenClient = async (
 
   if (isColonyToken) {
     tokenClient.tokenClientType = TokenClientType.Colony;
+
+    tokenClient.deployTokenAuthority = deployTokenAuthority.bind(tokenClient);
+    tokenClient.estimateGas.deployTokenAuthority =
+      estimateDeployTokenAuthority.bind(tokenClient);
   } else if (isSai(address)) {
     tokenClient = TokenSaiFactory.connect(
       address,

@@ -13,6 +13,15 @@ import { AugmentedIColony, getPermissionProofs } from './commonAugments';
 type ValidColony = IColonyV4 | IColonyV5 | IColonyV6 | IColonyV7;
 
 export interface SetExpenditureClaimDelayEstimateGas {
+  /**
+   * @deprecated
+   *
+   * Same as [[setExpenditureClaimDelay]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _claimDelay Time (in seconds) to delay claiming payout after finalization
+   * @param _id Expenditure identifier
+   * @param _slot Number of the slot
+   */
   setExpenditureClaimDelayWithProofs(
     _id: BigNumberish,
     _slot: BigNumberish,
@@ -22,6 +31,15 @@ export interface SetExpenditureClaimDelayEstimateGas {
 }
 
 export type SetExpenditureClaimDelayAugments<T extends ValidColony> = {
+  /**
+   * @deprecated
+   *
+   * Same as [[setExpenditureClaimDelay]], but let colonyJS figure out the permission proofs for you.
+   * Always prefer this method, except when you have good reason not to.
+   * @param _claimDelay Time (in seconds) to delay claiming payout after finalization
+   * @param _id Expenditure identifier
+   * @param _slot Number of the slot
+   */
   setExpenditureClaimDelayWithProofs(
     _id: BigNumberish,
     _slot: BigNumberish,
