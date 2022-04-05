@@ -27,8 +27,8 @@
     "ethers": "^5.6.1"
   },
   "scripts": {
-    "example:node": "ts-node src/index.ts",
-    "example:browser": "esbuild --bundle examples/browser/src/*.ts --servedir=examples/browser/web",
+    "example:node": "npm run compile-cjs && ts-node src/index.ts",
+    "example:browser": "npm run compile-esm && esbuild --bundle examples/browser/src/*.ts --servedir=examples/browser/web",
     "build": "npm run clean && npm run compile-cjs && npm run compile-esm && npm run compile-types && npm run build-docs",
     "build-docs": "typedoc --out docs --excludeInternal src/index.ts",
     "clean": "rimraf ./dist",
