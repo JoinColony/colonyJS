@@ -26,7 +26,10 @@ import {
 import { ColonyNetworkClient } from '../../ColonyNetworkClient';
 import { TokenClient } from '../../TokenClient';
 
-import { IColonyEventsFactory, IColonyEventsClient } from '../../..';
+import {
+  IColonyEvents,
+  IColonyEvents__factory as IColonyEventsFactory,
+} from '../../../contracts';
 
 const { MaxUint256 } = constants;
 
@@ -152,11 +155,11 @@ export type AugmentedIColony<T extends AnyIColony = AnyIColony> = T & {
   tokenClient: TokenClient;
 
   /**
-   * The colonyEvents contract supports all events across all colony versions.
+   * The colonyEvents contract supports all events across all versions.
    * Isn't that amazing?
    * It's an ethers contract with only events to filter
    */
-  colonyEvents: IColonyEventsClient;
+  colonyEvents: IColonyEvents;
 
   /**
    * Get an instance of an extension client associated with this Colony.
@@ -1049,11 +1052,10 @@ export const addAugments = <T extends AugmentedIColony>(
   instance.estimateGas.makeTaskWithProofs =
     estimateMakeTaskWithProofs.bind(instance);
 
-  const colonyEvents = IColonyEventsFactory.connect(
+  instance.colonyEvents = IColonyEventsFactory.connect(
     instance.address,
     instance.signer || instance.provider,
   );
-  instance.colonyEvents = colonyEvents;
 
   instance.getReputation = getReputation.bind(instance);
   instance.getReputationWithoutProofs =

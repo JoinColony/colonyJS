@@ -6,9 +6,23 @@ import { ExtensionClient } from './clients/Extensions/exports';
 import { ColonyNetworkClient } from './clients/ColonyNetworkClient';
 import { TokenClient as TokenContractClient } from './clients/TokenClient';
 import { TokenLockingClient as TokenLockingContractClient } from './clients/TokenLockingClient';
-import { EventsClient } from '.';
+
+import {
+  CoinMachineEvents,
+  IColonyEvents,
+  OneTxPaymentEvents,
+  VotingReputationEvents,
+  WhitelistEvents,
+} from './contracts';
 
 export type SignerOrProvider = Signer | Provider;
+
+export type EventsClient =
+  | CoinMachineEvents
+  | IColonyEvents
+  | OneTxPaymentEvents
+  | VotingReputationEvents
+  | WhitelistEvents;
 
 export type ContractClient =
   | AnyColonyClient
@@ -29,24 +43,28 @@ export enum ReputationMinerEndpoints {
  * Supported Ethereum networks. Use `Custom` if you'd like to bring your own deployment (e.g. local)
  */
 export enum Network {
-  Mainnet = 'mainnet',
-  Goerli = 'goerli',
-  Custom = 'custom',
-  Xdai = 'xdai',
-  XdaiFork = 'xdaiFork',
+  Mainnet = 'Mainnet',
+  Goerli = 'Goerli',
+  Custom = 'Custom',
+  Xdai = 'Xdai',
+  XdaiFork = 'XdaiFork',
 }
 
 /**
- * Available roles in the colonyNetwork. Find out more here: https://colony.io/dev/docs/colonynetwork/docs-modular-permissions
+ * Available roles in the colonyNetwork. Find out more here: https://github.com/JoinColony/colonyNetwork/blob/develop/docs/_Docs_Permissions.md
  */
 export enum ColonyRole {
   Recovery,
   Root,
   Arbitration,
   Architecture,
-  ArchitectureSubdomain_DEPRECATED,
+  /**
+   * @deprecated
+   * The `ArchitectureSubdomain` role has been deprecated and should not be used */
+  ArchitectureSubdomain,
   Funding,
   Administration,
+  /** @internal */
   LAST_ROLE,
 }
 

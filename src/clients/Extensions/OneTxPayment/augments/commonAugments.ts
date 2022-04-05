@@ -8,6 +8,10 @@ import {
 import { OneTxPaymentVersion } from '../exports';
 import { AnyOneTxPayment } from '../../../../contracts/OneTxPayment/exports';
 import { ClientType, TxOverrides } from '../../../../types';
+import {
+  OneTxPaymentEvents,
+  OneTxPaymentEvents__factory as OneTxPaymentEventsFactory,
+} from '../../../../contracts';
 
 export type AugmentedEstimate<T extends AnyOneTxPayment = AnyOneTxPayment> =
   T['estimateGas'] & {
@@ -54,6 +58,14 @@ export type AugmentedOneTxPayment<T extends AnyOneTxPayment = AnyOneTxPayment> =
     clientVersion: OneTxPaymentVersion;
     /** An instance of the corresponding ColonyClient */
     colonyClient: AugmentedIColony;
+
+    /**
+     * The oneTxPaymentEvents contract supports all events across all versions.
+     * Isn't that amazing?
+     * It's an ethers contract with only events to filter
+     */
+    oneTxPaymentEvents: OneTxPaymentEvents;
+
     estimateGas: T['estimateGas'] & AugmentedEstimate;
 
     /**
@@ -241,6 +253,11 @@ export const addAugments = <T extends AugmentedOneTxPayment>(
     estimateMakePaymentWithProofs.bind(instance);
   instance.estimateGas.makePaymentFundedFromDomainWithProofs =
     estimateMakePaymentFundedFromDomainWithProofs.bind(instance);
+
+  instance.oneTxPaymentEvents = OneTxPaymentEventsFactory.connect(
+    instance.address,
+    instance.signer || instance.provider,
+  );
 
   return instance;
   /* eslint-enable no-param-reassign */

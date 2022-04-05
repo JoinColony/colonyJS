@@ -1,6 +1,6 @@
 {
   "name": "@colony/colony-js",
-  "version": "v5.0.0-beta.6",
+  "version": "v5.0.0-rc.0",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
   "files": [
@@ -19,7 +19,7 @@
   "scripts": {
     "build": "npm run clean && npm run compile && npm run compile-esm && npm run build-docs",
     "build-contracts": "ts-node -P scripts/tsconfig-scripts.json scripts/build-contracts.ts",
-    "build-docs": "typedoc --out docs src/index.ts",
+    "build-docs": "typedoc --out docs --excludeInternal src/index.ts",
     "clean": "rimraf ./lib && rimraf ./lib-esm",
     "compile": "tsc -p tsconfig.build.json",
     "compile-esm": "tsc -p tsconfig.build.json -m es6 --outDir lib-esm",

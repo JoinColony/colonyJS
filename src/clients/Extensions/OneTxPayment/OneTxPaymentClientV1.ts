@@ -10,7 +10,7 @@ import { AugmentedIColony } from '../../Core/augments/commonAugments';
 
 type OneTxPaymentEstimate = AugmentedEstimate<OneTxPayment>;
 
-export interface OneTxPaymentClient
+export interface OneTxPaymentClientV1
   extends AugmentedOneTxPayment<OneTxPayment> {
   clientVersion: 1;
   estimateGas: OneTxPaymentEstimate;
@@ -19,11 +19,11 @@ export interface OneTxPaymentClient
 export default function getOneTxPaymentClient(
   colonyClient: AugmentedIColony,
   address: string,
-): OneTxPaymentClient {
+): OneTxPaymentClientV1 {
   const oneTxPaymentClient = OneTxPaymentFactory.connect(
     address,
     colonyClient.signer || colonyClient.provider,
-  ) as OneTxPaymentClient;
+  ) as OneTxPaymentClientV1;
 
   oneTxPaymentClient.clientType = ClientType.OneTxPaymentClient;
   oneTxPaymentClient.clientVersion = 1;

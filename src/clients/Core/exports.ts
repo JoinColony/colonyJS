@@ -37,7 +37,7 @@ export type AnyColonyClient =
 
 /// Versioned core contract names
 export enum Core {
-  Colony = 'IColony',
+  IColony = 'IColony',
 }
 
 // This is the latest colony version + 1. It's for generating types and compatibility maps
