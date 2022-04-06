@@ -37,7 +37,7 @@ export * from './OneTxPayment/exports';
 export * from './VotingReputation/exports';
 export * from './Whitelist/exports';
 
-/// Extension contract names
+/** Extension contract names */
 export enum Extension {
   CoinMachine = 'CoinMachine',
   OneTxPayment = 'OneTxPayment',

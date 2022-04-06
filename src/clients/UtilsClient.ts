@@ -32,6 +32,7 @@ async function getCapabilityRolesAsArray(
     .filter(nonNullable);
 }
 
+/** @internal */
 const getUtilsClient = (
   address: string,
   signerOrProvider: SignerOrProvider,

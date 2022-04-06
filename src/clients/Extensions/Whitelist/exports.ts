@@ -13,9 +13,11 @@ export { WhitelistClientV1 } from './WhitelistClientV1';
 
 export type AnyWhitelistClient = WhitelistClientV1;
 
+/** @internal */
 export const WHITELIST_VERSIONS = createContractVersionArray(
   WHITELIST_VERSION_NEXT,
 );
+/** @internal */
 export type WhitelistVersion = typeof WHITELIST_VERSIONS[number];
 
 /** @internal */

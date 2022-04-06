@@ -26,9 +26,11 @@ export type AnyVotingReputationClient =
   | VotingReputationClientV2
   | VotingReputationClientV3;
 
+/** @internal */
 export const VOTING_REPUTATION_VERSIONS = createContractVersionArray(
   VOTING_REPUTATION_VERSION_NEXT,
 );
+/** @internal */
 export type VotingReputationVersion = typeof VOTING_REPUTATION_VERSIONS[number];
 
 /** @internal */

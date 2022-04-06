@@ -102,13 +102,13 @@ interface NetworkClientOptions {
  * Example
  * ```ts
  * import { getColonyNetworkClient, Network } = from '@colony/colony-js';
- * import { JsonRpcProvider } from 'ethers/providers';
+ * import { providers } from 'ethers';
  *
  * // For local connections (run an Ethereum node on port 8545);
- * const provider = new JsonRpcProvider();
+ * const provider = new providers.JsonRpcProvider();
  *
  * // Just for reading data - to sign transactions we need to pass in a signer.
- * const networkClient = await getColonyNetworkClient(Network.Mainnet, provider);
+ * const networkClient = await getColonyNetworkClient(Network.Xdai, provider);
  * ```
  *
  * @param network One of the available options. See [[Network]].
@@ -125,7 +125,7 @@ const getColonyNetworkClient = (
   const networkAddress =
     options && options.networkAddress
       ? options.networkAddress
-      : ColonyNetworkAddress[network || Network.Mainnet];
+      : ColonyNetworkAddress[network || Network.Xdai];
   if (!networkAddress) {
     throw new Error(
       `Could not get ColonyNetwork address for ${network}. Please specify using the 'networkAddress' option`,
