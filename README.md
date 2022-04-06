@@ -14,11 +14,11 @@ The documentation is automatically generated using [TypeDoc](https://github.com/
 
 ```ts
 import { providers, utils, Wallet } from 'ethers';
-import { CLNY, getColonyNetworkClient, Network, ROOT_POT_ID } from '@colony/colony-js';
+import { getColonyNetworkClient, Id, Network, Tokens } from '@colony/colony-js';
 
 const { formatEther } = utils;
 
-const provider = new providers.JsonRpcProvider('https://rpc.gnosischain.com/');
+const provider = new providers.JsonRpcProvider('https://xdai.colony.io/rpc2/');
 
 const start = async () => {
   // Get a wallet instance
@@ -33,17 +33,17 @@ const start = async () => {
 
   // Get a network client instance for Gnosis Chain
   const networkClient = await getColonyNetworkClient(
-    Network.Xdai,
+    Network.Gnosis,
     wallet,
   );
 
   // Let's connect to the Meta Colony
   const metaColonyClient = await networkClient.getMetaColonyClient()
-  // And check out is XDAI funding
-  const funding = await metaColonyClient.getFundingPotBalance(ROOT_POT_ID, CLNY.Xdai);
+  // And check out it's CLNY funding
+  const funding = await metaColonyClient.getFundingPotBalance(Id.RootPot, Tokens.Gnosis.CLNY);
   // We can also see its address
   const { address } = metaColonyClient;
-  console.info(`${formatEther(funding)} XDAI in root domain of MetaColony with address: ${address}`);
+  console.info(`${formatEther(funding)} CLNY in root domain of MetaColony with address: ${address}`);
 };
 
 start();
