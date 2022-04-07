@@ -9,7 +9,11 @@ import { ClientType, Network, SignerOrProvider } from '../types';
 import { AnyColonyClient } from '../clients/Core/exports';
 
 import { ColonyNetworkAddress, ReputationOracleEndpoint } from '../constants';
-import { IColonyNetwork, IColonyNetworkFactory, abis } from '../exports';
+import { abis } from '../abis/exports';
+import {
+  IColonyNetwork,
+  IColonyNetwork__factory as IColonyNetworkFactory,
+} from '../contracts';
 import { getColonyClient } from './Core/exports';
 import getTokenLockingClient, {
   TokenLockingClient,

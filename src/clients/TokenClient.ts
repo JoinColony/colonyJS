@@ -6,15 +6,16 @@ import {
   TokenClientType,
 } from '../types';
 
+import { abis } from '../abis/exports';
+
 import {
-  abis,
-  TokenFactory,
+  Token__factory as TokenFactory,
   Token,
-  TokenErc20Factory,
-  TokenErc20,
-  TokenSaiFactory,
-  TokenSai,
-} from '../exports';
+  TokenERC20__factory as TokenERC20Factory,
+  TokenERC20,
+  TokenSAI__factory as TokenSAIFactory,
+  TokenSAI,
+} from '../contracts';
 
 const { getAddress, isHexString, parseBytes32String } = utils;
 
@@ -81,7 +82,7 @@ export interface ColonyTokenClient extends Token {
 }
 
 /** A standard ERC20 token */
-export interface Erc20TokenClient extends TokenErc20 {
+export interface Erc20TokenClient extends TokenERC20 {
   clientType: ClientType.TokenClient;
   tokenClientType: TokenClientType.Erc20;
 
@@ -90,7 +91,7 @@ export interface Erc20TokenClient extends TokenErc20 {
 }
 
 /** The SAI token. It requires special treatment as it's deprecated */
-export interface DaiTokenClient extends TokenSai {
+export interface DaiTokenClient extends TokenSAI {
   clientType: ClientType.TokenClient;
   tokenClientType: TokenClientType.Sai;
 
@@ -191,14 +192,14 @@ const getTokenClient = async (
     tokenClient.estimateGas.deployTokenAuthority =
       estimateDeployTokenAuthority.bind(tokenClient);
   } else if (isSai(address)) {
-    tokenClient = TokenSaiFactory.connect(
+    tokenClient = TokenSAIFactory.connect(
       address,
       signerOrProvider,
     ) as DaiTokenClient;
 
     tokenClient.tokenClientType = TokenClientType.Sai;
   } else {
-    tokenClient = TokenErc20Factory.connect(
+    tokenClient = TokenERC20Factory.connect(
       address,
       signerOrProvider,
     ) as Erc20TokenClient;

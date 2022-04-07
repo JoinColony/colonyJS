@@ -1,6 +1,9 @@
 import { ClientType, SignerOrProvider } from '../types';
 
-import { TokenLocking, TokenLockingFactory } from '../exports';
+import {
+  TokenLocking,
+  TokenLocking__factory as TokenLockingFactory,
+} from '../contracts';
 
 export interface TokenLockingClient extends TokenLocking {
   clientType: ClientType.TokenLockingClient;
