@@ -15,7 +15,7 @@ import { extractEvent } from './utils';
 
 type SupportedColonyClient = ColonyClientV8;
 
-export class Colony {
+export default class Colony {
   static SupportedVersion: 8 = 8;
 
   private colonyClient: SupportedColonyClient;

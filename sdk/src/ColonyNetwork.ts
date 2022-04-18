@@ -5,9 +5,9 @@ import {
   SignerOrProvider,
 } from '@colony/colony-js';
 
-import { Colony } from './Colony';
+import Colony from './Colony';
 
-export class ColonyNetwork {
+export default class ColonyNetwork {
   private networkClient: ColonyNetworkClient;
 
   private signerOrProvider: SignerOrProvider;

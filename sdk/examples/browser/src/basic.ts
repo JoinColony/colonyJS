@@ -1,6 +1,6 @@
 import { providers, utils } from 'ethers';
 
-import { ColonyNetwork, Tokens } from '../../../dist/esm';
+import { ColonyNetwork, Tokens } from '../../../src';
 
 const { formatEther, isAddress } = utils;
 
