@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "license": "GPL-3.0-only",
   "dependencies": {
-    "@colony/colony-js": "^5.0.0"
+    "@colony/colony-js": "^5.0.2"
   },
   "devDependencies": {
     "@colony/eslint-config-colony": "^9.0.2",
@@ -28,7 +28,7 @@
   },
   "scripts": {
     "example:node": "npm run compile-cjs && ts-node src/index.ts",
-    "example:browser": "npm run compile-esm && esbuild --bundle examples/browser/src/*.ts --servedir=examples/browser/web",
+    "example:browser": "esbuild --bundle examples/browser/src/*.ts --servedir=examples/browser/web",
     "build": "npm run clean && npm run compile-cjs && npm run compile-esm && npm run compile-types && npm run build-docs",
     "build-docs": "typedoc --out docs --excludeInternal src/index.ts",
     "clean": "rimraf ./dist",
