@@ -18,6 +18,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "ethers": "^5.6.1",
     "prettier": "^2.6.1",
+    "release-it": "^14.14.2",
     "rimraf": "^3.0.2",
     "ts-node": "^10.7.0",
     "typedoc": "^0.22.13",
@@ -38,7 +39,8 @@
     "lint": "eslint --ext .ts src examples",
     "prepublishOnly": "npm test && npm run build",
     "test": "npm run lint && npm run typecheck",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "release": "release-it"
   },
   "engines": {
     "node": "^16.0.0"

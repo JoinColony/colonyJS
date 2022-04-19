@@ -54,3 +54,15 @@ These examples will run on Gnosis chain. If you'd like to make transactions, you
 _Are you interested in contributing?_ Check out the following document for more information:
 
 - [Contributing](CONTRIBUTING.md)
+
+### Creating a new release
+
+colonySDK is using [`release-it`](https://github.com/release-it/release-it) to create new releases. To create and publish a new release, commit your changes, then execute
+
+```bash
+npm run release -- SEMVER_TAG # SEMVER_TAG is major, minor, patch
+```
+
+If you don't supply a `GITHUB_TOKEN` environment variable, `release-it` will open a browser window and pre-populate the corresponding release input fields for you.
+
+**Frequent commits and descriptive commit messages** will help when `release-it` tries to autogenerate the changelog.
