@@ -12,13 +12,7 @@ The Colony SDK is under heavy development by the community and will be an easy-t
 
 Colony SDK also includes a variety of examples to get you up and building with Colony in no time!
 
-### Prerequisites
-
-- Node `>=16.0.0`
-
-_You may find it helpful to use [Node Version Manager (`nvm`)](https://github.com/nvm-sh/nvm) to manage Node versions._
-
-### Running the examples
+## Running the examples
 
 First, clone this repo: 
 ```bash
@@ -33,27 +27,29 @@ npm install
 
 Then you can run the examples:
 
-#### Node.js
+### Node.js
 
 ```bash
 npm run example:node
 ```
 
-#### Browser (vanilla JS example)
+### Browser (vanilla JS example)
 
 ```bash
 npm run example:browser
 ```
 
-#### Some notes
+### Some notes
 
 These examples will run on Gnosis chain. If you'd like to make transactions, you will need some XDAI. Reach out to us in our [Discord](https://discord.gg/feVZWwysqM) if you're having trouble starting out.
 
-## Contribute
+## Development
 
-_Are you interested in contributing?_ Check out the following document for more information:
+### Prerequisites
 
-- [Contributing](CONTRIBUTING.md)
+- Node `>=16.0.0`
+
+_You may find it helpful to use [Node Version Manager (`nvm`)](https://github.com/nvm-sh/nvm) to manage Node versions._
 
 ### Creating a new release
 
@@ -66,3 +62,9 @@ npm run release -- SEMVER_TAG # SEMVER_TAG is major, minor, patch
 If you don't supply a `GITHUB_TOKEN` environment variable, `release-it` will open a browser window and pre-populate the corresponding release input fields for you.
 
 **Frequent commits and descriptive commit messages** will help when `release-it` tries to autogenerate the changelog.
+
+### Contribute
+
+_Are you interested in contributing?_ Check out the following document for more information:
+
+- [Contributing](CONTRIBUTING.md)
