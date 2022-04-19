@@ -19,12 +19,19 @@ const setupEventListener = (
     colonyAddress,
   );
 
+  let i = 0;
+
   colonyEvents.provider.on('block', async (no) => {
-    const events = await colonyEvents.getMultiEvents([domainAdded], {
-      fromBlock: no,
-      toBlock: no,
-    });
-    if (events.length) callback(events);
+    i += 1;
+    // Only get events every 5 blocks to debounce this a little bit
+    if (i === 4) {
+      const events = await colonyEvents.getMultiEvents([domainAdded], {
+        fromBlock: no - i,
+        toBlock: no,
+      });
+      if (events.length) callback(events);
+      i = 0;
+    }
   });
 };
 
