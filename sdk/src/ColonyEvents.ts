@@ -1,3 +1,8 @@
+/**
+ * This is a description of the ColonyEvents module
+ * @module ColonyEvents
+ */
+
 import { constants, providers, EventFilter } from 'ethers';
 import { Result } from 'ethers/lib/utils';
 import {

@@ -1,5 +1,5 @@
 /**
- * This is a description of this module
+ * This is a description of the ColonyNetwork module
  * @module ColonyNetwork
  */
 
