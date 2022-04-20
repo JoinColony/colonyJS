@@ -41,7 +41,7 @@ export interface ColonyEvent extends ColonyFilter {
   data: Result;
 }
 
-export default class ColonyEvents {
+export class ColonyEvents {
   eventSources: EventSources;
 
   provider: providers.JsonRpcProvider;

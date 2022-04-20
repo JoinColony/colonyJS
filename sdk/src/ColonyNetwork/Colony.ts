@@ -11,11 +11,11 @@ import type {
 } from '@colony/colony-js/extras';
 import type { BigNumberish } from 'ethers';
 
-import { extractEvent } from './utils';
+import { extractEvent } from '../utils';
 
 type SupportedColonyClient = ColonyClientV8;
 
-export default class Colony {
+export class Colony {
   static SupportedVersion: 8 = 8;
 
   private colonyClient: SupportedColonyClient;

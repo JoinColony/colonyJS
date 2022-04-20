@@ -1,0 +1,8 @@
+{
+    "entryPoints": ["./src/ColonyNetwork", "./src/ColonyEvents.ts"],
+    "out": "docs",
+    "excludeInternal": true,
+    "excludePrivate": true,
+    "excludeProtected": true,
+    "name": "Colony SDK 🚀"
+}

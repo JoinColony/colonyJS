@@ -31,7 +31,7 @@
     "example:node": "npm run compile-cjs && ts-node src/index.ts",
     "example:browser": "esbuild --bundle examples/browser/src/*.ts --servedir=examples/browser/web",
     "build": "npm run clean && npm run compile-cjs && npm run compile-esm && npm run compile-types && npm run build-docs",
-    "build-docs": "typedoc --out docs --excludeInternal src/index.ts",
+    "build-docs": "typedoc",
     "clean": "rimraf ./dist",
     "compile-cjs": "tsc -p tsconfig.build.json --module commonjs --outDir dist/cjs",
     "compile-esm": "tsc -p tsconfig.build.json --module es2015 --outDir dist/esm",

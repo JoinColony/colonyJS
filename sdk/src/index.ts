@@ -1,6 +1,15 @@
+/**
+ * @internal
+ * @module
+ */
+
 export { Tokens } from '@colony/colony-js';
 
-export { default as ColonyNetwork } from './ColonyNetwork';
-export { default as ColonyEvents } from './ColonyEvents';
+export { ColonyNetwork, Colony } from './ColonyNetwork';
+export { ColonyEvents } from './ColonyEvents';
 
-export type { ColonyEvent } from './ColonyEvents';
+export type {
+  ColonyFilter,
+  ColonyMultiFilter,
+  ColonyEvent,
+} from './ColonyEvents';
