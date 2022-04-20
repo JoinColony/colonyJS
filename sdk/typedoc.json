@@ -1,8 +1,10 @@
 {
     "entryPoints": ["./src/ColonyNetwork", "./src/ColonyEvents.ts"],
-    "out": "docs",
+    "out": "docs/reference/api",
     "excludeInternal": true,
     "excludePrivate": true,
     "excludeProtected": true,
-    "name": "Colony SDK 🚀"
+    "name": "Colony SDK 🚀",
+    "plugin": "typedoc-plugin-markdown",
+    "githubPages": false
 }
