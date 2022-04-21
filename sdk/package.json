@@ -17,6 +17,8 @@
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-prettier": "^4.0.0",
     "ethers": "^5.6.1",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.4.0",
     "prettier": "^2.6.1",
     "release-it": "^14.14.2",
     "rimraf": "^3.0.2",
@@ -41,7 +43,8 @@
     "prepublishOnly": "npm test && npm run build",
     "test": "npm run lint && npm run typecheck",
     "typecheck": "tsc --noEmit",
-    "release": "release-it"
+    "release": "release-it",
+    "prepare": "husky install"
   },
   "engines": {
     "node": "^16.0.0"
