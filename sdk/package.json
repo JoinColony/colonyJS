@@ -40,11 +40,12 @@
     "compile-esm": "tsc -p tsconfig.build.json --module es2015 --outDir dist/esm",
     "compile-types": "tsc -p tsconfig.build.json --declaration --emitDeclarationOnly --outDir dist/types",
     "lint": "eslint --ext .ts src examples",
+    "no-git-changes": "./scripts/no-git-changes.sh",
+    "prepare": "husky install",
     "prepublishOnly": "npm test && npm run build",
-    "test": "npm run lint && npm run typecheck",
-    "typecheck": "tsc --noEmit",
     "release": "release-it",
-    "prepare": "husky install"
+    "test": "npm run lint && npm run typecheck",
+    "typecheck": "tsc --noEmit"
   },
   "engines": {
     "node": "^16.0.0"

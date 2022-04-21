@@ -15,16 +15,14 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node }}
+      uses: actions/setup-node@v2
       with:
-        submodules: recursive
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: install npm
-      run: npm i -g npm@8 --registry=https://registry.npmjs.org
-    - run: npm ci
-    - run: npm run test
+        node-version: ${{ matrix.node }}
+        cache: 'npm'
+    - run: npm ci --frozen-lockfile
+    - run: npm test
       env:
         CI: true
     - run: npm run build
+    - run: npm run no-git-changes
