@@ -45,7 +45,7 @@ ___
 
 ### eventSource
 
-• **eventSource**: keyof `EventSources`
+• **eventSource**: keyof [`EventSources`](ColonyEvents.EventSources.md)
 
 #### Inherited from
 

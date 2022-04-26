@@ -4,6 +4,8 @@
 
 [ColonyEvents](../modules/ColonyEvents.md).ColonyFilter
 
+A Colony extended ethers Filter to keep track of where events are coming from
+
 ## Hierarchy
 
 - `Filter`
@@ -43,7 +45,7 @@ ___
 
 ### eventSource
 
-• **eventSource**: keyof `EventSources`
+• **eventSource**: keyof [`EventSources`](ColonyEvents.EventSources.md)
 
 ___
 

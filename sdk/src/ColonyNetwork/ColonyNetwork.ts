@@ -12,11 +12,43 @@ export class ColonyNetwork {
 
   private signerOrProvider: SignerOrProvider;
 
+  /**
+   * Creates a new instance to connect to the ColonyNetwork
+   *
+   * This is your main entry point to talk to the Colony Network Smart Contracts.
+   * From here you should be able to instantiate all the required instances for Colonies and their extensions.
+   *
+   * @example
+   *
+   * ```typescript
+   * import { providers, utils } from 'ethers';
+   * import { ColonyNetwork, Tokens } from '@colony/sdk';
+   *
+   * // Connect directly to the deployed Colony Network on Gnosis Chain
+   * const provider = new providers.JsonRpcProvider('https://xdai.colony.io/rpc2/');
+   * const colonyNetwork = new ColonyNetwork(provider);
+   * // Now you could call functions on the colonyNetwork, like `colonyNetwork.getMetaColony()`
+   * ```
+   *
+   * @param signerOrProvider An _ethers_ compatible Signer or Provider instance
+   * @returns A ColonyNetwork abstaction instance
+   */
   constructor(signerOrProvider: SignerOrProvider) {
     this.networkClient = getColonyNetworkClient(Network.Xdai, signerOrProvider);
     this.signerOrProvider = signerOrProvider;
   }
 
+  /**
+   * Get a new instance of a Colony
+   *
+   * Use this function to instantiate a new `Colony` by providing the Colony's address
+   *
+   * @remarks
+   * Colony contracts are versioned. If the deployed Colony version does not match the supported version an error will be thrown
+   *
+   * @param address The Colony's address
+   * @returns A Colony abstaction instance
+   */
   async getColony(address: string): Promise<Colony> {
     const colonyClient = await this.networkClient.getColonyClient(address);
 
@@ -26,5 +58,17 @@ export class ColonyNetwork {
       );
     }
     return new Colony(colonyClient);
+  }
+
+  /**
+   * Get a new instance of the MetaColony
+   *
+   * Use this function to instantiate a new `Colony` for the deployed MetaColony
+   *
+   * @returns A Colony abstaction instance of the MetaColony
+   */
+  async getMetaColony(): Promise<Colony> {
+    const colonyAddress = await this.networkClient.getMetaColony();
+    return this.getColony(colonyAddress);
   }
 }

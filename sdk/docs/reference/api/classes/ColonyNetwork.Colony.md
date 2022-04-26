@@ -44,8 +44,9 @@ A tupel of event data and contract receipt
 **Event data**
 | Property | Description |
 | :------ | :------ |
-| `domainId` | integer domain id of the created team |
-| `fundingPotId` | integer id of the corresponding funding pot |
+| `agent` | The address that is responsible for triggering this event |
+| `domainId` | Integer domain id of the created team |
+| `fundingPotId` | Integer id of the corresponding funding pot |
 
 ___
 

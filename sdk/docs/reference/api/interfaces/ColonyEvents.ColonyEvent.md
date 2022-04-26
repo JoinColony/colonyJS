@@ -4,6 +4,8 @@
 
 [ColonyEvents](../modules/ColonyEvents.md).ColonyEvent
 
+An Event that came from a contract within the Colony Network
+
 ## Hierarchy
 
 - [`ColonyFilter`](ColonyEvents.ColonyFilter.md)
@@ -52,7 +54,7 @@ ___
 
 ### eventSource
 
-• **eventSource**: keyof `EventSources`
+• **eventSource**: keyof [`EventSources`](ColonyEvents.EventSources.md)
 
 #### Inherited from
 

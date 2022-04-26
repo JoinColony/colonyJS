@@ -85,8 +85,9 @@ export class Colony {
    * **Event data**
    * | Property | Description |
    * | :------ | :------ |
-   * | `domainId` | integer domain id of the created team |
-   * | `fundingPotId` | integer id of the corresponding funding pot |
+   * | `agent` | The address that is responsible for triggering this event |
+   * | `domainId` | Integer domain id of the created team |
+   * | `fundingPotId` | Integer id of the corresponding funding pot |
    */
   async createTeam() {
     const tx = await this.colonyClient['addDomainWithProofs(uint256)'](
