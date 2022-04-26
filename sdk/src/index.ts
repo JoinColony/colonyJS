@@ -13,3 +13,7 @@ export type {
   ColonyMultiFilter,
   ColonyEvent,
 } from './ColonyEvents';
+
+export * from './constants';
+
+export * from './types';
