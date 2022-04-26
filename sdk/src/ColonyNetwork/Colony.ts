@@ -1,5 +1,6 @@
 import {
   ColonyClientV8,
+  ColonyClientV9,
   ColonyNetworkClient,
   SignerOrProvider,
   Id,
@@ -13,13 +14,13 @@ import type { BigNumberish } from 'ethers';
 
 import { extractEvent } from '../utils';
 
-type SupportedColonyClient = ColonyClientV8;
+type SupportedColonyClient = ColonyClientV8 | ColonyClientV9;
 
 export class Colony {
   /** The currently supported Colony version. If a Colony is not on this version it has to be upgraded.
    * If this is not an option, ColonySDK might throw errors at certain points. Usage of ColonyJS is advised in these cases
    */
-  static SupportedVersion: 8 = 8;
+  static SupportedVersions: (8 | 9)[] = [8, 9];
 
   private colonyClient: SupportedColonyClient;
 

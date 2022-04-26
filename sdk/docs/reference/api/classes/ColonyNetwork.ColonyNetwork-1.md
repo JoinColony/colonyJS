@@ -19,7 +19,7 @@
 
 ### constructor
 
-• **new ColonyNetwork**(`signerOrProvider`)
+• **new ColonyNetwork**(`signerOrProvider`, `options?`)
 
 Creates a new instance to connect to the ColonyNetwork
 
@@ -43,6 +43,7 @@ const colonyNetwork = new ColonyNetwork(provider);
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `signerOrProvider` | `SignerOrProvider` | An _ethers_ compatible Signer or Provider instance |
+| `options?` | `NetworkClientOptions` | Pass in a custom ColonyNetwork address or Reputation Miner endpoint |
 
 ## Methods
 

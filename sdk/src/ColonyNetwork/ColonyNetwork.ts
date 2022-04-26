@@ -7,6 +7,12 @@ import {
 
 import { Colony } from './Colony';
 
+// TODO: export from colonyjs and import here
+interface NetworkClientOptions {
+  networkAddress?: string;
+  reputationOracleEndpoint?: string;
+}
+
 export class ColonyNetwork {
   private networkClient: ColonyNetworkClient;
 
@@ -31,10 +37,19 @@ export class ColonyNetwork {
    * ```
    *
    * @param signerOrProvider An _ethers_ compatible Signer or Provider instance
+   * @param options Pass in a custom ColonyNetwork address or Reputation Miner endpoint
    * @returns A ColonyNetwork abstaction instance
    */
-  constructor(signerOrProvider: SignerOrProvider) {
-    this.networkClient = getColonyNetworkClient(Network.Xdai, signerOrProvider);
+  constructor(
+    signerOrProvider: SignerOrProvider,
+    options?: NetworkClientOptions,
+  ) {
+    const network = options?.networkAddress ? Network.Custom : Network.Xdai;
+    this.networkClient = getColonyNetworkClient(
+      network,
+      signerOrProvider,
+      options,
+    );
     this.signerOrProvider = signerOrProvider;
   }
 
@@ -52,7 +67,10 @@ export class ColonyNetwork {
   async getColony(address: string): Promise<Colony> {
     const colonyClient = await this.networkClient.getColonyClient(address);
 
-    if (colonyClient.clientVersion !== Colony.SupportedVersion) {
+    if (
+      colonyClient.clientVersion !== Colony.SupportedVersions[0] &&
+      colonyClient.clientVersion !== Colony.SupportedVersions[1]
+    ) {
       throw new Error(
         `The version of this Colony ${colonyClient.clientVersion} is not supported by Colony SDK. Please update your Colony`,
       );

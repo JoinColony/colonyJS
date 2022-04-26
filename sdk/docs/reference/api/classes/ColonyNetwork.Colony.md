@@ -8,7 +8,7 @@
 
 ### Properties
 
-- [SupportedVersion](ColonyNetwork.Colony.md#supportedversion)
+- [SupportedVersions](ColonyNetwork.Colony.md#supportedversions)
 
 ### Methods
 
@@ -17,9 +17,9 @@
 
 ## Properties
 
-### SupportedVersion
+### SupportedVersions
 
-▪ `Static` **SupportedVersion**: ``8``
+▪ `Static` **SupportedVersions**: (``8`` \| ``9``)[]
 
 The currently supported Colony version. If a Colony is not on this version it has to be upgraded.
 If this is not an option, ColonySDK might throw errors at certain points. Usage of ColonyJS is advised in these cases
