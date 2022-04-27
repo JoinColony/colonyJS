@@ -13,6 +13,7 @@ export * from './clients/Extensions/exports';
 export {
   ColonyNetworkClient,
   default as getColonyNetworkClient,
+  NetworkClientOptions,
 } from './clients/ColonyNetworkClient';
 
 export {

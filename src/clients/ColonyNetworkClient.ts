@@ -91,7 +91,7 @@ export interface ColonyNetworkClient extends IColonyNetwork {
   lookupRegisteredENSDomainWithNetworkPatches(address: string): Promise<string>;
 }
 
-interface NetworkClientOptions {
+export interface NetworkClientOptions {
   networkAddress?: string;
   reputationOracleEndpoint?: string;
 }
