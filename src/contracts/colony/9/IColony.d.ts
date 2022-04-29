@@ -226,6 +226,10 @@ interface IColonyInterface extends Interface {
       encode([_metadata]: [string]): string;
     }>;
 
+    editColonyByDelta: TypedFunctionDescription<{
+      encode([_metadataDelta]: [string]): string;
+    }>;
+
     bootstrapColony: TypedFunctionDescription<{
       encode([_users, _amount]: [string[], BigNumberish[]]): string;
     }>;
@@ -267,6 +271,18 @@ interface IColonyInterface extends Interface {
     uninstallExtension: TypedFunctionDescription<{
       encode([extensionId]: [Arrayish]): string;
     }>;
+
+    initialiseRootLocalSkill: TypedFunctionDescription<{
+      encode([]: []): string;
+    }>;
+
+    addLocalSkill: TypedFunctionDescription<{ encode([]: []): string }>;
+
+    deprecateLocalSkill: TypedFunctionDescription<{
+      encode([localSkillId, deprecated]: [BigNumberish, boolean]): string;
+    }>;
+
+    getRootLocalSkill: TypedFunctionDescription<{ encode([]: []): string }>;
 
     addDomain: TypedFunctionDescription<{
       encode([_permissionDomainId, _childSkillIndex, _parentDomainId]: [
@@ -948,6 +964,10 @@ interface IColonyInterface extends Interface {
       encodeTopics([agent, metadata]: [null, null]): string[];
     }>;
 
+    ColonyMetadataDelta: TypedEventDescription<{
+      encodeTopics([agent, metadata]: [null, null]): string[];
+    }>;
+
     ColonyRewardInverseSet: TypedEventDescription<{
       encodeTopics([agent, rewardInverse]: [null, null]): string[];
     }>;
@@ -1083,6 +1103,18 @@ interface IColonyInterface extends Interface {
 
     FundingPotAdded: TypedEventDescription<{
       encodeTopics([fundingPotId]: [null]): string[];
+    }>;
+
+    LocalSkillAdded: TypedEventDescription<{
+      encodeTopics([agent, localSkillId]: [null, null]): string[];
+    }>;
+
+    LocalSkillDeprecated: TypedEventDescription<{
+      encodeTopics([agent, localSkillId, deprecated]: [
+        null,
+        null,
+        null
+      ]): string[];
     }>;
 
     MetaTransactionExecuted: TypedEventDescription<{
@@ -1249,7 +1281,9 @@ interface IColonyInterface extends Interface {
       ]): string[];
     }>;
 
-    TokenUnlocked: TypedEventDescription<{ encodeTopics([]: []): string[] }>;
+    TokenUnlocked: TypedEventDescription<{
+      encodeTopics([agent]: [null]): string[];
+    }>;
 
     TokensBurned: TypedEventDescription<{
       encodeTopics([agent, token, amount]: [null, null, null]): string[];
@@ -2130,6 +2164,24 @@ export class IColony extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
+     * Called to change the metadata associated with a colony. Expected to be a IPFS hash of a delta to a JSON blob, but not enforced to any degree by the contracts
+     * @param _metadataDelta IPFS hash of the metadata delta
+     */
+    editColonyByDelta(
+      _metadataDelta: string,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Called to change the metadata associated with a colony. Expected to be a IPFS hash of a delta to a JSON blob, but not enforced to any degree by the contracts
+     * @param _metadataDelta IPFS hash of the metadata delta
+     */
+    "editColonyByDelta(string)"(
+      _metadataDelta: string,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
      * Only allowed to be called when `taskCount` is `0` by authorized addresses.
      * Allows the colony to bootstrap itself by having initial reputation and token `_amount` assigned to `_users`. This reputation is assigned in the colony-wide domain. Secured function to authorised members.
      * @param _amount Amount of reputation/tokens for every address
@@ -2354,6 +2406,66 @@ export class IColony extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
+     * Initialise the local skill tree for the colony.
+     */
+    initialiseRootLocalSkill(
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Initialise the local skill tree for the colony.
+     */
+    "initialiseRootLocalSkill()"(
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Add a new local skill for the colony. Secured function to authorised members.
+     */
+    addLocalSkill(
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Add a new local skill for the colony. Secured function to authorised members.
+     */
+    "addLocalSkill()"(
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Deprecate a local skill for the colony. Secured function to authorised members.
+     * @param deprecated Deprecation status to set for the skill
+     * @param localSkillId Id for the local skill
+     */
+    deprecateLocalSkill(
+      localSkillId: BigNumberish,
+      deprecated: boolean,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Deprecate a local skill for the colony. Secured function to authorised members.
+     * @param deprecated Deprecation status to set for the skill
+     * @param localSkillId Id for the local skill
+     */
+    "deprecateLocalSkill(uint256,bool)"(
+      localSkillId: BigNumberish,
+      deprecated: boolean,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Get the root local skill id
+     */
+    getRootLocalSkill(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    /**
+     * Get the root local skill id
+     */
+    "getRootLocalSkill()"(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    /**
      * Adding new domains is currently retricted to one level only, i.e. `_parentDomainId` has to be the root domain id: `1`.
      * Add a colony domain, and its respective local skill under skill with id `_parentSkillId`. New funding pot is created and associated with the domain here.
      * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
@@ -2465,11 +2577,7 @@ export class IColony extends Contract {
       _id: BigNumberish,
       overrides?: TransactionOverrides
     ): Promise<
-      [BigNumber, BigNumber, boolean] & {
-        skillId: BigNumber;
-        fundingPotId: BigNumber;
-        deprecated: boolean;
-      }
+      [BigNumber, BigNumber] & { skillId: BigNumber; fundingPotId: BigNumber }
     >;
 
     /**
@@ -2480,11 +2588,7 @@ export class IColony extends Contract {
       _id: BigNumberish,
       overrides?: TransactionOverrides
     ): Promise<
-      [BigNumber, BigNumber, boolean] & {
-        skillId: BigNumber;
-        fundingPotId: BigNumber;
-        deprecated: boolean;
-      }
+      [BigNumber, BigNumber] & { skillId: BigNumber; fundingPotId: BigNumber }
     >;
 
     /**
@@ -5707,6 +5811,24 @@ export class IColony extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
+   * Called to change the metadata associated with a colony. Expected to be a IPFS hash of a delta to a JSON blob, but not enforced to any degree by the contracts
+   * @param _metadataDelta IPFS hash of the metadata delta
+   */
+  editColonyByDelta(
+    _metadataDelta: string,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * Called to change the metadata associated with a colony. Expected to be a IPFS hash of a delta to a JSON blob, but not enforced to any degree by the contracts
+   * @param _metadataDelta IPFS hash of the metadata delta
+   */
+  "editColonyByDelta(string)"(
+    _metadataDelta: string,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
    * Only allowed to be called when `taskCount` is `0` by authorized addresses.
    * Allows the colony to bootstrap itself by having initial reputation and token `_amount` assigned to `_users`. This reputation is assigned in the colony-wide domain. Secured function to authorised members.
    * @param _amount Amount of reputation/tokens for every address
@@ -5929,6 +6051,64 @@ export class IColony extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
+   * Initialise the local skill tree for the colony.
+   */
+  initialiseRootLocalSkill(
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * Initialise the local skill tree for the colony.
+   */
+  "initialiseRootLocalSkill()"(
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * Add a new local skill for the colony. Secured function to authorised members.
+   */
+  addLocalSkill(overrides?: TransactionOverrides): Promise<ContractTransaction>;
+
+  /**
+   * Add a new local skill for the colony. Secured function to authorised members.
+   */
+  "addLocalSkill()"(
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * Deprecate a local skill for the colony. Secured function to authorised members.
+   * @param deprecated Deprecation status to set for the skill
+   * @param localSkillId Id for the local skill
+   */
+  deprecateLocalSkill(
+    localSkillId: BigNumberish,
+    deprecated: boolean,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * Deprecate a local skill for the colony. Secured function to authorised members.
+   * @param deprecated Deprecation status to set for the skill
+   * @param localSkillId Id for the local skill
+   */
+  "deprecateLocalSkill(uint256,bool)"(
+    localSkillId: BigNumberish,
+    deprecated: boolean,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * Get the root local skill id
+   */
+  getRootLocalSkill(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+  /**
+   * Get the root local skill id
+   */
+  "getRootLocalSkill()"(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+  /**
    * Adding new domains is currently retricted to one level only, i.e. `_parentDomainId` has to be the root domain id: `1`.
    * Add a colony domain, and its respective local skill under skill with id `_parentSkillId`. New funding pot is created and associated with the domain here.
    * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
@@ -6040,11 +6220,7 @@ export class IColony extends Contract {
     _id: BigNumberish,
     overrides?: TransactionOverrides
   ): Promise<
-    [BigNumber, BigNumber, boolean] & {
-      skillId: BigNumber;
-      fundingPotId: BigNumber;
-      deprecated: boolean;
-    }
+    [BigNumber, BigNumber] & { skillId: BigNumber; fundingPotId: BigNumber }
   >;
 
   /**
@@ -6055,11 +6231,7 @@ export class IColony extends Contract {
     _id: BigNumberish,
     overrides?: TransactionOverrides
   ): Promise<
-    [BigNumber, BigNumber, boolean] & {
-      skillId: BigNumber;
-      fundingPotId: BigNumber;
-      deprecated: boolean;
-    }
+    [BigNumber, BigNumber] & { skillId: BigNumber; fundingPotId: BigNumber }
   >;
 
   /**
@@ -8457,6 +8629,8 @@ export class IColony extends Contract {
 
     ColonyMetadata(agent: null, metadata: null): EventFilter;
 
+    ColonyMetadataDelta(agent: null, metadata: null): EventFilter;
+
     ColonyRewardInverseSet(agent: null, rewardInverse: null): EventFilter;
 
     ColonyRoleSet(
@@ -8558,6 +8732,14 @@ export class IColony extends Contract {
     ): EventFilter;
 
     FundingPotAdded(fundingPotId: null): EventFilter;
+
+    LocalSkillAdded(agent: null, localSkillId: null): EventFilter;
+
+    LocalSkillDeprecated(
+      agent: null,
+      localSkillId: null,
+      deprecated: null
+    ): EventFilter;
 
     MetaTransactionExecuted(
       userAddress: null,
@@ -8669,7 +8851,7 @@ export class IColony extends Contract {
       rating: null
     ): EventFilter;
 
-    TokenUnlocked(): EventFilter;
+    TokenUnlocked(agent: null): EventFilter;
 
     TokensBurned(agent: null, token: null, amount: null): EventFilter;
 
@@ -9518,6 +9700,24 @@ export class IColony extends Contract {
     ): Promise<BigNumber>;
 
     /**
+     * Called to change the metadata associated with a colony. Expected to be a IPFS hash of a delta to a JSON blob, but not enforced to any degree by the contracts
+     * @param _metadataDelta IPFS hash of the metadata delta
+     */
+    editColonyByDelta(
+      _metadataDelta: string,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * Called to change the metadata associated with a colony. Expected to be a IPFS hash of a delta to a JSON blob, but not enforced to any degree by the contracts
+     * @param _metadataDelta IPFS hash of the metadata delta
+     */
+    "editColonyByDelta(string)"(
+      _metadataDelta: string,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
      * Only allowed to be called when `taskCount` is `0` by authorized addresses.
      * Allows the colony to bootstrap itself by having initial reputation and token `_amount` assigned to `_users`. This reputation is assigned in the colony-wide domain. Secured function to authorised members.
      * @param _amount Amount of reputation/tokens for every address
@@ -9738,6 +9938,62 @@ export class IColony extends Contract {
       extensionId: Arrayish,
       overrides?: TransactionOverrides
     ): Promise<BigNumber>;
+
+    /**
+     * Initialise the local skill tree for the colony.
+     */
+    initialiseRootLocalSkill(
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * Initialise the local skill tree for the colony.
+     */
+    "initialiseRootLocalSkill()"(
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * Add a new local skill for the colony. Secured function to authorised members.
+     */
+    addLocalSkill(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    /**
+     * Add a new local skill for the colony. Secured function to authorised members.
+     */
+    "addLocalSkill()"(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    /**
+     * Deprecate a local skill for the colony. Secured function to authorised members.
+     * @param deprecated Deprecation status to set for the skill
+     * @param localSkillId Id for the local skill
+     */
+    deprecateLocalSkill(
+      localSkillId: BigNumberish,
+      deprecated: boolean,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * Deprecate a local skill for the colony. Secured function to authorised members.
+     * @param deprecated Deprecation status to set for the skill
+     * @param localSkillId Id for the local skill
+     */
+    "deprecateLocalSkill(uint256,bool)"(
+      localSkillId: BigNumberish,
+      deprecated: boolean,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * Get the root local skill id
+     */
+    getRootLocalSkill(overrides?: TransactionOverrides): Promise<BigNumber>;
+
+    /**
+     * Get the root local skill id
+     */
+    "getRootLocalSkill()"(overrides?: TransactionOverrides): Promise<BigNumber>;
 
     /**
      * Adding new domains is currently retricted to one level only, i.e. `_parentDomainId` has to be the root domain id: `1`.

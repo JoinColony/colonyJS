@@ -102,6 +102,7 @@ export enum CoinMachineExtensionVersion {
   DandelionLightweightSpaceship = 2,
   EbonyLightweightSpaceshipTwo = 3,
   EbonyLightweightSpaceshipThree = 4,
+  FuchsiaLightweightSpaceship = 5,
 }
 
 const coinMachineReleaseMap = {
@@ -109,6 +110,7 @@ const coinMachineReleaseMap = {
   [CoinMachineExtensionVersion.DandelionLightweightSpaceship]: `dlwss`,
   [CoinMachineExtensionVersion.EbonyLightweightSpaceshipTwo]: `elwss2`,
   [CoinMachineExtensionVersion.EbonyLightweightSpaceshipThree]: `elwss3`,
+  [CoinMachineExtensionVersion.FuchsiaLightweightSpaceship]: `flwss`,
 };
 
 export const CurrentCoinMachineVersion = parseInt(
@@ -126,6 +128,7 @@ const CoinMachineExtensionVersionIncompatibilityMap: Record<
   [CoinMachineExtensionVersion.DandelionLightweightSpaceship]: [],
   [CoinMachineExtensionVersion.EbonyLightweightSpaceshipTwo]: [],
   [CoinMachineExtensionVersion.EbonyLightweightSpaceshipThree]: [],
+  [CoinMachineExtensionVersion.FuchsiaLightweightSpaceship]: [],
 };
 
 const CoinMachineExtensionVersionCompatibilityMap: Record<

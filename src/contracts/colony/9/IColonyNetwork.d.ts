@@ -105,6 +105,10 @@ interface IColonyNetworkInterface extends Interface {
       encode([_skillId]: [BigNumberish]): string;
     }>;
 
+    initialiseRootLocalSkill: TypedFunctionDescription<{
+      encode([]: []): string;
+    }>;
+
     appendReputationUpdateLog: TypedFunctionDescription<{
       encode([_user, _amount, _skillId]: [
         string,
@@ -336,6 +340,14 @@ interface IColonyNetworkInterface extends Interface {
         string,
         string[]
       ]): string;
+    }>;
+
+    setMiningDelegate: TypedFunctionDescription<{
+      encode([_delegate, _allowed]: [string, boolean]): string;
+    }>;
+
+    getMiningDelegator: TypedFunctionDescription<{
+      encode([_delegate]: [string]): string;
     }>;
   };
 
@@ -935,7 +947,8 @@ export class IColonyNetwork extends Contract {
     >;
 
     /**
-     * Mark a global skill as deprecated which stops new tasks and payments from using it.
+     * This function is deprecated and will be removed in a future release
+     * Mark a skill as deprecated which stops new tasks and payments from using it.
      * @param _skillId Id of the skill
      */
     deprecateSkill(
@@ -944,11 +957,37 @@ export class IColonyNetwork extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
-     * Mark a global skill as deprecated which stops new tasks and payments from using it.
+     * This function is deprecated and will be removed in a future release
+     * Mark a skill as deprecated which stops new tasks and payments from using it.
      * @param _skillId Id of the skill
      */
     "deprecateSkill(uint256)"(
       _skillId: BigNumberish,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Set deprecation status for a skill
+     * @param _deprecated Deprecation status
+     * @param _skillId Id of the skill
+     */
+    "deprecateSkill(uint256,bool)"(
+      _skillId: BigNumberish,
+      _deprecated: boolean,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Initialise the local skills tree for a colony
+     */
+    initialiseRootLocalSkill(
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Initialise the local skills tree for a colony
+     */
+    "initialiseRootLocalSkill()"(
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
@@ -2073,6 +2112,46 @@ export class IColonyNetwork extends Contract {
       allowedToTransfer: string[],
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
+
+    /**
+     * Called to give or remove another address's permission to mine on your behalf
+     * @param _allowed Whether they are allowed (true) or not (false) to mine on your behalf
+     * @param _delegate The address you're giving or removing permission from
+     */
+    setMiningDelegate(
+      _delegate: string,
+      _allowed: boolean,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Called to give or remove another address's permission to mine on your behalf
+     * @param _allowed Whether they are allowed (true) or not (false) to mine on your behalf
+     * @param _delegate The address you're giving or removing permission from
+     */
+    "setMiningDelegate(address,bool)"(
+      _delegate: string,
+      _allowed: boolean,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Called to get the address _delegate is allowed to mine for
+     * @param _delegate The address that wants to mine
+     */
+    getMiningDelegator(
+      _delegate: string,
+      overrides?: TransactionOverrides
+    ): Promise<string>;
+
+    /**
+     * Called to get the address _delegate is allowed to mine for
+     * @param _delegate The address that wants to mine
+     */
+    "getMiningDelegator(address)"(
+      _delegate: string,
+      overrides?: TransactionOverrides
+    ): Promise<string>;
   };
 
   /**
@@ -2487,7 +2566,8 @@ export class IColonyNetwork extends Contract {
   >;
 
   /**
-   * Mark a global skill as deprecated which stops new tasks and payments from using it.
+   * This function is deprecated and will be removed in a future release
+   * Mark a skill as deprecated which stops new tasks and payments from using it.
    * @param _skillId Id of the skill
    */
   deprecateSkill(
@@ -2496,11 +2576,37 @@ export class IColonyNetwork extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
-   * Mark a global skill as deprecated which stops new tasks and payments from using it.
+   * This function is deprecated and will be removed in a future release
+   * Mark a skill as deprecated which stops new tasks and payments from using it.
    * @param _skillId Id of the skill
    */
   "deprecateSkill(uint256)"(
     _skillId: BigNumberish,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * Set deprecation status for a skill
+   * @param _deprecated Deprecation status
+   * @param _skillId Id of the skill
+   */
+  "deprecateSkill(uint256,bool)"(
+    _skillId: BigNumberish,
+    _deprecated: boolean,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * Initialise the local skills tree for a colony
+   */
+  initialiseRootLocalSkill(
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * Initialise the local skills tree for a colony
+   */
+  "initialiseRootLocalSkill()"(
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
@@ -3622,6 +3728,46 @@ export class IColonyNetwork extends Contract {
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
+  /**
+   * Called to give or remove another address's permission to mine on your behalf
+   * @param _allowed Whether they are allowed (true) or not (false) to mine on your behalf
+   * @param _delegate The address you're giving or removing permission from
+   */
+  setMiningDelegate(
+    _delegate: string,
+    _allowed: boolean,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * Called to give or remove another address's permission to mine on your behalf
+   * @param _allowed Whether they are allowed (true) or not (false) to mine on your behalf
+   * @param _delegate The address you're giving or removing permission from
+   */
+  "setMiningDelegate(address,bool)"(
+    _delegate: string,
+    _allowed: boolean,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * Called to get the address _delegate is allowed to mine for
+   * @param _delegate The address that wants to mine
+   */
+  getMiningDelegator(
+    _delegate: string,
+    overrides?: TransactionOverrides
+  ): Promise<string>;
+
+  /**
+   * Called to get the address _delegate is allowed to mine for
+   * @param _delegate The address that wants to mine
+   */
+  "getMiningDelegator(address)"(
+    _delegate: string,
+    overrides?: TransactionOverrides
+  ): Promise<string>;
+
   filters: {
     AuctionCreated(auction: null, token: null, quantity: null): EventFilter;
 
@@ -4098,7 +4244,8 @@ export class IColonyNetwork extends Contract {
     ): Promise<BigNumber>;
 
     /**
-     * Mark a global skill as deprecated which stops new tasks and payments from using it.
+     * This function is deprecated and will be removed in a future release
+     * Mark a skill as deprecated which stops new tasks and payments from using it.
      * @param _skillId Id of the skill
      */
     deprecateSkill(
@@ -4107,11 +4254,37 @@ export class IColonyNetwork extends Contract {
     ): Promise<BigNumber>;
 
     /**
-     * Mark a global skill as deprecated which stops new tasks and payments from using it.
+     * This function is deprecated and will be removed in a future release
+     * Mark a skill as deprecated which stops new tasks and payments from using it.
      * @param _skillId Id of the skill
      */
     "deprecateSkill(uint256)"(
       _skillId: BigNumberish,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * Set deprecation status for a skill
+     * @param _deprecated Deprecation status
+     * @param _skillId Id of the skill
+     */
+    "deprecateSkill(uint256,bool)"(
+      _skillId: BigNumberish,
+      _deprecated: boolean,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * Initialise the local skills tree for a colony
+     */
+    initialiseRootLocalSkill(
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * Initialise the local skills tree for a colony
+     */
+    "initialiseRootLocalSkill()"(
       overrides?: TransactionOverrides
     ): Promise<BigNumber>;
 
@@ -5226,6 +5399,46 @@ export class IColonyNetwork extends Contract {
       _token: string,
       _colony: string,
       allowedToTransfer: string[],
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * Called to give or remove another address's permission to mine on your behalf
+     * @param _allowed Whether they are allowed (true) or not (false) to mine on your behalf
+     * @param _delegate The address you're giving or removing permission from
+     */
+    setMiningDelegate(
+      _delegate: string,
+      _allowed: boolean,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * Called to give or remove another address's permission to mine on your behalf
+     * @param _allowed Whether they are allowed (true) or not (false) to mine on your behalf
+     * @param _delegate The address you're giving or removing permission from
+     */
+    "setMiningDelegate(address,bool)"(
+      _delegate: string,
+      _allowed: boolean,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * Called to get the address _delegate is allowed to mine for
+     * @param _delegate The address that wants to mine
+     */
+    getMiningDelegator(
+      _delegate: string,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * Called to get the address _delegate is allowed to mine for
+     * @param _delegate The address that wants to mine
+     */
+    "getMiningDelegator(address)"(
+      _delegate: string,
       overrides?: TransactionOverrides
     ): Promise<BigNumber>;
   };
