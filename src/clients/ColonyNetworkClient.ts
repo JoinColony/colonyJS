@@ -249,7 +249,7 @@ const getColonyNetworkClient = (
         );
         break;
       }
-      case ColonyVersion.UnnamedLightweightSpaceship: {
+      case ColonyVersion.FuchsiaLightweightSpaceship: {
         colonyClient = getColonyClientV9.call(
           networkClient,
           colonyAddress,
