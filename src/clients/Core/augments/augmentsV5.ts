@@ -26,6 +26,7 @@ import {
   Extension,
   ExtensionVersion,
   isExtensionCompatible,
+  ExtensionVersions,
 } from '../../../clients/Extensions/exports';
 import { getExtensionHash } from '../../../helpers';
 import { colonyRoles2Hex } from '../../../utils';
@@ -363,7 +364,7 @@ async function setExpenditureStateWithProofs(
 async function installExtensionChecked(
   this: AllAugments,
   extension: Extension,
-  version: number,
+  version?: number,
   overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   if (
@@ -377,9 +378,10 @@ async function installExtensionChecked(
       `${extension} extension with version ${version} is not compatible with the current Colony version ${this.clientVersion}`,
     );
   }
+  const extensionVersion = version || ExtensionVersions[extension];
   return this.installExtension(
     getExtensionHash(extension),
-    BigNumber.from(version),
+    BigNumber.from(extensionVersion),
     overrides,
   );
 }
