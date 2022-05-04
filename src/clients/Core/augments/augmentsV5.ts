@@ -28,6 +28,7 @@ import {
   isExtensionCompatible,
 } from '../../../clients/Extensions/exports';
 import { getExtensionHash } from '../../../helpers';
+import { colonyRoles2Hex } from '../../../utils';
 
 type ValidColony = IColonyV5 | IColonyV6 | IColonyV7 | IColonyV8 | IColonyV9;
 
@@ -52,13 +53,13 @@ export interface AugmentedEstimateV5 extends AugmentedEstimateV4 {
    * Same as [[setUserRoles]], but let colonyJS figure out the permission proofs for you.
    * Always prefer this method, except when you have good reason not to.
    * @param _domainId Domain in which we are giving user the role
-   * @param _roles Byte array representing the desired role setting (1 for on, 0 for off)
+   * @param roles [[ColonyRole]] array. Also takes a byte array representing the desired role setting (1 for on, 0 for off)
    * @param _user User we want to give a role to
    */
   setUserRolesWithProofs(
     _user: string,
     _domainId: BigNumberish,
-    _roles: BytesLike,
+    roles: ColonyRole[] | BytesLike,
     overrides?: TxOverrides,
   ): Promise<BigNumber>;
   /**
@@ -264,7 +265,7 @@ async function setUserRolesWithProofs(
   this: AllAugments,
   _user: string,
   _domainId: BigNumberish,
-  _roles: BytesLike,
+  roles: BytesLike | ColonyRole[],
   overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   const isRootDomain = _domainId === Id.RootDomain.toString();
@@ -273,12 +274,15 @@ async function setUserRolesWithProofs(
     _domainId,
     isRootDomain ? ColonyRole.Root : ColonyRole.Architecture,
   );
+  const byteRoles: BytesLike = Array.isArray(roles)
+    ? colonyRoles2Hex(roles)
+    : roles;
   return this.setUserRoles(
     permissionDomainId,
     childSkillIndex,
     _user,
     _domainId,
-    _roles,
+    byteRoles,
     overrides,
   );
 }

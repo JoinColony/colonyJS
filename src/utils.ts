@@ -228,8 +228,17 @@ export const parsePermissionedAction = (action: BytesLike) => {
   return { sig, permissionDomainId, childSkillIndex };
 };
 
-// Type helpers
+// Converts Colony Roles to hex. Result is a binary number where the bits are one and the place of the role index. Then converted to hexadecimal, then padded with zeros to a lenghtof 64
+// Example [1, 3, 5] => 0b000101010 => 0x2a
+export const colonyRoles2Hex = (roles: ColonyRole[]): string => {
+  const hexRoles = roles
+    // eslint-disable-next-line no-bitwise
+    .reduce((binRoles, roleNum) => binRoles | (1 << roleNum), 0)
+    .toString(16);
+  return utils.hexZeroPad(`0x${hexRoles}`, 32);
+};
 
+// Type helpers
 export const assertExhaustiveSwitch = (x: never, msg: string): never => {
   throw new Error(`${msg}: ${x}`);
 };

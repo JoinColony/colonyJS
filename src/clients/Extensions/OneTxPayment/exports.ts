@@ -30,6 +30,7 @@ export type AnyOneTxPaymentClient =
 export const ONE_TX_PAYMENT_VERSIONS = createContractVersionArray(
   ONE_TX_PAYMENT_VERSION_NEXT,
 );
+
 /** @internal */
 export type OneTxPaymentVersion = typeof ONE_TX_PAYMENT_VERSIONS[number];
 
