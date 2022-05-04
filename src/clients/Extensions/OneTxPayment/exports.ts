@@ -17,6 +17,9 @@ import getOneTxPaymentClientV3, {
 
 const ONE_TX_PAYMENT_VERSION_NEXT = 4;
 
+/** @internal */
+export const ONE_TX_PAYMENT_VERSION_LATEST = ONE_TX_PAYMENT_VERSION_NEXT - 1;
+
 export { OneTxPaymentClientV1 } from './OneTxPaymentClientV1';
 export { OneTxPaymentClientV2 } from './OneTxPaymentClientV2';
 export { OneTxPaymentClientV3 } from './OneTxPaymentClientV3';

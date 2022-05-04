@@ -9,6 +9,9 @@ import getWhitelistClientV1, { WhitelistClientV1 } from './WhitelistClientV1';
 
 const WHITELIST_VERSION_NEXT = 2;
 
+/** @internal */
+export const WHITELIST_VERSION_LATEST = WHITELIST_VERSION_NEXT - 1;
+
 export { WhitelistClientV1 } from './WhitelistClientV1';
 
 export type AnyWhitelistClient = WhitelistClientV1;

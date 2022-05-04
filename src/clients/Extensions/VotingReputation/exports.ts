@@ -17,6 +17,10 @@ import getVotingReputationClientV3, {
 
 const VOTING_REPUTATION_VERSION_NEXT = 4;
 
+/** @internal */
+export const VOTING_REPUTATION_VERSION_LATEST =
+  VOTING_REPUTATION_VERSION_NEXT - 1;
+
 export { VotingReputationClientV1 } from './VotingReputationClientV1';
 export { VotingReputationClientV2 } from './VotingReputationClientV2';
 export { VotingReputationClientV3 } from './VotingReputationClientV3';

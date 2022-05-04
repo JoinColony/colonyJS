@@ -18,6 +18,9 @@ import getCoinMachineClientV3, {
 // This is the latest colony version + 1. It's for generating types and compatibility maps
 const COIN_MACHINE_VERSION_NEXT = 4;
 
+/** @internal */
+export const COIN_MACHINE_VERSION_LATEST = COIN_MACHINE_VERSION_NEXT - 1;
+
 export { CoinMachineClientV1 } from './CoinMachineClientV1';
 export { CoinMachineClientV2 } from './CoinMachineClientV2';
 export { CoinMachineClientV3 } from './CoinMachineClientV3';

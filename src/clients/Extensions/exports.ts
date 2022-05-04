@@ -9,24 +9,28 @@ import {
   coinMachineIncompatibilityMap,
   CoinMachineVersion,
   AnyCoinMachineClient,
+  COIN_MACHINE_VERSION_LATEST,
 } from './CoinMachine/exports';
 import {
   getOneTxPaymentClient,
   oneTxPaymentIncompatibilityMap,
   AnyOneTxPaymentClient,
   OneTxPaymentVersion,
+  ONE_TX_PAYMENT_VERSION_LATEST,
 } from './OneTxPayment/exports';
 import {
   getVotingReputationClient,
   votingReputationIncompatibilityMap,
   AnyVotingReputationClient,
   VotingReputationVersion,
+  VOTING_REPUTATION_VERSION_LATEST,
 } from './VotingReputation/exports';
 import {
   getWhitelistClient,
   whitelistIncompatibilityMap,
   AnyWhitelistClient,
   WhitelistVersion,
+  WHITELIST_VERSION_LATEST,
 } from './Whitelist/exports';
 import getExtensionVersionClient from './ExtensionVersionClient';
 
@@ -44,6 +48,13 @@ export enum Extension {
   VotingReputation = 'VotingReputation',
   Whitelist = 'Whitelist',
 }
+
+export const ExtensionVersions = {
+  [Extension.CoinMachine]: COIN_MACHINE_VERSION_LATEST,
+  [Extension.OneTxPayment]: ONE_TX_PAYMENT_VERSION_LATEST,
+  [Extension.VotingReputation]: VOTING_REPUTATION_VERSION_LATEST,
+  [Extension.Whitelist]: WHITELIST_VERSION_LATEST,
+};
 
 export type ExtensionClient =
   | AnyCoinMachineClient

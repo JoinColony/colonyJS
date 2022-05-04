@@ -43,6 +43,8 @@ export enum Core {
 // This is the latest colony version + 1. It's for generating types and compatibility maps
 const COLONY_VERSION_NEXT = 10;
 
+export const COLONY_VERSION_LATEST = COLONY_VERSION_NEXT - 1;
+
 /** @internal */
 export const COLONY_VERSIONS = createContractVersionArray(COLONY_VERSION_NEXT);
 /** @internal */
