@@ -105,46 +105,15 @@ If that doesn't remove it, just remove the folder in `node_modules`
 
 ### To release a new version
 
-1) First, commit all your changes. Then run the tests:
+colonyJS is using [`release-it`](https://github.com/release-it/release-it) to create new releases. To create and publish a new release, commit your changes, then execute
 
-```shell
-npm test #just to be sure
+```bash
+npm run release -- SEMVER_TAG # SEMVER_TAG is major, minor, patch
 ```
 
-2) Adjust the version in `package.json`
+If you don't supply a `GITHUB_TOKEN` environment variable, `release-it` will open a browser window and pre-populate the corresponding release input fields for you.
 
-3) Let npm adjust the version in `package-lock.json`:
-
-```shell
-npm install
-```
-
-4) Commit the npm package files. Use the version set in the package.json (**make sure to follow the version pattern**):
-
-```shell
-git add pack*
-git commit -m '2.0.1' # no `v`!
-```
-
-5) Tag the commit:
-
-```shell
-git tag v2.0.1 # here we use the `v`!
-```
-
-6) Push the changes and tags:
-
-```shell
-git push && git push --tags
-```
-
-7) Publish on npm:
-
-```
-npm publish --access=public
-```
-
-Done 🎊
+**Frequent commits and descriptive commit messages** will help when `release-it` tries to autogenerate the changelog.
 
 ### To upgrade to a new colonyNetwork version
 
