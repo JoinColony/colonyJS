@@ -116,7 +116,7 @@ export interface AugmentedEstimateV5 extends AugmentedEstimateV4 {
    */
   installExtensionChecked(
     extension: Extension,
-    version: number,
+    version?: number,
     overrides?: TxOverrides,
   ): Promise<BigNumber>;
   /**
@@ -215,7 +215,7 @@ export type ColonyAugmentsV5<T extends ValidColony> = {
    */
   installExtensionChecked(
     extension: Extension,
-    version: number,
+    version?: number,
     overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
   /**
