@@ -127,7 +127,7 @@ export interface AugmentedEstimateV5 extends AugmentedEstimateV4 {
    */
   upgradeExtensionChecked(
     extension: Extension,
-    newVersion: number,
+    newVersion?: number,
     overrides?: TxOverrides,
   ): Promise<BigNumber>;
 }
@@ -226,7 +226,7 @@ export type ColonyAugmentsV5<T extends ValidColony> = {
    */
   upgradeExtensionChecked(
     extension: Extension,
-    newVersion: number,
+    newVersion?: number,
     overrides?: TxOverrides,
   ): Promise<ContractTransaction>;
 
@@ -389,7 +389,7 @@ async function installExtensionChecked(
 async function upgradeExtensionChecked(
   this: AllAugments,
   extension: Extension,
-  newVersion: number,
+  newVersion?: number,
   overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
   if (
@@ -403,9 +403,10 @@ async function upgradeExtensionChecked(
       `${extension} extension with version ${newVersion} is not compatible with the current Colony version ${this.clientVersion}`,
     );
   }
+  const extensionVersion = newVersion || ExtensionVersions[extension];
   return this.upgradeExtension(
     getExtensionHash(extension),
-    BigNumber.from(newVersion),
+    BigNumber.from(extensionVersion),
     overrides,
   );
 }
