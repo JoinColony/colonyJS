@@ -181,17 +181,14 @@ export const fetchReputationOracleData = async <
       `Invalid skillId provided to fetch reputation for: ${skillId}`,
     );
   }
-  const {
-    network: networkName,
-    reputationOracleEndpoint: reputationOracleHostname,
-  } = networkClient;
+  const { reputationOracleEndpoint } = networkClient;
 
   const skillIdString = BigNumber.from(skillId || '').toString();
 
   const rootHash =
     customRootHash || (await networkClient.getReputationRootHash());
 
-  const baseEndpoint = `${reputationOracleHostname}/${networkName}/${rootHash}/${colonyAddress}`;
+  const baseEndpoint = `${reputationOracleEndpoint}/${rootHash}/${colonyAddress}`;
 
   switch (endpoint) {
     case ReputationMinerEndpoints.UserReputationInSingleDomainWithoutProofs: {

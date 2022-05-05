@@ -47,7 +47,7 @@ export enum Network {
   Goerli = 'Goerli',
   Custom = 'Custom',
   Xdai = 'Xdai',
-  XdaiFork = 'XdaiFork',
+  XdaiQa = 'XdaiQa',
 }
 
 /**

@@ -9,7 +9,7 @@ export enum ColonyNetworkAddress {
   /** The ColonyNetwork EtherRouter address on Gnosis chain (alias) */
   Xdai = '0x78163f593D1Fa151B4B7cacD146586aD2b686294',
   /** The ColonyNetwork EtherRouter fork address on Gnosis chain */
-  XdaiFork = '0x78163f593D1Fa151B4B7cacD146586aD2b686294',
+  XdaiQa = '0x78163f593D1Fa151B4B7cacD146586aD2b686294',
   /** Placeholder for a locally deployed EtherRouter address */
   Custom = '',
 }
@@ -26,12 +26,12 @@ export enum Id {
 
 /** HTTP endpoint of the official colony reputation oracle */
 export enum ReputationOracleEndpoint {
-  Mainnet = 'https://colony.io/reputation',
-  Goerli = 'https://colony.io/reputation',
-  Gnosis = 'https://colony.io/reputation',
-  Xdai = 'https://colony.io/reputation',
-  XdaiFork = 'https://colony.io/reputation',
-  Custom = 'https://colony.io/reputation',
+  Mainnet = 'https://colony.io/reputation/mainnet',
+  Goerli = 'https://colony.io/reputation/goerli',
+  Gnosis = 'https://xdai.colony.io/reputation/xdai',
+  Xdai = 'https://xdai.colony.io/reputation/xdai',
+  XdaiQa = 'https://qaxdai.colony.io/reputation/xdai',
+  Custom = 'http://localhost:3000',
 }
 
 /** Shortcut to common token addresses */

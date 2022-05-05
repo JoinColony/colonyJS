@@ -171,7 +171,7 @@ const getColonyNetworkClient = (
     if (
       domain &&
       (networkClient.network === Network.Xdai ||
-        networkClient.network === Network.XdaiFork)
+        networkClient.network === Network.XdaiQa)
     ) {
       const [name, scope] = domain.split('.');
       return `${name}.${scope}.joincolony.colonyxdai`;
