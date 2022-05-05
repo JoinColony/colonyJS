@@ -40,7 +40,7 @@ export enum Core {
   IColony = 'IColony',
 }
 
-// This is the latest colony version + 1. It's for generating types and compatibility maps
+// This is the latest IColony version + 1. It's for generating types and compatibility maps
 const COLONY_VERSION_NEXT = 10;
 
 export const COLONY_VERSION_LATEST = COLONY_VERSION_NEXT - 1;

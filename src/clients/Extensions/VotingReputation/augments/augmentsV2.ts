@@ -11,6 +11,7 @@ import { getUtilsClient } from '../../../Core/exports';
 import {
   VotingReputationV2,
   VotingReputationV3,
+  VotingReputationV4,
 } from '../../../../contracts/VotingReputation/exports';
 import { AugmentedIColony } from '../../../Core/augments/commonAugments';
 
@@ -21,7 +22,10 @@ import {
 import { Id } from '../../../../constants';
 import { parsePermissionedAction } from '../../../../utils';
 
-type ValidVotingReputation = VotingReputationV2 | VotingReputationV3;
+type ValidVotingReputation =
+  | VotingReputationV2
+  | VotingReputationV3
+  | VotingReputationV4;
 
 export interface AugmentedEstimateV2 {
   /**
