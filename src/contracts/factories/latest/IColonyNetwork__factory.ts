@@ -1034,6 +1034,43 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: "uint256",
+        name: "_skillId",
+        type: "uint256",
+      },
+      {
+        internalType: "bool",
+        name: "_deprecated",
+        type: "bool",
+      },
+    ],
+    name: "deprecateSkill",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "changed",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "initialiseRootLocalSkill",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "rootLocalSkillId",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         internalType: "address",
         name: "_user",
         type: "address",

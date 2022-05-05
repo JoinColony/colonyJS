@@ -112,6 +112,8 @@ export interface IColonyNetworkInterface extends utils.Interface {
     "addSkill(uint256)": FunctionFragment;
     "getSkill(uint256)": FunctionFragment;
     "deprecateSkill(uint256)": FunctionFragment;
+    "deprecateSkill(uint256,bool)": FunctionFragment;
+    "initialiseRootLocalSkill()": FunctionFragment;
     "appendReputationUpdateLog(address,int256,uint256)": FunctionFragment;
     "getSkillCount()": FunctionFragment;
     "getReputationMiningSkillId()": FunctionFragment;
@@ -198,7 +200,9 @@ export interface IColonyNetworkInterface extends utils.Interface {
       | "isColony"
       | "addSkill"
       | "getSkill"
-      | "deprecateSkill"
+      | "deprecateSkill(uint256)"
+      | "deprecateSkill(uint256,bool)"
+      | "initialiseRootLocalSkill"
       | "appendReputationUpdateLog"
       | "getSkillCount"
       | "getReputationMiningSkillId"
@@ -350,8 +354,16 @@ export interface IColonyNetworkInterface extends utils.Interface {
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "deprecateSkill",
+    functionFragment: "deprecateSkill(uint256)",
     values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "deprecateSkill(uint256,bool)",
+    values: [BigNumberish, boolean]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "initialiseRootLocalSkill",
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "appendReputationUpdateLog",
@@ -671,7 +683,15 @@ export interface IColonyNetworkInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: "addSkill", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "getSkill", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "deprecateSkill",
+    functionFragment: "deprecateSkill(uint256)",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "deprecateSkill(uint256,bool)",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "initialiseRootLocalSkill",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -1579,11 +1599,30 @@ export interface IColonyNetwork extends BaseContract {
     >;
 
     /**
-     * Mark a global skill as deprecated which stops new tasks and payments from using it.
+     * This function is deprecated and will be removed in a future release
+     * Mark a skill as deprecated which stops new tasks and payments from using it.
      * @param _skillId Id of the skill
      */
-    deprecateSkill(
+    "deprecateSkill(uint256)"(
       _skillId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Set deprecation status for a skill
+     * @param _deprecated Deprecation status
+     * @param _skillId Id of the skill
+     */
+    "deprecateSkill(uint256,bool)"(
+      _skillId: BigNumberish,
+      _deprecated: boolean,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Initialise the local skills tree for a colony
+     */
+    initialiseRootLocalSkill(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -2397,11 +2436,30 @@ export interface IColonyNetwork extends BaseContract {
   ): Promise<ColonyNetworkDataTypes.SkillStructOutput>;
 
   /**
-   * Mark a global skill as deprecated which stops new tasks and payments from using it.
+   * This function is deprecated and will be removed in a future release
+   * Mark a skill as deprecated which stops new tasks and payments from using it.
    * @param _skillId Id of the skill
    */
-  deprecateSkill(
+  "deprecateSkill(uint256)"(
     _skillId: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  /**
+   * Set deprecation status for a skill
+   * @param _deprecated Deprecation status
+   * @param _skillId Id of the skill
+   */
+  "deprecateSkill(uint256,bool)"(
+    _skillId: BigNumberish,
+    _deprecated: boolean,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  /**
+   * Initialise the local skills tree for a colony
+   */
+  initialiseRootLocalSkill(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -3176,13 +3234,30 @@ export interface IColonyNetwork extends BaseContract {
     ): Promise<ColonyNetworkDataTypes.SkillStructOutput>;
 
     /**
-     * Mark a global skill as deprecated which stops new tasks and payments from using it.
+     * This function is deprecated and will be removed in a future release
+     * Mark a skill as deprecated which stops new tasks and payments from using it.
      * @param _skillId Id of the skill
      */
-    deprecateSkill(
+    "deprecateSkill(uint256)"(
       _skillId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
+
+    /**
+     * Set deprecation status for a skill
+     * @param _deprecated Deprecation status
+     * @param _skillId Id of the skill
+     */
+    "deprecateSkill(uint256,bool)"(
+      _skillId: BigNumberish,
+      _deprecated: boolean,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
+
+    /**
+     * Initialise the local skills tree for a colony
+     */
+    initialiseRootLocalSkill(overrides?: CallOverrides): Promise<BigNumber>;
 
     /**
      * Errors if it is called by anyone but a colony or if skill with id `_skillId` does not exist or.
@@ -4222,11 +4297,30 @@ export interface IColonyNetwork extends BaseContract {
     ): Promise<BigNumber>;
 
     /**
-     * Mark a global skill as deprecated which stops new tasks and payments from using it.
+     * This function is deprecated and will be removed in a future release
+     * Mark a skill as deprecated which stops new tasks and payments from using it.
      * @param _skillId Id of the skill
      */
-    deprecateSkill(
+    "deprecateSkill(uint256)"(
       _skillId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    /**
+     * Set deprecation status for a skill
+     * @param _deprecated Deprecation status
+     * @param _skillId Id of the skill
+     */
+    "deprecateSkill(uint256,bool)"(
+      _skillId: BigNumberish,
+      _deprecated: boolean,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    /**
+     * Initialise the local skills tree for a colony
+     */
+    initialiseRootLocalSkill(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -5019,11 +5113,30 @@ export interface IColonyNetwork extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     /**
-     * Mark a global skill as deprecated which stops new tasks and payments from using it.
+     * This function is deprecated and will be removed in a future release
+     * Mark a skill as deprecated which stops new tasks and payments from using it.
      * @param _skillId Id of the skill
      */
-    deprecateSkill(
+    "deprecateSkill(uint256)"(
       _skillId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    /**
+     * Set deprecation status for a skill
+     * @param _deprecated Deprecation status
+     * @param _skillId Id of the skill
+     */
+    "deprecateSkill(uint256,bool)"(
+      _skillId: BigNumberish,
+      _deprecated: boolean,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    /**
+     * Initialise the local skills tree for a colony
+     */
+    initialiseRootLocalSkill(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 

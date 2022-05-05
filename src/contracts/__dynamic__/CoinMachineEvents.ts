@@ -20,6 +20,7 @@ export interface CoinMachineEventsInterface extends utils.Interface {
     "LogSetOwner(address)": EventFragment;
     "PeriodUpdated(uint256,uint256)": EventFragment;
     "TokensBought(address,uint256,uint256)": EventFragment;
+    "TokensBought(address,address,uint256,uint256)": EventFragment;
     "PriceEvolutionSet(bool)": EventFragment;
     "WhitelistSet(address)": EventFragment;
     "MetaTransactionExecuted(address,address,bytes)": EventFragment;
@@ -29,7 +30,12 @@ export interface CoinMachineEventsInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: "LogSetAuthority"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "LogSetOwner"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "PeriodUpdated"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "TokensBought"): EventFragment;
+  getEvent(
+    nameOrSignatureOrTopic: "TokensBought(address,uint256,uint256)"
+  ): EventFragment;
+  getEvent(
+    nameOrSignatureOrTopic: "TokensBought(address,address,uint256,uint256)"
+  ): EventFragment;
   getEvent(nameOrSignatureOrTopic: "PriceEvolutionSet"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "WhitelistSet"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "MetaTransactionExecuted"): EventFragment;
@@ -72,17 +78,32 @@ export type PeriodUpdatedEvent = TypedEvent<
 
 export type PeriodUpdatedEventFilter = TypedEventFilter<PeriodUpdatedEvent>;
 
-export interface TokensBoughtEventObject {
+export interface TokensBought_address_uint256_uint256_EventObject {
   buyer: string;
   numTokens: BigNumber;
   totalCost: BigNumber;
 }
-export type TokensBoughtEvent = TypedEvent<
+export type TokensBought_address_uint256_uint256_Event = TypedEvent<
   [string, BigNumber, BigNumber],
-  TokensBoughtEventObject
+  TokensBought_address_uint256_uint256_EventObject
 >;
 
-export type TokensBoughtEventFilter = TypedEventFilter<TokensBoughtEvent>;
+export type TokensBought_address_uint256_uint256_EventFilter =
+  TypedEventFilter<TokensBought_address_uint256_uint256_Event>;
+
+export interface TokensBought_address_address_uint256_uint256_EventObject {
+  buyer: string;
+  token: string;
+  numTokens: BigNumber;
+  totalCost: BigNumber;
+}
+export type TokensBought_address_address_uint256_uint256_Event = TypedEvent<
+  [string, string, BigNumber, BigNumber],
+  TokensBought_address_address_uint256_uint256_EventObject
+>;
+
+export type TokensBought_address_address_uint256_uint256_EventFilter =
+  TypedEventFilter<TokensBought_address_address_uint256_uint256_Event>;
 
 export interface PriceEvolutionSetEventObject {
   evolvePrice: boolean;
@@ -170,12 +191,13 @@ export interface CoinMachineEvents extends BaseContract {
       buyer?: null,
       numTokens?: null,
       totalCost?: null
-    ): TokensBoughtEventFilter;
-    TokensBought(
-      buyer?: null,
+    ): TokensBought_address_uint256_uint256_EventFilter;
+    "TokensBought(address,address,uint256,uint256)"(
+      buyer?: string | null,
+      token?: null,
       numTokens?: null,
       totalCost?: null
-    ): TokensBoughtEventFilter;
+    ): TokensBought_address_address_uint256_uint256_EventFilter;
 
     "PriceEvolutionSet(bool)"(evolvePrice?: null): PriceEvolutionSetEventFilter;
     PriceEvolutionSet(evolvePrice?: null): PriceEvolutionSetEventFilter;

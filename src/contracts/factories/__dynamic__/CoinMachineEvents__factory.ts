@@ -137,6 +137,37 @@ const _abi = [
     name: "MetaTransactionExecuted",
     type: "event",
   },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "buyer",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "address",
+        name: "token",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "numTokens",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "totalCost",
+        type: "uint256",
+      },
+    ],
+    name: "TokensBought",
+    type: "event",
+  },
 ];
 
 export class CoinMachineEvents__factory {

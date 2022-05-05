@@ -26,7 +26,8 @@ const RELEASE_MAP = {
     clwss: 1,
     dlwss: 2,
     elwss2: 3,
-    latest: 3,
+    elwss3: 4,
+    latest: 5,
   },
   [Extension.OneTxPayment]: {
     clwss: 1,
@@ -37,11 +38,11 @@ const RELEASE_MAP = {
     clwss: 1,
     dlwss: 2,
     elwss: 3,
-    latest: 3,
+    latest: 4,
   },
   [Extension.Whitelist]: {
     elwss: 1,
-    latest: 1,
+    latest: 2,
   },
 };
 

@@ -93,6 +93,7 @@ export interface IColonyEventsInterface extends utils.Interface {
     "RecoveryStorageSlotSet(address,uint256,bytes32,bytes32)": EventFragment;
     "TaskChangedViaSignatures(address[])": EventFragment;
     "TokenUnlocked()": EventFragment;
+    "TokenUnlocked(address)": EventFragment;
     "TokensBurned(address,address,uint256)": EventFragment;
     "TokensMinted(address,address,uint256)": EventFragment;
     "ArbitraryReputationUpdate(address,address,uint256,int256)": EventFragment;
@@ -105,7 +106,10 @@ export interface IColonyEventsInterface extends utils.Interface {
     "ColonyAdministrationRoleSet(address,bool)": EventFragment;
     "ColonyArchitectureRoleSet(address,bool)": EventFragment;
     "ColonyRootRoleSet(address,bool)": EventFragment;
+    "ColonyMetadataDelta(address,string)": EventFragment;
     "DomainDeprecated(address,uint256,bool)": EventFragment;
+    "LocalSkillAdded(address,uint256)": EventFragment;
+    "LocalSkillDeprecated(address,uint256,bool)": EventFragment;
     "MetaTransactionExecuted(address,address,bytes)": EventFragment;
   };
 
@@ -261,7 +265,8 @@ export interface IColonyEventsInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: "RecoveryModeExited"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RecoveryStorageSlotSet"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "TaskChangedViaSignatures"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "TokenUnlocked"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "TokenUnlocked()"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "TokenUnlocked(address)"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "TokensBurned"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "TokensMinted"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "ArbitraryReputationUpdate"): EventFragment;
@@ -280,7 +285,10 @@ export interface IColonyEventsInterface extends utils.Interface {
   ): EventFragment;
   getEvent(nameOrSignatureOrTopic: "ColonyArchitectureRoleSet"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "ColonyRootRoleSet"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "ColonyMetadataDelta"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "DomainDeprecated"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "LocalSkillAdded"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "LocalSkillDeprecated"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "MetaTransactionExecuted"): EventFragment;
 }
 
@@ -1151,10 +1159,21 @@ export type TaskChangedViaSignaturesEvent = TypedEvent<
 export type TaskChangedViaSignaturesEventFilter =
   TypedEventFilter<TaskChangedViaSignaturesEvent>;
 
-export interface TokenUnlockedEventObject {}
-export type TokenUnlockedEvent = TypedEvent<[], TokenUnlockedEventObject>;
+export interface TokenUnlocked__EventObject {}
+export type TokenUnlocked__Event = TypedEvent<[], TokenUnlocked__EventObject>;
 
-export type TokenUnlockedEventFilter = TypedEventFilter<TokenUnlockedEvent>;
+export type TokenUnlocked__EventFilter = TypedEventFilter<TokenUnlocked__Event>;
+
+export interface TokenUnlocked_address_EventObject {
+  agent: string;
+}
+export type TokenUnlocked_address_Event = TypedEvent<
+  [string],
+  TokenUnlocked_address_EventObject
+>;
+
+export type TokenUnlocked_address_EventFilter =
+  TypedEventFilter<TokenUnlocked_address_Event>;
 
 export interface TokensBurnedEventObject {
   agent: string;
@@ -1307,6 +1326,18 @@ export type ColonyRootRoleSetEvent = TypedEvent<
 export type ColonyRootRoleSetEventFilter =
   TypedEventFilter<ColonyRootRoleSetEvent>;
 
+export interface ColonyMetadataDeltaEventObject {
+  agent: string;
+  metadata: string;
+}
+export type ColonyMetadataDeltaEvent = TypedEvent<
+  [string, string],
+  ColonyMetadataDeltaEventObject
+>;
+
+export type ColonyMetadataDeltaEventFilter =
+  TypedEventFilter<ColonyMetadataDeltaEvent>;
+
 export interface DomainDeprecatedEventObject {
   agent: string;
   domainId: BigNumber;
@@ -1319,6 +1350,30 @@ export type DomainDeprecatedEvent = TypedEvent<
 
 export type DomainDeprecatedEventFilter =
   TypedEventFilter<DomainDeprecatedEvent>;
+
+export interface LocalSkillAddedEventObject {
+  agent: string;
+  localSkillId: BigNumber;
+}
+export type LocalSkillAddedEvent = TypedEvent<
+  [string, BigNumber],
+  LocalSkillAddedEventObject
+>;
+
+export type LocalSkillAddedEventFilter = TypedEventFilter<LocalSkillAddedEvent>;
+
+export interface LocalSkillDeprecatedEventObject {
+  agent: string;
+  localSkillId: BigNumber;
+  deprecated: boolean;
+}
+export type LocalSkillDeprecatedEvent = TypedEvent<
+  [string, BigNumber, boolean],
+  LocalSkillDeprecatedEventObject
+>;
+
+export type LocalSkillDeprecatedEventFilter =
+  TypedEventFilter<LocalSkillDeprecatedEvent>;
 
 export interface MetaTransactionExecutedEventObject {
   userAddress: string;
@@ -1772,8 +1827,8 @@ export interface IColonyEvents extends BaseContract {
       reviewerAddresses?: null
     ): TaskChangedViaSignaturesEventFilter;
 
-    "TokenUnlocked()"(): TokenUnlockedEventFilter;
-    TokenUnlocked(): TokenUnlockedEventFilter;
+    "TokenUnlocked()"(): TokenUnlocked__EventFilter;
+    "TokenUnlocked(address)"(agent?: null): TokenUnlocked_address_EventFilter;
 
     "TokensBurned(address,address,uint256)"(
       agent?: null,
@@ -1898,6 +1953,15 @@ export interface IColonyEvents extends BaseContract {
     ): ColonyRootRoleSetEventFilter;
     ColonyRootRoleSet(user?: null, setTo?: null): ColonyRootRoleSetEventFilter;
 
+    "ColonyMetadataDelta(address,string)"(
+      agent?: null,
+      metadata?: null
+    ): ColonyMetadataDeltaEventFilter;
+    ColonyMetadataDelta(
+      agent?: null,
+      metadata?: null
+    ): ColonyMetadataDeltaEventFilter;
+
     "DomainDeprecated(address,uint256,bool)"(
       agent?: null,
       domainId?: BigNumberish | null,
@@ -1908,6 +1972,26 @@ export interface IColonyEvents extends BaseContract {
       domainId?: BigNumberish | null,
       deprecated?: null
     ): DomainDeprecatedEventFilter;
+
+    "LocalSkillAdded(address,uint256)"(
+      agent?: null,
+      localSkillId?: null
+    ): LocalSkillAddedEventFilter;
+    LocalSkillAdded(
+      agent?: null,
+      localSkillId?: null
+    ): LocalSkillAddedEventFilter;
+
+    "LocalSkillDeprecated(address,uint256,bool)"(
+      agent?: null,
+      localSkillId?: null,
+      deprecated?: null
+    ): LocalSkillDeprecatedEventFilter;
+    LocalSkillDeprecated(
+      agent?: null,
+      localSkillId?: null,
+      deprecated?: null
+    ): LocalSkillDeprecatedEventFilter;
 
     "MetaTransactionExecuted(address,address,bytes)"(
       userAddress?: null,

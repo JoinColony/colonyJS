@@ -211,6 +211,25 @@ const _abi = [
       },
       {
         indexed: false,
+        internalType: "string",
+        name: "metadata",
+        type: "string",
+      },
+    ],
+    name: "ColonyMetadataDelta",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address",
+      },
+      {
+        indexed: false,
         internalType: "uint256",
         name: "rewardInverse",
         type: "uint256",
@@ -667,6 +686,50 @@ const _abi = [
       },
     ],
     name: "FundingPotAdded",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "localSkillId",
+        type: "uint256",
+      },
+    ],
+    name: "LocalSkillAdded",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "localSkillId",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "bool",
+        name: "deprecated",
+        type: "bool",
+      },
+    ],
+    name: "LocalSkillDeprecated",
     type: "event",
   },
   {
@@ -1256,7 +1319,14 @@ const _abi = [
   },
   {
     anonymous: false,
-    inputs: [],
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address",
+      },
+    ],
     name: "TokenUnlocked",
     type: "event",
   },
@@ -2116,6 +2186,19 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: "string",
+        name: "_metadataDelta",
+        type: "string",
+      },
+    ],
+    name: "editColonyByDelta",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         internalType: "address[]",
         name: "_users",
         type: "address[]",
@@ -2292,6 +2375,51 @@ const _abi = [
     type: "function",
   },
   {
+    inputs: [],
+    name: "initialiseRootLocalSkill",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "addLocalSkill",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "localSkillId",
+        type: "uint256",
+      },
+      {
+        internalType: "bool",
+        name: "deprecated",
+        type: "bool",
+      },
+    ],
+    name: "deprecateLocalSkill",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getRootLocalSkill",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "rootLocalSkill",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [
       {
         internalType: "uint256",
@@ -2419,11 +2547,6 @@ const _abi = [
             internalType: "uint256",
             name: "fundingPotId",
             type: "uint256",
-          },
-          {
-            internalType: "bool",
-            name: "deprecated",
-            type: "bool",
           },
         ],
         internalType: "struct ColonyDataTypes.Domain",

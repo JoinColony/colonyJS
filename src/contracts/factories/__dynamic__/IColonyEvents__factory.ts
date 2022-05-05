@@ -1745,6 +1745,25 @@ const _abi = [
         type: "address",
       },
       {
+        indexed: false,
+        internalType: "string",
+        name: "metadata",
+        type: "string",
+      },
+    ],
+    name: "ColonyMetadataDelta",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address",
+      },
+      {
         indexed: true,
         internalType: "uint256",
         name: "domainId",
@@ -1758,6 +1777,50 @@ const _abi = [
       },
     ],
     name: "DomainDeprecated",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "localSkillId",
+        type: "uint256",
+      },
+    ],
+    name: "LocalSkillAdded",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "localSkillId",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "bool",
+        name: "deprecated",
+        type: "bool",
+      },
+    ],
+    name: "LocalSkillDeprecated",
     type: "event",
   },
   {
@@ -1783,6 +1846,19 @@ const _abi = [
       },
     ],
     name: "MetaTransactionExecuted",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address",
+      },
+    ],
+    name: "TokenUnlocked",
     type: "event",
   },
 ];
