@@ -1025,6 +1025,43 @@
         {
             "inputs": [
                 {
+                    "internalType": "uint256",
+                    "name": "_skillId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "_deprecated",
+                    "type": "bool"
+                }
+            ],
+            "name": "deprecateSkill",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "changed",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "initialiseRootLocalSkill",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "rootLocalSkillId",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
                     "internalType": "address",
                     "name": "_user",
                     "type": "address"
@@ -2281,8 +2318,18 @@
                 }
             },
             "deprecateSkill(uint256)": {
+                "details": "This function is deprecated and will be removed in a future release",
                 "params": {
                     "_skillId": "Id of the skill"
+                }
+            },
+            "deprecateSkill(uint256,bool)": {
+                "params": {
+                    "_deprecated": "Deprecation status",
+                    "_skillId": "Id of the skill"
+                },
+                "returns": {
+                    "changed": "Whether the deprecated state was changed"
                 }
             },
             "executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)": {
@@ -2485,6 +2532,11 @@
                 "params": {
                     "_resolver": "Address of the resolver for Colony contract",
                     "_version": "Version of the Colony contract the resolver represents"
+                }
+            },
+            "initialiseRootLocalSkill()": {
+                "returns": {
+                    "rootLocalSkillId": "The root local skill"
                 }
             },
             "installExtension(bytes32,uint256)": {
@@ -2822,7 +2874,10 @@
                 "notice": "Set the deprecation of an extension in a colony. Can only be called by a Colony."
             },
             "deprecateSkill(uint256)": {
-                "notice": "Mark a global skill as deprecated which stops new tasks and payments from using it."
+                "notice": "Mark a skill as deprecated which stops new tasks and payments from using it."
+            },
+            "deprecateSkill(uint256,bool)": {
+                "notice": "Set deprecation status for a skill"
             },
             "enterRecoveryMode()": {
                 "notice": "Put colony network mining into recovery mode. Can only be called by user with recovery role."
@@ -2922,6 +2977,9 @@
             },
             "initialiseReputationMining()": {
                 "notice": "Creates initial inactive reputation mining cycle."
+            },
+            "initialiseRootLocalSkill()": {
+                "notice": "Initialise the local skills tree for a colony"
             },
             "installExtension(bytes32,uint256)": {
                 "notice": "Install an extension in a colony. Can only be called by a Colony."

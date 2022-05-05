@@ -205,6 +205,25 @@
                 },
                 {
                     "indexed": false,
+                    "internalType": "string",
+                    "name": "metadata",
+                    "type": "string"
+                }
+            ],
+            "name": "ColonyMetadataDelta",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
                     "internalType": "uint256",
                     "name": "rewardInverse",
                     "type": "uint256"
@@ -661,6 +680,50 @@
                 }
             ],
             "name": "FundingPotAdded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "localSkillId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "LocalSkillAdded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "localSkillId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "deprecated",
+                    "type": "bool"
+                }
+            ],
+            "name": "LocalSkillDeprecated",
             "type": "event"
         },
         {
@@ -1250,7 +1313,14 @@
         },
         {
             "anonymous": false,
-            "inputs": [],
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "agent",
+                    "type": "address"
+                }
+            ],
             "name": "TokenUnlocked",
             "type": "event"
         },
@@ -1351,6 +1421,13 @@
                 }
             ],
             "name": "addDomain",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "addLocalSkill",
             "outputs": [],
             "stateMutability": "nonpayable",
             "type": "function"
@@ -1740,12 +1817,43 @@
         {
             "inputs": [
                 {
+                    "internalType": "uint256",
+                    "name": "localSkillId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "deprecated",
+                    "type": "bool"
+                }
+            ],
+            "name": "deprecateLocalSkill",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
                     "internalType": "string",
                     "name": "_metadata",
                     "type": "string"
                 }
             ],
             "name": "editColony",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "_metadataDelta",
+                    "type": "string"
+                }
+            ],
+            "name": "editColonyByDelta",
             "outputs": [],
             "stateMutability": "nonpayable",
             "type": "function"
@@ -2184,11 +2292,6 @@
                             "internalType": "uint256",
                             "name": "fundingPotId",
                             "type": "uint256"
-                        },
-                        {
-                            "internalType": "bool",
-                            "name": "deprecated",
-                            "type": "bool"
                         }
                     ],
                     "internalType": "struct ColonyDataTypes.Domain",
@@ -2661,6 +2764,19 @@
             "type": "function"
         },
         {
+            "inputs": [],
+            "name": "getRootLocalSkill",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "rootLocalSkill",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
             "inputs": [
                 {
                     "internalType": "uint256",
@@ -3026,6 +3142,13 @@
                 }
             ],
             "name": "initialiseColony",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "initialiseRootLocalSkill",
             "outputs": [],
             "stateMutability": "nonpayable",
             "type": "function"
@@ -5004,9 +5127,20 @@
                     "_skillId": "Id of the added skill"
                 }
             },
+            "deprecateLocalSkill(uint256,bool)": {
+                "params": {
+                    "deprecated": "Deprecation status to set for the skill",
+                    "localSkillId": "Id for the local skill"
+                }
+            },
             "editColony(string)": {
                 "params": {
                     "_metadata": "IPFS hash of the metadata"
+                }
+            },
+            "editColonyByDelta(string)": {
+                "params": {
+                    "_metadataDelta": "IPFS hash of the metadata delta"
                 }
             },
             "editDomain(uint256,uint256,uint256,string)": {
@@ -5270,6 +5404,11 @@
                 },
                 "returns": {
                     "rewardPayoutCycle": "RewardPayoutCycle, containing propertes:  `reputationState` Reputation root hash at the time of creation,  `colonyWideReputation` Colony wide reputation in `reputationState`,  `totalTokens` Total colony tokens at the time of creation,  `amount` Total amount of tokens taken aside for reward payout,  `tokenAddress` Token address,  `blockTimestamp` Block number at the time of creation."
+                }
+            },
+            "getRootLocalSkill()": {
+                "returns": {
+                    "rootLocalSkill": "The root local skill id"
                 }
             },
             "getTask(uint256)": {
@@ -5967,6 +6106,9 @@
             "ColonyMetadata(address,string)": {
                 "notice": "Event logged when Colony metadata is updated"
             },
+            "ColonyMetadataDelta(address,string)": {
+                "notice": "Event logged when Colony metadata is updated via a delta"
+            },
             "ColonyRewardInverseSet(address,uint256)": {
                 "notice": "Event logged when the colony reward inverse is set"
             },
@@ -6023,6 +6165,12 @@
             },
             "FundingPotAdded(uint256)": {
                 "notice": "Event logged when a new FundingPot is added"
+            },
+            "LocalSkillAdded(address,uint256)": {
+                "notice": "Event logged when a new local skill is added"
+            },
+            "LocalSkillDeprecated(address,uint256,bool)": {
+                "notice": "Event logged when a new local skill is added"
             },
             "PaymentAdded(address,uint256)": {
                 "notice": "Event logged when a new payment is added"
@@ -6102,7 +6250,7 @@
             "TaskWorkRatingRevealed(address,uint256,uint8,uint8)": {
                 "notice": "Event logged when the rating of a role was revealed"
             },
-            "TokenUnlocked()": {
+            "TokenUnlocked(address)": {
                 "notice": "Event emitted when the colony unlocks its native token through the provided function"
             },
             "TokensBurned(address,address,uint256)": {
@@ -6125,6 +6273,9 @@
             },
             "addGlobalSkill()": {
                 "notice": "Add a new global skill."
+            },
+            "addLocalSkill()": {
+                "notice": "Add a new local skill for the colony. Secured function to authorised members."
             },
             "addNetworkColonyVersion(uint256,address)": {
                 "notice": "Adds a new Colony contract version and the address of associated `_resolver` contract. Secured function to authorised members."
@@ -6189,8 +6340,14 @@
             "deprecateGlobalSkill(uint256)": {
                 "notice": "Mark a global skill as deprecated which stops new tasks and payments from using it."
             },
+            "deprecateLocalSkill(uint256,bool)": {
+                "notice": "Deprecate a local skill for the colony. Secured function to authorised members."
+            },
             "editColony(string)": {
                 "notice": "Called to change the metadata associated with a colony. Expected to be a IPFS hash of a JSON blob, but not enforced to any degree by the contracts"
+            },
+            "editColonyByDelta(string)": {
+                "notice": "Called to change the metadata associated with a colony. Expected to be a IPFS hash of a delta to a JSON blob, but not enforced to any degree by the contracts"
             },
             "editDomain(uint256,uint256,uint256,string)": {
                 "notice": "Add a colony domain, and its respective local skill under skill with id `_parentSkillId`. New funding pot is created and associated with the domain here."
@@ -6303,6 +6460,9 @@
             "getRewardPayoutInfo(uint256)": {
                 "notice": "Get useful information about specific reward payout."
             },
+            "getRootLocalSkill()": {
+                "notice": "Get the root local skill id"
+            },
             "getTask(uint256)": {
                 "notice": "Get a task with id `_id`"
             },
@@ -6344,6 +6504,9 @@
             },
             "initialiseColony(address,address)": {
                 "notice": "Called once when the colony is created to initialise certain storage slot values."
+            },
+            "initialiseRootLocalSkill()": {
+                "notice": "Initialise the local skill tree for the colony."
             },
             "installExtension(bytes32,uint256)": {
                 "notice": "Install an extension to the colony. Secured function to authorised members."
