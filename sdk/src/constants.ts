@@ -1,1 +1,1 @@
-export { Id, Tokens } from '@colony/colony-js';
+export { ColonyRole, Extension, Id, Tokens } from '@colony/colony-js';
