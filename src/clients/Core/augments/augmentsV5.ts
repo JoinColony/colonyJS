@@ -367,18 +367,18 @@ async function installExtensionChecked(
   version?: number,
   overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
+  const extensionVersion = version || ExtensionVersions[extension];
   if (
     !isExtensionCompatible(
       extension,
-      version as ExtensionVersion,
+      extensionVersion as ExtensionVersion,
       this.clientVersion,
     )
   ) {
     throw new Error(
-      `${extension} extension with version ${version} is not compatible with the current Colony version ${this.clientVersion}`,
+      `${extension} extension with version ${extensionVersion} is not compatible with the current Colony version ${this.clientVersion}`,
     );
   }
-  const extensionVersion = version || ExtensionVersions[extension];
   return this.installExtension(
     getExtensionHash(extension),
     BigNumber.from(extensionVersion),
@@ -392,18 +392,18 @@ async function upgradeExtensionChecked(
   newVersion?: number,
   overrides: TxOverrides = {},
 ): Promise<ContractTransaction> {
+  const extensionVersion = newVersion || ExtensionVersions[extension];
   if (
     !isExtensionCompatible(
       extension,
-      newVersion as ExtensionVersion,
+      extensionVersion as ExtensionVersion,
       this.clientVersion,
     )
   ) {
     throw new Error(
-      `${extension} extension with version ${newVersion} is not compatible with the current Colony version ${this.clientVersion}`,
+      `${extension} extension with version ${extensionVersion} is not compatible with the current Colony version ${this.clientVersion}`,
     );
   }
-  const extensionVersion = newVersion || ExtensionVersions[extension];
   return this.upgradeExtension(
     getExtensionHash(extension),
     BigNumber.from(extensionVersion),
@@ -534,23 +534,24 @@ async function estimateSetExpenditureStateWithProofs(
 async function estimateInstallExtensionChecked(
   this: AllAugments,
   extension: Extension,
-  version: number,
+  version?: number,
   overrides: TxOverrides = {},
 ): Promise<BigNumber> {
+  const extensionVersion = version || ExtensionVersions[extension];
   if (
     !isExtensionCompatible(
       extension,
-      version as ExtensionVersion,
+      extensionVersion as ExtensionVersion,
       this.clientVersion,
     )
   ) {
     throw new Error(
-      `${extension} extension with version ${version} is not compatible with the current Colony version ${this.clientVersion}`,
+      `${extension} extension with version ${extensionVersion} is not compatible with the current Colony version ${this.clientVersion}`,
     );
   }
   return this.estimateGas.installExtension(
     getExtensionHash(extension),
-    BigNumber.from(version),
+    BigNumber.from(extensionVersion),
     overrides,
   );
 }
@@ -558,23 +559,24 @@ async function estimateInstallExtensionChecked(
 async function estimateUpgradeExtensionChecked(
   this: AllAugments,
   extension: Extension,
-  newVersion: number,
+  newVersion?: number,
   overrides: TxOverrides = {},
 ): Promise<BigNumber> {
+  const extensionVersion = newVersion || ExtensionVersions[extension];
   if (
     !isExtensionCompatible(
       extension,
-      newVersion as ExtensionVersion,
+      extensionVersion as ExtensionVersion,
       this.clientVersion,
     )
   ) {
     throw new Error(
-      `${extension} extension with version ${newVersion} is not compatible with the current Colony version ${this.clientVersion}`,
+      `${extension} extension with version ${extensionVersion} is not compatible with the current Colony version ${this.clientVersion}`,
     );
   }
   return this.estimateGas.upgradeExtension(
     getExtensionHash(extension),
-    BigNumber.from(newVersion),
+    BigNumber.from(extensionVersion),
     overrides,
   );
 }

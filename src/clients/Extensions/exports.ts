@@ -86,24 +86,26 @@ export const isExtensionCompatible = (
 ) => {
   switch (extension) {
     case Extension.CoinMachine: {
-      return !coinMachineIncompatibilityMap[
-        extensionVersion as CoinMachineVersion
-      ].includes(colonyVersion);
+      const map =
+        coinMachineIncompatibilityMap[extensionVersion as CoinMachineVersion];
+      return !!map && !map.includes(colonyVersion);
     }
     case Extension.OneTxPayment: {
-      return !oneTxPaymentIncompatibilityMap[
-        extensionVersion as OneTxPaymentVersion
-      ].includes(colonyVersion);
+      const map =
+        oneTxPaymentIncompatibilityMap[extensionVersion as OneTxPaymentVersion];
+      return !!map && !map.includes(colonyVersion);
     }
     case Extension.VotingReputation: {
-      return !votingReputationIncompatibilityMap[
-        extensionVersion as VotingReputationVersion
-      ].includes(colonyVersion);
+      const map =
+        votingReputationIncompatibilityMap[
+          extensionVersion as VotingReputationVersion
+        ];
+      return !!map && !map.includes(colonyVersion);
     }
     case Extension.Whitelist: {
-      return !whitelistIncompatibilityMap[
-        extensionVersion as WhitelistVersion
-      ].includes(colonyVersion);
+      const map =
+        whitelistIncompatibilityMap[extensionVersion as WhitelistVersion];
+      return !!map && !map.includes(colonyVersion);
     }
     default:
       return assertExhaustiveSwitch(
