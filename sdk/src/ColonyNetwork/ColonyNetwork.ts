@@ -2,19 +2,14 @@ import {
   ColonyNetworkClient,
   getColonyNetworkClient,
   Network,
+  NetworkClientOptions,
   SignerOrProvider,
 } from '@colony/colony-js';
 
 import { Colony } from './Colony';
 
-// TODO: export from colonyjs and import here
-interface NetworkClientOptions {
-  networkAddress?: string;
-  reputationOracleEndpoint?: string;
-}
-
 export class ColonyNetwork {
-  private networkClient: ColonyNetworkClient;
+  networkClient: ColonyNetworkClient;
 
   private signerOrProvider: SignerOrProvider;
 

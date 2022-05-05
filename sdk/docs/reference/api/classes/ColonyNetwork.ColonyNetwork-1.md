@@ -10,6 +10,10 @@
 
 - [constructor](ColonyNetwork.ColonyNetwork-1.md#constructor)
 
+### Properties
+
+- [networkClient](ColonyNetwork.ColonyNetwork-1.md#networkclient)
+
 ### Methods
 
 - [getColony](ColonyNetwork.ColonyNetwork-1.md#getcolony)
@@ -44,6 +48,12 @@ const colonyNetwork = new ColonyNetwork(provider);
 | :------ | :------ | :------ |
 | `signerOrProvider` | `SignerOrProvider` | An _ethers_ compatible Signer or Provider instance |
 | `options?` | `NetworkClientOptions` | Pass in a custom ColonyNetwork address or Reputation Miner endpoint |
+
+## Properties
+
+### networkClient
+
+• **networkClient**: `ColonyNetworkClient`
 
 ## Methods
 
