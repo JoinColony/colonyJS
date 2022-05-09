@@ -1,0 +1,34 @@
+{
+    "contractName": "ContractEditing",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_slot",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "_value",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "setStorageSlot",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ],
+    "bytecode": "0x6080604052348015600f57600080fd5b5060898061001e6000396000f3fe6080604052348015600f57600080fd5b506004361060285760003560e01c806319748acc14602d575b600080fd5b604d60048036036040811015604157600080fd5b5080359060200135604f565b005b905556fea2646970667358221220dd8f3dcd8481e891252a963155a66abc7c7af7cc5d465e32db4db4f1177279ad64736f6c63430007030033",
+    "devdoc": {
+        "kind": "dev",
+        "methods": {},
+        "version": 1
+    },
+    "userdoc": {
+        "kind": "user",
+        "methods": {},
+        "version": 1
+    }
+}
