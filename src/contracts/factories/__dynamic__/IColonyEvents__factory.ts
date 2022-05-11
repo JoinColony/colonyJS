@@ -1672,74 +1672,6 @@ const _abi = [
     inputs: [
       {
         indexed: false,
-        name: "user",
-        type: "address",
-      },
-      {
-        indexed: false,
-        name: "setTo",
-        type: "bool",
-      },
-    ],
-    name: "ColonyFundingRoleSet",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        name: "user",
-        type: "address",
-      },
-      {
-        indexed: false,
-        name: "setTo",
-        type: "bool",
-      },
-    ],
-    name: "ColonyAdministrationRoleSet",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        name: "user",
-        type: "address",
-      },
-      {
-        indexed: false,
-        name: "setTo",
-        type: "bool",
-      },
-    ],
-    name: "ColonyArchitectureRoleSet",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        name: "user",
-        type: "address",
-      },
-      {
-        indexed: false,
-        name: "setTo",
-        type: "bool",
-      },
-    ],
-    name: "ColonyRootRoleSet",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
         internalType: "address",
         name: "agent",
         type: "address",
@@ -1859,6 +1791,74 @@ const _abi = [
       },
     ],
     name: "TokenUnlocked",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        name: "user",
+        type: "address",
+      },
+      {
+        indexed: false,
+        name: "setTo",
+        type: "bool",
+      },
+    ],
+    name: "ColonyFundingRoleSet",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        name: "user",
+        type: "address",
+      },
+      {
+        indexed: false,
+        name: "setTo",
+        type: "bool",
+      },
+    ],
+    name: "ColonyAdministrationRoleSet",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        name: "user",
+        type: "address",
+      },
+      {
+        indexed: false,
+        name: "setTo",
+        type: "bool",
+      },
+    ],
+    name: "ColonyArchitectureRoleSet",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        name: "user",
+        type: "address",
+      },
+      {
+        indexed: false,
+        name: "setTo",
+        type: "bool",
+      },
+    ],
+    name: "ColonyRootRoleSet",
     type: "event",
   },
 ];

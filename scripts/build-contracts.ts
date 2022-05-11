@@ -60,10 +60,12 @@ const VERSIONED_CONTRACTS = [
   Extension.Whitelist,
 ];
 
+const UPGRADABLE_CONTRACTS = ['IColonyNetwork'];
+
 // Names of non-upgradable contracts that will be generated
 const UNVERSIONED_CONTRACTS = [
-  // Colony Network Interface ABIs
-  'IColonyNetwork',
+  // Auxiliary contracts
+  'ColonyExtension',
   'TokenLocking',
   'Utils',
   // ERC20 tokens
@@ -76,7 +78,9 @@ const FIXED_DIR = resolvePath(__dirname, '../src/abis/__fixed__');
 const DYNAMIC_DIR = resolvePath(__dirname, '../src/abis/__dynamic__');
 const OUT_ROOT_DIR = resolvePath(__dirname, '../src/contracts');
 
-const EVENTS_CONTRACTS = VERSIONED_CONTRACTS.map(
+const EVENTS_CONTRACTS = [...VERSIONED_CONTRACTS, ...UPGRADABLE_CONTRACTS];
+
+const EVENT_CONTRACT_NAMES = EVENTS_CONTRACTS.map(
   (contractName) => `${contractName}Events`,
 );
 
@@ -101,7 +105,7 @@ const eventsAreEqual = (eventA: Event, eventB: Event) =>
 const buildEventsAbis = async (inputDir: string) => {
   const eventsAbis: Record<string, Event[]> = {};
   readdirSync(inputDir).forEach((tag: string) => {
-    VERSIONED_CONTRACTS.forEach((contractName) => {
+    EVENTS_CONTRACTS.forEach((contractName) => {
       const file = `${resolvePath(inputDir, tag, contractName)}.json`;
       try {
         statSync(file);
@@ -166,7 +170,11 @@ const buildVersionedContracts = async (
 };
 
 const buildUnversionedContracts = async (inputDir: string) => {
-  const contractGlobs = `{${UNVERSIONED_CONTRACTS.concat(EVENTS_CONTRACTS)
+  const contractGlobs = `{${[
+    ...UNVERSIONED_CONTRACTS,
+    ...UPGRADABLE_CONTRACTS,
+    ...EVENT_CONTRACT_NAMES,
+  ]
     .map((c) => `${c}.json`)
     .join(',')}}`;
   const typechain = execa('typechain', [

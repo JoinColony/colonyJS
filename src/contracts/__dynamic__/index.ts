@@ -3,6 +3,7 @@
 /* eslint-disable */
 export type { CoinMachineEvents } from "./CoinMachineEvents";
 export type { IColonyEvents } from "./IColonyEvents";
+export type { IColonyNetworkEvents } from "./IColonyNetworkEvents";
 export type { OneTxPaymentEvents } from "./OneTxPaymentEvents";
 export type { VotingReputationEvents } from "./VotingReputationEvents";
 export type { WhitelistEvents } from "./WhitelistEvents";

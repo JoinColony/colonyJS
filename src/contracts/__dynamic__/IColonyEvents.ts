@@ -102,15 +102,15 @@ export interface IColonyEventsInterface extends utils.Interface {
     "ExpenditureLocked(address,uint256)": EventFragment;
     "ExpenditureMetadataSet(address,uint256,string)": EventFragment;
     "ExpenditurePayoutModifierSet(address,uint256,uint256,int256)": EventFragment;
-    "ColonyFundingRoleSet(address,bool)": EventFragment;
-    "ColonyAdministrationRoleSet(address,bool)": EventFragment;
-    "ColonyArchitectureRoleSet(address,bool)": EventFragment;
-    "ColonyRootRoleSet(address,bool)": EventFragment;
     "ColonyMetadataDelta(address,string)": EventFragment;
     "DomainDeprecated(address,uint256,bool)": EventFragment;
     "LocalSkillAdded(address,uint256)": EventFragment;
     "LocalSkillDeprecated(address,uint256,bool)": EventFragment;
     "MetaTransactionExecuted(address,address,bytes)": EventFragment;
+    "ColonyFundingRoleSet(address,bool)": EventFragment;
+    "ColonyAdministrationRoleSet(address,bool)": EventFragment;
+    "ColonyArchitectureRoleSet(address,bool)": EventFragment;
+    "ColonyRootRoleSet(address,bool)": EventFragment;
   };
 
   getEvent(
@@ -279,17 +279,17 @@ export interface IColonyEventsInterface extends utils.Interface {
   getEvent(
     nameOrSignatureOrTopic: "ExpenditurePayoutModifierSet"
   ): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "ColonyMetadataDelta"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "DomainDeprecated"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "LocalSkillAdded"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "LocalSkillDeprecated"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "MetaTransactionExecuted"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "ColonyFundingRoleSet"): EventFragment;
   getEvent(
     nameOrSignatureOrTopic: "ColonyAdministrationRoleSet"
   ): EventFragment;
   getEvent(nameOrSignatureOrTopic: "ColonyArchitectureRoleSet"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "ColonyRootRoleSet"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "ColonyMetadataDelta"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "DomainDeprecated"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "LocalSkillAdded"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "LocalSkillDeprecated"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "MetaTransactionExecuted"): EventFragment;
 }
 
 export interface ColonyInitialised_address_address_EventObject {
@@ -1278,54 +1278,6 @@ export type ExpenditurePayoutModifierSetEvent = TypedEvent<
 export type ExpenditurePayoutModifierSetEventFilter =
   TypedEventFilter<ExpenditurePayoutModifierSetEvent>;
 
-export interface ColonyFundingRoleSetEventObject {
-  user: string;
-  setTo: boolean;
-}
-export type ColonyFundingRoleSetEvent = TypedEvent<
-  [string, boolean],
-  ColonyFundingRoleSetEventObject
->;
-
-export type ColonyFundingRoleSetEventFilter =
-  TypedEventFilter<ColonyFundingRoleSetEvent>;
-
-export interface ColonyAdministrationRoleSetEventObject {
-  user: string;
-  setTo: boolean;
-}
-export type ColonyAdministrationRoleSetEvent = TypedEvent<
-  [string, boolean],
-  ColonyAdministrationRoleSetEventObject
->;
-
-export type ColonyAdministrationRoleSetEventFilter =
-  TypedEventFilter<ColonyAdministrationRoleSetEvent>;
-
-export interface ColonyArchitectureRoleSetEventObject {
-  user: string;
-  setTo: boolean;
-}
-export type ColonyArchitectureRoleSetEvent = TypedEvent<
-  [string, boolean],
-  ColonyArchitectureRoleSetEventObject
->;
-
-export type ColonyArchitectureRoleSetEventFilter =
-  TypedEventFilter<ColonyArchitectureRoleSetEvent>;
-
-export interface ColonyRootRoleSetEventObject {
-  user: string;
-  setTo: boolean;
-}
-export type ColonyRootRoleSetEvent = TypedEvent<
-  [string, boolean],
-  ColonyRootRoleSetEventObject
->;
-
-export type ColonyRootRoleSetEventFilter =
-  TypedEventFilter<ColonyRootRoleSetEvent>;
-
 export interface ColonyMetadataDeltaEventObject {
   agent: string;
   metadata: string;
@@ -1387,6 +1339,54 @@ export type MetaTransactionExecutedEvent = TypedEvent<
 
 export type MetaTransactionExecutedEventFilter =
   TypedEventFilter<MetaTransactionExecutedEvent>;
+
+export interface ColonyFundingRoleSetEventObject {
+  user: string;
+  setTo: boolean;
+}
+export type ColonyFundingRoleSetEvent = TypedEvent<
+  [string, boolean],
+  ColonyFundingRoleSetEventObject
+>;
+
+export type ColonyFundingRoleSetEventFilter =
+  TypedEventFilter<ColonyFundingRoleSetEvent>;
+
+export interface ColonyAdministrationRoleSetEventObject {
+  user: string;
+  setTo: boolean;
+}
+export type ColonyAdministrationRoleSetEvent = TypedEvent<
+  [string, boolean],
+  ColonyAdministrationRoleSetEventObject
+>;
+
+export type ColonyAdministrationRoleSetEventFilter =
+  TypedEventFilter<ColonyAdministrationRoleSetEvent>;
+
+export interface ColonyArchitectureRoleSetEventObject {
+  user: string;
+  setTo: boolean;
+}
+export type ColonyArchitectureRoleSetEvent = TypedEvent<
+  [string, boolean],
+  ColonyArchitectureRoleSetEventObject
+>;
+
+export type ColonyArchitectureRoleSetEventFilter =
+  TypedEventFilter<ColonyArchitectureRoleSetEvent>;
+
+export interface ColonyRootRoleSetEventObject {
+  user: string;
+  setTo: boolean;
+}
+export type ColonyRootRoleSetEvent = TypedEvent<
+  [string, boolean],
+  ColonyRootRoleSetEventObject
+>;
+
+export type ColonyRootRoleSetEventFilter =
+  TypedEventFilter<ColonyRootRoleSetEvent>;
 
 export interface IColonyEvents extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
@@ -1920,39 +1920,6 @@ export interface IColonyEvents extends BaseContract {
       payoutModifier?: null
     ): ExpenditurePayoutModifierSetEventFilter;
 
-    "ColonyFundingRoleSet(address,bool)"(
-      user?: null,
-      setTo?: null
-    ): ColonyFundingRoleSetEventFilter;
-    ColonyFundingRoleSet(
-      user?: null,
-      setTo?: null
-    ): ColonyFundingRoleSetEventFilter;
-
-    "ColonyAdministrationRoleSet(address,bool)"(
-      user?: null,
-      setTo?: null
-    ): ColonyAdministrationRoleSetEventFilter;
-    ColonyAdministrationRoleSet(
-      user?: null,
-      setTo?: null
-    ): ColonyAdministrationRoleSetEventFilter;
-
-    "ColonyArchitectureRoleSet(address,bool)"(
-      user?: null,
-      setTo?: null
-    ): ColonyArchitectureRoleSetEventFilter;
-    ColonyArchitectureRoleSet(
-      user?: null,
-      setTo?: null
-    ): ColonyArchitectureRoleSetEventFilter;
-
-    "ColonyRootRoleSet(address,bool)"(
-      user?: null,
-      setTo?: null
-    ): ColonyRootRoleSetEventFilter;
-    ColonyRootRoleSet(user?: null, setTo?: null): ColonyRootRoleSetEventFilter;
-
     "ColonyMetadataDelta(address,string)"(
       agent?: null,
       metadata?: null
@@ -2003,6 +1970,39 @@ export interface IColonyEvents extends BaseContract {
       relayerAddress?: null,
       payload?: null
     ): MetaTransactionExecutedEventFilter;
+
+    "ColonyFundingRoleSet(address,bool)"(
+      user?: null,
+      setTo?: null
+    ): ColonyFundingRoleSetEventFilter;
+    ColonyFundingRoleSet(
+      user?: null,
+      setTo?: null
+    ): ColonyFundingRoleSetEventFilter;
+
+    "ColonyAdministrationRoleSet(address,bool)"(
+      user?: null,
+      setTo?: null
+    ): ColonyAdministrationRoleSetEventFilter;
+    ColonyAdministrationRoleSet(
+      user?: null,
+      setTo?: null
+    ): ColonyAdministrationRoleSetEventFilter;
+
+    "ColonyArchitectureRoleSet(address,bool)"(
+      user?: null,
+      setTo?: null
+    ): ColonyArchitectureRoleSetEventFilter;
+    ColonyArchitectureRoleSet(
+      user?: null,
+      setTo?: null
+    ): ColonyArchitectureRoleSetEventFilter;
+
+    "ColonyRootRoleSet(address,bool)"(
+      user?: null,
+      setTo?: null
+    ): ColonyRootRoleSetEventFilter;
+    ColonyRootRoleSet(user?: null, setTo?: null): ColonyRootRoleSetEventFilter;
   };
 
   estimateGas: {};
