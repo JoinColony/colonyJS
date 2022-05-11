@@ -41,10 +41,10 @@
     "compile-types": "tsc -p tsconfig.build.json --declaration --emitDeclarationOnly --outDir dist/types",
     "extract-contract-abis": "ts-node -P scripts/tsconfig-scripts.json scripts/extract-contract-abis.ts",
     "lint": "eslint --ext .ts src scripts",
+    "release": "npm test && npm run build && release-it",
     "test": "npm run lint && npm run typecheck && jest '[^integration].ts'",
     "test-ci": "npm run lint && npm run typecheck && jest",
-    "typecheck": "tsc --noEmit",
-    "release": "npm test && release-it"
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "@colony/eslint-config-colony": "^9.0.2",
