@@ -53,6 +53,7 @@ const makePayment = async (to: string) => {
 const jumpIntoTheFuture = async () => {
   await provider.send('evm_increaseTime', [3600]);
   await provider.send('evm_mine', []);
+  await provider.send('evm_mine', []);
 };
 
 const getReputation = async (userAddress: string): Promise<string> => {

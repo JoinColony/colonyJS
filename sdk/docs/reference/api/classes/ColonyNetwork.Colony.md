@@ -18,6 +18,7 @@
 - [createTeam](ColonyNetwork.Colony.md#createteam)
 - [getBalance](ColonyNetwork.Colony.md#getbalance)
 - [getReputation](ColonyNetwork.Colony.md#getreputation)
+- [getReputationAcrossTeams](ColonyNetwork.Colony.md#getreputationacrossteams)
 - [getToken](ColonyNetwork.Colony.md#gettoken)
 - [pay](ColonyNetwork.Colony.md#pay)
 
@@ -150,6 +151,32 @@ Get the reputation for a user address within a team in the Colony
 `Promise`<`BigNumber`\>
 
 A number quantifying the user addresses' reputation
+
+___
+
+### getReputationAcrossTeams
+
+▸ **getReputationAcrossTeams**(`userAddress`): `Promise`<{ `domainId`: `number` ; `reputationAmount?`: `BigNumberish` ; `skillId`: `number`  }[]\>
+
+Get the reputation for a user address across all teams in the Colony
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `userAddress` | `string` | The address of the account to check the reputation for |
+
+#### Returns
+
+`Promise`<{ `domainId`: `number` ; `reputationAmount?`: `BigNumberish` ; `skillId`: `number`  }[]\>
+
+An array of objects containing the following
+
+| Property | Description |
+| :------ | :------ |
+| `domainId` | The domainId of the domain the user has reputation in |
+| `skillId` | The corresponding skillId |
+| `reputationAmount` | The reputation amount in that domain |
 
 ___
 
