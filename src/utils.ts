@@ -183,7 +183,7 @@ export const fetchReputationOracleData = async <
   }
   const { reputationOracleEndpoint } = networkClient;
 
-  const skillIdString = BigNumber.from(skillId || '').toString();
+  const skillIdString = BigNumber.from(skillId || 0).toString();
 
   const rootHash =
     customRootHash || (await networkClient.getReputationRootHash());
