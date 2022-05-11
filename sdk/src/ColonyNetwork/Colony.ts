@@ -244,4 +244,20 @@ export class Colony {
       await this.colonyClient.getReputationWithoutProofs(skillId, userAddress);
     return reputationAmount;
   }
+
+  /**
+   * Get the reputation for a user address across all teams in the Colony
+   *
+   * @param userAddress The address of the account to check the reputation for
+   * @returns An array of objects containing the following
+   *
+   * | Property | Description |
+   * | :------ | :------ |
+   * | `domainId` | The domainId of the domain the user has reputation in |
+   * | `skillId` | The corresponding skillId |
+   * | `reputationAmount` | The reputation amount in that domain |
+   */
+  async getReputationAcrossTeams(userAddress: string) {
+    return this.colonyClient.getReputationAcrossDomains(userAddress);
+  }
 }
