@@ -1,15 +1,4 @@
-// Always keep this up to date
-export {
-  IColony,
-  IColony__factory as IColonyFactory,
-} from '../contracts/IColony/9';
-
-export {
-  IColonyNetwork,
-  IColonyNetwork__factory as IColonyNetworkFactory,
-  TokenERC20 as TokenErc20,
-  TokenERC20__factory as TokenErc20Factory,
-} from '../contracts';
+export * from '../contracts';
 
 // We need to manually export those as they are ambiguous as they exist in multiple event contracts
 export {
