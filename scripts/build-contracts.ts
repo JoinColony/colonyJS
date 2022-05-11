@@ -69,7 +69,7 @@ const UNVERSIONED_CONTRACTS = [
   'TokenLocking',
   'Utils',
   // ERC20 tokens
-  'Token',
+  'MetaTxToken',
   'TokenERC20',
   'TokenSAI',
 ];

@@ -9,8 +9,8 @@ import {
 import { abis } from '../abis/exports';
 
 import {
-  Token__factory as TokenFactory,
-  Token,
+  MetaTxToken__factory as TokenFactory,
+  MetaTxToken,
   TokenERC20__factory as TokenERC20Factory,
   TokenERC20,
   TokenSAI__factory as TokenSAIFactory,
@@ -38,7 +38,7 @@ export interface TokenInfo {
 }
 
 /** A ColonyToken has special abilities that go beyond the capabilities of an ERC20 token */
-export interface ColonyTokenClient extends Token {
+export interface ColonyTokenClient extends MetaTxToken {
   clientType: ClientType.TokenClient;
   tokenClientType: TokenClientType.Colony;
 
@@ -61,7 +61,7 @@ export interface ColonyTokenClient extends Token {
   /** Get the standard ERC20 token information */
   getTokenInfo(): Promise<TokenInfo>;
 
-  estimateGas: Token['estimateGas'] & {
+  estimateGas: MetaTxToken['estimateGas'] & {
     /**
      * Deploy a TokenAuthority contract for this Colony for a specific token
      * The TokenAuthority enables certain addresses to transfer the tokens, even if it's locked

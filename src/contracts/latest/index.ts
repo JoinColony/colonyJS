@@ -3,5 +3,5 @@
 /* eslint-disable */
 export type { ColonyExtension } from "./ColonyExtension";
 export type { IColonyNetwork } from "./IColonyNetwork";
-export type { Token } from "./Token";
+export type { MetaTxToken } from "./MetaTxToken";
 export type { TokenLocking } from "./TokenLocking";

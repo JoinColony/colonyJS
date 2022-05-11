@@ -3,5 +3,5 @@
 /* eslint-disable */
 export { ColonyExtension__factory } from "./ColonyExtension__factory";
 export { IColonyNetwork__factory } from "./IColonyNetwork__factory";
-export { Token__factory } from "./Token__factory";
+export { MetaTxToken__factory } from "./MetaTxToken__factory";
 export { TokenLocking__factory } from "./TokenLocking__factory";

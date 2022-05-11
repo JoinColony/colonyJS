@@ -9,6 +9,7 @@ import type {
   CallOverrides,
   ContractTransaction,
   Overrides,
+  PayableOverrides,
   PopulatedTransaction,
   Signer,
   utils,
@@ -26,13 +27,17 @@ import type {
   OnEvent,
 } from "../common";
 
-export interface TokenInterface extends utils.Interface {
+export interface MetaTxTokenInterface extends utils.Interface {
   functions: {
+    "DOMAIN_SEPARATOR()": FunctionFragment;
+    "PERMIT_TYPEHASH()": FunctionFragment;
     "allowance(address,address)": FunctionFragment;
     "approve(address,uint256)": FunctionFragment;
     "authority()": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
     "decimals()": FunctionFragment;
+    "executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)": FunctionFragment;
+    "getChainId()": FunctionFragment;
     "locked()": FunctionFragment;
     "name()": FunctionFragment;
     "owner()": FunctionFragment;
@@ -41,21 +46,28 @@ export interface TokenInterface extends utils.Interface {
     "symbol()": FunctionFragment;
     "totalSupply()": FunctionFragment;
     "transfer(address,uint256)": FunctionFragment;
+    "verify(address,uint256,uint256,bytes,bytes32,bytes32,uint8)": FunctionFragment;
+    "getMetatransactionNonce(address)": FunctionFragment;
     "transferFrom(address,address,uint256)": FunctionFragment;
     "mint(address,uint256)": FunctionFragment;
     "mint(uint256)": FunctionFragment;
     "burn(uint256)": FunctionFragment;
     "burn(address,uint256)": FunctionFragment;
     "unlock()": FunctionFragment;
+    "permit(address,address,uint256,uint256,uint8,bytes32,bytes32)": FunctionFragment;
   };
 
   getFunction(
     nameOrSignatureOrTopic:
+      | "DOMAIN_SEPARATOR"
+      | "PERMIT_TYPEHASH"
       | "allowance"
       | "approve"
       | "authority"
       | "balanceOf"
       | "decimals"
+      | "executeMetaTransaction"
+      | "getChainId"
       | "locked"
       | "name"
       | "owner"
@@ -64,14 +76,25 @@ export interface TokenInterface extends utils.Interface {
       | "symbol"
       | "totalSupply"
       | "transfer"
+      | "verify"
+      | "getMetatransactionNonce"
       | "transferFrom"
       | "mint(address,uint256)"
       | "mint(uint256)"
       | "burn(uint256)"
       | "burn(address,uint256)"
       | "unlock"
+      | "permit"
   ): FunctionFragment;
 
+  encodeFunctionData(
+    functionFragment: "DOMAIN_SEPARATOR",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "PERMIT_TYPEHASH",
+    values?: undefined
+  ): string;
   encodeFunctionData(
     functionFragment: "allowance",
     values: [string, string]
@@ -83,6 +106,14 @@ export interface TokenInterface extends utils.Interface {
   encodeFunctionData(functionFragment: "authority", values?: undefined): string;
   encodeFunctionData(functionFragment: "balanceOf", values: [string]): string;
   encodeFunctionData(functionFragment: "decimals", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "executeMetaTransaction",
+    values: [string, BytesLike, BytesLike, BytesLike, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getChainId",
+    values?: undefined
+  ): string;
   encodeFunctionData(functionFragment: "locked", values?: undefined): string;
   encodeFunctionData(functionFragment: "name", values?: undefined): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
@@ -99,6 +130,22 @@ export interface TokenInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "transfer",
     values: [string, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "verify",
+    values: [
+      string,
+      BigNumberish,
+      BigNumberish,
+      BytesLike,
+      BytesLike,
+      BytesLike,
+      BigNumberish
+    ]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getMetatransactionNonce",
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "transferFrom",
@@ -121,12 +168,37 @@ export interface TokenInterface extends utils.Interface {
     values: [string, BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "unlock", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "permit",
+    values: [
+      string,
+      string,
+      BigNumberish,
+      BigNumberish,
+      BigNumberish,
+      BytesLike,
+      BytesLike
+    ]
+  ): string;
 
+  decodeFunctionResult(
+    functionFragment: "DOMAIN_SEPARATOR",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "PERMIT_TYPEHASH",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "allowance", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "authority", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "decimals", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "executeMetaTransaction",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "getChainId", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "locked", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
@@ -141,6 +213,11 @@ export interface TokenInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "transfer", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "verify", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "getMetatransactionNonce",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "transferFrom",
     data: BytesLike
@@ -162,12 +239,14 @@ export interface TokenInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "unlock", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "permit", data: BytesLike): Result;
 
   events: {
     "Approval(address,address,uint256)": EventFragment;
     "Burn(address,uint256)": EventFragment;
     "LogSetAuthority(address)": EventFragment;
     "LogSetOwner(address)": EventFragment;
+    "MetaTransactionExecuted(address,address,bytes)": EventFragment;
     "Mint(address,uint256)": EventFragment;
     "Transfer(address,address,uint256)": EventFragment;
   };
@@ -176,6 +255,7 @@ export interface TokenInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: "Burn"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "LogSetAuthority"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "LogSetOwner"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "MetaTransactionExecuted"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Mint"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Transfer"): EventFragment;
 }
@@ -217,6 +297,19 @@ export type LogSetOwnerEvent = TypedEvent<[string], LogSetOwnerEventObject>;
 
 export type LogSetOwnerEventFilter = TypedEventFilter<LogSetOwnerEvent>;
 
+export interface MetaTransactionExecutedEventObject {
+  user: string;
+  relayerAddress: string;
+  functionSignature: string;
+}
+export type MetaTransactionExecutedEvent = TypedEvent<
+  [string, string, string],
+  MetaTransactionExecutedEventObject
+>;
+
+export type MetaTransactionExecutedEventFilter =
+  TypedEventFilter<MetaTransactionExecutedEvent>;
+
 export interface MintEventObject {
   guy: string;
   wad: BigNumber;
@@ -237,12 +330,12 @@ export type TransferEvent = TypedEvent<
 
 export type TransferEventFilter = TypedEventFilter<TransferEvent>;
 
-export interface Token extends BaseContract {
+export interface MetaTxToken extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
 
-  interface: TokenInterface;
+  interface: MetaTxTokenInterface;
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
@@ -264,6 +357,10 @@ export interface Token extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
+    DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<[string]>;
+
+    PERMIT_TYPEHASH(overrides?: CallOverrides): Promise<[string]>;
+
     allowance(
       src: string,
       guy: string,
@@ -281,6 +378,25 @@ export interface Token extends BaseContract {
     balanceOf(src: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
     decimals(overrides?: CallOverrides): Promise<[number]>;
+
+    /**
+     * Main function to be called when user wants to execute meta transaction. The actual function to be called should be passed as param with name functionSignature Here the basic signature recovery is being used. Signature is expected to be generated using personal_sign method.
+     * @param _payload Function call to make via meta transaction
+     * @param _sigR R part of the signature
+     * @param _sigS S part of the signature
+     * @param _sigV V part of the signature
+     * @param _user Address of user trying to do meta transaction
+     */
+    executeMetaTransaction(
+      _user: string,
+      _payload: BytesLike,
+      _sigR: BytesLike,
+      _sigS: BytesLike,
+      _sigV: BigNumberish,
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    getChainId(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     locked(overrides?: CallOverrides): Promise<[boolean]>;
 
@@ -307,6 +423,22 @@ export interface Token extends BaseContract {
       wad: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
+
+    verify(
+      _owner: string,
+      _nonce: BigNumberish,
+      _chainId: BigNumberish,
+      _payload: BytesLike,
+      _sigR: BytesLike,
+      _sigS: BytesLike,
+      _sigV: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
+
+    getMetatransactionNonce(
+      _user: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber] & { nonce: BigNumber }>;
 
     transferFrom(
       src: string,
@@ -340,7 +472,22 @@ export interface Token extends BaseContract {
     unlock(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
+
+    permit(
+      owner: string,
+      spender: string,
+      value: BigNumberish,
+      deadline: BigNumberish,
+      v: BigNumberish,
+      r: BytesLike,
+      s: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
   };
+
+  DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<string>;
+
+  PERMIT_TYPEHASH(overrides?: CallOverrides): Promise<string>;
 
   allowance(
     src: string,
@@ -359,6 +506,25 @@ export interface Token extends BaseContract {
   balanceOf(src: string, overrides?: CallOverrides): Promise<BigNumber>;
 
   decimals(overrides?: CallOverrides): Promise<number>;
+
+  /**
+   * Main function to be called when user wants to execute meta transaction. The actual function to be called should be passed as param with name functionSignature Here the basic signature recovery is being used. Signature is expected to be generated using personal_sign method.
+   * @param _payload Function call to make via meta transaction
+   * @param _sigR R part of the signature
+   * @param _sigS S part of the signature
+   * @param _sigV V part of the signature
+   * @param _user Address of user trying to do meta transaction
+   */
+  executeMetaTransaction(
+    _user: string,
+    _payload: BytesLike,
+    _sigR: BytesLike,
+    _sigS: BytesLike,
+    _sigV: BigNumberish,
+    overrides?: PayableOverrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  getChainId(overrides?: CallOverrides): Promise<BigNumber>;
 
   locked(overrides?: CallOverrides): Promise<boolean>;
 
@@ -385,6 +551,22 @@ export interface Token extends BaseContract {
     wad: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
+
+  verify(
+    _owner: string,
+    _nonce: BigNumberish,
+    _chainId: BigNumberish,
+    _payload: BytesLike,
+    _sigR: BytesLike,
+    _sigS: BytesLike,
+    _sigV: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
+
+  getMetatransactionNonce(
+    _user: string,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
 
   transferFrom(
     src: string,
@@ -419,7 +601,22 @@ export interface Token extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  permit(
+    owner: string,
+    spender: string,
+    value: BigNumberish,
+    deadline: BigNumberish,
+    v: BigNumberish,
+    r: BytesLike,
+    s: BytesLike,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   callStatic: {
+    DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<string>;
+
+    PERMIT_TYPEHASH(overrides?: CallOverrides): Promise<string>;
+
     allowance(
       src: string,
       guy: string,
@@ -437,6 +634,25 @@ export interface Token extends BaseContract {
     balanceOf(src: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     decimals(overrides?: CallOverrides): Promise<number>;
+
+    /**
+     * Main function to be called when user wants to execute meta transaction. The actual function to be called should be passed as param with name functionSignature Here the basic signature recovery is being used. Signature is expected to be generated using personal_sign method.
+     * @param _payload Function call to make via meta transaction
+     * @param _sigR R part of the signature
+     * @param _sigS S part of the signature
+     * @param _sigV V part of the signature
+     * @param _user Address of user trying to do meta transaction
+     */
+    executeMetaTransaction(
+      _user: string,
+      _payload: BytesLike,
+      _sigR: BytesLike,
+      _sigS: BytesLike,
+      _sigV: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<string>;
+
+    getChainId(overrides?: CallOverrides): Promise<BigNumber>;
 
     locked(overrides?: CallOverrides): Promise<boolean>;
 
@@ -457,6 +673,22 @@ export interface Token extends BaseContract {
       wad: BigNumberish,
       overrides?: CallOverrides
     ): Promise<boolean>;
+
+    verify(
+      _owner: string,
+      _nonce: BigNumberish,
+      _chainId: BigNumberish,
+      _payload: BytesLike,
+      _sigR: BytesLike,
+      _sigS: BytesLike,
+      _sigV: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
+
+    getMetatransactionNonce(
+      _user: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     transferFrom(
       src: string,
@@ -488,6 +720,17 @@ export interface Token extends BaseContract {
     ): Promise<void>;
 
     unlock(overrides?: CallOverrides): Promise<void>;
+
+    permit(
+      owner: string,
+      spender: string,
+      value: BigNumberish,
+      deadline: BigNumberish,
+      v: BigNumberish,
+      r: BytesLike,
+      s: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<void>;
   };
 
   filters: {
@@ -513,6 +756,17 @@ export interface Token extends BaseContract {
     "LogSetOwner(address)"(owner?: string | null): LogSetOwnerEventFilter;
     LogSetOwner(owner?: string | null): LogSetOwnerEventFilter;
 
+    "MetaTransactionExecuted(address,address,bytes)"(
+      user?: null,
+      relayerAddress?: null,
+      functionSignature?: null
+    ): MetaTransactionExecutedEventFilter;
+    MetaTransactionExecuted(
+      user?: null,
+      relayerAddress?: null,
+      functionSignature?: null
+    ): MetaTransactionExecutedEventFilter;
+
     "Mint(address,uint256)"(guy?: string | null, wad?: null): MintEventFilter;
     Mint(guy?: string | null, wad?: null): MintEventFilter;
 
@@ -529,6 +783,10 @@ export interface Token extends BaseContract {
   };
 
   estimateGas: {
+    DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<BigNumber>;
+
+    PERMIT_TYPEHASH(overrides?: CallOverrides): Promise<BigNumber>;
+
     allowance(
       src: string,
       guy: string,
@@ -546,6 +804,25 @@ export interface Token extends BaseContract {
     balanceOf(src: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     decimals(overrides?: CallOverrides): Promise<BigNumber>;
+
+    /**
+     * Main function to be called when user wants to execute meta transaction. The actual function to be called should be passed as param with name functionSignature Here the basic signature recovery is being used. Signature is expected to be generated using personal_sign method.
+     * @param _payload Function call to make via meta transaction
+     * @param _sigR R part of the signature
+     * @param _sigS S part of the signature
+     * @param _sigV V part of the signature
+     * @param _user Address of user trying to do meta transaction
+     */
+    executeMetaTransaction(
+      _user: string,
+      _payload: BytesLike,
+      _sigR: BytesLike,
+      _sigS: BytesLike,
+      _sigV: BigNumberish,
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    getChainId(overrides?: CallOverrides): Promise<BigNumber>;
 
     locked(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -573,6 +850,22 @@ export interface Token extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    verify(
+      _owner: string,
+      _nonce: BigNumberish,
+      _chainId: BigNumberish,
+      _payload: BytesLike,
+      _sigR: BytesLike,
+      _sigS: BytesLike,
+      _sigV: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getMetatransactionNonce(
+      _user: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     transferFrom(
       src: string,
       dst: string,
@@ -605,9 +898,24 @@ export interface Token extends BaseContract {
     unlock(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
+
+    permit(
+      owner: string,
+      spender: string,
+      value: BigNumberish,
+      deadline: BigNumberish,
+      v: BigNumberish,
+      r: BytesLike,
+      s: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
+    DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    PERMIT_TYPEHASH(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     allowance(
       src: string,
       guy: string,
@@ -628,6 +936,25 @@ export interface Token extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     decimals(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    /**
+     * Main function to be called when user wants to execute meta transaction. The actual function to be called should be passed as param with name functionSignature Here the basic signature recovery is being used. Signature is expected to be generated using personal_sign method.
+     * @param _payload Function call to make via meta transaction
+     * @param _sigR R part of the signature
+     * @param _sigS S part of the signature
+     * @param _sigV V part of the signature
+     * @param _user Address of user trying to do meta transaction
+     */
+    executeMetaTransaction(
+      _user: string,
+      _payload: BytesLike,
+      _sigR: BytesLike,
+      _sigS: BytesLike,
+      _sigV: BigNumberish,
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    getChainId(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     locked(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -655,6 +982,22 @@ export interface Token extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    verify(
+      _owner: string,
+      _nonce: BigNumberish,
+      _chainId: BigNumberish,
+      _payload: BytesLike,
+      _sigR: BytesLike,
+      _sigS: BytesLike,
+      _sigV: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getMetatransactionNonce(
+      _user: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     transferFrom(
       src: string,
       dst: string,
@@ -685,6 +1028,17 @@ export interface Token extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     unlock(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    permit(
+      owner: string,
+      spender: string,
+      value: BigNumberish,
+      deadline: BigNumberish,
+      v: BigNumberish,
+      r: BytesLike,
+      s: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };
