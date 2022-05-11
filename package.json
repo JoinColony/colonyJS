@@ -44,7 +44,7 @@
     "test": "npm run lint && npm run typecheck && jest '[^integration].ts'",
     "test-ci": "npm run lint && npm run typecheck && jest",
     "typecheck": "tsc --noEmit",
-    "release": "release-it"
+    "release": "npm test && release-it"
   },
   "devDependencies": {
     "@colony/eslint-config-colony": "^9.0.2",
