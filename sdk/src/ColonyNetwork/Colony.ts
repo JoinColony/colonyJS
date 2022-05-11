@@ -8,8 +8,8 @@ import {
 } from '@colony/colony-js';
 
 import {
-  ColonyFundsClaimedEventObject,
-  DomainAddedEventObject,
+  ColonyFundsClaimed_address_uint256_uint256_EventObject,
+  DomainAdded_uint256_EventObject,
   FundingPotAddedEventObject,
 } from '@colony/colony-js/extras';
 import type { BigNumberish } from 'ethers';
@@ -129,7 +129,7 @@ export class Colony {
     const receipt = await tx.wait();
 
     const data = {
-      ...extractEvent<DomainAddedEventObject>('DomainAdded', receipt),
+      ...extractEvent<DomainAdded_uint256_EventObject>('DomainAdded', receipt),
       ...extractEvent<FundingPotAddedEventObject>('FundingPotAdded', receipt),
     };
 
@@ -160,7 +160,7 @@ export class Colony {
     const receipt = await tx.wait();
 
     const data = {
-      ...extractEvent<ColonyFundsClaimedEventObject>(
+      ...extractEvent<ColonyFundsClaimed_address_uint256_uint256_EventObject>(
         'ColonyFundsClaimed',
         receipt,
       ),

@@ -3,7 +3,7 @@
   "version": "0.1.2",
   "license": "GPL-3.0-only",
   "dependencies": {
-    "@colony/colony-js": "^5.0.6"
+    "@colony/colony-js": "^5.1.0"
   },
   "devDependencies": {
     "@colony/eslint-config-colony": "^9.0.2",

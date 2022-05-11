@@ -12,6 +12,7 @@
     "node": true
   },
   "rules": {
+    "camelcase": ["error", { "allow": [".+_EventFilter$", ".+_EventObject$", ".+__factory"]}],
     "no-unused-vars": "off",
     "no-redeclare": "off",
     "no-use-before-define": "off",

@@ -7,9 +7,9 @@ import { constants, providers, EventFilter } from 'ethers';
 import { Result } from 'ethers/lib/utils';
 import {
   IColonyEvents,
-  IColonyEventsFactory,
+  IColonyEvents__factory,
   IColonyNetwork,
-  IColonyNetworkFactory,
+  IColonyNetwork__factory,
 } from '@colony/colony-js/extras';
 import type { BlockTag, Filter } from '@ethersproject/abstract-provider';
 
@@ -74,8 +74,8 @@ export class ColonyEvents {
   constructor(provider: providers.JsonRpcProvider) {
     this.provider = provider;
     this.eventSources = {
-      Colony: IColonyEventsFactory.connect(constants.AddressZero, provider),
-      ColonyNetwork: IColonyNetworkFactory.connect(
+      Colony: IColonyEvents__factory.connect(constants.AddressZero, provider),
+      ColonyNetwork: IColonyNetwork__factory.connect(
         constants.AddressZero,
         provider,
       ),

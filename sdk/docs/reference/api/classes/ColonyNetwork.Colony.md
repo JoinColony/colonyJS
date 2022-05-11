@@ -46,7 +46,7 @@ If this is not an option, ColonySDK might throw errors at certain points. Usage 
 
 ### claimFunds
 
-▸ **claimFunds**(`tokenAddress?`): `Promise`<[{ `agent?`: `string` ; `fee?`: `BigNumber` ; `payoutRemainder?`: `BigNumber` ; `token?`: `string`  }, `ContractReceipt`]\>
+▸ **claimFunds**(`tokenAddress?`): `Promise`<[{ `fee?`: `BigNumber` ; `payoutRemainder?`: `BigNumber` ; `token?`: `string`  }, `ContractReceipt`]\>
 
 Claim outstanding Colony funds.
 
@@ -60,7 +60,7 @@ Anyone can call this function. Claims funds _for_ the Colony that have been sent
 
 #### Returns
 
-`Promise`<[{ `agent?`: `string` ; `fee?`: `BigNumber` ; `payoutRemainder?`: `BigNumber` ; `token?`: `string`  }, `ContractReceipt`]\>
+`Promise`<[{ `fee?`: `BigNumber` ; `payoutRemainder?`: `BigNumber` ; `token?`: `string`  }, `ContractReceipt`]\>
 
 A tupel of event data and contract receipt
 
@@ -76,7 +76,7 @@ ___
 
 ### createTeam
 
-▸ **createTeam**(): `Promise`<[{ `agent?`: `string` ; `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber`  }, `ContractReceipt`]\>
+▸ **createTeam**(): `Promise`<[{ `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber`  }, `ContractReceipt`]\>
 
 Create a team within a Colony
 
@@ -85,7 +85,7 @@ Currently you can only add domains within the `Root` domain. This restriction wi
 
 #### Returns
 
-`Promise`<[{ `agent?`: `string` ; `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber`  }, `ContractReceipt`]\>
+`Promise`<[{ `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber`  }, `ContractReceipt`]\>
 
 A tupel of event data and contract receipt
 
