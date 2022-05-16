@@ -1,13 +1,13 @@
 import { providers, Signer } from 'ethers';
-import { getColonyNetworkClient, Network } from '@colony/colony-js';
+import { ColonyNetwork } from '../../../src';
 
 // If MetaMask is installed there will be an `ethereum` object on the `window`
 const provider = new providers.Web3Provider((window as any).ethereum);
 
 // Get the Colony's XDAI funding in the ROOT pot (id 1)
-const getMetaColonyClient = async (signer: Signer) => {
-  const colonyNetworkClient = getColonyNetworkClient(Network.Xdai, signer);
-  return colonyNetworkClient.getMetaColonyClient();
+const getMetaColony = async (signer: Signer) => {
+  const colonyNetwork = new ColonyNetwork(signer);
+  return colonyNetwork.getMetaColony();
 };
 
 // As soon as we issue `eth_requestAccounts`, MetaMask will prompt the user to allow a connection to the site
@@ -37,9 +37,9 @@ button.addEventListener('click', async () => {
   speak('Thinking...');
   try {
     const signer = await connect();
-    const metaColonyClient = await getMetaColonyClient(signer);
+    const metaColonyClient = await getMetaColony(signer);
     speak(
-      `Connected to metaColonyClient with version ${metaColonyClient.clientVersion}`,
+      `Connected to metaColonyClient with version ${metaColonyClient.version}`,
     );
   } catch (e) {
     panik(`Found an error: ${e.message}`);
