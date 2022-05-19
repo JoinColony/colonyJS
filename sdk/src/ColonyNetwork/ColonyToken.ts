@@ -44,6 +44,15 @@ export class ColonyToken {
   }
 
   /**
+   * Gets the token's symbol
+   *
+   * @returns The token's symbol (e.g. CLNY)
+   */
+  async symbol() {
+    return this.tokenClient.symbol();
+  }
+
+  /**
    * Mints `amount` of a Colony's native token.
    *
    * @remarks
