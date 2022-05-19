@@ -24,7 +24,7 @@ Ethers 6 supports mulitple addresses in a filter. Until then we have this
 
 ### address
 
-• **address**: `string` \| `string`[]
+• `Optional` **address**: `string` \| `string`[]
 
 ___
 

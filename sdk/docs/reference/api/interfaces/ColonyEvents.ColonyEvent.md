@@ -28,7 +28,7 @@ An Event that came from a contract within the Colony Network
 
 ### address
 
-• `Optional` **address**: `string`
+• `Optional` **address**: `string` \| `string`[]
 
 #### Inherited from
 

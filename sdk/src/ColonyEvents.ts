@@ -5,15 +5,16 @@
 
 import { constants, providers, EventFilter } from 'ethers';
 import { Result } from 'ethers/lib/utils';
+import type { BlockTag } from '@ethersproject/abstract-provider';
 import {
   IColonyEvents,
   IColonyEvents__factory,
   IColonyNetwork,
   IColonyNetwork__factory,
 } from '@colony/colony-js/extras';
-import type { BlockTag, Filter } from '@ethersproject/abstract-provider';
 
 import { addressesAreEqual, getLogs, nonNullable } from './utils';
+import { Ethers6Filter } from './types';
 
 /** Valid sources for Colony emitted events. Used to map the parsed event data */
 export interface EventSources {
@@ -25,7 +26,7 @@ export interface EventSources {
 export type EventSource = EventSources[keyof EventSources];
 
 /** A Colony extended ethers Filter to keep track of where events are coming from */
-export interface ColonyFilter extends Filter {
+export interface ColonyFilter extends Ethers6Filter {
   eventSource: keyof EventSources;
   eventName: string;
 }
@@ -82,7 +83,7 @@ export class ColonyEvents {
     };
   }
 
-  private static extractSingleTopic(filter?: Filter) {
+  private static extractSingleTopic(filter?: ColonyFilter) {
     if (!filter || !filter.topics) return null;
     const topic = filter.topics;
     if (typeof topic[0] == 'string') return topic[0];
@@ -101,6 +102,47 @@ export class ColonyEvents {
   }
 
   /**
+   * Get events for a single filter
+   *
+   * Gets events for an individual filter and automatically parses the data if possible
+   *
+   * @example
+   * Retrieve and parse all `DomainAdded` events for a specific [[ColonyNetwork.Colony]] contract
+   * ```typescript
+   * const domainAdded = colonyEvents.createFilter(
+   *   colonyEvents.eventSources.Colony,
+   *   'DomainAdded(address,uint256)',
+   *   colonyAddress,
+   * );
+   * // Immediately executing async function
+   * (async function() {
+   *   const events = await colonyEvents.getEvents(domainAdded);
+   * })();
+   * ```
+   *
+   * @param filter A [[ColonyFilter]]. [[ColonyMultiFilters]] will not work
+   * @returns An array of [[ColonyEvent]]s
+   */
+  async getEvents(filter: ColonyFilter): Promise<ColonyEvent[]> {
+    const logs = await getLogs(filter, this.provider);
+
+    return logs
+      .map((log) => {
+        const { eventSource, eventName } = filter;
+        const data = this.eventSources[eventSource].interface.decodeEventLog(
+          eventName,
+          log.data,
+          log.topics,
+        );
+        return {
+          ...filter,
+          data,
+        };
+      })
+      .filter(nonNullable);
+  }
+
+  /**
    * Get events for multiple filters across multiple addresses at once
    *
    * All the filters are connected by a logical OR, i.e. it will find ALL given events for ALL the given contract addresses
@@ -110,21 +152,31 @@ export class ColonyEvents {
    * `fromBlock` and `toBlock` properties of the indivdual filters will be ignored
    *
    * @example
+   * Retrieve and parse all `DomainAdded` and `DomainMetadata` events for a specific [[ColonyNetwork.Colony]] contract.
+   * Note that we're using [[ColonyEvents.createMultiFilter]] here. The two `colonyAddress`es could also be different
+   *
    * ```typescript
-   * Retrieve and parse all `DomainAdded` events for a specific [[ColonyNetwork.Colony]] contract
-   * const domainAdded = colonyEvents.createFilter(
+   * const domainAdded = colonyEvents.createMultiFilter(
    *   colonyEvents.eventSources.Colony,
    *   'DomainAdded(address,uint256)',
    *   colonyAddress,
    * );
+   * const domainMetadata = colonyEvents.createMultiFilter(
+   *   colonyEvents.eventSources.Colony,
+   *   'DomainMetadata(address,uint256,string)',
+   *   colonyAddress,
+   * );
+   *
    * // Immediately executing async function
    * (async function() {
-   *   const events = await colonyEvents.getMultiEvents([domainAdded]);
+   *   const events = await colonyEvents.getMultiEvents([domainAdded, domainMetadata]);
    * })();
    * ```
    *
    * @param filters An array of [[ColonyMultiFilter]]s. Normal [[ColonyFilters]] will not work
    * @param options You can define `fromBlock` and `toBlock` only once for all the filters given
+   * @param options.fromBlock Starting block in which to look for this event - inclusive (default: 'latest')
+   * @param options.toBlock Ending block in which to look for this event - inclusive (default: 'latest')
    * @returns An array of [[ColonyEvent]]s
    */
   async getMultiEvents(
@@ -163,7 +215,7 @@ export class ColonyEvents {
         return {
           address,
           eventSource,
-          topic,
+          topics: [topic],
           eventName,
           data,
         };
@@ -241,8 +293,8 @@ export class ColonyEvents {
    * We can do that as we do not have ambiguous events across our contracts, so we will always be able to find the right contract to parse the event data later on
    *
    * @example
-   * ```typescript
    * Filter for all `DomainAdded` events for a specific [[ColonyNetwork.Colony]] contract
+   * ```typescript
    * const domainAdded = colonyEvents.createFilter(
    *   colonyEvents.eventSources.Colony,
    *   'DomainAdded(address,uint256)',

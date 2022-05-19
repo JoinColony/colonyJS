@@ -26,6 +26,7 @@ The API is subject to change as we find more applications for this
 
 - [createFilter](ColonyEvents.ColonyEvents-1.md#createfilter)
 - [createMultiFilter](ColonyEvents.ColonyEvents-1.md#createmultifilter)
+- [getEvents](ColonyEvents.ColonyEvents-1.md#getevents)
 - [getMultiEvents](ColonyEvents.ColonyEvents-1.md#getmultievents)
 
 ## Constructors
@@ -124,8 +125,8 @@ Furthermore, no `fromBlock` or `toBlock` requirements can be given (that is done
 We can do that as we do not have ambiguous events across our contracts, so we will always be able to find the right contract to parse the event data later on
 
 **`example`**
-```typescript
 Filter for all `DomainAdded` events for a specific [ColonyNetwork.Colony](ColonyNetwork.Colony.md) contract
+```typescript
 const domainAdded = colonyEvents.createFilter(
   colonyEvents.eventSources.Colony,
   'DomainAdded(address,uint256)',
@@ -157,6 +158,42 @@ A [ColonyMultiFilter](../interfaces/ColonyEvents.ColonyMultiFilter.md)
 
 ___
 
+### getEvents
+
+▸ **getEvents**(`filter`): `Promise`<[`ColonyEvent`](../interfaces/ColonyEvents.ColonyEvent.md)[]\>
+
+Get events for a single filter
+
+Gets events for an individual filter and automatically parses the data if possible
+
+**`example`**
+Retrieve and parse all `DomainAdded` events for a specific [ColonyNetwork.Colony](ColonyNetwork.Colony.md) contract
+```typescript
+const domainAdded = colonyEvents.createFilter(
+  colonyEvents.eventSources.Colony,
+  'DomainAdded(address,uint256)',
+  colonyAddress,
+);
+// Immediately executing async function
+(async function() {
+  const events = await colonyEvents.getEvents(domainAdded);
+})();
+```
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `filter` | [`ColonyFilter`](../interfaces/ColonyEvents.ColonyFilter.md) | A [ColonyFilter](../interfaces/ColonyEvents.ColonyFilter.md). [[ColonyMultiFilters]] will not work |
+
+#### Returns
+
+`Promise`<[`ColonyEvent`](../interfaces/ColonyEvents.ColonyEvent.md)[]\>
+
+An array of [ColonyEvent](../interfaces/ColonyEvents.ColonyEvent.md)s
+
+___
+
 ### getMultiEvents
 
 ▸ **getMultiEvents**(`filters`, `options?`): `Promise`<[`ColonyEvent`](../interfaces/ColonyEvents.ColonyEvent.md)[]\>
@@ -170,16 +207,24 @@ This is handy when you want to listen to a fixed set of events for a lot of diff
 `fromBlock` and `toBlock` properties of the indivdual filters will be ignored
 
 **`example`**
+Retrieve and parse all `DomainAdded` and `DomainMetadata` events for a specific [ColonyNetwork.Colony](ColonyNetwork.Colony.md) contract.
+Note that we're using [ColonyEvents.createMultiFilter](ColonyEvents.ColonyEvents-1.md#createmultifilter) here. The two `colonyAddress`es could also be different
+
 ```typescript
-Retrieve and parse all `DomainAdded` events for a specific [ColonyNetwork.Colony](ColonyNetwork.Colony.md) contract
-const domainAdded = colonyEvents.createFilter(
+const domainAdded = colonyEvents.createMultiFilter(
   colonyEvents.eventSources.Colony,
   'DomainAdded(address,uint256)',
   colonyAddress,
 );
+const domainMetadata = colonyEvents.createMultiFilter(
+  colonyEvents.eventSources.Colony,
+  'DomainMetadata(address,uint256,string)',
+  colonyAddress,
+);
+
 // Immediately executing async function
 (async function() {
-  const events = await colonyEvents.getMultiEvents([domainAdded]);
+  const events = await colonyEvents.getMultiEvents([domainAdded, domainMetadata]);
 })();
 ```
 
@@ -189,8 +234,8 @@ const domainAdded = colonyEvents.createFilter(
 | :------ | :------ | :------ |
 | `filters` | [`ColonyMultiFilter`](../interfaces/ColonyEvents.ColonyMultiFilter.md)[] | An array of [ColonyMultiFilter](../interfaces/ColonyEvents.ColonyMultiFilter.md)s. Normal [[ColonyFilters]] will not work |
 | `options` | `Object` | You can define `fromBlock` and `toBlock` only once for all the filters given |
-| `options.fromBlock?` | `BlockTag` | - |
-| `options.toBlock?` | `BlockTag` | - |
+| `options.fromBlock?` | `BlockTag` | Starting block in which to look for this event - inclusive (default: 'latest') |
+| `options.toBlock?` | `BlockTag` | Ending block in which to look for this event - inclusive (default: 'latest') |
 
 #### Returns
 

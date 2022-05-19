@@ -12,6 +12,8 @@ Ethers 6 supports mulitple addresses in a filter. Until then we have this
 
   ↳ **`Ethers6Filter`**
 
+  ↳↳ [`ColonyFilter`](ColonyEvents.ColonyFilter.md)
+
 ## Table of contents
 
 ### Properties
@@ -25,7 +27,7 @@ Ethers 6 supports mulitple addresses in a filter. Until then we have this
 
 ### address
 
-• **address**: `string` \| `string`[]
+• `Optional` **address**: `string` \| `string`[]
 
 ___
 

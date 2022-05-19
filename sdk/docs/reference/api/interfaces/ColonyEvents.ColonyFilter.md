@@ -8,7 +8,7 @@ A Colony extended ethers Filter to keep track of where events are coming from
 
 ## Hierarchy
 
-- `Filter`
+- [`Ethers6Filter`](types.Ethers6Filter.md)
 
   ↳ **`ColonyFilter`**
 
@@ -29,11 +29,11 @@ A Colony extended ethers Filter to keep track of where events are coming from
 
 ### address
 
-• `Optional` **address**: `string`
+• `Optional` **address**: `string` \| `string`[]
 
 #### Inherited from
 
-Filter.address
+[Ethers6Filter](types.Ethers6Filter.md).[address](types.Ethers6Filter.md#address)
 
 ___
 
@@ -55,7 +55,7 @@ ___
 
 #### Inherited from
 
-Filter.fromBlock
+[Ethers6Filter](types.Ethers6Filter.md).[fromBlock](types.Ethers6Filter.md#fromblock)
 
 ___
 
@@ -65,7 +65,7 @@ ___
 
 #### Inherited from
 
-Filter.toBlock
+[Ethers6Filter](types.Ethers6Filter.md).[toBlock](types.Ethers6Filter.md#toblock)
 
 ___
 
@@ -75,4 +75,4 @@ ___
 
 #### Inherited from
 
-Filter.topics
+[Ethers6Filter](types.Ethers6Filter.md).[topics](types.Ethers6Filter.md#topics)
