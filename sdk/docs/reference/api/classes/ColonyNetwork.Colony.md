@@ -20,6 +20,7 @@
 - [getReputation](ColonyNetwork.Colony.md#getreputation)
 - [getReputationAcrossTeams](ColonyNetwork.Colony.md#getreputationacrossteams)
 - [getToken](ColonyNetwork.Colony.md#gettoken)
+- [moveFundsToTeam](ColonyNetwork.Colony.md#movefundstoteam)
 - [pay](ColonyNetwork.Colony.md#pay)
 
 ## Properties
@@ -197,9 +198,61 @@ A [[Token]] abstaction instance
 
 ___
 
+### moveFundsToTeam
+
+▸ **moveFundsToTeam**(`amount`, `toTeam`, `fromTeam?`, `tokenAddress?`): `Promise`<[{ `agent?`: `string` ; `amount?`: `BigNumber` ; `fromPot?`: `BigNumber` ; `toPot?`: `BigNumber` ; `token?`: `string`  }, `ContractReceipt`]\>
+
+Move funds from one team to another
+
+After sending funds to and claiming funds for your Colony they will land in a special team, the root team. If you want to make payments from other teams (in order to award reputation in that team) you have to move the funds there first. Use this method to do so.
+
+**`remarks`** Requires the `Funding` permission in the root team. As soon as teams can be nested, this requires the `Funding` permission in a team that is a parent of both teams in which funds are moved.
+
+**`example`**
+```typescript
+import { utils } from 'ethers';
+import { Tokens } from '@colony/sdk';
+
+// Immediately executing async function
+(async function() {
+  // Move 10 of the native token from team 2 to team 3
+  await colony.moveFunds(
+     utils.parseUnits('10'),
+     2,
+     3,
+  );
+})();
+```
+
+#### Parameters
+
+| Name | Type | Default value | Description |
+| :------ | :------ | :------ | :------ |
+| `amount` | `BigNumberish` | `undefined` | Amount to transfer between the teams |
+| `toTeam` | `BigNumberish` | `undefined` | The team to transfer the funds to |
+| `fromTeam` | `BigNumberish` | `Id.RootDomain` | The team to transfer the funds from. Default is the Root team |
+| `tokenAddress` | `string` | `undefined` | The address of the token to be transferred. Default is the Colony's native token |
+
+#### Returns
+
+`Promise`<[{ `agent?`: `string` ; `amount?`: `BigNumber` ; `fromPot?`: `BigNumber` ; `toPot?`: `BigNumber` ; `token?`: `string`  }, `ContractReceipt`]\>
+
+A tupel of event data and contract receipt
+
+**Event data**
+| Property | Description |
+| :------ | :------ |
+| `agent` | The address that is responsible for triggering this event |
+| `fromPot` | The source funding pot |
+| `toPot` | The target funding pot |
+| `amount` | The amount that was transferred |
+| `token` | The token address being transferred |
+
+___
+
 ### pay
 
-▸ **pay**(`recipient`, `amount`, `tokenAddress?`, `teamId?`): `Promise`<[{}, `ContractReceipt`]\>
+▸ **pay**(`recipient`, `amount`, `teamId?`, `tokenAddress?`): `Promise`<[{ `agent?`: `string` ; `fundamentalId?`: `BigNumber` ; `nPayouts?`: `BigNumber`  }, `ContractReceipt`]\>
 
 Make a payment to a single address using a single token
 
@@ -227,12 +280,12 @@ import { Tokens } from '@colony/sdk';
 | :------ | :------ | :------ | :------ |
 | `recipient` | `string` | `undefined` | Wallet address of account to send the funds to (also awarded reputation when sending the native token) |
 | `amount` | `BigNumberish` | `undefined` | Amount to pay in wei |
+| `teamId` | `BigNumberish` | `Id.RootDomain` | The team to use to send the funds from. Has to have funding of at least the amount you need to send. See [Colony.moveFundsToTeam](ColonyNetwork.Colony.md#movefundstoteam). Defaults to the Colony's root team |
 | `tokenAddress` | `string` | `undefined` | The address of the token to make the payment in. Default is the Colony's native token |
-| `teamId` | `number` | `Id.RootDomain` | The team to use to send the funds from. Has to have funding of at least the amount you need to send. See [[Colony.moveFundsBetweenTeams]]. Defaults to the Colony's root team |
 
 #### Returns
 
-`Promise`<[{}, `ContractReceipt`]\>
+`Promise`<[{ `agent?`: `string` ; `fundamentalId?`: `BigNumber` ; `nPayouts?`: `BigNumber`  }, `ContractReceipt`]\>
 
 A tupel of event data and contract receipt
 

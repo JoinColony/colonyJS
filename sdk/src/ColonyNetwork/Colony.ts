@@ -9,8 +9,11 @@ import {
 
 import {
   ColonyFundsClaimed_address_uint256_uint256_EventObject,
+  // eslint-disable-next-line max-len
+  ColonyFundsMovedBetweenFundingPots_address_uint256_uint256_uint256_address_EventObject,
   DomainAdded_uint256_EventObject,
   FundingPotAddedEventObject,
+  OneTxPaymentMadeEventObject,
 } from '@colony/colony-js/extras';
 import type { BigNumberish } from 'ethers';
 
@@ -193,7 +196,7 @@ export class Colony {
    * @param recipient Wallet address of account to send the funds to (also awarded reputation when sending the native token)
    * @param amount Amount to pay in wei
    * @param tokenAddress The address of the token to make the payment in. Default is the Colony's native token
-   * @param teamId The team to use to send the funds from. Has to have funding of at least the amount you need to send. See [[Colony.moveFundsBetweenTeams]]. Defaults to the Colony's root team
+   * @param teamId The team to use to send the funds from. Has to have funding of at least the amount you need to send. See [[Colony.moveFundsToTeam]]. Defaults to the Colony's root team
    * @returns A tupel of event data and contract receipt
    *
    * **Event data**
@@ -205,8 +208,8 @@ export class Colony {
   async pay(
     recipient: string,
     amount: BigNumberish,
+    teamId: BigNumberish = Id.RootDomain,
     tokenAddress: string = this.colonyClient.tokenClient.address,
-    teamId: number = Id.RootDomain,
   ) {
     const oneTxClient = await this.colonyClient.getExtensionClient(
       Extension.OneTxPayment,
@@ -224,8 +227,71 @@ export class Colony {
 
     const receipt = await tx.wait();
     const data = {
-      // TODO: Add this line (export from ColonyJS first)
-      // ...extractEvent<OneTxPaymentMadeEventObject>('OneTxPaymentMade', receipt),
+      ...extractEvent<OneTxPaymentMadeEventObject>('OneTxPaymentMade', receipt),
+    };
+
+    return [data, receipt] as [typeof data, typeof receipt];
+  }
+
+  /**
+   * Move funds from one team to another
+   *
+   * After sending funds to and claiming funds for your Colony they will land in a special team, the root team. If you want to make payments from other teams (in order to award reputation in that team) you have to move the funds there first. Use this method to do so.
+   *
+   * @remarks Requires the `Funding` permission in the root team. As soon as teams can be nested, this requires the `Funding` permission in a team that is a parent of both teams in which funds are moved.
+   *
+   * @example
+   * ```typescript
+   * import { utils } from 'ethers';
+   * import { Tokens } from '@colony/sdk';
+   *
+   * // Immediately executing async function
+   * (async function() {
+   *   // Move 10 of the native token from team 2 to team 3
+   *   await colony.moveFunds(
+   *      utils.parseUnits('10'),
+   *      2,
+   *      3,
+   *   );
+   * })();
+   * ```
+   *
+   * @param amount Amount to transfer between the teams
+   * @param toTeam The team to transfer the funds to
+   * @param fromTeam The team to transfer the funds from. Default is the Root team
+   * @param tokenAddress The address of the token to be transferred. Default is the Colony's native token
+   * @returns A tupel of event data and contract receipt
+   *
+   * **Event data**
+   * | Property | Description |
+   * | :------ | :------ |
+   * | `agent` | The address that is responsible for triggering this event |
+   * | `fromPot` | The source funding pot |
+   * | `toPot` | The target funding pot |
+   * | `amount` | The amount that was transferred |
+   * | `token` | The token address being transferred |
+   */
+  async moveFundsToTeam(
+    amount: BigNumberish,
+    toTeam: BigNumberish,
+    fromTeam: BigNumberish = Id.RootDomain,
+    tokenAddress: string = this.colonyClient.tokenClient.address,
+  ) {
+    const { fundingPotId: fromPot } = await this.colonyClient.getDomain(
+      fromTeam,
+    );
+    const { fundingPotId: toPot } = await this.colonyClient.getDomain(toTeam);
+    const tx = await this.colonyClient[
+      'moveFundsBetweenPotsWithProofs(uint256,uint256,uint256,uint256,address)'
+    ](Id.RootDomain, fromPot, toPot, amount, tokenAddress);
+    const receipt = await tx.wait();
+
+    const data = {
+      // eslint-disable-next-line max-len
+      ...extractEvent<ColonyFundsMovedBetweenFundingPots_address_uint256_uint256_uint256_address_EventObject>(
+        'ColonyFundsMovedBetweenFundingPots',
+        receipt,
+      ),
     };
 
     return [data, receipt] as [typeof data, typeof receipt];
