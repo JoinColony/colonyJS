@@ -1,102 +1,55 @@
 import { providers, utils, Signer, ContractReceipt, BigNumber } from 'ethers';
-import {
-  ColonyClientV8,
-  Extension,
-  getColonyNetworkClient,
-  Network,
-  Id,
-} from '@colony/colony-js';
-import { formatEther } from 'ethers/lib/utils';
 
-const { isAddress, parseEther } = utils;
+import { Colony, ColonyNetwork } from '../../../src';
+
+const { formatEther, isAddress, parseUnits } = utils;
 const provider = new providers.Web3Provider((window as any).ethereum);
 
-let colonyClient: ColonyClientV8;
+let colony: Colony;
 const domainData: { fundingPotId?: BigNumber; domainId?: BigNumber } = {};
 
 // Instantiate a colony client
-const getColonyClient = async (colonyAddress: string, signer: Signer) => {
-  const colonyNetworkClient = getColonyNetworkClient(Network.Xdai, signer);
-  return colonyNetworkClient.getColonyClient(colonyAddress);
+const getColony = async (colonyAddress: string, signer: Signer) => {
+  const colonyNetwork = new ColonyNetwork(signer);
+  return colonyNetwork.getColony(colonyAddress);
 };
 
 // Get the Colony's native token funding in the ROOT pot (id 1)
 const getColonyFunding = async () => {
-  const tokenAddress = colonyClient.tokenClient.address;
-  const funding = await colonyClient.getFundingPotBalance(
-    Id.RootPot,
-    tokenAddress,
-  );
+  const funding = await colony.getBalance();
   return formatEther(funding);
 };
 
 // Create a new domain within that colony with the `domainName` as metadata
 // Make sure the MetaMask user has the FUNDING and ADMINISTRATION permissions in the Root domain of the connected Colony (default if you have created that Colony)
-const createDomain = async (
-  domainName: string,
-): Promise<{
+const createTeam = async (): Promise<{
   receipt: ContractReceipt;
   domainId: BigNumber;
   fundingPotId: BigNumber;
 }> => {
-  const tx = await colonyClient['addDomainWithProofs(uint256,string)'](
-    // Parent domain of the newly created one
-    Id.RootDomain,
-    // Domain name of the new domain. It's stored as 'metadata'. Can be any string (e.g. also an IPFS hash)
-    domainName,
-  );
-  // Wait until transaction is mined, then get its receipt
-  const receipt = await tx.wait();
-  // Extract relevant event data
-  const {
-    args: { domainId },
-  } = receipt.events.find((ev) => ev.event === 'DomainAdded');
-  const {
-    args: { fundingPotId },
-  } = receipt.events.find((ev) => ev.event === 'FundingPotAdded');
+  const [{ domainId, fundingPotId }, receipt] = await colony.createTeam();
   return { receipt, domainId, fundingPotId };
 };
 
-// Move funds from the Root pot to the pot of the pot of the newly created domain
-// Make sure there are enough funds of the native token in the Root pot (e.g. by minting them via the Dapp interface)
+// Move funds from the Root team (default) to the the newly created team
+// Make sure there are enough funds of the native token in the Root teams pot (e.g. by minting them via the Dapp interface)
 const moveFunds = async (): Promise<ContractReceipt> => {
-  const tx = await colonyClient[
-    'moveFundsBetweenPotsWithProofs(uint256,uint256,uint256,uint256,address)'
-  ](
-    // Domain id in which the move occurs (ideally a parent domain of both pot-domains that the user has the FUNDING permission in)
-    Id.RootDomain,
-    // Pot from which the funds should come from (here the pot associated with the root domain)
-    Id.RootPot,
-    // Pot that should be funded. Here it's the pot associated with the newly created team
-    domainData.fundingPotId,
-    // Fund pot with this amount of the token. It's in wei, so we use ether's `parseEther` function
-    parseEther('0.66'),
-    // Token address of the token that should be transferred bewtween the pots, here the Colony's native token
-    colonyClient.tokenClient.address,
+  const [, receipt] = await colony.moveFundsToTeam(
+    parseUnits('0.66'),
+    domainData.domainId,
   );
-  return tx.wait();
+  return receipt;
 };
 
 // Make a payment to a user from the newly created and funded domain. This will cause the user to have reputation in the new domain after the next reputation mining cycle (max 24h)
 const makePayment = async (to: string): Promise<ContractReceipt> => {
-  const oneTxClient = await colonyClient.getExtensionClient(
-    Extension.OneTxPayment,
-  );
-  const { tokenClient } = colonyClient;
   // Create payment in newly created domain
-  const tx = await oneTxClient.makePaymentFundedFromDomainWithProofs(
-    // Addresses to which to send the payment (here it's only one)
-    [to],
-    // Token which should be sent
-    [tokenClient.address],
-    // Amount to send (in wei)
-    [parseEther('0.42')],
-    // Domain from which to take the funding
+  const [, receipt] = await colony.pay(
+    to,
+    parseUnits('0.42'),
     domainData.domainId,
-    // Skill associated with this payment. Ignore for now
-    Id.SkillIgnore,
   );
-  return tx.wait();
+  return receipt;
 };
 
 // Connect to MetaMask by requesting the accounts list
@@ -108,7 +61,6 @@ const connect = async () => {
 // Some setup to display the UI
 const inputAddress: HTMLInputElement = document.querySelector('#address');
 const buttonConnect = document.querySelector('#button_connect');
-const inputTeam: HTMLInputElement = document.querySelector('#team');
 const buttonTeam = document.querySelector('#button_team');
 const buttonFund = document.querySelector('#button_fund');
 const inputRecipient: HTMLInputElement = document.querySelector('#recipient');
@@ -137,16 +89,14 @@ buttonConnect.addEventListener('click', async () => {
   speak('Processing...');
   const signer = await connect();
   try {
-    const cc = await getColonyClient(inputAddress.value, signer);
-    if (cc.clientVersion !== 8) {
-      throw new Error(`Wrong colony version: ${cc.clientVersion}, expected: 8`);
-    }
-    colonyClient = cc;
+    const cc = await getColony(inputAddress.value, signer);
+    colony = cc;
     const funding = await getColonyFunding();
-    const tokenSymbol = await cc.tokenClient.symbol();
+    const token = cc.getToken();
+    const tokenSymbol = await token.symbol();
     speak(`
             Connected to Colony with address: ${colonyAddress}.
-            Colony version: ${cc.clientVersion}.
+            Colony version: ${cc.version}.
             Native token funding: ${funding} ${tokenSymbol}
         `);
   } catch (e) {
@@ -159,10 +109,9 @@ buttonConnect.addEventListener('click', async () => {
 });
 
 buttonTeam.addEventListener('click', async () => {
-  const domainName = inputTeam.value;
   try {
     speak('Processing...');
-    const { domainId, fundingPotId } = await createDomain(domainName);
+    const { domainId, fundingPotId } = await createTeam();
     domainData.domainId = domainId;
     domainData.fundingPotId = fundingPotId;
     speak(
@@ -172,7 +121,6 @@ buttonTeam.addEventListener('click', async () => {
     panik(e);
     speak('');
   }
-  inputTeam.value = '';
 });
 
 buttonFund.addEventListener('click', async () => {
@@ -200,5 +148,5 @@ buttonPay.addEventListener('click', async () => {
     panik(e);
     speak('');
   }
-  speak(`Successfully paid 1 token to ${recipient}`);
+  speak(`Successfully paid 0.42 tokens to ${recipient}`);
 });
