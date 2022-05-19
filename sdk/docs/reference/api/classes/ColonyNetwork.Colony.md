@@ -183,7 +183,7 @@ ___
 
 ### getToken
 
-▸ **getToken**(): `ColonyToken`
+▸ **getToken**(): [`ColonyToken`](ColonyNetwork.ColonyToken.md)
 
 Get a new instance of a Colony's native Token
 
@@ -192,9 +192,9 @@ Currently only Tokens deployed via Colony are supported (no external, imported t
 
 #### Returns
 
-`ColonyToken`
+[`ColonyToken`](ColonyNetwork.ColonyToken.md)
 
-A [[Token]] abstaction instance
+A [ColonyNetwork.ColonyToken](ColonyNetwork.ColonyToken.md) abstaction instance
 
 ___
 

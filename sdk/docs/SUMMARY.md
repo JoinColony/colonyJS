@@ -16,6 +16,7 @@
     * [ColonyEvents.ColonyEvents](reference/api/classes/ColonyEvents.ColonyEvents-1.md)
     * [ColonyNetwork.Colony](reference/api/classes/ColonyNetwork.Colony.md)
     * [ColonyNetwork.ColonyNetwork](reference/api/classes/ColonyNetwork.ColonyNetwork-1.md)
+    * [ColonyNetwork.ColonyToken](reference/api/classes/ColonyNetwork.ColonyToken.md)
   * [Interfaces](references/api/interfaces/README.md)
     * [ColonyEvents.ColonyEvent](reference/api/interfaces/ColonyEvents.ColonyEvent.md)
     * [ColonyEvents.ColonyFilter](reference/api/interfaces/ColonyEvents.ColonyFilter.md)

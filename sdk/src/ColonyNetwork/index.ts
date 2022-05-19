@@ -5,3 +5,4 @@
 
 export { ColonyNetwork } from './ColonyNetwork';
 export { Colony } from './Colony';
+export { ColonyToken } from './ColonyToken';

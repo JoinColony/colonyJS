@@ -73,7 +73,7 @@ export class Colony {
    * @remarks
    * Currently only Tokens deployed via Colony are supported (no external, imported tokens) in Colony SDK. All other kinds will throw an error
    *
-   * @returns A [[Token]] abstaction instance
+   * @returns A [[ColonyNetwork.ColonyToken]] abstaction instance
    */
   getToken(): ColonyToken {
     return new ColonyToken(this.colonyClient);
