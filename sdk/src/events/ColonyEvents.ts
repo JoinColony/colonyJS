@@ -4,7 +4,7 @@
  */
 
 import { constants, providers, EventFilter } from 'ethers';
-import { Result } from 'ethers/lib/utils';
+import type { Result } from 'ethers/lib/utils';
 import type { BlockTag } from '@ethersproject/abstract-provider';
 import {
   IColonyEvents,
@@ -13,8 +13,14 @@ import {
   IColonyNetwork__factory,
 } from '@colony/colony-js/extras';
 
-import { addressesAreEqual, getLogs, nonNullable } from './utils';
-import { Ethers6Filter } from './types';
+import {
+  IpfsMetadata,
+  IPFS_METADATA,
+  MetadataKey,
+  MetadataValue,
+} from './IpfsMetadata';
+import type { Ethers6Filter } from '../types';
+import { addressesAreEqual, getLogs, nonNullable } from '../utils';
 
 /** Valid sources for Colony emitted events. Used to map the parsed event data */
 export interface EventSources {
@@ -44,10 +50,20 @@ export interface ColonyMultiFilter
   topic: string;
 }
 
-/** An Event that came from a contract within the Colony Network */
-export interface ColonyEvent extends ColonyFilter {
+export interface ColonyEventWithoutMetadata extends ColonyFilter {
   data: Result;
 }
+
+export interface ColonyEventWithMetadata<T extends MetadataKey>
+  extends ColonyEventWithoutMetadata {
+  getMetadata: () => Promise<MetadataValue<T>>;
+}
+
+/** An Event that came from a contract within the Colony Network */
+export type ColonyEvent<T extends MetadataKey | undefined = undefined> =
+  T extends MetadataKey
+    ? ColonyEventWithMetadata<T>
+    : ColonyEventWithoutMetadata;
 
 /**
  * The ColonyEvents class is a wrapper around _ethers_'s event implementations to make it easier to track and fetch Colony related events.
@@ -59,6 +75,8 @@ export interface ColonyEvent extends ColonyFilter {
  */
 export class ColonyEvents {
   eventSources: EventSources;
+
+  ipfsMetadata: IpfsMetadata;
 
   provider: providers.JsonRpcProvider;
 
@@ -73,7 +91,6 @@ export class ColonyEvents {
    * @returns A ColonyEvents instance
    */
   constructor(provider: providers.JsonRpcProvider) {
-    this.provider = provider;
     this.eventSources = {
       Colony: IColonyEvents__factory.connect(constants.AddressZero, provider),
       ColonyNetwork: IColonyNetwork__factory.connect(
@@ -81,6 +98,8 @@ export class ColonyEvents {
         provider,
       ),
     };
+    this.ipfsMetadata = new IpfsMetadata();
+    this.provider = provider;
   }
 
   private static extractSingleTopic(filter?: ColonyFilter) {
@@ -123,7 +142,7 @@ export class ColonyEvents {
    * @param filter A [[ColonyFilter]]. [[ColonyMultiFilters]] will not work
    * @returns An array of [[ColonyEvent]]s
    */
-  async getEvents(filter: ColonyFilter): Promise<ColonyEvent[]> {
+  async getEvents(filter: ColonyFilter): Promise<Array<ColonyEvent>> {
     const logs = await getLogs(filter, this.provider);
 
     return logs
@@ -134,6 +153,18 @@ export class ColonyEvents {
           log.data,
           log.topics,
         );
+        if (eventName in IPFS_METADATA) {
+          return {
+            ...filter,
+            data,
+            getMetadata: async () => {
+              return this.ipfsMetadata.getMetadataForEvent(
+                eventName as MetadataKey,
+                data.metadata,
+              );
+            },
+          };
+        }
         return {
           ...filter,
           data,

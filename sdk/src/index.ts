@@ -6,13 +6,13 @@
 export { Tokens } from '@colony/colony-js';
 
 export { ColonyNetwork, Colony } from './ColonyNetwork';
-export { ColonyEvents } from './ColonyEvents';
+export { ColonyEvents } from './events/ColonyEvents';
 
 export type {
   ColonyFilter,
   ColonyMultiFilter,
   ColonyEvent,
-} from './ColonyEvents';
+} from './events/ColonyEvents';
 
 export * from './constants';
 

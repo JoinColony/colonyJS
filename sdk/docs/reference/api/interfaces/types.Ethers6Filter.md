@@ -12,7 +12,7 @@ Ethers 6 supports mulitple addresses in a filter. Until then we have this
 
   ↳ **`Ethers6Filter`**
 
-  ↳↳ [`ColonyFilter`](ColonyEvents.ColonyFilter.md)
+  ↳↳ [`ColonyFilter`](events.ColonyFilter.md)
 
 ## Table of contents
 

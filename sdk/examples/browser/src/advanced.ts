@@ -23,12 +23,28 @@ const getColonyFunding = async () => {
 // Create a new domain within that colony with the `domainName` as metadata
 // Make sure the MetaMask user has the FUNDING and ADMINISTRATION permissions in the Root domain of the connected Colony (default if you have created that Colony)
 const createTeam = async (): Promise<{
-  receipt: ContractReceipt;
   domainId: BigNumber;
   fundingPotId: BigNumber;
+  domainName: string;
+  domainColor: string;
+  domainPurpose: string;
 }> => {
-  const [{ domainId, fundingPotId }, receipt] = await colony.createTeam();
-  return { receipt, domainId, fundingPotId };
+  // This is to demonstrate the Colony SDK's IPFS capabilities. For now, we would like to keep it agnostic to any IPFS upload mechanism, so you have to provide your own hash
+  // You can see how the data looks like here: https://cloudflare-ipfs.com/ipfs/QmVgJC8WNJCzkZYLPuVPG5gvSzLvLZTxvb24Sj5Nca4jW2
+  const ipfsTestHash = 'QmVgJC8WNJCzkZYLPuVPG5gvSzLvLZTxvb24Sj5Nca4jW2';
+  const [{ domainId, fundingPotId }, , getMetadata] = await colony.createTeam(
+    ipfsTestHash,
+  );
+
+  const { domainName, domainColor, domainPurpose } = await getMetadata();
+
+  return {
+    domainId,
+    fundingPotId,
+    domainName,
+    domainColor,
+    domainPurpose,
+  };
 };
 
 // Move funds from the Root team (default) to the the newly created team
@@ -111,11 +127,12 @@ buttonConnect.addEventListener('click', async () => {
 buttonTeam.addEventListener('click', async () => {
   try {
     speak('Processing...');
-    const { domainId, fundingPotId } = await createTeam();
+    const { domainId, domainName, domainPurpose, fundingPotId } =
+      await createTeam();
     domainData.domainId = domainId;
     domainData.fundingPotId = fundingPotId;
     speak(
-      `Team with domainId ${domainId} and fundingPotId ${fundingPotId} successfully created`,
+      `Team with domainId ${domainId} and fundingPotId ${fundingPotId} successfully created. It is called "${domainName}" and has the purpose "${domainPurpose}"`,
     );
   } catch (e) {
     panik(e);

@@ -1,8 +1,8 @@
-[Colony SDK 🚀](../README.md) / [Modules](../modules.md) / [ColonyEvents](../modules/ColonyEvents.md) / ColonyFilter
+[Colony SDK 🚀](../README.md) / [Modules](../modules.md) / [events](../modules/events.md) / ColonyFilter
 
 # Interface: ColonyFilter
 
-[ColonyEvents](../modules/ColonyEvents.md).ColonyFilter
+[events](../modules/events.md).ColonyFilter
 
 A Colony extended ethers Filter to keep track of where events are coming from
 
@@ -12,18 +12,18 @@ A Colony extended ethers Filter to keep track of where events are coming from
 
   ↳ **`ColonyFilter`**
 
-  ↳↳ [`ColonyEvent`](ColonyEvents.ColonyEvent.md)
+  ↳↳ [`ColonyEventWithoutMetadata`](events.ColonyEventWithoutMetadata.md)
 
 ## Table of contents
 
 ### Properties
 
-- [address](ColonyEvents.ColonyFilter.md#address)
-- [eventName](ColonyEvents.ColonyFilter.md#eventname)
-- [eventSource](ColonyEvents.ColonyFilter.md#eventsource)
-- [fromBlock](ColonyEvents.ColonyFilter.md#fromblock)
-- [toBlock](ColonyEvents.ColonyFilter.md#toblock)
-- [topics](ColonyEvents.ColonyFilter.md#topics)
+- [address](events.ColonyFilter.md#address)
+- [eventName](events.ColonyFilter.md#eventname)
+- [eventSource](events.ColonyFilter.md#eventsource)
+- [fromBlock](events.ColonyFilter.md#fromblock)
+- [toBlock](events.ColonyFilter.md#toblock)
+- [topics](events.ColonyFilter.md#topics)
 
 ## Properties
 
@@ -45,7 +45,7 @@ ___
 
 ### eventSource
 
-• **eventSource**: keyof [`EventSources`](ColonyEvents.EventSources.md)
+• **eventSource**: keyof [`EventSources`](events.EventSources.md)
 
 ___
 

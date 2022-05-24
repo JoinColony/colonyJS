@@ -9,6 +9,7 @@
 ### Properties
 
 - [address](ColonyNetwork.Colony.md#address)
+- [colonyNetwork](ColonyNetwork.Colony.md#colonynetwork)
 - [version](ColonyNetwork.Colony.md#version)
 - [SupportedVersions](ColonyNetwork.Colony.md#supportedversions)
 
@@ -22,12 +23,19 @@
 - [getToken](ColonyNetwork.Colony.md#gettoken)
 - [moveFundsToTeam](ColonyNetwork.Colony.md#movefundstoteam)
 - [pay](ColonyNetwork.Colony.md#pay)
+- [returnTxData](ColonyNetwork.Colony.md#returntxdata)
 
 ## Properties
 
 ### address
 
 • **address**: `string`
+
+___
+
+### colonyNetwork
+
+• **colonyNetwork**: [`ColonyNetwork`](ColonyNetwork.ColonyNetwork-1.md)
 
 ___
 
@@ -42,7 +50,7 @@ ___
 ▪ `Static` **SupportedVersions**: (``8`` \| ``9``)[]
 
 The currently supported Colony version. If a Colony is not on this version it has to be upgraded.
-If this is not an option, ColonySDK might throw errors at certain points. Usage of ColonyJS is advised in these cases
+If this is not an option, Colony SDK might throw errors at certain points. Usage of ColonyJS is advised in these cases
 
 ## Methods
 
@@ -67,36 +75,50 @@ Anyone can call this function. Claims funds _for_ the Colony that have been sent
 A tupel of event data and contract receipt
 
 **Event data**
-| Property | Description |
-| :------ | :------ |
-| `agent` | The address that is responsible for triggering this event |
-| `token` | The token address |
-| `fee` | The fee deducted for rewards |
-| `payoutRemainder` | The remaining funds moved to the top-level domain pot |
+| Property | Type | Description |
+| :------ | :------ | :------ |
+| `agent` | string | The address that is responsible for triggering this event |
+| `token` | string | The token address |
+| `fee` | BigNumber | The fee deducted for rewards |
+| `payoutRemainder` | BigNumber | The remaining funds moved to the top-level domain pot |
 
 ___
 
 ### createTeam
 
-▸ **createTeam**(): `Promise`<[{ `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber`  }, `ContractReceipt`]\>
+▸ **createTeam**(`metadataCid?`): `Promise`<[{ `agent?`: `string` ; `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber` ; `metadata?`: `string`  }, `ContractReceipt`, () => `Promise`<{ `domainColor`: `string` ; `domainName`: `string` ; `domainPurpose`: `string`  }\>] \| [{ `agent?`: `string` ; `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber` ; `metadata?`: `string`  }, `ContractReceipt`]\>
 
 Create a team within a Colony
 
 **`remarks`**
 Currently you can only add domains within the `Root` domain. This restriction will be lifted soon
 
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `metadataCid?` | `string` | An IPFS [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file containing the metadata described below. For now, we would like to keep it agnostic to any IPFS upload mechanism, so you have to upload the file manually and provide your own hash (by using, for example, [Pinata](https://docs.pinata.cloud/)) |
+
 #### Returns
 
-`Promise`<[{ `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber`  }, `ContractReceipt`]\>
+`Promise`<[{ `agent?`: `string` ; `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber` ; `metadata?`: `string`  }, `ContractReceipt`, () => `Promise`<{ `domainColor`: `string` ; `domainName`: `string` ; `domainPurpose`: `string`  }\>] \| [{ `agent?`: `string` ; `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber` ; `metadata?`: `string`  }, `ContractReceipt`]\>
 
-A tupel of event data and contract receipt
+A tupel: `[eventData, ContractReceipt, getMetaData]`
 
 **Event data**
-| Property | Description |
-| :------ | :------ |
-| `agent` | The address that is responsible for triggering this event |
-| `domainId` | Integer domain id of the created team |
-| `fundingPotId` | Integer id of the corresponding funding pot |
+| Property | Type | Description |
+| :------ | :------ | :------ |
+| `agent` | string | The address that is responsible for triggering this event |
+| `domainId` | BigNumber | Integer domain id of the created team |
+| `fundingPotId` | BigNumber | Integer id of the corresponding funding pot |
+| `metadata` | string | IPFS CID of metadata attached to this transaction |
+
+**Metadata** (can be obtained by calling and awaiting the `getMetadata` function)
+| Property | Type | Description |
+| :------ | :------ | :------ |
+| `domainName` | string | The human readable name assigned to this team |
+| `domainColor` | string | The color assigned to this team |
+| `domainPurpose` | string | The purpose for this team (a broad description) |
 
 ___
 
@@ -240,13 +262,13 @@ import { Tokens } from '@colony/sdk';
 A tupel of event data and contract receipt
 
 **Event data**
-| Property | Description |
-| :------ | :------ |
-| `agent` | The address that is responsible for triggering this event |
-| `fromPot` | The source funding pot |
-| `toPot` | The target funding pot |
-| `amount` | The amount that was transferred |
-| `token` | The token address being transferred |
+| Property | Type | Description |
+| :------ | :------ | :------ |
+| `agent` | string | The address that is responsible for triggering this event |
+| `fromPot` | BigNumber | The source funding pot |
+| `toPot` | BigNumber | The target funding pot |
+| `amount` | BigNumber | The amount that was transferred |
+| `token` | string | The token address being transferred |
 
 ___
 
@@ -290,7 +312,33 @@ import { Tokens } from '@colony/sdk';
 A tupel of event data and contract receipt
 
 **Event data**
-| Property | Description |
+| Property | Type | Description |
+| :------ | :------ | :------ |
+| `agent` | string | The address that is responsible for triggering this event |
+| `fundamentalId` | BigNumber | The newly added payment id |
+| `nPayouts` | BigNumber | Number of payouts in total |
+
+___
+
+### returnTxData
+
+▸ **returnTxData**<`D`, `E`\>(`data`, `metadataEvent`, `receipt`): `Promise`<[`D`, `ContractReceipt`, () => `Promise`<[`MetadataValue`](../modules/events.md#metadatavalue)<`E`\>\>] \| [`D`, `ContractReceipt`]\>
+
+#### Type parameters
+
+| Name | Type |
 | :------ | :------ |
-| `agent` | The address that is responsible for triggering this event |
-| `paymentId` | The newly added payment id |
+| `D` | extends `Object` |
+| `E` | extends ``"DomainMetadata"`` \| ``"Annotation"`` \| ``"ColonyMetadata"`` |
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `data` | `D` |
+| `metadataEvent` | `E` |
+| `receipt` | `ContractReceipt` |
+
+#### Returns
+
+`Promise`<[`D`, `ContractReceipt`, () => `Promise`<[`MetadataValue`](../modules/events.md#metadatavalue)<`E`\>\>] \| [`D`, `ContractReceipt`]\>

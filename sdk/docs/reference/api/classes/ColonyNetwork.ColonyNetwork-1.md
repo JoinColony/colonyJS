@@ -12,6 +12,7 @@
 
 ### Properties
 
+- [ipfsMetadata](ColonyNetwork.ColonyNetwork-1.md#ipfsmetadata)
 - [networkClient](ColonyNetwork.ColonyNetwork-1.md#networkclient)
 
 ### Methods
@@ -50,6 +51,12 @@ const colonyNetwork = new ColonyNetwork(provider);
 | `options?` | `NetworkClientOptions` | Pass in a custom ColonyNetwork address or Reputation Miner endpoint |
 
 ## Properties
+
+### ipfsMetadata
+
+• **ipfsMetadata**: [`IpfsMetadata`](events.IpfsMetadata.md)
+
+___
 
 ### networkClient
 

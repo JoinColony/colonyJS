@@ -6,12 +6,15 @@ import {
   SignerOrProvider,
 } from '@colony/colony-js';
 
+import { IpfsMetadata } from '../events/IpfsMetadata';
 import { Colony } from './Colony';
 
 export class ColonyNetwork {
-  networkClient: ColonyNetworkClient;
-
   private signerOrProvider: SignerOrProvider;
+
+  ipfsMetadata: IpfsMetadata;
+
+  networkClient: ColonyNetworkClient;
 
   /**
    * Creates a new instance to connect to the ColonyNetwork
@@ -40,6 +43,7 @@ export class ColonyNetwork {
     options?: NetworkClientOptions,
   ) {
     const network = options?.networkAddress ? Network.Custom : Network.Xdai;
+    this.ipfsMetadata = new IpfsMetadata();
     this.networkClient = getColonyNetworkClient(
       network,
       signerOrProvider,
@@ -70,7 +74,7 @@ export class ColonyNetwork {
         `The version of this Colony ${colonyClient.clientVersion} is not supported by Colony SDK. Please update your Colony`,
       );
     }
-    return new Colony(colonyClient);
+    return new Colony(this, colonyClient);
   }
 
   /**

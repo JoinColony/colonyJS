@@ -6,7 +6,7 @@
 
 ### Modules
 
-- [ColonyEvents](modules/ColonyEvents.md)
 - [ColonyNetwork](modules/ColonyNetwork.md)
 - [constants](modules/constants.md)
+- [events](modules/events.md)
 - [types](modules/types.md)

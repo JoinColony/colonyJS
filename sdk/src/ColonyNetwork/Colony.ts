@@ -1,7 +1,6 @@
 import {
   ColonyClientV8,
   ColonyClientV9,
-  ColonyNetworkClient,
   SignerOrProvider,
   Id,
   Extension,
@@ -12,29 +11,42 @@ import {
   // eslint-disable-next-line max-len
   ColonyFundsMovedBetweenFundingPots_address_uint256_uint256_uint256_address_EventObject,
   DomainAdded_uint256_EventObject,
+  DomainMetadataEventObject,
   FundingPotAddedEventObject,
   OneTxPaymentMadeEventObject,
 } from '@colony/colony-js/extras';
-import type { BigNumberish } from 'ethers';
+import type {
+  BigNumberish,
+  ContractReceipt,
+  ContractTransaction,
+} from 'ethers';
 
 import { ColonyToken } from './ColonyToken';
 import { extractEvent } from '../utils';
+import { ColonyNetwork } from './ColonyNetwork';
+import { MetadataKey, MetadataValue } from '../events';
 
 export type SupportedColonyClient = ColonyClientV8 | ColonyClientV9;
 
+export interface TransactionResult<D, E extends MetadataKey> {
+  data: D;
+  receipt: ContractReceipt;
+  getMetadata?: () => Promise<MetadataValue<E>>;
+}
+
 export class Colony {
   /** The currently supported Colony version. If a Colony is not on this version it has to be upgraded.
-   * If this is not an option, ColonySDK might throw errors at certain points. Usage of ColonyJS is advised in these cases
+   * If this is not an option, Colony SDK might throw errors at certain points. Usage of ColonyJS is advised in these cases
    */
   static SupportedVersions: (8 | 9)[] = [8, 9];
 
   private colonyClient: SupportedColonyClient;
 
-  private networkClient: ColonyNetworkClient;
-
   private signerOrProvider: SignerOrProvider;
 
   address: string;
+
+  colonyNetwork: ColonyNetwork;
 
   version: number;
 
@@ -45,14 +57,18 @@ export class Colony {
    * @remarks
    * Do not use this method directly but use [[ColonyNetwork.getColony]]
    *
+   * @param colonyNetwork A Colony SDK `ColonyNetwork` instance
    * @param colonyClient A ColonyJS `ColonyClient` in the latest supported version
    * @returns A [[Colony]] abstaction instance
    */
-  constructor(colonyClient: SupportedColonyClient) {
+  constructor(
+    colonyNetwork: ColonyNetwork,
+    colonyClient: SupportedColonyClient,
+  ) {
     this.colonyClient = colonyClient;
-    this.networkClient = colonyClient.networkClient;
     this.signerOrProvider = colonyClient.signer || colonyClient.provider;
     this.address = colonyClient.address;
+    this.colonyNetwork = colonyNetwork;
     this.version = colonyClient.clientVersion;
   }
 
@@ -115,28 +131,69 @@ export class Colony {
    * @remarks
    * Currently you can only add domains within the `Root` domain. This restriction will be lifted soon
    *
+   * @param metadataCid An IPFS [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file containing the metadata described below. For now, we would like to keep it agnostic to any IPFS upload mechanism, so you have to upload the file manually and provide your own hash (by using, for example, [Pinata](https://docs.pinata.cloud/))
    *
-   * @returns A tupel of event data and contract receipt
+   * @returns A tupel: `[eventData, ContractReceipt, getMetaData]`
    *
    * **Event data**
-   * | Property | Description |
-   * | :------ | :------ |
-   * | `agent` | The address that is responsible for triggering this event |
-   * | `domainId` | Integer domain id of the created team |
-   * | `fundingPotId` | Integer id of the corresponding funding pot |
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `agent` | string | The address that is responsible for triggering this event |
+   * | `domainId` | BigNumber | Integer domain id of the created team |
+   * | `fundingPotId` | BigNumber | Integer id of the corresponding funding pot |
+   * | `metadata` | string | IPFS CID of metadata attached to this transaction |
+   *
+   * **Metadata** (can be obtained by calling and awaiting the `getMetadata` function)
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `domainName` | string | The human readable name assigned to this team |
+   * | `domainColor` | string | The color assigned to this team |
+   * | `domainPurpose` | string | The purpose for this team (a broad description) |
    */
-  async createTeam() {
-    const tx = await this.colonyClient['addDomainWithProofs(uint256)'](
-      Id.RootDomain,
-    );
+  async createTeam(metadataCid?: string) {
+    let tx: ContractTransaction;
+
+    if (metadataCid) {
+      tx = await this.colonyClient['addDomainWithProofs(uint256,string)'](
+        Id.RootDomain,
+        metadataCid,
+      );
+    } else {
+      tx = await this.colonyClient['addDomainWithProofs(uint256)'](
+        Id.RootDomain,
+      );
+    }
+
     const receipt = await tx.wait();
 
     const data = {
       ...extractEvent<DomainAdded_uint256_EventObject>('DomainAdded', receipt),
       ...extractEvent<FundingPotAddedEventObject>('FundingPotAdded', receipt),
+      ...extractEvent<DomainMetadataEventObject>('DomainMetadata', receipt),
     };
 
-    return [data, receipt] as [typeof data, typeof receipt];
+    return this.returnTxData(data, 'DomainMetadata', receipt);
+  }
+
+  async returnTxData<D extends { metadata?: string }, E extends MetadataKey>(
+    data: D,
+    metadataEvent: E,
+    receipt: ContractReceipt,
+  ): Promise<
+    [D, ContractReceipt, () => Promise<MetadataValue<E>>] | [D, ContractReceipt]
+  > {
+    if (data.metadata) {
+      const getMetadata =
+        this.colonyNetwork.ipfsMetadata.getMetadataForEvent.bind(
+          this.colonyNetwork.ipfsMetadata,
+          metadataEvent,
+          data.metadata,
+        );
+
+      return [data, receipt, getMetadata];
+    }
+
+    return [data, receipt];
   }
 
   /**
@@ -145,15 +202,16 @@ export class Colony {
    * Anyone can call this function. Claims funds _for_ the Colony that have been sent to the Colony's contract address or minted funds of the Colony's native token. This function _has_ to be called in order for the funds to appear in the Colony's treasury. You can provide a token address for the token to be claimed. Otherwise it will claim the outstanding funds of the Colony's native token
    *
    * @param tokenAddress The address of the token to claim the funds for. Default is the Colony's native token
+   *
    * @returns A tupel of event data and contract receipt
    *
    * **Event data**
-   * | Property | Description |
-   * | :------ | :------ |
-   * | `agent` | The address that is responsible for triggering this event |
-   * | `token` | The token address |
-   * | `fee` | The fee deducted for rewards |
-   * | `payoutRemainder` | The remaining funds moved to the top-level domain pot |
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `agent` | string | The address that is responsible for triggering this event |
+   * | `token` | string | The token address |
+   * | `fee` | BigNumber | The fee deducted for rewards |
+   * | `payoutRemainder` | BigNumber | The remaining funds moved to the top-level domain pot |
    */
   async claimFunds(
     tokenAddress: string = this.colonyClient.tokenClient.address,
@@ -200,10 +258,11 @@ export class Colony {
    * @returns A tupel of event data and contract receipt
    *
    * **Event data**
-   * | Property | Description |
-   * | :------ | :------ |
-   * | `agent` | The address that is responsible for triggering this event |
-   * | `paymentId` | The newly added payment id |
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `agent` | string | The address that is responsible for triggering this event |
+   * | `fundamentalId` | BigNumber | The newly added payment id |
+   * | `nPayouts` | BigNumber | Number of payouts in total |
    */
   async pay(
     recipient: string,
@@ -263,13 +322,13 @@ export class Colony {
    * @returns A tupel of event data and contract receipt
    *
    * **Event data**
-   * | Property | Description |
-   * | :------ | :------ |
-   * | `agent` | The address that is responsible for triggering this event |
-   * | `fromPot` | The source funding pot |
-   * | `toPot` | The target funding pot |
-   * | `amount` | The amount that was transferred |
-   * | `token` | The token address being transferred |
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `agent` | string | The address that is responsible for triggering this event |
+   * | `fromPot` | BigNumber | The source funding pot |
+   * | `toPot` | BigNumber | The target funding pot |
+   * | `amount` | BigNumber | The amount that was transferred |
+   * | `token` | string | The token address being transferred |
    */
   async moveFundsToTeam(
     amount: BigNumberish,

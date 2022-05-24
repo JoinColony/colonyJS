@@ -1,8 +1,8 @@
-[Colony SDK 🚀](../README.md) / [Modules](../modules.md) / [ColonyEvents](../modules/ColonyEvents.md) / ColonyEvents
+[Colony SDK 🚀](../README.md) / [Modules](../modules.md) / [events](../modules/events.md) / ColonyEvents
 
 # Class: ColonyEvents
 
-[ColonyEvents](../modules/ColonyEvents.md).ColonyEvents
+[events](../modules/events.md).ColonyEvents
 
 The ColonyEvents class is a wrapper around _ethers_'s event implementations to make it easier to track and fetch Colony related events.
 It works by creating specific filters that can keep track of event sources and map filters to their respective events. This allows for
@@ -15,19 +15,20 @@ The API is subject to change as we find more applications for this
 
 ### Constructors
 
-- [constructor](ColonyEvents.ColonyEvents-1.md#constructor)
+- [constructor](events.ColonyEvents.md#constructor)
 
 ### Properties
 
-- [eventSources](ColonyEvents.ColonyEvents-1.md#eventsources)
-- [provider](ColonyEvents.ColonyEvents-1.md#provider)
+- [eventSources](events.ColonyEvents.md#eventsources)
+- [ipfsMetadata](events.ColonyEvents.md#ipfsmetadata)
+- [provider](events.ColonyEvents.md#provider)
 
 ### Methods
 
-- [createFilter](ColonyEvents.ColonyEvents-1.md#createfilter)
-- [createMultiFilter](ColonyEvents.ColonyEvents-1.md#createmultifilter)
-- [getEvents](ColonyEvents.ColonyEvents-1.md#getevents)
-- [getMultiEvents](ColonyEvents.ColonyEvents-1.md#getmultievents)
+- [createFilter](events.ColonyEvents.md#createfilter)
+- [createMultiFilter](events.ColonyEvents.md#createmultifilter)
+- [getEvents](events.ColonyEvents.md#getevents)
+- [getMultiEvents](events.ColonyEvents.md#getmultievents)
 
 ## Constructors
 
@@ -51,7 +52,13 @@ the only provider that supports topic filtering by multiple addresses
 
 ### eventSources
 
-• **eventSources**: [`EventSources`](../interfaces/ColonyEvents.EventSources.md)
+• **eventSources**: [`EventSources`](../interfaces/events.EventSources.md)
+
+___
+
+### ipfsMetadata
+
+• **ipfsMetadata**: [`IpfsMetadata`](events.IpfsMetadata.md)
 
 ___
 
@@ -63,11 +70,11 @@ ___
 
 ### createFilter
 
-▸ **createFilter**<`T`, `N`\>(`contract`, `eventName`, `address?`, `params?`, `options?`): [`ColonyFilter`](../interfaces/ColonyEvents.ColonyFilter.md)
+▸ **createFilter**<`T`, `N`\>(`contract`, `eventName`, `address?`, `params?`, `options?`): [`ColonyFilter`](../interfaces/events.ColonyFilter.md)
 
-Create a [ColonyFilter](../interfaces/ColonyEvents.ColonyFilter.md) that keeps track of its event source
+Create a [ColonyFilter](../interfaces/events.ColonyFilter.md) that keeps track of its event source
 
-To create a [ColonyFilter](../interfaces/ColonyEvents.ColonyFilter.md), we need to not only give it the topics and addresses as required by _ethers_
+To create a [ColonyFilter](../interfaces/events.ColonyFilter.md), we need to not only give it the topics and addresses as required by _ethers_
 [`Filter`s](https://docs.ethers.io/v5/api/providers/types/#providers-Filter), but also the actual source contract of that Filter.
 Like this we can keep track of the source contract interface to parse the event data when it's emitted
 
@@ -89,14 +96,14 @@ Filter for all `DomainAdded` events between block 21830000 and 21840000 (across 
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `T` | extends `IColonyEvents` & { `filters`: { [P in string \| number \| symbol]: Function }  } & `IColonyNetwork` & { `filters`: { [P in string \| number \| symbol]: Function }  } | Needs to be a valid [EventSource](../modules/ColonyEvents.md#eventsource) (i.e. from `colonyEvents.eventSources`) |
+| `T` | extends `IColonyNetwork` & { `filters`: { [P in string \| number \| symbol]: Function }  } & `IColonyEvents` & { `filters`: { [P in string \| number \| symbol]: Function }  } | Needs to be a valid [EventSource](../modules/events.md#eventsource) (i.e. from `colonyEvents.eventSources`) |
 | `N` | extends `string` \| `number` \| `symbol` | An event signature as defined in the _ethers_ contract's [`filters`](https://docs.ethers.io/v5/api/contract/contract/#Contract--filters) object. See the [ColonyJS documentation](https://colony.gitbook.io/colony/colonyjs) for a list of all available contracts and events |
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `contract` | `T` | A valid [EventSource](../modules/ColonyEvents.md#eventsource) |
+| `contract` | `T` | A valid [EventSource](../modules/events.md#eventsource) |
 | `eventName` | `N` | A valid event signature from the contract's `filters` object |
 | `address?` | `string` | Address of the contract that can emit this event |
 | `params?` | `Parameters`<`T`[``"filters"``][`N`]\> | Parameters to filter by for the event. Has to be indexed in the contract (see _ethers_ [Event Filters](https://docs.ethers.io/v5/api/contract/contract/#Contract--filters)) |
@@ -106,20 +113,20 @@ Filter for all `DomainAdded` events between block 21830000 and 21840000 (across 
 
 #### Returns
 
-[`ColonyFilter`](../interfaces/ColonyEvents.ColonyFilter.md)
+[`ColonyFilter`](../interfaces/events.ColonyFilter.md)
 
-A [ColonyFilter](../interfaces/ColonyEvents.ColonyFilter.md)
+A [ColonyFilter](../interfaces/events.ColonyFilter.md)
 
 ___
 
 ### createMultiFilter
 
-▸ **createMultiFilter**<`T`, `N`\>(`contract`, `eventName`, `address`, `params?`): [`ColonyMultiFilter`](../interfaces/ColonyEvents.ColonyMultiFilter.md)
+▸ **createMultiFilter**<`T`, `N`\>(`contract`, `eventName`, `address`, `params?`): [`ColonyMultiFilter`](../interfaces/events.ColonyMultiFilter.md)
 
-Create a [ColonyMultiFilter](../interfaces/ColonyEvents.ColonyMultiFilter.md) that keeps track of its event source and can work alongside other filters in [getMultiEvents](ColonyEvents.ColonyEvents-1.md#getmultievents)
+Create a [ColonyMultiFilter](../interfaces/events.ColonyMultiFilter.md) that keeps track of its event source and can work alongside other filters in [getMultiEvents](events.ColonyEvents.md#getmultievents)
 
-The [ColonyMultiFilter](../interfaces/ColonyEvents.ColonyMultiFilter.md) works much like the [ColonyFilter](../interfaces/ColonyEvents.ColonyFilter.md), just that we _have_ to specify an address of the contract which emits this event.
-Furthermore, no `fromBlock` or `toBlock` requirements can be given (that is done on a global level in [getMultiEvents](ColonyEvents.ColonyEvents-1.md#getmultievents))
+The [ColonyMultiFilter](../interfaces/events.ColonyMultiFilter.md) works much like the [ColonyFilter](../interfaces/events.ColonyFilter.md), just that we _have_ to specify an address of the contract which emits this event.
+Furthermore, no `fromBlock` or `toBlock` requirements can be given (that is done on a global level in [getMultiEvents](events.ColonyEvents.md#getmultievents))
 
 **`remarks`**
 We can do that as we do not have ambiguous events across our contracts, so we will always be able to find the right contract to parse the event data later on
@@ -138,29 +145,29 @@ const domainAdded = colonyEvents.createFilter(
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `T` | extends `IColonyEvents` & { `filters`: { [P in string \| number \| symbol]: Function }  } & `IColonyNetwork` & { `filters`: { [P in string \| number \| symbol]: Function }  } | Needs to be a valid [EventSource](../modules/ColonyEvents.md#eventsource) (i.e. from `colonyEvents.eventSources`) |
+| `T` | extends `IColonyNetwork` & { `filters`: { [P in string \| number \| symbol]: Function }  } & `IColonyEvents` & { `filters`: { [P in string \| number \| symbol]: Function }  } | Needs to be a valid [EventSource](../modules/events.md#eventsource) (i.e. from `colonyEvents.eventSources`) |
 | `N` | extends `string` \| `number` \| `symbol` | An event signature as defined in the _ethers_ contract's [`filters`](https://docs.ethers.io/v5/api/contract/contract/#Contract--filters) object. See the [ColonyJS documentation](https://colony.gitbook.io/colony/colonyjs) for a list of all available contracts and events |
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `contract` | `T` | A valid [EventSource](../modules/ColonyEvents.md#eventsource) |
+| `contract` | `T` | A valid [EventSource](../modules/events.md#eventsource) |
 | `eventName` | `N` | A valid event signature from the contract's `filters` object |
 | `address` | `string` | Address of the contract that can emit this event |
 | `params?` | `Parameters`<`T`[``"filters"``][`N`]\> | Parameters to filter by for the event. Has to be indexed in the contract (see _ethers_ [Event Filters](https://docs.ethers.io/v5/api/contract/contract/#Contract--filters)) |
 
 #### Returns
 
-[`ColonyMultiFilter`](../interfaces/ColonyEvents.ColonyMultiFilter.md)
+[`ColonyMultiFilter`](../interfaces/events.ColonyMultiFilter.md)
 
-A [ColonyMultiFilter](../interfaces/ColonyEvents.ColonyMultiFilter.md)
+A [ColonyMultiFilter](../interfaces/events.ColonyMultiFilter.md)
 
 ___
 
 ### getEvents
 
-▸ **getEvents**(`filter`): `Promise`<[`ColonyEvent`](../interfaces/ColonyEvents.ColonyEvent.md)[]\>
+▸ **getEvents**(`filter`): `Promise`<[`ColonyEventWithoutMetadata`](../interfaces/events.ColonyEventWithoutMetadata.md)[]\>
 
 Get events for a single filter
 
@@ -184,19 +191,19 @@ const domainAdded = colonyEvents.createFilter(
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `filter` | [`ColonyFilter`](../interfaces/ColonyEvents.ColonyFilter.md) | A [ColonyFilter](../interfaces/ColonyEvents.ColonyFilter.md). [[ColonyMultiFilters]] will not work |
+| `filter` | [`ColonyFilter`](../interfaces/events.ColonyFilter.md) | A [ColonyFilter](../interfaces/events.ColonyFilter.md). [[ColonyMultiFilters]] will not work |
 
 #### Returns
 
-`Promise`<[`ColonyEvent`](../interfaces/ColonyEvents.ColonyEvent.md)[]\>
+`Promise`<[`ColonyEventWithoutMetadata`](../interfaces/events.ColonyEventWithoutMetadata.md)[]\>
 
-An array of [ColonyEvent](../interfaces/ColonyEvents.ColonyEvent.md)s
+An array of [ColonyEvent](../modules/events.md#colonyevent)s
 
 ___
 
 ### getMultiEvents
 
-▸ **getMultiEvents**(`filters`, `options?`): `Promise`<[`ColonyEvent`](../interfaces/ColonyEvents.ColonyEvent.md)[]\>
+▸ **getMultiEvents**(`filters`, `options?`): `Promise`<[`ColonyEventWithoutMetadata`](../interfaces/events.ColonyEventWithoutMetadata.md)[]\>
 
 Get events for multiple filters across multiple addresses at once
 
@@ -208,7 +215,7 @@ This is handy when you want to listen to a fixed set of events for a lot of diff
 
 **`example`**
 Retrieve and parse all `DomainAdded` and `DomainMetadata` events for a specific [ColonyNetwork.Colony](ColonyNetwork.Colony.md) contract.
-Note that we're using [ColonyEvents.createMultiFilter](ColonyEvents.ColonyEvents-1.md#createmultifilter) here. The two `colonyAddress`es could also be different
+Note that we're using [ColonyEvents.createMultiFilter](events.ColonyEvents.md#createmultifilter) here. The two `colonyAddress`es could also be different
 
 ```typescript
 const domainAdded = colonyEvents.createMultiFilter(
@@ -232,13 +239,13 @@ const domainMetadata = colonyEvents.createMultiFilter(
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `filters` | [`ColonyMultiFilter`](../interfaces/ColonyEvents.ColonyMultiFilter.md)[] | An array of [ColonyMultiFilter](../interfaces/ColonyEvents.ColonyMultiFilter.md)s. Normal [[ColonyFilters]] will not work |
+| `filters` | [`ColonyMultiFilter`](../interfaces/events.ColonyMultiFilter.md)[] | An array of [ColonyMultiFilter](../interfaces/events.ColonyMultiFilter.md)s. Normal [[ColonyFilters]] will not work |
 | `options` | `Object` | You can define `fromBlock` and `toBlock` only once for all the filters given |
 | `options.fromBlock?` | `BlockTag` | Starting block in which to look for this event - inclusive (default: 'latest') |
 | `options.toBlock?` | `BlockTag` | Ending block in which to look for this event - inclusive (default: 'latest') |
 
 #### Returns
 
-`Promise`<[`ColonyEvent`](../interfaces/ColonyEvents.ColonyEvent.md)[]\>
+`Promise`<[`ColonyEventWithoutMetadata`](../interfaces/events.ColonyEventWithoutMetadata.md)[]\>
 
-An array of [ColonyEvent](../interfaces/ColonyEvents.ColonyEvent.md)s
+An array of [ColonyEvent](../modules/events.md#colonyevent)s
