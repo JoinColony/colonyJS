@@ -13,8 +13,7 @@ This is a description of the events module
 
 ### Interfaces
 
-- [ColonyEventWithMetadata](../interfaces/events.ColonyEventWithMetadata.md)
-- [ColonyEventWithoutMetadata](../interfaces/events.ColonyEventWithoutMetadata.md)
+- [ColonyEvent](../interfaces/events.ColonyEvent.md)
 - [ColonyFilter](../interfaces/events.ColonyFilter.md)
 - [ColonyMultiFilter](../interfaces/events.ColonyMultiFilter.md)
 - [EventSources](../interfaces/events.EventSources.md)
@@ -22,7 +21,7 @@ This is a description of the events module
 
 ### Type aliases
 
-- [ColonyEvent](events.md#colonyevent)
+- [AnyMetadataValue](events.md#anymetadatavalue)
 - [EventSource](events.md#eventsource)
 - [MetadataKey](events.md#metadatakey)
 - [MetadataValue](events.md#metadatavalue)
@@ -33,17 +32,9 @@ This is a description of the events module
 
 ## Type aliases
 
-### ColonyEvent
+### AnyMetadataValue
 
-Ƭ **ColonyEvent**<`T`\>: `T` extends [`MetadataKey`](events.md#metadatakey) ? [`ColonyEventWithMetadata`](../interfaces/events.ColonyEventWithMetadata.md)<`T`\> : [`ColonyEventWithoutMetadata`](../interfaces/events.ColonyEventWithoutMetadata.md)
-
-An Event that came from a contract within the Colony Network
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `T` | extends [`MetadataKey`](events.md#metadatakey) \| `undefined` = `undefined` |
+Ƭ **AnyMetadataValue**: `Static`<typeof [`IPFS_METADATA`](events.md#ipfs_metadata)[[`MetadataKey`](events.md#metadatakey)]\>
 
 ___
 

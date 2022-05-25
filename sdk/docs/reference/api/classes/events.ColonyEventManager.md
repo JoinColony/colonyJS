@@ -167,7 +167,7 @@ ___
 
 ### getEvents
 
-▸ **getEvents**(`filter`): `Promise`<[`ColonyEventWithoutMetadata`](../interfaces/events.ColonyEventWithoutMetadata.md)[]\>
+▸ **getEvents**(`filter`): `Promise`<[`ColonyEvent`](../interfaces/events.ColonyEvent.md)[]\>
 
 Get events for a single filter
 
@@ -195,15 +195,15 @@ const domainAdded = colonyEvents.createFilter(
 
 #### Returns
 
-`Promise`<[`ColonyEventWithoutMetadata`](../interfaces/events.ColonyEventWithoutMetadata.md)[]\>
+`Promise`<[`ColonyEvent`](../interfaces/events.ColonyEvent.md)[]\>
 
-An array of [ColonyEvent](../modules/events.md#colonyevent)s
+An array of [ColonyEvent](../interfaces/events.ColonyEvent.md)s
 
 ___
 
 ### getMultiEvents
 
-▸ **getMultiEvents**(`filters`, `options?`): `Promise`<[`ColonyEventWithoutMetadata`](../interfaces/events.ColonyEventWithoutMetadata.md)[]\>
+▸ **getMultiEvents**(`filters`, `options?`): `Promise`<[`ColonyEvent`](../interfaces/events.ColonyEvent.md)[]\>
 
 Get events for multiple filters across multiple addresses at once
 
@@ -246,6 +246,6 @@ const domainMetadata = colonyEvents.createMultiFilter(
 
 #### Returns
 
-`Promise`<[`ColonyEventWithoutMetadata`](../interfaces/events.ColonyEventWithoutMetadata.md)[]\>
+`Promise`<[`ColonyEvent`](../interfaces/events.ColonyEvent.md)[]\>
 
-An array of [ColonyEvent](../modules/events.md#colonyevent)s
+An array of [ColonyEvent](../interfaces/events.ColonyEvent.md)s

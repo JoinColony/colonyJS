@@ -24,6 +24,7 @@ export type MetadataKey = keyof typeof IPFS_METADATA;
 export type MetadataValue<T extends MetadataKey> = Static<
   typeof IPFS_METADATA[T]
 >;
+export type AnyMetadataValue = Static<typeof IPFS_METADATA[MetadataKey]>;
 
 const DEFAULT_IPFS_ENDPOINT = 'https://gateway.pinata.cloud/ipfs/';
 

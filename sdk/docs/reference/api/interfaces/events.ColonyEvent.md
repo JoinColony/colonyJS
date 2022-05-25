@@ -1,28 +1,32 @@
-[Colony SDK 🚀](../README.md) / [Modules](../modules.md) / [events](../modules/events.md) / ColonyEventWithoutMetadata
+[Colony SDK 🚀](../README.md) / [Modules](../modules.md) / [events](../modules/events.md) / ColonyEvent
 
-# Interface: ColonyEventWithoutMetadata
+# Interface: ColonyEvent
 
-[events](../modules/events.md).ColonyEventWithoutMetadata
+[events](../modules/events.md).ColonyEvent
+
+An Event that came from a contract within the Colony Network
 
 ## Hierarchy
 
 - [`ColonyFilter`](events.ColonyFilter.md)
 
-  ↳ **`ColonyEventWithoutMetadata`**
-
-  ↳↳ [`ColonyEventWithMetadata`](events.ColonyEventWithMetadata.md)
+  ↳ **`ColonyEvent`**
 
 ## Table of contents
 
 ### Properties
 
-- [address](events.ColonyEventWithoutMetadata.md#address)
-- [data](events.ColonyEventWithoutMetadata.md#data)
-- [eventName](events.ColonyEventWithoutMetadata.md#eventname)
-- [eventSource](events.ColonyEventWithoutMetadata.md#eventsource)
-- [fromBlock](events.ColonyEventWithoutMetadata.md#fromblock)
-- [toBlock](events.ColonyEventWithoutMetadata.md#toblock)
-- [topics](events.ColonyEventWithoutMetadata.md#topics)
+- [address](events.ColonyEvent.md#address)
+- [data](events.ColonyEvent.md#data)
+- [eventName](events.ColonyEvent.md#eventname)
+- [eventSource](events.ColonyEvent.md#eventsource)
+- [fromBlock](events.ColonyEvent.md#fromblock)
+- [toBlock](events.ColonyEvent.md#toblock)
+- [topics](events.ColonyEvent.md#topics)
+
+### Methods
+
+- [getMetadata](events.ColonyEvent.md#getmetadata)
 
 ## Properties
 
@@ -89,3 +93,13 @@ ___
 #### Inherited from
 
 [ColonyFilter](events.ColonyFilter.md).[topics](events.ColonyFilter.md#topics)
+
+## Methods
+
+### getMetadata
+
+▸ `Optional` **getMetadata**(): `Promise`<{ `domainColor`: `string` ; `domainName`: `string` ; `domainPurpose`: `string`  } \| { `annotationMessage`: `string`  } \| { `colonyAvatarHash`: `string` ; `colonyDisplayName`: `string` ; `colonyTokens`: `string`[]  }\>
+
+#### Returns
+
+`Promise`<{ `domainColor`: `string` ; `domainName`: `string` ; `domainPurpose`: `string`  } \| { `annotationMessage`: `string`  } \| { `colonyAvatarHash`: `string` ; `colonyDisplayName`: `string` ; `colonyTokens`: `string`[]  }\>

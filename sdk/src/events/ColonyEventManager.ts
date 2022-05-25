@@ -21,7 +21,7 @@ import {
   IpfsMetadata,
   IPFS_METADATA,
   MetadataKey,
-  MetadataValue,
+  AnyMetadataValue,
 } from './IpfsMetadata';
 import type { Ethers6Filter } from '../types';
 import { addressesAreEqual, getLogs, nonNullable } from '../utils';
@@ -56,20 +56,11 @@ export interface ColonyMultiFilter
   topic: string;
 }
 
-export interface ColonyEventWithoutMetadata extends ColonyFilter {
-  data: Result;
-}
-
-export interface ColonyEventWithMetadata<T extends MetadataKey>
-  extends ColonyEventWithoutMetadata {
-  getMetadata: () => Promise<MetadataValue<T>>;
-}
-
 /** An Event that came from a contract within the Colony Network */
-export type ColonyEvent<T extends MetadataKey | undefined = undefined> =
-  T extends MetadataKey
-    ? ColonyEventWithMetadata<T>
-    : ColonyEventWithoutMetadata;
+export interface ColonyEvent extends ColonyFilter {
+  data: Result;
+  getMetadata?: () => Promise<AnyMetadataValue>;
+}
 
 /**
  * The ColonyEvents class is a wrapper around _ethers_'s event implementations to make it easier to track and fetch Colony related events.

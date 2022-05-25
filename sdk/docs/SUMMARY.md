@@ -20,8 +20,6 @@
     * [events.IpfsMetadata](reference/api/classes/events.IpfsMetadata.md)
   * [Interfaces](references/api/interfaces/README.md)
     * [events.ColonyEvent](reference/api/interfaces/events.ColonyEvent.md)
-    * [events.ColonyEventWithMetaData](reference/api/interfaces/events.ColonyEventWithMetadata.md)
-    * [events.ColonyEventWithoutMetaData](reference/api/interfaces/events.ColonyEventWithoutMetadata.md)
     * [events.ColonyFilter](reference/api/interfaces/events.ColonyFilter.md)
     * [events.ColonyMultiFilter](reference/api/interfaces/events.ColonyMultiFilter.md)
     * [events.EventSources](reference/api/interfaces/events.EventSources.md)
