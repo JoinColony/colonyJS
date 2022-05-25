@@ -3,5 +3,5 @@
  * @module events
  */
 
-export * from './ColonyEvents';
+export * from './ColonyEventManager';
 export * from './IpfsMetadata';

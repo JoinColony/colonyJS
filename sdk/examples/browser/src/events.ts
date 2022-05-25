@@ -1,6 +1,6 @@
 import { providers, utils } from 'ethers';
 
-import { ColonyEvents } from '../../../src';
+import { ColonyEventManager } from '../../../src';
 import type { ColonyEvent } from '../../../src';
 
 const provider = new providers.JsonRpcProvider('https://xdai.colony.io/rpc2/');
@@ -11,21 +11,21 @@ const setupEventListener = (
   colonyAddress: string,
   callback: (events: ColonyEvent[]) => void,
 ) => {
-  const colonyEvents = new ColonyEvents(provider);
+  const manager = new ColonyEventManager(provider);
 
-  const domainAdded = colonyEvents.createMultiFilter(
-    colonyEvents.eventSources.Colony,
+  const domainAdded = manager.createMultiFilter(
+    manager.eventSources.Colony,
     'DomainAdded(address,uint256)',
     colonyAddress,
   );
 
   let i = 0;
 
-  colonyEvents.provider.on('block', async (no) => {
+  manager.provider.on('block', async (no) => {
     i += 1;
     // Only get events every 5 blocks to debounce this a little bit
     if (i === 4) {
-      const events = await colonyEvents.getMultiEvents([domainAdded], {
+      const events = await manager.getMultiEvents([domainAdded], {
         fromBlock: no - i,
         toBlock: no,
       });

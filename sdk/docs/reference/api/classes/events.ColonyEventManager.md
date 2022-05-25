@@ -1,8 +1,8 @@
-[Colony SDK 🚀](../README.md) / [Modules](../modules.md) / [events](../modules/events.md) / ColonyEvents
+[Colony SDK 🚀](../README.md) / [Modules](../modules.md) / [events](../modules/events.md) / ColonyEventManager
 
-# Class: ColonyEvents
+# Class: ColonyEventManager
 
-[events](../modules/events.md).ColonyEvents
+[events](../modules/events.md).ColonyEventManager
 
 The ColonyEvents class is a wrapper around _ethers_'s event implementations to make it easier to track and fetch Colony related events.
 It works by creating specific filters that can keep track of event sources and map filters to their respective events. This allows for
@@ -15,26 +15,26 @@ The API is subject to change as we find more applications for this
 
 ### Constructors
 
-- [constructor](events.ColonyEvents.md#constructor)
+- [constructor](events.ColonyEventManager.md#constructor)
 
 ### Properties
 
-- [eventSources](events.ColonyEvents.md#eventsources)
-- [ipfsMetadata](events.ColonyEvents.md#ipfsmetadata)
-- [provider](events.ColonyEvents.md#provider)
+- [eventSources](events.ColonyEventManager.md#eventsources)
+- [ipfsMetadata](events.ColonyEventManager.md#ipfsmetadata)
+- [provider](events.ColonyEventManager.md#provider)
 
 ### Methods
 
-- [createFilter](events.ColonyEvents.md#createfilter)
-- [createMultiFilter](events.ColonyEvents.md#createmultifilter)
-- [getEvents](events.ColonyEvents.md#getevents)
-- [getMultiEvents](events.ColonyEvents.md#getmultievents)
+- [createFilter](events.ColonyEventManager.md#createfilter)
+- [createMultiFilter](events.ColonyEventManager.md#createmultifilter)
+- [getEvents](events.ColonyEventManager.md#getevents)
+- [getMultiEvents](events.ColonyEventManager.md#getmultievents)
 
 ## Constructors
 
 ### constructor
 
-• **new ColonyEvents**(`provider`)
+• **new ColonyEventManager**(`provider`)
 
 Create a new ColonyEvents instance
 
@@ -123,10 +123,10 @@ ___
 
 ▸ **createMultiFilter**<`T`, `N`\>(`contract`, `eventName`, `address`, `params?`): [`ColonyMultiFilter`](../interfaces/events.ColonyMultiFilter.md)
 
-Create a [ColonyMultiFilter](../interfaces/events.ColonyMultiFilter.md) that keeps track of its event source and can work alongside other filters in [getMultiEvents](events.ColonyEvents.md#getmultievents)
+Create a [ColonyMultiFilter](../interfaces/events.ColonyMultiFilter.md) that keeps track of its event source and can work alongside other filters in [getMultiEvents](events.ColonyEventManager.md#getmultievents)
 
 The [ColonyMultiFilter](../interfaces/events.ColonyMultiFilter.md) works much like the [ColonyFilter](../interfaces/events.ColonyFilter.md), just that we _have_ to specify an address of the contract which emits this event.
-Furthermore, no `fromBlock` or `toBlock` requirements can be given (that is done on a global level in [getMultiEvents](events.ColonyEvents.md#getmultievents))
+Furthermore, no `fromBlock` or `toBlock` requirements can be given (that is done on a global level in [getMultiEvents](events.ColonyEventManager.md#getmultievents))
 
 **`remarks`**
 We can do that as we do not have ambiguous events across our contracts, so we will always be able to find the right contract to parse the event data later on
@@ -215,7 +215,7 @@ This is handy when you want to listen to a fixed set of events for a lot of diff
 
 **`example`**
 Retrieve and parse all `DomainAdded` and `DomainMetadata` events for a specific [ColonyNetwork.Colony](ColonyNetwork.Colony.md) contract.
-Note that we're using [ColonyEvents.createMultiFilter](events.ColonyEvents.md#createmultifilter) here. The two `colonyAddress`es could also be different
+Note that we're using [[ColonyEvents.createMultiFilter]] here. The two `colonyAddress`es could also be different
 
 ```typescript
 const domainAdded = colonyEvents.createMultiFilter(

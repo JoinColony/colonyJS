@@ -8,7 +8,7 @@ This is a description of the events module
 
 ### Classes
 
-- [ColonyEvents](../classes/events.ColonyEvents.md)
+- [ColonyEventManager](../classes/events.ColonyEventManager.md)
 - [IpfsMetadata](../classes/events.IpfsMetadata.md)
 
 ### Interfaces

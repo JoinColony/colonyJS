@@ -1,6 +1,6 @@
 /**
- * This is a description of the ColonyEvents module
- * @module ColonyEvents
+ * This is a description of the ColonyEventManager module
+ * @module ColonyEventManager
  */
 
 import { constants, providers, EventFilter } from 'ethers';
@@ -79,7 +79,7 @@ export type ColonyEvent<T extends MetadataKey | undefined = undefined> =
  * @remarks
  * The API is subject to change as we find more applications for this
  */
-export class ColonyEvents {
+export class ColonyEventManager {
   eventSources: EventSources;
 
   ipfsMetadata: IpfsMetadata;
@@ -379,7 +379,7 @@ export class ColonyEvents {
   ): ColonyMultiFilter {
     const filter = this.createFilter(contract, eventName, address, params);
     // Just use the first topic for now. Let's see how far we get with this. They will be connected with ORs
-    const topic = ColonyEvents.extractSingleTopic(filter);
+    const topic = ColonyEventManager.extractSingleTopic(filter);
     if (!topic) {
       throw new Error(`Filter does not have any topics: ${eventName}`);
     }
