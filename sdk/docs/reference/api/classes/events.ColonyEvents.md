@@ -96,7 +96,7 @@ Filter for all `DomainAdded` events between block 21830000 and 21840000 (across 
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `T` | extends `IColonyNetwork` & { `filters`: { [P in string \| number \| symbol]: Function }  } & `IColonyEvents` & { `filters`: { [P in string \| number \| symbol]: Function }  } | Needs to be a valid [EventSource](../modules/events.md#eventsource) (i.e. from `colonyEvents.eventSources`) |
+| `T` | extends `IColonyEvents` & { `filters`: { [P in string \| number \| symbol]: Function }  } & `OneTxPaymentEvents` & { `filters`: { [P in string \| number \| symbol]: Function }  } & `IColonyNetworkEvents` & { `filters`: { [P in string \| number \| symbol]: Function }  } & `VotingReputationEvents` & { `filters`: { [P in string \| number \| symbol]: Function }  } | Needs to be a valid [EventSource](../modules/events.md#eventsource) (i.e. from `colonyEvents.eventSources`) |
 | `N` | extends `string` \| `number` \| `symbol` | An event signature as defined in the _ethers_ contract's [`filters`](https://docs.ethers.io/v5/api/contract/contract/#Contract--filters) object. See the [ColonyJS documentation](https://colony.gitbook.io/colony/colonyjs) for a list of all available contracts and events |
 
 #### Parameters
@@ -107,7 +107,7 @@ Filter for all `DomainAdded` events between block 21830000 and 21840000 (across 
 | `eventName` | `N` | A valid event signature from the contract's `filters` object |
 | `address?` | `string` | Address of the contract that can emit this event |
 | `params?` | `Parameters`<`T`[``"filters"``][`N`]\> | Parameters to filter by for the event. Has to be indexed in the contract (see _ethers_ [Event Filters](https://docs.ethers.io/v5/api/contract/contract/#Contract--filters)) |
-| `options` | `Object` | You can define `fromBlock` and `toBlock` only once for all the filters given |
+| `options?` | `Object` | You can define `fromBlock` and `toBlock` only once for all the filters given |
 | `options.fromBlock?` | `BlockTag` | - |
 | `options.toBlock?` | `BlockTag` | - |
 
@@ -145,7 +145,7 @@ const domainAdded = colonyEvents.createFilter(
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `T` | extends `IColonyNetwork` & { `filters`: { [P in string \| number \| symbol]: Function }  } & `IColonyEvents` & { `filters`: { [P in string \| number \| symbol]: Function }  } | Needs to be a valid [EventSource](../modules/events.md#eventsource) (i.e. from `colonyEvents.eventSources`) |
+| `T` | extends `IColonyEvents` & { `filters`: { [P in string \| number \| symbol]: Function }  } & `OneTxPaymentEvents` & { `filters`: { [P in string \| number \| symbol]: Function }  } & `IColonyNetworkEvents` & { `filters`: { [P in string \| number \| symbol]: Function }  } & `VotingReputationEvents` & { `filters`: { [P in string \| number \| symbol]: Function }  } | Needs to be a valid [EventSource](../modules/events.md#eventsource) (i.e. from `colonyEvents.eventSources`) |
 | `N` | extends `string` \| `number` \| `symbol` | An event signature as defined in the _ethers_ contract's [`filters`](https://docs.ethers.io/v5/api/contract/contract/#Contract--filters) object. See the [ColonyJS documentation](https://colony.gitbook.io/colony/colonyjs) for a list of all available contracts and events |
 
 #### Parameters

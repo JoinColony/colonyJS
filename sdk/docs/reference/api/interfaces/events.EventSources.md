@@ -12,6 +12,8 @@ Valid sources for Colony emitted events. Used to map the parsed event data
 
 - [Colony](events.EventSources.md#colony)
 - [ColonyNetwork](events.EventSources.md#colonynetwork)
+- [OneTxPayment](events.EventSources.md#onetxpayment)
+- [VotingReputation](events.EventSources.md#votingreputation)
 
 ## Properties
 
@@ -23,4 +25,16 @@ ___
 
 ### ColonyNetwork
 
-• **ColonyNetwork**: `IColonyNetwork`
+• **ColonyNetwork**: `IColonyNetworkEvents`
+
+___
+
+### OneTxPayment
+
+• **OneTxPayment**: `OneTxPaymentEvents`
+
+___
+
+### VotingReputation
+
+• **VotingReputation**: `VotingReputationEvents`

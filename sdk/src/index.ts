@@ -12,6 +12,7 @@ export type {
   ColonyFilter,
   ColonyMultiFilter,
   ColonyEvent,
+  EventSources,
 } from './events/ColonyEvents';
 
 export * from './constants';

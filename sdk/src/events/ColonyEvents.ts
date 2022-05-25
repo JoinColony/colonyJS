@@ -9,8 +9,12 @@ import type { BlockTag } from '@ethersproject/abstract-provider';
 import {
   IColonyEvents,
   IColonyEvents__factory,
-  IColonyNetwork,
-  IColonyNetwork__factory,
+  IColonyNetworkEvents,
+  IColonyNetworkEvents__factory,
+  OneTxPaymentEvents,
+  OneTxPaymentEvents__factory,
+  VotingReputationEvents,
+  VotingReputationEvents__factory,
 } from '@colony/colony-js/extras';
 
 import {
@@ -25,7 +29,9 @@ import { addressesAreEqual, getLogs, nonNullable } from '../utils';
 /** Valid sources for Colony emitted events. Used to map the parsed event data */
 export interface EventSources {
   Colony: IColonyEvents;
-  ColonyNetwork: IColonyNetwork;
+  ColonyNetwork: IColonyNetworkEvents;
+  OneTxPayment: OneTxPaymentEvents;
+  VotingReputation: VotingReputationEvents;
 }
 
 /** An EventSource is essentially an _ethers_ contract, that we can keep track of */
@@ -93,7 +99,15 @@ export class ColonyEvents {
   constructor(provider: providers.JsonRpcProvider) {
     this.eventSources = {
       Colony: IColonyEvents__factory.connect(constants.AddressZero, provider),
-      ColonyNetwork: IColonyNetwork__factory.connect(
+      ColonyNetwork: IColonyNetworkEvents__factory.connect(
+        constants.AddressZero,
+        provider,
+      ),
+      OneTxPayment: OneTxPaymentEvents__factory.connect(
+        constants.AddressZero,
+        provider,
+      ),
+      VotingReputation: VotingReputationEvents__factory.connect(
         constants.AddressZero,
         provider,
       ),
@@ -296,6 +310,15 @@ export class ColonyEvents {
     eventName: N,
     address?: string,
     params?: Parameters<T['filters'][N]>,
+    options?: { fromBlock?: BlockTag; toBlock?: BlockTag },
+  ): ColonyFilter;
+
+  // We split up the type definition and the actual implementation to relax the TypeScript strictness a little bit for the implementation so it won't go crazy.
+  createFilter(
+    contract: EventSource,
+    eventName: keyof typeof contract['filters'],
+    address?: string,
+    params?: Parameters<typeof contract['filters'][typeof eventName]>,
     options: { fromBlock?: BlockTag; toBlock?: BlockTag } = {},
   ): ColonyFilter {
     // Create standard filter
