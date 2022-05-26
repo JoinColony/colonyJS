@@ -26,12 +26,12 @@ const createTeam = async (): Promise<{
   domainId: BigNumber;
   fundingPotId: BigNumber;
   domainName: string;
-  domainColor: string;
+  domainColor: number;
   domainPurpose: string;
 }> => {
   // This is to demonstrate the Colony SDK's IPFS capabilities. For now, we would like to keep it agnostic to any IPFS upload mechanism, so you have to provide your own hash
   // You can see how the data looks like here: https://cloudflare-ipfs.com/ipfs/QmVgJC8WNJCzkZYLPuVPG5gvSzLvLZTxvb24Sj5Nca4jW2
-  const ipfsTestHash = 'QmVgJC8WNJCzkZYLPuVPG5gvSzLvLZTxvb24Sj5Nca4jW2';
+  const ipfsTestHash = 'QmTbb3TUiXiZifywgnkxBH5C1YLCyxnMww3Et3DCNypHB9';
   const [{ domainId, fundingPotId }, , getMetadata] = await colony.createTeam(
     ipfsTestHash,
   );

@@ -98,8 +98,8 @@ ___
 
 ### getMetadata
 
-▸ `Optional` **getMetadata**(): `Promise`<{ `domainColor`: `string` ; `domainName`: `string` ; `domainPurpose`: `string`  } \| { `annotationMessage`: `string`  } \| { `colonyAvatarHash`: `string` ; `colonyDisplayName`: `string` ; `colonyTokens`: `string`[]  }\>
+▸ `Optional` **getMetadata**(): `Promise`<{ `domainColor`: `number` ; `domainName`: `string` ; `domainPurpose`: `string`  } \| { `annotationMessage`: `string`  } \| { `colonyAvatarHash`: `string` ; `colonyDisplayName`: `string` ; `colonyTokens`: `string`[]  }\>
 
 #### Returns
 
-`Promise`<{ `domainColor`: `string` ; `domainName`: `string` ; `domainPurpose`: `string`  } \| { `annotationMessage`: `string`  } \| { `colonyAvatarHash`: `string` ; `colonyDisplayName`: `string` ; `colonyTokens`: `string`[]  }\>
+`Promise`<{ `domainColor`: `number` ; `domainName`: `string` ; `domainPurpose`: `string`  } \| { `annotationMessage`: `string`  } \| { `colonyAvatarHash`: `string` ; `colonyDisplayName`: `string` ; `colonyTokens`: `string`[]  }\>

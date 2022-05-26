@@ -1,21 +1,21 @@
-import { Array, Record, Static, String } from 'runtypes';
+import { Array, Number, Record, Static, String } from 'runtypes';
 import fetch from 'cross-fetch';
 import wrapFetch from 'fetch-retry';
 
 const fetchRetry = wrapFetch(fetch);
 
-export const IPFS_METADATA = {
-  Annotation: Record({
+const IPFS_METADATA = {
+  'Annotation(address,bytes32,string)': Record({
     annotationMessage: String,
   }),
-  ColonyMetadata: Record({
+  'ColonyMetadata(address,string)': Record({
     colonyDisplayName: String,
     colonyAvatarHash: String,
     colonyTokens: Array(String),
   }),
-  DomainMetadata: Record({
+  'DomainMetadata(address,uint256,string)': Record({
     domainName: String,
-    domainColor: String,
+    domainColor: Number,
     domainPurpose: String,
   }),
 };
@@ -39,6 +39,13 @@ export class IpfsMetadata {
     this.ipfsEndpoint = options?.endpoint || DEFAULT_IPFS_ENDPOINT;
   }
 
+  static eventSupportMetadata(eventName: string) {
+    if (eventName in IPFS_METADATA) {
+      return true;
+    }
+    return false;
+  }
+
   async getMetadataForEvent<T extends MetadataKey>(
     eventName: T,
     ipfsCid: string,
@@ -53,6 +60,10 @@ export class IpfsMetadata {
     });
     try {
       const data = await res.json();
+      // HACK: AAAH FIX for domainColor sometimes being a string and sometimes a number
+      if ('domainColor' in data) {
+        data.domainColor = parseInt(data.domainColor, 10);
+      }
       return IPFS_METADATA[eventName].check(data);
     } catch (e) {
       throw new Error(

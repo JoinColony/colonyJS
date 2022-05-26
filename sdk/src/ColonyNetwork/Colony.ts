@@ -172,7 +172,11 @@ export class Colony {
       ...extractEvent<DomainMetadataEventObject>('DomainMetadata', receipt),
     };
 
-    return this.returnTxData(data, 'DomainMetadata', receipt);
+    return this.returnTxData(
+      data,
+      'DomainMetadata(address,uint256,string)',
+      receipt,
+    );
   }
 
   async returnTxData<D extends { metadata?: string }, E extends MetadataKey>(

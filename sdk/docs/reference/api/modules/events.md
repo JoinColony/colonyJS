@@ -26,15 +26,11 @@ This is a description of the events module
 - [MetadataKey](events.md#metadatakey)
 - [MetadataValue](events.md#metadatavalue)
 
-### Variables
-
-- [IPFS\_METADATA](events.md#ipfs_metadata)
-
 ## Type aliases
 
 ### AnyMetadataValue
 
-Ƭ **AnyMetadataValue**: `Static`<typeof [`IPFS_METADATA`](events.md#ipfs_metadata)[[`MetadataKey`](events.md#metadatakey)]\>
+Ƭ **AnyMetadataValue**: `Static`<typeof `IPFS_METADATA`[[`MetadataKey`](events.md#metadatakey)]\>
 
 ___
 
@@ -48,30 +44,16 @@ ___
 
 ### MetadataKey
 
-Ƭ **MetadataKey**: keyof typeof [`IPFS_METADATA`](events.md#ipfs_metadata)
+Ƭ **MetadataKey**: keyof typeof `IPFS_METADATA`
 
 ___
 
 ### MetadataValue
 
-Ƭ **MetadataValue**<`T`\>: `Static`<typeof [`IPFS_METADATA`](events.md#ipfs_metadata)[`T`]\>
+Ƭ **MetadataValue**<`T`\>: `Static`<typeof `IPFS_METADATA`[`T`]\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
 | `T` | extends [`MetadataKey`](events.md#metadatakey) |
-
-## Variables
-
-### IPFS\_METADATA
-
-• `Const` **IPFS\_METADATA**: `Object`
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `Annotation` | `Record`<{ `annotationMessage`: `String` = String }, ``false``\> |
-| `ColonyMetadata` | `Record`<{ `colonyAvatarHash`: `String` = String; `colonyDisplayName`: `String` = String; `colonyTokens`: `Arr`<`String`, ``false``\>  }, ``false``\> |
-| `DomainMetadata` | `Record`<{ `domainColor`: `String` = String; `domainName`: `String` = String; `domainPurpose`: `String` = String }, ``false``\> |

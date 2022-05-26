@@ -13,6 +13,7 @@
 ### Methods
 
 - [getMetadataForEvent](events.IpfsMetadata.md#getmetadataforevent)
+- [eventSupportMetadata](events.IpfsMetadata.md#eventsupportmetadata)
 
 ## Constructors
 
@@ -36,7 +37,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `T` | extends ``"DomainMetadata"`` \| ``"Annotation"`` \| ``"ColonyMetadata"`` |
+| `T` | extends ``"DomainMetadata(address,uint256,string)"`` \| ``"Annotation(address,bytes32,string)"`` \| ``"ColonyMetadata(address,string)"`` |
 
 #### Parameters
 
@@ -48,3 +49,19 @@
 #### Returns
 
 `Promise`<[`MetadataValue`](../modules/events.md#metadatavalue)<`T`\>\>
+
+___
+
+### eventSupportMetadata
+
+▸ `Static` **eventSupportMetadata**(`eventName`): `boolean`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `eventName` | `string` |
+
+#### Returns
+
+`boolean`

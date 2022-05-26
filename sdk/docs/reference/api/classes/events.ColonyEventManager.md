@@ -121,7 +121,7 @@ ___
 
 ### createMultiFilter
 
-▸ **createMultiFilter**<`T`, `N`\>(`contract`, `eventName`, `address`, `params?`): [`ColonyMultiFilter`](../interfaces/events.ColonyMultiFilter.md)
+▸ **createMultiFilter**<`T`, `N`\>(`contract`, `eventNames`, `address`): [`ColonyMultiFilter`](../interfaces/events.ColonyMultiFilter.md)
 
 Create a [ColonyMultiFilter](../interfaces/events.ColonyMultiFilter.md) that keeps track of its event source and can work alongside other filters in [getMultiEvents](events.ColonyEventManager.md#getmultievents)
 
@@ -129,7 +129,7 @@ The [ColonyMultiFilter](../interfaces/events.ColonyMultiFilter.md) works much li
 Furthermore, no `fromBlock` or `toBlock` requirements can be given (that is done on a global level in [getMultiEvents](events.ColonyEventManager.md#getmultievents))
 
 **`remarks`**
-We can do that as we do not have ambiguous events across our contracts, so we will always be able to find the right contract to parse the event data later on
+We can do that as we do not have ambiguous events across our contracts, so we will always be able to find the right contract to parse the event data later on. Note that `ColonyMultiFilter` does not allow for params to be passed in.
 
 **`example`**
 Filter for all `DomainAdded` events for a specific [ColonyNetwork.Colony](ColonyNetwork.Colony.md) contract
@@ -153,9 +153,8 @@ const domainAdded = colonyEvents.createFilter(
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `contract` | `T` | A valid [EventSource](../modules/events.md#eventsource) |
-| `eventName` | `N` | A valid event signature from the contract's `filters` object |
+| `eventNames` | `N`[] | A list of valid event signatures from the contract's `filters` object |
 | `address` | `string` | Address of the contract that can emit this event |
-| `params?` | `Parameters`<`T`[``"filters"``][`N`]\> | Parameters to filter by for the event. Has to be indexed in the contract (see _ethers_ [Event Filters](https://docs.ethers.io/v5/api/contract/contract/#Contract--filters)) |
 
 #### Returns
 

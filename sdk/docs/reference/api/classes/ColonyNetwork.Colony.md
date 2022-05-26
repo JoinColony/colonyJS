@@ -86,7 +86,7 @@ ___
 
 ### createTeam
 
-▸ **createTeam**(`metadataCid?`): `Promise`<[{ `agent?`: `string` ; `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber` ; `metadata?`: `string`  }, `ContractReceipt`, () => `Promise`<{ `domainColor`: `string` ; `domainName`: `string` ; `domainPurpose`: `string`  }\>] \| [{ `agent?`: `string` ; `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber` ; `metadata?`: `string`  }, `ContractReceipt`]\>
+▸ **createTeam**(`metadataCid?`): `Promise`<[{ `agent?`: `string` ; `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber` ; `metadata?`: `string`  }, `ContractReceipt`, () => `Promise`<{ `domainColor`: `number` ; `domainName`: `string` ; `domainPurpose`: `string`  }\>] \| [{ `agent?`: `string` ; `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber` ; `metadata?`: `string`  }, `ContractReceipt`]\>
 
 Create a team within a Colony
 
@@ -101,7 +101,7 @@ Currently you can only add domains within the `Root` domain. This restriction wi
 
 #### Returns
 
-`Promise`<[{ `agent?`: `string` ; `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber` ; `metadata?`: `string`  }, `ContractReceipt`, () => `Promise`<{ `domainColor`: `string` ; `domainName`: `string` ; `domainPurpose`: `string`  }\>] \| [{ `agent?`: `string` ; `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber` ; `metadata?`: `string`  }, `ContractReceipt`]\>
+`Promise`<[{ `agent?`: `string` ; `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber` ; `metadata?`: `string`  }, `ContractReceipt`, () => `Promise`<{ `domainColor`: `number` ; `domainName`: `string` ; `domainPurpose`: `string`  }\>] \| [{ `agent?`: `string` ; `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber` ; `metadata?`: `string`  }, `ContractReceipt`]\>
 
 A tupel: `[eventData, ContractReceipt, getMetaData]`
 
@@ -329,7 +329,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `D` | extends `Object` |
-| `E` | extends ``"DomainMetadata"`` \| ``"Annotation"`` \| ``"ColonyMetadata"`` |
+| `E` | extends ``"DomainMetadata(address,uint256,string)"`` \| ``"Annotation(address,bytes32,string)"`` \| ``"ColonyMetadata(address,string)"`` |
 
 #### Parameters
 

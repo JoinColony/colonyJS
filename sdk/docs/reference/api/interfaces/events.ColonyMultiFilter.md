@@ -7,23 +7,15 @@
 ColonyFilter with support for multi-events
 For the multi-event compatible filters the following assumptions prevail:
 - `address` is a mandatory field
-- it can only take a single `topic`
+- The list of filter topics is always OR'd, never AND'd.
 - `fromBlock` and `toBlock` are not available
-
-## Hierarchy
-
-- `Omit`<[`ColonyFilter`](events.ColonyFilter.md), ``"address"`` \| ``"topics"`` \| ``"fromBlock"`` \| ``"toBlock"``\>
-
-  ↳ **`ColonyMultiFilter`**
 
 ## Table of contents
 
 ### Properties
 
 - [address](events.ColonyMultiFilter.md#address)
-- [eventName](events.ColonyMultiFilter.md#eventname)
-- [eventSource](events.ColonyMultiFilter.md#eventsource)
-- [topic](events.ColonyMultiFilter.md#topic)
+- [colonyTopics](events.ColonyMultiFilter.md#colonytopics)
 
 ## Properties
 
@@ -33,26 +25,6 @@ For the multi-event compatible filters the following assumptions prevail:
 
 ___
 
-### eventName
+### colonyTopics
 
-• **eventName**: `string`
-
-#### Inherited from
-
-Omit.eventName
-
-___
-
-### eventSource
-
-• **eventSource**: keyof [`EventSources`](events.EventSources.md)
-
-#### Inherited from
-
-Omit.eventSource
-
-___
-
-### topic
-
-• **topic**: `string`
+• **colonyTopics**: `ColonyTopic`[]

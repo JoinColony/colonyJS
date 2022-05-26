@@ -17,12 +17,7 @@ import {
   VotingReputationEvents__factory,
 } from '@colony/colony-js/extras';
 
-import {
-  IpfsMetadata,
-  IPFS_METADATA,
-  MetadataKey,
-  AnyMetadataValue,
-} from './IpfsMetadata';
+import { IpfsMetadata, MetadataKey, AnyMetadataValue } from './IpfsMetadata';
 import type { Ethers6Filter } from '../types';
 import { addressesAreEqual, getLogs, nonNullable } from '../utils';
 
@@ -43,17 +38,21 @@ export interface ColonyFilter extends Ethers6Filter {
   eventName: string;
 }
 
-// TODO: consider allowing an address array
+interface ColonyTopic {
+  eventSource: keyof EventSources;
+  eventName: string;
+  topic: string;
+}
+
 /** ColonyFilter with support for multi-events
  * For the multi-event compatible filters the following assumptions prevail:
  * - `address` is a mandatory field
- * - it can only take a single `topic`
+ * - The list of filter topics is always OR'd, never AND'd.
  * - `fromBlock` and `toBlock` are not available
  */
-export interface ColonyMultiFilter
-  extends Omit<ColonyFilter, 'address' | 'topics' | 'fromBlock' | 'toBlock'> {
+export interface ColonyMultiFilter {
   address: string;
-  topic: string;
+  colonyTopics: ColonyTopic[];
 }
 
 /** An Event that came from a contract within the Colony Network */
@@ -107,9 +106,11 @@ export class ColonyEventManager {
     this.provider = provider;
   }
 
-  private static extractSingleTopic(filter?: ColonyFilter) {
-    if (!filter || !filter.topics) return null;
-    const topic = filter.topics;
+  private static extractSingleTopic(topicsContainer?: {
+    topics?: ColonyFilter['topics'];
+  }) {
+    if (!topicsContainer || !topicsContainer.topics) return null;
+    const topic = topicsContainer.topics;
     if (typeof topic[0] == 'string') return topic[0];
     if (Array.isArray(topic[0]) && typeof topic[0][0] == 'string') {
       return topic[0][0];
@@ -158,7 +159,7 @@ export class ColonyEventManager {
           log.data,
           log.topics,
         );
-        if (eventName in IPFS_METADATA) {
+        if (IpfsMetadata.eventSupportMetadata(eventName)) {
           return {
             ...filter,
             data,
@@ -221,40 +222,70 @@ export class ColonyEventManager {
   ): Promise<ColonyEvent[]> {
     // Unique list of addresses
     const addresses = Array.from(
-      new Set(filters.map(({ address }) => address)),
+      new Set(filters.flatMap(({ address }) => address)),
     );
     // Unique list of topics
-    const topics = Array.from(new Set(filters.map(({ topic }) => topic)));
+    const uniqueTopics = Array.from(
+      new Set(
+        filters.flatMap(({ colonyTopics }) =>
+          colonyTopics.map(({ topic }) => topic),
+        ),
+      ),
+    );
     const logs = await getLogs(
       {
         address: addresses,
         fromBlock: options.fromBlock,
         toBlock: options.toBlock,
-        topics: [topics],
+        topics: [uniqueTopics],
       },
       this.provider,
     );
+    // TODO: I think it might be smart to just consult a database for this info
     return logs
       .map((log) => {
-        const filter = filters.find(
-          ({ topic, address }) =>
-            log.topics.includes(topic) &&
-            addressesAreEqual(address, log.address),
+        const topic = ColonyEventManager.extractSingleTopic(log);
+        // We are looking for a MultiFilter that defines this address but also
+        // includes the topic that we're looking for so that we can decode it later
+        const multiFilter = filters.find(
+          ({ address, colonyTopics }) =>
+            addressesAreEqual(address, log.address) &&
+            colonyTopics.findIndex(
+              ({ topic: filterTopic }) => filterTopic === topic,
+            ) > -1,
+        );
+        if (!multiFilter) return null;
+        // Now find the actual filter with the topic
+        const filter = multiFilter.colonyTopics.find(
+          ({ topic: filterTopic }) => filterTopic === topic,
         );
         if (!filter) return null;
-        const { eventSource, topic, eventName, address } = filter;
+        const { eventSource, eventName } = filter;
         const data = this.eventSources[eventSource].interface.decodeEventLog(
           eventName,
           log.data,
           log.topics,
         );
-        return {
-          address,
+        const colonyEvent = {
+          address: log.address,
           eventSource,
-          topics: [topic],
+          topics: log.topics,
           eventName,
           data,
         };
+
+        if (IpfsMetadata.eventSupportMetadata(eventName)) {
+          return {
+            ...colonyEvent,
+            getMetadata: async () => {
+              return this.ipfsMetadata.getMetadataForEvent(
+                eventName as MetadataKey,
+                data.metadata,
+              );
+            },
+          };
+        }
+        return colonyEvent;
       })
       .filter(nonNullable);
   }
@@ -313,7 +344,12 @@ export class ColonyEventManager {
     options: { fromBlock?: BlockTag; toBlock?: BlockTag } = {},
   ): ColonyFilter {
     // Create standard filter
-    const filter = contract.filters[eventName].apply(params);
+    const filter = params
+      ? contract.filters[eventName].apply([
+          contract.filters[eventName],
+          ...params,
+        ])
+      : contract.filters[eventName]();
     const eventSource = this.getEventSourceName(contract);
     if (!eventSource) {
       throw new Error(`Could not find event contract for filter`);
@@ -335,7 +371,7 @@ export class ColonyEventManager {
    * Furthermore, no `fromBlock` or `toBlock` requirements can be given (that is done on a global level in [[getMultiEvents]])
    *
    * @remarks
-   * We can do that as we do not have ambiguous events across our contracts, so we will always be able to find the right contract to parse the event data later on
+   * We can do that as we do not have ambiguous events across our contracts, so we will always be able to find the right contract to parse the event data later on. Note that `ColonyMultiFilter` does not allow for params to be passed in.
    *
    * @example
    * Filter for all `DomainAdded` events for a specific [[ColonyNetwork.Colony]] contract
@@ -352,9 +388,8 @@ export class ColonyEventManager {
    * See the [ColonyJS documentation](https://colony.gitbook.io/colony/colonyjs) for a list of all available contracts and events
    *
    * @param contract A valid [[EventSource]]
-   * @param eventName A valid event signature from the contract's `filters` object
+   * @param eventNames A list of valid event signatures from the contract's `filters` object
    * @param address Address of the contract that can emit this event
-   * @param params Parameters to filter by for the event. Has to be indexed in the contract (see _ethers_ [Event Filters](https://docs.ethers.io/v5/api/contract/contract/#Contract--filters))
    * @returns A [[ColonyMultiFilter]]
    */
   createMultiFilter<
@@ -362,21 +397,24 @@ export class ColonyEventManager {
       filters: { [P in N]: (...args: never) => EventFilter };
     },
     N extends keyof T['filters'],
-  >(
-    contract: T,
-    eventName: N,
-    address: string,
-    params?: Parameters<T['filters'][N]>,
-  ): ColonyMultiFilter {
-    const filter = this.createFilter(contract, eventName, address, params);
-    // Just use the first topic for now. Let's see how far we get with this. They will be connected with ORs
-    const topic = ColonyEventManager.extractSingleTopic(filter);
-    if (!topic) {
-      throw new Error(`Filter does not have any topics: ${eventName}`);
-    }
-    delete filter.topics;
-    const colonyFilter = filter as ColonyMultiFilter;
-    colonyFilter.topic = topic;
-    return colonyFilter;
+  >(contract: T, eventNames: N[], address: string): ColonyMultiFilter {
+    const colonyTopics: ColonyTopic[] = eventNames
+      .map((eventName) => {
+        const filter = this.createFilter(contract, eventName, address);
+        // As we don't allow parameters, filter.topics should always be a single topic
+        const topic = ColonyEventManager.extractSingleTopic(filter);
+        if (!topic) return null;
+        return {
+          topic,
+          eventName: eventName as string,
+          eventSource: filter.eventSource,
+        };
+      })
+      .filter(nonNullable);
+
+    return {
+      address,
+      colonyTopics,
+    };
   }
 }

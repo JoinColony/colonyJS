@@ -13,9 +13,9 @@ const setupEventListener = (
 ) => {
   const manager = new ColonyEventManager(provider);
 
-  const domainAdded = manager.createMultiFilter(
+  const domainEvents = manager.createMultiFilter(
     manager.eventSources.Colony,
-    'DomainAdded(address,uint256)',
+    ['DomainAdded(address,uint256)', 'DomainMetadata(address,uint256,string)'],
     colonyAddress,
   );
 
@@ -25,7 +25,7 @@ const setupEventListener = (
     i += 1;
     // Only get events every 5 blocks to debounce this a little bit
     if (i === 4) {
-      const events = await manager.getMultiEvents([domainAdded], {
+      const events = await manager.getMultiEvents([domainEvents], {
         fromBlock: no - i,
         toBlock: no,
       });
@@ -60,8 +60,18 @@ button.addEventListener('click', async () => {
   addressInput.value = '';
   setupEventListener(colonyAddress, (events) => {
     speak(
-      `A domain with id ${events[0].data.domainId} was created on Colony ${events[0].address}`,
+      `A domain with id ${events[0].data.domainId} was created on Colony ${events[0].address}.`,
     );
+    events.forEach(async (event) => {
+      if (event.getMetadata) {
+        const metadata = await event.getMetadata();
+        if ('domainName' in metadata) {
+          speak(
+            `A domain with id ${event.data.domainId} was created on Colony ${event.address}. It's name is ${metadata.domainName}, it's color ${metadata.domainColor} and was created for the following purpose: ${metadata.domainPurpose}`,
+          );
+        }
+      }
+    });
   });
   speak(`Set up event listener for Colony ${colonyAddress}`);
   return null;
