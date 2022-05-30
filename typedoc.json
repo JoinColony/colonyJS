@@ -1,6 +1,13 @@
 {
   "name": "colonyJS",
-  "readme": "README.md",
-  "out": "docs",
-  "media": "./media"
+  "entryPoints": ["./src/index.ts"],
+  "out": "docs/reference/api",
+  "media": "./media",
+  "excludeInternal": true,
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "name": "ColonyJS",
+  "plugin": "typedoc-plugin-markdown",
+  "githubPages": false,
+  "disableSources": true
 }
