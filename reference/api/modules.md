@@ -48,6 +48,7 @@
 - [OneTxPaymentClientV1](interfaces/OneTxPaymentClientV1.md)
 - [OneTxPaymentClientV2](interfaces/OneTxPaymentClientV2.md)
 - [OneTxPaymentClientV3](interfaces/OneTxPaymentClientV3.md)
+- [TokenLockingClient](interfaces/TokenLockingClient.md)
 - [VotingReputationClientV1](interfaces/VotingReputationClientV1.md)
 - [VotingReputationClientV2](interfaces/VotingReputationClientV2.md)
 - [VotingReputationClientV3](interfaces/VotingReputationClientV3.md)
@@ -135,7 +136,7 @@ ___
 
 ### ContractClient
 
-Ƭ **ContractClient**: [`AnyColonyClient`](modules.md#anycolonyclient) \| [`ColonyNetworkClient`](interfaces/ColonyNetworkClient.md) \| [`EventsClient`](modules.md#eventsclient) \| [`ExtensionClient`](modules.md#extensionclient) \| [`TokenClient`](modules.md#tokenclient) \| `TokenLockingContractClient`
+Ƭ **ContractClient**: [`AnyColonyClient`](modules.md#anycolonyclient) \| [`ColonyNetworkClient`](interfaces/ColonyNetworkClient.md) \| [`EventsClient`](modules.md#eventsclient) \| [`ExtensionClient`](modules.md#extensionclient) \| [`TokenClient`](modules.md#tokenclient) \| [`TokenLockingClient`](interfaces/TokenLockingClient.md)
 
 ___
 
@@ -561,7 +562,7 @@ Returns `true` if an extension version is compatible with the given colony versi
 | :------ | :------ | :------ |
 | `extension` | [`Extension`](enums/Extension.md) | A valid `Extension` contract name |
 | `extensionVersion` | `ExtensionVersion` | The version of the extension to check against the colony |
-| `colonyVersion` | ``1`` \| ``6`` \| ``2`` \| ``3`` \| ``4`` \| ``5`` \| ``7`` \| ``8`` \| ``9`` | The version of the colony to check for |
+| `colonyVersion` | ``1`` \| ``6`` \| ``2`` \| ``4`` \| ``3`` \| ``5`` \| ``7`` \| ``8`` \| ``9`` | The version of the colony to check for |
 
 #### Returns
 
