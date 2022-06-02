@@ -23,6 +23,7 @@ An Event that came from a contract within the Colony Network
 - [fromBlock](events.ColonyEvent.md#fromblock)
 - [toBlock](events.ColonyEvent.md#toblock)
 - [topics](events.ColonyEvent.md#topics)
+- [transactionHash](events.ColonyEvent.md#transactionhash)
 
 ### Methods
 
@@ -50,6 +51,8 @@ ___
 
 • **eventName**: `string`
 
+The full event signature of this event (e.g. `TokenMinted(uint256))`
+
 #### Inherited from
 
 [ColonyFilter](events.ColonyFilter.md).[eventName](events.ColonyFilter.md#eventname)
@@ -59,6 +62,8 @@ ___
 ### eventSource
 
 • **eventSource**: keyof [`EventSources`](events.EventSources.md)
+
+The Colony contract the event originated from
 
 #### Inherited from
 
@@ -93,6 +98,12 @@ ___
 #### Inherited from
 
 [ColonyFilter](events.ColonyFilter.md).[topics](events.ColonyFilter.md#topics)
+
+___
+
+### transactionHash
+
+• **transactionHash**: `string`
 
 ## Methods
 

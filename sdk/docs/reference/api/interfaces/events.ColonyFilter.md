@@ -41,11 +41,15 @@ ___
 
 • **eventName**: `string`
 
+The full event signature of this event (e.g. `TokenMinted(uint256))`
+
 ___
 
 ### eventSource
 
 • **eventSource**: keyof [`EventSources`](events.EventSources.md)
+
+The Colony contract the event originated from
 
 ___
 

@@ -34,7 +34,9 @@ export type EventSource = EventSources[keyof EventSources];
 
 /** A Colony extended ethers Filter to keep track of where events are coming from */
 export interface ColonyFilter extends Ethers6Filter {
+  /** The Colony contract the event originated from */
   eventSource: keyof EventSources;
+  /** The full event signature of this event (e.g. `TokenMinted(uint256))` */
   eventName: string;
 }
 
@@ -58,6 +60,7 @@ export interface ColonyMultiFilter {
 /** An Event that came from a contract within the Colony Network */
 export interface ColonyEvent extends ColonyFilter {
   data: Result;
+  transactionHash: string;
   getMetadata?: () => Promise<AnyMetadataValue>;
 }
 
@@ -163,6 +166,7 @@ export class ColonyEventManager {
           return {
             ...filter,
             data,
+            transactionHash: log.transactionHash,
             getMetadata: async () => {
               return this.ipfsMetadata.getMetadataForEvent(
                 eventName as MetadataKey,
@@ -173,6 +177,7 @@ export class ColonyEventManager {
         }
         return {
           ...filter,
+          transactionHash: log.transactionHash,
           data,
         };
       })
@@ -272,6 +277,7 @@ export class ColonyEventManager {
           topics: log.topics,
           eventName,
           data,
+          transactionHash: log.transactionHash,
         };
 
         if (IpfsMetadata.eventSupportMetadata(eventName)) {
