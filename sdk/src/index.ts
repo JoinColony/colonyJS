@@ -9,12 +9,14 @@ export { ColonyNetwork, Colony } from './ColonyNetwork';
 export { ColonyEventManager } from './events/ColonyEventManager';
 
 export type {
+  AnyMetadataValue,
   ColonyFilter,
   ColonyMultiFilter,
   ColonyEvent,
   EventSource,
   EventSources,
-} from './events/ColonyEventManager';
+  MetadataKey,
+} from './events';
 
 export * from './constants';
 
