@@ -30,11 +30,11 @@ export const getLogs = async (
   return provider.send('eth_getLogs', [usedFilter]);
 };
 
-/** @internal */
+/** Check if two addresses are equal */
 export const addressesAreEqual = (a: string, b: string) =>
   a.toLowerCase() === b.toLowerCase();
 
-/** @internal */
+/** Use this to filter empty undefinied values from arrays in a type-safe way */
 export const nonNullable = <T>(value: T): value is NonNullable<T> => {
   return value !== null && value !== undefined;
 };
