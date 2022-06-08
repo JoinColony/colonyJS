@@ -64,13 +64,13 @@ Then you can run the examples:
 ### Node.js
 
 ```bash
-npm run example:node
+npm run examples:node
 ```
 
 ### Browser (vanilla JS example)
 
 ```bash
-npm run example:browser
+npm run examples:browser
 ```
 
 ### Some notes
