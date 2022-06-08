@@ -24,7 +24,7 @@
     "import/no-unresolved": "off",
     "import/prefer-default-export": "off",
     "import/no-extraneous-dependencies": ["error", {
-        "devDependencies": ["scripts/*.ts", "src/__tests__/*.ts"]
+        "devDependencies": ["scripts/*.ts", "src/__tests__/*.ts", "examples/**/*.ts"]
     }]
   },
   "overrides": [

@@ -1,22 +1,30 @@
-import { providers, utils } from 'ethers';
+import { basename, resolve } from 'path';
+import { fork } from 'child_process';
 
-import { ColonyNetwork } from '../../src';
+import { prompt } from 'inquirer';
+import { sync as glob } from 'fast-glob';
+import yargs from 'yargs/yargs';
+import { hideBin } from 'yargs/helpers';
 
-const { formatUnits } = utils;
+const { argv } = yargs(hideBin(process.argv));
 
-const provider = new providers.JsonRpcProvider('https://rpc.gnosischain.com/');
+if ('example' in argv) {
+  fork(resolve(__dirname, `${argv.example}.ts`));
+} else {
+  const examples = glob(resolve(__dirname, './*.ts'))
+    .map((path) => basename(path, '.ts'))
+    .filter((example) => example !== 'index');
 
-// Get the Colony's CLNY funding in the ROOT team (id 1)
-const start = async () => {
-  const colonyNetwork = new ColonyNetwork(provider);
-  const metaColony = await colonyNetwork.getMetaColony();
-  const funding = await metaColony.getBalance();
-  const { address } = metaColony;
-  console.info(
-    `${formatUnits(
-      funding,
-    )} CLNY in root team of MetaColony with address: ${address}`,
-  );
-};
+  const questions = [
+    {
+      type: 'list',
+      name: 'example',
+      message: 'Which example would you like to run?',
+      choices: examples,
+    },
+  ];
 
-start();
+  prompt(questions).then((answers) => {
+    fork(resolve(__dirname, `${answers.example}.ts`));
+  });
+}
