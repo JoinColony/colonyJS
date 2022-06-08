@@ -22,7 +22,7 @@ The Colony Subgraph client
 
 The Colony Subgraph client is nothing else than a ready-to-use [`urql`](https://formidable.com/open-source/urql/) client connected to the Colony Subgraph with subscriptions enabled. Please refer to the following references if you'd like to know more about [The Graph](https://thegraph.com/) or [GraphQL](https://graphql.org/) in general.
 
-The Colony Subgraph's schema and resolvers are kept up-to-date by the Colony team and can be explored here: https://thegraph.com/hosted-service/subgraph/joincolony/colony-xdai. There you can make test queries to the Colony Subgraph and explore it all the way down the rabbit hole :)
+The Colony Subgraph's schema and resolvers are kept up-to-date by the Colony team and can be explored here: [Colony Subgraph](https://thegraph.com/hosted-service/subgraph/joincolony/colony-xdai). There you can make test queries to the Colony Subgraph and explore it all the way down the rabbit hole :)
 
 **`example`**
 Retrieve the 10 most recent "DomainAdded" events across all Colonies
