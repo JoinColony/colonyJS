@@ -1,5 +1,5 @@
 {
-    "entryPoints": ["./src/ColonyNetwork", "./src/events", "./src/types.ts", "./src/constants.ts"],
+    "entryPoints": ["./src/ColonyNetwork", "./src/events", "./src/types.ts", "./src/constants.ts", "./src/graph"],
     "out": "docs/reference/api",
     "excludeInternal": true,
     "excludePrivate": true,

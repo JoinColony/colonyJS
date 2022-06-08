@@ -1,10 +1,9 @@
-import { gql } from '@urql/core';
+import { colonySubgraph, gql } from '../../src/graph';
 
-import { client } from '../../src/graph';
-
+// This query fetches the latest DomainAdded event and prints all kinds of information about it
 const QUERY = gql`
   query SubgraphEvents {
-    events(orderDirection: asc, where: { name_contains: "Added" }) {
+    events(first: 10, where: { name_contains: "DomainAdded" }) {
       id
       address
       associatedColony {
@@ -30,7 +29,7 @@ const QUERY = gql`
   }
 `;
 
-client
+colonySubgraph
   .query(QUERY)
   .toPromise()
   .then((result) => {
