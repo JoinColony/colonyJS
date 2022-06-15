@@ -1,4 +1,4 @@
-[ColonyJS](../README.md) / [Exports](../modules.md) / ColonyRole
+[ColonyJS](../README.md) / ColonyRole
 
 # Enumeration: ColonyRole
 

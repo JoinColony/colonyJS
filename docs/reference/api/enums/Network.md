@@ -1,4 +1,4 @@
-[ColonyJS](../README.md) / [Exports](../modules.md) / Network
+[ColonyJS](../README.md) / Network
 
 # Enumeration: Network
 

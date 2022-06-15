@@ -1,4 +1,4 @@
-[ColonyJS](../README.md) / [Exports](../modules.md) / Tokens
+[ColonyJS](../README.md) / Tokens
 
 # Namespace: Tokens
 

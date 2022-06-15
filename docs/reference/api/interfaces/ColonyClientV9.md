@@ -1,4 +1,4 @@
-[ColonyJS](../README.md) / [Exports](../modules.md) / ColonyClientV9
+[ColonyJS](../README.md) / ColonyClientV9
 
 # Interface: ColonyClientV9
 
@@ -1073,7 +1073,7 @@ ___
 
 ### tokenClient
 
-• **tokenClient**: [`TokenClient`](../modules.md#tokenclient)
+• **tokenClient**: [`TokenClient`](../README.md#tokenclient)
 
 An instance of the TokenClient for the Colony's native token
 

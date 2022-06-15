@@ -1,4 +1,4 @@
-[ColonyJS](../README.md) / [Exports](../modules.md) / ClientType
+[ColonyJS](../README.md) / ClientType
 
 # Enumeration: ClientType
 

@@ -1,4 +1,4 @@
-[ColonyJS](../README.md) / [Exports](../modules.md) / CoinMachineClientV1
+[ColonyJS](../README.md) / CoinMachineClientV1
 
 # Interface: CoinMachineClientV1
 

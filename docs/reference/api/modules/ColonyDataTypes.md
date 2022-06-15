@@ -1,4 +1,4 @@
-[ColonyJS](../README.md) / [Exports](../modules.md) / ColonyDataTypes
+[ColonyJS](../README.md) / ColonyDataTypes
 
 # Namespace: ColonyDataTypes
 

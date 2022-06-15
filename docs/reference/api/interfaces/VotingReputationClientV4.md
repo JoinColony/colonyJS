@@ -1,4 +1,4 @@
-[ColonyJS](../README.md) / [Exports](../modules.md) / VotingReputationClientV4
+[ColonyJS](../README.md) / VotingReputationClientV4
 
 # Interface: VotingReputationClientV4
 

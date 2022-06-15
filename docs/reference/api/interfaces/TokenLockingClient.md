@@ -1,4 +1,4 @@
-[ColonyJS](../README.md) / [Exports](../modules.md) / TokenLockingClient
+[ColonyJS](../README.md) / TokenLockingClient
 
 # Interface: TokenLockingClient
 

@@ -1,4 +1,4 @@
-[ColonyJS](../README.md) / [Exports](../modules.md) / Erc20TokenClient
+[ColonyJS](../README.md) / Erc20TokenClient
 
 # Interface: Erc20TokenClient
 

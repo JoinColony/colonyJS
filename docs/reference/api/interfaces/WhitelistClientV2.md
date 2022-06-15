@@ -1,4 +1,4 @@
-[ColonyJS](../README.md) / [Exports](../modules.md) / WhitelistClientV2
+[ColonyJS](../README.md) / WhitelistClientV2
 
 # Interface: WhitelistClientV2
 

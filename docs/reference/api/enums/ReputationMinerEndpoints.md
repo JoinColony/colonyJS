@@ -1,4 +1,4 @@
-[ColonyJS](../README.md) / [Exports](../modules.md) / ReputationMinerEndpoints
+[ColonyJS](../README.md) / ReputationMinerEndpoints
 
 # Enumeration: ReputationMinerEndpoints
 

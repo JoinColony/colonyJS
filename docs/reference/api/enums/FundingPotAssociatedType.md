@@ -1,4 +1,4 @@
-[ColonyJS](../README.md) / [Exports](../modules.md) / FundingPotAssociatedType
+[ColonyJS](../README.md) / FundingPotAssociatedType
 
 # Enumeration: FundingPotAssociatedType
 

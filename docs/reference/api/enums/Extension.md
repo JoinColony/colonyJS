@@ -1,4 +1,4 @@
-[ColonyJS](../README.md) / [Exports](../modules.md) / Extension
+[ColonyJS](../README.md) / Extension
 
 # Enumeration: Extension
 

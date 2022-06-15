@@ -1,4 +1,4 @@
-[ColonyJS](../README.md) / [Exports](../modules.md) / DaiTokenClient
+[ColonyJS](../README.md) / DaiTokenClient
 
 # Interface: DaiTokenClient
 

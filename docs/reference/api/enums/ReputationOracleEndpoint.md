@@ -1,4 +1,4 @@
-[ColonyJS](../README.md) / [Exports](../modules.md) / ReputationOracleEndpoint
+[ColonyJS](../README.md) / ReputationOracleEndpoint
 
 # Enumeration: ReputationOracleEndpoint
 

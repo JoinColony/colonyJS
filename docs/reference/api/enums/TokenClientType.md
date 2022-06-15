@@ -1,4 +1,4 @@
-[ColonyJS](../README.md) / [Exports](../modules.md) / TokenClientType
+[ColonyJS](../README.md) / TokenClientType
 
 # Enumeration: TokenClientType
 

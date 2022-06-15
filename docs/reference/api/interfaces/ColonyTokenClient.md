@@ -1,4 +1,4 @@
-[ColonyJS](../README.md) / [Exports](../modules.md) / ColonyTokenClient
+[ColonyJS](../README.md) / ColonyTokenClient
 
 # Interface: ColonyTokenClient
 

@@ -1,4 +1,4 @@
-[ColonyJS](../README.md) / [Exports](../modules.md) / [Tokens](../modules/Tokens.md) / Gnosis
+[ColonyJS](../README.md) / [Tokens](../modules/Tokens.md) / Gnosis
 
 # Enumeration: Gnosis
 

@@ -1,4 +1,4 @@
-[ColonyJS](../README.md) / [Exports](../modules.md) / [Tokens](../modules/Tokens.md) / Mainnet
+[ColonyJS](../README.md) / [Tokens](../modules/Tokens.md) / Mainnet
 
 # Enumeration: Mainnet
 

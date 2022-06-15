@@ -1,4 +1,4 @@
-[ColonyJS](../README.md) / [Exports](../modules.md) / OneTxPaymentClientV3
+[ColonyJS](../README.md) / OneTxPaymentClientV3
 
 # Interface: OneTxPaymentClientV3
 

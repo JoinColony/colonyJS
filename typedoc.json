@@ -9,5 +9,6 @@
   "name": "ColonyJS",
   "plugin": "typedoc-plugin-markdown",
   "githubPages": false,
-  "disableSources": true
+  "disableSources": true,
+  "readme": "none"
 }

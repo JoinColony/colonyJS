@@ -1,4 +1,4 @@
-[ColonyJS](../README.md) / [Exports](../modules.md) / ColonyNetworkClient
+[ColonyJS](../README.md) / ColonyNetworkClient
 
 # Interface: ColonyNetworkClient
 
@@ -1479,7 +1479,7 @@ ___
 
 ### getColonyClient
 
-▸ **getColonyClient**(`addressOrId`): `Promise`<[`AnyColonyClient`](../modules.md#anycolonyclient)\>
+▸ **getColonyClient**(`addressOrId`): `Promise`<[`AnyColonyClient`](../README.md#anycolonyclient)\>
 
 Get a ColonyClient instance for the currently deployed version of that Colony by providing the address or the integer colony number
 
@@ -1491,7 +1491,7 @@ Get a ColonyClient instance for the currently deployed version of that Colony by
 
 #### Returns
 
-`Promise`<[`AnyColonyClient`](../modules.md#anycolonyclient)\>
+`Promise`<[`AnyColonyClient`](../README.md#anycolonyclient)\>
 
 The corresponding initialized ColonyClient instance
 
@@ -1680,13 +1680,13 @@ ___
 
 ### getMetaColonyClient
 
-▸ **getMetaColonyClient**(): `Promise`<[`AnyColonyClient`](../modules.md#anycolonyclient)\>
+▸ **getMetaColonyClient**(): `Promise`<[`AnyColonyClient`](../README.md#anycolonyclient)\>
 
 Get the initialized MetaColony client
 
 #### Returns
 
-`Promise`<[`AnyColonyClient`](../modules.md#anycolonyclient)\>
+`Promise`<[`AnyColonyClient`](../README.md#anycolonyclient)\>
 
 a ColonyClient instance of the MetaColony (id: 1)
 

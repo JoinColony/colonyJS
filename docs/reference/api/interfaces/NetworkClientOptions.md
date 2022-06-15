@@ -1,4 +1,4 @@
-[ColonyJS](../README.md) / [Exports](../modules.md) / NetworkClientOptions
+[ColonyJS](../README.md) / NetworkClientOptions
 
 # Interface: NetworkClientOptions
 

@@ -1,4 +1,4 @@
-[ColonyJS](../README.md) / [Exports](../modules.md) / MotionState
+[ColonyJS](../README.md) / MotionState
 
 # Enumeration: MotionState
 

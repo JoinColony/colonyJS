@@ -1,4 +1,4 @@
-[ColonyJS](../README.md) / [Exports](../modules.md) / Id
+[ColonyJS](../README.md) / Id
 
 # Enumeration: Id
 
