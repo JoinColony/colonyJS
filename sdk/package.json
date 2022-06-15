@@ -49,6 +49,7 @@
     "examples:browser": "esbuild --bundle examples/browser/src/*.ts --servedir=examples/browser/web",
     "build": "npm run clean && npm run compile-cjs && npm run compile-esm && npm run compile-types && npm run build-docs",
     "build-docs": "typedoc",
+    "build-examples": "esbuild --bundle examples/browser/src/*.ts --outdir=examples/browser/web --minify",
     "clean": "rimraf ./dist",
     "compile-cjs": "tsc -p tsconfig.build.json --module commonjs --outDir dist/cjs",
     "compile-esm": "tsc -p tsconfig.build.json --module es2015 --outDir dist/esm",
