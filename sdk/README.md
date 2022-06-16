@@ -1,7 +1,7 @@
 🚀 The Colony SDK. Get started with Colony quickly
 
 <div align="center">
-  <img src="https://raw.githack.com/JoinColony/colonySDK/main/img/colonySDK_color.svg" width="600" />
+  <img src="https://rawcdn.githack.com/JoinColony/colonySDK/main/img/colonySDK_color.svg#v2" width="600" />
 </div>
 
 [![Discord](https://img.shields.io/discord/562263648173555742)](https://discord.gg/feVZWwysqM)
