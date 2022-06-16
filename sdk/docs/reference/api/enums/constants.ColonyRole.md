@@ -1,4 +1,4 @@
-[Colony SDK 🚀](../README.md) / [Modules](../modules.md) / [constants](../modules/constants.md) / ColonyRole
+[Colony SDK 🚀](../README.md) / [constants](../modules/constants.md) / ColonyRole
 
 # Enumeration: ColonyRole
 

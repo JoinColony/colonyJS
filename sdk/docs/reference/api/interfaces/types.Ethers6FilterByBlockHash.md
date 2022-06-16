@@ -1,4 +1,4 @@
-[Colony SDK 🚀](../README.md) / [Modules](../modules.md) / [types](../modules/types.md) / Ethers6FilterByBlockHash
+[Colony SDK 🚀](../README.md) / [types](../modules/types.md) / Ethers6FilterByBlockHash
 
 # Interface: Ethers6FilterByBlockHash
 

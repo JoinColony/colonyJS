@@ -1,4 +1,4 @@
-[Colony SDK 🚀](../README.md) / [Modules](../modules.md) / [events](../modules/events.md) / IpfsMetadata
+[Colony SDK 🚀](../README.md) / [events](../modules/events.md) / IpfsMetadata
 
 # Class: IpfsMetadata
 

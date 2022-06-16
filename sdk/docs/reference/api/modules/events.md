@@ -1,4 +1,4 @@
-[Colony SDK 🚀](../README.md) / [Modules](../modules.md) / events
+[Colony SDK 🚀](../README.md) / events
 
 # Module: events
 

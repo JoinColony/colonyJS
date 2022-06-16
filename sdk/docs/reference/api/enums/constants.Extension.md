@@ -1,4 +1,4 @@
-[Colony SDK 🚀](../README.md) / [Modules](../modules.md) / [constants](../modules/constants.md) / Extension
+[Colony SDK 🚀](../README.md) / [constants](../modules/constants.md) / Extension
 
 # Enumeration: Extension
 

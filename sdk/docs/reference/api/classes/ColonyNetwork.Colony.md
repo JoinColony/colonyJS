@@ -1,4 +1,4 @@
-[Colony SDK 🚀](../README.md) / [Modules](../modules.md) / [ColonyNetwork](../modules/ColonyNetwork.md) / Colony
+[Colony SDK 🚀](../README.md) / [ColonyNetwork](../modules/ColonyNetwork.md) / Colony
 
 # Class: Colony
 

@@ -1,4 +1,4 @@
-[Colony SDK 🚀](../README.md) / [Modules](../modules.md) / [constants](../modules/constants.md) / [Tokens](../modules/constants.Tokens.md) / Gnosis
+[Colony SDK 🚀](../README.md) / [constants](../modules/constants.md) / [Tokens](../modules/constants.Tokens.md) / Gnosis
 
 # Enumeration: Gnosis
 

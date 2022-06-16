@@ -1,4 +1,4 @@
-[Colony SDK 🚀](../README.md) / [Modules](../modules.md) / ColonyNetwork
+[Colony SDK 🚀](../README.md) / ColonyNetwork
 
 # Module: ColonyNetwork
 

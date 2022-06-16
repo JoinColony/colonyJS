@@ -1,4 +1,4 @@
-[Colony SDK 🚀](../README.md) / [Modules](../modules.md) / [constants](constants.md) / Tokens
+[Colony SDK 🚀](../README.md) / [constants](constants.md) / Tokens
 
 # Namespace: Tokens
 

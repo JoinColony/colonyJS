@@ -1,4 +1,4 @@
-[Colony SDK 🚀](../README.md) / [Modules](../modules.md) / constants
+[Colony SDK 🚀](../README.md) / constants
 
 # Module: constants
 

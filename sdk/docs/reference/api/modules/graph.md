@@ -1,4 +1,4 @@
-[Colony SDK 🚀](../README.md) / [Modules](../modules.md) / graph
+[Colony SDK 🚀](../README.md) / graph
 
 # Module: graph
 

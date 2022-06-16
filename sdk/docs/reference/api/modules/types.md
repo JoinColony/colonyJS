@@ -1,4 +1,4 @@
-[Colony SDK 🚀](../README.md) / [Modules](../modules.md) / types
+[Colony SDK 🚀](../README.md) / types
 
 # Module: types
 

@@ -1,4 +1,4 @@
-[Colony SDK 🚀](../README.md) / [Modules](../modules.md) / [events](../modules/events.md) / ColonyEvent
+[Colony SDK 🚀](../README.md) / [events](../modules/events.md) / ColonyEvent
 
 # Interface: ColonyEvent
 
