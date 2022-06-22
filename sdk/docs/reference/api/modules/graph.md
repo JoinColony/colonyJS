@@ -4,21 +4,22 @@
 
 ## Table of contents
 
-### Variables
+### Interfaces
 
-- [colonySubgraph](graph.md#colonysubgraph)
+- [SubgraphClientOptions](../interfaces/graph.SubgraphClientOptions.md)
 
 ### Functions
 
+- [createSubgraphClient](graph.md#createsubgraphclient)
 - [gql](graph.md#gql)
 
-## Variables
+## Functions
 
-### colonySubgraph
+### createSubgraphClient
 
-• `Const` **colonySubgraph**: `Client`
+▸ **createSubgraphClient**(`options?`): `Client`
 
-The Colony Subgraph client
+Creates a Colony Subgraph client
 
 The Colony Subgraph client is nothing else than a ready-to-use [`urql`](https://formidable.com/open-source/urql/) client connected to the Colony Subgraph with subscriptions enabled. Please refer to the following references if you'd like to know more about [The Graph](https://thegraph.com/) or [GraphQL](https://graphql.org/) in general.
 
@@ -27,7 +28,10 @@ The Colony Subgraph's schema and resolvers are kept up-to-date by the Colony tea
 **`example`**
 Retrieve the 10 most recent "DomainAdded" events across all Colonies
 ```typescript
-import { colonySubgraph, gql } from '@colony/sdk/graph';
+import { createSubgraphClient, gql } from '@colony/sdk/graph';
+
+const colonySubgraph = createSubgraphClient();
+
 const QUERY = gql`
   query DomainAddedEvents {
     events(
@@ -56,7 +60,19 @@ colonySubgraph
   });
 ```
 
-## Functions
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `options?` | [`SubgraphClientOptions`](../interfaces/graph.SubgraphClientOptions.md) | Define configuration options to instantiate the client with |
+
+#### Returns
+
+`Client`
+
+A ready-to-use `urql` GraphQL client instance
+
+___
 
 ### gql
 
@@ -78,7 +94,7 @@ This is just the passed-down [`gql`](https://formidable.com/open-source/urql/doc
 | Name | Type |
 | :------ | :------ |
 | `strings` | `TemplateStringsArray` |
-| `...interpolations` | (`string` \| `TypedDocumentNode`<{ `[key: string]`: `any`;  }, { `[key: string]`: `any`;  }\> \| `DocumentNode`)[] |
+| `...interpolations` | (`string` \| `DocumentNode` \| `TypedDocumentNode`<{ `[key: string]`: `any`;  }, { `[key: string]`: `any`;  }\>)[] |
 
 #### Returns
 

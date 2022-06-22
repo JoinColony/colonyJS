@@ -7,26 +7,35 @@ import fetch from 'cross-fetch';
 import WebSocket from 'isomorphic-ws';
 import { SubscriptionClient } from 'subscriptions-transport-ws';
 
-// Create a websocket client connecting to the Colony ws subgraph
-const subscriptionClient = new SubscriptionClient(
-  'wss://xdai.colony.io/graph/subgraphs/name/joinColony/subgraph',
-  {
-    reconnect: true,
-  },
-  WebSocket,
-);
+const DEFAULT_ENDPOINT_HTTP =
+  'https://xdai.colony.io/graph/subgraphs/name/joinColony/subgraph';
+const DEFAULT_ENDPOINT_WS =
+  'wss://xdai.colony.io/graph/subgraphs/name/joinColony/subgraph';
+
+export interface SubgraphClientOptions {
+  /** The GraphQL endpoint for HTTP connections */
+  endpointHttp?: string;
+  /** The GraphQL endpoint for Websocket connections */
+  endpointWs?: string;
+}
 
 /**
- * The Colony Subgraph client
+ * Creates a Colony Subgraph client
  *
  * The Colony Subgraph client is nothing else than a ready-to-use [`urql`](https://formidable.com/open-source/urql/) client connected to the Colony Subgraph with subscriptions enabled. Please refer to the following references if you'd like to know more about [The Graph](https://thegraph.com/) or [GraphQL](https://graphql.org/) in general.
  *
  * The Colony Subgraph's schema and resolvers are kept up-to-date by the Colony team and can be explored here: [Colony Subgraph](https://thegraph.com/hosted-service/subgraph/joincolony/colony-xdai). There you can make test queries to the Colony Subgraph and explore it all the way down the rabbit hole :)
  *
+ * @param options Define configuration options to instantiate the client with
+ * @returns A ready-to-use `urql` GraphQL client instance
+ *
  * @example
  * Retrieve the 10 most recent "DomainAdded" events across all Colonies
  * ```typescript
- * import { colonySubgraph, gql } from '@colony/sdk/graph';
+ * import { createSubgraphClient, gql } from '@colony/sdk/graph';
+ *
+ * const colonySubgraph = createSubgraphClient();
+ *
  * const QUERY = gql`
  *   query DomainAddedEvents {
  *     events(
@@ -55,22 +64,28 @@ const subscriptionClient = new SubscriptionClient(
  *   });
  * ```
  */
-export const colonySubgraph = createClient({
-  fetch,
-  url: 'https://xdai.colony.io/graph/subgraphs/name/joinColony/subgraph',
-  exchanges: [
-    ...defaultExchanges,
-    subscriptionExchange({
-      forwardSubscription: (operation) => subscriptionClient.request(operation),
-      // Fowarding subscriptions to the websocket client
-      // forwardSubscription: (operation) => ({
-      //   subscribe: (sink) => ({
-      //     unsubscribe: wsClient.subscribe(operation, sink),
-      //   }),
-      // }),
-    }),
-  ],
-});
+export const createSubgraphClient = (options?: SubgraphClientOptions) => {
+  // Create a websocket client connecting to the Colony ws subgraph
+  const subscriptionClient = new SubscriptionClient(
+    options?.endpointWs || DEFAULT_ENDPOINT_WS,
+    {
+      reconnect: true,
+    },
+    WebSocket,
+  );
+
+  return createClient({
+    fetch,
+    url: options?.endpointHttp || DEFAULT_ENDPOINT_HTTP,
+    exchanges: [
+      ...defaultExchanges,
+      subscriptionExchange({
+        forwardSubscription: (operation) =>
+          subscriptionClient.request(operation),
+      }),
+    ],
+  });
+};
 
 /**
  * The `gql` interpolation function
