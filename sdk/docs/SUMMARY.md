@@ -1,7 +1,7 @@
 # Table of contents
 
 * [Welcome](README.md)
-* [Quickstart](Quickstart.md)
+* [Quickstart](quickstart.md)
 
 ## reference
 
@@ -9,7 +9,7 @@
   * [Modules](reference/api/modules.md)
     * [ColonyNetwork](reference/api/modules/ColonyNetwork.md)
     * [constants](reference/api/modules/constants.md)
-    * [constants.Token](reference/api/modules/constants.Token.md)
+    * [constants.Token](reference/api/modules/constants.token.md)
     * [events](reference/api/modules/events.md)
     * [graph](reference/api/modules/graph.md)
     * [types](reference/api/modules/types.md)
@@ -19,7 +19,7 @@
     * [ColonyNetwork.ColonyToken](reference/api/classes/ColonyNetwork.ColonyToken.md)
     * [events.ColonyEventManager](reference/api/classes/events.ColonyEventManager.md)
     * [events.IpfsMetadata](reference/api/classes/events.IpfsMetadata.md)
-  * [Interfaces](references/api/interfaces/README.md)
+  * [Interfaces](reference/api/interfaces/README.md)
     * [events.ColonyEvent](reference/api/interfaces/events.ColonyEvent.md)
     * [events.ColonyFilter](reference/api/interfaces/events.ColonyFilter.md)
     * [events.ColonyMultiFilter](reference/api/interfaces/events.ColonyMultiFilter.md)
@@ -27,7 +27,7 @@
     * [events.IpfsOptions](reference/api/interfaces/events.IpfsOptions.md)
     * [types.Ethers6FilterByBlockHash](reference/api/interfaces/types.Ethers6FilterByBlockHash.md)
     * [types.Ethers6Filter.md](reference/api/interfaces/types.Ethers6Filter.md)
-  * [Enums](references/api/enums/README.md)
+  * [Enums](reference/api/enums/README.md)
     * [constants.ColonyRole](reference/api/enums/constants.ColonyRole.md)
     * [constants.Extension](reference/api/enums/constants.Extension.md)
     * [constants.Id](reference/api/enums/constants.Id.md)
