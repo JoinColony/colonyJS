@@ -28,7 +28,7 @@
   ],
   "license": "GPL-3.0-only",
   "engines": {
-    "node": "^16.14",
+    "node": "^14.18",
     "npm": "^8"
   },
   "scripts": {
@@ -54,6 +54,7 @@
     "@types/jest": "^27.4.0",
     "@types/lodash-es": "^4.17.6",
     "@types/mkdirp": "^1.0.2",
+    "@types/node": "^18.0.0",
     "@types/rimraf": "^3.0.2",
     "@types/yargs": "^17.0.8",
     "@typescript-eslint/eslint-plugin": "^5.12.0",

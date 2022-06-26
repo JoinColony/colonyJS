@@ -1,0 +1,50 @@
+{
+    "workbench.activityBar.visible": true,
+    "workbench.startupEditor": "newUntitledFile",
+    "files.autoSave": "off",
+    "editor.tabSize": 2,
+    "editor.detectIndentation": false,
+    "files.trimTrailingWhitespace": true,
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "todo-tree.defaultHighlight": {
+      "foreground": "green",
+      "type": "none"
+    },
+    "todo-tree.customHighlight": {
+      "TODO": {},
+      "FIXME": {}
+    },
+    "editor.fontFamily": "Operator Mono, Menlo, Monaco, 'Courier New', monospace",
+    "editor.fontSize": 17,
+    "editor.lineHeight": 25,
+    "editor.letterSpacing": 0.5,
+    "editor.fontWeight": "400",
+    "editor.cursorWidth": 5,
+    "editor.cursorBlinking": "solid",
+    "editor.renderWhitespace": "all",
+    "emmet.includeLanguages": {
+      "javascript": "javascriptreact"
+    },
+    "todo-tree.highlights.customHighlight": {
+      "TODO": {},
+      "FIXME": {}
+    },
+    "todo-tree.highlights.defaultHighlight": {
+      "foreground": "green",
+      "type": "none"
+    },
+    "todo-tree.tree.showScanModeButton": false,
+    "editor.codeActionsOnSave": { "source.fixAll": true },
+    "eslint.validate": [
+        "react", "html", "css", "javascript", "typescript",
+    ],
+    "files.associations": {},
+    "diffEditor.ignoreTrimWhitespace": false,
+    "[javascript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "css.validate": false,
+    "less.validate": false,
+    "scss.validate": false,
+  }
