@@ -154,6 +154,14 @@ export type AugmentedIColony<T extends AnyIColony = AnyIColony> = T & {
   /** An instance of the TokenClient for the Colony's native token */
   tokenClient: TokenClient;
 
+  // This is only to hide certain internal ethers.js properties from the docs
+  /** @internal */
+  callStatic: AnyIColony['callStatic'];
+  /** @internal */
+  functions: AnyIColony['functions'];
+  /** @internal */
+  populateTransaction: AnyIColony['populateTransaction'];
+
   /**
    * The colonyEvents contract supports all events across all versions.
    * Isn't that amazing?
