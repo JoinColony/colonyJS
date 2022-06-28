@@ -5,6 +5,16 @@
 * NodeJS v 16.15.0 is installed on your system (use [`nvm`](https://github.com/nvm-sh/nvm) for changing NodeJS versions on the fly)
 * A JavaScript/TypeScript project with a `package.json` and the `@colony/sdk` and `ethers` packages installed (or use our awesome [colonyStarter](https://github.com/JoinColony/colonyStarter) repository)
 
+## Installation
+
+It's as easy as
+
+```bash
+npm install ethers @colony/sdk
+```
+
+You'll need `ethers` v5.x as a dependency in your project.
+
 ## Connecting to Colony on Gnosis Chain
 
 {% tabs %}
