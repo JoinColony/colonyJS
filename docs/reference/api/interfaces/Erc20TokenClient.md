@@ -2,12 +2,6 @@
 
 A standard ERC20 token
 
-## Hierarchy
-
-- `TokenERC20`
-
-  ↳ **`Erc20TokenClient`**
-
 ## Properties
 
 ### \_deployedPromise
@@ -18,17 +12,9 @@ A standard ERC20 token
 
 • **\_runningEvents**: `Object`
 
-#### Index signature
-
-▪ [eventTag: `string`]: `RunningEvent`
-
 ### \_wrappedEmits
 
 • **\_wrappedEmits**: `Object`
-
-#### Index signature
-
-▪ [eventTag: `string`]: (...`args`: `any`[]) => `void`
 
 ### address
 
@@ -262,7 +248,7 @@ A standard ERC20 token
 
 | Name | Type |
 | :------ | :------ |
-| `signerOrProvider` | `string` \| `Signer` \| `Provider` |
+| `signerOrProvider` | `string` \| `Provider` \| `Signer` |
 
 #### Returns
 

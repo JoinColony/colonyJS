@@ -1,11 +1,5 @@
 # Interface: CoinMachineClientV5
 
-## Hierarchy
-
-- `AugmentedCoinMachine`<`CoinMachine`\>
-
-  ↳ **`CoinMachineClientV5`**
-
 ## Properties
 
 ### \_deployedPromise
@@ -16,17 +10,9 @@
 
 • **\_runningEvents**: `Object`
 
-#### Index signature
-
-▪ [eventTag: `string`]: `RunningEvent`
-
 ### \_wrappedEmits
 
 • **\_wrappedEmits**: `Object`
-
-#### Index signature
-
-▪ [eventTag: `string`]: (...`args`: `any`[]) => `void`
 
 ### address
 
@@ -86,10 +72,6 @@
 ### clientVersion
 
 • **clientVersion**: ``5``
-
-#### Overrides
-
-AugmentedCoinMachine.clientVersion
 
 ### coinMachineEvents
 
@@ -392,7 +374,7 @@ Purchase tokens from Coin Machine.
 
 | Name | Type |
 | :------ | :------ |
-| `signerOrProvider` | `string` \| `Signer` \| `Provider` |
+| `signerOrProvider` | `string` \| `Provider` \| `Signer` |
 
 #### Returns
 

@@ -1,17 +1,5 @@
 # Interface: ColonyClientV2
 
-## Hierarchy
-
-- `AugmentedIColony`<`IColony`\>
-
-- `AddDomainAugmentsA`<`IColony`\>
-
-- `SetPaymentDomainAugments`<`IColony`\>
-
-- `MoveFundsBetweenPotsAugmentsA`<`IColony`\>
-
-  ↳ **`ColonyClientV2`**
-
 ## Properties
 
 ### \_deployedPromise
@@ -22,17 +10,9 @@
 
 • **\_runningEvents**: `Object`
 
-#### Index signature
-
-▪ [eventTag: `string`]: `RunningEvent`
-
 ### \_wrappedEmits
 
 • **\_wrappedEmits**: `Object`
-
-#### Index signature
-
-▪ [eventTag: `string`]: (...`args`: `any`[]) => `void`
 
 ### address
 
@@ -45,10 +25,6 @@
 ### clientVersion
 
 • **clientVersion**: ``2``
-
-#### Overrides
-
-AugmentedIColony.clientVersion
 
 ### colonyEvents
 
@@ -65,10 +41,6 @@ It's an ethers contract with only events to filter
 ### estimateGas
 
 • **estimateGas**: `ColonyClientV2Estimate`
-
-#### Overrides
-
-AugmentedIColony.estimateGas
 
 ### filters
 
@@ -235,9 +207,7 @@ Add a colony domain, and its respective local skill under skill with id `_parent
 
 ### ▸ **addDomainWithProofs**(`_parentDomainId`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-**`deprecated`**
-
-Same as [addDomain](ColonyClientV2.md#adddomain), but let colonyJS figure out the permission proofs for you.
+**`deprecated`** Same as [addDomain](ColonyClientV2.md#adddomain), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -474,7 +444,7 @@ Mark a task as complete after the due date has passed. This allows the task to b
 
 | Name | Type |
 | :------ | :------ |
-| `signerOrProvider` | `string` \| `Signer` \| `Provider` |
+| `signerOrProvider` | `string` \| `Provider` \| `Signer` |
 
 #### Returns
 
@@ -876,8 +846,7 @@ count The payment count
 Get the reputation for an address and a certain skill.
 If you need the skillId for a certain domain you can use the [getDomain](ColonyClientV2.md#getdomain) function.
 
-**`remarks`**
-This function also retrieves the proofs (`branchMask`, `siblings`) that are needed to verify the reputation on chain.
+**`remarks`** This function also retrieves the proofs (`branchMask`, `siblings`) that are needed to verify the reputation on chain.
 If you don't need to do that (e.g. in order to proof the reputation when calling a contract method), you should probably just use
 the [getReputationWithoutProofs](ColonyClientV2.md#getreputationwithoutproofs) method as it requires fewer computations
 
@@ -1273,9 +1242,7 @@ Move a given amount: `_amount` of `_token` funds from funding pot with id `_from
 
 ### ▸ **moveFundsBetweenPotsWithProofs**(`_fromPot`, `_toPot`, `_amount`, `_token`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-**`deprecated`**
-
-Same as [moveFundsBetweenPots](ColonyClientV2.md#movefundsbetweenpots), but let colonyJS figure out the permission proofs for you.
+**`deprecated`** Same as [moveFundsBetweenPots](ColonyClientV2.md#movefundsbetweenpots), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -1606,9 +1573,7 @@ Sets the domain on an existing payment. Secured function to authorised members
 
 ### ▸ **setPaymentDomainWithProofs**(`_id`, `_domainId`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-**`deprecated`**
-
-Same as [setPaymentDomain](ColonyClientV2.md#setpaymentdomain), but let colonyJS figure out the permission proofs for you.
+**`deprecated`** Same as [setPaymentDomain](ColonyClientV2.md#setpaymentdomain), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters

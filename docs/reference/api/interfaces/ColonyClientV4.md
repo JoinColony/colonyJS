@@ -1,23 +1,5 @@
 # Interface: ColonyClientV4
 
-## Hierarchy
-
-- `AugmentedIColony`<`IColony`\>
-
-- `ColonyAugmentsV3`<`IColony`\>
-
-- `ColonyAugmentsV4`<`IColony`\>
-
-- `AddDomainAugmentsA`<`IColony`\>
-
-- `MoveFundsBetweenPotsAugmentsA`<`IColony`\>
-
-- `SetExpenditureClaimDelayAugments`<`IColony`\>
-
-- `SetExpenditurePayoutModifierAugments`<`IColony`\>
-
-  ↳ **`ColonyClientV4`**
-
 ## Properties
 
 ### \_deployedPromise
@@ -28,17 +10,9 @@
 
 • **\_runningEvents**: `Object`
 
-#### Index signature
-
-▪ [eventTag: `string`]: `RunningEvent`
-
 ### \_wrappedEmits
 
 • **\_wrappedEmits**: `Object`
-
-#### Index signature
-
-▪ [eventTag: `string`]: (...`args`: `any`[]) => `void`
 
 ### address
 
@@ -51,10 +25,6 @@
 ### clientVersion
 
 • **clientVersion**: ``4``
-
-#### Overrides
-
-AugmentedIColony.clientVersion
 
 ### colonyEvents
 
@@ -71,10 +41,6 @@ It's an ethers contract with only events to filter
 ### estimateGas
 
 • **estimateGas**: `ColonyClientV4Estimate`
-
-#### Overrides
-
-AugmentedIColony.estimateGas
 
 ### filters
 
@@ -255,9 +221,7 @@ Add a colony domain, and its respective local skill under skill with id `_parent
 
 ### ▸ **addDomainWithProofs**(`_parentDomainId`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-**`deprecated`**
-
-Same as [addDomain](ColonyClientV4.md#adddomain), but let colonyJS figure out the permission proofs for you.
+**`deprecated`** Same as [addDomain](ColonyClientV4.md#adddomain), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -526,7 +490,7 @@ Mark a task as complete after the due date has passed. This allows the task to b
 
 | Name | Type |
 | :------ | :------ |
-| `signerOrProvider` | `string` \| `Signer` \| `Provider` |
+| `signerOrProvider` | `string` \| `Provider` \| `Signer` |
 
 #### Returns
 
@@ -1028,8 +992,7 @@ count The payment count
 Get the reputation for an address and a certain skill.
 If you need the skillId for a certain domain you can use the [getDomain](ColonyClientV4.md#getdomain) function.
 
-**`remarks`**
-This function also retrieves the proofs (`branchMask`, `siblings`) that are needed to verify the reputation on chain.
+**`remarks`** This function also retrieves the proofs (`branchMask`, `siblings`) that are needed to verify the reputation on chain.
 If you don't need to do that (e.g. in order to proof the reputation when calling a contract method), you should probably just use
 the [getReputationWithoutProofs](ColonyClientV4.md#getreputationwithoutproofs) method as it requires fewer computations
 
@@ -1517,9 +1480,7 @@ Move a given amount: `_amount` of `_token` funds from funding pot with id `_from
 
 ### ▸ **moveFundsBetweenPotsWithProofs**(`_fromPot`, `_toPot`, `_amount`, `_token`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-**`deprecated`**
-
-Same as [moveFundsBetweenPots](ColonyClientV4.md#movefundsbetweenpots), but let colonyJS figure out the permission proofs for you.
+**`deprecated`** Same as [moveFundsBetweenPots](ColonyClientV4.md#movefundsbetweenpots), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -1851,9 +1812,7 @@ Set the claim delay on an expenditure slot. Can only be called by Arbitration ro
 
 ### ▸ **setExpenditureClaimDelayWithProofs**(`_id`, `_slot`, `_claimDelay`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-**`deprecated`**
-
-Same as [setExpenditureClaimDelay](ColonyClientV4.md#setexpenditureclaimdelay), but let colonyJS figure out the permission proofs for you.
+**`deprecated`** Same as [setExpenditureClaimDelay](ColonyClientV4.md#setexpenditureclaimdelay), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -1909,9 +1868,7 @@ Set the payout modifier on an expenditure slot. Can only be called by Arbitratio
 
 ### ▸ **setExpenditurePayoutModifierWithProofs**(`_id`, `_slot`, `_payoutModifier`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-**`deprecated`**
-
-Same as [setExpenditurePayoutModifier](ColonyClientV4.md#setexpenditurepayoutmodifier), but let colonyJS figure out the permission proofs for you.
+**`deprecated`** Same as [setExpenditurePayoutModifier](ColonyClientV4.md#setexpenditurepayoutmodifier), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -2428,9 +2385,7 @@ Updates the expenditure owner. Can only be called by Arbitration role.
 
 ### ▸ **transferExpenditureViaArbitrationWithProofs**(`_id`, `_newOwner`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-**`deprecated`**
-
-Same as [transferExpenditureViaArbitration](ColonyClientV4.md#transferexpenditureviaarbitration), but let colonyJS figure out the permission proofs for you.
+**`deprecated`** Same as [transferExpenditureViaArbitration](ColonyClientV4.md#transferexpenditureviaarbitration), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters

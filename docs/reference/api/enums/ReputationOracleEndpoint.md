@@ -2,28 +2,28 @@
 
 HTTP endpoint of the official colony reputation oracle
 
-## Enumeration members
+## Enumeration Members
 
 ### Custom
 
-• **Custom** = `"http://localhost:3000"`
+• **Custom**
 
 ### Gnosis
 
-• **Gnosis** = `"https://xdai.colony.io/reputation/xdai"`
+• **Gnosis**
 
 ### Goerli
 
-• **Goerli** = `"https://colony.io/reputation/goerli"`
+• **Goerli**
 
 ### Mainnet
 
-• **Mainnet** = `"https://colony.io/reputation/mainnet"`
+• **Mainnet**
 
 ### Xdai
 
-• **Xdai** = `"https://xdai.colony.io/reputation/xdai"`
+• **Xdai**
 
 ### XdaiQa
 
-• **XdaiQa** = `"https://qaxdai.colony.io/reputation/xdai"`
+• **XdaiQa**

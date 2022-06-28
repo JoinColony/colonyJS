@@ -2,35 +2,34 @@
 
 Available roles in the colonyNetwork. Find out more here: https://github.com/JoinColony/colonyNetwork/blob/develop/docs/_Docs_Permissions.md
 
-## Enumeration members
+## Enumeration Members
 
 ### Administration
 
-• **Administration** = `6`
+• **Administration**
 
 ### Arbitration
 
-• **Arbitration** = `2`
+• **Arbitration**
 
 ### Architecture
 
-• **Architecture** = `3`
+• **Architecture**
 
 ### ArchitectureSubdomain
 
-• **ArchitectureSubdomain** = `4`
+• **ArchitectureSubdomain**
 
-**`deprecated`**
-The `ArchitectureSubdomain` role has been deprecated and should not be used
+**`deprecated`** The `ArchitectureSubdomain` role has been deprecated and should not be used
 
 ### Funding
 
-• **Funding** = `5`
+• **Funding**
 
 ### Recovery
 
-• **Recovery** = `0`
+• **Recovery**
 
 ### Root
 
-• **Root** = `1`
+• **Root**

@@ -2,7 +2,7 @@
 
 import { Contract, BigNumber } from 'ethers';
 
-import { SignerOrProvider } from '../..';
+import { SignerOrProvider } from '../../types';
 
 interface ExtensionVersionClient extends Contract {
   version(): Promise<BigNumber>;

@@ -52,7 +52,7 @@
 - [WhitelistClientV1](interfaces/WhitelistClientV1.md)
 - [WhitelistClientV2](interfaces/WhitelistClientV2.md)
 
-## Type aliases
+## Type Aliases
 
 ### AnyCoinMachineClient
 
@@ -130,11 +130,11 @@ All domains the user with `address` has roles in
 
 ### COLONY\_VERSION\_LATEST
 
-• **COLONY\_VERSION\_LATEST**: `number`
+• `Const` **COLONY\_VERSION\_LATEST**: `number`
 
 ### ExtensionVersions
 
-• **ExtensionVersions**: `Object`
+• `Const` **ExtensionVersions**: `Object`
 
 #### Type declaration
 
@@ -147,7 +147,7 @@ All domains the user with `address` has roles in
 
 ## Functions
 
-### ▸ `Const` **formatColonyRoles**(`roleSetEvents`, `recoveryRoleSetEvents`): `Promise`<[`ColonyRoles`](README.md#colonyroles)\>
+### ▸ **formatColonyRoles**(`roleSetEvents`, `recoveryRoleSetEvents`): `Promise`<[`ColonyRoles`](README.md#colonyroles)\>
 
 #### Parameters
 
@@ -160,130 +160,89 @@ All domains the user with `address` has roles in
 
 `Promise`<[`ColonyRoles`](README.md#colonyroles)\>
 
-### ▸ `Const` **getBlockTime**(`provider`, `blockHash`): `Promise`<`number`\>
-
-Get the JavaScript timestamp for a block
+### ▸ **getBlockTime**(`provider`, `blockHash`): `Promise`<`number`\>
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `provider` | `Provider` | ethers compatible Provider |
-| `blockHash` | `string` | Hash of block to get time for |
+| Name | Type |
+| :------ | :------ |
+| `provider` | `Provider` |
+| `blockHash` | `string` |
 
 #### Returns
 
 `Promise`<`number`\>
 
-block timestamp in ms
-
-### ▸ `Const` **getChildIndex**(`client`, `parentDomainId`, `domainId`): `Promise`<`BigNumber`\>
-
-Get the child index for a domain inside its corresponding skills parent children array
-
-E.g. (the values *will* differ for you!):
-domainId = 1
-corresponding skillId = 2
-parent of skillId 2:
-```
-{
- // ...
- children: [2]
-}
-```
-childSkillIndex would be 0 in this case (0-position in children array)
+### ▸ **getChildIndex**(`client`, `parentDomainId`, `domainId`): `Promise`<`BigNumber`\>
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `client` | [`AnyColonyClient`](README.md#anycolonyclient) | Any ColonyClient |
-| `parentDomainId` | `BigNumberish` | id of parent domain |
-| `domainId` | `BigNumberish` | id of the domain |
+| Name | Type |
+| :------ | :------ |
+| `client` | [`AnyColonyClient`](README.md#anycolonyclient) |
+| `parentDomainId` | `BigNumberish` |
+| `domainId` | `BigNumberish` |
 
 #### Returns
 
 `Promise`<`BigNumber`\>
 
-Index in the `children` array (see above)
-
-### ▸ `Const` **getColonyNetworkClient**(`network`, `signerOrProvider`, `options?`): [`ColonyNetworkClient`](interfaces/ColonyNetworkClient.md)
-
-The main entry point for accessing the deployed colonyNetwork contracts
-
-Specify a network and an ethers compatible singer or provider to get back an
-initialized and extended (ethers) contract client for the colonyNetwork. From
-here you can access different colonies, extensions, ENS and other features of Colony.
-
-Example
-```ts
-import { getColonyNetworkClient, Network } = from '@colony/colony-js';
-import { providers } from 'ethers';
-
-// For local connections (run an Ethereum node on port 8545);
-const provider = new providers.JsonRpcProvider();
-
-// Just for reading data - to sign transactions we need to pass in a signer.
-const networkClient = await getColonyNetworkClient(Network.Xdai, provider);
-```
+### ▸ **getCoinMachineClient**(`colonyClient`, `address`, `version`): [`AnyCoinMachineClient`](README.md#anycoinmachineclient)
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `network` | [`Network`](enums/Network.md) | One of the available options. See [Network](enums/Network.md). |
-| `signerOrProvider` | [`SignerOrProvider`](README.md#signerorprovider) | An [ethers](https://github.com/ethers-io/ethers.js/) compatible signer or provider instance |
-| `options?` | [`NetworkClientOptions`](interfaces/NetworkClientOptions.md) | Here you can supply options for accessing certain contracts (mostly used in local/dev environments) |
+| Name | Type |
+| :------ | :------ |
+| `colonyClient` | `AugmentedIColony`<`AnyIColony`\> |
+| `address` | `string` |
+| `version` | ``2`` \| ``1`` \| ``3`` \| ``4`` \| ``5`` |
+
+#### Returns
+
+[`AnyCoinMachineClient`](README.md#anycoinmachineclient)
+
+### ▸ **getColonyNetworkClient**(`network`, `signerOrProvider`, `options?`): [`ColonyNetworkClient`](interfaces/ColonyNetworkClient.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `network` | [`Network`](enums/Network.md) |
+| `signerOrProvider` | [`SignerOrProvider`](README.md#signerorprovider) |
+| `options?` | [`NetworkClientOptions`](interfaces/NetworkClientOptions.md) |
 
 #### Returns
 
 [`ColonyNetworkClient`](interfaces/ColonyNetworkClient.md)
 
-### ▸ `Const` **getColonyRoles**(`client`, `options?`): `Promise`<[`ColonyRoles`](README.md#colonyroles)\>
-
-Get an array of all roles in the colony
+### ▸ **getColonyRoles**(`client`, `options?`): `Promise`<[`ColonyRoles`](README.md#colonyroles)\>
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `client` | [`AnyColonyClient`](README.md#anycolonyclient) | Any ColonyClient |
-| `options?` | `LogOptions` | - |
+| Name | Type |
+| :------ | :------ |
+| `client` | [`AnyColonyClient`](README.md#anycolonyclient) |
+| `options?` | `LogOptions` |
 
 #### Returns
 
 `Promise`<[`ColonyRoles`](README.md#colonyroles)\>
 
-Array of user roles in a colony (see above) fetching it's own network events
-
-### ▸ `Const` **getEvents**(`client`, `filter`, `options?`): `Promise`<`LogDescription`[]\>
-
-Get parsed event data from filter
-
-Example:
-```typescript
-// Gets the logs for the `ColonyFundsClaimed` event (not filtered)
-const filter = colonyClient.filters.ColonyFundsClaimed(null, null, null);
-const events = await getEvents(colonyClient, filter);
-```
+### ▸ **getEvents**(`client`, `filter`, `options?`): `Promise`<`LogDescription`[]\>
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `client` | [`ContractClient`](README.md#contractclient) | Any of the intantiated contract clients |
-| `filter` | `Filter` | ethers compatible Filter object |
-| `options?` | `LogOptions` | Configuration options to filter logs |
+| Name | Type |
+| :------ | :------ |
+| `client` | [`ContractClient`](README.md#contractclient) |
+| `filter` | `Filter` |
+| `options?` | `LogOptions` |
 
 #### Returns
 
 `Promise`<`LogDescription`[]\>
 
-Parsed ethers LogDescription array (events)
-
-### ▸ `Const` **getExtensionHash**(`extensionName`): `string`
-
-Hashes to identify the colony extension contracts
+### ▸ **getExtensionHash**(`extensionName`): `string`
 
 #### Parameters
 
@@ -295,26 +254,21 @@ Hashes to identify the colony extension contracts
 
 `string`
 
-### ▸ `Const` **getExtensionPermissionProofs**(`colonyClient`, `domainId`, `address?`): `Promise`<[`BigNumberish`, `BigNumberish`]\>
-
-Wrapper around `getPermissionProofs` to check two types of permissions: Funding and Administration
-To be used for checking an extension's permission in said colony
+### ▸ **getExtensionPermissionProofs**(`colonyClient`, `domainId`, `address?`): `Promise`<[`BigNumberish`, `BigNumberish`]\>
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `colonyClient` | `AugmentedIColony`<`AnyIColony`\> | Any ColonyClient |
-| `domainId` | `BigNumberish` | Domain id the method needs to act in |
-| `address?` | `string` | Address of the extension |
+| Name | Type |
+| :------ | :------ |
+| `colonyClient` | `AugmentedIColony`<`AnyIColony`\> |
+| `domainId` | `BigNumberish` |
+| `address?` | `string` |
 
 #### Returns
 
 `Promise`<[`BigNumberish`, `BigNumberish`]\>
 
-Tuple of `[permissionDomainId, childSkillIndex]`
-
-### ▸ `Const` **getHistoricColonyRoles**(`client`, `fromBlock?`, `toBlock?`): `Promise`<[`ColonyRoles`](README.md#colonyroles)\>
+### ▸ **getHistoricColonyRoles**(`client`, `fromBlock?`, `toBlock?`): `Promise`<[`ColonyRoles`](README.md#colonyroles)\>
 
 #### Parameters
 
@@ -328,122 +282,113 @@ Tuple of `[permissionDomainId, childSkillIndex]`
 
 `Promise`<[`ColonyRoles`](README.md#colonyroles)\>
 
-### ▸ `Const` **getLogs**(`client`, `filter`, `options?`): `Promise`<`Log`[]\>
-
-Get raw (unparsed logs) from filter
-
-Example:
-```typescript
-// Gets the logs for the `ColonyFundsClaimed` event (not filtered)
-const filter = colonyClient.filters.ColonyFundsClaimed(null, null, null);
-const logs = await getLogs(colonyClient, filter);
-```
+### ▸ **getLogs**(`client`, `filter`, `options?`): `Promise`<`Log`[]\>
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `client` | [`ContractClient`](README.md#contractclient) | Any of the intantiated contract clients |
-| `filter` | `Filter` | ethers compatible Filter object |
-| `options` | `LogOptions` | Configuration options to filter logs |
+| Name | Type |
+| :------ | :------ |
+| `client` | [`ContractClient`](README.md#contractclient) |
+| `filter` | `Filter` |
+| `options` | `LogOptions` |
 
 #### Returns
 
 `Promise`<`Log`[]\>
 
-ethers Log array
-
-### ▸ `Const` **getMultipleEvents**(`client`, `filters`, `options?`): `Promise`<`LogDescription`[]\>
-
-Get multiple events from multiple filters
-
-**`remarks`** only works when all events are emitted by the same contract!
+### ▸ **getMultipleEvents**(`client`, `filters`, `options?`): `Promise`<`LogDescription`[]\>
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `client` | [`ContractClient`](README.md#contractclient) | Any of the intantiated contract clients |
-| `filters` | `EventFilter`[] | - |
-| `options?` | `LogOptions` | Configuration options to filter logs |
+| Name | Type |
+| :------ | :------ |
+| `client` | [`ContractClient`](README.md#contractclient) |
+| `filters` | `EventFilter`[] |
+| `options?` | `LogOptions` |
 
 #### Returns
 
 `Promise`<`LogDescription`[]\>
 
-Parsed ethers LogDescription array (events)
-
-### ▸ `Const` **getPermissionProofs**(`client`, `domainId`, `role`, `customAddress?`): `Promise`<[`BigNumber`, `BigNumber`]\>
-
-Get the permission proofs for a user address and a certain role
-
-Certain methods on Colony contracts require so called "permission proofs". These are made up by
-the `permissionDomainId` and the `childSkillIndex`. We shall attempt an explanation here.
-
-Domains within a colony can be nested and all the permissions in a parent domain apply for all child domains.
-Yet at the time of calling a domain-permissioned method the contracts are unaware of the parent domain
-a certain user has the required permission in. So when we these methods are called we have to supply them
-the id of the parent domain the user has the permission in (it could also be the very same domain id they
-want to act in!). Furthermore for the contracts the unidirectional chain downwards we have to supply
-the method wuth the index of the domains associated skill in its parents children array
-(`childSkillIndex`, see [[`getChildIndex`]]).
-The contracts are then able to verify the permissions (the role) claimed by the caller.
-
-tl;dr:
-
-* `permissionDomainId`: id of the parent domain of the required domain the user has the required permission in
-* `childSkillIndex`: the child index for a domain inside its corresponding skills parent children array
+### ▸ **getOneTxPaymentClient**(`colonyClient`, `address`, `version`): [`AnyOneTxPaymentClient`](README.md#anyonetxpaymentclient)
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `client` | [`AnyColonyClient`](README.md#anycolonyclient) | Any ColonyClient |
-| `domainId` | `BigNumberish` | Domain id the method needs to act in |
-| `role` | [`ColonyRole`](enums/ColonyRole.md) | Permissioning role that the methods needs to function |
-| `customAddress?` | `string` | A custom address to get the permission proofs for (defaults to the signer's address) |
+| Name | Type |
+| :------ | :------ |
+| `colonyClient` | `AugmentedIColony`<`AnyIColony`\> |
+| `address` | `string` |
+| `version` | ``2`` \| ``1`` \| ``3`` |
+
+#### Returns
+
+[`AnyOneTxPaymentClient`](README.md#anyonetxpaymentclient)
+
+### ▸ **getPermissionProofs**(`client`, `domainId`, `role`, `customAddress?`): `Promise`<[`BigNumber`, `BigNumber`]\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `client` | [`AnyColonyClient`](README.md#anycolonyclient) |
+| `domainId` | `BigNumberish` |
+| `role` | [`ColonyRole`](enums/ColonyRole.md) |
+| `customAddress?` | `string` |
 
 #### Returns
 
 `Promise`<[`BigNumber`, `BigNumber`]\>
 
-Tuple of `[permissionDomainId, childSkillIndex]`
-
-### ▸ `Const` **getPotDomain**(`client`, `potId`): `Promise`<`BigNumberish`\>
-
-Get the associated domain for a pot id
-
-**`remarks`** pots can be associated with different types, like domains, payments or tasks
-See [[`FundingPotAssociatedType`]] for details
+### ▸ **getPotDomain**(`client`, `potId`): `Promise`<`BigNumberish`\>
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `client` | [`AnyColonyClient`](README.md#anycolonyclient) | Any ColonyClient |
-| `potId` | `BigNumberish` | The funding pot id |
+| Name | Type |
+| :------ | :------ |
+| `client` | [`AnyColonyClient`](README.md#anycolonyclient) |
+| `potId` | `BigNumberish` |
 
 #### Returns
 
 `Promise`<`BigNumberish`\>
 
-The associated domainId
-
-### ▸ `Const` **isExtensionCompatible**(`extension`, `extensionVersion`, `colonyVersion`): `boolean`
-
-Checks the compatibility of an extension version with a colony version it requests to be installed in
-Returns `true` if an extension version is compatible with the given colony version
+### ▸ **getUtilsClient**(`address`, `signerOrProvider`): `UtilsClient`
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `extension` | [`Extension`](enums/Extension.md) | A valid `Extension` contract name |
-| `extensionVersion` | `ExtensionVersion` | The version of the extension to check against the colony |
-| `colonyVersion` | ``1`` \| ``6`` \| ``2`` \| ``4`` \| ``3`` \| ``5`` \| ``7`` \| ``8`` \| ``9`` | The version of the colony to check for |
+| Name | Type |
+| :------ | :------ |
+| `address` | `string` |
+| `signerOrProvider` | [`SignerOrProvider`](README.md#signerorprovider) |
+
+#### Returns
+
+`UtilsClient`
+
+### ▸ **getWhitelistClient**(`colonyClient`, `address`, `version`): [`AnyWhitelistClient`](README.md#anywhitelistclient)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `colonyClient` | `AugmentedIColony`<`AnyIColony`\> |
+| `address` | `string` |
+| `version` | ``2`` \| ``1`` |
+
+#### Returns
+
+[`AnyWhitelistClient`](README.md#anywhitelistclient)
+
+### ▸ **isExtensionCompatible**(`extension`, `extensionVersion`, `colonyVersion`): `boolean`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `extension` | [`Extension`](enums/Extension.md) |
+| `extensionVersion` | `ExtensionVersion` |
+| `colonyVersion` | ``2`` \| ``1`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` |
 
 #### Returns
 
 `boolean`
-
-indication whether extension in given version is compatible with colony at the given version

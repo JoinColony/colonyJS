@@ -11,16 +11,14 @@ import {
   getPermissionProofs,
   getChildIndex,
 } from '../../../Core/augments/commonAugments';
-import { ColonyRole, TxOverrides } from '../../../../types';
-
-import { VotingReputationVersion } from '../exports';
+import { ColonyRole, ClientType, TxOverrides } from '../../../../types';
 import { AnyVotingReputation } from '../../../../contracts/VotingReputation/exports';
-import { ClientType } from '../../../..';
 import { parsePermissionedAction } from '../../../../utils';
 import {
   VotingReputationEvents,
   VotingReputationEvents__factory as VotingReputationEventsFactory,
 } from '../../../../contracts';
+import { VotingReputationVersion } from '../exports';
 
 const { MaxUint256 } = constants;
 

@@ -2,22 +2,22 @@
 
 Shortcuts to certain IDs within Colony
 
-## Enumeration members
+## Enumeration Members
 
 ### RootDomain
 
-• **RootDomain** = `1`
+• **RootDomain**
 
 The id of the root-domain in all colonies
 
 ### RootPot
 
-• **RootPot** = `1`
+• **RootPot**
 
 The id of the root fundig pot in all colonies
 
 ### SkillIgnore
 
-• **SkillIgnore** = `0`
+• **SkillIgnore**
 
 Ignore the skill id for this method (global skill 0)

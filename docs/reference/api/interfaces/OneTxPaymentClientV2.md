@@ -1,11 +1,5 @@
 # Interface: OneTxPaymentClientV2
 
-## Hierarchy
-
-- `AugmentedOneTxPayment`<`OneTxPayment`\>
-
-  ↳ **`OneTxPaymentClientV2`**
-
 ## Properties
 
 ### \_deployedPromise
@@ -16,17 +10,9 @@
 
 • **\_runningEvents**: `Object`
 
-#### Index signature
-
-▪ [eventTag: `string`]: `RunningEvent`
-
 ### \_wrappedEmits
 
 • **\_wrappedEmits**: `Object`
-
-#### Index signature
-
-▪ [eventTag: `string`]: (...`args`: `any`[]) => `void`
 
 ### address
 
@@ -64,10 +50,6 @@
 
 • **clientVersion**: ``2``
 
-#### Overrides
-
-AugmentedOneTxPayment.clientVersion
-
 ### colonyClient
 
 • **colonyClient**: `AugmentedIColony`<`AnyIColony`\>
@@ -81,10 +63,6 @@ An instance of the corresponding ColonyClient
 ### estimateGas
 
 • **estimateGas**: `OneTxPaymentEstimate`
-
-#### Overrides
-
-AugmentedOneTxPayment.estimateGas
 
 ### filters
 
@@ -261,7 +239,7 @@ It's an ethers contract with only events to filter
 
 | Name | Type |
 | :------ | :------ |
-| `signerOrProvider` | `string` \| `Signer` \| `Provider` |
+| `signerOrProvider` | `string` \| `Provider` \| `Signer` |
 
 #### Returns
 

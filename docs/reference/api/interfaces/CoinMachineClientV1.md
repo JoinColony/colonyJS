@@ -2,12 +2,6 @@
 
 An instantiated [ethers](https://docs.ethers.io/v5/) contract for the [CoinMachine contract](https://github.com/JoinColony/colonyNetwork/blob/develop/contracts/extensions/CoinMachine.sol) in version 1, with certain augmentations added. Pay attention to the existence of `...WithProofs` or `...Checked` functions as these provide convenient helpers to figure out permission proofs and contract checks for you.
 
-## Hierarchy
-
-- `AugmentedCoinMachine`<`CoinMachine`\>
-
-  ↳ **`CoinMachineClientV1`**
-
 ## Properties
 
 ### \_deployedPromise
@@ -18,17 +12,9 @@ An instantiated [ethers](https://docs.ethers.io/v5/) contract for the [CoinMachi
 
 • **\_runningEvents**: `Object`
 
-#### Index signature
-
-▪ [eventTag: `string`]: `RunningEvent`
-
 ### \_wrappedEmits
 
 • **\_wrappedEmits**: `Object`
-
-#### Index signature
-
-▪ [eventTag: `string`]: (...`args`: `any`[]) => `void`
 
 ### address
 
@@ -72,10 +58,6 @@ An instantiated [ethers](https://docs.ethers.io/v5/) contract for the [CoinMachi
 ### clientVersion
 
 • **clientVersion**: ``1``
-
-#### Overrides
-
-AugmentedCoinMachine.clientVersion
 
 ### coinMachineEvents
 
@@ -324,7 +306,7 @@ Purchase tokens from Coin Machine.
 
 | Name | Type |
 | :------ | :------ |
-| `signerOrProvider` | `string` \| `Signer` \| `Provider` |
+| `signerOrProvider` | `string` \| `Provider` \| `Signer` |
 
 #### Returns
 
