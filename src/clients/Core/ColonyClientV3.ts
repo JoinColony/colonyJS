@@ -39,6 +39,14 @@ export interface ColonyClientV3
     MoveFundsBetweenPotsAugmentsA<IColony> {
   clientVersion: 3;
   estimateGas: ColonyClientV3Estimate;
+
+  // This is only to hide certain internal ethers.js properties from the docs
+  /** @internal */
+  callStatic: IColony['callStatic'];
+  /** @internal */
+  functions: IColony['functions'];
+  /** @internal */
+  populateTransaction: IColony['populateTransaction'];
 }
 
 export default function getColonyClient(

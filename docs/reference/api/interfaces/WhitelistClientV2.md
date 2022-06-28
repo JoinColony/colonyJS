@@ -1,5 +1,3 @@
-[ColonyJS](../README.md) / WhitelistClientV2
-
 # Interface: WhitelistClientV2
 
 ## Hierarchy
@@ -8,84 +6,11 @@
 
   ↳ **`WhitelistClientV2`**
 
-## Table of contents
-
-### Properties
-
-- [\_deployedPromise](WhitelistClientV2.md#_deployedpromise)
-- [\_runningEvents](WhitelistClientV2.md#_runningevents)
-- [\_wrappedEmits](WhitelistClientV2.md#_wrappedemits)
-- [address](WhitelistClientV2.md#address)
-- [callStatic](WhitelistClientV2.md#callstatic)
-- [clientType](WhitelistClientV2.md#clienttype)
-- [clientVersion](WhitelistClientV2.md#clientversion)
-- [colonyClient](WhitelistClientV2.md#colonyclient)
-- [deployTransaction](WhitelistClientV2.md#deploytransaction)
-- [estimateGas](WhitelistClientV2.md#estimategas)
-- [filters](WhitelistClientV2.md#filters)
-- [functions](WhitelistClientV2.md#functions)
-- [interface](WhitelistClientV2.md#interface)
-- [off](WhitelistClientV2.md#off)
-- [on](WhitelistClientV2.md#on)
-- [once](WhitelistClientV2.md#once)
-- [populateTransaction](WhitelistClientV2.md#populatetransaction)
-- [provider](WhitelistClientV2.md#provider)
-- [removeListener](WhitelistClientV2.md#removelistener)
-- [resolvedAddress](WhitelistClientV2.md#resolvedaddress)
-- [signer](WhitelistClientV2.md#signer)
-- [whitelistEvents](WhitelistClientV2.md#whitelistevents)
-
-### Methods
-
-- [\_checkRunningEvents](WhitelistClientV2.md#_checkrunningevents)
-- [\_deployed](WhitelistClientV2.md#_deployed)
-- [\_wrapEvent](WhitelistClientV2.md#_wrapevent)
-- [approveUsers](WhitelistClientV2.md#approveusers)
-- [attach](WhitelistClientV2.md#attach)
-- [authority](WhitelistClientV2.md#authority)
-- [connect](WhitelistClientV2.md#connect)
-- [deployed](WhitelistClientV2.md#deployed)
-- [deprecate](WhitelistClientV2.md#deprecate)
-- [emit](WhitelistClientV2.md#emit)
-- [executeMetaTransaction](WhitelistClientV2.md#executemetatransaction)
-- [fallback](WhitelistClientV2.md#fallback)
-- [finishUpgrade](WhitelistClientV2.md#finishupgrade)
-- [getAgreementHash](WhitelistClientV2.md#getagreementhash)
-- [getApproval](WhitelistClientV2.md#getapproval)
-- [getCapabilityRoles](WhitelistClientV2.md#getcapabilityroles)
-- [getChainId](WhitelistClientV2.md#getchainid)
-- [getColony](WhitelistClientV2.md#getcolony)
-- [getDeprecated](WhitelistClientV2.md#getdeprecated)
-- [getMetatransactionNonce](WhitelistClientV2.md#getmetatransactionnonce)
-- [getSignature](WhitelistClientV2.md#getsignature)
-- [getUseApprovals](WhitelistClientV2.md#getuseapprovals)
-- [identifier](WhitelistClientV2.md#identifier)
-- [initialise](WhitelistClientV2.md#initialise)
-- [install](WhitelistClientV2.md#install)
-- [isApproved](WhitelistClientV2.md#isapproved)
-- [listenerCount](WhitelistClientV2.md#listenercount)
-- [listeners](WhitelistClientV2.md#listeners)
-- [owner](WhitelistClientV2.md#owner)
-- [queryFilter](WhitelistClientV2.md#queryfilter)
-- [removeAllListeners](WhitelistClientV2.md#removealllisteners)
-- [setAuthority](WhitelistClientV2.md#setauthority)
-- [setOwner](WhitelistClientV2.md#setowner)
-- [signAgreement](WhitelistClientV2.md#signagreement)
-- [uninstall](WhitelistClientV2.md#uninstall)
-- [verify](WhitelistClientV2.md#verify)
-- [version](WhitelistClientV2.md#version)
-
 ## Properties
 
 ### \_deployedPromise
 
 • **\_deployedPromise**: `Promise`<`Contract`\>
-
-#### Inherited from
-
-AugmentedWhitelst.\_deployedPromise
-
-___
 
 ### \_runningEvents
 
@@ -95,12 +20,6 @@ ___
 
 ▪ [eventTag: `string`]: `RunningEvent`
 
-#### Inherited from
-
-AugmentedWhitelst.\_runningEvents
-
-___
-
 ### \_wrappedEmits
 
 • **\_wrappedEmits**: `Object`
@@ -109,21 +28,9 @@ ___
 
 ▪ [eventTag: `string`]: (...`args`: `any`[]) => `void`
 
-#### Inherited from
-
-AugmentedWhitelst.\_wrappedEmits
-
-___
-
 ### address
 
 • `Readonly` **address**: `string`
-
-#### Inherited from
-
-AugmentedWhitelst.address
-
-___
 
 ### callStatic
 
@@ -159,21 +66,9 @@ ___
 | `verify` | (`_owner`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
 | `version` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 
-#### Inherited from
-
-AugmentedWhitelst.callStatic
-
-___
-
 ### clientType
 
 • **clientType**: [`WhitelistClient`](../enums/ClientType.md#whitelistclient)
-
-#### Inherited from
-
-AugmentedWhitelst.clientType
-
-___
 
 ### clientVersion
 
@@ -183,29 +78,15 @@ ___
 
 AugmentedWhitelst.clientVersion
 
-___
-
 ### colonyClient
 
 • **colonyClient**: `AugmentedIColony`<`AnyIColony`\>
 
 An instance of the corresponding ColonyClient
 
-#### Inherited from
-
-AugmentedWhitelst.colonyClient
-
-___
-
 ### deployTransaction
 
 • `Readonly` **deployTransaction**: `TransactionResponse`
-
-#### Inherited from
-
-AugmentedWhitelst.deployTransaction
-
-___
 
 ### estimateGas
 
@@ -241,12 +122,6 @@ ___
 | `verify` | (`_owner`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 | `version` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 
-#### Inherited from
-
-AugmentedWhitelst.estimateGas
-
-___
-
 ### filters
 
 • **filters**: `Object`
@@ -267,12 +142,6 @@ ___
 | `MetaTransactionExecuted(address,address,bytes)` | (`user?`: ``null``, `relayerAddress?`: ``null``, `functionSignature?`: ``null``) => `MetaTransactionExecutedEventFilter` |
 | `UserApproved` | (`_user?`: ``null`` \| `string`, `_status?`: ``null``) => `UserApprovedEventFilter` |
 | `UserApproved(address,bool)` | (`_user?`: ``null`` \| `string`, `_status?`: ``null``) => `UserApprovedEventFilter` |
-
-#### Inherited from
-
-AugmentedWhitelst.filters
-
-___
 
 ### functions
 
@@ -308,51 +177,21 @@ ___
 | `verify` | (`_owner`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
 | `version` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
 
-#### Inherited from
-
-AugmentedWhitelst.functions
-
-___
-
 ### interface
 
 • **interface**: `WhitelistInterface`
-
-#### Inherited from
-
-AugmentedWhitelst.interface
-
-___
 
 ### off
 
 • **off**: `OnEvent`<[`WhitelistClientV2`](WhitelistClientV2.md)\>
 
-#### Inherited from
-
-AugmentedWhitelst.off
-
-___
-
 ### on
 
 • **on**: `OnEvent`<[`WhitelistClientV2`](WhitelistClientV2.md)\>
 
-#### Inherited from
-
-AugmentedWhitelst.on
-
-___
-
 ### once
 
 • **once**: `OnEvent`<[`WhitelistClientV2`](WhitelistClientV2.md)\>
-
-#### Inherited from
-
-AugmentedWhitelst.once
-
-___
 
 ### populateTransaction
 
@@ -388,51 +227,21 @@ ___
 | `verify` | (`_owner`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 | `version` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 
-#### Inherited from
-
-AugmentedWhitelst.populateTransaction
-
-___
-
 ### provider
 
 • `Readonly` **provider**: `Provider`
-
-#### Inherited from
-
-AugmentedWhitelst.provider
-
-___
 
 ### removeListener
 
 • **removeListener**: `OnEvent`<[`WhitelistClientV2`](WhitelistClientV2.md)\>
 
-#### Inherited from
-
-AugmentedWhitelst.removeListener
-
-___
-
 ### resolvedAddress
 
 • `Readonly` **resolvedAddress**: `Promise`<`string`\>
 
-#### Inherited from
-
-AugmentedWhitelst.resolvedAddress
-
-___
-
 ### signer
 
 • `Readonly` **signer**: `Signer`
-
-#### Inherited from
-
-AugmentedWhitelst.signer
-
-___
 
 ### whitelistEvents
 
@@ -442,15 +251,9 @@ The whitelistEvents contract supports all events across all versions.
 Isn't that amazing?
 It's an ethers contract with only events to filter
 
-#### Inherited from
-
-AugmentedWhitelst.whitelistEvents
-
 ## Methods
 
-### \_checkRunningEvents
-
-▸ **_checkRunningEvents**(`runningEvent`): `void`
+### ▸ **_checkRunningEvents**(`runningEvent`): `void`
 
 #### Parameters
 
@@ -462,15 +265,7 @@ AugmentedWhitelst.whitelistEvents
 
 `void`
 
-#### Inherited from
-
-AugmentedWhitelst.\_checkRunningEvents
-
-___
-
-### \_deployed
-
-▸ **_deployed**(`blockTag?`): `Promise`<`Contract`\>
+### ▸ **_deployed**(`blockTag?`): `Promise`<`Contract`\>
 
 #### Parameters
 
@@ -482,15 +277,7 @@ ___
 
 `Promise`<`Contract`\>
 
-#### Inherited from
-
-AugmentedWhitelst.\_deployed
-
-___
-
-### \_wrapEvent
-
-▸ **_wrapEvent**(`runningEvent`, `log`, `listener`): `Event`
+### ▸ **_wrapEvent**(`runningEvent`, `log`, `listener`): `Event`
 
 #### Parameters
 
@@ -504,15 +291,7 @@ ___
 
 `Event`
 
-#### Inherited from
-
-AugmentedWhitelst.\_wrapEvent
-
-___
-
-### approveUsers
-
-▸ **approveUsers**(`_users`, `_status`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **approveUsers**(`_users`, `_status`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Sets user statuses in the whitelist
 
@@ -528,15 +307,7 @@ Sets user statuses in the whitelist
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedWhitelst.approveUsers
-
-___
-
-### attach
-
-▸ **attach**(`addressOrName`): [`WhitelistClientV2`](WhitelistClientV2.md)
+### ▸ **attach**(`addressOrName`): [`WhitelistClientV2`](WhitelistClientV2.md)
 
 #### Parameters
 
@@ -548,15 +319,7 @@ ___
 
 [`WhitelistClientV2`](WhitelistClientV2.md)
 
-#### Inherited from
-
-AugmentedWhitelst.attach
-
-___
-
-### authority
-
-▸ **authority**(`overrides?`): `Promise`<`string`\>
+### ▸ **authority**(`overrides?`): `Promise`<`string`\>
 
 #### Parameters
 
@@ -568,15 +331,7 @@ ___
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-AugmentedWhitelst.authority
-
-___
-
-### connect
-
-▸ **connect**(`signerOrProvider`): [`WhitelistClientV2`](WhitelistClientV2.md)
+### ▸ **connect**(`signerOrProvider`): [`WhitelistClientV2`](WhitelistClientV2.md)
 
 #### Parameters
 
@@ -588,29 +343,13 @@ ___
 
 [`WhitelistClientV2`](WhitelistClientV2.md)
 
-#### Inherited from
-
-AugmentedWhitelst.connect
-
-___
-
-### deployed
-
-▸ **deployed**(): `Promise`<[`WhitelistClientV2`](WhitelistClientV2.md)\>
+### ▸ **deployed**(): `Promise`<[`WhitelistClientV2`](WhitelistClientV2.md)\>
 
 #### Returns
 
 `Promise`<[`WhitelistClientV2`](WhitelistClientV2.md)\>
 
-#### Inherited from
-
-AugmentedWhitelst.deployed
-
-___
-
-### deprecate
-
-▸ **deprecate**(`_deprecated`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **deprecate**(`_deprecated`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Called when deprecating (or undeprecating) the extension
 
@@ -625,15 +364,7 @@ Called when deprecating (or undeprecating) the extension
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedWhitelst.deprecate
-
-___
-
-### emit
-
-▸ **emit**(`eventName`, ...`args`): `boolean`
+### ▸ **emit**(`eventName`, ...`args`): `boolean`
 
 #### Parameters
 
@@ -646,15 +377,7 @@ ___
 
 `boolean`
 
-#### Inherited from
-
-AugmentedWhitelst.emit
-
-___
-
-### executeMetaTransaction
-
-▸ **executeMetaTransaction**(`_user`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **executeMetaTransaction**(`_user`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Main function to be called when user wants to execute meta transaction. The actual function to be called should be passed as param with name functionSignature Here the basic signature recovery is being used. Signature is expected to be generated using personal_sign method.
 
@@ -673,15 +396,7 @@ Main function to be called when user wants to execute meta transaction. The actu
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedWhitelst.executeMetaTransaction
-
-___
-
-### fallback
-
-▸ **fallback**(`overrides?`): `Promise`<`TransactionResponse`\>
+### ▸ **fallback**(`overrides?`): `Promise`<`TransactionResponse`\>
 
 #### Parameters
 
@@ -693,15 +408,7 @@ ___
 
 `Promise`<`TransactionResponse`\>
 
-#### Inherited from
-
-AugmentedWhitelst.fallback
-
-___
-
-### finishUpgrade
-
-▸ **finishUpgrade**(`overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **finishUpgrade**(`overrides?`): `Promise`<`ContractTransaction`\>
 
 Called when upgrading the extension
 
@@ -715,15 +422,7 @@ Called when upgrading the extension
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedWhitelst.finishUpgrade
-
-___
-
-### getAgreementHash
-
-▸ **getAgreementHash**(`overrides?`): `Promise`<`string`\>
+### ▸ **getAgreementHash**(`overrides?`): `Promise`<`string`\>
 
 Get the agreementHash
 
@@ -737,15 +436,7 @@ Get the agreementHash
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-AugmentedWhitelst.getAgreementHash
-
-___
-
-### getApproval
-
-▸ **getApproval**(`_user`, `overrides?`): `Promise`<`boolean`\>
+### ▸ **getApproval**(`_user`, `overrides?`): `Promise`<`boolean`\>
 
 Get the user's approval status
 
@@ -760,15 +451,7 @@ Get the user's approval status
 
 `Promise`<`boolean`\>
 
-#### Inherited from
-
-AugmentedWhitelst.getApproval
-
-___
-
-### getCapabilityRoles
-
-▸ **getCapabilityRoles**(`_sig`, `overrides?`): `Promise`<`string`\>
+### ▸ **getCapabilityRoles**(`_sig`, `overrides?`): `Promise`<`string`\>
 
 #### Parameters
 
@@ -781,15 +464,7 @@ ___
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-AugmentedWhitelst.getCapabilityRoles
-
-___
-
-### getChainId
-
-▸ **getChainId**(`overrides?`): `Promise`<`BigNumber`\>
+### ▸ **getChainId**(`overrides?`): `Promise`<`BigNumber`\>
 
 #### Parameters
 
@@ -801,15 +476,7 @@ ___
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-AugmentedWhitelst.getChainId
-
-___
-
-### getColony
-
-▸ **getColony**(`overrides?`): `Promise`<`string`\>
+### ▸ **getColony**(`overrides?`): `Promise`<`string`\>
 
 #### Parameters
 
@@ -821,15 +488,7 @@ ___
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-AugmentedWhitelst.getColony
-
-___
-
-### getDeprecated
-
-▸ **getDeprecated**(`overrides?`): `Promise`<`boolean`\>
+### ▸ **getDeprecated**(`overrides?`): `Promise`<`boolean`\>
 
 #### Parameters
 
@@ -841,15 +500,7 @@ ___
 
 `Promise`<`boolean`\>
 
-#### Inherited from
-
-AugmentedWhitelst.getDeprecated
-
-___
-
-### getMetatransactionNonce
-
-▸ **getMetatransactionNonce**(`userAddress`, `overrides?`): `Promise`<`BigNumber`\>
+### ▸ **getMetatransactionNonce**(`userAddress`, `overrides?`): `Promise`<`BigNumber`\>
 
 #### Parameters
 
@@ -862,15 +513,7 @@ ___
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-AugmentedWhitelst.getMetatransactionNonce
-
-___
-
-### getSignature
-
-▸ **getSignature**(`_user`, `overrides?`): `Promise`<`boolean`\>
+### ▸ **getSignature**(`_user`, `overrides?`): `Promise`<`boolean`\>
 
 Get the user's signature status
 
@@ -885,15 +528,7 @@ Get the user's signature status
 
 `Promise`<`boolean`\>
 
-#### Inherited from
-
-AugmentedWhitelst.getSignature
-
-___
-
-### getUseApprovals
-
-▸ **getUseApprovals**(`overrides?`): `Promise`<`boolean`\>
+### ▸ **getUseApprovals**(`overrides?`): `Promise`<`boolean`\>
 
 Get the useApprovals boolean
 
@@ -907,15 +542,7 @@ Get the useApprovals boolean
 
 `Promise`<`boolean`\>
 
-#### Inherited from
-
-AugmentedWhitelst.getUseApprovals
-
-___
-
-### identifier
-
-▸ **identifier**(`overrides?`): `Promise`<`string`\>
+### ▸ **identifier**(`overrides?`): `Promise`<`string`\>
 
 Returns the identifier of the extension
 
@@ -929,15 +556,7 @@ Returns the identifier of the extension
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-AugmentedWhitelst.identifier
-
-___
-
-### initialise
-
-▸ **initialise**(`_useApprovals`, `_agreementHash`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **initialise**(`_useApprovals`, `_agreementHash`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Initialise the extension
 
@@ -953,15 +572,7 @@ Initialise the extension
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedWhitelst.initialise
-
-___
-
-### install
-
-▸ **install**(`_colony`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **install**(`_colony`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Configures the extension
 
@@ -976,15 +587,7 @@ Configures the extension
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedWhitelst.install
-
-___
-
-### isApproved
-
-▸ **isApproved**(`_user`, `overrides?`): `Promise`<`boolean`\>
+### ▸ **isApproved**(`_user`, `overrides?`): `Promise`<`boolean`\>
 
 Get the user's overall whitelist status
 
@@ -999,15 +602,7 @@ Get the user's overall whitelist status
 
 `Promise`<`boolean`\>
 
-#### Inherited from
-
-AugmentedWhitelst.isApproved
-
-___
-
-### listenerCount
-
-▸ **listenerCount**(`eventName?`): `number`
+### ▸ **listenerCount**(`eventName?`): `number`
 
 #### Parameters
 
@@ -1019,15 +614,7 @@ ___
 
 `number`
 
-#### Inherited from
-
-AugmentedWhitelst.listenerCount
-
-___
-
-### listeners
-
-▸ **listeners**<`TEvent`\>(`eventFilter?`): `TypedListener`<`TEvent`\>[]
+### ▸ **listeners**<`TEvent`\>(`eventFilter?`): `TypedListener`<`TEvent`\>[]
 
 #### Type parameters
 
@@ -1045,11 +632,7 @@ ___
 
 `TypedListener`<`TEvent`\>[]
 
-#### Inherited from
-
-AugmentedWhitelst.listeners
-
-▸ **listeners**(`eventName?`): `Listener`[]
+### ▸ **listeners**(`eventName?`): `Listener`[]
 
 #### Parameters
 
@@ -1061,15 +644,7 @@ AugmentedWhitelst.listeners
 
 `Listener`[]
 
-#### Inherited from
-
-AugmentedWhitelst.listeners
-
-___
-
-### owner
-
-▸ **owner**(`overrides?`): `Promise`<`string`\>
+### ▸ **owner**(`overrides?`): `Promise`<`string`\>
 
 #### Parameters
 
@@ -1081,15 +656,7 @@ ___
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-AugmentedWhitelst.owner
-
-___
-
-### queryFilter
-
-▸ **queryFilter**<`TEvent`\>(`event`, `fromBlockOrBlockhash?`, `toBlock?`): `Promise`<`TEvent`[]\>
+### ▸ **queryFilter**<`TEvent`\>(`event`, `fromBlockOrBlockhash?`, `toBlock?`): `Promise`<`TEvent`[]\>
 
 #### Type parameters
 
@@ -1109,15 +676,7 @@ ___
 
 `Promise`<`TEvent`[]\>
 
-#### Inherited from
-
-AugmentedWhitelst.queryFilter
-
-___
-
-### removeAllListeners
-
-▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`WhitelistClientV2`](WhitelistClientV2.md)
+### ▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`WhitelistClientV2`](WhitelistClientV2.md)
 
 #### Type parameters
 
@@ -1135,11 +694,7 @@ ___
 
 [`WhitelistClientV2`](WhitelistClientV2.md)
 
-#### Inherited from
-
-AugmentedWhitelst.removeAllListeners
-
-▸ **removeAllListeners**(`eventName?`): [`WhitelistClientV2`](WhitelistClientV2.md)
+### ▸ **removeAllListeners**(`eventName?`): [`WhitelistClientV2`](WhitelistClientV2.md)
 
 #### Parameters
 
@@ -1151,15 +706,7 @@ AugmentedWhitelst.removeAllListeners
 
 [`WhitelistClientV2`](WhitelistClientV2.md)
 
-#### Inherited from
-
-AugmentedWhitelst.removeAllListeners
-
-___
-
-### setAuthority
-
-▸ **setAuthority**(`authority_`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **setAuthority**(`authority_`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
@@ -1172,15 +719,7 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedWhitelst.setAuthority
-
-___
-
-### setOwner
-
-▸ **setOwner**(`owner_`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **setOwner**(`owner_`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
@@ -1193,15 +732,7 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedWhitelst.setOwner
-
-___
-
-### signAgreement
-
-▸ **signAgreement**(`_agreementHash`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **signAgreement**(`_agreementHash`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 The user's signature on the agreement
 
@@ -1216,15 +747,7 @@ The user's signature on the agreement
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedWhitelst.signAgreement
-
-___
-
-### uninstall
-
-▸ **uninstall**(`overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **uninstall**(`overrides?`): `Promise`<`ContractTransaction`\>
 
 Called when uninstalling the extension
 
@@ -1238,15 +761,7 @@ Called when uninstalling the extension
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedWhitelst.uninstall
-
-___
-
-### verify
-
-▸ **verify**(`_owner`, `_nonce`, `_chainId`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides?`): `Promise`<`boolean`\>
+### ▸ **verify**(`_owner`, `_nonce`, `_chainId`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides?`): `Promise`<`boolean`\>
 
 #### Parameters
 
@@ -1265,15 +780,7 @@ ___
 
 `Promise`<`boolean`\>
 
-#### Inherited from
-
-AugmentedWhitelst.verify
-
-___
-
-### version
-
-▸ **version**(`overrides?`): `Promise`<`BigNumber`\>
+### ▸ **version**(`overrides?`): `Promise`<`BigNumber`\>
 
 Returns the version of the extension
 
@@ -1286,7 +793,3 @@ Returns the version of the extension
 #### Returns
 
 `Promise`<`BigNumber`\>
-
-#### Inherited from
-
-AugmentedWhitelst.version

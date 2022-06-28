@@ -49,6 +49,14 @@ export interface ColonyClientV5
     SetExpenditureClaimDelayAugments<IColony>,
     SetExpenditurePayoutModifierAugments<IColony> {
   clientVersion: 5;
+
+  // This is only to hide certain internal ethers.js properties from the docs
+  /** @internal */
+  callStatic: IColony['callStatic'];
+  /** @internal */
+  functions: IColony['functions'];
+  /** @internal */
+  populateTransaction: IColony['populateTransaction'];
   estimateGas: ColonyClientV5Estimate;
 }
 

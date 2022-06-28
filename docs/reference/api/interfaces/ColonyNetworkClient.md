@@ -1,5 +1,3 @@
-[ColonyJS](../README.md) / ColonyNetworkClient
-
 # Interface: ColonyNetworkClient
 
 ## Hierarchy
@@ -8,148 +6,11 @@
 
   ↳ **`ColonyNetworkClient`**
 
-## Table of contents
-
-### Properties
-
-- [\_deployedPromise](ColonyNetworkClient.md#_deployedpromise)
-- [\_runningEvents](ColonyNetworkClient.md#_runningevents)
-- [\_wrappedEmits](ColonyNetworkClient.md#_wrappedemits)
-- [address](ColonyNetworkClient.md#address)
-- [callStatic](ColonyNetworkClient.md#callstatic)
-- [clientType](ColonyNetworkClient.md#clienttype)
-- [deployTransaction](ColonyNetworkClient.md#deploytransaction)
-- [estimateGas](ColonyNetworkClient.md#estimategas)
-- [filters](ColonyNetworkClient.md#filters)
-- [functions](ColonyNetworkClient.md#functions)
-- [interface](ColonyNetworkClient.md#interface)
-- [network](ColonyNetworkClient.md#network)
-- [off](ColonyNetworkClient.md#off)
-- [on](ColonyNetworkClient.md#on)
-- [once](ColonyNetworkClient.md#once)
-- [populateTransaction](ColonyNetworkClient.md#populatetransaction)
-- [provider](ColonyNetworkClient.md#provider)
-- [removeListener](ColonyNetworkClient.md#removelistener)
-- [reputationOracleEndpoint](ColonyNetworkClient.md#reputationoracleendpoint)
-- [resolvedAddress](ColonyNetworkClient.md#resolvedaddress)
-- [signer](ColonyNetworkClient.md#signer)
-
-### Methods
-
-- [\_checkRunningEvents](ColonyNetworkClient.md#_checkrunningevents)
-- [\_deployed](ColonyNetworkClient.md#_deployed)
-- [\_wrapEvent](ColonyNetworkClient.md#_wrapevent)
-- [addColonyVersion](ColonyNetworkClient.md#addcolonyversion)
-- [addExtensionToNetwork](ColonyNetworkClient.md#addextensiontonetwork)
-- [addSkill](ColonyNetworkClient.md#addskill)
-- [addr](ColonyNetworkClient.md#addr)
-- [appendReputationUpdateLog](ColonyNetworkClient.md#appendreputationupdatelog)
-- [approveExitRecovery](ColonyNetworkClient.md#approveexitrecovery)
-- [attach](ColonyNetworkClient.md#attach)
-- [burnUnneededRewards](ColonyNetworkClient.md#burnunneededrewards)
-- [calculateMinerWeight](ColonyNetworkClient.md#calculateminerweight)
-- [checkNotAdditionalProtectedVariable](ColonyNetworkClient.md#checknotadditionalprotectedvariable)
-- [claimMiningReward](ColonyNetworkClient.md#claimminingreward)
-- [connect](ColonyNetworkClient.md#connect)
-- [createColony(address)](ColonyNetworkClient.md#createcolony(address))
-- [createColony(address,uint256,string)](ColonyNetworkClient.md#createcolony(address,uint256,string))
-- [createColony(address,uint256,string,string)](ColonyNetworkClient.md#createcolony(address,uint256,string,string))
-- [createColony(address,uint256,string,string,bool)](ColonyNetworkClient.md#createcolony(address,uint256,string,string,bool))
-- [createMetaColony](ColonyNetworkClient.md#createmetacolony)
-- [deployToken](ColonyNetworkClient.md#deploytoken)
-- [deployTokenAuthority](ColonyNetworkClient.md#deploytokenauthority)
-- [deployTokenViaNetwork](ColonyNetworkClient.md#deploytokenvianetwork)
-- [deployed](ColonyNetworkClient.md#deployed)
-- [deprecateExtension](ColonyNetworkClient.md#deprecateextension)
-- [deprecateSkill(uint256)](ColonyNetworkClient.md#deprecateskill(uint256))
-- [deprecateSkill(uint256,bool)](ColonyNetworkClient.md#deprecateskill(uint256,bool))
-- [emit](ColonyNetworkClient.md#emit)
-- [enterRecoveryMode](ColonyNetworkClient.md#enterrecoverymode)
-- [executeMetaTransaction](ColonyNetworkClient.md#executemetatransaction)
-- [exitRecoveryMode](ColonyNetworkClient.md#exitrecoverymode)
-- [fallback](ColonyNetworkClient.md#fallback)
-- [getChildSkillId](ColonyNetworkClient.md#getchildskillid)
-- [getColony](ColonyNetworkClient.md#getcolony)
-- [getColonyClient](ColonyNetworkClient.md#getcolonyclient)
-- [getColonyCount](ColonyNetworkClient.md#getcolonycount)
-- [getColonyVersionResolver](ColonyNetworkClient.md#getcolonyversionresolver)
-- [getCurrentColonyVersion](ColonyNetworkClient.md#getcurrentcolonyversion)
-- [getENSRegistrar](ColonyNetworkClient.md#getensregistrar)
-- [getExtensionInstallation](ColonyNetworkClient.md#getextensioninstallation)
-- [getExtensionResolver](ColonyNetworkClient.md#getextensionresolver)
-- [getFeeInverse](ColonyNetworkClient.md#getfeeinverse)
-- [getMetaColony](ColonyNetworkClient.md#getmetacolony)
-- [getMetaColonyClient](ColonyNetworkClient.md#getmetacolonyclient)
-- [getMetatransactionNonce](ColonyNetworkClient.md#getmetatransactionnonce)
-- [getMiningDelegator](ColonyNetworkClient.md#getminingdelegator)
-- [getMiningResolver](ColonyNetworkClient.md#getminingresolver)
-- [getMiningStake](ColonyNetworkClient.md#getminingstake)
-- [getParentSkillId](ColonyNetworkClient.md#getparentskillid)
-- [getPayoutWhitelist](ColonyNetworkClient.md#getpayoutwhitelist)
-- [getProfileDBAddress](ColonyNetworkClient.md#getprofiledbaddress)
-- [getReplacementReputationUpdateLogEntry](ColonyNetworkClient.md#getreplacementreputationupdatelogentry)
-- [getReplacementReputationUpdateLogsExist](ColonyNetworkClient.md#getreplacementreputationupdatelogsexist)
-- [getReputationMiningCycle](ColonyNetworkClient.md#getreputationminingcycle)
-- [getReputationMiningCycleReward](ColonyNetworkClient.md#getreputationminingcyclereward)
-- [getReputationMiningSkillId](ColonyNetworkClient.md#getreputationminingskillid)
-- [getReputationRootHash](ColonyNetworkClient.md#getreputationroothash)
-- [getReputationRootHashNLeaves](ColonyNetworkClient.md#getreputationroothashnleaves)
-- [getReputationRootHashNNodes](ColonyNetworkClient.md#getreputationroothashnnodes)
-- [getSkill](ColonyNetworkClient.md#getskill)
-- [getSkillCount](ColonyNetworkClient.md#getskillcount)
-- [getTokenLocking](ColonyNetworkClient.md#gettokenlocking)
-- [getTokenLockingClient](ColonyNetworkClient.md#gettokenlockingclient)
-- [initialise](ColonyNetworkClient.md#initialise)
-- [initialiseReputationMining](ColonyNetworkClient.md#initialisereputationmining)
-- [initialiseRootLocalSkill](ColonyNetworkClient.md#initialiserootlocalskill)
-- [installExtension](ColonyNetworkClient.md#installextension)
-- [isColony](ColonyNetworkClient.md#iscolony)
-- [isInRecoveryMode](ColonyNetworkClient.md#isinrecoverymode)
-- [listenerCount](ColonyNetworkClient.md#listenercount)
-- [listeners](ColonyNetworkClient.md#listeners)
-- [lookupRegisteredENSDomain](ColonyNetworkClient.md#lookupregisteredensdomain)
-- [lookupRegisteredENSDomainWithNetworkPatches](ColonyNetworkClient.md#lookupregisteredensdomainwithnetworkpatches)
-- [numRecoveryRoles](ColonyNetworkClient.md#numrecoveryroles)
-- [punishStakers](ColonyNetworkClient.md#punishstakers)
-- [queryFilter](ColonyNetworkClient.md#queryfilter)
-- [registerColonyLabel](ColonyNetworkClient.md#registercolonylabel)
-- [registerUserLabel](ColonyNetworkClient.md#registeruserlabel)
-- [removeAllListeners](ColonyNetworkClient.md#removealllisteners)
-- [removeRecoveryRole](ColonyNetworkClient.md#removerecoveryrole)
-- [reward](ColonyNetworkClient.md#reward)
-- [setFeeInverse](ColonyNetworkClient.md#setfeeinverse)
-- [setMiningDelegate](ColonyNetworkClient.md#setminingdelegate)
-- [setMiningResolver](ColonyNetworkClient.md#setminingresolver)
-- [setPayoutWhitelist](ColonyNetworkClient.md#setpayoutwhitelist)
-- [setRecoveryRole](ColonyNetworkClient.md#setrecoveryrole)
-- [setReplacementReputationUpdateLogEntry](ColonyNetworkClient.md#setreplacementreputationupdatelogentry)
-- [setReputationMiningCycleReward](ColonyNetworkClient.md#setreputationminingcyclereward)
-- [setReputationRootHash(bytes32,uint256,address[])](ColonyNetworkClient.md#setreputationroothash(bytes32,uint256,address[]))
-- [setReputationRootHash(bytes32,uint256,address[],uint256)](ColonyNetworkClient.md#setreputationroothash(bytes32,uint256,address[],uint256))
-- [setStorageSlotRecovery](ColonyNetworkClient.md#setstorageslotrecovery)
-- [setTokenLocking](ColonyNetworkClient.md#settokenlocking)
-- [setupRegistrar](ColonyNetworkClient.md#setupregistrar)
-- [stakeForMining](ColonyNetworkClient.md#stakeformining)
-- [startNextCycle](ColonyNetworkClient.md#startnextcycle)
-- [startTokenAuction](ColonyNetworkClient.md#starttokenauction)
-- [supportsInterface](ColonyNetworkClient.md#supportsinterface)
-- [uninstallExtension](ColonyNetworkClient.md#uninstallextension)
-- [unstakeForMining](ColonyNetworkClient.md#unstakeformining)
-- [updateColonyOrbitDB](ColonyNetworkClient.md#updatecolonyorbitdb)
-- [updateUserOrbitDB](ColonyNetworkClient.md#updateuserorbitdb)
-- [upgradeExtension](ColonyNetworkClient.md#upgradeextension)
-
 ## Properties
 
 ### \_deployedPromise
 
 • **\_deployedPromise**: `Promise`<`Contract`\>
-
-#### Inherited from
-
-IColonyNetwork.\_deployedPromise
-
-___
 
 ### \_runningEvents
 
@@ -159,12 +20,6 @@ ___
 
 ▪ [eventTag: `string`]: `RunningEvent`
 
-#### Inherited from
-
-IColonyNetwork.\_runningEvents
-
-___
-
 ### \_wrappedEmits
 
 • **\_wrappedEmits**: `Object`
@@ -173,21 +28,9 @@ ___
 
 ▪ [eventTag: `string`]: (...`args`: `any`[]) => `void`
 
-#### Inherited from
-
-IColonyNetwork.\_wrappedEmits
-
-___
-
 ### address
 
 • `Readonly` **address**: `string`
-
-#### Inherited from
-
-IColonyNetwork.address
-
-___
 
 ### callStatic
 
@@ -283,27 +126,13 @@ ___
 | `updateUserOrbitDB` | (`orbitdb`: `string`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `upgradeExtension` | (`extensionId`: `BytesLike`, `newVersion`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 
-#### Inherited from
-
-IColonyNetwork.callStatic
-
-___
-
 ### clientType
 
 • **clientType**: [`NetworkClient`](../enums/ClientType.md#networkclient)
 
-___
-
 ### deployTransaction
 
 • `Readonly` **deployTransaction**: `TransactionResponse`
-
-#### Inherited from
-
-IColonyNetwork.deployTransaction
-
-___
 
 ### estimateGas
 
@@ -312,8 +141,6 @@ ___
 #### Overrides
 
 IColonyNetwork.estimateGas
-
-___
 
 ### filters
 
@@ -385,12 +212,6 @@ ___
 | `TokenWhitelisted(address,bool)` | (`token?`: ``null``, `status?`: ``null``) => `TokenWhitelistedEventFilter` |
 | `UserLabelRegistered` | (`user?`: ``null`` \| `string`, `label?`: ``null``) => `UserLabelRegisteredEventFilter` |
 | `UserLabelRegistered(address,bytes32)` | (`user?`: ``null`` \| `string`, `label?`: ``null``) => `UserLabelRegisteredEventFilter` |
-
-#### Inherited from
-
-IColonyNetwork.filters
-
-___
 
 ### functions
 
@@ -486,57 +307,25 @@ ___
 | `updateUserOrbitDB` | (`orbitdb`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `upgradeExtension` | (`extensionId`: `BytesLike`, `newVersion`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 
-#### Inherited from
-
-IColonyNetwork.functions
-
-___
-
 ### interface
 
 • **interface**: `IColonyNetworkInterface`
-
-#### Inherited from
-
-IColonyNetwork.interface
-
-___
 
 ### network
 
 • **network**: [`Network`](../enums/Network.md)
 
-___
-
 ### off
 
 • **off**: `OnEvent`<[`ColonyNetworkClient`](ColonyNetworkClient.md)\>
-
-#### Inherited from
-
-IColonyNetwork.off
-
-___
 
 ### on
 
 • **on**: `OnEvent`<[`ColonyNetworkClient`](ColonyNetworkClient.md)\>
 
-#### Inherited from
-
-IColonyNetwork.on
-
-___
-
 ### once
 
 • **once**: `OnEvent`<[`ColonyNetworkClient`](ColonyNetworkClient.md)\>
-
-#### Inherited from
-
-IColonyNetwork.once
-
-___
 
 ### populateTransaction
 
@@ -632,61 +421,29 @@ ___
 | `updateUserOrbitDB` | (`orbitdb`: `string`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `upgradeExtension` | (`extensionId`: `BytesLike`, `newVersion`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 
-#### Inherited from
-
-IColonyNetwork.populateTransaction
-
-___
-
 ### provider
 
 • `Readonly` **provider**: `Provider`
-
-#### Inherited from
-
-IColonyNetwork.provider
-
-___
 
 ### removeListener
 
 • **removeListener**: `OnEvent`<[`ColonyNetworkClient`](ColonyNetworkClient.md)\>
 
-#### Inherited from
-
-IColonyNetwork.removeListener
-
-___
-
 ### reputationOracleEndpoint
 
 • **reputationOracleEndpoint**: `string`
-
-___
 
 ### resolvedAddress
 
 • `Readonly` **resolvedAddress**: `Promise`<`string`\>
 
-#### Inherited from
-
-IColonyNetwork.resolvedAddress
-
-___
-
 ### signer
 
 • `Readonly` **signer**: `Signer`
 
-#### Inherited from
-
-IColonyNetwork.signer
-
 ## Methods
 
-### \_checkRunningEvents
-
-▸ **_checkRunningEvents**(`runningEvent`): `void`
+### ▸ **_checkRunningEvents**(`runningEvent`): `void`
 
 #### Parameters
 
@@ -698,15 +455,7 @@ IColonyNetwork.signer
 
 `void`
 
-#### Inherited from
-
-IColonyNetwork.\_checkRunningEvents
-
-___
-
-### \_deployed
-
-▸ **_deployed**(`blockTag?`): `Promise`<`Contract`\>
+### ▸ **_deployed**(`blockTag?`): `Promise`<`Contract`\>
 
 #### Parameters
 
@@ -718,15 +467,7 @@ ___
 
 `Promise`<`Contract`\>
 
-#### Inherited from
-
-IColonyNetwork.\_deployed
-
-___
-
-### \_wrapEvent
-
-▸ **_wrapEvent**(`runningEvent`, `log`, `listener`): `Event`
+### ▸ **_wrapEvent**(`runningEvent`, `log`, `listener`): `Event`
 
 #### Parameters
 
@@ -740,15 +481,7 @@ ___
 
 `Event`
 
-#### Inherited from
-
-IColonyNetwork.\_wrapEvent
-
-___
-
-### addColonyVersion
-
-▸ **addColonyVersion**(`_version`, `_resolver`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **addColonyVersion**(`_version`, `_resolver`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Adds a new Colony contract version and the address of associated `_resolver` contract. Secured function to authorised members. Allowed to be called by the Meta Colony only.
 
@@ -764,15 +497,7 @@ Adds a new Colony contract version and the address of associated `_resolver` con
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.addColonyVersion
-
-___
-
-### addExtensionToNetwork
-
-▸ **addExtensionToNetwork**(`extensionId`, `resolver`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **addExtensionToNetwork**(`extensionId`, `resolver`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Can only be called by the MetaColony.The extension version is queried from the resolver itself.
 Add a new extension resolver to the Extensions repository.
@@ -789,15 +514,7 @@ Add a new extension resolver to the Extensions repository.
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.addExtensionToNetwork
-
-___
-
-### addSkill
-
-▸ **addSkill**(`_parentSkillId`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **addSkill**(`_parentSkillId`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Errors if the parent skill does not exist or if this is called by an unauthorised sender.
 Adds a new skill to the global or local skills tree, under skill `_parentSkillId`. Only the Meta Colony is allowed to add a global skill, called via `IColony.addGlobalSkill`. Any colony is allowed to add a local skill and which is associated with a new domain via `IColony.addDomain`.
@@ -813,15 +530,7 @@ Adds a new skill to the global or local skills tree, under skill `_parentSkillId
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.addSkill
-
-___
-
-### addr
-
-▸ **addr**(`node`, `overrides?`): `Promise`<`string`\>
+### ▸ **addr**(`node`, `overrides?`): `Promise`<`string`\>
 
 Returns the address the supplied node resolves do, if we are the resolver.
 
@@ -836,15 +545,7 @@ Returns the address the supplied node resolves do, if we are the resolver.
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-IColonyNetwork.addr
-
-___
-
-### appendReputationUpdateLog
-
-▸ **appendReputationUpdateLog**(`_user`, `_amount`, `_skillId`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **appendReputationUpdateLog**(`_user`, `_amount`, `_skillId`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Errors if it is called by anyone but a colony or if skill with id `_skillId` does not exist or.
 Adds a reputation update entry to log.
@@ -862,15 +563,7 @@ Adds a reputation update entry to log.
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.appendReputationUpdateLog
-
-___
-
-### approveExitRecovery
-
-▸ **approveExitRecovery**(`overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **approveExitRecovery**(`overrides?`): `Promise`<`ContractTransaction`\>
 
 Indicate approval to exit recovery mode. Can only be called by user with recovery role.
 
@@ -884,15 +577,7 @@ Indicate approval to exit recovery mode. Can only be called by user with recover
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.approveExitRecovery
-
-___
-
-### attach
-
-▸ **attach**(`addressOrName`): [`ColonyNetworkClient`](ColonyNetworkClient.md)
+### ▸ **attach**(`addressOrName`): [`ColonyNetworkClient`](ColonyNetworkClient.md)
 
 #### Parameters
 
@@ -904,15 +589,7 @@ ___
 
 [`ColonyNetworkClient`](ColonyNetworkClient.md)
 
-#### Inherited from
-
-IColonyNetwork.attach
-
-___
-
-### burnUnneededRewards
-
-▸ **burnUnneededRewards**(`_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **burnUnneededRewards**(`_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Only callable by the active reputation mining cycle
 Used to burn tokens that are not needed to pay out rewards (because not every possible defence was made for all submissions)
@@ -928,15 +605,7 @@ Used to burn tokens that are not needed to pay out rewards (because not every po
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.burnUnneededRewards
-
-___
-
-### calculateMinerWeight
-
-▸ **calculateMinerWeight**(`_timeStaked`, `_submissonIndex`, `overrides?`): `Promise`<`BigNumber`\>
+### ▸ **calculateMinerWeight**(`_timeStaked`, `_submissonIndex`, `overrides?`): `Promise`<`BigNumber`\>
 
 Calculate raw miner weight in WADs.
 
@@ -952,15 +621,7 @@ Calculate raw miner weight in WADs.
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-IColonyNetwork.calculateMinerWeight
-
-___
-
-### checkNotAdditionalProtectedVariable
-
-▸ **checkNotAdditionalProtectedVariable**(`_slot`, `overrides?`): `Promise`<`void`\>
+### ▸ **checkNotAdditionalProtectedVariable**(`_slot`, `overrides?`): `Promise`<`void`\>
 
 No return value, but should throw if protected.This is external, but is only expected to be called from ContractRecovery; no need toexpose this to any users.
 Check whether the supplied slot is a protected variable specific to this contract
@@ -976,15 +637,7 @@ Check whether the supplied slot is a protected variable specific to this contrac
 
 `Promise`<`void`\>
 
-#### Inherited from
-
-IColonyNetwork.checkNotAdditionalProtectedVariable
-
-___
-
-### claimMiningReward
-
-▸ **claimMiningReward**(`_recipient`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **claimMiningReward**(`_recipient`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Can be called by anyone, not just _recipient
 Used by a user to claim any mining rewards due to them. This will place them in their balance or pending balance, as appropriate.
@@ -1000,15 +653,7 @@ Used by a user to claim any mining rewards due to them. This will place them in 
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.claimMiningReward
-
-___
-
-### connect
-
-▸ **connect**(`signerOrProvider`): [`ColonyNetworkClient`](ColonyNetworkClient.md)
+### ▸ **connect**(`signerOrProvider`): [`ColonyNetworkClient`](ColonyNetworkClient.md)
 
 #### Parameters
 
@@ -1020,15 +665,7 @@ ___
 
 [`ColonyNetworkClient`](ColonyNetworkClient.md)
 
-#### Inherited from
-
-IColonyNetwork.connect
-
-___
-
-### createColony(address)
-
-▸ **createColony(address)**(`_tokenAddress`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **createColony(address)**(`_tokenAddress`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 This is now deprecated and will be removed in a future versionFor the colony to mint tokens, token ownership must be transferred to the new colony
 Creates a new colony in the network, at version 3
@@ -1044,15 +681,7 @@ Creates a new colony in the network, at version 3
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.createColony(address)
-
-___
-
-### createColony(address,uint256,string)
-
-▸ **createColony(address,uint256,string)**(`_tokenAddress`, `_version`, `_colonyName`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **createColony(address,uint256,string)**(`_tokenAddress`, `_version`, `_colonyName`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 For the colony to mint tokens, token ownership must be transferred to the new colony
 Creates a new colony in the network, with an optional ENS name
@@ -1070,15 +699,7 @@ Creates a new colony in the network, with an optional ENS name
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.createColony(address,uint256,string)
-
-___
-
-### createColony(address,uint256,string,string)
-
-▸ **createColony(address,uint256,string,string)**(`_tokenAddress`, `_version`, `_colonyName`, `_metadata`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **createColony(address,uint256,string,string)**(`_tokenAddress`, `_version`, `_colonyName`, `_metadata`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 For the colony to mint tokens, token ownership must be transferred to the new colonyWe expect this function to only be used by the dapp
 Creates a new colony in the network, with an optional ENS name
@@ -1097,15 +718,7 @@ Creates a new colony in the network, with an optional ENS name
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.createColony(address,uint256,string,string)
-
-___
-
-### createColony(address,uint256,string,string,bool)
-
-▸ **createColony(address,uint256,string,string,bool)**(`_tokenAddress`, `_version`, `_colonyName`, `_orbitdb`, `_useExtensionManager`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **createColony(address,uint256,string,string,bool)**(`_tokenAddress`, `_version`, `_colonyName`, `_orbitdb`, `_useExtensionManager`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 This is now deprecated and will be removed in a future versionFor the colony to mint tokens, token ownership must be transferred to the new colony
 Overload of the simpler `createColony` -- creates a new colony in the network with a variety of options, at version 4
@@ -1125,15 +738,7 @@ Overload of the simpler `createColony` -- creates a new colony in the network wi
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.createColony(address,uint256,string,string,bool)
-
-___
-
-### createMetaColony
-
-▸ **createMetaColony**(`_tokenAddress`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **createMetaColony**(`_tokenAddress`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Create the Meta Colony, same as a normal colony plus the root skill.
 
@@ -1148,15 +753,7 @@ Create the Meta Colony, same as a normal colony plus the root skill.
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.createMetaColony
-
-___
-
-### deployToken
-
-▸ **deployToken**(`name`, `symbol`, `decimals?`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **deployToken**(`name`, `symbol`, `decimals?`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Deploy an ERC20 token contract, compatible with Colony
 
@@ -1178,11 +775,7 @@ For valid values see the spec here: https://eips.ethereum.org/EIPS/eip-20
 
 ethers compatible ContractTransaction
 
-___
-
-### deployTokenAuthority
-
-▸ **deployTokenAuthority**(`_token`, `_colony`, `allowedToTransfer`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **deployTokenAuthority**(`_token`, `_colony`, `allowedToTransfer`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 This is more expensive than deploying a token directly, but is able to be done via a metatransaction
 Called to deploy a token authority
@@ -1200,15 +793,7 @@ Called to deploy a token authority
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.deployTokenAuthority
-
-___
-
-### deployTokenViaNetwork
-
-▸ **deployTokenViaNetwork**(`_name`, `_symbol`, `_decimals`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **deployTokenViaNetwork**(`_name`, `_symbol`, `_decimals`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 This is more expensive than deploying a token directly, but is able to be done via a metatransaction
 Called to deploy a token.
@@ -1226,29 +811,13 @@ Called to deploy a token.
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.deployTokenViaNetwork
-
-___
-
-### deployed
-
-▸ **deployed**(): `Promise`<[`ColonyNetworkClient`](ColonyNetworkClient.md)\>
+### ▸ **deployed**(): `Promise`<[`ColonyNetworkClient`](ColonyNetworkClient.md)\>
 
 #### Returns
 
 `Promise`<[`ColonyNetworkClient`](ColonyNetworkClient.md)\>
 
-#### Inherited from
-
-IColonyNetwork.deployed
-
-___
-
-### deprecateExtension
-
-▸ **deprecateExtension**(`extensionId`, `deprecated`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **deprecateExtension**(`extensionId`, `deprecated`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Set the deprecation of an extension in a colony. Can only be called by a Colony.
 
@@ -1264,15 +833,7 @@ Set the deprecation of an extension in a colony. Can only be called by a Colony.
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.deprecateExtension
-
-___
-
-### deprecateSkill(uint256)
-
-▸ **deprecateSkill(uint256)**(`_skillId`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **deprecateSkill(uint256)**(`_skillId`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 This function is deprecated and will be removed in a future release
 Mark a skill as deprecated which stops new tasks and payments from using it.
@@ -1288,15 +849,7 @@ Mark a skill as deprecated which stops new tasks and payments from using it.
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.deprecateSkill(uint256)
-
-___
-
-### deprecateSkill(uint256,bool)
-
-▸ **deprecateSkill(uint256,bool)**(`_skillId`, `_deprecated`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **deprecateSkill(uint256,bool)**(`_skillId`, `_deprecated`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Set deprecation status for a skill
 
@@ -1312,15 +865,7 @@ Set deprecation status for a skill
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.deprecateSkill(uint256,bool)
-
-___
-
-### emit
-
-▸ **emit**(`eventName`, ...`args`): `boolean`
+### ▸ **emit**(`eventName`, ...`args`): `boolean`
 
 #### Parameters
 
@@ -1333,15 +878,7 @@ ___
 
 `boolean`
 
-#### Inherited from
-
-IColonyNetwork.emit
-
-___
-
-### enterRecoveryMode
-
-▸ **enterRecoveryMode**(`overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **enterRecoveryMode**(`overrides?`): `Promise`<`ContractTransaction`\>
 
 Put colony network mining into recovery mode. Can only be called by user with recovery role.
 
@@ -1355,15 +892,7 @@ Put colony network mining into recovery mode. Can only be called by user with re
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.enterRecoveryMode
-
-___
-
-### executeMetaTransaction
-
-▸ **executeMetaTransaction**(`userAddress`, `payload`, `sigR`, `sigS`, `sigV`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **executeMetaTransaction**(`userAddress`, `payload`, `sigR`, `sigS`, `sigV`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Executes a metatransaction targeting this contract
 
@@ -1382,15 +911,7 @@ Executes a metatransaction targeting this contract
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.executeMetaTransaction
-
-___
-
-### exitRecoveryMode
-
-▸ **exitRecoveryMode**(`overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **exitRecoveryMode**(`overrides?`): `Promise`<`ContractTransaction`\>
 
 Exit recovery mode, can be called by anyone if enough whitelist approvals are given.
 
@@ -1404,15 +925,7 @@ Exit recovery mode, can be called by anyone if enough whitelist approvals are gi
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.exitRecoveryMode
-
-___
-
-### fallback
-
-▸ **fallback**(`overrides?`): `Promise`<`TransactionResponse`\>
+### ▸ **fallback**(`overrides?`): `Promise`<`TransactionResponse`\>
 
 #### Parameters
 
@@ -1424,15 +937,7 @@ ___
 
 `Promise`<`TransactionResponse`\>
 
-#### Inherited from
-
-IColonyNetwork.fallback
-
-___
-
-### getChildSkillId
-
-▸ **getChildSkillId**(`_skillId`, `_childSkillIndex`, `overrides?`): `Promise`<`BigNumber`\>
+### ▸ **getChildSkillId**(`_skillId`, `_childSkillIndex`, `overrides?`): `Promise`<`BigNumber`\>
 
 Get the id of the child skill at index `_childSkillIndex` for skill with Id `_skillId`.
 
@@ -1448,15 +953,7 @@ Get the id of the child skill at index `_childSkillIndex` for skill with Id `_sk
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-IColonyNetwork.getChildSkillId
-
-___
-
-### getColony
-
-▸ **getColony**(`_id`, `overrides?`): `Promise`<`string`\>
+### ▸ **getColony**(`_id`, `overrides?`): `Promise`<`string`\>
 
 Get a colony address by its Id in the network.
 
@@ -1471,15 +968,7 @@ Get a colony address by its Id in the network.
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-IColonyNetwork.getColony
-
-___
-
-### getColonyClient
-
-▸ **getColonyClient**(`addressOrId`): `Promise`<[`AnyColonyClient`](../README.md#anycolonyclient)\>
+### ▸ **getColonyClient**(`addressOrId`): `Promise`<[`AnyColonyClient`](../README.md#anycolonyclient)\>
 
 Get a ColonyClient instance for the currently deployed version of that Colony by providing the address or the integer colony number
 
@@ -1495,11 +984,7 @@ Get a ColonyClient instance for the currently deployed version of that Colony by
 
 The corresponding initialized ColonyClient instance
 
-___
-
-### getColonyCount
-
-▸ **getColonyCount**(`overrides?`): `Promise`<`BigNumber`\>
+### ▸ **getColonyCount**(`overrides?`): `Promise`<`BigNumber`\>
 
 Get the number of colonies in the network.
 
@@ -1513,15 +998,7 @@ Get the number of colonies in the network.
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-IColonyNetwork.getColonyCount
-
-___
-
-### getColonyVersionResolver
-
-▸ **getColonyVersionResolver**(`_version`, `overrides?`): `Promise`<`string`\>
+### ▸ **getColonyVersionResolver**(`_version`, `overrides?`): `Promise`<`string`\>
 
 Get the `Resolver` address for Colony contract version `_version`.
 
@@ -1536,15 +1013,7 @@ Get the `Resolver` address for Colony contract version `_version`.
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-IColonyNetwork.getColonyVersionResolver
-
-___
-
-### getCurrentColonyVersion
-
-▸ **getCurrentColonyVersion**(`overrides?`): `Promise`<`BigNumber`\>
+### ▸ **getCurrentColonyVersion**(`overrides?`): `Promise`<`BigNumber`\>
 
 Returns the latest Colony contract version. This is the version used to create all new colonies.
 
@@ -1558,15 +1027,7 @@ Returns the latest Colony contract version. This is the version used to create a
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-IColonyNetwork.getCurrentColonyVersion
-
-___
-
-### getENSRegistrar
-
-▸ **getENSRegistrar**(`overrides?`): `Promise`<`string`\>
+### ▸ **getENSRegistrar**(`overrides?`): `Promise`<`string`\>
 
 Returns the address of the ENSRegistrar for the Network.
 
@@ -1580,15 +1041,7 @@ Returns the address of the ENSRegistrar for the Network.
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-IColonyNetwork.getENSRegistrar
-
-___
-
-### getExtensionInstallation
-
-▸ **getExtensionInstallation**(`extensionId`, `colony`, `overrides?`): `Promise`<`string`\>
+### ▸ **getExtensionInstallation**(`extensionId`, `colony`, `overrides?`): `Promise`<`string`\>
 
 Get an extension's installation.
 
@@ -1604,15 +1057,7 @@ Get an extension's installation.
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-IColonyNetwork.getExtensionInstallation
-
-___
-
-### getExtensionResolver
-
-▸ **getExtensionResolver**(`extensionId`, `version`, `overrides?`): `Promise`<`string`\>
+### ▸ **getExtensionResolver**(`extensionId`, `version`, `overrides?`): `Promise`<`string`\>
 
 Get an extension's resolver.
 
@@ -1628,15 +1073,7 @@ Get an extension's resolver.
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-IColonyNetwork.getExtensionResolver
-
-___
-
-### getFeeInverse
-
-▸ **getFeeInverse**(`overrides?`): `Promise`<`BigNumber`\>
+### ▸ **getFeeInverse**(`overrides?`): `Promise`<`BigNumber`\>
 
 Return 1 / the fee to pay to the network. e.g. if the fee is 1% (or 0.01), return 100.
 
@@ -1650,15 +1087,7 @@ Return 1 / the fee to pay to the network. e.g. if the fee is 1% (or 0.01), retur
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-IColonyNetwork.getFeeInverse
-
-___
-
-### getMetaColony
-
-▸ **getMetaColony**(`overrides?`): `Promise`<`string`\>
+### ▸ **getMetaColony**(`overrides?`): `Promise`<`string`\>
 
 Get the Meta Colony address.
 
@@ -1672,15 +1101,7 @@ Get the Meta Colony address.
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-IColonyNetwork.getMetaColony
-
-___
-
-### getMetaColonyClient
-
-▸ **getMetaColonyClient**(): `Promise`<[`AnyColonyClient`](../README.md#anycolonyclient)\>
+### ▸ **getMetaColonyClient**(): `Promise`<[`AnyColonyClient`](../README.md#anycolonyclient)\>
 
 Get the initialized MetaColony client
 
@@ -1690,11 +1111,7 @@ Get the initialized MetaColony client
 
 a ColonyClient instance of the MetaColony (id: 1)
 
-___
-
-### getMetatransactionNonce
-
-▸ **getMetatransactionNonce**(`userAddress`, `overrides?`): `Promise`<`BigNumber`\>
+### ▸ **getMetatransactionNonce**(`userAddress`, `overrides?`): `Promise`<`BigNumber`\>
 
 Gets the next metatransaction nonce for user that should be used targeting this contract
 
@@ -1709,15 +1126,7 @@ Gets the next metatransaction nonce for user that should be used targeting this 
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-IColonyNetwork.getMetatransactionNonce
-
-___
-
-### getMiningDelegator
-
-▸ **getMiningDelegator**(`_delegate`, `overrides?`): `Promise`<`string`\>
+### ▸ **getMiningDelegator**(`_delegate`, `overrides?`): `Promise`<`string`\>
 
 Called to get the address _delegate is allowed to mine for
 
@@ -1732,15 +1141,7 @@ Called to get the address _delegate is allowed to mine for
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-IColonyNetwork.getMiningDelegator
-
-___
-
-### getMiningResolver
-
-▸ **getMiningResolver**(`overrides?`): `Promise`<`string`\>
+### ▸ **getMiningResolver**(`overrides?`): `Promise`<`string`\>
 
 Get the resolver to be used by new instances of ReputationMiningCycle.
 
@@ -1754,15 +1155,7 @@ Get the resolver to be used by new instances of ReputationMiningCycle.
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-IColonyNetwork.getMiningResolver
-
-___
-
-### getMiningStake
-
-▸ **getMiningStake**(`_user`, `overrides?`): `Promise`<`MiningStakeStructOutput`\>
+### ▸ **getMiningStake**(`_user`, `overrides?`): `Promise`<`MiningStakeStructOutput`\>
 
 returns how much CLNY _user has staked for the purposes of reputation mining
 
@@ -1777,15 +1170,7 @@ returns how much CLNY _user has staked for the purposes of reputation mining
 
 `Promise`<`MiningStakeStructOutput`\>
 
-#### Inherited from
-
-IColonyNetwork.getMiningStake
-
-___
-
-### getParentSkillId
-
-▸ **getParentSkillId**(`_skillId`, `_parentSkillIndex`, `overrides?`): `Promise`<`BigNumber`\>
+### ▸ **getParentSkillId**(`_skillId`, `_parentSkillIndex`, `overrides?`): `Promise`<`BigNumber`\>
 
 Get the id of the parent skill at index `_parentSkillIndex` for skill with Id `_skillId`.
 
@@ -1801,15 +1186,7 @@ Get the id of the parent skill at index `_parentSkillIndex` for skill with Id `_
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-IColonyNetwork.getParentSkillId
-
-___
-
-### getPayoutWhitelist
-
-▸ **getPayoutWhitelist**(`_token`, `overrides?`): `Promise`<`boolean`\>
+### ▸ **getPayoutWhitelist**(`_token`, `overrides?`): `Promise`<`boolean`\>
 
 Get a token's status in the payout whitelist
 
@@ -1824,15 +1201,7 @@ Get a token's status in the payout whitelist
 
 `Promise`<`boolean`\>
 
-#### Inherited from
-
-IColonyNetwork.getPayoutWhitelist
-
-___
-
-### getProfileDBAddress
-
-▸ **getProfileDBAddress**(`node`, `overrides?`): `Promise`<`string`\>
+### ▸ **getProfileDBAddress**(`node`, `overrides?`): `Promise`<`string`\>
 
 Retrieve the orbitdb address corresponding to a registered account.
 
@@ -1847,15 +1216,7 @@ Retrieve the orbitdb address corresponding to a registered account.
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-IColonyNetwork.getProfileDBAddress
-
-___
-
-### getReplacementReputationUpdateLogEntry
-
-▸ **getReplacementReputationUpdateLogEntry**(`_reputationMiningCycle`, `_id`, `overrides?`): `Promise`<`ReputationLogEntryStructOutput`\>
+### ▸ **getReplacementReputationUpdateLogEntry**(`_reputationMiningCycle`, `_id`, `overrides?`): `Promise`<`ReputationLogEntryStructOutput`\>
 
 Get a replacement log entry (if set) for the log entry `_id` in the mining cycle that was at the address `_reputationMiningCycle`.
 
@@ -1871,15 +1232,7 @@ Get a replacement log entry (if set) for the log entry `_id` in the mining cycle
 
 `Promise`<`ReputationLogEntryStructOutput`\>
 
-#### Inherited from
-
-IColonyNetwork.getReplacementReputationUpdateLogEntry
-
-___
-
-### getReplacementReputationUpdateLogsExist
-
-▸ **getReplacementReputationUpdateLogsExist**(`_reputationMiningCycle`, `overrides?`): `Promise`<`boolean`\>
+### ▸ **getReplacementReputationUpdateLogsExist**(`_reputationMiningCycle`, `overrides?`): `Promise`<`boolean`\>
 
 Get whether any replacement log entries have been set for the supplied reputation mining cycle.Used by the client to avoid doubling the number of RPC calls when syncing from scratch.
 
@@ -1894,15 +1247,7 @@ Get whether any replacement log entries have been set for the supplied reputatio
 
 `Promise`<`boolean`\>
 
-#### Inherited from
-
-IColonyNetwork.getReplacementReputationUpdateLogsExist
-
-___
-
-### getReputationMiningCycle
-
-▸ **getReputationMiningCycle**(`_active`, `overrides?`): `Promise`<`string`\>
+### ▸ **getReputationMiningCycle**(`_active`, `overrides?`): `Promise`<`string`\>
 
 Get the address of either the active or inactive reputation mining cycle, based on `active`. The active reputation mining cycle is the one currently under consideration by reputation miners. The inactive reputation cycle is the one with the log that is being appended to.
 
@@ -1917,15 +1262,7 @@ Get the address of either the active or inactive reputation mining cycle, based 
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-IColonyNetwork.getReputationMiningCycle
-
-___
-
-### getReputationMiningCycleReward
-
-▸ **getReputationMiningCycleReward**(`overrides?`): `Promise`<`BigNumber`\>
+### ▸ **getReputationMiningCycleReward**(`overrides?`): `Promise`<`BigNumber`\>
 
 Called to get the total per-cycle reputation mining reward.
 
@@ -1939,15 +1276,7 @@ Called to get the total per-cycle reputation mining reward.
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-IColonyNetwork.getReputationMiningCycleReward
-
-___
-
-### getReputationMiningSkillId
-
-▸ **getReputationMiningSkillId**(`overrides?`): `Promise`<`BigNumber`\>
+### ▸ **getReputationMiningSkillId**(`overrides?`): `Promise`<`BigNumber`\>
 
 Get the `skillId` of the reputation mining skill. Only set once the metacolony is set up.
 
@@ -1961,15 +1290,7 @@ Get the `skillId` of the reputation mining skill. Only set once the metacolony i
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-IColonyNetwork.getReputationMiningSkillId
-
-___
-
-### getReputationRootHash
-
-▸ **getReputationRootHash**(`overrides?`): `Promise`<`string`\>
+### ▸ **getReputationRootHash**(`overrides?`): `Promise`<`string`\>
 
 Get the root hash of the current reputation state tree.
 
@@ -1983,15 +1304,7 @@ Get the root hash of the current reputation state tree.
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-IColonyNetwork.getReputationRootHash
-
-___
-
-### getReputationRootHashNLeaves
-
-▸ **getReputationRootHashNLeaves**(`overrides?`): `Promise`<`BigNumber`\>
+### ▸ **getReputationRootHashNLeaves**(`overrides?`): `Promise`<`BigNumber`\>
 
 I cannot see a reason why a user's client would need to call this - only stored to help with some edge cases in reputation mining dispute resolution.
 Get the number of leaves in the current reputation state tree.
@@ -2006,15 +1319,7 @@ Get the number of leaves in the current reputation state tree.
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-IColonyNetwork.getReputationRootHashNLeaves
-
-___
-
-### getReputationRootHashNNodes
-
-▸ **getReputationRootHashNNodes**(`overrides?`): `Promise`<`BigNumber`\>
+### ▸ **getReputationRootHashNNodes**(`overrides?`): `Promise`<`BigNumber`\>
 
 Deprecated, replaced by getReputationRootHashNLeaves which does the same thing but is more accurately named.will be removed in a later version.
 Get the number of leaves in the current reputation state tree.
@@ -2029,15 +1334,7 @@ Get the number of leaves in the current reputation state tree.
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-IColonyNetwork.getReputationRootHashNNodes
-
-___
-
-### getSkill
-
-▸ **getSkill**(`_skillId`, `overrides?`): `Promise`<`SkillStructOutput`\>
+### ▸ **getSkill**(`_skillId`, `overrides?`): `Promise`<`SkillStructOutput`\>
 
 Get the `nParents` and `nChildren` of skill with id `_skillId`.
 
@@ -2052,15 +1349,7 @@ Get the `nParents` and `nChildren` of skill with id `_skillId`.
 
 `Promise`<`SkillStructOutput`\>
 
-#### Inherited from
-
-IColonyNetwork.getSkill
-
-___
-
-### getSkillCount
-
-▸ **getSkillCount**(`overrides?`): `Promise`<`BigNumber`\>
+### ▸ **getSkillCount**(`overrides?`): `Promise`<`BigNumber`\>
 
 Get the number of skills in the network including both global and local skills.
 
@@ -2074,15 +1363,7 @@ Get the number of skills in the network including both global and local skills.
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-IColonyNetwork.getSkillCount
-
-___
-
-### getTokenLocking
-
-▸ **getTokenLocking**(`overrides?`): `Promise`<`string`\>
+### ▸ **getTokenLocking**(`overrides?`): `Promise`<`string`\>
 
 Get token locking contract address.
 
@@ -2096,15 +1377,7 @@ Get token locking contract address.
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-IColonyNetwork.getTokenLocking
-
-___
-
-### getTokenLockingClient
-
-▸ **getTokenLockingClient**(): `Promise`<[`TokenLockingClient`](TokenLockingClient.md)\>
+### ▸ **getTokenLockingClient**(): `Promise`<[`TokenLockingClient`](TokenLockingClient.md)\>
 
 Gets the TokenLockingClient
 
@@ -2114,11 +1387,7 @@ Gets the TokenLockingClient
 
 an initialized version of the TokenLockingClient
 
-___
-
-### initialise
-
-▸ **initialise**(`_resolver`, `_version`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **initialise**(`_resolver`, `_version`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Only allowed to be run once, by the Network owner before any Colony versions are added.
 Initialises the colony network by setting the first Colony version resolver to `_resolver` address.
@@ -2135,15 +1404,7 @@ Initialises the colony network by setting the first Colony version resolver to `
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.initialise
-
-___
-
-### initialiseReputationMining
-
-▸ **initialiseReputationMining**(`overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **initialiseReputationMining**(`overrides?`): `Promise`<`ContractTransaction`\>
 
 Creates initial inactive reputation mining cycle.
 
@@ -2157,15 +1418,7 @@ Creates initial inactive reputation mining cycle.
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.initialiseReputationMining
-
-___
-
-### initialiseRootLocalSkill
-
-▸ **initialiseRootLocalSkill**(`overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **initialiseRootLocalSkill**(`overrides?`): `Promise`<`ContractTransaction`\>
 
 Initialise the local skills tree for a colony
 
@@ -2179,15 +1432,7 @@ Initialise the local skills tree for a colony
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.initialiseRootLocalSkill
-
-___
-
-### installExtension
-
-▸ **installExtension**(`extensionId`, `version`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **installExtension**(`extensionId`, `version`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Install an extension in a colony. Can only be called by a Colony.
 
@@ -2203,15 +1448,7 @@ Install an extension in a colony. Can only be called by a Colony.
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.installExtension
-
-___
-
-### isColony
-
-▸ **isColony**(`_colony`, `overrides?`): `Promise`<`boolean`\>
+### ▸ **isColony**(`_colony`, `overrides?`): `Promise`<`boolean`\>
 
 Check if specific address is a colony created on colony network.
 
@@ -2226,15 +1463,7 @@ Check if specific address is a colony created on colony network.
 
 `Promise`<`boolean`\>
 
-#### Inherited from
-
-IColonyNetwork.isColony
-
-___
-
-### isInRecoveryMode
-
-▸ **isInRecoveryMode**(`overrides?`): `Promise`<`boolean`\>
+### ▸ **isInRecoveryMode**(`overrides?`): `Promise`<`boolean`\>
 
 Is colony network in recovery mode.
 
@@ -2248,15 +1477,7 @@ Is colony network in recovery mode.
 
 `Promise`<`boolean`\>
 
-#### Inherited from
-
-IColonyNetwork.isInRecoveryMode
-
-___
-
-### listenerCount
-
-▸ **listenerCount**(`eventName?`): `number`
+### ▸ **listenerCount**(`eventName?`): `number`
 
 #### Parameters
 
@@ -2268,15 +1489,7 @@ ___
 
 `number`
 
-#### Inherited from
-
-IColonyNetwork.listenerCount
-
-___
-
-### listeners
-
-▸ **listeners**<`TEvent`\>(`eventFilter?`): `TypedListener`<`TEvent`\>[]
+### ▸ **listeners**<`TEvent`\>(`eventFilter?`): `TypedListener`<`TEvent`\>[]
 
 #### Type parameters
 
@@ -2294,11 +1507,7 @@ ___
 
 `TypedListener`<`TEvent`\>[]
 
-#### Inherited from
-
-IColonyNetwork.listeners
-
-▸ **listeners**(`eventName?`): `Listener`[]
+### ▸ **listeners**(`eventName?`): `Listener`[]
 
 #### Parameters
 
@@ -2310,15 +1519,7 @@ IColonyNetwork.listeners
 
 `Listener`[]
 
-#### Inherited from
-
-IColonyNetwork.listeners
-
-___
-
-### lookupRegisteredENSDomain
-
-▸ **lookupRegisteredENSDomain**(`addr`, `overrides?`): `Promise`<`string`\>
+### ▸ **lookupRegisteredENSDomain**(`addr`, `overrides?`): `Promise`<`string`\>
 
 Reverse lookup a username from an address.
 
@@ -2333,15 +1534,7 @@ Reverse lookup a username from an address.
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-IColonyNetwork.lookupRegisteredENSDomain
-
-___
-
-### lookupRegisteredENSDomainWithNetworkPatches
-
-▸ **lookupRegisteredENSDomainWithNetworkPatches**(`address`): `Promise`<`string`\>
+### ▸ **lookupRegisteredENSDomainWithNetworkPatches**(`address`): `Promise`<`string`\>
 
 Like [[`lookupRegisteredENSDomain`]], but also working on the Goerli testnet
 
@@ -2362,11 +1555,7 @@ original function
 
 an ENS name in the form of `[username].user.joincolony.eth` or `[colonyName].colony.joincolony.eth`
 
-___
-
-### numRecoveryRoles
-
-▸ **numRecoveryRoles**(`overrides?`): `Promise`<`BigNumber`\>
+### ▸ **numRecoveryRoles**(`overrides?`): `Promise`<`BigNumber`\>
 
 Return number of recovery roles.
 
@@ -2380,15 +1569,7 @@ Return number of recovery roles.
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-IColonyNetwork.numRecoveryRoles
-
-___
-
-### punishStakers
-
-▸ **punishStakers**(`_stakers`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **punishStakers**(`_stakers`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 While external, it can only be called successfully by the current ReputationMiningCycle.
 Function called to punish people who staked against a new reputation root hash that turned out to be incorrect.
@@ -2405,15 +1586,7 @@ Function called to punish people who staked against a new reputation root hash t
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.punishStakers
-
-___
-
-### queryFilter
-
-▸ **queryFilter**<`TEvent`\>(`event`, `fromBlockOrBlockhash?`, `toBlock?`): `Promise`<`TEvent`[]\>
+### ▸ **queryFilter**<`TEvent`\>(`event`, `fromBlockOrBlockhash?`, `toBlock?`): `Promise`<`TEvent`[]\>
 
 #### Type parameters
 
@@ -2433,15 +1606,7 @@ ___
 
 `Promise`<`TEvent`[]\>
 
-#### Inherited from
-
-IColonyNetwork.queryFilter
-
-___
-
-### registerColonyLabel
-
-▸ **registerColonyLabel**(`colonyName`, `orbitdb`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **registerColonyLabel**(`colonyName`, `orbitdb`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Register a "colony.joincolony.eth" label. Can only be called by a Colony.
 
@@ -2457,15 +1622,7 @@ Register a "colony.joincolony.eth" label. Can only be called by a Colony.
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.registerColonyLabel
-
-___
-
-### registerUserLabel
-
-▸ **registerUserLabel**(`username`, `orbitdb`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **registerUserLabel**(`username`, `orbitdb`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Register a "user.joincolony.eth" label.
 
@@ -2481,15 +1638,7 @@ Register a "user.joincolony.eth" label.
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.registerUserLabel
-
-___
-
-### removeAllListeners
-
-▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`ColonyNetworkClient`](ColonyNetworkClient.md)
+### ▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`ColonyNetworkClient`](ColonyNetworkClient.md)
 
 #### Type parameters
 
@@ -2507,11 +1656,7 @@ ___
 
 [`ColonyNetworkClient`](ColonyNetworkClient.md)
 
-#### Inherited from
-
-IColonyNetwork.removeAllListeners
-
-▸ **removeAllListeners**(`eventName?`): [`ColonyNetworkClient`](ColonyNetworkClient.md)
+### ▸ **removeAllListeners**(`eventName?`): [`ColonyNetworkClient`](ColonyNetworkClient.md)
 
 #### Parameters
 
@@ -2523,15 +1668,7 @@ IColonyNetwork.removeAllListeners
 
 [`ColonyNetworkClient`](ColonyNetworkClient.md)
 
-#### Inherited from
-
-IColonyNetwork.removeAllListeners
-
-___
-
-### removeRecoveryRole
-
-▸ **removeRecoveryRole**(`_user`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **removeRecoveryRole**(`_user`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Remove colony recovery role. Can only be called by root role.
 
@@ -2546,15 +1683,7 @@ Remove colony recovery role. Can only be called by root role.
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.removeRecoveryRole
-
-___
-
-### reward
-
-▸ **reward**(`_recipient`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **reward**(`_recipient`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Only callable by the active reputation mining cycle
 Used to track that a user is eligible to claim a reward
@@ -2571,15 +1700,7 @@ Used to track that a user is eligible to claim a reward
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.reward
-
-___
-
-### setFeeInverse
-
-▸ **setFeeInverse**(`_feeInverse`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **setFeeInverse**(`_feeInverse`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Set the colony network fee to pay. e.g. if the fee is 1% (or 0.01), pass 100 as `_feeInverse`.
 
@@ -2594,15 +1715,7 @@ Set the colony network fee to pay. e.g. if the fee is 1% (or 0.01), pass 100 as 
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.setFeeInverse
-
-___
-
-### setMiningDelegate
-
-▸ **setMiningDelegate**(`_delegate`, `_allowed`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **setMiningDelegate**(`_delegate`, `_allowed`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Called to give or remove another address's permission to mine on your behalf
 
@@ -2618,15 +1731,7 @@ Called to give or remove another address's permission to mine on your behalf
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.setMiningDelegate
-
-___
-
-### setMiningResolver
-
-▸ **setMiningResolver**(`miningResolverAddress`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **setMiningResolver**(`miningResolverAddress`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Set the resolver to be used by new instances of ReputationMiningCycle.
 
@@ -2641,15 +1746,7 @@ Set the resolver to be used by new instances of ReputationMiningCycle.
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.setMiningResolver
-
-___
-
-### setPayoutWhitelist
-
-▸ **setPayoutWhitelist**(`_token`, `_status`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **setPayoutWhitelist**(`_token`, `_status`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Set a token's status in the payout whitelist
 
@@ -2665,15 +1762,7 @@ Set a token's status in the payout whitelist
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.setPayoutWhitelist
-
-___
-
-### setRecoveryRole
-
-▸ **setRecoveryRole**(`_user`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **setRecoveryRole**(`_user`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Set new colony recovery role. Can be called by root.
 
@@ -2688,15 +1777,7 @@ Set new colony recovery role. Can be called by root.
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.setRecoveryRole
-
-___
-
-### setReplacementReputationUpdateLogEntry
-
-▸ **setReplacementReputationUpdateLogEntry**(`_reputationMiningCycle`, `_id`, `_user`, `_amount`, `_skillId`, `_colony`, `_nUpdates`, `_nPreviousUpdates`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **setReplacementReputationUpdateLogEntry**(`_reputationMiningCycle`, `_id`, `_user`, `_amount`, `_skillId`, `_colony`, `_nUpdates`, `_nPreviousUpdates`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Note that strictly, `_nUpdates` and `_nPreviousUpdates` don't need to be set - they're only used during dispute resolution, which these replacement log entries are never used for. However, for ease of resyncing the client, we have decided to include them for now.
 Set a replacement log entry if we're in recovery mode.
@@ -2719,15 +1800,7 @@ Set a replacement log entry if we're in recovery mode.
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.setReplacementReputationUpdateLogEntry
-
-___
-
-### setReputationMiningCycleReward
-
-▸ **setReputationMiningCycleReward**(`_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **setReputationMiningCycleReward**(`_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Can only be called by the MetaColony.
 Called to set the total per-cycle reputation reward, which will be split between all miners.
@@ -2743,15 +1816,7 @@ Called to set the total per-cycle reputation reward, which will be split between
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.setReputationMiningCycleReward
-
-___
-
-### setReputationRootHash(bytes32,uint256,address[])
-
-▸ **setReputationRootHash(bytes32,uint256,address[])**(`newHash`, `newNLeaves`, `stakers`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **setReputationRootHash(bytes32,uint256,address[])**(`newHash`, `newNLeaves`, `stakers`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Set a new Reputation root hash and starts a new mining cycle. Can only be called by the ReputationMiningCycle contract.
 
@@ -2768,15 +1833,7 @@ Set a new Reputation root hash and starts a new mining cycle. Can only be called
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.setReputationRootHash(bytes32,uint256,address[])
-
-___
-
-### setReputationRootHash(bytes32,uint256,address[],uint256)
-
-▸ **setReputationRootHash(bytes32,uint256,address[],uint256)**(`newHash`, `newNLeaves`, `stakers`, `reward`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **setReputationRootHash(bytes32,uint256,address[],uint256)**(`newHash`, `newNLeaves`, `stakers`, `reward`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 This version of setReputationRootHash is deprecated and will be removed in a future release. It transparently calls the new version if it is called (essentially, removing the `reward` parameter.
 
@@ -2794,15 +1851,7 @@ This version of setReputationRootHash is deprecated and will be removed in a fut
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.setReputationRootHash(bytes32,uint256,address[],uint256)
-
-___
-
-### setStorageSlotRecovery
-
-▸ **setStorageSlotRecovery**(`_slot`, `_value`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **setStorageSlotRecovery**(`_slot`, `_value`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 certain critical variables are protected from editing in this function
 Update value of arbitrary storage variable. Can only be called by user with recovery role.
@@ -2819,15 +1868,7 @@ Update value of arbitrary storage variable. Can only be called by user with reco
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.setStorageSlotRecovery
-
-___
-
-### setTokenLocking
-
-▸ **setTokenLocking**(`_tokenLockingAddress`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **setTokenLocking**(`_tokenLockingAddress`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Sets the token locking address. This is only set once, and can't be changed afterwards.
 
@@ -2842,15 +1883,7 @@ Sets the token locking address. This is only set once, and can't be changed afte
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.setTokenLocking
-
-___
-
-### setupRegistrar
-
-▸ **setupRegistrar**(`_ens`, `_rootNode`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **setupRegistrar**(`_ens`, `_rootNode`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Setup registrar with ENS and root node.
 
@@ -2866,15 +1899,7 @@ Setup registrar with ENS and root node.
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.setupRegistrar
-
-___
-
-### stakeForMining
-
-▸ **stakeForMining**(`_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **stakeForMining**(`_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Stake CLNY to allow the staker to participate in reputation mining.
 
@@ -2889,15 +1914,7 @@ Stake CLNY to allow the staker to participate in reputation mining.
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.stakeForMining
-
-___
-
-### startNextCycle
-
-▸ **startNextCycle**(`overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **startNextCycle**(`overrides?`): `Promise`<`ContractTransaction`\>
 
 Starts a new Reputation Mining cycle. Explicitly called only the first time, subsequently called from within `setReputationRootHash`.
 
@@ -2911,15 +1928,7 @@ Starts a new Reputation Mining cycle. Explicitly called only the first time, sub
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.startNextCycle
-
-___
-
-### startTokenAuction
-
-▸ **startTokenAuction**(`_token`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **startTokenAuction**(`_token`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Create and start a new `DutchAuction` for the entire amount of `_token` owned by the Colony Network.
 
@@ -2934,15 +1943,7 @@ Create and start a new `DutchAuction` for the entire amount of `_token` owned by
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.startTokenAuction
-
-___
-
-### supportsInterface
-
-▸ **supportsInterface**(`interfaceID`, `overrides?`): `Promise`<`boolean`\>
+### ▸ **supportsInterface**(`interfaceID`, `overrides?`): `Promise`<`boolean`\>
 
 Interface identification is specified in ERC-165.
 Query if a contract implements an interface
@@ -2958,15 +1959,7 @@ Query if a contract implements an interface
 
 `Promise`<`boolean`\>
 
-#### Inherited from
-
-IColonyNetwork.supportsInterface
-
-___
-
-### uninstallExtension
-
-▸ **uninstallExtension**(`extensionId`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **uninstallExtension**(`extensionId`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Uninstall an extension in a colony. Can only be called by a Colony.
 
@@ -2981,15 +1974,7 @@ Uninstall an extension in a colony. Can only be called by a Colony.
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.uninstallExtension
-
-___
-
-### unstakeForMining
-
-▸ **unstakeForMining**(`_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **unstakeForMining**(`_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Unstake CLNY currently staked for reputation mining.
 
@@ -3004,15 +1989,7 @@ Unstake CLNY currently staked for reputation mining.
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.unstakeForMining
-
-___
-
-### updateColonyOrbitDB
-
-▸ **updateColonyOrbitDB**(`orbitdb`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **updateColonyOrbitDB**(`orbitdb`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Update a colony's orbitdb address. Can only be called by a colony with a registered subdomain
 
@@ -3027,15 +2004,7 @@ Update a colony's orbitdb address. Can only be called by a colony with a registe
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.updateColonyOrbitDB
-
-___
-
-### updateUserOrbitDB
-
-▸ **updateUserOrbitDB**(`orbitdb`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **updateUserOrbitDB**(`orbitdb`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Update a user's orbitdb address. Can only be called by a user with a registered subdomain
 
@@ -3050,15 +2019,7 @@ Update a user's orbitdb address. Can only be called by a user with a registered 
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-IColonyNetwork.updateUserOrbitDB
-
-___
-
-### upgradeExtension
-
-▸ **upgradeExtension**(`extensionId`, `newVersion`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **upgradeExtension**(`extensionId`, `newVersion`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Upgrade an extension in a colony. Can only be called by a Colony.
 
@@ -3073,7 +2034,3 @@ Upgrade an extension in a colony. Can only be called by a Colony.
 #### Returns
 
 `Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-IColonyNetwork.upgradeExtension

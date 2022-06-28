@@ -1,16 +1,6 @@
-[ColonyJS](../README.md) / Id
-
 # Enumeration: Id
 
 Shortcuts to certain IDs within Colony
-
-## Table of contents
-
-### Enumeration members
-
-- [RootDomain](Id.md#rootdomain)
-- [RootPot](Id.md#rootpot)
-- [SkillIgnore](Id.md#skillignore)
 
 ## Enumeration members
 
@@ -20,15 +10,11 @@ Shortcuts to certain IDs within Colony
 
 The id of the root-domain in all colonies
 
-___
-
 ### RootPot
 
 • **RootPot** = `1`
 
 The id of the root fundig pot in all colonies
-
-___
 
 ### SkillIgnore
 

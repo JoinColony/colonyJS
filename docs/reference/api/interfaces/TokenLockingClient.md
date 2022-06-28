@@ -1,5 +1,3 @@
-[ColonyJS](../README.md) / TokenLockingClient
-
 # Interface: TokenLockingClient
 
 ## Hierarchy
@@ -8,85 +6,11 @@
 
   ↳ **`TokenLockingClient`**
 
-## Table of contents
-
-### Properties
-
-- [\_deployedPromise](TokenLockingClient.md#_deployedpromise)
-- [\_runningEvents](TokenLockingClient.md#_runningevents)
-- [\_wrappedEmits](TokenLockingClient.md#_wrappedemits)
-- [address](TokenLockingClient.md#address)
-- [callStatic](TokenLockingClient.md#callstatic)
-- [clientType](TokenLockingClient.md#clienttype)
-- [deployTransaction](TokenLockingClient.md#deploytransaction)
-- [estimateGas](TokenLockingClient.md#estimategas)
-- [filters](TokenLockingClient.md#filters)
-- [functions](TokenLockingClient.md#functions)
-- [interface](TokenLockingClient.md#interface)
-- [off](TokenLockingClient.md#off)
-- [on](TokenLockingClient.md#on)
-- [once](TokenLockingClient.md#once)
-- [populateTransaction](TokenLockingClient.md#populatetransaction)
-- [provider](TokenLockingClient.md#provider)
-- [removeListener](TokenLockingClient.md#removelistener)
-- [resolvedAddress](TokenLockingClient.md#resolvedaddress)
-- [signer](TokenLockingClient.md#signer)
-
-### Methods
-
-- [\_checkRunningEvents](TokenLockingClient.md#_checkrunningevents)
-- [\_deployed](TokenLockingClient.md#_deployed)
-- [\_wrapEvent](TokenLockingClient.md#_wrapevent)
-- [approveStake](TokenLockingClient.md#approvestake)
-- [attach](TokenLockingClient.md#attach)
-- [authority](TokenLockingClient.md#authority)
-- [connect](TokenLockingClient.md#connect)
-- [deobligateStake](TokenLockingClient.md#deobligatestake)
-- [deployed](TokenLockingClient.md#deployed)
-- [deposit(address,uint256)](TokenLockingClient.md#deposit(address,uint256))
-- [deposit(address,uint256,bool)](TokenLockingClient.md#deposit(address,uint256,bool))
-- [depositFor](TokenLockingClient.md#depositfor)
-- [emit](TokenLockingClient.md#emit)
-- [executeMetaTransaction](TokenLockingClient.md#executemetatransaction)
-- [fallback](TokenLockingClient.md#fallback)
-- [getApproval](TokenLockingClient.md#getapproval)
-- [getChainId](TokenLockingClient.md#getchainid)
-- [getColonyNetwork](TokenLockingClient.md#getcolonynetwork)
-- [getMetatransactionNonce](TokenLockingClient.md#getmetatransactionnonce)
-- [getObligation](TokenLockingClient.md#getobligation)
-- [getTotalLockCount](TokenLockingClient.md#gettotallockcount)
-- [getTotalObligation](TokenLockingClient.md#gettotalobligation)
-- [getUserLock](TokenLockingClient.md#getuserlock)
-- [incrementLockCounterTo](TokenLockingClient.md#incrementlockcounterto)
-- [listenerCount](TokenLockingClient.md#listenercount)
-- [listeners](TokenLockingClient.md#listeners)
-- [lockToken](TokenLockingClient.md#locktoken)
-- [obligateStake](TokenLockingClient.md#obligatestake)
-- [owner](TokenLockingClient.md#owner)
-- [queryFilter](TokenLockingClient.md#queryfilter)
-- [removeAllListeners](TokenLockingClient.md#removealllisteners)
-- [reward](TokenLockingClient.md#reward)
-- [setAuthority](TokenLockingClient.md#setauthority)
-- [setColonyNetwork](TokenLockingClient.md#setcolonynetwork)
-- [setOwner](TokenLockingClient.md#setowner)
-- [transfer](TokenLockingClient.md#transfer)
-- [transferStake](TokenLockingClient.md#transferstake)
-- [unlockTokenForUser](TokenLockingClient.md#unlocktokenforuser)
-- [verify](TokenLockingClient.md#verify)
-- [withdraw(address,uint256)](TokenLockingClient.md#withdraw(address,uint256))
-- [withdraw(address,uint256,bool)](TokenLockingClient.md#withdraw(address,uint256,bool))
-
 ## Properties
 
 ### \_deployedPromise
 
 • **\_deployedPromise**: `Promise`<`Contract`\>
-
-#### Inherited from
-
-TokenLocking.\_deployedPromise
-
-___
 
 ### \_runningEvents
 
@@ -96,12 +20,6 @@ ___
 
 ▪ [eventTag: `string`]: `RunningEvent`
 
-#### Inherited from
-
-TokenLocking.\_runningEvents
-
-___
-
 ### \_wrappedEmits
 
 • **\_wrappedEmits**: `Object`
@@ -110,21 +28,9 @@ ___
 
 ▪ [eventTag: `string`]: (...`args`: `any`[]) => `void`
 
-#### Inherited from
-
-TokenLocking.\_wrappedEmits
-
-___
-
 ### address
 
 • `Readonly` **address**: `string`
-
-#### Inherited from
-
-TokenLocking.address
-
-___
 
 ### callStatic
 
@@ -164,27 +70,13 @@ ___
 | `withdraw(address,uint256)` | (`_token`: `string`, `_amount`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `withdraw(address,uint256,bool)` | (`_token`: `string`, `_amount`: `BigNumberish`, `_force`: `boolean`, `overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 
-#### Inherited from
-
-TokenLocking.callStatic
-
-___
-
 ### clientType
 
 • **clientType**: [`TokenLockingClient`](../enums/ClientType.md#tokenlockingclient)
 
-___
-
 ### deployTransaction
 
 • `Readonly` **deployTransaction**: `TransactionResponse`
-
-#### Inherited from
-
-TokenLocking.deployTransaction
-
-___
 
 ### estimateGas
 
@@ -224,12 +116,6 @@ ___
 | `withdraw(address,uint256)` | (`_token`: `string`, `_amount`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`BigNumber`\> |
 | `withdraw(address,uint256,bool)` | (`_token`: `string`, `_amount`: `BigNumberish`, `_force`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`BigNumber`\> |
 
-#### Inherited from
-
-TokenLocking.estimateGas
-
-___
-
 ### filters
 
 • **filters**: `Object`
@@ -266,12 +152,6 @@ ___
 | `UserTokenUnlocked(address,address,uint256)` | (`token?`: ``null``, `user?`: ``null``, `lockId?`: ``null``) => `UserTokenUnlockedEventFilter` |
 | `UserTokenWithdrawn` | (`token?`: ``null``, `user?`: ``null``, `amount?`: ``null``) => `UserTokenWithdrawnEventFilter` |
 | `UserTokenWithdrawn(address,address,uint256)` | (`token?`: ``null``, `user?`: ``null``, `amount?`: ``null``) => `UserTokenWithdrawnEventFilter` |
-
-#### Inherited from
-
-TokenLocking.filters
-
-___
 
 ### functions
 
@@ -311,51 +191,21 @@ ___
 | `withdraw(address,uint256)` | (`_token`: `string`, `_amount`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `withdraw(address,uint256,bool)` | (`_token`: `string`, `_amount`: `BigNumberish`, `_force`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 
-#### Inherited from
-
-TokenLocking.functions
-
-___
-
 ### interface
 
 • **interface**: `TokenLockingInterface`
-
-#### Inherited from
-
-TokenLocking.interface
-
-___
 
 ### off
 
 • **off**: `OnEvent`<[`TokenLockingClient`](TokenLockingClient.md)\>
 
-#### Inherited from
-
-TokenLocking.off
-
-___
-
 ### on
 
 • **on**: `OnEvent`<[`TokenLockingClient`](TokenLockingClient.md)\>
 
-#### Inherited from
-
-TokenLocking.on
-
-___
-
 ### once
 
 • **once**: `OnEvent`<[`TokenLockingClient`](TokenLockingClient.md)\>
-
-#### Inherited from
-
-TokenLocking.once
-
-___
 
 ### populateTransaction
 
@@ -395,55 +245,25 @@ ___
 | `withdraw(address,uint256)` | (`_token`: `string`, `_amount`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `withdraw(address,uint256,bool)` | (`_token`: `string`, `_amount`: `BigNumberish`, `_force`: `boolean`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 
-#### Inherited from
-
-TokenLocking.populateTransaction
-
-___
-
 ### provider
 
 • `Readonly` **provider**: `Provider`
-
-#### Inherited from
-
-TokenLocking.provider
-
-___
 
 ### removeListener
 
 • **removeListener**: `OnEvent`<[`TokenLockingClient`](TokenLockingClient.md)\>
 
-#### Inherited from
-
-TokenLocking.removeListener
-
-___
-
 ### resolvedAddress
 
 • `Readonly` **resolvedAddress**: `Promise`<`string`\>
-
-#### Inherited from
-
-TokenLocking.resolvedAddress
-
-___
 
 ### signer
 
 • `Readonly` **signer**: `Signer`
 
-#### Inherited from
-
-TokenLocking.signer
-
 ## Methods
 
-### \_checkRunningEvents
-
-▸ **_checkRunningEvents**(`runningEvent`): `void`
+### ▸ **_checkRunningEvents**(`runningEvent`): `void`
 
 #### Parameters
 
@@ -455,15 +275,7 @@ TokenLocking.signer
 
 `void`
 
-#### Inherited from
-
-TokenLocking.\_checkRunningEvents
-
-___
-
-### \_deployed
-
-▸ **_deployed**(`blockTag?`): `Promise`<`Contract`\>
+### ▸ **_deployed**(`blockTag?`): `Promise`<`Contract`\>
 
 #### Parameters
 
@@ -475,15 +287,7 @@ ___
 
 `Promise`<`Contract`\>
 
-#### Inherited from
-
-TokenLocking.\_deployed
-
-___
-
-### \_wrapEvent
-
-▸ **_wrapEvent**(`runningEvent`, `log`, `listener`): `Event`
+### ▸ **_wrapEvent**(`runningEvent`, `log`, `listener`): `Event`
 
 #### Parameters
 
@@ -497,15 +301,7 @@ ___
 
 `Event`
 
-#### Inherited from
-
-TokenLocking.\_wrapEvent
-
-___
-
-### approveStake
-
-▸ **approveStake**(`_user`, `_amount`, `_token`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **approveStake**(`_user`, `_amount`, `_token`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
@@ -520,15 +316,7 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-TokenLocking.approveStake
-
-___
-
-### attach
-
-▸ **attach**(`addressOrName`): [`TokenLockingClient`](TokenLockingClient.md)
+### ▸ **attach**(`addressOrName`): [`TokenLockingClient`](TokenLockingClient.md)
 
 #### Parameters
 
@@ -540,15 +328,7 @@ ___
 
 [`TokenLockingClient`](TokenLockingClient.md)
 
-#### Inherited from
-
-TokenLocking.attach
-
-___
-
-### authority
-
-▸ **authority**(`overrides?`): `Promise`<`string`\>
+### ▸ **authority**(`overrides?`): `Promise`<`string`\>
 
 #### Parameters
 
@@ -560,15 +340,7 @@ ___
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-TokenLocking.authority
-
-___
-
-### connect
-
-▸ **connect**(`signerOrProvider`): [`TokenLockingClient`](TokenLockingClient.md)
+### ▸ **connect**(`signerOrProvider`): [`TokenLockingClient`](TokenLockingClient.md)
 
 #### Parameters
 
@@ -580,15 +352,7 @@ ___
 
 [`TokenLockingClient`](TokenLockingClient.md)
 
-#### Inherited from
-
-TokenLocking.connect
-
-___
-
-### deobligateStake
-
-▸ **deobligateStake**(`_user`, `_amount`, `_token`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **deobligateStake**(`_user`, `_amount`, `_token`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
@@ -603,29 +367,13 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-TokenLocking.deobligateStake
-
-___
-
-### deployed
-
-▸ **deployed**(): `Promise`<[`TokenLockingClient`](TokenLockingClient.md)\>
+### ▸ **deployed**(): `Promise`<[`TokenLockingClient`](TokenLockingClient.md)\>
 
 #### Returns
 
 `Promise`<[`TokenLockingClient`](TokenLockingClient.md)\>
 
-#### Inherited from
-
-TokenLocking.deployed
-
-___
-
-### deposit(address,uint256)
-
-▸ **deposit(address,uint256)**(`_token`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **deposit(address,uint256)**(`_token`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
@@ -639,15 +387,7 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-TokenLocking.deposit(address,uint256)
-
-___
-
-### deposit(address,uint256,bool)
-
-▸ **deposit(address,uint256,bool)**(`_token`, `_amount`, `_force`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **deposit(address,uint256,bool)**(`_token`, `_amount`, `_force`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
@@ -662,15 +402,7 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-TokenLocking.deposit(address,uint256,bool)
-
-___
-
-### depositFor
-
-▸ **depositFor**(`_token`, `_amount`, `_recipient`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **depositFor**(`_token`, `_amount`, `_recipient`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
@@ -685,15 +417,7 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-TokenLocking.depositFor
-
-___
-
-### emit
-
-▸ **emit**(`eventName`, ...`args`): `boolean`
+### ▸ **emit**(`eventName`, ...`args`): `boolean`
 
 #### Parameters
 
@@ -706,15 +430,7 @@ ___
 
 `boolean`
 
-#### Inherited from
-
-TokenLocking.emit
-
-___
-
-### executeMetaTransaction
-
-▸ **executeMetaTransaction**(`_user`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **executeMetaTransaction**(`_user`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Main function to be called when user wants to execute meta transaction. The actual function to be called should be passed as param with name functionSignature Here the basic signature recovery is being used. Signature is expected to be generated using personal_sign method.
 
@@ -733,15 +449,7 @@ Main function to be called when user wants to execute meta transaction. The actu
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-TokenLocking.executeMetaTransaction
-
-___
-
-### fallback
-
-▸ **fallback**(`overrides?`): `Promise`<`TransactionResponse`\>
+### ▸ **fallback**(`overrides?`): `Promise`<`TransactionResponse`\>
 
 #### Parameters
 
@@ -753,15 +461,7 @@ ___
 
 `Promise`<`TransactionResponse`\>
 
-#### Inherited from
-
-TokenLocking.fallback
-
-___
-
-### getApproval
-
-▸ **getApproval**(`_user`, `_token`, `_obligator`, `overrides?`): `Promise`<`BigNumber`\>
+### ▸ **getApproval**(`_user`, `_token`, `_obligator`, `overrides?`): `Promise`<`BigNumber`\>
 
 #### Parameters
 
@@ -776,15 +476,7 @@ ___
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-TokenLocking.getApproval
-
-___
-
-### getChainId
-
-▸ **getChainId**(`overrides?`): `Promise`<`BigNumber`\>
+### ▸ **getChainId**(`overrides?`): `Promise`<`BigNumber`\>
 
 #### Parameters
 
@@ -796,15 +488,7 @@ ___
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-TokenLocking.getChainId
-
-___
-
-### getColonyNetwork
-
-▸ **getColonyNetwork**(`overrides?`): `Promise`<`string`\>
+### ▸ **getColonyNetwork**(`overrides?`): `Promise`<`string`\>
 
 #### Parameters
 
@@ -816,15 +500,7 @@ ___
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-TokenLocking.getColonyNetwork
-
-___
-
-### getMetatransactionNonce
-
-▸ **getMetatransactionNonce**(`userAddress`, `overrides?`): `Promise`<`BigNumber`\>
+### ▸ **getMetatransactionNonce**(`userAddress`, `overrides?`): `Promise`<`BigNumber`\>
 
 #### Parameters
 
@@ -837,15 +513,7 @@ ___
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-TokenLocking.getMetatransactionNonce
-
-___
-
-### getObligation
-
-▸ **getObligation**(`_user`, `_token`, `_obligator`, `overrides?`): `Promise`<`BigNumber`\>
+### ▸ **getObligation**(`_user`, `_token`, `_obligator`, `overrides?`): `Promise`<`BigNumber`\>
 
 #### Parameters
 
@@ -860,15 +528,7 @@ ___
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-TokenLocking.getObligation
-
-___
-
-### getTotalLockCount
-
-▸ **getTotalLockCount**(`_token`, `overrides?`): `Promise`<`BigNumber`\>
+### ▸ **getTotalLockCount**(`_token`, `overrides?`): `Promise`<`BigNumber`\>
 
 #### Parameters
 
@@ -881,15 +541,7 @@ ___
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-TokenLocking.getTotalLockCount
-
-___
-
-### getTotalObligation
-
-▸ **getTotalObligation**(`_user`, `_token`, `overrides?`): `Promise`<`BigNumber`\>
+### ▸ **getTotalObligation**(`_user`, `_token`, `overrides?`): `Promise`<`BigNumber`\>
 
 #### Parameters
 
@@ -903,15 +555,7 @@ ___
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-TokenLocking.getTotalObligation
-
-___
-
-### getUserLock
-
-▸ **getUserLock**(`_token`, `_user`, `overrides?`): `Promise`<`LockStructOutput`\>
+### ▸ **getUserLock**(`_token`, `_user`, `overrides?`): `Promise`<`LockStructOutput`\>
 
 #### Parameters
 
@@ -925,15 +569,7 @@ ___
 
 `Promise`<`LockStructOutput`\>
 
-#### Inherited from
-
-TokenLocking.getUserLock
-
-___
-
-### incrementLockCounterTo
-
-▸ **incrementLockCounterTo**(`_token`, `_lockId`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **incrementLockCounterTo**(`_token`, `_lockId`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
@@ -947,15 +583,7 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-TokenLocking.incrementLockCounterTo
-
-___
-
-### listenerCount
-
-▸ **listenerCount**(`eventName?`): `number`
+### ▸ **listenerCount**(`eventName?`): `number`
 
 #### Parameters
 
@@ -967,15 +595,7 @@ ___
 
 `number`
 
-#### Inherited from
-
-TokenLocking.listenerCount
-
-___
-
-### listeners
-
-▸ **listeners**<`TEvent`\>(`eventFilter?`): `TypedListener`<`TEvent`\>[]
+### ▸ **listeners**<`TEvent`\>(`eventFilter?`): `TypedListener`<`TEvent`\>[]
 
 #### Type parameters
 
@@ -993,11 +613,7 @@ ___
 
 `TypedListener`<`TEvent`\>[]
 
-#### Inherited from
-
-TokenLocking.listeners
-
-▸ **listeners**(`eventName?`): `Listener`[]
+### ▸ **listeners**(`eventName?`): `Listener`[]
 
 #### Parameters
 
@@ -1009,15 +625,7 @@ TokenLocking.listeners
 
 `Listener`[]
 
-#### Inherited from
-
-TokenLocking.listeners
-
-___
-
-### lockToken
-
-▸ **lockToken**(`_token`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **lockToken**(`_token`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
@@ -1030,15 +638,7 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-TokenLocking.lockToken
-
-___
-
-### obligateStake
-
-▸ **obligateStake**(`_user`, `_amount`, `_token`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **obligateStake**(`_user`, `_amount`, `_token`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
@@ -1053,15 +653,7 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-TokenLocking.obligateStake
-
-___
-
-### owner
-
-▸ **owner**(`overrides?`): `Promise`<`string`\>
+### ▸ **owner**(`overrides?`): `Promise`<`string`\>
 
 #### Parameters
 
@@ -1073,15 +665,7 @@ ___
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-TokenLocking.owner
-
-___
-
-### queryFilter
-
-▸ **queryFilter**<`TEvent`\>(`event`, `fromBlockOrBlockhash?`, `toBlock?`): `Promise`<`TEvent`[]\>
+### ▸ **queryFilter**<`TEvent`\>(`event`, `fromBlockOrBlockhash?`, `toBlock?`): `Promise`<`TEvent`[]\>
 
 #### Type parameters
 
@@ -1101,15 +685,7 @@ ___
 
 `Promise`<`TEvent`[]\>
 
-#### Inherited from
-
-TokenLocking.queryFilter
-
-___
-
-### removeAllListeners
-
-▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`TokenLockingClient`](TokenLockingClient.md)
+### ▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`TokenLockingClient`](TokenLockingClient.md)
 
 #### Type parameters
 
@@ -1127,11 +703,7 @@ ___
 
 [`TokenLockingClient`](TokenLockingClient.md)
 
-#### Inherited from
-
-TokenLocking.removeAllListeners
-
-▸ **removeAllListeners**(`eventName?`): [`TokenLockingClient`](TokenLockingClient.md)
+### ▸ **removeAllListeners**(`eventName?`): [`TokenLockingClient`](TokenLockingClient.md)
 
 #### Parameters
 
@@ -1143,15 +715,7 @@ TokenLocking.removeAllListeners
 
 [`TokenLockingClient`](TokenLockingClient.md)
 
-#### Inherited from
-
-TokenLocking.removeAllListeners
-
-___
-
-### reward
-
-▸ **reward**(`_recipient`, `_amount`, `overrides?`): `Promise`<`void`\>
+### ▸ **reward**(`_recipient`, `_amount`, `overrides?`): `Promise`<`void`\>
 
 #### Parameters
 
@@ -1165,15 +729,7 @@ ___
 
 `Promise`<`void`\>
 
-#### Inherited from
-
-TokenLocking.reward
-
-___
-
-### setAuthority
-
-▸ **setAuthority**(`authority_`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **setAuthority**(`authority_`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
@@ -1186,15 +742,7 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-TokenLocking.setAuthority
-
-___
-
-### setColonyNetwork
-
-▸ **setColonyNetwork**(`_colonyNetwork`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **setColonyNetwork**(`_colonyNetwork`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
@@ -1207,15 +755,7 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-TokenLocking.setColonyNetwork
-
-___
-
-### setOwner
-
-▸ **setOwner**(`owner_`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **setOwner**(`owner_`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
@@ -1228,15 +768,7 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-TokenLocking.setOwner
-
-___
-
-### transfer
-
-▸ **transfer**(`_token`, `_amount`, `_recipient`, `_force`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **transfer**(`_token`, `_amount`, `_recipient`, `_force`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
@@ -1252,15 +784,7 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-TokenLocking.transfer
-
-___
-
-### transferStake
-
-▸ **transferStake**(`_user`, `_amount`, `_token`, `_recipient`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **transferStake**(`_user`, `_amount`, `_token`, `_recipient`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
@@ -1276,15 +800,7 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-TokenLocking.transferStake
-
-___
-
-### unlockTokenForUser
-
-▸ **unlockTokenForUser**(`_token`, `_user`, `_lockId`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **unlockTokenForUser**(`_token`, `_user`, `_lockId`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
@@ -1299,15 +815,7 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-TokenLocking.unlockTokenForUser
-
-___
-
-### verify
-
-▸ **verify**(`_owner`, `_nonce`, `_chainId`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides?`): `Promise`<`boolean`\>
+### ▸ **verify**(`_owner`, `_nonce`, `_chainId`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides?`): `Promise`<`boolean`\>
 
 #### Parameters
 
@@ -1326,15 +834,7 @@ ___
 
 `Promise`<`boolean`\>
 
-#### Inherited from
-
-TokenLocking.verify
-
-___
-
-### withdraw(address,uint256)
-
-▸ **withdraw(address,uint256)**(`_token`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **withdraw(address,uint256)**(`_token`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
@@ -1348,15 +848,7 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-TokenLocking.withdraw(address,uint256)
-
-___
-
-### withdraw(address,uint256,bool)
-
-▸ **withdraw(address,uint256,bool)**(`_token`, `_amount`, `_force`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **withdraw(address,uint256,bool)**(`_token`, `_amount`, `_force`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
@@ -1370,7 +862,3 @@ ___
 #### Returns
 
 `Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-TokenLocking.withdraw(address,uint256,bool)

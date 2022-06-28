@@ -6,9 +6,10 @@
   "excludeInternal": true,
   "excludePrivate": true,
   "excludeProtected": true,
-  "name": "ColonyJS",
   "plugin": "typedoc-plugin-markdown",
   "githubPages": false,
   "disableSources": true,
-  "readme": "none"
+  "readme": "none",
+  "hideBreadcrumbs": true,
+  "hideInPageTOC": true
 }

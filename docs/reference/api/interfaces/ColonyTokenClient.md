@@ -1,5 +1,3 @@
-[ColonyJS](../README.md) / ColonyTokenClient
-
 # Interface: ColonyTokenClient
 
 A ColonyToken has special abilities that go beyond the capabilities of an ERC20 token
@@ -10,85 +8,11 @@ A ColonyToken has special abilities that go beyond the capabilities of an ERC20 
 
   ↳ **`ColonyTokenClient`**
 
-## Table of contents
-
-### Properties
-
-- [\_deployedPromise](ColonyTokenClient.md#_deployedpromise)
-- [\_runningEvents](ColonyTokenClient.md#_runningevents)
-- [\_wrappedEmits](ColonyTokenClient.md#_wrappedemits)
-- [address](ColonyTokenClient.md#address)
-- [callStatic](ColonyTokenClient.md#callstatic)
-- [clientType](ColonyTokenClient.md#clienttype)
-- [deployTransaction](ColonyTokenClient.md#deploytransaction)
-- [estimateGas](ColonyTokenClient.md#estimategas)
-- [filters](ColonyTokenClient.md#filters)
-- [functions](ColonyTokenClient.md#functions)
-- [interface](ColonyTokenClient.md#interface)
-- [off](ColonyTokenClient.md#off)
-- [on](ColonyTokenClient.md#on)
-- [once](ColonyTokenClient.md#once)
-- [populateTransaction](ColonyTokenClient.md#populatetransaction)
-- [provider](ColonyTokenClient.md#provider)
-- [removeListener](ColonyTokenClient.md#removelistener)
-- [resolvedAddress](ColonyTokenClient.md#resolvedaddress)
-- [signer](ColonyTokenClient.md#signer)
-- [tokenClientType](ColonyTokenClient.md#tokenclienttype)
-
-### Methods
-
-- [DOMAIN\_SEPARATOR](ColonyTokenClient.md#domain_separator)
-- [PERMIT\_TYPEHASH](ColonyTokenClient.md#permit_typehash)
-- [\_checkRunningEvents](ColonyTokenClient.md#_checkrunningevents)
-- [\_deployed](ColonyTokenClient.md#_deployed)
-- [\_wrapEvent](ColonyTokenClient.md#_wrapevent)
-- [allowance](ColonyTokenClient.md#allowance)
-- [approve](ColonyTokenClient.md#approve)
-- [attach](ColonyTokenClient.md#attach)
-- [authority](ColonyTokenClient.md#authority)
-- [balanceOf](ColonyTokenClient.md#balanceof)
-- [burn(address,uint256)](ColonyTokenClient.md#burn(address,uint256))
-- [burn(uint256)](ColonyTokenClient.md#burn(uint256))
-- [connect](ColonyTokenClient.md#connect)
-- [decimals](ColonyTokenClient.md#decimals)
-- [deployTokenAuthority](ColonyTokenClient.md#deploytokenauthority)
-- [deployed](ColonyTokenClient.md#deployed)
-- [emit](ColonyTokenClient.md#emit)
-- [executeMetaTransaction](ColonyTokenClient.md#executemetatransaction)
-- [fallback](ColonyTokenClient.md#fallback)
-- [getChainId](ColonyTokenClient.md#getchainid)
-- [getMetatransactionNonce](ColonyTokenClient.md#getmetatransactionnonce)
-- [getTokenInfo](ColonyTokenClient.md#gettokeninfo)
-- [listenerCount](ColonyTokenClient.md#listenercount)
-- [listeners](ColonyTokenClient.md#listeners)
-- [locked](ColonyTokenClient.md#locked)
-- [mint(address,uint256)](ColonyTokenClient.md#mint(address,uint256))
-- [mint(uint256)](ColonyTokenClient.md#mint(uint256))
-- [name](ColonyTokenClient.md#name)
-- [owner](ColonyTokenClient.md#owner)
-- [permit](ColonyTokenClient.md#permit)
-- [queryFilter](ColonyTokenClient.md#queryfilter)
-- [removeAllListeners](ColonyTokenClient.md#removealllisteners)
-- [setAuthority](ColonyTokenClient.md#setauthority)
-- [setOwner](ColonyTokenClient.md#setowner)
-- [symbol](ColonyTokenClient.md#symbol)
-- [totalSupply](ColonyTokenClient.md#totalsupply)
-- [transfer](ColonyTokenClient.md#transfer)
-- [transferFrom](ColonyTokenClient.md#transferfrom)
-- [unlock](ColonyTokenClient.md#unlock)
-- [verify](ColonyTokenClient.md#verify)
-
 ## Properties
 
 ### \_deployedPromise
 
 • **\_deployedPromise**: `Promise`<`Contract`\>
-
-#### Inherited from
-
-MetaTxToken.\_deployedPromise
-
-___
 
 ### \_runningEvents
 
@@ -98,12 +22,6 @@ ___
 
 ▪ [eventTag: `string`]: `RunningEvent`
 
-#### Inherited from
-
-MetaTxToken.\_runningEvents
-
-___
-
 ### \_wrappedEmits
 
 • **\_wrappedEmits**: `Object`
@@ -112,21 +30,9 @@ ___
 
 ▪ [eventTag: `string`]: (...`args`: `any`[]) => `void`
 
-#### Inherited from
-
-MetaTxToken.\_wrappedEmits
-
-___
-
 ### address
 
 • `Readonly` **address**: `string`
-
-#### Inherited from
-
-MetaTxToken.address
-
-___
 
 ### callStatic
 
@@ -163,27 +69,13 @@ ___
 | `unlock` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `verify` | (`_owner`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
 
-#### Inherited from
-
-MetaTxToken.callStatic
-
-___
-
 ### clientType
 
 • **clientType**: [`TokenClient`](../enums/ClientType.md#tokenclient)
 
-___
-
 ### deployTransaction
 
 • `Readonly` **deployTransaction**: `TransactionResponse`
-
-#### Inherited from
-
-MetaTxToken.deployTransaction
-
-___
 
 ### estimateGas
 
@@ -192,8 +84,6 @@ ___
 #### Overrides
 
 MetaTxToken.estimateGas
-
-___
 
 ### filters
 
@@ -217,12 +107,6 @@ ___
 | `Mint(address,uint256)` | (`guy?`: ``null`` \| `string`, `wad?`: ``null``) => `MintEventFilter` |
 | `Transfer` | (`src?`: ``null`` \| `string`, `dst?`: ``null`` \| `string`, `wad?`: ``null``) => `TransferEventFilter` |
 | `Transfer(address,address,uint256)` | (`src?`: ``null`` \| `string`, `dst?`: ``null`` \| `string`, `wad?`: ``null``) => `TransferEventFilter` |
-
-#### Inherited from
-
-MetaTxToken.filters
-
-___
 
 ### functions
 
@@ -259,51 +143,21 @@ ___
 | `unlock` | (`overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `verify` | (`_owner`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<[`boolean`]\> |
 
-#### Inherited from
-
-MetaTxToken.functions
-
-___
-
 ### interface
 
 • **interface**: `MetaTxTokenInterface`
-
-#### Inherited from
-
-MetaTxToken.interface
-
-___
 
 ### off
 
 • **off**: `OnEvent`<[`ColonyTokenClient`](ColonyTokenClient.md)\>
 
-#### Inherited from
-
-MetaTxToken.off
-
-___
-
 ### on
 
 • **on**: `OnEvent`<[`ColonyTokenClient`](ColonyTokenClient.md)\>
 
-#### Inherited from
-
-MetaTxToken.on
-
-___
-
 ### once
 
 • **once**: `OnEvent`<[`ColonyTokenClient`](ColonyTokenClient.md)\>
-
-#### Inherited from
-
-MetaTxToken.once
-
-___
 
 ### populateTransaction
 
@@ -340,51 +194,21 @@ ___
 | `unlock` | (`overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `verify` | (`_owner`: `string`, `_nonce`: `BigNumberish`, `_chainId`: `BigNumberish`, `_payload`: `BytesLike`, `_sigR`: `BytesLike`, `_sigS`: `BytesLike`, `_sigV`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 
-#### Inherited from
-
-MetaTxToken.populateTransaction
-
-___
-
 ### provider
 
 • `Readonly` **provider**: `Provider`
-
-#### Inherited from
-
-MetaTxToken.provider
-
-___
 
 ### removeListener
 
 • **removeListener**: `OnEvent`<[`ColonyTokenClient`](ColonyTokenClient.md)\>
 
-#### Inherited from
-
-MetaTxToken.removeListener
-
-___
-
 ### resolvedAddress
 
 • `Readonly` **resolvedAddress**: `Promise`<`string`\>
 
-#### Inherited from
-
-MetaTxToken.resolvedAddress
-
-___
-
 ### signer
 
 • `Readonly` **signer**: `Signer`
-
-#### Inherited from
-
-MetaTxToken.signer
-
-___
 
 ### tokenClientType
 
@@ -392,9 +216,7 @@ ___
 
 ## Methods
 
-### DOMAIN\_SEPARATOR
-
-▸ **DOMAIN_SEPARATOR**(`overrides?`): `Promise`<`string`\>
+### ▸ **DOMAIN_SEPARATOR**(`overrides?`): `Promise`<`string`\>
 
 #### Parameters
 
@@ -406,15 +228,7 @@ ___
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-MetaTxToken.DOMAIN\_SEPARATOR
-
-___
-
-### PERMIT\_TYPEHASH
-
-▸ **PERMIT_TYPEHASH**(`overrides?`): `Promise`<`string`\>
+### ▸ **PERMIT_TYPEHASH**(`overrides?`): `Promise`<`string`\>
 
 #### Parameters
 
@@ -426,15 +240,7 @@ ___
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-MetaTxToken.PERMIT\_TYPEHASH
-
-___
-
-### \_checkRunningEvents
-
-▸ **_checkRunningEvents**(`runningEvent`): `void`
+### ▸ **_checkRunningEvents**(`runningEvent`): `void`
 
 #### Parameters
 
@@ -446,15 +252,7 @@ ___
 
 `void`
 
-#### Inherited from
-
-MetaTxToken.\_checkRunningEvents
-
-___
-
-### \_deployed
-
-▸ **_deployed**(`blockTag?`): `Promise`<`Contract`\>
+### ▸ **_deployed**(`blockTag?`): `Promise`<`Contract`\>
 
 #### Parameters
 
@@ -466,15 +264,7 @@ ___
 
 `Promise`<`Contract`\>
 
-#### Inherited from
-
-MetaTxToken.\_deployed
-
-___
-
-### \_wrapEvent
-
-▸ **_wrapEvent**(`runningEvent`, `log`, `listener`): `Event`
+### ▸ **_wrapEvent**(`runningEvent`, `log`, `listener`): `Event`
 
 #### Parameters
 
@@ -488,15 +278,7 @@ ___
 
 `Event`
 
-#### Inherited from
-
-MetaTxToken.\_wrapEvent
-
-___
-
-### allowance
-
-▸ **allowance**(`src`, `guy`, `overrides?`): `Promise`<`BigNumber`\>
+### ▸ **allowance**(`src`, `guy`, `overrides?`): `Promise`<`BigNumber`\>
 
 #### Parameters
 
@@ -510,15 +292,7 @@ ___
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-MetaTxToken.allowance
-
-___
-
-### approve
-
-▸ **approve**(`guy`, `wad`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **approve**(`guy`, `wad`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
@@ -532,15 +306,7 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-MetaTxToken.approve
-
-___
-
-### attach
-
-▸ **attach**(`addressOrName`): [`ColonyTokenClient`](ColonyTokenClient.md)
+### ▸ **attach**(`addressOrName`): [`ColonyTokenClient`](ColonyTokenClient.md)
 
 #### Parameters
 
@@ -552,15 +318,7 @@ ___
 
 [`ColonyTokenClient`](ColonyTokenClient.md)
 
-#### Inherited from
-
-MetaTxToken.attach
-
-___
-
-### authority
-
-▸ **authority**(`overrides?`): `Promise`<`string`\>
+### ▸ **authority**(`overrides?`): `Promise`<`string`\>
 
 #### Parameters
 
@@ -572,15 +330,7 @@ ___
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-MetaTxToken.authority
-
-___
-
-### balanceOf
-
-▸ **balanceOf**(`src`, `overrides?`): `Promise`<`BigNumber`\>
+### ▸ **balanceOf**(`src`, `overrides?`): `Promise`<`BigNumber`\>
 
 #### Parameters
 
@@ -593,15 +343,7 @@ ___
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-MetaTxToken.balanceOf
-
-___
-
-### burn(address,uint256)
-
-▸ **burn(address,uint256)**(`guy`, `wad`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **burn(address,uint256)**(`guy`, `wad`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
@@ -615,15 +357,7 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-MetaTxToken.burn(address,uint256)
-
-___
-
-### burn(uint256)
-
-▸ **burn(uint256)**(`wad`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **burn(uint256)**(`wad`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
@@ -636,15 +370,7 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-MetaTxToken.burn(uint256)
-
-___
-
-### connect
-
-▸ **connect**(`signerOrProvider`): [`ColonyTokenClient`](ColonyTokenClient.md)
+### ▸ **connect**(`signerOrProvider`): [`ColonyTokenClient`](ColonyTokenClient.md)
 
 #### Parameters
 
@@ -656,15 +382,7 @@ ___
 
 [`ColonyTokenClient`](ColonyTokenClient.md)
 
-#### Inherited from
-
-MetaTxToken.connect
-
-___
-
-### decimals
-
-▸ **decimals**(`overrides?`): `Promise`<`number`\>
+### ▸ **decimals**(`overrides?`): `Promise`<`number`\>
 
 #### Parameters
 
@@ -676,15 +394,7 @@ ___
 
 `Promise`<`number`\>
 
-#### Inherited from
-
-MetaTxToken.decimals
-
-___
-
-### deployTokenAuthority
-
-▸ **deployTokenAuthority**(`colonyAddress`, `allowedToTransfer`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **deployTokenAuthority**(`colonyAddress`, `allowedToTransfer`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Deploy a TokenAuthority contract for this Colony for a specific token
 The TokenAuthority enables certain addresses to transfer the tokens, even if it's locked
@@ -705,25 +415,13 @@ Only works with tokens that allow for an authority to be set (e.g. tokens deploy
 
 `Promise`<`ContractTransaction`\>
 
-___
-
-### deployed
-
-▸ **deployed**(): `Promise`<[`ColonyTokenClient`](ColonyTokenClient.md)\>
+### ▸ **deployed**(): `Promise`<[`ColonyTokenClient`](ColonyTokenClient.md)\>
 
 #### Returns
 
 `Promise`<[`ColonyTokenClient`](ColonyTokenClient.md)\>
 
-#### Inherited from
-
-MetaTxToken.deployed
-
-___
-
-### emit
-
-▸ **emit**(`eventName`, ...`args`): `boolean`
+### ▸ **emit**(`eventName`, ...`args`): `boolean`
 
 #### Parameters
 
@@ -736,15 +434,7 @@ ___
 
 `boolean`
 
-#### Inherited from
-
-MetaTxToken.emit
-
-___
-
-### executeMetaTransaction
-
-▸ **executeMetaTransaction**(`_user`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **executeMetaTransaction**(`_user`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Main function to be called when user wants to execute meta transaction. The actual function to be called should be passed as param with name functionSignature Here the basic signature recovery is being used. Signature is expected to be generated using personal_sign method.
 
@@ -763,15 +453,7 @@ Main function to be called when user wants to execute meta transaction. The actu
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-MetaTxToken.executeMetaTransaction
-
-___
-
-### fallback
-
-▸ **fallback**(`overrides?`): `Promise`<`TransactionResponse`\>
+### ▸ **fallback**(`overrides?`): `Promise`<`TransactionResponse`\>
 
 #### Parameters
 
@@ -783,15 +465,7 @@ ___
 
 `Promise`<`TransactionResponse`\>
 
-#### Inherited from
-
-MetaTxToken.fallback
-
-___
-
-### getChainId
-
-▸ **getChainId**(`overrides?`): `Promise`<`BigNumber`\>
+### ▸ **getChainId**(`overrides?`): `Promise`<`BigNumber`\>
 
 #### Parameters
 
@@ -803,15 +477,7 @@ ___
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-MetaTxToken.getChainId
-
-___
-
-### getMetatransactionNonce
-
-▸ **getMetatransactionNonce**(`_user`, `overrides?`): `Promise`<`BigNumber`\>
+### ▸ **getMetatransactionNonce**(`_user`, `overrides?`): `Promise`<`BigNumber`\>
 
 #### Parameters
 
@@ -824,15 +490,7 @@ ___
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-MetaTxToken.getMetatransactionNonce
-
-___
-
-### getTokenInfo
-
-▸ **getTokenInfo**(): `Promise`<`TokenInfo`\>
+### ▸ **getTokenInfo**(): `Promise`<`TokenInfo`\>
 
 Get the standard ERC20 token information
 
@@ -840,11 +498,7 @@ Get the standard ERC20 token information
 
 `Promise`<`TokenInfo`\>
 
-___
-
-### listenerCount
-
-▸ **listenerCount**(`eventName?`): `number`
+### ▸ **listenerCount**(`eventName?`): `number`
 
 #### Parameters
 
@@ -856,15 +510,7 @@ ___
 
 `number`
 
-#### Inherited from
-
-MetaTxToken.listenerCount
-
-___
-
-### listeners
-
-▸ **listeners**<`TEvent`\>(`eventFilter?`): `TypedListener`<`TEvent`\>[]
+### ▸ **listeners**<`TEvent`\>(`eventFilter?`): `TypedListener`<`TEvent`\>[]
 
 #### Type parameters
 
@@ -882,11 +528,7 @@ ___
 
 `TypedListener`<`TEvent`\>[]
 
-#### Inherited from
-
-MetaTxToken.listeners
-
-▸ **listeners**(`eventName?`): `Listener`[]
+### ▸ **listeners**(`eventName?`): `Listener`[]
 
 #### Parameters
 
@@ -898,15 +540,7 @@ MetaTxToken.listeners
 
 `Listener`[]
 
-#### Inherited from
-
-MetaTxToken.listeners
-
-___
-
-### locked
-
-▸ **locked**(`overrides?`): `Promise`<`boolean`\>
+### ▸ **locked**(`overrides?`): `Promise`<`boolean`\>
 
 #### Parameters
 
@@ -918,15 +552,7 @@ ___
 
 `Promise`<`boolean`\>
 
-#### Inherited from
-
-MetaTxToken.locked
-
-___
-
-### mint(address,uint256)
-
-▸ **mint(address,uint256)**(`guy`, `wad`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **mint(address,uint256)**(`guy`, `wad`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
@@ -940,15 +566,7 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-MetaTxToken.mint(address,uint256)
-
-___
-
-### mint(uint256)
-
-▸ **mint(uint256)**(`wad`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **mint(uint256)**(`wad`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
@@ -961,15 +579,7 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-MetaTxToken.mint(uint256)
-
-___
-
-### name
-
-▸ **name**(`overrides?`): `Promise`<`string`\>
+### ▸ **name**(`overrides?`): `Promise`<`string`\>
 
 #### Parameters
 
@@ -981,15 +591,7 @@ ___
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-MetaTxToken.name
-
-___
-
-### owner
-
-▸ **owner**(`overrides?`): `Promise`<`string`\>
+### ▸ **owner**(`overrides?`): `Promise`<`string`\>
 
 #### Parameters
 
@@ -1001,15 +603,7 @@ ___
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-MetaTxToken.owner
-
-___
-
-### permit
-
-▸ **permit**(`owner`, `spender`, `value`, `deadline`, `v`, `r`, `s`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **permit**(`owner`, `spender`, `value`, `deadline`, `v`, `r`, `s`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
@@ -1028,15 +622,7 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-MetaTxToken.permit
-
-___
-
-### queryFilter
-
-▸ **queryFilter**<`TEvent`\>(`event`, `fromBlockOrBlockhash?`, `toBlock?`): `Promise`<`TEvent`[]\>
+### ▸ **queryFilter**<`TEvent`\>(`event`, `fromBlockOrBlockhash?`, `toBlock?`): `Promise`<`TEvent`[]\>
 
 #### Type parameters
 
@@ -1056,15 +642,7 @@ ___
 
 `Promise`<`TEvent`[]\>
 
-#### Inherited from
-
-MetaTxToken.queryFilter
-
-___
-
-### removeAllListeners
-
-▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`ColonyTokenClient`](ColonyTokenClient.md)
+### ▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`ColonyTokenClient`](ColonyTokenClient.md)
 
 #### Type parameters
 
@@ -1082,11 +660,7 @@ ___
 
 [`ColonyTokenClient`](ColonyTokenClient.md)
 
-#### Inherited from
-
-MetaTxToken.removeAllListeners
-
-▸ **removeAllListeners**(`eventName?`): [`ColonyTokenClient`](ColonyTokenClient.md)
+### ▸ **removeAllListeners**(`eventName?`): [`ColonyTokenClient`](ColonyTokenClient.md)
 
 #### Parameters
 
@@ -1098,15 +672,7 @@ MetaTxToken.removeAllListeners
 
 [`ColonyTokenClient`](ColonyTokenClient.md)
 
-#### Inherited from
-
-MetaTxToken.removeAllListeners
-
-___
-
-### setAuthority
-
-▸ **setAuthority**(`authority_`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **setAuthority**(`authority_`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
@@ -1119,15 +685,7 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-MetaTxToken.setAuthority
-
-___
-
-### setOwner
-
-▸ **setOwner**(`owner_`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **setOwner**(`owner_`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
@@ -1140,15 +698,7 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-MetaTxToken.setOwner
-
-___
-
-### symbol
-
-▸ **symbol**(`overrides?`): `Promise`<`string`\>
+### ▸ **symbol**(`overrides?`): `Promise`<`string`\>
 
 #### Parameters
 
@@ -1160,15 +710,7 @@ ___
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-MetaTxToken.symbol
-
-___
-
-### totalSupply
-
-▸ **totalSupply**(`overrides?`): `Promise`<`BigNumber`\>
+### ▸ **totalSupply**(`overrides?`): `Promise`<`BigNumber`\>
 
 #### Parameters
 
@@ -1180,15 +722,7 @@ ___
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-MetaTxToken.totalSupply
-
-___
-
-### transfer
-
-▸ **transfer**(`dst`, `wad`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **transfer**(`dst`, `wad`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
@@ -1202,15 +736,7 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-MetaTxToken.transfer
-
-___
-
-### transferFrom
-
-▸ **transferFrom**(`src`, `dst`, `wad`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **transferFrom**(`src`, `dst`, `wad`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
@@ -1225,15 +751,7 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-MetaTxToken.transferFrom
-
-___
-
-### unlock
-
-▸ **unlock**(`overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **unlock**(`overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
@@ -1245,15 +763,7 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-MetaTxToken.unlock
-
-___
-
-### verify
-
-▸ **verify**(`_owner`, `_nonce`, `_chainId`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides?`): `Promise`<`boolean`\>
+### ▸ **verify**(`_owner`, `_nonce`, `_chainId`, `_payload`, `_sigR`, `_sigS`, `_sigV`, `overrides?`): `Promise`<`boolean`\>
 
 #### Parameters
 
@@ -1271,7 +781,3 @@ ___
 #### Returns
 
 `Promise`<`boolean`\>
-
-#### Inherited from
-
-MetaTxToken.verify

@@ -1,15 +1,11 @@
-ColonyJS
+# colonyJS
 
-# ColonyJS
-
-## Table of contents
-
-### Namespaces
+## Namespaces
 
 - [ColonyDataTypes](modules/ColonyDataTypes.md)
 - [Tokens](modules/Tokens.md)
 
-### Enumerations
+## Enumerations
 
 - [ClientType](enums/ClientType.md)
 - [ColonyNetworkAddress](enums/ColonyNetworkAddress.md)
@@ -24,7 +20,7 @@ ColonyJS
 - [ReputationOracleEndpoint](enums/ReputationOracleEndpoint.md)
 - [TokenClientType](enums/TokenClientType.md)
 
-### Interfaces
+## Interfaces
 
 - [CoinMachineClientV1](interfaces/CoinMachineClientV1.md)
 - [CoinMachineClientV2](interfaces/CoinMachineClientV2.md)
@@ -56,75 +52,27 @@ ColonyJS
 - [WhitelistClientV1](interfaces/WhitelistClientV1.md)
 - [WhitelistClientV2](interfaces/WhitelistClientV2.md)
 
-### Type aliases
-
-- [AnyCoinMachineClient](README.md#anycoinmachineclient)
-- [AnyColonyClient](README.md#anycolonyclient)
-- [AnyOneTxPaymentClient](README.md#anyonetxpaymentclient)
-- [AnyVotingReputationClient](README.md#anyvotingreputationclient)
-- [AnyWhitelistClient](README.md#anywhitelistclient)
-- [ColonyRoles](README.md#colonyroles)
-- [ContractClient](README.md#contractclient)
-- [DomainRoles](README.md#domainroles)
-- [EventsClient](README.md#eventsclient)
-- [ExtensionClient](README.md#extensionclient)
-- [SignerOrProvider](README.md#signerorprovider)
-- [TokenClient](README.md#tokenclient)
-- [UserRoles](README.md#userroles)
-
-### Variables
-
-- [COLONY\_VERSION\_LATEST](README.md#colony_version_latest)
-- [ExtensionVersions](README.md#extensionversions)
-
-### Functions
-
-- [formatColonyRoles](README.md#formatcolonyroles)
-- [getBlockTime](README.md#getblocktime)
-- [getChildIndex](README.md#getchildindex)
-- [getColonyNetworkClient](README.md#getcolonynetworkclient)
-- [getColonyRoles](README.md#getcolonyroles)
-- [getEvents](README.md#getevents)
-- [getExtensionHash](README.md#getextensionhash)
-- [getExtensionPermissionProofs](README.md#getextensionpermissionproofs)
-- [getHistoricColonyRoles](README.md#gethistoriccolonyroles)
-- [getLogs](README.md#getlogs)
-- [getMultipleEvents](README.md#getmultipleevents)
-- [getPermissionProofs](README.md#getpermissionproofs)
-- [getPotDomain](README.md#getpotdomain)
-- [isExtensionCompatible](README.md#isextensioncompatible)
-
 ## Type aliases
 
 ### AnyCoinMachineClient
 
 Ƭ **AnyCoinMachineClient**: [`CoinMachineClientV1`](interfaces/CoinMachineClientV1.md) \| [`CoinMachineClientV2`](interfaces/CoinMachineClientV2.md) \| [`CoinMachineClientV3`](interfaces/CoinMachineClientV3.md) \| [`CoinMachineClientV4`](interfaces/CoinMachineClientV4.md) \| [`CoinMachineClientV5`](interfaces/CoinMachineClientV5.md)
 
-___
-
 ### AnyColonyClient
 
 Ƭ **AnyColonyClient**: [`ColonyClientV1`](interfaces/ColonyClientV1.md) \| [`ColonyClientV2`](interfaces/ColonyClientV2.md) \| [`ColonyClientV3`](interfaces/ColonyClientV3.md) \| [`ColonyClientV4`](interfaces/ColonyClientV4.md) \| [`ColonyClientV5`](interfaces/ColonyClientV5.md) \| [`ColonyClientV6`](interfaces/ColonyClientV6.md) \| [`ColonyClientV7`](interfaces/ColonyClientV7.md) \| [`ColonyClientV8`](interfaces/ColonyClientV8.md) \| [`ColonyClientV9`](interfaces/ColonyClientV9.md)
-
-___
 
 ### AnyOneTxPaymentClient
 
 Ƭ **AnyOneTxPaymentClient**: [`OneTxPaymentClientV1`](interfaces/OneTxPaymentClientV1.md) \| [`OneTxPaymentClientV2`](interfaces/OneTxPaymentClientV2.md) \| [`OneTxPaymentClientV3`](interfaces/OneTxPaymentClientV3.md)
 
-___
-
 ### AnyVotingReputationClient
 
 Ƭ **AnyVotingReputationClient**: [`VotingReputationClientV1`](interfaces/VotingReputationClientV1.md) \| [`VotingReputationClientV2`](interfaces/VotingReputationClientV2.md) \| [`VotingReputationClientV3`](interfaces/VotingReputationClientV3.md) \| [`VotingReputationClientV4`](interfaces/VotingReputationClientV4.md)
 
-___
-
 ### AnyWhitelistClient
 
 Ƭ **AnyWhitelistClient**: [`WhitelistClientV1`](interfaces/WhitelistClientV1.md) \| [`WhitelistClientV2`](interfaces/WhitelistClientV2.md)
-
-___
 
 ### ColonyRoles
 
@@ -132,13 +80,9 @@ ___
 
 All users that have roles in a colony
 
-___
-
 ### ContractClient
 
 Ƭ **ContractClient**: [`AnyColonyClient`](README.md#anycolonyclient) \| [`ColonyNetworkClient`](interfaces/ColonyNetworkClient.md) \| [`EventsClient`](README.md#eventsclient) \| [`ExtensionClient`](README.md#extensionclient) \| [`TokenClient`](README.md#tokenclient) \| [`TokenLockingClient`](interfaces/TokenLockingClient.md)
-
-___
 
 ### DomainRoles
 
@@ -153,31 +97,21 @@ All roles a user has in `domainId`
 | `domainId` | `number` |
 | `roles` | [`ColonyRole`](enums/ColonyRole.md)[] |
 
-___
-
 ### EventsClient
 
 Ƭ **EventsClient**: `CoinMachineEvents` \| `IColonyEvents` \| `OneTxPaymentEvents` \| `VotingReputationEvents` \| `WhitelistEvents`
-
-___
 
 ### ExtensionClient
 
 Ƭ **ExtensionClient**: [`AnyCoinMachineClient`](README.md#anycoinmachineclient) \| [`AnyOneTxPaymentClient`](README.md#anyonetxpaymentclient) \| [`AnyVotingReputationClient`](README.md#anyvotingreputationclient) \| [`AnyWhitelistClient`](README.md#anywhitelistclient)
 
-___
-
 ### SignerOrProvider
 
 Ƭ **SignerOrProvider**: `Signer` \| `Provider`
 
-___
-
 ### TokenClient
 
 Ƭ **TokenClient**: [`ColonyTokenClient`](interfaces/ColonyTokenClient.md) \| [`Erc20TokenClient`](interfaces/Erc20TokenClient.md) \| [`DaiTokenClient`](interfaces/DaiTokenClient.md)
-
-___
 
 ### UserRoles
 
@@ -198,8 +132,6 @@ All domains the user with `address` has roles in
 
 • **COLONY\_VERSION\_LATEST**: `number`
 
-___
-
 ### ExtensionVersions
 
 • **ExtensionVersions**: `Object`
@@ -215,9 +147,7 @@ ___
 
 ## Functions
 
-### formatColonyRoles
-
-▸ `Const` **formatColonyRoles**(`roleSetEvents`, `recoveryRoleSetEvents`): `Promise`<[`ColonyRoles`](README.md#colonyroles)\>
+### ▸ `Const` **formatColonyRoles**(`roleSetEvents`, `recoveryRoleSetEvents`): `Promise`<[`ColonyRoles`](README.md#colonyroles)\>
 
 #### Parameters
 
@@ -230,11 +160,7 @@ ___
 
 `Promise`<[`ColonyRoles`](README.md#colonyroles)\>
 
-___
-
-### getBlockTime
-
-▸ `Const` **getBlockTime**(`provider`, `blockHash`): `Promise`<`number`\>
+### ▸ `Const` **getBlockTime**(`provider`, `blockHash`): `Promise`<`number`\>
 
 Get the JavaScript timestamp for a block
 
@@ -251,11 +177,7 @@ Get the JavaScript timestamp for a block
 
 block timestamp in ms
 
-___
-
-### getChildIndex
-
-▸ `Const` **getChildIndex**(`client`, `parentDomainId`, `domainId`): `Promise`<`BigNumber`\>
+### ▸ `Const` **getChildIndex**(`client`, `parentDomainId`, `domainId`): `Promise`<`BigNumber`\>
 
 Get the child index for a domain inside its corresponding skills parent children array
 
@@ -285,11 +207,7 @@ childSkillIndex would be 0 in this case (0-position in children array)
 
 Index in the `children` array (see above)
 
-___
-
-### getColonyNetworkClient
-
-▸ `Const` **getColonyNetworkClient**(`network`, `signerOrProvider`, `options?`): [`ColonyNetworkClient`](interfaces/ColonyNetworkClient.md)
+### ▸ `Const` **getColonyNetworkClient**(`network`, `signerOrProvider`, `options?`): [`ColonyNetworkClient`](interfaces/ColonyNetworkClient.md)
 
 The main entry point for accessing the deployed colonyNetwork contracts
 
@@ -321,11 +239,7 @@ const networkClient = await getColonyNetworkClient(Network.Xdai, provider);
 
 [`ColonyNetworkClient`](interfaces/ColonyNetworkClient.md)
 
-___
-
-### getColonyRoles
-
-▸ `Const` **getColonyRoles**(`client`, `options?`): `Promise`<[`ColonyRoles`](README.md#colonyroles)\>
+### ▸ `Const` **getColonyRoles**(`client`, `options?`): `Promise`<[`ColonyRoles`](README.md#colonyroles)\>
 
 Get an array of all roles in the colony
 
@@ -342,11 +256,7 @@ Get an array of all roles in the colony
 
 Array of user roles in a colony (see above) fetching it's own network events
 
-___
-
-### getEvents
-
-▸ `Const` **getEvents**(`client`, `filter`, `options?`): `Promise`<`LogDescription`[]\>
+### ▸ `Const` **getEvents**(`client`, `filter`, `options?`): `Promise`<`LogDescription`[]\>
 
 Get parsed event data from filter
 
@@ -371,11 +281,7 @@ const events = await getEvents(colonyClient, filter);
 
 Parsed ethers LogDescription array (events)
 
-___
-
-### getExtensionHash
-
-▸ `Const` **getExtensionHash**(`extensionName`): `string`
+### ▸ `Const` **getExtensionHash**(`extensionName`): `string`
 
 Hashes to identify the colony extension contracts
 
@@ -389,11 +295,7 @@ Hashes to identify the colony extension contracts
 
 `string`
 
-___
-
-### getExtensionPermissionProofs
-
-▸ `Const` **getExtensionPermissionProofs**(`colonyClient`, `domainId`, `address?`): `Promise`<[`BigNumberish`, `BigNumberish`]\>
+### ▸ `Const` **getExtensionPermissionProofs**(`colonyClient`, `domainId`, `address?`): `Promise`<[`BigNumberish`, `BigNumberish`]\>
 
 Wrapper around `getPermissionProofs` to check two types of permissions: Funding and Administration
 To be used for checking an extension's permission in said colony
@@ -412,11 +314,7 @@ To be used for checking an extension's permission in said colony
 
 Tuple of `[permissionDomainId, childSkillIndex]`
 
-___
-
-### getHistoricColonyRoles
-
-▸ `Const` **getHistoricColonyRoles**(`client`, `fromBlock?`, `toBlock?`): `Promise`<[`ColonyRoles`](README.md#colonyroles)\>
+### ▸ `Const` **getHistoricColonyRoles**(`client`, `fromBlock?`, `toBlock?`): `Promise`<[`ColonyRoles`](README.md#colonyroles)\>
 
 #### Parameters
 
@@ -430,11 +328,7 @@ ___
 
 `Promise`<[`ColonyRoles`](README.md#colonyroles)\>
 
-___
-
-### getLogs
-
-▸ `Const` **getLogs**(`client`, `filter`, `options?`): `Promise`<`Log`[]\>
+### ▸ `Const` **getLogs**(`client`, `filter`, `options?`): `Promise`<`Log`[]\>
 
 Get raw (unparsed logs) from filter
 
@@ -459,11 +353,7 @@ const logs = await getLogs(colonyClient, filter);
 
 ethers Log array
 
-___
-
-### getMultipleEvents
-
-▸ `Const` **getMultipleEvents**(`client`, `filters`, `options?`): `Promise`<`LogDescription`[]\>
+### ▸ `Const` **getMultipleEvents**(`client`, `filters`, `options?`): `Promise`<`LogDescription`[]\>
 
 Get multiple events from multiple filters
 
@@ -483,11 +373,7 @@ Get multiple events from multiple filters
 
 Parsed ethers LogDescription array (events)
 
-___
-
-### getPermissionProofs
-
-▸ `Const` **getPermissionProofs**(`client`, `domainId`, `role`, `customAddress?`): `Promise`<[`BigNumber`, `BigNumber`]\>
+### ▸ `Const` **getPermissionProofs**(`client`, `domainId`, `role`, `customAddress?`): `Promise`<[`BigNumber`, `BigNumber`]\>
 
 Get the permission proofs for a user address and a certain role
 
@@ -523,11 +409,7 @@ tl;dr:
 
 Tuple of `[permissionDomainId, childSkillIndex]`
 
-___
-
-### getPotDomain
-
-▸ `Const` **getPotDomain**(`client`, `potId`): `Promise`<`BigNumberish`\>
+### ▸ `Const` **getPotDomain**(`client`, `potId`): `Promise`<`BigNumberish`\>
 
 Get the associated domain for a pot id
 
@@ -547,11 +429,7 @@ See [[`FundingPotAssociatedType`]] for details
 
 The associated domainId
 
-___
-
-### isExtensionCompatible
-
-▸ `Const` **isExtensionCompatible**(`extension`, `extensionVersion`, `colonyVersion`): `boolean`
+### ▸ `Const` **isExtensionCompatible**(`extension`, `extensionVersion`, `colonyVersion`): `boolean`
 
 Checks the compatibility of an extension version with a colony version it requests to be installed in
 Returns `true` if an extension version is compatible with the given colony version

@@ -1,5 +1,3 @@
-[ColonyJS](../README.md) / OneTxPaymentClientV2
-
 # Interface: OneTxPaymentClientV2
 
 ## Hierarchy
@@ -8,76 +6,11 @@
 
   ↳ **`OneTxPaymentClientV2`**
 
-## Table of contents
-
-### Properties
-
-- [\_deployedPromise](OneTxPaymentClientV2.md#_deployedpromise)
-- [\_runningEvents](OneTxPaymentClientV2.md#_runningevents)
-- [\_wrappedEmits](OneTxPaymentClientV2.md#_wrappedemits)
-- [address](OneTxPaymentClientV2.md#address)
-- [callStatic](OneTxPaymentClientV2.md#callstatic)
-- [clientType](OneTxPaymentClientV2.md#clienttype)
-- [clientVersion](OneTxPaymentClientV2.md#clientversion)
-- [colonyClient](OneTxPaymentClientV2.md#colonyclient)
-- [deployTransaction](OneTxPaymentClientV2.md#deploytransaction)
-- [estimateGas](OneTxPaymentClientV2.md#estimategas)
-- [filters](OneTxPaymentClientV2.md#filters)
-- [functions](OneTxPaymentClientV2.md#functions)
-- [interface](OneTxPaymentClientV2.md#interface)
-- [off](OneTxPaymentClientV2.md#off)
-- [on](OneTxPaymentClientV2.md#on)
-- [once](OneTxPaymentClientV2.md#once)
-- [oneTxPaymentEvents](OneTxPaymentClientV2.md#onetxpaymentevents)
-- [populateTransaction](OneTxPaymentClientV2.md#populatetransaction)
-- [provider](OneTxPaymentClientV2.md#provider)
-- [removeListener](OneTxPaymentClientV2.md#removelistener)
-- [resolvedAddress](OneTxPaymentClientV2.md#resolvedaddress)
-- [signer](OneTxPaymentClientV2.md#signer)
-
-### Methods
-
-- [\_checkRunningEvents](OneTxPaymentClientV2.md#_checkrunningevents)
-- [\_deployed](OneTxPaymentClientV2.md#_deployed)
-- [\_wrapEvent](OneTxPaymentClientV2.md#_wrapevent)
-- [attach](OneTxPaymentClientV2.md#attach)
-- [authority](OneTxPaymentClientV2.md#authority)
-- [connect](OneTxPaymentClientV2.md#connect)
-- [deployed](OneTxPaymentClientV2.md#deployed)
-- [deprecate](OneTxPaymentClientV2.md#deprecate)
-- [emit](OneTxPaymentClientV2.md#emit)
-- [fallback](OneTxPaymentClientV2.md#fallback)
-- [finishUpgrade](OneTxPaymentClientV2.md#finishupgrade)
-- [getCapabilityRoles](OneTxPaymentClientV2.md#getcapabilityroles)
-- [getColony](OneTxPaymentClientV2.md#getcolony)
-- [getDeprecated](OneTxPaymentClientV2.md#getdeprecated)
-- [identifier](OneTxPaymentClientV2.md#identifier)
-- [install](OneTxPaymentClientV2.md#install)
-- [listenerCount](OneTxPaymentClientV2.md#listenercount)
-- [listeners](OneTxPaymentClientV2.md#listeners)
-- [makePayment](OneTxPaymentClientV2.md#makepayment)
-- [makePaymentFundedFromDomain](OneTxPaymentClientV2.md#makepaymentfundedfromdomain)
-- [makePaymentFundedFromDomainWithProofs](OneTxPaymentClientV2.md#makepaymentfundedfromdomainwithproofs)
-- [makePaymentWithProofs](OneTxPaymentClientV2.md#makepaymentwithproofs)
-- [owner](OneTxPaymentClientV2.md#owner)
-- [queryFilter](OneTxPaymentClientV2.md#queryfilter)
-- [removeAllListeners](OneTxPaymentClientV2.md#removealllisteners)
-- [setAuthority](OneTxPaymentClientV2.md#setauthority)
-- [setOwner](OneTxPaymentClientV2.md#setowner)
-- [uninstall](OneTxPaymentClientV2.md#uninstall)
-- [version](OneTxPaymentClientV2.md#version)
-
 ## Properties
 
 ### \_deployedPromise
 
 • **\_deployedPromise**: `Promise`<`Contract`\>
-
-#### Inherited from
-
-AugmentedOneTxPayment.\_deployedPromise
-
-___
 
 ### \_runningEvents
 
@@ -87,12 +20,6 @@ ___
 
 ▪ [eventTag: `string`]: `RunningEvent`
 
-#### Inherited from
-
-AugmentedOneTxPayment.\_runningEvents
-
-___
-
 ### \_wrappedEmits
 
 • **\_wrappedEmits**: `Object`
@@ -101,21 +28,9 @@ ___
 
 ▪ [eventTag: `string`]: (...`args`: `any`[]) => `void`
 
-#### Inherited from
-
-AugmentedOneTxPayment.\_wrappedEmits
-
-___
-
 ### address
 
 • `Readonly` **address**: `string`
-
-#### Inherited from
-
-AugmentedOneTxPayment.address
-
-___
 
 ### callStatic
 
@@ -141,21 +56,9 @@ ___
 | `uninstall` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `version` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 
-#### Inherited from
-
-AugmentedOneTxPayment.callStatic
-
-___
-
 ### clientType
 
 • **clientType**: [`OneTxPaymentClient`](../enums/ClientType.md#onetxpaymentclient)
-
-#### Inherited from
-
-AugmentedOneTxPayment.clientType
-
-___
 
 ### clientVersion
 
@@ -165,29 +68,15 @@ ___
 
 AugmentedOneTxPayment.clientVersion
 
-___
-
 ### colonyClient
 
 • **colonyClient**: `AugmentedIColony`<`AnyIColony`\>
 
 An instance of the corresponding ColonyClient
 
-#### Inherited from
-
-AugmentedOneTxPayment.colonyClient
-
-___
-
 ### deployTransaction
 
 • `Readonly` **deployTransaction**: `TransactionResponse`
-
-#### Inherited from
-
-AugmentedOneTxPayment.deployTransaction
-
-___
 
 ### estimateGas
 
@@ -196,8 +85,6 @@ ___
 #### Overrides
 
 AugmentedOneTxPayment.estimateGas
-
-___
 
 ### filters
 
@@ -215,12 +102,6 @@ ___
 | `LogSetOwner(address)` | (`owner?`: ``null`` \| `string`) => `LogSetOwnerEventFilter` |
 | `OneTxPaymentMade` | (`agent?`: ``null``, `fundamentalId?`: ``null``, `nPayouts?`: ``null``) => `OneTxPaymentMadeEventFilter` |
 | `OneTxPaymentMade(address,uint256,uint256)` | (`agent?`: ``null``, `fundamentalId?`: ``null``, `nPayouts?`: ``null``) => `OneTxPaymentMadeEventFilter` |
-
-#### Inherited from
-
-AugmentedOneTxPayment.filters
-
-___
 
 ### functions
 
@@ -246,51 +127,21 @@ ___
 | `uninstall` | (`overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `version` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
 
-#### Inherited from
-
-AugmentedOneTxPayment.functions
-
-___
-
 ### interface
 
 • **interface**: `OneTxPaymentInterface`
-
-#### Inherited from
-
-AugmentedOneTxPayment.interface
-
-___
 
 ### off
 
 • **off**: `OnEvent`<[`OneTxPaymentClientV2`](OneTxPaymentClientV2.md)\>
 
-#### Inherited from
-
-AugmentedOneTxPayment.off
-
-___
-
 ### on
 
 • **on**: `OnEvent`<[`OneTxPaymentClientV2`](OneTxPaymentClientV2.md)\>
 
-#### Inherited from
-
-AugmentedOneTxPayment.on
-
-___
-
 ### once
 
 • **once**: `OnEvent`<[`OneTxPaymentClientV2`](OneTxPaymentClientV2.md)\>
-
-#### Inherited from
-
-AugmentedOneTxPayment.once
-
-___
 
 ### oneTxPaymentEvents
 
@@ -299,12 +150,6 @@ ___
 The oneTxPaymentEvents contract supports all events across all versions.
 Isn't that amazing?
 It's an ethers contract with only events to filter
-
-#### Inherited from
-
-AugmentedOneTxPayment.oneTxPaymentEvents
-
-___
 
 ### populateTransaction
 
@@ -330,55 +175,25 @@ ___
 | `uninstall` | (`overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `version` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 
-#### Inherited from
-
-AugmentedOneTxPayment.populateTransaction
-
-___
-
 ### provider
 
 • `Readonly` **provider**: `Provider`
-
-#### Inherited from
-
-AugmentedOneTxPayment.provider
-
-___
 
 ### removeListener
 
 • **removeListener**: `OnEvent`<[`OneTxPaymentClientV2`](OneTxPaymentClientV2.md)\>
 
-#### Inherited from
-
-AugmentedOneTxPayment.removeListener
-
-___
-
 ### resolvedAddress
 
 • `Readonly` **resolvedAddress**: `Promise`<`string`\>
-
-#### Inherited from
-
-AugmentedOneTxPayment.resolvedAddress
-
-___
 
 ### signer
 
 • `Readonly` **signer**: `Signer`
 
-#### Inherited from
-
-AugmentedOneTxPayment.signer
-
 ## Methods
 
-### \_checkRunningEvents
-
-▸ **_checkRunningEvents**(`runningEvent`): `void`
+### ▸ **_checkRunningEvents**(`runningEvent`): `void`
 
 #### Parameters
 
@@ -390,15 +205,7 @@ AugmentedOneTxPayment.signer
 
 `void`
 
-#### Inherited from
-
-AugmentedOneTxPayment.\_checkRunningEvents
-
-___
-
-### \_deployed
-
-▸ **_deployed**(`blockTag?`): `Promise`<`Contract`\>
+### ▸ **_deployed**(`blockTag?`): `Promise`<`Contract`\>
 
 #### Parameters
 
@@ -410,15 +217,7 @@ ___
 
 `Promise`<`Contract`\>
 
-#### Inherited from
-
-AugmentedOneTxPayment.\_deployed
-
-___
-
-### \_wrapEvent
-
-▸ **_wrapEvent**(`runningEvent`, `log`, `listener`): `Event`
+### ▸ **_wrapEvent**(`runningEvent`, `log`, `listener`): `Event`
 
 #### Parameters
 
@@ -432,15 +231,7 @@ ___
 
 `Event`
 
-#### Inherited from
-
-AugmentedOneTxPayment.\_wrapEvent
-
-___
-
-### attach
-
-▸ **attach**(`addressOrName`): [`OneTxPaymentClientV2`](OneTxPaymentClientV2.md)
+### ▸ **attach**(`addressOrName`): [`OneTxPaymentClientV2`](OneTxPaymentClientV2.md)
 
 #### Parameters
 
@@ -452,15 +243,7 @@ ___
 
 [`OneTxPaymentClientV2`](OneTxPaymentClientV2.md)
 
-#### Inherited from
-
-AugmentedOneTxPayment.attach
-
-___
-
-### authority
-
-▸ **authority**(`overrides?`): `Promise`<`string`\>
+### ▸ **authority**(`overrides?`): `Promise`<`string`\>
 
 #### Parameters
 
@@ -472,15 +255,7 @@ ___
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-AugmentedOneTxPayment.authority
-
-___
-
-### connect
-
-▸ **connect**(`signerOrProvider`): [`OneTxPaymentClientV2`](OneTxPaymentClientV2.md)
+### ▸ **connect**(`signerOrProvider`): [`OneTxPaymentClientV2`](OneTxPaymentClientV2.md)
 
 #### Parameters
 
@@ -492,29 +267,13 @@ ___
 
 [`OneTxPaymentClientV2`](OneTxPaymentClientV2.md)
 
-#### Inherited from
-
-AugmentedOneTxPayment.connect
-
-___
-
-### deployed
-
-▸ **deployed**(): `Promise`<[`OneTxPaymentClientV2`](OneTxPaymentClientV2.md)\>
+### ▸ **deployed**(): `Promise`<[`OneTxPaymentClientV2`](OneTxPaymentClientV2.md)\>
 
 #### Returns
 
 `Promise`<[`OneTxPaymentClientV2`](OneTxPaymentClientV2.md)\>
 
-#### Inherited from
-
-AugmentedOneTxPayment.deployed
-
-___
-
-### deprecate
-
-▸ **deprecate**(`_deprecated`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **deprecate**(`_deprecated`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Called when deprecating (or undeprecating) the extension
 
@@ -529,15 +288,7 @@ Called when deprecating (or undeprecating) the extension
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedOneTxPayment.deprecate
-
-___
-
-### emit
-
-▸ **emit**(`eventName`, ...`args`): `boolean`
+### ▸ **emit**(`eventName`, ...`args`): `boolean`
 
 #### Parameters
 
@@ -550,15 +301,7 @@ ___
 
 `boolean`
 
-#### Inherited from
-
-AugmentedOneTxPayment.emit
-
-___
-
-### fallback
-
-▸ **fallback**(`overrides?`): `Promise`<`TransactionResponse`\>
+### ▸ **fallback**(`overrides?`): `Promise`<`TransactionResponse`\>
 
 #### Parameters
 
@@ -570,15 +313,7 @@ ___
 
 `Promise`<`TransactionResponse`\>
 
-#### Inherited from
-
-AugmentedOneTxPayment.fallback
-
-___
-
-### finishUpgrade
-
-▸ **finishUpgrade**(`overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **finishUpgrade**(`overrides?`): `Promise`<`ContractTransaction`\>
 
 Called when upgrading the extension
 
@@ -592,15 +327,7 @@ Called when upgrading the extension
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedOneTxPayment.finishUpgrade
-
-___
-
-### getCapabilityRoles
-
-▸ **getCapabilityRoles**(`_sig`, `overrides?`): `Promise`<`string`\>
+### ▸ **getCapabilityRoles**(`_sig`, `overrides?`): `Promise`<`string`\>
 
 Return the permissions required for each function
 
@@ -615,15 +342,7 @@ Return the permissions required for each function
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-AugmentedOneTxPayment.getCapabilityRoles
-
-___
-
-### getColony
-
-▸ **getColony**(`overrides?`): `Promise`<`string`\>
+### ▸ **getColony**(`overrides?`): `Promise`<`string`\>
 
 #### Parameters
 
@@ -635,15 +354,7 @@ ___
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-AugmentedOneTxPayment.getColony
-
-___
-
-### getDeprecated
-
-▸ **getDeprecated**(`overrides?`): `Promise`<`boolean`\>
+### ▸ **getDeprecated**(`overrides?`): `Promise`<`boolean`\>
 
 #### Parameters
 
@@ -655,15 +366,7 @@ ___
 
 `Promise`<`boolean`\>
 
-#### Inherited from
-
-AugmentedOneTxPayment.getDeprecated
-
-___
-
-### identifier
-
-▸ **identifier**(`overrides?`): `Promise`<`string`\>
+### ▸ **identifier**(`overrides?`): `Promise`<`string`\>
 
 Returns the identifier of the extension
 
@@ -677,15 +380,7 @@ Returns the identifier of the extension
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-AugmentedOneTxPayment.identifier
-
-___
-
-### install
-
-▸ **install**(`_colony`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **install**(`_colony`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Configures the extension
 
@@ -700,15 +395,7 @@ Configures the extension
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedOneTxPayment.install
-
-___
-
-### listenerCount
-
-▸ **listenerCount**(`eventName?`): `number`
+### ▸ **listenerCount**(`eventName?`): `number`
 
 #### Parameters
 
@@ -720,15 +407,7 @@ ___
 
 `number`
 
-#### Inherited from
-
-AugmentedOneTxPayment.listenerCount
-
-___
-
-### listeners
-
-▸ **listeners**<`TEvent`\>(`eventFilter?`): `TypedListener`<`TEvent`\>[]
+### ▸ **listeners**<`TEvent`\>(`eventFilter?`): `TypedListener`<`TEvent`\>[]
 
 #### Type parameters
 
@@ -746,11 +425,7 @@ ___
 
 `TypedListener`<`TEvent`\>[]
 
-#### Inherited from
-
-AugmentedOneTxPayment.listeners
-
-▸ **listeners**(`eventName?`): `Listener`[]
+### ▸ **listeners**(`eventName?`): `Listener`[]
 
 #### Parameters
 
@@ -762,15 +437,7 @@ AugmentedOneTxPayment.listeners
 
 `Listener`[]
 
-#### Inherited from
-
-AugmentedOneTxPayment.listeners
-
-___
-
-### makePayment
-
-▸ **makePayment**(`_permissionDomainId`, `_childSkillIndex`, `_callerPermissionDomainId`, `_callerChildSkillIndex`, `_workers`, `_tokens`, `_amounts`, `_domainId`, `_skillId`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **makePayment**(`_permissionDomainId`, `_childSkillIndex`, `_callerPermissionDomainId`, `_callerChildSkillIndex`, `_workers`, `_tokens`, `_amounts`, `_domainId`, `_skillId`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Assumes that each entity holds administration and funding roles in the root domain
 Completes a colony payment in a single transaction
@@ -794,15 +461,7 @@ Completes a colony payment in a single transaction
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedOneTxPayment.makePayment
-
-___
-
-### makePaymentFundedFromDomain
-
-▸ **makePaymentFundedFromDomain**(`_permissionDomainId`, `_childSkillIndex`, `_callerPermissionDomainId`, `_callerChildSkillIndex`, `_workers`, `_tokens`, `_amounts`, `_domainId`, `_skillId`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **makePaymentFundedFromDomain**(`_permissionDomainId`, `_childSkillIndex`, `_callerPermissionDomainId`, `_callerChildSkillIndex`, `_workers`, `_tokens`, `_amounts`, `_domainId`, `_skillId`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Assumes that each entity holds administration and funding roles in the same domain,   although contract and caller can have the permissions in different domains. Payment is taken from domain funds - if the domain does not have sufficient funds, call will fail.
 Completes a colony payment in a single transaction
@@ -826,15 +485,7 @@ Completes a colony payment in a single transaction
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedOneTxPayment.makePaymentFundedFromDomain
-
-___
-
-### makePaymentFundedFromDomainWithProofs
-
-▸ **makePaymentFundedFromDomainWithProofs**(`_workers`, `_tokens`, `_amounts`, `_domainId`, `_skillId`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **makePaymentFundedFromDomainWithProofs**(`_workers`, `_tokens`, `_amounts`, `_domainId`, `_skillId`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Same as [makePaymentFundedFromDomain](OneTxPaymentClientV2.md#makepaymentfundedfromdomain), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
@@ -854,15 +505,7 @@ Always prefer this method, except when you have good reason not to.
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedOneTxPayment.makePaymentFundedFromDomainWithProofs
-
-___
-
-### makePaymentWithProofs
-
-▸ **makePaymentWithProofs**(`_workers`, `_tokens`, `_amounts`, `_domainId`, `_skillId`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **makePaymentWithProofs**(`_workers`, `_tokens`, `_amounts`, `_domainId`, `_skillId`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Same as [makePayment](OneTxPaymentClientV2.md#makepayment), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
@@ -882,15 +525,7 @@ Always prefer this method, except when you have good reason not to.
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedOneTxPayment.makePaymentWithProofs
-
-___
-
-### owner
-
-▸ **owner**(`overrides?`): `Promise`<`string`\>
+### ▸ **owner**(`overrides?`): `Promise`<`string`\>
 
 #### Parameters
 
@@ -902,15 +537,7 @@ ___
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-AugmentedOneTxPayment.owner
-
-___
-
-### queryFilter
-
-▸ **queryFilter**<`TEvent`\>(`event`, `fromBlockOrBlockhash?`, `toBlock?`): `Promise`<`TEvent`[]\>
+### ▸ **queryFilter**<`TEvent`\>(`event`, `fromBlockOrBlockhash?`, `toBlock?`): `Promise`<`TEvent`[]\>
 
 #### Type parameters
 
@@ -930,15 +557,7 @@ ___
 
 `Promise`<`TEvent`[]\>
 
-#### Inherited from
-
-AugmentedOneTxPayment.queryFilter
-
-___
-
-### removeAllListeners
-
-▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`OneTxPaymentClientV2`](OneTxPaymentClientV2.md)
+### ▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`OneTxPaymentClientV2`](OneTxPaymentClientV2.md)
 
 #### Type parameters
 
@@ -956,11 +575,7 @@ ___
 
 [`OneTxPaymentClientV2`](OneTxPaymentClientV2.md)
 
-#### Inherited from
-
-AugmentedOneTxPayment.removeAllListeners
-
-▸ **removeAllListeners**(`eventName?`): [`OneTxPaymentClientV2`](OneTxPaymentClientV2.md)
+### ▸ **removeAllListeners**(`eventName?`): [`OneTxPaymentClientV2`](OneTxPaymentClientV2.md)
 
 #### Parameters
 
@@ -972,15 +587,7 @@ AugmentedOneTxPayment.removeAllListeners
 
 [`OneTxPaymentClientV2`](OneTxPaymentClientV2.md)
 
-#### Inherited from
-
-AugmentedOneTxPayment.removeAllListeners
-
-___
-
-### setAuthority
-
-▸ **setAuthority**(`authority_`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **setAuthority**(`authority_`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
@@ -993,15 +600,7 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedOneTxPayment.setAuthority
-
-___
-
-### setOwner
-
-▸ **setOwner**(`owner_`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **setOwner**(`owner_`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
@@ -1014,15 +613,7 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedOneTxPayment.setOwner
-
-___
-
-### uninstall
-
-▸ **uninstall**(`overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **uninstall**(`overrides?`): `Promise`<`ContractTransaction`\>
 
 Called when uninstalling the extension
 
@@ -1036,15 +627,7 @@ Called when uninstalling the extension
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedOneTxPayment.uninstall
-
-___
-
-### version
-
-▸ **version**(`overrides?`): `Promise`<`BigNumber`\>
+### ▸ **version**(`overrides?`): `Promise`<`BigNumber`\>
 
 Returns the version of the extension
 
@@ -1057,7 +640,3 @@ Returns the version of the extension
 #### Returns
 
 `Promise`<`BigNumber`\>
-
-#### Inherited from
-
-AugmentedOneTxPayment.version

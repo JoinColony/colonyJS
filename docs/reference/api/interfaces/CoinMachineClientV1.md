@@ -1,5 +1,3 @@
-[ColonyJS](../README.md) / CoinMachineClientV1
-
 # Interface: CoinMachineClientV1
 
 An instantiated [ethers](https://docs.ethers.io/v5/) contract for the [CoinMachine contract](https://github.com/JoinColony/colonyNetwork/blob/develop/contracts/extensions/CoinMachine.sol) in version 1, with certain augmentations added. Pay attention to the existence of `...WithProofs` or `...Checked` functions as these provide convenient helpers to figure out permission proofs and contract checks for you.
@@ -10,81 +8,11 @@ An instantiated [ethers](https://docs.ethers.io/v5/) contract for the [CoinMachi
 
   ↳ **`CoinMachineClientV1`**
 
-## Table of contents
-
-### Properties
-
-- [\_deployedPromise](CoinMachineClientV1.md#_deployedpromise)
-- [\_runningEvents](CoinMachineClientV1.md#_runningevents)
-- [\_wrappedEmits](CoinMachineClientV1.md#_wrappedemits)
-- [address](CoinMachineClientV1.md#address)
-- [callStatic](CoinMachineClientV1.md#callstatic)
-- [clientType](CoinMachineClientV1.md#clienttype)
-- [clientVersion](CoinMachineClientV1.md#clientversion)
-- [coinMachineEvents](CoinMachineClientV1.md#coinmachineevents)
-- [colonyClient](CoinMachineClientV1.md#colonyclient)
-- [deployTransaction](CoinMachineClientV1.md#deploytransaction)
-- [estimateGas](CoinMachineClientV1.md#estimategas)
-- [filters](CoinMachineClientV1.md#filters)
-- [functions](CoinMachineClientV1.md#functions)
-- [interface](CoinMachineClientV1.md#interface)
-- [off](CoinMachineClientV1.md#off)
-- [on](CoinMachineClientV1.md#on)
-- [once](CoinMachineClientV1.md#once)
-- [populateTransaction](CoinMachineClientV1.md#populatetransaction)
-- [provider](CoinMachineClientV1.md#provider)
-- [removeListener](CoinMachineClientV1.md#removelistener)
-- [resolvedAddress](CoinMachineClientV1.md#resolvedaddress)
-- [signer](CoinMachineClientV1.md#signer)
-
-### Methods
-
-- [\_checkRunningEvents](CoinMachineClientV1.md#_checkrunningevents)
-- [\_deployed](CoinMachineClientV1.md#_deployed)
-- [\_wrapEvent](CoinMachineClientV1.md#_wrapevent)
-- [attach](CoinMachineClientV1.md#attach)
-- [authority](CoinMachineClientV1.md#authority)
-- [buyTokens](CoinMachineClientV1.md#buytokens)
-- [connect](CoinMachineClientV1.md#connect)
-- [deployed](CoinMachineClientV1.md#deployed)
-- [deprecate](CoinMachineClientV1.md#deprecate)
-- [emit](CoinMachineClientV1.md#emit)
-- [fallback](CoinMachineClientV1.md#fallback)
-- [finishUpgrade](CoinMachineClientV1.md#finishupgrade)
-- [getColony](CoinMachineClientV1.md#getcolony)
-- [getCurrentPrice](CoinMachineClientV1.md#getcurrentprice)
-- [getDeprecated](CoinMachineClientV1.md#getdeprecated)
-- [getMaxPerPeriod](CoinMachineClientV1.md#getmaxperperiod)
-- [getNumAvailable](CoinMachineClientV1.md#getnumavailable)
-- [getPeriodLength](CoinMachineClientV1.md#getperiodlength)
-- [getTargetPerPeriod](CoinMachineClientV1.md#gettargetperperiod)
-- [getTokensToSell](CoinMachineClientV1.md#gettokenstosell)
-- [getWindowSize](CoinMachineClientV1.md#getwindowsize)
-- [identifier](CoinMachineClientV1.md#identifier)
-- [initialise](CoinMachineClientV1.md#initialise)
-- [install](CoinMachineClientV1.md#install)
-- [listenerCount](CoinMachineClientV1.md#listenercount)
-- [listeners](CoinMachineClientV1.md#listeners)
-- [owner](CoinMachineClientV1.md#owner)
-- [queryFilter](CoinMachineClientV1.md#queryfilter)
-- [removeAllListeners](CoinMachineClientV1.md#removealllisteners)
-- [setAuthority](CoinMachineClientV1.md#setauthority)
-- [setOwner](CoinMachineClientV1.md#setowner)
-- [uninstall](CoinMachineClientV1.md#uninstall)
-- [updatePeriod](CoinMachineClientV1.md#updateperiod)
-- [version](CoinMachineClientV1.md#version)
-
 ## Properties
 
 ### \_deployedPromise
 
 • **\_deployedPromise**: `Promise`<`Contract`\>
-
-#### Inherited from
-
-AugmentedCoinMachine.\_deployedPromise
-
-___
 
 ### \_runningEvents
 
@@ -94,12 +22,6 @@ ___
 
 ▪ [eventTag: `string`]: `RunningEvent`
 
-#### Inherited from
-
-AugmentedCoinMachine.\_runningEvents
-
-___
-
 ### \_wrappedEmits
 
 • **\_wrappedEmits**: `Object`
@@ -108,21 +30,9 @@ ___
 
 ▪ [eventTag: `string`]: (...`args`: `any`[]) => `void`
 
-#### Inherited from
-
-AugmentedCoinMachine.\_wrappedEmits
-
-___
-
 ### address
 
 • `Readonly` **address**: `string`
-
-#### Inherited from
-
-AugmentedCoinMachine.address
-
-___
 
 ### callStatic
 
@@ -155,21 +65,9 @@ ___
 | `updatePeriod` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `version` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 
-#### Inherited from
-
-AugmentedCoinMachine.callStatic
-
-___
-
 ### clientType
 
 • **clientType**: [`CoinMachineClient`](../enums/ClientType.md#coinmachineclient)
-
-#### Inherited from
-
-AugmentedCoinMachine.clientType
-
-___
 
 ### clientVersion
 
@@ -179,8 +77,6 @@ ___
 
 AugmentedCoinMachine.clientVersion
 
-___
-
 ### coinMachineEvents
 
 • **coinMachineEvents**: `CoinMachineEvents`
@@ -189,33 +85,15 @@ The coinMachineEvents contract supports all events across all versions.
 Isn't that amazing?
 It's an ethers contract with only events to filter
 
-#### Inherited from
-
-AugmentedCoinMachine.coinMachineEvents
-
-___
-
 ### colonyClient
 
 • **colonyClient**: `AugmentedIColony`<`AnyIColony`\>
 
 An instance of the corresponding ColonyClient
 
-#### Inherited from
-
-AugmentedCoinMachine.colonyClient
-
-___
-
 ### deployTransaction
 
 • `Readonly` **deployTransaction**: `TransactionResponse`
-
-#### Inherited from
-
-AugmentedCoinMachine.deployTransaction
-
-___
 
 ### estimateGas
 
@@ -248,12 +126,6 @@ ___
 | `updatePeriod` | (`overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`BigNumber`\> |
 | `version` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 
-#### Inherited from
-
-AugmentedCoinMachine.estimateGas
-
-___
-
 ### filters
 
 • **filters**: `Object`
@@ -272,12 +144,6 @@ ___
 | `PeriodUpdated(uint256,uint256)` | (`activePeriod?`: ``null``, `currentPeriod?`: ``null``) => `PeriodUpdatedEventFilter` |
 | `TokensBought` | (`buyer?`: ``null``, `numTokens?`: ``null``, `totalCost?`: ``null``) => `TokensBoughtEventFilter` |
 | `TokensBought(address,uint256,uint256)` | (`buyer?`: ``null``, `numTokens?`: ``null``, `totalCost?`: ``null``) => `TokensBoughtEventFilter` |
-
-#### Inherited from
-
-AugmentedCoinMachine.filters
-
-___
 
 ### functions
 
@@ -310,51 +176,21 @@ ___
 | `updatePeriod` | (`overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `version` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
 
-#### Inherited from
-
-AugmentedCoinMachine.functions
-
-___
-
 ### interface
 
 • **interface**: `CoinMachineInterface`
-
-#### Inherited from
-
-AugmentedCoinMachine.interface
-
-___
 
 ### off
 
 • **off**: `OnEvent`<[`CoinMachineClientV1`](CoinMachineClientV1.md)\>
 
-#### Inherited from
-
-AugmentedCoinMachine.off
-
-___
-
 ### on
 
 • **on**: `OnEvent`<[`CoinMachineClientV1`](CoinMachineClientV1.md)\>
 
-#### Inherited from
-
-AugmentedCoinMachine.on
-
-___
-
 ### once
 
 • **once**: `OnEvent`<[`CoinMachineClientV1`](CoinMachineClientV1.md)\>
-
-#### Inherited from
-
-AugmentedCoinMachine.once
-
-___
 
 ### populateTransaction
 
@@ -387,55 +223,25 @@ ___
 | `updatePeriod` | (`overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `version` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 
-#### Inherited from
-
-AugmentedCoinMachine.populateTransaction
-
-___
-
 ### provider
 
 • `Readonly` **provider**: `Provider`
-
-#### Inherited from
-
-AugmentedCoinMachine.provider
-
-___
 
 ### removeListener
 
 • **removeListener**: `OnEvent`<[`CoinMachineClientV1`](CoinMachineClientV1.md)\>
 
-#### Inherited from
-
-AugmentedCoinMachine.removeListener
-
-___
-
 ### resolvedAddress
 
 • `Readonly` **resolvedAddress**: `Promise`<`string`\>
-
-#### Inherited from
-
-AugmentedCoinMachine.resolvedAddress
-
-___
 
 ### signer
 
 • `Readonly` **signer**: `Signer`
 
-#### Inherited from
-
-AugmentedCoinMachine.signer
-
 ## Methods
 
-### \_checkRunningEvents
-
-▸ **_checkRunningEvents**(`runningEvent`): `void`
+### ▸ **_checkRunningEvents**(`runningEvent`): `void`
 
 #### Parameters
 
@@ -447,15 +253,7 @@ AugmentedCoinMachine.signer
 
 `void`
 
-#### Inherited from
-
-AugmentedCoinMachine.\_checkRunningEvents
-
-___
-
-### \_deployed
-
-▸ **_deployed**(`blockTag?`): `Promise`<`Contract`\>
+### ▸ **_deployed**(`blockTag?`): `Promise`<`Contract`\>
 
 #### Parameters
 
@@ -467,15 +265,7 @@ ___
 
 `Promise`<`Contract`\>
 
-#### Inherited from
-
-AugmentedCoinMachine.\_deployed
-
-___
-
-### \_wrapEvent
-
-▸ **_wrapEvent**(`runningEvent`, `log`, `listener`): `Event`
+### ▸ **_wrapEvent**(`runningEvent`, `log`, `listener`): `Event`
 
 #### Parameters
 
@@ -489,15 +279,7 @@ ___
 
 `Event`
 
-#### Inherited from
-
-AugmentedCoinMachine.\_wrapEvent
-
-___
-
-### attach
-
-▸ **attach**(`addressOrName`): [`CoinMachineClientV1`](CoinMachineClientV1.md)
+### ▸ **attach**(`addressOrName`): [`CoinMachineClientV1`](CoinMachineClientV1.md)
 
 #### Parameters
 
@@ -509,15 +291,7 @@ ___
 
 [`CoinMachineClientV1`](CoinMachineClientV1.md)
 
-#### Inherited from
-
-AugmentedCoinMachine.attach
-
-___
-
-### authority
-
-▸ **authority**(`overrides?`): `Promise`<`string`\>
+### ▸ **authority**(`overrides?`): `Promise`<`string`\>
 
 #### Parameters
 
@@ -529,15 +303,7 @@ ___
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-AugmentedCoinMachine.authority
-
-___
-
-### buyTokens
-
-▸ **buyTokens**(`_numTokens`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **buyTokens**(`_numTokens`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Purchase tokens from Coin Machine.
 
@@ -552,15 +318,7 @@ Purchase tokens from Coin Machine.
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedCoinMachine.buyTokens
-
-___
-
-### connect
-
-▸ **connect**(`signerOrProvider`): [`CoinMachineClientV1`](CoinMachineClientV1.md)
+### ▸ **connect**(`signerOrProvider`): [`CoinMachineClientV1`](CoinMachineClientV1.md)
 
 #### Parameters
 
@@ -572,29 +330,13 @@ ___
 
 [`CoinMachineClientV1`](CoinMachineClientV1.md)
 
-#### Inherited from
-
-AugmentedCoinMachine.connect
-
-___
-
-### deployed
-
-▸ **deployed**(): `Promise`<[`CoinMachineClientV1`](CoinMachineClientV1.md)\>
+### ▸ **deployed**(): `Promise`<[`CoinMachineClientV1`](CoinMachineClientV1.md)\>
 
 #### Returns
 
 `Promise`<[`CoinMachineClientV1`](CoinMachineClientV1.md)\>
 
-#### Inherited from
-
-AugmentedCoinMachine.deployed
-
-___
-
-### deprecate
-
-▸ **deprecate**(`_deprecated`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **deprecate**(`_deprecated`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Called when deprecating (or undeprecating) the extension
 
@@ -609,15 +351,7 @@ Called when deprecating (or undeprecating) the extension
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedCoinMachine.deprecate
-
-___
-
-### emit
-
-▸ **emit**(`eventName`, ...`args`): `boolean`
+### ▸ **emit**(`eventName`, ...`args`): `boolean`
 
 #### Parameters
 
@@ -630,15 +364,7 @@ ___
 
 `boolean`
 
-#### Inherited from
-
-AugmentedCoinMachine.emit
-
-___
-
-### fallback
-
-▸ **fallback**(`overrides?`): `Promise`<`TransactionResponse`\>
+### ▸ **fallback**(`overrides?`): `Promise`<`TransactionResponse`\>
 
 #### Parameters
 
@@ -650,15 +376,7 @@ ___
 
 `Promise`<`TransactionResponse`\>
 
-#### Inherited from
-
-AugmentedCoinMachine.fallback
-
-___
-
-### finishUpgrade
-
-▸ **finishUpgrade**(`overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **finishUpgrade**(`overrides?`): `Promise`<`ContractTransaction`\>
 
 Called when upgrading the extension
 
@@ -672,15 +390,7 @@ Called when upgrading the extension
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedCoinMachine.finishUpgrade
-
-___
-
-### getColony
-
-▸ **getColony**(`overrides?`): `Promise`<`string`\>
+### ▸ **getColony**(`overrides?`): `Promise`<`string`\>
 
 #### Parameters
 
@@ -692,15 +402,7 @@ ___
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-AugmentedCoinMachine.getColony
-
-___
-
-### getCurrentPrice
-
-▸ **getCurrentPrice**(`overrides?`): `Promise`<`BigNumber`\>
+### ▸ **getCurrentPrice**(`overrides?`): `Promise`<`BigNumber`\>
 
 Get the current price per token
 
@@ -714,15 +416,7 @@ Get the current price per token
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-AugmentedCoinMachine.getCurrentPrice
-
-___
-
-### getDeprecated
-
-▸ **getDeprecated**(`overrides?`): `Promise`<`boolean`\>
+### ▸ **getDeprecated**(`overrides?`): `Promise`<`boolean`\>
 
 #### Parameters
 
@@ -734,15 +428,7 @@ ___
 
 `Promise`<`boolean`\>
 
-#### Inherited from
-
-AugmentedCoinMachine.getDeprecated
-
-___
-
-### getMaxPerPeriod
-
-▸ **getMaxPerPeriod**(`overrides?`): `Promise`<`BigNumber`\>
+### ▸ **getMaxPerPeriod**(`overrides?`): `Promise`<`BigNumber`\>
 
 Get the maximum number of tokens to sell per period
 
@@ -756,15 +442,7 @@ Get the maximum number of tokens to sell per period
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-AugmentedCoinMachine.getMaxPerPeriod
-
-___
-
-### getNumAvailable
-
-▸ **getNumAvailable**(`overrides?`): `Promise`<`BigNumber`\>
+### ▸ **getNumAvailable**(`overrides?`): `Promise`<`BigNumber`\>
 
 Get the number of remaining tokens for sale this period
 
@@ -778,15 +456,7 @@ Get the number of remaining tokens for sale this period
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-AugmentedCoinMachine.getNumAvailable
-
-___
-
-### getPeriodLength
-
-▸ **getPeriodLength**(`overrides?`): `Promise`<`BigNumber`\>
+### ▸ **getPeriodLength**(`overrides?`): `Promise`<`BigNumber`\>
 
 Get the length of the sale period
 
@@ -800,15 +470,7 @@ Get the length of the sale period
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-AugmentedCoinMachine.getPeriodLength
-
-___
-
-### getTargetPerPeriod
-
-▸ **getTargetPerPeriod**(`overrides?`): `Promise`<`BigNumber`\>
+### ▸ **getTargetPerPeriod**(`overrides?`): `Promise`<`BigNumber`\>
 
 Get the target number of tokens to sell per period
 
@@ -822,15 +484,7 @@ Get the target number of tokens to sell per period
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-AugmentedCoinMachine.getTargetPerPeriod
-
-___
-
-### getTokensToSell
-
-▸ **getTokensToSell**(`overrides?`): `Promise`<`BigNumber`\>
+### ▸ **getTokensToSell**(`overrides?`): `Promise`<`BigNumber`\>
 
 Get the total number of tokens remaining for sale
 
@@ -844,15 +498,7 @@ Get the total number of tokens remaining for sale
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-AugmentedCoinMachine.getTokensToSell
-
-___
-
-### getWindowSize
-
-▸ **getWindowSize**(`overrides?`): `Promise`<`BigNumber`\>
+### ▸ **getWindowSize**(`overrides?`): `Promise`<`BigNumber`\>
 
 Get the size of the averaging window
 
@@ -866,15 +512,7 @@ Get the size of the averaging window
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-AugmentedCoinMachine.getWindowSize
-
-___
-
-### identifier
-
-▸ **identifier**(`overrides?`): `Promise`<`string`\>
+### ▸ **identifier**(`overrides?`): `Promise`<`string`\>
 
 Returns the identifier of the extension
 
@@ -888,15 +526,7 @@ Returns the identifier of the extension
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-AugmentedCoinMachine.identifier
-
-___
-
-### initialise
-
-▸ **initialise**(`_purchaseToken`, `_periodLength`, `_windowSize`, `_targetPerPeriod`, `_maxPerPeriod`, `_tokensToSell`, `_startingPrice`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **initialise**(`_purchaseToken`, `_periodLength`, `_windowSize`, `_targetPerPeriod`, `_maxPerPeriod`, `_tokensToSell`, `_startingPrice`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Must be called before any sales can be made
 
@@ -917,15 +547,7 @@ Must be called before any sales can be made
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedCoinMachine.initialise
-
-___
-
-### install
-
-▸ **install**(`_colony`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **install**(`_colony`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Configures the extension
 
@@ -940,15 +562,7 @@ Configures the extension
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedCoinMachine.install
-
-___
-
-### listenerCount
-
-▸ **listenerCount**(`eventName?`): `number`
+### ▸ **listenerCount**(`eventName?`): `number`
 
 #### Parameters
 
@@ -960,15 +574,7 @@ ___
 
 `number`
 
-#### Inherited from
-
-AugmentedCoinMachine.listenerCount
-
-___
-
-### listeners
-
-▸ **listeners**<`TEvent`\>(`eventFilter?`): `TypedListener`<`TEvent`\>[]
+### ▸ **listeners**<`TEvent`\>(`eventFilter?`): `TypedListener`<`TEvent`\>[]
 
 #### Type parameters
 
@@ -986,11 +592,7 @@ ___
 
 `TypedListener`<`TEvent`\>[]
 
-#### Inherited from
-
-AugmentedCoinMachine.listeners
-
-▸ **listeners**(`eventName?`): `Listener`[]
+### ▸ **listeners**(`eventName?`): `Listener`[]
 
 #### Parameters
 
@@ -1002,15 +604,7 @@ AugmentedCoinMachine.listeners
 
 `Listener`[]
 
-#### Inherited from
-
-AugmentedCoinMachine.listeners
-
-___
-
-### owner
-
-▸ **owner**(`overrides?`): `Promise`<`string`\>
+### ▸ **owner**(`overrides?`): `Promise`<`string`\>
 
 #### Parameters
 
@@ -1022,15 +616,7 @@ ___
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-AugmentedCoinMachine.owner
-
-___
-
-### queryFilter
-
-▸ **queryFilter**<`TEvent`\>(`event`, `fromBlockOrBlockhash?`, `toBlock?`): `Promise`<`TEvent`[]\>
+### ▸ **queryFilter**<`TEvent`\>(`event`, `fromBlockOrBlockhash?`, `toBlock?`): `Promise`<`TEvent`[]\>
 
 #### Type parameters
 
@@ -1050,15 +636,7 @@ ___
 
 `Promise`<`TEvent`[]\>
 
-#### Inherited from
-
-AugmentedCoinMachine.queryFilter
-
-___
-
-### removeAllListeners
-
-▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`CoinMachineClientV1`](CoinMachineClientV1.md)
+### ▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`CoinMachineClientV1`](CoinMachineClientV1.md)
 
 #### Type parameters
 
@@ -1076,11 +654,7 @@ ___
 
 [`CoinMachineClientV1`](CoinMachineClientV1.md)
 
-#### Inherited from
-
-AugmentedCoinMachine.removeAllListeners
-
-▸ **removeAllListeners**(`eventName?`): [`CoinMachineClientV1`](CoinMachineClientV1.md)
+### ▸ **removeAllListeners**(`eventName?`): [`CoinMachineClientV1`](CoinMachineClientV1.md)
 
 #### Parameters
 
@@ -1092,15 +666,7 @@ AugmentedCoinMachine.removeAllListeners
 
 [`CoinMachineClientV1`](CoinMachineClientV1.md)
 
-#### Inherited from
-
-AugmentedCoinMachine.removeAllListeners
-
-___
-
-### setAuthority
-
-▸ **setAuthority**(`authority_`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **setAuthority**(`authority_`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
@@ -1113,15 +679,7 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedCoinMachine.setAuthority
-
-___
-
-### setOwner
-
-▸ **setOwner**(`owner_`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **setOwner**(`owner_`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
@@ -1134,15 +692,7 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedCoinMachine.setOwner
-
-___
-
-### uninstall
-
-▸ **uninstall**(`overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **uninstall**(`overrides?`): `Promise`<`ContractTransaction`\>
 
 Called when uninstalling the extension
 
@@ -1156,15 +706,7 @@ Called when uninstalling the extension
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedCoinMachine.uninstall
-
-___
-
-### updatePeriod
-
-▸ **updatePeriod**(`overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **updatePeriod**(`overrides?`): `Promise`<`ContractTransaction`\>
 
 Bring the token accounting current
 
@@ -1178,15 +720,7 @@ Bring the token accounting current
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedCoinMachine.updatePeriod
-
-___
-
-### version
-
-▸ **version**(`overrides?`): `Promise`<`BigNumber`\>
+### ▸ **version**(`overrides?`): `Promise`<`BigNumber`\>
 
 Returns the version of the extension
 
@@ -1199,7 +733,3 @@ Returns the version of the extension
 #### Returns
 
 `Promise`<`BigNumber`\>
-
-#### Inherited from
-
-AugmentedCoinMachine.version

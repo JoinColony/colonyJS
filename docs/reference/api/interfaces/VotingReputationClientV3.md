@@ -1,5 +1,3 @@
-[ColonyJS](../README.md) / VotingReputationClientV3
-
 # Interface: VotingReputationClientV3
 
 ## Hierarchy
@@ -10,106 +8,11 @@
 
   ↳ **`VotingReputationClientV3`**
 
-## Table of contents
-
-### Properties
-
-- [\_deployedPromise](VotingReputationClientV3.md#_deployedpromise)
-- [\_runningEvents](VotingReputationClientV3.md#_runningevents)
-- [\_wrappedEmits](VotingReputationClientV3.md#_wrappedemits)
-- [address](VotingReputationClientV3.md#address)
-- [callStatic](VotingReputationClientV3.md#callstatic)
-- [clientType](VotingReputationClientV3.md#clienttype)
-- [clientVersion](VotingReputationClientV3.md#clientversion)
-- [colonyClient](VotingReputationClientV3.md#colonyclient)
-- [deployTransaction](VotingReputationClientV3.md#deploytransaction)
-- [estimateGas](VotingReputationClientV3.md#estimategas)
-- [filters](VotingReputationClientV3.md#filters)
-- [functions](VotingReputationClientV3.md#functions)
-- [interface](VotingReputationClientV3.md#interface)
-- [off](VotingReputationClientV3.md#off)
-- [on](VotingReputationClientV3.md#on)
-- [once](VotingReputationClientV3.md#once)
-- [populateTransaction](VotingReputationClientV3.md#populatetransaction)
-- [provider](VotingReputationClientV3.md#provider)
-- [removeListener](VotingReputationClientV3.md#removelistener)
-- [resolvedAddress](VotingReputationClientV3.md#resolvedaddress)
-- [signer](VotingReputationClientV3.md#signer)
-- [votingReputationEvents](VotingReputationClientV3.md#votingreputationevents)
-
-### Methods
-
-- [\_checkRunningEvents](VotingReputationClientV3.md#_checkrunningevents)
-- [\_deployed](VotingReputationClientV3.md#_deployed)
-- [\_wrapEvent](VotingReputationClientV3.md#_wrapevent)
-- [attach](VotingReputationClientV3.md#attach)
-- [authority](VotingReputationClientV3.md#authority)
-- [claimReward](VotingReputationClientV3.md#claimreward)
-- [claimRewardWithProofs](VotingReputationClientV3.md#claimrewardwithproofs)
-- [connect](VotingReputationClientV3.md#connect)
-- [createClaimDelayAction](VotingReputationClientV3.md#createclaimdelayaction)
-- [createDomainMotion](VotingReputationClientV3.md#createdomainmotion)
-- [createDomainMotionWithProofs](VotingReputationClientV3.md#createdomainmotionwithproofs)
-- [createMotion](VotingReputationClientV3.md#createmotion)
-- [createMotionWithProofs](VotingReputationClientV3.md#createmotionwithproofs)
-- [createRootMotion](VotingReputationClientV3.md#createrootmotion)
-- [deployed](VotingReputationClientV3.md#deployed)
-- [deprecate](VotingReputationClientV3.md#deprecate)
-- [emit](VotingReputationClientV3.md#emit)
-- [escalateMotion](VotingReputationClientV3.md#escalatemotion)
-- [escalateMotionWithProofs](VotingReputationClientV3.md#escalatemotionwithproofs)
-- [failingExecutionAllowed](VotingReputationClientV3.md#failingexecutionallowed)
-- [fallback](VotingReputationClientV3.md#fallback)
-- [finalizeMotion](VotingReputationClientV3.md#finalizemotion)
-- [finishUpgrade](VotingReputationClientV3.md#finishupgrade)
-- [getCapabilityRoles](VotingReputationClientV3.md#getcapabilityroles)
-- [getColony](VotingReputationClientV3.md#getcolony)
-- [getDeprecated](VotingReputationClientV3.md#getdeprecated)
-- [getEscalationPeriod](VotingReputationClientV3.md#getescalationperiod)
-- [getExpenditureMotionCount](VotingReputationClientV3.md#getexpendituremotioncount)
-- [getExpenditurePastVote](VotingReputationClientV3.md#getexpenditurepastvote)
-- [getMaxVoteFraction](VotingReputationClientV3.md#getmaxvotefraction)
-- [getMotion](VotingReputationClientV3.md#getmotion)
-- [getMotionCount](VotingReputationClientV3.md#getmotioncount)
-- [getMotionState](VotingReputationClientV3.md#getmotionstate)
-- [getRevealPeriod](VotingReputationClientV3.md#getrevealperiod)
-- [getStake](VotingReputationClientV3.md#getstake)
-- [getStakePeriod](VotingReputationClientV3.md#getstakeperiod)
-- [getStakerReward](VotingReputationClientV3.md#getstakerreward)
-- [getSubmitPeriod](VotingReputationClientV3.md#getsubmitperiod)
-- [getTotalStakeFraction](VotingReputationClientV3.md#gettotalstakefraction)
-- [getUserMinStakeFraction](VotingReputationClientV3.md#getuserminstakefraction)
-- [getVoterReward](VotingReputationClientV3.md#getvoterreward)
-- [getVoterRewardFraction](VotingReputationClientV3.md#getvoterrewardfraction)
-- [getVoterRewardRange](VotingReputationClientV3.md#getvoterrewardrange)
-- [identifier](VotingReputationClientV3.md#identifier)
-- [initialise](VotingReputationClientV3.md#initialise)
-- [install](VotingReputationClientV3.md#install)
-- [listenerCount](VotingReputationClientV3.md#listenercount)
-- [listeners](VotingReputationClientV3.md#listeners)
-- [owner](VotingReputationClientV3.md#owner)
-- [queryFilter](VotingReputationClientV3.md#queryfilter)
-- [removeAllListeners](VotingReputationClientV3.md#removealllisteners)
-- [revealVote](VotingReputationClientV3.md#revealvote)
-- [setAuthority](VotingReputationClientV3.md#setauthority)
-- [setOwner](VotingReputationClientV3.md#setowner)
-- [stakeMotion](VotingReputationClientV3.md#stakemotion)
-- [stakeMotionWithProofs](VotingReputationClientV3.md#stakemotionwithproofs)
-- [submitVote](VotingReputationClientV3.md#submitvote)
-- [uninstall](VotingReputationClientV3.md#uninstall)
-- [version](VotingReputationClientV3.md#version)
-
 ## Properties
 
 ### \_deployedPromise
 
 • **\_deployedPromise**: `Promise`<`Contract`\>
-
-#### Inherited from
-
-AugmentedVotingReputation.\_deployedPromise
-
-___
 
 ### \_runningEvents
 
@@ -119,12 +22,6 @@ ___
 
 ▪ [eventTag: `string`]: `RunningEvent`
 
-#### Inherited from
-
-AugmentedVotingReputation.\_runningEvents
-
-___
-
 ### \_wrappedEmits
 
 • **\_wrappedEmits**: `Object`
@@ -133,21 +30,9 @@ ___
 
 ▪ [eventTag: `string`]: (...`args`: `any`[]) => `void`
 
-#### Inherited from
-
-AugmentedVotingReputation.\_wrappedEmits
-
-___
-
 ### address
 
 • `Readonly` **address**: `string`
-
-#### Inherited from
-
-AugmentedVotingReputation.address
-
-___
 
 ### callStatic
 
@@ -200,21 +85,9 @@ ___
 | `uninstall` | (`overrides?`: `CallOverrides`) => `Promise`<`void`\> |
 | `version` | (`overrides?`: `CallOverrides`) => `Promise`<`BigNumber`\> |
 
-#### Inherited from
-
-AugmentedVotingReputation.callStatic
-
-___
-
 ### clientType
 
 • **clientType**: [`VotingReputationClient`](../enums/ClientType.md#votingreputationclient)
-
-#### Inherited from
-
-AugmentedVotingReputation.clientType
-
-___
 
 ### clientVersion
 
@@ -224,29 +97,15 @@ ___
 
 AugmentedVotingReputation.clientVersion
 
-___
-
 ### colonyClient
 
 • **colonyClient**: `AugmentedIColony`<`AnyIColony`\>
 
 An instance of the corresponding ColonyClient
 
-#### Inherited from
-
-AugmentedVotingReputation.colonyClient
-
-___
-
 ### deployTransaction
 
 • `Readonly` **deployTransaction**: `TransactionResponse`
-
-#### Inherited from
-
-AugmentedVotingReputation.deployTransaction
-
-___
 
 ### estimateGas
 
@@ -255,8 +114,6 @@ ___
 #### Overrides
 
 AugmentedVotingReputation.estimateGas
-
-___
 
 ### filters
 
@@ -288,12 +145,6 @@ ___
 | `MotionVoteRevealed(uint256,address,uint256)` | (`motionId?`: ``null`` \| `BigNumberish`, `voter?`: ``null`` \| `string`, `vote?`: ``null`` \| `BigNumberish`) => `MotionVoteRevealedEventFilter` |
 | `MotionVoteSubmitted` | (`motionId?`: ``null`` \| `BigNumberish`, `voter?`: ``null`` \| `string`) => `MotionVoteSubmittedEventFilter` |
 | `MotionVoteSubmitted(uint256,address)` | (`motionId?`: ``null`` \| `BigNumberish`, `voter?`: ``null`` \| `string`) => `MotionVoteSubmittedEventFilter` |
-
-#### Inherited from
-
-AugmentedVotingReputation.filters
-
-___
 
 ### functions
 
@@ -346,51 +197,21 @@ ___
 | `uninstall` | (`overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `version` | (`overrides?`: `CallOverrides`) => `Promise`<[`BigNumber`]\> |
 
-#### Inherited from
-
-AugmentedVotingReputation.functions
-
-___
-
 ### interface
 
 • **interface**: `VotingReputationInterface`
-
-#### Inherited from
-
-AugmentedVotingReputation.interface
-
-___
 
 ### off
 
 • **off**: `OnEvent`<[`VotingReputationClientV3`](VotingReputationClientV3.md)\>
 
-#### Inherited from
-
-AugmentedVotingReputation.off
-
-___
-
 ### on
 
 • **on**: `OnEvent`<[`VotingReputationClientV3`](VotingReputationClientV3.md)\>
 
-#### Inherited from
-
-AugmentedVotingReputation.on
-
-___
-
 ### once
 
 • **once**: `OnEvent`<[`VotingReputationClientV3`](VotingReputationClientV3.md)\>
-
-#### Inherited from
-
-AugmentedVotingReputation.once
-
-___
 
 ### populateTransaction
 
@@ -443,51 +264,21 @@ ___
 | `uninstall` | (`overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `version` | (`overrides?`: `CallOverrides`) => `Promise`<`PopulatedTransaction`\> |
 
-#### Inherited from
-
-AugmentedVotingReputation.populateTransaction
-
-___
-
 ### provider
 
 • `Readonly` **provider**: `Provider`
-
-#### Inherited from
-
-AugmentedVotingReputation.provider
-
-___
 
 ### removeListener
 
 • **removeListener**: `OnEvent`<[`VotingReputationClientV3`](VotingReputationClientV3.md)\>
 
-#### Inherited from
-
-AugmentedVotingReputation.removeListener
-
-___
-
 ### resolvedAddress
 
 • `Readonly` **resolvedAddress**: `Promise`<`string`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.resolvedAddress
-
-___
-
 ### signer
 
 • `Readonly` **signer**: `Signer`
-
-#### Inherited from
-
-AugmentedVotingReputation.signer
-
-___
 
 ### votingReputationEvents
 
@@ -497,15 +288,9 @@ The votingReputationsEvents contract supports all events across all versions.
 Isn't that amazing?
 It's an ethers contract with only events to filter
 
-#### Inherited from
-
-AugmentedVotingReputation.votingReputationEvents
-
 ## Methods
 
-### \_checkRunningEvents
-
-▸ **_checkRunningEvents**(`runningEvent`): `void`
+### ▸ **_checkRunningEvents**(`runningEvent`): `void`
 
 #### Parameters
 
@@ -517,15 +302,7 @@ AugmentedVotingReputation.votingReputationEvents
 
 `void`
 
-#### Inherited from
-
-AugmentedVotingReputation.\_checkRunningEvents
-
-___
-
-### \_deployed
-
-▸ **_deployed**(`blockTag?`): `Promise`<`Contract`\>
+### ▸ **_deployed**(`blockTag?`): `Promise`<`Contract`\>
 
 #### Parameters
 
@@ -537,15 +314,7 @@ ___
 
 `Promise`<`Contract`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.\_deployed
-
-___
-
-### \_wrapEvent
-
-▸ **_wrapEvent**(`runningEvent`, `log`, `listener`): `Event`
+### ▸ **_wrapEvent**(`runningEvent`, `log`, `listener`): `Event`
 
 #### Parameters
 
@@ -559,15 +328,7 @@ ___
 
 `Event`
 
-#### Inherited from
-
-AugmentedVotingReputation.\_wrapEvent
-
-___
-
-### attach
-
-▸ **attach**(`addressOrName`): [`VotingReputationClientV3`](VotingReputationClientV3.md)
+### ▸ **attach**(`addressOrName`): [`VotingReputationClientV3`](VotingReputationClientV3.md)
 
 #### Parameters
 
@@ -579,15 +340,7 @@ ___
 
 [`VotingReputationClientV3`](VotingReputationClientV3.md)
 
-#### Inherited from
-
-AugmentedVotingReputation.attach
-
-___
-
-### authority
-
-▸ **authority**(`overrides?`): `Promise`<`string`\>
+### ▸ **authority**(`overrides?`): `Promise`<`string`\>
 
 #### Parameters
 
@@ -599,15 +352,7 @@ ___
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.authority
-
-___
-
-### claimReward
-
-▸ **claimReward**(`_motionId`, `_permissionDomainId`, `_childSkillIndex`, `_staker`, `_vote`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **claimReward**(`_motionId`, `_permissionDomainId`, `_childSkillIndex`, `_staker`, `_vote`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Claim the staker's reward
 
@@ -626,15 +371,7 @@ Claim the staker's reward
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.claimReward
-
-___
-
-### claimRewardWithProofs
-
-▸ **claimRewardWithProofs**(`_motionId`, `_staker`, `_vote`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **claimRewardWithProofs**(`_motionId`, `_staker`, `_vote`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Same as [claimReward](VotingReputationClientV3.md#claimreward), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
@@ -652,15 +389,7 @@ Always prefer this method, except when you have good reason not to.
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.claimRewardWithProofs
-
-___
-
-### connect
-
-▸ **connect**(`signerOrProvider`): [`VotingReputationClientV3`](VotingReputationClientV3.md)
+### ▸ **connect**(`signerOrProvider`): [`VotingReputationClientV3`](VotingReputationClientV3.md)
 
 #### Parameters
 
@@ -672,15 +401,7 @@ ___
 
 [`VotingReputationClientV3`](VotingReputationClientV3.md)
 
-#### Inherited from
-
-AugmentedVotingReputation.connect
-
-___
-
-### createClaimDelayAction
-
-▸ **createClaimDelayAction**(`action`, `value`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **createClaimDelayAction**(`action`, `value`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
@@ -694,15 +415,7 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.createClaimDelayAction
-
-___
-
-### createDomainMotion
-
-▸ **createDomainMotion**(`_domainId`, `_childSkillIndex`, `_action`, `_key`, `_value`, `_branchMask`, `_siblings`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **createDomainMotion**(`_domainId`, `_childSkillIndex`, `_action`, `_key`, `_value`, `_branchMask`, `_siblings`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Create a motion in any domain (DEPRECATED)
 
@@ -723,15 +436,7 @@ Create a motion in any domain (DEPRECATED)
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.createDomainMotion
-
-___
-
-### createDomainMotionWithProofs
-
-▸ **createDomainMotionWithProofs**(`_domainId`, `_action`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **createDomainMotionWithProofs**(`_domainId`, `_action`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Same as [createDomainMotion](VotingReputationClientV3.md#createdomainmotion), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
@@ -748,15 +453,7 @@ Always prefer this method, except when you have good reason not to.
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.createDomainMotionWithProofs
-
-___
-
-### createMotion
-
-▸ **createMotion**(`_domainId`, `_childSkillIndex`, `_altTarget`, `_action`, `_key`, `_value`, `_branchMask`, `_siblings`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **createMotion**(`_domainId`, `_childSkillIndex`, `_altTarget`, `_action`, `_key`, `_value`, `_branchMask`, `_siblings`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Create a motion
 
@@ -778,15 +475,7 @@ Create a motion
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.createMotion
-
-___
-
-### createMotionWithProofs
-
-▸ **createMotionWithProofs**(`_domainId`, `_altTarget`, `_action`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **createMotionWithProofs**(`_domainId`, `_altTarget`, `_action`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Same as [createMotion](VotingReputationClientV3.md#createmotion), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
@@ -804,15 +493,7 @@ Always prefer this method, except when you have good reason not to.
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentsV2.createMotionWithProofs
-
-___
-
-### createRootMotion
-
-▸ **createRootMotion**(`_altTarget`, `_action`, `_key`, `_value`, `_branchMask`, `_siblings`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **createRootMotion**(`_altTarget`, `_action`, `_key`, `_value`, `_branchMask`, `_siblings`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Create a motion in the root domain (DEPRECATED)
 
@@ -832,29 +513,13 @@ Create a motion in the root domain (DEPRECATED)
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.createRootMotion
-
-___
-
-### deployed
-
-▸ **deployed**(): `Promise`<[`VotingReputationClientV3`](VotingReputationClientV3.md)\>
+### ▸ **deployed**(): `Promise`<[`VotingReputationClientV3`](VotingReputationClientV3.md)\>
 
 #### Returns
 
 `Promise`<[`VotingReputationClientV3`](VotingReputationClientV3.md)\>
 
-#### Inherited from
-
-AugmentedVotingReputation.deployed
-
-___
-
-### deprecate
-
-▸ **deprecate**(`_deprecated`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **deprecate**(`_deprecated`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Called when deprecating (or undeprecating) the extension
 
@@ -869,15 +534,7 @@ Called when deprecating (or undeprecating) the extension
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.deprecate
-
-___
-
-### emit
-
-▸ **emit**(`eventName`, ...`args`): `boolean`
+### ▸ **emit**(`eventName`, ...`args`): `boolean`
 
 #### Parameters
 
@@ -890,15 +547,7 @@ ___
 
 `boolean`
 
-#### Inherited from
-
-AugmentedVotingReputation.emit
-
-___
-
-### escalateMotion
-
-▸ **escalateMotion**(`_motionId`, `_newDomainId`, `_childSkillIndex`, `_key`, `_value`, `_branchMask`, `_siblings`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **escalateMotion**(`_motionId`, `_newDomainId`, `_childSkillIndex`, `_key`, `_value`, `_branchMask`, `_siblings`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Escalate a motion to a higher domain
 
@@ -919,15 +568,7 @@ Escalate a motion to a higher domain
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.escalateMotion
-
-___
-
-### escalateMotionWithProofs
-
-▸ **escalateMotionWithProofs**(`_motionId`, `_newDomainId`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **escalateMotionWithProofs**(`_motionId`, `_newDomainId`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Same as [escalateMotion](VotingReputationClientV3.md#escalatemotion), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
@@ -944,15 +585,7 @@ Always prefer this method, except when you have good reason not to.
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.escalateMotionWithProofs
-
-___
-
-### failingExecutionAllowed
-
-▸ **failingExecutionAllowed**(`_motionId`, `overrides?`): `Promise`<`boolean`\>
+### ▸ **failingExecutionAllowed**(`_motionId`, `overrides?`): `Promise`<`boolean`\>
 
 We are only expecting this to be called from finalize motion in the contracts. It is marked as public only so that the frontend can use it.
 
@@ -967,15 +600,7 @@ We are only expecting this to be called from finalize motion in the contracts. I
 
 `Promise`<`boolean`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.failingExecutionAllowed
-
-___
-
-### fallback
-
-▸ **fallback**(`overrides?`): `Promise`<`TransactionResponse`\>
+### ▸ **fallback**(`overrides?`): `Promise`<`TransactionResponse`\>
 
 #### Parameters
 
@@ -987,15 +612,7 @@ ___
 
 `Promise`<`TransactionResponse`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.fallback
-
-___
-
-### finalizeMotion
-
-▸ **finalizeMotion**(`_motionId`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **finalizeMotion**(`_motionId`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
@@ -1008,15 +625,7 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.finalizeMotion
-
-___
-
-### finishUpgrade
-
-▸ **finishUpgrade**(`overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **finishUpgrade**(`overrides?`): `Promise`<`ContractTransaction`\>
 
 Called when upgrading the extension
 
@@ -1030,15 +639,7 @@ Called when upgrading the extension
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.finishUpgrade
-
-___
-
-### getCapabilityRoles
-
-▸ **getCapabilityRoles**(`_sig`, `overrides?`): `Promise`<`string`\>
+### ▸ **getCapabilityRoles**(`_sig`, `overrides?`): `Promise`<`string`\>
 
 #### Parameters
 
@@ -1051,15 +652,7 @@ ___
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.getCapabilityRoles
-
-___
-
-### getColony
-
-▸ **getColony**(`overrides?`): `Promise`<`string`\>
+### ▸ **getColony**(`overrides?`): `Promise`<`string`\>
 
 #### Parameters
 
@@ -1071,15 +664,7 @@ ___
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.getColony
-
-___
-
-### getDeprecated
-
-▸ **getDeprecated**(`overrides?`): `Promise`<`boolean`\>
+### ▸ **getDeprecated**(`overrides?`): `Promise`<`boolean`\>
 
 #### Parameters
 
@@ -1091,15 +676,7 @@ ___
 
 `Promise`<`boolean`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.getDeprecated
-
-___
-
-### getEscalationPeriod
-
-▸ **getEscalationPeriod**(`overrides?`): `Promise`<`BigNumber`\>
+### ▸ **getEscalationPeriod**(`overrides?`): `Promise`<`BigNumber`\>
 
 Get the escalation period
 
@@ -1113,15 +690,7 @@ Get the escalation period
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.getEscalationPeriod
-
-___
-
-### getExpenditureMotionCount
-
-▸ **getExpenditureMotionCount**(`_structHash`, `overrides?`): `Promise`<`BigNumber`\>
+### ▸ **getExpenditureMotionCount**(`_structHash`, `overrides?`): `Promise`<`BigNumber`\>
 
 Get the number of ongoing motions for a single expenditure / expenditure slot
 
@@ -1136,15 +705,7 @@ Get the number of ongoing motions for a single expenditure / expenditure slot
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.getExpenditureMotionCount
-
-___
-
-### getExpenditurePastVote
-
-▸ **getExpenditurePastVote**(`_actionHash`, `overrides?`): `Promise`<`BigNumber`\>
+### ▸ **getExpenditurePastVote**(`_actionHash`, `overrides?`): `Promise`<`BigNumber`\>
 
 Get the largest past vote on a single expenditure variable
 
@@ -1159,15 +720,7 @@ Get the largest past vote on a single expenditure variable
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.getExpenditurePastVote
-
-___
-
-### getMaxVoteFraction
-
-▸ **getMaxVoteFraction**(`overrides?`): `Promise`<`BigNumber`\>
+### ▸ **getMaxVoteFraction**(`overrides?`): `Promise`<`BigNumber`\>
 
 Get the max vote fraction
 
@@ -1181,15 +734,7 @@ Get the max vote fraction
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.getMaxVoteFraction
-
-___
-
-### getMotion
-
-▸ **getMotion**(`_motionId`, `overrides?`): `Promise`<`MotionStructOutput`\>
+### ▸ **getMotion**(`_motionId`, `overrides?`): `Promise`<`MotionStructOutput`\>
 
 Get the data for a single motion
 
@@ -1204,15 +749,7 @@ Get the data for a single motion
 
 `Promise`<`MotionStructOutput`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.getMotion
-
-___
-
-### getMotionCount
-
-▸ **getMotionCount**(`overrides?`): `Promise`<`BigNumber`\>
+### ▸ **getMotionCount**(`overrides?`): `Promise`<`BigNumber`\>
 
 Get the total motion count
 
@@ -1226,15 +763,7 @@ Get the total motion count
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.getMotionCount
-
-___
-
-### getMotionState
-
-▸ **getMotionState**(`_motionId`, `overrides?`): `Promise`<`number`\>
+### ▸ **getMotionState**(`_motionId`, `overrides?`): `Promise`<`number`\>
 
 Get the current state of the motion
 
@@ -1249,15 +778,7 @@ Get the current state of the motion
 
 `Promise`<`number`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.getMotionState
-
-___
-
-### getRevealPeriod
-
-▸ **getRevealPeriod**(`overrides?`): `Promise`<`BigNumber`\>
+### ▸ **getRevealPeriod**(`overrides?`): `Promise`<`BigNumber`\>
 
 Get the reveal period
 
@@ -1271,15 +792,7 @@ Get the reveal period
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.getRevealPeriod
-
-___
-
-### getStake
-
-▸ **getStake**(`_motionId`, `_staker`, `_vote`, `overrides?`): `Promise`<`BigNumber`\>
+### ▸ **getStake**(`_motionId`, `_staker`, `_vote`, `overrides?`): `Promise`<`BigNumber`\>
 
 Get a user's stake on a motion
 
@@ -1296,15 +809,7 @@ Get a user's stake on a motion
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.getStake
-
-___
-
-### getStakePeriod
-
-▸ **getStakePeriod**(`overrides?`): `Promise`<`BigNumber`\>
+### ▸ **getStakePeriod**(`overrides?`): `Promise`<`BigNumber`\>
 
 Get the stake period
 
@@ -1318,15 +823,7 @@ Get the stake period
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.getStakePeriod
-
-___
-
-### getStakerReward
-
-▸ **getStakerReward**(`_motionId`, `_staker`, `_vote`, `overrides?`): `Promise`<[`BigNumber`, `BigNumber`]\>
+### ▸ **getStakerReward**(`_motionId`, `_staker`, `_vote`, `overrides?`): `Promise`<[`BigNumber`, `BigNumber`]\>
 
 Get the staker reward
 
@@ -1343,15 +840,7 @@ Get the staker reward
 
 `Promise`<[`BigNumber`, `BigNumber`]\>
 
-#### Inherited from
-
-AugmentedVotingReputation.getStakerReward
-
-___
-
-### getSubmitPeriod
-
-▸ **getSubmitPeriod**(`overrides?`): `Promise`<`BigNumber`\>
+### ▸ **getSubmitPeriod**(`overrides?`): `Promise`<`BigNumber`\>
 
 Get the submit period
 
@@ -1365,15 +854,7 @@ Get the submit period
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.getSubmitPeriod
-
-___
-
-### getTotalStakeFraction
-
-▸ **getTotalStakeFraction**(`overrides?`): `Promise`<`BigNumber`\>
+### ▸ **getTotalStakeFraction**(`overrides?`): `Promise`<`BigNumber`\>
 
 Get the total stake fraction
 
@@ -1387,15 +868,7 @@ Get the total stake fraction
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.getTotalStakeFraction
-
-___
-
-### getUserMinStakeFraction
-
-▸ **getUserMinStakeFraction**(`overrides?`): `Promise`<`BigNumber`\>
+### ▸ **getUserMinStakeFraction**(`overrides?`): `Promise`<`BigNumber`\>
 
 Get the user min stake fraction
 
@@ -1409,15 +882,7 @@ Get the user min stake fraction
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.getUserMinStakeFraction
-
-___
-
-### getVoterReward
-
-▸ **getVoterReward**(`_motionId`, `_voterRep`, `overrides?`): `Promise`<`BigNumber`\>
+### ▸ **getVoterReward**(`_motionId`, `_voterRep`, `overrides?`): `Promise`<`BigNumber`\>
 
 Get the voter reward NB This function will only return a meaningful value if in the reveal state. Prior to the reveal state, getVoterRewardRange should be used.
 
@@ -1433,15 +898,7 @@ Get the voter reward NB This function will only return a meaningful value if in 
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.getVoterReward
-
-___
-
-### getVoterRewardFraction
-
-▸ **getVoterRewardFraction**(`overrides?`): `Promise`<`BigNumber`\>
+### ▸ **getVoterRewardFraction**(`overrides?`): `Promise`<`BigNumber`\>
 
 Get the voter reward fraction
 
@@ -1455,15 +912,7 @@ Get the voter reward fraction
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.getVoterRewardFraction
-
-___
-
-### getVoterRewardRange
-
-▸ **getVoterRewardRange**(`_motionId`, `_voterRep`, `_voterAddress`, `overrides?`): `Promise`<[`BigNumber`, `BigNumber`]\>
+### ▸ **getVoterRewardRange**(`_motionId`, `_voterRep`, `_voterAddress`, `overrides?`): `Promise`<[`BigNumber`, `BigNumber`]\>
 
 Get the range of potential rewards for a voter on a specific motion, intended to be used when the motion is in the reveal state. Once a motion is in the reveal state the reward is known, and getVoterRewardRange should be used.
 
@@ -1480,15 +929,7 @@ Get the range of potential rewards for a voter on a specific motion, intended to
 
 `Promise`<[`BigNumber`, `BigNumber`]\>
 
-#### Inherited from
-
-AugmentedVotingReputation.getVoterRewardRange
-
-___
-
-### identifier
-
-▸ **identifier**(`overrides?`): `Promise`<`string`\>
+### ▸ **identifier**(`overrides?`): `Promise`<`string`\>
 
 Returns the identifier of the extension
 
@@ -1502,15 +943,7 @@ Returns the identifier of the extension
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.identifier
-
-___
-
-### initialise
-
-▸ **initialise**(`_totalStakeFraction`, `_voterRewardFraction`, `_userMinStakeFraction`, `_maxVoteFraction`, `_stakePeriod`, `_submitPeriod`, `_revealPeriod`, `_escalationPeriod`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **initialise**(`_totalStakeFraction`, `_voterRewardFraction`, `_userMinStakeFraction`, `_maxVoteFraction`, `_stakePeriod`, `_submitPeriod`, `_revealPeriod`, `_escalationPeriod`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Initialise the extension
 
@@ -1532,15 +965,7 @@ Initialise the extension
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.initialise
-
-___
-
-### install
-
-▸ **install**(`_colony`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **install**(`_colony`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Install the extension
 
@@ -1555,15 +980,7 @@ Install the extension
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.install
-
-___
-
-### listenerCount
-
-▸ **listenerCount**(`eventName?`): `number`
+### ▸ **listenerCount**(`eventName?`): `number`
 
 #### Parameters
 
@@ -1575,15 +992,7 @@ ___
 
 `number`
 
-#### Inherited from
-
-AugmentedVotingReputation.listenerCount
-
-___
-
-### listeners
-
-▸ **listeners**<`TEvent`\>(`eventFilter?`): `TypedListener`<`TEvent`\>[]
+### ▸ **listeners**<`TEvent`\>(`eventFilter?`): `TypedListener`<`TEvent`\>[]
 
 #### Type parameters
 
@@ -1601,11 +1010,7 @@ ___
 
 `TypedListener`<`TEvent`\>[]
 
-#### Inherited from
-
-AugmentedVotingReputation.listeners
-
-▸ **listeners**(`eventName?`): `Listener`[]
+### ▸ **listeners**(`eventName?`): `Listener`[]
 
 #### Parameters
 
@@ -1617,15 +1022,7 @@ AugmentedVotingReputation.listeners
 
 `Listener`[]
 
-#### Inherited from
-
-AugmentedVotingReputation.listeners
-
-___
-
-### owner
-
-▸ **owner**(`overrides?`): `Promise`<`string`\>
+### ▸ **owner**(`overrides?`): `Promise`<`string`\>
 
 #### Parameters
 
@@ -1637,15 +1034,7 @@ ___
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.owner
-
-___
-
-### queryFilter
-
-▸ **queryFilter**<`TEvent`\>(`event`, `fromBlockOrBlockhash?`, `toBlock?`): `Promise`<`TEvent`[]\>
+### ▸ **queryFilter**<`TEvent`\>(`event`, `fromBlockOrBlockhash?`, `toBlock?`): `Promise`<`TEvent`[]\>
 
 #### Type parameters
 
@@ -1665,15 +1054,7 @@ ___
 
 `Promise`<`TEvent`[]\>
 
-#### Inherited from
-
-AugmentedVotingReputation.queryFilter
-
-___
-
-### removeAllListeners
-
-▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`VotingReputationClientV3`](VotingReputationClientV3.md)
+### ▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`VotingReputationClientV3`](VotingReputationClientV3.md)
 
 #### Type parameters
 
@@ -1691,11 +1072,7 @@ ___
 
 [`VotingReputationClientV3`](VotingReputationClientV3.md)
 
-#### Inherited from
-
-AugmentedVotingReputation.removeAllListeners
-
-▸ **removeAllListeners**(`eventName?`): [`VotingReputationClientV3`](VotingReputationClientV3.md)
+### ▸ **removeAllListeners**(`eventName?`): [`VotingReputationClientV3`](VotingReputationClientV3.md)
 
 #### Parameters
 
@@ -1707,15 +1084,7 @@ AugmentedVotingReputation.removeAllListeners
 
 [`VotingReputationClientV3`](VotingReputationClientV3.md)
 
-#### Inherited from
-
-AugmentedVotingReputation.removeAllListeners
-
-___
-
-### revealVote
-
-▸ **revealVote**(`_motionId`, `_salt`, `_vote`, `_key`, `_value`, `_branchMask`, `_siblings`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **revealVote**(`_motionId`, `_salt`, `_vote`, `_key`, `_value`, `_branchMask`, `_siblings`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Reveal a vote secret for a motion
 
@@ -1736,15 +1105,7 @@ Reveal a vote secret for a motion
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.revealVote
-
-___
-
-### setAuthority
-
-▸ **setAuthority**(`authority_`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **setAuthority**(`authority_`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
@@ -1757,15 +1118,7 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.setAuthority
-
-___
-
-### setOwner
-
-▸ **setOwner**(`owner_`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **setOwner**(`owner_`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
@@ -1778,15 +1131,7 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.setOwner
-
-___
-
-### stakeMotion
-
-▸ **stakeMotion**(`_motionId`, `_permissionDomainId`, `_childSkillIndex`, `_vote`, `_amount`, `_key`, `_value`, `_branchMask`, `_siblings`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **stakeMotion**(`_motionId`, `_permissionDomainId`, `_childSkillIndex`, `_vote`, `_amount`, `_key`, `_value`, `_branchMask`, `_siblings`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Stake on a motion
 
@@ -1809,15 +1154,7 @@ Stake on a motion
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.stakeMotion
-
-___
-
-### stakeMotionWithProofs
-
-▸ **stakeMotionWithProofs**(`_motionId`, `_vote`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **stakeMotionWithProofs**(`_motionId`, `_vote`, `_amount`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Same as [stakeMotion](VotingReputationClientV3.md#stakemotion), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
@@ -1835,15 +1172,7 @@ Always prefer this method, except when you have good reason not to.
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.stakeMotionWithProofs
-
-___
-
-### submitVote
-
-▸ **submitVote**(`_motionId`, `_voteSecret`, `_key`, `_value`, `_branchMask`, `_siblings`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **submitVote**(`_motionId`, `_voteSecret`, `_key`, `_value`, `_branchMask`, `_siblings`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 Submit a vote secret for a motion
 
@@ -1863,15 +1192,7 @@ Submit a vote secret for a motion
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.submitVote
-
-___
-
-### uninstall
-
-▸ **uninstall**(`overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **uninstall**(`overrides?`): `Promise`<`ContractTransaction`\>
 
 Called when uninstalling the extension
 
@@ -1885,15 +1206,7 @@ Called when uninstalling the extension
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-AugmentedVotingReputation.uninstall
-
-___
-
-### version
-
-▸ **version**(`overrides?`): `Promise`<`BigNumber`\>
+### ▸ **version**(`overrides?`): `Promise`<`BigNumber`\>
 
 Return the version number
 
@@ -1906,7 +1219,3 @@ Return the version number
 #### Returns
 
 `Promise`<`BigNumber`\>
-
-#### Inherited from
-
-AugmentedVotingReputation.version

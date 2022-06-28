@@ -1,17 +1,8 @@
-[ColonyJS](../README.md) / [Tokens](../modules/Tokens.md) / Mainnet
-
 # Enumeration: Mainnet
 
 [Tokens](../modules/Tokens.md).Mainnet
 
 Tokens deployed on Mainnet
-
-## Table of contents
-
-### Enumeration members
-
-- [ETH](Tokens.Mainnet.md#eth)
-- [Mainnet](Tokens.Mainnet.md#mainnet)
 
 ## Enumeration members
 
@@ -20,8 +11,6 @@ Tokens deployed on Mainnet
 • **ETH** = `"0x0000000000000000000000000000000000000000"`
 
 ETH on Mainnet
-
-___
 
 ### Mainnet
 

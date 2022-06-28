@@ -1,5 +1,3 @@
-[ColonyJS](../README.md) / Erc20TokenClient
-
 # Interface: Erc20TokenClient
 
 A standard ERC20 token
@@ -10,67 +8,11 @@ A standard ERC20 token
 
   ↳ **`Erc20TokenClient`**
 
-## Table of contents
-
-### Properties
-
-- [\_deployedPromise](Erc20TokenClient.md#_deployedpromise)
-- [\_runningEvents](Erc20TokenClient.md#_runningevents)
-- [\_wrappedEmits](Erc20TokenClient.md#_wrappedemits)
-- [address](Erc20TokenClient.md#address)
-- [callStatic](Erc20TokenClient.md#callstatic)
-- [clientType](Erc20TokenClient.md#clienttype)
-- [deployTransaction](Erc20TokenClient.md#deploytransaction)
-- [estimateGas](Erc20TokenClient.md#estimategas)
-- [filters](Erc20TokenClient.md#filters)
-- [functions](Erc20TokenClient.md#functions)
-- [interface](Erc20TokenClient.md#interface)
-- [off](Erc20TokenClient.md#off)
-- [on](Erc20TokenClient.md#on)
-- [once](Erc20TokenClient.md#once)
-- [populateTransaction](Erc20TokenClient.md#populatetransaction)
-- [provider](Erc20TokenClient.md#provider)
-- [removeListener](Erc20TokenClient.md#removelistener)
-- [resolvedAddress](Erc20TokenClient.md#resolvedaddress)
-- [signer](Erc20TokenClient.md#signer)
-- [tokenClientType](Erc20TokenClient.md#tokenclienttype)
-
-### Methods
-
-- [\_checkRunningEvents](Erc20TokenClient.md#_checkrunningevents)
-- [\_deployed](Erc20TokenClient.md#_deployed)
-- [\_wrapEvent](Erc20TokenClient.md#_wrapevent)
-- [allowance](Erc20TokenClient.md#allowance)
-- [approve](Erc20TokenClient.md#approve)
-- [attach](Erc20TokenClient.md#attach)
-- [balanceOf](Erc20TokenClient.md#balanceof)
-- [connect](Erc20TokenClient.md#connect)
-- [decimals](Erc20TokenClient.md#decimals)
-- [deployed](Erc20TokenClient.md#deployed)
-- [emit](Erc20TokenClient.md#emit)
-- [fallback](Erc20TokenClient.md#fallback)
-- [getTokenInfo](Erc20TokenClient.md#gettokeninfo)
-- [listenerCount](Erc20TokenClient.md#listenercount)
-- [listeners](Erc20TokenClient.md#listeners)
-- [name](Erc20TokenClient.md#name)
-- [queryFilter](Erc20TokenClient.md#queryfilter)
-- [removeAllListeners](Erc20TokenClient.md#removealllisteners)
-- [symbol](Erc20TokenClient.md#symbol)
-- [totalSupply](Erc20TokenClient.md#totalsupply)
-- [transfer](Erc20TokenClient.md#transfer)
-- [transferFrom](Erc20TokenClient.md#transferfrom)
-
 ## Properties
 
 ### \_deployedPromise
 
 • **\_deployedPromise**: `Promise`<`Contract`\>
-
-#### Inherited from
-
-TokenERC20.\_deployedPromise
-
-___
 
 ### \_runningEvents
 
@@ -80,12 +22,6 @@ ___
 
 ▪ [eventTag: `string`]: `RunningEvent`
 
-#### Inherited from
-
-TokenERC20.\_runningEvents
-
-___
-
 ### \_wrappedEmits
 
 • **\_wrappedEmits**: `Object`
@@ -94,21 +30,9 @@ ___
 
 ▪ [eventTag: `string`]: (...`args`: `any`[]) => `void`
 
-#### Inherited from
-
-TokenERC20.\_wrappedEmits
-
-___
-
 ### address
 
 • `Readonly` **address**: `string`
-
-#### Inherited from
-
-TokenERC20.address
-
-___
 
 ### callStatic
 
@@ -128,27 +52,13 @@ ___
 | `transfer` | (`_to`: `string`, `_value`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
 | `transferFrom` | (`_from`: `string`, `_to`: `string`, `_value`: `BigNumberish`, `overrides?`: `CallOverrides`) => `Promise`<`boolean`\> |
 
-#### Inherited from
-
-TokenERC20.callStatic
-
-___
-
 ### clientType
 
 • **clientType**: [`TokenClient`](../enums/ClientType.md#tokenclient)
 
-___
-
 ### deployTransaction
 
 • `Readonly` **deployTransaction**: `TransactionResponse`
-
-#### Inherited from
-
-TokenERC20.deployTransaction
-
-___
 
 ### estimateGas
 
@@ -168,12 +78,6 @@ ___
 | `transfer` | (`_to`: `string`, `_value`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`BigNumber`\> |
 | `transferFrom` | (`_from`: `string`, `_to`: `string`, `_value`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`BigNumber`\> |
 
-#### Inherited from
-
-TokenERC20.estimateGas
-
-___
-
 ### filters
 
 • **filters**: `Object`
@@ -186,12 +90,6 @@ ___
 | `Approval(address,address,uint256)` | (`owner?`: ``null`` \| `string`, `spender?`: ``null`` \| `string`, `value?`: ``null``) => `ApprovalEventFilter` |
 | `Transfer` | (`from?`: ``null`` \| `string`, `to?`: ``null`` \| `string`, `value?`: ``null``) => `TransferEventFilter` |
 | `Transfer(address,address,uint256)` | (`from?`: ``null`` \| `string`, `to?`: ``null`` \| `string`, `value?`: ``null``) => `TransferEventFilter` |
-
-#### Inherited from
-
-TokenERC20.filters
-
-___
 
 ### functions
 
@@ -211,51 +109,21 @@ ___
 | `transfer` | (`_to`: `string`, `_value`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 | `transferFrom` | (`_from`: `string`, `_to`: `string`, `_value`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`ContractTransaction`\> |
 
-#### Inherited from
-
-TokenERC20.functions
-
-___
-
 ### interface
 
 • **interface**: `TokenERC20Interface`
-
-#### Inherited from
-
-TokenERC20.interface
-
-___
 
 ### off
 
 • **off**: `OnEvent`<[`Erc20TokenClient`](Erc20TokenClient.md)\>
 
-#### Inherited from
-
-TokenERC20.off
-
-___
-
 ### on
 
 • **on**: `OnEvent`<[`Erc20TokenClient`](Erc20TokenClient.md)\>
 
-#### Inherited from
-
-TokenERC20.on
-
-___
-
 ### once
 
 • **once**: `OnEvent`<[`Erc20TokenClient`](Erc20TokenClient.md)\>
-
-#### Inherited from
-
-TokenERC20.once
-
-___
 
 ### populateTransaction
 
@@ -275,51 +143,21 @@ ___
 | `transfer` | (`_to`: `string`, `_value`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 | `transferFrom` | (`_from`: `string`, `_to`: `string`, `_value`: `BigNumberish`, `overrides?`: `Overrides` & { `from?`: `string` \| `Promise`<`string`\>  }) => `Promise`<`PopulatedTransaction`\> |
 
-#### Inherited from
-
-TokenERC20.populateTransaction
-
-___
-
 ### provider
 
 • `Readonly` **provider**: `Provider`
-
-#### Inherited from
-
-TokenERC20.provider
-
-___
 
 ### removeListener
 
 • **removeListener**: `OnEvent`<[`Erc20TokenClient`](Erc20TokenClient.md)\>
 
-#### Inherited from
-
-TokenERC20.removeListener
-
-___
-
 ### resolvedAddress
 
 • `Readonly` **resolvedAddress**: `Promise`<`string`\>
 
-#### Inherited from
-
-TokenERC20.resolvedAddress
-
-___
-
 ### signer
 
 • `Readonly` **signer**: `Signer`
-
-#### Inherited from
-
-TokenERC20.signer
-
-___
 
 ### tokenClientType
 
@@ -327,9 +165,7 @@ ___
 
 ## Methods
 
-### \_checkRunningEvents
-
-▸ **_checkRunningEvents**(`runningEvent`): `void`
+### ▸ **_checkRunningEvents**(`runningEvent`): `void`
 
 #### Parameters
 
@@ -341,15 +177,7 @@ ___
 
 `void`
 
-#### Inherited from
-
-TokenERC20.\_checkRunningEvents
-
-___
-
-### \_deployed
-
-▸ **_deployed**(`blockTag?`): `Promise`<`Contract`\>
+### ▸ **_deployed**(`blockTag?`): `Promise`<`Contract`\>
 
 #### Parameters
 
@@ -361,15 +189,7 @@ ___
 
 `Promise`<`Contract`\>
 
-#### Inherited from
-
-TokenERC20.\_deployed
-
-___
-
-### \_wrapEvent
-
-▸ **_wrapEvent**(`runningEvent`, `log`, `listener`): `Event`
+### ▸ **_wrapEvent**(`runningEvent`, `log`, `listener`): `Event`
 
 #### Parameters
 
@@ -383,15 +203,7 @@ ___
 
 `Event`
 
-#### Inherited from
-
-TokenERC20.\_wrapEvent
-
-___
-
-### allowance
-
-▸ **allowance**(`_owner`, `_spender`, `overrides?`): `Promise`<`BigNumber`\>
+### ▸ **allowance**(`_owner`, `_spender`, `overrides?`): `Promise`<`BigNumber`\>
 
 #### Parameters
 
@@ -405,15 +217,7 @@ ___
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-TokenERC20.allowance
-
-___
-
-### approve
-
-▸ **approve**(`_spender`, `_value`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **approve**(`_spender`, `_value`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
@@ -427,15 +231,7 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-TokenERC20.approve
-
-___
-
-### attach
-
-▸ **attach**(`addressOrName`): [`Erc20TokenClient`](Erc20TokenClient.md)
+### ▸ **attach**(`addressOrName`): [`Erc20TokenClient`](Erc20TokenClient.md)
 
 #### Parameters
 
@@ -447,15 +243,7 @@ ___
 
 [`Erc20TokenClient`](Erc20TokenClient.md)
 
-#### Inherited from
-
-TokenERC20.attach
-
-___
-
-### balanceOf
-
-▸ **balanceOf**(`_owner`, `overrides?`): `Promise`<`BigNumber`\>
+### ▸ **balanceOf**(`_owner`, `overrides?`): `Promise`<`BigNumber`\>
 
 #### Parameters
 
@@ -468,15 +256,7 @@ ___
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-TokenERC20.balanceOf
-
-___
-
-### connect
-
-▸ **connect**(`signerOrProvider`): [`Erc20TokenClient`](Erc20TokenClient.md)
+### ▸ **connect**(`signerOrProvider`): [`Erc20TokenClient`](Erc20TokenClient.md)
 
 #### Parameters
 
@@ -488,15 +268,7 @@ ___
 
 [`Erc20TokenClient`](Erc20TokenClient.md)
 
-#### Inherited from
-
-TokenERC20.connect
-
-___
-
-### decimals
-
-▸ **decimals**(`overrides?`): `Promise`<`number`\>
+### ▸ **decimals**(`overrides?`): `Promise`<`number`\>
 
 #### Parameters
 
@@ -508,29 +280,13 @@ ___
 
 `Promise`<`number`\>
 
-#### Inherited from
-
-TokenERC20.decimals
-
-___
-
-### deployed
-
-▸ **deployed**(): `Promise`<[`Erc20TokenClient`](Erc20TokenClient.md)\>
+### ▸ **deployed**(): `Promise`<[`Erc20TokenClient`](Erc20TokenClient.md)\>
 
 #### Returns
 
 `Promise`<[`Erc20TokenClient`](Erc20TokenClient.md)\>
 
-#### Inherited from
-
-TokenERC20.deployed
-
-___
-
-### emit
-
-▸ **emit**(`eventName`, ...`args`): `boolean`
+### ▸ **emit**(`eventName`, ...`args`): `boolean`
 
 #### Parameters
 
@@ -543,15 +299,7 @@ ___
 
 `boolean`
 
-#### Inherited from
-
-TokenERC20.emit
-
-___
-
-### fallback
-
-▸ **fallback**(`overrides?`): `Promise`<`TransactionResponse`\>
+### ▸ **fallback**(`overrides?`): `Promise`<`TransactionResponse`\>
 
 #### Parameters
 
@@ -563,15 +311,7 @@ ___
 
 `Promise`<`TransactionResponse`\>
 
-#### Inherited from
-
-TokenERC20.fallback
-
-___
-
-### getTokenInfo
-
-▸ **getTokenInfo**(): `Promise`<`TokenInfo`\>
+### ▸ **getTokenInfo**(): `Promise`<`TokenInfo`\>
 
 Get the standard ERC20 token information
 
@@ -579,11 +319,7 @@ Get the standard ERC20 token information
 
 `Promise`<`TokenInfo`\>
 
-___
-
-### listenerCount
-
-▸ **listenerCount**(`eventName?`): `number`
+### ▸ **listenerCount**(`eventName?`): `number`
 
 #### Parameters
 
@@ -595,15 +331,7 @@ ___
 
 `number`
 
-#### Inherited from
-
-TokenERC20.listenerCount
-
-___
-
-### listeners
-
-▸ **listeners**<`TEvent`\>(`eventFilter?`): `TypedListener`<`TEvent`\>[]
+### ▸ **listeners**<`TEvent`\>(`eventFilter?`): `TypedListener`<`TEvent`\>[]
 
 #### Type parameters
 
@@ -621,11 +349,7 @@ ___
 
 `TypedListener`<`TEvent`\>[]
 
-#### Inherited from
-
-TokenERC20.listeners
-
-▸ **listeners**(`eventName?`): `Listener`[]
+### ▸ **listeners**(`eventName?`): `Listener`[]
 
 #### Parameters
 
@@ -637,15 +361,7 @@ TokenERC20.listeners
 
 `Listener`[]
 
-#### Inherited from
-
-TokenERC20.listeners
-
-___
-
-### name
-
-▸ **name**(`overrides?`): `Promise`<`string`\>
+### ▸ **name**(`overrides?`): `Promise`<`string`\>
 
 #### Parameters
 
@@ -657,15 +373,7 @@ ___
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-TokenERC20.name
-
-___
-
-### queryFilter
-
-▸ **queryFilter**<`TEvent`\>(`event`, `fromBlockOrBlockhash?`, `toBlock?`): `Promise`<`TEvent`[]\>
+### ▸ **queryFilter**<`TEvent`\>(`event`, `fromBlockOrBlockhash?`, `toBlock?`): `Promise`<`TEvent`[]\>
 
 #### Type parameters
 
@@ -685,15 +393,7 @@ ___
 
 `Promise`<`TEvent`[]\>
 
-#### Inherited from
-
-TokenERC20.queryFilter
-
-___
-
-### removeAllListeners
-
-▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`Erc20TokenClient`](Erc20TokenClient.md)
+### ▸ **removeAllListeners**<`TEvent`\>(`eventFilter`): [`Erc20TokenClient`](Erc20TokenClient.md)
 
 #### Type parameters
 
@@ -711,11 +411,7 @@ ___
 
 [`Erc20TokenClient`](Erc20TokenClient.md)
 
-#### Inherited from
-
-TokenERC20.removeAllListeners
-
-▸ **removeAllListeners**(`eventName?`): [`Erc20TokenClient`](Erc20TokenClient.md)
+### ▸ **removeAllListeners**(`eventName?`): [`Erc20TokenClient`](Erc20TokenClient.md)
 
 #### Parameters
 
@@ -727,15 +423,7 @@ TokenERC20.removeAllListeners
 
 [`Erc20TokenClient`](Erc20TokenClient.md)
 
-#### Inherited from
-
-TokenERC20.removeAllListeners
-
-___
-
-### symbol
-
-▸ **symbol**(`overrides?`): `Promise`<`string`\>
+### ▸ **symbol**(`overrides?`): `Promise`<`string`\>
 
 #### Parameters
 
@@ -747,15 +435,7 @@ ___
 
 `Promise`<`string`\>
 
-#### Inherited from
-
-TokenERC20.symbol
-
-___
-
-### totalSupply
-
-▸ **totalSupply**(`overrides?`): `Promise`<`BigNumber`\>
+### ▸ **totalSupply**(`overrides?`): `Promise`<`BigNumber`\>
 
 #### Parameters
 
@@ -767,15 +447,7 @@ ___
 
 `Promise`<`BigNumber`\>
 
-#### Inherited from
-
-TokenERC20.totalSupply
-
-___
-
-### transfer
-
-▸ **transfer**(`_to`, `_value`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **transfer**(`_to`, `_value`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
@@ -789,15 +461,7 @@ ___
 
 `Promise`<`ContractTransaction`\>
 
-#### Inherited from
-
-TokenERC20.transfer
-
-___
-
-### transferFrom
-
-▸ **transferFrom**(`_from`, `_to`, `_value`, `overrides?`): `Promise`<`ContractTransaction`\>
+### ▸ **transferFrom**(`_from`, `_to`, `_value`, `overrides?`): `Promise`<`ContractTransaction`\>
 
 #### Parameters
 
@@ -811,7 +475,3 @@ ___
 #### Returns
 
 `Promise`<`ContractTransaction`\>
-
-#### Inherited from
-
-TokenERC20.transferFrom
