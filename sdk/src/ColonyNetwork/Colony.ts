@@ -242,14 +242,15 @@ export class Colony {
    * @example
    * ```typescript
    * import { utils } from 'ethers';
-   * import { Tokens } from '@colony/sdk';
+   * import { Id, Tokens } from '@colony/sdk';
    *
    * // Immediately executing async function
    * (async function() {
-   *   // Pay 10 XDAI (on Gnosis chain) to the following address
+   *   // Pay 10 XDAI (on Gnosis chain) from the root domain to the following address
    *   await colony.pay(
    *      '0xb77D57F4959eAfA0339424b83FcFaf9c15407461',
    *      utils.parseUnits('10'),
+   *      Id.RootDomain,
    *      Tokens.Gnosis.XDAI,
    *   );
    * })();
