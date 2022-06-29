@@ -1,5 +1,3 @@
-import * as serialiser from './serialiser';
-import * as deserialiser from './deserialiser';
-import * as types from './types';
-
-export { serialiser, deserialiser, types };
+export * from './metadataParser';
+export * from './metadataDeserialiser';
+export * from './types';

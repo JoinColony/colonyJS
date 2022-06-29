@@ -12,7 +12,7 @@ import { METADATA_VERSION } from './constants';
  * Convert Metadata Object to String (to be stored in IPFS)
  */
 // get Metadata for Colony type
-export const getMetadataStringForColony = (
+export const getStringForMetadataColony = (
   metaDataArgs: ColonyMetadata,
 ): string => {
   const metadata: Metadata = {
@@ -24,7 +24,7 @@ export const getMetadataStringForColony = (
 };
 
 // get Metadata for Domain type
-export const getMetadataStringForDomain = (
+export const getStringForMetadataDomain = (
   metaDataArgs: DomainMetadata,
 ): string => {
   const metadata: Metadata = {
@@ -36,7 +36,7 @@ export const getMetadataStringForDomain = (
 };
 
 // get Metadata for Annotation type
-export const getMetadataStringForAnnotation = (
+export const getStringForMetadataAnnotation = (
   metaDataArgs: AnnotationMetadata,
 ): string => {
   const metadata: Metadata = {
@@ -48,7 +48,7 @@ export const getMetadataStringForAnnotation = (
 };
 
 // get Metadata for Misc type
-export const getMetadataStringForMisc = (
+export const getStringForMetadataMisc = (
   metaDataArgs: MiscMetadata,
 ): string => {
   const metadata: Metadata = {
@@ -59,20 +59,13 @@ export const getMetadataStringForMisc = (
   return JSON.stringify(metadata);
 };
 
-export const getMiscContentFor = (
-  name: string,
-  metaData: MiscMetadata,
-): string | undefined => {
-  return name === metaData?.name ? metaData.content : undefined;
-};
-
 /*
  * Helper functions:
  */
 // convenience func to set colonyAvatarImage to IPFS
 export const setColonyAvatarImage = (colonyAvatarImage: string): string => {
   return JSON.stringify(
-    getMetadataStringForMisc({
+    getStringForMetadataMisc({
       name: 'colonyAvatarImage',
       content: colonyAvatarImage,
     }),
