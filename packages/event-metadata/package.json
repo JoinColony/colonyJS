@@ -1,7 +1,7 @@
 {
   "name": "@colony/colony-event-metadata-parser",
   "version": "1.0.0",
-  "module":  "./dist/esm/index.js",
+  "module": "./dist/esm/index.js",
   "main": "./dist/cjs/index.js",
   "exports": {
     ".": {
@@ -48,7 +48,8 @@
     "test": "jest --config=jest.conf.json",
     "test:ci": "jest -w 1 --ci --verbose=true --config=jest.conf.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "typecheck:watch": "tsc -p tsconfig.json --noEmit --watch"
+    "typecheck:watch": "tsc -p tsconfig.json --noEmit --watch",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@colony/eslint-config-colony": "^9.0.2",
@@ -75,6 +76,7 @@
     "yarn": "^1.22.17"
   },
   "dependencies": {
+    "husky": "^8.0.1",
     "react-intl": "^6.0.4",
     "yup": "^0.29.0"
   },

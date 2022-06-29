@@ -1,0 +1,8 @@
+{
+  "husky": {
+    "hooks": {
+        "pre-commit": "lint-staged",
+        "pre-push": "npm run typecheck && npm run lint && npm run stylelint && npm run test"
+    }
+  }
+}
