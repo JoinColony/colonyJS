@@ -51,6 +51,12 @@
     "typecheck:watch": "tsc -p tsconfig.json --noEmit --watch",
     "prepare": "husky install"
   },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged",
+            "pre-push": "npm run typecheck && npm run lint && npm run stylelint && npm run test"
+        }
+    },
   "devDependencies": {
     "@colony/eslint-config-colony": "^9.0.2",
     "@types/jest": "^27.4.0",
