@@ -18,7 +18,7 @@ const miscMetadataSchema = yup.object({
 const colonyMetadataSchema = yup.object({
   colonyName: yup.string(),
   colonyDisplayName: yup.string(),
-  colonyAvatarHash: yup.string(),
+  colonyAvatarHash: yup.string().nullable(),
   colonyTokens: yup.lazy((val) =>
     Array.isArray(val) ? yup.array().of(yup.string()) : yup.string(),
   ),
