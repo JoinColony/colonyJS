@@ -19,12 +19,8 @@ const colonyMetadataSchema = yup.object({
   colonyName: yup.string(),
   colonyDisplayName: yup.string(),
   colonyAvatarHash: yup.string().nullable(),
-  colonyTokens: yup.lazy((val) =>
-    Array.isArray(val) ? yup.array().of(yup.string()) : yup.string(),
-  ),
-  verifiedAddresses: yup.lazy((val) =>
-    Array.isArray(val) ? yup.array().of(yup.string()) : yup.string(),
-  ),
+  colonyTokens: yup.array().of(yup.string()),
+  verifiedAddresses: yup.array().of(yup.string()),
   isWhitelistActivated: yup.boolean(),
 });
 
