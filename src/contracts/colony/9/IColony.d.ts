@@ -2577,11 +2577,7 @@ export class IColony extends Contract {
       _id: BigNumberish,
       overrides?: TransactionOverrides
     ): Promise<
-      [BigNumber, BigNumber, boolean] & {
-        skillId: BigNumber;
-        fundingPotId: BigNumber;
-        deprecated: boolean;
-      }
+      [BigNumber, BigNumber] & { skillId: BigNumber; fundingPotId: BigNumber }
     >;
 
     /**
@@ -2592,11 +2588,7 @@ export class IColony extends Contract {
       _id: BigNumberish,
       overrides?: TransactionOverrides
     ): Promise<
-      [BigNumber, BigNumber, boolean] & {
-        skillId: BigNumber;
-        fundingPotId: BigNumber;
-        deprecated: boolean;
-      }
+      [BigNumber, BigNumber] & { skillId: BigNumber; fundingPotId: BigNumber }
     >;
 
     /**
@@ -6228,11 +6220,7 @@ export class IColony extends Contract {
     _id: BigNumberish,
     overrides?: TransactionOverrides
   ): Promise<
-    [BigNumber, BigNumber, boolean] & {
-      skillId: BigNumber;
-      fundingPotId: BigNumber;
-      deprecated: boolean;
-    }
+    [BigNumber, BigNumber] & { skillId: BigNumber; fundingPotId: BigNumber }
   >;
 
   /**
@@ -6243,11 +6231,7 @@ export class IColony extends Contract {
     _id: BigNumberish,
     overrides?: TransactionOverrides
   ): Promise<
-    [BigNumber, BigNumber, boolean] & {
-      skillId: BigNumber;
-      fundingPotId: BigNumber;
-      deprecated: boolean;
-    }
+    [BigNumber, BigNumber] & { skillId: BigNumber; fundingPotId: BigNumber }
   >;
 
   /**

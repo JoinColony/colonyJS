@@ -2558,11 +2558,6 @@ const _abi = [
             name: "fundingPotId",
             type: "uint256",
           },
-          {
-            internalType: "bool",
-            name: "deprecated",
-            type: "bool",
-          },
         ],
         internalType: "struct ColonyDataTypes.Domain",
         name: "domain",
