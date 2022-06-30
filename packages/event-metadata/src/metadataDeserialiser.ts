@@ -49,12 +49,12 @@ export const getStringForMetadataAnnotation = (
 
 // get Metadata for Misc type
 export const getStringForMetadataMisc = (
-  metaDataArgs: MiscMetadata,
+  miscMetadata: MiscMetadata,
 ): string => {
   const metadata: Metadata = {
     version: METADATA_VERSION,
     name: MetadataType.Misc,
-    data: metaDataArgs,
+    data: miscMetadata,
   };
   return JSON.stringify(metadata);
 };
@@ -63,11 +63,11 @@ export const getStringForMetadataMisc = (
  * Helper functions:
  */
 // convenience func to set colonyAvatarImage to IPFS
-export const setColonyAvatarImage = (colonyAvatarImage: string): string => {
+export const getStringForColonyAvatarImage = (avatarImage: string): string => {
   return JSON.stringify(
     getStringForMetadataMisc({
       name: 'colonyAvatarImage',
-      content: colonyAvatarImage,
+      value: avatarImage,
     }),
   );
 };

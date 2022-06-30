@@ -112,18 +112,27 @@ export const getAnnotationMsgFromResponse = (
 /*
  * Helper functions:
  */
-export const getMiscContentFor = (
+export const getMiscValueFor = (
   name: string,
   metaData: MiscMetadata,
 ): string | undefined => {
-  return name === metaData?.name ? metaData.content : undefined;
+  return name === metaData?.name ? metaData.value : undefined;
 };
 
-// convenience func to get colonyAvatarImage from IPFS
+export const getNameValueFromMisc = (
+  name: string,
+  response: string,
+): string | undefined => {
+  return getMiscValueFor(
+    name,
+    parseEventMetadata(response)?.data as MiscMetadata,
+  );
+};
+
 export const getColonyAvatarImage = (res: string): string | undefined => {
-  return getMiscContentFor(
+  return getMiscValueFor(
     'colonyAvatarImage',
-    parseEventMetadata(res) as MiscMetadata,
+    parseEventMetadata(res)?.data as MiscMetadata,
   );
 };
 

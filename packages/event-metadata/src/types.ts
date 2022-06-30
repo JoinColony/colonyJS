@@ -27,8 +27,8 @@ export interface AnnotationMetadata {
 export interface MiscMetadata {
   // @TODO - This is not metadata, but check if this should be included somewhere
   // this was created to handle colonyAvatarImage
-  name?: string;
-  content?: string;
+  name: string;
+  value: string;
 }
 
 export interface Metadata {

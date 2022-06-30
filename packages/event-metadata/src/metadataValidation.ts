@@ -12,7 +12,7 @@ const MSG = defineMessages({
 
 const miscMetadataSchema = yup.object({
   name: yup.string().required(() => MSG.requiredField),
-  content: yup.string().required(() => MSG.requiredField),
+  value: yup.string().required(() => MSG.requiredField),
 });
 
 const colonyMetadataSchema = yup.object({
