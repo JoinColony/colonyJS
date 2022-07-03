@@ -12,9 +12,11 @@ import { OneTxPayment__factory as OneTxPaymentFactory } from '../../../../contra
 import { OneTxPayment } from '../../../../contracts/extensions/oneTxPayment/3/OneTxPayment';
 import { ExtendedIColony } from '../../../../clients/Colony/extensions/commonExtensions';
 
-import * as currentVersion from './OneTxPaymentClientAddons';
-import * as version1 from '../1/OneTxPaymentClientAddons';
-import * as version2 from '../2/OneTxPaymentClientAddons';
+import * as currentVersionAddons from './OneTxPaymentClientAddons';
+import * as version1Addons from '../1/OneTxPaymentClientAddons';
+import * as version2Addons from '../2/OneTxPaymentClientAddons';
+
+import * as currentVersionEncodedInterfaces from './OneTxPaymentClientEncodeInterfaces';
 
 type OneTxPaymentEstimate = OneTxPayment['estimate'];
 interface OneTxPaymentEstimateWithAddons extends OneTxPaymentEstimate {
@@ -46,23 +48,36 @@ const getOneTxPaymentClient = (
   oneTxPaymentClient.clientType = ClientType.OneTxPaymentClient;
 
   const addons = {
-    ...version1.getOneTxPaymentClientAddons(oneTxPaymentClient, colonyClient),
-    ...version2.getOneTxPaymentClientAddons(oneTxPaymentClient, colonyClient),
-    ...currentVersion.getOneTxPaymentClientAddons(
+    ...version1Addons.getOneTxPaymentClientAddons(
+      oneTxPaymentClient,
+      colonyClient,
+    ),
+    ...version2Addons.getOneTxPaymentClientAddons(
+      oneTxPaymentClient,
+      colonyClient,
+    ),
+    ...currentVersionAddons.getOneTxPaymentClientAddons(
       oneTxPaymentClient,
       colonyClient,
     ),
   };
   const addonsEstimate = {
-    ...version1.getOneTxPaymentClientEstimateAddons(
+    ...version1Addons.getOneTxPaymentClientEstimateAddons(
       oneTxPaymentClient,
       colonyClient,
     ),
-    ...version2.getOneTxPaymentClientEstimateAddons(
+    ...version2Addons.getOneTxPaymentClientEstimateAddons(
       oneTxPaymentClient,
       colonyClient,
     ),
-    ...currentVersion.getOneTxPaymentClientEstimateAddons(
+    ...currentVersionAddons.getOneTxPaymentClientEstimateAddons(
+      oneTxPaymentClient,
+      colonyClient,
+    ),
+  };
+
+  const encodedInterfaces = {
+    ...currentVersionEncodedInterfaces.getOneTxPaymentClientEncodeInterfaces(
       oneTxPaymentClient,
       colonyClient,
     ),
@@ -75,6 +90,18 @@ const getOneTxPaymentClient = (
 
   Object.keys(addonsEstimate).map((addonName) => {
     oneTxPaymentClient.estimate[addonName] = addonsEstimate[addonName];
+    return null;
+  });
+
+  Object.keys(encodedInterfaces).map((interfaceName) => {
+    /*
+     * @NOTE We're adding new interfaces to the functions list that the client
+     * implicitly doesn't know about
+     */
+    // @ts-ignore
+    oneTxPaymentClient.interface.functions[interfaceName] = {
+      encode: encodedInterfaces[interfaceName],
+    };
     return null;
   });
 
