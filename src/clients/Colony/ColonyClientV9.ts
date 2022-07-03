@@ -25,7 +25,7 @@ import {
   ColonyExtensionsV9,
   ExtendedEstimateV9,
 } from './extensions/extensionsV9';
-import { addInterfaces } from './interfaces/interfacesV9';
+import { addEncodeInterfaces } from './interfaces/encodeInterfacesV9';
 import { getAllAbiEvents, getAbiFunctions } from '../../utils';
 import { ColonyVersion } from '../../versions';
 
@@ -85,6 +85,7 @@ export default function getColonyClient(
 
   colonyClientV9.clientVersion = ColonyVersion.FuchsiaLightweightSpaceship;
   addExtensions(colonyClientV9, this);
+
   /*
    * @NOTE We need to reassign the whole instance since we can't just modify
    * the passed in client (like `addExtensions` does).
@@ -96,5 +97,5 @@ export default function getColonyClient(
    * Because of that, we clone instance of the client, which, after we change it,
    * needs to be re-assigned in order to reflect the new changes.
    */
-  return (addInterfaces(colonyClientV9) as unknown) as ColonyClientV9;
+  return (addEncodeInterfaces(colonyClientV9) as unknown) as ColonyClientV9;
 }

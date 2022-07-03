@@ -91,17 +91,6 @@ export type Interfaces = {
   makeExpenditureWithProofs: {
     encode: ([_domainId]: [BigNumberish]) => Promise<string>;
   };
-  /*
-   * @TODO Find out what's going on with this one, as apparently, the method
-   * call requires proofs, while the encode signature does not
-   */
-  // setExpenditureClaimDelayWithProofs: {
-  //   encode: ([_id, _slot, _claimDelay]: [
-  //     BigNumberish,
-  //     BigNumberish,
-  //     BigNumberish,
-  //   ]) => Promise<string>;
-  // };
   transferExpenditureViaArbitrationWithProofs: {
     encode: ([_id, _newOwner]: [BigNumberish, string]) => Promise<string>;
   };
@@ -591,7 +580,7 @@ async function moveFundsBetweenPotsWithProofs(
 /*
  * Bindings
  */
-export const addInterfaces = (
+export const addEncodeInterfaces = (
   colonyClient: ValidColony,
 ): ColonyWithInterfacesV9 => {
   const updateColonyClient = Object.assign(
