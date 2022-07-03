@@ -48,6 +48,7 @@ const tokenContracts = [
   'Token',
   'TokenERC20',
   'TokenSAI',
+  'MetaTxToken',
 ];
 const version = CurrentColonyVersion;
 const outRoot = resolvePath(__dirname, '../src/contracts');
