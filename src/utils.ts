@@ -62,7 +62,7 @@ type ReputationOracleResponseType<R> =
     ? ReputationOracleColonyResponse
     : never;
 
-/*
+/**
  * Format role events into an Array of all roles in the colony
  *
  * E.g.:
