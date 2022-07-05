@@ -23,8 +23,6 @@ For the multi-event compatible filters the following assumptions prevail:
 
 • **address**: `string`
 
-___
-
 ### colonyTopics
 
 • **colonyTopics**: `ColonyTopic`[]

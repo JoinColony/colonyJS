@@ -15,9 +15,7 @@
 
 ## Functions
 
-### createSubgraphClient
-
-▸ **createSubgraphClient**(`options?`): `Client`
+### ▸ **createSubgraphClient**(`options?`): `Client`
 
 Creates a Colony Subgraph client
 
@@ -25,8 +23,7 @@ The Colony Subgraph client is nothing else than a ready-to-use [`urql`](https://
 
 The Colony Subgraph's schema and resolvers are kept up-to-date by the Colony team and can be explored here: [Colony Subgraph](https://thegraph.com/hosted-service/subgraph/joincolony/colony-xdai). There you can make test queries to the Colony Subgraph and explore it all the way down the rabbit hole :)
 
-**`example`**
-Retrieve the 10 most recent "DomainAdded" events across all Colonies
+**`example`** Retrieve the 10 most recent "DomainAdded" events across all Colonies
 ```typescript
 import { createSubgraphClient, gql } from '@colony/sdk/graph';
 
@@ -72,15 +69,7 @@ colonySubgraph
 
 A ready-to-use `urql` GraphQL client instance
 
-___
-
-### gql
-
-▸ **gql**<`Data`, `Variables`\>(`strings`, ...`interpolations`): `TypedDocumentNode`<`Data`, `Variables`\>
-
-The `gql` interpolation function
-
-This is just the passed-down [`gql`](https://formidable.com/open-source/urql/docs/api/core/#gql) function from `urlq`. This function is used to parse GraphQL queries as strings and create query objects the GraphQL client can process. Please check out it's documentation to get to know more.
+### ▸ **gql**<`Data`, `Variables`\>(`strings`, ...`interpolations`): `TypedDocumentNode`<`Data`, `Variables`\>
 
 #### Type parameters
 
@@ -100,11 +89,7 @@ This is just the passed-down [`gql`](https://formidable.com/open-source/urql/doc
 
 `TypedDocumentNode`<`Data`, `Variables`\>
 
-▸ **gql**<`Data`, `Variables`\>(`string`): `TypedDocumentNode`<`Data`, `Variables`\>
-
-The `gql` interpolation function
-
-This is just the passed-down [`gql`](https://formidable.com/open-source/urql/docs/api/core/#gql) function from `urlq`. This function is used to parse GraphQL queries as strings and create query objects the GraphQL client can process. Please check out it's documentation to get to know more.
+### ▸ **gql**<`Data`, `Variables`\>(`string`): `TypedDocumentNode`<`Data`, `Variables`\>
 
 #### Type parameters
 

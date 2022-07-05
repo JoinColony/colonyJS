@@ -31,19 +31,13 @@
 
 • **address**: `string`
 
-___
-
 ### colonyNetwork
 
-• **colonyNetwork**: [`ColonyNetwork`](ColonyNetwork.ColonyNetwork-1.md)
-
-___
+• **colonyNetwork**: [`ColonyNetwork`](ColonyNetwork.ColonyNetwork.md)
 
 ### version
 
 • **version**: `number`
-
-___
 
 ### SupportedVersions
 
@@ -54,9 +48,7 @@ If this is not an option, Colony SDK might throw errors at certain points. Usage
 
 ## Methods
 
-### claimFunds
-
-▸ **claimFunds**(`tokenAddress?`): `Promise`<[{ `fee?`: `BigNumber` ; `payoutRemainder?`: `BigNumber` ; `token?`: `string`  }, `ContractReceipt`]\>
+### ▸ **claimFunds**(`tokenAddress?`): `Promise`<[{ `fee?`: `BigNumber` ; `payoutRemainder?`: `BigNumber` ; `token?`: `string`  }, `ContractReceipt`]\>
 
 Claim outstanding Colony funds.
 
@@ -82,16 +74,11 @@ A tupel of event data and contract receipt
 | `fee` | BigNumber | The fee deducted for rewards |
 | `payoutRemainder` | BigNumber | The remaining funds moved to the top-level domain pot |
 
-___
-
-### createTeam
-
-▸ **createTeam**(`metadataCid?`): `Promise`<[{ `agent?`: `string` ; `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber` ; `metadata?`: `string`  }, `ContractReceipt`, () => `Promise`<{ `domainColor`: `number` ; `domainName`: `string` ; `domainPurpose`: `string`  }\>] \| [{ `agent?`: `string` ; `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber` ; `metadata?`: `string`  }, `ContractReceipt`]\>
+### ▸ **createTeam**(`metadataCid?`): `Promise`<[{ `agent?`: `string` ; `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber` ; `metadata?`: `string`  }, `ContractReceipt`, () => `Promise`<{ `domainColor`: `number` ; `domainName`: `string` ; `domainPurpose`: `string`  }\>] \| [{ `agent?`: `string` ; `domainId?`: `BigNumber` ; `fundingPotId?`: `BigNumber` ; `metadata?`: `string`  }, `ContractReceipt`]\>
 
 Create a team within a Colony
 
-**`remarks`**
-Currently you can only add domains within the `Root` domain. This restriction will be lifted soon
+**`remarks`** Currently you can only add domains within the `Root` domain. This restriction will be lifted soon
 
 #### Parameters
 
@@ -120,19 +107,13 @@ A tupel: `[eventData, ContractReceipt, getMetaData]`
 | `domainColor` | string | The color assigned to this team |
 | `domainPurpose` | string | The purpose for this team (a broad description) |
 
-___
-
-### getBalance
-
-▸ **getBalance**(`tokenAddress?`, `teamId?`): `Promise`<`BigNumber`\>
+### ▸ **getBalance**(`tokenAddress?`, `teamId?`): `Promise`<`BigNumber`\>
 
 Get a token balance for a specific token and team. Defaults to the Colony's native token and the `Root` team.
 
-**`remarks`**
-The function will automatically figure out the corresponding pot for the given domain, as this is what's usually expected.
+**`remarks`** The function will automatically figure out the corresponding pot for the given domain, as this is what's usually expected.
 
-**`example`**
-Get the xDAI balance of the team number 2
+**`example`** Get the xDAI balance of the team number 2
 ```typescript
 import { constants, utils } from 'ethers';
 // The `AddressZero` means ETH on mainnet and xDAI on Gnosis chain
@@ -154,11 +135,7 @@ console.info(utils.formatEther(balance));
 
 A token balance in [wei](https://gwei.io/)
 
-___
-
-### getReputation
-
-▸ **getReputation**(`userAddress`, `teamId?`): `Promise`<`BigNumber`\>
+### ▸ **getReputation**(`userAddress`, `teamId?`): `Promise`<`BigNumber`\>
 
 Get the reputation for a user address within a team in the Colony
 
@@ -175,11 +152,7 @@ Get the reputation for a user address within a team in the Colony
 
 A number quantifying the user addresses' reputation
 
-___
-
-### getReputationAcrossTeams
-
-▸ **getReputationAcrossTeams**(`userAddress`): `Promise`<{ `domainId`: `number` ; `reputationAmount?`: `BigNumberish` ; `skillId`: `number`  }[]\>
+### ▸ **getReputationAcrossTeams**(`userAddress`): `Promise`<{ `domainId`: `number` ; `reputationAmount?`: `BigNumberish` ; `skillId`: `number`  }[]\>
 
 Get the reputation for a user address across all teams in the Colony
 
@@ -201,16 +174,11 @@ An array of objects containing the following
 | `skillId` | The corresponding skillId |
 | `reputationAmount` | The reputation amount in that domain |
 
-___
-
-### getToken
-
-▸ **getToken**(): [`ColonyToken`](ColonyNetwork.ColonyToken.md)
+### ▸ **getToken**(): [`ColonyToken`](ColonyNetwork.ColonyToken.md)
 
 Get a new instance of a Colony's native Token
 
-**`remarks`**
-Currently only Tokens deployed via Colony are supported (no external, imported tokens) in Colony SDK. All other kinds will throw an error
+**`remarks`** Currently only Tokens deployed via Colony are supported (no external, imported tokens) in Colony SDK. All other kinds will throw an error
 
 #### Returns
 
@@ -218,11 +186,7 @@ Currently only Tokens deployed via Colony are supported (no external, imported t
 
 A [ColonyNetwork.ColonyToken](ColonyNetwork.ColonyToken.md) abstaction instance
 
-___
-
-### moveFundsToTeam
-
-▸ **moveFundsToTeam**(`amount`, `toTeam`, `fromTeam?`, `tokenAddress?`): `Promise`<[{ `agent?`: `string` ; `amount?`: `BigNumber` ; `fromPot?`: `BigNumber` ; `toPot?`: `BigNumber` ; `token?`: `string`  }, `ContractReceipt`]\>
+### ▸ **moveFundsToTeam**(`amount`, `toTeam`, `fromTeam?`, `tokenAddress?`): `Promise`<[{ `agent?`: `string` ; `amount?`: `BigNumber` ; `fromPot?`: `BigNumber` ; `toPot?`: `BigNumber` ; `token?`: `string`  }, `ContractReceipt`]\>
 
 Move funds from one team to another
 
@@ -230,8 +194,7 @@ After sending funds to and claiming funds for your Colony they will land in a sp
 
 **`remarks`** Requires the `Funding` permission in the root team. As soon as teams can be nested, this requires the `Funding` permission in a team that is a parent of both teams in which funds are moved.
 
-**`example`**
-```typescript
+**`example`** ```typescript
 import { utils } from 'ethers';
 import { Tokens } from '@colony/sdk';
 
@@ -270,18 +233,13 @@ A tupel of event data and contract receipt
 | `amount` | BigNumber | The amount that was transferred |
 | `token` | string | The token address being transferred |
 
-___
-
-### pay
-
-▸ **pay**(`recipient`, `amount`, `teamId?`, `tokenAddress?`): `Promise`<[{ `agent?`: `string` ; `fundamentalId?`: `BigNumber` ; `nPayouts?`: `BigNumber`  }, `ContractReceipt`]\>
+### ▸ **pay**(`recipient`, `amount`, `teamId?`, `tokenAddress?`): `Promise`<[{ `agent?`: `string` ; `fundamentalId?`: `BigNumber` ; `nPayouts?`: `BigNumber`  }, `ContractReceipt`]\>
 
 Make a payment to a single address using a single token
 
 **`remarks`** Requires the `OneTxPayment` extension to be installed for the Colony (this is usually the case for Colonies created via the Dapp). Note that most tokens use 18 decimals, so add a bunch of zeros or use ethers' `parseUnits` function (see example)
 
-**`example`**
-```typescript
+**`example`** ```typescript
 import { utils } from 'ethers';
 import { Id, Tokens } from '@colony/sdk';
 
@@ -319,18 +277,14 @@ A tupel of event data and contract receipt
 | `fundamentalId` | BigNumber | The newly added payment id |
 | `nPayouts` | BigNumber | Number of payouts in total |
 
-___
-
-### returnTxData
-
-▸ **returnTxData**<`D`, `E`\>(`data`, `metadataEvent`, `receipt`): `Promise`<[`D`, `ContractReceipt`, () => `Promise`<[`MetadataValue`](../modules/events.md#metadatavalue)<`E`\>\>] \| [`D`, `ContractReceipt`]\>
+### ▸ **returnTxData**<`D`, `E`\>(`data`, `metadataEvent`, `receipt`): `Promise`<[`D`, `ContractReceipt`, () => `Promise`<[`MetadataValue`](../modules/events.md#metadatavalue)<`E`\>\>] \| [`D`, `ContractReceipt`]\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
 | `D` | extends `Object` |
-| `E` | extends ``"DomainMetadata(address,uint256,string)"`` \| ``"Annotation(address,bytes32,string)"`` \| ``"ColonyMetadata(address,string)"`` |
+| `E` | extends ``"Annotation(address,bytes32,string)"`` \| ``"ColonyMetadata(address,string)"`` \| ``"DomainMetadata(address,uint256,string)"`` |
 
 #### Parameters
 

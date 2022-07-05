@@ -8,33 +8,27 @@ Extension contract names
 
 ## Table of contents
 
-### Enumeration members
+### Enumeration Members
 
 - [CoinMachine](constants.Extension.md#coinmachine)
 - [OneTxPayment](constants.Extension.md#onetxpayment)
 - [VotingReputation](constants.Extension.md#votingreputation)
 - [Whitelist](constants.Extension.md#whitelist)
 
-## Enumeration members
+## Enumeration Members
 
 ### CoinMachine
 
-• **CoinMachine** = `"CoinMachine"`
-
-___
+• **CoinMachine**
 
 ### OneTxPayment
 
-• **OneTxPayment** = `"OneTxPayment"`
-
-___
+• **OneTxPayment**
 
 ### VotingReputation
 
-• **VotingReputation** = `"VotingReputation"`
-
-___
+• **VotingReputation**
 
 ### Whitelist
 
-• **Whitelist** = `"Whitelist"`
+• **Whitelist**

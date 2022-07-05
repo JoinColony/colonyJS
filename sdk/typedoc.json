@@ -1,12 +1,18 @@
 {
-    "entryPoints": ["./src/ColonyNetwork", "./src/events", "./src/types.ts", "./src/constants.ts", "./src/graph"],
-    "out": "docs/reference/api",
-    "excludeInternal": true,
-    "excludePrivate": true,
-    "excludeProtected": true,
-    "name": "Colony SDK 🚀",
-    "plugin": "typedoc-plugin-markdown",
-    "githubPages": false,
-    "disableSources": true,
-    "readme": "none"
+  "entryPoints": [
+    "./src/ColonyNetwork",
+    "./src/events",
+    "./src/types.ts",
+    "./src/constants.ts",
+    "./src/graph"
+  ],
+  "out": "docs/reference/api",
+  "excludeInternal": true,
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "name": "Colony SDK 🚀",
+  "plugin": "@colony/typedoc-plugin-markdown",
+  "githubPages": false,
+  "disableSources": true,
+  "readme": "none"
 }

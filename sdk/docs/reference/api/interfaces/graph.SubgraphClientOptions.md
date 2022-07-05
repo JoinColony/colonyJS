@@ -19,8 +19,6 @@
 
 The GraphQL endpoint for HTTP connections
 
-___
-
 ### endpointWs
 
 • `Optional` **endpointWs**: `string`

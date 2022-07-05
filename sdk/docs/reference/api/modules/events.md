@@ -19,20 +19,18 @@ This is a description of the events module
 - [EventSources](../interfaces/events.EventSources.md)
 - [IpfsOptions](../interfaces/events.IpfsOptions.md)
 
-### Type aliases
+### Type Aliases
 
 - [AnyMetadataValue](events.md#anymetadatavalue)
 - [EventSource](events.md#eventsource)
 - [MetadataKey](events.md#metadatakey)
 - [MetadataValue](events.md#metadatavalue)
 
-## Type aliases
+## Type Aliases
 
 ### AnyMetadataValue
 
 Ƭ **AnyMetadataValue**: `Static`<typeof `IPFS_METADATA`[[`MetadataKey`](events.md#metadatakey)]\>
-
-___
 
 ### EventSource
 
@@ -40,13 +38,9 @@ ___
 
 An EventSource is essentially an _ethers_ contract, that we can keep track of
 
-___
-
 ### MetadataKey
 
 Ƭ **MetadataKey**: keyof typeof `IPFS_METADATA`
-
-___
 
 ### MetadataValue
 

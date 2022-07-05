@@ -8,7 +8,7 @@ Available roles in the colonyNetwork. Find out more here: https://github.com/Joi
 
 ## Table of contents
 
-### Enumeration members
+### Enumeration Members
 
 - [Administration](constants.ColonyRole.md#administration)
 - [Arbitration](constants.ColonyRole.md#arbitration)
@@ -18,47 +18,34 @@ Available roles in the colonyNetwork. Find out more here: https://github.com/Joi
 - [Recovery](constants.ColonyRole.md#recovery)
 - [Root](constants.ColonyRole.md#root)
 
-## Enumeration members
+## Enumeration Members
 
 ### Administration
 
-• **Administration** = `6`
-
-___
+• **Administration**
 
 ### Arbitration
 
-• **Arbitration** = `2`
-
-___
+• **Arbitration**
 
 ### Architecture
 
-• **Architecture** = `3`
-
-___
+• **Architecture**
 
 ### ArchitectureSubdomain
 
-• **ArchitectureSubdomain** = `4`
+• **ArchitectureSubdomain**
 
-**`deprecated`**
-The `ArchitectureSubdomain` role has been deprecated and should not be used
-
-___
+**`deprecated`** The `ArchitectureSubdomain` role has been deprecated and should not be used
 
 ### Funding
 
-• **Funding** = `5`
-
-___
+• **Funding**
 
 ### Recovery
 
-• **Recovery** = `0`
-
-___
+• **Recovery**
 
 ### Root
 
-• **Root** = `1`
+• **Root**

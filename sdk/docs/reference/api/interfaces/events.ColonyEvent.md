@@ -6,12 +6,6 @@
 
 An Event that came from a contract within the Colony Network
 
-## Hierarchy
-
-- [`ColonyFilter`](events.ColonyFilter.md)
-
-  ↳ **`ColonyEvent`**
-
 ## Table of contents
 
 ### Properties
@@ -21,13 +15,10 @@ An Event that came from a contract within the Colony Network
 - [eventName](events.ColonyEvent.md#eventname)
 - [eventSource](events.ColonyEvent.md#eventsource)
 - [fromBlock](events.ColonyEvent.md#fromblock)
+- [getMetadata](events.ColonyEvent.md#getmetadata)
 - [toBlock](events.ColonyEvent.md#toblock)
 - [topics](events.ColonyEvent.md#topics)
 - [transactionHash](events.ColonyEvent.md#transactionhash)
-
-### Methods
-
-- [getMetadata](events.ColonyEvent.md#getmetadata)
 
 ## Properties
 
@@ -35,17 +26,9 @@ An Event that came from a contract within the Colony Network
 
 • `Optional` **address**: `string` \| `string`[]
 
-#### Inherited from
-
-[ColonyFilter](events.ColonyFilter.md).[address](events.ColonyFilter.md#address)
-
-___
-
 ### data
 
 • **data**: `Result`
-
-___
 
 ### eventName
 
@@ -53,64 +36,36 @@ ___
 
 The full event signature of this event (e.g. `TokenMinted(uint256))`
 
-#### Inherited from
-
-[ColonyFilter](events.ColonyFilter.md).[eventName](events.ColonyFilter.md#eventname)
-
-___
-
 ### eventSource
 
 • **eventSource**: keyof [`EventSources`](events.EventSources.md)
 
 The Colony contract the event originated from
 
-#### Inherited from
-
-[ColonyFilter](events.ColonyFilter.md).[eventSource](events.ColonyFilter.md#eventsource)
-
-___
-
 ### fromBlock
 
 • `Optional` **fromBlock**: `BlockTag`
 
-#### Inherited from
+### getMetadata
 
-[ColonyFilter](events.ColonyFilter.md).[fromBlock](events.ColonyFilter.md#fromblock)
+• `Optional` **getMetadata**: () => `Promise`<{ `annotationMessage`: `string`  } \| { `colonyAvatarHash`: `string` ; `colonyDisplayName`: `string` ; `colonyTokens`: `string`[]  } \| { `domainColor`: `number` ; `domainName`: `string` ; `domainPurpose`: `string`  }\>
 
-___
+#### Type declaration
+
+▸ (): `Promise`<{ `annotationMessage`: `string`  } \| { `colonyAvatarHash`: `string` ; `colonyDisplayName`: `string` ; `colonyTokens`: `string`[]  } \| { `domainColor`: `number` ; `domainName`: `string` ; `domainPurpose`: `string`  }\>
+
+##### Returns
+
+`Promise`<{ `annotationMessage`: `string`  } \| { `colonyAvatarHash`: `string` ; `colonyDisplayName`: `string` ; `colonyTokens`: `string`[]  } \| { `domainColor`: `number` ; `domainName`: `string` ; `domainPurpose`: `string`  }\>
 
 ### toBlock
 
 • `Optional` **toBlock**: `BlockTag`
 
-#### Inherited from
-
-[ColonyFilter](events.ColonyFilter.md).[toBlock](events.ColonyFilter.md#toblock)
-
-___
-
 ### topics
 
 • `Optional` **topics**: (``null`` \| `string` \| `string`[])[]
 
-#### Inherited from
-
-[ColonyFilter](events.ColonyFilter.md).[topics](events.ColonyFilter.md#topics)
-
-___
-
 ### transactionHash
 
 • **transactionHash**: `string`
-
-## Methods
-
-### getMetadata
-
-▸ `Optional` **getMetadata**(): `Promise`<{ `domainColor`: `number` ; `domainName`: `string` ; `domainPurpose`: `string`  } \| { `annotationMessage`: `string`  } \| { `colonyAvatarHash`: `string` ; `colonyDisplayName`: `string` ; `colonyTokens`: `string`[]  }\>
-
-#### Returns
-
-`Promise`<{ `domainColor`: `number` ; `domainName`: `string` ; `domainPurpose`: `string`  } \| { `annotationMessage`: `string`  } \| { `colonyAvatarHash`: `string` ; `colonyDisplayName`: `string` ; `colonyTokens`: `string`[]  }\>

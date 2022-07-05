@@ -8,32 +8,28 @@ Shortcuts to certain IDs within Colony
 
 ## Table of contents
 
-### Enumeration members
+### Enumeration Members
 
 - [RootDomain](constants.Id.md#rootdomain)
 - [RootPot](constants.Id.md#rootpot)
 - [SkillIgnore](constants.Id.md#skillignore)
 
-## Enumeration members
+## Enumeration Members
 
 ### RootDomain
 
-• **RootDomain** = `1`
+• **RootDomain**
 
 The id of the root-domain in all colonies
 
-___
-
 ### RootPot
 
-• **RootPot** = `1`
+• **RootPot**
 
 The id of the root fundig pot in all colonies
 
-___
-
 ### SkillIgnore
 
-• **SkillIgnore** = `0`
+• **SkillIgnore**
 
 Ignore the skill id for this method (global skill 0)

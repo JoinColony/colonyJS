@@ -17,9 +17,7 @@
 
 ## Constructors
 
-### constructor
-
-• **new IpfsMetadata**(`options?`)
+### • **new IpfsMetadata**(`options?`)
 
 #### Parameters
 
@@ -29,15 +27,13 @@
 
 ## Methods
 
-### getMetadataForEvent
-
-▸ **getMetadataForEvent**<`T`\>(`eventName`, `ipfsCid`): `Promise`<[`MetadataValue`](../modules/events.md#metadatavalue)<`T`\>\>
+### ▸ **getMetadataForEvent**<`T`\>(`eventName`, `ipfsCid`): `Promise`<[`MetadataValue`](../modules/events.md#metadatavalue)<`T`\>\>
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `T` | extends ``"DomainMetadata(address,uint256,string)"`` \| ``"Annotation(address,bytes32,string)"`` \| ``"ColonyMetadata(address,string)"`` |
+| `T` | extends ``"Annotation(address,bytes32,string)"`` \| ``"ColonyMetadata(address,string)"`` \| ``"DomainMetadata(address,uint256,string)"`` |
 
 #### Parameters
 
@@ -50,11 +46,7 @@
 
 `Promise`<[`MetadataValue`](../modules/events.md#metadatavalue)<`T`\>\>
 
-___
-
-### eventSupportMetadata
-
-▸ `Static` **eventSupportMetadata**(`eventName`): `boolean`
+### ▸ `Static` **eventSupportMetadata**(`eventName`): `boolean`
 
 #### Parameters
 

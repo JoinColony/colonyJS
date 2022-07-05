@@ -8,23 +8,21 @@ Tokens deployed on Gnosis Chain
 
 ## Table of contents
 
-### Enumeration members
+### Enumeration Members
 
 - [CLNY](constants.Tokens.Gnosis.md#clny)
 - [XDAI](constants.Tokens.Gnosis.md#xdai)
 
-## Enumeration members
+## Enumeration Members
 
 ### CLNY
 
-• **CLNY** = `"0xc9B6218AffE8Aba68a13899Cbf7cF7f14DDd304C"`
+• **CLNY**
 
 CLNY on Gnosis Chain
 
-___
-
 ### XDAI
 
-• **XDAI** = `"0x0000000000000000000000000000000000000000"`
+• **XDAI**
 
 XDAI on Gnosis Chain
