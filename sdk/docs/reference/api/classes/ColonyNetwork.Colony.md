@@ -1,29 +1,6 @@
-[Colony SDK 🚀](../README.md) / [ColonyNetwork](../modules/ColonyNetwork.md) / Colony
-
 # Class: Colony
 
 [ColonyNetwork](../modules/ColonyNetwork.md).Colony
-
-## Table of contents
-
-### Properties
-
-- [address](ColonyNetwork.Colony.md#address)
-- [colonyNetwork](ColonyNetwork.Colony.md#colonynetwork)
-- [version](ColonyNetwork.Colony.md#version)
-- [SupportedVersions](ColonyNetwork.Colony.md#supportedversions)
-
-### Methods
-
-- [claimFunds](ColonyNetwork.Colony.md#claimfunds)
-- [createTeam](ColonyNetwork.Colony.md#createteam)
-- [getBalance](ColonyNetwork.Colony.md#getbalance)
-- [getReputation](ColonyNetwork.Colony.md#getreputation)
-- [getReputationAcrossTeams](ColonyNetwork.Colony.md#getreputationacrossteams)
-- [getToken](ColonyNetwork.Colony.md#gettoken)
-- [moveFundsToTeam](ColonyNetwork.Colony.md#movefundstoteam)
-- [pay](ColonyNetwork.Colony.md#pay)
-- [returnTxData](ColonyNetwork.Colony.md#returntxdata)
 
 ## Properties
 

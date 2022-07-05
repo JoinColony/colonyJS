@@ -1,18 +1,8 @@
-[Colony SDK 🚀](../README.md) / [constants](../modules/constants.md) / Id
-
 # Enumeration: Id
 
 [constants](../modules/constants.md).Id
 
 Shortcuts to certain IDs within Colony
-
-## Table of contents
-
-### Enumeration Members
-
-- [RootDomain](constants.Id.md#rootdomain)
-- [RootPot](constants.Id.md#rootpot)
-- [SkillIgnore](constants.Id.md#skillignore)
 
 ## Enumeration Members
 

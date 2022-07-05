@@ -1,17 +1,8 @@
-[Colony SDK 🚀](../README.md) / graph
-
 # Module: graph
 
-## Table of contents
-
-### Interfaces
+## Interfaces
 
 - [SubgraphClientOptions](../interfaces/graph.SubgraphClientOptions.md)
-
-### Functions
-
-- [createSubgraphClient](graph.md#createsubgraphclient)
-- [gql](graph.md#gql)
 
 ## Functions
 

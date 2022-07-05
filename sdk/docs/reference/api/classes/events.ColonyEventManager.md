@@ -1,5 +1,3 @@
-[Colony SDK 🚀](../README.md) / [events](../modules/events.md) / ColonyEventManager
-
 # Class: ColonyEventManager
 
 [events](../modules/events.md).ColonyEventManager
@@ -9,25 +7,6 @@ It works by creating specific filters that can keep track of event sources and m
 easy parsing of event data, without necessarily knowing the contract that emitted it.
 
 **`remarks`** The API is subject to change as we find more applications for this
-
-## Table of contents
-
-### Constructors
-
-- [constructor](events.ColonyEventManager.md#constructor)
-
-### Properties
-
-- [eventSources](events.ColonyEventManager.md#eventsources)
-- [ipfsMetadata](events.ColonyEventManager.md#ipfsmetadata)
-- [provider](events.ColonyEventManager.md#provider)
-
-### Methods
-
-- [createFilter](events.ColonyEventManager.md#createfilter)
-- [createMultiFilter](events.ColonyEventManager.md#createmultifilter)
-- [getEvents](events.ColonyEventManager.md#getevents)
-- [getMultiEvents](events.ColonyEventManager.md#getmultievents)
 
 ## Constructors
 

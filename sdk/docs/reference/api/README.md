@@ -1,10 +1,6 @@
-Colony SDK 🚀
-
 # Colony SDK 🚀
 
-## Table of contents
-
-### Modules
+## Modules
 
 - [ColonyNetwork](modules/ColonyNetwork.md)
 - [constants](modules/constants.md)

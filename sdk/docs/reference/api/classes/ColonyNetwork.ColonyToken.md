@@ -1,15 +1,6 @@
-[Colony SDK 🚀](../README.md) / [ColonyNetwork](../modules/ColonyNetwork.md) / ColonyToken
-
 # Class: ColonyToken
 
 [ColonyNetwork](../modules/ColonyNetwork.md).ColonyToken
-
-## Table of contents
-
-### Methods
-
-- [mint](ColonyNetwork.ColonyToken.md#mint)
-- [symbol](ColonyNetwork.ColonyToken.md#symbol)
 
 ## Methods
 

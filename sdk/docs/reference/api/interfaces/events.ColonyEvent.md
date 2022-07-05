@@ -1,24 +1,8 @@
-[Colony SDK 🚀](../README.md) / [events](../modules/events.md) / ColonyEvent
-
 # Interface: ColonyEvent
 
 [events](../modules/events.md).ColonyEvent
 
 An Event that came from a contract within the Colony Network
-
-## Table of contents
-
-### Properties
-
-- [address](events.ColonyEvent.md#address)
-- [data](events.ColonyEvent.md#data)
-- [eventName](events.ColonyEvent.md#eventname)
-- [eventSource](events.ColonyEvent.md#eventsource)
-- [fromBlock](events.ColonyEvent.md#fromblock)
-- [getMetadata](events.ColonyEvent.md#getmetadata)
-- [toBlock](events.ColonyEvent.md#toblock)
-- [topics](events.ColonyEvent.md#topics)
-- [transactionHash](events.ColonyEvent.md#transactionhash)
 
 ## Properties
 

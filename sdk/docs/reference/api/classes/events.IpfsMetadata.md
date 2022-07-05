@@ -1,19 +1,6 @@
-[Colony SDK 🚀](../README.md) / [events](../modules/events.md) / IpfsMetadata
-
 # Class: IpfsMetadata
 
 [events](../modules/events.md).IpfsMetadata
-
-## Table of contents
-
-### Constructors
-
-- [constructor](events.IpfsMetadata.md#constructor)
-
-### Methods
-
-- [getMetadataForEvent](events.IpfsMetadata.md#getmetadataforevent)
-- [eventSupportMetadata](events.IpfsMetadata.md#eventsupportmetadata)
 
 ## Constructors
 

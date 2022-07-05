@@ -14,5 +14,7 @@
   "plugin": "@colony/typedoc-plugin-markdown",
   "githubPages": false,
   "disableSources": true,
-  "readme": "none"
+  "readme": "none",
+  "hideBreadcrumbs": true,
+  "hideInPageTOC": true
 }

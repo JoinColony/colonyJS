@@ -1,30 +1,19 @@
-[Colony SDK 🚀](../README.md) / events
-
 # Module: events
 
 This is a description of the events module
 
-## Table of contents
-
-### Classes
+## Classes
 
 - [ColonyEventManager](../classes/events.ColonyEventManager.md)
 - [IpfsMetadata](../classes/events.IpfsMetadata.md)
 
-### Interfaces
+## Interfaces
 
 - [ColonyEvent](../interfaces/events.ColonyEvent.md)
 - [ColonyFilter](../interfaces/events.ColonyFilter.md)
 - [ColonyMultiFilter](../interfaces/events.ColonyMultiFilter.md)
 - [EventSources](../interfaces/events.EventSources.md)
 - [IpfsOptions](../interfaces/events.IpfsOptions.md)
-
-### Type Aliases
-
-- [AnyMetadataValue](events.md#anymetadatavalue)
-- [EventSource](events.md#eventsource)
-- [MetadataKey](events.md#metadatakey)
-- [MetadataValue](events.md#metadatavalue)
 
 ## Type Aliases
 

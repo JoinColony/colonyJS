@@ -1,24 +1,6 @@
-[Colony SDK 🚀](../README.md) / [ColonyNetwork](../modules/ColonyNetwork.md) / ColonyNetwork
-
 # Class: ColonyNetwork
 
 [ColonyNetwork](../modules/ColonyNetwork.md).ColonyNetwork
-
-## Table of contents
-
-### Constructors
-
-- [constructor](ColonyNetwork.ColonyNetwork.md#constructor)
-
-### Properties
-
-- [ipfsMetadata](ColonyNetwork.ColonyNetwork.md#ipfsmetadata)
-- [networkClient](ColonyNetwork.ColonyNetwork.md#networkclient)
-
-### Methods
-
-- [getColony](ColonyNetwork.ColonyNetwork.md#getcolony)
-- [getMetaColony](ColonyNetwork.ColonyNetwork.md#getmetacolony)
 
 ## Constructors
 

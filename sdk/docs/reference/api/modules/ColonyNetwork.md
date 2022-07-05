@@ -1,12 +1,8 @@
-[Colony SDK 🚀](../README.md) / ColonyNetwork
-
 # Module: ColonyNetwork
 
 This is a description of the ColonyNetwork module
 
-## Table of contents
-
-### Classes
+## Classes
 
 - [Colony](../classes/ColonyNetwork.Colony.md)
 - [ColonyNetwork](../classes/ColonyNetwork.ColonyNetwork.md)

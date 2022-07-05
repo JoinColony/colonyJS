@@ -1,14 +1,10 @@
-[Colony SDK 🚀](../README.md) / constants
-
 # Module: constants
 
-## Table of contents
-
-### Namespaces
+## Namespaces
 
 - [Tokens](constants.Tokens.md)
 
-### Enumerations
+## Enumerations
 
 - [ColonyRole](../enums/constants.ColonyRole.md)
 - [Extension](../enums/constants.Extension.md)
