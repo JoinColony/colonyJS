@@ -6,7 +6,9 @@ The ColonyEvents class is a wrapper around _ethers_'s event implementations to m
 It works by creating specific filters that can keep track of event sources and map filters to their respective events. This allows for
 easy parsing of event data, without necessarily knowing the contract that emitted it.
 
-**`remarks`** The API is subject to change as we find more applications for this
+**`Remarks`**
+
+The API is subject to change as we find more applications for this
 
 ## Constructors
 
@@ -14,7 +16,9 @@ easy parsing of event data, without necessarily knowing the contract that emitte
 
 Create a new ColonyEvents instance
 
-**`remarks`** As opposed to the [ColonyNetwork.ColonyNetwork](ColonyNetwork.ColonyNetwork.md) class, this constructor _needs_ an _ethers_ JsonRpcProvider (or a subclass of it) as it's
+**`Remarks`**
+
+As opposed to the [ColonyNetwork.ColonyNetwork](ColonyNetwork.ColonyNetwork.md) class, this constructor _needs_ an _ethers_ JsonRpcProvider (or a subclass of it) as it's
 the only provider that supports topic filtering by multiple addresses
 
 #### Parameters
@@ -47,9 +51,13 @@ To create a [ColonyFilter](../interfaces/events.ColonyFilter.md), we need to not
 [`Filter`s](https://docs.ethers.io/v5/api/providers/types/#providers-Filter), but also the actual source contract of that Filter.
 Like this we can keep track of the source contract interface to parse the event data when it's emitted
 
-**`remarks`** We can do that as we do not have ambiguous events across our contracts, so we will always be able to find the right contract to parse the event data later on
+**`Remarks`**
 
-**`example`** Filter for all `DomainAdded` events between block 21830000 and 21840000 (across all deployed [ColonyNetwork.Colony](ColonyNetwork.Colony.md) contracts)
+We can do that as we do not have ambiguous events across our contracts, so we will always be able to find the right contract to parse the event data later on
+
+**`Example`**
+
+Filter for all `DomainAdded` events between block 21830000 and 21840000 (across all deployed [ColonyNetwork.Colony](ColonyNetwork.Colony.md) contracts)
 ```typescript
  const domainAdded = colonyEvents.createFilter(
    colonyEvents.eventSources.Colony,
@@ -91,9 +99,13 @@ Create a [ColonyMultiFilter](../interfaces/events.ColonyMultiFilter.md) that kee
 The [ColonyMultiFilter](../interfaces/events.ColonyMultiFilter.md) works much like the [ColonyFilter](../interfaces/events.ColonyFilter.md), just that we _have_ to specify an address of the contract which emits this event.
 Furthermore, no `fromBlock` or `toBlock` requirements can be given (that is done on a global level in [getMultiEvents](events.ColonyEventManager.md#getmultievents))
 
-**`remarks`** We can do that as we do not have ambiguous events across our contracts, so we will always be able to find the right contract to parse the event data later on. Note that `ColonyMultiFilter` does not allow for params to be passed in.
+**`Remarks`**
 
-**`example`** Filter for all `DomainAdded` events for a specific [ColonyNetwork.Colony](ColonyNetwork.Colony.md) contract
+We can do that as we do not have ambiguous events across our contracts, so we will always be able to find the right contract to parse the event data later on. Note that `ColonyMultiFilter` does not allow for params to be passed in.
+
+**`Example`**
+
+Filter for all `DomainAdded` events for a specific [ColonyNetwork.Colony](ColonyNetwork.Colony.md) contract
 ```typescript
 const domainAdded = colonyEvents.createFilter(
   colonyEvents.eventSources.Colony,
@@ -129,7 +141,9 @@ Get events for a single filter
 
 Gets events for an individual filter and automatically parses the data if possible
 
-**`example`** Retrieve and parse all `DomainAdded` events for a specific [ColonyNetwork.Colony](ColonyNetwork.Colony.md) contract
+**`Example`**
+
+Retrieve and parse all `DomainAdded` events for a specific [ColonyNetwork.Colony](ColonyNetwork.Colony.md) contract
 ```typescript
 const domainAdded = colonyEvents.createFilter(
   colonyEvents.eventSources.Colony,
@@ -161,9 +175,13 @@ Get events for multiple filters across multiple addresses at once
 All the filters are connected by a logical OR, i.e. it will find ALL given events for ALL the given contract addresses
 This is handy when you want to listen to a fixed set of events for a lot of different contracts
 
-**`remarks`** `fromBlock` and `toBlock` properties of the indivdual filters will be ignored
+**`Remarks`**
 
-**`example`** Retrieve and parse all `DomainAdded` and `DomainMetadata` events for a specific [ColonyNetwork.Colony](ColonyNetwork.Colony.md) contract.
+`fromBlock` and `toBlock` properties of the indivdual filters will be ignored
+
+**`Example`**
+
+Retrieve and parse all `DomainAdded` and `DomainMetadata` events for a specific [ColonyNetwork.Colony](ColonyNetwork.Colony.md) contract.
 Note that we're using ColonyEvents.createMultiFilter here. The two `colonyAddress`es could also be different
 
 ```typescript

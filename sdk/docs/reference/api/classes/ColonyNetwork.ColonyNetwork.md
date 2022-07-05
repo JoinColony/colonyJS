@@ -11,7 +11,9 @@ Creates a new instance to connect to the ColonyNetwork
 This is your main entry point to talk to the Colony Network Smart Contracts.
 From here you should be able to instantiate all the required instances for Colonies and their extensions.
 
-**`example`** ```typescript
+**`Example`**
+
+```typescript
 import { providers, utils } from 'ethers';
 import { ColonyNetwork, Tokens } from '@colony/sdk';
 
@@ -46,7 +48,9 @@ Get a new instance of a Colony
 
 Use this function to instantiate a new `Colony` by providing the Colony's address
 
-**`remarks`** Colony contracts are versioned. If the deployed Colony version does not match the supported version an error will be thrown
+**`Remarks`**
+
+Colony contracts are versioned. If the deployed Colony version does not match the supported version an error will be thrown
 
 #### Parameters
 

@@ -55,7 +55,9 @@ A tupel of event data and contract receipt
 
 Create a team within a Colony
 
-**`remarks`** Currently you can only add domains within the `Root` domain. This restriction will be lifted soon
+**`Remarks`**
+
+Currently you can only add domains within the `Root` domain. This restriction will be lifted soon
 
 #### Parameters
 
@@ -88,9 +90,13 @@ A tupel: `[eventData, ContractReceipt, getMetaData]`
 
 Get a token balance for a specific token and team. Defaults to the Colony's native token and the `Root` team.
 
-**`remarks`** The function will automatically figure out the corresponding pot for the given domain, as this is what's usually expected.
+**`Remarks`**
 
-**`example`** Get the xDAI balance of the team number 2
+The function will automatically figure out the corresponding pot for the given domain, as this is what's usually expected.
+
+**`Example`**
+
+Get the xDAI balance of the team number 2
 ```typescript
 import { constants, utils } from 'ethers';
 // The `AddressZero` means ETH on mainnet and xDAI on Gnosis chain
@@ -155,7 +161,9 @@ An array of objects containing the following
 
 Get a new instance of a Colony's native Token
 
-**`remarks`** Currently only Tokens deployed via Colony are supported (no external, imported tokens) in Colony SDK. All other kinds will throw an error
+**`Remarks`**
+
+Currently only Tokens deployed via Colony are supported (no external, imported tokens) in Colony SDK. All other kinds will throw an error
 
 #### Returns
 
@@ -169,9 +177,13 @@ Move funds from one team to another
 
 After sending funds to and claiming funds for your Colony they will land in a special team, the root team. If you want to make payments from other teams (in order to award reputation in that team) you have to move the funds there first. Use this method to do so.
 
-**`remarks`** Requires the `Funding` permission in the root team. As soon as teams can be nested, this requires the `Funding` permission in a team that is a parent of both teams in which funds are moved.
+**`Remarks`**
 
-**`example`** ```typescript
+Requires the `Funding` permission in the root team. As soon as teams can be nested, this requires the `Funding` permission in a team that is a parent of both teams in which funds are moved.
+
+**`Example`**
+
+```typescript
 import { utils } from 'ethers';
 import { Tokens } from '@colony/sdk';
 
@@ -214,9 +226,13 @@ A tupel of event data and contract receipt
 
 Make a payment to a single address using a single token
 
-**`remarks`** Requires the `OneTxPayment` extension to be installed for the Colony (this is usually the case for Colonies created via the Dapp). Note that most tokens use 18 decimals, so add a bunch of zeros or use ethers' `parseUnits` function (see example)
+**`Remarks`**
 
-**`example`** ```typescript
+Requires the `OneTxPayment` extension to be installed for the Colony (this is usually the case for Colonies created via the Dapp). Note that most tokens use 18 decimals, so add a bunch of zeros or use ethers' `parseUnits` function (see example)
+
+**`Example`**
+
+```typescript
 import { utils } from 'ethers';
 import { Id, Tokens } from '@colony/sdk';
 
