@@ -2,20 +2,20 @@
 
 Extension contract names
 
-## Enumeration members
+## Enumeration Members
 
 ### CoinMachine
 
-• **CoinMachine** = `"CoinMachine"`
+• **CoinMachine**
 
 ### OneTxPayment
 
-• **OneTxPayment** = `"OneTxPayment"`
+• **OneTxPayment**
 
 ### VotingReputation
 
-• **VotingReputation** = `"VotingReputation"`
+• **VotingReputation**
 
 ### Whitelist
 
-• **Whitelist** = `"Whitelist"`
+• **Whitelist**

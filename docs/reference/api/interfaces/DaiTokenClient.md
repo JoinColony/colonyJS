@@ -2,12 +2,6 @@
 
 The SAI token. It requires special treatment as it's deprecated
 
-## Hierarchy
-
-- `TokenSAI`
-
-  ↳ **`DaiTokenClient`**
-
 ## Properties
 
 ### \_deployedPromise
@@ -18,17 +12,9 @@ The SAI token. It requires special treatment as it's deprecated
 
 • **\_runningEvents**: `Object`
 
-#### Index signature
-
-▪ [eventTag: `string`]: `RunningEvent`
-
 ### \_wrappedEmits
 
 • **\_wrappedEmits**: `Object`
-
-#### Index signature
-
-▪ [eventTag: `string`]: (...`args`: `any`[]) => `void`
 
 ### address
 
@@ -262,7 +248,7 @@ The SAI token. It requires special treatment as it's deprecated
 
 | Name | Type |
 | :------ | :------ |
-| `signerOrProvider` | `string` \| `Signer` \| `Provider` |
+| `signerOrProvider` | `string` \| `Provider` \| `Signer` |
 
 #### Returns
 

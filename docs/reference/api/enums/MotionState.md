@@ -2,36 +2,36 @@
 
 These are the various states a Motion might find itself in
 
-## Enumeration members
+## Enumeration Members
 
 ### Closed
 
-• **Closed** = `4`
+• **Closed**
 
 ### Failed
 
-• **Failed** = `7`
+• **Failed**
 
 ### Finalizable
 
-• **Finalizable** = `5`
+• **Finalizable**
 
 ### Finalized
 
-• **Finalized** = `6`
+• **Finalized**
 
 ### Null
 
-• **Null** = `0`
+• **Null**
 
 ### Reveal
 
-• **Reveal** = `3`
+• **Reveal**
 
 ### Staking
 
-• **Staking** = `1`
+• **Staking**
 
 ### Submit
 
-• **Submit** = `2`
+• **Submit**

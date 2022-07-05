@@ -1,8 +1,9 @@
 import { constants } from 'ethers';
 
-import { ColonyVersion, getExtensionHash } from '../..';
 import { assertExhaustiveSwitch } from '../../utils';
+import { getExtensionHash } from '../../helpers';
 import { AugmentedIColony } from '../Core/augments/commonAugments';
+import { ColonyVersion } from '../Core/exports';
 
 import {
   getCoinMachineClient,

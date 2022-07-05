@@ -1,11 +1,5 @@
 # Interface: TokenLockingClient
 
-## Hierarchy
-
-- `TokenLocking`
-
-  ↳ **`TokenLockingClient`**
-
 ## Properties
 
 ### \_deployedPromise
@@ -16,17 +10,9 @@
 
 • **\_runningEvents**: `Object`
 
-#### Index signature
-
-▪ [eventTag: `string`]: `RunningEvent`
-
 ### \_wrappedEmits
 
 • **\_wrappedEmits**: `Object`
-
-#### Index signature
-
-▪ [eventTag: `string`]: (...`args`: `any`[]) => `void`
 
 ### address
 
@@ -346,7 +332,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `signerOrProvider` | `string` \| `Signer` \| `Provider` |
+| `signerOrProvider` | `string` \| `Provider` \| `Signer` |
 
 #### Returns
 

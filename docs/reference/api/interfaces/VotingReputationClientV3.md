@@ -1,13 +1,5 @@
 # Interface: VotingReputationClientV3
 
-## Hierarchy
-
-- `AugmentedVotingReputation`<`VotingReputation`\>
-
-- `AugmentsV2`<`VotingReputation`\>
-
-  ↳ **`VotingReputationClientV3`**
-
 ## Properties
 
 ### \_deployedPromise
@@ -18,17 +10,9 @@
 
 • **\_runningEvents**: `Object`
 
-#### Index signature
-
-▪ [eventTag: `string`]: `RunningEvent`
-
 ### \_wrappedEmits
 
 • **\_wrappedEmits**: `Object`
-
-#### Index signature
-
-▪ [eventTag: `string`]: (...`args`: `any`[]) => `void`
 
 ### address
 
@@ -93,10 +77,6 @@
 
 • **clientVersion**: ``3``
 
-#### Overrides
-
-AugmentedVotingReputation.clientVersion
-
 ### colonyClient
 
 • **colonyClient**: `AugmentedIColony`<`AnyIColony`\>
@@ -110,10 +90,6 @@ An instance of the corresponding ColonyClient
 ### estimateGas
 
 • **estimateGas**: `VotingReputationEstimate`
-
-#### Overrides
-
-AugmentedVotingReputation.estimateGas
 
 ### filters
 
@@ -395,7 +371,7 @@ Always prefer this method, except when you have good reason not to.
 
 | Name | Type |
 | :------ | :------ |
-| `signerOrProvider` | `string` \| `Signer` \| `Provider` |
+| `signerOrProvider` | `string` \| `Provider` \| `Signer` |
 
 #### Returns
 

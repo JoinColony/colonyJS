@@ -1,6 +1,6 @@
 # Namespace: ColonyDataTypes
 
-## Type aliases
+## Type Aliases
 
 ### DomainStruct
 

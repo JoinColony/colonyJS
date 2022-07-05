@@ -4,16 +4,16 @@
 
 Tokens deployed on Mainnet
 
-## Enumeration members
+## Enumeration Members
 
 ### ETH
 
-• **ETH** = `"0x0000000000000000000000000000000000000000"`
+• **ETH**
 
 ETH on Mainnet
 
 ### Mainnet
 
-• **Mainnet** = `"0x3E828ac5C480069D4765654Fb4b8733b910b13b2"`
+• **Mainnet**
 
 CLNY on Mainnet

@@ -1,11 +1,5 @@
 # Interface: WhitelistClientV2
 
-## Hierarchy
-
-- `AugmentedWhitelst`<`Whitelist`\>
-
-  ↳ **`WhitelistClientV2`**
-
 ## Properties
 
 ### \_deployedPromise
@@ -16,17 +10,9 @@
 
 • **\_runningEvents**: `Object`
 
-#### Index signature
-
-▪ [eventTag: `string`]: `RunningEvent`
-
 ### \_wrappedEmits
 
 • **\_wrappedEmits**: `Object`
-
-#### Index signature
-
-▪ [eventTag: `string`]: (...`args`: `any`[]) => `void`
 
 ### address
 
@@ -73,10 +59,6 @@
 ### clientVersion
 
 • **clientVersion**: ``2``
-
-#### Overrides
-
-AugmentedWhitelst.clientVersion
 
 ### colonyClient
 
@@ -337,7 +319,7 @@ Sets user statuses in the whitelist
 
 | Name | Type |
 | :------ | :------ |
-| `signerOrProvider` | `string` \| `Signer` \| `Provider` |
+| `signerOrProvider` | `string` \| `Provider` \| `Signer` |
 
 #### Returns
 

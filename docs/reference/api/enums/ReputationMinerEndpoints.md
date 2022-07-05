@@ -1,19 +1,19 @@
 # Enumeration: ReputationMinerEndpoints
 
-## Enumeration members
+## Enumeration Members
 
 ### UserReputationInAllDomains
 
-• **UserReputationInAllDomains** = `"UserReputationInAllDomains"`
+• **UserReputationInAllDomains**
 
 ### UserReputationInSingleDomainWithProofs
 
-• **UserReputationInSingleDomainWithProofs** = `"UserReputationInSingleDomainWithProofs"`
+• **UserReputationInSingleDomainWithProofs**
 
 ### UserReputationInSingleDomainWithoutProofs
 
-• **UserReputationInSingleDomainWithoutProofs** = `"UserReputationInSingleDomainWithoutProofs"`
+• **UserReputationInSingleDomainWithoutProofs**
 
 ### UsersWithReputationInColony
 
-• **UsersWithReputationInColony** = `"UsersWithReputationInColony"`
+• **UsersWithReputationInColony**

@@ -6,7 +6,7 @@
   "excludeInternal": true,
   "excludePrivate": true,
   "excludeProtected": true,
-  "plugin": "typedoc-plugin-markdown",
+  "plugin": "@colony/typedoc-plugin-markdown",
   "githubPages": false,
   "disableSources": true,
   "readme": "none",

@@ -1,11 +1,5 @@
 # Interface: VotingReputationClientV1
 
-## Hierarchy
-
-- `AugmentedVotingReputation`<`VotingReputation`\>
-
-  ↳ **`VotingReputationClientV1`**
-
 ## Properties
 
 ### \_deployedPromise
@@ -16,17 +10,9 @@
 
 • **\_runningEvents**: `Object`
 
-#### Index signature
-
-▪ [eventTag: `string`]: `RunningEvent`
-
 ### \_wrappedEmits
 
 • **\_wrappedEmits**: `Object`
-
-#### Index signature
-
-▪ [eventTag: `string`]: (...`args`: `any`[]) => `void`
 
 ### address
 
@@ -86,10 +72,6 @@
 ### clientVersion
 
 • **clientVersion**: ``1``
-
-#### Overrides
-
-AugmentedVotingReputation.clientVersion
 
 ### colonyClient
 
@@ -377,7 +359,7 @@ Always prefer this method, except when you have good reason not to.
 
 | Name | Type |
 | :------ | :------ |
-| `signerOrProvider` | `string` \| `Signer` \| `Provider` |
+| `signerOrProvider` | `string` \| `Provider` \| `Signer` |
 
 #### Returns
 

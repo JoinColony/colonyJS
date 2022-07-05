@@ -52,7 +52,7 @@
 - [WhitelistClientV1](interfaces/WhitelistClientV1.md)
 - [WhitelistClientV2](interfaces/WhitelistClientV2.md)
 
-## Type aliases
+## Type Aliases
 
 ### AnyCoinMachineClient
 
@@ -130,11 +130,11 @@ All domains the user with `address` has roles in
 
 ### COLONY\_VERSION\_LATEST
 
-• **COLONY\_VERSION\_LATEST**: `number`
+• `Const` **COLONY\_VERSION\_LATEST**: `number`
 
 ### ExtensionVersions
 
-• **ExtensionVersions**: `Object`
+• `Const` **ExtensionVersions**: `Object`
 
 #### Type declaration
 
@@ -147,7 +147,7 @@ All domains the user with `address` has roles in
 
 ## Functions
 
-### ▸ `Const` **formatColonyRoles**(`roleSetEvents`, `recoveryRoleSetEvents`): `Promise`<[`ColonyRoles`](README.md#colonyroles)\>
+### ▸ **formatColonyRoles**(`roleSetEvents`, `recoveryRoleSetEvents`): `Promise`<[`ColonyRoles`](README.md#colonyroles)\>
 
 #### Parameters
 
@@ -160,7 +160,7 @@ All domains the user with `address` has roles in
 
 `Promise`<[`ColonyRoles`](README.md#colonyroles)\>
 
-### ▸ `Const` **getBlockTime**(`provider`, `blockHash`): `Promise`<`number`\>
+### ▸ **getBlockTime**(`provider`, `blockHash`): `Promise`<`number`\>
 
 Get the JavaScript timestamp for a block
 
@@ -177,7 +177,7 @@ Get the JavaScript timestamp for a block
 
 block timestamp in ms
 
-### ▸ `Const` **getChildIndex**(`client`, `parentDomainId`, `domainId`): `Promise`<`BigNumber`\>
+### ▸ **getChildIndex**(`client`, `parentDomainId`, `domainId`): `Promise`<`BigNumber`\>
 
 Get the child index for a domain inside its corresponding skills parent children array
 
@@ -207,7 +207,7 @@ childSkillIndex would be 0 in this case (0-position in children array)
 
 Index in the `children` array (see above)
 
-### ▸ `Const` **getColonyNetworkClient**(`network`, `signerOrProvider`, `options?`): [`ColonyNetworkClient`](interfaces/ColonyNetworkClient.md)
+### ▸ **getColonyNetworkClient**(`network`, `signerOrProvider`, `options?`): [`ColonyNetworkClient`](interfaces/ColonyNetworkClient.md)
 
 The main entry point for accessing the deployed colonyNetwork contracts
 
@@ -239,7 +239,7 @@ const networkClient = await getColonyNetworkClient(Network.Xdai, provider);
 
 [`ColonyNetworkClient`](interfaces/ColonyNetworkClient.md)
 
-### ▸ `Const` **getColonyRoles**(`client`, `options?`): `Promise`<[`ColonyRoles`](README.md#colonyroles)\>
+### ▸ **getColonyRoles**(`client`, `options?`): `Promise`<[`ColonyRoles`](README.md#colonyroles)\>
 
 Get an array of all roles in the colony
 
@@ -256,7 +256,7 @@ Get an array of all roles in the colony
 
 Array of user roles in a colony (see above) fetching it's own network events
 
-### ▸ `Const` **getEvents**(`client`, `filter`, `options?`): `Promise`<`LogDescription`[]\>
+### ▸ **getEvents**(`client`, `filter`, `options?`): `Promise`<`LogDescription`[]\>
 
 Get parsed event data from filter
 
@@ -281,7 +281,7 @@ const events = await getEvents(colonyClient, filter);
 
 Parsed ethers LogDescription array (events)
 
-### ▸ `Const` **getExtensionHash**(`extensionName`): `string`
+### ▸ **getExtensionHash**(`extensionName`): `string`
 
 Hashes to identify the colony extension contracts
 
@@ -295,7 +295,7 @@ Hashes to identify the colony extension contracts
 
 `string`
 
-### ▸ `Const` **getExtensionPermissionProofs**(`colonyClient`, `domainId`, `address?`): `Promise`<[`BigNumberish`, `BigNumberish`]\>
+### ▸ **getExtensionPermissionProofs**(`colonyClient`, `domainId`, `address?`): `Promise`<[`BigNumberish`, `BigNumberish`]\>
 
 Wrapper around `getPermissionProofs` to check two types of permissions: Funding and Administration
 To be used for checking an extension's permission in said colony
@@ -314,7 +314,7 @@ To be used for checking an extension's permission in said colony
 
 Tuple of `[permissionDomainId, childSkillIndex]`
 
-### ▸ `Const` **getHistoricColonyRoles**(`client`, `fromBlock?`, `toBlock?`): `Promise`<[`ColonyRoles`](README.md#colonyroles)\>
+### ▸ **getHistoricColonyRoles**(`client`, `fromBlock?`, `toBlock?`): `Promise`<[`ColonyRoles`](README.md#colonyroles)\>
 
 #### Parameters
 
@@ -328,7 +328,7 @@ Tuple of `[permissionDomainId, childSkillIndex]`
 
 `Promise`<[`ColonyRoles`](README.md#colonyroles)\>
 
-### ▸ `Const` **getLogs**(`client`, `filter`, `options?`): `Promise`<`Log`[]\>
+### ▸ **getLogs**(`client`, `filter`, `options?`): `Promise`<`Log`[]\>
 
 Get raw (unparsed logs) from filter
 
@@ -353,7 +353,7 @@ const logs = await getLogs(colonyClient, filter);
 
 ethers Log array
 
-### ▸ `Const` **getMultipleEvents**(`client`, `filters`, `options?`): `Promise`<`LogDescription`[]\>
+### ▸ **getMultipleEvents**(`client`, `filters`, `options?`): `Promise`<`LogDescription`[]\>
 
 Get multiple events from multiple filters
 
@@ -373,7 +373,7 @@ Get multiple events from multiple filters
 
 Parsed ethers LogDescription array (events)
 
-### ▸ `Const` **getPermissionProofs**(`client`, `domainId`, `role`, `customAddress?`): `Promise`<[`BigNumber`, `BigNumber`]\>
+### ▸ **getPermissionProofs**(`client`, `domainId`, `role`, `customAddress?`): `Promise`<[`BigNumber`, `BigNumber`]\>
 
 Get the permission proofs for a user address and a certain role
 
@@ -409,7 +409,7 @@ tl;dr:
 
 Tuple of `[permissionDomainId, childSkillIndex]`
 
-### ▸ `Const` **getPotDomain**(`client`, `potId`): `Promise`<`BigNumberish`\>
+### ▸ **getPotDomain**(`client`, `potId`): `Promise`<`BigNumberish`\>
 
 Get the associated domain for a pot id
 
@@ -429,7 +429,7 @@ See [[`FundingPotAssociatedType`]] for details
 
 The associated domainId
 
-### ▸ `Const` **isExtensionCompatible**(`extension`, `extensionVersion`, `colonyVersion`): `boolean`
+### ▸ **isExtensionCompatible**(`extension`, `extensionVersion`, `colonyVersion`): `boolean`
 
 Checks the compatibility of an extension version with a colony version it requests to be installed in
 Returns `true` if an extension version is compatible with the given colony version
@@ -440,7 +440,7 @@ Returns `true` if an extension version is compatible with the given colony versi
 | :------ | :------ | :------ |
 | `extension` | [`Extension`](enums/Extension.md) | A valid `Extension` contract name |
 | `extensionVersion` | `ExtensionVersion` | The version of the extension to check against the colony |
-| `colonyVersion` | ``1`` \| ``6`` \| ``2`` \| ``4`` \| ``3`` \| ``5`` \| ``7`` \| ``8`` \| ``9`` | The version of the colony to check for |
+| `colonyVersion` | ``2`` \| ``1`` \| ``3`` \| ``4`` \| ``5`` \| ``6`` \| ``7`` \| ``8`` \| ``9`` | The version of the colony to check for |
 
 #### Returns
 

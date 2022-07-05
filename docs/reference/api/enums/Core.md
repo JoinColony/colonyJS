@@ -2,8 +2,8 @@
 
 Versioned core contract names
 
-## Enumeration members
+## Enumeration Members
 
 ### IColony
 
-• **IColony** = `"IColony"`
+• **IColony**

@@ -1,21 +1,5 @@
 # Interface: ColonyClientV8
 
-## Hierarchy
-
-- `AugmentedIColony`<`IColony`\>
-
-- `ColonyAugmentsV3`<`IColony`\>
-
-- `ColonyAugmentsV4`<`IColony`\>
-
-- `ColonyAugmentsV5`<`IColony`\>
-
-- `AddDomainAugmentsB`<`IColony`\>
-
-- `MoveFundsBetweenPotsAugmentsB`<`IColony`\>
-
-  ↳ **`ColonyClientV8`**
-
 ## Properties
 
 ### \_deployedPromise
@@ -26,17 +10,9 @@
 
 • **\_runningEvents**: `Object`
 
-#### Index signature
-
-▪ [eventTag: `string`]: `RunningEvent`
-
 ### \_wrappedEmits
 
 • **\_wrappedEmits**: `Object`
-
-#### Index signature
-
-▪ [eventTag: `string`]: (...`args`: `any`[]) => `void`
 
 ### address
 
@@ -49,10 +25,6 @@
 ### clientVersion
 
 • **clientVersion**: ``8``
-
-#### Overrides
-
-AugmentedIColony.clientVersion
 
 ### colonyEvents
 
@@ -69,10 +41,6 @@ It's an ethers contract with only events to filter
 ### estimateGas
 
 • **estimateGas**: `ColonyClientV8Estimate`
-
-#### Overrides
-
-AugmentedIColony.estimateGas
 
 ### filters
 
@@ -645,7 +613,7 @@ Mark a task as complete after the due date has passed. This allows the task to b
 
 | Name | Type |
 | :------ | :------ |
-| `signerOrProvider` | `string` \| `Signer` \| `Provider` |
+| `signerOrProvider` | `string` \| `Provider` \| `Signer` |
 
 #### Returns
 
@@ -1352,8 +1320,7 @@ Get the number of payments in the colony.
 Get the reputation for an address and a certain skill.
 If you need the skillId for a certain domain you can use the [getDomain](ColonyClientV8.md#getdomain) function.
 
-**`remarks`**
-This function also retrieves the proofs (`branchMask`, `siblings`) that are needed to verify the reputation on chain.
+**`remarks`** This function also retrieves the proofs (`branchMask`, `siblings`) that are needed to verify the reputation on chain.
 If you don't need to do that (e.g. in order to proof the reputation when calling a contract method), you should probably just use
 the [getReputationWithoutProofs](ColonyClientV8.md#getreputationwithoutproofs) method as it requires fewer computations
 
@@ -1993,9 +1960,7 @@ Move a given amount: `_amount` of `_token` funds from funding pot with id `_from
 
 ### ▸ **moveFundsBetweenPotsWithProofs(uint256,uint256,uint256,address)**(`_fromPot`, `_toPot`, `_amount`, `_token`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-**`deprecated`**
-
-Same as [moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,address)](ColonyClientV8.md#movefundsbetweenpots(uint256,uint256,uint256,uint256,uint256,uint256,address)), but let colonyJS figure out the permission proofs for you.
+**`deprecated`** Same as [moveFundsBetweenPots(uint256,uint256,uint256,uint256,uint256,uint256,address)](ColonyClientV8.md#movefundsbetweenpots(uint256,uint256,uint256,uint256,uint256,uint256,address)), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -3089,9 +3054,7 @@ DEPRECATED Updates the expenditure owner. Can only be called by Arbitration role
 
 ### ▸ **transferExpenditureViaArbitrationWithProofs**(`_id`, `_newOwner`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-**`deprecated`**
-
-Same as [transferExpenditureViaArbitration](ColonyClientV8.md#transferexpenditureviaarbitration), but let colonyJS figure out the permission proofs for you.
+**`deprecated`** Same as [transferExpenditureViaArbitration](ColonyClientV8.md#transferexpenditureviaarbitration), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters

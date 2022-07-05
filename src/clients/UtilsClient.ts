@@ -1,8 +1,7 @@
 import { BigNumber, BytesLike, CallOverrides } from 'ethers';
 
-import { ClientType, SignerOrProvider } from '../types';
+import { ClientType, ColonyRole, SignerOrProvider } from '../types';
 
-import { ColonyRole } from '..';
 import { Utils, Utils__factory as UtilsFactory } from '../contracts';
 import { nonNullable } from '../utils';
 

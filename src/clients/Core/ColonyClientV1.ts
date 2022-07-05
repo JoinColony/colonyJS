@@ -1,4 +1,4 @@
-import { SignerOrProvider } from '../..';
+import { SignerOrProvider } from '../../types';
 import { IColony__factory as IColonyFactory } from '../../contracts/IColony/1/factories/IColony__factory';
 import { IColony } from '../../contracts/IColony/1/IColony';
 import { ColonyNetworkClient } from '../ColonyNetworkClient';
