@@ -6,20 +6,20 @@ Supported Ethereum networks. Use `Custom` if you'd like to bring your own deploy
 
 ### Custom
 
-• **Custom**
+• **Custom** = ``"Custom"``
 
 ### Goerli
 
-• **Goerli**
+• **Goerli** = ``"Goerli"``
 
 ### Mainnet
 
-• **Mainnet**
+• **Mainnet** = ``"Mainnet"``
 
 ### Xdai
 
-• **Xdai**
+• **Xdai** = ``"Xdai"``
 
 ### XdaiQa
 
-• **XdaiQa**
+• **XdaiQa** = ``"XdaiQa"``

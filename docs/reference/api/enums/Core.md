@@ -6,4 +6,4 @@ Versioned core contract names
 
 ### IColony
 
-• **IColony**
+• **IColony** = ``"IColony"``

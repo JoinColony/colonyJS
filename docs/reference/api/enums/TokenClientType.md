@@ -8,12 +8,12 @@ require certain adjustments (like the original Dai (SAI))
 
 ### Colony
 
-• **Colony**
+• **Colony** = ``"Colony"``
 
 ### Erc20
 
-• **Erc20**
+• **Erc20** = ``"Erc20"``
 
 ### Sai
 
-• **Sai**
+• **Sai** = ``"Sai"``

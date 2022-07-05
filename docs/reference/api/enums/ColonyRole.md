@@ -6,30 +6,32 @@ Available roles in the colonyNetwork. Find out more here: https://github.com/Joi
 
 ### Administration
 
-• **Administration**
+• **Administration** = ``6``
 
 ### Arbitration
 
-• **Arbitration**
+• **Arbitration** = ``2``
 
 ### Architecture
 
-• **Architecture**
+• **Architecture** = ``3``
 
 ### ArchitectureSubdomain
 
-• **ArchitectureSubdomain**
+• **ArchitectureSubdomain** = ``4``
 
-**`deprecated`** The `ArchitectureSubdomain` role has been deprecated and should not be used
+**`Deprecated`**
+
+The `ArchitectureSubdomain` role has been deprecated and should not be used
 
 ### Funding
 
-• **Funding**
+• **Funding** = ``5``
 
 ### Recovery
 
-• **Recovery**
+• **Recovery** = ``0``
 
 ### Root
 
-• **Root**
+• **Root** = ``1``

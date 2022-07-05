@@ -6,24 +6,24 @@ HTTP endpoint of the official colony reputation oracle
 
 ### Custom
 
-• **Custom**
+• **Custom** = ``"http://localhost:3000"``
 
 ### Gnosis
 
-• **Gnosis**
+• **Gnosis** = ``"https://xdai.colony.io/reputation/xdai"``
 
 ### Goerli
 
-• **Goerli**
+• **Goerli** = ``"https://colony.io/reputation/goerli"``
 
 ### Mainnet
 
-• **Mainnet**
+• **Mainnet** = ``"https://colony.io/reputation/mainnet"``
 
 ### Xdai
 
-• **Xdai**
+• **Xdai** = ``"https://xdai.colony.io/reputation/xdai"``
 
 ### XdaiQa
 
-• **XdaiQa**
+• **XdaiQa** = ``"https://qaxdai.colony.io/reputation/xdai"``

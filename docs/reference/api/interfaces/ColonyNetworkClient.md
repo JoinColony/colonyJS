@@ -739,7 +739,9 @@ Create the Meta Colony, same as a normal colony plus the root skill.
 
 Deploy an ERC20 token contract, compatible with Colony
 
-**`remarks`** For valid values see the spec here: https://eips.ethereum.org/EIPS/eip-20
+**`Remarks`**
+
+For valid values see the spec here: https://eips.ethereum.org/EIPS/eip-20
 
 #### Parameters
 
@@ -1519,7 +1521,9 @@ Reverse lookup a username from an address.
 
 Like [[`lookupRegisteredENSDomain`]], but also working on the Goerli testnet
 
-**`remarks`** On Goerli, all ens domains have the `.test` suffix. The contracts return `.eth` anyways.
+**`Remarks`**
+
+On Goerli, all ens domains have the `.test` suffix. The contracts return `.eth` anyways.
 We patch the original function to fix this problem. On any other network it will return the
 original function
 

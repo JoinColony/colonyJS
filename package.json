@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "@colony/eslint-config-colony": "^9.0.2",
-    "@colony/typedoc-plugin-markdown": "^3.15.0",
+    "@colony/typedoc-plugin-markdown": "^3.16.0",
     "@ethersproject/abi": "^5.5.0",
     "@ethersproject/abstract-provider": "^5.5.1",
     "@typechain/ethers-v5": "^10.0.0",

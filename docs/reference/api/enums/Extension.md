@@ -6,16 +6,16 @@ Extension contract names
 
 ### CoinMachine
 
-• **CoinMachine**
+• **CoinMachine** = ``"CoinMachine"``
 
 ### OneTxPayment
 
-• **OneTxPayment**
+• **OneTxPayment** = ``"OneTxPayment"``
 
 ### VotingReputation
 
-• **VotingReputation**
+• **VotingReputation** = ``"VotingReputation"``
 
 ### Whitelist
 
-• **Whitelist**
+• **Whitelist** = ``"Whitelist"``

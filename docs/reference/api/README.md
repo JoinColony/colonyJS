@@ -149,6 +149,18 @@ All domains the user with `address` has roles in
 
 ### ▸ **formatColonyRoles**(`roleSetEvents`, `recoveryRoleSetEvents`): `Promise`<[`ColonyRoles`](README.md#colonyroles)\>
 
+Format role events into an Array of all roles in the colony
+
+E.g.:
+```typescript
+[{
+ address: 0x5346D0f80e2816FaD329F2c140c870ffc3c3E2Ef // user address
+ domains: [{                                         // all domains the user has a role in
+   domainId: 1,                                      // domainId for the roles
+   roles: [1, 2, 3]                                  // Array of `ColonyRole`
+ }]
+}]
+
 #### Parameters
 
 | Name | Type |
@@ -357,7 +369,9 @@ ethers Log array
 
 Get multiple events from multiple filters
 
-**`remarks`** only works when all events are emitted by the same contract!
+**`Remarks`**
+
+only works when all events are emitted by the same contract!
 
 #### Parameters
 
@@ -413,7 +427,9 @@ Tuple of `[permissionDomainId, childSkillIndex]`
 
 Get the associated domain for a pot id
 
-**`remarks`** pots can be associated with different types, like domains, payments or tasks
+**`Remarks`**
+
+pots can be associated with different types, like domains, payments or tasks
 See [[`FundingPotAssociatedType`]] for details
 
 #### Parameters

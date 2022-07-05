@@ -382,7 +382,9 @@ Deploy a TokenAuthority contract for this Colony for a specific token
 The TokenAuthority enables certain addresses to transfer the tokens, even if it's locked
 It also enables the assigned Colony to mint tokens
 
-**`remarks`** Only works with tokens that allow for an authority to be set (e.g. tokens deployed with Colony)
+**`Remarks`**
+
+Only works with tokens that allow for an authority to be set (e.g. tokens deployed with Colony)
 
 #### Parameters
 

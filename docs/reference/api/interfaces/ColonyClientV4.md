@@ -221,7 +221,9 @@ Add a colony domain, and its respective local skill under skill with id `_parent
 
 ### ▸ **addDomainWithProofs**(`_parentDomainId`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-**`deprecated`** Same as [addDomain](ColonyClientV4.md#adddomain), but let colonyJS figure out the permission proofs for you.
+**`Deprecated`**
+
+Same as [addDomain](ColonyClientV4.md#adddomain), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -992,7 +994,9 @@ count The payment count
 Get the reputation for an address and a certain skill.
 If you need the skillId for a certain domain you can use the [getDomain](ColonyClientV4.md#getdomain) function.
 
-**`remarks`** This function also retrieves the proofs (`branchMask`, `siblings`) that are needed to verify the reputation on chain.
+**`Remarks`**
+
+This function also retrieves the proofs (`branchMask`, `siblings`) that are needed to verify the reputation on chain.
 If you don't need to do that (e.g. in order to proof the reputation when calling a contract method), you should probably just use
 the [getReputationWithoutProofs](ColonyClientV4.md#getreputationwithoutproofs) method as it requires fewer computations
 
@@ -1480,7 +1484,9 @@ Move a given amount: `_amount` of `_token` funds from funding pot with id `_from
 
 ### ▸ **moveFundsBetweenPotsWithProofs**(`_fromPot`, `_toPot`, `_amount`, `_token`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-**`deprecated`** Same as [moveFundsBetweenPots](ColonyClientV4.md#movefundsbetweenpots), but let colonyJS figure out the permission proofs for you.
+**`Deprecated`**
+
+Same as [moveFundsBetweenPots](ColonyClientV4.md#movefundsbetweenpots), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -1812,7 +1818,9 @@ Set the claim delay on an expenditure slot. Can only be called by Arbitration ro
 
 ### ▸ **setExpenditureClaimDelayWithProofs**(`_id`, `_slot`, `_claimDelay`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-**`deprecated`** Same as [setExpenditureClaimDelay](ColonyClientV4.md#setexpenditureclaimdelay), but let colonyJS figure out the permission proofs for you.
+**`Deprecated`**
+
+Same as [setExpenditureClaimDelay](ColonyClientV4.md#setexpenditureclaimdelay), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -1868,7 +1876,9 @@ Set the payout modifier on an expenditure slot. Can only be called by Arbitratio
 
 ### ▸ **setExpenditurePayoutModifierWithProofs**(`_id`, `_slot`, `_payoutModifier`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-**`deprecated`** Same as [setExpenditurePayoutModifier](ColonyClientV4.md#setexpenditurepayoutmodifier), but let colonyJS figure out the permission proofs for you.
+**`Deprecated`**
+
+Same as [setExpenditurePayoutModifier](ColonyClientV4.md#setexpenditurepayoutmodifier), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -2385,7 +2395,9 @@ Updates the expenditure owner. Can only be called by Arbitration role.
 
 ### ▸ **transferExpenditureViaArbitrationWithProofs**(`_id`, `_newOwner`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-**`deprecated`** Same as [transferExpenditureViaArbitration](ColonyClientV4.md#transferexpenditureviaarbitration), but let colonyJS figure out the permission proofs for you.
+**`Deprecated`**
+
+Same as [transferExpenditureViaArbitration](ColonyClientV4.md#transferexpenditureviaarbitration), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters

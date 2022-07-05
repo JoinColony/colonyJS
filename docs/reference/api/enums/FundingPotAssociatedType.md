@@ -7,20 +7,20 @@ See [here](https://github.com/JoinColony/colonyNetwork/blob/develop/docs/_TLDR_P
 
 ### Domain
 
-• **Domain**
+• **Domain** = ``1``
 
 ### Expenditure
 
-• **Expenditure**
+• **Expenditure** = ``4``
 
 ### Payment
 
-• **Payment**
+• **Payment** = ``3``
 
 ### Task
 
-• **Task**
+• **Task** = ``2``
 
 ### Unassigned
 
-• **Unassigned**
+• **Unassigned** = ``0``

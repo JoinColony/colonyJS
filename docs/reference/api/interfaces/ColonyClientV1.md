@@ -213,7 +213,9 @@ Add a colony domain, and its respective local skill under skill with id `_parent
 
 ### ▸ **addDomainWithProofs**(`_parentDomainId`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-**`deprecated`** Same as [addDomain](ColonyClientV1.md#adddomain), but let colonyJS figure out the permission proofs for you.
+**`Deprecated`**
+
+Same as [addDomain](ColonyClientV1.md#adddomain), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -852,7 +854,9 @@ count The payment count
 Get the reputation for an address and a certain skill.
 If you need the skillId for a certain domain you can use the [getDomain](ColonyClientV1.md#getdomain) function.
 
-**`remarks`** This function also retrieves the proofs (`branchMask`, `siblings`) that are needed to verify the reputation on chain.
+**`Remarks`**
+
+This function also retrieves the proofs (`branchMask`, `siblings`) that are needed to verify the reputation on chain.
 If you don't need to do that (e.g. in order to proof the reputation when calling a contract method), you should probably just use
 the [getReputationWithoutProofs](ColonyClientV1.md#getreputationwithoutproofs) method as it requires fewer computations
 
@@ -1246,7 +1250,9 @@ Move a given amount: `_amount` of `_token` funds from funding pot with id `_from
 
 ### ▸ **moveFundsBetweenPotsWithProofs**(`_fromPot`, `_toPot`, `_amount`, `_token`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-**`deprecated`** Same as [moveFundsBetweenPots](ColonyClientV1.md#movefundsbetweenpots), but let colonyJS figure out the permission proofs for you.
+**`Deprecated`**
+
+Same as [moveFundsBetweenPots](ColonyClientV1.md#movefundsbetweenpots), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters
@@ -1577,7 +1583,9 @@ Sets the domain on an existing payment. Secured function to authorised members
 
 ### ▸ **setPaymentDomainWithProofs**(`_id`, `_domainId`, `overrides?`): `Promise`<`ContractTransaction`\>
 
-**`deprecated`** Same as [setPaymentDomain](ColonyClientV1.md#setpaymentdomain), but let colonyJS figure out the permission proofs for you.
+**`Deprecated`**
+
+Same as [setPaymentDomain](ColonyClientV1.md#setpaymentdomain), but let colonyJS figure out the permission proofs for you.
 Always prefer this method, except when you have good reason not to.
 
 #### Parameters

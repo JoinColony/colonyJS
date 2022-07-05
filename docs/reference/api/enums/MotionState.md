@@ -6,32 +6,32 @@ These are the various states a Motion might find itself in
 
 ### Closed
 
-• **Closed**
+• **Closed** = ``4``
 
 ### Failed
 
-• **Failed**
+• **Failed** = ``7``
 
 ### Finalizable
 
-• **Finalizable**
+• **Finalizable** = ``5``
 
 ### Finalized
 
-• **Finalized**
+• **Finalized** = ``6``
 
 ### Null
 
-• **Null**
+• **Null** = ``0``
 
 ### Reveal
 
-• **Reveal**
+• **Reveal** = ``3``
 
 ### Staking
 
-• **Staking**
+• **Staking** = ``1``
 
 ### Submit
 
-• **Submit**
+• **Submit** = ``2``
