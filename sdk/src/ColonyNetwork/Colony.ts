@@ -257,7 +257,7 @@ export class Colony {
    *
    * @param metadataCid An IPFS [CID](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) for a JSON file containing the metadata described below. For now, we would like to keep it agnostic to any IPFS upload mechanism, so you have to upload the file manually and provide your own hash (by using, for example, [Pinata](https://docs.pinata.cloud/))
    *
-   * @returns A tupel: `[eventData, ContractReceipt, getMetaData?]`
+   * @returns A tupel: `[eventData, ContractReceipt, getMetaData]`
    *
    * **Event data**
    *
@@ -438,23 +438,6 @@ export class Colony {
    *
    * @remarks Requires the `OneTxPayment` extension to be installed for the Colony (this is usually the case for Colonies created via the Dapp). Note that most tokens use 18 decimals, so add a bunch of zeros or use ethers' `parseUnits` function (see example)
    *
-   * @example
-   * ```typescript
-   * import { utils } from 'ethers';
-   * import { Id, Tokens } from '@colony/sdk';
-   *
-   * // Immediately executing async function
-   * (async function() {
-   *   // Pay 10 XDAI (on Gnosis chain) from the root domain to the following address
-   *   await colony.forcePay(
-   *      '0xb77D57F4959eAfA0339424b83FcFaf9c15407461',
-   *      utils.parseUnits('10'),
-   *      Id.RootDomain,
-   *      Tokens.Gnosis.XDAI,
-   *   );
-   * })();
-   * ```
-   *
    * @param recipient Wallet address of account to send the funds to (also awarded reputation when sending the native token)
    * @param amount Amount to pay in wei
    * @param tokenAddress The address of the token to make the payment in. Default is the Colony's native token
@@ -504,7 +487,7 @@ export class Colony {
   /**
    * Create a motion to move funds from one team to another
    *
-   * For more information about the resulting action, see [[Colony.foceMoveFundsToTeam]].
+   * For more information about the resulting action, see [[Colony.forceMoveFundsToTeam]].
    *
    * After sending funds to and claiming funds for your Colony they will land in a special team, the root team. If you want to make payments from other teams (in order to award reputation in that team) you have to move the funds there first. Use this method to do so.
    *
