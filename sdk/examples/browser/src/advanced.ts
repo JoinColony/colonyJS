@@ -32,9 +32,8 @@ const createTeam = async (): Promise<{
   // This is to demonstrate the Colony SDK's IPFS capabilities. For now, we would like to keep it agnostic to any IPFS upload mechanism, so you have to provide your own hash
   // You can see how the data looks like here: https://cloudflare-ipfs.com/ipfs/QmVgJC8WNJCzkZYLPuVPG5gvSzLvLZTxvb24Sj5Nca4jW2
   const ipfsTestHash = 'QmTbb3TUiXiZifywgnkxBH5C1YLCyxnMww3Et3DCNypHB9';
-  const [{ domainId, fundingPotId }, , getMetadata] = await colony.createTeam(
-    ipfsTestHash,
-  );
+  const [{ domainId, fundingPotId }, , getMetadata] =
+    await colony.forceCreateTeam(ipfsTestHash);
 
   if (!domainId || !fundingPotId || !getMetadata) {
     throw new Error('Transaction event data not found');
@@ -67,7 +66,7 @@ const moveFunds = async (): Promise<ContractReceipt> => {
 // Make a payment to a user from the newly created and funded domain. This will cause the user to have reputation in the new domain after the next reputation mining cycle (max 24h)
 const makePayment = async (to: string): Promise<ContractReceipt> => {
   // Create payment in newly created domain
-  const [, receipt] = await colony.pay(to, w`0.42`, domainData.domainId);
+  const [, receipt] = await colony.forcePay(to, w`0.42`, domainData.domainId);
   return receipt;
 };
 

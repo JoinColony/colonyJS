@@ -46,7 +46,7 @@ const fundColony = async (amount: string) => {
 // Make a payment to the given user in the MetaColony's native token (CLNY). This will cause the user to have reputation in the new domain after the next reputation mining cycle (max 24h)
 const makePayment = async (to: string) => {
   // Pay 10 CLNY to the recipient
-  return metaColony.pay(to, w`10`);
+  return metaColony.forcePay(to, w`10`);
 };
 
 // We're using Ganache's evm_increaseTime and evm_mine methods to first increase the block time artificially by one hour and then force a block to mine. This will trigger the local reputation oracle/miner to award the pending reputation.
