@@ -35,6 +35,8 @@ export {
   LogSetOwnerEventObject,
 } from '../contracts/latest/ColonyExtension';
 
+export * from '../contracts/latest/MetaTxToken';
+
 export * from '../contracts/__dynamic__/CoinMachineEvents';
 export * from '../contracts/__dynamic__/IColonyEvents';
 export * from '../contracts/__dynamic__/IColonyNetworkEvents';
