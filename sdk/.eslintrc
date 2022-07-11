@@ -1,49 +1,68 @@
 {
-  "parser": "@typescript-eslint/parser",
-  "extends": [
-    "plugin:@typescript-eslint/recommended",
-    "@colony/eslint-config-colony"
-  ],
-  "plugins": [
-    "@typescript-eslint"
-  ],
-  "env": {
-    "browser": true,
-    "node": true
-  },
-  "rules": {
-    "camelcase": ["error", { "allow": [".+_EventFilter$", ".+_EventObject$", ".+__factory"]}],
-    "no-unused-vars": "off",
-    "no-redeclare": "off",
-    "no-use-before-define": "off",
-    "no-dupe-class-members": "off",
-    "@typescript-eslint/no-unused-vars": "error",
-    "no-shadow": "off",
-    "@typescript-eslint/no-shadow": ["error"],
-    "import/extensions": "off",
-    "import/no-unresolved": "off",
-    "import/prefer-default-export": "off",
-    "import/no-extraneous-dependencies": ["error", {
-        "devDependencies": ["scripts/*.ts", "src/__tests__/*.ts", "examples/**/*.ts"]
-    }]
-  },
-  "overrides": [
-    {
-      "files": [
-        "**/__tests__/*.ts"
-      ],
-      "env": {
-        "jest": true
-      }
+    "parser": "@typescript-eslint/parser",
+    "extends": [
+        "plugin:@typescript-eslint/recommended",
+        "@colony/eslint-config-colony"
+    ],
+    "plugins": [
+        "@typescript-eslint"
+    ],
+    "env": {
+        "browser": true,
+        "node": true
     },
-    {
-        "files": [
-            "**/contracts/**/*.ts"
+    "rules": {
+        "camelcase": [
+            "error",
+            {
+                "allow": [
+                    ".+_EventFilter$",
+                    ".+_EventObject$",
+                    ".+__factory"
+                ]
+            }
         ],
-        "rules": {
-            "eslint-comments/disable-enable-pair": "off",
-            "eslint-comments/no-unlimited-disable": "off"
+        "no-unused-vars": "off",
+        "no-redeclare": "off",
+        "no-use-before-define": "off",
+        "no-dupe-class-members": "off",
+        "@typescript-eslint/no-unused-vars": "error",
+        "no-shadow": "off",
+        "@typescript-eslint/no-shadow": [
+            "error"
+        ],
+        "import/extensions": "off",
+        "import/no-unresolved": "off",
+        "import/prefer-default-export": "off",
+        "import/no-extraneous-dependencies": [
+            "error",
+            {
+                "devDependencies": [
+                    "scripts/*.ts",
+                    "src/__tests__/*.ts",
+                    "examples/node/*.ts",
+                    "examples/browser/src/*.ts"
+                ]
+            }
+        ]
+    },
+    "overrides": [
+        {
+            "files": [
+                "**/__tests__/*.ts"
+            ],
+            "env": {
+                "jest": true
+            }
+        },
+        {
+            "files": [
+                "**/contracts/**/*.ts"
+            ],
+            "rules": {
+                "eslint-comments/disable-enable-pair": "off",
+                "eslint-comments/no-unlimited-disable": "off"
+            }
         }
-    }
-  ]
+    ]
 }

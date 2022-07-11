@@ -17,4 +17,4 @@ const addColonyRPC = () => {
   });
 };
 
-document.querySelector('#add_rpc').addEventListener('click', addColonyRPC);
+document.querySelector('#add_rpc')?.addEventListener('click', addColonyRPC);

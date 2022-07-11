@@ -36,6 +36,10 @@ const createTeam = async (): Promise<{
     ipfsTestHash,
   );
 
+  if (!domainId || !fundingPotId || !getMetadata) {
+    throw new Error('Transaction event data not found');
+  }
+
   const { domainName, domainColor, domainPurpose } = await getMetadata();
 
   return {
@@ -50,6 +54,9 @@ const createTeam = async (): Promise<{
 // Move funds from the Root team (default) to the the newly created team
 // Make sure there are enough funds of the native token in the Root teams pot (e.g. by minting them via the Dapp interface)
 const moveFunds = async (): Promise<ContractReceipt> => {
+  if (!domainData.domainId) {
+    throw new Error('No domain created yet');
+  }
   const [, receipt] = await colony.moveFundsToTeam(
     parseUnits('0.66'),
     domainData.domainId,
@@ -75,15 +82,31 @@ const connect = async () => {
 };
 
 // Some setup to display the UI
-const inputAddress: HTMLInputElement = document.querySelector('#address');
+const inputAddress: HTMLInputElement | null =
+  document.querySelector('#address');
 const buttonConnect = document.querySelector('#button_connect');
 const buttonTeam = document.querySelector('#button_team');
 const buttonFund = document.querySelector('#button_fund');
-const inputRecipient: HTMLInputElement = document.querySelector('#recipient');
+const inputRecipient: HTMLInputElement | null =
+  document.querySelector('#recipient');
 const buttonPay = document.querySelector('#button_pay');
 
-const errElm: HTMLParagraphElement = document.querySelector('#error');
-const resultElm: HTMLParagraphElement = document.querySelector('#result');
+const errElm: HTMLParagraphElement | null = document.querySelector('#error');
+const resultElm: HTMLParagraphElement | null =
+  document.querySelector('#result');
+
+if (
+  !inputAddress ||
+  !inputRecipient ||
+  !errElm ||
+  !resultElm ||
+  !buttonConnect ||
+  !buttonTeam ||
+  !buttonFund ||
+  !buttonPay
+) {
+  throw new Error('Could not find all required HTML elements');
+}
 
 const panik = (err: Error) => {
   errElm.innerText = `Found an error: ${err.message}`;
@@ -116,7 +139,7 @@ buttonConnect.addEventListener('click', async () => {
             Native token funding: ${funding} ${tokenSymbol}
         `);
   } catch (e) {
-    panik(e);
+    panik(e as Error);
     speak('');
   } finally {
     inputAddress.value = '';
@@ -135,7 +158,7 @@ buttonTeam.addEventListener('click', async () => {
       `Team with domainId ${domainId} and fundingPotId ${fundingPotId} successfully created. It is called "${domainName}" and has the purpose "${domainPurpose}"`,
     );
   } catch (e) {
-    panik(e);
+    panik(e as Error);
     speak('');
   }
 });
@@ -149,7 +172,7 @@ buttonFund.addEventListener('click', async () => {
     const receipt = await moveFunds();
     console.info(receipt);
   } catch (e) {
-    panik(e);
+    panik(e as Error);
     speak('');
   }
   return speak(`Successfully funded domain ${domainData.domainId}`);
@@ -162,7 +185,7 @@ buttonPay.addEventListener('click', async () => {
     const receipt = await makePayment(recipient);
     console.info(receipt);
   } catch (e) {
-    panik(e);
+    panik(e as Error);
     speak('');
   }
   speak(`Successfully paid 0.42 tokens to ${recipient}`);

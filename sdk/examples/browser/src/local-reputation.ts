@@ -62,18 +62,36 @@ const getReputation = async (userAddress: string): Promise<string> => {
 };
 
 // Some setup to display the UI
-const inputAddress: HTMLInputElement = document.querySelector('#address');
+const inputAddress: HTMLInputElement | null =
+  document.querySelector('#address');
 const buttonConnect = document.querySelector('#button_connect');
-const inputFunding: HTMLInputElement =
+const inputFunding: HTMLInputElement | null =
   document.querySelector('#funding_amount');
 const buttonFund = document.querySelector('#button_fund');
-const inputRecipient: HTMLInputElement = document.querySelector('#recipient');
+const inputRecipient: HTMLInputElement | null =
+  document.querySelector('#recipient');
 const buttonPay = document.querySelector('#button_pay');
 const buttonJump = document.querySelector('#button_jump');
 const buttonReputation = document.querySelector('#button_get_reputation');
 
-const errElm: HTMLParagraphElement = document.querySelector('#error');
-const resultElm: HTMLParagraphElement = document.querySelector('#result');
+const errElm: HTMLParagraphElement | null = document.querySelector('#error');
+const resultElm: HTMLParagraphElement | null =
+  document.querySelector('#result');
+
+if (
+  !inputAddress ||
+  !inputFunding ||
+  !inputRecipient ||
+  !errElm ||
+  !resultElm ||
+  !buttonConnect ||
+  !buttonFund ||
+  !buttonPay ||
+  !buttonJump ||
+  !buttonReputation
+) {
+  throw new Error('Could not find all required HTML elements');
+}
 
 const panik = (err: Error) => {
   errElm.innerText = `Found an error: ${err.message}`;
@@ -101,7 +119,7 @@ buttonConnect.addEventListener('click', async () => {
             Colony version: ${colony.version}.
         `);
   } catch (e) {
-    panik(e);
+    panik(e as Error);
     speak('');
   } finally {
     inputAddress.value = '';
@@ -117,7 +135,7 @@ buttonFund.addEventListener('click', async () => {
     const funding = await fundColony(fundingAmount);
     speak(`Funded MetaColony! Current funding: ${funding} CLNY`);
   } catch (e) {
-    panik(e);
+    panik(e as Error);
     speak('');
   } finally {
     inputAddress.value = '';
@@ -131,7 +149,7 @@ buttonPay.addEventListener('click', async () => {
   try {
     await makePayment(recipient);
   } catch (e) {
-    panik(e);
+    panik(e as Error);
     speak('');
   }
   speak(`Successfully paid 10 CLNY to ${recipient}`);

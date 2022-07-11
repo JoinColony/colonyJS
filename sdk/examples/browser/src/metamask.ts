@@ -19,8 +19,13 @@ const connect = async () => {
 
 // Just some basic setup to display the UI
 const button = document.querySelector('#button');
-const errElm: HTMLParagraphElement = document.querySelector('#error');
-const resultElm: HTMLParagraphElement = document.querySelector('#result');
+const errElm: HTMLParagraphElement | null = document.querySelector('#error');
+const resultElm: HTMLParagraphElement | null =
+  document.querySelector('#result');
+
+if (!button || !errElm || !resultElm) {
+  throw new Error('Could not find all required HTML elements');
+}
 
 const panik = (err: string) => {
   errElm.innerText = err;
@@ -42,7 +47,7 @@ button.addEventListener('click', async () => {
       `Connected to metaColonyClient with version ${metaColonyClient.version}`,
     );
   } catch (e) {
-    panik(`Found an error: ${e.message}`);
+    panik(`Found an error: ${(e as Error).message}`);
     speak('');
   }
 });

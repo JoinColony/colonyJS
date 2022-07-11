@@ -1,4 +1,6 @@
-import { colonySubgraph, gql } from '../../src/graph';
+import { createSubgraphClient, gql } from '../../src/graph';
+
+const colonySubgraph = createSubgraphClient();
 
 // This query fetches the latest DomainAdded event and prints all kinds of information about it
 const QUERY = gql`

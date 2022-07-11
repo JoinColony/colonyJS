@@ -3,7 +3,9 @@
  */
 import { pipe, subscribe } from 'wonka';
 
-import { colonySubgraph, gql } from '../../src/graph';
+import { createSubgraphClient, gql } from '../../src/graph';
+
+const colonySubgraph = createSubgraphClient();
 
 // Get the latest DomainAddedEvents across all Colonies
 const QUERY = gql`

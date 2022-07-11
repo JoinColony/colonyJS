@@ -15,10 +15,16 @@ const getColonyFunding = async (colonyAddress: string) => {
 };
 
 // Just some basic setup to display the UI
-const addressInput: HTMLInputElement = document.querySelector('#address');
+const addressInput: HTMLInputElement | null =
+  document.querySelector('#address');
 const button = document.querySelector('#button');
-const errElm: HTMLParagraphElement = document.querySelector('#error');
-const resultElm: HTMLParagraphElement = document.querySelector('#result');
+const errElm: HTMLParagraphElement | null = document.querySelector('#error');
+const resultElm: HTMLParagraphElement | null =
+  document.querySelector('#result');
+
+if (!addressInput || !button || !errElm || !resultElm) {
+  throw new Error('Could not find all required HTML elements');
+}
 
 const panik = (err: string) => {
   errElm.innerText = err;
@@ -32,7 +38,7 @@ const speak = (msg: string) => {
 
 button.addEventListener('click', async () => {
   kalm();
-  const colonyAddress = addressInput.value;
+  const colonyAddress = addressInput?.value;
   if (!isAddress(colonyAddress)) {
     return panik('This is not a valid address');
   }
@@ -45,7 +51,7 @@ button.addEventListener('click', async () => {
       `${funding} CLNY in root domain of Colony with address: ${colonyAddress}`,
     );
   } catch (e) {
-    panik(`Found an error: ${e.message}`);
+    panik(`Found an error: ${(e as Error).message}`);
     speak('');
   }
   return null;
