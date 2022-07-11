@@ -3,9 +3,15 @@ import {
   ColonyTokenClient,
   SignerOrProvider,
   TokenClientType,
+  TokenLockingClient,
 } from '@colony/colony-js';
+import {
+  ApprovalEventObject,
+  UserTokenDepositedEventObject,
+} from '@colony/colony-js/extras';
 
 import type { BigNumberish } from 'ethers';
+import { extractEvent } from '../utils';
 
 import { SupportedColonyClient } from './Colony';
 
@@ -14,9 +20,11 @@ export class ColonyToken {
 
   private networkClient: ColonyNetworkClient;
 
+  private signerOrProvider: SignerOrProvider;
+
   private tokenClient: ColonyTokenClient;
 
-  private signerOrProvider: SignerOrProvider;
+  private tokenLockingClient?: TokenLockingClient;
 
   // TODO: Add symbol, decimals
   // Get symbol in colonyJS. Use async getToken function
@@ -41,6 +49,14 @@ export class ColonyToken {
     }
     this.tokenClient = colonyClient.tokenClient;
     this.signerOrProvider = colonyClient.signer || colonyClient.provider;
+  }
+
+  private async getTokenLockingClient() {
+    if (!this.tokenLockingClient) {
+      this.tokenLockingClient =
+        await this.colonyClient.networkClient.getTokenLockingClient();
+    }
+    return this.tokenLockingClient;
   }
 
   /**
@@ -75,6 +91,83 @@ export class ColonyToken {
     const tx = await this.colonyClient.mintTokens(amount);
     const receipt = await tx.wait();
     const data = {};
+    return [data, receipt] as [typeof data, typeof receipt];
+  }
+
+  /**
+   * Approve `amount` of the wallet owners holdings of the Colony's native token.
+   *
+   * In order for the wallet owner to stake tokens, that amount has to be approved and deposited into the Colony first. In the dapp the process is called "Activation" of a certain amount of the Colony's native token. The wallet must hold at least the amount of the token that will be approved.
+   *
+   * @example
+   * ```typescript
+   * import { utils } from 'ethers';
+   *
+   * const token = colony.getToken();
+   * // Approve 100 tokens to be "activated"
+   * await token.approve(utils.parseUnits('100'));
+   * // Deposit the tokens
+   * await token.deposit(utils.parseUnits('100'));
+   * ```
+   *
+   * @returns A tupel of event data and contract receipt
+   *
+   * **Event data**
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `src` | string | The address that approved the tokens from their wallet |
+   * | `guy` | string | Address of the TokenLocking contract |
+   * | `wad` | BigNumber | Amount that was approved |
+   */
+  async approve(amount: BigNumberish) {
+    const tokenLockingClient = await this.getTokenLockingClient();
+    const tx = await this.tokenClient.approve(
+      tokenLockingClient.address,
+      amount,
+    );
+    const receipt = await tx.wait();
+    const data = {
+      ...extractEvent<ApprovalEventObject>('Approval', receipt),
+    };
+    return [data, receipt] as [typeof data, typeof receipt];
+  }
+
+  /**
+   * Deposit `amount` of the wallet owners holdings of the Colony's native token into the Colony.
+   *
+   * In order for the wallet owner to stake tokens, that amount has to be approved and deposited into the Colony first. In the dapp the process is called "Activation" of a certain amount of the Colony's native token. The wallet must hold at least the amount of the token that will be deposited.
+   *
+   * @example
+   * ```typescript
+   * import { utils } from 'ethers';
+   *
+   * const token = colony.getToken();
+   * // Approve 100 tokens to be "activated"
+   * await token.approve(utils.parseUnits('100'));
+   * // Deposit the tokens
+   * await token.deposit(utils.parseUnits('100'));
+   * ```
+   *
+   * @returns A tupel of event data and contract receipt
+   *
+   * **Event data**
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `token` | string | The address of the Colony's native token |
+   * | `user` | string | The address that deposited the tokens from their wallet |
+   * | `amount` | BigNumber | Amount that was deposited |
+   */
+  async deposit(amount: BigNumberish) {
+    const tokenLockingClient = await this.getTokenLockingClient();
+    const tx = await tokenLockingClient['deposit(address,uint256,bool)'](
+      this.tokenClient.address,
+      amount,
+      false,
+    );
+    const receipt = await tx.wait();
+    const data = {
+      ...extractEvent<UserTokenDepositedEventObject>('Approval', receipt),
+    };
     return [data, receipt] as [typeof data, typeof receipt];
   }
 }
