@@ -36,6 +36,7 @@ export {
 } from '../contracts/latest/ColonyExtension';
 
 export * from '../contracts/latest/MetaTxToken';
+export * from '../contracts/latest/TokenLocking';
 
 export * from '../contracts/__dynamic__/CoinMachineEvents';
 export * from '../contracts/__dynamic__/IColonyEvents';
