@@ -7,7 +7,11 @@ import {
 } from '@colony/colony-js';
 
 import { IpfsMetadata } from '../events/IpfsMetadata';
-import { Colony } from './Colony';
+import { Colony, SupportedExtensions } from './Colony';
+import {
+  getVotingReputationClient,
+  VotingReputation,
+} from './VotingReputation';
 
 export class ColonyNetwork {
   private signerOrProvider: SignerOrProvider;
@@ -74,7 +78,23 @@ export class ColonyNetwork {
         `The version of this Colony ${colonyClient.clientVersion} is not supported by Colony SDK. Please update your Colony`,
       );
     }
-    return new Colony(this, colonyClient);
+
+    const extensions: SupportedExtensions = {};
+
+    // NOTE: Create an individual try-catch block for every extension
+    try {
+      const votingReputationClient = await getVotingReputationClient(
+        colonyClient,
+      );
+      extensions.motions = new VotingReputation(
+        colonyClient,
+        votingReputationClient,
+      );
+    } catch (e) {
+      // Ignore error here. Extension just won't be available.
+    }
+
+    return new Colony(this, colonyClient, extensions);
   }
 
   /**
