@@ -122,7 +122,7 @@ export class MotionCreator {
    * // Immediately executing async function
    * (async function() {
    *   // Pay 10 XDAI (on Gnosis chain) from the root domain to the following address
-   *   await colony.pay(
+   *   await colony.ext.motions.create.pay(
    *      '0xb77D57F4959eAfA0339424b83FcFaf9c15407461',
    *      utils.parseUnits('10'),
    *      Id.RootDomain,
@@ -216,7 +216,7 @@ export class MotionCreator {
    * // Immediately executing async function
    * (async function() {
    *   // Move 10 of the native token from team 2 to team 3
-   *   await colony.moveFundsToTeam(
+   *   await colony.ext.motions.create.moveFundsToTeam(
    *      utils.parseUnits('10'),
    *      2,
    *      3,
