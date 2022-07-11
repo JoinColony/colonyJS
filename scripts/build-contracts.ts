@@ -48,6 +48,7 @@ const tokenContracts = [
   'Token',
   'TokenERC20',
   'TokenSAI',
+  'MetaTxToken',
 ];
 const version = CurrentColonyVersion;
 const outRoot = resolvePath(__dirname, '../src/contracts');
@@ -73,7 +74,7 @@ const provisionNetworkVendor = async (tag: string): Promise<void> => {
   if (gitSubmodule.stdout) gitSubmodule.stdout.pipe(process.stdout);
   await gitSubmodule;
 
-  const yarn = execute('yarn', ['install'], {
+  const yarn = execute('yarn', ['install', '--pure-lockfile'], {
     cwd: networkDir,
   });
   if (yarn.stdout) yarn.stdout.pipe(process.stdout);

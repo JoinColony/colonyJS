@@ -25,6 +25,7 @@ import {
   ColonyExtensionsV9,
   ExtendedEstimateV9,
 } from './extensions/extensionsV9';
+import { addEncodeInterfaces } from './interfaces/encodeInterfacesV9';
 import { getAllAbiEvents, getAbiFunctions } from '../../utils';
 import { ColonyVersion } from '../../versions';
 
@@ -85,5 +86,16 @@ export default function getColonyClient(
   colonyClientV9.clientVersion = ColonyVersion.FuchsiaLightweightSpaceship;
   addExtensions(colonyClientV9, this);
 
-  return colonyClientV9 as ColonyClientV9;
+  /*
+   * @NOTE We need to reassign the whole instance since we can't just modify
+   * the passed in client (like `addExtensions` does).
+   *
+   * This is because we're adding to both `interfaces` and `functions` props
+   * of the class, and those are set by default as non-writtable
+   * (and non-cofigurable)
+   *
+   * Because of that, we clone instance of the client, which, after we change it,
+   * needs to be re-assigned in order to reflect the new changes.
+   */
+  return (addEncodeInterfaces(colonyClientV9) as unknown) as ColonyClientV9;
 }

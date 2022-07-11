@@ -3,8 +3,8 @@ import { Provider } from 'ethers/providers';
 import { getAddress, isHexString, parseBytes32String } from 'ethers/utils';
 
 import { ClientType, TokenClientType, tokenAddresses } from '../constants';
-import { Token__factory as TokenFactory } from '../contracts/colony/9/factories/Token__factory';
-import { Token } from '../contracts/colony/9/Token';
+import { MetaTxToken__factory as MetaTxTokenFactory } from '../contracts/colony/9/factories/MetaTxToken__factory';
+import { MetaTxToken } from '../contracts/colony/9/MetaTxToken';
 import { TokenERC20__factory as TokenErc20Factory } from '../contracts/colony/9/factories/TokenERC20__factory';
 import { TokenERC20 as TokenErc20 } from '../contracts/colony/9/TokenERC20';
 import { TokenSAI__factory as TokenSaiFactory } from '../contracts/colony/9/factories/TokenSAI__factory';
@@ -20,7 +20,7 @@ export interface TokenInfo {
 }
 
 /** The TokenClient is a good client that does awesome things */
-export interface ColonyTokenClient extends Token {
+export interface ColonyTokenClient extends MetaTxToken {
   clientType: ClientType.TokenClient;
   tokenClientType: TokenClientType.Colony;
 
@@ -50,7 +50,7 @@ const getTokenClient = async (
   let tokenClient: TokenClient;
   let isColonyToken = false;
 
-  tokenClient = TokenFactory.connect(
+  tokenClient = MetaTxTokenFactory.connect(
     address,
     signerOrProvider,
   ) as ColonyTokenClient;

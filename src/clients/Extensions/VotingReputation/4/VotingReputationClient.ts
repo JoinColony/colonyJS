@@ -12,10 +12,12 @@ import { VotingReputation__factory as VotingReputationFactory } from '../../../.
 import { VotingReputation } from '../../../../contracts/extensions/votingReputation/4/VotingReputation';
 import { ExtendedIColony } from '../../../../clients/Colony/extensions/commonExtensions';
 
-import * as currentVersion from './VotingReputationClientAddons';
-import * as version1 from '../1/VotingReputationClientAddons';
-import * as version2 from '../2/VotingReputationClientAddons';
-import * as version3 from '../3/VotingReputationClientAddons';
+import * as currentVersionAddons from './VotingReputationClientAddons';
+import * as version1Addons from '../1/VotingReputationClientAddons';
+import * as version2Addons from '../2/VotingReputationClientAddons';
+import * as version3Addons from '../3/VotingReputationClientAddons';
+
+import * as currentVersionEncodedInterfaces from './VotingReputationClientEncodeInterfaces';
 
 type VotingReputationEstimate = VotingReputation['estimate'];
 interface VotingReputationEstimateWithAddons extends VotingReputationEstimate {
@@ -47,41 +49,49 @@ const getVotingReputationClient = (
   votingReputationClient.clientType = ClientType.VotingReputationClient;
 
   const addons = {
-    ...version1.getVotingReputationClientAddons(
+    ...version1Addons.getVotingReputationClientAddons(
       votingReputationClient,
       colonyClient,
     ),
-    ...version2.getVotingReputationClientAddons(
+    ...version2Addons.getVotingReputationClientAddons(
       votingReputationClient,
       colonyClient,
     ),
-    ...version3.getVotingReputationClientAddons(
+    ...version3Addons.getVotingReputationClientAddons(
       votingReputationClient,
       colonyClient,
     ),
-    ...currentVersion.getVotingReputationClientAddons(
+    ...currentVersionAddons.getVotingReputationClientAddons(
       votingReputationClient,
       colonyClient,
     ),
   };
   const addonsEstimate = {
-    ...version1.getVotingReputationClientEstimateAddons(
+    ...version1Addons.getVotingReputationClientEstimateAddons(
       votingReputationClient,
       colonyClient,
     ),
-    ...version2.getVotingReputationClientEstimateAddons(
+    ...version2Addons.getVotingReputationClientEstimateAddons(
       votingReputationClient,
       colonyClient,
     ),
-    ...version3.getVotingReputationClientEstimateAddons(
+    ...version3Addons.getVotingReputationClientEstimateAddons(
       votingReputationClient,
       colonyClient,
     ),
-    ...currentVersion.getVotingReputationClientEstimateAddons(
+    ...currentVersionAddons.getVotingReputationClientEstimateAddons(
       votingReputationClient,
       colonyClient,
     ),
   };
+
+  const encodedInterfaces = {
+    ...currentVersionEncodedInterfaces.getOneTxPaymentClientEncodeInterfaces(
+      votingReputationClient,
+      colonyClient,
+    ),
+  };
+
   Object.keys(addons).map((addonName) => {
     votingReputationClient[addonName] = addons[addonName];
     return null;
@@ -89,6 +99,18 @@ const getVotingReputationClient = (
 
   Object.keys(addonsEstimate).map((addonName) => {
     votingReputationClient.estimate[addonName] = addonsEstimate[addonName];
+    return null;
+  });
+
+  Object.keys(encodedInterfaces).map((interfaceName) => {
+    /*
+     * @NOTE We're adding new interfaces to the functions list that the client
+     * implicitly doesn't know about
+     */
+    // @ts-ignore
+    votingReputationClient.interface.functions[interfaceName] = {
+      encode: encodedInterfaces[interfaceName],
+    };
     return null;
   });
 
