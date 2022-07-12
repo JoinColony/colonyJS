@@ -4,7 +4,7 @@ import { ColonyRole, Extension, Id } from '../src/constants';
 // Helper to set up the OneTxPayment extension. This is usually already done for Colonies deployed with the Dapp.
 export const setupOneTxPaymentExtension = async (colony: Colony) => {
   // eslint-disable-next-line no-underscore-dangle
-  const colonyClient = colony._getColonyClient();
+  const colonyClient = colony.getInternalColonyClient();
   let oneTxExtension;
 
   try {

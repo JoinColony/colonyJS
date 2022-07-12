@@ -85,6 +85,8 @@ export class ColonyToken {
    * await colony.claimFunds();
    * ```
    *
+   * @param amount Amount of the token to be minted
+   *
    * @returns A tupel of event data and contract receipt
    */
   async mint(amount: BigNumberish) {
@@ -109,6 +111,8 @@ export class ColonyToken {
    * // Deposit the tokens
    * await token.deposit(utils.parseUnits('100'));
    * ```
+   *
+   * @param amount Amount of the token to be approved
    *
    * @returns A tupel of event data and contract receipt
    *
@@ -147,6 +151,8 @@ export class ColonyToken {
    * // Deposit the tokens
    * await token.deposit(utils.parseUnits('100'));
    * ```
+   *
+   * @param amount Amount of the token to be deposited
    *
    * @returns A tupel of event data and contract receipt
    *

@@ -106,7 +106,7 @@ export class Colony {
    *
    * @returns The internally used ColonyClient
    */
-  _getColonyClient(): SupportedColonyClient {
+  getInternalColonyClient(): SupportedColonyClient {
     return this.colonyClient;
   }
 
@@ -206,6 +206,23 @@ export class Colony {
       'DomainMetadata(address,uint256,string)',
       receipt,
     );
+  }
+
+  /**
+   * Gets the team for `teamId`
+   *
+   * @remarks Will throw if teamId does not exist
+   *
+   * @param teamId The teamId to get the team information for
+   * FIXME: get the type somehow
+   * @returns A Team object
+   */
+  async getTeam(teamId: BigNumberish) {
+    const teamCount = await this.colonyClient.getDomainCount();
+    if (teamCount.lt(teamId)) {
+      throw new Error(`Team with id ${teamId} does not exist`);
+    }
+    return this.colonyClient.getDomain(teamId);
   }
 
   /**

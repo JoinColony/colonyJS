@@ -1,6 +1,12 @@
 export { Tokens } from '@colony/colony-js';
 
-export { ColonyNetwork, Colony } from './ColonyNetwork';
+export {
+  ColonyNetwork,
+  Colony,
+  MotionCreator,
+  VotingReputation,
+  Vote,
+} from './ColonyNetwork';
 export { ColonyEventManager } from './events/ColonyEventManager';
 
 export type {
