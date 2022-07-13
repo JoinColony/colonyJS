@@ -18,6 +18,13 @@ import { extractEvent } from '../utils';
 import { SupportedColonyClient } from './Colony';
 import { SupportedVotingReputationClient } from './VotingReputation';
 
+/**
+ * MotionCreator
+ *
+ * This is part of the [[VotingReputation]] class and not to be meant to instantiated directly.
+ * You can find an instance of this under `colony.ext.motions.create`
+ *
+ */
 export class MotionCreator {
   private colonyClient: SupportedColonyClient;
 
