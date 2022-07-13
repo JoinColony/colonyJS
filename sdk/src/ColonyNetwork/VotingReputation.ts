@@ -36,6 +36,8 @@ export const getVotingReputationClient = async (
   return votingReputationClient;
 };
 
+const REP_DIVISOR = BigNumber.from(10).pow(18);
+
 export class VotingReputation {
   private colonyClient: SupportedColonyClient;
 
@@ -57,8 +59,8 @@ export class VotingReputation {
    *
    * @remarks Will throw if motionId does not exist
    *
-   * @param motionId The motionId to get the team information for
-   * FIXME: get the type somehow
+   * @param motionId The motionId to get the information for
+   *
    * @returns A Motion object
    */
   async getMotion(motionId: BigNumberish) {
@@ -67,6 +69,92 @@ export class VotingReputation {
       throw new Error(`Motion with id ${motionId} does not exist`);
     }
     return this.votingReputationClient.getMotion(motionId);
+  }
+
+  /**
+   * Get the minimum stake that has to be supplied for a motion and a certain vote (NOT for activation)
+   *
+   * @remarks To get the missing amount for activation, call [[getMotionStakes]]
+   *
+   * @param motionId The motionId of the motion
+   * @param vote The vote to be cast
+   *
+   * @returns The minimum stake amount
+   */
+  async getMinStake(motionId: BigNumberish, vote: Vote) {
+    // skillRep is the amount of reputation in the domain the motion was created in
+    // at the time the motion was created
+    const {
+      skillRep,
+      stakes: [totalNay, totalYay],
+    } = await this.getMotion(motionId);
+
+    // Fraction of the total amount that is required to be staked for either side
+    // (Yay or Nay) to be activated
+    const totalStakeFraction =
+      await this.votingReputationClient.getTotalStakeFraction();
+    // Fraction of the total amount that has to be staked per transaction
+    const userMinStakeFraction =
+      await this.votingReputationClient.getUserMinStakeFraction();
+    // Total amount that is needed for activation
+    const requiredStakeForActivation = skillRep
+      .mul(totalStakeFraction)
+      .div(REP_DIVISOR);
+    // Total amount that is needed per transaction
+    const minStakePerUser = requiredStakeForActivation
+      .mul(userMinStakeFraction)
+      .div(REP_DIVISOR);
+
+    // The minimum amount to be staked is usually the minStakePerUser
+    // With one exception. If less than minStakePerUser is needed to activate the
+    // voted side then this is the minimum amount
+    // E.g.:
+    // Stake to activation: 10
+    // Already staked for Yay: 9
+    // Minimum stake per transaction: 2
+    // Here the minimum becomes 1 (instead of 2) as this is what's missing for activation
+    let minStake = minStakePerUser;
+    if (vote === Vote.Nay && totalNay.lt(requiredStakeForActivation)) {
+      const requiredNay = requiredStakeForActivation.sub(totalNay);
+      minStake = requiredNay.lt(minStakePerUser)
+        ? requiredNay
+        : minStakePerUser;
+    } else if (totalYay.lt(requiredStakeForActivation)) {
+      const requiredYay = requiredStakeForActivation.sub(totalYay);
+      minStake = requiredYay.lt(minStakePerUser)
+        ? requiredYay
+        : minStakePerUser;
+    }
+    return minStake;
+  }
+
+  /**
+   * Get the amounts remaining for Yay/Nay sides to be activated
+   *
+   * @param motionId The motionId of the motion
+   *
+   * @returns An object containing the remaining amounts
+   */
+  async getRemainingMotionStakes(motionId: BigNumberish) {
+    const {
+      skillRep,
+      stakes: [totalNay, totalYay],
+    } = await this.getMotion(motionId);
+
+    // Fraction of the total amount that is required to be staked for either side
+    // (Yay or Nay) to be activated
+    const totalStakeFraction =
+      await this.votingReputationClient.getTotalStakeFraction();
+    // Fraction of the total amount that has to be staked per transaction
+    // Total amount that is needed for activation
+    const requiredStakeForActivation = skillRep
+      .mul(totalStakeFraction)
+      .div(REP_DIVISOR);
+
+    return {
+      remainingToFullyNayStaked: requiredStakeForActivation.sub(totalNay),
+      remainingToFullyYayStaked: requiredStakeForActivation.sub(totalYay),
+    };
   }
 
   /**
@@ -145,6 +233,14 @@ export class VotingReputation {
    * | `eventIndex` | BigNumber | If the stake triggered a motion event, this will contain its index |
    */
   async stakeMotion(motionId: BigNumberish, vote: Vote, amount: BigNumberish) {
+    const minStake = await this.getMinStake(motionId, vote);
+
+    if (amount < minStake) {
+      throw new Error(
+        `The staked amount is too small. Please stake at least ${minStake}`,
+      );
+    }
+
     const tx = await this.votingReputationClient.stakeMotionWithProofs(
       motionId,
       BigNumber.from(vote),
