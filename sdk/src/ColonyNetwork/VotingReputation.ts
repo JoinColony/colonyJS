@@ -1,10 +1,17 @@
-import { Extension, Id, VotingReputationClientV4 } from '@colony/colony-js';
+import {
+  Extension,
+  Id,
+  MotionState,
+  VotingReputationClientV4,
+} from '@colony/colony-js';
 import {
   MotionEventSetEventObject,
+  MotionFinalizedEventObject,
   MotionStakedEventObject,
+  MotionVoteSubmittedEventObject,
   UserTokenApprovedEventObject,
 } from '@colony/colony-js/extras';
-import { BigNumber, BigNumberish } from 'ethers';
+import { BigNumber, BigNumberish, utils } from 'ethers';
 import { extractEvent } from '../utils';
 
 import { SupportedColonyClient } from './Colony';
@@ -77,7 +84,7 @@ export class VotingReputation {
    * @remarks To get the missing amount for activation, call [[getMotionStakes]]
    *
    * @param motionId The motionId of the motion
-   * @param vote The vote to be cast
+   * @param vote A vote for (Yay) or against (Nay) the motion
    *
    * @returns The minimum stake amount
    */
@@ -151,9 +158,17 @@ export class VotingReputation {
       .mul(totalStakeFraction)
       .div(REP_DIVISOR);
 
+    const remainingToFullyNayStaked = totalNay.gte(requiredStakeForActivation)
+      ? BigNumber.from(0)
+      : requiredStakeForActivation.sub(totalNay);
+
+    const remainingToFullyYayStaked = totalYay.gte(requiredStakeForActivation)
+      ? BigNumber.from(0)
+      : requiredStakeForActivation.sub(totalYay);
+
     return {
-      remainingToFullyNayStaked: requiredStakeForActivation.sub(totalNay),
-      remainingToFullyYayStaked: requiredStakeForActivation.sub(totalYay),
+      remainingToFullyNayStaked,
+      remainingToFullyYayStaked,
     };
   }
 
@@ -251,6 +266,114 @@ export class VotingReputation {
     const data = {
       ...extractEvent<MotionStakedEventObject>('MotionStaked', receipt),
       ...extractEvent<MotionEventSetEventObject>('MotionEventSet', receipt),
+    };
+
+    return [data, receipt] as [typeof data, typeof receipt];
+  }
+
+  /**
+   * Submit a vote for a motion
+   *
+   * @param motionId The motionId of the motion to be finalized
+   * @param vote A vote for (Yay) or against (Nay) the motion
+   *
+   * @returns A tupel of event data and contract receipt
+   *
+   * **Event data**
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `motionId` | BigNumber | ID of the motion created |
+   * | `voter` | string | The address of the user who voted |
+   */
+  async submitVote(motionId: BigNumberish, vote: Vote) {
+    const motionState = await this.votingReputationClient.getMotionState(
+      motionId,
+    );
+
+    // TODO: we might want to improve this error message by giving the exact reason
+    if (motionState !== MotionState.Submit) {
+      throw new Error('Motion cannot be voted on at this time');
+    }
+
+    const { domainId, rootHash } = await this.getMotion(motionId);
+    const { skillId } = await this.colonyClient.getDomain(domainId);
+    const userAddress = await this.colonyClient.signer.getAddress();
+    const { address } = this.votingReputationClient;
+    const motionNumber = BigNumber.from(motionId).toNumber();
+
+    const { key, value, branchMask, siblings } =
+      await this.colonyClient.getReputation(skillId, userAddress, rootHash);
+
+    /*
+     * NOTE We need this to be all in one line (no new lines, or line breaks) since
+     * Metamask doesn't play nice with them and will replace them, in the message
+     * presented to the user with \n
+     */
+    const message = `Sign this message to generate 'salt' entropy. Extension Address: ${address} Motion ID: ${motionNumber}`;
+
+    const signature = await this.colonyClient.signer.signMessage(message);
+    const hash = utils.solidityKeccak256(
+      ['bytes', 'uint256'],
+      [utils.keccak256(signature), vote],
+    );
+
+    const tx = await this.votingReputationClient.submitVote(
+      motionId,
+      hash,
+      key,
+      value,
+      branchMask,
+      siblings,
+    );
+
+    const receipt = await tx.wait();
+
+    const data = {
+      ...extractEvent<MotionVoteSubmittedEventObject>(
+        'MotionVoteSubmitted',
+        receipt,
+      ),
+    };
+
+    return [data, receipt] as [typeof data, typeof receipt];
+  }
+
+  /**
+   * Finalize a motion, executing its action
+   *
+   * @remarks A motion cannot be finalized if:
+   * - The required Yay or Nay stake amount has not been reached
+   * - The staking period is not up yet
+   * - Voting is still in progress
+   * - The motion was already finalized
+   *
+   * @param motionId The motionId of the motion to be finalized
+   *
+   * @returns A tupel of event data and contract receipt
+   *
+   * **Event data**
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `motionId` | BigNumber | ID of the motion created |
+   * | `action` | string | The action that was executed in case Yay won |
+   * | `exectued` | boolean | Whether the action was executed (Yay won)|
+   */
+  async finalizeMotion(motionId: BigNumberish) {
+    const motionState = await this.votingReputationClient.getMotionState(
+      motionId,
+    );
+
+    // TODO: we might want to improve this error message by giving the exact reason
+    if (motionState !== MotionState.Finalizable) {
+      throw new Error('Motion is not finalizable (yet)');
+    }
+
+    const tx = await this.votingReputationClient.finalizeMotion(motionId);
+
+    const receipt = await tx.wait();
+
+    const data = {
+      ...extractEvent<MotionFinalizedEventObject>('MotionFinalized', receipt),
     };
 
     return [data, receipt] as [typeof data, typeof receipt];
