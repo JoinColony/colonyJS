@@ -77,7 +77,7 @@ export class MotionCreator {
   /**
    * Create a motion to create a team within a Colony
    *
-   * For more information about the resulting action, see [[Colony.forceCreateTeam]].
+   * For more information about the resulting action, see [[Colony.createTeam]].
    *
    * @remarks
    * Currently you can only add domains within the `Root` domain. This restriction will be lifted soon
@@ -117,7 +117,7 @@ export class MotionCreator {
   /**
    * Create a motion to make a payment to a single address using a single token
    *
-   * For more information about the resulting action, see [[Colony.forcePay]].
+   * For more information about the resulting action, see [[Colony.pay]].
    *
    * @remarks Requires the `OneTxPayment` extension to be installed for the Colony (this is usually the case for Colonies created via the Dapp). Note that most tokens use 18 decimals, so add a bunch of zeros or use ethers' `parseUnits` function (see example)
    *
@@ -209,7 +209,7 @@ export class MotionCreator {
   /**
    * Create a motion to move funds from one team to another
    *
-   * For more information about the resulting action, see [[Colony.forceMoveFundsToTeam]].
+   * For more information about the resulting action, see [[Colony.moveFundsToTeam]].
    *
    * After sending funds to and claiming funds for your Colony they will land in a special team, the root team. If you want to make payments from other teams (in order to award reputation in that team) you have to move the funds there first. Use this method to do so.
    *
