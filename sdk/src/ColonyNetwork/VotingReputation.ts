@@ -8,6 +8,7 @@ import {
   MotionEventSetEventObject,
   MotionFinalizedEventObject,
   MotionStakedEventObject,
+  MotionVoteRevealedEventObject,
   MotionVoteSubmittedEventObject,
   UserTokenApprovedEventObject,
 } from '@colony/colony-js/extras';
@@ -24,6 +25,10 @@ export enum Vote {
 
 export type SupportedVotingReputationClient = VotingReputationClientV4;
 export const SUPPORTED_VOTING_REPUTATION_VERSION = 4;
+
+type ReputationData = Awaited<
+  ReturnType<SupportedColonyClient['getReputation']>
+>;
 
 export const getVotingReputationClient = async (
   colonyClient: SupportedColonyClient,
@@ -45,6 +50,14 @@ export const getVotingReputationClient = async (
 
 const REP_DIVISOR = BigNumber.from(10).pow(18);
 
+/**
+ * Motions & Disputes (a.k.a. `VotingReputation`)
+ *
+ * The VotingReputation extension allows any member of your colony to propose a Motion to take an Action that will pass after a security delay unless somebody Objects. This applies to all Actions, such as creating an expenditure, managing funds, or managing teams.
+ *
+ * See [here](https://colony.gitbook.io/colony/extensions/governance) for more information.
+ *
+ */
 export class VotingReputation {
   private colonyClient: SupportedColonyClient;
 
@@ -59,6 +72,64 @@ export class VotingReputation {
     this.create = new MotionCreator(colonyClient, votingReputationClient);
     this.colonyClient = colonyClient;
     this.votingReputationClient = votingReputationClient;
+  }
+
+  /**
+   * Have the user sign a message to create a salt for casting and revealing a vote
+   */
+  private async createMotionSalt(motionId: BigNumberish) {
+    const { address } = this.votingReputationClient;
+    const motionNumber = BigNumber.from(motionId).toNumber();
+    /*
+     * NOTE We need this to be all in one line (no new lines, or line breaks) since
+     * Metamask doesn't play nice with them and will replace them, in the message
+     * presented to the user with \n
+     */
+    const message = `Sign this message to generate 'salt' entropy. Extension Address: ${address} Motion ID: ${motionNumber}`;
+    const signature = await this.colonyClient.signer.signMessage(message);
+    return utils.keccak256(signature);
+  }
+
+  /**
+   * Gets the side the user voted for by testing both options and asserting which one reverts. This method is not 100% failsafe as the contract could revert for other reasons, so it's safer to provide the vote manually
+   */
+  private async getSideVoted(
+    motionId: BigNumberish,
+    salt: string,
+    reputation: ReputationData,
+  ) {
+    const { key, value, branchMask, siblings } = reputation;
+    let sideVoted;
+    try {
+      await this.votingReputationClient.estimateGas.revealVote(
+        motionId,
+        salt,
+        0,
+        key,
+        value,
+        branchMask,
+        siblings,
+      );
+      sideVoted = Vote.Nay;
+    } catch (nayErr) {
+      if ((nayErr as Error).message.includes('voting-rep-secret-no-match')) {
+        try {
+          await this.votingReputationClient.estimateGas.revealVote(
+            motionId,
+            salt,
+            1,
+            key,
+            value,
+            branchMask,
+            siblings,
+          );
+          sideVoted = Vote.Yay;
+        } catch (yayErr) {
+          // Can't find a matching vote that was cast
+        }
+      }
+    }
+    return sideVoted;
   }
 
   /**
@@ -298,24 +369,12 @@ export class VotingReputation {
     const { domainId, rootHash } = await this.getMotion(motionId);
     const { skillId } = await this.colonyClient.getDomain(domainId);
     const userAddress = await this.colonyClient.signer.getAddress();
-    const { address } = this.votingReputationClient;
-    const motionNumber = BigNumber.from(motionId).toNumber();
 
     const { key, value, branchMask, siblings } =
       await this.colonyClient.getReputation(skillId, userAddress, rootHash);
 
-    /*
-     * NOTE We need this to be all in one line (no new lines, or line breaks) since
-     * Metamask doesn't play nice with them and will replace them, in the message
-     * presented to the user with \n
-     */
-    const message = `Sign this message to generate 'salt' entropy. Extension Address: ${address} Motion ID: ${motionNumber}`;
-
-    const signature = await this.colonyClient.signer.signMessage(message);
-    const hash = utils.solidityKeccak256(
-      ['bytes', 'uint256'],
-      [utils.keccak256(signature), vote],
-    );
+    const salt = await this.createMotionSalt(motionId);
+    const hash = utils.solidityKeccak256(['bytes', 'uint256'], [salt, vote]);
 
     const tx = await this.votingReputationClient.submitVote(
       motionId,
@@ -331,6 +390,77 @@ export class VotingReputation {
     const data = {
       ...extractEvent<MotionVoteSubmittedEventObject>(
         'MotionVoteSubmitted',
+        receipt,
+      ),
+    };
+
+    return [data, receipt] as [typeof data, typeof receipt];
+  }
+
+  /**
+   * Reveal a vote for a motion
+   *
+   * @remarks In order for a vote to count it has to be revealed within the reveal period. Only then rewards can be paid out to the voter.
+   *
+   * @param motionId The motionId of the motion to be finalized
+   * @param vote The vote that was cast. If not provided Colony SDK will try to find out which side was voted on (not recommended)
+   *
+   * @returns A tupel of event data and contract receipt
+   *
+   * **Event data**
+   * | Property | Type | Description |
+   * | :------ | :------ | :------ |
+   * | `motionId` | BigNumber | ID of the motion created |
+   * | `voter` | string | The address of the user who voted |
+   * | `vote` | BigNumber | The vote that was cast (0 = Nay, 1 = Yay) |
+   */
+  async revealVote(motionId: BigNumberish, vote?: Vote) {
+    const motionState = await this.votingReputationClient.getMotionState(
+      motionId,
+    );
+
+    // TODO: we might want to improve this error message by giving the exact reason
+    if (motionState !== MotionState.Reveal) {
+      throw new Error('Motion cannot be revealed at this time');
+    }
+
+    const { domainId, rootHash } = await this.getMotion(motionId);
+    const { skillId } = await this.colonyClient.getDomain(domainId);
+    const userAddress = await this.colonyClient.signer.getAddress();
+
+    const reputation = await this.colonyClient.getReputation(
+      skillId,
+      userAddress,
+      rootHash,
+    );
+
+    const salt = await this.createMotionSalt(motionId);
+    const foundVote =
+      vote || (await this.getSideVoted(motionId, salt, reputation));
+
+    if (!foundVote) {
+      throw new Error(
+        `Could not find a vote cast by ${userAddress} for motion ${motionId}`,
+      );
+    }
+
+    const { key, value, branchMask, siblings } = reputation;
+
+    const tx = await this.votingReputationClient.revealVote(
+      motionId,
+      salt,
+      foundVote,
+      key,
+      value,
+      branchMask,
+      siblings,
+    );
+
+    const receipt = await tx.wait();
+
+    const data = {
+      ...extractEvent<MotionVoteRevealedEventObject>(
+        'MotionVoteRevealed',
         receipt,
       ),
     };
