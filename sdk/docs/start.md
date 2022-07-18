@@ -1,9 +1,17 @@
-# Quickstart
+---
+description: A stupidly short guide to get started with Colony development
+---
+
+# Start Building
 
 ## Prerequisites
 
 * NodeJS v 16.15.0 is installed on your system (use [`nvm`](https://github.com/nvm-sh/nvm) for changing NodeJS versions on the fly)
-* A JavaScript/TypeScript project with a `package.json` and the `@colony/sdk` and `ethers` packages installed (or use our awesome [colonyStarter](https://github.com/JoinColony/colonyStarter) repository)
+* A JavaScript/TypeScript project with a `package.json` and the `@colony/sdk` and `ethers` packages installed.
+
+{% hint style="success" %}
+To get started even faster, use our [**`Colony Starter`**](https://github.com/JoinColony/colonyStarter) template. It's just a matter of cloning the repository and running `npm run serve` to get to the first working example. Follow the guide after the link for more information.
+{% endhint %}
 
 ## Installation
 

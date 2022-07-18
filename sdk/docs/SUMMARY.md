@@ -1,7 +1,7 @@
 # Table of contents
 
 * [Welcome](README.md)
-* [Quickstart](quickstart.md)
+* [Start Building](start.md)
 
 ## reference
 
@@ -15,7 +15,7 @@
     * [types](reference/api/modules/types.md)
   * [Classes](reference/api/classes/README.md)
     * [ColonyNetwork.Colony](reference/api/classes/ColonyNetwork.Colony.md)
-    * [ColonyNetwork.ColonyNetwork](reference/api/classes/ColonyNetwork.ColonyNetwork-1.md)
+    * [ColonyNetwork.ColonyNetwork](reference/api/classes/colonynetwork.colonynetwork.md)
     * [ColonyNetwork.ColonyToken](reference/api/classes/ColonyNetwork.ColonyToken.md)
     * [events.ColonyEventManager](reference/api/classes/events.ColonyEventManager.md)
     * [events.IpfsMetadata](reference/api/classes/events.IpfsMetadata.md)
