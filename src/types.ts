@@ -8,6 +8,7 @@ import { ColonyClientV6 } from './clients/Colony/ColonyClientV6';
 import { ColonyClientV7 } from './clients/Colony/ColonyClientV7';
 import { ColonyClientV8 } from './clients/Colony/ColonyClientV8';
 import { ColonyClientV9 } from './clients/Colony/ColonyClientV9';
+import { ColonyClientV10 } from './clients/Colony/ColonyClientV10';
 import { TokenClient } from './clients/TokenClient';
 import { TokenLockingClient } from './clients/TokenLockingClient';
 import { ExtensionClient } from './clients/Extensions/colonyContractExtensions';
@@ -21,7 +22,8 @@ export type ColonyClient =
   | ColonyClientV6
   | ColonyClientV7
   | ColonyClientV8
-  | ColonyClientV9;
+  | ColonyClientV9
+  | ColonyClientV10;
 
 export type ContractClient =
   | ColonyClient

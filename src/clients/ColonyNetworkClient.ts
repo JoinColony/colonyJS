@@ -12,8 +12,8 @@ import {
 } from '../constants';
 import { ColonyVersion } from '../versions';
 // @TODO this _HAS_ to be the newest version _ALWAYS_. Let's try to figure out a way to make sure of this
-import { IColonyNetwork__factory as IColonyNetworkFactory } from '../contracts/colony/9/factories/IColonyNetwork__factory';
-import { IColonyNetwork } from '../contracts/colony/9/IColonyNetwork';
+import { IColonyNetwork__factory as IColonyNetworkFactory } from '../contracts/colony/10/factories/IColonyNetwork__factory';
+import { IColonyNetwork } from '../contracts/colony/10/IColonyNetwork';
 import { TransactionOverrides } from '../contracts/6';
 import {
   abi as tokenAbi,
@@ -29,6 +29,7 @@ import getColonyClientV6 from './Colony/ColonyClientV6';
 import getColonyClientV7 from './Colony/ColonyClientV7';
 import getColonyClientV8 from './Colony/ColonyClientV8';
 import getColonyClientV9 from './Colony/ColonyClientV9';
+import getColonyClientV10 from './Colony/ColonyClientV10';
 import getTokenClient from './TokenClient';
 import getTokenLockingClient, {
   TokenLockingClient,
@@ -251,6 +252,14 @@ const getColonyNetworkClient = (
       }
       case ColonyVersion.FuchsiaLightweightSpaceship: {
         colonyClient = getColonyClientV9.call(
+          networkClient,
+          colonyAddress,
+          signerOrProvider,
+        );
+        break;
+      }
+      case ColonyVersion.UnnamedLightweightSpaceship: {
+        colonyClient = getColonyClientV10.call(
           networkClient,
           colonyAddress,
           signerOrProvider,
