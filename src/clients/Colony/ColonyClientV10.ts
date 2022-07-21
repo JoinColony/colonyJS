@@ -86,12 +86,31 @@ export default function getColonyClient(
    * For this to work we have to create our own instance of the contract, so
    * that we can pass in the merged abi events
    */
-  const colonyClientV10 = (new Contract(
+  const customEthersContractInstace = (new Contract(
     address,
     [...abiFunctions, ...abiEvents],
     signerOrProvider,
   ) as unknown) as ColonyClientV10;
 
+  /*
+   * We need to clone the Ethers intance otherwise props, which we may
+   * want appent or overwrite, won't work since Ethers marks their props
+   * as read-only and non-configurable by default
+   *
+   * @TODO All of this should be extracted as an util to remove code repetition
+   * when creating new Colony version clients
+   */
+  const colonyClientV10 = {
+    ...customEthersContractInstace,
+    interface: {
+      ...customEthersContractInstace.interface,
+      /*
+       * Manually assign non-enumerable props
+       */
+      parseLog: customEthersContractInstace.interface.parseLog,
+      parseTransaction: customEthersContractInstace.interface.parseTransaction,
+    },
+  } as ColonyClientV10;
   colonyClientV10.clientVersion = ColonyVersion.UnnamedLightweightSpaceship;
 
   addExtensions(colonyClientV10, this);
