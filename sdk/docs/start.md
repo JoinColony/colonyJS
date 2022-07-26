@@ -33,10 +33,8 @@ For browser based projects, consider using a build system like [esbuild](https:/
 
 ```javascript
 // index.js
-import { providers, utils } from 'ethers';
-import { ColonyNetwork } from '@colony/sdk';
-
-const { formatUnits } = utils;
+import { providers } from 'ethers';
+import { ColonyNetwork, toEth } from '@colony/sdk';
 
 // If MetaMask is installed there will be an `ethereum` object on the `window`
 // NOTE: Make sure MetaMask is connected to Gnosis chain (see https://www.xdaichain.com/for-users/wallets/metamask/metamask-setup)
@@ -52,8 +50,8 @@ const start = async () => {
   const metaColony = await colonyNetwork.getMetaColony();
   // Get the CLNY funding for the MetaColony (CLNY is it's native token)
   const funding = await metaColony.getBalance();
-  // The funding will be in wei (x * 10^18), so we format into a readable string using ethers' formatUnits function
-  alert('MetaColony balance is ' + formatUnits(funding) + ' CLNY');
+  // The funding will be in wei (x * 10^18), so we format into a readable string using the `toEth` function
+  alert('MetaColony balance is ' + toEth(funding) + ' CLNY');
 };
 
 start();
@@ -65,10 +63,8 @@ Include the resulting bundle in an HTML file and open it in you favorite browser
 {% tab title="In NodeJS" %}
 ```javascript
 // index.js
-const { providers, utils, Wallet } = require('ethers');
+const { providers, Wallet } = require('ethers');
 const { ColonyNetwork } = require('@colony/sdk');
-
-const { formatUnits } = utils;
 
 const provider = new providers.JsonRpcProvider('https://rpc.gnosischain.com/');
 const wallet = Wallet.createRandom().connect(provider);
@@ -81,8 +77,8 @@ const start = async () => {
   const metaColony = await colonyNetwork.getMetaColony();
   // Get the CLNY funding for the MetaColony (CLNY is it's native token)
   const funding = await metaColony.getBalance();
-  // The funding will be in wei (x * 10^18), so we format into a readable string using ethers' formatUnits function
-  console.log('MetaColony balance is ' + formatUnits(funding) + ' CLNY')
+  // The funding will be in wei (x * 10^18), so we format into a readable string using the `toEth` function
+  console.log('MetaColony balance is ' + toEth(funding) + ' CLNY')
 };
 
 start();

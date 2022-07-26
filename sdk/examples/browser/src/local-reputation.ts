@@ -1,9 +1,9 @@
 import { providers, utils, Wallet } from 'ethers';
 
-import { Colony, ColonyNetwork } from '../../../src';
+import { Colony, ColonyNetwork, toEth, toWei, w } from '../../../src';
 import { setupOneTxPaymentExtension } from '../../helpers';
 
-const { isAddress, formatUnits, parseUnits } = utils;
+const { isAddress } = utils;
 const provider = new providers.JsonRpcProvider('http://127.0.0.1:8545');
 
 let metaColony: Colony;
@@ -35,18 +35,18 @@ const getMetaColony = async (networkAddress: string) => {
 const fundColony = async (amount: string) => {
   const token = metaColony.getToken();
   // Mint `amount` CLNY
-  await token.mint(utils.parseUnits(amount));
+  await token.mint(toWei(amount));
   // Claim the CLNY for the MetaColony (important!)
   await metaColony.claimFunds();
   // Look up the funds
   const funding = await metaColony.getBalance();
-  return formatUnits(funding);
+  return toEth(funding);
 };
 
 // Make a payment to the given user in the MetaColony's native token (CLNY). This will cause the user to have reputation in the new domain after the next reputation mining cycle (max 24h)
 const makePayment = async (to: string) => {
   // Pay 10 CLNY to the recipient
-  return metaColony.pay(to, parseUnits('10'));
+  return metaColony.pay(to, w`10`);
 };
 
 // We're using Ganache's evm_increaseTime and evm_mine methods to first increase the block time artificially by one hour and then force a block to mine. This will trigger the local reputation oracle/miner to award the pending reputation.
@@ -162,5 +162,5 @@ buttonJump.addEventListener('click', async () => {
 
 buttonReputation.addEventListener('click', async () => {
   const reputation = await getReputation(recipient);
-  speak(`User ${recipient} has ${formatUnits(reputation)} reputation points`);
+  speak(`User ${recipient} has ${toEth(reputation)} reputation points`);
 });

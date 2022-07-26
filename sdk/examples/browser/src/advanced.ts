@@ -1,8 +1,8 @@
 import { providers, utils, Signer, ContractReceipt, BigNumber } from 'ethers';
 
-import { Colony, ColonyNetwork } from '../../../src';
+import { Colony, ColonyNetwork, toEth, w } from '../../../src';
 
-const { formatEther, isAddress, parseUnits } = utils;
+const { isAddress } = utils;
 const provider = new providers.Web3Provider((window as any).ethereum);
 
 let colony: Colony;
@@ -17,7 +17,7 @@ const getColony = async (colonyAddress: string, signer: Signer) => {
 // Get the Colony's native token funding in the ROOT pot (id 1)
 const getColonyFunding = async () => {
   const funding = await colony.getBalance();
-  return formatEther(funding);
+  return toEth(funding);
 };
 
 // Create a new domain within that colony with the `domainName` as metadata
@@ -58,7 +58,7 @@ const moveFunds = async (): Promise<ContractReceipt> => {
     throw new Error('No domain created yet');
   }
   const [, receipt] = await colony.moveFundsToTeam(
-    parseUnits('0.66'),
+    w`0.66`,
     domainData.domainId,
   );
   return receipt;
@@ -67,11 +67,7 @@ const moveFunds = async (): Promise<ContractReceipt> => {
 // Make a payment to a user from the newly created and funded domain. This will cause the user to have reputation in the new domain after the next reputation mining cycle (max 24h)
 const makePayment = async (to: string): Promise<ContractReceipt> => {
   // Create payment in newly created domain
-  const [, receipt] = await colony.pay(
-    to,
-    parseUnits('0.42'),
-    domainData.domainId,
-  );
+  const [, receipt] = await colony.pay(to, w`0.42`, domainData.domainId);
   return receipt;
 };
 

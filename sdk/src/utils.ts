@@ -80,4 +80,4 @@ export const toWei = (num: string) => utils.parseEther(num);
  * console.log(w`1.0`); // { BigNumber: "1000000000000000000" }
  * ```
  */
-export const w = (str: string[]) => toWei(str[0]);
+export const w = (str: TemplateStringsArray) => toWei(str[0]);

@@ -141,7 +141,7 @@ console.log(w`1.0`); // { BigNumber: "1000000000000000000" }
 
 | Name | Type |
 | :------ | :------ |
-| `str` | `string`[] |
+| `str` | `TemplateStringsArray` |
 
 #### Returns
 

@@ -56,15 +56,15 @@ export class ColonyToken {
    * Mints `amount` of a Colony's native token.
    *
    * @remarks
-   * Only works for tokens deployed with Colony (not imported tokens). Note that most tokens use 18 decimals, so add a bunch of zeros or use ethers' `parseUnits` function (see example). Also not that for tokens to be available in the Colony after funding, you need to call the [[Colony.claimFunds]] method after minting.
+   * Only works for tokens deployed with Colony (not imported tokens). Note that most tokens use 18 decimals, so add a bunch of zeros or use our `w` or `toWei` functions (see example). Also not that for tokens to be available in the Colony after funding, you need to call the [[Colony.claimFunds]] method after minting.
    *
    * @example
    * ```typescript
-   * import { utils } from 'ethers';
+   * import { w } from '@colony/sdk';
    *
    * const token = colony.getToken();
    * // Mint 100 tokens of the Colony's native token
-   * await token.mint(utils.parseUnits('100'));
+   * await token.mint(w`100`);
    * // Claim the minted tokens for the Colony
    * await colony.claimFunds();
    * ```

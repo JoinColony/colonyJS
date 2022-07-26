@@ -16,10 +16,8 @@ Colony SDK also includes a variety of examples to get you up and building with C
 
 ```javascript
 // index.js
-import { providers, utils } from 'ethers';
-import { ColonyNetwork } from '@colony/sdk';
-
-const { formatUnits } = utils;
+import { providers } from 'ethers';
+import { ColonyNetwork, toEth } from '@colony/sdk';
 
 // If MetaMask is installed there will be an `ethereum` object on the `window`
 // NOTE: Make sure MetaMask is connected to Gnosis chain (see https://www.xdaichain.com/for-users/wallets/metamask/metamask-setup)
@@ -35,8 +33,8 @@ const start = async () => {
   const metaColony = await colonyNetwork.getMetaColony();
   // Get the CLNY funding for the MetaColony (CLNY is it's native token)
   const funding = await metaColony.getBalance();
-  // The funding will be in wei (x * 10^18), so we format into a readable string using ethers' formatUnits function
-  alert('MetaColony balance is ' + formatUnits(funding) + ' CLNY');
+  // The funding will be in wei (x * 10^18), so we format into a readable string using the `toEth` function
+  alert('MetaColony balance is ' + toEth(funding) + ' CLNY');
 };
 
 start();

@@ -1,8 +1,6 @@
-import { providers, utils } from 'ethers';
+import { providers } from 'ethers';
 
-import { ColonyNetwork } from '../../src';
-
-const { formatUnits } = utils;
+import { ColonyNetwork, toEth } from '../../src';
 
 const provider = new providers.JsonRpcProvider('https://xdai.colony.io/rpc2/');
 
@@ -13,7 +11,7 @@ const start = async () => {
   const funding = await metaColony.getBalance();
   const { address } = metaColony;
   console.info(
-    `${formatUnits(
+    `${toEth(
       funding,
     )} CLNY in root team of MetaColony with address: ${address}`,
   );

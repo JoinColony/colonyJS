@@ -25,7 +25,7 @@ export class ColonyNetwork {
    * @example
    *
    * ```typescript
-   * import { providers, utils } from 'ethers';
+   * import { providers } from 'ethers';
    * import { ColonyNetwork, Tokens } from '@colony/sdk';
    *
    * // Connect directly to the deployed Colony Network on Gnosis Chain

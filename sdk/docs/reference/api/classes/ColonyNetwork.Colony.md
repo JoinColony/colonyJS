@@ -98,11 +98,12 @@ The function will automatically figure out the corresponding pot for the given d
 
 Get the xDAI balance of the team number 2
 ```typescript
-import { constants, utils } from 'ethers';
+import { constants } from 'ethers';
+import { toEth } from '@colony/sdk';
 // The `AddressZero` means ETH on mainnet and xDAI on Gnosis chain
 const balance = await colony.getBalance(constants.AddressZero, 2);
 // This will format the balance as a string in eth and not wei (i.e. 1.0 vs. 1000000000000000000)
-console.info(utils.formatEther(balance));
+console.info(toEth(balance));
 ```
 
 #### Parameters
@@ -184,14 +185,13 @@ Requires the `Funding` permission in the root team. As soon as teams can be nest
 **`Example`**
 
 ```typescript
-import { utils } from 'ethers';
-import { Tokens } from '@colony/sdk';
+import { Tokens, w } from '@colony/sdk';
 
 // Immediately executing async function
 (async function() {
   // Move 10 of the native token from team 2 to team 3
   await colony.moveFunds(
-     utils.parseUnits('10'),
+     w`10`,
      2,
      3,
   );
@@ -228,20 +228,19 @@ Make a payment to a single address using a single token
 
 **`Remarks`**
 
-Requires the `OneTxPayment` extension to be installed for the Colony (this is usually the case for Colonies created via the Dapp). Note that most tokens use 18 decimals, so add a bunch of zeros or use ethers' `parseUnits` function (see example)
+Requires the `OneTxPayment` extension to be installed for the Colony (this is usually the case for Colonies created via the Dapp). Note that most tokens use 18 decimals, so add a bunch of zeros or use our `w` or `toWei` functions (see example)
 
 **`Example`**
 
 ```typescript
-import { utils } from 'ethers';
-import { Id, Tokens } from '@colony/sdk';
+import { Id, Tokens, w } from '@colony/sdk';
 
 // Immediately executing async function
 (async function() {
   // Pay 10 XDAI (on Gnosis chain) from the root domain to the following address
   await colony.pay(
      '0xb77D57F4959eAfA0339424b83FcFaf9c15407461',
-     utils.parseUnits('10'),
+     w`10`,
      Id.RootDomain,
      Tokens.Gnosis.XDAI,
   );
