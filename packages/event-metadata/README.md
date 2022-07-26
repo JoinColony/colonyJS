@@ -3,7 +3,7 @@
 **Metadata format versions**
 ColonyDapp should support legacy Metadata formats.
 Therefore, when parsing (in ColonyDapp) it is necessary to check the Metadata format version and support V1 & later versions.
-```shell
+```ts
 const metadataVersion = getEventMetadataVersion(ipfsMetadata);
 if (metadataVersion === 1) {
 /*
@@ -22,7 +22,7 @@ else {
 **Parsing**
 To retrieve MetaData from IPFS. (String to Object)
 
-```shell
+```ts
 // Colony MetaData
 const colonyMetadata = getColonyMetadataFromResponse(ipfsDataJSON);
 
@@ -58,7 +58,7 @@ const agreement = getNameValueFromMisc('agreement', response);
 **Deserialising**
 Preparing Metadata to send to IPFS. (Object to String)
 
-```shell
+```ts
 // Colony Metadata packed and converted to string
 const metadataForIPFS = getStringForMetadataColony({
 	colonyDisplayName,
