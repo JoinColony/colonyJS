@@ -112,6 +112,7 @@ export const getAnnotationMsgFromResponse = (
 /*
  * Helper functions:
  */
+// extract value for 'name' from a MiscMetadata Object
 export const getMiscValueFor = (
   name: string,
   metaData: MiscMetadata,
@@ -119,6 +120,8 @@ export const getMiscValueFor = (
   return name === metaData?.name ? metaData.value : undefined;
 };
 
+// extract value for 'name' DIRECTLY from repsonse string
+// no need to deal with MiscMetadata Object
 export const getNameValueFromMisc = (
   name: string,
   response: string,
