@@ -1,2 +1,0 @@
-# ColonyNetwork.ColonyNetwork
-

@@ -7,3 +7,4 @@
 - [events](modules/events.md)
 - [graph](modules/graph.md)
 - [types](modules/types.md)
+- [utils](modules/utils.md)

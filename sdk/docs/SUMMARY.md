@@ -12,6 +12,7 @@
     * [constants.Token](reference/api/modules/constants.token.md)
     * [events](reference/api/modules/events.md)
     * [graph](reference/api/modules/graph.md)
+    * [utils](reference/api/modules/utils.md)
     * [types](reference/api/modules/types.md)
   * [Classes](reference/api/classes/README.md)
     * [ColonyNetwork.Colony](reference/api/classes/ColonyNetwork.Colony.md)

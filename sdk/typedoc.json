@@ -4,6 +4,7 @@
     "./src/events",
     "./src/types.ts",
     "./src/constants.ts",
+    "./src/utils.ts",
     "./src/graph"
   ],
   "out": "docs/reference/api",
