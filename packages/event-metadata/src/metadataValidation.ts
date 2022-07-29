@@ -26,7 +26,7 @@ const colonyMetadataSchema = yup.object({
 
 const domainMetadataSchema = yup.object({
   domainName: yup.string(),
-  domainColor: yup.string(),
+  domainColor: yup.number(),
   domainPurpose: yup.string(),
 });
 
