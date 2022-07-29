@@ -16,7 +16,7 @@ export interface ColonyMetadata {
 
 export interface DomainMetadata {
   domainName?: string;
-  domainColor?: string;
+  domainColor?: number;
   domainPurpose?: string;
 }
 
