@@ -64,10 +64,8 @@ export const getStringForMetadataMisc = (
  */
 // convenience func to set colonyAvatarImage to IPFS
 export const getStringForColonyAvatarImage = (avatarImage: string): string => {
-  return JSON.stringify(
-    getStringForMetadataMisc({
-      name: 'colonyAvatarImage',
-      value: avatarImage,
-    }),
-  );
+  return getStringForMetadataMisc({
+    name: 'colonyAvatarImage',
+    value: avatarImage,
+  });
 };
