@@ -103,13 +103,13 @@ export class ColonyToken {
    *
    * @example
    * ```typescript
-   * import { utils } from 'ethers';
+   * import { w } from '@colony/sdk';
    *
    * const token = colony.getToken();
    * // Approve 100 tokens to be "activated"
-   * await token.approve(utils.parseUnits('100'));
+   * await token.approve(w`100`);
    * // Deposit the tokens
-   * await token.deposit(utils.parseUnits('100'));
+   * await token.deposit(w`100`);
    * ```
    *
    * @param amount Amount of the token to be approved
@@ -143,13 +143,13 @@ export class ColonyToken {
    *
    * @example
    * ```typescript
-   * import { utils } from 'ethers';
+   * import { w } from '@colony/sdk';
    *
    * const token = colony.getToken();
    * // Approve 100 tokens to be "activated"
-   * await token.approve(utils.parseUnits('100'));
+   * await token.approve(w`100`);
    * // Deposit the tokens
-   * await token.deposit(utils.parseUnits('100'));
+   * await token.deposit(w`100`);
    * ```
    *
    * @param amount Amount of the token to be deposited

@@ -263,19 +263,18 @@ export class Colony {
   /**
    * Make a payment to a single address using a single token
    *
-   * @remarks Requires the `OneTxPayment` extension to be installed for the Colony (this is usually the case for Colonies created via the Dapp). Note that most tokens use 18 decimals, so add a bunch of zeros or use ethers' `parseUnits` function (see example)
+   * @remarks Requires the `OneTxPayment` extension to be installed for the Colony (this is usually the case for Colonies created via the Dapp). Note that most tokens use 18 decimals, so add a bunch of zeros or use our `w` or `toWei` functions (see example)
    *
    * @example
    * ```typescript
-   * import { utils } from 'ethers';
-   * import { Id, Tokens } from '@colony/sdk';
+   * import { Id, Tokens, w } from '@colony/sdk';
    *
    * // Immediately executing async function
    * (async function() {
    *   // Pay 10 XDAI (on Gnosis chain) from the root domain to the following address
    *   await colony.pay(
    *      '0xb77D57F4959eAfA0339424b83FcFaf9c15407461',
-   *      utils.parseUnits('10'),
+   *      w`10`,
    *      Id.RootDomain,
    *      Tokens.Gnosis.XDAI,
    *   );
@@ -334,21 +333,6 @@ export class Colony {
    * After sending funds to and claiming funds for your Colony they will land in a special team, the root team. If you want to make payments from other teams (in order to award reputation in that team) you have to move the funds there first. Use this method to do so.
    *
    * @remarks Requires the `Funding` permission in the root team. As soon as teams can be nested, this requires the `Funding` permission in a team that is a parent of both teams in which funds are moved.
-   * @example
-   * ```typescript
-   * import { utils } from 'ethers';
-   * import { Tokens } from '@colony/sdk';
-   *
-   * // Immediately executing async function
-   * (async function() {
-   *   // Move 10 of the native token from team 2 to team 3
-   *   await colony.moveFundsToTeam(
-   *      utils.parseUnits('10'),
-   *      2,
-   *      3,
-   *   );
-   * })();
-   * ```
    *
    * @example
    * ```typescript
@@ -357,7 +341,7 @@ export class Colony {
    * // Immediately executing async function
    * (async function() {
    *   // Move 10 of the native token from team 2 to team 3
-   *   await colony.forceMoveFundsToTeam(
+   *   await colony.moveFundsToTeam(
    *      w`10`,
    *      2,
    *      3,

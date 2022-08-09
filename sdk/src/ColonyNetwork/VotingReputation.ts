@@ -288,20 +288,19 @@ export class VotingReputation {
    *
    * @example
    * ```typescript
-   * import { Vote } from '@colony/sdk';
-   * import { utils } from 'ethers';
+   * import { Vote, w } from '@colony/sdk';
    *
    * // Immediately executing async function
    * (async function() {
    *   const token = colony.getToken();
    *   // Approve 200 tokens to be "activated"
-   *   await token.approve(utils.parseUnits('200'));
+   *   await token.approve(w`200`);
    *   // Deposit all of approved the tokens
-   *   await token.deposit(utils.parseUnits('200'));
+   *   await token.deposit(w`200`);
    *   // Approve 150 tokens for staking in the root domain
-   *   await colony.ext.motions.approveStake(utils.parseUnits('150'));
+   *   await colony.ext.motions.approveStake(w`150`);
    *   // Stake 100 tokens for motion with id 3
-   *   await colony.ext.motions.stakeMotion(3, Vote.Yay, utils.parseUnits('100'));
+   *   await colony.ext.motions.stakeMotion(3, Vote.Yay, w`100`);
    * })();
    * ```
    *
