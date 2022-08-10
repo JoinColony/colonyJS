@@ -33,7 +33,8 @@ const parseEventMetadata = (res: string): Metadata | undefined => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (validationError: any) {
     log.verbose('Metadata validation schema error:', validationError.message);
-    log.verbose('Res: ', validationError.value);
+    log.verbose('Error:', validationError);
+    log.verbose('Res: ', res);
     return undefined;
   }
 
@@ -139,6 +140,13 @@ export const getColonyAvatarImage = (res: string): string | undefined => {
   );
 };
 
-export function getEventMetadataVersion(response: string): number {
-  return (JSON.parse(response)?.version as number) || 1;
-}
+// @NOTE this rountine is protected with an Error if undefined
+// or falsy is passed in. Call this func in a try/catch block.
+export const getEventMetadataVersion = (
+  ipfsResponse: string,
+): number | never => {
+  if (typeof ipfsResponse === 'undefined' || !ipfsResponse) {
+    throw Error(`Cannot obtain metadata version from: ${ipfsResponse}`);
+  }
+  return (JSON.parse(ipfsResponse)?.version as number) || 1;
+};
