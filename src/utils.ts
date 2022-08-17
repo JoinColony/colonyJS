@@ -74,6 +74,7 @@ type ReputationOracleResponseType<R> =
  *    roles: [1, 2, 3]                                  // Array of `ColonyRole`
  *  }]
  * }]
+ * ```
  */
 export const formatColonyRoles = async (
   roleSetEvents: LogDescription[],
