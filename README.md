@@ -8,11 +8,11 @@ colonyJS is a JavaScript library with a simple and predictable interface for app
 
 ## Documentation
 
-The documentation is automatically generated using [TypeDoc](https://github.com/TypeStrong/typedoc) and can be found [here](https://joincolony.github.io/colonyJS). You should check out the `getColonyNetworkClient` function in `ColonyNetworkClient` and the docs for the extended colony contracts `clients/Colony/ColonyClientVX`.
+The API reference is automatically generated using [TypeDoc](https://github.com/TypeStrong/typedoc) and can be found [here](https://colony.gitbook.io/colonyjs/reference/api). You should check out the `getColonyNetworkClient` function in `ColonyNetworkClient` and the docs for the extended colony contracts `clients/Colony/ColonyClientVX`.
 
 ## Get Started
 
-```ts
+```typescript
 import { providers, utils, Wallet } from 'ethers';
 import { getColonyNetworkClient, Id, Network, Tokens } from '@colony/colony-js';
 
