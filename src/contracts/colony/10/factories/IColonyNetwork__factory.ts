@@ -1486,34 +1486,6 @@ const _abi = [
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "newHash",
-        type: "bytes32",
-      },
-      {
-        internalType: "uint256",
-        name: "newNLeaves",
-        type: "uint256",
-      },
-      {
-        internalType: "address[]",
-        name: "stakers",
-        type: "address[]",
-      },
-      {
-        internalType: "uint256",
-        name: "reward",
-        type: "uint256",
-      },
-    ],
-    name: "setReputationRootHash",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
     inputs: [],
     name: "startNextCycle",
     outputs: [],
@@ -2089,7 +2061,7 @@ const _abi = [
     outputs: [
       {
         internalType: "uint256",
-        name: "",
+        name: "amount",
         type: "uint256",
       },
     ],
@@ -2184,7 +2156,7 @@ const _abi = [
     outputs: [
       {
         internalType: "address",
-        name: "",
+        name: "delegator",
         type: "address",
       },
     ],

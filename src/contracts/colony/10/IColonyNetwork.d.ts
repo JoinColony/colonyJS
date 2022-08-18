@@ -1364,21 +1364,6 @@ export class IColonyNetwork extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
-     * This version of setReputationRootHash is deprecated and will be removed in a future release. It transparently calls the new version if it is called (essentially, removing the `reward` parameter.
-     * @param newHash The reputation root hash
-     * @param newNLeaves The updated leaves count value
-     * @param reward Amount of CLNY to be distributed as reward to miners (not used)
-     * @param stakers Array of users who submitted or backed the hash, being accepted here as the new reputation root hash
-     */
-    "setReputationRootHash(bytes32,uint256,address[],uint256)"(
-      newHash: Arrayish,
-      newNLeaves: BigNumberish,
-      stakers: string[],
-      reward: BigNumberish,
-      overrides?: TransactionOverrides
-    ): Promise<ContractTransaction>;
-
-    /**
      * Starts a new Reputation Mining cycle. Explicitly called only the first time, subsequently called from within `setReputationRootHash`.
      */
     startNextCycle(
@@ -2028,6 +2013,7 @@ export class IColonyNetwork extends Contract {
     /**
      * Can only be called by the MetaColony.
      * Called to set the total per-cycle reputation reward, which will be split between all miners.
+     * @param _amount The CLNY awarded per mining cycle to the miners
      */
     setReputationMiningCycleReward(
       _amount: BigNumberish,
@@ -2037,6 +2023,7 @@ export class IColonyNetwork extends Contract {
     /**
      * Can only be called by the MetaColony.
      * Called to set the total per-cycle reputation reward, which will be split between all miners.
+     * @param _amount The CLNY awarded per mining cycle to the miners
      */
     "setReputationMiningCycleReward(uint256)"(
       _amount: BigNumberish,
@@ -2981,21 +2968,6 @@ export class IColonyNetwork extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
-   * This version of setReputationRootHash is deprecated and will be removed in a future release. It transparently calls the new version if it is called (essentially, removing the `reward` parameter.
-   * @param newHash The reputation root hash
-   * @param newNLeaves The updated leaves count value
-   * @param reward Amount of CLNY to be distributed as reward to miners (not used)
-   * @param stakers Array of users who submitted or backed the hash, being accepted here as the new reputation root hash
-   */
-  "setReputationRootHash(bytes32,uint256,address[],uint256)"(
-    newHash: Arrayish,
-    newNLeaves: BigNumberish,
-    stakers: string[],
-    reward: BigNumberish,
-    overrides?: TransactionOverrides
-  ): Promise<ContractTransaction>;
-
-  /**
    * Starts a new Reputation Mining cycle. Explicitly called only the first time, subsequently called from within `setReputationRootHash`.
    */
   startNextCycle(
@@ -3643,6 +3615,7 @@ export class IColonyNetwork extends Contract {
   /**
    * Can only be called by the MetaColony.
    * Called to set the total per-cycle reputation reward, which will be split between all miners.
+   * @param _amount The CLNY awarded per mining cycle to the miners
    */
   setReputationMiningCycleReward(
     _amount: BigNumberish,
@@ -3652,6 +3625,7 @@ export class IColonyNetwork extends Contract {
   /**
    * Can only be called by the MetaColony.
    * Called to set the total per-cycle reputation reward, which will be split between all miners.
+   * @param _amount The CLNY awarded per mining cycle to the miners
    */
   "setReputationMiningCycleReward(uint256)"(
     _amount: BigNumberish,
@@ -4661,21 +4635,6 @@ export class IColonyNetwork extends Contract {
     ): Promise<BigNumber>;
 
     /**
-     * This version of setReputationRootHash is deprecated and will be removed in a future release. It transparently calls the new version if it is called (essentially, removing the `reward` parameter.
-     * @param newHash The reputation root hash
-     * @param newNLeaves The updated leaves count value
-     * @param reward Amount of CLNY to be distributed as reward to miners (not used)
-     * @param stakers Array of users who submitted or backed the hash, being accepted here as the new reputation root hash
-     */
-    "setReputationRootHash(bytes32,uint256,address[],uint256)"(
-      newHash: Arrayish,
-      newNLeaves: BigNumberish,
-      stakers: string[],
-      reward: BigNumberish,
-      overrides?: TransactionOverrides
-    ): Promise<BigNumber>;
-
-    /**
      * Starts a new Reputation Mining cycle. Explicitly called only the first time, subsequently called from within `setReputationRootHash`.
      */
     startNextCycle(overrides?: TransactionOverrides): Promise<BigNumber>;
@@ -5317,6 +5276,7 @@ export class IColonyNetwork extends Contract {
     /**
      * Can only be called by the MetaColony.
      * Called to set the total per-cycle reputation reward, which will be split between all miners.
+     * @param _amount The CLNY awarded per mining cycle to the miners
      */
     setReputationMiningCycleReward(
       _amount: BigNumberish,
@@ -5326,6 +5286,7 @@ export class IColonyNetwork extends Contract {
     /**
      * Can only be called by the MetaColony.
      * Called to set the total per-cycle reputation reward, which will be split between all miners.
+     * @param _amount The CLNY awarded per mining cycle to the miners
      */
     "setReputationMiningCycleReward(uint256)"(
       _amount: BigNumberish,

@@ -677,6 +677,49 @@ const _abi = [
       },
       {
         indexed: true,
+        internalType: "uint256",
+        name: "storageSlot",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "bool[]",
+        name: "mask",
+        type: "bool[]",
+      },
+      {
+        indexed: false,
+        internalType: "bytes32[]",
+        name: "keys",
+        type: "bytes32[]",
+      },
+      {
+        indexed: false,
+        internalType: "bytes32",
+        name: "value",
+        type: "bytes32",
+      },
+    ],
+    name: "ExpenditureStateChanged",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "agent",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "expenditureId",
+        type: "uint256",
+      },
+      {
+        indexed: true,
         internalType: "address",
         name: "owner",
         type: "address",
@@ -2261,7 +2304,7 @@ const _abi = [
     outputs: [
       {
         internalType: "uint256",
-        name: "",
+        name: "timesLocked",
         type: "uint256",
       },
     ],
@@ -2841,6 +2884,34 @@ const _abi = [
         type: "uint256",
       },
       {
+        internalType: "uint256[]",
+        name: "_slots",
+        type: "uint256[]",
+      },
+      {
+        internalType: "address",
+        name: "_token",
+        type: "address",
+      },
+      {
+        internalType: "uint256[]",
+        name: "_amounts",
+        type: "uint256[]",
+      },
+    ],
+    name: "setExpenditurePayouts",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_id",
+        type: "uint256",
+      },
+      {
         internalType: "uint256",
         name: "_slot",
         type: "uint256",
@@ -2865,13 +2936,23 @@ const _abi = [
     inputs: [
       {
         internalType: "uint256",
+        name: "_permissionDomainId",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_childSkillIndex",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
         name: "_id",
         type: "uint256",
       },
       {
-        internalType: "uint256[]",
-        name: "_slots",
-        type: "uint256[]",
+        internalType: "uint256",
+        name: "_slot",
+        type: "uint256",
       },
       {
         internalType: "address",
@@ -2879,12 +2960,12 @@ const _abi = [
         type: "address",
       },
       {
-        internalType: "uint256[]",
-        name: "_amounts",
-        type: "uint256[]",
+        internalType: "uint256",
+        name: "_amount",
+        type: "uint256",
       },
     ],
-    name: "setExpenditurePayouts",
+    name: "setExpenditurePayout",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -3000,6 +3081,74 @@ const _abi = [
       },
     ],
     name: "setExpenditurePayoutModifiers",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_id",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256[]",
+        name: "_recipientSlots",
+        type: "uint256[]",
+      },
+      {
+        internalType: "address payable[]",
+        name: "_recipients",
+        type: "address[]",
+      },
+      {
+        internalType: "uint256[]",
+        name: "_skillIdSlots",
+        type: "uint256[]",
+      },
+      {
+        internalType: "uint256[]",
+        name: "_skillIds",
+        type: "uint256[]",
+      },
+      {
+        internalType: "uint256[]",
+        name: "_claimDelaySlots",
+        type: "uint256[]",
+      },
+      {
+        internalType: "uint256[]",
+        name: "_claimDelays",
+        type: "uint256[]",
+      },
+      {
+        internalType: "uint256[]",
+        name: "_payoutModifierSlots",
+        type: "uint256[]",
+      },
+      {
+        internalType: "int256[]",
+        name: "_payoutModifiers",
+        type: "int256[]",
+      },
+      {
+        internalType: "address[]",
+        name: "_payoutTokens",
+        type: "address[]",
+      },
+      {
+        internalType: "uint256[][]",
+        name: "_payoutSlots",
+        type: "uint256[][]",
+      },
+      {
+        internalType: "uint256[][]",
+        name: "_payoutValues",
+        type: "uint256[][]",
+      },
+    ],
+    name: "setExpenditureValues",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",

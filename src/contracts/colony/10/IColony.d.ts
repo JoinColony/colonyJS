@@ -387,21 +387,21 @@ interface IColonyInterface extends Interface {
       ]): string;
     }>;
 
-    setExpenditurePayout: TypedFunctionDescription<{
-      encode([_id, _slot, _token, _amount]: [
-        BigNumberish,
-        BigNumberish,
-        string,
-        BigNumberish
-      ]): string;
-    }>;
-
     setExpenditurePayouts: TypedFunctionDescription<{
       encode([_id, _slots, _token, _amounts]: [
         BigNumberish,
         BigNumberish[],
         string,
         BigNumberish[]
+      ]): string;
+    }>;
+
+    setExpenditurePayout: TypedFunctionDescription<{
+      encode([_id, _slot, _token, _amount]: [
+        BigNumberish,
+        BigNumberish,
+        string,
+        BigNumberish
       ]): string;
     }>;
 
@@ -442,6 +442,36 @@ interface IColonyInterface extends Interface {
         BigNumberish,
         BigNumberish[],
         BigNumberish[]
+      ]): string;
+    }>;
+
+    setExpenditureValues: TypedFunctionDescription<{
+      encode([
+        _id,
+        _recipientSlots,
+        _recipients,
+        _skillIdSlots,
+        _skillIds,
+        _claimDelaySlots,
+        _claimDelays,
+        _payoutModifierSlots,
+        _payoutModifiers,
+        _payoutTokens,
+        _payoutSlots,
+        _payoutValues,
+      ]: [
+        BigNumberish,
+        BigNumberish[],
+        string[],
+        BigNumberish[],
+        BigNumberish[],
+        BigNumberish[],
+        BigNumberish[],
+        BigNumberish[],
+        BigNumberish[],
+        string[],
+        BigNumberish[][],
+        BigNumberish[][]
       ]): string;
     }>;
 
@@ -1093,6 +1123,17 @@ interface IColonyInterface extends Interface {
       ]): string[];
     }>;
 
+    ExpenditureStateChanged: TypedEventDescription<{
+      encodeTopics([agent, expenditureId, storageSlot, mask, keys, value]: [
+        null,
+        BigNumberish | null,
+        BigNumberish | null,
+        null,
+        null,
+        null
+      ]): string[];
+    }>;
+
     ExpenditureTransferred: TypedEventDescription<{
       encodeTopics([agent, expenditureId, owner]: [
         null,
@@ -1594,7 +1635,7 @@ export class IColony extends Contract {
     "getToken()"(overrides?: TransactionOverrides): Promise<string>;
 
     /**
-     * Execute arbitrary transaction on behalf of the Colony DEPRECATED
+     * @deprecatedExecute arbitrary transaction on behalf of the Colony
      * @param _action Bytes array encoding the function call and arguments
      * @param _to Contract to receive the function call (cannot be this contract, network or token locking)
      */
@@ -1605,7 +1646,7 @@ export class IColony extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
-     * Execute arbitrary transaction on behalf of the Colony DEPRECATED
+     * @deprecatedExecute arbitrary transaction on behalf of the Colony
      * @param _action Bytes array encoding the function call and arguments
      * @param _to Contract to receive the function call (cannot be this contract, network or token locking)
      */
@@ -1906,7 +1947,7 @@ export class IColony extends Contract {
     ): Promise<boolean>;
 
     /**
-     * Check whether a given user has a given role for the colony, in a child domain. Calls the function of the same name on the colony's authority contract and an internal inheritence validator function
+     * Check whether a given user has a given role for the colony, in a child domain. Calls the function of the same name on the colony's authority contract and an internal inheritance validator function
      * @param _childDomainId The domain where we want to use the role
      * @param _childSkillIndex The index that the `_childDomainId` is relative to `_domainId`
      * @param _domainId Domain in which the caller has the role
@@ -1923,7 +1964,7 @@ export class IColony extends Contract {
     ): Promise<boolean>;
 
     /**
-     * Check whether a given user has a given role for the colony, in a child domain. Calls the function of the same name on the colony's authority contract and an internal inheritence validator function
+     * Check whether a given user has a given role for the colony, in a child domain. Calls the function of the same name on the colony's authority contract and an internal inheritance validator function
      * @param _childDomainId The domain where we want to use the role
      * @param _childSkillIndex The index that the `_childDomainId` is relative to `_domainId`
      * @param _domainId Domain in which the caller has the role
@@ -2701,7 +2742,7 @@ export class IColony extends Contract {
 
     /**
      * This is now deprecated and will be removed in a future version
-     * DEPRECATED Updates the expenditure owner. Can only be called by Arbitration role.
+     * @deprecatedUpdates the expenditure owner. Can only be called by Arbitration role.
      * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
      * @param _id Expenditure identifier
      * @param _newOwner New owner of expenditure
@@ -2717,7 +2758,7 @@ export class IColony extends Contract {
 
     /**
      * This is now deprecated and will be removed in a future version
-     * DEPRECATED Updates the expenditure owner. Can only be called by Arbitration role.
+     * @deprecatedUpdates the expenditure owner. Can only be called by Arbitration role.
      * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
      * @param _id Expenditure identifier
      * @param _newOwner New owner of expenditure
@@ -2816,6 +2857,7 @@ export class IColony extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
+     * Can only be called while expenditure is in draft state.
      * Sets the metadata for an expenditure. Can only be called by expenditure owner.
      * @param _id Id of the expenditure
      * @param _metadata IPFS hash of the metadata
@@ -2827,7 +2869,8 @@ export class IColony extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
-     * DeprecatedSets the recipient on an expenditure slot. Can only be called by expenditure owner.
+     * Can only be called while expenditure is in draft state.
+     * @deprecatedSets the recipient on an expenditure slot. Can only be called by expenditure owner.
      * @param _id Id of the expenditure
      * @param _recipient Address of the recipient
      * @param _slot Slot for the recipient address
@@ -2840,7 +2883,8 @@ export class IColony extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
-     * DeprecatedSets the recipient on an expenditure slot. Can only be called by expenditure owner.
+     * Can only be called while expenditure is in draft state.
+     * @deprecatedSets the recipient on an expenditure slot. Can only be called by expenditure owner.
      * @param _id Id of the expenditure
      * @param _recipient Address of the recipient
      * @param _slot Slot for the recipient address
@@ -2853,6 +2897,7 @@ export class IColony extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
+     * Can only be called while expenditure is in draft state.
      * Sets the recipients in given expenditure slots. Can only be called by expenditure owner.
      * @param _id Id of the expenditure
      * @param _recipients Addresses of the recipients
@@ -2866,6 +2911,7 @@ export class IColony extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
+     * Can only be called while expenditure is in draft state.
      * Sets the recipients in given expenditure slots. Can only be called by expenditure owner.
      * @param _id Id of the expenditure
      * @param _recipients Addresses of the recipients
@@ -2879,36 +2925,7 @@ export class IColony extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
-     * DeprecatedSet the token payout on an expenditure slot. Can only be called by expenditure owner.
-     * @param _amount Payout amount
-     * @param _id Id of the expenditure
-     * @param _slot Number of the slot
-     * @param _token Address of the token, `0x0` value indicates Ether
-     */
-    setExpenditurePayout(
-      _id: BigNumberish,
-      _slot: BigNumberish,
-      _token: string,
-      _amount: BigNumberish,
-      overrides?: TransactionOverrides
-    ): Promise<ContractTransaction>;
-
-    /**
-     * DeprecatedSet the token payout on an expenditure slot. Can only be called by expenditure owner.
-     * @param _amount Payout amount
-     * @param _id Id of the expenditure
-     * @param _slot Number of the slot
-     * @param _token Address of the token, `0x0` value indicates Ether
-     */
-    "setExpenditurePayout(uint256,uint256,address,uint256)"(
-      _id: BigNumberish,
-      _slot: BigNumberish,
-      _token: string,
-      _amount: BigNumberish,
-      overrides?: TransactionOverrides
-    ): Promise<ContractTransaction>;
-
-    /**
+     * Can only be called while expenditure is in draft state.
      * Set the token payouts in given expenditure slots. Can only be called by expenditure owner.
      * @param _amounts Payout amounts
      * @param _id Id of the expenditure
@@ -2924,6 +2941,7 @@ export class IColony extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
+     * Can only be called while expenditure is in draft state.
      * Set the token payouts in given expenditure slots. Can only be called by expenditure owner.
      * @param _amounts Payout amounts
      * @param _id Id of the expenditure
@@ -2939,7 +2957,58 @@ export class IColony extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
-     * DeprecatedSets the skill on an expenditure slot. Can only be called by expenditure owner.
+     * Can only be called while expenditure is in draft state.
+     * @deprecatedSet the token payout on an expenditure slot. Can only be called by expenditure owner.
+     * @param _amount Payout amount
+     * @param _id Id of the expenditure
+     * @param _slot Number of the slot
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
+    setExpenditurePayout(
+      _id: BigNumberish,
+      _slot: BigNumberish,
+      _token: string,
+      _amount: BigNumberish,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Can only be called while expenditure is in draft state.
+     * @deprecatedSet the token payout on an expenditure slot. Can only be called by expenditure owner.
+     * @param _amount Payout amount
+     * @param _id Id of the expenditure
+     * @param _slot Number of the slot
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
+    "setExpenditurePayout(uint256,uint256,address,uint256)"(
+      _id: BigNumberish,
+      _slot: BigNumberish,
+      _token: string,
+      _amount: BigNumberish,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Set the token payout in a given expenditure slot. Can only be called by an Arbitration user.
+     * @param _amount Payout amount
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _id Id of the expenditure
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _slot The slot to set the payout
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
+    "setExpenditurePayout(uint256,uint256,uint256,uint256,address,uint256)"(
+      _permissionDomainId: BigNumberish,
+      _childSkillIndex: BigNumberish,
+      _id: BigNumberish,
+      _slot: BigNumberish,
+      _token: string,
+      _amount: BigNumberish,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * @deprecatedSets the skill on an expenditure slot. Can only be called by expenditure owner.
      * @param _id Expenditure identifier
      * @param _skillId Id of the new skill to set
      * @param _slot Number of the slot
@@ -2952,7 +3021,7 @@ export class IColony extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
-     * DeprecatedSets the skill on an expenditure slot. Can only be called by expenditure owner.
+     * @deprecatedSets the skill on an expenditure slot. Can only be called by expenditure owner.
      * @param _id Expenditure identifier
      * @param _skillId Id of the new skill to set
      * @param _slot Number of the slot
@@ -2991,7 +3060,7 @@ export class IColony extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
-     * DeprecatedSets the claim delay on an expenditure slot. Can only be called by expenditure owner.
+     * @deprecatedSets the claim delay on an expenditure slot. Can only be called by expenditure owner.
      * @param _claimDelay Duration of time (in seconds) to delay
      * @param _id Expenditure identifier
      * @param _slot Number of the slot
@@ -3004,7 +3073,7 @@ export class IColony extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
-     * DeprecatedSets the claim delay on an expenditure slot. Can only be called by expenditure owner.
+     * @deprecatedSets the claim delay on an expenditure slot. Can only be called by expenditure owner.
      * @param _claimDelay Duration of time (in seconds) to delay
      * @param _id Expenditure identifier
      * @param _slot Number of the slot
@@ -3065,6 +3134,66 @@ export class IColony extends Contract {
       _id: BigNumberish,
       _slots: BigNumberish[],
       _payoutModifiers: BigNumberish[],
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Set many values of an expenditure simultaneously. Can only be called by expenditure owner.
+     * @param _claimDelaySlots Array of slots to set claim delays
+     * @param _claimDelays Durations of time (in seconds) to delay
+     * @param _payoutModifierSlots Array of slots to set payout modifiers
+     * @param _payoutModifiers Values (between +/- WAD) to modify the payout & reputation bonus
+     * @param _payoutSlots 2-dimensional array of slots to set payouts
+     * @param _payoutTokens Addresses of the tokens, `0x0` value indicates Ether
+     * @param _payoutValues 2-dimensional array of the payout amounts
+     * @param _recipientSlots Array of slots to set recipients
+     * @param _recipients Addresses of the recipients
+     * @param _skillIdSlots Array of slots to set skills
+     * @param _skillIds Ids of the new skills to set
+     */
+    setExpenditureValues(
+      _id: BigNumberish,
+      _recipientSlots: BigNumberish[],
+      _recipients: string[],
+      _skillIdSlots: BigNumberish[],
+      _skillIds: BigNumberish[],
+      _claimDelaySlots: BigNumberish[],
+      _claimDelays: BigNumberish[],
+      _payoutModifierSlots: BigNumberish[],
+      _payoutModifiers: BigNumberish[],
+      _payoutTokens: string[],
+      _payoutSlots: BigNumberish[][],
+      _payoutValues: BigNumberish[][],
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
+
+    /**
+     * Set many values of an expenditure simultaneously. Can only be called by expenditure owner.
+     * @param _claimDelaySlots Array of slots to set claim delays
+     * @param _claimDelays Durations of time (in seconds) to delay
+     * @param _payoutModifierSlots Array of slots to set payout modifiers
+     * @param _payoutModifiers Values (between +/- WAD) to modify the payout & reputation bonus
+     * @param _payoutSlots 2-dimensional array of slots to set payouts
+     * @param _payoutTokens Addresses of the tokens, `0x0` value indicates Ether
+     * @param _payoutValues 2-dimensional array of the payout amounts
+     * @param _recipientSlots Array of slots to set recipients
+     * @param _recipients Addresses of the recipients
+     * @param _skillIdSlots Array of slots to set skills
+     * @param _skillIds Ids of the new skills to set
+     */
+    "setExpenditureValues(uint256,uint256[],address[],uint256[],uint256[],uint256[],uint256[],uint256[],int256[],address[],uint256[][],uint256[][])"(
+      _id: BigNumberish,
+      _recipientSlots: BigNumberish[],
+      _recipients: string[],
+      _skillIdSlots: BigNumberish[],
+      _skillIds: BigNumberish[],
+      _claimDelaySlots: BigNumberish[],
+      _claimDelays: BigNumberish[],
+      _payoutModifierSlots: BigNumberish[],
+      _payoutModifiers: BigNumberish[],
+      _payoutTokens: string[],
+      _payoutSlots: BigNumberish[][],
+      _payoutValues: BigNumberish[][],
       overrides?: TransactionOverrides
     ): Promise<ContractTransaction>;
 
@@ -4615,7 +4744,7 @@ export class IColony extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
-     * DEPRECATEDMove a given amount: `_amount` of `_token` funds from funding pot with id `_fromPot` to one with id `_toPot`.
+     * @deprecatedMove a given amount: `_amount` of `_token` funds from funding pot with id `_fromPot` to one with id `_toPot`.
      * @param _amount Amount of funds
      * @param _fromChildSkillIndex The child index in `_permissionDomainId` where we can find the domain for `_fromPotId`
      * @param _fromPot Funding pot id providing the funds
@@ -5241,7 +5370,7 @@ export class IColony extends Contract {
   "getToken()"(overrides?: TransactionOverrides): Promise<string>;
 
   /**
-   * Execute arbitrary transaction on behalf of the Colony DEPRECATED
+   * @deprecatedExecute arbitrary transaction on behalf of the Colony
    * @param _action Bytes array encoding the function call and arguments
    * @param _to Contract to receive the function call (cannot be this contract, network or token locking)
    */
@@ -5252,7 +5381,7 @@ export class IColony extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
-   * Execute arbitrary transaction on behalf of the Colony DEPRECATED
+   * @deprecatedExecute arbitrary transaction on behalf of the Colony
    * @param _action Bytes array encoding the function call and arguments
    * @param _to Contract to receive the function call (cannot be this contract, network or token locking)
    */
@@ -5553,7 +5682,7 @@ export class IColony extends Contract {
   ): Promise<boolean>;
 
   /**
-   * Check whether a given user has a given role for the colony, in a child domain. Calls the function of the same name on the colony's authority contract and an internal inheritence validator function
+   * Check whether a given user has a given role for the colony, in a child domain. Calls the function of the same name on the colony's authority contract and an internal inheritance validator function
    * @param _childDomainId The domain where we want to use the role
    * @param _childSkillIndex The index that the `_childDomainId` is relative to `_domainId`
    * @param _domainId Domain in which the caller has the role
@@ -5570,7 +5699,7 @@ export class IColony extends Contract {
   ): Promise<boolean>;
 
   /**
-   * Check whether a given user has a given role for the colony, in a child domain. Calls the function of the same name on the colony's authority contract and an internal inheritence validator function
+   * Check whether a given user has a given role for the colony, in a child domain. Calls the function of the same name on the colony's authority contract and an internal inheritance validator function
    * @param _childDomainId The domain where we want to use the role
    * @param _childSkillIndex The index that the `_childDomainId` is relative to `_domainId`
    * @param _domainId Domain in which the caller has the role
@@ -6344,7 +6473,7 @@ export class IColony extends Contract {
 
   /**
    * This is now deprecated and will be removed in a future version
-   * DEPRECATED Updates the expenditure owner. Can only be called by Arbitration role.
+   * @deprecatedUpdates the expenditure owner. Can only be called by Arbitration role.
    * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
    * @param _id Expenditure identifier
    * @param _newOwner New owner of expenditure
@@ -6360,7 +6489,7 @@ export class IColony extends Contract {
 
   /**
    * This is now deprecated and will be removed in a future version
-   * DEPRECATED Updates the expenditure owner. Can only be called by Arbitration role.
+   * @deprecatedUpdates the expenditure owner. Can only be called by Arbitration role.
    * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
    * @param _id Expenditure identifier
    * @param _newOwner New owner of expenditure
@@ -6459,6 +6588,7 @@ export class IColony extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
+   * Can only be called while expenditure is in draft state.
    * Sets the metadata for an expenditure. Can only be called by expenditure owner.
    * @param _id Id of the expenditure
    * @param _metadata IPFS hash of the metadata
@@ -6470,7 +6600,8 @@ export class IColony extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
-   * DeprecatedSets the recipient on an expenditure slot. Can only be called by expenditure owner.
+   * Can only be called while expenditure is in draft state.
+   * @deprecatedSets the recipient on an expenditure slot. Can only be called by expenditure owner.
    * @param _id Id of the expenditure
    * @param _recipient Address of the recipient
    * @param _slot Slot for the recipient address
@@ -6483,7 +6614,8 @@ export class IColony extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
-   * DeprecatedSets the recipient on an expenditure slot. Can only be called by expenditure owner.
+   * Can only be called while expenditure is in draft state.
+   * @deprecatedSets the recipient on an expenditure slot. Can only be called by expenditure owner.
    * @param _id Id of the expenditure
    * @param _recipient Address of the recipient
    * @param _slot Slot for the recipient address
@@ -6496,6 +6628,7 @@ export class IColony extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
+   * Can only be called while expenditure is in draft state.
    * Sets the recipients in given expenditure slots. Can only be called by expenditure owner.
    * @param _id Id of the expenditure
    * @param _recipients Addresses of the recipients
@@ -6509,6 +6642,7 @@ export class IColony extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
+   * Can only be called while expenditure is in draft state.
    * Sets the recipients in given expenditure slots. Can only be called by expenditure owner.
    * @param _id Id of the expenditure
    * @param _recipients Addresses of the recipients
@@ -6522,36 +6656,7 @@ export class IColony extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
-   * DeprecatedSet the token payout on an expenditure slot. Can only be called by expenditure owner.
-   * @param _amount Payout amount
-   * @param _id Id of the expenditure
-   * @param _slot Number of the slot
-   * @param _token Address of the token, `0x0` value indicates Ether
-   */
-  setExpenditurePayout(
-    _id: BigNumberish,
-    _slot: BigNumberish,
-    _token: string,
-    _amount: BigNumberish,
-    overrides?: TransactionOverrides
-  ): Promise<ContractTransaction>;
-
-  /**
-   * DeprecatedSet the token payout on an expenditure slot. Can only be called by expenditure owner.
-   * @param _amount Payout amount
-   * @param _id Id of the expenditure
-   * @param _slot Number of the slot
-   * @param _token Address of the token, `0x0` value indicates Ether
-   */
-  "setExpenditurePayout(uint256,uint256,address,uint256)"(
-    _id: BigNumberish,
-    _slot: BigNumberish,
-    _token: string,
-    _amount: BigNumberish,
-    overrides?: TransactionOverrides
-  ): Promise<ContractTransaction>;
-
-  /**
+   * Can only be called while expenditure is in draft state.
    * Set the token payouts in given expenditure slots. Can only be called by expenditure owner.
    * @param _amounts Payout amounts
    * @param _id Id of the expenditure
@@ -6567,6 +6672,7 @@ export class IColony extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
+   * Can only be called while expenditure is in draft state.
    * Set the token payouts in given expenditure slots. Can only be called by expenditure owner.
    * @param _amounts Payout amounts
    * @param _id Id of the expenditure
@@ -6582,7 +6688,58 @@ export class IColony extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
-   * DeprecatedSets the skill on an expenditure slot. Can only be called by expenditure owner.
+   * Can only be called while expenditure is in draft state.
+   * @deprecatedSet the token payout on an expenditure slot. Can only be called by expenditure owner.
+   * @param _amount Payout amount
+   * @param _id Id of the expenditure
+   * @param _slot Number of the slot
+   * @param _token Address of the token, `0x0` value indicates Ether
+   */
+  setExpenditurePayout(
+    _id: BigNumberish,
+    _slot: BigNumberish,
+    _token: string,
+    _amount: BigNumberish,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * Can only be called while expenditure is in draft state.
+   * @deprecatedSet the token payout on an expenditure slot. Can only be called by expenditure owner.
+   * @param _amount Payout amount
+   * @param _id Id of the expenditure
+   * @param _slot Number of the slot
+   * @param _token Address of the token, `0x0` value indicates Ether
+   */
+  "setExpenditurePayout(uint256,uint256,address,uint256)"(
+    _id: BigNumberish,
+    _slot: BigNumberish,
+    _token: string,
+    _amount: BigNumberish,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * Set the token payout in a given expenditure slot. Can only be called by an Arbitration user.
+   * @param _amount Payout amount
+   * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+   * @param _id Id of the expenditure
+   * @param _permissionDomainId The domainId in which I have the permission to take this action
+   * @param _slot The slot to set the payout
+   * @param _token Address of the token, `0x0` value indicates Ether
+   */
+  "setExpenditurePayout(uint256,uint256,uint256,uint256,address,uint256)"(
+    _permissionDomainId: BigNumberish,
+    _childSkillIndex: BigNumberish,
+    _id: BigNumberish,
+    _slot: BigNumberish,
+    _token: string,
+    _amount: BigNumberish,
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * @deprecatedSets the skill on an expenditure slot. Can only be called by expenditure owner.
    * @param _id Expenditure identifier
    * @param _skillId Id of the new skill to set
    * @param _slot Number of the slot
@@ -6595,7 +6752,7 @@ export class IColony extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
-   * DeprecatedSets the skill on an expenditure slot. Can only be called by expenditure owner.
+   * @deprecatedSets the skill on an expenditure slot. Can only be called by expenditure owner.
    * @param _id Expenditure identifier
    * @param _skillId Id of the new skill to set
    * @param _slot Number of the slot
@@ -6634,7 +6791,7 @@ export class IColony extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
-   * DeprecatedSets the claim delay on an expenditure slot. Can only be called by expenditure owner.
+   * @deprecatedSets the claim delay on an expenditure slot. Can only be called by expenditure owner.
    * @param _claimDelay Duration of time (in seconds) to delay
    * @param _id Expenditure identifier
    * @param _slot Number of the slot
@@ -6647,7 +6804,7 @@ export class IColony extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
-   * DeprecatedSets the claim delay on an expenditure slot. Can only be called by expenditure owner.
+   * @deprecatedSets the claim delay on an expenditure slot. Can only be called by expenditure owner.
    * @param _claimDelay Duration of time (in seconds) to delay
    * @param _id Expenditure identifier
    * @param _slot Number of the slot
@@ -6708,6 +6865,66 @@ export class IColony extends Contract {
     _id: BigNumberish,
     _slots: BigNumberish[],
     _payoutModifiers: BigNumberish[],
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * Set many values of an expenditure simultaneously. Can only be called by expenditure owner.
+   * @param _claimDelaySlots Array of slots to set claim delays
+   * @param _claimDelays Durations of time (in seconds) to delay
+   * @param _payoutModifierSlots Array of slots to set payout modifiers
+   * @param _payoutModifiers Values (between +/- WAD) to modify the payout & reputation bonus
+   * @param _payoutSlots 2-dimensional array of slots to set payouts
+   * @param _payoutTokens Addresses of the tokens, `0x0` value indicates Ether
+   * @param _payoutValues 2-dimensional array of the payout amounts
+   * @param _recipientSlots Array of slots to set recipients
+   * @param _recipients Addresses of the recipients
+   * @param _skillIdSlots Array of slots to set skills
+   * @param _skillIds Ids of the new skills to set
+   */
+  setExpenditureValues(
+    _id: BigNumberish,
+    _recipientSlots: BigNumberish[],
+    _recipients: string[],
+    _skillIdSlots: BigNumberish[],
+    _skillIds: BigNumberish[],
+    _claimDelaySlots: BigNumberish[],
+    _claimDelays: BigNumberish[],
+    _payoutModifierSlots: BigNumberish[],
+    _payoutModifiers: BigNumberish[],
+    _payoutTokens: string[],
+    _payoutSlots: BigNumberish[][],
+    _payoutValues: BigNumberish[][],
+    overrides?: TransactionOverrides
+  ): Promise<ContractTransaction>;
+
+  /**
+   * Set many values of an expenditure simultaneously. Can only be called by expenditure owner.
+   * @param _claimDelaySlots Array of slots to set claim delays
+   * @param _claimDelays Durations of time (in seconds) to delay
+   * @param _payoutModifierSlots Array of slots to set payout modifiers
+   * @param _payoutModifiers Values (between +/- WAD) to modify the payout & reputation bonus
+   * @param _payoutSlots 2-dimensional array of slots to set payouts
+   * @param _payoutTokens Addresses of the tokens, `0x0` value indicates Ether
+   * @param _payoutValues 2-dimensional array of the payout amounts
+   * @param _recipientSlots Array of slots to set recipients
+   * @param _recipients Addresses of the recipients
+   * @param _skillIdSlots Array of slots to set skills
+   * @param _skillIds Ids of the new skills to set
+   */
+  "setExpenditureValues(uint256,uint256[],address[],uint256[],uint256[],uint256[],uint256[],uint256[],int256[],address[],uint256[][],uint256[][])"(
+    _id: BigNumberish,
+    _recipientSlots: BigNumberish[],
+    _recipients: string[],
+    _skillIdSlots: BigNumberish[],
+    _skillIds: BigNumberish[],
+    _claimDelaySlots: BigNumberish[],
+    _claimDelays: BigNumberish[],
+    _payoutModifierSlots: BigNumberish[],
+    _payoutModifiers: BigNumberish[],
+    _payoutTokens: string[],
+    _payoutSlots: BigNumberish[][],
+    _payoutValues: BigNumberish[][],
     overrides?: TransactionOverrides
   ): Promise<ContractTransaction>;
 
@@ -8248,7 +8465,7 @@ export class IColony extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
-   * DEPRECATEDMove a given amount: `_amount` of `_token` funds from funding pot with id `_fromPot` to one with id `_toPot`.
+   * @deprecatedMove a given amount: `_amount` of `_token` funds from funding pot with id `_fromPot` to one with id `_toPot`.
    * @param _amount Amount of funds
    * @param _fromChildSkillIndex The child index in `_permissionDomainId` where we can find the domain for `_fromPotId`
    * @param _fromPot Funding pot id providing the funds
@@ -8725,6 +8942,15 @@ export class IColony extends Contract {
       skillId: BigNumberish | null
     ): EventFilter;
 
+    ExpenditureStateChanged(
+      agent: null,
+      expenditureId: BigNumberish | null,
+      storageSlot: BigNumberish | null,
+      mask: null,
+      keys: null,
+      value: null
+    ): EventFilter;
+
     ExpenditureTransferred(
       agent: null,
       expenditureId: BigNumberish | null,
@@ -9130,7 +9356,7 @@ export class IColony extends Contract {
     "getToken()"(overrides?: TransactionOverrides): Promise<BigNumber>;
 
     /**
-     * Execute arbitrary transaction on behalf of the Colony DEPRECATED
+     * @deprecatedExecute arbitrary transaction on behalf of the Colony
      * @param _action Bytes array encoding the function call and arguments
      * @param _to Contract to receive the function call (cannot be this contract, network or token locking)
      */
@@ -9141,7 +9367,7 @@ export class IColony extends Contract {
     ): Promise<BigNumber>;
 
     /**
-     * Execute arbitrary transaction on behalf of the Colony DEPRECATED
+     * @deprecatedExecute arbitrary transaction on behalf of the Colony
      * @param _action Bytes array encoding the function call and arguments
      * @param _to Contract to receive the function call (cannot be this contract, network or token locking)
      */
@@ -9442,7 +9668,7 @@ export class IColony extends Contract {
     ): Promise<BigNumber>;
 
     /**
-     * Check whether a given user has a given role for the colony, in a child domain. Calls the function of the same name on the colony's authority contract and an internal inheritence validator function
+     * Check whether a given user has a given role for the colony, in a child domain. Calls the function of the same name on the colony's authority contract and an internal inheritance validator function
      * @param _childDomainId The domain where we want to use the role
      * @param _childSkillIndex The index that the `_childDomainId` is relative to `_domainId`
      * @param _domainId Domain in which the caller has the role
@@ -9459,7 +9685,7 @@ export class IColony extends Contract {
     ): Promise<BigNumber>;
 
     /**
-     * Check whether a given user has a given role for the colony, in a child domain. Calls the function of the same name on the colony's authority contract and an internal inheritence validator function
+     * Check whether a given user has a given role for the colony, in a child domain. Calls the function of the same name on the colony's authority contract and an internal inheritance validator function
      * @param _childDomainId The domain where we want to use the role
      * @param _childSkillIndex The index that the `_childDomainId` is relative to `_domainId`
      * @param _domainId Domain in which the caller has the role
@@ -10227,7 +10453,7 @@ export class IColony extends Contract {
 
     /**
      * This is now deprecated and will be removed in a future version
-     * DEPRECATED Updates the expenditure owner. Can only be called by Arbitration role.
+     * @deprecatedUpdates the expenditure owner. Can only be called by Arbitration role.
      * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
      * @param _id Expenditure identifier
      * @param _newOwner New owner of expenditure
@@ -10243,7 +10469,7 @@ export class IColony extends Contract {
 
     /**
      * This is now deprecated and will be removed in a future version
-     * DEPRECATED Updates the expenditure owner. Can only be called by Arbitration role.
+     * @deprecatedUpdates the expenditure owner. Can only be called by Arbitration role.
      * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`, (only used if `_permissionDomainId` is different to `_domainId`)
      * @param _id Expenditure identifier
      * @param _newOwner New owner of expenditure
@@ -10342,6 +10568,7 @@ export class IColony extends Contract {
     ): Promise<BigNumber>;
 
     /**
+     * Can only be called while expenditure is in draft state.
      * Sets the metadata for an expenditure. Can only be called by expenditure owner.
      * @param _id Id of the expenditure
      * @param _metadata IPFS hash of the metadata
@@ -10353,7 +10580,8 @@ export class IColony extends Contract {
     ): Promise<BigNumber>;
 
     /**
-     * DeprecatedSets the recipient on an expenditure slot. Can only be called by expenditure owner.
+     * Can only be called while expenditure is in draft state.
+     * @deprecatedSets the recipient on an expenditure slot. Can only be called by expenditure owner.
      * @param _id Id of the expenditure
      * @param _recipient Address of the recipient
      * @param _slot Slot for the recipient address
@@ -10366,7 +10594,8 @@ export class IColony extends Contract {
     ): Promise<BigNumber>;
 
     /**
-     * DeprecatedSets the recipient on an expenditure slot. Can only be called by expenditure owner.
+     * Can only be called while expenditure is in draft state.
+     * @deprecatedSets the recipient on an expenditure slot. Can only be called by expenditure owner.
      * @param _id Id of the expenditure
      * @param _recipient Address of the recipient
      * @param _slot Slot for the recipient address
@@ -10379,6 +10608,7 @@ export class IColony extends Contract {
     ): Promise<BigNumber>;
 
     /**
+     * Can only be called while expenditure is in draft state.
      * Sets the recipients in given expenditure slots. Can only be called by expenditure owner.
      * @param _id Id of the expenditure
      * @param _recipients Addresses of the recipients
@@ -10392,6 +10622,7 @@ export class IColony extends Contract {
     ): Promise<BigNumber>;
 
     /**
+     * Can only be called while expenditure is in draft state.
      * Sets the recipients in given expenditure slots. Can only be called by expenditure owner.
      * @param _id Id of the expenditure
      * @param _recipients Addresses of the recipients
@@ -10405,36 +10636,7 @@ export class IColony extends Contract {
     ): Promise<BigNumber>;
 
     /**
-     * DeprecatedSet the token payout on an expenditure slot. Can only be called by expenditure owner.
-     * @param _amount Payout amount
-     * @param _id Id of the expenditure
-     * @param _slot Number of the slot
-     * @param _token Address of the token, `0x0` value indicates Ether
-     */
-    setExpenditurePayout(
-      _id: BigNumberish,
-      _slot: BigNumberish,
-      _token: string,
-      _amount: BigNumberish,
-      overrides?: TransactionOverrides
-    ): Promise<BigNumber>;
-
-    /**
-     * DeprecatedSet the token payout on an expenditure slot. Can only be called by expenditure owner.
-     * @param _amount Payout amount
-     * @param _id Id of the expenditure
-     * @param _slot Number of the slot
-     * @param _token Address of the token, `0x0` value indicates Ether
-     */
-    "setExpenditurePayout(uint256,uint256,address,uint256)"(
-      _id: BigNumberish,
-      _slot: BigNumberish,
-      _token: string,
-      _amount: BigNumberish,
-      overrides?: TransactionOverrides
-    ): Promise<BigNumber>;
-
-    /**
+     * Can only be called while expenditure is in draft state.
      * Set the token payouts in given expenditure slots. Can only be called by expenditure owner.
      * @param _amounts Payout amounts
      * @param _id Id of the expenditure
@@ -10450,6 +10652,7 @@ export class IColony extends Contract {
     ): Promise<BigNumber>;
 
     /**
+     * Can only be called while expenditure is in draft state.
      * Set the token payouts in given expenditure slots. Can only be called by expenditure owner.
      * @param _amounts Payout amounts
      * @param _id Id of the expenditure
@@ -10465,7 +10668,58 @@ export class IColony extends Contract {
     ): Promise<BigNumber>;
 
     /**
-     * DeprecatedSets the skill on an expenditure slot. Can only be called by expenditure owner.
+     * Can only be called while expenditure is in draft state.
+     * @deprecatedSet the token payout on an expenditure slot. Can only be called by expenditure owner.
+     * @param _amount Payout amount
+     * @param _id Id of the expenditure
+     * @param _slot Number of the slot
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
+    setExpenditurePayout(
+      _id: BigNumberish,
+      _slot: BigNumberish,
+      _token: string,
+      _amount: BigNumberish,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * Can only be called while expenditure is in draft state.
+     * @deprecatedSet the token payout on an expenditure slot. Can only be called by expenditure owner.
+     * @param _amount Payout amount
+     * @param _id Id of the expenditure
+     * @param _slot Number of the slot
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
+    "setExpenditurePayout(uint256,uint256,address,uint256)"(
+      _id: BigNumberish,
+      _slot: BigNumberish,
+      _token: string,
+      _amount: BigNumberish,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * Set the token payout in a given expenditure slot. Can only be called by an Arbitration user.
+     * @param _amount Payout amount
+     * @param _childSkillIndex The index that the `_domainId` is relative to `_permissionDomainId`
+     * @param _id Id of the expenditure
+     * @param _permissionDomainId The domainId in which I have the permission to take this action
+     * @param _slot The slot to set the payout
+     * @param _token Address of the token, `0x0` value indicates Ether
+     */
+    "setExpenditurePayout(uint256,uint256,uint256,uint256,address,uint256)"(
+      _permissionDomainId: BigNumberish,
+      _childSkillIndex: BigNumberish,
+      _id: BigNumberish,
+      _slot: BigNumberish,
+      _token: string,
+      _amount: BigNumberish,
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * @deprecatedSets the skill on an expenditure slot. Can only be called by expenditure owner.
      * @param _id Expenditure identifier
      * @param _skillId Id of the new skill to set
      * @param _slot Number of the slot
@@ -10478,7 +10732,7 @@ export class IColony extends Contract {
     ): Promise<BigNumber>;
 
     /**
-     * DeprecatedSets the skill on an expenditure slot. Can only be called by expenditure owner.
+     * @deprecatedSets the skill on an expenditure slot. Can only be called by expenditure owner.
      * @param _id Expenditure identifier
      * @param _skillId Id of the new skill to set
      * @param _slot Number of the slot
@@ -10517,7 +10771,7 @@ export class IColony extends Contract {
     ): Promise<BigNumber>;
 
     /**
-     * DeprecatedSets the claim delay on an expenditure slot. Can only be called by expenditure owner.
+     * @deprecatedSets the claim delay on an expenditure slot. Can only be called by expenditure owner.
      * @param _claimDelay Duration of time (in seconds) to delay
      * @param _id Expenditure identifier
      * @param _slot Number of the slot
@@ -10530,7 +10784,7 @@ export class IColony extends Contract {
     ): Promise<BigNumber>;
 
     /**
-     * DeprecatedSets the claim delay on an expenditure slot. Can only be called by expenditure owner.
+     * @deprecatedSets the claim delay on an expenditure slot. Can only be called by expenditure owner.
      * @param _claimDelay Duration of time (in seconds) to delay
      * @param _id Expenditure identifier
      * @param _slot Number of the slot
@@ -10591,6 +10845,66 @@ export class IColony extends Contract {
       _id: BigNumberish,
       _slots: BigNumberish[],
       _payoutModifiers: BigNumberish[],
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * Set many values of an expenditure simultaneously. Can only be called by expenditure owner.
+     * @param _claimDelaySlots Array of slots to set claim delays
+     * @param _claimDelays Durations of time (in seconds) to delay
+     * @param _payoutModifierSlots Array of slots to set payout modifiers
+     * @param _payoutModifiers Values (between +/- WAD) to modify the payout & reputation bonus
+     * @param _payoutSlots 2-dimensional array of slots to set payouts
+     * @param _payoutTokens Addresses of the tokens, `0x0` value indicates Ether
+     * @param _payoutValues 2-dimensional array of the payout amounts
+     * @param _recipientSlots Array of slots to set recipients
+     * @param _recipients Addresses of the recipients
+     * @param _skillIdSlots Array of slots to set skills
+     * @param _skillIds Ids of the new skills to set
+     */
+    setExpenditureValues(
+      _id: BigNumberish,
+      _recipientSlots: BigNumberish[],
+      _recipients: string[],
+      _skillIdSlots: BigNumberish[],
+      _skillIds: BigNumberish[],
+      _claimDelaySlots: BigNumberish[],
+      _claimDelays: BigNumberish[],
+      _payoutModifierSlots: BigNumberish[],
+      _payoutModifiers: BigNumberish[],
+      _payoutTokens: string[],
+      _payoutSlots: BigNumberish[][],
+      _payoutValues: BigNumberish[][],
+      overrides?: TransactionOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * Set many values of an expenditure simultaneously. Can only be called by expenditure owner.
+     * @param _claimDelaySlots Array of slots to set claim delays
+     * @param _claimDelays Durations of time (in seconds) to delay
+     * @param _payoutModifierSlots Array of slots to set payout modifiers
+     * @param _payoutModifiers Values (between +/- WAD) to modify the payout & reputation bonus
+     * @param _payoutSlots 2-dimensional array of slots to set payouts
+     * @param _payoutTokens Addresses of the tokens, `0x0` value indicates Ether
+     * @param _payoutValues 2-dimensional array of the payout amounts
+     * @param _recipientSlots Array of slots to set recipients
+     * @param _recipients Addresses of the recipients
+     * @param _skillIdSlots Array of slots to set skills
+     * @param _skillIds Ids of the new skills to set
+     */
+    "setExpenditureValues(uint256,uint256[],address[],uint256[],uint256[],uint256[],uint256[],uint256[],int256[],address[],uint256[][],uint256[][])"(
+      _id: BigNumberish,
+      _recipientSlots: BigNumberish[],
+      _recipients: string[],
+      _skillIdSlots: BigNumberish[],
+      _skillIds: BigNumberish[],
+      _claimDelaySlots: BigNumberish[],
+      _claimDelays: BigNumberish[],
+      _payoutModifierSlots: BigNumberish[],
+      _payoutModifiers: BigNumberish[],
+      _payoutTokens: string[],
+      _payoutSlots: BigNumberish[][],
+      _payoutValues: BigNumberish[][],
       overrides?: TransactionOverrides
     ): Promise<BigNumber>;
 
@@ -11979,7 +12293,7 @@ export class IColony extends Contract {
     ): Promise<BigNumber>;
 
     /**
-     * DEPRECATEDMove a given amount: `_amount` of `_token` funds from funding pot with id `_fromPot` to one with id `_toPot`.
+     * @deprecatedMove a given amount: `_amount` of `_token` funds from funding pot with id `_fromPot` to one with id `_toPot`.
      * @param _amount Amount of funds
      * @param _fromChildSkillIndex The child index in `_permissionDomainId` where we can find the domain for `_fromPotId`
      * @param _fromPot Funding pot id providing the funds
