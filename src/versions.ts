@@ -25,7 +25,7 @@ export enum ColonyVersion {
   DandelionLightweightSpaceship = 7,
   EbonyLightweightSpaceship = 8,
   FuchsiaLightweightSpaceship = 9,
-  UnnamedLightweightSpaceship = 10,
+  FuchsiaLightweightSpaceshipTwo = 10,
 }
 
 // These are the corresponding git release tags for the deployed versions of the Colony Network
@@ -39,7 +39,7 @@ const colonyReleaseMap = {
   [ColonyVersion.DandelionLightweightSpaceship]: `dlwss`,
   [ColonyVersion.EbonyLightweightSpaceship]: `elwss`,
   [ColonyVersion.FuchsiaLightweightSpaceship]: `flwss`,
-  [ColonyVersion.UnnamedLightweightSpaceship]: `develop`,
+  [ColonyVersion.FuchsiaLightweightSpaceshipTwo]: `develop`,
 };
 
 /**
@@ -150,7 +150,8 @@ export enum VotingReputationExtensionVersion {
   DandelionLightweightSpaceship = 2,
   EbonyLightweightSpaceship = 3,
   FuchsiaLightweightSpaceship = 4,
-  UnnamedLightweightSpaceship = 5,
+  FuchsiaLightweightSpaceshipTwo = 5,
+  FuchsiaLightweightSpaceshipThree = 6,
 }
 
 const votingReputationReleaseMap = {
@@ -158,7 +159,9 @@ const votingReputationReleaseMap = {
   [VotingReputationExtensionVersion.DandelionLightweightSpaceship]: `dlwss`,
   [VotingReputationExtensionVersion.EbonyLightweightSpaceship]: `elwss`,
   [VotingReputationExtensionVersion.FuchsiaLightweightSpaceship]: `flwss`,
-  [VotingReputationExtensionVersion.UnnamedLightweightSpaceship]: `develop`,
+  [VotingReputationExtensionVersion.FuchsiaLightweightSpaceshipTwo]: `develop`,
+  // eslint-disable-next-line max-len
+  [VotingReputationExtensionVersion.FuchsiaLightweightSpaceshipThree]: `develop`,
 };
 
 export const CurrentVotingReputationVersion = parseInt(
@@ -199,7 +202,15 @@ const VotingReputationExtensionVersionIncompatibilityMap: Record<
     ColonyVersion.LightweightSpaceship,
     ColonyVersion.CeruleanLightweightSpaceship,
   ],
-  [VotingReputationExtensionVersion.UnnamedLightweightSpaceship]: [
+  [VotingReputationExtensionVersion.FuchsiaLightweightSpaceshipTwo]: [
+    ColonyVersion.GoerliGlider,
+    ColonyVersion.Glider,
+    ColonyVersion.AuburnGlider,
+    ColonyVersion.BurgundyGlider,
+    ColonyVersion.LightweightSpaceship,
+    ColonyVersion.CeruleanLightweightSpaceship,
+  ],
+  [VotingReputationExtensionVersion.FuchsiaLightweightSpaceshipThree]: [
     ColonyVersion.GoerliGlider,
     ColonyVersion.Glider,
     ColonyVersion.AuburnGlider,
