@@ -1,8 +1,3 @@
-/**
- * @internal
- * @module
- */
-
 export { Tokens } from '@colony/colony-js';
 
 export { ColonyNetwork, Colony } from './ColonyNetwork';
