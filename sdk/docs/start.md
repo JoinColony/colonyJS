@@ -1,6 +1,10 @@
 ---
+sidebar_position: 0
 description: A stupidly short guide to get started with Colony development
 ---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 # Start Building
 
@@ -9,9 +13,9 @@ description: A stupidly short guide to get started with Colony development
 * NodeJS v 16.15.0 is installed on your system (use [`nvm`](https://github.com/nvm-sh/nvm) for changing NodeJS versions on the fly)
 * A JavaScript/TypeScript project with a `package.json` and the `@colony/sdk` and `ethers` packages installed.
 
-{% hint style="success" %}
+:::tip
 To get started even faster, use our [**`Colony Starter`**](https://github.com/JoinColony/colonyStarter) template. It's just a matter of cloning the repository and running `npm run serve` to get to the first working example. Follow the guide after the link for more information.
-{% endhint %}
+:::
 
 ## Installation
 
@@ -25,11 +29,12 @@ You'll need `ethers` v5.x as a dependency in your project.
 
 ## Connecting to Colony on Gnosis Chain
 
-{% tabs %}
-{% tab title="In the browser (using MetaMask)" %}
-{% hint style="info" %}
+<Tabs>
+<TabItem value="browser" label="In the browser (using MetaMask)" default>
+
+:::info
 For browser based projects, consider using a build system like [esbuild](https://esbuild.github.io/) that can understand the `import` commands and will bundle all necessary libraries into one file. Again, feel free to just use the [colonyStarter](https://github.com/JoinColony/colonyStarter) template which has this already set up for you.
-{% endhint %}
+:::
 
 ```javascript
 // index.js
@@ -58,9 +63,10 @@ start();
 ```
 
 Include the resulting bundle in an HTML file and open it in you favorite browser. It should connect to MetaMask and alert you with the current MetaColony CLNY balance.
-{% endtab %}
 
-{% tab title="In NodeJS" %}
+</TabItem>
+<TabItem value="nodejs" label="In NodeJS">
+
 ```javascript
 // index.js
 const { providers, Wallet } = require('ethers');
@@ -89,5 +95,6 @@ Run this file by executing `node index.js` and carefully observe the output. The
 ```
 MetaColony balance is 2.125319999999999999 CLNY
 ```
-{% endtab %}
-{% endtabs %}
+
+</TabItem>
+</Tabs>
