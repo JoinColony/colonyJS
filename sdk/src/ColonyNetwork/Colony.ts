@@ -137,6 +137,7 @@ export class Colony {
    * @returns A tupel: `[eventData, ContractReceipt, getMetaData]`
    *
    * **Event data**
+   *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
    * | `agent` | string | The address that is responsible for triggering this event |
@@ -145,6 +146,7 @@ export class Colony {
    * | `metadata` | string | IPFS CID of metadata attached to this transaction |
    *
    * **Metadata** (can be obtained by calling and awaiting the `getMetadata` function)
+   *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
    * | `domainName` | string | The human readable name assigned to this team |
@@ -211,6 +213,7 @@ export class Colony {
    * @returns A tupel of event data and contract receipt
    *
    * **Event data**
+   *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
    * | `agent` | string | The address that is responsible for triggering this event |
@@ -263,6 +266,7 @@ export class Colony {
    * @returns A tupel of event data and contract receipt
    *
    * **Event data**
+   *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
    * | `agent` | string | The address that is responsible for triggering this event |
@@ -326,6 +330,7 @@ export class Colony {
    * @returns A tupel of event data and contract receipt
    *
    * **Event data**
+   *
    * | Property | Type | Description |
    * | :------ | :------ | :------ |
    * | `agent` | string | The address that is responsible for triggering this event |

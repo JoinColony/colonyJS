@@ -44,6 +44,7 @@ Anyone can call this function. Claims funds _for_ the Colony that have been sent
 A tupel of event data and contract receipt
 
 **Event data**
+
 | Property | Type | Description |
 | :------ | :------ | :------ |
 | `agent` | string | The address that is responsible for triggering this event |
@@ -72,6 +73,7 @@ Currently you can only add domains within the `Root` domain. This restriction wi
 A tupel: `[eventData, ContractReceipt, getMetaData]`
 
 **Event data**
+
 | Property | Type | Description |
 | :------ | :------ | :------ |
 | `agent` | string | The address that is responsible for triggering this event |
@@ -80,6 +82,7 @@ A tupel: `[eventData, ContractReceipt, getMetaData]`
 | `metadata` | string | IPFS CID of metadata attached to this transaction |
 
 **Metadata** (can be obtained by calling and awaiting the `getMetadata` function)
+
 | Property | Type | Description |
 | :------ | :------ | :------ |
 | `domainName` | string | The human readable name assigned to this team |
@@ -214,6 +217,7 @@ import { Tokens, w } from '@colony/sdk';
 A tupel of event data and contract receipt
 
 **Event data**
+
 | Property | Type | Description |
 | :------ | :------ | :------ |
 | `agent` | string | The address that is responsible for triggering this event |
@@ -263,6 +267,7 @@ import { Id, Tokens, w } from '@colony/sdk';
 A tupel of event data and contract receipt
 
 **Event data**
+
 | Property | Type | Description |
 | :------ | :------ | :------ |
 | `agent` | string | The address that is responsible for triggering this event |
