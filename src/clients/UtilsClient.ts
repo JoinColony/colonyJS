@@ -1,4 +1,4 @@
-import { BigNumber, BytesLike, CallOverrides } from 'ethers';
+import { BigNumber, BytesLike, CallOverrides, utils } from 'ethers';
 
 import { ClientType, ColonyRole, SignerOrProvider } from '../types';
 
@@ -17,9 +17,12 @@ export interface UtilsClient extends Utils {
 async function getCapabilityRolesAsArray(
   this: Utils,
   _sig: BytesLike,
-  overrides?: CallOverrides,
+  overrides: CallOverrides = {},
 ): Promise<ColonyRole[]> {
-  const rolesHexString = await this.getCapabilityRoles(_sig, overrides);
+  const rolesHexString = await this.getCapabilityRoles(
+    utils.hexZeroPad(_sig, 4),
+    overrides,
+  );
   const rolesNum = BigNumber.from(rolesHexString);
   return [...Array(ColonyRole.LAST_ROLE).keys()]
     .map((i) => {

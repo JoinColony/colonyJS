@@ -22,6 +22,8 @@ import {
 import { Id } from '../../../../constants';
 import { parsePermissionedAction } from '../../../../utils';
 
+const { AddressZero, MaxUint256 } = constants;
+
 type ValidVotingReputation =
   | VotingReputationV2
   | VotingReputationV3
@@ -93,7 +95,7 @@ async function getCreateMotionProofs(
       );
     }
     // No permission proof needed
-    actionCid = constants.MaxUint256;
+    actionCid = MaxUint256;
   } else {
     // Get associated skill of permissionDomainId of action
     const { skillId: permissionSkillId } =
@@ -106,7 +108,7 @@ async function getCreateMotionProofs(
       );
     // It's the same one, that's fine
     if (actionSkillId.eq(skillId)) {
-      actionCid = constants.MaxUint256;
+      actionCid = MaxUint256;
     } else {
       // Find the relationship between the skill of the domain we want to create the motion in and the skill of the domain the action is taking place in
       const { children } = await contract.colonyClient.networkClient.getSkill(
@@ -122,10 +124,8 @@ async function getCreateMotionProofs(
     }
   }
 
-  const walletAddress = await contract.signer.getAddress();
-
   const { key, value, branchMask, siblings } =
-    await contract.colonyClient.getReputation(skillId, walletAddress);
+    await contract.colonyClient.getReputation(skillId, AddressZero);
 
   return {
     actionCid,
