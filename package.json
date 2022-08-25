@@ -1,6 +1,6 @@
 {
   "name": "@colony/colony-js",
-  "version": "5.1.3",
+  "version": "5.1.4",
   "exports": {
     ".": {
       "import": "./dist/esm/index.js",
