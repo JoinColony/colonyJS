@@ -19,7 +19,7 @@ import type {
   OnEvent,
 } from "../common";
 
-export interface UtilsInterface extends utils.Interface {
+export interface MotionTargetInterface extends utils.Interface {
   functions: {
     "getCapabilityRoles(bytes4)": FunctionFragment;
   };
@@ -39,12 +39,12 @@ export interface UtilsInterface extends utils.Interface {
   events: {};
 }
 
-export interface Utils extends BaseContract {
+export interface MotionTarget extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
 
-  interface: UtilsInterface;
+  interface: MotionTargetInterface;
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,

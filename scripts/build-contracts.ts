@@ -66,8 +66,8 @@ const UPGRADABLE_CONTRACTS = ['IColonyNetwork'];
 const UNVERSIONED_CONTRACTS = [
   // Auxiliary contracts
   'ColonyExtension',
+  'MotionTarget',
   'TokenLocking',
-  'Utils',
   // ERC20 tokens
   'MetaTxToken',
   'TokenERC20',

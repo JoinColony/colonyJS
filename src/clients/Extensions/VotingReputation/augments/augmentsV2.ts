@@ -7,7 +7,7 @@ import {
 } from 'ethers';
 
 import { ColonyRole, TxOverrides } from '../../../../types';
-import { getUtilsClient } from '../../../Core/exports';
+import { getMotionTargetClient } from '../../../Core/exports';
 import {
   VotingReputationV2,
   VotingReputationV3,
@@ -21,6 +21,8 @@ import {
 } from './commonAugments';
 import { Id } from '../../../../constants';
 import { parsePermissionedAction } from '../../../../utils';
+
+const { AddressZero, MaxUint256 } = constants;
 
 type ValidVotingReputation =
   | VotingReputationV2
@@ -76,11 +78,13 @@ async function getCreateMotionProofs(
   const { sig, permissionDomainId, childSkillIndex } =
     parsePermissionedAction(action);
 
-  const utilsClient = getUtilsClient(
+  const motionTargetClient = getMotionTargetClient(
     altTarget,
     contract.signer || contract.provider,
   );
-  const capabilityRoles = await utilsClient.getCapabilityRolesAsArray(sig);
+  const capabilityRoles = await motionTargetClient.getCapabilityRolesAsArray(
+    sig,
+  );
 
   // Requires root or is not a permissioned function
   if (
@@ -93,7 +97,7 @@ async function getCreateMotionProofs(
       );
     }
     // No permission proof needed
-    actionCid = constants.MaxUint256;
+    actionCid = MaxUint256;
   } else {
     // Get associated skill of permissionDomainId of action
     const { skillId: permissionSkillId } =
@@ -106,7 +110,7 @@ async function getCreateMotionProofs(
       );
     // It's the same one, that's fine
     if (actionSkillId.eq(skillId)) {
-      actionCid = constants.MaxUint256;
+      actionCid = MaxUint256;
     } else {
       // Find the relationship between the skill of the domain we want to create the motion in and the skill of the domain the action is taking place in
       const { children } = await contract.colonyClient.networkClient.getSkill(
@@ -122,10 +126,8 @@ async function getCreateMotionProofs(
     }
   }
 
-  const walletAddress = await contract.signer.getAddress();
-
   const { key, value, branchMask, siblings } =
-    await contract.colonyClient.getReputation(skillId, walletAddress);
+    await contract.colonyClient.getReputation(skillId, AddressZero);
 
   return {
     actionCid,
