@@ -22,19 +22,26 @@ async function getCapabilityRolesAsArray(
   _sig: BytesLike,
   overrides: CallOverrides = {},
 ): Promise<ColonyRole[]> {
-  const rolesHexString = await this.getCapabilityRoles(
-    utils.hexZeroPad(_sig, 4),
-    overrides,
-  );
-  const rolesNum = BigNumber.from(rolesHexString);
-  return [...Array(ColonyRole.LAST_ROLE).keys()]
-    .map((i) => {
-      if (rolesNum.shr(i).mask(1).eq(1)) {
-        return i as ColonyRole;
-      }
-      return null;
-    })
-    .filter(nonNullable);
+  let rolesHexString: string;
+  try {
+    // This will work if the target has the getCapabilityRoles method
+    rolesHexString = await this.getCapabilityRoles(
+      utils.hexZeroPad(_sig, 4),
+      overrides,
+    );
+    const rolesNum = BigNumber.from(rolesHexString);
+    return [...Array(ColonyRole.LAST_ROLE).keys()]
+      .map((i) => {
+        if (rolesNum.shr(i).mask(1).eq(1)) {
+          return i as ColonyRole;
+        }
+        return null;
+      })
+      .filter(nonNullable);
+  } catch (e) {
+    // Otherwise we assume that the encoded method is not permissioned
+    return [];
+  }
 }
 
 /** @internal */
