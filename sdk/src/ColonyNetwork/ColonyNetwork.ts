@@ -40,7 +40,7 @@ export class ColonyNetwork {
    *
    * @param signerOrProvider An _ethers_ compatible Signer or Provider instance
    * @param options Pass in a custom ColonyNetwork address or Reputation Miner endpoint
-   * @returns A ColonyNetwork abstaction instance
+   * @returns A ColonyNetwork abstraction instance
    */
   constructor(
     signerOrProvider: SignerOrProvider,

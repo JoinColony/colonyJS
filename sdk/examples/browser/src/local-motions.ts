@@ -1,13 +1,15 @@
-import { providers, utils, Wallet } from 'ethers';
+import { BigNumber, BigNumberish, providers, utils, Wallet } from 'ethers';
 
-import { Colony, ColonyNetwork, toEth, toWei, w } from '../../../src';
-import { setupOneTxPaymentExtension } from '../../helpers';
+import { Colony, ColonyNetwork, toWei, w } from '../../../src';
+import {
+  setupOneTxPaymentExtension,
+  setupVotingReputationExtension,
+} from '../../helpers';
 
 const { isAddress } = utils;
 const provider = new providers.JsonRpcProvider('http://127.0.0.1:8545');
 
 let metaColony: Colony;
-let recipient: string;
 
 const getWallet = () => {
   // This is the private key of the ganache account with index 0: 0xb77D57F4959eAfA0339424b83FcFaf9c15407461. In the contract deployments done with truffle this account is used as the owner of the MetaColony, so we have all the permissions. This will effectively replace MetaMask
@@ -25,28 +27,50 @@ const getMetaColony = async (networkAddress: string) => {
     reputationOracleEndpoint: 'http://localhost:3000',
   });
   // Get an instance of the MetaColony
-  const colony = await colonyNetwork.getMetaColony();
-  // Set up the OneTxPayment extension. This is usually already done for Colonys that were created with the Dapp
+  let colony = await colonyNetwork.getMetaColony();
+  // Set up the OneTxPayment extension (we're using this for the `pay` method). This is usually already done for Colonies that were created with the Dapp
   await setupOneTxPaymentExtension(colony);
+  // Set up the VotingReputation extension. This is usually already done for Colonies that were created with the Dapp
+  await setupVotingReputationExtension(colony);
+  // Re-initialize Colony after VotingReputationExtension is installed
+  colony = await colonyNetwork.getMetaColony();
+  // Mint CLNY and fund the Colony with it
+  const token = colony.getToken();
+  // Mint `amount` CLNY
+  await token.mint(w`500`);
+  // Claim the CLNY for the MetaColony (important!)
+  await colony.claimFunds();
+  // Pay 50 CLNY each to two addresses that we want to use for the motion
+  // This will also give these addresses reputation in the ROOT team
+  await colony.pay('0xb77D57F4959eAfA0339424b83FcFaf9c15407461', w`50`);
+  await colony.pay('0x9df24e73f40b2a911eb254a8825103723e13209c', w`50`);
+  // Advance time so to settle the reputation
+  await jumpIntoTheFuture();
   return colony;
 };
 
-// Mint CLNY and fund the Colony with it
-const fundColony = async (amount: string) => {
-  const token = metaColony.getToken();
-  // Mint `amount` CLNY
-  await token.mint(toWei(amount));
-  // Claim the CLNY for the MetaColony (important!)
-  await metaColony.claimFunds();
-  // Look up the funds
-  const funding = await metaColony.getBalance();
-  return toEth(funding);
+const createPaymentMotion = async (amount: string): Promise<BigNumber> => {
+  if (!metaColony.ext.motions) {
+    throw new Error('Motions & Disputes extension not installed');
+  }
+  const [{ motionId }] = await metaColony.ext.motions.create.pay(
+    '0x27ff0c145e191c22c75cd123c679c3e1f58a4469',
+    toWei(amount),
+  );
+
+  if (!motionId) {
+    // This case should not happen (rather the tx reverts) but we're making the check here for type-safety
+    throw new Error('Could not get motionId from tx');
+  }
+
+  return motionId;
 };
 
-// Make a payment to the given user in the MetaColony's native token (CLNY). This will cause the user to have reputation in the new domain after the next reputation mining cycle (max 24h)
-const makePayment = async (to: string) => {
-  // Pay 10 CLNY to the recipient
-  return metaColony.pay(to, w`10`);
+const getMotion = async (motionId: BigNumberish) => {
+  if (!metaColony.ext.motions) {
+    throw new Error('Motions & Disputes extension not installed');
+  }
+  return metaColony.ext.motions.getMotion(motionId);
 };
 
 // We're using Ganache's evm_increaseTime and evm_mine methods to first increase the block time artificially by one hour and then force a block to mine. This will trigger the local reputation oracle/miner to award the pending reputation.
@@ -56,23 +80,17 @@ const jumpIntoTheFuture = async () => {
   await provider.send('evm_mine', []);
 };
 
-const getReputation = async (userAddress: string): Promise<string> => {
-  const reputation = await metaColony.getReputation(userAddress);
-  return reputation.toString();
-};
-
 // Some setup to display the UI
 const inputAddress: HTMLInputElement | null =
   document.querySelector('#address');
 const buttonConnect = document.querySelector('#button_connect');
-const inputFunding: HTMLInputElement | null =
-  document.querySelector('#funding_amount');
-const buttonFund = document.querySelector('#button_fund');
-const inputRecipient: HTMLInputElement | null =
-  document.querySelector('#recipient');
-const buttonPay = document.querySelector('#button_pay');
+const inputPaymentAmount: HTMLInputElement | null =
+  document.querySelector('#payment_amount');
+const buttonCreateMotion = document.querySelector('#button_create_motion');
+const inputMotionId: HTMLInputElement | null =
+  document.querySelector('#motion_id');
+const buttonGetMotion = document.querySelector('#button_get_motion');
 const buttonJump = document.querySelector('#button_jump');
-const buttonReputation = document.querySelector('#button_get_reputation');
 
 const errElm: HTMLParagraphElement | null = document.querySelector('#error');
 const resultElm: HTMLParagraphElement | null =
@@ -80,15 +98,14 @@ const resultElm: HTMLParagraphElement | null =
 
 if (
   !inputAddress ||
-  !inputFunding ||
-  !inputRecipient ||
+  !inputPaymentAmount ||
+  !inputMotionId ||
   !errElm ||
   !resultElm ||
   !buttonConnect ||
-  !buttonFund ||
-  !buttonPay ||
-  !buttonJump ||
-  !buttonReputation
+  !buttonCreateMotion ||
+  !buttonGetMotion ||
+  !buttonJump
 ) {
   throw new Error('Could not find all required HTML elements');
 }
@@ -127,40 +144,35 @@ buttonConnect.addEventListener('click', async () => {
   return null;
 });
 
-buttonFund.addEventListener('click', async () => {
+buttonCreateMotion.addEventListener('click', async () => {
   kalm();
   speak('Processing...');
   try {
-    const fundingAmount = inputFunding.value;
-    const funding = await fundColony(fundingAmount);
-    speak(`Funded MetaColony! Current funding: ${funding} CLNY`);
+    const paymentAmount = inputPaymentAmount.value;
+    const motionId = await createPaymentMotion(paymentAmount);
+    speak(`Motion created! Motion ID is: ${motionId}`);
   } catch (e) {
     panik(e as Error);
     speak('');
   } finally {
-    inputFunding.value = '';
+    inputPaymentAmount.value = '';
   }
   return null;
 });
 
-buttonPay.addEventListener('click', async () => {
-  recipient = inputRecipient.value;
+buttonGetMotion.addEventListener('click', async () => {
+  const motionId = inputMotionId.value;
   speak('Processing...');
   try {
-    await makePayment(recipient);
+    const motion = await getMotion(motionId);
+    speak(JSON.stringify(motion));
   } catch (e) {
     panik(e as Error);
     speak('');
   }
-  speak(`Successfully paid 10 CLNY to ${recipient}`);
 });
 
 buttonJump.addEventListener('click', async () => {
   await jumpIntoTheFuture();
   speak('Whooo that was a hell of a ride. Welcome to the future');
-});
-
-buttonReputation.addEventListener('click', async () => {
-  const reputation = await getReputation(recipient);
-  speak(`User ${recipient} has ${toEth(reputation)} reputation points`);
 });
