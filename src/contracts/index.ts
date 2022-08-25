@@ -20,12 +20,12 @@ export type { VotingReputationEvents } from "./__dynamic__/VotingReputationEvent
 export { VotingReputationEvents__factory } from "./factories/__dynamic__/VotingReputationEvents__factory";
 export type { WhitelistEvents } from "./__dynamic__/WhitelistEvents";
 export { WhitelistEvents__factory } from "./factories/__dynamic__/WhitelistEvents__factory";
+export type { MotionTarget } from "./__fixed__/MotionTarget";
+export { MotionTarget__factory } from "./factories/__fixed__/MotionTarget__factory";
 export type { TokenERC20 } from "./__fixed__/TokenERC20";
 export { TokenERC20__factory } from "./factories/__fixed__/TokenERC20__factory";
 export type { TokenSAI } from "./__fixed__/TokenSAI";
 export { TokenSAI__factory } from "./factories/__fixed__/TokenSAI__factory";
-export type { Utils } from "./__fixed__/Utils";
-export { Utils__factory } from "./factories/__fixed__/Utils__factory";
 export type { ColonyExtension } from "./latest/ColonyExtension";
 export { ColonyExtension__factory } from "./factories/latest/ColonyExtension__factory";
 export type { IColonyNetwork } from "./latest/IColonyNetwork";

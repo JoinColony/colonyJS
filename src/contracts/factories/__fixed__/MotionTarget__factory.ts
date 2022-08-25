@@ -4,7 +4,10 @@
 
 import { Contract, Signer, utils } from "ethers";
 import type { Provider } from "@ethersproject/providers";
-import type { Utils, UtilsInterface } from "../../__fixed__/Utils";
+import type {
+  MotionTarget,
+  MotionTargetInterface,
+} from "../../__fixed__/MotionTarget";
 
 const _abi = [
   {
@@ -28,12 +31,15 @@ const _abi = [
   },
 ];
 
-export class Utils__factory {
+export class MotionTarget__factory {
   static readonly abi = _abi;
-  static createInterface(): UtilsInterface {
-    return new utils.Interface(_abi) as UtilsInterface;
+  static createInterface(): MotionTargetInterface {
+    return new utils.Interface(_abi) as MotionTargetInterface;
   }
-  static connect(address: string, signerOrProvider: Signer | Provider): Utils {
-    return new Contract(address, _abi, signerOrProvider) as Utils;
+  static connect(
+    address: string,
+    signerOrProvider: Signer | Provider
+  ): MotionTarget {
+    return new Contract(address, _abi, signerOrProvider) as MotionTarget;
   }
 }

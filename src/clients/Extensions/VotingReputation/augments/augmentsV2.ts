@@ -7,7 +7,7 @@ import {
 } from 'ethers';
 
 import { ColonyRole, TxOverrides } from '../../../../types';
-import { getUtilsClient } from '../../../Core/exports';
+import { getMotionTargetClient } from '../../../Core/exports';
 import {
   VotingReputationV2,
   VotingReputationV3,
@@ -78,11 +78,13 @@ async function getCreateMotionProofs(
   const { sig, permissionDomainId, childSkillIndex } =
     parsePermissionedAction(action);
 
-  const utilsClient = getUtilsClient(
+  const motionTargetClient = getMotionTargetClient(
     altTarget,
     contract.signer || contract.provider,
   );
-  const capabilityRoles = await utilsClient.getCapabilityRolesAsArray(sig);
+  const capabilityRoles = await motionTargetClient.getCapabilityRolesAsArray(
+    sig,
+  );
 
   // Requires root or is not a permissioned function
   if (

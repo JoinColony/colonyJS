@@ -2,11 +2,14 @@ import { BigNumber, BytesLike, CallOverrides, utils } from 'ethers';
 
 import { ClientType, ColonyRole, SignerOrProvider } from '../types';
 
-import { Utils, Utils__factory as UtilsFactory } from '../contracts';
+import {
+  MotionTarget,
+  MotionTarget__factory as MotionTargetFactory,
+} from '../contracts';
 import { nonNullable } from '../utils';
 
-export interface UtilsClient extends Utils {
-  clientType: ClientType.UtilsClient;
+export interface MotionTargetClient extends MotionTarget {
+  clientType: ClientType.MotionTargetClient;
 
   getCapabilityRolesAsArray(
     _sig: BytesLike,
@@ -15,7 +18,7 @@ export interface UtilsClient extends Utils {
 }
 
 async function getCapabilityRolesAsArray(
-  this: Utils,
+  this: MotionTarget,
   _sig: BytesLike,
   overrides: CallOverrides = {},
 ): Promise<ColonyRole[]> {
@@ -35,20 +38,20 @@ async function getCapabilityRolesAsArray(
 }
 
 /** @internal */
-const getUtilsClient = (
+const getMotionTargetClient = (
   address: string,
   signerOrProvider: SignerOrProvider,
-): UtilsClient => {
-  const utilsClient = UtilsFactory.connect(
+): MotionTargetClient => {
+  const motionTargetClient = MotionTargetFactory.connect(
     address,
     signerOrProvider,
-  ) as UtilsClient;
+  ) as MotionTargetClient;
 
-  utilsClient.clientType = ClientType.UtilsClient;
-  utilsClient.getCapabilityRolesAsArray =
-    getCapabilityRolesAsArray.bind(utilsClient);
+  motionTargetClient.clientType = ClientType.MotionTargetClient;
+  motionTargetClient.getCapabilityRolesAsArray =
+    getCapabilityRolesAsArray.bind(motionTargetClient);
 
-  return utilsClient;
+  return motionTargetClient;
 };
 
-export default getUtilsClient;
+export default getMotionTargetClient;

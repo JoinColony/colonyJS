@@ -167,4 +167,4 @@ export async function getColonyClient(
 }
 
 /** @internal */
-export { default as getUtilsClient } from '../UtilsClient';
+export { default as getMotionTargetClient } from '../MotionTargetClient';
