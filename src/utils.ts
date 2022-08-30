@@ -189,34 +189,40 @@ export const fetchReputationOracleData = async <
   const rootHash =
     customRootHash || (await networkClient.getReputationRootHash());
 
+  if (BigNumber.from(rootHash).isZero()) {
+    throw new Error('No reputation for given rootHash found (yet)');
+  }
+
   const baseEndpoint = `${reputationOracleEndpoint}/${rootHash}/${colonyAddress}`;
 
+  let url;
   switch (endpoint) {
     case ReputationMinerEndpoints.UserReputationInSingleDomainWithoutProofs: {
-      const response = await fetch(
-        `${baseEndpoint}/${skillIdString}/${userAddress}/noProof`,
-      );
-      return response.json();
+      url = `${baseEndpoint}/${skillIdString}/${userAddress}/noProof`;
+      break;
     }
     case ReputationMinerEndpoints.UserReputationInSingleDomainWithProofs: {
-      const response = await fetch(
-        `${baseEndpoint}/${skillIdString}/${userAddress}`,
-      );
-      return response.json();
+      url = `${baseEndpoint}/${skillIdString}/${userAddress}`;
+      break;
     }
     case ReputationMinerEndpoints.UserReputationInAllDomains: {
-      const response = await fetch(`${baseEndpoint}/${userAddress}/all`);
-      return response.json();
+      url = `${baseEndpoint}/${userAddress}/all`;
+      break;
     }
     case ReputationMinerEndpoints.UsersWithReputationInColony: {
-      const response = await fetch(`${baseEndpoint}/${skillIdString}`);
-      return response.json();
+      url = `${baseEndpoint}/${skillIdString}`;
+      break;
     }
     default: {
-      const response = await fetch(baseEndpoint);
-      return response.json();
+      url = baseEndpoint;
     }
   }
+
+  const response = await fetch(url);
+  if (response.ok) {
+    return response.json();
+  }
+  throw new Error(`No reputation entry found for query ${url}`);
 };
 
 export const parsePermissionedAction = (action: BytesLike) => {
