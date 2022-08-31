@@ -24,6 +24,8 @@ export type { MotionTarget } from "./__fixed__/MotionTarget";
 export { MotionTarget__factory } from "./factories/__fixed__/MotionTarget__factory";
 export type { TokenERC20 } from "./__fixed__/TokenERC20";
 export { TokenERC20__factory } from "./factories/__fixed__/TokenERC20__factory";
+export type { TokenERC721 } from "./__fixed__/TokenERC721";
+export { TokenERC721__factory } from "./factories/__fixed__/TokenERC721__factory";
 export type { TokenSAI } from "./__fixed__/TokenSAI";
 export { TokenSAI__factory } from "./factories/__fixed__/TokenSAI__factory";
 export type { ColonyExtension } from "./latest/ColonyExtension";

@@ -3,4 +3,5 @@
 /* eslint-disable */
 export type { MotionTarget } from "./MotionTarget";
 export type { TokenERC20 } from "./TokenERC20";
+export type { TokenERC721 } from "./TokenERC721";
 export type { TokenSAI } from "./TokenSAI";

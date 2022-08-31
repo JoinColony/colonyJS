@@ -68,9 +68,10 @@ const UNVERSIONED_CONTRACTS = [
   'ColonyExtension',
   'MotionTarget',
   'TokenLocking',
-  // ERC20 tokens
+  // Tokens contracts
   'MetaTxToken',
   'TokenERC20',
+  'TokenERC721',
   'TokenSAI',
 ];
 
