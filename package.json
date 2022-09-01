@@ -44,7 +44,8 @@
     "release": "npm test && npm run build && release-it",
     "test": "npm run lint && npm run typecheck && jest '[^integration].ts'",
     "test-ci": "npm run lint && npm run typecheck && jest",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@colony/eslint-config-colony": "^9.0.2",
@@ -69,7 +70,9 @@
     "ethers": "^5.5.4",
     "execa": "^5.1.1",
     "fast-glob": "^3.2.11",
+    "husky": "^8.0.1",
     "jest": "^27.5.1",
+    "lint-staged": "^13.0.3",
     "lodash": "^4.17.21",
     "mkdirp": "^1.0.4",
     "prettier": "^2.5.1",
