@@ -2,13 +2,17 @@ import { VotingReputation__factory as VotingReputationFactory } from '../../../c
 import { VotingReputation } from '../../../contracts/VotingReputation/1/VotingReputation';
 import {
   addAugments,
+  AugmentedEstimate,
   AugmentedVotingReputation,
 } from './augments/commonAugments';
 import { AugmentedIColony } from '../../Core/augments/commonAugments';
 
+type VotingReputationEstimate = AugmentedEstimate<VotingReputation>;
+
 export interface VotingReputationClientV1
   extends AugmentedVotingReputation<VotingReputation> {
   clientVersion: 1;
+  estimateGas: VotingReputationEstimate;
 }
 
 export default function getVotingReputationClient(
