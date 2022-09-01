@@ -1,6 +1,7 @@
 {
   "name": "colonyJS",
   "entryPoints": ["./src/index.ts"],
+  "tsconfig": "./tsconfig.json",
   "out": "docs/reference/api",
   "excludeInternal": true,
   "excludePrivate": true,
