@@ -41,6 +41,7 @@
     "compile-types": "tsc -p tsconfig.build.json --declaration --emitDeclarationOnly --outDir dist/types",
     "extract-contract-abis": "ts-node -P scripts/tsconfig-scripts.json scripts/extract-contract-abis.ts",
     "lint": "eslint --ext .ts src scripts",
+    "no-git-changes": "./scripts/no-git-changes.sh",
     "release": "npm test && npm run build && release-it",
     "test": "npm run lint && npm run typecheck && jest '[^integration].ts'",
     "test-ci": "npm run lint && npm run typecheck && jest",
