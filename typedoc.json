@@ -1,0 +1,11 @@
+{
+  "name": "colonyJS",
+  "entryPoints": ["./src/index.ts"],
+  "out": "docs/reference/api",
+  "excludeInternal": true,
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "githubPages": false,
+  "disableSources": true,
+  "readme": "none"
+}
