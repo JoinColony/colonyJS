@@ -10,8 +10,7 @@
     "graphql": "^16.5.0",
     "isomorphic-ws": "^4.0.1",
     "runtypes": "^6.5.1",
-    "subscriptions-transport-ws": "^0.11.0",
-    "typedoc-plugin-markdown": "file:../typedoc-plugin-markdown/packages/typedoc-plugin-markdown"
+    "subscriptions-transport-ws": "^0.11.0"
   },
   "devDependencies": {
     "@colony/eslint-config-colony": "^9.0.2",
@@ -36,6 +35,7 @@
     "release-it": "^14.14.2",
     "rimraf": "^3.0.2",
     "ts-node": "^10.7.0",
+    "typedoc": "^0.23.13",
     "typescript": "^4.7.4",
     "wonka": "^4.0.15",
     "yargs": "^17.5.1"

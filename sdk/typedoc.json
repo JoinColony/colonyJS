@@ -1,0 +1,14 @@
+{
+  "entryPoints": [
+    "./src/index.ts"
+  ],
+  "tsconfig": "./tsconfig.json",
+  "out": "docs/reference/api",
+  "excludeInternal": true,
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "name": "Colony SDK",
+  "githubPages": false,
+  "disableSources": true,
+  "readme": "none"
+}
