@@ -11,6 +11,7 @@ export * from './clients/Extensions/exports';
 
 // Export some types
 export type { ColonyDataTypes } from './contracts/IColony/exports';
+export type { Motion } from './contracts/VotingReputation/exports';
 
 export type {
   ColonyNetworkClient,

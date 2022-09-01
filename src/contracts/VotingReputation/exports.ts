@@ -5,6 +5,8 @@ import type { VotingReputation as VotingReputation3 } from './3';
 import type { VotingReputation as VotingReputation4 } from './4';
 
 // Always adjust to the latest factory
+import { VotingReputation } from './4/VotingReputation';
+
 export { VotingReputation__factory as VotingReputationFactory } from './4/factories/VotingReputation__factory';
 
 export type VotingReputationV1 = VotingReputation1;
@@ -17,3 +19,6 @@ export type AnyVotingReputation =
   | VotingReputation2
   | VotingReputation3
   | VotingReputation4;
+
+// Also export useful types
+export type Motion = VotingReputation.MotionStructOutput;
