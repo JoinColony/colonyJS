@@ -8,5 +8,8 @@
   "excludeProtected": true,
   "githubPages": false,
   "disableSources": true,
-  "readme": "none"
+  "readme": "none",
+  "plugin": "typedoc-plugin-markdown",
+  "hideBreadcrumbs": true,
+  "hideInPageTOC": true
 }
